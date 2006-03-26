@@ -20,8 +20,8 @@
  
 #include "bzip2.h"
  
-extern int output_stream,error_stream,child_pid,child_status;
 FILE *stream;
+extern int output_fd,error_fd;
 gchar *tmp;
 int fd;
 gboolean type;
@@ -40,16 +40,22 @@ void OpenBzip2 ( gboolean mode , gchar *path )
 		SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,Bzip2Output, (gpointer) mode );
 		SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
         CurrentArchiveType = 4;
-        WaitExitStatus ( child_pid , NULL );
+        WaitExitStatus ( compressor_pid , NULL );
     }
 	
 	else 
 	{
+        Update_StatusBar ( _("Waiting for user input..."));
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("You selected a bzip2 compressed file.\nDo you want to extract it now ?") );
 		if (response == GTK_RESPONSE_YES)
         {
             bz_gz = TRUE;
             Bzip2Extract ( 0 );
+        }
+        else
+        {
+            OffTooltipPadlock();
+            Update_StatusBar ( _("Operation aborted."));
         }
 	}
 }
@@ -69,7 +75,7 @@ void Bzip2Extract ( gboolean flag )
 			break;
 			
 			case GTK_RESPONSE_OK:
-			extract_path = gtk_entry_get_text ( GTK_ENTRY (entry1) );
+			extract_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (entry1) ));
 			if ( strlen ( extract_path ) > 0 )
 			{
 				done = TRUE;
@@ -99,6 +105,7 @@ void Bzip2Extract ( gboolean flag )
     	}
 	}
 	gtk_widget_destroy ( extract_window );
+    if (done == TRUE) WaitExitStatus ( compressor_pid , NULL);
 }
 
 gboolean Bzip2Output (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -213,7 +220,7 @@ GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data)
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
 			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to view the shell output ?") );
-			if (response == GTK_RESPONSE_YES) ShowShellOutput();
+			if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL,FALSE);
             unlink ( tmp );
             g_free (tmp);
             return;
@@ -243,7 +250,7 @@ GChildWatchFunc *DeleteFromTar (GPid pid,gint status , gpointer data)
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
 			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to view the shell output ?") );
-			if (response == GTK_RESPONSE_YES) ShowShellOutput();
+			if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL,FALSE);
             unlink ( tmp );
             g_free (tmp);
             return;
@@ -272,7 +279,7 @@ GChildWatchFunc *RecompressArchive (GPid pid , gint status , gpointer data)
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
 			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while deleting from the tar archive.\nDo you want to view the shell output ?") );
-			if (response == GTK_RESPONSE_YES) ShowShellOutput();
+			if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL,FALSE);
 			unlink ( tmp );
             g_free (tmp);
             return;

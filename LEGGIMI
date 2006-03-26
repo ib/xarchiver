@@ -1,7 +1,4 @@
-Xarchiver 0.3
-
-Questa versione aggiunge il supporto agli archivi .7z e .arj se 7za e arj sono¨ 
-installatoi Leggi il file Changelog per le note di rilascio complete.
+Xarchiver 0.3.1
 
 Per compilare xarchiver:
 ./configure --prefix=/usr

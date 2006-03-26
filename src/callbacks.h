@@ -45,7 +45,7 @@ GtkTreeIter iter;
 GtkCellRenderer *renderer;
 GtkTreeViewColumn *column;
 gchar *path , *title , *password, *ComboArchiveType;
-const gchar *extract_path;
+gchar *extract_path;
 GtkTreeModel *model;
 GString *names;
 
@@ -96,6 +96,7 @@ char *eat_spaces (char *line);
 char *get_last_field (char *line,int last_field);
 char **split_line (char *line,int n_fields);
 void OffDeleteandViewButtons();
+void OffTooltipPadlock();
 gchar *ChooseCommandtoExecute ( gboolean full_path );
 int CountCharacter ( gchar *string , int chr );
 gchar *RemoveBackSlashes ( gchar *name);

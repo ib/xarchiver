@@ -22,8 +22,7 @@
 #include "bzip2.h"
 
 FILE *fd;
-
-extern int output_fd,error_fd,child_pid,child_status;
+extern int output_fd,error_fd;
 
 void OpenGzip ( gboolean mode , gchar *path)
 {
@@ -39,16 +38,22 @@ void OpenGzip ( gboolean mode , gchar *path)
         SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,Bzip2Output, (gpointer) mode );
 		SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
         CurrentArchiveType = 5;
-        WaitExitStatus ( child_pid , NULL );
+        WaitExitStatus ( compressor_pid , NULL );
 	}
 		
 	else 
 	{
+        Update_StatusBar ( _("Waiting for user input..."));
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("You selected a gzip compressed file.\nDo you want to extract it now ?") );
 		if (response == GTK_RESPONSE_YES)
         {
             bz_gz = TRUE;
             Bzip2Extract ( 1 );
+        }
+        else
+        {
+            Update_StatusBar ( _("Operation aborted."));
+            OffTooltipPadlock();
         }
 	}
 }

@@ -1,6 +1,4 @@
-Xarchiver 0.3
-
-This release supports .7z and arj archives if you have 7za and arj executables. 
+Xarchiver 0.3.1
 
 To compile xarchiver:
 ./configure --prefix=/usr

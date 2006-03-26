@@ -1,5 +1,14 @@
 Xarchiver changelog:
 
+09/01/06 - 0.3.1 a bug fix release no new features:
+		- Some code cleanup.
+		- Fixed bug in detecting arj password protected archives.
+		- Fixed a memory leak with the string who contains the extract_path.
+		- Fixed detection of bzip2 causing Xarchiver to recognize only 900k block size compressed files.
+		- Fixed a regression causing bzip2 and gunzip to remain as zombie processes.
+		- Fixed bug causing Xarchiver to emit a seg fault when the X button is pressed while it is working. 
+		- Fixed a regression causing Xarchiver not supporting creation of tar.bz2 and tar.gz archives.
+
 16/12/05 - 0.3:
 		- 7z and arj (also password protected) formats are supported if you have 7za and arj installed. 7z password
 		  protected archives are not automatically detected. If you are able to decompress the main header of a 7z archive
