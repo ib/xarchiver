@@ -7,8 +7,6 @@ pixmaps_DATA     = xarchiver.png
 
 EXTRA_DIST = \
 	autogen.sh \
-	xarchiver.glade \
-	xarchiver.gladep \
 	xarchiver.desktop \
 	$(pixmaps_DATA)
 
