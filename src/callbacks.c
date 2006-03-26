@@ -996,17 +996,13 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 
 gboolean isISO ( FILE *ptr )
 {
-	unsigned char magic[5];
-	fseek ( ptr, 0 , SEEK_SET );
-    if ( fseek ( ptr , 32769 , SEEK_CUR ) < 0 ) return FALSE;
-	if ( fread ( magic, 1, 5, ptr ) == 0 ) return FALSE;
-	if ( memcmp ( magic,"\x43\x44\x30\x30\x31",5 ) == 0 )
+	/*if ( (DetectImage(ptr)) > 0 )
     {
         gtk_widget_set_sensitive ( iso_info , TRUE );
         gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
         return TRUE;
     }
-		else return FALSE;
+    else return FALSE;*/
 }
 
 gboolean isTar ( FILE *ptr )
@@ -1399,6 +1395,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
     data->str--;
     g_free ( data->str );
     g_string_free (data , FALSE);
+    Update_StatusBar (_("Operation completed."));
 }
 
 void ShowArchiveProperties ( GtkMenuItem *menuitem , gpointer user_data )

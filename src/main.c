@@ -25,14 +25,21 @@
 #include "callbacks.h"
 
 extern gchar *path;
+extern gchar *extract_path;
+extern gboolean PasswordProtectedArchive;
+extern short int CurrentArchiveType;
+
+gchar *cli = NULL;
 GError *cl_error = NULL;
 gboolean file_to_open;
+gboolean ask_and_extract;
+gboolean ask_and_add;
 
 static GOptionEntry entries[] = {
   { "extract-to=FOLDER", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, "Extract the archive to the specified folder and quits.", NULL },
-  { "extract", 'e', 0, G_OPTION_ARG_NONE, NULL, "Extract the archive by asking the destination folder and quits.", NULL },
+  { "extract", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, "Extract the archive by asking the destination folder and quits.", NULL },
   { "add-to=ARCHIVE", 'd', 0, G_OPTION_ARG_FILENAME, &path, "Add files to the specified archive and quits.", NULL },
-  { "add", 'a', 0, G_OPTION_ARG_NONE, NULL, "Add files asking the name of the archive and quits.", NULL },
+  { "add", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, "Add files asking the name of the archive and quits.", NULL },
   { NULL }
 };
 
@@ -47,15 +54,16 @@ int main (int argc, char *argv[])
   gtk_init (&argc, &argv);
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
   
-  context = g_option_context_new ("[archive to open]");
+  context = g_option_context_new ("[archive name]");
   g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
-  g_option_context_add_group (context, gtk_get_option_group (FALSE));
-  if ( ! g_option_context_parse (context, &argc, &argv, &cl_error) )
-    {
-        g_print (_("xarchiver: %s\nTry xarchiver --help for more information.\n"),cl_error->message);
+  g_option_context_add_group (context, gtk_get_option_group (TRUE));
+  g_option_context_parse (context, &argc, &argv, &cl_error);
+  if ( cl_error != NULL )
+  {
+        g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cl_error->message);
         g_error_free (cl_error);
         return 0;
-    }
+  }
  
   GetAvailableCompressors();
   g_option_context_free ( context );
@@ -71,6 +79,30 @@ int main (int argc, char *argv[])
   gtk_widget_show (MainWindow);
   SetButtonState (1,1,0,0,0);
   Update_StatusBar ( _("Ready."));
+  //g_print ("%s %s %s\n",argv[0],argv[1],argv[2]);
+  if (extract_path != NULL)
+  {
+    CurrentArchiveType = DetectArchiveType ( argv[1] );
+    if (PasswordProtectedArchive)
+    {
+        Show_pwd_Window ( NULL , NULL );
+        if ( password == NULL ) return 0;
+    }
+    GString *string = g_string_new ( "" );
+    cli = ChooseCommandtoExecute ( 1,string);
+    g_print ("Eseguo: %s\n",cli);
+    if ( cli != NULL )
+    {
+        ExtractAddDelete ( cli );
+        g_free (cli);
+    }
+    g_string_free (string , FALSE );
+
+    g_list_free ( ArchiveSuffix);
+    g_list_free ( ArchiveType);
+    return 0;
+  }
+  //This to open the archive from the command line
   if ( argc == 2)
     {
         path = g_strdup( argv[1] );
