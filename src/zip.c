@@ -20,23 +20,23 @@
  
 #include "zip.h"
  
-extern int output_fd,error_fd,child_pid;
+extern int output_fd,error_fd,child_pid,child_status;
 void OpenZip ( gboolean mode , gchar *path)
 {
 	gchar *command = g_strconcat ("unzip -vl -qq " , path, NULL );
 	compressor_pid = SpawnAsyncProcess ( command , 1 , 0 );
 	g_free ( command );
 	if ( compressor_pid == 0 ) return;
-	char *names[]= {(_("Filename")),(_("Original Size")),(_("Method")),(_("Size now")),(_("Ratio")),(_("Date")),(_("Time")),(_("CRC-32"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	char *names[]= {(_("Filename")),(_("Original")),(_("Method")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("CRC-32"))};
+	GType types[]= {G_TYPE_STRING,G_TYPE_UINT,G_TYPE_STRING,G_TYPE_UINT,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
 	CreateListStore ( 8, names , (GType *)types );
 	SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,ZipOpen, (gpointer) mode );
 	SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
+    WaitExitStatus ( child_pid , NULL );
 }
 
 static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	num_cols = 0;
 	gchar **fields = NULL;
 	gchar *filename = NULL;
 	gchar *line = NULL;
@@ -44,18 +44,22 @@ static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 		if (line != NULL && data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-		fields = split_line (line,7);
-		filename = get_last_field (line,8);
-		gtk_list_store_append (liststore, &iter);
-		if ( filename[strlen(filename) - 1] != '/')
-		{
-			for ( x = 0; x < 7; x++)
-			{
-				gtk_list_store_set (liststore, &iter,num_cols+1,fields[x],-1);
-				num_cols++;
-			}
-		}
-		gtk_list_store_set (liststore, &iter,0,filename,-1);
+		fields = split_line (line , 7);
+        if ( fields == NULL) return TRUE;
+		filename = get_last_field (line , 8);
+        if ( filename != NULL )
+        {
+            gtk_list_store_append (liststore, &iter);
+    		for ( x = 0; x < 7; x++)
+            {
+                if (x == 0 || x == 2) gtk_list_store_set (liststore, &iter,x+1, atoi (fields[x]) ,-1);
+                    else gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
+            }
+    		gtk_list_store_set (liststore, &iter,0,filename,-1);
+        }
+        gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+        while (gtk_events_pending() )
+			gtk_main_iteration();
 		g_strfreev ( fields );
 		g_free (line);
 		return TRUE;
@@ -64,7 +68,6 @@ static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		g_spawn_close_pid ( child_pid );
 		return FALSE;
 	}
 }

@@ -12,12 +12,14 @@ xarchiver_SOURCES = \
 	support.c support.h \
 	interface.c interface.h \
 	callbacks.c callbacks.h \
+	arj.c arj.h \
 	zip.c zip.h \
 	rar.c rar.h \
 	rpm.c rpm.h \
 	bzip2.c bzip2.h \
 	gzip.c gzip.h \
-	tar.c tar.h
+	tar.c tar.h \
+	7zip.c 7zip.h
  
 xarchiver_LDADD = @PACKAGE_LIBS@
 

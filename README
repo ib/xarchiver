@@ -1,10 +1,6 @@
-Xarchiver 0.2.1
+Xarchiver 0.3
 
-This is a bug fix release, no new features. Please read the ChangeLog file.
-
-To create a password protected archive, first create a new rar or zip archive and 
-AFTER this choose Action->Set Password. Now all the files you add will be encrypted 
-with the current password.
+This release supports .7z and arj archives if you have 7za and arj executables. 
 
 To compile xarchiver:
 ./configure --prefix=/usr

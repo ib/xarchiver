@@ -1,0 +1,418 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Xarchiver\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-11-18 14:45+0200\n"
+"PO-Revision-Date: 2005-12-19 12:50+0300\n"
+"Last-Translator: Eugene Ostapets <eostapets@altlinux.ru>\n"
+"Language-Team: Russian <eostapets@altlinux.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+
+#: src/main.c:61
+msgid "Ready."
+msgstr "Готово."
+
+#: src/main.c:184
+#, c-format
+msgid ""
+"xarchiver: invalid option %s\n"
+"Try xarchiver -h for more information.\n"
+msgstr ""
+"xarchiver: ошибочный параметр %s\n"
+"Попробуйте xarchiver -h для получения информации.\n"
+
+#: src/interface.c:49
+msgid "_Archive"
+msgstr "_Архив"
+
+#: src/interface.c:79
+msgid "_Action"
+msgstr "_Действие"
+
+#: src/interface.c:88
+#: src/interface.c:195
+msgid "Add File"
+msgstr "Добавить файл"
+
+#: src/interface.c:92
+#: src/interface.c:204
+msgid "Add Folder"
+msgstr "Добавить папку"
+
+#: src/interface.c:101
+#: src/interface.c:218
+msgid "Extract"
+msgstr "Извлечь"
+
+#: src/interface.c:111
+#: src/interface.c:237
+msgid "View"
+msgstr "Просмотр"
+
+#: src/interface.c:136
+msgid "Set Password"
+msgstr "Установить пароль"
+
+#: src/interface.c:141
+msgid "View S_hell Output"
+msgstr "Посмотреть вывод оболочки"
+
+#: src/interface.c:158
+msgid "_About"
+msgstr "_О программе"
+
+#: src/interface.c:172
+msgid "New"
+msgstr "Новый"
+
+#: src/interface.c:177
+#: src/callbacks.c:695
+msgid "Create a new archive"
+msgstr "Создание нового архива"
+
+#: src/interface.c:181
+msgid "Open"
+msgstr "Открыть"
+
+#: src/interface.c:186
+#: src/callbacks.c:701
+msgid "Open an archive"
+msgstr "Открыть архив"
+
+#: src/interface.c:200
+msgid "Add a file to the current archive"
+msgstr "Добавить файлы в текущий архив"
+
+#: src/interface.c:209
+msgid "Add an entire folder to the current archive"
+msgstr "Добавить файлы каталога в текущий архив"
+
+#: src/interface.c:223
+msgid "Extract files from the current archive; use the mouse to select files individually"
+msgstr "Извлечение файлов из текущего архива; используйте мышь для выбора отдельных файлов"
+
+#: src/interface.c:227
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/interface.c:233
+msgid "Delete files from the current archive"
+msgstr "Удалить файлы из архива"
+
+#: src/interface.c:243
+msgid "View file content in the current archive"
+msgstr "Просмотр содержимого файла в текущем архиве"
+
+#: src/interface.c:301
+msgid "This archive contains password protected files"
+msgstr "Этот архив содержит защищенные паролем файлы"
+
+#: src/interface.c:419
+msgid "Extract ONLY selected files"
+msgstr "Извлечь ТОЛЬКО отмеченные файлы"
+
+#: src/interface.c:420
+msgid "Extract ALL files"
+msgstr "Извлечь ВСЕ файлы"
+
+#: src/interface.c:446
+msgid "Choose a folder where to extract files"
+msgstr "Выберите каталог для извлечения файлов"
+
+#: src/interface.c:461
+msgid "Extract to:"
+msgstr "Извлечь в:"
+
+#: src/interface.c:531
+msgid "Enter Archive Password"
+msgstr "Установить пароль архива"
+
+#: src/interface.c:551
+msgid "Password:"
+msgstr "Пароль:"
+
+#: src/interface.c:566
+msgid "Retype it:"
+msgstr "Повторить :"
+
+#: src/interface.c:571
+msgid "Please note that the password is automatically resetted each time you open or create a new archive."
+msgstr "Обратите внимание что пароль автоматически сбрасывается каждый раз, когда вы создаете или открываете архив."
+
+#: src/interface.c:615
+msgid "View File Window"
+msgstr "Окно просмотра файла"
+
+#: src/callbacks.c:59
+#: src/rpm.c:113
+#: src/rpm.c:136
+msgid "Operation failed."
+msgstr "Операция не удалась."
+
+#: src/callbacks.c:67
+msgid ""
+"An error occurred while accessing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Ошибка раз архивации. \n"
+"Желаете посмотреть вывод оболочки?"
+
+#: src/callbacks.c:82
+msgid "Please wait, the content of the archive is being updated..."
+msgstr "Подождите пожалуйста, содержимое архива обновляется..."
+
+#: src/callbacks.c:127
+#: src/callbacks.c:154
+msgid "Operation successfully completed."
+msgstr "Операция выполнена успешно."
+
+#: src/callbacks.c:168
+msgid "This archive already exists. Do you want to overwrite it ?"
+msgstr "Архив уже существует. Хотите перезаписать?"
+
+#: src/callbacks.c:206
+msgid "Choose Action->Set Password to create a password protected archive."
+msgstr "Выберите Действие->Установить пароль для создания защищенного паролем архива"
+
+#: src/callbacks.c:211
+msgid "Choose Add Files or Add Folder to create the archive."
+msgstr "Выберите Добавить файлы или Добавить каталог для создания архива"
+
+#: src/callbacks.c:250
+msgid "Please wait while the content of the archive is being read..."
+msgstr "Подождите пожалуйста, читается содержимое архива..."
+
+#: src/callbacks.c:343
+msgid "Deleting files from the archive, please wait..."
+msgstr "Удаляются файлы из архива, подождите пожалуйста..."
+
+#: src/callbacks.c:418
+msgid "Adding files to the archive, please wait..."
+msgstr "Добавляются файлы в архив, подождите пожалуйста..."
+
+#: src/callbacks.c:452
+msgid "Extracting files to "
+msgstr "Извлечь файлы в"
+
+#: src/callbacks.c:653
+msgid "Select the files to be added to the current archive; use SHIFT to multiple select"
+msgstr "Выберите файлы для добавления в текущий архив; используйте SHIFT для множественного выбора"
+
+#: src/callbacks.c:659
+msgid "Select the folder to be added to the current archive"
+msgstr "Выберите каталог для добавления в текущий архив"
+
+#: src/callbacks.c:660
+msgid "Select the folders to be added to the current archive; use SHIFT to multiple select"
+msgstr "Выберите каталог для добавления в текущий архив; используйте SHIFT для множественного выбора"
+
+#: src/callbacks.c:708
+msgid "Choose the destination folder where to extract the current archive"
+msgstr "Выберите каталог назначения для разархивации текущего архива"
+
+#: src/callbacks.c:735
+msgid "All files"
+msgstr "Все файлы"
+
+#: src/callbacks.c:740
+msgid "Only archives"
+msgstr "Только архивы"
+
+#: src/callbacks.c:769
+msgid "Archive type:"
+msgstr "Тип архива:"
+
+#: src/callbacks.c:772
+msgid "Choose the archive type to create"
+msgstr "Выберите тип архива для создания"
+
+#: src/callbacks.c:781
+msgid "Add the archive extension to the filename"
+msgstr "Добавить расширение архива к имени файла"
+
+#: src/callbacks.c:845
+#: src/rpm.c:44
+#, c-format
+msgid ""
+"Can't open archive %s:\n"
+"%s"
+msgstr ""
+"Невозможно открыть архив %s:\n"
+"%s"
+
+#: src/callbacks.c:877
+msgid "The format of this archive is not recognized !"
+msgstr "Формат архива не распознается."
+
+#: src/callbacks.c:1091
+msgid "Shell output"
+msgstr "Вывод оболочки"
+
+#: src/callbacks.c:1156
+msgid ""
+"An error occurred while extracting the file to be viewed.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Ошибка при извлечении файла для просмотра.\n"
+"Желаете посмотреть вывод оболочки?"
+
+#: src/callbacks.c:1180
+msgid "Please select a file, not a directory !"
+msgstr "Пожалуйста выберите файл, а не каталог !"
+
+#: src/callbacks.c:1227
+msgid "Please type a password !"
+msgstr "Пожалуйста введите пароль !"
+
+#: src/callbacks.c:1232
+msgid "The passwords don't match !!"
+msgstr "Пароли не совпадают !!"
+
+#: src/zip.c:30
+#: src/tar.c:31
+#: src/7zip.c:32
+#: src/rpm.c:50
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/zip.c:30
+#: src/7zip.c:32
+msgid "Original"
+msgstr "Исходный"
+
+#: src/zip.c:30
+msgid "Method"
+msgstr "Метод"
+
+#: src/zip.c:30
+#: src/7zip.c:32
+msgid "Compressed"
+msgstr "Сжатый"
+
+#: src/zip.c:30
+msgid "Ratio"
+msgstr "Отношение"
+
+#: src/zip.c:30
+#: src/tar.c:31
+#: src/7zip.c:32
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Date"
+msgstr "Дата"
+
+#: src/zip.c:30
+#: src/tar.c:31
+#: src/7zip.c:32
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Time"
+msgstr "Время"
+
+#: src/zip.c:30
+msgid "CRC-32"
+msgstr "CRC-32"
+
+#: src/tar.c:31
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Permissions"
+msgstr "Разрешения"
+
+#: src/tar.c:31
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Owner/Group"
+msgstr "Ввладелец/Группа"
+
+#: src/tar.c:31
+#: src/rpm.c:50
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Size"
+msgstr "Размер"
+
+#: src/7zip.c:32
+msgid "Attr"
+msgstr "Атриб"
+
+#: src/rpm.c:50
+msgid "Permission"
+msgstr "Атрибуты"
+
+#: src/rpm.c:50
+msgid "Links"
+msgstr "Ссылки"
+
+#: src/rpm.c:50
+msgid "Owner"
+msgstr "Владелец"
+
+#: src/rpm.c:50
+msgid "Group"
+msgstr "Группа"
+
+#: src/rpm.c:117
+msgid ""
+"An error occurred while extracting the cpio archive\n"
+"from the rpm one. Do you want to view the shell output ?"
+msgstr ""
+"Ошибка разархивации cpio архива из rpm\n"
+"Желаете посмотреть вывод оболочки?"
+
+#: src/rpm.c:140
+msgid ""
+"An error occurred while decompressing the cpio archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Ошибка разархивации cpio архива.\n"
+"Желаете посмотреть вывод оболочки?"
+
+#: src/bzip2.c:48
+msgid ""
+"You selected a bzip2 compressed file.\n"
+"Do you want to extract it now ?"
+msgstr ""
+"Вы выбрали bzip2 сжатый файл.\n"
+"Желаете извлечь файлы?"
+
+#: src/bzip2.c:97
+msgid "Please select where to extract files !"
+msgstr "Выберите, куда сохранить файлы !"
+
+#: src/bzip2.c:215
+#: src/bzip2.c:245
+msgid ""
+"An error occurred while decompressing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Ошибка разархивации. \n"
+"Желаете посмотреть вывод оболочки?"
+
+#: src/bzip2.c:274
+msgid ""
+"An error occurred while deleting from the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Ошибка удаления из архива.\n"
+"Желаете посмотреть вывод оболочки?"
+
+#: src/gzip.c:47
+msgid ""
+"You selected a gunzip compressed file.\n"
+"Do you want to extract it now ?"
+msgstr ""
+"Вы выбрали gunzip компрессированный файл. \n"
+"Желаете разархивировать?"
+

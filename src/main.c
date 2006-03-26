@@ -30,7 +30,7 @@
 extern gchar *path;
 
 GList *ArchiveSuffix = NULL;
-GList *ArchiveName = NULL;
+GList *ArchiveType = NULL;
 gboolean file_to_open;
 
 int main (int argc, char *argv[])
@@ -50,7 +50,7 @@ int main (int argc, char *argv[])
   }
   GetAvailableCompressors();
   ArchiveSuffix = g_list_reverse (ArchiveSuffix);
-  ArchiveName = g_list_reverse (ArchiveName);
+  ArchiveType = g_list_reverse (ArchiveType);
   MainWindow = create_MainWindow ();
   ShowShellOutput();
   gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
@@ -58,72 +58,80 @@ int main (int argc, char *argv[])
   g_signal_connect (MainWindow, "delete_event", G_CALLBACK (on_quit1_activate), NULL);
   gtk_widget_show (MainWindow);
   SetButtonState (1,1,0,0,0);
+  Update_StatusBar ( _("Ready."));
   if (file_to_open) on_open1_activate ( NULL , NULL);
   gtk_main ();
   g_list_free ( ArchiveSuffix);
-  g_list_free ( ArchiveName);
+  g_list_free ( ArchiveType);
   return 0;
 }
 
-//TODO add support to load the conf of Xarchiver
+//TODO: Support to load the configuration of Xarchiver when extract and add will allow set own archiver's options
 
 //g_get_home_dir ()
 
 void GetAvailableCompressors()
 {
-	if ( g_find_program_in_path("bzip2"))
+	if ( g_find_program_in_path("arj"))
 	{
-		ArchiveName = g_list_prepend ( ArchiveName, ".bz2");
+		ArchiveType = g_list_prepend ( ArchiveType, ".arj");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.arj");
+	}
+
+    if ( g_find_program_in_path("bzip2"))
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, ".bz2");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.bz2");
 	}
 	
 	if ( g_find_program_in_path("gzip"))
 	{
-		ArchiveName = g_list_prepend ( ArchiveName, ".gz");
+		ArchiveType = g_list_prepend ( ArchiveType, ".gz");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.gz");
 	}
 
 	if ( g_find_program_in_path("rar"))
 	{
-		ArchiveName = g_list_prepend ( ArchiveName, ".rar");
+		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
 	}
-		
-	if ( g_find_program_in_path("tar"))
-	{
-		ArchiveName = g_list_prepend ( ArchiveName, ".tar");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tar");
-		if ( g_list_find ( ArchiveName , ".bz2") )
-		{
-			ArchiveName = g_list_prepend ( ArchiveName, ".tar.bz2");
-			//The following to avoid double filter when opening
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "");
-		}
-		if ( g_list_find ( ArchiveName , ".gz") )
-		{
-			ArchiveName = g_list_prepend ( ArchiveName, ".tar.gz");
-			//The following to avoid double filter when opening
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "");
-			ArchiveName = g_list_prepend ( ArchiveName, ".tgz");
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tgz");
-		}
-		
-	}
 
-	if ( g_find_program_in_path("zip"))
-	{
-		ArchiveName = g_list_prepend ( ArchiveName, ".jar");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.jar");
-		
-		ArchiveName = g_list_prepend ( ArchiveName, ".zip");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
-	}
     if ( g_find_program_in_path("cpio"))
     {
-        ArchiveName = g_list_prepend ( ArchiveName, ".rpm");
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rpm");
     }
 
+	if ( g_find_program_in_path("tar"))
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, ".tar");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tar");
+		if ( g_list_find ( ArchiveType , ".bz2") )
+		{
+			ArchiveType = g_list_prepend ( ArchiveType, ".tar.bz2");
+			//The following to avoid double filter when opening
+			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "");
+		}
+		if ( g_list_find ( ArchiveType , ".gz") )
+		{
+			ArchiveType = g_list_prepend ( ArchiveType, ".tar.gz");
+			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tgz");
+		}
+	}
+
+    if ( g_find_program_in_path("7za"))
+    {
+        ArchiveType = g_list_prepend ( ArchiveType, ".7z");
+	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
+    }
+
+    if ( g_find_program_in_path("zip"))
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, ".jar");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.jar");
+		
+		ArchiveType = g_list_prepend ( ArchiveType, ".zip");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
+	}
 }
 
 void SetButtonState (gboolean New, gboolean Open,gboolean AddFile,gboolean AddFolder,gboolean Extract)

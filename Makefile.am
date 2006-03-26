@@ -1,12 +1,16 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = src
+SUBDIRS = src po
+
+pixmapsdir       = $(datadir)/pixmaps
+pixmaps_DATA     = xarchiver.png
 
 EXTRA_DIST = \
 	autogen.sh \
 	xarchiver.glade \
 	xarchiver.gladep \
-	xarchiver.desktop
+	xarchiver.desktop \
+	$(pixmaps_DATA)
 
 install-data-local:
 	@$(NORMAL_INSTALL)

@@ -1,10 +1,26 @@
 Xarchiver changelog:
 
-28/10/05 - 0.2.1 a bug fix release no new features:
+16/12/05 - 0.3:
+		- 7z and arj (also password protected) formats are supported if you have 7za and arj installed. 7z password
+		  protected archives are not automatically detected. If you are able to decompress the main header of a 7z archive
+		  let me know about it.
+		- Added a view ability for text files inside the archive. No external editor needed :-) !
+		- The size columns are treated as uint instead as string so that sorting by size is possible now.
+		- The bottom window is now used for reporting messages to the user.
+		- Added a progress bar that shows the archive's operation progress.
+		- Greatly improved the zip password detection; if a an archive contains 10 files and only the last one is password 
+		  protected Xarchiver will detect it (the same for arj).
+		- When you open or create a password protected archive a small padlock is shown in the window bottom right.
+		- Fixed an occasional crash when opening zip archives.
+		- Fixed a bug causing filenames of rpm archive not displayed correctly.
+		- Fixed a bug causing cpio temp file not to be deleted when an error occurs.
+		- Added russian and german translation (thanks to Eugene Ostapets and Enrico Troeger).
+		- Better gettext support.
 
-		- Fixed a series of bug introduced with the support of the RPM format. The extract ability now works again sorry.
-		- Fixed a bug preventing extraction of more than one file inside an RPM archive.
-		- After opening rar or zip password protected archives the extraction of other archive types was not possible. Fixed.
+28/10/05 - 0.2.1 a bug fix release no new features:
+                - Fixed a series of bug introduced with the support of the RPM format. The extract ability now works again sorry.
+                - Fixed a bug preventing extraction of more than one file inside an RPM archive.
+                - After opening rar or zip password protected archives the extraction of other archive types was not possible. Fixed.
 
 27/10/05 - 0.2:
 		- Added ability to open and extract RPM archives.

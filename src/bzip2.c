@@ -20,7 +20,7 @@
  
 #include "bzip2.h"
  
-extern int output_stream,error_stream,child_pid;
+extern int output_stream,error_stream,child_pid,child_status;
 FILE *stream;
 gchar *tmp;
 int fd;
@@ -35,11 +35,12 @@ void OpenBzip2 ( gboolean mode , gchar *path )
 		g_free ( command );
 		if ( compressor_pid == 0 ) return;
 		char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT,G_TYPE_STRING,G_TYPE_STRING};
 		CreateListStore ( 6, names , (GType *)types );
 		SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,Bzip2Output, (gpointer) mode );
 		SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
         CurrentArchiveType = 4;
+        WaitExitStatus ( child_pid , NULL );
     }
 	
 	else 
@@ -84,7 +85,7 @@ void Bzip2Extract ( gboolean flag )
 				g_free ( new_path );
 				if ( stream == NULL )
 				{
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)g_strerror(errno));
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
                     done = FALSE;
                     break;					
 				}
@@ -102,7 +103,6 @@ void Bzip2Extract ( gboolean flag )
 
 gboolean Bzip2Output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	num_cols = 0;
 	gchar **fields;
 	gchar *filename;
 	gchar *line;
@@ -117,11 +117,14 @@ gboolean Bzip2Output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		{
 			for ( x = 0; x < 5; x++)
 			{
-				gtk_list_store_set (liststore, &iter,num_cols+1,fields[x],-1);
-				num_cols++;
+                if ( x == 2 ) gtk_list_store_set (liststore, &iter,x+1,atoi(fields[x]),-1);
+                else gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
 			}
 		}
 		gtk_list_store_set (liststore, &iter,0,filename,-1);
+        gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+        while (gtk_events_pending() )
+		    gtk_main_iteration();        
 		g_strfreev ( fields );
 		g_free (line);
 		return TRUE;
@@ -130,7 +133,6 @@ gboolean Bzip2Output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		g_spawn_close_pid ( child_pid );
 		return FALSE;
 	}
 }
@@ -159,7 +161,6 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 		fclose ( data );
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
         g_io_channel_unref (ioc);
-		g_spawn_close_pid ( child_pid );
 		return FALSE;
 	}
 }
@@ -172,7 +173,7 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
     stream = fdopen ( fd , "w" );
     if ( stream == NULL)
     {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *) g_strerror(errno) );
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno) );
         g_free (tmp);
         return;
     }
@@ -281,7 +282,7 @@ GChildWatchFunc *RecompressArchive (GPid pid , gint status , gpointer data)
     stream = fopen ( path , "w") ;
     if ( stream == NULL)
     {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *) g_strerror(errno) );
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno) );
         unlink ( tmp );
         g_free (tmp);
         return;
@@ -300,7 +301,7 @@ GChildWatchFunc *RecompressArchive (GPid pid , gint status , gpointer data)
 	//The 2nd parameter is set to NULL to read binary data 
 	g_io_channel_set_encoding (ioc, NULL , NULL);
     //This to reload the content of the archive to show the changes (deletion / adding)
-    g_child_watch_add ( compressor_pid , (GChildWatchFunc) ExitStatus , tmp );
+    WaitExitStatus (compressor_pid , tmp );
 }
 
 void Bzip2Add ( gchar *filename , gboolean flag )
@@ -308,7 +309,7 @@ void Bzip2Add ( gchar *filename , gboolean flag )
     stream = fopen ( path , "w" );
 	if ( stream == NULL )
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)g_strerror(errno));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
         done = FALSE;
         return;					
 	}

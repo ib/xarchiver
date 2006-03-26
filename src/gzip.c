@@ -23,7 +23,7 @@
 
 FILE *fd;
 
-extern int output_fd,error_fd,child_pid;
+extern int output_fd,error_fd,child_pid,child_status;
 
 void OpenGzip ( gboolean mode , gchar *path)
 {
@@ -34,16 +34,17 @@ void OpenGzip ( gboolean mode , gchar *path)
 		g_free ( command );
 		if ( compressor_pid == 0 ) return;
 		char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT,G_TYPE_STRING,G_TYPE_STRING};
 		CreateListStore ( 6, names , (GType *)types );
         SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,Bzip2Output, (gpointer) mode );
 		SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
         CurrentArchiveType = 5;
+        WaitExitStatus ( child_pid , NULL );
 	}
 		
 	else 
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("You selected a gunzip compressed file.\nDo you want to extract it now ?") );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("You selected a gzip compressed file.\nDo you want to extract it now ?") );
 		if (response == GTK_RESPONSE_YES)
         {
             bz_gz = TRUE;

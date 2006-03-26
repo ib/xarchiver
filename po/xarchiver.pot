@@ -1,0 +1,372 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-12-09 10:23-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/main.c:61
+msgid "Ready."
+msgstr ""
+
+#: src/main.c:184
+#, c-format
+msgid ""
+"xarchiver: invalid option %s\n"
+"Try xarchiver -h for more information.\n"
+msgstr ""
+
+#: src/interface.c:49
+msgid "_Archive"
+msgstr ""
+
+#: src/interface.c:79
+msgid "_Action"
+msgstr ""
+
+#: src/interface.c:88 src/interface.c:195
+msgid "Add File"
+msgstr ""
+
+#: src/interface.c:92 src/interface.c:204
+msgid "Add Folder"
+msgstr ""
+
+#: src/interface.c:101 src/interface.c:218
+msgid "Extract"
+msgstr ""
+
+#: src/interface.c:111 src/interface.c:237
+msgid "View"
+msgstr ""
+
+#: src/interface.c:136
+msgid "Set Password"
+msgstr ""
+
+#: src/interface.c:141
+msgid "View S_hell Output"
+msgstr ""
+
+#: src/interface.c:158
+msgid "_About"
+msgstr ""
+
+#: src/interface.c:172
+msgid "New"
+msgstr ""
+
+#: src/interface.c:177 src/callbacks.c:695
+msgid "Create a new archive"
+msgstr ""
+
+#: src/interface.c:181
+msgid "Open"
+msgstr ""
+
+#: src/interface.c:186 src/callbacks.c:701
+msgid "Open an archive"
+msgstr ""
+
+#: src/interface.c:200
+msgid "Add a file to the current archive"
+msgstr ""
+
+#: src/interface.c:209
+msgid "Add an entire folder to the current archive"
+msgstr ""
+
+#: src/interface.c:223
+msgid ""
+"Extract files from the current archive; use the mouse to select files "
+"individually"
+msgstr ""
+
+#: src/interface.c:227
+msgid "Delete"
+msgstr ""
+
+#: src/interface.c:233
+msgid "Delete files from the current archive"
+msgstr ""
+
+#: src/interface.c:243
+msgid "View file content in the current archive"
+msgstr ""
+
+#: src/interface.c:301
+msgid "This archive contains password protected files"
+msgstr ""
+
+#: src/interface.c:419
+msgid "Extract ONLY selected files"
+msgstr ""
+
+#: src/interface.c:420
+msgid "Extract ALL files"
+msgstr ""
+
+#: src/interface.c:446
+msgid "Choose a folder where to extract files"
+msgstr ""
+
+#: src/interface.c:461
+msgid "Extract to:"
+msgstr ""
+
+#: src/interface.c:531
+msgid "Enter Archive Password"
+msgstr ""
+
+#: src/interface.c:551
+msgid "Password:"
+msgstr ""
+
+#: src/interface.c:566
+msgid "Retype it:"
+msgstr ""
+
+#: src/interface.c:571
+msgid ""
+"Please note that the password is automatically resetted each time you open "
+"or create a new archive."
+msgstr ""
+
+#: src/interface.c:615
+msgid "View File Window"
+msgstr ""
+
+#: src/callbacks.c:59 src/rpm.c:113 src/rpm.c:136
+msgid "Operation failed."
+msgstr ""
+
+#: src/callbacks.c:67
+msgid ""
+"An error occurred while accessing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: src/callbacks.c:82
+msgid "Please wait, the content of the archive is being updated..."
+msgstr ""
+
+#: src/callbacks.c:127 src/callbacks.c:154
+msgid "Operation successfully completed."
+msgstr ""
+
+#: src/callbacks.c:168
+msgid "This archive already exists. Do you want to overwrite it ?"
+msgstr ""
+
+#: src/callbacks.c:206
+msgid "Choose Action->Set Password to create a password protected archive."
+msgstr ""
+
+#: src/callbacks.c:211
+msgid "Choose Add Files or Add Folder to create the archive."
+msgstr ""
+
+#: src/callbacks.c:250
+msgid "Please wait while the content of the archive is being read..."
+msgstr ""
+
+#: src/callbacks.c:343
+msgid "Deleting files from the archive, please wait..."
+msgstr ""
+
+#: src/callbacks.c:418
+msgid "Adding files to the archive, please wait..."
+msgstr ""
+
+#: src/callbacks.c:452
+msgid "Extracting files to "
+msgstr ""
+
+#: src/callbacks.c:653
+msgid ""
+"Select the files to be added to the current archive; use SHIFT to multiple "
+"select"
+msgstr ""
+
+#: src/callbacks.c:659
+msgid "Select the folder to be added to the current archive"
+msgstr ""
+
+#: src/callbacks.c:660
+msgid ""
+"Select the folders to be added to the current archive; use SHIFT to multiple "
+"select"
+msgstr ""
+
+#: src/callbacks.c:708
+msgid "Choose the destination folder where to extract the current archive"
+msgstr ""
+
+#: src/callbacks.c:735
+msgid "All files"
+msgstr ""
+
+#: src/callbacks.c:740
+msgid "Only archives"
+msgstr ""
+
+#: src/callbacks.c:769
+msgid "Archive type:"
+msgstr ""
+
+#: src/callbacks.c:772
+msgid "Choose the archive type to create"
+msgstr ""
+
+#: src/callbacks.c:781
+msgid "Add the archive extension to the filename"
+msgstr ""
+
+#: src/callbacks.c:845 src/rpm.c:44
+#, c-format
+msgid ""
+"Can't open archive %s:\n"
+"%s"
+msgstr ""
+
+#: src/callbacks.c:877
+msgid "The format of this archive is not recognized !"
+msgstr ""
+
+#: src/callbacks.c:1091
+msgid "Shell output"
+msgstr ""
+
+#: src/callbacks.c:1156
+msgid ""
+"An error occurred while extracting the file to be viewed.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: src/callbacks.c:1180
+msgid "Please select a file, not a directory !"
+msgstr ""
+
+#: src/callbacks.c:1227
+msgid "Please type a password !"
+msgstr ""
+
+#: src/callbacks.c:1232
+msgid "The passwords don't match !!"
+msgstr ""
+
+#: src/zip.c:30 src/tar.c:31 src/7zip.c:32 src/rpm.c:50 src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Filename"
+msgstr ""
+
+#: src/zip.c:30 src/7zip.c:32
+msgid "Original"
+msgstr ""
+
+#: src/zip.c:30
+msgid "Method"
+msgstr ""
+
+#: src/zip.c:30 src/7zip.c:32
+msgid "Compressed"
+msgstr ""
+
+#: src/zip.c:30
+msgid "Ratio"
+msgstr ""
+
+#: src/zip.c:30 src/tar.c:31 src/7zip.c:32 src/bzip2.c:37 src/gzip.c:36
+msgid "Date"
+msgstr ""
+
+#: src/zip.c:30 src/tar.c:31 src/7zip.c:32 src/bzip2.c:37 src/gzip.c:36
+msgid "Time"
+msgstr ""
+
+#: src/zip.c:30
+msgid "CRC-32"
+msgstr ""
+
+#: src/tar.c:31 src/bzip2.c:37 src/gzip.c:36
+msgid "Permissions"
+msgstr ""
+
+#: src/tar.c:31 src/bzip2.c:37 src/gzip.c:36
+msgid "Owner/Group"
+msgstr ""
+
+#: src/tar.c:31 src/rpm.c:50 src/bzip2.c:37 src/gzip.c:36
+msgid "Size"
+msgstr ""
+
+#: src/7zip.c:32
+msgid "Attr"
+msgstr ""
+
+#: src/rpm.c:50
+msgid "Permission"
+msgstr ""
+
+#: src/rpm.c:50
+msgid "Links"
+msgstr ""
+
+#: src/rpm.c:50
+msgid "Owner"
+msgstr ""
+
+#: src/rpm.c:50
+msgid "Group"
+msgstr ""
+
+#: src/rpm.c:117
+msgid ""
+"An error occurred while extracting the cpio archive\n"
+"from the rpm one. Do you want to view the shell output ?"
+msgstr ""
+
+#: src/rpm.c:140
+msgid ""
+"An error occurred while decompressing the cpio archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: src/bzip2.c:48
+msgid ""
+"You selected a bzip2 compressed file.\n"
+"Do you want to extract it now ?"
+msgstr ""
+
+#: src/bzip2.c:97
+msgid "Please select where to extract files !"
+msgstr ""
+
+#: src/bzip2.c:215 src/bzip2.c:245
+msgid ""
+"An error occurred while decompressing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: src/bzip2.c:274
+msgid ""
+"An error occurred while deleting from the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: src/gzip.c:47
+msgid ""
+"You selected a gunzip compressed file.\n"
+"Do you want to extract it now ?"
+msgstr ""

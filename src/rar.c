@@ -20,32 +20,34 @@
  
 #include "rar.h"
 
-gchar *line = NULL;
-extern int output_fd,error_fd,child_pid;
+extern int output_fd,error_fd,child_pid,child_status;
 
 void OpenRar ( gboolean mode , gchar *path)
 {
-	flag = FALSE;
+	jump_header = FALSE;
     gchar *command = g_strconcat ( "rar vl -c- " , path, NULL );
 	compressor_pid = SpawnAsyncProcess ( command , 1 , 0 );
     g_free ( command );
 	if ( compressor_pid == 0 ) return;
-	char *names[]	= {("Filename"),("Size"),("Size now"),("Ratio"),("Date"),("Time"),("Permissions"),("CRC"),("Method"),("Version")};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	char *names[]	= {("Filename"),("Original"),("Compressed"),("Ratio"),("Date"),("Time"),("Permissions"),("CRC"),("Method"),("Version")};
+	GType types[]= {G_TYPE_STRING,G_TYPE_UINT,G_TYPE_UINT,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
     PasswordProtectedArchive = FALSE;
 	CreateListStore ( 10, names , (GType *)types );
 	SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,RarOpen, (gpointer) mode );
 	SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
+    WaitExitStatus ( child_pid , NULL );
 }
 
 static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	gchar **fields = NULL;
 	gchar *filename = NULL;
+    gchar *line = NULL;
+
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
         //This to avoid inserting in the list RAR's copyright message
-		if (flag == FALSE )
+		if (jump_header == FALSE )
         {
 			for ( x = 0; x <= 8; x++)
 			{
@@ -56,15 +58,14 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				    response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,"This archive doesn't contain any files !" );
                     g_io_channel_shutdown ( ioc,TRUE,NULL );
 	    	        g_io_channel_unref (ioc);
-		            g_spawn_close_pid ( child_pid );
                     g_free (line);
                     return FALSE;
 			    }
                 g_free (line);
 			}
-			flag = TRUE;
+			jump_header = TRUE;
         }
-		if ( flag )
+        else // ( jump_header )
 		{
 			//Now read the filename
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
@@ -75,13 +76,17 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			{
                 g_free (line);
 				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-                if ( line != NULL && data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen( line ) );
+                if ( line != NULL && data )
+                {
+                    gtk_text_buffer_insert (textbuf, &enditer, line, strlen( line ) );
+                    g_free (line);
+                }
                 return TRUE;
 			}
 			gtk_list_store_append (liststore, &iter);
-			line[ strlen(line) - 1 ] = '\0';
+			line[ strlen(line) - 1 ] = '\000';
 			if (line[0] == '*') PasswordProtectedArchive = TRUE;
-            //This to avoid the white space before the first char of the filename
+            //This to avoid the white space or the * before the first char of the filename
             line++;
 			gtk_list_store_set (liststore, &iter,0,line,-1);
             //Restore the pointer before freeing it
@@ -89,10 +94,17 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
             g_free (line);            
 			//Now read the rest
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+            if ( line == NULL) return TRUE;
 			if (line != NULL && data ) gtk_text_buffer_insert ( textbuf, &enditer, line, strlen( line ) );
 			fields = split_line (line,9);
 			for ( x = 0; x < 9; x++)
-				gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
+            {
+                if (x == 0 | x == 1) gtk_list_store_set (liststore, &iter,x+1,atoi(fields[x]),-1);
+                    else gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
+            }
+            gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+            while (gtk_events_pending() )
+			    gtk_main_iteration();
 			g_strfreev ( fields );
 			g_free (line);
 			return TRUE;
@@ -103,7 +115,6 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		g_spawn_close_pid ( child_pid );
     	return FALSE;
 	}
 }

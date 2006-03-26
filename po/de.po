@@ -1,0 +1,427 @@
+# German translations for geany package.
+# Copyright (C) 2005 THE geany'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the geany package.
+# Enrico Troeger <enrico.troeger@uvena.de>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Xarchiver 0.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-12-16 15:34+0100\n"
+"PO-Revision-Date: 2005-12-16 16:29+0100\n"
+"Last-Translator: Enrico Troeger <enrico.troeger@uvena.de>\n"
+"Language-Team: German <enrico.troeger@uvena.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+#: src/main.c:61
+msgid "Ready."
+msgstr "Bereit."
+
+#: src/main.c:184
+#, c-format
+msgid ""
+"xarchiver: invalid option %s\n"
+"Try xarchiver -h for more information.\n"
+msgstr ""
+"xarchiver: ungültige Option %s\n"
+"Try xarchiver -h for more information.\n"
+
+#: src/interface.c:49
+msgid "_Archive"
+msgstr "_Archiv"
+
+#: src/interface.c:79
+msgid "_Action"
+msgstr "_Aktion"
+
+#: src/interface.c:88
+#: src/interface.c:195
+msgid "Add File"
+msgstr "Datei hinzufügen"
+
+#: src/interface.c:92
+#: src/interface.c:204
+msgid "Add Folder"
+msgstr "Ordner hinzufügen"
+
+#: src/interface.c:101
+#: src/interface.c:218
+msgid "Extract"
+msgstr "Entpacken"
+
+#: src/interface.c:111
+#: src/interface.c:237
+msgid "View"
+msgstr "Ansicht"
+
+#. options1 = gtk_image_menu_item_new_with_mnemonic ("Options");
+#. gtk_widget_set_name (options1, "options1");
+#. gtk_widget_show (options1);
+#. gtk_container_add (GTK_CONTAINER (menuitem2_menu), options1);
+#.
+#. image1 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
+#. gtk_widget_set_name (image1, "image1");
+#. gtk_widget_show (image1);
+#. gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (options1), image1);
+#.
+#: src/interface.c:136
+msgid "Set Password"
+msgstr "Passwort setzen"
+
+#: src/interface.c:141
+msgid "View S_hell Output"
+msgstr "S_hell-Ausgabe betrachten"
+
+#: src/interface.c:158
+msgid "_About"
+msgstr "_Über"
+
+#: src/interface.c:172
+msgid "New"
+msgstr "Neu"
+
+#: src/interface.c:177
+#: src/callbacks.c:695
+msgid "Create a new archive"
+msgstr "Neues Archiv erzeugen"
+
+#: src/interface.c:181
+msgid "Open"
+msgstr "Öffnen"
+
+#: src/interface.c:186
+#: src/callbacks.c:701
+msgid "Open an archive"
+msgstr "Archiv öffnen"
+
+#: src/interface.c:200
+msgid "Add a file to the current archive"
+msgstr "Datei dem aktuellen Archiv hinzufügen"
+
+#: src/interface.c:209
+msgid "Add an entire folder to the current archive"
+msgstr "Einen Ordner dem aktuellen Archiv hinzufügen"
+
+#: src/interface.c:223
+msgid "Extract files from the current archive; use the mouse to select files individually"
+msgstr "Dateien aus dem aktuellem Archiv entpacken, benutzen Sie die Mouse um Dateien auszuwählen"
+
+#: src/interface.c:227
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/interface.c:233
+msgid "Delete files from the current archive"
+msgstr "Dateien aus dem aktuellem Archiv löschen"
+
+#: src/interface.c:243
+msgid "View file content in the current archive"
+msgstr "Dateiinhalt im aktuellen Archiv anzeigen"
+
+#: src/interface.c:301
+msgid "This archive contains password protected files"
+msgstr "Dieses Archiv beinhaltet Passwort-geschützte Dateien"
+
+#: src/interface.c:419
+msgid "Extract ONLY selected files"
+msgstr "Nur ausgewählte Dateien entpacken"
+
+#: src/interface.c:420
+msgid "Extract ALL files"
+msgstr "Alle Dateien entpacken."
+
+#: src/interface.c:446
+msgid "Choose a folder where to extract files"
+msgstr "Einen Ordner zum Entpacken auswählen"
+
+#: src/interface.c:461
+msgid "Extract to:"
+msgstr "Entpacken nach:"
+
+#: src/interface.c:531
+msgid "Enter Archive Password"
+msgstr "Arhiv-Passwort eingeben"
+
+#: src/interface.c:551
+msgid "Password:"
+msgstr "Passwort:"
+
+#: src/interface.c:566
+msgid "Retype it:"
+msgstr "Wiederholen:"
+
+#: src/interface.c:571
+msgid "Please note that the password is automatically resetted each time you open or create a new archive."
+msgstr "Beachten Sie, dass das Passwort automatisch zurückgesetzt wird, wenn Sie ein Archiv erstellen oder öffnen."
+
+#: src/interface.c:615
+msgid "View File Window"
+msgstr "Dateifenster anzeigen"
+
+#: src/callbacks.c:59
+#: src/rpm.c:113
+#: src/rpm.c:136
+msgid "Operation failed."
+msgstr "Aktion fehlgeschlagen."
+
+#: src/callbacks.c:67
+msgid ""
+"An error occurred while accessing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Beim Zugriff auf das Archiv ist ein Fehler aufgetreten.\n"
+"Möchten Sie die Shell-Ausgabe sehen?"
+
+#: src/callbacks.c:82
+msgid "Please wait, the content of the archive is being updated..."
+msgstr "Der Inhalt des Archivs wird aktualisiert, bitte warten..."
+
+#: src/callbacks.c:127
+#: src/callbacks.c:154
+msgid "Operation successfully completed."
+msgstr "Aktion erfolgreich abgeschlossen."
+
+#: src/callbacks.c:168
+msgid "This archive already exists. Do you want to overwrite it ?"
+msgstr "Das Archiv existiert bereits. Möchten Sie es überschreiben?"
+
+#: src/callbacks.c:206
+msgid "Choose Action->Set Password to create a password protected archive."
+msgstr "Wählen Sie Aktion->Passwort setzen, um ein Passwort-geschütztes Archiv zu erstellen."
+
+#: src/callbacks.c:211
+msgid "Choose Add File or Add Folder to create the archive."
+msgstr "Wählen Sie Datei hinzufügen oder Ordner hinzufügen, um das Archiv zu erstellen."
+
+#: src/callbacks.c:250
+msgid "Please wait while the content of the archive is being read..."
+msgstr "Inhalt des Archivs wird gelesen, bitte warten..."
+
+#: src/callbacks.c:343
+msgid "Deleting files from the archive, please wait..."
+msgstr "Lösche Dateien aus dem Archiv, bitte warten..."
+
+#: src/callbacks.c:418
+msgid "Adding files to the archive, please wait..."
+msgstr "Füge Dateien dem Archiv hinzu, bitte warten..."
+
+#: src/callbacks.c:452
+msgid "Extracting files to "
+msgstr "Dateien entpacken nach"
+
+#: src/callbacks.c:653
+msgid "Select the files to be added to the current archive; use SHIFT to multiple select"
+msgstr "Wählen Sie die Dateien, die zum aktuellen Archiv hinzugefügt werden sollen. Benutzen Sie die Shift-Taste um mehrere auszuwählen."
+
+#: src/callbacks.c:659
+msgid "Select the folder to be added to the current archive"
+msgstr "Wählen Sie den, der zu dem aktuellen Archiv hinzugefügt werden soll."
+
+#: src/callbacks.c:660
+msgid "Select the folders to be added to the current archive; use SHIFT to multiple select"
+msgstr "Wählen Sie die Ordner, die zum aktuellen Archiv hinzugefügt werden sollen. Benutzen Sie die Shift-Taste um mehrere auszuwählen."
+
+#: src/callbacks.c:708
+msgid "Choose the destination folder where to extract the current archive"
+msgstr "Wählen Sie den Zielordner, wohin das aktuelle Archiv entpackt werden soll."
+
+#: src/callbacks.c:735
+msgid "All files"
+msgstr "Alle Dateien"
+
+#: src/callbacks.c:740
+msgid "Only archives"
+msgstr "Nur Archive"
+
+#: src/callbacks.c:769
+msgid "Archive type:"
+msgstr "Archiv-Typ:"
+
+#: src/callbacks.c:772
+msgid "Choose the archive type to create"
+msgstr "Archiv-Typ wählen"
+
+#: src/callbacks.c:781
+msgid "Add the archive extension to the filename"
+msgstr "Archiv-Endung an den Dateinamen anhängen"
+
+#: src/callbacks.c:845
+#: src/rpm.c:44
+#, c-format
+msgid ""
+"Can't open archive %s:\n"
+"%s"
+msgstr ""
+"Konnte Archiv %s nicht öffnen:\n"
+"%s"
+
+#: src/callbacks.c:877
+msgid "The format of this archive is not recognized !"
+msgstr "Unbekanntes Archiv-Format."
+
+#: src/callbacks.c:1091
+msgid "Shell output"
+msgstr "Shell-Ausgabe"
+
+#: src/callbacks.c:1156
+msgid ""
+"An error occurred while extracting the file to be viewed.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Es ist ein Fehler beim Entpacken der Datei aufgetreten.\n"
+"Möchten Sie die Shell-Ausgabe sehen?"
+
+#: src/callbacks.c:1180
+msgid "Please select a file, not a directory !"
+msgstr "Bitte wählen Sie eine Datei aus, kein Verzeichnis."
+
+#: src/callbacks.c:1227
+msgid "Please type a password !"
+msgstr "Bitte geben Sie ein Passwort ein."
+
+#: src/callbacks.c:1232
+msgid "The passwords don't match !!"
+msgstr "Die Passwörter stimmen nicht überein."
+
+#: src/zip.c:30
+#: src/tar.c:31
+#: src/7zip.c:32
+#: src/rpm.c:50
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Filename"
+msgstr "Dateiname"
+
+#: src/zip.c:30
+#: src/7zip.c:32
+msgid "Original"
+msgstr "Original"
+
+#: src/zip.c:30
+msgid "Method"
+msgstr "Methode"
+
+#: src/zip.c:30
+#: src/7zip.c:32
+msgid "Compressed"
+msgstr "Komprimiert"
+
+#: src/zip.c:30
+msgid "Ratio"
+msgstr "Rate"
+
+#: src/zip.c:30
+#: src/tar.c:31
+#: src/7zip.c:32
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Date"
+msgstr "Datum"
+
+#: src/zip.c:30
+#: src/tar.c:31
+#: src/7zip.c:32
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Time"
+msgstr "Zeit"
+
+#: src/zip.c:30
+msgid "CRC-32"
+msgstr "CRC-32"
+
+#: src/tar.c:31
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Permissions"
+msgstr "Rechte"
+
+#: src/tar.c:31
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Owner/Group"
+msgstr "Eigentümer/Gruppe"
+
+#: src/tar.c:31
+#: src/rpm.c:50
+#: src/bzip2.c:37
+#: src/gzip.c:36
+msgid "Size"
+msgstr "Größe"
+
+#: src/7zip.c:32
+msgid "Attr"
+msgstr "Attribute"
+
+#: src/rpm.c:50
+msgid "Permission"
+msgstr "Rechte"
+
+#: src/rpm.c:50
+msgid "Links"
+msgstr "Links"
+
+#: src/rpm.c:50
+msgid "Owner"
+msgstr "Eigentümer"
+
+#: src/rpm.c:50
+msgid "Group"
+msgstr "Gruppe"
+
+#: src/rpm.c:117
+msgid ""
+"An error occurred while extracting the cpio archive\n"
+"from the rpm one. Do you want to view the shell output ?"
+msgstr ""
+"Es ist ein Fehler beim Entpacken des CPIO-Archivs aus dem RPM-Archiv aufgetreten.\n"
+"Möchten Sie die Shell-Ausgabe sehen?"
+
+#: src/rpm.c:140
+msgid ""
+"An error occurred while decompressing the cpio archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Es ist ein Fehler beim Entpacken des CPIO-Archivs aufgetreten.\n"
+"Möchten Sie die Shell-Ausgabe sehen?"
+
+#: src/bzip2.c:48
+msgid ""
+"You selected a bzip2 compressed file.\n"
+"Do you want to extract it now ?"
+msgstr ""
+"Sie haben eine mit bzip2 komprimierte Datei ausgewählt.\n"
+"Möchten Sie sie jetzt entpacken?"
+
+#: src/bzip2.c:97
+msgid "Please select where to extract files !"
+msgstr "Bitte wählen Sie aus, wohin die Dateien entpackt werden sollen."
+
+#: src/bzip2.c:215
+#: src/bzip2.c:245
+msgid ""
+"An error occurred while decompressing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Es ist ein Fehler beim Entpacken des Archivs aufgetreten.\n"
+"Möchten Sie die Shell-Ausgabe sehen?"
+
+#: src/bzip2.c:274
+msgid ""
+"An error occurred while deleting from the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+"Beim Löschen aus dem TAR-Archiv ist ein Fehler aufgetreten.\n"
+"Möchten Sie die Shell-Ausgabe sehen?"
+
+#: src/gzip.c:47
+msgid ""
+"You selected a gzip compressed file.\n"
+"Do you want to extract it now ?"
+msgstr ""
+"Sie haben eine mit gzip komprimierte Datei ausgewählt.\n"
+"Möchten Sie sie jetzt entpacken?"

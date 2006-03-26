@@ -27,7 +27,7 @@
 #include "support.h"
 #include "main.h"
 
-extern GList *ArchiveName;
+extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean file_to_open;
 extern gchar *tmp;
@@ -35,32 +35,54 @@ extern gchar *tmp;
 gchar *CurrentFolder = NULL;
 GList *Suffix , *Name;
 
-GChildWatchFunc *ExitStatus (GPid pid , gint status , gpointer temp)
+void WaitExitStatus ( GPid child_pid , gchar *temp_file)
 {
-    //temp contains the filename created in /tmp to add/delete on tar.bzip2 / tar.gzip archives (look in bzip.c )
-    if ( temp != NULL)
-    {
-        unlink ( temp );
-        g_free (temp);
+    int status;
+    int waiting = TRUE;
+    int ps;
+
+    OffDeleteandViewButtons();
+    while (waiting)
+    { 
+        ps = waitpid ( (pid_t)child_pid, &status, WNOHANG);
+        if (ps < 0) waiting = FALSE;
+        else 
+        {
+            while (gtk_events_pending())
+                gtk_main_iteration();
+        }
     }
-	if ( WIFEXITED(status) )
+    
+    if ( WIFEXITED (status) )
 	{
 		if ( WEXITSTATUS (status) )
 		{
+            Update_StatusBar ( _("Operation failed."));
+            gtk_tooltips_disable ( pad_tooltip );
+            gtk_widget_hide ( pad_image );
+            gtk_widget_hide ( viewport2 );
 			archive_error = TRUE;
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while reading the archive.\nDo you want to view the shell output ?") );
+			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to view the shell output ?") );
 			if (response == GTK_RESPONSE_YES) ShowShellOutput();
 			return;
 		}
 	}
-	archive_error = FALSE;
+    archive_error = FALSE;
+    //temp_file contains the filename created in /tmp to add/delete on tar.bzip2 / tar.gzip archives (look in bzip2.c:304 )
+    if ( temp_file != NULL)
+    {
+        unlink ( temp_file );
+        g_free (temp_file);
+    }
 	//This to automatically reload the content of the archive after adding or deleting
 	if (action == add || action == delete)
 	{
+        Update_StatusBar ( _("Please wait, the content of the archive is being updated..."));
         RemoveColumnsListStore();
+        action = inactive;
 		switch ( CurrentArchiveType )
 		{
 			//case 0:
@@ -85,30 +107,53 @@ GChildWatchFunc *ExitStatus (GPid pid , gint status , gpointer temp)
             OpenGzip ( FALSE , path );
             break;
 
-            case 7:
-			case 8:
+            case 6:
+			case 7:
 			OpenZip ( FALSE , path );
 			break;
 
-            //case 9:
+            //case 8:
             //RPM: only open and extract
+
+            case 9:
+            Open7Zip ( FALSE, path );
+            break;
+
+            case 10:
+            //This to avoid generating an error when reloading an unexistent archive if the user
+            //deletes the whole content since arj deletes it instead of remaining it empty
+            if (g_file_test ( path , G_FILE_TEST_EXISTS) == TRUE) OpenArj ( FALSE, path );
+            else
+            {
+                Update_StatusBar ( _("Operation successfully completed."));
+                gtk_widget_hide (viewport2);
+            }
+            break;
 		}
-		action = inactive;
-	}
-    //This to enable only the Extract button in case an RPM was opened
-    if (CurrentArchiveType == 9)
-    {
-        gtk_window_set_title ( GTK_WINDOW (MainWindow) , path );
-        SetButtonState (1,1,0,0,1);
         return;
-    }
-	if ( ! bz_gz )
-    {
-        gtk_window_set_title ( GTK_WINDOW (MainWindow) , path );
-	    SetButtonState ( 1,1,1,1,1 );
-    }
+	}
     //This to disable the Add and Delete buttons in case a bzip2 / gzip file has been decompressed
-    else SetButtonState (1,1,0,0,0);
+    if ( ! bz_gz ) SetButtonState ( 1,1,1,1,1 );
+        else SetButtonState (1,1,0,0,0);
+    //Let's restore the liststore
+    gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
+    g_object_unref(model);
+
+    if ( password != NULL || PasswordProtectedArchive )
+    {
+        gtk_widget_show ( pad_image );
+        gtk_tooltips_enable ( pad_tooltip );
+    }
+    else
+    {
+        gtk_tooltips_disable ( pad_tooltip );
+        gtk_widget_hide ( pad_image );
+    }
+    //This to enable only the Extract button in case an RPM was opened
+    if (CurrentArchiveType == 8) SetButtonState (1,1,0,0,1);
+    gtk_window_set_title ( GTK_WINDOW (MainWindow) , path );
+    Update_StatusBar ( _("Operation successfully completed."));
+    gtk_widget_hide ( viewport2 );
 }
 
 void on_new1_activate (GtkMenuItem *menuitem, gpointer user_data)
@@ -128,10 +173,13 @@ void on_new1_activate (GtkMenuItem *menuitem, gpointer user_data)
 			g_free (path);
 			return;
 		}
+        //The following to avoid the archivers updates the archive instead of adding to it since the filename exists
         unlink ( path );
 	}
     PasswordProtectedArchive = FALSE;
-    //This to delete a CPIO temp file in /tmp if existing
+    //Let's off the delete and view buttons and the menu entries to avoid misterious behaviour
+    OffDeleteandViewButtons ();
+    //This to delete a possible RPM file from /tmp since we don't need it anymore
     if ( tmp != NULL )
     {
         unlink (tmp);
@@ -153,11 +201,20 @@ void on_new1_activate (GtkMenuItem *menuitem, gpointer user_data)
         SetButtonState (1,1,1,1,0 );
         bz_gz = FALSE;
     }
-    if ( CurrentArchiveType == 2 || CurrentArchiveType == 7 || CurrentArchiveType == 8 ) gtk_widget_set_sensitive ( add_pwd , TRUE );
-        else gtk_widget_set_sensitive ( add_pwd , FALSE );
+    if ( CurrentArchiveType == 2 || CurrentArchiveType == 6 || CurrentArchiveType == 7 || CurrentArchiveType == 9 || CurrentArchiveType == 10 )
+    {
+        gtk_widget_set_sensitive ( add_pwd , TRUE );
+        Update_StatusBar ( _("Choose Action->Set Password to create a password protected archive."));
+    }
+    else
+    {
+        gtk_widget_set_sensitive ( add_pwd , FALSE );
+        Update_StatusBar ( _("Choose Add File or Add Folder to create the archive."));
+    }
+    gtk_tooltips_disable ( pad_tooltip );
+    gtk_widget_hide ( pad_image );
     if (password != NULL) g_free (password);
     password = NULL;
-	//g_print ("You choose to create %d of type %s\n",CurrentArchiveType,g_list_nth_data (ArchiveName,CurrentArchiveType));
 }
 
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, gchar *message)
@@ -180,13 +237,18 @@ void on_open1_activate (GtkMenuItem *menuitem, gpointer user_data)
 	if ( liststore != NULL )
 	{
 		RemoveColumnsListStore();
-		EmptyTextBuffer();
+		EmptyTextBuffer ();
 	}
-    if ( CurrentArchiveType == 9 ) unlink (tmp);
+    //Did the user previously open an RPM file ? Delete it from /tmp since we don't need it anymore
+    if ( CurrentArchiveType == 8 ) unlink (tmp);
     PasswordProtectedArchive = FALSE;
+    OffDeleteandViewButtons();
 	CurrentArchiveType = DetectArchiveType ( path );
+    if ( CurrentArchiveType == -1 ) return;
 	path = EscapeBadChars ( path );
 	bz_gz = FALSE;
+    gtk_widget_show ( viewport2 );
+    Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
 	switch ( CurrentArchiveType )
 	{
 		case 0:
@@ -205,19 +267,26 @@ void on_open1_activate (GtkMenuItem *menuitem, gpointer user_data)
 		OpenTar ( TRUE , path );
 		break;
 
-		case 8:
+		case 7:
 		OpenZip ( TRUE , path );
 		break;
 
-        case 9:
+        case 8:
         OpenRPM ( TRUE , path );
         break;
+
+        case 9:
+        Open7Zip ( TRUE , path );
+        break;
+
+		case 10:
+		OpenArj ( TRUE , path );
+		break;
 	}
-    if ( CurrentArchiveType == 2 || CurrentArchiveType == 7 || CurrentArchiveType == 8 ) gtk_widget_set_sensitive ( add_pwd , TRUE );
+    if ( CurrentArchiveType == 2 || CurrentArchiveType == 6 || CurrentArchiveType == 7 || CurrentArchiveType == 9 || CurrentArchiveType == 10) gtk_widget_set_sensitive ( add_pwd , TRUE );
         else gtk_widget_set_sensitive ( add_pwd , FALSE );
     if (password != NULL) g_free (password);
     password = NULL;
-	//g_print ("Archive Type: %d\n" , CurrentArchiveType);
 }
 
 void on_quit1_activate (GtkMenuItem *menuitem, gpointer user_data)
@@ -251,10 +320,6 @@ void on_delete1_activate (GtkMenuItem *menuitem, gpointer user_data)
 		command = g_strconcat ( "tar --delete -vf " , path , names->str , NULL );
 		break;
 		
-        case 8:
-		command = g_strconcat ( "zip -d " , path , names->str , NULL );
-		break;
-		
         case 4:
         DecompressBzipGzip ( names , path , 0  , 0 );
         break;
@@ -262,14 +327,26 @@ void on_delete1_activate (GtkMenuItem *menuitem, gpointer user_data)
         case 5:
         DecompressBzipGzip ( names , path , 1 , 0 );
 		break;	
+
+        case 6:
+        case 7:
+		command = g_strconcat ( "zip -d " , path , names->str , NULL );
+		break;
+
+        case 9:
+        command = g_strconcat ( "7za d " , path , names->str , NULL );
+        break;
+
+        case 10:
+        command = g_strconcat ( "arj d " , path , names->str, NULL);
+        break;
 	}
-	if (CurrentArchiveType == 2 || CurrentArchiveType == 3 || CurrentArchiveType == 8)
+    Update_StatusBar ( _("Deleting files from the archive, please wait..."));
+	if (command != NULL)
     {
         ExtractAddDelete ( command );
         g_free (command);
     }
-	gtk_widget_set_sensitive (Delete_button , FALSE);
-	gtk_widget_set_sensitive (delete_menu, FALSE);
 	g_string_free (names , FALSE );
 }
 
@@ -305,51 +382,48 @@ void on_add_files_activate ( GtkMenuItem *menuitem, gpointer user_data )
 			
 			case 2:
             if (password != NULL) command = g_strconcat ( "rar a -p" , password, " -o+ -ep1 -idp " , path , names->str , NULL );
-            else command = g_strconcat ( "rar a -o+ -ep1 -idp " , path , names->str , NULL );
-			ExtractAddDelete ( command );
+                else command = g_strconcat ( "rar a -o+ -ep1 -idp " , path , names->str , NULL );
 			break;
 			
 			case 3:
 			if ( g_file_test ( path , G_FILE_TEST_EXISTS ) ) command = g_strconcat ( "tar rvvf " , path , names->str , NULL );
-            else
-                command = g_strconcat ( "tar cvvf " , path , names->str , NULL );
-            ExtractAddDelete ( command );
+                else command = g_strconcat ( "tar cvvf " , path , names->str , NULL );
     		break;
 			
             case 4:
-            if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
-            {
-                DecompressBzipGzip ( names , path , 0 , 1 );
-            }
-            else
-            {
-                command = g_strconcat ("tar cvvfj " , path , names->str , NULL );
-                ExtractAddDelete ( command );
-            }
+            if ( g_file_test ( path , G_FILE_TEST_EXISTS ) ) DecompressBzipGzip ( names , path , 0 , 1 );
+                else command = g_strconcat ("tar cvvfj " , path , names->str , NULL );
             break;
 
             case 5:
-            if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
-            {
-                DecompressBzipGzip ( names , path , 1 , 1 );
-            }
-            else
-            { 
-                command = g_strconcat ("tar cvvfz " , path , names->str , NULL );
-                ExtractAddDelete ( command );
-            }
+            if ( g_file_test ( path , G_FILE_TEST_EXISTS ) ) DecompressBzipGzip ( names , path , 1 , 1 );
+                else command = g_strconcat ("tar cvvfz " , path , names->str , NULL );
             break;
 
+			case 6:
 			case 7:
-			case 8:
             if (password != NULL) command = g_strconcat ( "zip -P " , password , " -r " , path , names->str , NULL );
                 else command = g_strconcat ( "zip -r " , path , names->str , NULL );
-			ExtractAddDelete ( command );
 			break;
+
+            case 9:
+            if (password != NULL) command = g_strconcat ( "7za a -ms=off -p" , password , " " , path , names->str , NULL );
+                else command = g_strconcat ( "7za a -ms=off " , path , names->str , NULL );
+            break;
+
+            case 10:
+            if (password != NULL) command = g_strconcat ( "arj a -i -r -g" , password , " " , path , names->str , NULL );
+                else command = g_strconcat ( "arj a -i -r " , path , names->str , NULL );
+            break;
 		}
+    Update_StatusBar ( _("Adding files to the archive, please wait..."));
+    if (command != NULL)
+    {
+        ExtractAddDelete ( command );
+        g_free (command);
+    }
 	g_string_free (names , FALSE );
 	g_slist_free ( Files_to_Add );
-	g_free (command);
 }
 
 void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
@@ -361,8 +435,8 @@ void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window), GTK_RESPONSE_OK);
     if ( PasswordProtectedArchive )
     {
-            Show_pwd_Window ( NULL , NULL );
-            if ( password == NULL ) return;
+            if (password == NULL) Show_pwd_Window ( NULL , NULL );
+            if ( password == NULL) return;
     }
     done = FALSE;
     while ( ! done )
@@ -375,7 +449,11 @@ void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
 			break;
 			
 			case GTK_RESPONSE_OK:
+            action = extract;
 			extract_path = gtk_entry_get_text ( GTK_ENTRY (entry1) );
+            gchar *text = g_strconcat (_("Extracting files to "),extract_path,NULL );
+            Update_StatusBar ( text );
+            g_free (text);
 			if ( strlen ( extract_path ) > 0 )
 			{
 				done = TRUE;
@@ -410,16 +488,26 @@ void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
 						command = g_strconcat ( "tar xfzv " , path , " -C " , extract_path , NULL );
 						break;
 
-                        case 7:
-						case 8:
-                        if ( password != NULL ) command = g_strconcat ( "unzip -P " , password , " " , path , " -d " , extract_path , NULL );
-                            else command = g_strconcat ( "unzip " , path , " -d " , extract_path , NULL );
+                        case 6:
+						case 7:
+                        if ( password != NULL ) command = g_strconcat ( "unzip -o -P " , password , " " , path , " -d " , extract_path , NULL );
+                            else command = g_strconcat ( "unzip -o " , path , " -d " , extract_path , NULL );
 						break;
 
-                        case 9:
+                        case 8:
                         chdir ( extract_path );
                         SpawnCPIO ( "cpio -ivd" , tmp , 0 , 1 );
                         break;
+
+                        case 9:
+                        if (password != NULL) command = g_strconcat ( "7za x -aoa -bd -p",password," ", path , " -o" , extract_path , NULL );
+                        else command = g_strconcat ( "7za x -aoa -bd " , path , " -o" , extract_path , NULL );
+                        break;
+
+						case 10:
+						if (password !=NULL) command = g_strconcat ( "arj x -g",password," -i -y " , path , " " , extract_path , NULL );
+                        else command = g_strconcat ( "arj x -i -y " , path , " " , extract_path , NULL );
+						break;
 					}
                     if ( command != NULL )
                     {
@@ -431,49 +519,7 @@ void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
 				{
 					names = g_string_new ( " " );
 					gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-					switch (CurrentArchiveType)
-					{
-						case 0:
-						//Bzip2 extraction is handled when the the file is opened
-						//code execution never reaches here
-						break;
-						
-						case 1:
-                        //Gzip extraction is handled when the the file is opened
-						//code execution never reaches here
-						break;
-						
-						case 2:
-						if (password != NULL) command = g_strconcat ( "rar x -p",password, " -o+ -idp " , path , " " , names->str , extract_path , NULL );
-                        else command = g_strconcat ( "rar x -o+ -idp " , path , " " , names->str , extract_path ,NULL);
-						break;
-						
-						case 3:
-					    command = g_strconcat ( "tar xfv " , path , " -C " , extract_path , names->str , NULL );
-						break;
-						
-						case 4:
-						command = g_strconcat ( "tar xfjv " , path , " -C " , extract_path ,  names->str , NULL );
-						break;
-
-						case 5:
-                        command = g_strconcat ( "tar xfvz " , path , " -C " , extract_path , names->str , NULL );
-						break;
-
-                        case 7:
-						case 8:
-                       if ( password != NULL ) command = g_strconcat ( "unzip -P " , password , " " , path , names->str , " -d " , extract_path , NULL );
-                            else command = g_strconcat ( "unzip " , path , names->str , " -d " , extract_path , NULL );
-						break;
-                        
-                        case 9:
-                        chdir ( extract_path );
-                        command = g_strconcat ( "cpio -ivd " , names->str , NULL );
-                        SpawnCPIO ( command , tmp , 0 , 1 );
-                        g_free (command);
-                        command = NULL;
-                        break;
-					}
+					command = ChooseCommandtoExecute ( 1 );
                     if ( command != NULL )
                     {
                         ExtractAddDelete ( command );
@@ -489,10 +535,78 @@ void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_widget_destroy ( extract_window );
 }
 
+gchar *ChooseCommandtoExecute ( gboolean full_path )
+{
+    gchar *command;
+    int levels;
+    char digit[2];
+    gchar *strip = NULL;
+    if ( full_path == 0 )
+    {
+        levels = CountCharacter ( names->str , '/');
+        sprintf ( digit , "%d" , levels );
+        strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
+    }
+    switch (CurrentArchiveType)
+	{
+	    case 0:
+	    //Bzip2 extraction is handled when the the file is opened
+		//code execution never reaches here
+		break;
+						
+		case 1:
+        //idem
+		break;
+						
+		case 2:
+		if (password != NULL) command = g_strconcat ( "rar " , full_path ? "x" : "e" , " -p",password, " -o+ -idp " , path , " " , names->str , " " , extract_path , NULL );
+        else command = g_strconcat ( "rar ", full_path ? "x" : "e" , " -o+ -idp " , path , " " , names->str , " " ,extract_path ,NULL);
+		break;
+						
+		case 3:
+	    command = g_strconcat ( "tar " , full_path ? "" : strip , "-xvf " , path , " -C " , extract_path , names->str , NULL );
+		break;
+						
+		case 4:
+		command = g_strconcat ( "tar " , full_path ? "" : strip , "-xjvf " , path , " -C " , extract_path ,  names->str , NULL );
+		break;
+
+		case 5:
+        command = g_strconcat ( "tar " , full_path ? "" : strip , "-xvzf " , path , " -C " , extract_path , names->str , NULL );
+		break;
+
+        case 6:
+		case 7:
+        if ( password != NULL ) command = g_strconcat ( "unzip -o -P " , password , full_path ? " " : " -j " , path , names->str , " -d " , extract_path , NULL );
+        else command = g_strconcat ( "unzip -o " , full_path ? "" : "-j " , path , names->str , " -d " , extract_path , NULL );
+		break;
+                        
+        case 8:
+        chdir ( extract_path );
+        command = g_strconcat ( "cpio -ivd" , names->str , NULL );
+        SpawnCPIO ( command , tmp , 0 , 1 );
+        g_free (command);
+        command = NULL;
+        break;
+
+        case 9:
+        if ( password != NULL) command = g_strconcat ("7za " , full_path ? "x" : "e" , " -p",password," -aoa -bd " , path , names->str , " -o" , extract_path , NULL );
+        else command = g_strconcat ( "7za " , full_path ? "x" : "e" ," -aoa -bd " , path , names->str , " -o" , extract_path , NULL );
+        break;
+
+		case 10:
+		if (password !=NULL) command = g_strconcat ( "arj x -g",password," -i -y " , path , " " , extract_path , names->str , NULL );
+        else command = g_strconcat ( "arj ",full_path ? "x" : "e"," -i -y " , path , " " , extract_path , names->str, NULL );
+		break;
+    }
+    if ( strip != NULL) g_free ( strip );
+    return command;
+}
+
 void on_about1_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
 	static GtkWidget *about = NULL;
-	const char *authors[] = {"Giuseppe Torelli - Colossus\n<gt67@users.sourceforge.net>\n\nThanks to Chris Vine, Andreas Stricker\nand Olivier Sessink", NULL};
+	const char *authors[] = {"Giuseppe Torelli - Colossus\n<gt67@users.sourceforge.net>\n\nThanks to Uracile for the stunning logo.\n\nThanks to Eugene Ostapets and Enrico Troeger\nfor russian and german translation.\n\nThanks to the people of gtk-app-devel-list\nwho kindly answered my questions.", NULL};
 	if (about != NULL)
 	{
 		gtk_window_present (GTK_WINDOW (about));
@@ -503,7 +617,7 @@ void on_about1_activate (GtkMenuItem *menuitem, gpointer user_data)
 		      "name",  "Xarchiver",
 		      "version", VERSION,
 		      "copyright", "Copyright @2005 Giuseppe Torelli",
-		      "comments", "A GTK+2 only archive manager for Linux.",
+		      "comments", "A lightweight GTK2 archive manager",
 		      "authors", authors,
 		      "documenters", NULL,
 		      "translator_credits", NULL,
@@ -532,11 +646,6 @@ void on_about1_activate (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_widget_show (about);
 }
 
-
-void on_options1_activate (GtkMenuItem *menuitem, gpointer user_data)
-{
-}
-
 GSList *Add_File_Dialog ( gchar *mode )
 {
 	GSList *list = NULL;
@@ -549,7 +658,8 @@ GSList *Add_File_Dialog ( gchar *mode )
 	}
 	else
 	{
-		title = _("Select the folders to be added to the current archive; use SHIFT to multiple select");
+		if (CurrentArchiveType == 10) title = _("Select the folder to be added to the current archive");
+            else title = _("Select the folders to be added to the current archive; use SHIFT to multiple select");
 		flag = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
 	}
 	File_Selector = gtk_file_chooser_dialog_new ( title,
@@ -560,7 +670,8 @@ GSList *Add_File_Dialog ( gchar *mode )
 							GTK_STOCK_ADD,
 							GTK_RESPONSE_ACCEPT,
 							NULL);
-	if (CurrentArchiveType == 0 || CurrentArchiveType == 1 ) gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , FALSE );
+    //We set gtk_file_chooser_set_select_multiple to FALSE because of a bug in ARJ prevents adding more of two directories
+    if (CurrentArchiveType == 0 || CurrentArchiveType == 1 || CurrentArchiveType == 10) gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , FALSE );
         else gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
 	if (CurrentFolder != NULL) gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , CurrentFolder );
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector) );
@@ -631,7 +742,6 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 	gtk_file_filter_set_name ( filter , _("Only archives") );
 	
 	Suffix = g_list_first ( ArchiveSuffix );
-	Name = g_list_first ( ArchiveName );
 	
 	while ( Suffix != NULL )
 	{
@@ -647,13 +757,12 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		if ( Suffix->data != "" )	//To avoid double filtering when opening the archive
 		{
 			filter = gtk_file_filter_new ();
-			gtk_file_filter_set_name (filter, Name->data );
+			gtk_file_filter_set_name (filter, Suffix->data );
 			gtk_file_filter_add_pattern (filter, Suffix->data );
 			gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);	
 		}
 		
 		Suffix = g_list_next ( Suffix );
-		Name = g_list_next ( Name );
 	}
 	
 	if ( mode == "new" )
@@ -663,7 +772,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		combo_box = gtk_combo_box_new_text ();
 		FilterToolTip = gtk_tooltips_new();
 		gtk_tooltips_set_tip (FilterToolTip,combo_box, _("Choose the archive type to create") , NULL);
-		Name = g_list_first ( ArchiveName );
+		Name = g_list_first ( ArchiveType );
 		while ( Name != NULL )
 		{
 			if (Name->data != ".tgz" && Name->data != ".rpm" ) gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
@@ -686,15 +795,23 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) );
 		if ( mode == "new")
 		{
-			CurrentArchiveType = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
-			if (CurrentArchiveType == 6) CurrentArchiveType++;		//This to avoid return .tgz
-			else if (CurrentArchiveType == 7) CurrentArchiveType = 8;	//This to avoid return .jar instead of .zip
+			ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
+            
+            if (strcmp ( ComboArchiveType,".arj") == 0) CurrentArchiveType = 10;
+                else if (strcmp ( ComboArchiveType,".bz2") == 0) CurrentArchiveType = 0;
+                else if (strcmp ( ComboArchiveType,".gz") == 0) CurrentArchiveType = 1;
+                else if (strcmp ( ComboArchiveType,".rar") == 0) CurrentArchiveType = 2;
+                else if (strcmp ( ComboArchiveType,".tar") == 0) CurrentArchiveType = 3;
+                else if (strcmp ( ComboArchiveType,".jar") == 0) CurrentArchiveType = 6;
+                else if (strcmp ( ComboArchiveType,".zip") == 0) CurrentArchiveType = 7;
+                else if (strcmp ( ComboArchiveType,".rpm") == 0) CurrentArchiveType = 8;
+                else if (strcmp ( ComboArchiveType,".7z") == 0) CurrentArchiveType = 9;
 			if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(check_button) ) )
 			{
-				if ( ! g_str_has_suffix ( path , g_list_nth_data (ArchiveName,CurrentArchiveType ) ) )
+				if ( ! g_str_has_suffix ( path , ComboArchiveType ) )
 				{
 					gtk_widget_destroy (File_Selector);
-					return g_strconcat ( path, g_list_nth_data (ArchiveName,CurrentArchiveType) , NULL);
+					return g_strconcat ( path, ComboArchiveType , NULL);
 				}
 				
 			}
@@ -712,13 +829,9 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 gboolean isTar ( FILE *ptr )
 {
 	unsigned char magic[7];
-	if (fseek ( ptr, 253 , SEEK_CUR ) ) return FALSE;
-	if ( fread ( magic, 1, 7, ptr ) == 0 )
-	{
-		fclose ( ptr );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *) g_strerror(errno) );
-		return FALSE;
-	}
+    //251 instead of 257 because it is 257 - 6 who are the latest read bytes for detecting 7-zip
+	if (fseek ( ptr, 251 , SEEK_CUR ) < 0 ) return FALSE;
+	if ( fread ( magic, 1, 7, ptr ) == 0 ) return FALSE;
 	if ( memcmp ( magic,"\x75\x73\x74\x61\x72\x00\x30",7 ) == 0 || memcmp (magic,"\x75\x73\x74\x61\x72\x20\x20",7 ) == 0) return TRUE;
 		else return FALSE;
 }
@@ -727,32 +840,37 @@ int DetectArchiveType ( gchar *path )
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
-	unsigned char magic[4];
+	unsigned char magic[6];
 	dummy_ptr = fopen ( path , "r" );
 	if (dummy_ptr == NULL)
 	{
-		gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , path , g_strerror (errno) ); 
+		gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , path , strerror (errno) ); 
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg);
 		g_free (msg);
 		return xx;
 	 }
-	if ( fread ( magic, 1, 4, dummy_ptr ) == 0 )
+	if ( fread ( magic, 1, 6, dummy_ptr ) == 0 )
 	{
 		fclose ( dummy_ptr);
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)g_strerror(errno));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
 		return xx;
 	}
     if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
     {
-        PasswordProtectedArchive = DetectPasswordProtectedArchive ( dummy_ptr );
-        xx = 8;	// zip
+        PasswordProtectedArchive = DetectPasswordProtectedArchive ( 7 , dummy_ptr , magic );
+        xx = 7; // zip
+    }
+	else if ( memcmp ( magic,"\x60\xea",2 ) == 0 )
+    {
+        PasswordProtectedArchive = DetectPasswordProtectedArchive ( 10 , dummy_ptr , magic );
+        xx = 10;    // arj
     }
 	else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 ) xx = 2;	// rar
     else if ( memcmp ( magic,"\x42\x5a\x68\x39",4 ) == 0 ) xx = 0;	// bzip2
 	else if ( memcmp ( magic,"\x1f\x8b\x08",3 ) == 0) xx = 1;		// gz
-    else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0) xx = 9;	// rpm
-    //else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 ) xx = ??;	// 7zip
+    else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0) xx = 8;	// rpm
+    else if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 ) xx = 9;	// 7zip
     else if ( isTar ( dummy_ptr ) ) xx = 3;
 	else
 	{
@@ -764,13 +882,70 @@ int DetectArchiveType ( gchar *path )
 	return xx;
 }
 
-gboolean DetectPasswordProtectedArchive ( FILE *stream )
+gboolean DetectPasswordProtectedArchive ( int type , FILE *stream , unsigned char magic[6] )
 {
-    unsigned char bytes[1];
-    //This is for zip archives; rar encrypted archives contains an asterisk just before the filenames
-    fseek ( stream, 6 , SEEK_SET );
-    fread ( bytes, 1, 1, stream );
-    return (( bytes[0] & (1<<0)) > 0);
+    //ZIP
+    unsigned int fseek_offset;
+    unsigned short int password_flag;
+    unsigned int compressed_size;
+    unsigned int uncompressed_size;
+    unsigned short int file_length;
+    unsigned short int extra_length;
+    
+    //ARJ
+    unsigned char sig[2];
+    unsigned short int basic_header_flag;
+    unsigned short int basic_header_size;
+    unsigned short int extended_header_size;
+    unsigned int basic_header_CRC;
+    unsigned int extended_header_CRC;
+    unsigned char arj_flag;
+    gboolean dummy_flag = FALSE;
+
+    if ( type == 7 )
+    {
+        while ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0  || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
+        {
+            fread ( &password_flag, 1, 2, stream );
+            if (( password_flag & ( 1<<0) ) > 0) dummy_flag = TRUE;
+            fseek (stream,10,SEEK_CUR);
+            fread (&compressed_size,1,4,stream);
+            fread (&uncompressed_size,1,4,stream);
+            fread (&file_length,1,2,stream);
+            fread (&extra_length,1,2,stream);
+            fseek_offset = compressed_size + file_length + extra_length;
+            fseek (stream , fseek_offset , SEEK_CUR);
+            fread (magic , 1 , 4 , stream);
+            fseek ( stream , 2 , SEEK_CUR);
+            if ( dummy_flag ) return dummy_flag;
+        }
+    }
+    else if ( type == 10)
+    {   
+        fseek (stream , magic[2]+magic[3] , SEEK_CUR);
+        fseek (stream , 2 , SEEK_CUR);
+        fread (&extended_header_size,1,2,stream);
+        if (extended_header_size != 0) fread (&extended_header_CRC,1,4,stream);
+        fread (&sig,1,2,stream);
+        while ( memcmp (sig,"\x60\xea",2) == 0)
+        {
+            fread ( &basic_header_size , 1 , 2 , stream );
+            if ( basic_header_size == 0 ) break;
+            printf ("basic header size: %x\n",basic_header_size);
+            fseek ( stream , 4 , SEEK_CUR);
+            fread (&arj_flag,1,1,stream);
+            if (( arj_flag & ( 1<<0) ) > 0) dummy_flag = TRUE;
+            fseek ( stream , 7 , SEEK_CUR);
+            fread (&compressed_size,1,4,stream);
+            fseek ( stream , basic_header_size - 16 , SEEK_CUR);
+            fread (&basic_header_CRC,1,4,stream);
+            fread (&extended_header_size,1,2,stream);
+            if (extended_header_size != 0) fread (&extended_header_CRC,1,4,stream);
+            fseek ( stream , compressed_size , SEEK_CUR);
+            fread (&sig,1,2,stream);
+            if ( dummy_flag ) return dummy_flag;
+        }
+    }
 }
 
 gulong SpawnAsyncProcess (const gchar *command , gboolean ExitStatusFlag , gboolean input)
@@ -798,9 +973,7 @@ gulong SpawnAsyncProcess (const gchar *command , gboolean ExitStatusFlag , gbool
         return FALSE;
 	}
 	g_strfreev ( argv );
-    //The following callback is needed for evaluating the exit status of the launched compressor
-	if ( ExitStatusFlag ) g_child_watch_add  ( child_pid , (GChildWatchFunc) ExitStatus , NULL );
-	return (gulong) child_pid;
+    return (gulong) child_pid;
 }
 
 GIOChannel *SetIOChannel (gint fd, GIOCondition cond, GIOFunc func, gpointer data)
@@ -819,7 +992,6 @@ GIOChannel *SetIOChannelEncondingNULL (gint fd, GIOCondition cond, GIOFunc func,
 	ioc = g_io_channel_unix_new ( fd );
 	g_io_add_watch (ioc, cond, func, data);
 	g_io_channel_set_encoding (ioc, NULL , NULL);
-	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	return ioc;
 }
 
@@ -832,7 +1004,6 @@ char *eat_spaces (char *line)
 		line++;
 	return line;
 }
-
 
 char *get_last_field (char *line,int last_field)
 {
@@ -851,7 +1022,7 @@ char *get_last_field (char *line,int last_field)
 		field = eat_spaces (field);
 	}
 	//The following line is mine, I replace the \n with the null terminated
-	field [ strlen(field) -1 ] = '\0';
+    if (field != NULL) field [ strlen(field) -1 ] = '\000';
 	return field;
 }
 
@@ -881,7 +1052,6 @@ char **split_line (char *line,int n_fields)
 			scan = eat_spaces (field_end);
 		}
 	}
-
 	return fields;
 }
 /* End code from File-Roller */
@@ -899,7 +1069,7 @@ void RemoveColumnsListStore()
 	g_list_free (columns);
 }
 
-void EmptyTextBuffer()
+void EmptyTextBuffer ()
 {
 	if (textbuf != NULL)
 	{
@@ -917,7 +1087,10 @@ void CreateListStore ( int nc, gchar *columns_names[] , GType columns_types[])
 	gtk_tree_view_set_rules_hint ( GTK_TREE_VIEW (treeview1) , TRUE );
 	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (treeview1) );
 	gtk_tree_selection_set_mode(sel, GTK_SELECTION_MULTIPLE);
-	g_signal_connect ((gpointer) sel, "changed", G_CALLBACK (Activate_delete_button), NULL);
+	g_signal_connect ((gpointer) sel, "changed", G_CALLBACK (Activate_buttons), NULL);
+    model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview1));
+    g_object_ref(model);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), NULL);
 	for (x = 0; x <= nc-1; x++)
 	{
 		renderer = gtk_cell_renderer_text_new ();
@@ -952,7 +1125,6 @@ void ShowShellOutput ()
 	gtk_container_add (GTK_CONTAINER(scrollwin), textview);
 	gtk_box_pack_start (GTK_BOX(vbox), scrollwin, TRUE, TRUE, 0);
 	gtk_container_add (GTK_CONTAINER(OutputWindow), vbox);
-
 	textbuf = gtk_text_view_get_buffer ( GTK_TEXT_VIEW(textview) );
 	gtk_text_buffer_get_start_iter (textbuf, &enditer);
 	gtk_text_buffer_create_tag (textbuf, "red_foreground","foreground", "red", NULL);
@@ -962,13 +1134,103 @@ void ShowShellOutput ()
 	gtk_widget_show (textview);
 }
 
+void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
+{
+    gchar *command = NULL;
+
+    if ( PasswordProtectedArchive )
+    {
+            Show_pwd_Window ( NULL , NULL );
+            if ( password == NULL) return;
+    }
+    extract_path = "/tmp/";
+    names = g_string_new ( "" );
+    GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
+    gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+    command = ChooseCommandtoExecute ( 0 );
+   	compressor_pid = SpawnAsyncProcess ( command , 0 , 0);
+    g_free ( command );
+	if ( compressor_pid == 0 )
+    {
+        g_string_free ( names , FALSE );
+        return;
+    }
+    SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
+    g_child_watch_add ( compressor_pid , (GChildWatchFunc) ViewFileFromArchive , names );
+}
+
+GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
+{
+    GIOChannel *ioc_view = NULL;
+    gchar *line = NULL;
+    gchar *filename = NULL;
+    GError *error = NULL;
+    gchar *string = NULL;
+    gboolean tofree = FALSE;
+
+    if ( WIFEXITED( status ) )
+    {   
+	    if ( WEXITSTATUS ( status ) )
+    	{
+	    	archive_error = TRUE;
+    		SetButtonState (1,1,0,0,0);
+	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to view the shell output ?") );
+            if (response == GTK_RESPONSE_YES) ShowShellOutput();
+            unlink ( data );
+			return;
+        }
+    }
+    string = StripPathFromFilename ( data->str );
+    if (  string == NULL )
+    {
+        data->str++;
+        filename = g_strconcat ( "/tmp/" , data->str , NULL );
+    }
+    else
+    {
+        if ( strchr ( string , ' ' ) )
+        {
+            string = RemoveBackSlashes ( string );
+            tofree = TRUE;
+        }
+        filename = g_strconcat ( "/tmp" , string , NULL );
+        if ( tofree ) g_free ( string );
+    }
+    if ( g_file_test ( filename , G_FILE_TEST_IS_DIR ) )
+    {
+       response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,	GTK_BUTTONS_OK,_("Please select a file, not a directory !") );
+        rmdir ( filename );
+        g_string_free ( data , FALSE );
+        g_free ( filename );
+        return;
+    }
+    view_window = view_win();
+	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
+    if (error == NULL) 
+    {
+        g_io_channel_set_encoding (ioc_view, "ISO8859-1" , NULL);
+        g_io_channel_set_flags ( ioc_view , G_IO_FLAG_NONBLOCK , NULL );
+        g_io_channel_read_to_end ( ioc_view , &line , NULL, NULL );
+        gtk_text_buffer_get_end_iter ( viewtextbuf, &viewenditer );
+        gtk_text_buffer_insert (viewtextbuf, &viewenditer, line, strlen ( line ) );
+        g_free ( line );
+        g_io_channel_shutdown ( ioc_view , TRUE , NULL );
+        g_io_channel_unref (ioc_view);
+    }
+    unlink ( filename );
+    gtk_widget_show (view_window);
+    g_free (filename);
+    g_string_free ( data , FALSE );
+}
+
 void Show_pwd_Window ( GtkMenuItem *menuitem , gpointer user_data )
 {
-    pwd_window = passwd_win ();
+    pwd_window = passwd_win();
     password_entry = lookup_widget ( pwd_window , "pwd_entry" );
     repeat_password = lookup_widget ( pwd_window , "entry2");
         
-	gtk_dialog_set_default_response (GTK_DIALOG (pwd_window), GTK_RESPONSE_OK);
+    gtk_dialog_set_default_response (GTK_DIALOG (pwd_window), GTK_RESPONSE_OK);
     done = FALSE;
 	while ( ! done )
 	{
@@ -978,11 +1240,11 @@ void Show_pwd_Window ( GtkMenuItem *menuitem , gpointer user_data )
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
             password = NULL;
-			break;
+            break;
 			
 			case GTK_RESPONSE_OK:
 			password  = g_strdup ( gtk_entry_get_text( GTK_ENTRY ( password_entry ) ) );
-            if ( strlen ( password ) == 0 || strlen(gtk_entry_get_text( GTK_ENTRY ( repeat_password )) ) == 0 )
+             if ( strlen ( password ) == 0 || strlen(gtk_entry_get_text( GTK_ENTRY ( repeat_password )) ) == 0 )
             {
                 response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Please type a password !") );
                 break;
@@ -1038,10 +1300,9 @@ gchar *EscapeBadChars ( gchar *string )
 	{
         	if (is_escaped_char(*p)) escapechars++;
 	        p++;
-    	}
+    }
 
-	if (!escapechars) return strdup(string);
-
+	if (!escapechars) return g_strdup(string);
 	escaped = (char *) malloc (strlen(string) + escapechars + 1);
 
 	p = string;
@@ -1057,20 +1318,29 @@ gchar *EscapeBadChars ( gchar *string )
 }
 //End code from xarchive
 
-void Activate_delete_button ()
+void Activate_buttons ()
 {
-	if ( archive_error || CurrentArchiveType == 9 ) return;
+	if ( archive_error ) return;
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
-	if (selected == 0 )
+	if (selected == 0 ) OffDeleteandViewButtons();
+    else
 	{
-		gtk_widget_set_sensitive (Delete_button , FALSE);
-		gtk_widget_set_sensitive ( delete_menu, FALSE);
-	}
-	else
-	{
-		gtk_widget_set_sensitive ( delete_menu , TRUE);
-		gtk_widget_set_sensitive (Delete_button , TRUE);
+        if ( CurrentArchiveType != 8 ) 
+        {
+            gtk_widget_set_sensitive ( delete_menu , TRUE );
+		    gtk_widget_set_sensitive ( Delete_button , TRUE );
+        }
+        if (selected > 1 || CurrentArchiveType == 8)
+        {
+            gtk_widget_set_sensitive ( View_button , FALSE);
+		    gtk_widget_set_sensitive ( view_menu, FALSE );
+        }
+        else
+        {
+            gtk_widget_set_sensitive ( View_button , TRUE );
+		    gtk_widget_set_sensitive ( view_menu, TRUE );
+        }
 	}
 }
 
@@ -1092,22 +1362,29 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 
 void ExtractAddDelete ( gchar *command )
 {
-	EmptyTextBuffer();
+	EmptyTextBuffer ();
 	compressor_pid = SpawnAsyncProcess ( command , 1 , 0);
 	if ( compressor_pid == 0 ) return;
+    gtk_widget_show ( viewport2 );
 	SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL , GenOutput, NULL );
 	SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL , GenError, NULL );
+    WaitExitStatus ( child_pid , NULL );
 }
 
+void Update_StatusBar ( gchar *msg)  
+{
+    gtk_label_set_text (GTK_LABEL (info_label), msg);
+}
 
 gboolean GenError (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		while (gtk_events_pending() )
-			gtk_main_iteration();
 		gchar *line = NULL;
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+        gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+        while (gtk_events_pending() )
+			gtk_main_iteration();
 		if (line != NULL && strcmp (line,"\n") )
 		{
 			gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
@@ -1119,7 +1396,6 @@ gboolean GenError (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
         g_io_channel_unref (ioc);
-		g_spawn_close_pid ( child_pid );
 		return FALSE;
 	}
 }
@@ -1129,13 +1405,14 @@ gboolean GenOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	gchar *line = NULL;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		while (gtk_events_pending() )
-			gtk_main_iteration();
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+        gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+        while (gtk_events_pending() )
+			gtk_main_iteration();
 		if (line != NULL )
 		{
-				gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-				g_free (line);
+			gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
+			g_free (line);
 		}
 	}
 	
@@ -1143,7 +1420,6 @@ gboolean GenOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 	    g_io_channel_shutdown ( ioc,TRUE,NULL );
         g_io_channel_unref (ioc);
-		g_spawn_close_pid ( child_pid );
 		return FALSE;
 	}
 	return TRUE;
@@ -1151,7 +1427,7 @@ gboolean GenOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 
 gchar *StripPathFromFilename ( gchar *name )
 {
-	return g_strrstr ( name , "/" );
+    return g_strrstr ( name , "/" );
 }
 
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path )
@@ -1160,3 +1436,38 @@ gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path )
 	full_path = g_strconcat (extract_path,path,NULL);
 	return full_path;
 }
+
+void OffDeleteandViewButtons()
+{
+    gtk_widget_set_sensitive ( Delete_button, FALSE);
+    gtk_widget_set_sensitive ( delete_menu, FALSE);
+    gtk_widget_set_sensitive ( View_button, FALSE);
+    gtk_widget_set_sensitive ( view_menu, FALSE);
+}
+
+int CountCharacter ( gchar *string , int chr )
+{
+    int n = 0;
+    while ( *string )
+    {
+        if ( *string == chr ) n++;
+        string++;
+    }
+    return n;    
+}
+
+gchar *RemoveBackSlashes ( gchar *name)
+{
+    gchar *nome, *q;
+    int x = CountCharacter ( name , '\\' );
+    nome = (char *) malloc (strlen(name) - x + 1);
+    q = nome;
+    while ( *name )
+    {
+        if ( *name == '\\' ) name++;
+        *q++ = *name++;
+    }
+    *q = '\000';
+    return nome;
+}
+

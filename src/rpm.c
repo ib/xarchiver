@@ -41,26 +41,25 @@ void OpenRPM ( gboolean mode , gchar *path )
     stream = fopen ( path , "r" );
 	if (stream == NULL)
     {
-        gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , path , g_strerror (errno) ); 
+        gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , path , strerror (errno) ); 
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg);
 		g_free (msg);
 		return;
     }
 	char *names[]= {(_("Filename")),(_("Permission")),(_("Links")),(_("Owner")),(_("Group")),(_("Size"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT};
 	CreateListStore ( 6, names , (GType *)types );
-
     if (fseek ( stream, 104 , SEEK_CUR ) )
     {
         fclose (stream);
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)g_strerror(errno));
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)strerror(errno));
         return;
     }
     if ( fread ( bytes, 1, 8, stream ) == 0 )
 	{
 		fclose ( stream );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)g_strerror(errno));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
 		return;
     }
     il = 256 * ( 256 * ( 256 * bytes[0] + bytes[1]) + bytes[2] ) + bytes[3];
@@ -70,13 +69,13 @@ void OpenRPM ( gboolean mode , gchar *path )
     if (fseek ( stream, offset  , SEEK_SET ) )
     {
         fclose (stream);
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)g_strerror(errno));
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
         return;
     }
     if ( fread ( bytes, 1, 8, stream ) == 0 )
 	{
 		fclose ( stream );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)g_strerror(errno));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
 		return;
     }
     il = 256 * ( 256 * ( 256 * bytes[0] + bytes[1]) + bytes[2] ) + bytes[3];
@@ -110,7 +109,9 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
     {   
 	    if ( WEXITSTATUS (status) )
     	{
-	    	archive_error = TRUE;
+            archive_error = TRUE;
+            Update_StatusBar ( _("Operation failed."));
+            gtk_widget_hide ( viewport2 );
     		SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the cpio archive\nfrom the rpm one. Do you want to view the shell output ?") );
@@ -131,12 +132,15 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
     {   
 	    if ( WEXITSTATUS ( exit_code ) )
     	{
-	    	archive_error = TRUE;
+            archive_error = TRUE;
+            Update_StatusBar ( _("Operation failed."));
+            gtk_widget_hide ( viewport2 );
     		SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive.\nDo you want to view the shell output ?") );
             if (response == GTK_RESPONSE_YES) ShowShellOutput();
             unlink ( tmp );
+            unlink ( data );
             g_free (tmp);
             return;
     	}
@@ -161,11 +165,10 @@ void SpawnCPIO ( gchar *command , gchar* tmp , gboolean add_flag , gboolean inpu
     SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL , GenError, NULL );
     SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL , ReadCPIOOutput, NULL );
     input_ioc = SetIOChannelEncondingNULL (input_fd, G_IO_IN|G_IO_OUT|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL , WriteCPIOInput, NULL);
-
     ioc_cpio = g_io_channel_new_file ( tmp , "r" , NULL );
 	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
     g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
-    g_child_watch_add ( compressor_pid , (GChildWatchFunc) ExitStatus , NULL );
+    WaitExitStatus ( compressor_pid , NULL );
 }
 
 //input pipe
@@ -173,13 +176,17 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
     if (cond & (G_IO_IN | G_IO_PRI | G_IO_OUT) )
     {
+        gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+            while (gtk_events_pending() )
+			    gtk_main_iteration();
+            
         //Doing so I write to the input pipe of the g_spawned "cpio -tv" so to produce the list of archived files
         status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error );
         //g_print ("Read status: %d\t",status);
         if ( status != G_IO_STATUS_EOF)
         {
             status = g_io_channel_write_chars ( ioc , buffer , bytes_read , &bytes_written , &error );
-            //g_print ("Red: %d\tWritten:%d\n",bytes_read,count);
+            //g_print ("Read: %d\tWritten:%d\n",bytes_read,count);
             while ( bytes_read != bytes_written )
             {
                 status = g_io_channel_write_chars ( ioc , buffer + bytes_written , bytes_read - bytes_written , &bytes_written , &error );
@@ -207,27 +214,28 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 //output pipe
 gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-    num_cols = 0;
-	gchar **fields;
-    gchar *line;
-    gchar *filename;
+	gchar **fields = NULL;
+    gchar *line = NULL;
+    gchar *filename = NULL;
     //Is there output from "cpio -tv" to read ?
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
+        gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+            while (gtk_events_pending() )
+			    gtk_main_iteration();
 		g_io_channel_read_line ( ioc, &line, NULL, NULL , NULL );
 		if (line == NULL) return TRUE;
         gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-		fields = split_line (line,5);
-		filename = get_last_field (line,8);
+		fields = split_line (line , 5);
+		filename = get_last_field (line , 9);
 		gtk_list_store_append (liststore, &iter);
         if ( filename[strlen(filename) - 1] != '/')
 		{
 		    for ( x = 0; x < 5; x++)
 			{
-				gtk_list_store_set (liststore, &iter,num_cols+1,fields[x],-1);
-				num_cols++;
+                if ( (x+1) == 5) gtk_list_store_set (liststore, &iter,x+1,atoi(fields[x]),-1);
+                    else gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
 			}
-            filename = strchr (filename, '.');
             gtk_list_store_set (liststore, &iter,0,filename,-1);
 		}
 		g_strfreev ( fields );
@@ -237,8 +245,7 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
         CloseChannels ( ioc );
-        g_spawn_close_pid ( child_pid );
-		return FALSE;
+	    return FALSE;
 	}
 }
 

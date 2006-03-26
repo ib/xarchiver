@@ -108,6 +108,15 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (delete_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), delete_menu);
 
+  view_menu = gtk_image_menu_item_new_with_mnemonic (_("View"));
+  gtk_widget_show (view_menu);
+  gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_menu);
+  gtk_widget_set_sensitive (view_menu, FALSE);
+
+  image2 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
+  gtk_widget_show (image2);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_menu), image2);
+
   separatormenuitem3 = gtk_separator_menu_item_new ();
   gtk_widget_show (separatormenuitem3);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
@@ -175,16 +184,7 @@ GtkWidget *create_MainWindow (void)
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Open_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Open_button);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Open_button), tooltips, _("Open an archive"), NULL);
-/*
-  tmp_image = gtk_image_new_from_stock ("gtk-close", tmp_toolbar_icon_size);
-  gtk_widget_show (tmp_image);
-  Close_button = (GtkWidget*) gtk_tool_button_new (tmp_image, "Close");
-  gtk_widget_set_name (Close_button, "Close_button");
-  gtk_widget_show (Close_button);
-  gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Close_button), FALSE);
-  gtk_container_add (GTK_CONTAINER (toolbar1), Close_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Close_button), tooltips, "Close the current archive", NULL);
-*/
+
   separatortoolitem1 = (GtkWidget*) gtk_separator_tool_item_new ();
   gtk_widget_set_name (separatortoolitem1, "separatortoolitem1");
   gtk_widget_show (separatortoolitem1);
@@ -232,6 +232,16 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (toolbar1), Delete_button);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Delete_button), tooltips, _("Delete files from the current archive"), NULL);
 
+  tmp_image = gtk_image_new_from_stock ("gtk-find", tmp_toolbar_icon_size);
+  gtk_widget_show (tmp_image);
+  View_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("View"));
+  gtk_widget_set_name (View_button, "View_button");
+  gtk_widget_show (View_button);
+  gtk_widget_set_sensitive (View_button,FALSE);
+  gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (View_button), FALSE);
+  gtk_container_add (GTK_CONTAINER (toolbar1), View_button);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (View_button), tooltips, _("View file content in the current archive"), NULL);
+
   separatortoolitem3 = (GtkWidget*) gtk_separator_tool_item_new ();
   gtk_widget_set_name (separatortoolitem3, "separatortoolitem3");
   gtk_widget_show (separatortoolitem3);
@@ -241,18 +251,55 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_set_name ( scrolledwindow1, "scrolledwindow1");
   gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow1) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
   gtk_widget_show (scrolledwindow1);
-  gtk_box_pack_start (GTK_BOX (vbox1), scrolledwindow1, TRUE, TRUE, 0);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
-
+  
   treeview1 = gtk_tree_view_new ();
   gtk_widget_set_name (treeview1, "treeview1");
   gtk_widget_show (treeview1);
   gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview1);
 
-  statusbar1 = gtk_statusbar_new ();
-  gtk_widget_set_name (statusbar1, "statusbar1");
-  gtk_widget_show (statusbar1);
-  gtk_box_pack_start (GTK_BOX (vbox1), statusbar1, FALSE, FALSE, 0);
+  vbox_body = gtk_vbox_new (FALSE, 2);
+  gtk_widget_show (vbox_body);
+  gtk_container_set_border_width (GTK_CONTAINER(vbox_body), 2);
+  gtk_box_pack_start(GTK_BOX(vbox1), vbox_body, TRUE, TRUE, 0);
+
+  gtk_box_pack_start (GTK_BOX (vbox_body), scrolledwindow1, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
+
+  hbox_sb = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox_sb);
+  gtk_box_pack_start (GTK_BOX (vbox_body), hbox_sb, FALSE, TRUE, 0);
+
+  viewport1 = gtk_viewport_new (NULL, NULL);
+  gtk_widget_show (viewport1);
+  gtk_box_pack_start (GTK_BOX (hbox_sb), viewport1, TRUE, TRUE, 0);
+
+  info_label = gtk_label_new (NULL);
+  gtk_misc_set_alignment (GTK_MISC(info_label), 0.0, 0.5);
+  gtk_widget_show (info_label);
+  gtk_container_add (GTK_CONTAINER (viewport1), info_label);
+  
+  viewport2 = gtk_viewport_new (NULL, NULL);
+  //gtk_widget_show (viewport2);
+  gtk_box_pack_start (GTK_BOX (hbox_sb), viewport2, TRUE, TRUE, 0);
+
+  progressbar = gtk_progress_bar_new ();
+  gtk_widget_show (progressbar);
+  gtk_widget_set_size_request(progressbar, 80, 1);
+  gtk_container_add (GTK_CONTAINER (viewport2), progressbar);
+
+  viewport3 = gtk_viewport_new (NULL, NULL);
+  gtk_widget_show (viewport3);
+  gtk_box_pack_start (GTK_BOX (hbox_sb), viewport3, FALSE, TRUE, 0);
+
+  ebox = gtk_event_box_new();
+  pad_image = create_pixmap (viewport3, "padlock.png");
+  gtk_container_add (GTK_CONTAINER(ebox), pad_image);
+  gtk_widget_show (ebox);
+  gtk_container_add (GTK_CONTAINER (viewport3), ebox);
+  gtk_widget_set_size_request(ebox, 15, -1);
+  pad_tooltip = gtk_tooltips_new ();
+  gtk_tooltips_set_tip (pad_tooltip , ebox , _("This archive contains password protected files"), NULL );
+  gtk_tooltips_disable ( pad_tooltip );
 
   g_signal_connect ((gpointer) new1, "activate",
                     G_CALLBACK (on_new1_activate),
@@ -281,6 +328,9 @@ GtkWidget *create_MainWindow (void)
    g_signal_connect ((gpointer) delete_menu, "activate",
                     G_CALLBACK (on_delete1_activate),
                     NULL);
+  g_signal_connect ((gpointer) view_menu, "activate",
+                    G_CALLBACK (View_File_Window),
+                    NULL);
   g_signal_connect ((gpointer) about1, "activate",
                     G_CALLBACK (on_about1_activate),
                     NULL);
@@ -302,8 +352,10 @@ GtkWidget *create_MainWindow (void)
   g_signal_connect ((gpointer) Delete_button, "clicked",
                     G_CALLBACK (on_delete1_activate),
                     NULL);
- 		  
-		      
+  g_signal_connect ((gpointer) View_button, "clicked",
+                    G_CALLBACK (View_File_Window),
+                    NULL);
+
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (MainWindow, MainWindow, "MainWindow");
   GLADE_HOOKUP_OBJECT (MainWindow, vbox1, "vbox1");
@@ -318,7 +370,6 @@ GtkWidget *create_MainWindow (void)
   GLADE_HOOKUP_OBJECT (MainWindow, menuitem2_menu, "menuitem2_menu");
   GLADE_HOOKUP_OBJECT (MainWindow, delete_menu, "delete_menu");
   GLADE_HOOKUP_OBJECT (MainWindow, view_shell_output1, "view_shell_output1");
-  GLADE_HOOKUP_OBJECT (MainWindow, image1, "image1");
   GLADE_HOOKUP_OBJECT (MainWindow, image2, "image2");
   GLADE_HOOKUP_OBJECT (MainWindow, menuitem4, "menuitem4");
   GLADE_HOOKUP_OBJECT (MainWindow, menuitem4_menu, "menuitem4_menu");
@@ -333,9 +384,7 @@ GtkWidget *create_MainWindow (void)
   GLADE_HOOKUP_OBJECT (MainWindow, separatortoolitem3, "separatortoolitem3");
   GLADE_HOOKUP_OBJECT (MainWindow, scrolledwindow1, "scrolledwindow1");
   GLADE_HOOKUP_OBJECT (MainWindow, treeview1, "treeview1");
-  GLADE_HOOKUP_OBJECT (MainWindow, statusbar1, "statusbar1");
   GLADE_HOOKUP_OBJECT_NO_REF (MainWindow, tooltips, "tooltips");
-
   gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
 
   return MainWindow;
@@ -554,7 +603,39 @@ GtkWidget *passwd_win ()
   GLADE_HOOKUP_OBJECT_NO_REF (passwd, dialog_action_area1, "dialog_action_area1");
   GLADE_HOOKUP_OBJECT (passwd, cancelbutton1, "cancelbutton1");
   GLADE_HOOKUP_OBJECT (passwd, okbutton1, "okbutton1");
-
   return passwd;
 }
- 
+
+GtkWidget *view_win ()
+{
+  GtkWidget *view_window;
+  GtkWidget *scrolledwindow2;
+
+  view_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title (GTK_WINDOW (view_window), _("View File Window"));
+  gtk_window_set_destroy_with_parent (GTK_WINDOW (view_window), TRUE);
+  gtk_window_set_type_hint (GTK_WINDOW (view_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+  gtk_window_set_position (GTK_WINDOW (view_window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size(GTK_WINDOW (view_window), 450, 300);
+  gtk_window_set_modal ( GTK_WINDOW (view_window),TRUE);
+  scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_widget_show (scrolledwindow2);
+  gtk_container_add (GTK_CONTAINER (view_window), scrolledwindow2);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow2), GTK_SHADOW_IN);
+  gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow2) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+
+  textview1 = gtk_text_view_new ();
+  gtk_widget_show (textview1);
+  gtk_container_add (GTK_CONTAINER (scrolledwindow2), textview1);
+  gtk_container_set_border_width (GTK_CONTAINER (textview1), 5);
+  gtk_text_view_set_editable (GTK_TEXT_VIEW (textview1), FALSE);
+  gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview1), FALSE);
+  viewtextbuf = gtk_text_view_get_buffer ( GTK_TEXT_VIEW (textview1) );
+  gtk_text_buffer_get_start_iter (viewtextbuf, &viewenditer);
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (view_window, view_window, "view_window");
+  GLADE_HOOKUP_OBJECT (view_window, scrolledwindow2, "scrolledwindow2");
+  GLADE_HOOKUP_OBJECT (view_window, textview1, "textview1");
+  return view_window;
+}
+

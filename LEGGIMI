@@ -1,10 +1,7 @@
-Xarchiver 0.2.1
+Xarchiver 0.3
 
-Questa Ã¨solamente  una vrsione di bug fix, leggi il file ChangeLog per sapere i bug fix.
-
-Per creare un archivio protetto da una password, crea prima un nuovo archivio 
-zip o rar, DOPO scegli Action->Set Password. Tutti i files aggiunti in seguito
-all'archivio verranno crittati con la password corrente.
+Questa versione aggiunge il supporto agli archivi .7z e .arj se 7za e arj sono¨ 
+installatoi Leggi il file Changelog per le note di rilascio complete.
 
 Per compilare xarchiver:
 ./configure --prefix=/usr

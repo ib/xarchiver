@@ -18,15 +18,15 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
  
-#ifndef RAR_H
-#define RAR_H
+#ifndef ARJ_H
+#define ARJ_H
 
  #include <gtk/gtk.h>
- #include "interface.h"
  #include "callbacks.h"
+ #include "interface.h"
+ #include "support.h"
  #include "main.h"
 
-gboolean jump_header;
-void OpenRar ( gboolean mode , gchar *path );
-static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
+void OpenArj ( gboolean mode , gchar *path );
+static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 #endif
