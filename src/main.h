@@ -27,6 +27,7 @@
 GtkWidget *MainWindow;
 GList *ArchiveSuffix;
 GList *ArchiveType;
+GOptionContext *context;
 
 void GetAvailableCompressors();
 void SetButtonState ( gboolean, gboolean,gboolean,gboolean,gboolean );

@@ -25,7 +25,16 @@
 #include "callbacks.h"
 
 extern gchar *path;
+GError *cl_error = NULL;
 gboolean file_to_open;
+
+static GOptionEntry entries[] = {
+  { "extract-to=FOLDER", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, "Extract the archive to the specified folder and quits.", NULL },
+  { "extract", 'e', 0, G_OPTION_ARG_NONE, NULL, "Extract the archive by asking the destination folder and quits.", NULL },
+  { "add-to=ARCHIVE", 'd', 0, G_OPTION_ARG_FILENAME, &path, "Add files to the specified archive and quits.", NULL },
+  { "add", 'a', 0, G_OPTION_ARG_NONE, NULL, "Add files asking the name of the archive and quits.", NULL },
+  { NULL }
+};
 
 int main (int argc, char *argv[])
 {
@@ -37,12 +46,19 @@ int main (int argc, char *argv[])
   gtk_set_locale();
   gtk_init (&argc, &argv);
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
-  int param = 1;
-  while (param < argc)
-  {
-	if ( ! ParseCommandLine (argv[param++]) ) return 0;
-  }
+  
+  context = g_option_context_new ("[archive to open]");
+  g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
+  g_option_context_add_group (context, gtk_get_option_group (FALSE));
+  if ( ! g_option_context_parse (context, &argc, &argv, &cl_error) )
+    {
+        g_print (_("xarchiver: %s\nTry xarchiver --help for more information.\n"),cl_error->message);
+        g_error_free (cl_error);
+        return 0;
+    }
+ 
   GetAvailableCompressors();
+  g_option_context_free ( context );
   ArchiveSuffix = g_list_reverse (ArchiveSuffix);
   ArchiveType = g_list_reverse (ArchiveType);
   CurrentArchiveType = -1;
@@ -55,8 +71,12 @@ int main (int argc, char *argv[])
   gtk_widget_show (MainWindow);
   SetButtonState (1,1,0,0,0);
   Update_StatusBar ( _("Ready."));
-  if (file_to_open) on_open1_activate ( NULL , path);
-    else path = NULL;
+  if ( argc == 2)
+    {
+        path = g_strdup( argv[1] );
+        on_open1_activate ( NULL , path);
+    }
+  else path = NULL; 
   gtk_main ();
   g_list_free ( ArchiveSuffix);
   g_list_free ( ArchiveType);
@@ -180,12 +200,7 @@ gboolean ParseCommandLine (char *param)
 			return FALSE;
 		}
 	}
-	else
-	{
-		file_to_open = TRUE;
-        path = g_strdup(param);
-		return TRUE;
-	}
+	
 	g_print (_("xarchiver: invalid option %s\nTry xarchiver -h for more information.\n"),param);
 	return FALSE;
 }
