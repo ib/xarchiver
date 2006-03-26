@@ -32,30 +32,22 @@ void OpenGzip ( gboolean mode , gchar *path)
 		compressor_pid = SpawnAsyncProcess ( command , 1 , 0 );
 		g_free ( command );
 		if ( compressor_pid == 0 ) return;
+        dummy_size = 0;
+        number_of_files = 0;
+        number_of_dirs = 0;
 		char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT,G_TYPE_STRING,G_TYPE_STRING};
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
 		CreateListStore ( 6, names , (GType *)types );
         SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,Bzip2Output, (gpointer) mode );
 		SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
         CurrentArchiveType = 5;
         WaitExitStatus ( compressor_pid , NULL );
 	}
-		
 	else 
 	{
-        Update_StatusBar ( _("Waiting for user input..."));
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("You selected a gzip compressed file.\nDo you want to extract it now ?") );
-		if (response == GTK_RESPONSE_YES)
-        {
-            bz_gz = TRUE;
-            Bzip2Extract ( 1 );
-        }
-        else
-        {
-            Update_StatusBar ( _("Operation aborted."));
-            OffTooltipPadlock();
-        }
-	}
+        bz_gz = TRUE;
+        Bzip2Extract ( 1 );
+    }
 }
 
 

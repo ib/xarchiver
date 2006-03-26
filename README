@@ -1,10 +1,10 @@
-Xarchiver 0.3.1
+Xarchiver 0.4
 
 To compile xarchiver:
 ./configure --prefix=/usr
 make
 
-become root
+become root with command su
 make install
 
 That's all, enjoy handling archives without GNOME or KDE libs !

@@ -1,10 +1,10 @@
-Xarchiver 0.3.1
+Xarchiver 0.4
 
 Per compilare xarchiver:
 ./configure --prefix=/usr
 make
 
-diventa root:
+diventa root con il comando su
 make install
 
 Questo e' tutto, SENZA le librerie di GNOME o KDE puoi gestire i tuoi archivi grazie a Xarchiver !

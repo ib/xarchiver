@@ -18,19 +18,13 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
  
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
+#include "config.h"
 #include "main.h"
 #include "interface.h"
 #include "support.h"
 #include "callbacks.h"
 
 extern gchar *path;
-
-GList *ArchiveSuffix = NULL;
-GList *ArchiveType = NULL;
 gboolean file_to_open;
 
 int main (int argc, char *argv[])
@@ -51,15 +45,18 @@ int main (int argc, char *argv[])
   GetAvailableCompressors();
   ArchiveSuffix = g_list_reverse (ArchiveSuffix);
   ArchiveType = g_list_reverse (ArchiveType);
+  CurrentArchiveType = -1;
+  Files_to_Add = NULL;
   MainWindow = create_MainWindow ();
-  ShowShellOutput();
+  ShowShellOutput (NULL,FALSE);
   gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
   gtk_window_set_default_size( GTK_WINDOW(MainWindow), 600, 400);
   g_signal_connect (MainWindow, "delete_event", G_CALLBACK (on_quit1_activate), NULL);
   gtk_widget_show (MainWindow);
   SetButtonState (1,1,0,0,0);
   Update_StatusBar ( _("Ready."));
-  if (file_to_open) on_open1_activate ( NULL , NULL);
+  if (file_to_open) on_open1_activate ( NULL , path);
+    else path = NULL;
   gtk_main ();
   g_list_free ( ArchiveSuffix);
   g_list_free ( ArchiveType);
@@ -90,7 +87,13 @@ void GetAvailableCompressors()
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.gz");
 	}
 
-	if ( g_find_program_in_path("rar"))
+	if ( g_find_program_in_path("mkisofs"))
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, ".iso");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
+	}
+
+    if ( g_find_program_in_path("rar"))
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
@@ -137,7 +140,9 @@ void GetAvailableCompressors()
 void SetButtonState (gboolean New, gboolean Open,gboolean AddFile,gboolean AddFolder,gboolean Extract)
 {
 	gtk_widget_set_sensitive ( New_button, New);
+    gtk_widget_set_sensitive ( new1, New);
 	gtk_widget_set_sensitive ( Open_button, Open);
+    gtk_widget_set_sensitive ( open1, Open);
 	gtk_widget_set_sensitive ( AddFile_button, AddFile);
 	gtk_widget_set_sensitive ( addfile, AddFile);
 	gtk_widget_set_sensitive ( addfolder, AddFolder);
@@ -178,7 +183,7 @@ gboolean ParseCommandLine (char *param)
 	else
 	{
 		file_to_open = TRUE;
-		path = param;
+        path = g_strdup(param);
 		return TRUE;
 	}
 	g_print (_("xarchiver: invalid option %s\nTry xarchiver -h for more information.\n"),param);

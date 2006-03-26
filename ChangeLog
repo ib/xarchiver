@@ -1,13 +1,37 @@
 Xarchiver changelog:
 
+xx/03/06 - 0.4:
+		- Added a Stop button who cancels the current operation or you can use the ESC key.
+		- Added ability to test archives.
+		- Added an archive properties window showing useful info about the archive and its content.
+		- "Row selection while you type" ability. Useful when you have thousand of files inside the archive.
+		- The extract dialog is closed before spawning the command line archiver.
+                - The extract dialog remembers the last used path.
+                - The Enter key can be also used with the password and extract dialogs.
+		- You can use accelerators (keyboard shortcuts) for almost the menu entries.
+		- The Del key can also be used instead of the Delete button on the toolbar.
+		- Removed the confirmation dialog when opening bzip2 and gzip compressed files.
+		- Added a confirmation dialog when deleting files from the archive.
+		- Finally fixed bug randomly causing rar and arj output badly appears.
+		- Improved detection of some tar archives without magic header.
+		- Finally fixed bug randomly causing tar.bz2 and tar.gz archives to be corrupted when deleting files from them.
+		- Fixed some memory leaks. If you find others please let me know.
+		- Fixed bug causing filenames with spaces in arj archives appear truncated in Xarchiver windowÂ.
+		- Fixed a bug preventing the file dialog to select more than one file when adding to arj archives. 
+		- Fixed a bug cause a tar.gz archive changing to tar.bz2 when deleting files.
+		- Fixed progress bar not appearing when adding only one big file to an archive.
+		- Fixed a bug causing Xarchiver to hang when opening empty zip archives.
+		- Fixed a bug causing Xarchiver to exit when opening a not supported archive directly from the command line.
+		- Fixed a bug preventing Xarchiver to compress files with bzip2 or gzip.
+
 09/01/06 - 0.3.1 a bug fix release no new features:
-		- Some code cleanup.
-		- Fixed bug in detecting arj password protected archives.
-		- Fixed a memory leak with the string who contains the extract_path.
-		- Fixed detection of bzip2 causing Xarchiver to recognize only 900k block size compressed files.
-		- Fixed a regression causing bzip2 and gunzip to remain as zombie processes.
-		- Fixed bug causing Xarchiver to emit a seg fault when the X button is pressed while it is working. 
-		- Fixed a regression causing Xarchiver not supporting creation of tar.bz2 and tar.gz archives.
+                - Some code cleanup.
+                - Fixed bug in detecting arj password protected archives.
+                - Fixed a memory leak with the string who contains the extract_path.
+                - Fixed detection of bzip2 causing Xarchiver to recognize only 900k block size compressed files.
+                - Fixed a regression causing bzip2 and gunzip to remain as zombie processes.
+                - Fixed bug causing Xarchiver to emit a seg fault when the X button is pressed while it is working.
+                - Fixed a regression causing Xarchiver not supporting creation of tar.bz2 and tar.gz archives.
 
 16/12/05 - 0.3:
 		- 7z and arj (also password protected) formats are supported if you have 7za and arj installed. 7z password
@@ -17,8 +41,8 @@ Xarchiver changelog:
 		- The size columns are treated as uint instead as string so that sorting by size is possible now.
 		- The bottom window is now used for reporting messages to the user.
 		- Added a progress bar that shows the archive's operation progress.
-		- Greatly improved the zip password detection; if a an archive contains 10 files and only the last one is password 
-		  protected Xarchiver will detect it (the same for arj).
+		- Greatly improved the zip password detection; if an archive contains 10 files and only the last one is password 
+		  protected Xarchiver will detect it (the same is true for arj).
 		- When you open or create a password protected archive a small padlock is shown in the window bottom right.
 		- Fixed an occasional crash when opening zip archives.
 		- Fixed a bug causing filenames of rpm archive not displayed correctly.

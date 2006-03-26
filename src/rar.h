@@ -26,7 +26,7 @@
  #include "callbacks.h"
  #include "main.h"
 
-gboolean jump_header;
+gboolean jump_header , odd_line;
 void OpenRar ( gboolean mode , gchar *path );
 static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 #endif

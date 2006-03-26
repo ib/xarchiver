@@ -1,0 +1,25 @@
+Q. Why ace archives are not supported ?
+
+A. Because on some strange reasons there is no support on Linux for creating archives, only extraction with unace. When they will 
+develop full support for ace archives I will add it to Xarchiver.
+
+Q. How can I create an archive with some files password protected and others not ?
+
+A. First of all choose 'New' and select one of arj, 7zip, rar, zip archive formats and add the files you DON'T want to protect first. 
+Then choose 'Set Password' from Action menu and type your password. From now on all the files you add to the archive will be password 
+protected.
+
+Q. Why does Xarchiver emit this error message when handling tar archives ?
+
+        tar: Skipping to next header
+        tar: Error exit delayed from previous errors
+
+A. Xarchiver it's only a frontend who runs the archiver and reports ITS error messages. Most probably you are opening an archive 
+produced with older versions of tar than the one you are currently using.
+
+Q.When I try to view a file in a tar archive I get this:
+
+        tar: unrecognized option `--strip-components=2'
+        Try `tar --help' for more information.
+
+A. You are using an older version of tar, please upgrade at least to 1.15.

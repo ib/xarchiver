@@ -1,9 +1,9 @@
 
 [Desktop Entry]
 Name=Xarchiver
-Version=0.3.1
+Version=0.4
 Comment=A GTK+2 only archive manager
-Comment[de]=Ein GTK++2 archivmanager
+Comment[de]=Ein auf GTK+2 basierender Archivmanager
 Comment[ru]=Менеджер архивов на GTK+2
 Exec=xarchiver
 Icon=xarchiver.png
@@ -13,4 +13,4 @@ X-MultipleArgs=false
 Categories=GTK;Application;Utility;
 Encoding=UTF-8
 StartupNotify=true
-MimeType=application/x-bzip;application/x-bzip-compressed-tar;application/x-gzip;application/x-rar;application/x-rar-compressed;application/x-tar;application/x-zip;application/x-zip-compressed;application/zip;multipart/x-zip;application/x-7z-compressed;x-arj-compressed;
+MimeType=application/x-arj;application/arj;application/x-bzip;application/x-bzip-compressed-tar;application/x-gzip;application/x-rar;application/x-rar-compressed;application/x-tar;application/x-zip;application/x-zip-compressed;application/zip;multipart/x-zip;application/x-7z-compressed;

@@ -22,6 +22,7 @@
 #define RPM_H
 
  #include <gtk/gtk.h>
+ #include <signal.h>
  #include "callbacks.h"
  #include "interface.h"
  #include "support.h"

@@ -19,6 +19,7 @@ xarchiver_SOURCES = \
 	bzip2.c bzip2.h \
 	gzip.c gzip.h \
 	tar.c tar.h \
+	iso.c iso.h \
 	7zip.c 7zip.h
  
 xarchiver_LDADD = @PACKAGE_LIBS@

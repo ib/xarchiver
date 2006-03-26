@@ -20,7 +20,7 @@
  
 #include "rpm.h"
  
-extern int input_fd , output_fd , error_fd, child_pid;
+extern int input_fd , output_fd , error_fd;
 FILE *stream;
 int fd;
 gchar *tmp = NULL;
@@ -37,8 +37,9 @@ void OpenRPM ( gboolean mode , gchar *path )
     int dl,il,sigsize,offset;
     gchar ibs[4];
     
+    signal (SIGPIPE, SIG_IGN);
     action = inactive;
-    stream = fopen ( path , "r" );
+    stream = fopen ( removed_bs_path , "r" );
 	if (stream == NULL)
     {
         gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , path , strerror (errno) ); 
@@ -47,8 +48,11 @@ void OpenRPM ( gboolean mode , gchar *path )
 		g_free (msg);
 		return;
     }
+    dummy_size = 0;
+    number_of_files = 0;
+    number_of_dirs = 0;
 	char *names[]= {(_("Filename")),(_("Permission")),(_("Links")),(_("Owner")),(_("Group")),(_("Size"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64};
 	CreateListStore ( 6, names , (GType *)types );
     if (fseek ( stream, 104 , SEEK_CUR ) )
     {
@@ -115,7 +119,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
     		SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the cpio archive\nfrom the rpm one. Do you want to view the shell output ?") );
-            if (response == GTK_RESPONSE_YES) ShowShellOutput();
+            if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL,FALSE);
             unlink ( tmp );
             g_free (tmp);
             return;
@@ -123,7 +127,8 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
     }
     if ( DetectArchiveType ( data ) == 1) tmp = OpenTempFile ( 1 , data );
         else tmp = OpenTempFile ( 0 , data );
-    g_child_watch_add ( compressor_pid , (GChildWatchFunc) OpenCPIO , data );
+    if (tmp != NULL) g_child_watch_add ( compressor_pid , (GChildWatchFunc) OpenCPIO , data );
+        else return;
 }
 
 GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
@@ -138,7 +143,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
     		SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive.\nDo you want to view the shell output ?") );
-            if (response == GTK_RESPONSE_YES) ShowShellOutput();
+            if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL,FALSE);
             unlink ( tmp );
             unlink ( data );
             g_free (tmp);
@@ -183,9 +188,15 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
         //Doing so I write to the input pipe of the g_spawned "cpio -tv" so to produce the list of archived files
         status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error );
         //g_print ("Read status: %d\t",status);
-        if ( status != G_IO_STATUS_EOF)
+        if ( status != G_IO_STATUS_EOF )
         {
             status = g_io_channel_write_chars ( ioc , buffer , bytes_read , &bytes_written , &error );
+             if (status == G_IO_STATUS_ERROR) 
+            {
+                CloseChannels ( ioc_cpio );
+                CloseChannels ( ioc );
+		        return FALSE; 
+            }
             //g_print ("Read: %d\tWritten:%d\n",bytes_read,count);
             while ( bytes_read != bytes_written )
             {
@@ -228,16 +239,21 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
         gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
 		fields = split_line (line , 5);
 		filename = get_last_field (line , 9);
-		gtk_list_store_append (liststore, &iter);
-        if ( filename[strlen(filename) - 1] != '/')
+        gtk_list_store_append (liststore, &iter);
+        if ( g_str_has_prefix(fields[0] , "d") == FALSE) number_of_files++;
+            else number_of_dirs++;
 		{
 		    for ( x = 0; x < 5; x++)
 			{
-                if ( (x+1) == 5) gtk_list_store_set (liststore, &iter,x+1,atoi(fields[x]),-1);
+                if ( (x+1) == 5) gtk_list_store_set (liststore, &iter,x+1,atoll(fields[x]),-1);
                     else gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
 			}
+            dummy_size += atoll(fields[4]);
             gtk_list_store_set (liststore, &iter,0,filename,-1);
 		}
+        gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+        while (gtk_events_pending() )
+		    gtk_main_iteration();
 		g_strfreev ( fields );
         g_free (line);
 		return TRUE;
