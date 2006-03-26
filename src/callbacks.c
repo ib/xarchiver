@@ -130,6 +130,7 @@ void on_new1_activate (GtkMenuItem *menuitem, gpointer user_data)
 		}
         unlink ( path );
 	}
+    PasswordProtectedArchive = FALSE;
     //This to delete a CPIO temp file in /tmp if existing
     if ( tmp != NULL )
     {
@@ -152,7 +153,7 @@ void on_new1_activate (GtkMenuItem *menuitem, gpointer user_data)
         SetButtonState (1,1,1,1,0 );
         bz_gz = FALSE;
     }
-    if ( CurrentArchiveType == 2 || CurrentArchiveType == 7 || CurrentArchiveType == 8) gtk_widget_set_sensitive ( add_pwd , TRUE );
+    if ( CurrentArchiveType == 2 || CurrentArchiveType == 7 || CurrentArchiveType == 8 ) gtk_widget_set_sensitive ( add_pwd , TRUE );
         else gtk_widget_set_sensitive ( add_pwd , FALSE );
     if (password != NULL) g_free (password);
     password = NULL;
@@ -182,6 +183,7 @@ void on_open1_activate (GtkMenuItem *menuitem, gpointer user_data)
 		EmptyTextBuffer();
 	}
     if ( CurrentArchiveType == 9 ) unlink (tmp);
+    PasswordProtectedArchive = FALSE;
 	CurrentArchiveType = DetectArchiveType ( path );
 	path = EscapeBadChars ( path );
 	bz_gz = FALSE;
@@ -211,7 +213,7 @@ void on_open1_activate (GtkMenuItem *menuitem, gpointer user_data)
         OpenRPM ( TRUE , path );
         break;
 	}
-    if ( CurrentArchiveType == 2 || CurrentArchiveType == 7 || CurrentArchiveType == 8) gtk_widget_set_sensitive ( add_pwd , TRUE );
+    if ( CurrentArchiveType == 2 || CurrentArchiveType == 7 || CurrentArchiveType == 8 ) gtk_widget_set_sensitive ( add_pwd , TRUE );
         else gtk_widget_set_sensitive ( add_pwd , FALSE );
     if (password != NULL) g_free (password);
     password = NULL;
@@ -223,6 +225,12 @@ void on_quit1_activate (GtkMenuItem *menuitem, gpointer user_data)
 	g_list_free ( Suffix);
 	g_list_free ( Name);
 	if ( path != NULL) g_free (path);
+    //This to delete a CPIO temp file in /tmp if existing
+    if ( tmp != NULL )
+    {
+        unlink (tmp);
+        tmp = NULL;
+    }
 	gtk_main_quit();
 }
 
@@ -354,7 +362,7 @@ void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
     if ( PasswordProtectedArchive )
     {
             Show_pwd_Window ( NULL , NULL );
-            if ( password == NULL) return;
+            if ( password == NULL ) return;
     }
     done = FALSE;
     while ( ! done )
@@ -410,10 +418,10 @@ void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
 
                         case 9:
                         chdir ( extract_path );
-                        SpawnCPIO ( "cpio -id" , tmp , 0 , 1 );
+                        SpawnCPIO ( "cpio -ivd" , tmp , 0 , 1 );
                         break;
 					}
-                    if ( ! CurrentArchiveType == 9)
+                    if ( command != NULL )
                     {
                         ExtractAddDelete ( command );
                         g_free (command); 
@@ -460,12 +468,13 @@ void on_extract1_activate ( GtkMenuItem *menuitem , gpointer user_data )
                         
                         case 9:
                         chdir ( extract_path );
-                        command = g_strconcat ( "cpio -id " , names->str , NULL );
+                        command = g_strconcat ( "cpio -ivd " , names->str , NULL );
                         SpawnCPIO ( command , tmp , 0 , 1 );
                         g_free (command);
+                        command = NULL;
                         break;
 					}
-                    if ( ! CurrentArchiveType == 9)
+                    if ( command != NULL )
                     {
                         ExtractAddDelete ( command );
                         g_free (command); 
@@ -968,13 +977,19 @@ void Show_pwd_Window ( GtkMenuItem *menuitem , gpointer user_data )
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
+            password = NULL;
 			break;
 			
 			case GTK_RESPONSE_OK:
 			password  = g_strdup ( gtk_entry_get_text( GTK_ENTRY ( password_entry ) ) );
+            if ( strlen ( password ) == 0 || strlen(gtk_entry_get_text( GTK_ENTRY ( repeat_password )) ) == 0 )
+            {
+                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Please type a password !") );
+                break;
+            }
             if ( strcmp (password , gtk_entry_get_text( GTK_ENTRY ( repeat_password ) ) ) )
             {
-                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"The passwords don't match !!" );
+                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("The passwords don't match !!") );
                 gtk_entry_set_text ( GTK_ENTRY ( password_entry ) , "" );
                 gtk_entry_set_text ( GTK_ENTRY ( repeat_password ) , "" );
             }
@@ -1044,7 +1059,7 @@ gchar *EscapeBadChars ( gchar *string )
 
 void Activate_delete_button ()
 {
-	if ( archive_error ) return;
+	if ( archive_error || CurrentArchiveType == 9 ) return;
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
 	if (selected == 0 )

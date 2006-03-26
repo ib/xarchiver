@@ -25,6 +25,7 @@
 #include "main.h"
 #include "interface.h"
 #include "support.h"
+#include "callbacks.h"
 
 extern gchar *path;
 
@@ -54,7 +55,7 @@ int main (int argc, char *argv[])
   ShowShellOutput();
   gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
   gtk_window_set_default_size( GTK_WINDOW(MainWindow), 600, 400);
-  g_signal_connect (MainWindow, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+  g_signal_connect (MainWindow, "delete_event", G_CALLBACK (on_quit1_activate), NULL);
   gtk_widget_show (MainWindow);
   SetButtonState (1,1,0,0,0);
   if (file_to_open) on_open1_activate ( NULL , NULL);

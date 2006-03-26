@@ -40,8 +40,8 @@ void OpenRar ( gboolean mode , gchar *path)
 
 static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	gchar **fields;
-	gchar *filename;
+	gchar **fields = NULL;
+	gchar *filename = NULL;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
         //This to avoid inserting in the list RAR's copyright message

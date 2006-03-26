@@ -1,5 +1,11 @@
 Xarchiver changelog:
 
+28/10/05 - 0.2.1 a bug fix release no new features:
+
+		- Fixed a series of bug introduced with the support of the RPM format. The extract ability now works again sorry.
+		- Fixed a bug preventing extraction of more than one file inside an RPM archive.
+		- After opening rar or zip password protected archives the extraction of other archive types was not possible. Fixed.
+
 27/10/05 - 0.2:
 		- Added ability to open and extract RPM archives.
 		- Xarchiver can extract and create password protected zip and rar archives.

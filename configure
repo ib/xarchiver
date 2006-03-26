@@ -1584,7 +1584,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=xarchiver
- VERSION=0.2
+ VERSION=0.2.1
 
 
 cat >>confdefs.h <<_ACEOF

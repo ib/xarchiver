@@ -26,6 +26,7 @@ int fd;
 gchar *tmp = NULL;
 gchar buffer[2048];
 gsize bytes_read = 0;
+gsize bytes_written = 0;
 GIOStatus status;
 GError *error = NULL;
 GIOChannel *ioc_cpio , *input_ioc;
@@ -173,10 +174,17 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
     if (cond & (G_IO_IN | G_IO_PRI | G_IO_OUT) )
     {
         //Doing so I write to the input pipe of the g_spawned "cpio -tv" so to produce the list of archived files
-        if (g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error ) != G_IO_STATUS_EOF)
+        status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error );
+        //g_print ("Read status: %d\t",status);
+        if ( status != G_IO_STATUS_EOF)
         {
-            status = g_io_channel_write_chars ( ioc , buffer , bytes_read , NULL , &error );
-            g_io_channel_flush ( ioc , NULL );
+            status = g_io_channel_write_chars ( ioc , buffer , bytes_read , &bytes_written , &error );
+            //g_print ("Red: %d\tWritten:%d\n",bytes_read,count);
+            while ( bytes_read != bytes_written )
+            {
+                status = g_io_channel_write_chars ( ioc , buffer + bytes_written , bytes_read - bytes_written , &bytes_written , &error );
+                //g_print ("*Written:%d\tStatus:%d\n",count,status);
+            }
             if (status == G_IO_STATUS_ERROR) 
             {
                 response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);
@@ -184,6 +192,7 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
                 CloseChannels ( ioc );
 		        return FALSE; 
             }
+            g_io_channel_flush ( ioc , NULL );
             return TRUE;
         }
         else

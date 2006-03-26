@@ -37,9 +37,9 @@ void OpenZip ( gboolean mode , gchar *path)
 static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	num_cols = 0;
-	gchar **fields;
-	gchar *filename;
-	gchar *line;
+	gchar **fields = NULL;
+	gchar *filename = NULL;
+	gchar *line = NULL;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );

@@ -1,7 +1,6 @@
-Xarchiver 0.2
+Xarchiver 0.2.1
 
-Questa versione permette di estrarre e creare archivi zip o rar protetti da  
-password e di aprire o estrarre files RPM senza gli eseguibili rpm o rpm2cpio.
+Questa èsolamente  una vrsione di bug fix, leggi il file ChangeLog per sapere i bug fix.
 
 Per creare un archivio protetto da una password, crea prima un nuovo archivio 
 zip o rar, DOPO scegli Action->Set Password. Tutti i files aggiunti in seguito
