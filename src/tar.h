@@ -24,6 +24,7 @@
  #include <gtk/gtk.h>
  #include "callbacks.h"
  #include "interface.h"
+ #include "support.h"
  #include "main.h"
 
 void OpenTar ( gboolean mode , gchar *path );

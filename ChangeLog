@@ -1,1 +1,12 @@
-0.1 - Initial release
+Xarchiver changelog:
+
+27/10/05 - 0.2:
+		- Added ability to open and extract RPM archives.
+		- Xarchiver can extract and create password protected zip and rar archives.
+		- Fixed some memory leaks when extracting archives.
+		- Fixed a bug when detecting the type of archive.
+		- Added gettext support.
+		- Added a .desktop file.
+
+13/10/05 - 0.1:
+		- Initial release. Xarchiver opens and creates rar,zip,tar,bzip2 and gzip archives.

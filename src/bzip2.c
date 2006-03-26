@@ -20,7 +20,7 @@
  
 #include "bzip2.h"
  
-extern gint output_stream,error_stream,child_pid;
+extern int output_stream,error_stream,child_pid;
 FILE *stream;
 gchar *tmp;
 int fd;
@@ -31,10 +31,10 @@ void OpenBzip2 ( gboolean mode , gchar *path )
 	if ( g_str_has_suffix ( path , ".tar.bz2") || g_str_has_suffix ( path , ".tar.bz") || g_str_has_suffix ( path , ".tbz") || g_str_has_suffix ( path , ".tbz2" ) )
 	{
 		gchar *command = g_strconcat ("tar tfjv " , path, NULL );
-		compressor_pid = SpawnAsyncProcess ( command , 0 );
+		compressor_pid = SpawnAsyncProcess ( command , 1 , 0 );
 		g_free ( command );
 		if ( compressor_pid == 0 ) return;
-		char *names[]= {("Filename"),("Permissions"),("Owner/Group"),("Size"),("Date"),("Time")};
+		char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
 		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
 		CreateListStore ( 6, names , (GType *)types );
 		SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,Bzip2Output, (gpointer) mode );
@@ -44,9 +44,12 @@ void OpenBzip2 ( gboolean mode , gchar *path )
 	
 	else 
 	{
-        bz_gz = TRUE;
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"You selected a bzip2 compressed file.\nDo you want to extract it now ?" );
-		if (response == GTK_RESPONSE_YES) Bzip2Extract ( 0 );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("You selected a bzip2 compressed file.\nDo you want to extract it now ?") );
+		if (response == GTK_RESPONSE_YES)
+        {
+            bz_gz = TRUE;
+            Bzip2Extract ( 0 );
+        }
 	}
 }
 
@@ -71,7 +74,7 @@ void Bzip2Extract ( gboolean flag )
 				done = TRUE;
 				gchar *archive = StripPathFromFilename ( path );
 				gchar *command = g_strconcat ( flag ? "gunzip -dc " : "bzip2 -dc " , path , NULL );
-				compressor_pid = SpawnAsyncProcess ( command , 0);
+				compressor_pid = SpawnAsyncProcess ( command , 1 , 0);
 				g_free ( command );
 				if ( compressor_pid == 0 ) return;
 				//This to remove the suffix from the archive name
@@ -90,7 +93,7 @@ void Bzip2Extract ( gboolean flag )
 				//The 2nd parameter is set to NULL to read binary data 
 				g_io_channel_set_encoding (ioc, NULL , NULL);
 			}
-			else response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Please select where to extract files !" );
+			else response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please select where to extract files !") );
 			break;
     	}
 	}
@@ -154,16 +157,16 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 		fclose ( data );
-		g_io_channel_unref (ioc);
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
+        g_io_channel_unref (ioc);
 		g_spawn_close_pid ( child_pid );
 		return FALSE;
 	}
 }
 
-void DecompressBzipGzip ( GString *list , gchar *path , gboolean dummy , gboolean add )
+gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 {
-    type = dummy;
+    gchar *command = NULL;
     tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
 	fd = g_mkstemp ( tmp );
     stream = fdopen ( fd , "w" );
@@ -173,8 +176,9 @@ void DecompressBzipGzip ( GString *list , gchar *path , gboolean dummy , gboolea
         g_free (tmp);
         return;
     }
-    gchar *command = g_strconcat ( type ? "gunzip -dc " : "bzip2 -dc " , path , NULL );
-    compressor_pid = SpawnAsyncProcess ( command , 1 );
+    if ( temp_path == NULL) command = g_strconcat ( dummy ? "gunzip -dc " : "bzip2 -dc " , path , NULL );
+        else command = g_strconcat ( dummy ? "gunzip -dc " : "bzip2 -dc " , temp_path , NULL );
+    compressor_pid = SpawnAsyncProcess ( command , 0 , 0 );
 	g_free ( command );
 	if ( compressor_pid == 0 )
     {
@@ -187,6 +191,12 @@ void DecompressBzipGzip ( GString *list , gchar *path , gboolean dummy , gboolea
     SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
     //The 2nd parameter is set to NULL to read binary data
     g_io_channel_set_encoding (ioc, NULL , NULL);
+    return tmp;
+}
+
+void DecompressBzipGzip ( GString *list , gchar *path , gboolean dummy , gboolean add )
+{
+    tmp = OpenTempFile ( dummy , NULL );
     if ( add ) g_child_watch_add ( compressor_pid , (GChildWatchFunc) AddToTar , list->str );
         else g_child_watch_add ( compressor_pid , (GChildWatchFunc) DeleteFromTar , list->str );
 }
@@ -201,7 +211,7 @@ GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data)
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"An error occurred while decompressing the archive.\nDo you want to view the shell output ?" );
+			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to view the shell output ?") );
 			if (response == GTK_RESPONSE_YES) ShowShellOutput();
             unlink ( tmp );
             g_free (tmp);
@@ -209,7 +219,7 @@ GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data)
 		}
     }
     gchar *command = g_strconcat ( "tar rvvf " , tmp , data , NULL );
-    compressor_pid = SpawnAsyncProcess ( command , 1);
+    compressor_pid = SpawnAsyncProcess ( command , 0 , 0);
 	g_free ( command );
     if ( compressor_pid == 0 )
     {
@@ -217,6 +227,7 @@ GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data)
         g_free (tmp);
         return;
     }
+    SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
     g_child_watch_add ( compressor_pid , (GChildWatchFunc) RecompressArchive , NULL );
 }
 
@@ -230,7 +241,7 @@ GChildWatchFunc *DeleteFromTar (GPid pid,gint status , gpointer data)
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"An error occurred while decompressing the archive.\nDo you want to view the shell output ?" );
+			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to view the shell output ?") );
 			if (response == GTK_RESPONSE_YES) ShowShellOutput();
             unlink ( tmp );
             g_free (tmp);
@@ -238,7 +249,7 @@ GChildWatchFunc *DeleteFromTar (GPid pid,gint status , gpointer data)
 		}
     }
     gchar *command = g_strconcat ( "tar --delete -f " , tmp , data , NULL );
-    compressor_pid = SpawnAsyncProcess ( command , 1);
+    compressor_pid = SpawnAsyncProcess ( command , 0 , 0);
 	g_free ( command );
     if ( compressor_pid == 0 )
     {
@@ -259,7 +270,7 @@ GChildWatchFunc *RecompressArchive (GPid pid , gint status , gpointer data)
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"An error occurred while deleting from the tar archive.\nDo you want to view the shell output ?" );
+			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while deleting from the tar archive.\nDo you want to view the shell output ?") );
 			if (response == GTK_RESPONSE_YES) ShowShellOutput();
 			unlink ( tmp );
             g_free (tmp);
@@ -276,7 +287,7 @@ GChildWatchFunc *RecompressArchive (GPid pid , gint status , gpointer data)
         return;
     }
     gchar *command = g_strconcat ( type ? "gzip -c " : "bzip2 -c " , tmp , NULL );
-    compressor_pid = SpawnAsyncProcess ( command , 1 );
+    compressor_pid = SpawnAsyncProcess ( command , 0 , 0 );
     g_free ( command );
 	if ( compressor_pid == 0 )
     {
@@ -302,7 +313,7 @@ void Bzip2Add ( gchar *filename , gboolean flag )
         return;					
 	}
     gchar *command = g_strconcat ( flag ? "gzip -c " : "bzip2 -c " , filename , NULL );
-	compressor_pid = SpawnAsyncProcess ( command , 0);
+	//compressor_pid = SpawnAsyncProcess ( command , 1 , 0);
 	g_free ( command );
 	if ( compressor_pid == 0 ) return;
 	GIOChannel *ioc = SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL , ExtractToDifferentLocation , stream );
@@ -310,3 +321,4 @@ void Bzip2Add ( gchar *filename , gboolean flag )
 	//The 2nd parameter is set to NULL to read binary data 
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 }
+

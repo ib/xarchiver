@@ -1,13 +1,19 @@
-Xarchiver 0.1 - Copyright @2005 Colossus - Giuseppe Torelli
+Xarchiver 0.2
 
-Xarchiver is a GTK2 only frontend to command line archive tools such as gzip, 
-bzip2, tar, rar and zip. I developed it because when I switched to Fluxbox from 
-KDE I wondered that apart Ark (KDE) and File Roller (GNOME) there were no other frontends, 
-so I started developing Xarchiver; later I subscribed to RSS's gnomefiles.org and so I 
-knew about xarchive (without the ending r), so up to now we have two indipendent frontends,
-that is good :-) !
+This release adds the ability to extract and crete zip and rar password protected 
+archives and to open and extract RPM files without the rpm or rpm2cpio executables.
 
-You don't need GNOME neither KDE just gtk 2.6.x !
+To create a password protected archive, first create a new rar or zip archive and 
+AFTER this choose Action->Set Password. Now all the files you add will be encrypted 
+with the current password.
 
-Any comments, bugs drop me an email to gt67@users.sourceforge.net
+To compile xarchiver:
+./configure --prefix=/usr
+make
 
+become root
+make install
+
+That's all, enjoy handling archives without GNOME or KDE libs !
+
+Giuseppe Torelli - Colossus

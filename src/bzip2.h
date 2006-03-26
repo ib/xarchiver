@@ -24,6 +24,7 @@
  #include <gtk/gtk.h>
  #include "callbacks.h"
  #include "interface.h"
+ #include "support.h"
  #include "main.h"
  #include "config.h"
 
@@ -36,4 +37,5 @@ GChildWatchFunc *RecompressArchive (GPid pid,gint status , gpointer data);
 void DecompressBzipGzip ( GString *list , gchar *path , gboolean dummy , gboolean add);
 GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data);
 void Bzip2Add ( gchar *filename , gboolean flag );
+gchar *OpenTempFile ( gboolean dummy , gchar *temp_path );
 #endif

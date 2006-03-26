@@ -5,7 +5,8 @@ SUBDIRS = src
 EXTRA_DIST = \
 	autogen.sh \
 	xarchiver.glade \
-	xarchiver.gladep
+	xarchiver.gladep \
+	xarchiver.desktop
 
 install-data-local:
 	@$(NORMAL_INSTALL)
@@ -28,3 +29,5 @@ dist-hook:
 	  done \
 	fi
 
+Applicationsdir = $(datadir)/applications
+Applications_DATA = xarchiver.desktop

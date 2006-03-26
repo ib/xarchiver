@@ -1,0 +1,19 @@
+Xarchiver 0.2
+
+Questa versione permette di estrarre e creare archivi zip o rar protetti da  
+password e di aprire o estrarre files RPM senza gli eseguibili rpm o rpm2cpio.
+
+Per creare un archivio protetto da una password, crea prima un nuovo archivio 
+zip o rar, DOPO scegli Action->Set Password. Tutti i files aggiunti in seguito
+all'archivio verranno crittati con la password corrente.
+
+Per compilare xarchiver:
+./configure --prefix=/usr
+make
+
+diventa root:
+make install
+
+Questo e' tutto, SENZA le librerie di GNOME o KDE puoi gestire i tuoi archivi grazie a Xarchiver !
+ 
+Giuseppe Torelli - Colossus

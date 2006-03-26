@@ -23,17 +23,17 @@
 
 FILE *fd;
 
-extern gint output_fd,error_fd,child_pid;
+extern int output_fd,error_fd,child_pid;
 
 void OpenGzip ( gboolean mode , gchar *path)
 {
 	if ( g_str_has_suffix ( path , ".tar.gz") || g_str_has_suffix ( path , ".tgz") )
 	{
         gchar *command = g_strconcat ("tar tfzv " , path, NULL );
-		compressor_pid = SpawnAsyncProcess ( command , 0 );
+		compressor_pid = SpawnAsyncProcess ( command , 1 , 0 );
 		g_free ( command );
 		if ( compressor_pid == 0 ) return;
-		char *names[]= {("Filename"),("Permissions"),("Owner/Group"),("Size"),("Date"),("Time")};
+		char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
 		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
 		CreateListStore ( 6, names , (GType *)types );
         SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,Bzip2Output, (gpointer) mode );
@@ -43,9 +43,12 @@ void OpenGzip ( gboolean mode , gchar *path)
 		
 	else 
 	{
-        bz_gz = TRUE;
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"You selected a gunzip compressed file.\nDo you want to extract it now ?" );
-		if (response == GTK_RESPONSE_YES) Bzip2Extract ( 1 );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("You selected a gunzip compressed file.\nDo you want to extract it now ?") );
+		if (response == GTK_RESPONSE_YES)
+        {
+            bz_gz = TRUE;
+            Bzip2Extract ( 1 );
+        }
 	}
 }
 

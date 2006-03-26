@@ -14,6 +14,7 @@ xarchiver_SOURCES = \
 	callbacks.c callbacks.h \
 	zip.c zip.h \
 	rar.c rar.h \
+	rpm.c rpm.h \
 	bzip2.c bzip2.h \
 	gzip.c gzip.h \
 	tar.c tar.h

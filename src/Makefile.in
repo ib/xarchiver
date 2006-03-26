@@ -49,7 +49,8 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_xarchiver_OBJECTS = main.$(OBJEXT) support.$(OBJEXT) \
 	interface.$(OBJEXT) callbacks.$(OBJEXT) zip.$(OBJEXT) \
-	rar.$(OBJEXT) bzip2.$(OBJEXT) gzip.$(OBJEXT) tar.$(OBJEXT)
+	rar.$(OBJEXT) rpm.$(OBJEXT) bzip2.$(OBJEXT) gzip.$(OBJEXT) \
+	tar.$(OBJEXT)
 xarchiver_OBJECTS = $(am_xarchiver_OBJECTS)
 xarchiver_DEPENDENCIES =
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -154,6 +155,7 @@ xarchiver_SOURCES = \
 	callbacks.c callbacks.h \
 	zip.c zip.h \
 	rar.c rar.h \
+	rpm.c rpm.h \
 	bzip2.c bzip2.h \
 	gzip.c gzip.h \
 	tar.c tar.h
@@ -231,6 +233,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rar.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rpm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/support.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/zip.Po@am__quote@

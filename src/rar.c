@@ -21,17 +21,18 @@
 #include "rar.h"
 
 gchar *line = NULL;
-extern gint output_fd,error_fd,child_pid;
+extern int output_fd,error_fd,child_pid;
 
 void OpenRar ( gboolean mode , gchar *path)
 {
 	flag = FALSE;
     gchar *command = g_strconcat ( "rar vl -c- " , path, NULL );
-	compressor_pid = SpawnAsyncProcess ( command , 0 );
+	compressor_pid = SpawnAsyncProcess ( command , 1 , 0 );
     g_free ( command );
 	if ( compressor_pid == 0 ) return;
 	char *names[]	= {("Filename"),("Size"),("Size now"),("Ratio"),("Date"),("Time"),("Permissions"),("CRC"),("Method"),("Version")};
 	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+    PasswordProtectedArchive = FALSE;
 	CreateListStore ( 10, names , (GType *)types );
 	SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,RarOpen, (gpointer) mode );
 	SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
@@ -43,7 +44,9 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	gchar *filename;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		if (! flag)
+        //This to avoid inserting in the list RAR's copyright message
+		if (flag == FALSE )
+        {
 			for ( x = 0; x <= 8; x++)
 			{
 				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
@@ -60,13 +63,13 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
                 g_free (line);
 			}
 			flag = TRUE;
+        }
 		if ( flag )
 		{
 			//Now read the filename
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 		    if ( line == NULL) return TRUE;
             if ( data ) gtk_text_buffer_insert(textbuf, &enditer, line, strlen( line ) );
-            
             //This to avoid inserting in the liststore the last line of Rar output
             if (strncmp (line, "--------", 8) == 0 || strncmp (line, "\x0a",1) == 0)
 			{
@@ -77,15 +80,16 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			}
 			gtk_list_store_append (liststore, &iter);
 			line[ strlen(line) - 1 ] = '\0';
-			//This to avoid the white space before the first char of the filename
+			if (line[0] == '*') PasswordProtectedArchive = TRUE;
+            //This to avoid the white space before the first char of the filename
             line++;
 			gtk_list_store_set (liststore, &iter,0,line,-1);
-            //Restore the pointer before freeing
+            //Restore the pointer before freeing it
             line--;
             g_free (line);            
 			//Now read the rest
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if (line != NULL && data ) gtk_text_buffer_insert(textbuf, &enditer, line, strlen( line ) );
+			if (line != NULL && data ) gtk_text_buffer_insert ( textbuf, &enditer, line, strlen( line ) );
 			fields = split_line (line,9);
 			for ( x = 0; x < 9; x++)
 				gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);

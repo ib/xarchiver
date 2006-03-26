@@ -34,6 +34,12 @@ gboolean file_to_open;
 
 int main (int argc, char *argv[])
 {
+  #ifdef ENABLE_NLS
+  bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  textdomain (GETTEXT_PACKAGE);
+  #endif
+  gtk_set_locale();
   gtk_init (&argc, &argv);
   add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
   int param = 1;
@@ -51,7 +57,7 @@ int main (int argc, char *argv[])
   g_signal_connect (MainWindow, "destroy", G_CALLBACK (gtk_main_quit), NULL);
   gtk_widget_show (MainWindow);
   SetButtonState (1,1,0,0,0);
-  if (file_to_open) on_open1_activate ( NULL,NULL);
+  if (file_to_open) on_open1_activate ( NULL , NULL);
   gtk_main ();
   g_list_free ( ArchiveSuffix);
   g_list_free ( ArchiveName);
@@ -111,6 +117,12 @@ void GetAvailableCompressors()
 		ArchiveName = g_list_prepend ( ArchiveName, ".zip");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
 	}
+    if ( g_find_program_in_path("cpio"))
+    {
+        ArchiveName = g_list_prepend ( ArchiveName, ".rpm");
+	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rpm");
+    }
+
 }
 
 void SetButtonState (gboolean New, gboolean Open,gboolean AddFile,gboolean AddFolder,gboolean Extract)
@@ -160,7 +172,7 @@ gboolean ParseCommandLine (char *param)
 		path = param;
 		return TRUE;
 	}
-	g_print ("xarchiver: invalid option %s\nTry xarchiver -h for more information.\n",param);
+	g_print (_("xarchiver: invalid option %s\nTry xarchiver -h for more information.\n"),param);
 	return FALSE;
 }
 

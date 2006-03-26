@@ -3,6 +3,7 @@
  */
 
 GtkWidget* prefs (gint);
+GtkWidget *passwd_win ( void );
 GtkWidget* create_MainWindow (void);
 GtkWidget *MainWindow;
 GtkWidget *vbox1;
@@ -26,6 +27,7 @@ GtkWidget *entry1;
   GtkWidget *copy1;
   GtkWidget *delete_menu;
   GtkWidget *view_shell_output1;
+  GtkWidget *add_pwd;
   GtkWidget *image1;
   GtkWidget *image2;
   GtkWidget *menuitem4;

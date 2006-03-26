@@ -20,14 +20,14 @@
  
 #include "zip.h"
  
-extern gint output_fd,error_fd,child_pid;
+extern int output_fd,error_fd,child_pid;
 void OpenZip ( gboolean mode , gchar *path)
 {
 	gchar *command = g_strconcat ("unzip -vl -qq " , path, NULL );
-	compressor_pid = SpawnAsyncProcess ( command , 0 );
+	compressor_pid = SpawnAsyncProcess ( command , 1 , 0 );
 	g_free ( command );
 	if ( compressor_pid == 0 ) return;
-	char *names[]= {("Filename"),("Original Size"),("Method"),("Size now"),("Ratio"),("Date"),("Time"),("CRC-32")};
+	char *names[]= {(_("Filename")),(_("Original Size")),(_("Method")),(_("Size now")),(_("Ratio")),(_("Date")),(_("Time")),(_("CRC-32"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
 	CreateListStore ( 8, names , (GType *)types );
 	SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,ZipOpen, (gpointer) mode );

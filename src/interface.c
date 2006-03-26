@@ -46,7 +46,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (menubar1);
   gtk_box_pack_start (GTK_BOX (vbox1), menubar1, FALSE, FALSE, 0);
 
-  menuitem1 = gtk_menu_item_new_with_mnemonic ("_Archive");
+  menuitem1 = gtk_menu_item_new_with_mnemonic (_("_Archive"));
   gtk_widget_set_name (menuitem1, "menuitem1");
   gtk_widget_show (menuitem1);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem1);
@@ -76,7 +76,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (quit1);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), quit1);
 
-  menuitem2 = gtk_menu_item_new_with_mnemonic ("_Action");
+  menuitem2 = gtk_menu_item_new_with_mnemonic (_("_Action"));
   gtk_widget_set_name (menuitem2, "menuitem2");
   gtk_widget_show (menuitem2);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem2);
@@ -85,11 +85,11 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_set_name (menuitem2_menu, "menuitem2_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
-  addfile = gtk_menu_item_new_with_mnemonic ("Add File");
+  addfile = gtk_menu_item_new_with_mnemonic (_("Add File"));
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
  
-  addfolder = gtk_menu_item_new_with_mnemonic ("Add Folder");
+  addfolder = gtk_menu_item_new_with_mnemonic (_("Add Folder"));
   gtk_widget_show (addfolder);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfolder);
 
@@ -98,7 +98,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem2);
   gtk_widget_set_sensitive (separatormenuitem2, FALSE);
    
-  extract_menu = gtk_menu_item_new_with_mnemonic ("Extract");
+  extract_menu = gtk_menu_item_new_with_mnemonic (_("Extract"));
   gtk_widget_show (extract_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
 
@@ -124,7 +124,12 @@ GtkWidget *create_MainWindow (void)
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (options1), image1);
 */
 
-  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic ("View S_hell Output");
+  add_pwd = gtk_menu_item_new_with_mnemonic (_("Set Password"));
+  gtk_widget_show (add_pwd);
+  gtk_widget_set_sensitive ( add_pwd , FALSE );
+  gtk_container_add (GTK_CONTAINER (menuitem2_menu), add_pwd);
+
+  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View S_hell Output"));
   gtk_widget_show (view_shell_output1);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
   
@@ -141,7 +146,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_set_name (menuitem4_menu, "menuitem4_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem4), menuitem4_menu);
 
-  about1 = gtk_menu_item_new_with_mnemonic ("_About");
+  about1 = gtk_menu_item_new_with_mnemonic (_("_About"));
   gtk_widget_set_name (about1, "about1");
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), about1);
@@ -155,21 +160,21 @@ GtkWidget *create_MainWindow (void)
 
   tmp_image = gtk_image_new_from_stock ("gtk-new", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
-  New_button = (GtkWidget*) gtk_tool_button_new (tmp_image, "New");
+  New_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("New"));
   gtk_widget_set_name (New_button, "New_button");
   gtk_widget_show (New_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (New_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), New_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (New_button), tooltips, "Create a new archive", NULL);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (New_button), tooltips, _("Create a new archive"), NULL);
 
   tmp_image = gtk_image_new_from_stock ("gtk-open", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
-  Open_button = (GtkWidget*) gtk_tool_button_new (tmp_image, "Open");
+  Open_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Open"));
   gtk_widget_set_name (Open_button, "Open_button");
   gtk_widget_show (Open_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Open_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Open_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Open_button), tooltips, "Open an archive", NULL);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Open_button), tooltips, _("Open an archive"), NULL);
 /*
   tmp_image = gtk_image_new_from_stock ("gtk-close", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
@@ -187,21 +192,21 @@ GtkWidget *create_MainWindow (void)
 
   tmp_image = create_pixmap (MainWindow, "add.png");
   gtk_widget_show (tmp_image);
-  AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image, "Add File");
+  AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Add File"));
   gtk_widget_set_name (AddFile_button, "AddFile_button");
   gtk_widget_show (AddFile_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (AddFile_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), AddFile_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFile_button), tooltips, "Add a file to the current archive", NULL);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFile_button), tooltips, _("Add a file to the current archive"), NULL);
 
   tmp_image = create_pixmap (MainWindow, "add_folder.png");
   gtk_widget_show (tmp_image);
-  AddFolder_button = (GtkWidget*) gtk_tool_button_new (tmp_image, "Add Folder");
+  AddFolder_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Add Folder"));
   gtk_widget_set_name (AddFolder_button, "AddFolder_button");
   gtk_widget_show (AddFolder_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (AddFolder_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), AddFolder_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFolder_button), tooltips, "Add an entire folder to the current archive", NULL);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFolder_button), tooltips, _("Add an entire folder to the current archive"), NULL);
 
   separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
   gtk_widget_set_name (separatortoolitem2, "separatortoolitem2");
@@ -210,22 +215,22 @@ GtkWidget *create_MainWindow (void)
 
   tmp_image = create_pixmap (MainWindow, "extract.png");
   gtk_widget_show (tmp_image);
-  Extract_button = (GtkWidget*) gtk_tool_button_new (tmp_image, "Extract");
+  Extract_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Extract"));
   gtk_widget_set_name (Extract_button, "Extract_button");
   gtk_widget_show (Extract_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Extract_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Extract_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Extract_button), tooltips, "Extract files from the current archive; use the mouse to select files individually", NULL);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Extract_button), tooltips, _("Extract files from the current archive; use the mouse to select files individually"), NULL);
 
   tmp_image = gtk_image_new_from_stock ("gtk-delete", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
-  Delete_button = (GtkWidget*) gtk_tool_button_new (tmp_image, "Delete");
+  Delete_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Delete"));
   gtk_widget_set_name (Delete_button, "Delete_button");
   gtk_widget_show (Delete_button);
   gtk_widget_set_sensitive (Delete_button,FALSE);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Delete_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Delete_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Delete_button), tooltips, "Delete files from the current archive", NULL);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Delete_button), tooltips, _("Delete files from the current archive"), NULL);
 
   separatortoolitem3 = (GtkWidget*) gtk_separator_tool_item_new ();
   gtk_widget_set_name (separatortoolitem3, "separatortoolitem3");
@@ -266,6 +271,9 @@ GtkWidget *create_MainWindow (void)
                     "folder");
   g_signal_connect ((gpointer) view_shell_output1, "activate",
                     G_CALLBACK (ShowShellOutput),
+                    NULL);
+  g_signal_connect ((gpointer) add_pwd, "activate",
+                    G_CALLBACK (Show_pwd_Window),
                     NULL);
   g_signal_connect ((gpointer) quit1, "activate",
                     G_CALLBACK (on_quit1_activate),
@@ -308,8 +316,6 @@ GtkWidget *create_MainWindow (void)
   GLADE_HOOKUP_OBJECT (MainWindow, quit1, "quit1");
   GLADE_HOOKUP_OBJECT (MainWindow, menuitem2, "menuitem2");
   GLADE_HOOKUP_OBJECT (MainWindow, menuitem2_menu, "menuitem2_menu");
-  GLADE_HOOKUP_OBJECT (MainWindow, cut1, "cut1");
-  GLADE_HOOKUP_OBJECT (MainWindow, copy1, "copy1");
   GLADE_HOOKUP_OBJECT (MainWindow, delete_menu, "delete_menu");
   GLADE_HOOKUP_OBJECT (MainWindow, view_shell_output1, "view_shell_output1");
   GLADE_HOOKUP_OBJECT (MainWindow, image1, "image1");
@@ -361,8 +367,8 @@ GtkWidget *prefs (gint selected)
   GtkWidget *okbutton1;
 
   prefs = gtk_dialog_new ();
-  if (selected) gtk_window_set_title (GTK_WINDOW (prefs), "Extract ONLY selected files");
-  	else gtk_window_set_title (GTK_WINDOW (prefs), "Extract ALL files");
+  if (selected) gtk_window_set_title (GTK_WINDOW (prefs), _("Extract ONLY selected files"));
+  	else gtk_window_set_title (GTK_WINDOW (prefs), _("Extract ALL files"));
   gtk_window_set_type_hint (GTK_WINDOW (prefs), GDK_WINDOW_TYPE_HINT_DIALOG);
   gtk_window_set_transient_for ( GTK_WINDOW (prefs) , GTK_WINDOW (MainWindow) );
   dialog_vbox1 = GTK_DIALOG (prefs)->vbox;
@@ -388,7 +394,7 @@ GtkWidget *prefs (gint selected)
   gtk_widget_set_size_request (button1, 33, 27);
 
   GtkTooltips *button_tooltip = gtk_tooltips_new ();
-  gtk_tooltips_set_tip (button_tooltip,button1 , "Choose a folder where to extract files", NULL );
+  gtk_tooltips_set_tip (button_tooltip,button1 , _("Choose a folder where to extract files"), NULL );
   
   alignment1 = gtk_alignment_new (0.5, 0.5, 0, 0);
   gtk_widget_show (alignment1);
@@ -403,9 +409,9 @@ GtkWidget *prefs (gint selected)
   gtk_widget_show (image1);
   gtk_box_pack_start (GTK_BOX (hbox1), image1, FALSE, FALSE, 0);
 
-  label1 = gtk_label_new ("Extract to:");
+  label1 = gtk_label_new (_("Extract to:"));
   gtk_widget_show (label1);
-  gtk_fixed_put (GTK_FIXED (fixed1), label1, 16, 10);
+  gtk_fixed_put (GTK_FIXED (fixed1), label1, 16, 12);
   gtk_widget_set_size_request (label1, 72, 16);
 
   frame1 = gtk_frame_new (NULL);
@@ -455,3 +461,100 @@ GtkWidget *prefs (gint selected)
   GLADE_HOOKUP_OBJECT (prefs, okbutton1, "okbutton1");
   return prefs;
 }
+
+GtkWidget *passwd_win ()
+{
+  GtkWidget *passwd;
+  GtkWidget *dialog_vbox1;
+  GtkWidget *vbox2;
+  GtkWidget *fixed1;
+  GtkWidget *pwd_entry;
+  GtkWidget *label2;
+  GtkWidget *fixed2;
+  GtkWidget *entry2;
+  GtkWidget *label3;
+  GtkWidget *label1;
+  GtkWidget *dialog_action_area1;
+  GtkWidget *cancelbutton1;
+  GtkWidget *okbutton1;
+
+  passwd = gtk_dialog_new ();
+  gtk_window_set_title (GTK_WINDOW (passwd),_("Enter Archive Password"));
+  gtk_window_set_type_hint (GTK_WINDOW (passwd), GDK_WINDOW_TYPE_HINT_DIALOG);
+  gtk_window_set_transient_for ( GTK_WINDOW (passwd) , GTK_WINDOW (MainWindow) );
+  dialog_vbox1 = GTK_DIALOG (passwd)->vbox;
+  gtk_widget_show (dialog_vbox1);
+
+  vbox2 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_show (vbox2);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox1), vbox2, TRUE, TRUE, 0);
+
+  fixed1 = gtk_fixed_new ();
+  gtk_widget_show (fixed1);
+  gtk_box_pack_start (GTK_BOX (vbox2), fixed1, TRUE, TRUE, 0);
+
+  pwd_entry = gtk_entry_new ();
+  gtk_entry_set_visibility (GTK_ENTRY (pwd_entry), FALSE);
+  gtk_widget_show (pwd_entry);
+  gtk_fixed_put (GTK_FIXED (fixed1), pwd_entry, 77, 16);
+  gtk_widget_set_size_request (pwd_entry, 304, 24);
+
+  label2 = gtk_label_new (_("Password:"));
+  gtk_widget_show (label2);
+  gtk_fixed_put (GTK_FIXED (fixed1), label2, 5, 16);
+  gtk_widget_set_size_request (label2, 72, 24);
+
+  fixed2 = gtk_fixed_new ();
+  gtk_widget_show (fixed2);
+  gtk_box_pack_start (GTK_BOX (vbox2), fixed2, TRUE, TRUE, 0);
+
+  entry2 = gtk_entry_new ();
+  gtk_entry_set_visibility (GTK_ENTRY (entry2), FALSE);
+  gtk_widget_show (entry2);
+  gtk_fixed_put (GTK_FIXED (fixed2), entry2, 77, 4);
+  gtk_widget_set_size_request (entry2, 304, 24);
+
+  label3 = gtk_label_new (_("Retype it:"));
+  gtk_widget_show (label3);
+  gtk_fixed_put (GTK_FIXED (fixed2), label3, 5, 4);
+  gtk_widget_set_size_request (label3, 72, 24);
+  
+  label1 = gtk_label_new (_("Please note that the password is automatically resetted each time you open or create a new archive."));
+  gtk_widget_show (label1);
+  gtk_box_pack_start (GTK_BOX (vbox2), label1, FALSE, FALSE, 0);
+  gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_CENTER);
+  gtk_label_set_line_wrap (GTK_LABEL (label1), TRUE);
+  gtk_misc_set_padding (GTK_MISC (label1), 0, 3);
+
+  dialog_action_area1 = GTK_DIALOG (passwd)->action_area;
+  gtk_widget_show (dialog_action_area1);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
+
+  cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
+  gtk_widget_show (cancelbutton1);
+  gtk_dialog_add_action_widget (GTK_DIALOG (passwd), cancelbutton1, GTK_RESPONSE_CANCEL);
+  GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
+
+  okbutton1 = gtk_button_new_from_stock ("gtk-ok");
+  gtk_widget_show (okbutton1);
+  gtk_dialog_add_action_widget (GTK_DIALOG (passwd), okbutton1, GTK_RESPONSE_OK);
+  GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
+
+  /* Store pointers to all widgets, for use by lookup_widget(). */
+  GLADE_HOOKUP_OBJECT_NO_REF (passwd, passwd, "passwd");
+  GLADE_HOOKUP_OBJECT_NO_REF (passwd, dialog_vbox1, "dialog_vbox1");
+  GLADE_HOOKUP_OBJECT (passwd, vbox2, "vbox2");
+  GLADE_HOOKUP_OBJECT (passwd, fixed1, "fixed1");
+  GLADE_HOOKUP_OBJECT (passwd, pwd_entry, "pwd_entry");
+  GLADE_HOOKUP_OBJECT (passwd, label2, "label2");
+  GLADE_HOOKUP_OBJECT (passwd, fixed2, "fixed2");
+  GLADE_HOOKUP_OBJECT (passwd, entry2, "entry2");
+  GLADE_HOOKUP_OBJECT (passwd, label3, "label3");
+  GLADE_HOOKUP_OBJECT (passwd, label1, "label1");
+  GLADE_HOOKUP_OBJECT_NO_REF (passwd, dialog_action_area1, "dialog_action_area1");
+  GLADE_HOOKUP_OBJECT (passwd, cancelbutton1, "cancelbutton1");
+  GLADE_HOOKUP_OBJECT (passwd, okbutton1, "okbutton1");
+
+  return passwd;
+}
+ 
