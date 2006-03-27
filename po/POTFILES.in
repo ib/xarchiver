@@ -1,13 +1,1 @@
-# List of source files containing translatable strings.
-
-src/7zip.c
-src/arj.c
-src/bzip2.c
-src/callbacks.c
-src/gzip.c
-src/interface.c
-src/iso.c
-src/main.c
-src/rpm.c
-src/tar.c
-src/zip.c
+src/xarchiver.c

@@ -10,10 +10,9 @@ libxarchiver_a_SOURCES = \
 	support-rar.c support-rar.h
 
 libxarchiver_a_CFLAGS = \
-	$(GLIB_CFLAGS)
+	@GLIB_CFLAGS@
 
-libxarchiver_a_LIBS = \
-	$(GLIB_LIBS)
+libxarchiver_a_LIBADD =
 
 libxarchiver_includedir= \
 	$(includedir)/libxarchiver

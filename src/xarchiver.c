@@ -1,7 +1,5 @@
 /*
- *  Xarchiver
- *
- *  Copyright (C) 2005 Giuseppe Torelli - Colossus
+ *  Copyright (c) 2006 Stephan Arts <stephan.arts@hva.nl>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -11,22 +9,21 @@
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ *  GNU Library General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
-#ifndef SEVENZIP_H
-#define SEVENZIP_H
 
- #include <gtk/gtk.h>
- #include "callbacks.h"
- #include "interface.h"
- #include "support.h"
- #include "main.h"
+#include <glib.h>
+#include <libxarchiver/libxarchiver.h>
+#include <gtk/gtk.h>
 
-void Open7Zip ( gboolean mode , gchar *path );
-static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
-#endif
+int main(int argc, char **arg)
+{
+	xarchiver_init();
+
+
+	xarchiver_destroy();
+}
