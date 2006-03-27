@@ -1,0 +1,12 @@
++ move g_spawn codes to libxarchiver/internals.c
+
++ fill remaining archivesupport objects
+  - zip
+  - arj
+  - 7z
+  - iso? -- (feature, not a priority)
+
++ handle child_pid cancellation in libxarchiver
+
++ create GUI (further specification of this is pending)
+

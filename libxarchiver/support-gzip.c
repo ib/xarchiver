@@ -94,7 +94,9 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 					return FALSE;
 			} else
 			{
-				
+				for(n = strlen(out_filename); (out_filename[n] != '.') && (n >= 0); n--);
+				if(out_filename[n] == '.')
+					out_filename[n] = '\0';
 			}
 		}
 		else if(!g_file_test(destination_path, G_FILE_TEST_EXISTS)) 
