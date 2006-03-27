@@ -1,6 +1,6 @@
 /*
  *  Copyright (c) 2006 Stephan Arts      <stephan.arts@hva.nl>
- *                     Guiseppe Torelli
+ *                     Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
