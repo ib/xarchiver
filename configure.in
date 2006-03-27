@@ -7,6 +7,7 @@ AM_MAINTAINER_MODE
 
 AC_ISC_POSIX
 AC_PROG_CC
+AC_PROG_RANLIB
 AM_PROG_CC_STDC
 AC_HEADER_STDC
 AC_SYS_LARGEFILE
@@ -16,6 +17,10 @@ pkg_modules="gtk+-2.0 >= 2.6.0"
 PKG_CHECK_MODULES(PACKAGE, [$pkg_modules])
 AC_SUBST(PACKAGE_CFLAGS)
 AC_SUBST(PACKAGE_LIBS)
+
+PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.6])
+AC_SUBST(GLIB_CFLAGS)
+AC_SUBST(GLIB_LIBS)
 
 GETTEXT_PACKAGE=xarchiver
 AC_SUBST(GETTEXT_PACKAGE)
@@ -29,6 +34,7 @@ AC_OUTPUT([
 po/Makefile.in
 Makefile
 src/Makefile
+libxarchiver/Makefile
 ])
 
 echo "----------------------------------------"

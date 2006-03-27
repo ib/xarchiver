@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = src po
+SUBDIRS = src libxarchiver po
 
 pixmapsdir       = $(datadir)/pixmaps
 pixmaps_DATA     = xarchiver.png
