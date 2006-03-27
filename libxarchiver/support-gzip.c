@@ -69,7 +69,9 @@ xarchive_gzip_support_add(XArchive *archive, GSList *files)
 gboolean
 xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList *files)
 {
+	gchar *in_filename;
 	gzFile in_file;
+	gchar *out_filename;
 	FILE *out_file;
 	int n = 0;
 	gchar buf[1024];
@@ -80,7 +82,29 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 	if(!archive->path)
 		return FALSE;
 
-	out_file = fopen("/tmp/test.out", "w");
+	if(destination_path)
+	{
+		if(g_file_test(destination_path, G_FILE_TEST_EXISTS) && g_file_test(destination_path, G_FILE_TEST_IS_DIR))
+		{
+			in_filename = g_path_get_basename(archive->path);
+			out_filename = g_build_path(destination_path, in_filename, NULL);
+			if(!g_str_has_suffix(out_filename, "gz"))
+			{
+				if(g_strcasecmp(archive->path, out_filename))
+					return FALSE;
+			} else
+			{
+				
+			}
+		}
+		else if(!g_file_test(destination_path, G_FILE_TEST_EXISTS)) 
+		{
+			// use it as an absolute filename.
+			out_filename = g_strdup(destination_path);
+		}
+	}
+
+	out_file = fopen(out_filename, "w");
 	in_file = gzopen(archive->path, "r");
 	while(n = gzread(in_file, &buf, 1024))
 	{
