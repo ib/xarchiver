@@ -30,16 +30,12 @@
 /*
  * xarchive_tar_support_add(XArchive *archive, GSList *files)
  * Add files and folders to archive
- *
- * FIXME: 
- * fix multiple-file support, now it only adds the first
  */
 gboolean
 xarchive_tar_support_add(XArchive *archive, GSList *files)
 {
-	gchar *command, *dir, *filename;
-	gchar *esc_filename;
-	GString *names = g_string_new(" ");
+	gchar *command, *dir;
+	GString *names;
 	gchar **argvp;
 	GSList *_files = files;
 	int argcp;
@@ -49,17 +45,7 @@ xarchive_tar_support_add(XArchive *archive, GSList *files)
 		chdir(dir);
 		g_free(dir);
 
-		while(_files)
-		{
-			filename = g_path_get_basename(_files->data);
-			esc_filename = escape_filename(filename);
-			g_string_prepend(names, esc_filename);
-			g_string_prepend_c(names, ' ');
-			g_free(esc_filename);
-			g_free(filename);
-			_files = g_slist_next(_files);
-		}
-
+        names = concatenatefilenames ( _files );		
 	
 		// Check if the archive already exists or not
 		if(g_file_test(archive->path, G_FILE_TEST_EXISTS))
@@ -84,6 +70,7 @@ xarchive_tar_support_add(XArchive *archive, GSList *files)
 		g_free(argvp);
 		g_free(command);
 	}
+    g_slist_free (files);
 	g_string_free(names, TRUE);
 	fchdir(n_cwd);
 }
@@ -91,9 +78,6 @@ xarchive_tar_support_add(XArchive *archive, GSList *files)
 /*
  * xarchive_tar_support_extract(XArchive *archive, GSList *files)
  * Extract files and folders from archive
- *
- * FIXME: 
- * fix multiple-file support, now it only extracts one
  */
 gboolean
 xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList *files)
@@ -114,15 +98,19 @@ xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList 
 		filename = g_path_get_basename(files->data);
 		
 		// Check if the archive already exists or not
-		if((destination_path !=  NULL )) 
+		if ((destination_path !=  NULL )) 
 			command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, " ", filename, NULL);
 		else
 			command = g_strconcat("tar xvvf ", archive->path, " ", filename, NULL);
 	} 
 	else
 	{
-		if((destination_path != NULL)) 
-			command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, NULL);
+        GSList *_files = files;
+        GString *names;
+
+        names = concatenatefilenames ( _files );		
+		if ( (destination_path != NULL) ) 
+			command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, names->str , NULL);
 		else
 			command = g_strconcat("tar xvvf ", archive->path, NULL);
 	}

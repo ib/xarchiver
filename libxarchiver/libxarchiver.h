@@ -41,6 +41,7 @@ struct _XArchive
 	XArchiveType type;
 	gchar *path;
 	gchar *passwd;
+    gint child_pid;
 };
 
 typedef struct _XArchiveSupport XArchiveSupport;
@@ -50,7 +51,7 @@ struct _XArchiveSupport
 	XArchiveType type;
 	gboolean (*verify)  (XArchive *);
 	gboolean (*add)     (XArchive *, GSList *);
-	gboolean (*extract) (XArchive *, gchar *, GSList *);
+	gboolean (*extract) (XArchive *, gchar *, GSList *, gboolean has_passwd);
     gboolean (*testing) (XArchive *, gboolean has_passwd);
 };
 
@@ -60,6 +61,8 @@ int xarchiver_destroy();
 
 XArchive *xarchiver_archive_new(gchar *path, XArchiveType type);
 XArchiveSupport *xarchiver_find_archive_support(XArchive *archive);
+
+gboolean xarchiver_cancel_operation ( gint pid );
 
 G_END_DECLS
 

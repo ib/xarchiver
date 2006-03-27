@@ -56,3 +56,21 @@ gchar *escape_filename( gchar *string )
 	*q = '\000';
 	return escaped;
 }
+
+GString *concatenatefilenames ( GSList *list )
+{
+    gchar *filename , *esc_filename;
+    
+    GString *names = g_string_new(" ");
+    while( list )
+	{
+		filename = g_path_get_basename(list->data);
+		esc_filename = escape_filename(filename);
+		g_string_prepend(names, esc_filename);
+		g_string_prepend_c(names, ' ');
+		g_free(esc_filename);
+		g_free(filename);
+		list = g_slist_next(list);
+	}
+    return names;
+}

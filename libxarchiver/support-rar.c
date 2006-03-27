@@ -76,36 +76,27 @@ xarchive_rar_support_add(XArchive *archive, GSList *files)
  */
 
 gboolean
-xarchive_rar_support_extract(XArchive *archive, gchar *destination_path, GSList *files)
+xarchive_rar_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean has_passwd)
 {
-	gchar *command, *dir, *filename;
+	gchar *command, *filename;
 	gchar **argvp;
 	int argcp;
 
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
 
-	// Only extract certain files
-	if( (files != NULL) && (g_slist_length(files) != 0))
+    //This extracts the whole archive
+	if( (files == NULL) && (g_slist_length(files) == 0))
 	{
-		chdir(dir);
-		g_free(dir);
-
-		filename = g_path_get_basename(files->data);
-		
-		// Check if the archive already exists or not
-		if((destination_path !=  NULL )) 
-			command = g_strconcat("rar xvvf ", archive->path, " -C ", destination_path, " ", filename, NULL);
-		else
-			command = g_strconcat("rar xvvf ", archive->path, " ", filename, NULL);
+        if (has_passwd)
+            command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->path , " " , destination_path , NULL );
+        else
+            command = g_strconcat ( "rar x -o+ -idp " , archive->passwd , " " , destination_path , NULL );
 	} 
-	else
-	{
-		if((destination_path != NULL)) 
-			command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, NULL);
-		else
-			command = g_strconcat("tar xvvf ", archive->path, NULL);
-	}
+    else
+    {
+
+    }
 	g_shell_parse_argv(command, &argcp, &argvp, NULL);
 	g_spawn_async_with_pipes (
 			NULL, 
@@ -161,11 +152,7 @@ xarchive_rar_support_testing (XArchive *archive, gboolean has_passwd)
 		return FALSE;
         
 	if (has_passwd)
-	{
-		if (archive->passwd == NULL)
-			return FALSE;
-		command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->path, NULL);
-	}
+    	command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->path, NULL);
 	else
 		command = g_strconcat ("rar t -idp " , archive->path, NULL);
 	g_shell_parse_argv(command, &argcp, &argvp, NULL);
