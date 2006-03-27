@@ -153,27 +153,22 @@ xarchive_rar_support_verify(XArchive *archive)
 gboolean
 xarchive_rar_support_testing (XArchive *archive, gboolean has_passwd)
 {
-    gchar *command;
-    gchar **argvp;
+	gchar *command;
+	gchar **argvp;
 	int argcp;
 
-    if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
-	    return FALSE;
+	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
+		return FALSE;
         
-    if (has_passwd)
-    {
-        Show_pwd_Window ( NULL , NULL );
-        if (archive->passwd == NULL)
-            return FALSE;
-        command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->path, NULL);
-    }
-    else
-        command = g_strconcat ("rar t -idp " , archive->path, NULL);
-    Update_StatusBar ( _("Testing archive integrity, please wait..."));
-    gtk_widget_set_sensitive (Stop_button,TRUE);
-    gtk_widget_set_sensitive ( check_menu , FALSE );
-    SetButtonState (0,0,0,0,0);
-    g_shell_parse_argv(command, &argcp, &argvp, NULL);
+	if (has_passwd)
+	{
+		if (archive->passwd == NULL)
+			return FALSE;
+		command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->path, NULL);
+	}
+	else
+		command = g_strconcat ("rar t -idp " , archive->path, NULL);
+	g_shell_parse_argv(command, &argcp, &argvp, NULL);
 	g_spawn_async_with_pipes (
 			NULL, 
 			argvp, 
@@ -186,7 +181,7 @@ xarchive_rar_support_testing (XArchive *archive, gboolean has_passwd)
 			NULL, // STDOUT
 			NULL, // STDERR
 			NULL);
-    g_free (command);
+	g_free (command);
 }
 
 XArchiveSupport *
@@ -197,6 +192,6 @@ xarchive_rar_support_new()
 	support->add     = xarchive_rar_support_add;
 	support->verify  = xarchive_rar_support_verify;
 	support->extract = xarchive_rar_support_extract;
-    support->testing = xarchive_rar_support_testing;
+	support->testing = xarchive_rar_support_testing;
 	return support;
 }
