@@ -50,7 +50,6 @@ xarchiver_init()
 		g_slist_append(support_list, xarchive_gzip_support_new());
 		g_slist_append(support_list, xarchive_bzip2_support_new());
 		g_slist_append(support_list, xarchive_tar_support_new());
-		g_slist_append(support_list, xarchive_rar_support_new());
 	}
 
 	printf("%d\n", g_slist_length(support_list));
