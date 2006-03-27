@@ -40,7 +40,7 @@ struct _XArchive
 {
 	XArchiveType type;
 	gchar *path;
-	int passwd;
+	gchar *passwd;
 };
 
 typedef struct _XArchiveSupport XArchiveSupport;
@@ -51,6 +51,7 @@ struct _XArchiveSupport
 	gboolean (*verify)  (XArchive *);
 	gboolean (*add)     (XArchive *, GSList *);
 	gboolean (*extract) (XArchive *, gchar *, GSList *);
+    gboolean (*testing) (XArchive *, gboolean has_passwd);
 };
 
 void xarchiver_init();

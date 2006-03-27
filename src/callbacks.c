@@ -359,7 +359,7 @@ void on_open1_activate (GtkMenuItem *menuitem, gpointer user_data)
 		break;
 
         case 11:
-        OpenISO ( TRUE , escaped_path );
+        OpenISO ( escaped_path );
 	}
     if (password != NULL) g_free (password);
     password = NULL;
@@ -996,13 +996,13 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 
 gboolean isISO ( FILE *ptr )
 {
-	/*if ( (DetectImage(ptr)) > 0 )
+	if ( (DetectImage(ptr)) > 0 )
     {
         gtk_widget_set_sensitive ( iso_info , TRUE );
         gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
         return TRUE;
     }
-    else return FALSE;*/
+    else return FALSE;
 }
 
 gboolean isTar ( FILE *ptr )
