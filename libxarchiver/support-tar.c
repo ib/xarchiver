@@ -22,6 +22,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
@@ -37,22 +38,34 @@ gboolean
 xarchive_tar_support_add(XArchive *archive, GSList *files)
 {
 	gchar *command, *dir, *filename;
+	gchar *esc_filename;
+	GString *names = g_string_new(" ");
 	gchar **argvp;
+	GSList *_files = files;
 	int argcp;
 	if(files != NULL)
 	{
-		dir = g_path_get_dirname(files->data);
+		dir = g_path_get_dirname(_files->data);
 		chdir(dir);
 		g_free(dir);
 
+		while(_files)
+		{
+			filename = g_path_get_basename(_files->data);
+			esc_filename = escape_filename(filename);
+			g_string_prepend(names, esc_filename);
+			g_string_prepend_c(names, ' ');
+			g_free(esc_filename);
+			g_free(filename);
+			_files = g_slist_next(_files);
+		}
 
-		filename = g_path_get_basename(files->data);
 	
 		// Check if the archive already exists or not
 		if(g_file_test(archive->path, G_FILE_TEST_EXISTS))
-			command = g_strconcat("tar rvvf ", archive->path, " ", filename, NULL);
+			command = g_strconcat("tar rvvf ", archive->path, " ", names->str, NULL);
 		else
-			command = g_strconcat("tar cvvf ", archive->path, " ", filename, NULL);
+			command = g_strconcat("tar cvvf ", archive->path, " ", names->str, NULL);
 
 		g_shell_parse_argv(command, &argcp, &argvp, NULL);
 		g_spawn_async_with_pipes (
@@ -67,10 +80,11 @@ xarchive_tar_support_add(XArchive *archive, GSList *files)
 				NULL, // STDOUT
 				NULL, // STDERR
 				NULL);
-	
+		
+		g_free(argvp);
 		g_free(command);
 	}
-
+	g_string_free(names, TRUE);
 	fchdir(n_cwd);
 }
 
