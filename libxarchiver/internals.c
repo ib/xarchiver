@@ -78,3 +78,14 @@ GString *concatenatefilenames ( GSList *list )
     return names;
 }
 
+int countcharacters ( gchar *string , int chr )
+{
+    int n = 0;
+    while ( *string )
+    {
+        if ( *string == chr ) n++;
+        string++;
+    }
+    return n;
+}
+

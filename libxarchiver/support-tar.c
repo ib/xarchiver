@@ -43,14 +43,13 @@ xarchive_tar_support_delete (XArchive *archive, GSList *files)
 	if(files != NULL)
 	{
 		names = concatenatefilenames ( _files );
-        g_slist_free ( files);
 		command = g_strconcat ( "tar --delete -vf " , archive->path , names->str , NULL );
         archive->child_pid = xarchiver_async_process ( archive , command, 0);
 		archive->status = DELETE;
         //TODO: to reload the archive to show the changes in the liststore
         g_free(command);
+        g_string_free (names, TRUE);
 	}
-	g_string_free(names, TRUE);
 	fchdir(n_cwd);
 }
 
@@ -74,12 +73,12 @@ xarchive_tar_support_add (XArchive *archive, GSList *files)
 		g_free(dir);
 
 		names = concatenatefilenames ( _files );		
-        g_slist_free ( files);
 		// Check if the archive already exists or not
 		if(g_file_test(archive->path, G_FILE_TEST_EXISTS))
 			command = g_strconcat("tar rvvf ", archive->path, " ", names->str, NULL);
 		else
 			command = g_strconcat("tar cvvf ", archive->path, " ", names->str, NULL);
+        archive->status = ADD;
 	    archive->child_pid = xarchiver_async_process ( archive , command, 0);
         g_free(command);
         if (archive->child_pid == 0)
@@ -88,8 +87,8 @@ xarchive_tar_support_add (XArchive *archive, GSList *files)
             g_error_free (archive->error);
             return FALSE;
         }
+        g_string_free(names, TRUE);
 	}
-	g_string_free(names, TRUE);
 	fchdir(n_cwd);
 }
 
@@ -98,12 +97,16 @@ xarchive_tar_support_add (XArchive *archive, GSList *files)
  * Extract files and folders from archive
  */
 gboolean
-xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList *files)
+xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
 	gchar *command, *dir, *filename;
+    unsigned short int levels;
+    char digit[2];
+    gchar *strip = NULL;
+    
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
-
+    
 	// Only extract certain files
 	if( (files == NULL) && (g_slist_length(files) == 0))
 	{
@@ -117,12 +120,19 @@ xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList 
         GSList *_files = files;
         GString *names;
         names = concatenatefilenames ( _files );
-        g_slist_free ( files) ;
-	    command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, names->str , NULL);
+        if ( full_path == 0 )
+        {
+            levels = countcharacters ( names->str , '/');
+            sprintf ( digit , "%d" , levels );
+            strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
+        }
+	    command = g_strconcat("tar " , full_path ? "" : strip , "-xvf ", archive->path, " -C ", destination_path, names->str , NULL);
         g_string_free (names,TRUE);
 	}
     archive->child_pid = xarchiver_async_process ( archive , command,0);
     g_free(command);
+    if ( strip != NULL)
+        g_free ( strip );
     if (archive->child_pid == 0)
     {
         g_message (archive->error->message);

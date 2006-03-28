@@ -65,7 +65,7 @@ struct _XArchiveSupport
     XArchiveType type;
     gboolean (*verify)  (XArchive *);
     gboolean (*add)     (XArchive *, GSList *);
-    gboolean (*extract) (XArchive *, gchar *, GSList *);
+    gboolean (*extract) (XArchive *, gchar *, GSList *, gboolean);
     gboolean (*delete)  (XArchive *, GSList *);
     gboolean (*testing) (XArchive *);
 };
