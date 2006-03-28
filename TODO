@@ -1,4 +1,5 @@
-+ move g_spawn codes to libxarchiver/internals.c
++ move g_spawn codes to libxarchiver/libxarchiver.c
+DONE
 
 + fill remaining archivesupport objects
   - zip

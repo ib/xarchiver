@@ -19,6 +19,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <glib.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <errno.h>
 #include <libxarchiver/libxarchiver.h>
 #include "internals.h"
 #include "support-bzip2.h"
@@ -138,4 +141,88 @@ xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input)
 		&archive->error) )
     return 0;
     else return archive->child_pid;
+}
+
+gboolean
+xarchiver_cancel_operation ( XArchive *archive , gint pid )
+{
+    //gtk_widget_set_sensitive ( Stop_button , FALSE );
+    //Update_StatusBar (_("Waiting for the process to abort..."));
+    if ( kill ( pid , SIGABRT ) < 0 )
+    {
+        g_message ( g_strerror(errno) );
+	    return FALSE;
+    }
+    //This in case the user cancel the opening of a password protected archive
+    if (archive->status != ADD || archive->status != DELETE)
+        if (archive->has_passwd)
+        {
+            archive->has_passwd = FALSE;
+            archive->passwd = 0;
+        }
+    archive->type == XARCHIVETYPE_UNKNOWN;
+    archive->status == INACTIVE;
+    return TRUE;
+}
+
+gboolean
+xarchiver_set_channel ( gint fd, GIOCondition cond, GIOFunc func, gpointer data )
+{
+    GIOChannel *ioc = NULL;
+	ioc = g_io_channel_unix_new ( fd );
+	g_io_add_watch (ioc, cond, func, data);
+	g_io_channel_set_encoding (ioc, "ISO8859-1" , NULL);
+	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
+    if (ioc == NULL) return FALSE;
+    else return TRUE;
+}
+
+gboolean
+xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+    if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		gchar *line = NULL;
+		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+        //TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell error output
+        //while (gtk_events_pending() )
+			//gtk_main_iteration();
+		if (line != NULL && strcmp (line,"\n") )
+		{
+            //gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
+			g_free (line);
+		}
+		return TRUE;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+        g_io_channel_unref (ioc);
+		return FALSE;
+	}
+}
+
+gboolean
+xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+    gchar *line = NULL;
+    if (cond & (G_IO_IN | G_IO_PRI) )
+    {
+        g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+        //TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell output
+        //while (gtk_events_pending() )
+			//gtk_main_iteration();
+		if (line != NULL )
+		{
+			//gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
+			g_free (line);
+		}
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+	    g_io_channel_shutdown ( ioc,TRUE,NULL );
+        g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
 }

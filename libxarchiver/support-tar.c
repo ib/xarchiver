@@ -28,11 +28,38 @@
 #include "libxarchiver.h"
 
 /*
+ * xarchive_tar_support_delete(XArchive *archive, GSList *files)
+ * Delete files and folders from archive
+ */
+gboolean
+xarchive_tar_support_delete (XArchive *archive, GSList *files)
+{
+	gchar *command, *dir;
+	GString *names;
+	gchar **argvp;
+	
+	GSList *_files = files;
+	int argcp;
+	if(files != NULL)
+	{
+		names = concatenatefilenames ( _files );
+        g_slist_free ( files);
+		command = g_strconcat ( "tar --delete -vf " , archive->path , names->str , NULL );
+        archive->child_pid = xarchiver_async_process ( archive , command, 0);
+		archive->status = DELETE;
+        //TODO: to reload the archive to show the changes in the liststore
+        g_free(command);
+	}
+	g_string_free(names, TRUE);
+	fchdir(n_cwd);
+}
+
+/*
  * xarchive_tar_support_add(XArchive *archive, GSList *files)
  * Add files and folders to archive
  */
 gboolean
-xarchive_tar_support_add(XArchive *archive, GSList *files)
+xarchive_tar_support_add (XArchive *archive, GSList *files)
 {
 	gchar *command, *dir;
 	GString *names;
@@ -47,29 +74,20 @@ xarchive_tar_support_add(XArchive *archive, GSList *files)
 		g_free(dir);
 
 		names = concatenatefilenames ( _files );		
-	
+        g_slist_free ( files);
 		// Check if the archive already exists or not
 		if(g_file_test(archive->path, G_FILE_TEST_EXISTS))
 			command = g_strconcat("tar rvvf ", archive->path, " ", names->str, NULL);
 		else
 			command = g_strconcat("tar cvvf ", archive->path, " ", names->str, NULL);
-
-		g_shell_parse_argv(command, &argcp, &argvp, NULL);
-		g_spawn_async_with_pipes (
-				NULL, 
-				argvp, 
-				NULL, 
-				G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-				NULL,
-				NULL,
-				NULL,
-				NULL, // STDIN
-				NULL, // STDOUT
-				NULL, // STDERR
-				NULL);
-		
-		g_free(argvp);
-		g_free(command);
+	    archive->child_pid = xarchiver_async_process ( archive , command, 0);
+        g_free(command);
+        if (archive->child_pid == 0)
+        {
+            g_message (archive->error->message);
+            g_error_free (archive->error);
+            return FALSE;
+        }
 	}
 	g_string_free(names, TRUE);
 	fchdir(n_cwd);
@@ -87,36 +105,32 @@ xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList 
 		return FALSE;
 
 	// Only extract certain files
-	if( (files != NULL) && (g_slist_length(files) != 0))
+	if( (files == NULL) && (g_slist_length(files) == 0))
 	{
 		chdir(dir);
 		g_free(dir);
-
 		filename = g_path_get_basename(files->data);
-		
-		// Check if the archive already exists or not
-		if ((destination_path !=  NULL )) 
-			command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, " ", filename, NULL);
-		else
-			command = g_strconcat("tar xvvf ", archive->path, " ", filename, NULL);
+		command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, " ", filename, NULL);
 	} 
 	else
 	{
         GSList *_files = files;
         GString *names;
-
         names = concatenatefilenames ( _files );
         g_slist_free ( files) ;
-		if ( (destination_path != NULL) )
-		{
-            command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, names->str , NULL);
+	    command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, names->str , NULL);
         g_string_free (names,TRUE);
-        }
-		else
-			command = g_strconcat("tar xvvf ", archive->path, NULL);
 	}
     archive->child_pid = xarchiver_async_process ( archive , command,0);
-	g_free(command);
+    g_free(command);
+    if (archive->child_pid == 0)
+    {
+        g_message (archive->error->message);
+        g_error_free (archive->error);
+        return FALSE;
+    }
+    if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) ) return FALSE;
+    if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) ) return FALSE;
 	fchdir(n_cwd);
 }
 
@@ -161,5 +175,6 @@ xarchive_tar_support_new()
 	support->add     = xarchive_tar_support_add;
 	support->verify  = xarchive_tar_support_verify;
 	support->extract = xarchive_tar_support_extract;
+    support->delete  = xarchive_tar_support_delete;
 	return support;
 }

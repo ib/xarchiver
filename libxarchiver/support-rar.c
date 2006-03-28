@@ -49,19 +49,7 @@ xarchive_rar_support_add(XArchive *archive, GSList *files)
 		else
 			command = g_strconcat("tar cvvf ", archive->path, " ", filename, NULL);
 
-		g_shell_parse_argv(command, &argcp, &argvp, NULL);
-		g_spawn_async_with_pipes (
-				NULL, 
-				argvp, 
-				NULL, 
-				G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-				NULL,
-				NULL,
-				NULL,
-				NULL, // STDIN
-				NULL, // STDOUT
-				NULL, // STDERR
-				NULL);
+	
 	
 		g_free(command);
 	}
@@ -95,22 +83,13 @@ xarchive_rar_support_extract(XArchive *archive, gchar *destination_path, GSList 
 	} 
     else
     {
-
+        archive->child_pid = xarchiver_async_process ( archive , command,0);
+        if (archive->child_pid == 0)
+        {
+            g_message (archive->error->message);
+            g_error_free (archive->error);
+        }
     }
-	g_shell_parse_argv(command, &argcp, &argvp, NULL);
-	g_spawn_async_with_pipes (
-			NULL, 
-			argvp, 
-			NULL, 
-			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-			NULL,
-			NULL,
-			NULL,
-			NULL, // STDIN
-			NULL, // STDOUT
-			NULL, // STDERR
-			NULL);
-	
 	g_free(command);
 	fchdir(n_cwd);
 }

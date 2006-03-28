@@ -22,28 +22,37 @@ G_BEGIN_DECLS
 
 typedef enum
 {
-	XARCHIVETYPE_UNKNOWN,
-	XARCHIVETYPE_BZIP2,
-	XARCHIVETYPE_GZIP,
-	XARCHIVETYPE_RAR,
-	XARCHIVETYPE_ZIP,
-	XARCHIVETYPE_ARJ,
-	XARCHIVETYPE_TAR,
-	XARCHIVETYPE_RPM,
-	XARCHIVETYPE_7ZIP,
-	XARCHIVETYPE_ISO
+    XARCHIVETYPE_UNKNOWN,
+    XARCHIVETYPE_BZIP2,
+    XARCHIVETYPE_GZIP,
+    XARCHIVETYPE_RAR,
+    XARCHIVETYPE_ZIP,
+    XARCHIVETYPE_ARJ,
+    XARCHIVETYPE_TAR,
+    XARCHIVETYPE_RPM,
+    XARCHIVETYPE_7ZIP,
+    XARCHIVETYPE_ISO
 } XArchiveType;
+
+typedef enum
+{
+    EXTRACT,
+    ADD,
+    DELETE,
+    INACTIVE
+} XArchiveStatus;
 
 typedef struct _XArchive XArchive;
 
 struct _XArchive
 {
-	XArchiveType type;
-	gchar *path;
-	gchar *passwd;
+    XArchiveType type;
+    XArchiveType status;
+    gchar *path;
+    gchar *passwd;
+    gboolean has_passwd;
     GError *error;
     gint child_pid;
-	gboolean has_passwd;
     gint output_fd;
     gint input_fd;
     gint error_fd;
@@ -53,11 +62,12 @@ typedef struct _XArchiveSupport XArchiveSupport;
 
 struct _XArchiveSupport
 {
-	XArchiveType type;
-	gboolean (*verify)  (XArchive *);
-	gboolean (*add)     (XArchive *, GSList *);
-	gboolean (*extract) (XArchive *, gchar *, GSList *);
-	gboolean (*testing) (XArchive *);
+    XArchiveType type;
+    gboolean (*verify)  (XArchive *);
+    gboolean (*add)     (XArchive *, GSList *);
+    gboolean (*extract) (XArchive *, gchar *, GSList *);
+    gboolean (*delete)  (XArchive *, GSList *);
+    gboolean (*testing) (XArchive *);
 };
 
 void xarchiver_init();
@@ -68,8 +78,16 @@ XArchive *xarchiver_archive_new(gchar *path, XArchiveType type);
 XArchiveSupport *xarchiver_find_archive_support(XArchive *archive);
 
 gint xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input);
-gboolean xarchiver_cancel_operation ( gint pid );
+gboolean xarchiver_cancel_operation ( XArchive *archive , gint pid );
 
+gboolean
+xarchiver_set_channel ( gint fd, GIOCondition cond, GIOFunc func, gpointer data );
 G_END_DECLS
+
+gboolean
+xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data);
+
+gboolean
+xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
 #endif /* __LIBXARCHIVER_H__ */
