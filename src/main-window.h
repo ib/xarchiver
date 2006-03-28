@@ -19,48 +19,6 @@
 #ifndef __XARCHIVER_MAIN_WINDOW_H__
 #define __XARCHIVER_MAIN_WINDOW_H__
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
-G_BEGIN_DECLS
-
-#define XARCHIVER_IS_MAIN_WINDOW(obj)       \
-		GTK_CHECK_TYPE(obj,                        \
-				xarchiver_main_window_get_type())
-
-#define XARCHIVER_MAIN_WINDOW(obj)          \
-    GTK_CHECK_CAST(obj,                        \
-        xarchiver_main_window_get_type(),   \
-        XArchiverMainWindow)
-
-#define XARCHIVER_MAIN_WINDOW_CLASS(klass)  \
-    GTK_CHECK_CLASS_CAST(obj,                  \
-        xarchiver_main_window_get_type(),   \
-        XArchiverMainWindowClass)
-
-typedef struct _XArchiverMainWindow          XArchiverMainWindow;
-typedef struct _XArchiverMainWindowClass     XArchiverMainWindowClass;
-
-struct _XArchiverMainWindow
-{
-	GtkWindow parent;
-};
-
-struct _XArchiverMainWindowClass
-{
-	GtkWindowClass parent_class;
-};
-
-GtkType    xarchiver_main_window_get_type();
-
 GtkWidget *xarchiver_main_window_new();
 
-G_END_DECLS
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
-#endif /* __XARCHIVER_MAIN_WINDOW_H__ */
+#endif
