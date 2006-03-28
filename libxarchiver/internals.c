@@ -2,6 +2,7 @@
 #include <string.h>
 #include <glib.h>
 #include "internals.h"
+
 //Taken from xarchive - http://xarchive.sourceforge.net
 int is_escaped_char (char c)
 {
@@ -57,6 +58,8 @@ gchar *escape_filename( gchar *string )
 	return escaped;
 }
 
+//End code from xarchive
+
 GString *concatenatefilenames ( GSList *list )
 {
     gchar *filename , *esc_filename;
@@ -74,3 +77,4 @@ GString *concatenatefilenames ( GSList *list )
 	}
     return names;
 }
+

@@ -83,9 +83,6 @@ gboolean
 xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList *files)
 {
 	gchar *command, *dir, *filename;
-	gchar **argvp;
-	int argcp;
-
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
 
@@ -108,26 +105,17 @@ xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList 
         GSList *_files = files;
         GString *names;
 
-        names = concatenatefilenames ( _files );		
-		if ( (destination_path != NULL) ) 
-			command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, names->str , NULL);
+        names = concatenatefilenames ( _files );
+        g_slist_free ( files) ;
+		if ( (destination_path != NULL) )
+		{
+            command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, names->str , NULL);
+        g_string_free (names,TRUE);
+        }
 		else
 			command = g_strconcat("tar xvvf ", archive->path, NULL);
 	}
-	g_shell_parse_argv(command, &argcp, &argvp, NULL);
-	g_spawn_async_with_pipes (
-			NULL, 
-			argvp, 
-			NULL, 
-			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-			NULL,
-			NULL,
-			NULL,
-			NULL, // STDIN
-			NULL, // STDOUT
-			NULL, // STDERR
-			NULL);
-	
+    archive->child_pid = xarchiver_async_process ( archive , command,0);
 	g_free(command);
 	fchdir(n_cwd);
 }

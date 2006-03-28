@@ -117,3 +117,25 @@ xarchiver_find_archive_support(XArchive *archive)
 	return (XArchiveSupport *)(support->data);
 }
 
+gint
+xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input)
+{
+    gchar **argvp;
+	int argcp;
+
+    g_shell_parse_argv(command, &argcp, &argvp, NULL);
+    if ( ! g_spawn_async_with_pipes (
+		NULL,
+		argvp,
+		NULL,
+		G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+		NULL,
+		NULL,
+		&archive->child_pid,
+		input ? &archive->input_fd : NULL,
+		&archive->output_fd,
+		&archive->error_fd,
+		&archive->error) )
+    return 0;
+    else return archive->child_pid;
+}
