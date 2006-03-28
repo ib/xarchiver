@@ -9,4 +9,10 @@
 + handle child_pid cancellation in libxarchiver
 
 + create GUI (further specification of this is pending)
+	+ support the opening of multiple archives?
+		- through tabs (notebook-widget)
+		+ by spawning a new window
+			- new window in same application?
+			- new application?
 
++ configure library?

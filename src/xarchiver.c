@@ -20,10 +20,20 @@
 #include <libxarchiver/libxarchiver.h>
 #include <gtk/gtk.h>
 
-int main(int argc, char **arg)
-{
-	xarchiver_init();
+#include "xarchiver.h"
+#include "main-window.h"
 
+int main(int argc, char **argv)
+{
+	GtkWidget *main_window;
+	xarchiver_init();
+	gtk_init(&argc, &argv);
+
+	main_window = xarchiver_main_window_new();
+
+	gtk_widget_show(main_window);
+
+	gtk_main();
 
 	xarchiver_destroy();
 }

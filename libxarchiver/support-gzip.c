@@ -72,6 +72,7 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 	gchar *in_filename;
 	gzFile in_file;
 	gchar *out_filename;
+	gchar *tmp_filename;
 	FILE *out_file;
 	int n = 0;
 	gchar buf[1024];
@@ -94,9 +95,27 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 					return FALSE;
 			} else
 			{
-				for(n = strlen(out_filename); (out_filename[n] != '.') && (n >= 0); n--);
-				if(out_filename[n] == '.')
-					out_filename[n] = '\0';
+				if(g_str_has_suffix(out_filename, ".gz"))
+				{
+					for(n = strlen(out_filename)-1; (out_filename[n] != '.') && (n >= 0); n--);
+					if(out_filename[n] == '.')
+						out_filename[n] = '\0';
+				}
+				else
+				{
+					if(g_str_has_suffix(out_filename, ".tgz"))
+					{
+						n = strlen(out_filename);
+						out_filename[n-1] = 'r';
+						out_filename[n-2] = 'a';
+					}
+					else
+					{
+						tmp_filename = out_filename;
+						out_filename = g_strconcat(tmp_filename, ".out");
+						g_free(tmp_filename);
+					}
+				}
 			}
 		}
 		else if(!g_file_test(destination_path, G_FILE_TEST_EXISTS)) 
@@ -135,6 +154,7 @@ xarchive_gzip_support_verify(XArchive *archive)
   	if ( memcmp ( magic,"\x1f\x8b\x08",3 ) == 0 )
 		{
 			archive->type = XARCHIVETYPE_GZIP;
+			archive->has_passwd = FALSE;
 			archive->passwd = 0;
 		}
 		fclose(fp);

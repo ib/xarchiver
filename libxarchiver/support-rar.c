@@ -76,7 +76,7 @@ xarchive_rar_support_add(XArchive *archive, GSList *files)
  */
 
 gboolean
-xarchive_rar_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean has_passwd)
+xarchive_rar_support_extract(XArchive *archive, gchar *destination_path, GSList *files)
 {
 	gchar *command, *filename;
 	gchar **argvp;
@@ -88,7 +88,7 @@ xarchive_rar_support_extract(XArchive *archive, gchar *destination_path, GSList 
     //This extracts the whole archive
 	if( (files == NULL) && (g_slist_length(files) == 0))
 	{
-        if (has_passwd)
+        if (archive->has_passwd)
             command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->path , " " , destination_path , NULL );
         else
             command = g_strconcat ( "rar x -o+ -idp " , archive->passwd , " " , destination_path , NULL );
@@ -130,7 +130,9 @@ xarchive_rar_support_verify(XArchive *archive)
 		if ( fread ( magic, 1, 4, fp ) )
 		{
 			if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 )
+			{
 				archive->type = XARCHIVETYPE_RAR;
+			}
 		}
 		fclose( fp );
 	}
@@ -142,7 +144,7 @@ xarchive_rar_support_verify(XArchive *archive)
 }
 
 gboolean
-xarchive_rar_support_testing (XArchive *archive, gboolean has_passwd)
+xarchive_rar_support_testing (XArchive *archive)
 {
 	gchar *command;
 	gchar **argvp;
@@ -151,7 +153,7 @@ xarchive_rar_support_testing (XArchive *archive, gboolean has_passwd)
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
         
-	if (has_passwd)
+	if (archive->has_passwd)
     	command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->path, NULL);
 	else
 		command = g_strconcat ("rar t -idp " , archive->path, NULL);

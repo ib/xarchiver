@@ -37,6 +37,7 @@ xarchive_tar_support_add(XArchive *archive, GSList *files)
 	gchar *command, *dir;
 	GString *names;
 	gchar **argvp;
+	
 	GSList *_files = files;
 	int argcp;
 	if(files != NULL)
@@ -45,7 +46,7 @@ xarchive_tar_support_add(XArchive *archive, GSList *files)
 		chdir(dir);
 		g_free(dir);
 
-        names = concatenatefilenames ( _files );		
+		names = concatenatefilenames ( _files );		
 	
 		// Check if the archive already exists or not
 		if(g_file_test(archive->path, G_FILE_TEST_EXISTS))
@@ -70,7 +71,6 @@ xarchive_tar_support_add(XArchive *archive, GSList *files)
 		g_free(argvp);
 		g_free(command);
 	}
-    g_slist_free (files);
 	g_string_free(names, TRUE);
 	fchdir(n_cwd);
 }
@@ -151,6 +151,8 @@ xarchive_tar_support_verify(XArchive *archive)
 				if ( memcmp ( magic,"ustar",5 ) == 0 )
 				{
 					archive->type = XARCHIVETYPE_TAR;
+					archive->has_passwd = 0;
+					archive->passwd = 0;
 				}
 			}
 		}

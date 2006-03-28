@@ -132,6 +132,7 @@ xarchive_bzip2_support_verify(XArchive *archive)
   	if ( memcmp ( magic,"\x42\x5a\x68",3 ) == 0 )
 		{
 			archive->type = XARCHIVETYPE_BZIP2;
+			archive->has_passwd = FALSE;
 			archive->passwd = 0;
 		} 
 		fclose(fp);
