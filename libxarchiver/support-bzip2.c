@@ -49,21 +49,14 @@ xarchive_bzip2_support_add(XArchive *archive, GSList *files)
 		filename = g_path_get_basename(files->data);
 		
 		command = g_strconcat("bzip2 -kz ", filename, NULL);
-		g_shell_parse_argv(command, &argcp, &argvp, NULL);
-		g_spawn_async_with_pipes (
-				NULL, 
-				argvp, 
-				NULL, 
-				G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-				NULL,
-				NULL,
-				NULL,
-				NULL, // STDIN
-				NULL, // STDOUT
-				NULL, // STDERR
-				NULL);
-	
+		archive->child_pid = xarchiver_async_process ( archive , command, 0);
 		g_free(command);
+		if (archive->child_pid == 0)
+		{
+			g_message (archive->error->message);
+			g_error_free (archive->error);
+			return FALSE;
+		}
 		if(archive->path)
 			g_free(archive->path);
 		archive->path = g_strconcat(filename,".bz2");
@@ -81,7 +74,7 @@ xarchive_bzip2_support_add(XArchive *archive, GSList *files)
  * destination-folder does not work with bare bzip
  */
 gboolean
-xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSList *files)
+xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
 	gchar *command, *dir, *filename;
 	gchar **argvp;
@@ -95,20 +88,13 @@ xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSLis
 		g_warning("bzip2 can only extract one file");
 	}
 	command = g_strconcat("bzip2 -kd ", archive->path, NULL);
-	g_shell_parse_argv(command, &argcp, &argvp, NULL);
-	g_spawn_async_with_pipes (
-			NULL, 
-			argvp, 
-			NULL, 
-			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-			NULL,
-			NULL,
-			NULL,
-			NULL, // STDIN
-			NULL, // STDOUT
-			NULL, // STDERR
-			NULL);
-	
+	archive->child_pid = xarchiver_async_process ( archive, command, 0);
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+		return FALSE;
+	}
 	g_free(command);
 	fchdir(n_cwd);
 }
@@ -151,5 +137,7 @@ xarchive_bzip2_support_new()
 	support->verify = xarchive_bzip2_support_verify;
 	support->add = xarchive_bzip2_support_add;
 	support->extract = xarchive_bzip2_support_extract;
+	support->remove = NULL;
+	support->testing = NULL;
 	return support;
 }

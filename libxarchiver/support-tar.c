@@ -28,11 +28,11 @@
 #include "libxarchiver.h"
 
 /*
- * xarchive_tar_support_delete(XArchive *archive, GSList *files)
- * Delete files and folders from archive
+ * xarchive_tar_support_remove(XArchive *archive, GSList *files)
+ * Remove files and folders from archive
  */
 gboolean
-xarchive_tar_support_delete (XArchive *archive, GSList *files)
+xarchive_tar_support_remove (XArchive *archive, GSList *files)
 {
 	gchar *command, *dir;
 	GString *names;
@@ -44,11 +44,11 @@ xarchive_tar_support_delete (XArchive *archive, GSList *files)
 	{
 		names = concatenatefilenames ( _files );
 		command = g_strconcat ( "tar --delete -vf " , archive->path , names->str , NULL );
-        archive->child_pid = xarchiver_async_process ( archive , command, 0);
+		archive->child_pid = xarchiver_async_process ( archive , command, 0);
 		archive->status = DELETE;
-        //TODO: to reload the archive to show the changes in the liststore
-        g_free(command);
-        g_string_free (names, TRUE);
+		//TODO: to reload the archive to show the changes in the liststore
+		g_free(command);
+		g_string_free (names, TRUE);
 	}
 	fchdir(n_cwd);
 }
@@ -78,16 +78,17 @@ xarchive_tar_support_add (XArchive *archive, GSList *files)
 			command = g_strconcat("tar rvvf ", archive->path, " ", names->str, NULL);
 		else
 			command = g_strconcat("tar cvvf ", archive->path, " ", names->str, NULL);
-        archive->status = ADD;
-	    archive->child_pid = xarchiver_async_process ( archive , command, 0);
-        g_free(command);
-        if (archive->child_pid == 0)
-        {
-            g_message (archive->error->message);
-            g_error_free (archive->error);
-            return FALSE;
-        }
-        g_string_free(names, TRUE);
+
+		archive->status = ADD;
+		archive->child_pid = xarchiver_async_process ( archive , command, 0);
+		g_free(command);
+		if (archive->child_pid == 0)
+		{
+			g_message (archive->error->message);
+			g_error_free (archive->error);
+			return FALSE;
+		}
+		g_string_free(names, TRUE);
 	}
 	fchdir(n_cwd);
 }
@@ -100,9 +101,9 @@ gboolean
 xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
 	gchar *command, *dir, *filename;
-    unsigned short int levels;
-    char digit[2];
-    gchar *strip = NULL;
+	unsigned short int levels;
+	char digit[2];
+	gchar *strip = NULL;
     
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
@@ -117,30 +118,30 @@ xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList 
 	} 
 	else
 	{
-        GSList *_files = files;
-        GString *names;
-        names = concatenatefilenames ( _files );
-        if ( full_path == 0 )
-        {
-            levels = countcharacters ( names->str , '/');
-            sprintf ( digit , "%d" , levels );
-            strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
-        }
-	    command = g_strconcat("tar " , full_path ? "" : strip , "-xvf ", archive->path, " -C ", destination_path, names->str , NULL);
-        g_string_free (names,TRUE);
+		GSList *_files = files;
+		GString *names;
+		names = concatenatefilenames ( _files );
+		if ( full_path == 0 )
+		{
+			levels = countcharacters ( names->str , '/');
+			sprintf ( digit , "%d" , levels );
+			strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
+		}
+		command = g_strconcat("tar " , full_path ? "" : strip , "-xvf ", archive->path, " -C ", destination_path, names->str , NULL);
+		g_string_free (names,TRUE);
 	}
-    archive->child_pid = xarchiver_async_process ( archive , command,0);
-    g_free(command);
-    if ( strip != NULL)
-        g_free ( strip );
-    if (archive->child_pid == 0)
-    {
-        g_message (archive->error->message);
-        g_error_free (archive->error);
-        return FALSE;
-    }
-    if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) ) return FALSE;
-    if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) ) return FALSE;
+	archive->child_pid = xarchiver_async_process ( archive , command,0);
+	g_free(command);
+	if ( strip != NULL)
+		g_free ( strip );
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+		return FALSE;
+	}
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) ) return FALSE;
+	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) ) return FALSE;
 	fchdir(n_cwd);
 }
 
@@ -185,6 +186,6 @@ xarchive_tar_support_new()
 	support->add     = xarchive_tar_support_add;
 	support->verify  = xarchive_tar_support_verify;
 	support->extract = xarchive_tar_support_extract;
-    support->delete  = xarchive_tar_support_delete;
+	support->remove  = xarchive_tar_support_remove;
 	return support;
 }

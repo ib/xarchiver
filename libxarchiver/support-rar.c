@@ -32,33 +32,33 @@ gboolean
 xarchive_rar_support_add (XArchive *archive, GSList *files)
 {
 	gchar *command, *dir, *filename;
-    GString *names;
+	GString *names;
 
-    GSList *_files = files;
+	GSList *_files = files;
 	if(files != NULL)
 	{
 		dir = g_path_get_dirname(files->data);
 		chdir(dir);
 		g_free(dir);
-        names = concatenatefilenames ( _files );
-        if (archive->has_passwd)
-            command = g_strconcat ( "rar a -p" , archive->passwd, " -o+ -ep1 -idp " , archive->path , names->str , NULL );
-        else
-            command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->path , names->str , NULL );
-        archive->status = ADD;
-        archive->child_pid = xarchiver_async_process ( archive , command, 0);
-        if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-            return FALSE;
-        if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-            return FALSE;
-        g_free(command);
-         if (archive->child_pid == 0)
-        {
-            g_message (archive->error->message);
-            g_error_free (archive->error);
-            return FALSE;
-        }
-        g_string_free (names, TRUE);
+ 		names = concatenatefilenames ( _files );
+		if (archive->has_passwd)
+			command = g_strconcat ( "rar a -p" , archive->passwd, " -o+ -ep1 -idp " , archive->path , names->str , NULL );
+		else
+			command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->path , names->str , NULL );
+		archive->status = ADD;
+		archive->child_pid = xarchiver_async_process ( archive , command, 0);
+		if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
+			return FALSE;
+		if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
+			return FALSE;
+		g_free(command);
+		if (archive->child_pid == 0)
+		{
+			g_message (archive->error->message);
+			g_error_free (archive->error);
+			return FALSE;
+		}
+		g_string_free (names, TRUE);
 	}
 	fchdir(n_cwd);
 }
@@ -73,39 +73,39 @@ gboolean
 xarchive_rar_support_extract (XArchive *archive, gchar *destination_path, GSList *files , gboolean full_path)
 {
 	gchar *command, *filename;
-    GString *names;
+	GString *names;
 
-    GSList *_files = files;
+	GSList *_files = files;
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
 
     //This extracts the whole archive
 	if( (files == NULL) && (g_slist_length(files) == 0))
 	{
-        if (archive->has_passwd)
-            command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->path , " " , destination_path , NULL );
-        else
-            command = g_strconcat ( "rar x -o+ -idp " , archive->passwd , " " , destination_path , NULL );
+		if (archive->has_passwd)
+			command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->path , " " , destination_path , NULL );
+		else
+			command = g_strconcat ( "rar x -o+ -idp " , archive->passwd , " " , destination_path , NULL );
 	} 
-    else
-    {
-        names = concatenatefilenames ( _files );
-        if ( archive->has_passwd)
-            command = g_strconcat ( "rar " , full_path ? "x" : "e" , " -p",archive->passwd, " -o+ -idp " , archive->path , " " , names->str , " " , destination_path , NULL );
-        else
-            command = g_strconcat ( "rar ", full_path ? "x" : "e" , " -o+ -idp " , archive->path , " " , names->str , " ", destination_path ,NULL);
-        g_string_free (names, TRUE);
-    }
-    archive->child_pid = xarchiver_async_process ( archive , command , 0);
-    if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-        return FALSE;
-    if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-        return FALSE;
-    if (archive->child_pid == 0)
-    {
-        g_message (archive->error->message);
-        g_error_free (archive->error);
-    }
+	else
+	{
+		names = concatenatefilenames ( _files );
+		if ( archive->has_passwd)
+			command = g_strconcat ( "rar " , full_path ? "x" : "e" , " -p",archive->passwd, " -o+ -idp " , archive->path , " " , names->str , " " , destination_path , NULL );
+		else
+			command = g_strconcat ( "rar ", full_path ? "x" : "e" , " -o+ -idp " , archive->path , " " , names->str , " ", destination_path ,NULL);
+		g_string_free (names, TRUE);
+	}
+	archive->child_pid = xarchiver_async_process ( archive , command , 0);
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
+		return FALSE;
+	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
+		return FALSE;
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+	}
 	g_free(command);
 	fchdir(n_cwd);
 }
@@ -125,51 +125,51 @@ xarchive_rar_support_testing (XArchive *archive)
 		return FALSE;
         
 	if (archive->has_passwd)
-    	command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->path, NULL);
+		command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->path, NULL);
 	else
 		command = g_strconcat ("rar t -idp " , archive->path, NULL);
 
-    archive->child_pid = xarchiver_async_process ( archive , command , 0);
-    if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-        return FALSE;
-    if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-        return FALSE;
-    if (archive->child_pid == 0)
-    {
-        g_message (archive->error->message);
-        g_error_free (archive->error);
-    }
+	archive->child_pid = xarchiver_async_process ( archive , command , 0);
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
+		return FALSE;
+	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
+		return FALSE;
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+	}
 	g_free (command);
 }
 
 /*
- * xarchive_rar_support_delete(XArchive *archive, GSList *files)
- * Delete files and folders from the archive
+ * xarchive_rar_support_remove(XArchive *archive, GSList *files)
+ * Remove files and folders from the archive
  *
  */
 
 gboolean
-xarchive_rar_support_delete (XArchive *archive, GSList *files )
+xarchive_rar_support_remove (XArchive *archive, GSList *files )
 {
 	gchar *command;
-    GString *names;
+	GString *names;
 
-    GSList *_files = files;
-    names = concatenatefilenames ( _files );
-    archive->status = DELETE;
+	GSList *_files = files;
+	names = concatenatefilenames ( _files );
+	archive->status = DELETE;
 	command = g_strconcat ( "rar d " , archive->path , names->str , NULL );
-    g_string_free (names, TRUE);
-    archive->child_pid = xarchiver_async_process ( archive , command , 0);
-    if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-        return FALSE;
-    if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-        return FALSE;
-    if (archive->child_pid == 0)
-    {
-        g_message (archive->error->message);
-        g_error_free (archive->error);
-    }
-    g_free (command);
+	g_string_free (names, TRUE);
+	archive->child_pid = xarchiver_async_process ( archive , command , 0);
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
+		return FALSE;
+	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
+		return FALSE;
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+	}
+	g_free (command);
 }
 
 gboolean
@@ -209,7 +209,7 @@ xarchive_rar_support_new()
 	support->verify  = xarchive_rar_support_verify;
 	support->extract = xarchive_rar_support_extract;
 	support->testing = xarchive_rar_support_testing;
-    support->delete  = xarchive_rar_support_delete;
+	support->remove  = xarchive_rar_support_remove;
 	return support;
 }
 

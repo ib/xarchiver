@@ -49,7 +49,8 @@ xarchiver_init()
 	// open current-working directory
 	if(!n_cwd)
 		n_cwd = open(".", "r");
-	if(support_list == NULL) {
+	if(support_list == NULL)
+	{
 		support_list = g_slist_alloc();
 
 		g_slist_append(support_list, xarchive_gzip_support_new());
@@ -62,7 +63,13 @@ xarchiver_init()
 int
 xarchiver_destroy()
 {
-	g_slist_foreach (support_list, (GFunc) g_free, NULL);
+	GSList *_support = support_list;
+	while(_support)
+	{
+		if(_support->data)
+			g_free(_support->data);
+		_support = _support->next;
+	}
 	g_slist_free (support_list);
 	support_list = NULL;
 	close(n_cwd);
@@ -123,73 +130,77 @@ xarchiver_find_archive_support(XArchive *archive)
 gint
 xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input)
 {
-    gchar **argvp;
+	gchar **argvp;
 	int argcp;
 
-    g_shell_parse_argv(command, &argcp, &argvp, NULL);
-    if ( ! g_spawn_async_with_pipes (
-		NULL,
-		argvp,
-		NULL,
-		G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-		NULL,
-		NULL,
-		&archive->child_pid,
-		input ? &archive->input_fd : NULL,
-		&archive->output_fd,
-		&archive->error_fd,
-		&archive->error) )
-    return 0;
-    else return archive->child_pid;
+	g_shell_parse_argv(command, &argcp, &argvp, NULL);
+	if ( ! g_spawn_async_with_pipes (
+			NULL,
+			argvp,
+			NULL,
+			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+			NULL,
+			NULL,
+			&archive->child_pid,
+			input ? &archive->input_fd : NULL,
+			&archive->output_fd,
+			&archive->error_fd,
+			&archive->error) )
+		return 0;
+	else 
+		return archive->child_pid;
 }
 
 gboolean
 xarchiver_cancel_operation ( XArchive *archive , gint pid )
 {
-    //gtk_widget_set_sensitive ( Stop_button , FALSE );
-    //Update_StatusBar (_("Waiting for the process to abort..."));
-    if ( kill ( pid , SIGABRT ) < 0 )
-    {
-        g_message ( g_strerror(errno) );
-	    return FALSE;
-    }
-    //This in case the user cancel the opening of a password protected archive
-    if (archive->status != ADD || archive->status != DELETE)
-        if (archive->has_passwd)
-        {
-            archive->has_passwd = FALSE;
-            archive->passwd = 0;
-        }
-    archive->type == XARCHIVETYPE_UNKNOWN;
-    archive->status == INACTIVE;
-    return TRUE;
+	//gtk_widget_set_sensitive ( Stop_button , FALSE );
+	//Update_StatusBar (_("Waiting for the process to abort..."));
+	if ( kill ( pid , SIGABRT ) < 0 )
+	{
+		g_message ( g_strerror(errno) );
+		return FALSE;
+	}
+	//This in case the user cancel the opening of a password protected archive
+	if (archive->status != ADD || archive->status != DELETE);
+	
+	if (archive->has_passwd)
+	{
+		archive->has_passwd = FALSE;
+		archive->passwd = 0;
+	}
+	archive->type == XARCHIVETYPE_UNKNOWN;
+	archive->status == INACTIVE;
+	return TRUE;
 }
 
 gboolean
 xarchiver_set_channel ( gint fd, GIOCondition cond, GIOFunc func, gpointer data )
 {
-    GIOChannel *ioc = NULL;
+	GIOChannel *ioc = NULL;
 	ioc = g_io_channel_unix_new ( fd );
 	g_io_add_watch (ioc, cond, func, data);
 	g_io_channel_set_encoding (ioc, "ISO8859-1" , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-    if (ioc == NULL) return FALSE;
-    else return TRUE;
+	if (ioc == NULL) 
+		return FALSE;
+	else 
+		return TRUE;
 }
 
 gboolean
 xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-    if (cond & (G_IO_IN | G_IO_PRI) )
+	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		gchar *line = NULL;
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-        //TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell error output
-        //while (gtk_events_pending() )
-			//gtk_main_iteration();
+		//TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell error output
+		//while (gtk_events_pending() )
+		//gtk_main_iteration();
 		if (line != NULL && strcmp (line,"\n") )
 		{
-            //gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
+ 			//gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
 			g_free (line);
 		}
 		return TRUE;
@@ -197,7 +208,7 @@ xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
-        g_io_channel_unref (ioc);
+ 		g_io_channel_unref (ioc);
 		return FALSE;
 	}
 }
@@ -205,13 +216,13 @@ xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 gboolean
 xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-    gchar *line = NULL;
-    if (cond & (G_IO_IN | G_IO_PRI) )
-    {
-        g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-        //TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell output
-        //while (gtk_events_pending() )
-			//gtk_main_iteration();
+	gchar *line = NULL;
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+ 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		//TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell output
+		//while (gtk_events_pending() )
+		//gtk_main_iteration();
 		if (line != NULL )
 		{
 			//gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
@@ -220,8 +231,8 @@ xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
-	    g_io_channel_shutdown ( ioc,TRUE,NULL );
-        g_io_channel_unref (ioc);
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
 		return FALSE;
 	}
 	return TRUE;

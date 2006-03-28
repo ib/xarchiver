@@ -65,10 +65,9 @@ xarchive_gzip_support_add(XArchive *archive, GSList *files)
  * xarchive_gzip_support_extract(XArchive *archive, GSList *files)
  * Extract archive
  *
- * FIXME: create filename of destination_path/archive-basename
  */
 gboolean
-xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList *files)
+xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
 	gchar *in_filename;
 	gzFile in_file;
@@ -174,5 +173,7 @@ xarchive_gzip_support_new()
 	support->verify = xarchive_gzip_support_verify;
 	support->add = xarchive_gzip_support_add;
 	support->extract = xarchive_gzip_support_extract;
+	support->remove = NULL;
+	support->testing = NULL;
 	return support;
 }
