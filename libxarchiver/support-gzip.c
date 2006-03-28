@@ -51,7 +51,7 @@ xarchive_gzip_support_add(XArchive *archive, GSList *files)
 	}
 	in_file = fopen(files->data, "r");
 	out_file = gzopen(archive->path, "w");
-	while(n = fread(&buf, 1, 1024, in_file))
+	while((n = fread(&buf, 1, 1024, in_file)) > 0)
 	{
 		gzwrite(out_file, &buf, n);
 	}
@@ -89,45 +89,51 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 		{
 			in_filename = g_path_get_basename(archive->path);
 			out_filename = g_build_path(destination_path, in_filename, NULL);
-			if(!g_str_has_suffix(out_filename, "gz"))
-			{
-				if(g_strcasecmp(archive->path, out_filename))
-					return FALSE;
-			} else
-			{
-				if(g_str_has_suffix(out_filename, ".gz"))
-				{
-					for(n = strlen(out_filename)-1; (out_filename[n] != '.') && (n >= 0); n--);
-					if(out_filename[n] == '.')
-						out_filename[n] = '\0';
-				}
-				else
-				{
-					if(g_str_has_suffix(out_filename, ".tgz"))
-					{
-						n = strlen(out_filename);
-						out_filename[n-1] = 'r';
-						out_filename[n-2] = 'a';
-					}
-					else
-					{
-						tmp_filename = out_filename;
-						out_filename = g_strconcat(tmp_filename, ".out");
-						g_free(tmp_filename);
-					}
-				}
-			}
 		}
 		else if(!g_file_test(destination_path, G_FILE_TEST_EXISTS)) 
 		{
 			// use it as an absolute filename.
 			out_filename = g_strdup(destination_path);
 		}
+		else
+			return FALSE;
 	}
-
+	else
+	{
+		out_filename = g_strdup(archive->path);
+	}
+	if(!g_str_has_suffix(out_filename, "gz"))
+	{
+		if(g_strcasecmp(archive->path, out_filename))
+			return FALSE;
+	} 
+	else
+	{
+		if(g_str_has_suffix(out_filename, ".gz"))
+		{
+			for(n = strlen(out_filename)-1; (out_filename[n] != '.') && (n >= 0); n--);
+			if(out_filename[n] == '.')
+				out_filename[n] = '\0';
+		}
+		else
+		{
+			if(g_str_has_suffix(out_filename, ".tgz"))
+			{
+				n = strlen(out_filename);
+				out_filename[n-1] = 'r';
+				out_filename[n-2] = 'a';
+			}
+			else
+			{
+				tmp_filename = out_filename;
+				out_filename = g_strconcat(tmp_filename, ".out", NULL);
+				g_free(tmp_filename);
+			}
+		}
+	}
 	out_file = fopen(out_filename, "w");
 	in_file = gzopen(archive->path, "r");
-	while(n = gzread(in_file, &buf, 1024))
+	while((n = gzread(in_file, &buf, 1024)) > 0)
 	{
 		fwrite(&buf, 1, 1024, out_file);
 	}

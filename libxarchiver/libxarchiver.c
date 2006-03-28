@@ -18,10 +18,13 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <glib.h>
 #include <sys/types.h>
+#include <fcntl.h>
 #include <signal.h>
 #include <errno.h>
+#include <unistd.h>
 #include <libxarchiver/libxarchiver.h>
 #include "internals.h"
 #include "support-bzip2.h"
@@ -48,7 +51,7 @@ xarchiver_init()
 {
 	// open current-working directory
 	if(!n_cwd)
-		n_cwd = open(".", "r");
+		n_cwd = open(".", 'r');
 	if(support_list == NULL)
 	{
 		support_list = g_slist_alloc();
@@ -169,8 +172,8 @@ xarchiver_cancel_operation ( XArchive *archive , gint pid )
 		archive->has_passwd = FALSE;
 		archive->passwd = 0;
 	}
-	archive->type == XARCHIVETYPE_UNKNOWN;
-	archive->status == INACTIVE;
+	archive->type = XARCHIVETYPE_UNKNOWN;
+	archive->status = INACTIVE;
 	return TRUE;
 }
 
@@ -209,8 +212,8 @@ xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
  		g_io_channel_unref (ioc);
-		return FALSE;
 	}
+	return FALSE;
 }
 
 gboolean

@@ -29,11 +29,14 @@ int main(int argc, char **argv)
 	xarchiver_init();
 	gtk_init(&argc, &argv);
 
-	main_window = xarchiver_main_window_new();
+	main_window = xa_main_window_new();
 
-	gtk_widget_show(main_window);
+	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
+
+	gtk_widget_show_all(main_window);
 
 	gtk_main();
-
+	
 	xarchiver_destroy();
+	return 0;
 }

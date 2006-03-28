@@ -18,6 +18,8 @@
  */
 
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
@@ -31,7 +33,7 @@
 gboolean
 xarchive_rar_support_add (XArchive *archive, GSList *files)
 {
-	gchar *command, *dir, *filename;
+	gchar *command, *dir;
 	GString *names;
 
 	GSList *_files = files;
@@ -72,7 +74,7 @@ xarchive_rar_support_add (XArchive *archive, GSList *files)
 gboolean
 xarchive_rar_support_extract (XArchive *archive, gchar *destination_path, GSList *files , gboolean full_path)
 {
-	gchar *command, *filename;
+	gchar *command;
 	GString *names;
 
 	GSList *_files = files;

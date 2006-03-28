@@ -19,6 +19,48 @@
 #ifndef __XARCHIVER_MAIN_WINDOW_H__
 #define __XARCHIVER_MAIN_WINDOW_H__
 
-GtkWidget *xarchiver_main_window_new();
+G_BEGIN_DECLS
+
+#define XA_MAIN_WINDOW(obj)             ( \
+		G_TYPE_CHECK_INSTANCE_CAST ((obj),    \
+			xa_main_window_get_type(),          \
+			XAMainWindow))
+
+#define XA_MAIN_WINDOW_CLASS(_class)    ( \
+		G_TYPE_CHECK_CLASS_CAST ((_class),    \
+			xa_main_window_get_type(),          \
+			XAMainWindowClass))
+
+#define IS_XA_MAIN_WINDOW(obj)          ( \
+		G_TYPE_CHECK_INSTANCE_TYPE ((obj),    \
+			xa_main_window_get_type()))
+
+#define IS_XA_MAIN_WINDOW_CLASS(_class) ( \
+		G_TYPE_CHECK_CLASS_TYPE ((_class),    \
+			xa_main_window_get_type()))
+
+
+typedef struct _XAMainWindow      XAMainWindow;
+typedef struct _XAMainWindowClass XAMainWindowClass;
+
+struct _XAMainWindow
+{
+	GtkWindow window;
+	GtkWidget *vbox;
+	GtkWidget *menubar;
+	GtkWidget *toolbar;
+	GtkWidget *notebook;
+	GtkWidget *file_menu_item;
+};
+
+struct _XAMainWindowClass
+{
+	GtkWindowClass parent_class;
+};
+
+GType          xa_main_window_get_type        (void);
+GtkWidget*     xa_main_window_new             (void);
+
+G_END_DECLS
 
 #endif

@@ -19,14 +19,105 @@
 
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include <config.h>
 #include "main-window.h"
 
+static void
+xa_main_window_class_init (XAMainWindowClass *_class);
 
-GtkWidget *xarchiver_main_window_new()
+static void
+xa_main_window_init (XAMainWindow *window);
+
+static GtkWidgetClass *xa_main_window_parent_class;
+
+
+GType
+xa_main_window_get_type()
 {
-	GtkWidget *window;
+	static GType xa_main_window_type = 0;
 
-	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-
-	return window;
+	if(xa_main_window_type == 0)
+	{
+		static const GTypeInfo xa_main_window_info = 
+		{
+			sizeof(XAMainWindowClass),
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) xa_main_window_class_init,
+			(GClassFinalizeFunc) NULL,
+			NULL, sizeof(XAMainWindow),
+			0,
+			(GInstanceInitFunc) xa_main_window_init,
+			NULL,
+		};
+		xa_main_window_type = g_type_register_static(GTK_TYPE_WINDOW, "XAMainWindow", &xa_main_window_info, 0);
+	}
+	return xa_main_window_type;
 }
+
+
+GtkWidget *
+xa_main_window_new()
+{
+	XAMainWindow *window;
+
+	window = g_object_new(xa_main_window_get_type(), NULL);
+
+	return GTK_WIDGET(window);
+}
+
+static void
+xa_main_window_destroy (GtkObject *object)
+{
+	XAMainWindow *window;
+
+	g_return_if_fail (object != NULL);
+	g_return_if_fail (IS_XA_MAIN_WINDOW(object));
+
+	window = XA_MAIN_WINDOW(object);
+
+	if (GTK_OBJECT_CLASS (xa_main_window_parent_class)->destroy)
+		(* GTK_OBJECT_CLASS (xa_main_window_parent_class)->destroy) (object);
+}
+
+static void
+xa_main_window_show_all(GtkWidget *widget)
+{
+	gtk_widget_show(XA_MAIN_WINDOW(widget)->vbox);
+	gtk_widget_show(XA_MAIN_WINDOW(widget)->menubar);
+	gtk_widget_show(XA_MAIN_WINDOW(widget)->toolbar);
+	
+	gtk_widget_show(widget);
+}
+
+static void
+xa_main_window_class_init (XAMainWindowClass *_class)
+{
+	GtkObjectClass *object_class = (GtkObjectClass *) _class;
+	GtkWidgetClass *widget_class = (GtkWidgetClass *) _class;
+
+	xa_main_window_parent_class = gtk_type_class(gtk_window_get_type());
+
+	object_class->destroy = xa_main_window_destroy;
+
+	widget_class->show_all = xa_main_window_show_all;
+}
+
+static void
+xa_main_window_init (XAMainWindow *window)
+{
+	gtk_window_set_title(GTK_WINDOW(window), PACKAGE_STRING);
+
+	window->vbox = gtk_vbox_new(FALSE, 0);
+	window->menubar = gtk_menu_bar_new();
+	window->toolbar = gtk_toolbar_new();
+	window->notebook = gtk_notebook_new();
+
+	gtk_container_add(GTK_CONTAINER(window), window->vbox);
+
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->notebook, TRUE, TRUE, 0);
+
+}
+
