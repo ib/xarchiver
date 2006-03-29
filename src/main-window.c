@@ -172,7 +172,16 @@ xa_main_menu_create_menu()
 	gtk_widget_show(action_item);
 	gtk_widget_show(action_menu);
 
+	GtkWidget *add_file = gtk_image_menu_item_new_from_stock(GTK_STOCK_ADD, accel_group);
+
+	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), add_file);
+
+	gtk_widget_show(add_file);
+	
+
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(archive_item), archive_menu);
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(action_item), action_menu);
+
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), action_item);
 	return menu_bar;
 }

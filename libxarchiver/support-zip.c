@@ -45,7 +45,7 @@ xarchive_zip_support_add (XArchive *archive, GSList *files)
  		names = concatenatefilenames ( _files );
 		if (archive->has_passwd)
 			command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->path , names->str , NULL );
-        else
+		else
 			command = g_strconcat ( "zip -r " , archive->path , names->str , NULL );
 		archive->status = ADD;
 		archive->child_pid = xarchiver_async_process ( archive , command, 0);
@@ -95,7 +95,7 @@ xarchive_zip_support_extract (XArchive *archive, gchar *destination_path, GSList
 		names = concatenatefilenames ( _files );
 		if ( archive->has_passwd)
 			command = g_strconcat ( "unzip -o -P " , archive->passwd , full_path ? " " : " -j " , archive->path , names->str , " -d " , destination_path , NULL );
-        else
+		else
 			command = g_strconcat ( "unzip -o " , full_path ? "" : "-j " , archive->path , names->str , " -d " , destination_path , NULL );
 		g_string_free (names, TRUE);
 	}
@@ -183,11 +183,11 @@ xarchive_zip_support_verify(XArchive *archive)
 	FILE *fp;
 	unsigned char magic[4];
 	unsigned int fseek_offset;
-    unsigned short int password_flag;
-    unsigned int compressed_size;
-    unsigned int uncompressed_size;
-    unsigned short int file_length;
-    unsigned short int extra_length;
+	unsigned short int password_flag;
+	unsigned int compressed_size;
+	unsigned int uncompressed_size;
+	unsigned short int file_length;
+	unsigned short int extra_length;
 
 	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
 	{
@@ -204,12 +204,12 @@ xarchive_zip_support_verify(XArchive *archive)
 				while ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0  || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
 				{
 					fread ( &password_flag, 1, 2, fp );
-		            if (( password_flag & ( 1<<0) ) > 0)
+					if (( password_flag & ( 1<<0) ) > 0)
 						archive->has_passwd = TRUE;
 					else
 						archive->has_passwd = FALSE;
 					fseek (fp,10,SEEK_CUR);
-		            fread (&compressed_size,1,4,fp);
+					fread (&compressed_size,1,4,fp);
 					fread (&uncompressed_size,1,4,fp);
 					fread (&file_length,1,2,fp);
 					//If the zip archive is empty (no files) it should return here
@@ -219,7 +219,7 @@ xarchive_zip_support_verify(XArchive *archive)
 					fseek (fp , fseek_offset , SEEK_CUR);
 					fread (magic , 1 , 4 , fp);
 					fseek ( fp , 2 , SEEK_CUR);
-		        }
+				}
 			}
 		}
 		fclose( fp );
