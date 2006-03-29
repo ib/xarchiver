@@ -32,6 +32,7 @@
 #include "support-rar.h"
 #include "support-gzip.h"
 #include "support-arj.h"
+#include "support-zip.h"
 
 static GSList *support_list = NULL;
 
@@ -62,6 +63,7 @@ xarchiver_init()
 		g_slist_append(support_list, xarchive_tar_support_new());
 		g_slist_append(support_list, xarchive_rar_support_new());
 		g_slist_append(support_list, xarchive_arj_support_new());
+		g_slist_append(support_list, xarchive_zip_support_new());
 	}
 }
 

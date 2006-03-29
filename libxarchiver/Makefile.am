@@ -8,7 +8,8 @@ libxarchiver_a_SOURCES = \
 	support-bzip2.c support-bzip2.h \
 	support-gzip.c support-gzip.h \
 	support-rar.c support-rar.h \
-	support-arj.c support-arj.h
+	support-arj.c support-arj.h \
+	support-zip.c support-zip.h
 
 libxarchiver_a_CFLAGS = \
 	@GLIB_CFLAGS@

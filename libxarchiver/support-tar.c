@@ -50,6 +50,7 @@ xarchive_tar_support_remove (XArchive *archive, GSList *files)
 		g_string_free (names, TRUE);
 	}
 	fchdir(n_cwd);
+	return TRUE;
 }
 
 /*
@@ -88,6 +89,7 @@ xarchive_tar_support_add (XArchive *archive, GSList *files)
 		g_string_free(names, TRUE);
 	}
 	fchdir(n_cwd);
+	return TRUE;
 }
 
 /*
@@ -108,6 +110,7 @@ xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList 
 	// Only extract certain files
 	if( (files == NULL) && (g_slist_length(files) == 0))
 	{
+		dir = g_path_get_dirname(files->data);
 		chdir(dir);
 		g_free(dir);
 		filename = g_path_get_basename(files->data);
@@ -140,6 +143,7 @@ xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList 
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) ) return FALSE;
 	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) ) return FALSE;
 	fchdir(n_cwd);
+	return TRUE;
 }
 
 gboolean
