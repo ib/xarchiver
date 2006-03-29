@@ -22,52 +22,52 @@ G_BEGIN_DECLS
 
 typedef enum
 {
-    XARCHIVETYPE_UNKNOWN,
-    XARCHIVETYPE_BZIP2,
-    XARCHIVETYPE_GZIP,
-    XARCHIVETYPE_RAR,
-    XARCHIVETYPE_ZIP,
-    XARCHIVETYPE_ARJ,
-    XARCHIVETYPE_TAR,
-    XARCHIVETYPE_RPM,
-    XARCHIVETYPE_7ZIP,
-    XARCHIVETYPE_ISO
+	XARCHIVETYPE_UNKNOWN,
+	XARCHIVETYPE_BZIP2,
+	XARCHIVETYPE_GZIP,
+	XARCHIVETYPE_RAR,
+	XARCHIVETYPE_ZIP,
+	XARCHIVETYPE_ARJ,
+	XARCHIVETYPE_TAR,
+	XARCHIVETYPE_RPM,
+	XARCHIVETYPE_7ZIP,
+	XARCHIVETYPE_ISO
 } XArchiveType;
 
 typedef enum
 {
-    EXTRACT,
-    ADD,
-    DELETE,
-    INACTIVE
+	EXTRACT,
+	ADD,
+	DELETE,
+	INACTIVE
 } XArchiveStatus;
 
 typedef struct _XArchive XArchive;
 
 struct _XArchive
 {
-    XArchiveType type;
-    XArchiveType status;
-    gchar *path;
-    gchar *passwd;
-    gboolean has_passwd;
-    GError *error;
-    gint child_pid;
-    gint output_fd;
-    gint input_fd;
-    gint error_fd;
+	XArchiveType type;
+	XArchiveStatus status;
+	gchar *path;
+	gchar *passwd;
+	gboolean has_passwd;
+	GError *error;
+	gint child_pid;
+	gint output_fd;
+	gint input_fd;
+	gint error_fd;
 };
 
 typedef struct _XArchiveSupport XArchiveSupport;
 
 struct _XArchiveSupport
 {
-    XArchiveType type;
-    gboolean (*verify)  (XArchive *);
-    gboolean (*add)     (XArchive *, GSList *);
-    gboolean (*extract) (XArchive *, gchar *, GSList *, gboolean);
-    gboolean (*remove)  (XArchive *, GSList *);
-    gboolean (*testing) (XArchive *);
+	XArchiveType type;
+	gboolean (*verify)  (XArchive *);
+	gboolean (*add)     (XArchive *, GSList *);
+	gboolean (*extract) (XArchive *, gchar *, GSList *, gboolean);
+	gboolean (*remove)  (XArchive *, GSList *);
+	gboolean (*testing) (XArchive *);
 };
 
 void xarchiver_init();

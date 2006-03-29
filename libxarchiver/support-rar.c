@@ -1,6 +1,6 @@
 /*
  *  Copyright (c) 2006 Stephan Arts      <stephan.arts@hva.nl>
- *                     Giuseppe Torelli <colossus73@gmail.com>
+ *                     Giuseppe Torelli  <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -63,6 +63,7 @@ xarchive_rar_support_add (XArchive *archive, GSList *files)
 		g_string_free (names, TRUE);
 	}
 	fchdir(n_cwd);
+	return TRUE;
 }
 
 /*
@@ -110,6 +111,7 @@ xarchive_rar_support_extract (XArchive *archive, gchar *destination_path, GSList
 	}
 	g_free(command);
 	fchdir(n_cwd);
+	return TRUE;
 }
 
 /*
@@ -142,6 +144,7 @@ xarchive_rar_support_testing (XArchive *archive)
 		g_error_free (archive->error);
 	}
 	g_free (command);
+	return TRUE;
 }
 
 /*
@@ -172,6 +175,7 @@ xarchive_rar_support_remove (XArchive *archive, GSList *files )
 		g_error_free (archive->error);
 	}
 	g_free (command);
+	return TRUE;
 }
 
 gboolean

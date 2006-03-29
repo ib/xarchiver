@@ -19,6 +19,8 @@
  */
 
 #include <stdio.h>
+#include <unistd.h>
+#include <string.h>
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
@@ -35,8 +37,6 @@ gboolean
 xarchive_bzip2_support_add(XArchive *archive, GSList *files)
 {
 	gchar *command, *dir, *filename;
-	gchar **argvp;
-	int argcp;
 	if(files != NULL)
 	{
 		if(g_slist_length(files) > 1)
@@ -63,6 +63,7 @@ xarchive_bzip2_support_add(XArchive *archive, GSList *files)
 	}
 
 	fchdir(n_cwd);
+	return TRUE;
 }
 
 
@@ -76,9 +77,7 @@ xarchive_bzip2_support_add(XArchive *archive, GSList *files)
 gboolean
 xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
-	gchar *command, *dir, *filename;
-	gchar **argvp;
-	int argcp;
+	gchar *command;
 
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
@@ -97,6 +96,7 @@ xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSLis
 	}
 	g_free(command);
 	fchdir(n_cwd);
+	return TRUE;
 }
 
 
