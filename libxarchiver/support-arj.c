@@ -181,7 +181,13 @@ gboolean
 xarchive_arj_support_verify(XArchive *archive)
 {
 	FILE *fp;
-	unsigned char magic[4];
+	unsigned char magic[2];
+    unsigned short int basic_header_size;
+    unsigned short int extended_header_size;
+    unsigned int basic_header_CRC;
+    unsigned int extended_header_CRC;
+	unsigned int compressed_size;
+    unsigned char arj_flag;
 
 	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
 	{
@@ -194,6 +200,32 @@ xarchive_arj_support_verify(XArchive *archive)
 			if ( memcmp ( magic,"\x60\xea",2 ) == 0 )
 			{
 				archive->type = XARCHIVETYPE_ARJ;
+				//Let's check for the password flag
+				fread (&magic,1,2,fp);
+				fseek (fp , magic[0]+magic[1] , SEEK_CUR);
+				fseek (fp , 2 , SEEK_CUR);
+				fread (&extended_header_size,1,2,fp);
+				if (extended_header_size != 0) fread (&extended_header_CRC,1,4,fp);
+				fread (&magic,1,2,fp);
+				while ( memcmp (magic,"\x60\xea",2) == 0)
+		        {
+				    fread ( &basic_header_size , 1 , 2 , fp );
+					if ( basic_header_size == 0 ) break;
+					fseek ( fp , 4 , SEEK_CUR);
+					fread (&arj_flag,1,1,fp);
+					if ((arj_flag & ( 1<<0) ) > 0)
+						archive->has_passwd = TRUE;
+					else
+						archive->has_passwd = FALSE;
+					fseek ( fp , 7 , SEEK_CUR);
+					fread (&compressed_size,1,4,fp);
+					fseek ( fp , basic_header_size - 16 , SEEK_CUR);
+					fread (&basic_header_CRC,1,4,fp);
+					fread (&extended_header_size,1,2,fp);
+					if (extended_header_size != 0) fread (&extended_header_CRC,1,4,fp);
+					fseek ( fp , compressed_size , SEEK_CUR);
+					fread (&magic,1,2,fp);
+		        }
 			}
 		}
 		fclose( fp );
