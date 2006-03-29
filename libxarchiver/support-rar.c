@@ -161,7 +161,7 @@ xarchive_rar_support_remove (XArchive *archive, GSList *files )
 
 	GSList *_files = files;
 	names = concatenatefilenames ( _files );
-	archive->status = DELETE;
+	archive->status = REMOVE;
 	command = g_strconcat ( "rar d " , archive->path , names->str , NULL );
 	g_string_free (names, TRUE);
 	archive->child_pid = xarchiver_async_process ( archive , command , 0);

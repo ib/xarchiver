@@ -38,7 +38,8 @@ typedef enum
 {
 	EXTRACT,
 	ADD,
-	DELETE,
+	REMOVE,
+	OPEN,
 	INACTIVE
 } XArchiveStatus;
 
@@ -68,6 +69,7 @@ struct _XArchiveSupport
 	gboolean (*extract) (XArchive *, gchar *, GSList *, gboolean);
 	gboolean (*remove)  (XArchive *, GSList *);
 	gboolean (*testing) (XArchive *);
+	gboolean (*open)    (XArchive *);
 };
 
 void xarchiver_init();

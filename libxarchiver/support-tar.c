@@ -22,6 +22,7 @@
  */
 
 #include <stdio.h>
+#include <unistd.h>
 #include <string.h>
 #include <glib.h>
 #include "internals.h"
@@ -34,18 +35,16 @@
 gboolean
 xarchive_tar_support_remove (XArchive *archive, GSList *files)
 {
-	gchar *command, *dir;
+	gchar *command;
 	GString *names;
-	gchar **argvp;
 	
 	GSList *_files = files;
-	int argcp;
 	if(files != NULL)
 	{
 		names = concatenatefilenames ( _files );
 		command = g_strconcat ( "tar --delete -vf " , archive->path , names->str , NULL );
 		archive->child_pid = xarchiver_async_process ( archive , command, 0);
-		archive->status = DELETE;
+		archive->status = REMOVE;
 		//TODO: to reload the archive to show the changes in the liststore
 		g_free(command);
 		g_string_free (names, TRUE);
@@ -62,10 +61,8 @@ xarchive_tar_support_add (XArchive *archive, GSList *files)
 {
 	gchar *command, *dir;
 	GString *names;
-	gchar **argvp;
 	
 	GSList *_files = files;
-	int argcp;
 	if(files != NULL)
 	{
 		dir = g_path_get_dirname(_files->data);

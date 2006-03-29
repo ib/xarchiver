@@ -132,30 +132,47 @@ xa_main_menu_create_menu()
 	GtkAccelGroup *accel_group = gtk_accel_group_new();
 	GtkWidget *menu_bar = gtk_menu_bar_new();
 
-	GtkWidget *file_item = gtk_menu_item_new_with_mnemonic(_("_File"));
-	GtkWidget *file_menu = gtk_menu_new();
-	gtk_widget_show(file_item);
-	gtk_widget_show(file_menu);
+	GtkWidget *archive_item = gtk_menu_item_new_with_mnemonic(_("_Archive"));
+	GtkWidget *archive_menu = gtk_menu_new();
+	gtk_widget_show(archive_item);
+	gtk_widget_show(archive_menu);
 
-	GtkWidget *new = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, accel_group);
-	GtkWidget *open = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group);
-	GtkWidget *save = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, accel_group);
+	GtkWidget *new   = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, accel_group);
+	GtkWidget *open  = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group);
+	GtkWidget *save  = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, accel_group);
 	GtkWidget *close = gtk_image_menu_item_new_from_stock(GTK_STOCK_CLOSE, accel_group);
+	GtkWidget *separator = gtk_menu_item_new();
+	GtkWidget *test  = gtk_image_menu_item_new_with_mnemonic(_("_Test"));
+	GtkWidget *properties = gtk_image_menu_item_new_from_stock(GTK_STOCK_PROPERTIES, accel_group);
+	GtkWidget *quit  = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group);
 
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), new);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), open);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), close);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), new);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), open);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), save);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), close);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), separator);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), test);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), properties);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), quit);
 
 	gtk_widget_show(new);
 	gtk_widget_show(open);
 	gtk_widget_show(save);
 	gtk_widget_show(close);
+	gtk_widget_show(quit);
+	gtk_widget_show(separator);
+	gtk_widget_show(test);
+	gtk_widget_show(properties);
 	
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_item), file_menu);
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(archive_item), archive_menu);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), archive_item);
 
+	GtkWidget *action_item = gtk_menu_item_new_with_mnemonic(_("A_ction"));
+	GtkWidget *action_menu = gtk_menu_new();
+	gtk_widget_show(action_item);
+	gtk_widget_show(action_menu);
 
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), file_item);
-
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(archive_item), archive_menu);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), action_item);
 	return menu_bar;
 }

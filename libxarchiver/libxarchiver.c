@@ -31,6 +31,7 @@
 #include "support-tar.h"
 #include "support-rar.h"
 #include "support-gzip.h"
+#include "support-arj.h"
 
 static GSList *support_list = NULL;
 
@@ -60,6 +61,7 @@ xarchiver_init()
 		g_slist_append(support_list, xarchive_bzip2_support_new());
 		g_slist_append(support_list, xarchive_tar_support_new());
 		g_slist_append(support_list, xarchive_rar_support_new());
+		g_slist_append(support_list, xarchive_arj_support_new());
 	}
 }
 
@@ -165,7 +167,7 @@ xarchiver_cancel_operation ( XArchive *archive , gint pid )
 		return FALSE;
 	}
 	//This in case the user cancel the opening of a password protected archive
-	if (archive->status != ADD || archive->status != DELETE);
+	if (archive->status != ADD || archive->status != REMOVE);
 	
 	if (archive->has_passwd)
 	{
