@@ -1,7 +1,7 @@
 bin_PROGRAMS = xarchiver
 
 xarchiver_SOURCES = \
-	xarchiver.c xarchiver.h \
+	main.c main.h \
 	main-window.c main-window.h 
 
 xarchiver_CFLAGS = \

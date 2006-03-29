@@ -20,7 +20,7 @@
 #include <libxarchiver/libxarchiver.h>
 #include <gtk/gtk.h>
 
-#include "xarchiver.h"
+#include "main.h"
 #include "main-window.h"
 
 int main(int argc, char **argv)

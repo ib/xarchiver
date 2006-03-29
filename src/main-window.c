@@ -20,13 +20,19 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <config.h>
+#include <libintl.h>
 #include "main-window.h"
+
+#define _(String) gettext(String)
 
 static void
 xa_main_window_class_init (XAMainWindowClass *_class);
 
 static void
 xa_main_window_init (XAMainWindow *window);
+
+GtkWidget *
+xa_main_menu_create_menu();
 
 static GtkWidgetClass *xa_main_window_parent_class;
 
@@ -109,7 +115,7 @@ xa_main_window_init (XAMainWindow *window)
 	gtk_window_set_title(GTK_WINDOW(window), PACKAGE_STRING);
 
 	window->vbox = gtk_vbox_new(FALSE, 0);
-	window->menubar = gtk_menu_bar_new();
+	window->menubar = xa_main_menu_create_menu();
 	window->toolbar = gtk_toolbar_new();
 	window->notebook = gtk_notebook_new();
 
@@ -118,6 +124,38 @@ xa_main_window_init (XAMainWindow *window)
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->notebook, TRUE, TRUE, 0);
-
 }
 
+GtkWidget *
+xa_main_menu_create_menu()
+{
+	GtkAccelGroup *accel_group = gtk_accel_group_new();
+	GtkWidget *menu_bar = gtk_menu_bar_new();
+
+	GtkWidget *file_item = gtk_menu_item_new_with_mnemonic(_("_File"));
+	GtkWidget *file_menu = gtk_menu_new();
+	gtk_widget_show(file_item);
+	gtk_widget_show(file_menu);
+
+	GtkWidget *new = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, accel_group);
+	GtkWidget *open = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group);
+	GtkWidget *save = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, accel_group);
+	GtkWidget *close = gtk_image_menu_item_new_from_stock(GTK_STOCK_CLOSE, accel_group);
+
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), new);
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), open);
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), save);
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), close);
+
+	gtk_widget_show(new);
+	gtk_widget_show(open);
+	gtk_widget_show(save);
+	gtk_widget_show(close);
+	
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_item), file_menu);
+
+
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), file_item);
+
+	return menu_bar;
+}
