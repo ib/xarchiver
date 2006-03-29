@@ -150,7 +150,7 @@ gboolean
 xarchive_tar_support_verify(XArchive *archive)
 {
 	FILE *fp;
-	unsigned char magic[6];
+	unsigned char magic[5];
 
 	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
 	{

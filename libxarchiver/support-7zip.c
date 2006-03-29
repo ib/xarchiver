@@ -25,13 +25,13 @@
 #include "libxarchiver.h"
 
 /*
- * xarchive_zip_support_add(XArchive *archive, GSList *files)
+ * xarchive_7zip_support_add(XArchive *archive, GSList *files)
  * Add files and folders to archive
  *
  */
 
 gboolean
-xarchive_zip_support_add (XArchive *archive, GSList *files)
+xarchive_7zip_support_add (XArchive *archive, GSList *files)
 {
 	gchar *command, *dir;
 	GString *names;
@@ -44,9 +44,9 @@ xarchive_zip_support_add (XArchive *archive, GSList *files)
 		g_free(dir);
  		names = concatenatefilenames ( _files );
 		if (archive->has_passwd)
-			command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->path , names->str , NULL );
-		else
-			command = g_strconcat ( "zip -r " , archive->path , names->str , NULL );
+			command = g_strconcat ( "7za a -ms=off -p" , archive->passwd , " " , archive->path , names->str , NULL );
+        else
+			command = g_strconcat ( "7za a -ms=off " , archive->path , names->str , NULL );
 		archive->status = ADD;
 		archive->child_pid = xarchiver_async_process ( archive , command, 0);
 		if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
@@ -67,13 +67,13 @@ xarchive_zip_support_add (XArchive *archive, GSList *files)
 }
 
 /*
- * xarchive_zip_support_extract(XArchive *archive, GSList *files)
+ * xarchive_7zip_support_extract(XArchive *archive, GSList *files)
  * Extract files and folders from archive
  *
  */
 
 gboolean
-xarchive_zip_support_extract (XArchive *archive, gchar *destination_path, GSList *files , gboolean full_path)
+xarchive_7zip_support_extract (XArchive *archive, gchar *destination_path, GSList *files , gboolean full_path)
 {
 	gchar *command;
 	GString *names;
@@ -86,17 +86,17 @@ xarchive_zip_support_extract (XArchive *archive, gchar *destination_path, GSList
 	if( (files == NULL) && (g_slist_length(files) == 0))
 	{
 		if (archive->has_passwd)
-			command = g_strconcat ( "unzip -o -P " , archive->passwd , " " , archive->path , " -d " , destination_path , NULL );
-		else
-			command = g_strconcat ( "unzip -o " , archive->path , " -d " , destination_path , NULL );
+			command = g_strconcat ( "7za x -aoa -bd -p",archive->passwd," ", archive->path , " -o" , destination_path , NULL );
+        else
+			command = g_strconcat ( "7za x -aoa -bd " , archive->path , " -o" , destination_path , NULL );
 	} 
 	else
 	{
 		names = concatenatefilenames ( _files );
 		if ( archive->has_passwd)
-			command = g_strconcat ( "unzip -o -P " , archive->passwd , full_path ? " " : " -j " , archive->path , names->str , " -d " , destination_path , NULL );
-		else
-			command = g_strconcat ( "unzip -o " , full_path ? "" : "-j " , archive->path , names->str , " -d " , destination_path , NULL );
+			command = g_strconcat ("7za " , full_path ? "x" : "e" , " -p",archive->passwd," -aoa -bd " , archive->path , names->str , " -o" , destination_path , NULL );
+        else
+			command = g_strconcat ( "7za " , full_path ? "x" : "e" ," -aoa -bd " , archive->path , names->str , " -o" , destination_path , NULL );
 		g_string_free (names, TRUE);
 	}
 	archive->child_pid = xarchiver_async_process ( archive , command , 0);
@@ -115,13 +115,13 @@ xarchive_zip_support_extract (XArchive *archive, gchar *destination_path, GSList
 }
 
 /*
- * xarchive_zip_support_testing(XArchive *archive, GSList *files)
+ * xarchive_7zip_support_testing(XArchive *archive, GSList *files)
  * Test the integrity of the files in the archive
  *
  */
 
 gboolean
-xarchive_zip_support_testing (XArchive *archive)
+xarchive_7zip_support_testing (XArchive *archive)
 {
 	gchar *command;
 	
@@ -129,9 +129,9 @@ xarchive_zip_support_testing (XArchive *archive)
 		return FALSE;
         
 	if (archive->has_passwd)
-		command = g_strconcat ("unzip -P ", archive->passwd, " -t " , archive->path, NULL);
+		command = g_strconcat ( "7za t -p" , archive->passwd , " " , archive->path, NULL);
 	else
-		command = g_strconcat ("unzip -t " , archive->path, NULL);
+		command = g_strconcat ("7za t " , archive->path, NULL);
 	archive->child_pid = xarchiver_async_process ( archive , command , 0);
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
 		return FALSE;
@@ -147,13 +147,13 @@ xarchive_zip_support_testing (XArchive *archive)
 }
 
 /*
- * xarchive_zip_support_remove(XArchive *archive, GSList *files)
+ * xarchive_7zip_support_remove(XArchive *archive, GSList *files)
  * Remove files and folders from the archive
  *
  */
 
 gboolean
-xarchive_zip_support_remove (XArchive *archive, GSList *files )
+xarchive_7zip_support_remove (XArchive *archive, GSList *files )
 {
 	gchar *command;
 	GString *names;
@@ -161,7 +161,7 @@ xarchive_zip_support_remove (XArchive *archive, GSList *files )
 	GSList *_files = files;
 	names = concatenatefilenames ( _files );
 	archive->status = REMOVE;
-	command = g_strconcat ( "zip -d " , archive->path , names->str , NULL );
+	command = g_strconcat ( "7za d " , archive->path , names->str , NULL );
 	g_string_free (names, TRUE);
 	archive->child_pid = xarchiver_async_process ( archive , command , 0);
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
@@ -178,16 +178,10 @@ xarchive_zip_support_remove (XArchive *archive, GSList *files )
 }
 
 gboolean
-xarchive_zip_support_verify(XArchive *archive)
+xarchive_7zip_support_verify(XArchive *archive)
 {
 	FILE *fp;
-	unsigned char magic[4];
-	unsigned int fseek_offset;
-	unsigned short int password_flag;
-	unsigned int compressed_size;
-	unsigned int uncompressed_size;
-	unsigned short int file_length;
-	unsigned short int extra_length;
+	unsigned char magic[6];
 
 	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
 	{
@@ -195,52 +189,34 @@ xarchive_zip_support_verify(XArchive *archive)
 		if(fp == 0)
 			return FALSE;
 		fseek ( fp, 0 , SEEK_SET );
-		if ( fread ( magic, 1, 4, fp ) )
+		if ( fread ( magic, 1, 6, fp ) )
 		{
-			if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
+			if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 )
 			{
-				archive->type = XARCHIVETYPE_ZIP;
-				//Let's check for the password flag
-				while ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0  || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
-				{
-					fread ( &password_flag, 1, 2, fp );
-					if (( password_flag & ( 1<<0) ) > 0)
-						archive->has_passwd = TRUE;
-					else
-						archive->has_passwd = FALSE;
-					fseek (fp,10,SEEK_CUR);
-					fread (&compressed_size,1,4,fp);
-					fread (&uncompressed_size,1,4,fp);
-					fread (&file_length,1,2,fp);
-					//If the zip archive is empty (no files) it should return here
-					if (fread (&extra_length,1,2,fp) < 2 )
-						archive->has_passwd = FALSE;
-					fseek_offset = compressed_size + file_length + extra_length;
-					fseek (fp , fseek_offset , SEEK_CUR);
-					fread (magic , 1 , 4 , fp);
-					fseek ( fp , 2 , SEEK_CUR);
-				}
+				archive->type = XARCHIVETYPE_7ZIP;
+				//TODO: no password detection for 7zip
+				//http://sourceforge.net/forum/forum.php?thread_id=1378003&forum_id=383044
 			}
 		}
 		fclose( fp );
 	}
 
-	if(archive->type == XARCHIVETYPE_ZIP)
+	if(archive->type == XARCHIVETYPE_7ZIP)
 		return TRUE;
 	else
 		return FALSE;
 }
 
 XArchiveSupport *
-xarchive_zip_support_new()
+xarchive_7zip_support_new()
 {
 	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
-	support->type    = XARCHIVETYPE_ZIP;
-	support->add     = xarchive_zip_support_add;
-	support->verify  = xarchive_zip_support_verify;
-	support->extract = xarchive_zip_support_extract;
-	support->testing = xarchive_zip_support_testing;
-	support->remove  = xarchive_zip_support_remove;
+	support->type    = XARCHIVETYPE_7ZIP;
+	support->add     = xarchive_7zip_support_add;
+	support->verify  = xarchive_7zip_support_verify;
+	support->extract = xarchive_7zip_support_extract;
+	support->testing = xarchive_7zip_support_testing;
+	support->remove  = xarchive_7zip_support_remove;
 	return support;
 }
 
