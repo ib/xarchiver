@@ -2,12 +2,13 @@
 DONE
 
 + fill remaining archivesupport objects
-  - zip
-  - arj
-  - 7z
+  - zip	DONE
+  - arj DONE
+  - 7z	DONE
   - iso? -- (feature, not a priority)
 
 + handle child_pid cancellation in libxarchiver
+DONE
 
 + create GUI (further specification of this is pending)
 	+ support the opening of multiple archives?
