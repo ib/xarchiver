@@ -23,6 +23,26 @@
 #include "main.h"
 #include "main-window.h"
 
+GSList *archives;
+
+void
+open_archive(GtkWidget *widget, gpointer data)
+{
+	GSList *files = data;
+	XArchive *archive;
+	
+	while(files != NULL)
+	{
+		archive = xarchiver_archive_new(files->data, XARCHIVETYPE_UNKNOWN);
+		if(!archive)
+			g_warning("Archive %s is not supported\n", files->data);
+		else
+			g_slist_append(archives, archive);
+
+		files = files->next;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	GtkWidget *main_window;
@@ -32,6 +52,7 @@ int main(int argc, char **argv)
 	main_window = xa_main_window_new();
 
 	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(open_archive), NULL);
 
 	gtk_widget_show_all(main_window);
 

@@ -121,17 +121,18 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 
 	widget_class->show_all = xa_main_window_show_all;
 
-	xa_main_window_signals[0] = g_signal_new("xa_open",
+	xa_main_window_signals[0] = g_signal_new("xa_open_archive",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
 			NULL,
 			NULL,
-			g_cclosure_marshal_VOID__VOID,
-			G_TYPE_BOOLEAN,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
 			1,
-			G_TYPE_CHAR);
-			
+			G_TYPE_POINTER,
+			NULL);
+
 }
 
 static void
@@ -146,12 +147,23 @@ xa_main_window_init (XAMainWindow *window)
 	window->notebook = gtk_notebook_new();
 	xa_main_window_create_statusbar(window);
 
+	window->open_dlg = gtk_file_chooser_dialog_new(_("Open Archive"), 
+			GTK_WINDOW(window), 
+			GTK_FILE_CHOOSER_ACTION_OPEN, 
+			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+			GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+			NULL);
+	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(window->open_dlg), TRUE);
+
+	GtkFileFilter *filter = gtk_file_filter_new();
+	gtk_file_filter_set_name( filter, _("All files"));
+	gtk_file_filter_add_pattern( filter, "*");
+	gtk_file_chooser_add_filter( GTK_FILE_CHOOSER(window->open_dlg), filter);
+
 
 	gtk_container_add(GTK_CONTAINER(window), window->vbox);
 
-	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(window->vbox), window->notebook, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->notebook, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 0);
 }
 
@@ -203,7 +215,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_widget_show(test);
 	gtk_widget_show(properties);
 
-	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(xa_open_archive), NULL);
+	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(xa_open_archive), window);
 	
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(archive_item), archive_menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), archive_item);
@@ -274,7 +286,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_show(GTK_WIDGET(new));
 	gtk_widget_show(GTK_WIDGET(open));
 
-	g_signal_connect(G_OBJECT(open), "clicked", G_CALLBACK(xa_open_archive), NULL);
+	g_signal_connect(G_OBJECT(open), "clicked", G_CALLBACK(xa_open_archive), window);
 
 	
 	window->toolbar = tool_bar;
@@ -291,5 +303,14 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 void 
 xa_open_archive(GtkWidget *widget, gpointer data)
 {
-	g_warning("XA_OPEN_ARCHIVE");
+	GSList *files = g_slist_alloc();
+	GtkWidget *dialog = XA_MAIN_WINDOW(data)->open_dlg;
+
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+	}
+	gtk_widget_hide(dialog);
+
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, files);
 }

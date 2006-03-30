@@ -51,6 +51,7 @@ struct _XAMainWindow
 	GtkWidget *toolbar;
 	GtkWidget *notebook;
 	GtkWidget *statusbar;
+	GtkWidget *open_dlg;
 };
 
 struct _XAMainWindowClass
