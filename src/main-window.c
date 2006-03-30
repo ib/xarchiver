@@ -266,3 +266,4 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 
 	window->statusbar = status_bar;
 }
+

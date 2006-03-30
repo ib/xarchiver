@@ -8,7 +8,7 @@ AC_PREREQ([2.50])
 
 XARCHIVER_VERSION=xarchiver_version
 AM_INIT_AUTOMAKE([xarchiver], [$XARCHIVER_VERSION])
-AC_CONFIG_HEADER([config.h])
+AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE
 
 dnl check for UNIX variants
