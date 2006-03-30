@@ -226,16 +226,16 @@ gboolean
 xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	gchar *line = NULL;
+	XArchive *archive = data;
+
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
  		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		//TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell output
-		//while (gtk_events_pending() )
-		//gtk_main_iteration();
 		if (line != NULL )
 		{
-			//gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-			g_free (line);
+			archive->line = g_slist_prepend ( archive->line , line );
+			//FIXME: remember to free the pointer in archive->line gslist !!
+			//g_free (line);
 		}
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -246,3 +246,5 @@ xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	}
 	return TRUE;
 }
+
+

@@ -53,11 +53,15 @@ struct _XArchive
 	gchar *path;
 	gchar *passwd;
 	gboolean has_passwd;
+	gboolean reload;
+	unsigned short int number_of_files;
+	unsigned short int number_of_dirs;
 	GError *error;
 	gint child_pid;
 	gint output_fd;
 	gint input_fd;
 	gint error_fd;
+	GSList *line;
 };
 
 typedef struct _XArchiveSupport XArchiveSupport;
@@ -71,6 +75,7 @@ struct _XArchiveSupport
 	gboolean (*remove)  (XArchive *, GSList *);
 	gboolean (*testing) (XArchive *);
 	gboolean (*open)    (XArchive *);
+	gboolean (*view)    (XArchive *, gchar *);
 };
 
 void xarchiver_init();

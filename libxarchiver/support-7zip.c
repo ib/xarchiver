@@ -49,11 +49,11 @@ xarchive_7zip_support_add (XArchive *archive, GSList *files)
 			command = g_strconcat ( "7za a -ms=off " , archive->path , names->str , NULL );
 		archive->status = ADD;
 		archive->child_pid = xarchiver_async_process ( archive , command, 0);
+		g_free(command);
 		if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
 			return FALSE;
 		if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
 			return FALSE;
-		g_free(command);
 		if (archive->child_pid == 0)
 		{
 			g_message (archive->error->message);
@@ -100,6 +100,7 @@ xarchive_7zip_support_extract (XArchive *archive, gchar *destination_path, GSLis
 		g_string_free (names, TRUE);
 	}
 	archive->child_pid = xarchiver_async_process ( archive , command , 0);
+	g_free(command);
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
 		return FALSE;
 	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
@@ -109,7 +110,6 @@ xarchive_7zip_support_extract (XArchive *archive, gchar *destination_path, GSLis
 		g_message (archive->error->message);
 		g_error_free (archive->error);
 	}
-	g_free(command);
 	fchdir(n_cwd);
 	return TRUE;
 }
@@ -133,6 +133,7 @@ xarchive_7zip_support_testing (XArchive *archive)
 	else
 		command = g_strconcat ("7za t " , archive->path, NULL);
 	archive->child_pid = xarchiver_async_process ( archive , command , 0);
+	g_free (command);
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
 		return FALSE;
 	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
@@ -142,7 +143,6 @@ xarchive_7zip_support_testing (XArchive *archive)
 		g_message (archive->error->message);
 		g_error_free (archive->error);
 	}
-	g_free (command);
 	return TRUE;
 }
 
@@ -164,6 +164,7 @@ xarchive_7zip_support_remove (XArchive *archive, GSList *files )
 	command = g_strconcat ( "7za d " , archive->path , names->str , NULL );
 	g_string_free (names, TRUE);
 	archive->child_pid = xarchiver_async_process ( archive , command , 0);
+	g_free (command);
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
 		return FALSE;
 	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
@@ -173,7 +174,6 @@ xarchive_7zip_support_remove (XArchive *archive, GSList *files )
 		g_message (archive->error->message);
 		g_error_free (archive->error);
 	}
-	g_free (command);
 	return TRUE;
 }
 

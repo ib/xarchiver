@@ -89,3 +89,4 @@ int countcharacters ( gchar *string , int chr )
     return n;
 }
 
+
