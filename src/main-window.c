@@ -37,6 +37,9 @@ xa_main_window_create_menubar(XAMainWindow *window);
 void
 xa_main_window_create_toolbar(XAMainWindow *window);
 
+void
+xa_main_window_create_statusbar(XAMainWindow *window);
+
 static GtkWidgetClass *xa_main_window_parent_class;
 
 
@@ -95,6 +98,8 @@ xa_main_window_show_all(GtkWidget *widget)
 	gtk_widget_show(XA_MAIN_WINDOW(widget)->vbox);
 	gtk_widget_show(XA_MAIN_WINDOW(widget)->menubar);
 	gtk_widget_show(XA_MAIN_WINDOW(widget)->toolbar);
+	gtk_widget_show(XA_MAIN_WINDOW(widget)->notebook);
+	gtk_widget_show(XA_MAIN_WINDOW(widget)->statusbar);
 	
 	gtk_widget_show(widget);
 }
@@ -122,12 +127,15 @@ xa_main_window_init (XAMainWindow *window)
 	xa_main_window_create_menubar(window);
 	xa_main_window_create_toolbar(window);
 	window->notebook = gtk_notebook_new();
+	xa_main_window_create_statusbar(window);
+
 
 	gtk_container_add(GTK_CONTAINER(window), window->vbox);
 
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->notebook, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 0);
 }
 
 void
@@ -236,7 +244,7 @@ void
 xa_main_window_create_toolbar(XAMainWindow *window)
 {
 	GtkWidget *tool_bar = gtk_toolbar_new();
-	gtk_widget_show(tool_bar);
+	gtk_toolbar_set_style(GTK_TOOLBAR(tool_bar), GTK_TOOLBAR_BOTH);
 
 	GtkToolItem *new = gtk_tool_button_new_from_stock(GTK_STOCK_NEW);
 	GtkToolItem *open = gtk_tool_button_new_from_stock(GTK_STOCK_OPEN);
@@ -249,4 +257,12 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 
 	
 	window->toolbar = tool_bar;
+}
+
+void
+xa_main_window_create_statusbar(XAMainWindow *window)
+{
+	GtkWidget *status_bar = gtk_viewport_new(0, 0);
+
+	window->statusbar = status_bar;
 }

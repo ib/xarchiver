@@ -50,7 +50,7 @@ struct _XAMainWindow
 	GtkWidget *menubar;
 	GtkWidget *toolbar;
 	GtkWidget *notebook;
-	GtkWidget *file_menu_item;
+	GtkWidget *statusbar;
 };
 
 struct _XAMainWindowClass
