@@ -40,7 +40,12 @@ xa_main_window_create_toolbar(XAMainWindow *window);
 void
 xa_main_window_create_statusbar(XAMainWindow *window);
 
+void 
+xa_open_archive(GtkWidget *widget, gpointer data);
+
 static GtkWidgetClass *xa_main_window_parent_class;
+
+static guint xa_main_window_signals[4];
 
 
 GType
@@ -115,6 +120,18 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 	object_class->destroy = xa_main_window_destroy;
 
 	widget_class->show_all = xa_main_window_show_all;
+
+	xa_main_window_signals[0] = g_signal_new("xa_open",
+			G_TYPE_FROM_CLASS(_class),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__VOID,
+			G_TYPE_BOOLEAN,
+			1,
+			G_TYPE_CHAR);
+			
 }
 
 static void
@@ -185,6 +202,8 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_widget_show(separator);
 	gtk_widget_show(test);
 	gtk_widget_show(properties);
+
+	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(xa_open_archive), NULL);
 	
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(archive_item), archive_menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), archive_item);
@@ -255,6 +274,8 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_show(GTK_WIDGET(new));
 	gtk_widget_show(GTK_WIDGET(open));
 
+	g_signal_connect(G_OBJECT(open), "clicked", G_CALLBACK(xa_open_archive), NULL);
+
 	
 	window->toolbar = tool_bar;
 }
@@ -267,3 +288,8 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 	window->statusbar = status_bar;
 }
 
+void 
+xa_open_archive(GtkWidget *widget, gpointer data)
+{
+	g_warning("XA_OPEN_ARCHIVE");
+}
