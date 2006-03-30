@@ -41,7 +41,9 @@ typedef enum
 	ADD,
 	REMOVE,
 	OPEN,
-	INACTIVE
+	INACTIVE,
+	ERROR,
+	USER_BREAK
 } XArchiveStatus;
 
 typedef struct _XArchive XArchive;
@@ -58,10 +60,12 @@ struct _XArchive
 	unsigned short int number_of_dirs;
 	GError *error;
 	gint child_pid;
+	guint source;
 	gint output_fd;
 	gint input_fd;
 	gint error_fd;
-	GSList *line;
+	GSList *output;
+	GSList *err;
 };
 
 typedef struct _XArchiveSupport XArchiveSupport;
@@ -86,7 +90,7 @@ XArchive *xarchiver_archive_new(gchar *path, XArchiveType type);
 XArchiveSupport *xarchiver_find_archive_support(XArchive *archive);
 
 gint xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input);
-gboolean xarchiver_cancel_operation ( XArchive *archive , gint pid );
+gboolean xarchiver_cancel_operation ( XArchive *archive );
 
 gboolean
 xarchiver_set_channel ( gint fd, GIOCondition cond, GIOFunc func, gpointer data );
@@ -97,5 +101,7 @@ xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
 gboolean
 xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data);
+
+gboolean xarchiver_wait_child ( XArchive *archive, gpointer data );
 
 #endif /* __LIBXARCHIVER_H__ */

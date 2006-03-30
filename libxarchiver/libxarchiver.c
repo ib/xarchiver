@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <glib.h>
+#include <sys/wait.h>
 #include <sys/types.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -156,17 +157,19 @@ xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input)
 			&archive->error_fd,
 			&archive->error) )
 		return 0;
-	else 
+	else
+		archive->source = g_timeout_add (10, (GSourceFunc) xarchiver_wait_child, archive);
 		return archive->child_pid;
 }
 
 gboolean
-xarchiver_cancel_operation ( XArchive *archive , gint pid )
+xarchiver_cancel_operation ( XArchive *archive )
 {
 	//gtk_widget_set_sensitive ( Stop_button , FALSE );
 	//Update_StatusBar (_("Waiting for the process to abort..."));
-	if ( kill ( pid , SIGABRT ) < 0 )
+	if ( kill ( archive->child_pid , SIGABRT ) < 0 )
 	{
+		//FIXME: notify the error to the user with a gtk dialog
 		g_message ( g_strerror(errno) );
 		return FALSE;
 	}
@@ -200,17 +203,20 @@ xarchiver_set_channel ( gint fd, GIOCondition cond, GIOFunc func, gpointer data 
 gboolean
 xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
+	gchar *line = NULL;
+	XArchive *archive = data;
+		
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		gchar *line = NULL;
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 		//TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell error output
 		//while (gtk_events_pending() )
 		//gtk_main_iteration();
 		if (line != NULL && strcmp (line,"\n") )
 		{
- 			//gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
-			g_free (line);
+			archive->err = g_slist_prepend ( archive->err , line );
+			//FIXME: remember to free the pointer in archive->line gslist !!
+			//g_free (line);
 		}
 		return TRUE;
 	}
@@ -233,7 +239,7 @@ xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
  		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 		if (line != NULL )
 		{
-			archive->line = g_slist_prepend ( archive->line , line );
+			archive->output = g_slist_prepend ( archive->output , line );
 			//FIXME: remember to free the pointer in archive->line gslist !!
 			//g_free (line);
 		}
@@ -247,4 +253,34 @@ xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	return TRUE;
 }
 
+gboolean xarchiver_wait_child ( XArchive *archive, gpointer data )
+{
+	pid_t	pid;
+	int		status;
+
+	g_source_remove (archive->source);
+    archive->source = 0;
+	pid = waitpid ( (pid_t)archive->child_pid, &status, WNOHANG);
+    if ( pid != archive->child_pid )
+	{
+		archive->source = g_timeout_add ( 10, (GSourceFunc) xarchiver_wait_child, archive);
+		return FALSE;
+	}
+
+	if ( WIFSIGNALED (status) )
+    {
+		archive->status = USER_BREAK;
+        return FALSE;
+    }
+
+	if ( WIFEXITED (status) )
+	{
+		if ( WEXITSTATUS (status) )
+		{
+			archive->status = ERROR;
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
 
