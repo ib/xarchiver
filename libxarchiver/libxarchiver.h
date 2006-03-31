@@ -60,7 +60,7 @@ typedef struct _Row Row;
 struct _Row
 {
 	GSList *Rows;
-	struct Column *string;
+	struct _Column *string;
 };
 
 struct _XArchive

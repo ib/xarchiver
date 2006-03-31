@@ -361,9 +361,9 @@ xa_main_window_add_tab(XAMainWindow *window, XArchive *archive, gchar *label_cap
                 gtk_main_iteration();
 	}
 	//This only to print the content of GSList filled in xarchiver_parse_rar_output
-/*	while (archive->row.Column)
+	while (archive->row->string->Columns)
 	{
-		g_print ("%s\n",archive->row.Column->data);
-		archive->row.Column = archive->row.Column->next;	
-	}*/
+		g_print ("%s\n",archive->row->string->Columns->data);
+		archive->row->string->Columns = archive->row->string->Columns->next;	
+	}
 }

@@ -273,7 +273,7 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL) return TRUE;
 			//if ( data ) gtk_text_buffer_insert ( textbuf, &enditer, line, strlen( line ) );
-			//archive->row.Column = split_line (archive->row.Column , line, 9);
+			archive->row->string->Columns = split_line (archive->row->string->Columns , line, 9);
 			/*if ( strstr (fields[5] , "d") == NULL && strstr (fields[5] , "D") == NULL )
 				archive->number_of_files++;
 			else
