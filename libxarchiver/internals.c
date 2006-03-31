@@ -124,3 +124,25 @@ gchar *eat_spaces (gchar *line)
 	return line;
 }
 
+GSList *get_last_field (gchar *line,unsigned short int last_field)
+{
+	gchar *field;
+	GSList *dummy;
+	int i;
+
+	if (line == NULL)
+		return NULL;
+
+	last_field--;
+	field = eat_spaces (line);
+	for (i = 0; i < last_field; i++)
+	{
+		if (field == NULL)
+			return NULL;
+		field = strchr (field, ' ');
+		field = eat_spaces (field);
+	}
+    if (field != NULL) field [ strlen(field) -1 ] = '\000';
+	dummy = g_slist_prepend ( dummy , field );
+	return dummy;
+}

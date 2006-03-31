@@ -27,6 +27,7 @@
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
+#include "support-tar.h"
 
 /*
  * xarchive_tar_support_remove(XArchive *archive, GSList *files)
@@ -179,6 +180,75 @@ xarchive_tar_support_verify(XArchive *archive)
 		return FALSE;
 }
 
+/*
+ * xarchive_tar_support_open(XArchive *archive)
+ * Open the archive and calls other functions to catch the output
+ *
+ */
+
+gboolean
+xarchive_tar_support_open (XArchive *archive)
+{
+	gchar *command;
+
+	command = g_strconcat ( "tar tfv " , archive->path, NULL );
+	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
+	g_free (command);
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+	}
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_tar_output, archive ) )
+		return FALSE;
+	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
+		return FALSE;
+	return TRUE;
+}
+
+/*
+ * xarchive_parse_tar_output
+ * Parse the output from the rar command when opening the archive
+ *
+ */
+
+gboolean xarchiver_parse_tar_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	gchar *filename;
+	gchar *line;
+	XArchive *archive = data;
+
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		//if (line != NULL && data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
+		archive->row.Column = split_line (archive->row.Column , line , 5);
+		archive->row.Column = get_last_field ( line , 6 );
+		//gtk_list_store_append (liststore, &iter);
+		if ( filename[strlen(filename) - 1] != '/')
+		{
+			/*for ( x = 0; x < 5; x++)
+            {
+				if (x == 2)
+					gtk_list_store_set (liststore, &iter,x+1,atoi(fields[x]),-1);
+				else
+					gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
+            }*/
+		}
+		/*gtk_list_store_set (liststore, &iter,0,filename,-1);
+		g_strfreev ( fields );
+		g_free (line);
+		*/
+		return TRUE;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+}
+
 XArchiveSupport *
 xarchive_tar_support_new()
 {
@@ -188,5 +258,6 @@ xarchive_tar_support_new()
 	support->verify  = xarchive_tar_support_verify;
 	support->extract = xarchive_tar_support_extract;
 	support->remove  = xarchive_tar_support_remove;
+	support->open    = xarchive_tar_support_open;
 	return support;
 }

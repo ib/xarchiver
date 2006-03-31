@@ -181,7 +181,7 @@ xarchive_rar_support_remove (XArchive *archive, GSList *files )
 
 /*
  * xarchive_rar_support_open(XArchive *archive)
- * Open the archive and calls other functions to catch the output in the archive->output g_slist
+ * Open the archive and calls other functions to catch the output
  *
  */
 
@@ -207,7 +207,7 @@ xarchive_rar_support_open (XArchive *archive)
 }
 
 /*
- * xarchive_rar_support_open
+ * xarchive_parse_rar_output
  * Parse the output from the rar command when opening the archive
  *
  */
@@ -238,6 +238,10 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		}
 		if ( jump_header && odd_line )
 		{
+			//TODO add another row to the struct Row so the GSList column
+			//is now overwritten when next line from output is read
+
+			//archive->row = (struct *Table);
 			//Now read the filename
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL ) return TRUE;
@@ -254,15 +258,13 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 				}*/
 				return FALSE;
 			}
-			//gtk_list_store_append (liststore, &iter);
-			line[ strlen(line) - 1 ] = '\000';
+			//line[ strlen(line) - 1 ] = '\000';
 			if (line[0] == '*') archive->has_passwd = TRUE;
 			//This to avoid the white space or the * before the first char of the filename
-			line++;
-			g_message ("parse_rar_output: %s",line);
-			archive->row.column = g_slist_prepend (archive->row.column , line);
+			//line++;
+			archive->row.Column = g_slist_prepend (archive->row.Column , line);
 			//Restore the pointer before freeing it
-			line--;
+			//line--;
 			//g_free (line);
 			odd_line = ! odd_line;
 			return TRUE;
@@ -273,8 +275,7 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL) return TRUE;
 			//if ( data ) gtk_text_buffer_insert ( textbuf, &enditer, line, strlen( line ) );
-			g_message ("parse_rar_output: %s",line);
-			archive->row.column = split_line (archive->row.column , line,9);
+			archive->row.Column = split_line (archive->row.Column , line, 9);
 			/*if ( strstr (fields[5] , "d") == NULL && strstr (fields[5] , "D") == NULL )
 				archive->number_of_files++;
 			else

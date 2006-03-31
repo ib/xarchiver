@@ -280,7 +280,6 @@ gboolean xarchiver_wait_child ( XArchive *archive, gpointer data )
 		}
 	}
 	archive->child_pid = 0;
-	g_message ("Wait_child, child_pid=%d",archive->child_pid);
 	return TRUE;
 }
 

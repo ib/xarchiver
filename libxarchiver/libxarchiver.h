@@ -52,7 +52,7 @@ typedef struct _Row Row;
 
 struct _Row
 {
-	GSList *column;
+	GSList *Column;
 };
 
 struct _XArchive
@@ -74,6 +74,13 @@ struct _XArchive
 	GSList *output;
 	GSList *err;
 	Row		row;
+};
+
+typedef struct _Table Table;
+
+struct _Table
+{
+	GSList *Rows;
 };
 
 typedef struct _XArchiveSupport XArchiveSupport;

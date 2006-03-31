@@ -6,4 +6,5 @@ GString *concatenatefilenames ( GSList *list );
 int countcharacters ( gchar *string , int chr );
 GSList *split_line (GSList *dummy , gchar *line, unsigned short int n_fields);
 gchar *eat_spaces (gchar *line);
+GSList *get_last_field (gchar *line,unsigned short int last_field);
 #endif

@@ -354,16 +354,16 @@ xa_main_window_add_tab(XAMainWindow *window, XArchive *archive, gchar *label_cap
 	gtk_widget_show(treeview);
 	gtk_notebook_append_page(GTK_NOTEBOOK(window->notebook), treeview, label);
 	xarchive_rar_support_open (archive);
+	//FIXME replace this code with a better one, maybe g_timeout_add() ?
 	while (archive->child_pid != 0)
 	{
 		while (gtk_events_pending())
                 gtk_main_iteration();
 	}
-	g_message ("before while");
-	while (archive->row.column)
+	//This only to print the content of GSList filled in xarchiver_parse_rar_output
+	while (archive->row.Column)
 	{
-		g_message (archive->row.column->data);
-		archive->row.column = archive->row.column->next;	
+		g_print ("%s\n",archive->row.Column->data);
+		archive->row.Column = archive->row.Column->next;	
 	}
-	g_message ("after while");
 }
