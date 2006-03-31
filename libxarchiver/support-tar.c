@@ -222,8 +222,8 @@ gboolean xarchiver_parse_tar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 	{
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 		//if (line != NULL && data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-		archive->row.Column = split_line (archive->row.Column , line , 5);
-		archive->row.Column = get_last_field ( line , 6 );
+		//archive->row.Column = split_line (archive->row.Column , line , 5);
+		//archive->row.Column = get_last_field ( line , 6 );
 		//gtk_list_store_append (liststore, &iter);
 		if ( filename[strlen(filename) - 1] != '/')
 		{

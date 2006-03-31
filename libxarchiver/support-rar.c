@@ -238,10 +238,7 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		}
 		if ( jump_header && odd_line )
 		{
-			//TODO add another row to the struct Row so the GSList column
-			//is now overwritten when next line from output is read
-
-			//archive->row = (struct *Table);
+			archive->row = g_malloc (sizeof (Row) );
 			//Now read the filename
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL ) return TRUE;
@@ -262,7 +259,8 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 			if (line[0] == '*') archive->has_passwd = TRUE;
 			//This to avoid the white space or the * before the first char of the filename
 			//line++;
-			archive->row.Column = g_slist_prepend (archive->row.Column , line);
+			archive->row->string->Columns = g_slist_prepend (archive->row->string->Columns , line);
+			//g_message (archive->row->Columns->data);
 			//Restore the pointer before freeing it
 			//line--;
 			//g_free (line);
@@ -275,7 +273,7 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL) return TRUE;
 			//if ( data ) gtk_text_buffer_insert ( textbuf, &enditer, line, strlen( line ) );
-			archive->row.Column = split_line (archive->row.Column , line, 9);
+			//archive->row.Column = split_line (archive->row.Column , line, 9);
 			/*if ( strstr (fields[5] , "d") == NULL && strstr (fields[5] , "D") == NULL )
 				archive->number_of_files++;
 			else
