@@ -23,21 +23,25 @@
 #include "main.h"
 #include "main-window.h"
 
-GSList *archives;
+
+GtkWidget *main_window;
 
 void
 open_archive(GtkWidget *widget, gpointer data)
 {
 	GSList *files = data;
-	XArchive *archive;
+	XArchive *archive = NULL;
 	
 	while(files != NULL)
 	{
-		archive = xarchiver_archive_new(files->data, XARCHIVETYPE_UNKNOWN);
-		if(!archive)
+		archive = xarchiver_archive_new((gchar *)files->data, XARCHIVETYPE_UNKNOWN);
+		if(archive == NULL)
 			g_warning("Archive %s is not supported\n", files->data);
 		else
-			g_slist_append(archives, archive);
+		{
+			xa_main_window_add_tab(XA_MAIN_WINDOW(main_window), archive, g_path_get_basename(archive->path));
+			archive = NULL;
+		}
 
 		files = files->next;
 	}
@@ -45,7 +49,6 @@ open_archive(GtkWidget *widget, gpointer data)
 
 int main(int argc, char **argv)
 {
-	GtkWidget *main_window;
 	xarchiver_init();
 	gtk_init(&argc, &argv);
 

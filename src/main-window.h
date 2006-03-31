@@ -52,6 +52,7 @@ struct _XAMainWindow
 	GtkWidget *notebook;
 	GtkWidget *statusbar;
 	GtkWidget *open_dlg;
+	GtkWidget *add_dlg;
 };
 
 struct _XAMainWindowClass

@@ -21,8 +21,8 @@
 #include <gtk/gtk.h>
 #include <config.h>
 #include <libintl.h>
+#include <libxarchiver/libxarchiver.h>
 #include "main-window.h"
-
 #define _(String) gettext(String)
 
 static void
@@ -133,6 +133,18 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			G_TYPE_POINTER,
 			NULL);
 
+	xa_main_window_signals[1] = g_signal_new("xa_add_to_archive",
+			G_TYPE_FROM_CLASS(_class),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__UINT_POINTER,
+			G_TYPE_NONE,
+			2,
+			G_TYPE_UINT,
+			G_TYPE_POINTER,
+			NULL);
 }
 
 static void
@@ -163,7 +175,8 @@ xa_main_window_init (XAMainWindow *window)
 
 	gtk_container_add(GTK_CONTAINER(window), window->vbox);
 
-	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->notebook, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); 
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->notebook, TRUE, TRUE, 2);
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 0);
 }
 
@@ -239,7 +252,6 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), separator);
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), delete);
 
-
 	gtk_widget_show(add_file);
 	gtk_widget_show(add_folder);
 	gtk_widget_show(extract);
@@ -295,15 +307,34 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 void
 xa_main_window_create_statusbar(XAMainWindow *window)
 {
-	GtkWidget *status_bar = gtk_viewport_new(0, 0);
+	GtkWidget *hbox = gtk_hbox_new(FALSE, 2);
+	GtkWidget *viewport1 = gtk_viewport_new(0, 0);
+	GtkWidget *viewport2 = gtk_viewport_new(0, 0);
 
-	window->statusbar = status_bar;
+	GtkWidget *label = gtk_label_new(NULL);
+	GtkWidget *progressbar = gtk_progress_bar_new();
+
+	gtk_widget_show(viewport1);
+	gtk_widget_show(viewport2);
+	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport2), GTK_SHADOW_NONE);
+	gtk_widget_show(hbox);
+	gtk_widget_show(progressbar);
+	gtk_widget_set_size_request(progressbar, 80, 1);
+	gtk_widget_show(label);
+
+	gtk_box_pack_start(GTK_BOX(hbox), viewport1, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), viewport2, TRUE, TRUE, 0);
+	gtk_container_add(GTK_CONTAINER(viewport1), label);
+	gtk_container_add(GTK_CONTAINER(viewport2), progressbar);
+
+	window->statusbar = hbox;
 }
 
 void 
 xa_open_archive(GtkWidget *widget, gpointer data)
 {
-	GSList *files = g_slist_alloc();
+	GSList *files = NULL;
+	GSList *archives = NULL;
 	GtkWidget *dialog = XA_MAIN_WINDOW(data)->open_dlg;
 
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
@@ -311,6 +342,15 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 	}
 	gtk_widget_hide(dialog);
+	if(files)
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, files);
+}
 
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, files);
+xa_main_window_add_tab(XAMainWindow *window, XArchive *archive, gchar *label_caption)
+{
+	GtkWidget *treeview = gtk_tree_view_new();
+	GtkWidget *label = gtk_label_new(label_caption);
+	gtk_widget_show(label);
+	gtk_widget_show(treeview);
+	gtk_notebook_append_page(GTK_NOTEBOOK(window->notebook), treeview, label);
 }
