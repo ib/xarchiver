@@ -1,6 +1,10 @@
 dnl Process this file with autoconf to produce a configure script.
 
-m4_define([xarchiver_version], [0.4.0])
+m4_define([xarchiver_version_major], [0])
+m4_define([xarchiver_version_minor], [3])
+m4_define([xarchiver_version_micro], [9])
+m4_define([xarchiver_version_tag], [svn])
+m4_define([xarchiver_version], [xarchiver_version_major().xarchiver_version_minor().xarchiver_version_micro() xarchiver_version_tag()])
 
 AC_INIT([xarchiver], [xarchiver_version], [])
 AC_PREREQ([2.50])
