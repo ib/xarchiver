@@ -23,6 +23,7 @@
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
+#include "support-rar.h"
 
 /*
  * xarchive_rar_support_add(XArchive *archive, GSList *files)
@@ -35,7 +36,7 @@ xarchive_rar_support_add (XArchive *archive, GSList *files)
 {
 	gchar *command, *dir;
 	GString *names;
-
+	
 	GSList *_files = files;
 	if(files != NULL)
 	{
@@ -178,6 +179,123 @@ xarchive_rar_support_remove (XArchive *archive, GSList *files )
 	return TRUE;
 }
 
+/*
+ * xarchive_rar_support_open(XArchive *archive)
+ * Open the archive and calls other functions to catch the output in the archive->output g_slist
+ *
+ */
+
+gboolean
+xarchive_rar_support_open (XArchive *archive)
+{
+	gchar *command;
+	jump_header = FALSE;
+
+	command = g_strconcat ( "rar vl -c- " , archive->path, NULL );
+	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
+	g_free (command);
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+	}
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_rar_output, archive ) )
+		return FALSE;
+	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
+		return FALSE;
+	return TRUE;
+}
+
+/*
+ * xarchive_rar_support_open
+ * Parse the output from the rar command when opening the archive
+ *
+ */
+
+gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	gchar **fields = NULL;
+	gchar *filename = NULL;
+    gchar *line = NULL;
+	XArchive *archive = data;
+
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		
+		//This to avoid inserting in the list RAR's copyright message
+		if (jump_header == FALSE )
+		{
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			if (line == NULL) return TRUE;
+			//if ( data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen( line ) );
+			if  (strncmp (line , "--------" , 8) == 0)
+			{
+				jump_header = TRUE;
+				odd_line = TRUE;
+			}
+			g_free (line);
+			return TRUE;
+		}
+		if ( jump_header && odd_line )
+		{
+			//Now read the filename
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			if ( line == NULL ) return TRUE;
+			//if ( data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen( line ) );
+			//This to avoid inserting in the liststore the last line of Rar output
+			if (strncmp (line, "--------", 8) == 0 || strncmp (line, "\x0a",1) == 0)
+			{
+				g_free (line);
+				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				/*
+				if ()
+				{
+					g_free (line);
+				}*/
+				return FALSE;
+			}
+			//gtk_list_store_append (liststore, &iter);
+			line[ strlen(line) - 1 ] = '\000';
+			if (line[0] == '*') archive->has_passwd = TRUE;
+			//This to avoid the white space or the * before the first char of the filename
+			line++;
+			g_message ("parse_rar_output: %s",line);
+			archive->row.column = g_slist_prepend (archive->row.column , line);
+			//Restore the pointer before freeing it
+			line--;
+			//g_free (line);
+			odd_line = ! odd_line;
+			return TRUE;
+		}
+		else
+		{
+			//Now read the rest of the info
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			if ( line == NULL) return TRUE;
+			//if ( data ) gtk_text_buffer_insert ( textbuf, &enditer, line, strlen( line ) );
+			g_message ("parse_rar_output: %s",line);
+			archive->row.column = split_line (archive->row.column , line,9);
+			/*if ( strstr (fields[5] , "d") == NULL && strstr (fields[5] , "D") == NULL )
+				archive->number_of_files++;
+			else
+				archive->number_of_dirs++;
+			archive->dummy_size += atoll (fields[0]);
+			g_strfreev ( fields );
+			g_free (line);
+			*/
+			odd_line = ! odd_line;
+			return TRUE;
+		}
+		return TRUE;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
+    	return FALSE;
+	}
+}
+
 gboolean
 xarchive_rar_support_verify(XArchive *archive)
 {
@@ -216,6 +334,7 @@ xarchive_rar_support_new()
 	support->extract = xarchive_rar_support_extract;
 	support->testing = xarchive_rar_support_testing;
 	support->remove  = xarchive_rar_support_remove;
+	support->open    = xarchive_rar_support_open;
 	return support;
 }
 

@@ -41,7 +41,6 @@ open_archive(GtkWidget *widget, gpointer data)
 		{
 			xa_main_window_add_tab(XA_MAIN_WINDOW(main_window), archive, g_path_get_basename(archive->path));
 		}
-
 		files = files->next;
 	}
 }

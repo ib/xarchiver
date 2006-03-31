@@ -23,6 +23,7 @@
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
+#include "support-zip.h"
 
 /*
  * xarchive_zip_support_add(XArchive *archive, GSList *files)
@@ -178,7 +179,7 @@ xarchive_zip_support_remove (XArchive *archive, GSList *files )
 }
 
 /*
- * xarchive_zip_support_open(XArchive *archive, GSList *files)
+ * xarchive_zip_support_open(XArchive *archive)
  * Open the archive and calls other functions to catch the output in the archive->output g_slist
  *
  */
@@ -195,11 +196,21 @@ xarchive_zip_support_open (XArchive *archive)
 		g_message (archive->error->message);
 		g_error_free (archive->error);
 	}
-	archive->reload = FALSE;
-	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, archive ) )
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_zip_output, archive ) )
 		return FALSE;
 	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
 		return FALSE;
+	return TRUE;
+}
+
+/*
+ * xarchive_zip_support_open
+ * Parse the output from the zip command when opening the archive
+ *
+ */
+
+gboolean xarchiver_parse_zip_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
 	return TRUE;
 }
 

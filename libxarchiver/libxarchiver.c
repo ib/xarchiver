@@ -165,15 +165,13 @@ xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input)
 gboolean
 xarchiver_cancel_operation ( XArchive *archive )
 {
-	//gtk_widget_set_sensitive ( Stop_button , FALSE );
-	//Update_StatusBar (_("Waiting for the process to abort..."));
 	if ( kill ( archive->child_pid , SIGABRT ) < 0 )
 	{
 		//FIXME: notify the error to the user with a gtk dialog
 		g_message ( g_strerror(errno) );
 		return FALSE;
 	}
-	//This in case the user cancel the opening of a password protected archive
+	//This in case the user cancels the opening of a password protected archive
 	if (archive->status != ADD || archive->status != REMOVE);
 	
 	if (archive->has_passwd)
@@ -182,7 +180,6 @@ xarchiver_cancel_operation ( XArchive *archive )
 		archive->passwd = 0;
 	}
 	archive->type = XARCHIVETYPE_UNKNOWN;
-	archive->status = INACTIVE;
 	return TRUE;
 }
 
@@ -215,7 +212,7 @@ xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		if (line != NULL && strcmp (line,"\n") )
 		{
 			archive->err = g_slist_prepend ( archive->err , line );
-			//FIXME: remember to free the pointer in archive->line gslist !!
+			//FIXME: remember to free the pointers in archive->err gslist !!
 			//g_free (line);
 		}
 		return TRUE;
@@ -240,7 +237,7 @@ xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		if (line != NULL )
 		{
 			archive->output = g_slist_prepend ( archive->output , line );
-			//FIXME: remember to free the pointer in archive->line gslist !!
+			//FIXME: remember to free the pointers in archive->output gslist !!
 			//g_free (line);
 		}
 	}
@@ -278,9 +275,12 @@ gboolean xarchiver_wait_child ( XArchive *archive, gpointer data )
 		if ( WEXITSTATUS (status) )
 		{
 			archive->status = ERROR;
+			archive->child_pid = -1;
 			return FALSE;
 		}
 	}
+	archive->child_pid = 0;
+	g_message ("Wait_child, child_pid=%d",archive->child_pid);
 	return TRUE;
 }
 

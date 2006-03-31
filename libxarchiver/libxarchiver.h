@@ -41,12 +41,19 @@ typedef enum
 	ADD,
 	REMOVE,
 	OPEN,
-	INACTIVE,
+	RELOAD,
 	ERROR,
 	USER_BREAK
 } XArchiveStatus;
 
 typedef struct _XArchive XArchive;
+
+typedef struct _Row Row;
+
+struct _Row
+{
+	GSList *column;
+};
 
 struct _XArchive
 {
@@ -55,7 +62,7 @@ struct _XArchive
 	gchar *path;
 	gchar *passwd;
 	gboolean has_passwd;
-	gboolean reload;
+	unsigned long long int dummy_size;
 	unsigned short int number_of_files;
 	unsigned short int number_of_dirs;
 	GError *error;
@@ -66,6 +73,7 @@ struct _XArchive
 	gint error_fd;
 	GSList *output;
 	GSList *err;
+	Row		row;
 };
 
 typedef struct _XArchiveSupport XArchiveSupport;

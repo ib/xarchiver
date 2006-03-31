@@ -89,4 +89,38 @@ int countcharacters ( gchar *string , int chr )
     return n;
 }
 
+GSList *split_line (GSList *dummy , gchar *line , unsigned short int n_fields)
+{
+	GSList *fields;
+	gchar *scan, *field_end;
+	gchar *field;
+	int i;
+
+	//fields = g_new0 (char *, n_fields + 1);
+	//fields[n_fields] = NULL;
+
+	scan = eat_spaces (line);
+	for (i = 0; i < n_fields; i++)
+	{
+		field_end = strchr (scan, ' ');
+		//The following line is mine, I added the case when the last field ends with a newline
+		if (field_end == NULL) field_end = strchr (scan, '\n');
+		if (field_end != NULL)
+		{
+			field = g_strndup (scan, field_end - scan);
+			fields = g_slist_prepend ( fields, field );
+			scan = eat_spaces (field_end);
+		}
+	}
+	return fields;
+}
+
+gchar *eat_spaces (gchar *line)
+{
+	if (line == NULL)
+		return NULL;
+	while ((*line == ' ') && (*line != 0))
+		line++;
+	return line;
+}
 
