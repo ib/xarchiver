@@ -89,15 +89,11 @@ int countcharacters ( gchar *string , int chr )
     return n;
 }
 
-GSList *split_line (GSList *dummy , gchar *line , unsigned short int n_fields)
+GList *split_line (GList *fields , gchar *line , unsigned short int n_fields)
 {
-	GSList *fields;
 	gchar *scan, *field_end;
 	gchar *field;
-	int i;
-
-	//fields = g_new0 (char *, n_fields + 1);
-	//fields[n_fields] = NULL;
+	unsigned short int i;
 
 	scan = eat_spaces (line);
 	for (i = 0; i < n_fields; i++)
@@ -108,7 +104,7 @@ GSList *split_line (GSList *dummy , gchar *line , unsigned short int n_fields)
 		if (field_end != NULL)
 		{
 			field = g_strndup (scan, field_end - scan);
-			fields = g_slist_prepend ( fields, field );
+			fields = g_list_prepend ( fields, field );
 			scan = eat_spaces (field_end);
 		}
 	}
@@ -124,10 +120,9 @@ gchar *eat_spaces (gchar *line)
 	return line;
 }
 
-GSList *get_last_field (gchar *line,unsigned short int last_field)
+GList *get_last_field (GList *dummy , gchar *line,unsigned short int last_field)
 {
-	gchar *field;
-	GSList *dummy;
+	gchar *field = NULL;
 	int i;
 
 	if (line == NULL)
@@ -143,6 +138,6 @@ GSList *get_last_field (gchar *line,unsigned short int last_field)
 		field = eat_spaces (field);
 	}
     if (field != NULL) field [ strlen(field) -1 ] = '\000';
-	dummy = g_slist_prepend ( dummy , field );
+	dummy = g_list_prepend ( dummy , field );
 	return dummy;
 }

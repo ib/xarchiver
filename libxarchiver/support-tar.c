@@ -23,6 +23,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
 #include <glib.h>
 #include "internals.h"
@@ -203,6 +204,7 @@ xarchive_tar_support_open (XArchive *archive)
 		return FALSE;
 	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
 		return FALSE;
+	archive->dummy_size = 0;
 	return TRUE;
 }
 
@@ -214,31 +216,21 @@ xarchive_tar_support_open (XArchive *archive)
 
 gboolean xarchiver_parse_tar_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	gchar *filename;
-	gchar *line;
+	gchar *line = NULL;
 	XArchive *archive = data;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		//if (line != NULL && data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-		//archive->row.Column = split_line (archive->row.Column , line , 5);
-		//archive->row.Column = get_last_field ( line , 6 );
-		//gtk_list_store_append (liststore, &iter);
-		if ( filename[strlen(filename) - 1] != '/')
-		{
-			/*for ( x = 0; x < 5; x++)
-            {
-				if (x == 2)
-					gtk_list_store_set (liststore, &iter,x+1,atoi(fields[x]),-1);
-				else
-					gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
-            }*/
-		}
-		/*gtk_list_store_set (liststore, &iter,0,filename,-1);
-		g_strfreev ( fields );
-		g_free (line);
-		*/
+		if (line != NULL && ! archive->status == RELOAD )
+			archive->output = g_slist_prepend ( archive->output , line );
+		archive->row = g_list_prepend ( archive->row ,"--");
+		archive->row = split_line (archive->row , line , 6);
+		if ( strstr ((gchar *)g_list_nth_data ( archive->row , 0) , "d") == NULL )
+			archive->number_of_files++;
+		else
+			archive->number_of_dirs++;
+		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row,2) );
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -247,6 +239,7 @@ gboolean xarchiver_parse_tar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		g_io_channel_unref (ioc);
 		return FALSE;
 	}
+	return TRUE;
 }
 
 XArchiveSupport *

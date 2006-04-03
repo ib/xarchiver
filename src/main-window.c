@@ -475,8 +475,29 @@ xa_main_window_create_contentlist(XAMainWindow *window)
 {
 	GtkWidget *treeview = gtk_tree_view_new();
 	gtk_widget_show(treeview);
+/*
+	gtk_notebook_append_page(GTK_NOTEBOOK(window->notebook), treeview, label);
+	xarchive_rar_support_open (archive);
+	//FIXME replace this code with a better one, maybe g_timeout_add() ?
+	while (archive->child_pid != 0)
+	{
+		while (gtk_events_pending())
+                gtk_main_iteration();
+	}
+	//This only to print the content of GSList filled in xarchiver_parse_rar_output
+	archive->row = g_list_reverse ( archive->row );
+	while (archive->row)
+	{
+		if (archive->row->data == "--")
+			g_print ("\n");
+		else
+			g_print ("%s\t",archive->row->data);
+		archive->row = archive->row->next;	
+	}
+*/
 
 	window->contentlist = treeview;
+//	g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
 }
 
 void 

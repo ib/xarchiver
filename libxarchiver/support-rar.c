@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
@@ -203,6 +204,7 @@ xarchive_rar_support_open (XArchive *archive)
 		return FALSE;
 	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
 		return FALSE;
+	archive->dummy_size = 0;
 	return TRUE;
 }
 
@@ -214,20 +216,18 @@ xarchive_rar_support_open (XArchive *archive)
 
 gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	gchar **fields = NULL;
-	gchar *filename = NULL;
     gchar *line = NULL;
 	XArchive *archive = data;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		
 		//This to avoid inserting in the list RAR's copyright message
 		if (jump_header == FALSE )
 		{
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if (line == NULL) return TRUE;
-			//if ( data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen( line ) );
+			if ( ! archive->status == RELOAD )
+				archive->output = g_slist_prepend ( archive->output , line );
 			if  (strncmp (line , "--------" , 8) == 0)
 			{
 				jump_header = TRUE;
@@ -238,29 +238,25 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		}
 		if ( jump_header && odd_line )
 		{
-			archive->row = g_malloc (sizeof (Row) );
+			archive->row = g_list_prepend ( archive->row ,"--");
 			//Now read the filename
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL ) return TRUE;
-			//if ( data ) gtk_text_buffer_insert (textbuf, &enditer, line, strlen( line ) );
+			if ( ! archive->status == RELOAD ) archive->output = g_slist_prepend ( archive->output , line );
 			//This to avoid inserting in the liststore the last line of Rar output
 			if (strncmp (line, "--------", 8) == 0 || strncmp (line, "\x0a",1) == 0)
 			{
 				g_free (line);
 				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				/*
-				if ()
-				{
-					g_free (line);
-				}*/
+				if (line != NULL && ! archive->status == RELOAD)
+					archive->output = g_slist_prepend ( archive->output , line );
 				return FALSE;
 			}
-			//line[ strlen(line) - 1 ] = '\000';
+			line[ strlen(line) - 1 ] = '\000';
 			if (line[0] == '*') archive->has_passwd = TRUE;
 			//This to avoid the white space or the * before the first char of the filename
 			//line++;
-			archive->row->string->Columns = g_slist_prepend (archive->row->string->Columns , line);
-			//g_message (archive->row->Columns->data);
+			archive->row = g_list_prepend (archive->row , line);
 			//Restore the pointer before freeing it
 			//line--;
 			//g_free (line);
@@ -272,16 +268,13 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 			//Now read the rest of the info
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL) return TRUE;
-			//if ( data ) gtk_text_buffer_insert ( textbuf, &enditer, line, strlen( line ) );
-			archive->row->string->Columns = split_line (archive->row->string->Columns , line, 9);
-			/*if ( strstr (fields[5] , "d") == NULL && strstr (fields[5] , "D") == NULL )
+			if ( ! archive->status == RELOAD ) archive->output = g_slist_prepend ( archive->output , line );
+			archive->row = split_line (archive->row, line, 9);
+			if ( strstr ((gchar *)g_list_nth_data ( archive->row,3) , "d") == NULL && strstr ((gchar *)g_list_nth_data ( archive->row,3) , "D") == NULL )
 				archive->number_of_files++;
 			else
 				archive->number_of_dirs++;
-			archive->dummy_size += atoll (fields[0]);
-			g_strfreev ( fields );
-			g_free (line);
-			*/
+			archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row,7) );
 			odd_line = ! odd_line;
 			return TRUE;
 		}
@@ -293,6 +286,7 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		g_io_channel_unref (ioc);
     	return FALSE;
 	}
+	return TRUE;
 }
 
 gboolean

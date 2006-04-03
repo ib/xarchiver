@@ -48,21 +48,6 @@ typedef enum
 
 typedef struct _XArchive XArchive;
 
-typedef struct _Column Column;
-
-struct _Column
-{
-	GSList *Columns;
-};
-
-typedef struct _Row Row;
-
-struct _Row
-{
-	GSList *Rows;
-	struct _Column *string;
-};
-
 struct _XArchive
 {
 	XArchiveType type;
@@ -81,7 +66,7 @@ struct _XArchive
 	gint error_fd;
 	GSList *output;
 	GSList *err;
-	Row	   *row;
+	GList	*row;
 };
 
 typedef struct _XArchiveSupport XArchiveSupport;
