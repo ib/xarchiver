@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
 	gtk_widget_show_all(main_window);
 
-//	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa_test", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
 
 	gtk_main();
 	

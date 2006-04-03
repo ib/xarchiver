@@ -78,7 +78,7 @@ static GtkWidgetClass *xa_main_window_parent_class;
 
 static guint xa_main_window_signals[6];
 
-GSList *widget_list;
+GSList *xa_main_window_widget_list;
 
 GType
 xa_main_window_get_type()
@@ -226,8 +226,8 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 static void
 xa_main_window_init (XAMainWindow *window)
 {
-	widget_list = g_slist_alloc();
-	widget_list->data = window;
+	xa_main_window_widget_list = g_slist_alloc();
+	xa_main_window_widget_list->data = window;
 
 	gtk_window_set_title(GTK_WINDOW(window), PACKAGE_STRING);
 
@@ -271,13 +271,6 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	GtkWidget *properties = gtk_image_menu_item_new_from_stock(GTK_STOCK_PROPERTIES, accel_group);
 	GtkWidget *quit  = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group);
 
-	gtk_widget_set_name(test, "xa-button-test");
-	gtk_widget_set_name(properties, "xa-button-properties");
-	gtk_widget_set_name(quit, "xa-button-quit");
-	gtk_widget_set_name(close, "xa-button-close");
-	gtk_widget_set_name(new, "xa-button-new");
-	gtk_widget_set_name(open, "xa-button-open");
-	gtk_widget_set_name(save, "xa-button-save");
 
 	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), new);
 	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), open);
@@ -358,20 +351,35 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_item), help_menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), help_item);
 
-	g_slist_append(widget_list, help);
-	g_slist_append(widget_list, about);
-	g_slist_append(widget_list, add_file);
-	g_slist_append(widget_list, add_folder);
-	g_slist_append(widget_list, extract);
-	g_slist_append(widget_list, delete);
-	g_slist_append(widget_list, help_item);
-	g_slist_append(widget_list, new);
-	g_slist_append(widget_list, open);
-	g_slist_append(widget_list, save);
-	g_slist_append(widget_list, close);
-	g_slist_append(widget_list, quit);
-	g_slist_append(widget_list, test);
-	g_slist_append(widget_list, properties);
+	g_slist_append(xa_main_window_widget_list, help);
+	g_slist_append(xa_main_window_widget_list, about);
+	g_slist_append(xa_main_window_widget_list, add_file);
+	g_slist_append(xa_main_window_widget_list, add_folder);
+	g_slist_append(xa_main_window_widget_list, extract);
+	g_slist_append(xa_main_window_widget_list, delete);
+	g_slist_append(xa_main_window_widget_list, help_item);
+	g_slist_append(xa_main_window_widget_list, new);
+	g_slist_append(xa_main_window_widget_list, open);
+	g_slist_append(xa_main_window_widget_list, save);
+	g_slist_append(xa_main_window_widget_list, close);
+	g_slist_append(xa_main_window_widget_list, quit);
+	g_slist_append(xa_main_window_widget_list, test);
+	g_slist_append(xa_main_window_widget_list, properties);
+
+	gtk_widget_set_name(test,       "xa-button-test");
+	gtk_widget_set_name(properties, "xa-button-properties");
+	gtk_widget_set_name(quit,       "xa-button-quit");
+	gtk_widget_set_name(close,      "xa-button-close");
+	gtk_widget_set_name(new,        "xa-button-new");
+	gtk_widget_set_name(open,       "xa-button-open");
+	gtk_widget_set_name(save,       "xa-button-save");
+	gtk_widget_set_name(add_file,   "xa-button-add-file");
+	gtk_widget_set_name(add_folder, "xa-button-add-folder");
+	gtk_widget_set_name(delete,     "xa-button-delete");
+	gtk_widget_set_name(help,       "xa-button-help");
+	gtk_widget_set_name(about,      "xa-button-about");
+	gtk_widget_set_name(extract,    "xa-button-extract");
+	gtk_widget_set_name(help_item,  "xa-button-help-item");
 
 	window->menubar = menu_bar;
 }
@@ -401,33 +409,48 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_show(tmpimage);
 	GtkToolItem *extract = gtk_tool_button_new (tmpimage, _("Extract"));
 
+	tmpimage = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, GTK_ICON_SIZE_LARGE_TOOLBAR);
+	gtk_widget_show(tmpimage);
+	GtkToolItem *test = gtk_tool_button_new (tmpimage, _("Test"));
+
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(new), 0);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(open), 1);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(add_file), 2);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(add_folder), 3);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(extract), 4);
-	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(cancel), 5);
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(test), 5);
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(cancel), 6);
 
 
 	gtk_widget_show(GTK_WIDGET(new));
 	gtk_widget_show(GTK_WIDGET(open));
+	gtk_widget_show(GTK_WIDGET(test));
 	gtk_widget_show(GTK_WIDGET(extract));
 	gtk_widget_show(GTK_WIDGET(add_file));
 	gtk_widget_show(GTK_WIDGET(add_folder));
 	gtk_widget_show(GTK_WIDGET(cancel));
 
+	g_signal_connect(G_OBJECT(test), "clicked", G_CALLBACK(xa_test_archive), window);
 	g_signal_connect(G_OBJECT(open), "clicked", G_CALLBACK(xa_open_archive), window);
 	g_signal_connect(G_OBJECT(extract), "clicked", G_CALLBACK(xa_extract_archive), window);
 	g_signal_connect(G_OBJECT(add_file), "clicked", G_CALLBACK(xa_add_files), window);
 	g_signal_connect(G_OBJECT(add_folder), "clicked", G_CALLBACK(xa_add_folders), window);
 	g_signal_connect(G_OBJECT(cancel), "clicked", G_CALLBACK(xa_cancel_operation), window);
 
-	g_slist_append(widget_list, new);
-	g_slist_append(widget_list, open);
-	g_slist_append(widget_list, extract);
-	g_slist_append(widget_list, add_file);
-	g_slist_append(widget_list, add_folder);
+	g_slist_append(xa_main_window_widget_list, new);
+	g_slist_append(xa_main_window_widget_list, test);
+	g_slist_append(xa_main_window_widget_list, open);
+	g_slist_append(xa_main_window_widget_list, extract);
+	g_slist_append(xa_main_window_widget_list, add_file);
+	g_slist_append(xa_main_window_widget_list, add_folder);
 	
+	gtk_widget_set_name(GTK_WIDGET(new),        "xa-button-new");
+	gtk_widget_set_name(GTK_WIDGET(test),       "xa-button-test");
+	gtk_widget_set_name(GTK_WIDGET(open),       "xa-button-open");
+	gtk_widget_set_name(GTK_WIDGET(add_file),   "xa-button-add-file");
+	gtk_widget_set_name(GTK_WIDGET(add_folder), "xa-button-add-folder");
+	gtk_widget_set_name(GTK_WIDGET(extract),    "xa-button-extract");
+
 	window->toolbar = tool_bar;
 }
 
@@ -462,11 +485,14 @@ xa_main_window_set_widget_sensitive (XAMainWindow *window, gchar *name, gboolean
 {
 	GtkWidget *button;
 
-	GSList *_widget_list = g_slist_find_custom(widget_list, name, lookup_widget_by_name);
-	if(_widget_list)
+	GSList *_widget_list = g_slist_find_custom(xa_main_window_widget_list, name, lookup_widget_by_name);
+	while(_widget_list)
 	{
 		button = (_widget_list->data);
 		gtk_widget_set_sensitive(button, sensitive);
+		_widget_list = _widget_list->next;
+		if(_widget_list)
+			_widget_list = g_slist_find_custom(_widget_list, name, lookup_widget_by_name);
 	}
 }
 
@@ -503,6 +529,14 @@ xa_main_window_create_contentlist(XAMainWindow *window)
 void 
 xa_open_archive(GtkWidget *widget, gpointer data)
 {
+	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Open Archive"),
+			GTK_WINDOW(data),
+			GTK_FILE_CHOOSER_ACTION_OPEN,
+			GTK_STOCK_CANCEL,
+			GTK_RESPOSE_CANCEL,
+			GTK_STOCK_OPEN,
+			GTK_RESPONSE_OPEN,
+			NULL);
 	g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL);
 }
 
