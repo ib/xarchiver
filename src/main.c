@@ -30,7 +30,10 @@ void
 open_archive(GtkWidget *widget, gpointer data)
 {
 	GSList *files = data;
+	gchar *dest_filename;
 	XArchive *archive = NULL;
+	XArchive *sub_archive = NULL;
+	XArchiveSupport *support = NULL;
 	
 	while(files != NULL)
 	{
@@ -39,7 +42,12 @@ open_archive(GtkWidget *widget, gpointer data)
 			g_warning("Archive %s is not supported\n", files->data);
 		else
 		{
-			xa_main_window_add_tab(XA_MAIN_WINDOW(main_window), archive, g_path_get_basename(archive->path));
+			if((archive->type == XARCHIVETYPE_BZIP2) || (archive->type == XARCHIVETYPE_GZIP))
+			{
+				support = xarchiver_find_archive_support(archive);
+				support->extract(archive, "/tmp/", NULL, FALSE);
+				sub_archive = xarchiver_archive_new(dest_filename, XARCHIVETYPE_UNKNOWN);
+			}
 		}
 		files = files->next;
 	}
@@ -56,6 +64,8 @@ int main(int argc, char **argv)
 	g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(open_archive), NULL);
 
 	gtk_widget_show_all(main_window);
+
+//	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa_test", FALSE);
 
 	gtk_main();
 	

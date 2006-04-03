@@ -49,10 +49,8 @@ struct _XAMainWindow
 	GtkWidget *vbox;
 	GtkWidget *menubar;
 	GtkWidget *toolbar;
-	GtkWidget *notebook;
+	GtkWidget *contentlist;
 	GtkWidget *statusbar;
-	GtkWidget *open_dlg;
-	GtkWidget *add_dlg;
 };
 
 struct _XAMainWindowClass
@@ -60,8 +58,9 @@ struct _XAMainWindowClass
 	GtkWindowClass parent_class;
 };
 
-GType          xa_main_window_get_type        (void);
-GtkWidget*     xa_main_window_new             (void);
+GType          xa_main_window_get_type              (void);
+GtkWidget*     xa_main_window_new                   (void);
+void           xa_main_window_set_widget_sensitive    (XAMainWindow *window, gchar *name, gboolean sensitive);
 
 G_END_DECLS
 
