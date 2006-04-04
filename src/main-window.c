@@ -430,28 +430,21 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_show(tmpimage);
 	GtkToolItem *extract = gtk_tool_button_new (tmpimage, _("Extract"));
 
-	tmpimage = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, GTK_ICON_SIZE_LARGE_TOOLBAR);
-	gtk_widget_show(tmpimage);
-	GtkToolItem *test = gtk_tool_button_new (tmpimage, _("Test"));
-
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(new), 0);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(open), 1);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(add_file), 2);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(add_folder), 3);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(extract), 4);
-	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(test), 5);
-	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(cancel), 6);
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(cancel), 5);
 
 
 	gtk_widget_show(GTK_WIDGET(new));
 	gtk_widget_show(GTK_WIDGET(open));
-	gtk_widget_show(GTK_WIDGET(test));
 	gtk_widget_show(GTK_WIDGET(extract));
 	gtk_widget_show(GTK_WIDGET(add_file));
 	gtk_widget_show(GTK_WIDGET(add_folder));
 	gtk_widget_show(GTK_WIDGET(cancel));
 
-	g_signal_connect(G_OBJECT(test), "clicked", G_CALLBACK(xa_test_archive), window);
 	g_signal_connect(G_OBJECT(open), "clicked", G_CALLBACK(xa_open_archive), window);
 	g_signal_connect(G_OBJECT(extract), "clicked", G_CALLBACK(xa_extract_archive), window);
 	g_signal_connect(G_OBJECT(add_file), "clicked", G_CALLBACK(xa_add_files), window);
@@ -459,14 +452,12 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	g_signal_connect(G_OBJECT(cancel), "clicked", G_CALLBACK(xa_cancel_operation), window);
 
 	g_slist_append(xa_main_window_widget_list, new);
-	g_slist_append(xa_main_window_widget_list, test);
 	g_slist_append(xa_main_window_widget_list, open);
 	g_slist_append(xa_main_window_widget_list, extract);
 	g_slist_append(xa_main_window_widget_list, add_file);
 	g_slist_append(xa_main_window_widget_list, add_folder);
 	
 	gtk_widget_set_name(GTK_WIDGET(new),        "xa-button-new");
-	gtk_widget_set_name(GTK_WIDGET(test),       "xa-button-test");
 	gtk_widget_set_name(GTK_WIDGET(open),       "xa-button-open");
 	gtk_widget_set_name(GTK_WIDGET(add_file),   "xa-button-add-file");
 	gtk_widget_set_name(GTK_WIDGET(add_folder), "xa-button-add-folder");
@@ -562,14 +553,23 @@ void
 xa_main_window_append_list(XAMainWindow *window, GSList *fields)
 {
 	int i = 0;
+	int nc = 0;
 	GtkTreeIter iter;
 	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
 	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
-	while(fields)
+	nc = gtk_tree_model_get_n_columns(list_store);
+	if(g_slist_length(fields) == nc)
 	{
-		gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, i, fields->data, -1);
-		fields = fields->next;
-		i++;
+		while(fields)
+		{
+			gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, i, fields->data, -1);
+			fields = fields->next;
+			i++;
+		}
+	}
+	else
+	{
+		g_critical("Columns cannot be appended to list, %d != %d", g_slist_length(fields), nc);
 	}
 }
 
@@ -679,37 +679,3 @@ xa_cancel_operation(GtkWidget *widget, gpointer data)
 {
 	g_signal_emit(G_OBJECT(data), xa_main_window_signals[6], 0);
 }
-
-/*
- * DEPRICATED:
- * is only here for reference purposes
- */
-/*
-int
-xa_main_window_create_contentlist(XAMainWindow *window)
-{
-	GtkWidget *treeview = gtk_tree_view_new();
-	gtk_widget_show(treeview);
-	gtk_notebook_append_page(GTK_NOTEBOOK(window->notebook), treeview, label);
-	xarchive_rar_support_open (archive);
-	//FIXME replace this code with a better one, maybe g_timeout_add() ?
-	while (archive->child_pid != 0)
-	{
-		while (gtk_events_pending())
-                gtk_main_iteration();
-	}
-	//This only to print the content of GSList filled in xarchiver_parse_rar_output
-	archive->row = g_list_reverse ( archive->row );
-	while (archive->row)
-	{
-		if (archive->row->data == "--")
-			g_print ("\n");
-		else
-			g_print ("%s\t",archive->row->data);
-		archive->row = archive->row->next;	
-	}
-
-	window->contentlist = treeview;
-//	g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
-}
-*/
