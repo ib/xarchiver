@@ -54,7 +54,13 @@ void
 xa_main_window_create_toolbar(XAMainWindow *window);
 
 void
+xa_main_window_create_contentlist(XAMainWindow *window);
+
+void
 xa_main_window_create_statusbar(XAMainWindow *window);
+
+void 
+xa_new_archive(GtkWidget *widget, gpointer data);
 
 void 
 xa_open_archive(GtkWidget *widget, gpointer data);
@@ -152,7 +158,7 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 
 	widget_class->show_all = xa_main_window_show_all;
 
-	xa_main_window_signals[0] = g_signal_new("xa_open_archive",
+	xa_main_window_signals[0] = g_signal_new("xa_new_archive",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -164,7 +170,7 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			G_TYPE_POINTER,
 			NULL);
 
-	xa_main_window_signals[1] = g_signal_new("xa_add_files",
+	xa_main_window_signals[1] = g_signal_new("xa_open_archive",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -176,7 +182,7 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			G_TYPE_POINTER,
 			NULL);
 
-	xa_main_window_signals[2] = g_signal_new("xa_add_folders",
+	xa_main_window_signals[2] = g_signal_new("xa_add_files",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -188,7 +194,7 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			G_TYPE_POINTER,
 			NULL);
 
-	xa_main_window_signals[3] = g_signal_new("xa_extract_archive",
+	xa_main_window_signals[3] = g_signal_new("xa_add_folders",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -200,7 +206,19 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			G_TYPE_POINTER,
 			NULL);
 
-	xa_main_window_signals[4] = g_signal_new("xa_test_archive",
+	xa_main_window_signals[4] = g_signal_new("xa_extract_archive",
+			G_TYPE_FROM_CLASS(_class),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_POINTER,
+			NULL);
+
+	xa_main_window_signals[5] = g_signal_new("xa_test_archive",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -211,7 +229,7 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			0,
 			NULL);
 
-	xa_main_window_signals[5] = g_signal_new("xa_cancel_operation",
+	xa_main_window_signals[6] = g_signal_new("xa_cancel_operation",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -496,12 +514,137 @@ xa_main_window_set_widget_sensitive (XAMainWindow *window, gchar *name, gboolean
 	}
 }
 
+void
+xa_main_window_create_contentlist(XAMainWindow *window)
+{
+	GtkWidget *treeview = gtk_tree_view_new();
+	gtk_widget_show(treeview);
+	window->contentlist = treeview;
+}
+
+void 
+xa_new_archive(GtkWidget *widget, gpointer data)
+{
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL);
+}
+
+void 
+xa_open_archive(GtkWidget *widget, gpointer data)
+{
+	GSList *files = NULL;
+
+	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Open Archive"),
+			GTK_WINDOW(data),
+			GTK_FILE_CHOOSER_ACTION_OPEN,
+			GTK_STOCK_CANCEL,
+			GTK_RESPONSE_CANCEL,
+			GTK_STOCK_OPEN,
+			GTK_RESPONSE_OK,
+			NULL);
+
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		gtk_widget_hide(dialog);
+		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[1], 0, files);
+	}
+
+	gtk_widget_destroy(dialog);
+	if(files)
+	{
+		g_slist_foreach(files, (GFunc) g_free, NULL);
+		g_slist_free(files);
+	}
+	gtk_widget_show (dialog);
+}
+
+void 
+xa_add_files(GtkWidget *widget, gpointer data)
+{
+	GSList *files = NULL;
+
+	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Add Files"),
+			GTK_WINDOW(data),
+			GTK_FILE_CHOOSER_ACTION_OPEN,
+			GTK_STOCK_CANCEL,
+			GTK_RESPONSE_CANCEL,
+			GTK_STOCK_OPEN,
+			GTK_RESPONSE_ACCEPT,
+			NULL);
+
+	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		gtk_widget_hide(dialog);
+		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[2], 0, files);
+	}
+
+	gtk_widget_destroy(dialog);
+	if(files)
+	{
+		g_slist_foreach(files, (GFunc) g_free, NULL);
+		g_slist_free(files);
+	}
+}
+
+void 
+xa_add_folders(GtkWidget *widget, gpointer data)
+{
+	GSList *folder = NULL;
+
+	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Add Folder"),
+			GTK_WINDOW(data),
+			GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+			GTK_STOCK_CANCEL,
+			GTK_RESPONSE_CANCEL,
+			GTK_STOCK_OPEN,
+			GTK_RESPONSE_ACCEPT,
+			NULL);
+
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		folder = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[3], 0, folder);
+	}
+
+	gtk_widget_destroy(dialog);
+	if(folder)
+	{
+		g_slist_foreach(folder, (GFunc) g_free, NULL);
+		g_slist_free(folder);
+	}
+} 
+
+void 
+xa_extract_archive(GtkWidget *widget, gpointer data)
+{
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL);
+}
+
+void 
+xa_test_archive(GtkWidget *widget, gpointer data)
+{
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[5], 0);
+}
+
+void 
+xa_cancel_operation(GtkWidget *widget, gpointer data)
+{
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[6], 0);
+}
+
+/*
+ * DEPRICATED:
+ * is only here for reference purposes
+ */
+/*
 int
 xa_main_window_create_contentlist(XAMainWindow *window)
 {
 	GtkWidget *treeview = gtk_tree_view_new();
 	gtk_widget_show(treeview);
-/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(window->notebook), treeview, label);
 	xarchive_rar_support_open (archive);
 	//FIXME replace this code with a better one, maybe g_timeout_add() ?
@@ -520,54 +663,8 @@ xa_main_window_create_contentlist(XAMainWindow *window)
 			g_print ("%s\t",archive->row->data);
 		archive->row = archive->row->next;	
 	}
-*/
 
 	window->contentlist = treeview;
 //	g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
-	return TRUE;
 }
-
-void 
-xa_open_archive(GtkWidget *widget, gpointer data)
-{
-	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Open Archive"),
-			GTK_WINDOW(data),
-			GTK_FILE_CHOOSER_ACTION_OPEN,
-			GTK_STOCK_CANCEL,
-			GTK_RESPONSE_CANCEL,
-			GTK_STOCK_OPEN,
-			GTK_RESPONSE_OK,
-			NULL);
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL);
-	gtk_widget_show (dialog);
-}
-
-void 
-xa_add_files(GtkWidget *widget, gpointer data)
-{
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[1], 0, NULL);
-}
-
-void 
-xa_add_folders(GtkWidget *widget, gpointer data)
-{
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[2], 0, NULL);
-} 
-
-void 
-xa_extract_archive(GtkWidget *widget, gpointer data)
-{
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[3], 0, NULL);
-}
-
-void 
-xa_test_archive(GtkWidget *widget, gpointer data)
-{
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0);
-}
-
-void 
-xa_cancel_operation(GtkWidget *widget, gpointer data)
-{
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[5], 0);
-}
+*/
