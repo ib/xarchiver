@@ -570,7 +570,7 @@ xa_add_files(GtkWidget *widget, gpointer data)
 
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
 
-	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
 		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
@@ -596,7 +596,7 @@ xa_add_folders(GtkWidget *widget, gpointer data)
 			GTK_RESPONSE_OK,
 			NULL);
 
-	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
 		folder = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
@@ -604,6 +604,7 @@ xa_add_folders(GtkWidget *widget, gpointer data)
 		g_slist_foreach(folder, (GFunc) g_free, NULL);
 		g_slist_free(folder);
 	}
+	gtk_widget_destroy(dialog);
 } 
 
 void 
