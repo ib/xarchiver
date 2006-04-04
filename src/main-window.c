@@ -330,7 +330,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	GtkWidget *add_file = gtk_image_menu_item_new_with_mnemonic(_("_Add File(s)"));
 	GtkWidget *add_folder = gtk_image_menu_item_new_with_mnemonic(_("Add _Folder"));
 	GtkWidget *extract = gtk_image_menu_item_new_with_mnemonic(_("_Extract"));
-	separator = gtk_menu_item_new();
+	separator = gtk_separator_menu_item_new();
 	GtkWidget *delete  = gtk_image_menu_item_new_from_stock(GTK_STOCK_DELETE, accel_group);
 
 	g_signal_connect(G_OBJECT(add_file), "activate", G_CALLBACK(xa_add_files), window);
@@ -405,12 +405,12 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	window->menubar = menu_bar;
 }
 
-// TODO: Add separators
 void
 xa_main_window_create_toolbar(XAMainWindow *window)
 {
 	GtkWidget *tool_bar = gtk_toolbar_new();
 	GtkWidget *tmpimage;
+	GtkToolItem *separator;
 	
 	gtk_toolbar_set_style(GTK_TOOLBAR(tool_bar), GTK_TOOLBAR_BOTH);
 
@@ -445,6 +445,15 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_show(GTK_WIDGET(add_folder));
 	gtk_widget_show(GTK_WIDGET(cancel));
 
+	// insert separators
+	separator = gtk_separator_tool_item_new();
+	gtk_widget_show(GTK_WIDGET(separator));
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(separator), 2);
+	separator = gtk_separator_tool_item_new();
+	gtk_widget_show(GTK_WIDGET(separator));
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(separator), 6);
+
+	// connect signals
 	g_signal_connect(G_OBJECT(open), "clicked", G_CALLBACK(xa_open_archive), window);
 	g_signal_connect(G_OBJECT(extract), "clicked", G_CALLBACK(xa_extract_archive), window);
 	g_signal_connect(G_OBJECT(add_file), "clicked", G_CALLBACK(xa_add_files), window);
