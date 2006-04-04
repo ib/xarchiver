@@ -524,6 +524,7 @@ xa_main_window_create_contentlist(XAMainWindow *window)
 
 	window->contentlist = treeview;
 //	g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
+	return TRUE;
 }
 
 void 
@@ -533,11 +534,12 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 			GTK_WINDOW(data),
 			GTK_FILE_CHOOSER_ACTION_OPEN,
 			GTK_STOCK_CANCEL,
-			GTK_RESPOSE_CANCEL,
+			GTK_RESPONSE_CANCEL,
 			GTK_STOCK_OPEN,
-			GTK_RESPONSE_OPEN,
+			GTK_RESPONSE_OK,
 			NULL);
 	g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL);
+	gtk_widget_show (dialog);
 }
 
 void 
