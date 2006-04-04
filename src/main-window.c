@@ -525,6 +525,29 @@ xa_main_window_create_contentlist(XAMainWindow *window)
 	window->contentlist = treeview;
 }
 
+// TODO:
+// Check if tree_view already has a model, and free it.
+void
+xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_names[], GType column_types[])
+{
+	int i = 0;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
+	GtkListStore *list_store;
+
+	list_store = gtk_list_store_newv(nc, (GType *)column_types);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), GTK_TREE_MODEL(list_store));
+	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(window->contentlist), TRUE);
+	renderer = gtk_cell_renderer_text_new ();
+	for(i = 0; i < nc; i++)
+	{
+		column = gtk_tree_view_column_new_with_attributes(column_names[i], renderer, "text", i, NULL);
+		gtk_tree_view_column_set_resizable(column, TRUE);
+		gtk_tree_view_column_set_sort_column_id(column, i);
+		gtk_tree_view_append_column (GTK_TREE_VIEW (window->contentlist), column);
+	}
+}
+
 void 
 xa_new_archive(GtkWidget *widget, gpointer data)
 {
@@ -534,7 +557,7 @@ xa_new_archive(GtkWidget *widget, gpointer data)
 void 
 xa_open_archive(GtkWidget *widget, gpointer data)
 {
-	GSList *files = NULL;
+	gchar *filename = NULL;
 
 	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Open Archive"),
 			GTK_WINDOW(data),
@@ -548,12 +571,12 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 	{
 		gtk_widget_hide(dialog);
-		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[1], 0, files);
-		g_slist_foreach(files, (GFunc) g_free, NULL);
-		g_slist_free(files);
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[1], 0, filename);
 	}
 
+	if(filename)
+		g_free(filename);
 	gtk_widget_destroy(dialog);
 }
 
@@ -578,17 +601,20 @@ xa_add_files(GtkWidget *widget, gpointer data)
 		gtk_widget_hide(dialog);
 		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 		g_signal_emit(G_OBJECT(data), xa_main_window_signals[2], 0, files);
+	}
+
+	if(files)
+	{
 		g_slist_foreach(files, (GFunc) g_free, NULL);
 		g_slist_free(files);
 	}
-
 	gtk_widget_destroy(dialog);
 }
 
 void 
 xa_add_folders(GtkWidget *widget, gpointer data)
 {
-	GSList *folder = NULL;
+	gchar *foldername = NULL;
 
 	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Add Folder"),
 			GTK_WINDOW(data),
@@ -602,11 +628,12 @@ xa_add_folders(GtkWidget *widget, gpointer data)
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		folder = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[3], 0, folder);
-		g_slist_foreach(folder, (GFunc) g_free, NULL);
-		g_slist_free(folder);
+		foldername = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[3], 0, foldername);
 	}
+
+	if(foldername)
+		g_free(foldername);
 	gtk_widget_destroy(dialog);
 } 
 

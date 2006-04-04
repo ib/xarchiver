@@ -52,6 +52,8 @@ open_archive(GtkWidget *widget, gpointer data)
 
 int main(int argc, char **argv)
 {
+	gchar *columns[] = {"TEST", "TEST"};
+	GType column_types[] = {G_TYPE_STRING, G_TYPE_STRING};
 	xarchiver_init();
 	gtk_init(&argc, &argv);
 
@@ -63,6 +65,7 @@ int main(int argc, char **argv)
 	gtk_widget_show_all(main_window);
 
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
+	xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), 2, columns, column_types);
 
 	gtk_main();
 	

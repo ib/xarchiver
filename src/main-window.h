@@ -61,6 +61,7 @@ struct _XAMainWindowClass
 GType          xa_main_window_get_type              (void);
 GtkWidget*     xa_main_window_new                   (void);
 void           xa_main_window_set_widget_sensitive  (XAMainWindow *window, gchar *name, gboolean sensitive);
+void           xa_main_window_set_list_interface    (XAMainWindow *window, int nc, gchar *column_names[], GType column_types[]);
 
 G_END_DECLS
 
