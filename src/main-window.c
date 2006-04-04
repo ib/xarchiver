@@ -23,6 +23,7 @@
 #include <config.h>
 #include <libintl.h>
 #include <libxarchiver/libxarchiver.h>
+#include "archive-chooser-dialog.h"
 #include "main-window.h"
 #define _(String) gettext(String)
 
@@ -100,9 +101,11 @@ xa_main_window_get_type()
 			(GBaseFinalizeFunc) NULL,
 			(GClassInitFunc) xa_main_window_class_init,
 			(GClassFinalizeFunc) NULL,
-			NULL, sizeof(XAMainWindow),
+			NULL, 
+			sizeof(XAMainWindow),
 			0,
-			(GInstanceInitFunc) xa_main_window_init, NULL,
+			(GInstanceInitFunc) xa_main_window_init, 
+			NULL
 		};
 		xa_main_window_type = g_type_register_static(GTK_TYPE_WINDOW, "XAMainWindow", &xa_main_window_info, 0);
 	}
