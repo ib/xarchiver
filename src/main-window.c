@@ -262,7 +262,7 @@ xa_main_window_init (XAMainWindow *window)
 	gtk_container_add(GTK_CONTAINER(window), window->vbox);
 
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); 
-	gtk_box_pack_start(GTK_BOX(window->vbox), window->contentlist, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->scrollwindow, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 0);
 }
 
@@ -520,9 +520,19 @@ xa_main_window_set_widget_sensitive (XAMainWindow *window, gchar *name, gboolean
 void
 xa_main_window_create_contentlist(XAMainWindow *window)
 {
+	GtkWidget *scrollwindow = gtk_scrolled_window_new(NULL,NULL);
 	GtkWidget *treeview = gtk_tree_view_new();
+
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrollwindow), GTK_SHADOW_ETCHED_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+
+	gtk_container_add(GTK_CONTAINER(scrollwindow), treeview);
+
+	gtk_widget_show(scrollwindow);
 	gtk_widget_show(treeview);
+
 	window->contentlist = treeview;
+	window->scrollwindow = scrollwindow;
 }
 
 // TODO:
@@ -549,15 +559,17 @@ xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_n
 }
 
 void
-xa_main_window_append_list(XAMainWindow *window, int nc, gpointer data[])
+xa_main_window_append_list(XAMainWindow *window, GSList *fields)
 {
 	int i = 0;
 	GtkTreeIter iter;
 	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
 	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
-	for(i = 0; i < nc; i++)
+	while(fields)
 	{
-		gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, i, data[i], -1);
+		gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, i, fields->data, -1);
+		fields = fields->next;
+		i++;
 	}
 }
 
