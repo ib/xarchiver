@@ -82,7 +82,7 @@ xa_cancel_operation(GtkWidget *widget, gpointer data);
 
 static GtkWidgetClass *xa_main_window_parent_class;
 
-static guint xa_main_window_signals[6];
+static guint xa_main_window_signals[7];
 
 GSList *xa_main_window_widget_list;
 
@@ -547,15 +547,11 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 		gtk_widget_hide(dialog);
 		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 		g_signal_emit(G_OBJECT(data), xa_main_window_signals[1], 0, files);
-	}
-
-	gtk_widget_destroy(dialog);
-	if(files)
-	{
 		g_slist_foreach(files, (GFunc) g_free, NULL);
 		g_slist_free(files);
 	}
-	gtk_widget_show (dialog);
+
+	gtk_widget_destroy(dialog);
 }
 
 void 
@@ -569,7 +565,7 @@ xa_add_files(GtkWidget *widget, gpointer data)
 			GTK_STOCK_CANCEL,
 			GTK_RESPONSE_CANCEL,
 			GTK_STOCK_OPEN,
-			GTK_RESPONSE_ACCEPT,
+			GTK_RESPONSE_OK,
 			NULL);
 
 	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
@@ -579,14 +575,11 @@ xa_add_files(GtkWidget *widget, gpointer data)
 		gtk_widget_hide(dialog);
 		files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 		g_signal_emit(G_OBJECT(data), xa_main_window_signals[2], 0, files);
-	}
-
-	gtk_widget_destroy(dialog);
-	if(files)
-	{
 		g_slist_foreach(files, (GFunc) g_free, NULL);
 		g_slist_free(files);
 	}
+
+	gtk_widget_destroy(dialog);
 }
 
 void 
@@ -600,18 +593,14 @@ xa_add_folders(GtkWidget *widget, gpointer data)
 			GTK_STOCK_CANCEL,
 			GTK_RESPONSE_CANCEL,
 			GTK_STOCK_OPEN,
-			GTK_RESPONSE_ACCEPT,
+			GTK_RESPONSE_OK,
 			NULL);
 
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 	{
+		gtk_widget_hide(dialog);
 		folder = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
 		g_signal_emit(G_OBJECT(data), xa_main_window_signals[3], 0, folder);
-	}
-
-	gtk_widget_destroy(dialog);
-	if(folder)
-	{
 		g_slist_foreach(folder, (GFunc) g_free, NULL);
 		g_slist_free(folder);
 	}

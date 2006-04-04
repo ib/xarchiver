@@ -30,23 +30,20 @@ void
 open_archive(GtkWidget *widget, gpointer data)
 {
 	GSList *files = data;
-	gchar *dest_filename;
 	XArchive *archive = NULL;
-	XArchive *sub_archive = NULL;
 	XArchiveSupport *support = NULL;
 	
 	while(files != NULL)
 	{
 		archive = xarchiver_archive_new((gchar *)files->data, XARCHIVETYPE_UNKNOWN);
 		if(archive == NULL)
-			g_warning("Archive %s is not supported\n", files->data);
+			g_warning("Archive %s is not supported\n", (gchar *)files->data);
 		else
 		{
 			if((archive->type == XARCHIVETYPE_BZIP2) || (archive->type == XARCHIVETYPE_GZIP))
 			{
 				support = xarchiver_find_archive_support(archive);
 				support->extract(archive, "/tmp/", NULL, FALSE);
-				sub_archive = xarchiver_archive_new(dest_filename, XARCHIVETYPE_UNKNOWN);
 			}
 		}
 		files = files->next;
