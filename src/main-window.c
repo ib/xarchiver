@@ -548,6 +548,19 @@ xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_n
 	}
 }
 
+void
+xa_main_window_append_list(XAMainWindow *window, int nc, gpointer data[])
+{
+	int i = 0;
+	GtkTreeIter iter;
+	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
+	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
+	for(i = 0; i < nc; i++)
+	{
+		gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, i, data[i], -1);
+	}
+}
+
 void 
 xa_new_archive(GtkWidget *widget, gpointer data)
 {
