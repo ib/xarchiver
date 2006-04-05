@@ -602,7 +602,7 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 			GTK_RESPONSE_OK,
 			NULL);
 
-	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
 		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
@@ -688,3 +688,4 @@ xa_cancel_operation(GtkWidget *widget, gpointer data)
 {
 	g_signal_emit(G_OBJECT(data), xa_main_window_signals[6], 0);
 }
+

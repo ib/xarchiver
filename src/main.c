@@ -29,15 +29,15 @@ GtkWidget *main_window;
 void
 open_archive(GtkWidget *widget, gpointer data)
 {
-	GSList *files = data;
+	gchar *filename = data;
 	XArchive *archive = NULL;
 	XArchiveSupport *support = NULL;
 	
-	while(files != NULL)
-	{
-		archive = xarchiver_archive_new((gchar *)files->data, XARCHIVETYPE_UNKNOWN);
+	
+		archive = xarchiver_archive_new(filename, XARCHIVETYPE_UNKNOWN);
 		if(archive == NULL)
-			g_warning("Archive %s is not supported\n", (gchar *)files->data);
+			//TODO: notify the user with a gtk_dialog error message
+			g_warning("Archive %s is not supported\n", filename);
 		else
 		{
 			if((archive->type == XARCHIVETYPE_BZIP2) || (archive->type == XARCHIVETYPE_GZIP))
@@ -46,13 +46,33 @@ open_archive(GtkWidget *widget, gpointer data)
 				support->extract(archive, "/tmp/", NULL, FALSE);
 			}
 		}
-		files = files->next;
+		switch (archive->type)
+		{
+			case XARCHIVETYPE_RAR:
+				xarchive_rar_support_open (archive);
+			break;
+		}
+		while (archive->child_pid != 0)
+		{
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+	//This only to print the content of GList filled in xarchiver_parse_rar_output
+	archive->row = g_list_reverse ( archive->row );
+	while (archive->row)
+	{
+		if (archive->row->data == "--")
+			g_print ("\n");
+		else
+			g_print ("%s\t",archive->row->data);
+		archive->row = archive->row->next;	
 	}
+	g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
+	
 }
 
 int main(int argc, char **argv)
 {
-	int i;
 	gchar *columns[] = {"Filename", "Permissions", "Date", "Time"};
 	GType column_types[] = {G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING};
 	GSList *fields = g_slist_alloc();

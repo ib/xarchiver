@@ -20,9 +20,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
+#include "support-7zip.h"
 
 /*
  * xarchive_7zip_support_add(XArchive *archive, GSList *files)
@@ -177,6 +179,99 @@ xarchive_7zip_support_remove (XArchive *archive, GSList *files )
 	return TRUE;
 }
 
+/*
+ * xarchive_7zip_support_open(XArchive *archive)
+ * Open the archive and calls other functions to catch the output
+ *
+ */
+
+gboolean
+xarchive_7zip_support_open (XArchive *archive)
+{
+	gchar *command;
+	jump_header = FALSE;
+
+	command = g_strconcat ( "7za l " , archive->path, NULL );
+	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
+	g_free (command);
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+	}
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_7zip_output, archive ) )
+		return FALSE;
+	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
+		return FALSE;
+	archive->dummy_size = 0;
+	return TRUE;
+}
+
+/*
+ * xarchive_parse_7zip_output
+ * Parse the output from the 7za command when opening the archive
+ *
+ */
+
+gboolean xarchiver_parse_7zip_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+    gchar *line = NULL;
+	XArchive *archive = data;
+	unsigned short int x;
+
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		//This to avoid inserting in the liststore 7zip's message
+		if (jump_header == FALSE )
+		{
+			for ( x = 0; x <= 7; x++)
+			{
+				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				if (line != NULL) return TRUE;
+				if ( ! archive->status == RELOAD )
+					archive->output = g_slist_prepend (archive->output , line );
+			}
+			jump_header = TRUE;
+		}
+		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		if ( line == NULL ) return TRUE;
+		//This to avoid inserting the last line of output
+		if (strncmp (line, "-------------------", 19) == 0 || strncmp (line, "\x0a",1) == 0)
+		{
+			g_free (line);
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			if ( ! archive->status == RELOAD )
+				archive->output = g_slist_prepend (archive->output , line );
+			return TRUE;
+		}
+		if ( ! archive->status == RELOAD )
+			archive->output = g_slist_prepend (archive->output , line );
+		archive->row = g_list_prepend ( archive->row ,"--");
+		archive->row = split_line (archive->row , line , 5);
+		archive->row = get_last_field ( archive->row , line , 6);
+		if ( g_str_has_prefix(g_list_nth_data ( archive->row , 3) , "D") == FALSE)
+			archive->number_of_files++;
+		else
+			archive->number_of_dirs++;
+		/*for ( x = 0; x < 5; x++)
+		{
+			if ( x == 3 || x == 4)
+				//gtk_list_store_set (liststore, &iter,(5-x),atoll(fields[x]),-1);
+			else
+				//gtk_list_store_set (liststore, &iter,(5-x),fields[x],-1);
+		}*/
+		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row,2) );
+		return TRUE;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
+}
+
 gboolean
 xarchive_7zip_support_verify(XArchive *archive)
 {
@@ -217,6 +312,7 @@ xarchive_7zip_support_new()
 	support->extract = xarchive_7zip_support_extract;
 	support->testing = xarchive_7zip_support_testing;
 	support->remove  = xarchive_7zip_support_remove;
+	support->open    = xarchive_7zip_support_open;
 	return support;
 }
 

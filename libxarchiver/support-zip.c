@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
@@ -200,6 +201,7 @@ xarchive_zip_support_open (XArchive *archive)
 		return FALSE;
 	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
 		return FALSE;
+	archive->dummy_size = 0;
 	return TRUE;
 }
 
@@ -211,6 +213,28 @@ xarchive_zip_support_open (XArchive *archive)
 
 gboolean xarchiver_parse_zip_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
+	gchar *line = NULL;
+	XArchive *archive = data;
+
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		if ( line == NULL ) return TRUE;
+		if ( ! archive->status == RELOAD ) archive->output = g_slist_prepend (archive->output , line);
+		archive->row = split_line ( archive->row , line , 8 );
+		if ( strstr ((gchar *)g_list_nth_data ( archive->row , 5) , "/") == NULL)
+			archive->number_of_files++;
+		else
+			archive->number_of_dirs++;			
+		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row,5) );
+		return TRUE;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
 	return TRUE;
 }
 
