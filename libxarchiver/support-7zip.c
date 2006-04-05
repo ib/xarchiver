@@ -198,6 +198,7 @@ xarchive_7zip_support_open (XArchive *archive)
 	{
 		g_message (archive->error->message);
 		g_error_free (archive->error);
+		return FALSE;
 	}
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_7zip_output, archive ) )
 		return FALSE;
@@ -216,9 +217,9 @@ xarchive_7zip_support_open (XArchive *archive)
 gboolean xarchiver_parse_7zip_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
     gchar *line = NULL;
-	XArchive *archive = data;
 	unsigned short int x;
 
+	XArchive *archive = data;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		//This to avoid inserting in the liststore 7zip's message
@@ -227,7 +228,7 @@ gboolean xarchiver_parse_7zip_output (GIOChannel *ioc, GIOCondition cond, gpoint
 			for ( x = 0; x <= 7; x++)
 			{
 				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line != NULL) return TRUE;
+				if (line == NULL) return TRUE;
 				if ( ! archive->status == RELOAD )
 					archive->output = g_slist_prepend (archive->output , line );
 			}
@@ -240,33 +241,25 @@ gboolean xarchiver_parse_7zip_output (GIOChannel *ioc, GIOCondition cond, gpoint
 		{
 			g_free (line);
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if ( ! archive->status == RELOAD )
-				archive->output = g_slist_prepend (archive->output , line );
+			if ( ! archive->status == RELOAD ) archive->output = g_slist_prepend (archive->output , line );
 			return TRUE;
 		}
-		if ( ! archive->status == RELOAD )
-			archive->output = g_slist_prepend (archive->output , line );
-		archive->row = g_list_prepend ( archive->row ,"--");
+		if ( ! archive->status == RELOAD ) archive->output = g_slist_prepend (archive->output , line );
 		archive->row = split_line (archive->row , line , 5);
 		archive->row = get_last_field ( archive->row , line , 6);
+		//g_print ("%s\n",(gchar*)g_list_nth_data ( archive->row , 3) );
 		if ( g_str_has_prefix(g_list_nth_data ( archive->row , 3) , "D") == FALSE)
 			archive->number_of_files++;
 		else
 			archive->number_of_dirs++;
-		/*for ( x = 0; x < 5; x++)
-		{
-			if ( x == 3 || x == 4)
-				//gtk_list_store_set (liststore, &iter,(5-x),atoll(fields[x]),-1);
-			else
-				//gtk_list_store_set (liststore, &iter,(5-x),fields[x],-1);
-		}*/
-		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row,2) );
+		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row , 1) );
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
+		archive->row = g_list_reverse (archive->row);
 		return FALSE;
 	}
 	return TRUE;

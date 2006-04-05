@@ -79,6 +79,32 @@ open_archive(GtkWidget *widget, gpointer data)
 			column_types[3] = G_TYPE_STRING;//G_TYPE_UINT64;
 			column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
 		break;
+
+		case XARCHIVETYPE_7ZIP:
+			nc = 6;
+			xarchive_7zip_support_open (archive);
+			columns = g_new0 ( gchar *,nc);
+			column_types = g_new0 ( GType ,nc);
+			columns[0] = "Filename";columns[1] = "Compressed";columns[2] = "Original";columns[3] = "Attr";
+			columns[4] = "Time";columns[5] = "Date";
+			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;//G_TYPE_UINT64;
+			column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;
+			column_types[3] = G_TYPE_STRING;column_types[4] = G_TYPE_STRING;
+			column_types[5] = G_TYPE_STRING;
+		break;
+
+		case XARCHIVETYPE_ZIP:
+			nc = 8;
+			xarchive_zip_support_open (archive);
+			columns = g_new0 ( gchar *,nc);
+			column_types = g_new0 ( GType ,nc);
+			columns[0] = "Filename";columns[1] = "Original";columns[2] = "Method";columns[3] = "Compressed";
+			columns[4] = "Ratio";columns[5] = "Date";columns[6] = "Time";columns[7] = "CRC-32";
+			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;//G_TYPE_UINT64;
+			column_types[2] = G_TYPE_STRING;column_types[3] = G_TYPE_STRING;//G_TYPE_UINT64
+			column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
+			column_types[6] = G_TYPE_STRING;column_types[7] = G_TYPE_STRING;
+		break;
 	}
 	while (archive->child_pid != 0)
 	{
@@ -88,9 +114,10 @@ open_archive(GtkWidget *widget, gpointer data)
 	archive->row = g_list_reverse ( archive->row );
 	xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), nc, columns, column_types);
 	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+
 	g_free (columns);
 	g_free (column_types);
-	//g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
+	g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
 	
 }
 

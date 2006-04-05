@@ -562,16 +562,15 @@ void
 xa_main_window_append_list(XAMainWindow *window, GList *fields)
 {
 	unsigned short int i = 0;
-	unsigned short int len = 0;
 	GtkTreeIter iter;
 	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
-
+	
+	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
 	while ( fields )
 	{
-		if ( g_strstr_len (fields->data , 2 , "--" ) && len != g_list_length(fields) )
+		if ( i == gtk_tree_model_get_n_columns(list_store) )
 		{
 			gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
-			fields = fields->next;
 			i = 0;
 		}
 		else
@@ -581,7 +580,6 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 			fields = fields->next;
 			i++;
 		}
-		len++;
 	}
 }
 

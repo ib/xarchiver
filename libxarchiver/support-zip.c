@@ -221,12 +221,13 @@ gboolean xarchiver_parse_zip_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 		if ( line == NULL ) return TRUE;
 		if ( ! archive->status == RELOAD ) archive->output = g_slist_prepend (archive->output , line);
-		archive->row = split_line ( archive->row , line , 8 );
-		if ( strstr ((gchar *)g_list_nth_data ( archive->row , 5) , "/") == NULL)
-			archive->number_of_files++;
+		archive->row = get_last_field ( archive->row , line , 8);
+		archive->row = split_line ( archive->row , line , 7 );
+		if ( g_str_has_suffix (g_list_nth_data ( archive->row , 7) , "/") == TRUE)
+			archive->number_of_dirs++;
 		else
-			archive->number_of_dirs++;			
-		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row,5) );
+			archive->number_of_files++;
+		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row , 4) );
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )

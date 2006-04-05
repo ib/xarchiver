@@ -199,6 +199,7 @@ xarchive_rar_support_open (XArchive *archive)
 	{
 		g_message (archive->error->message);
 		g_error_free (archive->error);
+		return TRUE;
 	}
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_rar_output, archive ) )
 		return FALSE;
@@ -238,7 +239,6 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		}
 		if ( jump_header && odd_line )
 		{
-			archive->row = g_list_prepend ( archive->row ,"--");
 			//Now read the filename
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL ) return TRUE;
