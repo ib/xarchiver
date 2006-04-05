@@ -225,8 +225,9 @@ gboolean xarchiver_parse_tar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		if (line != NULL && ! archive->status == RELOAD )
 			archive->output = g_slist_prepend ( archive->output , line );
 		archive->row = g_list_prepend ( archive->row ,"--");
-		archive->row = split_line (archive->row , line , 6);
-		if ( strstr ((gchar *)g_list_nth_data ( archive->row , 0) , "d") == NULL )
+		archive->row = get_last_field ( archive->row , line , 6 );
+		archive->row = split_line (archive->row , line , 5);
+		if ( strstr ((gchar *)g_list_nth_data ( archive->row , 1) , "d") == NULL )
 			archive->number_of_files++;
 		else
 			archive->number_of_dirs++;

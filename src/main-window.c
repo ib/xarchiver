@@ -559,26 +559,29 @@ xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_n
 }
 
 void
-xa_main_window_append_list(XAMainWindow *window, GSList *fields)
+xa_main_window_append_list(XAMainWindow *window, GList *fields)
 {
-	int i = 0;
-	int nc = 0;
+	unsigned short int i = 0;
+	unsigned short int len = 0;
 	GtkTreeIter iter;
 	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
-	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
-	nc = gtk_tree_model_get_n_columns(list_store);
-	if(g_slist_length(fields) == nc)
+
+	while ( fields )
 	{
-		while(fields)
+		if ( g_strstr_len (fields->data , 2 , "--" ) && len != g_list_length(fields) )
+		{
+			gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
+			fields = fields->next;
+			i = 0;
+		}
+		else
 		{
 			gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, i, fields->data, -1);
+			//g_print ("%d\t%s\n",i,(gchar*)fields->data);
 			fields = fields->next;
 			i++;
 		}
-	}
-	else
-	{
-		g_critical("Columns cannot be appended to list, %d != %d", g_slist_length(fields), nc);
+		len++;
 	}
 }
 

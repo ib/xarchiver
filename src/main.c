@@ -29,58 +29,73 @@ GtkWidget *main_window;
 void
 open_archive(GtkWidget *widget, gpointer data)
 {
-	gchar *filename = data;
+	gchar **columns = NULL;
+	GType *column_types = NULL;
+	unsigned short int nc = 0;
 	XArchive *archive = NULL;
 	XArchiveSupport *support = NULL;
 	
+	gchar *filename = data;
 	
-		archive = xarchiver_archive_new(filename, XARCHIVETYPE_UNKNOWN);
-		if(archive == NULL)
-			//TODO: notify the user with a gtk_dialog error message
-			g_warning("Archive %s is not supported\n", filename);
-		else
-		{
-			if((archive->type == XARCHIVETYPE_BZIP2) || (archive->type == XARCHIVETYPE_GZIP))
-			{
-				support = xarchiver_find_archive_support(archive);
-				support->extract(archive, "/tmp/", NULL, FALSE);
-			}
-		}
-		switch (archive->type)
-		{
-			case XARCHIVETYPE_RAR:
-				xarchive_rar_support_open (archive);
-			break;
-		}
-		while (archive->child_pid != 0)
-		{
-			while (gtk_events_pending())
-				gtk_main_iteration();
-		}
-	//This only to print the content of GList filled in xarchiver_parse_rar_output
-	archive->row = g_list_reverse ( archive->row );
-	while (archive->row)
+	archive = xarchiver_archive_new(filename, XARCHIVETYPE_UNKNOWN);
+	if(archive == NULL)
 	{
-		if (archive->row->data == "--")
-			g_print ("\n");
-		else
-			g_print ("%s\t",archive->row->data);
-		archive->row = archive->row->next;	
+		//TODO: notify the user with a gtk_dialog error message
+		g_warning("Archive %s is not supported\n", filename);
+		return;
 	}
-	g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
+	else
+	{
+		if((archive->type == XARCHIVETYPE_BZIP2) || (archive->type == XARCHIVETYPE_GZIP))
+		{
+			support = xarchiver_find_archive_support(archive);
+			support->extract(archive, "/tmp/", NULL, FALSE);
+		}
+	}
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_RAR:
+			nc = 10;
+			xarchive_rar_support_open (archive);
+			columns = g_new0 ( gchar *,nc);
+			column_types = g_new0 ( GType ,nc);
+			columns[0] = "Filename";columns[1] = "Original";columns[2] = "Compressed";columns[3] = "Ratio";
+			columns[4] = "Date";columns[5] = "Time";columns[6] = "Permissions";columns[7] = "CRC";
+			columns[8] = "Method";columns[9] = "Version";
+			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;
+			column_types[3] = G_TYPE_STRING;column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
+			column_types[6] = G_TYPE_STRING;column_types[7] = G_TYPE_STRING;column_types[8] = G_TYPE_STRING;
+			column_types[9] = G_TYPE_STRING;
+		break;
+
+		case XARCHIVETYPE_TAR:
+			nc = 6;
+			xarchive_tar_support_open (archive);
+			columns = g_new0 ( gchar *,nc);
+			column_types = g_new0 ( GType ,nc);
+			columns[0] = "Filename";columns[1] = "Permissions";columns[2] = "OwnerGroup";columns[3] = "Size";
+			columns[4] = "Date";columns[5] = "Time";
+			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;column_types[2] = G_TYPE_STRING;
+			column_types[3] = G_TYPE_STRING;//G_TYPE_UINT64;
+			column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
+		break;
+	}
+	while (archive->child_pid != 0)
+	{
+		while (gtk_events_pending())
+			gtk_main_iteration();
+	}
+	archive->row = g_list_reverse ( archive->row );
+	xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), nc, columns, column_types);
+	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+	g_free (columns);
+	g_free (column_types);
+	//g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
 	
 }
 
 int main(int argc, char **argv)
 {
-	gchar *columns[] = {"Filename", "Permissions", "Date", "Time"};
-	GType column_types[] = {G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING};
-	GSList *fields = g_slist_alloc();
-	fields->data = "/xarchiver-test";
-	g_slist_append(fields, "drwxrwxr-x");
-	g_slist_append(fields, "01-01-1970");
-	g_slist_append(fields, "00:00:00");
-
 	xarchiver_init();
 	gtk_init(&argc, &argv);
 
@@ -92,9 +107,7 @@ int main(int argc, char **argv)
 	gtk_widget_show_all(main_window);
 
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
-	xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), 4, columns, column_types);
-	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), fields);
-
+	
 	gtk_main();
 	
 	xarchiver_destroy();
