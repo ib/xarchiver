@@ -524,7 +524,7 @@ xa_main_window_create_contentlist(XAMainWindow *window)
 	GtkWidget *treeview = gtk_tree_view_new();
 
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrollwindow), GTK_SHADOW_ETCHED_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
 	gtk_container_add(GTK_CONTAINER(scrollwindow), treeview);
 
@@ -576,7 +576,6 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 		else
 		{
 			gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, i, fields->data, -1);
-			//g_print ("%d\t%s\n",i,(gchar*)fields->data);
 			fields = fields->next;
 			i++;
 		}
