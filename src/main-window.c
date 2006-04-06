@@ -82,6 +82,9 @@ void
 xa_close_archive(GtkWidget *widget, gpointer data);
 
 void 
+xa_save_as_archive(GtkWidget *widget, gpointer data);
+
+void 
 xa_cancel_operation(GtkWidget *widget, gpointer data);
 
 void 
@@ -89,7 +92,7 @@ xa_quit(GtkWidget *widget, gpointer data);
 
 static GtkWidgetClass *xa_main_window_parent_class;
 
-static guint xa_main_window_signals[8];
+static guint xa_main_window_signals[9];
 
 GSList *xa_main_window_widget_list;
 
@@ -249,7 +252,19 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			0,
 			NULL);
 
-	xa_main_window_signals[7] = g_signal_new("xa_cancel_operation",
+	xa_main_window_signals[7] = g_signal_new("xa_save_as_archive",
+			G_TYPE_FROM_CLASS(_class),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_POINTER,
+			NULL);
+
+	xa_main_window_signals[8] = g_signal_new("xa_cancel_operation",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -298,10 +313,10 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_widget_show(archive_item);
 	gtk_widget_show(archive_menu);
 
-	GtkWidget *new   = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, accel_group);
-	GtkWidget *open  = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group);
-	GtkWidget *save  = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, accel_group);
-	GtkWidget *close = gtk_image_menu_item_new_from_stock(GTK_STOCK_CLOSE, accel_group);
+	GtkWidget *new      = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW, accel_group);
+	GtkWidget *open     = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN, accel_group);
+	GtkWidget *save_as  = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE_AS, accel_group);
+	GtkWidget *close    = gtk_image_menu_item_new_from_stock(GTK_STOCK_CLOSE, accel_group);
 
 	separator = gtk_menu_item_new();
 
@@ -312,7 +327,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 
 	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), new);
 	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), open);
-	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), save);
+	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), save_as);
 	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), close);
 	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), separator);
 	gtk_menu_shell_append(GTK_MENU_SHELL(archive_menu), test);
@@ -331,7 +346,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 
 	gtk_widget_show(new);
 	gtk_widget_show(open);
-	gtk_widget_show(save);
+	gtk_widget_show(save_as);
 	gtk_widget_show(close);
 	gtk_widget_show(quit);
 	gtk_widget_show(separator);
@@ -402,7 +417,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	g_slist_append(xa_main_window_widget_list, help_item);
 	g_slist_append(xa_main_window_widget_list, new);
 	g_slist_append(xa_main_window_widget_list, open);
-	g_slist_append(xa_main_window_widget_list, save);
+	g_slist_append(xa_main_window_widget_list, save_as);
 	g_slist_append(xa_main_window_widget_list, close);
 	g_slist_append(xa_main_window_widget_list, quit);
 	g_slist_append(xa_main_window_widget_list, test);
@@ -414,7 +429,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_widget_set_name(close,      "xa-button-close");
 	gtk_widget_set_name(new,        "xa-button-new");
 	gtk_widget_set_name(open,       "xa-button-open");
-	gtk_widget_set_name(save,       "xa-button-save");
+	gtk_widget_set_name(save_as,    "xa-button-save-as");
 	gtk_widget_set_name(add_file,   "xa-button-add-file");
 	gtk_widget_set_name(add_folder, "xa-button-add-folder");
 	gtk_widget_set_name(delete,     "xa-button-delete");
@@ -719,9 +734,15 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 }
 
 void 
+xa_save_as_archive(GtkWidget *widget, gpointer data)
+{
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[7], 0, NULL);
+}
+
+void 
 xa_cancel_operation(GtkWidget *widget, gpointer data)
 {
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[7], 0);
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[8], 0);
 }
 
 void 
