@@ -64,6 +64,7 @@ GtkWidget*     xa_main_window_new                   (void);
 void           xa_main_window_set_widget_sensitive  (XAMainWindow *window, gchar *name, gboolean sensitive);
 void           xa_main_window_set_list_interface    (XAMainWindow *window, int nc, gchar *column_names[], GType column_types[]);
 void           xa_main_window_append_list           (XAMainWindow *window, GList *fields);
+void           xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value);
 
 G_END_DECLS
 

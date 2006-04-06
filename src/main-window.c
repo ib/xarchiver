@@ -490,8 +490,15 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport2), GTK_SHADOW_NONE);
 	gtk_widget_show(hbox);
 	gtk_widget_show(progressbar);
-	gtk_widget_set_size_request(progressbar, 80, 1);
 	gtk_widget_show(label);
+
+	gtk_widget_set_size_request(progressbar, 80, 1);
+
+	g_slist_append(xa_main_window_widget_list, label);
+	g_slist_append(xa_main_window_widget_list, progressbar);
+
+	gtk_widget_set_name(GTK_WIDGET(label),        "xa-statusbar-label");
+	gtk_widget_set_name(GTK_WIDGET(progressbar),  "xa-statusbar-progress");
 
 	gtk_box_pack_start(GTK_BOX(hbox), viewport1, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), viewport2, TRUE, TRUE, 0);
@@ -689,3 +696,11 @@ xa_cancel_operation(GtkWidget *widget, gpointer data)
 	g_signal_emit(G_OBJECT(data), xa_main_window_signals[6], 0);
 }
 
+void
+xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value)
+{
+	gchar *text = g_strdup(value);
+	GSList *_widget_list = g_slist_find_custom(xa_main_window_widget_list, "xa-statusbar-label", lookup_widget_by_name);
+	if(_widget_list)
+		gtk_label_set_text(GTK_LABEL(_widget_list->data), text);
+}
