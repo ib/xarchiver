@@ -79,11 +79,17 @@ void
 xa_test_archive(GtkWidget *widget, gpointer data);
 
 void 
+xa_close_archive(GtkWidget *widget, gpointer data);
+
+void 
 xa_cancel_operation(GtkWidget *widget, gpointer data);
+
+void 
+xa_quit(GtkWidget *widget, gpointer data);
 
 static GtkWidgetClass *xa_main_window_parent_class;
 
-static guint xa_main_window_signals[7];
+static guint xa_main_window_signals[8];
 
 GSList *xa_main_window_widget_list;
 
@@ -232,7 +238,18 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			0,
 			NULL);
 
-	xa_main_window_signals[6] = g_signal_new("xa_cancel_operation",
+	xa_main_window_signals[6] = g_signal_new("xa_close_archive",
+			G_TYPE_FROM_CLASS(_class),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__VOID,
+			G_TYPE_NONE,
+			0,
+			NULL);
+
+	xa_main_window_signals[7] = g_signal_new("xa_cancel_operation",
 			G_TYPE_FROM_CLASS(_class),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -306,6 +323,12 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_widget_show(tmp_image);
 	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(test), tmp_image);
 
+
+	g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(xa_quit), window);
+	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(xa_open_archive), window);
+	g_signal_connect(G_OBJECT(test), "activate", G_CALLBACK(xa_test_archive), window);
+	g_signal_connect(G_OBJECT(close), "activate", G_CALLBACK(xa_close_archive), window);
+
 	gtk_widget_show(new);
 	gtk_widget_show(open);
 	gtk_widget_show(save);
@@ -315,8 +338,6 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_widget_show(test);
 	gtk_widget_show(properties);
 
-	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(xa_open_archive), window);
-	g_signal_connect(G_OBJECT(test), "activate", G_CALLBACK(xa_test_archive), window);
 	
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(archive_item), archive_menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), archive_item);
@@ -692,9 +713,21 @@ xa_test_archive(GtkWidget *widget, gpointer data)
 }
 
 void 
-xa_cancel_operation(GtkWidget *widget, gpointer data)
+xa_close_archive(GtkWidget *widget, gpointer data)
 {
 	g_signal_emit(G_OBJECT(data), xa_main_window_signals[6], 0);
+}
+
+void 
+xa_cancel_operation(GtkWidget *widget, gpointer data)
+{
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[7], 0);
+}
+
+void 
+xa_quit(GtkWidget *widget, gpointer data)
+{
+	gtk_widget_destroy(GTK_WIDGET(data));
 }
 
 void
