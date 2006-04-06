@@ -108,6 +108,13 @@ GList *split_line (GList *fields , gchar *line , unsigned short int n_fields)
 			scan = eat_spaces (field_end);
 		}
 	}
+	/*
+	GList *dummy = fields;
+	while (dummy)
+	{
+		g_print ("%d\t%s\n",i,(gchar*)dummy->data);
+		dummy = dummy->next;
+	}*/
 	return fields;
 }
 

@@ -20,9 +20,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <glib.h>
 #include "internals.h"
 #include "libxarchiver.h"
+#include "support-arj.h"
 
 /*
  * xarchive_arj_support_add(XArchive *archive, GSList *files)
@@ -177,6 +179,100 @@ xarchive_arj_support_remove (XArchive *archive, GSList *files )
 	return TRUE;
 }
 
+gboolean
+xarchive_arj_support_open (XArchive *archive)
+{
+	jump_header = FALSE;
+    gchar *command = g_strconcat ( "arj v -he " , archive->path, NULL );
+	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
+	g_free (command);
+	if (archive->child_pid == 0)
+	{
+		g_message (archive->error->message);
+		g_error_free (archive->error);
+		return FALSE;
+	}
+	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_arj_output, archive ) )
+		return FALSE;
+	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
+		return FALSE;
+	archive->dummy_size = 0;
+	return TRUE;
+}
+
+/*
+ * xarchive_arj_support_open
+ * Parse the output from the arj command when opening the archive
+ *
+ */
+
+gboolean xarchiver_parse_arj_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	gchar *line = NULL;
+	XArchive *archive = data;
+
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		//This to avoid inserting in the liststore arj copyright message
+		if (jump_header == FALSE )
+		{
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			if (line == NULL) return TRUE;
+			if (! archive->status == RELOAD) archive->output = g_slist_prepend ( archive->output , line );
+			if  (strncmp (line , "------------" , 12) == 0)
+			{
+				jump_header = TRUE;
+				odd_line = TRUE;
+			}
+			return TRUE;
+		}
+		if ( jump_header && odd_line )
+		{
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			if (line == NULL) return TRUE;
+			if (strncmp (line, "------------", 12) == 0 || strncmp (line, "\x0a",1) == 0)
+			{
+				g_free (line);
+				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				if ( line != NULL && ! archive->status == RELOAD )
+					archive->output = g_slist_prepend ( archive->output , line );
+				return TRUE;
+			}
+			if (line != NULL && ! archive->status == RELOAD )
+				archive->output = g_slist_prepend ( archive->output , line );
+			archive->row = get_last_field ( archive->row , line , 2 );
+			odd_line = ! odd_line;
+			return TRUE;
+		}
+		else
+		{
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			if ( line == NULL) return TRUE;
+			if ( ! archive->status == RELOAD )
+				archive->output = g_slist_prepend ( archive->output , line );
+			g_message (line);
+			archive->row = split_line ( archive->row , line , 10 );
+			if (  g_str_has_suffix (g_list_nth_data ( archive->row , 7) , "d") == FALSE)
+				archive->number_of_files++;
+			archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row , 2) );
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			g_free (line);
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			g_free (line);
+			odd_line = ! odd_line;
+    		return TRUE;
+		}
+		return TRUE;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
+}
+
 // FIXME: dont know if password-check is correct
 gboolean
 xarchive_arj_support_verify(XArchive *archive)
@@ -217,9 +313,15 @@ xarchive_arj_support_verify(XArchive *archive)
 					fseek ( fp , 4 , SEEK_CUR);
 					fread (&arj_flag,1,1,fp);
 					if ((arj_flag & ( 1<<0) ) > 0)
+					{
 						archive->has_passwd = TRUE;
+						return TRUE;
+					}
 					else
+					{
 						archive->has_passwd = FALSE;
+						return TRUE;
+					}
 					fseek ( fp , 7 , SEEK_CUR);
 					fread (&compressed_size,1,4,fp);
 					fseek ( fp , basic_header_size - 16 , SEEK_CUR);
@@ -251,6 +353,7 @@ xarchive_arj_support_new()
 	support->extract = xarchive_arj_support_extract;
 	support->testing = xarchive_arj_support_testing;
 	support->remove  = xarchive_arj_support_remove;
+	support->open    = xarchive_arj_support_open;
 	return support;
 }
 

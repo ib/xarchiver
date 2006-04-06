@@ -188,14 +188,14 @@ xarchive_zip_support_remove (XArchive *archive, GSList *files )
 gboolean
 xarchive_zip_support_open (XArchive *archive)
 {
-	gchar *command;
-	command = g_strconcat ("unzip -vl -qq " , archive->path, NULL );
+	gchar *command = g_strconcat ("unzip -vl -qq " , archive->path, NULL );
 	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
 	g_free (command);
 	if (archive->child_pid == 0)
 	{
 		g_message (archive->error->message);
 		g_error_free (archive->error);
+		return FALSE;
 	}
 	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_zip_output, archive ) )
 		return FALSE;
@@ -259,6 +259,7 @@ xarchive_zip_support_verify(XArchive *archive)
 		fseek ( fp, 0 , SEEK_SET );
 		if ( fread ( magic, 1, 4, fp ) )
 		{
+			fseek ( fp, 2 , SEEK_CUR );
 			if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
 			{
 				archive->type = XARCHIVETYPE_ZIP;
@@ -267,7 +268,10 @@ xarchive_zip_support_verify(XArchive *archive)
 				{
 					fread ( &password_flag, 1, 2, fp );
 					if (( password_flag & ( 1<<0) ) > 0)
+					{
 						archive->has_passwd = TRUE;
+						return TRUE;
+					}
 					else
 						archive->has_passwd = FALSE;
 					fseek (fp,10,SEEK_CUR);
@@ -276,7 +280,10 @@ xarchive_zip_support_verify(XArchive *archive)
 					fread (&file_length,1,2,fp);
 					//If the zip archive is empty (no files) it should return here
 					if (fread (&extra_length,1,2,fp) < 2 )
+					{
 						archive->has_passwd = FALSE;
+						return TRUE;
+					}
 					fseek_offset = compressed_size + file_length + extra_length;
 					fseek (fp , fseek_offset , SEEK_CUR);
 					fread (magic , 1 , 4 , fp);
