@@ -514,35 +514,25 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 void
 xa_main_window_create_statusbar(XAMainWindow *window)
 {
-	GtkWidget *hbox = gtk_hbox_new(FALSE, 2);
-	GtkWidget *viewport1 = gtk_viewport_new(0, 0);
-	GtkWidget *viewport2 = gtk_viewport_new(0, 0);
-
-	GtkWidget *label = gtk_label_new(NULL);
+	GtkWidget *statusbar = gtk_statusbar_new();
 	GtkWidget *progressbar = gtk_progress_bar_new();
+	GtkWidget *viewport = gtk_viewport_new(NULL, NULL);
+	GtkWidget *passwd_image = gtk_image_new_from_stock(GTK_STOCK_DIALOG_AUTHENTICATION, GTK_ICON_SIZE_MENU);
 
-	gtk_widget_show(viewport1);
-	gtk_widget_show(viewport2);
-	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport2), GTK_SHADOW_NONE);
-	gtk_widget_show(hbox);
-	gtk_widget_show(progressbar);
-	gtk_widget_show(label);
+	gtk_progress_configure(GTK_PROGRESS(progressbar), 0, 0, 100);
+	gtk_box_pack_start(GTK_BOX(statusbar), progressbar, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(statusbar), viewport, FALSE, FALSE, 0);
 
-	gtk_widget_set_size_request(label, 400, 16);
-	gtk_widget_set_size_request(progressbar, 50, 1);
+	gtk_container_add(GTK_CONTAINER(viewport), passwd_image);
+	gtk_widget_show(statusbar);
+	gtk_widget_show(passwd_image);
+	gtk_widget_show(viewport);
 
-	g_slist_append(xa_main_window_widget_list, label);
-	g_slist_append(xa_main_window_widget_list, progressbar);
+	g_slist_append(xa_main_window_widget_list, viewport);
+	gtk_widget_set_name(viewport,"xa-passwd");
 
-	gtk_widget_set_name(GTK_WIDGET(label),        "xa-statusbar-label");
-	gtk_widget_set_name(GTK_WIDGET(progressbar),  "xa-statusbar-progress");
-
-	gtk_box_pack_start(GTK_BOX(hbox), viewport1, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), viewport2, TRUE, TRUE, 0);
-	gtk_container_add(GTK_CONTAINER(viewport1), label);
-	gtk_container_add(GTK_CONTAINER(viewport2), progressbar);
-
-	window->statusbar = hbox;
+	window->statusbar = statusbar;
+	window->progressbar = progressbar;
 }
 
 void
@@ -718,7 +708,15 @@ xa_add_folders(GtkWidget *widget, gpointer data)
 void 
 xa_extract_archive(GtkWidget *widget, gpointer data)
 {
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL);
+
+	GtkWidget *dialog = xa_archive_chooser_dialog_new(_("Extract archive"), 
+			GTK_WINDOW(data));
+
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
+	{
+		gtk_widget_hide(dialog);
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL);
+	}
 }
 
 void 
@@ -754,8 +752,17 @@ xa_quit(GtkWidget *widget, gpointer data)
 void
 xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value)
 {
-	gchar *text = g_strdup(value);
-	GSList *_widget_list = g_slist_find_custom(xa_main_window_widget_list, "xa-statusbar-label", lookup_widget_by_name);
-	if(_widget_list)
-		gtk_label_set_text(GTK_LABEL(_widget_list->data), text);
+	gtk_statusbar_push(GTK_STATUSBAR(window->statusbar), 0, value);
+}
+
+void
+xa_main_window_set_progressbar_value   (XAMainWindow *window, gdouble value)
+{
+	if(value >= 0)
+	{
+		gtk_progress_set_value(GTK_PROGRESS(window->progressbar), value);
+		gtk_widget_show(window->progressbar);
+	}
+	else
+		gtk_widget_hide(window->progressbar);
 }

@@ -55,9 +55,10 @@ xa_archive_chooser_dialog_finalize(XAArchiveChooserDialog *object)
 }
 
 GtkWidget *
-xa_extract_dialog_new(gchar *name, GtkWidget *child)
+xa_archive_chooser_dialog_new(gchar *title, GtkWindow *parent)
 {
 	GtkWidget *dialog;
 	dialog = GTK_WIDGET (g_object_new(xa_archive_chooser_dialog_get_type(), NULL));
+	gtk_window_set_title(GTK_WINDOW(dialog), title);
 	return dialog;
 }

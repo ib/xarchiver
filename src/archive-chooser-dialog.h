@@ -47,7 +47,7 @@ struct _XAArchiveChooserDialogClass
 };
 
 GType      xa_archive_chooser_dialog_get_type(void) G_GNUC_CONST;
-GtkWidget *xa_archive_chooser_dialog_new(gchar *, GtkWidget *);
+GtkWidget *xa_archive_chooser_dialog_new(gchar *title, GtkWindow *parent);
 
 
 G_END_DECLS
