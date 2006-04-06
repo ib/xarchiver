@@ -492,7 +492,8 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 	gtk_widget_show(progressbar);
 	gtk_widget_show(label);
 
-	gtk_widget_set_size_request(progressbar, 80, 1);
+	gtk_widget_set_size_request(label, 400, 16);
+	gtk_widget_set_size_request(progressbar, 50, 1);
 
 	g_slist_append(xa_main_window_widget_list, label);
 	g_slist_append(xa_main_window_widget_list, progressbar);
