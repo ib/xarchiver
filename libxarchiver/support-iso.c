@@ -92,16 +92,19 @@ xarchive_iso_support_verify(XArchive *archive)
 	char buf[2448];
 	FILE *iso;
 	
-	iso = fopen ( archive->path , "r");
-	if (iso == NULL) return FALSE;
-	archive->type = XARCHIVETYPE_ISO;
-	fseek (iso, 0L, SEEK_SET);
-	fseek (iso, 32768, SEEK_CUR);
-	fread (buf, sizeof (char), 8, iso);
-	if ( ! memcmp ("\x01\x43\x44\x30\x30\x31\x01\x00", buf, 8))
-		archive->type = XARCHIVETYPE_UNKNOWN;
+	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN) )
+	{
+		iso = fopen ( archive->path , "r");
+		if (iso == NULL) 
+			return FALSE;
+		fseek (iso, 0L, SEEK_SET);
+		fseek (iso, 32768, SEEK_CUR);
+		fread (buf, sizeof (char), 8, iso);
+		if ( ! memcmp ("\x01\x43\x44\x30\x30\x31\x01\x00", buf, 8))
+			archive->type = XARCHIVETYPE_ISO;
 
-	fclose (iso);
+		fclose (iso);
+	}
 	if(archive->type == XARCHIVETYPE_ISO)
 		return TRUE;
 	else
