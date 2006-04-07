@@ -520,6 +520,7 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 	GtkWidget *passwd_image = gtk_image_new_from_stock(GTK_STOCK_DIALOG_AUTHENTICATION, GTK_ICON_SIZE_MENU);
 
 	gtk_progress_configure(GTK_PROGRESS(progressbar), 0, 0, 100);
+	gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(statusbar), FALSE);
 	gtk_box_pack_start(GTK_BOX(statusbar), progressbar, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(statusbar), viewport, FALSE, FALSE, 0);
 
