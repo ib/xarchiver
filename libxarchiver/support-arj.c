@@ -183,7 +183,7 @@ gboolean
 xarchive_arj_support_open (XArchive *archive)
 {
 	jump_header = FALSE;
-    gchar *command = g_strconcat ( "arj v -he " , archive->path, NULL );
+    gchar *command = g_strconcat ( "arj v -y " , archive->path, NULL );
 	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
 	g_free (command);
 	if (archive->child_pid == 0)
@@ -201,7 +201,7 @@ xarchive_arj_support_open (XArchive *archive)
 }
 
 /*
- * xarchive_arj_support_open
+ * xarchiver_parse_arj_output
  * Parse the output from the arj command when opening the archive
  *
  */
@@ -222,11 +222,16 @@ gboolean xarchiver_parse_arj_output (GIOChannel *ioc, GIOCondition cond, gpointe
 			if  (strncmp (line , "------------" , 12) == 0)
 			{
 				jump_header = TRUE;
-				odd_line = TRUE;
+				arj_line = 1;
 			}
 			return TRUE;
 		}
-		if ( jump_header && odd_line )
+		if (arj_line == 4)
+		{
+			arj_line = 1;
+			return TRUE;
+		}
+		if (arj_line == 1)
 		{
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if (line == NULL) return TRUE;
@@ -234,34 +239,36 @@ gboolean xarchiver_parse_arj_output (GIOChannel *ioc, GIOCondition cond, gpointe
 			{
 				g_free (line);
 				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if ( line != NULL && ! archive->status == RELOAD )
+				if ( ! archive->status == RELOAD )
 					archive->output = g_slist_prepend ( archive->output , line );
 				return TRUE;
 			}
-			if (line != NULL && ! archive->status == RELOAD )
+			if ( ! archive->status == RELOAD )
 				archive->output = g_slist_prepend ( archive->output , line );
 			archive->row = get_last_field ( archive->row , line , 2 );
-			odd_line = ! odd_line;
+			arj_line++;
 			return TRUE;
 		}
-		else
+		else if (arj_line == 2)
 		{
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL) return TRUE;
 			if ( ! archive->status == RELOAD )
 				archive->output = g_slist_prepend ( archive->output , line );
-			g_message (line);
 			archive->row = split_line ( archive->row , line , 10 );
+			//The following to remove the first and second fields of the second line of arj output
+			archive->row = g_list_remove ( archive->row , (gconstpointer *)g_list_nth_data ( archive->row , 9) );
+			archive->row = g_list_remove ( archive->row , (gconstpointer *)g_list_nth_data ( archive->row , 8) );
 			if (  g_str_has_suffix (g_list_nth_data ( archive->row , 7) , "d") == FALSE)
 				archive->number_of_files++;
 			archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row , 2) );
-			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			g_free (line);
-			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			g_free (line);
-			odd_line = ! odd_line;
-    		return TRUE;
 		}
+		//Let's discard the third and forth line of arj output
+		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		g_free (line);
+		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		g_free (line);
+		arj_line = 4;
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -273,7 +280,6 @@ gboolean xarchiver_parse_arj_output (GIOChannel *ioc, GIOCondition cond, gpointe
 	return TRUE;
 }
 
-// FIXME: dont know if password-check is correct
 gboolean
 xarchive_arj_support_verify(XArchive *archive)
 {
@@ -297,10 +303,10 @@ xarchive_arj_support_verify(XArchive *archive)
 			if ( memcmp ( magic,"\x60\xea",2 ) == 0 )
 			{
 				archive->type = XARCHIVETYPE_ARJ;
+				archive->has_passwd = FALSE;
 				//Let's check for the password flag
 				fread (&magic,1,2,fp);
 				fseek (fp , magic[0]+magic[1] , SEEK_CUR);
-				fseek (fp , 2 , SEEK_CUR);
 				fread (&extended_header_size,1,2,fp);
 				if (extended_header_size != 0)
 					fread (&extended_header_CRC,1,4,fp);
@@ -315,11 +321,6 @@ xarchive_arj_support_verify(XArchive *archive)
 					if ((arj_flag & ( 1<<0) ) > 0)
 					{
 						archive->has_passwd = TRUE;
-						return TRUE;
-					}
-					else
-					{
-						archive->has_passwd = FALSE;
 						return TRUE;
 					}
 					fseek ( fp , 7 , SEEK_CUR);
