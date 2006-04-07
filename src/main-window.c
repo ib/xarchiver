@@ -599,6 +599,8 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 	unsigned short int i = 0;
 	GtkTreeIter iter;
 	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
+	g_object_ref(list_store);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
 	
 	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
 	while ( fields )
@@ -615,6 +617,8 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 			i++;
 		}
 	}
+	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), list_store);
+	g_object_unref(list_store);
 }
 
 void 
