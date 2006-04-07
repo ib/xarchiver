@@ -11,6 +11,8 @@ xa_archive_chooser_dialog_finalize(XAArchiveChooserDialog *object);
 static void
 xa_archive_chooser_dialog_class_init(XAArchiveChooserDialogClass *_class);
 
+static GtkWidgetClass *xa_archive_chooser_dialog_parent_class = 0;
+
 GType
 xa_archive_chooser_dialog_get_type ()
 {
@@ -40,7 +42,10 @@ xa_archive_chooser_dialog_get_type ()
 static void
 xa_archive_chooser_dialog_class_init(XAArchiveChooserDialogClass *_class)
 {
+	GtkObjectClass *object_class = (GtkObjectClass *) _class;
+	GtkWidgetClass *widget_class = (GtkWidgetClass *) _class;
 
+	xa_archive_chooser_dialog_parent_class = gtk_type_class(gtk_dialog_get_type());
 }
 
 static void

@@ -61,12 +61,13 @@ xa_property_dialog_get_type()
 
 
 GtkWidget *
-xa_property_dialog_new()
+xa_property_dialog_new(GtkWindow *parent)
 {
 	XAPropertyDialog *dialog;
 
 	dialog = g_object_new(xa_property_dialog_get_type(), NULL);
-
+	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
+	gtk_window_set_title(GTK_WINDOW(dialog), _("Archive Properties"));
 	return GTK_WIDGET(dialog);
 }
 
@@ -108,4 +109,9 @@ static void
 xa_property_dialog_init (XAPropertyDialog *window)
 {
 
+}
+void
+xa_property_dialog_add_property (gchar *name, gchar *value)
+{
+	g_warning("property: %s with value %s not added because it is not implemented", name, value);
 }

@@ -26,6 +26,32 @@
 
 
 GtkWidget *main_window;
+XArchive *archive = NULL;
+XArchiveSupport *support = NULL;
+
+void
+close_archive(GtkWidget *widget, gpointer data)
+{
+	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window));
+	xarchiver_archive_destroy(archive);
+}
+
+void
+add_folder(GtkWidget *widget, gpointer data)
+{
+	GSList *list = g_slist_alloc();
+	list->data = (gchar *)data;
+	if((archive) && (support))
+		support->add(archive, list);
+}
+
+void
+add_files(GtkWidget *widget, gpointer data)
+{
+	if((archive) && (support))
+		support->add(archive, data);
+}
+
 
 void
 open_archive(GtkWidget *widget, gpointer data)
@@ -33,8 +59,6 @@ open_archive(GtkWidget *widget, gpointer data)
 	gchar **columns = NULL;
 	GType *column_types = NULL;
 	unsigned short int nc = 0;
-	XArchive *archive = NULL;
-	XArchiveSupport *support = NULL;
 	
 	gchar *filename = data;
 	
@@ -144,6 +168,10 @@ open_archive(GtkWidget *widget, gpointer data)
 	archive->row = g_list_reverse ( archive->row );
 	xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), nc, columns, column_types);
 	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+	if(archive->has_passwd)
+		xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
+	else
+		xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
 	//if (archive->has_passwd) gtk_widget_show(viewport);
 	g_free (columns);
 	g_free (column_types);
@@ -157,18 +185,24 @@ int main(int argc, char **argv)
 	gtk_init(&argc, &argv);
 
 	main_window = xa_main_window_new();
-	GtkWidget *prop_dialog = xa_property_dialog_new();
+	GtkWidget *prop_dialog = xa_property_dialog_new(GTK_WINDOW(main_window));
 
 	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
+	//g_signal_connect(G_OBJECT(main_window), "xa_new_archive", G_CALLBACK(open_archive), NULL);
 	g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(open_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_test_archive", G_CALLBACK(open_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_close_archive", G_CALLBACK(close_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_extract_archive", G_CALLBACK(close_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_add_folders", G_CALLBACK(add_folder), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(add_files), NULL);
+	//g_signal_connect(G_OBJECT(main_window), "xa_save_as_archive", G_CALLBACK(close_archive), NULL);
+	//g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(close_archive), NULL);
 
 	gtk_widget_show_all(main_window);
 
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Xarchiver 0.3.9 svn");
 	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
-//	xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
-	//xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 30.0);
 	
 	gtk_main();
 	

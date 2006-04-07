@@ -299,7 +299,8 @@ xa_main_window_init (XAMainWindow *window)
 
 	gtk_container_add(GTK_CONTAINER(window), window->vbox);
 
-	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); 
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0); 
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); 
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->scrollwindow, TRUE, TRUE, 0);
 	gtk_box_pack_end(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 1);
 }
@@ -530,6 +531,7 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 
 	gtk_container_set_border_width(GTK_CONTAINER(statusbar), 1);
 	gtk_progress_configure(GTK_PROGRESS(progressbar), 0, 0, 100);
+	gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progressbar), 90);
 	gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(statusbar), FALSE);
 	gtk_box_pack_start(GTK_BOX(statusbar), progressbar, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(statusbar), viewport, FALSE, FALSE, 0);
@@ -598,12 +600,10 @@ xa_main_window_create_contentlist(XAMainWindow *window)
 	window->scrollwindow = scrollwindow;
 }
 
-// TODO:
-// Check if tree_view already has a model, and free it.
 void
 xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_names[], GType column_types[])
 {
-	int i = 0;
+	gint i = 0;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	GtkListStore *list_store;
@@ -649,6 +649,12 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 	g_object_unref(list_store);
 }
 
+void
+xa_main_window_clear_list(XAMainWindow *window)
+{
+	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
+}
+
 void 
 xa_new_archive(GtkWidget *widget, gpointer data)
 {
@@ -658,7 +664,7 @@ xa_new_archive(GtkWidget *widget, gpointer data)
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL);
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL); // specify filename
 	}
 	gtk_widget_destroy(dialog);
 }
@@ -756,7 +762,7 @@ xa_extract_archive(GtkWidget *widget, gpointer data)
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL);
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL); // specify destination-folder 
 	}
 	gtk_widget_destroy(dialog);
 }
@@ -800,13 +806,19 @@ xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value)
 void
 xa_main_window_set_progressbar_value (XAMainWindow *window, gdouble value)
 {
-	if(value >= 0)
+	if((value >= 0) && (value <= 100))
 	{
 		gtk_progress_set_value(GTK_PROGRESS(window->progressbar), value);
 		gtk_widget_show(window->progressbar);
 	}
-	else
+	else if(value < 0)
 		gtk_widget_hide(window->progressbar);
+	else
+	{	
+		// TODO: fix actual pulsing
+		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(window->progressbar));
+		gtk_widget_show(window->progressbar);
+	}
 }
 
 void
