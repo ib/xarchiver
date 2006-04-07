@@ -10,7 +10,8 @@ libxarchiver_a_SOURCES = \
 	support-rar.c support-rar.h \
 	support-arj.c support-arj.h \
 	support-zip.c support-zip.h \
-	support-7zip.c support-7zip.h
+	support-7zip.c support-7zip.h \
+	support-iso.c support.iso.h
 
 libxarchiver_a_CFLAGS = \
 	@GLIB_CFLAGS@

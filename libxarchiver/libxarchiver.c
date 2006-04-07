@@ -115,7 +115,6 @@ xarchiver_archive_new(gchar *path, XArchiveType type)
 		g_free(archive);
 		archive = NULL;
 	}
-	
 	return archive;
 }
 
@@ -159,7 +158,7 @@ xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input)
 		return 0;
 	else
 		archive->source = g_timeout_add (10, (GSourceFunc) xarchiver_wait_child, archive);
-		return archive->child_pid;
+	return archive->child_pid;
 }
 
 gboolean
@@ -254,7 +253,7 @@ gboolean xarchiver_wait_child ( XArchive *archive, gpointer data )
 {
 	pid_t	pid;
 	int		status;
-
+	
 	g_source_remove (archive->source);
     archive->source = 0;
 	pid = waitpid ( (pid_t)archive->child_pid, &status, WNOHANG);

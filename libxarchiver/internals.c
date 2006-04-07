@@ -89,6 +89,8 @@ int countcharacters ( gchar *string , int chr )
     return n;
 }
 
+//Taken from file-roller - http://fileroller.sourceforge.net
+
 GList *split_line (GList *fields , gchar *line , unsigned short int n_fields)
 {
 	gchar *scan, *field_end;
