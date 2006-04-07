@@ -148,9 +148,9 @@ int main(int argc, char **argv)
 	gtk_widget_show_all(main_window);
 
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
-	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Xarchiver 0.3.9 svn");
-//	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 30.0);
+//	xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
+	//xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 30.0);
 	
 	gtk_main();
 	

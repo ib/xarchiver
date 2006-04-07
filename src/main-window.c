@@ -295,7 +295,7 @@ xa_main_window_init (XAMainWindow *window)
 
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); 
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->scrollwindow, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 2);
 }
 
 void
@@ -527,7 +527,6 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 	gtk_container_add(GTK_CONTAINER(viewport), passwd_image);
 	gtk_widget_show(statusbar);
 	gtk_widget_show(passwd_image);
-	gtk_widget_show(viewport);
 
 	g_slist_append(xa_main_window_widget_list, viewport);
 	gtk_widget_set_name(viewport,"xa-passwd");
@@ -546,6 +545,25 @@ xa_main_window_set_widget_sensitive (XAMainWindow *window, gchar *name, gboolean
 	{
 		button = (_widget_list->data);
 		gtk_widget_set_sensitive(button, sensitive);
+		_widget_list = _widget_list->next;
+		if(_widget_list)
+			_widget_list = g_slist_find_custom(_widget_list, name, lookup_widget_by_name);
+	}
+}
+
+void
+xa_main_window_set_widget_visible (XAMainWindow *window, gchar *name, gboolean visible)
+{
+	GtkWidget *button;
+
+	GSList *_widget_list = g_slist_find_custom(xa_main_window_widget_list, name, lookup_widget_by_name);
+	while(_widget_list)
+	{
+		button = (_widget_list->data);
+		if(visible)
+			gtk_widget_show(button);
+		else
+			gtk_widget_hide(button);
 		_widget_list = _widget_list->next;
 		if(_widget_list)
 			_widget_list = g_slist_find_custom(_widget_list, name, lookup_widget_by_name);
