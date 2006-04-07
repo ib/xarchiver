@@ -346,6 +346,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 
 
 	g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(xa_quit), window);
+	g_signal_connect(G_OBJECT(new), "activate", G_CALLBACK(xa_new_archive), window);
 	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(xa_open_archive), window);
 	g_signal_connect(G_OBJECT(test), "activate", G_CALLBACK(xa_test_archive), window);
 	g_signal_connect(G_OBJECT(close), "activate", G_CALLBACK(xa_close_archive), window);
@@ -497,6 +498,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(separator), 6);
 
 	// connect signals
+	g_signal_connect(G_OBJECT(new), "clicked", G_CALLBACK(xa_new_archive), window);
 	g_signal_connect(G_OBJECT(open), "clicked", G_CALLBACK(xa_open_archive), window);
 	g_signal_connect(G_OBJECT(extract), "clicked", G_CALLBACK(xa_extract_archive), window);
 	g_signal_connect(G_OBJECT(add_file), "clicked", G_CALLBACK(xa_add_files), window);
@@ -650,7 +652,15 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 void 
 xa_new_archive(GtkWidget *widget, gpointer data)
 {
-	g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL);
+	GtkWidget *dialog = xa_archive_chooser_dialog_new(_("New archive"), 
+			GTK_WINDOW(data));
+
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
+	{
+		gtk_widget_hide(dialog);
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL);
+	}
+	gtk_widget_destroy(dialog);
 }
 
 void 
@@ -748,6 +758,7 @@ xa_extract_archive(GtkWidget *widget, gpointer data)
 		gtk_widget_hide(dialog);
 		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL);
 	}
+	gtk_widget_destroy(dialog);
 }
 
 void 

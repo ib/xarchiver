@@ -46,6 +46,7 @@ xa_archive_chooser_dialog_class_init(XAArchiveChooserDialogClass *_class)
 static void
 xa_archive_chooser_dialog_init(XAArchiveChooserDialog *object)
 {
+	
 }
 
 static void
@@ -59,6 +60,7 @@ xa_archive_chooser_dialog_new(gchar *title, GtkWindow *parent)
 {
 	GtkWidget *dialog;
 	dialog = GTK_WIDGET (g_object_new(xa_archive_chooser_dialog_get_type(), NULL));
+	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
 	gtk_window_set_title(GTK_WINDOW(dialog), title);
 	return dialog;
 }
