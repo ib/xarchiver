@@ -289,6 +289,7 @@ xa_main_window_init (XAMainWindow *window)
 
 	gtk_window_set_title(GTK_WINDOW(window), PACKAGE_STRING);
 
+	gtk_container_set_border_width(GTK_CONTAINER(window), 0);
 	window->vbox = gtk_vbox_new(FALSE, 0);
 
 	xa_main_window_create_menubar(window);
@@ -300,7 +301,7 @@ xa_main_window_init (XAMainWindow *window)
 
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->menubar, FALSE, TRUE, 0); gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); 
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->scrollwindow, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 2);
+	gtk_box_pack_end(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 1);
 }
 
 void
@@ -525,6 +526,7 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 	GtkWidget *viewport = gtk_viewport_new(NULL, NULL);
 	GtkWidget *passwd_image = gtk_image_new_from_stock(GTK_STOCK_DIALOG_AUTHENTICATION, GTK_ICON_SIZE_MENU);
 
+	gtk_container_set_border_width(GTK_CONTAINER(statusbar), 1);
 	gtk_progress_configure(GTK_PROGRESS(progressbar), 0, 0, 100);
 	gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(statusbar), FALSE);
 	gtk_box_pack_start(GTK_BOX(statusbar), progressbar, FALSE, FALSE, 0);
