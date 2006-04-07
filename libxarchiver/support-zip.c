@@ -206,7 +206,7 @@ xarchive_zip_support_open (XArchive *archive)
 }
 
 /*
- * xarchive_zip_support_open
+ * xarchiver_parse_zip_output
  * Parse the output from the zip command when opening the archive
  *
  */

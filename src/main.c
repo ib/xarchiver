@@ -122,18 +122,17 @@ open_archive(GtkWidget *widget, gpointer data)
 		break;
 
 		case XARCHIVETYPE_ISO:
-			nc = 9;
-			if (xarchive_iso_support_open (archive) ) g_message ("File %s is an ISO image",archive->path);
+			nc = 5;
 			/*
+			xarchive_iso_support_open (archive);
 			columns = g_new0 ( gchar *,nc);
 			column_types = g_new0 ( GType ,nc);
-			columns[0] = "Filename";columns[1] = "Original";columns[2] = "Compressed";columns[3] = "Ratio";
-			columns[4] = "Date";columns[5] = "Time";columns[6] = "Attributes";columns[7] = "GUA";
-			columns[8] = "BPMGS";
+			g_file_name, xname, fstat_buf.st_size, fstat_buf.st_uid, fstat_buf.st_gid)
+			columns[0] = "Filename";columns[1] = "xname";columns[2] = "Size";
+			columns[3] = "UID";columns[4] = "GID";
 			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[3] = G_TYPE_STRING;column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
-			column_types[6] = G_TYPE_STRING;column_types[7] = G_TYPE_STRING;column_types[8] = G_TYPE_STRING;
+			column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;column_types[3] = G_TYPE_STRING;
+			column_types[4] = G_TYPE_STRING;
 			*/
 		break;
 	}

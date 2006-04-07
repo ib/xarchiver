@@ -89,7 +89,7 @@ xarchive_iso_support_open (XArchive *archive)
 gboolean
 xarchive_iso_support_verify(XArchive *archive)
 {
-	char buf[2448];
+	char buf[8];
 	FILE *iso;
 	
 	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN) )
@@ -100,7 +100,7 @@ xarchive_iso_support_verify(XArchive *archive)
 		fseek (iso, 0L, SEEK_SET);
 		fseek (iso, 32768, SEEK_CUR);
 		fread (buf, sizeof (char), 8, iso);
-		if ( ! memcmp ("\x01\x43\x44\x30\x30\x31\x01\x00", buf, 8))
+		if ( memcmp ("\x01\x43\x44\x30\x30\x31\x01\x00", buf, 8) == 0)
 			archive->type = XARCHIVETYPE_ISO;
 
 		fclose (iso);

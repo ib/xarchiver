@@ -30,6 +30,7 @@
 #include "internals.h"
 #include "support-bzip2.h"
 #include "support-tar.h"
+#include "support-iso.h"
 #include "support-rar.h"
 #include "support-gzip.h"
 #include "support-arj.h"
@@ -62,11 +63,13 @@ xarchiver_init()
 
 		g_slist_append(support_list, xarchive_gzip_support_new());
 		g_slist_append(support_list, xarchive_bzip2_support_new());
+		g_slist_append(support_list, xarchive_iso_support_new());
 		g_slist_append(support_list, xarchive_tar_support_new());
 		g_slist_append(support_list, xarchive_rar_support_new());
 		g_slist_append(support_list, xarchive_arj_support_new());
 		g_slist_append(support_list, xarchive_zip_support_new());
 		g_slist_append(support_list, xarchive_7zip_support_new());
+
 	}
 }
 
