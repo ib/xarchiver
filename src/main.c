@@ -21,6 +21,7 @@
 #include <gtk/gtk.h>
 
 #include "main.h"
+#include "property-dialog.h"
 #include "main-window.h"
 
 
@@ -141,6 +142,7 @@ int main(int argc, char **argv)
 	gtk_init(&argc, &argv);
 
 	main_window = xa_main_window_new();
+	GtkWidget *prop_dialog = xa_property_dialog_new();
 
 	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
 	g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(open_archive), NULL);
@@ -149,6 +151,7 @@ int main(int argc, char **argv)
 
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Xarchiver 0.3.9 svn");
+	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
 //	xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
 	//xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 30.0);
 	

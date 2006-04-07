@@ -9,8 +9,7 @@
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Library General Public License for more details.
- *
+ *  GNU Library General Public License for more details.  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
@@ -53,6 +52,7 @@ struct _XAMainWindow
 	GtkWidget *contentlist;
 	GtkWidget *statusbar;
 	GtkWidget *progressbar;
+	XAPropertyDialog *propertywindow;
 };
 
 struct _XAMainWindowClass
@@ -60,14 +60,16 @@ struct _XAMainWindowClass
 	GtkWindowClass parent_class;
 };
 
-GType          xa_main_window_get_type              (void);
-GtkWidget*     xa_main_window_new                   (void);
-void           xa_main_window_set_widget_sensitive  (XAMainWindow *window, gchar *name, gboolean sensitive);
-void           xa_main_window_set_widget_visible    (XAMainWindow *window, gchar *name, gboolean visible);
-void           xa_main_window_set_list_interface    (XAMainWindow *window, int nc, gchar *column_names[], GType column_types[]);
-void           xa_main_window_append_list           (XAMainWindow *window, GList *fields);
-void           xa_main_window_set_progressbar_value (XAMainWindow *window, gdouble value);
-void           xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value);
+GType              xa_main_window_get_type              (void);
+GtkWidget*         xa_main_window_new                   (void);
+void               xa_main_window_set_widget_sensitive  (XAMainWindow *window, gchar *name, gboolean sensitive);
+void               xa_main_window_set_widget_visible    (XAMainWindow *window, gchar *name, gboolean visible);
+void               xa_main_window_set_list_interface    (XAMainWindow *window, int nc, gchar *column_names[], GType column_types[]);
+void               xa_main_window_append_list           (XAMainWindow *window, GList *fields);
+void               xa_main_window_set_progressbar_value (XAMainWindow *window, gdouble value);
+void               xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value);
+void               xa_main_window_set_property_window   (XAMainWindow *window, XAPropertyDialog *propertywindow);
+XAPropertyDialog * xa_main_window_get_property_window   (XAMainWindow *window);
 
 G_END_DECLS
 

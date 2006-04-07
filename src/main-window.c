@@ -24,6 +24,7 @@
 #include <libintl.h>
 #include <libxarchiver/libxarchiver.h>
 #include "archive-chooser-dialog.h"
+#include "property-dialog.h"
 #include "main-window.h"
 #define _(String) gettext(String)
 
@@ -89,6 +90,9 @@ xa_cancel_operation(GtkWidget *widget, gpointer data);
 
 void 
 xa_quit(GtkWidget *widget, gpointer data);
+
+void
+xa_show_property_dialog(GtkWidget *widget, gpointer data);
 
 static GtkWidgetClass *xa_main_window_parent_class;
 
@@ -279,6 +283,7 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 static void
 xa_main_window_init (XAMainWindow *window)
 {
+	window->progressbar = NULL;
 	xa_main_window_widget_list = g_slist_alloc();
 	xa_main_window_widget_list->data = window;
 
@@ -343,6 +348,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	g_signal_connect(G_OBJECT(open), "activate", G_CALLBACK(xa_open_archive), window);
 	g_signal_connect(G_OBJECT(test), "activate", G_CALLBACK(xa_test_archive), window);
 	g_signal_connect(G_OBJECT(close), "activate", G_CALLBACK(xa_close_archive), window);
+	g_signal_connect(G_OBJECT(properties), "activate", G_CALLBACK(xa_show_property_dialog), window);
 
 	gtk_widget_show(new);
 	gtk_widget_show(open);
@@ -779,7 +785,7 @@ xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value)
 }
 
 void
-xa_main_window_set_progressbar_value   (XAMainWindow *window, gdouble value)
+xa_main_window_set_progressbar_value (XAMainWindow *window, gdouble value)
 {
 	if(value >= 0)
 	{
@@ -788,4 +794,27 @@ xa_main_window_set_progressbar_value   (XAMainWindow *window, gdouble value)
 	}
 	else
 		gtk_widget_hide(window->progressbar);
+}
+
+void
+xa_show_property_dialog(GtkWidget *widget, gpointer data)
+{
+	XAMainWindow *window = XA_MAIN_WINDOW(data);
+	if(window->propertywindow)
+		gtk_dialog_run(GTK_DIALOG(window->propertywindow));
+}
+
+void
+xa_main_window_set_property_window (XAMainWindow *window, XAPropertyDialog *propertywindow)
+{
+	if(window->propertywindow)
+		g_object_unref(propertywindow);
+
+	window->propertywindow = propertywindow;
+}
+
+XAPropertyDialog *
+xa_main_window_get_property_window (XAMainWindow *window)
+{
+	return XA_PROPERTY_DIALOG(window->propertywindow);
 }
