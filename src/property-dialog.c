@@ -85,6 +85,19 @@ xa_property_dialog_destroy (GtkObject *object)
 		(* GTK_OBJECT_CLASS (xa_property_dialog_parent_class)->destroy) (object);
 }
 
+gboolean 
+xa_property_dialog_delete (GtkWidget *widget)
+{
+	gtk_widget_hide(widget);
+	return TRUE;
+}
+
+void
+xa_close_property_dialog(GtkWidget *widget, gpointer data)
+{
+	gtk_widget_hide(GTK_WIDGET(data));
+}
+
 static void
 xa_property_dialog_show_all(GtkWidget *widget)
 {
@@ -102,16 +115,46 @@ xa_property_dialog_class_init (XAPropertyDialogClass *_class)
 	object_class->destroy = xa_property_dialog_destroy;
 
 	widget_class->show_all = xa_property_dialog_show_all;
-
 }
 
 static void
-xa_property_dialog_init (XAPropertyDialog *window)
+xa_property_dialog_init (XAPropertyDialog *dialog)
 {
+	GtkWidget *close;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
+	GtkListStore *list_store;
+	GType column_types[] = {G_TYPE_STRING, G_TYPE_STRING};
 
+	gtk_widget_set_size_request(GTK_WIDGET(dialog), 300, 250);
+	g_signal_connect(G_OBJECT(dialog), "delete-event", G_CALLBACK(xa_property_dialog_delete), NULL);
+	close = gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
+	g_signal_connect(G_OBJECT(close), "pressed", G_CALLBACK(xa_close_property_dialog), dialog);
+	dialog->propertylist = gtk_tree_view_new();
+
+	list_store = gtk_list_store_newv(2, (GType *)column_types);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(dialog->propertylist), GTK_TREE_MODEL(list_store));
+	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(dialog->propertylist), TRUE);
+	renderer = gtk_cell_renderer_text_new ();
+
+	column = gtk_tree_view_column_new_with_attributes(_("Property"), renderer, "text", 0, NULL);
+	gtk_tree_view_column_set_resizable(column, TRUE);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (dialog->propertylist), column);
+
+	column = gtk_tree_view_column_new_with_attributes(_("Value"), renderer, "text", 1, NULL);
+	gtk_tree_view_column_set_resizable(column, TRUE);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (dialog->propertylist), column);
+
+	gtk_widget_show(dialog->propertylist);
+	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), dialog->propertylist);
 }
+
 void
-xa_property_dialog_add_property (gchar *name, gchar *value)
+xa_property_dialog_add_property (XAPropertyDialog *dialog, gchar *name, gchar *value)
 {
-	g_warning("property: %s with value %s not added because it is not implemented", name, value);
+	GtkTreeIter iter;
+	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->propertylist));
+	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
+	gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, 0, name, -1);
+	gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, 1, value, -1);
 }

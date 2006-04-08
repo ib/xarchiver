@@ -46,6 +46,7 @@ typedef struct _XAPropertyDialogClass XAPropertyDialogClass;
 struct _XAPropertyDialog
 {
 	GtkDialog dialog;
+	GtkWidget *propertylist;
 };
 
 struct _XAPropertyDialogClass
@@ -55,7 +56,7 @@ struct _XAPropertyDialogClass
 
 GType          xa_property_dialog_get_type              (void);
 GtkWidget*     xa_property_dialog_new                   (GtkWindow *parent);
-void           xa_property_dialog_add_property          (gchar *name, gchar *value);
+void           xa_property_dialog_add_property          (XAPropertyDialog *dialog, gchar *name, gchar *value);
 
 G_END_DECLS
 

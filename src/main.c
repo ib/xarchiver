@@ -186,6 +186,7 @@ int main(int argc, char **argv)
 
 	main_window = xa_main_window_new();
 	GtkWidget *prop_dialog = xa_property_dialog_new(GTK_WINDOW(main_window));
+	xa_property_dialog_add_property(XA_PROPERTY_DIALOG(prop_dialog), "filename", "/etc/passwd");
 
 	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
 	//g_signal_connect(G_OBJECT(main_window), "xa_new_archive", G_CALLBACK(open_archive), NULL);
