@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <glib.h>
+#include <glib-object.h>
 #include "internals.h"
 #include "libxarchiver.h"
 #include "support-rar.h"
@@ -328,6 +329,29 @@ xarchive_rar_support_new()
 	support->testing = xarchive_rar_support_testing;
 	support->remove  = xarchive_rar_support_remove;
 	support->open    = xarchive_rar_support_open;
+	support->n_columns = 10;
+	support->column_names  = g_new0(gchar *, support->n_columns);
+	support->column_types  = g_new0(GType, support->n_columns);
+	support->column_names[0] = "Filename";
+	support->column_names[1] = "Original";
+	support->column_names[2] = "Compressed";
+	support->column_names[3] = "Ratio";
+	support->column_names[4] = "Date";
+	support->column_names[5] = "Time";
+	support->column_names[6] = "Permissions";
+	support->column_names[7] = "CRC";
+	support->column_names[8] = "Method";
+	support->column_names[9] = "Version";
+	support->column_types[0] = G_TYPE_STRING;
+	support->column_types[1] = G_TYPE_STRING;
+	support->column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;
+	support->column_types[3] = G_TYPE_STRING;
+	support->column_types[4] = G_TYPE_STRING;
+	support->column_types[5] = G_TYPE_STRING;
+	support->column_types[6] = G_TYPE_STRING;
+	support->column_types[7] = G_TYPE_STRING;
+	support->column_types[8] = G_TYPE_STRING;
+	support->column_types[9] = G_TYPE_STRING;
 	return support;
 }
 

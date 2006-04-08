@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <glib.h>
+#include <glib-object.h>
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <fcntl.h>

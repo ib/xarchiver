@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
+#include <glib-object.h>
 #include "internals.h"
 #include "libxarchiver.h"
 #include "support-tar.h"
@@ -252,5 +253,21 @@ xarchive_tar_support_new()
 	support->extract = xarchive_tar_support_extract;
 	support->remove  = xarchive_tar_support_remove;
 	support->open    = xarchive_tar_support_open;
+	support->n_columns = 6;
+	support->column_names  = g_new0(gchar *, support->n_columns);
+	support->column_types  = g_new0(GType, support->n_columns);
+	support->column_names[0] = "Filename";
+	support->column_names[1] = "Permissions";
+	support->column_names[2] = "Owner / Group";
+	support->column_names[3] = "Size";
+	support->column_names[4] = "Date";
+	support->column_names[5] = "Time";
+	support->column_types[0] = G_TYPE_STRING;
+	support->column_types[1] = G_TYPE_STRING;
+	support->column_types[2] = G_TYPE_STRING;
+	support->column_types[3] = G_TYPE_STRING;
+	support->column_types[4] = G_TYPE_STRING;
+	support->column_types[5] = G_TYPE_STRING;
+	
 	return support;
 }

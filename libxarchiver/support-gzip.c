@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <glib.h>
+#include <glib-object.h>
 #include <zlib.h>
 #include "internals.h"
 #include "libxarchiver.h"
@@ -85,18 +86,13 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 
 	if(destination_path)
 	{
-		if(g_file_test(destination_path, G_FILE_TEST_EXISTS) && g_file_test(destination_path, G_FILE_TEST_IS_DIR))
+		if(g_file_test(destination_path, G_FILE_TEST_IS_DIR))
 		{
 			in_filename = g_path_get_basename(archive->path);
-			out_filename = g_build_path(destination_path, in_filename, NULL);
+			out_filename = g_build_path("/",destination_path, in_filename, NULL);
 		}
-		else if(!g_file_test(destination_path, G_FILE_TEST_EXISTS)) 
-		{
-			// use it as an absolute filename.
-			out_filename = g_strdup(destination_path);
-		}
-		else
-			return FALSE;
+		// use it as an absolute filename.
+		out_filename = g_strdup(destination_path);
 	}
 	else
 	{
@@ -104,7 +100,7 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 	}
 	if(!g_str_has_suffix(out_filename, "gz"))
 	{
-		if(g_strcasecmp(archive->path, out_filename))
+		if(!g_strcasecmp(archive->path, out_filename))
 			return FALSE;
 	} 
 	else
@@ -131,6 +127,7 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 			}
 		}
 	}
+	g_print("%s\n", out_filename);
 	out_file = fopen(out_filename, "w");
 	in_file = gzopen(archive->path, "r");
 	while((n = gzread(in_file, &buf, 1024)) > 0)
@@ -171,6 +168,13 @@ xarchive_gzip_support_verify(XArchive *archive)
 		return FALSE;
 }
 
+gboolean
+xarchive_gzip_support_open(XArchive *archive)
+{
+
+	return FALSE;
+}
+
 XArchiveSupport *
 xarchive_gzip_support_new()
 {
@@ -179,6 +183,7 @@ xarchive_gzip_support_new()
 	support->verify = xarchive_gzip_support_verify;
 	support->add = xarchive_gzip_support_add;
 	support->extract = xarchive_gzip_support_extract;
+	support->open = xarchive_gzip_support_open;
 	support->remove = NULL;
 	support->testing = NULL;
 	return support;

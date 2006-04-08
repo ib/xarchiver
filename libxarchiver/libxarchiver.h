@@ -81,6 +81,9 @@ struct _XArchiveSupport
 	gboolean (*testing) (XArchive *);
 	gboolean (*open)    (XArchive *);
 	gboolean (*view)    (XArchive *, gchar *);
+	gint n_columns;
+	gchar **column_names;
+	GType *column_types;
 };
 
 void xarchiver_init();

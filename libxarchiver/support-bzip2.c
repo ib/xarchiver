@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <glib.h>
+#include <glib-object.h>
 #include "internals.h"
 #include "libxarchiver.h"
 

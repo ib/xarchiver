@@ -7,13 +7,15 @@ DONE
   - 7z	DONE
   - iso? -- (feature, not a priority)
 	- tar.bz2 and tar.gz composite archive support.
+	- gzip -- (fix open)
+	- bzip2 -- (fix open / fix extract destination-path)
 
 + handle child_pid cancellation in libxarchiver
 DONE
 
 + create GUI (further specification of this is pending)
 	- open archive       PARTIALLY DONE
-	  check for available compressors and add filetypes acordingly -- should this be an external feature?
+	  check for available compressors and add filetypes accordingly -- should this be an external feature?
 
   - fill liststore     PARTIALLY DONE
 	  look for a way the GUI does not freeze while filling it with a lot of rows.

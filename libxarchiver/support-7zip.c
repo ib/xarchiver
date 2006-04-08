@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <glib.h>
+#include <glib-object.h>
 #include "internals.h"
 #include "libxarchiver.h"
 #include "support-7zip.h"
@@ -306,6 +307,22 @@ xarchive_7zip_support_new()
 	support->testing = xarchive_7zip_support_testing;
 	support->remove  = xarchive_7zip_support_remove;
 	support->open    = xarchive_7zip_support_open;
+
+	support->n_columns = 6;
+	support->column_names  = g_new0(gchar *, support->n_columns);
+	support->column_types  = g_new0(GType, support->n_columns);
+	support->column_names[0] = "Filename";
+	support->column_names[1] = "Compressed";
+	support->column_names[2] = "Original";
+	support->column_names[3] = "Attr";
+	support->column_names[4] = "Time";
+	support->column_names[5] = "Date";
+	support->column_types[0] = G_TYPE_STRING;
+	support->column_types[1] = G_TYPE_STRING;
+	support->column_types[2] = G_TYPE_STRING;
+	support->column_types[3] = G_TYPE_STRING;
+	support->column_types[4] = G_TYPE_STRING;
+	support->column_types[5] = G_TYPE_STRING;
 	return support;
 }
 

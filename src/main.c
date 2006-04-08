@@ -17,6 +17,7 @@
  */
 
 #include <glib.h>
+#include <glib-object.h>
 #include <libxarchiver/libxarchiver.h>
 #include <gtk/gtk.h>
 
@@ -27,17 +28,29 @@
 
 GtkWidget *main_window;
 XArchive *archive = NULL;
-XArchiveSupport *support = NULL;
+XArchive *sub_archive = NULL;
+XArchiveSupport *support;
 
 void
-close_archive(GtkWidget *widget, gpointer data)
+xa_close_archive(GtkWidget *widget, gpointer data)
 {
 	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window));
 	xarchiver_archive_destroy(archive);
+	archive = NULL;
+	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);
+
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-folder", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-file", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-cancel", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-close", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-delete", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
 }
 
 void
-add_folder(GtkWidget *widget, gpointer data)
+xa_add_folder(GtkWidget *widget, gpointer data)
 {
 	GSList *list = g_slist_alloc();
 	list->data = (gchar *)data;
@@ -46,7 +59,7 @@ add_folder(GtkWidget *widget, gpointer data)
 }
 
 void
-add_files(GtkWidget *widget, gpointer data)
+xa_add_files(GtkWidget *widget, gpointer data)
 {
 	if((archive) && (support))
 		support->add(archive, data);
@@ -54,14 +67,16 @@ add_files(GtkWidget *widget, gpointer data)
 
 
 void
-open_archive(GtkWidget *widget, gpointer data)
+xa_open_archive(GtkWidget *widget, gpointer data)
 {
-	gchar **columns = NULL;
-	GType *column_types = NULL;
-	unsigned short int nc = 0;
-	
 	gchar *filename = data;
 	
+	if(archive)
+	{
+		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window));
+		xarchiver_archive_destroy(archive);
+		archive = NULL;
+	}
 	archive = xarchiver_archive_new(filename, XARCHIVETYPE_UNKNOWN);
 	if(archive == NULL)
 	{
@@ -71,112 +86,52 @@ open_archive(GtkWidget *widget, gpointer data)
 	}
 	else
 	{
+		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Opening archive...");
 		if((archive->type == XARCHIVETYPE_BZIP2) || (archive->type == XARCHIVETYPE_GZIP))
 		{
-			support = xarchiver_find_archive_support(archive);
-			support->extract(archive, "/tmp/", NULL, FALSE);
+			sub_archive = archive;
+			g_print("archive type == bzip2 / gzip\n");
+			support = xarchiver_find_archive_support(sub_archive);
+			support->extract(sub_archive, "/tmp/xarchiver.tmp", NULL, FALSE);
+			archive = NULL;
+			archive = xarchiver_archive_new("/tmp/xarchiver.tmp", XARCHIVETYPE_UNKNOWN);
+			if(!archive)
+			{
+				archive = sub_archive;
+				sub_archive = NULL;
+			}
 		}
 	}
-	switch (archive->type)
+	if(archive)
 	{
-		case XARCHIVETYPE_RAR:
-			nc = 10;
-			xarchive_rar_support_open (archive);
-			columns = g_new0 ( gchar *,nc);
-			column_types = g_new0 ( GType ,nc);
-			columns[0] = "Filename";columns[1] = "Original";columns[2] = "Compressed";columns[3] = "Ratio";
-			columns[4] = "Date";columns[5] = "Time";columns[6] = "Permissions";columns[7] = "CRC";
-			columns[8] = "Method";columns[9] = "Version";
-			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[3] = G_TYPE_STRING;column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
-			column_types[6] = G_TYPE_STRING;column_types[7] = G_TYPE_STRING;column_types[8] = G_TYPE_STRING;
-			column_types[9] = G_TYPE_STRING;
-		break;
-
-		case XARCHIVETYPE_TAR:
-			nc = 6;
-			xarchive_tar_support_open (archive);
-			columns = g_new0 ( gchar *,nc);
-			column_types = g_new0 ( GType ,nc);
-			columns[0] = "Filename";columns[1] = "Permissions";columns[2] = "OwnerGroup";columns[3] = "Size";
-			columns[4] = "Date";columns[5] = "Time";
-			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;column_types[2] = G_TYPE_STRING;
-			column_types[3] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
-		break;
-
-		case XARCHIVETYPE_7ZIP:
-			nc = 6;
-			xarchive_7zip_support_open (archive);
-			columns = g_new0 ( gchar *,nc);
-			column_types = g_new0 ( GType ,nc);
-			columns[0] = "Filename";columns[1] = "Compressed";columns[2] = "Original";columns[3] = "Attr";
-			columns[4] = "Time";columns[5] = "Date";
-			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[3] = G_TYPE_STRING;column_types[4] = G_TYPE_STRING;
-			column_types[5] = G_TYPE_STRING;
-		break;
-
-		case XARCHIVETYPE_ZIP:
-			nc = 8;
-			xarchive_zip_support_open (archive);
-			columns = g_new0 ( gchar *,nc);
-			column_types = g_new0 ( GType ,nc);
-			columns[0] = "Filename";columns[1] = "Original";columns[2] = "Method";columns[3] = "Compressed";
-			columns[4] = "Ratio";columns[5] = "Date";columns[6] = "Time";columns[7] = "CRC-32";
-			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[2] = G_TYPE_STRING;column_types[3] = G_TYPE_STRING;//G_TYPE_UINT64
-			column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
-			column_types[6] = G_TYPE_STRING;column_types[7] = G_TYPE_STRING;
-		break;
-
-		case XARCHIVETYPE_ARJ:
-			nc = 9;
-			xarchive_arj_support_open (archive);
-			columns = g_new0 ( gchar *,nc);
-			column_types = g_new0 ( GType ,nc);
-			columns[0] = "Filename";columns[1] = "Original";columns[2] = "Compressed";columns[3] = "Ratio";
-			columns[4] = "Date";columns[5] = "Time";columns[6] = "Attributes";columns[7] = "GUA";
-			columns[8] = "BPMGS";
-			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[3] = G_TYPE_STRING;column_types[4] = G_TYPE_STRING;column_types[5] = G_TYPE_STRING;
-			column_types[6] = G_TYPE_STRING;column_types[7] = G_TYPE_STRING;column_types[8] = G_TYPE_STRING;
-		break;
-
-		case XARCHIVETYPE_ISO:
-			nc = 5;
-			/*
-			xarchive_iso_support_open (archive);
-			columns = g_new0 ( gchar *,nc);
-			column_types = g_new0 ( GType ,nc);
-			g_file_name, xname, fstat_buf.st_size, fstat_buf.st_uid, fstat_buf.st_gid)
-			columns[0] = "Filename";columns[1] = "xname";columns[2] = "Size";
-			columns[3] = "UID";columns[4] = "GID";
-			column_types[0] = G_TYPE_STRING;column_types[1] = G_TYPE_STRING;//G_TYPE_UINT64;
-			column_types[2] = G_TYPE_STRING;//G_TYPE_UINT64;column_types[3] = G_TYPE_STRING;
-			column_types[4] = G_TYPE_STRING;
-			*/
-		break;
+		support = xarchiver_find_archive_support(archive);
+		support->open(archive);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+			"xa-button-cancel", 
+			TRUE);
+		while (archive->child_pid != 0)
+		{
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+			"xa-button-cancel", 
+			FALSE);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+			"xa-button-close", 
+			TRUE);
+		xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), 
+				support->n_columns, 
+				support->column_names, 
+				support->column_types);
+		archive->row = g_list_reverse ( archive->row );
+		xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+		if(archive->has_passwd)
+			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
+		else
+			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
+		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Done");
 	}
-	while (archive->child_pid != 0)
-	{
-		while (gtk_events_pending())
-			gtk_main_iteration();
-	}
-	archive->row = g_list_reverse ( archive->row );
-	xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), nc, columns, column_types);
-	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
-	if(archive->has_passwd)
-		xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
-	else
-		xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
-	//if (archive->has_passwd) gtk_widget_show(viewport);
-	g_free (columns);
-	g_free (column_types);
-	g_print ("Files:%d\nDirs:%d\nArchive Size:%lld\n",archive->number_of_files,archive->number_of_dirs,archive->dummy_size);
-	
 }
 
 int main(int argc, char **argv)
@@ -190,18 +145,25 @@ int main(int argc, char **argv)
 
 	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
 	//g_signal_connect(G_OBJECT(main_window), "xa_new_archive", G_CALLBACK(open_archive), NULL);
-	g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(open_archive), NULL);
-	g_signal_connect(G_OBJECT(main_window), "xa_test_archive", G_CALLBACK(open_archive), NULL);
-	g_signal_connect(G_OBJECT(main_window), "xa_close_archive", G_CALLBACK(close_archive), NULL);
-	g_signal_connect(G_OBJECT(main_window), "xa_extract_archive", G_CALLBACK(close_archive), NULL);
-	g_signal_connect(G_OBJECT(main_window), "xa_add_folders", G_CALLBACK(add_folder), NULL);
-	g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(add_files), NULL);
-	//g_signal_connect(G_OBJECT(main_window), "xa_save_as_archive", G_CALLBACK(close_archive), NULL);
-	//g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(close_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(xa_open_archive), NULL);
+	//g_signal_connect(G_OBJECT(main_window), "xa_test_archive", G_CALLBACK(xa_test_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_close_archive", G_CALLBACK(xa_close_archive), NULL);
+	//g_signal_connect(G_OBJECT(main_window), "xa_extract_archive", G_CALLBACK(xa_extract_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_add_folders", G_CALLBACK(xa_add_folder), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(xa_add_files), NULL);
+	//g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(xa_cancel_operation), NULL);
 
 	gtk_widget_show_all(main_window);
 
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-folder", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-file", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-cancel", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-close", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-delete", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
+
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Xarchiver 0.3.9 svn");
 	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
 	
