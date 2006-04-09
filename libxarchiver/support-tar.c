@@ -196,6 +196,7 @@ xarchive_tar_support_open (XArchive *archive)
 	if(archive->row)
 	{
 		g_list_free(archive->row);
+		archive->row = NULL;
 	}
 	command = g_strconcat ( "tar tfv " , archive->path, NULL );
 	archive->child_pid = xarchiver_async_process ( archive , command , 0 );

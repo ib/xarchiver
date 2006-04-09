@@ -79,7 +79,6 @@ xa_add_files(GtkWidget *widget, gpointer data)
 				gtk_main_iteration();
 		}
 		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), FALSE);
-
 		archive->row = g_list_reverse ( archive->row ); // why this? a hack?!
 		xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
