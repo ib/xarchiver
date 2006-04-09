@@ -119,6 +119,7 @@ xarchiver_archive_new(gchar *path, XArchiveType type)
 		g_free(archive);
 		archive = NULL;
 	}
+	archive->row = NULL;
 	return archive;
 }
 

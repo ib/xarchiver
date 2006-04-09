@@ -652,16 +652,24 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 }
 
 void
-xa_main_window_clear_list(XAMainWindow *window)
+xa_main_window_clear_list(XAMainWindow *window, gboolean clear_colums)
 {
-	GList *columns = gtk_tree_view_get_columns(GTK_TREE_VIEW(window->contentlist));
-	GList *_columns = columns;
-	while(_columns)
+	if(clear_colums)
 	{
-		gtk_tree_view_remove_column(GTK_TREE_VIEW(window->contentlist), GTK_TREE_VIEW_COLUMN(_columns->data));
-		_columns = _columns->next;
+		GList *columns = gtk_tree_view_get_columns(GTK_TREE_VIEW(window->contentlist));
+		GList *_columns = columns;
+		while(_columns)
+		{
+			gtk_tree_view_remove_column(GTK_TREE_VIEW(window->contentlist), GTK_TREE_VIEW_COLUMN(_columns->data));
+			_columns = _columns->next;
+		}
+		gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
 	}
-	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
+	else
+	{
+		GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
+		gtk_list_store_clear(GTK_LIST_STORE(model));
+	}
 }
 
 void 

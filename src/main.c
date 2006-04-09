@@ -34,7 +34,7 @@ XArchiveSupport *support;
 void
 xa_close_archive(GtkWidget *widget, gpointer data)
 {
-	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window));
+	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
 	xarchiver_archive_destroy(archive);
 	archive = NULL;
 	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);
@@ -62,7 +62,30 @@ void
 xa_add_files(GtkWidget *widget, gpointer data)
 {
 	if((archive) && (support))
+	{
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+			"xa-button-cancel", 
+			TRUE);
 		support->add(archive, data);
+		while (archive->child_pid != 0)
+		{
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+		support->open(archive);
+		while (archive->child_pid != 0)
+		{
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), FALSE);
+
+		archive->row = g_list_reverse ( archive->row ); // why this? a hack?!
+		xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+			"xa-button-cancel", 
+			FALSE);
+	}
 }
 
 
@@ -73,7 +96,7 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	
 	if(archive)
 	{
-		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window));
+		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
 		xarchiver_archive_destroy(archive);
 		archive = NULL;
 	}
@@ -130,6 +153,8 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
 		else
 			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-folder", TRUE);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-file", TRUE);
 		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Done");
 	}
 }

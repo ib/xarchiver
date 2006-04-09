@@ -66,7 +66,7 @@ void               xa_main_window_set_widget_sensitive  (XAMainWindow *window, g
 void               xa_main_window_set_widget_visible    (XAMainWindow *window, gchar *name, gboolean visible);
 void               xa_main_window_set_list_interface    (XAMainWindow *window, int nc, gchar *column_names[], GType column_types[]);
 void               xa_main_window_append_list           (XAMainWindow *window, GList *fields);
-void               xa_main_window_clear_list            (XAMainWindow *window);
+void               xa_main_window_clear_list            (XAMainWindow *window, gboolean clear_columns);
 void               xa_main_window_set_progressbar_value (XAMainWindow *window, gdouble value);
 void               xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value);
 void               xa_main_window_set_property_window   (XAMainWindow *window, XAPropertyDialog *propertywindow);
