@@ -108,6 +108,7 @@ xarchiver_archive_new(gchar *path, XArchiveType type)
 		archive->path = g_strdup(path);
 	else
 		archive->path = NULL;
+	archive->row = NULL;
 
 	g_slist_find_custom(support_list, archive, lookup_support);
 
@@ -119,7 +120,6 @@ xarchiver_archive_new(gchar *path, XArchiveType type)
 		g_free(archive);
 		archive = NULL;
 	}
-	archive->row = NULL;
 	return archive;
 }
 

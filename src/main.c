@@ -29,14 +29,18 @@
 GtkWidget *main_window;
 XArchive *archive = NULL;
 XArchive *sub_archive = NULL;
-XArchiveSupport *support;
+XArchiveSupport *support = NULL;
+XArchiveSupport *sub_support = NULL;
 
 void
 xa_close_archive(GtkWidget *widget, gpointer data)
 {
 	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
 	xarchiver_archive_destroy(archive);
+	if(sub_archive)
+		xarchiver_archive_destroy(sub_archive);
 	archive = NULL;
+	sub_archive = NULL;
 	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);
 
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
@@ -47,6 +51,8 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-close", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-delete", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
+	support = NULL;
+	sub_support = NULL;
 }
 
 void
@@ -72,6 +78,13 @@ xa_add_files(GtkWidget *widget, gpointer data)
 			while (gtk_events_pending())
 				gtk_main_iteration();
 		}
+		if(sub_archive)
+		{
+			GSList *files = g_slist_alloc();
+			files->data = archive->path;
+			sub_support->add(sub_archive, files);
+			g_slist_free(files);
+		}
 		support->open(archive);
 		while (archive->child_pid != 0)
 		{
@@ -92,7 +105,6 @@ void
 xa_open_archive(GtkWidget *widget, gpointer data)
 {
 	gchar *filename = data;
-	
 	if(archive)
 	{
 		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
@@ -122,6 +134,8 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 				archive = sub_archive;
 				sub_archive = NULL;
 			}
+			else
+				sub_support = xarchiver_find_archive_support(sub_archive);
 		}
 	}
 	if(archive)
