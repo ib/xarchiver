@@ -22,7 +22,8 @@
 #include <glib-object.h>
 #include <zlib.h>
 #include "internals.h"
-#include "libxarchiver.h"
+#include <libxarchiver/libxarchiver.h>
+#include <libxarchiver/archive-gzip.h>
 
 /*
  * xarchive_gzip_support_add(XArchive *archive, GSList *files)
@@ -91,7 +92,7 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 			in_filename = g_path_get_basename(archive->path);
 			out_filename = g_build_path("/",destination_path, in_filename, NULL);
 		}
-		// use it as an absolute filename.
+		/* use it as an absolute filename. */
 		out_filename = g_strdup(destination_path);
 	}
 	else
@@ -139,34 +140,6 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 	return TRUE;
 }
 
-gboolean
-xarchive_gzip_support_verify(XArchive *archive)
-{
-	FILE *fp;
-	unsigned char magic[3];
-	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
-	{
-		fp = fopen(archive->path, "r");
-		if(fp == 0)
-			return FALSE;
-		if(fread( magic, 1, 3, fp) == 0)
-		{
-			fclose(fp);
-			return FALSE;
-		}
-  	if ( memcmp ( magic,"\x1f\x8b\x08",3 ) == 0 )
-		{
-			archive->type = XARCHIVETYPE_GZIP;
-			archive->has_passwd = FALSE;
-			archive->passwd = 0;
-		}
-		fclose(fp);
-	}
-	if(archive->type == XARCHIVETYPE_GZIP)
-		return TRUE;
-	else
-		return FALSE;
-}
 
 gboolean
 xarchive_gzip_support_open(XArchive *archive)
@@ -180,7 +153,7 @@ xarchive_gzip_support_new()
 {
 	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
 	support->type = XARCHIVETYPE_GZIP;
-	support->verify = xarchive_gzip_support_verify;
+	support->verify = xarchive_type_gzip_verify;
 	support->add = xarchive_gzip_support_add;
 	support->extract = xarchive_gzip_support_extract;
 	support->open = xarchive_gzip_support_open;

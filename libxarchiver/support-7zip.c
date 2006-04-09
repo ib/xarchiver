@@ -26,6 +26,7 @@
 #include "internals.h"
 #include "libxarchiver.h"
 #include "support-7zip.h"
+#include "archive-7zip.h"
 
 /*
  * xarchive_7zip_support_add(XArchive *archive, GSList *files)
@@ -266,35 +267,6 @@ gboolean xarchiver_parse_7zip_output (GIOChannel *ioc, GIOCondition cond, gpoint
 	return TRUE;
 }
 
-gboolean
-xarchive_7zip_support_verify(XArchive *archive)
-{
-	FILE *fp;
-	unsigned char magic[6];
-
-	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
-	{
-		fp = fopen(archive->path, "r");
-		if(fp == 0)
-			return FALSE;
-		fseek ( fp, 0 , SEEK_SET );
-		if ( fread ( magic, 1, 6, fp ) )
-		{
-			if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 )
-			{
-				archive->type = XARCHIVETYPE_7ZIP;
-				//TODO: no password detection for 7zip
-				//http://sourceforge.net/forum/forum.php?thread_id=1378003&forum_id=383044
-			}
-		}
-		fclose( fp );
-	}
-
-	if(archive->type == XARCHIVETYPE_7ZIP)
-		return TRUE;
-	else
-		return FALSE;
-}
 
 XArchiveSupport *
 xarchive_7zip_support_new()
@@ -302,7 +274,7 @@ xarchive_7zip_support_new()
 	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
 	support->type    = XARCHIVETYPE_7ZIP;
 	support->add     = xarchive_7zip_support_add;
-	support->verify  = xarchive_7zip_support_verify;
+	support->verify  = xarchive_type_7zip_verify;
 	support->extract = xarchive_7zip_support_extract;
 	support->testing = xarchive_7zip_support_testing;
 	support->remove  = xarchive_7zip_support_remove;

@@ -26,6 +26,7 @@
 #include "internals.h"
 #include "libxarchiver.h"
 #include "support-rar.h"
+#include "archive-rar.h"
 
 /*
  * xarchive_rar_support_add(XArchive *archive, GSList *files)
@@ -52,10 +53,12 @@ xarchive_rar_support_add (XArchive *archive, GSList *files)
 			command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->path , names->str , NULL );
 		archive->status = ADD;
 		archive->child_pid = xarchiver_async_process ( archive , command, 0);
+		/*
 		if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
 			return FALSE;
 		if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
 			return FALSE;
+		*/
 		g_free(command);
 		if (archive->child_pid == 0)
 		{
@@ -192,7 +195,11 @@ xarchive_rar_support_open (XArchive *archive)
 {
 	gchar *command;
 	jump_header = FALSE;
-
+	if(archive->row)
+	{
+		g_list_free(archive->row);
+		archive->row = NULL;
+	}
 	command = g_strconcat ( "rar vl -c- " , archive->path, NULL );
 	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
 	g_free (command);
@@ -218,7 +225,7 @@ xarchive_rar_support_open (XArchive *archive)
 
 gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-    gchar *line = NULL;
+	gchar *line = NULL;
 	XArchive *archive = data;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
@@ -290,33 +297,6 @@ gboolean xarchiver_parse_rar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 	return TRUE;
 }
 
-gboolean
-xarchive_rar_support_verify(XArchive *archive)
-{
-	FILE *fp;
-	unsigned char magic[4];
-
-	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
-	{
-		fp = fopen(archive->path, "r");
-		if(fp == 0)
-			return FALSE;
-		fseek ( fp, 0 , SEEK_SET );
-		if ( fread ( magic, 1, 4, fp ) )
-		{
-			if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 )
-			{
-				archive->type = XARCHIVETYPE_RAR;
-			}
-		}
-		fclose( fp );
-	}
-
-	if(archive->type == XARCHIVETYPE_RAR)
-		return TRUE;
-	else
-		return FALSE;
-}
 
 XArchiveSupport *
 xarchive_rar_support_new()
@@ -324,7 +304,7 @@ xarchive_rar_support_new()
 	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
 	support->type    = XARCHIVETYPE_RAR;
 	support->add     = xarchive_rar_support_add;
-	support->verify  = xarchive_rar_support_verify;
+	support->verify  = xarchive_type_rar_verify;
 	support->extract = xarchive_rar_support_extract;
 	support->testing = xarchive_rar_support_testing;
 	support->remove  = xarchive_rar_support_remove;

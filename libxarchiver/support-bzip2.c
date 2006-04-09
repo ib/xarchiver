@@ -27,6 +27,7 @@
 #include "libxarchiver.h"
 
 #include "support-bzip2.h"
+#include <libxarchiver/archive-bzip2.h>
 
 /*
  * xarchive_bzip2_support_add(XArchive *archive, GSList *files)
@@ -101,41 +102,13 @@ xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSLis
 }
 
 
-gboolean
-xarchive_bzip2_support_verify(XArchive *archive)
-{
-	FILE *fp;
-	unsigned char magic[3];
-	if((archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
-	{
-		fp = fopen(archive->path, "r");
-		if(fp == 0)
-			return FALSE;
-		if(fread( magic, 1, 3, fp) == 0)
-		{
-			fclose(fp);
-			return FALSE;
-		}
-  	if ( memcmp ( magic,"\x42\x5a\x68",3 ) == 0 )
-		{
-			archive->type = XARCHIVETYPE_BZIP2;
-			archive->has_passwd = FALSE;
-			archive->passwd = 0;
-		} 
-		fclose(fp);
-	}
-	if(archive->type == XARCHIVETYPE_BZIP2)
-		return TRUE;
-	else
-		return FALSE;
-}
 
 XArchiveSupport *
 xarchive_bzip2_support_new()
 {
 	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
 	support->type = XARCHIVETYPE_BZIP2;
-	support->verify = xarchive_bzip2_support_verify;
+	support->verify = xarchive_type_bzip2_verify;
 	support->add = xarchive_bzip2_support_add;
 	support->extract = xarchive_bzip2_support_extract;
 	support->remove = NULL;

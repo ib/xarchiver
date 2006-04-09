@@ -26,6 +26,7 @@
 #include "internals.h"
 #include "libxarchiver.h"
 #include "support-zip.h"
+#include "archive-zip.h"
 
 /*
  * xarchive_zip_support_add(XArchive *archive, GSList *files)
@@ -240,74 +241,13 @@ gboolean xarchiver_parse_zip_output (GIOChannel *ioc, GIOCondition cond, gpointe
 	return TRUE;
 }
 
-gboolean
-xarchive_zip_support_verify(XArchive *archive)
-{
-	FILE *fp;
-	unsigned char magic[4];
-	unsigned int fseek_offset;
-	unsigned short int password_flag;
-	unsigned int compressed_size;
-	unsigned int uncompressed_size;
-	unsigned short int file_length;
-	unsigned short int extra_length;
-
-	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
-	{
-		fp = fopen(archive->path, "r");
-		if(fp == 0)
-			return FALSE;
-		fseek ( fp, 0 , SEEK_SET );
-		if ( fread ( magic, 1, 4, fp ) )
-		{
-			fseek ( fp, 2 , SEEK_CUR );
-			if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
-			{
-				archive->type = XARCHIVETYPE_ZIP;
-				//Let's check for the password flag
-				while ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0  || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
-				{
-					fread ( &password_flag, 1, 2, fp );
-					if (( password_flag & ( 1<<0) ) > 0)
-					{
-						archive->has_passwd = TRUE;
-						return TRUE;
-					}
-					else
-						archive->has_passwd = FALSE;
-					fseek (fp,10,SEEK_CUR);
-					fread (&compressed_size,1,4,fp);
-					fread (&uncompressed_size,1,4,fp);
-					fread (&file_length,1,2,fp);
-					//If the zip archive is empty (no files) it should return here
-					if (fread (&extra_length,1,2,fp) < 2 )
-					{
-						archive->has_passwd = FALSE;
-						return TRUE;
-					}
-					fseek_offset = compressed_size + file_length + extra_length;
-					fseek (fp , fseek_offset , SEEK_CUR);
-					fread (magic , 1 , 4 , fp);
-					fseek ( fp , 2 , SEEK_CUR);
-				}
-			}
-		}
-		fclose( fp );
-	}
-
-	if(archive->type == XARCHIVETYPE_ZIP)
-		return TRUE;
-	else
-		return FALSE;
-}
-
 XArchiveSupport *
 xarchive_zip_support_new()
 {
 	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
 	support->type    = XARCHIVETYPE_ZIP;
 	support->add     = xarchive_zip_support_add;
-	support->verify  = xarchive_zip_support_verify;
+	support->verify  = xarchive_type_zip_verify;
 	support->extract = xarchive_zip_support_extract;
 	support->testing = xarchive_zip_support_testing;
 	support->remove  = xarchive_zip_support_remove;

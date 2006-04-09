@@ -17,10 +17,6 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* TODO:
- * Currently this implementation only checks for USTAR magic-header
- */
-
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -30,6 +26,7 @@
 #include "internals.h"
 #include "libxarchiver.h"
 #include "support-tar.h"
+#include "archive-tar.h"
 
 /*
  * xarchive_tar_support_remove(XArchive *archive, GSList *files)
@@ -149,38 +146,6 @@ xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList 
 	return TRUE;
 }
 
-gboolean
-xarchive_tar_support_verify(XArchive *archive)
-{
-	FILE *fp;
-	unsigned char magic[5];
-
-	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN))
-	{
-		fp = fopen(archive->path, "r");
-		if(fp == 0)
-			return FALSE;
-		fseek ( fp, 0 , SEEK_SET );
-		if ( fseek ( fp , 257, SEEK_CUR ) == 0 ) 
-		{
-			if ( fread ( magic, 1, 5, fp ) )
-			{
-				if ( memcmp ( magic,"ustar",5 ) == 0 )
-				{
-					archive->type = XARCHIVETYPE_TAR;
-					archive->has_passwd = 0;
-					archive->passwd = 0;
-				}
-			}
-		}
-		fclose( fp );
-	}
-
-	if(archive->type == XARCHIVETYPE_TAR)
-		return TRUE;
-	else
-		return FALSE;
-}
 
 /*
  * xarchive_tar_support_open(XArchive *archive)
@@ -254,7 +219,7 @@ xarchive_tar_support_new()
 	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
 	support->type    = XARCHIVETYPE_TAR;
 	support->add     = xarchive_tar_support_add;
-	support->verify  = xarchive_tar_support_verify;
+	support->verify  = xarchive_type_tar_verify;
 	support->extract = xarchive_tar_support_extract;
 	support->remove  = xarchive_tar_support_remove;
 	support->open    = xarchive_tar_support_open;

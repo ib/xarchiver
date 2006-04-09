@@ -130,7 +130,6 @@ xarchiver_archive_destroy(XArchive *archive)
 		g_free(archive->path);
 
 	g_free(archive);
-	archive = NULL;
 }
 
 XArchiveSupport *

@@ -132,6 +132,7 @@ xa_main_window_new()
 	XAMainWindow *window;
 
 	window = g_object_new(xa_main_window_get_type(), NULL);
+	window->propertywindow = NULL;
 
 	return GTK_WIDGET(window);
 }
@@ -832,7 +833,8 @@ xa_main_window_set_progressbar_value (XAMainWindow *window, gdouble value)
 		gtk_widget_hide(window->progressbar);
 	else
 	{	
-		// TODO: fix actual pulsing
+		/* TODO: fix actual pulsing 
+		 */
 		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(window->progressbar));
 		gtk_widget_show(window->progressbar);
 	}

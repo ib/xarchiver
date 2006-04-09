@@ -41,8 +41,10 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 		xarchiver_archive_destroy(sub_archive);
 	archive = NULL;
 	sub_archive = NULL;
-	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);
+	support = NULL;
+	sub_support = NULL;
 
+	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-folder", FALSE);
@@ -51,8 +53,6 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-close", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-delete", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
-	support = NULL;
-	sub_support = NULL;
 }
 
 void

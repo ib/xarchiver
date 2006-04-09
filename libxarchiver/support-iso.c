@@ -20,10 +20,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <glib.h>
 #include <glib-object.h>
 #include "internals.h"
 #include "libxarchiver.h"
 #include "support-iso.h"
+#include "archive-iso.h"
 
 /*
  * xarchive_iso_support_add(XArchive *archive, GSList *files)
@@ -86,30 +88,6 @@ xarchive_iso_support_open (XArchive *archive)
  *
  */
 
-gboolean
-xarchive_iso_support_verify(XArchive *archive)
-{
-	char buf[8];
-	FILE *iso;
-	
-	if( (archive->path) && (archive->type == XARCHIVETYPE_UNKNOWN) )
-	{
-		iso = fopen ( archive->path , "r");
-		if (iso == NULL) 
-			return FALSE;
-		fseek (iso, 0L, SEEK_SET);
-		fseek (iso, 32768, SEEK_CUR);
-		fread (buf, sizeof (char), 8, iso);
-		if ( memcmp ("\x01\x43\x44\x30\x30\x31\x01\x00", buf, 8) == 0)
-			archive->type = XARCHIVETYPE_ISO;
-
-		fclose (iso);
-	}
-	if(archive->type == XARCHIVETYPE_ISO)
-		return TRUE;
-	else
-		return FALSE;
-}
 
 XArchiveSupport *
 xarchive_iso_support_new()
@@ -117,7 +95,7 @@ xarchive_iso_support_new()
 	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
 	support->type    = XARCHIVETYPE_ISO;
 	support->add     = xarchive_iso_support_add;
-	support->verify  = xarchive_iso_support_verify;
+	support->verify  = xarchive_type_iso_verify;
 	support->extract = xarchive_iso_support_extract;
 	//support->remove  = xarchive_iso_support_remove; // to delete the files inside the iso image
 	support->open    = xarchive_iso_support_open;
