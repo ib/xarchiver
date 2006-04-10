@@ -43,8 +43,14 @@ xarchive_tar_support_remove (XArchive *archive, GSList *files)
 	{
 		names = concatenatefilenames ( _files );
 		command = g_strconcat ( "tar --delete -vf " , archive->path , names->str , NULL );
-		archive->child_pid = xarchiver_async_process ( archive , command, 0);
 		archive->status = REMOVE;
+		archive->child_pid = xarchiver_async_process ( archive , command, 0);
+		if (archive->child_pid == 0)
+		{
+			g_message (archive->error->message);
+			g_error_free (archive->error);
+			return FALSE;
+		}
 		//TODO: to reload the archive to show the changes in the liststore -- GUI thing
 		g_free(command);
 		g_string_free (names, TRUE);

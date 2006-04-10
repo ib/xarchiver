@@ -28,15 +28,16 @@
 #include <errno.h>
 #include <unistd.h>
 #include <libxarchiver/libxarchiver.h>
+#include <libxarchiver/support-bzip2.h>
+#include <libxarchiver/support-tar.h>
+#include <libxarchiver/support-iso.h>
+#include <libxarchiver/support-rar.h>
+#include <libxarchiver/support-gzip.h>
+#include <libxarchiver/support-arj.h>
+#include <libxarchiver/support-zip.h>
+#include <libxarchiver/support-7zip.h>
+
 #include "internals.h"
-#include "support-bzip2.h"
-#include "support-tar.h"
-#include "support-iso.h"
-#include "support-rar.h"
-#include "support-gzip.h"
-#include "support-arj.h"
-#include "support-zip.h"
-#include "support-7zip.h"
 
 static GSList *support_list = NULL;
 

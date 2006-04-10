@@ -73,6 +73,9 @@ xa_main_window_add_files(GtkWidget *widget, gpointer data);
 void 
 xa_main_window_add_folders(GtkWidget *widget, gpointer data);
 
+void
+xa_main_window_remove_files(GtkWidget *widget, gpointer data);
+
 void 
 xa_main_window_extract_archive(GtkWidget *widget, gpointer data);
 
@@ -96,7 +99,7 @@ xa_main_window_show_property_dialog(GtkWidget *widget, gpointer data);
 
 static GtkWidgetClass *xa_main_window_parent_class;
 
-static guint xa_main_window_signals[9];
+static guint xa_main_window_signals[10];
 
 GSList *xa_main_window_widget_list;
 
@@ -279,12 +282,24 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			G_TYPE_NONE,
 			0,
 			NULL);
+
+	xa_main_window_signals[9] = g_signal_new("xa_remove_files",
+			G_TYPE_FROM_CLASS(_class),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_POINTER,
+			NULL);
 }
 
 static void
 xa_main_window_init (XAMainWindow *window)
 {
-	window->progressbar = NULL;
+	window->propertywindow = NULL;
 	xa_main_window_widget_list = g_slist_alloc();
 	xa_main_window_widget_list->data = window;
 
@@ -382,6 +397,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	g_signal_connect(G_OBJECT(add_file), "activate", G_CALLBACK(xa_main_window_add_files), window);
 	g_signal_connect(G_OBJECT(add_folder), "activate", G_CALLBACK(xa_main_window_add_folders), window);
 	g_signal_connect(G_OBJECT(extract), "activate", G_CALLBACK(xa_main_window_extract_archive), window);
+	g_signal_connect(G_OBJECT(delete), "activate", G_CALLBACK(xa_main_window_remove_files), window);
 
 
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), add_file);
@@ -442,7 +458,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_widget_set_name(save_as,    "xa-button-save-as");
 	gtk_widget_set_name(add_file,   "xa-button-add-file");
 	gtk_widget_set_name(add_folder, "xa-button-add-folder");
-	gtk_widget_set_name(delete,     "xa-button-delete");
+	gtk_widget_set_name(delete,     "xa-button-remove");
 	gtk_widget_set_name(help,       "xa-button-help");
 	gtk_widget_set_name(about,      "xa-button-about");
 	gtk_widget_set_name(extract,    "xa-button-extract");
@@ -476,12 +492,15 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_show(tmpimage);
 	GtkToolItem *extract = gtk_tool_button_new (tmpimage, _("Extract"));
 
+	GtkToolItem *remove = gtk_tool_button_new_from_stock (GTK_STOCK_DELETE);
+
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(new), 0);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(open), 1);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(add_file), 2);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(add_folder), 3);
-	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(extract), 4);
-	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(cancel), 5);
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(remove), 4);
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(extract), 5);
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(cancel), 6);
 
 
 	gtk_widget_show(GTK_WIDGET(new));
@@ -489,6 +508,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_show(GTK_WIDGET(extract));
 	gtk_widget_show(GTK_WIDGET(add_file));
 	gtk_widget_show(GTK_WIDGET(add_folder));
+	gtk_widget_show(GTK_WIDGET(remove));
 	gtk_widget_show(GTK_WIDGET(cancel));
 
 	// insert separators
@@ -497,7 +517,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(separator), 2);
 	separator = gtk_separator_tool_item_new();
 	gtk_widget_show(GTK_WIDGET(separator));
-	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(separator), 6);
+	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(separator), 7);
 
 	// connect signals
 	g_signal_connect(G_OBJECT(new), "clicked", G_CALLBACK(xa_main_window_new_archive), window);
@@ -505,6 +525,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	g_signal_connect(G_OBJECT(extract), "clicked", G_CALLBACK(xa_main_window_extract_archive), window);
 	g_signal_connect(G_OBJECT(add_file), "clicked", G_CALLBACK(xa_main_window_add_files), window);
 	g_signal_connect(G_OBJECT(add_folder), "clicked", G_CALLBACK(xa_main_window_add_folders), window);
+	g_signal_connect(G_OBJECT(remove), "clicked", G_CALLBACK(xa_main_window_remove_files), window);
 	g_signal_connect(G_OBJECT(cancel), "clicked", G_CALLBACK(xa_main_window_cancel_operation), window);
 
 	g_slist_append(xa_main_window_widget_list, new);
@@ -512,6 +533,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	g_slist_append(xa_main_window_widget_list, extract);
 	g_slist_append(xa_main_window_widget_list, add_file);
 	g_slist_append(xa_main_window_widget_list, add_folder);
+	g_slist_append(xa_main_window_widget_list, remove);
 	g_slist_append(xa_main_window_widget_list, cancel);
 	
 	gtk_widget_set_name(GTK_WIDGET(new),        "xa-button-new");
@@ -519,6 +541,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_set_name(GTK_WIDGET(add_file),   "xa-button-add-file");
 	gtk_widget_set_name(GTK_WIDGET(add_folder), "xa-button-add-folder");
 	gtk_widget_set_name(GTK_WIDGET(extract),    "xa-button-extract");
+	gtk_widget_set_name(GTK_WIDGET(remove),     "xa-button-remove");
 	gtk_widget_set_name(GTK_WIDGET(cancel),     "xa-button-cancel");
 
 	window->toolbar = tool_bar;
@@ -595,6 +618,7 @@ xa_main_window_create_contentlist(XAMainWindow *window)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
 	gtk_container_add(GTK_CONTAINER(scrollwindow), treeview);
+	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview)), GTK_SELECTION_MULTIPLE);
 
 	gtk_widget_show(scrollwindow);
 	gtk_widget_show(treeview);
@@ -769,6 +793,35 @@ xa_main_window_add_folders(GtkWidget *widget, gpointer data)
 		g_free(foldername);
 	gtk_widget_destroy(dialog);
 } 
+
+/* void
+ * xa_main_window_remove_files
+ *
+ * get selected items from list-store and place filename-paths in GSList 
+ *
+ */
+void
+xa_main_window_remove_files(GtkWidget *widget, gpointer data)
+{
+	GSList *files = NULL;
+	GtkTreeIter iter;
+	gchar *filename = NULL;
+	XAMainWindow *window = XA_MAIN_WINDOW(data);
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(window->contentlist));
+	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
+	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);
+	GList *_rows = rows;
+	while(_rows)
+	{
+		gtk_tree_model_get_iter(model, &iter, _rows->data);
+		gtk_tree_model_get(model, &iter, 0, &filename,  -1);
+		g_strstrip(filename);
+		files = g_slist_prepend(files, filename);
+		_rows = _rows->next;
+	}
+	if(files) 
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[9], 0, files); 
+}
 
 void 
 xa_main_window_extract_archive(GtkWidget *widget, gpointer data)

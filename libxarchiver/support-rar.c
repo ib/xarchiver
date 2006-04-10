@@ -171,10 +171,6 @@ xarchive_rar_support_remove (XArchive *archive, GSList *files )
 	command = g_strconcat ( "rar d " , archive->path , names->str , NULL );
 	g_string_free (names, TRUE);
 	archive->child_pid = xarchiver_async_process ( archive , command , 0);
-	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-		return FALSE;
-	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-		return FALSE;
 	if (archive->child_pid == 0)
 	{
 		g_message (archive->error->message);
