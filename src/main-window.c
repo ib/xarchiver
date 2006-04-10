@@ -94,12 +94,15 @@ xa_main_window_cancel_operation(GtkWidget *widget, gpointer data);
 void 
 xa_main_window_quit(GtkWidget *widget, gpointer data);
 
+void 
+xa_main_window_show_about(GtkWidget *widget, gpointer data);
+
 void
 xa_main_window_show_property_dialog(GtkWidget *widget, gpointer data);
 
 static GtkWidgetClass *xa_main_window_parent_class;
 
-static guint xa_main_window_signals[10];
+static guint xa_main_window_signals[11];
 
 GSList *xa_main_window_widget_list;
 
@@ -294,6 +297,17 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			1,
 			G_TYPE_POINTER,
 			NULL);
+
+	xa_main_window_signals[10] = g_signal_new("xa_show_about",
+			G_TYPE_FROM_CLASS(_class),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__VOID,
+			G_TYPE_NONE,
+			0,
+			NULL);
 }
 
 static void
@@ -424,6 +438,8 @@ xa_main_window_create_menubar(XAMainWindow *window)
 
 	GtkWidget *help = gtk_image_menu_item_new_from_stock(GTK_STOCK_HELP, accel_group);
 	GtkWidget *about  = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, accel_group);
+
+	g_signal_connect(G_OBJECT(about), "activate", G_CALLBACK(xa_main_window_show_about), window);
 
 	gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), help);
 	gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about);
@@ -866,6 +882,12 @@ void
 xa_main_window_quit(GtkWidget *widget, gpointer data)
 {
 	gtk_widget_destroy(GTK_WIDGET(data));
+}
+
+void 
+xa_main_window_show_about(GtkWidget *widget, gpointer data)
+{
+	g_signal_emit(G_OBJECT(data), xa_main_window_signals[10], 0);
 }
 
 void

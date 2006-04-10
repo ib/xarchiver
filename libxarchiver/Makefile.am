@@ -12,14 +12,14 @@ libxarchiver_a_SOURCES =            \
 	archive-arj.c   archive-arj.h     \
 	archive-iso.c   archive-iso.h     \
 	\
-	support-bzip2.c support-bzip2.h \
-	support-tar.c   support-tar.h   \
-	support-rar.c   support-rar.h   \
-	support-gzip.c  support-gzip.h  \
-	support-zip.c   support-zip.h   \
-	support-arj.c   support-arj.h   \
-	support-7zip.c  support-7zip.h  \
-	support-iso.c   support-iso.h
+	support-bzip2.c   support-bzip2.h   \
+	support-gnu-tar.c support-gnu-tar.h \
+	support-rar.c     support-rar.h     \
+	support-gzip.c    support-gzip.h    \
+	support-zip.c     support-zip.h     \
+	support-arj.c     support-arj.h     \
+	support-7zip.c    support-7zip.h    \
+	support-iso.c     support-iso.h
 
 libxarchiver_a_CFLAGS = \
 	@GLIB_CFLAGS@

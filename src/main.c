@@ -16,6 +16,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <config.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <libxarchiver/libxarchiver.h>
@@ -32,6 +33,51 @@ XArchive *archive = NULL;
 XArchive *sub_archive = NULL;
 XArchiveSupport *support = NULL;
 XArchiveSupport *sub_support = NULL;
+
+void
+xa_show_about(GtkWidget *widget, gpointer data)
+{
+	static GtkWidget *about = NULL;
+	const char *authors[] = {"\nMain Developer:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\n\nDevelopers:\nStephan Arts <psyBSD@gmail.com>\nSalvatore Santagati <salvatore.santagati@gmail.com>\n",NULL};
+	const char *documenters[] = {"\nThanks to:\nBenedikt Meurer for helping me with DnD.\n\nFabian Pedrosa, Szervac Attila and Iuri Stanchev\nfor testing this release.\n\nUracile for the stunning logo.\n\nEugene Ostapets and Enrico Troeger\nfor russian and german translation.\n\nThe people of gtk-app-devel-list\nwho kindly answered my questions.", NULL};
+	if (about != NULL)
+	{
+		gtk_window_present (GTK_WINDOW (about));
+		return;
+	}
+	about = gtk_about_dialog_new ();
+	g_object_set (about,
+"name",  "Xarchiver",
+"version", PACKAGE_VERSION,
+"copyright", "Copyright 2005-2006 Giuseppe Torelli",
+"comments", "A lightweight GTK2 archive manager",
+"authors", authors,
+"documenters",documenters,
+"translator_credits", NULL,
+"logo_icon_name", "xarchiver",
+"website", "http://xarchiver.sourceforge.net",
+"website_label", NULL,
+"license",    "Copyright @2005 Giuseppe Torelli - Colossus <gt67@users.sourceforge.net>\n\n"
+"This library is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU Library General Public License as\n"
+	"published by the Free Software Foundation; either version 2 of the\n"
+	"License, or (at your option) any later version.\n"
+	"\n"
+	"This library is distributed in the hope that it will be useful,\n"
+	"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+	"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+	"Library General Public License for more details.\n"
+	"\n"
+	"You should have received a copy of the GNU Library General Public\n"
+	"License along with the Gnome Library; see the file COPYING.LIB.  If not,\n"
+	"write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+	"Boston, MA 02111-1307, USA.\n",
+	NULL);
+	gtk_window_set_destroy_with_parent (GTK_WINDOW (about), TRUE);
+	g_signal_connect (G_OBJECT (about), "destroy",  G_CALLBACK (gtk_widget_destroyed), &about);
+	gtk_window_set_position (GTK_WINDOW (about), GTK_WIN_POS_CENTER);
+	gtk_widget_show (about);
+}
 
 void
 xa_close_archive(GtkWidget *widget, gpointer data)
@@ -263,6 +309,8 @@ int main(int argc, char **argv)
 		g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(xa_add_files), NULL);
 		g_signal_connect(G_OBJECT(main_window), "xa_remove_files", G_CALLBACK(xa_remove_files), NULL);
 		//g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(xa_cancel_operation), NULL);
+		g_signal_connect(G_OBJECT(main_window), "xa_show_about", G_CALLBACK(xa_show_about), NULL);
+
 
 		gtk_widget_show_all(main_window);
 	

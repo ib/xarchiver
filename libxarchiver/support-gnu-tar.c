@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Stephan Arts      <stephan.arts@hva.nl>
+ *  Copyright (c) 2006 Stephan Arts     <psyBSD@gmail.com>
  *                     Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -25,7 +25,7 @@
 #include <glib-object.h>
 #include "internals.h"
 #include "libxarchiver.h"
-#include "support-tar.h"
+#include "support-gnu-tar.h"
 #include "archive-tar.h"
 
 /*
@@ -51,7 +51,6 @@ xarchive_tar_support_remove (XArchive *archive, GSList *files)
 			g_error_free (archive->error);
 			return FALSE;
 		}
-		//TODO: to reload the archive to show the changes in the liststore -- GUI thing
 		g_free(command);
 		g_string_free (names, TRUE);
 	}
@@ -219,31 +218,84 @@ gboolean xarchiver_parse_tar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 	return TRUE;
 }
 
+gboolean
+xarchive_support_gnutar_check_version(GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XArchiveSupport *support = data;
+	gchar *line = NULL;
+	g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
+	if(g_strrstr(line, "(GNU tar)"))
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref(ioc);
+		printf("Correct tar implementation found\n");
+		return TRUE;
+	}
+	else
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref(ioc);
+		return FALSE;
+	}
+}
+
 XArchiveSupport *
 xarchive_tar_support_new()
 {
-	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
-	support->type    = XARCHIVETYPE_TAR;
-	support->add     = xarchive_tar_support_add;
-	support->verify  = xarchive_type_tar_verify;
-	support->extract = xarchive_tar_support_extract;
-	support->remove  = xarchive_tar_support_remove;
-	support->open    = xarchive_tar_support_open;
-	support->n_columns = 6;
-	support->column_names  = g_new0(gchar *, support->n_columns);
-	support->column_types  = g_new0(GType, support->n_columns);
-	support->column_names[0] = "Filename";
-	support->column_names[1] = "Permissions";
-	support->column_names[2] = "Owner / Group";
-	support->column_names[3] = "Size";
-	support->column_names[4] = "Date";
-	support->column_names[5] = "Time";
-	support->column_types[0] = G_TYPE_STRING;
-	support->column_types[1] = G_TYPE_STRING;
-	support->column_types[2] = G_TYPE_STRING;
-	support->column_types[3] = G_TYPE_STRING;
-	support->column_types[4] = G_TYPE_STRING;
-	support->column_types[5] = G_TYPE_STRING;
+	XArchiveSupport *support;
+	GError *error = NULL;
+	int child_pid;
+	gchar **argv;
+	int argc;
+	int output_fd;
+	/* Check for existence of "tar" application
+	 * check its version information
+	 */
+	if(g_find_program_in_path("tar"))
+	{
+		support = g_new0(XArchiveSupport, 1);
+		support->type    = XARCHIVETYPE_TAR;
+		support->add     = xarchive_tar_support_add;
+		support->verify  = xarchive_type_tar_verify;
+		support->extract = xarchive_tar_support_extract;
+		support->remove  = xarchive_tar_support_remove;
+		support->open    = xarchive_tar_support_open;
+		support->n_columns = 6;
+		support->column_names  = g_new0(gchar *, support->n_columns);
+		support->column_types  = g_new0(GType, support->n_columns);
+		support->column_names[0] = "Filename";
+		support->column_names[1] = "Permissions";
+		support->column_names[2] = "Owner / Group";
+		support->column_names[3] = "Size";
+		support->column_names[4] = "Date";
+		support->column_names[5] = "Time";
+		support->column_types[0] = G_TYPE_STRING;
+		support->column_types[1] = G_TYPE_STRING;
+		support->column_types[2] = G_TYPE_STRING;
+		support->column_types[3] = G_TYPE_STRING;
+		support->column_types[4] = G_TYPE_STRING;
+		support->column_types[5] = G_TYPE_STRING;
+
+		g_shell_parse_argv("tar --version", &argc, &argv, NULL);
+		if( ! g_spawn_async_with_pipes (
+					NULL,
+					argv,
+					NULL,
+					G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+					NULL,
+					NULL,
+					&child_pid,
+					NULL,
+					&output_fd,
+					NULL,
+					&error) )
+			return NULL;
+		if(!xarchiver_set_channel(output_fd, G_IO_IN, xarchive_support_gnutar_check_version, support))
+			return NULL;
+		g_child_watch_add(child_pid, NULL, support); 
+	} 
+	else
+		return NULL;
 	
 	return support;
 }

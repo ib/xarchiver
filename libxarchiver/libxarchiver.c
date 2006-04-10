@@ -29,7 +29,7 @@
 #include <unistd.h>
 #include <libxarchiver/libxarchiver.h>
 #include <libxarchiver/support-bzip2.h>
-#include <libxarchiver/support-tar.h>
+#include <libxarchiver/support-gnu-tar.h>
 #include <libxarchiver/support-iso.h>
 #include <libxarchiver/support-rar.h>
 #include <libxarchiver/support-gzip.h>
