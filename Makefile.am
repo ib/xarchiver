@@ -33,3 +33,5 @@ dist-hook:
 
 Applicationsdir = $(datadir)/applications
 Applications_DATA = xarchiver.desktop
+
+ACLOCAL_AMFLAGS = -I m4

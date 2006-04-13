@@ -1,6 +1,5 @@
 /*
- *  Copyright (c) 2006 Stephan Arts      <stephan.arts@hva.nl>
- *                     Giuseppe Torelli  <colossus73@gmail.com>
+ *  Copyright (c) 2006 Stephan Arts <psyBSD@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,5 +16,27 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+
 gboolean
-xarchive_type_zip_verify(XArchive *archive);
+xa_archive_type_7zip_verify(XAArchive *archive);
+
+gboolean
+xa_archive_type_gzip_verify(XAArchive *archive);
+
+gboolean
+xa_archive_type_bzip2_verify(XAArchive *archive);
+
+gboolean
+xa_archive_type_tar_verify(XAArchive *archive);
+
+gboolean
+xa_archive_type_rar_verify(XAArchive *archive);
+
+gboolean
+xa_archive_type_arj_verify(XAArchive *archive);
+
+gboolean
+xa_archive_type_zip_verify(XAArchive *archive);
+
+gboolean
+xa_archive_type_iso_verify(XAArchive *archive);

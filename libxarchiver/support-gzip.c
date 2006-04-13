@@ -21,32 +21,83 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <zlib.h>
-#include "internals.h"
-#include <libxarchiver/libxarchiver.h>
-#include <libxarchiver/archive-gzip.h>
+#include <libintl.h>
+#include "archive.h"
+#include "archive-types.h"
+#include "support.h"
+#include "support-gzip.h"
+
+#define _(String) gettext(String)
+
+void
+xa_support_gzip_init (XASupportGzip *support);
+
+gint
+xarchive_support_gzip_add (XASupport *support, XAArchive *archive, GSList *files);
+
+gint
+xarchive_support_gzip_extract (XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
+
+GType
+xa_support_gzip_get_type ()
+{
+	static GType xa_support_gzip_type = 0;
+
+ 	if (!xa_support_gzip_type)
+	{
+ 		static const GTypeInfo xa_support_gzip_info = 
+		{
+			sizeof (XASupportGzipClass),
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) NULL,
+			(GClassFinalizeFunc) NULL,
+			NULL,
+			sizeof (XASupportGzip),
+			0,
+			(GInstanceInitFunc) xa_support_gzip_init,
+			NULL
+		};
+
+		xa_support_gzip_type = g_type_register_static (XA_TYPE_SUPPORT, "XASupportGzip", &xa_support_gzip_info, 0);
+	}
+	return xa_support_gzip_type;
+}
+
+void
+xa_support_gzip_init (XASupportGzip *support)
+{
+	XASupport *xa_support = XA_SUPPORT(support);
+
+	xa_support->type      = XARCHIVETYPE_GZIP;
+	xa_support->verify    = xa_archive_type_gzip_verify;
+	xa_support->add       = xarchive_support_gzip_add;
+	xa_support->extract   = xarchive_support_gzip_extract;
+}
 
 /*
- * xarchive_gzip_support_add(XArchive *archive, GSList *files)
+ * gint
+ * xarchive_support_gzip_add (XArchive *archive, GSList *files)
  *
  * can only compress one file, 
  * (will return compressed file in XArchive->path)
  */
-gboolean
-xarchive_gzip_support_add(XArchive *archive, GSList *files)
+gint
+xarchive_support_gzip_add (XASupport *support, XAArchive *archive, GSList *files)
 {
 	gzFile out_file;
 	FILE *in_file;
 	int n = 0;
 	gchar buf[1024];
 	if(!files)
-		return FALSE;
+		return 1;
 	if(g_slist_length(files) < 1)
 	{
-		g_warning("Gzip: no file provided, cannot compress");
-		return FALSE;
+		g_warning(_("XASupportGzip: no file provided, cannot compress"));
+		return 1;
 	}
 	if(g_slist_length(files) > 1)
-		g_warning("Gzip cannot compress multiple-files");
+		g_warning(_("XASupportGzip: cannot compress multiple-files to single archive"));
 	if(!archive->path)
 	{
 		archive->path = g_strconcat((gchar *)files->data, ".gz", NULL);
@@ -59,17 +110,17 @@ xarchive_gzip_support_add(XArchive *archive, GSList *files)
 	}
 	gzclose(out_file);
 	fclose(in_file);
-	return TRUE;
+	return 0;
 }
 
-
 /*
- * xarchive_gzip_support_extract(XArchive *archive, GSList *files)
+ * gint
+ * xarchive_support_gzip_extract (XArchive *archive, GSList *files)
  * Extract archive
  *
  */
-gboolean
-xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
+gint
+xarchive_support_gzip_extract (XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
 	gchar *in_filename;
 	gzFile in_file;
@@ -78,13 +129,10 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 	FILE *out_file;
 	int n = 0;
 	gchar buf[1024];
-
 	if(files)
-		g_warning("Gzip cannot extract individual files, there is only one");
-
+		g_warning(_("XASupportGzip: cannot extract individual files, there is only one"));
 	if(!archive->path)
-		return FALSE;
-
+		return 1;
 	if(destination_path)
 	{
 		if(g_file_test(destination_path, G_FILE_TEST_IS_DIR))
@@ -92,8 +140,8 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 			in_filename = g_path_get_basename(archive->path);
 			out_filename = g_build_path("/",destination_path, in_filename, NULL);
 		}
-		/* use it as an absolute filename. */
-		out_filename = g_strdup(destination_path);
+		else /* use it as an absolute filename. */
+			out_filename = g_strdup(destination_path);
 	}
 	else
 	{
@@ -102,15 +150,15 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 	if(!g_str_has_suffix(out_filename, "gz"))
 	{
 		if(!g_strcasecmp(archive->path, out_filename))
-			return FALSE;
+			return 1;
 	} 
 	else
 	{
 		if(g_str_has_suffix(out_filename, ".gz"))
 		{
-			for(n = strlen(out_filename)-1; (out_filename[n] != '.') && (n >= 0); n--);
-			if(out_filename[n] == '.')
-				out_filename[n] = '\0';
+			for(n = strlen(out_filename)-1; (out_filename[n] != '.') && (n >= 0); n--)
+				if(out_filename[n] == '.')
+					out_filename[n] = '\0';
 		}
 		else
 		{
@@ -128,7 +176,6 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 			}
 		}
 	}
-	g_print("%s\n", out_filename);
 	out_file = fopen(out_filename, "w");
 	in_file = gzopen(archive->path, "r");
 	while((n = gzread(in_file, &buf, 1024)) > 0)
@@ -137,27 +184,15 @@ xarchive_gzip_support_extract(XArchive *archive, gchar *destination_path, GSList
 	}
 	gzclose(in_file);
 	fclose(out_file);
-	return TRUE;
+	return 0;
 }
 
-
-gboolean
-xarchive_gzip_support_open(XArchive *archive)
+XASupport*
+xa_support_gzip_new ()
 {
+	XASupport *support;
 
-	return FALSE;
-}
-
-XArchiveSupport *
-xarchive_gzip_support_new()
-{
-	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
-	support->type = XARCHIVETYPE_GZIP;
-	support->verify = xarchive_type_gzip_verify;
-	support->add = xarchive_gzip_support_add;
-	support->extract = xarchive_gzip_support_extract;
-	support->open = xarchive_gzip_support_open;
-	support->remove = NULL;
-	support->testing = NULL;
+	support = g_object_new(XA_TYPE_SUPPORT_GZIP, NULL);
+	
 	return support;
 }

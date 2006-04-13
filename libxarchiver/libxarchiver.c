@@ -13,8 +13,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,17 +26,13 @@
 #include <signal.h>
 #include <errno.h>
 #include <unistd.h>
-#include <libxarchiver/libxarchiver.h>
-#include <libxarchiver/support-bzip2.h>
-#include <libxarchiver/support-gnu-tar.h>
-#include <libxarchiver/support-iso.h>
-#include <libxarchiver/support-rar.h>
-#include <libxarchiver/support-gzip.h>
-#include <libxarchiver/support-arj.h>
-#include <libxarchiver/support-zip.h>
-#include <libxarchiver/support-7zip.h>
+#include "archive.h"
+#include "support.h"
+#include "support-gzip.h"
+#include "support-gnu-tar.h"
 
 #include "internals.h"
+#include "libxarchiver.h"
 
 static GSList *support_list = NULL;
 
@@ -47,12 +42,11 @@ lookup_support( gconstpointer support , gconstpointer archive)
 {
 	if(support == 0)
 		return 1;
-	if(((const XArchiveSupport *)support)->verify((XArchive *)archive) == TRUE)
+	if(((const XASupport *)support)->verify((XAArchive *)archive) == TRUE)
 		return 0;
 	else
 		return 1;
 }
-
 void
 xarchiver_init()
 {
@@ -63,14 +57,8 @@ xarchiver_init()
 	{
 		support_list = g_slist_alloc();
 
-		g_slist_append(support_list, xarchive_gzip_support_new());
-		g_slist_append(support_list, xarchive_bzip2_support_new());
-		g_slist_append(support_list, xarchive_iso_support_new());
-		g_slist_append(support_list, xarchive_tar_support_new());
-		g_slist_append(support_list, xarchive_rar_support_new());
-		g_slist_append(support_list, xarchive_arj_support_new());
-		g_slist_append(support_list, xarchive_zip_support_new());
-		g_slist_append(support_list, xarchive_7zip_support_new());
+		support_list = g_slist_prepend(support_list, xa_support_gzip_new());
+		support_list = g_slist_prepend(support_list, xa_support_gnu_tar_new());
 
 	}
 }
@@ -82,7 +70,7 @@ xarchiver_destroy()
 	while(_support)
 	{
 		if(_support->data)
-			g_free(_support->data);
+			g_object_unref(_support->data);
 		_support = _support->next;
 	}
 	g_slist_free (support_list);
@@ -97,19 +85,13 @@ xarchiver_destroy()
  *
  * returns: 0 on failure, pointer to Xarchive_structure otherwise
  */
-XArchive *
-xarchiver_archive_new(gchar *path, XArchiveType type)
+XAArchive *
+xarchiver_archive_new(gchar *path, XAArchiveType type)
 {
 	if((type == XARCHIVETYPE_UNKNOWN) && (!g_file_test(path, G_FILE_TEST_EXISTS)))
 		return NULL;
 
-	XArchive *archive = g_new0(XArchive, 1);
-	archive->type = type;
-	if(path)
-		archive->path = g_strdup(path);
-	else
-		archive->path = NULL;
-	archive->row = NULL;
+	XAArchive *archive = xa_archive_new(path, type);
 
 	g_slist_find_custom(support_list, archive, lookup_support);
 
@@ -118,14 +100,14 @@ xarchiver_archive_new(gchar *path, XArchiveType type)
 		if(archive->path)
 			g_free(archive->path);
 
-		g_free(archive);
+		g_object_unref(archive);
 		archive = NULL;
 	}
 	return archive;
 }
 
 void
-xarchiver_archive_destroy(XArchive *archive)
+xarchiver_archive_destroy(XAArchive *archive)
 {
 	if(archive->path)
 		g_free(archive->path);
@@ -133,39 +115,40 @@ xarchiver_archive_destroy(XArchive *archive)
 	g_free(archive);
 }
 
-XArchiveSupport *
-xarchiver_find_archive_support(XArchive *archive)
+XASupport *
+xarchiver_find_archive_support(XAArchive *archive)
 {
 	GSList *support = NULL;
 	support = g_slist_find_custom(support_list, archive, lookup_support);
-	return (XArchiveSupport *)(support->data);
+	return (XASupport *)(support->data);
 }
 
-gint
-xarchiver_async_process ( XArchive *archive , gchar *command, gboolean input)
+gboolean
+xarchiver_set_channel ( gint fd, GIOCondition cond, GIOFunc func, gpointer data )
 {
-	gchar **argvp;
-	int argcp;
-
-	g_shell_parse_argv(command, &argcp, &argvp, NULL);
-	if ( ! g_spawn_async_with_pipes (
-			NULL,
-			argvp,
-			NULL,
-			G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-			NULL,
-			NULL,
-			&archive->child_pid,
-			input ? &archive->input_fd : NULL,
-			&archive->output_fd,
-			&archive->error_fd,
-			&archive->error) )
-		return 0;
-	else
-		archive->source = g_timeout_add (10, (GSourceFunc) xarchiver_wait_child, archive);
-	return archive->child_pid;
+	GIOChannel *ioc = NULL;
+	ioc = g_io_channel_unix_new ( fd );
+	//g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
+	g_io_add_watch (ioc, cond, func, data);
+	if (ioc == NULL) 
+		return FALSE;
+	else 
+		return TRUE;
 }
 
+void
+xarchiver_support_connect(gchar *signal, GCallback fp)
+{
+	GSList *_support = support_list;
+	while(_support)
+	{
+		if(_support->data)
+			g_signal_connect(G_OBJECT(_support->data), signal, G_CALLBACK(fp), NULL);
+		_support = _support->next;
+	}
+}
+
+/*
 gboolean
 xarchiver_cancel_operation ( XArchive *archive )
 {
@@ -187,19 +170,6 @@ xarchiver_cancel_operation ( XArchive *archive )
 	return TRUE;
 }
 
-gboolean
-xarchiver_set_channel ( gint fd, GIOCondition cond, GIOFunc func, gpointer data )
-{
-	GIOChannel *ioc = NULL;
-	ioc = g_io_channel_unix_new ( fd );
-	g_io_add_watch (ioc, cond, func, data);
-	g_io_channel_set_encoding (ioc, "ISO8859-1" , NULL);
-	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-	if (ioc == NULL) 
-		return FALSE;
-	else 
-		return TRUE;
-}
 
 gboolean
 xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -254,36 +224,4 @@ xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	return TRUE;
 }
 
-gboolean xarchiver_wait_child ( XArchive *archive, gpointer data )
-{
-	pid_t	pid;
-	int		status;
-	
-	g_source_remove (archive->source);
-    archive->source = 0;
-	pid = waitpid ( (pid_t)archive->child_pid, &status, WNOHANG);
-    if ( pid != archive->child_pid )
-	{
-		archive->source = g_timeout_add ( 10, (GSourceFunc) xarchiver_wait_child, archive);
-		return FALSE;
-	}
-
-	if ( WIFSIGNALED (status) )
-    {
-		archive->status = USER_BREAK;
-        return FALSE;
-    }
-
-	if ( WIFEXITED (status) )
-	{
-		if ( WEXITSTATUS (status) )
-		{
-			archive->status = ERROR;
-			archive->child_pid = -1;
-			return FALSE;
-		}
-	}
-	archive->child_pid = 0;
-	return TRUE;
-}
-
+*/

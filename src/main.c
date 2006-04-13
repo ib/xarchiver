@@ -19,6 +19,8 @@
 #include <config.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <libxarchiver/archive.h>
+#include <libxarchiver/support.h>
 #include <libxarchiver/libxarchiver.h>
 #include <gtk/gtk.h>
 #include <getopt.h>
@@ -29,11 +31,28 @@
 
 
 GtkWidget *main_window;
-XArchive *archive = NULL;
-XArchive *sub_archive = NULL;
-XArchiveSupport *support = NULL;
-XArchiveSupport *sub_support = NULL;
+XAArchive *archive = NULL;
+XAArchive *sub_archive = NULL;
+XASupport *support = NULL;
+XASupport *sub_support = NULL;
 
+void
+xa_data_ready(GObject *object, gpointer data)
+{
+	XAArchive *archive = data;
+	archive->row = g_list_reverse ( archive->row );
+	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Done");
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-open", 
+		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-new", 
+		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-cancel", 
+		FALSE);
+}
 void
 xa_show_about(GtkWidget *widget, gpointer data)
 {
@@ -101,92 +120,13 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-remove", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
 }
-
-void
-xa_add_folder(GtkWidget *widget, gpointer data)
-{
-	GSList *list = g_slist_alloc();
-	list->data = (gchar *)data;
-	if((archive) && (support))
-		support->add(archive, list);
-}
-
-void
-xa_add_files(GtkWidget *widget, gpointer data)
-{
-	if((archive) && (support))
-	{
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-cancel", 
-			TRUE);
-		support->add(archive, data);
-		while (archive->child_pid != 0)
-		{
-			while (gtk_events_pending())
-				gtk_main_iteration();
-		}
-		if(sub_archive)
-		{
-			GSList *files = g_slist_alloc();
-			files->data = archive->path;
-			sub_support->add(sub_archive, files);
-			g_slist_free(files);
-		}
-		support->open(archive);
-		while (archive->child_pid != 0)
-		{
-			while (gtk_events_pending())
-				gtk_main_iteration();
-		}
-		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), FALSE);
-		archive->row = g_list_reverse ( archive->row ); // why this? a hack?!
-		xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-cancel", 
-			FALSE);
-	}
-}
-
-void
-xa_remove_files(GtkWidget *widget, gpointer data)
-{
-	if((archive) && (support))
-	{
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-cancel", 
-			TRUE);
-		support->remove(archive, data);
-		while (archive->child_pid != 0)
-		{
-			while (gtk_events_pending())
-				gtk_main_iteration();
-		}
-		if(sub_archive)
-		{
-			GSList *files = g_slist_alloc();
-			files->data = archive->path;
-			sub_support->add(sub_archive, files);
-			g_slist_free(files);
-		}
-		support->open(archive);
-		while (archive->child_pid != 0)
-		{
-			while (gtk_events_pending())
-				gtk_main_iteration();
-		}
-		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), FALSE);
-		archive->row = g_list_reverse ( archive->row ); // why this? a hack?!
-		xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-cancel", 
-			FALSE);
-	}
-}
-
 void
 xa_open_archive(GtkWidget *widget, gpointer data)
 {
 	gchar *filename = data;
+	gint n_columns = 0;
+	gchar **column_names = NULL;
+	GType *column_types = NULL;
 	if(archive)
 	{
 		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
@@ -196,7 +136,7 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	archive = xarchiver_archive_new(filename, XARCHIVETYPE_UNKNOWN);
 	if(archive == NULL)
 	{
-		//TODO: notify the user with a gtk_dialog error message
+		/*TODO: notify the user with a gtk_dialog error message*/
 		g_warning("Archive %s is not supported\n", filename);
 		return;
 	}
@@ -207,7 +147,7 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 		{
 			sub_archive = archive;
 			support = xarchiver_find_archive_support(sub_archive);
-			support->extract(sub_archive, "/tmp/xarchiver.tmp", NULL, FALSE);
+			support->extract(support, sub_archive, "/tmp/xarchiver.tmp", NULL, FALSE);
 			archive = NULL;
 			archive = xarchiver_archive_new("/tmp/xarchiver.tmp", XARCHIVETYPE_UNKNOWN);
 			if(!archive)
@@ -222,50 +162,39 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	if(archive)
 	{
 		support = xarchiver_find_archive_support(archive);
-		support->open(archive);
+		xa_support_get_columns(support, &n_columns, &column_names, &column_types);
+		support->open(support, archive);
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-cancel", 
 			TRUE);
-		while (archive->child_pid != 0)
-		{
-			while (gtk_events_pending())
-				gtk_main_iteration();
-		}
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-cancel", 
+			"xa-button-open", 
 			FALSE);
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-close", 
-			TRUE);
+			"xa-button-new", 
+			FALSE);
 		xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), 
-				support->n_columns, 
-				support->column_names, 
-				support->column_types);
-		archive->row = g_list_reverse ( archive->row );
-		xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+				n_columns, 
+				column_names, 
+				column_types);
+		
 		if(archive->has_passwd)
 			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
 		else
 			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
-		if(support->add)
-		{
-			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-folder", TRUE);
-			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-file", TRUE);
-		}
-		if(support->extract)
-			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", TRUE);
-		if(support->remove)
-			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-remove", TRUE);
 
-
-		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Done");
+		g_free(column_types);
+		g_free(column_names);
 	}
 }
+
 
 int main(int argc, char **argv)
 {
 	int c = 0;
 	gchar *filename = NULL;
+	g_type_init();
+	g_thread_init(NULL);
 	xarchiver_init();
 	gtk_init(&argc, &argv);
 
@@ -303,14 +232,16 @@ int main(int argc, char **argv)
 		//g_signal_connect(G_OBJECT(main_window), "xa_new_archive", G_CALLBACK(open_archive), NULL);
 		g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(xa_open_archive), NULL);
 		//g_signal_connect(G_OBJECT(main_window), "xa_test_archive", G_CALLBACK(xa_test_archive), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_close_archive", G_CALLBACK(xa_close_archive), NULL);
+		//g_signal_connect(G_OBJECT(main_window), "xa_close_archive", G_CALLBACK(xa_close_archive), NULL);
 		//g_signal_connect(G_OBJECT(main_window), "xa_extract_archive", G_CALLBACK(xa_extract_archive), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_add_folders", G_CALLBACK(xa_add_folder), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(xa_add_files), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_remove_files", G_CALLBACK(xa_remove_files), NULL);
+		//g_signal_connect(G_OBJECT(main_window), "xa_add_folders", G_CALLBACK(xa_add_folder), NULL);
+		//g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(xa_add_files), NULL);
+		//g_signal_connect(G_OBJECT(main_window), "xa_remove_files", G_CALLBACK(xa_remove_files), NULL);
 		//g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(xa_cancel_operation), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_show_about", G_CALLBACK(xa_show_about), NULL);
+		//g_signal_connect(G_OBJECT(main_window), "xa_show_about", G_CALLBACK(xa_show_about), NULL);
+		
 
+	xarchiver_support_connect("xa_data_ready", G_CALLBACK(xa_data_ready));
 
 		gtk_widget_show_all(main_window);
 	

@@ -18,10 +18,14 @@
  */
 
 #include <stdlib.h>
+#include <glib.h>
+#include <glib-object.h>
 #include <gtk/gtk.h>
 #include <string.h>
 #include <config.h>
 #include <libintl.h>
+#include <libxarchiver/archive.h>
+#include <libxarchiver/support.h>
 #include <libxarchiver/libxarchiver.h>
 #include "archive-chooser-dialog.h"
 #include "property-dialog.h"
@@ -496,11 +500,11 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	GtkToolItem *open = gtk_tool_button_new_from_stock (GTK_STOCK_OPEN);
 	GtkToolItem *cancel = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
 
-	tmpimage = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, GTK_ICON_SIZE_LARGE_TOOLBAR);
+	tmpimage = gtk_image_new_from_file(DATADIR"/pixmaps/add.png");
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_file = gtk_tool_button_new (tmpimage, _("Add Files"));
 
-	tmpimage = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, GTK_ICON_SIZE_LARGE_TOOLBAR);
+	tmpimage = gtk_image_new_from_file(DATADIR"/pixmaps/add_folder.png");
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_folder = gtk_tool_button_new (tmpimage, _("Add Folder"));
 
@@ -653,12 +657,11 @@ xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_n
 
 	list_store = gtk_list_store_newv(nc, (GType *)column_types);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), GTK_TREE_MODEL(list_store));
-//	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(window->contentlist), TRUE);
+	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(window->contentlist), TRUE);
 	renderer = gtk_cell_renderer_text_new ();
 	for(i = 0; i < nc; i++)
 	{
 		column = gtk_tree_view_column_new_with_attributes(column_names[i], renderer, "text", i, NULL);
-		gtk_tree_view_column_set_resizable(column, TRUE);
 		gtk_tree_view_column_set_sort_column_id(column, i);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (window->contentlist), column);
 	}
@@ -670,10 +673,17 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 	unsigned short int i = 0;
 	GtkTreeIter iter;
 	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
+	GtkTreeViewColumn *column;
 	g_object_ref(list_store);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
 	
 	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
+	for(i = 0; i < gtk_tree_model_get_n_columns(list_store); i++)
+	{
+		column  = gtk_tree_view_get_column(GTK_TREE_VIEW(window->contentlist), i);
+		gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);
+	}
+	i = 0;
 	while ( fields )
 	{
 		if ( i == gtk_tree_model_get_n_columns(list_store) )
@@ -690,6 +700,11 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 	}
 	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), list_store);
 	g_object_unref(list_store);
+	for(i = 0; i < gtk_tree_model_get_n_columns(list_store); i++)
+	{
+		column  = gtk_tree_view_get_column(GTK_TREE_VIEW(window->contentlist), i);
+		gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	}
 }
 
 void

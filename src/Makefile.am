@@ -8,13 +8,16 @@ xarchiver_SOURCES = \
 
 xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \
-	@GLIB_CFLAGS@
+	@GLIB_CFLAGS@ \
+	@GTHREAD_CFLAGS@ \
+	-DDATADIR=\"$(datadir)\"
 
  
 xarchiver_LDADD = \
 	$(top_srcdir)/libxarchiver/libxarchiver.a \
 	@GTK_LIBS@ \
 	@GLIB_LIBS@ \
+	@GTHREAD_LIBS@ \
 	-lz
 
 INCLUDES = \

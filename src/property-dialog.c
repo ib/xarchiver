@@ -22,7 +22,6 @@
 #include <string.h>
 #include <config.h>
 #include <libintl.h>
-#include <libxarchiver/libxarchiver.h>
 #include "property-dialog.h"
 #define _(String) gettext(String)
 

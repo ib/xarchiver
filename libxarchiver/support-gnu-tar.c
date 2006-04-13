@@ -17,196 +17,124 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <stdio.h>
 #include <string.h>
 #include <glib.h>
 #include <glib-object.h>
 #include "internals.h"
-#include "libxarchiver.h"
+#include "archive.h"
+#include "archive-types.h"
+#include "support.h"
 #include "support-gnu-tar.h"
-#include "archive-tar.h"
 
-/*
- * xarchive_tar_support_remove(XArchive *archive, GSList *files)
- * Remove files and folders from archive
- */
-gboolean
-xarchive_tar_support_remove (XArchive *archive, GSList *files)
+void
+xa_support_gnu_tar_init(XASupportGnuTar *support);
+
+gint
+xa_support_gnu_tar_open(XASupport *support, XAArchive *archive);
+
+gboolean 
+xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
+
+GType
+xa_support_gnu_tar_get_type ()
 {
-	gchar *command;
-	GString *names;
-	
-	GSList *_files = files;
-	if(files != NULL)
+	static GType xa_support_gnu_tar_type = 0;
+
+ 	if (!xa_support_gnu_tar_type)
 	{
-		names = concatenatefilenames ( _files );
-		command = g_strconcat ( "tar --delete -vf " , archive->path , names->str , NULL );
-		archive->status = REMOVE;
-		archive->child_pid = xarchiver_async_process ( archive , command, 0);
-		if (archive->child_pid == 0)
+ 		static const GTypeInfo xa_support_gnu_tar_info = 
 		{
-			g_message (archive->error->message);
-			g_error_free (archive->error);
-			return FALSE;
-		}
-		g_free(command);
-		g_string_free (names, TRUE);
+			sizeof (XASupportGnuTarClass),
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) NULL,
+			(GClassFinalizeFunc) NULL,
+			NULL,
+			sizeof (XASupportGnuTar),
+			0,
+			(GInstanceInitFunc) xa_support_gnu_tar_init,
+			NULL
+		};
+
+		xa_support_gnu_tar_type = g_type_register_static (XA_TYPE_SUPPORT, "XASupportGnuTar", &xa_support_gnu_tar_info, 0);
 	}
-	fchdir(n_cwd);
-	return TRUE;
+	return xa_support_gnu_tar_type;
 }
 
-/*
- * xarchive_tar_support_add(XArchive *archive, GSList *files)
- * Add files and folders to archive
- */
-gboolean
-xarchive_tar_support_add (XArchive *archive, GSList *files)
+void
+xa_support_gnu_tar_init(XASupportGnuTar *support)
 {
-	gchar *command, *dir;
-	GString *names;
-	
-	GSList *_files = files;
-	if(files != NULL)
-	{
-		dir = g_path_get_dirname(_files->data);
-		chdir(dir);
-		g_free(dir);
+	XASupport *xa_support = XA_SUPPORT(support);
+	gint n_columns = 5;
+	gchar **column_names  = g_new0(gchar *, n_columns);
+	GType *column_types  = g_new0(GType, n_columns);
 
-		names = concatenatefilenames ( _files );		
-		// Check if the archive already exists or not
-		if(g_file_test(archive->path, G_FILE_TEST_EXISTS))
-			command = g_strconcat("tar rvvf ", archive->path, " ", names->str, NULL);
-		else
-			command = g_strconcat("tar cvvf ", archive->path, " ", names->str, NULL);
+	column_names[0] = "Filename";
+	column_names[1] = "Permissions";
+	column_names[2] = "Owner / Group";
+	column_names[3] = "Size";
+	column_names[4] = "Date";
+	column_types[0] = G_TYPE_STRING;
+	column_types[1] = G_TYPE_STRING;
+	column_types[2] = G_TYPE_STRING;
+	column_types[3] = G_TYPE_UINT;   /* UINT  */
+	column_types[4] = G_TYPE_STRING; /* DATE */
 
-		archive->status = ADD;
-		archive->child_pid = xarchiver_async_process ( archive , command, 0);
-		g_free(command);
-		if (archive->child_pid == 0)
-		{
-			g_message (archive->error->message);
-			g_error_free (archive->error);
-			return FALSE;
-		}
-		g_string_free(names, TRUE);
-	}
-	fchdir(n_cwd);
-	return TRUE;
+	xa_support_set_columns(xa_support, n_columns, column_names, column_types);
+	xa_support->type = XARCHIVETYPE_TAR;
+	xa_support->verify = xa_archive_type_tar_verify;
+	xa_support->open = xa_support_gnu_tar_open;
+	xa_support->parse_output = xa_support_gnu_tar_parse_output;
+
+	g_free(column_names);
+	g_free(column_types);
 }
 
-/*
- * xarchive_tar_support_extract(XArchive *archive, GSList *files)
- * Extract files and folders from archive
- */
-gboolean
-xarchive_tar_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
-{
-	gchar *command, *dir, *filename;
-	unsigned short int levels;
-	char digit[2];
-	gchar *strip = NULL;
-    
-	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
-		return FALSE;
-    
-	// Only extract certain files
-	if( (files == NULL) && (g_slist_length(files) == 0))
-	{
-		dir = g_path_get_dirname(files->data);
-		chdir(dir);
-		g_free(dir);
-		filename = g_path_get_basename(files->data);
-		command = g_strconcat("tar xvvf ", archive->path, " -C ", destination_path, " ", filename, NULL);
-	} 
-	else
-	{
-		GSList *_files = files;
-		GString *names;
-		names = concatenatefilenames ( _files );
-		if ( full_path == 0 )
-		{
-			levels = countcharacters ( names->str , '/');
-			sprintf ( digit , "%d" , levels );
-			strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
-		}
-		command = g_strconcat("tar " , full_path ? "" : strip , "-xvf ", archive->path, " -C ", destination_path, names->str , NULL);
-		g_string_free (names,TRUE);
-	}
-	archive->child_pid = xarchiver_async_process ( archive , command,0);
-	g_free(command);
-	if ( strip != NULL)
-		g_free ( strip );
-	if (archive->child_pid == 0)
-	{
-		g_message (archive->error->message);
-		g_error_free (archive->error);
-		return FALSE;
-	}
-	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) ) return FALSE;
-	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) ) return FALSE;
-	fchdir(n_cwd);
-	return TRUE;
-}
-
-
-/*
- * xarchive_tar_support_open(XArchive *archive)
- * Open the archive and calls other functions to catch the output
- *
- */
-
-gboolean
-xarchive_tar_support_open (XArchive *archive)
-{
-	gchar *command;
-
-	if(archive->row)
-	{
-		g_list_free(archive->row);
-		archive->row = NULL;
-	}
-	command = g_strconcat ( "tar tfv " , archive->path, NULL );
-	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
-	g_free (command);
-	if (archive->child_pid == 0)
-	{
-		g_message (archive->error->message);
-		g_error_free (archive->error);
-	}
-	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_tar_output, archive ) )
-		return FALSE;
-	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
-		return FALSE;
-	archive->dummy_size = 0;
-	return TRUE;
-}
-
-/*
- * xarchive_parse_tar_output
- * Parse the output from the rar command when opening the archive
- *
- */
-
-gboolean xarchiver_parse_tar_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+gboolean 
+xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	gchar *line = NULL;
-	XArchive *archive = data;
+	gchar *filename = NULL;
+	gchar *permissions = NULL;
+	gchar *owner = NULL;
+	gchar *size = NULL;
+	gint _size = 0;
+	gchar *date = NULL;
 
+	gint i = 0, a = 0;
+	XAArchive *archive = data;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		if (line != NULL && ! archive->status == RELOAD )
-			archive->output = g_slist_prepend ( archive->output , line );
-		archive->row = get_last_field ( archive->row , line , 6 );
-		archive->row = split_line (archive->row , line , 5);
-		if ( strstr ((gchar *)g_list_nth_data ( archive->row , 1) , "d") == NULL )
-			archive->number_of_files++;
-		else
-			archive->number_of_dirs++;
-		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row,2) );
+		filename = "Filename";
+		date = "1-1-2000";
+		for(i = 13; i < strlen(line); i++)
+			if(line[i] == ' ') break;
+		permissions = g_strndup(line, 10);
+		owner = g_strndup(&line[11], i-11);
+		for(; i < strlen(line); i++)
+			if(line[i] >= '0' && line[i] <= '9') break;
+		a = i;
+		for(; i < strlen(line); i++)
+			if(line[i] == ' ') break;
+		size = g_strndup(&line[a], i-a);
+		_size = atoi(size);
+		g_free(size);
+		a = i++;
+		for(; i < strlen(line); i++) // DATE
+			if(line[i] == ' ') break;
+		a = i++;
+		for(; i < strlen(line); i++) // TIME
+			if(line[i] == ' ') break;
+		filename = g_strndup(&line[i], strlen(line)-i-1);
+		archive->row = g_list_prepend(archive->row, filename);
+		archive->row = g_list_prepend(archive->row, permissions);
+		archive->row = g_list_prepend(archive->row, owner);
+		archive->row = g_list_prepend(archive->row, _size);
+		archive->row = g_list_prepend(archive->row, date);
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -218,84 +146,34 @@ gboolean xarchiver_parse_tar_output (GIOChannel *ioc, GIOCondition cond, gpointe
 	return TRUE;
 }
 
-gboolean
-xarchive_support_gnutar_check_version(GIOChannel *ioc, GIOCondition cond, gpointer data)
+/*
+ * xa_support_gnu_tar_open (XAArchive *archive)
+ *
+ * Open the archive and calls other functions to catch the output
+ */
+gint
+xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 {
-	XArchiveSupport *support = data;
-	gchar *line = NULL;
-	g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
-	if(g_strrstr(line, "(GNU tar)"))
-	{
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref(ioc);
-		printf("Correct tar implementation found\n");
-		return TRUE;
-	}
-	else
-	{
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref(ioc);
-		return FALSE;
-	}
+	gchar *command;
+	gint child_pid;
+
+	g_mutex_lock(support->exec.command_lock);
+	support->exec.command = g_strconcat ( "tar tfv " , archive->path, NULL );
+	support->exec.archive = archive;
+	g_mutex_unlock(support->exec.command_lock);
+
+	g_thread_create(xa_support_execute, support, FALSE, NULL);
+
 }
 
-XArchiveSupport *
-xarchive_tar_support_new()
-{
-	XArchiveSupport *support;
-	GError *error = NULL;
-	int child_pid;
-	gchar **argv;
-	int argc;
-	int output_fd;
-	/* Check for existence of "tar" application
-	 * check its version information
-	 */
-	if(g_find_program_in_path("tar"))
-	{
-		support = g_new0(XArchiveSupport, 1);
-		support->type    = XARCHIVETYPE_TAR;
-		support->add     = xarchive_tar_support_add;
-		support->verify  = xarchive_type_tar_verify;
-		support->extract = xarchive_tar_support_extract;
-		support->remove  = xarchive_tar_support_remove;
-		support->open    = xarchive_tar_support_open;
-		support->n_columns = 6;
-		support->column_names  = g_new0(gchar *, support->n_columns);
-		support->column_types  = g_new0(GType, support->n_columns);
-		support->column_names[0] = "Filename";
-		support->column_names[1] = "Permissions";
-		support->column_names[2] = "Owner / Group";
-		support->column_names[3] = "Size";
-		support->column_names[4] = "Date";
-		support->column_names[5] = "Time";
-		support->column_types[0] = G_TYPE_STRING;
-		support->column_types[1] = G_TYPE_STRING;
-		support->column_types[2] = G_TYPE_STRING;
-		support->column_types[3] = G_TYPE_STRING;
-		support->column_types[4] = G_TYPE_STRING;
-		support->column_types[5] = G_TYPE_STRING;
 
-		g_shell_parse_argv("tar --version", &argc, &argv, NULL);
-		if( ! g_spawn_async_with_pipes (
-					NULL,
-					argv,
-					NULL,
-					G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-					NULL,
-					NULL,
-					&child_pid,
-					NULL,
-					&output_fd,
-					NULL,
-					&error) )
-			return NULL;
-		if(!xarchiver_set_channel(output_fd, G_IO_IN, xarchive_support_gnutar_check_version, support))
-			return NULL;
-		g_child_watch_add(child_pid, NULL, support); 
-	} 
-	else
-		return NULL;
+
+XASupport*
+xa_support_gnu_tar_new()
+{
+	XASupport *support;
+
+	support = g_object_new(XA_TYPE_SUPPORT_GNU_TAR, NULL);
 	
 	return support;
 }
