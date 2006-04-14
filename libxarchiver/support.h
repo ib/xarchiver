@@ -59,11 +59,12 @@ struct _XASupport
 	gint child_pid;
 	struct
 	{
-		GMutex *command_lock;
 		guint source;
 		XAArchive *archive;
 		GPid child_pid;
 		gchar *command;
+		GIOChannel *out_ioc;
+		gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
 	} exec;
 
 	GMutex *column_lock;
@@ -82,6 +83,7 @@ struct _XASupportClass
 GType        xa_support_get_type(void);
 XASupport *  xa_support_new();
 gpointer     xa_support_execute(gpointer data);
+gint         xa_support_cancel(XASupport *support);
 void         xa_support_watch_child (GPid pid, gint status, XASupport *support);
 void         xa_support_get_columns(XASupport *support, gint *n_columns, gchar ***column_names, GType **column_types);
 void         xa_support_set_columns(XASupport *support, gint n_columns, gchar **column_names, GType *column_types);

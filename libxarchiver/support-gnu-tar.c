@@ -135,6 +135,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 		archive->row = g_list_prepend(archive->row, owner);
 		archive->row = g_list_prepend(archive->row, _size);
 		archive->row = g_list_prepend(archive->row, date);
+		g_free(line);
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -157,13 +158,11 @@ xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 	gchar *command;
 	gint child_pid;
 
-	g_mutex_lock(support->exec.command_lock);
 	support->exec.command = g_strconcat ( "tar tfv " , archive->path, NULL );
 	support->exec.archive = archive;
-	g_mutex_unlock(support->exec.command_lock);
+	support->exec.parse_output = support->parse_output;
 
-	g_thread_create(xa_support_execute, support, FALSE, NULL);
-
+	xa_support_execute(support);
 }
 
 

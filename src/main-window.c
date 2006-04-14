@@ -657,6 +657,7 @@ xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_n
 
 	list_store = gtk_list_store_newv(nc, (GType *)column_types);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), GTK_TREE_MODEL(list_store));
+	g_object_unref(list_store);
 	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(window->contentlist), TRUE);
 	renderer = gtk_cell_renderer_text_new ();
 	for(i = 0; i < nc; i++)

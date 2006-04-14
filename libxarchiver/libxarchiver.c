@@ -106,15 +106,6 @@ xarchiver_archive_new(gchar *path, XAArchiveType type)
 	return archive;
 }
 
-void
-xarchiver_archive_destroy(XAArchive *archive)
-{
-	if(archive->path)
-		g_free(archive->path);
-
-	g_free(archive);
-}
-
 XASupport *
 xarchiver_find_archive_support(XAArchive *archive)
 {

@@ -17,6 +17,8 @@
  */
 
 #include <stdio.h>
+#include <sys/types.h>
+#include <signal.h>
 #include <glib.h>
 #include <glib-object.h>
 #include "archive.h"
@@ -104,7 +106,11 @@ xa_support_view (XASupport *support, XAArchive *archive, gchar *filename)
 gint
 xa_support_cancel (XASupport *support)
 {
-	
+	if(kill (support->exec.child_pid, SIGABRT ) < 0)
+	{
+		return 1;
+	}
+	return 0;
 }
 
 static guint xa_support_signals[1];
@@ -113,7 +119,6 @@ void
 xa_support_init(XASupport *support)
 {
 	support->column_lock = g_mutex_new();
-	support->exec.command_lock = g_mutex_new();
 	support->add     = xa_support_add;
 	support->verify  = xa_support_verify;
 	support->remove  = xa_support_remove;
@@ -197,6 +202,11 @@ xa_support_watch_child (GPid pid, gint status, XASupport *support)
 		case(0):
 			g_signal_emit(G_OBJECT(support), xa_support_signals[0], 0, support->exec.archive);
 			break;
+		default:
+			/*
+			 * TODO: remove any data from archive->rows
+			 */
+			break;
 	}
 }
 
@@ -204,14 +214,12 @@ gpointer
 xa_support_execute(gpointer data)
 {
 	XASupport *support = data;
-	g_mutex_lock(support->exec.command_lock);
 	gint in_fd;
 	gint out_fd;
 	gint err_fd;
 	gchar **argvp;
 	gint argcp;
 	GPid child_pid;
-	GIOChannel *ioc = NULL;
 	GSource *source = NULL;
 
 	g_shell_parse_argv(support->exec.command, &argcp, &argvp, NULL);
@@ -229,15 +237,12 @@ xa_support_execute(gpointer data)
 			NULL) )
 		return 0;
 	support->exec.child_pid = child_pid;
-	ioc = g_io_channel_unix_new (out_fd);
-	g_io_add_watch(ioc, G_IO_IN | G_IO_PRI, support->parse_output, support->exec.archive);
+	support->exec.out_ioc = g_io_channel_unix_new(out_fd);
+	g_io_add_watch(support->exec.out_ioc, G_IO_IN | G_IO_PRI, support->exec.parse_output, support->exec.archive);
 	support->exec.source = g_child_watch_add(child_pid, (GChildWatchFunc)xa_support_watch_child, support);
 
 	g_free(support->exec.command);
 	support->exec.command = NULL;
-
-	g_mutex_unlock(support->exec.command_lock);
-	g_thread_exit(0);
 }
 
 XASupport*

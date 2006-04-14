@@ -29,7 +29,7 @@ static void
 xa_archive_init(XAArchive *archive);
 
 static void
-xa_archive_finalize(GObject *archive);
+xa_archive_finalize(GObject *object);
 
 GType
 xa_archive_get_type ()
@@ -72,8 +72,11 @@ xa_archive_init(XAArchive *archive)
 }
 
 static void
-xa_archive_finalize(GObject *archive)
+xa_archive_finalize(GObject *object)
 {
+	XAArchive *archive = XA_ARCHIVE(object);
+	if(archive->path)
+		g_free(archive->path);
 }
 
 XAArchive *

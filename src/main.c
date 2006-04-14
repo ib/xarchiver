@@ -53,6 +53,23 @@ xa_data_ready(GObject *object, gpointer data)
 		"xa-button-cancel", 
 		FALSE);
 }
+
+void
+xa_cancel_operation(GtkWidget *widget, gpointer data)
+{
+	xa_support_cancel(support);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-open", 
+		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-new", 
+		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-cancel", 
+		FALSE);
+	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Cancelled");
+}
+
 void
 xa_show_about(GtkWidget *widget, gpointer data)
 {
@@ -102,9 +119,11 @@ void
 xa_close_archive(GtkWidget *widget, gpointer data)
 {
 	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
-	xarchiver_archive_destroy(archive);
+
+	if(archive)
+		g_object_unref(archive);
 	if(sub_archive)
-		xarchiver_archive_destroy(sub_archive);
+		g_object_unref(sub_archive);
 	archive = NULL;
 	sub_archive = NULL;
 	support = NULL;
@@ -128,11 +147,10 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	gchar **column_names = NULL;
 	GType *column_types = NULL;
 	if(archive)
-	{
-		xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
-		xarchiver_archive_destroy(archive);
-		archive = NULL;
-	}
+		g_object_unref(archive);
+	if(sub_archive)
+		g_object_unref(sub_archive);
+	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
 	archive = xarchiver_archive_new(filename, XARCHIVETYPE_UNKNOWN);
 	if(archive == NULL)
 	{
@@ -237,7 +255,7 @@ int main(int argc, char **argv)
 		//g_signal_connect(G_OBJECT(main_window), "xa_add_folders", G_CALLBACK(xa_add_folder), NULL);
 		//g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(xa_add_files), NULL);
 		//g_signal_connect(G_OBJECT(main_window), "xa_remove_files", G_CALLBACK(xa_remove_files), NULL);
-		//g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(xa_cancel_operation), NULL);
+		g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(xa_cancel_operation), NULL);
 		//g_signal_connect(G_OBJECT(main_window), "xa_show_about", G_CALLBACK(xa_show_about), NULL);
 		
 
