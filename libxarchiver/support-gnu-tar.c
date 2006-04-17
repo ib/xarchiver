@@ -35,6 +35,12 @@ xa_support_gnu_tar_init(XASupportGnuTar *support);
 gint
 xa_support_gnu_tar_open(XASupport *support, XAArchive *archive);
 
+gint
+xa_support_gnu_tar_add (XASupport *support, XAArchive *archive, GSList *files);
+
+gint
+xa_support_gnu_tar_remove (XASupport *support, XAArchive *archive, GSList *files);
+
 gboolean 
 xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
@@ -80,13 +86,15 @@ xa_support_gnu_tar_init(XASupportGnuTar *support)
 	column_types[0] = G_TYPE_STRING;
 	column_types[1] = G_TYPE_STRING;
 	column_types[2] = G_TYPE_STRING;
-	column_types[3] = G_TYPE_UINT;   /* UINT  */
+	column_types[3] = G_TYPE_STRING;   /* UINT  */
 	column_types[4] = G_TYPE_STRING; /* DATE */
 
 	xa_support_set_columns(xa_support, n_columns, column_names, column_types);
 	xa_support->type = XARCHIVETYPE_TAR;
 	xa_support->verify = xa_archive_type_tar_verify;
 	xa_support->open = xa_support_gnu_tar_open;
+	xa_support->add = xa_support_gnu_tar_add;
+	xa_support->remove = xa_support_gnu_tar_remove;
 	xa_support->parse_output = xa_support_gnu_tar_parse_output;
 
 	g_free(column_names);
@@ -121,19 +129,17 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 		for(; i < strlen(line); i++)
 			if(line[i] == ' ') break;
 		size = g_strndup(&line[a], i-a);
-		_size = atoi(size);
-		g_free(size);
 		a = i++;
 		for(; i < strlen(line); i++) // DATE
 			if(line[i] == ' ') break;
 		a = i++;
 		for(; i < strlen(line); i++) // TIME
 			if(line[i] == ' ') break;
-		filename = g_strndup(&line[i], strlen(line)-i-1);
+		filename = g_strstrip(g_strndup(&line[i], strlen(line)-i-1));
 		archive->row = g_list_prepend(archive->row, filename);
 		archive->row = g_list_prepend(archive->row, permissions);
 		archive->row = g_list_prepend(archive->row, owner);
-		archive->row = g_list_prepend(archive->row, _size);
+		archive->row = g_list_prepend(archive->row, size);
 		archive->row = g_list_prepend(archive->row, date);
 		g_free(line);
 		return TRUE;
@@ -161,10 +167,67 @@ xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 	support->exec.command = g_strconcat ( "tar tfv " , archive->path, NULL );
 	support->exec.archive = archive;
 	support->exec.parse_output = support->parse_output;
+	support->exec.signal = 0;
 
 	xa_support_execute(support);
 }
 
+/*
+ * xarchive_tar_support_remove(XArchive *archive, GSList *files)
+ * Remove files and folders from archive
+ */
+gint
+xa_support_gnu_tar_remove (XASupport *support, XAArchive *archive, GSList *files)
+{
+	GString *names;
+	GSList *_files = files;
+	if(files != NULL)
+	{
+		names = concatenatefilenames ( _files , FALSE);
+		support->exec.command = g_strconcat ( "tar --delete -vf " , archive->path ," ", names->str , NULL );
+		support->exec.archive = archive;
+		support->exec.signal = 1;
+		support->exec.parse_output = 0;
+		
+		xa_support_execute( support );
+		g_string_free (names, TRUE);
+	}
+	return 0;
+}
+
+/*
+ * xarchive_tar_support_add(XArchive *archive, GSList *files)
+ * Add files and folders to archive
+ */
+gint
+xa_support_gnu_tar_add (XASupport *support, XAArchive *archive, GSList *files)
+{
+	gchar *command, *dir;
+	GString *names;
+	
+	GSList *_files = files;
+	if(files != NULL)
+	{
+		dir = g_path_get_dirname(_files->data);
+		chdir(dir);
+		g_free(dir);
+
+		names = concatenatefilenames ( _files , TRUE);		
+		// Check if the archive already exists or not
+		if(g_file_test(archive->path, G_FILE_TEST_EXISTS))
+			support->exec.command = g_strconcat("tar rvvf ", archive->path, " ", names->str, NULL);
+		else
+			support->exec.command = g_strconcat("tar cvvf ", archive->path, " ", names->str, NULL);
+		support->exec.archive = archive;
+		support->exec.signal = 1;
+		support->exec.parse_output = 0;
+
+		xa_support_execute(support);
+		g_string_free(names, TRUE);
+	}
+	fchdir(n_cwd);
+	return TRUE;
+}
 
 
 XASupport*

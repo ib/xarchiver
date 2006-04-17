@@ -36,7 +36,6 @@ XDT_I18N([])
 
 XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.2.0])
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.2.0])
-XDT_CHECK_PACKAGE([GTHREAD], [gthread-2.0], [2.2.0])
 
 dnl check for debugging support
 XDT_FEATURE_DEBUG

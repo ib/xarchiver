@@ -19,15 +19,64 @@
  */
 
 #include <stdio.h>
-#include <unistd.h>
 #include <string.h>
 #include <glib.h>
 #include <glib-object.h>
-#include "internals.h"
-#include "libxarchiver.h"
-
+#include <zlib.h>
+#include <libintl.h>
+#include "archive.h"
+#include "archive-types.h"
+#include "support.h"
 #include "support-bzip2.h"
-#include <libxarchiver/archive-bzip2.h>
+
+#define _(String) gettext(String)
+
+
+void
+xa_support_bzip2_init (XASupportBzip2 *support);
+
+gint
+xarchive_support_bzip2_add (XASupport *support, XAArchive *archive, GSList *files);
+
+gint
+xarchive_support_bzip2_extract (XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
+
+GType
+xa_support_bzip2_get_type ()
+{
+	static GType xa_support_bzip2_type = 0;
+
+ 	if (!xa_support_bzip2_type)
+	{
+ 		static const GTypeInfo xa_support_bzip2_info = 
+		{
+			sizeof (XASupportBzip2Class),
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) NULL,
+			(GClassFinalizeFunc) NULL,
+			NULL,
+			sizeof (XASupportBzip2),
+			0,
+			(GInstanceInitFunc) xa_support_bzip2_init,
+			NULL
+		};
+
+		xa_support_bzip2_type = g_type_register_static (XA_TYPE_SUPPORT, "XASupportBzip2", &xa_support_bzip2_info, 0);
+	}
+	return xa_support_bzip2_type;
+}
+
+void
+xa_support_bzip2_init (XASupportBzip2 *support)
+{
+	XASupport *xa_support = XA_SUPPORT(support);
+
+	xa_support->type      = XARCHIVETYPE_BZIP2;
+	xa_support->verify    = xa_archive_type_bzip2_verify;
+	xa_support->add       = xarchive_support_bzip2_add;
+	xa_support->extract   = xarchive_support_bzip2_extract;
+}
 
 /*
  * xarchive_bzip2_support_add(XArchive *archive, GSList *files)
@@ -35,8 +84,9 @@
  * can only compress one file, 
  * (will return compressed file in XArchive->path)
  */
-gboolean
-xarchive_bzip2_support_add(XArchive *archive, GSList *files)
+/*
+gint
+xa_support_bzip2_add(XAArchive *archive, GSList *files)
 {
 	gchar *command, *dir, *filename;
 	if(files != NULL)
@@ -57,7 +107,7 @@ xarchive_bzip2_support_add(XArchive *archive, GSList *files)
 		{
 			g_message (archive->error->message);
 			g_error_free (archive->error);
-			return FALSE;
+			return 1;
 		}
 		if(archive->path)
 			g_free(archive->path);
@@ -65,8 +115,9 @@ xarchive_bzip2_support_add(XArchive *archive, GSList *files)
 	}
 
 	fchdir(n_cwd);
-	return TRUE;
+	return 0;
 }
+*/
 
 
 /*
@@ -76,6 +127,7 @@ xarchive_bzip2_support_add(XArchive *archive, GSList *files)
  * FIXME:
  * destination-folder does not work with bare bzip
  */
+/*
 gboolean
 xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
@@ -100,18 +152,14 @@ xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSLis
 	fchdir(n_cwd);
 	return TRUE;
 }
+*/
 
-
-
-XArchiveSupport *
-xarchive_bzip2_support_new()
+XASupport*
+xa_support_bzip2_new ()
 {
-	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
-	support->type = XARCHIVETYPE_BZIP2;
-	support->verify = xarchive_type_bzip2_verify;
-	support->add = xarchive_bzip2_support_add;
-	support->extract = xarchive_bzip2_support_extract;
-	support->remove = NULL;
-	support->testing = NULL;
+	XASupport *support;
+
+	support = g_object_new(XA_TYPE_SUPPORT_BZIP2, NULL);
+	
 	return support;
 }

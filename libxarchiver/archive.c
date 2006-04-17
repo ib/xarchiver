@@ -68,7 +68,6 @@ xa_archive_class_init(XAArchiveClass *archive_class)
 static void
 xa_archive_init(XAArchive *archive)
 {
-	archive->row_lock = g_mutex_new();
 }
 
 static void

@@ -20,6 +20,7 @@
 
 G_BEGIN_DECLS
 
+
 #define XA_TYPE_SUPPORT xa_support_get_type()
 
 #define XA_SUPPORT(obj)         ( \
@@ -56,18 +57,17 @@ struct _XASupport
 	gint     (*view)         (XASupport *, XAArchive *, gchar *);
 	gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
-	gint child_pid;
 	struct
 	{
 		guint source;
+		GIOChannel *out_ioc;
 		XAArchive *archive;
 		GPid child_pid;
 		gchar *command;
-		GIOChannel *out_ioc;
 		gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
+		guint signal;
 	} exec;
 
-	GMutex *column_lock;
 	gint n_columns;
 	gchar **column_names;
 	GType *column_types;

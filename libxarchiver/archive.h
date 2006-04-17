@@ -78,7 +78,6 @@ struct _XAArchive
 	gint nr_of_dirs;
 	gint dummy_size;
 	GSList *output;
-	GMutex *row_lock;
 	GList *row;
 	gboolean has_passwd;
 };

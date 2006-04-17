@@ -664,6 +664,7 @@ xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_n
 	{
 		column = gtk_tree_view_column_new_with_attributes(column_names[i], renderer, "text", i, NULL);
 		gtk_tree_view_column_set_sort_column_id(column, i);
+		gtk_tree_view_column_set_clickable(column, FALSE);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (window->contentlist), column);
 	}
 }
@@ -803,7 +804,7 @@ xa_main_window_add_files(GtkWidget *widget, gpointer data)
 void 
 xa_main_window_add_folders(GtkWidget *widget, gpointer data)
 {
-	gchar *foldername = NULL;
+	GSList *folders = NULL;
 
 	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Add Folder"),
 			GTK_WINDOW(data),
@@ -814,15 +815,20 @@ xa_main_window_add_folders(GtkWidget *widget, gpointer data)
 			GTK_RESPONSE_OK,
 			NULL);
 
+	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), TRUE);
+
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		foldername = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[3], 0, foldername);
+		folders = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[3], 0, folders);
 	}
 
-	if(foldername)
-		g_free(foldername);
+	if(folders)
+	{
+		g_slist_foreach(folders, (GFunc) g_free, NULL);
+		g_slist_free(folders);
+	}
 	gtk_widget_destroy(dialog);
 } 
 
@@ -837,6 +843,7 @@ xa_main_window_remove_files(GtkWidget *widget, gpointer data)
 {
 	GSList *files = NULL;
 	GtkTreeIter iter;
+	GtkWidget *dialog = NULL;
 	gchar *filename = NULL;
 	XAMainWindow *window = XA_MAIN_WINDOW(data);
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(window->contentlist));
@@ -847,12 +854,25 @@ xa_main_window_remove_files(GtkWidget *widget, gpointer data)
 	{
 		gtk_tree_model_get_iter(model, &iter, _rows->data);
 		gtk_tree_model_get(model, &iter, 0, &filename,  -1);
-		g_strstrip(filename);
 		files = g_slist_prepend(files, filename);
 		_rows = _rows->next;
 	}
 	if(files) 
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[9], 0, files); 
+	{
+		dialog = gtk_message_dialog_new(GTK_WINDOW(window), 
+				GTK_DIALOG_DESTROY_WITH_PARENT, 
+				GTK_MESSAGE_WARNING, 
+				GTK_BUTTONS_YES_NO, 
+				_("Are you sure you want to remove the selected files from the archive?"));
+		if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES)
+		{
+			gtk_widget_hide(dialog);
+			g_signal_emit(G_OBJECT(data), xa_main_window_signals[9], 0, files); 
+		}
+		gtk_widget_destroy(dialog);
+	}
+	g_slist_foreach(files, (GFunc) g_free, NULL);
+	g_slist_free(files);
 }
 
 void 

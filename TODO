@@ -17,8 +17,7 @@ DONE
 	- open archive       PARTIALLY DONE
 	  check for available compressors and add filetypes accordingly -- should this be an external feature?
 
-  - fill liststore     PARTIALLY DONE
-	  look for a way the GUI does not freeze while filling it with a lot of rows.
+	- implement archive-model (to replace list-store)
 		
 	- add files          DONE
 	- add folder         DONE

@@ -29,6 +29,7 @@
 #include "archive.h"
 #include "support.h"
 #include "support-gzip.h"
+#include "support-bzip2.h"
 #include "support-gnu-tar.h"
 
 #include "internals.h"
@@ -97,9 +98,6 @@ xarchiver_archive_new(gchar *path, XAArchiveType type)
 
 	if(archive->type == XARCHIVETYPE_UNKNOWN)
 	{
-		if(archive->path)
-			g_free(archive->path);
-
 		g_object_unref(archive);
 		archive = NULL;
 	}
@@ -138,81 +136,3 @@ xarchiver_support_connect(gchar *signal, GCallback fp)
 		_support = _support->next;
 	}
 }
-
-/*
-gboolean
-xarchiver_cancel_operation ( XArchive *archive )
-{
-	if ( kill ( archive->child_pid , SIGABRT ) < 0 )
-	{
-		//FIXME: notify the error to the user with a gtk dialog
-		g_message ( g_strerror(errno) );
-		return FALSE;
-	}
-	//This in case the user cancels the opening of a password protected archive
-	if (archive->status != ADD || archive->status != REMOVE);
-	
-	if (archive->has_passwd)
-	{
-		archive->has_passwd = FALSE;
-		archive->passwd = 0;
-	}
-	archive->type = XARCHIVETYPE_UNKNOWN;
-	return TRUE;
-}
-
-
-gboolean
-xarchiver_error_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
-{
-	gchar *line = NULL;
-	XArchive *archive = data;
-		
-	if (cond & (G_IO_IN | G_IO_PRI) )
-	{
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		//TODO: handle GUI redrawing and filling the gtk_text_buffer with the shell error output
-		//while (gtk_events_pending() )
-		//gtk_main_iteration();
-		if (line != NULL && strcmp (line,"\n") )
-		{
-			archive->err = g_slist_prepend ( archive->err , line );
-			//FIXME: remember to free the pointers in archive->err gslist !!
-			//g_free (line);
-		}
-		return TRUE;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
-	{
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
- 		g_io_channel_unref (ioc);
-	}
-	return FALSE;
-}
-
-gboolean
-xarchiver_output_function (GIOChannel *ioc, GIOCondition cond, gpointer data)
-{
-	gchar *line = NULL;
-	XArchive *archive = data;
-
-	if (cond & (G_IO_IN | G_IO_PRI) )
-	{
- 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		if (line != NULL )
-		{
-			archive->output = g_slist_prepend ( archive->output , line );
-			//FIXME: remember to free the pointers in archive->output gslist !!
-			//g_free (line);
-		}
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
-	{
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref (ioc);
-		return FALSE;
-	}
-	return TRUE;
-}
-
-*/

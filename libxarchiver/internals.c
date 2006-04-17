@@ -60,14 +60,18 @@ gchar *escape_filename( gchar *string )
 
 //End code from xarchive
 
-GString *concatenatefilenames ( GSList *list )
+GString *concatenatefilenames ( GSList *list , gboolean basename_only)
 {
     gchar *filename , *esc_filename;
     
     GString *names = g_string_new(" ");
     while( list )
 	{
-		filename = g_path_get_basename(list->data);
+		if(basename_only)
+			filename = g_path_get_basename(list->data);
+		else
+			filename = g_strdup(list->data);
+
 		esc_filename = escape_filename(filename);
 		g_string_prepend(names, esc_filename);
 		g_string_prepend_c(names, ' ');

@@ -113,12 +113,11 @@ xa_support_cancel (XASupport *support)
 	return 0;
 }
 
-static guint xa_support_signals[1];
+static guint xa_support_signals[2];
 
 void
 xa_support_init(XASupport *support)
 {
-	support->column_lock = g_mutex_new();
 	support->add     = xa_support_add;
 	support->verify  = xa_support_verify;
 	support->remove  = xa_support_remove;
@@ -145,6 +144,18 @@ xa_support_class_init(XASupportClass *supportclass)
 			1,
 			G_TYPE_POINTER,
 			NULL);
+
+	xa_support_signals[1] = g_signal_new("xa_operation_complete",
+			G_TYPE_FROM_CLASS(supportclass),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_POINTER,
+			NULL);
 }
 
 void
@@ -153,7 +164,6 @@ xa_support_get_columns(XASupport *support, gint *n_columns, gchar ***column_name
 	gint i = 0;
 	gchar **_column_names;
 	GType *_column_types;
-	g_mutex_lock(support->column_lock);
 
 	_column_names = g_new0(gchar *, support->n_columns);
 	_column_types = g_new0(GType, support->n_columns);
@@ -166,14 +176,12 @@ xa_support_get_columns(XASupport *support, gint *n_columns, gchar ***column_name
 	*column_names = _column_names;
 	*column_types = _column_types;
 	
-	g_mutex_unlock(support->column_lock);
 }
 
 void
 xa_support_set_columns(XASupport *support, gint n_columns, gchar **column_names, GType *column_types)
 {
 	gint i = 0;
-	g_mutex_lock(support->column_lock);
 	if(support->column_names)
 	{
 		for(i = 0; i < support->n_columns; i++)
@@ -190,23 +198,20 @@ xa_support_set_columns(XASupport *support, gint n_columns, gchar **column_names,
 		support->column_types[i] = column_types[i];
 	}
 	
-	g_mutex_unlock(support->column_lock);
 }
 
 void
 xa_support_watch_child (GPid pid, gint status, XASupport *support)
 {
 	g_spawn_close_pid(pid);
+
 	switch(status)
 	{
 		case(0):
-			g_signal_emit(G_OBJECT(support), xa_support_signals[0], 0, support->exec.archive);
+			if(support->exec.signal >= 0)
+				g_signal_emit(G_OBJECT(support), xa_support_signals[support->exec.signal], 0, support->exec.archive);
 			break;
-		default:
-			/*
-			 * TODO: remove any data from archive->rows
-			 */
-			break;
+
 	}
 }
 
@@ -220,7 +225,15 @@ xa_support_execute(gpointer data)
 	gchar **argvp;
 	gint argcp;
 	GPid child_pid;
+	GIOChannel *ioc;
 	GSource *source = NULL;
+
+	if(support->exec.archive->row)
+	{
+		//g_list_foreach(support->exec.archive->row, (GFunc)g_free, NULL);
+		g_list_free(support->exec.archive->row);
+		support->exec.archive->row = NULL;
+	}
 
 	g_shell_parse_argv(support->exec.command, &argcp, &argvp, NULL);
 	if ( ! g_spawn_async_with_pipes (
@@ -237,10 +250,12 @@ xa_support_execute(gpointer data)
 			NULL) )
 		return 0;
 	support->exec.child_pid = child_pid;
-	support->exec.out_ioc = g_io_channel_unix_new(out_fd);
-	g_io_add_watch(support->exec.out_ioc, G_IO_IN | G_IO_PRI, support->exec.parse_output, support->exec.archive);
+	if(support->exec.parse_output)
+	{
+		ioc = g_io_channel_unix_new(out_fd);
+		g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support->exec.archive);
+	}
 	support->exec.source = g_child_watch_add(child_pid, (GChildWatchFunc)xa_support_watch_child, support);
-
 	g_free(support->exec.command);
 	support->exec.command = NULL;
 }
