@@ -41,6 +41,9 @@ xa_support_bzip2_add (XASupport *support, XAArchive *archive, GSList *files);
 gint
 xa_support_bzip2_extract (XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
 
+gboolean 
+xa_support_bzip2_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
+
 GType
 xa_support_bzip2_get_type ()
 {
@@ -67,6 +70,16 @@ xa_support_bzip2_get_type ()
 	return xa_support_bzip2_type;
 }
 
+void
+xa_support_bzip2_init (XASupportBzip2 *support)
+{
+	XASupport *xa_support = XA_SUPPORT(support);
+
+	xa_support->type      = XARCHIVETYPE_BZIP2;
+	xa_support->verify    = xa_archive_type_bzip2_verify;
+	xa_support->extract   = xa_support_bzip2_extract;
+}
+
 gint
 xa_support_bzip2_add(XASupport *support, XAArchive *archive, GSList *files)
 {
@@ -76,7 +89,11 @@ xa_support_bzip2_add(XASupport *support, XAArchive *archive, GSList *files)
 gint
 xa_support_bzip2_extract(XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
+	gchar *in_filename;
+	gchar *out_filename;
+	gchar *tmp_filename;
 	gchar *command;
+	gint n;
 
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return 1;
@@ -88,20 +105,91 @@ xa_support_bzip2_extract(XASupport *support, XAArchive *archive, gchar *destinat
 	support->exec.command = g_strconcat("bzip2 -kdc ", archive->path, NULL);
 	support->exec.archive = archive;
 	support->exec.parse_output = support->parse_output;
+
+	if(destination_path)
+	{
+		if(g_file_test(destination_path, G_FILE_TEST_IS_DIR))
+		{
+			in_filename = g_path_get_basename(archive->path);
+			out_filename = g_build_path("/",destination_path, in_filename, NULL);
+		}
+		else /* use it as an absolute filename. */
+			out_filename = g_strdup(destination_path);
+	}
+	if(!g_str_has_suffix(out_filename, "bz") && !g_str_has_suffix(out_filename, "bz2"))
+	{
+		if(!g_strcasecmp(archive->path, out_filename))
+			return 1;
+	} 
+	else
+	{
+		if(g_str_has_suffix(out_filename, ".bz"))
+		{
+			for(n = strlen(out_filename)-1; (out_filename[n] != '.') && (n >= 0); n--)
+				if(out_filename[n] == '.')
+					out_filename[n] = '\0';
+		}
+		else
+		{
+			if(g_str_has_suffix(out_filename, ".bz2"))
+			{
+			for(n = strlen(out_filename)-1; (out_filename[n] != '.') && (n >= 0); n--)
+				if(out_filename[n] == '.')
+					out_filename[n] = '\0';
+			}
+			else
+			{
+				if(g_str_has_suffix(out_filename, ".tbz"))
+				{
+					n = strlen(out_filename);
+					out_filename[n-1] = 'r';
+					out_filename[n-2] = 'a';
+				}
+				else
+				{
+					if(g_str_has_suffix(out_filename, ".tbz2"))
+					{
+						n = strlen(out_filename);
+						out_filename[n-1] = '\0';
+						out_filename[n-2] = 'r';
+						out_filename[n-3] = 'a';
+					}
+					else
+					{
+						tmp_filename = out_filename;
+						out_filename = g_strconcat(tmp_filename, ".out", NULL);
+						g_free(tmp_filename);
+					}
+				}
+			}
+		}
+	}
 	support->exec.signal = -1;
 	
 	xa_support_execute(support);
 	return 0;
 }
 
-void
-xa_support_bzip2_init (XASupportBzip2 *support)
-{
-	XASupport *xa_support = XA_SUPPORT(support);
 
-	xa_support->type      = XARCHIVETYPE_BZIP2;
-	xa_support->verify    = xa_archive_type_bzip2_verify;
-	xa_support->extract   = xa_support_bzip2_extract;
+gboolean 
+xa_support_bzip2_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XASupportBzip2 *support = XA_SUPPORT_BZIP2(data);
+	FILE *out_file;
+	gchar *buf = g_new0(gchar, 1024);
+	guint read = 1024;
+
+	out_file = fopen(support->out_filename, "w");
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		while(read)
+		{
+			g_io_channel_read(ioc, buf, 1024, &read);
+			fwrite(buf, 1, read, out_file);
+		}
+	}
+	g_free(buf);
+	fclose(out_file);
 }
 
 /*

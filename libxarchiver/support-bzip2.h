@@ -46,6 +46,7 @@ typedef struct _XASupportBzip2 XASupportBzip2;
 struct _XASupportBzip2
 {
 	XASupport parent;
+	gchar *out_filename;
 };
 
 typedef struct _XASupportBzip2Class XASupportBzip2Class;

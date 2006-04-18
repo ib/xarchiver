@@ -180,7 +180,7 @@ xarchive_support_gzip_extract (XASupport *support, XAArchive *archive, gchar *de
 	in_file = gzopen(archive->path, "r");
 	while((n = gzread(in_file, &buf, 1024)) > 0)
 	{
-		fwrite(&buf, 1, 1024, out_file);
+		fwrite(&buf, 1, n, out_file);
 	}
 	gzclose(in_file);
 	fclose(out_file);
