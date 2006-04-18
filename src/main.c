@@ -400,6 +400,8 @@ int main(int argc, char **argv)
 		//xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
 	
 		gtk_main();
+		if ( g_file_test ("/tmp/xarchiver.tmp",G_FILE_TEST_EXISTS) )
+			unlink ("/tmp/xarchiver.tmp");
 	}
 	xarchiver_destroy();
 	return 0;

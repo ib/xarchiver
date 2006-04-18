@@ -152,8 +152,6 @@ xa_main_window_destroy (GtkObject *object)
 {
 	XAMainWindow *window;
 
-	if ( g_file_test ("/tmp/xarchiver.tmp",G_FILE_TEST_EXISTS) )
-		unlink ("/tmp/xarchiver.tmp");
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (IS_XA_MAIN_WINDOW(object));
 
