@@ -2,13 +2,13 @@
 DONE
 
 + fill remaining archivesupport objects
-  - zip	DONE
-  - arj DONE
-  - 7z	DONE
-  - iso? -- (feature, not a priority)
 	- tar.bz2 and tar.gz composite archive support.
 	- gzip -- (fix open)
-	- bzip2 -- (fix open / fix extract destination-path)
+	- bzip2 -- (fix open)
+  - zip	
+  - arj 
+  - 7z
+  - iso? -- (feature, not a priority)
 
 + handle child_pid cancellation in libxarchiver
 DONE

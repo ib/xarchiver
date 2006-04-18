@@ -393,7 +393,7 @@ int main(int argc, char **argv)
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-remove", FALSE);
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
 
-		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Xarchiver 0.3.9 svn");
+		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), PACKAGE_STRING);
 		//xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
 	
 		gtk_main();

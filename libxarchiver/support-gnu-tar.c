@@ -117,7 +117,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	gchar *date = NULL;
 
 	gint i = 0, a = 0;
-	XAArchive *archive = data;
+	XAArchive *archive = XA_SUPPORT(data)->exec.archive;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );

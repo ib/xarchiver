@@ -264,7 +264,7 @@ xa_support_execute(gpointer data)
 	if(support->exec.parse_output)
 	{
 		ioc = g_io_channel_unix_new(out_fd);
-		g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support->exec.archive);
+		g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support);
 	}
 	support->exec.source = g_child_watch_add(child_pid, (GChildWatchFunc)xa_support_watch_child, support);
 	g_free(support->exec.command);
