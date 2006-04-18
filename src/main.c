@@ -24,6 +24,7 @@
 #include <libxarchiver/libxarchiver.h>
 #include <gtk/gtk.h> 
 #include <getopt.h>
+#include <unistd.h>
 #include <libintl.h>
 
 #include "main.h"
@@ -174,6 +175,8 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 	xa_support = NULL;
 	xa_sub_support = NULL;
 
+	if ( g_file_test ("/tmp/xarchiver.tmp",G_FILE_TEST_EXISTS) )
+		unlink ("/tmp/xarchiver.tmp");
 	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", FALSE);
