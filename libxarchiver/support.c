@@ -113,7 +113,7 @@ xa_support_cancel (XASupport *support)
 	return 0;
 }
 
-static guint xa_support_signals[2];
+static guint xa_support_signals[3];
 
 void
 xa_support_init(XASupport *support)
@@ -133,7 +133,7 @@ xa_support_class_init(XASupportClass *supportclass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (supportclass);
 	XASupportClass *klass = XA_SUPPORT_CLASS (supportclass);
 
-	xa_support_signals[0] = g_signal_new("xa_data_ready",
+	xa_support_signals[0] = g_signal_new("xa_rows_updated",
 			G_TYPE_FROM_CLASS(supportclass),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -145,7 +145,19 @@ xa_support_class_init(XASupportClass *supportclass)
 			G_TYPE_POINTER,
 			NULL);
 
-	xa_support_signals[1] = g_signal_new("xa_operation_complete",
+	xa_support_signals[1] = g_signal_new("xa_archive_modified",
+			G_TYPE_FROM_CLASS(supportclass),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_POINTER,
+			NULL);
+
+	xa_support_signals[2] = g_signal_new("xa_operation_complete",
 			G_TYPE_FROM_CLASS(supportclass),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -204,15 +216,14 @@ void
 xa_support_watch_child (GPid pid, gint status, XASupport *support)
 {
 	g_spawn_close_pid(pid);
-
 	switch(status)
 	{
 		case(0):
 			if(support->exec.signal >= 0)
 				g_signal_emit(G_OBJECT(support), xa_support_signals[support->exec.signal], 0, support->exec.archive);
 			break;
-
 	}
+	g_signal_emit(G_OBJECT(support), xa_support_signals[2], 0, support->exec.archive);
 }
 
 gpointer

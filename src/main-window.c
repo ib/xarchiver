@@ -878,14 +878,21 @@ xa_main_window_remove_files(GtkWidget *widget, gpointer data)
 void 
 xa_main_window_extract_archive(GtkWidget *widget, gpointer data)
 {
-
-	GtkWidget *dialog = xa_archive_chooser_dialog_new(_("Extract archive"), 
-			GTK_WINDOW(data));
+	gchar *folder;
+	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Extract Archive"),
+			GTK_WINDOW(data),
+			GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+			GTK_STOCK_CANCEL,
+			GTK_RESPONSE_CANCEL,
+			GTK_STOCK_OK,
+			GTK_RESPONSE_OK,
+			NULL);
 
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL); // specify destination-folder 
+		folder = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, folder); // specify destination-folder 
 	}
 	gtk_widget_destroy(dialog);
 }

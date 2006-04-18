@@ -36,10 +36,10 @@ void
 xa_support_bzip2_init (XASupportBzip2 *support);
 
 gint
-xarchive_support_bzip2_add (XASupport *support, XAArchive *archive, GSList *files);
+xa_support_bzip2_add (XASupport *support, XAArchive *archive, GSList *files);
 
 gint
-xarchive_support_bzip2_extract (XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
+xa_support_bzip2_extract (XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
 
 GType
 xa_support_bzip2_get_type ()
@@ -67,6 +67,33 @@ xa_support_bzip2_get_type ()
 	return xa_support_bzip2_type;
 }
 
+gint
+xa_support_bzip2_add(XASupport *support, XAArchive *archive, GSList *files)
+{
+	return -1;
+}
+
+gint
+xa_support_bzip2_extract(XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
+{
+	gchar *command;
+
+	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
+		return 1;
+
+	if( (files != NULL) && (g_slist_length(files) != 0))
+	{
+		g_warning("bzip2 can only extract one file");
+	}
+	support->exec.command = g_strconcat("bzip2 -kdc ", archive->path, NULL);
+	support->exec.archive = archive;
+	support->exec.parse_output = support->parse_output;
+	support->exec.signal = -1;
+	
+	xa_support_execute(support);
+	return 0;
+}
+
 void
 xa_support_bzip2_init (XASupportBzip2 *support)
 {
@@ -74,8 +101,7 @@ xa_support_bzip2_init (XASupportBzip2 *support)
 
 	xa_support->type      = XARCHIVETYPE_BZIP2;
 	xa_support->verify    = xa_archive_type_bzip2_verify;
-	xa_support->add       = xarchive_support_bzip2_add;
-	xa_support->extract   = xarchive_support_bzip2_extract;
+	xa_support->extract   = xa_support_bzip2_extract;
 }
 
 /*
@@ -127,32 +153,6 @@ xa_support_bzip2_add(XAArchive *archive, GSList *files)
  * FIXME:
  * destination-folder does not work with bare bzip
  */
-/*
-gboolean
-xarchive_bzip2_support_extract(XArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
-{
-	gchar *command;
-
-	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
-		return FALSE;
-
-	if( (files != NULL) && (g_slist_length(files) != 0))
-	{
-		g_warning("bzip2 can only extract one file");
-	}
-	command = g_strconcat("bzip2 -kd ", archive->path, NULL);
-	archive->child_pid = xarchiver_async_process ( archive, command, 0);
-	if (archive->child_pid == 0)
-	{
-		g_message (archive->error->message);
-		g_error_free (archive->error);
-		return FALSE;
-	}
-	g_free(command);
-	fchdir(n_cwd);
-	return TRUE;
-}
-*/
 
 XASupport*
 xa_support_bzip2_new ()

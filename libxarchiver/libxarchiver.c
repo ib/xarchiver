@@ -59,6 +59,7 @@ xarchiver_init()
 		support_list = g_slist_alloc();
 
 		support_list = g_slist_prepend(support_list, xa_support_gzip_new());
+		support_list = g_slist_prepend(support_list, xa_support_bzip2_new());
 		support_list = g_slist_prepend(support_list, xa_support_gnu_tar_new());
 
 	}

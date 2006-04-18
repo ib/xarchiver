@@ -65,7 +65,7 @@ struct _XASupport
 		GPid child_pid;
 		gchar *command;
 		gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
-		guint signal;
+		gint signal;
 	} exec;
 
 	gint n_columns;

@@ -41,6 +41,9 @@ xa_support_gnu_tar_add (XASupport *support, XAArchive *archive, GSList *files);
 gint
 xa_support_gnu_tar_remove (XASupport *support, XAArchive *archive, GSList *files);
 
+gint
+xa_support_gnu_tar_extract(XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
+
 gboolean 
 xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
@@ -95,6 +98,7 @@ xa_support_gnu_tar_init(XASupportGnuTar *support)
 	xa_support->open = xa_support_gnu_tar_open;
 	xa_support->add = xa_support_gnu_tar_add;
 	xa_support->remove = xa_support_gnu_tar_remove;
+	xa_support->extract = xa_support_gnu_tar_extract;
 	xa_support->parse_output = xa_support_gnu_tar_parse_output;
 
 	g_free(column_names);
@@ -229,6 +233,45 @@ xa_support_gnu_tar_add (XASupport *support, XAArchive *archive, GSList *files)
 	return TRUE;
 }
 
+gint
+xa_support_gnu_tar_extract(XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
+{
+	gchar *dir, *filename;
+	unsigned short int levels;
+	char digit[2];
+	gchar *strip = NULL;
+    
+	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
+		return FALSE;
+    
+	// Only extract certain files
+	if( (files == NULL) || (g_slist_length(files) == 0))
+	{
+		support->exec.command = g_strconcat("tar xf ", archive->path, " -C ", destination_path, NULL);
+	} 
+	else
+	{
+		GSList *_files = files;
+		GString *names;
+		names = concatenatefilenames ( _files , TRUE);
+		if ( full_path == 0 )
+		{
+			levels = countcharacters ( names->str , '/');
+			sprintf ( digit , "%d" , levels );
+			strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
+		}
+		support->exec.command = g_strconcat("tar " , full_path ? "" : strip , "-xvf ", archive->path, " -C ", destination_path, names->str , NULL);
+		g_string_free (names,TRUE);
+	}
+	support->exec.archive = archive;
+	support->exec.signal = -1;
+	support->exec.parse_output = 0;
+
+	xa_support_execute(support);
+
+	fchdir(n_cwd);
+	return TRUE;
+}
 
 XASupport*
 xa_support_gnu_tar_new()
