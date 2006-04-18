@@ -113,7 +113,6 @@ xa_support_cancel (XASupport *support)
 	return 0;
 }
 
-static guint xa_support_signals[3];
 
 void
 xa_support_init(XASupport *support)
@@ -213,17 +212,24 @@ xa_support_set_columns(XASupport *support, gint n_columns, gchar **column_names,
 }
 
 void
+xa_support_emit_signal(XASupport *support, gint i)
+{
+	g_signal_emit(G_OBJECT(support), xa_support_signals[i], 0, support->exec.archive);
+}
+
+void
 xa_support_watch_child (GPid pid, gint status, XASupport *support)
 {
 	g_spawn_close_pid(pid);
+
 	switch(status)
 	{
 		case(0):
 			if(support->exec.signal >= 0)
-				g_signal_emit(G_OBJECT(support), xa_support_signals[support->exec.signal], 0, support->exec.archive);
+				xa_support_emit_signal(support, support->exec.signal);
 			break;
 	}
-	g_signal_emit(G_OBJECT(support), xa_support_signals[2], 0, support->exec.archive);
+	xa_support_emit_signal(support, 2);
 }
 
 gpointer
@@ -264,8 +270,11 @@ xa_support_execute(gpointer data)
 	if(support->exec.parse_output)
 	{
 		ioc = g_io_channel_unix_new(out_fd);
-		g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support);
+		support->exec.watch_source = g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support);
 	}
+	else
+		support->exec.watch_source = 0;
+
 	support->exec.source = g_child_watch_add(child_pid, (GChildWatchFunc)xa_support_watch_child, support);
 	g_free(support->exec.command);
 	support->exec.command = NULL;

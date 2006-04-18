@@ -108,6 +108,7 @@ xa_support_gnu_tar_init(XASupportGnuTar *support)
 gboolean 
 xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
+	XASupport *support = XA_SUPPORT(data);
 	gchar *line = NULL;
 	gchar *filename = NULL;
 	gchar *permissions = NULL;
@@ -117,7 +118,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	gchar *date = NULL;
 
 	gint i = 0, a = 0;
-	XAArchive *archive = XA_SUPPORT(data)->exec.archive;
+	XAArchive *archive = support->exec.archive;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
@@ -148,10 +149,11 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 		g_free(line);
 		return TRUE;
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	else if (cond & (G_IO_ERR | G_IO_HUP ) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
+		xa_support_emit_signal(support, 0);
 		return FALSE;
 	}
 	return TRUE;
@@ -171,7 +173,7 @@ xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 	support->exec.command = g_strconcat ( "tar tfv " , archive->path, NULL );
 	support->exec.archive = archive;
 	support->exec.parse_output = support->parse_output;
-	support->exec.signal = 0;
+	support->exec.signal = -1;
 
 	xa_support_execute(support);
 }

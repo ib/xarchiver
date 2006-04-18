@@ -680,12 +680,6 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
 	
 	gtk_list_store_append (GTK_LIST_STORE(list_store), &iter);
-	for(i = 0; i < gtk_tree_model_get_n_columns(list_store); i++)
-	{
-		column  = gtk_tree_view_get_column(GTK_TREE_VIEW(window->contentlist), i);
-		gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);
-	}
-	i = 0;
 	while ( fields )
 	{
 		if ( i == gtk_tree_model_get_n_columns(list_store) )
@@ -702,11 +696,6 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 	}
 	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), list_store);
 	g_object_unref(list_store);
-	for(i = 0; i < gtk_tree_model_get_n_columns(list_store); i++)
-	{
-		column  = gtk_tree_view_get_column(GTK_TREE_VIEW(window->contentlist), i);
-		gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	}
 }
 
 void

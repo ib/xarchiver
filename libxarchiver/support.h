@@ -60,11 +60,13 @@ struct _XASupport
 	struct
 	{
 		guint source;
+		guint watch_source;
 		GIOChannel *out_ioc;
 		XAArchive *archive;
 		GPid child_pid;
 		gchar *command;
 		gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
+		gint status;
 		gint signal;
 	} exec;
 
@@ -80,6 +82,7 @@ struct _XASupportClass
 	GObjectClass parent;
 }; 
 
+static guint xa_support_signals[3];
 GType        xa_support_get_type(void);
 XASupport *  xa_support_new();
 gpointer     xa_support_execute(gpointer data);
@@ -87,6 +90,7 @@ gint         xa_support_cancel(XASupport *support);
 void         xa_support_watch_child (GPid pid, gint status, XASupport *support);
 void         xa_support_get_columns(XASupport *support, gint *n_columns, gchar ***column_names, GType **column_types);
 void         xa_support_set_columns(XASupport *support, gint n_columns, gchar **column_names, GType *column_types);
+void         xa_support_emit_signal(XASupport *support, gint i);
 
 G_END_DECLS
 
