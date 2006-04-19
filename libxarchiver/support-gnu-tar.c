@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <string.h>
 #include <glib.h>
 #include <glib-object.h>
@@ -89,7 +90,7 @@ xa_support_gnu_tar_init(XASupportGnuTar *support)
 	column_types[0] = G_TYPE_STRING;
 	column_types[1] = G_TYPE_STRING;
 	column_types[2] = G_TYPE_STRING;
-	column_types[3] = G_TYPE_STRING;   /* UINT  */
+	column_types[3] = G_TYPE_UINT;
 	column_types[4] = G_TYPE_STRING; /* DATE */
 
 	xa_support_set_columns(xa_support, n_columns, column_names, column_types);
@@ -114,7 +115,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	gchar *permissions = NULL;
 	gchar *owner = NULL;
 	gchar *size = NULL;
-	gint _size = 0;
+	unsigned long int _size = 0;
 	gchar *date = NULL;
 
 	gint i = 0, a = 0;
@@ -122,7 +123,6 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		filename = "Filename";
 		date = "1-1-2000";
 		for(i = 13; i < strlen(line); i++)
 			if(line[i] == ' ') break;
@@ -134,6 +134,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 		for(; i < strlen(line); i++)
 			if(line[i] == ' ') break;
 		size = g_strndup(&line[a], i-a);
+		_size = atoll ( size );
 		a = i++;
 		for(; i < strlen(line); i++) // DATE
 			if(line[i] == ' ') break;
@@ -144,7 +145,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 		archive->row = g_list_prepend(archive->row, filename);
 		archive->row = g_list_prepend(archive->row, permissions);
 		archive->row = g_list_prepend(archive->row, owner);
-		archive->row = g_list_prepend(archive->row, size);
+		archive->row = g_list_prepend(archive->row, GUINT_TO_POINTER (_size) );
 		archive->row = g_list_prepend(archive->row, date);
 		g_free(line);
 		return TRUE;
@@ -159,15 +160,9 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	return TRUE;
 }
 
-/*
- * xa_support_gnu_tar_open (XAArchive *archive)
- *
- * Open the archive and calls other functions to catch the output
- */
 gint
 xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 {
-	gchar *command;
 	gint child_pid;
 
 	support->exec.command = g_strconcat ( "tar tfv " , archive->path, NULL );
@@ -176,12 +171,9 @@ xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 	support->exec.signal = -1;
 
 	xa_support_execute(support);
+	g_free (support->exec.command);
 }
 
-/*
- * xarchive_tar_support_remove(XArchive *archive, GSList *files)
- * Remove files and folders from archive
- */
 gint
 xa_support_gnu_tar_remove (XASupport *support, XAArchive *archive, GSList *files)
 {
@@ -196,19 +188,16 @@ xa_support_gnu_tar_remove (XASupport *support, XAArchive *archive, GSList *files
 		support->exec.parse_output = 0;
 		
 		xa_support_execute( support );
+		g_free (support->exec.command);
 		g_string_free (names, TRUE);
 	}
 	return 0;
 }
 
-/*
- * xarchive_tar_support_add(XArchive *archive, GSList *files)
- * Add files and folders to archive
- */
 gint
 xa_support_gnu_tar_add (XASupport *support, XAArchive *archive, GSList *files)
 {
-	gchar *command, *dir;
+	gchar *dir;
 	GString *names;
 	
 	GSList *_files = files;
@@ -229,6 +218,7 @@ xa_support_gnu_tar_add (XASupport *support, XAArchive *archive, GSList *files)
 		support->exec.parse_output = 0;
 
 		xa_support_execute(support);
+		g_free (support->exec.command);
 		g_string_free(names, TRUE);
 	}
 	fchdir(n_cwd);
@@ -242,6 +232,7 @@ xa_support_gnu_tar_extract(XASupport *support, XAArchive *archive, gchar *destin
 	unsigned short int levels;
 	char digit[2];
 	gchar *strip = NULL;
+	gboolean to_free = FALSE;
     
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
@@ -258,6 +249,7 @@ xa_support_gnu_tar_extract(XASupport *support, XAArchive *archive, gchar *destin
 		names = concatenatefilenames ( _files , TRUE);
 		if ( full_path == 0 )
 		{
+			to_free = TRUE;
 			levels = countcharacters ( names->str , '/');
 			sprintf ( digit , "%d" , levels );
 			strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
@@ -270,7 +262,9 @@ xa_support_gnu_tar_extract(XASupport *support, XAArchive *archive, gchar *destin
 	support->exec.parse_output = 0;
 
 	xa_support_execute(support);
-
+	if (to_free)
+		g_free (strip);
+	g_free (support->exec.command);
 	fchdir(n_cwd);
 	return TRUE;
 }

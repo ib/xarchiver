@@ -664,7 +664,7 @@ xa_main_window_set_list_interface (XAMainWindow *window, int nc, gchar *column_n
 	{
 		column = gtk_tree_view_column_new_with_attributes(column_names[i], renderer, "text", i, NULL);
 		gtk_tree_view_column_set_sort_column_id(column, i);
-		gtk_tree_view_column_set_clickable(column, FALSE);
+		gtk_tree_view_column_set_clickable(column, TRUE);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (window->contentlist), column);
 	}
 }
