@@ -101,7 +101,6 @@ GList *split_line (GList *fields , gchar *line , unsigned short int n_fields)
 	gchar *scan, *field_end;
 	gchar *field = NULL;
 	unsigned short int i;
-	unsigned long int size = 0;
 
 	scan = eat_spaces (line);
 	for (i = 0; i < n_fields; i++)

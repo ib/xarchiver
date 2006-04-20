@@ -156,6 +156,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		end = strchr (start, ' ');
 		original = g_strndup ( start , end - start);
 		_original = atoll (original);
+		g_free (original);
 
 		start = eat_spaces (end);
 		end = strchr (start, ' ');
@@ -165,6 +166,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		end = strchr (start, ' ');
 		compressed  = g_strndup ( start , end - start);
 		_compressed = atoll (compressed);
+		g_free (compressed);
 
 		start = eat_spaces (end);
 		end = strchr (start, ' ');
@@ -231,19 +233,9 @@ xa_support_zip_add (XASupport *support, XAArchive *archive, GSList *files)
 		else
 			support->exec.command = g_strconcat ( "zip -r " , archive->path , names->str , NULL );
 		archive->status = ADD;
-		//g_free (command);
-		/*if (archive->child_pid == 0)
-		{
-			g_message (archive->error->message);
-			g_error_free (archive->error);
-			return FALSE;
-		}
-		if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-			return FALSE;
-		if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-			return FALSE;
-			*/
+	
 		xa_support_execute(support);
+		g_free (support->exec.command);
 		g_string_free (names, TRUE);
 	}
 	fchdir(n_cwd);

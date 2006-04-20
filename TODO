@@ -31,10 +31,12 @@ DONE
 	- new archive        FIX DIALOG
 	- extract archive    FIX DIALOG
 	- passwd protection  FIX DIALOG
-	- add tooltip to buttons
-	- put separator in the menu 'Action' in the same order of the buttons
+	- About dialog
+	- Add tooltip to buttons
+	- Put separator in the menu 'Action' in the same order of the buttons
 	- Add accelerators to the menu entries
 	- Fix pixmap support
+	- Show icon in the top left corner of the main window
 
 + connect library to GUI
   - TODO

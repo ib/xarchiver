@@ -32,6 +32,7 @@
 #include "support-bzip2.h"
 #include "support-gnu-tar.h"
 #include "support-zip.h"
+#include "support-rar.h"
 
 #include "internals.h"
 #include "libxarchiver.h"
@@ -63,6 +64,7 @@ xarchiver_init()
 		support_list = g_slist_prepend(support_list, xa_support_bzip2_new());
 		support_list = g_slist_prepend(support_list, xa_support_gnu_tar_new());
 		support_list = g_slist_prepend(support_list, xa_support_zip_new());
+		support_list = g_slist_prepend(support_list, xa_support_rar_new());
 	}
 }
 

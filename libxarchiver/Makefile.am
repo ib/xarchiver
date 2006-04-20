@@ -7,6 +7,7 @@ libxarchiver_a_SOURCES =            \
 	support-bzip2.c   support-bzip2.h    \
 	support-gnu-tar.c support-gnu-tar.h    \
 	support-zip.c	  support-zip.h    \
+	support-rar.c     support-rar.h    \
 	support.c         support.h         \
 	archive.c         archive.h         \
 	archive-types.c   archive-types.h
