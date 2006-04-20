@@ -76,7 +76,7 @@ struct _XAArchive
 	gchar *passwd;
 	gint nr_of_files;
 	gint nr_of_dirs;
-	gint dummy_size;
+	unsigned long int dummy_size;
 	GSList *error_output;
 	GList *row;
 	gboolean has_passwd;

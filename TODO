@@ -5,7 +5,7 @@ DONE
 	- tar.bz2 and tar.gz composite archive support.
 	- gzip -- (fix open)
 	- bzip2 -- (fix open)
-  - zip	
+  - zip	DONE
   - arj 
   - 7z
   - iso? -- (feature, not a priority)
@@ -30,7 +30,10 @@ DONE
 	- new archive        FIX DIALOG
 	- extract archive    FIX DIALOG
 	- passwd protection  FIX DIALOG
-
+	- add tooltip to buttons
+	- put separator in the menu 'Action' in the same order of the buttons
+	- Add accelerators to the menu entries
+	-
 
 + connect library to GUI
   - TODO

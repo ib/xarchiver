@@ -95,9 +95,9 @@ xa_support_zip_init(XASupportZip *support)
 	column_names[6] = "Time";
 	column_names[7] = "CRC-32";
 	column_types[0] = G_TYPE_STRING;
-	column_types[1] = G_TYPE_STRING; /* UINT */
+	column_types[1] = G_TYPE_UINT;
 	column_types[2] = G_TYPE_STRING;
-	column_types[3] = G_TYPE_STRING; /* UINT */
+	column_types[3] = G_TYPE_UINT;
 	column_types[4] = G_TYPE_STRING;
 	column_types[5] = G_TYPE_STRING; /* DATE */
 	column_types[6] = G_TYPE_STRING;
@@ -115,6 +115,102 @@ xa_support_zip_init(XASupportZip *support)
 	
 	g_free (column_names);
 	g_free(column_types);
+}
+
+gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XASupport *support = XA_SUPPORT(data);
+	gchar *line = NULL;
+	gchar *start = NULL;
+	gchar *end = NULL;
+	gchar *filename = NULL;
+	gchar *original = NULL;
+	gchar *method = NULL;
+	gchar *compressed = NULL;
+	gchar *ratio = NULL;
+	gchar *date = NULL;
+	gchar *time = NULL;
+	gchar *crc32 = NULL;
+	unsigned long int _original = 0;
+	unsigned long int _compressed = 0;
+
+	XAArchive *archive = support->exec.archive;
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		/*g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		if ( line == NULL ) return TRUE;
+		archive->row = get_last_field ( archive->row , line , 8);
+		archive->row = split_line ( archive->row , line , 7 , 4 );
+		if ( g_str_has_suffix (g_list_nth_data ( archive->row , 7) , "/") == TRUE)
+			archive->nr_of_dirs++;
+		else
+			archive->nr_of_files++;
+		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row , 4) );
+		g_free (line);
+		return TRUE;
+		*/
+		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		if (line == NULL) return TRUE;
+
+		start = eat_spaces (line);
+		end = strchr (start, ' ');
+		original = g_strndup ( start , end - start);
+		_original = atoll (original);
+
+		start = eat_spaces (end);
+		end = strchr (start, ' ');
+		method = g_strndup ( start , end - start);
+
+		start = eat_spaces (end);
+		end = strchr (start, ' ');
+		compressed  = g_strndup ( start , end - start);
+		_compressed = atoll (compressed);
+
+		start = eat_spaces (end);
+		end = strchr (start, ' ');
+		ratio = g_strndup ( start , end - start);
+
+		start = eat_spaces (end);
+		end = strchr (start, ' ');
+		date = g_strndup ( start , end - start);
+
+		start = eat_spaces (end);
+		end = strchr (start, ' ');
+		time = g_strndup ( start , end - start);
+
+		start = eat_spaces (end);
+		end = strchr (start, ' ');
+		crc32 = g_strndup ( start , end - start);
+		
+		start = eat_spaces (end);
+		end = strchr (start, '\n');
+		filename = g_strndup ( start , end - start);
+		archive->row = g_list_prepend(archive->row, filename);
+		archive->row = g_list_prepend(archive->row, GUINT_TO_POINTER (_original) );
+		archive->row = g_list_prepend(archive->row, method);
+		archive->row = g_list_prepend(archive->row, GUINT_TO_POINTER (_compressed) );
+		archive->row = g_list_prepend(archive->row, ratio);
+		archive->row = g_list_prepend(archive->row, date);
+		archive->row = g_list_prepend(archive->row, time);
+		archive->row = g_list_prepend(archive->row, crc32);
+		
+		if ( g_str_has_suffix (filename , "/") == TRUE)
+			archive->nr_of_dirs++;
+		else
+			archive->nr_of_files++;
+
+		archive->dummy_size += (unsigned long int)g_list_nth_data ( archive->row , 4);
+		g_free(line);
+		return TRUE;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
+		xa_support_emit_signal(support, 0);
+		return FALSE;
+	}
+	return TRUE;
 }
 
 gboolean
@@ -217,54 +313,17 @@ xa_support_zip_remove (XASupport *support, XAArchive *archive, GSList *files)
 	return TRUE;
 }
 
-/*
- * xarchive_zip_support_open(XArchive *archive)
- * Open the archive and calls other functions to catch the output in the archive->output g_slist
- *
- */
-
 gint
 xa_support_zip_open (XASupport *support, XAArchive *archive)
 {
 	support->exec.command = g_strconcat ("unzip -vl -qq " , archive->path, NULL );
+	support->exec.archive = archive;
+	support->exec.parse_output = support->parse_output;
+	support->exec.signal = -1;
+	
 	xa_support_execute(support);
 	g_free (support->exec.command);
 	archive->dummy_size = 0;
-	return TRUE;
-}
-
-/*
- * xarchiver_parse_zip_output
- * Parse the output from the zip command when opening the archive
- *
- */
-
-gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
-{
-	XASupport *support = XA_SUPPORT(data);
-	gchar *line = NULL;
-	XAArchive *archive = support->exec.archive;
-	
-	if (cond & (G_IO_IN | G_IO_PRI) )
-	{
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		if ( line == NULL ) return TRUE;
-		/*if ( ! archive->status == RELOAD ) archive->output = g_slist_prepend (archive->output , line);*/
-		archive->row = get_last_field ( archive->row , line , 8);
-		archive->row = split_line ( archive->row , line , 7 );
-		if ( g_str_has_suffix (g_list_nth_data ( archive->row , 7) , "/") == TRUE)
-			archive->nr_of_dirs++;
-		else
-			archive->nr_of_files++;
-		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row , 4) );
-		return TRUE;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
-	{
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref (ioc);
-		return FALSE;
-	}
 	return TRUE;
 }
 

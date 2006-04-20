@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <glib.h>
 #include "internals.h"
@@ -98,8 +99,9 @@ int countcharacters ( gchar *string , int chr )
 GList *split_line (GList *fields , gchar *line , unsigned short int n_fields)
 {
 	gchar *scan, *field_end;
-	gchar *field;
+	gchar *field = NULL;
 	unsigned short int i;
+	unsigned long int size = 0;
 
 	scan = eat_spaces (line);
 	for (i = 0; i < n_fields; i++)
@@ -107,12 +109,9 @@ GList *split_line (GList *fields , gchar *line , unsigned short int n_fields)
 		field_end = strchr (scan, ' ');
 		//The following line is mine, I added the case when the last field ends with a newline
 		if (field_end == NULL) field_end = strchr (scan, '\n');
-		if (field_end != NULL)
-		{
 			field = g_strndup (scan, field_end - scan);
-			fields = g_list_prepend ( fields, field );
-			scan = eat_spaces (field_end);
-		}
+		fields = g_list_prepend ( fields, field );
+		scan = eat_spaces (field_end);
 	}
 	/*
 	GList *dummy = fields;
@@ -136,6 +135,7 @@ gchar *eat_spaces (gchar *line)
 GList *get_last_field (GList *dummy , gchar *line,unsigned short int last_field)
 {
 	gchar *field = NULL;
+	gchar *filename = NULL;
 	int i;
 
 	if (line == NULL)
@@ -147,10 +147,11 @@ GList *get_last_field (GList *dummy , gchar *line,unsigned short int last_field)
 	{
 		if (field == NULL)
 			return NULL;
-		field = strchr (field, ' ');
+		field = strchr (field, '\n');
 		field = eat_spaces (field);
 	}
     if (field != NULL) field [ strlen(field) -1 ] = '\000';
-	dummy = g_list_prepend ( dummy , field );
+	filename = g_strdup (field);
+	dummy = g_list_prepend ( dummy , filename );
 	return dummy;
 }

@@ -135,6 +135,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 			if(line[i] == ' ') break;
 		size = g_strndup(&line[a], i-a);
 		_size = atoll ( size );
+		g_free (size);
 		a = i++;
 		for(; i < strlen(line); i++) // DATE
 			if(line[i] == ' ') break;
@@ -147,6 +148,12 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 		archive->row = g_list_prepend(archive->row, owner);
 		archive->row = g_list_prepend(archive->row, GUINT_TO_POINTER (_size) );
 		archive->row = g_list_prepend(archive->row, date);
+		
+		archive->dummy_size += (unsigned long int)g_list_nth_data ( archive->row , 1);
+		if ( strstr ((gchar *)g_list_nth_data ( archive->row , 3) , "d") == NULL )
+			archive->nr_of_dirs++;
+        else
+			archive->nr_of_files++;
 		g_free(line);
 		return TRUE;
 	}
