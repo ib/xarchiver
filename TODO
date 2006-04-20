@@ -9,13 +9,14 @@ DONE
   - arj 
   - 7z
   - iso? -- (feature, not a priority)
+	- check for available compressors and add filetypes accordingly
+	  ( this should be done for each individual support object )
 
 + handle child_pid cancellation in libxarchiver
 DONE
 
 + create GUI (further specification of this is pending)
 	- open archive       PARTIALLY DONE
-	  check for available compressors and add filetypes accordingly -- should this be an external feature?
 
 	- implement archive-model (to replace list-store)
 		
@@ -33,7 +34,7 @@ DONE
 	- add tooltip to buttons
 	- put separator in the menu 'Action' in the same order of the buttons
 	- Add accelerators to the menu entries
-	-
+	- Fix pixmap support
 
 + connect library to GUI
   - TODO

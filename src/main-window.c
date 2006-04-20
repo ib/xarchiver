@@ -487,6 +487,37 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	window->menubar = menu_bar;
 }
 
+GtkWidget *
+find_image(gchar *filename, GtkIconSize size)
+{
+	GError *error = NULL;
+	GtkWidget *file_image;
+	gchar *path;
+	path = g_strconcat(DATADIR, "/xarchiver/pixmaps/", filename, NULL);
+	GdkPixbuf *file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
+	if(!file_pixbuf)
+	{
+		/*
+		 * perhaps xarchiver has not been installed and is being executed from source dir
+		 */
+		g_free(error);
+		error = NULL;
+		GdkPixbuf *file_pixbuf = gdk_pixbuf_new_from_file(filename, &error);
+	}
+	if(file_pixbuf)
+	{
+		file_image = gtk_image_new_from_pixbuf(file_pixbuf);
+		g_object_unref(file_pixbuf);
+	}
+	else
+	{
+		g_free(error);
+		file_image = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, size);
+	}
+	g_free(path);
+	return file_image;
+}
+
 void
 xa_main_window_create_toolbar(XAMainWindow *window)
 {
@@ -500,15 +531,15 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	GtkToolItem *open = gtk_tool_button_new_from_stock (GTK_STOCK_OPEN);
 	GtkToolItem *cancel = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
 
-	tmpimage = gtk_image_new_from_file(DATADIR"/pixmaps/add.png");
+	tmpimage = find_image("add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_file = gtk_tool_button_new (tmpimage, _("Add Files"));
 
-	tmpimage = gtk_image_new_from_file(DATADIR"/pixmaps/add_folder.png");
+	tmpimage = find_image("add_folder.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_folder = gtk_tool_button_new (tmpimage, _("Add Folder"));
 
-	tmpimage = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, GTK_ICON_SIZE_LARGE_TOOLBAR);
+	tmpimage = find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *extract = gtk_tool_button_new (tmpimage, _("Extract"));
 

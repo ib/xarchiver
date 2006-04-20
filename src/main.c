@@ -334,75 +334,67 @@ xa_remove_files(GtkWidget *widget, gpointer data)
 
 int main(int argc, char **argv)
 {
-	int c = 0;
-	gchar *filename = NULL;
+	GError *error = NULL;
+	gchar **filenames = NULL;
 	g_type_init();
 	xarchiver_init();
+	GOptionEntry options[] = {
+		{ "open-archive", 'o', 0, G_OPTION_ARG_FILENAME_ARRAY, &filenames, _("Open Archive"), NULL},
+		{ NULL }
+	};
+
+	GOptionGroup *gtk_options = gtk_get_option_group(FALSE);
+
+	GOptionContext *ctx = g_option_context_new(_("archiving app"));
+
+	g_option_context_add_group(ctx, gtk_options);
+	g_option_context_add_main_entries(ctx, options, "xarchiver options");
+	
+	g_option_context_parse(ctx, &argc, &argv, NULL);
+	g_option_context_free(ctx);
+	
 	gtk_init(&argc, &argv);
 
-	while(1)
-	{
-		c = getopt_long(argc, argv, "f:a:e:", NULL, NULL);
-		if(c == -1) break; switch(c)
-		{
-			case('f'):
-				/* archive file */
-				break;
-			case('a'):
-				/* file (or folder) to add */
-				break;
-			case('e'):
-				/* destination-path (extract) */
-				break;
-		}
-	}
+	main_window = xa_main_window_new();
+	gtk_widget_set_size_request(main_window, 620, 400);
+	GtkWidget *prop_dialog = xa_property_dialog_new(GTK_WINDOW(main_window));
+	xa_property_dialog_add_property(XA_PROPERTY_DIALOG(prop_dialog), "filename", "/etc/passwd");
 
-	if(filename)
-	{
-		
-	}
-	else
-	{
-		main_window = xa_main_window_new();
-		gtk_widget_set_size_request(main_window, 600, 400);
-		GtkWidget *prop_dialog = xa_property_dialog_new(GTK_WINDOW(main_window));
-		xa_property_dialog_add_property(XA_PROPERTY_DIALOG(prop_dialog), "filename", "/etc/passwd");
-
-		g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
-		//g_signal_connect(G_OBJECT(main_window), "xa_new_archive", G_CALLBACK(open_archive), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(xa_open_archive), NULL);
-		//g_signal_connect(G_OBJECT(main_window), "xa_test_archive", G_CALLBACK(xa_test_archive), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_close_archive", G_CALLBACK(xa_close_archive), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_extract_archive", G_CALLBACK(xa_extract_archive), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_add_folders", G_CALLBACK(xa_add_files), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(xa_add_files), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_remove_files", G_CALLBACK(xa_remove_files), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(xa_cancel_operation), NULL);
-		g_signal_connect(G_OBJECT(main_window), "xa_show_about", G_CALLBACK(xa_show_about), NULL);
+	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
+	//g_signal_connect(G_OBJECT(main_window), "xa_new_archive", G_CALLBACK(open_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(xa_open_archive), NULL);
+	//g_signal_connect(G_OBJECT(main_window), "xa_test_archive", G_CALLBACK(xa_test_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_close_archive", G_CALLBACK(xa_close_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_extract_archive", G_CALLBACK(xa_extract_archive), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_add_folders", G_CALLBACK(xa_add_files), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_add_files", G_CALLBACK(xa_add_files), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_remove_files", G_CALLBACK(xa_remove_files), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_cancel_operation", G_CALLBACK(xa_cancel_operation), NULL);
+	g_signal_connect(G_OBJECT(main_window), "xa_show_about", G_CALLBACK(xa_show_about), NULL);
 		
 
-		xarchiver_support_connect("xa_rows_updated", G_CALLBACK(xa_data_ready));
-		xarchiver_support_connect("xa_archive_modified", G_CALLBACK(xa_operation_complete));
-		xarchiver_support_connect("xa_operation_complete", G_CALLBACK(xa_no_op));
+	xarchiver_support_connect("xa_rows_updated", G_CALLBACK(xa_data_ready));
+	xarchiver_support_connect("xa_archive_modified", G_CALLBACK(xa_operation_complete));
+	xarchiver_support_connect("xa_operation_complete", G_CALLBACK(xa_no_op));
 
-		gtk_widget_show_all(main_window);
+	gtk_widget_show_all(main_window);
 	
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-folder", FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-file", FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-cancel", FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-close", FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-remove", FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-folder", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-file", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-cancel", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-close", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-remove", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
 
-		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), PACKAGE_STRING);
-		//xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
+	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), PACKAGE_STRING);
+	//xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
 	
-		gtk_main();
-		if ( g_file_test ("/tmp/xarchiver.tmp",G_FILE_TEST_EXISTS) )
-			unlink ("/tmp/xarchiver.tmp");
-	}
+	gtk_main();
+	if ( g_file_test ("/tmp/xarchiver.tmp",G_FILE_TEST_EXISTS) )
+		unlink ("/tmp/xarchiver.tmp");
+
 	xarchiver_destroy();
 	return 0;
 }
