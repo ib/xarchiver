@@ -187,14 +187,14 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			start = eat_spaces (line);
 			end = strchr (start, ' ');
 			original = g_strndup ( start , end - start);
-			_original = atoll (original);
-			g_free (original);
+			//_original = atoll (original);
+		//	g_free (original);
 
 			start = eat_spaces (end);
 			end = strchr (start, ' ');
 			compressed  = g_strndup ( start , end - start);
-			_compressed = atoll (compressed);
-			g_free (compressed);
+			//_compressed = atoll (compressed);
+		//	g_free (compressed);
 
 			start = eat_spaces (end);
 			end = strchr (start, ' ');
@@ -224,8 +224,8 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			end = strchr (start, '\n');
 			version = g_strndup ( start , end - start);
 			
-			archive->row = g_list_prepend (archive->row , GUINT_TO_POINTER (_original) );
-			archive->row = g_list_prepend (archive->row , GUINT_TO_POINTER (_compressed) );
+			archive->row = g_list_prepend (archive->row , original) ;
+			archive->row = g_list_prepend (archive->row , compressed );
 			archive->row = g_list_prepend (archive->row , ratio );
 			archive->row = g_list_prepend (archive->row , date );
 			archive->row = g_list_prepend (archive->row , time );
@@ -243,7 +243,7 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			return TRUE;
 		}
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	else if (cond & (G_IO_ERR | G_IO_HUP ) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);

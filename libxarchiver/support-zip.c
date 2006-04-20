@@ -205,7 +205,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		g_free(line);
 		return TRUE;
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	else if (cond & (G_IO_ERR | G_IO_HUP) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);

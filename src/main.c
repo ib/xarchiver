@@ -54,6 +54,9 @@ xa_data_ready(GObject *object, gpointer data)
 		column_names, 
 		column_types);
 	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+	g_list_foreach(archive->row, (GFunc)g_free, NULL);
+	g_list_free(archive->row);
+	archive->row == NULL;
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Done");
 }
 
