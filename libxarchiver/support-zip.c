@@ -232,8 +232,10 @@ xa_support_zip_add (XASupport *support, XAArchive *archive, GSList *files)
 			support->exec.command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->path , names->str , NULL );
 		else
 			support->exec.command = g_strconcat ( "zip -r " , archive->path , names->str , NULL );
-		archive->status = ADD;
-	
+		support->exec.archive = archive;
+		support->exec.signal = 1;
+		support->exec.parse_output = 0;
+		
 		xa_support_execute(support);
 		g_free (support->exec.command);
 		g_string_free (names, TRUE);
@@ -268,6 +270,10 @@ xa_support_zip_extract(XASupport *support, XAArchive *archive, gchar *destinatio
 			support->exec.command = g_strconcat ( "unzip -o " , full_path ? "" : "-j " , archive->path , names->str , " -d " , destination_path , NULL );
 		g_string_free (names, TRUE);
 	}
+	support->exec.archive = archive;
+	support->exec.signal = -1;
+	support->exec.parse_output = 0;
+
 	xa_support_execute(support);
 	g_free(support->exec.command);
 	fchdir(n_cwd);
@@ -284,6 +290,9 @@ xa_support_zip_testing (XASupport *support, XAArchive *archive)
 		support->exec.command = g_strconcat ("unzip -P ", archive->passwd, " -t " , archive->path, NULL);
 	else
 		support->exec.command = g_strconcat ("unzip -t " , archive->path, NULL);
+	support->exec.archive = archive;
+	support->exec.signal = -1;
+	support->exec.parse_output = 0;
 
 	xa_support_execute(support);
 	g_free (support->exec.command);
@@ -297,8 +306,11 @@ xa_support_zip_remove (XASupport *support, XAArchive *archive, GSList *files)
 
 	GSList *_files = files;
 	names = concatenatefilenames ( _files , TRUE );
-	archive->status = REMOVE;
 	support->exec.command = g_strconcat ( "zip -d " , archive->path , names->str , NULL );
+	support->exec.archive = archive;
+	support->exec.signal = 1;
+	support->exec.parse_output = 0;
+	
 	xa_support_execute(support);
 	g_string_free (names, TRUE);
 	g_free (support->exec.command);

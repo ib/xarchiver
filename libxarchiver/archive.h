@@ -51,7 +51,7 @@ typedef enum
 	XARCHIVETYPE_ISO
 } XAArchiveType;
 
-typedef enum
+/*typedef enum
 {
 	IDLE,
 	EXTRACT,
@@ -62,16 +62,17 @@ typedef enum
 	ERROR,
 	USER_BREAK
 } XAArchiveStatus;
-
+*/
 
 typedef struct _XAArchive XAArchive;
+
 
 struct _XAArchive
 {
 	GObject parent;
 
 	XAArchiveType type;
-	XAArchiveStatus status;
+	/* XAArchiveStatus status; */
 	gchar *path;
 	gchar *passwd;
 	gint nr_of_files;

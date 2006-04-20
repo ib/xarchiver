@@ -248,7 +248,6 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
 		xa_support_emit_signal(support, 0);
-		g_print ("dirs: %d files: %d\n",archive->nr_of_dirs,archive->nr_of_files);
 		return FALSE;
 	}
 	return TRUE;
@@ -271,9 +270,11 @@ xa_support_rar_add (XASupport *support, XAArchive *archive, GSList *files)
 			support->exec.command = g_strconcat ( "rar a -p" , archive->passwd, " -o+ -ep1 -idp " , archive->path , names->str , NULL );
 		else
 			support->exec.command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->path , names->str , NULL );
-		archive->status = ADD;
-
+		support->exec.archive = archive;
+		support->exec.signal = 1;
+		support->exec.parse_output = 0;
 		xa_support_execute(support);
+
 		g_free (support->exec.command);
 		g_string_free (names, TRUE);
 	}
@@ -307,6 +308,10 @@ xa_support_rar_extract(XASupport *support, XAArchive *archive, gchar *destinatio
 			support->exec.command = g_strconcat ( "rar ", full_path ? "x" : "e" , " -o+ -idp " , archive->path , " " , names->str , " ", destination_path ,NULL);
 		g_string_free (names, TRUE);
 	}
+	support->exec.archive = archive;
+	support->exec.signal = -1;
+	support->exec.parse_output = 0;
+
 	xa_support_execute(support);
 	g_free (support->exec.command);
 	fchdir(n_cwd);
@@ -318,12 +323,15 @@ xa_support_rar_testing (XASupport *support, XAArchive *archive)
 {
 	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
 		return FALSE;
-        
+	
 	if (archive->has_passwd)
 		support->exec.command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->path, NULL);
 	else
 		support->exec.command = g_strconcat ("rar t -idp " , archive->path, NULL);
-
+	support->exec.archive = archive;
+	support->exec.signal = -1;
+	support->exec.parse_output = 0;
+	
 	xa_support_execute(support);
 	g_free (support->exec.command);
 	return TRUE;
@@ -336,8 +344,11 @@ xa_support_rar_remove (XASupport *support, XAArchive *archive, GSList *files)
 
 	GSList *_files = files;
 	names = concatenatefilenames ( _files , TRUE );
-	archive->status = REMOVE;
 	support->exec.command = g_strconcat ( "rar d " , archive->path , names->str , NULL );
+	support->exec.archive = archive;
+	support->exec.signal = 1;
+	support->exec.parse_output = 0;
+
 	xa_support_execute(support);
 	g_string_free (names, TRUE);
 	g_free (support->exec.command);
