@@ -618,7 +618,7 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 
 	gtk_container_set_border_width(GTK_CONTAINER(statusbar), 1);
 	gtk_progress_configure(GTK_PROGRESS(progressbar), 0, 0, 100);
-	gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progressbar), 90);
+	gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progressbar), 10);
 	gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(statusbar), FALSE);
 	gtk_box_pack_start(GTK_BOX(statusbar), progressbar, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(statusbar), viewport, FALSE, FALSE, 0);
@@ -971,6 +971,16 @@ xa_main_window_set_statusbar_value   (XAMainWindow *window, gchar *value)
 	gtk_statusbar_push(GTK_STATUSBAR(window->statusbar), 0, value);
 }
 
+gint
+xa_main_window_progressbar_pulse(gpointer window)
+{
+	gtk_progress_bar_pulse(GTK_PROGRESS_BAR(XA_MAIN_WINDOW(window)->progressbar));
+	if(GTK_WIDGET_VISIBLE(XA_MAIN_WINDOW(window)->progressbar))
+		return TRUE;
+	else
+		return FALSE;
+}
+
 void
 xa_main_window_set_progressbar_value (XAMainWindow *window, gdouble value)
 {
@@ -985,8 +995,8 @@ xa_main_window_set_progressbar_value (XAMainWindow *window, gdouble value)
 	{	
 		/* TODO: fix actual pulsing 
 		 */
-		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(window->progressbar));
 		gtk_widget_show(window->progressbar);
+		g_timeout_add(200, xa_main_window_progressbar_pulse, window);
 	}
 }
 
