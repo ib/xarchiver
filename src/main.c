@@ -27,7 +27,6 @@
 #include <unistd.h>
 #include <libintl.h>
 
-#include "xarchivericon.h"
 #include "main.h"
 #include "property-dialog.h"
 #include "main-window.h"
@@ -62,6 +61,7 @@ xa_append_rows(GObject *object, gpointer data)
 	XAArchive *archive = data;
 	archive->row = g_list_reverse ( archive->row );
 	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+	g_list_foreach(archive->row, (GFunc)g_value_unset, NULL);
 	g_list_foreach(archive->row, (GFunc)g_free, NULL);
 	g_list_free(archive->row);
 	archive->row = NULL;
@@ -246,6 +246,10 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	{
 		xa_support = xarchiver_find_archive_support(xa_archive);
 		xa_support_get_columns(xa_support, &n_columns, &column_names, &column_types);
+		xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), 
+				n_columns, 
+				column_names, 
+				column_types);
 		xa_support->open(xa_support, xa_archive);
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-cancel", 
@@ -265,10 +269,6 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-add-folder", 
 			FALSE);
-		xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), 
-				n_columns, 
-				column_names, 
-				column_types);
 		
 		if(xa_archive->has_passwd)
 			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);

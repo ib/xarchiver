@@ -1,8 +1,6 @@
 bin_PROGRAMS = xarchiver
 
-
 xarchiver_SOURCES = \
-	xarchivericon.h \
 	main.c main.h \
 	main-window.c main-window.h \
 	property-dialog.c property-dialog.h \
@@ -11,7 +9,8 @@ xarchiver_SOURCES = \
 xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \
 	@GLIB_CFLAGS@ \
-	-DDATADIR=\"$(datadir)\"
+	-DDATADIR=\"$(datadir)\" \
+	-DSRCDIR=\"$(top_srcdir)\"
  
 xarchiver_LDADD = \
 	$(top_srcdir)/libxarchiver/libxarchiver.a \
@@ -19,11 +18,5 @@ xarchiver_LDADD = \
 	@GLIB_LIBS@
 	-lz
 
-xarchivericon.h: xarchivericon.png
-	gdk-pixbuf-csource --raw --name=xarchivericon \
-	xarchivericon.png > xarchivericon.h
-
 INCLUDES = \
 	-I${top_srcdir}
-
-EXTRA_DIST = xarchivericon.png

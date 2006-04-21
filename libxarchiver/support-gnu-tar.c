@@ -111,68 +111,76 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 {
 	XASupport *support = XA_SUPPORT(data);
 	gchar *line = NULL;
-	GValue *filename    = g_new0(GValue, 1);
-	GValue *permissions = g_new0(GValue, 1);
-	GValue *owner       = g_new0(GValue, 1);
-	GValue *size        = g_new0(GValue, 1);
-	GValue *date        = g_new0(GValue, 1);
+	GValue *filename    = NULL;
+	GValue *permissions = NULL;
+	GValue *owner       = NULL;
+	GValue *size        = NULL;
+	GValue *date        = NULL;
 	gchar *_size;
 
 	gint i = 0, a = 0;
 	XAArchive *archive = support->exec.archive;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		date = g_value_init(date, G_TYPE_STRING);
-		g_value_set_string(date, "01-01-1970");
+		for(i = 0 ; (i < 100) && (g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL ) == G_IO_STATUS_NORMAL); i++)
+		{
+			filename    = g_new0(GValue, 1);
+			permissions = g_new0(GValue, 1);
+			owner       = g_new0(GValue, 1);
+			size        = g_new0(GValue, 1);
+			date        = g_new0(GValue, 1);
 
-		for(i = 13; i < strlen(line); i++)
-			if(line[i] == ' ') break;
-		permissions = g_value_init(permissions, G_TYPE_STRING);
-		g_value_set_string(permissions, g_strndup(line, 10));
+			date = g_value_init(date, G_TYPE_STRING);
+			g_value_set_string(date, "01-01-1970");
 
-		owner = g_value_init(owner , G_TYPE_STRING);
-		g_value_set_string(owner, g_strndup(&line[11], i-11));
+			for(i = 13; i < strlen(line); i++)
+				if(line[i] == ' ') break;
+			permissions = g_value_init(permissions, G_TYPE_STRING);
+			g_value_set_string(permissions, g_strndup(line, 10));
+	
+			owner = g_value_init(owner , G_TYPE_STRING);
+			g_value_set_string(owner, g_strndup(&line[11], i-11));
 
-		for(; i < strlen(line); i++)
-			if(line[i] >= '0' && line[i] <= '9') break;
-		a = i;
-		for(; i < strlen(line); i++)
-			if(line[i] == ' ') break;
+			for(; i < strlen(line); i++)
+				if(line[i] >= '0' && line[i] <= '9') break;
+			a = i;
+			for(; i < strlen(line); i++)
+				if(line[i] == ' ') break;
 
-		size = g_value_init(size, G_TYPE_UINT);
-		_size = g_strndup(&line[a], i-a);
-		g_value_set_uint(size, atoll ( _size ));
-		g_free (_size);
-		a = i++;
-		for(; i < strlen(line); i++) // DATE
-			if(line[i] == ' ') break;
-		a = i++;
-		for(; i < strlen(line); i++) // TIME
-			if(line[i] == ' ') break;
+			size = g_value_init(size, G_TYPE_UINT);
+			_size = g_strndup(&line[a], i-a);
+			g_value_set_uint(size, atoll ( _size ));
+			g_free (_size);
+			a = i++;
+			for(; i < strlen(line); i++) // DATE
+				if(line[i] == ' ') break;
+			a = i++;
+			for(; i < strlen(line); i++) // TIME
+				if(line[i] == ' ') break;
 
-		filename = g_value_init(filename, G_TYPE_STRING);
-		g_value_set_string(filename, g_strstrip(g_strndup(&line[i], strlen(line)-i-1)));
+			filename = g_value_init(filename, G_TYPE_STRING);
+			g_value_set_string(filename, g_strstrip(g_strndup(&line[i], strlen(line)-i-1)));
 
-		archive->row = g_list_prepend(archive->row, filename);
-		archive->row = g_list_prepend(archive->row, permissions);
-		archive->row = g_list_prepend(archive->row, owner);
-		archive->row = g_list_prepend(archive->row, size);
-		archive->row = g_list_prepend(archive->row, date);
-		
-		archive->dummy_size += (unsigned long int)g_list_nth_data ( archive->row , 1);
-		if ( strstr ((gchar *)g_list_nth_data ( archive->row , 3) , "d") == NULL )
-			archive->nr_of_dirs++;
-        else
-			archive->nr_of_files++;
-		g_free(line);
+			archive->row = g_list_prepend(archive->row, filename);
+			archive->row = g_list_prepend(archive->row, permissions);
+			archive->row = g_list_prepend(archive->row, owner);
+			archive->row = g_list_prepend(archive->row, size);
+			archive->row = g_list_prepend(archive->row, date);
+			
+			archive->dummy_size += (unsigned long int)g_list_nth_data ( archive->row , 1);
+			if ( strstr ((gchar *)g_list_nth_data ( archive->row , 3) , "d") == NULL )
+				archive->nr_of_dirs++;
+  	      else
+				archive->nr_of_files++;
+			g_free(line);
+		}
+		xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP ) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
 		return FALSE;
 	}
 	return TRUE;
@@ -204,7 +212,7 @@ xa_support_gnu_tar_remove (XASupport *support, XAArchive *archive, GSList *files
 		names = concatenatefilenames ( _files , FALSE);
 		support->exec.command = g_strconcat ( "tar --delete -vf " , archive->path ," ", names->str , NULL );
 		support->exec.archive = archive;
-		support->exec.signal = 1;
+		support->exec.signal = XA_SUPPORT_SIGNAL_ARCHIVE_MODIFIED;
 		support->exec.parse_output = 0;
 		
 		xa_support_execute( support );
@@ -234,7 +242,7 @@ xa_support_gnu_tar_add (XASupport *support, XAArchive *archive, GSList *files)
 		else
 			support->exec.command = g_strconcat("tar cvvf ", archive->path, " ", names->str, NULL);
 		support->exec.archive = archive;
-		support->exec.signal = 1;
+		support->exec.signal = XA_SUPPORT_SIGNAL_ARCHIVE_MODIFIED;
 		support->exec.parse_output = 0;
 
 		xa_support_execute(support);

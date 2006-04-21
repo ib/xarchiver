@@ -27,7 +27,6 @@
 #include <libxarchiver/archive.h>
 #include <libxarchiver/support.h>
 #include <libxarchiver/libxarchiver.h>
-#include "xarchivericon.h"
 #include "archive-chooser-dialog.h"
 #include "property-dialog.h"
 #include "main-window.h"
@@ -321,13 +320,20 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 static void
 xa_main_window_init (XAMainWindow *window)
 {
+	GError *error = NULL;
 	window->propertywindow = NULL;
 	xa_main_window_widget_list = g_slist_alloc();
 	xa_main_window_widget_list->data = window;
 
 	gtk_window_set_title(GTK_WINDOW(window), PACKAGE_STRING);
-	GdkPixbuf *icon = gdk_pixbuf_new_from_inline(-1, xarchivericon, FALSE, NULL);
-	gtk_window_set_icon(GTK_WINDOW(window), icon);
+	
+	//gchar *path = g_strconcat(DATADIR, "/xarchiver/pixmaps/xarchiver.png", NULL);
+	//GdkPixbuf *icon= gdk_pixbuf_new_from_file(path, &error);
+	//if(icon)
+	//	gtk_window_set_icon(GTK_WINDOW(window), icon);
+	//else
+	//	g_free(error);
+	//g_free(path);
 
 	gtk_container_set_border_width(GTK_CONTAINER(window), 0);
 	window->vbox = gtk_vbox_new(FALSE, 0);
@@ -508,7 +514,8 @@ xa_main_window_find_image(gchar *filename, GtkIconSize size)
 		 */
 		g_free(error);
 		error = NULL;
-		GdkPixbuf *file_pixbuf = gdk_pixbuf_new_from_file(filename, &error);
+		path = g_strconcat(SRCDIR, "/pixmaps/", filename, NULL);
+		GdkPixbuf *file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
 	}
 	if(file_pixbuf)
 	{
@@ -751,14 +758,24 @@ xa_main_window_clear_list(XAMainWindow *window, gboolean clear_colums)
 void 
 xa_main_window_new_archive(GtkWidget *widget, gpointer data)
 {
-	GtkWidget *dialog = xa_archive_chooser_dialog_new(_("New archive"), 
-			GTK_WINDOW(data));
+	gchar *filename = NULL;
+	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("New Archive"),
+			GTK_WINDOW(data),
+			GTK_FILE_CHOOSER_ACTION_SAVE,
+			GTK_STOCK_CANCEL,
+			GTK_RESPONSE_CANCEL,
+			GTK_STOCK_NEW,
+			GTK_RESPONSE_OK,
+			NULL);
 
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL); // specify filename
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, filename); // specify filename
 	}
+	if(filename)
+		g_free(filename);
 	gtk_widget_destroy(dialog);
 }
 
