@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <libintl.h>
 
+#include "xarchivericon.h"
 #include "main.h"
 #include "property-dialog.h"
 #include "main-window.h"
@@ -40,26 +41,31 @@ XASupport *xa_support = NULL;
 XASupport *xa_sub_support = NULL;
 
 void
-xa_data_ready(GObject *object, gpointer data)
+xa_update_rows(GObject *object, gpointer data)
 {
 	XAArchive *archive = data;
 	gint n_columns = 0;
 	gchar **column_names = NULL;
 	GType *column_types = NULL;
-	archive->row = g_list_reverse ( archive->row );
 	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
 	xa_support_get_columns(xa_support, &n_columns, &column_names, &column_types);
 	xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), 
 		n_columns, 
 		column_names, 
 		column_types);
-	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
-	g_list_foreach(archive->row, (GFunc)g_free, NULL);
-	g_list_free(archive->row);
-	archive->row == NULL;
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Done");
 }
 
+void
+xa_append_rows(GObject *object, gpointer data)
+{
+	XAArchive *archive = data;
+	archive->row = g_list_reverse ( archive->row );
+	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
+	g_list_foreach(archive->row, (GFunc)g_free, NULL);
+	g_list_free(archive->row);
+	archive->row = NULL;
+}
 void
 xa_no_op(GtkWidget *widget, gpointer data)
 {
@@ -202,7 +208,7 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 		g_object_unref(xa_archive);
 	if(xa_sub_archive)
 		g_object_unref(xa_sub_archive);
-	xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
+	//xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
 	xa_archive = xarchiver_archive_new(filename, XARCHIVETYPE_UNKNOWN);
 	if(xa_archive == NULL)
 	{
@@ -376,7 +382,8 @@ int main(int argc, char **argv)
 	g_signal_connect(G_OBJECT(main_window), "xa_show_about", G_CALLBACK(xa_show_about), NULL);
 		
 
-	xarchiver_support_connect("xa_rows_updated", G_CALLBACK(xa_data_ready));
+	xarchiver_support_connect("xa_rows_updated", G_CALLBACK(xa_update_rows));
+	xarchiver_support_connect("xa_rows_appended", G_CALLBACK(xa_append_rows));
 	xarchiver_support_connect("xa_archive_modified", G_CALLBACK(xa_operation_complete));
 	xarchiver_support_connect("xa_operation_complete", G_CALLBACK(xa_no_op));
 

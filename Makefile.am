@@ -3,12 +3,10 @@
 SUBDIRS = libxarchiver src po
 
 pixmapsdir       = $(datadir)/pixmaps
-pixmaps_DATA     = xarchiver.png
 
 EXTRA_DIST = \
 	autogen.sh \
-	xarchiver.desktop \
-	$(pixmaps_DATA)
+	xarchiver.desktop
 
 install-data-local:
 	@$(NORMAL_INSTALL)

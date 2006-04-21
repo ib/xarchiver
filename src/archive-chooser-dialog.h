@@ -39,6 +39,7 @@ typedef struct _XAArchiveChooserDialogClass XAArchiveChooserDialogClass;
 struct _XAArchiveChooserDialog
 {
 	GtkDialog parent;
+	gchar *filename;
 };
 
 struct _XAArchiveChooserDialogClass
@@ -48,6 +49,7 @@ struct _XAArchiveChooserDialogClass
 
 GType      xa_archive_chooser_dialog_get_type(void) G_GNUC_CONST;
 GtkWidget *xa_archive_chooser_dialog_new(gchar *title, GtkWindow *parent);
+gchar     *xa_archive_chooser_dialog_get_filename(XAArchiveChooserDialog *dialog);
 
 
 G_END_DECLS

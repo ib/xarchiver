@@ -51,6 +51,7 @@ xa_archive_chooser_dialog_class_init(XAArchiveChooserDialogClass *_class)
 static void
 xa_archive_chooser_dialog_init(XAArchiveChooserDialog *object)
 {
+	object->filename = NULL;
 	
 }
 
@@ -60,12 +61,24 @@ xa_archive_chooser_dialog_finalize(XAArchiveChooserDialog *object)
 
 }
 
+gchar *
+xa_archive_chooser_dialog_get_filename(XAArchiveChooserDialog *dialog)
+{
+	if(dialog->filename)
+		return g_strdup(dialog->filename);
+	else
+		return NULL;
+}
+
 GtkWidget *
 xa_archive_chooser_dialog_new(gchar *title, GtkWindow *parent)
 {
 	GtkWidget *dialog;
 	dialog = GTK_WIDGET (g_object_new(xa_archive_chooser_dialog_get_type(), NULL));
 	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
+	gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
 	gtk_window_set_title(GTK_WINDOW(dialog), title);
+	gtk_widget_set_size_request(dialog, 400, 300);
+	gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE);
 	return dialog;
 }

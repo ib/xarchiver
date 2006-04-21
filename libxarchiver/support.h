@@ -75,6 +75,11 @@ struct _XASupport
 	GType *column_types;
 };
 
+#define XA_SUPPORT_SIGNAL_UPDATE_ROWS        0
+#define XA_SUPPORT_SIGNAL_APPEND_ROWS        1
+#define XA_SUPPORT_SIGNAL_ARCHIVE_MODIFIED   2
+#define XA_SUPPORT_SIGNAL_OPERATION_COMPLETE 3
+
 typedef struct _XASupportClass XASupportClass;
 
 struct _XASupportClass
@@ -82,7 +87,6 @@ struct _XASupportClass
 	GObjectClass parent;
 }; 
 
-static guint xa_support_signals[3];
 GType        xa_support_get_type(void);
 XASupport *  xa_support_new();
 gpointer     xa_support_execute(gpointer data);

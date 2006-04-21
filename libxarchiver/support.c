@@ -24,6 +24,8 @@
 #include "archive.h"
 #include "support.h"
 
+static guint xa_support_signals[4];
+
 void
 xa_support_init(XASupport *support);
 void
@@ -132,7 +134,7 @@ xa_support_class_init(XASupportClass *supportclass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (supportclass);
 	XASupportClass *klass = XA_SUPPORT_CLASS (supportclass);
 
-	xa_support_signals[0] = g_signal_new("xa_rows_updated",
+	xa_support_signals[XA_SUPPORT_SIGNAL_UPDATE_ROWS] = g_signal_new("xa_rows_updated",
 			G_TYPE_FROM_CLASS(supportclass),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -144,7 +146,7 @@ xa_support_class_init(XASupportClass *supportclass)
 			G_TYPE_POINTER,
 			NULL);
 
-	xa_support_signals[1] = g_signal_new("xa_archive_modified",
+	xa_support_signals[XA_SUPPORT_SIGNAL_APPEND_ROWS] = g_signal_new("xa_rows_appended",
 			G_TYPE_FROM_CLASS(supportclass),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -156,7 +158,19 @@ xa_support_class_init(XASupportClass *supportclass)
 			G_TYPE_POINTER,
 			NULL);
 
-	xa_support_signals[2] = g_signal_new("xa_operation_complete",
+	xa_support_signals[XA_SUPPORT_SIGNAL_ARCHIVE_MODIFIED] = g_signal_new("xa_archive_modified",
+			G_TYPE_FROM_CLASS(supportclass),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_POINTER,
+			NULL);
+
+	xa_support_signals[XA_SUPPORT_SIGNAL_OPERATION_COMPLETE] = g_signal_new("xa_operation_complete",
 			G_TYPE_FROM_CLASS(supportclass),
 			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			0,
@@ -229,7 +243,7 @@ xa_support_watch_child (GPid pid, gint status, XASupport *support)
 				xa_support_emit_signal(support, support->exec.signal);
 			break;
 	}
-	xa_support_emit_signal(support, 2);
+	xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 }
 
 gpointer

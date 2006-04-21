@@ -27,6 +27,7 @@
 #include <libxarchiver/archive.h>
 #include <libxarchiver/support.h>
 #include <libxarchiver/libxarchiver.h>
+#include "xarchivericon.h"
 #include "archive-chooser-dialog.h"
 #include "property-dialog.h"
 #include "main-window.h"
@@ -103,6 +104,9 @@ xa_main_window_show_about(GtkWidget *widget, gpointer data);
 
 void
 xa_main_window_show_property_dialog(GtkWidget *widget, gpointer data);
+
+GtkWidget *
+xa_main_window_find_image(gchar *filename, GtkIconSize size);
 
 static GtkWidgetClass *xa_main_window_parent_class;
 
@@ -322,6 +326,8 @@ xa_main_window_init (XAMainWindow *window)
 	xa_main_window_widget_list->data = window;
 
 	gtk_window_set_title(GTK_WINDOW(window), PACKAGE_STRING);
+	GdkPixbuf *icon = gdk_pixbuf_new_from_inline(-1, xarchivericon, FALSE, NULL);
+	gtk_window_set_icon(GTK_WINDOW(window), icon);
 
 	gtk_container_set_border_width(GTK_CONTAINER(window), 0);
 	window->vbox = gtk_vbox_new(FALSE, 0);
@@ -488,7 +494,7 @@ xa_main_window_create_menubar(XAMainWindow *window)
 }
 
 GtkWidget *
-find_image(gchar *filename, GtkIconSize size)
+xa_main_window_find_image(gchar *filename, GtkIconSize size)
 {
 	GError *error = NULL;
 	GtkWidget *file_image;
@@ -531,15 +537,15 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	GtkToolItem *open = gtk_tool_button_new_from_stock (GTK_STOCK_OPEN);
 	GtkToolItem *cancel = gtk_tool_button_new_from_stock (GTK_STOCK_STOP);
 
-	tmpimage = find_image("add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
+	tmpimage = xa_main_window_find_image("add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_file = gtk_tool_button_new (tmpimage, _("Add Files"));
 
-	tmpimage = find_image("add_folder.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
+	tmpimage = xa_main_window_find_image("add_folder.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_folder = gtk_tool_button_new (tmpimage, _("Add Folder"));
 
-	tmpimage = find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
+	tmpimage = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *extract = gtk_tool_button_new (tmpimage, _("Extract"));
 
@@ -720,7 +726,7 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 		}
 		else
 		{
-			gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, i, fields->data, -1);
+			gtk_list_store_set_value(GTK_LIST_STORE(list_store), &iter, i, fields->data);
 			fields = fields->next;
 			i++;
 		}
@@ -732,22 +738,14 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 void
 xa_main_window_clear_list(XAMainWindow *window, gboolean clear_colums)
 {
-	if(clear_colums)
+	GList *columns = gtk_tree_view_get_columns(GTK_TREE_VIEW(window->contentlist));
+	GList *_columns = columns;
+	while(_columns)
 	{
-		GList *columns = gtk_tree_view_get_columns(GTK_TREE_VIEW(window->contentlist));
-		GList *_columns = columns;
-		while(_columns)
-		{
-			gtk_tree_view_remove_column(GTK_TREE_VIEW(window->contentlist), GTK_TREE_VIEW_COLUMN(_columns->data));
-			_columns = _columns->next;
-		}
-		gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
+		gtk_tree_view_remove_column(GTK_TREE_VIEW(window->contentlist), GTK_TREE_VIEW_COLUMN(_columns->data));
+		_columns = _columns->next;
 	}
-	else
-	{
-		GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
-		gtk_list_store_clear(GTK_LIST_STORE(model));
-	}
+	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
 }
 
 void 
