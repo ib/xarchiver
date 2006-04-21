@@ -421,7 +421,6 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	GtkWidget *add_file = gtk_image_menu_item_new_with_mnemonic(_("_Add File(s)"));
 	GtkWidget *add_folder = gtk_image_menu_item_new_with_mnemonic(_("Add _Folder"));
 	GtkWidget *extract = gtk_image_menu_item_new_with_mnemonic(_("_Extract"));
-	separator = gtk_separator_menu_item_new();
 	GtkWidget *delete  = gtk_image_menu_item_new_from_stock(GTK_STOCK_DELETE, accel_group);
 
 	g_signal_connect(G_OBJECT(add_file), "activate", G_CALLBACK(xa_main_window_add_files), window);
@@ -433,13 +432,11 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), add_file);
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), add_folder);
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), extract);
-	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), separator);
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), delete);
 
 	gtk_widget_show(add_file);
 	gtk_widget_show(add_folder);
 	gtk_widget_show(extract);
-	gtk_widget_show(separator);
 	gtk_widget_show(delete);
 	
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(action_item), action_menu);

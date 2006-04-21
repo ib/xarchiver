@@ -5,7 +5,7 @@ DONE
 	- tar.bz2 and tar.gz composite archive support.
 	- gzip -- (fix open)
 	- bzip2 -- (fix open)
-  - zip	DONE
+  - zip
   - arj 
   - 7z
   - iso? -- (feature, not a priority)
@@ -29,14 +29,16 @@ DONE
 	- save archive as    DONE
 
 	- new archive        FIX DIALOG
-	- extract archive    FIX DIALOG
+	- extract archive    FIX DIALOG -- FIX PARTIAL EXTRACTION
 	- passwd protection  FIX DIALOG
 	- About dialog
 	- Add tooltip to buttons
-	- Put separator in the menu 'Action' in the same order of the buttons
 	- Add accelerators to the menu entries
 	- Fix pixmap support
 	- Show icon in the top left corner of the main window
+
+	- Fix icons in menu -- wont fix 
+	  (need to fix pixbuf to be in mem only once before adding that)
 
 + connect library to GUI
   - TODO

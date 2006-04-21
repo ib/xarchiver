@@ -52,7 +52,6 @@ xa_update_rows(GObject *object, gpointer data)
 		n_columns, 
 		column_names, 
 		column_types);
-	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Done");
 }
 
 void
@@ -65,9 +64,10 @@ xa_append_rows(GObject *object, gpointer data)
 	g_list_foreach(archive->row, (GFunc)g_free, NULL);
 	g_list_free(archive->row);
 	archive->row = NULL;
+	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101);
 }
 void
-xa_no_op(GtkWidget *widget, gpointer data)
+xa_operation_complete(GtkWidget *widget, gpointer data)
 {
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 		"xa-button-open", 
@@ -93,10 +93,12 @@ xa_no_op(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 		"xa-button-extract", 
 		TRUE);
+	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Done"));
+	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), -1);
 }
 
 void
-xa_operation_complete(GObject *object, gpointer data)
+xa_archive_modified(GObject *object, gpointer data)
 {
 	XAArchive *archive = data;
 	if(object == G_OBJECT(xa_support))
@@ -166,6 +168,8 @@ xa_extract_archive(GtkWidget *widget, gpointer data)
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-new", 
 			FALSE);
+		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Extracting archive"));
+		xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101); 
  		xa_support->extract(xa_support, xa_archive, data, NULL, FALSE);
 	}
 
@@ -201,14 +205,10 @@ void
 xa_open_archive(GtkWidget *widget, gpointer data)
 {
 	gchar *filename = data;
-	gint n_columns = 0;
-	gchar **column_names = NULL;
-	GType *column_types = NULL;
 	if(xa_archive)
 		g_object_unref(xa_archive);
 	if(xa_sub_archive)
 		g_object_unref(xa_sub_archive);
-	//xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
 	xa_archive = xarchiver_archive_new(filename, XARCHIVETYPE_UNKNOWN);
 	if(xa_archive == NULL)
 	{
@@ -225,7 +225,7 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	}
 	else
 	{
-		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Opening archive...");
+		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Opening archive..."));
 		if((xa_archive->type == XARCHIVETYPE_BZIP2) || (xa_archive->type == XARCHIVETYPE_GZIP))
 		{
 			xa_sub_archive = xa_archive;
@@ -245,11 +245,6 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	if(xa_archive)
 	{
 		xa_support = xarchiver_find_archive_support(xa_archive);
-		xa_support_get_columns(xa_support, &n_columns, &column_names, &column_types);
-		xa_main_window_set_list_interface(XA_MAIN_WINDOW(main_window), 
-				n_columns, 
-				column_names, 
-				column_types);
 		xa_support->open(xa_support, xa_archive);
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-cancel", 
@@ -275,8 +270,6 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 		else
 			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
 
-		g_free(column_types);
-		g_free(column_names);
 	}
 }
 
@@ -348,7 +341,7 @@ int main(int argc, char **argv)
 	g_type_init();
 	xarchiver_init();
 	GOptionEntry options[] = {
-		{ "open-archive", 'o', 0, G_OPTION_ARG_FILENAME_ARRAY, &filenames, _("Open Archive"), NULL},
+		{ "add-file", 'a', 0, G_OPTION_ARG_FILENAME_ARRAY, &filenames, _("Open Archive"), NULL},
 		{ NULL }
 	};
 
@@ -358,11 +351,16 @@ int main(int argc, char **argv)
 
 	g_option_context_add_group(ctx, gtk_options);
 	g_option_context_add_main_entries(ctx, options, "xarchiver options");
+
+	/* parse gtk+ options */
+	gtk_init(&argc, &argv);
 	
+	/* parse g_option options */
 	g_option_context_parse(ctx, &argc, &argv, NULL);
 	g_option_context_free(ctx);
-	
-	gtk_init(&argc, &argv);
+
+	/* use remaining option as filename to open */
+
 
 	main_window = xa_main_window_new();
 	gtk_widget_set_size_request(main_window, 620, 400);
@@ -384,8 +382,8 @@ int main(int argc, char **argv)
 
 	xarchiver_support_connect("xa_rows_updated", G_CALLBACK(xa_update_rows));
 	xarchiver_support_connect("xa_rows_appended", G_CALLBACK(xa_append_rows));
-	xarchiver_support_connect("xa_archive_modified", G_CALLBACK(xa_operation_complete));
-	xarchiver_support_connect("xa_operation_complete", G_CALLBACK(xa_no_op));
+	xarchiver_support_connect("xa_archive_modified", G_CALLBACK(xa_archive_modified));
+	xarchiver_support_connect("xa_operation_complete", G_CALLBACK(xa_operation_complete));
 
 	gtk_widget_show_all(main_window);
 	
