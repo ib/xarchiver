@@ -245,8 +245,7 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			NULL,
 			g_cclosure_marshal_VOID__POINTER,
 			G_TYPE_NONE,
-			2,
-			G_TYPE_POINTER,
+			1,
 			G_TYPE_POINTER,
 			NULL);
 
@@ -910,7 +909,7 @@ xa_main_window_extract_archive(GtkWidget *widget, gpointer data)
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, 1, 2); // specify destination-folder 
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL); // specify destination-folder 
 	}
 	gtk_widget_destroy(dialog);
 }

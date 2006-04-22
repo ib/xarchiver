@@ -39,6 +39,7 @@ typedef struct _XAExtractDialogClass     XAExtractDialogClass;
 struct _XAExtractDialog
 {
 	GtkDialog parent;
+	GtkWidget *folder_chooser;
 };
 
 struct _XAExtractDialogClass

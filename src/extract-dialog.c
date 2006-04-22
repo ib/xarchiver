@@ -57,13 +57,18 @@ xa_extract_dialog_class_init(XAExtractDialogClass *_class)
 static void
 xa_extract_dialog_init(XAExtractDialog *object)
 {
+	object->folder_chooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	gtk_widget_show(object->folder_chooser);
 	
+	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(object)->vbox), object->folder_chooser);
+
+	gtk_dialog_add_button(GTK_DIALOG(object), _("Cancel"), GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_button(GTK_DIALOG(object), _("Extract"), GTK_RESPONSE_OK);
 }
 
 static void
 xa_extract_dialog_finalize(GObject *object)
 {
-
 }
 
 GtkWidget *

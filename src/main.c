@@ -146,8 +146,9 @@ xa_show_about(GtkWidget *widget, gpointer data)
 }
 
 void
-xa_extract_archive(GtkWidget *widget, gpointer folder, gpointer files)
+xa_extract_archive(GtkWidget *widget, gpointer data)
 {
+	gchar *folder = data;
  	if((xa_archive) && (xa_support))
  	{
  		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
@@ -170,7 +171,7 @@ xa_extract_archive(GtkWidget *widget, gpointer folder, gpointer files)
 			FALSE);
 		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Extracting archive"));
 		xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101); 
- 		xa_support->extract(xa_support, xa_archive, folder, files, FALSE);
+ 		xa_support->extract(xa_support, xa_archive, folder, NULL, FALSE);
 	}
 
 }
