@@ -15,7 +15,7 @@ xa_extract_dialog_finalize(GObject *object);
 static void
 xa_extract_dialog_class_init(XAExtractDialogClass *klass);
 
-static GtkWidgetClass *xa_archive_chooser_dialog_parent_class = 0;
+static GtkWidgetClass *xa_extract_dialog_parent_class = 0;
 
 GType
 xa_extract_dialog_get_type ()
@@ -51,7 +51,7 @@ xa_extract_dialog_class_init(XAExtractDialogClass *_class)
 
 	G_OBJECT_CLASS(object_class)->finalize = xa_extract_dialog_finalize;
 
-	xa_archive_chooser_dialog_parent_class = gtk_type_class(gtk_dialog_get_type());
+	xa_extract_dialog_parent_class = gtk_type_class(gtk_dialog_get_type());
 }
 
 static void

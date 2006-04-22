@@ -27,7 +27,8 @@
 #include <libxarchiver/archive.h>
 #include <libxarchiver/support.h>
 #include <libxarchiver/libxarchiver.h>
-#include "archive-chooser-dialog.h"
+#include "new-dialog.h"
+#include "extract-dialog.h"
 #include "property-dialog.h"
 #include "main-window.h"
 #define _(String) gettext(String)
@@ -464,20 +465,20 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_item), help_menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), help_item);
 
-	g_slist_append(xa_main_window_widget_list, help);
-	g_slist_append(xa_main_window_widget_list, about);
-	g_slist_append(xa_main_window_widget_list, add_file);
-	g_slist_append(xa_main_window_widget_list, add_folder);
-	g_slist_append(xa_main_window_widget_list, extract);
-	g_slist_append(xa_main_window_widget_list, delete);
-	g_slist_append(xa_main_window_widget_list, help_item);
-	g_slist_append(xa_main_window_widget_list, new);
-	g_slist_append(xa_main_window_widget_list, open);
-	g_slist_append(xa_main_window_widget_list, save_as);
-	g_slist_append(xa_main_window_widget_list, close);
-	g_slist_append(xa_main_window_widget_list, quit);
-	g_slist_append(xa_main_window_widget_list, test);
-	g_slist_append(xa_main_window_widget_list, properties);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, help);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, about);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, add_file);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, add_folder);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, extract);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, delete);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, help_item);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, new);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, open);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, save_as);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, close);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, quit);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, test);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, properties);
 
 	gtk_widget_set_name(test,       "xa-button-test");
 	gtk_widget_set_name(properties, "xa-button-properties");
@@ -590,13 +591,13 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	g_signal_connect(G_OBJECT(remove), "clicked", G_CALLBACK(xa_main_window_remove_files), window);
 	g_signal_connect(G_OBJECT(cancel), "clicked", G_CALLBACK(xa_main_window_cancel_operation), window);
 
-	g_slist_append(xa_main_window_widget_list, new);
-	g_slist_append(xa_main_window_widget_list, open);
-	g_slist_append(xa_main_window_widget_list, extract);
-	g_slist_append(xa_main_window_widget_list, add_file);
-	g_slist_append(xa_main_window_widget_list, add_folder);
-	g_slist_append(xa_main_window_widget_list, remove);
-	g_slist_append(xa_main_window_widget_list, cancel);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, new);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, open);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, extract);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, add_file);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, add_folder);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, remove);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, cancel);
 	
 	gtk_widget_set_name(GTK_WIDGET(new),        "xa-button-new");
 	gtk_widget_set_name(GTK_WIDGET(open),       "xa-button-open");
@@ -628,7 +629,7 @@ xa_main_window_create_statusbar(XAMainWindow *window)
 	gtk_widget_show(statusbar);
 	gtk_widget_show(passwd_image);
 
-	g_slist_append(xa_main_window_widget_list, viewport);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, viewport);
 	gtk_widget_set_name(viewport,"xa-passwd");
 
 	window->statusbar = statusbar;
