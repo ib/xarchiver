@@ -4,7 +4,8 @@ xarchiver_SOURCES = \
 	main.c main.h \
 	main-window.c main-window.h \
 	property-dialog.c property-dialog.h \
-	archive-chooser-dialog.c archive-chooser-dialog.h
+	extract-dialog.c extract-dialog.h \
+	new-dialog.c new-dialog.h
 
 xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \

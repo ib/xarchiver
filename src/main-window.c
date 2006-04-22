@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Stephan Arts <stephan.arts@hva.nl>
+ *  Copyright (c) 2006 Stephan Arts <psybsd@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
  *
  */
 
+#include <config.h>
 #include <stdlib.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include <string.h>
-#include <config.h>
 #include <libintl.h>
 #include <libxarchiver/archive.h>
 #include <libxarchiver/support.h>
@@ -244,7 +244,8 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 			NULL,
 			g_cclosure_marshal_VOID__POINTER,
 			G_TYPE_NONE,
-			1,
+			2,
+			G_TYPE_POINTER,
 			G_TYPE_POINTER,
 			NULL);
 
@@ -756,20 +757,12 @@ void
 xa_main_window_new_archive(GtkWidget *widget, gpointer data)
 {
 	gchar *filename = NULL;
-	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("New Archive"),
-			GTK_WINDOW(data),
-			GTK_FILE_CHOOSER_ACTION_SAVE,
-			GTK_STOCK_CANCEL,
-			GTK_RESPONSE_CANCEL,
-			GTK_STOCK_NEW,
-			GTK_RESPONSE_OK,
-			NULL);
+	GtkWidget *dialog = xa_new_dialog_new(GTK_WINDOW(data));
 
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, filename); // specify filename
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[0], 0, NULL); // specify filename
 	}
 	if(filename)
 		g_free(filename);
@@ -911,20 +904,12 @@ void
 xa_main_window_extract_archive(GtkWidget *widget, gpointer data)
 {
 	gchar *folder;
-	GtkWidget *dialog = gtk_file_chooser_dialog_new(_("Extract Archive"),
-			GTK_WINDOW(data),
-			GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-			GTK_STOCK_CANCEL,
-			GTK_RESPONSE_CANCEL,
-			GTK_STOCK_OK,
-			GTK_RESPONSE_OK,
-			NULL);
+	GtkWidget *dialog = xa_extract_dialog_new(GTK_WINDOW(data));
 
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		folder = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, folder); // specify destination-folder 
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, 1, 2); // specify destination-folder 
 	}
 	gtk_widget_destroy(dialog);
 }

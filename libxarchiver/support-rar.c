@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Stephan Arts      <stephan.arts@hva.nl>
+ *  Copyright (c) 2006 Stephan Arts      <psybsd@gmail.com>
  *                     Giuseppe Torelli  <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify

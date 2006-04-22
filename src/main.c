@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Stephan Arts <stephan.arts@hva.nl>
+ *  Copyright (c) 2006 Stephan Arts <psybsd@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -146,7 +146,7 @@ xa_show_about(GtkWidget *widget, gpointer data)
 }
 
 void
-xa_extract_archive(GtkWidget *widget, gpointer data)
+xa_extract_archive(GtkWidget *widget, gpointer folder, gpointer files)
 {
  	if((xa_archive) && (xa_support))
  	{
@@ -170,7 +170,7 @@ xa_extract_archive(GtkWidget *widget, gpointer data)
 			FALSE);
 		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Extracting archive"));
 		xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101); 
- 		xa_support->extract(xa_support, xa_archive, data, NULL, FALSE);
+ 		xa_support->extract(xa_support, xa_archive, folder, files, FALSE);
 	}
 
 }
