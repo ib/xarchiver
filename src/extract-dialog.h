@@ -21,17 +21,17 @@
 
 G_BEGIN_DECLS
 
-#define XA_EXTRACT_DIALOG_TYPE             (xa_extract_dialog_get_type())
+#define XA_EXTRACT_DIALOG_TYPE             xa_extract_dialog_get_type()
 #define XA_EXTRACT_DIALOG(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
                                             XA_EXTRACT_DIALOG_TYPE, \
                                             XAExtractDialog))
 #define XA_EXTRACT_DIALOG_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), \
                                             XA_EXTRACT_DIALOG_TYPE, \
                                             XAExtractDialogClass))
-#define XA_IS_EXTRACT_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
-                                            XA_EXTRACT_DIALOG_TYPE)
-#define XA_IS_EXTRACT_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_CAST ((klass), \
-                                            XA_EXTRACT_DIALOG_TYPE)
+#define XA_IS_EXTRACT_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
+                                            xa_extract_dialog_get_type()))
+#define XA_IS_EXTRACT_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), \
+                                            xa_extract_dialog_get_type()))
 
 typedef struct _XAExtractDialog          XAExtractDialog;
 typedef struct _XAExtractDialogClass     XAExtractDialogClass;

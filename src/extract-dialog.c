@@ -1,4 +1,7 @@
 #include <config.h>
+#include <stdlib.h>
+#include <glib.h>
+#include <glib-object.h>
 #include <gtk/gtk.h>
 #include <libintl.h>
 
@@ -10,7 +13,7 @@ static void
 xa_extract_dialog_init(XAExtractDialog *object);
 
 static void
-xa_extract_dialog_finalize(GObject *object);
+xa_extract_dialog_destroy(GtkObject *object);
 
 static void
 xa_extract_dialog_class_init(XAExtractDialogClass *klass);
@@ -47,28 +50,41 @@ static void
 xa_extract_dialog_class_init(XAExtractDialogClass *_class)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)_class;
-	GtkWidgetClass *widget_class = (GtkWidgetClass *)_class;
 
-	G_OBJECT_CLASS(object_class)->finalize = xa_extract_dialog_finalize;
+	xa_extract_dialog_parent_class = gtk_type_class(GTK_TYPE_DIALOG);
 
-	xa_extract_dialog_parent_class = gtk_type_class(gtk_dialog_get_type());
+	object_class->destroy = xa_extract_dialog_destroy;
+
 }
 
 static void
 xa_extract_dialog_init(XAExtractDialog *object)
 {
-	object->folder_chooser = gtk_file_chooser_widget_new(GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	object->folder_chooser = gtk_file_chooser_button_new(_("Choose destination folder"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 	gtk_widget_show(object->folder_chooser);
 	
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(object)->vbox), object->folder_chooser);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), object->folder_chooser, FALSE, TRUE, 10);
+
+	GtkWidget *extract_all       = gtk_radio_button_new_with_mnemonic(NULL, "_All files");
+	GtkWidget *extract_selection = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(extract_all), "_Selected files");
+
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), extract_all, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), extract_selection, FALSE, FALSE, 5);
+	gtk_widget_show(extract_all);
+	gtk_widget_show(extract_selection);
 
 	gtk_dialog_add_button(GTK_DIALOG(object), _("Cancel"), GTK_RESPONSE_CANCEL);
 	gtk_dialog_add_button(GTK_DIALOG(object), _("Extract"), GTK_RESPONSE_OK);
 }
 
 static void
-xa_extract_dialog_finalize(GObject *object)
+xa_extract_dialog_destroy(GtkObject *object)
 {
+	g_return_if_fail (object != NULL);
+	g_return_if_fail (XA_IS_EXTRACT_DIALOG(object));
+
+	if (GTK_OBJECT_CLASS (xa_extract_dialog_parent_class)->destroy)
+		(* GTK_OBJECT_CLASS (xa_extract_dialog_parent_class)->destroy) (object);
 }
 
 GtkWidget *
@@ -79,7 +95,7 @@ xa_extract_dialog_new(GtkWindow *parent)
 	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
 	gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
 	gtk_window_set_title(GTK_WINDOW(dialog), _("Extract to"));
-	gtk_widget_set_size_request(dialog, 400, 300);
+	gtk_widget_set_size_request(dialog, 564, 300);
 	gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE);
 	return dialog;
 }

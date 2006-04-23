@@ -321,7 +321,6 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 static void
 xa_main_window_init (XAMainWindow *window)
 {
-	GError *error = NULL;
 	window->propertywindow = NULL;
 	xa_main_window_widget_list = g_slist_alloc();
 	xa_main_window_widget_list->data = window;
@@ -513,7 +512,7 @@ xa_main_window_find_image(gchar *filename, GtkIconSize size)
 		g_free(error);
 		error = NULL;
 		path = g_strconcat(SRCDIR, "/pixmaps/", filename, NULL);
-		GdkPixbuf *file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
+		file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
 	}
 	if(file_pixbuf)
 	{
@@ -717,7 +716,6 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 	unsigned short int i = 0;
 	GtkTreeIter iter;
 	GtkTreeModel *list_store = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
-	GtkTreeViewColumn *column;
 	g_object_ref(list_store);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), NULL);
 	
@@ -911,6 +909,7 @@ xa_main_window_extract_archive(GtkWidget *widget, gpointer data)
 		gtk_widget_hide(dialog);
 		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL); // specify destination-folder 
 	}
+
 	gtk_widget_destroy(dialog);
 }
 

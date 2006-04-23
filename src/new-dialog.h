@@ -28,9 +28,9 @@ G_BEGIN_DECLS
 #define XA_NEW_DIALOG_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), \
                                             XA_NEW_DIALOG_TYPE, \
                                             XANewDialogClass))
-#define XA_IS_NEW_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
+#define XA_IS_NEW_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
                                             XA_NEW_DIALOG_TYPE)
-#define XA_IS_NEW_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_CAST ((klass), \
+#define XA_IS_NEW_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), \
                                             XA_NEW_DIALOG_TYPE)
 
 typedef struct _XANewDialog          XANewDialog;

@@ -28,9 +28,9 @@ G_BEGIN_DECLS
 #define XA_ARCHIVE_CHOOSER_DIALOG_CLASS(_class)    (G_TYPE_CHECK_CLASS_CAST ((klass), \
                                                    XA_ARCHIVE_CHOOSER_DIALOG_TYPE, \
                                                    XAArchiveChooserDialogClass))
-#define XA_IS_ARCHIVE_CHOOSER_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
+#define XA_IS_ARCHIVE_CHOOSER_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), \
                                                    XA_ARCHIVE_CHOOSER_DIALOG_TYPE)
-#define XA_IS_ARCHIVE_CHOOSER_DIALOG_CLASS(_class) (G_TYPE_CHECK_CLASS_CAST ((klass), \
+#define XA_IS_ARCHIVE_CHOOSER_DIALOG_CLASS(_class) (G_TYPE_CHECK_CLASS_TYPE ((klass), \
                                                    XA_ARCHIVE_CHOOSER_DIALOG_TYPE)
 
 typedef struct _XAArchiveChooserDialog      XAArchiveChooserDialog;
