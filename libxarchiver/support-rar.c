@@ -176,7 +176,7 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				filename = g_new0(GValue, 1);
 				filename = g_value_init (filename, G_TYPE_STRING);
 				g_value_set_string (filename, g_strndup (line , strlen (line) -1 ) );
-				g_print ("Filename: %s\n",g_value_get_string (filename) );
+				/* g_print ("Filename: %s\n",g_value_get_string (filename) ); */
 				archive->row = g_list_prepend (archive->row , filename);
 				/* Restore the pointer before freeing it */
 				line--;

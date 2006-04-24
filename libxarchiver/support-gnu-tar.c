@@ -118,7 +118,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	GValue *date        = NULL;
 	gchar *_size;
 
-	gint i = 0, a = 0;
+	gint i = 0, a = 0, n = 0;
 	XAArchive *archive = support->exec.archive;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
@@ -133,33 +133,33 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 			date = g_value_init(date, G_TYPE_STRING);
 			g_value_set_string(date, "01-01-1970");
 
-			for(i = 13; i < strlen(line); i++)
-				if(line[i] == ' ') break;
+			for(n = 13; n < strlen(line); n++)
+				if(line[n] == ' ') break;
 			permissions = g_value_init(permissions, G_TYPE_STRING);
 			g_value_set_string(permissions, g_strndup(line, 10));
 	
 			owner = g_value_init(owner , G_TYPE_STRING);
-			g_value_set_string(owner, g_strndup(&line[11], i-11));
+			g_value_set_string(owner, g_strndup(&line[11], n-11));
 
-			for(; i < strlen(line); i++)
-				if(line[i] >= '0' && line[i] <= '9') break;
-			a = i;
-			for(; i < strlen(line); i++)
-				if(line[i] == ' ') break;
+			for(; n < strlen(line); n++)
+				if(line[n] >= '0' && line[n] <= '9') break;
+			a = n;
+			for(; n < strlen(line); n++)
+				if(line[n] == ' ') break;
 
 			size = g_value_init(size, G_TYPE_UINT64);
-			_size = g_strndup(&line[a], i-a);
+			_size = g_strndup(&line[a], n-a);
 			g_value_set_uint64(size, atoll ( _size ));
 			g_free (_size);
-			a = i++;
-			for(; i < strlen(line); i++) // DATE
-				if(line[i] == ' ') break;
-			a = i++;
-			for(; i < strlen(line); i++) // TIME
-				if(line[i] == ' ') break;
+			a = n++;
+			for(; n < strlen(line); n++) // DATE
+				if(line[n] == ' ') break;
+			a = n++;
+			for(; n < strlen(line); n++) // TIME
+				if(line[n] == ' ') break;
 
 			filename = g_value_init(filename, G_TYPE_STRING);
-			g_value_set_string(filename, g_strstrip(g_strndup(&line[i], strlen(line)-i-1)));
+			g_value_set_string(filename, g_strstrip(g_strndup(&line[n], strlen(line)-n-1)));
 
 			archive->row = g_list_prepend(archive->row, filename);
 			archive->row = g_list_prepend(archive->row, permissions);
