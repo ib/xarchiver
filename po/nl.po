@@ -27,7 +27,8 @@ msgstr "Archief uitpakken"
 #: ../src/main.c:223
 #, c-format
 msgid "File \"%s\" could not be opened, archive not supported\n"
-msgstr "Bestand \"%s\" kan niet worden geopend, archief wordt niet ondersteund\n"
+msgstr ""
+"Bestand \"%s\" kan niet worden geopend, archief wordt niet ondersteund\n"
 
 #: ../src/main.c:231
 msgid "Opening archive..."

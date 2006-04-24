@@ -1,42 +1,43 @@
+# translation of xarchiver.po to
 # Greek translations for xarchiver package.
 # Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xarchiver package.
 # Stavros Giannouris <stavrosg2002@freemail.gr>, 2006.
+# stathis, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.4\n"
+"Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-24 21:33+0200\n"
-"PO-Revision-Date: 2006-03-26 14:43+0200\n"
+"PO-Revision-Date: 2006-04-24 23:05+0200\n"
 "Last-Translator: Stavros Giannouris <stavrosg2002@freemail.gr>\n"
-"Language-Team: Greek <nls@tux.hellug.gr>\n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: ../src/main.c:95
 msgid "Done"
-msgstr ""
+msgstr "Έτοιμο"
 
 #: ../src/main.c:171
-#, fuzzy
 msgid "Extracting archive"
 msgstr "Αποσυμπίεση"
 
 #: ../src/main.c:223
 #, c-format
 msgid "File \"%s\" could not be opened, archive not supported\n"
-msgstr ""
+msgstr "Το αρχείο \"%s\" δεν ήταν δυνατό να ανοιχτεί, μη υποστηριζόμενη μορφή\n"
 
 #: ../src/main.c:231
-#, fuzzy
 msgid "Opening archive..."
-msgstr "Άνοιγμα συμπιεσμένου αρχείου"
+msgstr "Άνοιγμα συμπιεσμένου αρχείου..."
 
-#: ../src/main.c:346 ../src/main-window.c:775
-#, fuzzy
+#: ../src/main.c:346
+#: ../src/main-window.c:775
 msgid "Open Archive"
 msgstr "Άνοιγμα συμπιεσμένου αρχείου"
 
@@ -47,85 +48,80 @@ msgstr ""
 #. Archive Menu
 #: ../src/main-window.c:364
 msgid "_Archive"
-msgstr "Συμπιεσμένο _Αρχείο"
+msgstr "Συμπιεσμένο _αρχείο"
 
 #: ../src/main-window.c:376
 msgid "_Test"
-msgstr ""
+msgstr "_Δοκιμή"
 
 #. Action Menu
 #: ../src/main-window.c:416
-#, fuzzy
 msgid "A_ction"
 msgstr "_Ενέργεια"
 
 #: ../src/main-window.c:421
-#, fuzzy
 msgid "_Add File(s)"
-msgstr "Προσθήκη Αρχείου"
+msgstr "Προσθήκη _αρχείων"
 
 #: ../src/main-window.c:422
-#, fuzzy
 msgid "Add _Folder"
-msgstr "Προσθήκη Φακέλου"
+msgstr "Προσθήκη _φακέλου"
 
 #: ../src/main-window.c:423
-#, fuzzy
 msgid "_Extract"
-msgstr "Αποσυμπίεση"
+msgstr "_Αποσυμπίεση"
 
 #. Help Menu
 #: ../src/main-window.c:447
 msgid "_Help"
-msgstr ""
+msgstr "_Βοήθεια"
 
-#: ../src/main-window.c:546 ../src/main-window.c:801
-#, fuzzy
+#: ../src/main-window.c:546
+#: ../src/main-window.c:801
 msgid "Add Files"
-msgstr "Προσθήκη Αρχείου"
+msgstr "Προσθήκη αρχείων"
 
-#: ../src/main-window.c:550 ../src/main-window.c:832
+#: ../src/main-window.c:550
+#: ../src/main-window.c:832
 msgid "Add Folder"
-msgstr "Προσθήκη Φακέλου"
+msgstr "Προσθήκη φακέλου"
 
-#: ../src/main-window.c:554 ../src/extract-dialog.c:94
+#: ../src/main-window.c:554
+#: ../src/extract-dialog.c:94
 msgid "Extract"
 msgstr "Αποσυμπίεση"
 
 #: ../src/main-window.c:889
 msgid "Are you sure you want to remove the selected files from the archive?"
-msgstr ""
+msgstr "Σίγουρα θέλετε να αφαιρέσετε τα επιλεγμένα αρχεία από το συμπιεσμένο αρχείο;"
 
 #: ../src/extract-dialog.c:80
 msgid "Choose destination folder"
-msgstr ""
+msgstr "Επιλέξτε φάκελο προορισμού"
 
 #: ../src/extract-dialog.c:93
 msgid "Cancel"
-msgstr ""
+msgstr "Άκυρο"
 
 #: ../src/extract-dialog.c:128
-#, fuzzy
 msgid "Extract to"
-msgstr "Αποσυμπίεση σε:"
+msgstr "Αποσυμπίεση σε"
 
 #: ../src/new-dialog.c:76
-#, fuzzy
 msgid "New archive"
-msgstr "Άνοιγμα συμπιεσμένου αρχείου"
+msgstr "Νέο συμπιεσμένο αρχείο"
 
 #: ../src/property-dialog.c:69
-#, fuzzy
 msgid "Archive Properties"
-msgstr "Τύπος συμπιεσμένου αρχείου:"
+msgstr "Ιδιότητες συμπιεσμένου αρχείου"
 
 #: ../src/property-dialog.c:139
 msgid "Property"
-msgstr ""
+msgstr "Ιδιότητα"
 
 #: ../src/property-dialog.c:143
 msgid "Value"
-msgstr ""
+msgstr "Τιμή"
 
 #: ../libxarchiver/support.c:65
 msgid "Verify not supported by this support object"
@@ -155,7 +151,8 @@ msgstr ""
 msgid "View not supported by this support object"
 msgstr ""
 
-#: ../libxarchiver/support-rar.c:91 ../libxarchiver/support-gnu-tar.c:88
+#: ../libxarchiver/support-rar.c:91
+#: ../libxarchiver/support-gnu-tar.c:88
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
@@ -171,7 +168,8 @@ msgstr "Συμπιεσμένο"
 msgid "Ratio"
 msgstr "Αναλογία"
 
-#: ../libxarchiver/support-rar.c:95 ../libxarchiver/support-gnu-tar.c:92
+#: ../libxarchiver/support-rar.c:95
+#: ../libxarchiver/support-gnu-tar.c:92
 msgid "Date"
 msgstr "Ημερομηνία"
 
@@ -179,29 +177,269 @@ msgstr "Ημερομηνία"
 msgid "Time"
 msgstr "Ώρα"
 
-#: ../libxarchiver/support-rar.c:97 ../libxarchiver/support-gnu-tar.c:89
+#: ../libxarchiver/support-rar.c:97
+#: ../libxarchiver/support-gnu-tar.c:89
 msgid "Permissions"
 msgstr "Δικαιώματα"
 
 #: ../libxarchiver/support-rar.c:98
-#, fuzzy
 msgid "CRC"
-msgstr "CRC-32"
+msgstr "CRC"
 
 #: ../libxarchiver/support-rar.c:99
 msgid "Method"
 msgstr "Μέθοδος"
 
 #: ../libxarchiver/support-rar.c:100
-#, fuzzy
 msgid "Version"
-msgstr "Δικαίωμα"
+msgstr "Έκδοση"
 
 #: ../libxarchiver/support-gnu-tar.c:90
-#, fuzzy
 msgid "Owner / Group"
-msgstr "Ιδιοκτήτης/Ομάδα"
+msgstr "Ιδιοκτήτης / Ομάδα"
 
 #: ../libxarchiver/support-gnu-tar.c:91
 msgid "Size"
 msgstr "Μέγεθος"
+
+#~ msgid "Attr"
+#~ msgstr "Ιδιοτ"
+#~ msgid "Attributes"
+#~ msgstr "Ιδιότητες"
+
+#, fuzzy
+#~ msgid " file to "
+#~ msgstr "Αποσυμπίεση αρχείων στο"
+#~ msgid "Please select where to extract files !"
+#~ msgstr "Παρακαλώ επιλέξτε που θα αποσυμπιέσετε τα αρχεία !"
+#~ msgid ""
+#~ "An error occurred while decompressing the archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου tar.\n"
+#~ "Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+
+#, fuzzy
+#~ msgid ""
+#~ "An error occurred while adding to the tar archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Προέκυψε ένα σφάλμα κατά τη διαγραφή αρχείων μέσα στο συμπιεσμένο\n"
+#~ "tar αρχείο. Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+#~ msgid ""
+#~ "An error occurred while deleting from the tar archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Προέκυψε ένα σφάλμα κατά τη διαγραφή αρχείων μέσα στο συμπιεσμένο\n"
+#~ "tar αρχείο. Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+
+#, fuzzy
+#~ msgid ""
+#~ "An error occurred while writing the tar archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Προέκυψε ένα σφάλμα κατά τη διαγραφή αρχείων μέσα στο συμπιεσμένο\n"
+#~ "tar αρχείο. Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+#~ msgid "Operation canceled."
+#~ msgstr "Η λειτουργία ακυρώθηκε."
+#~ msgid "Operation completed."
+#~ msgstr "Η λειτουργία ολοκληρώθηκε."
+#~ msgid "Operation failed."
+#~ msgstr "Η λειτουργία απέτυχε."
+#~ msgid ""
+#~ "An error occurred while accessing the archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Προέκυψε ένα σφάλμα κατά την ανάγνωση του αρχείου.\n"
+#~ "Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+
+#, fuzzy
+#~ msgid "Please wait while the content of the archive is being updated..."
+#~ msgstr "Ανάγνωση περιεχομένων αρχείου, παρακαλώ περιμένετε..."
+#~ msgid "Operation successfully completed."
+#~ msgstr "Η λειτουργία ολοκληρώθηκε επιτυχώς."
+#~ msgid "This archive already exists. Do you want to overwrite it ?"
+#~ msgstr "Το αρχείο υπάρχει ήδη.  Θέλετε να το αντικαταστήσετε;"
+#~ msgid "Choose Add File to create the compressed file."
+#~ msgstr ""
+#~ "Επιλέξτε Προσθήκη αρχείων ή Προσθήκη φακέλου για να δημιουργήσετε το "
+#~ "συμπιεσμένο αρχείο."
+#~ msgid "Choose Add File or Add Folder to create the archive."
+#~ msgstr ""
+#~ "Επιλέξτε Προσθήκη αρχείων ή Προσθήκη φακέλου για να δημιουργήσετε το "
+#~ "συμπιεσμένο αρχείο."
+#~ msgid "The format of this archive is not recognized !"
+#~ msgstr "Αυτός ο τύπος αρχείου δεν υποστηρίζεται !"
+
+#, fuzzy
+#~ msgid "Please wait while the content of the ISO image is being read..."
+#~ msgstr "Ανάγνωση περιεχομένων αρχείου, παρακαλώ περιμένετε..."
+#~ msgid "Please wait while the content of the archive is being read..."
+#~ msgstr "Ανάγνωση περιεχομένων αρχείου, παρακαλώ περιμένετε..."
+
+#, fuzzy
+#~ msgid "Testing archive integrity, please wait..."
+#~ msgstr "Διαγραφή αρχείων από το συμπιεσμένο αρχείο..."
+
+#, fuzzy
+#~ msgid "Please hit the Stop button first !"
+#~ msgstr "Παρακαλώ επιλέξτε που θα αποσυμπιέσετε τα αρχεία !"
+#~ msgid " files"
+#~ msgstr " αρχεία"
+#~ msgid " file"
+#~ msgstr " αρχείο"
+#~ msgid "Deleting files from the archive, please wait..."
+#~ msgstr "Διαγραφή αρχείων από το συμπιεσμένο αρχείο..."
+#~ msgid "Adding files to the archive, please wait..."
+#~ msgstr "Προσθήκη αρχείων στο συμπιεσμένο αρχείο..."
+
+#, fuzzy
+#~ msgid "Compressing file, please wait..."
+#~ msgstr "Προσθήκη αρχείων στο συμπιεσμένο αρχείο..."
+#~ msgid "Extracting files to "
+#~ msgstr "Αποσυμπίεση αρχείων στο  "
+#~ msgid "Select the folder to be added to the current archive"
+#~ msgstr "Επιλέξτε ένα φάκελο για προσθήκη στο τρέχον συμπιεσμένο αρχείο"
+#~ msgid "Create a new archive"
+#~ msgstr "Δημιουργία νέου συμπιεσμένου αρχείου"
+#~ msgid "Choose the destination folder where to extract the current archive"
+#~ msgstr "Επιλέξτε τον φάκελο που θα αποσυμπιεστεί το τρέχον αρχείο"
+#~ msgid "All files"
+#~ msgstr "Όλα τα αρχεία"
+#~ msgid "Only archives"
+#~ msgstr "Μόνο συμπιεσμένα αρχεία"
+#~ msgid "Archive type:"
+#~ msgstr "Τύπος συμπιεσμένου αρχείου:"
+#~ msgid "Choose the archive type to create"
+#~ msgstr "Επιλέξτε τον τύπο του αρχείου που θα δημιουργήσετε"
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Προσθήκη επέκτασης συμπιεσμένου αρχείου στο όνομα αρχείου"
+#~ msgid ""
+#~ "Can't open archive %s:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Δεν ήταν δυνατό το άνοιγμα του αρχείου %s:\n"
+#~ "%s"
+#~ msgid "Shell Output Window"
+#~ msgstr "Αποτέλεσμα κελύφους"
+#~ msgid "Please select a file, not a directory !"
+#~ msgstr "Παρακαλώ επιλέξτε ένα αρχείο, όχι κατάλογο !"
+#~ msgid ""
+#~ "An error occurred while extracting the file to be viewed.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση των προς προβολή αρχείων.\n"
+#~ "Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+#~ msgid "%c"
+#~ msgstr "%c"
+#~ msgid " GB"
+#~ msgstr " GB"
+#~ msgid " MB"
+#~ msgstr " MB"
+#~ msgid " KB"
+#~ msgstr " KB"
+#~ msgid " bytes"
+#~ msgstr " bytes"
+#~ msgid "Please type a password !"
+#~ msgstr "Παρακαλώ εισάγετε έναν κωδικό πρόσβασης!"
+#~ msgid "The passwords don't match !!"
+#~ msgstr "Οι κωδικοί δεν ταιριάζουν !!"
+#~ msgid "Sorry, I could not perform the operation."
+#~ msgstr "Συγνώμη, δεν ήταν δυνατή η εκτέλεση της λειτουργίας."
+#~ msgid "View"
+#~ msgstr "Προβολή"
+#~ msgid "Set Password"
+#~ msgstr "Ορισμός κωδικού"
+#~ msgid "View S_hell Output"
+#~ msgstr "Προβολή αποτελέσματος _Κελύφους"
+#~ msgid "Show ISO info"
+#~ msgstr "Εμφάνιση πληροφοριών ISO"
+#~ msgid "_About"
+#~ msgstr "_Περί"
+#~ msgid "New"
+#~ msgstr "Νέο"
+#~ msgid "Open"
+#~ msgstr "Άνοιγμα"
+#~ msgid "Add a file to the current archive"
+#~ msgstr "Προσθήκη αρχείου στο τρέχον συμπιεσμένο αρχείο"
+#~ msgid "Add an entire folder to the current archive"
+#~ msgstr "Προσθήκη φακέλου στο τρέχον συμπιεσμένο αρχείο"
+#~ msgid "Delete"
+#~ msgstr "Διαγραφή"
+#~ msgid "Delete files from the current archive"
+#~ msgstr "Διαγραφή αρχείων από το συμπιεσμένο αρχείο"
+#~ msgid "View file content in the current archive"
+#~ msgstr "Προβολή περιεχομένων αρχείων στο τρέχον συμπιεσμένο αρχείο"
+#~ msgid "Cancel current operation"
+#~ msgstr "Ακύρωση τρέχουσας λειτουργίας"
+#~ msgid "This archive contains password protected files"
+#~ msgstr "Αυτό το συμπιεσμένο αρχείο περιέχει αρχεία προστατευμένα με κωδικό"
+#~ msgid "Extract ONLY selected files"
+#~ msgstr "Αποσυμπίεση των επιλεγμένων αρχείων"
+#~ msgid "Extract ALL files"
+#~ msgstr "Αποσυμπίεση όλων των αρχείων"
+
+#, fuzzy
+#~ msgid "Extract bzip2 compressed file"
+#~ msgstr "Αποσυμπίεση των επιλεγμένων αρχείων"
+
+#, fuzzy
+#~ msgid "Extract gzip compressed file"
+#~ msgstr "Αποσυμπίεση των επιλεγμένων αρχείων"
+#~ msgid "Choose a folder where to extract files"
+#~ msgstr "Επιλέξτε το φάκελο που θα αποσυμπιέσετε τα αρχεία"
+#~ msgid "Enter Archive Password"
+#~ msgstr "Εισάγετε κωδικό για το συμπιεσμένο αρχείο"
+#~ msgid "Password:"
+#~ msgstr "Κωδικός πρόσβασης:"
+#~ msgid "Retype it:"
+#~ msgstr "Επανάληψη κωδικού:"
+
+#, fuzzy
+#~ msgid "View File Window"
+#~ msgstr "Προβολή επιλεγμένου αρχείου"
+#~ msgid "Name:"
+#~ msgstr "Όνομα:"
+#~ msgid "Path:"
+#~ msgstr "Διαδρομή:"
+#~ msgid "Modified on:"
+#~ msgstr "Τροποποιήθηκε:"
+
+#, fuzzy
+#~ msgid "Archive size:"
+#~ msgstr "Τύπος συμπιεσμένου αρχείου:"
+#~ msgid "Compression ratio:"
+#~ msgstr "Λόγος συμπίεσης:"
+#~ msgid "Number of files:"
+#~ msgstr "Αριθμός αρχείων:"
+#~ msgid "Number of dirs:"
+#~ msgstr "Αριθμός καταλόγων:"
+
+#, fuzzy
+#~ msgid ""
+#~ "Can't open ISO image %s:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Δεν ήταν δυνατό το άνοιγμα του αρχείου %s:\n"
+#~ "%s"
+#~ msgid "Ready."
+#~ msgstr "Έτοιμο."
+#~ msgid "Links"
+#~ msgstr "Δεσμοί"
+#~ msgid "Owner"
+#~ msgstr "Ιδιοκτήτης"
+#~ msgid "Group"
+#~ msgstr "Ομάδα"
+#~ msgid ""
+#~ "An error occurred while extracting the cpio archive\n"
+#~ "from the rpm one. Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου cpio\n"
+#~ "από το rpm. Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+#~ msgid ""
+#~ "An error occurred while decompressing the cpio archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου cpio.\n"
+#~ "Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+
