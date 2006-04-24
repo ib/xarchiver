@@ -1,5 +1,22 @@
+/*
+ *  Copyright (c) 2006 Stephan Arts <psybsd@gmail.com>
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
 #include <config.h>
-#include <stdlib.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
@@ -65,16 +82,18 @@ xa_extract_dialog_init(XAExtractDialog *object)
 	
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), object->folder_chooser, FALSE, TRUE, 10);
 
-	GtkWidget *extract_all       = gtk_radio_button_new_with_mnemonic(NULL, "_All files");
-	GtkWidget *extract_selection = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(extract_all), "_Selected files");
+	object->extract_all       = gtk_radio_button_new_with_mnemonic(NULL, "_All files");
+	object->extract_select    = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(object->extract_all), "_Selected files");
 
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), extract_all, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), extract_selection, FALSE, FALSE, 5);
-	gtk_widget_show(extract_all);
-	gtk_widget_show(extract_selection);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), object->extract_all, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), object->extract_select, FALSE, FALSE, 5);
+	gtk_widget_show(object->extract_all);
+	gtk_widget_show(object->extract_select);
 
 	gtk_dialog_add_button(GTK_DIALOG(object), _("Cancel"), GTK_RESPONSE_CANCEL);
 	gtk_dialog_add_button(GTK_DIALOG(object), _("Extract"), GTK_RESPONSE_OK);
+
+	object->extract_optiongroup = gtk_radio_button_get_group(GTK_RADIO_BUTTON(object->extract_all));
 }
 
 static void
@@ -87,8 +106,20 @@ xa_extract_dialog_destroy(GtkObject *object)
 		(* GTK_OBJECT_CLASS (xa_extract_dialog_parent_class)->destroy) (object);
 }
 
+XAExtractionType
+xa_extract_dialog_get_extraction_type(XAExtractDialog *dialog)
+{
+	return dialog->extraction_type;
+}
+
+gchar *
+xa_extract_dialog_get_destination_folder(XAExtractDialog *dialog)
+{
+	return gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog->folder_chooser));
+}
+
 GtkWidget *
-xa_extract_dialog_new(GtkWindow *parent)
+xa_extract_dialog_new(GtkWindow *parent, XAExtractionType default_type)
 {
 	GtkWidget *dialog;
 	dialog = GTK_WIDGET (g_object_new(xa_extract_dialog_get_type(), NULL));
@@ -97,5 +128,18 @@ xa_extract_dialog_new(GtkWindow *parent)
 	gtk_window_set_title(GTK_WINDOW(dialog), _("Extract to"));
 	gtk_widget_set_size_request(dialog, 564, 300);
 	gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE);
+
+	XA_EXTRACT_DIALOG(dialog)->extraction_type = default_type;
+	switch(default_type)
+	{
+		case XA_EXTRACTION_ALL:
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(XA_EXTRACT_DIALOG(dialog)->extract_all), TRUE);
+			gtk_widget_set_sensitive(XA_EXTRACT_DIALOG(dialog)->extract_select, FALSE);
+			break;
+		case XA_EXTRACTION_SELECT:
+			gtk_widget_set_sensitive(XA_EXTRACT_DIALOG(dialog)->extract_select, TRUE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(XA_EXTRACT_DIALOG(dialog)->extract_select), TRUE);
+			break;
+	}
 	return dialog;
 }

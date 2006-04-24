@@ -32,6 +32,11 @@ G_BEGIN_DECLS
                                             xa_extract_dialog_get_type()))
 #define XA_IS_EXTRACT_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), \
                                             xa_extract_dialog_get_type()))
+typedef enum
+{
+	XA_EXTRACTION_ALL,
+	XA_EXTRACTION_SELECT
+} XAExtractionType;
 
 typedef struct _XAExtractDialog          XAExtractDialog;
 typedef struct _XAExtractDialogClass     XAExtractDialogClass;
@@ -40,6 +45,10 @@ struct _XAExtractDialog
 {
 	GtkDialog parent;
 	GtkWidget *folder_chooser;
+	GSList *extract_optiongroup;
+	XAExtractionType extraction_type;
+	GtkWidget *extract_all;
+	GtkWidget *extract_select;
 };
 
 struct _XAExtractDialogClass
@@ -47,8 +56,11 @@ struct _XAExtractDialogClass
 	GtkDialogClass parent;
 };
 
-GType      xa_extract_dialog_get_type(void) G_GNUC_CONST;
-GtkWidget *xa_extract_dialog_new(GtkWindow *parent);
+
+GType            xa_extract_dialog_get_type(void) G_GNUC_CONST;
+GtkWidget *      xa_extract_dialog_new(GtkWindow *parent, XAExtractionType );
+XAExtractionType xa_extract_dialog_get_extraction_type(XAExtractDialog *dialog);
+gchar *          xa_extract_dialog_get_destination_folder(XAExtractDialog *dialog);
 
 G_END_DECLS
 

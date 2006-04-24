@@ -902,7 +902,16 @@ void
 xa_main_window_extract_archive(GtkWidget *widget, gpointer data)
 {
 	gchar *folder;
-	GtkWidget *dialog = xa_extract_dialog_new(GTK_WINDOW(data));
+	GtkWidget *dialog;
+	XAMainWindow *window = XA_MAIN_WINDOW(data);
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(window->contentlist));
+	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
+	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);
+	GList *_rows = rows;
+	if(_rows)
+		dialog = xa_extract_dialog_new(GTK_WINDOW(data), XA_EXTRACTION_SELECT);
+	else
+		dialog = xa_extract_dialog_new(GTK_WINDOW(data), XA_EXTRACTION_ALL);
 
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
