@@ -42,7 +42,6 @@ XASupport *xa_sub_support = NULL;
 void
 xa_update_rows(GObject *object, gpointer data)
 {
-	XAArchive *archive = data;
 	gint n_columns = 0;
 	gchar **column_names = NULL;
 	GType *column_types = NULL;
@@ -100,7 +99,6 @@ xa_operation_complete(GtkWidget *widget, gpointer data)
 void
 xa_archive_modified(GObject *object, gpointer data)
 {
-	XAArchive *archive = data;
 	if(object == G_OBJECT(xa_support))
 	{
 		if(xa_sub_archive)
@@ -148,7 +146,7 @@ xa_show_about(GtkWidget *widget, gpointer data)
 void
 xa_extract_archive(GtkWidget *widget, gpointer data)
 {
-	gchar *folder = data;
+	XAExtractProperties *props = data;
  	if((xa_archive) && (xa_support))
  	{
  		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
@@ -171,7 +169,10 @@ xa_extract_archive(GtkWidget *widget, gpointer data)
 			FALSE);
 		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Extracting archive"));
 		xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101); 
- 		xa_support->extract(xa_support, xa_archive, folder, NULL, FALSE);
+		if(props->files)
+ 			xa_support->extract(xa_support, xa_archive, props->folder, props->files, FALSE);
+		else
+ 			xa_support->extract(xa_support, xa_archive, props->folder, NULL, FALSE);
 	}
 
 }
@@ -337,7 +338,6 @@ xa_remove_files(GtkWidget *widget, gpointer data)
 
 int main(int argc, char **argv)
 {
-	GError *error = NULL;
 	gchar **filenames = NULL;
 	g_type_init();
 	xarchiver_init();

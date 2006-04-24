@@ -72,6 +72,12 @@ void               xa_main_window_set_statusbar_value   (XAMainWindow *window, g
 void               xa_main_window_set_property_window   (XAMainWindow *window, XAPropertyDialog *propertywindow);
 XAPropertyDialog * xa_main_window_get_property_window   (XAMainWindow *window);
 
+typedef struct 
+{
+	gchar  *folder;
+	GSList *files;
+} XAExtractProperties;
+
 G_END_DECLS
 
 #endif

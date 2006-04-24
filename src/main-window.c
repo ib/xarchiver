@@ -901,13 +901,16 @@ xa_main_window_remove_files(GtkWidget *widget, gpointer data)
 void 
 xa_main_window_extract_archive(GtkWidget *widget, gpointer data)
 {
-	gchar *folder;
 	GtkWidget *dialog;
+	GtkTreeIter iter;
+	XAExtractProperties *props = g_new0(XAExtractProperties, 1);
+	XAExtractionType type;
 	XAMainWindow *window = XA_MAIN_WINDOW(data);
 	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(window->contentlist));
 	GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(window->contentlist));
 	GList *rows = gtk_tree_selection_get_selected_rows(selection, &model);
 	GList *_rows = rows;
+	gchar *filename;
 	if(_rows)
 		dialog = xa_extract_dialog_new(GTK_WINDOW(data), XA_EXTRACTION_SELECT);
 	else
@@ -916,7 +919,19 @@ xa_main_window_extract_archive(GtkWidget *widget, gpointer data)
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_OK)
 	{
 		gtk_widget_hide(dialog);
-		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, NULL); // specify destination-folder 
+		props->folder = xa_extract_dialog_get_destination_folder(XA_EXTRACT_DIALOG(dialog));
+		type = xa_extract_dialog_get_extraction_type(XA_EXTRACT_DIALOG(dialog));
+		if(type == XA_EXTRACTION_SELECT)
+		{
+			while(_rows)
+			{
+				gtk_tree_model_get_iter(model, &iter, _rows->data);
+				gtk_tree_model_get(model, &iter, 0, &filename,  -1);
+				props->files = g_slist_prepend(props->files, filename);
+				_rows = _rows->next;
+			}
+		}
+		g_signal_emit(G_OBJECT(data), xa_main_window_signals[4], 0, props); // specify destination-folder 
 	}
 
 	gtk_widget_destroy(dialog);
