@@ -262,7 +262,6 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			archive->dummy_size += ( unsigned long int)g_list_nth_data ( archive->row,7);
 			odd_line = ! odd_line;
 			g_free (line);
-			g_print ("%d\n",row_cnt);
 			if ( row_cnt > 99)
 			{
 				xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_APPEND_ROWS);

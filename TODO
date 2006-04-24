@@ -5,7 +5,8 @@ DONE
 	- tar.bz2 and tar.gz composite archive support.
 	- gzip -- (fix open)
 	- bzip2 -- (fix open)
-  - zip
+  - zip DONE
+  - rar
   - arj 
   - 7z
   - iso? -- (feature, not a priority)
@@ -31,6 +32,7 @@ DONE
 	- new archive        FIX DIALOG
 	- extract archive    FIX DIALOG -- FIX PARTIAL EXTRACTION
 	- passwd protection  FIX DIALOG
+	- archive properties
 	- About dialog
 	- Add tooltip to buttons
 	- Add accelerators to the menu entries
@@ -46,3 +48,5 @@ DONE
 + add cmdline options
 
 + configure library?
+
++ error handling (show the archiver error messages in the GUI)
