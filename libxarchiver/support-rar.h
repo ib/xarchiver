@@ -60,6 +60,7 @@ XASupport * xa_support_rar_new();
 
 gboolean jump_header;
 gboolean odd_line;
+unsigned short int row_cnt;
 
 G_END_DECLS
 
