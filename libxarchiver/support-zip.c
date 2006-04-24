@@ -156,7 +156,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		end = strchr (start, ' ');
 		original = g_strndup ( start , end - start);
 		_original = atoll (original);
-		g_free (original);
+		//g_free (original);
 
 		start = eat_spaces (end);
 		end = strchr (start, ' ');
@@ -166,7 +166,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		end = strchr (start, ' ');
 		compressed  = g_strndup ( start , end - start);
 		_compressed = atoll (compressed);
-		g_free (compressed);
+		//g_free (compressed);
 
 		start = eat_spaces (end);
 		end = strchr (start, ' ');
@@ -307,6 +307,7 @@ xa_support_zip_remove (XASupport *support, XAArchive *archive, GSList *files)
 	GSList *_files = files;
 	names = concatenatefilenames ( _files , TRUE );
 	support->exec.command = g_strconcat ( "zip -d " , archive->path , names->str , NULL );
+	g_print ("%s\n",support->exec.command);
 	support->exec.archive = archive;
 	support->exec.signal = 1;
 	support->exec.parse_output = 0;

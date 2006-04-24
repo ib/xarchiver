@@ -96,8 +96,8 @@ xa_support_rar_init(XASupportRar *support)
 	column_names[8] = "Method";
 	column_names[9] = "Version";
 	column_types[0] = G_TYPE_STRING;
-	column_types[1] = G_TYPE_UINT;
-	column_types[2] = G_TYPE_UINT;
+	column_types[1] = G_TYPE_UINT64;
+	column_types[2] = G_TYPE_UINT64;
 	column_types[3] = G_TYPE_STRING;
 	column_types[4] = G_TYPE_STRING;
 	column_types[5] = G_TYPE_STRING;
@@ -126,20 +126,21 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 	gchar *line = NULL;
 	gchar *start = NULL;
 	gchar *end = NULL;
-	gchar *filename = NULL;
-	gchar *original = NULL;
-	gchar *compressed = NULL;
-	gchar *ratio = NULL;
-	gchar *date = NULL;
-	gchar *time = NULL;
-	gchar *permissions = NULL;
-	gchar *crc = NULL;
-	gchar *method = NULL;
-	gchar *version = NULL;
-	unsigned long int _original   = 0;
-	unsigned long int _compressed = 0;
+	GValue *filename = NULL;
+	GValue *original = NULL;
+	gchar *_original = NULL;
+	GValue *compressed = NULL;
+	gchar *_compressed = NULL;
+	GValue *ratio = NULL;
+	GValue *date = NULL;
+	GValue *time = NULL;
+	GValue *permissions = NULL;
+	GValue *crc = NULL;
+	GValue *method = NULL;
+	GValue *version = NULL;
 	XAArchive *archive = support->exec.archive;
 	
+	unsigned short int i = 0;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		/* This to avoid inserting in the liststore RAR's copyright message */
@@ -155,99 +156,122 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			g_free (line);
 			return TRUE;
 		}
-		if ( odd_line )
+		for(i = 0 ; (i < 100) && (g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL ) == G_IO_STATUS_NORMAL); i++)
 		{
-			/* Let's read the filename */
-			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if ( line == NULL ) return TRUE;
-			/* This to avoid inserting in the liststore the last line of Rar output */
-			if (strncmp (line, "--------", 8) == 0 || strncmp (line, "\x0a",1) == 0)
+			if ( odd_line )
 			{
-				/* Let's read the last line of the output and discard it */
-				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				/* Let's parse the filename */
+				if ( line == NULL ) continue;
+				/* This to avoid inserting in the liststore the last line of Rar output */
+				if (strncmp (line, "--------", 8) == 0 || strncmp (line, "\x0a",1) == 0)
+				{
+					/* Let's discard the last line of the output */
+					g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+					g_free (line);
+					return TRUE;
+				}
+				g_message (line);
+				if (line[0] == '*') archive->has_passwd = TRUE;
+				/* This to avoid the white space or the * before the first char of the filename */
+				line++;
+				filename = g_new0(GValue, 1);
+				filename = g_value_init (filename, G_TYPE_STRING);
+				g_value_set_string (filename, g_strndup (line , strlen (line) -1 ) );
+				g_print ("Filename: %s\n",filename);
+				archive->row = g_list_prepend (archive->row , filename);
+				/* Restore the pointer before freeing it */
+				line--;
 				g_free (line);
-				return TRUE;
+				odd_line = ! odd_line;
 			}
-			if (line[0] == '*') archive->has_passwd = TRUE;
-			/* This to avoid the white space or the * before the first char of the filename */
-			line++;
-			filename = g_strndup (line , strlen (line) -1 );
-			archive->row = g_list_prepend (archive->row , filename);
-			/* Restore the pointer before freeing it */
-			line--;
-			g_free (line);
-			odd_line = ! odd_line;
-			return TRUE;
-		}
-		else
-		{
-			/* Now let's read the rest of the info */
-			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if ( line == NULL) return TRUE;
-			start = eat_spaces (line);
-			end = strchr (start, ' ');
-			original = g_strndup ( start , end - start);
-			//_original = atoll (original);
-		//	g_free (original);
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			compressed  = g_strndup ( start , end - start);
-			//_compressed = atoll (compressed);
-		//	g_free (compressed);
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			ratio = g_strndup ( start , end - start);
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			date = g_strndup ( start , end - start);
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			time = g_strndup ( start , end - start);
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			permissions = g_strndup ( start , end - start);
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			crc = g_strndup ( start , end - start);
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			method = g_strndup ( start , end - start);
-		
-			start = eat_spaces (end);
-			end = strchr (start, '\n');
-			version = g_strndup ( start , end - start);
-			
-			archive->row = g_list_prepend (archive->row , original) ;
-			archive->row = g_list_prepend (archive->row , compressed );
-			archive->row = g_list_prepend (archive->row , ratio );
-			archive->row = g_list_prepend (archive->row , date );
-			archive->row = g_list_prepend (archive->row , time );
-			archive->row = g_list_prepend (archive->row , permissions );
-			archive->row = g_list_prepend (archive->row , crc );
-			archive->row = g_list_prepend (archive->row , method );
-			archive->row = g_list_prepend (archive->row , version );
-
-			if ( strstr ((gchar *)g_list_nth_data ( archive->row,3) , "d") == NULL && strstr ((gchar *)g_list_nth_data ( archive->row,3) , "D") == NULL )
-				archive->nr_of_files++;
 			else
-				archive->nr_of_dirs++;
-			archive->dummy_size += ( unsigned long int)g_list_nth_data ( archive->row,7);
-			odd_line = ! odd_line;
-			return TRUE;
+			{
+				/* Now let's parse the rest of the info */
+				if ( line == NULL) continue;
+				start = eat_spaces (line);
+				end = strchr (start, ' ');
+				original = g_new0(GValue, 1);
+				original = g_value_init(original, G_TYPE_UINT64);
+				_original = g_strndup ( start , end - start);
+				g_value_set_uint64 ( original , atoll ( _original ) );
+				g_free (_original);
+
+				start = eat_spaces (end);
+				end = strchr (start, ' ');
+				compressed = g_new0 (GValue, 1);
+				compressed = g_value_init(compressed, G_TYPE_UINT64);
+				_compressed = g_strndup ( start , end - start);
+				g_value_set_uint64 ( compressed , atoll ( _compressed ) );
+				g_free (_compressed);
+
+				start = eat_spaces (end);
+				end = strchr (start, ' ');
+				ratio = g_new0(GValue, 1);
+				ratio = g_value_init(ratio, G_TYPE_STRING);
+				g_value_set_string (ratio , g_strndup ( start , end - start));	
+
+				start = eat_spaces (end);
+				end = strchr (start, ' ');
+				date = g_new0(GValue, 1);
+				date = g_value_init(date, G_TYPE_STRING);
+				g_value_set_string (date , g_strndup ( start , end - start));
+
+				start = eat_spaces (end);
+				end = strchr (start, ' ');
+				time = g_new0(GValue, 1);
+				time = g_value_init(time, G_TYPE_STRING);
+				g_value_set_string (time , g_strndup ( start , end - start));
+
+				start = eat_spaces (end);
+				end = strchr (start, ' ');
+				permissions = g_new0(GValue, 1);
+				permissions = g_value_init(permissions, G_TYPE_STRING);
+				g_value_set_string (permissions , g_strndup ( start , end - start));
+
+				start = eat_spaces (end);
+				end = strchr (start, ' ');
+				crc = g_new0(GValue, 1);
+				crc = g_value_init(crc, G_TYPE_STRING);
+				g_value_set_string (crc , g_strndup ( start , end - start));
+
+				start = eat_spaces (end);
+				end = strchr (start, ' ');
+				method = g_new0(GValue, 1);
+				method = g_value_init(method, G_TYPE_STRING);
+				g_value_set_string (method , g_strndup ( start , end - start));	
+		
+				start = eat_spaces (end);
+				end = strchr (start, '\n');
+				version = g_new0(GValue, 1);
+				version = g_value_init(version, G_TYPE_STRING);
+				g_value_set_string (version , g_strndup ( start , end - start));	
+			
+				archive->row = g_list_prepend (archive->row , original) ;
+				archive->row = g_list_prepend (archive->row , compressed );
+				archive->row = g_list_prepend (archive->row , ratio );
+				archive->row = g_list_prepend (archive->row , date );
+				archive->row = g_list_prepend (archive->row , time );
+				archive->row = g_list_prepend (archive->row , permissions );
+				archive->row = g_list_prepend (archive->row , crc );
+				archive->row = g_list_prepend (archive->row , method );
+				archive->row = g_list_prepend (archive->row , version );
+
+				if ( strstr ((gchar *)g_list_nth_data ( archive->row,3) , "d") == NULL && strstr ((gchar *)g_list_nth_data ( archive->row,3) , "D") == NULL )
+					archive->nr_of_files++;
+				else
+					archive->nr_of_dirs++;
+				archive->dummy_size += ( unsigned long int)g_list_nth_data ( archive->row,7);
+				odd_line = ! odd_line;
+				g_free (line);
+			}
 		}
+		xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP ) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		xa_support_emit_signal(support, 0);
 		return FALSE;
 	}
 	return TRUE;
