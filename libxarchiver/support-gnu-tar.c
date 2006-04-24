@@ -24,11 +24,14 @@
 #include <string.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <libintl.h>
 #include "internals.h"
 #include "archive.h"
 #include "archive-types.h"
 #include "support.h"
 #include "support-gnu-tar.h"
+
+#define _(String) gettext(String)
 
 void
 xa_support_gnu_tar_init(XASupportGnuTar *support);
@@ -82,11 +85,11 @@ xa_support_gnu_tar_init(XASupportGnuTar *support)
 	gchar **column_names  = g_new0(gchar *, n_columns);
 	GType *column_types  = g_new0(GType, n_columns);
 
-	column_names[0] = "Filename";
-	column_names[1] = "Permissions";
-	column_names[2] = "Owner / Group";
-	column_names[3] = "Size";
-	column_names[4] = "Date";
+	column_names[0] = _("Filename");
+	column_names[1] = _("Permissions");
+	column_names[2] = _("Owner / Group");
+	column_names[3] = _("Size");
+	column_names[4] = _("Date");
 	column_types[0] = G_TYPE_STRING;
 	column_types[1] = G_TYPE_STRING;
 	column_types[2] = G_TYPE_STRING;
@@ -173,11 +176,12 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
   	      else
 				archive->nr_of_files++;
 			g_free(line);
+
 		}
 		xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
 		return TRUE;
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP ) )
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);

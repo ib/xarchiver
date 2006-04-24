@@ -21,8 +21,11 @@
 #include <signal.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <libintl.h>
 #include "archive.h"
 #include "support.h"
+
+#define _(String) gettext(String)
 
 static guint xa_support_signals[4];
 
@@ -59,49 +62,49 @@ xa_support_get_type ()
 gint
 xa_support_verify (XAArchive *archive)
 {
-	g_critical("Verify not supported by this support object");
+	g_critical(_("Verify not supported by this support object"));
 	return -1;
 }
 
 gint
 xa_support_add (XASupport *support, XAArchive *archive, GSList *list)
 {
-	g_critical("Add not supported by this support object");
+	g_critical(_("Add not supported by this support object"));
 	return -1;
 }
 
 gint
 xa_support_extract (XASupport *support, XAArchive *archive, gchar *a, GSList *list, gboolean ab)
 {
-	g_critical("Extract not supported by this support object");
+	g_critical(_("Extract not supported by this support object"));
 	return -1;
 }
 
 gint
 xa_support_remove (XASupport *support, XAArchive *archive, GSList *list)
 {
-	g_critical("Remove not supported by this support object");
+	g_critical(_("Remove not supported by this support object"));
 	return -1;
 }
 
 gint
 xa_support_testing (XASupport *support, XAArchive *archive)
 {
-	g_critical("Testing not supported by this support object");
+	g_critical(_("Testing not supported by this support object"));
 	return -1;
 }
 
 gint
 xa_support_open (XASupport *support, XAArchive *archive)
 {
-	g_critical("Open not supported by this support object");
+	g_critical(_("Open not supported by this support object"));
 	return -1;
 }
 
 gint
 xa_support_view (XASupport *support, XAArchive *archive, gchar *filename)
 {
-	g_critical("View not supported by this support object");
+	g_critical(_("View not supported by this support object"));
 	return -1;
 }
 

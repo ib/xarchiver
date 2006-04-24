@@ -1,1 +1,9 @@
-src/xarchiver.c
+src/main.c
+src/main-window.c
+src/extract-dialog.c
+src/new-dialog.c
+src/property-dialog.c
+
+libxarchiver/support.c
+libxarchiver/support-rar.c
+libxarchiver/support-gnu-tar.c

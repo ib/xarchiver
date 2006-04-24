@@ -1,131 +1,122 @@
-# Greek translations for xarchiver package.
+# Dutch translations for xarchiver package.
 # Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xarchiver package.
-# Stavros Giannouris <stavrosg2002@freemail.gr>, 2006.
+# Stephan Arts <stephan@localhost.localdomain>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.4\n"
+"Project-Id-Version: xarchiver 0.3.9 svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-24 21:33+0200\n"
-"PO-Revision-Date: 2006-03-26 14:43+0200\n"
-"Last-Translator: Stavros Giannouris <stavrosg2002@freemail.gr>\n"
-"Language-Team: Greek <nls@tux.hellug.gr>\n"
+"PO-Revision-Date: 2006-04-24 21:38+0200\n"
+"Last-Translator: Stephan Arts <psybsd@gmail.com>\n"
+"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/main.c:95
 msgid "Done"
-msgstr ""
+msgstr "Klaar"
 
 #: ../src/main.c:171
-#, fuzzy
 msgid "Extracting archive"
-msgstr "Αποσυμπίεση"
+msgstr "Archief uitpakken"
 
 #: ../src/main.c:223
 #, c-format
 msgid "File \"%s\" could not be opened, archive not supported\n"
-msgstr ""
+msgstr "Bestand \"%s\" kan niet worden geopend, archief wordt niet ondersteund\n"
 
 #: ../src/main.c:231
-#, fuzzy
 msgid "Opening archive..."
-msgstr "Άνοιγμα συμπιεσμένου αρχείου"
+msgstr "Archief openen..."
 
 #: ../src/main.c:346 ../src/main-window.c:775
-#, fuzzy
 msgid "Open Archive"
-msgstr "Άνοιγμα συμπιεσμένου αρχείου"
+msgstr "Open Archief"
 
 #: ../src/main.c:352
 msgid "archiving app"
-msgstr ""
+msgstr "archiverings applicatie"
 
 #. Archive Menu
 #: ../src/main-window.c:364
 msgid "_Archive"
-msgstr "Συμπιεσμένο _Αρχείο"
+msgstr "_Archief"
 
 #: ../src/main-window.c:376
 msgid "_Test"
-msgstr ""
+msgstr "_Testen"
 
 #. Action Menu
 #: ../src/main-window.c:416
-#, fuzzy
 msgid "A_ction"
-msgstr "_Ενέργεια"
+msgstr "A_ctie"
 
 #: ../src/main-window.c:421
-#, fuzzy
 msgid "_Add File(s)"
-msgstr "Προσθήκη Αρχείου"
+msgstr "_Bestand(en) toevoegen"
 
 #: ../src/main-window.c:422
-#, fuzzy
 msgid "Add _Folder"
-msgstr "Προσθήκη Φακέλου"
+msgstr "_Map toevoegen"
 
 #: ../src/main-window.c:423
-#, fuzzy
 msgid "_Extract"
-msgstr "Αποσυμπίεση"
+msgstr "_Uitpakken"
 
 #. Help Menu
 #: ../src/main-window.c:447
 msgid "_Help"
-msgstr ""
+msgstr "_Help"
 
 #: ../src/main-window.c:546 ../src/main-window.c:801
 #, fuzzy
 msgid "Add Files"
-msgstr "Προσθήκη Αρχείου"
+msgstr "Bestanden"
 
 #: ../src/main-window.c:550 ../src/main-window.c:832
+#, fuzzy
 msgid "Add Folder"
-msgstr "Προσθήκη Φακέλου"
+msgstr "Map"
 
 #: ../src/main-window.c:554 ../src/extract-dialog.c:94
 msgid "Extract"
-msgstr "Αποσυμπίεση"
+msgstr "Uitpakken"
 
 #: ../src/main-window.c:889
 msgid "Are you sure you want to remove the selected files from the archive?"
-msgstr ""
+msgstr "Weet u zeker dat u de geselecteerde bestanden wilt verwijderen?"
 
 #: ../src/extract-dialog.c:80
 msgid "Choose destination folder"
-msgstr ""
+msgstr "Kies bestemmings-map"
 
 #: ../src/extract-dialog.c:93
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleer"
 
 #: ../src/extract-dialog.c:128
-#, fuzzy
 msgid "Extract to"
-msgstr "Αποσυμπίεση σε:"
+msgstr "Uitpakken naar"
 
 #: ../src/new-dialog.c:76
-#, fuzzy
 msgid "New archive"
-msgstr "Άνοιγμα συμπιεσμένου αρχείου"
+msgstr "Nieuw archief"
 
 #: ../src/property-dialog.c:69
-#, fuzzy
 msgid "Archive Properties"
-msgstr "Τύπος συμπιεσμένου αρχείου:"
+msgstr "Archief eigenschappen"
 
 #: ../src/property-dialog.c:139
 msgid "Property"
-msgstr ""
+msgstr "Eigenschap"
 
 #: ../src/property-dialog.c:143
 msgid "Value"
-msgstr ""
+msgstr "Waarde"
 
 #: ../libxarchiver/support.c:65
 msgid "Verify not supported by this support object"
@@ -157,51 +148,48 @@ msgstr ""
 
 #: ../libxarchiver/support-rar.c:91 ../libxarchiver/support-gnu-tar.c:88
 msgid "Filename"
-msgstr "Όνομα αρχείου"
+msgstr "Bestandsnaam"
 
 #: ../libxarchiver/support-rar.c:92
 msgid "Original"
-msgstr "Αρχικό"
+msgstr "Origineel"
 
 #: ../libxarchiver/support-rar.c:93
 msgid "Compressed"
-msgstr "Συμπιεσμένο"
+msgstr "Gecomprimeerd"
 
 #: ../libxarchiver/support-rar.c:94
 msgid "Ratio"
-msgstr "Αναλογία"
+msgstr ""
 
 #: ../libxarchiver/support-rar.c:95 ../libxarchiver/support-gnu-tar.c:92
 msgid "Date"
-msgstr "Ημερομηνία"
+msgstr "Datum"
 
 #: ../libxarchiver/support-rar.c:96
 msgid "Time"
-msgstr "Ώρα"
+msgstr "Tijd"
 
 #: ../libxarchiver/support-rar.c:97 ../libxarchiver/support-gnu-tar.c:89
 msgid "Permissions"
-msgstr "Δικαιώματα"
+msgstr "Rechten"
 
 #: ../libxarchiver/support-rar.c:98
-#, fuzzy
 msgid "CRC"
-msgstr "CRC-32"
+msgstr "CRC"
 
 #: ../libxarchiver/support-rar.c:99
 msgid "Method"
-msgstr "Μέθοδος"
+msgstr "Methode"
 
 #: ../libxarchiver/support-rar.c:100
-#, fuzzy
 msgid "Version"
-msgstr "Δικαίωμα"
+msgstr "Versie"
 
 #: ../libxarchiver/support-gnu-tar.c:90
-#, fuzzy
 msgid "Owner / Group"
-msgstr "Ιδιοκτήτης/Ομάδα"
+msgstr ""
 
 #: ../libxarchiver/support-gnu-tar.c:91
 msgid "Size"
-msgstr "Μέγεθος"
+msgstr "Grootte"

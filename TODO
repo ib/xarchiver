@@ -9,7 +9,7 @@ DONE
   - rar
   - arj 
   - 7z
-  - iso? -- (feature, not a priority)
+  - iso
 	- check for available compressors and add filetypes accordingly
 	  ( this should be done for each individual support object )
 

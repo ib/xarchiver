@@ -24,11 +24,14 @@
 #include <unistd.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <libintl.h>
 #include "internals.h"
 #include "archive.h"
 #include "archive-types.h"
 #include "support.h"
 #include "support-rar.h"
+
+#define _(String) gettext(String)
 
 void
 xa_support_rar_init(XASupportRar *support);
@@ -85,16 +88,16 @@ xa_support_rar_init(XASupportRar *support)
 	gchar **column_names  = g_new0(gchar *, n_columns);
 	GType *column_types  = g_new0(GType, n_columns);
 
-	column_names[0] = "Filename";
-	column_names[1] = "Original";
-	column_names[2] = "Compressed";
-	column_names[3] = "Ratio";
-	column_names[4] = "Date";
-	column_names[5] = "Time";
-	column_names[6] = "Permissions";
-	column_names[7] = "CRC";
-	column_names[8] = "Method";
-	column_names[9] = "Version";
+	column_names[0] = _("Filename");
+	column_names[1] = _("Original");
+	column_names[2] = _("Compressed");
+	column_names[3] = _("Ratio");
+	column_names[4] = _("Date");
+	column_names[5] = _("Time");
+	column_names[6] = _("Permissions");
+	column_names[7] = _("CRC");
+	column_names[8] = _("Method");
+	column_names[9] = _("Version");
 	column_types[0] = G_TYPE_STRING;
 	column_types[1] = G_TYPE_UINT64;
 	column_types[2] = G_TYPE_UINT64;

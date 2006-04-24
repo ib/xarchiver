@@ -132,6 +132,7 @@ xa_cancel_operation(GtkWidget *widget, gpointer data)
 		"xa-button-cancel", 
 		FALSE);
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Cancelled");
+	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), -1);
 }
 
 void
@@ -339,6 +340,13 @@ xa_remove_files(GtkWidget *widget, gpointer data)
 int main(int argc, char **argv)
 {
 	gchar **filenames = NULL;
+
+  #ifdef ENABLE_NLS
+  bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  textdomain (GETTEXT_PACKAGE);
+  #endif
+	
 	g_type_init();
 	xarchiver_init();
 	GOptionEntry options[] = {

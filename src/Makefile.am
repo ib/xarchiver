@@ -11,7 +11,8 @@ xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \
 	@GLIB_CFLAGS@ \
 	-DDATADIR=\"$(datadir)\" \
-	-DSRCDIR=\"$(top_srcdir)\"
+	-DSRCDIR=\"$(top_srcdir)\" \
+	-DLOCALEDIR=\"$(localedir)\"
  
 xarchiver_LDADD = \
 	$(top_srcdir)/libxarchiver/libxarchiver.a \
