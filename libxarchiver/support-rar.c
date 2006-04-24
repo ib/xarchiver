@@ -170,14 +170,13 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 					g_free (line);
 					return TRUE;
 				}
-				g_message (line);
 				if (line[0] == '*') archive->has_passwd = TRUE;
 				/* This to avoid the white space or the * before the first char of the filename */
 				line++;
 				filename = g_new0(GValue, 1);
 				filename = g_value_init (filename, G_TYPE_STRING);
 				g_value_set_string (filename, g_strndup (line , strlen (line) -1 ) );
-				g_print ("Filename: %s\n",filename);
+				g_print ("Filename: %s\n",g_value_get_string (filename) );
 				archive->row = g_list_prepend (archive->row , filename);
 				/* Restore the pointer before freeing it */
 				line--;
@@ -388,6 +387,8 @@ xa_support_rar_open (XASupport *support, XAArchive *archive)
 	support->exec.parse_output = support->parse_output;
 	support->exec.signal = -1;
 	
+	xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_UPDATE_ROWS);
+
 	xa_support_execute(support);
 	g_free (support->exec.command);
 	archive->dummy_size = 0;

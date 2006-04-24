@@ -95,9 +95,9 @@ xa_support_zip_init(XASupportZip *support)
 	column_names[6] = "Time";
 	column_names[7] = "CRC-32";
 	column_types[0] = G_TYPE_STRING;
-	column_types[1] = G_TYPE_UINT;
+	column_types[1] = G_TYPE_UINT64;
 	column_types[2] = G_TYPE_STRING;
-	column_types[3] = G_TYPE_UINT;
+	column_types[3] = G_TYPE_UINT64;
 	column_types[4] = G_TYPE_STRING;
 	column_types[5] = G_TYPE_STRING; /* DATE */
 	column_types[6] = G_TYPE_STRING;
@@ -123,93 +123,100 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 	gchar *line = NULL;
 	gchar *start = NULL;
 	gchar *end = NULL;
-	gchar *filename = NULL;
-	gchar *original = NULL;
-	gchar *method = NULL;
-	gchar *compressed = NULL;
-	gchar *ratio = NULL;
-	gchar *date = NULL;
-	gchar *time = NULL;
-	gchar *crc32 = NULL;
-	unsigned long int _original = 0;
-	unsigned long int _compressed = 0;
-
+	GValue  *filename = NULL;
+	GValue *original = NULL;
+	gchar *_original = NULL;
+	GValue *method = NULL;
+	GValue *compressed = NULL;
+	gchar *_compressed = NULL;
+	GValue *ratio = NULL;
+	GValue *date = NULL;
+	GValue *time = NULL;
+	GValue *crc32 = NULL;
+	
 	XAArchive *archive = support->exec.archive;
+	unsigned short int i = 0;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		/*g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		if ( line == NULL ) return TRUE;
-		archive->row = get_last_field ( archive->row , line , 8);
-		archive->row = split_line ( archive->row , line , 7 , 4 );
-		if ( g_str_has_suffix (g_list_nth_data ( archive->row , 7) , "/") == TRUE)
-			archive->nr_of_dirs++;
-		else
-			archive->nr_of_files++;
-		archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row , 4) );
-		g_free (line);
-		return TRUE;
-		*/
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		if (line == NULL) return TRUE;
+		for(i = 0 ; (i < 100) && (g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL ) == G_IO_STATUS_NORMAL); i++)
+		{
+			if (line == NULL) continue;
+			filename    = g_new0(GValue, 1);
+			original    = g_new0(GValue, 1);
+			method      = g_new0(GValue, 1);
+			compressed  = g_new0(GValue, 1);
+			ratio       = g_new0(GValue, 1);
+			date        = g_new0(GValue, 1);
+			time        = g_new0(GValue, 1);
+			crc32       = g_new0(GValue, 1);
 
-		start = eat_spaces (line);
-		end = strchr (start, ' ');
-		original = g_strndup ( start , end - start);
-		_original = atoll (original);
-		//g_free (original);
+			start = eat_spaces (line);
+			end = strchr (start, ' ');
+			original = g_value_init(original, G_TYPE_UINT64);
+			_original = g_strndup ( start , end - start);
+			g_value_set_uint64 ( original , atoll (_original) );
+			g_free (_original);
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		method = g_strndup ( start , end - start);
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			method = g_value_init(method, G_TYPE_STRING);
+			g_value_set_string ( method , g_strndup ( start , end - start) );
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		compressed  = g_strndup ( start , end - start);
-		_compressed = atoll (compressed);
-		//g_free (compressed);
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			compressed = g_value_init(compressed, G_TYPE_UINT64);
+			_compressed  = g_strndup ( start , end - start);
+			g_value_set_uint64 (compressed , atoll (_compressed) );
+			g_free (_compressed);
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		ratio = g_strndup ( start , end - start);
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			ratio = g_value_init(ratio, G_TYPE_STRING);
+			g_value_set_string ( ratio , g_strndup ( start , end - start) );
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		date = g_strndup ( start , end - start);
-
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		time = g_strndup ( start , end - start);
-
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		crc32 = g_strndup ( start , end - start);
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			date = g_value_init(date, G_TYPE_STRING);
+			g_value_set_string ( date , g_strndup ( start , end - start) );
+			
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			time = g_value_init(time, G_TYPE_STRING);
+			g_value_set_string ( time , g_strndup ( start , end - start) );
+			
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			crc32 = g_value_init(crc32, G_TYPE_STRING);
+			g_value_set_string ( crc32 , g_strndup ( start , end - start) );
 		
-		start = eat_spaces (end);
-		end = strchr (start, '\n');
-		filename = g_strndup ( start , end - start);
-		archive->row = g_list_prepend(archive->row, filename);
-		archive->row = g_list_prepend(archive->row, GUINT_TO_POINTER (_original) );
-		archive->row = g_list_prepend(archive->row, method);
-		archive->row = g_list_prepend(archive->row, GUINT_TO_POINTER (_compressed) );
-		archive->row = g_list_prepend(archive->row, ratio);
-		archive->row = g_list_prepend(archive->row, date);
-		archive->row = g_list_prepend(archive->row, time);
-		archive->row = g_list_prepend(archive->row, crc32);
-		
-		if ( g_str_has_suffix (filename , "/") == TRUE)
-			archive->nr_of_dirs++;
-		else
-			archive->nr_of_files++;
+			start = eat_spaces (end);
+			end = strchr (start, '\n');
+			filename = g_value_init(filename, G_TYPE_STRING);
+			g_value_set_string ( filename , g_strndup ( start , end - start) );
 
-		archive->dummy_size += (unsigned long int)g_list_nth_data ( archive->row , 4);
-		g_free(line);
-		return TRUE;
+			archive->row = g_list_prepend(archive->row, filename);
+			archive->row = g_list_prepend(archive->row, original);
+			archive->row = g_list_prepend(archive->row,method);
+			archive->row = g_list_prepend(archive->row, compressed);
+			archive->row = g_list_prepend(archive->row, ratio);
+			archive->row = g_list_prepend(archive->row, date);
+			archive->row = g_list_prepend(archive->row, time);
+			archive->row = g_list_prepend(archive->row, crc32);
+		
+			if ( g_str_has_suffix (g_value_get_string (filename) , "/") == TRUE)
+				archive->nr_of_dirs++;
+			else
+				archive->nr_of_files++;
+			archive->dummy_size += (unsigned long int)g_list_nth_data ( archive->row , 4);
+			g_free(line);
+		}
+			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+			return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		xa_support_emit_signal(support, 0);
 		return FALSE;
 	}
 	return TRUE;
@@ -326,6 +333,8 @@ xa_support_zip_open (XASupport *support, XAArchive *archive)
 	support->exec.parse_output = support->parse_output;
 	support->exec.signal = -1;
 	
+	xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_UPDATE_ROWS);
+
 	xa_support_execute(support);
 	g_free (support->exec.command);
 	archive->dummy_size = 0;

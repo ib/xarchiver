@@ -90,7 +90,7 @@ xa_support_gnu_tar_init(XASupportGnuTar *support)
 	column_types[0] = G_TYPE_STRING;
 	column_types[1] = G_TYPE_STRING;
 	column_types[2] = G_TYPE_STRING;
-	column_types[3] = G_TYPE_UINT;
+	column_types[3] = G_TYPE_UINT64;
 	column_types[4] = G_TYPE_STRING; /* DATE */
 
 	xa_support_set_columns(xa_support, n_columns, column_names, column_types);
@@ -147,9 +147,9 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 			for(; i < strlen(line); i++)
 				if(line[i] == ' ') break;
 
-			size = g_value_init(size, G_TYPE_UINT);
+			size = g_value_init(size, G_TYPE_UINT64);
 			_size = g_strndup(&line[a], i-a);
-			g_value_set_uint(size, atoll ( _size ));
+			g_value_set_uint64(size, atoll ( _size ));
 			g_free (_size);
 			a = i++;
 			for(; i < strlen(line); i++) // DATE
@@ -200,6 +200,7 @@ xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 
 	xa_support_execute(support);
 	g_free (support->exec.command);
+	archive->dummy_size = 0;
 }
 
 gint
