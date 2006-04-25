@@ -278,6 +278,7 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
 		xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+		xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 		return FALSE;
 	}
 	return TRUE;

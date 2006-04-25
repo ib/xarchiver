@@ -260,6 +260,7 @@ xa_support_execute(gpointer data)
 	gint argcp;
 	GPid child_pid;
 	GIOChannel *ioc;
+	GError *error = NULL;
 	GSource *source = NULL;
 
 	if(support->exec.archive->row)
@@ -287,6 +288,7 @@ xa_support_execute(gpointer data)
 	if(support->exec.parse_output)
 	{
 		ioc = g_io_channel_unix_new(out_fd);
+		g_io_channel_set_flags(ioc, G_IO_FLAG_NONBLOCK, &error);
 		support->exec.watch_source = g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support);
 	}
 	else

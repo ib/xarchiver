@@ -125,8 +125,11 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	XAArchive *archive = support->exec.archive;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		for(i = 0 ; (i < 100) && (g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL ) == G_IO_STATUS_NORMAL); i++)
+		for(i = 0 ; (i < 1000) && (g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL ) == G_IO_STATUS_NORMAL); i++)
 		{
+			if(line == NULL)
+				break;
+
 			filename    = g_new0(GValue, 1);
 			permissions = g_new0(GValue, 1);
 			owner       = g_new0(GValue, 1);
@@ -185,6 +188,8 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
+		xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+		xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 		return FALSE;
 	}
 	return TRUE;
