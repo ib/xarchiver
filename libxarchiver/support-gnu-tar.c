@@ -113,6 +113,8 @@ gboolean
 xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	XASupport *support = XA_SUPPORT(data);
+	GIOStatus status = 0;
+	GError *error = NULL;
 	gchar *line = NULL;
 	GValue *filename    = NULL;
 	GValue *permissions = NULL;
@@ -125,9 +127,10 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	XAArchive *archive = support->exec.archive;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		for(i = 0 ; (i < 1000) && (g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL ) == G_IO_STATUS_NORMAL); i++)
+		for(i = 0 ; i < 100 ; i++)
 		{
-			if(line == NULL)
+			status = g_io_channel_read_line(ioc, &line, NULL,NULL,&error);
+			if((line == NULL) ||( status != G_IO_STATUS_NORMAL))
 				break;
 
 			filename    = g_new0(GValue, 1);
@@ -181,7 +184,18 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 			g_free(line);
 
 		}
-		xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+		if(status == G_IO_STATUS_NORMAL)
+			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+		if(status == G_IO_STATUS_ERROR)
+		{
+			g_warning("ERR: %s\n", error->message);
+		}
+		if(status == G_IO_STATUS_EOF)
+		{
+			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
+			return FALSE;
+		}
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -285,7 +299,7 @@ xa_support_gnu_tar_extract(XASupport *support, XAArchive *archive, gchar *destin
 		GSList *_files = files;
 		GString *names;
 		names = concatenatefilenames ( _files , TRUE);
-		if ( full_path == 0 )
+		if ( full_path == FALSE )
 		{
 			to_free = TRUE;
 			levels = countcharacters ( names->str , '/');

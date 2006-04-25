@@ -36,9 +36,9 @@ DONE
 	- About dialog
 	- Add tooltip to buttons
 	- Add accelerators to the menu entries
-	- Fix pixmap support
-	- Show icon in the top left corner of the main window
+	- Show icon in the top left corner of the main window DONE
 
+	- Fix pixmap support
 	- Fix icons in menu -- wont fix 
 	  (need to fix pixbuf to be in mem only once before adding that)
 

@@ -26,6 +26,10 @@
 
 #define _(String) gettext(String)
 
+/* TODO:
+ * Fix change of extraction-type.
+ */
+
 static void
 xa_extract_dialog_init(XAExtractDialog *object);
 

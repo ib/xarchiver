@@ -171,9 +171,9 @@ xa_extract_archive(GtkWidget *widget, gpointer data)
 		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Extracting archive"));
 		xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101); 
 		if(props->files)
- 			xa_support->extract(xa_support, xa_archive, props->folder, props->files, FALSE);
+ 			xa_support->extract(xa_support, xa_archive, props->folder, props->files, TRUE);
 		else
- 			xa_support->extract(xa_support, xa_archive, props->folder, NULL, FALSE);
+ 			xa_support->extract(xa_support, xa_archive, props->folder, NULL, TRUE);
 	}
 
 }

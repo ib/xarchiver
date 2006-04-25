@@ -321,19 +321,21 @@ xa_main_window_class_init (XAMainWindowClass *_class)
 static void
 xa_main_window_init (XAMainWindow *window)
 {
+	GError *error = NULL;
 	window->propertywindow = NULL;
 	xa_main_window_widget_list = g_slist_alloc();
 	xa_main_window_widget_list->data = window;
 
 	gtk_window_set_title(GTK_WINDOW(window), PACKAGE_STRING);
+	window->tips = gtk_tooltips_new();
 	
-	//gchar *path = g_strconcat(DATADIR, "/xarchiver/pixmaps/xarchiver.png", NULL);
-	//GdkPixbuf *icon= gdk_pixbuf_new_from_file(path, &error);
-	//if(icon)
-	//	gtk_window_set_icon(GTK_WINDOW(window), icon);
-	//else
-	//	g_free(error);
-	//g_free(path);
+	gchar *path = g_strconcat(DATADIR, "/xarchiver/pixmaps/xarchiver.png", NULL);
+	GdkPixbuf *icon= gdk_pixbuf_new_from_file(path, &error);
+	if(icon)
+		gtk_window_set_icon(GTK_WINDOW(window), icon);
+	else
+		g_free(error);
+	g_free(path);
 
 	gtk_container_set_border_width(GTK_CONTAINER(window), 0);
 	window->vbox = gtk_vbox_new(FALSE, 0);
@@ -349,6 +351,7 @@ xa_main_window_init (XAMainWindow *window)
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->toolbar, FALSE, TRUE, 0); 
 	gtk_box_pack_start(GTK_BOX(window->vbox), window->scrollwindow, TRUE, TRUE, 0);
 	gtk_box_pack_end(GTK_BOX(window->vbox), window->statusbar, FALSE, TRUE, 1);
+
 }
 
 void
@@ -544,10 +547,12 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	tmpimage = xa_main_window_find_image("add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_file = gtk_tool_button_new (tmpimage, _("Add Files"));
+	gtk_tooltips_set_tip(window->tips, GTK_WIDGET(add_file), _("Add files to archive"), NULL);
 
 	tmpimage = xa_main_window_find_image("add_folder.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_folder = gtk_tool_button_new (tmpimage, _("Add Folder"));
+	gtk_tooltips_set_tip(window->tips, add_folder, _("Add folders to archive"), NULL);
 
 	tmpimage = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);

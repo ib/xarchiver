@@ -53,6 +53,7 @@ struct _XAMainWindow
 	GtkWidget *statusbar;
 	GtkWidget *progressbar;
 	XAPropertyDialog *propertywindow;
+	GtkTooltips *tips;
 };
 
 struct _XAMainWindowClass
