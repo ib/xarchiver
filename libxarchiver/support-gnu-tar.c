@@ -81,7 +81,7 @@ void
 xa_support_gnu_tar_init(XASupportGnuTar *support)
 {
 	XASupport *xa_support = XA_SUPPORT(support);
-	gint n_columns = 5;
+	gint n_columns = 6;
 	gchar **column_names  = g_new0(gchar *, n_columns);
 	GType *column_types  = g_new0(GType, n_columns);
 
@@ -90,12 +90,14 @@ xa_support_gnu_tar_init(XASupportGnuTar *support)
 	column_names[2] = _("Owner / Group");
 	column_names[3] = _("Size");
 	column_names[4] = _("Date");
+	column_names[5] = _("Time");
 	column_types[0] = G_TYPE_STRING;
 	column_types[1] = G_TYPE_STRING;
 	column_types[2] = G_TYPE_STRING;
 	column_types[3] = G_TYPE_UINT64;
-	column_types[4] = G_TYPE_STRING; /* DATE */
-
+	column_types[4] = G_TYPE_STRING;
+	column_types[5] = G_TYPE_STRING;
+	
 	xa_support_set_columns(xa_support, n_columns, column_names, column_types);
 	xa_support->type = XARCHIVETYPE_TAR;
 	xa_support->verify = xa_archive_type_tar_verify;
@@ -121,6 +123,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 	GValue *owner       = NULL;
 	GValue *size        = NULL;
 	GValue *date        = NULL;
+	GValue *time        = NULL;
 	gchar *_size;
 
 	gint i = 0, a = 0, n = 0;
@@ -138,9 +141,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 			owner       = g_new0(GValue, 1);
 			size        = g_new0(GValue, 1);
 			date        = g_new0(GValue, 1);
-
-			date = g_value_init(date, G_TYPE_STRING);
-			g_value_set_string(date, "01-01-1970");
+			time        = g_new0(GValue, 1);
 
 			for(n = 13; n < strlen(line); n++)
 				if(line[n] == ' ') break;
@@ -163,9 +164,14 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 			a = n++;
 			for(; n < strlen(line); n++) // DATE
 				if(line[n] == ' ') break;
+			date = g_value_init(date, G_TYPE_STRING);
+			g_value_set_string ( date, g_strndup (&line[n-10], 10) );
+
 			a = n++;
 			for(; n < strlen(line); n++) // TIME
 				if(line[n] == ' ') break;
+			time = g_value_init(time, G_TYPE_STRING);
+			g_value_set_string ( time, g_strndup (&line[n-8], 8) );
 
 			filename = g_value_init(filename, G_TYPE_STRING);
 			g_value_set_string(filename, g_strstrip(g_strndup(&line[n], strlen(line)-n-1)));
@@ -175,9 +181,10 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 			archive->row = g_list_prepend(archive->row, owner);
 			archive->row = g_list_prepend(archive->row, size);
 			archive->row = g_list_prepend(archive->row, date);
-			
-			archive->dummy_size += g_value_get_uint64 (g_list_nth_data ( archive->row , 1) );
-			if ( strstr ((gchar *)g_list_nth_data ( archive->row , 3) , "d") == NULL )
+			archive->row = g_list_prepend(archive->row, time);
+
+			archive->dummy_size += g_value_get_uint64 (g_list_nth_data ( archive->row , 2) );
+			if ( strstr ((gchar *)g_list_nth_data ( archive->row , 4) , "d") == NULL )
 				archive->nr_of_dirs++;
   	      else
 				archive->nr_of_files++;

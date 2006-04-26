@@ -101,7 +101,7 @@ xa_support_zip_init(XASupportZip *support)
 	column_types[2] = G_TYPE_STRING;
 	column_types[3] = G_TYPE_UINT64;
 	column_types[4] = G_TYPE_STRING;
-	column_types[5] = G_TYPE_STRING; /* DATE */
+	column_types[5] = G_TYPE_STRING;
 	column_types[6] = G_TYPE_STRING;
 	column_types[7] = G_TYPE_STRING;
 
