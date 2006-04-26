@@ -262,7 +262,7 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				archive->nr_of_files++;
 			else
 				archive->nr_of_dirs++;
-			archive->dummy_size += ( unsigned long long int)g_value_get_uint64 (g_list_nth_data ( archive->row,7) );
+			archive->dummy_size += g_value_get_uint64 (g_list_nth_data ( archive->row,7) );
 			odd_line = ! odd_line;
 			g_free (line);
 			if ( row_cnt > 99)

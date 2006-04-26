@@ -214,11 +214,14 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				archive->nr_of_dirs++;
 			else
 				archive->nr_of_files++;
-			archive->dummy_size += (unsigned long long int)g_value_get_uint64 (g_list_nth_data ( archive->row , 4));
+			archive->dummy_size += g_value_get_uint64 (g_list_nth_data ( archive->row , 4));
 			g_free(line);
 		}
 		if(status == G_IO_STATUS_NORMAL)
+		{
+			g_message ("Emetto il segnale di append");
 			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+		}
 		else if(status == G_IO_STATUS_ERROR)
 		{
 			g_warning("ERR: %s\n", error->message);
