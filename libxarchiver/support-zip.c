@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <gtk/gtk.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <libintl.h>
@@ -147,7 +148,8 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			status =  g_io_channel_read_line ( ioc, &line, NULL, NULL, &error);
 			if ((line == NULL) || ( status != G_IO_STATUS_NORMAL))
 				break;
-			
+			while (gtk_events_pending() )
+                    gtk_main_iteration();
 			filename    = g_new0(GValue, 1);
 			original    = g_new0(GValue, 1);
 			method      = g_new0(GValue, 1);
@@ -214,7 +216,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				archive->nr_of_dirs++;
 			else
 				archive->nr_of_files++;
-			archive->dummy_size += (unsigned long long int)g_list_nth_data ( archive->row , 4);
+			archive->dummy_size += (unsigned long long int)g_value_get_uint64 (g_list_nth_data ( archive->row , 4));
 			g_free(line);
 		}
 		if(status == G_IO_STATUS_NORMAL)

@@ -13,8 +13,8 @@ libxarchiver_a_SOURCES =            \
 	archive-types.c   archive-types.h
 
 libxarchiver_a_CFLAGS = \
-	@GLIB_CFLAGS@
-
+	@GLIB_CFLAGS@ \
+	@GTK_CFLAGS@ 
 libxarchiver_a_LIBADD =
 
 libxarchiver_includedir= \
