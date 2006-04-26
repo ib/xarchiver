@@ -176,7 +176,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 			archive->row = g_list_prepend(archive->row, size);
 			archive->row = g_list_prepend(archive->row, date);
 			
-			archive->dummy_size += (unsigned long int)g_list_nth_data ( archive->row , 1);
+			archive->dummy_size += (unsigned long long int)g_list_nth_data ( archive->row , 1);
 			if ( strstr ((gchar *)g_list_nth_data ( archive->row , 3) , "d") == NULL )
 				archive->nr_of_dirs++;
   	      else
@@ -189,6 +189,7 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 		if(status == G_IO_STATUS_ERROR)
 		{
 			g_warning("ERR: %s\n", error->message);
+			g_error_free (error);
 		}
 		if(status == G_IO_STATUS_EOF)
 		{

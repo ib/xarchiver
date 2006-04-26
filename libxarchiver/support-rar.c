@@ -143,7 +143,6 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 	GValue *version = NULL;
 	XAArchive *archive = support->exec.archive;
 	
-	unsigned short int i = 0;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		/* This to avoid inserting in the liststore RAR's copyright message */
@@ -189,6 +188,7 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			/* Now let's parse the rest of the info */
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL) return TRUE;
+			g_message (line);
 			row_cnt++;
 			start = eat_spaces (line);
 			end = strchr (start, ' ');
@@ -259,10 +259,10 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			archive->row = g_list_prepend (archive->row , version );
 
 			if ( strstr ((gchar *)g_list_nth_data ( archive->row,3) , "d") == NULL && strstr ((gchar *)g_list_nth_data ( archive->row,3) , "D") == NULL )
-			archive->nr_of_files++;
+				archive->nr_of_files++;
 			else
 				archive->nr_of_dirs++;
-			archive->dummy_size += ( unsigned long int)g_list_nth_data ( archive->row,7);
+			archive->dummy_size += ( unsigned long long int)g_list_nth_data ( archive->row,7);
 			odd_line = ! odd_line;
 			g_free (line);
 			if ( row_cnt > 99)
@@ -390,7 +390,7 @@ gint
 xa_support_rar_open (XASupport *support, XAArchive *archive)
 {
 	jump_header = FALSE;
-	unsigned short int row_cnt = 0;
+	row_cnt = 0;
 	support->exec.command = g_strconcat ( "rar vl -c- " , archive->path, NULL );
 	support->exec.archive = archive;
 	support->exec.parse_output = support->parse_output;

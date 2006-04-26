@@ -24,12 +24,14 @@
 #include <unistd.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <libintl.h>
 #include "internals.h"
 #include "archive.h"
 #include "archive-types.h"
 #include "support.h"
 #include "support-zip.h"
 
+#define _(String) gettext(String)
 
 void
 xa_support_zip_init(XASupportZip *support);
@@ -120,6 +122,8 @@ xa_support_zip_init(XASupportZip *support)
 gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	XASupport *support = XA_SUPPORT(data);
+	GIOStatus status = 0;
+	GError *error = NULL;
 	gchar *line = NULL;
 	gchar *start = NULL;
 	gchar *end = NULL;
@@ -138,9 +142,12 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 	unsigned short int i = 0;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		for(i = 0 ; (i < 100) && (g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL ) == G_IO_STATUS_NORMAL); i++)
+		for(i = 0 ; i < 100; i++)
 		{
-			if (line == NULL) continue;
+			status =  g_io_channel_read_line ( ioc, &line, NULL, NULL, &error);
+			if ((line == NULL) || ( status != G_IO_STATUS_NORMAL))
+				break;
+			
 			filename    = g_new0(GValue, 1);
 			original    = g_new0(GValue, 1);
 			method      = g_new0(GValue, 1);
@@ -207,16 +214,31 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				archive->nr_of_dirs++;
 			else
 				archive->nr_of_files++;
-			archive->dummy_size += (unsigned long int)g_list_nth_data ( archive->row , 4);
+			archive->dummy_size += (unsigned long long int)g_list_nth_data ( archive->row , 4);
 			g_free(line);
 		}
+		if(status == G_IO_STATUS_NORMAL)
 			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
-			return TRUE;
+		else if(status == G_IO_STATUS_ERROR)
+		{
+			g_warning("ERR: %s\n", error->message);
+			g_error_free (error);
+		}
+
+		if(status == G_IO_STATUS_EOF)
+		{
+			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+			xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
+			return FALSE;
+		}
+		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
+		xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+		xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 		return FALSE;
 	}
 	return TRUE;
