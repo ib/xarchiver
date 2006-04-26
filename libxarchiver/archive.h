@@ -78,6 +78,7 @@ struct _XAArchive
 	gint nr_of_files;
 	gint nr_of_dirs;
 	unsigned long long int dummy_size;
+	unsigned int row_cnt;
 	GSList *error_output;
 	GList *row;
 	gboolean has_passwd;

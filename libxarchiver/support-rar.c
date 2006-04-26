@@ -188,8 +188,7 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			/* Now let's parse the rest of the info */
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL) return TRUE;
-			g_message (line);
-			row_cnt++;
+			archive->row_cnt++;
 			start = eat_spaces (line);
 			end = strchr (start, ' ');
 			original = g_new0(GValue, 1);
@@ -265,10 +264,10 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			archive->dummy_size += g_value_get_uint64 (g_list_nth_data ( archive->row,7) );
 			odd_line = ! odd_line;
 			g_free (line);
-			if ( row_cnt > 99)
+			if ( archive->row_cnt > 99)
 			{
 				xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
-				row_cnt = 0;
+				archive->row_cnt = 0;
 			}
 		}
 		return TRUE;
@@ -390,7 +389,6 @@ gint
 xa_support_rar_open (XASupport *support, XAArchive *archive)
 {
 	jump_header = FALSE;
-	row_cnt = 0;
 	support->exec.command = g_strconcat ( "rar vl -c- " , archive->path, NULL );
 	support->exec.archive = archive;
 	support->exec.parse_output = support->parse_output;
@@ -401,6 +399,7 @@ xa_support_rar_open (XASupport *support, XAArchive *archive)
 	xa_support_execute(support);
 	g_free (support->exec.command);
 	archive->dummy_size = 0;
+	archive->row_cnt = 0;
 	return TRUE;
 }
 

@@ -552,7 +552,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	tmpimage = xa_main_window_find_image("add_folder.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_folder = gtk_tool_button_new (tmpimage, _("Add Folder"));
-	gtk_tooltips_set_tip(window->tips, add_folder, _("Add folders to archive"), NULL);
+	gtk_tooltips_set_tip(window->tips, GTK_WIDGET(add_folder), _("Add folders to archive"), NULL);
 
 	tmpimage = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
@@ -739,6 +739,8 @@ xa_main_window_append_list(XAMainWindow *window, GList *fields)
 			i++;
 		}
 	}
+	while ( gtk_events_pending() )
+		gtk_main_iteration();
 	gtk_tree_view_set_model(GTK_TREE_VIEW(window->contentlist), list_store);
 	g_object_unref(list_store);
 }

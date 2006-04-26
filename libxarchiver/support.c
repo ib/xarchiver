@@ -268,7 +268,7 @@ xa_support_execute(gpointer data)
 
 	if(support->exec.archive->row)
 	{
-		//g_list_foreach(support->exec.archive->row, (GFunc)g_free, NULL);
+		g_list_foreach(support->exec.archive->row, (GFunc)g_free, NULL);
 		g_list_free(support->exec.archive->row);
 		support->exec.archive->row = NULL;
 	}

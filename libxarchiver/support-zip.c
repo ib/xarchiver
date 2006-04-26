@@ -142,12 +142,10 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 	unsigned short int i = 0;
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		for(i = 0 ; i < 100; i++)
-		{
 			status =  g_io_channel_read_line ( ioc, &line, NULL, NULL, &error);
 			if ((line == NULL) || ( status != G_IO_STATUS_NORMAL))
-				break;
-			
+				return TRUE;
+
 			filename    = g_new0(GValue, 1);
 			original    = g_new0(GValue, 1);
 			method      = g_new0(GValue, 1);
@@ -156,6 +154,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			date        = g_new0(GValue, 1);
 			time        = g_new0(GValue, 1);
 			crc32       = g_new0(GValue, 1);
+			archive->row_cnt++;
 
 			start = eat_spaces (line);
 			end = strchr (start, ' ');
@@ -209,18 +208,18 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			archive->row = g_list_prepend(archive->row, date);
 			archive->row = g_list_prepend(archive->row, time);
 			archive->row = g_list_prepend(archive->row, crc32);
-		
+
 			if ( g_str_has_suffix (g_value_get_string (filename) , "/") == TRUE)
 				archive->nr_of_dirs++;
 			else
 				archive->nr_of_files++;
 			archive->dummy_size += g_value_get_uint64 (g_list_nth_data ( archive->row , 4));
 			g_free(line);
-		}
-		if(status == G_IO_STATUS_NORMAL)
+
+		if(status == G_IO_STATUS_NORMAL && archive->row_cnt > 99)
 		{
-			g_message ("Emetto il segnale di append");
 			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+			archive->row_cnt = 0;
 		}
 		else if(status == G_IO_STATUS_ERROR)
 		{
@@ -363,6 +362,7 @@ xa_support_zip_open (XASupport *support, XAArchive *archive)
 	xa_support_execute(support);
 	g_free (support->exec.command);
 	archive->dummy_size = 0;
+	archive->row_cnt = 0;
 	return TRUE;
 }
 
