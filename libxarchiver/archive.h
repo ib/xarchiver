@@ -94,6 +94,8 @@ struct _XAArchiveClass
 GType xa_archive_get_type(void);
 XAArchive *xa_archive_new(gchar *, XAArchiveType);
 
+gboolean xa_catch_errors (GIOChannel *ioc, GIOCondition cond, gpointer data);
+
 G_END_DECLS
 
 #endif

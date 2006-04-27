@@ -25,6 +25,7 @@
 #include <gtk/gtk.h> 
 #include <getopt.h>
 #include <unistd.h>
+#include <string.h>
 #include <libintl.h>
 
 #include "main.h"
@@ -61,8 +62,11 @@ xa_append_rows(GObject *object, gpointer data)
 	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
 	g_list_foreach(archive->row, (GFunc)g_value_unset, NULL);
 	g_list_foreach(archive->row, (GFunc)g_free, NULL);
+	g_slist_foreach(archive->error_output, (GFunc)g_free, NULL);
 	g_list_free(archive->row);
+	g_slist_free(archive->error_output);
 	archive->row = NULL;
+	archive->error_output = NULL;
 	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101);
 }
 void
@@ -101,6 +105,7 @@ xa_child_exit_error (GObject *object, gpointer data)
 {
 	XAArchive *archive = data;
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Operation failed."));
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-shell-output", TRUE);
 	GtkWidget *dialog;
 	dialog = gtk_message_dialog_new(GTK_WINDOW(main_window), 
 				GTK_DIALOG_DESTROY_WITH_PARENT, 
@@ -131,7 +136,12 @@ xa_child_exit_error (GObject *object, gpointer data)
 		GtkTextIter enditer;
 		gtk_text_buffer_get_start_iter (textbuf, &enditer);
 		gtk_text_buffer_create_tag (textbuf, "red_foreground","foreground", "red", NULL);
-
+		archive->error_output = g_slist_reverse (archive->error_output);
+		while (archive->error_output )
+		{
+			gtk_text_buffer_insert (textbuf, &enditer, archive->error_output->data, strlen ( archive->error_output->data ) );
+			archive->error_output = archive->error_output->next;
+		}
 		gtk_widget_show (vbox);
 		gtk_widget_show (scrollwin);
 		gtk_widget_show (textview);
@@ -246,6 +256,7 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-close", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-remove", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-shell-output", FALSE);
 }
 
 void

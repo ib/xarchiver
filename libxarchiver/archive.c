@@ -21,6 +21,8 @@
 #include <glib.h>
 #include <glib-object.h> 
 #include "archive.h"
+#include "support.h"
+
 
 static void
 xa_archive_class_init(XAArchiveClass *archive_class);
@@ -93,3 +95,25 @@ xa_archive_new(gchar *path, XAArchiveType type)
 	
 	return archive;
 }
+
+gboolean xa_catch_errors (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XASupport *support = XA_SUPPORT(data);
+	XAArchive *archive = support->exec.archive;
+	gchar *line = NULL;
+
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+		if (line == NULL) return TRUE;
+		archive->error_output = g_slist_prepend ( archive->error_output , line );
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
+}
+

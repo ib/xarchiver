@@ -315,9 +315,7 @@ xa_support_execute(gpointer data)
 		g_io_channel_set_flags ( err_ioc , G_IO_FLAG_NONBLOCK , NULL );
 
 		support->exec.watch_source = g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support);
-		/*My idea is to have a general routine not related to any of the support objects
-		support->exec.catch_errors = g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support);
-		*/
+		g_io_add_watch(err_ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, xa_catch_errors, support);
 	}
 	else
 		support->exec.watch_source = 0;
