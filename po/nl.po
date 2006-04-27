@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9 svn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-24 21:33+0200\n"
+"POT-Creation-Date: 2006-04-27 13:04+0200\n"
 "PO-Revision-Date: 2006-04-24 21:38+0200\n"
 "Last-Translator: Stephan Arts <psybsd@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -34,72 +34,80 @@ msgstr ""
 msgid "Opening archive..."
 msgstr "Archief openen..."
 
-#: ../src/main.c:346 ../src/main-window.c:775
+#: ../src/main.c:353 ../src/main-window.c:782
 msgid "Open Archive"
 msgstr "Open Archief"
 
-#: ../src/main.c:352
+#: ../src/main.c:359
 msgid "archiving app"
 msgstr "archiverings applicatie"
 
 #. Archive Menu
-#: ../src/main-window.c:364
+#: ../src/main-window.c:367
 msgid "_Archive"
 msgstr "_Archief"
 
-#: ../src/main-window.c:376
+#: ../src/main-window.c:379
 msgid "_Test"
 msgstr "_Testen"
 
 #. Action Menu
-#: ../src/main-window.c:416
+#: ../src/main-window.c:419
 msgid "A_ction"
 msgstr "A_ctie"
 
-#: ../src/main-window.c:421
+#: ../src/main-window.c:424
 msgid "_Add File(s)"
 msgstr "_Bestand(en) toevoegen"
 
-#: ../src/main-window.c:422
+#: ../src/main-window.c:425
 msgid "Add _Folder"
 msgstr "_Map toevoegen"
 
-#: ../src/main-window.c:423
+#: ../src/main-window.c:426
 msgid "_Extract"
 msgstr "_Uitpakken"
 
 #. Help Menu
-#: ../src/main-window.c:447
+#: ../src/main-window.c:450
 msgid "_Help"
 msgstr "_Help"
 
-#: ../src/main-window.c:546 ../src/main-window.c:801
+#: ../src/main-window.c:549 ../src/main-window.c:808
 #, fuzzy
 msgid "Add Files"
-msgstr "Bestanden"
+msgstr "Bestanden toevoegen"
 
-#: ../src/main-window.c:550 ../src/main-window.c:832
+#: ../src/main-window.c:550
+msgid "Add files to archive"
+msgstr "Bestanden toevoegen aan archief"
+
+#: ../src/main-window.c:554 ../src/main-window.c:839
 #, fuzzy
 msgid "Add Folder"
-msgstr "Map"
+msgstr "Map toevoegen"
 
-#: ../src/main-window.c:554 ../src/extract-dialog.c:94
+#: ../src/main-window.c:555
+msgid "Add folders to archive"
+msgstr "Mappen toevoegen aan archief"
+
+#: ../src/main-window.c:559 ../src/extract-dialog.c:98
 msgid "Extract"
 msgstr "Uitpakken"
 
-#: ../src/main-window.c:889
+#: ../src/main-window.c:896
 msgid "Are you sure you want to remove the selected files from the archive?"
 msgstr "Weet u zeker dat u de geselecteerde bestanden wilt verwijderen?"
 
-#: ../src/extract-dialog.c:80
+#: ../src/extract-dialog.c:84
 msgid "Choose destination folder"
 msgstr "Kies bestemmings-map"
 
-#: ../src/extract-dialog.c:93
+#: ../src/extract-dialog.c:97
 msgid "Cancel"
 msgstr "Annuleer"
 
-#: ../src/extract-dialog.c:128
+#: ../src/extract-dialog.c:132
 msgid "Extract to"
 msgstr "Uitpakken naar"
 
@@ -167,7 +175,7 @@ msgstr ""
 msgid "Date"
 msgstr "Datum"
 
-#: ../libxarchiver/support-rar.c:96
+#: ../libxarchiver/support-rar.c:96 ../libxarchiver/support-gnu-tar.c:93
 msgid "Time"
 msgstr "Tijd"
 

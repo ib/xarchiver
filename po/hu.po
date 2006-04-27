@@ -1,0 +1,437 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-04-27 13:04+0200\n"
+"PO-Revision-Date: 2006-01-19 11:32+0100\n"
+"Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
+"Language-Team: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/main.c:95
+msgid "Done"
+msgstr ""
+
+#: ../src/main.c:171
+#, fuzzy
+msgid "Extracting archive"
+msgstr "Fájlok kicsomagolása ide: "
+
+#: ../src/main.c:223
+#, c-format
+msgid "File \"%s\" could not be opened, archive not supported\n"
+msgstr ""
+
+#: ../src/main.c:231
+#, fuzzy
+msgid "Opening archive..."
+msgstr "Archívum megnyitása"
+
+#: ../src/main.c:353 ../src/main-window.c:782
+#, fuzzy
+msgid "Open Archive"
+msgstr "Archívum megnyitása"
+
+#: ../src/main.c:359
+msgid "archiving app"
+msgstr ""
+
+#. Archive Menu
+#: ../src/main-window.c:367
+msgid "_Archive"
+msgstr "_Archívum"
+
+#: ../src/main-window.c:379
+msgid "_Test"
+msgstr ""
+
+#. Action Menu
+#: ../src/main-window.c:419
+#, fuzzy
+msgid "A_ction"
+msgstr "_Akció"
+
+#: ../src/main-window.c:424
+#, fuzzy
+msgid "_Add File(s)"
+msgstr "Fájl hozzáadása"
+
+#: ../src/main-window.c:425
+#, fuzzy
+msgid "Add _Folder"
+msgstr "Mappa hozzáadása"
+
+#: ../src/main-window.c:426
+#, fuzzy
+msgid "_Extract"
+msgstr "Kibont"
+
+#. Help Menu
+#: ../src/main-window.c:450
+msgid "_Help"
+msgstr ""
+
+#: ../src/main-window.c:549 ../src/main-window.c:808
+#, fuzzy
+msgid "Add Files"
+msgstr "Fájl hozzáadása"
+
+#: ../src/main-window.c:550
+#, fuzzy
+msgid "Add files to archive"
+msgstr "Fájl hozzáadásA a jelenlegI archívumhoz"
+
+#: ../src/main-window.c:554 ../src/main-window.c:839
+msgid "Add Folder"
+msgstr "Mappa hozzáadása"
+
+#: ../src/main-window.c:555
+#, fuzzy
+msgid "Add folders to archive"
+msgstr "Fájl hozzáadásA a jelenlegI archívumhoz"
+
+#: ../src/main-window.c:559 ../src/extract-dialog.c:98
+msgid "Extract"
+msgstr "Kibont"
+
+#: ../src/main-window.c:896
+msgid "Are you sure you want to remove the selected files from the archive?"
+msgstr ""
+
+#: ../src/extract-dialog.c:84
+msgid "Choose destination folder"
+msgstr ""
+
+#: ../src/extract-dialog.c:97
+msgid "Cancel"
+msgstr ""
+
+#: ../src/extract-dialog.c:132
+#, fuzzy
+msgid "Extract to"
+msgstr "Kibontás ide:"
+
+#: ../src/new-dialog.c:76
+#, fuzzy
+msgid "New archive"
+msgstr "Archívum megnyitása"
+
+#: ../src/property-dialog.c:69
+#, fuzzy
+msgid "Archive Properties"
+msgstr "Archívum típus:"
+
+#: ../src/property-dialog.c:139
+msgid "Property"
+msgstr ""
+
+#: ../src/property-dialog.c:143
+msgid "Value"
+msgstr ""
+
+#: ../libxarchiver/support.c:65
+msgid "Verify not supported by this support object"
+msgstr ""
+
+#: ../libxarchiver/support.c:72
+msgid "Add not supported by this support object"
+msgstr ""
+
+#: ../libxarchiver/support.c:79
+msgid "Extract not supported by this support object"
+msgstr ""
+
+#: ../libxarchiver/support.c:86
+msgid "Remove not supported by this support object"
+msgstr ""
+
+#: ../libxarchiver/support.c:93
+msgid "Testing not supported by this support object"
+msgstr ""
+
+#: ../libxarchiver/support.c:100
+msgid "Open not supported by this support object"
+msgstr ""
+
+#: ../libxarchiver/support.c:107
+msgid "View not supported by this support object"
+msgstr ""
+
+#: ../libxarchiver/support-rar.c:91 ../libxarchiver/support-gnu-tar.c:88
+msgid "Filename"
+msgstr "Fájlnév"
+
+#: ../libxarchiver/support-rar.c:92
+msgid "Original"
+msgstr "Eredeti"
+
+#: ../libxarchiver/support-rar.c:93
+msgid "Compressed"
+msgstr "Tömörített"
+
+#: ../libxarchiver/support-rar.c:94
+msgid "Ratio"
+msgstr "Arány"
+
+#: ../libxarchiver/support-rar.c:95 ../libxarchiver/support-gnu-tar.c:92
+msgid "Date"
+msgstr "Dátum"
+
+#: ../libxarchiver/support-rar.c:96 ../libxarchiver/support-gnu-tar.c:93
+msgid "Time"
+msgstr "Idő"
+
+#: ../libxarchiver/support-rar.c:97 ../libxarchiver/support-gnu-tar.c:89
+msgid "Permissions"
+msgstr "Jogok"
+
+#: ../libxarchiver/support-rar.c:98
+#, fuzzy
+msgid "CRC"
+msgstr "CRC-32"
+
+#: ../libxarchiver/support-rar.c:99
+msgid "Method"
+msgstr "Módszer"
+
+#: ../libxarchiver/support-rar.c:100
+#, fuzzy
+msgid "Version"
+msgstr "Engedély"
+
+#: ../libxarchiver/support-gnu-tar.c:90
+#, fuzzy
+msgid "Owner / Group"
+msgstr "Tulajdonos/Csoport"
+
+#: ../libxarchiver/support-gnu-tar.c:91
+msgid "Size"
+msgstr "Méret"
+
+#~ msgid "Ready."
+#~ msgstr "Kész."
+
+#~ msgid ""
+#~ "xarchiver: invalid option %s\n"
+#~ "Try xarchiver -h for more information.\n"
+#~ msgstr ""
+#~ "xarchiver: ismeretlen lehetőség %s\n"
+#~ "L. az xarchiver -h parancsot több információért.\n"
+
+#~ msgid "View"
+#~ msgstr "Nézet"
+
+#~ msgid "Set Password"
+#~ msgstr "Jelszó"
+
+#~ msgid "View S_hell Output"
+#~ msgstr "_Héjkimenet  megtekintése"
+
+#~ msgid "_About"
+#~ msgstr "_Névjegy"
+
+#~ msgid "New"
+#~ msgstr "Új"
+
+#~ msgid "Create a new archive"
+#~ msgstr "Új archívum létrehozása"
+
+#~ msgid "Open"
+#~ msgstr "Megnyitás"
+
+#~ msgid "Add an entire folder to the current archive"
+#~ msgstr "Teljes könyvtár hozzáadása a jelenlegi archívumhoz"
+
+#~ msgid ""
+#~ "Extract files from the current archive; use the mouse to select files "
+#~ "individually"
+#~ msgstr ""
+#~ "Fájlok kibontása a jelenlegi archívumból; használd az egeret a fájlok "
+#~ "egyéni kijelöléséhez"
+
+#~ msgid "Delete"
+#~ msgstr "Törlés"
+
+#~ msgid "Delete files from the current archive"
+#~ msgstr "Fájlok törlése a jelenlegi archívumból"
+
+#~ msgid "View file content in the current archive"
+#~ msgstr "Fájltartalom megtekintése a jelenlegi archívumban"
+
+#~ msgid "This archive contains password protected files"
+#~ msgstr "Ez az archívum jelszóval védett fájlokat tartalmaz"
+
+#~ msgid "Extract ONLY selected files"
+#~ msgstr "CSAK a kijelölt fájlok kibontása"
+
+#~ msgid "Extract ALL files"
+#~ msgstr "MINDEN fájl kibontása"
+
+#~ msgid "Choose a folder where to extract files"
+#~ msgstr "Válassz kibontási mappát"
+
+#~ msgid "Enter Archive Password"
+#~ msgstr "Archívumjelszó megadása"
+
+#~ msgid "Password:"
+#~ msgstr "Jelsző:"
+
+#~ msgid "Retype it:"
+#~ msgstr "Ismét:"
+
+#~ msgid "View File Window"
+#~ msgstr "Fájlablak megtekintése"
+
+#~ msgid "Operation failed."
+#~ msgstr "A művelet sikertelen."
+
+#~ msgid ""
+#~ "An error occurred while accessing the archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Hiba történt a hozzáféréskor.\n"
+#~ " Kívánod megnézni a héjkimenetet?"
+
+#~ msgid "Please wait, the content of the archive is being updated..."
+#~ msgstr "Kérlek, várj, az archívum tartalma frissül..."
+
+#~ msgid "Operation successfully completed."
+#~ msgstr "A művelet sikerült."
+
+#~ msgid "This archive already exists. Do you want to overwrite it ?"
+#~ msgstr "Ez az archívum már létezik. Felülírod ?"
+
+#~ msgid "Choose Action->Set Password to create a password protected archive."
+#~ msgstr ""
+#~ "Válaszd az Akció menü Jelszóbeállítás pontját jelszóvédett archívum "
+#~ "létrehozásához."
+
+#~ msgid "Choose Add Files or Add Folder to create the archive."
+#~ msgstr ""
+#~ "Válaszd az Fájl hozzáadását vagy Mappa hozzáadását az archívum "
+#~ "létrehozásához."
+
+#~ msgid "Please wait while the content of the archive is being read..."
+#~ msgstr "Kérlek, várj, az archívumtartalom beolvasásáig..."
+
+#~ msgid "Deleting files from the archive, please wait..."
+#~ msgstr "Fájlok törlése az archívumból, kérlek, várj..."
+
+#~ msgid "Adding files to the archive, please wait..."
+#~ msgstr "Fájlok hozzáadása az archívumhoz, kérlek, várj..."
+
+#~ msgid ""
+#~ "Select the files to be added to the current archive; use SHIFT to "
+#~ "multiple select"
+#~ msgstr "Válaszd ki az archívumhoz adandó fájlokat"
+
+#~ msgid "Select the folder to be added to the current archive"
+#~ msgstr "Válaszd ki az archívumhoz adandó mappát"
+
+#~ msgid ""
+#~ "Select the folders to be added to the current archive; use SHIFT to "
+#~ "multiple select"
+#~ msgstr "Válaszd ki az archívumhoz adandó mappákat"
+
+#~ msgid "Choose the destination folder where to extract the current archive"
+#~ msgstr "Válaszd ki a jelenlegi archívum kibontási célkönyvtárát"
+
+#~ msgid "All files"
+#~ msgstr "Minden fájl"
+
+#~ msgid "Only archives"
+#~ msgstr "Csak az archívumok"
+
+#~ msgid "Choose the archive type to create"
+#~ msgstr "Válaszd ki a létrehozandó archívumtípust"
+
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Archívumvégződés hozzáadása a fájlnévhez"
+
+#~ msgid ""
+#~ "Can't open archive %s:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Nem tudom megnyitni ezt az archívumot: %s:\n"
+#~ "%s"
+
+#~ msgid "The format of this archive is not recognized !"
+#~ msgstr "Az archívumformátum feldolgozása sikertelen !"
+
+#~ msgid "Shell output"
+#~ msgstr "Héjkimenet"
+
+#~ msgid ""
+#~ "An error occurred while extracting the file to be viewed.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Hiba történt a megtekintendő fájl kibontásakor.\n"
+#~ "Kívánod megtekinteni a héjkimenetet ?"
+
+#~ msgid "Please select a file, not a directory !"
+#~ msgstr "Kérlek, fájlt válassz, ne mappát !"
+
+#~ msgid "Please type a password !"
+#~ msgstr "Add meg a jelszót !"
+
+#~ msgid "The passwords don't match !!"
+#~ msgstr "A jelszavak nem egyformák !!"
+
+#~ msgid "Attr"
+#~ msgstr "Attr"
+
+#~ msgid "Links"
+#~ msgstr "Láncok"
+
+#~ msgid "Owner"
+#~ msgstr "Tulajdonos"
+
+#~ msgid "Group"
+#~ msgstr "Csoport"
+
+#~ msgid ""
+#~ "An error occurred while extracting the cpio archive\n"
+#~ "from the rpm one. Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Hiba történt a cpio archívum kiszedésekor\n"
+#~ " az rpmből.Kívánod megtekinteni a héjkimenetet?"
+
+#~ msgid ""
+#~ "An error occurred while decompressing the cpio archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Hiba történt a cpio archívum kibontásakor.\n"
+#~ "Kívánod megtekinteni a héjkimenetet?"
+
+#~ msgid ""
+#~ "You selected a bzip2 compressed file.\n"
+#~ "Do you want to extract it now ?"
+#~ msgstr ""
+#~ "bzip2-vel tömörített fájl választottál.\n"
+#~ "Kibontod ?"
+
+#~ msgid "Please select where to extract files !"
+#~ msgstr "Válaszd ki a kibontás helyét !"
+
+#~ msgid ""
+#~ "An error occurred while decompressing the archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Hiba történt az archívum kibontásakor.\n"
+#~ "Kívánod megtekinteni a héjkimenetet?"
+
+#~ msgid ""
+#~ "An error occurred while deleting from the tar archive.\n"
+#~ "Do you want to view the shell output ?"
+#~ msgstr ""
+#~ "Hiba történt a tar archívumból történő törléskor.\n"
+#~ "Kívánod megtekinteni a héjkimenetet?"
+
+#~ msgid ""
+#~ "You selected a gunzip compressed file.\n"
+#~ "Do you want to extract it now ?"
+#~ msgstr ""
+#~ "gzip-pel tömörített vájld választtottál.\n"
+#~ "Kibontod ?"

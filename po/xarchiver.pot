@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-24 21:33+0200\n"
+"POT-Creation-Date: 2006-04-27 13:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,70 +33,78 @@ msgstr ""
 msgid "Opening archive..."
 msgstr ""
 
-#: ../src/main.c:346 ../src/main-window.c:775
+#: ../src/main.c:353 ../src/main-window.c:782
 msgid "Open Archive"
 msgstr ""
 
-#: ../src/main.c:352
+#: ../src/main.c:359
 msgid "archiving app"
 msgstr ""
 
 #. Archive Menu
-#: ../src/main-window.c:364
+#: ../src/main-window.c:367
 msgid "_Archive"
 msgstr ""
 
-#: ../src/main-window.c:376
+#: ../src/main-window.c:379
 msgid "_Test"
 msgstr ""
 
 #. Action Menu
-#: ../src/main-window.c:416
+#: ../src/main-window.c:419
 msgid "A_ction"
 msgstr ""
 
-#: ../src/main-window.c:421
+#: ../src/main-window.c:424
 msgid "_Add File(s)"
 msgstr ""
 
-#: ../src/main-window.c:422
+#: ../src/main-window.c:425
 msgid "Add _Folder"
 msgstr ""
 
-#: ../src/main-window.c:423
+#: ../src/main-window.c:426
 msgid "_Extract"
 msgstr ""
 
 #. Help Menu
-#: ../src/main-window.c:447
+#: ../src/main-window.c:450
 msgid "_Help"
 msgstr ""
 
-#: ../src/main-window.c:546 ../src/main-window.c:801
+#: ../src/main-window.c:549 ../src/main-window.c:808
 msgid "Add Files"
 msgstr ""
 
-#: ../src/main-window.c:550 ../src/main-window.c:832
+#: ../src/main-window.c:550
+msgid "Add files to archive"
+msgstr ""
+
+#: ../src/main-window.c:554 ../src/main-window.c:839
 msgid "Add Folder"
 msgstr ""
 
-#: ../src/main-window.c:554 ../src/extract-dialog.c:94
+#: ../src/main-window.c:555
+msgid "Add folders to archive"
+msgstr ""
+
+#: ../src/main-window.c:559 ../src/extract-dialog.c:98
 msgid "Extract"
 msgstr ""
 
-#: ../src/main-window.c:889
+#: ../src/main-window.c:896
 msgid "Are you sure you want to remove the selected files from the archive?"
 msgstr ""
 
-#: ../src/extract-dialog.c:80
+#: ../src/extract-dialog.c:84
 msgid "Choose destination folder"
 msgstr ""
 
-#: ../src/extract-dialog.c:93
+#: ../src/extract-dialog.c:97
 msgid "Cancel"
 msgstr ""
 
-#: ../src/extract-dialog.c:128
+#: ../src/extract-dialog.c:132
 msgid "Extract to"
 msgstr ""
 
@@ -164,7 +172,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: ../libxarchiver/support-rar.c:96
+#: ../libxarchiver/support-rar.c:96 ../libxarchiver/support-gnu-tar.c:93
 msgid "Time"
 msgstr ""
 

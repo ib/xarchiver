@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-24 21:33+0200\n"
+"POT-Creation-Date: 2006-04-27 13:04+0200\n"
 "PO-Revision-Date: 2005-12-19 12:50+0300\n"
 "Last-Translator: Eugene Ostapets <eostapets@altlinux.ru>\n"
 "Language-Team: Russian <eostapets@altlinux.org>\n"
@@ -36,76 +36,84 @@ msgstr ""
 msgid "Opening archive..."
 msgstr "Открыть архив"
 
-#: ../src/main.c:346 ../src/main-window.c:775
+#: ../src/main.c:353 ../src/main-window.c:782
 #, fuzzy
 msgid "Open Archive"
 msgstr "Открыть архив"
 
-#: ../src/main.c:352
+#: ../src/main.c:359
 msgid "archiving app"
 msgstr ""
 
 #. Archive Menu
-#: ../src/main-window.c:364
+#: ../src/main-window.c:367
 msgid "_Archive"
 msgstr "_Архив"
 
-#: ../src/main-window.c:376
+#: ../src/main-window.c:379
 msgid "_Test"
 msgstr ""
 
 #. Action Menu
-#: ../src/main-window.c:416
+#: ../src/main-window.c:419
 #, fuzzy
 msgid "A_ction"
 msgstr "_Действие"
 
-#: ../src/main-window.c:421
+#: ../src/main-window.c:424
 #, fuzzy
 msgid "_Add File(s)"
 msgstr "Добавить файл"
 
-#: ../src/main-window.c:422
+#: ../src/main-window.c:425
 #, fuzzy
 msgid "Add _Folder"
 msgstr "Добавить папку"
 
-#: ../src/main-window.c:423
+#: ../src/main-window.c:426
 #, fuzzy
 msgid "_Extract"
 msgstr "Извлечь"
 
 #. Help Menu
-#: ../src/main-window.c:447
+#: ../src/main-window.c:450
 msgid "_Help"
 msgstr ""
 
-#: ../src/main-window.c:546 ../src/main-window.c:801
+#: ../src/main-window.c:549 ../src/main-window.c:808
 #, fuzzy
 msgid "Add Files"
 msgstr "Добавить файл"
 
-#: ../src/main-window.c:550 ../src/main-window.c:832
+#: ../src/main-window.c:550
+msgid "Add files to archive"
+msgstr ""
+
+#: ../src/main-window.c:554 ../src/main-window.c:839
 msgid "Add Folder"
 msgstr "Добавить папку"
 
-#: ../src/main-window.c:554 ../src/extract-dialog.c:94
+#: ../src/main-window.c:555
+msgid "Add folders to archive"
+msgstr ""
+
+#: ../src/main-window.c:559 ../src/extract-dialog.c:98
 msgid "Extract"
 msgstr "Извлечь"
 
-#: ../src/main-window.c:889
+#: ../src/main-window.c:896
 msgid "Are you sure you want to remove the selected files from the archive?"
 msgstr ""
 
-#: ../src/extract-dialog.c:80
+#: ../src/extract-dialog.c:84
 msgid "Choose destination folder"
 msgstr ""
 
-#: ../src/extract-dialog.c:93
+#: ../src/extract-dialog.c:97
 msgid "Cancel"
 msgstr ""
 
-#: ../src/extract-dialog.c:128
+#: ../src/extract-dialog.c:132
 #, fuzzy
 msgid "Extract to"
 msgstr "Извлечь в:"
@@ -176,7 +184,7 @@ msgstr "Отношение"
 msgid "Date"
 msgstr "Дата"
 
-#: ../libxarchiver/support-rar.c:96
+#: ../libxarchiver/support-rar.c:96 ../libxarchiver/support-gnu-tar.c:93
 msgid "Time"
 msgstr "Время"
 
