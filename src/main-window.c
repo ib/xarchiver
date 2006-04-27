@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <string.h>
 #include <libintl.h>
@@ -358,7 +359,7 @@ void
 xa_main_window_create_menubar(XAMainWindow *window)
 {
 	GtkWidget *tmp_image;
-	GtkWidget *separator;
+	GtkWidget *separator, *separator2 , *separator3;
 
 	GtkAccelGroup *accel_group = gtk_accel_group_new();
 	GtkWidget *menu_bar = gtk_menu_bar_new();
@@ -377,7 +378,9 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	separator = gtk_menu_item_new();
 
 	GtkWidget *test  = gtk_image_menu_item_new_with_mnemonic(_("_Test"));
+	gtk_widget_add_accelerator (test, "activate",accel_group,GDK_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 	GtkWidget *properties = gtk_image_menu_item_new_from_stock(GTK_STOCK_PROPERTIES, accel_group);
+	gtk_widget_add_accelerator (properties, "activate",accel_group,GDK_p, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 	GtkWidget *quit  = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT, accel_group);
 
 
@@ -423,8 +426,31 @@ xa_main_window_create_menubar(XAMainWindow *window)
 
 	GtkWidget *add_file = gtk_image_menu_item_new_with_mnemonic(_("_Add File(s)"));
 	GtkWidget *add_folder = gtk_image_menu_item_new_with_mnemonic(_("Add _Folder"));
+	
+	separator2 = gtk_menu_item_new();
+		
 	GtkWidget *extract = gtk_image_menu_item_new_with_mnemonic(_("_Extract"));
+	gtk_widget_add_accelerator (extract, "activate",accel_group,GDK_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 	GtkWidget *delete  = gtk_image_menu_item_new_from_stock(GTK_STOCK_DELETE, accel_group);
+	gtk_widget_add_accelerator (delete, "activate",accel_group,GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	GtkWidget *view = gtk_image_menu_item_new_with_mnemonic (_("View"));
+	gtk_widget_add_accelerator (view, "activate",accel_group,GDK_v, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	tmp_image = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view), tmp_image);
+	gtk_widget_show (tmp_image);	
+	
+	separator3 = gtk_menu_item_new();
+
+	GtkWidget *add_pwd = gtk_menu_item_new_with_mnemonic (_("Set Password"));
+	gtk_widget_set_sensitive ( add_pwd , FALSE );
+	gtk_widget_add_accelerator (add_pwd, "activate",accel_group,GDK_w, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+	GtkWidget *shell_output = gtk_image_menu_item_new_with_mnemonic (_("View S_hell Output"));
+	
+	gtk_widget_add_accelerator (shell_output, "activate",accel_group,GDK_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	tmp_image = gtk_image_new_from_stock ("gtk-find-and-replace", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (tmp_image);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (shell_output), tmp_image);
 
 	g_signal_connect(G_OBJECT(add_file), "activate", G_CALLBACK(xa_main_window_add_files), window);
 	g_signal_connect(G_OBJECT(add_folder), "activate", G_CALLBACK(xa_main_window_add_folders), window);
@@ -434,13 +460,23 @@ xa_main_window_create_menubar(XAMainWindow *window)
 
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), add_file);
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), add_folder);
+	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), separator2);
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), extract);
 	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), delete);
+	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), view);
+	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), separator3);
+	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), add_pwd);
+	gtk_menu_shell_append(GTK_MENU_SHELL(action_menu), shell_output);
 
 	gtk_widget_show(add_file);
 	gtk_widget_show(add_folder);
+	gtk_widget_show(separator2);
 	gtk_widget_show(extract);
 	gtk_widget_show(delete);
+	gtk_widget_show(view);
+	gtk_widget_show(separator3);
+	gtk_widget_show (add_pwd);
+	gtk_widget_show (shell_output);
 	
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(action_item), action_menu);
 
@@ -472,6 +508,9 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, add_folder);
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, extract);
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, delete);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, view);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, add_pwd);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, shell_output);
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, help_item);
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, new);
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, open);
@@ -491,6 +530,9 @@ xa_main_window_create_menubar(XAMainWindow *window)
 	gtk_widget_set_name(add_file,   "xa-button-add-file");
 	gtk_widget_set_name(add_folder, "xa-button-add-folder");
 	gtk_widget_set_name(delete,     "xa-button-remove");
+	gtk_widget_set_name(view,       "xa-button-view");
+	gtk_widget_set_name(add_pwd,    "xa-button-password");
+	gtk_widget_set_name(shell_output,     "xa-button-shell-output");
 	gtk_widget_set_name(help,       "xa-button-help");
 	gtk_widget_set_name(about,      "xa-button-about");
 	gtk_widget_set_name(extract,    "xa-button-extract");

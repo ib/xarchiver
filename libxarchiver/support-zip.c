@@ -139,7 +139,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 	GValue *crc32 = NULL;
 	
 	XAArchive *archive = support->exec.archive;
-	unsigned short int i = 0;
+
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 			status =  g_io_channel_read_line ( ioc, &line, NULL, NULL, &error);
@@ -213,7 +213,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				archive->nr_of_dirs++;
 			else
 				archive->nr_of_files++;
-			archive->dummy_size += g_value_get_uint64 (g_list_nth_data ( archive->row , 4));
+			archive->dummy_size += g_value_get_uint64 (compressed);
 			g_free(line);
 
 		if(status == G_IO_STATUS_NORMAL && archive->row_cnt > 99)

@@ -18,6 +18,7 @@
 
 #include <stdio.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <signal.h>
 #include <glib.h>
 #include <glib-object.h>
@@ -27,7 +28,7 @@
 
 #define _(String) gettext(String)
 
-static guint xa_support_signals[4];
+static guint xa_support_signals[5];
 
 void
 xa_support_init(XASupport *support);
@@ -184,6 +185,18 @@ xa_support_class_init(XASupportClass *supportclass)
 			1,
 			G_TYPE_POINTER,
 			NULL);
+
+	xa_support_signals[XA_SUPPORT_SIGNAL_CHILD_EXIT_ERROR] = g_signal_new("xa_child_exit_error",
+			G_TYPE_FROM_CLASS(supportclass),
+			G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+			0,
+			NULL,
+			NULL,
+			g_cclosure_marshal_VOID__POINTER,
+			G_TYPE_NONE,
+			1,
+			G_TYPE_POINTER,
+			NULL);
 }
 
 void
@@ -238,14 +251,17 @@ void
 xa_support_watch_child (GPid pid, gint status, XASupport *support)
 {
 	g_spawn_close_pid(pid);
-
-	switch(status)
+	if ( WIFEXITED (status) )
 	{
-		case(0):
-			if(support->exec.signal >= 0)
-				xa_support_emit_signal(support, support->exec.signal);
-			break;
+		if ( WEXITSTATUS (status) )
+		{
+			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_CHILD_EXIT_ERROR);
+			return;
+		}
 	}
+	if(support->exec.signal >= 0)
+		xa_support_emit_signal(support, support->exec.signal);
+
 	xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 }
 
@@ -262,7 +278,7 @@ xa_support_execute(gpointer data)
 	gchar **argvp;
 	gint argcp;
 	GPid child_pid;
-	GIOChannel *ioc;
+	GIOChannel *ioc, *err_ioc;
 	GError *error = NULL;
 	GSource *source = NULL;
 
@@ -293,7 +309,15 @@ xa_support_execute(gpointer data)
 		ioc = g_io_channel_unix_new(out_fd);
 		g_io_channel_set_encoding (ioc, "ISO8859-1" , NULL);
 		g_io_channel_set_flags(ioc, G_IO_FLAG_NONBLOCK, &error);
+
+		err_ioc = g_io_channel_unix_new ( err_fd );
+		g_io_channel_set_encoding (err_ioc, "ISO8859-1" , NULL);
+		g_io_channel_set_flags ( err_ioc , G_IO_FLAG_NONBLOCK , NULL );
+
 		support->exec.watch_source = g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support);
+		/*My idea is to have a general routine not related to any of the support objects
+		support->exec.catch_errors = g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, support->exec.parse_output, support);
+		*/
 	}
 	else
 		support->exec.watch_source = 0;
@@ -301,6 +325,7 @@ xa_support_execute(gpointer data)
 	support->exec.source = g_child_watch_add(child_pid, (GChildWatchFunc)xa_support_watch_child, support);
 	g_free(support->exec.command);
 	support->exec.command = NULL;
+	return 0;
 }
 
 XASupport*

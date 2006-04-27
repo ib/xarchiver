@@ -92,8 +92,52 @@ xa_operation_complete(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 		"xa-button-extract", 
 		TRUE);
-	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Done"));
+	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Operation completed."));
 	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), -1);
+}
+
+void
+xa_child_exit_error (GObject *object, gpointer data)
+{
+	XAArchive *archive = data;
+	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Operation failed."));
+	GtkWidget *dialog;
+	dialog = gtk_message_dialog_new(GTK_WINDOW(main_window), 
+				GTK_DIALOG_DESTROY_WITH_PARENT, 
+				GTK_MESSAGE_WARNING, 
+				GTK_BUTTONS_YES_NO, 
+				_("An error occurred while accessing the archive.\nDo you want to view the shell output?"));
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES)
+	{
+		gtk_widget_hide(dialog);
+		GtkWidget *OutputWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+		gtk_widget_set_name (OutputWindow, "OutputWindow");
+		gtk_window_set_title (GTK_WINDOW(OutputWindow), _("Shell Output Window"));
+		gtk_window_set_position (GTK_WINDOW (OutputWindow), GTK_WIN_POS_CENTER);
+		gtk_window_set_default_size(GTK_WINDOW(OutputWindow), 450, 300);
+		gtk_window_set_destroy_with_parent (GTK_WINDOW (OutputWindow), TRUE);
+		g_signal_connect (G_OBJECT (OutputWindow), "delete_event",  G_CALLBACK (gtk_widget_hide), &OutputWindow);
+
+		GtkWidget *vbox = gtk_vbox_new ( FALSE, 2 );
+		GtkWidget *scrollwin = gtk_scrolled_window_new ( NULL,NULL );
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW( scrollwin ), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+		GtkWidget *textview = gtk_text_view_new();
+		gtk_text_view_set_editable (GTK_TEXT_VIEW(textview), FALSE);
+		gtk_container_add (GTK_CONTAINER(scrollwin), textview);
+		gtk_box_pack_start (GTK_BOX(vbox), scrollwin, TRUE, TRUE, 0);
+		gtk_container_add (GTK_CONTAINER(OutputWindow), vbox);
+		GtkTextBuffer *textbuf = gtk_text_view_get_buffer ( GTK_TEXT_VIEW(textview) );
+		GtkTextIter enditer;
+		gtk_text_buffer_get_start_iter (textbuf, &enditer);
+		gtk_text_buffer_create_tag (textbuf, "red_foreground","foreground", "red", NULL);
+
+		gtk_widget_show (vbox);
+		gtk_widget_show (scrollwin);
+		gtk_widget_show (textview);
+		gtk_widget_show (OutputWindow);
+	}
+	gtk_widget_destroy(dialog);
 }
 
 void
@@ -393,6 +437,7 @@ int main(int argc, char **argv)
 	xarchiver_support_connect("xa_rows_appended", G_CALLBACK(xa_append_rows));
 	xarchiver_support_connect("xa_archive_modified", G_CALLBACK(xa_archive_modified));
 	xarchiver_support_connect("xa_operation_complete", G_CALLBACK(xa_operation_complete));
+	xarchiver_support_connect("xa_child_exit_error", G_CALLBACK(xa_child_exit_error));
 
 	gtk_widget_show_all(main_window);
 	

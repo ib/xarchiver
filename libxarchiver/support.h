@@ -79,6 +79,7 @@ struct _XASupport
 #define XA_SUPPORT_SIGNAL_APPEND_ROWS        1
 #define XA_SUPPORT_SIGNAL_ARCHIVE_MODIFIED   2
 #define XA_SUPPORT_SIGNAL_OPERATION_COMPLETE 3
+#define XA_SUPPORT_SIGNAL_CHILD_EXIT_ERROR   4
 
 typedef struct _XASupportClass XASupportClass;
 

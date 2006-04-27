@@ -220,8 +220,6 @@ xa_support_gnu_tar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer da
 gint
 xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 {
-	gint child_pid;
-
 	support->exec.command = g_strconcat ( "tar tfv " , archive->path, NULL );
 	support->exec.archive = archive;
 	support->exec.parse_output = support->parse_output;
@@ -232,6 +230,7 @@ xa_support_gnu_tar_open(XASupport *support, XAArchive *archive)
 	xa_support_execute(support);
 	g_free (support->exec.command);
 	archive->dummy_size = 0;
+	return TRUE;
 }
 
 gint
@@ -288,7 +287,6 @@ xa_support_gnu_tar_add (XASupport *support, XAArchive *archive, GSList *files)
 gint
 xa_support_gnu_tar_extract(XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
-	gchar *dir, *filename;
 	unsigned short int levels;
 	char digit[2];
 	gchar *strip = NULL;
