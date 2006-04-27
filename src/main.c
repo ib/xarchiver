@@ -52,8 +52,7 @@ xa_update_rows(GObject *object, gpointer data)
 		n_columns, 
 		column_names, 
 		column_types);
-}
-
+} 
 void
 xa_append_rows(GObject *object, gpointer data)
 {
@@ -409,22 +408,12 @@ int main(int argc, char **argv)
 		{ NULL }
 	};
 
-	GOptionGroup *gtk_options = gtk_get_option_group(FALSE);
-
-	GOptionContext *ctx = g_option_context_new(_("archiving app"));
-
-	g_option_context_add_group(ctx, gtk_options);
-	g_option_context_add_main_entries(ctx, options, "xarchiver options");
-
 	/* parse gtk+ options */
-	gtk_init(&argc, &argv);
+	if(!gtk_init_with_args(&argc, &argv, _("archiving app"), options, GETTEXT_PACKAGE, NULL))
+		return 0;
 	
-	/* parse g_option options */
-	g_option_context_parse(ctx, &argc, &argv, NULL);
-	g_option_context_free(ctx);
 
 	/* use remaining option as filename to open */
-
 
 	main_window = xa_main_window_new();
 	gtk_widget_set_size_request(main_window, 620, 400);
