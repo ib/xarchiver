@@ -116,11 +116,12 @@ xa_child_exit_error (GObject *object, gpointer data)
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES)
 	{
 		gtk_widget_hide(dialog);
+		/*TODO: have a separate function for opening the window so we can call it from the menu entry */
 		GtkWidget *OutputWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 		gtk_widget_set_name (OutputWindow, "OutputWindow");
 		gtk_window_set_title (GTK_WINDOW(OutputWindow), _("Shell Output Window"));
 		gtk_window_set_position (GTK_WINDOW (OutputWindow), GTK_WIN_POS_CENTER);
-		gtk_window_set_default_size(GTK_WINDOW(OutputWindow), 450, 300);
+		gtk_window_set_default_size(GTK_WINDOW(OutputWindow), 350, 200);
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (OutputWindow), TRUE);
 		g_signal_connect (G_OBJECT (OutputWindow), "delete_event",  G_CALLBACK (gtk_widget_hide), &OutputWindow);
 
@@ -140,7 +141,7 @@ xa_child_exit_error (GObject *object, gpointer data)
 		archive->error_output = g_slist_reverse (archive->error_output);
 		while (archive->error_output )
 		{
-			gtk_text_buffer_insert (textbuf, &enditer, archive->error_output->data, strlen ( archive->error_output->data ) );
+			gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, archive->error_output->data , -1, "red_foreground", NULL);
 			archive->error_output = archive->error_output->next;
 		}
 		gtk_widget_show (vbox);

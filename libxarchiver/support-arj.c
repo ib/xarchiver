@@ -142,7 +142,7 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		//This to avoid inserting in the liststore arj copyright message
+		/* This to avoid inserting in the liststore arj copyright message */
 		if (jump_header == FALSE )
 		{
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
@@ -162,6 +162,7 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		}
 		if (arj_line == 1)
 		{
+			/* This to avoid reading the last line of arj output */
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if (line == NULL)
 				return TRUE;
@@ -192,7 +193,7 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL)
 				return TRUE;
-
+			//g_message (line);
 			original    = g_new0(GValue, 1);
 			compressed  = g_new0(GValue, 1);
 			ratio       = g_new0(GValue, 1);
