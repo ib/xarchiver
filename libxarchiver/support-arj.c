@@ -17,201 +17,128 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <stdlib.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdlib.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <libintl.h>
 #include "internals.h"
-#include "libxarchiver.h"
+#include "archive.h"
+#include "archive-types.h"
+#include "support.h"
 #include "support-arj.h"
-#include "archive-arj.h"
 
-/*
- * xarchive_arj_support_add(XArchive *archive, GSList *files)
- * Add files and folders to archive
- *
- */
+#define _(String) gettext(String)
 
-gboolean
-xarchive_arj_support_add (XArchive *archive, GSList *files)
+void
+xa_support_arj_init(XASupportArj *support);
+
+gint
+xa_support_arj_open(XASupport *support, XAArchive *archive);
+
+gint
+xa_support_arj_add (XASupport *support, XAArchive *archive, GSList *files);
+
+gint
+xa_support_arj_remove (XASupport *support, XAArchive *archive, GSList *files);
+
+gint
+xa_support_arj_extract(XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
+
+gboolean 
+xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
+
+gint
+xa_support_arj_testing(XASupport *support, XAArchive *archive);
+
+GType
+xa_support_arj_get_type ()
 {
-	gchar *command, *dir;
-	GString *names;
+	static GType xa_support_arj_type = 0;
 
-	GSList *_files = files;
-	if(files != NULL)
+ 	if (!xa_support_arj_type)
 	{
-		dir = g_path_get_dirname(files->data);
-		chdir(dir);
-		g_free(dir);
- 		names = concatenatefilenames ( _files );
-		if (archive->has_passwd)
-			command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->path , names->str , NULL );
-		else
-			command = g_strconcat ( "arj a -i -r " , archive->path , names->str , NULL );
-		archive->status = ADD;
-		archive->child_pid = xarchiver_async_process ( archive , command, 0);
-		g_free(command);
-		if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-			return FALSE;
-		if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-			return FALSE;
-		if (archive->child_pid == 0)
+ 		static const GTypeInfo xa_support_arj_info = 
 		{
-			g_message (archive->error->message);
-			g_error_free (archive->error);
-			return FALSE;
-		}
-		g_string_free (names, TRUE);
+			sizeof (XASupportArjClass),
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) NULL,
+			(GClassFinalizeFunc) NULL,
+			NULL,
+			sizeof (XASupportArj),
+			0,
+			(GInstanceInitFunc) xa_support_arj_init,
+			NULL
+		};
+
+		xa_support_arj_type = g_type_register_static (XA_TYPE_SUPPORT, "XASupportArj", &xa_support_arj_info, 0);
 	}
-	fchdir(n_cwd);
-	return TRUE;
+	return xa_support_arj_type;
 }
 
-/*
- * xarchive_arj_support_extract(XArchive *archive, GSList *files)
- * Extract files and folders from archive
- *
- */
-
-gboolean
-xarchive_arj_support_extract (XArchive *archive, gchar *destination_path, GSList *files , gboolean full_path)
+void
+xa_support_arj_init(XASupportArj *support)
 {
-	gchar *command;
-	GString *names;
-
-	GSList *_files = files;
-	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
-		return FALSE;
-
-    //This extracts the whole archive
-	if( (files == NULL) && (g_slist_length(files) == 0))
-	{
-		if (archive->has_passwd)
-			command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->path , " " , destination_path , NULL );
-		else
-			command = g_strconcat ( "arj x -i -y " , archive->path , " " , destination_path , NULL );
-	} 
-	else
-	{
-		names = concatenatefilenames ( _files );
-		if ( archive->has_passwd)
-			command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->path , " " , destination_path , names->str , NULL );
-		else
-			command = g_strconcat ( "arj ",full_path ? "x" : "e"," -i -y " , archive->path , " " , destination_path , names->str, NULL );
-		g_string_free (names, TRUE);
-	}
-	archive->child_pid = xarchiver_async_process ( archive , command , 0);
-	g_free(command);
-	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-		return FALSE;
-	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-		return FALSE;
-	if (archive->child_pid == 0)
-	{
-		g_message (archive->error->message);
-		g_error_free (archive->error);
-	}
-	fchdir(n_cwd);
-	return TRUE;
-}
-
-/*
- * xarchive_arj_support_testing(XArchive *archive, GSList *files)
- * Test the integrity of the files in the archive
- *
- */
-
-gboolean
-xarchive_arj_support_testing (XArchive *archive)
-{
-	gchar *command;
+	XASupport *xa_support = XA_SUPPORT(support);
+	gint n_columns = 9;
+	gchar **column_names  = g_new0(gchar *, n_columns);
+	GType *column_types  = g_new0(GType, n_columns);
 	
-	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
-		return FALSE;
-        
-	if (archive->has_passwd)
-		command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->path, NULL);
-	else
-		command = g_strconcat ("arj t -i " , archive->path, NULL);
-	archive->child_pid = xarchiver_async_process ( archive , command , 0);
-	g_free (command);
-	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-		return FALSE;
-	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-		return FALSE;
-	if (archive->child_pid == 0)
-	{
-		g_message (archive->error->message);
-		g_error_free (archive->error);
-	}
-	return TRUE;
+	column_names[0] = "Filename";
+	column_names[1] = "Original";
+	column_names[2] = "Compressed";
+	column_names[3] = "Ratio";
+	column_names[4] = "Date";
+	column_names[5] = "Time";
+	column_names[6] = "Attr";
+	column_names[7] = "GUA";
+	column_names[8] = "BPMGS";
+	column_types[0] = G_TYPE_STRING;
+	column_types[1] = G_TYPE_UINT64;
+	column_types[2] = G_TYPE_UINT64;
+	column_types[3] = G_TYPE_STRING;
+	column_types[4] = G_TYPE_STRING;
+	column_types[5] = G_TYPE_STRING;
+	column_types[6] = G_TYPE_STRING;
+	column_types[7] = G_TYPE_STRING;
+	column_types[8] = G_TYPE_STRING;
+	
+	xa_support_set_columns(xa_support, n_columns, column_names, column_types);
+	xa_support->type    = XARCHIVETYPE_ARJ;
+	xa_support->verify  = xa_archive_type_arj_verify;
+	xa_support->open    = xa_support_arj_open;
+	xa_support->add     = xa_support_arj_add;
+	xa_support->remove  = xa_support_arj_remove;
+	xa_support->extract = xa_support_arj_extract;
+	xa_support->testing = xa_support_arj_testing;
+	xa_support->parse_output = xa_support_arj_parse_output;
+	
+	g_free (column_names);
+	g_free(column_types);
 }
 
-/*
- * xarchive_arj_support_remove(XArchive *archive, GSList *files)
- * Remove files and folders from the archive
- *
- */
-
-gboolean
-xarchive_arj_support_remove (XArchive *archive, GSList *files )
+gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	gchar *command;
-	GString *names;
-
-	GSList *_files = files;
-	names = concatenatefilenames ( _files );
-	archive->status = REMOVE;
-	command = g_strconcat ( "arj d " , archive->path , names->str, NULL);
-	g_string_free (names, TRUE);
-	archive->child_pid = xarchiver_async_process ( archive , command , 0);
-	g_free (command);
-	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_output_function, NULL ) )
-		return FALSE;
-	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, NULL ) )
-		return FALSE;
-	if (archive->child_pid == 0)
-	{
-		g_message (archive->error->message);
-		g_error_free (archive->error);
-	}
-	return TRUE;
-}
-
-gboolean
-xarchive_arj_support_open (XArchive *archive)
-{
-	jump_header = FALSE;
-    gchar *command = g_strconcat ( "arj v -y " , archive->path, NULL );
-	archive->child_pid = xarchiver_async_process ( archive , command , 0 );
-	g_free (command);
-	if (archive->child_pid == 0)
-	{
-		g_message (archive->error->message);
-		g_error_free (archive->error);
-		return FALSE;
-	}
-	if ( ! xarchiver_set_channel ( archive->output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_parse_arj_output, archive ) )
-		return FALSE;
-	if (! xarchiver_set_channel ( archive->error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xarchiver_error_function, archive ) )
-		return FALSE;
-	archive->dummy_size = 0;
-	return TRUE;
-}
-
-/*
- * xarchiver_parse_arj_output
- * Parse the output from the arj command when opening the archive
- *
- */
-
-gboolean xarchiver_parse_arj_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
-{
+	XASupport *support = XA_SUPPORT(data);
 	gchar *line = NULL;
-	XArchive *archive = data;
+	gchar *start = NULL;
+	gchar *end = NULL;
+	GValue *filename = NULL;
+	GValue *original = NULL;
+	gchar *_original = NULL;
+	GValue *compressed = NULL;
+	gchar *_compressed = NULL;
+	GValue *ratio = NULL;
+	GValue *date = NULL;
+	GValue *time = NULL;
+	GValue *attr = NULL;
+	GValue *gua = NULL;
+	GValue *bpmgs = NULL;
+	XAArchive *archive = support->exec.archive;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
@@ -219,8 +146,8 @@ gboolean xarchiver_parse_arj_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		if (jump_header == FALSE )
 		{
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if (line == NULL) return TRUE;
-			if (! archive->status == RELOAD) archive->output = g_slist_prepend ( archive->output , line );
+			if (line == NULL)
+				return TRUE;
 			if  (strncmp (line , "------------" , 12) == 0)
 			{
 				jump_header = TRUE;
@@ -236,84 +163,289 @@ gboolean xarchiver_parse_arj_output (GIOChannel *ioc, GIOCondition cond, gpointe
 		if (arj_line == 1)
 		{
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if (line == NULL) return TRUE;
+			if (line == NULL)
+				return TRUE;
 			if (strncmp (line, "------------", 12) == 0 || strncmp (line, "\x0a",1) == 0)
 			{
 				g_free (line);
 				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if ( ! archive->status == RELOAD )
-					archive->output = g_slist_prepend ( archive->output , line );
+				if (line != NULL) 
+					g_free (line);
 				return TRUE;
 			}
-			if ( ! archive->status == RELOAD )
-				archive->output = g_slist_prepend ( archive->output , line );
-			archive->row = get_last_field ( archive->row , line , 2 );
+			start = eat_spaces (line);
+			end = strchr (start, ' ');
+			
+			start = eat_spaces (end);
+			end = strchr (start, '\n');
+
+			filename = g_new0(GValue, 1);
+			filename = g_value_init(filename, G_TYPE_STRING);
+			g_value_set_string (filename , g_strndup ( start , end - start));
+			archive->row = g_list_prepend (archive->row ,  filename);
 			arj_line++;
+			g_free (line);
 			return TRUE;
 		}
 		else if (arj_line == 2)
 		{
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if ( line == NULL) return TRUE;
-			if ( ! archive->status == RELOAD )
-				archive->output = g_slist_prepend ( archive->output , line );
-			archive->row = split_line ( archive->row , line , 10 );
-			//The following to remove the first and second fields of the second line of arj output
-			archive->row = g_list_remove ( archive->row , (gconstpointer *)g_list_nth_data ( archive->row , 9) );
-			archive->row = g_list_remove ( archive->row , (gconstpointer *)g_list_nth_data ( archive->row , 8) );
-			if (  g_str_has_suffix (g_list_nth_data ( archive->row , 7) , "d") == FALSE)
-				archive->number_of_files++;
-			archive->dummy_size += atoll ( (gchar*)g_list_nth_data ( archive->row , 2) );
+			if ( line == NULL)
+				return TRUE;
+
+			original    = g_new0(GValue, 1);
+			compressed  = g_new0(GValue, 1);
+			ratio       = g_new0(GValue, 1);
+			date        = g_new0(GValue, 1);
+			time        = g_new0(GValue, 1);
+			attr        = g_new0(GValue, 1);
+			gua         = g_new0(GValue, 1);
+			bpmgs       = g_new0(GValue, 1);
+			archive->row_cnt++;
+			
+			/* The following to avoid parsing the first and second field of the second line of arj output */
+			start = eat_spaces (line);
+			end = strchr (start, ' ');
+
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			original = g_new0(GValue, 1);
+			original = g_value_init(original, G_TYPE_UINT64);
+			_original = g_strndup ( start , end - start);
+			g_value_set_uint64 ( original , atoll ( _original ) );
+			g_free (_original);
+			
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			compressed = g_new0 (GValue, 1);
+			compressed = g_value_init(compressed, G_TYPE_UINT64);
+			_compressed = g_strndup ( start , end - start);
+			g_value_set_uint64 ( compressed , atoll ( _compressed ) );
+			g_free (_compressed);
+
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			ratio = g_new0(GValue, 1);
+			ratio = g_value_init(ratio, G_TYPE_STRING);
+			g_value_set_string (ratio , g_strndup ( start , end - start));	
+			
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			date = g_new0(GValue, 1);
+			date = g_value_init(date, G_TYPE_STRING);
+			g_value_set_string (date , g_strndup ( start , end - start));
+
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			time = g_new0(GValue, 1);
+			time = g_value_init(time, G_TYPE_STRING);
+			g_value_set_string (time , g_strndup ( start , end - start));
+			
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			attr = g_new0(GValue, 1);
+			attr = g_value_init(attr, G_TYPE_STRING);
+			g_value_set_string (attr , g_strndup ( start , end - start));
+
+			gua = g_new0(GValue, 1);
+			gua = g_value_init(gua, G_TYPE_STRING);
+			start = eat_spaces (end);
+			if (*start == '\n')
+			{
+				no_attr = TRUE;
+				g_value_set_string (gua , g_strdup (" ") );
+				
+			}
+			else
+			{
+				end = strchr (start, ' ');
+				g_value_set_string (gua , g_strndup ( start , end - start));
+			}
+
+			start = eat_spaces (end);
+			end = strchr (start, '\n');
+			bpmgs = g_new0(GValue, 1);
+			bpmgs = g_value_init(bpmgs, G_TYPE_STRING);
+			if ( ! no_attr) g_value_set_string (bpmgs , g_strndup ( start , end - start));
+			else
+			{
+				g_value_set_string (bpmgs , g_value_get_string(attr) );
+				g_value_set_string (attr , g_strdup (" ") );
+			}
+			
+			archive->row = g_list_prepend (archive->row , original) ;
+			archive->row = g_list_prepend (archive->row , compressed );
+			archive->row = g_list_prepend (archive->row , ratio );
+			archive->row = g_list_prepend (archive->row , date );
+			archive->row = g_list_prepend (archive->row , time );
+			archive->row = g_list_prepend (archive->row , attr );
+			archive->row = g_list_prepend (archive->row , gua );
+			archive->row = g_list_prepend (archive->row , bpmgs );
+			no_attr = FALSE;
+			if (  g_str_has_suffix (g_value_get_string (attr) , "d") == FALSE)
+				archive->nr_of_files++;
+			archive->dummy_size += g_value_get_uint64 (compressed );
+			g_free (line);
+			if (archive->row_cnt > 99)
+			{
+				xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+				archive->row_cnt = 0;
+			}
+			arj_line++;
+			return TRUE;
 		}
-		//Let's discard the third and forth line of arj output
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		g_free (line);
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		g_free (line);
-		arj_line = 4;
-		return TRUE;
+		else if (arj_line == 3)
+		{	
+			/* Let's discard the third and forth line of arj output */
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			g_free (line);
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			g_free (line);
+			arj_line = 4;
+			return TRUE;
+		}
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
+		xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
+		xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 		return FALSE;
 	}
 	return TRUE;
 }
 
-XArchiveSupport *
-xarchive_arj_support_new()
+gboolean
+xa_support_arj_add (XASupport *support, XAArchive *archive, GSList *files)
 {
-	XArchiveSupport *support = g_new0(XArchiveSupport, 1);
-	support->type    = XARCHIVETYPE_ARJ;
-	support->add     = xarchive_arj_support_add;
-	support->verify  = xarchive_type_arj_verify;
-	support->extract = xarchive_arj_support_extract;
-	support->testing = xarchive_arj_support_testing;
-	support->remove  = xarchive_arj_support_remove;
-	support->open    = xarchive_arj_support_open;
-	support->n_columns = 9;
-	support->column_names  = g_new0(gchar *, support->n_columns);
-	support->column_types  = g_new0(GType, support->n_columns);
-	support->column_names[0] = "Filename";
-	support->column_names[1] = "Original";
-	support->column_names[2] = "Compressed";
-	support->column_names[3] = "Ratio";
-	support->column_names[4] = "Date";
-	support->column_names[5] = "Time";
-	support->column_names[6] = "Attr";
-	support->column_names[7] = "GUA";
-	support->column_names[8] = "BPMGS";
-	support->column_types[0] = G_TYPE_STRING;
-	support->column_types[1] = G_TYPE_STRING;
-	support->column_types[2] = G_TYPE_STRING;
-	support->column_types[3] = G_TYPE_STRING;
-	support->column_types[4] = G_TYPE_STRING;
-	support->column_types[5] = G_TYPE_STRING;
-	support->column_types[6] = G_TYPE_STRING;
-	support->column_types[7] = G_TYPE_STRING;
-	support->column_types[8] = G_TYPE_STRING;
+	gchar *dir;
+	GString *names;
+
+	GSList *_files = files;
+	if(files != NULL)
+	{
+		dir = g_path_get_dirname(files->data);
+		chdir(dir);
+		g_free(dir);
+ 		names = concatenatefilenames ( _files, TRUE );
+		if (archive->has_passwd)
+			support->exec.command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->path , names->str , NULL );
+		else
+			support->exec.command = g_strconcat ( "arj a -i -r " , archive->path , names->str , NULL );
+		support->exec.archive = archive;
+		support->exec.signal = 1;
+		support->exec.parse_output = 0;
+		xa_support_execute(support);
+
+		g_free (support->exec.command);
+		g_string_free (names, TRUE);
+	}
+	fchdir(n_cwd);
+	return TRUE;
+}
+
+gint
+xa_support_arj_extract(XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
+{
+	GString *names;
+
+	GSList *_files = files;
+	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
+		return FALSE;
+
+    //This extracts the whole archive
+	if( (files == NULL) && (g_slist_length(files) == 0))
+	{
+		if (archive->has_passwd)
+			support->exec.command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->path , " " , destination_path , NULL );
+		else
+			support->exec.command = g_strconcat ( "arj x -i -y " , archive->path , " " , destination_path , NULL );
+	} 
+	else
+	{
+		names = concatenatefilenames ( _files, TRUE );
+		if ( archive->has_passwd)
+			support->exec.command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->path , " " , destination_path , names->str , NULL );
+		else
+			support->exec.command = g_strconcat ( "arj ",full_path ? "x" : "e"," -i -y " , archive->path , " " , destination_path , names->str, NULL );
+		g_string_free (names, TRUE);
+	}
+	support->exec.archive = archive;
+	support->exec.signal = -1;
+	support->exec.parse_output = 0;
+
+	xa_support_execute(support);
+	g_free (support->exec.command);
+	fchdir(n_cwd);
+	return TRUE;
+}
+
+gint
+xa_support_arj_testing (XASupport *support, XAArchive *archive)
+{
+	if(!g_file_test(archive->path, G_FILE_TEST_EXISTS))
+		return FALSE;
+        
+	if (archive->has_passwd)
+		support->exec.command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->path, NULL);
+	else
+		support->exec.command = g_strconcat ("arj t -i " , archive->path, NULL);
+	support->exec.archive = archive;
+	support->exec.signal = -1;
+	support->exec.parse_output = 0;
+	
+	xa_support_execute(support);
+	g_free (support->exec.command);
+	return TRUE;
+}
+
+gint
+xa_support_arj_remove (XASupport *support, XAArchive *archive, GSList *files)
+{
+	GString *names;
+
+	GSList *_files = files;
+	names = concatenatefilenames ( _files, FALSE );
+	support->exec.command = g_strconcat ( "arj d " , archive->path , names->str, NULL);
+	support->exec.archive = archive;
+	support->exec.signal = XA_SUPPORT_SIGNAL_ARCHIVE_MODIFIED;
+	support->exec.parse_output = 0;
+
+	xa_support_execute(support);
+	g_string_free (names, TRUE);
+	g_free (support->exec.command);
+	return TRUE;
+}
+
+gint
+xa_support_arj_open (XASupport *support, XAArchive *archive)
+{
+	jump_header = FALSE;
+    support->exec.command = g_strconcat ( "arj v -he " , archive->path, NULL );
+	support->exec.archive = archive;
+	support->exec.parse_output = support->parse_output;
+	support->exec.signal = -1;
+	
+	xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_UPDATE_ROWS);
+
+	xa_support_execute(support);
+	g_free (support->exec.command);
+	archive->dummy_size = 0;
+	archive->row_cnt = 0;
+	return TRUE;
+}
+
+XASupport*
+xa_support_arj_new()
+{
+	XASupport *support;
+
+	support = g_object_new(XA_TYPE_SUPPORT_ARJ, NULL);
+	
 	return support;
 }
 

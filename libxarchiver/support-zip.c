@@ -122,8 +122,6 @@ xa_support_zip_init(XASupportZip *support)
 gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	XASupport *support = XA_SUPPORT(data);
-	GIOStatus status = 0;
-	GError *error = NULL;
 	gchar *line = NULL;
 	gchar *start = NULL;
 	gchar *end = NULL;
@@ -142,8 +140,8 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-			status =  g_io_channel_read_line ( ioc, &line, NULL, NULL, &error);
-			if ((line == NULL) || ( status != G_IO_STATUS_NORMAL))
+			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL);
+			if (line == NULL)
 				return TRUE;
 
 			filename    = g_new0(GValue, 1);
@@ -202,7 +200,7 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 
 			archive->row = g_list_prepend(archive->row, filename);
 			archive->row = g_list_prepend(archive->row, original);
-			archive->row = g_list_prepend(archive->row,method);
+			archive->row = g_list_prepend(archive->row, method);
 			archive->row = g_list_prepend(archive->row, compressed);
 			archive->row = g_list_prepend(archive->row, ratio);
 			archive->row = g_list_prepend(archive->row, date);
@@ -216,24 +214,11 @@ gint xa_support_zip_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			archive->dummy_size += g_value_get_uint64 (compressed);
 			g_free(line);
 
-		if(status == G_IO_STATUS_NORMAL && archive->row_cnt > 99)
+		if (archive->row_cnt > 99)
 		{
 			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
 			archive->row_cnt = 0;
 		}
-		else if(status == G_IO_STATUS_ERROR)
-		{
-			g_warning("ERR: %s\n", error->message);
-			g_error_free (error);
-		}
-
-		if(status == G_IO_STATUS_EOF)
-		{
-			xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
-			xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
-			return FALSE;
-		}
-		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP) )
 	{
@@ -336,11 +321,10 @@ xa_support_zip_remove (XASupport *support, XAArchive *archive, GSList *files)
 	GString *names;
 
 	GSList *_files = files;
-	names = concatenatefilenames ( _files , TRUE );
+	names = concatenatefilenames ( _files , FALSE );
 	support->exec.command = g_strconcat ( "zip -d " , archive->path , names->str , NULL );
-	g_print ("%s\n",support->exec.command);
 	support->exec.archive = archive;
-	support->exec.signal = 1;
+	support->exec.signal = XA_SUPPORT_SIGNAL_ARCHIVE_MODIFIED;
 	support->exec.parse_output = 0;
 	
 	xa_support_execute(support);

@@ -106,6 +106,8 @@ xa_child_exit_error (GObject *object, gpointer data)
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Operation failed."));
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-shell-output", TRUE);
 	GtkWidget *dialog;
+
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-cancel", FALSE);
 	dialog = gtk_message_dialog_new(GTK_WINDOW(main_window), 
 				GTK_DIALOG_DESTROY_WITH_PARENT, 
 				GTK_MESSAGE_WARNING, 

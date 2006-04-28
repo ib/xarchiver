@@ -262,7 +262,7 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			archive->row = g_list_prepend (archive->row , method );
 			archive->row = g_list_prepend (archive->row , version );
 
-			if ( strstr ((gchar *)g_list_nth_data ( archive->row,3) , "d") == NULL && strstr ((gchar *)g_list_nth_data ( archive->row,3) , "D") == NULL )
+			if ( strstr (g_value_get_string ( permissions) , "d") == NULL && strstr (g_value_get_string ( permissions) , "D") == NULL )
 				archive->nr_of_files++;
 			else
 				archive->nr_of_dirs++;
@@ -276,7 +276,6 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				archive->row_cnt = 0;
 			}
 		}
-		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP ) )
 	{
@@ -379,10 +378,10 @@ xa_support_rar_remove (XASupport *support, XAArchive *archive, GSList *files)
 	GString *names;
 
 	GSList *_files = files;
-	names = concatenatefilenames ( _files , TRUE );
+	names = concatenatefilenames ( _files , FALSE );
 	support->exec.command = g_strconcat ( "rar d " , archive->path , names->str , NULL );
 	support->exec.archive = archive;
-	support->exec.signal = 1;
+	support->exec.signal = XA_SUPPORT_SIGNAL_ARCHIVE_MODIFIED;
 	support->exec.parse_output = 0;
 
 	xa_support_execute(support);

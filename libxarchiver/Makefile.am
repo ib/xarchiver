@@ -8,6 +8,8 @@ libxarchiver_a_SOURCES =            \
 	support-gnu-tar.c support-gnu-tar.h    \
 	support-zip.c	  support-zip.h    \
 	support-rar.c     support-rar.h    \
+	support-7zip.c    support-7zip.h   \
+	support-arj.c	  support-arj.h    \
 	support.c         support.h         \
 	archive.c         archive.h         \
 	archive-types.c   archive-types.h
