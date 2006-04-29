@@ -61,8 +61,8 @@ xa_append_rows(GObject *object, gpointer data)
 	xa_main_window_append_list(XA_MAIN_WINDOW(main_window), archive->row);
 	g_list_foreach(archive->row, (GFunc)g_value_unset, NULL);
 	g_list_foreach(archive->row, (GFunc)g_free, NULL);
-	g_slist_foreach(archive->error_output, (GFunc)g_free, NULL);
 	g_list_free(archive->row);
+	g_slist_foreach(archive->error_output, (GFunc)g_free, NULL);
 	g_slist_free(archive->error_output);
 	archive->row = NULL;
 	archive->error_output = NULL;
@@ -94,6 +94,9 @@ xa_operation_complete(GtkWidget *widget, gpointer data)
 		TRUE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 		"xa-button-extract", 
+		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-view", 
 		TRUE);
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Operation completed."));
 	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), -1);
@@ -187,6 +190,9 @@ xa_cancel_operation(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 		"xa-button-cancel", 
 		FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window),
+		"xa-button-view",
+		TRUE);
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Cancelled");
 	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), -1);
 }
@@ -224,6 +230,10 @@ xa_extract_archive(GtkWidget *widget, gpointer data)
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-new", 
 			FALSE);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window),
+			"xa-button-view",
+			FALSE);
+		
 		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Extracting archive"));
 		xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101); 
 		if(props->files)
@@ -259,6 +269,7 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-remove", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-shell-output", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-view", FALSE);
 }
 
 void
@@ -324,6 +335,9 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-add-folder", 
 			FALSE);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window),
+			"xa-button-view",
+			FALSE);
 		
 		if(xa_archive->has_passwd)
 			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
@@ -359,6 +373,9 @@ xa_add_files(GtkWidget *widget, gpointer data)
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-extract", 
 			FALSE);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window),
+			"xa-button-view",
+			FALSE);
  		xa_support->add(xa_support, xa_archive, data);
 	}
 }
@@ -389,6 +406,9 @@ xa_remove_files(GtkWidget *widget, gpointer data)
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-new", 
 			FALSE);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window),
+			"xa-button-view",
+			FALSE);
  		xa_support->remove(xa_support, xa_archive, data);
 	}
 }
@@ -407,13 +427,14 @@ int main(int argc, char **argv)
 	g_type_init();
 	xarchiver_init();
 	GOptionEntry options[] = {
-		{ "add-file", 'a', 0, G_OPTION_ARG_FILENAME_ARRAY, &filenames, _("Open Archive"), NULL},
 		{ NULL }
 	};
 
 	/* parse gtk+ options */
 	if(!gtk_init_with_args(&argc, &argv, _("archiving app"), options, GETTEXT_PACKAGE, NULL))
 		return 0;
+
+
 	
 
 	/* use remaining option as filename to open */
@@ -451,10 +472,21 @@ int main(int argc, char **argv)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-cancel", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-close", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-remove", FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-view", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
 
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), PACKAGE_STRING);
 	//xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
+	if(argc == 2)
+		xa_open_archive(main_window, argv[1]);
+	if(xa_archive == NULL)
+	{
+		if (xa_sub_archive == NULL)
+		{
+			g_print("Could not open file");
+			return -1;
+		}
+	}
 	
 	gtk_main();
 	if ( g_file_test ("/tmp/xarchiver.tmp",G_FILE_TEST_EXISTS) )

@@ -581,7 +581,8 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	GtkWidget *tmpimage;
 	GtkToolItem *separator;
 	
-	gtk_toolbar_set_style(GTK_TOOLBAR(tool_bar), GTK_TOOLBAR_BOTH);
+	gtk_toolbar_set_style(GTK_TOOLBAR(tool_bar), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_set_tooltips(GTK_TOOLBAR(tool_bar), TRUE);
 
 	GtkToolItem *new = gtk_tool_button_new_from_stock (GTK_STOCK_NEW);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (new), FALSE);
@@ -596,13 +597,11 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_file = gtk_tool_button_new (tmpimage, _("Add Files"));
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (add_file), FALSE);
-	gtk_tooltips_set_tip(window->tips, GTK_WIDGET(add_file), _("Add files to archive"), NULL);
 
 	tmpimage = xa_main_window_find_image("add_folder.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
 	GtkToolItem *add_folder = gtk_tool_button_new (tmpimage, _("Add Folder"));
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (add_folder), FALSE);
-	gtk_tooltips_set_tip(window->tips, GTK_WIDGET(add_folder), _("Add folders to archive"), NULL);
 
 	tmpimage = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show(tmpimage);
@@ -615,6 +614,15 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 
 	GtkToolItem *remove = gtk_tool_button_new_from_stock (GTK_STOCK_DELETE);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (remove), FALSE);
+
+	gtk_tool_item_set_tooltip(new,        window->tips, _("New Archive"), NULL);
+	gtk_tool_item_set_tooltip(open,       window->tips, _("Open Archive"), NULL);
+	gtk_tool_item_set_tooltip(add_file,   window->tips, _("Add File(s)"), NULL);
+	gtk_tool_item_set_tooltip(add_folder, window->tips, _("Add Folder(s)"), NULL);
+	gtk_tool_item_set_tooltip(extract,    window->tips, _("Extract archive"), NULL);
+	gtk_tool_item_set_tooltip(remove,     window->tips, _("Remove file / folder"), NULL);
+	gtk_tool_item_set_tooltip(view,       window->tips, _("View file"), NULL);
+	gtk_tool_item_set_tooltip(cancel,     window->tips, _("Cancel"), NULL);
 
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(new), 0);
 	gtk_toolbar_insert(GTK_TOOLBAR(tool_bar), GTK_TOOL_ITEM(open), 1);
@@ -661,6 +669,7 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, add_file);
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, add_folder);
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, remove);
+	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, view);
 	xa_main_window_widget_list = g_slist_prepend(xa_main_window_widget_list, cancel);
 	
 	gtk_widget_set_name(GTK_WIDGET(new),        "xa-button-new");
@@ -670,6 +679,9 @@ xa_main_window_create_toolbar(XAMainWindow *window)
 	gtk_widget_set_name(GTK_WIDGET(extract),    "xa-button-extract");
 	gtk_widget_set_name(GTK_WIDGET(remove),     "xa-button-remove");
 	gtk_widget_set_name(GTK_WIDGET(cancel),     "xa-button-cancel");
+	gtk_widget_set_name(GTK_WIDGET(view),       "xa-button-view");
+
+	gtk_toolbar_set_tooltips(GTK_TOOLBAR(tool_bar), TRUE);
 
 	window->toolbar = tool_bar;
 }
