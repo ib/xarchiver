@@ -1,3 +1,43 @@
+2006-04-30  Daichi Kawahata <daichi@xfce.org>
+
+	* ja.po: Added Japanese translations.
+
+2006-04-27  Szervac Attila <sas@321.hu>
+
+	* hu.po: hu trunk: initial trunk xarchiver translation.
+
+2006-04-27  Stephan Arts <psybsd@gmail.com>
+
+	* *.po, xarchiver.pot: Updated.
+	* hu.po: Added hungary translation.
+
+2006-04-24  Stavros Giannouris <stavrosg2002@freemail.gr>
+
+	* el.po: Greek translation update.
+
+2006-04-24  Stephan Arts <psybsd@gmail.com>
+
+	* POTFILES.in, *.po, xarchiver.pot: Updated i18n.
+	* nl.po: Added dutch translation.
+
+2006-03-27  Stephan Arts <psybsd@gmail.com>
+
+	* POTFILES.in: Fixed POTFILES.in conflict.
+
+2006-03-27  Daichi Kawahata <daichi@xfce.org>
+
+	* POTFILES.in, *.po, xarchiver.pot: Updated.
+
+2006-03-27  Auke Kok <sofar@foo-projects.org>
+
+	* Makevars.template, Rules-quot, boldquot.sed, en@boldquot.header,
+	  en@quot.header, insert-header.sin, quot.sed,
+	  remove-potcdate.sin: Wiping unneeded symlinks
+
+2006-03-26  Stavros Giannouris <stavrosg2002@freemail.gr>
+
+	* el.po: Added Greek translation.
+
 2006-03-26  Auke Kok <sofar@foo-projects.org>
 
 	* ru.gmo: Also wipe ru.gmo.
