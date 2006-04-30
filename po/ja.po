@@ -1,3 +1,5 @@
+# $Id$
+#
 # Japanese translations for xarchiver package.
 # Copyright (C) 2005-2006 Giuseppe Torelli.
 # Copyright (C) 2005-2006 Stephan Arts.
@@ -8,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-30 13:05+0900\n"
-"PO-Revision-Date: 2006-04-30 13:36+0900\n"
+"POT-Creation-Date: 2006-04-27 13:04+0200\n"
+"PO-Revision-Date: 2006-04-30 13:40+0900\n"
 "Last-Translator: Daichi Kawahata <daichi@xfce.org>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,231 +19,186 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/main.c:101
-msgid "Operation completed."
-msgstr "操作が完了しました。"
+#: ../src/main.c:95
+msgid "Done"
+msgstr "完了しました"
 
-#: src/main.c:109
-msgid "Operation failed."
-msgstr "操作が失敗しました。"
-
-#: src/main.c:118
-msgid ""
-"An error occurred while accessing the archive.\n"
-"Do you want to view the shell output?"
-msgstr ""
-"アーカイブにアクセス中にエラーが発生しました。\n"
-"シェルに出力されている内容を表示しますか？"
-
-#: src/main.c:125
-msgid "Shell Output Window"
-msgstr "シェル出力ウィンドウ"
-
-#: src/main.c:237
+#: ../src/main.c:171
 msgid "Extracting archive"
 msgstr "アーカイブの展開"
 
-#: src/main.c:291
+#: ../src/main.c:223
 #, c-format
 msgid "File \"%s\" could not be opened, archive not supported\n"
 msgstr "ファイル「%s」を開けませんでした、アーカイブがサポートされていません\n"
 
-#: src/main.c:299
+#: ../src/main.c:231
 msgid "Opening archive..."
 msgstr "アーカイブを開いています..."
 
-#. parse gtk+ options
-#: src/main.c:434
+#: ../src/main.c:353 ../src/main-window.c:782
+msgid "Open Archive"
+msgstr "アーカイブを開く"
+
+#: ../src/main.c:359
 msgid "archiving app"
 msgstr ""
 
 #. Archive Menu
-#: src/main-window.c:368
+#: ../src/main-window.c:367
 msgid "_Archive"
 msgstr "アーカイブ(_A)"
 
-#: src/main-window.c:380
+#: ../src/main-window.c:379
 msgid "_Test"
 msgstr "テスト(_T)"
 
 #. Action Menu
-#: src/main-window.c:423
+#: ../src/main-window.c:419
 msgid "A_ction"
 msgstr "アクション(_C)"
 
-#: src/main-window.c:428
+#: ../src/main-window.c:424
 msgid "_Add File(s)"
 msgstr "ファイルを追加(_A)"
 
-#: src/main-window.c:429
+#: ../src/main-window.c:425
 msgid "Add _Folder"
 msgstr "フォルダを追加(_F)"
 
-#: src/main-window.c:433
+#: ../src/main-window.c:426
 msgid "_Extract"
 msgstr "展開(_E)"
 
-#: src/main-window.c:437 src/main-window.c:613
-msgid "View"
-msgstr "表示"
-
-#: src/main-window.c:445
-msgid "Set Password"
-msgstr "パスワードを設定"
-
-#: src/main-window.c:449
-msgid "View S_hell Output"
-msgstr "シェルの出力を表示(_H)"
-
 #. Help Menu
-#: src/main-window.c:487
+#: ../src/main-window.c:450
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: src/main-window.c:598 src/main-window.c:881
+#: ../src/main-window.c:549 ../src/main-window.c:808
 msgid "Add Files"
 msgstr "ファイルを追加"
 
-#: src/main-window.c:603 src/main-window.c:912
+#: ../src/main-window.c:550
+msgid "Add files to archive"
+msgstr "アーカイブにファイルを追加"
+
+#: ../src/main-window.c:554 ../src/main-window.c:839
 msgid "Add Folder"
 msgstr "フォルダを追加"
 
-#: src/main-window.c:608 src/extract-dialog.c:98
+#: ../src/main-window.c:555
+msgid "Add folders to archive"
+msgstr "アーカイブにフォルダを追加"
+
+#: ../src/main-window.c:559 ../src/extract-dialog.c:98
 msgid "Extract"
 msgstr "展開"
 
-#: src/main-window.c:618
-msgid "New Archive"
-msgstr "新規アーカイブ"
-
-#: src/main-window.c:619 src/main-window.c:855
-msgid "Open Archive"
-msgstr "アーカイブを開く"
-
-#: src/main-window.c:620
-msgid "Add File(s)"
-msgstr "ファイルを追加"
-
-#: src/main-window.c:621
-msgid "Add Folder(s)"
-msgstr "フォルダを追加"
-
-#: src/main-window.c:622
-msgid "Extract archive"
-msgstr "アーカイブを展開"
-
-#: src/main-window.c:623
-msgid "Remove file / folder"
-msgstr "ファイル/フォルダの削除"
-
-#: src/main-window.c:624
-msgid "View file"
-msgstr "ファイルを表示"
-
-#: src/main-window.c:625 src/extract-dialog.c:97
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: src/main-window.c:969
+#: ../src/main-window.c:896
 msgid "Are you sure you want to remove the selected files from the archive?"
 msgstr "選択したファイルをアーカイブから削除してもよろしいですか？"
 
-#: src/extract-dialog.c:84
+#: ../src/extract-dialog.c:84
 msgid "Choose destination folder"
 msgstr "展開先フォルダを選択してください"
 
-#: src/extract-dialog.c:132
+#: ../src/extract-dialog.c:97
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: ../src/extract-dialog.c:132
 msgid "Extract to"
 msgstr "展開先"
 
-#: src/new-dialog.c:76
+#: ../src/new-dialog.c:76
 msgid "New archive"
 msgstr "新規アーカイブ"
 
-#: src/property-dialog.c:69
+#: ../src/property-dialog.c:69
 msgid "Archive Properties"
 msgstr "アーカイブのプロパティ"
 
-#: src/property-dialog.c:139
+#: ../src/property-dialog.c:139
 msgid "Property"
 msgstr "プロパティ"
 
-#: src/property-dialog.c:143
+#: ../src/property-dialog.c:143
 msgid "Value"
 msgstr "値"
 
-#: libxarchiver/support.c:66
+#: ../libxarchiver/support.c:65
 msgid "Verify not supported by this support object"
 msgstr ""
 
-#: libxarchiver/support.c:73
+#: ../libxarchiver/support.c:72
 msgid "Add not supported by this support object"
 msgstr ""
 
-#: libxarchiver/support.c:80
+#: ../libxarchiver/support.c:79
 msgid "Extract not supported by this support object"
 msgstr ""
 
-#: libxarchiver/support.c:87
+#: ../libxarchiver/support.c:86
 msgid "Remove not supported by this support object"
 msgstr ""
 
-#: libxarchiver/support.c:94
+#: ../libxarchiver/support.c:93
 msgid "Testing not supported by this support object"
 msgstr ""
 
-#: libxarchiver/support.c:101
+#: ../libxarchiver/support.c:100
 msgid "Open not supported by this support object"
 msgstr ""
 
-#: libxarchiver/support.c:108
+#: ../libxarchiver/support.c:107
 msgid "View not supported by this support object"
 msgstr ""
 
-#: libxarchiver/support-rar.c:91 libxarchiver/support-gnu-tar.c:88
+#: ../libxarchiver/support-rar.c:91 ../libxarchiver/support-gnu-tar.c:88
 msgid "Filename"
 msgstr "ファイル名"
 
-#: libxarchiver/support-rar.c:92
+#: ../libxarchiver/support-rar.c:92
 msgid "Original"
 msgstr "オリジナル"
 
-#: libxarchiver/support-rar.c:93
+#: ../libxarchiver/support-rar.c:93
 msgid "Compressed"
 msgstr "圧縮済"
 
-#: libxarchiver/support-rar.c:94
+#: ../libxarchiver/support-rar.c:94
 msgid "Ratio"
 msgstr "比率"
 
-#: libxarchiver/support-rar.c:95 libxarchiver/support-gnu-tar.c:92
+#: ../libxarchiver/support-rar.c:95 ../libxarchiver/support-gnu-tar.c:92
 msgid "Date"
 msgstr "日付"
 
-#: libxarchiver/support-rar.c:96 libxarchiver/support-gnu-tar.c:93
+#: ../libxarchiver/support-rar.c:96 ../libxarchiver/support-gnu-tar.c:93
 msgid "Time"
 msgstr "時間"
 
-#: libxarchiver/support-rar.c:97 libxarchiver/support-gnu-tar.c:89
+#: ../libxarchiver/support-rar.c:97 ../libxarchiver/support-gnu-tar.c:89
 msgid "Permissions"
 msgstr "アクセス権"
 
-#: libxarchiver/support-rar.c:98
+#: ../libxarchiver/support-rar.c:98
 msgid "CRC"
 msgstr "CRC"
 
-#: libxarchiver/support-rar.c:99
+#: ../libxarchiver/support-rar.c:99
 msgid "Method"
 msgstr "方式"
 
-#: libxarchiver/support-rar.c:100
+#: ../libxarchiver/support-rar.c:100
 msgid "Version"
 msgstr "バージョン"
 
-#: libxarchiver/support-gnu-tar.c:90
+#: ../libxarchiver/support-gnu-tar.c:90
 msgid "Owner / Group"
 msgstr "所有者/グループ"
 
-#: libxarchiver/support-gnu-tar.c:91
+#: ../libxarchiver/support-gnu-tar.c:91
 msgid "Size"
 msgstr "サイズ"
