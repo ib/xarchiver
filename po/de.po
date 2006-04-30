@@ -1,11 +1,12 @@
-# German translations for geany package.
-# Copyright (C) 2005 THE geany'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the geany package.
+# German translations for xarchiver package.
+# Copyright (C) 2005-2006 Giuseppe Torelli.
+# Copyright (C) 2005-2006 Stephan Arts.
+# This file is distributed under the same license as the xarchiver package.
 # Enrico Troeger <enrico.troeger@uvena.de>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.4\n"
+"Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-27 13:04+0200\n"
 "PO-Revision-Date: 2005-12-16 16:29+0100\n"
@@ -214,3 +215,19 @@ msgstr "Eigentümer/Gruppe"
 #: ../libxarchiver/support-gnu-tar.c:91
 msgid "Size"
 msgstr "Größe"
+
+#, fuzzy
+#~ msgid "New Archive"
+#~ msgstr "Archiv öffnen"
+
+#, fuzzy
+#~ msgid "Add File(s)"
+#~ msgstr "Datei hinzufügen"
+
+#, fuzzy
+#~ msgid "Add Folder(s)"
+#~ msgstr "Ordner hinzufügen"
+
+#, fuzzy
+#~ msgid "Extract archive"
+#~ msgstr "Entpacken"

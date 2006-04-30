@@ -1,11 +1,12 @@
 # Dutch translations for xarchiver package.
-# Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
+# Copyright (C) 2005-2006 Giuseppe Torelli.
+# Copyright (C) 2005-2006 Stephan Arts.
 # This file is distributed under the same license as the xarchiver package.
 # Stephan Arts <stephan@localhost.localdomain>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.3.9 svn\n"
+"Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-27 13:04+0200\n"
 "PO-Revision-Date: 2006-04-24 21:38+0200\n"
@@ -202,3 +203,19 @@ msgstr ""
 #: ../libxarchiver/support-gnu-tar.c:91
 msgid "Size"
 msgstr "Grootte"
+
+#, fuzzy
+#~ msgid "New Archive"
+#~ msgstr "Nieuw archief"
+
+#, fuzzy
+#~ msgid "Add File(s)"
+#~ msgstr "_Bestand(en) toevoegen"
+
+#, fuzzy
+#~ msgid "Add Folder(s)"
+#~ msgstr "Map toevoegen"
+
+#, fuzzy
+#~ msgid "Extract archive"
+#~ msgstr "Archief uitpakken"
