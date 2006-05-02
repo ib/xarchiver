@@ -25,6 +25,7 @@
 #include <gtk/gtk.h> 
 #include <getopt.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <string.h>
 #include <libintl.h>
 
@@ -39,6 +40,9 @@ XAArchive *xa_archive = NULL;
 XAArchive *xa_sub_archive = NULL;
 XASupport *xa_support = NULL;
 XASupport *xa_sub_support = NULL;
+
+const gchar *tmp_dir;
+gchar *tmp_file = NULL;
 
 void
 xa_update_rows(GObject *object, gpointer data)
@@ -68,9 +72,12 @@ xa_append_rows(GObject *object, gpointer data)
 	archive->error_output = NULL;
 	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), 101);
 }
+
 void
-xa_operation_complete(GtkWidget *widget, gpointer data)
+xa_operation_complete(GObject *object, gpointer data)
 {
+	XAArchive *archive = data;
+
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 		"xa-button-open", 
 		TRUE);
@@ -103,6 +110,27 @@ xa_operation_complete(GtkWidget *widget, gpointer data)
 		TRUE);
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Operation completed."));
 	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), -1);
+	if((archive == xa_archive) && (xa_archive != NULL))
+	{
+		switch(archive->status)
+		{
+			case(XA_ARCHIVESTATUS_EXTRACT):
+				if((archive->type == XARCHIVETYPE_GZIP) || (archive->type == XARCHIVETYPE_BZIP2))
+				{
+					xa_sub_archive = xa_archive;
+					xa_archive = xarchiver_archive_new(tmp_file, XARCHIVETYPE_UNKNOWN);
+					if(xa_archive)
+					{
+						xa_sub_support = xa_support;
+						xa_support = xarchiver_find_archive_support(xa_archive);
+					} else
+						xa_archive == archive;
+					if(xa_support->open(xa_support, xa_archive) == -1)
+						xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
+				}
+				break;
+		}
+	}
 }
 
 void
@@ -260,8 +288,8 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 	xa_support = NULL;
 	xa_sub_support = NULL;
 
-	if ( g_file_test ("/tmp/xarchiver.tmp",G_FILE_TEST_EXISTS) )
-		unlink ("/tmp/xarchiver.tmp");
+	if ( g_file_test (tmp_file, G_FILE_TEST_EXISTS) )
+		unlink (tmp_file);
 	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", FALSE);
@@ -273,6 +301,12 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-shell-output", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-view", FALSE);
+}
+
+void
+xa_extract_sub_archive(GtkWidget *widget, gpointer data)
+{
+
 }
 
 void
@@ -300,56 +334,41 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 	else
 	{
 		xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Opening archive..."));
+		xa_support = xarchiver_find_archive_support(xa_archive);
 		if((xa_archive->type == XARCHIVETYPE_BZIP2) || (xa_archive->type == XARCHIVETYPE_GZIP))
 		{
-			xa_sub_archive = xa_archive;
-			xa_support = xarchiver_find_archive_support(xa_sub_archive);
-			xa_support->extract(xa_support, xa_sub_archive, "/tmp/xarchiver.tmp", NULL, FALSE);
-			xa_archive = NULL;
-			xa_archive = xarchiver_archive_new("/tmp/xarchiver.tmp", XARCHIVETYPE_UNKNOWN);
-			if(!xa_archive)
-			{
-				xa_archive = xa_sub_archive;
-				xa_sub_archive = NULL;
-			}
-			else
-				xa_sub_support = xarchiver_find_archive_support(xa_sub_archive);
+			xa_support->extract(xa_support, xa_archive, tmp_file, NULL, FALSE);
 		}
-	}
-	if(xa_archive)
-	{
-		xa_support = xarchiver_find_archive_support(xa_archive);
-		xa_support->open(xa_support, xa_archive);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-cancel", 
-			TRUE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-open", 
-			FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-properties", 
-			FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-new", 
-			FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-extract", 
-			FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-add-file", 
-			FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
-			"xa-button-add-folder", 
-			FALSE);
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window),
-			"xa-button-view",
-			FALSE);
-		
-		if(xa_archive->has_passwd)
-			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
 		else
-			xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
-
+		{
+			xa_support->open(xa_support, xa_archive);
+			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+				"xa-button-cancel", 
+				TRUE);
+			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+				"xa-button-open", 
+				FALSE);
+			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+				"xa-button-new", 
+				FALSE);
+			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+				"xa-button-extract", 
+				FALSE);
+			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+				"xa-button-add-file", 
+				FALSE);
+			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+				"xa-button-add-folder", 
+				FALSE);
+			xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window),
+				"xa-button-view",
+				FALSE);
+		
+			if(xa_archive->has_passwd)
+				xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", TRUE);
+			else
+				xa_main_window_set_widget_visible(XA_MAIN_WINDOW(main_window), "xa-passwd", FALSE);
+		}
 	}
 }
 
@@ -441,6 +460,12 @@ int main(int argc, char **argv)
 		return 0;
 
 	/* use remaining option as filename to open */
+	pid_t pid = getpid();
+	gchar *_pid;
+	sprintf(_pid, "%d", pid);
+
+	tmp_dir = g_get_tmp_dir();
+	tmp_file = g_strconcat(tmp_dir, "/xarchiver-", _pid, ".tmp", NULL);
 
 	main_window = xa_main_window_new();
 	gtk_widget_set_size_request(main_window, 620, 400);
@@ -460,11 +485,11 @@ int main(int argc, char **argv)
 	g_signal_connect(G_OBJECT(main_window), "xa_show_about", G_CALLBACK(xa_show_about), NULL);
 		
 
-	xarchiver_support_connect("xa_rows_updated", G_CALLBACK(xa_update_rows));
-	xarchiver_support_connect("xa_rows_appended", G_CALLBACK(xa_append_rows));
-	xarchiver_support_connect("xa_archive_modified", G_CALLBACK(xa_archive_modified));
-	xarchiver_support_connect("xa_operation_complete", G_CALLBACK(xa_operation_complete));
-	xarchiver_support_connect("xa_child_exit_error", G_CALLBACK(xa_child_exit_error));
+	xarchiver_all_support_connect("xa_rows_updated", G_CALLBACK(xa_update_rows));
+	xarchiver_all_support_connect("xa_rows_appended", G_CALLBACK(xa_append_rows));
+	xarchiver_all_support_connect("xa_archive_modified", G_CALLBACK(xa_archive_modified));
+	xarchiver_all_support_connect("xa_operation_complete", G_CALLBACK(xa_operation_complete));
+	xarchiver_all_support_connect("xa_child_exit_error", G_CALLBACK(xa_child_exit_error));
 
 	gtk_widget_show_all(main_window);
 	
@@ -488,14 +513,14 @@ int main(int argc, char **argv)
 			if (xa_sub_archive == NULL)
 			{
 				g_print("Could not open file!\n");
-				return -1;
+				return 1;
 			}
 		}
 	}
 	
 	gtk_main();
-	if ( g_file_test ("/tmp/xarchiver.tmp",G_FILE_TEST_EXISTS) )
-		unlink ("/tmp/xarchiver.tmp");
+	if (g_file_test (tmp_file, G_FILE_TEST_EXISTS))
+		unlink (tmp_file);
 
 	xarchiver_destroy();
 	return 0;

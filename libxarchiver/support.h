@@ -43,6 +43,19 @@ G_BEGIN_DECLS
 
 typedef struct _XASupport XASupport;
 
+typedef	struct
+{
+	guint source;
+	guint watch_source;
+	GIOChannel *out_ioc;
+	XAArchive *archive;
+	GPid child_pid;
+	gchar *command;
+	gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
+	gint status;
+	gint signal;
+} XAExec; 
+
 struct _XASupport
 {
 	GObject parent;
@@ -57,18 +70,7 @@ struct _XASupport
 	gint     (*view)         (XASupport *, XAArchive *, gchar *);
 	gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
-	struct
-	{
-		guint source;
-		guint watch_source;
-		GIOChannel *out_ioc;
-		XAArchive *archive;
-		GPid child_pid;
-		gchar *command;
-		gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
-		gint status;
-		gint signal;
-	} exec;
+	XAExec exec;
 
 	gint n_columns;
 	gchar **column_names;

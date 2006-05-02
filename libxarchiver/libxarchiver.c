@@ -44,7 +44,7 @@ static GSList *support_list = NULL;
 
 
 static gint
-lookup_support( gconstpointer support , gconstpointer archive)
+lookup_archive_support( gconstpointer support , gconstpointer archive)
 {
 	if(support == 0)
 		return 1;
@@ -53,6 +53,18 @@ lookup_support( gconstpointer support , gconstpointer archive)
 	else
 		return 1;
 }
+
+static gint
+lookup_type_support( gconstpointer support , gconstpointer type)
+{
+	if(support == 0)
+		return 1;
+	if(((const XASupport *)support)->type == *(XAArchiveType *)type)
+		return 0;
+	else
+		return 1;
+}
+
 void
 xarchiver_init()
 {
@@ -103,7 +115,7 @@ xarchiver_archive_new(gchar *path, XAArchiveType type)
 
 	XAArchive *archive = xa_archive_new(path, type);
 
-	g_slist_find_custom(support_list, archive, lookup_support);
+	g_slist_find_custom(support_list, archive, lookup_archive_support);
 
 	if(archive->type == XARCHIVETYPE_UNKNOWN)
 	{
@@ -117,25 +129,19 @@ XASupport *
 xarchiver_find_archive_support(XAArchive *archive)
 {
 	GSList *support = NULL;
-	support = g_slist_find_custom(support_list, archive, lookup_support);
+	support = g_slist_find_custom(support_list, archive, lookup_archive_support);
+	return (XASupport *)(support->data);
+}
+XASupport *
+xarchiver_find_type_support(XAArchiveType type)
+{
+	GSList *support = NULL;
+	support = g_slist_find_custom(support_list, &type, lookup_type_support);
 	return (XASupport *)(support->data);
 }
 
-gboolean
-xarchiver_set_channel ( gint fd, GIOCondition cond, GIOFunc func, gpointer data )
-{
-	GIOChannel *ioc = NULL;
-	ioc = g_io_channel_unix_new ( fd );
-	//g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (ioc, cond, func, data);
-	if (ioc == NULL) 
-		return FALSE;
-	else 
-		return TRUE;
-}
-
 void
-xarchiver_support_connect(gchar *signal, GCallback fp)
+xarchiver_all_support_connect(gchar *signal, GCallback fp)
 {
 	GSList *_support = support_list;
 	while(_support)
@@ -144,4 +150,17 @@ xarchiver_support_connect(gchar *signal, GCallback fp)
 			g_signal_connect(G_OBJECT(_support->data), signal, G_CALLBACK(fp), NULL);
 		_support = _support->next;
 	}
+}
+
+void
+xarchiver_support_connect(XASupport *support, gchar *signal, GCallback fp)
+{
+	g_signal_connect(G_OBJECT(support), signal, G_CALLBACK(fp), NULL);
+}
+
+GSList *
+xarchiver_get_supported_mimetypes(void)
+{
+	g_critical("Function not yet implemented");
+	return NULL;
 }

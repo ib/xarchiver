@@ -27,7 +27,10 @@ int xarchiver_destroy();
 
 XAArchive *xarchiver_archive_new(gchar *path, XAArchiveType type);
 XASupport *xarchiver_find_archive_support(XAArchive *archive);
-void       xarchiver_support_connect(gchar *signal, GCallback fp);
+XASupport *xarchiver_find_type_support(XAArchiveType type);
+void       xarchiver_all_support_connect(gchar *signal, GCallback fp);
+void       xarchiver_support_connect(XASupport *support, gchar *signal, GCallback fp);
+GSList *   xarchiver_get_supported_mimetypes(void);
 
 G_END_DECLS
 

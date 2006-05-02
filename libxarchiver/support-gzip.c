@@ -32,11 +32,15 @@
 void
 xa_support_gzip_init (XASupportGzip *support);
 
+void
+xa_support_gzip_class_init(XASupportClass *supportclass);
+
 gint
 xarchive_support_gzip_add (XASupport *support, XAArchive *archive, GSList *files);
 
 gint
 xarchive_support_gzip_extract (XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
+
 
 GType
 xa_support_gzip_get_type ()
@@ -50,7 +54,7 @@ xa_support_gzip_get_type ()
 			sizeof (XASupportGzipClass),
 			(GBaseInitFunc) NULL,
 			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) NULL,
+			(GClassInitFunc) xa_support_gzip_class_init,
 			(GClassFinalizeFunc) NULL,
 			NULL,
 			sizeof (XASupportGzip),
@@ -73,6 +77,13 @@ xa_support_gzip_init (XASupportGzip *support)
 	xa_support->verify    = xa_archive_type_gzip_verify;
 	xa_support->add       = xarchive_support_gzip_add;
 	xa_support->extract   = xarchive_support_gzip_extract;
+}
+
+void
+xa_support_gzip_class_init(XASupportClass *supportclass)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS (supportclass);
+	XASupportGzipClass *klass = XA_SUPPORT_GZIP_CLASS (supportclass);
 }
 
 /*
@@ -122,6 +133,7 @@ xarchive_support_gzip_add (XASupport *support, XAArchive *archive, GSList *files
 gint
 xarchive_support_gzip_extract (XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path)
 {
+	archive->status = XA_ARCHIVESTATUS_EXTRACT;
 	gchar *in_filename;
 	gzFile in_file;
 	gchar *out_filename;
@@ -184,6 +196,8 @@ xarchive_support_gzip_extract (XASupport *support, XAArchive *archive, gchar *de
 	}
 	gzclose(in_file);
 	fclose(out_file);
+	support->exec.archive = archive;
+	xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 	return 0;
 }
 

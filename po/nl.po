@@ -75,7 +75,6 @@ msgid "_Help"
 msgstr "_Help"
 
 #: ../src/main-window.c:549 ../src/main-window.c:808
-#, fuzzy
 msgid "Add Files"
 msgstr "Bestanden toevoegen"
 
@@ -170,7 +169,7 @@ msgstr "Gecomprimeerd"
 
 #: ../libxarchiver/support-rar.c:94
 msgid "Ratio"
-msgstr ""
+msgstr "Verhouding"
 
 #: ../libxarchiver/support-rar.c:95 ../libxarchiver/support-gnu-tar.c:92
 msgid "Date"

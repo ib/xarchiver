@@ -97,7 +97,7 @@ xa_support_bzip2_add(XASupport *support, XAArchive *archive, GSList *files)
 	{
 		archive->path = g_strconcat((gchar *)files->data, ".bz2", NULL);
 	}
-	support->exec.command = g_strconcat("bzip2 -kzc ", (gchar *)files->data, NULL);
+	support->exec.command = g_strconcat("bzip2 -kfzc ", (gchar *)files->data, NULL);
 	support->exec.archive = archive;
 	support->exec.parse_output = xa_support_bzip2_parse_output;
 	XA_SUPPORT_BZIP2(support)->out_filename = archive->path;
@@ -121,7 +121,8 @@ xa_support_bzip2_extract(XASupport *support, XAArchive *archive, gchar *destinat
 	{
 		g_warning("bzip2 can only extract one file");
 	}
-	support->exec.command = g_strconcat("bzip2 -kdc ", archive->path, NULL);
+	archive->status = XA_ARCHIVESTATUS_EXTRACT;
+	support->exec.command = g_strconcat("bzip2 -kfdc ", archive->path, NULL);
 	support->exec.archive = archive;
 	support->exec.parse_output = xa_support_bzip2_parse_output;
 
@@ -184,7 +185,6 @@ xa_support_bzip2_extract(XASupport *support, XAArchive *archive, gchar *destinat
 		}
 	}
 	XA_SUPPORT_BZIP2(support)->out_filename = out_filename;
-	g_print("%s\n", out_filename);
 	support->exec.signal = -1;
 	
 	xa_support_execute(support);
@@ -195,31 +195,34 @@ xa_support_bzip2_extract(XASupport *support, XAArchive *archive, gchar *destinat
 gboolean 
 xa_support_bzip2_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	XASupportBzip2 *support = XA_SUPPORT_BZIP2(data);
-	FILE *out_file;
+	XASupport *support = XA_SUPPORT(data);
+	FILE *out_file = NULL;
 	gchar *buf = g_new0(gchar, 1024);
 	guint read = 1024;
 
-	out_file = fopen(support->out_filename, "w");
-	if(!out_file)
-		g_critical("Could not open file");
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		while(read)
+		out_file = fopen(XA_SUPPORT_BZIP2(support)->out_filename, "ab");
+		if(!out_file)
+			g_critical("Could not open file");
+		while(g_io_channel_read(ioc, buf, 1024, &read) == G_IO_STATUS_NORMAL)
 		{
-			g_io_channel_read(ioc, buf, 1024, &read);
-			g_print("%d\n", read);
-			fwrite(buf, 1, read, out_file);
+			if(read)
+			{
+				g_print("writing %d bytes\n");
+				fwrite(buf, 1, read, out_file);
+			}
 		}
+		fclose(out_file);
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	g_free(buf);
+	if(cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
+		xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 		return FALSE;
 	}
-	g_free(buf);
-	fclose(out_file);
 	return TRUE;
 }
 

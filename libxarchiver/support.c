@@ -98,7 +98,7 @@ xa_support_testing (XASupport *support, XAArchive *archive)
 gint
 xa_support_open (XASupport *support, XAArchive *archive)
 {
-	g_critical(_("Open not supported by this support object"));
+	g_critical(_("Open not supported by this support object %d"), support->type);
 	return -1;
 }
 
