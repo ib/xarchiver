@@ -98,6 +98,9 @@ xa_operation_complete(GtkWidget *widget, gpointer data)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 		"xa-button-view", 
 		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-properties", 
+		TRUE);
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Operation completed."));
 	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), -1);
 }
@@ -107,7 +110,7 @@ xa_child_exit_error (GObject *object, gpointer data)
 {
 	XAArchive *archive = data;
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), _("Operation failed."));
-		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-shell-output", TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-shell-output", TRUE);
 	GtkWidget *dialog;
 
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-cancel", FALSE);
@@ -324,6 +327,9 @@ xa_open_archive(GtkWidget *widget, gpointer data)
 			"xa-button-open", 
 			FALSE);
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+			"xa-button-properties", 
+			FALSE);
+		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
 			"xa-button-new", 
 			FALSE);
 		xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
@@ -434,15 +440,12 @@ int main(int argc, char **argv)
 	if(!gtk_init_with_args(&argc, &argv, _("archiving app"), options, GETTEXT_PACKAGE, NULL))
 		return 0;
 
-
-	
-
 	/* use remaining option as filename to open */
 
 	main_window = xa_main_window_new();
 	gtk_widget_set_size_request(main_window, 620, 400);
 	GtkWidget *prop_dialog = xa_property_dialog_new(GTK_WINDOW(main_window));
-	xa_property_dialog_add_property(XA_PROPERTY_DIALOG(prop_dialog), "filename", "/etc/passwd");
+	//xa_property_dialog_add_property(XA_PROPERTY_DIALOG(prop_dialog), "filename", "/etc/passwd");
 
 	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
 	//g_signal_connect(G_OBJECT(main_window), "xa_new_archive", G_CALLBACK(open_archive), NULL);
@@ -476,7 +479,7 @@ int main(int argc, char **argv)
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-properties", FALSE);
 
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), PACKAGE_STRING);
-	//xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
+	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
 	if(argc == 2)
 	{	
 		xa_open_archive(main_window, argv[1]);
@@ -484,7 +487,7 @@ int main(int argc, char **argv)
 		{
 			if (xa_sub_archive == NULL)
 			{
-				g_print("Could not open file");
+				g_print("Could not open file!\n");
 				return -1;
 			}
 		}

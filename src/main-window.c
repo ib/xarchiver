@@ -1092,6 +1092,7 @@ void
 xa_main_window_show_property_dialog(GtkWidget *widget, gpointer data)
 {
 	XAMainWindow *window = XA_MAIN_WINDOW(data);
+
 	if(window->propertywindow)
 	{
 		gtk_dialog_run(GTK_DIALOG(window->propertywindow));

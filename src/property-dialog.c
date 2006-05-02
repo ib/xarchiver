@@ -120,15 +120,17 @@ static void
 xa_property_dialog_init (XAPropertyDialog *dialog)
 {
 	GtkWidget *close;
-	GtkTreeViewColumn *column;
+	/*GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	GtkListStore *list_store;
 	GType column_types[] = {G_TYPE_STRING, G_TYPE_STRING};
 
 	gtk_widget_set_size_request(GTK_WIDGET(dialog), 300, 250);
 	g_signal_connect(G_OBJECT(dialog), "delete-event", G_CALLBACK(xa_property_dialog_delete), NULL);
+	*/
 	close = gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
 	g_signal_connect(G_OBJECT(close), "pressed", G_CALLBACK(xa_close_property_dialog), dialog);
+	/*
 	dialog->propertylist = gtk_tree_view_new();
 
 	list_store = gtk_list_store_newv(2, (GType *)column_types);
@@ -146,8 +148,143 @@ xa_property_dialog_init (XAPropertyDialog *dialog)
 
 	gtk_widget_show(dialog->propertylist);
 	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), dialog->propertylist);
+	*/
+	dialog->propertylist = gtk_table_new (8, 2, TRUE);
+	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), dialog->propertylist);
+	gtk_table_set_row_spacings (GTK_TABLE (dialog->propertylist), 6);
+	gtk_table_set_col_spacings (GTK_TABLE (dialog->propertylist), 6);
+
+	dialog->name_label = gtk_label_new ("");
+	xa_property_set_label ( dialog->name_label , _("Name:"));
+	gtk_widget_show (dialog->name_label);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->name_label, 0, 1, 0, 1,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (dialog->name_label), 0.99, 0.5);
+
+	dialog->path_label = gtk_label_new ("");
+	xa_property_set_label ( dialog->path_label , _("Path:"));
+	gtk_widget_show (dialog->path_label);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->path_label, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (dialog->path_label), 0.99, 0.5);
+
+	dialog->modified_label = gtk_label_new ("");
+	xa_property_set_label ( dialog->modified_label , _("Modified on:"));
+	gtk_widget_show (dialog->modified_label);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->modified_label, 0, 1, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (dialog->modified_label), 0.99, 0.5);
+  
+	dialog->size_label = gtk_label_new ("");
+	xa_property_set_label ( dialog->size_label , _("Archive size:"));
+	gtk_widget_show (dialog->size_label);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->size_label, 0, 1, 3, 4,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (dialog->size_label), 0.99, 0.5);
+
+	dialog->content_label = gtk_label_new ("");
+	xa_property_set_label ( dialog->content_label , _("Content size:"));
+	gtk_widget_show (dialog->content_label);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->content_label, 0, 1, 4, 5,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (dialog->content_label), 0.99, 0.5);
+  
+	dialog->compression_label = gtk_label_new ("");
+	xa_property_set_label ( dialog->compression_label , _("Compression ratio:"));
+	gtk_widget_show (dialog->compression_label);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->compression_label, 0, 1, 7, 8,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (dialog->compression_label), 0.99, 0.5);
+  
+	dialog->number_of_files_label = gtk_label_new ("");
+	xa_property_set_label ( dialog->number_of_files_label , _("Number of files:"));
+	gtk_widget_show (dialog->number_of_files_label);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->number_of_files_label, 0, 1, 5, 6,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (dialog->number_of_files_label), 0.99, 0.5);
+
+	dialog->number_of_dirs_label = gtk_label_new ("");
+	xa_property_set_label ( dialog->number_of_dirs_label , _("Number of dirs:"));
+	gtk_widget_show (dialog->number_of_dirs_label);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->number_of_dirs_label, 0, 1, 6, 7,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (dialog->number_of_dirs_label), 0.99, 0.5);
+
+	dialog->compression_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (dialog->compression_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (dialog->compression_data), FALSE);
+	gtk_widget_show (dialog->compression_data);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->compression_data, 1, 2, 7, 8,
+                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+	dialog->number_of_dirs_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (dialog->number_of_dirs_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (dialog->number_of_dirs_data), FALSE);
+	gtk_widget_show (dialog->number_of_dirs_data);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->number_of_dirs_data, 1, 2, 6, 7,
+                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+	dialog->number_of_files_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (dialog->number_of_files_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (dialog->number_of_files_data), FALSE);
+	gtk_widget_show (dialog->number_of_files_data);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->number_of_files_data, 1, 2, 5, 6,
+                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+	dialog->content_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (dialog->content_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (dialog->content_data), FALSE);
+	gtk_widget_show (dialog->content_data);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->content_data, 1, 2, 4, 5,
+                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+	dialog->size_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (dialog->size_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (dialog->size_data), FALSE);
+	gtk_widget_show (dialog->size_data);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->size_data, 1, 2, 3, 4,
+                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+	dialog->modified_data = gtk_entry_new ();
+	gtk_widget_show (dialog->modified_data);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->modified_data, 1, 2, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+	gtk_editable_set_editable (GTK_EDITABLE (dialog->modified_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (dialog->modified_data), FALSE);
+
+	dialog->path_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (dialog->path_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (dialog->path_data), FALSE);
+	gtk_widget_show (dialog->path_data);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->path_data, 1, 2, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+
+	dialog->name_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (dialog->name_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (dialog->name_data), FALSE);
+	gtk_widget_show (dialog->name_data);
+	gtk_table_attach (GTK_TABLE (dialog->propertylist), dialog->name_data, 1, 2, 0, 1,
+                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
+                    (GtkAttachOptions) (0), 0, 0);
+	gtk_widget_show (dialog->propertylist);
 }
 
+/*
 void
 xa_property_dialog_add_property (XAPropertyDialog *dialog, gchar *name, gchar *value)
 {
@@ -157,3 +294,12 @@ xa_property_dialog_add_property (XAPropertyDialog *dialog, gchar *name, gchar *v
 	gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, 0, name, -1);
 	gtk_list_store_set(GTK_LIST_STORE(list_store), &iter, 1, value, -1);
 }
+*/
+
+void xa_property_set_label (GtkWidget *label , gchar *text)
+{
+    gchar *tmp_markup = g_strdup_printf ("<b>%s</b>",text );
+    gtk_label_set_markup ( GTK_LABEL (label) , tmp_markup);
+    g_free (tmp_markup);
+}
+

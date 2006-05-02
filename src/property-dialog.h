@@ -47,6 +47,24 @@ struct _XAPropertyDialog
 {
 	GtkDialog dialog;
 	GtkWidget *propertylist;
+	GtkWidget *table;
+	GtkWidget *path_label;
+	GtkWidget *modified_label;
+	GtkWidget *size_label;
+	GtkWidget *content_label;
+	GtkWidget *compression_label;
+	GtkWidget *number_of_files_label;
+	GtkWidget *number_of_dirs_label;
+	GtkWidget *name_label;
+
+	GtkWidget *compression_data;
+	GtkWidget *number_of_files_data;
+	GtkWidget *number_of_dirs_data;
+	GtkWidget *content_data;
+	GtkWidget *size_data;
+	GtkWidget *modified_data;
+	GtkWidget *path_data;
+	GtkWidget *name_data;
 };
 
 struct _XAPropertyDialogClass
@@ -56,7 +74,8 @@ struct _XAPropertyDialogClass
 
 GType          xa_property_dialog_get_type              (void);
 GtkWidget*     xa_property_dialog_new                   (GtkWindow *parent);
-void           xa_property_dialog_add_property          (XAPropertyDialog *dialog, gchar *name, gchar *value);
+//void           xa_property_dialog_add_property          (XAPropertyDialog *dialog, gchar *name, gchar *value);
+void xa_property_set_label (GtkWidget *label , gchar *text);
 
 G_END_DECLS
 
