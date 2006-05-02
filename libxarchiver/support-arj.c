@@ -184,9 +184,9 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			filename = g_value_init(filename, G_TYPE_STRING);
 			g_value_set_string (filename , g_strndup ( start , end - start));
 			archive->row = g_list_prepend (archive->row ,  filename);
-			arj_line++;
+			//arj_line++;
 			g_free (line);
-			return TRUE;
+			//return TRUE;
 		}
 		else if (arj_line == 2)
 		{
@@ -295,8 +295,7 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
 				archive->row_cnt = 0;
 			}
-			arj_line++;
-			return TRUE;
+			//return TRUE;
 		}
 		else if (arj_line == 3)
 		{	
@@ -305,8 +304,8 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			g_free (line);
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			g_free (line);
-			arj_line = 4;
-			return TRUE;
+			//arj_line = 4;
+			//return TRUE;
 		}
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -317,6 +316,7 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 		xa_support_emit_signal (support, XA_SUPPORT_SIGNAL_OPERATION_COMPLETE);
 		return FALSE;
 	}
+	arj_line++;
 	return TRUE;
 }
 

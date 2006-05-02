@@ -478,13 +478,15 @@ int main(int argc, char **argv)
 	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), PACKAGE_STRING);
 	//xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), XA_PROPERTY_DIALOG(prop_dialog));
 	if(argc == 2)
+	{	
 		xa_open_archive(main_window, argv[1]);
-	if(xa_archive == NULL)
-	{
-		if (xa_sub_archive == NULL)
+		if(xa_archive == NULL)
 		{
-			g_print("Could not open file");
-			return -1;
+			if (xa_sub_archive == NULL)
+			{
+				g_print("Could not open file");
+				return -1;
+			}
 		}
 	}
 	
