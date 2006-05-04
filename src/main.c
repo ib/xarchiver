@@ -184,6 +184,23 @@ xa_child_exit_error (GObject *object, gpointer data)
 		gtk_widget_show (OutputWindow);
 	}
 	gtk_widget_destroy(dialog);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-open", 
+		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-new", 
+		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-close", 
+		TRUE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), 
+		"xa-button-cancel", 
+		FALSE);
+	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window),
+		"xa-button-view",
+		TRUE);
+	xa_main_window_set_statusbar_value(XA_MAIN_WINDOW(main_window), "Error occurred");
+	xa_main_window_set_progressbar_value(XA_MAIN_WINDOW(main_window), -1);
 }
 
 void

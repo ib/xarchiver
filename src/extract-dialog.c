@@ -39,6 +39,9 @@ xa_extract_dialog_destroy(GtkObject *object);
 static void
 xa_extract_dialog_class_init(XAExtractDialogClass *klass);
 
+void
+cb_toggled_extract_option(GtkToggleButton *button, gpointer data);
+
 static GtkWidgetClass *xa_extract_dialog_parent_class = 0;
 
 GType
@@ -89,6 +92,12 @@ xa_extract_dialog_init(XAExtractDialog *object)
 	object->extract_all       = gtk_radio_button_new_with_mnemonic(NULL, "_All files");
 	object->extract_select    = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(object->extract_all), "_Selected files");
 
+	g_object_set_data(G_OBJECT(object->extract_all), "extraction_type", XA_EXTRACTION_ALL);
+	g_object_set_data(G_OBJECT(object->extract_select), "extraction_type", XA_EXTRACTION_SELECT);
+
+	g_signal_connect(G_OBJECT(object->extract_all), "toggled", G_CALLBACK(cb_toggled_extract_option), object);
+	g_signal_connect(G_OBJECT(object->extract_select), "toggled", G_CALLBACK(cb_toggled_extract_option), object);
+
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), object->extract_all, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(object)->vbox), object->extract_select, FALSE, FALSE, 5);
 	gtk_widget_show(object->extract_all);
@@ -98,6 +107,17 @@ xa_extract_dialog_init(XAExtractDialog *object)
 	gtk_dialog_add_button(GTK_DIALOG(object), _("Extract"), GTK_RESPONSE_OK);
 
 	object->extract_optiongroup = gtk_radio_button_get_group(GTK_RADIO_BUTTON(object->extract_all));
+}
+
+void
+cb_toggled_extract_option(GtkToggleButton *button, gpointer data)
+{
+	XAExtractDialog *dialog = data;
+	gboolean toggled = gtk_toggle_button_get_active(button);
+	if(toggled)
+	{
+		dialog->extraction_type = (XAExtractionType)g_object_get_data(G_OBJECT(button), "extraction_type");
+	}
 }
 
 static void

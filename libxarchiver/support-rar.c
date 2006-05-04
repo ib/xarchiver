@@ -327,10 +327,10 @@ xa_support_rar_extract(XASupport *support, XAArchive *archive, gchar *destinatio
 		return FALSE;
 
     //This extracts the whole archive
-	if( (files == NULL) && (g_slist_length(files) == 0))
+	if( (files == NULL) || (g_slist_length(files) == 0))
 	{
 		if (archive->has_passwd)
-			support->exec.command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->path , " " , destination_path , NULL );
+			support->exec.command = g_strconcat ( "rar x -p ",archive->passwd," -o+ -idp " , archive->path , " " , destination_path , NULL );
 		else
 			support->exec.command = g_strconcat ( "rar x -o+ -idp " , archive->passwd , " " , destination_path , NULL );
 	} 
@@ -338,14 +338,14 @@ xa_support_rar_extract(XASupport *support, XAArchive *archive, gchar *destinatio
 	{
 		names = concatenatefilenames ( _files , TRUE );
 		if ( archive->has_passwd)
-			support->exec.command = g_strconcat ( "rar " , full_path ? "x" : "e" , " -p",archive->passwd, " -o+ -idp " , archive->path , " " , names->str , " " , destination_path , NULL );
+			support->exec.command = g_strconcat ( "rar " , full_path ? "x" : "e" , " -p ",archive->passwd, " -o+ -idp " , archive->path , " " , names->str , " " , destination_path , NULL );
 		else
 			support->exec.command = g_strconcat ( "rar ", full_path ? "x" : "e" , " -o+ -idp " , archive->path , " " , names->str , " ", destination_path ,NULL);
 		g_string_free (names, TRUE);
 	}
 	support->exec.archive = archive;
 	support->exec.signal = -1;
-	support->exec.parse_output = 0;
+	support->exec.parse_output = NULL;
 
 	xa_support_execute(support);
 	g_free (support->exec.command);
