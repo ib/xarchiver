@@ -184,9 +184,7 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			filename = g_value_init(filename, G_TYPE_STRING);
 			g_value_set_string (filename , g_strndup ( start , end - start));
 			archive->row = g_list_prepend (archive->row ,  filename);
-			//arj_line++;
 			g_free (line);
-			//return TRUE;
 		}
 		else if (arj_line == 2)
 		{
@@ -204,10 +202,9 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			bpmgs       = g_new0(GValue, 1);
 			archive->row_cnt++;
 			
-			/* The following to avoid parsing the first and second field of the second line of arj output */
+			/* The following to avoid the first and second field of the second line of arj output */
 			start = eat_spaces (line);
 			end = strchr (start, ' ');
-
 			start = eat_spaces (end);
 			end = strchr (start, ' ');
 			
@@ -270,7 +267,8 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			end = strchr (start, '\n');
 			bpmgs = g_new0(GValue, 1);
 			bpmgs = g_value_init(bpmgs, G_TYPE_STRING);
-			if ( ! no_attr) g_value_set_string (bpmgs , g_strndup ( start , end - start));
+			if ( ! no_attr)
+				g_value_set_string (bpmgs , g_strndup ( start , end - start));
 			else
 			{
 				g_value_set_string (bpmgs , g_value_get_string(attr) );
@@ -295,7 +293,6 @@ gint xa_support_arj_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 				xa_support_emit_signal(support, XA_SUPPORT_SIGNAL_APPEND_ROWS);
 				archive->row_cnt = 0;
 			}
-			//return TRUE;
 		}
 		else if (arj_line == 3)
 		{	

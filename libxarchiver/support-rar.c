@@ -48,7 +48,7 @@ xa_support_rar_remove (XASupport *support, XAArchive *archive, GSList *files);
 gint
 xa_support_rar_extract(XASupport *support, XAArchive *archive, gchar *destination_path, GSList *files, gboolean full_path);
 
-gboolean 
+static gboolean 
 xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
 gint
@@ -123,7 +123,7 @@ xa_support_rar_init(XASupportRar *support)
 	g_free(column_types);
 }
 
-gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+static gboolean xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	XASupport *support = XA_SUPPORT(data);
 	gchar *line = NULL;
@@ -277,7 +277,7 @@ gint xa_support_rar_parse_output (GIOChannel *ioc, GIOCondition cond, gpointer d
 			}
 		}
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP ) )
+	else if (cond == G_IO_ERR || cond == G_IO_HUP )
 	{
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);

@@ -129,7 +129,7 @@ xa_property_dialog_init (XAPropertyDialog *dialog)
 	g_signal_connect(G_OBJECT(dialog), "delete-event", G_CALLBACK(xa_property_dialog_delete), NULL);
 	*/
 	close = gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
-	g_signal_connect(G_OBJECT(close), "pressed", G_CALLBACK(xa_close_property_dialog), dialog);
+	g_signal_connect(G_OBJECT(close), "clicked", G_CALLBACK(xa_close_property_dialog), dialog);
 	/*
 	dialog->propertylist = gtk_tree_view_new();
 

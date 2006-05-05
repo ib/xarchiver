@@ -124,7 +124,7 @@ xa_operation_complete(GObject *object, gpointer data)
 						xa_sub_support = xa_support;
 						xa_support = xarchiver_find_archive_support(xa_archive);
 					} else
-						xa_archive == archive;
+						xa_archive = archive;
 					if(xa_support->open(xa_support, xa_archive) == -1)
 						xa_main_window_clear_list(XA_MAIN_WINDOW(main_window), TRUE);
 				}
@@ -307,7 +307,7 @@ xa_close_archive(GtkWidget *widget, gpointer data)
 
 	if ( g_file_test (tmp_file, G_FILE_TEST_EXISTS) )
 		unlink (tmp_file);
-	xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);
+	/*xa_main_window_set_property_window(XA_MAIN_WINDOW(main_window), NULL);*/
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-test", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-extract", FALSE);
 	xa_main_window_set_widget_sensitive(XA_MAIN_WINDOW(main_window), "xa-button-add-folder", FALSE);
@@ -477,18 +477,14 @@ int main(int argc, char **argv)
 		return 0;
 
 	/* use remaining option as filename to open */
-	pid_t pid = getpid();
-	gchar *_pid;
-	sprintf(_pid, "%d", pid);
-
 	tmp_dir = g_get_tmp_dir();
-	tmp_file = g_strconcat(tmp_dir, "/xarchiver-", _pid, ".tmp", NULL);
+	tmp_file = g_strconcat(tmp_dir, "/xarchiver-XXXXXX" , NULL);
+	g_mkstemp ( tmp_file );
 
 	main_window = xa_main_window_new();
 	gtk_widget_set_size_request(main_window, 620, 400);
 	GtkWidget *prop_dialog = xa_property_dialog_new(GTK_WINDOW(main_window));
-	//xa_property_dialog_add_property(XA_PROPERTY_DIALOG(prop_dialog), "filename", "/etc/passwd");
-
+	
 	g_signal_connect(G_OBJECT(main_window), "destroy", gtk_main_quit, NULL);
 	//g_signal_connect(G_OBJECT(main_window), "xa_new_archive", G_CALLBACK(open_archive), NULL);
 	g_signal_connect(G_OBJECT(main_window), "xa_open_archive", G_CALLBACK(xa_open_archive), NULL);
@@ -538,7 +534,7 @@ int main(int argc, char **argv)
 	gtk_main();
 	if (g_file_test (tmp_file, G_FILE_TEST_EXISTS))
 		unlink (tmp_file);
-
+	g_free (tmp_file);
 	xarchiver_destroy();
 	return 0;
 }
