@@ -330,6 +330,7 @@ void
 xa_open_archive(GtkWidget *widget, gpointer data)
 {
 	gchar *filename = data;
+	g_print (filename);
 	if(xa_archive)
 		g_object_unref(xa_archive);
 	if(xa_sub_archive)
