@@ -2,10 +2,21 @@ bin_PROGRAMS = xarchiver
 
 xarchiver_SOURCES = \
 	main.c main.h \
-	main-window.c main-window.h \
-	property-dialog.c property-dialog.h \
-	extract-dialog.c extract-dialog.h \
-	new-dialog.c new-dialog.h
+	support.c support.h \
+	archive.c archive.h \
+	interface.c interface.h \
+	callbacks.c callbacks.h \
+	arj.c arj.h \
+	zip.c zip.h \
+	rar.c rar.h \
+	7zip.c 7zip.h \
+	tar.c tar.h \
+	bzip2.c bzip2.h
+#        rpm.c rpm.h \
+#        gzip.c gzip.h \
+#        iso.c iso.h 
+#	extract-dialog.c extract-dialog.h \
+#	new-dialog.c new-dialog.h
 
 xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \
@@ -15,10 +26,8 @@ xarchiver_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\"
  
 xarchiver_LDADD = \
-	$(top_srcdir)/libxarchiver/libxarchiver.a \
 	@GTK_LIBS@ \
 	@GLIB_LIBS@
-	-lz
 
 INCLUDES = \
 	-I${top_srcdir}

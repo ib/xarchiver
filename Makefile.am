@@ -1,12 +1,16 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = libxarchiver src po
+SUBDIRS = src po
 
 pixmapsdir       = $(datadir)/pixmaps
+pixmaps_DATA     = xarchiver.png
 
 EXTRA_DIST = \
 	autogen.sh \
-	xarchiver.desktop
+	xarchiver.glade \
+	xarchiver.gladep \
+	xarchiver.desktop \
+	$(pixmaps_DATA)
 
 install-data-local:
 	@$(NORMAL_INSTALL)
@@ -31,5 +35,3 @@ dist-hook:
 
 Applicationsdir = $(datadir)/applications
 Applications_DATA = xarchiver.desktop
-
-ACLOCAL_AMFLAGS = -I m4

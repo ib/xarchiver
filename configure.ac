@@ -10,7 +10,7 @@ AC_INIT([xarchiver], [xarchiver_version], [])
 AC_PREREQ([2.50])
 
 
-XARCHIVER_VERSION=xarchiver_version
+XARCHIVER_VERSION=0.3.9svn
 AM_INIT_AUTOMAKE([xarchiver], [$XARCHIVER_VERSION])
 AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE
@@ -44,7 +44,6 @@ AC_OUTPUT([
 po/Makefile.in
 Makefile
 src/Makefile
-libxarchiver/Makefile
 ])
 
 echo "----------------------------------------"
