@@ -69,7 +69,7 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input)
 	GIOChannel *ioc , *err_ioc;
 	GError *error = NULL;
 	gchar **argv;
-	gint argcp, input_fd, output_fd, error_fd, response;
+	gint argcp, response;
 
 	g_shell_parse_argv ( command , &argcp , &argv , NULL);
 	if ( ! g_spawn_async_with_pipes (

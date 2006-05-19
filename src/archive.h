@@ -68,6 +68,7 @@ struct _XArchive
 };
 
 unsigned short int x;
+gint input_fd, output_fd, error_fd;
 gboolean xa_catch_errors (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void SpawnAsyncProcess (XArchive *archive, gchar *command , gboolean input);
 XArchive *xa_init_structure ();

@@ -321,14 +321,14 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	
 	switch ( archive->type )
 	{
-		/*case 0:
-		OpenBzip2 ( TRUE , archive->escaped_path );
+		case XARCHIVETYPE_BZIP2:
+		OpenBzip2 (archive);
 		break;
 
-		case 1:
-		OpenGzip ( TRUE , archive->escaped_path );
+		case XARCHIVETYPE_GZIP:
+		OpenGzip ( archive );
 		break;
-*/
+
 		case XARCHIVETYPE_RAR:
 		OpenRar (archive);
 		break;
@@ -337,14 +337,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		OpenTar (archive);
 		break;
 
-		case XARCHIVETYPE_TAR_BZ2:
-		OpenBzip2 (archive);
-		break;
-
-		case XARCHIVETYPE_TAR_GZ:
-		//OpenGzip (archive);
-		break;
-		
 		case XARCHIVETYPE_ZIP:
 		OpenZip (archive);
 		break;

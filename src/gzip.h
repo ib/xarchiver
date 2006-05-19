@@ -1,7 +1,5 @@
 /*
- *  Xarchiver
- *
- *  Copyright (C) 2005 Giuseppe Torelli - Colossus
+ *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,5 +24,5 @@
 #include "interface.h"
 #include "support.h"
 
-void OpenGzip ( gboolean mode , gchar *path );
+void OpenGzip ( XArchive *archive );
 #endif

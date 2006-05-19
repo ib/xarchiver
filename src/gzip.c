@@ -1,7 +1,5 @@
 /*
- *  Xarchiver
- *
- *  Copyright (C) 2005 Giuseppe Torelli - Colossus
+ *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,29 +22,29 @@
 FILE *fd;
 extern int output_fd,error_fd;
 
-void OpenGzip ( gboolean mode , gchar *path)
+void OpenGzip ( XArchive *archive )
 {
-	if ( g_str_has_suffix ( path , ".tar.gz") || g_str_has_suffix ( path , ".tgz") )
+	if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
 	{
-        gchar *command = g_strconcat ("tar tfzv " , path, NULL );
-		compressor_pid = SpawnAsyncProcess ( command , 0 );
+        gchar *command = g_strconcat ("tar tfzv " , archive->escaped_path, NULL );
+	   	archive->dummy_size = 0;
+		archive->nr_of_files = 0;
+		archive->nr_of_dirs = 0;
+		archive->parse_output = TarOpen;
+		SpawnAsyncProcess ( archive , command , 0);
 		g_free ( command );
-		if ( compressor_pid == 0 ) return;
-        dummy_size = 0;
-        number_of_files = 0;
-        number_of_dirs = 0;
+		if ( archive->child_pid == 0 )
+			return;
+
 		char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
 		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-		CreateListStore ( 6, names , (GType *)types );
-        SetIOChannel (output_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,Bzip2Output, (gpointer) mode );
-		SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
-        CurrentArchiveType = 5;
-        WaitExitStatus ( compressor_pid , NULL );
+		xa_create_liststore ( 6, names , (GType *)types );
+        archive->type = XARCHIVETYPE_TAR_GZ;
 	}
 	else 
 	{
         bz_gz = TRUE;
-        Bzip2Extract ( 1 );
+        Bzip2Extract ( archive , 1 );
     }
 }
 

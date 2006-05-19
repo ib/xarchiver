@@ -28,7 +28,7 @@
 #include "archive.h"
 
 void OpenBzip2 ( XArchive *archive );
-void Bzip2Extract ( gboolean flag );
+void Bzip2Extract ( XArchive *archive , gboolean flag );
 gboolean Bzip2Output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond , gpointer data);
 void RecompressArchive ( gint status );

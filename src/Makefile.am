@@ -11,9 +11,9 @@ xarchiver_SOURCES = \
 	rar.c rar.h \
 	7zip.c 7zip.h \
 	tar.c tar.h \
-	bzip2.c bzip2.h
+	bzip2.c bzip2.h \
+        gzip.c gzip.h
 #        rpm.c rpm.h \
-#        gzip.c gzip.h \
 #        iso.c iso.h 
 #	extract-dialog.c extract-dialog.h \
 #	new-dialog.c new-dialog.h
