@@ -200,7 +200,7 @@ if (cond & (G_IO_IN | G_IO_PRI) )
 			no_attr = FALSE;
 			if (  g_str_has_suffix (g_value_get_string (attr) , "d") == FALSE)
 				archive->nr_of_files++;
-			archive->dummy_size += g_value_get_uint64 (compressed );
+			archive->dummy_size += g_value_get_uint64 (original );
 			g_free (line);
 			if (archive->row_cnt > 99)
 			{

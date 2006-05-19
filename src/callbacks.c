@@ -321,6 +321,10 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	
 	switch ( archive->type )
 	{
+		case XARCHIVETYPE_ARJ:
+		OpenArj (archive);
+		break;
+
 		case XARCHIVETYPE_BZIP2:
 		OpenBzip2 (archive);
 		break;
@@ -329,9 +333,18 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		OpenGzip ( archive );
 		break;
 
+		/*
+        case XARCHIVETYPE_ISO:
+        OpenISO (archive);
+		break;*/
+
 		case XARCHIVETYPE_RAR:
 		OpenRar (archive);
 		break;
+
+		case XARCHIVETYPE_RPM:
+        //OpenRPM (archive);
+        break;
 
 		case XARCHIVETYPE_TAR:
 		OpenTar (archive);
@@ -341,20 +354,9 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		OpenZip (archive);
 		break;
 
-        case XARCHIVETYPE_RPM:
-        //OpenRPM (archive);
-        break;
-
         case XARCHIVETYPE_7ZIP:
         Open7Zip (archive);
         break;
-
-		case XARCHIVETYPE_ARJ:
-		OpenArj (archive);
-		break;
-/*
-        case XARCHIVETYPE_ISO:
-        OpenISO (archive);*/
 	}
 	if (archive->passwd != NULL)
 		g_free (archive->passwd);
@@ -1021,16 +1023,14 @@ gboolean isTar ( FILE *ptr )
 {
 	unsigned char magic[7];
 	fseek ( ptr, 0 , SEEK_SET );
-    if ( fseek ( ptr , 100 , SEEK_CUR ) < 0 ) return FALSE;
-    if ( fread ( magic, 1, 5, ptr ) == 0 ) return FALSE;
-    if ( memcmp ( magic,"\x30\x30\x30\x30\x37",5 ) == 0 )
+    if ( fseek ( ptr , 257 , SEEK_CUR) < 0 )
+		return FALSE;
+    if ( fread ( magic, 1, 7, ptr ) == 0 )
+		return FALSE;
+    if ( memcmp ( magic,"\x75\x73\x74\x61\x72\x00\x30",7 ) == 0 || memcmp (magic,"\x75\x73\x74\x61\x72\x20\x20",7 ) == 0)
 		return TRUE;
-
-	/* Normally from the beginning of the file the magic is found at offset 257 (decimal) but we are at 100 and we read 5 bytes */
-    if ( fseek ( ptr , 159 , SEEK_CUR) < 0 ) return FALSE;
-	if ( fread ( magic, 1, 7, ptr ) == 0 ) return FALSE;
-	if ( memcmp ( magic,"\x75\x73\x74\x61\x72\x00\x30",7 ) == 0 || memcmp (magic,"\x75\x73\x74\x61\x72\x20\x20",7 ) == 0) return TRUE;
-		else return FALSE;
+    else
+		return FALSE;
 }
 
 int DetectArchiveType ( XArchive *archive )

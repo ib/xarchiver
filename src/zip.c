@@ -124,7 +124,7 @@ gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			archive->nr_of_dirs++;
 		else
 			archive->nr_of_files++;
-		archive->dummy_size += g_value_get_uint64 (compressed);
+		archive->dummy_size += g_value_get_uint64 (original);
 		g_free(line);
 
 		if (archive->row_cnt > 99)
