@@ -38,14 +38,14 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
 	OffDeleteandViewButtons();
-    /*TODO: temp_file contains the filename created in /tmp to add/delete on tar.bzip2 / tar.gzip archives (look in bzip2.c)
-    if ( temp_file != NULL)
+   
+    if ( archive->tmp != NULL)
     {
-        g_print ("Cancello: %s\n",temp_file);
-        unlink ( temp_file );
-        g_free (temp_file);
+        unlink ( archive->tmp );
+        g_free (archive->tmp);
+		archive->tmp = NULL;
     }
-	*/
+
 	if ( WIFSIGNALED (status) )
 	{
 		Update_StatusBar ( _("Operation canceled."));
@@ -91,8 +91,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	/* This to automatically reload the content of the archive after adding or deleting */
 	if (archive->status == XA_ARCHIVESTATUS_DELETE || archive->status == XA_ARCHIVESTATUS_ADD)
 	{
-        gtk_widget_show ( viewport2 );
-        gtk_widget_set_sensitive ( Stop_button , TRUE );
+        //gtk_widget_show ( viewport2 );
+        //gtk_widget_set_sensitive ( Stop_button , TRUE );
         Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
         RemoveColumnsListStore();
         archive->status = XA_ARCHIVESTATUS_IDLE;
@@ -112,13 +112,13 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			//OpenTar ( archive );
 			break;
 
-            /*case 4:
-            OpenBzip2 ( FALSE , archive->escaped_path );
+            case XARCHIVETYPE_TAR_BZ2:
+            OpenBzip2 ( archive );
             break;
 
-            case 5:
-            OpenGzip ( FALSE , archive->escaped_path );
-            break;*/
+            case XARCHIVETYPE_TAR_GZ:
+            OpenGzip ( archive );
+            break;
 
 			case XARCHIVETYPE_ZIP:
 			OpenZip ( archive );
@@ -455,6 +455,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
     if ( response == GTK_RESPONSE_NO)
 		return;
     Update_StatusBar ( _("Deleting files from the archive, please wait..."));
+	archive->status = XA_ARCHIVESTATUS_DELETE;
 
 	switch (archive->type)
 	{

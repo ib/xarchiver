@@ -55,6 +55,7 @@ struct _XArchive
 	XArchiveStatus status;
 	gchar *path;
 	gchar *escaped_path;
+	gchar *tmp;
 	gboolean has_passwd;
 	gchar *passwd;
 	gint nr_of_files;
