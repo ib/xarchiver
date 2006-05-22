@@ -29,11 +29,10 @@
 
 void OpenBzip2 ( XArchive *archive );
 void Bzip2Extract ( XArchive *archive , gboolean flag );
-gboolean Bzip2Output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond , gpointer data);
 void RecompressArchive ( XArchive *archive , gint status , gboolean dummy );
 void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add);
 GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data);
-void Bzip2Add ( gchar *filename , gboolean flag );
+void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag );
 gchar *OpenTempFile ( gboolean dummy , gchar *temp_path );
 #endif

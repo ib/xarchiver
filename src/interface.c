@@ -870,7 +870,7 @@ void set_label (GtkWidget *label , gchar *text)
     g_free (tmp_markup);
 }
 
-gint xa_progressbar_pulse (gpointer data)
+int xa_progressbar_pulse (gpointer data)
 {
 	gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progressbar) );
 	if (GTK_WIDGET_VISIBLE(viewport2))

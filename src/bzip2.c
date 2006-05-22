@@ -101,7 +101,6 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 				g_io_channel_set_encoding (ioc, NULL , NULL);
 				g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 				g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
-				//SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
 			}
 			else
 				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please select where to extract files !") );
@@ -112,47 +111,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
     //if (done == TRUE)
 	//	WaitExitStatus ( compressor_pid , NULL);
 }
-/*
-gboolean Bzip2Output (GIOChannel *ioc, GIOCondition cond, gpointer data)
-{
-	gchar **fields;
-	gchar *filename;
-	gchar *line;
-	if (cond & (G_IO_IN | G_IO_PRI) )
-	{
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-        if ( line == NULL ) return TRUE;
-		if (data) gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-		fields = split_line (line,5);
-		filename = get_last_field (line,6);
-		gtk_list_store_append (liststore, &iter);
-		if ( g_str_has_prefix(fields[0] , "d") == FALSE) number_of_files++;
-            else number_of_dirs++;
-   		for ( x = 0; x < 5; x++)
-		{
-           if ( x == 2 )
-            {
-                gtk_list_store_set (liststore, &iter,x+1,atoll(fields[x]),-1);
-                dummy_size += atoll(fields[x]);
-            }
-            else gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
-		}
-        gtk_list_store_set (liststore, &iter,0,filename,-1);
-        gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
-        while (gtk_events_pending() )
-		    gtk_main_iteration();
-		g_strfreev ( fields );
-		g_free (line);
-		return TRUE;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
-	{
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref (ioc);
-		return FALSE;
-	}
-}
-*/
+
 gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 {
 	gchar *command = NULL;
@@ -169,7 +128,7 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
 	else
 		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , temp_path , NULL );
-	g_print ("1) %s > %s\n",command,tmp);
+	//g_print ("1) %s > %s\n",command,tmp);
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0 );
 	g_free ( command );
@@ -184,8 +143,6 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
-	//SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
-	//The 2nd parameter is set to NULL to read binary data
 	return tmp;
 }
 
@@ -267,7 +224,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
     else
 		command = g_strconcat ( "tar --delete -f " , tmp , list->str , NULL );
 	waiting = TRUE;
-	g_print ("2) %s\n",command);
+	//g_print ("2) %s\n",command);
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0);
 	g_free ( command );
@@ -280,8 +237,6 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, GenOutput, NULL);
-	//SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL , GenError, NULL );
 	while (waiting)
 	{
 		ps = waitpid ( child_pid, &status, WNOHANG);
@@ -343,7 +298,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 		return;
 	}
 	gchar *command = g_strconcat ( dummy ? "gzip -c " : "bzip2 -c " , tmp , NULL );
-	g_print ("3) %s > %s\n",command,archive->escaped_path);
+	//g_print ("3) %s > %s\n",command,archive->escaped_path);
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0 );
 	g_free ( command );
@@ -357,13 +312,12 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
-	//SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
 	
 	archive->tmp = tmp;
 	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 }
 
-void Bzip2Add ( gchar *filename , gboolean flag )
+void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
 {
     stream = fopen ( archive->path , "w" );
 	if ( stream == NULL )
@@ -384,9 +338,6 @@ void Bzip2Add ( gchar *filename , gboolean flag )
     g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
     g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
-	
-	//SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
-	//The 2nd parameter is set to NULL to read binary data 
-    //WaitExitStatus (compressor_pid , NULL );
+	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 }
 

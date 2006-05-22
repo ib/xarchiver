@@ -96,8 +96,7 @@ gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer dat
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
 gboolean isTar ( FILE *ptr );
 gboolean isISO ( FILE *ptr );
-gboolean GenOutput (GIOChannel *ioc, GIOCondition cond, gpointer data);
-gboolean GenError (GIOChannel *ioc, GIOCondition cond, gpointer data);
+gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean DetectPasswordProtectedArchive ( int type , FILE *dummy_ptr , unsigned char magic[6]);
 
 void RemoveColumnsListStore ();
@@ -115,8 +114,6 @@ gchar *StripPathFromFilename ( gchar *name );
 gchar *JoinPathArchiveName ( const gchar * , gchar * );
 char *Show_File_Dialog (int dummy , gpointer title);
 char *eat_spaces (char *line);
-char *get_last_field (char *line,int last_field);
-char **split_line (char *line,int n_fields);
 gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files);
 gchar *remove_level_from_path (const gchar *path);
 gchar *extract_local_path (gchar *path , gchar *filename);
