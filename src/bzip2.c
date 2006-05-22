@@ -108,8 +108,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
     	}
 	}
 	gtk_widget_destroy ( extract_window );
-    //if (done == TRUE)
-	//	WaitExitStatus ( compressor_pid , NULL);
+	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);	    
 }
 
 gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )

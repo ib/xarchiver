@@ -311,7 +311,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		Update_StatusBar ( _("Please wait while the content of the ISO image is being read..."));
     else
 		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
-    SetButtonState (0,0,0,0,0);
+    SetButtonState (1,1,1,1,1);
 	
 	switch ( archive->type )
 	{
@@ -1212,7 +1212,7 @@ void ShowShellOutput ( GtkMenuItem *menuitem, gboolean iso_title)
          if (iso_title)
 			 gtk_window_set_title (GTK_WINDOW (OutputWindow), _("ISO Image Information Window") );
         else
-			gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Shell Output Window") );
+			gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Error Messages Window") );
         gtk_window_present ( GTK_WINDOW (OutputWindow) );
 		return;
 	}

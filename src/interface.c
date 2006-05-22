@@ -183,10 +183,10 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), add_pwd);
   gtk_widget_add_accelerator (add_pwd, "activate",accel_group,GDK_w, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View S_hell Output"));
+  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View Error Messages"));
   gtk_widget_show (view_shell_output1);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
-  gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   image2 = gtk_image_new_from_stock ("gtk-find-and-replace", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
