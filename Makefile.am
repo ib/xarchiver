@@ -5,6 +5,11 @@ SUBDIRS = src po
 pixmapsdir       = $(datadir)/pixmaps
 pixmaps_DATA     = xarchiver.png
 
+desktopdir = $(datadir)/applications
+desktopdir_in_files = xarchiver.desktop.in
+desktop_DATA = $(apps_in_files:.desktop.in=.desktop)
+@INTLTOOL_DESKTOP_RULE@
+
 EXTRA_DIST = \
 	autogen.sh \
 	xarchiver.glade \
@@ -33,5 +38,3 @@ dist-hook:
 	  done \
 	fi
 
-Applicationsdir = $(datadir)/applications
-Applications_DATA = xarchiver.desktop

@@ -1,34 +1,62 @@
+2006-05-21  Daichi Kawahata <daichi@xfce.org>
+
+	* xarchiver.pot, *.po: Updated.
+	* POTFILES.in: Added files.
+
+2006-05-05  Yuval Tanny <tanai@int.gov.il>
+
+	* he.po: Updated Hebrew translation
+	* he.po: Added new Hebrew (he) translation.
+
+2006-05-02  Stephan Arts <psybsd@gmail.com>
+
+	* nl.po: Updated Dutch translation.
+
+2006-05-01  Daichi Kawahata <daichi@xfce.org>
+
+	* ru.po: Updated Russian translations by
+	  Andrey Fedoseev <andrey.fedoseev@gmail.com>,
+	  Maxim Zenin <webmechanics@gmail.com>,
+	  Sergey Fedoseev <fedoseev.sergey@gmail.com>.
+
+2006-04-30  Szervac Attila <sas@321.hu>
+
+	* hu.po: hu trunk: updates
+
 2006-04-30  Daichi Kawahata <daichi@xfce.org>
 
-	* de.po, el.po, hu.po, nl.po, ru.po: Updated.
+	* *.po: Updated.
+
+2006-04-30  Daichi Kawahata <daichi@xfce.org>
+
 	* ja.po: Updated Japanese translations.
 	* ja.po: Added Japanese translations.
 
 2006-04-27  Szervac Attila <sas@321.hu>
 
-	* hu.po: hu trunk: initial trunk xarchiver translation.
+	* hu.po: hu trunk: initial trunk xarchiver translation
 
 2006-04-27  Stephan Arts <psybsd@gmail.com>
 
-	* *.po, xarchiver.pot: Updated.
-	* hu.po: Added hungary translation.
+	* hu.po: Added Hungary translation.
+	* xarchiver.pot, *.po: Updated .pot.
 
 2006-04-24  Stavros Giannouris <stavrosg2002@freemail.gr>
 
-	* el.po: Greek translation update.
+	* el.po, nl.po: Greek translation update.
 
 2006-04-24  Stephan Arts <psybsd@gmail.com>
 
-	* POTFILES.in, *.po, xarchiver.pot: Updated i18n.
-	* nl.po: Added dutch translation.
+	* nl.po: Added Dutch translation.
+	* POTFILES.in, xarchiver.pot, *.po: Updated i18n.
 
 2006-03-27  Stephan Arts <psybsd@gmail.com>
 
-	* POTFILES.in: Fixed POTFILES.in conflict.
+	* POTFILES.in: Fixed POTFILES.in.
 
 2006-03-27  Daichi Kawahata <daichi@xfce.org>
 
-	* POTFILES.in, *.po, xarchiver.pot: Updated.
+	* POTFILES.in, xarchiver.pot, *.po: Updated.
 
 2006-03-27  Auke Kok <sofar@foo-projects.org>
 

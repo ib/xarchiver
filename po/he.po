@@ -7,9 +7,9 @@
 # Yuval Tanny <tanai@int.gov.il>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: he\n"
+"Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-27 13:04+0200\n"
+"POT-Creation-Date: 2006-05-21 15:22+0900\n"
 "PO-Revision-Date: 2006-05-05 22:36+0300\n"
 "Last-Translator: Yuval Tanny <tanai@int.gov.il>\n"
 "Language-Team: Hebrew\n"
@@ -18,187 +18,712 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: ../src/main.c:95
-msgid "Done"
-msgstr "הושלם"
-
-#: ../src/main.c:171
-msgid "Extracting archive"
-msgstr "פורש ארכיב"
-
-#: ../src/main.c:223
-#, c-format
-msgid "File \"%s\" could not be opened, archive not supported\n"
-msgstr "אין אפשרות לפתוח את הקובץ \"%s\", הארכיב אינו נתמך\n"
-
-#: ../src/main.c:231
-msgid "Opening archive..."
-msgstr "פותח ארכיב..."
-
-#: ../src/main.c:353 ../src/main-window.c:782
-msgid "Open Archive"
-msgstr "פתח ארכיב"
-
-#: ../src/main.c:359
-msgid "archiving app"
-msgstr "תוכנת  כיווץ"
-
-#. Archive Menu
-#: ../src/main-window.c:367
-msgid "_Archive"
-msgstr "_ארכיב"
-
-#: ../src/main-window.c:379
-msgid "_Test"
-msgstr "_בחינה"
-
-#. Action Menu
-#: ../src/main-window.c:419
-msgid "A_ction"
-msgstr "_פעולה"
-
-#: ../src/main-window.c:424
-msgid "_Add File(s)"
-msgstr "_הוספת קבצים"
-
-#: ../src/main-window.c:425
-msgid "Add _Folder"
-msgstr "הוספת _תיקיה"
-
-#: ../src/main-window.c:426
-msgid "_Extract"
-msgstr "_פרישה"
-
-#. Help Menu
-#: ../src/main-window.c:450
-msgid "_Help"
-msgstr "_עזרה"
-
-#: ../src/main-window.c:549 ../src/main-window.c:808
-msgid "Add Files"
-msgstr "הוספת קבצים"
-
-#: ../src/main-window.c:550
-msgid "Add files to archive"
-msgstr "הוספת קבצים לארכיב"
-
-#: ../src/main-window.c:554 ../src/main-window.c:839
-msgid "Add Folder"
-msgstr "הוספת תיקיה"
-
-#: ../src/main-window.c:555
-msgid "Add folders to archive"
-msgstr "הוספת תיקיה לארכיב"
-
-#: ../src/main-window.c:559 ../src/extract-dialog.c:98
-msgid "Extract"
-msgstr "פרישה"
-
-#: ../src/main-window.c:896
-msgid "Are you sure you want to remove the selected files from the archive?"
-msgstr "האם אתה בטוח כי ברצונך להסיר את הקבצים שנבחרו מהארכיב?"
-
-#: ../src/extract-dialog.c:84
-msgid "Choose destination folder"
-msgstr "בחירת תיקיית יעד"
-
-#: ../src/extract-dialog.c:97
-msgid "Cancel"
-msgstr "ביטול"
-
-#: ../src/extract-dialog.c:132
-msgid "Extract to"
-msgstr "פרישה אל"
-
-#: ../src/new-dialog.c:76
-msgid "New archive"
-msgstr "ארכיב חדש"
-
-#: ../src/property-dialog.c:69
-msgid "Archive Properties"
-msgstr "מאפייני ארכיב"
-
-#: ../src/property-dialog.c:139
-msgid "Property"
-msgstr "מאפיין"
-
-#: ../src/property-dialog.c:143
-msgid "Value"
-msgstr "ערך"
-
-#: ../libxarchiver/support.c:65
-msgid "Verify not supported by this support object"
-msgstr "אימות אינו נתמך על ידי פריט תמיכה זה"
-
-#: ../libxarchiver/support.c:72
-msgid "Add not supported by this support object"
-msgstr "הוספה אינה נתמכת על ידי פריט תמיכה זה"
-
-#: ../libxarchiver/support.c:79
-msgid "Extract not supported by this support object"
-msgstr "פרישה אינה נתמכת על ידי פריט תמיכה זה"
-
-#: ../libxarchiver/support.c:86
-msgid "Remove not supported by this support object"
-msgstr "הסרה אינה נתמכת על ידי פריט תמיכה זה"
-
-#: ../libxarchiver/support.c:93
-msgid "Testing not supported by this support object"
-msgstr "בדיקה אינה נתמכת על ידי פריט תמיכה זה"
-
-#: ../libxarchiver/support.c:100
-msgid "Open not supported by this support object"
-msgstr "פתיחה אינה נתמכת על ידי פריט תמיכה זה"
-
-#: ../libxarchiver/support.c:107
-msgid "View not supported by this support object"
-msgstr "הצגה אינה נתמכת על ידי פריט תמיכה זה"
-
-#: ../libxarchiver/support-rar.c:91 ../libxarchiver/support-gnu-tar.c:88
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
+#: ../src/iso.c:667 ../src/rpm.c:54 ../src/tar.c:33 ../src/zip.c:33
 msgid "Filename"
 msgstr "שם הקובץ"
 
-#: ../libxarchiver/support-rar.c:92
-msgid "Original"
-msgstr "מקורי"
-
-#: ../libxarchiver/support-rar.c:93
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/iso.c:667 ../src/zip.c:33
 msgid "Compressed"
 msgstr "מכווץ"
 
-#: ../libxarchiver/support-rar.c:94
-msgid "Ratio"
-msgstr "יחס"
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/zip.c:33
+msgid "Original"
+msgstr "מקורי"
 
-#: ../libxarchiver/support-rar.c:95 ../libxarchiver/support-gnu-tar.c:92
-msgid "Date"
-msgstr "תאריך"
+#: ../src/7zip.c:34
+msgid "Attr"
+msgstr ""
 
-#: ../libxarchiver/support-rar.c:96 ../libxarchiver/support-gnu-tar.c:93
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
+#: ../src/iso.c:667 ../src/tar.c:33 ../src/zip.c:33
 msgid "Time"
 msgstr "זמן"
 
-#: ../libxarchiver/support-rar.c:97 ../libxarchiver/support-gnu-tar.c:89
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
+#: ../src/iso.c:667 ../src/tar.c:33 ../src/zip.c:33
+msgid "Date"
+msgstr "תאריך"
+
+#: ../src/arj.c:35 ../src/iso.c:667 ../src/zip.c:33
+msgid "Ratio"
+msgstr "יחס"
+
+#: ../src/arj.c:35
+msgid "Attributes"
+msgstr ""
+
+#: ../src/arj.c:35
+msgid "GUA"
+msgstr ""
+
+#: ../src/arj.c:35
+msgid "BPMGS"
+msgstr ""
+
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/iso.c:667 ../src/tar.c:33
 msgid "Permissions"
 msgstr "הרשאות"
 
-#: ../libxarchiver/support-rar.c:98
-msgid "CRC"
-msgstr "CRC"
-
-#: ../libxarchiver/support-rar.c:99
-msgid "Method"
-msgstr "שיטה"
-
-#: ../libxarchiver/support-rar.c:100
-msgid "Version"
-msgstr "גרסה"
-
-#: ../libxarchiver/support-gnu-tar.c:90
-msgid "Owner / Group"
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/tar.c:33
+#, fuzzy
+msgid "Owner/Group"
 msgstr "בעלים / קבוצה"
 
-#: ../libxarchiver/support-gnu-tar.c:91
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/rpm.c:54 ../src/tar.c:33
 msgid "Size"
 msgstr "גודל"
 
+#: ../src/bzip2.c:97
+#, fuzzy
+msgid "Extracting "
+msgstr "פרישה"
+
+#: ../src/bzip2.c:97
+#, fuzzy
+msgid " file to "
+msgstr "הוספת קבצים לארכיב"
+
+#: ../src/bzip2.c:107
+msgid "Please select where to extract files !"
+msgstr ""
+
+#: ../src/bzip2.c:233
+msgid "Decompressing tar file with "
+msgstr ""
+
+#: ../src/bzip2.c:255
+msgid ""
+"An error occurred while decompressing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/bzip2.c:303
+msgid ""
+"An error occurred while adding to the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/bzip2.c:303
+msgid ""
+"An error occurred while deleting from the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/bzip2.c:311
+msgid "Recompressing tar file with "
+msgstr ""
+
+#: ../src/bzip2.c:326
+msgid ""
+"An error occurred while recompressing the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/callbacks.c:51
+msgid "Operation canceled."
+msgstr ""
+
+#: ../src/callbacks.c:55
+msgid "Please check \""
+msgstr ""
+
+#: ../src/callbacks.c:55
+msgid "\" since some files could have been already extracted."
+msgstr ""
+
+#: ../src/callbacks.c:78 ../src/callbacks.c:1913 ../src/rpm.c:117
+#: ../src/rpm.c:141
+msgid "Operation failed."
+msgstr ""
+
+#: ../src/callbacks.c:84
+msgid ""
+"An error occurred while accessing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/callbacks.c:96
+msgid "Please wait while the content of the archive is being updated..."
+msgstr ""
+
+#: ../src/callbacks.c:169 ../src/iso.c:800
+msgid "Operation successfully completed."
+msgstr ""
+
+#: ../src/callbacks.c:184
+msgid "This archive already exists. Do you want to overwrite it ?"
+msgstr ""
+
+#: ../src/callbacks.c:228
+msgid ""
+"Choose Action->Set archive->passwd to create a archive->passwd protected "
+"archive."
+msgstr ""
+
+#: ../src/callbacks.c:233
+msgid "Choose Add File to create the compressed file."
+msgstr ""
+
+#: ../src/callbacks.c:234
+msgid "Choose Add File or Add Folder to create the archive."
+msgstr ""
+
+#: ../src/callbacks.c:283
+msgid "The format of this archive is not recognized !"
+msgstr ""
+
+#: ../src/callbacks.c:309
+msgid ""
+"Sorry, this archive format is not supported since you haven't installed the "
+"proper archiver !"
+msgstr ""
+
+#: ../src/callbacks.c:317
+msgid "Please wait while the content of the ISO image is being read..."
+msgstr ""
+
+#: ../src/callbacks.c:319
+msgid "Please wait while the content of the archive is being read..."
+msgstr ""
+
+#: ../src/callbacks.c:376
+msgid "Testing archive integrity, please wait..."
+msgstr ""
+
+#: ../src/callbacks.c:410
+msgid "Please hit the Stop button first !"
+msgstr ""
+
+#: ../src/callbacks.c:452
+msgid "You are about to delete "
+msgstr ""
+
+#: ../src/callbacks.c:452
+#, fuzzy
+msgid " files"
+msgstr "הוספת קבצים"
+
+#: ../src/callbacks.c:452
+msgid " file"
+msgstr ""
+
+#: ../src/callbacks.c:452
+msgid ""
+" from the archive.\n"
+"Are you really sure to do this ?"
+msgstr ""
+
+#: ../src/callbacks.c:457
+msgid "Deleting files from the archive, please wait..."
+msgstr ""
+
+#: ../src/callbacks.c:523
+#, fuzzy
+msgid "Adding files to the archive, please wait..."
+msgstr "הוספת קבצים לארכיב"
+
+#: ../src/callbacks.c:625 ../src/callbacks.c:718
+#, fuzzy
+msgid "Extracting files to "
+msgstr "פורש ארכיב"
+
+#: ../src/callbacks.c:832
+msgid ""
+"Select the files to be added to the current archive; use SHIFT to multiple "
+"select"
+msgstr ""
+
+#: ../src/callbacks.c:837
+msgid "Select the folder to be added to the current archive"
+msgstr ""
+
+#: ../src/callbacks.c:838
+msgid ""
+"Select the folders to be added to the current archive; use SHIFT to multiple "
+"select"
+msgstr ""
+
+#: ../src/callbacks.c:873 ../src/interface.c:233
+#, fuzzy
+msgid "Create a new archive"
+msgstr "ארכיב חדש"
+
+#: ../src/callbacks.c:879 ../src/interface.c:242
+#, fuzzy
+msgid "Open an archive"
+msgstr "פתח ארכיב"
+
+#: ../src/callbacks.c:886
+msgid "Choose the destination folder where to extract the current archive"
+msgstr ""
+
+#: ../src/callbacks.c:914
+#, fuzzy
+msgid "All files"
+msgstr "הוספת קבצים"
+
+#: ../src/callbacks.c:919
+#, fuzzy
+msgid "Only archives"
+msgstr "פתח ארכיב"
+
+#: ../src/callbacks.c:948
+#, fuzzy
+msgid "Archive type:"
+msgstr "_ארכיב"
+
+#: ../src/callbacks.c:951
+msgid "Choose the archive type to create"
+msgstr ""
+
+#: ../src/callbacks.c:960
+msgid "Add the archive extension to the filename"
+msgstr ""
+
+#: ../src/callbacks.c:1045 ../src/rpm.c:45
+#, c-format
+msgid ""
+"Can't open archive %s:\n"
+"%s"
+msgstr ""
+
+#: ../src/callbacks.c:1200
+msgid "ISO Image Information Window"
+msgstr ""
+
+#: ../src/callbacks.c:1201
+msgid "Shell Output Window"
+msgstr ""
+
+#: ../src/callbacks.c:1233
+msgid "Waiting for the process to abort..."
+msgstr ""
+
+#: ../src/callbacks.c:1287
+msgid "Please select a file, not a directory !"
+msgstr ""
+
+#: ../src/callbacks.c:1323
+msgid ""
+"An error occurred while extracting the file to be viewed.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/callbacks.c:1363
+msgid "Operation completed."
+msgstr ""
+
+#. Modified Date
+#: ../src/callbacks.c:1395
+#, c-format
+msgid "%c"
+msgstr ""
+
+#: ../src/callbacks.c:1403 ../src/callbacks.c:1429
+msgid " GB"
+msgstr ""
+
+#: ../src/callbacks.c:1408 ../src/callbacks.c:1434
+msgid " MB"
+msgstr ""
+
+#: ../src/callbacks.c:1414 ../src/callbacks.c:1440
+msgid " KB"
+msgstr ""
+
+#: ../src/callbacks.c:1418 ../src/callbacks.c:1444
+msgid " bytes"
+msgstr ""
+
+#: ../src/callbacks.c:1486
+msgid "Please type a archive->passwd !"
+msgstr ""
+
+#: ../src/callbacks.c:1491
+msgid "The archive->passwds don't match !!"
+msgstr ""
+
+#: ../src/callbacks.c:1886
+msgid "Sorry, I could not perform the operation."
+msgstr ""
+
+#: ../src/callbacks.c:1911
+msgid ""
+"Bzip2 or gzip cannot compress more than one file, please choose another "
+"archive format !"
+msgstr ""
+
+#: ../src/interface.c:70
+msgid "_Archive"
+msgstr "_ארכיב"
+
+#: ../src/interface.c:95
+#, fuzzy
+msgid "Test"
+msgstr "_בחינה"
+
+#: ../src/interface.c:105
+#, fuzzy
+msgid "Properties"
+msgstr "מאפיין"
+
+#: ../src/interface.c:120
+#, fuzzy
+msgid "_Action"
+msgstr "_פעולה"
+
+#: ../src/interface.c:129 ../src/interface.c:251
+#, fuzzy
+msgid "Add File"
+msgstr "הוספת קבצים"
+
+#: ../src/interface.c:133 ../src/interface.c:260
+msgid "Add Folder"
+msgstr "הוספת תיקיה"
+
+#: ../src/interface.c:142 ../src/interface.c:274
+msgid "Extract"
+msgstr "פרישה"
+
+#: ../src/interface.c:154 ../src/interface.c:293
+msgid "View"
+msgstr ""
+
+#. options1 = gtk_image_menu_item_new_with_mnemonic ("Options");
+#. gtk_widget_set_name (options1, "options1");
+#. gtk_widget_show (options1);
+#. gtk_container_add (GTK_CONTAINER (menuitem2_menu), options1);
+#.
+#. image1 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
+#. gtk_widget_set_name (image1, "image1");
+#. gtk_widget_show (image1);
+#. gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (options1), image1);
+#.
+#: ../src/interface.c:180
+msgid "Set Password"
+msgstr ""
+
+#: ../src/interface.c:186
+msgid "View S_hell Output"
+msgstr ""
+
+#: ../src/interface.c:195
+msgid "Show ISO info"
+msgstr ""
+
+#: ../src/interface.c:213
+msgid "_About"
+msgstr ""
+
+#: ../src/interface.c:228
+msgid "New"
+msgstr ""
+
+#: ../src/interface.c:237
+msgid "Open"
+msgstr ""
+
+#: ../src/interface.c:256
+#, fuzzy
+msgid "Add a file to the current archive"
+msgstr "הוספת קבצים לארכיב"
+
+#: ../src/interface.c:265
+#, fuzzy
+msgid "Add an entire folder to the current archive"
+msgstr "הוספת תיקיה לארכיב"
+
+#: ../src/interface.c:279
+msgid ""
+"Extract files from the current archive; use the mouse to select files "
+"individually"
+msgstr ""
+
+#: ../src/interface.c:283
+msgid "Delete"
+msgstr ""
+
+#: ../src/interface.c:289
+msgid "Delete files from the current archive"
+msgstr ""
+
+#: ../src/interface.c:299
+msgid "View file content in the current archive"
+msgstr ""
+
+#: ../src/interface.c:308
+msgid "Stop"
+msgstr ""
+
+#: ../src/interface.c:314
+msgid "Cancel current operation"
+msgstr ""
+
+#: ../src/interface.c:372
+msgid "This archive contains password protected files"
+msgstr ""
+
+#: ../src/interface.c:499
+msgid "Extract ONLY selected files"
+msgstr ""
+
+#: ../src/interface.c:501
+#, fuzzy
+msgid "Extract ALL files"
+msgstr "פורש ארכיב"
+
+#: ../src/interface.c:504
+msgid "Extract bzip2 compressed file"
+msgstr ""
+
+#: ../src/interface.c:505
+msgid "Extract gzip compressed file"
+msgstr ""
+
+#: ../src/interface.c:533
+msgid "Choose a folder where to extract files"
+msgstr ""
+
+#: ../src/interface.c:548
+#, fuzzy
+msgid "Extract to:"
+msgstr "פרישה אל"
+
+#: ../src/interface.c:599
+msgid "Enter Archive Password"
+msgstr ""
+
+#: ../src/interface.c:620
+msgid "Password:"
+msgstr ""
+
+#: ../src/interface.c:636
+msgid "Retype it:"
+msgstr ""
+
+#: ../src/interface.c:641
+msgid ""
+"Please note that the password is automatically resetted each time you open "
+"or create a new archive."
+msgstr ""
+
+#: ../src/interface.c:685
+msgid "View File Window"
+msgstr ""
+
+#: ../src/interface.c:722
+#, fuzzy
+msgid "Archive Properties Window"
+msgstr "מאפייני ארכיב"
+
+#: ../src/interface.c:737
+msgid "Name:"
+msgstr ""
+
+#: ../src/interface.c:745
+msgid "Path:"
+msgstr ""
+
+#: ../src/interface.c:753
+msgid "Modified on:"
+msgstr ""
+
+#: ../src/interface.c:761
+#, fuzzy
+msgid "Archive size:"
+msgstr "_ארכיב"
+
+#: ../src/interface.c:769
+msgid "Content size:"
+msgstr ""
+
+#: ../src/interface.c:777
+msgid "Compression ratio:"
+msgstr ""
+
+#: ../src/interface.c:785
+msgid "Number of files:"
+msgstr ""
+
+#: ../src/interface.c:793
+msgid "Number of dirs:"
+msgstr ""
+
+#: ../src/iso.c:569
+#, c-format
+msgid ""
+"Can't open ISO image %s:\n"
+"%s"
+msgstr ""
+
+#: ../src/iso.c:583
+msgid "This ISO image is malformed !"
+msgstr ""
+
+#: ../src/iso.c:598
+#, c-format
+msgid ""
+"\n"
+"\n"
+"Filename        : %s\n"
+"Size               : %lld bytes\n"
+"\n"
+"System ID      : %s\n"
+"Volume ID      : %s\n"
+"Application      : %s\n"
+"Publisher        : %s\n"
+"Preparer        : %s\n"
+"Volume Set ID   : %s\n"
+"Bibliographic ID: %s\n"
+"Copyright ID    : %s\n"
+"Abstract ID     : %s\n"
+"\n"
+"Creation Date   : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
+"Modified Date   : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
+"Expiration Date : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
+"Effective Date  : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
+"\n"
+"Volume Set Size    : %d\n"
+"Volume Sequence n. : %d\n"
+"Volume Space Size  : %d\n"
+"Logical Block Size : %d\n"
+"Path Table Size    : %d\n"
+"Root Dir. Record   : %d\n"
+msgstr ""
+
+#: ../src/iso.c:667 ../src/zip.c:33
+msgid "Method"
+msgstr "שיטה"
+
+#: ../src/iso.c:667 ../src/zip.c:33
+#, fuzzy
+msgid "CRC-32"
+msgstr "CRC"
+
+#: ../src/main.c:70
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+
+#: ../src/main.c:133
+msgid "Ready."
+msgstr ""
+
+#: ../src/rpm.c:54
+#, fuzzy
+msgid "Permission"
+msgstr "הרשאות"
+
+#: ../src/rpm.c:54
+msgid "Links"
+msgstr ""
+
+#: ../src/rpm.c:54
+msgid "Owner"
+msgstr ""
+
+#: ../src/rpm.c:54
+msgid "Group"
+msgstr ""
+
+#: ../src/rpm.c:121
+msgid ""
+"An error occurred while extracting the cpio archive\n"
+"from the rpm one. Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/rpm.c:145
+msgid ""
+"An error occurred while decompressing the cpio archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h:2
+#, fuzzy
+msgid "Aarchiver"
+msgstr "_ארכיב"
+
+#: ../xarchiver.desktop.in.h:3
+#, fuzzy
+msgid "Xarchiver"
+msgstr "_ארכיב"
+
+#~ msgid "Version"
+#~ msgstr "גרסה"
+
+#~ msgid "Verify not supported by this support object"
+#~ msgstr "אימות אינו נתמך על ידי פריט תמיכה זה"
+
+#~ msgid "Add not supported by this support object"
+#~ msgstr "הוספה אינה נתמכת על ידי פריט תמיכה זה"
+
+#~ msgid "Extract not supported by this support object"
+#~ msgstr "פרישה אינה נתמכת על ידי פריט תמיכה זה"
+
+#~ msgid "Remove not supported by this support object"
+#~ msgstr "הסרה אינה נתמכת על ידי פריט תמיכה זה"
+
+#~ msgid "Testing not supported by this support object"
+#~ msgstr "בדיקה אינה נתמכת על ידי פריט תמיכה זה"
+
+#, fuzzy
+#~ msgid "Open not supported by this support object %d"
+#~ msgstr "פתיחה אינה נתמכת על ידי פריט תמיכה זה"
+
+#~ msgid "View not supported by this support object"
+#~ msgstr "הצגה אינה נתמכת על ידי פריט תמיכה זה"
+
+#~ msgid "Choose destination folder"
+#~ msgstr "בחירת תיקיית יעד"
+
+#~ msgid "Cancel"
+#~ msgstr "ביטול"
+
+#~ msgid "_Add File(s)"
+#~ msgstr "_הוספת קבצים"
+
+#~ msgid "Add _Folder"
+#~ msgstr "הוספת _תיקיה"
+
+#~ msgid "_Extract"
+#~ msgstr "_פרישה"
+
+#~ msgid "_Help"
+#~ msgstr "_עזרה"
+
+#, fuzzy
+#~ msgid "New Archive"
+#~ msgstr "ארכיב חדש"
+
+#, fuzzy
+#~ msgid "Add File(s)"
+#~ msgstr "_הוספת קבצים"
+
+#, fuzzy
+#~ msgid "Add Folder(s)"
+#~ msgstr "הוספת תיקיה"
+
+#~ msgid "Are you sure you want to remove the selected files from the archive?"
+#~ msgstr "האם אתה בטוח כי ברצונך להסיר את הקבצים שנבחרו מהארכיב?"
+
+#~ msgid "File \"%s\" could not be opened, archive not supported\n"
+#~ msgstr "אין אפשרות לפתוח את הקובץ \"%s\", הארכיב אינו נתמך\n"
+
+#~ msgid "Opening archive..."
+#~ msgstr "פותח ארכיב..."
+
+#~ msgid "archiving app"
+#~ msgstr "תוכנת  כיווץ"
+
+#~ msgid "Done"
+#~ msgstr "הושלם"
+
+#~ msgid "Value"
+#~ msgstr "ערך"

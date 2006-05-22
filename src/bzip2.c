@@ -22,7 +22,7 @@ extern int output_fd;
 
 FILE *stream = NULL;
 
-gchar *tmp;
+gchar *tmp = NULL;
 int fd;
 gboolean type;
 
@@ -155,37 +155,37 @@ gboolean Bzip2Output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 */
 gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 {
-    gchar *command = NULL;
-    tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
+	gchar *command = NULL;
+	tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
 	fd = g_mkstemp ( tmp );
-    stream = fdopen ( fd , "w" );
-    if ( stream == NULL)
-    {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno) );
-        g_free (tmp);
-        return NULL;
-    }
-    if ( temp_path == NULL)
+	stream = fdopen ( fd , "w" );
+	if ( stream == NULL)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno) );
+		g_free (tmp);
+		return NULL;
+	}
+	if ( temp_path == NULL)
 		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
-        else command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , temp_path , NULL );
-    //g_print ("1) %s > %s\n",command,tmp);
-    SpawnAsyncProcess ( archive , command , 0 );
+	else
+		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , temp_path , NULL );
+	g_print ("1) %s > %s\n",command,tmp);
+	SpawnAsyncProcess ( archive , command , 0 );
 	g_free ( command );
 	if ( archive->child_pid == 0 )
-    {
-        fclose ( stream );
-        unlink ( tmp );
-        g_free (tmp);
-        return NULL;
-    }
+	{
+		fclose ( stream );
+		unlink ( tmp );
+		g_free (tmp);
+		return NULL;
+	}
 	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-    g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
-    //SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
-    //The 2nd parameter is set to NULL to read binary data
-    g_io_channel_set_encoding (ioc, NULL , NULL);
-    return tmp;
+	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
+	//SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
+	//The 2nd parameter is set to NULL to read binary data
+	return tmp;
 }
 
 gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -211,97 +211,97 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 		fclose ( data );
-        stream = NULL;
+		stream = NULL;
         //g_message ("Stream closed");
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
-        g_io_channel_unref (ioc);
+		g_io_channel_unref (ioc);
 		return FALSE;
 	}
 }
 
-void DecompressBzipGzip ( GString *list , gchar *path , gboolean dummy , gboolean add )
+void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
 {
-    type = dummy;
-    gchar *command, *msg;
+	gchar *command, *msg;
 	pid_t child_pid;
-    int status;
-    int waiting = TRUE;
-    int ps;
-
-    tmp = OpenTempFile ( dummy , NULL );
-    if ( tmp == NULL ) return;
-    msg = g_strconcat ( _("Decompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
-    Update_StatusBar ( msg );
-    g_free (msg);
-    gtk_widget_show (viewport2);
-    while (waiting)
-    {
-        ps = waitpid ( child_pid, &status, WNOHANG);
-        if (ps < 0) waiting = FALSE;
-        else
-        {
-            //gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
-            while (gtk_events_pending())
-                gtk_main_iteration();
-        }
-    }
-    if ( WIFEXITED(status) )
+	int status;
+	int waiting = TRUE;
+	int ps;
+	
+	tmp = OpenTempFile ( dummy , NULL );
+	if ( tmp == NULL ) return;
+	msg = g_strconcat ( _("Decompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
+	Update_StatusBar ( msg );
+	g_free (msg);
+	gtk_widget_show (viewport2);
+	while (waiting)
+	{
+		ps = waitpid ( child_pid, &status, WNOHANG);
+		if (ps < 0)
+			waiting = FALSE;
+		else
+		{
+			//gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+	}
+	if ( WIFEXITED(status) )
 	{
 		if ( WEXITSTATUS (status) )
 		{
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to view the shell output ?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to view the shell output ?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
 			unlink ( tmp );
-            g_free (tmp);
-            OffTooltipPadlock();
-            return;
+			g_free (tmp);
+			OffTooltipPadlock();
+			return;
 		}
-    }
-    if ( add )
+	}
+	if ( add )
 		command = g_strconcat ( "tar rvvf " , tmp , list->str , NULL );
     else
 		command = g_strconcat ( "tar --delete -f " , tmp , list->str , NULL );
-    waiting = TRUE;
-    //g_print ("2) %s\n",command);
-    SpawnAsyncProcess ( archive , command , 0);
-
+	waiting = TRUE;
+	g_print ("2) %s\n",command);
+	archive->parse_output = 0;
+	SpawnAsyncProcess ( archive , command , 0);
+	g_free ( command );
+	if ( archive->child_pid == 0 )
+	{
+		g_message ("ERR");
+		unlink ( tmp );
+		g_free (tmp);
+		return;
+	}
 	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-    g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, GenOutput, NULL);
+	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, GenOutput, NULL);
 	//SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL , GenError, NULL );
-	g_free ( command );
-    if ( archive->child_pid == 0 )
-    {
-        unlink ( tmp );
-        g_free (tmp);
-        return;
-    }
-    while (waiting)
-    {
-        ps = waitpid ( child_pid, &status, WNOHANG);
-        if (ps < 0) waiting = FALSE;
-        else
-        {
-            //gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
-            while (gtk_events_pending())
-                   gtk_main_iteration();
-        }
-    }
-    if ( WIFEXITED(status) )
-    {
-	 	if ( WEXITSTATUS (status) )
-	    {
-		    SetButtonState (1,1,0,0,0);
-		    gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-		    response = ShowGtkMessageDialog (GTK_WINDOW
-		    (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,
-            add ? _("An error occurred while adding to the tar archive.\nDo you want to view the shell output ?") : _("An error occurred while deleting from the tar archive.\nDo you want to view the shell output ?") );
-		    if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL,FALSE);
+	while (waiting)
+	{
+		ps = waitpid ( child_pid, &status, WNOHANG);
+		if (ps < 0)
+			waiting = FALSE;
+		else
+		{
+			//gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+	}
+	if ( WIFEXITED(status) )
+	{
+		if ( WEXITSTATUS (status) )
+		{
+			SetButtonState (1,1,0,0,0);
+			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive.\nDo you want to view the shell output ?") : _("An error occurred while deleting from the tar archive.\nDo you want to view the shell output ?") );
+			if (response == GTK_RESPONSE_YES)
+				ShowShellOutput (NULL,FALSE);
             unlink ( tmp );
             g_free (tmp);
             OffTooltipPadlock();
@@ -311,10 +311,10 @@ void DecompressBzipGzip ( GString *list , gchar *path , gboolean dummy , gboolea
     msg = g_strconcat ( _("Recompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
     Update_StatusBar ( msg );
     g_free (msg);
-    RecompressArchive ( status );
+    RecompressArchive ( archive , status , dummy );
 }
 
-void RecompressArchive (gint status)
+void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 {
     if ( WIFEXITED(status) )
 	{
@@ -324,40 +324,42 @@ void RecompressArchive (gint status)
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
 			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive.\nDo you want to view the shell output ?") );
-			if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL,FALSE);
+			if (response == GTK_RESPONSE_YES)
+				ShowShellOutput (NULL,FALSE);
 			unlink ( tmp );
             g_free (tmp);
             OffTooltipPadlock();
             return;
 		}
 	}
-    //Recompress the temp archive in the original archive overwriting it
-    stream = fopen ( archive->path , "w" ) ;
-    if ( stream == NULL)
-    {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno) );
-        unlink ( tmp );
-        g_free (tmp);
-        return;
-    }
-    gchar *command = g_strconcat ( type ? "gzip -c " : "bzip2 -c " , tmp , NULL );
-    //g_print ("3) %s > %s\n",command,removed_bs_path);
-    SpawnAsyncProcess ( archive , command , 0 );
-    g_free ( command );
+	//Recompress the temp archive in the original archive overwriting it
+	stream = fopen ( archive->path , "w" ) ;
+	if ( stream == NULL)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno) );
+		unlink ( tmp );
+		g_free (tmp);
+		return;
+	}
+	gchar *command = g_strconcat ( dummy ? "gzip -c " : "bzip2 -c " , tmp , NULL );
+	g_print ("3) %s > %s\n",command,archive->escaped_path);
+	archive->parse_output = 0;
+	SpawnAsyncProcess ( archive , command , 0 );
+	g_free ( command );
 	if ( archive->child_pid == 0 )
-    {
-        unlink ( tmp );
-        g_free (tmp);
-        return;
-    }
+	{
+		unlink ( tmp );
+		g_free (tmp);
+		return;
+	}
 	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-    g_io_channel_set_encoding (ioc, NULL , NULL);
+	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-    g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
+	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
 	//SetIOChannel (error_fd, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,GenError, NULL );
-    unlink (tmp);
-    g_free (tmp);
-    //This to reload the content of the archive to show the changes (deletion / adding)
+	unlink (tmp);
+	g_free (tmp);
+	//This to reload the content of the archive to show the changes (deletion / adding)
 	//WaitExitStatus (compressor_pid , NULL );
 }
 

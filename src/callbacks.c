@@ -75,15 +75,15 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	{
 		if ( WEXITSTATUS (status) )
 		{
-            Update_StatusBar ( _("Operation failed."));
-            gtk_tooltips_disable ( pad_tooltip );
-            gtk_widget_hide ( pad_image );
+			Update_StatusBar ( _("Operation failed."));
+			gtk_tooltips_disable ( pad_tooltip );
+			gtk_widget_hide ( pad_image );
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to view the shell output ?") );
-			if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL,FALSE);
-            archive->type = -1;
+			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to view the shell output ?") );
+			if (response == GTK_RESPONSE_YES)
+				ShowShellOutput (NULL,FALSE);
+            archive->type = XARCHIVETYPE_UNKNOWN;
 			return;
 		}
 	}
@@ -466,14 +466,14 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 		command = g_strconcat ( "tar --delete -vf " , archive->escaped_path , names->str , NULL );
 		break;
 
-        /*case 4:
-        //DecompressBzipGzip ( names , archive->escaped_path , 0  , 0 );
+        case XARCHIVETYPE_TAR_BZ2:
+        DecompressBzipGzip ( names , archive , 0  , 0 );
         break;
 
-        case 5:
-        //DecompressBzipGzip ( names , archive->escaped_path , 1 , 0 );
+        case XARCHIVETYPE_TAR_GZ:
+        DecompressBzipGzip ( names , archive , 1 , 0 );
 		break;
-		*/
+		
         case XARCHIVETYPE_ZIP:
 		command = g_strconcat ( "zip -d " , archive->escaped_path , names->str , NULL );
 		g_print ("%s\n",command);
@@ -492,7 +492,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
         ExtractAddDelete ( command );
         g_free (command);
     }
-    //g_string_free (names , FALSE );
+    g_string_free (names , FALSE );
 }
 
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
@@ -523,10 +523,6 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
         if (archive->type != 0 && archive->type != 1) Update_StatusBar ( _("Adding files to the archive, please wait..."));
 		switch (archive->type)
 		{
-            case XARCHIVETYPE_UNKNOWN:
-            command = NULL;
-            break;
-
 			/*
 			case 0:
             Update_StatusBar ( _("Compressing file, please wait..."));
@@ -540,40 +536,52 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 			*/
 			
 			case XARCHIVETYPE_RAR:
-            if (archive->passwd != NULL) command = g_strconcat ( "rar a -p" , archive->passwd, " -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
-                else command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
+            if (archive->passwd != NULL)
+				command = g_strconcat ( "rar a -p" , archive->passwd, " -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
+            else
+				command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
 			break;
 
 			case XARCHIVETYPE_TAR:
-			if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) ) command = g_strconcat ( "tar rvvf " , archive->escaped_path , names->str , NULL );
-                else command = g_strconcat ( "tar cvvf " , archive->escaped_path , names->str , NULL );
+			if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+				command = g_strconcat ( "tar rvvf " , archive->escaped_path , names->str , NULL );
+            else
+				command = g_strconcat ( "tar cvvf " , archive->escaped_path , names->str , NULL );
     		break;
 
-            /*
-			case 4:
-            if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) ) DecompressBzipGzip ( names , archive->escaped_path , 0 , 1 );
-            else command = g_strconcat ("tar cvvfj " , archive->escaped_path , names->str , NULL );
+			case XARCHIVETYPE_TAR_BZ2:
+            if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+				DecompressBzipGzip ( names , archive, 0 , 1 );
+            else
+				command = g_strconcat ("tar cvvfj " , archive->escaped_path , names->str , NULL );
             break;
 
-            case 5:
-            if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) ) DecompressBzipGzip ( names , archive->escaped_path , 1 , 1 );
-            else command = g_strconcat ("tar cvvfz " , archive->escaped_path , names->str , NULL );
+            case XARCHIVETYPE_TAR_GZ:
+            if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+				DecompressBzipGzip ( names , archive, 1 , 1 );
+            else
+				command = g_strconcat ("tar cvvfz " , archive->escaped_path , names->str , NULL );
             break;
-			*/
 
 			case XARCHIVETYPE_ZIP:
-            if (archive->passwd != NULL) command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->escaped_path , names->str , NULL );
-                else command = g_strconcat ( "zip -r " , archive->escaped_path , names->str , NULL );
+            if (archive->passwd != NULL)
+				command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->escaped_path , names->str , NULL );
+			else
+				command = g_strconcat ( "zip -r " , archive->escaped_path , names->str , NULL );
 			break;
 
             case XARCHIVETYPE_7ZIP:
-            if (archive->passwd != NULL) command = g_strconcat ( "7za a -ms=off -p" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
-                else command = g_strconcat ( "7za a -ms=off " , archive->escaped_path , names->str , NULL );
+            if (archive->passwd != NULL)
+				command = g_strconcat ( "7za a -ms=off -p" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
+            else
+				command = g_strconcat ( "7za a -ms=off " , archive->escaped_path , names->str , NULL );
             break;
 
             case XARCHIVETYPE_ARJ:
-            if (archive->passwd != NULL) command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
-                else command = g_strconcat ( "arj a -i -r " , archive->escaped_path , names->str , NULL );
+            if (archive->passwd != NULL)
+				command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
+            else
+				command = g_strconcat ( "arj a -i -r " , archive->escaped_path , names->str , NULL );
             break;
 		}
     if (command != NULL)
@@ -974,17 +982,16 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		{
 			ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
 
-            if (strcmp ( ComboArchiveType,".arj") == 0) archive->type = 10;
-                else if (strcmp ( ComboArchiveType,".bz2") == 0) archive->type = 0;
-                else if (strcmp ( ComboArchiveType,".gz") == 0) archive->type = 1;
-                else if (strcmp ( ComboArchiveType,".rar") == 0) archive->type = 2;
-                else if (strcmp ( ComboArchiveType,".tar") == 0) archive->type = 3;
-                else if (strcmp ( ComboArchiveType,".tar.bz2") == 0) archive->type = 4;
-                else if (strcmp ( ComboArchiveType,".tar.gz") == 0) archive->type = 5;
-                else if (strcmp ( ComboArchiveType,".jar") == 0) archive->type = 6;
-                else if (strcmp ( ComboArchiveType,".zip") == 0) archive->type = 7;
-                else if (strcmp ( ComboArchiveType,".rpm") == 0) archive->type = 8;
-                else if (strcmp ( ComboArchiveType,".7z") == 0) archive->type = 9;
+            if (strcmp ( ComboArchiveType,".arj") == 0) archive->type = XARCHIVETYPE_ARJ;
+                else if (strcmp ( ComboArchiveType,".bz2") == 0) archive->type = XARCHIVETYPE_BZIP2;
+                else if (strcmp ( ComboArchiveType,".gz") == 0) archive->type = XARCHIVETYPE_GZIP;
+                else if (strcmp ( ComboArchiveType,".rar") == 0) archive->type = XARCHIVETYPE_RAR;
+                else if (strcmp ( ComboArchiveType,".tar") == 0) archive->type = XARCHIVETYPE_TAR;
+                else if (strcmp ( ComboArchiveType,".tar.bz2") == 0) archive->type = XARCHIVETYPE_TAR_BZ2;
+                else if (strcmp ( ComboArchiveType,".tar.gz") == 0) archive->type = XARCHIVETYPE_TAR_GZ;
+                else if (strcmp ( ComboArchiveType,".jar") == 0 || strcmp ( ComboArchiveType,".zip") == 0 ) archive->type = XARCHIVETYPE_ZIP;
+                else if (strcmp ( ComboArchiveType,".rpm") == 0) archive->type = XARCHIVETYPE_RPM;
+                else if (strcmp ( ComboArchiveType,".7z") == 0) archive->type = XARCHIVETYPE_7ZIP;
 			if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(check_button) ) )
 			{
 				if ( ! g_str_has_suffix ( path , ComboArchiveType ) )

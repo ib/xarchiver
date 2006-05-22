@@ -1,9 +1,16 @@
-src/main.c
-src/main-window.c
-src/extract-dialog.c
-src/new-dialog.c
-src/property-dialog.c
+# List of source files containing translatable strings.
 
-libxarchiver/support.c
-libxarchiver/support-rar.c
-libxarchiver/support-gnu-tar.c
+src/7zip.c
+src/arj.c
+src/bzip2.c
+src/callbacks.c
+src/gzip.c
+src/interface.c
+src/iso.c
+src/main.c
+src/rpm.c
+src/tar.c
+src/zip.c
+
+# files added by intltool-prepare.
+xarchiver.desktop.in
