@@ -1,0 +1,660 @@
+# Polish translations for xarchiver.
+# Copyright (C) 2005-2006 Giuseppe Torelli.
+# Copyright (C) 2005-2006 Stephan Arts.
+# This file is distributed under the same license as the xarchiver package.
+# Szymon Kałasz <szymon_maestro@gazeta.pl>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xarchiver 0.3.9svn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-05-22 20:35+0900\n"
+"PO-Revision-Date: 2006-05-05 20:46+0200\n"
+"Last-Translator: Szymon Kałasz <szymon_maestro@gazeta.pl>\n"
+"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n%"
+"100<10 || n%100>=20)) ? 1 : 2));\n"
+
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
+#: ../src/iso.c:667 ../src/rpm.c:54 ../src/tar.c:33 ../src/zip.c:33
+msgid "Filename"
+msgstr "Nazwa pliku"
+
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/iso.c:667 ../src/zip.c:33
+msgid "Compressed"
+msgstr "Skompresowane"
+
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/zip.c:33
+msgid "Original"
+msgstr "Oryginał"
+
+#: ../src/7zip.c:34
+msgid "Attr"
+msgstr ""
+
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
+#: ../src/iso.c:667 ../src/tar.c:33 ../src/zip.c:33
+msgid "Time"
+msgstr "Czas"
+
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
+#: ../src/iso.c:667 ../src/tar.c:33 ../src/zip.c:33
+msgid "Date"
+msgstr "Data"
+
+#: ../src/arj.c:35 ../src/iso.c:667 ../src/zip.c:33
+msgid "Ratio"
+msgstr "Ratio"
+
+#: ../src/arj.c:35
+msgid "Attributes"
+msgstr ""
+
+#: ../src/arj.c:35
+msgid "GUA"
+msgstr ""
+
+#: ../src/arj.c:35
+msgid "BPMGS"
+msgstr ""
+
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/iso.c:667 ../src/tar.c:33
+msgid "Permissions"
+msgstr "Uprawnienia"
+
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/tar.c:33
+#, fuzzy
+msgid "Owner/Group"
+msgstr "Właściciel / Grupa"
+
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/rpm.c:54 ../src/tar.c:33
+msgid "Size"
+msgstr "Rozmiar"
+
+#: ../src/bzip2.c:97
+#, fuzzy
+msgid "Extracting "
+msgstr "Rozpakuj"
+
+#: ../src/bzip2.c:97
+msgid " file to "
+msgstr ""
+
+#: ../src/bzip2.c:106
+msgid "Please select where to extract files !"
+msgstr ""
+
+#: ../src/bzip2.c:190
+msgid "Decompressing tar file with "
+msgstr ""
+
+#: ../src/bzip2.c:212
+msgid ""
+"An error occurred while decompressing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/bzip2.c:257
+msgid ""
+"An error occurred while adding to the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/bzip2.c:257
+msgid ""
+"An error occurred while deleting from the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/bzip2.c:266
+msgid "Recompressing tar file with "
+msgstr ""
+
+#: ../src/bzip2.c:281
+msgid ""
+"An error occurred while recompressing the tar archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/callbacks.c:47
+msgid "Operation canceled."
+msgstr ""
+
+#: ../src/callbacks.c:51
+msgid "Please check \""
+msgstr ""
+
+#: ../src/callbacks.c:51
+msgid "\" since some files could have been already extracted."
+msgstr ""
+
+#: ../src/callbacks.c:74 ../src/callbacks.c:1857 ../src/rpm.c:117
+#: ../src/rpm.c:141
+msgid "Operation failed."
+msgstr ""
+
+#: ../src/callbacks.c:79
+msgid ""
+"An error occurred while accessing the archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#. gtk_widget_show ( viewport2 );
+#. gtk_widget_set_sensitive ( Stop_button , TRUE );
+#: ../src/callbacks.c:92
+msgid "Please wait while the content of the archive is being updated..."
+msgstr ""
+
+#: ../src/callbacks.c:166 ../src/iso.c:800
+msgid "Operation successfully completed."
+msgstr ""
+
+#: ../src/callbacks.c:181
+msgid "This archive already exists. Do you want to overwrite it ?"
+msgstr ""
+
+#: ../src/callbacks.c:217
+msgid "Choose Add File to create the compressed file."
+msgstr ""
+
+#: ../src/callbacks.c:221
+msgid "Choose Add File or Add Folder to create the tar archive."
+msgstr ""
+
+#: ../src/callbacks.c:225
+msgid "Choose Action->Set password to create a password protected archive."
+msgstr ""
+
+#: ../src/callbacks.c:277
+msgid "The format of this archive is not recognized !"
+msgstr ""
+
+#: ../src/callbacks.c:303
+msgid ""
+"Sorry, this archive format is not supported since the proper archiver has't "
+"been installed !"
+msgstr ""
+
+#: ../src/callbacks.c:311
+msgid "Please wait while the content of the ISO image is being read..."
+msgstr ""
+
+#: ../src/callbacks.c:313
+msgid "Please wait while the content of the archive is being read..."
+msgstr ""
+
+#: ../src/callbacks.c:370
+msgid "Testing archive integrity, please wait..."
+msgstr ""
+
+#: ../src/callbacks.c:404
+msgid "Please hit the Stop button first !"
+msgstr ""
+
+#: ../src/callbacks.c:446
+msgid "You are about to delete "
+msgstr ""
+
+#: ../src/callbacks.c:446
+#, fuzzy
+msgid " files"
+msgstr "Dodaj pliki"
+
+#: ../src/callbacks.c:446
+msgid " file"
+msgstr ""
+
+#: ../src/callbacks.c:446
+msgid ""
+" from the archive.\n"
+"Are you really sure to do this ?"
+msgstr ""
+
+#: ../src/callbacks.c:451
+msgid "Deleting files from the archive, please wait..."
+msgstr ""
+
+#: ../src/callbacks.c:518
+msgid "Adding files to the archive, please wait..."
+msgstr ""
+
+#: ../src/callbacks.c:522
+msgid "Compressing file with bzip2, please wait..."
+msgstr ""
+
+#: ../src/callbacks.c:527
+msgid "Compressing file with gzip, please wait..."
+msgstr ""
+
+#: ../src/callbacks.c:626 ../src/callbacks.c:728
+#, fuzzy
+msgid "Extracting files to "
+msgstr "Rozpakowywanie archiwum"
+
+#: ../src/callbacks.c:843
+msgid ""
+"Select the files to be added to the current archive; use SHIFT to multiple "
+"select"
+msgstr ""
+
+#: ../src/callbacks.c:848
+msgid "Select the folder to be added to the current archive"
+msgstr ""
+
+#: ../src/callbacks.c:849
+msgid ""
+"Select the folders to be added to the current archive; use SHIFT to multiple "
+"select"
+msgstr ""
+
+#: ../src/callbacks.c:884 ../src/interface.c:233
+#, fuzzy
+msgid "Create a new archive"
+msgstr "Nowe archiwum"
+
+#: ../src/callbacks.c:890 ../src/interface.c:242
+#, fuzzy
+msgid "Open an archive"
+msgstr "Otwórz archiwum"
+
+#: ../src/callbacks.c:897
+msgid "Choose the destination folder where to extract the current archive"
+msgstr ""
+
+#: ../src/callbacks.c:928
+#, fuzzy
+msgid "All files"
+msgstr "Dodaj pliki"
+
+#: ../src/callbacks.c:933
+#, fuzzy
+msgid "Only archives"
+msgstr "Otwórz archiwum"
+
+#: ../src/callbacks.c:962
+#, fuzzy
+msgid "Archive type:"
+msgstr "_Archiwum"
+
+#: ../src/callbacks.c:965
+msgid "Choose the archive type to create"
+msgstr ""
+
+#: ../src/callbacks.c:975
+msgid "Add the archive extension to the filename"
+msgstr ""
+
+#: ../src/callbacks.c:1058 ../src/rpm.c:45
+#, c-format
+msgid ""
+"Can't open archive %s:\n"
+"%s"
+msgstr ""
+
+#: ../src/callbacks.c:1213
+msgid "ISO Image Information Window"
+msgstr ""
+
+#: ../src/callbacks.c:1215
+msgid "Error Messages Window"
+msgstr ""
+
+#: ../src/callbacks.c:1247
+msgid "Waiting for the process to abort..."
+msgstr ""
+
+#: ../src/callbacks.c:1302
+msgid "Please select a file, not a directory !"
+msgstr ""
+
+#: ../src/callbacks.c:1338
+msgid ""
+"An error occurred while extracting the file to be viewed.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/callbacks.c:1379
+msgid "Operation completed."
+msgstr ""
+
+#. Modified Date
+#: ../src/callbacks.c:1411
+#, c-format
+msgid "%c"
+msgstr ""
+
+#: ../src/callbacks.c:1419 ../src/callbacks.c:1445
+msgid " GB"
+msgstr ""
+
+#: ../src/callbacks.c:1424 ../src/callbacks.c:1450
+msgid " MB"
+msgstr ""
+
+#: ../src/callbacks.c:1430 ../src/callbacks.c:1456
+msgid " KB"
+msgstr ""
+
+#: ../src/callbacks.c:1434 ../src/callbacks.c:1460
+msgid " bytes"
+msgstr ""
+
+#: ../src/callbacks.c:1502
+msgid "Please type a archive->passwd !"
+msgstr ""
+
+#: ../src/callbacks.c:1507
+msgid "The archive->passwds don't match !!"
+msgstr ""
+
+#: ../src/callbacks.c:1829
+msgid "Sorry, I could not perform the operation."
+msgstr ""
+
+#: ../src/callbacks.c:1855
+msgid ""
+"Bzip2 or gzip cannot compress more than one file, please choose another "
+"archive format !"
+msgstr ""
+
+#: ../src/interface.c:70
+msgid "_Archive"
+msgstr "_Archiwum"
+
+#: ../src/interface.c:95
+#, fuzzy
+msgid "Test"
+msgstr "_Test"
+
+#: ../src/interface.c:105
+#, fuzzy
+msgid "Properties"
+msgstr "Właściwości archiwum"
+
+#: ../src/interface.c:120
+#, fuzzy
+msgid "_Action"
+msgstr "A_kcja"
+
+#: ../src/interface.c:129 ../src/interface.c:251
+#, fuzzy
+msgid "Add File"
+msgstr "Dodaj pliki"
+
+#: ../src/interface.c:133 ../src/interface.c:260
+msgid "Add Folder"
+msgstr "Dodaj folder"
+
+#: ../src/interface.c:142 ../src/interface.c:274
+msgid "Extract"
+msgstr "Rozpakuj"
+
+#: ../src/interface.c:154 ../src/interface.c:293
+msgid "View"
+msgstr ""
+
+#. options1 = gtk_image_menu_item_new_with_mnemonic ("Options");
+#. gtk_widget_set_name (options1, "options1");
+#. gtk_widget_show (options1);
+#. gtk_container_add (GTK_CONTAINER (menuitem2_menu), options1);
+#.
+#. image1 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
+#. gtk_widget_set_name (image1, "image1");
+#. gtk_widget_show (image1);
+#. gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (options1), image1);
+#.
+#: ../src/interface.c:180
+msgid "Set Password"
+msgstr ""
+
+#: ../src/interface.c:186
+msgid "View Error Messages"
+msgstr ""
+
+#: ../src/interface.c:195
+msgid "Show ISO info"
+msgstr ""
+
+#: ../src/interface.c:213
+msgid "_About"
+msgstr ""
+
+#: ../src/interface.c:228
+msgid "New"
+msgstr ""
+
+#: ../src/interface.c:237
+msgid "Open"
+msgstr ""
+
+#: ../src/interface.c:256
+msgid "Add a file to the current archive"
+msgstr ""
+
+#: ../src/interface.c:265
+msgid "Add an entire folder to the current archive"
+msgstr ""
+
+#: ../src/interface.c:279
+msgid ""
+"Extract files from the current archive; use the mouse to select files "
+"individually"
+msgstr ""
+
+#: ../src/interface.c:283
+msgid "Delete"
+msgstr ""
+
+#: ../src/interface.c:289
+msgid "Delete files from the current archive"
+msgstr ""
+
+#: ../src/interface.c:299
+msgid "View file content in the current archive"
+msgstr ""
+
+#: ../src/interface.c:308
+msgid "Stop"
+msgstr ""
+
+#: ../src/interface.c:314
+msgid "Cancel current operation"
+msgstr ""
+
+#: ../src/interface.c:372
+msgid "This archive contains password protected files"
+msgstr ""
+
+#: ../src/interface.c:499
+msgid "Extract ONLY selected files"
+msgstr ""
+
+#: ../src/interface.c:501
+#, fuzzy
+msgid "Extract ALL files"
+msgstr "Rozpakowywanie archiwum"
+
+#: ../src/interface.c:504
+msgid "Extract bzip2 compressed file"
+msgstr ""
+
+#: ../src/interface.c:505
+msgid "Extract gzip compressed file"
+msgstr ""
+
+#: ../src/interface.c:533
+msgid "Choose a folder where to extract files"
+msgstr ""
+
+#: ../src/interface.c:548
+#, fuzzy
+msgid "Extract to:"
+msgstr "Rozpakuj do"
+
+#: ../src/interface.c:599
+msgid "Enter Archive Password"
+msgstr ""
+
+#: ../src/interface.c:620
+msgid "Password:"
+msgstr ""
+
+#: ../src/interface.c:636
+msgid "Retype it:"
+msgstr ""
+
+#: ../src/interface.c:641
+msgid ""
+"Please note that the password is automatically resetted each time you open "
+"or create a new archive."
+msgstr ""
+
+#: ../src/interface.c:685
+msgid "View File Window"
+msgstr ""
+
+#: ../src/interface.c:722
+#, fuzzy
+msgid "Archive Properties Window"
+msgstr "Właściwości archiwum"
+
+#: ../src/interface.c:737
+msgid "Name:"
+msgstr ""
+
+#: ../src/interface.c:745
+msgid "Path:"
+msgstr ""
+
+#: ../src/interface.c:753
+msgid "Modified on:"
+msgstr ""
+
+#: ../src/interface.c:761
+#, fuzzy
+msgid "Archive size:"
+msgstr "_Archiwum"
+
+#: ../src/interface.c:769
+msgid "Content size:"
+msgstr ""
+
+#: ../src/interface.c:777
+msgid "Compression ratio:"
+msgstr ""
+
+#: ../src/interface.c:785
+msgid "Number of files:"
+msgstr ""
+
+#: ../src/interface.c:793
+msgid "Number of dirs:"
+msgstr ""
+
+#: ../src/iso.c:569
+#, c-format
+msgid ""
+"Can't open ISO image %s:\n"
+"%s"
+msgstr ""
+
+#: ../src/iso.c:583
+msgid "This ISO image is malformed !"
+msgstr ""
+
+#: ../src/iso.c:598
+#, c-format
+msgid ""
+"\n"
+"\n"
+"Filename        : %s\n"
+"Size               : %lld bytes\n"
+"\n"
+"System ID      : %s\n"
+"Volume ID      : %s\n"
+"Application      : %s\n"
+"Publisher        : %s\n"
+"Preparer        : %s\n"
+"Volume Set ID   : %s\n"
+"Bibliographic ID: %s\n"
+"Copyright ID    : %s\n"
+"Abstract ID     : %s\n"
+"\n"
+"Creation Date   : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
+"Modified Date   : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
+"Expiration Date : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
+"Effective Date  : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
+"\n"
+"Volume Set Size    : %d\n"
+"Volume Sequence n. : %d\n"
+"Volume Space Size  : %d\n"
+"Logical Block Size : %d\n"
+"Path Table Size    : %d\n"
+"Root Dir. Record   : %d\n"
+msgstr ""
+
+#: ../src/iso.c:667 ../src/zip.c:33
+msgid "Method"
+msgstr "Metoda"
+
+#: ../src/iso.c:667 ../src/zip.c:33
+#, fuzzy
+msgid "CRC-32"
+msgstr "CRC"
+
+#: ../src/main.c:70
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+
+#: ../src/main.c:133
+msgid "Ready."
+msgstr ""
+
+#: ../src/rpm.c:54
+#, fuzzy
+msgid "Permission"
+msgstr "Uprawnienia"
+
+#: ../src/rpm.c:54
+msgid "Links"
+msgstr ""
+
+#: ../src/rpm.c:54
+msgid "Owner"
+msgstr ""
+
+#: ../src/rpm.c:54
+msgid "Group"
+msgstr ""
+
+#: ../src/rpm.c:121
+msgid ""
+"An error occurred while extracting the cpio archive\n"
+"from the rpm one. Do you want to view the shell output ?"
+msgstr ""
+
+#: ../src/rpm.c:145
+msgid ""
+"An error occurred while decompressing the cpio archive.\n"
+"Do you want to view the shell output ?"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h:2
+#, fuzzy
+msgid "Aarchiver"
+msgstr "_Archiwum"
+
+#: ../xarchiver.desktop.in.h:3
+#, fuzzy
+msgid "Xarchiver"
+msgstr "_Archiwum"
