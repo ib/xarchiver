@@ -1819,13 +1819,9 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
         filename = g_filename_from_uri ( array[0] , NULL, NULL );
         if ( filename != NULL)
         {
-			archive = xa_init_structure (archive);
-            if ( DetectArchiveType ( archive ) >= 0)
-            {
-                xa_open_archive ( NULL, filename );
-                g_strfreev ( array );
-                return;
-            }
+			xa_open_archive ( NULL, filename );
+			g_strfreev ( array );
+            return;
         }
     }
     if ( archive->type == -1)
