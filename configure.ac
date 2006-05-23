@@ -32,7 +32,7 @@ AC_SYS_LARGEFILE
 CPPFLAGS="$CPPFLAGS -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES"
 
 dnl Check for i18n support
-XDT_I18N([de el he hu ja nl pl ru])
+XDT_I18N([de el fi he hu ja nl pl ru])
 
 
 XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.2.0])
