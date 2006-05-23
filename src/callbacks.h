@@ -44,7 +44,7 @@
 
 short int response;
 double content_size;
-gboolean done , bz_gz;
+gboolean done;
 GtkWidget *dialog , *textview, *textview1, *scrollwin, *vbox, *OutputWindow , *File_Selector , *extract_window, *pwd_window, *password_entry , *repeat_password, *view_window,*archive_properties_win;
 GtkTextBuffer *textbuf , *viewtextbuf;
 GtkTextIter enditer , start, end;
@@ -68,7 +68,7 @@ struct File_Chooser_Data
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_open_archive (GtkMenuItem *menuitem, gpointer user_data );
 void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data);
-void on_quit1_activate (GtkMenuItem *menuitem, gpointer user_data);
+void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data);
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_about (GtkMenuItem *menuitem, gpointer user_data);
 void on_options1_activate (GtkMenuItem *menuitem, gpointer user_data);

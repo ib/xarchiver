@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -38,10 +38,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	XArchive *archive = data;
 	OffDeleteandViewButtons();
 
-	/* Let's delete the tmp file in /tmp if existing, look in bzip2.c:156 */
-    if ( archive->tmp != NULL)
-		unlink ( archive->tmp );
-
 	if ( WIFSIGNALED (status) )
 	{
 		Update_StatusBar ( _("Operation canceled."));
@@ -76,7 +72,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_widget_hide ( pad_image );
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to view the shell output?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
             archive->type = XARCHIVETYPE_UNKNOWN;
@@ -120,7 +116,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			OpenZip ( archive );
 			break;
 
-            //case 8:
+            //case XARCHIVETYPE_RPM:
             //RPM: only open and extract
 
             case XARCHIVETYPE_7ZIP:
@@ -162,10 +158,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-	archive = xa_init_structure (archive);
 	gchar *path = Show_File_Dialog ( 1 , "new" );
 	if (path == NULL)
 		return;
+	archive = xa_init_structure (archive);
 	if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),
@@ -196,13 +192,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     /* Let's off the delete and view buttons and the menu entries to avoid misterious behaviour */
     OffDeleteandViewButtons ();
 
-    /* TODO: This to delete a possible RPM file from /tmp since we don't need it anymore
-    if ( tmp != NULL )
-    {
-        unlink (tmp);
-        tmp = NULL;
-    }
-	*/
 	if ( liststore != NULL )
 		RemoveColumnsListStore();
 	
@@ -247,10 +236,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		path = Show_File_Dialog ( 1 , "open" );
 		if (path == NULL)
 			return;
-        /*if ( archive->escaped_path != NULL )
-			g_free ( archive->escaped_path );
-        archive->escaped_path = EscapeBadChars (path);
-        g_free (path);*/
 	}
 	archive = xa_init_structure(archive);
 	archive->path = g_strdup (path);
@@ -276,9 +261,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		RemoveColumnsListStore();
 		EmptyTextBuffer ();
 	}
-    /* TODO Did the user previously open an RPM file ? Delete it from /tmp since we don't need it anymore
-    if ( archive->type == 8 ) unlink (tmp);
-	*/
+    
     EmptyTextBuffer();
     if ( GTK_WIDGET_VISIBLE (OutputWindow ))
 		gtk_widget_hide (OutputWindow);
@@ -299,7 +282,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
         }
 
     gtk_widget_set_sensitive (Stop_button,TRUE);
-	bz_gz = FALSE;
     gtk_widget_show ( viewport2 );
     if ( archive->type == XARCHIVETYPE_ISO )
 		Update_StatusBar ( _("Please wait while the content of the ISO image is being read..."));
@@ -391,7 +373,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     g_free (command);
 }
 
-void on_quit1_activate (GtkMenuItem *menuitem, gpointer user_data)
+void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 {
     if ( GTK_WIDGET_VISIBLE (viewport2) )
     {
@@ -407,6 +389,15 @@ void on_quit1_activate (GtkMenuItem *menuitem, gpointer user_data)
 
 		if (archive->escaped_path)
 			g_free(archive->escaped_path);
+
+		if (archive->tmp)
+		{
+			unlink (archive->tmp);
+			g_free(archive->tmp);
+		}
+
+		if (archive->passwd)
+			g_free(archive->passwd);
 		g_free (archive);
 	}
 
@@ -416,13 +407,6 @@ void on_quit1_activate (GtkMenuItem *menuitem, gpointer user_data)
 			g_free (extract_path);
         g_free (es_path);
     }
-    /* This to delete a CPIO temp file in /tmp if existing
-    if ( tmp != NULL )
-    {
-        unlink (tmp);
-        tmp = NULL;
-    }
-	*/
     gtk_main_quit();
 }
 
@@ -593,8 +577,10 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window), GTK_RESPONSE_OK);
     if ( archive->has_passwd )
     {
-            if (archive->passwd == NULL) Show_pwd_Window ( NULL , NULL );
-            if ( archive->passwd == NULL) return;
+            if (archive->passwd == NULL)
+				Show_pwd_Window ( NULL , NULL );
+            if ( archive->passwd == NULL)
+				return;
     }
     done = FALSE;
     while ( ! done )
@@ -605,7 +591,6 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
             gtk_widget_destroy ( extract_window );
-			SetButtonState (1,1,0,0,0);
 			break;
 
 			case GTK_RESPONSE_OK:
@@ -660,13 +645,10 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 							command = g_strconcat ( "unzip -o " , archive->escaped_path , " -d " , extract_path , NULL );
 						break;
 
-                        /*
-						case 8:
+						case XARCHIVETYPE_RPM:
                         chdir ( extract_path );
-                        *g_message ("tmp is¨: %s\n",tmp);
-                        SpawnCPIO ( "cpio -ivd" , tmp , 0 , 1 );
+                        command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
                         break;
-						*/
 
                         case XARCHIVETYPE_7ZIP:
                         if (archive->passwd != NULL)
@@ -709,7 +691,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files)
 {
-    gchar *command;
+    gchar *command = NULL;
     unsigned short int levels;
     char digit[2];
     gchar *strip = NULL;
@@ -727,16 +709,12 @@ gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files)
     }
     switch (archive->type)
 	{
-        case XARCHIVETYPE_UNKNOWN:
-        command = NULL;
-        break;
-
-	    /*case 0:
+	    /*case XARCHIVETYPE_BZIP2:
 	    //Bzip2 extraction is handled when the the file is opened
 		//code execution never reaches here
 		break;
 
-		case 1:
+		case XARCHIVETYPE_GZIP:
         //idem
 		break;
 */
@@ -764,11 +742,7 @@ gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files)
 
         case XARCHIVETYPE_RPM:
         chdir ( extract_path );
-        command = g_strconcat ( "cpio -ivd" , files->str , NULL );
-        /*TODO: fix tmp 
-		SpawnCPIO ( command , tmp , 0 , 1 );*/
-        g_free (command);
-        command = NULL;
+        command = g_strconcat ( "cpio --make-directories " , files->str , " -F " , archive->tmp , " -i" , NULL);
         break;
 
         case XARCHIVETYPE_7ZIP:
@@ -777,7 +751,7 @@ gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files)
         break;
 
 		case XARCHIVETYPE_ARJ:
-		if (archive->passwd !=NULL) command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->escaped_path , " " , extract_path , files->str , NULL );
+		if (archive->passwd != NULL) command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->escaped_path , " " , extract_path , files->str , NULL );
         else command = g_strconcat ( "arj ",full_path ? "x" : "e"," -i -y " , archive->escaped_path , " " , extract_path , files->str, NULL );
 		break;
     }
@@ -1048,7 +1022,7 @@ int DetectArchiveType ( XArchive *archive )
     int xx = -1;
 	unsigned char magic[6];
 	dummy_ptr = fopen ( archive->path , "r" );
-
+	
 	if (dummy_ptr == NULL)
 	{
 		gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , archive->path , strerror (errno) );
@@ -1288,7 +1262,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
         break;
     }
     gtk_tree_model_get (model, &iter, COL_NAME, &dir, -1);
-    if (archive->type == 7)
+    if (archive->type == XARCHIVETYPE_ZIP)
     {
         if ( g_str_has_suffix (dir,"/") == TRUE ) is_dir = TRUE;
     }
@@ -1307,8 +1281,9 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
     extract_path = "/tmp/";
     names = g_string_new (" ");
     g_string_append ( names , dir );
+
     command = ChooseCommandtoExecute ( 0 , names);
-	archive->parse_output = FALSE;
+	archive->parse_output = 0;
    	SpawnAsyncProcess ( archive , command , 0);
     g_free ( command );
 	if ( archive->child_pid == 0 )
@@ -1331,8 +1306,9 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
     	{
     		SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-		    response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to view the shell output?") );
-            if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL , FALSE);
+		    response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to open the error messages window?") );
+            if (response == GTK_RESPONSE_YES)
+				ShowShellOutput (NULL , FALSE);
             unlink ( (char*)data );
 			return NULL;
         }
@@ -1340,7 +1316,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
     string = StripPathFromFilename ( (char*) data->str );
     //Let's avoid the white space
     data->str++;
-    if (  string == NULL )
+	if (  string == NULL )
 		filename = g_strconcat ( "/tmp/" , data->str , NULL );
     else
     {
@@ -1350,10 +1326,12 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
             tofree = TRUE;
         }
         filename = g_strconcat ( "/tmp" , string , NULL );
-        if ( tofree ) g_free ( string );
+        if ( tofree )
+			g_free ( string );
     }
     view_window = view_win();
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
+	g_print (filename);
     if (error == NULL)
     {
         g_io_channel_set_encoding (ioc_view, "ISO8859-1" , NULL);
@@ -1365,7 +1343,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
         g_io_channel_shutdown ( ioc_view , TRUE , NULL );
         g_io_channel_unref (ioc_view);
     }
-    unlink ( filename );
+    //unlink ( filename );
     gtk_widget_show (view_window);
     g_free (filename);
     //Let's restore the pointer to its correct memory address
@@ -1575,23 +1553,23 @@ void Activate_buttons ()
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
 	if (selected == 0 )
 		OffDeleteandViewButtons();
-    else
+	else
 	{
-        if ( archive->type != XARCHIVETYPE_RPM )
-        {
-            gtk_widget_set_sensitive ( delete_menu , TRUE );
-		    gtk_widget_set_sensitive ( Delete_button , TRUE );
-        }
-        if (selected > 1 || archive->type == XARCHIVETYPE_RPM )
-        {
-            gtk_widget_set_sensitive ( View_button , FALSE);
-		    gtk_widget_set_sensitive ( view_menu, FALSE );
-        }
-        else
-        {
-            gtk_widget_set_sensitive ( View_button , TRUE );
-		    gtk_widget_set_sensitive ( view_menu, TRUE );
-        }
+		if ( archive->type != XARCHIVETYPE_RPM )
+		{
+			gtk_widget_set_sensitive ( delete_menu , TRUE );
+			gtk_widget_set_sensitive ( Delete_button , TRUE );
+		}
+		if (selected > 1 )
+		{
+			gtk_widget_set_sensitive ( View_button , FALSE);
+			gtk_widget_set_sensitive ( view_menu, FALSE );
+		}
+		else
+		{
+			gtk_widget_set_sensitive ( View_button , TRUE );
+			gtk_widget_set_sensitive ( view_menu, TRUE );
+		}
 	}
 }
 

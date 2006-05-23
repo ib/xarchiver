@@ -115,7 +115,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
             gtk_widget_hide ( viewport2 );
     		SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the cpio archive\nfrom the rpm one. Do you want to view the shell output?") );
+		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the cpio archive\nfrom the rpm one. Do you want to open the error messages window?") );
             if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
             unlink ( cpio_tmp );
@@ -141,7 +141,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
             gtk_widget_hide ( viewport2 );
     		SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive.\nDo you want to view the shell output?") );
+		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
 			unlink ( cpio_tmp );
@@ -188,7 +188,6 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			g_error_free (error);
 			CloseChannels ( ioc_cpio );
 			CloseChannels ( input_ioc );
-			CloseChannels ( output_ioc );
 			return FALSE; 
 		}
         while ( bytes_read != bytes_written )
@@ -198,11 +197,12 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);
 			CloseChannels ( ioc_cpio );
 			CloseChannels ( input_ioc );
-			CloseChannels ( output_ioc );
 			return FALSE; 
 		}
 		g_io_channel_flush ( input_ioc , NULL );
 	}
+	CloseChannels ( ioc_cpio );
+	CloseChannels ( input_ioc );
 }
 
 /* output pipe */
@@ -279,13 +279,13 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		archive->row = g_list_prepend (archive->row,owner);
 		archive->row = g_list_prepend (archive->row,group);
 		archive->row = g_list_prepend (archive->row,size);
-/*
+
         if (  g_str_has_suffix (g_value_get_string (permissions) , "d") == FALSE)
 			archive->nr_of_files++;
         else
 			archive->nr_of_dirs++;
 		archive->dummy_size += g_value_get_uint64 (size);
- */
+
 		g_free (line);
 		archive->row_cnt++;
 		if (archive->row_cnt > 99)
@@ -300,9 +300,8 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
 		xa_append_rows ( archive , 6 );
+		archive->tmp = cpio_tmp;
 		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
-		unlink (cpio_tmp);
-		g_free (cpio_tmp);
 		return FALSE;
 	}
 	return TRUE;

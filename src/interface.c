@@ -396,7 +396,7 @@ GtkWidget *create_MainWindow (void)
   g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (ShowShellOutput), (gpointer) FALSE);
   g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (ShowShellOutput), (gpointer) TRUE);
   g_signal_connect ((gpointer) add_pwd, "activate", G_CALLBACK (Show_pwd_Window), NULL);
-  g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (on_quit1_activate), NULL);
+  g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
   g_signal_connect ((gpointer) delete_menu, "activate",
                     G_CALLBACK (xa_delete_archive),
                     NULL);

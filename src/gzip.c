@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -41,11 +41,8 @@ void OpenGzip ( XArchive *archive )
 		xa_create_liststore ( 6, names , (GType *)types );
         archive->type = XARCHIVETYPE_TAR_GZ;
 	}
-	else 
-	{
-        bz_gz = TRUE;
-        Bzip2Extract ( archive , 1 );
-    }
+	else
+		Bzip2Extract ( archive , 1 );
 }
 
 

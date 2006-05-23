@@ -48,13 +48,8 @@ int main (int argc, char *argv[])
   textdomain (GETTEXT_PACKAGE);
   #endif
   gtk_set_locale();
-  gtk_init (&argc, &argv);
-  //add_pixmap_directory (PACKAGE_DATA_DIR "/" PACKAGE "/pixmaps");
+  gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, NULL);
   cli = TRUE;
-  context = g_option_context_new ("[archive name]");
-  g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
-  g_option_context_add_group (context, gtk_get_option_group (TRUE));
-  g_option_context_parse (context, &argc, &argv, &cli_error);
  /* if (argc > 1)
   {
     escaped_path = EscapeBadChars ( argv[1] );
@@ -71,7 +66,7 @@ int main (int argc, char *argv[])
         g_error_free (cli_error);
         return 0;
   }
-  g_option_context_free ( context );
+
   //Switch -x
   if (extract_path != NULL)
   {
@@ -126,7 +121,7 @@ int main (int argc, char *argv[])
     ShowShellOutput (NULL,FALSE);
     gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
     gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
-    g_signal_connect (MainWindow, "delete_event", G_CALLBACK (on_quit1_activate), NULL);
+    g_signal_connect (MainWindow, "delete_event", G_CALLBACK (xa_quit_application), NULL);
     SetButtonState (1,1,0,0,0);
     Update_StatusBar ( _("Ready."));
     gtk_widget_show (MainWindow);

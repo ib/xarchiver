@@ -36,15 +36,19 @@ XArchive *xa_init_structure (XArchive *archive)
 		//TODO: memory leak with other fields ??
 		if(archive->path)
 			g_free(archive->path);
+		archive->path = NULL;
 
 		if(archive->escaped_path)
 			g_free(archive->escaped_path);
+		archive->escaped_path = NULL;
 		
 		if(archive->tmp)
 			g_free(archive->tmp);
+		archive->tmp = NULL;
 
 		if (archive->passwd != NULL)
 			g_free (archive->passwd);
+		archive->passwd = NULL;
 		
 		g_free (archive);
 	}
