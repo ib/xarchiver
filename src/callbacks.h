@@ -38,6 +38,7 @@
 #include "tar.h"
 #include "7zip.h"
 #include "bzip2.h"
+#include "rpm.h"
 #include "gzip.h"
 #include "archive.h"
 

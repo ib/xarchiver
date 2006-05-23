@@ -1,6 +1,5 @@
 # Greek translations for xarchiver package.
 # Copyright (C) 2005-2006 Giuseppe Torelli.
-# Copyright (C) 2005-2006 Stephan Arts.
 # This file is distributed under the same license as the xarchiver package.
 # Stavros Giannouris <stavrosg2002@freemail.gr>, 2006.
 # Stathis Kamperis <ekamperi@auth.gr>, 2006.

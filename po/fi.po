@@ -1,6 +1,5 @@
 # Finnish translation of xarchiver.
 # Copyright (C) 2005-2006 Giuseppe Torelli.
-# Copyright (C) 2005-2006 Stephan Arts.
 # This file is distributed under the same license as the xarchiver package.
 # Jari Rahkonen <jari.rahkonen@pp2.inet.fi>, 2006.
 #

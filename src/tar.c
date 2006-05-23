@@ -1,5 +1,6 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Stephan Arts - <psybsd@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -37,7 +38,8 @@ void OpenTar ( XArchive *archive )
 
 gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	gchar *line			= NULL;
+	XArchive *archive = data;
+	gchar *line	= NULL;
 	GValue *filename    = NULL;
 	GValue *permissions = NULL;
 	GValue *owner       = NULL;

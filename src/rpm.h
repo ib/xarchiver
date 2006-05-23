@@ -1,7 +1,5 @@
 /*
- *  Xarchiver
- *
- *  Copyright (C) 2005 Giuseppe Torelli - Colossus
+ *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,20 +19,16 @@
 #ifndef RPM_H
 #define RPM_H
 
- #include <gtk/gtk.h>
- #include <signal.h>
- #include "callbacks.h"
- #include "interface.h"
- #include "support.h"
- #include "main.h"
+#include <gtk/gtk.h>
+#include "callbacks.h"
+#include "interface.h"
+#include "support.h"
+#include "archive.h"
 
-void OpenRPM ( gboolean mode , gchar *path );
+void OpenRPM ( XArchive *archive );
 GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data);
 GChildWatchFunc *OpenCPIO (GPid pid , gint status , gpointer data);
-
-void SpawnCPIO ( gchar *command , gchar* tmp , gboolean input_flag );
 gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data);
-gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void CloseChannels ( GIOChannel *ioc );
 
 #endif

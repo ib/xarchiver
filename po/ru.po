@@ -1,6 +1,5 @@
 # Russian translation for xarchiver package.
 # Copyright (C) 2005-2006 Giuseppe Torelli.
-# Copyright (C) 2005-2006 Stephan Arts.
 # This file is distributed under the same license as the xarchiver package.
 # Eugene Ostapets <eostapets@altlinux.ru>, 2005.
 # Andrey Fedoseev <andrey.fedoseev@gmail.com>, 2006.

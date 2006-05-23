@@ -76,7 +76,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_widget_hide ( pad_image );
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to view the shell output ?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to view the shell output?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
             archive->type = XARCHIVETYPE_UNKNOWN;
@@ -133,10 +133,17 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		}
         return;
 	}
-    //This to disable the Add and Delete buttons in case a bzip2 / gzip file has been decompressed
     if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
 		SetButtonState (1,1,0,0,0);
-  
+	else if (archive->type == XARCHIVETYPE_RPM)
+		SetButtonState (1,1,0,0,1);
+	else
+	{
+		SetButtonState (1,1,1,1,1);
+		gtk_widget_set_sensitive ( add_pwd , TRUE );
+        gtk_widget_set_sensitive ( check_menu , TRUE);
+	}
+
     if ( archive->passwd != NULL || archive->has_passwd )
     {
         gtk_widget_show ( pad_image );
@@ -147,22 +154,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
         gtk_widget_hide ( pad_image );
 		gtk_tooltips_disable ( pad_tooltip );
     }
-    //This to enable only the Extract button in case an RPM was opened
-    if (archive->type == XARCHIVETYPE_RPM)
-		SetButtonState (1,1,0,0,1);
 
-    if ( archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP)
-    {
-        gtk_widget_set_sensitive ( add_pwd , TRUE );
-        gtk_widget_set_sensitive ( check_menu , TRUE);
-    }
-    else
-    {
-        gtk_widget_set_sensitive ( add_pwd , FALSE );
-        gtk_widget_set_sensitive ( check_menu , FALSE);
-    }
     gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
-    gtk_widget_set_sensitive ( properties , TRUE );
+	gtk_widget_set_sensitive ( properties , TRUE );
     Update_StatusBar ( _("Operation successfully completed."));
 }
 
@@ -178,7 +172,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 						GTK_DIALOG_MODAL,
 						GTK_MESSAGE_QUESTION,
 						GTK_BUTTONS_YES_NO,
-						_("This archive already exists. Do you want to overwrite it ?")
+						_("This archive already exists. Do you want to overwrite it?")
 						);
 		if (response != GTK_RESPONSE_YES)
 		{
@@ -300,7 +294,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
     if ( ext != NULL )
         if ( ! g_list_find ( ArchiveType , ext ) )
         {
-            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported since the proper archiver has't been installed !") );
+            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported since the proper archiver has't been installed!") );
             return;
         }
 
@@ -337,7 +331,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_RPM:
-        //OpenRPM (archive);
+        OpenRPM (archive);
         break;
 
 		case XARCHIVETYPE_TAR:
@@ -401,7 +395,7 @@ void on_quit1_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
     if ( GTK_WIDGET_VISIBLE (viewport2) )
     {
-        Update_StatusBar ( _("Please hit the Stop button first !"));
+        Update_StatusBar ( _("Please hit the Stop button first!"));
         return;
     }
     g_list_free ( Suffix );
@@ -443,7 +437,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
     x = gtk_tree_selection_count_selected_rows (selection);
     sprintf ( numbers , "%d", x );
-    gchar *msg = g_strconcat (_("You are about to delete "),numbers,x > 1 ? _(" files") : _(" file") , _(" from the archive.\nAre you really sure to do this ?"),NULL);
+    gchar *msg = g_strconcat (_("You are about to delete "),numbers,x > 1 ? _(" files") : _(" file") , _(" from the archive.\nAre you really sure to do this?"),NULL);
     response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,msg );
     g_free (msg);
     if ( response == GTK_RESPONSE_NO)
@@ -514,6 +508,7 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
         Files_to_Add = g_slist_next ( Files_to_Add );
 	}
         SetButtonState (0,0,0,0,0);
+		archive->status = XA_ARCHIVESTATUS_ADD;
         if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
 			Update_StatusBar ( _("Adding files to the archive, please wait..."));
 		switch (archive->type)
@@ -610,6 +605,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
             gtk_widget_destroy ( extract_window );
+			SetButtonState (1,1,0,0,0);
 			break;
 
 			case GTK_RESPONSE_OK:
@@ -793,7 +789,7 @@ gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files)
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nDeveloper:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\n\nThanks to Stephan Arts and Salvatore Santagati respectly for optimizing the code and for ISO support\n",NULL};
+    const char *authors[] = {"\nDeveloper:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\n\nThanks to Stephan Arts and Salvatore Santagati\nrespectly for optimizing the code and for ISO support\n",NULL};
     const char *documenters[] = {"\nThanks to:\nBenedikt Meurer for helping me with DnD.\n\nFabian Pedrosa, Szervac Attila and Iuri Stanchev\nfor testing this release.\n\nUracile for the stunning logo.\n\nEugene Ostapets and Enrico Troeger\nfor russian and german translation.\n\nThe people of gtk-app-devel-list\nwho kindly answered my questions.", NULL};
 	if (about != NULL)
 	{
@@ -810,7 +806,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
               "documenters",documenters,
 		      "translator_credits", NULL,
 		      "logo_icon_name", "xarchiver",
-		      "website", "http://xarchiver.sourceforge.net",
+		      "website", "http://xarchiver.xfce.org",
 		      "website_label", NULL,
 		      "license",    "Copyright @2005 Giuseppe Torelli - Colossus <gt67@users.sourceforge.net>\n\n"
 		      			"This library is free software; you can redistribute it and/or\n"
@@ -869,15 +865,15 @@ GSList *Add_File_Dialog ( gchar *mode )
 
 gchar *Show_File_Dialog ( int dummy , gpointer mode )
 {
-	GtkWidget *hbox;
-	GtkWidget *combo_box;
-	GtkWidget *check_button;
+	GtkWidget *hbox = NULL;
+	GtkWidget *combo_box = NULL;
+	GtkWidget *check_button = NULL;
 	GtkFileFilter *filter;
 	GtkTooltips *FilterToolTip ;
 	gchar *path = NULL;
     gchar *dummy_path = NULL;
-	const gchar *flag2;
-	unsigned short int flag;
+	const gchar *flag2 = NULL;
+	unsigned short int flag = 0;
 
 	if ( mode == "new" )
 	{
@@ -1187,7 +1183,7 @@ void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType
 	{
 		renderer = gtk_cell_renderer_text_new ();
 		column = gtk_tree_view_column_new_with_attributes ( columns_names[x],renderer,"text",x,NULL);
-		//gtk_tree_view_column_set_resizable (column, TRUE);
+		gtk_tree_view_column_set_resizable (column, TRUE);
 		gtk_tree_view_column_set_sort_column_id (column, x);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (treeview1), column);
 	}
@@ -1299,7 +1295,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
     else if ( strstr ( dir , "d" ) || strstr ( dir , "D" ) ) is_dir = TRUE;
     if (is_dir)
     {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Please select a file, not a directory !") );
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Please select a file, not a directory!") );
         g_free ( dummy_name );
         g_free ( dir );
         return;
@@ -1335,7 +1331,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
     	{
     		SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-		    response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to view the shell output ?") );
+		    response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to view the shell output?") );
             if (response == GTK_RESPONSE_YES) ShowShellOutput (NULL , FALSE);
             unlink ( (char*)data );
 			return NULL;
@@ -1499,12 +1495,12 @@ void Show_pwd_Window ( GtkMenuItem *menuitem , gpointer user_data )
 			archive->passwd  = g_strdup ( gtk_entry_get_text( GTK_ENTRY ( password_entry ) ) );
             if ( strlen ( archive->passwd ) == 0 || strlen(gtk_entry_get_text( GTK_ENTRY ( repeat_password )) ) == 0 )
             {
-                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Please type a archive->passwd !") );
+                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Please type a password!") );
                 break;
             }
             if ( strcmp (archive->passwd , gtk_entry_get_text( GTK_ENTRY ( repeat_password ) ) ) )
             {
-                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("The archive->passwds don't match !!") );
+                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("The passwords don't match!") );
                 gtk_entry_set_text ( GTK_ENTRY ( password_entry ) , "" );
                 gtk_entry_set_text ( GTK_ENTRY ( repeat_password ) , "" );
             }
@@ -1826,7 +1822,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
     array = gtk_selection_data_get_uris ( data );
     if (array == NULL)
     {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation.") );
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!") );
         gtk_drag_finish (context, FALSE, FALSE, time);
         return;
     }
@@ -1852,7 +1848,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
     {
         if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
         {
-            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file, please choose another archive format !") );
+            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file, please choose another archive format!") );
             gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
             Update_StatusBar ( _("Operation failed."));
             return;

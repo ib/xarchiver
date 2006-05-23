@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@ void OpenRar ( XArchive *archive )
 
 gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
+	XArchive *archive = data;
 	gchar *line = NULL;
 	gchar *start = NULL;
 	gchar *end = NULL;

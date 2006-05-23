@@ -56,6 +56,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 {
     gchar *text;
     gchar *new_path;
+	gchar *command = NULL;
     extract_window = prefs (0);
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window), GTK_RESPONSE_OK);
 	done = FALSE;
@@ -75,7 +76,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 				done = TRUE;
 				gchar *archive_name = StripPathFromFilename ( archive->escaped_path );
 				archive->parse_output = 0;
-				gchar *command = g_strconcat ( flag ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
+				command = g_strconcat ( flag ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
 				SpawnAsyncProcess ( archive , command , 0);
 				g_free ( command );
 				if ( archive->child_pid == 0 )
@@ -103,12 +104,17 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 				g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
 			}
 			else
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please select where to extract files !") );
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please select where to extract files!") );
 			break;
     	}
 	}
 	gtk_widget_destroy ( extract_window );
-	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);	    
+	SetButtonState (1,1,0,0,0);
+	gtk_widget_set_sensitive ( Stop_button , FALSE );
+	gtk_widget_hide ( viewport2 );
+	Update_StatusBar ( _("Operation completed."));
+	if (command != NULL)
+		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);	    
 }
 
 gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
@@ -209,7 +215,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 		{
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to view the shell output ?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to view the shell output?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
 			unlink ( tmp );
@@ -254,7 +260,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 		{
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive.\nDo you want to view the shell output ?") : _("An error occurred while deleting from the tar archive.\nDo you want to view the shell output ?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive.\nDo you want to view the shell output ?") : _("An error occurred while deleting from the tar archive.\nDo you want to view the shell output?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
             unlink ( tmp );
@@ -278,7 +284,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 			SetButtonState (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive.\nDo you want to view the shell output ?") );
+			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive.\nDo you want to view the shell output?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
 			unlink ( tmp );

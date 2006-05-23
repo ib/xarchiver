@@ -20,7 +20,7 @@
 #include "bzip2.h"
 
 FILE *fd;
-extern int output_fd,error_fd;
+extern int output_fd;
 
 void OpenGzip ( XArchive *archive )
 {

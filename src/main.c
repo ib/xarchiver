@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ extern gchar *extract_path;
 
 gchar *cli_command = NULL;
 gboolean error_output,cli;
-GError *cl_error = NULL;
+GError *cli_error = NULL;
 
 gboolean file_to_open;
 gboolean ask_and_extract;
@@ -54,7 +54,7 @@ int main (int argc, char *argv[])
   context = g_option_context_new ("[archive name]");
   g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
   g_option_context_add_group (context, gtk_get_option_group (TRUE));
-  g_option_context_parse (context, &argc, &argv, &cl_error);
+  g_option_context_parse (context, &argc, &argv, &cli_error);
  /* if (argc > 1)
   {
     escaped_path = EscapeBadChars ( argv[1] );
@@ -65,17 +65,16 @@ int main (int argc, char *argv[])
     }
     else CurrentArchiveType = DetectArchiveType (escaped_path);
   }*/
-  if ( cl_error != NULL )
+  if ( cli_error != NULL )
   {
-        g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cl_error->message);
-        g_error_free (cl_error);
+        g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cli_error->message);
+        g_error_free (cli_error);
         return 0;
   }
   g_option_context_free ( context );
   //Switch -x
   if (extract_path != NULL)
   {
-    
     /*if ( g_str_has_suffix ( escaped_path , ".tar.bz2") || g_str_has_suffix ( escaped_path , ".tar.bz") || g_str_has_suffix ( escaped_path , ".tbz") || g_str_has_suffix ( escaped_path , ".tbz2" ) ) CurrentArchiveType = 4;
     else if ( g_str_has_suffix ( escaped_path , ".tar.gz") || g_str_has_suffix ( escaped_path , ".tgz") ) CurrentArchiveType = 5;
     else
@@ -87,7 +86,6 @@ int main (int argc, char *argv[])
             g_print ( _("This switch can't be used with password protected archives.\n") ); 
             return 0;
         }
-		
     }*/
     GString *string = g_string_new ( "" );
     cli_command = ChooseCommandtoExecute ( 1,string );

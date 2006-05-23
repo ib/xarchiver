@@ -1,6 +1,5 @@
 # translation of he.po to Hebrew
 # Copyright (C) 2005-2006 Giuseppe Torelli.
-# Copyright (C) 2005-2006 Stephan Arts.
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Dotan Kamber <kamberd@yahoo.com>, 2006.
