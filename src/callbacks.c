@@ -134,6 +134,12 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		SetButtonState (1,1,0,0,0);
 	else if (archive->type == XARCHIVETYPE_RPM)
 		SetButtonState (1,1,0,0,1);
+	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+	{
+		SetButtonState (1,1,1,1,1);
+		gtk_widget_set_sensitive ( add_pwd , FALSE );
+        gtk_widget_set_sensitive ( check_menu , FALSE);
+	}
 	else
 	{
 		SetButtonState (1,1,1,1,1);
@@ -1345,7 +1351,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
         g_io_channel_shutdown ( ioc_view , TRUE , NULL );
         g_io_channel_unref (ioc_view);
     }
-    //unlink ( filename );
+    unlink ( filename );
     gtk_widget_show (view_window);
     g_free (filename);
     //Let's restore the pointer to its correct memory address
