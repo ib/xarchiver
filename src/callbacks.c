@@ -53,15 +53,16 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		return;
 	}
 	OffTooltipPadlock();
-    /*if (action == test)
+    if (archive->status == XA_ARCHIVESTATUS_TEST)
     {
         archive->status = XA_ARCHIVESTATUS_IDLE;
-        ShowShellOutput ( NULL , FALSE );
-        SetButtonState (1,1,1,1,1);
-        gtk_widget_set_sensitive ( check_menu , TRUE );
-        Update_StatusBar ( _("Operation completed.") );
+		Update_StatusBar ( _("Operation completed.") );
+		gchar *msg = g_strconcat ("The archive \"" , archive->path , "\"is OK!" , NULL);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,msg );
+		SetButtonState (1,1,1,1,1);
+        g_free (msg);
         return;
-    }*/
+    }
     
 	if ( WIFEXITED (status) )
 	{
@@ -369,6 +370,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 		    else command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
 		break;
 	}
+	archive->status = XA_ARCHIVESTATUS_TEST;
     ExtractAddDelete ( command );
     g_free (command);
 }
