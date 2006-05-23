@@ -150,7 +150,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			return FALSE;
 		}
 	}
-	/* We delete the tmp gzip compressed CPIO archive since we don't need it anymore */
+	/* Let's delete the tmp gzip compressed CPIO archive since we don't need it anymore */
 	unlink ( gzip );
 
 	/* Now I have to open the CPIO temp file in read mode and spawn the
@@ -195,6 +195,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 		if (status == G_IO_STATUS_ERROR) 
 		{
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);
+			g_error_free (error);
 			CloseChannels ( ioc_cpio );
 			CloseChannels ( input_ioc );
 			return FALSE; 
@@ -203,6 +204,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	}
 	CloseChannels ( ioc_cpio );
 	CloseChannels ( input_ioc );
+	return TRUE;
 }
 
 /* output pipe */
