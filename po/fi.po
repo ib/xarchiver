@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2006-05-22 16:15+0300\n"
-"PO-Revision-Date: 2006-05-22 16:28+0300\n"
+"POT-Creation-Date: 2006-05-23 13:08+0300\n"
+"PO-Revision-Date: 2006-05-23 13:13+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp2.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
-#: ../src/iso.c:667 ../src/rpm.c:54 ../src/tar.c:33 ../src/zip.c:33
+#: ../src/iso.c:667 ../src/rpm.c:51 ../src/tar.c:34 ../src/zip.c:33
 msgid "Filename"
 msgstr "Tiedostonimi"
 
@@ -33,12 +33,12 @@ msgid "Attr"
 msgstr "Attr"
 
 #: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
-#: ../src/iso.c:667 ../src/tar.c:33 ../src/zip.c:33
+#: ../src/iso.c:667 ../src/tar.c:34 ../src/zip.c:33
 msgid "Time"
 msgstr "Aika"
 
 #: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:43 ../src/gzip.c:39
-#: ../src/iso.c:667 ../src/tar.c:33 ../src/zip.c:33
+#: ../src/iso.c:667 ../src/tar.c:34 ../src/zip.c:33
 msgid "Date"
 msgstr "Pvm"
 
@@ -58,43 +58,47 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/iso.c:667 ../src/tar.c:33
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/iso.c:667 ../src/tar.c:34
 msgid "Permissions"
 msgstr "Oikeudet"
 
-#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/tar.c:33
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/tar.c:34
 msgid "Owner/Group"
 msgstr "Omistaja/Ryhmä"
 
-#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/rpm.c:54 ../src/tar.c:33
+#: ../src/bzip2.c:43 ../src/gzip.c:39 ../src/rpm.c:51 ../src/tar.c:34
 msgid "Size"
 msgstr "Koko"
 
-#: ../src/bzip2.c:97
+#: ../src/bzip2.c:98
 msgid "Extracting "
 msgstr "Puretaan "
 
-#: ../src/bzip2.c:97
+#: ../src/bzip2.c:98
 msgid " file to "
 msgstr " tiedosto kohteeseen "
 
-#: ../src/bzip2.c:106
-msgid "Please select where to extract files !"
+#: ../src/bzip2.c:107
+msgid "Please select where to extract files!"
 msgstr "Valitse, mihin tiedostot puretaan!"
 
-#: ../src/bzip2.c:190
+#: ../src/bzip2.c:115 ../src/callbacks.c:1375
+msgid "Operation completed."
+msgstr "Toiminto suoritettu."
+
+#: ../src/bzip2.c:196
 msgid "Decompressing tar file with "
 msgstr "Puretaan tar-tiedostoa sovelluksella "
 
-#: ../src/bzip2.c:212
+#: ../src/bzip2.c:218
 msgid ""
 "An error occurred while decompressing the archive.\n"
-"Do you want to view the shell output ?"
+"Do you want to view the shell output?"
 msgstr ""
-"Virhe purettaessa tiedostoa arkistoa.\n"
+"Virhe purettaessa arkistoa.\n"
 "Haluatko nähdä päätteeseen tulostetun tekstin?"
 
-#: ../src/bzip2.c:257
+#: ../src/bzip2.c:263
 msgid ""
 "An error occurred while adding to the tar archive.\n"
 "Do you want to view the shell output ?"
@@ -102,22 +106,22 @@ msgstr ""
 "Virhe lisättäessä tar-arkistoon.\n"
 "Haluatko nähdä päätteeseen tulostetun tekstin?"
 
-#: ../src/bzip2.c:257
+#: ../src/bzip2.c:263
 msgid ""
 "An error occurred while deleting from the tar archive.\n"
-"Do you want to view the shell output ?"
+"Do you want to view the shell output?"
 msgstr ""
 "Virhe poistettaessa tar-arkistosta.\n"
 "Haluatko nähdä päätteeseen tulostetun tekstin?"
 
-#: ../src/bzip2.c:266
+#: ../src/bzip2.c:272
 msgid "Recompressing tar file with "
 msgstr "Pakataan tar-tiedosto uudelleen sovelluksella "
 
-#: ../src/bzip2.c:281
+#: ../src/bzip2.c:287
 msgid ""
 "An error occurred while recompressing the tar archive.\n"
-"Do you want to view the shell output ?"
+"Do you want to view the shell output?"
 msgstr ""
 "Virhe uudelleenpakattaessa tar-arkistoa.\n"
 "Haluatko nähdä päätteeseen tulostetun tekstin?"
@@ -134,15 +138,15 @@ msgstr "Ole hyvä ja tarkista \""
 msgid "\" since some files could have been already extracted."
 msgstr "\", sillä osa tiedostoista mahdollisesti purettiin jo."
 
-#: ../src/callbacks.c:74 ../src/callbacks.c:1857 ../src/rpm.c:117
-#: ../src/rpm.c:141
+#: ../src/callbacks.c:74 ../src/callbacks.c:1853 ../src/rpm.c:114
+#: ../src/rpm.c:140
 msgid "Operation failed."
 msgstr "Toiminto epäonnistui."
 
 #: ../src/callbacks.c:79
 msgid ""
 "An error occurred while accessing the archive.\n"
-"Do you want to view the shell output ?"
+"Do you want to view the shell output?"
 msgstr ""
 "Virhe luettaessa arkistoa.\n"
 "Haluatko nähdä päätteeseen tulostetun tekstin?"
@@ -153,146 +157,146 @@ msgstr ""
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Odota, kun arkiston sisältöä päivitetään..."
 
-#: ../src/callbacks.c:166 ../src/iso.c:800
+#: ../src/callbacks.c:160 ../src/iso.c:800
 msgid "Operation successfully completed."
 msgstr "Toiminto suoritettu onnistuneesti."
 
-#: ../src/callbacks.c:181
-msgid "This archive already exists. Do you want to overwrite it ?"
+#: ../src/callbacks.c:175
+msgid "This archive already exists. Do you want to overwrite it?"
 msgstr "Arkisto on jo olemassa. Korvataanko se?"
 
-#: ../src/callbacks.c:217
+#: ../src/callbacks.c:211
 msgid "Choose Add File to create the compressed file."
 msgstr "Valitse Lisää tiedosto luodaksesi pakatun tiedoston."
 
-#: ../src/callbacks.c:221
+#: ../src/callbacks.c:215
 msgid "Choose Add File or Add Folder to create the tar archive."
 msgstr "Valitse Lisää tiedosto tai Lisää hakemisto luodaksesi tar-arkiston."
 
-#: ../src/callbacks.c:225
+#: ../src/callbacks.c:219
 msgid "Choose Action->Set password to create a password protected archive."
 msgstr ""
 "Valitse Toiminnot->Aseta salasana luodaksesi salasanalla suojatun arkiston."
 
-#: ../src/callbacks.c:277
+#: ../src/callbacks.c:271
 msgid "The format of this archive is not recognized !"
 msgstr "Tuntematon arkistotyyppi!"
 
-#: ../src/callbacks.c:303
+#: ../src/callbacks.c:297
 msgid ""
 "Sorry, this archive format is not supported since the proper archiver has't "
-"been installed !"
+"been installed!"
 msgstr ""
 "Arkistotyyppiä ei valitettavasti tueta, koska sen vaatimaa arkistosovellusta "
 "ei ole asennettu!"
 
-#: ../src/callbacks.c:311
+#: ../src/callbacks.c:305
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Odota, kun ISO-levykuvaa luetaan..."
 
-#: ../src/callbacks.c:313
+#: ../src/callbacks.c:307
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Odota, kun arkiston sisältöä luetaan..."
 
-#: ../src/callbacks.c:370
+#: ../src/callbacks.c:364
 msgid "Testing archive integrity, please wait..."
 msgstr "Tarkistetaan arkiston eheyttä, odota..."
 
-#: ../src/callbacks.c:404
-msgid "Please hit the Stop button first !"
+#: ../src/callbacks.c:398
+msgid "Please hit the Stop button first!"
 msgstr "Paina ensin Pysäytä-painiketta!"
 
-#: ../src/callbacks.c:446
+#: ../src/callbacks.c:440
 msgid "You are about to delete "
 msgstr "Olet aikeissa poistaa "
 
-#: ../src/callbacks.c:446
+#: ../src/callbacks.c:440
 msgid " files"
 msgstr " tiedostoa"
 
-#: ../src/callbacks.c:446
+#: ../src/callbacks.c:440
 msgid " file"
 msgstr " tiedoston"
 
-#: ../src/callbacks.c:446
+#: ../src/callbacks.c:440
 msgid ""
 " from the archive.\n"
-"Are you really sure to do this ?"
+"Are you really sure to do this?"
 msgstr ""
 " arkistosta.\n"
 "Haluatko varmasti tehdä sen?"
 
-#: ../src/callbacks.c:451
+#: ../src/callbacks.c:445
 msgid "Deleting files from the archive, please wait..."
 msgstr "Poistetaan tiedostoja arkistosta, odota..."
 
-#: ../src/callbacks.c:518
+#: ../src/callbacks.c:513
 msgid "Adding files to the archive, please wait..."
 msgstr "Lisätään tiedostoja arkistoon, odota..."
 
-#: ../src/callbacks.c:522
+#: ../src/callbacks.c:517
 msgid "Compressing file with bzip2, please wait..."
 msgstr "Pakataan tiedostoa bzip2-sovelluksella, odota..."
 
-#: ../src/callbacks.c:527
+#: ../src/callbacks.c:522
 msgid "Compressing file with gzip, please wait..."
 msgstr "Pakataan tiedostoa gzip-sovelluksella, odota..."
 
-#: ../src/callbacks.c:626 ../src/callbacks.c:728
+#: ../src/callbacks.c:622 ../src/callbacks.c:724
 msgid "Extracting files to "
 msgstr "Puretaan tiedostoja kohteeseen "
 
-#: ../src/callbacks.c:843
+#: ../src/callbacks.c:839
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
 "select"
 msgstr ""
 "Valitse arkistoon lisättävät tiedostot. Valitse useita VAIHTO-näppäimellä."
 
-#: ../src/callbacks.c:848
+#: ../src/callbacks.c:844
 msgid "Select the folder to be added to the current archive"
 msgstr "Valitse arkistoon lisättävä hakemisto"
 
-#: ../src/callbacks.c:849
+#: ../src/callbacks.c:845
 msgid ""
 "Select the folders to be added to the current archive; use SHIFT to multiple "
 "select"
 msgstr ""
 "Valitse arkistoon lisättävät hakemistot. Valitse useita VAIHTO-näppäimellä."
 
-#: ../src/callbacks.c:884 ../src/interface.c:233
+#: ../src/callbacks.c:880 ../src/interface.c:233
 msgid "Create a new archive"
 msgstr "Luo uusi arkisto"
 
-#: ../src/callbacks.c:890 ../src/interface.c:242
+#: ../src/callbacks.c:886 ../src/interface.c:242
 msgid "Open an archive"
 msgstr "Avaa arkisto"
 
-#: ../src/callbacks.c:897
+#: ../src/callbacks.c:893
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Valitse kohdehakemisto, johon arkisto puretaan"
 
-#: ../src/callbacks.c:928
+#: ../src/callbacks.c:924
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
-#: ../src/callbacks.c:933
+#: ../src/callbacks.c:929
 msgid "Only archives"
 msgstr "Vain arkistot"
 
-#: ../src/callbacks.c:962
+#: ../src/callbacks.c:958
 msgid "Archive type:"
 msgstr "Arkistotyyppi:"
 
-#: ../src/callbacks.c:965
+#: ../src/callbacks.c:961
 msgid "Choose the archive type to create"
 msgstr "Valitse luotavan arkiston tyyppi"
 
-#: ../src/callbacks.c:975
+#: ../src/callbacks.c:971
 msgid "Add the archive extension to the filename"
 msgstr "Lisää arkiston pääte tiedostonimeen"
 
-#: ../src/callbacks.c:1058 ../src/rpm.c:45
+#: ../src/callbacks.c:1054 ../src/rpm.c:42
 #, c-format
 msgid ""
 "Can't open archive %s:\n"
@@ -301,72 +305,68 @@ msgstr ""
 "Arkistoa %s ei voi avata:\n"
 "%s"
 
-#: ../src/callbacks.c:1213
+#: ../src/callbacks.c:1209
 msgid "ISO Image Information Window"
 msgstr "ISO-levykuvan tietoikkuna"
 
-#: ../src/callbacks.c:1215
+#: ../src/callbacks.c:1211
 msgid "Error Messages Window"
 msgstr "Virheilmoitusikkuna"
 
-#: ../src/callbacks.c:1247
+#: ../src/callbacks.c:1243
 msgid "Waiting for the process to abort..."
 msgstr "Odotetaan, että prosessi peruuntuu..."
 
-#: ../src/callbacks.c:1302
-msgid "Please select a file, not a directory !"
+#: ../src/callbacks.c:1298
+msgid "Please select a file, not a directory!"
 msgstr "Valitse tiedosto, älä hakemistoa!"
 
-#: ../src/callbacks.c:1338
+#: ../src/callbacks.c:1334
 msgid ""
 "An error occurred while extracting the file to be viewed.\n"
-"Do you want to view the shell output ?"
+"Do you want to view the shell output?"
 msgstr ""
 "Virhe purettaessa tiedostoa katselua varten.\n"
 "Haluatko nähdä päätteeseen tulostetun tekstin?"
 
-#: ../src/callbacks.c:1379
-msgid "Operation completed."
-msgstr "Toiminto suoritettu."
-
 #. Modified Date
-#: ../src/callbacks.c:1411
+#: ../src/callbacks.c:1407
 #, c-format
 msgid "%c"
 msgstr "%c"
 
-#: ../src/callbacks.c:1419 ../src/callbacks.c:1445
+#: ../src/callbacks.c:1415 ../src/callbacks.c:1441
 msgid " GB"
 msgstr " Gt"
 
-#: ../src/callbacks.c:1424 ../src/callbacks.c:1450
+#: ../src/callbacks.c:1420 ../src/callbacks.c:1446
 msgid " MB"
 msgstr " Mt"
 
-#: ../src/callbacks.c:1430 ../src/callbacks.c:1456
+#: ../src/callbacks.c:1426 ../src/callbacks.c:1452
 msgid " KB"
 msgstr " kt"
 
-#: ../src/callbacks.c:1434 ../src/callbacks.c:1460
+#: ../src/callbacks.c:1430 ../src/callbacks.c:1456
 msgid " bytes"
 msgstr " tavua"
 
-#: ../src/callbacks.c:1502
-msgid "Please type a archive->passwd !"
-msgstr "Syötä arkisto->salasana!"
+#: ../src/callbacks.c:1498
+msgid "Please type a password!"
+msgstr "Ole hyvä ja syötä salasana!"
 
-#: ../src/callbacks.c:1507
-msgid "The archive->passwds don't match !!"
-msgstr "Arkisto->salasanat eivät täsmää!"
+#: ../src/callbacks.c:1503
+msgid "The passwords don't match!"
+msgstr "Salasanat eivät täsmää!"
 
-#: ../src/callbacks.c:1829
-msgid "Sorry, I could not perform the operation."
-msgstr "Toimintoa ei voitu valitettavasti suorittaa."
+#: ../src/callbacks.c:1825
+msgid "Sorry, I could not perform the operation!"
+msgstr "Toimintoa ei valitettavasti voitu suorittaa."
 
-#: ../src/callbacks.c:1855
+#: ../src/callbacks.c:1851
 msgid ""
 "Bzip2 or gzip cannot compress more than one file, please choose another "
-"archive format !"
+"archive format!"
 msgstr ""
 "Bzip2 ja gzip voivat pakata ainoastaan yhden tiedoston, valitse toinen "
 "arkistomuoto!"
@@ -449,8 +449,7 @@ msgstr "Lisää kokonainen hakemisto arkistoon"
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
-msgstr ""
-"Pura tiedostoja arkistosta. Valitse yksittäiset tiedostot hiirellä."
+msgstr "Pura tiedostoja arkistosta. Valitse yksittäiset tiedostot hiirellä."
 
 #: ../src/interface.c:283
 msgid "Delete"
@@ -646,38 +645,38 @@ msgstr ""
 "xarchiver: %s\n"
 "Kirjoittamalla xarchiver --help saat täyden listan komentorivivalitsimista.\n"
 
-#: ../src/main.c:133
+#: ../src/main.c:131
 msgid "Ready."
 msgstr "Valmis."
 
-#: ../src/rpm.c:54
+#: ../src/rpm.c:51
 msgid "Permission"
 msgstr "Oikeus"
 
-#: ../src/rpm.c:54
-msgid "Links"
-msgstr "Linkit"
+#: ../src/rpm.c:51
+msgid "Hard Link"
+msgstr "Kova linkki"
 
-#: ../src/rpm.c:54
+#: ../src/rpm.c:51
 msgid "Owner"
 msgstr "Omistaja"
 
-#: ../src/rpm.c:54
+#: ../src/rpm.c:51
 msgid "Group"
 msgstr "Ryhmä"
 
-#: ../src/rpm.c:121
+#: ../src/rpm.c:118
 msgid ""
 "An error occurred while extracting the cpio archive\n"
-"from the rpm one. Do you want to view the shell output ?"
+"from the rpm one. Do you want to view the shell output?"
 msgstr ""
 "Virhe purettaessa cpio-arkistoa rpm-arkistosta.\n"
 "Haluatko nähdä päätteeseen tulostetun tekstin?"
 
-#: ../src/rpm.c:145
+#: ../src/rpm.c:144
 msgid ""
 "An error occurred while decompressing the cpio archive.\n"
-"Do you want to view the shell output ?"
+"Do you want to view the shell output?"
 msgstr ""
 "Virhe purettaessa cpio-arkistoa.\n"
 "Haluatko nähdä päätteeseen tulostetun tekstin?"
