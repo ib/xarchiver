@@ -360,119 +360,117 @@ void dump_stat(int extent, XArchive *archive)
 
 void parse_dir (int extent, int len, XArchive *archive)
 {
- char testname[256];
- struct todo * td;
- int i;
- struct iso_directory_record * idr;
+	char testname[256];
+	struct todo * td;
+	int i;
+	struct iso_directory_record * idr;
  
- g_print ("%s\n", rootname);
-
-  while(len > 0 )
-    {
-      lseek(fileno(iso_stream), (extent - sector_offset) << 11, 0);
-      read(fileno(iso_stream), buffer, sizeof(buffer));
-      len -= sizeof(buffer);
-      extent++;
-      i = 0;
-      while(1==1){
-	idr = (struct iso_directory_record *) &buffer[i];
-	if(idr->length[0] == 0) break;
-	memset(&fstat_buf, 0, sizeof(fstat_buf));
-	name_buf[0] = xname[0] = 0;
-	fstat_buf.st_size = iso_733((unsigned char *)idr->size);
-	if( idr->flags[0] & 2)
-	  fstat_buf.st_mode |= S_IFDIR;
-	else
-	  fstat_buf.st_mode |= S_IFREG;	
-	if(idr->name_len[0] == 1 && idr->name[0] == 0)
-	  strcpy(name_buf, ".");
-	else if(idr->name_len[0] == 1 && idr->name[0] == 1)
-	  strcpy(name_buf, "..");
-	else {
-	  switch(ucs_level)
-	    {
-	    case 3:
-	      /*
-	       * Unicode name.  Convert as best we can.
-	       */
-	      {
-		int i;
-
-		for(i=0; i < idr->name_len[0] / 2; i++)
-		  {
-		    name_buf[i] = idr->name[i*2+1];
-		  }
-		name_buf[idr->name_len[0]/2] = '\0';
-	      }
-	      break;
-	    case 0:
-	      /*
-	       * Normal non-Unicode name.
-	       */
-	      strncpy(name_buf, idr->name, idr->name_len[0]);
-	      name_buf[idr->name_len[0]] = 0;
-	      break;
+	while(len > 0 )
+	{
+		lseek(fileno(iso_stream), (extent - sector_offset) << 11, 0);
+		read(fileno(iso_stream), buffer, sizeof(buffer));
+		len -= sizeof(buffer);
+		extent++;
+		i = 0;
+		while(1==1)
+		{
+			idr = (struct iso_directory_record *) &buffer[i];
+			if(idr->length[0] == 0) break;
+			memset(&fstat_buf, 0, sizeof(fstat_buf));
+			name_buf[0] = xname[0] = 0;
+			fstat_buf.st_size = iso_733((unsigned char *)idr->size);
+			if( idr->flags[0] & 2)
+				fstat_buf.st_mode |= S_IFDIR;
+			else
+				fstat_buf.st_mode |= S_IFREG;	
+			if(idr->name_len[0] == 1 && idr->name[0] == 0)
+				strcpy(name_buf, ".");
+			else if(idr->name_len[0] == 1 && idr->name[0] == 1)
+				strcpy(name_buf, "..");
+			else
+			{
+				switch(ucs_level)
+				{
+					case 3:
+					/*
+					* Unicode name.  Convert as best we can.
+					*/
+					{
+						int i;
+						for(i=0; i < idr->name_len[0] / 2; i++)
+						{
+							name_buf[i] = idr->name[i*2+1];
+						}
+						name_buf[idr->name_len[0]/2] = '\0';
+					}
+					break;
+					case 0:
+					/*
+					* Normal non-Unicode name.
+					*/
+					strncpy(name_buf, idr->name, idr->name_len[0]);
+					name_buf[idr->name_len[0]] = 0;
+					break;
 	    
-	      /*
-	       * Don't know how to do these yet.  Maybe they are the same
-	       * as one of the above.
-	       */
-	  
-	    }
-	
-	};
-	memcpy(date_buf, idr->date, 9);
-	if(use_rock) dump_rr(idr);
-	if(   (idr->flags[0] & 2) != 0
-	   && (idr->name_len[0] != 1
+					/*
+					* Don't know how to do these yet.  Maybe they are the same
+					* as one of the above.
+					*/
+				}
+			};
+			memcpy(date_buf, idr->date, 9);
+			if(use_rock) dump_rr(idr);
+			if(   (idr->flags[0] & 2) != 0
+			&& (idr->name_len[0] != 1
 	       || (idr->name[0] != 0 && idr->name[0] != 1)))
-	  {
-	    /*
-	     * Add this directory to the todo list.
-	     */
-	    td = todo_idr;
-	    if( td != NULL ) 
-	      {
-		while(td->next != NULL) td = td->next;
-		td->next = (struct todo *) malloc(sizeof(*td));
-		td = td->next;
-	      }
-	    else
-	      {
-		todo_idr = td = (struct todo *) malloc(sizeof(*td));
-	      }
-	    td->next = NULL;
-	    td->extent = iso_733((unsigned char *)idr->extent);
-	    td->length = iso_733((unsigned char *)idr->size);
-	    td->name = (char *) malloc(strlen(rootname) 
+		  {
+		    /*
+			 * Add this directory to the todo list.
+			*/
+			td = todo_idr;
+			if( td != NULL ) 
+		    {
+				while(td->next != NULL)
+					td = td->next;
+				td->next = (struct todo *) malloc(sizeof(*td));
+				td = td->next;
+			}
+			else
+			{
+				todo_idr = td = (struct todo *) malloc(sizeof(*td));
+			}
+			td->next = NULL;
+			td->extent = iso_733((unsigned char *)idr->extent);
+			td->length = iso_733((unsigned char *)idr->size);
+			td->name = (char *) malloc(strlen(rootname) 
 				       + strlen(name_buf) + 2);
-	    strcpy(td->name, rootname);
-	    strcat(td->name, name_buf);
-	    strcat(td->name, "/");
-	  }
-	else
-	  {
-	    strcpy(testname, rootname);
-	    strcat(testname, name_buf);
-	    if(xtract && strcmp(xtract, testname) == 0)
-	      {
-		/* extract_file(idr); */
-	      }
-	  }
-	if(   do_find
+			strcpy(td->name, rootname);
+			strcat(td->name, name_buf);
+			strcat(td->name, "/");
+		}
+		else
+		{
+		    strcpy(testname, rootname);
+			strcat(testname, name_buf);
+			if(xtract && strcmp(xtract, testname) == 0)
+			{
+				/* extract_file(idr); */
+			}
+		}
+		if( do_find
 	   && (idr->name_len[0] != 1
 	       || (idr->name[0] != 0 && idr->name[0] != 1)))
-	  {
-	    strcpy(testname, rootname);
-	    strcat(testname, name_buf);
-	    printf("%s\n", testname);
-	  }
+		{
+			strcpy(testname, rootname);
+			strcat(testname, name_buf);
+			//printf("%s\n", testname);
+		}
 	
-	dump_stat(iso_733((unsigned char *)idr->extent), archive);
-	i += buffer[i];
-	if (i > 2048 - sizeof(struct iso_directory_record))
-		break;
-      }
+		dump_stat(iso_733((unsigned char *)idr->extent), archive);
+		i += buffer[i];
+		if (i > 2048 - sizeof(struct iso_directory_record))
+			break;
+		}
     }
 }
 

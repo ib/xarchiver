@@ -481,13 +481,6 @@ GtkWidget *prefs (gint selected)
   GtkWidget *frame1;
   GtkWidget *alignment2;
   GtkWidget *vbox2;
-  GtkWidget *radiobutton1;
-  GSList *radiobutton1_group = NULL;
-  GtkWidget *radiobutton2;
-  GtkWidget *fixed2;
-  GtkWidget *radiobutton3;
-  GSList *radiobutton3_group = NULL;
-  GtkWidget *label3;
   GtkWidget *dialog_action_area1;
   GtkWidget *cancelbutton1;
   GtkWidget *okbutton1;

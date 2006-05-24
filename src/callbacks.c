@@ -705,6 +705,13 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
                         else
 							command = g_strconcat ( "arj x -i -y " , archive->escaped_path , " " , extract_path , NULL );
 						break;
+
+						case XARCHIVETYPE_ISO:
+						command = NULL;
+
+						break;
+
+
 					}
                     if ( command != NULL )
                     {
@@ -1033,7 +1040,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 
 gboolean isISO ( FILE *ptr )
 {
-	if ( (DetectImage(ptr)) > 0 )
+	if ( DetectImage(ptr) > 0 )
     {
         //gtk_widget_set_sensitive ( iso_info , TRUE );
         //gtk_widget_set_sensitive ( view_shell_output1 , FALSE );

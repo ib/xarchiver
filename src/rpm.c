@@ -190,10 +190,10 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			CloseChannels ( input_ioc );
 			return FALSE; 
 		}
-		/*while ( bytes_read != bytes_written )
+		while ( bytes_read != bytes_written )
 		{
 			status = g_io_channel_write_chars ( input_ioc , buffer + bytes_written , bytes_read - bytes_written , &bytes_written , &error );
-		}*/
+		}
 		if (status == G_IO_STATUS_ERROR) 
 		{
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);

@@ -115,6 +115,7 @@ int iso_733 ( unsigned char *p);
 int iso_723 ( unsigned char *p);
 int iso_731 ( unsigned char *p);
 int DetectImage (FILE *iso);
+void OpenISO ( XArchive *archive );
 void parse_dir (int extent, int len, XArchive *archive);
 void dump_stat(int extent, XArchive *archive);
 #endif /* __XARCHIVER_ISO_H__ */
