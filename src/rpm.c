@@ -179,14 +179,6 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
     g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
 
-	/*
-	 do {
-      g_io_channel_read_chars (source, buf, 1, &len, NULL);
-      
-      if (len != 1)
-	return TRUE;
-    }  while (buf[0] && buf[0] != STX);
-	*/
 	while ( (status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error) ) != G_IO_STATUS_EOF)
 	{
 		status = g_io_channel_write_chars ( input_ioc , buffer , bytes_read , &bytes_written , &error );
@@ -198,8 +190,10 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			CloseChannels ( input_ioc );
 			return FALSE; 
 		}
-        while ( bytes_read != bytes_written )
+		while ( bytes_read != bytes_written )
+		{
 			status = g_io_channel_write_chars ( input_ioc , buffer + bytes_written , bytes_read - bytes_written , &bytes_written , &error );
+		}
 		if (status == G_IO_STATUS_ERROR) 
 		{
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);

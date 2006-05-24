@@ -63,6 +63,33 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
 	OffDeleteandViewButtons();
+	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
+		SetButtonState (1,1,0,0,0);
+	else if (archive->type == XARCHIVETYPE_RPM)
+		SetButtonState (1,1,0,0,1);
+	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+	{
+		SetButtonState (1,1,1,1,1);
+		gtk_widget_set_sensitive ( add_pwd , FALSE );
+        gtk_widget_set_sensitive ( check_menu , FALSE);
+	}
+	else
+	{
+		SetButtonState (1,1,1,1,1);
+		gtk_widget_set_sensitive ( add_pwd , TRUE );
+        gtk_widget_set_sensitive ( check_menu , TRUE);
+	}
+
+    if ( archive->passwd != NULL || archive->has_passwd )
+    {
+        gtk_widget_show ( pad_image );
+        gtk_tooltips_enable ( pad_tooltip );
+    }
+    else
+    {
+        gtk_widget_hide ( pad_image );
+		gtk_tooltips_disable ( pad_tooltip );
+    }
 
 	if ( WIFSIGNALED (status) )
 	{
@@ -75,7 +102,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
             g_free (msg);
 		}
 		archive->status = XA_ARCHIVESTATUS_IDLE;
-		SetButtonState (1,1,0,0,0);
 		return;
 	}
 	OffTooltipPadlock();
@@ -83,7 +109,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
     {
         archive->status = XA_ARCHIVESTATUS_IDLE;
 		Update_StatusBar ( _("Operation completed.") );
-		gchar *msg = g_strconcat ("The archive \"" , archive->path , "\"is OK!" , NULL);
+		gchar *msg = g_strconcat (_("The integrity of the archive \"") , archive->path , _("\" is OK!") , NULL);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,msg );
 		SetButtonState (1,1,1,1,1);
         g_free (msg);
@@ -156,35 +182,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		}
         return;
 	}
-    if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
-		SetButtonState (1,1,0,0,0);
-	else if (archive->type == XARCHIVETYPE_RPM)
-		SetButtonState (1,1,0,0,1);
-	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
-	{
-		SetButtonState (1,1,1,1,1);
-		gtk_widget_set_sensitive ( add_pwd , FALSE );
-        gtk_widget_set_sensitive ( check_menu , FALSE);
-	}
-	else
-	{
-		SetButtonState (1,1,1,1,1);
-		gtk_widget_set_sensitive ( add_pwd , TRUE );
-        gtk_widget_set_sensitive ( check_menu , TRUE);
-	}
 
-    if ( archive->passwd != NULL || archive->has_passwd )
-    {
-        gtk_widget_show ( pad_image );
-        gtk_tooltips_enable ( pad_tooltip );
-    }
-    else
-    {
-        gtk_widget_hide ( pad_image );
-		gtk_tooltips_disable ( pad_tooltip );
-    }
-
-    gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
+	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
 	gtk_widget_set_sensitive ( properties , TRUE );
     Update_StatusBar ( _("Operation successfully completed."));
 }
@@ -383,23 +382,31 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     switch ( archive->type )
 	{
 		case XARCHIVETYPE_RAR:
-		if (archive->passwd != NULL) command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->escaped_path, NULL);
-		    else command = g_strconcat ("rar t -idp " , archive->escaped_path, NULL);
+		if (archive->passwd != NULL)
+			command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->escaped_path, NULL);
+		else
+			command = g_strconcat ("rar t -idp " , archive->escaped_path, NULL);
         break;
 
         case XARCHIVETYPE_ZIP:
-        if (archive->passwd != NULL) command = g_strconcat ("unzip -P ", archive->passwd, " -t " , archive->escaped_path, NULL);
-            else command = g_strconcat ("unzip -t " , archive->escaped_path, NULL);
+        if (archive->passwd != NULL)
+			command = g_strconcat ("unzip -P ", archive->passwd, " -t " , archive->escaped_path, NULL);
+        else
+			command = g_strconcat ("unzip -t " , archive->escaped_path, NULL);
         break;
 
         case XARCHIVETYPE_7ZIP:
-        if (archive->passwd != NULL) command = g_strconcat ( "7za t -p" , archive->passwd , " " , archive->escaped_path, NULL);
-		    else command = g_strconcat ("7za t " , archive->escaped_path, NULL);
+        if (archive->passwd != NULL)
+			command = g_strconcat ( "7za t -p" , archive->passwd , " " , archive->escaped_path, NULL);
+		else
+			command = g_strconcat ("7za t " , archive->escaped_path, NULL);
 		break;
 
 		case XARCHIVETYPE_ARJ:
-        if (archive->passwd != NULL) command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->escaped_path, NULL);
-		    else command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
+        if (archive->passwd != NULL)
+			command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->escaped_path, NULL);
+		else
+			command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
 		break;
 	}
 	archive->status = XA_ARCHIVESTATUS_TEST;
@@ -808,7 +815,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 	g_object_set (about,
 		      "name",  "Xarchiver",
 		      "version", VERSION,
-		      "copyright", "Copyright @2005 Giuseppe Torelli",
+		      "copyright", "Copyright @2005-2006 Giuseppe Torelli",
 		      "comments", "A lightweight GTK2 archive manager",
 		      "authors", authors,
               "documenters",documenters,
@@ -816,13 +823,13 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		      "logo_icon_name", "xarchiver",
 		      "website", "http://xarchiver.xfce.org",
 		      "website_label", NULL,
-		      "license",    "Copyright @2005 Giuseppe Torelli - Colossus <gt67@users.sourceforge.net>\n\n"
-		      			"This library is free software; you can redistribute it and/or\n"
+		      "license",    "Copyright @2005-2006 Giuseppe Torelli - Colossus <gt67@users.sourceforge.net>\n\n"
+		      			"This is free software; you can redistribute it and/or\n"
     					"modify it under the terms of the GNU Library General Public License as\n"
     					"published by the Free Software Foundation; either version 2 of the\n"
     					"License, or (at your option) any later version.\n"
     					"\n"
-    					"This library is distributed in the hope that it will be useful,\n"
+    					"This software is distributed in the hope that it will be useful,\n"
     					"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
     					"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
     					"Library General Public License for more details.\n"
@@ -1259,7 +1266,6 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
         if (archive->has_passwd)
 			archive->has_passwd = FALSE;
 	archive->child_pid = 0;
-    archive->type = XARCHIVETYPE_UNKNOWN;
 }
 
 void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
@@ -1277,15 +1283,18 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
     if ( archive->has_passwd )
     {
             Show_pwd_Window ( NULL , NULL );
-            if ( archive->passwd == NULL ) return;
+            if ( archive->passwd == NULL )
+				return;
     }
     selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 
     /* if no or more than one rows selected, do nothing, just for sanity */
-    if ( gtk_tree_selection_count_selected_rows (selection) != 1) return;
+    if ( gtk_tree_selection_count_selected_rows (selection) != 1)
+		return;
 
     row_list = gtk_tree_selection_get_selected_rows (selection, &model);
-	if ( row_list == NULL ) return;
+	if ( row_list == NULL )
+		return;
 
 	gtk_tree_model_get_iter(model, &iter, row_list->data);
 
@@ -1310,13 +1319,13 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_tree_model_get (model, &iter, COL_NAME, &dir, -1);
     if (archive->type == XARCHIVETYPE_ZIP)
     {
-        if ( g_str_has_suffix (dir,"/") == TRUE ) is_dir = TRUE;
+        if ( g_str_has_suffix (dir,"/") == TRUE )
+			is_dir = TRUE;
     }
     else if ( strstr ( dir , "d" ) || strstr ( dir , "D" ) ) is_dir = TRUE;
     if (is_dir)
     {
         response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Please select a file, not a directory!") );
-        g_free ( dummy_name );
         g_free ( dir );
         return;
     }
