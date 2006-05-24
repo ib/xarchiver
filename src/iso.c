@@ -310,7 +310,7 @@ void dump_stat(int extent, XArchive *archive)
 
   sprintf(outline+54, "[%6d]", extent);
 
-  g_file_date = outline;	
+  g_file_date = outline;
 
   for(i=0; i<10; i++)
     if(outline[i] == 0) outline[i] = ' ';
@@ -474,11 +474,10 @@ void parse_dir (int extent, int len, XArchive *archive)
     }
 }
 
-gboolean
-xarchive_iso_support_extract (XArchive *archive, gchar *destination_path, GSList *files ,gboolean type )
+gboolean xarchive_iso_support_extract (XArchive *archive, gchar *destination_path, GSList *files, gboolean type , unsigned long long int file_size )
 {
 	FILE *fdest;
-    char buf[g_file_size];
+    char buf[file_size];
 	
 	if ((fdest = fopen (destination_path, "w")) != NULL);
 		else

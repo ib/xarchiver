@@ -53,7 +53,7 @@ GtkWidget *create_MainWindow (void)
   MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_name (MainWindow, "MainWindow");
   gtk_window_set_title (GTK_WINDOW (MainWindow), "Xarchiver " VERSION);
-  //By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we have KDE DnD compatibility.
+  //By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we should have KDE DnD compatibility.
   gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL,dst_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
   gtk_window_set_default_icon_from_file ("xarchiver.png", NULL );
   g_signal_connect (GTK_WINDOW (MainWindow), "drag_data_received", G_CALLBACK (on_drag_data_received), NULL);
@@ -434,35 +434,6 @@ GtkWidget *create_MainWindow (void)
                     G_CALLBACK (key_press_function),
                     NULL);
 
-  /* Store pointers to all widgets, for use by lookup_widget(). 
-  GLADE_HOOKUP_OBJECT_NO_REF (MainWindow, MainWindow, "MainWindow");
-  GLADE_HOOKUP_OBJECT (MainWindow, vbox1, "vbox1");
-  GLADE_HOOKUP_OBJECT (MainWindow, menubar1, "menubar1");
-  GLADE_HOOKUP_OBJECT (MainWindow, menuitem1, "menuitem1");
-  GLADE_HOOKUP_OBJECT (MainWindow, menuitem1_menu, "menuitem1_menu");
-  GLADE_HOOKUP_OBJECT (MainWindow, new1, "new1");
-  GLADE_HOOKUP_OBJECT (MainWindow, open1, "open1");
-  GLADE_HOOKUP_OBJECT (MainWindow, separatormenuitem1, "separatormenuitem1");
-  GLADE_HOOKUP_OBJECT (MainWindow, quit1, "quit1");
-  GLADE_HOOKUP_OBJECT (MainWindow, menuitem2, "menuitem2");
-  GLADE_HOOKUP_OBJECT (MainWindow, menuitem2_menu, "menuitem2_menu");
-  GLADE_HOOKUP_OBJECT (MainWindow, delete_menu, "delete_menu");
-  GLADE_HOOKUP_OBJECT (MainWindow, view_shell_output1, "view_shell_output1");
-  GLADE_HOOKUP_OBJECT (MainWindow, image2, "image2");
-  GLADE_HOOKUP_OBJECT (MainWindow, menuitem4, "menuitem4");
-  GLADE_HOOKUP_OBJECT (MainWindow, menuitem4_menu, "menuitem4_menu");
-  GLADE_HOOKUP_OBJECT (MainWindow, about1, "about1");
-  GLADE_HOOKUP_OBJECT (MainWindow, toolbar1, "toolbar1");
-  GLADE_HOOKUP_OBJECT (MainWindow, New_button, "New_button");
-  GLADE_HOOKUP_OBJECT (MainWindow, Open_button, "Open_button");
-  GLADE_HOOKUP_OBJECT (MainWindow, separatortoolitem1, "separatortoolitem1");
-  GLADE_HOOKUP_OBJECT (MainWindow, AddFile_button, "AddFile_button");
-  GLADE_HOOKUP_OBJECT (MainWindow, Extract_button, "Extract_button");
-  GLADE_HOOKUP_OBJECT (MainWindow, Delete_button, "Delete_button");
-  GLADE_HOOKUP_OBJECT (MainWindow, separatortoolitem3, "separatortoolitem3");
-  GLADE_HOOKUP_OBJECT (MainWindow, scrolledwindow1, "scrolledwindow1");
-  GLADE_HOOKUP_OBJECT (MainWindow, treeview1, "treeview1");
-  GLADE_HOOKUP_OBJECT_NO_REF (MainWindow, tooltips, "tooltips");*/
   gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
   return MainWindow;
 }

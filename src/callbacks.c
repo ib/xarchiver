@@ -122,7 +122,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			Update_StatusBar ( _("Operation failed."));
 			gtk_tooltips_disable ( pad_tooltip );
 			gtk_widget_hide ( pad_image );
 			SetButtonState (1,1,0,0,0);
@@ -130,7 +129,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL,FALSE);
-            archive->type = XARCHIVETYPE_UNKNOWN;
+            archive->status = XA_ARCHIVESTATUS_ERROR;
+			Update_StatusBar ( _("Operation failed."));
 			return;
 		}
 	}
@@ -1608,6 +1608,8 @@ gchar *EscapeBadChars ( gchar *string )
 void Activate_buttons ()
 {
 	if ( ! GTK_WIDGET_VISIBLE (Extract_button) )
+		return;
+	else if (  archive->status == XA_ARCHIVESTATUS_ERROR)
 		return;
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
