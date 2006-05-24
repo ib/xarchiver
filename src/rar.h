@@ -19,10 +19,11 @@
 #ifndef RAR_H
 #define RAR_H
 
- #include <gtk/gtk.h>
- #include "interface.h"
- #include "callbacks.h"
- #include "main.h"
+#include <gtk/gtk.h>
+#include "interface.h"
+#include "callbacks.h"
+#include "main.h"
+#include "archive.h"
 
 gboolean jump_header , odd_line;
 void OpenRar ( XArchive *archive );

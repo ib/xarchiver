@@ -1,7 +1,6 @@
 /*
- *  Xarchiver
- *
- *  Copyright (C) 2005 Giuseppe Torelli - Colossus
+ *  Copyright (C) 2006  Giuseppe Torelli - <colossus73@gmail.com>
+ *						Salvatore Santagati <salvatore.santagati@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,26 +16,22 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
-#ifndef ISO_H
-#define ISO_H
 
- #include <gtk/gtk.h>
- #include <sys/types.h>
- #include <sys/stat.h>
+#ifndef __XARCHIVER_ISO_H__
+#define __XARCHIVER_ISO_H__
 
- #include "callbacks.h"
- #include "interface.h"
- #include "support.h"
- #include "main.h"
+#include <sys/stat.h>
 
+#include <gtk/gtk.h>
+#include "interface.h"
+#include "callbacks.h"
+#include "main.h"
+#include "archive.h"
 
 /* volume descriptor types */
 #define ISO_VD_PRIMARY       1
 #define ISO_VD_SUPPLEMENTARY 2     /* Used by Joliet */
 #define ISO_VD_END           255
-
-
 
 struct todo
 {
@@ -102,7 +97,8 @@ struct iso_directory_record {
 /*
  * Extended Attributes record according to Yellow Book.
  */
-struct iso_xa_dir_record {
+struct iso_xa_dir_record
+{
 	char group_id			[ISODCL(1, 2)];
 	char user_id			[ISODCL(3, 4)];
 	char attributes			[ISODCL(5, 6)];
@@ -111,10 +107,6 @@ struct iso_xa_dir_record {
 	char reserved			[ISODCL(10, 14)];
 };
 
-
-
-
-
 FILE *iso_stream;
 struct iso_primary_descriptor ipd;
 struct stat my_stat;
@@ -122,7 +114,8 @@ struct stat my_stat;
 int iso_733 ( unsigned char *p);
 int iso_723 ( unsigned char *p);
 int iso_731 ( unsigned char *p);
-void OpenISO ( gchar *path );
-gboolean IsoOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
-#endif
+int DetectImage (FILE *iso);
+void parse_dir (int extent, int len, XArchive *archive);
+void dump_stat(int extent, XArchive *archive);
+#endif /* __XARCHIVER_ISO_H__ */
 

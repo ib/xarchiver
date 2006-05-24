@@ -1,31 +1,26 @@
 /*
- * File isodump.c - dump iso9660 directory information.
+ *  Copyright 1993 Yggdrasil Computing, Incorporated
+ *  Copyright (c) 1999-2004 J. Schilling
+ *  Copyright (c) 2006 Salvatore Santagati  <salvatore.santagati@gmail.com>
+ *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
  *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
  *
- * Written by Eric Youngdale (1993).
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Library General Public License for more details.
  *
- * Copyright 1993 Yggdrasil Computing, Incorporated
- * Copyright (c) 1999-2004 J. Schilling
- * Copyright (c) 2006 Xarchiver Developers
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <sys/types.h>
-#include <unistd.h>
 #include "iso.h"
+
 
 unsigned char buffer[2048];
 
@@ -33,80 +28,37 @@ struct iso_primary_descriptor ipd;
 struct iso_directory_record * idr;
 struct iso_directory_record * idr_rr;
 
-//int do_listing = 0;  /* imposta a 1 se vuoi far vedere i file presenti nella iso  */
-int use_rock = 0;    /*  imposta a 1 se vuoi che output sia quello dei nomi con supporto RR */
+int use_rock = 0;   
 char use_joilet = 0;
-char * xtract = 0;   /* imposta a 1 se vuoi estrarre un file */
-int do_find = 0;     /*  imposta a 1 se cerchi un file */
+char * xtract = 0; 
+int do_find = 0;    
 int ucs_level = 0;
 
 unsigned int sector_offset = 0;
 
 struct todo * todo_idr = NULL;
 
-int seek_ecc = 0;
-int sector_size = 0;
-int sector_data = 2048;
-int seek_head = 16;
-
-char * rootname = "/";
+char *rootname = "/";
 char name_buf[256];
 struct stat fstat_buf;
 
 char xname[256];
 unsigned char date_buf[9];
-gchar * g_file_name;
+
+gchar *g_file_name;
+gchar *g_file_permissions;
+gchar *g_file_date;
+unsigned long long int g_file_size;
+unsigned long long int g_file_offset;
 
 int	su_version = 0;
 int	aa_version = 0;
-
-
 
 
 int	found_rr;
 
 char * months[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 		       "Aug", "Sep", "Oct", "Nov", "Dec"};
-
-
-
-const char SYNC_HEADER_IMAGE[12] = { (char) 0x00,
-  				     (char) 0xFF,
-  				     (char) 0xFF,
-  				     (char) 0xFF,
-  				     (char) 0xFF,
-  				     (char) 0xFF,
-  				     (char) 0xFF,
-  				     (char) 0xFF,
-                                     (char) 0xFF,
-                                     (char) 0xFF,
-                                     (char) 0xFF,
-                                     (char) 0x00
-};
-
-const char SYNC_HEADER_IMAGE_2448[12] = { (char) 0x80,
-  					  (char) 0xC0,
-  					  (char) 0x80,
-  					  (char) 0x80,
-  					  (char) 0x80,
-  					  (char) 0x80,
-					  (char) 0x80,
-  					  (char) 0xC0,
-  					  (char) 0x80,
-  					  (char) 0x80,
-  					  (char) 0x80,
-  					  (char) 0x80
-};
-
-const char ISO_9660[8] = { (char) 0x01,
-  			   (char) 0x43,
-  			   (char) 0x44,
-  			   (char) 0x30,
-  			   (char) 0x30,
-  			   (char) 0x31,
-  			   (char) 0x01,
-  			   (char) 0x00
-};
 
 int parse_rr(unsigned char * pnt, int len, int cont_flag)
 {
@@ -289,11 +241,16 @@ dump_rr(idr)
 }
 
 
-dump_stat(int extent)
+void dump_stat(int extent, XArchive *archive)
 {
   int i;
   char outline[80];
-  char file_dir;
+
+  GValue *filename = NULL;
+  GValue *permissions = NULL;
+  GValue *size = NULL;
+  GValue *date = NULL;
+  GValue *offset = NULL;
 
   memset(outline, ' ', sizeof(outline));
 
@@ -336,10 +293,12 @@ dump_stat(int extent)
   if( fstat_buf.st_mode & S_IXOTH )
     outline[9] = 'x';
 
-  g_sprintf(outline+11, "%3d", fstat_buf.st_nlink); /* link simbolico */
-  g_sprintf(outline+15, "%4o", fstat_buf.st_uid);  /* Ti da UID del file **/
-  g_sprintf(outline+20, "%4o", fstat_buf.st_gid);  /* ti da il gid del file*/ 
-  g_sprintf(outline+33, "%8d", fstat_buf.st_size); /* Dimensione file */
+  g_sprintf(outline+11, "%3d", fstat_buf.st_nlink); 
+  g_sprintf(outline+15, "%4o", fstat_buf.st_uid);  
+  g_sprintf(outline+20, "%4o", fstat_buf.st_gid); 
+  g_sprintf(outline+33, "%8d", fstat_buf.st_size);
+
+  g_file_size = fstat_buf.st_size ;
 
   if( date_buf[1] >= 1 && date_buf[1] <= 12 )
     {
@@ -351,50 +310,62 @@ dump_stat(int extent)
 
   sprintf(outline+54, "[%6d]", extent);
 
-  for(i=0; i<63; i++)
+  g_file_date = outline;	
+
+  for(i=0; i<10; i++)
     if(outline[i] == 0) outline[i] = ' ';
-  outline[63] = 0;
+  outline[10] = 0;
 
+  g_file_permissions = outline;
+  g_file_offset = extent;
+  g_file_size = fstat_buf.st_size;
 
-
-    if ((!use_rock)&&(!use_joilet)) strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from output file */
+    if ( (!use_rock) && (!use_joilet) )
+		strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from output file */
      
     g_file_name = g_strconcat (rootname, name_buf,NULL);
 
-    if (outline[0] == 'd'); /** g_message ("DIR"); ****/
-    	else g_print ("%s %s %d byte - %d UID - %d GID\n",g_file_name, xname, fstat_buf.st_size, fstat_buf.st_uid, fstat_buf.st_gid);
+    if (outline[0] == 'd');
+	else
+	{
+		filename    = g_new0(GValue, 1);
+		permissions = g_new0(GValue, 1);
+		size        = g_new0(GValue, 1);
+		date        = g_new0(GValue, 1);
+		offset      = g_new0(GValue, 1);
+
+		filename = g_value_init(filename, G_TYPE_STRING);
+		g_value_set_string ( filename , g_strdup ( g_file_name ));
+		g_free (g_file_name);
+
+		permissions = g_value_init(permissions, G_TYPE_STRING);
+		g_value_set_string ( permissions , g_strdup ( g_file_permissions ));
+		
+		size = g_value_init(size, G_TYPE_UINT64);
+		g_value_set_uint64 ( size , g_file_size );
+
+		date = g_value_init(date, G_TYPE_STRING);
+		g_value_set_string ( date , g_strdup ( g_file_date ));
+
+		offset = g_value_init(offset, G_TYPE_UINT64);
+		g_value_set_uint64 ( offset , g_file_offset );
+
+		archive->row = g_list_prepend (archive->row , filename );
+		archive->row = g_list_prepend (archive->row , permissions);
+		archive->row = g_list_prepend (archive->row,  size);
+		archive->row = g_list_prepend (archive->row,  date);
+		archive->row = g_list_prepend (archive->row,  offset);
+	}
 }
 
-extract_file(struct iso_directory_record * idr)
+void parse_dir (int extent, int len, XArchive *archive)
 {
-  int extent, len, tlen;
-  unsigned char buff[2048];
-
-  extent = iso_733(idr->extent);
-  len = iso_733(idr->size);
-
-  while(len > 0)
-    {
-      lseek(fileno(iso_stream), (extent - sector_offset) << 11, 0);
-     
-      tlen = (len > sizeof(buff) ? sizeof(buff) : len);
-      read(fileno(iso_stream), buff, tlen);
-      len -= tlen;
-      extent++;
-      write(1, buff, tlen);
-    }
-}
-
-parse_dir(int extent, int len){
- unsigned int k;
-  char testname[256];
-  struct todo * td;
-  int i, j;
-  struct iso_directory_record * idr;
-
-
+ char testname[256];
+ struct todo * td;
+ int i;
+ struct iso_directory_record * idr;
  
-    printf("%s\n", rootname);
+ g_print ("%s\n", rootname);
 
   while(len > 0 )
     {
@@ -426,7 +397,6 @@ parse_dir(int extent, int len){
 	       */
 	      {
 		int i;
-		unsigned short uni_name;
 
 		for(i=0; i < idr->name_len[0] / 2; i++)
 		  {
@@ -486,7 +456,7 @@ parse_dir(int extent, int len){
 	    strcat(testname, name_buf);
 	    if(xtract && strcmp(xtract, testname) == 0)
 	      {
-		extract_file(idr);
+		/* extract_file(idr); */
 	      }
 	  }
 	if(   do_find
@@ -498,181 +468,53 @@ parse_dir(int extent, int len){
 	    printf("%s\n", testname);
 	  }
 	
-	  dump_stat(iso_733((unsigned char *)idr->extent));
+	dump_stat(iso_733((unsigned char *)idr->extent), archive);
 	i += buffer[i];
-	if (i > 2048 - sizeof(struct iso_directory_record)) break;
+	if (i > 2048 - sizeof(struct iso_directory_record))
+		break;
       }
     }
 }
 
-int DetectImage (FILE *iso)
+gboolean
+xarchive_iso_support_extract (XArchive *archive, gchar *destination_path, GSList *files ,gboolean type )
 {
-   char buf[2448];
-   
-   fseek (iso, 0L, SEEK_SET);
-	fseek (iso, 32768, SEEK_CUR);
-	fread (buf, sizeof (char), 8, iso);
-	if (memcmp (ISO_9660, buf, 8))
-	  {
-	  	fseek (iso, 0L, SEEK_SET);
-	   fread (buf, sizeof (char), 12, iso);
-	   if (!memcmp (SYNC_HEADER_IMAGE, buf, 12))
-			{
-			fseek (iso, 0L, SEEK_SET);
-		  	fseek (iso, 2352, SEEK_CUR);
-		  	fread (buf, sizeof (char), 12, iso);
-		  	if (!memcmp (SYNC_HEADER_IMAGE_2448, buf, 12))
-				{
-				seek_ecc = 384;
-			  	sector_size = 2448;
-			  	sector_data = 2048;
-			  	seek_head = 16;
-
-			  	return (39184);
-				}
-				else
-					{
-					seek_ecc = 288;
-			      		sector_size = 2352;
-			      		sector_data = 2048;
-			      		seek_head = 16;
-
-		  			return(37648);
-					}		  			
-			}
-			else 	
-			  return(-1);
-			
-		}
+	FILE *fdest;
+    char buf[g_file_size];
+	
+	if ((fdest = fopen (destination_path, "w")) != NULL);
 		else
-			return(32768);	  				 
+		{
+			return FALSE;
+		}
 
+       //fseek (iso_stream, (g_file_offset << 11), SEEK_CUR); 
+       fread (buf, sizeof (char), g_file_size , iso_stream);
+       fwrite(buf, sizeof (char), g_file_size, fdest);
+	
+       fclose(fdest);
+       return TRUE;
 }
 
 
-void OpenISO ( gchar *path)
+void OpenISO ( XArchive *archive )
 {
-     int offset_image;
-     int	c;
-     struct todo * td;
-     int extent;
-     int block;	
-     int toc_offset = 0;
+    /*archive->dummy_size = 0;
+    archive->nr_of_files = 0;
+    archive->nr_of_dirs = 0;*/
+	char *names[]= {(_("Filename")),(_("Permission")),(_("Size")),(_("Date")),(_("Offset"))};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_UINT64};
+	xa_create_liststore ( 5, names , (GType *)types );
+	int	c;
+	struct todo * td;
+	int extent;
+	int block;	
+	int toc_offset = 0;
 
-
-		
-     
-    //Let's read the iso information first:
-    iso_stream = fopen ( path ,"r" );
-    if (iso_stream == NULL)
-    {
-        gchar *msg = g_strdup_printf (_("Can't open ISO image %s:\n%s") , path , strerror (errno) );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg);
-		g_free (msg);
-        return;
-    }
-    if ( stat ( path , &my_stat ) < 0 )
-    {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, strerror (errno));
-		return;
-    }
-     
-    offset_image = DetectImage (iso_stream);
-    if ( fseek (iso_stream , offset_image, SEEK_SET ) < 0)
-    {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This ISO image is malformed !") );
-		return;
-    }
-    fread ( &ipd, 1, sizeof(ipd), iso_stream );
-    ipd.system_id[31] = '\000';
-    ipd.volume_id[31] = '\000';
-    ipd.volume_set_id[127] = '\000';
-    ipd.publisher_id[127] = '\000';
-    ipd.preparer_id[127] = '\000';
-    ipd.application_id[127] = '\000';
-    ipd.copyright_file_id[36] = '\000';
-    ipd.abstract_file_id[36] = '\000';
-    ipd.bibliographic_file_id[36] = '\000';
-
-    gchar *iso_info = g_strdup_printf (
-                _("\n\nFilename        : %s\n"
-                "Size               : %lld bytes\n"
-                "\nSystem ID      : %s\n"
-                "Volume ID      : %s\n"
-                "Application      : %s\n"
-                "Publisher        : %s\n"
-                "Preparer        : %s\n"
-                "Volume Set ID   : %s\n"
-                "Bibliographic ID: %s\n"
-                "Copyright ID    : %s\n"
-                "Abstract ID     : %s\n\n"
-                "Creation Date   : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-                "Modified Date   : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-                "Expiration Date : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-                "Effective Date  : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n\n"
-                "Volume Set Size    : %d\n"
-                "Volume Sequence n. : %d\n"
-                "Volume Space Size  : %d\n"
-                "Logical Block Size : %d\n"
-                "Path Table Size    : %d\n"
-                "Root Dir. Record   : %d\n"),
-                path,
-                my_stat.st_size,
-                ipd.system_id,
-                ipd.volume_id,
-                ipd.application_id,
-                ipd.publisher_id,
-                ipd.preparer_id,
-                ipd.volume_set_id,
-                ipd.bibliographic_file_id,
-                ipd.copyright_file_id,
-                ipd.abstract_file_id,
-                &ipd.creation_date[0],
-                &ipd.creation_date[4],
-                &ipd.creation_date[6],
-                &ipd.creation_date[8],
-                &ipd.creation_date[10],
-                &ipd.creation_date[12],
-                &ipd.creation_date[14],
-                &ipd.modification_date[0],
-                &ipd.modification_date[4],
-                &ipd.modification_date[6],
-                &ipd.modification_date[8],
-                &ipd.modification_date[10],
-                &ipd.modification_date[12],
-                &ipd.modification_date[14],
-                &ipd.expiration_date[0],
-                &ipd.expiration_date[4],
-                &ipd.expiration_date[6],
-                &ipd.expiration_date[8],
-                &ipd.expiration_date[10],
-                &ipd.expiration_date[12],
-                &ipd.expiration_date[14],
-                &ipd.effective_date[0],
-                &ipd.effective_date[4],
-                &ipd.effective_date[6],
-                &ipd.effective_date[8],
-                &ipd.effective_date[10],
-                &ipd.effective_date[12],
-                &ipd.effective_date[14],
-                iso_723 (ipd.volume_set_size),
-                iso_723 (ipd.volume_sequence_number),
-                iso_731 (ipd.volume_space_size),
-                iso_723 (ipd.logical_block_size),
-                iso_723 (ipd.path_table_size) ,
-                iso_731 (ipd.root_directory_record));
-    gtk_text_buffer_insert (textbuf, &enditer, iso_info, strlen (iso_info));
-    ShowShellOutput ( NULL , TRUE );
-    g_free (iso_info);
-	char *names[]= {(_("Filename")),(_("Permissions")),(_("Method")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("CRC-32"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_UINT,G_TYPE_STRING,G_TYPE_UINT,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-	CreateListStore ( 8, names , (GType *)types );
+	iso_stream = fopen ( archive->path ,"r" );
 	
-    
-        
-        lseek(fileno(iso_stream),DetectImage(iso_stream), 0);    
+	lseek(fileno(iso_stream),(16 + toc_offset) <<11, 0);    
   	read(fileno(iso_stream), &ipd, sizeof(ipd));
-
 
   	idr = (struct iso_directory_record *) &ipd.root_directory_record;
 
@@ -680,130 +522,112 @@ void OpenISO ( gchar *path)
 	
 	lseek(fileno(iso_stream),((off_t)(extent - sector_offset)) <<11, SEEK_SET);
 	
-        read(fileno(iso_stream), buffer, sizeof (buffer));
-        idr_rr = (struct iso_directory_record *) buffer;
-
-	if ((c = dump_rr(idr_rr)) != 0) {
-			
-			if (c & 1024) {
-				use_rock = 1;
-			
-				printf(
-				 
-				"Rock Ridge signatures version %d found\n",
-				su_version);
-				
-				
-
-			} else {
-			
-				printf(
-				"Bad Rock Ridge signatures found (SU record missing)\n");
-				
-			}
-			/*
-			 * This is currently a no op!
-			 * We need to check the first plain file instead of
-			 * the '.' entry in the root directory.
-			 */
-			if (c & 2048) {
-				printf("Apple signatures version %d found\n",
-								aa_version);
-			}
-		} else {
-			printf("NO Rock Ridge present\n");
-			}
-
-        if(!use_rock)
-		{ 
-                 lseek(fileno(iso_stream), (16 + toc_offset) <<11, 0);
-  		 read(fileno(iso_stream), &ipd, sizeof(ipd));
-      
-    		 block = 16;
-
-      			while( (unsigned char) ipd.type[0] != ISO_VD_END )
-					{
-	  				/*
-	   				 * Find the UCS escape sequence.
-	   				 */
-	  					if(    ipd.escape_sequences[0] == '%'
-	      					   	&& ipd.escape_sequences[1] == '/'
-	      						&& ipd.escape_sequences[3] == '\0'
-	      						&& (    ipd.escape_sequences[2] == '@'
-		   					|| ipd.escape_sequences[2] == 'C'
-		   					|| ipd.escape_sequences[2] == 'E') )
-	    						{
-	      						break;
-	    						}
-
-	  					block++;
-	  					lseek(fileno(iso_stream), (block + sector_offset) <<11, 0);
-	  					read(fileno(iso_stream), &ipd, sizeof(ipd));
-				}
-		
-      				if( (unsigned char) ipd.type[0] == ISO_VD_END )
-					{
-	  				 fprintf(stderr, "Unable to find Joliet SVD\n");
-	  				}
-					else 
-						{
-						use_joilet = 1;
-						printf("This image is Joilet\n");
-					}
-
-      switch(ipd.escape_sequences[2])
-	{
-	case '@':
-	  ucs_level = 1;
-	  break;
-	case 'C':
-	  ucs_level = 2;
-	  break;
-	case 'E':
-	  ucs_level = 3;
-	  break;
-	}
-
-      if( ucs_level < 3 )
-	{
-	  fprintf(stderr, "Don't know what ucs_level == %d means\n", ucs_level);
-	 
-	}
-
-}
-	idr = (struct iso_directory_record *) &ipd.root_directory_record;
-
-	 
-  	if (!use_joilet) 
+	read(fileno(iso_stream), buffer, sizeof (buffer));
+	idr_rr = (struct iso_directory_record *) buffer;
+ 
+	/* Detect Rock Ridge exstension */
+	if ((c = dump_rr(idr_rr)) != 0) 
+	{			
+		if (c & 1024) 
 		{
-		lseek(fileno(iso_stream),DetectImage(iso_stream), 0);   
-		read(fileno(iso_stream), &ipd, sizeof(ipd));
-		}
-  	
-	parse_dir(iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size));
-  	
-        td = todo_idr;	
-	
+			use_rock = 1;			
+			g_print ("Rock Ridge signatures version %d found\n",su_version);	
+		} 
+		else 
+			g_print ("Bad Rock Ridge signatures found (SU record missing)\n");
+		     
+		/*
+		 * This is currently a no op!
+		 * We need to check the first plain file instead of
+		 * the '.' entry in the root directory.
+		 */
+		if (c & 2048) 
+			g_print ("Apple signatures version %d found\n",aa_version);
+			
+		else 
+			g_print ("NO Rock Ridge present\n");
+			
 
-  	
+		if( ! use_rock)
+		{ 
+			lseek(fileno(iso_stream), (16 + toc_offset) <<11, 0);
+			read(fileno(iso_stream), &ipd, sizeof(ipd));
+      
+    		block = 16;
+
+      		while( (unsigned char) ipd.type[0] != ISO_VD_END )
+			{
+				/*
+				* Find the UCS escape sequence.
+				*/
+				if(    ipd.escape_sequences[0] == '%'
+						&& ipd.escape_sequences[1] == '/'
+		      			&& ipd.escape_sequences[3] == '\0'
+		      			&& (    ipd.escape_sequences[2] == '@'
+			   	   || ipd.escape_sequences[2] == 'C'
+				   || ipd.escape_sequences[2] == 'E') )
+		    	{
+					break;
+				}
+
+				block++;
+				lseek(fileno(iso_stream), (block + sector_offset) <<11, 0);
+				read(fileno(iso_stream), &ipd, sizeof(ipd));
+			}
+		
+      		if( (unsigned char) ipd.type[0] == ISO_VD_END )
+			{
+				g_print ("Unable to find Joliet SVD\n");
+		  	}
+			else 
+			{
+				use_joilet = 1;
+				g_print ("This image is Joilet\n");
+			}
+
+			switch(ipd.escape_sequences[2])
+			{
+				case '@':
+				ucs_level = 1;
+				break;
+				case 'C':
+				ucs_level = 2;
+				break;
+				case 'E':
+				ucs_level = 3;
+				break;
+			}
+
+			if( ucs_level < 3 )
+			{
+				g_print ("Don't know what ucs_level == %d means\n", ucs_level);
+			}
+
+		}
+		idr = (struct iso_directory_record *) &ipd.root_directory_record;
+		if (!use_joilet) 
+		{
+			lseek(fileno(iso_stream),(16 + toc_offset) <<11, 0);   
+			read(fileno(iso_stream), &ipd, sizeof(ipd));
+		}
+	}
+	parse_dir(iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size), archive);
+	xa_append_rows ( archive , 5 );
+	td = todo_idr;	
+
 	while(td)
-   	{
-	gtk_list_store_set (liststore, &iter,rootname,-1);
-      	rootname = td->name;
-      	parse_dir(td->extent, td->length);	
-      	td = td->next;
-   	}
-    fclose(iso_stream);
-    gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-    g_object_unref (model);
-    OffTooltipPadlock();
-    Update_StatusBar ( _("Operation successfully completed."));
+	{	
+		rootname = td->name;
+		parse_dir(td->extent, td->length, archive);
+		xa_append_rows ( archive , 5 );
+		td = td->next;
+	}
+	fclose(iso_stream);
+	SetButtonState (1,1,0,0,1);
+	OffTooltipPadlock();
+	Update_StatusBar ( _("Operation completed.") );
 }
 
-
-
-
-//The following two functions are taken from isodump.c - By Eric Youngdale (1993)
 int iso_723 ( unsigned char *p)
 {
     return (( p[0] & 0xff) | ((p[1] & 0xff) << 8));
@@ -814,10 +638,48 @@ int iso_731 ( unsigned char *p)
     return ((p[0] & 0xff) | ((p[1] & 0xff) << 8) | ((p[2] & 0xff) << 16) | ((p[3] & 0xff) << 24));
 }
 
-int
-iso_733 (unsigned char * p)
+int iso_733 (unsigned char * p)
 {
 	return (iso_731 (p));
 }
 
+int DetectImage (FILE *iso)
+{
+	char buf[2448];
+
+	fseek (iso, 0L, SEEK_SET);
+	fseek (iso, 32768, SEEK_CUR);
+	fread (buf, sizeof (char), 8, iso);
+	if (memcmp ("\x01\x43\x44\x30\x30\x31\x01\x00", buf, 8))
+	{
+		fseek (iso, 0L, SEEK_SET);
+		fread (buf, sizeof (char), 12, iso);
+		if (!memcmp ("\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00", buf, 12))
+		{
+			fseek (iso, 0L, SEEK_SET);
+			fseek (iso, 2352, SEEK_CUR);
+			fread (buf, sizeof (char), 12, iso);
+			if (!memcmp ("\x80\xC0\x80\x80\x80\x80\x80\xC0\x80\x80\x80\x80", buf, 12))
+			{
+				/*seek_ecc = 384;
+				sector_size = 2448;
+				sector_data = 2048;
+				seek_head = 16;*/
+				return (39184);
+			}
+			else
+			{
+				/*seek_ecc = 288;
+				sector_size = 2352;
+				sector_data = 2048;
+				seek_head = 16;*/
+				return(37648);
+			}
+		}
+	else
+		return (-1);
+	}
+	else
+		return(32768);
+}
 

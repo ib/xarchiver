@@ -41,18 +41,20 @@ const char *strcasestr(const char *haystack, const char *needle)
 
 	h = haystack;
 	n = needle;
-	while (*haystack) {
-		if (tolower((unsigned char) *h) == tolower((unsigned char) *n)) {
-            h++;
-            n++;
-            if (!*n)
-                return haystack;
-        } else {
-            h = ++haystack;
-            n = needle;
-        }
-    }
-    return NULL;
+	while (*haystack)
+	{
+		if (tolower((unsigned char) *h) == tolower((unsigned char) *n))
+		{
+			h++;
+			n++;
+			if (!*n)
+				return haystack;
+		} else {
+			h = ++haystack;
+			n = needle;
+		}
+	}
+	return NULL;
 }
 #endif /* !HAVE_STRCASESTR */
 
@@ -182,7 +184,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		}
         return;
 	}
-
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
 	gtk_widget_set_sensitive ( properties , TRUE );
     Update_StatusBar ( _("Operation successfully completed."));
@@ -335,10 +336,10 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		OpenGzip ( archive );
 		break;
 
-		/*
+		
         case XARCHIVETYPE_ISO:
         OpenISO (archive);
-		break;*/
+		break;
 
 		case XARCHIVETYPE_RAR:
 		OpenRar (archive);
@@ -1032,7 +1033,6 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 
 gboolean isISO ( FILE *ptr )
 {
-	/*
 	if ( (DetectImage(ptr)) > 0 )
     {
         //gtk_widget_set_sensitive ( iso_info , TRUE );
@@ -1040,7 +1040,6 @@ gboolean isISO ( FILE *ptr )
         return TRUE;
     }
     else return FALSE;
-	*/
 }
 
 gboolean isTar ( FILE *ptr )
@@ -1609,7 +1608,7 @@ void Activate_buttons ()
 		OffDeleteandViewButtons();
 	else
 	{
-		if ( archive->type != XARCHIVETYPE_RPM )
+		if ( archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_ISO )
 		{
 			gtk_widget_set_sensitive ( delete_menu , TRUE );
 			gtk_widget_set_sensitive ( Delete_button , TRUE );
@@ -1691,7 +1690,7 @@ gchar *StripPathFromFilename ( gchar *name )
 
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path )
 {
-	return g_strconcat (extract_path,path,NULL);
+	return g_strconcat (extract_path , path , NULL);
 }
 
 void OffDeleteandViewButtons()
