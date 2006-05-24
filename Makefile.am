@@ -6,15 +6,18 @@ pixmapsdir       = $(datadir)/pixmaps
 pixmaps_DATA     = xarchiver.png
 
 desktopdir = $(datadir)/applications
-desktopdir_in_files = xarchiver.desktop.in
-desktop_DATA = $(apps_in_files:.desktop.in=.desktop)
+desktop_in_files = xarchiver.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
 EXTRA_DIST = \
+	FAQ \
+	LEGGIMI \
 	autogen.sh \
-	xarchiver.glade \
-	xarchiver.gladep \
-	xarchiver.desktop \
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in \
+	$(desktop_in_files) \
 	$(pixmaps_DATA)
 
 install-data-local:

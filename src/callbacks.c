@@ -30,6 +30,32 @@ extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean cli;
 
+#ifndef HAVE_STRCASESTR
+/*
+ * case-insensitive version of strstr()
+ */
+const char *strcasestr(const char *haystack, const char *needle)
+{
+	const char *h;
+	const char *n;
+
+	h = haystack;
+	n = needle;
+	while (*haystack) {
+		if (tolower((unsigned char) *h) == tolower((unsigned char) *n)) {
+            h++;
+            n++;
+            if (!*n)
+                return haystack;
+        } else {
+            h = ++haystack;
+            n = needle;
+        }
+    }
+    return NULL;
+}
+#endif /* !HAVE_STRCASESTR */
+
 gchar *CurrentFolder = NULL;
 GList *Suffix , *Name;
 
@@ -1246,6 +1272,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
     gchar *dummy_name;
     unsigned short int COL_NAME = 1;
     gboolean is_dir = FALSE;
+    GList *row_list = NULL;
 
     if ( archive->has_passwd )
     {
@@ -1253,7 +1280,18 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
             if ( archive->passwd == NULL ) return;
     }
     selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
-    if ( ! gtk_tree_selection_get_selected (selection, &model, &iter) ) return;
+
+    /* if no or more than one rows selected, do nothing, just for sanity */
+    if ( gtk_tree_selection_count_selected_rows (selection) != 1) return;
+
+    row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+	if ( row_list == NULL ) return;
+
+	gtk_tree_model_get_iter(model, &iter, row_list->data);
+
+    gtk_tree_path_free(row_list->data);
+    g_list_free (row_list);
+
     switch (archive->type)
     {
         case XARCHIVETYPE_RAR:
@@ -1339,7 +1377,6 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
     }
     view_window = view_win();
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
-	g_print (filename);
     if (error == NULL)
     {
         g_io_channel_set_encoding (ioc_view, "ISO8859-1" , NULL);
