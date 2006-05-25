@@ -31,7 +31,7 @@ void Open7Zip ( XArchive *archive)
 	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]= {(_("Filename")),(_("Compressed")),(_("Original")),(_("Attr")),(_("Time")),(_("Date"))};
+	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
 	xa_create_liststore ( 6, names , (GType *)types );
 }
@@ -102,27 +102,27 @@ gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 
 		start = eat_spaces (end);
 		end = strchr (start, ' ');
-		compressed = g_value_init(compressed, G_TYPE_UINT64);
-		_compressed  = g_strndup ( start , end - start);
-		g_value_set_uint64 (compressed , atoll (_compressed) );
-		g_free (_compressed);
+		original = g_value_init(original, G_TYPE_UINT64);
+		_original  = g_strndup ( start , end - start);
+		g_value_set_uint64 (original , atoll (_original) );
+		g_free (_original);
 
 		start = eat_spaces (end);
 		end = strchr (start, ' ');
-		original = g_value_init(original, G_TYPE_UINT64);
+		compressed = g_value_init(compressed, G_TYPE_UINT64);
 		/* The following if else to fix archives compressed with ms=on (default on 7za) */
 		if (end != NULL)
 		{
-			_original = g_strndup ( start , end - start);
-			g_value_set_uint64 ( original , atoll (_original) );
-			g_free (_original);
+			_compressed = g_strndup ( start , end - start);
+			g_value_set_uint64 ( compressed , atoll (_compressed) );
+			g_free (_compressed);
 
 			start = eat_spaces (end);
 		}
 		else
 		{
 			unsigned long long int zero = 0;
-			g_value_set_uint64 ( original , zero );
+			g_value_set_uint64 ( compressed , zero );
 		}
 
 		end = strchr (start, '\n');
@@ -130,8 +130,8 @@ gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		g_value_set_string ( filename , g_strndup ( start , end - start) );
 		
 		archive->row = g_list_prepend(archive->row, filename);
-		archive->row = g_list_prepend(archive->row, compressed);
 		archive->row = g_list_prepend(archive->row, original);
+		archive->row = g_list_prepend(archive->row, compressed);
 		archive->row = g_list_prepend(archive->row, attr);
 		archive->row = g_list_prepend(archive->row, time);
 		archive->row = g_list_prepend(archive->row, date);
