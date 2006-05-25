@@ -358,7 +358,12 @@ void dump_stat(int extent, XArchive *archive)
 		archive->row = g_list_prepend (archive->row,  size);
 		archive->row = g_list_prepend (archive->row,  date);
 		archive->row = g_list_prepend (archive->row,  offset);
+
+		archive->nr_of_files++;
+		archive->dummy_size+= g_value_get_uint64 (size);
 	}
+	else
+		archive->nr_of_dirs++;
 }
 
 void parse_dir (int extent, int len, XArchive *archive)
@@ -514,9 +519,9 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, gchar 
 
 void OpenISO ( XArchive *archive )
 {
-    /*archive->dummy_size = 0;
+    archive->dummy_size = 0;
     archive->nr_of_files = 0;
-    archive->nr_of_dirs = 0;*/
+    archive->nr_of_dirs = 0;
 	char *names[]= {(_("Filename")),(_("Permission")),(_("Size")),(_("Date")),(_("Offset"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_UINT64};
 	xa_create_liststore ( 5, names , (GType *)types );
@@ -634,6 +639,7 @@ void OpenISO ( XArchive *archive )
 	use_joilet = FALSE;
 	SetButtonState (1,1,0,0,1);
 	OffTooltipPadlock();
+	gtk_widget_set_sensitive ( properties , TRUE );
 	Update_StatusBar ( _("Operation completed.") );
 }
 
