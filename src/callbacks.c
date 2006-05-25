@@ -186,6 +186,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	}
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
 	gtk_widget_set_sensitive ( properties , TRUE );
+	archive->status = XA_ARCHIVESTATUS_IDLE;
     Update_StatusBar ( _("Operation successfully completed."));
 }
 

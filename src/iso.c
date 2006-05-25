@@ -300,17 +300,22 @@ void dump_stat(int extent, XArchive *archive)
 
   g_file_size = fstat_buf.st_size ;
 
-  if( date_buf[1] >= 1 && date_buf[1] <= 12 )
-    {
-      memcpy(outline+42, months[date_buf[1]-1], 3);
-    }
+	if (date_buf[1] >= 1 && date_buf[1] <= 12)
+		memcpy(outline+41, months[date_buf[1]-1], 3);
 
-  sprintf(outline+46, "%2d", date_buf[2]);
-  sprintf(outline+49, "%4d", date_buf[0]+1900);
+	sprintf(outline+45, "%2d", date_buf[2]);
+		outline[63] = 0;
+	sprintf(outline+48, "%4d", date_buf[0]+1900);
 
-  sprintf(outline+54, "[%6d]", extent);
+	sprintf(outline+53, "[%7d", extent);	/* XXX up to 20 GB */
+	sprintf(outline+61, " %02X]", idr->flags[0]);
 
-  g_file_date = outline;
+	for (i = 0; i < 66; i++) {
+		if (outline[i] == 0) outline[i] = ' ';
+	}
+	outline[66] = 0;
+
+  g_file_date = g_strndup (&outline[41] , 11);
 
   for(i=0; i<10; i++)
     if(outline[i] == 0) outline[i] = ' ';
@@ -325,8 +330,7 @@ void dump_stat(int extent, XArchive *archive)
      
     g_file_name = g_strconcat (rootname, name_buf,NULL);
 
-    if (outline[0] == 'd');
-	else
+    if (outline[0] != 'd')
 	{
 		filename    = g_new0(GValue, 1);
 		permissions = g_new0(GValue, 1);
@@ -346,6 +350,7 @@ void dump_stat(int extent, XArchive *archive)
 
 		date = g_value_init(date, G_TYPE_STRING);
 		g_value_set_string ( date , g_strdup ( g_file_date ));
+		g_free (g_file_date);
 
 		offset = g_value_init(offset, G_TYPE_UINT64);
 		g_value_set_uint64 ( offset , g_file_offset );
