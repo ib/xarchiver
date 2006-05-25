@@ -19,9 +19,10 @@ produced with older versions of tar than the one you are currently using.
 
 Q. When I try to delete files from .7z archives Xarchiver tells me an error occurred but the Error Messages Window is empty, why ?
 
-A. This happens when a 7z archive has been created with the option ms=on. The 7za's author hasn't implemented yet the deletion 
-from the archives created with ms=on. The window is empty because the error message from 7za: E_NOTIMPL is sent to the standard output
-(STDOUT) and not correctly to the standard error (STDERR) that Xarchiver reads for error messages.
+A. This happens when a 7z archive has been created with the option ms=on. By default Xarchiver uses ms=off. The 7za's author hasn't
+implemented yet the deletion from the archives created with ms=on. The window is empty because the error message from 7za:
+E_NOTIMPL is sent to the standard output (STDOUT) and not correctly to the standard error (STDERR) that Xarchiver reads for error 
+messages.
 
 Q.When I try to view a file in a tar archive I get this:
 
