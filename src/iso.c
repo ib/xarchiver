@@ -476,18 +476,24 @@ void parse_dir (int extent, int len, XArchive *archive)
     }
 }
 
-gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, unsigned long long int file_size, unsigned long long file_offset )
+gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, gchar *filename , unsigned long long int file_size, unsigned long long file_offset )
 {
 	FILE *fdest;
 	FILE *fsource;
-
+	gchar *_filename;
 	unsigned long long int tlen;
 	char buf[2048];
-	
-	if ((fsource = fopen (archive->path, "r")) == NULL)
-		return FALSE;
+		
+	_filename = g_strconcat (destination_path , filename , NULL);
 
-	if ((fdest = fopen (destination_path, "w")) == NULL)
+	if ((fdest = fopen (_filename, "w")) == NULL)
+	{
+		g_free (_filename);
+		return FALSE;
+	}
+	g_free (_filename);
+
+	if ((fsource = fopen (archive->path, "r")) == NULL)
 		return FALSE;
 
 	while (file_size > 0)

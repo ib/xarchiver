@@ -652,16 +652,6 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
                     g_free (text);
 					switch ( archive->type )
 					{
-						case 0:
-						//Bzip2 extraction is handled when the the file is opened
-						//code execution never reaches here
-						break;
-
-						case 1:
-						//Gzip extraction is handled when the the file is opened
-						//code execution never reaches here
-						break;
-
 						case XARCHIVETYPE_RAR:
                         if (archive->passwd !=NULL)
 							command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->escaped_path , " " , extract_path , NULL );
@@ -710,21 +700,27 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 						case XARCHIVETYPE_ISO:
 						command = NULL;
 						unsigned long long int file_size, file_offset;
-						GList *row_list = NULL;
+						gchar *name = NULL;
 
-						row_list = gtk_tree_selection_get_selected_rows (selection, &model);
-						if ( row_list == NULL )
-							return;
-						while (row_list)
+						gtk_tree_model_get_iter_first (model,&iter);
+						gtk_tree_model_get (model, &iter,
+                        0, &name,
+                        2, &file_size,
+                        4, &file_offset,
+                        -1);
+						xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
+						g_free (name);
+
+						while (gtk_tree_model_iter_next (model,&iter) == TRUE )
 						{
-							gtk_tree_model_get_iter(model, &iter, row_list->data);
-							gtk_tree_model_get (model, &iter, 2, &file_size, -1);
-							gtk_tree_model_get (model, &iter, 4, &file_offset, -1);
-							xa_extract_iso_file (archive, extract_path, file_size, file_offset );
-							gtk_tree_path_free(row_list->data);
-							row_list = row_list->next;
+							gtk_tree_model_get (model, &iter,
+							0, &name,
+							2, &file_size,
+							4, &file_offset,
+							-1);
+							xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
+							g_free (name);
 						}
-						g_list_free (row_list);
 						break;
 					}
                     if ( command != NULL )
