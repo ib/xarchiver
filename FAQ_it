@@ -1,0 +1,34 @@
+D. Perchè gli archive ace non sono supportati ?
+
+R. Perchè per qualche strana ragione gli archivi ace non possono essere creati su Linux, al momento solo l'estrazione è permessa. 
+Quando gli sviluppatori di ACE si decideranno a supportare pienamente gli archivi ACE anche su Linux, aggiungerò tale formato ad 
+Xarchiver.
+
+D. Come posso creare un archivio con alcuni files protetti da password ed altri no ?
+
+R. Scegli Nuovo dal menu File e seleziona un formato di archivio arj, 7zip, rar o zip. Poi aggiungi prima i files che NON VUOI vengano 
+protetti da una password. Ora scegli Imposta Password dal menu Azione e digita la password. Da ora in poi tutti i files che aggiungi 
+all'archivio verranno protetti dalla password corrente.
+
+D. Perchè Xarchiver visualizza questo messaggio quando apro archivi tar ?
+
+        tar: Skipping to next header
+        tar: Error exit delayed from previous errors
+
+R. Xarchiver è solo un frontend che manda in esecuzione l'archiviatore e riporta i SUOI messaggi d'errore. Molto probabilmente stai 
+aprendo un archivio prodotto da versioni precedenti di tar oppure questo è corrotto,
+
+D. Quando tento di cancellare files da un archivio 7z Xarchiver mi dice che si è verificato un errore ma la finestra dei messaggi 
+d'errore è vuota, perchè ?
+
+R. Questo accade quando un archivio 7z è stato creato con l'opzione ms=on. Xarchiver per impostazione predefinita usa ms=off. L'autore 
+di 7za non ha ancora implementato la cancellazione da archivi creati con l'opzione ms=on. La finestra è vuota perchè il messaggio 
+d'errore dal programma 7za: E_NOTIMPL viene inviato allo standard output (STDOUT) invece dello standard error (STDERR) che 
+Xarchiver legge per gli eventuali messaggi d'errore.
+
+D. Quando tento di visualizzare un file da un archivio tar ottengo questo messaggio d'errore:
+
+        tar: unrecognized option `--strip-components=2'
+        Try `tar --help' for more information.
+
+R. Stai usando una vecchia versione di tar, dovresti aggiornare almeno alla 1.15.
