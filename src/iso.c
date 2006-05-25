@@ -194,8 +194,7 @@ int parse_rr(unsigned char * pnt, int len, int cont_flag)
 	return (flag2);
 }
 
-void
-find_rr(idr, pntp, lenp)
+void find_rr(idr, pntp, lenp)
 	struct iso_directory_record *idr;
 	unsigned char	**pntp;
 	int	*lenp;
@@ -229,8 +228,7 @@ find_rr(idr, pntp, lenp)
 }
 
 
-int
-dump_rr(idr)
+int dump_rr(idr)
 	struct iso_directory_record *idr;
 {
 	int len;
@@ -296,8 +294,7 @@ void dump_stat(int extent, XArchive *archive)
   g_sprintf(outline+11, "%3d", fstat_buf.st_nlink); 
   g_sprintf(outline+15, "%4o", fstat_buf.st_uid);  
   g_sprintf(outline+20, "%4o", fstat_buf.st_gid); 
-  g_sprintf(outline+33, "%8d", fstat_buf.st_size);
-
+  
   g_file_size = fstat_buf.st_size ;
 
 	if (date_buf[1] >= 1 && date_buf[1] <= 12)
@@ -479,23 +476,28 @@ void parse_dir (int extent, int len, XArchive *archive)
     }
 }
 
-gboolean xarchive_iso_support_extract (XArchive *archive, gchar *destination_path, GSList *files, gboolean type , unsigned long long int file_size )
+gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, GSList *files )
 {
 	FILE *fdest;
-    char buf[file_size];
+	int	extent, len, tlen;
+	char buf[2048];
 	
-	if ((fdest = fopen (destination_path, "w")) != NULL);
-		else
-		{
-			return FALSE;
-		}
+	if ((fdest = fopen (destination_path, "w")) == NULL)
+		return FALSE;
 
-       //fseek (iso_stream, (g_file_offset << 11), SEEK_CUR); 
-       fread (buf, sizeof (char), g_file_size , iso_stream);
-       fwrite(buf, sizeof (char), g_file_size, fdest);
-	
-       fclose(fdest);
-       return TRUE;
+	/*
+	while (len > 0)
+	{
+		lseek(fileno(infile), ((off_t)(extent - sector_offset)) << 11, SEEK_SET);
+		tlen = (len > sizeof (buf) ? sizeof (buf) : len);
+		read(fileno(infile), buf, tlen);
+		len -= tlen;
+		extent++;
+		fwrite (buf, 1 , tlen , fdest);
+	}
+	fclose(fdest);
+	return TRUE;
+	*/
 }
 
 

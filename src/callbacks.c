@@ -192,10 +192,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
+	archive = xa_init_structure (archive);
 	gchar *path = Show_File_Dialog ( 1 , "new" );
 	if (path == NULL)
 		return;
-	archive = xa_init_structure (archive);
 	if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),
