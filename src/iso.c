@@ -545,10 +545,10 @@ void OpenISO ( XArchive *archive )
 		 */
 		if (c & 2048) 
 			g_print ("Apple signatures version %d found\n",aa_version);
-			
+	}				
 		else 
 			g_print ("NO Rock Ridge present\n");
-			
+
 
 		if( ! use_rock)
 		{ 
@@ -568,9 +568,7 @@ void OpenISO ( XArchive *archive )
 		      			&& (    ipd.escape_sequences[2] == '@'
 			   	   || ipd.escape_sequences[2] == 'C'
 				   || ipd.escape_sequences[2] == 'E') )
-		    	{
 					break;
-				}
 
 				block++;
 				lseek(fileno(iso_stream), (block + sector_offset) <<11, 0);
@@ -578,9 +576,7 @@ void OpenISO ( XArchive *archive )
 			}
 		
       		if( (unsigned char) ipd.type[0] == ISO_VD_END )
-			{
 				g_print ("Unable to find Joliet SVD\n");
-		  	}
 			else 
 			{
 				use_joilet = 1;
@@ -600,11 +596,8 @@ void OpenISO ( XArchive *archive )
 				break;
 			}
 
-			if( ucs_level < 3 )
-			{
-				g_print ("Don't know what ucs_level == %d means\n", ucs_level);
-			}
-
+			/*if( ucs_level < 3 )
+				g_print ("Don't know what ucs_level == %d means\n", ucs_level);*/
 		}
 		idr = (struct iso_directory_record *) &ipd.root_directory_record;
 		if (!use_joilet) 
@@ -612,8 +605,7 @@ void OpenISO ( XArchive *archive )
 			lseek(fileno(iso_stream),(16 + toc_offset) <<11, 0);   
 			read(fileno(iso_stream), &ipd, sizeof(ipd));
 		}
-	}
-	parse_dir(iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size), archive);
+	parse_dir (iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size), archive);
 	xa_append_rows ( archive , 5 );
 	td = todo_idr;	
 
