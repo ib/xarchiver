@@ -748,10 +748,12 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 							2, &file_size,
 							4, &file_offset,
 							-1);
+							gtk_tree_path_free (row_list->data);
 							xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
 							g_free (name);
 							row_list = row_list->next;
 						}
+						g_list_free (row_list);
 						SetButtonState (1,1,0,0,1);
 						OffTooltipPadlock();
 						Update_StatusBar ( _("Operation completed.") );
