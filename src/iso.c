@@ -476,30 +476,29 @@ void parse_dir (int extent, int len, XArchive *archive)
     }
 }
 
-gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, GSList *files )
+gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, unsigned long long int file_size, unsigned long long file_offset )
 {
 	FILE *fdest;
-	int	extent, len, tlen;
+	unsigned long long int tlen;
 	char buf[2048];
 	
 	if ((fdest = fopen (destination_path, "w")) == NULL)
 		return FALSE;
 
 	/*
-	while (len > 0)
+	while (file_size > 0)
 	{
-		lseek(fileno(infile), ((off_t)(extent - sector_offset)) << 11, SEEK_SET);
-		tlen = (len > sizeof (buf) ? sizeof (buf) : len);
+		lseek(fileno(infile), ((off_t)(file_offset - sector_offset)) << 11, SEEK_SET);
+		tlen = (file_size > sizeof (buf) ? sizeof (buf) : file_size);
 		read(fileno(infile), buf, tlen);
-		len -= tlen;
-		extent++;
+		file_size -= tlen;
+		file_offset++;
 		fwrite (buf, 1 , tlen , fdest);
 	}
+	*/
 	fclose(fdest);
 	return TRUE;
-	*/
 }
-
 
 void OpenISO ( XArchive *archive )
 {

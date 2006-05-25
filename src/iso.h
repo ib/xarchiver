@@ -118,6 +118,6 @@ int DetectImage (FILE *iso);
 void OpenISO ( XArchive *archive );
 void parse_dir (int extent, int len, XArchive *archive);
 void dump_stat(int extent, XArchive *archive);
-gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, GSList *files);
+gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, unsigned long long int file_size, unsigned long long file_offset );
 #endif /* __XARCHIVER_ISO_H__ */
 
