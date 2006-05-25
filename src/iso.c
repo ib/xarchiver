@@ -1,8 +1,8 @@
 /*
  *  Copyright 1993 Yggdrasil Computing, Incorporated
  *  Copyright (c) 1999-2004 J. Schilling
- *  Copyright (c) 2006 Salvatore Santagati  <salvatore.santagati@gmail.com>
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (c) 2006 Salvatore Santagati <salvatore.santagati@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,15 +21,14 @@
 
 #include "iso.h"
 
-
 unsigned char buffer[2048];
 
 struct iso_primary_descriptor ipd;
 struct iso_directory_record * idr;
 struct iso_directory_record * idr_rr;
 
-int use_rock = 0;   
-char use_joilet = 0;
+gboolean use_rock;
+gboolean use_joilet;
 char * xtract = 0; 
 int do_find = 0;    
 int ucs_level = 0;
@@ -54,11 +53,9 @@ unsigned long long int g_file_offset;
 int	su_version = 0;
 int	aa_version = 0;
 
-
 int	found_rr;
 
-char * months[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-		       "Aug", "Sep", "Oct", "Nov", "Dec"};
+char *months[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 int parse_rr(unsigned char * pnt, int len, int cont_flag)
 {
@@ -75,7 +72,6 @@ int parse_rr(unsigned char * pnt, int len, int cont_flag)
 	symlinkname[0] = 0;
 
 	cont_extent = cont_offset = cont_size = 0;
-
 	ncount = 0;
 	flag1 = flag2 = 0;
 	while (len >= 4) {
@@ -97,24 +93,28 @@ int parse_rr(unsigned char * pnt, int len, int cont_flag)
 			flag2 |= 1024;					/* SUSP record */
 			su_version = pnt[3] & 0xff;
 		}
-		if (strncmp((char *)pnt, "AA", 2) == 0) {
+		if (strncmp((char *)pnt, "AA", 2) == 0)
+		{
 			flag2 |= 2048;					/* Apple Signature record */
 			aa_version = pnt[3] & 0xff;
 		}
 
-		if (strncmp((char *)pnt, "PX", 2) == 0) {		/* POSIX attributes */
+		if (strncmp((char *)pnt, "PX", 2) == 0)
+		{		/* POSIX attributes */
 			fstat_buf.st_mode = iso_733(pnt+4);
 			fstat_buf.st_nlink = iso_733(pnt+12);
 			fstat_buf.st_uid = iso_733(pnt+20);
 			fstat_buf.st_gid = iso_733(pnt+28);
 		}
 
-		if (strncmp((char *)pnt, "NM", 2) == 0) {		/* Alternate Name */
+		if (strncmp((char *)pnt, "NM", 2) == 0)
+		{		/* Alternate Name */
 	  		strncpy(name_buf, pnt+5, pnt[2] - 5);
 		        name_buf[pnt[2] - 5] = 0;
 		}
 
-		if (strncmp((char *)pnt, "CE", 2) == 0) {		/* Continuation Area */
+		if (strncmp((char *)pnt, "CE", 2) == 0)
+		{		/* Continuation Area */
 			cont_extent = iso_733(pnt+4);
 			cont_offset = iso_733(pnt+12);
 			cont_size = iso_733(pnt+20);
@@ -124,7 +124,8 @@ int parse_rr(unsigned char * pnt, int len, int cont_flag)
 			extent = iso_733(pnt+4);
 		}
 
-		if (strncmp((char *)pnt, "SL", 2) == 0) {		/* Symlink */
+		if (strncmp((char *)pnt, "SL", 2) == 0)
+		{		/* Symlink */
 			int	cflag;
 
 			cflag = pnt[4];
@@ -544,7 +545,7 @@ void OpenISO ( XArchive *archive )
 	{			
 		if (c & 1024) 
 		{
-			use_rock = 1;			
+			use_rock = TRUE;			
 			g_print ("Rock Ridge signatures version %d found\n",su_version);	
 		} 
 		else 
@@ -629,6 +630,8 @@ void OpenISO ( XArchive *archive )
 		td = td->next;
 	}
 	fclose(iso_stream);
+	use_rock = FALSE;
+	use_joilet = FALSE;
 	SetButtonState (1,1,0,0,1);
 	OffTooltipPadlock();
 	Update_StatusBar ( _("Operation completed.") );
@@ -651,7 +654,7 @@ int iso_733 (unsigned char * p)
 
 int DetectImage (FILE *iso)
 {
-	char buf[2448];
+	char buf[12];
 
 	fseek (iso, 0L, SEEK_SET);
 	fseek (iso, 32768, SEEK_CUR);
@@ -666,21 +669,9 @@ int DetectImage (FILE *iso)
 			fseek (iso, 2352, SEEK_CUR);
 			fread (buf, sizeof (char), 12, iso);
 			if (!memcmp ("\x80\xC0\x80\x80\x80\x80\x80\xC0\x80\x80\x80\x80", buf, 12))
-			{
-				/*seek_ecc = 384;
-				sector_size = 2448;
-				sector_data = 2048;
-				seek_head = 16;*/
 				return (39184);
-			}
 			else
-			{
-				/*seek_ecc = 288;
-				sector_size = 2352;
-				sector_data = 2048;
-				seek_head = 16;*/
 				return(37648);
-			}
 		}
 	else
 		return (-1);
