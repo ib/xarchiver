@@ -24,7 +24,7 @@ implemented yet the deletion from the archives created with ms=on. The window is
 E_NOTIMPL is sent to the standard output (STDOUT) and not correctly to the standard error (STDERR) that Xarchiver reads for error 
 messages.
 
-Q.When I try to view a file in a tar archive I get this:
+Q. When I try to view a file in a tar archive I get this:
 
         tar: unrecognized option `--strip-components=2'
         Try `tar --help' for more information.

@@ -1,52 +1,7 @@
-+ move g_spawn codes to libxarchiver/libxarchiver.c
-DONE
++ iso	[PARTIALLY DONE]
+  - add view function
+  - add display of ID's inside the ISO ??
 
-+ fill remaining archivesupport objects
-	- tar.bz2 and tar.gz composite archive support.
-	- gzip -- (fix open)
-	- bzip2 -- (fix open)
-  - zip DONE
-  - rar
-  - arj 
-  - 7z
-  - iso
-	- check for available compressors and add filetypes accordingly
-	  ( this should be done for each individual support object )
+- add cmdline options
+- build the extract dialog showing most of the options for current archive
 
-+ handle child_pid cancellation in libxarchiver
-DONE
-
-+ create GUI (further specification of this is pending)
-	- open archive       PARTIALLY DONE
-
-	- implement archive-model (to replace list-store)
-		
-	- add files          DONE
-	- add folder         DONE
-	- close archive      DONE
-	- test archive       DONE
-	- cancel operation   DONE
-	- quit application   DONE
-	- save archive as    DONE
-
-	- new archive        FIX DIALOG
-	- extract archive    FIX DIALOG -- FIX PARTIAL EXTRACTION
-	- passwd protection  FIX DIALOG
-	- archive properties
-	- About dialog
-	- Add tooltip to buttons
-	- Add accelerators to the menu entries
-	- Show icon in the top left corner of the main window DONE
-
-	- Fix pixmap support
-	- Fix icons in menu -- wont fix 
-	  (need to fix pixbuf to be in mem only once before adding that)
-
-+ connect library to GUI
-  - TODO
-
-+ add cmdline options
-
-+ configure library?
-
-+ error handling (show the archiver error messages in the GUI)
