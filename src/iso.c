@@ -479,24 +479,29 @@ void parse_dir (int extent, int len, XArchive *archive)
 gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, unsigned long long int file_size, unsigned long long file_offset )
 {
 	FILE *fdest;
+	FILE *fsource;
+
 	unsigned long long int tlen;
 	char buf[2048];
 	
+	if ((fsource = fopen (archive->path, "r")) == NULL)
+		return FALSE;
+
 	if ((fdest = fopen (destination_path, "w")) == NULL)
 		return FALSE;
 
-	/*
 	while (file_size > 0)
 	{
-		lseek(fileno(infile), ((off_t)(file_offset - sector_offset)) << 11, SEEK_SET);
+		fseek(fsource, (off_t)file_offset << 11, SEEK_SET);
 		tlen = (file_size > sizeof (buf) ? sizeof (buf) : file_size);
-		read(fileno(infile), buf, tlen);
+		fread (buf, 1 , tlen , fsource);
 		file_size -= tlen;
 		file_offset++;
 		fwrite (buf, 1 , tlen , fdest);
 	}
-	*/
+
 	fclose(fdest);
+	fclose(fsource);
 	return TRUE;
 }
 

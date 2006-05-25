@@ -709,10 +709,23 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 						case XARCHIVETYPE_ISO:
 						command = NULL;
+						unsigned long long int file_size, file_offset;
+						GList *row_list = NULL;
 
+						row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+						if ( row_list == NULL )
+							return;
+						while (row_list)
+						{
+							gtk_tree_model_get_iter(model, &iter, row_list->data);
+							gtk_tree_model_get (model, &iter, 2, &file_size, -1);
+							gtk_tree_model_get (model, &iter, 4, &file_offset, -1);
+							xa_extract_iso_file (archive, extract_path, file_size, file_offset );
+							gtk_tree_path_free(row_list->data);
+							row_list = row_list->next;
+						}
+						g_list_free (row_list);
 						break;
-
-
 					}
                     if ( command != NULL )
                     {
