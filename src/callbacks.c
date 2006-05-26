@@ -1032,7 +1032,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		Name = g_list_first ( ArchiveType );
 		while ( Name != NULL )
 		{
-			if (Name->data != ".tgz" && Name->data != ".rpm" )
+			if (Name->data != ".tgz" && Name->data != ".rpm" && Name->data != ".iso" )
 				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
 			Name = g_list_next ( Name );
 		}

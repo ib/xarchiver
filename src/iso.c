@@ -323,70 +323,40 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
   g_file_offset = extent;
   g_file_size = fstat_buf.st_size;
 
-    if ( (!use_rock) && (!use_joilet) )
+	if ( (!use_rock) && (!use_joilet) )
 		strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from file name */
 	
-	g_file_name = g_strconcat (dir_name, name_buf , NULL);     
+	if (strcmp (name_buf,"..") == 0 || strcmp (name_buf,".") == 0)
+		return;
+	
 	if (outline[0] == 'd')
-	{
-		if (strcmp (name_buf,"..") == 0 || strcmp (name_buf,".") == 0)
-		{
-			g_free (g_file_name);
-			return;
-		}
-		unsigned long long zero = 0;
-		gchar *empty = " ";
-
-		filename    = g_new0(GValue, 1);
-		permissions = g_new0(GValue, 1);
-		size        = g_new0(GValue, 1);
-		date        = g_new0(GValue, 1);
-		offset      = g_new0(GValue, 1);
-		
-		filename = g_value_init(filename, G_TYPE_STRING);
-		g_value_set_string ( filename , g_strdup (g_file_name));
-
-		permissions = g_value_init(permissions, G_TYPE_STRING);
-		g_value_set_string ( permissions , g_strdup ( empty ));
-		
-		size = g_value_init(size, G_TYPE_UINT64);
-		g_value_set_uint64 ( size , zero );
-
-		date = g_value_init(date, G_TYPE_STRING);
-		g_value_set_string ( date , g_strdup ( empty ));
-
-		offset = g_value_init(offset, G_TYPE_UINT64);
-		g_value_set_uint64 ( offset , zero );
-
 		archive->nr_of_dirs++;
-	}
-
 	else
-	{
-		filename    = g_new0(GValue, 1);
-		permissions = g_new0(GValue, 1);
-		size        = g_new0(GValue, 1);
-		date        = g_new0(GValue, 1);
-		offset      = g_new0(GValue, 1);
-
-		filename = g_value_init(filename, G_TYPE_STRING);
-		g_value_set_string ( filename , g_strdup ( g_file_name ));
-
-		permissions = g_value_init(permissions, G_TYPE_STRING);
-		g_value_set_string ( permissions , g_strdup ( g_file_permissions ));
-		
-		size = g_value_init(size, G_TYPE_UINT64);
-		g_value_set_uint64 ( size , g_file_size );
-
-		date = g_value_init(date, G_TYPE_STRING);
-		g_value_set_string ( date , g_strdup ( g_file_date ));
-		g_free (g_file_date);
-
-		offset = g_value_init(offset, G_TYPE_UINT64);
-		g_value_set_uint64 ( offset , g_file_offset );
-		
 		archive->nr_of_files++;
-	}
+	
+	g_file_name = g_strconcat (dir_name, name_buf , NULL);     
+
+	filename    = g_new0(GValue, 1);
+	permissions = g_new0(GValue, 1);
+	size        = g_new0(GValue, 1);
+	date        = g_new0(GValue, 1);
+	offset      = g_new0(GValue, 1);
+		
+	filename = g_value_init(filename, G_TYPE_STRING);
+	g_value_set_string ( filename , g_strdup (g_file_name));
+
+	permissions = g_value_init(permissions, G_TYPE_STRING);
+	g_value_set_string ( permissions , g_strdup ( g_file_permissions ));
+		
+	size = g_value_init(size, G_TYPE_UINT64);
+	g_value_set_uint64 ( size , g_file_size );
+
+	date = g_value_init(date, G_TYPE_STRING);
+	g_value_set_string ( date , g_strdup ( g_file_date ));
+
+	offset = g_value_init(offset, G_TYPE_UINT64);
+	g_value_set_uint64 ( offset , g_file_offset );
+
 	g_free (g_file_name);
 	archive->dummy_size+= g_value_get_uint64 (size);
 

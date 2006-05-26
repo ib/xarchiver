@@ -1,6 +1,7 @@
 Xarchiver changelog:
 
 xx/03/06 - 0.4:
+		- Added Drag and Drop from and to Xarchiver window.
 		- Added a Stop button who cancels the current operation or you can use the ESC key.
 		- Added ability to test archives.
 		- Added an archive properties window showing useful info about the archive and its content.
@@ -16,9 +17,8 @@ xx/03/06 - 0.4:
 		- Improved detection of some tar archives without magic header.
 		- Finally fixed bug randomly causing tar.bz2 and tar.gz archives to be corrupted when deleting files from them.
 		- Fixed some memory leaks. If you find others please let me know.
-		- Fixed bug causing filenames with spaces in arj archives appear truncated in Xarchiver windowÂ.
+		- Fixed bug causing filenames with spaces in arj archives appear truncated in Xarchiver window.
 		- Fixed a bug preventing the file dialog to select more than one file when adding to arj archives. 
-		- Fixed a bug cause a tar.gz archive changing to tar.bz2 when deleting files.
 		- Fixed progress bar not appearing when adding only one big file to an archive.
 		- Fixed a bug causing Xarchiver to hang when opening empty zip archives.
 		- Fixed a bug causing Xarchiver to exit when opening a not supported archive directly from the command line.
