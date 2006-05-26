@@ -242,61 +242,61 @@ int dump_rr(idr)
 
 void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 {
-  int i;
-  char outline[80];
+	int i;
+	char outline[80];
 
-  GValue *filename = NULL;
-  GValue *permissions = NULL;
-  GValue *size = NULL;
-  GValue *date = NULL;
-  GValue *offset = NULL;
+	GValue *filename = NULL;
+	GValue *permissions = NULL;
+	GValue *size = NULL;
+	GValue *date = NULL;
+	GValue *offset = NULL;
 
-  memset(outline, ' ', sizeof(outline));
+	memset(outline, ' ', sizeof(outline));
 
-  if(S_ISREG(fstat_buf.st_mode))
-    outline[0] = '-';
-  else   if(S_ISDIR(fstat_buf.st_mode))
-    outline[0] = 'd';
-  else   if(S_ISLNK(fstat_buf.st_mode))
-    outline[0] = 'l';
-  else   if(S_ISCHR(fstat_buf.st_mode))
-    outline[0] = 'c';
-  else   if(S_ISBLK(fstat_buf.st_mode))
-    outline[0] = 'b';
-  else   if(S_ISFIFO(fstat_buf.st_mode))
-    outline[0] = 'f';
-  else   if(S_ISSOCK(fstat_buf.st_mode))
-    outline[0] = 's';
-  else
-    outline[0] = '?';
+	if(S_ISREG(fstat_buf.st_mode))
+		outline[0] = '-';
+	else   if(S_ISDIR(fstat_buf.st_mode))
+		outline[0] = 'd';
+	else   if(S_ISLNK(fstat_buf.st_mode))
+		outline[0] = 'l';
+	else   if(S_ISCHR(fstat_buf.st_mode))
+		outline[0] = 'c';
+	else   if(S_ISBLK(fstat_buf.st_mode))
+		outline[0] = 'b';
+	else   if(S_ISFIFO(fstat_buf.st_mode))
+		outline[0] = 'f';
+	else   if(S_ISSOCK(fstat_buf.st_mode))
+		outline[0] = 's';
+	else
+		outline[0] = '?';
 
-  memset(outline+1, '-', 9);
-  if( fstat_buf.st_mode & S_IRUSR )
-    outline[1] = 'r';
-  if( fstat_buf.st_mode & S_IWUSR )
-    outline[2] = 'w';
-  if( fstat_buf.st_mode & S_IXUSR )
-    outline[3] = 'x';
+	memset(outline+1, '-', 9);
+	if( fstat_buf.st_mode & S_IRUSR )
+		outline[1] = 'r';
+	if( fstat_buf.st_mode & S_IWUSR )
+		outline[2] = 'w';
+	if( fstat_buf.st_mode & S_IXUSR )
+		outline[3] = 'x';
 
-  if( fstat_buf.st_mode & S_IRGRP )
-    outline[4] = 'r';
-  if( fstat_buf.st_mode & S_IWGRP )
-    outline[5] = 'w';
-  if( fstat_buf.st_mode & S_IXGRP )
-    outline[6] = 'x';
+	if( fstat_buf.st_mode & S_IRGRP )
+		outline[4] = 'r';
+	if( fstat_buf.st_mode & S_IWGRP )
+		outline[5] = 'w';
+	if( fstat_buf.st_mode & S_IXGRP )
+		outline[6] = 'x';
 
-  if( fstat_buf.st_mode & S_IROTH )
-    outline[7] = 'r';
-  if( fstat_buf.st_mode & S_IWOTH )
-    outline[8] = 'w';
-  if( fstat_buf.st_mode & S_IXOTH )
-    outline[9] = 'x';
+	if( fstat_buf.st_mode & S_IROTH )
+		outline[7] = 'r';
+	if( fstat_buf.st_mode & S_IWOTH )
+	   outline[8] = 'w';
+	if( fstat_buf.st_mode & S_IXOTH )
+		outline[9] = 'x';
 
-  g_sprintf(outline+11, "%3d", fstat_buf.st_nlink); 
-  g_sprintf(outline+15, "%4o", fstat_buf.st_uid);  
-  g_sprintf(outline+20, "%4o", fstat_buf.st_gid); 
+	g_sprintf(outline+11, "%3d", fstat_buf.st_nlink); 
+	g_sprintf(outline+15, "%4o", fstat_buf.st_uid);  
+	g_sprintf(outline+20, "%4o", fstat_buf.st_gid); 
   
-  g_file_size = fstat_buf.st_size ;
+	g_file_size = fstat_buf.st_size ;
 
 	if (date_buf[1] >= 1 && date_buf[1] <= 12)
 		memcpy(outline+41, months[date_buf[1]-1], 3);

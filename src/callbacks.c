@@ -1312,6 +1312,12 @@ void ShowShellOutput ( GtkMenuItem *menuitem, gboolean iso_title)
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 {
     gtk_widget_set_sensitive ( Stop_button , FALSE );
+	if (archive->status == XA_ARCHIVESTATUS_ADD)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Doing so will corrupt your archive.\nDo you really want to cancel?") );
+		if (response == GTK_RESPONSE_NO)
+			return;
+	}
     Update_StatusBar (_("Waiting for the process to abort..."));
     if ( kill ( archive->child_pid , SIGABRT ) < 0 )
     {
