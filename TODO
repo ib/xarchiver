@@ -1,6 +1,7 @@
 + iso	[PARTIALLY DONE]
   - add view function
   - add display of ID's inside the ISO ??
+  - add ISO image type in the archive properties window ??
 
 - add cmdline options
 - build the extract dialog showing most of the options for current archive

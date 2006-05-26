@@ -1837,9 +1837,23 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     GtkTreeModel     *model;
     GtkTreeIter       iter;
     gchar            *name;
+    GList            *row_list = NULL;
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
-    if ( ! gtk_tree_selection_get_selected (selection, &model, &iter)) return;
+
+    /* if no or more than one rows selected, do nothing, just for sanity */
+    if ( gtk_tree_selection_count_selected_rows (selection) != 1)
+		return;
+
+    row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+	if ( row_list == NULL )
+		return;
+
+	gtk_tree_model_get_iter(model, &iter, row_list->data);
+
+    gtk_tree_path_free(row_list->data);
+    g_list_free (row_list);
+
     gtk_tree_model_get (model, &iter, 0, &name, -1);
     gdk_property_change (context->source_window,
                        gdk_atom_intern ("XdndDirectSave0", FALSE),
@@ -1862,9 +1876,23 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
     int fm_path_len;
     gchar *command , *dummy_path , *name;
     gchar *to_send = "E";
+    GList *row_list = NULL;
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
-    if ( ! gtk_tree_selection_get_selected (selection, &model, &iter) ) return;
+
+    /* if no or more than one rows selected, do nothing, just for sanity */
+    if ( gtk_tree_selection_count_selected_rows (selection) != 1)
+		return;
+
+    row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+	if ( row_list == NULL )
+		return;
+
+	gtk_tree_model_get_iter(model, &iter, row_list->data);
+
+    gtk_tree_path_free(row_list->data);
+    g_list_free (row_list);
+
     gtk_tree_model_get (model, &iter, 0, &name, -1);
     if ( gdk_property_get (dc->source_window,
                             gdk_atom_intern ("XdndDirectSave0", FALSE),
