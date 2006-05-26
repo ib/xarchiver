@@ -2,6 +2,8 @@
   - add view function
   - add display of ID's inside the ISO ??
   - add ISO image type in the archive properties window ??
+  - fix extraction routine since the files inside the directories are not extracted.
+  - fix drag from Xarchiver window since the dragged files is not extracted.
 
 - add cmdline options
 - build the extract dialog showing most of the options for current archive

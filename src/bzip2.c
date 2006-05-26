@@ -75,9 +75,11 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 				archive->parse_output = 0;
 				command = g_strconcat ( flag ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
 				SpawnAsyncProcess ( archive , command , 0);
-				g_free ( command );
 				if ( archive->child_pid == 0 )
+				{
+					g_free ( command );
 					return;
+				}
 				//This to remove the suffix from the archive name
                 if (g_str_has_suffix ( archive_name , flag ? ".gz" : ".bz2") ) archive_name [strlen(archive_name) - ( flag ? 3 : 4 ) ] = '\0';
                 if (archive_name == NULL)
@@ -108,10 +110,11 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 	gtk_widget_destroy ( extract_window );
 	SetButtonState (1,1,0,0,0);
 	gtk_widget_set_sensitive ( Stop_button , FALSE );
-	gtk_widget_hide ( viewport2 );
-	Update_StatusBar ( _("Operation completed."));
 	if (command != NULL)
-		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);	    
+	{
+		g_free ( command );
+		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);    
+	}
 }
 
 gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
