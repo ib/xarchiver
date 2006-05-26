@@ -240,7 +240,7 @@ int dump_rr(idr)
 }
 
 
-void dump_stat(int extent, XArchive *archive)
+void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 {
   int i;
   char outline[80];
@@ -324,11 +324,44 @@ void dump_stat(int extent, XArchive *archive)
   g_file_size = fstat_buf.st_size;
 
     if ( (!use_rock) && (!use_joilet) )
-		strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from output file */
-     
-    g_file_name = g_strconcat (rootname, name_buf,NULL);
+		strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from file name */
+	
+	g_file_name = g_strconcat (dir_name, name_buf , NULL);     
+	if (outline[0] == 'd')
+	{
+		if (strcmp (name_buf,"..") == 0 || strcmp (name_buf,".") == 0)
+		{
+			g_free (g_file_name);
+			return;
+		}
+		unsigned long long zero = 0;
+		gchar *empty = " ";
 
-    if (outline[0] != 'd')
+		filename    = g_new0(GValue, 1);
+		permissions = g_new0(GValue, 1);
+		size        = g_new0(GValue, 1);
+		date        = g_new0(GValue, 1);
+		offset      = g_new0(GValue, 1);
+		
+		filename = g_value_init(filename, G_TYPE_STRING);
+		g_value_set_string ( filename , g_strdup (g_file_name));
+
+		permissions = g_value_init(permissions, G_TYPE_STRING);
+		g_value_set_string ( permissions , g_strdup ( empty ));
+		
+		size = g_value_init(size, G_TYPE_UINT64);
+		g_value_set_uint64 ( size , zero );
+
+		date = g_value_init(date, G_TYPE_STRING);
+		g_value_set_string ( date , g_strdup ( empty ));
+
+		offset = g_value_init(offset, G_TYPE_UINT64);
+		g_value_set_uint64 ( offset , zero );
+
+		archive->nr_of_dirs++;
+	}
+
+	else
 	{
 		filename    = g_new0(GValue, 1);
 		permissions = g_new0(GValue, 1);
@@ -338,7 +371,6 @@ void dump_stat(int extent, XArchive *archive)
 
 		filename = g_value_init(filename, G_TYPE_STRING);
 		g_value_set_string ( filename , g_strdup ( g_file_name ));
-		g_free (g_file_name);
 
 		permissions = g_value_init(permissions, G_TYPE_STRING);
 		g_value_set_string ( permissions , g_strdup ( g_file_permissions ));
@@ -352,27 +384,26 @@ void dump_stat(int extent, XArchive *archive)
 
 		offset = g_value_init(offset, G_TYPE_UINT64);
 		g_value_set_uint64 ( offset , g_file_offset );
-
-		archive->row = g_list_prepend (archive->row , filename );
-		archive->row = g_list_prepend (archive->row , permissions);
-		archive->row = g_list_prepend (archive->row,  size);
-		archive->row = g_list_prepend (archive->row,  date);
-		archive->row = g_list_prepend (archive->row,  offset);
-
+		
 		archive->nr_of_files++;
-		archive->dummy_size+= g_value_get_uint64 (size);
 	}
-	else
-		archive->nr_of_dirs++;
+	g_free (g_file_name);
+	archive->dummy_size+= g_value_get_uint64 (size);
+
+	archive->row = g_list_prepend (archive->row , filename );
+	archive->row = g_list_prepend (archive->row , permissions);
+	archive->row = g_list_prepend (archive->row,  size);
+	archive->row = g_list_prepend (archive->row,  date);
+	archive->row = g_list_prepend (archive->row,  offset);
 }
 
-void parse_dir (int extent, int len, XArchive *archive)
+void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
 {
 	char testname[256];
 	struct todo * td;
 	int i;
 	struct iso_directory_record * idr;
- 
+
 	while(len > 0 )
 	{
 		lseek(fileno(iso_stream), (extent - sector_offset) << 11, 0);
@@ -380,24 +411,25 @@ void parse_dir (int extent, int len, XArchive *archive)
 		len -= sizeof(buffer);
 		extent++;
 		i = 0;
-		while(1==1)
+		while( 1==1 )
 		{
 			idr = (struct iso_directory_record *) &buffer[i];
-			if(idr->length[0] == 0) break;
+			if (idr->length[0] == 0)
+				break;
 			memset(&fstat_buf, 0, sizeof(fstat_buf));
 			name_buf[0] = xname[0] = 0;
 			fstat_buf.st_size = iso_733((unsigned char *)idr->size);
 			if( idr->flags[0] & 2)
 				fstat_buf.st_mode |= S_IFDIR;
 			else
-				fstat_buf.st_mode |= S_IFREG;	
+				fstat_buf.st_mode |= S_IFREG;
 			if(idr->name_len[0] == 1 && idr->name[0] == 0)
 				strcpy(name_buf, ".");
 			else if(idr->name_len[0] == 1 && idr->name[0] == 1)
 				strcpy(name_buf, "..");
 			else
 			{
-				switch(ucs_level)
+				switch (ucs_level)
 				{
 					case 3:
 					/*
@@ -460,10 +492,6 @@ void parse_dir (int extent, int len, XArchive *archive)
 		{
 		    strcpy(testname, rootname);
 			strcat(testname, name_buf);
-			if(xtract && strcmp(xtract, testname) == 0)
-			{
-				/* extract_file(idr); */
-			}
 		}
 		if( do_find
 	   && (idr->name_len[0] != 1
@@ -471,10 +499,8 @@ void parse_dir (int extent, int len, XArchive *archive)
 		{
 			strcpy(testname, rootname);
 			strcat(testname, name_buf);
-			//printf("%s\n", testname);
 		}
-	
-		dump_stat(iso_733((unsigned char *)idr->extent), archive);
+		dump_stat(dir_name , iso_733((unsigned char *)idr->extent), archive);
 		i += buffer[i];
 		if (i > 2048 - sizeof(struct iso_directory_record))
 			break;
@@ -623,14 +649,14 @@ void OpenISO ( XArchive *archive )
 			lseek(fileno(iso_stream),(16 + toc_offset) <<11, 0);   
 			read(fileno(iso_stream), &ipd, sizeof(ipd));
 		}
-	parse_dir (iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size), archive);
+	parse_dir ("/" , iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size), archive);
 	xa_append_rows ( archive , 5 );
 	td = todo_idr;	
 
 	while(td)
 	{	
 		rootname = td->name;
-		parse_dir(td->extent, td->length, archive);
+		parse_dir( rootname , td->extent, td->length, archive);
 		xa_append_rows ( archive , 5 );
 		td = td->next;
 	}

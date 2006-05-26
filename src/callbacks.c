@@ -639,7 +639,8 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			break;
 
 			case GTK_RESPONSE_OK:
-            if (es_path != NULL) g_free (es_path);
+            if (es_path != NULL)
+				g_free (es_path);
             es_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (entry1) ));
 			extract_path = EscapeBadChars ( es_path );
 			if ( strlen ( extract_path ) > 0 )
@@ -904,8 +905,10 @@ GSList *Add_File_Dialog ( gchar *mode )
 	}
 	else
 	{
-		if (archive->type == 10) title = _("Select the folder to be added to the current archive");
-            else title = _("Select the folders to be added to the current archive; use SHIFT to multiple select");
+		if (archive->type == XARCHIVETYPE_ARJ)
+			title = _("Select the folder to be added to the current archive");
+        else
+			title = _("Select the folders to be added to the current archive; use SHIFT to multiple select");
 		flag = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
 	}
 	File_Selector = gtk_file_chooser_dialog_new ( title,
@@ -917,11 +920,15 @@ GSList *Add_File_Dialog ( gchar *mode )
 							GTK_RESPONSE_ACCEPT,
 							NULL);
     /* We set gtk_file_chooser_set_select_multiple to FALSE because a bug in ARJ prevents adding more of two directories */
-    if (archive->type == 0 || archive->type == 1 || ( archive->type == 10 && mode == "folder" ) ) gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , FALSE );
-        else gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
-	if (CurrentFolder != NULL) gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , CurrentFolder );
+    if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || ( archive->type == XARCHIVETYPE_ARJ && mode == "folder" ) )
+		gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , FALSE );
+    else
+		gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
+	if (CurrentFolder != NULL)
+		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , CurrentFolder );
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector) );
-	if (response == GTK_RESPONSE_ACCEPT) list = gtk_file_chooser_get_filenames ( GTK_FILE_CHOOSER (File_Selector) );
+	if (response == GTK_RESPONSE_ACCEPT)
+		list = gtk_file_chooser_get_filenames ( GTK_FILE_CHOOSER (File_Selector) );
 	gtk_widget_destroy (File_Selector);
 	return list;
 }
