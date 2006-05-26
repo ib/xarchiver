@@ -140,17 +140,14 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	{
         //gtk_widget_show ( viewport2 );
         //gtk_widget_set_sensitive ( Stop_button , TRUE );
-        Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
+        if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
+			Update_StatusBar ( _("Operation completed."));
+		else
+			Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
         RemoveColumnsListStore();
         archive->status = XA_ARCHIVESTATUS_IDLE;
 		switch ( archive->type )
 		{
-			//case 0:
-			//Bzip2: not needed
-
-			//case 1:
-			//Gzip: not needed
-
 			case XARCHIVETYPE_RAR:
             OpenRar ( archive );
 			break;
@@ -170,9 +167,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			case XARCHIVETYPE_ZIP:
 			OpenZip ( archive );
 			break;
-
-            //case XARCHIVETYPE_RPM:
-            //RPM: only open and extract
 
             case XARCHIVETYPE_7ZIP:
             Open7Zip ( archive );
@@ -198,12 +192,14 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 		return;
 	if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
 	{
+		gchar *msg = g_strconcat (_("The archive \""),path,_("\" already exists. Do you want to overwrite it?") , NULL);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),
 						GTK_DIALOG_MODAL,
 						GTK_MESSAGE_QUESTION,
 						GTK_BUTTONS_YES_NO,
-						_("This archive already exists. Do you want to overwrite it?")
+						msg
 						);
+		g_free (msg);
 		if (response != GTK_RESPONSE_YES)
 		{
 			g_free (path);
@@ -1311,13 +1307,13 @@ void ShowShellOutput ( GtkMenuItem *menuitem, gboolean iso_title)
 
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 {
-    gtk_widget_set_sensitive ( Stop_button , FALSE );
 	if (archive->status == XA_ARCHIVESTATUS_ADD)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Doing so will corrupt your archive.\nDo you really want to cancel?") );
+		response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Doing so will probably corrupt your archive.\nDo you really want to cancel?") );
 		if (response == GTK_RESPONSE_NO)
 			return;
 	}
+	gtk_widget_set_sensitive ( Stop_button , FALSE );
     Update_StatusBar (_("Waiting for the process to abort..."));
     if ( kill ( archive->child_pid , SIGABRT ) < 0 )
     {
@@ -1328,7 +1324,7 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
     if (archive->status != XA_ARCHIVESTATUS_ADD || archive->status != XA_ARCHIVESTATUS_DELETE)
         if (archive->has_passwd)
 			archive->has_passwd = FALSE;
-	archive->child_pid = 0;
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
