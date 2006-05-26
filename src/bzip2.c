@@ -109,7 +109,6 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 	}
 	gtk_widget_destroy ( extract_window );
 	SetButtonState (1,1,0,0,0);
-	gtk_widget_set_sensitive ( Stop_button , FALSE );
 	if (command != NULL)
 	{
 		g_free ( command );
