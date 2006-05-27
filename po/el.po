@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-27 14:04+0900\n"
-"PO-Revision-Date: 2006-05-26 23:37+0200\n"
+"PO-Revision-Date: 2006-05-27 09:39+0200\n"
 "Last-Translator: Stavros Giannouris <stavrosg2002@freemail.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
@@ -84,9 +84,8 @@ msgid " file to "
 msgstr " αρχείου στο"
 
 #: ../src/bzip2.c:106
-#, fuzzy
 msgid "Please select where to extract files!"
-msgstr "Παρακαλώ επιλέξτε που θα αποσυμπιέσετε τα αρχεία !"
+msgstr "Παρακαλώ επιλέξτε που θα αποσυμπιέσετε τα αρχεία!"
 
 #: ../src/bzip2.c:195
 msgid "Decompressing tar file with "
@@ -94,47 +93,43 @@ msgstr "Αποσυμπίεση του αρχείου tar με"
 
 #: ../src/bzip2.c:195 ../src/bzip2.c:271
 msgid ", please wait..."
-msgstr ""
+msgstr ", παρακαλώ περιμένετε..."
 
 #: ../src/bzip2.c:217
-#, fuzzy
 msgid ""
 "An error occurred while decompressing the archive.\n"
 "Do you want to open the error messages window?"
 msgstr ""
 "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου tar.\n"
-"Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+"Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
 #: ../src/bzip2.c:262
-#, fuzzy
 msgid ""
 "An error occurred while adding to the tar archive.\n"
 "Do you want to open the error messages window?"
 msgstr ""
-"Προέκυψε ένα σφάλμα κατά τη προσθήκη αρχείων στο\n"
-"αρχείο tar. Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+"Προέκυψε ένα σφάλμα κατά τη προσθήκη αρχείων στο αρχείο\n"
+"tar. Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
 #: ../src/bzip2.c:262
-#, fuzzy
 msgid ""
 "An error occurred while deleting from the tar archive.\n"
 "Do you want to open the error messages window?"
 msgstr ""
 "Προέκυψε ένα σφάλμα κατά τη διαγραφή αρχείων μέσα στο συμπιεσμένο\n"
-"tar αρχείο. Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+"tar αρχείο. Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
 #: ../src/bzip2.c:271
 msgid "Recompressing tar file with "
 msgstr "Συμπίεση του αρχείου tar με"
 
 #: ../src/bzip2.c:286
-#, fuzzy
 msgid ""
 "An error occurred while recompressing the tar archive.\n"
 "Do you want to open the error messages window?"
 msgstr ""
 "Προέκυψε ένα σφάλμα κατά τη συμπίεση του αρχείου tar.\n"
-"Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+"Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
 #: ../src/callbacks.c:98
 msgid "Operation canceled."
@@ -155,20 +150,19 @@ msgstr "Η λειτουργία ολοκληρώθηκε."
 
 #: ../src/callbacks.c:114
 msgid "The integrity of the archive \""
-msgstr ""
+msgstr "Η πιστότητα του αρχείου \""
 
 #: ../src/callbacks.c:114
 msgid "\" is OK!"
-msgstr ""
+msgstr "\" είναι εντάξει."
 
 #: ../src/callbacks.c:129
-#, fuzzy
 msgid ""
 "An error occurred while accessing the archive.\n"
 "Do you want to open the error messages window?"
 msgstr ""
 "Προέκυψε ένα σφάλμα κατά την ανάγνωση του αρχείου.\n"
-"Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+"Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
 #: ../src/callbacks.c:133 ../src/callbacks.c:1970 ../src/rpm.c:114
 #: ../src/rpm.c:140
@@ -184,14 +178,12 @@ msgid "Operation successfully completed."
 msgstr "Η λειτουργία ολοκληρώθηκε επιτυχώς."
 
 #: ../src/callbacks.c:195
-#, fuzzy
 msgid "The archive \""
-msgstr "Νέο συμπιεσμένο αρχείο"
+msgstr "Το συμπιεσμένο αρχείο \""
 
 #: ../src/callbacks.c:195
-#, fuzzy
 msgid "\" already exists. Do you want to overwrite it?"
-msgstr "Το αρχείο υπάρχει ήδη.  Θέλετε να το αντικαταστήσετε;"
+msgstr "\" υπάρχει ήδη.  Θέλετε να το αντικαταστήσετε;"
 
 #: ../src/callbacks.c:230
 msgid "Choose Add File to create the compressed file."
@@ -216,13 +208,12 @@ msgid "The format of this archive is not recognized !"
 msgstr "Αυτός ο τύπος αρχείου δεν υποστηρίζεται !"
 
 #: ../src/callbacks.c:310
-#, fuzzy
 msgid ""
 "Sorry, this archive format is not supported since the proper archiver has't "
 "been installed!"
 msgstr ""
 "Αυτό το συμπιεσμένο αρχείο δεν υποστηρίζεται διότι δεν είναι εγκατεστημένη η "
-"αντίστοιχη εφαρμογή !"
+"αντίστοιχη εφαρμογή!"
 
 #: ../src/callbacks.c:317
 msgid "Please wait while the content of the ISO image is being read..."
@@ -237,9 +228,8 @@ msgid "Testing archive integrity, please wait..."
 msgstr "Έλεγχος ακεραιότητάς αρχείου, παρακαλώ περιμένετε..."
 
 #: ../src/callbacks.c:419
-#, fuzzy
 msgid "Please hit the Stop button first!"
-msgstr "Παρακαλώ επιλέξτε πρώτα το κουμπί 'διακοπή' !"
+msgstr "Παρακαλώ επιλέξτε πρώτα το κουμπί 'διακοπή'!"
 
 #: ../src/callbacks.c:463
 msgid "You are about to delete "
@@ -254,12 +244,11 @@ msgid " file"
 msgstr " αρχείο"
 
 #: ../src/callbacks.c:463
-#, fuzzy
 msgid ""
 " from the archive.\n"
 "Are you really sure to do this?"
 msgstr ""
-"από το συμπιεσμένο αρχείο\n"
+" από το συμπιεσμένο αρχείο\n"
 "Είστε σίγουρος/η;"
 
 #: ../src/callbacks.c:468
@@ -356,24 +345,24 @@ msgid ""
 "Doing so will probably corrupt your archive.\n"
 "Do you really want to cancel?"
 msgstr ""
+"Αν προχωρήσετε, είναι πιθανό να καταστρέψετε το αρχείο.\n"
+"Είστε σίγουρος/η ότι θέλετε να το ακυρώσετε;"
 
 #: ../src/callbacks.c:1317
 msgid "Waiting for the process to abort..."
 msgstr "Ακυρώνεται η διεργασία..."
 
 #: ../src/callbacks.c:1387
-#, fuzzy
 msgid "Please select a file, not a directory!"
-msgstr "Παρακαλώ επιλέξτε ένα αρχείο, όχι κατάλογο !"
+msgstr "Παρακαλώ επιλέξτε ένα αρχείο, όχι κατάλογο!"
 
 #: ../src/callbacks.c:1423
-#, fuzzy
 msgid ""
 "An error occurred while extracting the file to be viewed.\n"
 "Do you want to open the error messages window?"
 msgstr ""
 "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση των προς προβολή αρχείων.\n"
-"Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+"Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
 #. Modified Date
 #: ../src/callbacks.c:1498
@@ -398,28 +387,24 @@ msgid " bytes"
 msgstr " bytes"
 
 #: ../src/callbacks.c:1589
-#, fuzzy
 msgid "Please type a password!"
 msgstr "Παρακαλώ εισάγετε έναν κωδικό πρόσβασης!"
 
 #: ../src/callbacks.c:1594
-#, fuzzy
 msgid "The passwords don't match!"
-msgstr "Οι κωδικοί δεν ταιριάζουν !!"
+msgstr "Οι κωδικοί δεν ταιριάζουν!"
 
 #: ../src/callbacks.c:1946
-#, fuzzy
 msgid "Sorry, I could not perform the operation!"
 msgstr "Συγνώμη, δεν ήταν δυνατή η εκτέλεση της λειτουργίας."
 
 #: ../src/callbacks.c:1968
-#, fuzzy
 msgid ""
 "Bzip2 or gzip cannot compress more than one file, please choose another "
 "archive format!"
 msgstr ""
 "Το gzip και το bzip2 δε μπορούν να συμπιέσουν πάνω από ένα αρχείο. Παρακαλώ "
-"επιλέξτε άλλη μορφή !"
+"επιλέξτε άλλη μορφή!"
 
 #: ../src/interface.c:70
 msgid "_Archive"
@@ -621,12 +606,11 @@ msgstr "Δικαιώματα"
 
 #: ../src/iso.c:521
 msgid "Offset"
-msgstr ""
+msgstr "Μετατόπιση"
 
 #: ../src/main.c:51
-#, fuzzy
 msgid "[archive name]"
-msgstr "Aarchiver"
+msgstr "[όνομα αρχείου]"
 
 #: ../src/main.c:65
 #, c-format
@@ -644,7 +628,7 @@ msgstr "Έτοιμο."
 
 #: ../src/rpm.c:51
 msgid "Hard Link"
-msgstr ""
+msgstr "Σκληρός δεσμός"
 
 #: ../src/rpm.c:51
 msgid "Owner"
@@ -655,22 +639,20 @@ msgid "Group"
 msgstr "Ομάδα"
 
 #: ../src/rpm.c:118
-#, fuzzy
 msgid ""
 "An error occurred while extracting the cpio archive\n"
 "from the rpm one. Do you want to open the error messages window?"
 msgstr ""
 "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου cpio\n"
-"από το rpm. Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+"από το rpm. Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
 #: ../src/rpm.c:144
-#, fuzzy
 msgid ""
 "An error occurred while decompressing the cpio archive.\n"
 "Do you want to open the error messages window?"
 msgstr ""
 "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου cpio.\n"
-"Θέλετε να δείτε το αποτέλεσμα κελύφους;"
+"Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
 #: ../src/zip.c:33
 msgid "Method"
@@ -685,9 +667,8 @@ msgid "A GTK+2 only archive manager"
 msgstr "Ένας διαχειριστής συμπιεσμένων αρχείων σε GTK+2"
 
 #: ../xarchiver.desktop.in.h:2
-#, fuzzy
 msgid "Archive Manager"
-msgstr "Aarchiver"
+msgstr "Διαχειριστής συμπιεσμένων αρχείων"
 
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
