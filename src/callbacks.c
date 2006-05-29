@@ -175,6 +175,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
             case XARCHIVETYPE_ARJ:
             OpenArj ( archive );
             break;
+            
+            default:
+            break;
 		}
         return;
 	}
@@ -357,6 +360,9 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
         case XARCHIVETYPE_7ZIP:
         Open7Zip (archive);
         break;
+        
+        default:
+        break;
 	}
 	if (archive->passwd != NULL)
 		g_free (archive->passwd);
@@ -365,7 +371,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 
 void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-    gchar *command = NULL;
+    gchar *command;
     if ( archive->has_passwd )
     {
         if ( archive->passwd == NULL)
@@ -406,6 +412,9 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 		else
 			command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
 		break;
+		
+		default:
+		command = NULL;
 	}
 	archive->status = XA_ARCHIVESTATUS_TEST;
     ExtractAddDelete ( command );
@@ -496,6 +505,9 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
         case XARCHIVETYPE_ARJ:
         command = g_strconcat ( "arj d " , archive->escaped_path , names->str, NULL);
+        break;
+        
+        default:
         break;
 	}
 	if (command != NULL)
@@ -594,6 +606,9 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
             else
 				command = g_strconcat ( "arj a -i -r " , archive->escaped_path , names->str , NULL );
             break;
+
+            default:
+            command = NULL;            
 		}
     if (command != NULL)
     {
@@ -608,7 +623,7 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 
 void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 {
-	gchar *command = NULL;
+	gchar *command;
 	unsigned long long int file_size, file_offset;
 	gchar *name = NULL;
 	
@@ -722,6 +737,9 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 						OffTooltipPadlock();
 						Update_StatusBar ( _("Operation completed.") );
 						break;
+						
+						default:
+						command = NULL;
 					}
                     if ( command != NULL )
                     {
@@ -778,7 +796,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files)
 {
-    gchar *command = NULL;
+    gchar *command;
     unsigned short int levels;
     char digit[2];
     gchar *strip = NULL;
@@ -840,6 +858,9 @@ gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files)
         else
 			command = g_strconcat ( "arj ",full_path ? "x" : "e"," -i -y " , archive->escaped_path , " " , extract_path , files->str, NULL );
 		break;
+
+        default:
+			command = NULL;
     }
     if ( strip != NULL)
 		g_free ( strip );
@@ -1335,7 +1356,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
     GtkTreeIter iter;
     gchar *dir;
     gchar *dummy_name;
-    unsigned short int COL_NAME = 1;
+    unsigned short int COL_NAME;
     gboolean is_dir = FALSE;
     GList *row_list = NULL;
 
@@ -1374,6 +1395,9 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
         case XARCHIVETYPE_7ZIP:
             COL_NAME = 3;
         break;
+
+        default:
+			COL_NAME = 1;
     }
     gtk_tree_model_get (model, &iter, COL_NAME, &dir, -1);
     if (archive->type == XARCHIVETYPE_ZIP)
@@ -1464,6 +1488,8 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
     g_free ( data->str );
     g_string_free (data , FALSE);
     Update_StatusBar (_("Operation completed."));
+    
+    return NULL;
 }
 
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
@@ -1867,7 +1893,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     gdk_property_change (context->source_window,
                        gdk_atom_intern ("XdndDirectSave0", FALSE),
                        gdk_atom_intern ("text/plain", FALSE), 8,
-                       GDK_PROP_MODE_REPLACE, name, strlen (name) );
+                       GDK_PROP_MODE_REPLACE, (guchar *)name, strlen (name) );
     g_free (name);
 }
 
@@ -1912,7 +1938,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
         /* Zero-Terminate the string */
         fm_path = g_realloc (fm_path, fm_path_len + 1);
         fm_path[fm_path_len] = '\000';
-        dummy_path = g_filename_from_uri ( fm_path, NULL, NULL );
+        dummy_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
         g_free ( fm_path );
         extract_path = extract_local_path ( dummy_path,name );
         g_free ( dummy_path );
@@ -1926,7 +1952,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
             g_free (command);
         }
         //g_dataset_set_data (dc, "XDS-sent", to_send);
-        gtk_selection_data_set (selection_data, gdk_atom_intern ("XA_STRING", FALSE), 8, to_send, 1);
+        gtk_selection_data_set (selection_data, gdk_atom_intern ("XA_STRING", FALSE), 8, (guchar*)to_send, 1);
     }
     if (extract_path != NULL) g_free (extract_path);
     extract_path = NULL;
