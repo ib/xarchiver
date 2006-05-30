@@ -370,9 +370,9 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
 {
 	char testname[256];
-	struct todo * td;
+	struct todo *td;
 	int i;
-	struct iso_directory_record * idr;
+	struct iso_directory_record *idr;
 
 	while(len > 0 )
 	{
@@ -429,7 +429,8 @@ void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
 				}
 			};
 			memcpy(date_buf, idr->date, 9);
-			if(use_rock) dump_rr(idr);
+			if (use_rock)
+				dump_rr(idr);
 			if(   (idr->flags[0] & 2) != 0
 			&& (idr->name_len[0] != 1
 	       || (idr->name[0] != 0 && idr->name[0] != 1)))
@@ -624,15 +625,20 @@ void OpenISO ( XArchive *archive )
 	td = todo_idr;	
 
 	while(td)
-	{	
+	{
 		rootname = td->name;
 		parse_dir( rootname , td->extent, td->length, archive);
 		xa_append_rows ( archive , 5 );
+		free (td->name);
 		td = td->next;
 	}
 	fclose(iso_stream);
 	use_rock = FALSE;
 	use_joilet = FALSE;
+
+	free (td);
+	td = NULL;
+	
 	SetButtonState (1,1,0,0,1);
 	OffTooltipPadlock();
 	gtk_widget_set_sensitive ( properties , TRUE );

@@ -48,7 +48,7 @@ int main (int argc, char *argv[])
   textdomain (GETTEXT_PACKAGE);
   #endif
   gtk_set_locale();
-  gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, NULL);
+  gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
   cli = TRUE;
  /* if (argc > 1)
   {
@@ -127,7 +127,8 @@ int main (int argc, char *argv[])
     gtk_widget_show (MainWindow);
     cli = FALSE;
     //This to open the archive from the command line
-    if ( argc == 2) xa_open_archive ( NULL , argv[1]);
+    if ( argc == 2)
+		xa_open_archive ( NULL , argv[1]);
     gtk_main ();
     g_list_free ( ArchiveSuffix);
     g_list_free ( ArchiveType);
