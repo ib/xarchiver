@@ -181,6 +181,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		}
         return;
 	}
+
+	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
+	g_object_unref (model);
+
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
 	gtk_widget_set_sensitive ( properties , TRUE );
 	archive->status = XA_ARCHIVESTATUS_IDLE;
@@ -874,7 +878,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nDeveloper:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\n",NULL};
-    const char *documenters[] = {"\nThanks to:\nBenedikt Meurer for helping me with DnD.\n\nStephan Arts for hints on code optimization.\n\nSalvatore Santagati for integrating\nisoinfo code in Xarchiver.\n\nUracile for the stunning logo.\n\nEugene Ostapets and Enrico Troeger\nfor russian and german translation.\n\nThe people of gtk-app-devel-list\nwho kindly answered my questions.", NULL};
+    const char *documenters[] = {"\nThanks to:\nBenedikt Meurer for helping me with DnD.\n\nStephan Arts for hints on code optimization.\n\nSalvatore Santagati for integrating\nisoinfo code in Xarchiver.\n\nUracile for the stunning logo.\n\nThe XFCE translators.\n\nThe people of gtk-app-devel-list\nwho kindly answered my questions.", NULL};
 	if (about != NULL)
 	{
 		gtk_window_present (GTK_WINDOW (about));
@@ -1271,6 +1275,10 @@ void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType
 	gtk_tree_selection_set_mode(sel, GTK_SELECTION_MULTIPLE);
 	g_signal_connect ((gpointer) sel, "changed", G_CALLBACK (Activate_buttons), NULL);
     
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview1));
+    g_object_ref(model);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), NULL);
+
 	for (x = 0; x <= nc-1; x++)
 	{
 		renderer = gtk_cell_renderer_text_new ();
@@ -2035,10 +2043,6 @@ void xa_append_rows ( XArchive *archive , unsigned short int nc )
 		return;
 	archive->row = g_list_reverse ( archive->row );
 
-	model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview1));
-    g_object_ref(model);
-	gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), NULL);
-	
 	gtk_list_store_append (liststore, &iter);
 	while ( archive->row )
 	{
@@ -2057,9 +2061,6 @@ void xa_append_rows ( XArchive *archive , unsigned short int nc )
 	while ( gtk_events_pending() )
 		gtk_main_iteration();
 
-	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-	g_object_unref (model);
-	
 	g_list_foreach(archive->row, (GFunc)g_value_unset, NULL);
 	g_list_foreach(archive->row, (GFunc)g_free, NULL);
 	g_list_free(archive->row);
