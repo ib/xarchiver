@@ -750,6 +750,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 				/* Here we handle only the selected files */
 				else
 				{
+					/* ISO extraction is different from the other type of archives */
 					if (archive->type == XARCHIVETYPE_ISO)
 					{
 						GList *row_list = NULL;
@@ -764,7 +765,9 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 							4, &file_offset,
 							-1);
 							gtk_tree_path_free (row_list->data);
-							xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
+							/* TODO: to support the extraction with the path/filename instead of the filename only */
+							gchar *filename = StripPathFromFilename (name);
+							xa_extract_iso_file (archive, extract_path, filename , file_size, file_offset );
 							g_free (name);
 							row_list = row_list->next;
 						}
@@ -1350,80 +1353,80 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 
 void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 {
-    gchar *command = NULL;
-    GtkTreeSelection *selection;
-    GtkTreeModel *model;
-    GtkTreeIter iter;
-    gchar *dir;
-    gchar *dummy_name;
-    unsigned short int COL_NAME;
-    gboolean is_dir = FALSE;
-    GList *row_list = NULL;
+	gchar *command = NULL;
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gchar *dir;
+	gchar *dummy_name;
+	unsigned short int COL_NAME;
+	gboolean is_dir = FALSE;
+	GList *row_list = NULL;
 
-    if ( archive->has_passwd )
-    {
-            Show_pwd_Window ( NULL , NULL );
-            if ( archive->passwd == NULL )
-				return;
-    }
-    selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
+	if ( archive->has_passwd )
+	{
+		Show_pwd_Window ( NULL , NULL );
+		if ( archive->passwd == NULL )
+			return;
+	}
+	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 
-    /* if no or more than one rows selected, do nothing, just for sanity */
-    if ( gtk_tree_selection_count_selected_rows (selection) != 1)
+	/* if no or more than one rows selected, do nothing, just for sanity */
+	if ( gtk_tree_selection_count_selected_rows (selection) != 1)
 		return;
 
-    row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+	row_list = gtk_tree_selection_get_selected_rows (selection, &model);
 	if ( row_list == NULL )
 		return;
 
 	gtk_tree_model_get_iter(model, &iter, row_list->data);
 
-    gtk_tree_path_free(row_list->data);
-    g_list_free (row_list);
+	gtk_tree_path_free(row_list->data);
+	g_list_free (row_list);
 
-    switch (archive->type)
-    {
-        case XARCHIVETYPE_RAR:
-        case XARCHIVETYPE_ARJ:
-            COL_NAME = 6;
-        break;
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_RAR:
+		case XARCHIVETYPE_ARJ:
+		COL_NAME = 6;
+		break;
 
-        case XARCHIVETYPE_ZIP:
-            COL_NAME = 0;
-        break;
+		case XARCHIVETYPE_ZIP:
+		COL_NAME = 0;
+		break;
 
-        case XARCHIVETYPE_7ZIP:
-            COL_NAME = 3;
-        break;
+		case XARCHIVETYPE_7ZIP:
+		COL_NAME = 3;
+		break;
 
-        default:
-			COL_NAME = 1;
-    }
-    gtk_tree_model_get (model, &iter, COL_NAME, &dir, -1);
-    if (archive->type == XARCHIVETYPE_ZIP)
-    {
-        if ( g_str_has_suffix (dir,"/") == TRUE )
+		default:
+		COL_NAME = 1;
+	}
+	gtk_tree_model_get (model, &iter, COL_NAME, &dir, -1);
+	if (archive->type == XARCHIVETYPE_ZIP)
+	{
+		if ( g_str_has_suffix (dir,"/") == TRUE )
 			is_dir = TRUE;
-    }
-    else if ( strstr ( dir , "d" ) || strstr ( dir , "D" ) ) is_dir = TRUE;
-    if (is_dir)
-    {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Please select a file, not a directory!") );
-        g_free ( dir );
-        return;
-    }
-    g_free ( dir );
-    gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
-    dir = EscapeBadChars ( dummy_name );
-    g_free (dummy_name);
-    extract_path = "/tmp/";
-    names = g_string_new (" ");
-    g_string_append ( names , dir );
+	}
+	else if ( strstr ( dir , "d" ) || strstr ( dir , "D" ) ) is_dir = TRUE;
+	if (is_dir)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Please select a file, not a directory!") );
+		g_free ( dir );
+		return;
+	}
+	g_free ( dir );
+	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
+	dir = EscapeBadChars ( dummy_name );
+	g_free (dummy_name);
+	extract_path = "/tmp/";
+	names = g_string_new (" ");
+	g_string_append ( names , dir );
 
-    command = ChooseCommandtoExecute ( 0 , names);
+	command = ChooseCommandtoExecute ( 0 , names);
 	archive->parse_output = 0;
-   	SpawnAsyncProcess ( archive , command , 0);
-    g_free ( command );
+	SpawnAsyncProcess ( archive , command , 0);
+	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;
 	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , names );
@@ -1431,42 +1434,42 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 
 GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 {
-    GIOChannel *ioc_view = NULL;
-    gchar *line = NULL;
-    gchar *filename = NULL;
-    GError *error = NULL;
-    gchar *string = NULL;
-    gboolean tofree = FALSE;
+	GIOChannel *ioc_view = NULL;
+	gchar *line = NULL;
+	gchar *filename = NULL;
+	GError *error = NULL;
+	gchar *string = NULL;
+	gboolean tofree = FALSE;
 
-    if ( WIFEXITED( status ) )
-    {
-	    if ( WEXITSTATUS ( status ) )
-    	{
-    		SetButtonState (1,1,0,0,0);
+	if ( WIFEXITED( status ) )
+	{
+		if ( WEXITSTATUS ( status ) )
+		{
+			SetButtonState (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-		    response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to open the error messages window?") );
-            if (response == GTK_RESPONSE_YES)
+			response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to open the error messages window?") );
+			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL , FALSE);
-            unlink ( (char*)data );
+			unlink ( (char*)data );
 			return NULL;
-        }
-    }
-    string = StripPathFromFilename ( (char*) data->str );
-    //Let's avoid the white space
-    data->str++;
+		}
+	}
+	string = StripPathFromFilename ( (char*) data->str );
+	//Let's avoid the white space
+	data->str++;
 	if (  string == NULL )
 		filename = g_strconcat ( "/tmp/" , data->str , NULL );
-    else
-    {
-        if ( strchr ( string , ' ' ) )
-        {
-            string = RemoveBackSlashes ( string );
-            tofree = TRUE;
-        }
-        filename = g_strconcat ( "/tmp" , string , NULL );
-        if ( tofree )
+	else
+	{
+		if ( strchr ( string , ' ' ) )
+		{
+			string = RemoveBackSlashes ( string );
+			tofree = TRUE;
+		}
+		filename = g_strconcat ( "/tmp" , string , NULL );
+		if ( tofree )
 			g_free ( string );
-    }
+	}
     view_window = view_win();
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
     if (error == NULL)
@@ -1479,17 +1482,16 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
         g_free ( line );
         g_io_channel_shutdown ( ioc_view , TRUE , NULL );
         g_io_channel_unref (ioc_view);
-    }
-    unlink ( filename );
-    gtk_widget_show (view_window);
-    g_free (filename);
-    //Let's restore the pointer to its correct memory address
-    data->str--;
-    g_free ( data->str );
-    g_string_free (data , FALSE);
-    Update_StatusBar (_("Operation completed."));
-    
-    return NULL;
+	}
+	unlink ( filename );
+	gtk_widget_show (view_window);
+	g_free (filename);
+	//Let's restore the pointer to its correct memory address
+	data->str--;
+	g_free ( data->str );
+	g_string_free (data , FALSE);
+	Update_StatusBar (_("Operation completed."));
+	return NULL;
 }
 
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
