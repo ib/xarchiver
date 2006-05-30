@@ -1,3 +1,8 @@
+2006-05-30  Piarres Beobide <pi@beobide.net>
+
+	* eu.po: Basque translation 
+	* ../configure.ac: Add Basque trasnaltion 
+
 2006-05-27  Daichi Kawahata <daichi@xfce.org>
 
 	* pl.po: Updated Polish translations by Szymon Kalasz
