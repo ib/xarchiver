@@ -634,7 +634,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
-    extract_window = create_extract_dialog (selected);
+    extract_window = create_extract_dialog (selected , archive->type);
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
     if ( archive->has_passwd )
     {

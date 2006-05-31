@@ -56,7 +56,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
     gchar *text;
     gchar *new_path;
 	gchar *command = NULL;
-    extract_window = create_extract_dialog (0);
+    extract_window = create_extract_dialog ( 0 , archive->type);
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
 	done = FALSE;
 	while ( ! done )
@@ -111,6 +111,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 	}
 	gtk_widget_destroy ( extract_window->dialog1 );
 	g_free (extract_window);
+	extract_window = NULL;
 	SetButtonState (1,1,0,0,0);
 	if (command != NULL)
 	{

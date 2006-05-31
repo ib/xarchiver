@@ -21,7 +21,7 @@
 #include "interface.h"
 #include "support.h"
 
-Extract_dialog_data *create_extract_dialog (gint selected)
+Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int archive_type)
 {
 	Extract_dialog_data *dialog_data;
 
@@ -103,6 +103,7 @@ Extract_dialog_data *create_extract_dialog (gint selected)
 
 	if (selected)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_files_radio), TRUE);
+	
 	dialog_data->files_frame_label = gtk_label_new (_("<b>Files to extract </b>"));
 	gtk_widget_show (dialog_data->files_frame_label);
 	gtk_frame_set_label_widget (GTK_FRAME (dialog_data->frame1), dialog_data->files_frame_label);
@@ -126,13 +127,28 @@ Extract_dialog_data *create_extract_dialog (gint selected)
 	gtk_widget_show (dialog_data->overwrite_check);
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->overwrite_check, FALSE, FALSE, 0);
 
-	dialog_data->exclude_path_check = gtk_check_button_new_with_mnemonic (_("Exclude path from names"));
-	gtk_widget_show (dialog_data->exclude_path_check);
-	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->exclude_path_check, FALSE, FALSE, 0);
+	/* RAR */
+	if (archive_type == 3) 
+	{
+		dialog_data->exclude_path_check = gtk_check_button_new_with_mnemonic (_("Exclude path from names"));
+		gtk_widget_show (dialog_data->exclude_path_check);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->exclude_path_check, FALSE, FALSE, 0);
 
-	dialog_data->exclude_base_dir_check = gtk_check_button_new_with_mnemonic (_("Exclude base dir from names"));
-	gtk_widget_show (dialog_data->exclude_base_dir_check);
-	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->exclude_base_dir_check, FALSE, FALSE, 0);
+		dialog_data->exclude_base_dir_check = gtk_check_button_new_with_mnemonic (_("Exclude base dir from names"));
+		gtk_widget_show (dialog_data->exclude_base_dir_check);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->exclude_base_dir_check, FALSE, FALSE, 0);
+	}
+	/* TAR, TAR_GZ, TAR_BZ2 */
+	else if (archive_type == 6 || archive_type == 7 || archive_type == 8)
+	{
+		dialog_data->preserve_permissions = gtk_check_button_new_with_mnemonic (_("Preserve permissions"));
+		gtk_widget_show (dialog_data->preserve_permissions);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_permissions, FALSE, FALSE, 0);
+
+		dialog_data->preserve_ownership = gtk_check_button_new_with_mnemonic (_("Preserve ownership"));
+		gtk_widget_show (dialog_data->preserve_ownership);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_ownership, FALSE, FALSE, 0);
+	}
 
 	dialog_data->hbox5 = gtk_hbox_new (FALSE, 2);
 	gtk_widget_show (dialog_data->hbox5);

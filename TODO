@@ -5,6 +5,6 @@
   - fix extraction routine since the files inside the directories are not extracted.
   - fix drag from Xarchiver window since the dragged files is not extracted.
 
+- build the extract dialog showing most of the options for current archive [PARTIALLY DONE]
 - add cmdline options
-- build the extract dialog showing most of the options for current archive
 

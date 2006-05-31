@@ -45,6 +45,9 @@ typedef struct
 	GtkWidget *overwrite_check;
 	GtkWidget *exclude_path_check;
 	GtkWidget *exclude_base_dir_check;
+	/* These two ones are for tar only */
+	GtkWidget *preserve_permissions;
+	GtkWidget *preserve_ownership;
 	GtkWidget *hbox5;
 	GtkWidget *label_password;
 	GtkWidget *password_entry;
@@ -54,7 +57,7 @@ typedef struct
 	GtkWidget *extract_button;
 } Extract_dialog_data;
 
-Extract_dialog_data *create_extract_dialog (gint selected);
+Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int archive_type);
 
 #endif
 
