@@ -799,7 +799,8 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 					}
 				}
 			}
-			else response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Please select where to extract files !" );
+			else
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please select where to extract the files !") );
 			break;
 		}
 	}

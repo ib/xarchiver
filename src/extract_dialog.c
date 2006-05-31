@@ -18,6 +18,7 @@
 
 #include <gtk/gtk.h>
 #include "extract_dialog.h"
+#include "interface.h"
 #include "support.h"
 
 Extract_dialog_data *create_extract_dialog (gint selected)
@@ -29,6 +30,7 @@ Extract_dialog_data *create_extract_dialog (gint selected)
 	dialog_data->dialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract Dialog"));
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
+	gtk_window_set_transient_for ( GTK_WINDOW (dialog_data->dialog1) , GTK_WINDOW (MainWindow) );
 
 	dialog_data->dialog_vbox1 = GTK_DIALOG (dialog_data->dialog1)->vbox;
 	gtk_widget_show (dialog_data->dialog_vbox1);
@@ -157,12 +159,12 @@ Extract_dialog_data *create_extract_dialog (gint selected)
 
 	dialog_data->cancel_button = gtk_button_new_with_mnemonic (_("Cancel"));
 	gtk_widget_show (dialog_data->cancel_button);
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1), dialog_data->cancel_button, 0);
+	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1), dialog_data->cancel_button, GTK_RESPONSE_CANCEL);
 	GTK_WIDGET_SET_FLAGS (dialog_data->cancel_button, GTK_CAN_DEFAULT);
 
 	dialog_data->extract_button = gtk_button_new_with_mnemonic (_("Extract"));
 	gtk_widget_show (dialog_data->extract_button);
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1), dialog_data->extract_button, 0);
+	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1), dialog_data->extract_button, GTK_RESPONSE_OK);
 	GTK_WIDGET_SET_FLAGS (dialog_data->extract_button, GTK_CAN_DEFAULT);
 	return dialog_data;
 }
