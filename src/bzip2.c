@@ -17,6 +17,8 @@
  */
  
 #include "bzip2.h"
+#include "extract_dialog.h"
+
 extern gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 extern int output_fd;
 
@@ -54,12 +56,12 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
     gchar *text;
     gchar *new_path;
 	gchar *command = NULL;
-    extract_window = prefs (0);
-	gtk_dialog_set_default_response (GTK_DIALOG (extract_window), GTK_RESPONSE_OK);
+    extract_window = create_extract_dialog (0);
+	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
 	done = FALSE;
 	while ( ! done )
 	{
-		switch (gtk_dialog_run ( GTK_DIALOG (extract_window ) ) )
+		switch (gtk_dialog_run ( GTK_DIALOG (extract_window->dialog1 ) ) )
 		{
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
@@ -67,7 +69,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 			break;
 			
 			case GTK_RESPONSE_OK:
-			extract_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (entry1) ));
+			extract_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
 			if ( strlen ( extract_path ) > 0 )
 			{
 				done = TRUE;
@@ -107,7 +109,8 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 			break;
     	}
 	}
-	gtk_widget_destroy ( extract_window );
+	gtk_widget_destroy ( extract_window->dialog1 );
+	g_free (extract_window);
 	SetButtonState (1,1,0,0,0);
 	if (command != NULL)
 	{

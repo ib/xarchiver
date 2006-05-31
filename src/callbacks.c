@@ -23,6 +23,7 @@
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
+#include "extract_dialog.h"
 #include "archive.h"
 #include "main.h"
 
@@ -633,8 +634,8 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
-    extract_window = prefs (selected);
-	gtk_dialog_set_default_response (GTK_DIALOG (extract_window), GTK_RESPONSE_OK);
+    extract_window = create_extract_dialog (selected);
+	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
     if ( archive->has_passwd )
     {
             if (archive->passwd == NULL)
@@ -645,24 +646,24 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
     done = FALSE;
     while ( ! done )
 	{
-		switch (gtk_dialog_run ( GTK_DIALOG (extract_window ) ) )
+		switch (gtk_dialog_run ( GTK_DIALOG (extract_window->dialog1 ) ) )
 		{
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
-            gtk_widget_destroy ( extract_window );
+            gtk_widget_destroy ( extract_window->dialog1 );
 			break;
 
 			case GTK_RESPONSE_OK:
             if (es_path != NULL)
 				g_free (es_path);
-            es_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (entry1) ));
+            es_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
 			extract_path = EscapeBadChars ( es_path );
 			if ( strlen ( extract_path ) > 0 )
 			{
 				done = TRUE;
                 gtk_widget_set_sensitive (Stop_button,TRUE);
-                gtk_widget_destroy ( extract_window );
+                gtk_widget_destroy ( extract_window->dialog1 );
 				if ( selected < 1 )
 				{
                     gchar *text = g_strconcat (_("Extracting files to "), es_path , NULL );
@@ -799,6 +800,8 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			break;
 		}
 	}
+	g_free (extract_window);
+	extract_window = NULL;
 }
 
 gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files)
@@ -1900,6 +1903,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     g_list_free (row_list);
 
     gtk_tree_model_get (model, &iter, 0, &name, -1);
+	//TODO: fix bug 1879, name must be without path.
     gdk_property_change (context->source_window,
                        gdk_atom_intern ("XdndDirectSave0", FALSE),
                        gdk_atom_intern ("text/plain", FALSE), 8,
@@ -1924,7 +1928,6 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
     GList *row_list = NULL;
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
-
     /* if no or more than one rows selected, do nothing, just for sanity */
     if ( gtk_tree_selection_count_selected_rows (selection) != 1)
 		return;
@@ -1952,7 +1955,8 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
         g_free ( fm_path );
         extract_path = extract_local_path ( dummy_path,name );
         g_free ( dummy_path );
-        if (extract_path != NULL) to_send = "S";
+        if (extract_path != NULL)
+			to_send = "S";
         names = g_string_new ("");
         gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
         command = ChooseCommandtoExecute ( 1 , names );
@@ -1964,7 +1968,8 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
         //g_dataset_set_data (dc, "XDS-sent", to_send);
         gtk_selection_data_set (selection_data, gdk_atom_intern ("XA_STRING", FALSE), 8, (guchar*)to_send, 1);
     }
-    if (extract_path != NULL) g_free (extract_path);
+    if (extract_path != NULL)
+		g_free (extract_path);
     extract_path = NULL;
     g_free (name);
 }

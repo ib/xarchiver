@@ -437,7 +437,7 @@ GtkWidget *create_MainWindow (void)
   gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
   return MainWindow;
 }
-
+/*
 GtkWidget *prefs (gint selected)
 {
   GtkWidget *prefs;
@@ -544,6 +544,7 @@ GtkWidget *prefs (gint selected)
   GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
   return prefs;
 }
+*/
 
 GtkWidget *passwd_win ()
 {
@@ -622,21 +623,6 @@ GtkWidget *passwd_win ()
   gtk_widget_show (okbutton1);
   gtk_dialog_add_action_widget (GTK_DIALOG (passwd), okbutton1, GTK_RESPONSE_OK);
   GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
-
-  /* Store pointers to all widgets, for use by lookup_widget(). 
-  GLADE_HOOKUP_OBJECT_NO_REF (passwd, passwd, "passwd");
-  GLADE_HOOKUP_OBJECT_NO_REF (passwd, dialog_vbox1, "dialog_vbox1");
-  GLADE_HOOKUP_OBJECT (passwd, vbox2, "vbox2");
-  GLADE_HOOKUP_OBJECT (passwd, fixed1, "fixed1");
-  GLADE_HOOKUP_OBJECT (passwd, password_entry, "password_entry");
-  GLADE_HOOKUP_OBJECT (passwd, label2, "label2");
-  GLADE_HOOKUP_OBJECT (passwd, fixed2, "fixed2");
-  GLADE_HOOKUP_OBJECT (passwd, repeat_password, "repeat_password");
-  GLADE_HOOKUP_OBJECT (passwd, label3, "label3");
-  GLADE_HOOKUP_OBJECT (passwd, label1, "label1");
-  GLADE_HOOKUP_OBJECT_NO_REF (passwd, dialog_action_area1, "dialog_action_area1");
-  GLADE_HOOKUP_OBJECT (passwd, cancelbutton1, "cancelbutton1");
-  GLADE_HOOKUP_OBJECT (passwd, okbutton1, "okbutton1");*/
   return passwd;
 }
 
@@ -842,3 +828,4 @@ int xa_progressbar_pulse (gpointer data)
 	else
 		return FALSE;
 }
+
