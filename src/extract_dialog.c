@@ -32,6 +32,7 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for ( GTK_WINDOW (dialog_data->dialog1) , GTK_WINDOW (MainWindow) );
 
+	dialog_data->option_tooltip = gtk_tooltips_new ();
 	dialog_data->dialog_vbox1 = GTK_DIALOG (dialog_data->dialog1)->vbox;
 	gtk_widget_show (dialog_data->dialog_vbox1);
 
@@ -130,13 +131,21 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	/* RAR */
 	if (archive_type == 3) 
 	{
-		dialog_data->exclude_path_check = gtk_check_button_new_with_mnemonic (_("Exclude path from names"));
-		gtk_widget_show (dialog_data->exclude_path_check);
-		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->exclude_path_check, FALSE, FALSE, 0);
+		dialog_data->extract_current = gtk_check_button_new_with_mnemonic (_("Extract to current dir"));
+		gtk_widget_show (dialog_data->extract_current);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_current, FALSE, FALSE, 0);
 
-		dialog_data->exclude_base_dir_check = gtk_check_button_new_with_mnemonic (_("Exclude base dir from names"));
-		gtk_widget_show (dialog_data->exclude_base_dir_check);
-		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->exclude_base_dir_check, FALSE, FALSE, 0);
+		dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
+		gtk_widget_show (dialog_data->extract_full);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_full, FALSE, FALSE, 0);
+	}
+	/* ZIP */
+	else if (archive_type == 4)
+	{
+		dialog_data->no_dir_str = gtk_check_button_new_with_mnemonic (_("Don't create directory structure"));
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->no_dir_str , _("The archive's directory structure is not recreated; all files are deposited in the extraction directory"), NULL );
+		gtk_widget_show (dialog_data->no_dir_str);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->no_dir_str, FALSE, FALSE, 0);
 	}
 	/* TAR, TAR_GZ, TAR_BZ2 */
 	else if (archive_type == 6 || archive_type == 7 || archive_type == 8)
