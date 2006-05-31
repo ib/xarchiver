@@ -638,11 +638,14 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
     if ( archive->has_passwd )
     {
-            if (archive->passwd == NULL)
-				Show_pwd_Window ( NULL , NULL );
-            if ( archive->passwd == NULL)
-				return;
+		gtk_widget_set_sensitive (extract_window->label_password, TRUE);
+		gtk_widget_set_sensitive (extract_window->password_entry, TRUE);
     }
+	else
+	{
+		gtk_widget_set_sensitive (extract_window->label_password, FALSE);
+		gtk_widget_set_sensitive (extract_window->password_entry, FALSE);
+	}
     done = FALSE;
     while ( ! done )
 	{

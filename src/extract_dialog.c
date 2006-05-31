@@ -99,6 +99,8 @@ Extract_dialog_data *create_extract_dialog (gint selected)
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->selected_files_radio), dialog_data->radio_group);
 	dialog_data->radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->selected_files_radio));
 
+	if (selected)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_files_radio), TRUE);
 	dialog_data->files_frame_label = gtk_label_new (_("<b>Files to extract </b>"));
 	gtk_widget_show (dialog_data->files_frame_label);
 	gtk_frame_set_label_widget (GTK_FRAME (dialog_data->frame1), dialog_data->files_frame_label);
