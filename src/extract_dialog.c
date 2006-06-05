@@ -127,15 +127,15 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	gtk_widget_show (dialog_data->overwrite_check);
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->overwrite_check, FALSE, FALSE, 0);
 
-	/* RAR */
-	if (archive_type == 3 || archive_type == 5 || archive_type == 10) 
+	/* RAR, ZIP, ARJ, 7ZIP */
+	if (archive_type == 3 || archive_type == 4 || archive_type == 5 || archive_type == 10) 
 	{
 		dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
 		gtk_widget_show (dialog_data->extract_full);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_full, FALSE, FALSE, 0);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
 	}
-	/* ZIP */
+	/*
 	else if (archive_type == 4)
 	{
 		dialog_data->junk_paths = gtk_check_button_new_with_mnemonic (_("Don't create directory structure"));
@@ -143,6 +143,7 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 		gtk_widget_show (dialog_data->junk_paths);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->junk_paths, FALSE, FALSE, 0);
 	}
+	*/
 
 	/* TAR, TAR_GZ, TAR_BZ2 */
 	else if (archive_type == 6 || archive_type == 7 || archive_type == 8)
@@ -156,7 +157,7 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_ownership, FALSE, FALSE, 0);
 	}
 
-	if (archive_type == 3 || archive_type == 4)
+	if (archive_type == 3 || archive_type == 4 || archive_type == 5)
 	{
 		dialog_data->fresh = gtk_check_button_new_with_mnemonic (_("Freshen existing files"));
 		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->fresh , _("Extract only those files that already exist on disk and that are newer than the disk copies."), NULL );
@@ -223,6 +224,8 @@ static void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_dat
 
 static void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
 {
+	if (data->fresh == NULL)
+		return;
 	gboolean active = gtk_toggle_button_get_active (button);
 	if (active)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh), FALSE);
