@@ -132,19 +132,11 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	{
 		dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
 		gtk_widget_show (dialog_data->extract_full);
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->extract_full , _("The archive's directory structure is recreated in the extraction directory"), NULL );
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_full, FALSE, FALSE, 0);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
 	}
-	/*
-	else if (archive_type == 4)
-	{
-		dialog_data->junk_paths = gtk_check_button_new_with_mnemonic (_("Don't create directory structure"));
-		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->junk_paths , _("The archive's directory structure is not recreated; all files are deposited in the extraction directory"), NULL );
-		gtk_widget_show (dialog_data->junk_paths);
-		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->junk_paths, FALSE, FALSE, 0);
-	}
-	*/
-
+	
 	/* TAR, TAR_GZ, TAR_BZ2 */
 	else if (archive_type == 6 || archive_type == 7 || archive_type == 8)
 	{

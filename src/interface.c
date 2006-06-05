@@ -177,12 +177,6 @@ GtkWidget *create_MainWindow (void)
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (options1), image1);
 */
 
-  add_pwd = gtk_menu_item_new_with_mnemonic (_("Set Password"));
-  gtk_widget_show (add_pwd);
-  gtk_widget_set_sensitive ( add_pwd , FALSE );
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), add_pwd);
-  gtk_widget_add_accelerator (add_pwd, "activate",accel_group,GDK_w, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
   view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View Error Messages"));
   gtk_widget_show (view_shell_output1);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
@@ -394,7 +388,6 @@ GtkWidget *create_MainWindow (void)
                     "folder");
   g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (ShowShellOutput), (gpointer) FALSE);
   g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (ShowShellOutput), (gpointer) TRUE);
-  g_signal_connect ((gpointer) add_pwd, "activate", G_CALLBACK (Show_pwd_Window), NULL);
   g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
   g_signal_connect ((gpointer) delete_menu, "activate",
                     G_CALLBACK (xa_delete_archive),
@@ -437,6 +430,7 @@ GtkWidget *create_MainWindow (void)
   return MainWindow;
 }
 
+/*
 GtkWidget *passwd_win ()
 {
   GtkWidget *passwd;
@@ -516,6 +510,7 @@ GtkWidget *passwd_win ()
   GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
   return passwd;
 }
+*/
 
 GtkWidget *view_win ()
 {

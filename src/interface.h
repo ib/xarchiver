@@ -65,7 +65,6 @@ GtkWidget *copy1;
 GtkWidget *delete_menu;
 GtkWidget *view_menu;
 GtkWidget *view_shell_output1;
-GtkWidget *add_pwd;
 GtkWidget *iso_info;
 GtkWidget *image1;
 GtkWidget *image2;

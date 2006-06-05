@@ -73,13 +73,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
 	{
 		SetButtonState (1,1,1,1,1);
-		gtk_widget_set_sensitive ( add_pwd , FALSE );
         gtk_widget_set_sensitive ( check_menu , FALSE);
 	}
 	else
 	{
 		SetButtonState (1,1,1,1,1);
-		gtk_widget_set_sensitive ( add_pwd , TRUE );
         gtk_widget_set_sensitive ( check_menu , TRUE);
 	}
 
@@ -216,7 +214,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
         //The following to avoid to update the archive instead of adding to it since the filename exists
         unlink ( path );
 	}
-	gtk_widget_set_sensitive ( add_pwd , FALSE );
 	SetButtonState (1,1,1,1,0 );
 	archive->path = g_strdup (path);
 	g_free (path);
@@ -240,11 +237,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 	else if (archive->type == XARCHIVETYPE_TAR)
 		Update_StatusBar ( _("Choose Add File or Add Folder to create the tar archive."));
-	else
-	{
-		gtk_widget_set_sensitive ( add_pwd , TRUE );
-		Update_StatusBar ( _("Choose Action->Set password to create a password protected archive."));
-	}
 
     gtk_tooltips_disable ( pad_tooltip );
     gtk_widget_hide ( pad_image );
@@ -380,7 +372,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     if ( archive->has_passwd )
     {
         if ( archive->passwd == NULL)
-			Show_pwd_Window ( NULL , NULL );
+			//TODO: archive->passwd = password_dialog ();
         if ( archive->passwd == NULL)
 			return;
     }
@@ -1380,7 +1372,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 
 	if ( archive->has_passwd )
 	{
-		Show_pwd_Window ( NULL , NULL );
+		//TODO: archive->passwd = password_dialog ();
 		if ( archive->passwd == NULL )
 			return;
 	}
@@ -1608,41 +1600,6 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_entry_set_text ( GTK_ENTRY (number_of_dirs_data), t );
     g_free (t);
     gtk_widget_show ( archive_properties_win );
-}
-
-void Show_pwd_Window ( GtkMenuItem *menuitem , gpointer user_data )
-{
-    pwd_window = passwd_win();
-    gtk_dialog_set_default_response (GTK_DIALOG (pwd_window), GTK_RESPONSE_OK);
-    done = FALSE;
-	while ( ! done )
-	{
-		switch ( gtk_dialog_run ( GTK_DIALOG ( pwd_window ) ) )
-		{
-			case GTK_RESPONSE_CANCEL:
-			case GTK_RESPONSE_DELETE_EVENT:
-			done = TRUE;
-            archive->passwd = NULL;
-            break;
-
-			case GTK_RESPONSE_OK:
-			archive->passwd  = g_strdup ( gtk_entry_get_text( GTK_ENTRY ( password_entry ) ) );
-            if ( strlen ( archive->passwd ) == 0 || strlen(gtk_entry_get_text( GTK_ENTRY ( repeat_password )) ) == 0 )
-            {
-                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Please type a password!") );
-                break;
-            }
-            if ( strcmp (archive->passwd , gtk_entry_get_text( GTK_ENTRY ( repeat_password ) ) ) )
-            {
-                response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("The passwords don't match!") );
-                gtk_entry_set_text ( GTK_ENTRY ( password_entry ) , "" );
-                gtk_entry_set_text ( GTK_ENTRY ( repeat_password ) , "" );
-            }
-            else done = TRUE;
-            break;
-        }
-    }
-    gtk_widget_destroy ( pwd_window );
 }
 
 //Taken from xarchive - http://xarchive.sourceforge.net
