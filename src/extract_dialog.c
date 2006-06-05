@@ -104,6 +104,8 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 
 	if (selected)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_files_radio), TRUE);
+	else
+		gtk_widget_set_sensitive (dialog_data->selected_files_radio , FALSE);
 	
 	dialog_data->files_frame_label = gtk_label_new (_("<b>Files to extract </b>"));
 	gtk_widget_show (dialog_data->files_frame_label);
