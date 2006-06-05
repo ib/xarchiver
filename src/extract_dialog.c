@@ -41,21 +41,9 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	gtk_widget_show (dialog_data->vbox1);
 	gtk_box_pack_start (GTK_BOX (dialog_data->dialog_vbox1), dialog_data->vbox1, TRUE, TRUE, 0);
 
-	dialog_data->hbox1 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (dialog_data->hbox1);
-	gtk_box_pack_start (GTK_BOX (dialog_data->vbox1), dialog_data->hbox1, TRUE, TRUE, 0);
-
-	dialog_data->vbox2 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (dialog_data->vbox2);
-	gtk_box_pack_start (GTK_BOX (dialog_data->hbox1), dialog_data->vbox2, FALSE, FALSE, 0);
-
-	dialog_data->hbox2 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (dialog_data->hbox2);
-	gtk_box_pack_start (GTK_BOX (dialog_data->vbox2), dialog_data->hbox2, FALSE, TRUE, 17);
-
 	dialog_data->hbox3 = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (dialog_data->hbox3);
-	gtk_box_pack_start (GTK_BOX (dialog_data->hbox2), dialog_data->hbox3, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (dialog_data->vbox1), dialog_data->hbox3, FALSE, TRUE, 17);
 
 	dialog_data->extract_to_label = gtk_label_new (_("Extract to:"));
 	gtk_widget_show (dialog_data->extract_to_label);
@@ -63,7 +51,7 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 
 	dialog_data->destination_path_entry = gtk_entry_new ();
 	gtk_widget_show (dialog_data->destination_path_entry);
-	gtk_box_pack_start (GTK_BOX (dialog_data->hbox3), dialog_data->destination_path_entry, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (dialog_data->hbox3), dialog_data->destination_path_entry, TRUE, TRUE, 0);
 	gtk_widget_set_size_request (dialog_data->destination_path_entry, 385, -1);
 	gtk_entry_set_activates_default (GTK_ENTRY (dialog_data->destination_path_entry), TRUE);
 
@@ -73,8 +61,8 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 
 	dialog_data->image1 = gtk_image_new_from_stock ("gtk-open", GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show (dialog_data->image1);
-	gtk_box_pack_start (GTK_BOX (dialog_data->hbox3), dialog_data->button1, FALSE, TRUE, 0);
-	gtk_widget_set_size_request (dialog_data->image1, 30, -1);
+	gtk_box_pack_end(GTK_BOX (dialog_data->hbox3), dialog_data->button1, FALSE, TRUE, 0);
+	gtk_widget_set_size_request (dialog_data->image1, 30, 30);
 
 	gtk_container_add(GTK_CONTAINER(dialog_data->button1), dialog_data->image1);
 	gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->button1 , _("Choose a folder where to extract files"), NULL );

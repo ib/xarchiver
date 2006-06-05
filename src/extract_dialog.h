@@ -24,9 +24,7 @@ typedef struct
 	GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;
 	GtkWidget *vbox1;
-	GtkWidget *hbox1;
 	GtkWidget *vbox2;
-	GtkWidget *hbox2;
 	GtkWidget *hbox3;
 	GtkWidget *extract_to_label;
 	GtkWidget *destination_path_entry;
