@@ -350,7 +350,6 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (viewport1), info_label);
   
   viewport2 = gtk_viewport_new (NULL, NULL);
-  //gtk_widget_show (viewport2);
   gtk_box_pack_start (GTK_BOX (hbox_sb), viewport2, TRUE, TRUE, 0);
 
   progressbar = gtk_progress_bar_new ();
@@ -437,114 +436,6 @@ GtkWidget *create_MainWindow (void)
   gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
   return MainWindow;
 }
-/*
-GtkWidget *prefs (gint selected)
-{
-  GtkWidget *prefs;
-  GtkWidget *dialog_vbox1;
-  GtkWidget *vbox1;
-  GtkWidget *fixed1;
-  GtkWidget *button1;
-  GtkWidget *alignment1;
-  GtkWidget *hbox1;
-  GtkWidget *image1;
-  GtkWidget *label1;
-  GtkWidget *frame1;
-  GtkWidget *alignment2;
-  GtkWidget *vbox2;
-  GtkWidget *dialog_action_area1;
-  GtkWidget *cancelbutton1;
-  GtkWidget *okbutton1;
-
-  prefs = gtk_dialog_new ();
-  if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
-  {
-	if (selected)
-		gtk_window_set_title (GTK_WINDOW (prefs), _("Extract ONLY selected files"));
-	else
-		gtk_window_set_title (GTK_WINDOW (prefs), _("Extract ALL files"));
-  }
-  else if (archive->type == XARCHIVETYPE_BZIP2)
-			gtk_window_set_title (GTK_WINDOW (prefs), _("Extract bzip2 compressed file"));
-		else gtk_window_set_title (GTK_WINDOW (prefs), _("Extract gzip compressed file"));
-  gtk_window_set_type_hint (GTK_WINDOW (prefs), GDK_WINDOW_TYPE_HINT_DIALOG);
-  gtk_window_set_transient_for ( GTK_WINDOW (prefs) , GTK_WINDOW (MainWindow) );
-  dialog_vbox1 = GTK_DIALOG (prefs)->vbox;
-  gtk_widget_show (dialog_vbox1);
-
-  vbox1 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (vbox1);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox1), vbox1, TRUE, TRUE, 0);
-
-  fixed1 = gtk_fixed_new ();
-  gtk_widget_show (fixed1);
-  gtk_box_pack_start (GTK_BOX (vbox1), fixed1, FALSE, TRUE, 0);
-  gtk_widget_set_size_request (fixed1, -1, 38);
-
-  entry1 = gtk_entry_new ();
-  gtk_widget_show (entry1);
-  gtk_entry_set_activates_default (GTK_ENTRY(entry1), TRUE);
-  gtk_fixed_put (GTK_FIXED (fixed1), entry1, 88, 8);
-  gtk_widget_set_size_request (entry1, 287, 24);
-  if (es_path != NULL) gtk_entry_set_text (GTK_ENTRY (entry1) , es_path);
-  
-  button1 = gtk_button_new ();
-  gtk_widget_show (button1);
-  gtk_fixed_put (GTK_FIXED (fixed1), button1, 384, 7);
-  gtk_widget_set_size_request (button1, 33, 27);
-
-  GtkTooltips *button_tooltip = gtk_tooltips_new ();
-  gtk_tooltips_set_tip (button_tooltip,button1 , _("Choose a folder where to extract files"), NULL );
-  
-  alignment1 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment1);
-  gtk_container_add (GTK_CONTAINER (button1), alignment1);
-  g_signal_connect ( (gpointer) button1, "clicked", G_CALLBACK (Show_File_Dialog) ,  "extract" );
-  
-  hbox1 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox1);
-  gtk_container_add (GTK_CONTAINER (alignment1), hbox1);
-  
-  image1 = gtk_image_new_from_stock ("gtk-open", GTK_ICON_SIZE_LARGE_TOOLBAR);
-  gtk_widget_show (image1);
-  gtk_box_pack_start (GTK_BOX (hbox1), image1, FALSE, FALSE, 0);
-
-  label1 = gtk_label_new (_("Extract to:"));
-  gtk_widget_show (label1);
-  gtk_fixed_put (GTK_FIXED (fixed1), label1, 16, 12);
-  gtk_widget_set_size_request (label1, 72, 16);
-
-  frame1 = gtk_frame_new (NULL);
-  gtk_widget_show (frame1);
-  gtk_box_pack_start (GTK_BOX (vbox1), frame1, TRUE, TRUE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (frame1), 4);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_OUT);
-
-  alignment2 = gtk_alignment_new (0.5, 0.5, 1, 1);
-  gtk_widget_show (alignment2);
-  gtk_container_add (GTK_CONTAINER (frame1), alignment2);
-  gtk_alignment_set_padding (GTK_ALIGNMENT (alignment2), 0, 0, 12, 0);
-
-  vbox2 = gtk_vbox_new (TRUE, 0);
-  gtk_widget_show (vbox2);
-  gtk_container_add (GTK_CONTAINER (alignment2), vbox2);
-
-  dialog_action_area1 = GTK_DIALOG (prefs)->action_area;
-  gtk_widget_show (dialog_action_area1);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
-
-  cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
-  gtk_widget_show (cancelbutton1);
-  gtk_dialog_add_action_widget (GTK_DIALOG (prefs), cancelbutton1, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
-
-  okbutton1 = gtk_button_new_from_stock ("gtk-ok");
-  gtk_widget_show (okbutton1);
-  gtk_dialog_add_action_widget (GTK_DIALOG (prefs), okbutton1, GTK_RESPONSE_OK);
-  GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
-  return prefs;
-}
-*/
 
 GtkWidget *passwd_win ()
 {

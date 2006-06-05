@@ -35,8 +35,8 @@ typedef struct
 	GtkWidget *alignment1;
 	GtkWidget *vbox3;
 	GtkWidget *all_files_radio;
-	GSList *radio_group;
 	GtkWidget *selected_files_radio;
+	GSList *radio_group;
 	GtkWidget *files_frame_label;
 	GtkWidget *frame2;
 	GtkWidget *alignment2;

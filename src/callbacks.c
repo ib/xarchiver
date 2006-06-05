@@ -458,7 +458,7 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
     {
         if ( strcmp (extract_path,"/tmp/") != 0)
 			g_free (extract_path);
-        g_free (es_path);
+        g_free (destination_path);
     }
     gtk_main_quit();
 }
@@ -658,10 +658,10 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			break;
 
 			case GTK_RESPONSE_OK:
-            if (es_path != NULL)
-				g_free (es_path);
-            es_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
-			extract_path = EscapeBadChars ( es_path );
+            if (destination_path != NULL)
+				g_free (destination_path);
+            destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
+			extract_path = EscapeBadChars ( destination_path );
 			if ( strlen ( extract_path ) > 0 )
 			{
 				done = TRUE;
@@ -669,7 +669,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
                 gtk_widget_destroy ( extract_window->dialog1 );
 				if ( selected < 1 )
 				{
-                    gchar *text = g_strconcat (_("Extracting files to "), es_path , NULL );
+                    gchar *text = g_strconcat (_("Extracting files to "), destination_path , NULL );
                     Update_StatusBar ( text );
                     g_free (text);
 					switch ( archive->type )
@@ -1000,8 +1000,8 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		GTK_STOCK_OPEN,
 		GTK_RESPONSE_ACCEPT,
 		NULL );
-        if (es_path != NULL)
-			gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , es_path );
+        if (destination_path != NULL)
+			gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , destination_path );
         response = gtk_dialog_run (GTK_DIALOG (File_Selector));
 		if (response == GTK_RESPONSE_ACCEPT)
 			gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) ) );

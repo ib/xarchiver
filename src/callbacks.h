@@ -55,7 +55,7 @@ GtkListStore *liststore;
 GtkTreeIter iter;
 GtkCellRenderer *renderer;
 GtkTreeViewColumn *column;
-gchar *path, *title , *ComboArchiveType, *extract_path , *ext, *es_path;
+gchar *path, *title , *ComboArchiveType, *extract_path , *ext, *destination_path;
 GtkTreeModel *model;
 GString *names;
 GSList *Files_to_Add;

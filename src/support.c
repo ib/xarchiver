@@ -67,7 +67,7 @@ GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size)
 		*/
 		g_free(error);
 		error = NULL;
-		path = g_strconcat(SRCDIR, "/pixmaps/", filename, NULL);
+		path = g_strconcat("./pixmaps/", filename, NULL);
 		file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
     }
     if(file_pixbuf)
