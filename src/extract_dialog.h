@@ -30,6 +30,7 @@ typedef struct
 	GtkWidget *hbox3;
 	GtkWidget *extract_to_label;
 	GtkWidget *destination_path_entry;
+	GtkWidget *button1;
 	GtkWidget *image1;
 	GtkWidget *hbox4;
 	GtkWidget *frame1;

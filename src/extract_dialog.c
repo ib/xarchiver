@@ -19,6 +19,7 @@
 #include <gtk/gtk.h>
 #include "extract_dialog.h"
 #include "interface.h"
+#include "callbacks.h"
 #include "support.h"
 
 Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int archive_type)
@@ -66,10 +67,18 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	gtk_widget_set_size_request (dialog_data->destination_path_entry, 385, -1);
 	gtk_entry_set_activates_default (GTK_ENTRY (dialog_data->destination_path_entry), TRUE);
 
+	dialog_data->button1 = gtk_button_new ();
+	gtk_widget_set_size_request (dialog_data->button1, 33, 27);
+	gtk_widget_show (dialog_data->button1);
+
 	dialog_data->image1 = gtk_image_new_from_stock ("gtk-open", GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show (dialog_data->image1);
-	gtk_box_pack_start (GTK_BOX (dialog_data->hbox3), dialog_data->image1, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (dialog_data->hbox3), dialog_data->button1, FALSE, TRUE, 0);
 	gtk_widget_set_size_request (dialog_data->image1, 30, -1);
+
+	gtk_container_add(GTK_CONTAINER(dialog_data->button1), dialog_data->image1);
+	gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->button1 , _("Choose a folder where to extract files"), NULL );
+	g_signal_connect ( (gpointer) dialog_data->button1, "clicked", G_CALLBACK (Show_File_Dialog) ,  "extract" );
 
 	dialog_data->hbox4 = gtk_hbox_new (TRUE, 7);
 	gtk_widget_show (dialog_data->hbox4);

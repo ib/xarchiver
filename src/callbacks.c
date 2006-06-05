@@ -1004,7 +1004,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 			gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , es_path );
         response = gtk_dialog_run (GTK_DIALOG (File_Selector));
 		if (response == GTK_RESPONSE_ACCEPT)
-			gtk_entry_set_text (GTK_ENTRY(entry1),gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) ) );
+			gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) ) );
 		gtk_widget_destroy (File_Selector);
 		return NULL;
 	}
