@@ -49,7 +49,9 @@ typedef struct
 	GtkWidget *preserve_permissions;
 	GtkWidget *preserve_ownership;
 	/* zip extract options */
-	GtkWidget *no_dir_str;
+	GtkWidget *junk_paths;
+	GtkWidget *fresh;
+	GtkWidget *update;
 
 	GtkWidget *hbox5;
 	GtkWidget *label_password;
@@ -65,6 +67,8 @@ typedef struct
 } Extract_dialog_data;
 
 Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int archive_type);
+static void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
+static void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 
 #endif
 

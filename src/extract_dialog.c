@@ -128,24 +128,22 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->overwrite_check, FALSE, FALSE, 0);
 
 	/* RAR */
-	if (archive_type == 3) 
+	if (archive_type == 3 || archive_type == 5 || archive_type == 10) 
 	{
-		dialog_data->extract_current = gtk_check_button_new_with_mnemonic (_("Extract to current dir"));
-		gtk_widget_show (dialog_data->extract_current);
-		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_current, FALSE, FALSE, 0);
-
 		dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
 		gtk_widget_show (dialog_data->extract_full);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_full, FALSE, FALSE, 0);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
 	}
 	/* ZIP */
 	else if (archive_type == 4)
 	{
-		dialog_data->no_dir_str = gtk_check_button_new_with_mnemonic (_("Don't create directory structure"));
-		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->no_dir_str , _("The archive's directory structure is not recreated; all files are deposited in the extraction directory"), NULL );
-		gtk_widget_show (dialog_data->no_dir_str);
-		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->no_dir_str, FALSE, FALSE, 0);
+		dialog_data->junk_paths = gtk_check_button_new_with_mnemonic (_("Don't create directory structure"));
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->junk_paths , _("The archive's directory structure is not recreated; all files are deposited in the extraction directory"), NULL );
+		gtk_widget_show (dialog_data->junk_paths);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->junk_paths, FALSE, FALSE, 0);
 	}
+
 	/* TAR, TAR_GZ, TAR_BZ2 */
 	else if (archive_type == 6 || archive_type == 7 || archive_type == 8)
 	{
@@ -156,6 +154,23 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 		dialog_data->preserve_ownership = gtk_check_button_new_with_mnemonic (_("Preserve ownership"));
 		gtk_widget_show (dialog_data->preserve_ownership);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_ownership, FALSE, FALSE, 0);
+	}
+
+	if (archive_type == 3 || archive_type == 4)
+	{
+		dialog_data->fresh = gtk_check_button_new_with_mnemonic (_("Freshen existing files"));
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->fresh , _("Extract only those files that already exist on disk and that are newer than the disk copies."), NULL );
+		gtk_widget_show (dialog_data->fresh);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->fresh, FALSE, FALSE, 0);
+		g_signal_connect (G_OBJECT (dialog_data->fresh),"toggled",G_CALLBACK (fresh_update_toggled_cb) , dialog_data);
+	}
+	if (archive_type == 3 || archive_type == 4 || archive_type == 5 || archive_type == 10)
+	{
+		dialog_data->update = gtk_check_button_new_with_mnemonic (_("Update existing files"));
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->update , _("This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk."), NULL );
+		gtk_widget_show (dialog_data->update);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->update, FALSE, FALSE, 0);
+		g_signal_connect (G_OBJECT (dialog_data->update),"toggled",G_CALLBACK (update_fresh_toggled_cb) , dialog_data);
 	}
 
 	dialog_data->hbox5 = gtk_hbox_new (FALSE, 2);
@@ -169,7 +184,6 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	dialog_data->password_entry = gtk_entry_new ();
 	gtk_widget_show (dialog_data->password_entry);
 	gtk_box_pack_start (GTK_BOX (dialog_data->hbox5), dialog_data->password_entry, FALSE, FALSE, 0);
-	gtk_widget_set_size_request (dialog_data->password_entry, 136, -1);
 	gtk_entry_set_visibility (GTK_ENTRY (dialog_data->password_entry), FALSE);
 
 	dialog_data->options_frame_label = gtk_label_new (_("<b>Options </b>"));
@@ -181,7 +195,7 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	gtk_widget_show (dialog_data->dialog_action_area1);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_data->dialog_action_area1), GTK_BUTTONBOX_END);
 
-	dialog_data->cancel_button = gtk_button_new_with_mnemonic (_("Cancel"));
+	dialog_data->cancel_button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
 	gtk_widget_show (dialog_data->cancel_button);
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1), dialog_data->cancel_button, GTK_RESPONSE_CANCEL);
 	GTK_WIDGET_SET_FLAGS (dialog_data->cancel_button, GTK_CAN_DEFAULT);
@@ -200,3 +214,16 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	return dialog_data;
 }
 
+static void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
+{
+	gboolean active = gtk_toggle_button_get_active (button);
+	if (active)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
+}
+
+static void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
+{
+	gboolean active = gtk_toggle_button_get_active (button);
+	if (active)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh), FALSE);
+}
