@@ -187,7 +187,7 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	GTK_WIDGET_SET_FLAGS (dialog_data->cancel_button, GTK_CAN_DEFAULT);
 
 	dialog_data->extract_button = gtk_button_new();
-	dialog_data->extract_image = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	dialog_data->extract_image = xa_main_window_find_image("extract_button.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
 	dialog_data->extract_hbox = gtk_hbox_new(FALSE, 4);
 	dialog_data->extract_label = gtk_label_new_with_mnemonic(_("_Extract"));
 	gtk_box_pack_start(GTK_BOX(dialog_data->extract_hbox), dialog_data->extract_image, FALSE, FALSE, 0);
