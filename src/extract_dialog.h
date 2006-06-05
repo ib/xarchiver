@@ -58,6 +58,9 @@ typedef struct
 	GtkWidget *dialog_action_area1;
 	GtkWidget *cancel_button;
 	GtkWidget *extract_button;
+	GtkWidget *extract_image;
+	GtkWidget *extract_label;
+	GtkWidget *extract_hbox;
 	GtkTooltips *option_tooltip;
 } Extract_dialog_data;
 
