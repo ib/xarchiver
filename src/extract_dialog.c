@@ -313,7 +313,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
                     if ( archive->passwd != NULL )
 						command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "" , archive->update ? "-u " : "" , archive->overwrite ? "-o" : "-n", " -P " , archive->passwd , archive->full_path ? " " : " -j " , archive->escaped_path , " -d " , extract_path , NULL );
                     else
-						command = g_strconcat ( "unzip " , archive->overwrite ? "-o " : "-n ", archive->full_path ? "" : " -j " , archive->escaped_path , " -d " , extract_path , NULL );
+						command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "" , archive->update ? "-u " : "" , archive->overwrite ? "-o " : "-n ", archive->full_path ? "" : " -j " , archive->escaped_path , " -d " , extract_path , NULL );
 					break;
 
 					case XARCHIVETYPE_RPM:
