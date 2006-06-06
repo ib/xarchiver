@@ -631,6 +631,8 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
     {
 		gtk_widget_set_sensitive (extract_window->label_password, TRUE);
 		gtk_widget_set_sensitive (extract_window->password_entry, TRUE);
+		if (archive->passwd != NULL)
+			gtk_entry_set_text (GTK_ENTRY(extract_window->password_entry) , archive->passwd);
     }
 	else
 	{
