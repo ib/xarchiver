@@ -8,23 +8,33 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-06-06 15:41+0200\n"
-"PO-Revision-Date: 2006-05-27 08:27+0100\n"
+"PO-Revision-Date: 2006-06-06 22:44+0100\n"
 "Last-Translator: SZERVÑC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/iso.c:522
-#: src/rpm.c:51 src/tar.c:34 src/zip.c:33
+#: src/7zip.c:34
+#: src/arj.c:35
+#: src/bzip2.c:45
+#: src/gzip.c:39
+#: src/iso.c:522
+#: src/rpm.c:51
+#: src/tar.c:34
+#: src/zip.c:33
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: src/7zip.c:34 src/arj.c:35 src/zip.c:33
+#: src/7zip.c:34
+#: src/arj.c:35
+#: src/zip.c:33
 msgid "Original"
 msgstr "Eredeti"
 
-#: src/7zip.c:34 src/arj.c:35 src/zip.c:33
+#: src/7zip.c:34
+#: src/arj.c:35
+#: src/zip.c:33
 msgid "Compressed"
 msgstr "Tömörített"
 
@@ -32,17 +42,27 @@ msgstr "Tömörített"
 msgid "Attr"
 msgstr "Attr"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
+#: src/7zip.c:34
+#: src/arj.c:35
+#: src/bzip2.c:45
+#: src/gzip.c:39
+#: src/tar.c:34
 #: src/zip.c:33
 msgid "Time"
 msgstr "Idő"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/iso.c:522
-#: src/tar.c:34 src/zip.c:33
+#: src/7zip.c:34
+#: src/arj.c:35
+#: src/bzip2.c:45
+#: src/gzip.c:39
+#: src/iso.c:522
+#: src/tar.c:34
+#: src/zip.c:33
 msgid "Date"
 msgstr "Dátum"
 
-#: src/arj.c:35 src/zip.c:33
+#: src/arj.c:35
+#: src/zip.c:33
 msgid "Ratio"
 msgstr "Arány"
 
@@ -58,15 +78,23 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
+#: src/bzip2.c:45
+#: src/gzip.c:39
+#: src/tar.c:34
 msgid "Permissions"
 msgstr "Jogok"
 
-#: src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
+#: src/bzip2.c:45
+#: src/gzip.c:39
+#: src/tar.c:34
 msgid "Owner/Group"
 msgstr "Tulajdonos/Csoport"
 
-#: src/bzip2.c:45 src/gzip.c:39 src/iso.c:522 src/rpm.c:51 src/tar.c:34
+#: src/bzip2.c:45
+#: src/gzip.c:39
+#: src/iso.c:522
+#: src/rpm.c:51
+#: src/tar.c:34
 msgid "Size"
 msgstr "Méret"
 
@@ -134,8 +162,12 @@ msgstr "Kérlek, ellenőrizd \""
 msgid "\" since some files could have been already extracted."
 msgstr "\" mivel egyes fájlok talán már kibontottak."
 
-#: src/callbacks.c:109 src/callbacks.c:140 src/callbacks.c:1274 src/iso.c:647
-#: src/extract_dialog.c:371 src/extract_dialog.c:407
+#: src/callbacks.c:109
+#: src/callbacks.c:140
+#: src/callbacks.c:1274
+#: src/iso.c:647
+#: src/extract_dialog.c:371
+#: src/extract_dialog.c:407
 msgid "Operation completed."
 msgstr "Művelet kész."
 
@@ -155,7 +187,10 @@ msgstr ""
 "Hiba történt az archívumhoz féréskor.\n"
 "Megnyitod a hiba üzenet ablakot?"
 
-#: src/callbacks.c:129 src/callbacks.c:1747 src/rpm.c:114 src/rpm.c:140
+#: src/callbacks.c:129
+#: src/callbacks.c:1747
+#: src/rpm.c:114
+#: src/rpm.c:140
 msgid "Operation failed."
 msgstr "A művelet sikertelen."
 
@@ -180,23 +215,16 @@ msgid "Choose Add File to create the compressed file."
 msgstr "Válaszd a Fájl hozzáadását a tömörített fájl létrehozásához."
 
 #: src/callbacks.c:236
-#, fuzzy
 msgid "Choose Add File or Add Folder to begin creating the archive."
-msgstr ""
-"Válaszd a Fájl hozzáadását vagy Mappa hozzáadását a tar archívum "
-"létrehozásához."
+msgstr "Válaszd a Fájl hozzáadását vagy Mappa hozzáadását az archívum létrehozásához."
 
 #: src/callbacks.c:283
 msgid "The format of this archive is not recognized !"
 msgstr "Az archívumformátum feldolgozása sikertelen !"
 
 #: src/callbacks.c:307
-msgid ""
-"Sorry, this archive format is not supported since the proper archiver has't "
-"been installed!"
-msgstr ""
-"Bocs, ez az archívum formátum most nem támogatott, mert a megfelelő "
-"archiváló nincs telepítve!"
+msgid "Sorry, this archive format is not supported since the proper archiver has't been installed!"
+msgstr "Bocs, ez az archívum formátum most nem támogatott, mert a megfelelő archiváló nincs telepítve!"
 
 #: src/callbacks.c:314
 msgid "Please wait while the content of the ISO image is being read..."
@@ -251,9 +279,7 @@ msgid "Compressing file with gzip, please wait..."
 msgstr "Fájl tömörítése gzip-pel, kérlek, várj..."
 
 #: src/callbacks.c:701
-msgid ""
-"Select the files to be added to the current archive; use SHIFT to multiple "
-"select"
+msgid "Select the files to be added to the current archive; use SHIFT to multiple select"
 msgstr "Válaszd ki az archívumhoz adandó fájlokat"
 
 #: src/callbacks.c:707
@@ -261,16 +287,16 @@ msgid "Select the folder to be added to the current archive"
 msgstr "Válaszd ki az archívumhoz adandó mappát"
 
 #: src/callbacks.c:709
-msgid ""
-"Select the folders to be added to the current archive; use SHIFT to multiple "
-"select"
+msgid "Select the folders to be added to the current archive; use SHIFT to multiple select"
 msgstr "Válaszd ki az archívumhoz adandó mappákat"
 
-#: src/callbacks.c:748 src/interface.c:227
+#: src/callbacks.c:748
+#: src/interface.c:227
 msgid "Create a new archive"
 msgstr "Új archívum létrehozása"
 
-#: src/callbacks.c:754 src/interface.c:236
+#: src/callbacks.c:754
+#: src/interface.c:236
 msgid "Open an archive"
 msgstr "Archívum megnyitása"
 
@@ -298,7 +324,8 @@ msgstr "Válaszd ki a létrehozandó archívumtípust"
 msgid "Add the archive extension to the filename"
 msgstr "Archívumvégződés hozzáadása a fájlnévhez"
 
-#: src/callbacks.c:920 src/rpm.c:42
+#: src/callbacks.c:920
+#: src/rpm.c:42
 #, c-format
 msgid ""
 "Can't open archive %s:\n"
@@ -344,19 +371,23 @@ msgstr ""
 msgid "%c"
 msgstr "%c"
 
-#: src/callbacks.c:1315 src/callbacks.c:1341
+#: src/callbacks.c:1315
+#: src/callbacks.c:1341
 msgid " GB"
 msgstr " GB"
 
-#: src/callbacks.c:1320 src/callbacks.c:1346
+#: src/callbacks.c:1320
+#: src/callbacks.c:1346
 msgid " MB"
 msgstr " MB"
 
-#: src/callbacks.c:1326 src/callbacks.c:1352
+#: src/callbacks.c:1326
+#: src/callbacks.c:1352
 msgid " KB"
 msgstr " KB"
 
-#: src/callbacks.c:1330 src/callbacks.c:1356
+#: src/callbacks.c:1330
+#: src/callbacks.c:1356
 msgid " bytes"
 msgstr " bájt"
 
@@ -365,12 +396,8 @@ msgid "Sorry, I could not perform the operation!"
 msgstr "Bocs, a művelet nem sikerült!"
 
 #: src/callbacks.c:1745
-msgid ""
-"Bzip2 or gzip cannot compress more than one file, please choose another "
-"archive format!"
-msgstr ""
-"A bzip2 vagy gzip nem tud egynél több fájlt tömöríteni, válassz másik "
-"formátumot!"
+msgid "Bzip2 or gzip cannot compress more than one file, please choose another archive format!"
+msgstr "A bzip2 vagy gzip nem tud egynél több fájlt tömöríteni, válassz másik formátumot!"
 
 #: src/interface.c:70
 msgid "_Archive"
@@ -388,19 +415,23 @@ msgstr "Jellemzők"
 msgid "_Action"
 msgstr "_Művelet"
 
-#: src/interface.c:129 src/interface.c:245
+#: src/interface.c:129
+#: src/interface.c:245
 msgid "Add File"
 msgstr "Fájl hozzáadása"
 
-#: src/interface.c:133 src/interface.c:254
+#: src/interface.c:133
+#: src/interface.c:254
 msgid "Add Folder"
 msgstr "Mappa hozzáadása"
 
-#: src/interface.c:142 src/interface.c:268
+#: src/interface.c:142
+#: src/interface.c:268
 msgid "Extract"
 msgstr "Kibont"
 
-#: src/interface.c:154 src/interface.c:287
+#: src/interface.c:154
+#: src/interface.c:287
 msgid "View"
 msgstr "Nézet"
 
@@ -433,12 +464,8 @@ msgid "Add an entire folder to the current archive"
 msgstr "Teljes könyvtár hozzáadása a jelenlegi archívumhoz"
 
 #: src/interface.c:273
-msgid ""
-"Extract files from the current archive; use the mouse to select files "
-"individually"
-msgstr ""
-"Fájlok kibontása a jelenlegi archívumból; használd az egeret a fájlok egyéni "
-"kijelöléséhez"
+msgid "Extract files from the current archive; use the mouse to select files individually"
+msgstr "Fájlok kibontása a jelenlegi archívumból; használd az egeret a fájlok egyéni kijelöléséhez"
 
 #: src/interface.c:277
 msgid "Delete"
@@ -504,7 +531,8 @@ msgstr "Fájlok száma:"
 msgid "Number of dirs:"
 msgstr "Könyvtárak száma:"
 
-#: src/iso.c:522 src/rpm.c:51
+#: src/iso.c:522
+#: src/rpm.c:51
 msgid "Permission"
 msgstr "Engedély"
 
@@ -566,9 +594,8 @@ msgid "CRC-32"
 msgstr "CRC-32"
 
 #: src/extract_dialog.c:34
-#, fuzzy
 msgid "Extract Dialog"
-msgstr "Kibont"
+msgstr "Kibontás párbeszéd"
 
 #: src/extract_dialog.c:50
 msgid "Extract to:"
@@ -580,90 +607,79 @@ msgstr "Válassz kibontási mappát"
 
 #: src/extract_dialog.c:92
 msgid "All"
-msgstr ""
+msgstr "Minden"
 
 #: src/extract_dialog.c:98
 msgid "Only selected"
-msgstr ""
+msgstr "Csak a kijelölt"
 
 #: src/extract_dialog.c:109
 msgid "<b>Files to extract </b>"
-msgstr ""
+msgstr "<b>Kibontandó fájlok </b>"
 
 #: src/extract_dialog.c:128
 msgid "Overwrite existing files"
-msgstr ""
+msgstr "Létező fájlokat felülír"
 
 #: src/extract_dialog.c:135
-#, fuzzy
 msgid "Extract files with full path"
-msgstr "Fájlok kibontása ide: "
+msgstr "Fájlok kibontása teljes ösvénnyel"
 
 #: src/extract_dialog.c:137
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr ""
+msgid "The archive's directory structure is recreated in the extraction directory"
+msgstr "Az archívum könyvtár szerkezete újraépítve a kibontó könyvtárban"
 
 #: src/extract_dialog.c:145
-#, fuzzy
 msgid "Preserve permissions"
-msgstr "Jogok"
+msgstr "Jogok megőrzése"
 
 #: src/extract_dialog.c:149
 msgid "Preserve ownership"
-msgstr ""
+msgstr "Tulajdonos megtartása"
 
 #: src/extract_dialog.c:156
 msgid "Freshen existing files"
-msgstr ""
+msgstr "Létező fájlok frissítése"
 
 #: src/extract_dialog.c:157
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies."
-msgstr ""
+msgid "Extract only those files that already exist on disk and that are newer than the disk copies."
+msgstr "Csak a lemezen már létező fájlok újabb változatait bontja ki."
 
 #: src/extract_dialog.c:164
 msgid "Update existing files"
-msgstr ""
+msgstr "Létező fájlok frissítése"
 
 #: src/extract_dialog.c:165
-msgid ""
-"This option performs the same function as the freshen one, extracting files "
-"that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk."
-msgstr ""
+msgid "This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk."
+msgstr "E lehetőség hasonló a frissítő módozathoz, kibontja a létező fájlok újabb változatait, ezen felül pedig azokat is, melyek még nem voltak a lemezen."
 
 #: src/extract_dialog.c:175
 msgid "Password:"
-msgstr "Jelsző:"
+msgstr "Jelszó:"
 
 #: src/extract_dialog.c:184
 msgid "<b>Options </b>"
-msgstr ""
+msgstr "<b>Lehetőségek </b>"
 
 #: src/extract_dialog.c:201
-#, fuzzy
 msgid "_Extract"
-msgstr "Kibont"
+msgstr "_Kibont"
 
 #: src/extract_dialog.c:252
-#, fuzzy
 msgid "Please select where to extract the files !"
-msgstr "Válaszd ki a kibontás helyét!"
+msgstr "Válaszd ki a fájlok kibontásának helyét !"
 
 #: src/extract_dialog.c:260
-#, fuzzy
 msgid "Please enter the password!"
-msgstr "Adj meg egy jelszót!"
+msgstr "Add meg a jelszót!"
 
 #: src/extract_dialog.c:269
 #, c-format
-msgid ""
-"You don't have the right permissions to extract archives in the folder \"%s\""
-msgstr ""
+msgid "You don't have the right permissions to extract archives in the folder \"%s\""
+msgstr "Nem rendelkezel a megfelelő jogokkal az archívum kibontásához e mappába: \"%s\""
 
-#: src/extract_dialog.c:287 src/extract_dialog.c:441
+#: src/extract_dialog.c:287
+#: src/extract_dialog.c:441
 msgid "Extracting files to "
 msgstr "Fájlok kibontása ide: "
 
@@ -671,62 +687,46 @@ msgstr "Fájlok kibontása ide: "
 #~ msgstr ""
 #~ "Válaszd a Művelet->Jelszó beállítás-t egy jelszó védett archívum "
 #~ "létrehozásához."
-
 #~ msgid "The passwords don't match!"
 #~ msgstr "A jelszavak nem egyeznek!"
-
 #~ msgid "Set Password"
 #~ msgstr "Jelszó"
-
 #~ msgid "Extract ONLY selected files"
 #~ msgstr "CSAK a kijelölt fájlok kibontása"
-
 #~ msgid "Extract ALL files"
 #~ msgstr "MINDEN fájl kibontása"
-
 #~ msgid "Extract bzip2 compressed file"
 #~ msgstr "bzip2 fájl kibontása"
-
 #~ msgid "Extract gzip compressed file"
 #~ msgstr "gzip fájl kibontása"
-
 #~ msgid "Enter Archive Password"
 #~ msgstr "Archívumjelszó megadása"
-
 #~ msgid "Retype it:"
 #~ msgstr "Ismét:"
-
 #~ msgid ""
 #~ "Please note that the password is automatically resetted each time you "
 #~ "open or create a new archive."
 #~ msgstr ""
 #~ "Ne feledkezz meg a jelszó beállításáról egy archívum megnyitásakor vagy "
 #~ "létrehozásakor."
-
 #~ msgid ", please wait..."
 #~ msgstr ", kérlek, várj..."
-
 #~ msgid "_Help"
 #~ msgstr "_Súgó"
-
 #~ msgid "A GTK+2 only archive manager"
 #~ msgstr "Egy egyszerű GTK+2 archívum kezelő"
-
 #~ msgid "Archive Manager"
 #~ msgstr "Archívum kezelő"
-
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
 #~ msgid ""
 #~ "Can't open ISO image %s:\n"
 #~ "%s"
 #~ msgstr ""
 #~ "Nem tudom megnyitni ezt az ISO képet: %s:\n"
 #~ "%s"
-
 #~ msgid "This ISO image is malformed !"
 #~ msgstr "Az ISO kép rossz !"
-
 #~ msgid "Links"
 #~ msgstr "Láncok"
+
