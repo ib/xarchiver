@@ -195,14 +195,19 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 		return;
 	if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
 	{
-		gchar *msg = g_strconcat (_("The archive \""),path,_("\" already exists. Do you want to overwrite it?") , NULL);
+		gchar *utf8_path;
+		gchar  *msg;
+
+		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
+		msg = g_strdup_printf (_("The archive \"%s\" already exists. Do you want to overwrite it?"), utf8_path);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),
 						GTK_DIALOG_MODAL,
 						GTK_MESSAGE_QUESTION,
 						GTK_BUTTONS_YES_NO,
 						msg
 						);
-		g_free (msg);
+		g_free (utf8_path);
+		g_free (msg);		
 		if (response != GTK_RESPONSE_YES)
 		{
 			g_free (path);
