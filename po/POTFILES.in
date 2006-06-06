@@ -3,8 +3,8 @@
 src/7zip.c
 src/arj.c
 src/bzip2.c
-src/rar.c
 src/callbacks.c
+src/extract_dialog.c
 src/gzip.c
 src/interface.c
 src/iso.c
@@ -12,7 +12,6 @@ src/main.c
 src/rpm.c
 src/tar.c
 src/zip.c
-src/extract_dialog.c
 
 # files added by intltool-prepare.
 xarchiver.desktop.in
