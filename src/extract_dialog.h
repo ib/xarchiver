@@ -19,6 +19,8 @@
 #ifndef __EXTRACT_DIALOG_H
 #define __EXTRACT_DIALOG_H
 
+#include "archive.h"
+
 typedef struct
 {
 	GtkWidget *dialog1;
@@ -69,6 +71,7 @@ typedef struct
 Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int archive_type);
 static void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 static void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
+gchar *parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
 
 #endif
 

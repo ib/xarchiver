@@ -6,8 +6,7 @@ xx/06/06 - 0.4:
 		- Added ability to test archives.
 		- Added an archive properties window showing useful info about the archive and its content.
 		- "Row selection while you type" ability. Useful when you have thousand of files inside the archive.
-		- The extract dialog is closed before spawning the command line archiver.
-                - The extract dialog remembers the last used path.
+		- The extract dialog now "remembers" the last used extraction path.
                 - The enter key can be also used with the extract dialogs.
 		- You can use accelerators (keyboard shortcuts) for almost the menu entries.
 		- The Del key can also be used instead of the Delete button on the toolbar.

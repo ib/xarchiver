@@ -83,7 +83,7 @@ int main (int argc, char *argv[])
         }
     }*/
     GString *string = g_string_new ( "" );
-    cli_command = ChooseCommandtoExecute ( 1,string );
+    cli_command = ChooseCommandtoExecute ( 1,string,extract_path );
     if ( cli_command != NULL )
     {
         error_output = SpawnSyncCommand ( cli_command );

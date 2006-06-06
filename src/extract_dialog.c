@@ -203,6 +203,7 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	gtk_container_add(GTK_CONTAINER(dialog_data->extract_button), dialog_data->extract_hbox);
 	gtk_widget_show (dialog_data->extract_button);
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1), dialog_data->extract_button, GTK_RESPONSE_OK);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog_data->dialog1), GTK_RESPONSE_OK);
 	GTK_WIDGET_SET_FLAGS (dialog_data->extract_button, GTK_CAN_DEFAULT);
 	return dialog_data;
 }
@@ -222,3 +223,170 @@ static void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_dat
 	if (active)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh), FALSE);
 }
+
+gchar *parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection)
+{
+	gchar *command = NULL;
+	gchar *name = NULL;
+	gchar *extract_path = NULL;
+	gchar *destination_path = NULL;
+	gboolean done = FALSE;
+	gboolean all_files = FALSE;
+	unsigned long long int file_size, file_offset;
+
+    while ( ! done )
+	{
+		switch (gtk_dialog_run ( GTK_DIALOG (dialog_data->dialog1 ) ) )
+		{
+			case GTK_RESPONSE_CANCEL:
+			case GTK_RESPONSE_DELETE_EVENT:
+			done = TRUE;
+            gtk_widget_destroy ( dialog_data->dialog1 );
+			break;
+
+			case GTK_RESPONSE_OK:
+            destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
+			extract_path = EscapeBadChars ( destination_path );
+			if ( strlen ( extract_path ) > 0 )
+			{
+				done = TRUE;
+                gtk_widget_set_sensitive (Stop_button,TRUE);
+				all_files = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio ));
+                gtk_widget_destroy ( extract_window->dialog1 );
+				if ( all_files )
+				{
+                    gchar *text = g_strconcat (_("Extracting files to "), destination_path , NULL );
+                    Update_StatusBar ( text );
+                    g_free (text);
+					g_free (destination_path);
+					switch ( archive->type )
+					{
+						case XARCHIVETYPE_RAR:
+                        if (archive->passwd !=NULL)
+							command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->escaped_path , " " , extract_path , NULL );
+                        else
+							command = g_strconcat ( "rar x -o+ -idp " , archive->escaped_path , " " , extract_path , NULL );
+						break;
+
+						case XARCHIVETYPE_TAR:
+						command = g_strconcat ( "tar xfv " , archive->escaped_path , " -C " , extract_path , NULL );
+						break;
+
+						case XARCHIVETYPE_TAR_BZ2:
+						command = g_strconcat ( "tar xfjv " , archive->escaped_path , " -C " , extract_path , NULL );
+						break;
+
+						case XARCHIVETYPE_TAR_GZ:
+						command = g_strconcat ( "tar xfzv " , archive->escaped_path , " -C " , extract_path , NULL );
+						break;
+
+                        case XARCHIVETYPE_ZIP:
+                        if ( archive->passwd != NULL )
+							command = g_strconcat ( "unzip -o -P " , archive->passwd , " " , archive->escaped_path , " -d " , extract_path , NULL );
+                        else
+							command = g_strconcat ( "unzip -o " , archive->escaped_path , " -d " , extract_path , NULL );
+						break;
+
+						case XARCHIVETYPE_RPM:
+                        chdir ( extract_path );
+                        command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
+                        break;
+
+                        case XARCHIVETYPE_7ZIP:
+                        if (archive->passwd != NULL)
+							command = g_strconcat ( "7za x -aoa -bd -p",archive->passwd," ", archive->escaped_path , " -o" , extract_path , NULL );
+                        else
+							command = g_strconcat ( "7za x -aoa -bd " , archive->escaped_path , " -o" , extract_path , NULL );
+                        break;
+
+						case XARCHIVETYPE_ARJ:
+						if (archive->passwd !=NULL)
+							command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->escaped_path , " " , extract_path , NULL );
+                        else
+							command = g_strconcat ( "arj x -i -y " , archive->escaped_path , " " , extract_path , NULL );
+						break;
+
+						case XARCHIVETYPE_ISO:
+						command = NULL;
+
+						gtk_tree_model_get_iter_first (model,&iter);
+						gtk_tree_model_get (model, &iter,
+                        0, &name,
+                        2, &file_size,
+                        4, &file_offset,
+                        -1);
+						xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
+						g_free (name);
+
+						while (gtk_tree_model_iter_next (model,&iter) == TRUE )
+						{
+							gtk_tree_model_get (model, &iter,
+							0, &name,
+							2, &file_size,
+							4, &file_offset,
+							-1);
+							xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
+							g_free (name);
+						}
+						SetButtonState (1,1,0,0,1);
+						OffTooltipPadlock();
+						Update_StatusBar ( _("Operation completed.") );
+						break;
+						
+						default:
+						command = NULL;
+					}
+					if ( command != NULL )
+						return command;
+				}
+				/* Here we handle only the selected files */
+				else
+				{
+					/* ISO extraction is different from the other type of archives */
+					if (archive->type == XARCHIVETYPE_ISO)
+					{
+						GList *row_list = NULL;
+						selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
+						row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+						while (row_list)
+						{
+							gtk_tree_model_get_iter(model, &iter, row_list->data);
+							gtk_tree_model_get (model, &iter,
+							0, &name,
+							2, &file_size,
+							4, &file_offset,
+							-1);
+							gtk_tree_path_free (row_list->data);
+							/* TODO: to support the extraction with the path/filename instead of the filename only */
+							gchar *filename = StripPathFromFilename (name);
+							xa_extract_iso_file (archive, extract_path, filename , file_size, file_offset );
+							g_free (name);
+							row_list = row_list->next;
+						}
+						g_list_free (row_list);
+						SetButtonState (1,1,0,0,1);
+						OffTooltipPadlock();
+						Update_StatusBar ( _("Operation completed.") );
+					}
+					/* The rest of other archive types */
+					else
+					{
+						names = g_string_new ( " " );
+						gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+						command = ChooseCommandtoExecute ( 1 , names, extract_path );
+						if ( command != NULL )
+						{
+							g_string_free (names , FALSE );
+							return command;
+						}
+					}
+				}
+			}
+			else
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please select where to extract the files !") );
+			break;
+		}
+	}
+	return command;
+}
+
