@@ -72,6 +72,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short in
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
+gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path);
 
 #endif
 

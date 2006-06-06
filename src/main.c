@@ -84,7 +84,7 @@ int main (int argc, char *argv[])
     }*/
     GString *string = g_string_new ( "" );
 	//archive->full_path = 1;
-    //cli_command = ChooseCommandtoExecute ( archive , string, extract_path );
+    //cli_command = xa_extract_single_files ( archive , string, extract_path );
     if ( cli_command != NULL )
     {
         error_output = SpawnSyncCommand ( cli_command );

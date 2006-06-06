@@ -116,7 +116,6 @@ gchar *StripPathFromFilename ( gchar *name );
 gchar *JoinPathArchiveName ( const gchar * , gchar * );
 char *Show_File_Dialog (int dummy , gpointer title);
 char *eat_spaces (char *line);
-gchar *ChooseCommandtoExecute ( XArchive *archive , GString *files, gchar *path);
 gchar *remove_level_from_path (const gchar *path);
 gchar *extract_local_path (gchar *path , gchar *filename);
 gchar *RemoveBackSlashes ( gchar *name);

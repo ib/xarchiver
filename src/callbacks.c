@@ -29,7 +29,6 @@
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
-extern gboolean cli;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -651,79 +650,6 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	extract_window = NULL;
 }
 
-gchar *ChooseCommandtoExecute ( XArchive *archive , GString *files, gchar *path)
-{
-    gchar *command;
-    unsigned short int levels;
-    char digit[2];
-    gchar *strip = NULL;
-    if ( archive->full_path == 0 )
-    {
-        levels = CountCharacter ( files->str , '/');
-        sprintf ( digit , "%d" , levels );
-        strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
-    }
-    if ( ! cli)
-    {
-        gchar *msg = g_strconcat ( _("Extracting files to ") , path, NULL);
-        Update_StatusBar (msg);
-        g_free (msg);
-    }
-    switch (archive->type)
-	{
-		case XARCHIVETYPE_RAR:
-		if (archive->passwd != NULL)
-			command = g_strconcat ( "rar " , archive->full_path ? "x" : "e" , " -p",archive->passwd, " -o+ -idp " , archive->escaped_path , " " , files->str , " " , path , NULL );
-        else
-			command = g_strconcat ( "rar ", archive->full_path ? "x" : "e" , " -o+ -idp " , archive->escaped_path , " " , files->str , " ", path ,NULL);
-		break;
-
-		case XARCHIVETYPE_TAR:
-	    command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xvf " , archive->escaped_path , " -C " , path , files->str , NULL );
-		break;
-
-		case XARCHIVETYPE_TAR_BZ2:
-		command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xjvf " , archive->escaped_path , " -C " , path ,  files->str , NULL );
-		break;
-
-		case XARCHIVETYPE_TAR_GZ:
-        command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xvzf " , archive->escaped_path , " -C " , path , files->str , NULL );
-		break;
-
-		case XARCHIVETYPE_ZIP:
-        if ( archive->passwd != NULL )
-			command = g_strconcat ( "unzip -o -P " , archive->passwd , archive->full_path ? " " : " -j " , archive->escaped_path , files->str , " -d " , path , NULL );
-        else
-			command = g_strconcat ( "unzip -o " , archive->full_path ? "" : "-j " , archive->escaped_path , files->str , " -d " , path , NULL );
-		break;
-
-        case XARCHIVETYPE_RPM:
-        chdir ( path );
-        command = g_strconcat ( "cpio --make-directories " , files->str , " -F " , archive->tmp , " -i" , NULL);
-        break;
-
-        case XARCHIVETYPE_7ZIP:
-        if ( archive->passwd != NULL)
-			command = g_strconcat ("7za " , archive->full_path ? "x" : "e" , " -p",archive->passwd," -aoa -bd " , archive->escaped_path , files->str , " -o" , path , NULL );
-        else
-			command = g_strconcat ( "7za " , archive->full_path ? "x" : "e" ," -aoa -bd " , archive->escaped_path , files->str , " -o" , path , NULL );
-        break;
-
-		case XARCHIVETYPE_ARJ:
-		if (archive->passwd != NULL)
-			command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->escaped_path , " " , path , files->str , NULL );
-        else
-			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e"," -i -y " , archive->escaped_path , " " , path , files->str, NULL );
-		break;
-
-        default:
-			command = NULL;
-    }
-    if ( strip != NULL)
-		g_free ( strip );
-    return command;
-}
-
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
@@ -1280,7 +1206,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	names = g_string_new (" ");
 	g_string_append ( names , dir );
 
-	command = ChooseCommandtoExecute ( 0 , names, "/tmp");
+	command = xa_extract_single_files ( 0 , names, "/tmp");
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0);
 	g_free ( command );
@@ -1771,7 +1697,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
         names = g_string_new ("");
         gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
 		archive->full_path = 1;
-        command = ChooseCommandtoExecute ( archive , names, extract_path );
+        command = xa_extract_single_files ( archive , names, extract_path );
         if ( command != NULL )
         {
             ExtractAddDelete ( command );
