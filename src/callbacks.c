@@ -1738,7 +1738,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
             return;
         }
     }
-    if ( archive->type == -1)
+    if ( archive == NULL)
 		xa_new_archive ( NULL , NULL );
     if ( archive->type != XARCHIVETYPE_UNKNOWN )
     {
