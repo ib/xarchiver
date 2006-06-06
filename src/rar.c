@@ -180,7 +180,7 @@ gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			else
 				archive->nr_of_dirs++;
 
-			archive->dummy_size += g_value_get_uint64 (compressed );
+			archive->dummy_size += g_value_get_uint64 (original);
 			odd_line = ! odd_line;
 			g_free (line);
 			if (archive->row_cnt > 99)
