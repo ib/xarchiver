@@ -112,7 +112,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 	gtk_widget_destroy ( extract_window->dialog1 );
 	g_free (extract_window);
 	extract_window = NULL;
-	SetButtonState (1,1,0,0,0);
+	xa_set_button_state (1,1,0,0,0);
 	if (command != NULL)
 	{
 		g_free ( command );
@@ -216,7 +216,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			SetButtonState (1,1,0,0,0);
+			xa_set_button_state (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
@@ -261,7 +261,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			SetButtonState (1,1,0,0,0);
+			xa_set_button_state (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive.\nDo you want to open the error messages window?") : _("An error occurred while deleting from the tar archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
@@ -284,7 +284,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			SetButtonState (1,1,0,0,0);
+			xa_set_button_state (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
 			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive.\nDo you want to open the error messages window?") );

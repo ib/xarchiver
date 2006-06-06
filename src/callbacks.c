@@ -23,8 +23,6 @@
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
-#include "extract_dialog.h"
-#include "archive.h"
 #include "main.h"
 
 extern GList *ArchiveType;
@@ -66,17 +64,17 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	XArchive *archive = data;
 	OffDeleteandViewButtons();
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
-		SetButtonState (1,1,0,0,0);
+		xa_set_button_state (1,1,0,0,0);
 	else if (archive->type == XARCHIVETYPE_RPM)
-		SetButtonState (1,1,0,0,1);
+		xa_set_button_state (1,1,0,0,1);
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
 	{
-		SetButtonState (1,1,1,1,1);
+		xa_set_button_state (1,1,1,1,1);
         gtk_widget_set_sensitive ( check_menu , FALSE);
 	}
 	else
 	{
-		SetButtonState (1,1,1,1,1);
+		xa_set_button_state (1,1,1,1,1);
         gtk_widget_set_sensitive ( check_menu , TRUE);
 	}
 
@@ -111,7 +109,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		Update_StatusBar ( _("Operation completed.") );
 		gchar *msg = g_strconcat (_("The integrity of the archive \"") , archive->path , _("\" is OK!") , NULL);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,msg );
-		SetButtonState (1,1,1,1,1);
+		xa_set_button_state (1,1,1,1,1);
         g_free (msg);
         return;
     }
@@ -122,7 +120,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		{
 			gtk_tooltips_disable ( pad_tooltip );
 			gtk_widget_hide ( pad_image );
-			SetButtonState (1,1,0,0,0);
+			xa_set_button_state (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
@@ -213,7 +211,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
         //The following to avoid to update the archive instead of adding to it since the filename exists
         unlink ( path );
 	}
-	SetButtonState (1,1,1,1,0 );
+	xa_set_button_state (1,1,1,1,0 );
 	archive->path = g_strdup (path);
 	g_free (path);
     archive->escaped_path = EscapeBadChars (archive->path);
@@ -232,20 +230,20 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
   	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
 	{
 		Update_StatusBar ( _("Choose Add File to create the compressed file."));
-		SetButtonState (1,1,1,0,0 );
+		xa_set_button_state (1,1,1,0,0 );
 	}
-	else if (archive->type == XARCHIVETYPE_TAR)
-		Update_StatusBar ( _("Choose Add File or Add Folder to create the tar archive."));
+	else
+		Update_StatusBar ( _("Choose Add File or Add Folder to begin creating the archive."));
 
     gtk_tooltips_disable ( pad_tooltip );
     gtk_widget_hide ( pad_image );
-    if (archive->passwd != NULL)
-		g_free (archive->passwd);
+    
     archive->passwd = NULL;
     archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
+	archive->type = XARCHIVETYPE_UNKNOWN;
 }
 
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, gchar *message)
@@ -316,7 +314,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		Update_StatusBar ( _("Please wait while the content of the ISO image is being read..."));
     else
 		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
-    SetButtonState (1,1,1,1,1);
+    xa_set_button_state (1,1,1,1,1);
 	
 	switch ( archive->type )
 	{
@@ -378,7 +376,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     Update_StatusBar ( _("Testing archive integrity, please wait..."));
     gtk_widget_set_sensitive (Stop_button,TRUE);
     gtk_widget_set_sensitive ( check_menu , FALSE );
-    SetButtonState (0,0,0,0,0);
+    xa_set_button_state (0,0,0,0,0);
     switch ( archive->type )
 	{
 		case XARCHIVETYPE_RAR:
@@ -538,7 +536,7 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
         ConcatenateFileNames2 ( name , names );
         Files_to_Add = g_slist_next ( Files_to_Add );
 	}
-        SetButtonState (0,0,0,0,0);
+        xa_set_button_state (0,0,0,0,0);
 		archive->status = XA_ARCHIVESTATUS_ADD;
         if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
 			Update_StatusBar ( _("Adding files to the archive, please wait..."));
@@ -1228,7 +1226,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 	{
 		if ( WEXITSTATUS ( status ) )
 		{
-			SetButtonState (1,1,0,0,0);
+			xa_set_button_state (1,1,0,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)

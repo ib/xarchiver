@@ -366,7 +366,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
 						g_free (name);
 					}
-					SetButtonState (1,1,0,0,1);
+					xa_set_button_state (1,1,0,0,1);
 					OffTooltipPadlock();
 					Update_StatusBar ( _("Operation completed.") );
 					break;
@@ -402,7 +402,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						row_list = row_list->next;
 					}
 					g_list_free (row_list);
-					SetButtonState (1,1,0,0,1);
+					xa_set_button_state (1,1,0,0,1);
 					OffTooltipPadlock();
 					Update_StatusBar ( _("Operation completed.") );
 				}

@@ -639,7 +639,7 @@ void OpenISO ( XArchive *archive )
 	free (td);
 	td = NULL;
 	
-	SetButtonState (1,1,0,0,1);
+	xa_set_button_state (1,1,0,0,1);
 	OffTooltipPadlock();
 	gtk_widget_set_sensitive ( properties , TRUE );
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
