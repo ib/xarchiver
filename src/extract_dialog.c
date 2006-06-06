@@ -292,9 +292,18 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				{
 					case XARCHIVETYPE_RAR:
 					if (archive->passwd != NULL)
-						command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->escaped_path , " " , extract_path , NULL );
+						command = g_strconcat ( "rar " , archive->full_path ? "x " : "e ",
+												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+												" -p",archive->passwd,
+												archive->overwrite ? " -o+" : " -o-",
+												" -idp ",
+												archive->escaped_path , " " , extract_path , NULL );
 					else
-						command = g_strconcat ( "rar x -o+ -idp " , archive->escaped_path , " " , extract_path , NULL );
+						command = g_strconcat ( "rar " , archive->full_path ? "x " : "e ",
+												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+												archive->overwrite ? "-o+" : "-o-",
+												" -idp ",
+												archive->escaped_path , " " , extract_path , NULL );
 					break;
 
 					case XARCHIVETYPE_TAR:
@@ -437,9 +446,18 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 	{
 		case XARCHIVETYPE_RAR:
 		if (archive->passwd != NULL)
-			command = g_strconcat ( "rar " , archive->full_path ? "x" : "e" , " -p",archive->passwd, " -o+ -idp " , archive->escaped_path , " " , files->str , " " , path , NULL );
+			command = g_strconcat ( "rar " , archive->full_path ? "x " : "e " ,
+									archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+									" -p",archive->passwd,
+									archive->overwrite ? " -o+" : " -o-",
+									" -idp ",
+									archive->escaped_path , " " , files->str , " " , path , NULL );
         else
-			command = g_strconcat ( "rar ", archive->full_path ? "x" : "e" , " -o+ -idp " , archive->escaped_path , " " , files->str , " ", path ,NULL);
+			command = g_strconcat ( "rar ", archive->full_path ? "x " : "e " ,
+									archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+									archive->overwrite ? "-o+" : "-o-",
+									" -idp ",
+									archive->escaped_path , " " , files->str , " ", path ,NULL);
 		break;
 
 		case XARCHIVETYPE_TAR:

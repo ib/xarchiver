@@ -1206,7 +1206,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	names = g_string_new (" ");
 	g_string_append ( names , dir );
 
-	command = xa_extract_single_files ( 0 , names, "/tmp");
+	command = xa_extract_single_files ( archive , names, "/tmp");
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0);
 	g_free ( command );
