@@ -58,6 +58,10 @@ struct _XArchive
 	gchar *escaped_path;
 	gchar *tmp;
 	gboolean has_passwd;
+	gboolean overwrite;
+	gboolean full_path;
+	gboolean freshen;
+	gboolean update;
 	gchar *passwd;
 	gint nr_of_files;
 	gint nr_of_dirs;

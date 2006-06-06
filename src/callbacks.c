@@ -621,10 +621,12 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 {
 	gchar *command = NULL;
+
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
-    extract_window = create_extract_dialog (selected , archive->type);
-	
+    extract_window = xa_create_extract_dialog (selected , archive->type);
+	if (extract_path != NULL)
+		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),extract_path);
     if ( archive->has_passwd )
     {
 		gtk_widget_set_sensitive (extract_window->label_password, TRUE);
@@ -635,9 +637,11 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		gtk_widget_set_sensitive (extract_window->label_password, FALSE);
 		gtk_widget_set_sensitive (extract_window->password_entry, FALSE);
 	}
-    command = parse_extract_dialog_options ( archive , extract_window, selection );
+    command = xa_parse_extract_dialog_options ( archive , extract_window, selection );
+	gtk_widget_destroy ( extract_window->dialog1 );
 	if (command != NULL)
 	{
+		g_message (command);
 		ExtractAddDelete (command);
 		g_free (command);
 	}
@@ -645,13 +649,13 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	extract_window = NULL;
 }
 
-gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files, gchar *path)
+gchar *ChooseCommandtoExecute ( XArchive *archive , GString *files, gchar *path)
 {
     gchar *command;
     unsigned short int levels;
     char digit[2];
     gchar *strip = NULL;
-    if ( full_path == 0 )
+    if ( archive->full_path == 0 )
     {
         levels = CountCharacter ( files->str , '/');
         sprintf ( digit , "%d" , levels );
@@ -659,7 +663,7 @@ gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files, gchar *path
     }
     if ( ! cli)
     {
-        gchar *msg = g_strconcat ( _("Extracting files to ") , path,NULL);
+        gchar *msg = g_strconcat ( _("Extracting files to ") , path, NULL);
         Update_StatusBar (msg);
         g_free (msg);
     }
@@ -667,28 +671,28 @@ gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files, gchar *path
 	{
 		case XARCHIVETYPE_RAR:
 		if (archive->passwd != NULL)
-			command = g_strconcat ( "rar " , full_path ? "x" : "e" , " -p",archive->passwd, " -o+ -idp " , archive->escaped_path , " " , files->str , " " , path , NULL );
+			command = g_strconcat ( "rar " , archive->full_path ? "x" : "e" , " -p",archive->passwd, " -o+ -idp " , archive->escaped_path , " " , files->str , " " , path , NULL );
         else
-			command = g_strconcat ( "rar ", full_path ? "x" : "e" , " -o+ -idp " , archive->escaped_path , " " , files->str , " ", path ,NULL);
+			command = g_strconcat ( "rar ", archive->full_path ? "x" : "e" , " -o+ -idp " , archive->escaped_path , " " , files->str , " ", path ,NULL);
 		break;
 
 		case XARCHIVETYPE_TAR:
-	    command = g_strconcat ( "tar " , full_path ? "" : strip , "-xvf " , archive->escaped_path , " -C " , path , files->str , NULL );
+	    command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xvf " , archive->escaped_path , " -C " , path , files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		command = g_strconcat ( "tar " , full_path ? "" : strip , "-xjvf " , archive->escaped_path , " -C " , path ,  files->str , NULL );
+		command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xjvf " , archive->escaped_path , " -C " , path ,  files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-        command = g_strconcat ( "tar " , full_path ? "" : strip , "-xvzf " , archive->escaped_path , " -C " , path , files->str , NULL );
+        command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xvzf " , archive->escaped_path , " -C " , path , files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_ZIP:
         if ( archive->passwd != NULL )
-			command = g_strconcat ( "unzip -o -P " , archive->passwd , full_path ? " " : " -j " , archive->escaped_path , files->str , " -d " , path , NULL );
+			command = g_strconcat ( "unzip -o -P " , archive->passwd , archive->full_path ? " " : " -j " , archive->escaped_path , files->str , " -d " , path , NULL );
         else
-			command = g_strconcat ( "unzip -o " , full_path ? "" : "-j " , archive->escaped_path , files->str , " -d " , path , NULL );
+			command = g_strconcat ( "unzip -o " , archive->full_path ? "" : "-j " , archive->escaped_path , files->str , " -d " , path , NULL );
 		break;
 
         case XARCHIVETYPE_RPM:
@@ -698,16 +702,16 @@ gchar *ChooseCommandtoExecute ( gboolean full_path , GString *files, gchar *path
 
         case XARCHIVETYPE_7ZIP:
         if ( archive->passwd != NULL)
-			command = g_strconcat ("7za " , full_path ? "x" : "e" , " -p",archive->passwd," -aoa -bd " , archive->escaped_path , files->str , " -o" , path , NULL );
+			command = g_strconcat ("7za " , archive->full_path ? "x" : "e" , " -p",archive->passwd," -aoa -bd " , archive->escaped_path , files->str , " -o" , path , NULL );
         else
-			command = g_strconcat ( "7za " , full_path ? "x" : "e" ," -aoa -bd " , archive->escaped_path , files->str , " -o" , path , NULL );
+			command = g_strconcat ( "7za " , archive->full_path ? "x" : "e" ," -aoa -bd " , archive->escaped_path , files->str , " -o" , path , NULL );
         break;
 
 		case XARCHIVETYPE_ARJ:
 		if (archive->passwd != NULL)
 			command = g_strconcat ( "arj x -g",archive->passwd," -i -y " , archive->escaped_path , " " , path , files->str , NULL );
         else
-			command = g_strconcat ( "arj ",full_path ? "x" : "e"," -i -y " , archive->escaped_path , " " , path , files->str, NULL );
+			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e"," -i -y " , archive->escaped_path , " " , path , files->str, NULL );
 		break;
 
         default:
@@ -1764,7 +1768,8 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			to_send = "S";
         names = g_string_new ("");
         gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-        command = ChooseCommandtoExecute ( 1 , names, extract_path );
+		archive->full_path = 1;
+        command = ChooseCommandtoExecute ( archive , names, extract_path );
         if ( command != NULL )
         {
             ExtractAddDelete ( command );

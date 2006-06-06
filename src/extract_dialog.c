@@ -22,7 +22,7 @@
 #include "callbacks.h"
 #include "support.h"
 
-Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int archive_type)
+Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short int archive_type)
 {
 	Extract_dialog_data *dialog_data;
 
@@ -208,14 +208,14 @@ Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int a
 	return dialog_data;
 }
 
-static void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
+void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
 {
 	gboolean active = gtk_toggle_button_get_active (button);
 	if (active)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
 }
 
-static void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
+void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
 {
 	if (data->fresh == NULL)
 		return;
@@ -224,14 +224,13 @@ static void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_dat
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh), FALSE);
 }
 
-gchar *parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection)
+gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection)
 {
 	gchar *command = NULL;
 	gchar *name = NULL;
-	gchar *extract_path = NULL;
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
-	gboolean all_files = FALSE;
+
 	unsigned long long int file_size, file_offset;
 
     while ( ! done )
@@ -241,19 +240,31 @@ gchar *parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *d
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
-            gtk_widget_destroy ( dialog_data->dialog1 );
 			break;
 
 			case GTK_RESPONSE_OK:
             destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
+			if (archive->has_passwd)
+				archive->passwd  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->password_entry) ));
 			extract_path = EscapeBadChars ( destination_path );
+
+			archive->overwrite = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->overwrite_check ));
+			archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->update ));
+			archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->extract_full ));
+
+			if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
+				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->fresh ));
+			
+			if (archive->has_passwd && strlen( archive->passwd ) == 0 )
+			{
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please enter the password!") );
+				break;
+			}
 			if ( strlen ( extract_path ) > 0 )
 			{
 				done = TRUE;
                 gtk_widget_set_sensitive (Stop_button,TRUE);
-				all_files = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio ));
-                gtk_widget_destroy ( extract_window->dialog1 );
-				if ( all_files )
+				if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio )) )
 				{
                     gchar *text = g_strconcat (_("Extracting files to "), destination_path , NULL );
                     Update_StatusBar ( text );
@@ -262,7 +273,7 @@ gchar *parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *d
 					switch ( archive->type )
 					{
 						case XARCHIVETYPE_RAR:
-                        if (archive->passwd !=NULL)
+                        if (archive->passwd != NULL)
 							command = g_strconcat ( "rar x -p",archive->passwd," -o+ -idp " , archive->escaped_path , " " , extract_path , NULL );
                         else
 							command = g_strconcat ( "rar x -o+ -idp " , archive->escaped_path , " " , extract_path , NULL );
@@ -282,9 +293,9 @@ gchar *parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *d
 
                         case XARCHIVETYPE_ZIP:
                         if ( archive->passwd != NULL )
-							command = g_strconcat ( "unzip -o -P " , archive->passwd , " " , archive->escaped_path , " -d " , extract_path , NULL );
+							command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "" , archive->update ? "-u " : "" , archive->overwrite ? "-o" : "-n", " -P " , archive->passwd , archive->full_path ? " " : " -j " , archive->escaped_path , " -d " , extract_path , NULL );
                         else
-							command = g_strconcat ( "unzip -o " , archive->escaped_path , " -d " , extract_path , NULL );
+							command = g_strconcat ( "unzip " , archive->overwrite ? "-o " : "-n ", archive->full_path ? "" : " -j " , archive->escaped_path , " -d " , extract_path , NULL );
 						break;
 
 						case XARCHIVETYPE_RPM:
@@ -373,7 +384,7 @@ gchar *parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *d
 					{
 						names = g_string_new ( " " );
 						gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-						command = ChooseCommandtoExecute ( 1 , names, extract_path );
+						command = ChooseCommandtoExecute ( archive , names, extract_path );
 						if ( command != NULL )
 						{
 							g_string_free (names , FALSE );

@@ -68,10 +68,10 @@ typedef struct
 	GtkTooltips *option_tooltip;
 } Extract_dialog_data;
 
-Extract_dialog_data *create_extract_dialog (gint selected , unsigned short int archive_type);
-static void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
-static void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
-gchar *parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
+Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short int archive_type);
+void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
+void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
+gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
 
 #endif
 
