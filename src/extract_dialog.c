@@ -23,6 +23,8 @@
 #include "support.h"
 
 extern gboolean cli;
+char digit[2];
+gchar *strip_string = NULL;
 
 Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short int archive_type)
 {
@@ -142,13 +144,30 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short in
 	/* TAR, TAR_GZ, TAR_BZ2 */
 	else if (archive_type == 6 || archive_type == 7 || archive_type == 8)
 	{
-		dialog_data->preserve_permissions = gtk_check_button_new_with_mnemonic (_("Preserve permissions"));
-		gtk_widget_show (dialog_data->preserve_permissions);
-		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_permissions, FALSE, FALSE, 0);
+		dialog_data->preserve_permission = gtk_check_button_new_with_mnemonic (_("Preserve permission"));
+		gtk_widget_show (dialog_data->preserve_permission);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_permission, FALSE, FALSE, 0);
 
 		dialog_data->preserve_ownership = gtk_check_button_new_with_mnemonic (_("Preserve ownership"));
 		gtk_widget_show (dialog_data->preserve_ownership);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_ownership, FALSE, FALSE, 0);
+		
+		dialog_data->hbox6 = gtk_hbox_new (FALSE, 2);
+		gtk_widget_show (dialog_data->hbox6);
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->hbox6, FALSE, FALSE, 0);
+
+		dialog_data->strip = gtk_check_button_new_with_mnemonic (_("Strip directories:"));
+		gtk_widget_show (dialog_data->strip);
+		gtk_box_pack_start (GTK_BOX (dialog_data->hbox6), dialog_data->strip, FALSE, FALSE, 0);
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->strip , _("This option extracts the files without the directory in which they are contained. You have to specify the number of directories to strip."), NULL );
+
+		dialog_data->strip_entry = gtk_entry_new ();
+		gtk_widget_set_size_request (dialog_data->strip_entry, 24, -1);
+		gtk_entry_set_max_length (GTK_ENTRY (dialog_data->strip_entry), 2);
+		gtk_widget_set_sensitive (dialog_data->strip_entry , FALSE);
+		gtk_widget_show (dialog_data->strip_entry);
+		gtk_box_pack_start (GTK_BOX (dialog_data->hbox6), dialog_data->strip_entry, FALSE, FALSE, 0);
+		g_signal_connect ( (gpointer) dialog_data->strip, "toggled", G_CALLBACK (show_hide_strip_entry) ,  dialog_data );
 	}
 
 	if (archive_type == 3 || archive_type == 4 || archive_type == 5)
@@ -226,6 +245,14 @@ void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh), FALSE);
 }
 
+void show_hide_strip_entry (GtkToggleButton *button, Extract_dialog_data *data)
+{
+	gboolean active = FALSE;
+	if (gtk_toggle_button_get_active (button) )
+		active = TRUE;
+	gtk_widget_set_sensitive (data->strip_entry, active);
+}
+
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection)
 {
 	gchar *command = NULL;
@@ -275,11 +302,26 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			}
 			done = TRUE;
 			archive->overwrite = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->overwrite_check ));
-			archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->update ));
-			archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->extract_full ));
-
-			if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
+			if ( archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+			{
+				archive->tar_permission = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->preserve_permission ));
+				archive->tar_ownership = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->preserve_ownership ));
+				if (gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->strip)) )
+				{
+					archive->tar_strip = atoi (gtk_entry_get_text (GTK_ENTRY(dialog_data->strip_entry)) );
+					sprintf ( digit , "%d" , archive->tar_strip );
+					strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
+				}
+				else
+					archive->tar_strip = 0;
+			}
+			else if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
 				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->fresh ));
+			else
+			{
+				archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->update ));
+				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->extract_full ));
+			}
 
 			gtk_widget_set_sensitive (Stop_button,TRUE);
 			if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio )) )
@@ -307,7 +349,10 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_TAR:
-					command = g_strconcat ( "tar xfv " , archive->escaped_path , " -C " , extract_path , NULL );
+					command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+											"-xvf " , archive->escaped_path,
+											archive->overwrite ? " --overwrite" : " --keep-old-files",
+											" -C " , extract_path , NULL );
 					break;
 
 					case XARCHIVETYPE_TAR_BZ2:
@@ -339,14 +384,19 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 					case XARCHIVETYPE_ARJ:
 					if (archive->passwd != NULL)
-						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ", "-g",archive->passwd,archive->overwrite ? " " : " -n" , " -i " , archive->freshen ? "-f " : "" , archive->update ? "-u " : "" , "-y " , archive->escaped_path , " " , extract_path , NULL );
+						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ",
+												"-g",archive->passwd,
+												archive->overwrite ? "" : " -n" , " -i ",
+												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+												"-y " , archive->escaped_path , " " , extract_path , NULL );
                     else
-						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ", archive->overwrite ? " " : " -n" , " -i " , archive->freshen ? "-f " : "" , archive->update ? "-u " : "", "-y " , archive->escaped_path , " " , extract_path , NULL );
+						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ",
+												archive->overwrite ? "" : " -n" , " -i ",
+												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+												"-y " , archive->escaped_path , " " , extract_path , NULL );
 					break;
 
 					case XARCHIVETYPE_ISO:
-					command = NULL;
-
 					gtk_tree_model_get_iter_first (model,&iter);
 					gtk_tree_model_get (model, &iter,
                     0, &name,
@@ -411,6 +461,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				{
 					names = g_string_new ( " " );
 					gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+					archive->full_path = 1;
 					command = xa_extract_single_files ( archive , names, extract_path );
 					if ( command != NULL )
 					{
@@ -427,14 +478,13 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path)
 {
     gchar *command;
-    unsigned short int levels;
-    char digit[2];
-    gchar *strip = NULL;
+
     if ( archive->full_path == 0 )
     {
-        levels = CountCharacter ( files->str , '/');
-        sprintf ( digit , "%d" , levels );
-        strip = g_strconcat ( "--strip-components=" , digit , " " , NULL );
+        archive->tar_strip = CountCharacter ( files->str , '/');
+        sprintf ( digit , "%d" , archive->tar_strip );
+        strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
+		archive->tar_strip = 0;
     }
     if ( ! cli)
     {
@@ -461,15 +511,18 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		break;
 
 		case XARCHIVETYPE_TAR:
-	    command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xvf " , archive->escaped_path , " -C " , path , files->str , NULL );
+	    command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+								"-xvf " , archive->escaped_path,
+								archive->overwrite ? " --overwrite" : " --keep-old-files",
+								" -C " , path , files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xjvf " , archive->escaped_path , " -C " , path ,  files->str , NULL );
+		command = g_strconcat ( "tar " , archive->full_path ? "" : strip_string , "-xjvf " , archive->escaped_path , " -C " , path ,  files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-        command = g_strconcat ( "tar " , archive->full_path ? "" : strip , "-xvzf " , archive->escaped_path , " -C " , path , files->str , NULL );
+        command = g_strconcat ( "tar " , archive->full_path ? "" : strip_string , "-xvzf " , archive->escaped_path , " -C " , path , files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_ZIP:
@@ -499,7 +552,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		if (archive->passwd != NULL)
 			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
 									" -g",archive->passwd,
-									archive->overwrite ? " " : " -n" , 
+									archive->overwrite ? "" : " -n" , 
 									" -i " ,
 									archive->freshen ? "-f " : "" ,
 									archive->update ? "-u " : " ",
@@ -517,8 +570,8 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
         default:
 			command = NULL;
     }
-    if ( strip != NULL)
-		g_free ( strip );
+    if ( strip_string != NULL)
+		g_free ( strip_string );
     return command;
 }
 

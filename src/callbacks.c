@@ -124,7 +124,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL,FALSE);
+				ShowShellOutput (NULL);
             archive->status = XA_ARCHIVESTATUS_ERROR;
 			Update_StatusBar ( _("Operation failed."));
 			return;
@@ -248,7 +248,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
-	archive->type = XARCHIVETYPE_UNKNOWN;
 }
 
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, gchar *message)
@@ -541,74 +540,74 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
         ConcatenateFileNames2 ( name , names );
         Files_to_Add = g_slist_next ( Files_to_Add );
 	}
-        xa_set_button_state (0,0,0,0,0);
-		archive->status = XA_ARCHIVESTATUS_ADD;
-        if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
-			Update_StatusBar ( _("Adding files to the archive, please wait..."));
-		switch (archive->type)
-		{
-			case XARCHIVETYPE_BZIP2:
-            Update_StatusBar ( _("Compressing file with bzip2, please wait..."));
-			Bzip2Add ( names->str , archive , 0 );
-			break;
+    xa_set_button_state (0,0,0,0,0);
+	archive->status = XA_ARCHIVESTATUS_ADD;
+    if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
+		Update_StatusBar ( _("Adding files to the archive, please wait..."));
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_BZIP2:
+		Update_StatusBar ( _("Compressing file with bzip2, please wait..."));
+		Bzip2Add ( names->str , archive , 0 );
+		break;
 
-			case XARCHIVETYPE_GZIP:
-            Update_StatusBar ( _("Compressing file with gzip, please wait..."));
-			Bzip2Add ( names->str , archive , 1 );
-			break;
+		case XARCHIVETYPE_GZIP:
+        Update_StatusBar ( _("Compressing file with gzip, please wait..."));
+		Bzip2Add ( names->str , archive , 1 );
+		break;
 			
-			case XARCHIVETYPE_RAR:
-            if (archive->passwd != NULL)
-				command = g_strconcat ( "rar a -p" , archive->passwd, " -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
-            else
-				command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
-			break;
+		case XARCHIVETYPE_RAR:
+        if (archive->passwd != NULL)
+			command = g_strconcat ( "rar a -p" , archive->passwd, " -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
+        else
+			command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
+		break;
 
-			case XARCHIVETYPE_TAR:
-			if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-				command = g_strconcat ( "tar rvvf " , archive->escaped_path , names->str , NULL );
-            else
-				command = g_strconcat ( "tar cvvf " , archive->escaped_path , names->str , NULL );
-    		break;
+		case XARCHIVETYPE_TAR:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			command = g_strconcat ( "tar rvvf " , archive->escaped_path , names->str , NULL );
+        else
+			command = g_strconcat ( "tar cvvf " , archive->escaped_path , names->str , NULL );
+	   	break;
 
-			case XARCHIVETYPE_TAR_BZ2:
-            if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-				DecompressBzipGzip ( names , archive, 0 , 1 );
-            else
-				command = g_strconcat ("tar cvvfj " , archive->escaped_path , names->str , NULL );
-            break;
+		case XARCHIVETYPE_TAR_BZ2:
+        if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			DecompressBzipGzip ( names , archive, 0 , 1 );
+        else
+			command = g_strconcat ("tar cvvfj " , archive->escaped_path , names->str , NULL );
+        break;
 
-            case XARCHIVETYPE_TAR_GZ:
-            if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-				DecompressBzipGzip ( names , archive, 1 , 1 );
-            else
-				command = g_strconcat ("tar cvvfz " , archive->escaped_path , names->str , NULL );
-            break;
+        case XARCHIVETYPE_TAR_GZ:
+        if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			DecompressBzipGzip ( names , archive, 1 , 1 );
+        else
+			command = g_strconcat ("tar cvvfz " , archive->escaped_path , names->str , NULL );
+        break;
 
-			case XARCHIVETYPE_ZIP:
-            if (archive->passwd != NULL)
-				command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->escaped_path , names->str , NULL );
-			else
-				command = g_strconcat ( "zip -r " , archive->escaped_path , names->str , NULL );
-			break;
+		case XARCHIVETYPE_ZIP:
+        if (archive->passwd != NULL)
+			command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->escaped_path , names->str , NULL );
+		else
+			command = g_strconcat ( "zip -r " , archive->escaped_path , names->str , NULL );
+		break;
 
-            case XARCHIVETYPE_7ZIP:
-            if (archive->passwd != NULL)
-				command = g_strconcat ( "7za a -ms=off -p" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
-            else
-				command = g_strconcat ( "7za a -ms=off " , archive->escaped_path , names->str , NULL );
-            break;
+        case XARCHIVETYPE_7ZIP:
+        if (archive->passwd != NULL)
+			command = g_strconcat ( "7za a -ms=off -p" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
+        else
+			command = g_strconcat ( "7za a -ms=off " , archive->escaped_path , names->str , NULL );
+		break;
 
-            case XARCHIVETYPE_ARJ:
-            if (archive->passwd != NULL)
-				command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
-            else
-				command = g_strconcat ( "arj a -i -r " , archive->escaped_path , names->str , NULL );
-            break;
+		case XARCHIVETYPE_ARJ:
+		if (archive->passwd != NULL)
+			command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
+        else
+			command = g_strconcat ( "arj a -i -r " , archive->escaped_path , names->str , NULL );
+        break;
 
-            default:
-            command = NULL;            
-		}
+        default:
+        command = NULL;            
+	}
     if (command != NULL)
     {
         ExtractAddDelete ( command );
@@ -857,7 +856,6 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		if ( mode == "new")
 		{
 			ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
-
             if (strcmp ( ComboArchiveType,".arj") == 0) archive->type = XARCHIVETYPE_ARJ;
                 else if (strcmp ( ComboArchiveType,".bz2") == 0) archive->type = XARCHIVETYPE_BZIP2;
                 else if (strcmp ( ComboArchiveType,".gz") == 0) archive->type = XARCHIVETYPE_GZIP;
@@ -1080,15 +1078,12 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
     return result;
 }
 
-void ShowShellOutput ( GtkMenuItem *menuitem, gboolean iso_title)
+void ShowShellOutput ( GtkMenuItem *menuitem )
 {
 	if (OutputWindow != NULL)
 	{
-         if (iso_title)
-			 gtk_window_set_title (GTK_WINDOW (OutputWindow), _("ISO Image Information Window") );
-        else
-			gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Error Messages Window") );
-        gtk_window_present ( GTK_WINDOW (OutputWindow) );
+		gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Error Messages Window") );
+		gtk_window_present ( GTK_WINDOW (OutputWindow) );
 		return;
 	}
 	OutputWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -1235,7 +1230,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL , FALSE);
+				ShowShellOutput (NULL);
 			unlink ( (char*)data );
 			return NULL;
 		}
@@ -1303,8 +1298,10 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     g_free (utf8_string);
     //Path
     dummy_string = remove_level_from_path (archive->path);
-    if ( strlen(dummy_string) != 0) utf8_string = g_filename_display_name (dummy_string);
-        else utf8_string = g_filename_display_name ( g_get_current_dir () );
+    if ( strlen(dummy_string) != 0)
+		utf8_string = g_filename_display_name (dummy_string);
+    else
+		utf8_string = g_filename_display_name ( g_get_current_dir () );
     gtk_entry_set_text ( GTK_ENTRY (path_data), utf8_string );
     g_free ( utf8_string );
     g_free ( dummy_string );
@@ -1365,8 +1362,10 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_entry_set_text ( GTK_ENTRY (content_data), t );
     g_free (t);
     //Compression_ratio
-    if (content_size != 0) content_size = (double)archive->dummy_size / file_size;
-        else content_size = 0.0;
+    if (content_size != 0)
+		content_size = (double)archive->dummy_size / file_size;
+    else
+		content_size = 0.0;
     t = g_strdup_printf ( "%.2f", content_size);
     gtk_entry_set_text ( GTK_ENTRY (compression_data), t );
     g_free (t);

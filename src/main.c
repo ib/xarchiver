@@ -119,7 +119,7 @@ int main (int argc, char *argv[])
     //archive->type = XARCHIVETYPE_UNKNOWN;
     Files_to_Add = NULL;
     MainWindow = create_MainWindow ();
-    ShowShellOutput (NULL,FALSE);
+    ShowShellOutput (NULL);
     gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
     gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
     g_signal_connect (MainWindow, "delete_event", G_CALLBACK (xa_quit_application), NULL);

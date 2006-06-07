@@ -44,18 +44,15 @@ typedef struct
 	GtkWidget *alignment2;
 	GtkWidget *vbox4;
 	GtkWidget *overwrite_check;
-	/* rar extract options */
 	GtkWidget *extract_full;
-	GtkWidget *extract_current;
-	/* tar extract options */
-	GtkWidget *preserve_permissions;
+	GtkWidget *preserve_permission;
 	GtkWidget *preserve_ownership;
-	/* zip extract options */
-	GtkWidget *junk_paths;
 	GtkWidget *fresh;
 	GtkWidget *update;
-
+	GtkWidget *strip;
+	GtkWidget *strip_entry;
 	GtkWidget *hbox5;
+	GtkWidget *hbox6;
 	GtkWidget *label_password;
 	GtkWidget *password_entry;
 	GtkWidget *options_frame_label;
@@ -71,6 +68,7 @@ typedef struct
 Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short int archive_type);
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
+void show_hide_strip_entry (GtkToggleButton *button, Extract_dialog_data *data);
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path);
 

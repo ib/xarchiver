@@ -220,7 +220,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL,FALSE);
+				ShowShellOutput (NULL);
 			unlink ( tmp );
 			g_free (tmp);
 			OffTooltipPadlock();
@@ -265,7 +265,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive.\nDo you want to open the error messages window?") : _("An error occurred while deleting from the tar archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL,FALSE);
+				ShowShellOutput (NULL);
             unlink ( tmp );
             g_free (tmp);
             OffTooltipPadlock();
@@ -289,7 +289,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 			response = ShowGtkMessageDialog (GTK_WINDOW
 			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL,FALSE);
+				ShowShellOutput (NULL);
 			unlink ( tmp );
             g_free (tmp);
             OffTooltipPadlock();

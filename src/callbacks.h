@@ -75,7 +75,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_about (GtkMenuItem *menuitem, gpointer user_data);
 void on_options1_activate (GtkMenuItem *menuitem, gpointer user_data);
 void xa_extract_archive ( GtkMenuItem *menuitem, gpointer user_data);
-void ShowShellOutput ( GtkMenuItem *menuitem, gboolean iso_title);
+void ShowShellOutput ( GtkMenuItem *menuitem );
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_append_rows ( XArchive *archive , unsigned short int nc );
 void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data);
