@@ -696,6 +696,7 @@ GtkWidget *create_iso_properties_window ()
 	GtkWidget *table1;
 	GtkWidget *name_label;
 	GtkWidget *size_label;
+	GtkWidget *image_type_label;
 
 	GtkWidget *system_id_label;
 	GtkWidget *volume_id_label;
@@ -721,7 +722,7 @@ GtkWidget *create_iso_properties_window ()
 	gtk_window_set_modal (GTK_WINDOW (iso_properties_window), TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (iso_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
 
-	table1 = gtk_table_new (8, 2, TRUE);
+	table1 = gtk_table_new (18, 2, TRUE);
 	gtk_widget_show (table1);
 	gtk_container_add (GTK_CONTAINER (iso_properties_window), table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
@@ -736,19 +737,124 @@ GtkWidget *create_iso_properties_window ()
 	gtk_misc_set_alignment (GTK_MISC (name_label), 0.99, 0.5);
 
 	size_label = gtk_label_new ("");
-	set_label ( size_label , _("Size:"));
+	set_label ( size_label , _("Size in bytes:"));
 	gtk_widget_show (size_label);
 	gtk_table_attach (GTK_TABLE (table1), size_label, 0, 1, 1, 2,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (size_label), 0.99, 0.5);
 
+	image_type_label = gtk_label_new ("");
+	set_label ( image_type_label , _("Image type:"));
+	gtk_widget_show (image_type_label);
+	gtk_table_attach (GTK_TABLE (table1), image_type_label, 0, 1, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (image_type_label), 0.99, 0.5);
+
 	system_id_label = gtk_label_new ("");
 	set_label ( system_id_label , _("System ID:"));
 	gtk_widget_show (system_id_label);
-	gtk_table_attach (GTK_TABLE (table1), system_id_label, 0, 1, 2, 3,
+	gtk_table_attach (GTK_TABLE (table1), system_id_label, 0, 1, 4 , 5,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (system_id_label), 0.99, 0.5);
+
+	volume_id_label = gtk_label_new ("");
+	set_label ( volume_id_label , _("Volume ID:"));
+	gtk_widget_show (volume_id_label);
+	gtk_table_attach (GTK_TABLE (table1), volume_id_label, 0, 1, 5, 6,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (volume_id_label), 0.99, 0.5);
+
+	application_label = gtk_label_new ("");
+	set_label ( application_label , _("Application:"));
+	gtk_widget_show (application_label);
+	gtk_table_attach (GTK_TABLE (table1), application_label, 0, 1, 6, 7,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (application_label), 0.99, 0.5);
+
+	publisher_label = gtk_label_new ("");
+	set_label ( publisher_label , _("Publisher:"));
+	gtk_widget_show (publisher_label);
+	gtk_table_attach (GTK_TABLE (table1), publisher_label, 0, 1, 7, 8,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (publisher_label), 0.99, 0.5);
+
+	preparer_label = gtk_label_new ("");
+	set_label ( preparer_label , _("Preparer:"));
+	gtk_widget_show (preparer_label);
+	gtk_table_attach (GTK_TABLE (table1), preparer_label, 0, 1, 8, 9,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (preparer_label), 0.99, 0.5);
+
+	volume_set_label = gtk_label_new ("");
+	set_label ( volume_set_label , _("Volume set ID:"));
+	gtk_widget_show (volume_set_label);
+	gtk_table_attach (GTK_TABLE (table1), volume_set_label, 0, 1, 10, 11,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (volume_set_label), 0.99, 0.5);
+
+	bibliographic_label = gtk_label_new ("");
+	set_label ( bibliographic_label , _("Bibliographic ID:"));
+	gtk_widget_show (bibliographic_label);
+	gtk_table_attach (GTK_TABLE (table1), bibliographic_label, 0, 1, 11, 12,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (bibliographic_label), 0.99, 0.5);
+
+	copyright_label = gtk_label_new ("");
+	set_label ( copyright_label , _("Copyright ID:"));
+	gtk_widget_show (copyright_label);
+	gtk_table_attach (GTK_TABLE (table1), copyright_label, 0, 1, 12, 13,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (copyright_label), 0.99, 0.5);
+
+	abstract_label = gtk_label_new ("");
+	set_label ( abstract_label , _("Abstract ID:"));
+	gtk_widget_show (abstract_label);
+	gtk_table_attach (GTK_TABLE (table1), abstract_label, 0, 1, 13, 14,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (abstract_label), 0.99, 0.5);
+
+	creation_date_label = gtk_label_new ("");
+	set_label ( creation_date_label , _("Creation date:"));
+	gtk_widget_show (creation_date_label);
+	gtk_table_attach (GTK_TABLE (table1), creation_date_label, 0, 1, 15, 16,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (creation_date_label), 0.99, 0.5);
+
+	modified_date_label = gtk_label_new ("");
+	set_label ( modified_date_label , _("Modified date:"));
+	gtk_widget_show (modified_date_label);
+	gtk_table_attach (GTK_TABLE (table1), modified_date_label, 0, 1, 16, 17,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (modified_date_label), 0.99, 0.5);
+
+	expiration_date_label = gtk_label_new ("");
+	set_label ( expiration_date_label , _("Expiration date:"));
+	gtk_widget_show (expiration_date_label);
+	gtk_table_attach (GTK_TABLE (table1), expiration_date_label, 0, 1, 17, 18,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (expiration_date_label), 0.99, 0.5);
+
+	effective_date_label = gtk_label_new ("");
+	set_label ( effective_date_label , _("Effective date:"));
+	gtk_widget_show (effective_date_label);
+	gtk_table_attach (GTK_TABLE (table1), effective_date_label, 0, 1, 18, 19,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (effective_date_label), 0.99, 0.5);
+
 	return iso_properties_window;
 }

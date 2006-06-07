@@ -382,9 +382,17 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
                     case XARCHIVETYPE_7ZIP:
                     if (archive->passwd != NULL)
-						command = g_strconcat ( "7za x -aoa -bd -p",archive->passwd," ", archive->escaped_path , " -o" , extract_path , NULL );
+						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
+												archive->update ? "-u " : "",
+												archive->overwrite ? "-aoa" : "-aos",
+												" -bd -p",archive->passwd," ",
+												archive->escaped_path , " -o" , extract_path , NULL );
 					else
-						command = g_strconcat ( "7za x -aoa -bd " , archive->escaped_path , " -o" , extract_path , NULL );
+						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
+												archive->update ? "-u " : "",
+												archive->overwrite ? "-aoa" : "-aos",
+												" -bd ",
+												archive->escaped_path , " -o" , extract_path , NULL );
                     break;
 
 					case XARCHIVETYPE_ARJ:
@@ -554,11 +562,16 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
         case XARCHIVETYPE_7ZIP:
         if ( archive->passwd != NULL)
 			command = g_strconcat ("7za " , archive->full_path ? "x" : "e",
-									" -p",archive->passwd," -aoa -bd ",
+									archive->update ? "-u " : "",
+									" -p",archive->passwd,
+									archive->overwrite ? " -aoa" : " -aos",
+									"-bd ",
 									archive->escaped_path , files->str , " -o" , path , NULL );
         else
 			command = g_strconcat ( "7za " , archive->full_path ? "x" : "e",
-									" -aoa -bd ",
+									archive->update ? "-u " : "",
+									archive->overwrite ? " -aoa" : " -aos",
+									"-bd ",
 									archive->escaped_path , files->str , " -o" , path , NULL );
         break;
 

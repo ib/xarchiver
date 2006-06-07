@@ -130,7 +130,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
 
-  image2 =  xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
+  image2 = xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
  
@@ -138,7 +138,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (addfolder);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfolder);
 
-  image2 =  xa_main_window_find_image ("add_folder_button.png", GTK_ICON_SIZE_MENU);
+  image2 = xa_main_window_find_image ("add_folder_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfolder), image2);
 
@@ -178,17 +178,6 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
   gtk_widget_set_sensitive (separatormenuitem3, FALSE);
   
-  /*options1 = gtk_image_menu_item_new_with_mnemonic ("Options");
-  gtk_widget_set_name (options1, "options1");
-  gtk_widget_show (options1);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), options1);
-
-  image1 = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
-  gtk_widget_set_name (image1, "image1");
-  gtk_widget_show (image1);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (options1), image1);
-*/
-
   view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View Error Messages"));
   gtk_widget_show (view_shell_output1);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
