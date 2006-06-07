@@ -45,8 +45,7 @@ typedef struct
 	GtkWidget *vbox4;
 	GtkWidget *overwrite_check;
 	GtkWidget *extract_full;
-	GtkWidget *preserve_permission;
-	GtkWidget *preserve_ownership;
+	GtkWidget *touch;
 	GtkWidget *fresh;
 	GtkWidget *update;
 	GtkWidget *strip;

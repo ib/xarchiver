@@ -144,14 +144,11 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short in
 	/* TAR, TAR_GZ, TAR_BZ2 */
 	else if (archive_type == 6 || archive_type == 7 || archive_type == 8)
 	{
-		dialog_data->preserve_permission = gtk_check_button_new_with_mnemonic (_("Preserve permission"));
-		gtk_widget_show (dialog_data->preserve_permission);
-		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_permission, FALSE, FALSE, 0);
+		dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
+		gtk_widget_show (dialog_data->touch);
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->touch , _("When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."), NULL );
+		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->touch, FALSE, FALSE, 0);
 
-		dialog_data->preserve_ownership = gtk_check_button_new_with_mnemonic (_("Preserve ownership"));
-		gtk_widget_show (dialog_data->preserve_ownership);
-		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->preserve_ownership, FALSE, FALSE, 0);
-		
 		dialog_data->hbox6 = gtk_hbox_new (FALSE, 2);
 		gtk_widget_show (dialog_data->hbox6);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->hbox6, FALSE, FALSE, 0);
@@ -304,8 +301,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			archive->overwrite = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->overwrite_check ));
 			if ( archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
 			{
-				archive->tar_permission = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->preserve_permission ));
-				archive->tar_ownership = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->preserve_ownership ));
+				archive->tar_touch = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->touch ));
 				if (gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->strip)) )
 				{
 					archive->tar_strip = atoi (gtk_entry_get_text (GTK_ENTRY(dialog_data->strip_entry)) );
@@ -352,15 +348,24 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
 											"-xvf " , archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
+											archive->tar_touch ? " --touch" : "",
 											" -C " , extract_path , NULL );
 					break;
 
 					case XARCHIVETYPE_TAR_BZ2:
-					command = g_strconcat ( "tar xfjv " , archive->escaped_path , " -C " , extract_path , NULL );
+					command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+											"-xvjf " , archive->escaped_path,
+											archive->overwrite ? " --overwrite" : " --keep-old-files",
+											archive->tar_touch ? " --touch" : "",
+											" -C " , extract_path , NULL );
 					break;
 
 					case XARCHIVETYPE_TAR_GZ:
-					command = g_strconcat ( "tar xfzv " , archive->escaped_path , " -C " , extract_path , NULL );
+					command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+											"-xvzf " , archive->escaped_path,
+											archive->overwrite ? " --overwrite" : " --keep-old-files",
+											archive->tar_touch ? " --touch" : "",
+											" -C " , extract_path , NULL );
 					break;
 
                     case XARCHIVETYPE_ZIP:
@@ -514,15 +519,24 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 	    command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
 								"-xvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
+								archive->tar_touch ? " --touch" : "",
 								" -C " , path , files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		command = g_strconcat ( "tar " , archive->full_path ? "" : strip_string , "-xjvf " , archive->escaped_path , " -C " , path ,  files->str , NULL );
+		command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+								"-xjvf " , archive->escaped_path,
+								archive->overwrite ? " --overwrite" : " --keep-old-files",
+								archive->tar_touch ? " --touch" : "",
+								" -C " , path , files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-        command = g_strconcat ( "tar " , archive->full_path ? "" : strip_string , "-xvzf " , archive->escaped_path , " -C " , path , files->str , NULL );
+        command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+								"-xzvf " , archive->escaped_path,
+								archive->overwrite ? " --overwrite" : " --keep-old-files",
+								archive->tar_touch ? " --touch" : "",
+								" -C " , path , files->str , NULL );
 		break;
 
 		case XARCHIVETYPE_ZIP:

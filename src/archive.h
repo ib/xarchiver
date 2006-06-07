@@ -62,8 +62,7 @@ struct _XArchive
 	gboolean full_path;
 	gboolean freshen;
 	gboolean update;
-	gboolean tar_permission;
-	gboolean tar_ownership;
+	gboolean tar_touch;
 	unsigned short int tar_strip;
 	gchar *passwd;
 	gint nr_of_files;
