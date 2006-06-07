@@ -9,6 +9,7 @@ src/gzip.c
 src/interface.c
 src/iso.c
 src/main.c
+src/rar.c
 src/rpm.c
 src/tar.c
 src/zip.c

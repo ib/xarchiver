@@ -232,7 +232,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
     else
 		command = g_strconcat ( "tar --delete -f " , tmp , list->str , NULL );
 	waiting = TRUE;
-	g_print ("2) %s\n",command);
+	//g_print ("2) %s\n",command);
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0);
 	g_free ( command );

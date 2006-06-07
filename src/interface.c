@@ -195,7 +195,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (tmp_image);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (iso_info), tmp_image);
 
-  menuitem4 = gtk_menu_item_new_with_mnemonic ("_Help");
+  menuitem4 = gtk_menu_item_new_with_mnemonic (_("_Help"));
   gtk_widget_set_name (menuitem4, "menuitem4");
   gtk_widget_show (menuitem4);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem4);
