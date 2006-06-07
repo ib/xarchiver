@@ -33,6 +33,41 @@
 #define ISO_VD_SUPPLEMENTARY 2     /* Used by Joliet */
 #define ISO_VD_END           255
 
+GtkWidget *iso_properties_window;
+GtkWidget *table1;
+GtkWidget *name_label;
+GtkWidget *size_label;
+GtkWidget *image_type_label;
+GtkWidget *system_id_label;
+GtkWidget *volume_id_label;
+GtkWidget *application_label;
+GtkWidget *publisher_label;
+GtkWidget *preparer_label;
+GtkWidget *volume_set_label;
+GtkWidget *bibliographic_label;
+GtkWidget *copyright_label;
+GtkWidget *abstract_label;
+GtkWidget *creation_date_label;
+GtkWidget *modified_date_label;
+GtkWidget *expiration_date_label;
+GtkWidget *effective_date_label;
+GtkWidget *filename_entry;
+GtkWidget *size_entry;
+GtkWidget *image_type_entry;
+GtkWidget *system_id_entry;
+GtkWidget *volume_id_entry;
+GtkWidget *application_entry;
+GtkWidget *publisher_entry;
+GtkWidget *preparer_entry;
+GtkWidget *volume_set_entry;
+GtkWidget *bibliographic_entry;
+GtkWidget *copyright_entry;
+GtkWidget *abstract_entry;
+GtkWidget *creation_date_entry;
+GtkWidget *modified_date_entry;
+GtkWidget *expiration_date_entry;
+GtkWidget *effective_date_entry;
+
 struct todo
 {
   struct todo * next;
