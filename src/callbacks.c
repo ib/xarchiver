@@ -890,8 +890,8 @@ gboolean isISO ( FILE *ptr )
 {
 	if ( DetectImage(ptr) > 0 )
     {
-        //gtk_widget_set_sensitive ( iso_info , TRUE );
-        //gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
+        gtk_widget_set_sensitive ( iso_info , TRUE );
+        gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
         return TRUE;
     }
     else return FALSE;
@@ -1273,6 +1273,17 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 	g_string_free (data , FALSE);
 	Update_StatusBar (_("Operation completed."));
 	return NULL;
+}
+
+void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
+{
+    unsigned long long int file_size;
+	GtkWidget *iso_properties_win;
+
+    stat ( archive->path , &my_stat );
+    file_size = my_stat.st_size;
+    iso_properties_win = create_iso_properties_window();
+	gtk_widget_show (iso_properties_win);
 }
 
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )

@@ -126,23 +126,35 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_set_name (menuitem2_menu, "menuitem2_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
-  addfile = gtk_menu_item_new_with_mnemonic (_("Add File"));
+  addfile = gtk_image_menu_item_new_with_mnemonic (_("Add File"));
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
+
+  image2 =  xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
+  gtk_widget_show (image2);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
  
-  addfolder = gtk_menu_item_new_with_mnemonic (_("Add Folder"));
+  addfolder = gtk_image_menu_item_new_with_mnemonic (_("Add Folder"));
   gtk_widget_show (addfolder);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfolder);
+
+  image2 =  xa_main_window_find_image ("add_folder_button.png", GTK_ICON_SIZE_MENU);
+  gtk_widget_show (image2);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfolder), image2);
 
   separatormenuitem2 = gtk_separator_menu_item_new ();
   gtk_widget_show (separatormenuitem2);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem2);
   gtk_widget_set_sensitive (separatormenuitem2, FALSE);
    
-  extract_menu = gtk_menu_item_new_with_mnemonic (_("Extract"));
+  extract_menu = gtk_image_menu_item_new_with_mnemonic (_("Extract"));
   gtk_widget_show (extract_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
   gtk_widget_add_accelerator (extract_menu, "activate",accel_group,GDK_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+  image2 =  xa_main_window_find_image ("extract_button.png", GTK_ICON_SIZE_MENU);
+  gtk_widget_show (image2);
+  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu), image2);
 
   delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete", accel_group);
   gtk_widget_set_name (delete_menu, "delete_menu");
@@ -386,8 +398,8 @@ GtkWidget *create_MainWindow (void)
   g_signal_connect ((gpointer) addfolder, "activate",
                     G_CALLBACK (xa_add_files_archive),
                     "folder");
-  g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (ShowShellOutput), (gpointer) FALSE);
-  g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (ShowShellOutput), (gpointer) TRUE);
+  g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (ShowShellOutput), NULL);
+  g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
   g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
   g_signal_connect ((gpointer) delete_menu, "activate",
                     G_CALLBACK (xa_delete_archive),

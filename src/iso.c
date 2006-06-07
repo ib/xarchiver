@@ -690,3 +690,65 @@ int DetectImage (FILE *iso)
 		return(32768);
 }
 
+GtkWidget *create_iso_properties_window ()
+{
+	GtkWidget *iso_properties_window;
+	GtkWidget *table1;
+	GtkWidget *name_label;
+	GtkWidget *size_label;
+
+	GtkWidget *system_id_label;
+	GtkWidget *volume_id_label;
+	GtkWidget *application_label;
+	GtkWidget *publisher_label;
+	GtkWidget *preparer_label;
+	GtkWidget *volume_set_label;
+	GtkWidget *bibliographic_label;
+	GtkWidget *copyright_label;
+	GtkWidget *abstract_label;
+	
+	GtkWidget *creation_date_label;
+	GtkWidget *modified_date_label;
+	GtkWidget *expiration_date_label;
+	GtkWidget *effective_date_label;
+
+	iso_properties_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW (iso_properties_window), _("ISO Information Window"));
+	gtk_window_set_destroy_with_parent (GTK_WINDOW (iso_properties_window), TRUE);
+	gtk_window_set_transient_for ( GTK_WINDOW (iso_properties_window) , GTK_WINDOW (MainWindow) );
+	gtk_window_set_position (GTK_WINDOW (iso_properties_window), GTK_WIN_POS_CENTER);
+	gtk_window_set_resizable (GTK_WINDOW (iso_properties_window), FALSE);
+	gtk_window_set_modal (GTK_WINDOW (iso_properties_window), TRUE);
+	gtk_window_set_type_hint (GTK_WINDOW (iso_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+
+	table1 = gtk_table_new (8, 2, TRUE);
+	gtk_widget_show (table1);
+	gtk_container_add (GTK_CONTAINER (iso_properties_window), table1);
+	gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
+	gtk_table_set_col_spacings (GTK_TABLE (table1), 6);
+
+	name_label = gtk_label_new ("");
+	set_label ( name_label , _("Filename:"));
+	gtk_widget_show (name_label);
+	gtk_table_attach (GTK_TABLE (table1), name_label, 0, 1, 0, 1,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (name_label), 0.99, 0.5);
+
+	size_label = gtk_label_new ("");
+	set_label ( size_label , _("Size:"));
+	gtk_widget_show (size_label);
+	gtk_table_attach (GTK_TABLE (table1), size_label, 0, 1, 1, 2,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (size_label), 0.99, 0.5);
+
+	system_id_label = gtk_label_new ("");
+	set_label ( system_id_label , _("System ID:"));
+	gtk_widget_show (system_id_label);
+	gtk_table_attach (GTK_TABLE (table1), system_id_label, 0, 1, 2, 3,
+                    (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (system_id_label), 0.99, 0.5);
+	return iso_properties_window;
+}
