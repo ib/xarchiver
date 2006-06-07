@@ -571,7 +571,10 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			command = NULL;
     }
     if ( strip_string != NULL)
+	{
 		g_free ( strip_string );
+		strip_string = NULL;
+	}
     return command;
 }
 
