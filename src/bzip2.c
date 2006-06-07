@@ -305,7 +305,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 		g_free (tmp);
 		return;
 	}
-	gchar *command = g_strconcat ( dummy ? "gzip -c " : "bzip2 -c " , tmp , NULL );
+	gchar *command = g_strconcat ( dummy ? "gzip -c " : "bzip2 -kc " , tmp , NULL );
 	//g_print ("3) %s > %s\n",command,archive->escaped_path);
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0 );
