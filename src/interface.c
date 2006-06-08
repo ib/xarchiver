@@ -92,7 +92,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), separatormenuitem1);
   gtk_widget_set_sensitive (separatormenuitem1, FALSE);
 
-  check_menu = gtk_image_menu_item_new_with_mnemonic (_("Test"));
+  check_menu = gtk_image_menu_item_new_with_mnemonic (_("_Test"));
   gtk_widget_show (check_menu);
   gtk_widget_set_sensitive ( check_menu , FALSE);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), check_menu);
@@ -102,7 +102,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (tmp_image);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (check_menu), tmp_image);
 
-  properties = gtk_image_menu_item_new_with_mnemonic (_("Properties"));
+  properties = gtk_image_menu_item_new_with_mnemonic (_("_Properties"));
   gtk_widget_show (properties);
   gtk_widget_set_sensitive ( properties , FALSE);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), properties);
@@ -126,17 +126,19 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_set_name (menuitem2_menu, "menuitem2_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
-  addfile = gtk_image_menu_item_new_with_mnemonic (_("Add File"));
+  addfile = gtk_image_menu_item_new_with_mnemonic (_("Add F_ile"));
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
+  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_i, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   image2 = xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
  
-  addfolder = gtk_image_menu_item_new_with_mnemonic (_("Add Folder"));
+  addfolder = gtk_image_menu_item_new_with_mnemonic (_("Add _Folder"));
   gtk_widget_show (addfolder);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfolder);
+  gtk_widget_add_accelerator (addfolder, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   image2 = xa_main_window_find_image ("add_folder_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
@@ -147,7 +149,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem2);
   gtk_widget_set_sensitive (separatormenuitem2, FALSE);
    
-  extract_menu = gtk_image_menu_item_new_with_mnemonic (_("Extract"));
+  extract_menu = gtk_image_menu_item_new_with_mnemonic (_("_Extract"));
   gtk_widget_show (extract_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
   gtk_widget_add_accelerator (extract_menu, "activate",accel_group,GDK_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
@@ -163,7 +165,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), delete_menu);
   gtk_widget_add_accelerator (delete_menu, "activate",accel_group,GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  view_menu = gtk_image_menu_item_new_with_mnemonic (_("View"));
+  view_menu = gtk_image_menu_item_new_with_mnemonic (_("_View"));
   gtk_widget_show (view_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_menu);
   gtk_widget_set_sensitive (view_menu, FALSE);
@@ -178,7 +180,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
   gtk_widget_set_sensitive (separatormenuitem3, FALSE);
   
-  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View Error Messages"));
+  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View Error _Messages"));
   gtk_widget_show (view_shell_output1);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
   gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
