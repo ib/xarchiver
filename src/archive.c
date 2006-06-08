@@ -56,9 +56,9 @@ XArchive *xa_init_structure (XArchive *archive)
 	return archive;
 }
 
-void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input)
+void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gboolean output_flag)
 {
-	GIOChannel *ioc , *err_ioc;
+	GIOChannel *ioc , *err_ioc, *out_ioc;
 	GError *error = NULL;
 	gchar **argv;
 	gint argcp, response;
@@ -96,10 +96,18 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input)
 
 		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 	}
+	if (output_flag)
+	{
+		out_ioc = g_io_channel_unix_new ( output_fd );
+		//g_io_channel_set_encoding (out_ioc, NULL , NULL);
+		g_io_channel_set_flags ( out_ioc , G_IO_FLAG_NONBLOCK , NULL );
+		g_io_add_watch (out_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_report_child_stderr, (gboolean *)output_flag);
+	}
+
 	err_ioc = g_io_channel_unix_new ( error_fd );
 	//g_io_channel_set_encoding (err_ioc, NULL , NULL);
 	g_io_channel_set_flags ( err_ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (err_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_report_child_stderr, archive);
+	g_io_add_watch (err_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_report_child_stderr, (gboolean *)output_flag);
 }
 
 

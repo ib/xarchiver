@@ -92,7 +92,7 @@ void OpenRPM ( XArchive *archive )
 	//Now I run dd to have the bzip2 / gzip compressed cpio archive in /tmp
 	gchar *command = g_strconcat ( "dd if=" , archive->escaped_path, " ibs=" , ibs , " skip=1 of=" , cpio_tmp , NULL );
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0);
+	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 	{
@@ -158,7 +158,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	the opened CPIO temp file */
 
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , "cpio -tv" , 1 );
+	SpawnAsyncProcess ( archive , "cpio -tv" , 1, 0 );
 	if ( archive->child_pid == 0 )
 	{
 		unlink ( cpio_tmp );

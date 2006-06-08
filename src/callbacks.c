@@ -1208,7 +1208,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	command = xa_extract_single_files ( archive , names, "/tmp");
 	archive->full_path = dummy;
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0);
+	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;
@@ -1499,7 +1499,7 @@ void ExtractAddDelete ( gchar *command )
 {
 	EmptyTextBuffer ();
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0);
+	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
 		return;
     gtk_widget_show ( viewport2 );
@@ -1512,7 +1512,7 @@ void Update_StatusBar ( gchar *msg)
     gtk_label_set_text (GTK_LABEL (info_label), msg);
 }
 
-gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data)
+gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gboolean output_flag)
 {
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
@@ -1520,11 +1520,15 @@ gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer da
 		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 		while (gtk_events_pending() )
 			gtk_main_iteration();
-		if (line != NULL)
-		{
+		if (line == NULL)
+			return TRUE;
+
+		if (output_flag)
+			gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
+		else
 			gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
-			g_free (line);
-		}
+
+		g_free (line);
 		return TRUE;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -1711,7 +1715,6 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			to_send = "S";
         names = g_string_new ("");
         gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-		archive->full_path = 1;
         command = xa_extract_single_files ( archive , names, extract_path );
         if ( command != NULL )
         {

@@ -49,7 +49,6 @@ typedef enum
 
 typedef struct _XArchive XArchive;
 
-
 struct _XArchive
 {
 	XArchiveType type;
@@ -70,14 +69,13 @@ struct _XArchive
 	GPid child_pid;
 	unsigned long long int dummy_size;
 	unsigned int row_cnt;
-	GSList *error_output;
 	GList *row;
 	gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
 };
 
 unsigned short int x;
 gint input_fd, output_fd, error_fd;
-void SpawnAsyncProcess (XArchive *archive, gchar *command , gboolean input);
+void SpawnAsyncProcess (XArchive *archive, gchar *command , gboolean input, gboolean output_flag);
 XArchive *xa_init_structure ();
 XArchive *archive;
 #endif

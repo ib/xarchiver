@@ -37,7 +37,7 @@ void OpenBzip2 ( XArchive *archive )
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
 		archive->parse_output = TarOpen;
-		SpawnAsyncProcess ( archive , command , 0);
+		SpawnAsyncProcess ( archive , command , 0, 0);
 		g_free ( command );
 		if ( archive->child_pid == 0 )
 			return;
@@ -76,7 +76,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 				gchar *archive_name = StripPathFromFilename ( archive->escaped_path );
 				archive->parse_output = 0;
 				command = g_strconcat ( flag ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
-				SpawnAsyncProcess ( archive , command , 0);
+				SpawnAsyncProcess ( archive , command , 0, 0);
 				if ( archive->child_pid == 0 )
 				{
 					g_free ( command );
@@ -138,7 +138,7 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , temp_path , NULL );
 	//g_print ("1) %s > %s\n",command,tmp);
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0 );
+	SpawnAsyncProcess ( archive , command , 0, 0 );
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 	{
@@ -234,7 +234,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	waiting = TRUE;
 	//g_print ("2) %s\n",command);
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0);
+	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 	{
@@ -308,7 +308,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	gchar *command = g_strconcat ( dummy ? "gzip -c " : "bzip2 -kc " , tmp , NULL );
 	//g_print ("3) %s > %s\n",command,archive->escaped_path);
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0 );
+	SpawnAsyncProcess ( archive , command , 0, 0 );
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 	{
@@ -337,7 +337,7 @@ void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
     gtk_widget_show ( viewport2 );
     gchar *command = g_strconcat ( flag ? "gzip -c " : "bzip2 -c " , filename , NULL );
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0);
+	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;

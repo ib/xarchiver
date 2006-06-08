@@ -26,7 +26,7 @@ void OpenTar ( XArchive *archive )
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
 	archive->parse_output = TarOpen;
-	SpawnAsyncProcess ( archive , command , 0);
+	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;
