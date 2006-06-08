@@ -1142,6 +1142,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	gchar *dummy_name;
 	unsigned short int COL_NAME;
 	gboolean is_dir = FALSE;
+	gboolean dummy;
 	GList *row_list = NULL;
 
 	if ( archive->has_passwd )
@@ -1202,8 +1203,10 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	g_free (dummy_name);
 	names = g_string_new (" ");
 	g_string_append ( names , dir );
-
+	dummy = archive->full_path;
+	archive->full_path = 0;
 	command = xa_extract_single_files ( archive , names, "/tmp");
+	archive->full_path = dummy;
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0);
 	g_free ( command );
