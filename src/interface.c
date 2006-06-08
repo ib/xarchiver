@@ -546,166 +546,150 @@ GtkWidget *view_win ()
 
 GtkWidget *create_archive_properties_window ()
 {
-  GtkWidget *archive_properties_window;
-  GtkWidget *table1;
-  GtkWidget *path_label;
-  GtkWidget *modified_label;
-  GtkWidget *size_label;
-  GtkWidget *content_label;
-  GtkWidget *compression_label;
-  GtkWidget *number_of_files_label;
-  GtkWidget *number_of_dirs_label;
-  GtkWidget *name_label;
+	archive_properties_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW (archive_properties_window), _("Archive Properties Window"));
+	gtk_window_set_destroy_with_parent (GTK_WINDOW (archive_properties_window), TRUE);
+	gtk_window_set_transient_for ( GTK_WINDOW (archive_properties_window) , GTK_WINDOW (MainWindow) );
+	gtk_window_set_position (GTK_WINDOW (archive_properties_window), GTK_WIN_POS_CENTER);
+	gtk_window_set_resizable (GTK_WINDOW (archive_properties_window), FALSE);
+	gtk_window_set_modal (GTK_WINDOW (archive_properties_window), TRUE);
+	gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
 
-  archive_properties_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (archive_properties_window), _("Archive Properties Window"));
-  gtk_window_set_destroy_with_parent (GTK_WINDOW (archive_properties_window), TRUE);
-  gtk_window_set_transient_for ( GTK_WINDOW (archive_properties_window) , GTK_WINDOW (MainWindow) );
-  gtk_window_set_position (GTK_WINDOW (archive_properties_window), GTK_WIN_POS_CENTER);
-  gtk_window_set_resizable (GTK_WINDOW (archive_properties_window), FALSE);
-  gtk_window_set_modal (GTK_WINDOW (archive_properties_window), TRUE);
-  gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+	table1 = gtk_table_new (8, 2, TRUE);
+	gtk_widget_show (table1);
+	gtk_container_set_border_width(GTK_CONTAINER(table1), 1);
+	gtk_container_add (GTK_CONTAINER (archive_properties_window), table1);
+	gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
+	gtk_table_set_col_spacings (GTK_TABLE (table1), 6);
 
-  table1 = gtk_table_new (9, 2, TRUE);
-  gtk_widget_show (table1);
-	gtk_container_set_border_width(GTK_CONTAINER(table1), 5);
-  gtk_container_add (GTK_CONTAINER (archive_properties_window), table1);
-  gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
-  gtk_table_set_col_spacings (GTK_TABLE (table1), 6);
-
-  name_label = gtk_label_new ("");
-  set_label ( name_label , _("Name:"));
-  gtk_widget_show (name_label);
-  gtk_table_attach (GTK_TABLE (table1), name_label, 0, 1, 0, 1,
+	name_label = gtk_label_new ("");
+	set_label ( name_label , _("Name:"));
+	gtk_widget_show (name_label);
+	gtk_table_attach (GTK_TABLE (table1), name_label, 0, 1, 0, 1,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (name_label), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (name_label), 0.99, 0.5);
 
-  path_label = gtk_label_new ("");
-  set_label ( path_label , _("Path:"));
-  gtk_widget_show (path_label);
-  gtk_table_attach (GTK_TABLE (table1), path_label, 0, 1, 1, 2,
+	path_label = gtk_label_new ("");
+	set_label ( path_label , _("Path:"));
+	gtk_widget_show (path_label);
+	gtk_table_attach (GTK_TABLE (table1), path_label, 0, 1, 1, 2,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (path_label), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (path_label), 0.99, 0.5);
 
-  modified_label = gtk_label_new ("");
-  set_label ( modified_label , _("Modified on:"));
-  gtk_widget_show (modified_label);
-  gtk_table_attach (GTK_TABLE (table1), modified_label, 0, 1, 2, 3,
+	modified_label = gtk_label_new ("");
+	set_label ( modified_label , _("Modified on:"));
+	gtk_widget_show (modified_label);
+	gtk_table_attach (GTK_TABLE (table1), modified_label, 0, 1, 2, 3,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (modified_label), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (modified_label), 0.99, 0.5);
   
-  size_label = gtk_label_new ("");
-  set_label ( size_label , _("Archive size:"));
-  gtk_widget_show (size_label);
-  gtk_table_attach (GTK_TABLE (table1), size_label, 0, 1, 3, 4,
+	size_label = gtk_label_new ("");
+	set_label ( size_label , _("Archive size:"));
+	gtk_widget_show (size_label);
+	gtk_table_attach (GTK_TABLE (table1), size_label, 0, 1, 3, 4,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (size_label), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (size_label), 0.99, 0.5);
 
-  content_label = gtk_label_new ("");
-  set_label ( content_label , _("Content size:"));
-  gtk_widget_show (content_label);
-  gtk_table_attach (GTK_TABLE (table1), content_label, 0, 1, 4, 5,
+	content_label = gtk_label_new ("");
+	set_label ( content_label , _("Content size:"));
+	gtk_widget_show (content_label);
+	gtk_table_attach (GTK_TABLE (table1), content_label, 0, 1, 4, 5,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (content_label), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (content_label), 0.99, 0.5);
   
-  compression_label = gtk_label_new ("");
-  set_label ( compression_label , _("Compression ratio:"));
-  gtk_widget_show (compression_label);
-  gtk_table_attach (GTK_TABLE (table1), compression_label, 0, 1, 7, 8,
+	compression_label = gtk_label_new ("");
+	set_label ( compression_label , _("Compression ratio:"));
+	gtk_widget_show (compression_label);
+	gtk_table_attach (GTK_TABLE (table1), compression_label, 0, 1, 7, 8,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (compression_label), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (compression_label), 0.99, 0.5);
   
-  number_of_files_label = gtk_label_new ("");
-  set_label ( number_of_files_label , _("Number of files:"));
-  gtk_widget_show (number_of_files_label);
-  gtk_table_attach (GTK_TABLE (table1), number_of_files_label, 0, 1, 5, 6,
+	number_of_files_label = gtk_label_new ("");
+	set_label ( number_of_files_label , _("Number of files:"));
+	gtk_widget_show (number_of_files_label);
+	gtk_table_attach (GTK_TABLE (table1), number_of_files_label, 0, 1, 5, 6,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (number_of_files_label), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (number_of_files_label), 0.99, 0.5);
 
-  number_of_dirs_label = gtk_label_new ("");
-  set_label ( number_of_dirs_label , _("Number of dirs:"));
-  gtk_widget_show (number_of_dirs_label);
-  gtk_table_attach (GTK_TABLE (table1), number_of_dirs_label, 0, 1, 6, 7,
+	number_of_dirs_label = gtk_label_new ("");
+	set_label ( number_of_dirs_label , _("Number of dirs:"));
+	gtk_widget_show (number_of_dirs_label);
+	gtk_table_attach (GTK_TABLE (table1), number_of_dirs_label, 0, 1, 6, 7,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
-  gtk_misc_set_alignment (GTK_MISC (number_of_dirs_label), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (number_of_dirs_label), 0.99, 0.5);
 
-  compression_data = gtk_entry_new ();
-  gtk_editable_set_editable (GTK_EDITABLE (compression_data), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (compression_data), FALSE);
-  gtk_widget_show (compression_data);
-  gtk_table_attach (GTK_TABLE (table1), compression_data, 1, 2, 7, 8,
+	compression_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (compression_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (compression_data), FALSE);
+	gtk_widget_show (compression_data);
+	gtk_table_attach (GTK_TABLE (table1), compression_data, 1, 2, 7, 8,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
 
-  number_of_dirs_data = gtk_entry_new ();
-  gtk_editable_set_editable (GTK_EDITABLE (number_of_dirs_data), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (number_of_dirs_data), FALSE);
-  gtk_widget_show (number_of_dirs_data);
-  gtk_table_attach (GTK_TABLE (table1), number_of_dirs_data, 1, 2, 6, 7,
+	number_of_dirs_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (number_of_dirs_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (number_of_dirs_data), FALSE);
+	gtk_widget_show (number_of_dirs_data);
+	gtk_table_attach (GTK_TABLE (table1), number_of_dirs_data, 1, 2, 6, 7,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
 
-  number_of_files_data = gtk_entry_new ();
-  gtk_editable_set_editable (GTK_EDITABLE (number_of_files_data), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (number_of_files_data), FALSE);
-  gtk_widget_show (number_of_files_data);
-  gtk_table_attach (GTK_TABLE (table1), number_of_files_data, 1, 2, 5, 6,
+	number_of_files_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (number_of_files_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (number_of_files_data), FALSE);
+	gtk_widget_show (number_of_files_data);
+	gtk_table_attach (GTK_TABLE (table1), number_of_files_data, 1, 2, 5, 6,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
 
-  content_data = gtk_entry_new ();
-  gtk_editable_set_editable (GTK_EDITABLE (content_data), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (content_data), FALSE);
-  gtk_widget_show (content_data);
-  gtk_table_attach (GTK_TABLE (table1), content_data, 1, 2, 4, 5,
+	content_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (content_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (content_data), FALSE);
+	gtk_widget_show (content_data);
+	gtk_table_attach (GTK_TABLE (table1), content_data, 1, 2, 4, 5,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
 
-  size_data = gtk_entry_new ();
-  gtk_editable_set_editable (GTK_EDITABLE (size_data), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (size_data), FALSE);
-  gtk_widget_show (size_data);
-  gtk_table_attach (GTK_TABLE (table1), size_data, 1, 2, 3, 4,
+	size_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (size_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (size_data), FALSE);
+	gtk_widget_show (size_data);
+	gtk_table_attach (GTK_TABLE (table1), size_data, 1, 2, 3, 4,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
 
-  modified_data = gtk_entry_new ();
-  gtk_widget_show (modified_data);
-  gtk_table_attach (GTK_TABLE (table1), modified_data, 1, 2, 2, 3,
+	modified_data = gtk_entry_new ();
+	gtk_widget_show (modified_data);
+	gtk_table_attach (GTK_TABLE (table1), modified_data, 1, 2, 2, 3,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
-  gtk_editable_set_editable (GTK_EDITABLE (modified_data), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (modified_data), FALSE);
+	gtk_editable_set_editable (GTK_EDITABLE (modified_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (modified_data), FALSE);
 
-  path_data = gtk_entry_new ();
-  gtk_editable_set_editable (GTK_EDITABLE (path_data), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (path_data), FALSE);
-  gtk_widget_show (path_data);
-  gtk_table_attach (GTK_TABLE (table1), path_data, 1, 2, 1, 2,
+	path_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (path_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (path_data), FALSE);
+	gtk_widget_show (path_data);
+	gtk_table_attach (GTK_TABLE (table1), path_data, 1, 2, 1, 2,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
 
-  name_data = gtk_entry_new ();
-  gtk_editable_set_editable (GTK_EDITABLE (name_data), FALSE);
-  gtk_entry_set_has_frame (GTK_ENTRY (name_data), FALSE);
-  gtk_widget_show (name_data);
-  gtk_table_attach (GTK_TABLE (table1), name_data, 1, 2, 0, 1,
+	name_data = gtk_entry_new ();
+	gtk_editable_set_editable (GTK_EDITABLE (name_data), FALSE);
+	gtk_entry_set_has_frame (GTK_ENTRY (name_data), FALSE);
+	gtk_widget_show (name_data);
+	gtk_table_attach (GTK_TABLE (table1), name_data, 1, 2, 0, 1,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
-	close_button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
-	gtk_widget_show(close_button);
-	gtk_table_attach(GTK_TABLE(table1), close_button, 1, 2, 8, 9,
-                    (GtkAttachOptions) (0),
-										(GtkAttachOptions) (0), 0, 0);
-  return archive_properties_window;
+	return archive_properties_window;
 }
 
 void set_label (GtkWidget *label , gchar *text)

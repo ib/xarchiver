@@ -64,7 +64,7 @@ typedef struct
 	GtkTooltips *option_tooltip;
 } Extract_dialog_data;
 
-Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short int archive_type);
+Extract_dialog_data *xa_create_extract_dialog (gint selected ,XArchive *archive);
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void show_hide_strip_entry (GtkToggleButton *button, Extract_dialog_data *data);

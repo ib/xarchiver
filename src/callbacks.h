@@ -120,7 +120,6 @@ char *eat_spaces (char *line);
 gchar *remove_level_from_path (const gchar *path);
 gchar *extract_local_path (gchar *path , gchar *filename);
 gchar *RemoveBackSlashes ( gchar *name);
-void  xa_properties_window_close(GtkWidget *button, gpointer data);
 
 #endif
 

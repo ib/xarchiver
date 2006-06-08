@@ -269,6 +269,11 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		if (path == NULL)
 			return;
 	}
+	if ( liststore != NULL )
+	{
+		RemoveColumnsListStore();
+		EmptyTextBuffer ();
+	}
 	archive = xa_init_structure(archive);
 	archive->path = g_strdup (path);
 	g_free (path);
@@ -286,18 +291,11 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
         gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		_("The format of this archive is not recognized !") );
+		xa_set_button_state ( 1,1,0,0,0);
         return;
 	}
-	if ( liststore != NULL )
-	{
-		RemoveColumnsListStore();
-		EmptyTextBuffer ();
-	}
-    
     EmptyTextBuffer();
-    if ( GTK_WIDGET_VISIBLE (OutputWindow ))
-		gtk_widget_hide (OutputWindow);
-
+    
     //Does the user open an archive from the command line whose archiver is not installed ?
     ext = NULL;
     if ( archive->type == XARCHIVETYPE_RAR )
@@ -626,7 +624,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
-    extract_window = xa_create_extract_dialog (selected , archive->type);
+    extract_window = xa_create_extract_dialog (selected , archive);
 	if (extract_path != NULL)
 		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),extract_path);
     if ( archive->has_passwd )
@@ -1278,7 +1276,6 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 
 void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 {
-	/*
     unsigned long long int file_size;
 	GtkWidget *iso_properties_win;
 
@@ -1286,7 +1283,6 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
     file_size = my_stat.st_size;
     iso_properties_win = create_iso_properties_window();
 	gtk_widget_show (iso_properties_win);
-	*/
 }
 
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
@@ -1391,15 +1387,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     t = g_strdup_printf ( "%d", archive->nr_of_dirs);
     gtk_entry_set_text ( GTK_ENTRY (number_of_dirs_data), t );
     g_free (t);
-		g_signal_connect(G_OBJECT(close_button), "clicked", G_CALLBACK(xa_properties_window_close), archive_properties_win);
     gtk_widget_show ( archive_properties_win );
-}
-
-void
-xa_properties_window_close(GtkWidget *button, gpointer data)
-{
-	GtkWidget *archive_properties_win = data;
-	gtk_widget_destroy(archive_properties_win);
 }
 
 //Taken from xarchive - http://xarchive.sourceforge.net

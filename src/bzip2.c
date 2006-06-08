@@ -56,7 +56,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
     gchar *text;
     gchar *new_path;
 	gchar *command = NULL;
-    extract_window = xa_create_extract_dialog ( 0 , archive->type);
+    extract_window = xa_create_extract_dialog ( 0 , archive);
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
 	done = FALSE;
 	while ( ! done )
