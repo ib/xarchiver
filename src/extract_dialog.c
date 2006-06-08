@@ -136,7 +136,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short in
 	{
 		dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
 		gtk_widget_show (dialog_data->extract_full);
-		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->extract_full , _("The archive's directory structure is recreated in the extraction directory"), NULL );
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->extract_full , _("The archive's directory structure is recreated in the extraction directory."), NULL );
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_full, FALSE, FALSE, 0);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
 	}
@@ -174,16 +174,14 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , unsigned short in
 		gtk_widget_show (dialog_data->fresh);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->fresh, FALSE, FALSE, 0);
 		g_signal_connect (G_OBJECT (dialog_data->fresh),"toggled",G_CALLBACK (fresh_update_toggled_cb) , dialog_data);
-	}
-	if (archive_type == 3 || archive_type == 4 || archive_type == 5 || archive_type == 10)
-	{
+
 		dialog_data->update = gtk_check_button_new_with_mnemonic (_("Update existing files"));
 		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->update , _("This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk."), NULL );
 		gtk_widget_show (dialog_data->update);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->update, FALSE, FALSE, 0);
 		g_signal_connect (G_OBJECT (dialog_data->update),"toggled",G_CALLBACK (update_fresh_toggled_cb) , dialog_data);
 	}
-
+	
 	dialog_data->hbox5 = gtk_hbox_new (FALSE, 2);
 	gtk_widget_show (dialog_data->hbox5);
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->hbox5, FALSE, FALSE, 0);
@@ -383,13 +381,11 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
                     case XARCHIVETYPE_7ZIP:
                     if (archive->passwd != NULL)
 						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
-												archive->update ? "-u " : "",
 												archive->overwrite ? "-aoa" : "-aos",
 												" -bd -p",archive->passwd," ",
 												archive->escaped_path , " -o" , extract_path , NULL );
 					else
 						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
-												archive->update ? "-u " : "",
 												archive->overwrite ? "-aoa" : "-aos",
 												" -bd ",
 												archive->escaped_path , " -o" , extract_path , NULL );
@@ -562,16 +558,14 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
         case XARCHIVETYPE_7ZIP:
         if ( archive->passwd != NULL)
 			command = g_strconcat ("7za " , archive->full_path ? "x" : "e",
-									archive->update ? "-u " : "",
 									" -p",archive->passwd,
 									archive->overwrite ? " -aoa" : " -aos",
-									"-bd ",
+									" -bd ",
 									archive->escaped_path , files->str , " -o" , path , NULL );
         else
 			command = g_strconcat ( "7za " , archive->full_path ? "x" : "e",
-									archive->update ? "-u " : "",
 									archive->overwrite ? " -aoa" : " -aos",
-									"-bd ",
+									" -bd ",
 									archive->escaped_path , files->str , " -o" , path , NULL );
         break;
 
