@@ -6,9 +6,9 @@ Xarchiver.
 
 D. Come posso creare un archivio con alcuni files protetti da password ed altri no ?
 
-R. Scegli Nuovo dal menu File e seleziona un formato di archivio arj, 7zip, rar o zip. Poi aggiungi prima i files che NON VUOI vengano 
-protetti da una password. Ora scegli Imposta Password dal menu Azione e digita la password. Da ora in poi tutti i files che aggiungi 
-all'archivio verranno protetti dalla password corrente.
+R. Scegli Nuovo dal menu File e seleziona un formato di archivio arj, 7zip, rar o zip. Ora scegli Aggiungi File oppure Aggiungi Folder 
+e scegli i files da aggiungere ma NON mettere il segno di spunta a "Password". Ora ripeti la stessa operazione mettendo il segno di 
+spunta questa volta e scegli i files che vuoi proteggere con la password.
 
 D. Perchè Xarchiver visualizza questo messaggio quando apro archivi tar ?
 
@@ -17,14 +17,6 @@ D. Perchè Xarchiver visualizza questo messaggio quando apro archivi tar ?
 
 R. Xarchiver è solo un frontend che manda in esecuzione l'archiviatore e riporta i SUOI messaggi d'errore. Molto probabilmente stai 
 aprendo un archivio prodotto da versioni precedenti di tar oppure questo è corrotto,
-
-D. Quando tento di cancellare files da un archivio 7z Xarchiver mi dice che si è verificato un errore ma la finestra dei messaggi 
-d'errore è vuota, perchè ?
-
-R. Questo accade quando un archivio 7z è stato creato con l'opzione ms=on. Xarchiver per impostazione predefinita usa ms=off. L'autore 
-di 7za non ha ancora implementato la cancellazione da archivi creati con l'opzione ms=on. La finestra è vuota perchè il messaggio 
-d'errore dal programma 7za: E_NOTIMPL viene inviato allo standard output (STDOUT) invece dello standard error (STDERR) che 
-Xarchiver legge per gli eventuali messaggi d'errore.
 
 D. Quando tento di visualizzare un file da un archivio tar ottengo questo messaggio d'errore:
 

@@ -5,9 +5,9 @@ develop full support for ace archives I will add it to Xarchiver.
 
 Q. How can I create an archive with some files password protected and others not ?
 
-A. First of all choose 'New' and select one of arj, 7zip, rar, zip archive formats and add the files you DON'T want to protect 
-first. Then choose 'Set Password' from Action menu and type your password. From now on all the files you add to the archive will be 
-password protected.
+A. First of all choose 'New' and select one of arj, 7zip, rar, zip archive formats and choose 'Add Files' or 'Add Folders' from Action menu.
+Do NOT check "Password". Add your files and then reopen the Add dialog again but this time check "Password" and enter your password. 
+From now on all the files you add to the archive will be password protected.
 
 Q. Why does Xarchiver emit this error message when handling tar archives ?
 
@@ -16,13 +16,6 @@ Q. Why does Xarchiver emit this error message when handling tar archives ?
 
 A. Xarchiver it's only a frontend who runs the archiver and reports ITS error messages. Most probably you are opening an archive 
 produced with older versions of tar than the one you are currently using.
-
-Q. When I try to delete files from .7z archives Xarchiver tells me an error occurred but the Error Messages Window is empty, why ?
-
-A. This happens when a 7z archive has been created with the option ms=on. By default Xarchiver uses ms=off. The 7za's author hasn't
-implemented yet the deletion from the archives created with ms=on. The window is empty because the error message from 7za:
-E_NOTIMPL is sent to the standard output (STDOUT) and not correctly to the standard error (STDERR) that Xarchiver reads for error 
-messages.
 
 Q. When I try to view a file in a tar archive I get this:
 
