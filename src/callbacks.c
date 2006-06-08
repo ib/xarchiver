@@ -59,6 +59,7 @@ const char *strcasestr(const char *haystack, const char *needle)
 gchar *CurrentFolder = NULL;
 GList *Suffix , *Name;
 
+
 void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
@@ -1277,6 +1278,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 
 void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 {
+	/*
     unsigned long long int file_size;
 	GtkWidget *iso_properties_win;
 
@@ -1284,6 +1286,7 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
     file_size = my_stat.st_size;
     iso_properties_win = create_iso_properties_window();
 	gtk_widget_show (iso_properties_win);
+	*/
 }
 
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
@@ -1388,7 +1391,15 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     t = g_strdup_printf ( "%d", archive->nr_of_dirs);
     gtk_entry_set_text ( GTK_ENTRY (number_of_dirs_data), t );
     g_free (t);
+		g_signal_connect(G_OBJECT(close_button), "clicked", G_CALLBACK(xa_properties_window_close), archive_properties_win);
     gtk_widget_show ( archive_properties_win );
+}
+
+void
+xa_properties_window_close(GtkWidget *button, gpointer data)
+{
+	GtkWidget *archive_properties_win = data;
+	gtk_widget_destroy(archive_properties_win);
 }
 
 //Taken from xarchive - http://xarchive.sourceforge.net

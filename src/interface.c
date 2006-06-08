@@ -566,8 +566,9 @@ GtkWidget *create_archive_properties_window ()
   gtk_window_set_modal (GTK_WINDOW (archive_properties_window), TRUE);
   gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
 
-  table1 = gtk_table_new (8, 2, TRUE);
+  table1 = gtk_table_new (9, 2, TRUE);
   gtk_widget_show (table1);
+	gtk_container_set_border_width(GTK_CONTAINER(table1), 5);
   gtk_container_add (GTK_CONTAINER (archive_properties_window), table1);
   gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
   gtk_table_set_col_spacings (GTK_TABLE (table1), 6);
@@ -699,6 +700,11 @@ GtkWidget *create_archive_properties_window ()
   gtk_table_attach (GTK_TABLE (table1), name_data, 1, 2, 0, 1,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
+	close_button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
+	gtk_widget_show(close_button);
+	gtk_table_attach(GTK_TABLE(table1), close_button, 1, 2, 8, 9,
+                    (GtkAttachOptions) (0),
+										(GtkAttachOptions) (0), 0, 0);
   return archive_properties_window;
 }
 

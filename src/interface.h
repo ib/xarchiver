@@ -45,6 +45,7 @@ GtkWidget *number_of_dirs_data;
 GtkWidget *content_data;
 GtkWidget *size_data;
 GtkWidget *modified_data;
+GtkWidget *close_button;
 GtkWidget *path_data;
 GtkWidget *name_data;
 GtkWidget *password_entry;
