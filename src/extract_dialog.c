@@ -169,7 +169,6 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->strip), TRUE);
 			gtk_entry_set_text (GTK_ENTRY (dialog_data->strip_entry), strip_text );
 			gtk_widget_set_sensitive (dialog_data->strip_entry , TRUE);
-			gtk_widget_grab_focus (dialog_data->strip_entry);
 		}
 		else
 			gtk_widget_set_sensitive (dialog_data->strip_entry , FALSE);
@@ -265,6 +264,7 @@ void show_hide_strip_entry (GtkToggleButton *button, Extract_dialog_data *data)
 	if (gtk_toggle_button_get_active (button) )
 		active = TRUE;
 	gtk_widget_set_sensitive (data->strip_entry, active);
+	gtk_widget_grab_focus (data->strip_entry);
 }
 
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection)
