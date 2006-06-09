@@ -146,7 +146,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 		dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->touch), archive->tar_touch);
 		gtk_widget_show (dialog_data->touch);
-		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->touch , _("When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."), NULL );
+		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->touch, _("When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."), NULL );
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->touch, FALSE, FALSE, 0);
 
 		dialog_data->hbox6 = gtk_hbox_new (FALSE, 2);
@@ -161,13 +161,15 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 		dialog_data->strip_entry = gtk_entry_new ();
 		gtk_widget_set_size_request (dialog_data->strip_entry, 24, -1);
 		gtk_entry_set_max_length (GTK_ENTRY (dialog_data->strip_entry), 2);
-		if ( archive->tar_strip > 0)
+
+		if ( ! archive->full_path )
 		{
 			char strip_text[2];
-			sprintf ( strip_text , "%d",archive->tar_strip);
+			sprintf ( strip_text , "%d",archive->tar_strip_value);
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->strip), TRUE);
 			gtk_entry_set_text (GTK_ENTRY (dialog_data->strip_entry), strip_text );
 			gtk_widget_set_sensitive (dialog_data->strip_entry , TRUE);
+			gtk_widget_grab_focus (dialog_data->strip_entry);
 		}
 		else
 			gtk_widget_set_sensitive (dialog_data->strip_entry , FALSE);
@@ -315,25 +317,25 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			done = TRUE;
 			archive->overwrite = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->overwrite_check ));
 			if ( dialog_data->touch != NULL)
-			{
 				archive->tar_touch = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->touch ));
-				if (gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->strip)) )
-				{
-					archive->tar_strip = atoi (gtk_entry_get_text (GTK_ENTRY(dialog_data->strip_entry)) );
-					sprintf ( digit, "%d", archive->tar_strip );
-					strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
-				}
-				else
-					archive->tar_strip = 0;
+
+			if ( dialog_data->strip != NULL)
+				archive->full_path = ! gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->strip ));
+
+			if (archive->full_path )
+			{
+				archive->tar_strip_value = atoi (gtk_entry_get_text (GTK_ENTRY(dialog_data->strip_entry)) );
+				sprintf ( digit, "%d", archive->tar_strip_value );
+				strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
 			}
+			else
+				archive->tar_strip_value = 0;
+
 			if (dialog_data->fresh != NULL)
 				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->fresh ));
 
 			if (dialog_data->update != NULL)
-			{
 				archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->update ));
-				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->extract_full ));
-			}
 
 			gtk_widget_set_sensitive (Stop_button,TRUE);
 			if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio )) )
@@ -361,7 +363,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_TAR:
-					command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+					command = g_strconcat ( "tar ",archive->tar_strip_value ? strip_string : "",
 											"-xvf " , archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
@@ -369,7 +371,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_TAR_BZ2:
-					command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+					command = g_strconcat ( "tar ",archive->tar_strip_value ? strip_string : "",
 											"-xvjf " , archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
@@ -377,7 +379,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_TAR_GZ:
-					command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+					command = g_strconcat ( "tar ",archive->tar_strip_value ? strip_string : "",
 											"-xvzf " , archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
@@ -503,22 +505,21 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path)
 {
-    gchar *command;
+	gchar *command;
 
-    if ( archive->full_path == 0 )
-    {
-        archive->tar_strip = CountCharacter ( files->str , '/');
-        sprintf ( digit , "%d" , archive->tar_strip );
-        strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
-		archive->tar_strip = 0;
-    }
-    if ( ! cli)
-    {
-        gchar *msg = g_strconcat ( _("Extracting files to ") , path, NULL);
-        Update_StatusBar (msg);
-        g_free (msg);
-    }
-    switch (archive->type)
+	if ( archive->full_path == 0)
+	{
+		archive->tar_strip_value = CountCharacter ( files->str , '/');
+		sprintf ( digit , "%d" , archive->tar_strip_value );
+		strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
+	}
+	if ( ! cli)
+	{
+		gchar *msg = g_strconcat ( _("Extracting files to ") , path, NULL);
+		Update_StatusBar (msg);
+		g_free (msg);
+	}
+	switch (archive->type)
 	{
 		case XARCHIVETYPE_RAR:
 		if (archive->passwd != NULL)
@@ -537,7 +538,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		break;
 
 		case XARCHIVETYPE_TAR:
-	    command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+	    command = g_strconcat ( "tar ",archive->full_path ? "" : strip_string,
 								"-xvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
@@ -545,7 +546,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+		command = g_strconcat ( "tar ",archive->tar_strip_value ? strip_string : "",
 								"-xjvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
@@ -553,7 +554,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-        command = g_strconcat ( "tar ",archive->tar_strip ? strip_string : "",
+        command = g_strconcat ( "tar ",archive->tar_strip_value ? strip_string : "",
 								"-xzvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",

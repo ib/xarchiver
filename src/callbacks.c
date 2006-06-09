@@ -68,7 +68,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		xa_set_button_state (1,1,0,0,0);
 	else if (archive->type == XARCHIVETYPE_RPM)
 		xa_set_button_state (1,1,0,0,1);
-	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
 	{
 		xa_set_button_state (1,1,1,1,1);
         gtk_widget_set_sensitive ( check_menu , FALSE);
@@ -121,12 +121,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		{
 			gtk_tooltips_disable ( pad_tooltip );
 			gtk_widget_hide ( pad_image );
-			xa_set_button_state (1,1,0,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
-            archive->status = XA_ARCHIVESTATUS_ERROR;
+			archive->status = XA_ARCHIVESTATUS_ERROR;
 			Update_StatusBar ( _("Operation failed."));
 			return;
 		}
@@ -1103,7 +1102,7 @@ void ShowShellOutput ( GtkMenuItem *menuitem )
 	gtk_container_add (GTK_CONTAINER(OutputWindow), vbox);
 	textbuf = gtk_text_view_get_buffer ( GTK_TEXT_VIEW(textview) );
 	gtk_text_buffer_get_start_iter (textbuf, &enditer);
-	gtk_text_buffer_create_tag (textbuf, "red_foreground","foreground", "red", NULL);
+	//gtk_text_buffer_create_tag (textbuf, "red_foreground","foreground", "red", NULL);
 
 	gtk_widget_show (vbox);
 	gtk_widget_show (scrollwin);
@@ -1453,8 +1452,7 @@ void Activate_buttons ()
 {
 	if ( ! GTK_WIDGET_VISIBLE (Extract_button) )
 		return;
-	else if (  archive->status == XA_ARCHIVESTATUS_ERROR)
-		return;
+	
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
 	if (selected == 0 )
@@ -1512,7 +1510,7 @@ void Update_StatusBar ( gchar *msg)
     gtk_label_set_text (GTK_LABEL (info_label), msg);
 }
 
-gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gboolean output_flag)
+gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
@@ -1523,11 +1521,8 @@ gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gboolean ou
 		if (line == NULL)
 			return TRUE;
 
-		if (output_flag)
-			gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-		else
-			gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
-
+		gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
+		//gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
 		g_free (line);
 		return TRUE;
 	}

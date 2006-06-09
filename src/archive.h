@@ -62,7 +62,7 @@ struct _XArchive
 	gboolean freshen;
 	gboolean update;
 	gboolean tar_touch;
-	unsigned short int tar_strip;
+	unsigned short int tar_strip_value;
 	gchar *passwd;
 	gint nr_of_files;
 	gint nr_of_dirs;
