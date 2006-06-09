@@ -332,16 +332,17 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				archive->tar_touch = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->touch ));
 
 			if ( dialog_data->strip != NULL)
-				archive->full_path = ! gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->strip ));
-
-			if (archive->full_path )
 			{
+				archive->full_path = ! gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->strip ));
 				archive->tar_strip_value = atoi (gtk_entry_get_text (GTK_ENTRY(dialog_data->strip_entry)) );
 				sprintf ( digit, "%d", archive->tar_strip_value );
 				strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
 			}
 			else
+			{
+				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->extract_full ));
 				archive->tar_strip_value = 0;
+			}
 
 			if (dialog_data->fresh != NULL)
 				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->fresh ));
@@ -364,14 +365,14 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				{
 					case XARCHIVETYPE_RAR:
 					if (archive->passwd != NULL)
-						command = g_strconcat ( "rar " , archive->full_path ? "e " : "x ",
+						command = g_strconcat ( "rar " , archive->full_path ? "x " : "e ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 												" -p",archive->passwd,
 												archive->overwrite ? " -o+" : " -o-",
 												" -idp ",
 												archive->escaped_path , " " , extract_path , NULL );
 					else
-						command = g_strconcat ( "rar " , archive->full_path ? "e " : "x ",
+						command = g_strconcat ( "rar " , archive->full_path ? "x " : "e ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 												archive->overwrite ? "-o+" : "-o-",
 												" -idp ",
@@ -380,7 +381,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 					case XARCHIVETYPE_TAR:
 					command = g_strconcat ( "tar ",archive->full_path ? "" : strip_string,
-											"-xvf " , archive->escaped_path,
+											"-xvf ", archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
 											" -C " , extract_path , NULL );
@@ -408,13 +409,13 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 												archive->update ? "-u " : "" ,
 												archive->overwrite ? "-o" : "-n",
 												" -P " , archive->passwd,
-												archive->full_path ? " -j " : "",
+												archive->full_path ? "" : " -j ",
 												archive->escaped_path , " -d ", extract_path , NULL );
                     else
 						command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
 												archive->update ? "-u " : "",
 												archive->overwrite ? "-o " : "-n ",
-												archive->full_path ? " -j " : "",
+												archive->full_path ? "" : " -j ",
 												archive->escaped_path , " -d ", extract_path , NULL );
 					break;
 
@@ -425,12 +426,12 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
                     case XARCHIVETYPE_7ZIP:
                     if (archive->passwd != NULL)
-						command = g_strconcat ( "7za " , archive->full_path ? "e " : "x ",
+						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
 												archive->overwrite ? "-aoa" : "-aos",
 												" -bd -p",archive->passwd," ",
 												archive->escaped_path , " -o" , extract_path , NULL );
 					else
-						command = g_strconcat ( "7za " , archive->full_path ? "e " : "x ",
+						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
 												archive->overwrite ? "-aoa" : "-aos",
 												" -bd ",
 												archive->escaped_path , " -o" , extract_path , NULL );
@@ -438,13 +439,13 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 					case XARCHIVETYPE_ARJ:
 					if (archive->passwd != NULL)
-						command = g_strconcat ( "arj " , archive->full_path ? "e " : "x ",
+						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ",
 												"-g",archive->passwd,
 												archive->overwrite ? "" : " -n" , " -i ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 												"-y " , archive->escaped_path , " " , extract_path , NULL );
                     else
-						command = g_strconcat ( "arj " , archive->full_path ? "e " : "x ",
+						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ",
 												archive->overwrite ? "" : " -n" , " -i ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 												"-y " , archive->escaped_path , " " , extract_path , NULL );
@@ -548,14 +549,14 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 	{
 		case XARCHIVETYPE_RAR:
 		if (archive->passwd != NULL)
-			command = g_strconcat ( "rar " , archive->full_path ? "e " : "x " ,
+			command = g_strconcat ( "rar " , archive->full_path ? "x " : "e " ,
 									archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 									" -p",archive->passwd,
 									archive->overwrite ? " -o+" : " -o-",
 									" -idp ",
 									archive->escaped_path , " " , files->str , " " , path , NULL );
         else
-			command = g_strconcat ( "rar ", archive->full_path ? "e " : "x " ,
+			command = g_strconcat ( "rar ", archive->full_path ? "x " : "e " ,
 									archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 									archive->overwrite ? "-o+" : "-o-",
 									" -idp ",
@@ -592,13 +593,13 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 									archive->update ? "-u " : "",
 									archive->overwrite ? "-o" : "-n",
 									" -P " , archive->passwd,
-									archive->full_path ? " -j " : "",
+									archive->full_path ? "" : " -j ",
 									archive->escaped_path , files->str," -d " , path , NULL );
         else
 			command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
 									archive->update ? "-u " : "",
 									archive->overwrite ? "-o" : "-n ",
-									archive->full_path ? " -j " : "",
+									archive->full_path ? "" : " -j ",
 									archive->escaped_path , files->str," -d " , path , NULL );
 		break;
 
@@ -609,13 +610,13 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 
         case XARCHIVETYPE_7ZIP:
         if ( archive->passwd != NULL)
-			command = g_strconcat ("7za " , archive->full_path ? "e" : "x",
+			command = g_strconcat ("7za " , archive->full_path ? "x" : "e",
 									" -p",archive->passwd,
 									archive->overwrite ? " -aoa" : " -aos",
 									" -bd ",
 									archive->escaped_path , files->str , " -o" , path , NULL );
         else
-			command = g_strconcat ( "7za " , archive->full_path ? "e" : "x",
+			command = g_strconcat ( "7za " , archive->full_path ? "x" : "e",
 									archive->overwrite ? " -aoa" : " -aos",
 									" -bd ",
 									archive->escaped_path , files->str , " -o" , path , NULL );
@@ -623,7 +624,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 
 		case XARCHIVETYPE_ARJ:
 		if (archive->passwd != NULL)
-			command = g_strconcat ( "arj ",archive->full_path ? "e" : "x",
+			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
 									" -g",archive->passwd,
 									archive->overwrite ? "" : " -n" , 
 									" -i " ,
@@ -632,7 +633,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 									"-y ",
 									archive->escaped_path , " " , path , files->str , NULL );
         else
-			command = g_strconcat ( "arj ",archive->full_path ? "e" : "x",
+			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
 									archive->overwrite ? "" : " -n" ,
 									" -i " , archive->freshen ? "-f " : "",
 									archive->update ? "-u " : " ",
