@@ -34,10 +34,10 @@ gboolean ask_and_add;
 
 static GOptionEntry entries[] =
 {
-	{ "extract-to=FOLDER", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, "Extract the archive to the specified folder and quits.", NULL },
-	{ "extract", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, "Extract the archive by asking the destination folder and quits.", NULL },
-	{ "add-to=ARCHIVE", 'd', 0, G_OPTION_ARG_FILENAME, &path, "Add files to the specified archive and quits.", NULL },
-	{ "add", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, "Add files asking the name of the archive and quits.", NULL },
+	{ "extract-to=FOLDER", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, N_("Extract the archive to the specified folder and quits."), NULL },
+	{ "extract", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, N_("Extract the archive by asking the destination folder and quits."), NULL },
+	{ "add-to=ARCHIVE", 'd', 0, G_OPTION_ARG_FILENAME, &path, N_("Add files to the specified archive and quits."), NULL },
+	{ "add", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, N_("Add files asking the name of the archive and quits."), NULL },
 	{ NULL }
 };
 

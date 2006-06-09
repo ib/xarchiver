@@ -15,7 +15,8 @@ xarchiver_SOURCES = \
 	gzip.c gzip.h \
 	rpm.c rpm.h \
 	iso.c iso.h \
-	extract_dialog.c extract_dialog.h
+	extract_dialog.c extract_dialog.h \
+	add_dialog.c add_dialog.h
 
 xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \

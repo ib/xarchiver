@@ -1,10 +1,10 @@
-+ iso	[PARTIALLY DONE]
-  - add view function
++ iso
   - add display of ID's inside the ISO plus image type [PARTIALLY DONE]
+  - add view function
   - fix extraction routine since the files inside the directories are not extracted
   - fix drag from Xarchiver window since the dragged files is not extracted
 
-- add cmdline switches
+- add cmd-line switches [PARTIALLY DONE, -x and -e are completed]
+- polish the code in main.c regarding the cmd-line switches.
 - develop the add dialog showing most of the options for current archive
-- develop the extract dialog showing most of the options for current archive [FINALLY DONE]
 
