@@ -32,110 +32,126 @@ gboolean file_to_open;
 gboolean ask_and_extract;
 gboolean ask_and_add;
 
-static GOptionEntry entries[] = {
-  { "extract-to=FOLDER", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, "Extract the archive to the specified folder and quits.", NULL },
-  { "extract", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, "Extract the archive by asking the destination folder and quits.", NULL },
-  { "add-to=ARCHIVE", 'd', 0, G_OPTION_ARG_FILENAME, &path, "Add files to the specified archive and quits.", NULL },
-  { "add", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, "Add files asking the name of the archive and quits.", NULL },
-  { NULL }
+static GOptionEntry entries[] =
+{
+	{ "extract-to=FOLDER", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, "Extract the archive to the specified folder and quits.", NULL },
+	{ "extract", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, "Extract the archive by asking the destination folder and quits.", NULL },
+	{ "add-to=ARCHIVE", 'd', 0, G_OPTION_ARG_FILENAME, &path, "Add files to the specified archive and quits.", NULL },
+	{ "add", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, "Add files asking the name of the archive and quits.", NULL },
+	{ NULL }
 };
 
-int main (int argc, char *argv[])
+int main (int argc, char **argv)
 {
-  #ifdef ENABLE_NLS
-  bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-  textdomain (GETTEXT_PACKAGE);
-  #endif
-  gtk_set_locale();
-  gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
-  cli = TRUE;
- /* if (argc > 1)
-  {
-    escaped_path = EscapeBadChars ( argv[1] );
-    if ( ! g_file_test ( escaped_path , G_FILE_TEST_EXISTS ) )
-    {
-        response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("File not found !") );
-        argc = 1;
-    }
-    else CurrentArchiveType = DetectArchiveType (escaped_path);
-  }*/
-  if ( cli_error != NULL )
-  {
-        g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cli_error->message);
-        g_error_free (cli_error);
-        return 0;
-  }
+	#ifdef ENABLE_NLS
+	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+	textdomain (GETTEXT_PACKAGE);
+	#endif
+	gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
+	if ( cli_error != NULL )
+	{
+		g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cli_error->message);
+		g_error_free (cli_error);
+		return 0;
+	}
+	cli = TRUE;
+	if (argc > 1)
+	{
+		gchar *escaped_path = EscapeBadChars (argv[1]);
+		if ( ! g_file_test ( escaped_path , G_FILE_TEST_EXISTS ) )
+	    {
+		    response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("The file doesn't exist!") );
+			argc = 1;
+	    }
+		else
+		{
+			archive = xa_init_structure (archive);
+			archive->path = g_strdup (argv[1]);
+			archive->escaped_path = escaped_path;
+			archive->type = DetectArchiveType ( archive );
+			if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
+				archive->type = XARCHIVETYPE_TAR_BZ2;
+			else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
+				archive->type = XARCHIVETYPE_TAR_GZ;
+		}
+	}
 
-  //Switch -x
-  if (extract_path != NULL)
-  {
-    /*if ( g_str_has_suffix ( escaped_path , ".tar.bz2") || g_str_has_suffix ( escaped_path , ".tar.bz") || g_str_has_suffix ( escaped_path , ".tbz") || g_str_has_suffix ( escaped_path , ".tbz2" ) ) CurrentArchiveType = 4;
-    else if ( g_str_has_suffix ( escaped_path , ".tar.gz") || g_str_has_suffix ( escaped_path , ".tgz") ) CurrentArchiveType = 5;
-    else
-    {
-        TODO: to remove the following if since the new dialog extract pref will have the field
-        password if the archive is protected
-        if (PasswordProtectedArchive)
-        {
-            g_print ( _("This switch can't be used with password protected archives.\n") ); 
-            return 0;
-        }
-    }*/
-    GString *string = g_string_new ( "" );
-	//archive->full_path = 1;
-    //cli_command = xa_extract_single_files ( archive , string, extract_path );
-    if ( cli_command != NULL )
-    {
-        error_output = SpawnSyncCommand ( cli_command );
-        g_free (cli_command);
-    }
-    g_string_free (string , FALSE );
-    return 0;
-  }
-  //Switch -e
-  else if (ask_and_extract)
-  {
-      g_message ("Ask and extract");
-      return 0;
-  }
-  //Switch -d
-  else if (path != NULL)
-  {
-      g_message ("%s\n",path);
-      return 0;
-  }
-  //Switch a
-  else if (ask_and_add)
-  {
-      g_message ("Ask and add");
-      return 0;
-  }
-  else
-  {
-    GetAvailableCompressors();
-    ArchiveSuffix = g_list_reverse (ArchiveSuffix);
-    ArchiveType = g_list_reverse (ArchiveType);
-    //archive->type = XARCHIVETYPE_UNKNOWN;
-    Files_to_Add = NULL;
-    MainWindow = create_MainWindow ();
-    ShowShellOutput (NULL);
-    gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
-    gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
-    g_signal_connect (MainWindow, "delete_event", G_CALLBACK (xa_quit_application), NULL);
-    xa_set_button_state (1,1,0,0,0);
-    Update_StatusBar ( _("Ready."));
-    gtk_widget_show (MainWindow);
-    cli = FALSE;
-    //This to open the archive from the command line
-    if ( argc == 2)
-		xa_open_archive ( NULL , argv[1]);
-    gtk_main ();
-    g_list_free ( ArchiveSuffix);
-    g_list_free ( ArchiveType);
-    return 0;
-  //g_print ("%s %s %s\n",argv[0],argv[1],argv[2]);
-  }
+	//Switch -x
+	if (extract_path != NULL)
+	{
+		if (archive->has_passwd)
+		{
+			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This switch can't be used with password protected archives.\n") );
+		}
+		else
+		{
+			GString *string = g_string_new ( "" );
+			archive->full_path = 1;
+			cli_command = xa_extract_single_files ( archive , string, extract_path );
+			if ( cli_command != NULL )
+			{
+				error_output = SpawnSyncCommand ( cli_command );
+				g_free (cli_command);
+			}
+			g_string_free (string , FALSE );
+		}
+		g_free (archive->path);
+		g_free (archive->escaped_path);
+		g_free (archive);
+		return 0;
+	}
+
+	//Switch -e
+	else if (ask_and_extract)
+	{
+		extract_window = xa_create_extract_dialog ( 0 , archive);
+		gchar *command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
+		gtk_widget_destroy ( extract_window->dialog1 );
+		if ( command != NULL )
+		{
+			error_output = SpawnSyncCommand ( command );
+			g_free (command);
+		}
+		g_free (extract_window);
+		return 0;
+	}
+	//Switch -d
+	else if (path != NULL)
+	{
+		g_message ("%s\n",path);
+		return 0;
+	}
+	//Switch a
+	else if (ask_and_add)
+	{
+		g_message ("Ask and add");
+		return 0;
+	}
+	else
+	{
+		GetAvailableCompressors();
+		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
+		ArchiveType = g_list_reverse (ArchiveType);
+
+		Files_to_Add = NULL;
+		MainWindow = create_MainWindow ();
+		ShowShellOutput (NULL);
+		gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
+		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
+		g_signal_connect (MainWindow, "delete_event", G_CALLBACK (xa_quit_application), NULL);
+		xa_set_button_state (1,1,0,0,0);
+		Update_StatusBar ( _("Ready."));
+		gtk_widget_show (MainWindow);
+		cli = FALSE;
+		//This to open the archive from the command line
+		if ( argc == 2)
+			xa_open_archive ( NULL , argv[1] );
+		gtk_main ();
+		g_list_free ( ArchiveSuffix);
+		g_list_free ( ArchiveType);
+		return 0;
+	}
 }
 
 //TODO: Support to load the configuration of Xarchiver when extract and add will allow set own archiver's options
@@ -255,7 +271,8 @@ gboolean SpawnSyncCommand ( gchar *command )
 	}
     if ( WIFEXITED (exit_status) )
 	{
-	    if ( WEXITSTATUS (exit_status) ) response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,std_err );
+	    if ( WEXITSTATUS (exit_status) )
+			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,std_err );
 	}
 	g_strfreev ( argv );
     return TRUE;

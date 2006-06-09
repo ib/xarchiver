@@ -557,7 +557,6 @@ GtkWidget *create_archive_properties_window ()
 
 	table1 = gtk_table_new (8, 2, TRUE);
 	gtk_widget_show (table1);
-	gtk_container_set_border_width(GTK_CONTAINER(table1), 1);
 	gtk_container_add (GTK_CONTAINER (archive_properties_window), table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 6);

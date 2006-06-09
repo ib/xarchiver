@@ -27,6 +27,7 @@
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
+extern gboolean cli;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -626,18 +627,6 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
     extract_window = xa_create_extract_dialog (selected , archive);
 	if (extract_path != NULL)
 		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),extract_path);
-    if ( archive->has_passwd )
-    {
-		gtk_widget_set_sensitive (extract_window->label_password, TRUE);
-		gtk_widget_set_sensitive (extract_window->password_entry, TRUE);
-		if (archive->passwd != NULL)
-			gtk_entry_set_text (GTK_ENTRY(extract_window->password_entry) , archive->passwd);
-    }
-	else
-	{
-		gtk_widget_set_sensitive (extract_window->label_password, FALSE);
-		gtk_widget_set_sensitive (extract_window->password_entry, FALSE);
-	}
     command = xa_parse_extract_dialog_options ( archive , extract_window, selection );
 	gtk_widget_destroy ( extract_window->dialog1 );
 	if (command != NULL)
@@ -1500,7 +1489,8 @@ void ExtractAddDelete ( gchar *command )
 	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
 		return;
-    gtk_widget_show ( viewport2 );
+    if ( ! cli )
+		gtk_widget_show ( viewport2 );
     g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 
 }
