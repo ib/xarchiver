@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-06 15:41+0200\n"
+"POT-Creation-Date: 2006-06-10 13:39+0900\n"
 "PO-Revision-Date: 2006-05-27 13:02+0200\n"
 "Last-Translator: Szymon Kałasz <szymon_maestro@gazeta.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -17,78 +17,84 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n%"
 "100<10 || n%100>=20)) ? 1 : 2));\n"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/iso.c:522
-#: src/rpm.c:51 src/tar.c:34 src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
+#: ../src/iso.c:522 ../src/rar.c:34 ../src/rpm.c:51 ../src/tar.c:34
+#: ../src/zip.c:33
 msgid "Filename"
 msgstr "Nazwa pliku"
 
-#: src/7zip.c:34 src/arj.c:35 src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
 msgid "Original"
 msgstr "Oryginał"
 
-#: src/7zip.c:34 src/arj.c:35 src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
 msgid "Compressed"
 msgstr "Skompresowane"
 
-#: src/7zip.c:34
+#: ../src/7zip.c:34
 msgid "Attr"
 msgstr "Attr"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
-#: src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
+#: ../src/rar.c:34 ../src/tar.c:34 ../src/zip.c:33
 msgid "Time"
 msgstr "Czas"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/iso.c:522
-#: src/tar.c:34 src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
+#: ../src/iso.c:522 ../src/rar.c:34 ../src/tar.c:34 ../src/zip.c:33
 msgid "Date"
 msgstr "Data"
 
-#: src/arj.c:35 src/zip.c:33
+#: ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
 msgid "Ratio"
 msgstr "Ratio"
 
-#: src/arj.c:35
+#: ../src/arj.c:35
 msgid "Attributes"
 msgstr "Atrybuty"
 
-#: src/arj.c:35
+#: ../src/arj.c:35
 msgid "GUA"
 msgstr "GUA"
 
-#: src/arj.c:35
+#: ../src/arj.c:35
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
+#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/rar.c:34 ../src/tar.c:34
 msgid "Permissions"
 msgstr "Uprawnienia"
 
-#: src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
+#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/tar.c:34
 msgid "Owner/Group"
 msgstr "Właściciel/Grupa"
 
-#: src/bzip2.c:45 src/gzip.c:39 src/iso.c:522 src/rpm.c:51 src/tar.c:34
+#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/iso.c:522 ../src/rpm.c:51
+#: ../src/tar.c:34
 msgid "Size"
 msgstr "Rozmiar"
 
-#: src/bzip2.c:99
+#: ../src/bzip2.c:99
 msgid "Extracting "
 msgstr "Rozpakowywanie "
 
-#: src/bzip2.c:99
+#: ../src/bzip2.c:99
 msgid " file to "
 msgstr " pliku do "
 
-#: src/bzip2.c:108
+#: ../src/bzip2.c:108
 msgid "Please select where to extract files!"
 msgstr "Proszę wybrać, dokąd rozpakować pliki!"
 
-#: src/bzip2.c:199
+#: ../src/bzip2.c:199
 msgid "Decompressing tar file with "
 msgstr "Dekompresja pliku tar z "
 
-#: src/bzip2.c:221
+#: ../src/bzip2.c:199 ../src/bzip2.c:275
+msgid ", please wait..."
+msgstr ", proszę czekać..."
+
+#: ../src/bzip2.c:221
 msgid ""
 "An error occurred while decompressing the archive.\n"
 "Do you want to open the error messages window?"
@@ -96,7 +102,7 @@ msgstr ""
 "Wystąpił błąd podczas dekompresowania archiwum.\n"
 "Czy chcesz otworzyć okno komunikatów błędów?"
 
-#: src/bzip2.c:266
+#: ../src/bzip2.c:266
 msgid ""
 "An error occurred while adding to the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -104,7 +110,7 @@ msgstr ""
 "Wystąpił błąd podczas dodawania do archiwum tar.\n"
 "Czy chcesz otworzyć okno komunikatów błędów?"
 
-#: src/bzip2.c:266
+#: ../src/bzip2.c:266
 msgid ""
 "An error occurred while deleting from the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -112,11 +118,11 @@ msgstr ""
 "Wystąpił błąd podczas usuwania z archiwum tar.\n"
 "Czy chcesz otworzyć okno komunikatów błędów?"
 
-#: src/bzip2.c:275
+#: ../src/bzip2.c:275
 msgid "Recompressing tar file with "
 msgstr "Ponowna kompresja pliku tar za pomocą "
 
-#: src/bzip2.c:290
+#: ../src/bzip2.c:290
 msgid ""
 "An error occurred while recompressing the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -124,32 +130,32 @@ msgstr ""
 "Wystąpił błąd podczas ponownej kompresji archiwum tar.\n"
 "Czy chcesz otworzyć okno komunikatów błędów?"
 
-#: src/callbacks.c:94
+#: ../src/callbacks.c:96
 msgid "Operation canceled."
 msgstr "Operacja anulowana."
 
-#: src/callbacks.c:98
+#: ../src/callbacks.c:100
 msgid "Please check \""
 msgstr "Proszę sprawdź \""
 
-#: src/callbacks.c:98
+#: ../src/callbacks.c:100
 msgid "\" since some files could have been already extracted."
 msgstr "\" ponieważ niektóre pliki mogły już zostać rozpakowane."
 
-#: src/callbacks.c:109 src/callbacks.c:140 src/callbacks.c:1274 src/iso.c:647
-#: src/extract_dialog.c:371 src/extract_dialog.c:407
+#: ../src/callbacks.c:111 ../src/callbacks.c:141 ../src/callbacks.c:1264
+#: ../src/extract_dialog.c:476 ../src/extract_dialog.c:512 ../src/iso.c:647
 msgid "Operation completed."
 msgstr "Operacja zakończona."
 
-#: src/callbacks.c:110
+#: ../src/callbacks.c:112
 msgid "The integrity of the archive \""
 msgstr "Spójność archiwum \""
 
-#: src/callbacks.c:110
+#: ../src/callbacks.c:112
 msgid "\" is OK!"
 msgstr "\" jest OK!"
 
-#: src/callbacks.c:125
+#: ../src/callbacks.c:126
 msgid ""
 "An error occurred while accessing the archive.\n"
 "Do you want to open the error messages window?"
@@ -157,41 +163,39 @@ msgstr ""
 "Wystąpił błąd dostępu do archiwum.\n"
 "Czy chcesz otworzyć okno komunikatów błędów?"
 
-#: src/callbacks.c:129 src/callbacks.c:1747 src/rpm.c:114 src/rpm.c:140
+#: ../src/callbacks.c:130 ../src/callbacks.c:1752 ../src/rpm.c:114
+#: ../src/rpm.c:140
 msgid "Operation failed."
 msgstr "Operacja nie powiodła się"
 
-#: src/callbacks.c:142
+#: ../src/callbacks.c:143
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Proszę czekać. Zawartość archiwum jest uaktualniana..."
 
-#: src/callbacks.c:187
+#: ../src/callbacks.c:188
 msgid "Operation successfully completed."
 msgstr "Operacja zakończona pomyślnie."
 
-#: src/callbacks.c:198
-msgid "The archive \""
-msgstr "Archiwum \""
-
-#: src/callbacks.c:198
-msgid "\" already exists. Do you want to overwrite it?"
+#: ../src/callbacks.c:203
+#, fuzzy, c-format
+msgid "The archive \"%s\" already exists. Do you want to overwrite it?"
 msgstr "\" już istnieje. Czy chcesz je nadpisać?"
 
-#: src/callbacks.c:232
+#: ../src/callbacks.c:238
 msgid "Choose Add File to create the compressed file."
 msgstr "Wybierz \"Dodaj plik\" aby utworzyć skompresowany plik."
 
-#: src/callbacks.c:236
+#: ../src/callbacks.c:242
 #, fuzzy
 msgid "Choose Add File or Add Folder to begin creating the archive."
 msgstr ""
 "Wybierz \"Dodaj plik\" lub \"Dodaj folder\", aby utworzyć archiwum tar."
 
-#: src/callbacks.c:283
+#: ../src/callbacks.c:293
 msgid "The format of this archive is not recognized !"
 msgstr "Typ tego archiwum nie jest rozpoznawany!"
 
-#: src/callbacks.c:307
+#: ../src/callbacks.c:310
 msgid ""
 "Sorry, this archive format is not supported since the proper archiver has't "
 "been installed!"
@@ -199,35 +203,35 @@ msgstr ""
 "Przykro mi, ale ten typ archiwum nie jest obsługiwany, ponieważ odpowiedni "
 "archiwizator nie został zainstalowany!"
 
-#: src/callbacks.c:314
+#: ../src/callbacks.c:317
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Proszę czekać. Zawartość obrazu ISO jest odczytywana..."
 
-#: src/callbacks.c:316
+#: ../src/callbacks.c:319
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Proszę czekać. Zawartość archiwum jest odczytywana..."
 
-#: src/callbacks.c:376
+#: ../src/callbacks.c:379
 msgid "Testing archive integrity, please wait..."
 msgstr "Testowanie spójności archiwum, proszę czekać..."
 
-#: src/callbacks.c:422
+#: ../src/callbacks.c:425
 msgid "Please hit the Stop button first!"
 msgstr "Najpierw proszę wcisnąć przycisk Stop!"
 
-#: src/callbacks.c:466
+#: ../src/callbacks.c:469
 msgid "You are about to delete "
 msgstr "Usuniesz "
 
-#: src/callbacks.c:466
+#: ../src/callbacks.c:469
 msgid " files"
 msgstr " pliki"
 
-#: src/callbacks.c:466
+#: ../src/callbacks.c:469
 msgid " file"
 msgstr " pilk"
 
-#: src/callbacks.c:466
+#: ../src/callbacks.c:469
 msgid ""
 " from the archive.\n"
 "Are you really sure to do this?"
@@ -235,23 +239,23 @@ msgstr ""
 " z archiwum.\n"
 "Czy na pewno chcesz to zrobić?"
 
-#: src/callbacks.c:471
+#: ../src/callbacks.c:474
 msgid "Deleting files from the archive, please wait..."
 msgstr "Usuwanie plików z archiwum, proszę czekać..."
 
-#: src/callbacks.c:542
+#: ../src/callbacks.c:545
 msgid "Adding files to the archive, please wait..."
 msgstr "Dodawanie plików do archiwum, proszę czekać..."
 
-#: src/callbacks.c:546
+#: ../src/callbacks.c:549
 msgid "Compressing file with bzip2, please wait..."
 msgstr "Kompresowanie z użyciem bzip2, proszę czekać..."
 
-#: src/callbacks.c:551
+#: ../src/callbacks.c:554
 msgid "Compressing file with gzip, please wait..."
 msgstr "Kompresowanie z użyciem gzip, proszę czekać..."
 
-#: src/callbacks.c:701
+#: ../src/callbacks.c:692
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -259,11 +263,11 @@ msgstr ""
 "Wybierz pliki do dodania do bieżącego archiwum; użyj SHIFT, aby zaznaczyć "
 "wiele plików"
 
-#: src/callbacks.c:707
+#: ../src/callbacks.c:698
 msgid "Select the folder to be added to the current archive"
 msgstr "Wybierz folder do dodania do bieżącego archiwum"
 
-#: src/callbacks.c:709
+#: ../src/callbacks.c:700
 msgid ""
 "Select the folders to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -271,39 +275,39 @@ msgstr ""
 "Wybierz foldery do dodania do bieżącego archiwum; użyj SHIFT, aby zaznaczyć "
 "wiele plików"
 
-#: src/callbacks.c:748 src/interface.c:227
+#: ../src/callbacks.c:739 ../src/interface.c:230
 msgid "Create a new archive"
 msgstr "Utwórz nowe archiwum"
 
-#: src/callbacks.c:754 src/interface.c:236
+#: ../src/callbacks.c:745 ../src/interface.c:239
 msgid "Open an archive"
 msgstr "Otwórz archiwum"
 
-#: src/callbacks.c:761
+#: ../src/callbacks.c:752
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Wybierz folder docelowy, do którego zostaną rozpakowane pliki"
 
-#: src/callbacks.c:792
+#: ../src/callbacks.c:783
 msgid "All files"
 msgstr "Wszystkie pliki"
 
-#: src/callbacks.c:797
+#: ../src/callbacks.c:788
 msgid "Only archives"
 msgstr "Tylko archiwa"
 
-#: src/callbacks.c:826
+#: ../src/callbacks.c:817
 msgid "Archive type:"
 msgstr "Typ archiwum:"
 
-#: src/callbacks.c:829
+#: ../src/callbacks.c:820
 msgid "Choose the archive type to create"
 msgstr "Wybierz typ archiwum do utworzenia"
 
-#: src/callbacks.c:839
+#: ../src/callbacks.c:830
 msgid "Add the archive extension to the filename"
 msgstr "Dodaj rozszerzenie archiwum do nazwy pliku"
 
-#: src/callbacks.c:920 src/rpm.c:42
+#: ../src/callbacks.c:910 ../src/rpm.c:42
 #, c-format
 msgid ""
 "Can't open archive %s:\n"
@@ -312,15 +316,11 @@ msgstr ""
 "Nie mogę otworzyć archiwum %s:\n"
 "%s"
 
-#: src/callbacks.c:1083
-msgid "ISO Image Information Window"
-msgstr "Okno informacji obrazu ISO"
-
-#: src/callbacks.c:1085
+#: ../src/callbacks.c:1072
 msgid "Error Messages Window"
 msgstr "Okno komunikatów błędów"
 
-#: src/callbacks.c:1118
+#: ../src/callbacks.c:1105
 msgid ""
 "Doing so will probably corrupt your archive.\n"
 "Do you really want to cancel?"
@@ -328,15 +328,15 @@ msgstr ""
 "Ta operacja prawdopobnie zniszczy twoje archiwum.\n"
 "Czy na pewno chcesz anulować?"
 
-#: src/callbacks.c:1123
+#: ../src/callbacks.c:1110
 msgid "Waiting for the process to abort..."
 msgstr "Oczekiwanie na przerwanie procesu..."
 
-#: src/callbacks.c:1196
+#: ../src/callbacks.c:1184
 msgid "Please select a file, not a directory!"
 msgstr "Proszę zaznaczyć plik, nie katalog!"
 
-#: src/callbacks.c:1231
+#: ../src/callbacks.c:1221
 msgid ""
 "An error occurred while extracting the file to be viewed.\n"
 "Do you want to open the error messages window?"
@@ -344,32 +344,33 @@ msgstr ""
 "Wystąpił błąd podczas rozpakowywania pliku do podglądu.\n"
 "Czy chcesz otworzyć okno komunikatów błędów?"
 
-#: src/callbacks.c:1307
+#. Modified Date
+#: ../src/callbacks.c:1310
 #, c-format
 msgid "%c"
 msgstr "%c"
 
-#: src/callbacks.c:1315 src/callbacks.c:1341
+#: ../src/callbacks.c:1318 ../src/callbacks.c:1344
 msgid " GB"
 msgstr " GB"
 
-#: src/callbacks.c:1320 src/callbacks.c:1346
+#: ../src/callbacks.c:1323 ../src/callbacks.c:1349
 msgid " MB"
 msgstr " MB"
 
-#: src/callbacks.c:1326 src/callbacks.c:1352
+#: ../src/callbacks.c:1329 ../src/callbacks.c:1355
 msgid " KB"
 msgstr " KB"
 
-#: src/callbacks.c:1330 src/callbacks.c:1356
+#: ../src/callbacks.c:1333 ../src/callbacks.c:1359
 msgid " bytes"
 msgstr " bajtów"
 
-#: src/callbacks.c:1723
+#: ../src/callbacks.c:1728
 msgid "Sorry, I could not perform the operation!"
 msgstr "Przykro mi, nie mogę wykonać tej operacji!"
 
-#: src/callbacks.c:1745
+#: ../src/callbacks.c:1750
 msgid ""
 "Bzip2 or gzip cannot compress more than one file, please choose another "
 "archive format!"
@@ -377,150 +378,380 @@ msgstr ""
 "Bzip2 i gzip nie mogą kompresować więcej niż jednego pliku, proszę wybrać "
 "inny typ archiwum!"
 
-#: src/interface.c:70
+#: ../src/extract_dialog.c:36
+#, fuzzy
+msgid "Extract Dialog"
+msgstr "Rozpakowywanie "
+
+#: ../src/extract_dialog.c:52
+msgid "Extract to:"
+msgstr "Rozpakuj do:"
+
+#: ../src/extract_dialog.c:72
+msgid "Choose a folder where to extract files"
+msgstr "Wybierz folder, do którego chcesz rozpakować pliki"
+
+#: ../src/extract_dialog.c:94
+msgid "All"
+msgstr ""
+
+#: ../src/extract_dialog.c:100
+msgid "Only selected"
+msgstr ""
+
+#: ../src/extract_dialog.c:111
+msgid "<b>Files to extract </b>"
+msgstr ""
+
+#: ../src/extract_dialog.c:130
+msgid "Overwrite existing files"
+msgstr ""
+
+#: ../src/extract_dialog.c:137
+#, fuzzy
+msgid "Extract files with full path"
+msgstr "Rozpakowywanie plików do "
+
+#: ../src/extract_dialog.c:140
+msgid ""
+"The archive's directory structure is recreated in the extraction directory."
+msgstr ""
+
+#: ../src/extract_dialog.c:146
+#, fuzzy
+msgid "Touch files"
+msgstr " pliki"
+
+#: ../src/extract_dialog.c:149
+msgid ""
+"When this option is used, tar leaves the data modification times of the "
+"files it extracts as the times when the files were extracted, instead of "
+"setting it to the times recorded in the archive."
+msgstr ""
+
+#: ../src/extract_dialog.c:156
+msgid "Strip directories:"
+msgstr ""
+
+#: ../src/extract_dialog.c:159
+msgid ""
+"This option extracts the files without the directory in which they are "
+"contained. You have to specify the number of directories to strip."
+msgstr ""
+
+#: ../src/extract_dialog.c:184
+msgid "Freshen existing files"
+msgstr ""
+
+#: ../src/extract_dialog.c:185
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies."
+msgstr ""
+
+#: ../src/extract_dialog.c:191
+msgid "Update existing files"
+msgstr ""
+
+#: ../src/extract_dialog.c:192
+msgid ""
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
+"extracts those files that do not already exist on disk."
+msgstr ""
+
+#: ../src/extract_dialog.c:207
+msgid "Password:"
+msgstr "Hasło:"
+
+#: ../src/extract_dialog.c:228
+msgid "<b>Options </b>"
+msgstr ""
+
+#: ../src/extract_dialog.c:245 ../src/interface.c:152
+#, fuzzy
+msgid "_Extract"
+msgstr "Rozpakuj"
+
+#: ../src/extract_dialog.c:305
+#, fuzzy
+msgid "Please select where to extract the files !"
+msgstr "Proszę wybrać, dokąd rozpakować pliki!"
+
+#: ../src/extract_dialog.c:313
+#, fuzzy
+msgid "Please enter the password!"
+msgstr "Proszę wpisać hasło!"
+
+#: ../src/extract_dialog.c:322
+#, c-format
+msgid ""
+"You don't have the right permissions to extract archives in the folder \"%s\""
+msgstr ""
+
+#: ../src/extract_dialog.c:359 ../src/extract_dialog.c:544
+msgid "Extracting files to "
+msgstr "Rozpakowywanie plików do "
+
+#: ../src/interface.c:70
 msgid "_Archive"
 msgstr "_Archiwum"
 
-#: src/interface.c:95
-msgid "Test"
+#: ../src/interface.c:95
+#, fuzzy
+msgid "_Test"
 msgstr "Testuj"
 
-#: src/interface.c:105
-msgid "Properties"
+#: ../src/interface.c:105
+#, fuzzy
+msgid "_Properties"
 msgstr "Właściwości"
 
-#: src/interface.c:120
+#: ../src/interface.c:120
 msgid "_Action"
 msgstr "A_kcja"
 
-#: src/interface.c:129 src/interface.c:245
-msgid "Add File"
+#: ../src/interface.c:129
+#, fuzzy
+msgid "Add F_ile"
 msgstr "Dodaj plik"
 
-#: src/interface.c:133 src/interface.c:254
-msgid "Add Folder"
+#: ../src/interface.c:138
+#, fuzzy
+msgid "Add _Folder"
 msgstr "Dodaj folder"
 
-#: src/interface.c:142 src/interface.c:268
-msgid "Extract"
-msgstr "Rozpakuj"
-
-#: src/interface.c:154 src/interface.c:287
-msgid "View"
+#: ../src/interface.c:168
+#, fuzzy
+msgid "_View"
 msgstr "Widok"
 
-#: src/interface.c:180
-msgid "View Error Messages"
+#: ../src/interface.c:183
+#, fuzzy
+msgid "View Error _Messages"
 msgstr "Zobacz komunikaty błędów"
 
-#: src/interface.c:189
+#: ../src/interface.c:192
 msgid "Show ISO info"
 msgstr "Pokaż informacje o ISO"
 
-#: src/interface.c:207
+#: ../src/interface.c:201
+msgid "_Help"
+msgstr "Pomo_c"
+
+#: ../src/interface.c:210
 msgid "_About"
 msgstr "_O programie..."
 
-#: src/interface.c:222
+#: ../src/interface.c:225
 msgid "New"
 msgstr "Nowy"
 
-#: src/interface.c:231
+#: ../src/interface.c:234
 msgid "Open"
 msgstr "Otwórz"
 
-#: src/interface.c:250
+#: ../src/interface.c:248
+msgid "Add File"
+msgstr "Dodaj plik"
+
+#: ../src/interface.c:253
 msgid "Add a file to the current archive"
 msgstr "Dodaj plik do bieżącego archiwum"
 
-#: src/interface.c:259
+#: ../src/interface.c:257
+msgid "Add Folder"
+msgstr "Dodaj folder"
+
+#: ../src/interface.c:262
 msgid "Add an entire folder to the current archive"
 msgstr "Dodaj cały folder do bieżącego archiwum"
 
-#: src/interface.c:273
+#: ../src/interface.c:271
+msgid "Extract"
+msgstr "Rozpakuj"
+
+#: ../src/interface.c:276
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
 msgstr ""
 "Rozpakuj pliki z bieżącego archiwum; użyj myszy, aby wybrać pojedyncze pliki"
 
-#: src/interface.c:277
+#: ../src/interface.c:280
 msgid "Delete"
 msgstr "Usuń"
 
-#: src/interface.c:283
+#: ../src/interface.c:286
 msgid "Delete files from the current archive"
 msgstr "Usuń pliki z bieżącego archiwum"
 
-#: src/interface.c:293
+#: ../src/interface.c:290
+msgid "View"
+msgstr "Widok"
+
+#: ../src/interface.c:296
 msgid "View file content in the current archive"
 msgstr "Pokaż zawartość pliku z bieżącego archiwu,"
 
-#: src/interface.c:302
+#: ../src/interface.c:305
 msgid "Stop"
 msgstr "Stop"
 
-#: src/interface.c:308
+#: ../src/interface.c:311
 msgid "Cancel current operation"
 msgstr "Anuluj bieżącą operację"
 
-#: src/interface.c:365
+#: ../src/interface.c:368
 msgid "This archive contains password protected files"
 msgstr "To archiwum zawiera pliki chronione hasłem"
 
-#: src/interface.c:521
+#: ../src/interface.c:524
 msgid "View File Window"
 msgstr "Okno podglądu pliku"
 
-#: src/interface.c:558
+#: ../src/interface.c:550
 msgid "Archive Properties Window"
 msgstr "Okno właściwości archiwum"
 
-#: src/interface.c:573
+#: ../src/interface.c:565
 msgid "Name:"
 msgstr "Nazwa:"
 
-#: src/interface.c:581
+#: ../src/interface.c:573
 msgid "Path:"
 msgstr "Ścieżka:"
 
-#: src/interface.c:589
+#: ../src/interface.c:581
 msgid "Modified on:"
 msgstr "Zmodyfikowany:"
 
-#: src/interface.c:597
+#: ../src/interface.c:589
 msgid "Archive size:"
 msgstr "Rozmiar archiwum:"
 
-#: src/interface.c:605
+#: ../src/interface.c:597
 msgid "Content size:"
 msgstr "Rozmiar zawartości:"
 
-#: src/interface.c:613
+#: ../src/interface.c:605
 msgid "Compression ratio:"
 msgstr "Współczynnik kompresji"
 
-#: src/interface.c:621
+#: ../src/interface.c:613
 msgid "Number of files:"
 msgstr "Liczba plików:"
 
-#: src/interface.c:629
+#: ../src/interface.c:621
 msgid "Number of dirs:"
 msgstr "Liczba katalogów:"
 
-#: src/iso.c:522 src/rpm.c:51
+#: ../src/iso.c:522 ../src/rpm.c:51
 msgid "Permission"
 msgstr "Uprawnienie"
 
-#: src/iso.c:522
+#: ../src/iso.c:522
 msgid "Offset"
 msgstr "Offset"
 
-#: src/main.c:51
+#: ../src/iso.c:696
+#, fuzzy
+msgid "ISO Information Window"
+msgstr "Okno informacji obrazu ISO"
+
+#: ../src/iso.c:711
+#, fuzzy
+msgid "Filename:"
+msgstr "Nazwa pliku"
+
+#: ../src/iso.c:719
+msgid "Size in bytes:"
+msgstr ""
+
+#: ../src/iso.c:727
+msgid "Image type:"
+msgstr ""
+
+#: ../src/iso.c:735
+msgid "System ID:"
+msgstr ""
+
+#: ../src/iso.c:743
+msgid "Volume ID:"
+msgstr ""
+
+#: ../src/iso.c:751
+#, fuzzy
+msgid "Application:"
+msgstr "A_kcja"
+
+#: ../src/iso.c:759
+msgid "Publisher:"
+msgstr ""
+
+#: ../src/iso.c:767
+msgid "Preparer:"
+msgstr ""
+
+#: ../src/iso.c:775
+msgid "Volume set ID:"
+msgstr ""
+
+#: ../src/iso.c:783
+msgid "Bibliographic ID:"
+msgstr ""
+
+#: ../src/iso.c:791
+msgid "Copyright ID:"
+msgstr ""
+
+#: ../src/iso.c:799
+#, fuzzy
+msgid "Abstract ID:"
+msgstr "Rozpakuj do:"
+
+#: ../src/iso.c:807
+#, fuzzy
+msgid "Creation date:"
+msgstr "Współczynnik kompresji"
+
+#: ../src/iso.c:815
+#, fuzzy
+msgid "Modified date:"
+msgstr "Zmodyfikowany:"
+
+#: ../src/iso.c:823
+#, fuzzy
+msgid "Expiration date:"
+msgstr "Operacja nie powiodła się"
+
+#: ../src/iso.c:831
+msgid "Effective date:"
+msgstr ""
+
+#: ../src/main.c:37
+msgid "Extract the archive to the specified folder and quits."
+msgstr ""
+
+#: ../src/main.c:38
+msgid "Extract the archive by asking the destination folder and quits."
+msgstr ""
+
+#: ../src/main.c:39
+#, fuzzy
+msgid "Add files to the specified archive and quits."
+msgstr "Dodawanie plików do archiwum, proszę czekać..."
+
+#: ../src/main.c:40
+#, fuzzy
+msgid "Add files asking the name of the archive and quits."
+msgstr "Dodawanie plików do archiwum, proszę czekać..."
+
+#: ../src/main.c:51
 msgid "[archive name]"
 msgstr "[nazwa archiwum]"
 
-#: src/main.c:65
+#: ../src/main.c:54
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -530,23 +761,46 @@ msgstr ""
 "Spróbuj xarchiver --help, aby zobaczyć pełną listę dostępnych opcji linii "
 "poleceń.\n"
 
-#: src/main.c:127
+#: ../src/main.c:64
+msgid "The file doesn't exist!"
+msgstr ""
+
+#: ../src/main.c:85
+#, fuzzy
+msgid "This switch can't be used with password protected archives.\n"
+msgstr "To archiwum zawiera pliki chronione hasłem"
+
+#: ../src/main.c:144
 msgid "Ready."
 msgstr "Gotowy."
 
-#: src/rpm.c:51
+#: ../src/rar.c:34
+#, fuzzy
+msgid "CRC"
+msgstr "CRC-32"
+
+#: ../src/rar.c:34 ../src/zip.c:33
+msgid "Method"
+msgstr "Metoda"
+
+#: ../src/rar.c:34
+#, fuzzy
+msgid "Version"
+msgstr "Uprawnienie"
+
+#: ../src/rpm.c:51
 msgid "Hard Link"
 msgstr "Twarde łącze"
 
-#: src/rpm.c:51
+#: ../src/rpm.c:51
 msgid "Owner"
 msgstr "Właścicel"
 
-#: src/rpm.c:51
+#: ../src/rpm.c:51
 msgid "Group"
 msgstr "Grupa"
 
-#: src/rpm.c:118
+#: ../src/rpm.c:118
 msgid ""
 "An error occurred while extracting the cpio archive\n"
 "from the rpm one. Do you want to open the error messages window?"
@@ -554,7 +808,7 @@ msgstr ""
 "Wystąpił błąd podczas rozpakowywania archiwum cpio\n"
 "z pliku rpm. Czy chcesz otworzyć okno komunikatów błędów?"
 
-#: src/rpm.c:144
+#: ../src/rpm.c:144
 msgid ""
 "An error occurred while decompressing the cpio archive.\n"
 "Do you want to open the error messages window?"
@@ -562,115 +816,28 @@ msgstr ""
 "Wystąpił błąd podczas dekompresji archiwum cpio.\n"
 "Czy chcesz otworzyć okno komunikatów błędów?"
 
-#: src/zip.c:33
-msgid "Method"
-msgstr "Metoda"
-
-#: src/zip.c:33
+#: ../src/zip.c:33
 msgid "CRC-32"
 msgstr "CRC-32"
 
-#: src/extract_dialog.c:34
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr "Menedżer archiwów oparty tylko na GTK+2"
+
+#: ../xarchiver.desktop.in.h:2
+msgid "Archive Manager"
+msgstr "Menedżer archiwów"
+
+#: ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr "Xarchiver"
+
+#~ msgid "The archive \""
+#~ msgstr "Archiwum \""
+
 #, fuzzy
-msgid "Extract Dialog"
-msgstr "Rozpakowywanie "
-
-#: src/extract_dialog.c:50
-msgid "Extract to:"
-msgstr "Rozpakuj do:"
-
-#: src/extract_dialog.c:70
-msgid "Choose a folder where to extract files"
-msgstr "Wybierz folder, do którego chcesz rozpakować pliki"
-
-#: src/extract_dialog.c:92
-msgid "All"
-msgstr ""
-
-#: src/extract_dialog.c:98
-msgid "Only selected"
-msgstr ""
-
-#: src/extract_dialog.c:109
-msgid "<b>Files to extract </b>"
-msgstr ""
-
-#: src/extract_dialog.c:128
-msgid "Overwrite existing files"
-msgstr ""
-
-#: src/extract_dialog.c:135
-#, fuzzy
-msgid "Extract files with full path"
-msgstr "Rozpakowywanie plików do "
-
-#: src/extract_dialog.c:137
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr ""
-
-#: src/extract_dialog.c:145
-#, fuzzy
-msgid "Preserve permissions"
-msgstr "Uprawnienia"
-
-#: src/extract_dialog.c:149
-msgid "Preserve ownership"
-msgstr ""
-
-#: src/extract_dialog.c:156
-msgid "Freshen existing files"
-msgstr ""
-
-#: src/extract_dialog.c:157
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies."
-msgstr ""
-
-#: src/extract_dialog.c:164
-msgid "Update existing files"
-msgstr ""
-
-#: src/extract_dialog.c:165
-msgid ""
-"This option performs the same function as the freshen one, extracting files "
-"that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk."
-msgstr ""
-
-#: src/extract_dialog.c:175
-msgid "Password:"
-msgstr "Hasło:"
-
-#: src/extract_dialog.c:184
-msgid "<b>Options </b>"
-msgstr ""
-
-#: src/extract_dialog.c:201
-#, fuzzy
-msgid "_Extract"
-msgstr "Rozpakuj"
-
-#: src/extract_dialog.c:252
-#, fuzzy
-msgid "Please select where to extract the files !"
-msgstr "Proszę wybrać, dokąd rozpakować pliki!"
-
-#: src/extract_dialog.c:260
-#, fuzzy
-msgid "Please enter the password!"
-msgstr "Proszę wpisać hasło!"
-
-#: src/extract_dialog.c:269
-#, c-format
-msgid ""
-"You don't have the right permissions to extract archives in the folder \"%s\""
-msgstr ""
-
-#: src/extract_dialog.c:287 src/extract_dialog.c:441
-msgid "Extracting files to "
-msgstr "Rozpakowywanie plików do "
+#~ msgid "Preserve permissions"
+#~ msgstr "Uprawnienia"
 
 #~ msgid "Choose Action->Set password to create a password protected archive."
 #~ msgstr "Wybierz Akcja->Ustaw hasło, aby utworzyć archiwum chronione hasłem."
@@ -705,18 +872,3 @@ msgstr "Rozpakowywanie plików do "
 #~ msgstr ""
 #~ "Zauważ, że hasło jest automatycznie resetowane za każdym razem, gdy "
 #~ "otwierasz lub tworzysz nowe archiwum."
-
-#~ msgid ", please wait..."
-#~ msgstr ", proszę czekać..."
-
-#~ msgid "_Help"
-#~ msgstr "Pomo_c"
-
-#~ msgid "A GTK+2 only archive manager"
-#~ msgstr "Menedżer archiwów oparty tylko na GTK+2"
-
-#~ msgid "Archive Manager"
-#~ msgstr "Menedżer archiwów"
-
-#~ msgid "Xarchiver"
-#~ msgstr "Xarchiver"

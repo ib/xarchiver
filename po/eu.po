@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-06 15:41+0200\n"
+"POT-Creation-Date: 2006-06-10 13:39+0900\n"
 "PO-Revision-Date: 2006-06-07 16:19+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: librezale <librezale@librezale.org>\n"
@@ -18,78 +18,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/iso.c:522
-#: src/rpm.c:51 src/tar.c:34 src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
+#: ../src/iso.c:522 ../src/rar.c:34 ../src/rpm.c:51 ../src/tar.c:34
+#: ../src/zip.c:33
 msgid "Filename"
 msgstr "Fitxategi Izena"
 
-#: src/7zip.c:34 src/arj.c:35 src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
 msgid "Original"
 msgstr "Jatorrizkoa"
 
-#: src/7zip.c:34 src/arj.c:35 src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
 msgid "Compressed"
 msgstr "Konprimiturik"
 
-#: src/7zip.c:34
+#: ../src/7zip.c:34
 msgid "Attr"
 msgstr "Attr"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
-#: src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
+#: ../src/rar.c:34 ../src/tar.c:34 ../src/zip.c:33
 msgid "Time"
 msgstr "Ordua"
 
-#: src/7zip.c:34 src/arj.c:35 src/bzip2.c:45 src/gzip.c:39 src/iso.c:522
-#: src/tar.c:34 src/zip.c:33
+#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
+#: ../src/iso.c:522 ../src/rar.c:34 ../src/tar.c:34 ../src/zip.c:33
 msgid "Date"
 msgstr "Data"
 
-#: src/arj.c:35 src/zip.c:33
+#: ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
 msgid "Ratio"
 msgstr "Erlazioa"
 
-#: src/arj.c:35
+#: ../src/arj.c:35
 msgid "Attributes"
 msgstr "Atributuak"
 
-#: src/arj.c:35
+#: ../src/arj.c:35
 msgid "GUA"
 msgstr ""
 
-#: src/arj.c:35
+#: ../src/arj.c:35
 msgid "BPMGS"
 msgstr ""
 
-#: src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
+#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/rar.c:34 ../src/tar.c:34
 msgid "Permissions"
 msgstr "Baimenak"
 
-#: src/bzip2.c:45 src/gzip.c:39 src/tar.c:34
+#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/tar.c:34
 msgid "Owner/Group"
 msgstr "Jabea/Taldea"
 
-#: src/bzip2.c:45 src/gzip.c:39 src/iso.c:522 src/rpm.c:51 src/tar.c:34
+#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/iso.c:522 ../src/rpm.c:51
+#: ../src/tar.c:34
 msgid "Size"
 msgstr "Tamaina"
 
-#: src/bzip2.c:99
+#: ../src/bzip2.c:99
 msgid "Extracting "
 msgstr "Ateratzen "
 
-#: src/bzip2.c:99
+#: ../src/bzip2.c:99
 msgid " file to "
 msgstr " honera: "
 
-#: src/bzip2.c:108
+#: ../src/bzip2.c:108
 msgid "Please select where to extract files!"
 msgstr "Mesedez fitxategiak nora atera hautatu!"
 
-#: src/bzip2.c:199
+#: ../src/bzip2.c:199
 msgid "Decompressing tar file with "
 msgstr "Tar fitxategia honekin deskonprimitzen: "
 
-#: src/bzip2.c:221
+#: ../src/bzip2.c:199 ../src/bzip2.c:275
+msgid ", please wait..."
+msgstr ""
+
+#: ../src/bzip2.c:221
 msgid ""
 "An error occurred while decompressing the archive.\n"
 "Do you want to open the error messages window?"
@@ -97,7 +103,7 @@ msgstr ""
 "Errore bat gertatu da fitxategia deskonprimitzerakoan.\n"
 "Errore mezu leihoa ireki nahi al duzu?"
 
-#: src/bzip2.c:266
+#: ../src/bzip2.c:266
 msgid ""
 "An error occurred while adding to the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -105,7 +111,7 @@ msgstr ""
 "Errore bat gertatu da tar fitxategira gehitzerakoan.\n"
 "Errore mezu leihoa ireki nahi al duzu?"
 
-#: src/bzip2.c:266
+#: ../src/bzip2.c:266
 msgid ""
 "An error occurred while deleting from the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -113,11 +119,11 @@ msgstr ""
 "Errore bat gertatu da tar fitxategitik ezabatzerakoan.\n"
 "Errore mezu leihoa ireki nahi al duzu?"
 
-#: src/bzip2.c:275
+#: ../src/bzip2.c:275
 msgid "Recompressing tar file with "
 msgstr "Tar fitxategia honekin birkonprimitzen: "
 
-#: src/bzip2.c:290
+#: ../src/bzip2.c:290
 msgid ""
 "An error occurred while recompressing the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -125,32 +131,32 @@ msgstr ""
 "Errore bat gertatu da tar fitxategira birkonprimitzerakoan.\n"
 "Errore mezu leihoa ireki nahi al duzu?"
 
-#: src/callbacks.c:94
+#: ../src/callbacks.c:96
 msgid "Operation canceled."
 msgstr "Ekintza ezeztatua."
 
-#: src/callbacks.c:98
+#: ../src/callbacks.c:100
 msgid "Please check \""
 msgstr "Mesedez egiaztatu \""
 
-#: src/callbacks.c:98
+#: ../src/callbacks.c:100
 msgid "\" since some files could have been already extracted."
 msgstr "\" zenbait fitxategi ateratak izan dira dagoeneko."
 
-#: src/callbacks.c:109 src/callbacks.c:140 src/callbacks.c:1274 src/iso.c:647
-#: src/extract_dialog.c:371 src/extract_dialog.c:407
+#: ../src/callbacks.c:111 ../src/callbacks.c:141 ../src/callbacks.c:1264
+#: ../src/extract_dialog.c:476 ../src/extract_dialog.c:512 ../src/iso.c:647
 msgid "Operation completed."
 msgstr "Ekintza osatua."
 
-#: src/callbacks.c:110
+#: ../src/callbacks.c:112
 msgid "The integrity of the archive \""
 msgstr "\""
 
-#: src/callbacks.c:110
+#: ../src/callbacks.c:112
 msgid "\" is OK!"
 msgstr "\" fitxategiaren integritatea zuzena da!"
 
-#: src/callbacks.c:125
+#: ../src/callbacks.c:126
 msgid ""
 "An error occurred while accessing the archive.\n"
 "Do you want to open the error messages window?"
@@ -158,39 +164,38 @@ msgstr ""
 "Errore bat gertatu da fitxategia eskuratzerakoan.\n"
 "Errore mezu leihoa ireki nahi al duzu?"
 
-#: src/callbacks.c:129 src/callbacks.c:1747 src/rpm.c:114 src/rpm.c:140
+#: ../src/callbacks.c:130 ../src/callbacks.c:1752 ../src/rpm.c:114
+#: ../src/rpm.c:140
 msgid "Operation failed."
 msgstr "Ekintzak huts egin du."
 
-#: src/callbacks.c:142
+#: ../src/callbacks.c:143
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Mesedez itxoin fitxategiaren edukia eguneratzen den bitartean..."
 
-#: src/callbacks.c:187
+#: ../src/callbacks.c:188
 msgid "Operation successfully completed."
 msgstr "Ekintza behar bezala burutu da."
 
-#: src/callbacks.c:198
-msgid "The archive \""
-msgstr "\""
-
-#: src/callbacks.c:198
-msgid "\" already exists. Do you want to overwrite it?"
+#: ../src/callbacks.c:203
+#, fuzzy, c-format
+msgid "The archive \"%s\" already exists. Do you want to overwrite it?"
 msgstr "\" fitxategia badago dagoeneko. Gainidatzi nahi al duzu?"
 
-#: src/callbacks.c:232
+#: ../src/callbacks.c:238
 msgid "Choose Add File to create the compressed file."
 msgstr "Fitxategia gehitu hautatu konrpimituriko fitxategia sortzeko."
 
-#: src/callbacks.c:236
+#: ../src/callbacks.c:242
 msgid "Choose Add File or Add Folder to begin creating the archive."
-msgstr "Fitxategia Gehitu edo Karpeta Gehitu hautatu fitxategia sortzen hasteko."
+msgstr ""
+"Fitxategia Gehitu edo Karpeta Gehitu hautatu fitxategia sortzen hasteko."
 
-#: src/callbacks.c:283
+#: ../src/callbacks.c:293
 msgid "The format of this archive is not recognized !"
 msgstr "Fitxategi honen formatua ez da ezagutzen!"
 
-#: src/callbacks.c:307
+#: ../src/callbacks.c:310
 msgid ""
 "Sorry, this archive format is not supported since the proper archiver has't "
 "been installed!"
@@ -198,35 +203,35 @@ msgstr ""
 "Barkatu, fitxategi formatu hau ez da onartzen beharrezko konpresorea ez bait "
 "dago instalaturik!"
 
-#: src/callbacks.c:314
+#: ../src/callbacks.c:317
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Mesedez itxoin ISO irudiaren edukia irakurtzen den bitartean..."
 
-#: src/callbacks.c:316
+#: ../src/callbacks.c:319
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Mesedez itxoin fitxategiaren edukia irakurtzen den bitartean..."
 
-#: src/callbacks.c:376
+#: ../src/callbacks.c:379
 msgid "Testing archive integrity, please wait..."
 msgstr "Fitxategia integritatea egiaztatzen, itxoin mesedez..."
 
-#: src/callbacks.c:422
+#: ../src/callbacks.c:425
 msgid "Please hit the Stop button first!"
 msgstr "Mesedez Gelditu botoia jo lehenengo!"
 
-#: src/callbacks.c:466
+#: ../src/callbacks.c:469
 msgid "You are about to delete "
 msgstr "Paketetik"
 
-#: src/callbacks.c:466
+#: ../src/callbacks.c:469
 msgid " files"
 msgstr " fitxategi "
 
-#: src/callbacks.c:466
+#: ../src/callbacks.c:469
 msgid " file"
 msgstr " fitxategi "
 
-#: src/callbacks.c:466
+#: ../src/callbacks.c:469
 msgid ""
 " from the archive.\n"
 "Are you really sure to do this?"
@@ -234,23 +239,23 @@ msgstr ""
 " ezabatzera zoaz.\n"
 "Hau egin nahi duzula ziur zaude?"
 
-#: src/callbacks.c:471
+#: ../src/callbacks.c:474
 msgid "Deleting files from the archive, please wait..."
 msgstr "Fitxategiak paketetik ezabatzen, itxoin mesedez..."
 
-#: src/callbacks.c:542
+#: ../src/callbacks.c:545
 msgid "Adding files to the archive, please wait..."
 msgstr "Fitxategiak paketera gehitzen, itxoin mesedez..."
 
-#: src/callbacks.c:546
+#: ../src/callbacks.c:549
 msgid "Compressing file with bzip2, please wait..."
 msgstr "Fitxategia bzip2 bidez konprimitzen, itxoin mesedez..."
 
-#: src/callbacks.c:551
+#: ../src/callbacks.c:554
 msgid "Compressing file with gzip, please wait..."
 msgstr "Fitxategia gzip bidez konprimitzen, itxoin mesedez..."
 
-#: src/callbacks.c:701
+#: ../src/callbacks.c:692
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -258,11 +263,11 @@ msgstr ""
 "Hautatu uneko paketera gehituko diren fitxategiak; SHIFT erabili hautapen "
 "anitz egiteko"
 
-#: src/callbacks.c:707
+#: ../src/callbacks.c:698
 msgid "Select the folder to be added to the current archive"
 msgstr "Hautatu uneko paketera gehitu behar den karpeta"
 
-#: src/callbacks.c:709
+#: ../src/callbacks.c:700
 msgid ""
 "Select the folders to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -270,39 +275,39 @@ msgstr ""
 "Hautatu uneko paketera gehitu behar diren karpetak; SHIFT erabili hautapen "
 "anitz egiteko"
 
-#: src/callbacks.c:748 src/interface.c:227
+#: ../src/callbacks.c:739 ../src/interface.c:230
 msgid "Create a new archive"
 msgstr "Pakete berria sortu"
 
-#: src/callbacks.c:754 src/interface.c:236
+#: ../src/callbacks.c:745 ../src/interface.c:239
 msgid "Open an archive"
 msgstr "Paketea ireki"
 
-#: src/callbacks.c:761
+#: ../src/callbacks.c:752
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Hautatu uneko paketea ateratzeko karpeta"
 
-#: src/callbacks.c:792
+#: ../src/callbacks.c:783
 msgid "All files"
 msgstr "Fitxategi guztiak"
 
-#: src/callbacks.c:797
+#: ../src/callbacks.c:788
 msgid "Only archives"
 msgstr "Paketeak bakarrik"
 
-#: src/callbacks.c:826
+#: ../src/callbacks.c:817
 msgid "Archive type:"
 msgstr "Pakete mota:"
 
-#: src/callbacks.c:829
+#: ../src/callbacks.c:820
 msgid "Choose the archive type to create"
 msgstr "Hautatu sortu behar den pakete mota"
 
-#: src/callbacks.c:839
+#: ../src/callbacks.c:830
 msgid "Add the archive extension to the filename"
 msgstr "Pakete luzapena gehitu fitxategi izenera"
 
-#: src/callbacks.c:920 src/rpm.c:42
+#: ../src/callbacks.c:910 ../src/rpm.c:42
 #, c-format
 msgid ""
 "Can't open archive %s:\n"
@@ -311,15 +316,11 @@ msgstr ""
 "Ezinda %s fitxategia ireki:\n"
 "%s"
 
-#: src/callbacks.c:1083
-msgid "ISO Image Information Window"
-msgstr "ISO Irudi Argibide Leihoa"
-
-#: src/callbacks.c:1085
+#: ../src/callbacks.c:1072
 msgid "Error Messages Window"
 msgstr "Errore Mezu Leihoa"
 
-#: src/callbacks.c:1118
+#: ../src/callbacks.c:1105
 msgid ""
 "Doing so will probably corrupt your archive.\n"
 "Do you really want to cancel?"
@@ -327,15 +328,15 @@ msgstr ""
 "Hau egitean ziurrenik zure paketea hondatuko da.\n"
 "Benetan utzi egin nahi duzu?"
 
-#: src/callbacks.c:1123
+#: ../src/callbacks.c:1110
 msgid "Waiting for the process to abort..."
 msgstr "Prozesua uzteko itxoiten..."
 
-#: src/callbacks.c:1196
+#: ../src/callbacks.c:1184
 msgid "Please select a file, not a directory!"
 msgstr "Mesedez fitxategi bat hautatu, ez direktorio bat!"
 
-#: src/callbacks.c:1231
+#: ../src/callbacks.c:1221
 msgid ""
 "An error occurred while extracting the file to be viewed.\n"
 "Do you want to open the error messages window?"
@@ -343,32 +344,33 @@ msgstr ""
 "Errore bat gertatu da bistaratzeko fitxategia ateratzerakoan.\n"
 "Errore mezu leihoa ireki nahi al duzu?"
 
-#: src/callbacks.c:1307
+#. Modified Date
+#: ../src/callbacks.c:1310
 #, c-format
 msgid "%c"
 msgstr ""
 
-#: src/callbacks.c:1315 src/callbacks.c:1341
+#: ../src/callbacks.c:1318 ../src/callbacks.c:1344
 msgid " GB"
 msgstr " GB"
 
-#: src/callbacks.c:1320 src/callbacks.c:1346
+#: ../src/callbacks.c:1323 ../src/callbacks.c:1349
 msgid " MB"
 msgstr " MB"
 
-#: src/callbacks.c:1326 src/callbacks.c:1352
+#: ../src/callbacks.c:1329 ../src/callbacks.c:1355
 msgid " KB"
 msgstr " KB"
 
-#: src/callbacks.c:1330 src/callbacks.c:1356
+#: ../src/callbacks.c:1333 ../src/callbacks.c:1359
 msgid " bytes"
 msgstr " byte"
 
-#: src/callbacks.c:1723
+#: ../src/callbacks.c:1728
 msgid "Sorry, I could not perform the operation!"
 msgstr "Barkatu ezin dut ekintza aurrera eraman!"
 
-#: src/callbacks.c:1745
+#: ../src/callbacks.c:1750
 msgid ""
 "Bzip2 or gzip cannot compress more than one file, please choose another "
 "archive format!"
@@ -376,149 +378,381 @@ msgstr ""
 "Bzip2 edo gzip ez dira fitxategi bat baino gehiago konprimitzeko gai, "
 "mesedez beste pakete formatu bat hautatu!"
 
-#: src/interface.c:70
+#: ../src/extract_dialog.c:36
+msgid "Extract Dialog"
+msgstr "Ateratze Elkarrizketa"
+
+#: ../src/extract_dialog.c:52
+msgid "Extract to:"
+msgstr "Hona atera:"
+
+#: ../src/extract_dialog.c:72
+msgid "Choose a folder where to extract files"
+msgstr "Fitxategiak ateratzeko karpeta bat hautatu"
+
+#: ../src/extract_dialog.c:94
+msgid "All"
+msgstr "Dena"
+
+#: ../src/extract_dialog.c:100
+msgid "Only selected"
+msgstr "Hautatutako bakarrik"
+
+#: ../src/extract_dialog.c:111
+msgid "<b>Files to extract </b>"
+msgstr "<b>Ateratzeko fitxategiak </b>"
+
+#: ../src/extract_dialog.c:130
+msgid "Overwrite existing files"
+msgstr "Dauden fitxategiak gainidatzi"
+
+#: ../src/extract_dialog.c:137
+msgid "Extract files with full path"
+msgstr "Fitxategia bide osoarekin atera"
+
+#: ../src/extract_dialog.c:140
+#, fuzzy
+msgid ""
+"The archive's directory structure is recreated in the extraction directory."
+msgstr ""
+"Artxiboaren direktorio egitura birsortua izango da ateratze direktorioan"
+
+#: ../src/extract_dialog.c:146
+#, fuzzy
+msgid "Touch files"
+msgstr " fitxategi "
+
+#: ../src/extract_dialog.c:149
+msgid ""
+"When this option is used, tar leaves the data modification times of the "
+"files it extracts as the times when the files were extracted, instead of "
+"setting it to the times recorded in the archive."
+msgstr ""
+
+#: ../src/extract_dialog.c:156
+msgid "Strip directories:"
+msgstr ""
+
+#: ../src/extract_dialog.c:159
+msgid ""
+"This option extracts the files without the directory in which they are "
+"contained. You have to specify the number of directories to strip."
+msgstr ""
+
+#: ../src/extract_dialog.c:184
+msgid "Freshen existing files"
+msgstr "Dauden fixategiak freskatu"
+
+#: ../src/extract_dialog.c:185
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies."
+msgstr ""
+"Diskan dauden eta diskako kopia baino berriagoak diren fitxategiak bakarrik "
+"atera."
+
+#: ../src/extract_dialog.c:191
+msgid "Update existing files"
+msgstr "Dauden fitxategia eguneratu"
+
+#: ../src/extract_dialog.c:192
+msgid ""
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
+"extracts those files that do not already exist on disk."
+msgstr ""
+"Freskatze aukeran bezala diskoan dauden eta diskoko kopia baino berriagoak "
+"diren fitxategiak ateratzen ditu baina baita diskoan ez dauden fitxategiak."
+
+#: ../src/extract_dialog.c:207
+msgid "Password:"
+msgstr "Pasahitza:"
+
+#: ../src/extract_dialog.c:228
+msgid "<b>Options </b>"
+msgstr "<b>Aukerak </b>"
+
+#: ../src/extract_dialog.c:245 ../src/interface.c:152
+msgid "_Extract"
+msgstr "_Atera"
+
+#: ../src/extract_dialog.c:305
+msgid "Please select where to extract the files !"
+msgstr "Mesedez fitxategiak nora atera hautatu !"
+
+#: ../src/extract_dialog.c:313
+msgid "Please enter the password!"
+msgstr "Mesedez pasahitza idatzi!"
+
+#: ../src/extract_dialog.c:322
+#, c-format
+msgid ""
+"You don't have the right permissions to extract archives in the folder \"%s\""
+msgstr "Ez duzu baimenik fitxategiak \"%s\" fitxategira ateratzeko"
+
+#: ../src/extract_dialog.c:359 ../src/extract_dialog.c:544
+msgid "Extracting files to "
+msgstr "Fitxategia hona ateratzen: "
+
+#: ../src/interface.c:70
 msgid "_Archive"
 msgstr "_Paketea"
 
-#: src/interface.c:95
-msgid "Test"
+#: ../src/interface.c:95
+#, fuzzy
+msgid "_Test"
 msgstr "Proba"
 
-#: src/interface.c:105
-msgid "Properties"
+#: ../src/interface.c:105
+#, fuzzy
+msgid "_Properties"
 msgstr "Propietateak"
 
-#: src/interface.c:120
+#: ../src/interface.c:120
 msgid "_Action"
 msgstr "_Ekintza"
 
-#: src/interface.c:129 src/interface.c:245
-msgid "Add File"
+#: ../src/interface.c:129
+#, fuzzy
+msgid "Add F_ile"
 msgstr "Fitxategia Gehitu"
 
-#: src/interface.c:133 src/interface.c:254
-msgid "Add Folder"
+#: ../src/interface.c:138
+#, fuzzy
+msgid "Add _Folder"
 msgstr "Karpeta Gehitu"
 
-#: src/interface.c:142 src/interface.c:268
-msgid "Extract"
-msgstr "Atera"
-
-#: src/interface.c:154 src/interface.c:287
-msgid "View"
+#: ../src/interface.c:168
+#, fuzzy
+msgid "_View"
 msgstr "Ikusi"
 
-#: src/interface.c:180
-msgid "View Error Messages"
+#: ../src/interface.c:183
+#, fuzzy
+msgid "View Error _Messages"
 msgstr "Errore Mezuak Ikusi"
 
-#: src/interface.c:189
+#: ../src/interface.c:192
 msgid "Show ISO info"
 msgstr "ISO argibideak ikusi"
 
-#: src/interface.c:207
+#: ../src/interface.c:201
+msgid "_Help"
+msgstr ""
+
+#: ../src/interface.c:210
 msgid "_About"
 msgstr "_Honi Buruz"
 
-#: src/interface.c:222
+#: ../src/interface.c:225
 msgid "New"
 msgstr "Berria"
 
-#: src/interface.c:231
+#: ../src/interface.c:234
 msgid "Open"
 msgstr "Ireki"
 
-#: src/interface.c:250
+#: ../src/interface.c:248
+msgid "Add File"
+msgstr "Fitxategia Gehitu"
+
+#: ../src/interface.c:253
 msgid "Add a file to the current archive"
 msgstr "Uneko paketera fitxategi bat gehitu"
 
-#: src/interface.c:259
+#: ../src/interface.c:257
+msgid "Add Folder"
+msgstr "Karpeta Gehitu"
+
+#: ../src/interface.c:262
 msgid "Add an entire folder to the current archive"
 msgstr "Uneko paketera karpeta oso bat gehitu"
 
-#: src/interface.c:273
+#: ../src/interface.c:271
+msgid "Extract"
+msgstr "Atera"
+
+#: ../src/interface.c:276
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
-msgstr "Uneko paketetik fitxategiak atera; sagua erabili fitxategiak hautatzeko"
+msgstr ""
+"Uneko paketetik fitxategiak atera; sagua erabili fitxategiak hautatzeko"
 
-#: src/interface.c:277
+#: ../src/interface.c:280
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/interface.c:283
+#: ../src/interface.c:286
 msgid "Delete files from the current archive"
 msgstr "Uneko paketetik fitxategiak ezabatu"
 
-#: src/interface.c:293
+#: ../src/interface.c:290
+msgid "View"
+msgstr "Ikusi"
+
+#: ../src/interface.c:296
 msgid "View file content in the current archive"
 msgstr "Uneko paketeko fitxategia ikusi"
 
-#: src/interface.c:302
+#: ../src/interface.c:305
 msgid "Stop"
 msgstr "Gelditu"
 
-#: src/interface.c:308
+#: ../src/interface.c:311
 msgid "Cancel current operation"
 msgstr "Uneko ekintza ezeztatu"
 
-#: src/interface.c:365
+#: ../src/interface.c:368
 msgid "This archive contains password protected files"
 msgstr "Pakete honek pasahitzez babesturiko fitxategiak ditu"
 
-#: src/interface.c:521
+#: ../src/interface.c:524
 msgid "View File Window"
 msgstr "Fitxategi Leihoa Ikusi"
 
-#: src/interface.c:558
+#: ../src/interface.c:550
 msgid "Archive Properties Window"
 msgstr "Fitxategi Propietate Leihoa"
 
-#: src/interface.c:573
+#: ../src/interface.c:565
 msgid "Name:"
 msgstr "Izena:"
 
-#: src/interface.c:581
+#: ../src/interface.c:573
 msgid "Path:"
 msgstr "Bidea:"
 
-#: src/interface.c:589
+#: ../src/interface.c:581
 msgid "Modified on:"
 msgstr "Eraldaketa data:"
 
-#: src/interface.c:597
+#: ../src/interface.c:589
 msgid "Archive size:"
 msgstr "Pakete tamaina:"
 
-#: src/interface.c:605
+#: ../src/interface.c:597
 msgid "Content size:"
 msgstr "Eduki tamaina:"
 
-#: src/interface.c:613
+#: ../src/interface.c:605
 msgid "Compression ratio:"
 msgstr "Konpresio erlazioa:"
 
-#: src/interface.c:621
+#: ../src/interface.c:613
 msgid "Number of files:"
 msgstr "Fitxategi kopurua:"
 
-#: src/interface.c:629
+#: ../src/interface.c:621
 msgid "Number of dirs:"
 msgstr "Direktorio kopurua:"
 
-#: src/iso.c:522 src/rpm.c:51
+#: ../src/iso.c:522 ../src/rpm.c:51
 msgid "Permission"
 msgstr "Baimenak"
 
-#: src/iso.c:522
+#: ../src/iso.c:522
 msgid "Offset"
 msgstr "Desplazatu"
 
-#: src/main.c:51
+#: ../src/iso.c:696
+#, fuzzy
+msgid "ISO Information Window"
+msgstr "ISO Irudi Argibide Leihoa"
+
+#: ../src/iso.c:711
+#, fuzzy
+msgid "Filename:"
+msgstr "Fitxategi Izena"
+
+#: ../src/iso.c:719
+msgid "Size in bytes:"
+msgstr ""
+
+#: ../src/iso.c:727
+msgid "Image type:"
+msgstr ""
+
+#: ../src/iso.c:735
+msgid "System ID:"
+msgstr ""
+
+#: ../src/iso.c:743
+msgid "Volume ID:"
+msgstr ""
+
+#: ../src/iso.c:751
+#, fuzzy
+msgid "Application:"
+msgstr "_Ekintza"
+
+#: ../src/iso.c:759
+msgid "Publisher:"
+msgstr ""
+
+#: ../src/iso.c:767
+msgid "Preparer:"
+msgstr ""
+
+#: ../src/iso.c:775
+msgid "Volume set ID:"
+msgstr ""
+
+#: ../src/iso.c:783
+msgid "Bibliographic ID:"
+msgstr ""
+
+#: ../src/iso.c:791
+msgid "Copyright ID:"
+msgstr ""
+
+#: ../src/iso.c:799
+#, fuzzy
+msgid "Abstract ID:"
+msgstr "Hona atera:"
+
+#: ../src/iso.c:807
+#, fuzzy
+msgid "Creation date:"
+msgstr "Konpresio erlazioa:"
+
+#: ../src/iso.c:815
+#, fuzzy
+msgid "Modified date:"
+msgstr "Eraldaketa data:"
+
+#: ../src/iso.c:823
+#, fuzzy
+msgid "Expiration date:"
+msgstr "Ekintzak huts egin du."
+
+#: ../src/iso.c:831
+msgid "Effective date:"
+msgstr ""
+
+#: ../src/main.c:37
+msgid "Extract the archive to the specified folder and quits."
+msgstr ""
+
+#: ../src/main.c:38
+msgid "Extract the archive by asking the destination folder and quits."
+msgstr ""
+
+#: ../src/main.c:39
+#, fuzzy
+msgid "Add files to the specified archive and quits."
+msgstr "Fitxategiak paketera gehitzen, itxoin mesedez..."
+
+#: ../src/main.c:40
+#, fuzzy
+msgid "Add files asking the name of the archive and quits."
+msgstr "Fitxategiak paketera gehitzen, itxoin mesedez..."
+
+#: ../src/main.c:51
 msgid "[archive name]"
 msgstr "[pakete izena]"
 
-#: src/main.c:65
+#: ../src/main.c:54
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -528,23 +762,46 @@ msgstr ""
 "xarchiver --help erabili komando lerro bidezko aukera guztien zerrenda osoa "
 "ikusteko.\n"
 
-#: src/main.c:127
+#: ../src/main.c:64
+msgid "The file doesn't exist!"
+msgstr ""
+
+#: ../src/main.c:85
+#, fuzzy
+msgid "This switch can't be used with password protected archives.\n"
+msgstr "Pakete honek pasahitzez babesturiko fitxategiak ditu"
+
+#: ../src/main.c:144
 msgid "Ready."
 msgstr "Prest."
 
-#: src/rpm.c:51
+#: ../src/rar.c:34
+#, fuzzy
+msgid "CRC"
+msgstr "CRC-32"
+
+#: ../src/rar.c:34 ../src/zip.c:33
+msgid "Method"
+msgstr "Metodoa"
+
+#: ../src/rar.c:34
+#, fuzzy
+msgid "Version"
+msgstr "Baimenak"
+
+#: ../src/rpm.c:51
 msgid "Hard Link"
 msgstr "Lotura gogorra"
 
-#: src/rpm.c:51
+#: ../src/rpm.c:51
 msgid "Owner"
 msgstr "Jabea"
 
-#: src/rpm.c:51
+#: ../src/rpm.c:51
 msgid "Group"
 msgstr "Taldea"
 
-#: src/rpm.c:118
+#: ../src/rpm.c:118
 msgid ""
 "An error occurred while extracting the cpio archive\n"
 "from the rpm one. Do you want to open the error messages window?"
@@ -552,7 +809,7 @@ msgstr ""
 "Errore bat gertatu rpm paketetik da cpio\n"
 " paketea ateratzerakoan. Errore mezu leihoa ireki nahi al duzu?"
 
-#: src/rpm.c:144
+#: ../src/rpm.c:144
 msgid ""
 "An error occurred while decompressing the cpio archive.\n"
 "Do you want to open the error messages window?"
@@ -560,107 +817,29 @@ msgstr ""
 "Errore bat gertatu da cpio paketea deskonprimitzerakoan.\n"
 " Errore leihoa ireki nahi al duzu?"
 
-#: src/zip.c:33
-msgid "Method"
-msgstr "Metodoa"
-
-#: src/zip.c:33
+#: ../src/zip.c:33
 msgid "CRC-32"
 msgstr "CRC-32"
 
-#: src/extract_dialog.c:34
-msgid "Extract Dialog"
-msgstr "Ateratze Elkarrizketa"
-
-#: src/extract_dialog.c:50
-msgid "Extract to:"
-msgstr "Hona atera:"
-
-#: src/extract_dialog.c:70
-msgid "Choose a folder where to extract files"
-msgstr "Fitxategiak ateratzeko karpeta bat hautatu"
-
-#: src/extract_dialog.c:92
-msgid "All"
-msgstr "Dena"
-
-#: src/extract_dialog.c:98
-msgid "Only selected"
-msgstr "Hautatutako bakarrik"
-
-#: src/extract_dialog.c:109
-msgid "<b>Files to extract </b>"
-msgstr "<b>Ateratzeko fitxategiak </b>"
-
-#: src/extract_dialog.c:128
-msgid "Overwrite existing files"
-msgstr "Dauden fitxategiak gainidatzi"
-
-#: src/extract_dialog.c:135
-msgid "Extract files with full path"
-msgstr "Fitxategia bide osoarekin atera"
-
-#: src/extract_dialog.c:137
-msgid "The archive's directory structure is recreated in the extraction directory"
-msgstr "Artxiboaren direktorio egitura birsortua izango da ateratze direktorioan"
-
-#: src/extract_dialog.c:145
-msgid "Preserve permissions"
-msgstr "Baimenak mantendu"
-
-#: src/extract_dialog.c:149
-msgid "Preserve ownership"
-msgstr "Jabetza mantendu"
-
-#: src/extract_dialog.c:156
-msgid "Freshen existing files"
-msgstr "Dauden fixategiak freskatu"
-
-#: src/extract_dialog.c:157
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies."
-msgstr "Diskan dauden eta diskako kopia baino berriagoak diren fitxategiak bakarrik atera."
-
-#: src/extract_dialog.c:164
-msgid "Update existing files"
-msgstr "Dauden fitxategia eguneratu"
-
-#: src/extract_dialog.c:165
-msgid ""
-"This option performs the same function as the freshen one, extracting files "
-"that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk."
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
 msgstr ""
-"Freskatze aukeran bezala diskoan dauden eta diskoko kopia baino berriagoak "
-"diren fitxategiak ateratzen ditu baina baita diskoan ez dauden fitxategiak."
 
-#: src/extract_dialog.c:175
-msgid "Password:"
-msgstr "Pasahitza:"
+#: ../xarchiver.desktop.in.h:2
+#, fuzzy
+msgid "Archive Manager"
+msgstr "[pakete izena]"
 
-#: src/extract_dialog.c:184
-msgid "<b>Options </b>"
-msgstr "<b>Aukerak </b>"
+#: ../xarchiver.desktop.in.h:3
+#, fuzzy
+msgid "Xarchiver"
+msgstr "_Paketea"
 
-#: src/extract_dialog.c:201
-msgid "_Extract"
-msgstr "_Atera"
+#~ msgid "The archive \""
+#~ msgstr "\""
 
-#: src/extract_dialog.c:252
-msgid "Please select where to extract the files !"
-msgstr "Mesedez fitxategiak nora atera hautatu !"
+#~ msgid "Preserve permissions"
+#~ msgstr "Baimenak mantendu"
 
-#: src/extract_dialog.c:260
-msgid "Please enter the password!"
-msgstr "Mesedez pasahitza idatzi!"
-
-#: src/extract_dialog.c:269
-#, c-format
-msgid "You don't have the right permissions to extract archives in the folder \"%s\""
-msgstr "Ez duzu baimenik fitxategiak \"%s\" fitxategira ateratzeko"
-
-#: src/extract_dialog.c:287 src/extract_dialog.c:441
-msgid "Extracting files to "
-msgstr "Fitxategia hona ateratzen: "
-
+#~ msgid "Preserve ownership"
+#~ msgstr "Jabetza mantendu"
