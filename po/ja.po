@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-06-10 13:39+0900\n"
-"PO-Revision-Date: 2006-06-07 22:38+0900\n"
+"PO-Revision-Date: 2006-06-10 23:53+0900\n"
 "Last-Translator: Daichi Kawahata <daichi@xfce.org>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
 "MIME-Version: 1.0\n"
@@ -207,11 +207,10 @@ msgid "Choose Add File to create the compressed file."
 msgstr "ファイルを圧縮するには「ファイルを追加」を選んでください。"
 
 #: ../src/callbacks.c:242
-#, fuzzy
 msgid "Choose Add File or Add Folder to begin creating the archive."
 msgstr ""
-"Tarアーカイブを作成するには「ファイルを追加」あるいは「フォルダを追加」を選ん"
-"でください。"
+"アーカイブの作成を開始するには「ファイルを追加」か「フォルダを追加」を選んで"
+"ください。"
 
 #: ../src/callbacks.c:293
 msgid "The format of this archive is not recognized !"
@@ -444,12 +443,12 @@ msgstr "存在するファイルを上書きする"
 
 #: ../src/extract_dialog.c:137
 msgid "Extract files with full path"
-msgstr "ファイルを絶対パスで展開する"
+msgstr "ファイルを完全なパスで展開する"
 
 #: ../src/extract_dialog.c:140
 msgid ""
 "The archive's directory structure is recreated in the extraction directory."
-msgstr ""
+msgstr "アーカイブのフォルダ構成を展開先フォルダで再作成します。"
 
 #: ../src/extract_dialog.c:146
 msgid "Touch files"
@@ -464,7 +463,7 @@ msgstr ""
 
 #: ../src/extract_dialog.c:156
 msgid "Strip directories:"
-msgstr ""
+msgstr "削除するフォルダ:"
 
 #: ../src/extract_dialog.c:159
 msgid ""
@@ -530,38 +529,32 @@ msgid "_Archive"
 msgstr "アーカイブ(_A)"
 
 #: ../src/interface.c:95
-#, fuzzy
 msgid "_Test"
-msgstr "テスト"
+msgstr "テスト(_T)"
 
 #: ../src/interface.c:105
-#, fuzzy
 msgid "_Properties"
-msgstr "プロパティ"
+msgstr "プロパティ(_P)"
 
 #: ../src/interface.c:120
 msgid "_Action"
 msgstr "アクション(_A)"
 
 #: ../src/interface.c:129
-#, fuzzy
 msgid "Add F_ile"
-msgstr "ファイルを追加"
+msgstr "ファイルを追加(_I)"
 
 #: ../src/interface.c:138
-#, fuzzy
 msgid "Add _Folder"
-msgstr "フォルダを追加"
+msgstr "フォルダを追加(_F)"
 
 #: ../src/interface.c:168
-#, fuzzy
 msgid "_View"
-msgstr "表示"
+msgstr "表示(_V)"
 
 #: ../src/interface.c:183
-#, fuzzy
 msgid "View Error _Messages"
-msgstr "エラーメッセージを表示"
+msgstr "エラーメッセージを表示(_M)"
 
 #: ../src/interface.c:192
 msgid "Show ISO info"
@@ -721,7 +714,7 @@ msgstr "出版社:"
 
 #: ../src/iso.c:767
 msgid "Preparer:"
-msgstr ""
+msgstr "発行人:"
 
 #: ../src/iso.c:775
 msgid "Volume set ID:"
@@ -729,16 +722,15 @@ msgstr ""
 
 #: ../src/iso.c:783
 msgid "Bibliographic ID:"
-msgstr ""
+msgstr "文献ID:"
 
 #: ../src/iso.c:791
 msgid "Copyright ID:"
 msgstr "著作権ID:"
 
 #: ../src/iso.c:799
-#, fuzzy
 msgid "Abstract ID:"
-msgstr "展開先:"
+msgstr "アブストラクトID:"
 
 #: ../src/iso.c:807
 msgid "Creation date:"
@@ -758,21 +750,19 @@ msgstr "有効日時:"
 
 #: ../src/main.c:37
 msgid "Extract the archive to the specified folder and quits."
-msgstr ""
+msgstr "指定したフォルダにアーカイブを展開して終了します。"
 
 #: ../src/main.c:38
 msgid "Extract the archive by asking the destination folder and quits."
-msgstr ""
+msgstr "展開先フォルダを質問してアーカイブを展開した上で終了します。"
 
 #: ../src/main.c:39
-#, fuzzy
 msgid "Add files to the specified archive and quits."
-msgstr "ファイルをアーカイブに追加しています、お待ちください..."
+msgstr "指定したアーカイブにファイルを指定して終了します。"
 
 #: ../src/main.c:40
-#, fuzzy
 msgid "Add files asking the name of the archive and quits."
-msgstr "ファイルをアーカイブに追加しています、お待ちください..."
+msgstr "アーカイブ名を質問してファイルを追加した上で終了します。"
 
 #: ../src/main.c:51
 msgid "[archive name]"
@@ -789,12 +779,12 @@ msgstr ""
 
 #: ../src/main.c:64
 msgid "The file doesn't exist!"
-msgstr ""
+msgstr "ファイルは存在しません！"
 
 #: ../src/main.c:85
-#, fuzzy
 msgid "This switch can't be used with password protected archives.\n"
-msgstr "このアーカイブにはパスワードで保護されたファイルがあります"
+msgstr ""
+"このスイッチはパスワードで保護されたアーカイブと一緒に使用できません。\n"
 
 #: ../src/main.c:144
 msgid "Ready."
