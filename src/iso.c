@@ -71,7 +71,7 @@ int parse_rr(unsigned char * pnt, int len, int cont_flag)
 
 	symlinkname[0] = 0;
 
-	cont_extent = cont_offset = cont_size = 0;
+	cont_extent = cont_offset = cont_size = extent = 0;
 	ncount = 0;
 	flag1 = flag2 = 0;
 	while (len >= 4) {
@@ -644,6 +644,8 @@ void OpenISO ( XArchive *archive )
 	gtk_widget_set_sensitive ( properties , TRUE );
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
 	g_object_unref (model);
+	gtk_widget_set_sensitive ( iso_info , TRUE );
+	gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
 	Update_StatusBar ( _("Operation completed.") );
 }
 

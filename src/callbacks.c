@@ -519,6 +519,11 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 {
     gchar *name = NULL;
 	gchar *command = NULL;
+	
+	add_window = xa_create_add_dialog (archive);
+	gtk_dialog_run ( GTK_DIALOG (add_window->dialog1 ) );
+	g_free ( add_window );
+	return;
    	if ( Files_to_Add == NULL)
     {
         Files_to_Add = Add_File_Dialog ( data );
@@ -876,12 +881,9 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 gboolean isISO ( FILE *ptr )
 {
 	if ( DetectImage(ptr) > 0 )
-    {
-        gtk_widget_set_sensitive ( iso_info , TRUE );
-        gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
         return TRUE;
-    }
-    else return FALSE;
+    else
+		return FALSE;
 }
 
 gboolean isTar ( FILE *ptr )

@@ -82,7 +82,7 @@ int main (int argc, char **argv)
 	{
 		if (archive->has_passwd)
 		{
-			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This switch can't be used with password protected archives.\n") );
+			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This option can't be used with password protected archives.\n") );
 		}
 		else
 		{

@@ -23,11 +23,35 @@
 
 typedef struct
 {
-	GtkWidget *dialog;
-	
+	GtkWidget *dialog1;
+	GtkWidget *dialog_vbox1;
+	GtkWidget *vbox1;
+	GtkWidget *vbox2;
+	GtkWidget *frame1;
+	GtkWidget *frame2;
+	GtkWidget *remove_files_button;
+	GtkWidget *add_files_button;
+	GtkWidget *files_label;
+	GtkWidget *hbuttonbox1;
+	GtkWidget *alignment1;
+	GtkWidget *alignment2;
+	GtkWidget *scrolledwindow1;
+	GtkWidget *file_list_treeview;
+	GtkWidget *files_frame_label;
+	GtkWidget *checkbutton1;
+	GtkWidget *checkbutton2;
+	GtkWidget *checkbutton3;
+	GtkWidget *add_image;
+	GtkWidget *add_hbox;
+	GtkWidget *add_label;
+	GtkWidget *add_button;
+	GtkWidget *cancelbutton1;
+	GtkTooltips *add_option_tooltip;
+	GtkWidget *add_option_label;
+	GtkWidget *dialog_action_area1;
 } Add_dialog_data;
 
-Add_dialog_data *xa_create_add_dialog (gint selected ,XArchive *archive);
+Add_dialog_data *xa_create_add_dialog (XArchive *archive);
 gchar *xa_parse_add_dialog_options ( XArchive *archive ,Add_dialog_data *dialog_data, GtkTreeSelection *selection);
 gchar *xa_add_single_files ( XArchive *archive , GString *files, gchar *path);
 

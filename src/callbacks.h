@@ -42,11 +42,13 @@
 #include "gzip.h"
 #include "archive.h"
 #include "extract_dialog.h"
+#include "add_dialog.h"
 
 short int response;
 double content_size;
 gboolean done;
 Extract_dialog_data *extract_window;
+Add_dialog_data *add_window;
 GtkWidget *dialog , *textview, *textview1, *scrollwin, *vbox, *OutputWindow , *File_Selector , *pwd_window, *password_entry , *repeat_password, *view_window,*archive_properties_win;
 GtkTextBuffer *textbuf , *viewtextbuf;
 GtkTextIter enditer , start, end;
