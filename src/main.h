@@ -27,7 +27,7 @@ GList *ArchiveSuffix;
 GList *ArchiveType;
 
 void GetAvailableCompressors();
-void xa_set_button_state ( gboolean, gboolean,gboolean,gboolean,gboolean );
+void xa_set_button_state ( gboolean, gboolean,gboolean,gboolean );
 gboolean SpawnSyncCommand ( gchar *command );
 #endif /* MAIN_H */
 

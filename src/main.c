@@ -140,7 +140,7 @@ int main (int argc, char **argv)
 		gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		g_signal_connect (MainWindow, "delete_event", G_CALLBACK (xa_quit_application), NULL);
-		xa_set_button_state (1,1,0,0,0);
+		xa_set_button_state (1,1,0,0);
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);
 		cli = FALSE;
@@ -228,7 +228,7 @@ void GetAvailableCompressors()
 	}
 }
 
-void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean AddFolder,gboolean Extract)
+void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean Extract)
 {
 	gtk_widget_set_sensitive ( New_button, New);
     gtk_widget_set_sensitive ( new1, New);
@@ -236,8 +236,6 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean 
     gtk_widget_set_sensitive ( open1, Open);
 	gtk_widget_set_sensitive ( AddFile_button, AddFile);
 	gtk_widget_set_sensitive ( addfile, AddFile);
-	gtk_widget_set_sensitive ( addfolder, AddFolder);
-	gtk_widget_set_sensitive ( AddFolder_button, AddFolder);
 	gtk_widget_set_sensitive ( Extract_button, Extract);
 	gtk_widget_set_sensitive ( extract_menu, Extract);
 }

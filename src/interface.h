@@ -20,8 +20,6 @@
 #ifndef __XARCHIVER_INTERFACE_H__
 #define __XARCHIVER_INTERFACE_H__
 
-GtkWidget *prefs (gint);
-GtkWidget *passwd_win ( void );
 GtkWidget *view_win ( void );
 GtkWidget *create_MainWindow (void);
 GtkWidget *create_archive_properties_window (void);
@@ -57,8 +55,6 @@ GtkWidget *size_data;
 GtkWidget *modified_data;
 GtkWidget *path_data;
 GtkWidget *name_data;
-GtkWidget *password_entry;
-GtkWidget *repeat_password;
 GtkWidget *separatormenuitem1;
 GtkWidget *separatormenuitem2;
 GtkWidget *separatormenuitem3;
@@ -69,7 +65,6 @@ GtkWidget *menuitem2;
 GtkWidget *menuitem2_menu;
 GtkWidget *cut1;
 GtkWidget *addfile;
-GtkWidget *addfolder;
 GtkWidget *extract_menu;
 GtkWidget *copy1;
 GtkWidget *delete_menu;
@@ -88,14 +83,13 @@ GtkWidget *pad_image;
 GtkWidget *New_button;
 GtkWidget *Open_button;
 GtkWidget *separatortoolitem1;
-GtkWidget *AddFile_button;
-GtkWidget *AddFolder_button;
 GtkWidget *separatortoolitem2;
+GtkWidget *separatortoolitem3;
+GtkWidget *AddFile_button;
 GtkWidget *Extract_button;
 GtkWidget *Delete_button;
 GtkWidget *View_button;
 GtkWidget *Stop_button;
-GtkWidget *separatortoolitem3;
 GtkWidget *scrolledwindow1;
 GtkWidget *treeview1;
 GtkAccelGroup *accel_group;

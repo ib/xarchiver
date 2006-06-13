@@ -27,7 +27,9 @@ extern gboolean cli;
 Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 {
 	Add_dialog_data *add_dialog;
+
 	add_dialog = g_new0 (Add_dialog_data, 1);
+	add_dialog->file_dir_radio_group = NULL;
 	add_dialog->dialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (add_dialog->dialog1), _("Add Dialog"));
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
@@ -37,93 +39,113 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->dialog_vbox1 = GTK_DIALOG (add_dialog->dialog1)->vbox;
 	gtk_widget_show (add_dialog->dialog_vbox1);
 
-	add_dialog->vbox1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (add_dialog->vbox1);
-	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1), add_dialog->vbox1, TRUE, TRUE, 0);
+	add_dialog->frame5 = gtk_frame_new (NULL);
+	gtk_widget_show (add_dialog->frame5);
+	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1), add_dialog->frame5, TRUE, TRUE, 5);
+	gtk_widget_set_size_request (add_dialog->frame5, 380, -1);
 
-	add_dialog->frame1 = gtk_frame_new (NULL);
-	gtk_widget_show (add_dialog->frame1);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox1), add_dialog->frame1, TRUE, TRUE, 5);
-	gtk_widget_set_size_request (add_dialog->frame1, 380, -1);
-	gtk_frame_set_shadow_type (GTK_FRAME (add_dialog->frame1),  GTK_SHADOW_OUT);
+	add_dialog->alignment5 = gtk_alignment_new (0.5, 0.5, 1, 1);
+	gtk_widget_show (add_dialog->alignment5);
+	gtk_container_add (GTK_CONTAINER (add_dialog->frame5), add_dialog->alignment5);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (add_dialog->alignment5), 2, 5, 5, 5);
 
-	add_dialog->alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
-	gtk_widget_show (add_dialog->alignment1);
-	gtk_container_add (GTK_CONTAINER (add_dialog->frame1), add_dialog->alignment1);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (add_dialog->alignment1), 2, 5, 5, 5);
+	add_dialog->vbox7 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (add_dialog->vbox7);
+	gtk_container_add (GTK_CONTAINER (add_dialog->alignment5), add_dialog->vbox7);
 
-	add_dialog->scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (add_dialog->scrolledwindow1);
-	gtk_container_add (GTK_CONTAINER (add_dialog->alignment1), add_dialog->scrolledwindow1);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (add_dialog->scrolledwindow1), GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (add_dialog->scrolledwindow1) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	add_dialog->scrolledwindow3 = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (add_dialog->scrolledwindow3);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox7), add_dialog->scrolledwindow3, TRUE, TRUE, 0);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (add_dialog->scrolledwindow3), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (add_dialog->scrolledwindow3), GTK_SHADOW_IN);
 
 	add_dialog->file_list_treeview = gtk_tree_view_new ();
 	gtk_widget_show (add_dialog->file_list_treeview);
-	gtk_container_add (GTK_CONTAINER (add_dialog->scrolledwindow1), add_dialog->file_list_treeview);
+	gtk_container_add (GTK_CONTAINER (add_dialog->scrolledwindow3), add_dialog->file_list_treeview);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (add_dialog->file_list_treeview), FALSE);
 
-	add_dialog->files_label = gtk_label_new (_("<b>Files and directories to add </b>"));
-	gtk_widget_show (add_dialog->files_label);
-	gtk_frame_set_label_widget (GTK_FRAME (add_dialog->frame1), add_dialog->files_label);
-	gtk_label_set_use_markup (GTK_LABEL (add_dialog->files_label), TRUE);
+	add_dialog->hbox1 = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (add_dialog->hbox1);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox7), add_dialog->hbox1, TRUE, TRUE, 0);
 
-	add_dialog->hbuttonbox1 = gtk_hbutton_box_new ();
-	gtk_widget_show (add_dialog->hbuttonbox1);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox1), add_dialog->hbuttonbox1, FALSE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->hbuttonbox1), 5);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (add_dialog->hbuttonbox1), GTK_BUTTONBOX_END);
-	gtk_box_set_spacing (GTK_BOX (add_dialog->hbuttonbox1), 8);
+	add_dialog->vbox8 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (add_dialog->vbox8);
+	gtk_box_pack_start (GTK_BOX (add_dialog->hbox1), add_dialog->vbox8, TRUE, FALSE, 0);
 
-	add_dialog->remove_files_button = gtk_button_new_from_stock ("gtk-remove");
-	gtk_widget_show (add_dialog->remove_files_button);
-	gtk_container_add (GTK_CONTAINER (add_dialog->hbuttonbox1), add_dialog->remove_files_button);
-	GTK_WIDGET_SET_FLAGS (add_dialog->remove_files_button, GTK_CAN_DEFAULT);
+	add_dialog->files_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Files"));
+	gtk_widget_show (add_dialog->files_radio);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox8), add_dialog->files_radio, FALSE, FALSE, 0);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->files_radio), add_dialog->file_dir_radio_group);
+	add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->files_radio));
+
+	add_dialog->directories_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Directories"));
+	gtk_widget_show (add_dialog->directories_radio);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox8), add_dialog->directories_radio, FALSE, FALSE, 0);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->directories_radio), add_dialog->file_dir_radio_group);
+	add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->directories_radio));
+
+	add_dialog->hbuttonbox2 = gtk_hbutton_box_new ();
+	gtk_widget_show (add_dialog->hbuttonbox2);
+	gtk_box_pack_start (GTK_BOX (add_dialog->hbox1), add_dialog->hbuttonbox2, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->hbuttonbox2), 5);
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (add_dialog->hbuttonbox2), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing (GTK_BOX (add_dialog->hbuttonbox2), 8);
+
+	add_dialog->remove_button = gtk_button_new_from_stock ("gtk-remove");
+	gtk_widget_show (add_dialog->remove_button);
+	gtk_container_add (GTK_CONTAINER (add_dialog->hbuttonbox2), add_dialog->remove_button);
+	GTK_WIDGET_SET_FLAGS (add_dialog->remove_button, GTK_CAN_DEFAULT);
 
 	add_dialog->add_files_button = gtk_button_new_from_stock ("gtk-add");
 	gtk_widget_show (add_dialog->add_files_button);
-	gtk_container_add (GTK_CONTAINER (add_dialog->hbuttonbox1), add_dialog->add_files_button);
+	gtk_tooltips_set_tip (add_dialog->add_option_tooltip,add_dialog->add_files_button , _("Choose the files or directories to add to the archive"), NULL );
+	gtk_container_add (GTK_CONTAINER (add_dialog->hbuttonbox2), add_dialog->add_files_button);
 	GTK_WIDGET_SET_FLAGS (add_dialog->add_files_button, GTK_CAN_DEFAULT);
+	g_signal_connect ( (gpointer) add_dialog->add_files_button, "clicked", G_CALLBACK (Show_File_Dialog) ,  NULL );
+	
+	add_dialog->label3 = gtk_label_new (_("<b>Files and directories to add </b>"));
+	gtk_widget_show (add_dialog->label3);
+	gtk_frame_set_label_widget (GTK_FRAME (add_dialog->frame5), add_dialog->label3);
+	gtk_label_set_use_markup (GTK_LABEL (add_dialog->label3), TRUE);
 
-	add_dialog->frame2 = gtk_frame_new (NULL);
-	gtk_widget_show (add_dialog->frame2);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox1), add_dialog->frame2, TRUE, TRUE, 0);
-	gtk_frame_set_shadow_type (GTK_FRAME (add_dialog->frame2),  GTK_SHADOW_OUT);
+	add_dialog->frame4 = gtk_frame_new (NULL);
+	gtk_widget_show (add_dialog->frame4);
+	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1), add_dialog->frame4, TRUE, FALSE, 0);
 
-	add_dialog->alignment2 = gtk_alignment_new (0.5, 0.5, 1, 1);
-	gtk_widget_show (add_dialog->alignment2);
-	gtk_container_add (GTK_CONTAINER (add_dialog->frame2), add_dialog->alignment2);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (add_dialog->alignment2), 0, 0, 12, 0);
+	add_dialog->alignment4 = gtk_alignment_new (0.5, 0.5, 1, 1);
+	gtk_widget_show (add_dialog->alignment4);
+	gtk_container_add (GTK_CONTAINER (add_dialog->frame4), add_dialog->alignment4);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (add_dialog->alignment4), 0, 0, 12, 0);
 
-	add_dialog->vbox2 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (add_dialog->vbox2);
-	gtk_container_add (GTK_CONTAINER (add_dialog->alignment2), add_dialog->vbox2);
+	add_dialog->vbox6 = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (add_dialog->vbox6);
+	gtk_container_add (GTK_CONTAINER (add_dialog->alignment4), add_dialog->vbox6);
 
-	add_dialog->checkbutton1 = gtk_check_button_new_with_mnemonic (_("checkbutton1"));
+	add_dialog->checkbutton1 = gtk_check_button_new_with_mnemonic (_("Add files with full path"));
 	gtk_widget_show (add_dialog->checkbutton1);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox2), add_dialog->checkbutton1, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->checkbutton1, FALSE, FALSE, 0);
 
-	add_dialog->checkbutton2 = gtk_check_button_new_with_mnemonic (_("checkbutton2"));
+	add_dialog->checkbutton2 = gtk_check_button_new_with_mnemonic (_("Delete files after adding"));
 	gtk_widget_show (add_dialog->checkbutton2);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox2), add_dialog->checkbutton2, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->checkbutton2, FALSE, FALSE, 0);
 
 	add_dialog->checkbutton3 = gtk_check_button_new_with_mnemonic (_("checkbutton3"));
 	gtk_widget_show (add_dialog->checkbutton3);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox2), add_dialog->checkbutton3, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->checkbutton3, FALSE, FALSE, 0);
 
-	add_dialog->add_option_label = gtk_label_new (_("<b>Options </b>"));
-	gtk_widget_show (add_dialog->add_option_label);
-	gtk_frame_set_label_widget (GTK_FRAME (add_dialog->frame2), add_dialog->add_option_label);
-	gtk_label_set_use_markup (GTK_LABEL (add_dialog->add_option_label), TRUE);
+	add_dialog->label2 = gtk_label_new (_("<b>Options </b>"));
+	gtk_widget_show (add_dialog->label2);
+	gtk_frame_set_label_widget (GTK_FRAME (add_dialog->frame4), add_dialog->label2);
+	gtk_label_set_use_markup (GTK_LABEL (add_dialog->label2), TRUE);
+	
+	add_dialog->dialog_action_area2 = GTK_DIALOG (add_dialog->dialog1)->action_area;
+	gtk_widget_show (add_dialog->dialog_action_area2);
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (add_dialog->dialog_action_area2), GTK_BUTTONBOX_END);
 
-	add_dialog->dialog_action_area1 = GTK_DIALOG (add_dialog->dialog1)->action_area;
-	gtk_widget_show (add_dialog->dialog_action_area1);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (add_dialog->dialog_action_area1), GTK_BUTTONBOX_END);
-
-	add_dialog->cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
-	gtk_widget_show (add_dialog->cancelbutton1);
-	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->cancelbutton1, GTK_RESPONSE_CANCEL);
-	GTK_WIDGET_SET_FLAGS (add_dialog->cancelbutton1, GTK_CAN_DEFAULT);
+	add_dialog->cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+	gtk_widget_show (add_dialog->cancel_button);
+	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->cancel_button, GTK_RESPONSE_CANCEL);
+	GTK_WIDGET_SET_FLAGS (add_dialog->cancel_button, GTK_CAN_DEFAULT);
 
 	add_dialog->add_button = gtk_button_new();
 	add_dialog->add_image = xa_main_window_find_image("add_button.png", GTK_ICON_SIZE_SMALL_TOOLBAR);

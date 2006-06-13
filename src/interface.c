@@ -126,7 +126,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_set_name (menuitem2_menu, "menuitem2_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
-  addfile = gtk_image_menu_item_new_with_mnemonic (_("Add F_ile"));
+  addfile = gtk_image_menu_item_new_with_mnemonic (_("Add"));
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
   gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_i, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
@@ -135,20 +135,6 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (image2);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
  
-  addfolder = gtk_image_menu_item_new_with_mnemonic (_("Add _Folder"));
-  gtk_widget_show (addfolder);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfolder);
-  gtk_widget_add_accelerator (addfolder, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
-  image2 = xa_main_window_find_image ("add_folder_button.png", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (image2);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfolder), image2);
-
-  separatormenuitem2 = gtk_separator_menu_item_new ();
-  gtk_widget_show (separatormenuitem2);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem2);
-  gtk_widget_set_sensitive (separatormenuitem2, FALSE);
-   
   extract_menu = gtk_image_menu_item_new_with_mnemonic (_("_Extract"));
   gtk_widget_show (extract_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
@@ -157,6 +143,11 @@ GtkWidget *create_MainWindow (void)
   image2 =  xa_main_window_find_image ("extract_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu), image2);
+
+  separatormenuitem2 = gtk_separator_menu_item_new ();
+  gtk_widget_show (separatormenuitem2);
+  gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem2);
+  gtk_widget_set_sensitive (separatormenuitem2, FALSE);
 
   delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete", accel_group);
   gtk_widget_set_name (delete_menu, "delete_menu");
@@ -245,26 +236,12 @@ GtkWidget *create_MainWindow (void)
 
   tmp_image = xa_main_window_find_image("add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
   gtk_widget_show (tmp_image);
-  AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Add File"));
+  AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Add"));
   gtk_widget_set_name (AddFile_button, "AddFile_button");
   gtk_widget_show (AddFile_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (AddFile_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), AddFile_button);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFile_button), tooltips, _("Add a file to the current archive"), NULL);
-
-  tmp_image = xa_main_window_find_image("add_folder.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
-  gtk_widget_show (tmp_image);
-  AddFolder_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Add Folder"));
-  gtk_widget_set_name (AddFolder_button, "AddFolder_button");
-  gtk_widget_show (AddFolder_button);
-  gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (AddFolder_button), FALSE);
-  gtk_container_add (GTK_CONTAINER (toolbar1), AddFolder_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFolder_button), tooltips, _("Add an entire folder to the current archive"), NULL);
-
-  separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
-  gtk_widget_set_name (separatortoolitem2, "separatortoolitem2");
-  gtk_widget_show (separatortoolitem2);
-  gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem2);
 
   tmp_image = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
   gtk_widget_show (tmp_image);
@@ -274,6 +251,11 @@ GtkWidget *create_MainWindow (void)
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Extract_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Extract_button);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Extract_button), tooltips, _("Extract files from the current archive; use the mouse to select files individually"), NULL);
+
+  separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
+  gtk_widget_set_name (separatortoolitem2, "separatortoolitem2");
+  gtk_widget_show (separatortoolitem2);
+  gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem2);
 
   tmp_image = gtk_image_new_from_stock ("gtk-delete", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
@@ -383,12 +365,7 @@ GtkWidget *create_MainWindow (void)
   g_signal_connect ((gpointer) extract_menu, "activate",
                     G_CALLBACK (xa_extract_archive),
                     NULL);
-  g_signal_connect ((gpointer) addfile, "activate",
-                    G_CALLBACK (xa_add_files_archive),
-                    "file");
-  g_signal_connect ((gpointer) addfolder, "activate",
-                    G_CALLBACK (xa_add_files_archive),
-                    "folder");
+  g_signal_connect ((gpointer) addfile, "activate", G_CALLBACK (xa_add_files_archive), NULL);
   g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (ShowShellOutput), NULL);
   g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
   g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
@@ -407,13 +384,8 @@ GtkWidget *create_MainWindow (void)
   g_signal_connect ((gpointer) Open_button, "clicked",
                     G_CALLBACK (xa_open_archive),
                     NULL);
-  g_signal_connect ((gpointer) AddFile_button, "clicked",
-                    G_CALLBACK (xa_add_files_archive),
-                    "file");
-  g_signal_connect ((gpointer) AddFolder_button, "clicked",
-                  G_CALLBACK (xa_add_files_archive), "folder" );
-		  
-  g_signal_connect ((gpointer) Extract_button, "clicked",
+  g_signal_connect ((gpointer) AddFile_button, "clicked", G_CALLBACK (xa_add_files_archive), NULL);
+    g_signal_connect ((gpointer) Extract_button, "clicked",
                     G_CALLBACK (xa_extract_archive),
                     NULL);
   g_signal_connect ((gpointer) Delete_button, "clicked",
