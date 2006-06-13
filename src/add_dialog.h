@@ -30,12 +30,14 @@ typedef struct
 	GtkWidget *vbox7;
 	GtkWidget *vbox8;
 	GtkWidget *hbox1;
+	GtkWidget *hbox2;
 	GtkWidget *frame5;
 	GtkWidget *frame4;
 	GtkWidget *remove_button;
 	GtkWidget *add_files_button;
 	GtkWidget *label2;
 	GtkWidget *label3;
+	GtkWidget *label4;
 	GtkWidget *files_radio;
 	GtkWidget *directories_radio;
 	GSList *file_dir_radio_group;
@@ -48,9 +50,9 @@ typedef struct
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
-	GtkWidget *checkbutton1;
-	GtkWidget *checkbutton2;
-	GtkWidget *checkbutton3;
+	GtkWidget *add_full_path;
+	GtkWidget *compression_scale;
+	GtkWidget *recurse;
 	GtkWidget *add_image;
 	GtkWidget *add_hbox;
 	GtkWidget *add_label;

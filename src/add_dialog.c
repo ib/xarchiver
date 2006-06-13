@@ -140,17 +140,26 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_widget_show (add_dialog->vbox6);
 	gtk_container_add (GTK_CONTAINER (add_dialog->alignment4), add_dialog->vbox6);
 
-	add_dialog->checkbutton1 = gtk_check_button_new_with_mnemonic (_("Add files with full path"));
-	gtk_widget_show (add_dialog->checkbutton1);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->checkbutton1, FALSE, FALSE, 0);
+	add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Recurse subdirectories"));
+	gtk_widget_show (add_dialog->recurse);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->recurse, FALSE, FALSE, 0);
 
-	add_dialog->checkbutton2 = gtk_check_button_new_with_mnemonic (_("Delete files after adding"));
-	gtk_widget_show (add_dialog->checkbutton2);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->checkbutton2, FALSE, FALSE, 0);
+	add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
+	gtk_widget_show (add_dialog->add_full_path);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
 
-	add_dialog->checkbutton3 = gtk_check_button_new_with_mnemonic (_("checkbutton3"));
-	gtk_widget_show (add_dialog->checkbutton3);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->checkbutton3, FALSE, FALSE, 0);
+	add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
+	gtk_widget_show (add_dialog->hbox2);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
+
+	add_dialog->label4 = gtk_label_new (_("Compression level:"));
+	gtk_widget_show (add_dialog->label4);
+	gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
+
+	add_dialog->compression_scale = gtk_hscale_new_with_range ( 0 , 9 ,0 );
+	gtk_widget_show (add_dialog->compression_scale);
+	gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
+	gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
 
 	add_dialog->label2 = gtk_label_new (_("<b>Options </b>"));
 	gtk_widget_show (add_dialog->label2);
