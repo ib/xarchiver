@@ -51,6 +51,8 @@ typedef struct
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
 	GtkWidget *add_full_path;
+	GtkWidget *update;
+	GtkWidget *freshen;
 	GtkWidget *compression_scale;
 	GtkWidget *recurse;
 	GtkWidget *add_image;

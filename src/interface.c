@@ -518,10 +518,13 @@ GtkWidget *view_win ()
 
 GtkWidget *create_archive_properties_window ()
 {
-	archive_properties_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (archive_properties_window), _("Archive Properties Window"));
-	gtk_window_set_destroy_with_parent (GTK_WINDOW (archive_properties_window), TRUE);
-	gtk_window_set_transient_for ( GTK_WINDOW (archive_properties_window) , GTK_WINDOW (MainWindow) );
+	archive_properties_window = gtk_dialog_new_with_buttons (_("Archive Properties Window"),
+									GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_STOCK_CLOSE, GTK_RESPONSE_NONE, NULL);
+
+	g_signal_connect(archive_properties_window, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+	g_signal_connect(archive_properties_window, "delete_event", G_CALLBACK(gtk_widget_destroy), NULL);
+
 	gtk_window_set_position (GTK_WINDOW (archive_properties_window), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (archive_properties_window), FALSE);
 	gtk_window_set_modal (GTK_WINDOW (archive_properties_window), TRUE);
@@ -529,7 +532,7 @@ GtkWidget *create_archive_properties_window ()
 
 	table1 = gtk_table_new (8, 2, TRUE);
 	gtk_widget_show (table1);
-	gtk_container_add (GTK_CONTAINER (archive_properties_window), table1);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (archive_properties_window)->vbox), table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 6);
 

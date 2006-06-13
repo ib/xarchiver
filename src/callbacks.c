@@ -68,7 +68,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
 		xa_set_button_state (1,1,0,0);
 	else if (archive->type == XARCHIVETYPE_RPM)
+	{
 		xa_set_button_state (1,1,0,1);
+		gtk_widget_set_sensitive ( check_menu , FALSE);
+	}
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
 	{
 		xa_set_button_state (1,1,1,1);
@@ -1309,7 +1312,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     g_free ( utf8_string );
     g_free ( dummy_string );
     //Modified Date
-    strftime (date, 64, _("%c"), localtime (&my_stat.st_mtime) );
+    strftime (date, 64, "%c", localtime (&my_stat.st_mtime) );
     t = g_locale_to_utf8 ( date, -1, 0, 0, 0);
     gtk_entry_set_text ( GTK_ENTRY (modified_data), t);
     g_free (t);

@@ -148,18 +148,30 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_widget_show (add_dialog->add_full_path);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
 
+	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
+	gtk_widget_show (add_dialog->freshen);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
+
+	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update an existing entry in the archive"));
+	gtk_widget_show (add_dialog->update);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->update, FALSE, FALSE, 0);
+
 	add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
 	gtk_widget_show (add_dialog->hbox2);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
 
-	add_dialog->label4 = gtk_label_new (_("Compression level:"));
-	gtk_widget_show (add_dialog->label4);
-	gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
-
-	add_dialog->compression_scale = gtk_hscale_new_with_range ( 0 , 9 ,0 );
-	gtk_widget_show (add_dialog->compression_scale);
-	gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
-	gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
+	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_GZ )
+	{
+		add_dialog->label4 = gtk_label_new (_("Compression level:"));
+		gtk_widget_show (add_dialog->label4);
+		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
+	
+		add_dialog->compression_scale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (5, 0, 9, 0, 0, 0)));
+		gtk_widget_show (add_dialog->compression_scale);
+		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
+		gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
+		gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
+	}
 
 	add_dialog->label2 = gtk_label_new (_("<b>Options </b>"));
 	gtk_widget_show (add_dialog->label2);
