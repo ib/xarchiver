@@ -53,7 +53,7 @@ GtkWidget *create_MainWindow (void)
   MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_set_name (MainWindow, "MainWindow");
   gtk_window_set_title (GTK_WINDOW (MainWindow), "Xarchiver " VERSION);
-  //By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we should have KDE DnD compatibility.
+  /* By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we should have KDE DnD compatibility. */
   gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL,dst_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
   gtk_window_set_default_icon_from_file ("xarchiver.png", NULL );
   g_signal_connect (GTK_WINDOW (MainWindow), "drag_data_received", G_CALLBACK (on_drag_data_received), NULL);
@@ -203,7 +203,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), about1);
 
-  /*Create the toolbar */
+  /* Create the toolbar */
   toolbar1 = gtk_toolbar_new ();
   gtk_widget_set_name (toolbar1, "toolbar1");
   gtk_widget_show (toolbar1);
@@ -463,7 +463,7 @@ GtkWidget *passwd_win ()
   gtk_fixed_put (GTK_FIXED (fixed2), label3, 5, 4);
   gtk_widget_set_size_request (label3, 72, 24);
   
-  label1 = gtk_label_new (_("Please note that the password is automatically resetted each time you open or create a new archive."));
+  label1 = gtk_label_new (_("This action requires the archive's password."));
   gtk_widget_show (label1);
   gtk_box_pack_start (GTK_BOX (vbox2), label1, FALSE, FALSE, 0);
   gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_CENTER);
