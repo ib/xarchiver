@@ -241,7 +241,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (AddFile_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (AddFile_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), AddFile_button);
-  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFile_button), tooltips, _("Add a file to the current archive"), NULL);
+  gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFile_button), tooltips, _("Add files and directories to the current archive"), NULL);
 
   tmp_image = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
   gtk_widget_show (tmp_image);

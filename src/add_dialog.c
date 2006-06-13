@@ -59,11 +59,29 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (add_dialog->scrolledwindow3), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (add_dialog->scrolledwindow3), GTK_SHADOW_IN);
 
-	add_dialog->file_list_treeview = gtk_tree_view_new ();
-	gtk_widget_show (add_dialog->file_list_treeview);
-	gtk_container_add (GTK_CONTAINER (add_dialog->scrolledwindow3), add_dialog->file_list_treeview);
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (add_dialog->file_list_treeview), FALSE);
+	add_dialog->file_liststore = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 
+	add_dialog->file_list_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(add_dialog->file_liststore));
+	add_dialog->column = gtk_tree_view_column_new();
+
+	add_dialog->selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(add_dialog->file_list_treeview) );
+	gtk_tree_selection_set_mode(add_dialog->selection, GTK_SELECTION_MULTIPLE);
+
+	add_dialog->renderer = gtk_cell_renderer_pixbuf_new();
+	gtk_tree_view_column_pack_start (add_dialog->column, add_dialog->renderer, FALSE);
+	gtk_tree_view_column_add_attribute (add_dialog->column, add_dialog->renderer, "stock-id", 0);
+	
+	add_dialog->renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(add_dialog->column, add_dialog->renderer, TRUE);
+	gtk_tree_view_column_add_attribute(add_dialog->column, add_dialog->renderer, "text", 1);
+	
+	gtk_tree_view_append_column(GTK_TREE_VIEW(add_dialog->file_list_treeview), column);
+	
+	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(add_dialog->file_list_treeview), TRUE);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (add_dialog->file_list_treeview), FALSE);
+	gtk_container_add (GTK_CONTAINER (add_dialog->scrolledwindow3), add_dialog->file_list_treeview);
+	gtk_widget_show (add_dialog->file_list_treeview);
+	
 	add_dialog->hbox1 = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (add_dialog->hbox1);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox7), add_dialog->hbox1, TRUE, TRUE, 0);
@@ -101,7 +119,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_tooltips_set_tip (add_dialog->add_option_tooltip,add_dialog->add_files_button , _("Choose the files or directories to add to the archive"), NULL );
 	gtk_container_add (GTK_CONTAINER (add_dialog->hbuttonbox2), add_dialog->add_files_button);
 	GTK_WIDGET_SET_FLAGS (add_dialog->add_files_button, GTK_CAN_DEFAULT);
-	g_signal_connect ( (gpointer) add_dialog->add_files_button, "clicked", G_CALLBACK (Show_File_Dialog) ,  NULL );
+	g_signal_connect ( (gpointer) add_dialog->add_files_button, "clicked", G_CALLBACK (xa_select_files_to_add) , add_dialog );
 	
 	add_dialog->label3 = gtk_label_new (_("<b>Files and directories to add </b>"));
 	gtk_widget_show (add_dialog->label3);
@@ -167,9 +185,66 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 	return command;
 }
 
-gchar *xa_add_single_files ( XArchive *archive , GString *files, gchar *path)
+void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog )
 {
-    gchar *command;
-	return command;
+	Add_dialog_data *add_dialog = _add_dialog;
+	GSList *dummy = NULL;
+	unsigned short int flag;
+
+	if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->files_radio)) )
+	{
+		title = _("Please select the files you want to add");
+		flag = GTK_FILE_CHOOSER_ACTION_OPEN;
+	}
+	else
+	{
+		title = _("Please select the directories you want to add");
+		flag = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
+	}
+	
+	File_Selector = gtk_file_chooser_dialog_new ( title,
+							GTK_WINDOW (MainWindow),
+							flag,
+							GTK_STOCK_CANCEL,
+							GTK_RESPONSE_CANCEL,
+							GTK_STOCK_OPEN,
+							GTK_RESPONSE_ACCEPT,
+							NULL);
+	gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
+	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
+	if (response == GTK_RESPONSE_ACCEPT)
+		dummy = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (File_Selector));
+	
+	g_slist_foreach( dummy, (GFunc) add_files_liststore, add_dialog->file_liststore);
+	
+	/*
+	while (dummy)
+	{
+		g_message (dummy->data);
+		g_free (dummy->data);
+		dummy = dummy->next;
+	}
+	*/
+
+	if (dummy != NULL)
+		g_slist_free (dummy);
+	gtk_widget_destroy ( File_Selector );
+	return;
 }
+
+void add_files_liststore (gchar *file_path, GtkListStore *liststore)
+{
+	GtkTreeIter iter;
+	gchar *icon = GTK_STOCK_FILE;
+	gchar *file_utf8;
+
+	file_utf8 = g_filename_display_name (file_path);
+	if ( g_file_test(file_path, G_FILE_TEST_IS_DIR) == TRUE )
+		icon = GTK_STOCK_DIRECTORY;
+
+	gtk_list_store_append(liststore, &iter);
+	gtk_list_store_set (liststore, &iter, 0, icon, 1, file_utf8, -1);
+	g_free (file_utf8);
+}
+
 

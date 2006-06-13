@@ -44,6 +44,10 @@ typedef struct
 	GtkWidget *alignment5;
 	GtkWidget *scrolledwindow3;
 	GtkWidget *file_list_treeview;
+	GtkListStore *file_liststore;
+	GtkCellRenderer *renderer;
+	GtkTreeSelection *selection;
+	GtkTreeViewColumn *column;
 	GtkWidget *checkbutton1;
 	GtkWidget *checkbutton2;
 	GtkWidget *checkbutton3;
@@ -59,7 +63,8 @@ typedef struct
 
 Add_dialog_data *xa_create_add_dialog (XArchive *archive);
 gchar *xa_parse_add_dialog_options ( XArchive *archive ,Add_dialog_data *dialog_data, GtkTreeSelection *selection);
-gchar *xa_add_single_files ( XArchive *archive , GString *files, gchar *path);
+void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog );
+void add_files_liststore (gchar *file_path, GtkListStore *liststore);
 
 #endif
 
