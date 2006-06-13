@@ -146,7 +146,10 @@ int main (int argc, char **argv)
 		cli = FALSE;
 		//This to open the archive from the command line
 		if ( argc == 2)
-			xa_open_archive ( NULL , argv[1] );
+		{
+			gchar *dummy = g_strdup(argv[1]);
+			xa_open_archive ( NULL , dummy );
+		}
 		gtk_main ();
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);

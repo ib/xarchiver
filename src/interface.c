@@ -406,7 +406,7 @@ GtkWidget *create_MainWindow (void)
 }
 
 /*
-GtkWidget *passwd_win ()
+GtkWidget *password_win ()
 {
   GtkWidget *passwd;
   GtkWidget *dialog_vbox1;
