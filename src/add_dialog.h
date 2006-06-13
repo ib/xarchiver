@@ -65,6 +65,8 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive);
 gchar *xa_parse_add_dialog_options ( XArchive *archive ,Add_dialog_data *dialog_data, GtkTreeSelection *selection);
 void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog );
 void add_files_liststore (gchar *file_path, GtkListStore *liststore);
+void remove_files_liststore (GtkWidget *widget, gpointer data);
+void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, GList **rowref_list);
 
 #endif
 

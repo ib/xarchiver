@@ -75,7 +75,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_tree_view_column_pack_start(add_dialog->column, add_dialog->renderer, TRUE);
 	gtk_tree_view_column_add_attribute(add_dialog->column, add_dialog->renderer, "text", 1);
 	
-	gtk_tree_view_append_column(GTK_TREE_VIEW(add_dialog->file_list_treeview), column);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(add_dialog->file_list_treeview), add_dialog->column);
 	
 	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(add_dialog->file_list_treeview), TRUE);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (add_dialog->file_list_treeview), FALSE);
@@ -113,6 +113,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_widget_show (add_dialog->remove_button);
 	gtk_container_add (GTK_CONTAINER (add_dialog->hbuttonbox2), add_dialog->remove_button);
 	GTK_WIDGET_SET_FLAGS (add_dialog->remove_button, GTK_CAN_DEFAULT);
+	g_signal_connect ( (gpointer) add_dialog->remove_button, "clicked", G_CALLBACK (remove_files_liststore) , add_dialog );
 
 	add_dialog->add_files_button = gtk_button_new_from_stock ("gtk-add");
 	gtk_widget_show (add_dialog->add_files_button);
@@ -213,18 +214,10 @@ void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog )
 	gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
 	if (response == GTK_RESPONSE_ACCEPT)
-		dummy = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (File_Selector));
-	
-	g_slist_foreach( dummy, (GFunc) add_files_liststore, add_dialog->file_liststore);
-	
-	/*
-	while (dummy)
 	{
-		g_message (dummy->data);
-		g_free (dummy->data);
-		dummy = dummy->next;
+		dummy = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (File_Selector));
+		g_slist_foreach( dummy, (GFunc) add_files_liststore, add_dialog->file_liststore);
 	}
-	*/
 
 	if (dummy != NULL)
 		g_slist_free (dummy);
@@ -232,6 +225,7 @@ void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog )
 	return;
 }
 
+/* Code from xarchive - http://xarchive.sourceforge.net */
 void add_files_liststore (gchar *file_path, GtkListStore *liststore)
 {
 	GtkTreeIter iter;
@@ -247,4 +241,40 @@ void add_files_liststore (gchar *file_path, GtkListStore *liststore)
 	g_free (file_utf8);
 }
 
+void remove_files_liststore (GtkWidget *widget, gpointer data)
+{
+	Add_dialog_data *add_dialog = data;
+	GtkTreeSelection *sel;
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	GList *rr_list = NULL;
+	GList *node;
+
+	sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(add_dialog->file_list_treeview) );
+	gtk_tree_selection_selected_foreach(sel, (GtkTreeSelectionForeachFunc) remove_foreach_func, &rr_list);
+
+	for (node = rr_list; node != NULL; node = node->next)
+	{
+		path = gtk_tree_row_reference_get_path((GtkTreeRowReference *) node->data);
+		if (path)
+	    {
+			if ( gtk_tree_model_get_iter(GTK_TREE_MODEL(add_dialog->file_liststore), &iter, path) )
+				gtk_list_store_remove(add_dialog->file_liststore, &iter);
+			gtk_tree_path_free(path);
+		}
+	}
+
+	g_list_foreach(rr_list, (GFunc) gtk_tree_row_reference_free, NULL);
+	g_list_free(rr_list);
+}
+
+void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, GList **rowref_list)
+{
+	GtkTreeRowReference *rowref;
+
+	rowref = gtk_tree_row_reference_new(model, path);
+	*rowref_list = g_list_append(*rowref_list, rowref);
+}
+
+/* End code from xarchive */
 
