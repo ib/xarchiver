@@ -1079,7 +1079,6 @@ void ShowShellOutput ( GtkMenuItem *menuitem )
 		return;
 	}
 	OutputWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_widget_set_name (OutputWindow, "OutputWindow");
 	gtk_window_set_position (GTK_WINDOW (OutputWindow), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(OutputWindow), 350, 200);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (OutputWindow), TRUE);

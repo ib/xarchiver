@@ -51,43 +51,35 @@ GtkWidget *create_MainWindow (void)
   accel_group = gtk_accel_group_new ();
 
   MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_set_name (MainWindow, "MainWindow");
   gtk_window_set_title (GTK_WINDOW (MainWindow), "Xarchiver " VERSION);
   /* By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we should have KDE DnD compatibility. */
   gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL,dst_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-  gtk_window_set_default_icon_from_file ("xarchiver.png", NULL );
+  gtk_window_set_default_icon_from_file (DATADIR "/pixmaps/xarchiver.png", NULL  );
   g_signal_connect (GTK_WINDOW (MainWindow), "drag_data_received", G_CALLBACK (on_drag_data_received), NULL);
   vbox1 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_set_name (vbox1, "vbox1");
   gtk_widget_show (vbox1);
   gtk_container_add (GTK_CONTAINER (MainWindow), vbox1);
 
   menubar1 = gtk_menu_bar_new ();
-  gtk_widget_set_name (menubar1, "menubar1");
   gtk_widget_show (menubar1);
   gtk_box_pack_start (GTK_BOX (vbox1), menubar1, FALSE, FALSE, 0);
 
   menuitem1 = gtk_menu_item_new_with_mnemonic (_("_Archive"));
-  gtk_widget_set_name (menuitem1, "menuitem1");
   gtk_widget_show (menuitem1);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem1);
 
   menuitem1_menu = gtk_menu_new ();
-  gtk_widget_set_name (menuitem1_menu, "menuitem1_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem1), menuitem1_menu);
 
   new1 = gtk_image_menu_item_new_from_stock ("gtk-new", accel_group);
-  gtk_widget_set_name (new1, "new1");
   gtk_widget_show (new1);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), new1);
 
   open1 = gtk_image_menu_item_new_from_stock ("gtk-open", accel_group);
-  gtk_widget_set_name (open1, "open1");
   gtk_widget_show (open1);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), open1);
 
   separatormenuitem1 = gtk_separator_menu_item_new ();
-  gtk_widget_set_name (separatormenuitem1, "separatormenuitem1");
   gtk_widget_show (separatormenuitem1);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), separatormenuitem1);
   gtk_widget_set_sensitive (separatormenuitem1, FALSE);
@@ -113,17 +105,14 @@ GtkWidget *create_MainWindow (void)
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties), tmp_image);
 
   quit1 = gtk_image_menu_item_new_from_stock ("gtk-quit", accel_group);
-  gtk_widget_set_name (quit1, "quit1");
   gtk_widget_show (quit1);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), quit1);
 
   menuitem2 = gtk_menu_item_new_with_mnemonic (_("_Action"));
-  gtk_widget_set_name (menuitem2, "menuitem2");
   gtk_widget_show (menuitem2);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem2);
 
   menuitem2_menu = gtk_menu_new ();
-  gtk_widget_set_name (menuitem2_menu, "menuitem2_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
   addfile = gtk_image_menu_item_new_with_mnemonic (_("Add"));
@@ -150,7 +139,6 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_set_sensitive (separatormenuitem2, FALSE);
 
   delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete", accel_group);
-  gtk_widget_set_name (delete_menu, "delete_menu");
   gtk_widget_set_sensitive (delete_menu,FALSE);
   gtk_widget_show (delete_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), delete_menu);
@@ -190,22 +178,18 @@ GtkWidget *create_MainWindow (void)
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (iso_info), tmp_image);
 
   menuitem4 = gtk_menu_item_new_with_mnemonic (_("_Help"));
-  gtk_widget_set_name (menuitem4, "menuitem4");
   gtk_widget_show (menuitem4);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem4);
 
   menuitem4_menu = gtk_menu_new ();
-  gtk_widget_set_name (menuitem4_menu, "menuitem4_menu");
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem4), menuitem4_menu);
 
   about1 = gtk_menu_item_new_with_mnemonic (_("_About"));
-  gtk_widget_set_name (about1, "about1");
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), about1);
 
   /* Create the toolbar */
   toolbar1 = gtk_toolbar_new ();
-  gtk_widget_set_name (toolbar1, "toolbar1");
   gtk_widget_show (toolbar1);
   gtk_box_pack_start (GTK_BOX (vbox1), toolbar1, FALSE, FALSE, 0);
   gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1), GTK_TOOLBAR_BOTH);
@@ -214,7 +198,6 @@ GtkWidget *create_MainWindow (void)
   tmp_image = gtk_image_new_from_stock ("gtk-new", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
   New_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("New"));
-  gtk_widget_set_name (New_button, "New_button");
   gtk_widget_show (New_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (New_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), New_button);
@@ -223,21 +206,18 @@ GtkWidget *create_MainWindow (void)
   tmp_image = gtk_image_new_from_stock ("gtk-open", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
   Open_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Open"));
-  gtk_widget_set_name (Open_button, "Open_button");
   gtk_widget_show (Open_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Open_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Open_button);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Open_button), tooltips, _("Open an archive"), NULL);
 
   separatortoolitem1 = (GtkWidget*) gtk_separator_tool_item_new ();
-  gtk_widget_set_name (separatortoolitem1, "separatortoolitem1");
   gtk_widget_show (separatortoolitem1);
   gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem1);
 
   tmp_image = xa_main_window_find_image("add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
   gtk_widget_show (tmp_image);
   AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Add"));
-  gtk_widget_set_name (AddFile_button, "AddFile_button");
   gtk_widget_show (AddFile_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (AddFile_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), AddFile_button);
@@ -246,21 +226,18 @@ GtkWidget *create_MainWindow (void)
   tmp_image = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
   gtk_widget_show (tmp_image);
   Extract_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Extract"));
-  gtk_widget_set_name (Extract_button, "Extract_button");
   gtk_widget_show (Extract_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Extract_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Extract_button);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Extract_button), tooltips, _("Extract files from the current archive; use the mouse to select files individually"), NULL);
 
   separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
-  gtk_widget_set_name (separatortoolitem2, "separatortoolitem2");
   gtk_widget_show (separatortoolitem2);
   gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem2);
 
   tmp_image = gtk_image_new_from_stock ("gtk-delete", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
   Delete_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Delete"));
-  gtk_widget_set_name (Delete_button, "Delete_button");
   gtk_widget_show (Delete_button);
   gtk_widget_set_sensitive (Delete_button,FALSE);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Delete_button), FALSE);
@@ -270,7 +247,6 @@ GtkWidget *create_MainWindow (void)
   tmp_image = gtk_image_new_from_stock ("gtk-find", tmp_toolbar_icon_size);
   gtk_widget_show (tmp_image);
   View_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("View"));
-  gtk_widget_set_name (View_button, "View_button");
   gtk_widget_show (View_button);
   gtk_widget_set_sensitive (View_button,FALSE);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (View_button), FALSE);
@@ -278,7 +254,6 @@ GtkWidget *create_MainWindow (void)
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (View_button), tooltips, _("View file content in the current archive"), NULL);
 
   separatortoolitem3 = (GtkWidget*) gtk_separator_tool_item_new ();
-  gtk_widget_set_name (separatortoolitem3, "separatortoolitem3");
   gtk_widget_show (separatortoolitem3);
   gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem3);
 
@@ -286,19 +261,16 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (tmp_image);
   Stop_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Stop"));
   gtk_widget_set_sensitive (Stop_button,FALSE);
-  gtk_widget_set_name (Stop_button, "Stop_button");
   gtk_widget_show (Stop_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM ( Stop_button ), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Stop_button);
   gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Stop_button), tooltips, _("Cancel current operation"), NULL);
 
   scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-  gtk_widget_set_name ( scrolledwindow1, "scrolledwindow1");
   gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow1) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
   gtk_widget_show (scrolledwindow1);
   
   treeview1 = gtk_tree_view_new ();
-  gtk_widget_set_name (treeview1, "treeview1");
   gtk_widget_show (treeview1);
   gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview1);
   gtk_drag_source_set (treeview1, GDK_BUTTON1_MASK, src_targets, 1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
