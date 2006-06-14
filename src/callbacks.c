@@ -108,17 +108,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		return;
 	}
 	OffTooltipPadlock();
-    if (archive->status == XA_ARCHIVESTATUS_TEST)
-    {
-        archive->status = XA_ARCHIVESTATUS_IDLE;
-		Update_StatusBar ( _("Operation completed.") );
-		gchar *msg = g_strconcat (_("The integrity of the archive \"") , archive->path , _("\" is OK!") , NULL);
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,msg );
-		xa_set_button_state (1,1,1,1);
-        g_free (msg);
-        return;
-    }
-    
+
 	if ( WIFEXITED (status) )
 	{
 		if ( WEXITSTATUS (status) )
@@ -129,6 +119,12 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
+			/* This in case the user supplies a wrong password we reset it so he can try again */
+			if (archive->status == XA_ARCHIVESTATUS_TEST && archive->passwd != NULL)
+			{
+				g_free (archive->passwd);
+				archive->passwd = NULL;
+			}
 			archive->status = XA_ARCHIVESTATUS_ERROR;
 			Update_StatusBar ( _("Operation failed."));
 			return;
@@ -138,8 +134,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	/* This to automatically reload the content of the archive after adding or deleting */
 	if (archive->status == XA_ARCHIVESTATUS_DELETE || archive->status == XA_ARCHIVESTATUS_ADD)
 	{
-        //gtk_widget_show ( viewport2 );
-        //gtk_widget_set_sensitive ( Stop_button , TRUE );
         if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
 			Update_StatusBar ( _("Operation completed."));
 		else
@@ -375,10 +369,12 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     if ( archive->has_passwd )
     {
         if ( archive->passwd == NULL)
-			//TODO: archive->passwd = password_dialog ();
-        if ( archive->passwd == NULL)
-			return;
-    }
+		{
+			archive->passwd = password_dialog ();
+			if ( archive->passwd == NULL)
+				return;
+		}
+	}
     Update_StatusBar ( _("Testing archive integrity, please wait..."));
     gtk_widget_set_sensitive (Stop_button,TRUE);
     gtk_widget_set_sensitive ( check_menu , FALSE );
@@ -1080,7 +1076,7 @@ void ShowShellOutput ( GtkMenuItem *menuitem )
 	}
 	OutputWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_position (GTK_WINDOW (OutputWindow), GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size(GTK_WINDOW(OutputWindow), 350, 200);
+	gtk_window_set_default_size(GTK_WINDOW(OutputWindow), 380, 250);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (OutputWindow), TRUE);
 	g_signal_connect (G_OBJECT (OutputWindow), "delete_event",  G_CALLBACK (gtk_widget_hide), &OutputWindow);
 

@@ -20,9 +20,6 @@
 #ifndef __XARCHIVER_INTERFACE_H__
 #define __XARCHIVER_INTERFACE_H__
 
-GtkWidget *view_win ( void );
-GtkWidget *create_MainWindow (void);
-GtkWidget *create_archive_properties_window (void);
 GtkWidget *MainWindow;
 GtkWidget *vbox1;
 GtkWidget *vbox_body;
@@ -100,5 +97,9 @@ GtkWidget *ebox;
 void set_label (GtkWidget *label,gchar *text);
 int xa_progressbar_pulse (gpointer data);
 
+GtkWidget *view_win ( void );
+GtkWidget *create_MainWindow (void);
+GtkWidget *create_archive_properties_window (void);
+gchar *password_dialog (void);
 #endif
 

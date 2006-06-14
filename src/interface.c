@@ -377,87 +377,82 @@ GtkWidget *create_MainWindow (void)
   return MainWindow;
 }
 
-/*
-GtkWidget *password_win ()
+gchar *password_dialog ()
 {
-  GtkWidget *passwd;
-  GtkWidget *dialog_vbox1;
-  GtkWidget *vbox2;
-  GtkWidget *fixed1;
-  GtkWidget *label2;
-  GtkWidget *fixed2;
-  GtkWidget *label3;
-  GtkWidget *label1;
-  GtkWidget *dialog_action_area1;
-  GtkWidget *cancelbutton1;
-  GtkWidget *okbutton1;
+	GtkWidget *passwd;
+	GtkWidget *dialog_vbox1;
+	GtkWidget *hbox1;
+	GtkWidget *label1;
+	GtkWidget *password_entry;
+	GtkWidget *dialog_action_area1;
+	GtkWidget *cancelbutton1;
+	GtkWidget *okbutton1;
+	gboolean done = FALSE;
+	gchar *password = NULL;
 
-  passwd = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (passwd),_("Enter Archive Password"));
-  gtk_window_set_type_hint (GTK_WINDOW (passwd), GDK_WINDOW_TYPE_HINT_DIALOG);
-  gtk_window_set_transient_for ( GTK_WINDOW (passwd) , GTK_WINDOW (MainWindow) );
-  dialog_vbox1 = GTK_DIALOG (passwd)->vbox;
-  gtk_widget_show (dialog_vbox1);
+	passwd = gtk_dialog_new ();
+	gtk_window_set_title (GTK_WINDOW (passwd),_("Enter Archive Password"));
+	gtk_window_set_type_hint (GTK_WINDOW (passwd), GDK_WINDOW_TYPE_HINT_DIALOG);
+	gtk_window_set_transient_for ( GTK_WINDOW (passwd) , GTK_WINDOW (MainWindow) );
+	gtk_window_set_default_size(GTK_WINDOW(passwd), 300, 80);
 
-  vbox2 = gtk_vbox_new (FALSE, 0);
-  gtk_widget_show (vbox2);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox1), vbox2, TRUE, TRUE, 0);
+	dialog_vbox1 = GTK_DIALOG (passwd)->vbox;
+	gtk_widget_show (dialog_vbox1);
 
-  fixed1 = gtk_fixed_new ();
-  gtk_widget_show (fixed1);
-  gtk_box_pack_start (GTK_BOX (vbox2), fixed1, TRUE, TRUE, 0);
+	hbox1 = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox1);
+	gtk_box_pack_start (GTK_BOX (dialog_vbox1), hbox1, TRUE, FALSE, 0);
 
-  password_entry = gtk_entry_new ();
-  gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
-  gtk_entry_set_activates_default(GTK_ENTRY(password_entry), TRUE);
-  gtk_widget_show (password_entry);
-  gtk_fixed_put (GTK_FIXED (fixed1), password_entry, 77, 16);
-  gtk_widget_set_size_request (password_entry, 304, 24);
+	label1 = gtk_label_new (_("Password:"));
+	gtk_widget_show (label1);
+	gtk_box_pack_start (GTK_BOX (hbox1), label1, FALSE, FALSE, 0);
 
-  label2 = gtk_label_new (_("Password:"));
-  gtk_widget_show (label2);
-  gtk_fixed_put (GTK_FIXED (fixed1), label2, 5, 16);
-  gtk_widget_set_size_request (label2, 72, 24);
+	password_entry = gtk_entry_new ();
+	gtk_box_pack_start (GTK_BOX (hbox1), password_entry, TRUE, TRUE, 0);
+	gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
+	gtk_entry_set_activates_default(GTK_ENTRY(password_entry), TRUE);
+	gtk_widget_show (password_entry);
 
-  fixed2 = gtk_fixed_new ();
-  gtk_widget_show (fixed2);
-  gtk_box_pack_start (GTK_BOX (vbox2), fixed2, TRUE, TRUE, 0);
+	dialog_action_area1 = GTK_DIALOG (passwd)->action_area;
+	gtk_widget_show (dialog_action_area1);
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
 
-  repeat_password = gtk_entry_new ();
-  gtk_entry_set_visibility (GTK_ENTRY (repeat_password), FALSE);
-  gtk_entry_set_activates_default(GTK_ENTRY(repeat_password), TRUE);
-  gtk_widget_show (repeat_password);
-  gtk_fixed_put (GTK_FIXED (fixed2), repeat_password, 77, 4);
-  gtk_widget_set_size_request (repeat_password, 304, 24);
+	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
+	gtk_widget_show (cancelbutton1);
+	gtk_dialog_add_action_widget (GTK_DIALOG (passwd), cancelbutton1, GTK_RESPONSE_CANCEL);
+	GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
 
-  label3 = gtk_label_new (_("Retype it:"));
-  gtk_widget_show (label3);
-  gtk_fixed_put (GTK_FIXED (fixed2), label3, 5, 4);
-  gtk_widget_set_size_request (label3, 72, 24);
-  
-  label1 = gtk_label_new (_("This action requires the archive's password."));
-  gtk_widget_show (label1);
-  gtk_box_pack_start (GTK_BOX (vbox2), label1, FALSE, FALSE, 0);
-  gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_CENTER);
-  gtk_label_set_line_wrap (GTK_LABEL (label1), TRUE);
-  gtk_misc_set_padding (GTK_MISC (label1), 0, 3);
+	okbutton1 = gtk_button_new_from_stock ("gtk-ok");
+	gtk_widget_show (okbutton1);
+	gtk_dialog_add_action_widget (GTK_DIALOG (passwd), okbutton1, GTK_RESPONSE_OK);
+	GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
+	gtk_dialog_set_default_response (GTK_DIALOG (passwd), GTK_RESPONSE_OK);
 
-  dialog_action_area1 = GTK_DIALOG (passwd)->action_area;
-  gtk_widget_show (dialog_action_area1);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
+	while ( ! done )
+	{
+		switch (gtk_dialog_run ( GTK_DIALOG (passwd ) ) )
+		{
+			case GTK_RESPONSE_CANCEL:
+			case GTK_RESPONSE_DELETE_EVENT:
+			done = TRUE;
+			password = NULL;
+			break;
 
-  cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
-  gtk_widget_show (cancelbutton1);
-  gtk_dialog_add_action_widget (GTK_DIALOG (passwd), cancelbutton1, GTK_RESPONSE_CANCEL);
-  GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
-
-  okbutton1 = gtk_button_new_from_stock ("gtk-ok");
-  gtk_widget_show (okbutton1);
-  gtk_dialog_add_action_widget (GTK_DIALOG (passwd), okbutton1, GTK_RESPONSE_OK);
-  GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
-  return passwd;
+			case GTK_RESPONSE_OK:
+			password = g_strdup (gtk_entry_get_text ( GTK_ENTRY (password_entry) ));
+			if (strlen(password) == 0)
+			{
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please enter the password!") );
+				break;
+			}
+			done = TRUE;
+			break;
+		}
+	}
+	gtk_widget_destroy (passwd);
+	return password;
 }
-*/
+
 
 GtkWidget *view_win ()
 {
