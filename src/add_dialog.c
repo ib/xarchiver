@@ -154,9 +154,9 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
 	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a saved file (junk the path), and do not directory names."), NULL);
 
-	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP )
+	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
 	{
-		if (archive->type != XARCHIVETYPE_7ZIP)
+		if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
 		{
 			add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
 			gtk_widget_show (add_dialog->freshen);
@@ -176,55 +176,56 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		gtk_widget_show (add_dialog->hbox2);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
 
-		if (archive->type == XARCHIVETYPE_7ZIP)
+		if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
 		{
-			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
-			default_value = 5;
-			max_value = 9;
-		}
+			if (archive->type == XARCHIVETYPE_7ZIP)
+			{
+				compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
+				default_value = 5;
+				max_value = 9;
+			}
 		
-		else if (archive->type == XARCHIVETYPE_ZIP)
-		{
-			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
-			default_value = 6;
-			max_value = 9;
-		}
+			else if (archive->type == XARCHIVETYPE_ZIP)
+			{
+				compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
+				default_value = 6;
+				max_value = 9;
+			}
 
-		else if (archive->type == XARCHIVETYPE_RAR)
-		{
-			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
-			default_value = 3;
-			max_value = 5;
-		}
+			else if (archive->type == XARCHIVETYPE_RAR)
+			{
+				compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
+				default_value = 3;
+				max_value = 5;
+			}
 
-		else if (archive->type == XARCHIVETYPE_ARJ)
-		{
-			compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression.");
-			default_value = 1;
-			max_value = 4;
-		}
+			else if (archive->type == XARCHIVETYPE_ARJ)
+			{
+				compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression.");
+				default_value = 1;
+				max_value = 4;
+			}
 
-		add_dialog->label4 = gtk_label_new (_("Compression level:"));
-		gtk_widget_show (add_dialog->label4);
-		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
+			add_dialog->label4 = gtk_label_new (_("Compression level:"));
+			gtk_widget_show (add_dialog->label4);
+			gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
 	
-		if (archive->type == XARCHIVETYPE_7ZIP)
-			add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 2, 2, 0);
-		else
-			add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 0, 0, 0);
+			if (archive->type == XARCHIVETYPE_7ZIP)
+				add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 2, 2, 0);
+			else
+				add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 0, 0, 0);
 
-		add_dialog->compression_scale = gtk_hscale_new ( GTK_ADJUSTMENT (add_dialog->compression_value) );
-		gtk_widget_show (add_dialog->compression_scale);
-		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
-		gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
-		gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
-		if (archive->type == XARCHIVETYPE_ARJ)
-		{
-			gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
+			add_dialog->compression_scale = gtk_hscale_new ( GTK_ADJUSTMENT (add_dialog->compression_value) );
+			gtk_widget_show (add_dialog->compression_scale);
+			gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
+			gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
+			gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
+			if (archive->type == XARCHIVETYPE_ARJ)
+				gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
+			else if (archive->type == XARCHIVETYPE_7ZIP)
+				g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
 			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->compression_scale, compression_msg, NULL );
 		}
-		else if (archive->type == XARCHIVETYPE_7ZIP)
-			g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
 	}
 
 	add_dialog->label2 = gtk_label_new (_("<b>Options </b>"));
