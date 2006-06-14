@@ -694,18 +694,21 @@ int DetectImage (FILE *iso)
 
 GtkWidget *create_iso_properties_window ()
 {
-	iso_properties_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (iso_properties_window), _("ISO Information Window"));
+	iso_properties_window = gtk_dialog_new_with_buttons (_("ISO Information Window"),
+									GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_STOCK_CLOSE, GTK_RESPONSE_NONE, NULL);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (iso_properties_window), TRUE);
-	gtk_window_set_transient_for ( GTK_WINDOW (iso_properties_window) , GTK_WINDOW (MainWindow) );
 	gtk_window_set_position (GTK_WINDOW (iso_properties_window), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (iso_properties_window), FALSE);
 	gtk_window_set_modal (GTK_WINDOW (iso_properties_window), TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (iso_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+	
+	g_signal_connect(iso_properties_window, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+	g_signal_connect(iso_properties_window, "delete_event", G_CALLBACK(gtk_widget_destroy), NULL);
 
 	table1 = gtk_table_new (18, 2, TRUE);
 	gtk_widget_show (table1);
-	gtk_container_add (GTK_CONTAINER (iso_properties_window), table1);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (iso_properties_window)->vbox), table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 6);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 6);
 

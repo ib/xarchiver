@@ -118,7 +118,7 @@ GtkWidget *create_MainWindow (void)
   addfile = gtk_image_menu_item_new_with_mnemonic (_("Add"));
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
-  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_i, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   image2 = xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);

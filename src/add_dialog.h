@@ -63,14 +63,19 @@ typedef struct
 	GtkTooltips *add_option_tooltip;
 	GtkWidget *add_option_label;
 	GtkWidget *dialog_action_area2;
+	GtkTooltips *option_tooltip;
+	GtkObject *compression_value;
 } Add_dialog_data;
 
 Add_dialog_data *xa_create_add_dialog (XArchive *archive);
+void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data);
+void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data);
 gchar *xa_parse_add_dialog_options ( XArchive *archive ,Add_dialog_data *dialog_data, GtkTreeSelection *selection);
 void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog );
 void add_files_liststore (gchar *file_path, GtkListStore *liststore);
 void remove_files_liststore (GtkWidget *widget, gpointer data);
 void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, GList **rowref_list);
+void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data);
 
 #endif
 

@@ -27,9 +27,14 @@ extern gboolean cli;
 Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 {
 	Add_dialog_data *add_dialog;
+	unsigned short int default_value, max_value;
+	default_value = max_value = 0;
+	gchar *compression_msg = NULL;
 
 	add_dialog = g_new0 (Add_dialog_data, 1);
 	add_dialog->file_dir_radio_group = NULL;
+	add_dialog->option_tooltip = gtk_tooltips_new ();
+
 	add_dialog->dialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (add_dialog->dialog1), _("Add Dialog"));
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
@@ -147,30 +152,79 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
 	gtk_widget_show (add_dialog->add_full_path);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
+	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a saved file (junk the path), and do not directory names."), NULL);
 
-	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
-	gtk_widget_show (add_dialog->freshen);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
-
-	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update an existing entry in the archive"));
-	gtk_widget_show (add_dialog->update);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->update, FALSE, FALSE, 0);
-
-	add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
-	gtk_widget_show (add_dialog->hbox2);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
-
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_GZ )
+	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP )
 	{
+		if (archive->type != XARCHIVETYPE_7ZIP)
+		{
+			add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
+			gtk_widget_show (add_dialog->freshen);
+			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
+			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This options affects the archive only if it has been modified more recently than the version already in the zip archive; unlike the update option it will not add files that are not already in the zip archive."), NULL );
+			g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
+		}
+		
+		add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update an existing entry in the archive"));
+		gtk_widget_show (add_dialog->update);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->update, FALSE, FALSE, 0);
+		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified."), NULL );
+		if (archive->type != XARCHIVETYPE_7ZIP)
+			g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
+
+		add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
+		gtk_widget_show (add_dialog->hbox2);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
+
+		if (archive->type == XARCHIVETYPE_7ZIP)
+		{
+			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
+			default_value = 5;
+			max_value = 9;
+		}
+		
+		else if (archive->type == XARCHIVETYPE_ZIP)
+		{
+			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
+			default_value = 6;
+			max_value = 9;
+		}
+
+		else if (archive->type == XARCHIVETYPE_RAR)
+		{
+			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
+			default_value = 3;
+			max_value = 5;
+		}
+
+		else if (archive->type == XARCHIVETYPE_ARJ)
+		{
+			compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression.");
+			default_value = 1;
+			max_value = 4;
+		}
+
 		add_dialog->label4 = gtk_label_new (_("Compression level:"));
 		gtk_widget_show (add_dialog->label4);
 		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
 	
-		add_dialog->compression_scale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (5, 0, 9, 0, 0, 0)));
+		if (archive->type == XARCHIVETYPE_7ZIP)
+			add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 2, 2, 0);
+		else
+			add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 0, 0, 0);
+
+		add_dialog->compression_scale = gtk_hscale_new ( GTK_ADJUSTMENT (add_dialog->compression_value) );
 		gtk_widget_show (add_dialog->compression_scale);
 		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
 		gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
 		gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
+		if (archive->type == XARCHIVETYPE_ARJ)
+		{
+			gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
+			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->compression_scale, compression_msg, NULL );
+		}
+		else if (archive->type == XARCHIVETYPE_7ZIP)
+			g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
 	}
 
 	add_dialog->label2 = gtk_label_new (_("<b>Options </b>"));
@@ -199,6 +253,22 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->add_button, GTK_RESPONSE_OK);
 	GTK_WIDGET_SET_FLAGS (add_dialog->add_button, GTK_CAN_DEFAULT);
 	return add_dialog;
+}
+
+void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)
+{
+	gboolean active = gtk_toggle_button_get_active (button);
+	if (active)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
+}
+
+void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)
+{
+	if (data->freshen == NULL)
+		return;
+	gboolean active = gtk_toggle_button_get_active (button);
+	if (active)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->freshen), FALSE);
 }
 
 gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_dialog, GtkTreeSelection *selection)
@@ -298,4 +368,13 @@ void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *i
 }
 
 /* End code from xarchive */
+
+void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
+{
+	unsigned short int digit = gtk_adjustment_get_value (adjustment);
+	if (digit & 1) 
+		return;
+	else
+		gtk_adjustment_set_value (adjustment, digit-1);
+}
 
