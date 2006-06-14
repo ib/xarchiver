@@ -152,7 +152,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
 	gtk_widget_show (add_dialog->add_full_path);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a saved file (junk the path), and do not directory names."), NULL);
+	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a saved file and not its directory names."), NULL);
 
 	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
 	{
@@ -171,10 +171,6 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified."), NULL );
 		if (archive->type != XARCHIVETYPE_7ZIP)
 			g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
-
-		add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
-		gtk_widget_show (add_dialog->hbox2);
-		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
 
 		if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
 		{
@@ -206,6 +202,32 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 				max_value = 4;
 			}
 
+			add_dialog->hbox3 = gtk_hbox_new (FALSE, 0);
+			gtk_widget_show (add_dialog->hbox3);
+			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox3, TRUE, TRUE, 0);
+
+			add_dialog->add_password = gtk_check_button_new_with_mnemonic (_("Password:"));
+			gtk_widget_show (add_dialog->add_password);
+			gtk_box_pack_start (GTK_BOX (add_dialog->hbox3), add_dialog->add_password, FALSE, FALSE, 0);
+			g_signal_connect (G_OBJECT (add_dialog->add_password), "toggled",G_CALLBACK (password_toggled_cb) , add_dialog);
+
+			add_dialog->add_password_entry = gtk_entry_new ();
+			gtk_widget_show (add_dialog->add_password_entry);
+			gtk_box_pack_start (GTK_BOX (add_dialog->hbox3), add_dialog->add_password_entry, FALSE, FALSE, 0);
+			gtk_entry_set_visibility (GTK_ENTRY (add_dialog->add_password_entry), FALSE);
+			gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
+			if ( archive->has_passwd )
+		    {
+				gtk_widget_set_sensitive (add_dialog->add_password , TRUE);
+				gtk_widget_set_sensitive (add_dialog->add_password_entry, TRUE);
+				gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_dialog->add_password), TRUE);
+				if (archive->passwd != NULL)
+					gtk_entry_set_text (GTK_ENTRY(add_dialog->add_password_entry) , archive->passwd);
+		    }
+
+			add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
+			gtk_widget_show (add_dialog->hbox2);
+			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
 			add_dialog->label4 = gtk_label_new (_("Compression level:"));
 			gtk_widget_show (add_dialog->label4);
 			gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
@@ -276,6 +298,15 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 {
 	gchar *command;
 	return command;
+}
+
+void password_toggled_cb ( GtkButton* button , gpointer _add_dialog )
+{
+	Add_dialog_data *add_dialog = _add_dialog;
+	if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
+		gtk_widget_set_sensitive (add_dialog->add_password_entry, TRUE);
+	else
+		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
 }
 
 void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog )

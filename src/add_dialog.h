@@ -31,6 +31,7 @@ typedef struct
 	GtkWidget *vbox8;
 	GtkWidget *hbox1;
 	GtkWidget *hbox2;
+	GtkWidget *hbox3;
 	GtkWidget *frame5;
 	GtkWidget *frame4;
 	GtkWidget *remove_button;
@@ -54,6 +55,8 @@ typedef struct
 	GtkWidget *update;
 	GtkWidget *freshen;
 	GtkWidget *compression_scale;
+	GtkWidget *add_password;
+	GtkWidget *add_password_entry;
 	GtkWidget *recurse;
 	GtkWidget *add_image;
 	GtkWidget *add_hbox;
@@ -70,6 +73,7 @@ typedef struct
 Add_dialog_data *xa_create_add_dialog (XArchive *archive);
 void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data);
 void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data);
+void password_toggled_cb ( GtkButton* button , gpointer _add_dialog );
 gchar *xa_parse_add_dialog_options ( XArchive *archive ,Add_dialog_data *dialog_data, GtkTreeSelection *selection);
 void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog );
 void add_files_liststore (gchar *file_path, GtkListStore *liststore);

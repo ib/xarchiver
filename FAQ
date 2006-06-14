@@ -5,9 +5,11 @@ develop full support for ace archives I will add it to Xarchiver.
 
 Q. How can I create an archive with some files password protected and others not ?
 
-A. First of all choose 'New' and select one of arj, 7zip, rar, zip archive formats and choose 'Add Files' or 'Add Folders' from Action menu.
+A. First of all choose 'New' and select one of arj, 7zip, rar or zip archive formats and choose 'Add' from the Action menu.
 Do NOT check "Password". Add your files and then reopen the Add dialog again but this time check "Password" and enter your password. 
-From now on all the files you add to the archive will be password protected.
+From now on all the files you add to the archive will be password protected. In case you extracted some files from a password protect 
+archive the Add dialog will check the password widget and will automatically enter the password in the text entry. If you don't want 
+to protect the files with password simply uncheck the password widget.
 
 Q. Why does Xarchiver emit this error message when handling tar archives ?
 
