@@ -274,7 +274,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (treeview1);
   gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview1);
   gtk_drag_source_set (treeview1, GDK_BUTTON1_MASK, src_targets, 1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-
+  
   g_signal_connect (G_OBJECT(treeview1), "drag_data_get" , G_CALLBACK (drag_data_get), NULL );
   g_signal_connect (G_OBJECT (treeview1), "drag_begin", G_CALLBACK (drag_begin), NULL);
   g_signal_connect (G_OBJECT (treeview1), "drag_end", G_CALLBACK (drag_end), NULL);

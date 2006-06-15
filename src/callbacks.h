@@ -109,6 +109,7 @@ void EmptyTextBuffer ();
 void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[]);
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void ConcatenateFileNames2 (gchar *filename , GString *data);
+void ConcatenateFileNames3 (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void ExtractAddDelete ( gchar *command );
 void OffDeleteandViewButtons();
 void OffTooltipPadlock();

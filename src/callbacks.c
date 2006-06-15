@@ -516,110 +516,19 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 {
-    gchar *name = NULL;
 	gchar *command = NULL;
 	
 	add_window = xa_create_add_dialog (archive);
-	gtk_dialog_run ( GTK_DIALOG (add_window->dialog1 ) );
+	command = xa_parse_add_dialog_options ( archive, add_window );
+	gtk_widget_destroy ( add_window->dialog1 );
+	if (command != NULL)
+	{
+		g_message (command);
+		ExtractAddDelete (command);
+		g_free (command);
+	}
 	g_free ( add_window );
-	return;
-   	if ( Files_to_Add == NULL)
-    {
-        Files_to_Add = Add_File_Dialog ( data );
-	    if ( Files_to_Add == NULL)
-			return;
-    }
-	names = g_string_new ( " " );
-    Files_to_Add = g_slist_reverse (Files_to_Add);
-    gtk_widget_set_sensitive (Stop_button , TRUE);
-    //Set the current dir so to avoid archiving the leading directory inside the archive
-    name = g_path_get_dirname ( Files_to_Add->data );
-	chdir ( name );
-    g_free ( name );
-    while ( Files_to_Add != NULL )
-	{
-        //Strip the path from the filename
-        name = g_path_get_basename ( Files_to_Add->data );
-        ConcatenateFileNames2 ( name , names );
-        Files_to_Add = g_slist_next ( Files_to_Add );
-	}
-    xa_set_button_state (0,0,0,0);
-	archive->status = XA_ARCHIVESTATUS_ADD;
-    if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
-		Update_StatusBar ( _("Adding files to the archive, please wait..."));
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_BZIP2:
-		Update_StatusBar ( _("Compressing file with bzip2, please wait..."));
-		Bzip2Add ( names->str , archive , 0 );
-		break;
-
-		case XARCHIVETYPE_GZIP:
-        Update_StatusBar ( _("Compressing file with gzip, please wait..."));
-		Bzip2Add ( names->str , archive , 1 );
-		break;
-			
-		case XARCHIVETYPE_RAR:
-        if (archive->passwd != NULL)
-			command = g_strconcat ( "rar a -p" , archive->passwd, " -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
-        else
-			command = g_strconcat ( "rar a -o+ -ep1 -idp " , archive->escaped_path , names->str , NULL );
-		break;
-
-		case XARCHIVETYPE_TAR:
-		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			command = g_strconcat ( "tar rvvf " , archive->escaped_path , names->str , NULL );
-        else
-			command = g_strconcat ( "tar cvvf " , archive->escaped_path , names->str , NULL );
-	   	break;
-
-		case XARCHIVETYPE_TAR_BZ2:
-        if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			DecompressBzipGzip ( names , archive, 0 , 1 );
-        else
-			command = g_strconcat ("tar cvvfj " , archive->escaped_path , names->str , NULL );
-        break;
-
-        case XARCHIVETYPE_TAR_GZ:
-        if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			DecompressBzipGzip ( names , archive, 1 , 1 );
-        else
-			command = g_strconcat ("tar cvvfz " , archive->escaped_path , names->str , NULL );
-        break;
-
-		case XARCHIVETYPE_ZIP:
-        if (archive->passwd != NULL)
-			command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->escaped_path , names->str , NULL );
-		else
-			command = g_strconcat ( "zip -r " , archive->escaped_path , names->str , NULL );
-		break;
-
-        case XARCHIVETYPE_7ZIP:
-        if (archive->passwd != NULL)
-			command = g_strconcat ( "7za a -ms=off -p" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
-        else
-			command = g_strconcat ( "7za a -ms=off " , archive->escaped_path , names->str , NULL );
-		break;
-
-		case XARCHIVETYPE_ARJ:
-		if (archive->passwd != NULL)
-			command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
-        else
-			command = g_strconcat ( "arj a -i -r " , archive->escaped_path , names->str , NULL );
-        break;
-
-        default:
-        command = NULL;            
-	}
-    if (command != NULL)
-    {
-        ExtractAddDelete ( command );
-        g_free (command);
-    }
-	g_string_free (names , FALSE );
-	g_slist_foreach (Files_to_Add, (GFunc )g_free, NULL);
-    g_slist_free ( Files_to_Add );
-    Files_to_Add = NULL;
+	add_window = NULL;
 }
 
 void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
@@ -647,7 +556,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nDeveloper:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\n",NULL};
-    const char *documenters[] = {"\nThanks to:\nBenedikt Meurer for helping me with DnD.\n\nStephan Arts for hints on code optimization.\n\nSalvatore Santagati for integrating\nisoinfo code in Xarchiver.\n\nUracile for the stunning logo.\n\nThe XFCE translators.\n\nThe people of gtk-app-devel-list\nwho kindly answered my questions.", NULL};
+    const char *documenters[] = {"\nThanks to:\nBenedikt Meurer for helping me with DnD.\nStephan Arts for hints on code optimization.\nEnrico Troeger for supplying patchs.\nBjoern Martensen for reporting bugs.\nSalvatore Santagati for integrating\nisoinfo code in Xarchiver.\nUracile for the stunning logo.\nThe XFCE translators.\nThe people of gtk-app-devel-list\nwho kindly answered my questions.", NULL};
 	if (about != NULL)
 	{
 		gtk_window_present (GTK_WINDOW (about));
@@ -1480,6 +1389,17 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 	gchar *filename;
 	gtk_tree_model_get (model, iter, 0, &filename, -1);
 	ConcatenateFileNames2 ( filename , data );
+}
+
+void ConcatenateFileNames3 (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
+{
+	gchar *fullname;
+	gchar *name;
+
+	gtk_tree_model_get (model, iter, 1, &fullname, -1);
+	//name = g_path_get_basename ( fullname );
+	//g_free (fullname);
+	ConcatenateFileNames2 ( fullname , data );
 }
 
 void ExtractAddDelete ( gchar *command )

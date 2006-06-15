@@ -152,7 +152,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
 	gtk_widget_show (add_dialog->add_full_path);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a saved file and not its directory names."), NULL);
+	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
 
 	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
 	{
@@ -161,7 +161,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 			add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
 			gtk_widget_show (add_dialog->freshen);
 			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
-			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This options affects the archive only if it has been modified more recently than the version already in the zip archive; unlike the update option it will not add files that are not already in the zip archive."), NULL );
+			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This options affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."), NULL );
 			g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
 		}
 		
@@ -169,6 +169,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		gtk_widget_show (add_dialog->update);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->update, FALSE, FALSE, 0);
 		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified."), NULL );
+
 		if (archive->type != XARCHIVETYPE_7ZIP)
 			g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 
@@ -294,12 +295,6 @@ void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->freshen), FALSE);
 }
 
-gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_dialog, GtkTreeSelection *selection)
-{
-	gchar *command;
-	return command;
-}
-
 void password_toggled_cb ( GtkButton* button , gpointer _add_dialog )
 {
 	Add_dialog_data *add_dialog = _add_dialog;
@@ -408,5 +403,160 @@ void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
 		return;
 	else
 		gtk_adjustment_set_value (adjustment, digit-1);
+}
+
+gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_dialog )
+{
+	GtkTreeIter iter;
+	gchar *command = NULL;
+	gchar *compression_string = NULL;
+	gchar *first_item = NULL;
+	gboolean done = FALSE;
+
+	while ( ! done )
+	{
+		switch (gtk_dialog_run ( GTK_DIALOG (add_dialog->dialog1 ) ) )
+		{
+			case GTK_RESPONSE_CANCEL:
+			case GTK_RESPONSE_DELETE_EVENT:
+			done = TRUE;
+			break;
+
+			case GTK_RESPONSE_OK:
+			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) == FALSE)
+			{
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You haven't selected any files to add!") );
+				break;
+			}
+			if ( add_dialog->add_password != NULL && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
+			{
+				archive->passwd  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (add_dialog->add_password_entry) ));
+				if (strlen(archive->passwd) == 0)
+				{
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please enter the password!") );
+					g_free (archive->passwd);
+					break;
+				}
+			}
+			done = TRUE;
+			archive->add_recurse = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->recurse ));
+			archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->add_full_path ));
+			archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->update ));
+			if (add_dialog->freshen != NULL)
+				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->freshen ));
+			if (add_dialog->compression_scale != NULL)
+			{
+				archive->compression_level = gtk_adjustment_get_value (GTK_ADJUSTMENT ( add_dialog->compression_value ));
+				compression_string = g_strdup_printf ( "%d",archive->compression_level );
+			}
+
+			//Set the current dir so to avoid archiving the leading directory inside the archive
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter);
+			gtk_tree_model_get (GTK_TREE_MODEL(add_dialog->file_liststore), &iter, 1, &first_item, -1);
+			gchar *current_dir = g_path_get_dirname ( first_item );
+			g_free ( first_item );
+			chdir ( current_dir );
+			g_free ( current_dir );
+
+			 /* Let's concatenate the files to add */
+			names = g_string_new ( " " );
+			while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
+			{
+				ConcatenateFileNames3 ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
+				gtk_list_store_remove (add_dialog->file_liststore, &iter);
+			}
+			gtk_widget_set_sensitive (Stop_button , TRUE);			
+			xa_set_button_state (0,0,0,0);
+			archive->status = XA_ARCHIVESTATUS_ADD;
+
+			if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
+				Update_StatusBar ( _("Adding files to the archive, please wait..."));
+			switch (archive->type)
+			{
+				case XARCHIVETYPE_BZIP2:
+				Update_StatusBar ( _("Compressing file with bzip2, please wait..."));
+				Bzip2Add ( names->str , archive , 0 );
+				break;
+
+				case XARCHIVETYPE_GZIP:
+				Update_StatusBar ( _("Compressing file with gzip, please wait..."));
+				Bzip2Add ( names->str , archive , 1 );
+				break;
+			
+				case XARCHIVETYPE_RAR:
+				if (archive->passwd != NULL)
+					command = g_strconcat ( "rar a ",
+											archive->update ? "-u " : "",
+											archive->freshen ? "-f " : "",
+											"-p" , archive->passwd,
+											archive->add_recurse ? "-r " : "",
+											archive->full_path ? "-ep " : "",
+											"-o+ -idp ",
+											"-m",compression_string," ",
+											archive->escaped_path,
+											names->str , NULL );
+				else
+					command = g_strconcat ( "rar a ",
+											archive->update ? "-u " : "",
+											archive->freshen ? "-f " : "",
+											archive->add_recurse ? "-r " : "",
+											archive->full_path ? "-ep " : "",
+											"-o+ -idp ",
+											"-m",compression_string," ",
+											archive->escaped_path,
+											names->str , NULL );
+				break;
+
+				case XARCHIVETYPE_TAR:
+				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+					command = g_strconcat ( "tar rvvf " , archive->escaped_path , names->str , NULL );
+				else
+					command = g_strconcat ( "tar cvvf " , archive->escaped_path , names->str , NULL );
+				break;
+
+				case XARCHIVETYPE_TAR_BZ2:
+				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+					DecompressBzipGzip ( names , archive, 0 , 1 );
+				else
+					command = g_strconcat ("tar cvvfj " , archive->escaped_path , names->str , NULL );
+				break;
+
+				case XARCHIVETYPE_TAR_GZ:
+				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+					DecompressBzipGzip ( names , archive, 1 , 1 );
+				else
+					command = g_strconcat ("tar cvvfz " , archive->escaped_path , names->str , NULL );
+				break;
+
+				case XARCHIVETYPE_ZIP:
+				if (archive->passwd != NULL)
+					command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->escaped_path , names->str , NULL );
+				else
+					command = g_strconcat ( "zip -r " , archive->escaped_path , names->str , NULL );
+				break;
+
+				case XARCHIVETYPE_7ZIP:
+				if (archive->passwd != NULL)
+					command = g_strconcat ( "7za a -ms=off -p" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
+				else
+					command = g_strconcat ( "7za a -ms=off " , archive->escaped_path , names->str , NULL );
+				break;
+
+				case XARCHIVETYPE_ARJ:
+				if (archive->passwd != NULL)
+					command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
+				else
+					command = g_strconcat ( "arj a -i -r " , archive->escaped_path , names->str , NULL );
+				break;
+
+				default:
+				command = NULL;            
+			}
+			if (compression_string != NULL)
+				g_free (compression_string);
+			g_string_free (names , FALSE );
+		}
+	}
+	return command;
 }
 
