@@ -8,9 +8,7 @@ D. Come posso creare un archivio con alcuni files protetti da password ed altri 
 
 R. Scegli Nuovo dal menu File e seleziona un formato di archivio arj, 7zip, rar o zip. Ora scegli Aggiungi dal menu Azioni e scegli 
 i files da aggiungere all'archivio ma NON mettere il segno di spunta su "Password". Ora ripeti la stessa operazione mettendo il segno 
-di spunta questa volta e scegli i files che vuoi proteggere con la password. Nel caso avessi estratto dei files da un archivio 
-protetto quando apri la finestra Aggiungi troverai il segno di spunta su "Password" ed il campo testuale già riempito. Qualora 
-non volessi proteggere i tuoi files con la password togli semplicemente il segno di spunta.
+di spunta questa volta e scegli i files che vuoi proteggere con la password. 
 
 D. Perchè Xarchiver visualizza questo messaggio quando apro archivi tar ?
 
@@ -26,3 +24,9 @@ D. Quando tento di visualizzare un file da un archivio tar ottengo questo messag
         Try `tar --help' for more information.
 
 R. Stai usando una vecchia versione di tar, dovresti aggiornare almeno alla 1.15.
+
+D. Quando metto il segno di spunta su Aggiorna o Freshen nella finestra Estrai o Aggiungi Xarchiver dice che si è verificato un errore
+ma la finestra dei messaggi d'errore è vuota, perchè ?
+
+R. Xarchiver è solo un'interfaccia grafica all'archiviatore da linea di comando. Xarchiver legge correttamente l'output da STDOUT e STDERR.
+Molto probabilmente l'archiviatore esce con un errore ma non scrive niente su questi canali.

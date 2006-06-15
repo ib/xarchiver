@@ -6,10 +6,8 @@ develop full support for ace archives I will add it to Xarchiver.
 Q. How can I create an archive with some files password protected and others not ?
 
 A. First of all choose 'New' and select one of arj, 7zip, rar or zip archive formats and choose 'Add' from the Action menu.
-Do NOT check "Password". Add your files and then reopen the Add dialog again but this time check "Password" and enter your password. 
-From now on all the files you add to the archive will be password protected. In case you extracted some files from a password protect 
-archive the Add dialog will check the password widget and will automatically enter the password in the text entry. If you don't want 
-to protect the files with password simply uncheck the password widget.
+Do NOT check "Password" in the Add dialog. Add your files and then reopen the Add dialog again but this time check "Password" and 
+enter your password. From now on all the files you add to the archive will be password protected. 
 
 Q. Why does Xarchiver emit this error message when handling tar archives ?
 
@@ -25,3 +23,9 @@ Q. When I try to view a file in a tar archive I get this:
         Try `tar --help' for more information.
 
 A. You are using an older version of tar, please upgrade at least to 1.15.
+
+Q. When I check Freshen or Update in the Add or Extract Dialog Xarchiver tells me an error occurred but the Error messages window is 
+empty, why?
+
+A. Please remember Xarchiver is only a frontend, it correctly reads any output from STDOUT or STDERR. most probably the archiver 
+didn't write anything to those channels even though it exits with an error code.

@@ -217,15 +217,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 			gtk_box_pack_start (GTK_BOX (add_dialog->hbox3), add_dialog->add_password_entry, FALSE, FALSE, 0);
 			gtk_entry_set_visibility (GTK_ENTRY (add_dialog->add_password_entry), FALSE);
 			gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
-			if ( archive->has_passwd )
-		    {
-				gtk_widget_set_sensitive (add_dialog->add_password , TRUE);
-				gtk_widget_set_sensitive (add_dialog->add_password_entry, TRUE);
-				gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_dialog->add_password), TRUE);
-				if (archive->passwd != NULL)
-					gtk_entry_set_text (GTK_ENTRY(add_dialog->add_password_entry) , archive->passwd);
-		    }
-
+			
 			add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
 			gtk_widget_show (add_dialog->hbox2);
 			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
@@ -409,6 +401,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 {
 	GtkTreeIter iter;
 	gchar *command = NULL;
+	gchar *temp_password = NULL;
 	gchar *compression_string = NULL;
 	gchar *first_item = NULL;
 	gboolean done = FALSE;
@@ -430,13 +423,15 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			}
 			if ( add_dialog->add_password != NULL && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
 			{
-				archive->passwd  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (add_dialog->add_password_entry) ));
-				if (strlen(archive->passwd) == 0)
+				temp_password  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (add_dialog->add_password_entry) ));
+				if (strlen(temp_password) == 0)
 				{
 					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please enter the password!") );
-					g_free (archive->passwd);
+					g_free (temp_password);
 					break;
 				}
+				else
+					archive->passwd = temp_password;
 			}
 			done = TRUE;
 			archive->add_recurse = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->recurse ));
@@ -491,7 +486,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 											"-p" , archive->passwd,
 											archive->add_recurse ? "-r " : "",
 											archive->full_path ? "-ep " : "",
-											"-o+ -idp ",
+											"-idp ",
 											"-m",compression_string," ",
 											archive->escaped_path,
 											names->str , NULL );
@@ -501,7 +496,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 											archive->freshen ? "-f " : "",
 											archive->add_recurse ? "-r " : "",
 											archive->full_path ? "-ep " : "",
-											"-o+ -idp ",
+											"-idp ",
 											"-m",compression_string," ",
 											archive->escaped_path,
 											names->str , NULL );
@@ -530,9 +525,24 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 
 				case XARCHIVETYPE_ZIP:
 				if (archive->passwd != NULL)
-					command = g_strconcat ( "zip -P " , archive->passwd , " -r " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "zip ",
+											archive->update ? "-u " : "",
+											archive->freshen ? "-f " : "",
+											archive->add_recurse ? "-r " : "",
+											archive->full_path ? "-j " : "",
+											"-P ", archive->passwd," ",
+											"-",compression_string," ",
+											archive->escaped_path,
+											names->str , NULL );
 				else
-					command = g_strconcat ( "zip -r " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "zip ",
+											archive->update ? "-u " : "",
+											archive->freshen ? "-f " : "",
+											archive->add_recurse ? "-r " : "",
+											archive->full_path ? "-j " : "",
+											"-",compression_string," ",
+											archive->escaped_path,
+											names->str , NULL );
 				break;
 
 				case XARCHIVETYPE_7ZIP:
