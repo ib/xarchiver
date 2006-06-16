@@ -64,6 +64,7 @@ struct _XArchive
 	gboolean update;
 	gboolean tar_touch;
 	gboolean solid_archive;
+	gboolean remove_files;
 	unsigned short int compression_level;
 	unsigned short int tar_strip_value;
 	gchar *passwd;

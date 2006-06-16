@@ -152,106 +152,110 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_widget_show (add_dialog->recurse);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->recurse, FALSE, FALSE, 0);
 
-	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
+	if (archive->type == XARCHIVETYPE_7ZIP && archive->nr_of_files == 0 && archive->nr_of_dirs == 0)
 	{
-		if (archive->type == XARCHIVETYPE_7ZIP && archive->nr_of_files == 0 && archive->nr_of_dirs == 0)
-		{
-			add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Generate a solid archive"));
-			gtk_widget_show (add_dialog->solid_archive);
-			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->solid_archive, FALSE, FALSE, 0);
-			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio."), NULL);
-		}
+		add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Generate a solid archive"));
+		gtk_widget_show (add_dialog->solid_archive);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->solid_archive, FALSE, FALSE, 0);
+		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio."), NULL);
+	}
 
-		if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
-		{
-			add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
-			gtk_widget_show (add_dialog->add_full_path);
-			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
-			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
+	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_ZIP)
+	{
+		add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Remove files after adding"));
+		gtk_widget_show (add_dialog->remove_files);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->remove_files, FALSE, FALSE, 0);
+	}
 
-			add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
-			gtk_widget_show (add_dialog->freshen);
-			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
-			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This options affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."), NULL );
-			g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
+	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
+	{
+		add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
+		gtk_widget_show (add_dialog->add_full_path);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
+		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
+
+		add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
+		gtk_widget_show (add_dialog->freshen);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
+		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This options affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."), NULL );
+		g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
+	}
+		
+	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update an existing entry in the archive"));
+	gtk_widget_show (add_dialog->update);
+	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->update, FALSE, FALSE, 0);
+	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified."), NULL );
+
+	if (archive->type != XARCHIVETYPE_7ZIP)
+		g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
+
+	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
+	{
+		if (archive->type == XARCHIVETYPE_7ZIP)
+		{
+			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
+			default_value = 5;
+			max_value = 9;
 		}
 		
-		add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update an existing entry in the archive"));
-		gtk_widget_show (add_dialog->update);
-		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->update, FALSE, FALSE, 0);
-		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified."), NULL );
-
-		if (archive->type != XARCHIVETYPE_7ZIP)
-			g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
-
-		if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
+		else if (archive->type == XARCHIVETYPE_ZIP)
 		{
-			if (archive->type == XARCHIVETYPE_7ZIP)
-			{
-				compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
-				default_value = 5;
-				max_value = 9;
-			}
-		
-			else if (archive->type == XARCHIVETYPE_ZIP)
-			{
-				compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
-				default_value = 6;
-				max_value = 9;
-			}
+			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
+			default_value = 6;
+			max_value = 9;
+		}
 
-			else if (archive->type == XARCHIVETYPE_RAR)
-			{
-				compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
-				default_value = 3;
-				max_value = 5;
-			}
+		else if (archive->type == XARCHIVETYPE_RAR)
+		{
+			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
+			default_value = 3;
+			max_value = 5;
+		}
 
-			else if (archive->type == XARCHIVETYPE_ARJ)
-			{
-				compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression.");
-				default_value = 1;
-				max_value = 4;
-			}
+		else if (archive->type == XARCHIVETYPE_ARJ)
+		{
+			compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression.");
+			default_value = 1;
+			max_value = 4;
+		}
 
-			add_dialog->hbox3 = gtk_hbox_new (FALSE, 0);
-			gtk_widget_show (add_dialog->hbox3);
-			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox3, TRUE, TRUE, 0);
+		add_dialog->hbox3 = gtk_hbox_new (FALSE, 0);
+		gtk_widget_show (add_dialog->hbox3);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox3, TRUE, TRUE, 0);
 
-			add_dialog->add_password = gtk_check_button_new_with_mnemonic (_("Password:"));
-			gtk_widget_show (add_dialog->add_password);
-			gtk_box_pack_start (GTK_BOX (add_dialog->hbox3), add_dialog->add_password, FALSE, FALSE, 0);
-			g_signal_connect (G_OBJECT (add_dialog->add_password), "toggled",G_CALLBACK (password_toggled_cb) , add_dialog);
+		add_dialog->add_password = gtk_check_button_new_with_mnemonic (_("Password:"));
+		gtk_widget_show (add_dialog->add_password);
+		gtk_box_pack_start (GTK_BOX (add_dialog->hbox3), add_dialog->add_password, FALSE, FALSE, 0);
+		g_signal_connect (G_OBJECT (add_dialog->add_password), "toggled",G_CALLBACK (password_toggled_cb) , add_dialog);
 
-			add_dialog->add_password_entry = gtk_entry_new ();
-			gtk_widget_show (add_dialog->add_password_entry);
-			gtk_box_pack_start (GTK_BOX (add_dialog->hbox3), add_dialog->add_password_entry, FALSE, FALSE, 0);
-			gtk_entry_set_visibility (GTK_ENTRY (add_dialog->add_password_entry), FALSE);
-			gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
+		add_dialog->add_password_entry = gtk_entry_new ();
+		gtk_widget_show (add_dialog->add_password_entry);
+		gtk_box_pack_start (GTK_BOX (add_dialog->hbox3), add_dialog->add_password_entry, FALSE, FALSE, 0);
+		gtk_entry_set_visibility (GTK_ENTRY (add_dialog->add_password_entry), FALSE);
+		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
 			
-			add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
-			gtk_widget_show (add_dialog->hbox2);
-			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
-			add_dialog->label4 = gtk_label_new (_("Compression level:"));
-			gtk_widget_show (add_dialog->label4);
-			gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
+		add_dialog->hbox2 = gtk_hbox_new (FALSE, 6);
+		gtk_widget_show (add_dialog->hbox2);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->hbox2, TRUE, TRUE, 0);
+		add_dialog->label4 = gtk_label_new (_("Compression level:"));
+		gtk_widget_show (add_dialog->label4);
+		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->label4, FALSE, FALSE, 0);
 	
-			if (archive->type == XARCHIVETYPE_7ZIP)
-				add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 2, 2, 0);
-			else
-				add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 0, 0, 0);
+		if (archive->type == XARCHIVETYPE_7ZIP)
+			add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 2, 2, 0);
+		else
+			add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 0, 0, 0);
 
-			add_dialog->compression_scale = gtk_hscale_new ( GTK_ADJUSTMENT (add_dialog->compression_value) );
-			gtk_widget_show (add_dialog->compression_scale);
-			gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
-			gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
-			gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
-			if (archive->type == XARCHIVETYPE_ARJ)
-				gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
-			else if (archive->type == XARCHIVETYPE_7ZIP)
-				g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
-			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->compression_scale, compression_msg, NULL );
-		}
+		add_dialog->compression_scale = gtk_hscale_new ( GTK_ADJUSTMENT (add_dialog->compression_value) );
+		gtk_widget_show (add_dialog->compression_scale);
+		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
+		gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
+		gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
+		if (archive->type == XARCHIVETYPE_ARJ)
+			gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
+		else if (archive->type == XARCHIVETYPE_7ZIP)
+			g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
+		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->compression_scale, compression_msg, NULL );
 	}
 
 	add_dialog->label2 = gtk_label_new (_("<b>Options </b>"));
@@ -455,6 +459,9 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			
 			archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->update ));
 			
+			if (add_dialog->remove_files != NULL)
+				archive->remove_files = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->remove_files ));
+
 			if (add_dialog->freshen != NULL)
 				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->freshen ));
 			
@@ -505,6 +512,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					command = g_strconcat ( "rar a ",
 											archive->update ? "-u " : "",
 											archive->freshen ? "-f " : "",
+											archive->remove_files ? "-df " : "",
 											"-p" , archive->passwd,
 											archive->add_recurse ? "-r " : "",
 											archive->full_path ? "-ep " : "",
@@ -516,6 +524,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					command = g_strconcat ( "rar a ",
 											archive->update ? "-u " : "",
 											archive->freshen ? "-f " : "",
+											archive->remove_files ? "-df " : "",
 											archive->add_recurse ? "-r " : "",
 											archive->full_path ? "-ep " : "",
 											"-idp ",
@@ -526,23 +535,40 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 
 				case XARCHIVETYPE_TAR:
 				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-					command = g_strconcat ( "tar rvvf " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "tar ",
+											archive->add_recurse ? "" : "--no-recursion ",
+											archive->remove_files ? "--remove-files " : "",
+											archive->update ? "-uvvf " : "-rvvf ",
+											archive->escaped_path,
+											names->str , NULL );
 				else
-					command = g_strconcat ( "tar cvvf " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "tar ",
+											archive->add_recurse ? "" : "--no-recursion ",
+											archive->remove_files ? "--remove-files " : "",
+											"-cvvf ",archive->escaped_path,
+											names->str , NULL );
 				break;
 
 				case XARCHIVETYPE_TAR_BZ2:
 				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 					DecompressBzipGzip ( names , archive, 0 , 1 );
 				else
-					command = g_strconcat ("tar cvvfj " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "tar ",
+											archive->add_recurse ? "" : "--no-recursion ",
+											archive->remove_files ? "--remove-files " : "",
+											"-cvvfj ",archive->escaped_path,
+											names->str , NULL );
 				break;
 
 				case XARCHIVETYPE_TAR_GZ:
 				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 					DecompressBzipGzip ( names , archive, 1 , 1 );
 				else
-					command = g_strconcat ("tar cvvfz " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "tar ",
+											archive->add_recurse ? "" : "--no-recursion ",
+											archive->remove_files ? "--remove-files " : "",
+											"-cvvfz ",archive->escaped_path,
+											names->str , NULL );
 				break;
 
 				case XARCHIVETYPE_ZIP:
@@ -551,6 +577,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 											archive->update ? "-u " : "",
 											archive->freshen ? "-f " : "",
 											archive->add_recurse ? "-r " : "",
+											archive->remove_files ? "-m " : "",
 											archive->full_path ? "-j " : "",
 											"-P ", archive->passwd," ",
 											"-",compression_string," ",
@@ -561,6 +588,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 											archive->update ? "-u " : "",
 											archive->freshen ? "-f " : "",
 											archive->add_recurse ? "-r " : "",
+											archive->remove_files ? "-m " : "",
 											archive->full_path ? "-j " : "",
 											"-",compression_string," ",
 											archive->escaped_path,
@@ -593,6 +621,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 											archive->update ? "-u " : "",
 											archive->freshen ? "-f " : "",
 											archive->add_recurse ? "-r " : "",
+											archive->remove_files ? "-d1 " : "",
 											archive->full_path ? "-e " : "",
 											"-g" , archive->passwd , " -i ",
 											"-m",compression_string," ",
@@ -603,6 +632,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 											archive->update ? "-u " : "",
 											archive->freshen ? "-f " : "",
 											archive->add_recurse ? "-r " : "",
+											archive->remove_files ? "-d1 " : "",
 											archive->full_path ? "-e " : "",
 											" -i ",
 											"-m",compression_string," ",

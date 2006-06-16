@@ -52,6 +52,7 @@ typedef struct
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
 	GtkWidget *add_full_path;
+	GtkWidget *remove_files;
 	GtkWidget *update;
 	GtkWidget *freshen;
 	GtkWidget *solid_archive;

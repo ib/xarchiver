@@ -228,7 +228,12 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 		}
 	}
 	if ( add )
-		command = g_strconcat ( "tar rvvf " , tmp , list->str , NULL );
+		command = g_strconcat ( "tar ",
+								archive->add_recurse ? "" : "--no-recursion ",
+								archive->remove_files ? "--remove-files " : "",
+								archive->update ? "-uvvf " : "-rvvf ",
+								tmp,
+								list->str , NULL );
     else
 		command = g_strconcat ( "tar --delete -f " , tmp , list->str , NULL );
 	waiting = TRUE;
