@@ -454,7 +454,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			{
 				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You haven't selected any files to add!") );
 				break;
-			}
+			}			
 			if ( add_dialog->add_password != NULL && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
 			{
 				temp_password  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (add_dialog->add_password_entry) ));

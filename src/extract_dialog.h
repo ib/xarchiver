@@ -35,13 +35,14 @@ typedef struct
 	GtkWidget *hbox4;
 	GtkWidget *frame1;
 	GtkWidget *alignment1;
+	GtkWidget *alignment2;
+	GtkWidget *alignment3;
 	GtkWidget *vbox3;
 	GtkWidget *all_files_radio;
 	GtkWidget *selected_files_radio;
 	GSList *radio_group;
 	GtkWidget *files_frame_label;
 	GtkWidget *frame2;
-	GtkWidget *alignment2;
 	GtkWidget *vbox4;
 	GtkWidget *overwrite_check;
 	GtkWidget *extract_full;

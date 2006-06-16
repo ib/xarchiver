@@ -243,10 +243,15 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	dialog_data->extract_image = xa_main_window_find_image("extract_button.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
 	dialog_data->extract_hbox = gtk_hbox_new(FALSE, 4);
 	dialog_data->extract_label = gtk_label_new_with_mnemonic(_("_Extract"));
+
+	dialog_data->alignment3 = gtk_alignment_new (0.5, 0.5, 0, 0);
+	gtk_widget_show (dialog_data->alignment3);
+	gtk_container_add (GTK_CONTAINER (dialog_data->alignment3), dialog_data->extract_hbox);
+
 	gtk_box_pack_start(GTK_BOX(dialog_data->extract_hbox), dialog_data->extract_image, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(dialog_data->extract_hbox), dialog_data->extract_label, FALSE, FALSE, 0);
 	gtk_widget_show_all(dialog_data->extract_hbox);
-	gtk_container_add(GTK_CONTAINER(dialog_data->extract_button), dialog_data->extract_hbox);
+	gtk_container_add(GTK_CONTAINER(dialog_data->extract_button), dialog_data->alignment3);
 	gtk_widget_show (dialog_data->extract_button);
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1), dialog_data->extract_button, GTK_RESPONSE_OK);
 	GTK_WIDGET_SET_FLAGS (dialog_data->extract_button, GTK_CAN_DEFAULT);
