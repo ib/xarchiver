@@ -589,9 +589,25 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 
 				case XARCHIVETYPE_ARJ:
 				if (archive->passwd != NULL)
-					command = g_strconcat ( "arj a -i -r -g" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "arj a ",
+											archive->update ? "-u " : "",
+											archive->freshen ? "-f " : "",
+											archive->add_recurse ? "-r " : "",
+											archive->full_path ? "-e " : "",
+											"-g" , archive->passwd , " -i ",
+											"-m",compression_string," ",
+											archive->escaped_path,
+											names->str , NULL );
 				else
-					command = g_strconcat ( "arj a -i -r " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "arj a ",
+											archive->update ? "-u " : "",
+											archive->freshen ? "-f " : "",
+											archive->add_recurse ? "-r " : "",
+											archive->full_path ? "-e " : "",
+											" -i ",
+											"-m",compression_string," ",
+											archive->escaped_path,
+											names->str , NULL );
 				break;
 
 				default:
