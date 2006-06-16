@@ -30,7 +30,7 @@ GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size)
 	GError *error = NULL;
     GtkWidget *file_image;
 	gchar *path;
-	path = g_strconcat(DATADIR, "/pixmaps/", filename, NULL);
+	path = g_strconcat(DATADIR, "/xarchiver/pixmaps/", filename, NULL);
 	GdkPixbuf *file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
 	if(!file_pixbuf)
 	{
