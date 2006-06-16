@@ -152,7 +152,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_widget_show (add_dialog->recurse);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->recurse, FALSE, FALSE, 0);
 
-	if (archive->type == XARCHIVETYPE_7ZIP && archive->nr_of_files == 0 && archive->nr_of_dirs == 0)
+	if ( (archive->type == XARCHIVETYPE_RAR) || (archive->type == XARCHIVETYPE_7ZIP && archive->nr_of_files == 0 && archive->nr_of_dirs == 0))
 	{
 		add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Generate a solid archive"));
 		gtk_widget_show (add_dialog->solid_archive);
@@ -512,6 +512,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					command = g_strconcat ( "rar a ",
 											archive->update ? "-u " : "",
 											archive->freshen ? "-f " : "",
+											archive->solid_archive ? "-s " : "",
 											archive->remove_files ? "-df " : "",
 											"-p" , archive->passwd,
 											archive->add_recurse ? "-r " : "",
@@ -524,6 +525,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					command = g_strconcat ( "rar a ",
 											archive->update ? "-u " : "",
 											archive->freshen ? "-f " : "",
+											archive->solid_archive ? "-s " : "",
 											archive->remove_files ? "-df " : "",
 											archive->add_recurse ? "-r " : "",
 											archive->full_path ? "-ep " : "",
