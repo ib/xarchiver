@@ -233,7 +233,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
   	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
 	{
 		Update_StatusBar ( _("Choose Add File to create the compressed file."));
-		xa_set_button_state (1,1,0,0 );
+		xa_set_button_state (1,1,1,0 );
 	}
 	else
 		Update_StatusBar ( _("Choose Add File or Add Folder to begin creating the archive."));

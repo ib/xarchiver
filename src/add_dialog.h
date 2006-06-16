@@ -36,6 +36,7 @@ typedef struct
 	GtkWidget *frame4;
 	GtkWidget *remove_button;
 	GtkWidget *add_files_button;
+	gboolean one_file;
 	GtkWidget *label2;
 	GtkWidget *label3;
 	GtkWidget *label4;

@@ -41,6 +41,10 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_window_set_transient_for ( GTK_WINDOW (add_dialog->dialog1) , GTK_WINDOW (MainWindow) );
 	gtk_window_set_resizable (GTK_WINDOW (add_dialog->dialog1), FALSE);
 
+	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_BZIP2)
+		add_dialog->one_file = TRUE;
+	else
+		add_dialog->one_file = FALSE;
 	add_dialog->add_option_tooltip = gtk_tooltips_new ();
 	add_dialog->dialog_vbox1 = GTK_DIALOG (add_dialog->dialog1)->vbox;
 	gtk_widget_show (add_dialog->dialog_vbox1);
@@ -96,19 +100,22 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_widget_show (add_dialog->vbox8);
 	gtk_box_pack_start (GTK_BOX (add_dialog->hbox1), add_dialog->vbox8, TRUE, FALSE, 0);
 
-	add_dialog->files_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Files"));
-	gtk_widget_show (add_dialog->files_radio);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox8), add_dialog->files_radio, FALSE, FALSE, 0);
-	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->files_radio), FALSE);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->files_radio), add_dialog->file_dir_radio_group);
-	add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->files_radio));
+	if ( ! add_dialog->one_file)
+	{
+		add_dialog->files_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Files"));
+		gtk_widget_show (add_dialog->files_radio);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox8), add_dialog->files_radio, FALSE, FALSE, 0);
+		gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->files_radio), FALSE);
+		gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->files_radio), add_dialog->file_dir_radio_group);
+		add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->files_radio));
 
-	add_dialog->directories_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Directories"));
-	gtk_widget_show (add_dialog->directories_radio);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox8), add_dialog->directories_radio, FALSE, FALSE, 0);
-	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->directories_radio), FALSE);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->directories_radio), add_dialog->file_dir_radio_group);
-	add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->directories_radio));
+		add_dialog->directories_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Directories"));
+		gtk_widget_show (add_dialog->directories_radio);
+		gtk_box_pack_start (GTK_BOX (add_dialog->vbox8), add_dialog->directories_radio, FALSE, FALSE, 0);
+		gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->directories_radio), FALSE);
+		gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->directories_radio), add_dialog->file_dir_radio_group);
+		add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->directories_radio));
+	}
 
 	add_dialog->hbuttonbox2 = gtk_hbutton_box_new ();
 	gtk_widget_show (add_dialog->hbuttonbox2);
@@ -130,7 +137,10 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	GTK_WIDGET_SET_FLAGS (add_dialog->add_files_button, GTK_CAN_DEFAULT);
 	g_signal_connect ( (gpointer) add_dialog->add_files_button, "clicked", G_CALLBACK (xa_select_files_to_add) , add_dialog );
 	
-	add_dialog->label3 = gtk_label_new (_("<b>Files and directories to add </b>"));
+	if ( add_dialog->one_file)
+		add_dialog->label3 = gtk_label_new (_("<b>File to add </b>"));
+	else
+		add_dialog->label3 = gtk_label_new (_("<b>Files and directories to add </b>"));
 	gtk_widget_show (add_dialog->label3);
 	gtk_frame_set_label_widget (GTK_FRAME (add_dialog->frame5), add_dialog->label3);
 	gtk_label_set_use_markup (GTK_LABEL (add_dialog->label3), TRUE);
@@ -330,7 +340,7 @@ void password_toggled_cb ( GtkButton* button , gpointer _add_dialog )
 		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
 }
 
-void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog )
+void xa_select_files_to_add ( GtkButton* button, gpointer _add_dialog )
 {
 	Add_dialog_data *add_dialog = _add_dialog;
 	GSList *dummy = NULL;
@@ -355,7 +365,8 @@ void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog )
 							GTK_STOCK_OPEN,
 							GTK_RESPONSE_ACCEPT,
 							NULL);
-	gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
+	if (add_dialog->one_file == FALSE)
+		gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
