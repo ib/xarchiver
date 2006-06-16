@@ -118,6 +118,12 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 		g_free ( command );
 		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);    
 	}
+	else
+	{
+		gtk_widget_set_sensitive (Stop_button, FALSE);
+		gtk_widget_hide ( viewport2 );
+		Update_StatusBar ( _("Operation canceled."));
+	}
 }
 
 gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
