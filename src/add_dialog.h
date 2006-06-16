@@ -45,6 +45,7 @@ typedef struct
 	GtkWidget *hbuttonbox2;
 	GtkWidget *alignment4;
 	GtkWidget *alignment5;
+	GtkWidget *alignment6;
 	GtkWidget *scrolledwindow3;
 	GtkWidget *file_list_treeview;
 	GtkListStore *file_liststore;

@@ -149,12 +149,14 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_container_add (GTK_CONTAINER (add_dialog->alignment4), add_dialog->vbox6);
 
 	add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Recurse subdirectories"));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->recurse), archive->add_recurse);
 	gtk_widget_show (add_dialog->recurse);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->recurse, FALSE, FALSE, 0);
 
 	if ( (archive->type == XARCHIVETYPE_RAR) || (archive->type == XARCHIVETYPE_7ZIP && archive->nr_of_files == 0 && archive->nr_of_dirs == 0))
 	{
 		add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Generate a solid archive"));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->solid_archive), archive->solid_archive);
 		gtk_widget_show (add_dialog->solid_archive);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->solid_archive, FALSE, FALSE, 0);
 		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio."), NULL);
@@ -163,6 +165,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_ZIP)
 	{
 		add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Remove files after adding"));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->remove_files), archive->remove_files);
 		gtk_widget_show (add_dialog->remove_files);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->remove_files, FALSE, FALSE, 0);
 	}
@@ -170,11 +173,13 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
 	{
 		add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->add_full_path), archive->full_path);
 		gtk_widget_show (add_dialog->add_full_path);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
 		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
 
 		add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->freshen), archive->freshen);
 		gtk_widget_show (add_dialog->freshen);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
 		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This options affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."), NULL );
@@ -182,6 +187,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	}
 		
 	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update an existing entry in the archive"));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->update), archive->update);
 	gtk_widget_show (add_dialog->update);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->update, FALSE, FALSE, 0);
 	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified."), NULL );
@@ -251,6 +257,10 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		gtk_box_pack_start (GTK_BOX (add_dialog->hbox2), add_dialog->compression_scale, TRUE, TRUE, 0);
 		gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_LEFT);
 		gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
+		if (archive->compression_level == 0)
+			archive->compression_level = default_value;
+		gtk_adjustment_set_value (GTK_ADJUSTMENT(add_dialog->compression_value), archive->compression_level);
+
 		if (archive->type == XARCHIVETYPE_ARJ)
 			gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
 		else if (archive->type == XARCHIVETYPE_7ZIP)
@@ -276,6 +286,11 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->add_image = xa_main_window_find_image("add_button.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
 	add_dialog->add_hbox = gtk_hbox_new(FALSE, 4);
 	add_dialog->add_label = gtk_label_new_with_mnemonic(_("_Add"));
+
+	add_dialog->alignment6 = gtk_alignment_new (0.5, 0.5, 1, 1);
+	gtk_widget_show (add_dialog->alignment6);
+	gtk_container_add (GTK_CONTAINER (add_dialog->add_hbox), add_dialog->alignment6);
+
 	gtk_box_pack_start(GTK_BOX(add_dialog->add_hbox), add_dialog->add_image, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(add_dialog->add_hbox), add_dialog->add_label, FALSE, TRUE, 0);
 	gtk_widget_show_all (add_dialog->add_hbox);
