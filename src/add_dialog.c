@@ -287,14 +287,14 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->add_hbox = gtk_hbox_new(FALSE, 4);
 	add_dialog->add_label = gtk_label_new_with_mnemonic(_("_Add"));
 
-	add_dialog->alignment6 = gtk_alignment_new (0.5, 0.5, 1, 1);
+	add_dialog->alignment6 = gtk_alignment_new (0.5, 0.5, 0, 0);
 	gtk_widget_show (add_dialog->alignment6);
-	gtk_container_add (GTK_CONTAINER (add_dialog->add_hbox), add_dialog->alignment6);
+	gtk_container_add (GTK_CONTAINER (add_dialog->alignment6), add_dialog->add_hbox);
 
 	gtk_box_pack_start(GTK_BOX(add_dialog->add_hbox), add_dialog->add_image, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(add_dialog->add_hbox), add_dialog->add_label, FALSE, TRUE, 0);
 	gtk_widget_show_all (add_dialog->add_hbox);
-	gtk_container_add(GTK_CONTAINER(add_dialog->add_button), add_dialog->add_hbox);
+	gtk_container_add(GTK_CONTAINER(add_dialog->add_button), add_dialog->alignment6);
 	gtk_widget_show (add_dialog->add_button);
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->add_button, GTK_RESPONSE_OK);
 	GTK_WIDGET_SET_FLAGS (add_dialog->add_button, GTK_CAN_DEFAULT);
