@@ -54,6 +54,7 @@ typedef struct
 	GtkWidget *add_full_path;
 	GtkWidget *update;
 	GtkWidget *freshen;
+	GtkWidget *solid_archive;
 	GtkWidget *compression_scale;
 	GtkWidget *add_password;
 	GtkWidget *add_password_entry;

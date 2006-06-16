@@ -39,6 +39,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_window_set_title (GTK_WINDOW (add_dialog->dialog1), _("Add Dialog"));
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for ( GTK_WINDOW (add_dialog->dialog1) , GTK_WINDOW (MainWindow) );
+	gtk_window_set_resizable (GTK_WINDOW (add_dialog->dialog1), FALSE);
 
 	add_dialog->add_option_tooltip = gtk_tooltips_new ();
 	add_dialog->dialog_vbox1 = GTK_DIALOG (add_dialog->dialog1)->vbox;
@@ -87,7 +88,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_container_add (GTK_CONTAINER (add_dialog->scrolledwindow3), add_dialog->file_list_treeview);
 	gtk_widget_show (add_dialog->file_list_treeview);
 	
-	add_dialog->hbox1 = gtk_hbox_new (FALSE, 0);
+	add_dialog->hbox1 = gtk_hbox_new (FALSE, 70);
 	gtk_widget_show (add_dialog->hbox1);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox7), add_dialog->hbox1, TRUE, TRUE, 0);
 
@@ -98,12 +99,14 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->files_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Files"));
 	gtk_widget_show (add_dialog->files_radio);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox8), add_dialog->files_radio, FALSE, FALSE, 0);
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->files_radio), FALSE);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->files_radio), add_dialog->file_dir_radio_group);
 	add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->files_radio));
 
 	add_dialog->directories_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Directories"));
 	gtk_widget_show (add_dialog->directories_radio);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox8), add_dialog->directories_radio, FALSE, FALSE, 0);
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->directories_radio), FALSE);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->directories_radio), add_dialog->file_dir_radio_group);
 	add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->directories_radio));
 
@@ -149,15 +152,23 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_widget_show (add_dialog->recurse);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->recurse, FALSE, FALSE, 0);
 
-	add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
-	gtk_widget_show (add_dialog->add_full_path);
-	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
-
 	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
 	{
+		if (archive->type == XARCHIVETYPE_7ZIP && archive->nr_of_files == 0 && archive->nr_of_dirs == 0)
+		{
+			add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Generate a solid archive"));
+			gtk_widget_show (add_dialog->solid_archive);
+			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->solid_archive, FALSE, FALSE, 0);
+			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio."), NULL);
+		}
+
 		if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
 		{
+			add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
+			gtk_widget_show (add_dialog->add_full_path);
+			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
+			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
+
 			add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
 			gtk_widget_show (add_dialog->freshen);
 			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
@@ -292,7 +303,10 @@ void password_toggled_cb ( GtkButton* button , gpointer _add_dialog )
 {
 	Add_dialog_data *add_dialog = _add_dialog;
 	if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
+	{
 		gtk_widget_set_sensitive (add_dialog->add_password_entry, TRUE);
+		gtk_widget_grab_focus (add_dialog->add_password_entry);
+	}
 	else
 		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
 }
@@ -436,10 +450,17 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			}
 			done = TRUE;
 			archive->add_recurse = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->recurse ));
-			archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->add_full_path ));
+			if (add_dialog->add_full_path != NULL)
+				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->add_full_path ));
+			
 			archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->update ));
+			
 			if (add_dialog->freshen != NULL)
 				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->freshen ));
+			
+			if (add_dialog->solid_archive)
+				archive->solid_archive = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->solid_archive ));
+
 			if (add_dialog->compression_scale != NULL)
 			{
 				archive->compression_level = gtk_adjustment_get_value (GTK_ADJUSTMENT ( add_dialog->compression_value ));
@@ -548,9 +569,22 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 
 				case XARCHIVETYPE_7ZIP:
 				if (archive->passwd != NULL)
-					command = g_strconcat ( "7za a -ms=off -p" , archive->passwd , " " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "7za ",
+											archive->update ? "u " : "a ",
+											archive->solid_archive ? "-ms=on " : "-ms=off ",
+											"-p" , archive->passwd, " ",
+											archive->escaped_path,
+											archive->add_recurse ? " -r " : " ",
+											"-mx=",compression_string,"",
+											names->str , NULL );
 				else
-					command = g_strconcat ( "7za a -ms=off " , archive->escaped_path , names->str , NULL );
+					command = g_strconcat ( "7za ",
+											archive->update ? "u " : "a ",
+											archive->solid_archive ? "-ms=on " : "-ms=off ",
+											archive->escaped_path,
+											archive->add_recurse ? " -r " : " ",
+											"-mx=",compression_string,"",
+											names->str , NULL );
 				break;
 
 				case XARCHIVETYPE_ARJ:

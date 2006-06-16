@@ -544,7 +544,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_widget_destroy ( extract_window->dialog1 );
 	if (command != NULL)
 	{
-		g_message (command);
+		//g_message (command);
 		ExtractAddDelete (command);
 		g_free (command);
 	}
@@ -1394,7 +1394,7 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 void ConcatenateFileNames3 (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
 {
 	gchar *fullname;
-	gchar *name;
+	//gchar *name;
 
 	gtk_tree_model_get (model, iter, 1, &fullname, -1);
 	//name = g_path_get_basename ( fullname );
