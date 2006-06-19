@@ -67,7 +67,7 @@ int main (int argc, char **argv)
 		{
 			archive = xa_init_structure (archive);
 			archive->path = g_strdup (argv[1]);
-			archive->escaped_path = escaped_path;
+			archive->escaped_path = EscapeBadChars(argv[1]);
 			archive->type = DetectArchiveType ( archive );
 			if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 				archive->type = XARCHIVETYPE_TAR_BZ2;

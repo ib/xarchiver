@@ -294,7 +294,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
     EmptyTextBuffer();
     
     //Does the user open an archive from the command line whose archiver is not installed ?
-    ext = NULL;
+    gchar *ext = NULL;
     if ( archive->type == XARCHIVETYPE_RAR )
 		ext = ".rar";
 	else if ( archive->type == XARCHIVETYPE_7ZIP )
