@@ -526,7 +526,10 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			names = g_string_new ( " " );
 			while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
 			{
-				ConcatenateFileNames3 ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
+				if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
+					xa_cat_filenames_for_tar ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
+				else
+					ConcatenateFileNames3 ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
 				gtk_list_store_remove (add_dialog->file_liststore, &iter);
 			}
 			gtk_widget_set_sensitive (Stop_button , TRUE);			
@@ -598,7 +601,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					command = g_strconcat ( "tar ",
 											archive->add_recurse ? "" : "--no-recursion ",
 											archive->remove_files ? "--remove-files " : "",
-											"-cvvfj ",archive->escaped_path,
+											"-cvvjf ",archive->escaped_path,
 											names->str , NULL );
 				break;
 
@@ -609,7 +612,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					command = g_strconcat ( "tar ",
 											archive->add_recurse ? "" : "--no-recursion ",
 											archive->remove_files ? "--remove-files " : "",
-											"-cvvfz ",archive->escaped_path,
+											"-cvvzf ",archive->escaped_path,
 											names->str , NULL );
 				break;
 

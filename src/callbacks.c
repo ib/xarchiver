@@ -1394,12 +1394,20 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 void ConcatenateFileNames3 (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
 {
 	gchar *fullname;
-	//gchar *name;
 
 	gtk_tree_model_get (model, iter, 1, &fullname, -1);
-	//name = g_path_get_basename ( fullname );
-	//g_free (fullname);
 	ConcatenateFileNames2 ( fullname , data );
+}
+
+void xa_cat_filenames_for_tar (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
+{
+	gchar *fullname;
+	gchar *name;
+
+	gtk_tree_model_get (model, iter, 1, &fullname, -1);
+	name = g_path_get_basename ( fullname );
+	g_free (fullname);
+	ConcatenateFileNames2 ( name , data );
 }
 
 void ExtractAddDelete ( gchar *command )
