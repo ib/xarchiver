@@ -58,8 +58,7 @@ int main (int argc, char **argv)
 	cli = TRUE;
 	if (argc > 1)
 	{
-		gchar *escaped_path = EscapeBadChars (argv[1]);
-		if ( ! g_file_test ( escaped_path , G_FILE_TEST_EXISTS ) )
+		if ( ! g_file_test ( argv[1] , G_FILE_TEST_EXISTS ) )
 	    {
 		    response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("The file doesn't exist!") );
 			argc = 1;
