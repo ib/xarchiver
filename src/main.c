@@ -34,7 +34,7 @@ gboolean ask_and_add;
 
 static GOptionEntry entries[] =
 {
-	{ "extract-to=FOLDER", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, N_("Extract the archive to the specified folder and quits."), NULL },
+	{ "extract-to=FOLDER [archive name]", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, N_("Extract the archive to the specified folder and quits."), NULL },
 	{ "extract", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, N_("Extract the archive by asking the destination folder and quits."), NULL },
 	{ "add-to=ARCHIVE", 'd', 0, G_OPTION_ARG_FILENAME, &path, N_("Add files to the specified archive and quits."), NULL },
 	{ "add", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, N_("Add files asking the name of the archive and quits."), NULL },
@@ -87,7 +87,9 @@ int main (int argc, char **argv)
 		{
 			GString *string = g_string_new ( "" );
 			archive->full_path = 1;
-			cli_command = xa_extract_single_files ( archive , string, extract_path );
+			gchar *escaped_path = EscapeBadChars (extract_path);
+			cli_command = xa_extract_single_files ( archive , string, escaped_path );
+			g_free (escaped_path);
 			if ( cli_command != NULL )
 			{
 				error_output = SpawnSyncCommand ( cli_command );
@@ -180,22 +182,25 @@ void GetAvailableCompressors()
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.gz");
 	}
 
+	/*
 	if ( g_find_program_in_path("mkisofs"))
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".iso");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
 	}
+	*/
 
-    if ( g_find_program_in_path("rar"))
+	ArchiveType = g_list_prepend ( ArchiveType, ".iso");
+	ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
+
+    if ( g_find_program_in_path("rar") || g_find_program_in_path("unrar"))
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
 	}
 
     if ( g_find_program_in_path("cpio"))
-    {
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rpm");
-    }
 
 	if ( g_find_program_in_path("tar"))
 	{
