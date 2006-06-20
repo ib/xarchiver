@@ -555,6 +555,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 				if ( !cli )
 					Update_StatusBar ( _("Adding files to the archive, please wait..."));
 			command = xa_add_single_files ( archive, names, compression_string);
+			g_string_free ( names, TRUE);
 			if (compression_string != NULL)
 				g_free (compression_string);
 		}
@@ -726,7 +727,6 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		default:
 		command = NULL;            
 	}
-	g_string_free (names , FALSE );
 	return command;
 }
 

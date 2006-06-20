@@ -512,7 +512,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
         ExtractAddDelete ( command );
         g_free (command);
     }
-    g_string_free (names , FALSE );
+    g_string_free (names , TRUE );
 }
 
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
@@ -1169,10 +1169,9 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 	unlink ( filename );
 	gtk_widget_show (view_window);
 	g_free (filename);
-	//Let's restore the pointer to its correct memory address
+	/* Let's restore the pointer to its correct memory address */
 	data->str--;
-	g_free ( data->str );
-	g_string_free (data , FALSE);
+	g_string_free (data, TRUE);
 	Update_StatusBar (_("Operation completed."));
 	return NULL;
 }
@@ -1634,6 +1633,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
         names = g_string_new ("");
         gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
         command = xa_extract_single_files ( archive , names, extract_path );
+		g_string_free (names, TRUE);
         if ( command != NULL )
         {
             ExtractAddDelete ( command );

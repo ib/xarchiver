@@ -23,7 +23,7 @@
 #include "support.h"
 
 extern gboolean cli;
-gchar *digit;
+char digit[2];
 gchar *strip_string = NULL;
 
 Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive)
@@ -164,11 +164,10 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 
 		if ( ! archive->full_path )
 		{
-			gchar *strip_text;
-			strip_text = g_strdup_printf ( "%d",archive->tar_strip_value);
+			char strip_text[2];
+			sprintf ( strip_text , "%d",archive->tar_strip_value);
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->strip), TRUE);
 			gtk_entry_set_text (GTK_ENTRY (dialog_data->strip_entry), strip_text );
-			g_free (strip_text);
 			gtk_widget_set_sensitive (dialog_data->strip_entry , TRUE);
 		}
 		else
@@ -341,9 +340,8 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			{
 				archive->full_path = ! gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->strip ));
 				archive->tar_strip_value = atoi (gtk_entry_get_text (GTK_ENTRY(dialog_data->strip_entry)) );
-				digit = g_strdup_printf ( "%d", archive->tar_strip_value );
+				sprintf ( digit, "%d", archive->tar_strip_value );
 				strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
-				g_free (digit);
 			}
 			else
 			{
@@ -524,6 +522,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					names = g_string_new ( " " );
 					gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
 					command = xa_extract_single_files ( archive , names, extract_path );
+					g_string_free (names, TRUE);
 				}
 			}
 		}
@@ -533,14 +532,13 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path)
 {
-	gchar *command = NULL;
+	gchar *command;
 
 	if ( archive->full_path == 0)
 	{
 		archive->tar_strip_value = CountCharacter ( files->str , '/');
-		digit = g_strdup_printf ( "%d" , archive->tar_strip_value );
+		sprintf ( digit , "%d" , archive->tar_strip_value );
 		strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
-		g_free (digit);
 	}
 	if ( ! cli)
 	{
@@ -652,7 +650,6 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		g_free ( strip_string );
 		strip_string = NULL;
 	}
-	g_string_free (files , FALSE );
     return command;
 }
 

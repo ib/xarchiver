@@ -22,12 +22,8 @@ extern gchar *extract_path;
 extern XArchive *archive;
 
 gchar *cli_command = NULL;
-gboolean error_output,cli;
 GError *cli_error = NULL;
-
-gboolean file_to_open;
-gboolean ask_and_extract;
-gboolean ask_and_add;
+gboolean error_output,cli, file_to_open, ask_and_extract, ask_and_add;
 
 static GOptionEntry entries[] =
 {
@@ -112,6 +108,7 @@ int main (int argc, char **argv)
 			error_output = SpawnSyncCommand ( cli_command );
 			g_free (cli_command);
 		}
+		g_string_free (string, TRUE);
 		xa_clean_archive_structure ( archive );
 
 		return 0;
