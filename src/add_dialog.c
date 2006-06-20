@@ -115,6 +115,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->directories_radio), FALSE);
 		gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->directories_radio), add_dialog->file_dir_radio_group);
 		add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->directories_radio));
+		g_signal_connect (G_OBJECT (add_dialog->files_radio),"toggled",G_CALLBACK (toggle_recurse) , add_dialog);
 	}
 
 	add_dialog->hbuttonbox2 = gtk_hbutton_box_new ();
@@ -162,9 +163,12 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		
 		add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Recurse subdirectories"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->recurse), archive->add_recurse);
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->files_radio)))
+			gtk_widget_set_sensitive (add_dialog->recurse, FALSE);
 		gtk_widget_show (add_dialog->recurse);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->recurse, FALSE, FALSE, 0);
-
+		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->recurse , _("Travel the directory structure recursively starting at the current directory."), NULL);
+		
 		if ( (archive->type == XARCHIVETYPE_RAR) || (archive->type == XARCHIVETYPE_7ZIP && archive->nr_of_files == 0 && archive->nr_of_dirs == 0))
 		{
 			add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Generate a solid archive"));
@@ -319,6 +323,14 @@ void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data
 	gboolean active = gtk_toggle_button_get_active (button);
 	if (active)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
+}
+
+void toggle_recurse (GtkButton* button, Add_dialog_data *data)
+{
+	Add_dialog_data *add_dialog = data;
+
+	gboolean active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->directories_radio));
+		gtk_widget_set_sensitive (add_dialog->recurse, active);
 }
 
 void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)

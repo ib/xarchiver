@@ -4,6 +4,5 @@
   - fix extraction routine since the files inside the directories are not extracted
   - fix drag from Xarchiver window since the dragged files is not extracted
 
-- add cmd-line switches [PARTIALLY DONE, -x and -e are completed]
 - polish the code in main.c regarding the cmd-line switches.
 - fix bugs #1736, #1849, #1879, #1937, #1938

@@ -78,6 +78,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive);
 void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data);
 void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data);
 void password_toggled_cb ( GtkButton* button , gpointer _add_dialog );
+void toggle_recurse (GtkButton* button, Add_dialog_data *data);
 gchar *xa_parse_add_dialog_options ( XArchive *archive, Add_dialog_data *dialog_data );
 void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog );
 gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compression_string);

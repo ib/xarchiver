@@ -49,7 +49,7 @@ double content_size;
 gboolean done;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
-GtkWidget *dialog , *textview, *textview1, *scrollwin, *vbox, *OutputWindow , *File_Selector , *view_window, *archive_properties_win;
+GtkWidget *dialog , *textview, *scrollwin, *vbox, *OutputWindow , *File_Selector , *view_window, *archive_properties_win;
 GtkTextBuffer *textbuf , *viewtextbuf;
 GtkTextIter enditer , start, end;
 GtkTextIter viewenditer, viewstart, viewend;

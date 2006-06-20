@@ -456,31 +456,32 @@ gchar *password_dialog ()
 
 GtkWidget *view_win ()
 {
-  GtkWidget *view_window;
-  GtkWidget *scrolledwindow2;
+	GtkWidget *view_window;
+	GtkWidget *scrolledwindow2;
+	GtkWidget *textview1;
 
-  view_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (view_window), _("View File Window"));
-  gtk_window_set_destroy_with_parent (GTK_WINDOW (view_window), TRUE);
-  gtk_window_set_type_hint (GTK_WINDOW (view_window), GDK_WINDOW_TYPE_HINT_UTILITY);
-  gtk_window_set_position (GTK_WINDOW (view_window), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size(GTK_WINDOW (view_window), 450, 300);
-  gtk_window_set_modal ( GTK_WINDOW (view_window),TRUE);
-  scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
-  gtk_widget_show (scrolledwindow2);
-  gtk_container_add (GTK_CONTAINER (view_window), scrolledwindow2);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow2), GTK_SHADOW_IN);
-  gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow2) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	view_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW (view_window), _("View File Window"));
+	gtk_window_set_destroy_with_parent (GTK_WINDOW (view_window), TRUE);
+	gtk_window_set_type_hint (GTK_WINDOW (view_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+	gtk_window_set_position (GTK_WINDOW (view_window), GTK_WIN_POS_CENTER);
+	gtk_window_set_default_size(GTK_WINDOW (view_window), 450, 300);
+	gtk_window_set_modal ( GTK_WINDOW (view_window),TRUE);
+	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (scrolledwindow2);
+	gtk_container_add (GTK_CONTAINER (view_window), scrolledwindow2);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow2), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow2) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
-  textview1 = gtk_text_view_new ();
-  gtk_widget_show (textview1);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow2), textview1);
-  gtk_container_set_border_width (GTK_CONTAINER (textview1), 5);
-  gtk_text_view_set_editable (GTK_TEXT_VIEW (textview1), FALSE);
-  gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview1), FALSE);
-  viewtextbuf = gtk_text_view_get_buffer ( GTK_TEXT_VIEW (textview1) );
-  gtk_text_buffer_get_start_iter (viewtextbuf, &viewenditer);
-  return view_window;
+	textview1 = gtk_text_view_new ();
+	gtk_widget_show (textview1);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow2), textview1);
+	gtk_container_set_border_width (GTK_CONTAINER (textview1), 5);
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (textview1), FALSE);
+	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview1), FALSE);
+	viewtextbuf = gtk_text_view_get_buffer ( GTK_TEXT_VIEW (textview1) );
+	gtk_text_buffer_get_start_iter (viewtextbuf, &viewenditer);
+	return view_window;
 }
 
 GtkWidget *create_archive_properties_window ()

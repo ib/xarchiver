@@ -366,9 +366,9 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
     gchar *command;
-    if ( archive->has_passwd )
-    {
-        if ( archive->passwd == NULL)
+	if ( archive->has_passwd )
+	{
+		if ( archive->passwd == NULL)
 		{
 			archive->passwd = password_dialog ();
 			if ( archive->passwd == NULL)
@@ -1043,9 +1043,12 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 
 	if ( archive->has_passwd )
 	{
-		//TODO: archive->passwd = password_dialog ();
-		if ( archive->passwd == NULL )
-			return;
+		if ( archive->passwd == NULL)
+		{
+			archive->passwd = password_dialog ();
+			if ( archive->passwd == NULL)
+				return;
+		}
 	}
 	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 
