@@ -457,17 +457,18 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gchar *command = NULL;
-    char numbers[6];
+    gchar *numbers;
 	gint x;
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	names = g_string_new ( " " );
 	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
     x = gtk_tree_selection_count_selected_rows (selection);
-    sprintf ( numbers , "%d", x );
+    numbers = g_strdup_printf ( "%d", x );
     gchar *msg = g_strconcat (_("You are about to delete "),numbers,x > 1 ? _(" files") : _(" file") , _(" from the archive.\nAre you really sure to do this?"),NULL);
     response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,msg );
     g_free (msg);
+	g_free (numbers);
     if ( response == GTK_RESPONSE_NO)
 		return;
     Update_StatusBar ( _("Deleting files from the archive, please wait..."));

@@ -33,7 +33,7 @@ void OpenRPM ( XArchive *archive )
 {
 	unsigned char bytes[8];
     int dl,il,sigsize,offset;
-    gchar ibs[4];
+    gchar *ibs;
     
     signal (SIGPIPE, SIG_IGN);
     stream = fopen ( archive->path , "r" );
@@ -87,10 +87,11 @@ void OpenRPM ( XArchive *archive )
 
 	cpio_tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
 	fd = g_mkstemp ( cpio_tmp );
-	sprintf ( ibs , "%u" , offset );
+	ibs = g_strdup_printf ( "%u" , offset );
 
 	//Now I run dd to have the bzip2 / gzip compressed cpio archive in /tmp
 	gchar *command = g_strconcat ( "dd if=" , archive->escaped_path, " ibs=" , ibs , " skip=1 of=" , cpio_tmp , NULL );
+	g_free (ibs);
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
@@ -206,6 +207,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	}
 	CloseChannels ( ioc_cpio );
 	CloseChannels ( input_ioc );
+	return NULL;
 }
 
 /* output pipe */
