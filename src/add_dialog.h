@@ -80,6 +80,7 @@ void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data
 void password_toggled_cb ( GtkButton* button , gpointer _add_dialog );
 gchar *xa_parse_add_dialog_options ( XArchive *archive, Add_dialog_data *dialog_data );
 void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog );
+gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compression_string);
 void add_files_liststore (gchar *file_path, GtkListStore *liststore);
 void remove_files_liststore (GtkWidget *widget, gpointer data);
 void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, GList **rowref_list);

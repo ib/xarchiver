@@ -29,28 +29,12 @@ extern int xa_progressbar_pulse ();
 extern int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, gchar *message);
 extern gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
-XArchive *xa_init_structure (XArchive *archive)
+XArchive *xa_init_archive_structure (XArchive *archive)
 {
 	if (archive != NULL)
 	{
 		//TODO: memory leak with other fields ??
-		if(archive->path)
-			g_free(archive->path);
-		archive->path = NULL;
-
-		if(archive->escaped_path)
-			g_free(archive->escaped_path);
-		archive->escaped_path = NULL;
-		
-		if(archive->tmp)
-			g_free(archive->tmp);
-		archive->tmp = NULL;
-
-		if (archive->passwd != NULL)
-			g_free (archive->passwd);
-		archive->passwd = NULL;
-		
-		g_free (archive);
+		xa_clean_archive_structure ( archive );
 	}
 	archive = g_new0(XArchive,1);
 	return archive;
@@ -110,4 +94,23 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 	g_io_add_watch (err_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_report_child_stderr, NULL);
 }
 
+void xa_clean_archive_structure ( XArchive *archive)
+{
+	if(archive->path)
+		g_free(archive->path);
+	archive->path = NULL;
 
+	if(archive->escaped_path)
+		g_free(archive->escaped_path);
+	archive->escaped_path = NULL;
+		
+	if(archive->tmp)
+		g_free(archive->tmp);
+	archive->tmp = NULL;
+
+	if (archive->passwd != NULL)
+		g_free (archive->passwd);
+	archive->passwd = NULL;
+		
+	g_free (archive);
+}

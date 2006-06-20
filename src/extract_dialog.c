@@ -522,11 +522,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					names = g_string_new ( " " );
 					gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
 					command = xa_extract_single_files ( archive , names, extract_path );
-					if ( command != NULL )
-					{
-						g_string_free (names , FALSE );
-						return command;
-					}
 				}
 			}
 		}
@@ -536,7 +531,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path)
 {
-	gchar *command;
+	gchar *command = NULL;
 
 	if ( archive->full_path == 0)
 	{
@@ -654,6 +649,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		g_free ( strip_string );
 		strip_string = NULL;
 	}
+	g_string_free (files , FALSE );
     return command;
 }
 

@@ -5,6 +5,5 @@
   - fix drag from Xarchiver window since the dragged files is not extracted
 
 - add cmd-line switches [PARTIALLY DONE, -x and -e are completed]
-- develop the add dialog showing most of the options for current archive [PARTIALLY DONE]
 - polish the code in main.c regarding the cmd-line switches.
-- fix bugs #1736, #1849, #1879.
+- fix bugs #1736, #1849, #1879, #1937, #1938

@@ -532,167 +532,189 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					ConcatenateFileNames3 ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
 				gtk_list_store_remove (add_dialog->file_liststore, &iter);
 			}
-			gtk_widget_set_sensitive (Stop_button , TRUE);			
-			xa_set_button_state (0,0,0,0);
+			if (! cli)
+			{
+				gtk_widget_set_sensitive (Stop_button , TRUE);			
+				xa_set_button_state (0,0,0,0);
+			}
 			archive->status = XA_ARCHIVESTATUS_ADD;
 
 			if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
-				Update_StatusBar ( _("Adding files to the archive, please wait..."));
-			switch (archive->type)
-			{
-				case XARCHIVETYPE_BZIP2:
-				Update_StatusBar ( _("Compressing file with bzip2, please wait..."));
-				Bzip2Add ( names->str , archive , 0 );
-				break;
-
-				case XARCHIVETYPE_GZIP:
-				Update_StatusBar ( _("Compressing file with gzip, please wait..."));
-				Bzip2Add ( names->str , archive , 1 );
-				break;
-			
-				case XARCHIVETYPE_RAR:
-				if (archive->passwd != NULL)
-					command = g_strconcat ( "rar a ",
-											archive->update ? "-u " : "",
-											archive->freshen ? "-f " : "",
-											archive->solid_archive ? "-s " : "",
-											archive->remove_files ? "-df " : "",
-											"-p" , archive->passwd,
-											archive->add_recurse ? "-r " : "",
-											archive->full_path ? "-ep " : "",
-											"-idp ",
-											"-m",compression_string," ",
-											archive->escaped_path,
-											names->str , NULL );
-				else
-					command = g_strconcat ( "rar a ",
-											archive->update ? "-u " : "",
-											archive->freshen ? "-f " : "",
-											archive->solid_archive ? "-s " : "",
-											archive->remove_files ? "-df " : "",
-											archive->add_recurse ? "-r " : "",
-											archive->full_path ? "-ep " : "",
-											"-idp ",
-											"-m",compression_string," ",
-											archive->escaped_path,
-											names->str , NULL );
-				break;
-
-				case XARCHIVETYPE_TAR:
-				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-					command = g_strconcat ( "tar ",
-											archive->add_recurse ? "" : "--no-recursion ",
-											archive->remove_files ? "--remove-files " : "",
-											archive->update ? "-uvvf " : "-rvvf ",
-											archive->escaped_path,
-											names->str , NULL );
-				else
-					command = g_strconcat ( "tar ",
-											archive->add_recurse ? "" : "--no-recursion ",
-											archive->remove_files ? "--remove-files " : "",
-											"-cvvf ",archive->escaped_path,
-											names->str , NULL );
-				break;
-
-				case XARCHIVETYPE_TAR_BZ2:
-				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-					DecompressBzipGzip ( names , archive, 0 , 1 );
-				else
-					command = g_strconcat ( "tar ",
-											archive->add_recurse ? "" : "--no-recursion ",
-											archive->remove_files ? "--remove-files " : "",
-											"-cvvjf ",archive->escaped_path,
-											names->str , NULL );
-				break;
-
-				case XARCHIVETYPE_TAR_GZ:
-				if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-					DecompressBzipGzip ( names , archive, 1 , 1 );
-				else
-					command = g_strconcat ( "tar ",
-											archive->add_recurse ? "" : "--no-recursion ",
-											archive->remove_files ? "--remove-files " : "",
-											"-cvvzf ",archive->escaped_path,
-											names->str , NULL );
-				break;
-
-				case XARCHIVETYPE_ZIP:
-				if (archive->passwd != NULL)
-					command = g_strconcat ( "zip ",
-											archive->update ? "-u " : "",
-											archive->freshen ? "-f " : "",
-											archive->add_recurse ? "-r " : "",
-											archive->remove_files ? "-m " : "",
-											archive->full_path ? "-j " : "",
-											"-P ", archive->passwd," ",
-											"-",compression_string," ",
-											archive->escaped_path,
-											names->str , NULL );
-				else
-					command = g_strconcat ( "zip ",
-											archive->update ? "-u " : "",
-											archive->freshen ? "-f " : "",
-											archive->add_recurse ? "-r " : "",
-											archive->remove_files ? "-m " : "",
-											archive->full_path ? "-j " : "",
-											"-",compression_string," ",
-											archive->escaped_path,
-											names->str , NULL );
-				break;
-
-				case XARCHIVETYPE_7ZIP:
-				if (archive->passwd != NULL)
-					command = g_strconcat ( "7za ",
-											archive->update ? "u " : "a ",
-											archive->solid_archive ? "-ms=on " : "-ms=off ",
-											"-p" , archive->passwd, " ",
-											archive->escaped_path,
-											archive->add_recurse ? " -r " : " ",
-											"-mx=",compression_string,"",
-											names->str , NULL );
-				else
-					command = g_strconcat ( "7za ",
-											archive->update ? "u " : "a ",
-											archive->solid_archive ? "-ms=on " : "-ms=off ",
-											archive->escaped_path,
-											archive->add_recurse ? " -r " : " ",
-											"-mx=",compression_string,"",
-											names->str , NULL );
-				break;
-
-				case XARCHIVETYPE_ARJ:
-				if (archive->passwd != NULL)
-					command = g_strconcat ( "arj a ",
-											archive->update ? "-u " : "",
-											archive->freshen ? "-f " : "",
-											archive->add_recurse ? "-r " : "",
-											archive->remove_files ? "-d1 " : "",
-											archive->full_path ? "-e " : "",
-											"-g" , archive->passwd , " -i ",
-											"-m",compression_string," ",
-											archive->escaped_path,
-											names->str , NULL );
-				else
-					command = g_strconcat ( "arj a ",
-											archive->update ? "-u " : "",
-											archive->freshen ? "-f " : "",
-											archive->add_recurse ? "-r " : "",
-											archive->remove_files ? "-d1 " : "",
-											archive->full_path ? "-e " : "",
-											" -i ",
-											"-m",compression_string," ",
-											archive->escaped_path,
-											names->str , NULL );
-				break;
-
-				default:
-				command = NULL;            
-			}
+				if ( !cli )
+					Update_StatusBar ( _("Adding files to the archive, please wait..."));
+			command = xa_add_single_files ( archive, names, compression_string);
 			if (compression_string != NULL)
 				g_free (compression_string);
-			g_string_free (names , FALSE );
 		}
 	}
+	return command;
+}
+
+gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compression_string)
+{
+	gchar *command = NULL;
+
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_BZIP2:
+		if ( !cli )
+			Update_StatusBar ( _("Compressing file with bzip2, please wait..."));
+		Bzip2Add ( names->str , archive , 0 );
+		break;
+
+		case XARCHIVETYPE_GZIP:
+		if ( !cli )
+			Update_StatusBar ( _("Compressing file with gzip, please wait..."));
+		Bzip2Add ( names->str , archive , 1 );
+		break;
+			
+		case XARCHIVETYPE_RAR:
+		if (compression_string == NULL)
+			compression_string = "3";
+		if (archive->passwd != NULL)
+			command = g_strconcat ( "rar a ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->solid_archive ? "-s " : "",
+									archive->remove_files ? "-df " : "",
+									"-p" , archive->passwd,
+									archive->add_recurse ? "-r " : "",
+									archive->full_path ? "-ep " : "",
+									"-idp ",
+									"-m",compression_string," ",
+									archive->escaped_path,
+									names->str , NULL );
+		else
+			command = g_strconcat ( "rar a ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->solid_archive ? "-s " : "",
+									archive->remove_files ? "-df " : "",
+									archive->add_recurse ? "-r " : "",
+									archive->full_path ? "-ep " : "",
+									"-idp ",
+									"-m",compression_string," ",
+									archive->escaped_path,
+									names->str , NULL );
+		break;
+
+		case XARCHIVETYPE_TAR:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			command = g_strconcat ( "tar ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									archive->update ? "-uvvf " : "-rvvf ",
+									archive->escaped_path,
+									names->str , NULL );
+		else
+			command = g_strconcat ( "tar ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"-cvvf ",archive->escaped_path,
+									names->str , NULL );
+		break;
+
+		case XARCHIVETYPE_TAR_BZ2:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			DecompressBzipGzip ( names , archive, 0 , 1 );
+		else
+			command = g_strconcat ( "tar ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"-cvvjf ",archive->escaped_path,
+									names->str , NULL );
+		break;
+
+		case XARCHIVETYPE_TAR_GZ:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			DecompressBzipGzip ( names , archive, 1 , 1 );
+		else
+			command = g_strconcat ( "tar ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"-cvvzf ",archive->escaped_path,
+									names->str , NULL );
+		break;
+
+		case XARCHIVETYPE_ZIP:
+		if (compression_string == NULL)
+			compression_string = "6";
+		if (archive->passwd != NULL)
+			command = g_strconcat ( "zip ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->add_recurse ? "-r " : "",
+									archive->remove_files ? "-m " : "",
+									archive->full_path ? "-j " : "",
+									"-P ", archive->passwd," ",
+									"-",compression_string," ",
+									archive->escaped_path,
+									names->str , NULL );
+		else
+			command = g_strconcat ( "zip ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->add_recurse ? "-r " : "",
+									archive->remove_files ? "-m " : "",
+									archive->full_path ? "-j " : "",
+									"-",compression_string," ",
+									archive->escaped_path,
+									names->str , NULL );
+		break;
+
+		case XARCHIVETYPE_7ZIP:
+		if (compression_string == NULL)
+			compression_string = "5";
+		if (archive->passwd != NULL)
+			command = g_strconcat ( "7za ",
+									archive->update ? "u " : "a ",
+									archive->solid_archive ? "-ms=on " : "-ms=off ",
+									"-p" , archive->passwd, " ",
+									archive->escaped_path,
+									archive->add_recurse ? " -r " : " ",
+									"-mx=",compression_string,"",
+									names->str , NULL );
+		else
+			command = g_strconcat ( "7za ",
+									archive->update ? "u " : "a ",
+									archive->solid_archive ? "-ms=on " : "-ms=off ",
+									archive->escaped_path,
+									archive->add_recurse ? " -r " : " ",
+									"-mx=",compression_string,"",
+									names->str , NULL );
+		break;
+
+		case XARCHIVETYPE_ARJ:
+		if (compression_string == NULL)
+			compression_string = "1";
+		if (archive->passwd != NULL)
+			command = g_strconcat ( "arj a ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->add_recurse ? "-r " : "",
+									archive->remove_files ? "-d1 " : "",
+									archive->full_path ? "-e " : "",
+									"-g" , archive->passwd , " -i ",
+									"-m",compression_string," ",
+									archive->escaped_path,
+									names->str , NULL );
+		else
+			command = g_strconcat ( "arj a ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->add_recurse ? "-r " : "",
+									archive->remove_files ? "-d1 " : "",
+									archive->full_path ? "-e " : "",
+									" -i ",
+									"-m",compression_string," ",
+									archive->escaped_path,
+									names->str , NULL );
+		break;
+
+		default:
+		command = NULL;            
+	}
+	g_string_free (names , FALSE );
 	return command;
 }
 

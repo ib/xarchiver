@@ -21,6 +21,11 @@
 
 #include <gtk/gtk.h>
 #include <glib.h>
+#include "config.h"
+#include "interface.h"
+#include "support.h"
+#include "archive.h"
+#include "callbacks.h"
 
 GtkWidget *MainWindow;
 GList *ArchiveSuffix;
@@ -29,5 +34,6 @@ GList *ArchiveType;
 void GetAvailableCompressors();
 void xa_set_button_state ( gboolean, gboolean,gboolean,gboolean );
 gboolean SpawnSyncCommand ( gchar *command );
+XArchive *xa_init_structure_from_cmd_line (char *filename);
 #endif /* MAIN_H */
 

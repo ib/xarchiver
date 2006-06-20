@@ -16,13 +16,10 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
  
-#include "config.h"
 #include "main.h"
-#include "interface.h"
-#include "support.h"
-#include "callbacks.h"
 
 extern gchar *extract_path;
+extern XArchive *archive;
 
 gchar *cli_command = NULL;
 gboolean error_output,cli;
@@ -34,10 +31,10 @@ gboolean ask_and_add;
 
 static GOptionEntry entries[] =
 {
-	{ "extract-to=FOLDER [archive name]", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, N_("Extract the archive to the specified folder and quits."), NULL },
-	{ "extract", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, N_("Extract the archive by asking the destination folder and quits."), NULL },
-	{ "add-to=ARCHIVE", 'd', 0, G_OPTION_ARG_FILENAME, &path, N_("Add files to the specified archive and quits."), NULL },
-	{ "add", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, N_("Add files asking the name of the archive and quits."), NULL },
+	{ "extract-to=[FOLDER] [archive name]", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, N_("Extract the archive to the specified folder and quits."), NULL },
+	{ "extract [archive name]", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, N_("Extract the archive by asking the destination folder and quits."), NULL },
+	{ "add-to=[archive name] [file1] [file2] ... [fileX]", 'd', 0, G_OPTION_ARG_FILENAME, &path, N_("Add files to the specified archive and quits."), NULL },
+	{ "add [archive name]", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, N_("Add files to the specified archive by asking their filenames and quits."), NULL },
 	{ NULL }
 };
 
@@ -56,29 +53,10 @@ int main (int argc, char **argv)
 		return 0;
 	}
 	cli = TRUE;
-	if (argc > 1)
-	{
-		if ( ! g_file_test ( argv[1] , G_FILE_TEST_EXISTS ) )
-	    {
-		    response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("The file doesn't exist!") );
-			argc = 1;
-	    }
-		else
-		{
-			archive = xa_init_structure (archive);
-			archive->path = g_strdup (argv[1]);
-			archive->escaped_path = EscapeBadChars(argv[1]);
-			archive->type = DetectArchiveType ( archive );
-			if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
-				archive->type = XARCHIVETYPE_TAR_BZ2;
-			else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
-				archive->type = XARCHIVETYPE_TAR_GZ;
-		}
-	}
-
 	//Switch -x
 	if (extract_path != NULL)
 	{
+		archive = xa_init_structure_from_cmd_line ( argv[1] );
 		if (archive->has_passwd)
 		{
 			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This option can't be used with password protected archives.\n") );
@@ -95,42 +73,71 @@ int main (int argc, char **argv)
 				error_output = SpawnSyncCommand ( cli_command );
 				g_free (cli_command);
 			}
-			g_string_free (string , FALSE );
 		}
-		g_free (archive->path);
-		g_free (archive->escaped_path);
-		g_free (archive);
+		xa_clean_archive_structure ( archive );
 		return 0;
 	}
 
 	//Switch -e
 	else if (ask_and_extract)
 	{
-		extract_window = xa_create_extract_dialog ( 0 , archive);
-		gchar *command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
-		gtk_widget_destroy ( extract_window->dialog1 );
-		if ( command != NULL )
+		archive = xa_init_structure_from_cmd_line ( argv[1] );
+		if (archive != NULL)
 		{
-			error_output = SpawnSyncCommand ( command );
-			g_free (command);
+			extract_window = xa_create_extract_dialog ( 0 , archive);
+			cli_command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
+			gtk_widget_destroy ( extract_window->dialog1 );
+			if ( cli_command != NULL )
+			{
+				error_output = SpawnSyncCommand ( cli_command );
+				g_free (cli_command);
+			}
+			g_free (extract_window);
+			xa_clean_archive_structure ( archive );
 		}
-		g_free (extract_window);
 		return 0;
 	}
 	//Switch -d
 	else if (path != NULL)
 	{
-		g_message ("%s\n",path);
+		GString *string = g_string_new ( "" );
+		archive = xa_init_structure_from_cmd_line ( path );
+		
+		for ( x = 1; x < argc; x++)
+			ConcatenateFileNames2 ( argv[x] , string );
+
+		cli_command = xa_add_single_files ( archive , string, NULL);
+		if (cli_command != NULL)
+		{
+			error_output = SpawnSyncCommand ( cli_command );
+			g_free (cli_command);
+		}
+		xa_clean_archive_structure ( archive );
+
 		return 0;
 	}
-	//Switch a
+	//Switch -a
 	else if (ask_and_add)
 	{
-		g_message ("Ask and add");
+		archive = xa_init_structure_from_cmd_line ( argv[1] );
+		if (archive != NULL)
+		{
+			add_window = xa_create_add_dialog (archive);
+			cli_command = xa_parse_add_dialog_options ( archive, add_window );
+			gtk_widget_destroy ( add_window->dialog1 );
+			if (cli_command != NULL)
+			{
+				error_output = SpawnSyncCommand ( cli_command );
+				g_free (cli_command);
+			}
+			g_free (add_window);
+			xa_clean_archive_structure ( archive );
+		}
 		return 0;
 	}
 	else
 	{
+		cli = FALSE;
 		GetAvailableCompressors();
 		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
 		ArchiveType = g_list_reverse (ArchiveType);
@@ -144,7 +151,6 @@ int main (int argc, char **argv)
 		xa_set_button_state (1,1,0,0);
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);
-		cli = FALSE;
 		//This to open the archive from the command line
 		if ( argc == 2)
 		{
@@ -281,5 +287,20 @@ gboolean SpawnSyncCommand ( gchar *command )
 	}
 	g_strfreev ( argv );
     return TRUE;
+}
+
+XArchive *xa_init_structure_from_cmd_line (char *filename)
+{
+	archive = xa_init_archive_structure (archive);
+	archive->path = g_strdup (filename);
+	archive->escaped_path = EscapeBadChars(filename);
+	archive->type = DetectArchiveType ( archive );
+	if (archive->type == -2)
+		return NULL;
+	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
+		archive->type = XARCHIVETYPE_TAR_BZ2;
+	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
+		archive->type = XARCHIVETYPE_TAR_GZ;
+	return (archive);
 }
 

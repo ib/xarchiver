@@ -187,7 +187,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-	archive = xa_init_structure (archive);
+	archive = xa_init_archive_structure (archive);
 	gchar *path = Show_File_Dialog ( 1 , "new" );
 	if (path == NULL)
 		return;
@@ -271,7 +271,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		RemoveColumnsListStore();
 		EmptyTextBuffer ();
 	}
-	archive = xa_init_structure(archive);
+	archive = xa_init_archive_structure(archive);
 	archive->path = g_strdup (path);
 	g_free (path);
 	archive->escaped_path = EscapeBadChars ( archive->path );
@@ -523,7 +523,6 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 	gtk_widget_destroy ( add_window->dialog1 );
 	if (command != NULL)
 	{
-		g_message (command);
 		ExtractAddDelete (command);
 		g_free (command);
 	}
@@ -1381,7 +1380,6 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 	g_string_prepend (data, esc_filename);
 	g_string_prepend_c (data, ' ');
 	g_free (esc_filename);
-	g_free (filename);
 }
 
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
@@ -1389,6 +1387,7 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 	gchar *filename;
 	gtk_tree_model_get (model, iter, 0, &filename, -1);
 	ConcatenateFileNames2 ( filename , data );
+	g_free (filename);
 }
 
 void ConcatenateFileNames3 (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
@@ -1397,6 +1396,7 @@ void ConcatenateFileNames3 (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeI
 
 	gtk_tree_model_get (model, iter, 1, &fullname, -1);
 	ConcatenateFileNames2 ( fullname , data );
+	g_free (fullname);
 }
 
 void xa_cat_filenames_for_tar (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
@@ -1408,6 +1408,7 @@ void xa_cat_filenames_for_tar (GtkTreeModel *model, GtkTreePath *treepath, GtkTr
 	name = g_path_get_basename ( fullname );
 	g_free (fullname);
 	ConcatenateFileNames2 ( name , data );
+	g_free (name);
 }
 
 void ExtractAddDelete ( gchar *command )
