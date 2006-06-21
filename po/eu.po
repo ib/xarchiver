@@ -10,13 +10,13 @@ msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-06-10 13:39+0900\n"
-"PO-Revision-Date: 2006-06-07 16:19+0200\n"
+"PO-Revision-Date: 2006-06-21 16:08+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: librezale <librezale@librezale.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: Pootle 0.9\n"
 
 #: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
 #: ../src/iso.c:522 ../src/rar.c:34 ../src/rpm.c:51 ../src/tar.c:34
@@ -56,11 +56,11 @@ msgstr "Atributuak"
 
 #: ../src/arj.c:35
 msgid "GUA"
-msgstr ""
+msgstr "GUA"
 
 #: ../src/arj.c:35
 msgid "BPMGS"
-msgstr ""
+msgstr "BPMGS"
 
 #: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/rar.c:34 ../src/tar.c:34
 msgid "Permissions"
@@ -93,7 +93,7 @@ msgstr "Tar fitxategia honekin deskonprimitzen: "
 
 #: ../src/bzip2.c:199 ../src/bzip2.c:275
 msgid ", please wait..."
-msgstr ""
+msgstr ", itxoin mesedez..."
 
 #: ../src/bzip2.c:221
 msgid ""
@@ -178,9 +178,9 @@ msgid "Operation successfully completed."
 msgstr "Ekintza behar bezala burutu da."
 
 #: ../src/callbacks.c:203
-#, fuzzy, c-format
+#, , c-format
 msgid "The archive \"%s\" already exists. Do you want to overwrite it?"
-msgstr "\" fitxategia badago dagoeneko. Gainidatzi nahi al duzu?"
+msgstr "\"%s\" fitxategia badago dagoeneko. Gainidatzi nahi al duzu?"
 
 #: ../src/callbacks.c:238
 msgid "Choose Add File to create the compressed file."
@@ -348,7 +348,7 @@ msgstr ""
 #: ../src/callbacks.c:1310
 #, c-format
 msgid "%c"
-msgstr ""
+msgstr "%c"
 
 #: ../src/callbacks.c:1318 ../src/callbacks.c:1344
 msgid " GB"
@@ -411,33 +411,30 @@ msgid "Extract files with full path"
 msgstr "Fitxategia bide osoarekin atera"
 
 #: ../src/extract_dialog.c:140
-#, fuzzy
 msgid ""
 "The archive's directory structure is recreated in the extraction directory."
-msgstr ""
-"Artxiboaren direktorio egitura birsortua izango da ateratze direktorioan"
+msgstr "Artxiboaren direktorio egitura birsortua izango da ateratze direktorioan."
 
 #: ../src/extract_dialog.c:146
-#, fuzzy
 msgid "Touch files"
-msgstr " fitxategi "
+msgstr "Fitxategiak ikutu"
 
 #: ../src/extract_dialog.c:149
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
 "files it extracts as the times when the files were extracted, instead of "
 "setting it to the times recorded in the archive."
-msgstr ""
+msgstr "Aukera hau erabiltzean tar-ek fitxategiaren eraldatze data fitxategiak atera direnean ezartzen du, fitxategiak gorde ziren data erabili beharrean."
 
 #: ../src/extract_dialog.c:156
 msgid "Strip directories:"
-msgstr ""
+msgstr "Direktorioak hustu:"
 
 #: ../src/extract_dialog.c:159
 msgid ""
 "This option extracts the files without the directory in which they are "
 "contained. You have to specify the number of directories to strip."
-msgstr ""
+msgstr "AUkera honek fixtategiak gorderik dauden direktorioak gabe aterakoditu. Hutsuko diren direktorio kopurua ezarri behar duzu."
 
 #: ../src/extract_dialog.c:184
 msgid "Freshen existing files"
@@ -499,38 +496,32 @@ msgid "_Archive"
 msgstr "_Paketea"
 
 #: ../src/interface.c:95
-#, fuzzy
 msgid "_Test"
-msgstr "Proba"
+msgstr "P_roba"
 
 #: ../src/interface.c:105
-#, fuzzy
 msgid "_Properties"
-msgstr "Propietateak"
+msgstr "Pr_opietateak"
 
 #: ../src/interface.c:120
 msgid "_Action"
 msgstr "_Ekintza"
 
 #: ../src/interface.c:129
-#, fuzzy
 msgid "Add F_ile"
-msgstr "Fitxategia Gehitu"
+msgstr "Fi_txategia Gehitu"
 
 #: ../src/interface.c:138
-#, fuzzy
 msgid "Add _Folder"
-msgstr "Karpeta Gehitu"
+msgstr "_Karpeta Gehitu"
 
 #: ../src/interface.c:168
-#, fuzzy
 msgid "_View"
-msgstr "Ikusi"
+msgstr "_Ikusi"
 
 #: ../src/interface.c:183
-#, fuzzy
 msgid "View Error _Messages"
-msgstr "Errore Mezuak Ikusi"
+msgstr "Errore _Mezuak Ikusi"
 
 #: ../src/interface.c:192
 msgid "Show ISO info"
@@ -538,7 +529,7 @@ msgstr "ISO argibideak ikusi"
 
 #: ../src/interface.c:201
 msgid "_Help"
-msgstr ""
+msgstr "_Laguntza"
 
 #: ../src/interface.c:210
 msgid "_About"
@@ -656,97 +647,88 @@ msgid "Offset"
 msgstr "Desplazatu"
 
 #: ../src/iso.c:696
-#, fuzzy
 msgid "ISO Information Window"
-msgstr "ISO Irudi Argibide Leihoa"
+msgstr "ISO Argibide Leihoa"
 
 #: ../src/iso.c:711
-#, fuzzy
 msgid "Filename:"
-msgstr "Fitxategi Izena"
+msgstr "Fitxategi Izena:"
 
 #: ../src/iso.c:719
 msgid "Size in bytes:"
-msgstr ""
+msgstr "Tamaina byte-tan:"
 
 #: ../src/iso.c:727
 msgid "Image type:"
-msgstr ""
+msgstr "Irudi mota:"
 
 #: ../src/iso.c:735
 msgid "System ID:"
-msgstr ""
+msgstr "Sistema ID-a:"
 
 #: ../src/iso.c:743
 msgid "Volume ID:"
-msgstr ""
+msgstr "Bolumen ID-a:"
 
 #: ../src/iso.c:751
-#, fuzzy
 msgid "Application:"
-msgstr "_Ekintza"
+msgstr "Aplikazioa:"
 
 #: ../src/iso.c:759
 msgid "Publisher:"
-msgstr ""
+msgstr "Argitaratzailea:"
 
 #: ../src/iso.c:767
 msgid "Preparer:"
-msgstr ""
+msgstr "Prestatzailea:"
 
 #: ../src/iso.c:775
 msgid "Volume set ID:"
-msgstr ""
+msgstr "Bolumen joko ID-a:"
 
 #: ../src/iso.c:783
 msgid "Bibliographic ID:"
-msgstr ""
+msgstr "ID Bibliografikoa:"
 
 #: ../src/iso.c:791
 msgid "Copyright ID:"
-msgstr ""
+msgstr "Copyright ID-a:"
 
 #: ../src/iso.c:799
-#, fuzzy
 msgid "Abstract ID:"
-msgstr "Hona atera:"
+msgstr "ID abstraktoa:"
 
 #: ../src/iso.c:807
-#, fuzzy
 msgid "Creation date:"
-msgstr "Konpresio erlazioa:"
+msgstr "Sortze data:"
 
 #: ../src/iso.c:815
-#, fuzzy
 msgid "Modified date:"
 msgstr "Eraldaketa data:"
 
 #: ../src/iso.c:823
-#, fuzzy
 msgid "Expiration date:"
-msgstr "Ekintzak huts egin du."
+msgstr "Iraungitze data:"
 
 #: ../src/iso.c:831
 msgid "Effective date:"
-msgstr ""
+msgstr "Data efektiboa:"
 
 #: ../src/main.c:37
 msgid "Extract the archive to the specified folder and quits."
-msgstr ""
+msgstr "Fitxategia ezarritako karpetara atera eta irten."
 
 #: ../src/main.c:38
 msgid "Extract the archive by asking the destination folder and quits."
-msgstr ""
+msgstr "Helburu karpeta galdetuaz fitxategiak atera eta irten."
 
 #: ../src/main.c:39
-#, fuzzy
 msgid "Add files to the specified archive and quits."
-msgstr "Fitxategiak paketera gehitzen, itxoin mesedez..."
+msgstr "Fitxategiak ezarritako paketera gehitu eta irten."
 
 #: ../src/main.c:40
-#, fuzzy
 msgid "Add files asking the name of the archive and quits."
-msgstr "Fitxategiak paketera gehitzen, itxoin mesedez..."
+msgstr "Pakete izena galdetuaz fitxategiak gehitu eta irten."
 
 #: ../src/main.c:51
 msgid "[archive name]"
@@ -764,30 +746,28 @@ msgstr ""
 
 #: ../src/main.c:64
 msgid "The file doesn't exist!"
-msgstr ""
+msgstr "Fitxategia ez dago!"
 
 #: ../src/main.c:85
-#, fuzzy
 msgid "This switch can't be used with password protected archives.\n"
-msgstr "Pakete honek pasahitzez babesturiko fitxategiak ditu"
+msgstr ""
+"Aldagai hau ezin da erabili pasahitzez babesturiko paketeekin.\n"
 
 #: ../src/main.c:144
 msgid "Ready."
 msgstr "Prest."
 
 #: ../src/rar.c:34
-#, fuzzy
 msgid "CRC"
-msgstr "CRC-32"
+msgstr "CRC"
 
 #: ../src/rar.c:34 ../src/zip.c:33
 msgid "Method"
 msgstr "Metodoa"
 
 #: ../src/rar.c:34
-#, fuzzy
 msgid "Version"
-msgstr "Baimenak"
+msgstr "Bertsioa"
 
 #: ../src/rpm.c:51
 msgid "Hard Link"
@@ -823,17 +803,15 @@ msgstr "CRC-32"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr ""
+msgstr "GTK+2-rako pakete kudeatzailea"
 
 #: ../xarchiver.desktop.in.h:2
-#, fuzzy
 msgid "Archive Manager"
-msgstr "[pakete izena]"
+msgstr "Pakete Kudeatzailea"
 
 #: ../xarchiver.desktop.in.h:3
-#, fuzzy
 msgid "Xarchiver"
-msgstr "_Paketea"
+msgstr "Xarchiver"
 
 #~ msgid "The archive \""
 #~ msgstr "\""
