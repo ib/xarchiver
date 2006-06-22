@@ -22,6 +22,7 @@ extern gchar *extract_path;
 extern XArchive *archive;
 
 gchar *cli_command = NULL;
+gchar *absolute_path = NULL;
 GError *cli_error = NULL;
 gboolean error_output,cli, file_to_open, ask_and_extract, ask_and_add;
 
@@ -48,29 +49,39 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
-	cli = TRUE;
+	if (ask_and_extract || ask_and_add || path != NULL || extract_path != NULL)
+		cli = TRUE;
+
 	//Switch -x
 	if (extract_path != NULL)
 	{
+		if (argv[1] == NULL)
+		{
+			g_print (_("xarchiver: You missed the archive name!\n"));
+			return 0;
+		}
 		archive = xa_init_structure_from_cmd_line ( argv[1] );
-		if (archive->has_passwd)
+		if (archive != NULL)
 		{
-			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This option can't be used with password protected archives.\n") );
-		}
-		else
-		{
-			GString *string = g_string_new ( "" );
-			archive->full_path = 1;
-			gchar *escaped_path = EscapeBadChars (extract_path);
-			cli_command = xa_extract_single_files ( archive , string, escaped_path );
-			g_free (escaped_path);
-			if ( cli_command != NULL )
+			if (archive->has_passwd)
 			{
-				error_output = SpawnSyncCommand ( cli_command );
-				g_free (cli_command);
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This option can't be used with password protected archives.\n") );
 			}
+			else
+			{
+				GString *string = g_string_new ( "" );
+				archive->full_path = 1;
+				gchar *escaped_path = EscapeBadChars (extract_path);
+				cli_command = xa_extract_single_files ( archive , string, escaped_path );
+				g_free (escaped_path);
+				if ( cli_command != NULL )
+				{
+					error_output = SpawnSyncCommand ( cli_command );
+					g_free (cli_command);
+				}
+			}
+			xa_clean_archive_structure ( archive );
 		}
-		xa_clean_archive_structure ( archive );
 		return 0;
 	}
 
@@ -98,19 +109,20 @@ int main (int argc, char **argv)
 	{
 		GString *string = g_string_new ( "" );
 		archive = xa_init_structure_from_cmd_line ( path );
-		
-		for ( x = 1; x < argc; x++)
-			ConcatenateFileNames2 ( argv[x] , string );
-
-		cli_command = xa_add_single_files ( archive , string, NULL);
-		if (cli_command != NULL)
+		if (archive != NULL)
 		{
-			error_output = SpawnSyncCommand ( cli_command );
-			g_free (cli_command);
-		}
-		g_string_free (string, TRUE);
-		xa_clean_archive_structure ( archive );
+			for ( x = 1; x < argc; x++)
+				ConcatenateFileNames2 ( argv[x] , string );
 
+			cli_command = xa_add_single_files ( archive , string, NULL);
+			if (cli_command != NULL)
+			{
+				error_output = SpawnSyncCommand ( cli_command );
+				g_free (cli_command);
+			}
+			g_string_free (string, TRUE);
+			xa_clean_archive_structure ( archive );
+		}
 		return 0;
 	}
 	//Switch -a
@@ -167,25 +179,31 @@ int main (int argc, char **argv)
 
 void GetAvailableCompressors()
 {
-	if ( g_find_program_in_path("arj"))
+	absolute_path = g_find_program_in_path("arj");
+	if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".arj");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.arj");
+		g_free (absolute_path);
 	}
 
-    if ( g_find_program_in_path("bzip2"))
+	absolute_path = g_find_program_in_path("bzip2");
+    if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".bz2");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.bz2");
+		g_free (absolute_path);
 	}
-	
-	if ( g_find_program_in_path("gzip"))
+
+	absolute_path = g_find_program_in_path("gzip");
+	if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".gz");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.gz");
+		g_free (absolute_path);
 	}
 
-	/*
+	/* In future releases of xarchiver we'll use mkisofs to allow creation of iso images
 	if ( g_find_program_in_path("mkisofs"))
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".iso");
@@ -196,19 +214,27 @@ void GetAvailableCompressors()
 	ArchiveType = g_list_prepend ( ArchiveType, ".iso");
 	ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
 
-    if ( g_find_program_in_path("rar") || g_find_program_in_path("unrar"))
+	absolute_path = g_find_program_in_path("rar");
+    if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
+		g_free (absolute_path);
 	}
 
-    if ( g_find_program_in_path("cpio"))
+	absolute_path = g_find_program_in_path("cpio");
+    if ( absolute_path )
+	{
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rpm");
+		g_free (absolute_path);
+	}
 
-	if ( g_find_program_in_path("tar"))
+	absolute_path = g_find_program_in_path("tar");
+	if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".tar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tar");
+		g_free (absolute_path);
 		if ( g_list_find ( ArchiveType , ".bz2") )
 		{
 			ArchiveType = g_list_prepend ( ArchiveType, ".tar.bz2");
@@ -222,16 +248,20 @@ void GetAvailableCompressors()
 		}
 	}
 
-    if ( g_find_program_in_path("7za"))
+	absolute_path = g_find_program_in_path("7za");
+    if ( absolute_path )
     {
         ArchiveType = g_list_prepend ( ArchiveType, ".7z");
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
+		g_free (absolute_path);
     }
 
-    if ( g_find_program_in_path("zip"))
+	absolute_path = g_find_program_in_path("zip");
+    if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".jar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.jar");
+		g_free (absolute_path);
 		
 		ArchiveType = g_list_prepend ( ArchiveType, ".zip");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
