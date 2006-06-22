@@ -303,7 +303,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
     if ( ext != NULL )
         if ( ! g_list_find ( ArchiveType , ext ) )
         {
-            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported since the proper archiver has't been installed!") );
+            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported since the proper archiver is not installed!") );
             return;
         }
 

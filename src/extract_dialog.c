@@ -317,6 +317,17 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please enter the password!") );
 				break;
 			}
+			if (g_file_test (destination_path , G_FILE_TEST_EXISTS) == FALSE )
+			{
+				int result = mkdir (destination_path , S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
+				if (result == -1)
+				{
+					gchar *msg = g_strconcat (_("Can't create directory "),"\"",destination_path,"\"",": ",strerror(errno),NULL);
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg );
+					g_free (msg);
+					break;
+				}
+			}
 			if (access (destination_path, R_OK | W_OK | X_OK) != 0)
 			{
 				gchar *utf8_path;
