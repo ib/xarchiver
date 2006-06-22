@@ -533,7 +533,8 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 
 	if ( archive->full_path == 0)
 	{
-		archive->tar_strip_value = CountCharacter ( files->str , '/');
+		if (archive->tar_strip_value == 0)
+			archive->tar_strip_value = CountCharacter ( files->str , '/');
 		gchar *digit;
 		digit = g_strdup_printf ( "%d" , archive->tar_strip_value );
 		strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
