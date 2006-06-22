@@ -27,7 +27,6 @@
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
-extern gboolean cli;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -1421,8 +1420,7 @@ void ExtractAddDelete ( gchar *command )
 	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
 		return;
-    if ( ! cli )
-		gtk_widget_show ( viewport2 );
+	gtk_widget_show ( viewport2 );
     g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 
 }

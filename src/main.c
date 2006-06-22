@@ -24,7 +24,8 @@ extern XArchive *archive;
 gchar *cli_command = NULL;
 gchar *absolute_path = NULL;
 GError *cli_error = NULL;
-gboolean error_output,cli, file_to_open, ask_and_extract, ask_and_add;
+gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
+gboolean cli = FALSE;
 
 static GOptionEntry entries[] =
 {
@@ -52,101 +53,97 @@ int main (int argc, char **argv)
 	if (ask_and_extract || ask_and_add || path != NULL || extract_path != NULL)
 		cli = TRUE;
 
-	//Switch -x
-	if (extract_path != NULL)
+	if (cli == TRUE)
 	{
-		if (argv[1] == NULL)
+		GetAvailableCompressors();
+		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
+		ArchiveType = g_list_reverse (ArchiveType);
+		MainWindow = create_MainWindow ();
+		gtk_main_iteration_do (FALSE);
+
+		//Switch -x
+		if (extract_path != NULL)
 		{
-			g_print (_("xarchiver: You missed the archive name!\n"));
-			return 0;
-		}
-		archive = xa_init_structure_from_cmd_line ( argv[1] );
-		if (archive != NULL)
-		{
-			if (archive->has_passwd)
+			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This option can't be used with password protected archives.\n") );
+				g_print (_("xarchiver: You missed the archive name!\n"));
+				return 0;
 			}
-			else
+			archive = xa_init_structure_from_cmd_line ( argv[1] );
+			if (archive != NULL)
 			{
-				GString *string = g_string_new ( "" );
-				archive->full_path = 1;
-				gchar *escaped_path = EscapeBadChars (extract_path);
-				cli_command = xa_extract_single_files ( archive , string, escaped_path );
-				g_free (escaped_path);
-				if ( cli_command != NULL )
+				if (archive->has_passwd)
 				{
-					error_output = SpawnSyncCommand ( cli_command );
-					g_free (cli_command);
+					response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This option can't be used with password protected archives.\n") );
+				}
+				else
+				{
+					GString *string = g_string_new ( "" );
+					archive->full_path = 1;
+					gchar *escaped_path = EscapeBadChars (extract_path);
+					cli_command = xa_extract_single_files ( archive , string, escaped_path );
+					g_free (escaped_path);
+					if ( cli_command != NULL )
+						error_output = SpawnSyncCommand ( cli_command );
+					g_string_free (string, TRUE);
 				}
 			}
-			xa_clean_archive_structure ( archive );
 		}
-		return 0;
-	}
 
-	//Switch -e
-	else if (ask_and_extract)
-	{
-		archive = xa_init_structure_from_cmd_line ( argv[1] );
-		if (archive != NULL)
+		//Switch -e
+		else if (ask_and_extract)
 		{
-			extract_window = xa_create_extract_dialog ( 0 , archive);
-			cli_command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
-			gtk_widget_destroy ( extract_window->dialog1 );
-			if ( cli_command != NULL )
+			archive = xa_init_structure_from_cmd_line ( argv[1] );
+			if (archive != NULL)
 			{
-				error_output = SpawnSyncCommand ( cli_command );
-				g_free (cli_command);
+				extract_window = xa_create_extract_dialog ( 0 , archive);
+				cli_command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
+				gtk_widget_destroy ( extract_window->dialog1 );
+				if ( cli_command != NULL )
+					error_output = SpawnSyncCommand ( cli_command );
+				g_free (extract_window);
 			}
-			g_free (extract_window);
-			xa_clean_archive_structure ( archive );
 		}
-		return 0;
-	}
-	//Switch -d
-	else if (path != NULL)
-	{
-		GString *string = g_string_new ( "" );
-		archive = xa_init_structure_from_cmd_line ( path );
-		if (archive != NULL)
+		//Switch -d
+		else if (path != NULL)
 		{
-			for ( x = 1; x < argc; x++)
-				ConcatenateFileNames2 ( argv[x] , string );
+			GString *string = g_string_new ( "" );
+			archive = xa_init_structure_from_cmd_line ( path );
+			if (archive != NULL)
+			{
+				for ( x = 1; x < argc; x++)
+					ConcatenateFileNames2 ( argv[x] , string );
 
-			cli_command = xa_add_single_files ( archive , string, NULL);
-			if (cli_command != NULL)
-			{
-				error_output = SpawnSyncCommand ( cli_command );
-				g_free (cli_command);
+				cli_command = xa_add_single_files ( archive , string, NULL);
+				if (cli_command != NULL)
+					error_output = SpawnSyncCommand ( cli_command );
+				g_string_free (string, TRUE);
 			}
-			g_string_free (string, TRUE);
-			xa_clean_archive_structure ( archive );
 		}
-		return 0;
-	}
-	//Switch -a
-	else if (ask_and_add)
-	{
-		archive = xa_init_structure_from_cmd_line ( argv[1] );
-		if (archive != NULL)
+		//Switch -a
+		else if (ask_and_add)
 		{
-			add_window = xa_create_add_dialog (archive);
-			cli_command = xa_parse_add_dialog_options ( archive, add_window );
-			gtk_widget_destroy ( add_window->dialog1 );
-			if (cli_command != NULL)
+			archive = xa_init_structure_from_cmd_line ( argv[1] );
+			if (archive != NULL)
 			{
-				error_output = SpawnSyncCommand ( cli_command );
-				g_free (cli_command);
+				add_window = xa_create_add_dialog (archive);
+				cli_command = xa_parse_add_dialog_options ( archive, add_window );
+				gtk_widget_destroy ( add_window->dialog1 );
+				if (cli_command != NULL)
+					error_output = SpawnSyncCommand ( cli_command );
+				g_free (add_window);
 			}
-			g_free (add_window);
-			xa_clean_archive_structure ( archive );
 		}
+		if (cli_command != NULL)
+			g_free (cli_command);
+
+		g_list_free ( ArchiveSuffix);
+		g_list_free ( ArchiveType);
+		xa_clean_archive_structure ( archive );
 		return 0;
 	}
 	else
 	{
-		cli = FALSE;
 		GetAvailableCompressors();
 		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
 		ArchiveType = g_list_reverse (ArchiveType);

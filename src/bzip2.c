@@ -20,7 +20,6 @@
 #include "extract_dialog.h"
 
 extern gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
-extern gboolean cli;
 extern int output_fd;
 
 FILE *stream = NULL;
@@ -203,24 +202,19 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	if ( tmp == NULL )
 		return;
 
-	if (! cli)
-	{
-		msg = g_strconcat ( _("Decompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
-		Update_StatusBar ( msg );
-		g_free (msg);
-		gtk_widget_show (viewport2);
-	}
+	msg = g_strconcat ( _("Decompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
+	Update_StatusBar ( msg );
+	g_free (msg);
+	gtk_widget_show (viewport2);
 
 	while (waiting)
 	{
 		ps = waitpid ( archive->child_pid, &status, WNOHANG);
 		if (ps < 0)
 			waiting = FALSE;
-		else if ( ! cli )
-		{
+		else
 			while (gtk_events_pending())
 				gtk_main_iteration();
-		}
 	}
 	if ( WIFEXITED(status) )
 	{
@@ -248,10 +242,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 		command = g_strconcat ( "tar --delete -f " , tmp , list->str , NULL );
 	waiting = TRUE;
 	archive->parse_output = 0;
-	if (cli)
-		error_output = SpawnSyncCommand ( command );
-	else
-		SpawnAsyncProcess ( archive , command , 0, 0);
+	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 	{
@@ -289,12 +280,9 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
             return;
         }
     }
-    if ( ! cli )
-	{
-		msg = g_strconcat ( _("Recompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
-		Update_StatusBar ( msg );
-		g_free (msg);
-	}
+	msg = g_strconcat ( _("Recompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
+	Update_StatusBar ( msg );
+	g_free (msg);
     RecompressArchive ( archive , status , dummy );
 }
 
@@ -328,10 +316,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	gchar *command = g_strconcat ( dummy ? "gzip -c " : "bzip2 -kc " , tmp , NULL );
 	//g_print ("3) %s > %s\n",command,archive->escaped_path);
 	archive->parse_output = 0;
-	if (cli)
-		error_output = SpawnSyncCommand ( command );
-	else
-		SpawnAsyncProcess ( archive , command , 0, 0);
+	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 	{
@@ -360,10 +345,7 @@ void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
     gtk_widget_show ( viewport2 );
     gchar *command = g_strconcat ( flag ? "gzip -c " : "bzip2 -c " , filename , NULL );
 	archive->parse_output = 0;
-	if (cli)
-		error_output = SpawnSyncCommand ( command );
-	else
-		SpawnAsyncProcess ( archive , command , 0, 0);
+	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;

@@ -22,8 +22,6 @@
 #include "callbacks.h"
 #include "support.h"
 
-extern gboolean cli;
-
 Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 {
 	Add_dialog_data *add_dialog;
@@ -91,7 +89,8 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (add_dialog->file_list_treeview), FALSE);
 	gtk_container_add (GTK_CONTAINER (add_dialog->scrolledwindow3), add_dialog->file_list_treeview);
 	gtk_widget_show (add_dialog->file_list_treeview);
-	
+	g_signal_connect (G_OBJECT (add_dialog->file_liststore),"row-inserted",G_CALLBACK (activate_remove_button) , add_dialog);
+
 	add_dialog->hbox1 = gtk_hbox_new (FALSE, 70);
 	gtk_widget_show (add_dialog->hbox1);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox7), add_dialog->hbox1, TRUE, TRUE, 0);
@@ -126,6 +125,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_box_set_spacing (GTK_BOX (add_dialog->hbuttonbox2), 8);
 
 	add_dialog->remove_button = gtk_button_new_from_stock ("gtk-remove");
+	gtk_widget_set_sensitive ( add_dialog->remove_button, FALSE );
 	gtk_widget_show (add_dialog->remove_button);
 	gtk_container_add (GTK_CONTAINER (add_dialog->hbuttonbox2), add_dialog->remove_button);
 	GTK_WIDGET_SET_FLAGS (add_dialog->remove_button, GTK_CAN_DEFAULT);
@@ -354,6 +354,12 @@ void password_toggled_cb ( GtkButton* button , gpointer _add_dialog )
 		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
 }
 
+void activate_remove_button (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, Add_dialog_data *data)
+{
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(data->file_liststore), iter) == TRUE)
+		gtk_widget_set_sensitive ( data->remove_button, TRUE );
+}
+
 void xa_select_files_to_add ( GtkButton* button, gpointer _add_dialog )
 {
 	Add_dialog_data *add_dialog = _add_dialog;
@@ -441,7 +447,8 @@ void remove_files_liststore (GtkWidget *widget, gpointer data)
 			gtk_tree_path_free(path);
 		}
 	}
-
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) == FALSE)
+		gtk_widget_set_sensitive ( add_dialog->remove_button, FALSE);
 	g_list_foreach(rr_list, (GFunc) gtk_tree_row_reference_free, NULL);
 	g_list_free(rr_list);
 }
@@ -544,16 +551,12 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					ConcatenateFileNames3 ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
 				gtk_list_store_remove (add_dialog->file_liststore, &iter);
 			}
-			if (! cli)
-			{
-				gtk_widget_set_sensitive (Stop_button , TRUE);			
+			gtk_widget_set_sensitive (Stop_button , TRUE);			
 				xa_set_button_state (0,0,0,0);
-			}
 			archive->status = XA_ARCHIVESTATUS_ADD;
 
 			if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
-				if ( !cli )
-					Update_StatusBar ( _("Adding files to the archive, please wait..."));
+				Update_StatusBar ( _("Adding files to the archive, please wait..."));
 			command = xa_add_single_files ( archive, names, compression_string);
 			g_string_free ( names, TRUE);
 			if (compression_string != NULL)
@@ -570,14 +573,12 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_BZIP2:
-		if ( !cli )
-			Update_StatusBar ( _("Compressing file with bzip2, please wait..."));
+		Update_StatusBar ( _("Compressing file with bzip2, please wait..."));
 		Bzip2Add ( names->str , archive , 0 );
 		break;
 
 		case XARCHIVETYPE_GZIP:
-		if ( !cli )
-			Update_StatusBar ( _("Compressing file with gzip, please wait..."));
+		Update_StatusBar ( _("Compressing file with gzip, please wait..."));
 		Bzip2Add ( names->str , archive , 1 );
 		break;
 			
