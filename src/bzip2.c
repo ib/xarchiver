@@ -165,7 +165,7 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	gchar buffer[65536];
 	gsize bytes_read;
 	GError *error = NULL;
-    
+
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		while (gtk_events_pending() )
@@ -193,9 +193,8 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
 {
 	gchar *command, *msg;
-	pid_t child_pid = 0;
 	int status;
-	int waiting = TRUE;
+	gboolean waiting = TRUE;
 	int ps;
 	
 	tmp = OpenTempFile ( dummy , NULL );
@@ -251,11 +250,11 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 		return;
 	}
 	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-	g_io_channel_set_encoding (ioc, NULL , NULL);
+	g_io_channel_set_encoding (ioc, "ISO8859-1" , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	while (waiting)
 	{
-		ps = waitpid ( child_pid, &status, WNOHANG);
+		ps = waitpid ( archive->child_pid, &status, WNOHANG);
 		if (ps < 0)
 			waiting = FALSE;
 		else
@@ -288,6 +287,9 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 
 void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 {
+	gboolean waiting = TRUE;
+	int ps;
+
     if ( WIFEXITED(status) )
 	{
 		if ( WEXITSTATUS (status) )
@@ -329,6 +331,18 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
 	
+	/* The following while is necessary because when the archive is small 'xa_watch_child' is called before the child exits */
+	while (waiting)
+	{
+		ps = waitpid ( archive->child_pid, &status, WNOHANG);
+		if (ps < 0)
+			waiting = FALSE;
+		else
+		{
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+	}
 	archive->tmp = tmp;
 	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 }
