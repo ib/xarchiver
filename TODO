@@ -2,7 +2,6 @@
   - add display of ID's inside the ISO plus image type [PARTIALLY DONE]
   - add view function
   - fix extraction routine since the files inside the directories are not extracted
-  - fix drag from Xarchiver window since the dragged files is not extracted
 
 - polish the code in main.c regarding the cmd-line switches; -d do not work with TAR_GZ and TAR_BZ2.
-- fix bugs #1736, #1849, #1879, #1937, #1938
+- fix bugs #1736, #1849, #1879, #1937

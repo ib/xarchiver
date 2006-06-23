@@ -27,6 +27,7 @@
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
+extern gchar *new_archive;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -737,6 +738,8 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
 			Name = g_list_next ( Name );
 		}
+		if (new_archive)
+			gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (File_Selector),new_archive);
 		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), 0);
 		gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
 		check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
@@ -1538,9 +1541,11 @@ gchar *extract_local_path (gchar *path , gchar *filename)
 {
     gchar *local_path;
     gchar *local_escaped_path;
+	gchar *no_path = StripPathFromFilename(filename);
+	no_path++;
 
     unsigned short int x;
-    x = strlen (path) - strlen ( filename );
+    x = strlen (path) - strlen ( no_path );
     //g_print ("%d\t%d\t%d\n",x,strlen (path),strlen (filename));
     local_path = (gchar *) g_malloc ( x + 1);
     strncpy ( local_path, path, x );
@@ -1553,33 +1558,33 @@ gchar *extract_local_path (gchar *path , gchar *filename)
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 {
     GtkTreeSelection *selection;
-    GtkTreeModel     *model;
     GtkTreeIter       iter;
     gchar            *name;
-    GList            *row_list = NULL;
+    GList            *row_list, *_row_list;
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 
-    /* if no or more than one rows selected, do nothing, just for sanity */
-    if ( gtk_tree_selection_count_selected_rows (selection) != 1)
-		return;
-
-    row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL )
 		return;
 
-	gtk_tree_model_get_iter(model, &iter, row_list->data);
+	while (_row_list != NULL)
+	{
+		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
+	    gtk_tree_model_get (model, &iter, 0, &name, -1);
+		gchar *no_slashes = StripPathFromFilename ( name );
+		g_free (name);
+		no_slashes++;
 
-    gtk_tree_path_free(row_list->data);
-    g_list_free (row_list);
+		gdk_property_change (context->source_window,
+			               gdk_atom_intern ("XdndDirectSave0", FALSE),
+				           gdk_atom_intern ("text/plain", FALSE), 8,
+					       GDK_PROP_MODE_REPLACE, (guchar *)no_slashes, strlen (no_slashes) );
 
-    gtk_tree_model_get (model, &iter, 0, &name, -1);
-	//TODO: fix bug 1879, name must be without path.
-    gdk_property_change (context->source_window,
-                       gdk_atom_intern ("XdndDirectSave0", FALSE),
-                       gdk_atom_intern ("text/plain", FALSE), 8,
-                       GDK_PROP_MODE_REPLACE, (guchar *)name, strlen (name) );
-    g_free (name);
+		_row_list = _row_list->next;
+	}
+	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
+	g_list_free (row_list);
 }
 
 void drag_end (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
@@ -1590,60 +1595,60 @@ void drag_end (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data)
 {
     GtkTreeSelection *selection;
-    GtkTreeModel *model;
     GtkTreeIter iter;
     guchar *fm_path;
     int fm_path_len;
     gchar *command , *dummy_path , *name;
     gchar *to_send = "E";
-    GList *row_list = NULL;
+    GList *row_list, *_row_list;
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
-    /* if no or more than one rows selected, do nothing, just for sanity */
-    if ( gtk_tree_selection_count_selected_rows (selection) != 1)
-		return;
-
-    row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+    row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL )
 		return;
 
-	gtk_tree_model_get_iter(model, &iter, row_list->data);
-
-    gtk_tree_path_free(row_list->data);
-    g_list_free (row_list);
-
-    gtk_tree_model_get (model, &iter, 0, &name, -1);
-    if ( gdk_property_get (dc->source_window,
+	while (_row_list != NULL)
+	{
+		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
+	    gtk_tree_model_get (model, &iter, 0, &name, -1);
+		if ( gdk_property_get (dc->source_window,
                             gdk_atom_intern ("XdndDirectSave0", FALSE),
                             gdk_atom_intern ("text/plain", FALSE),
                             0, 1024, FALSE, NULL, NULL, &fm_path_len, &fm_path)
                             && fm_path != NULL)
-    {
-        /* Zero-Terminate the string */
-        fm_path = g_realloc (fm_path, fm_path_len + 1);
-        fm_path[fm_path_len] = '\000';
-        dummy_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
-        g_free ( fm_path );
-        extract_path = extract_local_path ( dummy_path,name );
-        g_free ( dummy_path );
-        if (extract_path != NULL)
-			to_send = "S";
-        names = g_string_new ("");
-        gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-        command = xa_extract_single_files ( archive , names, extract_path );
-		g_string_free (names, TRUE);
-        if ( command != NULL )
-        {
-            ExtractAddDelete ( command );
-            g_free (command);
-        }
-        //g_dataset_set_data (dc, "XDS-sent", to_send);
-        gtk_selection_data_set (selection_data, gdk_atom_intern ("XA_STRING", FALSE), 8, (guchar*)to_send, 1);
-    }
-    if (extract_path != NULL)
-		g_free (extract_path);
-    extract_path = NULL;
-    g_free (name);
+	    {
+		    /* Zero-Terminate the string */
+	        fm_path = g_realloc (fm_path, fm_path_len + 1);
+			fm_path[fm_path_len] = '\000';
+			dummy_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
+			g_free ( fm_path );
+			extract_path = extract_local_path ( dummy_path,name );
+			//g_message ("%s -- %s -- %s",dummy_path,name,extract_path);
+			g_free ( dummy_path );
+			if (extract_path != NULL)
+				to_send = "S";
+		    names = g_string_new ("");
+	        gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+			archive->full_path = 0;
+			archive->tar_strip_value = 0;
+			command = xa_extract_single_files ( archive , names, extract_path );
+			g_string_free (names, TRUE);
+			if ( command != NULL )
+	        {
+		        ExtractAddDelete ( command );
+			    g_free (command);
+	        }
+		    //g_dataset_set_data (dc, "XDS-sent", to_send);
+	        gtk_selection_data_set (selection_data, gdk_atom_intern ("XA_STRING", FALSE), 8, (guchar*)to_send, 1);
+	    }
+		if (extract_path != NULL)
+			g_free (extract_path);
+		extract_path = NULL;
+		g_free (name);
+		_row_list = _row_list->next;
+	}
+	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
+	g_list_free (row_list);
 }
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)

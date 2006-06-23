@@ -22,6 +22,8 @@ extern gchar *extract_path;
 extern XArchive *archive;
 
 gchar *cli_command = NULL;
+gchar *archive_name;
+gchar *new_archive;
 gchar *absolute_path = NULL;
 GError *cli_error = NULL;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
@@ -31,8 +33,9 @@ static GOptionEntry entries[] =
 {
 	{ "extract-to=[FOLDER] [archive name]", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, N_("Extract the archive to the specified folder and quits."), NULL },
 	{ "extract [archive name]", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, N_("Extract the archive by asking the destination folder and quits."), NULL },
-	{ "add-to=[archive name] [file1] [file2] ... [fileX]", 'd', 0, G_OPTION_ARG_FILENAME, &path, N_("Add files to the specified archive and quits."), NULL },
+	{ "add-to=[archive name] [file1] [file2] ... [fileN]", 'd', 0, G_OPTION_ARG_FILENAME, &archive_name, N_("Add files to the specified archive and quits."), NULL },
 	{ "add [archive name]", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, N_("Add files to the specified archive by asking their filenames and quits."), NULL },
+	{ "new [archive name] [file1] [file2] ... [fileN]", 'n', 0, G_OPTION_ARG_FILENAME, &new_archive, N_("Ask for the archive name to be created, add files to this new archive and quits."), NULL },
 	{ NULL }
 };
 
@@ -50,7 +53,7 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
-	if (ask_and_extract || ask_and_add || path != NULL || extract_path != NULL)
+	if (ask_and_extract || ask_and_add || archive_name != NULL || new_archive != NULL || extract_path != NULL)
 		cli = TRUE;
 
 	if (cli == TRUE)
@@ -105,12 +108,12 @@ int main (int argc, char **argv)
 			}
 		}
 		//Switch -d
-		else if (path != NULL)
+		else if (archive_name != NULL)
 		{
-			GString *string = g_string_new ( "" );
-			archive = xa_init_structure_from_cmd_line ( path );
+			archive = xa_init_structure_from_cmd_line ( archive_name );
 			if (archive != NULL)
 			{
+				GString *string = g_string_new ( "" );
 				for ( x = 1; x < argc; x++)
 					ConcatenateFileNames2 ( argv[x] , string );
 
@@ -123,6 +126,11 @@ int main (int argc, char **argv)
 		//Switch -a
 		else if (ask_and_add)
 		{
+			if (argv[1] == NULL)
+			{
+				g_print (_("xarchiver: You missed the archive name!\n"));
+				return 0;
+			}
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
 			if (archive != NULL)
 			{
@@ -134,12 +142,33 @@ int main (int argc, char **argv)
 				g_free (add_window);
 			}
 		}
-		if (cli_command != NULL)
-			g_free (cli_command);
+		//Switch -n
+		else if (new_archive)
+		{
+			if (argv[1] == NULL)
+			{
+				g_print (_("xarchiver: You missed the files to be added!\n"));
+				return 0;
+			}
+			xa_new_archive ( NULL , NULL );
+			if (archive->path != NULL)
+			{
+				GString *string = g_string_new ( "" );
+				for ( x = 1; x < argc; x++)
+					ConcatenateFileNames2 ( argv[x] , string );
 
+				cli_command = xa_add_single_files ( archive , string, NULL);
+				if (cli_command != NULL)
+					error_output = SpawnSyncCommand ( cli_command );
+				g_string_free (string, TRUE);
+			}
+			if (cli_command != NULL)
+				g_free (cli_command);
+		}
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
-		xa_clean_archive_structure ( archive );
+		if (archive != NULL)
+			xa_clean_archive_structure ( archive );
 		return 0;
 	}
 	else
