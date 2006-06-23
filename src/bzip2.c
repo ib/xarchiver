@@ -219,7 +219,6 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			xa_set_button_state (1,1,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
@@ -227,6 +226,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 			unlink ( tmp );
 			g_free (tmp);
 			OffTooltipPadlock();
+			Update_StatusBar ( _("Operation failed."));
 			return;
 		}
 	}
@@ -268,7 +268,6 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			xa_set_button_state (1,1,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive.\nDo you want to open the error messages window?") : _("An error occurred while deleting from the tar archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
@@ -276,6 +275,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
             unlink ( tmp );
             g_free (tmp);
             OffTooltipPadlock();
+			Update_StatusBar ( _("Operation failed."));
             return;
         }
     }
@@ -294,7 +294,6 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			xa_set_button_state (1,1,0,0);
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
 			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive.\nDo you want to open the error messages window?") );
@@ -303,6 +302,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 			unlink ( tmp );
             g_free (tmp);
             OffTooltipPadlock();
+			Update_StatusBar ( _("Operation failed."));
             return;
 		}
 	}
@@ -330,8 +330,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
-	
-	/* The following while is necessary because when the archive is small 'xa_watch_child' is called before the child exits */
+
 	while (waiting)
 	{
 		ps = waitpid ( archive->child_pid, &status, WNOHANG);
@@ -344,7 +343,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 		}
 	}
 	archive->tmp = tmp;
-	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
+	xa_watch_child ( archive->child_pid, status, archive);
 }
 
 void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )

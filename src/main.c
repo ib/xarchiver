@@ -110,12 +110,30 @@ int main (int argc, char **argv)
 		//Switch -d
 		else if (archive_name != NULL)
 		{
+			gchar *current_dir = NULL;
+			gchar *name = NULL;
+			gchar *_current_dir = NULL;
+
 			archive = xa_init_structure_from_cmd_line ( archive_name );
 			if (archive != NULL)
 			{
 				GString *string = g_string_new ( "" );
 				for ( x = 1; x < argc; x++)
-					ConcatenateFileNames2 ( argv[x] , string );
+				{
+					_current_dir = g_path_get_dirname ( argv[1] );
+					current_dir = g_filename_from_uri ( _current_dir, NULL, NULL );
+					g_free (_current_dir);
+					chdir ( current_dir );
+					g_free (current_dir);
+					if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
+					{
+						name = g_path_get_basename ( argv[x] );
+						ConcatenateFileNames2 ( argv[x], string );
+						g_free (name);
+					}
+					else
+						ConcatenateFileNames2 ( argv[x] , string );
+				}
 
 				cli_command = xa_add_single_files ( archive , string, NULL);
 				if (cli_command != NULL)

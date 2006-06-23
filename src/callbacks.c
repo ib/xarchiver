@@ -1657,6 +1657,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
     gchar *filename = NULL;
 	gchar *command = NULL;
 	gchar *name = NULL;
+	gchar *_current_dir = NULL;
+	gchar *current_dir = NULL;
     gboolean one_file;
     unsigned int len = 0;
 
@@ -1691,6 +1693,11 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 			return;
 		}
 		GString *names = g_string_new (" ");
+		_current_dir = g_path_get_dirname ( array[0] );
+		current_dir = g_filename_from_uri ( _current_dir, NULL, NULL );
+		g_free (_current_dir);
+		chdir ( current_dir );
+		g_free (current_dir);
 		while (array[len])
 		{
 			filename = g_filename_from_uri ( array[len] , NULL, NULL );
