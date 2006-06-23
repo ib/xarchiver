@@ -31,11 +31,26 @@ gboolean cli = FALSE;
 
 static GOptionEntry entries[] =
 {
-	{ "extract-to=[FOLDER] [archive name]", 'x', 0, G_OPTION_ARG_FILENAME, &extract_path, N_("Extract the archive to the specified folder and quits."), NULL },
-	{ "extract [archive name]", 'e', 0, G_OPTION_ARG_NONE, &ask_and_extract, N_("Extract the archive by asking the destination folder and quits."), NULL },
-	{ "add-to=[archive name] [file1] [file2] ... [fileN]", 'd', 0, G_OPTION_ARG_FILENAME, &archive_name, N_("Add files to the specified archive and quits."), NULL },
-	{ "add [archive name]", 'a', 0, G_OPTION_ARG_NONE, &ask_and_add, N_("Add files to the specified archive by asking their filenames and quits."), NULL },
-	{ "new [archive name] [file1] [file2] ... [fileN]", 'n', 0, G_OPTION_ARG_FILENAME, &new_archive, N_("Ask for the archive name to be created, add files to this new archive and quits."), NULL },
+	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
+		N_("Extract the archive to the specified folder and quits."),
+		N_("[destination path]")
+	},
+	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_extract,
+		N_("Extract the archive by asking the destination folder and quits."),
+		N_("[archive path]")
+	},
+	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
+		N_("Add files to the specified archive and quits."),
+		N_("[archive path] [file1] [file2] ... [fileN]")
+	},
+	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_add,
+		N_("Add files to the specified archive by asking their filenames and quits."),
+		N_("[archive name]")
+	},
+	{	"new", 'n', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &new_archive,
+		N_("Ask for the archive to be created, add files to it and quits."),
+		N_("[archive name] [file1] [file2] ... [fileN]")
+	},
 	{ NULL }
 };
 

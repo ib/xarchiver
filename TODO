@@ -4,3 +4,4 @@
   - fix extraction routine since the files inside the directories are not extracted
 
 - fix bugs #1736, #1849, #1879, #1937
+- fix GOptionEntry in main.c since the long name is not recognized.

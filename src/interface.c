@@ -184,7 +184,7 @@ GtkWidget *create_MainWindow (void)
   menuitem4_menu = gtk_menu_new ();
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem4), menuitem4_menu);
 
-  about1 = gtk_menu_item_new_with_mnemonic (_("_About"));
+  about1 = gtk_image_menu_item_new_from_stock ("gtk-about", accel_group);
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (menuitem4_menu), about1);
 

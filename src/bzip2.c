@@ -259,7 +259,6 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 			waiting = FALSE;
 		else
 		{
-			//gtk_progress_bar_pulse ( GTK_PROGRESS_BAR (progressbar) );
 			while (gtk_events_pending())
 				gtk_main_iteration();
 		}
