@@ -1655,6 +1655,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 {
     gchar **array = NULL;
     gchar *filename = NULL;
+	gchar *command = NULL;
+	gchar *name = NULL;
     gboolean one_file;
     unsigned int len = 0;
 
@@ -1677,26 +1679,43 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
             return;
         }
     }
-    if ( archive == NULL)
+	if ( archive == NULL)
 		xa_new_archive ( NULL , NULL );
-    if ( archive->type != XARCHIVETYPE_UNKNOWN )
-    {
-        if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
-        {
-            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file, please choose another archive format!") );
-            gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-            Update_StatusBar ( _("Operation failed."));
-            return;
-        }
-        while (array[len])
-        {
-            filename = g_filename_from_uri ( array[len] , NULL, NULL );
-            Files_to_Add = g_slist_prepend ( Files_to_Add , filename );
-            len++;
-        }
-        xa_add_files_archive ( NULL, NULL );
-        g_strfreev ( array );
-    }
+	if ( archive->type != XARCHIVETYPE_UNKNOWN )
+	{
+		if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
+		{
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file, please choose another archive format!") );
+			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+			Update_StatusBar ( _("Operation failed."));
+			return;
+		}
+		GString *names = g_string_new (" ");
+		while (array[len])
+		{
+			filename = g_filename_from_uri ( array[len] , NULL, NULL );
+			if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
+			{
+				name = g_path_get_basename ( filename );
+				ConcatenateFileNames2 ( name, names );
+				g_free (name);
+			}
+			else
+				ConcatenateFileNames2 ( filename, names );
+			g_free (filename);
+			len++;
+		}
+		archive->status = XA_ARCHIVESTATUS_ADD;
+		archive->full_path = 1;
+		command = xa_add_single_files ( archive, names, NULL );
+		if (command != NULL)
+		{
+			ExtractAddDelete (command);
+			g_free (command);
+		}
+		g_string_free (names, TRUE);
+		g_strfreev ( array );
+	}
 }
 
 gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer data)
