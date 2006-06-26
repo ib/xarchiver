@@ -77,6 +77,8 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_about (GtkMenuItem *menuitem, gpointer user_data);
 void on_options1_activate (GtkMenuItem *menuitem, gpointer user_data);
 void xa_extract_archive ( GtkMenuItem *menuitem, gpointer user_data);
+void xa_select_all ( GtkMenuItem *menuitem, gpointer user_data);
+void xa_deselect_all ( GtkMenuItem *menuitem, gpointer user_data);
 void ShowShellOutput ( GtkMenuItem *menuitem );
 void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data );
@@ -102,7 +104,7 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
 gboolean isTar ( FILE *ptr );
 gboolean isISO ( FILE *ptr );
 gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
-gboolean DetectPasswordProtectedArchive ( int type , FILE *dummy_ptr , unsigned char magic[6]);
+gboolean DetectPasswordProtectedArchive ( int type , FILE *dummy_ptr, unsigned char magic[6]);
 
 void RemoveColumnsListStore ();
 void EmptyTextBuffer ();
@@ -117,7 +119,7 @@ void OffTooltipPadlock();
 void Update_StatusBar (gchar *msg);
 void xa_watch_child ( GPid pid, gint status, gpointer data);
 gchar *EscapeBadChars ( gchar *path );
-gchar *StripPathFromFilename ( gchar *name );
+gchar *StripPathFromFilename ( gchar *name, gchar *pattern );
 gchar *JoinPathArchiveName ( const gchar * , gchar * );
 char *Show_File_Dialog (int dummy , gpointer title);
 char *eat_spaces (char *line);

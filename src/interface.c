@@ -118,7 +118,7 @@ GtkWidget *create_MainWindow (void)
   addfile = gtk_image_menu_item_new_with_mnemonic (_("Add"));
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
-  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   image2 = xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
@@ -158,6 +158,23 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (separatormenuitem3);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
   gtk_widget_set_sensitive (separatormenuitem3, FALSE);
+
+  select_all = gtk_image_menu_item_new_with_mnemonic (_("Select _All"));
+  gtk_widget_show (select_all);
+  gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
+  gtk_widget_set_sensitive (select_all, FALSE);
+  gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+  deselect_all = gtk_image_menu_item_new_with_mnemonic (_("Dese_lect All"));
+  gtk_widget_show (deselect_all);
+  gtk_container_add (GTK_CONTAINER (menuitem2_menu), deselect_all);
+  gtk_widget_set_sensitive (deselect_all, FALSE);
+  gtk_widget_add_accelerator (deselect_all, "activate",accel_group,GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+  separatormenuitem4 = gtk_separator_menu_item_new ();
+  gtk_widget_show (separatormenuitem4);
+  gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem4);
+  gtk_widget_set_sensitive (separatormenuitem4, FALSE);
   
   view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View Error _Messages"));
   gtk_widget_show (view_shell_output1);
@@ -322,56 +339,29 @@ GtkWidget *create_MainWindow (void)
   gtk_tooltips_set_tip (pad_tooltip , ebox , _("This archive contains password protected files"), NULL );
   gtk_tooltips_disable ( pad_tooltip );
 
-  g_signal_connect ((gpointer) new1, "activate",
-                    G_CALLBACK (xa_new_archive),
-                    NULL);
-  g_signal_connect ((gpointer) open1, "activate",
-                    G_CALLBACK (xa_open_archive),
-                    NULL);
-  g_signal_connect ((gpointer) check_menu, "activate",
-                    G_CALLBACK (xa_test_archive),
-                    NULL);
-  g_signal_connect ((gpointer) properties, "activate",
-                    G_CALLBACK (xa_archive_properties),
-                    NULL);
-  g_signal_connect ((gpointer) extract_menu, "activate",
-                    G_CALLBACK (xa_extract_archive),
-                    NULL);
-  g_signal_connect ((gpointer) addfile, "activate", G_CALLBACK (xa_add_files_archive), NULL);
-  g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (ShowShellOutput), NULL);
-  g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
-  g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
-  g_signal_connect ((gpointer) delete_menu, "activate",
-                    G_CALLBACK (xa_delete_archive),
-                    NULL);
-  g_signal_connect ((gpointer) view_menu, "activate",
-                    G_CALLBACK (View_File_Window),
-                    NULL);
-  g_signal_connect ((gpointer) about1, "activate",
-                    G_CALLBACK (xa_about),
-                    NULL);
-  g_signal_connect ((gpointer) New_button, "clicked",
-                    G_CALLBACK (xa_new_archive),
-                    NULL);
-  g_signal_connect ((gpointer) Open_button, "clicked",
-                    G_CALLBACK (xa_open_archive),
-                    NULL);
-  g_signal_connect ((gpointer) AddFile_button, "clicked", G_CALLBACK (xa_add_files_archive), NULL);
-    g_signal_connect ((gpointer) Extract_button, "clicked",
-                    G_CALLBACK (xa_extract_archive),
-                    NULL);
-  g_signal_connect ((gpointer) Delete_button, "clicked",
-                    G_CALLBACK (xa_delete_archive),
-                    NULL);
-  g_signal_connect ((gpointer) View_button, "clicked",
-                    G_CALLBACK (View_File_Window),
-                    NULL);
-  g_signal_connect ((gpointer) Stop_button, "clicked",
-                    G_CALLBACK (xa_cancel_archive),
-                    NULL);
- g_signal_connect (MainWindow, "key_press_event",
-                    G_CALLBACK (key_press_function),
-                    NULL);
+	g_signal_connect ((gpointer) new1, "activate", G_CALLBACK (xa_new_archive), NULL);
+	g_signal_connect ((gpointer) open1, "activate", G_CALLBACK (xa_open_archive), NULL);
+	g_signal_connect ((gpointer) check_menu, "activate", G_CALLBACK (xa_test_archive), NULL);
+	g_signal_connect ((gpointer) properties, "activate", G_CALLBACK (xa_archive_properties), NULL);
+	g_signal_connect ((gpointer) extract_menu, "activate", G_CALLBACK (xa_extract_archive), NULL);
+	g_signal_connect ((gpointer) addfile, "activate", G_CALLBACK (xa_add_files_archive), NULL);
+	g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (ShowShellOutput), NULL);
+	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
+	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
+	g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
+	g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
+	g_signal_connect ((gpointer) delete_menu, "activate", G_CALLBACK (xa_delete_archive), NULL);
+	g_signal_connect ((gpointer) view_menu, "activate", G_CALLBACK (View_File_Window), NULL);
+	g_signal_connect ((gpointer) about1, "activate", G_CALLBACK (xa_about), NULL);
+
+	g_signal_connect ((gpointer) New_button, "clicked", G_CALLBACK (xa_new_archive), NULL);
+	g_signal_connect ((gpointer) Open_button, "clicked", G_CALLBACK (xa_open_archive), NULL);
+	g_signal_connect ((gpointer) AddFile_button, "clicked", G_CALLBACK (xa_add_files_archive), NULL);
+    g_signal_connect ((gpointer) Extract_button, "clicked", G_CALLBACK (xa_extract_archive), NULL);
+	g_signal_connect ((gpointer) Delete_button, "clicked", G_CALLBACK (xa_delete_archive), NULL);
+	g_signal_connect ((gpointer) View_button, "clicked", G_CALLBACK (View_File_Window), NULL);
+	g_signal_connect ((gpointer) Stop_button, "clicked", G_CALLBACK (xa_cancel_archive), NULL);
+	g_signal_connect (MainWindow, "key_press_event", G_CALLBACK (key_press_function), NULL);
 
   gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
   return MainWindow;

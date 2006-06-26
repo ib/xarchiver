@@ -21,6 +21,7 @@
 
 extern gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 extern int output_fd;
+extern gboolean cli;
 
 FILE *stream = NULL;
 gchar *tmp = NULL;
@@ -72,7 +73,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 			if ( strlen ( extract_path ) > 0 )
 			{
 				done = TRUE;
-				gchar *archive_name = StripPathFromFilename ( archive->escaped_path );
+				gchar *archive_name = StripPathFromFilename ( archive->escaped_path, "/" );
 				archive->parse_output = 0;
 				command = g_strconcat ( flag ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
 				SpawnAsyncProcess ( archive , command , 0, 0);
@@ -111,7 +112,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 	gtk_widget_destroy ( extract_window->dialog1 );
 	g_free (extract_window);
 	extract_window = NULL;
-	xa_set_button_state (1,1,0,0);
+	xa_set_button_state (1,1,0,0,0);
 	if (command != NULL)
 	{
 		g_free ( command );
@@ -330,15 +331,18 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
 
-	while (waiting)
+	if (cli)
 	{
-		ps = waitpid ( archive->child_pid, &status, WNOHANG);
-		if (ps < 0)
-			waiting = FALSE;
-		else
+		while (waiting)
 		{
-			while (gtk_events_pending())
-				gtk_main_iteration();
+			ps = waitpid ( archive->child_pid, &status, WNOHANG);
+			if (ps < 0)
+				waiting = FALSE;
+			else
+			{
+				while (gtk_events_pending())
+					gtk_main_iteration();
+			}
 		}
 	}
 	archive->tmp = tmp;

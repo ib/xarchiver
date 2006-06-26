@@ -2,12 +2,15 @@ Xarchiver changelog:
 
 xx/06/06 - 0.4:
 		- Added Drag and Drop from and to Xarchiver window by using the XDS protocol.
+		- Added the (in)famous cmd-line switches; see xarchiver -? for details.
 		- Added a Stop button who cancels the current operation or you can use the ESC key.
 		- Added ability to test archives.
 		- Added an archive properties window showing useful info about the archive and its content.
+		- Added two menu entries in the Action menu to select / unselect the files in the treeview.
 		- "Row selection while you type" ability. Useful when you have thousand of files inside the archive.
 		- The extract dialog now "remembers" the last used extraction path.
-                - The enter key can be also used with the extract dialogs.
+		- The extract dialog automatically set the destination directory as the archive path.
+                - The enter key can be also used with the extract dialog.
 		- You can use accelerators (keyboard shortcuts) for almost the menu entries.
 		- The Del key can also be used instead of the Delete button on the toolbar.
 		- Removed the confirmation dialog when opening bzip2 and gzip compressed files.

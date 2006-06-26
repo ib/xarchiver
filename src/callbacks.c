@@ -66,20 +66,20 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	XArchive *archive = data;
 	OffDeleteandViewButtons();
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
-		xa_set_button_state (1,1,0,0);
+		xa_set_button_state (1,1,0,0,0);
 	else if (archive->type == XARCHIVETYPE_RPM)
 	{
-		xa_set_button_state (1,1,0,1);
+		xa_set_button_state (1,1,0,1,1);
 		gtk_widget_set_sensitive ( check_menu , FALSE);
 	}
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
 	{
-		xa_set_button_state (1,1,1,1);
+		xa_set_button_state (1,1,1,1,1);
         gtk_widget_set_sensitive ( check_menu , FALSE);
 	}
 	else
 	{
-		xa_set_button_state (1,1,1,1);
+		xa_set_button_state (1,1,1,1,1);
         gtk_widget_set_sensitive ( check_menu , TRUE);
 	}
 
@@ -214,7 +214,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
         //The following to avoid to update the archive instead of adding to it since the filename exists
         unlink ( path );
 	}
-	xa_set_button_state (1,1,1,0 );
+	xa_set_button_state (1,1,1,0,0 );
 	archive->path = g_strdup (path);
 	g_free (path);
     archive->escaped_path = EscapeBadChars (archive->path);
@@ -233,7 +233,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
   	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
 	{
 		Update_StatusBar ( _("Choose Add File to create the compressed file."));
-		xa_set_button_state (1,1,1,0 );
+		xa_set_button_state (1,1,1,0,0 );
 	}
 	else
 		Update_StatusBar ( _("Choose Add File or Add Folder to begin creating the archive."));
@@ -288,7 +288,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
         gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		_("The format of this archive is not recognized !") );
-		xa_set_button_state ( 1,1,0,0);
+		xa_set_button_state ( 1,1,0,0,0);
         return;
 	}
     EmptyTextBuffer();
@@ -314,7 +314,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		Update_StatusBar ( _("Please wait while the content of the ISO image is being read..."));
     else
 		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
-    xa_set_button_state (1,1,1,1);
+    xa_set_button_state (1,1,1,1,1);
 	
 	switch ( archive->type )
 	{
@@ -378,7 +378,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     Update_StatusBar ( _("Testing archive integrity, please wait..."));
     gtk_widget_set_sensitive (Stop_button,TRUE);
     gtk_widget_set_sensitive ( check_menu , FALSE );
-    xa_set_button_state (0,0,0,0);
+    xa_set_button_state (0,0,0,0,0);
     switch ( archive->type )
 	{
 		case XARCHIVETYPE_RAR:
@@ -734,7 +734,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		Name = g_list_first ( ArchiveType );
 		while ( Name != NULL )
 		{
-			if (Name->data != ".tgz" && Name->data != ".rpm" && Name->data != ".iso" )
+			if (Name->data != ".tgz" && Name->data != ".rpm" && Name->data != ".iso"  )
 				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
 			Name = g_list_next ( Name );
 		}
@@ -1130,7 +1130,6 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 	{
 		if ( WEXITSTATUS ( status ) )
 		{
-			xa_set_button_state (1,1,0,0);
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
@@ -1139,7 +1138,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 			return NULL;
 		}
 	}
-	string = StripPathFromFilename ( (char*) data->str );
+	string = StripPathFromFilename ( (char*) data->str, "/" );
 	//Let's avoid the white space
 	data->str++;
 	if (  string == NULL )
@@ -1200,7 +1199,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     file_size = my_stat.st_size;
     archive_properties_win = create_archive_properties_window();
     //Name
-    text = StripPathFromFilename ( archive->path );
+    text = StripPathFromFilename ( archive->path, "/" );
     if (text != NULL)
     {
         text++; //This to avoid the / char in the string
@@ -1458,9 +1457,9 @@ gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer da
 	return TRUE;
 }
 
-gchar *StripPathFromFilename ( gchar *name )
+gchar *StripPathFromFilename ( gchar *name, gchar *pattern )
 {
-    return g_strrstr ( name , "/" );
+    return g_strrstr ( name , pattern );
 }
 
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path )
@@ -1541,7 +1540,7 @@ gchar *extract_local_path (gchar *path , gchar *filename)
 {
     gchar *local_path;
     gchar *local_escaped_path;
-	gchar *no_path = StripPathFromFilename(filename);
+	gchar *no_path = StripPathFromFilename(filename,"/");
 	no_path++;
 
     unsigned short int x;
@@ -1572,7 +1571,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 	{
 		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
 	    gtk_tree_model_get (model, &iter, 0, &name, -1);
-		gchar *no_slashes = StripPathFromFilename ( name );
+		gchar *no_slashes = StripPathFromFilename ( name, "/" );
 		g_free (name);
 		no_slashes++;
 
@@ -1741,6 +1740,21 @@ gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer dat
 		break;
     }
 	return FALSE;
+}
+
+void xa_select_all ( GtkMenuItem *menuitem , gpointer user_data )
+{
+
+	gtk_tree_selection_select_all ( gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1) ) );
+	gtk_widget_set_sensitive (select_all,FALSE);
+	gtk_widget_set_sensitive (deselect_all,TRUE);
+}
+
+void xa_deselect_all ( GtkMenuItem *menuitem , gpointer user_data )
+{
+	gtk_tree_selection_unselect_all ( gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1) ) );
+	gtk_widget_set_sensitive (select_all,TRUE);
+	gtk_widget_set_sensitive (deselect_all,FALSE);
 }
 
 void xa_append_rows ( XArchive *archive , unsigned short int nc )
