@@ -27,7 +27,6 @@
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
-extern gchar *new_archive;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -738,8 +737,6 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
 			Name = g_list_next ( Name );
 		}
-		if (new_archive)
-			gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (File_Selector),new_archive);
 		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), 0);
 		gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
 		check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
@@ -1561,6 +1558,8 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     gchar            *name;
     GList            *row_list, *_row_list;
 
+	g_print ("Drag begin");
+	//gtk_drag_source_set_icon_name (treeview1,DATADIR "/pixmaps/xarchiver.png" );
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 
 	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
@@ -1593,34 +1592,36 @@ void drag_end (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 
 void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data)
 {
-    GtkTreeSelection *selection;
-    GtkTreeIter iter;
-    guchar *fm_path;
-    int fm_path_len;
-    gchar *command , *dummy_path , *name;
-    gchar *to_send = "E";
-    GList *row_list, *_row_list;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	guchar *fm_path;
+	int fm_path_len;
+	gchar *command , *dummy_path , *name;
+	gchar *to_send = "E";
+	GList *row_list, *_row_list;
 
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
-    row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
+	g_print ("Drag data get\n");
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
+	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL )
 		return;
 
 	while (_row_list != NULL)
 	{
 		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
-	    gtk_tree_model_get (model, &iter, 0, &name, -1);
+		gtk_tree_model_get (model, &iter, 0, &name, -1);
 		if ( gdk_property_get (dc->source_window,
-                            gdk_atom_intern ("XdndDirectSave0", FALSE),
-                            gdk_atom_intern ("text/plain", FALSE),
-                            0, 1024, FALSE, NULL, NULL, &fm_path_len, &fm_path)
-                            && fm_path != NULL)
-	    {
+							gdk_atom_intern ("XdndDirectSave0", FALSE),
+							gdk_atom_intern ("text/plain", FALSE),
+							0, 1024, FALSE, NULL, NULL, &fm_path_len, &fm_path)
+							&& fm_path != NULL)
+		{
 		    /* Zero-Terminate the string */
 	        fm_path = g_realloc (fm_path, fm_path_len + 1);
-			fm_path[fm_path_len] = '\000';
+			fm_path[fm_path_len] = '\0';
 			dummy_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
 			g_free ( fm_path );
+			g_print ("%s - %s\n",dummy_path,name);
 			extract_path = extract_local_path ( dummy_path,name );
 			//g_message ("%s -- %s -- %s",dummy_path,name,extract_path);
 			g_free ( dummy_path );
@@ -1638,7 +1639,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			    g_free (command);
 	        }
 		    //g_dataset_set_data (dc, "XDS-sent", to_send);
-	        gtk_selection_data_set (selection_data, gdk_atom_intern ("XA_STRING", FALSE), 8, (guchar*)to_send, 1);
+	        gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
 	    }
 		if (extract_path != NULL)
 			g_free (extract_path);

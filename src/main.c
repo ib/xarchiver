@@ -19,14 +19,12 @@
 #include "main.h"
 
 extern gchar *extract_path;
-extern XArchive *archive;
 
 gchar *cli_command = NULL;
 gchar *archive_name;
-gchar *new_archive;
 gchar *absolute_path = NULL;
 GError *cli_error = NULL;
-gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
+gboolean error_output, file_to_open, ask_and_extract, ask_and_add, new_archive;
 gboolean cli = FALSE;
 
 static GOptionEntry entries[] =
@@ -47,9 +45,9 @@ static GOptionEntry entries[] =
 		N_("Add files to the specified archive by asking their filenames and quits."),
 		N_("[archive name]")
 	},
-	{	"new", 'n', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &new_archive,
+	{	"new", 'n', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &new_archive,
 		N_("Ask for the archive to be created, add files to it and quits."),
-		N_("[archive name] [file1] [file2] ... [fileN]")
+		N_("[file1] [file2] ... [fileN]")
 	},
 	{ NULL }
 };
@@ -68,7 +66,7 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
-	if (ask_and_extract || ask_and_add || archive_name != NULL || new_archive != NULL || extract_path != NULL)
+	if (ask_and_extract || ask_and_add || new_archive || archive_name != NULL || extract_path != NULL)
 		cli = TRUE;
 
 	if (cli == TRUE)
