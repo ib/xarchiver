@@ -213,7 +213,6 @@ int main (int argc, char **argv)
 		ShowShellOutput (NULL);
 		gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
-		g_signal_connect (MainWindow, "delete_event", G_CALLBACK (xa_quit_application), NULL);
 		xa_set_button_state (1,1,0,0,0);
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);

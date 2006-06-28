@@ -987,7 +987,7 @@ void ShowShellOutput ( GtkMenuItem *menuitem )
 	gtk_window_set_position (GTK_WINDOW (OutputWindow), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(OutputWindow), 380, 250);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (OutputWindow), TRUE);
-	g_signal_connect (G_OBJECT (OutputWindow), "delete_event",  G_CALLBACK (gtk_widget_hide), &OutputWindow);
+	g_signal_connect (G_OBJECT (OutputWindow), "delete-event",  G_CALLBACK (gtk_widget_hide), &OutputWindow);
 
 	vbox = gtk_vbox_new ( FALSE, 2 );
 	scrollwin = gtk_scrolled_window_new ( NULL,NULL );
@@ -1561,6 +1561,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 
 	g_print ("Drag begin\n");
 	//gtk_drag_source_set_icon_name (treeview1,DATADIR "/pixmaps/xarchiver.png" );
+	
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 
 	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
@@ -1584,6 +1585,10 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 	}
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
+}
+gboolean drag_drop (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, gpointer data)
+{
+	g_message ("drag drop");
 }
 
 void drag_end (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
@@ -1612,6 +1617,8 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	{
 		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
 		gtk_tree_model_get (model, &iter, 0, &name, -1);
+		g_message (name);
+		
 		if ( gdk_property_get (dc->source_window,
 							gdk_atom_intern ("XdndDirectSave0", FALSE),
 							gdk_atom_intern ("text/plain", FALSE),
@@ -1623,9 +1630,8 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			fm_path[fm_path_len] = '\0';
 			dummy_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
 			g_free ( fm_path );
-			g_print ("%s - %s\n",dummy_path,name);
 			extract_path = extract_local_path ( dummy_path,name );
-			//g_message ("%s -- %s -- %s",dummy_path,name,extract_path);
+			g_message ("%s -- %s -- %s",dummy_path,name,extract_path);
 			g_free ( dummy_path );
 			if (extract_path != NULL)
 				to_send = "S";
@@ -1649,8 +1655,10 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		g_free (name);
 		_row_list = _row_list->next;
 	}
+	/*
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
+	*/
 }
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
@@ -1664,6 +1672,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	gboolean one_file;
 	unsigned int len = 0;
 
+	g_message ("drag data received");
+	
 	array = gtk_selection_data_get_uris ( data );
 	if (array == NULL)
 	{

@@ -704,7 +704,7 @@ GtkWidget *create_iso_properties_window ()
 	gtk_window_set_type_hint (GTK_WINDOW (iso_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
 	
 	g_signal_connect(iso_properties_window, "response", G_CALLBACK(gtk_widget_destroy), NULL);
-	g_signal_connect(iso_properties_window, "delete_event", G_CALLBACK(gtk_widget_destroy), NULL);
+	g_signal_connect(iso_properties_window, "delete-event", G_CALLBACK(gtk_widget_destroy), NULL);
 
 	table1 = gtk_table_new (18, 2, TRUE);
 	gtk_widget_show (table1);

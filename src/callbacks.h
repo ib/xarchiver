@@ -91,6 +91,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data);
 void drag_end (GtkWidget *treeview1, GdkDragContext *context, gpointer data);
 void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data);
+gboolean drag_drop (GtkWidget *widget, GdkDragContext *context,gint x, gint y, guint time, gpointer data);
 
 GSList *Add_File_Dialog ( gchar *mode );
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, gchar *message);

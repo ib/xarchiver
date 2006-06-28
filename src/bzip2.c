@@ -331,6 +331,8 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
 
+	archive->tmp = tmp;
+
 	if (cli)
 	{
 		while (waiting)
@@ -344,9 +346,10 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 					gtk_main_iteration();
 			}
 		}
-	}
-	archive->tmp = tmp;
 	xa_watch_child ( archive->child_pid, status, archive);
+	}
+	else
+		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 }
 
 void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )

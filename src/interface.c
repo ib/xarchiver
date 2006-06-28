@@ -46,16 +46,18 @@ static const GtkTargetEntry drop_targets[] =
 
 GtkWidget *create_MainWindow (void)
 {
-  tooltips = gtk_tooltips_new ();
+	tooltips = gtk_tooltips_new ();
+	accel_group = gtk_accel_group_new ();
 
-  accel_group = gtk_accel_group_new ();
-
-  MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (MainWindow), "Xarchiver " VERSION);
+	MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW (MainWindow), "Xarchiver " VERSION);
   /* By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we should have KDE DnD compatibility. */
-  gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-  gtk_window_set_default_icon_from_file (DATADIR "/pixmaps/xarchiver.png", NULL  );
-  g_signal_connect (GTK_WINDOW (MainWindow), "drag_data_received", G_CALLBACK (on_drag_data_received), NULL);
+	gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+	gtk_window_set_default_icon_from_file (DATADIR "/pixmaps/xarchiver.png", NULL  );
+	g_signal_connect (G_OBJECT (MainWindow), "drag-data-received",	G_CALLBACK (on_drag_data_received), NULL);
+	g_signal_connect (G_OBJECT (MainWindow), "drag-drop",			G_CALLBACK (drag_drop), NULL);
+	g_signal_connect (G_OBJECT (MainWindow), "delete-event", G_CALLBACK (xa_quit_application), NULL);
+
   vbox1 = gtk_vbox_new (FALSE, 0);
   gtk_widget_show (vbox1);
   gtk_container_add (GTK_CONTAINER (MainWindow), vbox1);
@@ -292,9 +294,9 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview1);
   gtk_drag_source_set (treeview1, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
   
-  g_signal_connect (G_OBJECT(treeview1), "drag_data_get" , G_CALLBACK (drag_data_get), NULL );
-  g_signal_connect (G_OBJECT (treeview1), "drag_begin", G_CALLBACK (drag_begin), NULL);
-  g_signal_connect (G_OBJECT (treeview1), "drag_end", G_CALLBACK (drag_end), NULL);
+	g_signal_connect (G_OBJECT (treeview1), "drag-begin",			G_CALLBACK (drag_begin), NULL);
+	g_signal_connect (G_OBJECT (treeview1), "drag-data-get",		G_CALLBACK (drag_data_get), NULL );
+	g_signal_connect (G_OBJECT (treeview1), "drag-end",				G_CALLBACK (drag_end), NULL);
 
   vbox_body = gtk_vbox_new (FALSE, 2);
   gtk_widget_show (vbox_body);
@@ -361,7 +363,7 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect ((gpointer) Delete_button, "clicked", G_CALLBACK (xa_delete_archive), NULL);
 	g_signal_connect ((gpointer) View_button, "clicked", G_CALLBACK (View_File_Window), NULL);
 	g_signal_connect ((gpointer) Stop_button, "clicked", G_CALLBACK (xa_cancel_archive), NULL);
-	g_signal_connect (MainWindow, "key_press_event", G_CALLBACK (key_press_function), NULL);
+	g_signal_connect (MainWindow, "key-press-event", G_CALLBACK (key_press_function), NULL);
 
   gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
   return MainWindow;
@@ -481,7 +483,7 @@ GtkWidget *create_archive_properties_window ()
 									GTK_STOCK_CLOSE, GTK_RESPONSE_NONE, NULL);
 
 	g_signal_connect(archive_properties_window, "response", G_CALLBACK(gtk_widget_destroy), NULL);
-	g_signal_connect(archive_properties_window, "delete_event", G_CALLBACK(gtk_widget_destroy), NULL);
+	g_signal_connect(archive_properties_window, "delete-event", G_CALLBACK(gtk_widget_destroy), NULL);
 
 	gtk_window_set_position (GTK_WINDOW (archive_properties_window), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (archive_properties_window), FALSE);
