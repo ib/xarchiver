@@ -36,12 +36,12 @@
 
 static const GtkTargetEntry drag_targets[] =
 {
-  { "XdndDirectSave0", 0, 1 },
+  { "XdndDirectSave0", 0, 0 },
 };
 
 static const GtkTargetEntry drop_targets[] =
 {
-  { "text/uri-list", 0, 1 },
+  { "text/uri-list", 0, 0 },
 };
 
 GtkWidget *create_MainWindow (void)
@@ -53,7 +53,7 @@ GtkWidget *create_MainWindow (void)
   MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (MainWindow), "Xarchiver " VERSION);
   /* By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we should have KDE DnD compatibility. */
-  gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL,drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+  gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
   gtk_window_set_default_icon_from_file (DATADIR "/pixmaps/xarchiver.png", NULL  );
   g_signal_connect (GTK_WINDOW (MainWindow), "drag_data_received", G_CALLBACK (on_drag_data_received), NULL);
   vbox1 = gtk_vbox_new (FALSE, 0);
@@ -290,7 +290,7 @@ GtkWidget *create_MainWindow (void)
   treeview1 = gtk_tree_view_new ();
   gtk_widget_show (treeview1);
   gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview1);
-  gtk_drag_source_set (treeview1, GDK_BUTTON1_MASK, drag_targets, 1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+  gtk_drag_source_set (treeview1, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
   
   g_signal_connect (G_OBJECT(treeview1), "drag_data_get" , G_CALLBACK (drag_data_get), NULL );
   g_signal_connect (G_OBJECT (treeview1), "drag_begin", G_CALLBACK (drag_begin), NULL);

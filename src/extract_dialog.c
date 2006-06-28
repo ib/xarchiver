@@ -64,7 +64,12 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 		unsigned short int x = strlen (archive->path) - strlen ( dummy );
 		gchar *extraction_string = (gchar *) g_malloc ( x - 1);
 		strncpy ( extraction_string, archive->path, x );
-		extraction_string [x-1] = '\000';
+		extraction_string [x-1] = '\0';
+		if ( strstr (extraction_string , ".tar") )
+		{
+			extraction_string = g_realloc ( extraction_string, x - 5);
+			extraction_string[x-5] = '\0';
+		}
 		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry), extraction_string);
 		g_free (extraction_string);
 	}

@@ -737,6 +737,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
 			Name = g_list_next ( Name );
 		}
+
 		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), 0);
 		gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
 		check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
@@ -1558,7 +1559,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     gchar            *name;
     GList            *row_list, *_row_list;
 
-	g_print ("Drag begin");
+	g_print ("Drag begin\n");
 	//gtk_drag_source_set_icon_name (treeview1,DATADIR "/pixmaps/xarchiver.png" );
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 
@@ -1601,6 +1602,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	GList *row_list, *_row_list;
 
 	g_print ("Drag data get\n");
+	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL )
@@ -1616,7 +1618,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 							0, 1024, FALSE, NULL, NULL, &fm_path_len, &fm_path)
 							&& fm_path != NULL)
 		{
-		    /* Zero-Terminate the string */
+		    // Zero-Terminate the string 
 	        fm_path = g_realloc (fm_path, fm_path_len + 1);
 			fm_path[fm_path_len] = '\0';
 			dummy_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
@@ -1653,33 +1655,33 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
 {
-    gchar **array = NULL;
-    gchar *filename = NULL;
+	gchar **array = NULL;
+	gchar *filename = NULL;
 	gchar *command = NULL;
 	gchar *name = NULL;
 	gchar *_current_dir = NULL;
 	gchar *current_dir = NULL;
-    gboolean one_file;
-    unsigned int len = 0;
+	gboolean one_file;
+	unsigned int len = 0;
 
-    array = gtk_selection_data_get_uris ( data );
-    if (array == NULL)
-    {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!") );
-        gtk_drag_finish (context, FALSE, FALSE, time);
-        return;
-    }
-    gtk_drag_finish (context, TRUE, FALSE, time);
-    one_file = (array[1] == NULL);
-    if (one_file)
-    {
-        filename = g_filename_from_uri ( array[0] , NULL, NULL );
-        if ( filename != NULL)
-        {
+	array = gtk_selection_data_get_uris ( data );
+	if (array == NULL)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!") );
+		gtk_drag_finish (context, FALSE, FALSE, time);
+		return;
+	}
+	gtk_drag_finish (context, TRUE, FALSE, time);
+	one_file = (array[1] == NULL);
+	if (one_file)
+	{
+		filename = g_filename_from_uri ( array[0] , NULL, NULL );
+		if ( filename != NULL)
+		{
 			xa_open_archive ( NULL, filename );
 			g_strfreev ( array );
-            return;
-        }
+			return;
+		}
     }
 	if ( archive == NULL)
 		xa_new_archive ( NULL , NULL );
