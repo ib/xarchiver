@@ -378,7 +378,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive = xa_init_archive_structure (archive);
 	archive->path = g_strdup (filename);
 	archive->escaped_path = EscapeBadChars(filename);
-	archive->type = DetectArchiveType ( archive );
+	archive->type = DetectArchiveType ( archive->path );
 	if (archive->type == -2)
 		return NULL;
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )

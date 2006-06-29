@@ -27,6 +27,7 @@
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
+extern gboolean cli;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -129,55 +130,56 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			return;
 		}
 	}
-	
-	/* This to automatically reload the content of the archive after adding or deleting */
-	if (archive->status == XA_ARCHIVESTATUS_DELETE || archive->status == XA_ARCHIVESTATUS_ADD)
+	if ( ! cli )
 	{
-        if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
-			Update_StatusBar ( _("Operation completed."));
-		else
-			Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
-        RemoveColumnsListStore();
-        archive->status = XA_ARCHIVESTATUS_IDLE;
-		switch ( archive->type )
+		/* This to automatically reload the content of the archive after adding or deleting */
+		if (archive->status == XA_ARCHIVESTATUS_DELETE || archive->status == XA_ARCHIVESTATUS_ADD)
 		{
-			case XARCHIVETYPE_RAR:
-            OpenRar ( archive );
-			break;
+		    if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
+				Update_StatusBar ( _("Operation completed."));
+			else
+				Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
+			RemoveColumnsListStore();
+			archive->status = XA_ARCHIVESTATUS_IDLE;
+			switch ( archive->type )
+			{
+				case XARCHIVETYPE_RAR:
+			    OpenRar ( archive );
+				break;
 
-			case XARCHIVETYPE_TAR:
-			OpenTar ( archive );
-			break;
+				case XARCHIVETYPE_TAR:
+				OpenTar ( archive );
+				break;
 
-            case XARCHIVETYPE_TAR_BZ2:
-            OpenBzip2 ( archive );
-            break;
+				case XARCHIVETYPE_TAR_BZ2:
+				OpenBzip2 ( archive );
+				break;
 
-            case XARCHIVETYPE_TAR_GZ:
-            OpenGzip ( archive );
-            break;
+				case XARCHIVETYPE_TAR_GZ:
+				OpenGzip ( archive );
+				break;
 
-			case XARCHIVETYPE_ZIP:
-			OpenZip ( archive );
-			break;
+				case XARCHIVETYPE_ZIP:
+				OpenZip ( archive );
+				break;
 
-            case XARCHIVETYPE_7ZIP:
-            Open7Zip ( archive );
-            break;
+				case XARCHIVETYPE_7ZIP:
+				Open7Zip ( archive );
+				break;
 
-            case XARCHIVETYPE_ARJ:
-            OpenArj ( archive );
-            break;
+				case XARCHIVETYPE_ARJ:
+				OpenArj ( archive );
+				break;
             
-            default:
-            break;
+				default:
+				break;
+			}
+		    return;
 		}
-        return;
+
+		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
+		g_object_unref (model);
 	}
-
-	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-	g_object_unref (model);
-
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
 	gtk_widget_set_sensitive ( properties , TRUE );
 	archive->status = XA_ARCHIVESTATUS_IDLE;
@@ -279,7 +281,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
     gtk_widget_set_sensitive ( iso_info , FALSE );
     gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
 
-    archive->type = DetectArchiveType ( archive );
+    archive->type = DetectArchiveType ( archive->path );
     if ( archive->type == -2 )
 		return;
     if ( archive->type == -1 )
@@ -808,16 +810,16 @@ gboolean isTar ( FILE *ptr )
 		return FALSE;
 }
 
-int DetectArchiveType ( XArchive *archive )
+int DetectArchiveType ( gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
 	unsigned char magic[6];
-	dummy_ptr = fopen ( archive->path , "r" );
+	dummy_ptr = fopen ( filename , "r" );
 	
 	if (dummy_ptr == NULL)
 	{
-		gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , archive->path , strerror (errno) );
+		gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , filename , strerror (errno) );
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg);
 		g_free (msg);
@@ -1538,11 +1540,16 @@ gchar *extract_local_path (gchar *path , gchar *filename)
 {
     gchar *local_path;
     gchar *local_escaped_path;
-	gchar *no_path = StripPathFromFilename(filename,"/");
-	no_path++;
+	unsigned short int x;
 
-    unsigned short int x;
-    x = strlen (path) - strlen ( no_path );
+	gchar *no_path = StripPathFromFilename(filename , "/");
+	if (no_path != NULL)
+	{
+		no_path++;
+	    x = strlen (path) - strlen ( no_path );
+	}
+	else
+		x = strlen (path) - strlen ( filename );
     //g_print ("%d\t%d\t%d\n",x,strlen (path),strlen (filename));
     local_path = (gchar *) g_malloc ( x + 1);
     strncpy ( local_path, path, x );
@@ -1557,38 +1564,30 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     GtkTreeSelection *selection;
     GtkTreeIter       iter;
     gchar            *name;
-    GList            *row_list, *_row_list;
+    GList            *row_list;
 
-	g_print ("Drag begin\n");
-	//gtk_drag_source_set_icon_name (treeview1,DATADIR "/pixmaps/xarchiver.png" );
-	
+	//gtk_drag_source_set_icon_name (treeview1, DATADIR "/pixmaps/xarchiver.png" );
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 
-	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
+	row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL )
 		return;
 
-	while (_row_list != NULL)
-	{
-		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
-	    gtk_tree_model_get (model, &iter, 0, &name, -1);
-		gchar *no_slashes = StripPathFromFilename ( name, "/" );
-		g_free (name);
+	gtk_tree_model_get_iter(model, &iter, (GtkTreePath*) (row_list->data) );
+	gtk_tree_model_get (model, &iter, 0, &name, -1);
+	gchar *no_slashes = StripPathFromFilename ( name, "/" );
+	if (no_slashes != NULL)
 		no_slashes++;
 
-		gdk_property_change (context->source_window,
-			               gdk_atom_intern ("XdndDirectSave0", FALSE),
-				           gdk_atom_intern ("text/plain", FALSE), 8,
-					       GDK_PROP_MODE_REPLACE, (guchar *)no_slashes, strlen (no_slashes) );
+	gdk_property_change (context->source_window,
+		               gdk_atom_intern ("XdndDirectSave0", FALSE),
+			           gdk_atom_intern ("text/plain", FALSE), 8,
+				       GDK_PROP_MODE_REPLACE,
+					   (const guchar *) no_slashes ? no_slashes : name, no_slashes ? strlen (no_slashes) : strlen (name) );
 
-		_row_list = _row_list->next;
-	}
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
-}
-gboolean drag_drop (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, gpointer data)
-{
-	g_message ("drag drop");
+	g_free (name);
 }
 
 void drag_end (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
@@ -1602,63 +1601,54 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	GtkTreeIter iter;
 	guchar *fm_path;
 	int fm_path_len;
-	gchar *command , *dummy_path , *name;
+	gchar *command , *no_uri_path , *name;
 	gchar *to_send = "E";
 	GList *row_list, *_row_list;
 
-	g_print ("Drag data get\n");
-	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL )
 		return;
 
-	while (_row_list != NULL)
-	{
-		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
-		gtk_tree_model_get (model, &iter, 0, &name, -1);
-		g_message (name);
-		
-		if ( gdk_property_get (dc->source_window,
+	if ( gdk_property_get (dc->source_window,
 							gdk_atom_intern ("XdndDirectSave0", FALSE),
 							gdk_atom_intern ("text/plain", FALSE),
 							0, 1024, FALSE, NULL, NULL, &fm_path_len, &fm_path)
 							&& fm_path != NULL)
-		{
-		    // Zero-Terminate the string 
-	        fm_path = g_realloc (fm_path, fm_path_len + 1);
-			fm_path[fm_path_len] = '\0';
-			dummy_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
-			g_free ( fm_path );
-			extract_path = extract_local_path ( dummy_path,name );
-			g_message ("%s -- %s -- %s",dummy_path,name,extract_path);
-			g_free ( dummy_path );
-			if (extract_path != NULL)
-				to_send = "S";
-		    names = g_string_new ("");
-	        gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-			archive->full_path = 0;
-			archive->tar_strip_value = 0;
-			command = xa_extract_single_files ( archive , names, extract_path );
-			g_string_free (names, TRUE);
-			if ( command != NULL )
-	        {
-		        ExtractAddDelete ( command );
-			    g_free (command);
-	        }
-		    //g_dataset_set_data (dc, "XDS-sent", to_send);
-	        gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
-	    }
-		if (extract_path != NULL)
-			g_free (extract_path);
-		extract_path = NULL;
+	{
+		/*  Zero-Terminate the string */
+		fm_path = g_realloc (fm_path, fm_path_len + 1);
+		fm_path[fm_path_len] = '\0';
+		no_uri_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
+		//g_message ("%s - %s",fm_path,no_uri_path);
+		g_free ( fm_path );
+
+		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
+		gtk_tree_model_get (model, &iter, 0, &name, -1);
+
+		extract_path = extract_local_path ( no_uri_path , name );
+		archive->tar_strip_value = CountCharacter ( name, '/' );
 		g_free (name);
-		_row_list = _row_list->next;
+		g_free ( no_uri_path );
+		if (extract_path != NULL)
+			to_send = "S";
+
+		names = g_string_new ("");
+		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+		archive->full_path = 0;
+		command = xa_extract_single_files ( archive , names, extract_path );
+		if ( command != NULL )
+		{
+			ExtractAddDelete ( command );
+			g_free (command);
+		}
+		gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
 	}
-	/*
+	if (extract_path != NULL)
+		g_free (extract_path);
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
-	*/
+	g_string_free (names, TRUE);
 }
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
@@ -1672,8 +1662,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	gboolean one_file;
 	unsigned int len = 0;
 
-	g_message ("drag data received");
-	
 	array = gtk_selection_data_get_uris ( data );
 	if (array == NULL)
 	{
@@ -1683,18 +1671,22 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	}
 	gtk_drag_finish (context, TRUE, FALSE, time);
 	one_file = (array[1] == NULL);
+
 	if (one_file)
 	{
 		filename = g_filename_from_uri ( array[0] , NULL, NULL );
-		if ( filename != NULL)
+		if ( filename == NULL)
+			return;
+		else if ( DetectArchiveType ( filename ) > 0 )
 		{
 			xa_open_archive ( NULL, filename );
 			g_strfreev ( array );
 			return;
 		}
+		else
+			xa_new_archive ( NULL , NULL );
     }
-	if ( archive == NULL)
-		xa_new_archive ( NULL , NULL );
+			
 	if ( archive->type != XARCHIVETYPE_UNKNOWN )
 	{
 		if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)

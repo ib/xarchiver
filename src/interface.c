@@ -55,7 +55,6 @@ GtkWidget *create_MainWindow (void)
 	gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
 	gtk_window_set_default_icon_from_file (DATADIR "/pixmaps/xarchiver.png", NULL  );
 	g_signal_connect (G_OBJECT (MainWindow), "drag-data-received",	G_CALLBACK (on_drag_data_received), NULL);
-	g_signal_connect (G_OBJECT (MainWindow), "drag-drop",			G_CALLBACK (drag_drop), NULL);
 	g_signal_connect (G_OBJECT (MainWindow), "delete-event", G_CALLBACK (xa_quit_application), NULL);
 
   vbox1 = gtk_vbox_new (FALSE, 0);
