@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-Name=Xarchiver
-Comment=A GTK+2 only archive manager
-GenericName=Archive manager
+_Name=Xarchiver
+_Comment=A GTK+2 only archive manager
+_GenericName=Archive manager
 Exec=xarchiver
 Icon=xarchiver.png
 Terminal=false

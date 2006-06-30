@@ -173,12 +173,23 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	input_ioc = g_io_channel_unix_new ( input_fd );
 	g_io_channel_set_encoding (input_ioc, NULL , NULL);
 	g_io_channel_set_flags ( input_ioc , G_IO_FLAG_NONBLOCK , NULL );
+	g_io_add_watch (output_ioc, G_IO_IN|G_IO_OUT|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, WriteCPIOInput, archive );
 
     ioc_cpio = g_io_channel_new_file ( cpio_tmp , "r" , NULL );
 	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
     g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
+	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
+}
 
-	while ( (status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error) ) != G_IO_STATUS_EOF)
+/* input pipe */
+gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	if (cond & (G_IO_IN | G_IO_PRI | G_IO_OUT) )
+    {
+		g_message ("Son nell'if");
+		/* Doing so I write to the input pipe of the g_spawned "cpio -tv" so to produce the list of archived files */
+	status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error); 
+	if ( status != G_IO_STATUS_EOF)
 	{
 		status = g_io_channel_write_chars ( input_ioc , buffer , bytes_read , &bytes_written , &error );
 		if (status == G_IO_STATUS_ERROR) 
@@ -202,10 +213,15 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			return FALSE; 
 		}
 		g_io_channel_flush ( input_ioc , NULL );
+		return TRUE;
 	}
+		else
+	{
 	CloseChannels ( ioc_cpio );
 	CloseChannels ( input_ioc );
-	return NULL;
+	return FALSE;
+	}
+	}
 }
 
 /* output pipe */

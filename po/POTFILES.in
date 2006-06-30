@@ -4,6 +4,7 @@ src/7zip.c
 src/arj.c
 src/bzip2.c
 src/callbacks.c
+src/add_dialog.c
 src/extract_dialog.c
 src/gzip.c
 src/interface.c
