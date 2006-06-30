@@ -148,6 +148,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			unlink ( cpio_tmp );
 			unlink ( gzip );
 			g_free (cpio_tmp);
+			xa_set_button_state (1,1,0,0,0);
 			return FALSE;
 		}
 	}

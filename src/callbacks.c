@@ -561,7 +561,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nDeveloper:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\n",NULL};
-    const char *documenters[] = {"\nThanks to:\nBenedikt Meurer for helping me with DnD.\nStephan Arts for hints on code optimization.\nEnrico Troeger for supplying patchs.\nBjoern Martensen for reporting bugs.\nSalvatore Santagati for integrating\nisoinfo code in Xarchiver.\nUracile for the stunning logo.\nThe XFCE translators.\nThe people of gtk-app-devel-list\nwho kindly answered my questions.", NULL};
+    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver 0.3.9svn code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Troeger\nSalvatore Santagati\nUracile for the stunning logo\nThe translators \nThe people of gtk-app-devel-list.", NULL};
 	if (about != NULL)
 	{
 		gtk_window_present (GTK_WINDOW (about));
