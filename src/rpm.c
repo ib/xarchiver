@@ -45,6 +45,7 @@ void OpenRPM ( XArchive *archive )
 		g_free (msg);
 		return;
     }
+	xa_set_button_state (0,0,0,0,0);
     archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
@@ -164,21 +165,20 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 		g_free ( cpio_tmp );
 		return FALSE;
 	}
-
 	output_ioc = g_io_channel_unix_new ( output_fd );
+	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive );
 	g_io_channel_set_encoding (output_ioc, "ISO8859-1" , NULL);
 	g_io_channel_set_flags ( output_ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive );
 
 	input_ioc = g_io_channel_unix_new ( input_fd );
+	g_io_add_watch (input_ioc, G_IO_IN|G_IO_OUT|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, WriteCPIOInput, NULL );
 	g_io_channel_set_encoding (input_ioc, NULL , NULL);
-	g_io_channel_set_flags ( input_ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (output_ioc, G_IO_IN|G_IO_OUT|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, WriteCPIOInput, archive );
 
-    ioc_cpio = g_io_channel_new_file ( cpio_tmp , "r" , NULL );
+	ioc_cpio = g_io_channel_new_file ( cpio_tmp , "r" , NULL );
 	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
-    g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
-	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
+	g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
+
+	g_child_watch_add ( archive->child_pid, (GChildWatchFunc) xa_watch_child, archive);
 }
 
 /* input pipe */
@@ -186,41 +186,41 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	if (cond & (G_IO_IN | G_IO_PRI | G_IO_OUT) )
     {
-		g_message ("Son nell'if");
-		/* Doing so I write to the input pipe of the g_spawned "cpio -tv" so to produce the list of archived files */
-	status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error); 
-	if ( status != G_IO_STATUS_EOF)
-	{
-		status = g_io_channel_write_chars ( input_ioc , buffer , bytes_read , &bytes_written , &error );
-		if (status == G_IO_STATUS_ERROR) 
+		/* Doing so I write to the input pipe of the g_spawned "cpio -tv" so to produce the list of files in the cpio archive */
+		status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error); 
+		if ( status != G_IO_STATUS_EOF)
 		{
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);
-			g_error_free (error);
-			CloseChannels ( ioc_cpio );
-			CloseChannels ( input_ioc );
-			return FALSE; 
+			status = g_io_channel_write_chars ( ioc , buffer , bytes_read , &bytes_written , &error );
+			if (status == G_IO_STATUS_ERROR) 
+			{
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);
+				g_error_free (error);
+				CloseChannels ( ioc_cpio );
+				CloseChannels ( ioc );
+				return FALSE; 
+			}
+			/*
+			while ( bytes_read != bytes_written )
+				status = g_io_channel_write_chars ( ioc , buffer + bytes_written , bytes_read - bytes_written , &bytes_written , &error );
+			g_print ("*Written:%d\tStatus:%d\n",bytes_written,status);
+			*/
+			if (status == G_IO_STATUS_ERROR) 
+			{
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);
+				g_error_free (error);
+				CloseChannels ( ioc_cpio );
+				CloseChannels ( ioc );
+				return FALSE; 
+			}
+			g_io_channel_flush ( ioc , NULL );
+			return TRUE;
 		}
-		while ( bytes_read != bytes_written )
-		{
-			status = g_io_channel_write_chars ( input_ioc , buffer + bytes_written , bytes_read - bytes_written , &bytes_written , &error );
-		}
-		if (status == G_IO_STATUS_ERROR) 
-		{
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,error->message);
-			g_error_free (error);
-			CloseChannels ( ioc_cpio );
-			CloseChannels ( input_ioc );
-			return FALSE; 
-		}
-		g_io_channel_flush ( input_ioc , NULL );
-		return TRUE;
-	}
 		else
-	{
-	CloseChannels ( ioc_cpio );
-	CloseChannels ( input_ioc );
-	return FALSE;
-	}
+		{
+			CloseChannels ( ioc_cpio );
+			CloseChannels ( ioc );
+			return FALSE;
+		}
 	}
 }
 
@@ -299,7 +299,7 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		archive->row = g_list_prepend (archive->row,group);
 		archive->row = g_list_prepend (archive->row,size);
 
-        if (  g_str_has_suffix (g_value_get_string (permissions) , "d") == FALSE)
+        if (  g_str_has_prefix (g_value_get_string (permissions) , "d") == FALSE)
 			archive->nr_of_files++;
         else
 			archive->nr_of_dirs++;

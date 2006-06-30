@@ -215,6 +215,9 @@ int main (int argc, char **argv)
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		xa_set_button_state (1,1,0,0,0);
 		Update_StatusBar ( _("Ready."));
+		const gchar *locale;
+		g_get_charset (&locale);
+		g_message (locale);
 		gtk_widget_show (MainWindow);
 		//This to open the archive from the command line
 		if ( argc == 2)

@@ -3,5 +3,5 @@
   - add view function
   - fix extraction routine since the files inside the directories are not extracted
 
-- fix bugs #1736, #1849, #1937
+- fix bugs #1736, #1937
 - fix tar.bzip2 / tar.gz extraction code since it's buggy when used by the cmd-line switches.

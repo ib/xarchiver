@@ -64,6 +64,7 @@ GList *Suffix , *Name;
 void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
+
 	OffDeleteandViewButtons();
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
 		xa_set_button_state (1,1,0,0,0);
