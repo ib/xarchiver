@@ -18,6 +18,7 @@
 
 #include <stdio.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <sys/wait.h>
@@ -105,9 +106,12 @@ void xa_clean_archive_structure ( XArchive *archive)
 		g_free(archive->escaped_path);
 	archive->escaped_path = NULL;
 		
-	if(archive->tmp)
+	if (archive->tmp)
+	{
+		unlink (archive->tmp);
 		g_free(archive->tmp);
-	archive->tmp = NULL;
+		archive->tmp = NULL;
+	}
 
 	if (archive->passwd != NULL)
 		g_free (archive->passwd);
