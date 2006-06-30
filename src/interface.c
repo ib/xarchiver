@@ -458,6 +458,7 @@ GtkWidget *view_win ()
 	gtk_window_set_position (GTK_WINDOW (view_window), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW (view_window), 450, 300);
 	gtk_window_set_modal ( GTK_WINDOW (view_window),TRUE);
+	gtk_window_set_transient_for ( GTK_WINDOW (view_window) , GTK_WINDOW (MainWindow) );
 	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_widget_show (scrolledwindow2);
 	gtk_container_add (GTK_CONTAINER (view_window), scrolledwindow2);

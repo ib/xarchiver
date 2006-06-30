@@ -251,7 +251,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 		return;
 	}
 	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-	g_io_channel_set_encoding (ioc, "ISO8859-1" , NULL);
+	g_io_channel_set_encoding (ioc, locale , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	while (waiting)
 	{

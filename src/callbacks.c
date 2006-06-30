@@ -70,6 +70,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		xa_set_button_state (1,1,0,0,0);
 	else if (archive->type == XARCHIVETYPE_RPM)
 	{
+		g_message ("Setto 1 1 0 1 1");
 		xa_set_button_state (1,1,0,1,1);
 		gtk_widget_set_sensitive ( check_menu , FALSE);
 	}
@@ -97,6 +98,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 	if ( WIFSIGNALED (status) )
 	{
+		xa_set_button_state (1,1,0,0,0);
+		gtk_widget_set_sensitive ( check_menu , FALSE );
 		Update_StatusBar ( _("Operation canceled."));
 		OffTooltipPadlock();
 		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
@@ -213,7 +216,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 			g_free (path);
             return;
 		}
-        //The following to avoid to update the archive instead of adding to it since the filename exists
+        /* The following to avoid to update the archive instead of adding to it since the filename exists */
         unlink ( path );
 	}
 	xa_set_button_state (1,1,1,0,0 );
@@ -1158,7 +1161,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
     if (error == NULL)
     {
-        g_io_channel_set_encoding (ioc_view, "ISO8859-1" , NULL);
+        g_io_channel_set_encoding (ioc_view, locale , NULL);
         g_io_channel_set_flags ( ioc_view , G_IO_FLAG_NONBLOCK , NULL );
         g_io_channel_read_to_end ( ioc_view , &line , NULL, NULL );
         gtk_text_buffer_get_end_iter ( viewtextbuf, &viewenditer );

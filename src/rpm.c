@@ -121,6 +121,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 				ShowShellOutput (NULL);
             unlink ( cpio_tmp );
             g_free (cpio_tmp);
+			xa_set_button_state (1,1,0,0,0);
             return FALSE;
     	}
     }
@@ -167,7 +168,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	}
 	output_ioc = g_io_channel_unix_new ( output_fd );
 	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive );
-	g_io_channel_set_encoding (output_ioc, "ISO8859-1" , NULL);
+	g_io_channel_set_encoding (output_ioc, locale , NULL);
 	g_io_channel_set_flags ( output_ioc , G_IO_FLAG_NONBLOCK , NULL );
 
 	input_ioc = g_io_channel_unix_new ( input_fd );
@@ -320,7 +321,6 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		g_io_channel_unref (ioc);
 		xa_append_rows ( archive , 6 );
 		archive->tmp = cpio_tmp;
-		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 		return FALSE;
 	}
 	return TRUE;

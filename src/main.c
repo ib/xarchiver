@@ -60,6 +60,7 @@ int main (int argc, char **argv)
 	textdomain (GETTEXT_PACKAGE);
 	#endif
 	gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
+	g_get_charset (&locale);
 	if ( cli_error != NULL )
 	{
 		g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cli_error->message);
@@ -215,9 +216,6 @@ int main (int argc, char **argv)
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		xa_set_button_state (1,1,0,0,0);
 		Update_StatusBar ( _("Ready."));
-		const gchar *locale;
-		g_get_charset (&locale);
-		g_message (locale);
 		gtk_widget_show (MainWindow);
 		//This to open the archive from the command line
 		if ( argc == 2)
@@ -335,6 +333,7 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean 
     gtk_widget_set_sensitive ( open1, Open);
 	gtk_widget_set_sensitive ( AddFile_button, AddFile);
 	gtk_widget_set_sensitive ( addfile, AddFile);
+	g_message ("Setto extract a %d",Extract);
 	gtk_widget_set_sensitive ( Extract_button, Extract);
 	gtk_widget_set_sensitive ( extract_menu, Extract);
 	gtk_widget_set_sensitive ( select_all, select);

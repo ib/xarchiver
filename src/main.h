@@ -30,6 +30,7 @@
 GtkWidget *MainWindow;
 GList *ArchiveSuffix;
 GList *ArchiveType;
+const gchar *locale;
 
 void GetAvailableCompressors();
 void xa_set_button_state ( gboolean, gboolean,gboolean,gboolean, gboolean );
