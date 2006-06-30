@@ -97,7 +97,7 @@ int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, gcha
 int CountCharacter ( gchar *string , int chr );
 int is_escaped_char(char c);
 int DetectArchiveType ( gchar *filename );
-GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data);
+GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data);
 
 gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);

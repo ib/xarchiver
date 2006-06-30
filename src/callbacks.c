@@ -1102,7 +1102,6 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	g_free ( dir );
 	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
 	dir = EscapeBadChars ( dummy_name );
-	g_free (dummy_name);
 	names = g_string_new (" ");
 	g_string_append ( names , dir );
 	dummy = archive->full_path;
@@ -1112,12 +1111,13 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
+	g_string_free (names,TRUE);
 	if ( archive->child_pid == 0 )
 		return;
-	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , names );
+	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , dummy_name );
 }
 
-GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
+GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 {
 	GIOChannel *ioc_view = NULL;
 	gchar *line = NULL;
@@ -1138,11 +1138,9 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 			return NULL;
 		}
 	}
-	string = StripPathFromFilename ( (char*) data->str, "/" );
-	//Let's avoid the white space
-	data->str++;
+	string = StripPathFromFilename ( data, "/" );
 	if (  string == NULL )
-		filename = g_strconcat ( "/tmp/" , data->str , NULL );
+		filename = g_strconcat ( "/tmp/" , data, NULL );
 	else
 	{
 		if ( strchr ( string , ' ' ) )
@@ -1154,6 +1152,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
 		if ( tofree )
 			g_free ( string );
 	}
+	g_free (data);
     view_window = view_win();
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
     if (error == NULL)
@@ -1167,12 +1166,18 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , GString *data)
         g_io_channel_shutdown ( ioc_view , TRUE , NULL );
         g_io_channel_unref (ioc_view);
 	}
+	else
+	{
+		gchar *msg = NULL;
+		msg = g_strconcat (_("An error occurred while extracting the file to be viewed: "), error->message, NULL);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg);
+		g_error_free (error);
+		g_free (msg);
+		return NULL;
+	}
 	unlink ( filename );
 	gtk_widget_show (view_window);
 	g_free (filename);
-	/* Let's restore the pointer to its correct memory address */
-	data->str--;
-	g_string_free (data, TRUE);
 	Update_StatusBar (_("Operation completed."));
 	return NULL;
 }
