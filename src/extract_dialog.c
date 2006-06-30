@@ -364,7 +364,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			archive->overwrite = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->overwrite_check ));
 			if ( dialog_data->touch != NULL)
 				archive->tar_touch = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->touch ));
-
+			
 			if ( dialog_data->strip != NULL)
 			{
 				archive->full_path = ! gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->strip ));
@@ -376,8 +376,11 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			}
 			else
 			{
-				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->extract_full ));
-				archive->tar_strip_value = 0;
+				if (dialog_data->extract_full != NULL)
+				{
+					archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->extract_full ));
+					archive->tar_strip_value = 0;
+				}
 			}
 
 			if (dialog_data->fresh != NULL)
