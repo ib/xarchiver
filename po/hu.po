@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-06-10 13:39+0900\n"
-"PO-Revision-Date: 2006-06-11 01:13+0100\n"
+"PO-Revision-Date: 2006-06-30 21:50+0100\n"
 "Last-Translator: SZERVÑC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -740,9 +740,8 @@ msgid "Add files to the specified archive and quits."
 msgstr "Fájlokat ad a megadott archívumhoz és kilép."
 
 #: ../src/main.c:40
-#, fuzzy
 msgid "Add files asking the name of the archive and quits."
-msgstr "Fájlok hozzáadása az archívumhoz, kérlek, várj..."
+msgstr "Fájlokat ad az archívum nevére kérdezve és kilép."
 
 #: ../src/main.c:51
 msgid "[archive name]"
