@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -431,38 +432,23 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
     }
     g_list_free ( Suffix );
 	g_list_free ( Name );
-	if (archive != NULL)
-	{
-		if (archive->path)
-			g_free(archive->path);
-
-		if (archive->escaped_path)
-			g_free(archive->escaped_path);
-
-		if (archive->tmp)
-		{
-			unlink (archive->tmp);
-			g_free(archive->tmp);
-		}
-
-		if (archive->passwd)
-			g_free(archive->passwd);
-		g_free (archive);
-	}
+	xa_clean_archive_structure (archive);
 
 	if ( extract_path != NULL )
-    {
-        if ( strcmp (extract_path,"/tmp/") != 0)
+	{
+		if ( strcmp (extract_path , "/tmp/") != 0)
 			g_free (extract_path);
-        g_free (destination_path);
-    }
-    gtk_main_quit();
+		if ( destination_path != NULL )
+			g_free (destination_path);
+	}
+	gtk_main_quit();
 }
 
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gchar *command = NULL;
-    gchar *numbers;
+  gchar *numbers;
+  gchar *tar;
 	gint x;
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
@@ -479,6 +465,10 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
     Update_StatusBar ( _("Deleting files from the archive, please wait..."));
 	archive->status = XA_ARCHIVESTATUS_DELETE;
 
+	tar = g_find_program_in_path ("gtar");
+	if (tar == NULL)
+		tar = g_strdup ("tar");
+
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_RAR:
@@ -486,7 +476,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 		break;
 
         case XARCHIVETYPE_TAR:
-		command = g_strconcat ( "tar --delete -vf " , archive->escaped_path , names->str , NULL );
+		command = g_strconcat (tar, " --delete -vf " , archive->escaped_path , names->str , NULL );
 		break;
 
         case XARCHIVETYPE_TAR_BZ2:
@@ -518,6 +508,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
         g_free (command);
     }
     g_string_free (names , TRUE );
+    g_free (tar);
 }
 
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
@@ -656,7 +647,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 	{
 		title = _("Create a new archive");
 		flag = GTK_FILE_CHOOSER_ACTION_SAVE;
-		flag2 = "gtk-new";
+		flag2 = _("Cr_eate");
 	}
 	else if ( mode == "open" )
 	{
@@ -1157,18 +1148,21 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 			g_free ( string );
 	}
 	g_free (data);
-    view_window = view_win();
+	view_window = view_win();
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
-    if (error == NULL)
-    {
-        g_io_channel_set_encoding (ioc_view, locale , NULL);
-        g_io_channel_set_flags ( ioc_view , G_IO_FLAG_NONBLOCK , NULL );
-        g_io_channel_read_to_end ( ioc_view , &line , NULL, NULL );
-        gtk_text_buffer_get_end_iter ( viewtextbuf, &viewenditer );
-        gtk_text_buffer_insert (viewtextbuf, &viewenditer, line, strlen ( line ) );
-        g_free ( line );
-        g_io_channel_shutdown ( ioc_view , TRUE , NULL );
-        g_io_channel_unref (ioc_view);
+	if (error == NULL)
+	{
+		g_io_channel_set_encoding (ioc_view, locale , NULL);
+		g_io_channel_set_flags ( ioc_view , G_IO_FLAG_NONBLOCK , NULL );
+		g_io_channel_read_to_end ( ioc_view , &line , NULL, NULL );
+		gtk_text_buffer_get_end_iter ( viewtextbuf, &viewenditer );
+		if (line != NULL)
+		{
+			gtk_text_buffer_insert (viewtextbuf, &viewenditer, line, strlen ( line ) );
+			g_free ( line );
+		}
+		g_io_channel_shutdown ( ioc_view , TRUE , NULL );
+		g_io_channel_unref (ioc_view);
 	}
 	else
 	{
@@ -1443,24 +1437,30 @@ void Update_StatusBar ( gchar *msg)
 
 gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	if (cond & (G_IO_IN | G_IO_PRI) )
-	{
-		gchar *line = NULL;
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		while (gtk_events_pending() )
-			gtk_main_iteration();
-		if (line == NULL)
-			return TRUE;
+  GIOStatus status;
+  gchar     buffer[4096];
+  gsize     bytes_read;
 
-		gtk_text_buffer_insert (textbuf, &enditer, line, strlen ( line ) );
-		//gtk_text_buffer_insert_with_tags_by_name (textbuf, &enditer, line , -1, "red_foreground", NULL);
-		g_free (line);
-		return TRUE;
-	}
+  if (cond & (G_IO_IN | G_IO_PRI))
+  {
+    do
+    {
+      status = g_io_channel_read_chars (ioc, buffer, sizeof (buffer), &bytes_read, NULL);
+      if (bytes_read > 0)
+      {
+        gtk_text_buffer_insert (textbuf, &enditer, buffer, bytes_read);
+      }
+    }
+    while (status == G_IO_STATUS_NORMAL);
+
+    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+      goto done;
+  }
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
-        g_io_channel_unref (ioc);
+done:
+		g_io_channel_shutdown (ioc, TRUE, NULL);
+    g_io_channel_unref (ioc);
 		return FALSE;
 	}
 	return TRUE;
@@ -1654,7 +1654,10 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
 	}
 	if (extract_path != NULL)
+	{
 		g_free (extract_path);
+		extract_path = NULL;
+	}
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
 	g_string_free (names, TRUE);

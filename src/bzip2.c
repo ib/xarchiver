@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2006 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -32,13 +33,24 @@ void OpenBzip2 ( XArchive *archive )
 {
     if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 	{
-	    gchar *command = g_strconcat ("tar tfjv " , archive->escaped_path, NULL );
-	   	archive->dummy_size = 0;
+	  gchar *command;
+    gchar *tar;
+    
+    tar = g_find_program_in_path ("gtar");
+    if (tar == NULL)
+      tar = g_strdup ("tar");
+
+    command = g_strconcat (tar, " tfjv " , archive->escaped_path, NULL );
+	  archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
 		archive->parse_output = TarOpen;
+
 		SpawnAsyncProcess ( archive , command , 0, 0);
-		g_free ( command );
+
+		g_free (command);
+		g_free (tar);
+
 		if ( archive->child_pid == 0 )
 			return;
 
@@ -165,24 +177,34 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	FILE *stream = data;
 	gchar buffer[65536];
 	gsize bytes_read;
+  GIOStatus status;
 	GError *error = NULL;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		while (gtk_events_pending() )
-			gtk_main_iteration();
-		if ( g_io_channel_read_chars ( ioc, buffer, sizeof(buffer), &bytes_read, &error ) != G_IO_STATUS_NORMAL )
-		{
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, error->message);
-			g_error_free (error);
-			return FALSE;
-		}
-		//Write the content of the bzip/gzip extracted file to the file pointed by the file stream
-		fwrite ( buffer, 1 , bytes_read , stream );
-		return TRUE;
+    do
+    {
+		  status = g_io_channel_read_chars (ioc, buffer, sizeof(buffer), &bytes_read, &error);
+      if (bytes_read > 0)
+      {
+		    //Write the content of the bzip/gzip extracted file to the file pointed by the file stream
+		    fwrite (buffer, 1, bytes_read, stream);
+      }
+      else if (error != NULL)
+      {
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, error->message);
+        g_error_free (error);
+        return FALSE;
+      }
+    }
+    while (status == G_IO_STATUS_NORMAL);
+
+    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+      goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
+done:
 		fclose ( stream );
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
@@ -193,7 +215,7 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 
 void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
 {
-	gchar *command, *msg;
+	gchar *command, *msg, *tar;
 	int status;
 	gboolean waiting = TRUE;
 	int ps;
@@ -231,19 +253,31 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 			return;
 		}
 	}
+  tar = g_find_program_in_path ("gtar");
+  if (tar == NULL)
+    tar = g_strdup ("tar");
+
 	if ( add )
-		command = g_strconcat ( "tar ",
+  {
+		command = g_strconcat (tar, " ",
 								archive->add_recurse ? "" : "--no-recursion ",
 								archive->remove_files ? "--remove-files " : "",
 								archive->update ? "-uvvf " : "-rvvf ",
 								tmp,
 								list->str , NULL );
-    else
-		command = g_strconcat ( "tar --delete -f " , tmp , list->str , NULL );
+  }
+  else
+  {
+		command = g_strconcat (tar, " --delete -f " , tmp , list->str , NULL );
+  }
 	waiting = TRUE;
 	archive->parse_output = 0;
+
 	SpawnAsyncProcess ( archive , command , 0, 0);
-	g_free ( command );
+
+	g_free (command);
+  g_free (tar);
+
 	if ( archive->child_pid == 0 )
 	{
 		unlink ( tmp );

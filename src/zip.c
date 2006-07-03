@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -51,91 +52,100 @@ gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	GValue *date = NULL;
 	GValue *time = NULL;
 	GValue *crc32 = NULL;
+  GIOStatus status;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL);
-		if (line == NULL)
-			return TRUE;
+    do
+    {
+      status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL);
+      if (line == NULL)
+        break;
 
-		filename    = g_new0(GValue, 1);
-		original    = g_new0(GValue, 1);
-		method      = g_new0(GValue, 1);
-		compressed  = g_new0(GValue, 1);
-		ratio       = g_new0(GValue, 1);
-		date        = g_new0(GValue, 1);
-		time        = g_new0(GValue, 1);
-		crc32       = g_new0(GValue, 1);
-		archive->row_cnt++;
+      filename    = g_new0(GValue, 1);
+      original    = g_new0(GValue, 1);
+      method      = g_new0(GValue, 1);
+      compressed  = g_new0(GValue, 1);
+      ratio       = g_new0(GValue, 1);
+      date        = g_new0(GValue, 1);
+      time        = g_new0(GValue, 1);
+      crc32       = g_new0(GValue, 1);
+      archive->row_cnt++;
 
-		start = eat_spaces (line);
-		end = strchr (start, ' ');
-		original = g_value_init(original, G_TYPE_UINT64);
-		_original = g_strndup ( start , end - start);
-		g_value_set_uint64 ( original , atoll (_original) );
-		g_free (_original);
+      start = eat_spaces (line);
+      end = strchr (start, ' ');
+      original = g_value_init(original, G_TYPE_UINT64);
+      _original = g_strndup ( start , end - start);
+      g_value_set_uint64 ( original , atoll (_original) );
+      g_free (_original);
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		method = g_value_init(method, G_TYPE_STRING);
-		g_value_set_string ( method , g_strndup ( start , end - start) );
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      method = g_value_init(method, G_TYPE_STRING);
+      g_value_set_string ( method , g_strndup ( start , end - start) );
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		compressed = g_value_init(compressed, G_TYPE_UINT64);
-		_compressed  = g_strndup ( start , end - start);
-		g_value_set_uint64 (compressed , atoll (_compressed) );
-		g_free (_compressed);
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      compressed = g_value_init(compressed, G_TYPE_UINT64);
+      _compressed  = g_strndup ( start , end - start);
+      g_value_set_uint64 (compressed , atoll (_compressed) );
+      g_free (_compressed);
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		ratio = g_value_init(ratio, G_TYPE_STRING);
-		g_value_set_string ( ratio , g_strndup ( start , end - start) );
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      ratio = g_value_init(ratio, G_TYPE_STRING);
+      g_value_set_string ( ratio , g_strndup ( start , end - start) );
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		date = g_value_init(date, G_TYPE_STRING);
-		g_value_set_string ( date , g_strndup ( start , end - start) );
-			
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		time = g_value_init(time, G_TYPE_STRING);
-		g_value_set_string ( time , g_strndup ( start , end - start) );
-			
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		crc32 = g_value_init(crc32, G_TYPE_STRING);
-		g_value_set_string ( crc32 , g_strndup ( start , end - start) );
-		
-		start = eat_spaces (end);
-		end = strchr (start, '\n');
-		filename = g_value_init(filename, G_TYPE_STRING);
-		g_value_set_string ( filename , g_strndup ( start , end - start) );
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      date = g_value_init(date, G_TYPE_STRING);
+      g_value_set_string ( date , g_strndup ( start , end - start) );
+        
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      time = g_value_init(time, G_TYPE_STRING);
+      g_value_set_string ( time , g_strndup ( start , end - start) );
+        
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      crc32 = g_value_init(crc32, G_TYPE_STRING);
+      g_value_set_string ( crc32 , g_strndup ( start , end - start) );
+      
+      start = eat_spaces (end);
+      end = strchr (start, '\n');
+      filename = g_value_init(filename, G_TYPE_STRING);
+      g_value_set_string ( filename , g_strndup ( start , end - start) );
 
-		archive->row = g_list_prepend(archive->row, filename);
-		archive->row = g_list_prepend(archive->row, original);
-		archive->row = g_list_prepend(archive->row, method);
-		archive->row = g_list_prepend(archive->row, compressed);
-		archive->row = g_list_prepend(archive->row, ratio);
-		archive->row = g_list_prepend(archive->row, date);
-		archive->row = g_list_prepend(archive->row, time);
-		archive->row = g_list_prepend(archive->row, crc32);
+      archive->row = g_list_prepend(archive->row, filename);
+      archive->row = g_list_prepend(archive->row, original);
+      archive->row = g_list_prepend(archive->row, method);
+      archive->row = g_list_prepend(archive->row, compressed);
+      archive->row = g_list_prepend(archive->row, ratio);
+      archive->row = g_list_prepend(archive->row, date);
+      archive->row = g_list_prepend(archive->row, time);
+      archive->row = g_list_prepend(archive->row, crc32);
 
-		if ( g_str_has_suffix (g_value_get_string (filename) , "/") == TRUE)
-			archive->nr_of_dirs++;
-		else
-			archive->nr_of_files++;
-		archive->dummy_size += g_value_get_uint64 (original);
-		g_free(line);
+      if ( g_str_has_suffix (g_value_get_string (filename) , "/") == TRUE)
+        archive->nr_of_dirs++;
+      else
+        archive->nr_of_files++;
+      archive->dummy_size += g_value_get_uint64 (original);
+      g_free(line);
 
-		if (archive->row_cnt > 99)
-		{
-			xa_append_rows ( archive , 8 );
-			archive->row_cnt = 0;
-		}
+      if (archive->row_cnt > 99)
+      {
+        xa_append_rows ( archive , 8 );
+        archive->row_cnt = 0;
+      }
+    }
+    while (status == G_IO_STATUS_NORMAL);
+
+    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+      goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
+done:
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
 		xa_append_rows ( archive , 8 );

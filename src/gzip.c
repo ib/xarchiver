@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,13 +27,24 @@ void OpenGzip ( XArchive *archive )
 {
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
 	{
-        gchar *command = g_strconcat ("tar tfzv " , archive->escaped_path, NULL );
-	   	archive->dummy_size = 0;
+    gchar *command;
+    gchar *tar;
+
+    tar = g_find_program_in_path ("gtar");
+    if (tar == NULL)
+      tar = g_strdup ("tar");
+    
+    command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
+	  archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
 		archive->parse_output = TarOpen;
+
 		SpawnAsyncProcess ( archive , command , 0, 0);
-		g_free ( command );
+
+		g_free (command);
+		g_free (tar);
+
 		if ( archive->child_pid == 0 )
 			return;
 

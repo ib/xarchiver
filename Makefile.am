@@ -5,6 +5,9 @@ SUBDIRS = src po
 pixmapsdir       = $(datadir)/pixmaps
 pixmaps_DATA     = xarchiver.png
 
+wrapperdir = $(libexecdir)/thunar-archive-plugin/
+wrapper_SCRIPTS = xarchiver.tap
+
 desktopdir = $(datadir)/applications
 desktop_in_files = xarchiver.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
@@ -18,7 +21,8 @@ EXTRA_DIST = \
 	intltool-merge.in \
 	intltool-update.in \
 	$(desktop_in_files) \
-	$(pixmaps_DATA)
+	$(pixmaps_DATA) \
+	$(wrapper_DATA)
 
 install-data-local:
 	@$(NORMAL_INSTALL)

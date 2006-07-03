@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -569,6 +570,11 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compression_string)
 {
 	gchar *command = NULL;
+	gchar *tar;
+
+	tar = g_find_program_in_path ("gtar");
+	if (tar == NULL)
+		tar = g_strdup ("tar");
 
 	switch (archive->type)
 	{
@@ -614,14 +620,14 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 
 		case XARCHIVETYPE_TAR:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			command = g_strconcat ( "tar ",
+			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									archive->update ? "-uvvf " : "-rvvf ",
 									archive->escaped_path,
 									names->str , NULL );
 		else
-			command = g_strconcat ( "tar ",
+			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									"-cvvf ",archive->escaped_path,
@@ -632,7 +638,7 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 			DecompressBzipGzip ( names , archive, 0 , 1 );
 		else
-			command = g_strconcat ( "tar ",
+			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									"-cvvjf ",archive->escaped_path,
@@ -643,7 +649,7 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 			DecompressBzipGzip ( names , archive, 1 , 1 );
 		else
-			command = g_strconcat ( "tar ",
+			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									"-cvvzf ",archive->escaped_path,
@@ -728,6 +734,7 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		default:
 		command = NULL;            
 	}
+	g_free (tar);
 	return command;
 }
 

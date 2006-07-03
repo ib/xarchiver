@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -130,6 +131,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 		g_child_watch_add ( archive->child_pid , (GChildWatchFunc) OpenCPIO , gzip );
     else
 		return FALSE;
+    return NULL;
 }
 
 GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
@@ -181,6 +183,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
 
 	g_child_watch_add ( archive->child_pid, (GChildWatchFunc) xa_watch_child, archive);
+  return NULL;
 }
 
 /* input pipe */
@@ -224,6 +227,7 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			return FALSE;
 		}
 	}
+  return TRUE;
 }
 
 /* output pipe */
@@ -240,84 +244,92 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	GValue *hard_link = NULL;
 	GValue *owner = NULL;
 	GValue *group = NULL;
+  GIOStatus status;
 
     /* Is there output from "cpio -tv" to read ? */
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		g_io_channel_read_line ( ioc, &line, NULL, NULL , NULL );
-		if (line == NULL)
-			return TRUE;
+    do
+    {
+      status = g_io_channel_read_line ( ioc, &line, NULL, NULL , NULL );
+      if (line == NULL)
+        break;
 
-		filename    = g_new0(GValue, 1);
-		permissions = g_new0(GValue, 1);
-		owner       = g_new0(GValue, 1);
-		group       = g_new0(GValue, 1);
-		size        = g_new0(GValue, 1);
-		hard_link   = g_new0(GValue, 1);
+      filename    = g_new0(GValue, 1);
+      permissions = g_new0(GValue, 1);
+      owner       = g_new0(GValue, 1);
+      group       = g_new0(GValue, 1);
+      size        = g_new0(GValue, 1);
+      hard_link   = g_new0(GValue, 1);
 
-		start = eat_spaces (line);
-		end = strchr (start, ' ');
-		permissions = g_value_init(permissions, G_TYPE_STRING);
-		g_value_set_string ( permissions , g_strndup ( start , end - start) );
+      start = eat_spaces (line);
+      end = strchr (start, ' ');
+      permissions = g_value_init(permissions, G_TYPE_STRING);
+      g_value_set_string ( permissions , g_strndup ( start , end - start) );
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		hard_link = g_value_init (hard_link, G_TYPE_STRING);
-		g_value_set_string ( hard_link , g_strndup ( start , end - start) );
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      hard_link = g_value_init (hard_link, G_TYPE_STRING);
+      g_value_set_string ( hard_link , g_strndup ( start , end - start) );
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		owner = g_value_init (owner, G_TYPE_STRING);
-		g_value_set_string ( owner , g_strndup ( start , end - start) );
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      owner = g_value_init (owner, G_TYPE_STRING);
+      g_value_set_string ( owner , g_strndup ( start , end - start) );
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		group = g_value_init (group, G_TYPE_STRING);
-		g_value_set_string ( group , g_strndup ( start , end - start) );
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      group = g_value_init (group, G_TYPE_STRING);
+      g_value_set_string ( group , g_strndup ( start , end - start) );
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		size = g_value_init(size, G_TYPE_UINT64);
-		_size  = g_strndup ( start , end - start);
-		g_value_set_uint64 (size , atoll (_size) );
-		g_free (_size);
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      size = g_value_init(size, G_TYPE_UINT64);
+      _size  = g_strndup ( start , end - start);
+      g_value_set_uint64 (size , atoll (_size) );
+      g_free (_size);
 
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
+      start = eat_spaces (end);
+      end = strchr (start, ' ');
 
-		start = eat_spaces (end);
-		end = strchr (start, '\n');
-		filename = g_value_init (filename, G_TYPE_STRING);
-		g_value_set_string ( filename , g_strndup ( start , end - start) );
+      start = eat_spaces (end);
+      end = strchr (start, '\n');
+      filename = g_value_init (filename, G_TYPE_STRING);
+      g_value_set_string ( filename , g_strndup ( start , end - start) );
 
-		archive->row = g_list_prepend (archive->row,filename);
-		archive->row = g_list_prepend (archive->row,permissions);
-		archive->row = g_list_prepend (archive->row,hard_link);
-		archive->row = g_list_prepend (archive->row,owner);
-		archive->row = g_list_prepend (archive->row,group);
-		archive->row = g_list_prepend (archive->row,size);
+      archive->row = g_list_prepend (archive->row,filename);
+      archive->row = g_list_prepend (archive->row,permissions);
+      archive->row = g_list_prepend (archive->row,hard_link);
+      archive->row = g_list_prepend (archive->row,owner);
+      archive->row = g_list_prepend (archive->row,group);
+      archive->row = g_list_prepend (archive->row,size);
 
-        if (  g_str_has_prefix (g_value_get_string (permissions) , "d") == FALSE)
+		if (  g_str_has_prefix (g_value_get_string (permissions) , "d") == FALSE)
 			archive->nr_of_files++;
         else
 			archive->nr_of_dirs++;
 		archive->dummy_size += g_value_get_uint64 (size);
 
-		g_free (line);
-		archive->row_cnt++;
-		if (archive->row_cnt > 99)
-		{
-			xa_append_rows ( archive , 6 );
-			archive->row_cnt = 0;
-		}
-		return TRUE;
+      g_free (line);
+      archive->row_cnt++;
+      if (archive->row_cnt > 99)
+      {
+        xa_append_rows ( archive , 6 );
+        archive->row_cnt = 0;
+      }
+    }
+    while (status == G_IO_STATUS_NORMAL);
+
+    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+      goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
+done:
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
 		xa_append_rows ( archive , 6 );

@@ -81,6 +81,6 @@ unsigned short int x;
 gint input_fd, output_fd, error_fd;
 void SpawnAsyncProcess (XArchive *archive, gchar *command , gboolean input, gboolean output_flag);
 XArchive *xa_init_archive_structure ();
-void xa_clean_archive_structure ( XArchive *archive);
+void xa_clean_archive_structure (XArchive *archive);
 XArchive *archive;
 #endif

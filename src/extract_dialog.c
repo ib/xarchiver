@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -306,6 +307,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 {
 	gchar *command = NULL;
 	gchar *name = NULL;
+	gchar *tar;
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
 	unsigned long long int file_size, file_offset;
@@ -396,6 +398,9 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				Update_StatusBar ( text );
 				g_free (text);
 				g_free (destination_path);
+        tar = g_find_program_in_path ("gtar");
+        if (tar == NULL)
+          tar = g_strdup ("tar");
 				switch ( archive->type )
 				{
 					case XARCHIVETYPE_RAR:
@@ -415,7 +420,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_TAR:
-					command = g_strconcat ( "tar ",archive->full_path ? "" : strip_string,
+					command = g_strconcat (tar, " ",archive->full_path ? "" : strip_string,
 											"-xvf ", archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
@@ -423,7 +428,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_TAR_BZ2:
-					command = g_strconcat ( "tar ",archive->full_path ? "" : strip_string,
+					command = g_strconcat (tar, " ",archive->full_path ? "" : strip_string,
 											"-xvjf " , archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
@@ -431,7 +436,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_TAR_GZ:
-					command = g_strconcat ( "tar ",archive->full_path ? "" : strip_string,
+					command = g_strconcat (tar, " ",archive->full_path ? "" : strip_string,
 											"-xvzf " , archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
@@ -514,6 +519,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					default:
 					command = NULL;
 				}
+        g_free (tar);
 				if ( command != NULL )
 					return command;
 			}
@@ -563,6 +569,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path)
 {
 	gchar *command;
+	gchar *tar;
 
 	if ( archive->full_path == 0)
 	{
@@ -576,6 +583,9 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 	gchar *msg = g_strconcat ( _("Extracting files to ") , path, NULL);
 	Update_StatusBar (msg);
 	g_free (msg);
+	tar = g_find_program_in_path ("gtar");
+	if (tar == NULL)
+		tar = g_strdup ("tar");
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_RAR:
@@ -595,7 +605,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		break;
 
 		case XARCHIVETYPE_TAR:
-	    command = g_strconcat ( "tar ",archive->full_path ? "" : strip_string,
+	    command = g_strconcat (tar, " ",archive->full_path ? "" : strip_string,
 								"-xvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
@@ -603,7 +613,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		command = g_strconcat ( "tar ",archive->full_path ? "" : strip_string,
+		command = g_strconcat (tar, " ",archive->full_path ? "" : strip_string,
 								"-xjvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
@@ -611,7 +621,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-        command = g_strconcat ( "tar ",archive->full_path ? "" : strip_string,
+        command = g_strconcat (tar, " ",archive->full_path ? "" : strip_string,
 								"-xzvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
@@ -675,6 +685,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
         default:
 			command = NULL;
     }
+	g_free (tar);
     if ( strip_string != NULL)
 	{
 		g_free ( strip_string );
