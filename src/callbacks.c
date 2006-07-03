@@ -71,7 +71,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		xa_set_button_state (1,1,0,0,0);
 	else if (archive->type == XARCHIVETYPE_RPM)
 	{
-		g_message ("Setto 1 1 0 1 1");
 		xa_set_button_state (1,1,0,1,1);
 		gtk_widget_set_sensitive ( check_menu , FALSE);
 	}
@@ -99,8 +98,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 	if ( WIFSIGNALED (status) )
 	{
-		xa_set_button_state (1,1,0,0,0);
-		gtk_widget_set_sensitive ( check_menu , FALSE );
+		//xa_set_button_state (1,1,0,0,0);
+		//gtk_widget_set_sensitive ( check_menu , FALSE );
 		Update_StatusBar ( _("Operation canceled."));
 		OffTooltipPadlock();
 		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
@@ -1427,7 +1426,6 @@ void ExtractAddDelete ( gchar *command )
 		return;
 	gtk_widget_show ( viewport2 );
     g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
-
 }
 
 void Update_StatusBar ( gchar *msg)
@@ -1437,31 +1435,28 @@ void Update_StatusBar ( gchar *msg)
 
 gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-  GIOStatus status;
-  gchar     buffer[4096];
-  gsize     bytes_read;
+	GIOStatus status;
+	gchar     buffer[4096];
+	gsize     bytes_read;
 
-  if (cond & (G_IO_IN | G_IO_PRI))
-  {
-    do
-    {
-      status = g_io_channel_read_chars (ioc, buffer, sizeof (buffer), &bytes_read, NULL);
-      if (bytes_read > 0)
-      {
-        gtk_text_buffer_insert (textbuf, &enditer, buffer, bytes_read);
-      }
-    }
-    while (status == G_IO_STATUS_NORMAL);
-
-    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-      goto done;
-  }
+	if (cond & (G_IO_IN | G_IO_PRI))
+	{
+		do
+	    {
+			status = g_io_channel_read_chars (ioc, buffer, sizeof (buffer), &bytes_read, NULL);
+			if (bytes_read > 0)
+				gtk_text_buffer_insert (textbuf, &enditer, buffer, bytes_read);
+	    }
+		while (status == G_IO_STATUS_NORMAL);
+	    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
+	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
-done:
-		g_io_channel_shutdown (ioc, TRUE, NULL);
-    g_io_channel_unref (ioc);
-		return FALSE;
+		done:
+			g_io_channel_shutdown (ioc, TRUE, NULL);
+			g_io_channel_unref (ioc);
+			return FALSE;
 	}
 	return TRUE;
 }
@@ -1651,6 +1646,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			ExtractAddDelete ( command );
 			g_free (command);
 		}
+		
 		gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
 	}
 	if (extract_path != NULL)
