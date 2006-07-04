@@ -522,7 +522,8 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					default:
 					command = NULL;
 				}
-        g_free (tar);
+				g_free (tar);
+
 				if ( command != NULL )
 					return command;
 			}

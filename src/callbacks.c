@@ -738,7 +738,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
 			Name = g_list_next ( Name );
 		}
-		//gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , current_archive_suffix );
+		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , current_archive_suffix );
 		gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
 		check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(check_button),TRUE);
@@ -756,6 +756,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		if ( mode == "new")
 		{
 			ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
+			current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
             if (strcmp ( ComboArchiveType,".arj") == 0) archive->type = XARCHIVETYPE_ARJ;
                 else if (strcmp ( ComboArchiveType,".bz2") == 0) archive->type = XARCHIVETYPE_BZIP2;
                 else if (strcmp ( ComboArchiveType,".gz") == 0) archive->type = XARCHIVETYPE_GZIP;
@@ -1643,6 +1644,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		names = g_string_new ("");
 		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
 		archive->full_path = 0;
+		archive->overwrite = 1;
 		command = xa_extract_single_files ( archive , names, extract_path );
 		if ( command != NULL )
 		{
