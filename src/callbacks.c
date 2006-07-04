@@ -60,7 +60,7 @@ const char *strcasestr(const char *haystack, const char *needle)
 
 gchar *CurrentFolder = NULL;
 GList *Suffix , *Name;
-
+gint current_archive_suffix = 0;
 
 void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
@@ -126,7 +126,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
-			/* This in case the user supplies a wrong password we reset it so he can try again */
+			/* In case the user supplies a wrong password we reset it so he can try again */
 			if (archive->status == XA_ARCHIVESTATUS_TEST && archive->passwd != NULL)
 			{
 				g_free (archive->passwd);
@@ -137,6 +137,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			return;
 		}
 	}
+	if (archive->status == XA_ARCHIVESTATUS_TEST)
+		ShowShellOutput (NULL);
+
 	if ( ! cli )
 	{
 		/* This to automatically reload the content of the archive after adding or deleting */
@@ -244,7 +247,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 		xa_set_button_state (1,1,1,0,0 );
 	}
 	else
-		Update_StatusBar ( _("Choose Add File or Add Folder to begin creating the archive."));
+		Update_StatusBar ( _("Choose Add to begin creating the archive."));
 
     gtk_tooltips_disable ( pad_tooltip );
     gtk_widget_hide ( pad_image );
@@ -720,7 +723,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 
 		Suffix = g_list_next ( Suffix );
 	}
-
+	//current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 	if ( mode == "new" )
 	{
 		hbox = gtk_hbox_new (FALSE, 12);
@@ -735,8 +738,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
 			Name = g_list_next ( Name );
 		}
-
-		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), 0);
+		//gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , current_archive_suffix );
 		gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
 		check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(check_button),TRUE);
