@@ -110,6 +110,11 @@ int main (int argc, char **argv)
 		/* Switch -e */
 		else if (ask_and_extract)
 		{
+			if (argv[1] == NULL)
+			{
+				g_print (_("xarchiver: You missed the archive name!\n"));
+				return 0;
+			}
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
 			if (archive != NULL)
 			{
