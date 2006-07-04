@@ -78,7 +78,7 @@ int main (int argc, char **argv)
 		MainWindow = create_MainWindow ();
 		gtk_main_iteration_do (FALSE);
 
-		//Switch -x
+		/* Switch -x */
 		if (extract_path != NULL)
 		{
 			if (argv[1] == NULL)
@@ -107,7 +107,7 @@ int main (int argc, char **argv)
 			}
 		}
 
-		//Switch -e
+		/* Switch -e */
 		else if (ask_and_extract)
 		{
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
@@ -121,7 +121,7 @@ int main (int argc, char **argv)
 				g_free (extract_window);
 			}
 		}
-		//Switch -d
+		/* Switch -d */
 		else if (archive_name != NULL)
 		{
 			gchar *current_dir = NULL;
@@ -155,7 +155,7 @@ int main (int argc, char **argv)
 				g_string_free (string, TRUE);
 			}
 		}
-		//Switch -a
+		/* Switch -a */
 		else if (ask_and_add)
 		{
 			if (argv[1] == NULL)
@@ -174,7 +174,7 @@ int main (int argc, char **argv)
 				g_free (add_window);
 			}
 		}
-		//Switch -n
+		/* Switch -n */
 		else if (new_archive)
 		{
 			if (argv[1] == NULL)
@@ -214,10 +214,9 @@ int main (int argc, char **argv)
 		ShowShellOutput (NULL);
 		gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
-		xa_set_button_state (1,1,0,0,0);
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);
-		//This to open the archive from the command line
+		/* This to open the archive from the command line */
 		if ( argc == 2)
 		{
 			gchar *dummy = g_strdup(argv[1]);
@@ -230,9 +229,9 @@ int main (int argc, char **argv)
 	}
 }
 
-//TODO: Support to load the configuration of Xarchiver when extract and add will allow set own archiver's options
-
-//g_get_home_dir ()
+/* TODO: Support to load the configuration of Xarchiver when extract and add will allow set own archiver's options
+g_get_home_dir ()
+*/
 
 void GetAvailableCompressors()
 {
@@ -295,7 +294,7 @@ void GetAvailableCompressors()
 		if ( g_list_find ( ArchiveType , ".bz2") )
 		{
 			ArchiveType = g_list_prepend ( ArchiveType, ".tar.bz2");
-			//The following to avoid double filter when opening
+			/* The following to avoid double filter when opening */
 			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "");
 		}
 		if ( g_list_find ( ArchiveType , ".gz") )

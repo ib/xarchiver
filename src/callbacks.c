@@ -98,8 +98,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 	if ( WIFSIGNALED (status) )
 	{
-		//xa_set_button_state (1,1,0,0,0);
-		//gtk_widget_set_sensitive ( check_menu , FALSE );
 		Update_StatusBar ( _("Operation canceled."));
 		OffTooltipPadlock();
 		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
@@ -107,6 +105,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gchar *msg = g_strconcat (_("Please check \""),extract_path,_("\" since some files could have been already extracted."),NULL);
             response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,msg );
             g_free (msg);
+		}
+		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
+		{
+			xa_set_button_state (1,1,0,0,0);
+			gtk_widget_set_sensitive ( check_menu , FALSE );
 		}
 		archive->status = XA_ARCHIVESTATUS_IDLE;
 		return;
@@ -144,7 +147,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			else
 				Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
 			RemoveColumnsListStore();
-			archive->status = XA_ARCHIVESTATUS_IDLE;
 			switch ( archive->type )
 			{
 				case XARCHIVETYPE_RAR:
@@ -178,6 +180,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				default:
 				break;
 			}
+			archive->status = XA_ARCHIVESTATUS_IDLE;
 		    return;
 		}
 
@@ -319,8 +322,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		Update_StatusBar ( _("Please wait while the content of the ISO image is being read..."));
     else
 		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
-    xa_set_button_state (1,1,1,1,1);
-	
+	archive->status = XA_ARCHIVESTATUS_OPEN;
 	switch ( archive->type )
 	{
 		case XARCHIVETYPE_ARJ:
@@ -1022,7 +1024,6 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
     if (archive->status != XA_ARCHIVESTATUS_ADD || archive->status != XA_ARCHIVESTATUS_DELETE)
         if (archive->has_passwd)
 			archive->has_passwd = FALSE;
-	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )

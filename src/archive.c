@@ -98,6 +98,8 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 
 void xa_clean_archive_structure ( XArchive *archive)
 {
+	if (archive == NULL)
+		return;
 	if(archive->path)
 		g_free(archive->path);
 	archive->path = NULL;

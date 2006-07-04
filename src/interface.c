@@ -117,6 +117,7 @@ GtkWidget *create_MainWindow (void)
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
   addfile = gtk_image_menu_item_new_with_mnemonic (_("Add"));
+  gtk_widget_set_sensitive (addfile,FALSE);
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
   gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
@@ -126,6 +127,7 @@ GtkWidget *create_MainWindow (void)
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
  
   extract_menu = gtk_image_menu_item_new_with_mnemonic (_("_Extract"));
+  gtk_widget_set_sensitive (extract_menu,FALSE);
   gtk_widget_show (extract_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
   gtk_widget_add_accelerator (extract_menu, "activate",accel_group,GDK_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
@@ -236,6 +238,7 @@ GtkWidget *create_MainWindow (void)
   tmp_image = xa_main_window_find_image("add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
   gtk_widget_show (tmp_image);
   AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Add"));
+  gtk_widget_set_sensitive (AddFile_button,FALSE);
   gtk_widget_show (AddFile_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (AddFile_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), AddFile_button);
@@ -244,6 +247,7 @@ GtkWidget *create_MainWindow (void)
   tmp_image = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
   gtk_widget_show (tmp_image);
   Extract_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Extract"));
+  gtk_widget_set_sensitive (Extract_button,FALSE);
   gtk_widget_show (Extract_button);
   gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Extract_button), FALSE);
   gtk_container_add (GTK_CONTAINER (toolbar1), Extract_button);
