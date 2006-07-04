@@ -62,7 +62,6 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	if (dummy != NULL)
 	{
 		dummy++;
-		g_message (dummy);
 		unsigned short int x = strlen (archive->path) - strlen ( dummy );
 		gchar *extraction_string = (gchar *) g_malloc ( x + 1);
 		strncpy ( extraction_string, archive->path, x );

@@ -1423,13 +1423,27 @@ void xa_cat_filenames_for_tar (GtkTreeModel *model, GtkTreePath *treepath, GtkTr
 
 void ExtractAddDelete ( gchar *command )
 {
+	int status;
+	gboolean waiting = TRUE;
+	int ps;
+	
 	EmptyTextBuffer ();
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
 		return;
 	gtk_widget_show ( viewport2 );
-    g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
+	
+	while (waiting)
+	{
+		ps = waitpid ( archive->child_pid, &status, WNOHANG);
+		if (ps < 0)
+			waiting = FALSE;
+		else
+			while (gtk_events_pending())
+				gtk_main_iteration();
+	}
+	xa_watch_child (archive->child_pid, status, archive);
 }
 
 void Update_StatusBar ( gchar *msg)

@@ -253,30 +253,28 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 			return;
 		}
 	}
-  tar = g_find_program_in_path ("gtar");
-  if (tar == NULL)
-    tar = g_strdup ("tar");
+	tar = g_find_program_in_path ("gtar");
+	if (tar == NULL)
+		tar = g_strdup ("tar");
 
 	if ( add )
-  {
+	{
 		command = g_strconcat (tar, " ",
-								archive->add_recurse ? "" : "--no-recursion ",
-								archive->remove_files ? "--remove-files " : "",
-								archive->update ? "-uvvf " : "-rvvf ",
-								tmp,
-								list->str , NULL );
-  }
-  else
-  {
+							archive->add_recurse ? "" : "--no-recursion ",
+							archive->remove_files ? "--remove-files " : "",
+							archive->update ? "-uvvf " : "-rvvf ",
+							tmp,
+							list->str , NULL );
+	}
+	else
 		command = g_strconcat (tar, " --delete -f " , tmp , list->str , NULL );
-  }
 	waiting = TRUE;
 	archive->parse_output = 0;
 
 	SpawnAsyncProcess ( archive , command , 0, 0);
 
 	g_free (command);
-  g_free (tar);
+	g_free (tar);
 
 	if ( archive->child_pid == 0 )
 	{
