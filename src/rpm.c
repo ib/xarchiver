@@ -46,7 +46,6 @@ void OpenRPM ( XArchive *archive )
 		g_free (msg);
 		return;
     }
-	xa_set_button_state (0,0,0,0,0);
     archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;

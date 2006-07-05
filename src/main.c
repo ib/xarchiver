@@ -97,6 +97,7 @@ int main (int argc, char **argv)
 				{
 					GString *string = g_string_new ( "" );
 					archive->full_path = 1;
+					archive->overwrite = 1;
 					gchar *escaped_path = EscapeBadChars (extract_path);
 					cli_command = xa_extract_single_files ( archive , string, escaped_path );
 					g_free (escaped_path);
@@ -337,6 +338,9 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean 
     gtk_widget_set_sensitive ( open1, Open);
 	gtk_widget_set_sensitive ( AddFile_button, AddFile);
 	gtk_widget_set_sensitive ( addfile, AddFile);
+	if ( gtk_tree_model_iter_n_children (model,NULL) == 0)
+		Extract = select = FALSE;
+
 	gtk_widget_set_sensitive ( Extract_button, Extract);
 	gtk_widget_set_sensitive ( extract_menu, Extract);
 	gtk_widget_set_sensitive ( select_all, select);
