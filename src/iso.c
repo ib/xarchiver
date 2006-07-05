@@ -573,10 +573,10 @@ void OpenISO ( XArchive *archive )
 		if (c & 1024) 
 		{
 			use_rock = TRUE;			
-			g_print ("Rock Ridge signatures version %d found\n",su_version);	
+			archive->tmp = g_strdup_printf (_("Rock Ridge - version %d"),su_version);
 		} 
 		else 
-			g_print ("Bad Rock Ridge signatures found (SU record missing)\n");
+			archive->tmp = g_strdup (_("Rock Ridge - unknown version"));	
 		     
 		/*
 		 * This is currently a no op!
@@ -584,10 +584,10 @@ void OpenISO ( XArchive *archive )
 		 * the '.' entry in the root directory.
 		 */
 		if (c & 2048) 
-			g_print ("Apple signatures version %d found\n",aa_version);
+			archive->tmp = g_strdup_printf (_("Apple - version %d"),aa_version);
 	}				
-		else 
-			g_print ("NO Rock Ridge present\n");
+		/* else 
+			g_print ("NO Rock Ridge present\n"); */
 
 
 		if( ! use_rock)
@@ -620,7 +620,7 @@ void OpenISO ( XArchive *archive )
 			else 
 			{
 				use_joilet = 1;
-				g_print ("This image is Joilet\n");
+				archive->tmp = g_strdup("Joliet");
 			}
 
 			switch(ipd.escape_sequences[2])
@@ -717,7 +717,7 @@ int DetectImage (FILE *iso)
 		return(32768);
 }
 
-GtkWidget *create_iso_properties_window (XArchive *archive)
+GtkWidget *create_iso_properties_window ()
 {
 	iso_properties_window = gtk_dialog_new_with_buttons (_("ISO Information Window"),
 									GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -746,7 +746,7 @@ GtkWidget *create_iso_properties_window (XArchive *archive)
 	gtk_misc_set_alignment (GTK_MISC (name_label), 0.99, 0.5);
 
 	size_label = gtk_label_new ("");
-	set_label ( size_label , _("Size in bytes:"));
+	set_label ( size_label , _("Size:"));
 	gtk_widget_show (size_label);
 	gtk_table_attach (GTK_TABLE (table1), size_label, 0, 1, 1, 2,
                     (GtkAttachOptions) (GTK_FILL),

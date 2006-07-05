@@ -1196,12 +1196,52 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 
 void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 {
-    unsigned long long int file_size;
+	gchar *utf8_string, *text, *measure;
+	unsigned long long int file_size;
 	GtkWidget *iso_properties_win;
 
-    stat ( archive->path , &my_stat );
-    file_size = my_stat.st_size;
-    iso_properties_win = create_iso_properties_window (archive);
+	stat ( archive->path , &my_stat );
+	file_size = my_stat.st_size;
+	iso_properties_win = create_iso_properties_window();
+	//Name
+	text = StripPathFromFilename ( archive->path, "/" );
+	if (text != NULL)
+	{
+	    text++; //This to avoid the / char in the string
+	    utf8_string = g_filename_display_name (text);
+	}
+	else
+		utf8_string = g_filename_display_name (archive->path);
+	gtk_entry_set_text ( GTK_ENTRY (filename_entry), utf8_string );
+	g_free (utf8_string);
+    //Size
+	if (file_size > 1024*1024*1024 )
+	{
+		content_size = (double)file_size / (1024*1024*1024);
+		measure = _(" GB");
+	}
+	else if (file_size > 1024*1024 )
+	{
+		content_size = (double)file_size / (1024*1024);
+		measure = _(" MB");
+	}
+
+    else if (file_size > 1024 )
+	{
+		content_size = (double)file_size / 1024;
+		measure = _(" KB");
+	}
+	else
+	{
+		measure = _(" bytes");
+		content_size = file_size;
+	}
+
+    text = g_strdup_printf ("%.1f %s", content_size,measure);
+    gtk_entry_set_text ( GTK_ENTRY (size_entry), text );
+    g_free (text);
+	/* Image type */
+	gtk_entry_set_text ( GTK_ENTRY (image_type_entry),archive->tmp);
 	gtk_widget_show (iso_properties_win);
 }
 
@@ -1241,27 +1281,27 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_entry_set_text ( GTK_ENTRY (modified_data), t);
     g_free (t);
     //Archive Size
-    if (file_size > 1024*1024*1024 )
-    {
-        content_size = (double)file_size / (1024*1024*1024);
-        measure = _(" GB");
-    }
-        else if (file_size > 1024*1024 )
-        {
-            content_size = (double)file_size / (1024*1024);
-            measure = _(" MB");
-        }
+	if (file_size > 1024*1024*1024 )
+	{
+		content_size = (double)file_size / (1024*1024*1024);
+		measure = _(" GB");
+	}
+	else if (file_size > 1024*1024 )
+	{
+		content_size = (double)file_size / (1024*1024);
+		measure = _(" MB");
+	}
 
-        else if (file_size > 1024 )
-        {
-            content_size = (double)file_size / 1024;
-            measure = _(" KB");
-        }
-        else
-        {
-            measure = _(" bytes");
-            content_size = file_size;
-        }
+    else if (file_size > 1024 )
+	{
+		content_size = (double)file_size / 1024;
+		measure = _(" KB");
+	}
+	else
+	{
+		measure = _(" bytes");
+		content_size = file_size;
+	}
 
     t = g_strdup_printf ("%.1f %s", content_size,measure);
     gtk_entry_set_text ( GTK_ENTRY (size_data), t );
