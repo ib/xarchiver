@@ -479,14 +479,30 @@ void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
     }
 }
 
-gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *destination_path, gchar *_filename , unsigned long long int file_size, unsigned long long file_offset )
+gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path)
 {
+	unsigned long long int file_size;
+	unsigned long long file_offset;
 	FILE *fdest;
 	FILE *fsource;
 	gchar *filename, *command;
+	gchar *_filename, *permission;
 	unsigned long long int tlen;
+	gboolean end;
 	char buf[2048];
+	GtkTreeIter iter;
 
+	end = gtk_tree_model_get_iter_first (model,&iter);
+	while (end)
+	{
+		gtk_tree_model_get (model, &iter,
+		0, &_filename,
+		1, &permission,
+		2, &file_size,
+		4, &file_offset,
+		-1);
+		
+	g_message ("%s %s",_filename,permission);
 	if (archive->full_path == 0)
 	{
 		if (strstr (permission , "d") )
@@ -536,6 +552,10 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *desti
 
 	fclose(fdest);
 	fclose(fsource);
+	g_free (_filename);
+	g_free (permission);
+	end = gtk_tree_model_iter_next (model,&iter);
+	}
 	return TRUE;
 }
 

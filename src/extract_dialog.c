@@ -497,6 +497,8 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_ISO:
+					xa_extract_iso_file (archive, extract_path );
+					/*
 					end = gtk_tree_model_get_iter_first (model,&iter);
 					while (end)
 					{
@@ -510,7 +512,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						g_free (name);
 						g_free (permissions);
 						end = gtk_tree_model_iter_next (model,&iter);
-					}
+					}*/
 					xa_set_button_state (1,1,0,1,1);
 					OffTooltipPadlock();
 					Update_StatusBar ( _("Operation completed.") );
@@ -544,7 +546,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						-1);
 						gtk_tree_path_free (row_list->data);
 
-						xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
+						//xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
 						g_free (name);
 						g_free (permissions);
 						row_list = row_list->next;
