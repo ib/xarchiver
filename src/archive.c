@@ -85,13 +85,13 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 	if (output_flag)
 	{
 		out_ioc = g_io_channel_unix_new ( output_fd );
-		//g_io_channel_set_encoding (out_ioc, NULL , NULL);
+		g_io_channel_set_encoding (out_ioc, locale , NULL);
 		g_io_channel_set_flags ( out_ioc , G_IO_FLAG_NONBLOCK , NULL );
 		g_io_add_watch (out_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_report_child_stderr, NULL);
 	}
 
 	err_ioc = g_io_channel_unix_new ( error_fd );
-	//g_io_channel_set_encoding (err_ioc, NULL , NULL);
+	g_io_channel_set_encoding (err_ioc, locale , NULL);
 	g_io_channel_set_flags ( err_ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (err_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_report_child_stderr, NULL);
 }
