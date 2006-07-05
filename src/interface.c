@@ -188,10 +188,11 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (image2);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_shell_output1), image2);
   
-  iso_info = gtk_image_menu_item_new_with_mnemonic (_("Show ISO info"));
+  iso_info = gtk_image_menu_item_new_with_mnemonic (_("Show I_SO info"));
   gtk_widget_show (iso_info);
   gtk_widget_set_sensitive ( iso_info , FALSE );
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), iso_info);
+  gtk_widget_add_accelerator (iso_info, "activate",accel_group,GDK_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   tmp_image = gtk_image_new_from_stock ("gtk-cdrom", GTK_ICON_SIZE_MENU);
   gtk_widget_show (tmp_image);

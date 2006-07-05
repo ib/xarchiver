@@ -801,7 +801,7 @@ GtkWidget *create_iso_properties_window ()
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (preparer_label), 0.99, 0.5);
 
-	volume_set_label = gtk_label_new ("");
+	/*volume_set_label = gtk_label_new ("");
 	set_label ( volume_set_label , _("Volume set ID:"));
 	gtk_widget_show (volume_set_label);
 	gtk_table_attach (GTK_TABLE (table1), volume_set_label, 0, 1, 10, 11,
@@ -832,7 +832,7 @@ GtkWidget *create_iso_properties_window ()
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (abstract_label), 0.99, 0.5);
-
+*/
 	creation_date_label = gtk_label_new ("");
 	set_label ( creation_date_label , _("Creation date:"));
 	gtk_widget_show (creation_date_label);
@@ -928,7 +928,7 @@ GtkWidget *create_iso_properties_window ()
 	gtk_table_attach (GTK_TABLE (table1), preparer_entry, 1, 2, 8, 9,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
-
+/*
 	volume_set_entry = gtk_entry_new ();
 	gtk_editable_set_editable (GTK_EDITABLE (volume_set_entry), FALSE);
 	gtk_entry_set_has_frame (GTK_ENTRY (volume_set_entry), FALSE);
@@ -960,7 +960,7 @@ GtkWidget *create_iso_properties_window ()
 	gtk_table_attach (GTK_TABLE (table1), abstract_entry, 1, 2, 13, 14,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
-	
+	*/
 	creation_date_entry = gtk_entry_new ();
 	gtk_editable_set_editable (GTK_EDITABLE (creation_date_entry), FALSE);
 	gtk_entry_set_has_frame (GTK_ENTRY (creation_date_entry), FALSE);
