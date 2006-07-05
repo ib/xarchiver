@@ -122,6 +122,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
             unlink ( cpio_tmp );
             g_free (cpio_tmp);
 			xa_set_button_state (1,1,0,0,0);
+			gtk_widget_set_sensitive (Stop_button,FALSE);
             return FALSE;
     	}
     }
@@ -150,6 +151,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			unlink ( gzip );
 			g_free (cpio_tmp);
 			xa_set_button_state (1,1,0,0,0);
+			gtk_widget_set_sensitive (Stop_button,FALSE);
 			return FALSE;
 		}
 	}

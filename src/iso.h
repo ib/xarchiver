@@ -153,7 +153,7 @@ int DetectImage (FILE *iso);
 void OpenISO ( XArchive *archive );
 void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive);
 void dump_stat(gchar *dir_name , int extent, XArchive *archive);
-gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, gchar *filename , unsigned long long int file_size, unsigned long long file_offset );
-GtkWidget *create_iso_properties_window ();
+gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *destination_path, gchar *_filename , unsigned long long int file_size, unsigned long long file_offset );
+GtkWidget *create_iso_properties_window (XArchive *archive);
 #endif /* __XARCHIVER_ISO_H__ */
 

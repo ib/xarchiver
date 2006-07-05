@@ -479,22 +479,47 @@ void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
     }
 }
 
-gboolean xa_extract_iso_file (XArchive *archive, gchar *destination_path, gchar *filename , unsigned long long int file_size, unsigned long long file_offset )
+gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *destination_path, gchar *_filename , unsigned long long int file_size, unsigned long long file_offset )
 {
 	FILE *fdest;
 	FILE *fsource;
-	gchar *_filename;
+	gchar *filename, *command;
 	unsigned long long int tlen;
 	char buf[2048];
-		
-	_filename = g_strconcat (destination_path , filename , NULL);
 
-	if ((fdest = fopen (_filename, "w")) == NULL)
+	if (archive->full_path == 0)
 	{
-		g_free (_filename);
+		if (strstr (permission , "d") )
+			return TRUE;
+		filename = g_strconcat (destination_path , StripPathFromFilename ( _filename , "/" ) , NULL);
+	}
+	else
+	{
+		filename = g_strconcat (destination_path , _filename , NULL);
+		if (strstr (permission , "d") )
+		{
+			if ( g_file_test ( filename , G_FILE_TEST_EXISTS) == FALSE)
+			{
+				command = g_strconcat ("mkdir -p " , filename , NULL);
+				ExtractAddDelete ( command );
+				g_free (command);
+				g_free (filename);
+				if (archive->child_pid == 0)
+					return FALSE;
+				else
+					return TRUE;
+			}
+			g_free (filename);
+			return TRUE;
+		}
+	}
+	if ((fdest = fopen (filename, "w")) == NULL)
+	{
+		//TODO: display g_strerror (errno);
+		g_free (filename);
 		return FALSE;
 	}
-	g_free (_filename);
+	g_free (filename);
 
 	if ((fsource = fopen (archive->path, "r")) == NULL)
 		return FALSE;
@@ -692,7 +717,7 @@ int DetectImage (FILE *iso)
 		return(32768);
 }
 
-GtkWidget *create_iso_properties_window ()
+GtkWidget *create_iso_properties_window (XArchive *archive)
 {
 	iso_properties_window = gtk_dialog_new_with_buttons (_("ISO Information Window"),
 									GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,

@@ -152,7 +152,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	gtk_widget_show (dialog_data->overwrite_check);
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->overwrite_check, FALSE, FALSE, 0);
 
-	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP) 
+	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_ISO) 
 	{
 		dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), archive->full_path);
@@ -309,9 +309,12 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 {
 	gchar *command = NULL;
 	gchar *name = NULL;
+	gchar *permissions = NULL;
 	gchar *tar;
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
+	gboolean end = FALSE;
+	GtkTreeIter iter;
 	unsigned long long int file_size, file_offset;
 
     while ( ! done )
@@ -494,24 +497,19 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_ISO:
-					gtk_tree_model_get_iter_first (model,&iter);
-					gtk_tree_model_get (model, &iter,
-                    0, &name,
-                    2, &file_size,
-                    4, &file_offset,
-                    -1);
-					xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
-					g_free (name);
-
-					while (gtk_tree_model_iter_next (model,&iter) == TRUE )
+					end = gtk_tree_model_get_iter_first (model,&iter);
+					while (end)
 					{
 						gtk_tree_model_get (model, &iter,
 						0, &name,
+						1, &permissions,
 						2, &file_size,
 						4, &file_offset,
 						-1);
-						xa_extract_iso_file (archive, extract_path, name , file_size, file_offset );
+						xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
 						g_free (name);
+						g_free (permissions);
+						end = gtk_tree_model_iter_next (model,&iter);
 					}
 					xa_set_button_state (1,1,0,1,1);
 					OffTooltipPadlock();
@@ -540,14 +538,15 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						gtk_tree_model_get_iter(model, &iter, row_list->data);
 						gtk_tree_model_get (model, &iter,
 						0, &name,
+						1, &permissions,
 						2, &file_size,
 						4, &file_offset,
 						-1);
 						gtk_tree_path_free (row_list->data);
-						/* TODO: to support the extraction with the path/filename instead of the filename only */
-						gchar *filename = StripPathFromFilename (name,"/");
-						xa_extract_iso_file (archive, extract_path, filename , file_size, file_offset );
+
+						xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
 						g_free (name);
+						g_free (permissions);
 						row_list = row_list->next;
 					}
 					g_list_free (row_list);

@@ -550,7 +550,6 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_widget_destroy ( extract_window->dialog1 );
 	if (command != NULL)
 	{
-		//g_message (command);
 		ExtractAddDelete (command);
 		g_free (command);
 	}
@@ -1202,7 +1201,7 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 
     stat ( archive->path , &my_stat );
     file_size = my_stat.st_size;
-    iso_properties_win = create_iso_properties_window();
+    iso_properties_win = create_iso_properties_window (archive);
 	gtk_widget_show (iso_properties_win);
 }
 
