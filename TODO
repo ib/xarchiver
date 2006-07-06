@@ -2,3 +2,4 @@
   - add display of ID's inside the ISO plus image type [PARTIALLY DONE].
   - fix the extraction of single files with full path.
 - fix bugs #1736, #1937, #1986, #1987, #1988
+- ?? create a routine for handling the sensitiveness of the buttons, window title
