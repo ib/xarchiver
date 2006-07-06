@@ -46,6 +46,7 @@
 
 short int response;
 double content_size;
+unsigned long long int file_size, file_offset;
 gboolean done;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
@@ -126,6 +127,7 @@ char *eat_spaces (char *line);
 gchar *remove_level_from_path (const gchar *path);
 gchar *extract_local_path (gchar *path , gchar *filename);
 gchar *RemoveBackSlashes ( gchar *name);
-
+gchar *name;
+gchar *permissions;
 #endif
 

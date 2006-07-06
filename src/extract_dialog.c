@@ -308,14 +308,11 @@ void show_hide_strip_entry (GtkToggleButton *button, Extract_dialog_data *data)
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection)
 {
 	gchar *command = NULL;
-	gchar *name = NULL;
-	gchar *permissions = NULL;
 	gchar *tar;
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
 	gboolean end = FALSE;
 	GtkTreeIter iter;
-	unsigned long long int file_size, file_offset;
 
     while ( ! done )
 	{
@@ -497,8 +494,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_ISO:
-					xa_extract_iso_file (archive, extract_path );
-					/*
 					end = gtk_tree_model_get_iter_first (model,&iter);
 					while (end)
 					{
@@ -508,11 +503,16 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						2, &file_size,
 						4, &file_offset,
 						-1);
-						xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
+						if (xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset ) == FALSE )
+						{
+							g_free (name);
+							g_free (permissions);
+							return NULL;
+						}
 						g_free (name);
 						g_free (permissions);
 						end = gtk_tree_model_iter_next (model,&iter);
-					}*/
+					}
 					xa_set_button_state (1,1,0,1,1);
 					OffTooltipPadlock();
 					Update_StatusBar ( _("Operation completed.") );
@@ -546,7 +546,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						-1);
 						gtk_tree_path_free (row_list->data);
 
-						//xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
+						xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
 						g_free (name);
 						g_free (permissions);
 						row_list = row_list->next;
@@ -685,9 +685,9 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 									"-y ",
 									archive->escaped_path , " " , path , files->str, NULL );
 		break;
-
-        default:
-			command = NULL;
+		
+		default:
+		command = NULL;
     }
 	g_free (tar);
     if ( strip_string != NULL)

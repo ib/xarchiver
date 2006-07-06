@@ -1,6 +1,4 @@
 + iso
-  - add display of ID's inside the ISO plus image type [PARTIALLY DONE]
-  - fix extraction routine since the files inside the directories are not extracted [PARTIALLY DONE]
-  - add view function
-
-- fix bugs #1736, #1937
+  - add display of ID's inside the ISO plus image type [PARTIALLY DONE].
+  - fix the extraction of single files with full path.
+- fix bugs #1736, #1937, #1986, #1987, #1988

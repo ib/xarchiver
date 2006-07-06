@@ -338,9 +338,6 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean 
     gtk_widget_set_sensitive ( open1, Open);
 	gtk_widget_set_sensitive ( AddFile_button, AddFile);
 	gtk_widget_set_sensitive ( addfile, AddFile);
-	if ( gtk_tree_model_iter_n_children (model,NULL) == 0)
-		Extract = select = FALSE;
-
 	gtk_widget_set_sensitive ( Extract_button, Extract);
 	gtk_widget_set_sensitive ( extract_menu, Extract);
 	gtk_widget_set_sensitive ( select_all, select);

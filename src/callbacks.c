@@ -442,6 +442,7 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
     }
     g_list_free ( Suffix );
 	g_list_free ( Name );
+
 	xa_clean_archive_structure (archive);
 
 	if ( extract_path != NULL )
@@ -1103,27 +1104,45 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 		return;
 	}
 	g_free ( dir );
-	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
-	dir = EscapeBadChars ( dummy_name );
-	names = g_string_new (" ");
-	g_string_append ( names , dir );
-
+	
 	full_path = archive->full_path;
 	overwrite = archive->overwrite;
+		
 	archive->full_path = 0;
 	archive->overwrite = 1;
-	archive->parse_output = 0;
-	command = xa_extract_single_files ( archive , names, "/tmp");
 	
-	archive->full_path = full_path;
-	archive->overwrite = overwrite;
+	if (archive->type == XARCHIVETYPE_ISO)
+	{
+		gtk_tree_model_get (model, &iter,
+			0, &name,
+			1, &permissions,
+			2, &file_size,
+			4, &file_offset,
+			-1);
+		xa_extract_iso_file (archive, permissions, "/tmp/", name , file_size, file_offset );
+		ViewFileFromArchive (archive->child_pid , 0 , name);
+		g_free (permissions);
+	}
+	else
+	{
+		gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
+		dir = EscapeBadChars ( dummy_name );
+		names = g_string_new (" ");
+		g_string_append ( names , dir );
 
-	SpawnAsyncProcess ( archive , command , 0, 0);
-	g_free ( command );
-	g_string_free (names,TRUE);
-	if ( archive->child_pid == 0 )
-		return;
-	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , dummy_name );
+		archive->parse_output = 0;
+		command = xa_extract_single_files ( archive , names, "/tmp");
+	
+		SpawnAsyncProcess ( archive , command , 0, 0);
+		g_free ( command );
+		g_string_free (names,TRUE);
+
+		if ( archive->child_pid == 0 )
+			return;
+		g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , dummy_name );
+	}
+		archive->full_path = full_path;
+		archive->overwrite = overwrite;
 }
 
 GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
