@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9svn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-11 02:05+0300\n"
-"PO-Revision-Date: 2006-06-11 03:15+0200\n"
+"POT-Creation-Date: 2006-07-07 22:35+0300\n"
+"PO-Revision-Date: 2006-07-07 23:42+0200\n"
 "Last-Translator: Stavros Giannouris <stavrosg2002@freemail.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
@@ -19,17 +19,29 @@ msgstr ""
 "X-Generator: KBabel 1.10.2\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,52,-1,-1\n"
 
-#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
-#: ../src/iso.c:522 ../src/rar.c:34 ../src/rpm.c:51 ../src/tar.c:34
-#: ../src/zip.c:33
+#: ../src/7zip.c:34
+#: ../src/arj.c:35
+#: ../src/bzip2.c:57
+#: ../src/gzip.c:51
+#: ../src/iso.c:569
+#: ../src/rar.c:34
+#: ../src/rpm.c:52
+#: ../src/tar.c:46
+#: ../src/zip.c:34
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
-#: ../src/7zip.c:34 ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
+#: ../src/7zip.c:34
+#: ../src/arj.c:35
+#: ../src/rar.c:34
+#: ../src/zip.c:34
 msgid "Original"
 msgstr "Αρχικό"
 
-#: ../src/7zip.c:34 ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
+#: ../src/7zip.c:34
+#: ../src/arj.c:35
+#: ../src/rar.c:34
+#: ../src/zip.c:34
 msgid "Compressed"
 msgstr "Συμπιεσμένο"
 
@@ -37,17 +49,30 @@ msgstr "Συμπιεσμένο"
 msgid "Attr"
 msgstr "Ιδιοτ"
 
-#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
-#: ../src/rar.c:34 ../src/tar.c:34 ../src/zip.c:33
+#: ../src/7zip.c:34
+#: ../src/arj.c:35
+#: ../src/bzip2.c:57
+#: ../src/gzip.c:51
+#: ../src/rar.c:34
+#: ../src/tar.c:46
+#: ../src/zip.c:34
 msgid "Time"
 msgstr "Ώρα"
 
-#: ../src/7zip.c:34 ../src/arj.c:35 ../src/bzip2.c:45 ../src/gzip.c:39
-#: ../src/iso.c:522 ../src/rar.c:34 ../src/tar.c:34 ../src/zip.c:33
+#: ../src/7zip.c:34
+#: ../src/arj.c:35
+#: ../src/bzip2.c:57
+#: ../src/gzip.c:51
+#: ../src/iso.c:569
+#: ../src/rar.c:34
+#: ../src/tar.c:46
+#: ../src/zip.c:34
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: ../src/arj.c:35 ../src/rar.c:34 ../src/zip.c:33
+#: ../src/arj.c:35
+#: ../src/rar.c:34
+#: ../src/zip.c:34
 msgid "Ratio"
 msgstr "Αναλογία"
 
@@ -63,36 +88,49 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/rar.c:34 ../src/tar.c:34
+#: ../src/bzip2.c:57
+#: ../src/gzip.c:51
+#: ../src/rar.c:34
+#: ../src/tar.c:46
 msgid "Permissions"
 msgstr "Δικαιώματα"
 
-#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/tar.c:34
+#: ../src/bzip2.c:57
+#: ../src/gzip.c:51
+#: ../src/tar.c:46
 msgid "Owner/Group"
 msgstr "Ιδιοκτήτης / Ομάδα"
 
-#: ../src/bzip2.c:45 ../src/gzip.c:39 ../src/iso.c:522 ../src/rpm.c:51
-#: ../src/tar.c:34
+#: ../src/bzip2.c:57
+#: ../src/gzip.c:51
+#: ../src/iso.c:569
+#: ../src/rpm.c:52
+#: ../src/tar.c:46
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: ../src/bzip2.c:99
+#: ../src/bzip2.c:111
 msgid "Extracting "
 msgstr "Αποσυμπίεση"
 
-#: ../src/bzip2.c:99
+#: ../src/bzip2.c:111
 msgid " file to "
 msgstr " αρχείου στο"
 
-#: ../src/bzip2.c:108
+#: ../src/bzip2.c:120
 msgid "Please select where to extract files!"
 msgstr "Παρακαλώ επιλέξτε που θα αποσυμπιέσετε τα αρχεία!"
 
-#: ../src/bzip2.c:199
+#: ../src/bzip2.c:137
+#: ../src/callbacks.c:107
+msgid "Operation canceled."
+msgstr "Η λειτουργία ακυρώθηκε."
+
+#: ../src/bzip2.c:227
 msgid "Decompressing tar file with "
 msgstr "Αποσυμπίεση του αρχείου tar με"
 
-#: ../src/bzip2.c:221
+#: ../src/bzip2.c:246
 msgid ""
 "An error occurred while decompressing the archive.\n"
 "Do you want to open the error messages window?"
@@ -100,7 +138,17 @@ msgstr ""
 "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου tar.\n"
 "Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#: ../src/bzip2.c:266
+#: ../src/bzip2.c:252
+#: ../src/bzip2.c:310
+#: ../src/bzip2.c:337
+#: ../src/callbacks.c:142
+#: ../src/callbacks.c:1791
+#: ../src/rpm.c:116
+#: ../src/rpm.c:144
+msgid "Operation failed."
+msgstr "Η λειτουργία απέτυχε."
+
+#: ../src/bzip2.c:304
 msgid ""
 "An error occurred while adding to the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -108,7 +156,7 @@ msgstr ""
 "Προέκυψε ένα σφάλμα κατά τη προσθήκη αρχείων στο αρχείο\n"
 "tar. Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#: ../src/bzip2.c:266
+#: ../src/bzip2.c:304
 msgid ""
 "An error occurred while deleting from the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -116,11 +164,11 @@ msgstr ""
 "Προέκυψε ένα σφάλμα κατά τη διαγραφή αρχείων μέσα στο συμπιεσμένο\n"
 "tar αρχείο. Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#: ../src/bzip2.c:275
+#: ../src/bzip2.c:314
 msgid "Recompressing tar file with "
 msgstr "Συμπίεση του αρχείου tar με"
 
-#: ../src/bzip2.c:290
+#: ../src/bzip2.c:331
 msgid ""
 "An error occurred while recompressing the tar archive.\n"
 "Do you want to open the error messages window?"
@@ -128,32 +176,15 @@ msgstr ""
 "Προέκυψε ένα σφάλμα κατά τη συμπίεση του αρχείου tar.\n"
 "Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#: ../src/callbacks.c:96
-msgid "Operation canceled."
-msgstr "Η λειτουργία ακυρώθηκε."
-
-#: ../src/callbacks.c:100
+#: ../src/callbacks.c:111
 msgid "Please check \""
 msgstr "Παρακαλώ ελέγξτε το \""
 
-#: ../src/callbacks.c:100
+#: ../src/callbacks.c:111
 msgid "\" since some files could have been already extracted."
 msgstr "\" διότι μπορεί να έχουν ήδη εξαχθεί μερικά αρχεία."
 
-#: ../src/callbacks.c:111 ../src/callbacks.c:141 ../src/callbacks.c:1264
-#: ../src/extract_dialog.c:476 ../src/extract_dialog.c:512 ../src/iso.c:647
-msgid "Operation completed."
-msgstr "Η λειτουργία ολοκληρώθηκε."
-
-#: ../src/callbacks.c:112
-msgid "The integrity of the archive \""
-msgstr "Η πιστότητα του αρχείου \""
-
-#: ../src/callbacks.c:112
-msgid "\" is OK!"
-msgstr "\" είναι εντάξει."
-
-#: ../src/callbacks.c:126
+#: ../src/callbacks.c:132
 msgid ""
 "An error occurred while accessing the archive.\n"
 "Do you want to open the error messages window?"
@@ -161,78 +192,74 @@ msgstr ""
 "Προέκυψε ένα σφάλμα κατά την ανάγνωση του αρχείου.\n"
 "Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#: ../src/callbacks.c:130 ../src/callbacks.c:1752 ../src/rpm.c:114
-#: ../src/rpm.c:140
-msgid "Operation failed."
-msgstr "Η λειτουργία απέτυχε."
+#: ../src/callbacks.c:155
+#: ../src/callbacks.c:1212
+#: ../src/extract_dialog.c:518
+#: ../src/extract_dialog.c:557
+#: ../src/iso.c:681
+msgid "Operation completed."
+msgstr "Η λειτουργία ολοκληρώθηκε."
 
-#: ../src/callbacks.c:143
+#: ../src/callbacks.c:157
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Ανανέωση περιεχομένων αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:188
+#: ../src/callbacks.c:202
 msgid "Operation successfully completed."
 msgstr "Η λειτουργία ολοκληρώθηκε επιτυχώς."
 
-#: ../src/callbacks.c:203
+#: ../src/callbacks.c:217
 #, c-format
 msgid "The archive \"%s\" already exists. Do you want to overwrite it?"
-msgstr ""
-"Το συμπιεσμένο αρχείο \"%s\" υπάρχει ήδη.  Θέλετε να το αντικαταστήσετε;"
+msgstr "Το συμπιεσμένο αρχείο \"%s\" υπάρχει ήδη.  Θέλετε να το αντικαταστήσετε;"
 
-#: ../src/callbacks.c:238
+#: ../src/callbacks.c:252
 msgid "Choose Add File to create the compressed file."
-msgstr ""
-"Επιλέξτε Προσθήκη αρχείων ή Προσθήκη φακέλου για να δημιουργήσετε το "
-"συμπιεσμένο αρχείο."
+msgstr "Επιλέξτε Προσθήκη αρχείων ή Προσθήκη φακέλου για να δημιουργήσετε το συμπιεσμένο αρχείο."
 
-#: ../src/callbacks.c:242
-msgid "Choose Add File or Add Folder to begin creating the archive."
-msgstr ""
-"Επιλέξτε προσθήκη αρχείων ή προσθήκη φακέλου για να δημιουργήσετε το "
-"συμπιεσμένο αρχείο."
+#: ../src/callbacks.c:256
+#, fuzzy
+msgid "Choose Add to begin creating the archive."
+msgstr "Επιλέξτε Προσθήκη Αρχείων ή Προσθήκη Φακέλου για να δημιουργήσετε το συμπιεσμένο αρχείο."
 
-#: ../src/callbacks.c:293
+#: ../src/callbacks.c:307
 msgid "The format of this archive is not recognized !"
 msgstr "Αυτός ο τύπος αρχείου δεν υποστηρίζεται !"
 
-#: ../src/callbacks.c:310
-msgid ""
-"Sorry, this archive format is not supported since the proper archiver has't "
-"been installed!"
-msgstr ""
-"Αυτό το συμπιεσμένο αρχείο δεν υποστηρίζεται διότι δεν είναι εγκατεστημένη η "
-"αντίστοιχη εφαρμογή!"
+#: ../src/callbacks.c:324
+#, fuzzy
+msgid "Sorry, this archive format is not supported since the proper archiver is not installed!"
+msgstr "Αυτό το συμπιεσμένο αρχείο δεν υποστηρίζεται διότι δεν είναι εγκατεστημένη η αντίστοιχη εφαρμογή !"
 
-#: ../src/callbacks.c:317
+#: ../src/callbacks.c:331
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Ανάγνωση περιεχομένων αρχείου ISO, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:319
+#: ../src/callbacks.c:333
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Ανάγνωση περιεχομένων αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:379
+#: ../src/callbacks.c:394
 msgid "Testing archive integrity, please wait..."
 msgstr "Έλεγχος ακεραιότητάς αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:425
+#: ../src/callbacks.c:440
 msgid "Please hit the Stop button first!"
 msgstr "Παρακαλώ επιλέξτε πρώτα το κουμπί 'διακοπή'!"
 
-#: ../src/callbacks.c:469
+#: ../src/callbacks.c:470
 msgid "You are about to delete "
 msgstr "Πρόκειται να διαγράψετε"
 
-#: ../src/callbacks.c:469
+#: ../src/callbacks.c:470
 msgid " files"
 msgstr " αρχεία"
 
-#: ../src/callbacks.c:469
+#: ../src/callbacks.c:470
 msgid " file"
 msgstr " αρχείο"
 
-#: ../src/callbacks.c:469
+#: ../src/callbacks.c:470
 msgid ""
 " from the archive.\n"
 "Are you really sure to do this?"
@@ -240,75 +267,62 @@ msgstr ""
 " από το συμπιεσμένο αρχείο\n"
 "Είστε σίγουρος/η;"
 
-#: ../src/callbacks.c:474
+#: ../src/callbacks.c:476
 msgid "Deleting files from the archive, please wait..."
 msgstr "Διαγραφή αρχείων από το συμπιεσμένο αρχείο..."
 
-#: ../src/callbacks.c:545
-msgid "Adding files to the archive, please wait..."
-msgstr "Προσθήκη αρχείων στο συμπιεσμένο αρχείο..."
+#: ../src/callbacks.c:611
+msgid "Select the files to be added to the current archive; use SHIFT to multiple select"
+msgstr "Επιλέξτε τα αρχεία για προσθήκη στο τρέχον συμπιεσμένο αρχείο. Με SHIFT για περισσότερα."
 
-#: ../src/callbacks.c:549
-msgid "Compressing file with bzip2, please wait..."
-msgstr "Συμπίεση αρχείου με bzip2, παρακαλώ περιμένετε..."
-
-#: ../src/callbacks.c:554
-msgid "Compressing file with gzip, please wait..."
-msgstr "Συμπίεση αρχείου με gzip, παρακαλώ περιμένετε..."
-
-#: ../src/callbacks.c:692
-msgid ""
-"Select the files to be added to the current archive; use SHIFT to multiple "
-"select"
-msgstr ""
-"Επιλέξτε τα αρχεία για προσθήκη στο τρέχον συμπιεσμένο αρχείο. Με SHIFT για "
-"περισσότερα."
-
-#: ../src/callbacks.c:698
+#: ../src/callbacks.c:617
 msgid "Select the folder to be added to the current archive"
 msgstr "Επιλέξτε ένα φάκελο για προσθήκη στο τρέχον συμπιεσμένο αρχείο"
 
-#: ../src/callbacks.c:700
-msgid ""
-"Select the folders to be added to the current archive; use SHIFT to multiple "
-"select"
-msgstr ""
-"Επιλέξτε τους φακέλους για προσθήκη στο τρέχον συμπιεσμένο αρχείο. Με SHIFT "
-"για περισσότερα."
+#: ../src/callbacks.c:619
+msgid "Select the folders to be added to the current archive; use SHIFT to multiple select"
+msgstr "Επιλέξτε τους φακέλους για προσθήκη στο τρέχον συμπιεσμένο αρχείο. Με SHIFT για περισσότερα."
 
-#: ../src/callbacks.c:739 ../src/interface.c:230
+#: ../src/callbacks.c:658
+#: ../src/interface.c:225
 msgid "Create a new archive"
 msgstr "Δημιουργία νέου συμπιεσμένου αρχείου"
 
-#: ../src/callbacks.c:745 ../src/interface.c:239
+#: ../src/callbacks.c:660
+msgid "Cr_eate"
+msgstr "_Δημιουργία"
+
+#: ../src/callbacks.c:664
+#: ../src/interface.c:233
 msgid "Open an archive"
 msgstr "Άνοιγμα συμπιεσμένου αρχείου"
 
-#: ../src/callbacks.c:752
+#: ../src/callbacks.c:671
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Επιλέξτε τον φάκελο που θα αποσυμπιεστεί το τρέχον αρχείο"
 
-#: ../src/callbacks.c:783
+#: ../src/callbacks.c:702
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
-#: ../src/callbacks.c:788
+#: ../src/callbacks.c:707
 msgid "Only archives"
 msgstr "Μόνο συμπιεσμένα αρχεία"
 
-#: ../src/callbacks.c:817
+#: ../src/callbacks.c:736
 msgid "Archive type:"
 msgstr "Τύπος συμπιεσμένου αρχείου:"
 
-#: ../src/callbacks.c:820
+#: ../src/callbacks.c:739
 msgid "Choose the archive type to create"
 msgstr "Επιλέξτε τον τύπο του αρχείου που θα δημιουργήσετε"
 
-#: ../src/callbacks.c:830
+#: ../src/callbacks.c:749
 msgid "Add the archive extension to the filename"
 msgstr "Προσθήκη επέκτασης συμπιεσμένου αρχείου στο όνομα αρχείου"
 
-#: ../src/callbacks.c:910 ../src/rpm.c:42
+#: ../src/callbacks.c:827
+#: ../src/rpm.c:43
 #, c-format
 msgid ""
 "Can't open archive %s:\n"
@@ -317,11 +331,11 @@ msgstr ""
 "Δεν ήταν δυνατό το άνοιγμα του αρχείου %s:\n"
 "%s"
 
-#: ../src/callbacks.c:1072
+#: ../src/callbacks.c:989
 msgid "Error Messages Window"
 msgstr "Μηνύματα σφαλμάτων"
 
-#: ../src/callbacks.c:1105
+#: ../src/callbacks.c:1021
 msgid ""
 "Doing so will probably corrupt your archive.\n"
 "Do you really want to cancel?"
@@ -329,15 +343,15 @@ msgstr ""
 "Αν προχωρήσετε, είναι πιθανό να καταστρέψετε το αρχείο.\n"
 "Είστε σίγουρος/η ότι θέλετε να το ακυρώσετε;"
 
-#: ../src/callbacks.c:1110
+#: ../src/callbacks.c:1026
 msgid "Waiting for the process to abort..."
 msgstr "Ακυρώνεται η διεργασία..."
 
-#: ../src/callbacks.c:1184
+#: ../src/callbacks.c:1102
 msgid "Please select a file, not a directory!"
 msgstr "Παρακαλώ επιλέξτε ένα αρχείο, όχι κατάλογο!"
 
-#: ../src/callbacks.c:1221
+#: ../src/callbacks.c:1162
 msgid ""
 "An error occurred while extracting the file to be viewed.\n"
 "Do you want to open the error messages window?"
@@ -345,423 +359,572 @@ msgstr ""
 "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση των προς προβολή αρχείων.\n"
 "Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#. Modified Date
-#: ../src/callbacks.c:1310
-#, c-format
-msgid "%c"
-msgstr "%c"
+#: ../src/callbacks.c:1203
+#, fuzzy
+msgid "An error occurred while extracting the file to be viewed: "
+msgstr ""
+"Προέκυψε ένα σφάλμα κατά την αποσυμπίεση των προς προβολή αρχείων.\n"
+"Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#: ../src/callbacks.c:1318 ../src/callbacks.c:1344
+#: ../src/callbacks.c:1240
+#: ../src/callbacks.c:1306
+#: ../src/callbacks.c:1332
 msgid " GB"
 msgstr " GB"
 
-#: ../src/callbacks.c:1323 ../src/callbacks.c:1349
+#: ../src/callbacks.c:1245
+#: ../src/callbacks.c:1311
+#: ../src/callbacks.c:1337
 msgid " MB"
 msgstr " MB"
 
-#: ../src/callbacks.c:1329 ../src/callbacks.c:1355
+#: ../src/callbacks.c:1251
+#: ../src/callbacks.c:1317
+#: ../src/callbacks.c:1343
 msgid " KB"
 msgstr " KB"
 
-#: ../src/callbacks.c:1333 ../src/callbacks.c:1359
+#: ../src/callbacks.c:1255
+#: ../src/callbacks.c:1321
+#: ../src/callbacks.c:1347
 msgid " bytes"
 msgstr " bytes"
 
-#: ../src/callbacks.c:1728
+#: ../src/callbacks.c:1765
 msgid "Sorry, I could not perform the operation!"
 msgstr "Συγνώμη, δεν ήταν δυνατή η εκτέλεση της λειτουργίας."
 
-#: ../src/callbacks.c:1750
-msgid ""
-"Bzip2 or gzip cannot compress more than one file, please choose another "
-"archive format!"
-msgstr ""
-"Το gzip και το bzip2 δε μπορούν να συμπιέσουν πάνω από ένα αρχείο. Παρακαλώ "
-"επιλέξτε άλλη μορφή!"
+#: ../src/callbacks.c:1789
+msgid "Bzip2 or gzip cannot compress more than one file, please choose another archive format!"
+msgstr "Το gzip και το bzip2 δε μπορούν να συμπιέσουν πάνω από ένα αρχείο. Παρακαλώ επιλέξτε άλλη μορφή!"
 
-#: ../src/extract_dialog.c:36
+#: ../src/add_dialog.c:38
+msgid "Add Dialog"
+msgstr "Προσθήκη"
+
+#: ../src/add_dialog.c:105
+msgid "Files"
+msgstr "Αρχεία"
+
+#: ../src/add_dialog.c:112
+msgid "Directories"
+msgstr "Κατάλογοι"
+
+#: ../src/add_dialog.c:137
+#, fuzzy
+msgid "Choose the files or directories to add to the archive"
+msgstr "Επιλέξτε Προσθήκη Αρχείων ή Προσθήκη Φακέλου για να δημιουργήσετε το συμπιεσμένο αρχείο."
+
+#: ../src/add_dialog.c:143
+#, fuzzy
+msgid "<b>File to add </b>"
+msgstr "Κατάλογος για πρόσθεση στο αρχείο ρυθμίσεων"
+
+#: ../src/add_dialog.c:145
+#, fuzzy
+msgid "<b>Files and directories to add </b>"
+msgstr "Προσθήκη Αρχείων στη λίστα αναπαραγωγής και έναρξη αναπαραγωγής"
+
+#: ../src/add_dialog.c:165
+#, fuzzy
+msgid "Recurse subdirectories"
+msgstr "Δημιουργία Καταλόγων"
+
+#: ../src/add_dialog.c:171
+msgid "Travel the directory structure recursively starting at the current directory."
+msgstr ""
+
+#: ../src/add_dialog.c:175
+#, fuzzy
+msgid "Generate a solid archive"
+msgstr "'Ελεγχος του αρχείου του Evolution "
+
+#: ../src/add_dialog.c:179
+msgid "In a solid archive the files are grouped together featuring a better compression ratio."
+msgstr ""
+
+#: ../src/add_dialog.c:184
+msgid "Remove files after adding"
+msgstr "Διαγραφή αρχείων μετά την προσθήκη"
+
+#: ../src/add_dialog.c:192
+msgid "Do not add file paths"
+msgstr ""
+
+#: ../src/add_dialog.c:196
+msgid "Store just the name of a file without its directory names."
+msgstr ""
+
+#: ../src/add_dialog.c:198
+#, fuzzy
+msgid "Freshen an existing entry in the archive"
+msgstr "Ενημέρωση υπαρχόντων αρχείων"
+
+#: ../src/add_dialog.c:202
+msgid "This options affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."
+msgstr ""
+
+#: ../src/add_dialog.c:206
+#, fuzzy
+msgid "Update an existing entry in the archive"
+msgstr "Ενημέρωση υπαρχόντων αρχείων"
+
+#: ../src/add_dialog.c:210
+msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified."
+msgstr ""
+
+#: ../src/add_dialog.c:219
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c:226
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c:233
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c:240
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression."
+msgstr ""
+
+#: ../src/add_dialog.c:249
+#: ../src/extract_dialog.c:228
+#: ../src/interface.c:402
+msgid "Password:"
+msgstr "Κωδικός πρόσβασης:"
+
+#: ../src/add_dialog.c:263
+#, fuzzy
+msgid "Compression level:"
+msgstr "Επίπεδο ασφάλειας: %s"
+
+#: ../src/add_dialog.c:288
+#: ../src/extract_dialog.c:249
+msgid "<b>Options </b>"
+msgstr "<b>Επιλογές</b>"
+
+#: ../src/add_dialog.c:305
+msgid "_Add"
+msgstr "_Προσθήκη"
+
+#: ../src/add_dialog.c:374
+#, fuzzy
+msgid "Please select the files you want to add"
+msgstr "Επιλέξτε τον κατάλογο που θέλετε να αποθηκεύετε τα αρχεία:"
+
+#: ../src/add_dialog.c:379
+#, fuzzy
+msgid "Please select the directories you want to add"
+msgstr "Παρακαλώ επιλέξτε ένα αρχείο, όχι κατάλογο!"
+
+#: ../src/add_dialog.c:385
+#, fuzzy
+msgid "Please select the file you want to add"
+msgstr "Παρακαλώ επιλέξτε ένα αρχείο, όχι κατάλογο!"
+
+#: ../src/add_dialog.c:497
+msgid "You haven't selected any files to add!"
+msgstr ""
+
+#: ../src/add_dialog.c:505
+#: ../src/extract_dialog.c:340
+#: ../src/interface.c:441
+msgid "Please enter the password!"
+msgstr "Παρακαλώ εισάγετε τον κωδικό πρόσβασης!"
+
+#: ../src/add_dialog.c:560
+msgid "Adding files to the archive, please wait..."
+msgstr "Προσθήκη αρχείων στο συμπιεσμένο αρχείο..."
+
+#: ../src/add_dialog.c:582
+msgid "Compressing file with bzip2, please wait..."
+msgstr "Συμπίεση αρχείου με bzip2, παρακαλώ περιμένετε..."
+
+#: ../src/add_dialog.c:587
+msgid "Compressing file with gzip, please wait..."
+msgstr "Συμπίεση αρχείου με gzip, παρακαλώ περιμένετε..."
+
+#: ../src/extract_dialog.c:35
 msgid "Extract Dialog"
 msgstr "Αποσυμπίεση"
 
-#: ../src/extract_dialog.c:52
+#: ../src/extract_dialog.c:51
 msgid "Extract to:"
 msgstr "Αποσυμπίεση σε:"
 
-#: ../src/extract_dialog.c:72
+#: ../src/extract_dialog.c:92
 msgid "Choose a folder where to extract files"
 msgstr "Επιλέξτε το φάκελο που θα αποσυμπιέσετε τα αρχεία"
 
-#: ../src/extract_dialog.c:94
+#: ../src/extract_dialog.c:114
 msgid "All"
 msgstr "Όλα"
 
-#: ../src/extract_dialog.c:100
+#: ../src/extract_dialog.c:120
 msgid "Only selected"
 msgstr "Εξαγωγή Επιλεγμένων"
 
-#: ../src/extract_dialog.c:111
+#: ../src/extract_dialog.c:131
 msgid "<b>Files to extract </b>"
 msgstr "<b>Αρχεία για εξαγωγή</b>"
 
-#: ../src/extract_dialog.c:130
+#: ../src/extract_dialog.c:150
 msgid "Overwrite existing files"
 msgstr "Αντικατάσταση υπαρχόντων αρχείων"
 
-#: ../src/extract_dialog.c:137
+#: ../src/extract_dialog.c:157
 #, fuzzy
 msgid "Extract files with full path"
 msgstr "Αποσυμπίεση αρχείων στο  "
 
-#: ../src/extract_dialog.c:140
-msgid ""
-"The archive's directory structure is recreated in the extraction directory."
+#: ../src/extract_dialog.c:160
+msgid "The archive's directory structure is recreated in the extraction directory."
 msgstr ""
 
-#: ../src/extract_dialog.c:146
+#: ../src/extract_dialog.c:166
 #, fuzzy
 msgid "Touch files"
 msgstr "Μεταφόρτωση αρχείων"
 
-#: ../src/extract_dialog.c:149
-msgid ""
-"When this option is used, tar leaves the data modification times of the "
-"files it extracts as the times when the files were extracted, instead of "
-"setting it to the times recorded in the archive."
+#: ../src/extract_dialog.c:169
+msgid "When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."
 msgstr ""
 
-#: ../src/extract_dialog.c:156
+#: ../src/extract_dialog.c:176
 #, fuzzy
 msgid "Strip directories:"
 msgstr "Δημιουργία Καταλόγων"
 
-#: ../src/extract_dialog.c:159
-msgid ""
-"This option extracts the files without the directory in which they are "
-"contained. You have to specify the number of directories to strip."
+#: ../src/extract_dialog.c:179
+msgid "This option extracts the files without the directory in which they are contained. You have to specify the number of directories to strip."
 msgstr ""
 
-#: ../src/extract_dialog.c:184
+#: ../src/extract_dialog.c:205
 msgid "Freshen existing files"
 msgstr "Ενημέρωση υπαρχόντων αρχείων"
 
-#: ../src/extract_dialog.c:185
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies."
+#: ../src/extract_dialog.c:206
+msgid "Extract only those files that already exist on disk and that are newer than the disk copies."
 msgstr ""
 
-#: ../src/extract_dialog.c:191
+#: ../src/extract_dialog.c:212
 msgid "Update existing files"
 msgstr "Ενημέρωση υπαρχόντων αρχείων"
 
-#: ../src/extract_dialog.c:192
-msgid ""
-"This option performs the same function as the freshen one, extracting files "
-"that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk."
+#: ../src/extract_dialog.c:213
+msgid "This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk."
 msgstr ""
 
-#: ../src/extract_dialog.c:207
-msgid "Password:"
-msgstr "Κωδικός πρόσβασης:"
-
-#: ../src/extract_dialog.c:228
-msgid "<b>Options </b>"
-msgstr "<b>Επιλογές</b>"
-
-#: ../src/extract_dialog.c:245 ../src/interface.c:152
+#: ../src/extract_dialog.c:266
+#: ../src/interface.c:129
 msgid "_Extract"
 msgstr "_Αποσυμπίεση"
 
-#: ../src/extract_dialog.c:305
+#: ../src/extract_dialog.c:332
 msgid "Please select where to extract the files !"
 msgstr "Παρακαλώ επιλέξτε που θα αποσυμπιέσετε τα αρχεία !"
 
-#: ../src/extract_dialog.c:313
-msgid "Please enter the password!"
-msgstr "Παρακαλώ εισάγετε τον κωδικό πρόσβασης!"
+#: ../src/extract_dialog.c:348
+#, fuzzy
+msgid "Can't create directory "
+msgstr "Δεν ήταν δυνατή η δημιουργία του καταλόγου `%s': %s."
 
-#: ../src/extract_dialog.c:322
+#: ../src/extract_dialog.c:360
 #, c-format
-msgid ""
-"You don't have the right permissions to extract archives in the folder \"%s\""
-msgstr ""
-"Δεν έχετε τα σωστά δικαιώματα για την αποσυμπίεση αρχείων στο φάκελο \"%s\""
+msgid "You don't have the right permissions to extract archives in the folder \"%s\""
+msgstr "Δεν έχετε τα σωστά δικαιώματα για την αποσυμπίεση αρχείων στο φάκελο \"%s\""
 
-#: ../src/extract_dialog.c:359 ../src/extract_dialog.c:544
+#: ../src/extract_dialog.c:399
+#: ../src/extract_dialog.c:587
 msgid "Extracting files to "
 msgstr "Αποσυμπίεση αρχείων στο  "
 
-#: ../src/interface.c:70
+#: ../src/interface.c:68
 msgid "_Archive"
 msgstr "Συμπιεσμένο _αρχείο"
 
-#: ../src/interface.c:95
+#: ../src/interface.c:88
 msgid "_Test"
 msgstr "_Δοκιμή"
 
-#: ../src/interface.c:105
+#: ../src/interface.c:98
 msgid "_Properties"
 msgstr "_Ιδιότητες"
 
-#: ../src/interface.c:120
-msgid "_Action"
-msgstr "_Ενέργειες"
+#: ../src/interface.c:112
+msgid "A_ction"
+msgstr "_Ενέργεια"
 
-#: ../src/interface.c:129
-msgid "Add F_ile"
-msgstr "Προσθήκη α_ρχείου"
+#: ../src/interface.c:119
+#: ../src/interface.c:241
+msgid "Add"
+msgstr "Προσθήκη"
 
-#: ../src/interface.c:138
-msgid "Add _Folder"
-msgstr "Προσθήκη _φακέλου"
-
-#: ../src/interface.c:168
+#: ../src/interface.c:150
 msgid "_View"
 msgstr "_Προβολή"
 
-#: ../src/interface.c:183
+#: ../src/interface.c:165
+msgid "Select _All"
+msgstr "Επιλογή _όλων"
+
+#: ../src/interface.c:171
+msgid "Dese_lect All"
+msgstr "Αποεπι_λογή όλων"
+
+#: ../src/interface.c:182
 msgid "View Error _Messages"
 msgstr "Προβολή _μηνυμάτων σφαλμάτων"
 
-#: ../src/interface.c:192
-msgid "Show ISO info"
-msgstr "Εμφάνιση πληροφοριών ISO"
+#: ../src/interface.c:191
+#, fuzzy
+msgid "Show I_SO info"
+msgstr "Εμφάνιση επιλογών πληροφ."
 
 #: ../src/interface.c:201
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: ../src/interface.c:210
-msgid "_About"
-msgstr "_Περί"
-
-#: ../src/interface.c:225
+#: ../src/interface.c:221
 msgid "New"
 msgstr "Νέο"
 
-#: ../src/interface.c:234
+#: ../src/interface.c:229
 msgid "Open"
 msgstr "Άνοιγμα"
 
-#: ../src/interface.c:248
-msgid "Add File"
-msgstr "Προσθήκη αρχείου"
+#: ../src/interface.c:246
+#, fuzzy
+msgid "Add files and directories to the current archive"
+msgstr "Προσθήκη αρχείων στο καθορισμένο συμπιεσμένο αρχείο και έξοδος από το πρόγραμμα"
 
-#: ../src/interface.c:253
-msgid "Add a file to the current archive"
-msgstr "Προσθήκη αρχείου στο τρέχον συμπιεσμένο αρχείο"
-
-#: ../src/interface.c:257
-msgid "Add Folder"
-msgstr "Προσθήκη φακέλου"
-
-#: ../src/interface.c:262
-msgid "Add an entire folder to the current archive"
-msgstr "Προσθήκη φακέλου στο τρέχον συμπιεσμένο αρχείο"
-
-#: ../src/interface.c:271
+#: ../src/interface.c:250
 msgid "Extract"
 msgstr "Αποσυμπίεση"
 
-#: ../src/interface.c:276
-msgid ""
-"Extract files from the current archive; use the mouse to select files "
-"individually"
-msgstr ""
-"Εξαγωγή αρχείων από το τρέχον συμπιεσμένο αρχείο; χρησιμοποιήστε το ποντίκι "
-"για να επιλέξετε μεμονωμένα αρχεία"
+#: ../src/interface.c:255
+msgid "Extract files from the current archive; use the mouse to select files individually"
+msgstr "Εξαγωγή αρχείων από το τρέχον συμπιεσμένο αρχείο; χρησιμοποιήστε το ποντίκι για να επιλέξετε μεμονωμένα αρχεία"
 
-#: ../src/interface.c:280
+#: ../src/interface.c:263
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: ../src/interface.c:286
+#: ../src/interface.c:268
 msgid "Delete files from the current archive"
 msgstr "Διαγραφή αρχείων από το συμπιεσμένο αρχείο"
 
-#: ../src/interface.c:290
+#: ../src/interface.c:272
 msgid "View"
 msgstr "Προβολή"
 
-#: ../src/interface.c:296
+#: ../src/interface.c:277
 msgid "View file content in the current archive"
 msgstr "Προβολή περιεχομένων αρχείων στο τρέχον συμπιεσμένο αρχείο"
 
-#: ../src/interface.c:305
+#: ../src/interface.c:285
 msgid "Stop"
 msgstr "Διακοπή"
 
-#: ../src/interface.c:311
+#: ../src/interface.c:290
 msgid "Cancel current operation"
 msgstr "Ακύρωση τρέχουσας λειτουργίας"
 
-#: ../src/interface.c:368
+#: ../src/interface.c:345
 msgid "This archive contains password protected files"
 msgstr "Αυτό το συμπιεσμένο αρχείο περιέχει αρχεία προστατευμένα με κωδικό"
 
-#: ../src/interface.c:524
+#: ../src/interface.c:390
+msgid "Enter Archive Password"
+msgstr "Εισάγετε κωδικό για το συμπιεσμένο αρχείο"
+
+#: ../src/interface.c:460
 msgid "View File Window"
 msgstr "Προβολή αρχειου"
 
-#: ../src/interface.c:550
+#: ../src/interface.c:486
 msgid "Archive Properties Window"
 msgstr "Ιδιότητες συμπιεσμένου αρχείου"
 
-#: ../src/interface.c:565
+#: ../src/interface.c:505
 msgid "Name:"
 msgstr "Όνομα:"
 
-#: ../src/interface.c:573
+#: ../src/interface.c:513
 msgid "Path:"
 msgstr "Διαδρομή:"
 
-#: ../src/interface.c:581
+#: ../src/interface.c:521
 msgid "Modified on:"
 msgstr "Τροποποιήθηκε:"
 
-#: ../src/interface.c:589
+#: ../src/interface.c:529
 msgid "Archive size:"
 msgstr "Μέγεθος συμπιεσμένου αρχείου:"
 
-#: ../src/interface.c:597
+#: ../src/interface.c:537
 msgid "Content size:"
 msgstr "Μέγεθος περιεχομένων:"
 
-#: ../src/interface.c:605
+#: ../src/interface.c:545
 msgid "Compression ratio:"
 msgstr "Λόγος συμπίεσης:"
 
-#: ../src/interface.c:613
+#: ../src/interface.c:553
 msgid "Number of files:"
 msgstr "Αριθμός αρχείων:"
 
-#: ../src/interface.c:621
+#: ../src/interface.c:561
 msgid "Number of dirs:"
 msgstr "Αριθμός καταλόγων:"
 
-#: ../src/iso.c:522 ../src/rpm.c:51
+#: ../src/iso.c:569
+#: ../src/rpm.c:52
 msgid "Permission"
 msgstr "Δικαιώματα"
 
-#: ../src/iso.c:522
+#: ../src/iso.c:569
 msgid "Offset"
 msgstr "Μετατόπιση"
 
-#: ../src/iso.c:696
+#: ../src/iso.c:589
+#, fuzzy, c-format
+msgid "Rock Ridge - version %d"
+msgstr "προβολή πληροφοριών έκδοσης"
+
+#: ../src/iso.c:592
+msgid "Rock Ridge - unknown version"
+msgstr ""
+
+#: ../src/iso.c:596
+#, fuzzy, c-format
+msgid "Apple - version %d"
+msgstr "Απόκρυψη Έκδοσης"
+
+#: ../src/iso.c:729
 msgid "ISO Information Window"
 msgstr "Πληροφορίες αρχείου ISO"
 
-#: ../src/iso.c:711
+#: ../src/iso.c:748
 msgid "Filename:"
 msgstr "Όνομα αρχείου:"
 
-#: ../src/iso.c:719
-msgid "Size in bytes:"
-msgstr "Μέγεθος σε bytes:"
+#: ../src/iso.c:756
+msgid "Size:"
+msgstr "Μέγεθος:"
 
-#: ../src/iso.c:727
+#: ../src/iso.c:764
 msgid "Image type:"
 msgstr "Τύπος εικόνας:"
 
-#: ../src/iso.c:735
+#: ../src/iso.c:772
 msgid "System ID:"
 msgstr "ID συστήματος:"
 
-#: ../src/iso.c:743
+#: ../src/iso.c:780
 msgid "Volume ID:"
 msgstr "ID τόμου:"
 
-#: ../src/iso.c:751
+#: ../src/iso.c:788
 msgid "Application:"
 msgstr "Εφαρμογή:"
 
-#: ../src/iso.c:759
+#: ../src/iso.c:796
 msgid "Publisher:"
 msgstr "Εκδότης:"
 
-#: ../src/iso.c:767
+#: ../src/iso.c:804
 msgid "Preparer:"
 msgstr "Προετοιμασία:"
 
-#: ../src/iso.c:775
-#, fuzzy
-msgid "Volume set ID:"
-msgstr "Καθορισμός Ταυ_τότητας Ιδιοκτήτη"
-
-#: ../src/iso.c:783
-msgid "Bibliographic ID:"
-msgstr "Βιβλιογραφικό ID:"
-
-#: ../src/iso.c:791
-msgid "Copyright ID:"
-msgstr "Copyright ID:"
-
-#: ../src/iso.c:799
-#, fuzzy
-msgid "Abstract ID:"
-msgstr "Αριθμός Διεργασίας:"
-
-#: ../src/iso.c:807
+#: ../src/iso.c:812
 msgid "Creation date:"
 msgstr "Δημιουργήθηκε:"
 
-#: ../src/iso.c:815
+#: ../src/iso.c:820
 msgid "Modified date:"
 msgstr "Τροποποιήθηκε:"
 
-#: ../src/iso.c:823
+#: ../src/iso.c:828
 msgid "Expiration date:"
 msgstr "Ημερομηνία λήξης:"
 
-#: ../src/iso.c:831
+#: ../src/iso.c:836
 #, fuzzy
 msgid "Effective date:"
 msgstr "Ημερομηνία Γέννησης"
 
-#: ../src/main.c:37
+#: ../src/main.c:33
 msgid "Extract the archive to the specified folder and quits."
 msgstr "Αποσυμπίεση στον καθορισμένο φάκελο και έξοδος από το πρόγραμμα"
 
-#: ../src/main.c:38
+#: ../src/main.c:34
+msgid "[destination path]"
+msgstr "[διαδρομή προορισμού]"
+
+#: ../src/main.c:37
 msgid "Extract the archive by asking the destination folder and quits."
 msgstr ""
 
-#: ../src/main.c:39
+#: ../src/main.c:38
+msgid "[archive path]"
+msgstr "[διαδρομή αρχείου]"
+
+#: ../src/main.c:41
 msgid "Add files to the specified archive and quits."
-msgstr ""
-"Προσθήκη αρχείων στο καθορισμένο συμπιεσμένο αρχείο και έξοδος από το "
-"πρόγραμμα"
+msgstr "Προσθήκη αρχείων στο καθορισμένο συμπιεσμένο αρχείο και έξοδος από το πρόγραμμα"
 
-#: ../src/main.c:40
-msgid "Add files asking the name of the archive and quits."
+#: ../src/main.c:42
+msgid "[archive path] [file1] [file2] ... [fileN]"
 msgstr ""
-"Προσθήκη αρχείων με ερώτηση για το όνομα του συμπιεσμένου αρχείου και έξοδος "
-"από το πρόγραμμα"
 
-#: ../src/main.c:51
+#: ../src/main.c:45
+#, fuzzy
+msgid "Add files to the specified archive by asking their filenames and quits."
+msgstr "Προσθήκη αρχείων στο καθορισμένο συμπιεσμένο αρχείο και έξοδος από το πρόγραμμα"
+
+#: ../src/main.c:46
+#: ../src/main.c:62
 msgid "[archive name]"
 msgstr "[όνομα αρχείου]"
 
-#: ../src/main.c:54
+#: ../src/main.c:49
+#, fuzzy
+msgid "Ask for the archive to be created, add files to it and quits."
+msgstr "Αποσυμπίεση στον καθορισμένο φάκελο και έξοδος από το πρόγραμμα"
+
+#: ../src/main.c:50
+msgid "[file1] [file2] ... [fileN]"
+msgstr "[αρχείο1] [αρχείο2] ... [αρχείοΝ]"
+
+#: ../src/main.c:66
 #, c-format
 msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Εκτελέστε xarchiver --help για να δείτε τη λίστα με όλες τις υποστηριζόμενες "
-"επιλογές..\n"
+"Εκτελέστε xarchiver --help για να δείτε τη λίστα με όλες τις υποστηριζόμενες επιλογές..\n"
 
-#: ../src/main.c:64
-msgid "The file doesn't exist!"
-msgstr "Το αρχείο δεν υπάρχει!"
+#: ../src/main.c:86
+#: ../src/main.c:116
+#: ../src/main.c:169
+#, fuzzy
+msgid "xarchiver: You missed the archive name!\n"
+msgstr "Θα πρέπει να καθορίσετε ένα όνομα συμπιεσμένου αρχείου."
 
-#: ../src/main.c:85
-msgid "This switch can't be used with password protected archives.\n"
+#: ../src/main.c:94
+#, fuzzy
+msgid "This option can't be used with password protected archives.\n"
+msgstr "Επιλέξτε Ενέργειες->Ορισμός κωδικού για να δημιουργήσετε ένα προστατευμένο αρχείο."
+
+#: ../src/main.c:188
+msgid "xarchiver: You missed the files to be added!\n"
 msgstr ""
 
-#: ../src/main.c:144
+#: ../src/main.c:223
 msgid "Ready."
 msgstr "Έτοιμο."
 
@@ -769,7 +932,8 @@ msgstr "Έτοιμο."
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:34 ../src/zip.c:33
+#: ../src/rar.c:34
+#: ../src/zip.c:34
 msgid "Method"
 msgstr "Μέθοδος"
 
@@ -777,19 +941,19 @@ msgstr "Μέθοδος"
 msgid "Version"
 msgstr "Έκδοση"
 
-#: ../src/rpm.c:51
+#: ../src/rpm.c:52
 msgid "Hard Link"
 msgstr "Σκληρός δεσμός"
 
-#: ../src/rpm.c:51
+#: ../src/rpm.c:52
 msgid "Owner"
 msgstr "Ιδιοκτήτης"
 
-#: ../src/rpm.c:51
+#: ../src/rpm.c:52
 msgid "Group"
 msgstr "Ομάδα"
 
-#: ../src/rpm.c:118
+#: ../src/rpm.c:119
 msgid ""
 "An error occurred while extracting the cpio archive\n"
 "from the rpm one. Do you want to open the error messages window?"
@@ -797,7 +961,7 @@ msgstr ""
 "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου cpio\n"
 "από το rpm. Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#: ../src/rpm.c:144
+#: ../src/rpm.c:147
 msgid ""
 "An error occurred while decompressing the cpio archive.\n"
 "Do you want to open the error messages window?"
@@ -805,201 +969,19 @@ msgstr ""
 "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση του αρχείου cpio.\n"
 "Θέλετε να δείτε το παράθυρο μηνυμάτων σφαλμάτων;"
 
-#: ../src/zip.c:33
+#: ../src/zip.c:34
 msgid "CRC-32"
 msgstr "CRC-32"
 
-#~ msgid ", please wait..."
-#~ msgstr ", παρακαλώ περιμένετε..."
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr "Ένας διαχειριστής συμπιεσμένων αρχείων σε GTK+2"
 
-#~ msgid "A GTK+2 only archive manager"
-#~ msgstr "Ένας διαχειριστής συμπιεσμένων αρχείων σε GTK+2"
+#: ../xarchiver.desktop.in.h:2
+msgid "Archive manager"
+msgstr "Διαχειριστής συμπιεσμένων αρχείων"
 
-#~ msgid "Archive Manager"
-#~ msgstr "Διαχειριστής συμπιεσμένων αρχείων"
+#: ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr "Xarchiver"
 
-#~ msgid "Xarchiver"
-#~ msgstr "Xarchiver"
-
-#~ msgid "The archive \""
-#~ msgstr "Το συμπιεσμένο αρχείο \""
-
-#, fuzzy
-#~ msgid "Preserve permissions"
-#~ msgstr "Δικαιώματα"
-
-#~ msgid "Choose Action->Set password to create a password protected archive."
-#~ msgstr ""
-#~ "Επιλέξτε Ενέργειες->Ορισμός κωδικού για να δημιουργήσετε ένα "
-#~ "προστατευμένο αρχείο."
-
-#~ msgid "The passwords don't match!"
-#~ msgstr "Οι κωδικοί δεν ταιριάζουν!"
-
-#~ msgid "Set Password"
-#~ msgstr "Ορισμός κωδικού"
-
-#~ msgid "Extract ONLY selected files"
-#~ msgstr "Αποσυμπίεση των επιλεγμένων αρχείων"
-
-#~ msgid "Extract ALL files"
-#~ msgstr "Αποσυμπίεση όλων των αρχείων"
-
-#~ msgid "Extract bzip2 compressed file"
-#~ msgstr "Εξαγωγή συμπιεσμένου αρχείου bzip2"
-
-#~ msgid "Extract gzip compressed file"
-#~ msgstr "Εξαγωγή συμπιεσμένου αρχείου gzip"
-
-#~ msgid "Enter Archive Password"
-#~ msgstr "Εισάγετε κωδικό για το συμπιεσμένο αρχείο"
-
-#~ msgid "Retype it:"
-#~ msgstr "Επανάληψη κωδικού:"
-
-#~ msgid ""
-#~ "Please note that the password is automatically resetted each time you "
-#~ "open or create a new archive."
-#~ msgstr ""
-#~ "Σημειώστε ότι ο κωδικός επαναφέρεται κάθε φορά που ανοίγετε ή "
-#~ "δημιουργείτε ένα συμπιεσμένο αρχείο."
-
-#~ msgid ""
-#~ "Can't open ISO image %s:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Δεν ήταν δυνατό το άνοιγμα του αρχείου ISO %s:\n"
-#~ "%s"
-
-#~ msgid "This ISO image is malformed !"
-#~ msgstr "Το αρχείο ISO είναι εσφαλμένο !"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Filename        : %s\n"
-#~ "Size               : %lld bytes\n"
-#~ "\n"
-#~ "System ID      : %s\n"
-#~ "Volume ID      : %s\n"
-#~ "Application      : %s\n"
-#~ "Publisher        : %s\n"
-#~ "Preparer        : %s\n"
-#~ "Volume Set ID   : %s\n"
-#~ "Bibliographic ID: %s\n"
-#~ "Copyright ID    : %s\n"
-#~ "Abstract ID     : %s\n"
-#~ "\n"
-#~ "Creation Date   : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-#~ "Modified Date   : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-#~ "Expiration Date : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-#~ "Effective Date  : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-#~ "\n"
-#~ "Volume Set Size    : %d\n"
-#~ "Volume Sequence n. : %d\n"
-#~ "Volume Space Size  : %d\n"
-#~ "Logical Block Size : %d\n"
-#~ "Path Table Size    : %d\n"
-#~ "Root Dir. Record   : %d\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Όνομα αρχείου : %s\n"
-#~ "Μέγεθος           : %lld bytes\n"
-#~ "\n"
-#~ "System ID      : %s\n"
-#~ "Volume ID      : %s\n"
-#~ "Εφαρμογή      : %s\n"
-#~ "Εκδότης          : %s\n"
-#~ "Preparer        : %s\n"
-#~ "Volume Set ID   : %s\n"
-#~ "Bibliographic ID: %s\n"
-#~ "Copyright ID    : %s\n"
-#~ "Abstract ID     : %s\n"
-#~ "\n"
-#~ "Δημιουργία      : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-#~ "Τροποποίηση     : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-#~ "Ημ/νία λήξης    : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-#~ "Effective Date  : %4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s\n"
-#~ "\n"
-#~ "Volume Set Size    : %d\n"
-#~ "Volume Sequence n. : %d\n"
-#~ "Volume Space Size  : %d\n"
-#~ "Logical Block Size : %d\n"
-#~ "Path Table Size    : %d\n"
-#~ "Root Dir. Record   : %d\n"
-
-#~ msgid "Links"
-#~ msgstr "Δεσμοί"
-
-#~ msgid "Shell Output Window"
-#~ msgstr "Αποτέλεσμα κελύφους"
-
-#~ msgid "View S_hell Output"
-#~ msgstr "Προβολή αποτελέσματος _Κελύφους"
-
-#~ msgid "Choose destination folder"
-#~ msgstr "Επιλέξτε φάκελο προορισμού"
-
-#~ msgid "Cancel"
-#~ msgstr "Άκυρο"
-
-#~ msgid "_Add File(s)"
-#~ msgstr "Προσθήκη _αρχείων"
-
-#, fuzzy
-#~ msgid "New Archive"
-#~ msgstr "Νέο συμπιεσμένο αρχείο"
-
-#, fuzzy
-#~ msgid "Add File(s)"
-#~ msgstr "Προσθήκη _αρχείων"
-
-#, fuzzy
-#~ msgid "Add Folder(s)"
-#~ msgstr "Προσθήκη φακέλου"
-
-#, fuzzy
-#~ msgid "Extract archive"
-#~ msgstr "Αποσυμπίεση"
-
-#, fuzzy
-#~ msgid "View file"
-#~ msgstr " αρχείο"
-
-#~ msgid "Are you sure you want to remove the selected files from the archive?"
-#~ msgstr ""
-#~ "Σίγουρα θέλετε να αφαιρέσετε τα επιλεγμένα αρχεία από το συμπιεσμένο "
-#~ "αρχείο;"
-
-#~ msgid "Extracting archive"
-#~ msgstr "Αποσυμπίεση"
-
-#~ msgid "File \"%s\" could not be opened, archive not supported\n"
-#~ msgstr ""
-#~ "Το αρχείο \"%s\" δεν ήταν δυνατό να ανοιχτεί, μη υποστηριζόμενη μορφή\n"
-
-#~ msgid "Opening archive..."
-#~ msgstr "Άνοιγμα συμπιεσμένου αρχείου..."
-
-#~ msgid "Done"
-#~ msgstr "Έτοιμο"
-
-#, fuzzy
-#~ msgid "Add files to archive"
-#~ msgstr "Προσθήκη αρχείου στο τρέχον συμπιεσμένο αρχείο"
-
-#, fuzzy
-#~ msgid "Add folders to archive"
-#~ msgstr "Προσθήκη αρχείου στο τρέχον συμπιεσμένο αρχείο"
-
-#~ msgid "Value"
-#~ msgstr "Τιμή"
-
-#, fuzzy
-#~ msgid ""
-#~ "An error occurred while writing the tar archive.\n"
-#~ "Do you want to view the shell output ?"
-#~ msgstr ""
-#~ "Προέκυψε ένα σφάλμα κατά τη διαγραφή αρχείων μέσα στο συμπιεσμένο\n"
-#~ "tar αρχείο. Θέλετε να δείτε το αποτέλεσμα κελύφους;"
