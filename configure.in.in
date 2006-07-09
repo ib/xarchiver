@@ -1,0 +1,104 @@
+dnl $Id$
+dnl
+dnl Copyright (c) 2006
+dnl         The Xfce development team. All rights reserved.
+dnl
+dnl Written for Xfce by Benedikt Meurer <benny@xfce.org>
+dnl
+
+dnl ***************************
+dnl *** Version information ***
+dnl ***************************
+m4_define([xarchiver_version_major], [0])
+m4_define([xarchiver_version_minor], [3])
+m4_define([xarchiver_version_micro], [9])
+m4_define([xarchiver_version_build], [r@REVISION@])
+m4_define([xarchiver_version_tag], [svn]) # Leave empty for releases
+m4_define([xarchiver_version], [xarchiver_version_major().xarchiver_version_minor().xarchiver_version_micro()ifelse(xarchiver_version_tag(), [svn], [xarchiver_version_tag()-xarchiver_version_build()], [xarchiver_version_tag()])])
+
+dnl ***************************
+dnl *** Initialize autoconf ***
+dnl ***************************
+AC_COPYRIGHT([Copyright (c) 2006
+        The Xfce development team. All rights reserved.
+        
+Written for Xfce by Giuseppe Torelli <colossus73@gmail.com>.])
+AC_INIT([xarchiver], [xarchiver_version()], [http://bugzilla.xfce.org/])
+AC_PREREQ([2.50])
+AC_CANONICAL_TARGET()
+AC_REVISION([$Id$])
+
+dnl ***************************
+dnl *** Initialize automake ***
+dnl ***************************
+AM_INIT_AUTOMAKE([AC_PACKAGE_TARNAME()], [AC_PACKAGE_VERSION()])
+AM_CONFIG_HEADER([config.h])
+AM_MAINTAINER_MODE()
+
+dnl *******************************
+dnl *** Check for UNIX variants ***
+dnl *******************************
+AC_AIX()
+AC_ISC_POSIX()
+AC_MINIX()
+
+dnl ********************************
+dnl *** Check for basic programs ***
+dnl ********************************
+AC_PROG_CC()
+AC_PROG_LD()
+AC_PROG_INSTALL()
+AC_PROG_INTLTOOL([0.31], [no-xml])
+
+dnl **************************
+dnl *** Initialize libtool ***
+dnl **************************
+AC_DISABLE_STATIC()
+AC_PROG_LIBTOOL()
+
+dnl ***********************************************
+dnl *** Work-around system-specific limitations ***
+dnl ***********************************************
+AC_SYS_LARGEFILE()
+
+dnl **********************************
+dnl *** Check for standard headers ***
+dnl **********************************
+AC_HEADER_STDC()
+
+dnl ************************************
+dnl *** Check for standard functions ***
+dnl ************************************
+AC_CHECK_FUNCS([strcasestr])
+
+dnl ******************************
+dnl *** Check for i18n support ***
+dnl ******************************
+XDT_I18N([@LINGUAS@])
+
+dnl ***********************************
+dnl *** Check for required packages ***
+dnl ***********************************
+XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.2.0])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.2.0])
+
+dnl ***********************************
+dnl *** Check for debugging support ***
+dnl ***********************************
+XDT_FEATURE_DEBUG()
+
+AC_OUTPUT([
+po/Makefile.in
+Makefile
+src/Makefile
+])
+
+dnl *********************
+dnl *** Print summary ***
+dnl *********************
+echo "----------------------------------------"
+echo "$PACKAGE_TARNAME $PACKAGE_VERSION"
+echo ""
+echo "The binary will be installed in $prefix/bin"
+echo ""
+echo "Configure finished, type 'make' to build."
