@@ -88,8 +88,9 @@ dnl ***********************************
 XDT_FEATURE_DEBUG()
 
 AC_OUTPUT([
-po/Makefile.in
 Makefile
+pixmaps/Makefile
+po/Makefile.in
 src/Makefile
 ])
 
