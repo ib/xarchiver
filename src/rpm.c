@@ -40,7 +40,7 @@ void OpenRPM ( XArchive *archive )
     stream = fopen ( archive->path , "r" );
 	if (stream == NULL)
     {
-        gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , archive->path , strerror (errno) ); 
+        gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , archive->path , g_strerror (errno) ); 
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg);
 		g_free (msg);
@@ -55,13 +55,13 @@ void OpenRPM ( XArchive *archive )
     if (fseek ( stream, 104 , SEEK_CUR ) )
     {
         fclose (stream);
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,(char *)strerror(errno));
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno));
         return;
     }
     if ( fread ( bytes, 1, 8, stream ) == 0 )
 	{
 		fclose ( stream );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno));
 		return;
     }
     il = 256 * ( 256 * ( 256 * bytes[0] + bytes[1]) + bytes[2] ) + bytes[3];
@@ -71,13 +71,13 @@ void OpenRPM ( XArchive *archive )
     if (fseek ( stream, offset  , SEEK_SET ) )
     {
         fclose (stream);
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno));
         return;
     }
     if ( fread ( bytes, 1, 8, stream ) == 0 )
 	{
 		fclose ( stream );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno));
 		return;
     }
     il = 256 * ( 256 * ( 256 * bytes[0] + bytes[1]) + bytes[2] ) + bytes[3];

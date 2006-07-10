@@ -345,7 +345,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				int result = mkdir (destination_path , S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
 				if (result == -1)
 				{
-					gchar *msg = g_strconcat (_("Can't create directory "),"\"",destination_path,"\"",": ",strerror(errno),NULL);
+					gchar *msg = g_strconcat (_("Can't create directory "),"\"",destination_path,"\"",": ",g_strerror(errno),NULL);
 					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg );
 					g_free (msg);
 					break;

@@ -104,7 +104,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 				g_free ( new_path );
 				if ( stream == NULL )
 				{
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno));
                     done = FALSE;
                     break;					
 				}
@@ -146,7 +146,7 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 	stream = fdopen ( fd , "w" );
 	if ( stream == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno) );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno) );
 		g_free (tmp);
 		return NULL;
 	}
@@ -342,7 +342,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	stream = fopen ( archive->path , "w" ) ;
 	if ( stream == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno) );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno) );
 		unlink ( tmp );
 		g_free (tmp);
 		return;
@@ -389,7 +389,7 @@ void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
     stream = fopen ( archive->path , "w" );
 	if ( stream == NULL )
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,strerror(errno));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno));
         done = FALSE;
         return;					
 	}

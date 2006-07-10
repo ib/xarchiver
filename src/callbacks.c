@@ -189,8 +189,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				default:
 				break;
 			}
-			archive->status = XA_ARCHIVESTATUS_IDLE;
-		    return;
 		}
 	}
 	if (archive->status != XA_ARCHIVESTATUS_EXTRACT)
@@ -267,7 +265,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
 }
 
-int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, gchar *message)
+int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message)
 {
 	dialog = gtk_message_dialog_new (window, mode, type, button,message);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
@@ -828,7 +826,7 @@ int DetectArchiveType ( gchar *filename )
 	
 	if (dummy_ptr == NULL)
 	{
-		gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , filename , strerror (errno) );
+		gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , filename , g_strerror (errno) );
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg);
 		g_free (msg);
@@ -1030,7 +1028,7 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
     Update_StatusBar (_("Waiting for the process to abort..."));
     if ( kill ( archive->child_pid , SIGABRT ) < 0 )
     {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, strerror(errno));
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, g_strerror(errno));
 	    return;
     }
     /* This in case the user cancels the opening of a password protected archive */
