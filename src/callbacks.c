@@ -306,6 +306,8 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		_("The format of this archive is not recognized !") );
 		xa_set_button_state ( 1,1,0,0,0);
+		gtk_widget_set_sensitive ( check_menu , FALSE );
+		gtk_widget_set_sensitive ( properties , FALSE );
         return;
 	}
     EmptyTextBuffer();
