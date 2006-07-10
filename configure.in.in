@@ -12,9 +12,10 @@ dnl ***************************
 m4_define([xarchiver_version_major], [0])
 m4_define([xarchiver_version_minor], [3])
 m4_define([xarchiver_version_micro], [9])
+m4_define([xarchiver_version_nano], [2]) # Leave empty for no nano version
 m4_define([xarchiver_version_build], [r@REVISION@])
-m4_define([xarchiver_version_tag], [svn]) # Leave empty for releases
-m4_define([xarchiver_version], [xarchiver_version_major().xarchiver_version_minor().xarchiver_version_micro()ifelse(xarchiver_version_tag(), [svn], [xarchiver_version_tag()-xarchiver_version_build()], [xarchiver_version_tag()])])
+m4_define([xarchiver_version_tag], [beta2]) # Leave empty for releases
+m4_define([xarchiver_version], [xarchiver_version_major().xarchiver_version_minor().xarchiver_version_micro()ifelse(xarchiver_version_nano(), [], [], [.xarchiver_version_nano()])ifelse(xarchiver_version_tag(), [svn], [xarchiver_version_tag()-xarchiver_version_build()], [xarchiver_version_tag()])])
 
 dnl ***************************
 dnl *** Initialize autoconf ***

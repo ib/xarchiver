@@ -7,7 +7,7 @@
 # Piarres Beobide <pi@beobide.net>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
+"Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2006-06-29 12:11+0200\n"
 "PO-Revision-Date: 2006-06-21 16:08+0200\n"
