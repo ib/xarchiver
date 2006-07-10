@@ -986,7 +986,7 @@ void ShowShellOutput ( GtkMenuItem *menuitem )
 {
 	if (OutputWindow != NULL)
 	{
-		gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Error Messages Window") );
+		gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Archiver Output Window") );
 		gtk_window_present ( GTK_WINDOW (OutputWindow) );
 		return;
 	}

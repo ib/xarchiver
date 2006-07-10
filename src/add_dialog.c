@@ -92,7 +92,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_widget_show (add_dialog->file_list_treeview);
 	g_signal_connect (G_OBJECT (add_dialog->file_liststore),"row-inserted",G_CALLBACK (activate_remove_button) , add_dialog);
 
-	add_dialog->hbox1 = gtk_hbox_new (FALSE, 70);
+	add_dialog->hbox1 = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (add_dialog->hbox1);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox7), add_dialog->hbox1, TRUE, TRUE, 0);
 
@@ -199,7 +199,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->freshen), archive->freshen);
 			gtk_widget_show (add_dialog->freshen);
 			gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
-			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This options affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."), NULL );
+			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."), NULL );
 			g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
 		}
 		
