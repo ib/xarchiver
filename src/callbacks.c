@@ -192,7 +192,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			archive->status = XA_ARCHIVESTATUS_IDLE;
 		    return;
 		}
-
+	}
+	if (archive->status != XA_ARCHIVESTATUS_EXTRACT)
+	{
 		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
 		g_object_unref (model);
 	}
@@ -1667,17 +1669,16 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 	if ( row_list == NULL )
 		return;
 
-	gtk_tree_model_get_iter(model, &iter, (GtkTreePath*) (row_list->data) );
+	gtk_tree_model_get_iter (model, &iter, (GtkTreePath*) (row_list->data) );
 	gtk_tree_model_get (model, &iter, 0, &name, -1);
 	gchar *no_slashes = StripPathFromFilename ( name, "/" );
 	if (no_slashes != NULL)
 		no_slashes++;
-
 	gdk_property_change (context->source_window,
 		               gdk_atom_intern ("XdndDirectSave0", FALSE),
 			           gdk_atom_intern ("text/plain", FALSE), 8,
 				       GDK_PROP_MODE_REPLACE,
-					   (const guchar *) no_slashes ? no_slashes : name, no_slashes ? strlen (no_slashes) : strlen (name) );
+					   (const guchar *) no_slashes != NULL ? no_slashes : name, no_slashes != NULL ? strlen (no_slashes) : strlen (name) );
 
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
@@ -1734,6 +1735,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		command = xa_extract_single_files ( archive , names, extract_path );
 		if ( command != NULL )
 		{
+			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			ExtractAddDelete ( command );
 			g_free (command);
 		}
