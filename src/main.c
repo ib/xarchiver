@@ -135,7 +135,7 @@ int main (int argc, char **argv)
 			gchar *_current_dir = NULL;
 
 			archive = xa_init_structure_from_cmd_line ( archive_name );
-			if (archive != NULL)
+			if (archive != NULL && argv[1] != NULL)
 			{
 				GString *string = g_string_new ( "" );
 				for ( x = 1; x < argc; x++)
@@ -159,6 +159,7 @@ int main (int argc, char **argv)
 				if (cli_command != NULL)
 					error_output = SpawnSyncCommand ( cli_command );
 				g_string_free (string, TRUE);
+
 			}
 		}
 		/* Switch -a */

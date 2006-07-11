@@ -643,7 +643,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
         else
 			command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
 									archive->update ? "-u " : "",
-									archive->overwrite ? "-o" : "-n ",
+									archive->overwrite ? "-o " : "-n ",
 									archive->full_path ? "" : " -j ",
 									archive->escaped_path , files->str," -d " , path , NULL );
 		break;
