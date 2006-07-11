@@ -550,7 +550,8 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	if (extract_path != NULL)
 		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),extract_path);
     command = xa_parse_extract_dialog_options ( archive , extract_window, selection );
-	gtk_widget_destroy ( extract_window->dialog1 );
+	if (extract_window->dialog1 != NULL)
+		gtk_widget_destroy ( extract_window->dialog1 );
 	if (command != NULL)
 	{
 		ExtractAddDelete (command);

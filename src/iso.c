@@ -378,114 +378,98 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 
 void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
 {
-        char testname[256];
-        struct todo *td;
-        int i;
-        struct iso_directory_record *idr;
+	char testname[256];
+	struct todo *td;
+	int i;
+	struct iso_directory_record *idr;
 
-        while(len > 0 )
-        {
-                lseek(fileno(iso_stream), (extent - sector_offset) << 11, 0);
-                read(fileno(iso_stream), buffer, sizeof(buffer));
-                len -= sizeof(buffer);
-                extent++;
-                i = 0;
-                while( 1==1 )
-                {
-                        idr = (struct iso_directory_record *) &buffer[i];
-                        if (idr->length[0] == 0)
-                                break;
-                        memset(&fstat_buf, 0, sizeof(fstat_buf));
-                        name_buf[0] = xname[0] = 0;
-                        fstat_buf.st_size = iso_733((unsigned char *)idr->size);
-                        if( idr->flags[0] & 2)
-                                fstat_buf.st_mode |= S_IFDIR;
-                        else
-                                fstat_buf.st_mode |= S_IFREG;
-                        if(idr->name_len[0] == 1 && idr->name[0] == 0)
-                                strcpy(name_buf, ".");
-                        else if(idr->name_len[0] == 1 && idr->name[0] == 1)
-                                strcpy(name_buf, "..");
-                        else
-                        {
-                                switch (ucs_level)
-                                {
-                                        case 3:
-                                        /*
-                                        * Unicode name.  Convert as best we can.
-                                        */
-                                        {
-                                                int i;
-                                                for(i=0; i < idr->name_len[0] / 2; i++)
-                                                {
-                                                        name_buf[i] = idr->name[i*2+1];
-                                                }
-                                                name_buf[idr->name_len[0]/2] = '\0';
-                                        }
-                                        break;
-                                        case 0:
-                                        /*
-                                        * Normal non-Unicode name.
-                                        */
-                                        strncpy(name_buf, idr->name, idr->name_len[0]);
-                                        name_buf[idr->name_len[0]] = 0;
-                                        break;
+	while (len > 0 )
+	{
+		lseek(fileno(iso_stream), (extent - sector_offset) << 11, 0);
+		read(fileno(iso_stream), buffer, sizeof(buffer));
+		len -= sizeof(buffer);
+		extent++;
+		i = 0;
+		while( 1 == 1 )
+		{
+			idr = (struct iso_directory_record *) &buffer[i];
+			if (idr->length[0] == 0)
+				break;
+			memset(&fstat_buf, 0, sizeof(fstat_buf));
+			name_buf[0] = xname[0] = 0;
+			fstat_buf.st_size = iso_733((unsigned char *)idr->size);
+			if( idr->flags[0] & 2)
+				fstat_buf.st_mode |= S_IFDIR;
+			else
+				fstat_buf.st_mode |= S_IFREG;
+			if(idr->name_len[0] == 1 && idr->name[0] == 0)
+				strcpy(name_buf, ".");
+			else if(idr->name_len[0] == 1 && idr->name[0] == 1)
+			strcpy(name_buf, "..");
+			else
+			{
+				switch (ucs_level)
+				{
+					case 3:
+					/* Unicode name.  Convert as best we can. */
+					{
+						int i;
+						for(i=0; i < idr->name_len[0] / 2; i++)
+							name_buf[i] = idr->name[i*2+1];
+						name_buf[idr->name_len[0]/2] = '\0';
+                    }
+					break;
+
+					case 0:
+					/* Normal non-Unicode name. */
+					strncpy(name_buf, idr->name, idr->name_len[0]);
+					name_buf[idr->name_len[0]] = 0;
+					break;
             
-                                        /*
-                                        * Don't know how to do these yet.  Maybe they are the same
-                                        * as one of the above.
-                                        */
-                                }
-                        };
-                        memcpy(date_buf, idr->date, 9);
-                        if (use_rock)
-                                dump_rr(idr);
-                        if(   (idr->flags[0] & 2) != 0
-                        && (idr->name_len[0] != 1
-               || (idr->name[0] != 0 && idr->name[0] != 1)))
-                  {
-                    /*
-                         * Add this directory to the todo list.
-                        */
-                        td = todo_idr;
-                        if( td != NULL ) 
-                    {
-                                while(td->next != NULL)
-                                        td = td->next;
-                                td->next = (struct todo *) malloc(sizeof(*td));
-                                td = td->next;
-                        }
-                        else
-                        {
-                                todo_idr = td = (struct todo *) malloc(sizeof(*td));
-                        }
-                        td->next = NULL;
-                        td->extent = iso_733((unsigned char *)idr->extent);
-                        td->length = iso_733((unsigned char *)idr->size);
-                        td->name = (char *) malloc(strlen(rootname) 
-                                       + strlen(name_buf) + 2);
-                        strcpy(td->name, rootname);
-                        strcat(td->name, name_buf);
-                        strcat(td->name, "/");
-                }
-                else
-                {
-                    strcpy(testname, rootname);
-                        strcat(testname, name_buf);
-                }
-                if( do_find
-           && (idr->name_len[0] != 1
-               || (idr->name[0] != 0 && idr->name[0] != 1)))
-                {
-                        strcpy(testname, rootname);
-                        strcat(testname, name_buf);
-                }
-                dump_stat(dir_name , iso_733((unsigned char *)idr->extent), archive);
-                i += buffer[i];
-                if (i > 2048 - sizeof(struct iso_directory_record))
-                        break;
-                }
-    }
+                    /* Don't know how to do these yet.Maybe they are the same as one of the above. */
+				}
+            };
+			memcpy(date_buf, idr->date, 9);
+			if (use_rock)
+				dump_rr(idr);
+			if(   (idr->flags[0] & 2) != 0 && (idr->name_len[0] != 1 || (idr->name[0] != 0 && idr->name[0] != 1)))
+			{
+				/* Add this directory to the todo list. */
+				td = todo_idr;
+				if( td != NULL ) 
+				{
+					while(td->next != NULL)
+						td = td->next;
+					td->next = (struct todo *) malloc(sizeof(*td));
+					td = td->next;
+				}
+				else
+					todo_idr = td = (struct todo *) malloc(sizeof(*td));
+				
+				td->next = NULL;
+				td->extent = iso_733((unsigned char *)idr->extent);
+				td->length = iso_733((unsigned char *)idr->size);
+				td->name = (char *) malloc(strlen(rootname) + strlen(name_buf) + 2);
+				strcpy(td->name, rootname);
+				strcat(td->name, name_buf);
+				strcat(td->name, "/");
+			}
+			else
+			{
+				strcpy(testname, rootname);
+				strcat(testname, name_buf);
+			}
+			if( do_find && (idr->name_len[0] != 1 || (idr->name[0] != 0 && idr->name[0] != 1)))
+			{
+				strcpy(testname, rootname);
+				strcat(testname, name_buf);
+			}
+			dump_stat(dir_name , iso_733((unsigned char *)idr->extent), archive);
+			i += buffer[i];
+			if (i > 2048 - sizeof(struct iso_directory_record))
+				break;
+		}
+	}
 }
 
 gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *destination_path, gchar *_filename , unsigned long long int file_size, unsigned long long file_offset )
@@ -496,6 +480,8 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *desti
 	unsigned long long int tlen;
 	char buf[2048];
 
+	while (gtk_events_pending() )
+		gtk_main_iteration();
 	if (archive->full_path == 0)
 	{
 		if (strstr (permission , "d") )
@@ -558,7 +544,7 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *desti
 void OpenISO ( XArchive *archive )
 {
 	int	c;
-	struct todo * td;
+	struct todo *td;
 	int extent;
 	int block;	
 	int toc_offset = 0;
@@ -654,22 +640,26 @@ void OpenISO ( XArchive *archive )
 	}
 	parse_dir ("/" , iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size), archive);
 	xa_append_rows ( archive , 5 );
+
 	td = todo_idr;	
 
 	while(td)
 	{
-		rootname = td->name;
-		parse_dir( rootname , td->extent, td->length, archive);
+		//rootname = td->name;
+		parse_dir( td->name , td->extent, td->length, archive);
 		xa_append_rows ( archive , 5 );
-		free (td->name);
+		g_free (td->name);
 		td = td->next;
 	}
 	fclose(iso_stream);
+
 	use_rock = FALSE;
 	use_joilet = FALSE;
 
-	free (td);
+	g_free (td);
+	g_free (todo_idr);
 	td = NULL;
+	todo_idr = NULL;
         
 	xa_set_button_state (1,1,0,1,1);
 	OffTooltipPadlock();
@@ -678,6 +668,7 @@ void OpenISO ( XArchive *archive )
 	g_object_unref (model);
 	gtk_widget_set_sensitive ( iso_info , TRUE );
 	gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
+	gtk_window_set_title (GTK_WINDOW(MainWindow),archive->path);
 	Update_StatusBar ( _("Operation completed.") );
 }
 

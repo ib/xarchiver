@@ -494,7 +494,11 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_ISO:
-					end = gtk_tree_model_get_iter_first (model,&iter);
+					end = gtk_tree_model_get_iter_first (model , &iter);
+					gtk_widget_show ( viewport2 );
+					g_timeout_add (200, xa_progressbar_pulse, NULL );
+					gtk_widget_destroy (dialog_data->dialog1);
+					dialog_data->dialog1 = NULL;
 					while (end)
 					{
 						gtk_tree_model_get (model, &iter,
