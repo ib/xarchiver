@@ -27,8 +27,8 @@ struct iso_primary_descriptor ipd;
 struct iso_directory_record * idr;
 struct iso_directory_record * idr_rr;
 
-gboolean use_rock;
-gboolean use_joilet;
+gboolean use_rock = 0;
+gboolean use_joilet = 0;
 char * xtract = 0; 
 int do_find = 0;    
 int ucs_level = 0;
@@ -330,8 +330,10 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 
 	g_file_permissions = outline;
 	g_file_offset = extent;
-	g_file_size = fstat_buf.st_size;
-
+	g_file_size = fstat_buf.st_size;    
+	
+	
+	
 	if ( (!use_rock) && (!use_joilet) )
 		strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from file name */
         
@@ -565,6 +567,8 @@ void OpenISO ( XArchive *archive )
 	lseek(fileno(iso_stream),((off_t)(extent - sector_offset)) <<11, SEEK_SET);
 	read(fileno(iso_stream), buffer, sizeof (buffer));
 	idr_rr = (struct iso_directory_record *) buffer;
+        
+      
  
 	/* Detect Rock Ridge exstension */
 	if ((c = dump_rr(idr_rr)) != 0) 
@@ -607,27 +611,30 @@ void OpenISO ( XArchive *archive )
         }
                 
 		if( (unsigned char) ipd.type[0] == ISO_VD_END )
-			g_print ("Unable to find Joliet SVD\n");
+			archive->tmp = g_strdup (_("Standard ISO without extension"));
 		else 
-		{
 			use_joilet = 1;
-			archive->tmp = g_strdup("Joliet");
-		}
 
 		switch(ipd.escape_sequences[2])
 		{ 
 			case '@':
 			ucs_level = 1;
+			archive->tmp = g_strdup_printf (_("Joliet Level %d"),ucs_level);
 			break;
 			
 			case 'C':
 			ucs_level = 2;
+			archive->tmp = g_strdup_printf (_("Joliet Level %d"),ucs_level);
 			break;
 			
 			case 'E':
 			ucs_level = 3;
+			archive->tmp = g_strdup_printf (_("Joliet Level %d"),ucs_level);
 			break;
 		}
+		
+		
+	
 
 		/*if( ucs_level < 3 )
 			g_print ("Don't know what ucs_level == %d means\n", ucs_level);*/
@@ -646,8 +653,8 @@ void OpenISO ( XArchive *archive )
 	while(td)
 	{
 		parse_dir( td->name , td->extent, td->length, archive);
-		xa_append_rows ( archive , 5 );
 		g_free (td->name);
+		xa_append_rows ( archive , 5 );
 		td = td->next;
 	}
 	fclose(iso_stream);

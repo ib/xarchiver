@@ -2,6 +2,8 @@ Xarchiver changelog:
 
 xx/06/06 - 0.4:
 		- Increased speed ! Xarchiver is faster than ever when opening archives.
+		- The GUI looks neat and clean respect to the 0.3.3 release.
+		- Added a brand extract and add dialog supporting most of the archiver command line options.
 		- Added Drag and Drop from and to Xarchiver window by using the XDS protocol.
 		- Added the (in)famous cmd-line switches; see xarchiver -? for details.
 		- Added a Stop button who cancels the current operation or you can use the ESC key.
