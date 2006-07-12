@@ -23,16 +23,17 @@
 void OpenTar ( XArchive *archive )
 {
 	gchar *command;
-  gchar *tar;
+	gchar *tar;
   
-  tar = g_find_program_in_path ("gtar");
-  if (tar == NULL)
-    tar = g_strdup ("tar");
+	tar = g_find_program_in_path ("gtar");
+	if (tar == NULL)
+		tar = g_strdup ("tar");
 
-  command = g_strconcat (tar, " tfv " , archive->escaped_path, NULL);
+	command = g_strconcat (tar, " tfv " , archive->escaped_path, NULL);
 	archive->dummy_size = 0;
-  archive->nr_of_files = 0;
-  archive->nr_of_dirs = 0;
+	archive->nr_of_files = 0;
+	archive->nr_of_dirs = 0;
+	archive->format ="TAR";
 	archive->parse_output = TarOpen;
 
 	SpawnAsyncProcess ( archive , command , 0, 0);

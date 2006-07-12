@@ -25,6 +25,7 @@ void Open7Zip ( XArchive *archive)
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
+	archive->format ="7-ZIP";
 	archive->parse_output = SevenZipOpen;
 	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );

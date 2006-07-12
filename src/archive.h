@@ -57,6 +57,7 @@ struct _XArchive
 	gchar *path;
 	gchar *escaped_path;
 	gchar *tmp;
+	gchar *format;
 	gboolean has_passwd;
 	gboolean add_recurse;
 	gboolean overwrite;

@@ -33,17 +33,18 @@ void OpenBzip2 ( XArchive *archive )
 {
     if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 	{
-	  gchar *command;
-    gchar *tar;
+		gchar *command;
+		gchar *tar;
     
-    tar = g_find_program_in_path ("gtar");
-    if (tar == NULL)
-      tar = g_strdup ("tar");
+		tar = g_find_program_in_path ("gtar");
+		if (tar == NULL)
+		tar = g_strdup ("tar");
 
-    command = g_strconcat (tar, " tfjv " , archive->escaped_path, NULL );
-	  archive->dummy_size = 0;
+		command = g_strconcat (tar, " tfjv " , archive->escaped_path, NULL );
+		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
+		archive->format = "TAR.BZIP2";
 		archive->parse_output = TarOpen;
 
 		SpawnAsyncProcess ( archive , command , 0, 0);
@@ -59,8 +60,11 @@ void OpenBzip2 ( XArchive *archive )
 		xa_create_liststore ( 6, names , (GType *)types );
         archive->type = XARCHIVETYPE_TAR_BZ2;
     }
-    else 
+    else
+	{
 		Bzip2Extract ( archive , 0 );
+		archive->format ="BZIP2";
+	}
 }
 
 void Bzip2Extract ( XArchive *archive , gboolean flag )

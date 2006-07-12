@@ -34,10 +34,11 @@ void OpenGzip ( XArchive *archive )
     if (tar == NULL)
       tar = g_strdup ("tar");
     
-    command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
-	  archive->dummy_size = 0;
+		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
+		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
+		archive->format ="TAR.GZIP";
 		archive->parse_output = TarOpen;
 
 		SpawnAsyncProcess ( archive , command , 0, 0);
@@ -54,7 +55,10 @@ void OpenGzip ( XArchive *archive )
         archive->type = XARCHIVETYPE_TAR_GZ;
 	}
 	else
+	{
+		archive->format ="GZIP";
 		Bzip2Extract ( archive , 1 );
+	}
 }
 
 

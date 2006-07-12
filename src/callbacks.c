@@ -1298,6 +1298,8 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_entry_set_text ( GTK_ENTRY (path_data), utf8_string );
     g_free ( utf8_string );
     g_free ( dummy_string );
+	//Type
+	gtk_entry_set_text ( GTK_ENTRY (type_data), archive->format );
     //Modified Date
     strftime (date, 64, "%c", localtime (&my_stat.st_mtime) );
     t = g_locale_to_utf8 ( date, -1, 0, 0, 0);
