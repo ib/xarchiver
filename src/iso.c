@@ -576,14 +576,14 @@ void OpenISO ( XArchive *archive )
 		if (c & 1024) 
 		{
 			use_rock = TRUE;			
-			archive->tmp = g_strdup_printf (_("Rock Ridge - version %d"),su_version);
+			archive->tmp = g_strdup_printf (_("Rock Ridge version %d"),su_version);
 		} 
         else 
 			archive->tmp = g_strdup (_("Rock Ridge - unknown version"));	
                      
         /* This is currently a no op! We need to check the first plain file instead of the '.' entry in the root directory.*/
 		if (c & 2048) 
-			archive->tmp = g_strdup_printf (_("Apple - version %d"),aa_version);
+			archive->tmp = g_strdup_printf (_("Apple version %d"),aa_version);
     }				
     /* else 
 		g_print ("NO Rock Ridge present\n"); */

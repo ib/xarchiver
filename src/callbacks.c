@@ -838,7 +838,8 @@ int DetectArchiveType ( gchar *filename )
 		fclose ( dummy_ptr);
 		return -2;
 	}
-    if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
+
+	if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
     {
         archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ZIP , dummy_ptr , magic );
         xx = XARCHIVETYPE_ZIP;
@@ -850,7 +851,7 @@ int DetectArchiveType ( gchar *filename )
     }
 	else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 ) xx = XARCHIVETYPE_RAR;
     else if ( memcmp ( magic,"\x42\x5a\x68",3 ) == 0 ) xx = XARCHIVETYPE_BZIP2;
-	else if ( memcmp ( magic,"\x1f\x8b\x08",3 == 0 ) || memcmp ( magic,"\x1f\x9d",2 ) == 0 )  xx = XARCHIVETYPE_GZIP;
+	else if ( memcmp ( magic,"\x1f\x8b",2) == 0 || memcmp ( magic,"\x1f\x9d",2 ) == 0 )  xx = XARCHIVETYPE_GZIP;
     else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0) xx = XARCHIVETYPE_RPM;
     else if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 ) xx = XARCHIVETYPE_7ZIP;
     else if ( isTar ( dummy_ptr ) ) xx = XARCHIVETYPE_TAR;
