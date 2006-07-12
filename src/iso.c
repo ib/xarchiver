@@ -645,7 +645,6 @@ void OpenISO ( XArchive *archive )
 
 	while(td)
 	{
-		//rootname = td->name;
 		parse_dir( td->name , td->extent, td->length, archive);
 		xa_append_rows ( archive , 5 );
 		g_free (td->name);
