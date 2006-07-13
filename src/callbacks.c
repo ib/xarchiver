@@ -437,7 +437,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 {
-    if ( GTK_WIDGET_VISIBLE (viewport2) )
+    if ( archive->status != XA_ARCHIVESTATUS_IDLE)
     {
         Update_StatusBar ( _("Please hit the Stop button first!"));
         return;

@@ -108,7 +108,7 @@ void xa_clean_archive_structure ( XArchive *archive)
 		g_free(archive->escaped_path);
 	archive->escaped_path = NULL;
 		
-	if (archive->tmp)
+	if (archive->tmp != NULL)
 	{
 		unlink (archive->tmp);
 		g_free(archive->tmp);

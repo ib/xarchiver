@@ -662,6 +662,7 @@ void OpenISO ( XArchive *archive )
 
 	use_rock = FALSE;
 	use_joilet = FALSE;
+	ucs_level = 0;
 
 	g_free (td);
 	g_free (todo_idr);
