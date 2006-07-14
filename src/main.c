@@ -195,7 +195,8 @@ int main (int argc, char **argv)
 				GString *string = g_string_new ( "" );
 				for ( x = 1; x < argc; x++)
 					ConcatenateFileNames2 ( argv[x] , string );
-
+				
+				archive->add_recurse = TRUE;
 				cli_command = xa_add_single_files ( archive , string, NULL);
 				if (cli_command != NULL)
 					error_output = SpawnSyncCommand ( cli_command );
