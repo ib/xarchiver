@@ -438,7 +438,7 @@ gchar *password_dialog ()
 			password = g_strdup (gtk_entry_get_text ( GTK_ENTRY (password_entry) ));
 			if (strlen(password) == 0)
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please enter the password!") );
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
 				break;
 			}
 			done = TRUE;

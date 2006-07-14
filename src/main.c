@@ -91,7 +91,7 @@ int main (int argc, char **argv)
 			{
 				if (archive->has_passwd)
 				{
-					response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This option can't be used with password protected archives.\n") );
+					response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action!"),_("This option can't be used with password protected archives.\n") );
 				}
 				else
 				{
@@ -367,7 +367,7 @@ gboolean SpawnSyncCommand ( gchar *command )
 		&exit_status,
 		&error) )
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, error->message);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the command!"),error->message);
 		g_error_free (error);
 		g_strfreev ( argv );
         return FALSE;
@@ -375,7 +375,7 @@ gboolean SpawnSyncCommand ( gchar *command )
     if ( WIFEXITED (exit_status) )
 	{
 	    if ( WEXITSTATUS (exit_status) )
-			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,std_err );
+			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err );
 	}
 	g_strfreev ( argv );
     return TRUE;

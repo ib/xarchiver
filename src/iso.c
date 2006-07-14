@@ -519,7 +519,7 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *desti
 	}
 	if ((fdest = fopen (filename, "w")) == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno) );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write file:"),g_strerror(errno) );
 		g_free (filename);
         return FALSE;
 	}

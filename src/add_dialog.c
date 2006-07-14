@@ -494,7 +494,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			case GTK_RESPONSE_OK:
 			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) == FALSE)
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You haven't selected any files to add!") );
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"), _("You haven't selected any files to add!") );
 				break;
 			}			
 			if ( add_dialog->add_password != NULL && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
@@ -502,7 +502,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 				temp_password  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (add_dialog->add_password_entry) ));
 				if (strlen(temp_password) == 0)
 				{
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please enter the password!") );
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
 					g_free (temp_password);
 					break;
 				}

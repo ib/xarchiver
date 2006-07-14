@@ -329,7 +329,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			if ( strlen ( extract_path ) == 0 )
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please select where to extract the files !") );
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed where to extract the files!"),_("Please enter the extraction path.") );
 				break;
 			}
 			if (archive->has_passwd)
@@ -337,7 +337,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			if (archive->has_passwd && strlen( archive->passwd ) == 0 )
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please enter the password!") );
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it.") );
 				break;
 			}
 			if (g_file_test (destination_path , G_FILE_TEST_EXISTS) == FALSE )
@@ -345,8 +345,8 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				int result = mkdir (destination_path , S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
 				if (result == -1)
 				{
-					gchar *msg = g_strconcat (_("Can't create directory "),"\"",destination_path,"\"",": ",g_strerror(errno),NULL);
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg );
+					gchar *msg = g_strconcat (_("Can't create directory "),"\"",destination_path,"\":",NULL);
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg, g_strerror(errno ) );
 					g_free (msg);
 					break;
 				}
@@ -357,8 +357,8 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				gchar  *msg;
 
                 utf8_path = g_filename_to_utf8 (destination_path, -1, NULL, NULL, NULL);
-                msg = g_strdup_printf (_("You don't have the right permissions to extract archives in the folder \"%s\""), utf8_path);
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg );
+                msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the folder \"%s\"."), utf8_path);
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't perform extraction!"),msg );
                 g_free (utf8_path);
 				g_free (msg);
 				g_free (destination_path);

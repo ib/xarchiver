@@ -108,7 +108,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 				g_free ( new_path );
 				if ( stream == NULL )
 				{
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno));
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't open the file:"),g_strerror(errno));
                     done = FALSE;
                     break;					
 				}
@@ -121,7 +121,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 				g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
 			}
 			else
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Please select where to extract files!") );
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the extraction path!"),("Please select it.") );
 			break;
     	}
 	}
@@ -150,7 +150,7 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 	stream = fdopen ( fd , "w" );
 	if ( stream == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno) );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write to /tmp:"),g_strerror(errno) );
 		g_free (tmp);
 		return NULL;
 	}
@@ -196,7 +196,7 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
       }
       else if (error != NULL)
       {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, error->message);
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("An error occurred:"),error->message);
         g_error_free (error);
         return FALSE;
       }
@@ -247,7 +247,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 		if ( WEXITSTATUS (status) )
 		{
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive.\nDo you want to open the error messages window?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive!"),("Do you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
 			unlink ( tmp );
@@ -305,7 +305,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 		if ( WEXITSTATUS (status) )
 		{
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive.\nDo you want to open the error messages window?") : _("An error occurred while deleting from the tar archive.\nDo you want to open the error messages window?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive!") : _("An error occurred while deleting from the tar archive!"),_("Do you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
             unlink ( tmp );
@@ -332,7 +332,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 		{
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive.\nDo you want to open the error messages window?") );
+			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive!"),_("Do you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
 			unlink ( tmp );
@@ -346,7 +346,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 	stream = fopen ( archive->path , "w" ) ;
 	if ( stream == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno) );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't recompress the archive:"),g_strerror(errno) );
 		unlink ( tmp );
 		g_free (tmp);
 		return;
@@ -393,7 +393,7 @@ void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
     stream = fopen ( archive->path , "w" );
 	if ( stream == NULL )
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,g_strerror(errno));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't decompress the archive:"),g_strerror(errno));
         done = FALSE;
         return;					
 	}

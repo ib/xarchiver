@@ -109,7 +109,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
 		{
 			gchar *msg = g_strconcat (_("Please check \""),extract_path,_("\" since some files could have been already extracted."),NULL);
-            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,msg );
+            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,"",msg );
             g_free (msg);
 		}
 		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
@@ -129,7 +129,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_tooltips_disable ( pad_tooltip );
 			gtk_widget_hide ( pad_image );
 			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive.\nDo you want to open the error messages window?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
 			/* In case the user supplies a wrong password we reset it so he can try again */
@@ -215,12 +215,13 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gchar  *msg;
 
 		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
-		msg = g_strdup_printf (_("The archive \"%s\" already exists. Do you want to overwrite it?"), utf8_path);
+		msg = g_strdup_printf (_("The archive \"%s\" already exists!"), utf8_path);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),
 						GTK_DIALOG_MODAL,
 						GTK_MESSAGE_QUESTION,
 						GTK_BUTTONS_YES_NO,
-						msg
+						msg,
+						_("Do you want to overwrite it?")
 						);
 		g_free (utf8_path);
 		g_free (msg);		
@@ -266,10 +267,11 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
 }
 
-int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message)
+int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2)
 {
-	dialog = gtk_message_dialog_new (window, mode, type, button,message);
+	dialog = gtk_message_dialog_new (window, mode, type, button,message1);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
+	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), message2);
 	response = gtk_dialog_run (GTK_DIALOG (dialog) );
 	gtk_widget_destroy (GTK_WIDGET (dialog) );
 	return response;
@@ -303,12 +305,17 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		return;
     if ( archive->type == -1 )
     {
+		gchar *utf8_path,*msg;
+		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
+		msg = g_strdup_printf (_("Can't open file \"%s\":"), utf8_path);
         gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
-		_("The format of this archive is not recognized !") );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,
+		_("Archive format is not recognized!"));
 		xa_set_button_state ( 1,1,0,0,0);
 		gtk_widget_set_sensitive ( check_menu , FALSE );
 		gtk_widget_set_sensitive ( properties , FALSE );
+		g_free (utf8_path);
+		g_free (msg);
         return;
 	}
     EmptyTextBuffer();
@@ -324,7 +331,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
     if ( ext != NULL )
         if ( ! g_list_find ( ArchiveType , ext ) )
         {
-            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported since the proper archiver is not installed!") );
+            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported:"),_("the proper archiver is not installed!") );
             return;
         }
 
@@ -474,7 +481,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	x = gtk_tree_selection_count_selected_rows (selection);
 	numbers = g_strdup_printf ( "%d", x );
 	gchar *msg = g_strconcat (_("You are about to delete "),numbers,x > 1 ? _(" files") : _(" file") , _(" from the archive.\nAre you really sure to do this?"),NULL);
-	response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,msg );
+	response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"",msg );
 	g_free (msg);
 	g_free (numbers);
 	if ( response == GTK_RESPONSE_NO)
@@ -833,9 +840,9 @@ int DetectArchiveType ( gchar *filename )
 	
 	if (dummy_ptr == NULL)
 	{
-		gchar *msg = g_strdup_printf (_("Can't open archive %s:\n%s") , filename , g_strerror (errno) );
+		gchar *msg = g_strdup_printf (_("Can't open archive %s") , filename );
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
-		msg);
+		msg,g_strerror (errno));
 		g_free (msg);
 		return -2;
 	 }
@@ -1028,7 +1035,7 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 {
 	if (archive->status == XA_ARCHIVESTATUS_ADD)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Doing so will probably corrupt your archive.\nDo you really want to cancel?") );
+		response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Doing so will probably corrupt your archive!"),_("Do you really want to cancel?") );
 		if (response == GTK_RESPONSE_NO)
 			return;
 	}
@@ -1036,7 +1043,7 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
     Update_StatusBar (_("Waiting for the process to abort..."));
     if ( kill ( archive->child_pid , SIGABRT ) < 0 )
     {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, g_strerror(errno));
+        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while trying to kill the process:"),g_strerror(errno));
 	    return;
     }
     /* This in case the user cancels the opening of a password protected archive */
@@ -1109,7 +1116,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	else if ( strstr ( dir , "d" ) || strstr ( dir , "D" ) ) is_dir = TRUE;
 	if (is_dir)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Please select a file, not a directory!") );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,"",_("Please select a file, not a directory!") );
 		g_free ( dir );
 		return;
 	}
@@ -1169,7 +1176,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 		if ( WEXITSTATUS ( status ) )
 		{
 	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed.\nDo you want to open the error messages window?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed!"),("Do you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
 			unlink ( (char*)data );
@@ -1209,11 +1216,8 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 	}
 	else
 	{
-		gchar *msg = NULL;
-		msg = g_strconcat (_("An error occurred while extracting the file to be viewed: "), error->message, NULL);
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"An error occurred while extracting the file to be viewed!",error->message);
 		g_error_free (error);
-		g_free (msg);
 		return NULL;
 	}
 	unlink ( filename );
@@ -1774,7 +1778,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	array = gtk_selection_data_get_uris ( data );
 	if (array == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!") );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry, I could not perform the operation!") );
 		gtk_drag_finish (context, FALSE, FALSE, time);
 		return;
 	}
@@ -1798,7 +1802,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		xa_new_archive ( NULL , NULL );
 	if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file, please choose another archive format!") );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file!"),("Please choose another archive format!") );
 		gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 		Update_StatusBar ( _("Operation failed."));
 		return;
