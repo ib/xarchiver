@@ -196,6 +196,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
 		g_object_unref (model);
 	}
+	gtk_widget_grab_focus (treeview1);
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
 	gtk_widget_set_sensitive ( properties , TRUE );
 	archive->status = XA_ARCHIVESTATUS_IDLE;
@@ -437,22 +438,25 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 {
-    if ( archive->status != XA_ARCHIVESTATUS_IDLE)
-    {
-        Update_StatusBar ( _("Please hit the Stop button first!"));
-        return;
-    }
-    g_list_free ( Suffix );
-	g_list_free ( Name );
-
-	xa_clean_archive_structure (archive);
-
-	if ( extract_path != NULL )
+	if (archive != NULL)
 	{
-		if ( strcmp (extract_path , "/tmp/") != 0)
-			g_free (extract_path);
-		if ( destination_path != NULL )
-			g_free (destination_path);
+		if ( archive->status != XA_ARCHIVESTATUS_IDLE)
+	    {
+		    Update_StatusBar ( _("Please hit the Stop button first!"));
+			return;
+		}
+		g_list_free ( Suffix );
+		g_list_free ( Name );
+
+		xa_clean_archive_structure (archive);
+
+		if ( extract_path != NULL )
+		{
+			if ( strcmp (extract_path , "/tmp/") != 0)
+				g_free (extract_path);
+			if ( destination_path != NULL )
+				g_free (destination_path);
+		}
 	}
 	gtk_main_quit();
 }
@@ -565,16 +569,19 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nDeveloper:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\n",NULL};
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver 0.3.9svn code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Troeger\nSalvatore Santagati\nUracile for the stunning logo\nThe translators \nThe people of gtk-app-devel-list.", NULL};
+    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver 0.3.9svn code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Troeger\nSalvatore Santagati\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
+	/* const char *translators[] = {"Enrico Troeger\nStavros Giannouris\nPiarres Beobide\nJari Rahkonen\nPierrick Le Brun\nYuval Tanny\nSZERVÑC Attila\nDaichi Kawahata\nStephan Arts\nSzymon Kałasz\nAndrey Fedoseev\nDaniel Nylander\nCosmo Chene", NULL}; */
 	if (about != NULL)
 	{
 		gtk_window_present (GTK_WINDOW (about));
 		return;
 	}
 	about = gtk_about_dialog_new ();
+	gtk_about_dialog_set_email_hook (xa_about_activate_link, NULL, NULL);
+	gtk_about_dialog_set_url_hook (xa_about_activate_link, NULL, NULL);
 	g_object_set (about,
 		      "name",  "Xarchiver",
-		      "version", VERSION,
+		      "version", PACKAGE_VERSION,
 		      "copyright", "Copyright @2005-2006 Giuseppe Torelli",
 		      "comments", "A lightweight GTK2 archive manager",
 		      "authors", authors,
@@ -582,8 +589,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		      "translator_credits", NULL,
 		      "logo_icon_name", "xarchiver",
 		      "website", "http://xarchiver.xfce.org",
-		      "website_label", NULL,
-		      "license",    "Copyright @2005-2006 Giuseppe Torelli - Colossus <gt67@users.sourceforge.net>\n\n"
+		      "license",    "Copyright (C)2005-2006 Giuseppe Torelli - Colossus <gt67@users.sourceforge.net>\n\n"
 		      			"This is free software; you can redistribute it and/or\n"
     					"modify it under the terms of the GNU Library General Public License as\n"
     					"published by the Free Software Foundation; either version 2 of the\n"
@@ -1893,3 +1899,41 @@ void xa_append_rows ( XArchive *archive , unsigned short int nc )
 	g_list_free(archive->row);
 	archive->row = NULL;
 }
+
+static void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
+{
+	GdkScreen *screen;
+	GtkWidget *message;
+	GError *error = NULL;
+	gchar *argv[3];
+	gchar *exo_path;
+
+	exo_path = g_find_program_in_path ("exo-open");
+	if ( exo_path == NULL)
+		argv[0] = "firefox";
+	else
+	{
+		argv[0] = "exo-open";
+		g_free (exo_path);
+	}
+	argv[1] = (gchar *) link;
+	argv[2] = NULL;
+
+	screen = gtk_widget_get_screen (GTK_WIDGET (about));
+
+	if (!gdk_spawn_on_screen (screen, NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+	{
+		message = gtk_message_dialog_new (GTK_WINDOW (about),
+										GTK_DIALOG_MODAL
+										| GTK_DIALOG_DESTROY_WITH_PARENT,
+										GTK_MESSAGE_ERROR,
+										GTK_BUTTONS_CLOSE,
+										_("Failed to open link."));
+		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (message), "%s.", error->message);
+		gtk_dialog_run (GTK_DIALOG (message));
+		gtk_widget_destroy (message);
+		g_error_free (error);
+	}
+}
+
+

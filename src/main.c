@@ -77,13 +77,13 @@ int main (int argc, char **argv)
 		ArchiveType = g_list_reverse (ArchiveType);
 		MainWindow = create_MainWindow ();
 		gtk_main_iteration_do (FALSE);
-
+		g_print ("Xarchiver " VERSION " copyright (C)2005-2006 Giuseppe Torelli (colossus73)\n\n");
 		/* Switch -x */
 		if (extract_path != NULL)
 		{
 			if (argv[1] == NULL)
 			{
-				g_print (_("xarchiver: You missed the archive name!\n"));
+				g_print (_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
@@ -113,7 +113,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				g_print (_("xarchiver: You missed the archive name!\n"));
+				g_print (_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
@@ -167,7 +167,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				g_print (_("xarchiver: You missed the archive name!\n"));
+				g_print (_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
@@ -186,7 +186,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				g_print (_("xarchiver: You missed the files to be added!\n"));
+				g_print (_("You missed the files to be added!\n"));
 				return 0;
 			}
 			xa_new_archive ( NULL , NULL );
@@ -243,14 +243,6 @@ g_get_home_dir ()
 
 void GetAvailableCompressors()
 {
-	absolute_path = g_find_program_in_path("arj");
-	if ( absolute_path )
-	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".arj");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.arj");
-		g_free (absolute_path);
-	}
-
 	absolute_path = g_find_program_in_path("bzip2");
     if ( absolute_path )
 	{
@@ -277,6 +269,14 @@ void GetAvailableCompressors()
 
 	ArchiveType = g_list_prepend ( ArchiveType, ".iso");
 	ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
+
+	absolute_path = g_find_program_in_path("arj");
+	if ( absolute_path )
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, ".arj");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.arj");
+		g_free (absolute_path);
+	}
 
 	absolute_path = g_find_program_in_path("rar");
     if ( absolute_path )

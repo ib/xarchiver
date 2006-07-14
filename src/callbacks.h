@@ -127,6 +127,7 @@ char *eat_spaces (char *line);
 gchar *remove_level_from_path (const gchar *path);
 gchar *extract_local_path (gchar *path , gchar *filename);
 gchar *RemoveBackSlashes ( gchar *name);
+static void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
 gchar *name;
 gchar *permissions;
 #endif

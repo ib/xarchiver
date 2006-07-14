@@ -1,7 +1,8 @@
 + iso
   - add display of ID's inside the ISO plus image type [PARTIALLY DONE].
   - fix the extraction of single files with full path.
+
 - fix bugs #1736, #1937.
 - switching by right clicking on the toolbar to icons with text/ no text/ small icons.
 - create a routine for handling the sensitiveness of the buttons, window title [MAYBE ??]
-
+- add a small progress window when invoking Xarchiver from the cmd-line.
