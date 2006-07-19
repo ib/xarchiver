@@ -345,7 +345,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				int result = mkdir (destination_path , S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
 				if (result == -1)
 				{
-					gchar *msg = g_strconcat (_("Can't create directory "),"\"",destination_path,"\":",NULL);
+					gchar *msg = g_strdup_printf(_("Can't create directory \"%s\""), destination_path);
 					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg, g_strerror(errno ) );
 					g_free (msg);
 					break;
@@ -396,7 +396,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			gtk_widget_set_sensitive (Stop_button,TRUE);
 			if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio )) )
 			{
-				gchar *text = g_strconcat (_("Extracting files to "), destination_path , NULL );
+				gchar *text = g_strdup_printf(_("Extracting files to %s"), destination_path);
 				Update_StatusBar ( text );
 				g_free (text);
 				g_free (destination_path);
@@ -588,7 +588,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		strip_string = g_strconcat ( "--strip-components=" , digit , " " , NULL );
 		g_free (digit);
 	}
-	gchar *msg = g_strconcat ( _("Extracting files to ") , path, NULL);
+	gchar *msg = g_strdup_printf( _("Extracting files to %s") , path);
 	Update_StatusBar (msg);
 	g_free (msg);
 	tar = g_find_program_in_path ("gtar");

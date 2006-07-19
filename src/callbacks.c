@@ -108,7 +108,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		OffTooltipPadlock();
 		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
 		{
-			gchar *msg = g_strconcat (_("Please check \""),extract_path,_("\" since some files could have been already extracted."),NULL);
+			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),extract_path);
+
             response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,"",msg );
             g_free (msg);
 		}
@@ -471,7 +472,6 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gchar *command = NULL;
-	gchar *numbers;
 	gchar *tar;
 	gint x;
 
@@ -479,11 +479,9 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	names = g_string_new ( " " );
 	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
 	x = gtk_tree_selection_count_selected_rows (selection);
-	numbers = g_strdup_printf ( "%d", x );
-	gchar *msg = g_strconcat (_("You are about to delete "),numbers,x > 1 ? _(" files") : _(" file") , _(" from the archive.\nAre you really sure to do this?"),NULL);
+	gchar *msg = g_strdup_printf(_("You are about to delete %d file(s) from the archive.\n Are you sure you want to do this?"),x);
 	response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"",msg );
 	g_free (msg);
-	g_free (numbers);
 	if ( response == GTK_RESPONSE_NO)
 		return;
 	Update_StatusBar ( _("Deleting files from the archive, please wait..."));
@@ -1251,22 +1249,22 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 	if (file_size > 1024*1024*1024 )
 	{
 		content_size = (double)file_size / (1024*1024*1024);
-		measure = _(" GB");
+		measure = " GB";
 	}
 	else if (file_size > 1024*1024 )
 	{
 		content_size = (double)file_size / (1024*1024);
-		measure = _(" MB");
+		measure = " MB";
 	}
 
     else if (file_size > 1024 )
 	{
 		content_size = (double)file_size / 1024;
-		measure = _(" KB");
+		measure = " KB";
 	}
 	else
 	{
-		measure = _(" bytes");
+		measure = " Bytes";
 		content_size = file_size;
 	}
 
@@ -1319,22 +1317,22 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
 	if (file_size > 1024*1024*1024 )
 	{
 		content_size = (double)file_size / (1024*1024*1024);
-		measure = _(" GB");
+		measure = " GB";
 	}
 	else if (file_size > 1024*1024 )
 	{
 		content_size = (double)file_size / (1024*1024);
-		measure = _(" MB");
+		measure = " MB";
 	}
 
     else if (file_size > 1024 )
 	{
 		content_size = (double)file_size / 1024;
-		measure = _(" KB");
+		measure = " KB";
 	}
 	else
 	{
-		measure = _(" bytes");
+		measure = " Bytes";
 		content_size = file_size;
 	}
 
@@ -1345,22 +1343,22 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     if (archive->dummy_size > 1024*1024*1024 )
     {
         content_size = (double)archive->dummy_size / (1024*1024*1024);
-        measure = _(" GB");
+        measure = " GB";
     }
         else if (archive->dummy_size > 1024*1024 )
         {
             content_size = (double)archive->dummy_size / (1024*1024);
-            measure = _(" MB");
+            measure = " MB";
         }
 
         else if (archive->dummy_size > 1024 )
         {
             content_size = (double)archive->dummy_size / 1024;
-            measure = _(" KB");
+            measure = " KB";
         }
         else
         {
-            measure = _(" bytes");
+            measure = " Bytes";
             content_size = archive->dummy_size;
         }
     t = g_strdup_printf ( "%.1f %s", content_size,measure);
@@ -1802,7 +1800,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		xa_new_archive ( NULL , NULL );
 	if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file!"),("Please choose another archive format!") );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file!"),_("Please choose another archive format!") );
 		gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 		Update_StatusBar ( _("Operation failed."));
 		return;

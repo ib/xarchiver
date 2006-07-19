@@ -112,7 +112,10 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
                     done = FALSE;
                     break;					
 				}
-                text = g_strconcat (_("Extracting ") , flag ? "gzip" : "bzip2" , _(" file to "), extract_path, NULL );
+				if(flag)
+                text = g_strdup_printf(_("Extracting gzip file to %s"), extract_path);
+				else
+                text = g_strdup_printf(_("Extracting bzip2 file to %s"), extract_path);
                 Update_StatusBar ( text );
                 g_free (text);
 				GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
@@ -228,7 +231,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	if ( tmp == NULL )
 		return;
 
-	msg = g_strconcat ( _("Decompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
+	msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
 	Update_StatusBar ( msg );
 	g_free (msg);
 	gtk_widget_show (viewport2);
@@ -315,7 +318,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
             return;
         }
     }
-	msg = g_strconcat ( _("Recompressing tar file with ") , dummy ? "gzip" : "bzip2" , ", please wait..." , NULL );
+	msg = g_strdup_printf(_("Recompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
 	Update_StatusBar ( msg );
 	g_free (msg);
     RecompressArchive ( archive , status , dummy );
