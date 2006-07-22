@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2006-07-19 21:43+0200\n"
-"PO-Revision-Date: 2006-07-20 23:32+0200\n"
+"PO-Revision-Date: 2006-07-22 03:31+0200\n"
 "Last-Translator: Stavros Giannouris <stavrosg2002@freemail.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
@@ -353,7 +353,7 @@ msgstr "Ακυρώνεται η διεργασία..."
 
 #: ../src/callbacks.c:1044
 msgid "An error occurred while trying to kill the process:"
-msgstr ""
+msgstr "Προέκυψε ένα σφάλμα κατά τον τερματισμό της διεργασίας:"
 
 #: ../src/callbacks.c:1117
 msgid "Please select a file, not a directory!"
@@ -413,11 +413,11 @@ msgstr ""
 
 #: ../src/add_dialog.c:175
 msgid "Generate a solid archive"
-msgstr ""
+msgstr "Δημιουργία συμπαγούς αρχείου"
 
 #: ../src/add_dialog.c:179
 msgid "In a solid archive the files are grouped together featuring a better compression ratio."
-msgstr ""
+msgstr "Σε ένα συμπαγές συμπιεσμένο αρχείο, τα αρχεία ομαδοποιούνται για καλύτερη συμπίεση."
 
 #: ../src/add_dialog.c:184
 msgid "Remove files after adding"
@@ -555,7 +555,7 @@ msgstr "Αντικατάσταση υπαρχόντων αρχείων"
 
 #: ../src/extract_dialog.c:157
 msgid "Extract files with full path"
-msgstr ""
+msgstr "Αποσυμπίεση με διατήρηση της δομής των καταλόγων"
 
 #: ../src/extract_dialog.c:160
 msgid "The archive's directory structure is recreated in the extraction directory."
@@ -871,7 +871,7 @@ msgstr "[διαδρομή προορισμού]"
 
 #: ../src/main.c:37
 msgid "Extract the archive by asking the destination folder and quits."
-msgstr ""
+msgstr "Εξαγωγή του συμπιεσμένου αρχείου και έξοδος."
 
 #: ../src/main.c:38
 msgid "[archive path]"
@@ -887,7 +887,7 @@ msgstr "[διαδρομή συμπιεσμένου αρχείου] [αρχείο
 
 #: ../src/main.c:45
 msgid "Add files to the specified archive by asking their filenames and quits."
-msgstr ""
+msgstr "Προσθήκη αρχείων στο ορισμένο συμπιεσμένο αρχείο και έξοδος."
 
 #: ../src/main.c:46
 #: ../src/main.c:62
@@ -896,7 +896,7 @@ msgstr "[όνομα αρχείου]"
 
 #: ../src/main.c:49
 msgid "Ask for the archive to be created, add files to it and quits."
-msgstr ""
+msgstr "Ερώτηση για το όνομα του συμπιεσμένου αρχείου, προσθήκη αρχείων και έξοδος."
 
 #: ../src/main.c:50
 msgid "[file1] [file2] ... [fileN]"
