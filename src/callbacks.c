@@ -449,8 +449,8 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	if (archive != NULL)
 	{
 		if ( archive->status != XA_ARCHIVESTATUS_IDLE)
-	    {
-		    Update_StatusBar ( _("Please hit the Stop button first!"));
+		{
+			Update_StatusBar ( _("Please hit the Stop button first!"));
 			return;
 		}
 		g_list_free ( Suffix );
@@ -838,10 +838,13 @@ int DetectArchiveType ( gchar *filename )
 	
 	if (dummy_ptr == NULL)
 	{
-		gchar *msg = g_strdup_printf (_("Can't open archive %s") , filename );
+		gchar *utf8_path,*msg;
+		utf8_path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
+		msg = g_strdup_printf (_("Can't open archive \"%s\":") , utf8_path );
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg,g_strerror (errno));
 		g_free (msg);
+		g_free (utf8_path);
 		return -2;
 	 }
 	if ( fread ( magic, 1, 6, dummy_ptr ) == 0 )

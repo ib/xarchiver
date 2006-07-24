@@ -671,6 +671,7 @@ void OpenISO ( XArchive *archive )
         
 	xa_set_button_state (1,1,0,1,1);
 	OffTooltipPadlock();
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 	gtk_widget_set_sensitive ( properties , TRUE );
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
 	g_object_unref (model);

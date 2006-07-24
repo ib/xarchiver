@@ -224,6 +224,7 @@ int main (int argc, char **argv)
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);
+		archive = xa_init_archive_structure(archive);
 		/* This to open the archive from the command line */
 		if ( argc == 2)
 		{
