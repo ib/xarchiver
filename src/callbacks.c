@@ -591,7 +591,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		      "comments", "A lightweight GTK2 archive manager",
 		      "authors", authors,
               "documenters",documenters,
-		      "translator_credits", NULL,
+		      "translator_credits", _("translator-credits"),
 		      "logo_icon_name", "xarchiver",
 		      "website", "http://xarchiver.xfce.org",
 		      "license",    "Copyright (C)2005-2006 Giuseppe Torelli - Colossus <gt67@users.sourceforge.net>\n\n"

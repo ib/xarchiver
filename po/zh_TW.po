@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2006-07-19 21:43+0200\n"
+"POT-Creation-Date: 2006-07-24 13:28+0200\n"
 "PO-Revision-Date: 2006-06-05 02:59+0800\n"
 "Last-Translator: Cosmo Chene <cosmolax@gmail.com>\n"
 "Language-Team: Chinese/Traditional <zh-l10n@linux.org.tw>\n"
@@ -119,7 +119,7 @@ msgstr ""
 "您要檢視錯誤訊息嗎？"
 
 #: ../src/bzip2.c:259 ../src/bzip2.c:317 ../src/bzip2.c:344
-#: ../src/callbacks.c:143 ../src/callbacks.c:1805 ../src/rpm.c:117
+#: ../src/callbacks.c:143 ../src/callbacks.c:1808 ../src/rpm.c:117
 #: ../src/rpm.c:145
 msgid "Operation failed."
 msgstr "操作失敗。"
@@ -184,8 +184,8 @@ msgstr ""
 "嘗試存取壓縮檔時發生錯誤。\n"
 "您要檢視錯誤訊息嗎？"
 
-#: ../src/callbacks.c:156 ../src/callbacks.c:1224 ../src/extract_dialog.c:522
-#: ../src/extract_dialog.c:561 ../src/iso.c:680
+#: ../src/callbacks.c:156 ../src/callbacks.c:1227 ../src/extract_dialog.c:522
+#: ../src/extract_dialog.c:561 ../src/iso.c:681
 msgid "Operation completed."
 msgstr "操作已完成。"
 
@@ -267,6 +267,10 @@ msgstr ""
 msgid "Deleting files from the archive, please wait..."
 msgstr "正在從壓縮檔中刪除檔案，請稍候。"
 
+#: ../src/callbacks.c:594
+msgid "translator-credits"
+msgstr "Cosmo Chene <cosmolax@gmail.com>"
+
 #: ../src/callbacks.c:625
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
@@ -319,63 +323,63 @@ msgstr "選擇要建立的壓縮檔類型"
 msgid "Add the archive extension to the filename"
 msgstr "在檔名後面加入壓縮格式的副檔名"
 
-#: ../src/callbacks.c:841
+#: ../src/callbacks.c:843
 #, fuzzy, c-format
-msgid "Can't open archive %s"
+msgid "Can't open archive \"%s\":"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/callbacks.c:1004
+#: ../src/callbacks.c:1007
 #, fuzzy
 msgid "Archiver Output Window"
 msgstr "壓縮檔內容視窗"
 
-#: ../src/callbacks.c:1036
+#: ../src/callbacks.c:1039
 #, fuzzy
 msgid "Doing so will probably corrupt your archive!"
 msgstr ""
 "這麼作有可能損壞您的壓縮檔。\n"
 "您確定要取消嗎？"
 
-#: ../src/callbacks.c:1036
+#: ../src/callbacks.c:1039
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: ../src/callbacks.c:1041
+#: ../src/callbacks.c:1044
 msgid "Waiting for the process to abort..."
 msgstr "等待使用者中斷"
 
-#: ../src/callbacks.c:1044
+#: ../src/callbacks.c:1047
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: ../src/callbacks.c:1117
+#: ../src/callbacks.c:1120
 msgid "Please select a file, not a directory!"
 msgstr "請選取檔案，不要選資料夾。"
 
-#: ../src/callbacks.c:1177
+#: ../src/callbacks.c:1180
 #, fuzzy
 msgid "An error occurred while extracting the file to be viewed!"
 msgstr ""
 "嘗試解壓縮檔案以預覽內容時發生錯誤\n"
 "您要檢視錯誤訊息嗎？"
 
-#: ../src/callbacks.c:1779
+#: ../src/callbacks.c:1782
 msgid "Sorry, I could not perform the operation!"
 msgstr "抱歉，我無法執行這項操作！"
 
-#: ../src/callbacks.c:1803
+#: ../src/callbacks.c:1806
 #, fuzzy
 msgid "Bzip2 or gzip cannot compress more than one file!"
 msgstr "Bzip2 或 gzip 只能對單一檔案作壓縮，請選擇其他的壓縮檔 格式！"
 
-#: ../src/callbacks.c:1803
+#: ../src/callbacks.c:1806
 #, fuzzy
 msgid "Please choose another archive format!"
 msgstr "選擇要建立的壓縮檔類型"
 
-#: ../src/callbacks.c:1933
+#: ../src/callbacks.c:1936
 msgid "Failed to open link."
 msgstr ""
 
@@ -849,62 +853,62 @@ msgstr ""
 msgid "Joliet Level %d"
 msgstr ""
 
-#: ../src/iso.c:728
+#: ../src/iso.c:729
 #, fuzzy
 msgid "ISO Information Window"
 msgstr "ISO 映像檔資訊視窗"
 
-#: ../src/iso.c:747
+#: ../src/iso.c:748
 #, fuzzy
 msgid "Filename:"
 msgstr "檔案名稱"
 
-#: ../src/iso.c:755
+#: ../src/iso.c:756
 #, fuzzy
 msgid "Size:"
 msgstr "大小"
 
-#: ../src/iso.c:763
+#: ../src/iso.c:764
 msgid "Image type:"
 msgstr ""
 
-#: ../src/iso.c:771
+#: ../src/iso.c:772
 msgid "System ID:"
 msgstr ""
 
-#: ../src/iso.c:779
+#: ../src/iso.c:780
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/iso.c:787
+#: ../src/iso.c:788
 #, fuzzy
 msgid "Application:"
 msgstr "動作(_A)"
 
-#: ../src/iso.c:795
+#: ../src/iso.c:796
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/iso.c:803
+#: ../src/iso.c:804
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/iso.c:811
+#: ../src/iso.c:812
 #, fuzzy
 msgid "Creation date:"
 msgstr "壓縮比率:"
 
-#: ../src/iso.c:819
+#: ../src/iso.c:820
 #, fuzzy
 msgid "Modified date:"
 msgstr "更動時間:"
 
-#: ../src/iso.c:827
+#: ../src/iso.c:828
 #, fuzzy
 msgid "Expiration date:"
 msgstr "操作失敗。"
 
-#: ../src/iso.c:835
+#: ../src/iso.c:836
 msgid "Effective date:"
 msgstr ""
 
@@ -982,11 +986,11 @@ msgstr ""
 msgid "Ready."
 msgstr "就緒。"
 
-#: ../src/main.c:370
+#: ../src/main.c:371
 msgid "Can't run the command!"
 msgstr ""
 
-#: ../src/main.c:378
+#: ../src/main.c:379
 msgid "An error occurred!"
 msgstr ""
 
