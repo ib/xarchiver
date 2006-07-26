@@ -513,9 +513,9 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 							g_free (permissions);
 							return NULL;
 						}
+						end = gtk_tree_model_iter_next (model,&iter);
 						g_free (name);
 						g_free (permissions);
-						end = gtk_tree_model_iter_next (model,&iter);
 					}
 					xa_set_button_state (1,1,0,1,1);
 					OffTooltipPadlock();
@@ -550,7 +550,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						-1);
 						gtk_tree_path_free (row_list->data);
 
-						xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
+						xa_extract_single_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
 						g_free (name);
 						g_free (permissions);
 						row_list = row_list->next;

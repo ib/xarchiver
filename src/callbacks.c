@@ -440,7 +440,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 		command = NULL;
 	}
 	archive->status = XA_ARCHIVESTATUS_TEST;
-    ExtractAddDelete ( command );
+    xa_run_command ( command , 1);
     g_free (command);
 }
 
@@ -526,7 +526,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 	if (command != NULL)
     {
-        ExtractAddDelete ( command );
+        xa_run_command ( command , 1);
         g_free (command);
     }
     g_string_free (names , TRUE );
@@ -542,7 +542,7 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 	gtk_widget_destroy ( add_window->dialog1 );
 	if (command != NULL)
 	{
-		ExtractAddDelete (command);
+		xa_run_command (command , 1);
 		g_free (command);
 	}
 	g_free ( add_window );
@@ -563,7 +563,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		gtk_widget_destroy ( extract_window->dialog1 );
 	if (command != NULL)
 	{
-		ExtractAddDelete (command);
+		xa_run_command (command , 1);
 		g_free (command);
 	}
 	g_free (extract_window);
@@ -613,7 +613,8 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (about), TRUE);
 	g_signal_connect (G_OBJECT (about), "destroy",  G_CALLBACK (gtk_widget_destroyed), &about);
 	gtk_window_set_position (GTK_WINDOW (about), GTK_WIN_POS_CENTER);
-	gtk_widget_show (about);
+	gtk_dialog_run ( GTK_DIALOG(about) );
+	gtk_widget_destroy (about);
 }
 
 GSList *Add_File_Dialog ( gchar *mode )
@@ -1063,7 +1064,6 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	gchar *dummy_name;
 	unsigned short int COL_NAME;
 	gboolean is_dir = FALSE;
-	gboolean full_path,overwrite;
 	GList *row_list = NULL;
 
 	if ( archive->has_passwd )
@@ -1117,7 +1117,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	else if ( strstr ( dir , "d" ) || strstr ( dir , "D" ) ) is_dir = TRUE;
 	if (is_dir)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,"",_("Please select a file, not a directory!") );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,"Can't perform the action:",_("Please select a file, not a directory!") );
 		g_free ( dir );
 		return;
 	}
@@ -1508,7 +1508,7 @@ void xa_cat_filenames_for_tar (GtkTreeModel *model, GtkTreePath *treepath, GtkTr
 	g_free (name);
 }
 
-void ExtractAddDelete ( gchar *command )
+void xa_run_command ( gchar *command , gboolean watch_child_flag )
 {
 	int status;
 	gboolean waiting = TRUE;
@@ -1530,7 +1530,8 @@ void ExtractAddDelete ( gchar *command )
 			while (gtk_events_pending())
 				gtk_main_iteration();
 	}
-	xa_watch_child (archive->child_pid, status, archive);
+	if (watch_child_flag)
+		xa_watch_child (archive->child_pid, status, archive);
 }
 
 void Update_StatusBar ( gchar *msg)
@@ -1715,9 +1716,13 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
-	if ( row_list == NULL )
+	if ( row_list == NULL)
 		return;
-
+	if ( archive->status == XA_ARCHIVESTATUS_EXTRACT )
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!") );
+		return;
+	}
 	if ( gdk_property_get (dc->source_window,
 							gdk_atom_intern ("XdndDirectSave0", FALSE),
 							gdk_atom_intern ("text/plain", FALSE),
@@ -1743,16 +1748,20 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 		names = g_string_new ("");
 		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+		full_path = archive->full_path;
+		overwrite = archive->overwrite;
 		archive->full_path = 0;
 		archive->overwrite = 1;
 		command = xa_extract_single_files ( archive , names, extract_path );
+		g_string_free (names, TRUE);
 		if ( command != NULL )
 		{
 			archive->status = XA_ARCHIVESTATUS_EXTRACT;
-			ExtractAddDelete ( command );
+			xa_run_command ( command , 1);
 			g_free (command);
 		}
-		
+		archive->full_path = full_path;
+		archive->overwrite = overwrite;
 		gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
 	}
 	if (extract_path != NULL)
@@ -1762,7 +1771,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	}
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
-	g_string_free (names, TRUE);
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
@@ -1833,7 +1842,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	command = xa_add_single_files ( archive, names, NULL );
 	if (command != NULL)
 	{
-		ExtractAddDelete (command);
+		xa_run_command (command , 1);
 		g_free (command);
 	}
 	g_string_free (names, TRUE);
@@ -1905,7 +1914,7 @@ void xa_append_rows ( XArchive *archive , unsigned short int nc )
 	archive->row = NULL;
 }
 
-static void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
+void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 {
 	GdkScreen *screen;
 	GtkWidget *message;

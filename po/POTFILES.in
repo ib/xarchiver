@@ -2,6 +2,7 @@
 
 src/7zip.c
 src/arj.c
+src/archive.c
 src/bzip2.c
 src/callbacks.c
 src/add_dialog.c

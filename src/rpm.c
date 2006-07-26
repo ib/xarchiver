@@ -124,6 +124,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
             g_free (cpio_tmp);
 			xa_set_button_state (1,1,0,0,0);
 			gtk_widget_set_sensitive (Stop_button,FALSE);
+			archive->status = XA_ARCHIVESTATUS_IDLE;
             return FALSE;
     	}
     }
@@ -153,6 +154,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			g_free (cpio_tmp);
 			xa_set_button_state (1,1,0,0,0);
 			gtk_widget_set_sensitive (Stop_button,FALSE);
+			archive->status = XA_ARCHIVESTATUS_IDLE;
 			return FALSE;
 		}
 	}

@@ -27,7 +27,7 @@
 
 extern void xa_watch_child ( GPid pid, gint status, gpointer data);
 extern int xa_progressbar_pulse ();
-extern int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, gchar *message);
+extern int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
 extern gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
 extern const gchar *locale;
 
@@ -63,7 +63,7 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 		&error_fd,
 		&error) )
 	{
-		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, error->message);
+		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev ( argv );
         archive->child_pid = 0;

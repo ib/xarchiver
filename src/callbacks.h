@@ -47,7 +47,7 @@
 short int response;
 double content_size;
 unsigned long long int file_size, file_offset;
-gboolean done;
+gboolean done,full_path,overwrite;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
 GtkWidget *dialog , *textview, *scrollwin, *vbox, *OutputWindow , *File_Selector , *view_window, *archive_properties_win;
@@ -114,7 +114,7 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 void ConcatenateFileNames2 (gchar *filename , GString *data);
 void ConcatenateFileNames3 (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void xa_cat_filenames_for_tar (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
-void ExtractAddDelete ( gchar *command );
+void xa_run_command ( gchar *command , gboolean watch_child_flag );
 void OffDeleteandViewButtons();
 void OffTooltipPadlock();
 void Update_StatusBar (gchar *msg);
@@ -127,7 +127,7 @@ char *eat_spaces (char *line);
 gchar *remove_level_from_path (const gchar *path);
 gchar *extract_local_path (gchar *path , gchar *filename);
 gchar *RemoveBackSlashes ( gchar *name);
-static void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
+void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
 gchar *name;
 gchar *permissions;
 #endif
