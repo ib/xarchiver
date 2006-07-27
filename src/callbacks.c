@@ -29,6 +29,7 @@
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean cli;
+struct iso_primary_descriptor ipd;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -810,8 +811,22 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 
 gboolean isISO ( FILE *ptr )
 {
-	if ( DetectImage(ptr) > 0 )
+	int offset_image;
+	if ((offset_image = DetectImage(ptr)) > 0 )
+	{
+		fseek ( ptr , offset_image, SEEK_SET );
+		fread ( &ipd, 1, sizeof(ipd), ptr );
+		ipd.system_id[31] = '\0';
+		ipd.volume_id[31] = '\0';
+		ipd.copyright_file_id[36] = '\0';
+		ipd.abstract_file_id[36] = '\0';
+		ipd.bibliographic_file_id[36] = '\0';
+		ipd.volume_set_id[127] = '\0';
+		ipd.publisher_id[127] = '\0';
+		ipd.preparer_id[127] = '\0';
+		ipd.application_id[127] = '\0';
         return TRUE;
+	}
     else
 		return FALSE;
 }
@@ -1276,6 +1291,13 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
     g_free (text);
 	/* Image type */
 	gtk_entry_set_text ( GTK_ENTRY (image_type_entry),archive->tmp);
+	/* System ID */
+	gtk_entry_set_text ( GTK_ENTRY (system_id_entry),ipd.system_id);
+	/* Volume ID */
+	gtk_entry_set_text ( GTK_ENTRY (volume_id_entry),ipd.volume_id);
+	/* Application ID */
+	gtk_entry_set_text ( GTK_ENTRY (application_entry),ipd.application_id);
+
 	gtk_widget_show (iso_properties_win);
 }
 

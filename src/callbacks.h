@@ -22,6 +22,8 @@
 #define _GNU_SOURCE
 #include <string.h>
 
+#define ISODCL(from, to) (to - from + 1)
+
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <errno.h>

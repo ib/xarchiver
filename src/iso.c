@@ -564,9 +564,7 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 	
 	if ((fsource = fopen (source, "r")) == NULL)
 		return FALSE;
-
-	fdest = fopen (dest, "w");
-	if (fdest == NULL)
+	if ((fdest = fopen (dest, "w")) == NULL)
 	{
 		//gchar *msg = g_strdup_printf (_("Can't write file \"%s\":"), dest);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write file:"),g_strerror(errno) );
@@ -617,11 +615,11 @@ void OpenISO ( XArchive *archive )
 
 	iso_stream = fopen ( archive->path ,"r" );
         
-	lseek(fileno(iso_stream),(16 + toc_offset) <<11, 0);    
+	lseek (fileno(iso_stream),DetectImage(iso_stream), 0);    
 	read(fileno(iso_stream), &ipd, sizeof(ipd));
 	idr = (struct iso_directory_record *) &ipd.root_directory_record;
 	extent = iso_733((unsigned char *)idr->extent);
-	lseek(fileno(iso_stream),((off_t)(extent - sector_offset)) <<11, SEEK_SET);
+	lseek (fileno(iso_stream),((off_t)(extent - sector_offset)) <<11, SEEK_SET);
 	read(fileno(iso_stream), buffer, sizeof (buffer));
 	idr_rr = (struct iso_directory_record *) buffer;
         
@@ -762,6 +760,7 @@ int DetectImage (FILE *iso)
 	if (memcmp ("\x01\x43\x44\x30\x30\x31\x01\x00", buf, 8))
 	{
 		fseek (iso, 0L, SEEK_SET);
+		fread ( &ipd, 1, sizeof(ipd), iso );
 		fread (buf, sizeof (char), 12, iso);
 		if (!memcmp ("\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00", buf, 12))
 		{
