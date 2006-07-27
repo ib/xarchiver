@@ -21,7 +21,6 @@
 
 #include <gtk/gtk.h>
 #include <glib.h>
-#include "config.h"
 #include "interface.h"
 #include "support.h"
 #include "archive.h"

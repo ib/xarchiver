@@ -19,7 +19,6 @@
 #ifndef BZIP2_H
 #define BZIP2_H
 
-#include "config.h"
 #include <gtk/gtk.h>
 #include "callbacks.h"
 #include "interface.h"
