@@ -19,6 +19,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
 #include "iso.h"
 
 unsigned char buffer[2048];
@@ -615,7 +616,7 @@ void OpenISO ( XArchive *archive )
 
 	iso_stream = fopen ( archive->path ,"r" );
         
-	lseek (fileno(iso_stream),DetectImage(iso_stream), 0);    
+	lseek (fileno(iso_stream), DetectImage(iso_stream), 0);
 	read(fileno(iso_stream), &ipd, sizeof(ipd));
 	idr = (struct iso_directory_record *) &ipd.root_directory_record;
 	extent = iso_733((unsigned char *)idr->extent);
@@ -623,8 +624,6 @@ void OpenISO ( XArchive *archive )
 	read(fileno(iso_stream), buffer, sizeof (buffer));
 	idr_rr = (struct iso_directory_record *) buffer;
         
-      
- 
 	/* Detect Rock Ridge exstension */
 	if ((c = dump_rr(idr_rr)) != 0) 
 	{			

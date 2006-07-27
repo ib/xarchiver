@@ -61,7 +61,6 @@ dnl ***********************************************
 dnl *** Work-around system-specific limitations ***
 dnl ***********************************************
 AC_SYS_LARGEFILE()
-CPPFLAGS="$CPPFLAGS -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES"
 
 dnl **********************************
 dnl *** Check for standard headers ***
