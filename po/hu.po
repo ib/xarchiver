@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2006-07-24 13:28+0200\n"
-"PO-Revision-Date: 2006-07-25 09:46+0100\n"
+"PO-Revision-Date: 2006-07-28 08:57+0100\n"
 "Last-Translator: SZERVÑC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -253,7 +253,7 @@ msgstr "Kérlek, várj, az ISO kép tartalmának beolvasásáig..."
 
 #: ../src/callbacks.c:344
 msgid "Please wait while the content of the archive is being read..."
-msgstr "Kérlek, várj, az archívumtartalom beolvasásáig..."
+msgstr "Kérlek, várj, az archívum tartalmának beolvasásáig..."
 
 #: ../src/callbacks.c:405
 msgid "Testing archive integrity, please wait..."
@@ -324,11 +324,11 @@ msgstr "Archívum típus:"
 
 #: ../src/callbacks.c:753
 msgid "Choose the archive type to create"
-msgstr "Válaszd ki a létrehozandó archívumtípust"
+msgstr "Válaszd ki a létrehozandó archívum típust"
 
 #: ../src/callbacks.c:763
 msgid "Add the archive extension to the filename"
-msgstr "Archívumvégződés hozzáadása a fájlnévhez"
+msgstr "Archívum-végződés hozzáadása a fájlnévhez"
 
 #: ../src/callbacks.c:843
 #, c-format
@@ -725,7 +725,7 @@ msgstr "Ez az archívum jelszóval védett fájlokat tartalmaz"
 
 #: ../src/interface.c:390
 msgid "Enter Archive Password"
-msgstr "Archívumjelszó megadása"
+msgstr "Archívum-jelszó megadása"
 
 #: ../src/interface.c:460
 msgid "View File Window"
