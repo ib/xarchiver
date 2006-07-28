@@ -71,7 +71,6 @@ void OpenBzip2 ( XArchive *archive )
 void Bzip2Extract ( XArchive *archive , gboolean flag )
 {
     gchar *text;
-    gchar *new_path;
 	gchar *command = NULL;
     extract_window = xa_create_extract_dialog ( 0 , archive);
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
@@ -90,7 +89,6 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 			if ( strlen ( extract_path ) > 0 )
 			{
 				done = TRUE;
-				gchar *archive_name = StripPathFromFilename ( archive->escaped_path, "/" );
 				archive->parse_output = 0;
 				command = g_strconcat ( flag ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
 				SpawnAsyncProcess ( archive , command , 0, 0);
@@ -99,33 +97,27 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 					g_free ( command );
 					return;
 				}
-				//This to remove the suffix from the archive name
-                if (g_str_has_suffix ( archive_name , flag ? ".gz" : ".bz2") ) archive_name [strlen(archive_name) - ( flag ? 3 : 4 ) ] = '\0';
-                if (archive_name == NULL)
-					new_path = JoinPathArchiveName ( extract_path , archive->escaped_path );
-                else
-					new_path = JoinPathArchiveName ( extract_path , archive_name );
-				stream = fopen ( new_path , "w" );
-				g_free ( new_path );
+				if (flag)
+					text = g_strdup_printf(_("Extracting gzip file to %s"), extract_path);
+				else
+					text = g_strdup_printf(_("Extracting bzip2 file to %s"), extract_path);
+				Update_StatusBar ( text );
+				g_free (text);
+
+				stream = fopen ( extract_path , "w" );
 				if ( stream == NULL )
 				{
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't open the file:"),g_strerror(errno));
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write file:"),g_strerror(errno));
                     done = FALSE;
                     break;					
 				}
-				if(flag)
-                text = g_strdup_printf(_("Extracting gzip file to %s"), extract_path);
-				else
-                text = g_strdup_printf(_("Extracting bzip2 file to %s"), extract_path);
-                Update_StatusBar ( text );
-                g_free (text);
 				GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
 				g_io_channel_set_encoding (ioc, NULL , NULL);
 				g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 				g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
 			}
 			else
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the extraction path!"),("Please select it.") );
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the extraction path!"),("Please type it.") );
 			break;
     	}
 	}
