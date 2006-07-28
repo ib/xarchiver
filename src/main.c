@@ -190,7 +190,7 @@ int main (int argc, char **argv)
 				g_print (_("You missed the files to be added!\n"));
 				return 0;
 			}
-			xa_new_archive ( NULL , NULL );
+			xa_new_archive ( NULL , argv[1] );
 			if (archive->path != NULL)
 			{
 				GString *string = g_string_new ( "" );

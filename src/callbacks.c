@@ -208,7 +208,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	archive = xa_init_archive_structure (archive);
+	archive->tmp = g_path_get_basename ( user_data);
 	gchar *path = Show_File_Dialog ( 1 , "new" );
+	g_free (archive->tmp);
+	archive->tmp = NULL;
 	if (path == NULL)
 		return;
 	if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
@@ -767,6 +770,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		gtk_box_pack_start (GTK_BOX (hbox), check_button, TRUE, TRUE, 0);
 		gtk_widget_show_all (hbox);
 		gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (File_Selector), hbox);
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (File_Selector),archive->tmp);
 	}
 
 	gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);
