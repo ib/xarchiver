@@ -1758,7 +1758,10 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		//g_message ("%s - %s",fm_path,no_uri_path);
 		g_free ( fm_path );
 		if (no_uri_path == NULL)
+		{
 			gtk_drag_finish (dc, FALSE, FALSE, t);
+			return;
+		}
 
 		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
 		gtk_tree_model_get (model, &iter, 0, &name, -1);

@@ -140,6 +140,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 	}
 	else
 	{
+		archive->status = XA_ARCHIVESTATUS_IDLE;
 		gtk_widget_set_sensitive (Stop_button, FALSE);
 		gtk_widget_hide ( viewport2 );
 		Update_StatusBar ( _("Operation canceled."));
