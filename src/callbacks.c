@@ -140,7 +140,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				g_free (archive->passwd);
 				archive->passwd = NULL;
 			}
-			archive->status = XA_ARCHIVESTATUS_ERROR;
+			archive->status = XA_ARCHIVESTATUS_IDLE;
 			Update_StatusBar ( _("Operation failed."));
 			return;
 		}
