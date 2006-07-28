@@ -333,20 +333,18 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 	g_file_offset = extent;
 	g_file_size = fstat_buf.st_size;    
 	
-	
-	
 	if ( (!use_rock) && (!use_joilet) )
 		strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from file name */
         
     if (strcmp (name_buf,"..") == 0 || strcmp (name_buf,".") == 0)
 		return;
-        
+
     if (outline[0] == 'd')
 		archive->nr_of_dirs++;
     else
 		archive->nr_of_files++;
-        
-    g_file_name = g_strconcat (dir_name, name_buf , NULL);     
+
+	g_file_name = g_strconcat (dir_name, name_buf , NULL);     
 
 	filename    = g_new0(GValue, 1);
 	permissions = g_new0(GValue, 1);
