@@ -80,8 +80,8 @@ XDT_I18N([@LINGUAS@])
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.2.0])
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.2.0])
+XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.8.0])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.8.0])
 
 dnl ***********************************
 dnl *** Check for debugging support ***

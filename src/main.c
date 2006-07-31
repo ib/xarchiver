@@ -24,6 +24,7 @@ extern gchar *extract_path;
 gchar *cli_command = NULL;
 gchar *archive_name;
 gchar *absolute_path = NULL;
+gchar *_current_dir = NULL;
 GError *cli_error = NULL;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add, new_archive;
 gboolean cli = FALSE;
@@ -131,29 +132,20 @@ int main (int argc, char **argv)
 		/* Switch -d */
 		else if (archive_name != NULL)
 		{
-			gchar *current_dir = NULL;
 			gchar *name = NULL;
-			gchar *_current_dir = NULL;
 
 			archive = xa_init_structure_from_cmd_line ( archive_name );
 			if (archive != NULL && argv[1] != NULL)
 			{
+				_current_dir = g_path_get_dirname(argv[1]);
+				chdir (_current_dir);
+				g_free (_current_dir);
 				GString *string = g_string_new ( "" );
 				for ( x = 1; x < argc; x++)
 				{
-					_current_dir = g_path_get_dirname ( argv[1] );
-					current_dir = g_filename_from_uri ( _current_dir, NULL, NULL );
+					_current_dir = g_path_get_basename ( argv[x] );
+					ConcatenateFileNames2 ( _current_dir, string );
 					g_free (_current_dir);
-					chdir ( current_dir );
-					g_free (current_dir);
-					if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
-					{
-						name = g_path_get_basename ( argv[x] );
-						ConcatenateFileNames2 ( argv[x], string );
-						g_free (name);
-					}
-					else
-						ConcatenateFileNames2 ( argv[x] , string );
 				}
 
 				cli_command = xa_add_single_files ( archive , string, NULL);
@@ -191,11 +183,20 @@ int main (int argc, char **argv)
 				return 0;
 			}
 			xa_new_archive ( NULL , argv[1] );
+
 			if (archive->path != NULL)
 			{
+				_current_dir = g_path_get_dirname(argv[1]);
+				chdir (_current_dir);
+				g_free (_current_dir);
 				GString *string = g_string_new ( "" );
+
 				for ( x = 1; x < argc; x++)
-					ConcatenateFileNames2 ( argv[x] , string );
+				{
+					_current_dir = g_path_get_basename (argv[x]);
+					ConcatenateFileNames2 ( _current_dir , string );
+					g_free (_current_dir);
+				}
 				
 				archive->add_recurse = TRUE;
 				cli_command = xa_add_single_files ( archive , string, NULL);
