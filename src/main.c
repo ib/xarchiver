@@ -88,24 +88,27 @@ int main (int argc, char **argv)
 				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
-			archive = xa_init_structure_from_cmd_line ( argv[1] );
-			if (archive != NULL)
+			for ( x = 1; x < argc; x++)
 			{
-				if (archive->has_passwd)
+				archive = xa_init_structure_from_cmd_line ( argv[x] );
+				if (archive != NULL)
 				{
-					response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action!"),_("This option can't be used with password protected archives.\n") );
-				}
-				else
-				{
-					GString *string = g_string_new ( "" );
-					archive->full_path = 1;
-					archive->overwrite = 1;
-					gchar *escaped_path = EscapeBadChars (extract_path);
-					cli_command = xa_extract_single_files ( archive , string, escaped_path );
-					g_free (escaped_path);
-					if ( cli_command != NULL )
-						error_output = SpawnSyncCommand ( cli_command );
-					g_string_free (string, TRUE);
+					if (archive->has_passwd)
+					{
+						response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("This option can't be used with password protected archives!\n") );
+					}
+					else
+					{
+						GString *string = g_string_new ( "" );
+						archive->full_path = 1;
+						archive->overwrite = 1;
+						gchar *escaped_path = EscapeBadChars (extract_path);
+						cli_command = xa_extract_single_files ( archive , string, escaped_path );
+						g_free (escaped_path);
+						if ( cli_command != NULL )
+							error_output = SpawnSyncCommand ( cli_command );
+						g_string_free (string, TRUE);
+					}
 				}
 			}
 		}
