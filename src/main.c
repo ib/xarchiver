@@ -84,7 +84,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				g_print (_("You missed the archive name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
@@ -114,7 +114,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				g_print (_("You missed the archive name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
@@ -168,7 +168,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				g_print (_("You missed the archive name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive = xa_init_structure_from_cmd_line ( argv[1] );
@@ -187,7 +187,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				g_print (_("You missed the files to be added!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the files to be added!\n") );
 				return 0;
 			}
 			xa_new_archive ( NULL , argv[1] );
