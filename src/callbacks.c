@@ -193,7 +193,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			}
 		}
 	}
-	if (archive->status != XA_ARCHIVESTATUS_EXTRACT)
+	if (archive->status != XA_ARCHIVESTATUS_EXTRACT || cli == FALSE)
 	{
 		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
 		g_object_unref (model);
@@ -1515,16 +1515,7 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 	g_free (filename);
 }
 
-void ConcatenateFileNames3 (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
-{
-	gchar *fullname;
-
-	gtk_tree_model_get (model, iter, 1, &fullname, -1);
-	ConcatenateFileNames2 ( fullname , data );
-	g_free (fullname);
-}
-
-void xa_cat_filenames_for_tar (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
+void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
 {
 	gchar *fullname;
 	gchar *name;

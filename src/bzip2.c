@@ -379,7 +379,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 					gtk_main_iteration();
 			}
 		}
-	xa_watch_child ( archive->child_pid, status, archive);
+		xa_watch_child ( archive->child_pid, status, archive);
 	}
 	else
 		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
