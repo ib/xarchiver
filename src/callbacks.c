@@ -1435,6 +1435,8 @@ int is_escaped_char (char c)
         case '|':
         case '`':
         case '!':
+		case '[':
+		case ']':
         return 1;
         default:
         return 0;
