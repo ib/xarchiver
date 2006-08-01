@@ -1452,11 +1452,17 @@ gchar *EscapeBadChars ( gchar *string )
 
 	while (*p != '\000')
 	{
-        	if (is_escaped_char(*p)) escapechars++;
+        	if (is_escaped_char(*p))
+			{
+				escapechars++;
+				if (*p == '[' || *p == ']')
+					escapechars++;
+			}
 	        p++;
     }
 
-	if (!escapechars) return g_strdup(string);
+	if (!escapechars)
+		return g_strdup(string);
 	escaped = (char *) g_malloc (strlen(string) + escapechars + 1);
 
 	p = string;
@@ -1464,7 +1470,12 @@ gchar *EscapeBadChars ( gchar *string )
 
 	while (*p != '\000')
 	{
-        if (is_escaped_char(*p)) *q++ = '\\';
+        if (is_escaped_char(*p))
+		{
+			if (*p == '[' || *p == ']')
+				*q++ = '\\';
+			*q++ = '\\';
+		}
 		*q++ = *p++;
 	}
 	*q = '\000';
