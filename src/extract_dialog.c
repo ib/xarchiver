@@ -325,7 +325,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			case GTK_RESPONSE_OK:
 			destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
-			extract_path = EscapeBadChars ( destination_path );
+			extract_path = EscapeBadChars ( destination_path , 1 );
 
 			if ( strlen ( extract_path ) == 0 )
 			{

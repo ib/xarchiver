@@ -102,7 +102,7 @@ int main (int argc, char **argv)
 						GString *string = g_string_new ( "" );
 						archive->full_path = 1;
 						archive->overwrite = 1;
-						gchar *escaped_path = EscapeBadChars (extract_path);
+						gchar *escaped_path = EscapeBadChars (extract_path , 1);
 						cli_command = xa_extract_single_files ( archive , string, escaped_path );
 						g_free (escaped_path);
 						if ( cli_command != NULL )
@@ -384,7 +384,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
 	archive = xa_init_archive_structure (archive);
 	archive->path = g_strdup (filename);
-	archive->escaped_path = EscapeBadChars(filename);
+	archive->escaped_path = EscapeBadChars(filename , 0);
 	archive->type = DetectArchiveType ( archive->path );
 	if (archive->type == -2)
 		return NULL;

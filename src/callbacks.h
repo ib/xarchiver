@@ -120,7 +120,7 @@ void OffDeleteandViewButtons();
 void OffTooltipPadlock();
 void Update_StatusBar (gchar *msg);
 void xa_watch_child ( GPid pid, gint status, gpointer data);
-gchar *EscapeBadChars ( gchar *path );
+gchar *EscapeBadChars ( gchar *string , gboolean doublesquare);
 gchar *StripPathFromFilename ( gchar *name, gchar *pattern );
 gchar *JoinPathArchiveName ( const gchar * , gchar * );
 char *Show_File_Dialog (int dummy , gpointer title);

@@ -242,7 +242,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	xa_set_button_state (1,1,1,0,0 );
 	archive->path = g_strdup (path);
 	g_free (path);
-    archive->escaped_path = EscapeBadChars (archive->path);
+    archive->escaped_path = EscapeBadChars (archive->path , 0);
     EmptyTextBuffer();
     archive->has_passwd = FALSE;
     gtk_widget_set_sensitive ( iso_info , FALSE );
@@ -300,7 +300,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	archive = xa_init_archive_structure(archive);
 	archive->path = g_strdup (path);
 	g_free (path);
-	archive->escaped_path = EscapeBadChars ( archive->path );
+	archive->escaped_path = EscapeBadChars ( archive->path , 0 );
     
 	OffDeleteandViewButtons();
     gtk_widget_set_sensitive ( iso_info , FALSE );
@@ -1165,7 +1165,7 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	else
 	{
 		gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
-		dir = EscapeBadChars ( dummy_name );
+		dir = EscapeBadChars ( dummy_name , 1 );
 		names = g_string_new (" ");
 		g_string_append ( names , dir );
 
@@ -1443,7 +1443,7 @@ int is_escaped_char (char c)
     }
 }
 
-gchar *EscapeBadChars ( gchar *string )
+gchar *EscapeBadChars ( gchar *string , gboolean doublesquare)
 {
 	char *q;
 	char *escaped;
@@ -1452,13 +1452,13 @@ gchar *EscapeBadChars ( gchar *string )
 
 	while (*p != '\000')
 	{
-        	if (is_escaped_char(*p))
-			{
+        if (is_escaped_char(*p))
+		{
+			escapechars++;
+			if ( doublesquare && (*p == '[' || *p == ']') )
 				escapechars++;
-				if (*p == '[' || *p == ']')
-					escapechars++;
-			}
-	        p++;
+		}
+		p++;
     }
 
 	if (!escapechars)
@@ -1472,7 +1472,7 @@ gchar *EscapeBadChars ( gchar *string )
 	{
         if (is_escaped_char(*p))
 		{
-			if (*p == '[' || *p == ']')
+			if ( doublesquare && (*p == '[' || *p == ']') )
 				*q++ = '\\';
 			*q++ = '\\';
 		}
@@ -1514,7 +1514,7 @@ void Activate_buttons ()
 
 void ConcatenateFileNames2 (gchar *filename , GString *data)
 {
-	gchar *esc_filename = EscapeBadChars ( filename );
+	gchar *esc_filename = EscapeBadChars ( filename , 1 );
 	g_string_prepend (data, esc_filename);
 	g_string_prepend_c (data, ' ');
 	g_free (esc_filename);
@@ -1696,7 +1696,7 @@ gchar *extract_local_path (gchar *path , gchar *filename)
     local_path = (gchar *) g_malloc ( x + 1);
     strncpy ( local_path, path, x );
     local_path [x] = '\000';
-    local_escaped_path = EscapeBadChars ( local_path );
+    local_escaped_path = EscapeBadChars ( local_path , 1);
     g_free (local_path);
     return local_escaped_path;
 }
