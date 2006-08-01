@@ -1435,8 +1435,6 @@ int is_escaped_char (char c)
         case '|':
         case '`':
         case '!':
-		case '[':
-		case ']':
         return 1;
         default:
         return 0;
@@ -1453,11 +1451,9 @@ gchar *EscapeBadChars ( gchar *string , gboolean doublesquare)
 	while (*p != '\000')
 	{
         if (is_escaped_char(*p))
-		{
 			escapechars++;
-			if ( doublesquare && (*p == '[' || *p == ']') )
-				escapechars++;
-		}
+		else if ( doublesquare && (*p == '[' || *p == ']') )
+			escapechars += 2;
 		p++;
     }
 
@@ -1471,9 +1467,10 @@ gchar *EscapeBadChars ( gchar *string , gboolean doublesquare)
 	while (*p != '\000')
 	{
         if (is_escaped_char(*p))
+			*q++ = '\\';
+		else if ( doublesquare && (*p == '[' || *p == ']') )
 		{
-			if ( doublesquare && (*p == '[' || *p == ']') )
-				*q++ = '\\';
+			*q++ = '\\';
 			*q++ = '\\';
 		}
 		*q++ = *p++;
