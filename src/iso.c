@@ -503,18 +503,18 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 			multiple_directories = remove_level_from_path ( _filename );
 			final_path = g_strconcat (destination_path, multiple_directories,NULL);
 			g_free (multiple_directories);
-			if (xa_create_directory_for_iso_extraction ( archive , final_path ))
+			if ( ! xa_create_directory_for_iso_extraction ( archive , final_path ))
 			{
 				g_free (final_path);
 				return FALSE;
 			}
 			g_free (final_path);
 		}
-		final_path = g_strconcat (destination_path, _filename, NULL);
-		result = xa_write_file_to_disk ( archive->path, final_path, file_size, file_offset );
-		g_free (final_path);
-		return result;
 	}
+	final_path = g_strconcat (destination_path, _filename, NULL);
+	result = xa_write_file_to_disk ( archive->path, final_path, file_size, file_offset );
+	g_free (final_path);
+	return result;
 }
 
 gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *destination_path, gchar *_filename , unsigned long long int file_size, unsigned long long file_offset )
@@ -536,15 +536,11 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *desti
 		{
 			if ( g_file_test ( filename , G_FILE_TEST_EXISTS) == FALSE )
 			{
-				if (xa_create_directory_for_iso_extraction (archive,filename) )
+				if ( ! xa_create_directory_for_iso_extraction (archive,filename) )
 				{
 					g_free (filename);
 					return FALSE;
 				}
-				if (archive->child_pid == 0)
-					return FALSE;
-				else
-					return TRUE;
 			}
 			return TRUE;
 		}
@@ -571,10 +567,9 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 		return FALSE;
 	if ((fdest = fopen (dest, "w")) == NULL)
 	{
-		//gchar *msg = g_strdup_printf (_("Can't write file \"%s\":"), dest);
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write file:"),g_strerror(errno) );
-		//response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno) );
-		//g_free (msg);
+		gchar *msg = g_strdup_printf (_("Can't write file \"%s\":"), dest);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno) );
+		g_free (msg);
         return FALSE;
 	}
 

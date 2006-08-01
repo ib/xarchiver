@@ -1452,6 +1452,7 @@ gchar *EscapeBadChars ( gchar *string , gboolean doublesquare)
 	{
         if (is_escaped_char(*p))
 			escapechars++;
+		/* The following is mine */
 		else if ( doublesquare && (*p == '[' || *p == ']') )
 			escapechars += 2;
 		p++;
@@ -1468,6 +1469,7 @@ gchar *EscapeBadChars ( gchar *string , gboolean doublesquare)
 	{
         if (is_escaped_char(*p))
 			*q++ = '\\';
+		/* The following is mine */
 		else if ( doublesquare && (*p == '[' || *p == ']') )
 		{
 			*q++ = '\\';
