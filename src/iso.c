@@ -479,9 +479,6 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 	gchar *final_path = NULL;
 	gboolean result;
 
-	while (gtk_events_pending() )
-		gtk_main_iteration();
-
 	if (strstr (permission , "d") )
 	{
 		final_path = g_strconcat (destination_path, _filename,NULL);
@@ -521,8 +518,6 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *desti
 {
 	gchar *filename = NULL;
 	
-	while (gtk_events_pending() )
-		gtk_main_iteration();
 	if (archive->full_path == 0)
 	{
 		if (strstr (permission , "d") )
@@ -575,6 +570,8 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 
 	while (file_size > 0)
 	{
+		while (gtk_events_pending() )
+			gtk_main_iteration();
 		fseek(fsource, (off_t) file_offset << 11, SEEK_SET);
 		tlen = (file_size > sizeof (buf) ? sizeof (buf) : file_size);
 		fread (buf, 1 , tlen , fsource);
