@@ -38,7 +38,6 @@ unsigned int sector_offset = 0;
 
 struct todo * todo_idr = NULL;
 
-char *rootname = "/";
 char name_buf[256];
 struct stat fstat_buf;
 
@@ -450,19 +449,19 @@ void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
 				td->next = NULL;
 				td->extent = iso_733((unsigned char *)idr->extent);
 				td->length = iso_733((unsigned char *)idr->size);
-				td->name = (char *) malloc(strlen(rootname) + strlen(name_buf) + 2);
-				strcpy(td->name, rootname);
+				td->name = (char *) malloc(strlen(dir_name) + strlen(name_buf) + 2);
+				strcpy(td->name, dir_name);
 				strcat(td->name, name_buf);
 				strcat(td->name, "/");
 			}
 			else
 			{
-				strcpy(testname, rootname);
+				strcpy(testname, dir_name);
 				strcat(testname, name_buf);
 			}
 			if( do_find && (idr->name_len[0] != 1 || (idr->name[0] != 0 && idr->name[0] != 1)))
 			{
-				strcpy(testname, rootname);
+				strcpy(testname, dir_name);
 				strcat(testname, name_buf);
 			}
 			dump_stat(dir_name , iso_733((unsigned char *)idr->extent), archive);

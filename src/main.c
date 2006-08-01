@@ -243,10 +243,6 @@ int main (int argc, char **argv)
 	}
 }
 
-/* TODO: Support to load the configuration of Xarchiver when extract and add will allow set own archiver's options
-g_get_home_dir ()
-*/
-
 void GetAvailableCompressors()
 {
 	absolute_path = g_find_program_in_path("bzip2");
@@ -267,10 +263,7 @@ void GetAvailableCompressors()
 
 	/* In future releases of xarchiver we'll use mkisofs to allow creation of iso images
 	if ( g_find_program_in_path("mkisofs"))
-	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".iso");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
-	}
+		//Allow creation of ISO images
 	*/
 
 	ArchiveType = g_list_prepend ( ArchiveType, ".iso");
