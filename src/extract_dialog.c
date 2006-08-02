@@ -533,44 +533,12 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				if ( command != NULL )
 					return command;
 			}
-			/* Here we take care of the selected files only */
 			else
 			{
-				/* ISO extraction is different from the other type of archives */
-				if (archive->type == XARCHIVETYPE_ISO)
-				{
-					GList *row_list = NULL;
-					selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
-					row_list = gtk_tree_selection_get_selected_rows (selection, &model);
-					while (row_list)
-					{
-						gtk_tree_model_get_iter(model, &iter, row_list->data);
-						gtk_tree_model_get (model, &iter,
-						0, &name,
-						1, &permissions,
-						2, &file_size,
-						4, &file_offset,
-						-1);
-						gtk_tree_path_free (row_list->data);
-
-						xa_extract_single_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
-						g_free (name);
-						g_free (permissions);
-						row_list = row_list->next;
-					}
-					g_list_free (row_list);
-					xa_set_button_state (1,1,0,1,1);
-					OffTooltipPadlock();
-					Update_StatusBar ( _("Operation completed.") );
-				}
-				/* Let's handle the other archive types */
-				else
-				{
-					names = g_string_new ( " " );
-					gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-					command = xa_extract_single_files ( archive , names, extract_path );
-					g_string_free (names, TRUE);
-				}
+				names = g_string_new ( " " );
+				gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+				command = xa_extract_single_files ( archive , names, extract_path );
+				g_string_free (names, TRUE);
 			}
 		}
 	}
@@ -693,6 +661,37 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 									archive->escaped_path , " " , path , files->str, NULL );
 		break;
 		
+		case XARCHIVETYPE_ISO:
+		{
+			GList *row_list = NULL;
+			GtkTreeSelection *selection;
+
+			selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
+			row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+			while (row_list)
+			{
+				gtk_tree_model_get_iter(model, &iter, row_list->data);
+				gtk_tree_model_get (model, &iter,
+				0, &name,
+				1, &permissions,
+				2, &file_size,
+				4, &file_offset,
+				-1);
+				gtk_tree_path_free (row_list->data);
+
+				xa_extract_single_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
+				g_free (name);
+				g_free (permissions);
+				row_list = row_list->next;
+			}
+			g_list_free (row_list);
+			xa_set_button_state (1,1,0,1,1);
+			OffTooltipPadlock();
+			Update_StatusBar ( _("Operation completed.") );
+			command = NULL;
+		}
+		break;
+
 		default:
 		command = NULL;
     }

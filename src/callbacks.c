@@ -578,9 +578,8 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nDeveloper:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\n",NULL};
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver 0.3.9svn code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Troeger\nSalvatore Santagati\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
-	/* const char *translators[] = {"Enrico Troeger\nStavros Giannouris\nPiarres Beobide\nJari Rahkonen\nPierrick Le Brun\nYuval Tanny\nSZERVÑC Attila\nDaichi Kawahata\nStephan Arts\nSzymon Kałasz\nAndrey Fedoseev\nDaniel Nylander\nCosmo Chene", NULL}; */
+    const char *authors[] = {"\nDevelopers:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\nSalvatore Santagati for the ISO support. <salvatore.santagati@gmail.com>\n",NULL};
+    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver development code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Troeger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
 	if (about != NULL)
 	{
 		gtk_window_present (GTK_WINDOW (about));
@@ -1769,7 +1768,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		fm_path = g_realloc (fm_path, fm_path_len + 1);
 		fm_path[fm_path_len] = '\0';
 		no_uri_path = g_filename_from_uri ( (gchar*)fm_path, NULL, NULL );
-		//g_message ("%s - %s",fm_path,no_uri_path);
+		/* g_message ("%s - %s",fm_path,no_uri_path); */
 		g_free ( fm_path );
 		if (no_uri_path == NULL)
 		{
