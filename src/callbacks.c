@@ -29,7 +29,7 @@
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean cli;
-struct iso_primary_descriptor ipd;
+extern gboolean ISO_stop_flag;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -1064,7 +1064,10 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 	}
 	gtk_widget_set_sensitive ( Stop_button , FALSE );
     Update_StatusBar (_("Waiting for the process to abort..."));
-    if ( kill ( archive->child_pid , SIGABRT ) < 0 )
+	
+	if (archive->type == XARCHIVETYPE_ISO)
+		ISO_stop_flag = TRUE;
+	else if ( kill ( archive->child_pid , SIGABRT ) < 0 )
     {
         response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while trying to kill the process:"),g_strerror(errno));
 	    return;
@@ -1073,6 +1076,8 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
     if (archive->status != XA_ARCHIVESTATUS_ADD || archive->status != XA_ARCHIVESTATUS_DELETE)
         if (archive->has_passwd)
 			archive->has_passwd = FALSE;
+	
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )

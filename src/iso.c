@@ -587,13 +587,12 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 
 gboolean xa_create_directory_for_iso_extraction ( XArchive *archive,gchar *path_name )
 {
-
 	if (g_mkdir_with_parents (path_name,0755) != 0)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
 		return FALSE;
 	}
-	return TRUE;	
+	return TRUE;
 }
 
 void OpenISO ( XArchive *archive )

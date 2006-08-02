@@ -24,6 +24,7 @@
 #include "support.h"
 
 gchar *strip_string = NULL;
+gboolean ISO_stop_flag = FALSE;
 
 Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive)
 {
@@ -501,6 +502,8 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					dialog_data->dialog1 = NULL;
 					while (end)
 					{
+						if (ISO_stop_flag)
+							break;
 						gtk_tree_model_get (model, &iter,
 						0, &name,
 						1, &permissions,
