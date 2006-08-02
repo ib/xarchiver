@@ -550,7 +550,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 				gtk_list_store_remove (add_dialog->file_liststore, &iter);
 			}
 			gtk_widget_set_sensitive (Stop_button , TRUE);			
-				xa_set_button_state (0,0,0,0,0);
+			xa_set_button_state (0,0,0,0,0);
 			archive->status = XA_ARCHIVESTATUS_ADD;
 
 			if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)

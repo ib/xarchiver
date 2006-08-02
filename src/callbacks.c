@@ -1859,22 +1859,26 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	g_free (_current_dir);
 	chdir ( current_dir );
 	g_free (current_dir);
+	
 	while (array[len])
 	{
 		filename = g_filename_from_uri ( array[len] , NULL, NULL );
-		if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
+		/*if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
 		{
 			name = g_path_get_basename ( filename );
 			ConcatenateFileNames2 ( name, names );
 			g_free (name);
 		}
-		else
-			ConcatenateFileNames2 ( filename, names );
+		else*/
+		name = g_path_get_basename ( filename );
 		g_free (filename);
+		ConcatenateFileNames2 ( name, names );
+		g_free (name);
 		len++;
 	}
 	archive->status = XA_ARCHIVESTATUS_ADD;
-	archive->full_path = 1;
+	archive->full_path = 0;
+	archive->add_recurse = 1;
 	command = xa_add_single_files ( archive, names, NULL );
 	if (command != NULL)
 	{
