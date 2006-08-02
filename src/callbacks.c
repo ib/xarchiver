@@ -1863,13 +1863,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	while (array[len])
 	{
 		filename = g_filename_from_uri ( array[len] , NULL, NULL );
-		/*if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
-		{
-			name = g_path_get_basename ( filename );
-			ConcatenateFileNames2 ( name, names );
-			g_free (name);
-		}
-		else*/
 		name = g_path_get_basename ( filename );
 		g_free (filename);
 		ConcatenateFileNames2 ( name, names );
@@ -1877,6 +1870,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		len++;
 	}
 	archive->status = XA_ARCHIVESTATUS_ADD;
+	full_path = archive->full_path;
+	add_recurse = archive->add_recurse;
 	archive->full_path = 0;
 	archive->add_recurse = 1;
 	command = xa_add_single_files ( archive, names, NULL );
@@ -1887,6 +1882,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	}
 	g_string_free (names, TRUE);
 	g_strfreev ( array );
+	archive->full_path = full_path;
+	archive->add_recurse = add_recurse;
 }
 
 gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer data)
