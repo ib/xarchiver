@@ -822,15 +822,19 @@ gboolean isISO ( FILE *ptr )
 	{
 		fseek ( ptr , offset_image, SEEK_SET );
 		fread ( &ipd, 1, sizeof(ipd), ptr );
-		ipd.system_id[31] = '\0';
-		ipd.volume_id[31] = '\0';
-		ipd.copyright_file_id[36] = '\0';
-		ipd.abstract_file_id[36] = '\0';
-		ipd.bibliographic_file_id[36] = '\0';
-		ipd.volume_set_id[127] = '\0';
-		ipd.publisher_id[127] = '\0';
-		ipd.preparer_id[127] = '\0';
-		ipd.application_id[127] = '\0';
+		system_id = g_strndup ( ipd.system_id, 30);
+		volume_id = g_strndup ( ipd.volume_id, 30);
+		application_id = g_strndup ( ipd.application_id, 126);
+		publisher_id = g_strndup ( ipd.publisher_id, 126);
+		preparer_id = g_strndup ( ipd.preparer_id, 126);
+
+		creation_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.creation_date[0],&ipd.creation_date[4],&ipd.creation_date[6],&ipd.creation_date[8],&ipd.creation_date[10],&ipd.creation_date[12],&ipd.creation_date[14]);
+		
+		modified_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.modification_date[0],&ipd.modification_date[4],&ipd.modification_date[6],&ipd.modification_date[8],&ipd.modification_date[10],&ipd.modification_date[12],&ipd.modification_date[14]);
+		
+		expiration_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.expiration_date[0],&ipd.expiration_date[4],&ipd.expiration_date[6],&ipd.expiration_date[8],&ipd.expiration_date[10],&ipd.expiration_date[12],&ipd.expiration_date[14]);
+		
+		effective_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.effective_date[0],&ipd.effective_date[4],&ipd.effective_date[6],&ipd.effective_date[8],&ipd.effective_date[10],&ipd.effective_date[12],&ipd.effective_date[14]);
         return TRUE;
 	}
     else
@@ -1303,12 +1307,26 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 	/* Image type */
 	gtk_entry_set_text ( GTK_ENTRY (image_type_entry),archive->tmp);
 	/* System ID */
-	gtk_entry_set_text ( GTK_ENTRY (system_id_entry),ipd.system_id);
+	gtk_entry_set_text ( GTK_ENTRY (system_id_entry),system_id);
 	/* Volume ID */
-	gtk_entry_set_text ( GTK_ENTRY (volume_id_entry),ipd.volume_id);
+	gtk_entry_set_text ( GTK_ENTRY (volume_id_entry),volume_id);
 	/* Application ID */
-	gtk_entry_set_text ( GTK_ENTRY (application_entry),ipd.application_id);
-
+	gtk_entry_set_text ( GTK_ENTRY (application_entry),application_id);
+	/* Publisher ID */
+	gtk_entry_set_text ( GTK_ENTRY (publisher_entry),publisher_id);
+	gtk_widget_show (iso_properties_win);
+	/* Preparer ID */
+	gtk_entry_set_text ( GTK_ENTRY (preparer_entry),preparer_id);
+	gtk_widget_show (iso_properties_win);
+	/* Creation Date */
+	gtk_entry_set_text ( GTK_ENTRY (creation_date_entry),creation_date);
+	/* Modified Date */
+	gtk_entry_set_text ( GTK_ENTRY (modified_date_entry),modified_date);
+	gtk_widget_show (iso_properties_win);
+	/* Expiration Date */
+	gtk_entry_set_text ( GTK_ENTRY (expiration_date_entry),expiration_date);
+	/* Effective Date */
+	gtk_entry_set_text ( GTK_ENTRY (effective_date_entry),effective_date);
 	gtk_widget_show (iso_properties_win);
 }
 

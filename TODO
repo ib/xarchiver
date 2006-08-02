@@ -1,4 +1,3 @@
-- add display of ID's inside the ISO plus image type [PARTIALLY DONE].
 - fix bug #1736.
 - switching by right clicking on the toolbar to icons with text/ no text/ small icons.
 - [MAYBE] create a routine for handling the sensitiveness of the buttons, window title

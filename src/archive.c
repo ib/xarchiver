@@ -102,12 +102,16 @@ void xa_clean_archive_structure ( XArchive *archive)
 	if (archive == NULL)
 		return;
 	if(archive->path)
+	{
 		g_free(archive->path);
-	archive->path = NULL;
+		archive->path = NULL;
+	}
 
 	if(archive->escaped_path)
+	{	
 		g_free(archive->escaped_path);
-	archive->escaped_path = NULL;
+		archive->escaped_path = NULL;
+	}
 		
 	if (archive->tmp != NULL)
 	{
@@ -117,8 +121,64 @@ void xa_clean_archive_structure ( XArchive *archive)
 	}
 
 	if (archive->passwd != NULL)
+	{
 		g_free (archive->passwd);
-	archive->passwd = NULL;
-		
+		archive->passwd = NULL;
+	}
+
+	if (system_id != NULL)
+	{
+		g_free (system_id);
+		system_id = NULL;
+	}
+
+	if (volume_id != NULL)
+	{
+		g_free (volume_id);
+		volume_id = NULL;
+	}
+
+	if (publisher_id != NULL)
+	{
+		g_free (publisher_id);
+		publisher_id = NULL;
+	}
+
+	if (preparer_id != NULL)
+	{
+		g_free (preparer_id);
+		preparer_id = NULL;
+	}
+
+	if (application_id != NULL)
+	{
+		g_free (application_id);
+		application_id = NULL;
+	}
+
+	if (creation_date != NULL)
+	{
+		g_free (creation_date);
+		creation_date = NULL;
+	}
+
+	if (modified_date != NULL)
+	{
+		g_free (modified_date);
+		modified_date = NULL;
+	}
+
+	if (expiration_date != NULL)
+	{
+		g_free (expiration_date);
+		expiration_date = NULL;
+	}
+
+	if (effective_date != NULL)
+	{
+		g_free (effective_date);
+		effective_date = NULL;
+	}
+
 	g_free (archive);
 }

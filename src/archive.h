@@ -78,6 +78,7 @@ struct _XArchive
 
 unsigned short int x;
 gint input_fd, output_fd, error_fd;
+gchar *system_id,*volume_id,*publisher_id,*preparer_id,*application_id,*creation_date,*modified_date,*expiration_date,*effective_date;
 void SpawnAsyncProcess (XArchive *archive, gchar *command , gboolean input, gboolean output_flag);
 XArchive *xa_init_archive_structure ();
 void xa_clean_archive_structure (XArchive *archive);
