@@ -1,7 +1,7 @@
-+ iso
-  - add display of ID's inside the ISO plus image type [PARTIALLY DONE].
-
+- add display of ID's inside the ISO plus image type [PARTIALLY DONE].
 - fix bug #1736.
 - switching by right clicking on the toolbar to icons with text/ no text/ small icons.
-- create a routine for handling the sensitiveness of the buttons, window title [MAYBE ??]
+- [MAYBE] create a routine for handling the sensitiveness of the buttons, window title
 - add a small progress window when using Xarchiver cmd-line switches.
+- redesign the new dialog.
+- better handling of supported archive types.

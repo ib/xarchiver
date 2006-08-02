@@ -178,34 +178,34 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	FILE *stream = data;
 	gchar buffer[65536];
 	gsize bytes_read;
-  GIOStatus status;
+	GIOStatus status;
 	GError *error = NULL;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-    do
-    {
-		  status = g_io_channel_read_chars (ioc, buffer, sizeof(buffer), &bytes_read, &error);
-      if (bytes_read > 0)
-      {
-		    //Write the content of the bzip/gzip extracted file to the file pointed by the file stream
-		    fwrite (buffer, 1, bytes_read, stream);
-      }
-      else if (error != NULL)
-      {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("An error occurred:"),error->message);
-        g_error_free (error);
-        return FALSE;
-      }
-    }
-    while (status == G_IO_STATUS_NORMAL);
+		do
+	    {
+			status = g_io_channel_read_chars (ioc, buffer, sizeof(buffer), &bytes_read, &error);
+			if (bytes_read > 0)
+			{
+				//Write the content of the bzip/gzip extracted file to the file pointed by the file stream
+				fwrite (buffer, 1, bytes_read, stream);
+			}
+			else if (error != NULL)
+			{
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("An error occurred:"),error->message);
+			g_error_free (error);
+			return FALSE;
+			}
+		}
+		while (status == G_IO_STATUS_NORMAL);
 
-    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-      goto done;
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+		goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
-done:
+		done:
 		fclose ( stream );
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
@@ -387,15 +387,15 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 
 void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
 {
-    stream = fopen ( archive->path , "w" );
+	stream = fopen ( archive->path , "w" );
 	if ( stream == NULL )
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't decompress the archive:"),g_strerror(errno));
-        done = FALSE;
-        return;					
+		done = FALSE;
+		return;					
 	}
-    gtk_widget_show ( viewport2 );
-    gchar *command = g_strconcat ( flag ? "gzip -c " : "bzip2 -c " , filename , NULL );
+	gtk_widget_show ( viewport2 );
+	gchar *command = g_strconcat ( flag ? "gzip -c " : "bzip2 -c " , filename , NULL );
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
@@ -403,9 +403,9 @@ void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
 		return;
 
 	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-    g_io_channel_set_encoding (ioc, NULL , NULL);
+	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-    g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
+	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
 	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 }
 

@@ -193,7 +193,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			}
 		}
 	}
-	if (archive->status != XA_ARCHIVESTATUS_EXTRACT || cli == FALSE)
+
+	if ( archive->status != XA_ARCHIVESTATUS_EXTRACT && archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
 	{
 		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
 		g_object_unref (model);
@@ -1888,6 +1889,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	g_strfreev ( array );
 	archive->full_path = full_path;
 	archive->add_recurse = add_recurse;
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer data)
