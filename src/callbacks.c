@@ -1866,8 +1866,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 			return;
 		}
     }
-			
-	if ( archive == NULL )
+
+	if ( archive->nr_of_files == 0 && archive->nr_of_dirs == 0)
 		xa_new_archive ( NULL , NULL );
 	if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
 	{
