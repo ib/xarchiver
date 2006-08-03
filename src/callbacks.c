@@ -859,7 +859,7 @@ int DetectArchiveType ( gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
-	unsigned char magic[6];
+	unsigned char magic[12];
 	dummy_ptr = fopen ( filename , "r" );
 	
 	if (dummy_ptr == NULL)
@@ -873,7 +873,7 @@ int DetectArchiveType ( gchar *filename )
 		g_free (utf8_path);
 		return -2;
 	 }
-	if ( fread ( magic, 1, 6, dummy_ptr ) == 0 )
+	if ( fread ( magic, 1, 12, dummy_ptr ) == 0 )
 	{
 		fclose ( dummy_ptr);
 		return -2;
@@ -896,6 +896,7 @@ int DetectArchiveType ( gchar *filename )
     else if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 ) xx = XARCHIVETYPE_7ZIP;
     else if ( isTar ( dummy_ptr ) ) xx = XARCHIVETYPE_TAR;
     else if ( isISO ( dummy_ptr ) ) xx = XARCHIVETYPE_ISO;
+	else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
 	fclose ( dummy_ptr );
 	return xx;
 }
