@@ -168,7 +168,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 			gtk_widget_set_sensitive (add_dialog->recurse, FALSE);
 		gtk_widget_show (add_dialog->recurse);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->recurse, FALSE, FALSE, 0);
-		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->recurse , _("Travel the directory structure recursively starting at the current directory."), NULL);
+		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->recurse , _("Include everything in the directory recursively starting from the current directory."), NULL);
 		
 		if ( (archive->type == XARCHIVETYPE_RAR) || (archive->type == XARCHIVETYPE_7ZIP && archive->nr_of_files == 0 && archive->nr_of_dirs == 0))
 		{
