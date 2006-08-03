@@ -20,7 +20,7 @@
 #include "main.h"
 
 extern gchar *extract_path;
-
+gint exit_status;
 gchar *cli_command = NULL;
 gchar *archive_name;
 gchar *absolute_path = NULL;
@@ -214,7 +214,7 @@ int main (int argc, char **argv)
 		g_list_free ( ArchiveType);
 		if (archive != NULL)
 			xa_clean_archive_structure ( archive );
-		return 0;
+		return exit_status;
 	}
 	else
 	{
@@ -349,7 +349,6 @@ gboolean SpawnSyncCommand ( gchar *command )
     GError *error = NULL;
     gchar *std_out;
     gchar *std_err;
-    gint exit_status;
 	gchar **argv;
 	int argcp;
     
