@@ -553,8 +553,6 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			xa_set_button_state (0,0,0,0,0);
 			archive->status = XA_ARCHIVESTATUS_ADD;
 
-			if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
-				Update_StatusBar ( _("Adding files to the archive, please wait..."));
 			command = xa_add_single_files ( archive, names, compression_string);
 			g_string_free ( names, TRUE);
 			if (compression_string != NULL)
@@ -572,7 +570,10 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 	tar = g_find_program_in_path ("gtar");
 	if (tar == NULL)
 		tar = g_strdup ("tar");
-
+	
+	if (archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
+		Update_StatusBar ( _("Adding files to the archive, please wait..."));
+	
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_BZIP2:

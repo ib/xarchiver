@@ -224,7 +224,7 @@ void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , g
 	tmp = OpenTempFile ( dummy , NULL );
 	if ( tmp == NULL )
 		return;
-
+	gtk_widget_set_sensitive (Stop_button, TRUE);
 	msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
 	Update_StatusBar ( msg );
 	g_free (msg);
@@ -359,6 +359,7 @@ void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
 		g_free (tmp);
 		return;
 	}
+	gtk_widget_set_sensitive (Stop_button, TRUE);
 	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
