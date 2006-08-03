@@ -1180,7 +1180,6 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 
 		archive->parse_output = 0;
 		command = xa_extract_single_files ( archive , names, "/tmp");
-	
 		SpawnAsyncProcess ( archive , command , 0, 0);
 		g_free ( command );
 		g_string_free (names,TRUE);
@@ -1247,7 +1246,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 	}
 	else
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"An error occurred while extracting the file to be viewed!",error->message);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"An error occurred while extracting the file to be viewed:",error->message);
 		g_error_free (error);
 		return NULL;
 	}
@@ -1868,7 +1867,11 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
     }
 
 	if ( archive->nr_of_files == 0 && archive->nr_of_dirs == 0)
+	{
 		xa_new_archive ( NULL , NULL );
+		if (archive->path == NULL)
+			return;
+	}
 	if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file!"),_("Please choose another archive format!") );
