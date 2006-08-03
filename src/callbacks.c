@@ -1907,7 +1907,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	g_strfreev ( array );
 	archive->full_path = full_path;
 	archive->add_recurse = add_recurse;
-	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer data)
