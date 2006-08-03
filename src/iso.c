@@ -482,9 +482,17 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 	if (strstr (permission , "d") )
 	{
 		final_path = g_strconcat (destination_path, _filename,NULL);
-		xa_create_directory_for_iso_extraction ( archive , final_path );
-		g_free (final_path);
-		return TRUE;
+		if (xa_create_directory_with_parents ( final_path, 0755 ) < 0)
+		{
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
+			g_free (final_path);
+			return TRUE;
+		}
+		else
+		{
+			g_free (final_path);
+			return FALSE;
+		}
 	}
 	if (archive->full_path == 0)
 	{
@@ -500,8 +508,9 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 			multiple_directories = remove_level_from_path ( _filename );
 			final_path = g_strconcat (destination_path, multiple_directories,NULL);
 			g_free (multiple_directories);
-			if ( ! xa_create_directory_for_iso_extraction ( archive , final_path ))
+			if ( xa_create_directory_with_parents ( final_path , 0755 ) < 0)
 			{
+				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
 				g_free (final_path);
 				return FALSE;
 			}
@@ -531,8 +540,9 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *desti
 		{
 			if ( g_file_test ( filename , G_FILE_TEST_EXISTS) == FALSE )
 			{
-				if ( ! xa_create_directory_for_iso_extraction (archive,filename) )
+				if ( xa_create_directory_with_parents (filename, 0755) < 0 )
 				{
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
 					g_free (filename);
 					return FALSE;
 				}
@@ -585,14 +595,65 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 	return TRUE;
 }
 
-gboolean xa_create_directory_for_iso_extraction ( XArchive *archive,gchar *path_name )
+int xa_create_directory_with_parents (const gchar * pathname, int mode)
 {
-	if (g_mkdir_with_parents (path_name,0755) != 0)
+	if (glib_check_version (2, 8, 0) == NULL)
+		return g_mkdir_with_parents (pathname, mode);
+	else
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
-		return FALSE;
+		gchar *fn, *p;
+
+		if (pathname == NULL || *pathname == '\0')
+		{
+			errno = EINVAL;
+			return -1;
+		}
+
+		fn = g_strdup (pathname);
+
+		if (g_path_is_absolute (fn))
+			p = (gchar *) g_path_skip_root (fn);
+		else
+			p = fn;
+
+		do
+		{
+			while (*p && !G_IS_DIR_SEPARATOR (*p))
+				p++;
+
+			if (!*p)
+				p = NULL;
+			else
+				*p = '\0';
+
+			if (!g_file_test (fn, G_FILE_TEST_EXISTS))
+			{
+				if (g_mkdir (fn, mode) == -1)
+				{
+					int errno_save = errno;
+					g_free (fn);
+					errno = errno_save;
+					return -1;
+				}
+			}
+			else if (!g_file_test (fn, G_FILE_TEST_IS_DIR))
+			{
+				g_free (fn);
+				errno = ENOTDIR;
+				return -1;
+			}
+			if (p)
+			{
+				*p++ = G_DIR_SEPARATOR;
+				while (*p && G_IS_DIR_SEPARATOR (*p))
+				p++;
+			}
+		}
+		while (p);
+
+		g_free (fn);
+		return 0;
 	}
-	return TRUE;
 }
 
 void OpenISO ( XArchive *archive )
