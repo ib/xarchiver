@@ -1868,7 +1868,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 
 	if ( archive->nr_of_files == 0 && archive->nr_of_dirs == 0)
 	{
-		xa_new_archive ( NULL , NULL );
+		xa_new_archive ( NULL , filename );
 		if (archive->path == NULL)
 			return;
 	}
