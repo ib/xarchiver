@@ -597,9 +597,9 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 
 int xa_create_directory_with_parents (const gchar * pathname, int mode)
 {
-	if (glib_check_version (2, 8, 0) == NULL)
+	#if GLIB_CHECK_VERSION (2, 8, 0)
 		return g_mkdir_with_parents (pathname, mode);
-	else
+	#else
 	{
 		gchar *fn, *p;
 
@@ -654,6 +654,7 @@ int xa_create_directory_with_parents (const gchar * pathname, int mode)
 		g_free (fn);
 		return 0;
 	}
+	#endif
 }
 
 void OpenISO ( XArchive *archive )

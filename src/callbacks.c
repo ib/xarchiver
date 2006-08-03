@@ -1249,6 +1249,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"An error occurred while extracting the file to be viewed:",error->message);
 		g_error_free (error);
+		Update_StatusBar ( _("Operation failed."));
 		return NULL;
 	}
 	unlink ( filename );
