@@ -917,6 +917,8 @@ gboolean DetectPasswordProtectedArchive ( int type , FILE *stream , unsigned cha
 	unsigned int extended_header_CRC;
 	unsigned char arj_flag;
 
+	fseek ( stream, 0 , SEEK_SET );
+	fseek ( stream, 6 , SEEK_SET );
 	if ( type == XARCHIVETYPE_ZIP )
 	{
 		while ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0  || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
@@ -1160,6 +1162,12 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	archive->full_path = 0;
 	archive->overwrite = 1;
 	
+	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
+	dir = EscapeBadChars ( dummy_name , 1 );
+	names = g_string_new (" ");
+	g_string_append ( names , dir );
+	archive->parse_output = 0;
+
 	if (archive->type == XARCHIVETYPE_ISO)
 	{
 		gtk_tree_model_get (model, &iter,
@@ -1172,25 +1180,31 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 		ViewFileFromArchive (archive->child_pid , 0 , name);
 		g_free (permissions);
 	}
-	else
+	else if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
 	{
-		gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
-		dir = EscapeBadChars ( dummy_name , 1 );
-		names = g_string_new (" ");
-		g_string_append ( names , dir );
-
-		archive->parse_output = 0;
-		command = xa_extract_single_files ( archive , names, "/tmp");
-		SpawnAsyncProcess ( archive , command , 0, 0);
-		g_free ( command );
-		g_string_free (names,TRUE);
-
-		if ( archive->child_pid == 0 )
-			return;
-		g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , dummy_name );
+		gchar *option = NULL;
+		gchar *digit;
+		digit = g_strdup_printf ("%d", CountCharacter (names->str , '/') );
+		if (archive->type == XARCHIVETYPE_TAR)
+			option = " -xvf ";
+		else if (archive->type == XARCHIVETYPE_TAR_BZ2)
+			option = " -xvjf ";
+		else if (archive->type == XARCHIVETYPE_TAR_GZ)
+			option = " -xvzf ";
+		command = g_strconcat ("tar --strip-components=",digit,option,archive->escaped_path," -C /tmp",names->str,NULL);
+		g_free (digit);
 	}
-		archive->full_path = full_path;
-		archive->overwrite = overwrite;
+	else
+		command = xa_extract_single_files ( archive , names, "/tmp");
+	SpawnAsyncProcess ( archive , command , 0, 0);
+	g_free (command);
+	if ( archive->child_pid == 0 )
+		return;
+
+	g_string_free (names,TRUE);
+	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , dummy_name );
+	archive->full_path = full_path;
+	archive->overwrite = overwrite;
 }
 
 GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
@@ -1563,7 +1577,7 @@ void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *
 	g_free (name);
 }
 
-void xa_run_command ( gchar *command , gboolean watch_child_flag )
+gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 {
 	int status;
 	gboolean waiting = TRUE;
@@ -1573,7 +1587,7 @@ void xa_run_command ( gchar *command , gboolean watch_child_flag )
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
-		return;
+		return FALSE;
 	gtk_widget_show ( viewport2 );
 	
 	while (waiting)
@@ -1587,6 +1601,7 @@ void xa_run_command ( gchar *command , gboolean watch_child_flag )
 	}
 	if (watch_child_flag)
 		xa_watch_child (archive->child_pid, status, archive);
+	return TRUE;
 }
 
 void Update_StatusBar ( gchar *msg)
@@ -1800,7 +1815,6 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		gtk_tree_model_get (model, &iter, 0, &name, -1);
 
 		extract_path = extract_local_path ( no_uri_path , name );
-		archive->tar_strip_value = CountCharacter ( name, '/' );
 		g_free (name);
 		g_free ( no_uri_path );
 		if (extract_path != NULL)

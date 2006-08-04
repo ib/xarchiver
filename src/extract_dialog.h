@@ -49,8 +49,6 @@ typedef struct
 	GtkWidget *touch;
 	GtkWidget *fresh;
 	GtkWidget *update;
-	GtkWidget *strip;
-	GtkWidget *strip_entry;
 	GtkWidget *hbox5;
 	GtkWidget *hbox6;
 	GtkWidget *label_password;
@@ -68,9 +66,8 @@ typedef struct
 Extract_dialog_data *xa_create_extract_dialog (gint selected ,XArchive *archive);
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
-void show_hide_strip_entry (GtkToggleButton *button, Extract_dialog_data *data);
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path);
-
+gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path, gboolean overwrite, gboolean tar_touch, gchar *extract_path );
 #endif
 
