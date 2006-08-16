@@ -25,6 +25,7 @@ gchar *cli_command = NULL;
 gchar *archive_name;
 gchar *absolute_path = NULL;
 gchar *_current_dir = NULL;
+gchar *extract_path = NULL;
 GError *cli_error = NULL;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add, new_archive;
 gboolean cli = FALSE;
@@ -135,8 +136,6 @@ int main (int argc, char **argv)
 		/* Switch -d */
 		else if (archive_name != NULL)
 		{
-			gchar *name = NULL;
-
 			archive = xa_init_structure_from_cmd_line ( archive_name );
 			if (archive != NULL && argv[1] != NULL)
 			{
@@ -365,7 +364,7 @@ gboolean SpawnSyncCommand ( gchar *command )
 		&exit_status,
 		&error) )
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the command!"),error->message);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
 		g_error_free (error);
 		g_strfreev ( argv );
         return FALSE;
@@ -373,7 +372,10 @@ gboolean SpawnSyncCommand ( gchar *command )
     if ( WIFEXITED (exit_status) )
 	{
 	    if ( WEXITSTATUS (exit_status) )
+		{
 			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err );
+			return FALSE;
+		}
 	}
 	g_strfreev ( argv );
     return TRUE;

@@ -634,7 +634,7 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 
 		case XARCHIVETYPE_TAR_BZ2:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			DecompressBzipGzip ( names , archive, 0 , 1 );
+			xa_add_delete_tar_bzip2_gzip ( names , archive, 0 , 1 );
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
@@ -645,7 +645,7 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 
 		case XARCHIVETYPE_TAR_GZ:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			DecompressBzipGzip ( names , archive, 1 , 1 );
+			xa_add_delete_tar_bzip2_gzip ( names , archive, 1 , 1 );
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",

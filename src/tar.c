@@ -45,9 +45,9 @@ void OpenTar ( XArchive *archive )
 	if (archive->child_pid == 0)
 		return;
 
-	char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 6, names , (GType *)types );
+	char *names[]= {(_("Filename")),(_("Soft Link")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+	xa_create_liststore ( 7, names , (GType *)types );
 }
 
 gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -55,13 +55,15 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	XArchive *archive = data;
 	gchar *line	= NULL;
 	GValue *filename    = NULL;
+	GValue *symlink     = NULL;
 	GValue *permissions = NULL;
 	GValue *owner       = NULL;
 	GValue *size        = NULL;
 	GValue *date        = NULL;
 	GValue *time        = NULL;
-  GIOStatus status = G_IO_STATUS_NORMAL;
+	GIOStatus status = G_IO_STATUS_NORMAL;
 	gchar *_size		= NULL;
+	gchar *temp_filename = NULL;
 	unsigned short int a = 0, n = 0;
 	
 	if (cond & (G_IO_IN | G_IO_PRI) )
@@ -73,6 +75,7 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
         break;
 
       filename    = g_new0(GValue, 1);
+	  symlink     = g_new0(GValue, 1);
       permissions = g_new0(GValue, 1);
       owner       = g_new0(GValue, 1);
       size        = g_new0(GValue, 1);
@@ -106,36 +109,51 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
       date = g_value_init(date, G_TYPE_STRING);
       g_value_set_string ( date, g_strndup (&line[n-10], 10) );
 
-      a = n++;
-      for(; n < strlen(line); n++) // TIME
-      if(line[n] == ' ') break;
-      time = g_value_init(time, G_TYPE_STRING);
-      g_value_set_string ( time, g_strndup (&line[n-8], 8) );
+      	a = n++;
+		for (; n < strlen(line); n++) // TIME
+		if (line[n] == ' ') break;
+		time = g_value_init(time, G_TYPE_STRING);
+		g_value_set_string ( time, g_strndup (&line[n-8], 8) );
 
-      filename = g_value_init(filename, G_TYPE_STRING);
-      g_value_set_string(filename, g_strstrip(g_strndup(&line[n], strlen(line)-n-1)));
+		symlink  = g_value_init(symlink, G_TYPE_STRING);
+		filename = g_value_init(filename, G_TYPE_STRING);
+		
+		gchar *temp = g_strrstr (&line[n],"->");
+		if (temp )
+		{
+			temp_filename = g_strstrip(g_strndup(&line[n], strlen(line) - strlen(temp) - n ));
+			g_value_set_string (symlink, g_strstrip(g_strndup (&temp[3] , strlen(temp))) );
+		}
+		else
+		{
+			temp_filename = g_strstrip(g_strndup(&line[n], strlen(line)-n-1));
+			g_value_set_string (symlink, g_strdup(" ") );
+		}
 
-      archive->row = g_list_prepend(archive->row, filename);
-      archive->row = g_list_prepend(archive->row, permissions);
-      archive->row = g_list_prepend(archive->row, owner);
-      archive->row = g_list_prepend(archive->row, size);
-      archive->row = g_list_prepend(archive->row, date);
-      archive->row = g_list_prepend(archive->row, time);
+		g_value_set_string(filename, temp_filename );
 
-      archive->dummy_size += g_value_get_uint64 (size);
-      if ( strstr (g_value_get_string (permissions) , "d") == NULL )
-        archive->nr_of_files++;
-      else
-        archive->nr_of_dirs++;
-      g_free(line);
-      archive->row_cnt++;
-      if (archive->row_cnt > 99)
-      {
-        xa_append_rows ( archive , 6 );
-        archive->row_cnt = 0;
-      }
-    }
-    while (status == G_IO_STATUS_NORMAL);
+		archive->row = g_list_prepend(archive->row, filename);
+		archive->row = g_list_prepend(archive->row, symlink);
+		archive->row = g_list_prepend(archive->row, permissions);
+		archive->row = g_list_prepend(archive->row, owner);
+		archive->row = g_list_prepend(archive->row, size);
+		archive->row = g_list_prepend(archive->row, date);
+		archive->row = g_list_prepend(archive->row, time);
+
+		archive->dummy_size += g_value_get_uint64 (size);
+		if ( strstr (g_value_get_string (permissions) , "d") == NULL )
+			archive->nr_of_files++;
+		else
+			archive->nr_of_dirs++;
+		g_free(line);
+		archive->row_cnt++;
+		if (archive->row_cnt > 99)
+	      {
+		    xa_append_rows ( archive , 7 );
+			archive->row_cnt = 0;
+	      }
+		}
+		while (status == G_IO_STATUS_NORMAL);
 
     if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
       goto done;
@@ -145,7 +163,7 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 done:
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		xa_append_rows ( archive , 6 );
+		xa_append_rows ( archive , 7 );
 		return FALSE;
 	}
 	return TRUE;

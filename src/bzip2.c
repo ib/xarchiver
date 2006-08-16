@@ -28,7 +28,8 @@ extern gboolean cli;
 FILE *stream = NULL;
 gchar *tmp = NULL;
 int fd;
-gboolean type,error_output;
+int l;
+gboolean error_output,result;
 
 void OpenBzip2 ( XArchive *archive )
 {
@@ -56,9 +57,9 @@ void OpenBzip2 ( XArchive *archive )
 		if ( archive->child_pid == 0 )
 			return;
 
-		char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-		xa_create_liststore ( 6, names , (GType *)types );
+		char *names[]= {(_("Filename")),(_("Soft Link")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+		xa_create_liststore ( 7, names , (GType *)types );
         archive->type = XARCHIVETYPE_TAR_BZ2;
     }
     else
@@ -72,7 +73,7 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 {
     gchar *text;
 	gchar *command = NULL;
-    extract_window = xa_create_extract_dialog ( 0 , archive);
+	extract_window = xa_create_extract_dialog ( 0 , archive);
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
 	done = FALSE;
 	while ( ! done )
@@ -85,8 +86,8 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 			break;
 			
 			case GTK_RESPONSE_OK:
-			extract_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
-			if ( strlen ( extract_path ) > 0 )
+			archive->extraction_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
+			if ( strlen ( archive->extraction_path ) > 0 )
 			{
 				done = TRUE;
 				archive->parse_output = 0;
@@ -98,13 +99,13 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 					return;
 				}
 				if (flag)
-					text = g_strdup_printf(_("Extracting gzip file to %s"), extract_path);
+					text = g_strdup_printf(_("Extracting gzip file to %s"), archive->extraction_path);
 				else
-					text = g_strdup_printf(_("Extracting bzip2 file to %s"), extract_path);
+					text = g_strdup_printf(_("Extracting bzip2 file to %s"), archive->extraction_path);
 				Update_StatusBar ( text );
 				g_free (text);
 
-				stream = fopen ( extract_path , "w" );
+				stream = fopen ( archive->extraction_path , "w" );
 				if ( stream == NULL )
 				{
 					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write file:"),g_strerror(errno));
@@ -155,7 +156,6 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
 	else
 		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , temp_path , NULL );
-	//g_print ("1) %s > %s\n",command,tmp);
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );
@@ -173,6 +173,103 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 	return tmp;
 }
 
+void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
+{
+	gchar *command, *msg, *tar,*temp_name;
+	gtk_widget_show (viewport2);
+	msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
+	Update_StatusBar ( msg );
+	g_free (msg);
+	command = g_strconcat (dummy ? "gzip " : "bzip2 ", "-f -d ",archive->escaped_path,NULL);
+	result = xa_run_command (command , 0);
+	g_free (command);
+	if (result == 0)
+		return;
+
+	tar = g_find_program_in_path ("gtar");
+	if (tar == NULL)
+		tar = g_strdup ("tar");
+	temp_name = g_strdup (archive->escaped_path);
+	l = strlen (temp_name);
+	
+	if (file_extension_is (archive->escaped_path,".tar.bz2") )
+		temp_name[l - 4] = 0;
+	else if (file_extension_is (archive->escaped_path,".tbz2") )
+	{
+		temp_name[l - 3] = 'a';
+		temp_name[l - 2] = 'r';
+		temp_name[l - 1] = 0;
+	}
+	else if (file_extension_is (archive->escaped_path,".tar.gz") )
+		temp_name[l - 3] = 0;
+
+	else if (file_extension_is (archive->escaped_path,".tgz") || file_extension_is (archive->escaped_path, ".tbz") )
+	{
+		temp_name[l - 2] = 'a';
+		temp_name[l - 1] = 'r';
+	}
+
+	if ( add )
+		command = g_strconcat (tar, " ",
+							archive->add_recurse ? "" : "--no-recursion ",
+							archive->remove_files ? "--remove-files " : "",
+							archive->update ? "-uvvf " : "-rvvf ",
+							temp_name,
+							list->str , NULL );
+	else
+		command = g_strconcat (tar, " --delete -f " , temp_name , list->str , NULL );
+	
+	result = xa_run_command (command , 0);
+	g_free (command);
+	g_free (tar);
+	if (result == 0)
+		return;
+
+	msg = g_strdup_printf(_("Recompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
+	Update_StatusBar ( msg );
+	g_free (msg);
+	
+	command = g_strconcat ( dummy ? "gzip " : "bzip2 ", "-f" , temp_name , NULL );
+	result = xa_run_command (command , 1);
+	g_free (command);
+	g_free (temp_name);
+	if (result == 0)
+		return;
+}
+
+void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
+{
+	gchar *command = NULL;
+	gtk_widget_show ( viewport2 );
+	command = g_strconcat ( flag ? "gzip -f " : "bzip2 -zk " , filename , NULL );
+	if ( ! cli)
+	{
+		result = xa_run_command (command , 0);
+		g_free (command);
+		if ( result == 0 )
+			return;
+	}
+	else
+	{
+		error_output = SpawnSyncCommand ( command );
+		g_free (command);
+		if (error_output == FALSE)
+			return;
+	}
+
+	command = g_strconcat ( "mv -f " , filename , flag ? ".gz" : ".bz2 ", " " , archive->escaped_path , NULL );
+	if (! cli)
+	{
+		result = xa_run_command (command , 1);
+		g_free (command);
+	}
+	else
+	{
+		error_output = SpawnSyncCommand ( command );
+		g_free (command);
+	}
+}
+
 gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	FILE *stream = data;
@@ -188,7 +285,7 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 			status = g_io_channel_read_chars (ioc, buffer, sizeof(buffer), &bytes_read, &error);
 			if (bytes_read > 0)
 			{
-				//Write the content of the bzip/gzip extracted file to the file pointed by the file stream
+				/* Write the content of the bzip/gzip extracted file to the file pointed by the file stream */
 				fwrite (buffer, 1, bytes_read, stream);
 			}
 			else if (error != NULL)
@@ -214,199 +311,17 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	return TRUE;
 }
 
-void DecompressBzipGzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
+/* Taken from fileroller */
+gboolean file_extension_is (const char *filename, const char *ext)
 {
-	gchar *command, *msg, *tar;
-	int status;
-	gboolean waiting = TRUE;
-	int ps;
-	
-	tmp = OpenTempFile ( dummy , NULL );
-	if ( tmp == NULL )
-		return;
-	gtk_widget_set_sensitive (Stop_button, TRUE);
-	msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
-	Update_StatusBar ( msg );
-	g_free (msg);
-	gtk_widget_show (viewport2);
+	int filename_l, ext_l;
 
-	while (waiting)
-	{
-		ps = waitpid ( archive->child_pid, &status, WNOHANG);
-		if (ps < 0)
-			waiting = FALSE;
-		else
-			while (gtk_events_pending())
-				gtk_main_iteration();
-	}
-	if ( WIFEXITED(status) )
-	{
-		if ( WEXITSTATUS (status) )
-		{
-			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the archive!"),("Do you want to open the error messages window?") );
-			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL);
-			unlink ( tmp );
-			g_free (tmp);
-			OffTooltipPadlock();
-			Update_StatusBar ( _("Operation failed."));
-			return;
-		}
-	}
-	tar = g_find_program_in_path ("gtar");
-	if (tar == NULL)
-		tar = g_strdup ("tar");
+	filename_l = strlen (filename);
+	ext_l = strlen (ext);
 
-	if ( add )
-	{
-		command = g_strconcat (tar, " ",
-							archive->add_recurse ? "" : "--no-recursion ",
-							archive->remove_files ? "--remove-files " : "",
-							archive->update ? "-uvvf " : "-rvvf ",
-							tmp,
-							list->str , NULL );
-	}
-	else
-		command = g_strconcat (tar, " --delete -f " , tmp , list->str , NULL );
-	waiting = TRUE;
-	archive->parse_output = 0;
-
-	SpawnAsyncProcess ( archive , command , 0, 0);
-
-	g_free (command);
-	g_free (tar);
-
-	if ( archive->child_pid == 0 )
-	{
-		unlink ( tmp );
-		g_free (tmp);
-		return;
-	}
-	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-	g_io_channel_set_encoding (ioc, locale , NULL);
-	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-	while (waiting)
-	{
-		ps = waitpid ( archive->child_pid, &status, WNOHANG);
-		if (ps < 0)
-			waiting = FALSE;
-		else
-		{
-			while (gtk_events_pending())
-				gtk_main_iteration();
-		}
-	}
-	if ( WIFEXITED(status) )
-	{
-		if ( WEXITSTATUS (status) )
-		{
-			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO, add ? _("An error occurred while adding to the tar archive!") : _("An error occurred while deleting from the tar archive!"),_("Do you want to open the error messages window?") );
-			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL);
-            unlink ( tmp );
-            g_free (tmp);
-            OffTooltipPadlock();
-			Update_StatusBar ( _("Operation failed."));
-            return;
-        }
-    }
-	msg = g_strdup_printf(_("Recompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
-	Update_StatusBar ( msg );
-	g_free (msg);
-    RecompressArchive ( archive , status , dummy );
+    if (filename_l < ext_l)
+		return FALSE;
+    return strcasecmp (filename + filename_l - ext_l, ext) == 0;
 }
-
-void RecompressArchive (XArchive *archive , gint status , gboolean dummy)
-{
-	gboolean waiting = TRUE;
-	int ps;
-
-    if ( WIFEXITED(status) )
-	{
-		if ( WEXITSTATUS (status) )
-		{
-			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW
-			(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while recompressing the tar archive!"),_("Do you want to open the error messages window?") );
-			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL);
-			unlink ( tmp );
-            g_free (tmp);
-            OffTooltipPadlock();
-			Update_StatusBar ( _("Operation failed."));
-            return;
-		}
-	}
-	//Recompress the temp archive in the original archive overwriting it
-	stream = fopen ( archive->path , "w" ) ;
-	if ( stream == NULL)
-	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't recompress the archive:"),g_strerror(errno) );
-		unlink ( tmp );
-		g_free (tmp);
-		return;
-	}
-	gchar *command = g_strconcat ( dummy ? "gzip -c " : "bzip2 -kc " , tmp , NULL );
-	//g_print ("3) %s > %s\n",command,archive->escaped_path);
-	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0, 0);
-	g_free ( command );
-	if ( archive->child_pid == 0 )
-	{
-		unlink ( tmp );
-		g_free (tmp);
-		return;
-	}
-	gtk_widget_set_sensitive (Stop_button, TRUE);
-	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-	g_io_channel_set_encoding (ioc, NULL , NULL);
-	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
-
-	archive->tmp = tmp;
-
-	if (cli)
-	{
-		while (waiting)
-		{
-			ps = waitpid ( archive->child_pid, &status, WNOHANG);
-			if (ps < 0)
-				waiting = FALSE;
-			else
-			{
-				while (gtk_events_pending())
-					gtk_main_iteration();
-			}
-		}
-		xa_watch_child ( archive->child_pid, status, archive);
-	}
-	else
-		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
-}
-
-void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
-{
-	stream = fopen ( archive->path , "w" );
-	if ( stream == NULL )
-	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't decompress the archive:"),g_strerror(errno));
-		done = FALSE;
-		return;					
-	}
-	gtk_widget_show ( viewport2 );
-	gchar *command = g_strconcat ( flag ? "gzip -c " : "bzip2 -c " , filename , NULL );
-	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0, 0);
-	g_free ( command );
-	if ( archive->child_pid == 0 )
-		return;
-
-	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-	g_io_channel_set_encoding (ioc, NULL , NULL);
-	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream );
-	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
-}
+/* End code from fileroller */
 

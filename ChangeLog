@@ -1,6 +1,7 @@
 Xarchiver changelog:
 
 xx/06/06 - 0.4:
+		- Added soft link column in tar/tar.bz2/tar.gz archives.
 		- Increased speed ! Xarchiver is faster than ever when opening archives.
 		- The GUI looks neat and clean respect to the 0.3.3 release.
 		- Added a brand extract and add dialog supporting most of the archiver command line options.

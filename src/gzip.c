@@ -50,9 +50,9 @@ void OpenGzip ( XArchive *archive )
 		if ( archive->child_pid == 0 )
 			return;
 
-		char *names[]= {(_("Filename")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-		xa_create_liststore ( 6, names , (GType *)types );
+		char *names[]= {(_("Filename")),(_("Soft Link")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+		xa_create_liststore ( 7, names , (GType *)types );
         archive->type = XARCHIVETYPE_TAR_GZ;
 	}
 	else

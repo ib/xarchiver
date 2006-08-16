@@ -290,9 +290,9 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			case GTK_RESPONSE_OK:
 			destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
-			extract_path = EscapeBadChars ( destination_path , 0 );
+			archive->extraction_path = EscapeBadChars ( destination_path , 0 );
 
-			if ( strlen ( extract_path ) == 0 )
+			if ( strlen ( archive->extraction_path ) == 0 )
 			{
 				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed where to extract the files!"),_("Please enter the extraction path.") );
 				break;
@@ -362,13 +362,13 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 												" -p",archive->passwd,
 												archive->overwrite ? " -o+" : " -o-",
 												" -idp ",
-												archive->escaped_path , " " , extract_path , NULL );
+												archive->escaped_path , " " , archive->extraction_path , NULL );
 					else
 						command = g_strconcat ( "rar " , archive->full_path ? "x " : "e ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 												archive->overwrite ? "-o+" : "-o-",
 												" -idp ",
-												archive->escaped_path , " " , extract_path , NULL );
+												archive->escaped_path , " " , archive->extraction_path , NULL );
 					break;
 
 					case XARCHIVETYPE_TAR:
@@ -377,11 +377,11 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						command = g_strconcat (tar, " -xvf ", archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
-											" -C " , extract_path , NULL );
+											" -C " , archive->extraction_path , NULL );
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,extract_path );
+						xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path );
 						command = NULL;
 					}
 					break;
@@ -392,11 +392,11 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						command = g_strconcat (tar, " -xvjf " , archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
-											" -C " , extract_path , NULL );
+											" -C " , archive->extraction_path , NULL );
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvjf " , archive->escaped_path, archive->overwrite,archive->tar_touch,extract_path );
+						xa_extract_tar_without_directories ( "tar -xvjf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path );
 						command = NULL;
 					}
 					break;
@@ -407,11 +407,11 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						command = g_strconcat (tar, " -xvzf " , archive->escaped_path,
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											archive->tar_touch ? " --touch" : "",
-											" -C " , extract_path , NULL );
+											" -C " , archive->extraction_path , NULL );
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,extract_path );
+						xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path );
 						command = NULL;
 					}
 					break;
@@ -423,17 +423,17 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 												archive->overwrite ? "-o" : "-n",
 												" -P " , archive->passwd,
 												archive->full_path ? "" : " -j ",
-												archive->escaped_path , " -d ", extract_path , NULL );
+												archive->escaped_path , " -d ", archive->extraction_path , NULL );
                     else
 						command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
 												archive->update ? "-u " : "",
 												archive->overwrite ? "-o " : "-n ",
 												archive->full_path ? "" : " -j ",
-												archive->escaped_path , " -d ", extract_path , NULL );
+												archive->escaped_path , " -d ", archive->extraction_path , NULL );
 					break;
 
 					case XARCHIVETYPE_RPM:
-                    chdir ( extract_path );
+                    chdir ( archive->extraction_path );
                     command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
                     break;
 
@@ -442,12 +442,12 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
 												archive->overwrite ? "-aoa" : "-aos",
 												" -bd -p",archive->passwd," ",
-												archive->escaped_path , " -o" , extract_path , NULL );
+												archive->escaped_path , " -o" , archive->extraction_path , NULL );
 					else
 						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
 												archive->overwrite ? "-aoa" : "-aos",
 												" -bd ",
-												archive->escaped_path , " -o" , extract_path , NULL );
+												archive->escaped_path , " -o" , archive->extraction_path , NULL );
                     break;
 
 					case XARCHIVETYPE_ARJ:
@@ -456,12 +456,12 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 												"-g",archive->passwd,
 												archive->overwrite ? "" : " -n" , " -i ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-												"-y " , archive->escaped_path , " " , extract_path , NULL );
+												"-y " , archive->escaped_path , " " , archive->extraction_path , NULL );
                     else
 						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ",
 												archive->overwrite ? "" : " -n" , " -i ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-												"-y " , archive->escaped_path , " " , extract_path , NULL );
+												"-y " , archive->escaped_path , " " , archive->extraction_path , NULL );
 					break;
 
 					case XARCHIVETYPE_ISO:
@@ -480,7 +480,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						2, &file_size,
 						4, &file_offset,
 						-1);
-						if (xa_extract_iso_file (archive, permissions, extract_path, name , file_size, file_offset ) == FALSE )
+						if (xa_extract_iso_file (archive, permissions, archive->extraction_path, name , file_size, file_offset ) == FALSE )
 						{
 							g_free (name);
 							g_free (permissions);
@@ -507,7 +507,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			{
 				names = g_string_new ( " " );
 				gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-				command = xa_extract_single_files ( archive , names, extract_path );
+				command = xa_extract_single_files ( archive , names, archive->extraction_path );
 				g_string_free (names, TRUE);
 			}
 		}
@@ -661,7 +661,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 				-1);
 				gtk_tree_path_free (row_list->data);
 
-				xa_extract_single_iso_file (archive, permissions, extract_path, name , file_size, file_offset );
+				xa_extract_single_iso_file (archive, permissions, archive->extraction_path, name , file_size, file_offset );
 				g_free (name);
 				g_free (permissions);
 				row_list = row_list->next;
@@ -692,6 +692,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	gboolean end = FALSE;
 	GtkTreeIter iter;
 	GList *row_list;
+	gboolean result;
 
 	names = g_string_new ("");
 	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
@@ -736,23 +737,29 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 			return FALSE;
 	}
 	chdir (tmp_dir);
-
 	archive->tmp = g_strdup (tmp_dir);
 	command = g_strconcat ( string, escaped_path,
 										overwrite ? " --overwrite" : " --keep-old-files",
 										tar_touch ? " --touch" : "",
 										" -C " , tmp_dir , names->str, NULL );
-	xa_run_command (command , 0);
+	result = xa_run_command (command , 0);
 	g_free (command);
+	if (result == 0)
+		return FALSE;
 
+	chdir (tmp_dir);
 	command = g_strconcat ( "mv -f ", names->str, " " , extract_path , NULL );
-	xa_run_command (command , 0);
+	result = xa_run_command (command , 0);
 	g_free (command);
+	g_string_free (names, TRUE);
+	if (result == 0)
+	return FALSE;
 
 	command = g_strconcat ( "rm -rf ", tmp_dir , NULL );
-	xa_run_command (command , 1);
+	result = xa_run_command (command , 1);
 	g_free (command);
+	if (result == 0)
+		return FALSE;
 
-	g_string_free (names, TRUE);
 	return TRUE;
 }

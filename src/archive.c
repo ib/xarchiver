@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <sys/wait.h>
@@ -125,6 +126,12 @@ void xa_clean_archive_structure ( XArchive *archive)
 		g_free (archive->passwd);
 		archive->passwd = NULL;
 	}
+
+	if ( archive->extraction_path != NULL )
+		{
+			if ( strcmp (archive->extraction_path , "/tmp/") != 0)
+				g_free (archive->extraction_path);
+		}
 
 	if (system_id != NULL)
 	{

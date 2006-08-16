@@ -109,7 +109,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		OffTooltipPadlock();
 		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
 		{
-			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),extract_path);
+			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),archive->extraction_path);
 
             response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,"",msg );
             g_free (msg);
@@ -461,16 +461,11 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 		}
 		g_list_free ( Suffix );
 		g_list_free ( Name );
-
+	
+		if ( destination_path != NULL )
+		g_free (destination_path);
+		
 		xa_clean_archive_structure (archive);
-
-		if ( extract_path != NULL )
-		{
-			if ( strcmp (extract_path , "/tmp/") != 0)
-				g_free (extract_path);
-			if ( destination_path != NULL )
-				g_free (destination_path);
-		}
 	}
 	gtk_main_quit();
 }
@@ -508,11 +503,11 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 		break;
 
         case XARCHIVETYPE_TAR_BZ2:
-        DecompressBzipGzip ( names , archive , 0  , 0 );
+        xa_add_delete_tar_bzip2_gzip ( names , archive , 0 , 0 );
         break;
 
         case XARCHIVETYPE_TAR_GZ:
-        DecompressBzipGzip ( names , archive , 1 , 0 );
+        xa_add_delete_tar_bzip2_gzip ( names , archive , 1 , 0 );
 		break;
 		
         case XARCHIVETYPE_ZIP:
@@ -562,8 +557,8 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
     extract_window = xa_create_extract_dialog (selected , archive);
-	if (extract_path != NULL)
-		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),extract_path);
+	if (archive->extraction_path != NULL)
+		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),archive->extraction_path);
     command = xa_parse_extract_dialog_options ( archive , extract_window, selection );
 	if (extract_window->dialog1 != NULL)
 		gtk_widget_destroy ( extract_window->dialog1 );
@@ -1196,15 +1191,16 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	}
 	else
 		command = xa_extract_single_files ( archive , names, "/tmp");
+
+	g_string_free (names,TRUE);
+	archive->full_path = full_path;
+	archive->overwrite = overwrite;
+
 	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free (command);
 	if ( archive->child_pid == 0 )
 		return;
-
-	g_string_free (names,TRUE);
 	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , dummy_name );
-	archive->full_path = full_path;
-	archive->overwrite = overwrite;
 }
 
 GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
@@ -1588,7 +1584,6 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
 		return FALSE;
-	gtk_widget_show ( viewport2 );
 	
 	while (waiting)
 	{
@@ -1600,7 +1595,30 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 				gtk_main_iteration();
 	}
 	if (watch_child_flag)
+	{
 		xa_watch_child (archive->child_pid, status, archive);
+		return TRUE;
+	}
+	else
+	{
+		if ( WIFEXITED (status) )
+		{
+			if ( WEXITSTATUS (status) )
+			{
+				gtk_tooltips_disable ( pad_tooltip );
+				gtk_widget_hide ( pad_image );
+				gtk_widget_hide ( viewport2 );
+				gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+				response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to open the error messages window?") );
+				if (response == GTK_RESPONSE_YES)
+					ShowShellOutput (NULL);
+				archive->status = XA_ARCHIVESTATUS_IDLE;
+				
+				Update_StatusBar ( _("Operation failed."));
+				return FALSE;
+			}
+		}
+	}
 	return TRUE;
 }
 
@@ -1814,10 +1832,10 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
 		gtk_tree_model_get (model, &iter, 0, &name, -1);
 
-		extract_path = extract_local_path ( no_uri_path , name );
+		archive->extraction_path = extract_local_path ( no_uri_path , name );
 		g_free (name);
 		g_free ( no_uri_path );
-		if (extract_path != NULL)
+		if (archive->extraction_path != NULL)
 			to_send = "S";
 
 		names = g_string_new ("");
@@ -1826,7 +1844,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		overwrite = archive->overwrite;
 		archive->full_path = 0;
 		archive->overwrite = 1;
-		command = xa_extract_single_files ( archive , names, extract_path );
+		command = xa_extract_single_files ( archive , names, archive->extraction_path );
 		g_string_free (names, TRUE);
 		if ( command != NULL )
 		{
@@ -1838,10 +1856,11 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		archive->overwrite = overwrite;
 		gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
 	}
-	if (extract_path != NULL)
+
+	if (archive->extraction_path != NULL)
 	{
-		g_free (extract_path);
-		extract_path = NULL;
+		g_free (archive->extraction_path);
+		archive->extraction_path = NULL;
 	}
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
