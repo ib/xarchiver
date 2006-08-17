@@ -22,6 +22,7 @@
 #endif
 
 #include "callbacks.h"
+#include "string_utils.h"
 #include "interface.h"
 #include "support.h"
 #include "main.h"
@@ -82,16 +83,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		gtk_widget_set_sensitive ( check_menu , FALSE);
 	}
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
-	{
-		xa_set_button_state (1,1,1,1,1);
         gtk_widget_set_sensitive ( check_menu , FALSE);
-	}
 	else
-	{
-		xa_set_button_state (1,1,1,1,1);
         gtk_widget_set_sensitive ( check_menu , TRUE);
-	}
 
+	xa_set_button_state (1,1,1,1,1);
     if ( archive->passwd != NULL || archive->has_passwd )
     {
         gtk_widget_show ( pad_image );
@@ -999,7 +995,7 @@ void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType
 	g_signal_connect ((gpointer) sel, "changed", G_CALLBACK (Activate_buttons), NULL);
     
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview1));
-    g_object_ref(model);
+	g_object_ref(model);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), NULL);
 
 	for (x = 0; x <= nc-1; x++)
@@ -1448,74 +1444,6 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_widget_show ( archive_properties_win );
 }
 
-//Taken from xarchive - http://xarchive.sourceforge.net
-int is_escaped_char (char c)
-{
-    switch ( c )
-    {
-        case ' ':
-        case '\'':
-        case '"':
-        case '(':
-        case ')':
-        case '$':
-        case '\\':
-        case ';':
-        case '<':
-        case '>':
-        case '&':
-        case '#':
-        case '*':
-        case '|':
-        case '`':
-        case '!':
-        return 1;
-        default:
-        return 0;
-    }
-}
-
-gchar *EscapeBadChars ( gchar *string , gboolean doublesquare)
-{
-	char *q;
-	char *escaped;
-	int escapechars = 0;
-	char *p = string;
-
-	while (*p != '\000')
-	{
-        if (is_escaped_char(*p))
-			escapechars++;
-		/* The following is mine */
-		else if ( doublesquare && (*p == '[' || *p == ']') )
-			escapechars += 2;
-		p++;
-    }
-
-	if (!escapechars)
-		return g_strdup(string);
-	escaped = (char *) g_malloc (strlen(string) + escapechars + 1);
-
-	p = string;
-	q = escaped;
-
-	while (*p != '\000')
-	{
-        if (is_escaped_char(*p))
-			*q++ = '\\';
-		/* The following is mine */
-		else if ( doublesquare && (*p == '[' || *p == ']') )
-		{
-			*q++ = '\\';
-			*q++ = '\\';
-		}
-		*q++ = *p++;
-	}
-	*q = '\000';
-	return escaped;
-}
-//End code from xarchive
-
 void Activate_buttons ()
 {
 	if ( ! GTK_WIDGET_VISIBLE (Extract_button) )
@@ -1579,7 +1507,8 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	gboolean waiting = TRUE;
 	int ps;
 	
-	EmptyTextBuffer ();
+	if (watch_child_flag)
+		EmptyTextBuffer ();
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
@@ -1613,7 +1542,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 				if (response == GTK_RESPONSE_YES)
 					ShowShellOutput (NULL);
 				archive->status = XA_ARCHIVESTATUS_IDLE;
-				
+				gtk_widget_set_sensitive (Stop_button,FALSE);
 				Update_StatusBar ( _("Operation failed."));
 				return FALSE;
 			}
@@ -1655,16 +1584,6 @@ gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer da
 	return TRUE;
 }
 
-gchar *StripPathFromFilename ( gchar *name, gchar *pattern )
-{
-    return g_strrstr ( name , pattern );
-}
-
-gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path )
-{
-	return g_strconcat (extract_path , path , NULL);
-}
-
 void OffDeleteandViewButtons()
 {
     gtk_widget_set_sensitive ( Delete_button, FALSE);
@@ -1682,79 +1601,6 @@ void OffTooltipPadlock()
         gtk_tooltips_disable ( pad_tooltip );
         gtk_widget_hide ( pad_image );
     }
-}
-
-int CountCharacter ( gchar *string , int chr )
-{
-    int n = 0;
-    while ( *string )
-    {
-        if ( *string == chr ) n++;
-        string++;
-    }
-    return n;
-}
-
-gchar *RemoveBackSlashes ( gchar *name)
-{
-    gchar *nome, *q;
-    int x = CountCharacter ( name , '\\' );
-    nome = (char *) g_malloc (strlen(name) - x + 1);
-    q = nome;
-    while ( *name )
-    {
-        if ( *name == '\\' ) name++;
-        *q++ = *name++;
-    }
-    *q = '\000';
-    return nome;
-}
-
-/* These three functions are from File-Roller code */
-char *eat_spaces (char *line)
-{
-	if (line == NULL)
-		return NULL;
-	while ((*line == ' ') && (*line != 0))
-		line++;
-	return line;
-}
-
-gchar *remove_level_from_path (const gchar *path)
-{
-    const gchar *ptr = path;
-    gint p;
-    if (! path) return NULL;
-    p = strlen (path) - 1;
-    if (p < 0) return NULL;
-    while ((ptr[p] != '/') && (p > 0))
-        p--;
-    if ((p == 0) && (ptr[p] == '/')) p++;
-    return g_strndup (path, (guint)p);
-}
-/* End code from File-Roller */
-
-gchar *extract_local_path (gchar *path , gchar *filename)
-{
-    gchar *local_path;
-    gchar *local_escaped_path;
-	unsigned short int x;
-
-	gchar *no_path = StripPathFromFilename(filename , "/");
-	if (no_path != NULL)
-	{
-		no_path++;
-	    x = strlen (path) - strlen ( no_path );
-	}
-	else
-		x = strlen (path) - strlen ( filename );
-    //g_print ("%d\t%d\t%d\n",x,strlen (path),strlen (filename));
-    local_path = (gchar *) g_malloc ( x + 1);
-    strncpy ( local_path, path, x );
-    local_path [x] = '\000';
-    local_escaped_path = EscapeBadChars ( local_path , 1);
-    g_free (local_path);
-    return local_escaped_path;
 }
 
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)

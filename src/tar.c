@@ -45,7 +45,7 @@ void OpenTar ( XArchive *archive )
 	if (archive->child_pid == 0)
 		return;
 
-	char *names[]= {(_("Filename")),(_("Soft Link")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+	char *names[]= {(_("Filename")),(_("Permissions")),(_("Simbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
 	xa_create_liststore ( 7, names , (GType *)types );
 }
@@ -133,8 +133,8 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 		g_value_set_string(filename, temp_filename );
 
 		archive->row = g_list_prepend(archive->row, filename);
-		archive->row = g_list_prepend(archive->row, symlink);
 		archive->row = g_list_prepend(archive->row, permissions);
+		archive->row = g_list_prepend(archive->row, symlink);
 		archive->row = g_list_prepend(archive->row, owner);
 		archive->row = g_list_prepend(archive->row, size);
 		archive->row = g_list_prepend(archive->row, date);

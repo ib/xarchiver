@@ -1,4 +1,4 @@
-- fix bug #1736.
+- fix bug #1736, #2176.
 - switching by right clicking on the toolbar to icons with text/ no text/ small icons.
 - [MAYBE] create a routine for handling the sensitiveness of the buttons, window title
 - add a small progress window when using Xarchiver cmd-line switches.

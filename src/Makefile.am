@@ -2,6 +2,7 @@ bin_PROGRAMS = xarchiver
 
 xarchiver_SOURCES = \
 	main.c main.h \
+	string_utils.c string_utils.h \
 	support.c support.h \
 	archive.c archive.h \
 	interface.c interface.h \

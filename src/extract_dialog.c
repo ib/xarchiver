@@ -24,6 +24,7 @@
 #include "support.h"
 
 gboolean ISO_stop_flag = FALSE;
+extern gboolean cli;
 
 Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive)
 {
@@ -153,7 +154,13 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->overwrite_check, FALSE, FALSE, 0);
 
 	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), archive->full_path);
+	if (cli && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2) )
+	{
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
+		gtk_widget_set_sensitive (dialog_data->extract_full, FALSE);
+	}
+	else
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), archive->full_path);
 	gtk_widget_show (dialog_data->extract_full);
 	gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->extract_full , _("The archive's directory structure is recreated in the extraction directory."), NULL );
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_full, FALSE, FALSE, 0);
@@ -716,8 +723,8 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 		}
 		g_list_free (row_list);
 	}
-	else
-	{	
+	else if ( ! cli )
+	{
 		end = gtk_tree_model_get_iter_first (model , &iter);
 		while (end)
 		{
@@ -736,30 +743,49 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
 			return FALSE;
 	}
-	chdir (tmp_dir);
-	archive->tmp = g_strdup (tmp_dir);
 	command = g_strconcat ( string, escaped_path,
 										overwrite ? " --overwrite" : " --keep-old-files",
 										tar_touch ? " --touch" : "",
 										" -C " , tmp_dir , names->str, NULL );
-	result = xa_run_command (command , 0);
+	if ( ! cli )
+		result = xa_run_command (command , 0);
+	else
+		result = SpawnSyncCommand (command);
 	g_free (command);
 	if (result == 0)
+	{
+		xa_delete_temp_directory ( tmp_dir, 0 );
 		return FALSE;
+	}
 
 	chdir (tmp_dir);
-	command = g_strconcat ( "mv -f ", names->str, " " , extract_path , NULL );
-	result = xa_run_command (command , 0);
+	if ( ! cli )
+	{
+		command = g_strconcat ( "mv -f ", names->str, " " , extract_path , NULL );
+		result = xa_run_command (command , 0);
+	}
+	else
+	{
+		command = g_strconcat ( "mv -f * " , extract_path , NULL );
+		g_message (command);
+		result = SpawnSyncCommand (command);
+	}
 	g_free (command);
 	g_string_free (names, TRUE);
-	if (result == 0)
-	return FALSE;
+	//xa_delete_temp_directory ( tmp_dir, 1 );
+	return result;
+}
 
-	command = g_strconcat ( "rm -rf ", tmp_dir , NULL );
-	result = xa_run_command (command , 1);
+gboolean xa_delete_temp_directory ( gchar *dir_name, gboolean flag)
+{
+	gchar *command;
+	gboolean result;
+
+	command = g_strconcat ( "rm -rf ", dir_name , NULL );
+	if ( ! cli )
+		result = xa_run_command (command , flag );
+	else
+		result = SpawnSyncCommand (command);
 	g_free (command);
-	if (result == 0)
-		return FALSE;
-
-	return TRUE;
+	return result;
 }

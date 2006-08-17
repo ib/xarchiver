@@ -19,7 +19,6 @@
 #include "config.h"
 #include "main.h"
 
-extern gchar *extract_path;
 gint exit_status;
 gchar *cli_command = NULL;
 gchar *archive_name;
@@ -262,7 +261,7 @@ void GetAvailableCompressors()
 
 	/* In future releases of xarchiver we'll use mkisofs to allow creation of iso images
 	if ( g_find_program_in_path("mkisofs"))
-		//Allow creation of ISO images
+		Allow creation of ISO images
 	*/
 
 	ArchiveType = g_list_prepend ( ArchiveType, ".iso");

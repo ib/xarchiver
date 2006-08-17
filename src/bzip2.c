@@ -28,7 +28,7 @@ extern gboolean cli;
 FILE *stream = NULL;
 gchar *tmp = NULL;
 int fd;
-int l;
+short int l;
 gboolean error_output,result;
 
 void OpenBzip2 ( XArchive *archive )
@@ -57,7 +57,7 @@ void OpenBzip2 ( XArchive *archive )
 		if ( archive->child_pid == 0 )
 			return;
 
-		char *names[]= {(_("Filename")),(_("Soft Link")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+		char *names[]= {(_("Filename")),(_("Permissions")),(_("Simbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
 		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
 		xa_create_liststore ( 7, names , (GType *)types );
         archive->type = XARCHIVETYPE_TAR_BZ2;
@@ -175,21 +175,37 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
 {
-	gchar *command, *msg, *tar,*temp_name;
+	gchar *command, *msg, *tar,*temp_name,*temp_name2;
 	gtk_widget_show (viewport2);
 	msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
 	Update_StatusBar ( msg );
 	g_free (msg);
-	command = g_strconcat (dummy ? "gzip " : "bzip2 ", "-f -d ",archive->escaped_path,NULL);
+
+	/* Let's copy the archive to /tmp first */
+	temp_name = g_strconcat ( " /tmp", StripPathFromFilename (archive->escaped_path , "/"), NULL);
+	temp_name2 = g_strdup (temp_name);
+	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL); 
 	result = xa_run_command (command , 0);
 	g_free (command);
 	if (result == 0)
+	{
+		g_free (temp_name);
+		g_free (temp_name2);
 		return;
+	}
+	command = g_strconcat (dummy ? "gzip " : "bzip2 ", "-f -d ",temp_name,NULL);
+	result = xa_run_command (command , 0);
+	g_free (command);
+	if (result == 0)
+	{
+		g_free (temp_name);
+		g_free (temp_name2);
+		return;
+	}
 
 	tar = g_find_program_in_path ("gtar");
 	if (tar == NULL)
 		tar = g_strdup ("tar");
-	temp_name = g_strdup (archive->escaped_path);
 	l = strlen (temp_name);
 	
 	if (file_extension_is (archive->escaped_path,".tar.bz2") )
@@ -223,16 +239,30 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	g_free (command);
 	g_free (tar);
 	if (result == 0)
+	{
+		g_free (temp_name);
+		g_free (temp_name2);
 		return;
+	}
 
 	msg = g_strdup_printf(_("Recompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
 	Update_StatusBar ( msg );
 	g_free (msg);
 	
-	command = g_strconcat ( dummy ? "gzip " : "bzip2 ", "-f" , temp_name , NULL );
-	result = xa_run_command (command , 1);
+	command = g_strconcat ( dummy ? "gzip " : "bzip2 ", "-f " , temp_name , NULL );
+	result = xa_run_command (command , 0);
 	g_free (command);
 	g_free (temp_name);
+	if (result == 0)
+	{
+		g_free (temp_name2);
+		return;
+	}
+	/* Let's move the modified archive from /tmp to the original archive location */
+	command = g_strconcat ( "mv " , temp_name2 ," " ,archive->escaped_path, NULL );
+	result = xa_run_command (command , 1);
+	g_free (command);
+	g_free (temp_name2);
 	if (result == 0)
 		return;
 }
@@ -310,18 +340,4 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	}
 	return TRUE;
 }
-
-/* Taken from fileroller */
-gboolean file_extension_is (const char *filename, const char *ext)
-{
-	int filename_l, ext_l;
-
-	filename_l = strlen (filename);
-	ext_l = strlen (ext);
-
-    if (filename_l < ext_l)
-		return FALSE;
-    return strcasecmp (filename + filename_l - ext_l, ext) == 0;
-}
-/* End code from fileroller */
 

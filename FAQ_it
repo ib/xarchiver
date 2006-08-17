@@ -1,6 +1,6 @@
-D. Perchè gli archive ace non sono supportati ?
-
-R. Perchè per qualche strana ragione gli archivi ace non possono essere creati su Linux, al momento solo l'estrazione è permessa. 
+D. Perchè¨ gli archive ace non sono supportati ?
+Ã
+R. Perchè¨ per qualche strana ragione gli archivi ace non possono essere creati su Linux, al momento solo l'estrazione è permessa. 
 Quando gli sviluppatori di ACE si decideranno a supportare pienamente gli archivi ACE anche su Linux, aggiungerò tale formato ad 
 Xarchiver.
 
@@ -18,12 +18,11 @@ D. Perchè Xarchiver visualizza questo messaggio quando apro archivi tar ?
 R. Xarchiver è solo un frontend che manda in esecuzione l'archiviatore e riporta i SUOI messaggi d'errore. Molto probabilmente stai 
 aprendo un archivio prodotto da versioni precedenti di tar oppure questo è corrotto,
 
-D. Quando tento di visualizzare un file da un archivio tar ottengo questo messaggio d'errore:
+D. Perchè¨ l'opzione "Extract with full path" è¨ disabilitata quando utilizzo lo switch -e con archivi tar ?
 
-        tar: unrecognized option `--strip-components=2'
-        Try `tar --help' for more information.
-
-R. Stai usando una vecchia versione di tar, dovresti aggiornare almeno alla 1.15.
+R. Perchè¨ GNU tar non supporta completamente l'estrazione di files senza le directory in cui essi sono contenuti a differenza 
+degli altri archiviatori che la supportano. L'estrazione senza directory quando si usa la GUI viene svolta con un trucco che non 
+è¨ disponibile quando si usa lo switch -e da linea di comando.
 
 D. Quando metto il segno di spunta su Aggiorna o Freshen nella finestra Estrai o Aggiungi Xarchiver dice che si è verificato un errore
 ma la finestra dei messaggi d'errore è vuota, perchè ?
