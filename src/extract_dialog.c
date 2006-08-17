@@ -723,7 +723,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 		}
 		g_list_free (row_list);
 	}
-	else if ( ! cli )
+	else
 	{
 		end = gtk_tree_model_get_iter_first (model , &iter);
 		while (end)
@@ -736,7 +736,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 			end = gtk_tree_model_iter_next (model,&iter);
 		}
 	}
-
+	
 	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
 	if ( mkdtemp ( tmp_dir ) == 0)
 	{
@@ -747,32 +747,25 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 										overwrite ? " --overwrite" : " --keep-old-files",
 										tar_touch ? " --touch" : "",
 										" -C " , tmp_dir , names->str, NULL );
-	if ( ! cli )
-		result = xa_run_command (command , 0);
-	else
-		result = SpawnSyncCommand (command);
+	result = xa_run_command (command , 0);
 	g_free (command);
+
 	if (result == 0)
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
 		return FALSE;
 	}
-
 	chdir (tmp_dir);
-	if ( ! cli )
-	{
-		command = g_strconcat ( "mv -f ", names->str, " " , extract_path , NULL );
-		result = xa_run_command (command , 0);
-	}
-	else
-	{
-		command = g_strconcat ( "mv -f * " , extract_path , NULL );
-		g_message (command);
-		result = SpawnSyncCommand (command);
-	}
+	command = g_strconcat ( "mv -f ", names->str, " " , extract_path , NULL );
+	result = xa_run_command (command , 0);
 	g_free (command);
 	g_string_free (names, TRUE);
-	//xa_delete_temp_directory ( tmp_dir, 1 );
+	if (result == 0)
+	{
+		xa_delete_temp_directory ( tmp_dir, 0 );
+		return FALSE;
+	}
+	xa_delete_temp_directory ( tmp_dir, 1 );
 	return result;
 }
 
@@ -782,10 +775,7 @@ gboolean xa_delete_temp_directory ( gchar *dir_name, gboolean flag)
 	gboolean result;
 
 	command = g_strconcat ( "rm -rf ", dir_name , NULL );
-	if ( ! cli )
-		result = xa_run_command (command , flag );
-	else
-		result = SpawnSyncCommand (command);
+	result = xa_run_command (command , flag );
 	g_free (command);
 	return result;
 }
