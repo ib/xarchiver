@@ -191,7 +191,13 @@ int main (int argc, char **argv)
 				chdir (_current_dir);
 				g_free (_current_dir);
 				GString *string = g_string_new ( "" );
-
+				if (argc > 2 && (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) )
+				{
+					response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform the action:"),_("bzip2/gzip can compress only one file!\n") );
+					if (archive != NULL)
+						xa_clean_archive_structure ( archive );
+					return 0;
+				}
 				for ( x = 1; x < argc; x++)
 				{
 					_current_dir = g_path_get_basename (argv[x]);
