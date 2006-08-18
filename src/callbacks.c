@@ -68,13 +68,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
 
-	OffDeleteandViewButtons();
-	if (archive->tmp)
-	{
-		unlink (archive->tmp);
-		g_free (archive->tmp);
-		archive->tmp = NULL;
-	}
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
 		xa_set_button_state (1,1,0,0,0);
 	else if (archive->type == XARCHIVETYPE_RPM)
@@ -1185,6 +1178,11 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 		command = g_strconcat ("tar --strip-components=",digit,option,archive->escaped_path," -C /tmp",names->str,NULL);
 		g_free (digit);
 	}
+	else if (archive->type == XARCHIVETYPE_RPM)
+	{
+		command = xa_extract_single_files ( archive , names, "/tmp");
+		ViewFileFromArchive (archive->child_pid , 0 , dummy_name);
+	}
 	else
 		command = xa_extract_single_files ( archive , names, "/tmp");
 
@@ -1192,10 +1190,13 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	archive->full_path = full_path;
 	archive->overwrite = overwrite;
 
-	SpawnAsyncProcess ( archive , command , 0, 0);
-	g_free (command);
-	if ( archive->child_pid == 0 )
-		return;
+	if (command != NULL)
+	{
+		SpawnAsyncProcess ( archive , command , 0, 0);
+		g_free (command);
+		if ( archive->child_pid == 0 )
+			return;
+	}
 	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , dummy_name );
 }
 

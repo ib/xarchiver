@@ -15,7 +15,7 @@ Q. Why does Xarchiver emit this error message when handling tar archives ?
         tar: Error exit delayed from previous errors
 
 A. Xarchiver it's only a frontend who runs the archiver and reports ITS error messages. Most probably you are opening an archive 
-produced with older versions of tar than the one you are currently using.
+produced with older versions of tar than the one you are currently using or the archive is corrupted.
 
 Q. Why the option "Extract with full path" is disabled when using the -e switch with tar archives ?
 

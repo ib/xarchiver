@@ -18,6 +18,7 @@
  */
 
 #include <gtk/gtk.h>
+#include <stdlib.h>
 #include "extract_dialog.h"
 #include "interface.h"
 #include "callbacks.h"
@@ -33,7 +34,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	dialog_data = g_new0 (Extract_dialog_data, 1);
 	dialog_data->radio_group = NULL;
 	dialog_data->dialog1 = gtk_dialog_new ();
-	gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract Dialog"));
+	gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for ( GTK_WINDOW (dialog_data->dialog1) , GTK_WINDOW (MainWindow) );
 
@@ -388,7 +389,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path );
+						xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
 						command = NULL;
 					}
 					break;
@@ -403,7 +404,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvjf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path );
+						xa_extract_tar_without_directories ( "tar -xvjf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path , FALSE );
 						command = NULL;
 					}
 					break;
@@ -418,7 +419,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path );
+						xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
 						command = NULL;
 					}
 					break;
@@ -440,8 +441,16 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_RPM:
-                    chdir ( archive->extraction_path );
-                    command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
+					if (archive->full_path == 1)
+					{
+						chdir ( archive->extraction_path );
+						command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
+					}
+					else
+					{
+						xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path , TRUE);
+						command = NULL;
+					}
                     break;
 
                     case XARCHIVETYPE_7ZIP:
@@ -561,7 +570,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path );
+			xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, TRUE );
 			command = NULL;
 		}
 		break;
@@ -576,7 +585,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xjvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path );
+			xa_extract_tar_without_directories ( "tar -xjvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, TRUE );
 			command = NULL;
 		}
 		break;
@@ -591,7 +600,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xzvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path );
+			xa_extract_tar_without_directories ( "tar -xzvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, TRUE );
 			command = NULL;
 		}
 		break;
@@ -613,8 +622,16 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		break;
 
         case XARCHIVETYPE_RPM:
-        chdir ( path );
-        command = g_strconcat ( "cpio --make-directories " , files->str , " -F " , archive->tmp , " -i" , NULL);
+        if (archive->full_path == 1)
+		{
+			chdir ( path );
+			command = g_strconcat ( "cpio --make-directories " , files->str , " -F " , archive->tmp , " -i" , NULL);
+		}
+		else
+		{
+			xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path , TRUE);
+			command = NULL;
+		}
         break;
 
         case XARCHIVETYPE_7ZIP:
@@ -688,12 +705,12 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 	return command;
 }
 
-gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path, gboolean overwrite, gboolean tar_touch, gchar *extract_path )
+gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path, gboolean overwrite, gboolean tar_touch, gchar *extract_path, gboolean cpio_flag )
 {
-	gchar tmp_dir[14];
 	gchar *command = NULL;
 	gchar *name = NULL;
 	gchar *permission = NULL;
+	gchar tmp_dir[14] = "";
 	GtkTreeSelection *selection;
 	GString *names;
 	gboolean end = FALSE;
@@ -736,14 +753,17 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 			end = gtk_tree_model_iter_next (model,&iter);
 		}
 	}
-	
-	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
-	if ( mkdtemp ( tmp_dir ) == 0)
+	result = xa_create_temp_directory (tmp_dir);
+	if (result == 0)
+		return FALSE;
+
+	if (cpio_flag)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
-			return FALSE;
+		chdir (tmp_dir);
+		command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
 	}
-	command = g_strconcat ( string, escaped_path,
+	else
+		command = g_strconcat ( string, escaped_path,
 										overwrite ? " --overwrite" : " --keep-old-files",
 										tar_touch ? " --touch" : "",
 										" -C " , tmp_dir , names->str, NULL );
@@ -765,7 +785,10 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 		xa_delete_temp_directory ( tmp_dir, 0 );
 		return FALSE;
 	}
-	xa_delete_temp_directory ( tmp_dir, 1 );
+	if (cpio_flag)
+		xa_delete_temp_directory ( tmp_dir, 0 );
+	else
+		xa_delete_temp_directory ( tmp_dir, 1 );
 	return result;
 }
 
@@ -778,4 +801,17 @@ gboolean xa_delete_temp_directory ( gchar *dir_name, gboolean flag)
 	result = xa_run_command (command , flag );
 	g_free (command);
 	return result;
+}
+
+gboolean xa_create_temp_directory ( gchar tmp_dir[] )
+{
+	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
+	if ( mkdtemp ( tmp_dir ) == 0)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
+		gtk_widget_set_sensitive (Stop_button, FALSE);
+		Update_StatusBar (_("Operation failed."));
+		return FALSE;
+	}
+	return TRUE;
 }
