@@ -176,16 +176,22 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
 {
 	gchar *command, *msg, *tar,*temp_name,*temp_name2;
-	gtk_widget_show (viewport2);
-	msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
-	Update_StatusBar ( msg );
-	g_free (msg);
+	if ( ! cli )
+	{
+		gtk_widget_show (viewport2);
+		msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
+		Update_StatusBar ( msg );
+		g_free (msg);
+	}
 
 	/* Let's copy the archive to /tmp first */
 	temp_name = g_strconcat ( " /tmp", StripPathFromFilename (archive->escaped_path , "/"), NULL);
 	temp_name2 = g_strdup (temp_name);
 	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL); 
-	result = xa_run_command (command , 0);
+	if ( ! cli)
+		result = xa_run_command (command , 0);
+	else
+		result = SpawnSyncCommand ( command );
 	g_free (command);
 	if (result == 0)
 	{
@@ -194,7 +200,10 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 		return;
 	}
 	command = g_strconcat (dummy ? "gzip " : "bzip2 ", "-f -d ",temp_name,NULL);
-	result = xa_run_command (command , 0);
+	if ( ! cli )
+		result = xa_run_command (command , 0);
+	else
+		result = SpawnSyncCommand ( command );
 	g_free (command);
 	if (result == 0)
 	{
@@ -234,8 +243,10 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 							list->str , NULL );
 	else
 		command = g_strconcat (tar, " --delete -f " , temp_name , list->str , NULL );
-	
-	result = xa_run_command (command , 0);
+	if ( ! cli)
+		result = xa_run_command (command , 0);
+	else
+		result = SpawnSyncCommand ( command );
 	g_free (command);
 	g_free (tar);
 	if (result == 0)
@@ -245,12 +256,18 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 		return;
 	}
 
-	msg = g_strdup_printf(_("Recompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
-	Update_StatusBar ( msg );
-	g_free (msg);
+	if ( ! cli )
+	{
+		msg = g_strdup_printf(_("Recompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
+		Update_StatusBar ( msg );
+		g_free (msg);
+	}
 	
 	command = g_strconcat ( dummy ? "gzip " : "bzip2 ", "-f " , temp_name , NULL );
-	result = xa_run_command (command , 0);
+	if ( ! cli )
+		result = xa_run_command (command , 0);
+	else
+		result = SpawnSyncCommand ( command );
 	g_free (command);
 	g_free (temp_name);
 	if (result == 0)
@@ -260,7 +277,10 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	}
 	/* Let's move the modified archive from /tmp to the original archive location */
 	command = g_strconcat ( "mv " , temp_name2 ," " ,archive->escaped_path, NULL );
-	result = xa_run_command (command , 1);
+	if ( ! cli )
+		result = xa_run_command (command , 1);
+	else
+		result = SpawnSyncCommand ( command );
 	g_free (command);
 	g_free (temp_name2);
 	if (result == 0)

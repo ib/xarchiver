@@ -26,7 +26,7 @@ gchar *absolute_path = NULL;
 gchar *_current_dir = NULL;
 gchar *extract_path = NULL;
 GError *cli_error = NULL;
-gboolean error_output, file_to_open, ask_and_extract, ask_and_add, new_archive;
+gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
 gboolean cli = FALSE;
 
 static GOptionEntry entries[] =
@@ -47,10 +47,6 @@ static GOptionEntry entries[] =
 		N_("Add files to the specified archive by asking their filenames and quits."),
 		N_("[archive name]")
 	},
-	{	"new", 'n', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &new_archive,
-		N_("Ask for the archive to be created, add files to it and quits."),
-		N_("[file1] [file2] ... [fileN]")
-	},
 	{ NULL }
 };
 
@@ -69,7 +65,7 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
-	if (ask_and_extract || ask_and_add || new_archive || archive_name != NULL || extract_path != NULL)
+	if (ask_and_extract || ask_and_add || archive_name != NULL || extract_path != NULL)
 		cli = TRUE;
 
 	if (cli == TRUE)
@@ -135,25 +131,60 @@ int main (int argc, char **argv)
 		/* Switch -d */
 		else if (archive_name != NULL)
 		{
-			archive = xa_init_structure_from_cmd_line ( archive_name );
-			if (archive != NULL && argv[1] != NULL)
+			if (argc == 1)
 			{
-				_current_dir = g_path_get_dirname(argv[1]);
-				chdir (_current_dir);
-				g_free (_current_dir);
-				GString *string = g_string_new ( "" );
-				for ( x = 1; x < argc; x++)
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the files to add!\n"));
+				return 0;
+			}
+			if ( g_file_test ( archive_name , G_FILE_TEST_EXISTS ) )
+			{
+				archive = xa_init_structure_from_cmd_line ( archive_name );
+				if (archive != NULL)
 				{
-					_current_dir = g_path_get_basename ( argv[x] );
-					ConcatenateFileNames2 ( _current_dir, string );
-					g_free (_current_dir);
+					GString *string = g_string_new ( "" );
+					for ( x = 1; x < argc; x++)
+					{
+						_current_dir = g_path_get_basename ( argv[x] );
+						ConcatenateFileNames2 ( _current_dir, string );
+						g_free (_current_dir);
+					}
+					cli_command = xa_add_single_files ( archive , string, NULL);
+					if (cli_command != NULL)
+						error_output = SpawnSyncCommand ( cli_command );
+					g_string_free (string, TRUE);
 				}
-
-				cli_command = xa_add_single_files ( archive , string, NULL);
+			}
+			else
+			{
+				xa_new_archive ( NULL , archive_name );
+				if (archive->path != NULL)
+				{
+					_current_dir = g_path_get_dirname(argv[1]);
+					chdir (_current_dir);
+					g_free (_current_dir);
+					GString *string = g_string_new ( "" );
+					if (argc > 2 && (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) )
+					{
+						response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform the action:"),_("bzip2/gzip can't compress more than one file!\n") );
+						if (archive != NULL)
+							xa_clean_archive_structure ( archive );
+						return 0;
+					}
+					for ( x = 1; x < argc; x++)
+					{
+						_current_dir = g_path_get_basename (argv[x]);
+						ConcatenateFileNames2 ( _current_dir , string );
+						g_free (_current_dir);
+					}
+				
+					archive->add_recurse = TRUE;
+					cli_command = xa_add_single_files ( archive , string, NULL);
+					if (cli_command != NULL)
+						error_output = SpawnSyncCommand ( cli_command );
+					g_string_free (string, TRUE);
+				}
 				if (cli_command != NULL)
-					error_output = SpawnSyncCommand ( cli_command );
-				g_string_free (string, TRUE);
-
+					g_free (cli_command);
 			}
 		}
 		/* Switch -a */
@@ -174,45 +205,6 @@ int main (int argc, char **argv)
 					error_output = SpawnSyncCommand ( cli_command );
 				g_free (add_window);
 			}
-		}
-		/* Switch -n */
-		else if (new_archive)
-		{
-			if (argv[1] == NULL)
-			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the files to be added!\n") );
-				return 0;
-			}
-			xa_new_archive ( NULL , argv[1] );
-
-			if (archive->path != NULL)
-			{
-				_current_dir = g_path_get_dirname(argv[1]);
-				chdir (_current_dir);
-				g_free (_current_dir);
-				GString *string = g_string_new ( "" );
-				if (argc > 2 && (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) )
-				{
-					response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform the action:"),_("bzip2/gzip can compress only one file!\n") );
-					if (archive != NULL)
-						xa_clean_archive_structure ( archive );
-					return 0;
-				}
-				for ( x = 1; x < argc; x++)
-				{
-					_current_dir = g_path_get_basename (argv[x]);
-					ConcatenateFileNames2 ( _current_dir , string );
-					g_free (_current_dir);
-				}
-				
-				archive->add_recurse = TRUE;
-				cli_command = xa_add_single_files ( archive , string, NULL);
-				if (cli_command != NULL)
-					error_output = SpawnSyncCommand ( cli_command );
-				g_string_free (string, TRUE);
-			}
-			if (cli_command != NULL)
-				g_free (cli_command);
 		}
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
