@@ -51,9 +51,9 @@ void OpenRPM ( XArchive *archive )
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
 	archive->format ="RPM";
-	char *names[]= {(_("Filename")),(_("Permission")),(_("Hard Link")),(_("Owner")),(_("Group")),(_("Size"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64};
-	xa_create_liststore ( 6, names , (GType *)types );
+	char *names[]= {(_("Filename")),(_("Permission")),(_("Symbolic Link")),(_("Hard Link")),(_("Owner")),(_("Group")),(_("Size"))};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64};
+	xa_create_liststore ( 7, names , (GType *)types );
     if (fseek ( stream, 104 , SEEK_CUR ) )
     {
         fclose (stream);
@@ -238,98 +238,116 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	GValue *size = NULL;
 	gchar *_size = NULL;
 	GValue *permissions = NULL;
+	GValue *symlink = NULL;
 	GValue *hard_link = NULL;
 	GValue *owner = NULL;
 	GValue *group = NULL;
-  GIOStatus status;
+	gchar *temp_filename = NULL;
+	GIOStatus status;
 
     /* Is there output from "cpio -tv" to read ? */
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-    do
-    {
-      status = g_io_channel_read_line ( ioc, &line, NULL, NULL , NULL );
-      if (line == NULL)
-        break;
+		do
+		{
+			status = g_io_channel_read_line ( ioc, &line, NULL, NULL , NULL );
+			if (line == NULL)
+				break;
 
-      filename    = g_new0(GValue, 1);
-      permissions = g_new0(GValue, 1);
-      owner       = g_new0(GValue, 1);
-      group       = g_new0(GValue, 1);
-      size        = g_new0(GValue, 1);
-      hard_link   = g_new0(GValue, 1);
+			filename    = g_new0(GValue, 1);
+			permissions = g_new0(GValue, 1);
+			symlink	  = g_new0(GValue, 1);
+			owner       = g_new0(GValue, 1);
+			group       = g_new0(GValue, 1);
+			size        = g_new0(GValue, 1);
+			hard_link   = g_new0(GValue, 1);
 
-      start = eat_spaces (line);
-      end = strchr (start, ' ');
-      permissions = g_value_init(permissions, G_TYPE_STRING);
-      g_value_set_string ( permissions , g_strndup ( start , end - start) );
+			start = eat_spaces (line);
+			end = strchr (start, ' ');
+			permissions = g_value_init(permissions, G_TYPE_STRING);
+			g_value_set_string ( permissions , g_strndup ( start , end - start) );
 
-      start = eat_spaces (end);
-      end = strchr (start, ' ');
-      hard_link = g_value_init (hard_link, G_TYPE_STRING);
-      g_value_set_string ( hard_link , g_strndup ( start , end - start) );
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			hard_link = g_value_init (hard_link, G_TYPE_STRING);
+			g_value_set_string ( hard_link , g_strndup ( start , end - start) );
 
-      start = eat_spaces (end);
-      end = strchr (start, ' ');
-      owner = g_value_init (owner, G_TYPE_STRING);
-      g_value_set_string ( owner , g_strndup ( start , end - start) );
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			owner = g_value_init (owner, G_TYPE_STRING);
+			g_value_set_string ( owner , g_strndup ( start , end - start) );
 
-      start = eat_spaces (end);
-      end = strchr (start, ' ');
-      group = g_value_init (group, G_TYPE_STRING);
-      g_value_set_string ( group , g_strndup ( start , end - start) );
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			group = g_value_init (group, G_TYPE_STRING);
+			g_value_set_string ( group , g_strndup ( start , end - start) );
 
-      start = eat_spaces (end);
-      end = strchr (start, ' ');
-      size = g_value_init(size, G_TYPE_UINT64);
-      _size  = g_strndup ( start , end - start);
-      g_value_set_uint64 (size , atoll (_size) );
-      g_free (_size);
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			size = g_value_init(size, G_TYPE_UINT64);
+			_size  = g_strndup ( start , end - start);
+			g_value_set_uint64 (size , atoll (_size) );
+			g_free (_size);
 
-      start = eat_spaces (end);
-      end = strchr (start, ' ');
-      start = eat_spaces (end);
-      end = strchr (start, ' ');
-      start = eat_spaces (end);
-      end = strchr (start, ' ');
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
+			start = eat_spaces (end);
+			end = strchr (start, ' ');
 
-      start = eat_spaces (end);
-      end = strchr (start, '\n');
-      filename = g_value_init (filename, G_TYPE_STRING);
-      g_value_set_string ( filename , g_strndup ( start , end - start) );
+			start = eat_spaces (end);
+			end = strchr (start, '\n');
 
-      archive->row = g_list_prepend (archive->row,filename);
-      archive->row = g_list_prepend (archive->row,permissions);
-      archive->row = g_list_prepend (archive->row,hard_link);
-      archive->row = g_list_prepend (archive->row,owner);
-      archive->row = g_list_prepend (archive->row,group);
-      archive->row = g_list_prepend (archive->row,size);
+			symlink  = g_value_init(symlink, G_TYPE_STRING);
+			filename = g_value_init (filename, G_TYPE_STRING);
+	  
+			gchar *temp = g_strrstr (start,"->");
+			if (temp)
+			{
+				temp_filename = g_strstrip(g_strndup(start, temp - start ));
+				g_value_set_string (symlink, g_strstrip(g_strndup (&temp[3] , strlen(temp))) );
+			}
+			else
+			{
+				temp_filename = g_strndup ( start , end - start);
+				g_value_set_string (symlink, g_strdup(" ") );
+			}
+			g_value_set_string ( filename, temp_filename );
 
-		if (  g_str_has_prefix (g_value_get_string (permissions) , "d") == FALSE)
-			archive->nr_of_files++;
-        else
-			archive->nr_of_dirs++;
-		archive->dummy_size += g_value_get_uint64 (size);
+			archive->row = g_list_prepend (archive->row,filename);
+			archive->row = g_list_prepend (archive->row,permissions);
+			archive->row = g_list_prepend (archive->row,symlink);
+			archive->row = g_list_prepend (archive->row,hard_link);
+			archive->row = g_list_prepend (archive->row,owner);
+			archive->row = g_list_prepend (archive->row,group);
+			archive->row = g_list_prepend (archive->row,size);
 
-      g_free (line);
-      archive->row_cnt++;
-      if (archive->row_cnt > 99)
-      {
-        xa_append_rows ( archive , 6 );
-        archive->row_cnt = 0;
-      }
-    }
-    while (status == G_IO_STATUS_NORMAL);
+			if (  g_str_has_prefix (g_value_get_string (permissions) , "d") == FALSE)
+				archive->nr_of_files++;
+			else
+				archive->nr_of_dirs++;
+			archive->dummy_size += g_value_get_uint64 (size);
 
-    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-      goto done;
+			g_free (line);
+			archive->row_cnt++;
+			if (archive->row_cnt > 99)
+			{
+		        xa_append_rows ( archive , 7 );
+			    archive->row_cnt = 0;
+			}
+	    }
+		while (status == G_IO_STATUS_NORMAL);
+
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+		goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
-done:
+	done:
 		g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		xa_append_rows ( archive , 6 );
+		xa_append_rows ( archive , 7 );
 		archive->tmp = cpio_tmp;
 		return FALSE;
 	}

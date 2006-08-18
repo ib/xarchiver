@@ -130,7 +130,7 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			g_value_set_string (symlink, g_strdup(" ") );
 		}
 
-		g_value_set_string(filename, temp_filename );
+		g_value_set_string (filename, temp_filename );
 
 		archive->row = g_list_prepend(archive->row, filename);
 		archive->row = g_list_prepend(archive->row, permissions);
