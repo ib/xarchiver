@@ -30,6 +30,7 @@ struct iso_directory_record * idr_rr;
 
 gboolean use_rock = 0;
 gboolean use_joilet = 0;
+short int iso_error_count = 0;
 char * xtract = 0; 
 int do_find = 0;    
 int ucs_level = 0;
@@ -333,7 +334,8 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 	g_file_size = fstat_buf.st_size;    
 	
 	if ( (!use_rock) && (!use_joilet) )
-		strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from file name */
+		//strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from file name */
+		name_buf[strlen (name_buf)- 2] = '\0';
         
     if (strcmp (name_buf,"..") == 0 || strcmp (name_buf,".") == 0)
 		return;
@@ -575,6 +577,7 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 		gchar *msg = g_strdup_printf (_("Can't write file \"%s\":"), dest);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno) );
 		g_free (msg);
+		iso_error_count++;
         return FALSE;
 	}
 
@@ -664,6 +667,7 @@ void OpenISO ( XArchive *archive )
 	int extent;
 	int block;	
 	int toc_offset = 0;
+	iso_error_count = 0;
 
     archive->dummy_size = 0;
     archive->nr_of_files = 0;

@@ -24,12 +24,13 @@
 #include "callbacks.h"
 #include "support.h"
 
-gboolean ISO_stop_flag = FALSE;
+gboolean stop_flag;
 extern gboolean cli;
 
 Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive)
 {
 	Extract_dialog_data *dialog_data;
+	stop_flag = FALSE;
 
 	dialog_data = g_new0 (Extract_dialog_data, 1);
 	dialog_data->radio_group = NULL;
@@ -488,7 +489,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					dialog_data->dialog1 = NULL;
 					while (end)
 					{
-						if (ISO_stop_flag)
+						if (stop_flag)
 							break;
 						gtk_tree_model_get (model, &iter,
 						0, &name,
@@ -676,6 +677,8 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			row_list = gtk_tree_selection_get_selected_rows (selection, &model);
 			while (row_list)
 			{
+				if (stop_flag)
+					break;
 				gtk_tree_model_get_iter(model, &iter, row_list->data);
 				gtk_tree_model_get (model, &iter,
 				0, &name,
@@ -770,7 +773,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	result = xa_run_command (command , 0);
 	g_free (command);
 
-	if (result == 0)
+	if (result == 0 || stop_flag)
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
 		return FALSE;
@@ -780,7 +783,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	result = xa_run_command (command , 0);
 	g_free (command);
 	g_string_free (names, TRUE);
-	if (result == 0)
+	if (result == 0 || stop_flag)
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
 		return FALSE;

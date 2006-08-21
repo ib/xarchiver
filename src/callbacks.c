@@ -30,7 +30,7 @@
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean cli;
-extern gboolean ISO_stop_flag;
+extern gboolean stop_flag;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -1055,14 +1055,15 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 	}
 	gtk_widget_set_sensitive ( Stop_button , FALSE );
     Update_StatusBar (_("Waiting for the process to abort..."));
-	
-	if (archive->type == XARCHIVETYPE_ISO)
-		ISO_stop_flag = TRUE;
-	else if ( kill ( archive->child_pid , SIGABRT ) < 0 )
-    {
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while trying to kill the process:"),g_strerror(errno));
-	    return;
-    }
+	stop_flag = TRUE;
+	if (archive->type != XARCHIVETYPE_ISO)
+	{
+		if ( kill ( archive->child_pid , SIGABRT ) < 0 )
+	    {
+		    response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while trying to kill the process:"),g_strerror(errno));
+			return;
+	    }
+	}
     /* This in case the user cancels the opening of a password protected archive */
     if (archive->status != XA_ARCHIVESTATUS_ADD || archive->status != XA_ARCHIVESTATUS_DELETE)
         if (archive->has_passwd)

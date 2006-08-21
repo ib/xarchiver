@@ -30,7 +30,7 @@ folder=$1; shift;
 # check the action
 case $action in
 create)
-	exec xarchiver --new "$@"
+	exec xarchiver "--add-to=$@"
 	;;
 
 extract-here)
