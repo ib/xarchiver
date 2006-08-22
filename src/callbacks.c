@@ -145,8 +145,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		    if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
 				Update_StatusBar ( _("Operation completed."));
 			else
+			{
 				Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
-			RemoveColumnsListStore();
+				RemoveColumnsListStore();
+			}
 			switch ( archive->type )
 			{
 				case XARCHIVETYPE_RAR:
@@ -550,7 +552,11 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),archive->extraction_path);
     command = xa_parse_extract_dialog_options ( archive , extract_window, selection );
 	if (extract_window->dialog1 != NULL)
+	{
 		gtk_widget_destroy ( extract_window->dialog1 );
+		extract_window->dialog1 = NULL;
+	}
+
 	if (command != NULL)
 	{
 		xa_run_command (command , 1);
@@ -1066,10 +1072,8 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 	}
     /* This in case the user cancels the opening of a password protected archive */
     if (archive->status != XA_ARCHIVESTATUS_ADD || archive->status != XA_ARCHIVESTATUS_DELETE)
-        if (archive->has_passwd)
+		if (archive->has_passwd)
 			archive->has_passwd = FALSE;
-	
-	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
@@ -1515,7 +1519,8 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
 		return FALSE;
-	
+
+	gtk_widget_show (viewport2);
 	while (waiting)
 	{
 		ps = waitpid ( archive->child_pid, &status, WNOHANG);

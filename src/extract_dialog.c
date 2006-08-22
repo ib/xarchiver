@@ -353,11 +353,16 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->update ));
 
 			gtk_widget_set_sensitive (Stop_button,TRUE);
+			gtk_widget_hide (dialog_data->dialog1);
+			/* Are all files selected? */
 			if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio )) )
 			{
-				gchar *text = g_strdup_printf(_("Extracting files to %s"), destination_path);
-				Update_StatusBar ( text );
-				g_free (text);
+				if ( ! cli )
+				{
+					gchar *text = g_strdup_printf(_("Extracting files to %s"), destination_path);
+					Update_StatusBar ( text );
+					g_free (text);
+				}
 				g_free (destination_path);
         tar = g_find_program_in_path ("gtar");
         if (tar == NULL)
@@ -485,8 +490,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					end = gtk_tree_model_get_iter_first (model , &iter);
 					gtk_widget_show ( viewport2 );
 					g_timeout_add (200, xa_progressbar_pulse, NULL );
-					gtk_widget_destroy (dialog_data->dialog1);
-					dialog_data->dialog1 = NULL;
 					while (end)
 					{
 						if (stop_flag)
@@ -776,6 +779,8 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	if (result == 0 || stop_flag)
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
+		gtk_widget_hide (viewport2);
+		Update_StatusBar (_("Operation aborted."));
 		return FALSE;
 	}
 	chdir (tmp_dir);
@@ -786,6 +791,8 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	if (result == 0 || stop_flag)
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
+		gtk_widget_hide (viewport2);
+		Update_StatusBar (_("Operation aborted."));
 		return FALSE;
 	}
 	if (cpio_flag)
