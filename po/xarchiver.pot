@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-22 07:52+0200\n"
+"POT-Creation-Date: 2006-08-22 10:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,205 +124,205 @@ msgstr ""
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 
-#: src/callbacks.c:123 src/callbacks.c:1543
+#: src/callbacks.c:123 src/callbacks.c:1548
 msgid "An error occurred while accessing the archive."
 msgstr ""
 
-#: src/callbacks.c:123 src/callbacks.c:1543 src/rpm.c:150
+#: src/callbacks.c:123 src/callbacks.c:1548 src/rpm.c:150
 msgid "Do you want to open the error messages window?"
 msgstr ""
 
-#: src/callbacks.c:133 src/callbacks.c:1260 src/callbacks.c:1548
-#: src/callbacks.c:1762 src/extract_dialog.c:816 src/rpm.c:118 src/rpm.c:147
+#: src/callbacks.c:133 src/callbacks.c:1264 src/callbacks.c:1553
+#: src/callbacks.c:1767 src/extract_dialog.c:823 src/rpm.c:118 src/rpm.c:147
 msgid "Operation failed."
 msgstr ""
 
-#: src/callbacks.c:146 src/callbacks.c:1266 src/extract_dialog.c:512
-#: src/extract_dialog.c:699 src/iso.c:797
+#: src/callbacks.c:146 src/callbacks.c:1270 src/extract_dialog.c:515
+#: src/extract_dialog.c:702 src/iso.c:797
 msgid "Operation completed."
 msgstr ""
 
-#: src/callbacks.c:148
+#: src/callbacks.c:149
 msgid "Please wait while the content of the archive is being updated..."
 msgstr ""
 
-#: src/callbacks.c:195
+#: src/callbacks.c:197
 msgid "Operation successfully completed."
 msgstr ""
 
-#: src/callbacks.c:214
+#: src/callbacks.c:216
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr ""
 
-#: src/callbacks.c:220
+#: src/callbacks.c:222
 msgid "Do you want to overwrite it?"
 msgstr ""
 
-#: src/callbacks.c:250
+#: src/callbacks.c:252
 msgid "Choose Add File to create the compressed file."
 msgstr ""
 
-#: src/callbacks.c:254
+#: src/callbacks.c:256
 msgid "Choose Add to begin creating the archive."
 msgstr ""
 
-#: src/callbacks.c:306
+#: src/callbacks.c:308
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr ""
 
-#: src/callbacks.c:309
+#: src/callbacks.c:311
 msgid "Archive format is not recognized!"
 msgstr ""
 
-#: src/callbacks.c:330
+#: src/callbacks.c:332
 msgid "Sorry, this archive format is not supported:"
 msgstr ""
 
-#: src/callbacks.c:330
+#: src/callbacks.c:332
 msgid "the proper archiver is not installed!"
 msgstr ""
 
-#: src/callbacks.c:337
+#: src/callbacks.c:339
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr ""
 
-#: src/callbacks.c:339
+#: src/callbacks.c:341
 msgid "Please wait while the content of the archive is being read..."
 msgstr ""
 
-#: src/callbacks.c:400
+#: src/callbacks.c:402
 msgid "Testing archive integrity, please wait..."
 msgstr ""
 
-#: src/callbacks.c:448
+#: src/callbacks.c:450
 msgid "Please hit the Stop button first!"
 msgstr ""
 
-#: src/callbacks.c:472
+#: src/callbacks.c:474
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr ""
 
-#: src/callbacks.c:473
+#: src/callbacks.c:475
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: src/callbacks.c:477
+#: src/callbacks.c:479
 msgid "Deleting files from the archive, please wait..."
 msgstr ""
 
-#: src/callbacks.c:583
+#: src/callbacks.c:589
 msgid "translator-credits"
 msgstr ""
 
-#: src/callbacks.c:615
+#: src/callbacks.c:621
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
 "select"
 msgstr ""
 
-#: src/callbacks.c:621
+#: src/callbacks.c:627
 msgid "Select the folder to be added to the current archive"
 msgstr ""
 
-#: src/callbacks.c:623
+#: src/callbacks.c:629
 msgid ""
 "Select the folders to be added to the current archive; use SHIFT to multiple "
 "select"
 msgstr ""
 
-#: src/callbacks.c:662 src/interface.c:225
+#: src/callbacks.c:668 src/interface.c:225
 msgid "Create a new archive"
 msgstr ""
 
-#: src/callbacks.c:664
+#: src/callbacks.c:670
 msgid "Cr_eate"
 msgstr ""
 
-#: src/callbacks.c:668 src/interface.c:233
+#: src/callbacks.c:674 src/interface.c:233
 msgid "Open an archive"
 msgstr ""
 
-#: src/callbacks.c:675
+#: src/callbacks.c:681
 msgid "Choose the destination folder where to extract the current archive"
 msgstr ""
 
-#: src/callbacks.c:706
+#: src/callbacks.c:712
 msgid "All files"
 msgstr ""
 
-#: src/callbacks.c:711
+#: src/callbacks.c:717
 msgid "Only archives"
 msgstr ""
 
-#: src/callbacks.c:740
+#: src/callbacks.c:746
 msgid "Archive type:"
 msgstr ""
 
-#: src/callbacks.c:743
+#: src/callbacks.c:749
 msgid "Choose the archive type to create"
 msgstr ""
 
-#: src/callbacks.c:753
+#: src/callbacks.c:759
 msgid "Add the archive extension to the filename"
 msgstr ""
 
-#: src/callbacks.c:853
+#: src/callbacks.c:859
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr ""
 
-#: src/callbacks.c:1020
+#: src/callbacks.c:1026
 msgid "Archiver Output Window"
 msgstr ""
 
-#: src/callbacks.c:1052
+#: src/callbacks.c:1058
 msgid "Doing so will probably corrupt your archive!"
 msgstr ""
 
-#: src/callbacks.c:1052
+#: src/callbacks.c:1058
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: src/callbacks.c:1057
+#: src/callbacks.c:1063
 msgid "Waiting for the process to abort..."
 msgstr ""
 
-#: src/callbacks.c:1063
+#: src/callbacks.c:1069
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: src/callbacks.c:1138
+#: src/callbacks.c:1142
 msgid "Please select a file, not a directory!"
 msgstr ""
 
-#: src/callbacks.c:1218
+#: src/callbacks.c:1222
 msgid "An error occurred while extracting the file to be viewed!"
 msgstr ""
 
-#: src/callbacks.c:1659
+#: src/callbacks.c:1664
 msgid "Can't perform another extraction:"
 msgstr ""
 
-#: src/callbacks.c:1659
+#: src/callbacks.c:1664
 msgid "Please wait until the completion of the current one!"
 msgstr ""
 
-#: src/callbacks.c:1732
+#: src/callbacks.c:1737
 msgid "Sorry, I could not perform the operation!"
 msgstr ""
 
-#: src/callbacks.c:1760
+#: src/callbacks.c:1765
 msgid "Bzip2 or gzip cannot compress more than one file!"
 msgstr ""
 
-#: src/callbacks.c:1760
+#: src/callbacks.c:1765
 msgid "Please choose another archive format!"
 msgstr ""
 
-#: src/callbacks.c:1891
+#: src/callbacks.c:1896
 msgid "Failed to open link."
 msgstr ""
 
@@ -455,7 +455,7 @@ msgstr ""
 msgid "You haven't selected any files to add!"
 msgstr ""
 
-#: src/add_dialog.c:505 src/extract_dialog.c:314 src/interface.c:441
+#: src/add_dialog.c:505 src/interface.c:441
 msgid "You missed the password!"
 msgstr ""
 
@@ -557,7 +557,11 @@ msgid "Please enter the extraction path."
 msgstr ""
 
 #: src/extract_dialog.c:314
-msgid "Please enter it."
+msgid "This archive is encrypted!"
+msgstr ""
+
+#: src/extract_dialog.c:314
+msgid "Please enter the password."
 msgstr ""
 
 #: src/extract_dialog.c:322
@@ -576,17 +580,21 @@ msgstr ""
 msgid "Can't perform extraction!"
 msgstr ""
 
-#: src/extract_dialog.c:358
+#: src/extract_dialog.c:362
 #, c-format
 msgid "Extracting files to %s"
 msgstr ""
 
-#: src/extract_dialog.c:540
+#: src/extract_dialog.c:543
 #, c-format
 msgid "Extracting archive to %s"
 msgstr ""
 
-#: src/extract_dialog.c:814
+#: src/extract_dialog.c:783 src/extract_dialog.c:795
+msgid "Operation aborted."
+msgstr ""
+
+#: src/extract_dialog.c:821
 msgid "Can't create temporary directory in /tmp:"
 msgstr ""
 

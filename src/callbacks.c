@@ -81,21 +81,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
         gtk_widget_set_sensitive ( check_menu , TRUE);
 
 	xa_set_button_state (1,1,1,1,1);
-    if ( archive->passwd != NULL || archive->has_passwd )
-    {
-        gtk_widget_show ( pad_image );
-        gtk_tooltips_enable ( pad_tooltip );
-    }
-    else
-    {
-        gtk_widget_hide ( pad_image );
-		gtk_tooltips_disable ( pad_tooltip );
-    }
 
 	if ( WIFSIGNALED (status) )
 	{
 		Update_StatusBar ( _("Operation canceled."));
-		OffTooltipPadlock();
 		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
 		{
 			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),archive->extraction_path);
@@ -117,9 +106,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			gtk_tooltips_disable ( pad_tooltip );
-			gtk_widget_hide ( pad_image );
-			gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to open the error messages window?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
@@ -1603,10 +1589,15 @@ void OffTooltipPadlock()
 {
     gtk_widget_set_sensitive ( Stop_button , FALSE );
     gtk_widget_hide (viewport2);
-    if ( ! archive->has_passwd )
+    if ( archive->has_passwd == FALSE && archive->passwd == NULL)
     {
         gtk_tooltips_disable ( pad_tooltip );
         gtk_widget_hide ( pad_image );
+    }
+	else
+    {
+        gtk_widget_show ( pad_image );
+        gtk_tooltips_enable ( pad_tooltip );
     }
 }
 

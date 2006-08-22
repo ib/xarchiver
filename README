@@ -1,12 +1,22 @@
-Xarchiver 0.4
+What is it?
+===========
 
-To compile xarchiver:
+Xarchiver is a Desktop Environment independent archiver frontend. All common archive types are supported.
+RPM and ISO are handled without rpm or isodump executables. To run it you only need GTK+2 libraries and
+obviously the various rar, arj and 7z for these archives types. All the others archivers are installed by
+default in most distro.
+
+How to compile:
+===============
+
 ./configure --prefix=/usr
 make
 
 become root with command su
 make install
 
-That's all, enjoy handling archives without GNOME or KDE libs !
 
-Giuseppe Torelli - Colossus
+Please report bugs to: http://bugzilla.xfce.org , registration is needed.
+Suggestions, criticism mail me at <colossus73@gmail.com>
+
+Giuseppe Torelli - colossus

@@ -1,12 +1,25 @@
-Xarchiver 0.4
+Che cos'è?
+==========
 
-Per compilare xarchiver:
+Xarchiver è un'interfaccia grafica indipendente dall'ambiente Desktop per i vari archiviatori a
+linea di comando. Tutti i formati di archiviazione comuni sono supportati. I formati RPM ed ISO
+sono gestiti senza gli eseguibili rpm e isoinfo.
+
+Per farlo funzionare sono necessarie solo le librarie GTK+2 ed ovviamente i vari rar, arj e 7z per questi
+tipi di archivi dato che gli altri archiviatori sono installati in maniera predefinita dalla maggior
+parte delle distribuzioni Linux.
+
+Come compilarlo:
+================
+
 ./configure --prefix=/usr
 make
 
 diventa root con il comando su
 make install
 
-Questo e' tutto, SENZA le librerie di GNOME o KDE puoi gestire i tuoi archivi grazie a Xarchiver !
- 
-Giuseppe Torelli - Colossus
+
+Per riportare i bugs: http://bugzilla.xfce.org , necessita di registrazione.
+Suggerimenti, consigli e critiche costruttive: <colossus73@gmail.com>
+
+Giuseppe Torelli - colossus
