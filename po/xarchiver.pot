@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-21 09:36+0200\n"
+"POT-Creation-Date: 2006-08-22 07:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,8 +67,8 @@ msgstr ""
 msgid "Permissions"
 msgstr ""
 
-#: src/bzip2.c:60 src/gzip.c:53 src/tar.c:48
-msgid "Simbolic Link"
+#: src/bzip2.c:60 src/gzip.c:53 src/rpm.c:54 src/tar.c:48
+msgid "Symbolic Link"
 msgstr ""
 
 #: src/bzip2.c:60 src/gzip.c:53 src/tar.c:48
@@ -124,21 +124,21 @@ msgstr ""
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 
-#: src/callbacks.c:123 src/callbacks.c:1542
+#: src/callbacks.c:123 src/callbacks.c:1543
 msgid "An error occurred while accessing the archive."
 msgstr ""
 
-#: src/callbacks.c:123 src/callbacks.c:1542 src/rpm.c:150
+#: src/callbacks.c:123 src/callbacks.c:1543 src/rpm.c:150
 msgid "Do you want to open the error messages window?"
 msgstr ""
 
-#: src/callbacks.c:133 src/callbacks.c:1259 src/callbacks.c:1547
-#: src/callbacks.c:1761 src/extract_dialog.c:824 src/rpm.c:118 src/rpm.c:147
+#: src/callbacks.c:133 src/callbacks.c:1260 src/callbacks.c:1548
+#: src/callbacks.c:1762 src/extract_dialog.c:816 src/rpm.c:118 src/rpm.c:147
 msgid "Operation failed."
 msgstr ""
 
-#: src/callbacks.c:146 src/callbacks.c:1265 src/extract_dialog.c:522
-#: src/extract_dialog.c:707 src/iso.c:797
+#: src/callbacks.c:146 src/callbacks.c:1266 src/extract_dialog.c:512
+#: src/extract_dialog.c:699 src/iso.c:797
 msgid "Operation completed."
 msgstr ""
 
@@ -294,35 +294,35 @@ msgstr ""
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: src/callbacks.c:1137
+#: src/callbacks.c:1138
 msgid "Please select a file, not a directory!"
 msgstr ""
 
-#: src/callbacks.c:1217
+#: src/callbacks.c:1218
 msgid "An error occurred while extracting the file to be viewed!"
 msgstr ""
 
-#: src/callbacks.c:1658
+#: src/callbacks.c:1659
 msgid "Can't perform another extraction:"
 msgstr ""
 
-#: src/callbacks.c:1658
+#: src/callbacks.c:1659
 msgid "Please wait until the completion of the current one!"
 msgstr ""
 
-#: src/callbacks.c:1731
+#: src/callbacks.c:1732
 msgid "Sorry, I could not perform the operation!"
 msgstr ""
 
-#: src/callbacks.c:1759
+#: src/callbacks.c:1760
 msgid "Bzip2 or gzip cannot compress more than one file!"
 msgstr ""
 
-#: src/callbacks.c:1759
+#: src/callbacks.c:1760
 msgid "Please choose another archive format!"
 msgstr ""
 
-#: src/callbacks.c:1890
+#: src/callbacks.c:1891
 msgid "Failed to open link."
 msgstr ""
 
@@ -447,7 +447,7 @@ msgstr ""
 msgid "Please select the file you want to add"
 msgstr ""
 
-#: src/add_dialog.c:497 src/main.c:136 src/main.c:196
+#: src/add_dialog.c:497 src/main.c:136 src/main.c:195
 msgid "Can't add files to the archive:"
 msgstr ""
 
@@ -455,7 +455,7 @@ msgstr ""
 msgid "You haven't selected any files to add!"
 msgstr ""
 
-#: src/add_dialog.c:505 src/extract_dialog.c:317 src/interface.c:441
+#: src/add_dialog.c:505 src/extract_dialog.c:314 src/interface.c:441
 msgid "You missed the password!"
 msgstr ""
 
@@ -548,53 +548,45 @@ msgstr ""
 msgid "_Extract"
 msgstr ""
 
-#: src/extract_dialog.c:309
+#: src/extract_dialog.c:306
 msgid "You missed where to extract the files!"
 msgstr ""
 
-#: src/extract_dialog.c:309
+#: src/extract_dialog.c:306
 msgid "Please enter the extraction path."
 msgstr ""
 
-#: src/extract_dialog.c:317
+#: src/extract_dialog.c:314
 msgid "Please enter it."
 msgstr ""
 
-#: src/extract_dialog.c:325
+#: src/extract_dialog.c:322
 #, c-format
 msgid "Can't create directory \"%s\""
 msgstr ""
 
-#: src/extract_dialog.c:337
+#: src/extract_dialog.c:334
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the folder \"%s"
 "\"."
 msgstr ""
 
-#: src/extract_dialog.c:338
+#: src/extract_dialog.c:335
 msgid "Can't perform extraction!"
 msgstr ""
 
-#: src/extract_dialog.c:361
+#: src/extract_dialog.c:358
 #, c-format
 msgid "Extracting files to %s"
 msgstr ""
 
-#: src/extract_dialog.c:500
-msgid "This extraction is getting longer because of too many errors"
-msgstr ""
-
-#: src/extract_dialog.c:500
-msgid "Do you want to stop it?"
-msgstr ""
-
-#: src/extract_dialog.c:550
+#: src/extract_dialog.c:540
 #, c-format
 msgid "Extracting archive to %s"
 msgstr ""
 
-#: src/extract_dialog.c:822
+#: src/extract_dialog.c:814
 msgid "Can't create temporary directory in /tmp:"
 msgstr ""
 
@@ -847,7 +839,7 @@ msgstr ""
 msgid "Can't extract files from the archive:"
 msgstr ""
 
-#: src/main.c:84 src/main.c:117 src/main.c:196
+#: src/main.c:84 src/main.c:117 src/main.c:195
 msgid "You missed the archive name!\n"
 msgstr ""
 
@@ -863,23 +855,23 @@ msgstr ""
 msgid "You missed the files to add!\n"
 msgstr ""
 
-#: src/main.c:169
+#: src/main.c:168
 msgid "Can't perform the action:"
 msgstr ""
 
-#: src/main.c:169
+#: src/main.c:168
 msgid "bzip2/gzip can't compress more than one file!\n"
 msgstr ""
 
-#: src/main.c:227
+#: src/main.c:226
 msgid "Ready."
 msgstr ""
 
-#: src/main.c:365
+#: src/main.c:364
 msgid "Can't spawn the command:"
 msgstr ""
 
-#: src/main.c:374
+#: src/main.c:373
 msgid "An error occurred!"
 msgstr ""
 
@@ -898,10 +890,6 @@ msgstr ""
 #: src/rpm.c:44
 #, c-format
 msgid "Can't open RPM file %s:"
-msgstr ""
-
-#: src/rpm.c:54
-msgid "Symbolic Link"
 msgstr ""
 
 #: src/rpm.c:54
