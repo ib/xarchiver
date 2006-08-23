@@ -35,7 +35,10 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	dialog_data = g_new0 (Extract_dialog_data, 1);
 	dialog_data->radio_group = NULL;
 	dialog_data->dialog1 = gtk_dialog_new ();
-	gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
+	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
+		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Decompress file"));		
+	else
+		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for ( GTK_WINDOW (dialog_data->dialog1) , GTK_WINDOW (MainWindow) );
 
