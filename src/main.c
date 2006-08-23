@@ -99,6 +99,7 @@ int main (int argc, char **argv)
 						archive->full_path = 1;
 						archive->overwrite = 1;
 						gchar *escaped_path = EscapeBadChars (extract_path , 1);
+						archive->extraction_path = g_strdup (extract_path);
 						cli_command = xa_extract_single_files ( archive , string, escaped_path );
 						g_free (escaped_path);
 						if ( cli_command != NULL )

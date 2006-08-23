@@ -298,6 +298,13 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
+			if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_BZIP2)
+			{
+				gtk_widget_set_sensitive (Stop_button,FALSE);
+				Update_StatusBar (_("Operation canceled.") );
+				gtk_widget_hide (viewport2);
+				archive->status = XA_ARCHIVESTATUS_IDLE;
+			}
 			break;
 
 			case GTK_RESPONSE_OK:
@@ -328,7 +335,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 				}
 			}
-			if (access (destination_path, R_OK | W_OK | X_OK) != 0)
+			if (access (destination_path, R_OK | W_OK | X_OK | F_OK ) != 0)
 			{
 				gchar *utf8_path;
 				gchar  *msg;
@@ -372,6 +379,14 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
           tar = g_strdup ("tar");
 				switch ( archive->type )
 				{
+					case XARCHIVETYPE_BZIP2:
+					gzip_bzip2_extract (archive , 0);
+					break;
+
+					case XARCHIVETYPE_GZIP:
+					gzip_bzip2_extract (archive , 1);
+					break;
+					
 					case XARCHIVETYPE_RAR:
 					if (archive->passwd != NULL)
 						command = g_strconcat ( "rar " , archive->full_path ? "x " : "e ",
@@ -540,7 +555,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path)
 {
-	gchar *command;
+	gchar *command = NULL;
 	gchar *tar;
 
 	gchar *msg = g_strdup_printf( _("Extracting archive to %s") , path);
@@ -551,6 +566,14 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		tar = g_strdup ("tar");
 	switch (archive->type)
 	{
+		case XARCHIVETYPE_BZIP2:
+		gzip_bzip2_extract (archive , 0);
+		break;
+
+		case XARCHIVETYPE_GZIP:
+		gzip_bzip2_extract (archive , 1);
+		break;
+
 		case XARCHIVETYPE_RAR:
 		if (archive->passwd != NULL)
 			command = g_strconcat ( "rar " , archive->full_path ? "x " : "e " ,

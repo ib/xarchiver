@@ -29,9 +29,9 @@ short int l;
 
 void OpenBzip2 ( XArchive *archive )
 {
+	gchar *command;
     if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 	{
-		gchar *command;
 		gchar *tar;
     
 		tar = g_find_program_in_path ("gtar");
@@ -60,8 +60,10 @@ void OpenBzip2 ( XArchive *archive )
     }
     else
 	{
-		gzip_bzip2_extract ( archive , 0 );
-		archive->format ="BZIP2";
+		extract_window = xa_create_extract_dialog ( 0 , archive);
+		command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
+		gtk_widget_destroy ( extract_window->dialog1 );
+		g_free (extract_window);
 	}
 }
 
@@ -73,89 +75,67 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 	gboolean result = FALSE;
 	gboolean ext;
 	
-	extract_window = xa_create_extract_dialog ( 0 , archive);
-	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
-	done = FALSE;
-	while ( ! done )
+	if ( ! cli )
+		archive->extraction_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
+
+	if ( strlen ( archive->extraction_path ) > 0 )
 	{
-		switch (gtk_dialog_run ( GTK_DIALOG (extract_window->dialog1 ) ) )
+		if (! cli)
 		{
-			case GTK_RESPONSE_CANCEL:
-			case GTK_RESPONSE_DELETE_EVENT:
-			done = TRUE;
-			break;
-			
-			case GTK_RESPONSE_OK:
-			archive->extraction_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
-			if ( strlen ( archive->extraction_path ) > 0 )
-			{
-				done = TRUE;
-
-				if (! cli)
-				{
-					if (flag)
-						text = g_strdup_printf(_("Extracting gzip file to %s"), archive->extraction_path);
-					else
-						text = g_strdup_printf(_("Extracting bzip2 file to %s"), archive->extraction_path);
-					Update_StatusBar ( text );
-					g_free (text);
-				}
-
-				filename_only = StripPathFromFilename (archive->escaped_path , "/");
-				if (file_extension_is (filename_only,".gz") || file_extension_is (filename_only,".bz2") )
-					ext = TRUE;
-				else
-					ext = FALSE;
-					
-				if (ext)
-					command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp", NULL);
-				else
-					command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp" , filename_only, flag ? ".gz" : ".bz2", NULL);
-
-				result = xa_run_command (command , 0);
-				g_free (command);
-				if (result == 0)
-					break;
-				if ( ext  )
-					command = g_strconcat (flag ? "gzip -f -d -n " : "bzip2 -f -d ", "/tmp",filename_only, NULL);
-				else
-					command = g_strconcat (flag ? "gzip -f -d -n " : "bzip2 -f -d ","/tmp",filename_only, flag ? ".gz" : ".bz2", NULL);
-
-				result = xa_run_command (command , 0);
-				g_free (command);
-				if (result == 0)
-					break;
-
-				if (ext)
-				{
-					if (flag)
-						filename_only[strlen(filename_only) - 3] = '\0';
-					else
-						filename_only[strlen(filename_only) - 4] = '\0';
-					command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
-				}
-				else
-				{
-					if ( g_file_test (archive->extraction_path, G_FILE_TEST_IS_DIR) )
-						command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,filename_only,NULL);
-					else
-						command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
-				}
-
-				result = xa_run_command (command , 0);
-				g_free (command);
-				if (result == 0)
-					break;
-			}
+			if (flag)
+				text = g_strdup_printf(_("Extracting gzip file to %s"), archive->extraction_path);
 			else
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the extraction path!"),("Please type it.") );
-			break;
-    	}
-	}
-	gtk_widget_destroy ( extract_window->dialog1 );
-	g_free (extract_window);
-	extract_window = NULL;
+				text = g_strdup_printf(_("Extracting bzip2 file to %s"), archive->extraction_path);
+			Update_StatusBar ( text );
+			g_free (text);
+		}
 
+		filename_only = StripPathFromFilename (archive->escaped_path , "/");
+		if (file_extension_is (filename_only,".gz") || file_extension_is (filename_only,".bz2") )
+			ext = TRUE;
+		else
+			ext = FALSE;
+					
+		if (ext)
+			command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp", NULL);
+		else
+			command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp" , filename_only, flag ? ".gz" : ".bz2", NULL);
+
+		result = xa_run_command (command , 0);
+		g_free (command);
+		if (result == 0)
+			return ;
+		if ( ext  )
+			command = g_strconcat (flag ? "gzip -f -d -n " : "bzip2 -f -d ", "/tmp",filename_only, NULL);
+		else
+			command = g_strconcat (flag ? "gzip -f -d -n " : "bzip2 -f -d ","/tmp",filename_only, flag ? ".gz" : ".bz2", NULL);
+
+		result = xa_run_command (command , 0);
+		g_free (command);
+		if (result == 0)
+			return;
+
+		if (ext)
+		{
+			if (flag)
+				filename_only[strlen(filename_only) - 3] = '\0';
+			else
+				filename_only[strlen(filename_only) - 4] = '\0';
+				command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
+		}
+		else
+		{
+			if ( g_file_test (archive->extraction_path, G_FILE_TEST_IS_DIR) )
+				command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,filename_only,NULL);
+			else
+				command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
+		}
+
+		result = xa_run_command (command , 0);
+		g_free (command);
+		if (result == 0)
+			return;
+	}
 	if (result == 0)
 	{
 		xa_set_button_state (1,1,0,0,0);

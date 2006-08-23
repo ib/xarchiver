@@ -26,9 +26,10 @@ extern int output_fd;
 
 void OpenGzip ( XArchive *archive )
 {
+	gchar *command;
+
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
 	{
-    gchar *command;
     gchar *tar;
 
     tar = g_find_program_in_path ("gtar");
@@ -57,8 +58,10 @@ void OpenGzip ( XArchive *archive )
 	}
 	else
 	{
-		archive->format ="GZIP";
-		gzip_bzip2_extract ( archive , 1 );
+		extract_window = xa_create_extract_dialog ( 0 , archive);
+		command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
+		gtk_widget_destroy ( extract_window->dialog1 );
+		g_free (extract_window);
 	}
 }
 

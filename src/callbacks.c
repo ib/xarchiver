@@ -67,22 +67,37 @@ gint current_archive_suffix = 0;
 void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
-
+	gboolean new	= FALSE;
+	gboolean open	= FALSE;
+	gboolean add	= FALSE;
+	gboolean extract= FALSE;
+	gboolean select	= FALSE;
+	gboolean check	= FALSE;
+	gboolean info	= FALSE;
+	
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
-		xa_set_button_state (1,1,0,0,0);
+	{
+		new = open = TRUE;
+		info = FALSE;
+	}	
 	else if (archive->type == XARCHIVETYPE_RPM)
 	{
-		xa_set_button_state (1,1,0,1,1);
-		gtk_widget_set_sensitive ( check_menu , FALSE);
+		new = open = extract = select = TRUE;
+		info = FALSE;
 	}
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
-        gtk_widget_set_sensitive ( check_menu , FALSE);
+	{
+		new = open = add = extract = select = info = TRUE;
+		check = FALSE;
+	}
 	else
 	{
-		gtk_widget_set_sensitive ( check_menu , TRUE);
-		xa_set_button_state (1,1,1,1,1);
+		check = TRUE;
+		new = open = add = extract = select = info = TRUE;
 	}
-	
+	gtk_widget_set_sensitive ( check_menu , check);
+	gtk_widget_set_sensitive ( properties , info);
+	xa_set_button_state (new,open,add,extract,select);
 
 	if ( WIFSIGNALED (status) )
 	{
@@ -180,9 +195,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	}
 	gtk_widget_grab_focus (treeview1);
 	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
-	gtk_widget_set_sensitive ( properties , TRUE );
 	archive->status = XA_ARCHIVESTATUS_IDLE;
-    Update_StatusBar ( _("Operation successfully completed."));
+    Update_StatusBar ( _("Operation completed."));
 }
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
