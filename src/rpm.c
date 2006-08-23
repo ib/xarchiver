@@ -24,6 +24,7 @@ extern int output_fd, input_fd;
 FILE *stream;
 int fd;
 gchar *cpio_tmp = NULL;
+gchar *tmp = NULL;
 gchar buffer[2048];
 gsize bytes_read = 0;
 gsize bytes_written = 0;
@@ -359,3 +360,78 @@ void CloseChannels ( GIOChannel *ioc )
     g_io_channel_shutdown ( ioc,TRUE,NULL );
     g_io_channel_unref (ioc);
 }
+
+gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
+{
+	gchar *command = NULL;
+	tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
+	fd = g_mkstemp ( tmp );
+	stream = fdopen ( fd , "w" );
+	if ( stream == NULL)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write to /tmp:"),g_strerror(errno) );
+		g_free (tmp);
+		return NULL;
+	}
+	if ( temp_path == NULL)
+		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
+	else
+		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , temp_path , NULL );
+	archive->parse_output = 0;
+	SpawnAsyncProcess ( archive , command , 0, 0);
+	g_free ( command );
+	if ( archive->child_pid == 0 )
+	{
+		fclose ( stream );
+		unlink ( tmp );
+		g_free (tmp);
+		return NULL;
+	}
+	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
+	g_io_channel_set_encoding (ioc, NULL , NULL);
+	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
+	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
+	return tmp;
+}
+
+gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	FILE *stream = data;
+	gchar buffer[65536];
+	gsize bytes_read;
+	GIOStatus status;
+	GError *error = NULL;
+
+	if (cond & (G_IO_IN | G_IO_PRI) )
+	{
+		do
+	    {
+			status = g_io_channel_read_chars (ioc, buffer, sizeof(buffer), &bytes_read, &error);
+			if (bytes_read > 0)
+			{
+				/* Write the content of the bzip/gzip extracted file to the file pointed by the file stream */
+				fwrite (buffer, 1, bytes_read, stream);
+			}
+			else if (error != NULL)
+			{
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("An error occurred:"),error->message);
+			g_error_free (error);
+			return FALSE;
+			}
+		}
+		while (status == G_IO_STATUS_NORMAL);
+
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+		goto done;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		done:
+		fclose ( stream );
+		g_io_channel_shutdown ( ioc,TRUE,NULL );
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
+}
+

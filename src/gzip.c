@@ -58,7 +58,7 @@ void OpenGzip ( XArchive *archive )
 	else
 	{
 		archive->format ="GZIP";
-		Bzip2Extract ( archive , 1 );
+		gzip_bzip2_extract ( archive , 1 );
 	}
 }
 

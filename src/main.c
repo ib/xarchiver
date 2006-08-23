@@ -273,14 +273,6 @@ void GetAvailableCompressors()
 		g_free (absolute_path);
 	}
 
-	absolute_path = g_find_program_in_path("rar");
-    if ( absolute_path )
-	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
-		g_free (absolute_path);
-	}
-
 	absolute_path = g_find_program_in_path("cpio");
     if ( absolute_path )
 	{
@@ -307,13 +299,13 @@ void GetAvailableCompressors()
 		}
 	}
 
-	absolute_path = g_find_program_in_path("7za");
+	absolute_path = g_find_program_in_path("rar");
     if ( absolute_path )
-    {
-        ArchiveType = g_list_prepend ( ArchiveType, ".7z");
-	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
 		g_free (absolute_path);
-    }
+	}
 
 	absolute_path = g_find_program_in_path("zip");
     if ( absolute_path )
@@ -325,6 +317,14 @@ void GetAvailableCompressors()
 		ArchiveType = g_list_prepend ( ArchiveType, ".zip");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
 	}
+
+	absolute_path = g_find_program_in_path("7za");
+    if ( absolute_path )
+    {
+        ArchiveType = g_list_prepend ( ArchiveType, ".7z");
+	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
+		g_free (absolute_path);
+    }
 }
 
 void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean Extract, gboolean select)

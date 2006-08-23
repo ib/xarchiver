@@ -25,11 +25,7 @@ extern gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 extern int output_fd;
 extern gboolean cli;
 
-FILE *stream = NULL;
-gchar *tmp = NULL;
-int fd;
 short int l;
-gboolean error_output,result;
 
 void OpenBzip2 ( XArchive *archive )
 {
@@ -64,15 +60,19 @@ void OpenBzip2 ( XArchive *archive )
     }
     else
 	{
-		Bzip2Extract ( archive , 0 );
+		gzip_bzip2_extract ( archive , 0 );
 		archive->format ="BZIP2";
 	}
 }
 
-void Bzip2Extract ( XArchive *archive , gboolean flag )
+void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 {
-    gchar *text;
+    gchar *text = NULL;
+	gchar *filename_only = NULL;
 	gchar *command = NULL;
+	gboolean result = FALSE;
+	gboolean ext;
+	
 	extract_window = xa_create_extract_dialog ( 0 , archive);
 	gtk_dialog_set_default_response (GTK_DIALOG (extract_window->dialog1), GTK_RESPONSE_OK);
 	done = FALSE;
@@ -90,32 +90,62 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 			if ( strlen ( archive->extraction_path ) > 0 )
 			{
 				done = TRUE;
-				archive->parse_output = 0;
-				command = g_strconcat ( flag ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
-				SpawnAsyncProcess ( archive , command , 0, 0);
-				if ( archive->child_pid == 0 )
-				{
-					g_free ( command );
-					return;
-				}
-				if (flag)
-					text = g_strdup_printf(_("Extracting gzip file to %s"), archive->extraction_path);
-				else
-					text = g_strdup_printf(_("Extracting bzip2 file to %s"), archive->extraction_path);
-				Update_StatusBar ( text );
-				g_free (text);
 
-				stream = fopen ( archive->extraction_path , "w" );
-				if ( stream == NULL )
+				if (! cli)
 				{
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write file:"),g_strerror(errno));
-                    done = FALSE;
-                    break;					
+					if (flag)
+						text = g_strdup_printf(_("Extracting gzip file to %s"), archive->extraction_path);
+					else
+						text = g_strdup_printf(_("Extracting bzip2 file to %s"), archive->extraction_path);
+					Update_StatusBar ( text );
+					g_free (text);
 				}
-				GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-				g_io_channel_set_encoding (ioc, NULL , NULL);
-				g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-				g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
+
+				filename_only = StripPathFromFilename (archive->escaped_path , "/");
+				if (file_extension_is (filename_only,".gz") || file_extension_is (filename_only,".bz2") )
+					ext = TRUE;
+				else
+					ext = FALSE;
+					
+				if (ext)
+					command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp", NULL);
+				else
+					command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp" , filename_only, flag ? ".gz" : ".bz2", NULL);
+
+				result = xa_run_command (command , 0);
+				g_free (command);
+				if (result == 0)
+					break;
+				if ( ext  )
+					command = g_strconcat (flag ? "gzip -f -d -n " : "bzip2 -f -d ", "/tmp",filename_only, NULL);
+				else
+					command = g_strconcat (flag ? "gzip -f -d -n " : "bzip2 -f -d ","/tmp",filename_only, flag ? ".gz" : ".bz2", NULL);
+
+				result = xa_run_command (command , 0);
+				g_free (command);
+				if (result == 0)
+					break;
+
+				if (ext)
+				{
+					if (flag)
+						filename_only[strlen(filename_only) - 3] = '\0';
+					else
+						filename_only[strlen(filename_only) - 4] = '\0';
+					command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
+				}
+				else
+				{
+					if ( g_file_test (archive->extraction_path, G_FILE_TEST_IS_DIR) )
+						command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,filename_only,NULL);
+					else
+						command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
+				}
+
+				result = xa_run_command (command , 0);
+				g_free (command);
+				if (result == 0)
+					break;
 			}
 			else
 				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the extraction path!"),("Please type it.") );
@@ -125,57 +155,24 @@ void Bzip2Extract ( XArchive *archive , gboolean flag )
 	gtk_widget_destroy ( extract_window->dialog1 );
 	g_free (extract_window);
 	extract_window = NULL;
-	xa_set_button_state (1,1,0,0,0);
-	if (command != NULL)
+
+	if (result == 0)
 	{
-		g_free ( command );
-		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);    
-	}
-	else
-	{
+		xa_set_button_state (1,1,0,0,0);
 		archive->status = XA_ARCHIVESTATUS_IDLE;
 		gtk_widget_set_sensitive (Stop_button, FALSE);
 		gtk_widget_hide ( viewport2 );
 		Update_StatusBar ( _("Operation canceled."));
 	}
-}
-
-gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
-{
-	gchar *command = NULL;
-	tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
-	fd = g_mkstemp ( tmp );
-	stream = fdopen ( fd , "w" );
-	if ( stream == NULL)
-	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write to /tmp:"),g_strerror(errno) );
-		g_free (tmp);
-		return NULL;
-	}
-	if ( temp_path == NULL)
-		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
 	else
-		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , temp_path , NULL );
-	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0, 0);
-	g_free ( command );
-	if ( archive->child_pid == 0 )
-	{
-		fclose ( stream );
-		unlink ( tmp );
-		g_free (tmp);
-		return NULL;
-	}
-	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
-	g_io_channel_set_encoding (ioc, NULL , NULL);
-	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
-	return tmp;
+		xa_watch_child (archive->child_pid, 0, archive);
 }
 
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
 {
 	gchar *command, *msg, *tar,*temp_name,*temp_name2;
+	gboolean result;
+
 	if ( ! cli )
 	{
 		gtk_widget_show (viewport2);
@@ -285,79 +282,5 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	g_free (temp_name2);
 	if (result == 0)
 		return;
-}
-
-void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag )
-{
-	gchar *command = NULL;
-	gtk_widget_show ( viewport2 );
-	command = g_strconcat ( flag ? "gzip -f " : "bzip2 -zk " , filename , NULL );
-	if ( ! cli)
-	{
-		result = xa_run_command (command , 0);
-		g_free (command);
-		if ( result == 0 )
-			return;
-	}
-	else
-	{
-		error_output = SpawnSyncCommand ( command );
-		g_free (command);
-		if (error_output == FALSE)
-			return;
-	}
-
-	command = g_strconcat ( "mv -f " , filename , flag ? ".gz" : ".bz2 ", " " , archive->escaped_path , NULL );
-	if (! cli)
-	{
-		result = xa_run_command (command , 1);
-		g_free (command);
-	}
-	else
-	{
-		error_output = SpawnSyncCommand ( command );
-		g_free (command);
-	}
-}
-
-gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointer data)
-{
-	FILE *stream = data;
-	gchar buffer[65536];
-	gsize bytes_read;
-	GIOStatus status;
-	GError *error = NULL;
-
-	if (cond & (G_IO_IN | G_IO_PRI) )
-	{
-		do
-	    {
-			status = g_io_channel_read_chars (ioc, buffer, sizeof(buffer), &bytes_read, &error);
-			if (bytes_read > 0)
-			{
-				/* Write the content of the bzip/gzip extracted file to the file pointed by the file stream */
-				fwrite (buffer, 1, bytes_read, stream);
-			}
-			else if (error != NULL)
-			{
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("An error occurred:"),error->message);
-			g_error_free (error);
-			return FALSE;
-			}
-		}
-		while (status == G_IO_STATUS_NORMAL);
-
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-		goto done;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
-	{
-		done:
-		fclose ( stream );
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref (ioc);
-		return FALSE;
-	}
-	return TRUE;
 }
 

@@ -27,11 +27,8 @@
 #include "archive.h"
 
 void OpenBzip2 ( XArchive *archive );
-void Bzip2Extract ( XArchive *archive , gboolean flag );
-gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond , gpointer data);
+void gzip_bzip2_extract ( XArchive *archive , gboolean flag );
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add );
 GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data);
-void Bzip2Add ( gchar *filename , XArchive *archive , gboolean flag );
-gchar *OpenTempFile ( gboolean dummy , gchar *temp_path );
 gboolean file_extension_is (const char *filename, const char *ext);
 #endif

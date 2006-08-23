@@ -78,9 +78,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
         gtk_widget_set_sensitive ( check_menu , FALSE);
 	else
-        gtk_widget_set_sensitive ( check_menu , TRUE);
-
-	xa_set_button_state (1,1,1,1,1);
+	{
+		gtk_widget_set_sensitive ( check_menu , TRUE);
+		xa_set_button_state (1,1,1,1,1);
+	}
+	
 
 	if ( WIFSIGNALED (status) )
 	{
@@ -227,7 +229,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
     gtk_widget_set_sensitive ( check_menu , FALSE);
     gtk_widget_set_sensitive ( properties , FALSE );
-    /* Let's off the delete and view buttons and the menu entries to avoid misterious behaviour */
+    /* Let's off the delete and view buttons and the menu entries to avoid strange behaviours */
     OffDeleteandViewButtons ();
 
 	if ( liststore != NULL )
@@ -736,7 +738,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		Name = g_list_first ( ArchiveType );
 		while ( Name != NULL )
 		{
-			if (Name->data != ".tgz" && Name->data != ".rpm" && Name->data != ".iso"  )
+			if (Name->data != ".tgz" && Name->data != ".rpm" && Name->data != ".iso" && Name->data != ".gz" && Name->data != ".bz2" )
 				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
 			Name = g_list_next ( Name );
 		}
@@ -762,8 +764,6 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 			ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
 			current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
             if (strcmp ( ComboArchiveType,".arj") == 0) archive->type = XARCHIVETYPE_ARJ;
-                else if (strcmp ( ComboArchiveType,".bz2") == 0) archive->type = XARCHIVETYPE_BZIP2;
-                else if (strcmp ( ComboArchiveType,".gz") == 0) archive->type = XARCHIVETYPE_GZIP;
                 else if (strcmp ( ComboArchiveType,".rar") == 0) archive->type = XARCHIVETYPE_RAR;
                 else if (strcmp ( ComboArchiveType,".tar") == 0) archive->type = XARCHIVETYPE_TAR;
                 else if (strcmp ( ComboArchiveType,".tar.bz2") == 0) archive->type = XARCHIVETYPE_TAR_BZ2;

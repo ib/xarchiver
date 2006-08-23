@@ -31,5 +31,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint status , gpointer data);
 gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void CloseChannels ( GIOChannel *ioc );
+gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond , gpointer data);
+gchar *OpenTempFile ( gboolean dummy , gchar *temp_path );
 
 #endif

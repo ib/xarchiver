@@ -3,11 +3,11 @@ Xarchiver changelog:
 xx/06/06 - 0.4:
 		- Added symbolic link column in tar/tar.bz2/tar.gz and RPM archives.
 		- Ability to extract files inside RPM archives without the directory they are contained in.
-		- View ability works with files inside RPM archives nested in more than one directory.
+		- View ability works now with files inside RPM archives nested in more than one directory.
 		- Increased speed ! Xarchiver is faster than ever when opening archives.
 		- The GUI looks neat and clean respect to the 0.3.3 release.
 		- Added a brand extract and add dialog supporting most of the archiver command line options.
-		- Added Drag and Drop from and to Xarchiver window by using the XDS protocol.
+		- Added drag and drop from and to Xarchiver window by using the XDS protocol.
 		- Added the (in)famous cmd-line switches; see xarchiver -? for details.
 		- Added a Stop button who cancels the current operation or you can use the ESC key.
 		- Added the ability to test archives.
