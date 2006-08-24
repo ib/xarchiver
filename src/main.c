@@ -22,14 +22,14 @@
 
 gint exit_status;
 gchar *cli_command = NULL;
-gchar *archive_name;
+gchar **files;
 gchar *absolute_path = NULL;
 gchar *_current_dir = NULL;
 gchar *extract_path = NULL;
 GError *cli_error = NULL;
-gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
+gboolean error_output, file_to_open, ask_and_extract, ask_and_add, add;
 gboolean cli = FALSE;
-
+unsigned short int len = 0;
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
@@ -40,9 +40,12 @@ static GOptionEntry entries[] =
 		N_("Extract the archive by asking the destination folder and quits."),
 		N_("[archive path]")
 	},
-	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
+	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &add,
 		N_("Add files to the specified archive and quits."),
-		N_("[archive path] [file1] [file2] ... [fileN]")
+		N_("[archive name] [file1] [file2] ... [fileN]")
+	},
+	{	G_OPTION_REMAINING, 0, G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME_ARRAY, &files,
+		NULL,NULL,
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_add,
 		N_("Add files to the specified archive by asking their filenames and quits."),
@@ -66,7 +69,7 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
-	if (ask_and_extract || ask_and_add || archive_name != NULL || extract_path != NULL)
+	if (ask_and_extract || ask_and_add || add || extract_path != NULL)
 		cli = TRUE;
 
 	if (cli == TRUE)
@@ -131,25 +134,27 @@ int main (int argc, char **argv)
 			}
 		}
 		/* Switch -d */
-		else if (archive_name != NULL)
+		else if (files != NULL)
 		{
-			if (argc == 1)
+			if (files[0] == NULL && files[1] == NULL)
 			{
 				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the files to add!\n"));
 				return 0;
 			}
-			if ( g_file_test ( archive_name , G_FILE_TEST_EXISTS ) )
+			if ( DetectArchiveType ( files[0] ) > 0 )
 			{
-				archive = xa_init_structure_from_cmd_line ( archive_name );
+				archive = xa_init_structure_from_cmd_line ( files[0] );
 				if (archive != NULL)
 				{
 					GString *string = g_string_new ( "" );
-					for ( x = 1; x < argc; x++)
+					while (files[len])
 					{
-						_current_dir = g_path_get_basename ( argv[x] );
+						_current_dir = g_path_get_basename ( files[len] );
 						ConcatenateFileNames2 ( _current_dir, string );
 						g_free (_current_dir);
+						len++;
 					}
+					
 					cli_command = xa_add_single_files ( archive , string, NULL);
 					if (cli_command != NULL)
 						error_output = SpawnSyncCommand ( cli_command );
@@ -158,10 +163,10 @@ int main (int argc, char **argv)
 			}
 			else
 			{
-				xa_new_archive ( NULL , archive_name );
+				xa_new_archive ( NULL , files[0] );
 				if (archive->path != NULL)
 				{
-					_current_dir = g_path_get_dirname(argv[1]);
+					_current_dir = g_path_get_dirname(files[0]);
 					chdir (_current_dir);
 					g_free (_current_dir);
 					GString *string = g_string_new ( "" );
@@ -172,11 +177,12 @@ int main (int argc, char **argv)
 							xa_clean_archive_structure ( archive );
 						return 0;
 					}
-					for ( x = 1; x < argc; x++)
+					while (files[len])
 					{
-						_current_dir = g_path_get_basename (argv[x]);
-						ConcatenateFileNames2 ( _current_dir , string );
+						_current_dir = g_path_get_basename ( files[len] );
+						ConcatenateFileNames2 ( _current_dir, string );
 						g_free (_current_dir);
+						len++;
 					}
 				
 					archive->add_recurse = TRUE;
@@ -210,6 +216,7 @@ int main (int argc, char **argv)
 		}
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
+		g_strfreev (files);
 		if (archive != NULL)
 			xa_clean_archive_structure ( archive );
 		return exit_status;
@@ -228,15 +235,17 @@ int main (int argc, char **argv)
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);
 		archive = xa_init_archive_structure(archive);
+
 		/* This to open the archive from the command line */
-		if ( argc == 2)
+		if ( argc == 1)
 		{
-			gchar *dummy = g_strdup(argv[1]);
+			gchar *dummy = g_strdup(files[0]);
 			xa_open_archive ( NULL , dummy );
 		}
 		gtk_main ();
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
+		g_strfreev (files);
 		return 0;
 	}
 }
