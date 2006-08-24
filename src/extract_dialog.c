@@ -22,6 +22,7 @@
 #include "extract_dialog.h"
 #include "interface.h"
 #include "callbacks.h"
+#include "string_utils.h"
 #include "support.h"
 
 gboolean stop_flag;
@@ -309,7 +310,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			case GTK_RESPONSE_OK:
 			destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
-			archive->extraction_path = EscapeBadChars ( destination_path , 0 );
+			archive->extraction_path = EscapeBadChars ( destination_path , "$\'`\"\\!?* ()&|@#:;" );
 
 			if ( strlen ( archive->extraction_path ) == 0 )
 			{
@@ -324,7 +325,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This archive is encrypted!"),_("Please enter the password.") );
 				break;
 			}
-			if (g_file_test (destination_path , G_FILE_TEST_EXISTS) == FALSE )
+			if (g_file_test (destination_path , G_FILE_TEST_EXISTS) == FALSE) 
 			{
 				int result = mkdir (destination_path , S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
 				if (result == -1)
@@ -335,7 +336,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 				}
 			}
-			if (access (destination_path, R_OK | W_OK | X_OK | F_OK ) != 0)
+			if ( g_file_test (destination_path , G_FILE_TEST_IS_DIR) && access (destination_path, R_OK | W_OK | X_OK ) )
 			{
 				gchar *utf8_path;
 				gchar  *msg;
@@ -364,6 +365,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			gtk_widget_set_sensitive (Stop_button,TRUE);
 			gtk_widget_hide (dialog_data->dialog1);
+			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			/* Are all files selected? */
 			if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio )) )
 			{
@@ -600,7 +602,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, TRUE );
+			xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, FALSE );
 			command = NULL;
 		}
 		break;
@@ -615,7 +617,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xjvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, TRUE );
+			xa_extract_tar_without_directories ( "tar -xjvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, FALSE );
 			command = NULL;
 		}
 		break;
@@ -630,7 +632,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xzvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, TRUE );
+			xa_extract_tar_without_directories ( "tar -xzvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, FALSE );
 			command = NULL;
 		}
 		break;
@@ -744,13 +746,15 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	gchar *permission = NULL;
 	gchar tmp_dir[14] = "";
 	GtkTreeSelection *selection;
-	GString *names;
+	GString *names, *unescaped_names;
 	gboolean end = FALSE;
 	GtkTreeIter iter;
 	GList *row_list;
+	GSList *filenames = NULL;
 	gboolean result;
 
 	names = g_string_new ("");
+	unescaped_names = g_string_new ("");
 	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	row_list = gtk_tree_selection_get_selected_rows (selection, &model);
 	
@@ -766,7 +770,10 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 			gtk_tree_path_free (row_list->data);
 
 			if (strstr (permission ,"d") == NULL)
+			{
 				ConcatenateFileNames2 ( name , names );
+				filenames = g_slist_append ( filenames,name );
+			}
 			g_free (permission);
 			row_list = row_list->next;
 		}
@@ -780,7 +787,10 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 			gtk_tree_model_get (model, &iter,	0, &name,
 												1, &permission, -1);
 			if (strstr (permission ,"d") == NULL)
+			{
 				ConcatenateFileNames2 ( name , names );
+				filenames = g_slist_append ( filenames,name );
+			}
 			g_free (permission);
 			end = gtk_tree_model_iter_next (model,&iter);
 		}
@@ -800,6 +810,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 										tar_touch ? " --touch" : "",
 										" -C " , tmp_dir , names->str, NULL );
 	result = xa_run_command (command , 0);
+	g_string_free (names, TRUE);
 	g_free (command);
 
 	if (result == 0 || stop_flag)
@@ -810,10 +821,20 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 		return FALSE;
 	}
 	chdir (tmp_dir);
-	command = g_strconcat ( "mv -f ", names->str, " " , extract_path , NULL );
+	while (filenames)
+	{
+		gchar *unescaped = EscapeBadChars ( filenames->data , "$\'`\"\\!?* ()[]&|@#:;");
+		g_string_prepend ( unescaped_names, unescaped );
+		g_string_prepend_c (unescaped_names, ' ');
+		g_free (unescaped);
+		filenames = filenames->next;
+	}
+	command = g_strconcat ( "mv -f ", unescaped_names->str, " " , extract_path , NULL );
 	result = xa_run_command (command , 0);
 	g_free (command);
-	g_string_free (names, TRUE);
+	g_slist_free (filenames);
+	g_string_free ( unescaped_names, TRUE );
+
 	if (result == 0 || stop_flag)
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
@@ -825,6 +846,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 		xa_delete_temp_directory ( tmp_dir, 0 );
 	else
 		xa_delete_temp_directory ( tmp_dir, 1 );
+	
 	return result;
 }
 
@@ -851,3 +873,4 @@ gboolean xa_create_temp_directory ( gchar tmp_dir[] )
 	}
 	return TRUE;
 }
+

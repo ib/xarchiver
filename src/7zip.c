@@ -18,6 +18,7 @@
  
 #include "config.h"
 #include "7zip.h"
+#include "string_utils.h"
  
 void Open7Zip ( XArchive *archive)
 {

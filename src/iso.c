@@ -21,6 +21,7 @@
 
 #include "config.h"
 #include "iso.h"
+#include "string_utils.h"
 
 unsigned char buffer[2048];
 

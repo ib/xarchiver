@@ -86,7 +86,7 @@ void ShowShellOutput ( GtkMenuItem *menuitem );
 void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_append_rows ( XArchive *archive , unsigned short int nc );
-void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data);
+void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer user_data);
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer user_data );
 void Activate_buttons();
@@ -97,10 +97,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 GSList *Add_File_Dialog ( gchar *mode );
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
-int CountCharacter ( gchar *string , int chr );
-int is_escaped_char(char c);
 int DetectArchiveType ( gchar *filename );
-GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data);
 
 gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
@@ -120,14 +117,7 @@ void OffDeleteandViewButtons();
 void OffTooltipPadlock();
 void Update_StatusBar (gchar *msg);
 void xa_watch_child ( GPid pid, gint status, gpointer data);
-gchar *EscapeBadChars ( gchar *string , gboolean doublesquare);
-gchar *StripPathFromFilename ( gchar *name, gchar *pattern );
-gchar *JoinPathArchiveName ( const gchar * , gchar * );
 char *Show_File_Dialog (int dummy , gpointer title);
-char *eat_spaces (char *line);
-gchar *remove_level_from_path (const gchar *path);
-gchar *extract_local_path (gchar *path , gchar *filename);
-gchar *RemoveBackSlashes ( gchar *name);
 void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
 gchar *name;
 gchar *permissions;

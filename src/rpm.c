@@ -19,6 +19,7 @@
  
 #include "config.h"
 #include "rpm.h"
+#include "string_utils.h"
 
 extern int output_fd, input_fd;
 FILE *stream;

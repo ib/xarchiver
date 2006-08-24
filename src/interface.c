@@ -357,7 +357,7 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
 	g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
 	g_signal_connect ((gpointer) delete_menu, "activate", G_CALLBACK (xa_delete_archive), NULL);
-	g_signal_connect ((gpointer) view_menu, "activate", G_CALLBACK (View_File_Window), NULL);
+	g_signal_connect ((gpointer) view_menu, "activate", G_CALLBACK (xa_view_file_inside_archive), NULL);
 	g_signal_connect ((gpointer) about1, "activate", G_CALLBACK (xa_about), NULL);
 
 	g_signal_connect ((gpointer) New_button, "clicked", G_CALLBACK (xa_new_archive), NULL);
@@ -365,7 +365,7 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect ((gpointer) AddFile_button, "clicked", G_CALLBACK (xa_add_files_archive), NULL);
     g_signal_connect ((gpointer) Extract_button, "clicked", G_CALLBACK (xa_extract_archive), NULL);
 	g_signal_connect ((gpointer) Delete_button, "clicked", G_CALLBACK (xa_delete_archive), NULL);
-	g_signal_connect ((gpointer) View_button, "clicked", G_CALLBACK (View_File_Window), NULL);
+	g_signal_connect ((gpointer) View_button, "clicked", G_CALLBACK (xa_view_file_inside_archive), NULL);
 	g_signal_connect ((gpointer) Stop_button, "clicked", G_CALLBACK (xa_cancel_archive), NULL);
 	g_signal_connect (MainWindow, "key-press-event", G_CALLBACK (key_press_function), NULL);
 

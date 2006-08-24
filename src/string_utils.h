@@ -19,12 +19,12 @@
 #ifndef STRING_UTILS_H
 #define STRING_UTILS_H
 
-int is_escaped_char (char c);
-gchar *EscapeBadChars ( gchar *string , gboolean doublesquare);
+gchar *EscapeBadChars ( gchar *string , gchar *pattern);
 gchar *StripPathFromFilename ( gchar *name, gchar *pattern );
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path );
 int CountCharacter ( gchar *string , int chr );
 gchar *RemoveBackSlashes ( gchar *name);
+char *escape_str_common (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
 char *eat_spaces (char *line);
 gchar *remove_level_from_path (const gchar *path);
 gboolean file_extension_is (const char *filename, const char *ext);

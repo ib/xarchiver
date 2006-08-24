@@ -18,6 +18,7 @@
  
 #include "config.h"
 #include "arj.h"
+#include "string_utils.h"
 
 void OpenArj ( XArchive *archive )
 {

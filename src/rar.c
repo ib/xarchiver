@@ -18,6 +18,7 @@
  
 #include "config.h"
 #include "rar.h"
+#include "string_utils.h"
 
 void OpenRar ( XArchive *archive )
 {

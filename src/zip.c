@@ -19,7 +19,8 @@
  
 #include "config.h"
 #include "zip.h"
- 
+#include "string_utils.h"
+
 void OpenZip ( XArchive *archive )
 {
 	gchar *command = g_strconcat ("unzip -vl -qq " , archive->escaped_path, NULL );

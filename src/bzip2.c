@@ -20,6 +20,7 @@
 #include "config.h"
 #include "bzip2.h"
 #include "extract_dialog.h"
+#include "string_utils.h"
 
 extern gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 extern int output_fd;

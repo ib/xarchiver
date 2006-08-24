@@ -236,7 +236,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	xa_set_button_state (1,1,1,0,0 );
 	archive->path = g_strdup (path);
 	g_free (path);
-    archive->escaped_path = EscapeBadChars (archive->path , 0);
+    archive->escaped_path = EscapeBadChars (archive->path , "$\'`\"\\!?* ()&|@#:;");
     EmptyTextBuffer();
     archive->has_passwd = FALSE;
     gtk_widget_set_sensitive ( iso_info , FALSE );
@@ -294,7 +294,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	archive = xa_init_archive_structure(archive);
 	archive->path = g_strdup (path);
 	g_free (path);
-	archive->escaped_path = EscapeBadChars ( archive->path , 0 );
+	archive->escaped_path = EscapeBadChars ( archive->path , "$\'`\"\\!?* ()&|@#:;" );
     
 	OffDeleteandViewButtons();
     gtk_widget_set_sensitive ( iso_info , FALSE );
@@ -1076,8 +1076,13 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 			archive->has_passwd = FALSE;
 }
 
-void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
+void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 {
+	GIOChannel *ioc_view = NULL;
+	gchar *line = NULL;
+	gchar *filename = NULL;
+	GError *error = NULL;
+	gchar *string = NULL;
 	gchar *command = NULL;
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
@@ -1086,6 +1091,8 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 	gchar *dummy_name;
 	unsigned short int COL_NAME;
 	gboolean is_dir = FALSE;
+	gboolean tofree = FALSE;
+	gboolean result = FALSE;
 	GList *row_list = NULL;
 
 	if ( archive->has_passwd )
@@ -1150,23 +1157,20 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 		
 	archive->full_path = 0;
 	archive->overwrite = 1;
-	
-	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
-	dir = EscapeBadChars ( dummy_name , 1 );
-	names = g_string_new (" ");
-	g_string_append ( names , dir );
-	archive->parse_output = 0;
 
+	names = g_string_new (" ");
+	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
+	ConcatenateFileNames2 ( dummy_name , names );
+	
 	if (archive->type == XARCHIVETYPE_ISO)
 	{
 		gtk_tree_model_get (model, &iter,
-			0, &name,
+			0, &dummy_name,
 			1, &permissions,
 			2, &file_size,
 			4, &file_offset,
 			-1);
-		xa_extract_iso_file (archive, permissions, "/tmp/", name , file_size, file_offset );
-		ViewFileFromArchive (archive->child_pid , 0 , name);
+		xa_extract_iso_file (archive, permissions, "/tmp/", dummy_name , file_size, file_offset );
 		g_free (permissions);
 	}
 	else if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
@@ -1183,52 +1187,28 @@ void View_File_Window ( GtkMenuItem *menuitem , gpointer user_data )
 		command = g_strconcat ("tar --strip-components=",digit,option,archive->escaped_path," -C /tmp",names->str,NULL);
 		g_free (digit);
 	}
-	else if (archive->type == XARCHIVETYPE_RPM)
-	{
-		command = xa_extract_single_files ( archive , names, "/tmp");
-		ViewFileFromArchive (archive->child_pid , 0 , dummy_name);
-	}
 	else
 		command = xa_extract_single_files ( archive , names, "/tmp");
 
 	g_string_free (names,TRUE);
 	archive->full_path = full_path;
 	archive->overwrite = overwrite;
-
+	EmptyTextBuffer();
 	if (command != NULL)
 	{
-		SpawnAsyncProcess ( archive , command , 0, 0);
+		result = xa_run_command (command , 0);
 		g_free (command);
-		if ( archive->child_pid == 0 )
-			return;
-	}
-	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) ViewFileFromArchive , dummy_name );
-}
-
-GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
-{
-	GIOChannel *ioc_view = NULL;
-	gchar *line = NULL;
-	gchar *filename = NULL;
-	GError *error = NULL;
-	gchar *string = NULL;
-	gboolean tofree = FALSE;
-
-	if ( WIFEXITED( status ) )
-	{
-		if ( WEXITSTATUS ( status ) )
+		if ( result == 0 )
 		{
-	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-			response = ShowGtkMessageDialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while extracting the file to be viewed!"),("Do you want to open the error messages window?") );
-			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL);
-			unlink ( (char*)data );
-			return NULL;
+			unlink (dummy_name);
+			g_free (dummy_name);
+			return;
 		}
 	}
-	string = StripPathFromFilename ( data, "/" );
+
+	string = StripPathFromFilename ( dummy_name, "/" );
 	if (  string == NULL )
-		filename = g_strconcat ( "/tmp/" , data, NULL );
+		filename = g_strconcat ( "/tmp/" , dummy_name, NULL );
 	else
 	{
 		if ( strchr ( string , ' ' ) )
@@ -1240,7 +1220,7 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 		if ( tofree )
 			g_free ( string );
 	}
-	g_free (data);
+	g_free (dummy_name);
 	view_window = view_win();
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
 	if (error == NULL)
@@ -1261,14 +1241,15 @@ GChildWatchFunc *ViewFileFromArchive (GPid pid , gint status , gchar *data)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"An error occurred while extracting the file to be viewed:",error->message);
 		g_error_free (error);
+		unlink ( filename );
 		Update_StatusBar ( _("Operation failed."));
-		return NULL;
+		return;
 	}
 	unlink ( filename );
 	gtk_widget_show (view_window);
 	g_free (filename);
+	OffTooltipPadlock();
 	Update_StatusBar (_("Operation completed."));
-	return NULL;
 }
 
 void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
@@ -1481,7 +1462,32 @@ void Activate_buttons ()
 
 void ConcatenateFileNames2 (gchar *filename , GString *data)
 {
-	gchar *esc_filename = EscapeBadChars ( filename , 1 );
+	gchar *esc_filename = NULL;
+	gchar *escaped = NULL;
+	gchar *escaped2 = NULL;
+			
+	if ( strstr (filename, "[") || strstr (filename, "]"))
+	{
+		if (archive->type == XARCHIVETYPE_ZIP)
+		{
+			escaped = EscapeBadChars ( filename ,"*?[]");
+			escaped2 = escape_str_common (escaped , "*?[]", '\\', 0);
+			g_free (escaped);
+			esc_filename = escaped2;
+		}
+		else if ( (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR) && archive->status == XA_ARCHIVESTATUS_EXTRACT)
+		{
+			escaped = EscapeBadChars ( filename ,"?*\\'& !|()@#:;");
+			escaped2 = escape_str_common ( escaped , "[]", '[', ']');
+			g_free (escaped);
+			esc_filename = escaped2;
+		}
+		else
+			esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
+	}
+	else
+		esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
+	
 	g_string_prepend (data, esc_filename);
 	g_string_prepend_c (data, ' ');
 	g_free (esc_filename);
@@ -1489,7 +1495,8 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
 {
-	gchar *filename;
+	gchar *filename = NULL;
+	
 	gtk_tree_model_get (model, iter, 0, &filename, -1);
 	ConcatenateFileNames2 ( filename , data );
 	g_free (filename);

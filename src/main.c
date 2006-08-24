@@ -18,6 +18,7 @@
  
 #include "config.h"
 #include "main.h"
+#include "string_utils.h"
 
 gint exit_status;
 gchar *cli_command = NULL;
@@ -98,7 +99,7 @@ int main (int argc, char **argv)
 						GString *string = g_string_new ( "" );
 						archive->full_path = 1;
 						archive->overwrite = 1;
-						gchar *escaped_path = EscapeBadChars (extract_path , 1);
+						gchar *escaped_path = EscapeBadChars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
 						archive->extraction_path = g_strdup (extract_path);
 						cli_command = xa_extract_single_files ( archive , string, escaped_path );
 						g_free (escaped_path);
@@ -281,6 +282,14 @@ void GetAvailableCompressors()
 		g_free (absolute_path);
 	}
 
+	absolute_path = g_find_program_in_path("rar");
+    if ( absolute_path )
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
+		g_free (absolute_path);
+	}
+
 	absolute_path = g_find_program_in_path("tar");
 	if ( absolute_path )
 	{
@@ -298,14 +307,6 @@ void GetAvailableCompressors()
 			ArchiveType = g_list_prepend ( ArchiveType, ".tar.gz");
 			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tgz");
 		}
-	}
-
-	absolute_path = g_find_program_in_path("rar");
-    if ( absolute_path )
-	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
-		g_free (absolute_path);
 	}
 
 	absolute_path = g_find_program_in_path("zip");
@@ -383,7 +384,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
 	archive = xa_init_archive_structure (archive);
 	archive->path = g_strdup (filename);
-	archive->escaped_path = EscapeBadChars(filename , 0);
+	archive->escaped_path = EscapeBadChars(filename , "$\'`\"\\!?* ()&|@#:;");
 	archive->type = DetectArchiveType ( archive->path );
 	if (archive->type == -2)
 		return NULL;

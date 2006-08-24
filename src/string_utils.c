@@ -21,73 +21,11 @@
 #include <string.h>
 #include "string_utils.h"
 
-//Taken from xarchive - http://xarchive.sourceforge.net
-int is_escaped_char (char c)
+gchar *EscapeBadChars ( gchar *string , gchar *pattern)
 {
-    switch ( c )
-    {
-        case ' ':
-        case '\'':
-        case '"':
-        case '(':
-        case ')':
-        case '$':
-        case '\\':
-        case ';':
-        case '<':
-        case '>':
-        case '&':
-        case '#':
-        case '*':
-        case '|':
-        case '`':
-        case '!':
-        return 1;
-        default:
-        return 0;
-    }
+	return escape_str_common (string, pattern, '\\', 0);
 }
 
-gchar *EscapeBadChars ( gchar *string , gboolean doublesquare)
-{
-	char *q;
-	char *escaped;
-	int escapechars = 0;
-	char *p = string;
-
-	while (*p != '\000')
-	{
-        if (is_escaped_char(*p))
-			escapechars++;
-		/* The following is mine */
-		else if ( doublesquare && (*p == '[' || *p == ']') )
-			escapechars += 2;
-		p++;
-    }
-
-	if (!escapechars)
-		return g_strdup(string);
-	escaped = (char *) g_malloc (strlen(string) + escapechars + 1);
-
-	p = string;
-	q = escaped;
-
-	while (*p != '\000')
-	{
-		if (is_escaped_char(*p))
-			*q++ = '\\';
-		/* The following is mine */
-		else if ( doublesquare && (*p == '[' || *p == ']') )
-		{
-			*q++ = '\\';
-			*q++ = '\\';
-		}
-		*q++ = *p++;
-	}
-	*q = '\000';
-	return escaped;
-}
-//End code from xarchive
 
 gchar *StripPathFromFilename ( gchar *name, gchar *pattern )
 {
@@ -126,6 +64,58 @@ gchar *RemoveBackSlashes ( gchar *name)
 }
 
 /* These functions are from File-Roller code */
+static int count_chars_to_escape (const char *str, const char *meta_chars)
+{
+        int         meta_chars_n = strlen (meta_chars);
+        const char *s;
+        int         n = 0;
+
+        for (s = str; *s != 0; s++) {
+                int i;
+                for (i = 0; i < meta_chars_n; i++)
+                        if (*s == meta_chars[i]) {
+                                n++;
+                                break;
+                        }
+        }
+        return n;
+}
+char *escape_str_common (const char *str, const char *meta_chars, const char  prefix, const char  postfix)
+{
+        int         meta_chars_n = strlen (meta_chars);
+        char       *escaped;
+        int         i, new_l, extra_chars = 0;
+        const char *s;
+        char       *t;
+
+        if (str == NULL)
+                return NULL;
+
+        if (prefix)
+                extra_chars++;
+        if (postfix)
+                extra_chars++;
+
+        new_l = strlen (str) + (count_chars_to_escape (str, meta_chars) * extra_chars);
+        escaped = g_malloc (new_l + 1);
+
+        s = str;
+        t = escaped;
+        while (*s) {
+                gboolean is_bad = FALSE;
+                for (i = 0; (i < meta_chars_n) && !is_bad; i++)
+                        is_bad = (*s == meta_chars[i]);
+                if (is_bad && prefix)
+                        *t++ = prefix;
+                *t++ = *s++;
+                if (is_bad && postfix)
+                        *t++ = postfix;
+        }
+        *t = 0;
+
+        return escaped;
+}
+
 char *eat_spaces (char *line)
 {
 	if (line == NULL)
@@ -175,11 +165,10 @@ gchar *extract_local_path (gchar *path , gchar *filename)
 	}
 	else
 		x = strlen (path) - strlen ( filename );
-    //g_print ("%d\t%d\t%d\n",x,strlen (path),strlen (filename));
     local_path = (gchar *) g_malloc ( x + 1);
     strncpy ( local_path, path, x );
     local_path [x] = '\000';
-    local_escaped_path = EscapeBadChars ( local_path , 1);
+    local_escaped_path = EscapeBadChars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
     g_free (local_path);
     return local_escaped_path;
 }
