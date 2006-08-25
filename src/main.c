@@ -237,7 +237,7 @@ int main (int argc, char **argv)
 		archive = xa_init_archive_structure(archive);
 
 		/* This to open the archive from the command line */
-		if ( argc == 1)
+		if ( argc == 1 && files)
 		{
 			gchar *dummy = g_strdup(files[0]);
 			xa_open_archive ( NULL , dummy );
