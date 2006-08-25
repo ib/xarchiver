@@ -22,14 +22,13 @@
 
 gint exit_status;
 gchar *cli_command = NULL;
-gchar **files;
 gchar *absolute_path = NULL;
+gchar *archive_name = NULL;
 gchar *_current_dir = NULL;
 gchar *extract_path = NULL;
 GError *cli_error = NULL;
-gboolean error_output, file_to_open, ask_and_extract, ask_and_add, add;
+gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
 gboolean cli = FALSE;
-unsigned short int len = 0;
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
@@ -40,12 +39,9 @@ static GOptionEntry entries[] =
 		N_("Extract the archive by asking the destination folder and quits."),
 		N_("[archive path]")
 	},
-	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &add,
+	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
 		N_("Add files to the specified archive and quits."),
 		N_("[archive name] [file1] [file2] ... [fileN]")
-	},
-	{	G_OPTION_REMAINING, 0, G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME_ARRAY, &files,
-		NULL,NULL,
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_add,
 		N_("Add files to the specified archive by asking their filenames and quits."),
@@ -69,7 +65,7 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
-	if (ask_and_extract || ask_and_add || add || extract_path != NULL)
+	if (ask_and_extract || ask_and_add || archive_name != NULL || extract_path != NULL)
 		cli = TRUE;
 
 	if (cli == TRUE)
@@ -80,6 +76,7 @@ int main (int argc, char **argv)
 		MainWindow = create_MainWindow ();
 		gtk_main_iteration_do (FALSE);
 		g_print ("Xarchiver " VERSION " copyright (C)2005-2006 Giuseppe Torelli (colossus73)\n\n");
+
 		/* Switch -x */
 		if (extract_path != NULL)
 		{
@@ -134,58 +131,69 @@ int main (int argc, char **argv)
 			}
 		}
 		/* Switch -d */
-		else if (files != NULL)
+		else if (archive_name != NULL)
 		{
-			if (files[0] == NULL && files[1] == NULL)
+			if (argv[1] == NULL)
 			{
 				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the files to add!\n"));
 				return 0;
 			}
-			if ( DetectArchiveType ( files[0] ) > 0 )
+            /* Is the file an archive? */
+			if ( DetectArchiveType ( archive_name ) > 0 )
 			{
-				archive = xa_init_structure_from_cmd_line ( files[0] );
+				archive = xa_init_structure_from_cmd_line ( archive_name );
 				if (archive != NULL)
 				{
+					_current_dir = g_path_get_dirname (argv[1]);
+					chdir (_current_dir);
+					g_free (_current_dir);
+
 					GString *string = g_string_new ( "" );
-					while (files[len])
+					for (x = 1; x < argc; x++)
 					{
-						_current_dir = g_path_get_basename ( files[len] );
-						ConcatenateFileNames2 ( _current_dir, string );
+						_current_dir = g_path_get_basename ( argv[x] );
+						ConcatenateFileNames2 ( argv[x], string );
 						g_free (_current_dir);
-						len++;
 					}
-					
+                    /* The recursion behaves differently in 7zip as stated in source package DOCS/MANUAL/switches/recurse.htm file */
+                    if ( archive->type == XARCHIVETYPE_7ZIP)
+					    archive->add_recurse = FALSE;
+                    else
+                        archive->add_recurse = TRUE;
 					cli_command = xa_add_single_files ( archive , string, NULL);
 					if (cli_command != NULL)
 						error_output = SpawnSyncCommand ( cli_command );
 					g_string_free (string, TRUE);
 				}
 			}
+            /* No, it isn't */
 			else
 			{
-				xa_new_archive ( NULL , files[0] );
+				xa_new_archive ( NULL , archive_name );
 				if (archive->path != NULL)
 				{
-					_current_dir = g_path_get_dirname(files[0]);
+					_current_dir = g_path_get_dirname(archive_name);
 					chdir (_current_dir);
 					g_free (_current_dir);
 					GString *string = g_string_new ( "" );
-					if (argc > 2 && (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) )
+					
+                    if ( g_file_test ( archive_name,G_FILE_TEST_EXISTS) )
+                    {
+                        _current_dir = g_path_get_basename ( archive_name );
+					    ConcatenateFileNames2 ( _current_dir, string );
+					    g_free (_current_dir);
+                    }
+
+					for (x = 1; x< argc; x++)
 					{
-						response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform the action:"),_("bzip2/gzip can't compress more than one file!\n") );
-						if (archive != NULL)
-							xa_clean_archive_structure ( archive );
-						return 0;
-					}
-					while (files[len])
-					{
-						_current_dir = g_path_get_basename ( files[len] );
+						_current_dir = g_path_get_basename ( argv[x] );
 						ConcatenateFileNames2 ( _current_dir, string );
 						g_free (_current_dir);
-						len++;
 					}
-				
-					archive->add_recurse = TRUE;
+					if ( archive->type == XARCHIVETYPE_7ZIP)
+					    archive->add_recurse = FALSE;
+                    else
+                        archive->add_recurse = TRUE;
 					cli_command = xa_add_single_files ( archive , string, NULL);
 					if (cli_command != NULL)
 						error_output = SpawnSyncCommand ( cli_command );
@@ -216,7 +224,6 @@ int main (int argc, char **argv)
 		}
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
-		g_strfreev (files);
 		if (archive != NULL)
 			xa_clean_archive_structure ( archive );
 		return exit_status;
@@ -237,15 +244,14 @@ int main (int argc, char **argv)
 		archive = xa_init_archive_structure(archive);
 
 		/* This to open the archive from the command line */
-		if ( argc == 1 && files)
+		if ( argc == 2 )
 		{
-			gchar *dummy = g_strdup(files[0]);
+			gchar *dummy = g_strdup(argv[1]);
 			xa_open_archive ( NULL , dummy );
 		}
 		gtk_main ();
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
-		g_strfreev (files);
 		return 0;
 	}
 }

@@ -24,8 +24,7 @@ R. Perchè¨ GNU tar non supporta completamente l'estrazione di files senza le dir
 degli altri archiviatori che la supportano. L'estrazione senza directory quando si usa la GUI viene svolta con un trucco che non 
 è¨ disponibile quando si usa lo switch -e da linea di comando.
 
-D. Quando metto il segno di spunta su Aggiorna o Freshen nella finestra Estrai o Aggiungi Xarchiver dice che si è verificato un errore
-ma la finestra dei messaggi d'errore è vuota, perchè ?
+D. E' capitato che Xarchiver dice che si è verificato un errore ma la finestra dei messaggi d'errore è vuota, perchè ?
 
 R. Xarchiver è solo un'interfaccia grafica all'archiviatore da linea di comando. Xarchiver legge correttamente l'output da STDOUT e STDERR. Molto probabilmente l'archiviatore esce con un errore ma non scrive niente su questi canali.
 

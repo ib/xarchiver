@@ -854,14 +854,19 @@ int DetectArchiveType ( gchar *filename )
 	
 	if (dummy_ptr == NULL)
 	{
-		gchar *utf8_path,*msg;
-		utf8_path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
-		msg = g_strdup_printf (_("Can't open archive \"%s\":") , utf8_path );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
-		msg,g_strerror (errno));
-		g_free (msg);
-		g_free (utf8_path);
-		return -2;
+		if ( !cli )
+		{
+			gchar *utf8_path,*msg;
+			utf8_path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
+			msg = g_strdup_printf (_("Can't open archive \"%s\":") , utf8_path );
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
+			msg,g_strerror (errno));
+			g_free (msg);
+			g_free (utf8_path);
+			return -2;
+		}
+		else
+			return -2;
 	 }
 	if ( fread ( magic, 1, 12, dummy_ptr ) == 0 )
 	{
@@ -871,12 +876,14 @@ int DetectArchiveType ( gchar *filename )
 
 	if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
     {
-        archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ZIP , dummy_ptr , magic );
+        if ( ! cli)
+			archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ZIP , dummy_ptr , magic );
         xx = XARCHIVETYPE_ZIP;
     }
 	else if ( memcmp ( magic,"\x60\xea",2 ) == 0 )
     {
-        archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ARJ , dummy_ptr , magic );
+		if (! cli)
+			archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ARJ , dummy_ptr , magic );
         xx = XARCHIVETYPE_ARJ;
     }
 	else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 ) xx = XARCHIVETYPE_RAR;

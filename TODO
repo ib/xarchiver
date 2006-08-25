@@ -1,5 +1,7 @@
 - fix bug #1736, #2176.
 - change CRC with Checksum in rar.c and zip.c
+- change Bytes to bytes in callbacks.c
+- have a GTK_STOCK_DIRECTORY for directories and GTK_STOCK_FILE for files in the rows before the filename.
 - allow switching by right click on the toolbar to icons with text/ no text/ small icons.
 - add a small progress window when using Xarchiver cmd-line switches.
 - redesign the new dialog.
