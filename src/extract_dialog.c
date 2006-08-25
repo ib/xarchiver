@@ -532,6 +532,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					xa_set_button_state (1,1,0,1,1);
 					OffTooltipPadlock();
+					archive->status =XA_ARCHIVESTATUS_IDLE;
 					Update_StatusBar ( _("Operation completed.") );
 					break;
 						
@@ -727,6 +728,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			g_list_free (row_list);
 			xa_set_button_state (1,1,0,1,1);
 			OffTooltipPadlock();
+			archive->status =XA_ARCHIVESTATUS_IDLE;
 			Update_StatusBar ( _("Operation completed.") );
 			command = NULL;
 		}

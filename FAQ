@@ -28,3 +28,7 @@ empty, why?
 
 A. Please remember Xarchiver is only a frontend, it correctly reads any output from STDOUT or STDERR. most probably the archiver 
 didn't write anything to those channels even though it exits with an error code.
+
+Q. When I click View the window is empty, why ?
+
+A. Becase the file you are trying to display is encoded with ISO-8859. I could set this encoding as a default but then german umlauts in ASCII files for example, would be incorrectly showed so I preferred to set the user locale even though this prevents to show ISO-8859 encoded ASCII files. Detecting them would require additional code I think it doesn't fit into Xarchiver since it's a frontend to command line archivers and not a text editor.

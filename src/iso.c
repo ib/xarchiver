@@ -750,10 +750,6 @@ void OpenISO ( XArchive *archive )
 			archive->tmp = g_strdup_printf (_("Joliet Level %d"),ucs_level);
 			break;
 		}
-		
-		
-	
-
 		/*if( ucs_level < 3 )
 			g_print ("Don't know what ucs_level == %d means\n", ucs_level);*/
 	}
