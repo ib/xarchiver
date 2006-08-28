@@ -40,8 +40,8 @@ static GOptionEntry entries[] =
 		N_("[archive path]")
 	},
 	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
-		N_("Add files to the specified archive and quits."),
-		N_("[archive name] [file1] [file2] ... [fileN]")
+		N_("Add files asking the name of the archive and quits."),
+		N_("[file1] [file2] [file3] ... [fileN]")
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_add,
 		N_("Add files to the specified archive by asking their filenames and quits."),
@@ -133,11 +133,6 @@ int main (int argc, char **argv)
 		/* Switch -d */
 		else if (archive_name != NULL)
 		{
-			if (argv[1] == NULL)
-			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the files to add!\n"));
-				return 0;
-			}
             /* Is the file an archive? */
 			if ( DetectArchiveType ( archive_name ) > 0 )
 			{
