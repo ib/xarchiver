@@ -1,6 +1,11 @@
-2006-08-25 Piarres Beobide <pi@beobide.net>
+2006-08-28  Jean-François Wauthy <pollux@xfce.org>
 
-        * eu.po: Basque translation update.
+	* de.po: Updated German translations
+
+2006-08-25  Piarres Beobide <pi@beobide.net>
+
+	* eu.po: Basque translation update.
+
 2006-08-25  Giuseppe Torelli <colossus73@gmail.com>
 
 	* cs.po: Add Czech translation by Michal Varady 	
