@@ -472,12 +472,15 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	names = g_string_new ( " " );
 	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+	
 	x = gtk_tree_selection_count_selected_rows (selection);
 	gchar *msg = g_strdup_printf(_("You are about to delete %d file(s) from the archive."),x);
 	response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,msg,_( "Are you sure you want to do this?") );
 	g_free (msg);
+	
 	if ( response == GTK_RESPONSE_NO)
 		return;
+	
 	Update_StatusBar ( _("Deleting files from the archive, please wait..."));
 	archive->status = XA_ARCHIVESTATUS_DELETE;
 
@@ -1167,6 +1170,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 	names = g_string_new (" ");
 	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
+	archive->status = XA_ARCHIVESTATUS_EXTRACT;
 	ConcatenateFileNames2 ( dummy_name , names );
 	
 	if (archive->type == XARCHIVETYPE_ISO)
@@ -1230,6 +1234,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	g_free (dummy_name);
 	view_window = view_win();
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 	if (error == NULL)
 	{
 		g_io_channel_set_encoding (ioc_view, locale , NULL);
@@ -1477,23 +1482,30 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 	{
 		if (archive->type == XARCHIVETYPE_ZIP)
 		{
-			escaped = EscapeBadChars ( filename ,"*?[]");
-			escaped2 = escape_str_common (escaped , "*?[]", '\\', 0);
-			g_free (escaped);
-			esc_filename = escaped2;
+			if (archive->status == XA_ARCHIVESTATUS_ADD)
+				esc_filename = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
+			else
+			{
+				escaped = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;");
+				escaped2 = escape_str_common (escaped , "*?[]", '\\', 0);
+				g_free (escaped);
+				esc_filename = escaped2;
+			}
 		}
-		else if ( (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR) && archive->status == XA_ARCHIVESTATUS_EXTRACT)
+		else if ( archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
 		{
-			escaped = EscapeBadChars ( filename ,"?*\\'& !|()@#:;");
-			escaped2 = escape_str_common ( escaped , "[]", '[', ']');
-			g_free (escaped);
-			esc_filename = escaped2;
+			if (archive->status == XA_ARCHIVESTATUS_ADD)
+				esc_filename = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
+			else
+			{
+				escaped = EscapeBadChars ( filename ,"?*\\'& !|()@#:;");
+				escaped2 = escape_str_common ( escaped , "[]", '[', ']');
+				g_free (escaped);
+				esc_filename = escaped2;
+			}
 		}
-		else
-			esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
 	}
-	else
-		esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
+	esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
 	
 	g_string_prepend (data, esc_filename);
 	g_string_prepend_c (data, ' ');
@@ -1792,7 +1804,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	g_free (_current_dir);
 	chdir ( current_dir );
 	g_free (current_dir);
-	
+	archive->status = XA_ARCHIVESTATUS_ADD;
+
 	while (array[len])
 	{
 		filename = g_filename_from_uri ( array[len] , NULL, NULL );
@@ -1802,7 +1815,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		g_free (name);
 		len++;
 	}
-	archive->status = XA_ARCHIVESTATUS_ADD;
+	
 	full_path = archive->full_path;
 	add_recurse = archive->add_recurse;
 	archive->full_path = 0;

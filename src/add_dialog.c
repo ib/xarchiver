@@ -522,6 +522,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 
 			 /* Let's concatenate the files to add */
 			names = g_string_new ( " " );
+			archive->status = XA_ARCHIVESTATUS_ADD;
 			while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
 			{
 				xa_cat_filenames ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
@@ -529,8 +530,8 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			}
 			gtk_widget_set_sensitive (Stop_button , TRUE);			
 			xa_set_button_state (0,0,0,0,0);
-			archive->status = XA_ARCHIVESTATUS_ADD;
-
+			gtk_widget_hide (add_dialog->dialog1);
+			
 			command = xa_add_single_files ( archive, names, compression_string);
 			g_string_free ( names, TRUE);
 			if (compression_string != NULL)
