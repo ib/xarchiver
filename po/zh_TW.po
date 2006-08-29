@@ -2,19 +2,20 @@
 # Copyright (C) 2005-2006 Giuseppe Torelli.
 # This file is distributed under the same license as Xarchiver.
 # Cosmo Chene <cosmolax@gmail.com>, 2006.
+# Hydonsingore Cia <hydonsingore@educities.edu.tw>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-29 14:29+0200\n"
-"PO-Revision-Date: 2006-06-05 02:59+0800\n"
-"Last-Translator: Cosmo Chene <cosmolax@gmail.com>\n"
-"Language-Team: Chinese/Traditional <zh-l10n@linux.org.tw>\n"
+"PO-Revision-Date: 2006-08-29 23:17+0800\n"
+"Last-Translator: Hydonsingore Cia <hydonsingore@educities.edu.tw>\n"
+"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:57 ../src/gzip.c:54
 #: ../src/iso.c:677 ../src/rar.c:37 ../src/rpm.c:56 ../src/tar.c:48
@@ -85,47 +86,41 @@ msgid "Size"
 msgstr "大小"
 
 #: ../src/bzip2.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Extracting gzip file to %s"
-msgstr "解壓縮檔案到 "
+msgstr "解壓縮 gzip 檔案到 %s"
 
 #: ../src/bzip2.c:89
-#, fuzzy, c-format
+#, c-format
 msgid "Extracting bzip2 file to %s"
-msgstr "解壓縮檔案到 "
+msgstr "解壓縮 bzip2 檔案到 %s"
 
 #: ../src/bzip2.c:146 ../src/callbacks.c:104 ../src/extract_dialog.c:305
 msgid "Operation canceled."
 msgstr "操作已取消。"
 
 #: ../src/bzip2.c:160
-#, fuzzy, c-format
+#, c-format
 msgid "Decompressing tar file with %s, please wait..."
-msgstr "正在使用 gzip 壓縮檔案，請稍候。"
+msgstr "正在使用 %s 壓縮 tar 檔案，請稍候。"
 
 #: ../src/bzip2.c:239
-#, fuzzy, c-format
+#, c-format
 msgid "Recompressing tar file with %s, please wait..."
-msgstr "正在使用 gzip 壓縮檔案，請稍候。"
+msgstr "正在使用 %s 壓縮 tar 檔案，請稍候。"
 
 #: ../src/callbacks.c:107
-#, fuzzy, c-format
+#, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
-msgstr "\" 看來已有一些檔案被解壓縮了。"
+msgstr "請檢查 \"%s\" 因為有一些檔案可能已經被解壓縮了。"
 
 #: ../src/callbacks.c:126 ../src/callbacks.c:1574
-#, fuzzy
 msgid "An error occurred while accessing the archive."
-msgstr ""
-"嘗試存取壓縮檔時發生錯誤。\n"
-"您要檢視錯誤訊息嗎？"
+msgstr "嘗試存取壓縮檔時發生錯誤。"
 
 #: ../src/callbacks.c:126 ../src/callbacks.c:1574 ../src/rpm.c:152
-#, fuzzy
 msgid "Do you want to open the error messages window?"
-msgstr ""
-"嘗試存取壓縮檔時發生錯誤。\n"
-"您要檢視錯誤訊息嗎？"
+msgstr "您想要開啟錯誤訊息視窗嗎？"
 
 #: ../src/callbacks.c:136 ../src/callbacks.c:1257 ../src/callbacks.c:1579
 #: ../src/callbacks.c:1798 ../src/extract_dialog.c:873 ../src/rpm.c:120
@@ -143,45 +138,38 @@ msgid "Please wait while the content of the archive is being updated..."
 msgstr "正在更新壓縮檔內容，請稍候"
 
 #: ../src/callbacks.c:218
-#, fuzzy, c-format
+#, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr "已經存在， 您要蓋過它嗎？"
+msgstr "壓縮檔 \"%s\" 已經存在！"
 
 #: ../src/callbacks.c:224
-#, fuzzy
 msgid "Do you want to overwrite it?"
-msgstr "已經存在， 您要蓋過它嗎？"
+msgstr "您要蓋過它嗎？"
 
 #: ../src/callbacks.c:254
 msgid "Choose Add File to create the compressed file."
 msgstr "選取加入檔案以建立壓縮檔。"
 
 #: ../src/callbacks.c:258
-#, fuzzy
 msgid "Choose Add to begin creating the archive."
-msgstr "選取加入檔案或加入資料夾以建立壓縮檔。"
+msgstr "選取加入來開始建立壓縮檔。"
 
 #: ../src/callbacks.c:310
-#, fuzzy, c-format
+#, c-format
 msgid "Can't open file \"%s\":"
-msgstr ""
-"無法開啟壓縮檔 %s:\n"
-"%s"
+msgstr "無法開啟檔案 \"%s\"："
 
 #: ../src/callbacks.c:313
-#, fuzzy
 msgid "Archive format is not recognized!"
-msgstr "無法辨識這個壓縮檔的格式。"
+msgstr "無法辨識壓縮檔格式！"
 
 #: ../src/callbacks.c:334
-#, fuzzy
 msgid "Sorry, this archive format is not supported:"
-msgstr "抱歉，因為您沒有先安裝好適當的解壓縮程式所以未支援這種壓縮檔的 格式！"
+msgstr "抱歉，不支援這種壓縮檔格式！"
 
 #: ../src/callbacks.c:334
-#, fuzzy
 msgid "the proper archiver is not installed!"
-msgstr "無法辨識這個壓縮檔的格式。"
+msgstr "沒有先安裝好適當的解壓縮程式！"
 
 #: ../src/callbacks.c:341
 msgid "Please wait while the content of the ISO image is being read..."
@@ -240,7 +228,7 @@ msgstr "新建壓縮檔"
 
 #: ../src/callbacks.c:675
 msgid "Cr_eate"
-msgstr ""
+msgstr "建立(_E)"
 
 #: ../src/callbacks.c:679 ../src/interface.c:233
 msgid "Open an archive"
@@ -271,27 +259,21 @@ msgid "Add the archive extension to the filename"
 msgstr "在檔名後面加入壓縮格式的副檔名"
 
 #: ../src/callbacks.c:864
-#, fuzzy, c-format
+#, c-format
 msgid "Can't open archive \"%s\":"
-msgstr ""
-"無法開啟壓縮檔 %s:\n"
-"%s"
+msgstr "無法開啟壓縮檔 \"%s\"："
 
 #: ../src/callbacks.c:1036
-#, fuzzy
 msgid "Archiver Output Window"
-msgstr "壓縮檔內容視窗"
+msgstr "解壓縮輸出視窗"
 
 #: ../src/callbacks.c:1068
-#, fuzzy
 msgid "Doing so will probably corrupt your archive!"
-msgstr ""
-"這麼作有可能損壞您的壓縮檔。\n"
-"您確定要取消嗎？"
+msgstr "這麼作有可能損壞您的壓縮檔。"
 
 #: ../src/callbacks.c:1068
 msgid "Do you really want to cancel?"
-msgstr ""
+msgstr "您真的要取消嗎？"
 
 #: ../src/callbacks.c:1073
 msgid "Waiting for the process to abort..."
@@ -299,66 +281,59 @@ msgstr "等待使用者中斷"
 
 #: ../src/callbacks.c:1079
 msgid "An error occurred while trying to kill the process:"
-msgstr ""
+msgstr "試著終止該程序時發生錯誤："
 
 #: ../src/callbacks.c:1159
 msgid "Please select a file, not a directory!"
 msgstr "請選取檔案，不要選資料夾。"
 
 #: ../src/callbacks.c:1695
-#, fuzzy
 msgid "Can't perform another extraction:"
-msgstr "請輸入密碼。"
+msgstr "無法進行另一個解壓縮："
 
 #: ../src/callbacks.c:1695
-#, fuzzy
 msgid "Please wait until the completion of the current one!"
-msgstr "正在讀取壓縮檔內容，請稍候。"
+msgstr "請等到現在這個完成！"
 
 #: ../src/callbacks.c:1768
 msgid "Sorry, I could not perform the operation!"
-msgstr "抱歉，我無法執行這項操作！"
+msgstr "抱歉，我無法進行這項操作！"
 
 #: ../src/callbacks.c:1796
-#, fuzzy
 msgid "Bzip2 or gzip cannot compress more than one file!"
-msgstr "Bzip2 或 gzip 只能對單一檔案作壓縮，請選擇其他的壓縮檔 格式！"
+msgstr "Bzip2 或 gzip 不能壓縮超過一個檔案！"
 
 #: ../src/callbacks.c:1796
-#, fuzzy
 msgid "Please choose another archive format!"
-msgstr "選擇要建立的壓縮檔類型"
+msgstr "請選擇另一種壓縮格式"
 
 #: ../src/callbacks.c:1928
 msgid "Failed to open link."
 msgstr ""
 
 #: ../src/add_dialog.c:38
-#, fuzzy
 msgid "Add files to the archive"
 msgstr "將檔案加入這個壓縮檔中"
 
 #: ../src/add_dialog.c:99
-#, fuzzy
 msgid "Files"
 msgstr "檔案"
 
 #: ../src/add_dialog.c:106
 msgid "Directories"
-msgstr ""
+msgstr "目錄"
 
 #: ../src/add_dialog.c:130
-#, fuzzy
 msgid "Choose the files or directories to add to the archive"
-msgstr "選擇要解壓這個壓縮檔內容的資料夾"
+msgstr "選擇要放入這個壓縮檔的檔案和目錄"
 
 #: ../src/add_dialog.c:135
 msgid "<b>Files and directories to add </b>"
-msgstr ""
+msgstr "<b>要加入的檔案和目錄</b>"
 
 #: ../src/add_dialog.c:153
 msgid "Recurse subdirectories"
-msgstr ""
+msgstr "延伸至子目錄"
 
 #: ../src/add_dialog.c:159
 msgid ""
@@ -379,20 +354,19 @@ msgstr ""
 
 #: ../src/add_dialog.c:172
 msgid "Remove files after adding"
-msgstr ""
+msgstr "加入後移除檔案"
 
 #: ../src/add_dialog.c:180
 msgid "Do not add file paths"
-msgstr ""
+msgstr "不要加入檔案路徑"
 
 #: ../src/add_dialog.c:184
 msgid "Store just the name of a file without its directory names."
-msgstr ""
+msgstr "只儲存檔案名稱，不包含其所在的目錄名稱。"
 
 #: ../src/add_dialog.c:186
-#, fuzzy
 msgid "Freshen an existing entry in the archive"
-msgstr "測試的壓縮檔 \""
+msgstr "刷新壓縮檔中現有的項目"
 
 #: ../src/add_dialog.c:190
 msgid ""
@@ -413,83 +387,75 @@ msgstr ""
 
 #: ../src/add_dialog.c:207
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
+msgstr "0= 沒有壓縮；5 = 預設值；9 = 最密但最慢的壓縮"
 
 #: ../src/add_dialog.c:214
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
+msgstr "0= 沒有壓縮；6 = 預設值；9 = 最密但最慢的壓縮"
 
 #: ../src/add_dialog.c:221
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
+msgstr "0= 沒有壓縮；3 = 預設值；5 = 最密但最慢的壓縮"
 
 #: ../src/add_dialog.c:228
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression."
-msgstr ""
+msgstr "0= 沒有壓縮；1 = 預設值；4 = 最快但最疏鬆的壓縮"
 
 #: ../src/add_dialog.c:237 ../src/extract_dialog.c:215 ../src/interface.c:402
 msgid "Password:"
 msgstr "密碼:"
 
 #: ../src/add_dialog.c:251
-#, fuzzy
 msgid "Compression level:"
-msgstr "壓縮比率:"
+msgstr "壓縮程度:"
 
 #: ../src/add_dialog.c:276 ../src/extract_dialog.c:236
 msgid "<b>Options </b>"
-msgstr ""
+msgstr "<b>選項 </b>"
 
 #: ../src/add_dialog.c:293
 msgid "_Add"
-msgstr ""
+msgstr "加入(_A)"
 
 #: ../src/add_dialog.c:360
-#, fuzzy
 msgid "Please select the files you want to add"
-msgstr "請選取檔案，不要選資料夾。"
+msgstr "請選取您要加入的檔案"
 
 #: ../src/add_dialog.c:365
-#, fuzzy
 msgid "Please select the directories you want to add"
-msgstr "請選取檔案，不要選資料夾。"
+msgstr "請選取您要加入的目錄"
 
 #: ../src/add_dialog.c:475 ../src/main.c:206
-#, fuzzy
 msgid "Can't add files to the archive:"
-msgstr "將檔案加入這個壓縮檔中"
+msgstr "無法將將檔案加入這個壓縮檔中："
 
 #: ../src/add_dialog.c:475
 msgid "You haven't selected any files to add!"
-msgstr ""
+msgstr "您還沒選取要加入的檔案！"
 
 #: ../src/add_dialog.c:483 ../src/interface.c:441
-#, fuzzy
 msgid "You missed the password!"
-msgstr "請輸入密碼。"
+msgstr "您漏打密碼！"
 
 #: ../src/add_dialog.c:483 ../src/interface.c:441
-#, fuzzy
 msgid "Please enter it!"
-msgstr "請輸入密碼。"
+msgstr "請鍵入之！"
 
 #: ../src/add_dialog.c:553
 msgid "Adding files to the archive, please wait..."
 msgstr "正在把檔案加入壓縮檔中，請稍候。"
 
 #: ../src/extract_dialog.c:40
-#, fuzzy
 msgid "Decompress file"
-msgstr "解壓縮 tar 包裝檔的方式 "
+msgstr "解壓縮檔案"
 
 #: ../src/extract_dialog.c:42
-#, fuzzy
 msgid "Extract files from archive"
-msgstr "解壓縮檔案到 "
+msgstr "從壓縮檔取出檔案"
 
 #: ../src/extract_dialog.c:58
 msgid "Extract to:"
-msgstr "解壓縮到:"
+msgstr "解壓縮到："
 
 #: ../src/extract_dialog.c:99
 msgid "Choose a folder where to extract files"
@@ -497,11 +463,11 @@ msgstr "請選擇要放置解壓檔案的資料夾"
 
 #: ../src/extract_dialog.c:121
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 #: ../src/extract_dialog.c:127
 msgid "Only selected"
-msgstr ""
+msgstr "只有選取的部份"
 
 #: ../src/extract_dialog.c:138
 msgid "<b>Files to extract </b>"
