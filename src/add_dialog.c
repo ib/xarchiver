@@ -47,7 +47,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->frame5 = gtk_frame_new (NULL);
 	gtk_widget_show (add_dialog->frame5);
 	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1), add_dialog->frame5, TRUE, TRUE, 5);
-	gtk_widget_set_size_request (add_dialog->frame5, 380, -1);
+	gtk_widget_set_size_request (add_dialog->frame5, 400, -1);
 
 	add_dialog->alignment5 = gtk_alignment_new (0.5, 0.5, 1, 1);
 	gtk_widget_show (add_dialog->alignment5);
