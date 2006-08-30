@@ -75,7 +75,7 @@ int main (int argc, char **argv)
 		ArchiveType = g_list_reverse (ArchiveType);
 		MainWindow = create_MainWindow ();
 		gtk_main_iteration_do (FALSE);
-		g_print ("Xarchiver " VERSION " copyright (C)2005-2006 Giuseppe Torelli (colossus73)\n\n");
+		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2006 Giuseppe Torelli (colossus73)\n\n");
 
 		/* Switch -x */
 		if (extract_path != NULL)

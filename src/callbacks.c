@@ -587,7 +587,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 	g_object_set (about,
 		      "name",  "Xarchiver",
 		      "version", PACKAGE_VERSION,
-		      "copyright", "Copyright @2005-2006 Giuseppe Torelli",
+		      "copyright", "Copyright \xC2\xA9 2005-2006 Giuseppe Torelli",
 		      "comments", "A lightweight GTK+2 archive manager",
 		      "authors", authors,
               "documenters",documenters,
