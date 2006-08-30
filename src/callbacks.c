@@ -588,13 +588,13 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		      "name",  "Xarchiver",
 		      "version", PACKAGE_VERSION,
 		      "copyright", "Copyright @2005-2006 Giuseppe Torelli",
-		      "comments", "A lightweight GTK2 archive manager",
+		      "comments", "A lightweight GTK+2 archive manager",
 		      "authors", authors,
               "documenters",documenters,
 		      "translator_credits", _("translator-credits"),
 		      "logo_icon_name", "xarchiver",
 		      "website", "http://xarchiver.xfce.org",
-		      "license",    "Copyright (C)2005-2006 Giuseppe Torelli - Colossus <gt67@users.sourceforge.net>\n\n"
+		      "license",    "Copyright (C)2005-2006 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
 		      			"This is free software; you can redistribute it and/or\n"
     					"modify it under the terms of the GNU Library General Public License as\n"
     					"published by the Free Software Foundation; either version 2 of the\n"
