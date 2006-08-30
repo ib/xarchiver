@@ -115,7 +115,7 @@ msgstr ""
 
 #: ../src/callbacks.c:126 ../src/callbacks.c:1574
 msgid "An error occurred while accessing the archive."
-msgstr "Errore bat gertatu da fitxategia atzitzerakoan."
+msgstr "Errore bat gertatu da paketea atzitzerakoan."
 
 #: ../src/callbacks.c:126 ../src/callbacks.c:1574 ../src/rpm.c:152
 msgid "Do you want to open the error messages window?"
@@ -134,12 +134,12 @@ msgstr "Ekintza osatua."
 
 #: ../src/callbacks.c:152
 msgid "Please wait while the content of the archive is being updated..."
-msgstr "Mesedez itxoin fitxategiaren edukia eguneratzen den bitartean..."
+msgstr "Mesedez itxoin paketearen edukia eguneratzen den bitartean..."
 
 #: ../src/callbacks.c:218
 #, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr "\"%s\" fitxategia badago dagoeneko!"
+msgstr "\"%s\" paketea badago dagoeneko!"
 
 #: ../src/callbacks.c:224
 msgid "Do you want to overwrite it?"
@@ -151,7 +151,7 @@ msgstr "Fitxategia gehitu hautatu konrpimituriko fitxategia sortzeko."
 
 #: ../src/callbacks.c:258
 msgid "Choose Add to begin creating the archive."
-msgstr "Gehitu aukeratu fitxategia sortzen hasteko"
+msgstr "Gehitu hautatu paketea sortzen hasteko"
 
 #: ../src/callbacks.c:310
 #, c-format
@@ -160,7 +160,7 @@ msgstr "Ezin da \"%s\" fitxategia ireki:"
 
 #: ../src/callbacks.c:313
 msgid "Archive format is not recognized!"
-msgstr "Fitxategi honen formatua ez da ezagutzen!"
+msgstr "Pakete honen formatua ez da ezagutzen!"
 
 #: ../src/callbacks.c:334
 msgid "Sorry, this archive format is not supported:"
@@ -176,11 +176,11 @@ msgstr "Mesedez itxoin ISO irudiaren edukia irakurtzen den bitartean..."
 
 #: ../src/callbacks.c:343
 msgid "Please wait while the content of the archive is being read..."
-msgstr "Mesedez itxoin fitxategiaren edukia irakurtzen den bitartean..."
+msgstr "Mesedez itxoin paketearen edukia irakurtzen den bitartean..."
 
 #: ../src/callbacks.c:404
 msgid "Testing archive integrity, please wait..."
-msgstr "Fitxategia integritatea egiaztatzen, itxoin mesedez..."
+msgstr "Paketearen integritatea egiaztatzen, itxoin mesedez..."
 
 #: ../src/callbacks.c:452
 msgid "Please hit the Stop button first!"
@@ -262,7 +262,7 @@ msgstr "Pakete luzapena gehitu fitxategi izenera"
 #: ../src/callbacks.c:864
 #, c-format
 msgid "Can't open archive \"%s\":"
-msgstr "Ezinda \"%s\" fitxategia ireki:"
+msgstr "Ezin da \"%s\" paketea ireki:"
 
 #: ../src/callbacks.c:1036
 msgid "Archiver Output Window"
@@ -270,7 +270,7 @@ msgstr "Konpresorre Irteera Leihoa"
 
 #: ../src/callbacks.c:1068
 msgid "Doing so will probably corrupt your archive!"
-msgstr "Hau eginez ziurrenik fitxategia hondatuko duzu!"
+msgstr "Hau eginez ziurrenik paketea hondatuko duzu!"
 
 #: ../src/callbacks.c:1068
 msgid "Do you really want to cancel?"
@@ -290,11 +290,11 @@ msgstr "Mesedez fitxategi bat hautatu, ez direktorio bat!"
 
 #: ../src/callbacks.c:1695
 msgid "Can't perform another extraction:"
-msgstr "Ezin da beste ateratzea aurrera eraman:"
+msgstr "Ezin da beste ateratze bat aurrera eraman:"
 
 #: ../src/callbacks.c:1695
 msgid "Please wait until the completion of the current one!"
-msgstr "Mesedez itxoin fitxategia osatzen den bitartean!"
+msgstr "Mesedez itxoin martxan dagoen  osatzen den bitartean!"
 
 #: ../src/callbacks.c:1768
 msgid "Sorry, I could not perform the operation!"
@@ -368,7 +368,7 @@ msgstr "Gorde fitxategi izzenak bakarrik bere direktorio izenak gabe."
 
 #: ../src/add_dialog.c:186
 msgid "Freshen an existing entry in the archive"
-msgstr "Dauden fixategiak freskatu"
+msgstr "Paketean Dauden fixategiak freskatu"
 
 #: ../src/add_dialog.c:190
 msgid ""
@@ -389,7 +389,7 @@ msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified."
 msgstr ""
-"Aukera honek fitxategia sortze/eraldatze datatik eraldaturiko edozein "
+"Aukera honek pakete  sortze/eraldatze datatik eraldaturiko edozein "
 "fitxategi eguneratu eta gehituriko edozein fitxategi gehituko du."
 
 #: ../src/add_dialog.c:207
@@ -496,7 +496,7 @@ msgstr "Fitxategia bide osoarekin atera"
 msgid ""
 "The archive's directory structure is recreated in the extraction directory."
 msgstr ""
-"Artxiboaren direktorio egitura birsortua izango da ateratze direktorioan."
+"Paketearen direktorio egitura birsortua izango da ateratze direktorioan."
 
 #: ../src/extract_dialog.c:176
 msgid "Touch files"
@@ -509,7 +509,7 @@ msgid ""
 "setting it to the times recorded in the archive."
 msgstr ""
 "Aukera hau erabiltzean tar-ek fitxategiaren eraldatze data fitxategiak atera "
-"direnean ezartzen du, fitxategiak gorde ziren data erabili beharrean."
+"direnean ezartzen du, paketean gorde ziren data erabili beharrean."
 
 #: ../src/extract_dialog.c:192
 msgid "Freshen existing files"
@@ -525,7 +525,7 @@ msgstr ""
 
 #: ../src/extract_dialog.c:199
 msgid "Update existing files"
-msgstr "Dauden fitxategia eguneratu"
+msgstr "Dauden fitxategiak eguneratu"
 
 #: ../src/extract_dialog.c:200
 msgid ""
@@ -542,7 +542,7 @@ msgstr "_Atera"
 
 #: ../src/extract_dialog.c:317
 msgid "You missed where to extract the files!"
-msgstr "Mesedez fitxategiak nora atera hautatu !"
+msgstr "Mesedez fitxategiak nora atera hautatu!"
 
 #: ../src/extract_dialog.c:317
 msgid "Please enter the extraction path."
@@ -580,7 +580,7 @@ msgstr "Fitxategiak %s-ra ateratzen: "
 #: ../src/extract_dialog.c:564
 #, c-format
 msgid "Extracting archive to %s"
-msgstr "Fitxategiak %s-ra ateratzen: "
+msgstr "Paketea %s-ra ateratzen: "
 
 #: ../src/extract_dialog.c:822 ../src/extract_dialog.c:844
 msgid "Operation aborted."
@@ -671,7 +671,7 @@ msgstr "Ikusi"
 
 #: ../src/interface.c:277
 msgid "View file content in the current archive"
-msgstr "Uneko paketeko fitxategia ikusi"
+msgstr "Uneko paketeko fitxategi edukia ikusi"
 
 #: ../src/interface.c:285
 msgid "Stop"
@@ -695,7 +695,7 @@ msgstr "Fitxategi Leihoa Ikusi"
 
 #: ../src/interface.c:486
 msgid "Archive Properties Window"
-msgstr "Fitxategi Propietate Leihoa"
+msgstr "Pakete Propietate Leihoa"
 
 #: ../src/interface.c:505
 msgid "Name:"
@@ -827,33 +827,31 @@ msgstr "Data efektiboa:"
 
 #: ../src/main.c:35
 msgid "Extract the archive to the specified folder and quits."
-msgstr ""
+msgstr "Zehazturiko paketea helburu karpetara atera eta irten."
 
 #: ../src/main.c:36
 msgid "[destination path]"
-msgstr ""
+msgstr "[helburu bidea]"
 
 #: ../src/main.c:39
 msgid "Extract the archive by asking the destination folder and quits."
-msgstr ""
+msgstr "Paketea ateratzeko helburu karpeta galdetu eta irten."
 
 #: ../src/main.c:40
-#, fuzzy
 msgid "[archive path]"
 msgstr "[pakete izena]"
 
 #: ../src/main.c:43
-#, fuzzy
 msgid "Add files asking the name of the archive and quits."
-msgstr "Paketera fitxategiak gehitu"
+msgstr "Paketera fitxategiak gehitzeko fitxategi izena galdetu eta irten."
 
 #: ../src/main.c:44
 msgid "[file1] [file2] [file3] ... [fileN]"
-msgstr ""
+msgstr "[1fitx] [2fitx] [3 fitx] .... [Nfitx"
 
 #: ../src/main.c:47
 msgid "Add files to the specified archive by asking their filenames and quits."
-msgstr ""
+msgstr "Zehaztutako paketera fitxategiak gehitzeko fitxategi izena galdetu eta irten."
 
 #: ../src/main.c:48 ../src/main.c:60
 msgid "[archive name]"
@@ -960,17 +958,15 @@ msgstr "CRC-32"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr ""
+msgstr "GTK+2-rako pakete kudeatzailea"
 
 #: ../xarchiver.desktop.in.h:2
-#, fuzzy
 msgid "Archive manager"
-msgstr "[pakete izena]"
+msgstr "Pakete kudeatzailea"
 
 #: ../xarchiver.desktop.in.h:3
-#, fuzzy
 msgid "Xarchiver"
-msgstr "_Paketea"
+msgstr "Xarchiver"
 
 #~ msgid "An error occurred while extracting the file to be viewed!"
 #~ msgstr "Errore bat gertatu da bistaratzeko fitxategia ateratzerakoan!"
