@@ -105,6 +105,11 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (tmp_image);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties), tmp_image);
 
+  close1 = gtk_image_menu_item_new_from_stock ("gtk-close", accel_group);
+  gtk_widget_set_sensitive (close1,FALSE);
+  gtk_widget_show (close1);
+  gtk_container_add (GTK_CONTAINER (menuitem1_menu), close1);
+
   quit1 = gtk_image_menu_item_new_from_stock ("gtk-quit", accel_group);
   gtk_widget_show (quit1);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), quit1);
@@ -355,6 +360,7 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
 	g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
+	g_signal_connect ((gpointer) close1, "activate", G_CALLBACK (xa_close_archive), NULL);
 	g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
 	g_signal_connect ((gpointer) delete_menu, "activate", G_CALLBACK (xa_delete_archive), NULL);
 	g_signal_connect ((gpointer) view_menu, "activate", G_CALLBACK (xa_view_file_inside_archive), NULL);

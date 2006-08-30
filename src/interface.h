@@ -59,6 +59,7 @@ GtkWidget *separatormenuitem2;
 GtkWidget *separatormenuitem3;
 GtkWidget *separatormenuitem4;
 GtkWidget *quit1;
+GtkWidget *close1;
 GtkWidget *check_menu;
 GtkWidget *properties;
 GtkWidget *menuitem2;

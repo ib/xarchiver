@@ -75,6 +75,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	gboolean check	= FALSE;
 	gboolean info	= FALSE;
 	
+	gtk_widget_set_sensitive (close1,TRUE);
+
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
 	{
 		new = open = TRUE;
@@ -443,11 +445,26 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     g_free (command);
 }
 
+void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
+{
+	if (archive == NULL)
+		return;
+	
+	RemoveColumnsListStore();
+	EmptyTextBuffer();
+	gtk_widget_set_sensitive (close1,FALSE);
+	gtk_widget_set_sensitive (properties,FALSE);
+	gtk_widget_set_sensitive (check_menu,FALSE);
+	xa_set_button_state (1,1,0,0,0);
+	xa_clean_archive_structure (archive);
+	archive = NULL;
+}
+
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 {
 	if (archive != NULL)
 	{
-		if ( archive->status != XA_ARCHIVESTATUS_IDLE)
+		if ( archive->status != XA_ARCHIVESTATUS_IDLE )
 		{
 			Update_StatusBar ( _("Please hit the Stop button first!"));
 			return;
@@ -1785,7 +1802,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		}
     }
 
-	if (archive->path == NULL)
+	if (archive == NULL)
 	{
 		xa_new_archive ( NULL , filename );
 		if (archive->path == NULL)

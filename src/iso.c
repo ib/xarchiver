@@ -791,6 +791,7 @@ void OpenISO ( XArchive *archive )
 	gtk_widget_set_sensitive ( iso_info , TRUE );
 	gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
 	gtk_window_set_title (GTK_WINDOW(MainWindow),archive->path);
+	gtk_widget_set_sensitive (close1,TRUE);
 	Update_StatusBar ( _("Operation completed.") );
 }
 

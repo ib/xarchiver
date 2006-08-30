@@ -75,6 +75,7 @@ struct File_Chooser_Data
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_open_archive (GtkMenuItem *menuitem, gpointer user_data );
 void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data);
+void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data);
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_about (GtkMenuItem *menuitem, gpointer user_data);

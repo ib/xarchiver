@@ -102,13 +102,14 @@ void xa_clean_archive_structure ( XArchive *archive)
 {
 	if (archive == NULL)
 		return;
-	if(archive->path)
+	
+	if(archive->path != NULL)
 	{
 		g_free(archive->path);
 		archive->path = NULL;
 	}
 
-	if(archive->escaped_path)
+	if(archive->escaped_path != NULL)
 	{	
 		g_free(archive->escaped_path);
 		archive->escaped_path = NULL;

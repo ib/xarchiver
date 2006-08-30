@@ -8,4 +8,3 @@
 - better handling of current installed archivers.
 - loading and saving of add/extraction options and window size.
 - support tar on *BSD.
-- add Close menu entry to File menu.
