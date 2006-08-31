@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-08-29 14:29+0200\n"
-"PO-Revision-Date: 2006-08-23 21:54+0200\n"
+"PO-Revision-Date: 2006-08-30 13:40+0200\n"
 "Last-Translator: Szymon Kałasz <szymon_maestro@gazeta.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -830,33 +830,31 @@ msgstr "Rzeczywista data:"
 
 #: ../src/main.c:35
 msgid "Extract the archive to the specified folder and quits."
-msgstr ""
+msgstr "Rozpakowuje archiwum do podanego katalogu i wychodzi."
 
 #: ../src/main.c:36
 msgid "[destination path]"
-msgstr ""
+msgstr "[ścieżka docelowa]"
 
 #: ../src/main.c:39
 msgid "Extract the archive by asking the destination folder and quits."
-msgstr ""
+msgstr "Rozpakowuje archiwum, pytając o folder docelowy i wychodzi."
 
 #: ../src/main.c:40
-#, fuzzy
 msgid "[archive path]"
-msgstr "[nazwa archiwum]"
+msgstr "[ścieżka do archiwum]"
 
 #: ../src/main.c:43
-#, fuzzy
 msgid "Add files asking the name of the archive and quits."
-msgstr "Dodaj pliki do archiwum:"
+msgstr "Dodaje pliki, pytając o nazwę archiwum i wychodzi."
 
 #: ../src/main.c:44
 msgid "[file1] [file2] [file3] ... [fileN]"
-msgstr ""
+msgstr "[plik1] [plik2] [plik3] ... [plikN]"
 
 #: ../src/main.c:47
 msgid "Add files to the specified archive by asking their filenames and quits."
-msgstr ""
+msgstr "Dodaje pliki do podanego archiwum, pytając o nazwy plików i wychodzi."
 
 #: ../src/main.c:48 ../src/main.c:60
 msgid "[archive name]"
@@ -963,17 +961,15 @@ msgstr "CRC-32"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr ""
+msgstr "Program zarządzający archiwami oparty wyłącznie o GTK+2"
 
 #: ../xarchiver.desktop.in.h:2
-#, fuzzy
 msgid "Archive manager"
-msgstr "[nazwa archiwum]"
+msgstr "Zarządca archiwów"
 
 #: ../xarchiver.desktop.in.h:3
-#, fuzzy
 msgid "Xarchiver"
-msgstr "_Archiwum"
+msgstr "Xarchiver"
 
 #~ msgid "You missed the files to add!\n"
 #~ msgstr "Nie wybrano plików do dodania!\n"
