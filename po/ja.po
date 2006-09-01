@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-29 14:29+0200\n"
+"POT-Creation-Date: 2006-09-01 11:36+0200\n"
 "PO-Revision-Date: 2006-06-10 23:53+0900\n"
 "Last-Translator: Daichi Kawahata <daichi@xfce.org>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -100,7 +100,7 @@ msgstr "ファイルを展開します "
 msgid "Extracting bzip2 file to %s"
 msgstr "ファイルを展開します "
 
-#: ../src/bzip2.c:146 ../src/callbacks.c:104 ../src/extract_dialog.c:305
+#: ../src/bzip2.c:146 ../src/callbacks.c:106 ../src/extract_dialog.c:305
 msgid "Operation canceled."
 msgstr "操作が取り消されました。"
 
@@ -109,133 +109,133 @@ msgstr "操作が取り消されました。"
 msgid "Decompressing tar file with %s, please wait..."
 msgstr "Gzipで圧縮しています、お待ちください..."
 
-#: ../src/bzip2.c:239
+#: ../src/bzip2.c:235
 #, fuzzy, c-format
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Gzipで圧縮しています、お待ちください..."
 
 # FIXME: C format string
 # Please check "blah" since some files could have been already extracted.
-#: ../src/callbacks.c:107
+#: ../src/callbacks.c:109
 #, fuzzy, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "」を確認してください、いくつかのファイルは既に取り出されているかもしれませ"
 "ん。"
 
-#: ../src/callbacks.c:126 ../src/callbacks.c:1574
+#: ../src/callbacks.c:128 ../src/callbacks.c:1591
 #, fuzzy
 msgid "An error occurred while accessing the archive."
 msgstr ""
 "アーカイブへアクセス中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: ../src/callbacks.c:126 ../src/callbacks.c:1574 ../src/rpm.c:152
+#: ../src/callbacks.c:128 ../src/callbacks.c:1591 ../src/rpm.c:152
 #, fuzzy
 msgid "Do you want to open the error messages window?"
 msgstr ""
 "アーカイブへアクセス中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: ../src/callbacks.c:136 ../src/callbacks.c:1257 ../src/callbacks.c:1579
-#: ../src/callbacks.c:1798 ../src/extract_dialog.c:873 ../src/rpm.c:120
+#: ../src/callbacks.c:138 ../src/callbacks.c:1274 ../src/callbacks.c:1596
+#: ../src/callbacks.c:1815 ../src/extract_dialog.c:873 ../src/rpm.c:120
 #: ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "操作が失敗しました。"
 
-#: ../src/callbacks.c:149 ../src/callbacks.c:199 ../src/callbacks.c:1264
-#: ../src/extract_dialog.c:536 ../src/extract_dialog.c:732 ../src/iso.c:794
+#: ../src/callbacks.c:151 ../src/callbacks.c:201 ../src/callbacks.c:1281
+#: ../src/extract_dialog.c:536 ../src/extract_dialog.c:732 ../src/iso.c:795
 msgid "Operation completed."
 msgstr "操作が完了しました。"
 
-#: ../src/callbacks.c:152
+#: ../src/callbacks.c:154
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "アーカイブの内容が更新されるまでの間お待ちください..."
 
-#: ../src/callbacks.c:218
+#: ../src/callbacks.c:220
 #, fuzzy, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "アーカイブ「%s」は既に存在します。上書きしてもよろしいですか？"
 
-#: ../src/callbacks.c:224
+#: ../src/callbacks.c:226
 #, fuzzy
 msgid "Do you want to overwrite it?"
 msgstr "アーカイブ「%s」は既に存在します。上書きしてもよろしいですか？"
 
-#: ../src/callbacks.c:254
+#: ../src/callbacks.c:256
 msgid "Choose Add File to create the compressed file."
 msgstr "ファイルを圧縮するには「ファイルを追加」を選んでください。"
 
-#: ../src/callbacks.c:258
+#: ../src/callbacks.c:260
 #, fuzzy
 msgid "Choose Add to begin creating the archive."
 msgstr ""
 "アーカイブの作成を開始するには「ファイルを追加」か「フォルダを追加」を選んで"
 "ください。"
 
-#: ../src/callbacks.c:310
+#: ../src/callbacks.c:312
 #, fuzzy, c-format
 msgid "Can't open file \"%s\":"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/callbacks.c:313
+#: ../src/callbacks.c:315
 #, fuzzy
 msgid "Archive format is not recognized!"
 msgstr "このアーカイブの形式は認識できません！"
 
-#: ../src/callbacks.c:334
+#: ../src/callbacks.c:336
 #, fuzzy
 msgid "Sorry, this archive format is not supported:"
 msgstr ""
 "適切なアーカイバーがインストールされていないため、このアーカイブ形式はサポー"
 "トされません！"
 
-#: ../src/callbacks.c:334
+#: ../src/callbacks.c:336
 #, fuzzy
 msgid "the proper archiver is not installed!"
 msgstr "このアーカイブの形式は認識できません！"
 
-#: ../src/callbacks.c:341
+#: ../src/callbacks.c:343
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "このISOイメージの内容を読み込むまでお待ちください..."
 
-#: ../src/callbacks.c:343
+#: ../src/callbacks.c:345
 msgid "Please wait while the content of the archive is being read..."
 msgstr "このアーカイブの内容を読み込むまでお待ちください..."
 
-#: ../src/callbacks.c:404
+#: ../src/callbacks.c:406
 msgid "Testing archive integrity, please wait..."
 msgstr "アーカイブの整合性を確認しています、お待ちください..."
 
-#: ../src/callbacks.c:452
+#: ../src/callbacks.c:469
 msgid "Please hit the Stop button first!"
 msgstr "最初に「中止」ボタンを押してください！"
 
 # FIXME: C format steing
 # You are about to delete 5 files from the archive.
 # Are you really sure to do this?
-#: ../src/callbacks.c:477
+#: ../src/callbacks.c:494
 #, fuzzy, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr ""
 "を削除しようとしています。\n"
 "よろしいですか？"
 
-#: ../src/callbacks.c:478
+#: ../src/callbacks.c:495
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: ../src/callbacks.c:484
+#: ../src/callbacks.c:501
 msgid "Deleting files from the archive, please wait..."
 msgstr "ファイルをアーカイブから削除しています、お待ちください..."
 
-#: ../src/callbacks.c:594
+#: ../src/callbacks.c:611
 msgid "translator-credits"
 msgstr "Daichi Kawahata <daichi@xfce.org>"
 
-#: ../src/callbacks.c:626
+#: ../src/callbacks.c:643
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -243,11 +243,11 @@ msgstr ""
 "現在のアーカイブに追加するファイルを選択します; 複数のファイルを選ぶには "
 "SHIFT をご利用ください"
 
-#: ../src/callbacks.c:632
+#: ../src/callbacks.c:649
 msgid "Select the folder to be added to the current archive"
 msgstr "現在のアーカイブに追加するフォルダを選択してください"
 
-#: ../src/callbacks.c:634
+#: ../src/callbacks.c:651
 msgid ""
 "Select the folders to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -255,104 +255,104 @@ msgstr ""
 "現在のアーカイブに追加するフォルダを選択します; 複数のフォルダを選ぶには "
 "SHIFT をご利用ください"
 
-#: ../src/callbacks.c:673 ../src/interface.c:225
+#: ../src/callbacks.c:690 ../src/interface.c:230
 msgid "Create a new archive"
 msgstr "新規アーカイブを作成します"
 
-#: ../src/callbacks.c:675
+#: ../src/callbacks.c:692
 msgid "Cr_eate"
 msgstr ""
 
-#: ../src/callbacks.c:679 ../src/interface.c:233
+#: ../src/callbacks.c:696 ../src/interface.c:238
 msgid "Open an archive"
 msgstr "アーカイブを開きます"
 
-#: ../src/callbacks.c:686
+#: ../src/callbacks.c:703
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "現在のアーカイブを展開するフォルダを選択してください"
 
-#: ../src/callbacks.c:717
+#: ../src/callbacks.c:734
 msgid "All files"
 msgstr "全てのファイル"
 
-#: ../src/callbacks.c:722
+#: ../src/callbacks.c:739
 msgid "Only archives"
 msgstr "アーカイブのみ"
 
-#: ../src/callbacks.c:751
+#: ../src/callbacks.c:768
 msgid "Archive type:"
 msgstr "アーカイブの種類:"
 
-#: ../src/callbacks.c:754
+#: ../src/callbacks.c:771
 msgid "Choose the archive type to create"
 msgstr "作成するアーカイブの種類を選択してください"
 
-#: ../src/callbacks.c:764
+#: ../src/callbacks.c:781
 msgid "Add the archive extension to the filename"
 msgstr "ファイル名にアーカイブ拡張子を追加する"
 
-#: ../src/callbacks.c:864
+#: ../src/callbacks.c:881
 #, fuzzy, c-format
 msgid "Can't open archive \"%s\":"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/callbacks.c:1036
+#: ../src/callbacks.c:1053
 #, fuzzy
 msgid "Archiver Output Window"
 msgstr "アーカイブプロパティ・ウィンドウ"
 
-#: ../src/callbacks.c:1068
+#: ../src/callbacks.c:1085
 #, fuzzy
 msgid "Doing so will probably corrupt your archive!"
 msgstr ""
 "これを行うとアーカイブを壊してしまうかもしれません。\n"
 "取り消しますか？"
 
-#: ../src/callbacks.c:1068
+#: ../src/callbacks.c:1085
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: ../src/callbacks.c:1073
+#: ../src/callbacks.c:1090
 msgid "Waiting for the process to abort..."
 msgstr "このプロセスが中断するのを待っています..."
 
-#: ../src/callbacks.c:1079
+#: ../src/callbacks.c:1096
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: ../src/callbacks.c:1159
+#: ../src/callbacks.c:1176
 msgid "Please select a file, not a directory!"
 msgstr "フォルダではなくファイルを選択してください！"
 
-#: ../src/callbacks.c:1695
+#: ../src/callbacks.c:1712
 #, fuzzy
 msgid "Can't perform another extraction:"
 msgstr "パスワードを入力してください！"
 
-#: ../src/callbacks.c:1695
+#: ../src/callbacks.c:1712
 #, fuzzy
 msgid "Please wait until the completion of the current one!"
 msgstr "このアーカイブの内容を読み込むまでお待ちください..."
 
-#: ../src/callbacks.c:1768
+#: ../src/callbacks.c:1785
 msgid "Sorry, I could not perform the operation!"
 msgstr "操作を実行できませんでした！"
 
-#: ../src/callbacks.c:1796
+#: ../src/callbacks.c:1813
 #, fuzzy
 msgid "Bzip2 or gzip cannot compress more than one file!"
 msgstr ""
 "Bzip2 や Gzip は一つ以上のファイルを圧縮できません、別のアーカイブ形式を選択"
 "してください！"
 
-#: ../src/callbacks.c:1796
+#: ../src/callbacks.c:1813
 #, fuzzy
 msgid "Please choose another archive format!"
 msgstr "作成するアーカイブの種類を選択してください"
 
-#: ../src/callbacks.c:1928
+#: ../src/callbacks.c:1945
 msgid "Failed to open link."
 msgstr ""
 
@@ -461,7 +461,7 @@ msgstr ""
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression."
 msgstr ""
 
-#: ../src/add_dialog.c:237 ../src/extract_dialog.c:215 ../src/interface.c:402
+#: ../src/add_dialog.c:237 ../src/extract_dialog.c:215 ../src/interface.c:408
 msgid "Password:"
 msgstr "パスワード:"
 
@@ -497,12 +497,12 @@ msgstr "ファイルを現在のアーカイブに追加します"
 msgid "You haven't selected any files to add!"
 msgstr ""
 
-#: ../src/add_dialog.c:483 ../src/interface.c:441
+#: ../src/add_dialog.c:483 ../src/interface.c:447
 #, fuzzy
 msgid "You missed the password!"
 msgstr "パスワードを入力してください！"
 
-#: ../src/add_dialog.c:483 ../src/interface.c:441
+#: ../src/add_dialog.c:483 ../src/interface.c:447
 #, fuzzy
 msgid "Please enter it!"
 msgstr "パスワードを入力してください！"
@@ -590,7 +590,7 @@ msgid ""
 "extracts those files that do not already exist on disk."
 msgstr ""
 
-#: ../src/extract_dialog.c:253 ../src/interface.c:129
+#: ../src/extract_dialog.c:253 ../src/interface.c:134
 msgid "_Extract"
 msgstr "展開(_E)"
 
@@ -669,58 +669,58 @@ msgstr "テスト(_T)"
 msgid "_Properties"
 msgstr "プロパティ(_P)"
 
-#: ../src/interface.c:112
+#: ../src/interface.c:117
 #, fuzzy
 msgid "A_ction"
 msgstr "アクション(_A)"
 
-#: ../src/interface.c:119 ../src/interface.c:241
+#: ../src/interface.c:124 ../src/interface.c:246
 msgid "Add"
 msgstr ""
 
-#: ../src/interface.c:150
+#: ../src/interface.c:155
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../src/interface.c:165
+#: ../src/interface.c:170
 msgid "Select _All"
 msgstr ""
 
-#: ../src/interface.c:171
+#: ../src/interface.c:176
 msgid "Dese_lect All"
 msgstr ""
 
-#: ../src/interface.c:182
+#: ../src/interface.c:187
 msgid "View Error _Messages"
 msgstr "エラーメッセージを表示(_M)"
 
-#: ../src/interface.c:191
+#: ../src/interface.c:196
 #, fuzzy
 msgid "Show I_SO info"
 msgstr "ISO情報を表示"
 
-#: ../src/interface.c:201
+#: ../src/interface.c:206
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../src/interface.c:221
+#: ../src/interface.c:226
 msgid "New"
 msgstr "新規"
 
-#: ../src/interface.c:229
+#: ../src/interface.c:234
 msgid "Open"
 msgstr "開く"
 
-#: ../src/interface.c:246
+#: ../src/interface.c:251
 #, fuzzy
 msgid "Add files and directories to the current archive"
 msgstr "フォルダごとアーカイブに追加します"
 
-#: ../src/interface.c:250
+#: ../src/interface.c:255
 msgid "Extract"
 msgstr "展開"
 
-#: ../src/interface.c:255
+#: ../src/interface.c:260
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
@@ -728,80 +728,80 @@ msgstr ""
 "現在のアーカイブからファイルを取り出します; 個々にファイルを選ぶにはマウスを"
 "ご利用ください"
 
-#: ../src/interface.c:263
+#: ../src/interface.c:268
 msgid "Delete"
 msgstr "削除"
 
-#: ../src/interface.c:268
+#: ../src/interface.c:273
 msgid "Delete files from the current archive"
 msgstr "ファイルを現在のアーカイブから削除します"
 
-#: ../src/interface.c:272
+#: ../src/interface.c:277
 msgid "View"
 msgstr "表示"
 
-#: ../src/interface.c:277
+#: ../src/interface.c:282
 msgid "View file content in the current archive"
 msgstr "現在のアーカイブのファイルないようを表示します"
 
-#: ../src/interface.c:285
+#: ../src/interface.c:290
 msgid "Stop"
 msgstr "中止"
 
-#: ../src/interface.c:290
+#: ../src/interface.c:295
 msgid "Cancel current operation"
 msgstr "現在の操作を取り消します"
 
-#: ../src/interface.c:345
+#: ../src/interface.c:350
 msgid "This archive contains password protected files"
 msgstr "このアーカイブにはパスワードで保護されたファイルがあります"
 
-#: ../src/interface.c:390
+#: ../src/interface.c:396
 #, fuzzy
 msgid "Enter Archive Password"
 msgstr "パスワードを入力してください！"
 
-#: ../src/interface.c:460
+#: ../src/interface.c:466
 msgid "View File Window"
 msgstr "ファイルウィンドウを表示"
 
-#: ../src/interface.c:486
+#: ../src/interface.c:492
 msgid "Archive Properties Window"
 msgstr "アーカイブプロパティ・ウィンドウ"
 
-#: ../src/interface.c:505
+#: ../src/interface.c:511
 msgid "Name:"
 msgstr "名前:"
 
-#: ../src/interface.c:513
+#: ../src/interface.c:519
 msgid "Path:"
 msgstr "パス:"
 
-#: ../src/interface.c:521
+#: ../src/interface.c:527
 msgid "Type:"
 msgstr ""
 
-#: ../src/interface.c:529
+#: ../src/interface.c:535
 msgid "Modified on:"
 msgstr "変更日時:"
 
-#: ../src/interface.c:537
+#: ../src/interface.c:543
 msgid "Archive size:"
 msgstr "サイズ:"
 
-#: ../src/interface.c:545
+#: ../src/interface.c:551
 msgid "Content size:"
 msgstr "内容のサイズ:"
 
-#: ../src/interface.c:553
+#: ../src/interface.c:559
 msgid "Compression ratio:"
 msgstr "圧縮率:"
 
-#: ../src/interface.c:561
+#: ../src/interface.c:567
 msgid "Number of files:"
 msgstr "ファイル数:"
 
-#: ../src/interface.c:569
+#: ../src/interface.c:575
 msgid "Number of dirs:"
 msgstr "フォルダ数:"
 
@@ -850,56 +850,56 @@ msgstr ""
 msgid "Joliet Level %d"
 msgstr ""
 
-#: ../src/iso.c:843
+#: ../src/iso.c:844
 msgid "ISO Information Window"
 msgstr "ISO情報ウィンドウ"
 
-#: ../src/iso.c:862
+#: ../src/iso.c:863
 msgid "Filename:"
 msgstr "ファイル名:"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:871
 #, fuzzy
 msgid "Size:"
 msgstr "サイズ"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:879
 msgid "Image type:"
 msgstr "画像形式:"
 
-#: ../src/iso.c:886
+#: ../src/iso.c:887
 msgid "System ID:"
 msgstr "システムID:"
 
-#: ../src/iso.c:894
+#: ../src/iso.c:895
 msgid "Volume ID:"
 msgstr "ボリュームID:"
 
-#: ../src/iso.c:902
+#: ../src/iso.c:903
 msgid "Application:"
 msgstr "アプリケーション:"
 
-#: ../src/iso.c:910
+#: ../src/iso.c:911
 msgid "Publisher:"
 msgstr "出版社:"
 
-#: ../src/iso.c:918
+#: ../src/iso.c:919
 msgid "Preparer:"
 msgstr "発行人:"
 
-#: ../src/iso.c:926
+#: ../src/iso.c:927
 msgid "Creation date:"
 msgstr "作成日時:"
 
-#: ../src/iso.c:934
+#: ../src/iso.c:935
 msgid "Modified date:"
 msgstr "変更日時:"
 
-#: ../src/iso.c:942
+#: ../src/iso.c:943
 msgid "Expiration date:"
 msgstr "失効日時:"
 
-#: ../src/iso.c:950
+#: ../src/iso.c:951
 msgid "Effective date:"
 msgstr "有効日時:"
 

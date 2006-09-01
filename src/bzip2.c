@@ -151,7 +151,7 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
 {
-	gchar *command, *msg, *tar,*temp_name,*temp_name2;
+	gchar *command, *msg, *tar,*temp_name,*file_ext;
 	gboolean result;
 
 	if ( ! cli )
@@ -164,7 +164,6 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 
 	/* Let's copy the archive to /tmp first */
 	temp_name = g_strconcat ( " /tmp", StripPathFromFilename (archive->escaped_path , "/"), NULL);
-	temp_name2 = g_strdup (temp_name);
 	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL); 
 	if ( ! cli)
 		result = xa_run_command (command , 0);
@@ -174,10 +173,9 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	if (result == 0)
 	{
 		g_free (temp_name);
-		g_free (temp_name2);
 		return;
 	}
-	command = g_strconcat (dummy ? "gzip " : "bzip2 ", "-f -d ",temp_name,NULL);
+	command = g_strconcat (dummy ? "gzip -f " : "bzip2 ", "-f -d ",temp_name,NULL);
 	if ( ! cli )
 		result = xa_run_command (command , 0);
 	else
@@ -186,7 +184,6 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	if (result == 0)
 	{
 		g_free (temp_name);
-		g_free (temp_name2);
 		return;
 	}
 
@@ -230,7 +227,6 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	if (result == 0)
 	{
 		g_free (temp_name);
-		g_free (temp_name2);
 		return;
 	}
 
@@ -241,26 +237,31 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 		g_free (msg);
 	}
 	
-	command = g_strconcat ( dummy ? "gzip " : "bzip2 ", "-f " , temp_name , NULL );
+	command = g_strconcat ( dummy ? "gzip -f " : "bzip2 ", "-f " , temp_name , NULL );
 	if ( ! cli )
 		result = xa_run_command (command , 0);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);
-	g_free (temp_name);
+
 	if (result == 0)
 	{
-		g_free (temp_name2);
+		g_free (temp_name);
 		return;
 	}
+	if (dummy)
+		file_ext = ".gz";
+	else
+		file_ext = ".bz2";
 	/* Let's move the modified archive from /tmp to the original archive location */
-	command = g_strconcat ( "mv " , temp_name2 ," " ,archive->escaped_path, NULL );
+	command = g_strconcat ( "mv " , temp_name , file_ext, " " ,archive->escaped_path, NULL );
 	if ( ! cli )
 		result = xa_run_command (command , 1);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);
-	g_free (temp_name2);
+	g_free (temp_name);
+
 	if (result == 0)
 		return;
 }

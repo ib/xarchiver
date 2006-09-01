@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-29 14:29+0200\n"
+"POT-Creation-Date: 2006-09-01 11:36+0200\n"
 "PO-Revision-Date: 2006-08-23 15:49+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -90,7 +90,7 @@ msgstr "Extraherar gzip-fil till %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "Extraherar bzip2-fil till %s"
 
-#: ../src/bzip2.c:146 ../src/callbacks.c:104 ../src/extract_dialog.c:305
+#: ../src/bzip2.c:146 ../src/callbacks.c:106 ../src/extract_dialog.c:305
 msgid "Operation canceled."
 msgstr "Åtgärden avbröts."
 
@@ -99,103 +99,103 @@ msgstr "Åtgärden avbröts."
 msgid "Decompressing tar file with %s, please wait..."
 msgstr "Dekomprimerar tar-fil med %s, var god vänta..."
 
-#: ../src/bzip2.c:239
+#: ../src/bzip2.c:235
 #, c-format
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Återkomprimerar tar-fil med %s, var god vänta..."
 
-#: ../src/callbacks.c:107
+#: ../src/callbacks.c:109
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Kontrollera \"%s\" eftersom några filer kanske redan har extraherats."
 
-#: ../src/callbacks.c:126 ../src/callbacks.c:1574
+#: ../src/callbacks.c:128 ../src/callbacks.c:1591
 msgid "An error occurred while accessing the archive."
 msgstr "Ett fel inträffade vid åtkomst till arkivet."
 
-#: ../src/callbacks.c:126 ../src/callbacks.c:1574 ../src/rpm.c:152
+#: ../src/callbacks.c:128 ../src/callbacks.c:1591 ../src/rpm.c:152
 msgid "Do you want to open the error messages window?"
 msgstr "Vill du öppna fönstret för felmeddelanden?"
 
-#: ../src/callbacks.c:136 ../src/callbacks.c:1257 ../src/callbacks.c:1579
-#: ../src/callbacks.c:1798 ../src/extract_dialog.c:873 ../src/rpm.c:120
+#: ../src/callbacks.c:138 ../src/callbacks.c:1274 ../src/callbacks.c:1596
+#: ../src/callbacks.c:1815 ../src/extract_dialog.c:873 ../src/rpm.c:120
 #: ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "Åtgärden misslyckades."
 
-#: ../src/callbacks.c:149 ../src/callbacks.c:199 ../src/callbacks.c:1264
-#: ../src/extract_dialog.c:536 ../src/extract_dialog.c:732 ../src/iso.c:794
+#: ../src/callbacks.c:151 ../src/callbacks.c:201 ../src/callbacks.c:1281
+#: ../src/extract_dialog.c:536 ../src/extract_dialog.c:732 ../src/iso.c:795
 msgid "Operation completed."
 msgstr "Åtgärden klar."
 
-#: ../src/callbacks.c:152
+#: ../src/callbacks.c:154
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Var god vänta under tiden innehållet i arkivet uppdateras..."
 
-#: ../src/callbacks.c:218
+#: ../src/callbacks.c:220
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "Arkivet \"%s\" finns redan!"
 
-#: ../src/callbacks.c:224
+#: ../src/callbacks.c:226
 msgid "Do you want to overwrite it?"
 msgstr "Vill du skriva över det?"
 
-#: ../src/callbacks.c:254
+#: ../src/callbacks.c:256
 msgid "Choose Add File to create the compressed file."
 msgstr "Välj Lägg till fil för att skapa den komprimerade filen."
 
-#: ../src/callbacks.c:258
+#: ../src/callbacks.c:260
 msgid "Choose Add to begin creating the archive."
 msgstr "Välj Lägg till för att skapa tar-arkivet."
 
-#: ../src/callbacks.c:310
+#: ../src/callbacks.c:312
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Kan inte öppna filen \"%s\":"
 
-#: ../src/callbacks.c:313
+#: ../src/callbacks.c:315
 msgid "Archive format is not recognized!"
 msgstr "Arkivformatet känns inte igen!"
 
-#: ../src/callbacks.c:334
+#: ../src/callbacks.c:336
 msgid "Sorry, this archive format is not supported:"
 msgstr "Tyvärr, detta arkivformat stöds inte:"
 
-#: ../src/callbacks.c:334
+#: ../src/callbacks.c:336
 msgid "the proper archiver is not installed!"
 msgstr "den lämpliga arkivhanteraren är inte installerad!"
 
-#: ../src/callbacks.c:341
+#: ../src/callbacks.c:343
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Var god vänta under tiden innehållet i ISO-avbilden läses av..."
 
-#: ../src/callbacks.c:343
+#: ../src/callbacks.c:345
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Var god vänta under tiden innehållet i arkivet läses av..."
 
-#: ../src/callbacks.c:404
+#: ../src/callbacks.c:406
 msgid "Testing archive integrity, please wait..."
 msgstr "Testar arkivets integritet, var god vänta..."
 
-#: ../src/callbacks.c:452
+#: ../src/callbacks.c:469
 msgid "Please hit the Stop button first!"
 msgstr "Tryck på Stopp-knappen först!"
 
-#: ../src/callbacks.c:477
+#: ../src/callbacks.c:494
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Du är på väg att ta bort %d fil(er) från arkivet."
 
-#: ../src/callbacks.c:478
+#: ../src/callbacks.c:495
 msgid "Are you sure you want to do this?"
 msgstr "Är du säker på att du vill göra detta?"
 
-#: ../src/callbacks.c:484
+#: ../src/callbacks.c:501
 msgid "Deleting files from the archive, please wait..."
 msgstr "Tar bort filer från arkivet, var god vänta..."
 
-#: ../src/callbacks.c:594
+#: ../src/callbacks.c:611
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander po@danielnylander.se\n"
@@ -203,7 +203,7 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
-#: ../src/callbacks.c:626
+#: ../src/callbacks.c:643
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -211,11 +211,11 @@ msgstr ""
 "Välj filerna som ska läggas till i aktuellt arkiv; använd SHIFT-tangenten "
 "för att välja flera filer"
 
-#: ../src/callbacks.c:632
+#: ../src/callbacks.c:649
 msgid "Select the folder to be added to the current archive"
 msgstr "Välj den mapp som ska läggas till i aktuellt arkiv"
 
-#: ../src/callbacks.c:634
+#: ../src/callbacks.c:651
 msgid ""
 "Select the folders to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -223,92 +223,92 @@ msgstr ""
 "Välj de mappar som ska läggas till i aktuellt arkiv; använd SHIFT-tangenten "
 "för att välja flera mappar"
 
-#: ../src/callbacks.c:673 ../src/interface.c:225
+#: ../src/callbacks.c:690 ../src/interface.c:230
 msgid "Create a new archive"
 msgstr "Skapa ett nytt arkiv"
 
-#: ../src/callbacks.c:675
+#: ../src/callbacks.c:692
 msgid "Cr_eate"
 msgstr "Ska_pa"
 
-#: ../src/callbacks.c:679 ../src/interface.c:233
+#: ../src/callbacks.c:696 ../src/interface.c:238
 msgid "Open an archive"
 msgstr "Öppna ett arkiv"
 
-#: ../src/callbacks.c:686
+#: ../src/callbacks.c:703
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Välj målmappen dit aktuellt arkiv ska extraheras"
 
-#: ../src/callbacks.c:717
+#: ../src/callbacks.c:734
 msgid "All files"
 msgstr "Alla filer"
 
-#: ../src/callbacks.c:722
+#: ../src/callbacks.c:739
 msgid "Only archives"
 msgstr "Endast arkiv"
 
-#: ../src/callbacks.c:751
+#: ../src/callbacks.c:768
 msgid "Archive type:"
 msgstr "Arkivtyp:"
 
-#: ../src/callbacks.c:754
+#: ../src/callbacks.c:771
 msgid "Choose the archive type to create"
 msgstr "Välj vilken arkivtyp som ska skapas"
 
-#: ../src/callbacks.c:764
+#: ../src/callbacks.c:781
 msgid "Add the archive extension to the filename"
 msgstr "Lägg till arkivändelsen till filnamnet"
 
-#: ../src/callbacks.c:864
+#: ../src/callbacks.c:881
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Kan inte öppna arkivet \"%s\":"
 
-#: ../src/callbacks.c:1036
+#: ../src/callbacks.c:1053
 msgid "Archiver Output Window"
 msgstr "Utdata från arkivhanterare"
 
-#: ../src/callbacks.c:1068
+#: ../src/callbacks.c:1085
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Att göra det kan innebära att ditt arkiv skadas!"
 
-#: ../src/callbacks.c:1068
+#: ../src/callbacks.c:1085
 msgid "Do you really want to cancel?"
 msgstr "Vill du verkligen avbryta?"
 
-#: ../src/callbacks.c:1073
+#: ../src/callbacks.c:1090
 msgid "Waiting for the process to abort..."
 msgstr "Väntar på att processen ska avbrytas..."
 
-#: ../src/callbacks.c:1079
+#: ../src/callbacks.c:1096
 msgid "An error occurred while trying to kill the process:"
 msgstr "Ett fel inträffade vid försök att döda processen:"
 
-#: ../src/callbacks.c:1159
+#: ../src/callbacks.c:1176
 msgid "Please select a file, not a directory!"
 msgstr "Välj en fil, inte en katalog!"
 
-#: ../src/callbacks.c:1695
+#: ../src/callbacks.c:1712
 msgid "Can't perform another extraction:"
 msgstr "Kan inte genomföra ytterligare en extrahering:"
 
-#: ../src/callbacks.c:1695
+#: ../src/callbacks.c:1712
 msgid "Please wait until the completion of the current one!"
 msgstr "Var god vänta tills nuvarande är färdig!"
 
-#: ../src/callbacks.c:1768
+#: ../src/callbacks.c:1785
 msgid "Sorry, I could not perform the operation!"
 msgstr "Tyvärr, jag kunde inte genomföra åtgärden!"
 
-#: ../src/callbacks.c:1796
+#: ../src/callbacks.c:1813
 msgid "Bzip2 or gzip cannot compress more than one file!"
 msgstr "Bzip2 eller gzip kan inte komprimera fler än en fil!"
 
-#: ../src/callbacks.c:1796
+#: ../src/callbacks.c:1813
 msgid "Please choose another archive format!"
 msgstr "Välj ett annat arkivformat!"
 
-#: ../src/callbacks.c:1928
+#: ../src/callbacks.c:1945
 msgid "Failed to open link."
 msgstr "Misslyckades med att öppna länken."
 
@@ -414,7 +414,7 @@ msgstr ""
 "0 = ingen komprimering, 1 är standard, 4 = snabbast men med minst "
 "komprimering"
 
-#: ../src/add_dialog.c:237 ../src/extract_dialog.c:215 ../src/interface.c:402
+#: ../src/add_dialog.c:237 ../src/extract_dialog.c:215 ../src/interface.c:408
 msgid "Password:"
 msgstr "Lösenord:"
 
@@ -446,11 +446,11 @@ msgstr "Kan inte lägga till filer till arkivet:"
 msgid "You haven't selected any files to add!"
 msgstr "Du har inte markerat några filer att lägga till!"
 
-#: ../src/add_dialog.c:483 ../src/interface.c:441
+#: ../src/add_dialog.c:483 ../src/interface.c:447
 msgid "You missed the password!"
 msgstr "Du glömde lösenordet!"
 
-#: ../src/add_dialog.c:483 ../src/interface.c:441
+#: ../src/add_dialog.c:483 ../src/interface.c:447
 msgid "Please enter it!"
 msgstr "Mata in det!"
 
@@ -539,7 +539,7 @@ msgstr ""
 "extraherar filer som är nyare än de med samma namn på disken och extraherar "
 "även de filer som inte redan finns på disken."
 
-#: ../src/extract_dialog.c:253 ../src/interface.c:129
+#: ../src/extract_dialog.c:253 ../src/interface.c:134
 msgid "_Extract"
 msgstr "_Extrahera"
 
@@ -606,55 +606,55 @@ msgstr "_Testa"
 msgid "_Properties"
 msgstr "_Egenskaper"
 
-#: ../src/interface.c:112
+#: ../src/interface.c:117
 msgid "A_ction"
 msgstr "Å_tgärd"
 
-#: ../src/interface.c:119 ../src/interface.c:241
+#: ../src/interface.c:124 ../src/interface.c:246
 msgid "Add"
 msgstr "Lägg till"
 
-#: ../src/interface.c:150
+#: ../src/interface.c:155
 msgid "_View"
 msgstr "_Visa"
 
-#: ../src/interface.c:165
+#: ../src/interface.c:170
 msgid "Select _All"
 msgstr "Markera _alla"
 
-#: ../src/interface.c:171
+#: ../src/interface.c:176
 msgid "Dese_lect All"
 msgstr "Avmar_kera alla"
 
-#: ../src/interface.c:182
+#: ../src/interface.c:187
 msgid "View Error _Messages"
 msgstr "Visa fel_meddelanden"
 
-#: ../src/interface.c:191
+#: ../src/interface.c:196
 msgid "Show I_SO info"
 msgstr "Visa i_so-info"
 
-#: ../src/interface.c:201
+#: ../src/interface.c:206
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../src/interface.c:221
+#: ../src/interface.c:226
 msgid "New"
 msgstr "Ny"
 
-#: ../src/interface.c:229
+#: ../src/interface.c:234
 msgid "Open"
 msgstr "Öppna"
 
-#: ../src/interface.c:246
+#: ../src/interface.c:251
 msgid "Add files and directories to the current archive"
 msgstr "Lägg till filer och kataloger till aktuellt arkiv"
 
-#: ../src/interface.c:250
+#: ../src/interface.c:255
 msgid "Extract"
 msgstr "Extrahera"
 
-#: ../src/interface.c:255
+#: ../src/interface.c:260
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
@@ -662,79 +662,79 @@ msgstr ""
 "Extrahera filer från aktuellt arkiv; använd musen för att markera "
 "individuella filer"
 
-#: ../src/interface.c:263
+#: ../src/interface.c:268
 msgid "Delete"
 msgstr "Ta bort"
 
-#: ../src/interface.c:268
+#: ../src/interface.c:273
 msgid "Delete files from the current archive"
 msgstr "Ta bort filer från aktuellt arkiv"
 
-#: ../src/interface.c:272
+#: ../src/interface.c:277
 msgid "View"
 msgstr "Visa"
 
-#: ../src/interface.c:277
+#: ../src/interface.c:282
 msgid "View file content in the current archive"
 msgstr "Visa filinnehåll i aktuellt arkiv"
 
-#: ../src/interface.c:285
+#: ../src/interface.c:290
 msgid "Stop"
 msgstr "Stopp"
 
-#: ../src/interface.c:290
+#: ../src/interface.c:295
 msgid "Cancel current operation"
 msgstr "Avbryt aktuell åtgärd"
 
-#: ../src/interface.c:345
+#: ../src/interface.c:350
 msgid "This archive contains password protected files"
 msgstr "Detta arkiv innehåller lösenordsskyddade filer"
 
-#: ../src/interface.c:390
+#: ../src/interface.c:396
 msgid "Enter Archive Password"
 msgstr "Ange arkivlösenord"
 
-#: ../src/interface.c:460
+#: ../src/interface.c:466
 msgid "View File Window"
 msgstr "Visa fil"
 
-#: ../src/interface.c:486
+#: ../src/interface.c:492
 msgid "Archive Properties Window"
 msgstr "Arkivegenskaper"
 
-#: ../src/interface.c:505
+#: ../src/interface.c:511
 msgid "Name:"
 msgstr "Namn:"
 
-#: ../src/interface.c:513
+#: ../src/interface.c:519
 msgid "Path:"
 msgstr "Sökväg:"
 
-#: ../src/interface.c:521
+#: ../src/interface.c:527
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../src/interface.c:529
+#: ../src/interface.c:535
 msgid "Modified on:"
 msgstr "Ändrad den:"
 
-#: ../src/interface.c:537
+#: ../src/interface.c:543
 msgid "Archive size:"
 msgstr "Arkivstorlek:"
 
-#: ../src/interface.c:545
+#: ../src/interface.c:551
 msgid "Content size:"
 msgstr "Innehållsstorlek:"
 
-#: ../src/interface.c:553
+#: ../src/interface.c:559
 msgid "Compression ratio:"
 msgstr "Komprimering:"
 
-#: ../src/interface.c:561
+#: ../src/interface.c:567
 msgid "Number of files:"
 msgstr "Antal filer:"
 
-#: ../src/interface.c:569
+#: ../src/interface.c:575
 msgid "Number of dirs:"
 msgstr "Antal kataloger:"
 
@@ -778,55 +778,55 @@ msgstr "Standard-iso utan tillägg"
 msgid "Joliet Level %d"
 msgstr "Joliet-nivå %d"
 
-#: ../src/iso.c:843
+#: ../src/iso.c:844
 msgid "ISO Information Window"
 msgstr "Information om ISO-avbild"
 
-#: ../src/iso.c:862
+#: ../src/iso.c:863
 msgid "Filename:"
 msgstr "Filnamn:"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:871
 msgid "Size:"
 msgstr "Storlek:"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:879
 msgid "Image type:"
 msgstr "Avbildstyp:"
 
-#: ../src/iso.c:886
+#: ../src/iso.c:887
 msgid "System ID:"
 msgstr "System-id:"
 
-#: ../src/iso.c:894
+#: ../src/iso.c:895
 msgid "Volume ID:"
 msgstr "Volym-id:"
 
-#: ../src/iso.c:902
+#: ../src/iso.c:903
 msgid "Application:"
 msgstr "Program:"
 
-#: ../src/iso.c:910
+#: ../src/iso.c:911
 msgid "Publisher:"
 msgstr "Utgivare:"
 
-#: ../src/iso.c:918
+#: ../src/iso.c:919
 msgid "Preparer:"
 msgstr "Upphovsman:"
 
-#: ../src/iso.c:926
+#: ../src/iso.c:927
 msgid "Creation date:"
 msgstr "Skapat den:"
 
-#: ../src/iso.c:934
+#: ../src/iso.c:935
 msgid "Modified date:"
 msgstr "Ändrad den:"
 
-#: ../src/iso.c:942
+#: ../src/iso.c:943
 msgid "Expiration date:"
 msgstr "Utgångsdatum:"
 
-#: ../src/iso.c:950
+#: ../src/iso.c:951
 msgid "Effective date:"
 msgstr "Effektivt datum:"
 
@@ -857,8 +857,9 @@ msgid "[file1] [file2] [file3] ... [fileN]"
 msgstr ""
 
 #: ../src/main.c:47
+#, fuzzy
 msgid "Add files to the specified archive by asking their filenames and quits."
-msgstr ""
+msgstr "Lägg till filer till arkivet"
 
 #: ../src/main.c:48 ../src/main.c:60
 msgid "[archive name]"
@@ -964,8 +965,9 @@ msgid "CRC-32"
 msgstr "CRC-32"
 
 #: ../xarchiver.desktop.in.h:1
+#, fuzzy
 msgid "A GTK+2 only archive manager"
-msgstr ""
+msgstr "[arkivnamn]"
 
 #: ../xarchiver.desktop.in.h:2
 #, fuzzy

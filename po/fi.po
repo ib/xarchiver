@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
-"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2006-08-31 00:06+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-01 11:36+0200\n"
 "PO-Revision-Date: 2006-08-31 00:08+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -99,7 +99,7 @@ msgstr "Toiminto peruutettu."
 msgid "Decompressing tar file with %s, please wait..."
 msgstr "Puretaan %s-pakattua tar-tiedostoa, odota..."
 
-#: ../src/bzip2.c:239
+#: ../src/bzip2.c:235
 #, c-format
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Pakataan tar-tiedostoa uudelleen %s-muotoon, odota..."
@@ -966,4 +966,3 @@ msgstr "Arkistonhallinta"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
-

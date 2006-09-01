@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-29 14:29+0200\n"
+"POT-Creation-Date: 2006-09-01 11:36+0200\n"
 "PO-Revision-Date: 2006-04-24 21:38+0200\n"
 "Last-Translator: Stephan Arts <psybsd@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -92,7 +92,7 @@ msgstr "Gzip bestand uitpakken naar %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "Bzip2 bestand uitpakken naar %s"
 
-#: ../src/bzip2.c:146 ../src/callbacks.c:104 ../src/extract_dialog.c:305
+#: ../src/bzip2.c:146 ../src/callbacks.c:106 ../src/extract_dialog.c:305
 msgid "Operation canceled."
 msgstr "Geannuleerd"
 
@@ -101,107 +101,107 @@ msgstr "Geannuleerd"
 msgid "Decompressing tar file with %s, please wait..."
 msgstr "Tar bestand decomprimeren met %s, wachten aub..."
 
-#: ../src/bzip2.c:239
+#: ../src/bzip2.c:235
 #, c-format
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Tar bestand recomprimeren met %s, wachten aub..."
 
-#: ../src/callbacks.c:107
+#: ../src/callbacks.c:109
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Kijk aub naar \"%s\" omdat sommige bestanden al kunnen zijn uitgepakt."
 
-#: ../src/callbacks.c:126 ../src/callbacks.c:1574
+#: ../src/callbacks.c:128 ../src/callbacks.c:1591
 msgid "An error occurred while accessing the archive."
 msgstr "Een fout vond plaats tijdens het benaderen van het archief."
 
-#: ../src/callbacks.c:126 ../src/callbacks.c:1574 ../src/rpm.c:152
+#: ../src/callbacks.c:128 ../src/callbacks.c:1591 ../src/rpm.c:152
 msgid "Do you want to open the error messages window?"
 msgstr "Wil je het fout-berichten venster openen?"
 
-#: ../src/callbacks.c:136 ../src/callbacks.c:1257 ../src/callbacks.c:1579
-#: ../src/callbacks.c:1798 ../src/extract_dialog.c:873 ../src/rpm.c:120
+#: ../src/callbacks.c:138 ../src/callbacks.c:1274 ../src/callbacks.c:1596
+#: ../src/callbacks.c:1815 ../src/extract_dialog.c:873 ../src/rpm.c:120
 #: ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "Mislukt"
 
-#: ../src/callbacks.c:149 ../src/callbacks.c:199 ../src/callbacks.c:1264
-#: ../src/extract_dialog.c:536 ../src/extract_dialog.c:732 ../src/iso.c:794
+#: ../src/callbacks.c:151 ../src/callbacks.c:201 ../src/callbacks.c:1281
+#: ../src/extract_dialog.c:536 ../src/extract_dialog.c:732 ../src/iso.c:795
 msgid "Operation completed."
 msgstr "Klaar."
 
-#: ../src/callbacks.c:152
+#: ../src/callbacks.c:154
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Wachten aub terwijl de inhoud van het archief wordt ge-update..."
 
-#: ../src/callbacks.c:218
+#: ../src/callbacks.c:220
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "Het archief \"%s\" bestaat al!"
 
-#: ../src/callbacks.c:224
+#: ../src/callbacks.c:226
 msgid "Do you want to overwrite it?"
 msgstr "Wilt u het overschrijven?"
 
-#: ../src/callbacks.c:254
+#: ../src/callbacks.c:256
 msgid "Choose Add File to create the compressed file."
 msgstr "Kies Bestand Toevoegen om een gecomprimeerd bestand te maken."
 
-#: ../src/callbacks.c:258
+#: ../src/callbacks.c:260
 msgid "Choose Add to begin creating the archive."
 msgstr "Kies 'Toevoegen' om het archief te maken"
 
-#: ../src/callbacks.c:310
+#: ../src/callbacks.c:312
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Kan bestand \"%s\" niet openen"
 
-#: ../src/callbacks.c:313
+#: ../src/callbacks.c:315
 msgid "Archive format is not recognized!"
 msgstr "Archief formaat wordt niet herkend!"
 
-#: ../src/callbacks.c:334
+#: ../src/callbacks.c:336
 msgid "Sorry, this archive format is not supported:"
 msgstr "Sorry, dit archief formaat is niet ondersteund:"
 
-#: ../src/callbacks.c:334
+#: ../src/callbacks.c:336
 msgid "the proper archiver is not installed!"
 msgstr "Het juiste archief programma is niet geinstalleerd!"
 
-#: ../src/callbacks.c:341
+#: ../src/callbacks.c:343
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Even wachten aub, de inhoud van de ISO image wordt gelezen..."
 
-#: ../src/callbacks.c:343
+#: ../src/callbacks.c:345
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Even wachten aub, de inhoud van het archief wordt gelezen..."
 
-#: ../src/callbacks.c:404
+#: ../src/callbacks.c:406
 msgid "Testing archive integrity, please wait..."
 msgstr "Archief integriteit testen, wachten aub..."
 
-#: ../src/callbacks.c:452
+#: ../src/callbacks.c:469
 msgid "Please hit the Stop button first!"
 msgstr "Druk aub eerst op Stop!"
 
-#: ../src/callbacks.c:477
+#: ../src/callbacks.c:494
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Je staat op het punt om %d bestand(en) te verwijderen."
 
-#: ../src/callbacks.c:478
+#: ../src/callbacks.c:495
 msgid "Are you sure you want to do this?"
 msgstr "Weet je zeker dat je dit wilt doen?"
 
-#: ../src/callbacks.c:484
+#: ../src/callbacks.c:501
 msgid "Deleting files from the archive, please wait..."
 msgstr "Bestanden verwijderen uit archief, wachten aub..."
 
-#: ../src/callbacks.c:594
+#: ../src/callbacks.c:611
 msgid "translator-credits"
 msgstr "Stephan Arts <psybsd@gmail.com>"
 
-#: ../src/callbacks.c:626
+#: ../src/callbacks.c:643
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -209,11 +209,11 @@ msgstr ""
 "Selecteer de bestanden om toe te voegen aan het archief; gebruik SHIFT om "
 "meerdere bestanden te selecteren"
 
-#: ../src/callbacks.c:632
+#: ../src/callbacks.c:649
 msgid "Select the folder to be added to the current archive"
 msgstr "Selecteer de map die moet worden toegevoegd aan het archief"
 
-#: ../src/callbacks.c:634
+#: ../src/callbacks.c:651
 msgid ""
 "Select the folders to be added to the current archive; use SHIFT to multiple "
 "select"
@@ -221,92 +221,92 @@ msgstr ""
 "Selecteer de mappen om toe te voegen aan het archief; gebruik SHIFT om "
 "meerdere mappen te selecteren"
 
-#: ../src/callbacks.c:673 ../src/interface.c:225
+#: ../src/callbacks.c:690 ../src/interface.c:230
 msgid "Create a new archive"
 msgstr "Maak een nieuw archief"
 
-#: ../src/callbacks.c:675
+#: ../src/callbacks.c:692
 msgid "Cr_eate"
 msgstr "Mak_en"
 
-#: ../src/callbacks.c:679 ../src/interface.c:233
+#: ../src/callbacks.c:696 ../src/interface.c:238
 msgid "Open an archive"
 msgstr "Open archief"
 
-#: ../src/callbacks.c:686
+#: ../src/callbacks.c:703
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Kies een bestemmings map waar je het archief in wilt uitpakken"
 
-#: ../src/callbacks.c:717
+#: ../src/callbacks.c:734
 msgid "All files"
 msgstr "Alle bestanden"
 
-#: ../src/callbacks.c:722
+#: ../src/callbacks.c:739
 msgid "Only archives"
 msgstr "Alleen archieven"
 
-#: ../src/callbacks.c:751
+#: ../src/callbacks.c:768
 msgid "Archive type:"
 msgstr "Archieftype:"
 
-#: ../src/callbacks.c:754
+#: ../src/callbacks.c:771
 msgid "Choose the archive type to create"
 msgstr "Kies het te maken archief type"
 
-#: ../src/callbacks.c:764
+#: ../src/callbacks.c:781
 msgid "Add the archive extension to the filename"
 msgstr "Voeg extensie to aan bestandsnaam"
 
-#: ../src/callbacks.c:864
+#: ../src/callbacks.c:881
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Kan archief \"%s\" niet openen:"
 
-#: ../src/callbacks.c:1036
+#: ../src/callbacks.c:1053
 msgid "Archiver Output Window"
 msgstr "Archiver Uitvoer Venster"
 
-#: ../src/callbacks.c:1068
+#: ../src/callbacks.c:1085
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Dit zal waarschijnlijk het het archief stuk maken!"
 
-#: ../src/callbacks.c:1068
+#: ../src/callbacks.c:1085
 msgid "Do you really want to cancel?"
 msgstr "Wilt u echt annuleren?"
 
-#: ../src/callbacks.c:1073
+#: ../src/callbacks.c:1090
 msgid "Waiting for the process to abort..."
 msgstr "Wacht tot het proces annuleerd..."
 
-#: ../src/callbacks.c:1079
+#: ../src/callbacks.c:1096
 msgid "An error occurred while trying to kill the process:"
 msgstr "Het sluiten van het proces ging fout:"
 
-#: ../src/callbacks.c:1159
+#: ../src/callbacks.c:1176
 msgid "Please select a file, not a directory!"
 msgstr "Selecteer een bestand, geen map aub!"
 
-#: ../src/callbacks.c:1695
+#: ../src/callbacks.c:1712
 msgid "Can't perform another extraction:"
 msgstr "Kan niet nog een keer uitpakken:"
 
-#: ../src/callbacks.c:1695
+#: ../src/callbacks.c:1712
 msgid "Please wait until the completion of the current one!"
 msgstr "Even wachten aub totdat de huidige actie gereed is!"
 
-#: ../src/callbacks.c:1768
+#: ../src/callbacks.c:1785
 msgid "Sorry, I could not perform the operation!"
 msgstr "Sorry, ik kon deze actie niet uitvoeren!"
 
-#: ../src/callbacks.c:1796
+#: ../src/callbacks.c:1813
 msgid "Bzip2 or gzip cannot compress more than one file!"
 msgstr "Bzip2 of gzip kan niet meer dan een bestand comprimeren!"
 
-#: ../src/callbacks.c:1796
+#: ../src/callbacks.c:1813
 msgid "Please choose another archive format!"
 msgstr "Kies aub een ander archief formaat!"
 
-#: ../src/callbacks.c:1928
+#: ../src/callbacks.c:1945
 msgid "Failed to open link."
 msgstr "Kon link niet openen."
 
@@ -400,7 +400,7 @@ msgstr ""
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression."
 msgstr ""
 
-#: ../src/add_dialog.c:237 ../src/extract_dialog.c:215 ../src/interface.c:402
+#: ../src/add_dialog.c:237 ../src/extract_dialog.c:215 ../src/interface.c:408
 msgid "Password:"
 msgstr "Wachtwoord:"
 
@@ -432,11 +432,11 @@ msgstr "Kan bestanden niet toevoegen aan archief:"
 msgid "You haven't selected any files to add!"
 msgstr "Je hebt geen bestanden geselecteerd om toe te voegen!"
 
-#: ../src/add_dialog.c:483 ../src/interface.c:441
+#: ../src/add_dialog.c:483 ../src/interface.c:447
 msgid "You missed the password!"
 msgstr "Je bent het wachtwoord vergeten!"
 
-#: ../src/add_dialog.c:483 ../src/interface.c:441
+#: ../src/add_dialog.c:483 ../src/interface.c:447
 msgid "Please enter it!"
 msgstr "Voer het alsjeblieft in!"
 
@@ -519,7 +519,7 @@ msgid ""
 "extracts those files that do not already exist on disk."
 msgstr ""
 
-#: ../src/extract_dialog.c:253 ../src/interface.c:129
+#: ../src/extract_dialog.c:253 ../src/interface.c:134
 msgid "_Extract"
 msgstr "_Uitpakken"
 
@@ -586,134 +586,134 @@ msgstr "_Testen"
 msgid "_Properties"
 msgstr "Eigenschappen"
 
-#: ../src/interface.c:112
+#: ../src/interface.c:117
 msgid "A_ction"
 msgstr "A_ctie"
 
-#: ../src/interface.c:119 ../src/interface.c:241
+#: ../src/interface.c:124 ../src/interface.c:246
 msgid "Add"
 msgstr "Toevoegen"
 
-#: ../src/interface.c:150
+#: ../src/interface.c:155
 msgid "_View"
 msgstr "_Weergeven"
 
-#: ../src/interface.c:165
+#: ../src/interface.c:170
 msgid "Select _All"
 msgstr "_Alles selecteren"
 
-#: ../src/interface.c:171
+#: ../src/interface.c:176
 msgid "Dese_lect All"
 msgstr "A_lles deselecteren"
 
-#: ../src/interface.c:182
+#: ../src/interface.c:187
 msgid "View Error _Messages"
 msgstr "Toon Fout berichten"
 
-#: ../src/interface.c:191
+#: ../src/interface.c:196
 msgid "Show I_SO info"
 msgstr "Toon I_SO informatie"
 
-#: ../src/interface.c:201
+#: ../src/interface.c:206
 msgid "_Help"
 msgstr "_Help"
 
-#: ../src/interface.c:221
+#: ../src/interface.c:226
 msgid "New"
 msgstr "Nieuw"
 
-#: ../src/interface.c:229
+#: ../src/interface.c:234
 msgid "Open"
 msgstr "Openen"
 
-#: ../src/interface.c:246
+#: ../src/interface.c:251
 msgid "Add files and directories to the current archive"
 msgstr "Bestanden en mappen toevoegen aan archief"
 
-#: ../src/interface.c:250
+#: ../src/interface.c:255
 msgid "Extract"
 msgstr "Uitpakken"
 
-#: ../src/interface.c:255
+#: ../src/interface.c:260
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
 msgstr ""
 "Bestanden uitpakken uit archief; gebruik de muis om bestanden teselecteren"
 
-#: ../src/interface.c:263
+#: ../src/interface.c:268
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: ../src/interface.c:268
+#: ../src/interface.c:273
 msgid "Delete files from the current archive"
 msgstr "Verwijder bestanden uit het archief"
 
-#: ../src/interface.c:272
+#: ../src/interface.c:277
 msgid "View"
 msgstr "Weergeven"
 
-#: ../src/interface.c:277
+#: ../src/interface.c:282
 msgid "View file content in the current archive"
 msgstr "Geef inhoud van bestand in archief weer"
 
-#: ../src/interface.c:285
+#: ../src/interface.c:290
 msgid "Stop"
 msgstr "Stop"
 
-#: ../src/interface.c:290
+#: ../src/interface.c:295
 msgid "Cancel current operation"
 msgstr "Annuleer huidige operatie"
 
-#: ../src/interface.c:345
+#: ../src/interface.c:350
 msgid "This archive contains password protected files"
 msgstr "Dit archief bevat beveiligde bestanden"
 
-#: ../src/interface.c:390
+#: ../src/interface.c:396
 msgid "Enter Archive Password"
 msgstr "Voer archief wachtwoord in"
 
-#: ../src/interface.c:460
+#: ../src/interface.c:466
 msgid "View File Window"
 msgstr "Bestandsweergave venster"
 
-#: ../src/interface.c:486
+#: ../src/interface.c:492
 msgid "Archive Properties Window"
 msgstr "Archief eigenschappen"
 
-#: ../src/interface.c:505
+#: ../src/interface.c:511
 msgid "Name:"
 msgstr "Naam:"
 
-#: ../src/interface.c:513
+#: ../src/interface.c:519
 msgid "Path:"
 msgstr "Map:"
 
-#: ../src/interface.c:521
+#: ../src/interface.c:527
 msgid "Type:"
 msgstr "Type:"
 
-#: ../src/interface.c:529
+#: ../src/interface.c:535
 msgid "Modified on:"
 msgstr "Aangepast op:"
 
-#: ../src/interface.c:537
+#: ../src/interface.c:543
 msgid "Archive size:"
 msgstr "Archief grootte:"
 
-#: ../src/interface.c:545
+#: ../src/interface.c:551
 msgid "Content size:"
 msgstr "Inhoud grootte:"
 
-#: ../src/interface.c:553
+#: ../src/interface.c:559
 msgid "Compression ratio:"
 msgstr "Compressie niveau:"
 
-#: ../src/interface.c:561
+#: ../src/interface.c:567
 msgid "Number of files:"
 msgstr "Aantal bestanden:"
 
-#: ../src/interface.c:569
+#: ../src/interface.c:575
 msgid "Number of dirs:"
 msgstr "Aantal mappen:"
 
@@ -757,55 +757,55 @@ msgstr "Standaard ISO zonder extentie"
 msgid "Joliet Level %d"
 msgstr "Joliet Niveau %d"
 
-#: ../src/iso.c:843
+#: ../src/iso.c:844
 msgid "ISO Information Window"
 msgstr "ISO Informatie Venster"
 
-#: ../src/iso.c:862
+#: ../src/iso.c:863
 msgid "Filename:"
 msgstr "Bestandsnaam:"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:871
 msgid "Size:"
 msgstr "Grootte:"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:879
 msgid "Image type:"
 msgstr "Image type:"
 
-#: ../src/iso.c:886
+#: ../src/iso.c:887
 msgid "System ID:"
 msgstr "Systeem ID:"
 
-#: ../src/iso.c:894
+#: ../src/iso.c:895
 msgid "Volume ID:"
 msgstr "Volume ID:"
 
-#: ../src/iso.c:902
+#: ../src/iso.c:903
 msgid "Application:"
 msgstr "Applicatie:"
 
-#: ../src/iso.c:910
+#: ../src/iso.c:911
 msgid "Publisher:"
 msgstr "Publiceerder:"
 
-#: ../src/iso.c:918
+#: ../src/iso.c:919
 msgid "Preparer:"
 msgstr "Voorbereider:"
 
-#: ../src/iso.c:926
+#: ../src/iso.c:927
 msgid "Creation date:"
 msgstr "Gemaakt:"
 
-#: ../src/iso.c:934
+#: ../src/iso.c:935
 msgid "Modified date:"
 msgstr "Laatst gewijzigd:"
 
-#: ../src/iso.c:942
+#: ../src/iso.c:943
 msgid "Expiration date:"
 msgstr "Vervaldatum:"
 
-#: ../src/iso.c:950
+#: ../src/iso.c:951
 msgid "Effective date:"
 msgstr "Effectieve datum:"
 
