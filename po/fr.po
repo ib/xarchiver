@@ -70,7 +70,7 @@ msgstr "Permissions"
 
 #: ../src/bzip2.c:57 ../src/gzip.c:54 ../src/rpm.c:56 ../src/tar.c:48
 msgid "Symbolic Link"
-msgstr ""
+msgstr "Lien symbolique"
 
 #: ../src/bzip2.c:57 ../src/gzip.c:54 ../src/tar.c:48
 msgid "Owner/Group"
@@ -192,7 +192,7 @@ msgstr ""
 
 #: ../src/callbacks.c:495
 msgid "Are you sure you want to do this?"
-msgstr ""
+msgstr "Êtes vous certain de vouloir faire ceci ?"
 
 #: ../src/callbacks.c:501
 msgid "Deleting files from the archive, please wait..."
