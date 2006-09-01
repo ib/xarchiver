@@ -1,6 +1,6 @@
 Xarchiver changelog:
 
-xx/06/06 - 0.4:
+01/09/06 - 0.4:
 		- Added symbolic link column in tar/tar.bz2/tar.gz and RPM archives.
 		- Ability to extract files inside RPM archives without the directory they are contained in.
 		- View ability works now with files inside RPM archives nested in more than one directory.
@@ -31,7 +31,6 @@ xx/06/06 - 0.4:
 		- Fixed progress bar not appearing when adding only one big file to an archive.
 		- Fixed a bug causing Xarchiver to hang when opening empty zip archives.
 		- Fixed a bug causing Xarchiver to exit when opening a not supported archive directly from the command line.
-		- Fixed a bug preventing Xarchiver to compress files with bzip2 or gzip.
 
 09/01/06 - 0.3.1 a bug fix release no new features:
                 - Some code cleanup.
