@@ -8,4 +8,5 @@
 - better handling of current installed archivers.
 - loading and saving of add/extraction options and window size.
 - support tar on *BSD.
-- to remove StriPathFromFilename.
+- to remove StriPathFromFilename()
+- avoid reset of extract dialog options when loading a new archive.
