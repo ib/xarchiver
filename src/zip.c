@@ -34,7 +34,7 @@ void OpenZip ( XArchive *archive )
 	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]= {(_("Filename")),(_("Original")),(_("Method")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("CRC-32"))};
+	char *names[]= {(_("Filename")),(_("Original")),(_("Method")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Checksum"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
 	xa_create_liststore ( 8, names , (GType *)types );
 }

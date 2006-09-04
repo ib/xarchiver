@@ -125,7 +125,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to open the error messages window?") );
+			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
 			/* In case the user supplies a wrong password we reset it so he can try again */
@@ -1050,7 +1050,7 @@ void ShowShellOutput ( GtkMenuItem *menuitem )
 {
 	if (OutputWindow != NULL)
 	{
-		gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Archiver Output Window") );
+		gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Command line output") );
 		gtk_window_present ( GTK_WINDOW (OutputWindow) );
 		return;
 	}
@@ -1320,7 +1320,7 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 	}
 	else
 	{
-		measure = " Bytes";
+		measure = " bytes";
 		content_size = file_size;
 	}
 
@@ -1588,7 +1588,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 				gtk_widget_hide ( pad_image );
 				gtk_widget_hide ( viewport2 );
 				gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
-				response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to open the error messages window?") );
+				response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 				if (response == GTK_RESPONSE_YES)
 					ShowShellOutput (NULL);
 				archive->status = XA_ARCHIVESTATUS_IDLE;

@@ -34,7 +34,7 @@ void OpenRar ( XArchive *archive )
 	if ( archive->child_pid == 0 )
 		return;
 	
-	char *names[]	= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version"))};
+	char *names[]	= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("Checksum")),(_("Method")),(_("Version"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
     archive->has_passwd = FALSE;
 	xa_create_liststore ( 10, names , (GType *)types );

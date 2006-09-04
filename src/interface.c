@@ -65,7 +65,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (menubar1);
   gtk_box_pack_start (GTK_BOX (vbox1), menubar1, FALSE, FALSE, 0);
 
-  menuitem1 = gtk_menu_item_new_with_mnemonic (_("_Archive"));
+  menuitem1 = gtk_menu_item_new_with_mnemonic (_("_File"));
   gtk_widget_show (menuitem1);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem1);
 
@@ -184,7 +184,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem4);
   gtk_widget_set_sensitive (separatormenuitem4, FALSE);
   
-  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("View Error _Messages"));
+  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("Co_mmand line output"));
   gtk_widget_show (view_shell_output1);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
   gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
