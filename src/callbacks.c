@@ -26,11 +26,13 @@
 #include "interface.h"
 #include "support.h"
 #include "main.h"
+#include "new_dialog.h"
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean cli;
 extern gboolean stop_flag;
+extern gboolean unrar;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -196,49 +198,25 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		g_object_unref (model);
 	}
 	gtk_widget_grab_focus (treeview1);
-	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
+	xa_set_window_title (MainWindow , archive->path);
 	archive->status = XA_ARCHIVESTATUS_IDLE;
     Update_StatusBar ( _("Operation completed."));
 }
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-	archive = xa_init_archive_structure (archive);
-	if (user_data != NULL)
-		archive->tmp = g_path_get_basename ( user_data);
-	gchar *path = Show_File_Dialog ( 1 , "new" );
-	g_free (archive->tmp);
-	archive->tmp = NULL;
-	if (path == NULL)
-		return;
-	if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
-	{
-		gchar *utf8_path;
-		gchar  *msg;
+	XArchive *archive = NULL;
+	gchar *path = NULL;
 
-		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
-		msg = g_strdup_printf (_("The archive \"%s\" already exists!"), utf8_path);
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),
-						GTK_DIALOG_MODAL,
-						GTK_MESSAGE_QUESTION,
-						GTK_BUTTONS_YES_NO,
-						msg,
-						_("Do you want to overwrite it?")
-						);
-		g_free (utf8_path);
-		g_free (msg);		
-		if (response != GTK_RESPONSE_YES)
-		{
-			g_free (path);
-            return;
-		}
-        /* The following to avoid to update the archive instead of adding to it since the filename exists */
-        unlink ( path );
-	}
-	xa_set_button_state (1,1,1,0,0 );
-	archive->path = g_strdup (path);
+	if (user_data != NULL)
+		path = g_path_get_basename ( user_data);
+
+	archive = xa_new_archive_dialog ( path );
 	g_free (path);
-    archive->escaped_path = EscapeBadChars (archive->path , "$\'`\"\\!?* ()&|@#:;");
+	if (archive == NULL)
+		return;
+
+	xa_set_button_state (1,1,1,0,0 );
     EmptyTextBuffer();
     archive->has_passwd = FALSE;
     gtk_widget_set_sensitive ( iso_info , FALSE );
@@ -266,7 +244,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
-	gtk_window_set_title ( GTK_WINDOW (MainWindow) , archive->path );
+	xa_set_window_title (MainWindow , archive->path );
 }
 
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2)
@@ -310,7 +288,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		gchar *utf8_path,*msg;
 		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"), utf8_path);
-        gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+        xa_set_window_title (MainWindow , NULL);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,
 		_("Archive format is not recognized!"));
 		xa_set_button_state ( 1,1,0,0,0);
@@ -394,6 +372,12 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
     gchar *command;
+	gchar *rar;
+
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
 	if ( archive->has_passwd )
 	{
 		if ( archive->passwd == NULL)
@@ -411,9 +395,9 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 	{
 		case XARCHIVETYPE_RAR:
 		if (archive->passwd != NULL)
-			command = g_strconcat ("rar t -idp -p" , archive->passwd ," " , archive->escaped_path, NULL);
+			command = g_strconcat (rar," t -idp -p" , archive->passwd ," " , archive->escaped_path, NULL);
 		else
-			command = g_strconcat ("rar t -idp " , archive->escaped_path, NULL);
+			command = g_strconcat (rar," t -idp " , archive->escaped_path, NULL);
         break;
 
         case XARCHIVETYPE_ZIP:
@@ -611,7 +595,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		      "translator_credits", _("translator-credits"),
 		      "logo_icon_name", "xarchiver",
 		      "website", "http://xarchiver.xfce.org",
-		      "license",    "Copyright (C)2005-2006 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
+		      "license",    "Copyright \xC2\xA9 2005-2006 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
 		      			"This is free software; you can redistribute it and/or\n"
     					"modify it under the terms of the GNU Library General Public License as\n"
     					"published by the Free Software Foundation; either version 2 of the\n"
@@ -637,7 +621,9 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 GSList *Add_File_Dialog ( gchar *mode )
 {
 	GSList *list = NULL;
+	gchar *title = NULL;
 	int flag;
+
 	if ( mode == "file" )
 	{
 		title = _("Select the files to be added to the current archive; use SHIFT to multiple select");
@@ -681,17 +667,12 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 	GtkFileFilter *filter;
 	GtkTooltips *FilterToolTip ;
 	gchar *path = NULL;
+	gchar *title = NULL;
     gchar *dummy_path = NULL;
 	const gchar *flag2 = NULL;
 	unsigned short int flag = 0;
 
-	if ( mode == "new" )
-	{
-		title = _("Create a new archive");
-		flag = GTK_FILE_CHOOSER_ACTION_SAVE;
-		flag2 = _("Cr_eate");
-	}
-	else if ( mode == "open" )
+	if ( mode == "open" )
 	{
 		title = _("Open an archive");
 		flag = GTK_FILE_CHOOSER_ACTION_OPEN;
@@ -762,30 +743,6 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 		Suffix = g_list_next ( Suffix );
 	}
 	//current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
-	if ( mode == "new" )
-	{
-		hbox = gtk_hbox_new (FALSE, 12);
-		gtk_box_pack_start (GTK_BOX (hbox),gtk_label_new (_("Archive type:")),FALSE, FALSE, 0);
-		combo_box = gtk_combo_box_new_text ();
-		FilterToolTip = gtk_tooltips_new();
-		gtk_tooltips_set_tip (FilterToolTip,combo_box, _("Choose the archive type to create") , NULL);
-		Name = g_list_first ( ArchiveType );
-		while ( Name != NULL )
-		{
-			if (Name->data != ".tgz" && Name->data != ".rpm" && Name->data != ".iso" && Name->data != ".gz" && Name->data != ".bz2" )
-				gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
-			Name = g_list_next ( Name );
-		}
-		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , current_archive_suffix );
-		gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
-		check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(check_button),TRUE);
-		gtk_box_pack_start (GTK_BOX (hbox), check_button, TRUE, TRUE, 0);
-		gtk_widget_show_all (hbox);
-		gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (File_Selector), hbox);
-		if (archive->tmp != NULL)
-			gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (File_Selector),archive->tmp);
-	}
 
 	gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
@@ -793,28 +750,6 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) );
-		if ( mode == "new")
-		{
-			ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
-			current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
-            if (strcmp ( ComboArchiveType,".arj") == 0) archive->type = XARCHIVETYPE_ARJ;
-                else if (strcmp ( ComboArchiveType,".rar") == 0) archive->type = XARCHIVETYPE_RAR;
-                else if (strcmp ( ComboArchiveType,".tar") == 0) archive->type = XARCHIVETYPE_TAR;
-                else if (strcmp ( ComboArchiveType,".tar.bz2") == 0) archive->type = XARCHIVETYPE_TAR_BZ2;
-                else if (strcmp ( ComboArchiveType,".tar.gz") == 0) archive->type = XARCHIVETYPE_TAR_GZ;
-                else if (strcmp ( ComboArchiveType,".jar") == 0 || strcmp ( ComboArchiveType,".zip") == 0 ) archive->type = XARCHIVETYPE_ZIP;
-                else if (strcmp ( ComboArchiveType,".rpm") == 0) archive->type = XARCHIVETYPE_RPM;
-                else if (strcmp ( ComboArchiveType,".7z") == 0) archive->type = XARCHIVETYPE_7ZIP;
-			if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(check_button) ) )
-			{
-				if ( ! g_str_has_suffix ( path , ComboArchiveType ) )
-				{
-					dummy_path = g_strconcat ( path, ComboArchiveType , NULL);
-					g_free ( path );
-					path = dummy_path;
-				}
-			}
-		}
 		gtk_widget_destroy (File_Selector);
 	}
 	else if ( (response == GTK_RESPONSE_CANCEL) || (response == GTK_RESPONSE_DELETE_EVENT) )
@@ -987,7 +922,7 @@ gboolean DetectPasswordProtectedArchive ( int type , FILE *stream , unsigned cha
 
 void RemoveColumnsListStore()
 {
-	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+	xa_set_window_title (MainWindow , NULL);
 	GList *columns = gtk_tree_view_get_columns ( GTK_TREE_VIEW (treeview1) );
 	while (columns != NULL)
 	{
@@ -1320,7 +1255,7 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 	}
 	else
 	{
-		measure = " bytes";
+		measure = _(" bytes");
 		content_size = file_size;
 	}
 
@@ -1587,7 +1522,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 				gtk_tooltips_disable ( pad_tooltip );
 				gtk_widget_hide ( pad_image );
 				gtk_widget_hide ( viewport2 );
-				gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+				xa_set_window_title (MainWindow , NULL);
 				response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 				if (response == GTK_RESPONSE_YES)
 					ShowShellOutput (NULL);
@@ -1801,17 +1736,16 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 			return;
 		}
     }
-
 	if (archive == NULL)
 	{
-		xa_new_archive ( NULL , filename );
-		if (archive->path == NULL)
+		archive = xa_new_archive_dialog ( filename );
+		if (archive == NULL)
 			return;
 	}
 	if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file!"),_("Please choose another archive format!") );
-		gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+		xa_set_window_title (MainWindow , NULL);
 		Update_StatusBar ( _("Operation failed."));
 		return;
 	}

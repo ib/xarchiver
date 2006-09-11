@@ -790,7 +790,7 @@ void OpenISO ( XArchive *archive )
 	g_object_unref (model);
 	gtk_widget_set_sensitive ( iso_info , TRUE );
 	gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
-	gtk_window_set_title (GTK_WINDOW(MainWindow),archive->path);
+	xa_set_window_title (MainWindow , archive->path);
 	gtk_widget_set_sensitive (close1,TRUE);
 	Update_StatusBar ( _("Operation completed.") );
 }
@@ -876,7 +876,7 @@ GtkWidget *create_iso_properties_window ()
 	gtk_misc_set_alignment (GTK_MISC (size_label), 0.99, 0.5);
 
 	image_type_label = gtk_label_new ("");
-	set_label ( image_type_label , _("Image type:"));
+	set_label ( image_type_label , _("Extension:"));
 	gtk_widget_show (image_type_label);
 	gtk_table_attach (GTK_TABLE (table1), image_type_label, 0, 1, 2, 3,
                     (GtkAttachOptions) (GTK_FILL),

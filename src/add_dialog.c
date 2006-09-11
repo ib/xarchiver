@@ -353,6 +353,8 @@ void xa_select_files_to_add ( GtkButton* button, gpointer _add_dialog )
 {
 	Add_dialog_data *add_dialog = _add_dialog;
 	GSList *dummy = NULL;
+	gchar *title = NULL;
+
 	unsigned short int flag;
 
 	if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->files_radio)) )

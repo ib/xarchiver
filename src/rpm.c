@@ -119,7 +119,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 		{
             Update_StatusBar ( _("Operation failed."));
             gtk_widget_hide ( viewport2 );
-	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+	    	xa_set_window_title (MainWindow , NULL);
 		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Error while extracting the cpio archive from the rpm one."),("Do you want to view the command line output?") );
             if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
@@ -148,7 +148,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
     	{
             Update_StatusBar ( _("Operation failed."));
             gtk_widget_hide ( viewport2 );
-	    	gtk_window_set_title ( GTK_WINDOW (MainWindow) , "Xarchiver " VERSION );
+	    	xa_set_window_title (MainWindow , NULL);
 		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);

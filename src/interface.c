@@ -50,7 +50,7 @@ GtkWidget *create_MainWindow (void)
 	accel_group = gtk_accel_group_new ();
 
 	MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (MainWindow), "Xarchiver " VERSION);
+	xa_set_window_title (MainWindow , NULL);
   /* By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we should have KDE DnD compatibility. */
 	gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
 	gtk_window_set_default_icon_from_file (DATADIR "/pixmaps/xarchiver.png", NULL  );
@@ -114,18 +114,18 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (quit1);
   gtk_container_add (GTK_CONTAINER (menuitem1_menu), quit1);
 
-  menuitem2 = gtk_menu_item_new_with_mnemonic (_("A_ction"));
+  menuitem2 = gtk_menu_item_new_with_mnemonic (_("_Action"));
   gtk_widget_show (menuitem2);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem2);
 
   menuitem2_menu = gtk_menu_new ();
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
-  addfile = gtk_image_menu_item_new_with_mnemonic (_("Add"));
+  addfile = gtk_image_menu_item_new_with_mnemonic (_("_Add"));
   gtk_widget_set_sensitive (addfile,FALSE);
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
-  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   image2 = xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
@@ -167,11 +167,11 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
   gtk_widget_set_sensitive (separatormenuitem3, FALSE);
 
-  select_all = gtk_image_menu_item_new_with_mnemonic (_("Select _All"));
+  select_all = gtk_image_menu_item_new_with_mnemonic (_("Sele_ct All"));
   gtk_widget_show (select_all);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
   gtk_widget_set_sensitive (select_all, FALSE);
-  gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   deselect_all = gtk_image_menu_item_new_with_mnemonic (_("Dese_lect All"));
   gtk_widget_show (deselect_all);

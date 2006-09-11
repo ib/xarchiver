@@ -20,10 +20,20 @@
 #include "rar.h"
 #include "string_utils.h"
 
+extern gboolean unrar;
+
 void OpenRar ( XArchive *archive )
 {
 	jump_header = FALSE;
-    gchar *command = g_strconcat ( "rar vl -c- " , archive->escaped_path, NULL );
+	gchar *command = NULL;
+	gchar *rar = NULL;
+
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
+
+	command = g_strconcat ( rar," vl -c- " , archive->escaped_path, NULL );
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;

@@ -16,19 +16,11 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef STRING_UTILS_H
-#define STRING_UTILS_H
+#ifndef __NEW_DIALOG_H
+#define __NEW_DIALOG_H
 
-gchar *EscapeBadChars ( gchar *string , gchar *pattern);
-gchar *StripPathFromFilename ( gchar *name, gchar *pattern );
-gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path );
-int CountCharacter ( gchar *string , int chr );
-gchar *RemoveBackSlashes ( gchar *name);
-char *escape_str_common (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
-char *eat_spaces (char *line);
-gchar *remove_level_from_path (const gchar *path);
-gboolean file_extension_is (const char *filename, const char *ext);
-gchar *extract_local_path (gchar *path , gchar *filename);
-void xa_set_window_title ( GtkWidget *window , gchar *title);
+#include "archive.h"
+XArchive *xa_new_archive_dialog (gchar *path);
+void xa_new_dialog_combo_changed (GtkComboBox *widget, gpointer user_data);
 #endif
 

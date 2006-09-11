@@ -1,5 +1,12 @@
 Xarchiver changelog:
 
+0x/09/06 - 0.4.1:
+		- Fixed Xarchiver not working on Linux box with unrar only.
+		- Made code to compile under Solaris.
+		- Added in the new dialog the "By extension" ability.
+		- Changed some strings for a better usability.
+		- Fixed bug xxxxxx
+
 01/09/06 - 0.4:
 		- Added symbolic link column in tar/tar.bz2/tar.gz and RPM archives.
 		- Ability to extract files inside RPM archives without the directory they are contained in.

@@ -70,7 +70,7 @@ AC_HEADER_STDC()
 dnl ************************************
 dnl *** Check for standard functions ***
 dnl ************************************
-AC_CHECK_FUNCS([strcasestr])
+AC_CHECK_FUNCS([strcasestr mkdtemp])
 
 dnl ******************************
 dnl *** Check for i18n support ***

@@ -27,6 +27,8 @@
 
 gboolean stop_flag;
 extern gboolean cli;
+extern gboolean unrar;
+gchar *rar;
 
 Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive)
 {
@@ -292,6 +294,11 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 	gboolean end = FALSE;
 	GtkTreeIter iter;
 
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
+
     while ( ! done )
 	{
 		switch (gtk_dialog_run ( GTK_DIALOG (dialog_data->dialog1 ) ) )
@@ -391,14 +398,14 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					
 					case XARCHIVETYPE_RAR:
 					if (archive->passwd != NULL)
-						command = g_strconcat ( "rar " , archive->full_path ? "x " : "e ",
+						command = g_strconcat ( rar, " " , archive->full_path ? "x " : "e ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 												" -p",archive->passwd,
 												archive->overwrite ? " -o+" : " -o-",
 												" -idp ",
 												archive->escaped_path , " " , archive->extraction_path , NULL );
 					else
-						command = g_strconcat ( "rar " , archive->full_path ? "x " : "e ",
+						command = g_strconcat ( rar, " ", archive->full_path ? "x " : "e ",
 												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 												archive->overwrite ? "-o+" : "-o-",
 												" -idp ",
@@ -579,14 +586,14 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 
 		case XARCHIVETYPE_RAR:
 		if (archive->passwd != NULL)
-			command = g_strconcat ( "rar " , archive->full_path ? "x " : "e " ,
+			command = g_strconcat ( rar," ", archive->full_path ? "x " : "e " ,
 									archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 									" -p",archive->passwd,
 									archive->overwrite ? " -o+" : " -o-",
 									" -idp ",
 									archive->escaped_path , " " , files->str , " " , path , NULL );
         else
-			command = g_strconcat ( "rar ", archive->full_path ? "x " : "e " ,
+			command = g_strconcat ( rar," ", archive->full_path ? "x " : "e " ,
 									archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 									archive->overwrite ? "-o+" : "-o-",
 									" -idp ",
@@ -738,6 +745,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		command = NULL;
     }
 	g_free (tar);
+	g_message (command);
 	return command;
 }
 

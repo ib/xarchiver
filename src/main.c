@@ -29,6 +29,8 @@ gchar *extract_path = NULL;
 GError *cli_error = NULL;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
 gboolean cli = FALSE;
+gboolean unrar = FALSE;
+
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
@@ -236,7 +238,7 @@ int main (int argc, char **argv)
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);
-		archive = xa_init_archive_structure(archive);
+		//archive = xa_init_archive_structure(archive);
 
 		/* This to open the archive from the command line */
 		if ( argc == 2 )
@@ -292,14 +294,24 @@ void GetAvailableCompressors()
 		g_free (absolute_path);
 	}
 
-	absolute_path = g_find_program_in_path("rar");
+	absolute_path = g_find_program_in_path ("rar");
     if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
 		g_free (absolute_path);
 	}
-
+	else
+	{
+		absolute_path = g_find_program_in_path ("unrar");
+		if ( absolute_path )
+		{
+			unrar = TRUE;
+			ArchiveType = g_list_prepend ( ArchiveType, ".rar");
+			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
+			g_free (absolute_path);
+		}
+	}
 	absolute_path = g_find_program_in_path("tar");
 	if ( absolute_path )
 	{
@@ -319,7 +331,7 @@ void GetAvailableCompressors()
 		}
 	}
 
-	absolute_path = g_find_program_in_path("zip");
+	absolute_path = g_find_program_in_path ("zip");
     if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".jar");
@@ -345,6 +357,8 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean 
     gtk_widget_set_sensitive ( new1, New);
 	gtk_widget_set_sensitive ( Open_button, Open);
     gtk_widget_set_sensitive ( open1, Open);
+	if (unrar)
+		AddFile = FALSE;
 	gtk_widget_set_sensitive ( AddFile_button, AddFile);
 	gtk_widget_set_sensitive ( addfile, AddFile);
 	gtk_widget_set_sensitive ( Extract_button, Extract);
