@@ -104,6 +104,7 @@ gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer dat
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
 gboolean isTar ( FILE *ptr );
 gboolean isISO ( FILE *ptr );
+gboolean isLha ( FILE *ptr );
 gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean DetectPasswordProtectedArchive ( int type , FILE *dummy_ptr, unsigned char magic[6]);
 

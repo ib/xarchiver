@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include "config.h"
 #include "main.h"
 #include "string_utils.h"
@@ -173,7 +173,7 @@ int main (int argc, char **argv)
 					chdir (_current_dir);
 					g_free (_current_dir);
 					GString *string = g_string_new ( "" );
-					
+
                     if ( g_file_test ( archive_name,G_FILE_TEST_EXISTS) )
                     {
                         _current_dir = g_path_get_basename ( archive_name );
@@ -337,7 +337,7 @@ void GetAvailableCompressors()
 		ArchiveType = g_list_prepend ( ArchiveType, ".jar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.jar");
 		g_free (absolute_path);
-		
+
 		ArchiveType = g_list_prepend ( ArchiveType, ".zip");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
 	}
@@ -349,6 +349,16 @@ void GetAvailableCompressors()
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
 		g_free (absolute_path);
     }
+	absolute_path = g_find_program_in_path("lha");
+
+	if(absolute_path)
+	{
+		ArchiveType = g_list_prepend(ArchiveType, ".lzh");
+		ArchiveSuffix = g_list_prepend(ArchiveSuffix, "*.lzh");
+		g_free (absolute_path);
+		//ArchiveType = g_list_prepend(ArchiveType, ".lha");
+		//ArchiveSuffix = g_list_prepend(ArchiveSuffix, "");
+	}
 }
 
 void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean Extract, gboolean select)
@@ -357,8 +367,6 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean 
     gtk_widget_set_sensitive ( new1, New);
 	gtk_widget_set_sensitive ( Open_button, Open);
     gtk_widget_set_sensitive ( open1, Open);
-	if (unrar)
-		AddFile = FALSE;
 	gtk_widget_set_sensitive ( AddFile_button, AddFile);
 	gtk_widget_set_sensitive ( addfile, AddFile);
 	gtk_widget_set_sensitive ( Extract_button, Extract);
@@ -373,7 +381,7 @@ gboolean SpawnSyncCommand ( gchar *command )
     gchar *std_err;
 	gchar **argv;
 	int argcp;
-    
+
 	g_shell_parse_argv ( command , &argcp , &argv , NULL);
 	if ( ! g_spawn_sync (
 		NULL,

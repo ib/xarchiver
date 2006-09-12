@@ -39,7 +39,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	dialog_data->radio_group = NULL;
 	dialog_data->dialog1 = gtk_dialog_new ();
 	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
-		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Decompress file"));		
+		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Decompress file"));
 	else
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
@@ -136,7 +136,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_files_radio), TRUE);
 	else
 		gtk_widget_set_sensitive (dialog_data->selected_files_radio , FALSE);
-	
+
 	dialog_data->files_frame_label = gtk_label_new (_("<b>Files to extract </b>"));
 	gtk_widget_show (dialog_data->files_frame_label);
 	gtk_frame_set_label_widget (GTK_FRAME (dialog_data->frame1), dialog_data->files_frame_label);
@@ -332,7 +332,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This archive is encrypted!"),_("Please enter the password.") );
 				break;
 			}
-			if (g_file_test (destination_path , G_FILE_TEST_EXISTS) == FALSE) 
+			if (g_file_test (destination_path , G_FILE_TEST_EXISTS) == FALSE)
 			{
 				int result = mkdir (destination_path , S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
 				if (result == -1)
@@ -360,7 +360,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			archive->overwrite = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->overwrite_check ));
 			if ( dialog_data->touch != NULL)
 				archive->tar_touch = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->touch ));
-			
+
 			if (dialog_data->extract_full != NULL)
 				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->extract_full ));
 
@@ -395,7 +395,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					case XARCHIVETYPE_GZIP:
 					gzip_bzip2_extract (archive , 1);
 					break;
-					
+
 					case XARCHIVETYPE_RAR:
 					if (archive->passwd != NULL)
 						command = g_strconcat ( rar, " " , archive->full_path ? "x " : "e ",
@@ -513,6 +513,12 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 												"-y " , archive->escaped_path , " " , archive->extraction_path , NULL );
 					break;
 
+					case XARCHIVETYPE_LHA:
+					command = g_strconcat ("lha ", archive->full_path ? "x" : "xi",
+											archive->overwrite ? "f" : "", "w=",
+											archive->extraction_path, " ", archive->escaped_path , NULL);
+					break;
+
 					case XARCHIVETYPE_ISO:
 					end = gtk_tree_model_get_iter_first (model , &iter);
 					gtk_widget_show ( viewport2 );
@@ -542,7 +548,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					archive->status =XA_ARCHIVESTATUS_IDLE;
 					Update_StatusBar ( _("Operation completed.") );
 					break;
-						
+
 					default:
 					command = NULL;
 				}
@@ -692,7 +698,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		if (archive->passwd != NULL)
 			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
 									" -g",archive->passwd,
-									archive->overwrite ? "" : " -n" , 
+									archive->overwrite ? "" : " -n" ,
 									" -i " ,
 									archive->freshen ? "-f " : "" ,
 									archive->update ? "-u " : " ",
@@ -706,7 +712,13 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 									"-y ",
 									archive->escaped_path , " " , path , files->str, NULL );
 		break;
-		
+
+		case XARCHIVETYPE_LHA:
+			command = g_strconcat ("lha ", archive->full_path ? "x" : "xi",
+											archive->overwrite ? "f" : "", "w=",
+											path, " ", archive->escaped_path , files->str, NULL);
+		break;
+
 		case XARCHIVETYPE_ISO:
 		{
 			GList *row_list = NULL;
@@ -745,7 +757,6 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		command = NULL;
     }
 	g_free (tar);
-	g_message (command);
 	return command;
 }
 
@@ -767,7 +778,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	unescaped_names = g_string_new ("");
 	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	row_list = gtk_tree_selection_get_selected_rows (selection, &model);
-	
+
 	if (row_list != NULL)
 	{
 		while (row_list)
@@ -856,7 +867,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 		xa_delete_temp_directory ( tmp_dir, 0 );
 	else
 		xa_delete_temp_directory ( tmp_dir, 1 );
-	
+
 	return result;
 }
 

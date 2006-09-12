@@ -16,6 +16,7 @@ xarchiver_SOURCES = \
 	gzip.c gzip.h \
 	rpm.c rpm.h \
 	iso.c iso.h \
+	lha.c lha.h \
 	extract_dialog.c extract_dialog.h \
 	add_dialog.c add_dialog.h \
 	new_dialog.c new_dialog.h
@@ -26,7 +27,7 @@ xarchiver_CFLAGS = \
 	-DDATADIR=\"$(datadir)\" \
 	-DSRCDIR=\"$(top_srcdir)\" \
 	-DLOCALEDIR=\"$(localedir)\"
- 
+
 xarchiver_LDADD = \
 	@GTK_LIBS@ \
 	@GLIB_LIBS@

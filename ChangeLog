@@ -1,8 +1,9 @@
 Xarchiver changelog:
 
 0x/09/06 - 0.4.1:
-		- Fixed Xarchiver not working on Linux box with unrar only.
-		- Made code to compile under Solaris.
+		- Fixed Xarchiver rar problem when only unrar is available.
+		- Added LHA archive format thanks to Łukasz
+		- Fix code to compile under Solaris.
 		- Added in the new dialog the "By extension" ability.
 		- Changed some strings for a better usability.
 		- Fixed bug xxxxxx

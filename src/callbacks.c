@@ -34,6 +34,8 @@ extern gboolean cli;
 extern gboolean stop_flag;
 extern gboolean unrar;
 
+XArchive *archive = NULL;
+
 #ifndef HAVE_STRCASESTR
 /*
  * case-insensitive version of strstr()
@@ -76,14 +78,14 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	gboolean select	= FALSE;
 	gboolean check	= FALSE;
 	gboolean info	= FALSE;
-	
+
 	gtk_widget_set_sensitive (close1,TRUE);
 
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
 	{
 		new = open = TRUE;
 		info = FALSE;
-	}	
+	}
 	else if (archive->type == XARCHIVETYPE_RPM)
 	{
 		new = open = extract = select = TRUE;
@@ -93,6 +95,12 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	{
 		new = open = add = extract = select = info = TRUE;
 		check = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_RAR && unrar)
+	{
+		check = TRUE;
+		add = FALSE;
+		new = open = extract = select = info = TRUE;
 	}
 	else
 	{
@@ -185,7 +193,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				case XARCHIVETYPE_ARJ:
 				OpenArj ( archive );
 				break;
-            
+
+				case XARCHIVETYPE_LHA:
+				OpenLha ( archive );
+				break;
+
 				default:
 				break;
 			}
@@ -205,7 +217,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-	XArchive *archive = NULL;
 	gchar *path = NULL;
 
 	if (user_data != NULL)
@@ -228,7 +239,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	if ( liststore != NULL )
 		RemoveColumnsListStore();
-	
+
   	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
 	{
 		Update_StatusBar ( _("Choose Add File to create the compressed file."));
@@ -239,7 +250,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 
     gtk_tooltips_disable ( pad_tooltip );
     gtk_widget_hide ( pad_image );
-    
+
     archive->passwd = NULL;
     archive->dummy_size = 0;
     archive->nr_of_files = 0;
@@ -275,7 +286,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	archive->path = g_strdup (path);
 	g_free (path);
 	archive->escaped_path = EscapeBadChars ( archive->path , "$\'`\"\\!?* ()&|@#:;" );
-    
+
 	OffDeleteandViewButtons();
     gtk_widget_set_sensitive ( iso_info , FALSE );
     gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
@@ -299,7 +310,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
         return;
 	}
     EmptyTextBuffer();
-    
+
     //Does the user open an archive from the command line whose archiver is not installed ?
     gchar *ext = NULL;
     if ( archive->type == XARCHIVETYPE_RAR )
@@ -308,6 +319,8 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		ext = ".7z";
     else if ( archive->type == XARCHIVETYPE_ARJ )
 		ext = ".arj";
+	else if ( archive->type == XARCHIVETYPE_LHA )
+		ext = ".lzh";
     if ( ext != NULL )
         if ( ! g_list_find ( ArchiveType , ext ) )
         {
@@ -336,7 +349,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		OpenGzip ( archive );
 		break;
 
-		
+
         case XARCHIVETYPE_ISO:
         OpenISO (archive);
 		break;
@@ -360,7 +373,11 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
         case XARCHIVETYPE_7ZIP:
         Open7Zip (archive);
         break;
-        
+
+		case XARCHIVETYPE_LHA:
+		OpenLha (archive);
+		break;
+
         default:
         break;
 	}
@@ -420,7 +437,11 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 		else
 			command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
 		break;
-		
+
+		case XARCHIVETYPE_LHA:
+			command = g_strconcat ("lha t " , archive->escaped_path, NULL);
+		break;
+
 		default:
 		command = NULL;
 	}
@@ -433,7 +454,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	if (archive == NULL)
 		return;
-	
+
 	RemoveColumnsListStore();
 	EmptyTextBuffer();
 	gtk_widget_set_sensitive (close1,FALSE);
@@ -455,10 +476,10 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 		}
 		g_list_free ( Suffix );
 		g_list_free ( Name );
-	
+
 		if ( destination_path != NULL )
 		g_free (destination_path);
-		
+
 		xa_clean_archive_structure (archive);
 	}
 	gtk_main_quit();
@@ -473,15 +494,15 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	names = g_string_new ( " " );
 	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-	
+
 	x = gtk_tree_selection_count_selected_rows (selection);
 	gchar *msg = g_strdup_printf(_("You are about to delete %d file(s) from the archive."),x);
 	response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,msg,_( "Are you sure you want to do this?") );
 	g_free (msg);
-	
+
 	if ( response == GTK_RESPONSE_NO)
 		return;
-	
+
 	Update_StatusBar ( _("Deleting files from the archive, please wait..."));
 	archive->status = XA_ARCHIVESTATUS_DELETE;
 
@@ -506,7 +527,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
         case XARCHIVETYPE_TAR_GZ:
         xa_add_delete_tar_bzip2_gzip ( names , archive , 1 , 0 );
 		break;
-		
+
         case XARCHIVETYPE_ZIP:
 		command = g_strconcat ( "zip -d " , archive->escaped_path , names->str , NULL );
 		break;
@@ -518,7 +539,11 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
         case XARCHIVETYPE_ARJ:
         command = g_strconcat ( "arj d " , archive->escaped_path , names->str, NULL);
         break;
-        
+
+		case XARCHIVETYPE_LHA:
+		command = g_strconcat("lha d ", archive->escaped_path, names->str, NULL);
+		break;
+
         default:
         break;
 	}
@@ -534,7 +559,6 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 {
 	gchar *command = NULL;
-	
 	add_window = xa_create_add_dialog (archive);
 	command = xa_parse_add_dialog_options ( archive, add_window );
 	gtk_widget_destroy ( add_window->dialog1 );
@@ -575,7 +599,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nDevelopers:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\nSalvatore Santagati for the ISO support. <salvatore.santagati@gmail.com>\n",NULL};
+    const char *authors[] = {"\nDevelopers:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\nISO support: Salvatore Santagati  <salvatore.santagati@gmail.com>\nLHA support: Łukasz <sil2100@vexillium.org>",NULL};
     const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver development code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Troeger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
 	if (about != NULL)
 	{
@@ -774,11 +798,11 @@ gboolean isISO ( FILE *ptr )
 		preparer_id = g_strndup ( ipd.preparer_id, 126);
 
 		creation_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.creation_date[0],&ipd.creation_date[4],&ipd.creation_date[6],&ipd.creation_date[8],&ipd.creation_date[10],&ipd.creation_date[12],&ipd.creation_date[14]);
-		
+
 		modified_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.modification_date[0],&ipd.modification_date[4],&ipd.modification_date[6],&ipd.modification_date[8],&ipd.modification_date[10],&ipd.modification_date[12],&ipd.modification_date[14]);
-		
+
 		expiration_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.expiration_date[0],&ipd.expiration_date[4],&ipd.expiration_date[6],&ipd.expiration_date[8],&ipd.expiration_date[10],&ipd.expiration_date[12],&ipd.expiration_date[14]);
-		
+
 		effective_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.effective_date[0],&ipd.effective_date[4],&ipd.effective_date[6],&ipd.effective_date[8],&ipd.effective_date[10],&ipd.effective_date[12],&ipd.effective_date[14]);
         return TRUE;
 	}
@@ -800,13 +824,32 @@ gboolean isTar ( FILE *ptr )
 		return FALSE;
 }
 
+gboolean isLha ( FILE *ptr )
+{
+	unsigned char magic[2];
+	fseek(ptr, 0, SEEK_SET);
+	if(fseek(ptr, 19, SEEK_CUR) < 0)
+		return FALSE;
+	if(fread(magic, 1, 2, ptr) == 0)
+		return FALSE;
+
+	if(magic[0] == 0x20 && magic[1] <= 0x03)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
 int DetectArchiveType ( gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
 	unsigned char magic[12];
 	dummy_ptr = fopen ( filename , "r" );
-	
+
 	if (dummy_ptr == NULL)
 	{
 		if ( !cli )
@@ -848,7 +891,8 @@ int DetectArchiveType ( gchar *filename )
     else if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 ) xx = XARCHIVETYPE_7ZIP;
     else if ( isTar ( dummy_ptr ) ) xx = XARCHIVETYPE_TAR;
     else if ( isISO ( dummy_ptr ) ) xx = XARCHIVETYPE_ISO;
-	else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
+	//else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
+	else if ( isLha ( dummy_ptr ) ) xx = XARCHIVETYPE_LHA;
 	fclose ( dummy_ptr );
 	return xx;
 }
@@ -954,7 +998,7 @@ void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType
 	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (treeview1) );
 	gtk_tree_selection_set_mode(sel, GTK_SELECTION_MULTIPLE);
 	g_signal_connect ((gpointer) sel, "changed", G_CALLBACK (Activate_buttons), NULL);
-    
+
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview1));
 	g_object_ref(model);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(treeview1), NULL);
@@ -1113,10 +1157,10 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		return;
 	}
 	g_free ( dir );
-	
+
 	full_path = archive->full_path;
 	overwrite = archive->overwrite;
-		
+
 	archive->full_path = 0;
 	archive->overwrite = 1;
 
@@ -1124,7 +1168,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
 	archive->status = XA_ARCHIVESTATUS_EXTRACT;
 	ConcatenateFileNames2 ( dummy_name , names );
-	
+
 	if (archive->type == XARCHIVETYPE_ISO)
 	{
 		gtk_tree_model_get (model, &iter,
@@ -1399,7 +1443,7 @@ void Activate_buttons ()
 {
 	if ( ! GTK_WIDGET_VISIBLE (Extract_button) )
 		return;
-	
+
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
 	if (selected == 0 )
@@ -1429,7 +1473,7 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 	gchar *esc_filename = NULL;
 	gchar *escaped = NULL;
 	gchar *escaped2 = NULL;
-			
+
 	if ( strstr (filename, "[") || strstr (filename, "]"))
 	{
 		if (archive->type == XARCHIVETYPE_ZIP)
@@ -1458,7 +1502,7 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 		}
 	}
 	esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
-	
+
 	g_string_prepend (data, esc_filename);
 	g_string_prepend_c (data, ' ');
 	g_free (esc_filename);
@@ -1467,7 +1511,7 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
 {
 	gchar *filename = NULL;
-	
+
 	gtk_tree_model_get (model, iter, 0, &filename, -1);
 	ConcatenateFileNames2 ( filename , data );
 	g_free (filename);
@@ -1490,7 +1534,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	int status;
 	gboolean waiting = TRUE;
 	int ps;
-	
+
 	if (watch_child_flag)
 		EmptyTextBuffer ();
 	archive->parse_output = 0;
@@ -1742,13 +1786,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		if (archive == NULL)
 			return;
 	}
-	if ( (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP) && ! one_file)
-	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Bzip2 or gzip cannot compress more than one file!"),_("Please choose another archive format!") );
-		xa_set_window_title (MainWindow , NULL);
-		Update_StatusBar ( _("Operation failed."));
-		return;
-	}
+
 	GString *names = g_string_new (" ");
 	_current_dir = g_path_get_dirname ( array[0] );
 	current_dir = g_filename_from_uri ( _current_dir, NULL, NULL );
@@ -1766,7 +1804,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		g_free (name);
 		len++;
 	}
-	
+
 	full_path = archive->full_path;
 	add_recurse = archive->add_recurse;
 	archive->full_path = 0;
@@ -1819,7 +1857,7 @@ void xa_deselect_all ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_append_rows ( XArchive *archive , unsigned short int nc )
 {
 	unsigned short int i = 0;
-	
+
 	if (archive->row == NULL)
 		return;
 	archive->row = g_list_reverse ( archive->row );
