@@ -217,16 +217,19 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
+	XArchive *dummy_archive = NULL;
 	gchar *path = NULL;
 
 	if (user_data != NULL)
 		path = g_path_get_basename ( user_data);
 
-	archive = xa_new_archive_dialog ( path );
+
+	dummy_archive = xa_new_archive_dialog ( path );
 	g_free (path);
-	if (archive == NULL)
+	if (dummy_archive == NULL)
 		return;
 
+	archive = dummy_archive;
 	xa_set_button_state (1,1,1,0,0 );
     EmptyTextBuffer();
     archive->has_passwd = FALSE;
