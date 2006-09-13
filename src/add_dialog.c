@@ -719,6 +719,7 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		command = g_strconcat( "lha ",
 								archive->remove_files ? "m" : "a",
 								archive->update ? "u" : "",
+								"o",compression_string,
 								" ",
 								archive->escaped_path,
 								names->str, NULL);
