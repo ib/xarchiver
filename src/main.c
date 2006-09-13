@@ -294,6 +294,17 @@ void GetAvailableCompressors()
 		g_free (absolute_path);
 	}
 
+	absolute_path = g_find_program_in_path("lha");
+
+	if(absolute_path)
+	{
+		ArchiveType = g_list_prepend(ArchiveType, ".lzh");
+		ArchiveSuffix = g_list_prepend(ArchiveSuffix, "*.lzh");
+		g_free (absolute_path);
+		//ArchiveType = g_list_prepend(ArchiveType, ".lha");
+		//ArchiveSuffix = g_list_prepend(ArchiveSuffix, "");
+	}
+
 	absolute_path = g_find_program_in_path ("rar");
     if ( absolute_path )
 	{
@@ -349,16 +360,6 @@ void GetAvailableCompressors()
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
 		g_free (absolute_path);
     }
-	absolute_path = g_find_program_in_path("lha");
-
-	if(absolute_path)
-	{
-		ArchiveType = g_list_prepend(ArchiveType, ".lzh");
-		ArchiveSuffix = g_list_prepend(ArchiveSuffix, "*.lzh");
-		g_free (absolute_path);
-		//ArchiveType = g_list_prepend(ArchiveType, ".lha");
-		//ArchiveSuffix = g_list_prepend(ArchiveSuffix, "");
-	}
 }
 
 void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean Extract, gboolean select)

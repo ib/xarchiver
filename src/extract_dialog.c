@@ -574,7 +574,12 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 	gchar *command = NULL;
 	gchar *tar;
 
-	gchar *msg = g_strdup_printf( _("Extracting archive to %s") , path);
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
+
+	gchar *msg = g_strdup_printf ( _("Extracting archive to %s") , path);
 	Update_StatusBar (msg);
 	g_free (msg);
 	tar = g_find_program_in_path ("gtar");

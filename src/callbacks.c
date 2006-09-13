@@ -1306,28 +1306,28 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
     text = g_strdup_printf ("%.1f %s", content_size,measure);
     gtk_entry_set_text ( GTK_ENTRY (size_entry), text );
     g_free (text);
-	/* Image type */
+
 	gtk_entry_set_text ( GTK_ENTRY (image_type_entry),archive->tmp);
-	/* System ID */
+
 	gtk_entry_set_text ( GTK_ENTRY (system_id_entry),system_id);
-	/* Volume ID */
+
 	gtk_entry_set_text ( GTK_ENTRY (volume_id_entry),volume_id);
-	/* Application ID */
+
 	gtk_entry_set_text ( GTK_ENTRY (application_entry),application_id);
-	/* Publisher ID */
+
 	gtk_entry_set_text ( GTK_ENTRY (publisher_entry),publisher_id);
 	gtk_widget_show (iso_properties_win);
-	/* Preparer ID */
+
 	gtk_entry_set_text ( GTK_ENTRY (preparer_entry),preparer_id);
 	gtk_widget_show (iso_properties_win);
-	/* Creation Date */
+
 	gtk_entry_set_text ( GTK_ENTRY (creation_date_entry),creation_date);
-	/* Modified Date */
+
 	gtk_entry_set_text ( GTK_ENTRY (modified_date_entry),modified_date);
 	gtk_widget_show (iso_properties_win);
-	/* Expiration Date */
+
 	gtk_entry_set_text ( GTK_ENTRY (expiration_date_entry),expiration_date);
-	/* Effective Date */
+
 	gtk_entry_set_text ( GTK_ENTRY (effective_date_entry),effective_date);
 	gtk_widget_show (iso_properties_win);
 }
@@ -1766,6 +1766,13 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		return;
 	}
 	gtk_drag_finish (context, TRUE, FALSE, time);
+
+	if (archive->type == XARCHIVETYPE_RAR && unrar)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("unrar doesn't support archive creation!") );
+		return;
+	}
+
 	one_file = (array[1] == NULL);
 
 	if (one_file)
