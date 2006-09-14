@@ -603,7 +603,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nDevelopers:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\nISO support: Salvatore Santagati  <salvatore.santagati@gmail.com>\nLHA support: Łukasz <sil2100@vexillium.org>",NULL};
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver development code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Troeger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
+    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver development code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
 	if (about != NULL)
 	{
 		gtk_window_present (GTK_WINDOW (about));
