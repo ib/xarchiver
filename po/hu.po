@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-01 11:36+0200\n"
-"PO-Revision-Date: 2006-09-10 12:03+0100\n"
+"PO-Revision-Date: 2006-09-28 10:19+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -835,7 +835,7 @@ msgstr "Lejárati dátum:"
 
 #: src/iso.c:951
 msgid "Effective date:"
-msgstr ""
+msgstr "Tényleges dátum"
 
 #: src/main.c:60
 msgid "[archive name]"
