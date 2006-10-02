@@ -24,6 +24,7 @@ GtkWidget *MainWindow;
 GtkWidget *vbox1;
 GtkWidget *vbox_body;
 GtkWidget *hbox_sb;
+GtkWidget *hbox_ap;
 GtkWidget *menubar1;
 GtkWidget *menuitem1;
 GtkWidget *menuitem1_menu;

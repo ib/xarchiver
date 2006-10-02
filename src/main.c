@@ -168,7 +168,7 @@ int main (int argc, char **argv)
 			{
 				xa_new_archive ( NULL , archive_name );
 				if (archive == NULL)
-					return exit_status;
+					return 0;
 
 				if (archive->path != NULL)
 				{

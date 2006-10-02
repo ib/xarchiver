@@ -35,6 +35,10 @@ extern gboolean stop_flag;
 extern gboolean unrar;
 
 XArchive *archive = NULL;
+gchar *current_open_directory = NULL;
+GtkFileFilter *open_file_filter = NULL;
+GList *Suffix , *Name;
+//gint current_archive_suffix = 0;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -63,10 +67,6 @@ const char *strcasestr(const char *haystack, const char *needle)
 	return NULL;
 }
 #endif /* !HAVE_STRCASESTR */
-
-gchar *CurrentFolder = NULL;
-GList *Suffix , *Name;
-gint current_archive_suffix = 0;
 
 void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
@@ -766,8 +766,9 @@ GSList *Add_File_Dialog ( gchar *mode )
 		gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , FALSE );
     else
 		gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
-	if (CurrentFolder != NULL)
-		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , CurrentFolder );
+
+	if (current_open_directory != NULL)
+		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , current_open_directory );
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector) );
 	if (response == GTK_RESPONSE_ACCEPT)
 		list = gtk_file_chooser_get_filenames ( GTK_FILE_CHOOSER (File_Selector) );
@@ -818,8 +819,7 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 							flag2,
 							GTK_RESPONSE_ACCEPT,
 							NULL);
-	if (CurrentFolder != NULL)
-		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , CurrentFolder );
+
 	gtk_dialog_set_default_response (GTK_DIALOG (File_Selector), GTK_RESPONSE_ACCEPT);
 
 	filter = gtk_file_filter_new ();
@@ -840,7 +840,6 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);
 
 	Suffix = g_list_first ( ArchiveSuffix );
-
 	while ( Suffix != NULL )
 	{
 		if ( Suffix->data != "" )	/* To avoid double filtering when opening the archive */
@@ -850,14 +849,20 @@ gchar *Show_File_Dialog ( int dummy , gpointer mode )
 			gtk_file_filter_add_pattern (filter, Suffix->data );
 			gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);
 		}
-
 		Suffix = g_list_next ( Suffix );
 	}
-	//current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
+	if (current_open_directory != NULL)
+		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , current_open_directory );
+
+	/*if (open_file_filter != NULL)
+		gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (File_Selector) , open_file_filter );*/
 
 	gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
-	CurrentFolder = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (File_Selector) );
+
+	current_open_directory = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (File_Selector) );
+	open_file_filter = gtk_file_chooser_get_filter ( GTK_FILE_CHOOSER (File_Selector) );
+
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) );
@@ -1524,7 +1529,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     t = g_strdup_printf ( "%d", archive->nr_of_dirs);
     gtk_entry_set_text ( GTK_ENTRY (number_of_dirs_data), t );
     g_free (t);
-    gtk_widget_show ( archive_properties_win );
+    gtk_widget_show_all ( archive_properties_win );
 }
 
 void Activate_buttons ()

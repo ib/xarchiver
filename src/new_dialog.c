@@ -25,6 +25,8 @@
 #include "main.h"
 
 extern gboolean unrar;
+gchar *current_new_directory = NULL;
+gint new_combo_box = -1;
 
 XArchive *xa_new_archive_dialog (gchar *path)
 {
@@ -36,7 +38,6 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	GtkFileFilter *xa_new_archive_dialog_filter;
 	GtkTooltips *filter_tooltip;
 	GList *Suffix,*Name;
-	gint current_archive_suffix = 0;
 	gchar *my_path = NULL;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
@@ -81,7 +82,6 @@ XArchive *xa_new_archive_dialog (gchar *path)
 		}
 		Suffix = g_list_next ( Suffix );
 	}
-	//current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_box_pack_start (GTK_BOX (hbox),gtk_label_new (_("Archive type:")),FALSE, FALSE, 0);
 
@@ -99,7 +99,11 @@ XArchive *xa_new_archive_dialog (gchar *path)
 		Next:
 			Name = g_list_next ( Name );
 	}
-	gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , current_archive_suffix );
+	if (new_combo_box == -1)
+		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , 0 );
+	else
+		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , new_combo_box );
+
 	gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
 
 	check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
@@ -110,9 +114,14 @@ XArchive *xa_new_archive_dialog (gchar *path)
 
 	if (path != NULL)
 		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (xa_file_chooser),path);
+
 	gtk_window_set_modal (GTK_WINDOW (xa_file_chooser),TRUE);
+	if (current_new_directory != NULL)
+		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) , current_new_directory );
+
 	response = gtk_dialog_run (GTK_DIALOG (xa_file_chooser));
-	//CurrentFolder = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) );
+	current_new_directory = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) );
+
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		my_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
@@ -144,7 +153,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 
 		archive = xa_init_archive_structure (archive);
 		ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
-		current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
+		new_combo_box = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 
 		if (strcmp ( ComboArchiveType,".arj") == 0)
 			archive->type = XARCHIVETYPE_ARJ;
