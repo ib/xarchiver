@@ -1,12 +1,13 @@
 Xarchiver changelog:
 
 0x/09/06 - 0.4.1:
+		- Fixed bug preventing to add files by drag and drop when no archive has been created.
 		- Fixed Xarchiver rar problem when only unrar is available.
+		- Fixed creation of directory with "\ " when extracting an iso whose filename has spaces.
 		- Added LHA archive format thanks to Łukasz
-		- Fix code to compile under Solaris.
-		- Added in the new dialog the "By extension" ability.
+		- Fixed code to compile under Solaris.
 		- Changed some strings for a better usability.
-		- Fixed bug xxxxxx
+		- Fixed bug #2247.
 
 01/09/06 - 0.4:
 		- Added symbolic link column in tar/tar.bz2/tar.gz and RPM archives.

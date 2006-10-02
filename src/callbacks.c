@@ -75,6 +75,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	gboolean open	= FALSE;
 	gboolean add	= FALSE;
 	gboolean extract= FALSE;
+	gboolean exe	= FALSE;
 	gboolean select	= FALSE;
 	gboolean check	= FALSE;
 	gboolean info	= FALSE;
@@ -84,32 +85,32 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
 	{
 		new = open = TRUE;
-		info = FALSE;
+		info = exe = FALSE;
 	}
 	else if (archive->type == XARCHIVETYPE_RPM)
 	{
 		new = open = extract = select = TRUE;
-		info = FALSE;
+		info = exe = FALSE;
 	}
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
 	{
 		new = open = add = extract = select = info = TRUE;
-		check = FALSE;
+		check = exe = FALSE;
 	}
 	else if (archive->type == XARCHIVETYPE_RAR && unrar)
 	{
 		check = TRUE;
-		add = FALSE;
+		add = exe = FALSE;
 		new = open = extract = select = info = TRUE;
 	}
 	else
 	{
 		check = TRUE;
-		new = open = add = extract = select = info = TRUE;
+		new = open = add = extract = exe = select = info = TRUE;
 	}
 	gtk_widget_set_sensitive ( check_menu , check);
 	gtk_widget_set_sensitive ( properties , info);
-	xa_set_button_state (new,open,add,extract,select);
+	xa_set_button_state (new,open,add,extract,exe,select);
 
 	if ( WIFSIGNALED (status) )
 	{
@@ -123,7 +124,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		}
 		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
 		{
-			xa_set_button_state (1,1,0,0,0);
+			xa_set_button_state (new,open,0,0,exe,0);
 			gtk_widget_set_sensitive ( check_menu , FALSE );
 		}
 		archive->status = XA_ARCHIVESTATUS_IDLE;
@@ -139,7 +140,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			if (response == GTK_RESPONSE_YES)
 				ShowShellOutput (NULL);
 			/* In case the user supplies a wrong password we reset it so he can try again */
-			if (archive->status == XA_ARCHIVESTATUS_TEST && archive->passwd != NULL)
+			if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
 			{
 				g_free (archive->passwd);
 				archive->passwd = NULL;
@@ -223,14 +224,15 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	if (user_data != NULL)
 		path = g_path_get_basename ( user_data);
 
-
 	dummy_archive = xa_new_archive_dialog ( path );
-	g_free (path);
+	if (path != NULL)
+		g_free (path);
+
 	if (dummy_archive == NULL)
 		return;
 
 	archive = dummy_archive;
-	xa_set_button_state (1,1,1,0,0 );
+	xa_set_button_state (1,1,1,0,0,0 );
     EmptyTextBuffer();
     archive->has_passwd = FALSE;
     gtk_widget_set_sensitive ( iso_info , FALSE );
@@ -246,7 +248,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
   	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
 	{
 		Update_StatusBar ( _("Choose Add File to create the compressed file."));
-		xa_set_button_state (1,1,1,0,0 );
+		xa_set_button_state (1,1,1,0,0,0 );
 	}
 	else
 		Update_StatusBar ( _("Choose Add to begin creating the archive."));
@@ -305,7 +307,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
         xa_set_window_title (MainWindow , NULL);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,
 		_("Archive format is not recognized!"));
-		xa_set_button_state ( 1,1,0,0,0);
+		xa_set_button_state ( 1,1,0,0,0,0);
 		gtk_widget_set_sensitive ( check_menu , FALSE );
 		gtk_widget_set_sensitive ( properties , FALSE );
 		g_free (utf8_path);
@@ -410,7 +412,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     Update_StatusBar ( _("Testing archive integrity, please wait..."));
     gtk_widget_set_sensitive (Stop_button,TRUE);
     gtk_widget_set_sensitive ( check_menu , FALSE );
-    xa_set_button_state (0,0,0,0,0);
+    xa_set_button_state (0,0,0,0,0,0);
     switch ( archive->type )
 	{
 		case XARCHIVETYPE_RAR:
@@ -463,9 +465,10 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_widget_set_sensitive (close1,FALSE);
 	gtk_widget_set_sensitive (properties,FALSE);
 	gtk_widget_set_sensitive (check_menu,FALSE);
-	xa_set_button_state (1,1,0,0,0);
+	xa_set_button_state (1,1,0,0,0,0);
 	xa_clean_archive_structure (archive);
 	archive = NULL;
+	Update_StatusBar (_("Ready."));
 }
 
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
@@ -599,6 +602,92 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	extract_window = NULL;
 }
 
+void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
+{
+	gchar *command;
+	gboolean result;
+
+	if ( archive->has_passwd )
+	{
+		if ( archive->passwd == NULL)
+		{
+			archive->passwd = password_dialog ();
+			if ( archive->passwd == NULL)
+				return;
+		}
+	}
+    Update_StatusBar ( _("Converting archive to self-extracting, please wait..."));
+    gtk_widget_set_sensitive (Stop_button,TRUE);
+    gtk_widget_set_sensitive ( check_menu , FALSE );
+    xa_set_button_state (0,0,0,0,0,0);
+    switch ( archive->type )
+	{
+		case XARCHIVETYPE_RAR:
+		if (archive->passwd != NULL)
+			command = g_strconcat ("rar s " , archive->escaped_path," -o+ -p" , archive->passwd , NULL);
+		else
+			command = g_strconcat ("rar s " , archive->escaped_path, " -o+", NULL);
+        break;
+
+        case XARCHIVETYPE_ZIP:
+        {
+        	gchar *archive_name;
+        	gchar *dummy;
+			gchar *text;
+
+        	dummy = g_strrstr (archive->escaped_path, ".");
+			if (dummy != NULL)
+			{
+				dummy++;
+				unsigned short int x = strlen (archive->path) - strlen ( dummy );
+				archive_name = (gchar *) g_malloc (x + 1);
+				strncpy ( archive_name, archive->path, x );
+				archive_name[x-1] = '\0';
+			}
+			else
+				archive_name = g_strdup(archive->escaped_path);
+
+        	command = g_strconcat ("cat unzipsfx ",archive->escaped_path," > ",archive_name,NULL);
+        	result = xa_run_command (command , 0);
+        	g_free (command);
+
+        	command = g_strconcat ("chmod 755 ",archive_name,NULL);
+			result = xa_run_command (command , 0);
+			g_free (command);
+
+			command = g_strconcat ("zip -A ",archive_name,NULL);
+			result = xa_run_command (command , 1);
+			g_free (command);
+			g_free (archive_name);
+
+			text = g_strconcat (_("The self extracting archive is named: "),archive_name,NULL);
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,_("Operation completed"),text );
+			g_free (text);
+        }
+        break;
+
+        case XARCHIVETYPE_7ZIP:
+        if (archive->passwd != NULL)
+			command = g_strconcat ( "7za t -p" , archive->passwd , " " , archive->escaped_path, NULL);
+		else
+			command = g_strconcat ("7za t " , archive->escaped_path, NULL);
+		break;
+
+		case XARCHIVETYPE_ARJ:
+        if (archive->passwd != NULL)
+			command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->escaped_path, NULL);
+		else
+			command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
+		break;
+
+		default:
+		command = NULL;
+	}
+	archive->status = XA_ARCHIVESTATUS_SFX;
+    xa_run_command ( command , 1);
+    g_free (command);
+}
+
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
@@ -610,8 +699,8 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		return;
 	}
 	about = gtk_about_dialog_new ();
-	gtk_about_dialog_set_email_hook (xa_about_activate_link, NULL, NULL);
-	gtk_about_dialog_set_url_hook (xa_about_activate_link, NULL, NULL);
+	gtk_about_dialog_set_email_hook (xa_activate_link, NULL, NULL);
+	gtk_about_dialog_set_url_hook (xa_activate_link, NULL, NULL);
 	g_object_set (about,
 		      "name",  "Xarchiver",
 		      "version", PACKAGE_VERSION,
@@ -688,14 +777,9 @@ GSList *Add_File_Dialog ( gchar *mode )
 
 gchar *Show_File_Dialog ( int dummy , gpointer mode )
 {
-	GtkWidget *hbox = NULL;
-	GtkWidget *combo_box = NULL;
-	GtkWidget *check_button = NULL;
 	GtkFileFilter *filter;
-	GtkTooltips *FilterToolTip ;
 	gchar *path = NULL;
 	gchar *title = NULL;
-    gchar *dummy_path = NULL;
 	const gchar *flag2 = NULL;
 	unsigned short int flag = 0;
 
@@ -1062,7 +1146,7 @@ void ShowShellOutput ( GtkMenuItem *menuitem )
 
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 {
-	if (archive->status == XA_ARCHIVESTATUS_ADD)
+	if (archive->status == XA_ARCHIVESTATUS_ADD || XA_ARCHIVESTATUS_SFX)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Doing so will probably corrupt your archive!"),_("Do you really want to cancel?") );
 		if (response == GTK_RESPONSE_NO)
@@ -1216,7 +1300,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		}
 	}
 
-	string = StripPathFromFilename ( dummy_name, "/" );
+	string = g_strrstr ( dummy_name, "/" );
 	if (  string == NULL )
 		filename = g_strconcat ( "/tmp/" , dummy_name, NULL );
 	else
@@ -1250,10 +1334,11 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	}
 	else
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"An error occurred while extracting the file to be viewed:",error->message);
-		g_error_free (error);
+		gtk_widget_hide (viewport2);
 		unlink ( filename );
 		Update_StatusBar ( _("Operation failed."));
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"An error occurred while extracting the file to be viewed:",error->message);
+		g_error_free (error);
 		return;
 	}
 	unlink ( filename );
@@ -1273,7 +1358,7 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 	file_size = my_stat.st_size;
 	iso_properties_win = create_iso_properties_window();
 	//Name
-	text = StripPathFromFilename ( archive->path, "/" );
+	text = g_strrstr ( archive->path, "/" );
 	if (text != NULL)
 	{
 	    text++; //This to avoid the / char in the string
@@ -1346,7 +1431,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     file_size = my_stat.st_size;
     archive_properties_win = create_archive_properties_window();
     //Name
-    text = StripPathFromFilename ( archive->path, "/" );
+    text = g_strrstr ( archive->path, "/" );
     if (text != NULL)
     {
         text++; //This to avoid the / char in the string
@@ -1482,31 +1567,41 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 		if (archive->type == XARCHIVETYPE_ZIP)
 		{
 			if (archive->status == XA_ARCHIVESTATUS_ADD)
+			{
 				esc_filename = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
+				g_string_prepend (data, esc_filename);
+			}
 			else
 			{
 				escaped = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;");
 				escaped2 = escape_str_common (escaped , "*?[]", '\\', 0);
 				g_free (escaped);
 				esc_filename = escaped2;
+				g_string_prepend (data, esc_filename);
 			}
 		}
 		else if ( archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
 		{
 			if (archive->status == XA_ARCHIVESTATUS_ADD)
+			{
 				esc_filename = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
+				g_string_prepend (data, esc_filename);
+			}
 			else
 			{
 				escaped = EscapeBadChars ( filename ,"?*\\'& !|()@#:;");
 				escaped2 = escape_str_common ( escaped , "[]", '[', ']');
 				g_free (escaped);
 				esc_filename = escaped2;
+				g_string_prepend (data, esc_filename);
 			}
 		}
 	}
-	esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
-
-	g_string_prepend (data, esc_filename);
+	else
+	{
+		esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
+		g_string_prepend (data, esc_filename);
+	}
 	g_string_prepend_c (data, ' ');
 	g_free (esc_filename);
 }
@@ -1656,7 +1751,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 
 	gtk_tree_model_get_iter (model, &iter, (GtkTreePath*) (row_list->data) );
 	gtk_tree_model_get (model, &iter, 0, &name, -1);
-	gchar *no_slashes = StripPathFromFilename ( name, "/" );
+	gchar *no_slashes = g_strrstr ( name, "/" );
 	if (no_slashes != NULL)
 		no_slashes++;
 	gdk_property_change (context->source_window,
@@ -1770,6 +1865,13 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	}
 	gtk_drag_finish (context, TRUE, FALSE, time);
 
+	if (archive == NULL)
+	{
+		archive = xa_new_archive_dialog ( filename );
+		if (archive == NULL)
+			return;
+	}
+
 	if (archive->type == XARCHIVETYPE_RAR && unrar)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("unrar doesn't support archive creation!") );
@@ -1790,12 +1892,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 			return;
 		}
     }
-	if (archive == NULL)
-	{
-		archive = xa_new_archive_dialog ( filename );
-		if (archive == NULL)
-			return;
-	}
 
 	GString *names = g_string_new (" ");
 	_current_dir = g_path_get_dirname ( array[0] );
@@ -1896,26 +1992,29 @@ void xa_append_rows ( XArchive *archive , unsigned short int nc )
 	archive->row = NULL;
 }
 
-void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
+void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 {
 	GdkScreen *screen;
 	GtkWidget *message;
 	GError *error = NULL;
 	gchar *argv[3];
-	gchar *exo_path;
+	gchar *browser_path;
 
-	exo_path = g_find_program_in_path ("exo-open");
-	if ( exo_path == NULL)
-		argv[0] = "firefox";
-	else
-	{
-		argv[0] = "exo-open";
-		g_free (exo_path);
-	}
+	browser_path = g_find_program_in_path ("firefox");
+	if ( browser_path == NULL)
+		browser_path = g_find_program_in_path ("opera");
+
+	if ( browser_path == NULL)
+		browser_path = g_find_program_in_path ("mozilla");
+
+	argv[0] = browser_path;
 	argv[1] = (gchar *) link;
 	argv[2] = NULL;
 
-	screen = gtk_widget_get_screen (GTK_WIDGET (about));
+	if (about == NULL)
+		screen = gtk_widget_get_screen (GTK_WIDGET (MainWindow));
+	else
+		screen = gtk_widget_get_screen (GTK_WIDGET (about));
 
 	if (!gdk_spawn_on_screen (screen, NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
 	{
@@ -1930,6 +2029,14 @@ void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer 
 		gtk_widget_destroy (message);
 		g_error_free (error);
 	}
+	if (browser_path != NULL)
+		g_free (browser_path);
 }
 
+void xa_show_help (GtkMenuItem *menuitem , gpointer user_data )
+{
+	gchar *uri = g_strconcat ("file://", DATADIR, "/doc/", PACKAGE, "/html/index.html", NULL);
+	xa_activate_link (NULL,uri,NULL);
+	g_free (uri);
+}
 

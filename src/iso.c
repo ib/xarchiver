@@ -32,8 +32,8 @@ struct iso_directory_record * idr_rr;
 gboolean use_rock = 0;
 gboolean use_joilet = 0;
 short int iso_error_count = 0;
-char * xtract = 0; 
-int do_find = 0;    
+char * xtract = 0;
+int do_find = 0;
 int ucs_level = 0;
 
 unsigned int sector_offset = 0;
@@ -142,7 +142,7 @@ int parse_rr(unsigned char * pnt, int len, int cont_flag)
 					strncat(symlinkname, (char *)(pnts+2), pnts[1]);
 					symlinkname[pnts[1]] = 0;
 					break;
-				
+
 					case 2:
 					strcat(symlinkname, ".");
 					break;
@@ -164,7 +164,7 @@ int parse_rr(unsigned char * pnt, int len, int cont_flag)
 					strcat(symlinkname, "kafka");
 					g_print ("Warning - host_name requested");
 					break;
-				
+
 					default:
 					g_print ("Reserved bit setting in symlink");
 					goof++;
@@ -301,10 +301,10 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 	if( fstat_buf.st_mode & S_IXOTH )
 		outline[9] = 'x';
 
-	sprintf(outline+11, "%3d", fstat_buf.st_nlink); 
-    sprintf(outline+15, "%4o", fstat_buf.st_uid);  
-    sprintf(outline+20, "%4o", fstat_buf.st_gid); 
-  
+	sprintf(outline+11, "%3d", fstat_buf.st_nlink);
+    sprintf(outline+15, "%4o", fstat_buf.st_uid);
+    sprintf(outline+20, "%4o", fstat_buf.st_gid);
+
     g_file_size = fstat_buf.st_size ;
 
     if (date_buf[1] >= 1 && date_buf[1] <= 12)
@@ -332,12 +332,12 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 
 	g_file_permissions = outline;
 	g_file_offset = extent;
-	g_file_size = fstat_buf.st_size;    
-	
+	g_file_size = fstat_buf.st_size;
+
 	if ( (!use_rock) && (!use_joilet) )
 		//strcpy (name_buf + strlen (name_buf)- 2, "  "); /* remove ";1" from file name */
 		name_buf[strlen (name_buf)- 2] = '\0';
-        
+
     if (strcmp (name_buf,"..") == 0 || strcmp (name_buf,".") == 0)
 		return;
 
@@ -346,20 +346,20 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
     else
 		archive->nr_of_files++;
 
-	g_file_name = g_strconcat (dir_name, name_buf , NULL);     
+	g_file_name = g_strconcat (dir_name, name_buf , NULL);
 
 	filename    = g_new0(GValue, 1);
 	permissions = g_new0(GValue, 1);
 	size        = g_new0(GValue, 1);
 	date        = g_new0(GValue, 1);
 	offset      = g_new0(GValue, 1);
-                
+
 	filename = g_value_init(filename, G_TYPE_STRING);
 	g_value_set_string ( filename , g_strdup (g_file_name));
 
 	permissions = g_value_init(permissions, G_TYPE_STRING);
 	g_value_set_string ( permissions , g_strdup ( g_file_permissions ));
-                
+
 	size = g_value_init(size, G_TYPE_UINT64);
 	g_value_set_uint64 ( size , g_file_size );
 
@@ -428,7 +428,7 @@ void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
 					strncpy(name_buf, idr->name, idr->name_len[0]);
 					name_buf[idr->name_len[0]] = 0;
 					break;
-            
+
                     /* Don't know how to do these yet.Maybe they are the same as one of the above. */
 				}
             };
@@ -439,7 +439,7 @@ void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
 			{
 				/* Add this directory to the todo list. */
 				td = todo_idr;
-				if( td != NULL ) 
+				if( td != NULL )
 				{
 					while(td->next != NULL)
 						td = td->next;
@@ -448,7 +448,7 @@ void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
 				}
 				else
 					todo_idr = td = (struct todo *) malloc(sizeof(*td));
-				
+
 				td->next = NULL;
 				td->extent = iso_733((unsigned char *)idr->extent);
 				td->length = iso_733((unsigned char *)idr->size);
@@ -499,7 +499,7 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 	}
 	if (archive->full_path == 0)
 	{
-		filename = g_strconcat (destination_path , StripPathFromFilename ( _filename , "/" ) , NULL);
+		filename = g_strconcat (destination_path , g_strrstr ( _filename , "/" ) , NULL);
 		result = xa_write_file_to_disk ( archive->path, filename, file_size, file_offset );
 		g_free (filename);
 		return result;
@@ -529,12 +529,12 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *destination_path, gchar *_filename , unsigned long long int file_size, unsigned long long file_offset )
 {
 	gchar *filename = NULL;
-	
+
 	if (archive->full_path == 0)
 	{
 		if (strstr (permission , "d") )
 			return TRUE;
-		filename = g_strconcat (destination_path , StripPathFromFilename ( _filename , "/" ) , NULL);
+		filename = g_strconcat (destination_path , g_strrstr ( _filename , "/" ) , NULL);
 	}
 	else
 	{
@@ -570,7 +570,7 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 	FILE *fsource;
 	unsigned long long int tlen;
 	char buf[2048];
-	
+
 	if ((fsource = fopen (source, "r")) == NULL)
 		return FALSE;
 	if ((fdest = fopen (dest, "w")) == NULL)
@@ -666,7 +666,7 @@ void OpenISO ( XArchive *archive )
 	int	c;
 	struct todo *td;
 	int extent;
-	int block;	
+	int block;
 	int toc_offset = 0;
 	iso_error_count = 0;
 
@@ -679,7 +679,7 @@ void OpenISO ( XArchive *archive )
 	xa_create_liststore ( 5, names , (GType *)types );
 
 	iso_stream = fopen ( archive->path ,"r" );
-        
+
 	lseek (fileno(iso_stream), DetectImage(iso_stream), 0);
 	read(fileno(iso_stream), &ipd, sizeof(ipd));
 	idr = (struct iso_directory_record *) &ipd.root_directory_record;
@@ -687,29 +687,29 @@ void OpenISO ( XArchive *archive )
 	lseek (fileno(iso_stream),((off_t)(extent - sector_offset)) <<11, SEEK_SET);
 	read(fileno(iso_stream), buffer, sizeof (buffer));
 	idr_rr = (struct iso_directory_record *) buffer;
-        
+
 	/* Detect Rock Ridge exstension */
-	if ((c = dump_rr(idr_rr)) != 0) 
-	{			
-		if (c & 1024) 
+	if ((c = dump_rr(idr_rr)) != 0)
+	{
+		if (c & 1024)
 		{
-			use_rock = TRUE;			
+			use_rock = TRUE;
 			archive->tmp = g_strdup_printf (_("Rock Ridge version %d"),su_version);
-		} 
-        else 
-			archive->tmp = g_strdup (_("Rock Ridge - unknown version"));	
-                     
+		}
+        else
+			archive->tmp = g_strdup (_("Rock Ridge - unknown version"));
+
         /* This is currently a no op! We need to check the first plain file instead of the '.' entry in the root directory.*/
-		if (c & 2048) 
+		if (c & 2048)
 			archive->tmp = g_strdup_printf (_("Apple version %d"),aa_version);
-    }				
-    /* else 
+    }
+    /* else
 		g_print ("NO Rock Ridge present\n"); */
 	if( ! use_rock)
-	{ 
+	{
 		lseek(fileno(iso_stream), (16 + toc_offset) <<11, 0);
         read(fileno(iso_stream), &ipd, sizeof(ipd));
-      
+
         block = 16;
 
         while( (unsigned char) ipd.type[0] != ISO_VD_END )
@@ -727,24 +727,24 @@ void OpenISO ( XArchive *archive )
             lseek(fileno(iso_stream), (block + sector_offset) <<11, 0);
             read(fileno(iso_stream), &ipd, sizeof(ipd));
         }
-                
+
 		if( (unsigned char) ipd.type[0] == ISO_VD_END )
 			archive->tmp = g_strdup (_("Standard ISO without extension"));
-		else 
+		else
 			use_joilet = 1;
 
 		switch(ipd.escape_sequences[2])
-		{ 
+		{
 			case '@':
 			ucs_level = 1;
 			archive->tmp = g_strdup_printf (_("Joliet Level %d"),ucs_level);
 			break;
-			
+
 			case 'C':
 			ucs_level = 2;
 			archive->tmp = g_strdup_printf (_("Joliet Level %d"),ucs_level);
 			break;
-			
+
 			case 'E':
 			ucs_level = 3;
 			archive->tmp = g_strdup_printf (_("Joliet Level %d"),ucs_level);
@@ -754,15 +754,15 @@ void OpenISO ( XArchive *archive )
 			g_print ("Don't know what ucs_level == %d means\n", ucs_level);*/
 	}
 	idr = (struct iso_directory_record *) &ipd.root_directory_record;
-	if (!use_joilet) 
+	if (!use_joilet)
 	{
-		lseek(fileno(iso_stream),(16 + toc_offset) <<11, 0);   
+		lseek(fileno(iso_stream),(16 + toc_offset) <<11, 0);
 		read(fileno(iso_stream), &ipd, sizeof(ipd));
 	}
 	parse_dir ("/" , iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size), archive);
 	xa_append_rows ( archive , 5 );
 
-	td = todo_idr;	
+	td = todo_idr;
 
 	while(td)
 	{
@@ -781,8 +781,8 @@ void OpenISO ( XArchive *archive )
 	g_free (todo_idr);
 	td = NULL;
 	todo_idr = NULL;
-        
-	xa_set_button_state (1,1,0,1,1);
+
+	xa_set_button_state (1,1,0,1,0,1);
 	OffTooltipPadlock();
 	archive->status = XA_ARCHIVESTATUS_IDLE;
 	gtk_widget_set_sensitive ( properties , TRUE );
@@ -842,14 +842,14 @@ int DetectImage (FILE *iso)
 GtkWidget *create_iso_properties_window ()
 {
 	iso_properties_window = gtk_dialog_new_with_buttons (_("ISO Information Window"),
-                                                                        GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                                        GTK_STOCK_CLOSE, GTK_RESPONSE_NONE, NULL);
+							GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,
+							GTK_STOCK_CLOSE, GTK_RESPONSE_NONE, NULL);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (iso_properties_window), TRUE);
 	gtk_window_set_position (GTK_WINDOW (iso_properties_window), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (iso_properties_window), FALSE);
 	gtk_window_set_modal (GTK_WINDOW (iso_properties_window), TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (iso_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
-        
+
 	g_signal_connect(iso_properties_window, "response", G_CALLBACK(gtk_widget_destroy), NULL);
 	g_signal_connect(iso_properties_window, "delete-event", G_CALLBACK(gtk_widget_destroy), NULL);
 
@@ -986,7 +986,7 @@ GtkWidget *create_iso_properties_window ()
 	gtk_table_attach (GTK_TABLE (table1), system_id_entry, 1, 2, 4, 5,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
-        
+
 	volume_id_entry = gtk_entry_new ();
 	gtk_editable_set_editable (GTK_EDITABLE (volume_id_entry), FALSE);
 	gtk_entry_set_has_frame (GTK_ENTRY (volume_id_entry), FALSE);
@@ -1050,7 +1050,7 @@ GtkWidget *create_iso_properties_window ()
 	gtk_table_attach (GTK_TABLE (table1), effective_date_entry, 1, 2, 13, 14,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0), 0, 0);
-        
+
 	return iso_properties_window;
 }
 

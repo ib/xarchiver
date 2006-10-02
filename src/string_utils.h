@@ -20,7 +20,6 @@
 #define STRING_UTILS_H
 
 gchar *EscapeBadChars ( gchar *string , gchar *pattern);
-gchar *StripPathFromFilename ( gchar *name, gchar *pattern );
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path );
 int CountCharacter ( gchar *string , int chr );
 gchar *RemoveBackSlashes ( gchar *name);

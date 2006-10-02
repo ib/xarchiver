@@ -33,7 +33,9 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 #include "arj.h"
+#include "lha.h"
 #include "iso.h"
 #include "zip.h"
 #include "rar.h"
@@ -78,9 +80,11 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data);
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data);
+void xa_show_help (GtkMenuItem *menuitem, gpointer user_data);
 void xa_about (GtkMenuItem *menuitem, gpointer user_data);
 void on_options1_activate (GtkMenuItem *menuitem, gpointer user_data);
 void xa_extract_archive ( GtkMenuItem *menuitem, gpointer user_data);
+void xa_convert_sfx ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_select_all ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_deselect_all ( GtkMenuItem *menuitem, gpointer user_data);
 void ShowShellOutput ( GtkMenuItem *menuitem );
@@ -120,7 +124,7 @@ void OffTooltipPadlock();
 void Update_StatusBar (gchar *msg);
 void xa_watch_child ( GPid pid, gint status, gpointer data);
 char *Show_File_Dialog (int dummy , gpointer title);
-void xa_about_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
+void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
 gchar *name;
 gchar *permissions;
 #endif

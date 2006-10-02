@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS =							\
 	1.8								\
 	dist-bzip2
 
-SUBDIRS = pixmaps po src
+SUBDIRS = pixmaps po src doc
 
 pixmapsdir       = $(datadir)/pixmaps
 pixmaps_DATA     = xarchiver.png

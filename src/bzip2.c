@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include "config.h"
 #include "bzip2.h"
 #include "extract_dialog.h"
@@ -34,7 +34,7 @@ void OpenBzip2 ( XArchive *archive )
     if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 	{
 		gchar *tar;
-    
+
 		tar = g_find_program_in_path ("gtar");
 		if (tar == NULL)
 		tar = g_strdup ("tar");
@@ -75,7 +75,7 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 	gchar *command = NULL;
 	gboolean result = FALSE;
 	gboolean ext;
-	
+
 	if ( ! cli )
 		archive->extraction_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
 
@@ -91,12 +91,12 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 			g_free (text);
 		}
 
-		filename_only = StripPathFromFilename (archive->escaped_path , "/");
+		filename_only = g_strrstr (archive->escaped_path , "/");
 		if (file_extension_is (filename_only,".gz") || file_extension_is (filename_only,".bz2") )
 			ext = TRUE;
 		else
 			ext = FALSE;
-					
+
 		if (ext)
 			command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp", NULL);
 		else
@@ -139,7 +139,7 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 	}
 	if (result == 0)
 	{
-		xa_set_button_state (1,1,0,0,0);
+		xa_set_button_state (1,1,0,0,0,0);
 		archive->status = XA_ARCHIVESTATUS_IDLE;
 		gtk_widget_set_sensitive (Stop_button, FALSE);
 		gtk_widget_hide ( viewport2 );
@@ -163,8 +163,8 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	}
 
 	/* Let's copy the archive to /tmp first */
-	temp_name = g_strconcat ( " /tmp", StripPathFromFilename (archive->escaped_path , "/"), NULL);
-	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL); 
+	temp_name = g_strconcat ( " /tmp", g_strrstr (archive->escaped_path , "/"), NULL);
+	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL);
 	if ( ! cli)
 		result = xa_run_command (command , 0);
 	else
@@ -191,7 +191,7 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	if (tar == NULL)
 		tar = g_strdup ("tar");
 	l = strlen (temp_name);
-	
+
 	if (file_extension_is (archive->escaped_path,".tar.bz2") )
 		temp_name[l - 4] = 0;
 	else if (file_extension_is (archive->escaped_path,".tbz2") )
@@ -236,7 +236,7 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 		Update_StatusBar ( msg );
 		g_free (msg);
 	}
-	
+
 	command = g_strconcat ( dummy ? "gzip -f " : "bzip2 ", "-f " , temp_name , NULL );
 	if ( ! cli )
 		result = xa_run_command (command , 0);

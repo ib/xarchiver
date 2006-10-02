@@ -67,12 +67,6 @@ gchar *EscapeBadChars ( gchar *string , gchar *pattern)
 	return escape_str_common (string, pattern, '\\', 0);
 }
 
-
-gchar *StripPathFromFilename ( gchar *name, gchar *pattern )
-{
-    return g_strrstr ( name , pattern );
-}
-
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path )
 {
 	return g_strconcat (extract_path , path , NULL);
@@ -198,7 +192,7 @@ gchar *extract_local_path (gchar *path , gchar *filename)
     gchar *local_escaped_path;
 	unsigned short int x;
 
-	gchar *no_path = StripPathFromFilename(filename , "/");
+	gchar *no_path = g_strrstr (filename , "/");
 	if (no_path != NULL)
 	{
 		no_path++;
@@ -222,8 +216,10 @@ void xa_set_window_title ( GtkWidget *window , gchar *title)
 		gtk_window_set_title ( GTK_WINDOW (window) , "Xarchiver " VERSION );
 	else
 	{
-		x = g_strconcat ( "Xarchiver " , VERSION , " - ", StripPathFromFilename (title , "/") , NULL);
-		gtk_window_set_title ( GTK_WINDOW (window) , x);	
+		x = g_strconcat ( g_strrstr (title , "/") , " - " , "Xarchiver " , VERSION , NULL);
+		x++;
+		gtk_window_set_title ( GTK_WINDOW (window) , x);
+		x--;
 		g_free (x);
 	}
 }

@@ -67,7 +67,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	gtk_widget_set_size_request (dialog_data->destination_path_entry, 385, -1);
 	gtk_entry_set_activates_default (GTK_ENTRY (dialog_data->destination_path_entry), TRUE);
 
-	gchar *dummy = StripPathFromFilename(archive->path, ".");
+	gchar *dummy = g_strrstr (archive->path, ".");
 	if (dummy != NULL)
 	{
 		dummy++;
@@ -317,7 +317,10 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			case GTK_RESPONSE_OK:
 			destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
-			archive->extraction_path = EscapeBadChars ( destination_path , "$\'`\"\\!?* ()&|@#:;" );
+			if (archive->type != XARCHIVETYPE_ISO)
+				archive->extraction_path = EscapeBadChars ( destination_path , "$\'`\"\\!?* ()&|@#:;" );
+			else
+				archive->extraction_path = g_strdup ( destination_path );
 
 			if ( strlen ( archive->extraction_path ) == 0 )
 			{
@@ -543,7 +546,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						g_free (name);
 						g_free (permissions);
 					}
-					xa_set_button_state (1,1,0,1,1);
+					xa_set_button_state (1,1,0,1,0,1);
 					OffTooltipPadlock();
 					archive->status =XA_ARCHIVESTATUS_IDLE;
 					Update_StatusBar ( _("Operation completed.") );
@@ -750,7 +753,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 				row_list = row_list->next;
 			}
 			g_list_free (row_list);
-			xa_set_button_state (1,1,0,1,1);
+			xa_set_button_state (1,1,0,1,0,1);
 			OffTooltipPadlock();
 			archive->status =XA_ARCHIVESTATUS_IDLE;
 			Update_StatusBar ( _("Operation completed.") );

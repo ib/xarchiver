@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Xarchiver menu</title><link rel="stylesheet" href="xarchiver.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.69.1" /><link rel="start" href="index.html" title="&#10;&#9;&#9;&#9;Xarchiver 0.4.1&#10;&#9;&#9;" /><link rel="up" href="ch03.html" title="Chapter 3. Usage" /><link rel="prev" href="ch03s03.html" title="General" /><link rel="next" href="ch04.html" title="Chapter 4. FAQ" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Xarchiver menu</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s03.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Usage</th><td width="20%" align="right"> <a accesskey="n" href="ch04.html">Next</a></td></tr></table><hr /></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="menu"></a>Xarchiver menu</h2></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="file_menu"></a>File menu</h3></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="new"></a>New</h4></div></div></div><p>
+							Creates a new archive. The new archive dialog is opened. The archive is
+							not effectively created until some content is added to it. Please note if
+							the archive already exists and you choose to overwrite it, the existing archive will be deleted.
+						</p><p>
+							</p><div class="figure"><a id="id2482286"></a><p class="title"><b>Figure 3.1. New dialog</b></p><div><img src="images/new_dialog.png" alt="New dialog" /></div></div><p>
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="open"></a>Open</h4></div></div></div><p>
+							Opens a new archive. If you force Xarchiver to open an unsupported archive
+							type an error message will be emitted.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="test"></a>Test</h4></div></div></div><p>
+							Tests the current archive. This option is disabled when
+							the current archive was produced by an archiver who doesn't support testing.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="properties"></a>Properties</h4></div></div></div><p>
+							Shows an archive dialog with useful info about the archive.
+						</p><p>
+							</p><div class="figure"><a id="id2482341"></a><p class="title"><b>Figure 3.2. Archive properties dialog</b></p><div><img src="images/archive_properties.png" alt="Archive properties dialog" /></div></div><p>
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="close"></a>Close</h4></div></div></div><p>
+							Close the current archive and frees all the memory in use by it.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="quit"></a>Quit</h4></div></div></div><p>
+							Frees all the memory in use and quit Xarchiver.
+						</p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="action_menu"></a>Action menu</h3></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="add"></a>Add</h4></div></div></div><p>
+							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is diabled when the archive doesn't support encryption.
+						</p><p>
+							</p><div class="figure"><a id="id2482403"></a><p class="title"><b>Figure 3.3. Add dialog</b></p><div><img src="images/add_dialog.png" alt="Add dialog" /></div></div><p>
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="extract"></a>Extract</h4></div></div></div><p>
+							Shows the extract dialog featuring the most used archiver cmd-line options. The password entry is disabled when the current archive is not encrypted; instead if the archive is encrypted and you don't fill this field, Xarchiver will request you the password to extract the archive.
+						</p><p>
+							</p><div class="figure"><a id="id2482428"></a><p class="title"><b>Figure 3.4. Extract dialog</b></p><div><img src="images/extract_dialog.png" alt="Extract dialog" /></div></div><p>
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="sfx"></a>Make SFX</h4></div></div></div><p>
+							Convert the current archive to self-extracting. This option is disabled when the current archive doesn't support this feature (e.g. tar archives).
+
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="delete"></a>Delete</h4></div></div></div><p>
+							Delete the selected files from the archive. A warning dialog will be shown.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="view"></a>View</h4></div></div></div><p>
+							Opens a window containing the ASCII dump of the selected ASCII file. If a file in the archive is encoded with <a href="http://en.wikipedia.org/wiki/ISO_8859" target="_top">
+				<em class="citetitle">ISO-8859</em>
+				</a> encoding, the window will be empty. See the <a href="ch04s06.html" title="Why is the window sometimes empty when I click View?">the section called “Why is the window sometimes empty when I click View?”</a> for an exhaustive explanation.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="select"></a>Select</h4></div></div></div><p>
+							Select all the files in the window.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="deselect"></a>Deselect</h4></div></div></div><p>
+							Deselect all the files in the window.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="output_window"></a>Command line output</h4></div></div></div><p>
+							Opens a window containing the last archiver output.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="iso_info"></a>Show ISO info</h4></div></div></div><p>
+							Opens an ISO properties dialog with useful info about the ISO image. This option is obviously disabled when no ISO image is loaded.
+						</p><p>
+							</p><div class="figure"><a id="id2482558"></a><p class="title"><b>Figure 3.5. ISO properties dialog</b></p><div><img src="images/iso_properties.png" alt="ISO properties dialog" /></div></div><p>
+						</p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="help_menu"></a>Help Menu</h3></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="help"></a>Help</h4></div></div></div><p>
+								Show this documentation in system installed browser.
+								Currently firefox, opera and mozilla are supported.
+							</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="about"></a>About</h4></div></div></div><p>Shows the credit dialog with the contributors to Xarchiver</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">General </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4. FAQ</td></tr></table></div></body></html>

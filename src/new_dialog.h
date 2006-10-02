@@ -21,6 +21,5 @@
 
 #include "archive.h"
 XArchive *xa_new_archive_dialog (gchar *path);
-void xa_new_dialog_combo_changed (GtkComboBox *widget, gpointer user_data);
 #endif
 

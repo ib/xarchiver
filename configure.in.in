@@ -93,6 +93,7 @@ Makefile
 pixmaps/Makefile
 po/Makefile.in
 src/Makefile
+doc/Makefile
 ])
 
 dnl *********************

@@ -23,7 +23,6 @@
 void OpenLha ( XArchive *archive )
 {
 	gchar *command;
-	gchar *lha;
 
 	command = g_strconcat ("lha l " , archive->escaped_path, NULL);
 	archive->dummy_size = 0;
@@ -54,7 +53,6 @@ gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	GValue *timestamp   = NULL;
 	GIOStatus status = G_IO_STATUS_NORMAL;
 	gchar *_size		= NULL;
-	gchar *temp_filename = NULL;
 	unsigned short int a = 0, n = 0, num;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )

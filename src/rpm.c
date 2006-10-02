@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include "config.h"
 #include "rpm.h"
 #include "string_utils.h"
@@ -38,12 +38,12 @@ void OpenRPM ( XArchive *archive )
 	unsigned char bytes[8];
     int dl,il,sigsize,offset;
     gchar *ibs;
-    
+
     signal (SIGPIPE, SIG_IGN);
     stream = fopen ( archive->path , "r" );
 	if (stream == NULL)
     {
-        gchar *msg = g_strdup_printf (_("Can't open RPM file %s:") , archive->path); 
+        gchar *msg = g_strdup_printf (_("Can't open RPM file %s:") , archive->path);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg,g_strerror (errno));
 		g_free (msg);
@@ -114,7 +114,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 {
 	gchar *gzip = data;
 	if ( WIFEXITED(status) )
-	{   
+	{
 		if ( WEXITSTATUS (status) )
 		{
             Update_StatusBar ( _("Operation failed."));
@@ -125,7 +125,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 				ShowShellOutput (NULL);
             unlink ( cpio_tmp );
             g_free (cpio_tmp);
-			xa_set_button_state (1,1,0,0,0);
+			xa_set_button_state (1,1,0,0,0,0);
 			gtk_widget_set_sensitive (Stop_button,FALSE);
 			archive->status = XA_ARCHIVESTATUS_IDLE;
             return FALSE;
@@ -143,7 +143,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 {
 	gchar *gzip = data;
     if ( WIFEXITED( exit_code ) )
-    {   
+    {
 	    if ( WEXITSTATUS ( exit_code ) )
     	{
             Update_StatusBar ( _("Operation failed."));
@@ -155,7 +155,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			unlink ( cpio_tmp );
 			unlink ( gzip );
 			g_free (cpio_tmp);
-			xa_set_button_state (1,1,0,0,0);
+			xa_set_button_state (1,1,0,0,0,0);
 			gtk_widget_set_sensitive (Stop_button,FALSE);
 			archive->status = XA_ARCHIVESTATUS_IDLE;
 			return FALSE;
@@ -199,17 +199,17 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	if (cond & (G_IO_IN | G_IO_PRI | G_IO_OUT) )
     {
 		/* Doing so I write to the input pipe of the g_spawned "cpio -tv" so to produce the list of files in the cpio archive */
-		status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error); 
+		status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error);
 		if ( status != G_IO_STATUS_EOF)
 		{
 			status = g_io_channel_write_chars ( ioc , buffer , bytes_read , &bytes_written , &error );
-			if (status == G_IO_STATUS_ERROR) 
+			if (status == G_IO_STATUS_ERROR)
 			{
 				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred:"),error->message);
 				g_error_free (error);
 				CloseChannels ( ioc_cpio );
 				CloseChannels ( ioc );
-				return FALSE; 
+				return FALSE;
 			}
 			/*
 			while ( bytes_read != bytes_written )
@@ -303,7 +303,7 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 
 			symlink  = g_value_init(symlink, G_TYPE_STRING);
 			filename = g_value_init (filename, G_TYPE_STRING);
-	  
+
 			gchar *temp = g_strrstr (start,"->");
 			if (temp)
 			{

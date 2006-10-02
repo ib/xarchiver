@@ -34,20 +34,20 @@ gboolean unrar = FALSE;
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
-		N_("Extract the archive to the specified folder and quits."),
-		N_("[destination path]")
+		N_("Extract archive to the directory specified by destination_path and quits."),
+		N_("destination_path archive")
 	},
 	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_extract,
-		N_("Extract the archive by asking the destination folder and quits."),
-		N_("[archive path]")
+		N_("Extract archive by asking the destination directory and quits."),
+		N_("archive")
 	},
 	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
-		N_("Add files asking the name of the archive and quits."),
-		N_("[file1] [file2] [file3] ... [fileN]")
+		N_("Add the given files by asking the name of the archive and quits."),
+		N_("file1 file2 file3 ... fileN")
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_add,
-		N_("Add files to the specified archive by asking their filenames and quits."),
-		N_("[archive name]")
+		N_("Add files to archive by asking their filenames and quits."),
+		N_("archive")
 	},
 	{ NULL }
 };
@@ -167,6 +167,9 @@ int main (int argc, char **argv)
 			else
 			{
 				xa_new_archive ( NULL , archive_name );
+				if (archive == NULL)
+					return exit_status;
+
 				if (archive->path != NULL)
 				{
 					_current_dir = g_path_get_dirname(archive_name);
@@ -362,7 +365,7 @@ void GetAvailableCompressors()
     }
 }
 
-void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean Extract, gboolean select)
+void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean Extract, gboolean exe, gboolean select)
 {
 	gtk_widget_set_sensitive ( New_button, New);
     gtk_widget_set_sensitive ( new1, New);
@@ -372,6 +375,8 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean 
 	gtk_widget_set_sensitive ( addfile, AddFile);
 	gtk_widget_set_sensitive ( Extract_button, Extract);
 	gtk_widget_set_sensitive ( extract_menu, Extract);
+	gtk_widget_set_sensitive ( exe_menu, exe);
+	gtk_widget_set_sensitive ( Exe_button, exe);
 	gtk_widget_set_sensitive ( select_all, select);
 }
 

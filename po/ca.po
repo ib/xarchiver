@@ -14,7 +14,7 @@ msgstr ""
 "Language-Team: Catalan\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: src/7zip.c:37 src/arj.c:38 src/bzip2.c:57 src/gzip.c:54 src/iso.c:677
 #: src/rar.c:37 src/rpm.c:56 src/tar.c:48 src/zip.c:37
@@ -203,7 +203,9 @@ msgstr ""
 msgid ""
 "Select the files to be added to the current archive; use SHIFT to multiple "
 "select"
-msgstr "Seleccioneu els fitxer a afegir a l’arxiu actual; useu la tecla de fixació de majúscules (SHIFT) per seleccionar-ne varis."
+msgstr ""
+"Seleccioneu els fitxer a afegir a l’arxiu actual; useu la tecla de fixació "
+"de majúscules (SHIFT) per seleccionar-ne varis."
 
 #: src/callbacks.c:649
 msgid "Select the folder to be added to the current archive"
@@ -213,7 +215,9 @@ msgstr "Seleccioneu el directori a afegir a l’arxiu actual"
 msgid ""
 "Select the folders to be added to the current archive; use SHIFT to multiple "
 "select"
-msgstr "Seleccioneu els directoris a afegir a l’arxiu actual; useu la tecla de fixació de majúscules (SHIFT) per seleccionar-ne varis."
+msgstr ""
+"Seleccioneu els directoris a afegir a l’arxiu actual; useu la tecla de "
+"fixació de majúscules (SHIFT) per seleccionar-ne varis."
 
 #: src/callbacks.c:690 src/interface.c:230
 msgid "Create a new archive"
@@ -332,7 +336,8 @@ msgstr "Examina subdirectoris recursivament"
 msgid ""
 "Include everything in the directory recursively starting from the current "
 "directory."
-msgstr "Inclou tot el contingut del directori de manera recursiva des de l’actual."
+msgstr ""
+"Inclou tot el contingut del directori de manera recursiva des de l’actual."
 
 #: src/add_dialog.c:163
 msgid "Generate a solid archive"
@@ -342,7 +347,9 @@ msgstr "Genera un arxiu sòlid"
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio."
-msgstr "A un arxiu sòlid els fitxers s’agrupen per proporcionar una ràtio de compressió millor."
+msgstr ""
+"A un arxiu sòlid els fitxers s’agrupen per proporcionar una ràtio de "
+"compressió millor."
 
 #: src/add_dialog.c:172
 msgid "Remove files after adding"
@@ -365,7 +372,10 @@ msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
 "not add files that are not already in the archive."
-msgstr "Aquesta opció sols afecta l’arxiu si s’ha modificat fa manco que la versió ja present a l’arxiu; al contrari que al cas de l’actualizació no s’afegiran els fitxers que no estiguin a l’arxiu."
+msgstr ""
+"Aquesta opció sols afecta l’arxiu si s’ha modificat fa manco que la versió "
+"ja present a l’arxiu; al contrari que al cas de l’actualizació no s’afegiran "
+"els fitxers que no estiguin a l’arxiu."
 
 #: src/add_dialog.c:194
 msgid "Update an existing entry in the archive"
@@ -375,23 +385,30 @@ msgstr "Actualitza una entrada existent a l’arxiu"
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified."
-msgstr "Aquesta opció afegirà els fitxers nous i actualitzarà els que hagin sigut modificats des del moment que l’arxiu fou creat o modificat per darrera vegada."
+msgstr ""
+"Aquesta opció afegirà els fitxers nous i actualitzarà els que hagin sigut "
+"modificats des del moment que l’arxiu fou creat o modificat per darrera "
+"vegada."
 
 #: src/add_dialog.c:207
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = sense compressió, 5 per defecte, 9 = millor compressió però més lenta"
+msgstr ""
+"0 = sense compressió, 5 per defecte, 9 = millor compressió però més lenta"
 
 #: src/add_dialog.c:214
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = sense compressió, 6 per defecte, 9 = millor compressió però més lenta"
+msgstr ""
+"0 = sense compressió, 6 per defecte, 9 = millor compressió però més lenta"
 
 #: src/add_dialog.c:221
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = sense compressió, 3 per defecte, 5 = millor compressió però més lenta"
+msgstr ""
+"0 = sense compressió, 3 per defecte, 5 = millor compressió però més lenta"
 
 #: src/add_dialog.c:228
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression."
-msgstr "0 = sense compressió, 1 per defecte, 4 = més ràpida però amb menor compressió"
+msgstr ""
+"0 = sense compressió, 1 per defecte, 4 = més ràpida però amb menor compressió"
 
 #: src/add_dialog.c:237 src/extract_dialog.c:215 src/interface.c:408
 msgid "Password:"
@@ -476,7 +493,8 @@ msgstr "Extreu els fitxers amb la ruta completa"
 #: src/extract_dialog.c:171
 msgid ""
 "The archive's directory structure is recreated in the extraction directory."
-msgstr "L’estructura del directori d’extracció serà la mateixa que la de l’arxiu"
+msgstr ""
+"L’estructura del directori d’extracció serà la mateixa que la de l’arxiu"
 
 #: src/extract_dialog.c:176
 msgid "Touch files"
@@ -487,7 +505,9 @@ msgid ""
 "When this option is used, tar leaves the data modification times of the "
 "files it extracts as the times when the files were extracted, instead of "
 "setting it to the times recorded in the archive."
-msgstr "En activar aquesta opció tar deixa les dates de modificacions dels fitxers a extreure al moment d’extracció i no al moment de desar-los."
+msgstr ""
+"En activar aquesta opció tar deixa les dates de modificacions dels fitxers a "
+"extreure al moment d’extracció i no al moment de desar-los."
 
 #: src/extract_dialog.c:192
 msgid "Freshen existing files"
@@ -497,7 +517,9 @@ msgstr "Refresca els arxius existents"
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies."
-msgstr "Extreu sols els fitxers que ja existeixin al disc i que siguin nous que les seves còpies."
+msgstr ""
+"Extreu sols els fitxers que ja existeixin al disc i que siguin nous que les "
+"seves còpies."
 
 #: src/extract_dialog.c:199
 msgid "Update existing files"
@@ -508,7 +530,10 @@ msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk."
-msgstr "Aquesta opció fa la mateixa funció que el refresc, extraguent els fitxers si són més nous, però a més a més extreurà els fitxers que no existien anteriorment al disc."
+msgstr ""
+"Aquesta opció fa la mateixa funció que el refresc, extraguent els fitxers si "
+"són més nous, però a més a més extreurà els fitxers que no existien "
+"anteriorment al disc."
 
 #: src/extract_dialog.c:253 src/interface.c:134
 msgid "_Extract"
@@ -540,7 +565,9 @@ msgstr "No s’ha pogut crear el directori «%s»"
 msgid ""
 "You don't have the right permissions to extract the files to the folder \"%s"
 "\"."
-msgstr "No teniu permisos suficients per extreure els fitxers dins els directori «%s»."
+msgstr ""
+"No teniu permisos suficients per extreure els fitxers dins els directori «%"
+"s»."
 
 #: src/extract_dialog.c:346
 msgid "Can't perform extraction!"
@@ -628,7 +655,9 @@ msgstr "Extreu"
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
-msgstr "Extreu fitxers de l’arxiu actual; useu el ratolí per seleccionar-los individualment"
+msgstr ""
+"Extreu fitxers de l’arxiu actual; useu el ratolí per seleccionar-los "
+"individualment"
 
 #: src/interface.c:268
 msgid "Delete"
@@ -899,4 +928,3 @@ msgstr "No s’ha pogut escriure a /tmp:"
 #: src/zip.c:37
 msgid "CRC-32"
 msgstr "CRC-32"
-

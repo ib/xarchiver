@@ -1,11 +1,8 @@
-- fix bug #1736, #2176, #2247.
+- fix bug #1736, #2176.
 - redesign the new dialog [PARTIALLY DONE] (avoid creation of rar when unrar is avail from the cmd-line).
 - allow switching by right click on the toolbar to icons with text/ no text/ small icons.
 - add a small progress window when using Xarchiver cmd-line switches.
 - better handling of current installed archivers.
 - loading and saving of add/extraction options and window size.
 - support tar on *BSD.
-- to remove StriPathFromFilename()
 - avoid reset of extract dialog options when loading a new archive.
-- fix view and delete when filename contains [] in zip archives.
-- fix creation of filename with "\ " when extracting an iso whose filename has spaces.

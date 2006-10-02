@@ -1,0 +1,408 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!ENTITY app "Xarchiver">
+<!ENTITY app_small "xarchiver">
+<!ENTITY appversion "0.4.1">
+<!ENTITY appurl "http://xarchiver.xfce.org">
+<!ENTITY author_mail "colossus73@gmail.com">
+<!ENTITY date "September 29, 2006">
+]>
+
+<book lang="en">
+	<bookinfo>
+		<author>
+			<firstname>Giuseppe</firstname>
+			<surname>Torelli</surname>
+			<address><email>&author_mail;</email></address>
+		</author>
+		<copyright>
+			<year>2006</year>
+		</copyright>
+		<legalnotice>
+			<para>
+				This document is distributed under the terms of the GNU General Public License as published by the Free
+				Software Foundation; either version 2 of the License, or (at your option) any later version.
+				A copy of this license can be found in the file COPYING included with the source code of this
+				program.
+			</para>
+		</legalnotice>
+		<title>
+			&app; &appversion;
+		</title>
+	</bookinfo>
+
+	<chapter id="intro">
+		<title>
+			Introduction
+		</title>
+		<section>
+			<title>About Xarchiver</title>
+			<para>
+				<application>&app;</application> is a small and lightweight archive manager.
+				I developed it to manage archives without depending from a special Desktop Environment
+				like KDE or GNOME, so <application>&app;</application> requires only the GTK+2 toolkit
+				to work.
+			</para>
+			<para>
+				<application>&app;</application> has these features:
+				<itemizedlist>
+					<listitem><para>The most used archiver cmd-line options are supported in the Add and Extract dialog</para></listitem>
+					<listitem><para>Archives are detected by their magic header and not by the extension except for .tar.bz2 and .tar.gz</para></listitem>
+					<listitem><para>Drag and drop from and to Xarchiver window is supported with XDS protocol</para></listitem>
+					<listitem><para>All archive relevant content and ISO info are displayed</para></listitem>
+					<listitem><para>Smart detection of arj, zip and rar password encrypted archives</para></listitem>
+					<listitem><para>All the the output of the archiver is displayed in the Xarchiver window</para></listitem>
+					<listitem><para>All common formats are supported: arj, bzip2, gzip, 7z, rar, tar, tar.bz2, tar.gz, zip and RPM (only open,view and extract)</para></listitem>
+					<listitem><para>ISO images are supported without isodump or isoinfo executables (only open,view and extract)</para></listitem>
+					<listitem><para>Support of RPM files without RPM executable. This is useful on not RPM-based distributions like Slackware and Arch Linux</para></listitem>
+					<listitem><para>Useful info about the ISO image are displayed</para></listitem>
+					<listitem><para>Zip, rar, arj and 7z password encrypted archives are fully supported.</para></listitem>
+				</itemizedlist>
+			</para>
+		</section>
+		<section>
+			<title>Where to get it</title>
+			<para>
+				You can obtain <application>&app;</application> from <ulink url="&appurl;">&appurl;</ulink>
+				or perhaps from your distributor.
+			</para>
+		</section>
+		<section>
+			<title>License</title>
+			<para>
+				<application>&app;</application> is distributed under the terms of the GNU General Public License as published
+				by the Free	Software Foundation; either version 2 of the License, or (at your option) any later version.
+				A copy of this license can be found in the file COPYING included with the source code of this
+				program.
+			</para>
+		</section>
+	</chapter>
+
+	<chapter id="installation">
+		<title>
+			Installation
+		</title>
+		<section>
+			<title>Requirements</title>
+			<para>
+				For compiling <application>&app;</application> yourself, you will need the GTK (>= 2.6.0)
+				libraries and header files. You will also need the Pango, Glib and ATK libraries and header files.
+				All these files are available at <ulink url="http://www.gtk.org">http://www.gtk.org</ulink>.
+			</para>
+			<para>
+				Furthermore you need, of course, a C compiler and the Make tool.
+			</para>
+		</section>
+		<section id="source_compilation">
+			<title>Source compilation</title>
+			<para>
+				Compiling <application>&app;</application> is quite easy. The following should do it:
+				<screen>
+					<prompt>%</prompt> <userinput><command>./configure --prefix=/usr</command></userinput>
+					<prompt>%</prompt> <userinput><command>make</command></userinput>
+					<prompt>%</prompt> <userinput><command>make</command> install</userinput></screen>
+			</para>
+			<para>
+				The configure script supports several common options, for a detailed list, type
+				<screen>
+					<prompt>%</prompt> <userinput><command>./configure</command> --help</userinput></screen>
+			</para>
+			<para>
+				If there are any errors during compilation, check your build environment and try to find the error,
+				otherwise contact the author at <email>&author_mail;</email>.
+			</para>
+		</section>
+	</chapter>
+	<chapter id="usage">
+		<title>Usage</title>
+		<section id="getting_started">
+			<title>Getting started</title>
+			<para>
+				You can start <application>&app;</application> in the following ways:
+				<itemizedlist>
+						<listitem>
+						<para>
+							From the Desktop Environment menu
+						</para>
+						<para>
+							Choose in your application menu of your used Desktop Environment:
+							<menuchoice>
+							<guisubmenu>Accessories</guisubmenu>
+							<guimenuitem>&app;</guimenuitem>
+							</menuchoice>.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							From the command line
+						</para>
+						<para>
+							To start <application>&app;</application> from a command line, type the following
+							and press <keycap>Return</keycap>:
+							<screen>
+								<userinput><command>&app_small;</command></userinput>
+							</screen>
+						</para>
+					</listitem>
+				</itemizedlist>
+			</para>
+		</section>
+		<section id="clo">
+			<title>Command line options</title>
+			<para>
+				<table frame="all">
+					<title>Command line Options</title>
+					<tgroup cols="3">
+						<?dbhtml cellpadding="4" ?>
+						<?dbhtml cellspacing="0" ?>
+						<colspec colnum="1" colname="col1"/>
+						<colspec colnum="2" colname="col2"/>
+						<colspec colnum="3" colname="col3"/>
+						<thead>
+							<row>
+								<entry>Short option</entry>
+								<entry>Long option</entry>
+								<entry>Function</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>-x destination_path archive</entry>
+								<entry>--extract-to=destination_path archive</entry>
+								<entry>Extract archive to the directory specified by destination_path and quits.
+								</entry>
+							</row>
+							<row>
+								<entry>-e archive</entry>
+								<entry>--extract=archive</entry>
+								<entry>Extract archive by asking the destination directory and quits.
+								</entry>
+							</row>
+							<row>
+								<entry>-d file1 file2 file3 ... fileN</entry>
+								<entry>--add-to=file1 file2 file3 ... fileN</entry>
+								<entry>Add the given files by asking the name of the archive and quits. If archive doesn't exist it is created. The filenames must be separated by spaces.
+								</entry>
+							</row>
+							<row>
+								<entry>-a archive</entry>
+								<entry>--add=archive</entry>
+								<entry>Add files to archive by asking their filenames and quits.
+								</entry>
+							</row>
+							<row>
+								<entry>-?</entry>
+								<entry>--help</entry>
+								<entry>Show help information and quits.</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				&app; supports all generic GTK options, a list is available on the help screen.
+			</para>
+		</section>
+		<section id="general">
+			<title>General</title>
+			<section id="general_startup">
+				<title>Startup</title>
+				<para>
+					At startup, &app; detects the available installed archivers (tar,rar,zip etc). Since Xarchiver is a frontend (a graphic user interface to the cmd-line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, Xarchiver can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
+				</para>
+			</section>
+			<section id="how_it_works">
+				<title>How it works</title>
+				<para>
+					Xarchiver will run in the background the cmd-line executable of the archiver with the archiver's proper switches to perform the selected operation. If something goes wrong Xarchiver reports the full output of the archiver executable in the command line output window.
+				</para>
+			</section>
+		</section>
+		<section id="menu">
+			<title>Xarchiver menu</title>
+			<section id="file_menu">
+				<title>File menu</title>
+				<section id="new">
+					<title>New</title>
+						<para>
+							Creates a new archive. The new archive dialog is opened. The archive is
+							not effectively created until some content is added to it. Please note if
+							the archive already exists and you choose to overwrite it, the existing archive will be deleted.
+						</para>
+						<para>
+							<figure>
+								<title>New dialog</title>
+									<graphic fileref="images/new_dialog.png"></graphic>
+							</figure>
+						</para>
+				</section>
+				<section id="open">
+					<title>Open</title>
+						<para>
+							Opens a new archive. If you force &app; to open an unsupported archive
+							type an error message will be emitted.
+						</para>
+				</section>
+				<section id="test">
+					<title>Test</title>
+						<para>
+							Tests the current archive. This option is disabled when
+							the current archive was produced by an archiver who doesn't support testing.
+						</para>
+				</section>
+				<section id="properties">
+					<title>Properties</title>
+						<para>
+							Shows an archive dialog with useful info about the archive.
+						</para>
+						<para>
+							<figure>
+								<title>Archive properties dialog</title>
+									<graphic fileref="images/archive_properties.png"></graphic>
+							</figure>
+						</para>
+				</section>
+				<section id="close">
+					<title>Close</title>
+						<para>
+							Close the current archive and frees all the memory in use by it.
+						</para>
+				</section>
+				<section id="quit">
+					<title>Quit</title>
+						<para>
+							Frees all the memory in use and quit &app;.
+						</para>
+				</section>
+			</section>
+			<section id="action_menu">
+				<title>Action menu</title>
+				<section id="add">
+					<title>Add</title>
+						<para>
+							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is diabled when the archive doesn't support encryption.
+						</para>
+						<para>
+							<figure>
+								<title>Add dialog</title>
+									<graphic fileref="images/add_dialog.png"></graphic>
+							</figure>
+						</para>
+				</section>
+				<section id="extract">
+					<title>Extract</title>
+						<para>
+							Shows the extract dialog featuring the most used archiver cmd-line options. The password entry is disabled when the current archive is not encrypted; instead if the archive is encrypted and you don't fill this field, &app; will request you the password to extract the archive.
+						</para>
+						<para>
+							<figure>
+								<title>Extract dialog</title>
+									<graphic fileref="images/extract_dialog.png"></graphic>
+							</figure>
+						</para>
+				</section>
+				<section id="sfx">
+					<title>Make SFX</title>
+						<para>
+							Convert the current archive to self-extracting. This option is disabled when the current archive doesn't support this feature (e.g. tar archives).
+
+						</para>
+				</section>
+				<section id="delete">
+					<title>Delete</title>
+						<para>
+							Delete the selected files from the archive. A warning dialog will be shown.
+						</para>
+				</section>
+				<section id="view">
+					<title>View</title>
+						<para>
+							Opens a window containing the ASCII dump of the selected ASCII file. If a file in the archive is encoded with <ulink url="http://en.wikipedia.org/wiki/ISO_8859">
+				<citetitle>ISO-8859</citetitle>
+				</ulink> encoding, the window will be empty. See the <xref linkend="sixth"/> for an exhaustive explanation.
+						</para>
+				</section>
+				<section id="select">
+					<title>Select</title>
+						<para>
+							Select all the files in the window.
+						</para>
+				</section>
+				<section id="deselect">
+					<title>Deselect</title>
+						<para>
+							Deselect all the files in the window.
+						</para>
+				</section>
+				<section id="output_window">
+					<title>Command line output</title>
+						<para>
+							Opens a window containing the last archiver output.
+						</para>
+				</section>
+				<section id="iso_info">
+					<title>Show ISO info</title>
+						<para>
+							Opens an ISO properties dialog with useful info about the ISO image. This option is obviously disabled when no ISO image is loaded.
+						</para>
+						<para>
+							<figure>
+								<title>ISO properties dialog</title>
+									<graphic fileref="images/iso_properties.png"></graphic>
+							</figure>
+						</para>
+				</section>
+			</section>
+			<section id="help_menu">
+				<title>Help Menu</title>
+					<section id="help">
+						<title>Help</title>
+							<para>
+								Show this documentation in system installed browser.
+								Currently firefox, opera and mozilla are supported.
+							</para>
+					</section>
+					<section id="about">
+						<title>About</title>
+							<para>Shows the credit dialog with the contributors to &app;</para>
+					</section>
+			</section>
+		</section>
+	</chapter> <!-- It closes the opening one at line 117 -->
+	<chapter id="faq">
+		<title>FAQ</title>
+		<section id="first">
+			<title>Why are ace archives not supported?</title>
+			<para>Because on some strange reasons there is no support on Linux for creating archives, only extraction with unace. When they will develop full support for ace archives I will add it to Xarchiver.
+			</para>
+		</section>
+		<section id="second">
+			<title>How can I create an archive with some files password protected and others not?</title>
+			<para>First of all choose 'New' and select one of arj, 7zip, rar or zip archive formats and choose 'Add' from the Action menu. Do NOT check "Password" in the Add dialog. Add your files and then reopen the Add dialog again but this time check "Password" and
+enter your password. From now on all the files you add to the archive will be password protected.
+			</para>
+		</section>
+		<section id="third">
+			<title>Why does Xarchiver emit this error message when handling tar archives?</title>
+			<para>Xarchiver is only a frontend which runs the archiver and reports ITS error messages. Most probably you are opening an archive produced with older versions of tar than the one you are currently using or the archive is corrupted.
+			</para>
+		</section>
+		<section id="fourth">
+			<title>Why is the option "Extract with full path" disabled when using the -e switch with tar archives?</title>
+			<para>Because GNU tar does not provide a full way to extract files without the directories in which they are contained as the other archivers do. Extraction without path when using the GUI is perfomed with a trick which is not available when using the -e switch from the command line.
+			</para>
+		</section>
+		<section id="fifth">
+			<title>Why does Xarchiver sometimes report errors but the Error messages window is empty?</title>
+			<para>Please remember, that Xarchiver is only a frontend. It correctly reads any output from STDOUT or STDERR. Most probably the archiver didn't write anything to those channels even though it exists with an error code.
+			</para>
+		</section>
+		<section id="sixth">
+			<title>Why is the window sometimes empty when I click View?</title>
+			<para>Becase the file you are trying to display is encoded with
+				<ulink url="http://en.wikipedia.org/wiki/ISO_8859">
+				<citetitle>ISO-8859</citetitle>
+				</ulink>. I could set this encoding as a default but then german umlauts in ASCII files for example, would be incorrectly showed so I preferred to set the user locale even though this prevents to show ISO-8859 encoded ASCII files. Detecting them would require additional code I think it doesn't fit into Xarchiver since it's a frontend to command line archivers and not a text editor.
+			</para>
+		</section>
+	</chapter>
+</book>

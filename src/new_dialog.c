@@ -37,6 +37,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	GtkTooltips *filter_tooltip;
 	GList *Suffix,*Name;
 	gint current_archive_suffix = 0;
+	gchar *my_path = NULL;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
 							GTK_WINDOW (MainWindow),
@@ -89,7 +90,6 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	filter_tooltip = gtk_tooltips_new();
 	gtk_tooltips_set_tip (filter_tooltip,combo_box, _("Choose the archive type to create") , NULL);
 	Name = g_list_first ( ArchiveType );
-	gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), _("By extension") );
 	while ( Name != NULL )
 	{
 		if (Name->data == ".tgz" || Name->data == ".rpm" || Name->data == ".iso" || Name->data == ".gz" || Name->data == ".bz2" ||		(Name->data == ".rar" && unrar) )
@@ -104,22 +104,18 @@ XArchive *xa_new_archive_dialog (gchar *path)
 
 	check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(check_button),TRUE);
-	gtk_widget_set_sensitive (check_button,FALSE);
 	gtk_box_pack_start (GTK_BOX (hbox), check_button, TRUE, TRUE, 0);
-
-	g_signal_connect (G_OBJECT(combo_box), "changed", G_CALLBACK(xa_new_dialog_combo_changed), check_button );
-
 	gtk_widget_show_all (hbox);
 	gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (xa_file_chooser), hbox);
 
 	if (path != NULL)
 		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (xa_file_chooser),path);
-		gtk_window_set_modal (GTK_WINDOW (xa_file_chooser),TRUE);
+	gtk_window_set_modal (GTK_WINDOW (xa_file_chooser),TRUE);
 	response = gtk_dialog_run (GTK_DIALOG (xa_file_chooser));
 	//CurrentFolder = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) );
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
-		path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
+		my_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
 		if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
 		{
 			gchar *utf8_path;
@@ -138,50 +134,55 @@ XArchive *xa_new_archive_dialog (gchar *path)
 			g_free (msg);
 			if (response != GTK_RESPONSE_YES)
 			{
-				g_free (path);
+				g_free (my_path);
 				gtk_widget_destroy (xa_file_chooser);
 			    return NULL;
 			}
 			/* The following to avoid to update the archive instead of adding to it since the filename exists */
-			unlink ( path );
+			unlink ( my_path );
 		}
 
 		archive = xa_init_archive_structure (archive);
 		ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
 		current_archive_suffix = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 
-		if (strcmp ( ComboArchiveType,".arj") == 0) archive->type = XARCHIVETYPE_ARJ;
-			else if (strcmp ( ComboArchiveType,".rar") == 0 && unrar) archive->type = XARCHIVETYPE_RAR;
-			else if (strcmp ( ComboArchiveType,".tar") == 0) archive->type = XARCHIVETYPE_TAR;
-			else if (strcmp ( ComboArchiveType,".tar.bz2") == 0) archive->type = XARCHIVETYPE_TAR_BZ2;
-			else if (strcmp ( ComboArchiveType,".tar.gz") == 0) archive->type = XARCHIVETYPE_TAR_GZ;
-			else if (strcmp ( ComboArchiveType,".jar") == 0 || strcmp ( ComboArchiveType,".zip") == 0 ) archive->type = XARCHIVETYPE_ZIP;
-			else if (strcmp ( ComboArchiveType,".rpm") == 0) archive->type = XARCHIVETYPE_RPM;
-			else if (strcmp ( ComboArchiveType,".7z") == 0) archive->type = XARCHIVETYPE_7ZIP;
-			else if (strcmp ( ComboArchiveType,".lzh") == 0) archive->type = XARCHIVETYPE_LHA;
+		if (strcmp ( ComboArchiveType,".arj") == 0)
+			archive->type = XARCHIVETYPE_ARJ;
+		else if (strcmp ( ComboArchiveType,".rar") == 0)
+			archive->type = XARCHIVETYPE_RAR;
+		else if (strcmp ( ComboArchiveType,".tar") == 0)
+			archive->type = XARCHIVETYPE_TAR;
+		else if (strcmp ( ComboArchiveType,".tar.bz2") == 0)
+			archive->type = XARCHIVETYPE_TAR_BZ2;
+		else if (strcmp ( ComboArchiveType,".tar.gz") == 0)
+			archive->type = XARCHIVETYPE_TAR_GZ;
+		else if (strcmp ( ComboArchiveType,".jar") == 0 || strcmp ( ComboArchiveType,".zip") == 0 )
+			archive->type = XARCHIVETYPE_ZIP;
+		else if (strcmp ( ComboArchiveType,".rpm") == 0)
+			archive->type = XARCHIVETYPE_RPM;
+		else if (strcmp ( ComboArchiveType,".7z") == 0)
+			archive->type = XARCHIVETYPE_7ZIP;
+		else if (strcmp ( ComboArchiveType,".lzh") == 0)
+			archive->type = XARCHIVETYPE_LHA;
 		if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(check_button) ) )
 		{
-			if ( ! g_str_has_suffix ( path , ComboArchiveType ) )
+			if ( ! g_str_has_suffix ( my_path , ComboArchiveType ) )
 			{
-				archive->path = g_strconcat ( path, ComboArchiveType , NULL);
+				gtk_widget_destroy (xa_file_chooser);
+				archive->path = g_strconcat ( my_path, ComboArchiveType , NULL);
 				archive->escaped_path = EscapeBadChars (archive->path , "$\'`\"\\!?* ()&|@#:;");
-				g_free ( path );
+				g_free (my_path);
+				return archive;
 			}
 		}
 		gtk_widget_destroy (xa_file_chooser);
+		archive->path = g_strdup (my_path);
+		archive->escaped_path = EscapeBadChars (archive->path , "$\'`\"\\!?* ()&|@#:;");
+		g_free (my_path);
+		return archive;
 	}
 	else if ( (response == GTK_RESPONSE_CANCEL) || (response == GTK_RESPONSE_DELETE_EVENT) )
 		gtk_widget_destroy (xa_file_chooser);
 
-	return archive;
-}
-
-void xa_new_dialog_combo_changed (GtkComboBox *widget, gpointer user_data)
-{
-	GtkWidget *check_button = user_data;
-
-	if (gtk_combo_box_get_active (GTK_COMBO_BOX (widget)) == 0)
-		gtk_widget_set_sensitive (user_data,FALSE);
-	else
-		gtk_widget_set_sensitive (user_data,TRUE);
+	return NULL;
 }
