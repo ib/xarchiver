@@ -1,17 +1,17 @@
 # Russian translation for xarchiver package.
-# Copyright (C) 2005-2006 Giuseppe Torelli.
+# Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xarchiver package.
-# Eugene Ostapets <eostapets@altlinux.ru>, 2005.
-# Andrey Fedoseev <andrey.fedoseev@gmail.com>, 2006.
+# Eugene Ostapets <eostapets@altlinux.ru>, 2005
+# Andrey Fedoseev <andrey.fedoseev@gmail.com>, 2006
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.3.9.2beta2\n"
+"Project-Id-Version: xarchiver 0.4.1svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-04 14:39+0200\n"
-"PO-Revision-Date: 2006-04-27 18:27+0600\n"
-"Last-Translator: Andrey Fedoseev <andrey.fedoseev@gmail.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"PO-Revision-Date: 2006-04-30 18:45+0300\n"
+"Last-Translator: Fedoseev Sergey <fedoseev.sergey@gmail.com>\n"
+"Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgstr "Дата"
 
 #: src/arj.c:38 src/rar.c:37 src/zip.c:37
 msgid "Ratio"
-msgstr "Отношение"
+msgstr "Коэффицент"
 
 #: src/arj.c:38
 msgid "Attributes"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: src/bzip2.c:57 src/gzip.c:54 src/rar.c:37 src/tar.c:48
 msgid "Permissions"
-msgstr "Разрешения"
+msgstr "Права"
 
 #: src/bzip2.c:57 src/gzip.c:54 src/rpm.c:56 src/tar.c:48
 msgid "Symbolic Link"
@@ -81,28 +81,28 @@ msgid "Size"
 msgstr "Размер"
 
 #: src/bzip2.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Extracting gzip file to %s"
-msgstr "Извлечение из архива"
+msgstr ""
 
 #: src/bzip2.c:89
-#, fuzzy, c-format
+#, c-format
 msgid "Extracting bzip2 file to %s"
-msgstr "Извлечение из архива"
+msgstr ""
 
 #: src/bzip2.c:146 src/callbacks.c:106 src/extract_dialog.c:305
 msgid "Operation canceled."
 msgstr ""
 
 #: src/bzip2.c:160
-#, fuzzy, c-format
+#, c-format
 msgid "Decompressing tar file with %s, please wait..."
-msgstr "Добавить файлы в архив"
+msgstr ""
 
 #: src/bzip2.c:235
-#, fuzzy, c-format
+#, c-format
 msgid "Recompressing tar file with %s, please wait..."
-msgstr "Добавить файлы в архив"
+msgstr ""
 
 #: src/callbacks.c:109
 #, c-format
@@ -145,9 +145,8 @@ msgid "Choose Add File to create the compressed file."
 msgstr ""
 
 #: src/callbacks.c:260
-#, fuzzy
 msgid "Choose Add to begin creating the archive."
-msgstr "Добавить папки в архив"
+msgstr ""
 
 #: src/callbacks.c:312
 #, c-format
@@ -185,12 +184,12 @@ msgstr ""
 #: src/callbacks.c:494
 #, fuzzy, c-format
 msgid "You are about to delete %d file(s) from the archive."
-msgstr "Вы уверены, что хотите удалить выбранные файлы их архива?"
+msgstr "Вы уверены, что хотите удалить выбранные файлы из архива?"
 
 #: src/callbacks.c:495
 #, fuzzy
 msgid "Are you sure you want to do this?"
-msgstr "Вы уверены, что хотите удалить выбранные файлы их архива?"
+msgstr "Вы уверены, что хотите удалить выбранные файлы из архива?"
 
 #: src/callbacks.c:501
 msgid "Deleting files from the archive, please wait..."
@@ -198,7 +197,7 @@ msgstr ""
 
 #: src/callbacks.c:611
 msgid "translator-credits"
-msgstr "Andrey Fedoseev <andrey.fedoseev@gmail.com>"
+msgstr ""
 
 #: src/callbacks.c:643
 msgid ""
@@ -258,9 +257,9 @@ msgid "Add the archive extension to the filename"
 msgstr ""
 
 #: src/callbacks.c:881
-#, fuzzy, c-format
+#, c-format
 msgid "Can't open archive \"%s\":"
-msgstr "Новый архив"
+msgstr ""
 
 #: src/callbacks.c:1053
 msgid "Command line output"
@@ -325,9 +324,8 @@ msgid "Directories"
 msgstr ""
 
 #: src/add_dialog.c:130
-#, fuzzy
 msgid "Choose the files or directories to add to the archive"
-msgstr "Добавить папки в архив"
+msgstr ""
 
 #: src/add_dialog.c:135
 msgid "<b>Files and directories to add </b>"
@@ -344,9 +342,8 @@ msgid ""
 msgstr ""
 
 #: src/add_dialog.c:163
-#, fuzzy
 msgid "Generate a solid archive"
-msgstr "Новый архив"
+msgstr ""
 
 #: src/add_dialog.c:167
 msgid ""
@@ -486,9 +483,8 @@ msgid "Overwrite existing files"
 msgstr ""
 
 #: src/extract_dialog.c:162
-#, fuzzy
 msgid "Extract files with full path"
-msgstr "Извлечение из архива"
+msgstr ""
 
 #: src/extract_dialog.c:171
 msgid ""
@@ -496,9 +492,8 @@ msgid ""
 msgstr ""
 
 #: src/extract_dialog.c:176
-#, fuzzy
 msgid "Touch files"
-msgstr "Добавить файлы"
+msgstr ""
 
 #: src/extract_dialog.c:179
 msgid ""
@@ -585,11 +580,11 @@ msgstr ""
 #: src/interface.c:68
 #, fuzzy
 msgid "_File"
-msgstr "Добавить файлы"
+msgstr "Имя файла"
 
 #: src/interface.c:88
 msgid "_Test"
-msgstr ""
+msgstr "_Проверить"
 
 #: src/interface.c:98
 #, fuzzy
@@ -597,7 +592,6 @@ msgid "_Properties"
 msgstr "Свойство"
 
 #: src/interface.c:117
-#, fuzzy
 msgid "A_ction"
 msgstr "_Действие"
 
@@ -653,8 +647,9 @@ msgid ""
 msgstr ""
 
 #: src/interface.c:268
+#, fuzzy
 msgid "Delete"
-msgstr ""
+msgstr "Дата"
 
 #: src/interface.c:273
 msgid "Delete files from the current archive"
@@ -735,14 +730,14 @@ msgid "Can't create directory:"
 msgstr ""
 
 #: src/iso.c:578
-#, fuzzy, c-format
+#, c-format
 msgid "Can't write file \"%s\":"
-msgstr "Новый архив"
+msgstr ""
 
 #: src/iso.c:677 src/rpm.c:56
 #, fuzzy
 msgid "Permission"
-msgstr "Разрешения"
+msgstr "Права"
 
 #: src/iso.c:677
 msgid "Offset"
@@ -827,9 +822,8 @@ msgid "Effective date:"
 msgstr ""
 
 #: src/main.c:60
-#, fuzzy
 msgid "[archive name]"
-msgstr "_Архив"
+msgstr ""
 
 #: src/main.c:64
 #, c-format
@@ -839,9 +833,8 @@ msgid ""
 msgstr ""
 
 #: src/main.c:85 src/main.c:119
-#, fuzzy
 msgid "Can't extract files from the archive:"
-msgstr "Добавить файлы в архив"
+msgstr ""
 
 #: src/main.c:85 src/main.c:119 src/main.c:206
 msgid "You missed the archive name!\n"
@@ -868,7 +861,6 @@ msgid "An error occurred!"
 msgstr ""
 
 #: src/rar.c:37
-#, fuzzy
 msgid "CRC"
 msgstr "CRC"
 
@@ -930,120 +922,8 @@ msgstr ""
 msgid "CRC-32"
 msgstr "CRC"
 
-#, fuzzy
-#~ msgid "Archiver Output Window"
-#~ msgstr "Свойства архива"
-
-#~ msgid "_Archive"
-#~ msgstr "_Архив"
-
-#, fuzzy
-#~ msgid "Extract the archive to the specified folder and quits."
-#~ msgstr "Добавить файлы в архив"
-
-#, fuzzy
-#~ msgid "Extract the archive by asking the destination folder and quits."
-#~ msgstr "Добавить файлы в архив"
-
-#, fuzzy
-#~ msgid "[archive path]"
-#~ msgstr "_Архив"
-
-#, fuzzy
-#~ msgid "Add files asking the name of the archive and quits."
-#~ msgstr "Добавить файлы в архив"
-
-#, fuzzy
-#~ msgid ""
-#~ "Add files to the specified archive by asking their filenames and quits."
-#~ msgstr "Добавить файлы в архив"
-
-#~ msgid "A GTK+2 only archive manager"
-#~ msgstr "Менеджер архивов на GTK+2"
-
-#, fuzzy
-#~ msgid "Archive manager"
-#~ msgstr "_Архив"
-
-#, fuzzy
-#~ msgid "Xarchiver"
-#~ msgstr "_Архив"
-
-#, fuzzy
-#~ msgid "Add files to the specified archive and quits."
-#~ msgstr "Добавить файлы в архив"
-
-#, fuzzy
-#~ msgid "Can't perform the action:"
-#~ msgstr "Добавить файлы в архив"
-
-#, fuzzy
-#~ msgid "Add Dialog"
-#~ msgstr "Добавить файлы"
-
-#, fuzzy
-#~ msgid "Compressing file with bzip2, please wait..."
-#~ msgstr "Добавить файлы в архив"
-
-#, fuzzy
-#~ msgid "Compressing file with gzip, please wait..."
-#~ msgstr "Добавить файлы в архив"
-
-#, fuzzy
-#~ msgid "Extract Dialog"
-#~ msgstr "Извлечь"
-
-#, fuzzy
-#~ msgid "Extracting "
-#~ msgstr "Извлечь"
-
-#, fuzzy
-#~ msgid " file to "
-#~ msgstr "Добавить файлы в архив"
-
-#, fuzzy
-#~ msgid " files"
-#~ msgstr "Добавить файлы"
-
-#, fuzzy
-#~ msgid "Add F_ile"
-#~ msgstr "Добавить файлы"
-
-#~ msgid "Add _Folder"
-#~ msgstr "Добавить _папку"
-
-#~ msgid "Add Folder"
-#~ msgstr "Добавить папку"
-
-#, fuzzy
-#~ msgid "Abstract ID:"
-#~ msgstr "Извлечь в"
-
-#, fuzzy
-#~ msgid "The archive \""
-#~ msgstr "Новый архив"
-
-#, fuzzy
-#~ msgid "Preserve permissions"
-#~ msgstr "Разрешения"
-
-#, fuzzy
-#~ msgid "Extract ALL files"
-#~ msgstr "Извлечение из архива"
-
-#~ msgid "Cancel"
-#~ msgstr "Отмена"
-
-#~ msgid "_Add File(s)"
-#~ msgstr "Добавить _файл(ы)"
-
-#, fuzzy
-#~ msgid "Add File(s)"
-#~ msgstr "Добавить _файл(ы)"
-
-#, fuzzy
-#~ msgid "Add Folder(s)"
-#~ msgstr "Добавить папку"
+#~ msgid "Done"
+#~ msgstr "Выполнено"
 
 #~ msgid "File \"%s\" could not be opened, archive not supported\n"
 #~ msgstr "Файл \"%s\" не может быть открыт, архив не поддерживается\n"
@@ -1051,8 +931,44 @@ msgstr "CRC"
 #~ msgid "Opening archive..."
 #~ msgstr "Открывается архив..."
 
-#~ msgid "Done"
-#~ msgstr "Выполнено"
+#~ msgid "archiving app"
+#~ msgstr "ПО архивирования"
+
+#~ msgid "_Add File(s)"
+#~ msgstr "Добавить _файл(ы)"
+
+#~ msgid "Add _Folder"
+#~ msgstr "Добавить _папку"
+
+#~ msgid "Add Folder"
+#~ msgstr "Добавить папку"
+
+#~ msgid "Choose destination folder"
+#~ msgstr "Выберите папку назначения"
+
+#~ msgid "Cancel"
+#~ msgstr "Отмена"
 
 #~ msgid "Value"
 #~ msgstr "Значение"
+
+#~ msgid "Verify not supported by this support object"
+#~ msgstr "Для архивов данного типа не поддерживается проверка файлов"
+
+#~ msgid "Add not supported by this support object"
+#~ msgstr "Для архивов данного типа не поддерживается добавление файлов"
+
+#~ msgid "Extract not supported by this support object"
+#~ msgstr "Для архивов данного типа не поддерживается распаковка файлов"
+
+#~ msgid "Remove not supported by this support object"
+#~ msgstr "Для архивов данного типа не поддерживается удаление файлов"
+
+#~ msgid "Testing not supported by this support object"
+#~ msgstr "Для архивов данного типа не поддерживается тестирование файлов"
+
+#~ msgid "Open not supported by this support object"
+#~ msgstr "Для архивов данного типа не поддерживается открытие файлов"
+
+#~ msgid "View not supported by this support object"
+#~ msgstr "Для архивов данного типа не поддерживается просмотр файлов"
