@@ -26,6 +26,7 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
+#include <glib/gstdio.h>
 #include <errno.h>
 #include <sys/wait.h>
 #include <sys/types.h>
@@ -54,25 +55,13 @@ unsigned long long int file_size, file_offset;
 gboolean done,full_path,overwrite,add_recurse;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
-GtkWidget *dialog , *textview, *scrollwin, *vbox, *OutputWindow , *File_Selector , *view_window, *archive_properties_win;
+GtkWidget *dialog , *textview, *scrollwin, *vbox, *OutputWindow , *view_window, *archive_properties_win;
 GtkTextBuffer *textbuf , *viewtextbuf;
 GtkTextIter enditer , start, end;
 GtkTextIter viewenditer, viewstart, viewend;
 GtkListStore *liststore;
-GtkTreeIter iter;
-GtkCellRenderer *renderer;
-GtkTreeViewColumn *column;
-gchar *path, *ComboArchiveType, *destination_path;
+gchar *ComboArchiveType, *destination_path;
 GtkTreeModel *model;
-GString *names;
-GSList *Files_to_Add;
-
-struct File_Chooser_Data
-{
-    GtkListStore *ls;
-    GtkTreeView *tv;
-    GtkFileChooser *fc;
-};
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_open_archive (GtkMenuItem *menuitem, gpointer user_data );
@@ -100,7 +89,6 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data);
 void drag_end (GtkWidget *treeview1, GdkDragContext *context, gpointer data);
 void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data);
 
-GSList *Add_File_Dialog ( gchar *mode );
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
 int DetectArchiveType ( gchar *filename );
 
@@ -123,7 +111,7 @@ void OffDeleteandViewButtons();
 void OffTooltipPadlock();
 void Update_StatusBar (gchar *msg);
 void xa_watch_child ( GPid pid, gint status, gpointer data);
-char *Show_File_Dialog (int dummy , gpointer title);
+gchar *xa_open_file_dialog ();
 void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
 gchar *name;
 gchar *permissions;

@@ -71,5 +71,6 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 gboolean xa_create_temp_directory (gchar tmp_dir[]);
 gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path, gboolean overwrite, gboolean tar_touch, gchar *extract_path , gboolean cpio_flag);
 gboolean xa_delete_temp_directory ( gchar *dir_name, gboolean flag);
+void xa_choose_extraction_directory (GtkWidget *widget, gpointer data);
 #endif
 

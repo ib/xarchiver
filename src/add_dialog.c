@@ -366,6 +366,7 @@ void activate_remove_button (GtkTreeModel *tree_model, GtkTreePath *path, GtkTre
 
 void xa_select_files_to_add ( GtkButton* button, gpointer _add_dialog )
 {
+	GtkWidget *File_Selector;
 	Add_dialog_data *add_dialog = _add_dialog;
 	GSList *dummy = NULL;
 	gchar *title = NULL;
@@ -476,6 +477,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 	gchar *compression_string = NULL;
 	gchar *first_item = NULL;
 	gboolean done = FALSE;
+	GString *names;
 
 	while ( ! done )
 	{

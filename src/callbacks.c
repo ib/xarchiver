@@ -150,6 +150,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			return;
 		}
 	}
+
+	if (archive->status == XA_ARCHIVESTATUS_SFX)
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,_("Operation completed"),archive->tmp );
+
 	if (archive->status == XA_ARCHIVESTATUS_TEST)
 		ShowShellOutput (NULL);
 
@@ -205,10 +209,13 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		}
 	}
 
-	if ( archive->status != XA_ARCHIVESTATUS_EXTRACT && archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
+	if ( archive->status == XA_ARCHIVESTATUS_OPEN)
 	{
-		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-		g_object_unref (model);
+		if ( archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
+		{
+			gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
+			g_object_unref (model);
+		}
 	}
 	gtk_widget_grab_focus (treeview1);
 	xa_set_window_title (MainWindow , archive->path);
@@ -275,10 +282,12 @@ int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, cons
 
 void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 {
+	gchar *path = NULL;
+
 	path = (gchar *)data;
 	if ( path == NULL)
     {
-		path = Show_File_Dialog ( 1 , "open" );
+		path = xa_open_file_dialog ();
 		if (path == NULL)
 			return;
 	}
@@ -496,6 +505,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gchar *command = NULL;
 	gchar *tar;
 	gint x;
+	GString *names;
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
 	names = g_string_new ( " " );
@@ -607,6 +617,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 	gchar *command;
 	gboolean result;
 
+	//TODO: to remove this ?
 	if ( archive->has_passwd )
 	{
 		if ( archive->passwd == NULL)
@@ -618,8 +629,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 	}
     Update_StatusBar ( _("Converting archive to self-extracting, please wait..."));
     gtk_widget_set_sensitive (Stop_button,TRUE);
-    gtk_widget_set_sensitive ( check_menu , FALSE );
-    xa_set_button_state (0,0,0,0,0,0);
+    archive->status = XA_ARCHIVESTATUS_SFX;
     switch ( archive->type )
 	{
 		case XARCHIVETYPE_RAR:
@@ -633,7 +643,13 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
         {
         	gchar *archive_name;
         	gchar *dummy;
-			gchar *text;
+			FILE *sfx_archive;
+			FILE *archive_not_sfx;
+			gchar *content;
+            gsize length;
+            GError *error = NULL;
+			gchar *unzipsfx_path = NULL;
+			gchar buffer[1024];
 
         	dummy = g_strrstr (archive->escaped_path, ".");
 			if (dummy != NULL)
@@ -647,22 +663,54 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 			else
 				archive_name = g_strdup(archive->escaped_path);
 
-        	command = g_strconcat ("cat unzipsfx ",archive->escaped_path," > ",archive_name,NULL);
-        	result = xa_run_command (command , 0);
-        	g_free (command);
+			unzipsfx_path = g_find_program_in_path ( "unzipsfx" );
+			if ( unzipsfx_path != NULL )
+			{
+				/* Load the unzipsfx executable in memory, about 50 KB */
+				result = g_file_get_contents (unzipsfx_path,&content,&length,&error);
+				if ( ! result)
+				{
+					Update_StatusBar (_("Operation failed."));
+					gtk_widget_set_sensitive (Stop_button,FALSE);
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
+					g_error_free (error);
+					g_free (unzipsfx_path);
+					return;
+				}
+				g_free (unzipsfx_path);
 
-        	command = g_strconcat ("chmod 755 ",archive_name,NULL);
-			result = xa_run_command (command , 0);
-			g_free (command);
+				/* Write unzipsfx to a new file */
+				sfx_archive = g_fopen ( archive_name ,"w" );
+				if (sfx_archive == NULL)
+				{
+					Update_StatusBar (_("Operation failed."));
+					gtk_widget_set_sensitive (Stop_button,FALSE);
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno) );
+					return;
+				}
+				archive_not_sfx = g_fopen ( archive->path ,"r" );
+				fwrite (content, 1, length, sfx_archive);
+				g_free (content);
 
-			command = g_strconcat ("zip -A ",archive_name,NULL);
-			result = xa_run_command (command , 1);
-			g_free (command);
+				/* Read archive data and write it after the unzipsfx in the new file */
+				while ( ! feof(archive_not_sfx) )
+				{
+					fread (&buffer, 1, 1024, archive_not_sfx);
+					fwrite (&buffer, 1, 1024, sfx_archive);
+				}
+				fclose (archive_not_sfx);
+				fclose (sfx_archive);
+
+				command = g_strconcat ("chmod 755 ", archive_name , NULL);
+				result = xa_run_command (command , 0);
+				g_free (command);
+
+				archive->tmp = g_strconcat (_("The self extracting archive is:\n"), archive_name , NULL);
+				command = g_strconcat ("zip -A ",archive_name,NULL);
+				result = xa_run_command (command , 1);
+				g_free (command);
+			}
 			g_free (archive_name);
-
-			text = g_strconcat (_("The self extracting archive is named: "),archive_name,NULL);
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,_("Operation completed"),text );
-			g_free (text);
         }
         break;
 
@@ -683,9 +731,6 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 		default:
 		command = NULL;
 	}
-	archive->status = XA_ARCHIVESTATUS_SFX;
-    xa_run_command ( command , 1);
-    g_free (command);
 }
 
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
@@ -734,145 +779,73 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_widget_destroy (about);
 }
 
-GSList *Add_File_Dialog ( gchar *mode )
+gchar *xa_open_file_dialog ()
 {
-	GSList *list = NULL;
-	gchar *title = NULL;
-	int flag;
-
-	if ( mode == "file" )
-	{
-		title = _("Select the files to be added to the current archive; use SHIFT to multiple select");
-		flag = GTK_FILE_CHOOSER_ACTION_OPEN;
-	}
-	else
-	{
-		if (archive->type == XARCHIVETYPE_ARJ)
-			title = _("Select the folder to be added to the current archive");
-        else
-			title = _("Select the folders to be added to the current archive; use SHIFT to multiple select");
-		flag = GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER;
-	}
-	File_Selector = gtk_file_chooser_dialog_new ( title,
-							GTK_WINDOW (MainWindow),
-							flag,
-							GTK_STOCK_CANCEL,
-							GTK_RESPONSE_CANCEL,
-							GTK_STOCK_ADD,
-							GTK_RESPONSE_ACCEPT,
-							NULL);
-    /* We set gtk_file_chooser_set_select_multiple to FALSE because a bug in ARJ prevents adding more of two directories */
-    if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || ( archive->type == XARCHIVETYPE_ARJ && mode == "folder" ) )
-		gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , FALSE );
-    else
-		gtk_file_chooser_set_select_multiple ( GTK_FILE_CHOOSER (File_Selector) , TRUE );
-
-	if (current_open_directory != NULL)
-		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , current_open_directory );
-	response = gtk_dialog_run (GTK_DIALOG (File_Selector) );
-	if (response == GTK_RESPONSE_ACCEPT)
-		list = gtk_file_chooser_get_filenames ( GTK_FILE_CHOOSER (File_Selector) );
-	gtk_widget_destroy (File_Selector);
-	return list;
-}
-
-gchar *Show_File_Dialog ( int dummy , gpointer mode )
-{
+	GtkWidget *File_Selector = NULL;
 	GtkFileFilter *filter;
 	gchar *path = NULL;
-	gchar *title = NULL;
-	const gchar *flag2 = NULL;
-	unsigned short int flag = 0;
 
-	if ( mode == "open" )
+	if (File_Selector == NULL)
 	{
-		title = _("Open an archive");
-		flag = GTK_FILE_CHOOSER_ACTION_OPEN;
-		flag2 = "gtk-open";
-	}
+		File_Selector = gtk_file_chooser_dialog_new ( _("Open an archive"),
+						GTK_WINDOW (MainWindow),
+						GTK_FILE_CHOOSER_ACTION_OPEN,
+						GTK_STOCK_CANCEL,
+						GTK_RESPONSE_CANCEL,
+						"gtk-open",
+						GTK_RESPONSE_ACCEPT,
+						NULL);
 
-	else if (mode == "extract" )
-	{
-		title = _("Choose the destination folder where to extract the current archive");
-		File_Selector = gtk_file_chooser_dialog_new ( title,
-		GTK_WINDOW (MainWindow),
-		GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-		GTK_STOCK_CANCEL,
-		GTK_RESPONSE_CANCEL,
-		GTK_STOCK_OPEN,
-		GTK_RESPONSE_ACCEPT,
-		NULL );
-        if (destination_path != NULL)
-			gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , destination_path );
-        response = gtk_dialog_run (GTK_DIALOG (File_Selector));
-		if (response == GTK_RESPONSE_ACCEPT)
-			gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) ) );
-		gtk_widget_destroy (File_Selector);
-		return NULL;
-	}
+		gtk_dialog_set_default_response (GTK_DIALOG (File_Selector), GTK_RESPONSE_ACCEPT);
 
-	File_Selector = gtk_file_chooser_dialog_new ( title,
-							GTK_WINDOW (MainWindow),
-							flag,
-							GTK_STOCK_CANCEL,
-							GTK_RESPONSE_CANCEL,
-							flag2,
-							GTK_RESPONSE_ACCEPT,
-							NULL);
+		filter = gtk_file_filter_new ();
+		gtk_file_filter_set_name ( filter , _("All files") );
+		gtk_file_filter_add_pattern ( filter, "*" );
+		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);
 
-	gtk_dialog_set_default_response (GTK_DIALOG (File_Selector), GTK_RESPONSE_ACCEPT);
+		filter = gtk_file_filter_new ();
+		gtk_file_filter_set_name ( filter , _("Only archives") );
 
-	filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name ( filter , _("All files") );
-	gtk_file_filter_add_pattern ( filter, "*" );
-	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);
+		Suffix = g_list_first ( ArchiveSuffix );
 
-	filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name ( filter , _("Only archives") );
-
-	Suffix = g_list_first ( ArchiveSuffix );
-
-	while ( Suffix != NULL )
-	{
-		gtk_file_filter_add_pattern (filter, Suffix->data);
-		Suffix = g_list_next ( Suffix );
-	}
-	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);
-
-	Suffix = g_list_first ( ArchiveSuffix );
-	while ( Suffix != NULL )
-	{
-		if ( Suffix->data != "" )	/* To avoid double filtering when opening the archive */
+		while ( Suffix != NULL )
 		{
-			filter = gtk_file_filter_new ();
-			gtk_file_filter_set_name (filter, Suffix->data );
-			gtk_file_filter_add_pattern (filter, Suffix->data );
-			gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);
+			gtk_file_filter_add_pattern (filter, Suffix->data);
+			Suffix = g_list_next ( Suffix );
 		}
-		Suffix = g_list_next ( Suffix );
+		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);
+
+		Suffix = g_list_first ( ArchiveSuffix );
+		while ( Suffix != NULL )
+		{
+			if ( Suffix->data != "" )	/* To avoid double filtering when opening the archive */
+			{
+				filter = gtk_file_filter_new ();
+				gtk_file_filter_set_name (filter, Suffix->data );
+				gtk_file_filter_add_pattern (filter, Suffix->data );
+				gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector), filter);
+			}
+			Suffix = g_list_next ( Suffix );
+		}
+		gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);
 	}
 	if (current_open_directory != NULL)
 		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , current_open_directory );
 
-	/*if (open_file_filter != NULL)
-		gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (File_Selector) , open_file_filter );*/
+	if (open_file_filter != NULL)
+		gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (File_Selector) , open_file_filter );
 
-	gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
 
 	current_open_directory = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (File_Selector) );
 	open_file_filter = gtk_file_chooser_get_filter ( GTK_FILE_CHOOSER (File_Selector) );
 
 	if (response == GTK_RESPONSE_ACCEPT)
-	{
 		path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) );
-		gtk_widget_destroy (File_Selector);
-	}
 	else if ( (response == GTK_RESPONSE_CANCEL) || (response == GTK_RESPONSE_DELETE_EVENT) )
-	{
-		gtk_widget_destroy (File_Selector);
 		path = NULL;
-	}
+
+	gtk_widget_hide (File_Selector);
 	return path;
 }
 
@@ -1082,6 +1055,8 @@ void EmptyTextBuffer ()
 void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[])
 {
 	unsigned short int x;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
 
 	liststore = gtk_list_store_newv ( nc , (GType *)columns_types);
 	gtk_tree_view_set_model ( GTK_TREE_VIEW (treeview1), GTK_TREE_MODEL (liststore) );
@@ -1192,6 +1167,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gboolean tofree = FALSE;
 	gboolean result = FALSE;
 	GList *row_list = NULL;
+	GString *names;
 
 	if ( archive->has_passwd )
 	{
@@ -1784,6 +1760,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	gchar *command , *no_uri_path , *name;
 	gchar *to_send = "E";
 	GList *row_list, *_row_list;
+	GString *names;
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview1));
 	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
@@ -1967,6 +1944,7 @@ void xa_deselect_all ( GtkMenuItem *menuitem , gpointer user_data )
 
 void xa_append_rows ( XArchive *archive , unsigned short int nc )
 {
+	GtkTreeIter iter;
 	unsigned short int i = 0;
 
 	if (archive->row == NULL)

@@ -34,15 +34,14 @@ GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size)
 	GdkPixbuf *file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
 	if(!file_pixbuf)
 	{
-		/*
-		* perhaps xarchiver has not been installed and is being executed from source dir
-		*/
-		g_free(error);
+		/* perhaps xarchiver has not been installed and is being executed from source dir */
+		g_free (error);
+		g_free (path);
 		error = NULL;
 		path = g_strconcat("./pixmaps/", filename, NULL);
 		file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
     }
-    if(file_pixbuf)
+    if (file_pixbuf)
     {
 		file_image = gtk_image_new_from_pixbuf(file_pixbuf);
 		g_object_unref(file_pixbuf);

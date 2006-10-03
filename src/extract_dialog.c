@@ -99,7 +99,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 
 	gtk_container_add(GTK_CONTAINER(dialog_data->button1), dialog_data->image1);
 	gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->button1 , _("Choose a folder where to extract files"), NULL );
-	g_signal_connect ( (gpointer) dialog_data->button1, "clicked", G_CALLBACK (Show_File_Dialog) ,  "extract" );
+	g_signal_connect ( (gpointer) dialog_data->button1, "clicked", G_CALLBACK (xa_choose_extraction_directory) , dialog_data );
 
 	dialog_data->hbox4 = gtk_hbox_new (TRUE, 7);
 	gtk_widget_show (dialog_data->hbox4);
@@ -293,6 +293,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 	gboolean done = FALSE;
 	gboolean end = FALSE;
 	GtkTreeIter iter;
+	GString *names;
 
 	if (unrar)
 		rar = "unrar";
@@ -576,6 +577,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 {
 	gchar *command = NULL;
 	gchar *tar;
+	GtkTreeIter iter;
 
 	if (unrar)
 		rar = "unrar";
@@ -903,3 +905,27 @@ gboolean xa_create_temp_directory ( gchar tmp_dir[] )
 	return TRUE;
 }
 
+void xa_choose_extraction_directory (GtkWidget *widget, gpointer data)
+{
+	Extract_dialog_data *dialog_data = data;
+	GtkWidget *File_Selector;
+	int response;
+	gchar *path;
+
+	File_Selector = gtk_file_chooser_dialog_new ( _("Choose the destination folder where to extract the current archive"),
+					GTK_WINDOW (MainWindow),
+					GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+					GTK_STOCK_CANCEL,
+					GTK_RESPONSE_CANCEL,
+					GTK_STOCK_OPEN,
+					GTK_RESPONSE_ACCEPT,
+					NULL );
+	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
+	if (response == GTK_RESPONSE_ACCEPT)
+	{
+		path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) );
+		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),path);
+		g_free (path);
+	}
+	gtk_widget_destroy (File_Selector);
+}

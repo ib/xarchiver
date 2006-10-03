@@ -234,7 +234,6 @@ int main (int argc, char **argv)
 		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
 		ArchiveType = g_list_reverse (ArchiveType);
 
-		Files_to_Add = NULL;
 		MainWindow = create_MainWindow ();
 		ShowShellOutput (NULL);
 		gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
