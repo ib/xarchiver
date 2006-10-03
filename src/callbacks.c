@@ -830,7 +830,7 @@ gchar *xa_open_file_dialog ()
 		gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);
 	}
 	if (open_file_filter != NULL)
-		g_message ("Setto: %s",gtk_file_filter_get_name (open_file_filter));
+		gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (File_Selector) , open_file_filter );
 
 	if (current_open_directory != NULL)
 		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , current_open_directory );
