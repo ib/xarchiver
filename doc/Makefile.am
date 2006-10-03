@@ -1,6 +1,6 @@
 DOCDIR = $(DESTDIR)/$(datadir)/doc/@PACKAGE@
 HTML_FILES = html/*.html xarchiver.css
-IMAGE_FILES = images/*.jpg
+IMAGE_FILES = images/*.png
 EXTRA_DIST = xarchiver.css xarchiver.xsl make_webable.sh xarchiver.txt \
 		xarchiver.docbook $(HTML_FILES) $(IMAGE_FILES)
 
