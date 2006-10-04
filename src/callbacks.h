@@ -36,6 +36,7 @@
 #include <unistd.h>
 
 #include "arj.h"
+#include "deb.h"
 #include "lha.h"
 #include "iso.h"
 #include "zip.h"

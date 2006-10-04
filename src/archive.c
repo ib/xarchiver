@@ -68,8 +68,7 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev ( argv );
-        archive->child_pid = 0;
-
+		archive->child_pid = 0;
 		return;
 	}
 	g_strfreev ( argv );
@@ -102,7 +101,7 @@ void xa_clean_archive_structure ( XArchive *archive)
 {
 	if (archive == NULL)
 		return;
-	
+
 	if(archive->path != NULL)
 	{
 		g_free(archive->path);
@@ -110,11 +109,11 @@ void xa_clean_archive_structure ( XArchive *archive)
 	}
 
 	if(archive->escaped_path != NULL)
-	{	
+	{
 		g_free(archive->escaped_path);
 		archive->escaped_path = NULL;
 	}
-		
+
 	if (archive->tmp != NULL)
 	{
 		unlink (archive->tmp);

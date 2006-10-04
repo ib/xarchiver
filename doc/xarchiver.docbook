@@ -239,7 +239,9 @@
 					<title>Open</title>
 						<para>
 							Opens a new archive. If you force &app; to open an unsupported archive
-							type an error message will be emitted.
+							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also. The password detection is done by looking for the password flag inside the archive structure except for rar ones since encrypted files in rar archives have an asterisk right before their filename. 7zip encrypted archives are not detected due to the complexity of 7zip format. Please see <ulink url="http://sourceforge.net/forum/forum.php?thread_id=1378003&amp;forum_id=383044">
+				<citetitle>this thread on sf.net</citetitle>
+				</ulink>for more information.
 						</para>
 				</section>
 				<section id="test">

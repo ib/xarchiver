@@ -257,11 +257,26 @@ int main (int argc, char **argv)
 
 void GetAvailableCompressors()
 {
+	absolute_path = g_find_program_in_path("arj");
+	if ( absolute_path )
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, ".arj");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.arj");
+		g_free (absolute_path);
+	}
+
 	absolute_path = g_find_program_in_path("bzip2");
     if ( absolute_path )
 	{
 		ArchiveType = g_list_prepend ( ArchiveType, ".bz2");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.bz2");
+		g_free (absolute_path);
+	}
+
+	absolute_path = g_find_program_in_path("ar");
+    if ( absolute_path )
+	{
+	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.deb");
 		g_free (absolute_path);
 	}
 
@@ -281,24 +296,8 @@ void GetAvailableCompressors()
 	ArchiveType = g_list_prepend ( ArchiveType, ".iso");
 	ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
 
-	absolute_path = g_find_program_in_path("arj");
-	if ( absolute_path )
-	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".arj");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.arj");
-		g_free (absolute_path);
-	}
-
-	absolute_path = g_find_program_in_path("cpio");
-    if ( absolute_path )
-	{
-	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rpm");
-		g_free (absolute_path);
-	}
-
 	absolute_path = g_find_program_in_path("lha");
-
-	if(absolute_path)
+	if (absolute_path)
 	{
 		ArchiveType = g_list_prepend(ArchiveType, ".lzh");
 		ArchiveSuffix = g_list_prepend(ArchiveSuffix, "*.lzh");
@@ -325,6 +324,14 @@ void GetAvailableCompressors()
 			g_free (absolute_path);
 		}
 	}
+
+	absolute_path = g_find_program_in_path("cpio");
+    if ( absolute_path )
+	{
+	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rpm");
+		g_free (absolute_path);
+	}
+
 	absolute_path = g_find_program_in_path("tar");
 	if ( absolute_path )
 	{

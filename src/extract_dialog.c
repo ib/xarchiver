@@ -162,7 +162,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->overwrite_check, FALSE, FALSE, 0);
 
 	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
-	if (cli && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2) )
+	if (cli && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_TAR_BZ2) )
 	{
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
 		gtk_widget_set_sensitive (dialog_data->extract_full, FALSE);
@@ -173,7 +173,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->extract_full , _("The archive's directory structure is recreated in the extraction directory."), NULL );
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->extract_full, FALSE, FALSE, 0);
 
-	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2)
+	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_DEB)
 	{
 		dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->touch), archive->tar_touch);
@@ -461,6 +461,21 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					break;
 
+					case XARCHIVETYPE_DEB:
+					if (archive->full_path == 1)
+					{
+						command = g_strconcat (tar, " -xvzf " , archive->tmp,
+											archive->overwrite ? " --overwrite" : " --keep-old-files",
+											archive->tar_touch ? " --touch" : "",
+											" -C " , archive->extraction_path , NULL );
+					}
+					else
+					{
+						xa_extract_tar_without_directories ( "tar -xvzf " , archive->tmp, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
+						command = NULL;
+					}
+					break;
+
                     case XARCHIVETYPE_ZIP:
                     if ( archive->passwd != NULL )
 						command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
@@ -657,6 +672,21 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		else
 		{
 			xa_extract_tar_without_directories ( "tar -xzvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, FALSE );
+			command = NULL;
+		}
+		break;
+
+		case XARCHIVETYPE_DEB:
+		if (archive->full_path == 1)
+		{
+			command = g_strconcat (tar, " -xvzf " , archive->tmp,
+					archive->overwrite ? " --overwrite" : " --keep-old-files",
+					archive->tar_touch ? " --touch" : "",
+					" -C " , archive->extraction_path , NULL );
+		}
+		else
+		{
+			xa_extract_tar_without_directories ( "tar -xvzf " , archive->tmp, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
 			command = NULL;
 		}
 		break;

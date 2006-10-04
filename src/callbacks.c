@@ -87,10 +87,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		new = open = TRUE;
 		info = exe = FALSE;
 	}
-	else if (archive->type == XARCHIVETYPE_RPM)
+	else if (archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_DEB)
 	{
-		new = open = extract = select = TRUE;
-		info = exe = FALSE;
+		new = open = extract = select = info = TRUE;
+		exe = FALSE;
 	}
 	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
 	{
@@ -353,6 +353,10 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	{
 		case XARCHIVETYPE_ARJ:
 		OpenArj (archive);
+		break;
+
+		case XARCHIVETYPE_DEB:
+		OpenDeb (archive);
 		break;
 
 		case XARCHIVETYPE_BZIP2:
@@ -738,25 +742,23 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nDevelopers:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\nISO support: Salvatore Santagati  <salvatore.santagati@gmail.com>\nLHA support: Łukasz <sil2100@vexillium.org>",NULL};
     const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver development code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
-	if (about != NULL)
+
+	if (about == NULL)
 	{
-		gtk_window_present (GTK_WINDOW (about));
-		return;
-	}
-	about = gtk_about_dialog_new ();
-	gtk_about_dialog_set_email_hook (xa_activate_link, NULL, NULL);
-	gtk_about_dialog_set_url_hook (xa_activate_link, NULL, NULL);
-	g_object_set (about,
-		      "name",  "Xarchiver",
-		      "version", PACKAGE_VERSION,
-		      "copyright", "Copyright \xC2\xA9 2005-2006 Giuseppe Torelli",
-		      "comments", "A lightweight GTK+2 archive manager",
-		      "authors", authors,
-              "documenters",documenters,
-		      "translator_credits", _("translator-credits"),
-		      "logo_icon_name", "xarchiver",
-		      "website", "http://xarchiver.xfce.org",
-		      "license",    "Copyright \xC2\xA9 2005-2006 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
+		about = gtk_about_dialog_new ();
+		gtk_about_dialog_set_email_hook (xa_activate_link, NULL, NULL);
+		gtk_about_dialog_set_url_hook (xa_activate_link, NULL, NULL);
+		g_object_set (about,
+				"name",  "Xarchiver",
+				"version", PACKAGE_VERSION,
+				"copyright", "Copyright \xC2\xA9 2005-2006 Giuseppe Torelli",
+				"comments", "A lightweight GTK+2 archive manager",
+				"authors", authors,
+				"documenters",documenters,
+				"translator_credits", _("translator-credits"),
+				"logo_icon_name", "xarchiver",
+				"website", "http://xarchiver.xfce.org",
+				"license",    "Copyright \xC2\xA9 2005-2006 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
 		      			"This is free software; you can redistribute it and/or\n"
     					"modify it under the terms of the GNU Library General Public License as\n"
     					"published by the Free Software Foundation; either version 2 of the\n"
@@ -772,11 +774,10 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
     					"write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
     					"Boston, MA 02111-1307, USA.\n",
 		      NULL);
-	gtk_window_set_destroy_with_parent (GTK_WINDOW (about), TRUE);
-	g_signal_connect (G_OBJECT (about), "destroy",  G_CALLBACK (gtk_widget_destroyed), &about);
-	gtk_window_set_position (GTK_WINDOW (about), GTK_WIN_POS_CENTER);
+		gtk_window_set_position (GTK_WINDOW (about), GTK_WIN_POS_CENTER);
+	}
 	gtk_dialog_run ( GTK_DIALOG(about) );
-	gtk_widget_destroy (about);
+	gtk_widget_hide (about);
 }
 
 gchar *xa_open_file_dialog ()
@@ -797,6 +798,7 @@ gchar *xa_open_file_dialog ()
 						NULL);
 
 		gtk_dialog_set_default_response (GTK_DIALOG (File_Selector), GTK_RESPONSE_ACCEPT);
+		gtk_window_set_destroy_with_parent (GTK_WINDOW (File_Selector) , TRUE);
 
 		filter = gtk_file_filter_new ();
 		gtk_file_filter_set_name ( filter , _("All files") );
@@ -843,6 +845,7 @@ gchar *xa_open_file_dialog ()
 	else if ( (response == GTK_RESPONSE_CANCEL) || (response == GTK_RESPONSE_DELETE_EVENT) )
 		path = NULL;
 
+	/* Hiding the window instead of destroying it will preserve the pointers to the file chooser stuff */
 	gtk_widget_hide (File_Selector);
 	return path;
 }
@@ -956,6 +959,7 @@ int DetectArchiveType ( gchar *filename )
     else if ( isISO ( dummy_ptr ) ) xx = XARCHIVETYPE_ISO;
 	//else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
 	else if ( isLha ( dummy_ptr ) ) xx = XARCHIVETYPE_LHA;
+	else if ( memcmp ( magic,"!<arch>\n", 8 ) == 0) xx = XARCHIVETYPE_DEB;
 	fclose ( dummy_ptr );
 	return xx;
 }
@@ -1517,7 +1521,7 @@ void Activate_buttons ()
 		OffDeleteandViewButtons();
 	else
 	{
-		if ( archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_ISO )
+		if ( archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_ISO && archive->type != XARCHIVETYPE_DEB)
 		{
 			gtk_widget_set_sensitive ( delete_menu , TRUE );
 			gtk_widget_set_sensitive ( Delete_button , TRUE );

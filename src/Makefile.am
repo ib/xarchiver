@@ -8,6 +8,7 @@ xarchiver_SOURCES = \
 	interface.c interface.h \
 	callbacks.c callbacks.h \
 	arj.c arj.h \
+	deb.c deb.h \
 	zip.c zip.h \
 	rar.c rar.h \
 	7zip.c 7zip.h \
