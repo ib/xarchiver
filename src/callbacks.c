@@ -1250,7 +1250,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		xa_extract_iso_file (archive, permissions, "/tmp/", dummy_name , file_size, file_offset );
 		g_free (permissions);
 	}
-	else if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+	else if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_DEB)
 	{
 		gchar *option = NULL;
 		gchar *digit;
@@ -1259,9 +1259,13 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			option = " -xvf ";
 		else if (archive->type == XARCHIVETYPE_TAR_BZ2)
 			option = " -xvjf ";
-		else if (archive->type == XARCHIVETYPE_TAR_GZ)
+		else if (archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_DEB)
 			option = " -xvzf ";
-		command = g_strconcat ("tar --strip-components=",digit,option,archive->escaped_path," -C /tmp",names->str,NULL);
+
+		if (archive->type == XARCHIVETYPE_DEB)
+			command = g_strconcat ("tar --strip-components=",digit,option,archive->tmp," -C /tmp",names->str,NULL);
+		else
+			command = g_strconcat ("tar --strip-components=",digit,option,archive->escaped_path," -C /tmp",names->str,NULL);
 		g_free (digit);
 	}
 	else
@@ -1859,6 +1863,17 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	if (archive->type == XARCHIVETYPE_RAR && unrar)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("unrar doesn't support archive creation!") );
+		return;
+	}
+
+	if (archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_RPM)
+	{
+		gchar *msg;
+		if (archive->type == XARCHIVETYPE_DEB)
+			msg = _("You can't add content to deb packages!");
+		else
+			msg = _("You can't add content to rpm packages!");
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"), msg );
 		return;
 	}
 
