@@ -781,7 +781,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 
 gchar *xa_open_file_dialog ()
 {
-	GtkWidget *File_Selector = NULL;
+	static GtkWidget *File_Selector = NULL;
 	GtkFileFilter *filter;
 	gchar *path = NULL;
 
@@ -805,9 +805,7 @@ gchar *xa_open_file_dialog ()
 
 		filter = gtk_file_filter_new ();
 		gtk_file_filter_set_name ( filter , _("Only archives") );
-
 		Suffix = g_list_first ( ArchiveSuffix );
-
 		while ( Suffix != NULL )
 		{
 			gtk_file_filter_add_pattern (filter, Suffix->data);
