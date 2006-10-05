@@ -866,7 +866,7 @@ msgstr "Errore bat gertatu da!"
 
 #: src/rar.c:37
 msgid "CRC"
-msgstr ""
+msgstr "CRC"
 
 #: src/rar.c:37 src/zip.c:37
 msgid "Method"
@@ -923,7 +923,7 @@ msgstr "Ezin da /tmp direktorioan idatzi:"
 
 #: src/zip.c:37
 msgid "CRC-32"
-msgstr ""
+msgstr "CRC-Â32"
 
 #~ msgid "Extract the archive to the specified folder and quits."
 #~ msgstr "Zehazturiko paketea helburu karpetara atera eta irten."
