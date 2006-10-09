@@ -90,9 +90,6 @@
 				libraries and header files. You will also need the Pango, Glib and ATK libraries and header files.
 				All these files are available at <ulink url="http://www.gtk.org">http://www.gtk.org</ulink>.
 			</para>
-			<para>
-				Furthermore you need, of course, a C compiler and the Make tool.
-			</para>
 		</section>
 		<section id="source_compilation">
 			<title>Source compilation</title>
@@ -305,7 +302,7 @@
 				<section id="sfx">
 					<title>Make SFX</title>
 						<para>
-							Convert the current archive to self-extracting. This option is disabled when the current archive doesn't support this feature (e.g. tar archives).
+							Convert the current archive to self-extracting. This option is disabled when the current archive doesn't support this feature (e.g. tar archives). After converting an archive to self-extracting this option will be disabled.
 
 						</para>
 				</section>

@@ -277,7 +277,7 @@ GtkWidget *create_MainWindow (void)
 
 	tmp_image = gtk_image_new_from_stock ("gtk-execute", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	Exe_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Make SFX"));
+	Exe_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("SFX"));
 	gtk_widget_set_sensitive (Exe_button,FALSE);
 	gtk_widget_show (Exe_button);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM ( Exe_button ), FALSE);

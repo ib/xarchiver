@@ -97,6 +97,12 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		new = open = add = extract = select = info = TRUE;
 		check = exe = FALSE;
 	}
+	else if (archive->type == XARCHIVETYPE_LHA)
+	{
+		new = open = add = extract = select = info = TRUE;
+		check = TRUE;
+		exe = FALSE;
+	}
 	else if (archive->type == XARCHIVETYPE_RAR && unrar)
 	{
 		check = TRUE;
@@ -152,8 +158,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	}
 
 	if (archive->status == XA_ARCHIVESTATUS_SFX)
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,_("Operation completed"),archive->tmp );
-
+	{
+		gtk_widget_set_sensitive ( exe_menu, FALSE);
+		gtk_widget_set_sensitive ( Exe_button, FALSE);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
+	}
 	if (archive->status == XA_ARCHIVESTATUS_TEST)
 		ShowShellOutput (NULL);
 
@@ -209,14 +218,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		}
 	}
 
-	if ( archive->status == XA_ARCHIVESTATUS_OPEN)
-	{
-		if ( archive->type != XARCHIVETYPE_BZIP2 && archive->type != XARCHIVETYPE_GZIP)
-		{
-			gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-			g_object_unref (model);
-		}
-	}
 	gtk_widget_grab_focus (treeview1);
 	xa_set_window_title (MainWindow , archive->path);
 	archive->status = XA_ARCHIVESTATUS_IDLE;
@@ -618,30 +619,38 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 {
-	gchar *command;
+	gchar *command = NULL;
 	gboolean result;
+	unsigned short int l = 0;
 
-	//TODO: to remove this ?
-	if ( archive->has_passwd )
-	{
-		if ( archive->passwd == NULL)
-		{
-			archive->passwd = password_dialog ();
-			if ( archive->passwd == NULL)
-				return;
-		}
-	}
-    Update_StatusBar ( _("Converting archive to self-extracting, please wait..."));
+	Update_StatusBar ( _("Converting archive to self-extracting, please wait..."));
     gtk_widget_set_sensitive (Stop_button,TRUE);
     archive->status = XA_ARCHIVESTATUS_SFX;
     switch ( archive->type )
 	{
 		case XARCHIVETYPE_RAR:
-		if (archive->passwd != NULL)
-			command = g_strconcat ("rar s " , archive->escaped_path," -o+ -p" , archive->passwd , NULL);
-		else
-			command = g_strconcat ("rar s " , archive->escaped_path, " -o+", NULL);
-        break;
+		{
+			command = g_strconcat ("rar s -o+ " , archive->escaped_path , NULL);
+			if (strstr(archive->escaped_path,".rar") )
+			{
+				archive->tmp = g_strdup (archive->escaped_path);
+				archive->tmp[strlen(archive->tmp) - 3] = 's';
+				archive->tmp[strlen(archive->tmp) - 2] = 'f';
+				archive->tmp[strlen(archive->tmp) - 1] = 'x';
+			}
+			else
+			{
+				archive->tmp = (gchar *) g_malloc ( strlen(archive->escaped_path) + 4 );
+				l = strlen (archive->escaped_path);
+				strncpy ( archive->tmp, archive->escaped_path , l);
+				archive->tmp[l] 	= '.';
+				archive->tmp[l + 1] = 's';
+				archive->tmp[l + 2] = 'f';
+				archive->tmp[l + 3] = 'x';
+				archive->tmp[l + 4] = 0;
+			}
+		}
+		break;
 
         case XARCHIVETYPE_ZIP:
         {
@@ -709,38 +718,38 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				result = xa_run_command (command , 0);
 				g_free (command);
 
-				archive->tmp = g_strconcat (_("The self extracting archive is:\n"), archive_name , NULL);
+				archive->tmp = g_strdup ( archive_name );
 				command = g_strconcat ("zip -A ",archive_name,NULL);
 				result = xa_run_command (command , 1);
 				g_free (command);
+				command = NULL;
 			}
 			g_free (archive_name);
         }
         break;
 
         case XARCHIVETYPE_7ZIP:
-        if (archive->passwd != NULL)
-			command = g_strconcat ( "7za t -p" , archive->passwd , " " , archive->escaped_path, NULL);
-		else
-			command = g_strconcat ("7za t " , archive->escaped_path, NULL);
+        command = g_strconcat ("7za t " , archive->escaped_path, NULL);
 		break;
 
 		case XARCHIVETYPE_ARJ:
-        if (archive->passwd != NULL)
-			command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->escaped_path, NULL);
-		else
-			command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
+        command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
 		break;
 
 		default:
 		command = NULL;
+	}
+	if (command != NULL)
+	{
+		xa_run_command ( command , 1);
+		g_free (command);
 	}
 }
 
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nDevelopers:\nGiuseppe Torelli - Colossus <colossus73@gmail.com>\nISO support: Salvatore Santagati  <salvatore.santagati@gmail.com>\nLHA support: Łukasz <sil2100@vexillium.org>",NULL};
+    const char *authors[] = {"\nMain developer: Giuseppe Torelli <colossus73@gmail.com>\nISO support: Salvatore Santagati <salvatore.santagati@gmail.com>\nLHA and DEB support: Łukasz Zemczak <sil2100@vexillium.org>",NULL};
     const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for discovering\nmany bugs in the Xarchiver development code.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
 
 	if (about == NULL)
@@ -748,6 +757,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		about = gtk_about_dialog_new ();
 		gtk_about_dialog_set_email_hook (xa_activate_link, NULL, NULL);
 		gtk_about_dialog_set_url_hook (xa_activate_link, NULL, NULL);
+		gtk_window_set_destroy_with_parent (GTK_WINDOW (about) , TRUE);
 		g_object_set (about,
 				"name",  "Xarchiver",
 				"version", PACKAGE_VERSION,
@@ -1271,6 +1281,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	else
 		command = xa_extract_single_files ( archive , names, "/tmp");
 
+	g_message (command);
 	g_string_free (names,TRUE);
 	archive->full_path = full_path;
 	archive->overwrite = overwrite;
@@ -1286,7 +1297,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			return;
 		}
 	}
-
+	g_message ("dummy name: %s",dummy_name);
 	string = g_strrstr ( dummy_name, "/" );
 	if (  string == NULL )
 		filename = g_strconcat ( "/tmp/" , dummy_name, NULL );
@@ -1303,6 +1314,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	}
 	g_free (dummy_name);
 	view_window = view_win();
+	g_message ("Apro %s",filename);
 	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
 	archive->status = XA_ARCHIVESTATUS_IDLE;
 	if (error == NULL)
@@ -1679,13 +1691,13 @@ gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer da
 	if (cond & (G_IO_IN | G_IO_PRI))
 	{
 		do
-	    {
+		{
 			status = g_io_channel_read_chars (ioc, buffer, sizeof (buffer), &bytes_read, NULL);
 			if (bytes_read > 0)
 				gtk_text_buffer_insert (textbuf, &enditer, buffer, bytes_read);
-	    }
+		}
 		while (status == G_IO_STATUS_NORMAL);
-	    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
 			goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -1979,6 +1991,7 @@ void xa_append_rows ( XArchive *archive , unsigned short int nc )
 		else
 		{
 			gtk_list_store_set_value(liststore, &iter, i, archive->row->data);
+			g_value_unset (archive->row->data);
 			archive->row = archive->row->next;
 			i++;
 		}
@@ -1986,7 +1999,6 @@ void xa_append_rows ( XArchive *archive , unsigned short int nc )
 	while ( gtk_events_pending() )
 		gtk_main_iteration();
 
-	g_list_foreach(archive->row, (GFunc)g_value_unset, NULL);
 	g_list_foreach(archive->row, (GFunc)g_free, NULL);
 	g_list_free(archive->row);
 	archive->row = NULL;

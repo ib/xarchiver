@@ -34,7 +34,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	GtkWidget *xa_file_chooser;
 	GtkWidget *hbox = NULL;
 	GtkWidget *combo_box = NULL;
-	GtkWidget *check_button = NULL;
+	GtkWidget *add_extension_cb = NULL;
 	GtkFileFilter *xa_new_archive_dialog_filter;
 	GtkTooltips *filter_tooltip;
 	GList *Suffix,*Name;
@@ -106,9 +106,9 @@ XArchive *xa_new_archive_dialog (gchar *path)
 
 	gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
 
-	check_button = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(check_button),TRUE);
-	gtk_box_pack_start (GTK_BOX (hbox), check_button, TRUE, TRUE, 0);
+	add_extension_cb = gtk_check_button_new_with_label (_("Add the archive extension to the filename"));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(add_extension_cb),TRUE);
+	gtk_box_pack_start (GTK_BOX (hbox), add_extension_cb, TRUE, TRUE, 0);
 	gtk_widget_show_all (hbox);
 	gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (xa_file_chooser), hbox);
 
@@ -125,12 +125,12 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		my_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
-		if ( g_file_test ( path , G_FILE_TEST_EXISTS ) )
+		if ( g_file_test ( my_path , G_FILE_TEST_EXISTS ) )
 		{
 			gchar *utf8_path;
 			gchar  *msg;
 
-			utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
+			utf8_path = g_filename_to_utf8 (my_path, -1, NULL, NULL, NULL);
 			msg = g_strdup_printf (_("The archive \"%s\" already exists!"), utf8_path);
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),
 							GTK_DIALOG_MODAL,
@@ -173,7 +173,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 			archive->type = XARCHIVETYPE_7ZIP;
 		else if (strcmp ( ComboArchiveType,".lzh") == 0)
 			archive->type = XARCHIVETYPE_LHA;
-		if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(check_button) ) )
+		if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_extension_cb) ) )
 		{
 			if ( ! g_str_has_suffix ( my_path , ComboArchiveType ) )
 			{

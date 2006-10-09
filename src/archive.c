@@ -116,7 +116,9 @@ void xa_clean_archive_structure ( XArchive *archive)
 
 	if (archive->tmp != NULL)
 	{
-		unlink (archive->tmp);
+		if ( strstr (archive->tmp , "/tmp" ) )
+			unlink (archive->tmp);
+
 		g_free(archive->tmp);
 		archive->tmp = NULL;
 	}

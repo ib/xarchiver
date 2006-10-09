@@ -23,6 +23,8 @@ gchar *EscapeBadChars ( gchar *string , gchar *pattern);
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path );
 int CountCharacter ( gchar *string , int chr );
 gchar *RemoveBackSlashes ( gchar *name);
+char *get_last_field (char *line,int last_field);
+char **split_line (char *line,int n_fields);
 char *escape_str_common (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
 char *eat_spaces (char *line);
 gchar *remove_level_from_path (const gchar *path);

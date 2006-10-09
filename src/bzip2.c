@@ -37,7 +37,7 @@ void OpenBzip2 ( XArchive *archive )
 
 		tar = g_find_program_in_path ("gtar");
 		if (tar == NULL)
-		tar = g_strdup ("tar");
+			tar = g_strdup ("tar");
 
 		command = g_strconcat (tar, " tfjv " , archive->escaped_path, NULL );
 		archive->dummy_size = 0;
@@ -45,7 +45,6 @@ void OpenBzip2 ( XArchive *archive )
 		archive->nr_of_dirs = 0;
 		archive->format = "TAR.BZIP2";
 		archive->parse_output = TarOpen;
-
 		SpawnAsyncProcess ( archive , command , 0, 0);
 
 		g_free (command);
@@ -57,9 +56,9 @@ void OpenBzip2 ( XArchive *archive )
 		char *names[]= {(_("Filename")),(_("Permissions")),(_("Symbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
 		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
 		xa_create_liststore ( 7, names , (GType *)types );
-        archive->type = XARCHIVETYPE_TAR_BZ2;
-    }
-    else
+		archive->type = XARCHIVETYPE_TAR_BZ2;
+	}
+	else
 	{
 		extract_window = xa_create_extract_dialog ( 0 , archive);
 		command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );

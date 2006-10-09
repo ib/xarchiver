@@ -20,6 +20,7 @@
 #include "config.h"
 #include "lha.h"
 
+static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void OpenLha ( XArchive *archive )
 {
 	gchar *command;
@@ -41,111 +42,91 @@ void OpenLha ( XArchive *archive )
 	xa_create_liststore(6, names, (GType *)types);
 }
 
-gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
+static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	XArchive *archive = data;
-	gchar *line	= NULL;
-	GValue *filename    = NULL;
-	GValue *permissions = NULL;
-	GValue *owner       = NULL;
-	GValue *size        = NULL;
-	GValue *ratio       = NULL;
-	GValue *timestamp   = NULL;
+	GtkTreeIter iter;
+	gchar *permissions = NULL;
+	gchar *owner = NULL;
+	gchar *ratio = NULL;
+	gchar *timestamp = NULL;
+	gchar *size = NULL;
+	gchar *line = NULL;
+	gchar *filename = NULL;
 	GIOStatus status = G_IO_STATUS_NORMAL;
-	gchar *_size		= NULL;
 	unsigned short int a = 0, n = 0, num;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-    // We don't need the first two lines. No actual data there.
-    g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
-    status = g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
-    if(status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-      goto done;
+		// We don't need the first two lines. No actual data there.
+		g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
+		if (line != NULL)
+			g_free (line);
 
-    do
-    {
-      status = g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
-      if (line == NULL || (strncmp(line, "---------- -", 12) == 0))
-        break;
+		g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
+		if (line != NULL)
+			g_free (line);
+		do
+		{
+			status = g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
+			if (line == NULL || (strncmp(line, "---------- -", 12) == 0))
+				break;
+			gtk_list_store_append (liststore, &iter);
 
-      filename    = g_new0(GValue, 1);
-      permissions = g_new0(GValue, 1);
-      owner       = g_new0(GValue, 1);
-      size        = g_new0(GValue, 1);
-      ratio       = g_new0(GValue, 1);
-      timestamp   = g_new0(GValue, 1);
+			permissions = g_strndup(line, 10);
+			gtk_list_store_set (liststore, &iter,1,permissions,-1);
+			if (strstr(permissions, "d") == NULL)
+				archive->nr_of_files++;
+			else
+				archive->nr_of_dirs++;
+			g_free (permissions);
 
-      permissions = g_value_init(permissions, G_TYPE_STRING);
-      g_value_set_string(permissions, g_strndup(line, 10));
+			owner = g_strndup(&line[11], 11);
+			gtk_list_store_set (liststore, &iter,2,owner,-1);
+			g_free (owner);
 
-      owner = g_value_init(owner, G_TYPE_STRING);
-      g_value_set_string(owner, g_strndup(&line[11], 11));
+			num = strlen(line);
+			for(n = 23;n < num;n++)
+			if(line[n] != ' ')
+				break;
 
-      // Parse the size.
-      num = strlen(line);
-      for(n = 23;n < num;n++)
-        if(line[n] != ' ')
-          break;
+			a = n;
+			for(;n < num;n++)
+			if(line[n] == ' ')
+				break;
 
-      a = n;
-      for(;n < num;n++)
-        if(line[n] == ' ')
-          break;
+			size = g_strndup(&line[a], n - a);
+			gtk_list_store_set (liststore, &iter,3,atoll(size),-1);
+			archive->dummy_size += atoll(size);
+			g_free(size);
 
-      size = g_value_init(size, G_TYPE_UINT64);
-      _size = g_strndup(&line[a], n - a);
-      g_value_set_uint64 (size, atoll(_size));
-      g_free(_size);
+			ratio = g_strndup(&line[31], 7);
+			gtk_list_store_set (liststore, &iter,4,ratio,-1);
+			g_free (ratio);
 
-      ratio = g_value_init(ratio, G_TYPE_STRING);
-      g_value_set_string(ratio, g_strndup(&line[31], 7));
+			timestamp = g_strndup(&line[38], 13);
+			gtk_list_store_set (liststore, &iter,5,timestamp,-1);
+			g_free (timestamp);
 
-      timestamp = g_value_init(timestamp, G_TYPE_STRING);
-      g_value_set_string(timestamp, g_strndup(&line[38], 13));
+			filename = g_strndup(&line[51], num - 51 - 1);
+			gtk_list_store_set (liststore, &iter,0,filename,-1);
+			g_free (filename);
 
-      filename = g_value_init(filename, G_TYPE_STRING);
-      g_value_set_string(filename, g_strndup(&line[51], num - 51 - 1));
-
-      archive->row = g_list_prepend(archive->row, filename);
-      archive->row = g_list_prepend(archive->row, permissions);
-      archive->row = g_list_prepend(archive->row, owner);
-      archive->row = g_list_prepend(archive->row, size);
-      archive->row = g_list_prepend(archive->row, ratio);
-      archive->row = g_list_prepend(archive->row, timestamp);
-
-      archive->dummy_size += g_value_get_uint64(size);
-
-      if(strstr(g_value_get_string(permissions), "d") == NULL)
-      {
-        archive->nr_of_files++;
-      }
-      else
-      {
-        archive->nr_of_dirs++;
-      }
-      g_free(line);
-      archive->row_cnt++;
-
-      if (archive->row_cnt > 99)
-      {
-        xa_append_rows(archive, 6);
-        archive->row_cnt = 0;
-      }
-    }
+			g_free(line);
+		}
 		while (status == G_IO_STATUS_NORMAL);
 
-    if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-      goto done;
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+		goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 done:
 		g_io_channel_shutdown(ioc, TRUE, NULL);
 		g_io_channel_unref(ioc);
-		xa_append_rows(archive, 6);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
+		g_object_unref (model);
 		return FALSE;
 	}
 	return TRUE;
 }
-

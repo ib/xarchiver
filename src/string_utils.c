@@ -99,6 +99,56 @@ gchar *RemoveBackSlashes ( gchar *name)
 }
 
 /* These functions are from File-Roller code */
+char *get_last_field (char *line,int last_field)
+{
+	char *field;
+	int i;
+
+	if (line == NULL)
+		return NULL;
+
+	last_field--;
+	field = eat_spaces (line);
+	for (i = 0; i < last_field; i++) {
+		if (field == NULL)
+			return NULL;
+		field = strchr (field, ' ');
+		field = eat_spaces (field);
+	}
+	//The following line is mine, I replace the \n with the null terminated
+    if (field != NULL) field [ strlen(field) -1 ] = '\000';
+	return field;
+}
+
+char **split_line (char *line,int n_fields)
+{
+	char **fields;
+	char *scan, *field_end;
+	int i;
+
+	fields = g_new0 (char *, n_fields + 1);
+	fields[n_fields] = NULL;
+
+	scan = eat_spaces (line);
+	for (i = 0; i < n_fields; i++)
+	{
+		if (scan == NULL)
+		{
+			fields[i] = NULL;
+			continue;
+		}
+		field_end = strchr (scan, ' ');
+		//The following line is mine, I added the case when the last field ends with a newline
+		if (field_end == NULL) field_end = strchr (scan, '\n');
+		if (field_end != NULL)
+		{
+			fields[i] = g_strndup (scan, field_end - scan);
+			scan = eat_spaces (field_end);
+		}
+	}
+	return fields;
+}
+
 static int count_chars_to_escape (const char *str, const char *meta_chars)
 {
         int         meta_chars_n = strlen (meta_chars);
@@ -210,16 +260,28 @@ gchar *extract_local_path (gchar *path , gchar *filename)
 
 void xa_set_window_title ( GtkWidget *window , gchar *title)
 {
-	gchar *x = NULL;
+	gchar *x 	= NULL;
+	gchar *slash= NULL;
 
 	if (title == NULL)
 		gtk_window_set_title ( GTK_WINDOW (window) , "Xarchiver " VERSION );
 	else
 	{
-		x = g_strconcat ( g_strrstr (title , "/") , " - " , "Xarchiver " , VERSION , NULL);
-		x++;
-		gtk_window_set_title ( GTK_WINDOW (window) , x);
-		x--;
-		g_free (x);
+		slash = g_strrstr (title , "/");
+		if (slash == NULL)
+		{
+			x = g_strconcat (  title , " - " , "Xarchiver " , VERSION , NULL);
+			gtk_window_set_title ( GTK_WINDOW (window) , x);
+			g_free (x);
+			return;
+		}
+		else
+		{
+			x = g_strconcat (  slash , " - " , "Xarchiver " , VERSION , NULL);
+			x++;
+			gtk_window_set_title ( GTK_WINDOW (window) , x);
+			x--;
+			g_free (x);
+		}
 	}
 }
