@@ -18,7 +18,6 @@
 
 #include "config.h"
 #include "rar.h"
-#include "string_utils.h"
 
 extern gboolean unrar;
 static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);

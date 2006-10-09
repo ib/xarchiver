@@ -24,6 +24,7 @@
 #include "callbacks.h"
 #include "main.h"
 #include "archive.h"
+#include "string_utils.h"
 
 gboolean jump_header , odd_line;
 void OpenRar ( XArchive *archive );

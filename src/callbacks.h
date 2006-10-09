@@ -50,6 +50,7 @@
 #include "extract_dialog.h"
 #include "add_dialog.h"
 
+void xa_append_rows ( XArchive *archive , unsigned short int nc );
 short int response;
 double content_size;
 unsigned long long int file_size, file_offset;
@@ -80,7 +81,6 @@ void xa_deselect_all ( GtkMenuItem *menuitem, gpointer user_data);
 void ShowShellOutput ( GtkMenuItem *menuitem );
 void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data );
-void xa_append_rows ( XArchive *archive , unsigned short int nc );
 void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer user_data);
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer user_data );

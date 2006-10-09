@@ -15,11 +15,11 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include "config.h"
 #include "7zip.h"
-#include "string_utils.h"
- 
+
+static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void Open7Zip ( XArchive *archive)
 {
     jump_header = FALSE;
@@ -39,126 +39,79 @@ void Open7Zip ( XArchive *archive)
 	xa_create_liststore ( 6, names , (GType *)types );
 }
 
-gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
+static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	XArchive *archive = data;
+	gchar **fields = NULL;
+	gchar *filename = NULL;
 	gchar *line = NULL;
-	gchar *start = NULL;
-	gchar *end = NULL;
-	GValue  *filename = NULL;
-	GValue *original = NULL;
-	gchar *_original = NULL;
-	GValue *attr = NULL;
-	GValue *compressed = NULL;
-	gchar *_compressed = NULL;
-	GValue *time = NULL;
-	GValue *date = NULL;
-	unsigned short int x;
+	GtkTreeIter iter;
+	GIOStatus status = G_IO_STATUS_NORMAL;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
-		//This to avoid inserting in the liststore 7zip's message
-		if (jump_header == FALSE )
+		do
 		{
-			for ( x = 0; x <= 7; x++)
+			/* This to avoid inserting in the liststore 7zip's message */
+			if (jump_header == FALSE )
 			{
-				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line != NULL)
+				for ( x = 0; x <= 7; x++)
+				{
+					g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 					g_free (line);
+				}
+				jump_header = TRUE;
 			}
-			jump_header = TRUE;
-		}
-		g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-		if ( line == NULL )
-			return TRUE;
-		//This to avoid inserting the last line of output
-		if (strncmp (line, "-------------------", 19) == 0 || strncmp (line, "\x0a",1) == 0)
-		{
-			g_free (line);
 			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if (line != NULL)
+			if ( line == NULL )
+				break;
+
+			/* This to avoid inserting the last line of output */
+			if (strncmp (line, "-------------------", 19) == 0 || strncmp (line, "\x0a",1) == 0)
+			{
 				g_free (line);
-			return TRUE;
+				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				g_free (line);
+				break;
+			}
+
+			fields = split_line ( line , 5 );
+			filename = get_last_field ( line , 6);
+			gtk_list_store_append (liststore, &iter);
+			if ( g_str_has_prefix(fields[2] , "D") == FALSE)
+				archive->nr_of_files++;
+			else
+				archive->nr_of_dirs++;
+			for ( x = 0; x < 5; x++)
+			{
+				if ( x == 3 || x == 4)
+					gtk_list_store_set (liststore, &iter,(5-x),atoll(fields[x]),-1);
+				else
+					gtk_list_store_set (liststore, &iter,(5-x),fields[x],-1);
+			}
+			archive->dummy_size += atoll(fields[3]);
+			if ( filename == NULL )
+				gtk_list_store_set (liststore, &iter,0,fields[4],-1);
+			else
+				gtk_list_store_set (liststore, &iter,0,filename,-1);
+			g_strfreev ( fields );
+
+			while (gtk_events_pending() )
+				gtk_main_iteration();
+			g_free (line);
 		}
-		filename    = g_new0(GValue, 1);
-		original    = g_new0(GValue, 1);
-		compressed  = g_new0(GValue, 1);
-		attr        = g_new0(GValue, 1);
-		date        = g_new0(GValue, 1);
-		time        = g_new0(GValue, 1);
-		archive->row_cnt++;
-		
-		start = eat_spaces (line);
-		end = strchr (start, ' ');
-		date = g_value_init(date, G_TYPE_STRING);
-		g_value_set_string ( date , g_strndup ( start , end - start) );
-
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		time = g_value_init(time, G_TYPE_STRING);
-		g_value_set_string ( time , g_strndup ( start , end - start) );
-		
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		attr = g_value_init(attr, G_TYPE_STRING);
-		g_value_set_string ( attr , g_strndup ( start , end - start) );
-
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		original = g_value_init(original, G_TYPE_UINT64);
-		_original  = g_strndup ( start , end - start);
-		g_value_set_uint64 (original , atoll (_original) );
-		g_free (_original);
-
-		start = eat_spaces (end);
-		end = strchr (start, ' ');
-		compressed = g_value_init(compressed, G_TYPE_UINT64);
-		/* The following if else to fix archives compressed with ms=on (default on 7za) */
-		if (end != NULL)
-		{
-			_compressed = g_strndup ( start , end - start);
-			g_value_set_uint64 ( compressed , atoll (_compressed) );
-			g_free (_compressed);
-
-			start = eat_spaces (end);
-		}
-		else
-		{
-			unsigned long long int zero = 0;
-			g_value_set_uint64 ( compressed , zero );
-		}
-
-		end = strchr (start, '\n');
-		filename = g_value_init(filename, G_TYPE_STRING);
-		g_value_set_string ( filename , g_strndup ( start , end - start) );
-		
-		archive->row = g_list_prepend(archive->row, filename);
-		archive->row = g_list_prepend(archive->row, original);
-		archive->row = g_list_prepend(archive->row, compressed);
-		archive->row = g_list_prepend(archive->row, attr);
-		archive->row = g_list_prepend(archive->row, time);
-		archive->row = g_list_prepend(archive->row, date);
-			
-		if ( g_str_has_prefix(g_value_get_string (attr), "D") == FALSE)
-			archive->nr_of_files++;
-		else
-			archive->nr_of_dirs++;
-		archive->dummy_size += g_value_get_uint64 (original);
-		g_free (line);
-		if (archive->row_cnt > 99)
-		{
-			xa_append_rows ( archive , 6 );
-			archive->row_cnt = 0;
-		}
+		while (status == G_IO_STATUS_NORMAL);
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP) )
 	{
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
+done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		xa_append_rows ( archive , 6 );
+		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
+		g_object_unref (model);
 		return FALSE;
 	}
 	return TRUE;
 }
-
 
