@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 12:15+0200\n"
+"POT-Creation-Date: 2006-10-09 14:32+0200\n"
 "PO-Revision-Date: 2006-08-23 15:49+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -16,16 +16,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:677 ../src/rar.c:47 ../src/rpm.c:56 ../src/tar.c:48
-#: ../src/zip.c:37
+#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/zip.c:38
 msgid "Filename"
 msgstr "Filnamn"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Original"
 msgstr "Original"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Compressed"
 msgstr "Komprimerad"
 
@@ -34,16 +34,16 @@ msgid "Attr"
 msgstr "Attr"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:47 ../src/tar.c:48 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Tid"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:677 ../src/rar.c:47 ../src/tar.c:48 ../src/zip.c:37
+#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Ratio"
 msgstr "Ratio"
 
@@ -63,7 +63,7 @@ msgstr "BPMGS"
 msgid "Can't run the archiver executable:"
 msgstr "Kan inte köra arkiveraren:"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:47 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Rättigheter"
 
@@ -75,7 +75,7 @@ msgstr "Symbolisk länk"
 msgid "Owner/Group"
 msgstr "Ägare/Grupp"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:677 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "Storlek"
@@ -90,7 +90,7 @@ msgstr "Extraherar gzip-fil till %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "Extraherar bzip2-fil till %s"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:117 ../src/extract_dialog.c:313
+#: ../src/bzip2.c:145 ../src/callbacks.c:123 ../src/extract_dialog.c:313
 msgid "Operation canceled."
 msgstr "Åtgärden avbröts."
 
@@ -104,114 +104,114 @@ msgstr "Dekomprimerar tar-fil med %s, var god vänta..."
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Återkomprimerar tar-fil med %s, var god vänta..."
 
-#: ../src/callbacks.c:120
+#: ../src/callbacks.c:126
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Kontrollera \"%s\" eftersom några filer kanske redan har extraherats."
 
-#: ../src/callbacks.c:139 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1667
 msgid "An error occurred while accessing the archive."
 msgstr "Ett fel inträffade vid åtkomst till arkivet."
 
-#: ../src/callbacks.c:139 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "Vill du skriva över det?"
 
-#: ../src/callbacks.c:149 ../src/callbacks.c:688 ../src/callbacks.c:701
+#: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
 #: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "Åtgärden misslyckades."
 
-#: ../src/callbacks.c:158
+#: ../src/callbacks.c:164
 #, fuzzy
 msgid "The sfx archive was saved as:"
 msgstr "Extraherar arkivet till %s"
 
-#: ../src/callbacks.c:169 ../src/callbacks.c:226 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:795
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
 msgid "Operation completed."
 msgstr "Åtgärden klar."
 
-#: ../src/callbacks.c:172
+#: ../src/callbacks.c:178
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Var god vänta under tiden innehållet i arkivet uppdateras..."
 
-#: ../src/callbacks.c:260
+#: ../src/callbacks.c:258
 msgid "Choose Add File to create the compressed file."
 msgstr "Välj Lägg till fil för att skapa den komprimerade filen."
 
-#: ../src/callbacks.c:264
+#: ../src/callbacks.c:262
 msgid "Choose Add to begin creating the archive."
 msgstr "Välj Lägg till för att skapa tar-arkivet."
 
-#: ../src/callbacks.c:318
+#: ../src/callbacks.c:316
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Kan inte öppna filen \"%s\":"
 
-#: ../src/callbacks.c:321
+#: ../src/callbacks.c:319
 msgid "Archive format is not recognized!"
 msgstr "Arkivformatet känns inte igen!"
 
-#: ../src/callbacks.c:344
+#: ../src/callbacks.c:342
 msgid "Sorry, this archive format is not supported:"
 msgstr "Tyvärr, detta arkivformat stöds inte:"
 
-#: ../src/callbacks.c:344
+#: ../src/callbacks.c:342
 msgid "the proper archiver is not installed!"
 msgstr "den lämpliga arkivhanteraren är inte installerad!"
 
-#: ../src/callbacks.c:351
+#: ../src/callbacks.c:349
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Var god vänta under tiden innehållet i ISO-avbilden läses av..."
 
-#: ../src/callbacks.c:353
+#: ../src/callbacks.c:351
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Var god vänta under tiden innehållet i arkivet läses av..."
 
-#: ../src/callbacks.c:428
+#: ../src/callbacks.c:426
 msgid "Testing archive integrity, please wait..."
 msgstr "Testar arkivets integritet, var god vänta..."
 
-#: ../src/callbacks.c:487 ../src/main.c:241
+#: ../src/callbacks.c:485 ../src/main.c:241
 msgid "Ready."
 msgstr "Redo."
 
-#: ../src/callbacks.c:496
+#: ../src/callbacks.c:494
 msgid "Please hit the Stop button first!"
 msgstr "Tryck på Stopp-knappen först!"
 
-#: ../src/callbacks.c:522
+#: ../src/callbacks.c:520
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Du är på väg att ta bort %d fil(er) från arkivet."
 
-#: ../src/callbacks.c:523
+#: ../src/callbacks.c:521
 msgid "Are you sure you want to do this?"
 msgstr "Är du säker på att du vill göra detta?"
 
-#: ../src/callbacks.c:529
+#: ../src/callbacks.c:527
 msgid "Deleting files from the archive, please wait..."
 msgstr "Tar bort filer från arkivet, var god vänta..."
 
-#: ../src/callbacks.c:628
+#: ../src/callbacks.c:626
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Testar arkivets integritet, var god vänta..."
 
-#: ../src/callbacks.c:690
+#: ../src/callbacks.c:688
 #, fuzzy
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Kan inte köra arkiveraren:"
 
-#: ../src/callbacks.c:703
+#: ../src/callbacks.c:701
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Kan inte lägga till filer till arkivet:"
 
-#: ../src/callbacks.c:770
+#: ../src/callbacks.c:768
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander po@danielnylander.se\n"
@@ -219,44 +219,44 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
-#: ../src/callbacks.c:803 ../src/interface.c:254
+#: ../src/callbacks.c:801 ../src/interface.c:254
 msgid "Open an archive"
 msgstr "Öppna ett arkiv"
 
-#: ../src/callbacks.c:816
+#: ../src/callbacks.c:814
 msgid "All files"
 msgstr "Alla filer"
 
-#: ../src/callbacks.c:821
+#: ../src/callbacks.c:819
 msgid "Only archives"
 msgstr "Endast arkiv"
 
-#: ../src/callbacks.c:937
+#: ../src/callbacks.c:935
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Kan inte öppna arkivet \"%s\":"
 
-#: ../src/callbacks.c:1113
+#: ../src/callbacks.c:1111
 msgid "Command line output"
 msgstr ""
 
-#: ../src/callbacks.c:1145
+#: ../src/callbacks.c:1143
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Att göra det kan innebära att ditt arkiv skadas!"
 
-#: ../src/callbacks.c:1145
+#: ../src/callbacks.c:1143
 msgid "Do you really want to cancel?"
 msgstr "Vill du verkligen avbryta?"
 
-#: ../src/callbacks.c:1150
+#: ../src/callbacks.c:1148
 msgid "Waiting for the process to abort..."
 msgstr "Väntar på att processen ska avbrytas..."
 
-#: ../src/callbacks.c:1156
+#: ../src/callbacks.c:1154
 msgid "An error occurred while trying to kill the process:"
 msgstr "Ett fel inträffade vid försök att döda processen:"
 
-#: ../src/callbacks.c:1237
+#: ../src/callbacks.c:1235
 msgid "Please select a file, not a directory!"
 msgstr "Välj en fil, inte en katalog!"
 
@@ -751,95 +751,95 @@ msgstr "Antal filer:"
 msgid "Number of dirs:"
 msgstr "Antal kataloger:"
 
-#: ../src/iso.c:490 ../src/iso.c:516 ../src/iso.c:548
+#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
 msgid "Can't create directory:"
 msgstr "Kan inte skapa katalog:"
 
-#: ../src/iso.c:578
+#: ../src/iso.c:577
 #, c-format
 msgid "Can't write file \"%s\":"
 msgstr "Kan inte skriva filen \"%s\":"
 
-#: ../src/iso.c:677 ../src/rpm.c:56
+#: ../src/iso.c:676 ../src/rpm.c:56
 msgid "Permission"
 msgstr "Rättighet"
 
-#: ../src/iso.c:677
+#: ../src/iso.c:676
 msgid "Offset"
 msgstr "Position"
 
-#: ../src/iso.c:697
+#: ../src/iso.c:696
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr "Rock Ridge version %d"
 
-#: ../src/iso.c:700
+#: ../src/iso.c:699
 msgid "Rock Ridge - unknown version"
 msgstr "Rock Ridge - okänd version"
 
-#: ../src/iso.c:704
+#: ../src/iso.c:703
 #, c-format
 msgid "Apple version %d"
 msgstr "Apple version %d"
 
-#: ../src/iso.c:732
+#: ../src/iso.c:731
 msgid "Standard ISO without extension"
 msgstr "Standard-iso utan tillägg"
 
-#: ../src/iso.c:740 ../src/iso.c:745 ../src/iso.c:750
+#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
 #, c-format
 msgid "Joliet Level %d"
 msgstr "Joliet-nivå %d"
 
-#: ../src/iso.c:844
+#: ../src/iso.c:843
 msgid "ISO Information Window"
 msgstr "Information om ISO-avbild"
 
-#: ../src/iso.c:863
+#: ../src/iso.c:862
 msgid "Filename:"
 msgstr "Filnamn:"
 
-#: ../src/iso.c:871
+#: ../src/iso.c:870
 msgid "Size:"
 msgstr "Storlek:"
 
-#: ../src/iso.c:879
+#: ../src/iso.c:878
 msgid "Extension:"
 msgstr ""
 
-#: ../src/iso.c:887
+#: ../src/iso.c:886
 msgid "System ID:"
 msgstr "System-id:"
 
-#: ../src/iso.c:895
+#: ../src/iso.c:894
 msgid "Volume ID:"
 msgstr "Volym-id:"
 
-#: ../src/iso.c:903
+#: ../src/iso.c:902
 msgid "Application:"
 msgstr "Program:"
 
-#: ../src/iso.c:911
+#: ../src/iso.c:910
 msgid "Publisher:"
 msgstr "Utgivare:"
 
-#: ../src/iso.c:919
+#: ../src/iso.c:918
 msgid "Preparer:"
 msgstr "Upphovsman:"
 
-#: ../src/iso.c:927
+#: ../src/iso.c:926
 msgid "Creation date:"
 msgstr "Skapat den:"
 
-#: ../src/iso.c:935
+#: ../src/iso.c:934
 msgid "Modified date:"
 msgstr "Ändrad den:"
 
-#: ../src/iso.c:943
+#: ../src/iso.c:942
 msgid "Expiration date:"
 msgstr "Utgångsdatum:"
 
-#: ../src/iso.c:951
+#: ../src/iso.c:950
 msgid "Effective date:"
 msgstr "Effektivt datum:"
 
@@ -911,15 +911,15 @@ msgstr "Kan inte köra kommandot:"
 msgid "An error occurred!"
 msgstr "Ett fel inträffade!"
 
-#: ../src/rar.c:47 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/zip.c:38
 msgid "Checksum"
 msgstr ""
 
-#: ../src/rar.c:47 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/zip.c:38
 msgid "Method"
 msgstr "Metod"
 
-#: ../src/rar.c:47
+#: ../src/rar.c:49
 msgid "Version"
 msgstr "Version"
 

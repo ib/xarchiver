@@ -15,16 +15,15 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
+
 #ifndef ZIP_H
 #define ZIP_H
 
 #include <gtk/gtk.h>
-#include "callbacks.h"
 #include "interface.h"
-#include "support.h"
+#include "callbacks.h"
+#include "main.h"
 #include "archive.h"
 
 void OpenZip ( XArchive *archive );
-gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 #endif

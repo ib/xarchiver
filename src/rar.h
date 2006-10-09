@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
+
 #ifndef RAR_H
 #define RAR_H
 
@@ -27,5 +27,4 @@
 
 gboolean jump_header , odd_line;
 void OpenRar ( XArchive *archive );
-gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 #endif

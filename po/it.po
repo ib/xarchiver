@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.3.9.3svn-r22877\n"
+"Project-Id-Version: xarchiver 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 12:15+0200\n"
+"POT-Creation-Date: 2006-10-09 14:32+0200\n"
 "PO-Revision-Date: 2006-08-31 12:16+0200\n"
 "Last-Translator: Giuseppe Torelli <colossus73@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -18,16 +18,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:677 ../src/rar.c:47 ../src/rpm.c:56 ../src/tar.c:48
-#: ../src/zip.c:37
+#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/zip.c:38
 msgid "Filename"
 msgstr "Nome del file"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Original"
 msgstr "Originale"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Compressed"
 msgstr "Compresso"
 
@@ -36,16 +36,16 @@ msgid "Attr"
 msgstr "Permessi"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:47 ../src/tar.c:48 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Ora"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:677 ../src/rar.c:47 ../src/tar.c:48 ../src/zip.c:37
+#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "Data"
 
-#: ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Ratio"
 msgstr "Rapporto"
 
@@ -65,7 +65,7 @@ msgstr "BPMGS"
 msgid "Can't run the archiver executable:"
 msgstr "Non riesco a mandare in esecuzione l'eseguibile dell'archiviatore:"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:47 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Permessi"
 
@@ -77,7 +77,7 @@ msgstr "Link simbolico"
 msgid "Owner/Group"
 msgstr "Proprietario/Gruppo"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:677 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "Dimensione"
@@ -92,7 +92,7 @@ msgstr "Sto estrando il file di tipo gzip in %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "Sto estrando il file di tipo bzip2 in %s"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:117 ../src/extract_dialog.c:313
+#: ../src/bzip2.c:145 ../src/callbacks.c:123 ../src/extract_dialog.c:313
 msgid "Operation canceled."
 msgstr "Operazione annullata."
 
@@ -106,152 +106,152 @@ msgstr "Sto decomprimendo il file %s di tipo tar, attendere prego..."
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Sto ricomprimendo il file %s di tipo tar, attendere prego..."
 
-#: ../src/callbacks.c:120
+#: ../src/callbacks.c:126
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "Controlla \"%s\" dato che alcuni file potrebbero essere già stati estratti."
 
-#: ../src/callbacks.c:139 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1667
 msgid "An error occurred while accessing the archive."
 msgstr "Si è verificato un errore mentre accedevo all'archivio."
 
-#: ../src/callbacks.c:139 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
 msgid "Do you want to view the command line output?"
 msgstr "Vuoi vedere l'output dell'archiviatore?"
 
-#: ../src/callbacks.c:149 ../src/callbacks.c:688 ../src/callbacks.c:701
+#: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
 #: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "Operazione fallita."
 
-#: ../src/callbacks.c:158
+#: ../src/callbacks.c:164
 msgid "The sfx archive was saved as:"
 msgstr "L'archivio auto-estraibile è stato salvato in:"
 
-#: ../src/callbacks.c:169 ../src/callbacks.c:226 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:795
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
 msgid "Operation completed."
 msgstr "Operazione completata."
 
-#: ../src/callbacks.c:172
+#: ../src/callbacks.c:178
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Attendere prego mentre il contenuto dell'archivio viene aggiornato..."
 
-#: ../src/callbacks.c:260
+#: ../src/callbacks.c:258
 msgid "Choose Add File to create the compressed file."
 msgstr "Scegli Aggiungi file per creare il file compresso."
 
-#: ../src/callbacks.c:264
+#: ../src/callbacks.c:262
 msgid "Choose Add to begin creating the archive."
 msgstr "Scegli Aggiungi per iniziare a creare l'archivio."
 
-#: ../src/callbacks.c:318
+#: ../src/callbacks.c:316
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Non riesco ad aprire il file \"%s\":"
 
-#: ../src/callbacks.c:321
+#: ../src/callbacks.c:319
 msgid "Archive format is not recognized!"
 msgstr "Il formato di questo archivio non è riconosciuto!"
 
-#: ../src/callbacks.c:344
+#: ../src/callbacks.c:342
 msgid "Sorry, this archive format is not supported:"
 msgstr "Spiacente, questo formato non è supportato:"
 
-#: ../src/callbacks.c:344
+#: ../src/callbacks.c:342
 msgid "the proper archiver is not installed!"
 msgstr "il programma di decompressione non è installato!"
 
-#: ../src/callbacks.c:351
+#: ../src/callbacks.c:349
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Attendere prego mentre il contenuto dell'immagine ISO viene letto..."
 
-#: ../src/callbacks.c:353
+#: ../src/callbacks.c:351
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Attendere prego mentre il contenuto dell'archivio viene letto..."
 
-#: ../src/callbacks.c:428
+#: ../src/callbacks.c:426
 msgid "Testing archive integrity, please wait..."
 msgstr "Sto testando l'integrità dell'archivio, attendere prego..."
 
-#: ../src/callbacks.c:487 ../src/main.c:241
+#: ../src/callbacks.c:485 ../src/main.c:241
 msgid "Ready."
 msgstr "Pronto."
 
-#: ../src/callbacks.c:496
+#: ../src/callbacks.c:494
 msgid "Please hit the Stop button first!"
 msgstr "Si prega di premere prima il pulsante Stop!"
 
-#: ../src/callbacks.c:522
+#: ../src/callbacks.c:520
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Stai per cancellare %d file dall'archivio."
 
-#: ../src/callbacks.c:523
+#: ../src/callbacks.c:521
 msgid "Are you sure you want to do this?"
 msgstr "Sei sicuro di volerlo fare?"
 
-#: ../src/callbacks.c:529
+#: ../src/callbacks.c:527
 msgid "Deleting files from the archive, please wait..."
 msgstr "Sto cancellando i file dall'archivio, attendere prego..."
 
-#: ../src/callbacks.c:628
+#: ../src/callbacks.c:626
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Sto convertendo l'archivio in auto-estraibile, attendere prego..."
 
-#: ../src/callbacks.c:690
+#: ../src/callbacks.c:688
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Non riesco a convertire l'archivio in auto-estraibile:"
 
-#: ../src/callbacks.c:703
+#: ../src/callbacks.c:701
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr ""
 "Non riesco ad aggiungere il modulo auto-estraibile 'unzipsfx' all'archivio:"
 
-#: ../src/callbacks.c:770
+#: ../src/callbacks.c:768
 msgid "translator-credits"
 msgstr "Giuseppe Torelli <colossus73@gmail.com>"
 
-#: ../src/callbacks.c:803 ../src/interface.c:254
+#: ../src/callbacks.c:801 ../src/interface.c:254
 msgid "Open an archive"
 msgstr "Apertura dell'archivio"
 
-#: ../src/callbacks.c:816
+#: ../src/callbacks.c:814
 msgid "All files"
 msgstr "Tutti i file"
 
-#: ../src/callbacks.c:821
+#: ../src/callbacks.c:819
 msgid "Only archives"
 msgstr "Solo gli archivi"
 
-#: ../src/callbacks.c:937
+#: ../src/callbacks.c:935
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Non riesco ad aprire l'archivio \"%s\":"
 
-#: ../src/callbacks.c:1113
+#: ../src/callbacks.c:1111
 msgid "Command line output"
 msgstr "Output della linea di comando"
 
-#: ../src/callbacks.c:1145
+#: ../src/callbacks.c:1143
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Così facendo l'archivio verrà corrotto!"
 
-#: ../src/callbacks.c:1145
+#: ../src/callbacks.c:1143
 msgid "Do you really want to cancel?"
 msgstr "Sei sicuro di annullare?"
 
-#: ../src/callbacks.c:1150
+#: ../src/callbacks.c:1148
 msgid "Waiting for the process to abort..."
 msgstr "In attesa della terminazione del processo..."
 
-#: ../src/callbacks.c:1156
+#: ../src/callbacks.c:1154
 msgid "An error occurred while trying to kill the process:"
 msgstr "Si è verificato un errore mentre cercavo di terminare il processo:"
 
-#: ../src/callbacks.c:1237
+#: ../src/callbacks.c:1235
 msgid "Please select a file, not a directory!"
 msgstr "Si prega di selezionare un file, non una directory!"
 
@@ -744,95 +744,95 @@ msgstr "Numero di file:"
 msgid "Number of dirs:"
 msgstr "Numero di directory:"
 
-#: ../src/iso.c:490 ../src/iso.c:516 ../src/iso.c:548
+#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
 msgid "Can't create directory:"
 msgstr "Non posso creare la directory:"
 
-#: ../src/iso.c:578
+#: ../src/iso.c:577
 #, c-format
 msgid "Can't write file \"%s\":"
 msgstr "Non posso scrivere il file \"%s\":"
 
-#: ../src/iso.c:677 ../src/rpm.c:56
+#: ../src/iso.c:676 ../src/rpm.c:56
 msgid "Permission"
 msgstr "Permessi"
 
-#: ../src/iso.c:677
+#: ../src/iso.c:676
 msgid "Offset"
 msgstr "Offset"
 
-#: ../src/iso.c:697
+#: ../src/iso.c:696
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr "Versione Rock Ridge %d"
 
-#: ../src/iso.c:700
+#: ../src/iso.c:699
 msgid "Rock Ridge - unknown version"
 msgstr "Versione sconosciuta Rock Ridge"
 
-#: ../src/iso.c:704
+#: ../src/iso.c:703
 #, c-format
 msgid "Apple version %d"
 msgstr "Versione Apple %d"
 
-#: ../src/iso.c:732
+#: ../src/iso.c:731
 msgid "Standard ISO without extension"
 msgstr "ISO standard senza estensioni"
 
-#: ../src/iso.c:740 ../src/iso.c:745 ../src/iso.c:750
+#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
 #, c-format
 msgid "Joliet Level %d"
 msgstr "Joliet livello %d"
 
-#: ../src/iso.c:844
+#: ../src/iso.c:843
 msgid "ISO Information Window"
 msgstr "Informazioni ISO"
 
-#: ../src/iso.c:863
+#: ../src/iso.c:862
 msgid "Filename:"
 msgstr "Nome del file:"
 
-#: ../src/iso.c:871
+#: ../src/iso.c:870
 msgid "Size:"
 msgstr "Dimensione:"
 
-#: ../src/iso.c:879
+#: ../src/iso.c:878
 msgid "Extension:"
 msgstr "Estensione:"
 
-#: ../src/iso.c:887
+#: ../src/iso.c:886
 msgid "System ID:"
 msgstr "ID di sistema:"
 
-#: ../src/iso.c:895
+#: ../src/iso.c:894
 msgid "Volume ID:"
 msgstr "ID di volume:"
 
-#: ../src/iso.c:903
+#: ../src/iso.c:902
 msgid "Application:"
 msgstr "Applicazione usata:"
 
-#: ../src/iso.c:911
+#: ../src/iso.c:910
 msgid "Publisher:"
 msgstr "Editore:"
 
-#: ../src/iso.c:919
+#: ../src/iso.c:918
 msgid "Preparer:"
 msgstr "Preparatore:"
 
-#: ../src/iso.c:927
+#: ../src/iso.c:926
 msgid "Creation date:"
 msgstr "Data di creazione:"
 
-#: ../src/iso.c:935
+#: ../src/iso.c:934
 msgid "Modified date:"
 msgstr "Data di modifica:"
 
-#: ../src/iso.c:943
+#: ../src/iso.c:942
 msgid "Expiration date:"
 msgstr "Data di scadenza:"
 
-#: ../src/iso.c:951
+#: ../src/iso.c:950
 msgid "Effective date:"
 msgstr "Data effettiva:"
 
@@ -899,15 +899,15 @@ msgstr "Non posso mandare in esecuzione il comando:"
 msgid "An error occurred!"
 msgstr "Si è verificato un errore!"
 
-#: ../src/rar.c:47 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/zip.c:38
 msgid "Checksum"
 msgstr "Checksum"
 
-#: ../src/rar.c:47 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/zip.c:38
 msgid "Method"
 msgstr "Metodo"
 
-#: ../src/rar.c:47
+#: ../src/rar.c:49
 msgid "Version"
 msgstr "Versione"
 

@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
+
 #ifndef LHA_H
 #define LHA_H
 
@@ -28,6 +28,5 @@
 #include "archive.h"
 
 void OpenLha ( XArchive *archive );
-gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 #endif
 

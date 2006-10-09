@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 12:15+0200\n"
+"POT-Creation-Date: 2006-10-09 14:32+0200\n"
 "PO-Revision-Date: 2006-09-20 13:03+0200\n"
 "Last-Translator: Pau Ruŀlan Ferragut <paurullan@bulma.net>\n"
 "Language-Team: Catalan\n"
@@ -17,16 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:677 ../src/rar.c:47 ../src/rpm.c:56 ../src/tar.c:48
-#: ../src/zip.c:37
+#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/zip.c:38
 msgid "Filename"
 msgstr "Nom de fitxer"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Original"
 msgstr "Original"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Compressed"
 msgstr "Comprimit"
 
@@ -35,16 +35,16 @@ msgid "Attr"
 msgstr "Atributs"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:47 ../src/tar.c:48 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Temps"
 
 #: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:677 ../src/rar.c:47 ../src/tar.c:48 ../src/zip.c:37
+#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "Data"
 
-#: ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Ratio"
 msgstr "Proporció"
 
@@ -64,7 +64,7 @@ msgstr "BPMGS"
 msgid "Can't run the archiver executable:"
 msgstr "No s’ha pogut executar el compresor:"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:47 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Permisos"
 
@@ -76,7 +76,7 @@ msgstr "Enllaç simbòlic"
 msgid "Owner/Group"
 msgstr "Propietari/Grup"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:677 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "Mida"
@@ -91,7 +91,7 @@ msgstr "S’està extraguent el fitxer gzip a %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "S’està extraguent el fitxer bzip2 a %s"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:117 ../src/extract_dialog.c:313
+#: ../src/bzip2.c:145 ../src/callbacks.c:123 ../src/extract_dialog.c:313
 msgid "Operation canceled."
 msgstr "S’ha canceŀlat l’operació"
 
@@ -105,156 +105,156 @@ msgstr "S’està descomprimint el fitxer tar «%s»"
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "S’està recomprimint el fitxer tar «%s»"
 
-#: ../src/callbacks.c:120
+#: ../src/callbacks.c:126
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Comproveu «%s» perquè alguns fitxers podrien ja haver-se extret."
 
-#: ../src/callbacks.c:139 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1667
 msgid "An error occurred while accessing the archive."
 msgstr "S’ha produit un error m’entre s’accedia al fitxer."
 
-#: ../src/callbacks.c:139 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
 msgid "Do you want to view the command line output?"
 msgstr "Voleu veure la sortida de la línea d’ordres?"
 
-#: ../src/callbacks.c:149 ../src/callbacks.c:688 ../src/callbacks.c:701
+#: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
 #: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "L’operació ha fallat"
 
-#: ../src/callbacks.c:158
+#: ../src/callbacks.c:164
 #, fuzzy
 msgid "The sfx archive was saved as:"
 msgstr "S’està extraguent l’arxiu a «%s»"
 
-#: ../src/callbacks.c:169 ../src/callbacks.c:226 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:795
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
 msgid "Operation completed."
 msgstr "Operació completada."
 
-#: ../src/callbacks.c:172
+#: ../src/callbacks.c:178
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "S’està actualitzant el contingut de l’arxiu"
 
-#: ../src/callbacks.c:260
+#: ../src/callbacks.c:258
 msgid "Choose Add File to create the compressed file."
 msgstr "Seleccioneu «Afegir fitxer» per crear el fitxer comprimit."
 
-#: ../src/callbacks.c:264
+#: ../src/callbacks.c:262
 msgid "Choose Add to begin creating the archive."
 msgstr "Seleccioneu «Afegir» per començar a crear l’arxiu."
 
-#: ../src/callbacks.c:318
+#: ../src/callbacks.c:316
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "No s’ha pogut obrir el fitxer «%s»:"
 
-#: ../src/callbacks.c:321
+#: ../src/callbacks.c:319
 msgid "Archive format is not recognized!"
 msgstr "No s’ha pogut reconeixer el format del fitxer"
 
-#: ../src/callbacks.c:344
+#: ../src/callbacks.c:342
 msgid "Sorry, this archive format is not supported:"
 msgstr "Aquest format de fitxer no està suportat:"
 
-#: ../src/callbacks.c:344
+#: ../src/callbacks.c:342
 msgid "the proper archiver is not installed!"
 msgstr "l’arxivador corresponent no està instaŀlat"
 
-#: ../src/callbacks.c:351
+#: ../src/callbacks.c:349
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "S’està llegint el contingut de la imatge ISO"
 
-#: ../src/callbacks.c:353
+#: ../src/callbacks.c:351
 msgid "Please wait while the content of the archive is being read..."
 msgstr "S’està llegint el contingut de l’arxiu"
 
-#: ../src/callbacks.c:428
+#: ../src/callbacks.c:426
 msgid "Testing archive integrity, please wait..."
 msgstr "S’està comprovant la integritat del fitxer"
 
-#: ../src/callbacks.c:487 ../src/main.c:241
+#: ../src/callbacks.c:485 ../src/main.c:241
 msgid "Ready."
 msgstr "Preparat."
 
-#: ../src/callbacks.c:496
+#: ../src/callbacks.c:494
 msgid "Please hit the Stop button first!"
 msgstr "Preméu el botó «Atura» abans"
 
-#: ../src/callbacks.c:522
+#: ../src/callbacks.c:520
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Esteu apunt de suprimir %d fitxer(s) de l’arxiu."
 
-#: ../src/callbacks.c:523
+#: ../src/callbacks.c:521
 msgid "Are you sure you want to do this?"
 msgstr "Esteu segurs que voleu dur a terme aquesta acció?"
 
-#: ../src/callbacks.c:529
+#: ../src/callbacks.c:527
 msgid "Deleting files from the archive, please wait..."
 msgstr "S’està esborrant els fitxers de l’arxiu"
 
-#: ../src/callbacks.c:628
+#: ../src/callbacks.c:626
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "S’està comprovant la integritat del fitxer"
 
-#: ../src/callbacks.c:690
+#: ../src/callbacks.c:688
 #, fuzzy
 msgid "Can't convert the archive to self-extracting:"
 msgstr "No s’ha pogut executar el compresor:"
 
-#: ../src/callbacks.c:703
+#: ../src/callbacks.c:701
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "No s’han pogut afegir els fitxers a l’arxiu:"
 
-#: ../src/callbacks.c:770
+#: ../src/callbacks.c:768
 msgid "translator-credits"
 msgstr ""
 "Pau Rul-lan Ferragut\n"
 "<paurullan@bulma.net>"
 
-#: ../src/callbacks.c:803 ../src/interface.c:254
+#: ../src/callbacks.c:801 ../src/interface.c:254
 msgid "Open an archive"
 msgstr "Obre un arxiu"
 
-#: ../src/callbacks.c:816
+#: ../src/callbacks.c:814
 msgid "All files"
 msgstr "Tots els fitxers"
 
-#: ../src/callbacks.c:821
+#: ../src/callbacks.c:819
 msgid "Only archives"
 msgstr "Sols arxius"
 
-#: ../src/callbacks.c:937
+#: ../src/callbacks.c:935
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "No s’ha pogut obrir l’arxiu «%s»:"
 
-#: ../src/callbacks.c:1113
+#: ../src/callbacks.c:1111
 msgid "Command line output"
 msgstr "Sortida de la línea d’ordres"
 
-#: ../src/callbacks.c:1145
+#: ../src/callbacks.c:1143
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Dur a terme aquesta acció probablement corromprà l’arxiu"
 
-#: ../src/callbacks.c:1145
+#: ../src/callbacks.c:1143
 msgid "Do you really want to cancel?"
 msgstr "Esteu segurs que voleu canceŀlar-ho?"
 
-#: ../src/callbacks.c:1150
+#: ../src/callbacks.c:1148
 msgid "Waiting for the process to abort..."
 msgstr "S’està abortant el procés"
 
-#: ../src/callbacks.c:1156
+#: ../src/callbacks.c:1154
 msgid "An error occurred while trying to kill the process:"
 msgstr "S’ha produit un error mentre es matava el procés:"
 
-#: ../src/callbacks.c:1237
+#: ../src/callbacks.c:1235
 msgid "Please select a file, not a directory!"
 msgstr "Seleccioneu un fitxer i no un directori"
 
@@ -749,95 +749,95 @@ msgstr "Nombre de fitxers:"
 msgid "Number of dirs:"
 msgstr "Nombre de directoris:"
 
-#: ../src/iso.c:490 ../src/iso.c:516 ../src/iso.c:548
+#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
 msgid "Can't create directory:"
 msgstr "No s’ha pogut crear el directori:"
 
-#: ../src/iso.c:578
+#: ../src/iso.c:577
 #, c-format
 msgid "Can't write file \"%s\":"
 msgstr "No s’ha pogut escriure el fitxer «%s»:"
 
-#: ../src/iso.c:677 ../src/rpm.c:56
+#: ../src/iso.c:676 ../src/rpm.c:56
 msgid "Permission"
 msgstr "Permís"
 
-#: ../src/iso.c:677
+#: ../src/iso.c:676
 msgid "Offset"
 msgstr "Desplaçament"
 
-#: ../src/iso.c:697
+#: ../src/iso.c:696
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr "Versió Rock Ridge: %d"
 
-#: ../src/iso.c:700
+#: ../src/iso.c:699
 msgid "Rock Ridge - unknown version"
 msgstr "Versió Rock Ridge: desconeguda"
 
-#: ../src/iso.c:704
+#: ../src/iso.c:703
 #, c-format
 msgid "Apple version %d"
 msgstr "Versió Apple: %d"
 
-#: ../src/iso.c:732
+#: ../src/iso.c:731
 msgid "Standard ISO without extension"
 msgstr "Estàndar ISO sense extensió"
 
-#: ../src/iso.c:740 ../src/iso.c:745 ../src/iso.c:750
+#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
 #, c-format
 msgid "Joliet Level %d"
 msgstr "Nivell Joliet: %d"
 
-#: ../src/iso.c:844
+#: ../src/iso.c:843
 msgid "ISO Information Window"
 msgstr "Finestra de informació ISO"
 
-#: ../src/iso.c:863
+#: ../src/iso.c:862
 msgid "Filename:"
 msgstr "Nom de fitxer:"
 
-#: ../src/iso.c:871
+#: ../src/iso.c:870
 msgid "Size:"
 msgstr "Mida:"
 
-#: ../src/iso.c:879
+#: ../src/iso.c:878
 msgid "Extension:"
 msgstr ""
 
-#: ../src/iso.c:887
+#: ../src/iso.c:886
 msgid "System ID:"
 msgstr "Identificador de sistema:"
 
-#: ../src/iso.c:895
+#: ../src/iso.c:894
 msgid "Volume ID:"
 msgstr "Identificador de volum:"
 
-#: ../src/iso.c:903
+#: ../src/iso.c:902
 msgid "Application:"
 msgstr "Aplicació:"
 
-#: ../src/iso.c:911
+#: ../src/iso.c:910
 msgid "Publisher:"
 msgstr "Editor:"
 
-#: ../src/iso.c:919
+#: ../src/iso.c:918
 msgid "Preparer:"
 msgstr "Creador:"
 
-#: ../src/iso.c:927
+#: ../src/iso.c:926
 msgid "Creation date:"
 msgstr "Data de creació:"
 
-#: ../src/iso.c:935
+#: ../src/iso.c:934
 msgid "Modified date:"
 msgstr "Data de modificació:"
 
-#: ../src/iso.c:943
+#: ../src/iso.c:942
 msgid "Expiration date:"
 msgstr "Data d’expiració:"
 
-#: ../src/iso.c:951
+#: ../src/iso.c:950
 msgid "Effective date:"
 msgstr "Data efectiva:"
 
@@ -906,15 +906,15 @@ msgstr "No s’ha pogut engendrar l’ordre:"
 msgid "An error occurred!"
 msgstr "S’ha produït un error"
 
-#: ../src/rar.c:47 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/zip.c:38
 msgid "Checksum"
 msgstr ""
 
-#: ../src/rar.c:47 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/zip.c:38
 msgid "Method"
 msgstr "Mètode"
 
-#: ../src/rar.c:47
+#: ../src/rar.c:49
 msgid "Version"
 msgstr "Versió"
 

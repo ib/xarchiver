@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.3.9.2beta2\n"
-"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2006-10-09 11:19+0300\n"
+"Project-Id-Version: xarchiver 0.4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-10-09 14:32+0200\n"
 "PO-Revision-Date: 2006-10-09 11:25+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -15,17 +15,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:57 ../src/gzip.c:54
-#: ../src/iso.c:677 ../src/rar.c:47 ../src/rpm.c:56 ../src/tar.c:48
-#: ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/zip.c:38
 msgid "Filename"
 msgstr "Tiedostonimi"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Original"
 msgstr "Alkuperäinen"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Compressed"
 msgstr "Pakattu"
 
@@ -33,17 +33,17 @@ msgstr "Pakattu"
 msgid "Attr"
 msgstr "Attr"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:57 ../src/gzip.c:54
-#: ../src/rar.c:47 ../src/tar.c:48 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Aika"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:57 ../src/gzip.c:54
-#: ../src/iso.c:677 ../src/rar.c:47 ../src/tar.c:48 ../src/zip.c:37
+#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "Pvm"
 
-#: ../src/arj.c:38 ../src/rar.c:47 ../src/zip.c:37
+#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
 msgid "Ratio"
 msgstr "Suhde"
 
@@ -63,231 +63,227 @@ msgstr "BPMGS"
 msgid "Can't run the archiver executable:"
 msgstr "Arkistointiohjelmaa ei voi suorittaa:"
 
-#: ../src/bzip2.c:57 ../src/gzip.c:54 ../src/rar.c:47 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Oikeudet"
 
-#: ../src/bzip2.c:57 ../src/gzip.c:54 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rpm.c:56 ../src/tar.c:48
 msgid "Symbolic Link"
 msgstr "Symbolinen linkki"
 
-#: ../src/bzip2.c:57 ../src/gzip.c:54 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/tar.c:48
 msgid "Owner/Group"
 msgstr "Omistaja/Ryhmä"
 
-#: ../src/bzip2.c:57 ../src/gzip.c:54 ../src/iso.c:677 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "Koko"
 
-#: ../src/bzip2.c:87
+#: ../src/bzip2.c:86
 #, c-format
 msgid "Extracting gzip file to %s"
 msgstr "Puretaan gzip-tiedostoa kohteeseen %s"
 
-#: ../src/bzip2.c:89
+#: ../src/bzip2.c:88
 #, c-format
 msgid "Extracting bzip2 file to %s"
 msgstr "Puretaan bzip2-tiedostoa kohteeseen %s"
 
-#: ../src/bzip2.c:146 ../src/callbacks.c:117 ../src/extract_dialog.c:313
+#: ../src/bzip2.c:145 ../src/callbacks.c:123 ../src/extract_dialog.c:313
 msgid "Operation canceled."
 msgstr "Toiminto peruutettu."
 
-#: ../src/bzip2.c:160
+#: ../src/bzip2.c:159
 #, c-format
 msgid "Decompressing tar file with %s, please wait..."
 msgstr "Puretaan %s-pakattua tar-tiedostoa, odota..."
 
-#: ../src/bzip2.c:235
+#: ../src/bzip2.c:234
 #, c-format
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Pakataan tar-tiedostoa uudelleen %s-muotoon, odota..."
 
-#: ../src/callbacks.c:120
+#: ../src/callbacks.c:126
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Tarkista \"%s\", sillä osa tiedostoista mahdollisesti purettiin jo."
 
-#: ../src/callbacks.c:139 ../src/callbacks.c:1655
+#: ../src/callbacks.c:145 ../src/callbacks.c:1667
 msgid "An error occurred while accessing the archive."
 msgstr "Virhe luettaessa arkistoa."
 
-#: ../src/callbacks.c:139 ../src/callbacks.c:1655 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
 msgid "Do you want to view the command line output?"
 msgstr "Haluatko nähdä komentorivitulostuksen?"
 
-#: ../src/callbacks.c:149 ../src/callbacks.c:677 ../src/callbacks.c:690
-#: ../src/callbacks.c:1326 ../src/callbacks.c:1660 ../src/extract_dialog.c:932
+#: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
+#: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "Toiminto epäonnistui."
 
-#: ../src/callbacks.c:155
-msgid "Operation completed"
-msgstr "Toiminto suoritettu"
+#: ../src/callbacks.c:164
+msgid "The sfx archive was saved as:"
+msgstr ""
 
-#: ../src/callbacks.c:166 ../src/callbacks.c:223 ../src/callbacks.c:1335
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:795
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
 msgid "Operation completed."
 msgstr "Toiminto suoritettu."
 
-#: ../src/callbacks.c:169
+#: ../src/callbacks.c:178
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Odota, kun arkiston sisältöä päivitetään..."
 
-#: ../src/callbacks.c:257
+#: ../src/callbacks.c:258
 msgid "Choose Add File to create the compressed file."
 msgstr "Valitse Lisää tiedosto luodaksesi pakatun tiedoston."
 
-#: ../src/callbacks.c:261
+#: ../src/callbacks.c:262
 msgid "Choose Add to begin creating the archive."
 msgstr "Valitse Lisää aloittaaksesi arkiston luomisen."
 
-#: ../src/callbacks.c:315
+#: ../src/callbacks.c:316
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Tiedostoa \"%s\" ei voi avata:"
 
-#: ../src/callbacks.c:318
+#: ../src/callbacks.c:319
 msgid "Archive format is not recognized!"
 msgstr "Tuntematon arkistomuoto!"
 
-#: ../src/callbacks.c:341
+#: ../src/callbacks.c:342
 msgid "Sorry, this archive format is not supported:"
 msgstr "Arkistotyyppiä ei valitettavasti tueta:"
 
-#: ../src/callbacks.c:341
+#: ../src/callbacks.c:342
 msgid "the proper archiver is not installed!"
 msgstr "tarvittavaa arkistointisovellusta ei ole asennettu!"
 
-#: ../src/callbacks.c:348
+#: ../src/callbacks.c:349
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Odota, kun ISO-vedosta luetaan..."
 
-#: ../src/callbacks.c:350
+#: ../src/callbacks.c:351
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Odota, kun arkiston sisältöä luetaan..."
 
-#: ../src/callbacks.c:425
+#: ../src/callbacks.c:426
 msgid "Testing archive integrity, please wait..."
 msgstr "Tarkistetaan arkiston eheyttä, odota..."
 
-#: ../src/callbacks.c:484 ../src/main.c:241
+#: ../src/callbacks.c:485 ../src/main.c:241
 msgid "Ready."
 msgstr "Valmis."
 
-#: ../src/callbacks.c:493
+#: ../src/callbacks.c:494
 msgid "Please hit the Stop button first!"
 msgstr "Paina ensin Pysäytä-painiketta!"
 
-#: ../src/callbacks.c:519
+#: ../src/callbacks.c:520
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Olet aikeissa poistaa %d tiedostoa arkistosta."
 
-#: ../src/callbacks.c:520
+#: ../src/callbacks.c:521
 msgid "Are you sure you want to do this?"
 msgstr "Haluatko varmasti tehdä sen?"
 
-#: ../src/callbacks.c:526
+#: ../src/callbacks.c:527
 msgid "Deleting files from the archive, please wait..."
 msgstr "Poistetaan tiedostoja arkistosta, odota..."
 
-#: ../src/callbacks.c:634
+#: ../src/callbacks.c:626
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Muunnetaan arkistoa itsepurkautuvaksi, odota..."
 
-#: ../src/callbacks.c:679
+#: ../src/callbacks.c:688
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Arkistoa ei voi muuntaa itsepurkautuvaksi:"
 
-#: ../src/callbacks.c:692
+#: ../src/callbacks.c:701
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Arkistoon ei voi kirjoittaa unzipsfx-moduulia:"
 
-#: ../src/callbacks.c:712
-msgid "The self extracting archive is:\n"
-msgstr "Itsepurkautuva arkisto on:\n"
-
-#: ../src/callbacks.c:758
+#: ../src/callbacks.c:768
 msgid "translator-credits"
 msgstr "Jari Rahkonen <jari.rahkonen@pp1.inet.fi>"
 
-#: ../src/callbacks.c:791 ../src/interface.c:254
+#: ../src/callbacks.c:801 ../src/interface.c:254
 msgid "Open an archive"
 msgstr "Avaa arkisto"
 
-#: ../src/callbacks.c:804
+#: ../src/callbacks.c:814
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
-#: ../src/callbacks.c:809
+#: ../src/callbacks.c:819
 msgid "Only archives"
 msgstr "Vain arkistot"
 
-#: ../src/callbacks.c:925
+#: ../src/callbacks.c:935
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Arkistoa \"%s\" ei voi avata:"
 
-#: ../src/callbacks.c:1101
+#: ../src/callbacks.c:1111
 msgid "Command line output"
 msgstr "Komentorivitulostus"
 
-#: ../src/callbacks.c:1133
+#: ../src/callbacks.c:1143
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Se tekisi arkistosta luultavasti käyttökelvottoman!"
 
-#: ../src/callbacks.c:1133
+#: ../src/callbacks.c:1143
 msgid "Do you really want to cancel?"
 msgstr "Haluatko todella perua toiminnon?"
 
-#: ../src/callbacks.c:1138
+#: ../src/callbacks.c:1148
 msgid "Waiting for the process to abort..."
 msgstr "Odotetaan, että prosessi peruuntuu..."
 
-#: ../src/callbacks.c:1144
+#: ../src/callbacks.c:1154
 msgid "An error occurred while trying to kill the process:"
 msgstr "Virhe suljettaessa prosessia:"
 
-#: ../src/callbacks.c:1225
+#: ../src/callbacks.c:1235
 msgid "Please select a file, not a directory!"
 msgstr "Valitse tiedosto, älä hakemistoa!"
 
-#: ../src/callbacks.c:1377
+#: ../src/callbacks.c:1389
 msgid " bytes"
 msgstr " tavua"
 
-#: ../src/callbacks.c:1777
+#: ../src/callbacks.c:1789
 msgid "Can't perform another extraction:"
 msgstr "Ei voi purkaa uudelleen:"
 
-#: ../src/callbacks.c:1777
+#: ../src/callbacks.c:1789
 msgid "Please wait until the completion of the current one!"
 msgstr "Odota, kunnes nykyinen toiminto valmistuu."
 
-#: ../src/callbacks.c:1850
+#: ../src/callbacks.c:1862
 msgid "Sorry, I could not perform the operation!"
 msgstr "Toimintoa ei valitettavasti voitu suorittaa."
 
-#: ../src/callbacks.c:1865 ../src/callbacks.c:1876 ../src/main.c:97
+#: ../src/callbacks.c:1877 ../src/callbacks.c:1888 ../src/main.c:97
 msgid "Can't perform this action:"
 msgstr "Toimintoa ei voi suorittaa:"
 
-#: ../src/callbacks.c:1865
+#: ../src/callbacks.c:1877
 msgid "unrar doesn't support archive creation!"
 msgstr "unrar ei voi luoda arkistoa!"
 
-#: ../src/callbacks.c:1873
+#: ../src/callbacks.c:1885
 msgid "You can't add content to deb packages!"
 msgstr "Et voi lisätä sisältöä deb-paketteihin!"
 
-#: ../src/callbacks.c:1875
+#: ../src/callbacks.c:1887
 msgid "You can't add content to rpm packages!"
 msgstr "Et voi lisätä sisältöä rpm-paketteihin!"
 
-#: ../src/callbacks.c:2026
+#: ../src/callbacks.c:2038
 msgid "Failed to open link."
 msgstr "Linkin avaaminen epäonnistui."
 
@@ -652,8 +648,8 @@ msgid ""
 msgstr "Pura tiedostoja arkistosta. Valitse yksittäiset tiedostot hiirellä."
 
 #: ../src/interface.c:280
-msgid "Make SFX"
-msgstr "Tee itsepurkautuva"
+msgid "SFX"
+msgstr ""
 
 #: ../src/interface.c:285
 msgid "Make the current archive self-extracting"
@@ -735,95 +731,95 @@ msgstr "Tiedostoja:"
 msgid "Number of dirs:"
 msgstr "Hakemistoja:"
 
-#: ../src/iso.c:490 ../src/iso.c:516 ../src/iso.c:548
+#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
 msgid "Can't create directory:"
 msgstr "Hakemistoa ei voi luoda:"
 
-#: ../src/iso.c:578
+#: ../src/iso.c:577
 #, c-format
 msgid "Can't write file \"%s\":"
 msgstr "Tiedostoa \"%s\" ei voi kirjoittaa:"
 
-#: ../src/iso.c:677 ../src/rpm.c:56
+#: ../src/iso.c:676 ../src/rpm.c:56
 msgid "Permission"
 msgstr "Oikeus"
 
-#: ../src/iso.c:677
+#: ../src/iso.c:676
 msgid "Offset"
 msgstr "Siirtymä"
 
-#: ../src/iso.c:697
+#: ../src/iso.c:696
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr "Rock Ridge, versio %d"
 
-#: ../src/iso.c:700
+#: ../src/iso.c:699
 msgid "Rock Ridge - unknown version"
 msgstr "Rock Ridge, tuntematon versio"
 
-#: ../src/iso.c:704
+#: ../src/iso.c:703
 #, c-format
 msgid "Apple version %d"
 msgstr "Apple, versio %d"
 
-#: ../src/iso.c:732
+#: ../src/iso.c:731
 msgid "Standard ISO without extension"
 msgstr "Vakiomuotoinen ISO ilman laajennusta"
 
-#: ../src/iso.c:740 ../src/iso.c:745 ../src/iso.c:750
+#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
 #, c-format
 msgid "Joliet Level %d"
 msgstr "Joliet, taso %d"
 
-#: ../src/iso.c:844
+#: ../src/iso.c:843
 msgid "ISO Information Window"
 msgstr "ISO-vedoksen tietoikkuna"
 
-#: ../src/iso.c:863
+#: ../src/iso.c:862
 msgid "Filename:"
 msgstr "Tiedostonimi:"
 
-#: ../src/iso.c:871
+#: ../src/iso.c:870
 msgid "Size:"
 msgstr "Koko:"
 
-#: ../src/iso.c:879
+#: ../src/iso.c:878
 msgid "Extension:"
 msgstr "Pääte:"
 
-#: ../src/iso.c:887
+#: ../src/iso.c:886
 msgid "System ID:"
 msgstr "Järjestelmä:"
 
-#: ../src/iso.c:895
+#: ../src/iso.c:894
 msgid "Volume ID:"
 msgstr "Levy:"
 
-#: ../src/iso.c:903
+#: ../src/iso.c:902
 msgid "Application:"
 msgstr "Sovellus:"
 
-#: ../src/iso.c:911
+#: ../src/iso.c:910
 msgid "Publisher:"
 msgstr "Julkaisija:"
 
-#: ../src/iso.c:919
+#: ../src/iso.c:918
 msgid "Preparer:"
 msgstr "Valmistelija:"
 
-#: ../src/iso.c:927
+#: ../src/iso.c:926
 msgid "Creation date:"
 msgstr "Luotu:"
 
-#: ../src/iso.c:935
+#: ../src/iso.c:934
 msgid "Modified date:"
 msgstr "Muokattu:"
 
-#: ../src/iso.c:943
+#: ../src/iso.c:942
 msgid "Expiration date:"
 msgstr "Vanhentuu:"
 
-#: ../src/iso.c:951
+#: ../src/iso.c:950
 msgid "Effective date:"
 msgstr "Voimassa:"
 
@@ -897,15 +893,15 @@ msgstr "Komentoa ei voi poikia:"
 msgid "An error occurred!"
 msgstr "Virhe!"
 
-#: ../src/rar.c:47 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/zip.c:38
 msgid "Checksum"
 msgstr "Tarkiste"
 
-#: ../src/rar.c:47 ../src/zip.c:37
+#: ../src/rar.c:49 ../src/zip.c:38
 msgid "Method"
 msgstr "Metodi"
 
-#: ../src/rar.c:47
+#: ../src/rar.c:49
 msgid "Version"
 msgstr "Versio"
 
@@ -965,3 +961,12 @@ msgstr "Arkistonhallinta"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
+
+#~ msgid "Operation completed"
+#~ msgstr "Toiminto suoritettu"
+
+#~ msgid "The self extracting archive is:\n"
+#~ msgstr "Itsepurkautuva arkisto on:\n"
+
+#~ msgid "Make SFX"
+#~ msgstr "Tee itsepurkautuva"
