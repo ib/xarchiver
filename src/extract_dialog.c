@@ -682,7 +682,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			command = g_strconcat (tar, " -xvzf " , archive->tmp,
 					archive->overwrite ? " --overwrite" : " --keep-old-files",
 					archive->tar_touch ? " --touch" : "",
-					" -C " , archive->extraction_path , NULL );
+					" -C " , archive->extraction_path , files->str, NULL );
 		}
 		else
 		{

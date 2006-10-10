@@ -84,8 +84,10 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				archive->nr_of_dirs++;
 			for ( x = 0; x < 5; x++)
 			{
-				if ( x == 3 || x == 4)
-					gtk_list_store_set (liststore, &iter,(5-x),atoll(fields[x]),-1);
+				if (x == 3)
+					gtk_list_store_set (liststore, &iter,1,atoll(fields[3]),-1);
+				else if (x == 4)
+					gtk_list_store_set (liststore, &iter,2,atoll(fields[4]),-1);
 				else
 					gtk_list_store_set (liststore, &iter,(5-x),fields[x],-1);
 			}

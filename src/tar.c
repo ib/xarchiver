@@ -64,7 +64,7 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 		do
 		{
-			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL )
 				break;
 

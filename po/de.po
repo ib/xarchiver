@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-09 14:32+0200\n"
-"PO-Revision-Date: 2006-09-14 10:42+0100\n"
+"PO-Revision-Date: 2006-10-09 15:30+0100\n"
 "Last-Translator: Enrico Tröger <enrico.troeger@uvena.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -130,9 +130,8 @@ msgid "Operation failed."
 msgstr "Vorgang fehlgeschlagen."
 
 #: ../src/callbacks.c:164
-#, fuzzy
 msgid "The sfx archive was saved as:"
-msgstr "Entpacke Archiv nach %s"
+msgstr "Das selbst-extrahierendes Archiv wurde gespeichert als:"
 
 #: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
 #: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
@@ -204,19 +203,16 @@ msgid "Deleting files from the archive, please wait..."
 msgstr "Lösche Dateien aus dem Archiv, bitte warten..."
 
 #: ../src/callbacks.c:626
-#, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
-msgstr "Archiv-Integrität wird geprüft, bitte warten..."
+msgstr "Umwandlung in ein selbst-extrahierendes Archiv, bitte warten..."
 
 #: ../src/callbacks.c:688
-#, fuzzy
 msgid "Can't convert the archive to self-extracting:"
-msgstr "Kann das Archivierungsprogramm nicht starten:"
+msgstr "Kann das Archiv nicht in ein selbst-extrahierendes Archiv umwandeln:"
 
 #: ../src/callbacks.c:701
-#, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Kann Dateien nicht zum Archiv hinzufügen:"
+msgstr "Konnte das unzipsfx-Modul nicht an das Archiv anhängen:"
 
 #: ../src/callbacks.c:768
 msgid "translator-credits"
@@ -289,11 +285,11 @@ msgstr "Anlegen von Archiven mit Unrar nicht möglich!"
 
 #: ../src/callbacks.c:1885
 msgid "You can't add content to deb packages!"
-msgstr ""
+msgstr "Sie können nicht Dateien zu einem DEB-Archiv hinzufügen."
 
 #: ../src/callbacks.c:1887
 msgid "You can't add content to rpm packages!"
-msgstr ""
+msgstr "Sie können nicht Dateien zu einem RPM-Archiv hinzufügen."
 
 #: ../src/callbacks.c:2038
 msgid "Failed to open link."
@@ -326,7 +322,6 @@ msgid "Recurse subdirectories"
 msgstr "Unterverzeichnisse einbeziehen"
 
 #: ../src/add_dialog.c:162
-#, fuzzy
 msgid ""
 "Include everything in the directory recursively \tstarting from the current "
 "directory."
@@ -401,7 +396,6 @@ msgstr ""
 "0 = keine Kompression, 3 Standard, 5 = beste Kompression, aber am langsamsten"
 
 #: ../src/add_dialog.c:232
-#, fuzzy
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = keine Kompression, 1 = Standard, 4 = schnellste, aber schlechteste "
@@ -612,20 +606,18 @@ msgid "_Properties"
 msgstr "_Eigenschaften"
 
 #: ../src/interface.c:119
-#, fuzzy
 msgid "_Action"
 msgstr "A_ktion"
 
 #: ../src/interface.c:146
 msgid "Make SF_X"
-msgstr ""
+msgstr "_SFX erstellen"
 
 #: ../src/interface.c:167
 msgid "_View"
 msgstr "_Ansehen"
 
 #: ../src/interface.c:182
-#, fuzzy
 msgid "Sele_ct All"
 msgstr "Alle a_uswählen"
 
@@ -679,11 +671,11 @@ msgstr ""
 
 #: ../src/interface.c:280
 msgid "SFX"
-msgstr ""
+msgstr "SFX"
 
 #: ../src/interface.c:285
 msgid "Make the current archive self-extracting"
-msgstr ""
+msgstr "Das aktuelle Archiv in ein selbst-extrahierendes Archiv umwandeln"
 
 #: ../src/interface.c:292
 msgid "Delete"
@@ -854,40 +846,34 @@ msgid "Effective date:"
 msgstr "Effektivdatum:"
 
 #: ../src/main.c:37
-#, fuzzy
 msgid ""
 "Extract archive to the directory specified by destination_path and quits."
 msgstr "Entpackt das Archiv in das angegebene Verzeichnis."
 
 #: ../src/main.c:38
-#, fuzzy
 msgid "destination_path archive"
-msgstr "[Zielpfad]"
+msgstr "Zielarchiv"
 
 #: ../src/main.c:41
-#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
 msgstr "Fragt nach dem Zielverzeichnis und entpackt das Archiv."
 
 #: ../src/main.c:42 ../src/main.c:50
-#, fuzzy
 msgid "archive"
-msgstr "Xarchiver"
+msgstr "Archive"
 
 #: ../src/main.c:45
-#, fuzzy
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Fragt nach dem Archivnamen und fügt die Dateien hinzu."
 
 #: ../src/main.c:46
-#, fuzzy
 msgid "file1 file2 file3 ... fileN"
-msgstr "[Datei1] [Datei2] [Datei3] ... [DateiN]"
+msgstr "Datei1 Datei2 Datei3 ... DateiN"
 
 #: ../src/main.c:49
-#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
-msgstr "Fügt dem gewählten Archiv Dateien hinzu."
+msgstr ""
+"Fügt dem Archiv Dateien hinzu, nachdem nach den Dateinamen gefragt wurde."
 
 #: ../src/main.c:62
 msgid "[archive name]"
