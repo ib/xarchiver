@@ -57,12 +57,12 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			{
 				for ( x = 0; x <= 7; x++)
 				{
-					g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 					g_free (line);
 				}
 				jump_header = TRUE;
 			}
-			g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL )
 				break;
 
@@ -70,7 +70,7 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			if (strncmp (line, "-------------------", 19) == 0 || strncmp (line, "\x0a",1) == 0)
 			{
 				g_free (line);
-				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				g_free (line);
 				break;
 			}

@@ -233,19 +233,12 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	XArchive *archive = data;
-	gchar *line = NULL;
-	gchar *start = NULL;
-	gchar *end = NULL;
-	GValue *filename = NULL;
-	GValue *size = NULL;
-	gchar *_size = NULL;
-	GValue *permissions = NULL;
-	GValue *symlink = NULL;
-	GValue *hard_link = NULL;
-	GValue *owner = NULL;
-	GValue *group = NULL;
-	gchar *temp_filename = NULL;
-	GIOStatus status;
+	gchar **fields = NULL;
+    gchar *line = NULL;
+    gchar *filename = NULL;
+	GIOStatus status = G_IO_STATUS_NORMAL;
+	GtkTreeIter iter;
+	gchar *temp = NULL;
 
     /* Is there output from "cpio -tv" to read ? */
 	if (cond & (G_IO_IN | G_IO_PRI) )
@@ -256,100 +249,51 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			if (line == NULL)
 				break;
 
-			filename    = g_new0(GValue, 1);
-			permissions = g_new0(GValue, 1);
-			symlink	  = g_new0(GValue, 1);
-			owner       = g_new0(GValue, 1);
-			group       = g_new0(GValue, 1);
-			size        = g_new0(GValue, 1);
-			hard_link   = g_new0(GValue, 1);
+			fields = split_line (line , 5);
+			filename = get_last_field (line , 9);
+			gtk_list_store_append (liststore, &iter);
+			if ( g_str_has_prefix(fields[0] , "d") == FALSE)
+				archive->nr_of_files++;
+            else
+				archive->nr_of_dirs++;
 
-			start = eat_spaces (line);
-			end = strchr (start, ' ');
-			permissions = g_value_init(permissions, G_TYPE_STRING);
-			g_value_set_string ( permissions , g_strndup ( start , end - start) );
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			hard_link = g_value_init (hard_link, G_TYPE_STRING);
-			g_value_set_string ( hard_link , g_strndup ( start , end - start) );
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			owner = g_value_init (owner, G_TYPE_STRING);
-			g_value_set_string ( owner , g_strndup ( start , end - start) );
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			group = g_value_init (group, G_TYPE_STRING);
-			g_value_set_string ( group , g_strndup ( start , end - start) );
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			size = g_value_init(size, G_TYPE_UINT64);
-			_size  = g_strndup ( start , end - start);
-			g_value_set_uint64 (size , atoll (_size) );
-			g_free (_size);
-
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-			start = eat_spaces (end);
-			end = strchr (start, ' ');
-
-			start = eat_spaces (end);
-			end = strchr (start, '\n');
-
-			symlink  = g_value_init(symlink, G_TYPE_STRING);
-			filename = g_value_init (filename, G_TYPE_STRING);
-
-			gchar *temp = g_strrstr (start,"->");
+			temp = g_strrstr (filename,"->");
 			if (temp)
 			{
-				temp_filename = g_strstrip(g_strndup(start, temp - start ));
-				g_value_set_string (symlink, g_strstrip(g_strndup (&temp[3] , strlen(temp))) );
+				gtk_list_store_set (liststore, &iter,2,g_strstrip(&temp[3]),-1);
+				temp = g_strstrip(g_strndup(filename, strlen(filename) - strlen(temp) ));
+				gtk_list_store_set (liststore, &iter,0,temp,-1);
+				g_free (temp);
 			}
 			else
 			{
-				temp_filename = g_strndup ( start , end - start);
-				g_value_set_string (symlink, g_strdup(" ") );
+				gtk_list_store_set (liststore, &iter,2,NULL,-1);
+				gtk_list_store_set (liststore, &iter,0,filename,-1);
 			}
-			g_value_set_string ( filename, temp_filename );
 
-			archive->row = g_list_prepend (archive->row,filename);
-			archive->row = g_list_prepend (archive->row,permissions);
-			archive->row = g_list_prepend (archive->row,symlink);
-			archive->row = g_list_prepend (archive->row,hard_link);
-			archive->row = g_list_prepend (archive->row,owner);
-			archive->row = g_list_prepend (archive->row,group);
-			archive->row = g_list_prepend (archive->row,size);
+			gtk_list_store_set (liststore, &iter,1,fields[0],-1);
+			gtk_list_store_set (liststore, &iter,3,fields[1],-1);
+			gtk_list_store_set (liststore, &iter,4,fields[2],-1);
+			gtk_list_store_set (liststore, &iter,5,fields[3],-1);
+			gtk_list_store_set (liststore, &iter,6,atoll(fields[4]),-1);
 
-			if (  g_str_has_prefix (g_value_get_string (permissions) , "d") == FALSE)
-				archive->nr_of_files++;
-			else
-				archive->nr_of_dirs++;
-			archive->dummy_size += g_value_get_uint64 (size);
+            while (gtk_events_pending() )
+				gtk_main_iteration();
 
+            archive->dummy_size += atoll(fields[4]);
+            g_strfreev ( fields );
 			g_free (line);
-			archive->row_cnt++;
-			if (archive->row_cnt > 99)
-			{
-		        xa_append_rows ( archive , 7 );
-			    archive->row_cnt = 0;
-			}
-	    }
+		}
 		while (status == G_IO_STATUS_NORMAL);
 
 		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-		goto done;
+			goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
-	done:
-		g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref (ioc);
-		xa_append_rows ( archive , 7 );
+done:	CloseChannels (ioc);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
+		g_object_unref (model);
 		archive->tmp = cpio_tmp;
 		return FALSE;
 	}
