@@ -1138,13 +1138,14 @@ void ShowShellOutput ( GtkMenuItem *menuitem )
 
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 {
-	if (archive->status == XA_ARCHIVESTATUS_ADD || XA_ARCHIVESTATUS_SFX)
+	if (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_SFX)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Doing so will probably corrupt your archive!"),_("Do you really want to cancel?") );
 		if (response == GTK_RESPONSE_NO)
 			return;
 	}
 	gtk_widget_set_sensitive ( Stop_button , FALSE );
+	gtk_widget_hide ( viewport2 );
     Update_StatusBar (_("Waiting for the process to abort..."));
 	stop_flag = TRUE;
 	if (archive->type != XARCHIVETYPE_ISO)
@@ -1180,6 +1181,10 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gboolean result = FALSE;
 	GList *row_list = NULL;
 	GString *names;
+	gchar *content;
+	gsize length;
+	gsize new_length;
+	gchar *t;
 
 	if ( archive->has_passwd )
 	{
@@ -1260,29 +1265,9 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		xa_extract_iso_file (archive, permissions, "/tmp/", dummy_name , file_size, file_offset );
 		g_free (permissions);
 	}
-	else if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_DEB)
-	{
-		gchar *option = NULL;
-		gchar *digit;
-		digit = g_strdup_printf ("%d", CountCharacter (names->str , '/') );
-		if (archive->type == XARCHIVETYPE_TAR)
-			option = " -xvf ";
-		else if (archive->type == XARCHIVETYPE_TAR_BZ2)
-			option = " -xvjf ";
-		else if (archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_DEB)
-			option = " -xvzf ";
-
-		if (archive->type == XARCHIVETYPE_DEB)
-			command = g_strconcat ("tar --strip-components=",digit,option,archive->tmp," -C /tmp",names->str,NULL);
-		else
-			command = g_strconcat ("tar --strip-components=",digit,option,archive->escaped_path," -C /tmp",names->str,NULL);
-		g_free (digit);
-	}
 	else
 		command = xa_extract_single_files ( archive , names, "/tmp");
 
-	g_message (command);
-	g_string_free (names,TRUE);
 	archive->full_path = full_path;
 	archive->overwrite = overwrite;
 	EmptyTextBuffer();
@@ -1294,10 +1279,12 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		{
 			unlink (dummy_name);
 			g_free (dummy_name);
+			g_string_free (names,TRUE);
 			return;
 		}
 	}
-	g_message ("dummy name: %s",dummy_name);
+	view_window = view_win( names->str );
+	g_string_free (names,TRUE);
 	string = g_strrstr ( dummy_name, "/" );
 	if (  string == NULL )
 		filename = g_strconcat ( "/tmp/" , dummy_name, NULL );
@@ -1313,35 +1300,31 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			g_free ( string );
 	}
 	g_free (dummy_name);
-	view_window = view_win();
-	g_message ("Apro %s",filename);
-	ioc_view = g_io_channel_new_file ( filename , "r" , &error );
-	archive->status = XA_ARCHIVESTATUS_IDLE;
-	if (error == NULL)
-	{
-		g_io_channel_set_encoding (ioc_view, locale , NULL);
-		g_io_channel_set_flags ( ioc_view , G_IO_FLAG_NONBLOCK , NULL );
-		g_io_channel_read_to_end ( ioc_view , &line , NULL, NULL );
-		gtk_text_buffer_get_end_iter ( viewtextbuf, &viewenditer );
-		if (line != NULL)
-		{
-			gtk_text_buffer_insert (viewtextbuf, &viewenditer, line, strlen ( line ) );
-			g_free ( line );
-		}
-		g_io_channel_shutdown ( ioc_view , TRUE , NULL );
-		g_io_channel_unref (ioc_view);
-	}
-	else
+
+	result = g_file_get_contents (filename,&content,&length,&error);
+	if ( ! result)
 	{
 		gtk_widget_hide (viewport2);
 		unlink ( filename );
 		Update_StatusBar ( _("Operation failed."));
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"An error occurred while extracting the file to be viewed:",error->message);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while extracting the file to be viewed:") , error->message);
 		g_error_free (error);
+		g_free (filename);
 		return;
 	}
+	t = g_locale_to_utf8 ( content, length, NULL, &new_length, &error);
+	g_free ( content );
+	if ( t == NULL)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while converting the file content to the UTF8 encoding:") , error->message);
+		g_free (error);
+	}
+	else
+	{
+		gtk_widget_show (view_window);
+		gtk_text_buffer_insert (viewtextbuf, &viewenditer, t, new_length );
+	}
 	unlink ( filename );
-	gtk_widget_show (view_window);
 	g_free (filename);
 	OffTooltipPadlock();
 	Update_StatusBar (_("Operation completed."));
@@ -1646,8 +1629,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 		if (ps < 0)
 			waiting = FALSE;
 		else
-			while (gtk_events_pending())
-				gtk_main_iteration();
+			gtk_main_iteration_do (FALSE);
 	}
 	if (watch_child_flag)
 	{

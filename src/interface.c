@@ -483,14 +483,14 @@ gchar *password_dialog ()
 }
 
 
-GtkWidget *view_win ()
+GtkWidget *view_win ( gchar *title)
 {
 	GtkWidget *view_window;
 	GtkWidget *scrolledwindow2;
 	GtkWidget *textview1;
 
 	view_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (view_window), _("View File Window"));
+	gtk_window_set_title (GTK_WINDOW (view_window), title);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (view_window), TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (view_window), GDK_WINDOW_TYPE_HINT_UTILITY);
 	gtk_window_set_position (GTK_WINDOW (view_window), GTK_WIN_POS_CENTER);

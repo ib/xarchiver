@@ -315,9 +315,7 @@
 				<section id="view">
 					<title>View</title>
 						<para>
-							Opens a window containing the ASCII dump of the selected ASCII file. If a file in the archive is encoded with <ulink url="http://en.wikipedia.org/wiki/ISO_8859">
-				<citetitle>ISO-8859</citetitle>
-				</ulink> encoding, the window will be empty. See the <xref linkend="sixth"/> for an exhaustive explanation.
+							Opens a window containing the ASCII dump of the selected ASCII file. If a file in the archive is encoded with a different enconding than in use by the system you will get an error message. See the <xref linkend="sixth"/> for a possible solution.
 						</para>
 				</section>
 				<section id="select">
@@ -396,11 +394,15 @@ enter your password. From now on all the files you add to the archive will be pa
 			</para>
 		</section>
 		<section id="sixth">
-			<title>Why is the window sometimes empty when I click View?</title>
-			<para>Becase the file you are trying to display is encoded with
-				<ulink url="http://en.wikipedia.org/wiki/ISO_8859">
-				<citetitle>ISO-8859</citetitle>
-				</ulink>. I could set this encoding as a default but then german umlauts in ASCII files for example, would be incorrectly showed so I preferred to set the user locale even though this prevents to show ISO-8859 encoded ASCII files. Detecting them would require additional code I think it doesn't fit into Xarchiver since it's a frontend to command line archivers and not a text editor.
+			<title>What is the meaning of this error message?</title>
+			<para>
+				<screen><userinput><command>Invalid byte sequence in conversion input</command></userinput></screen>
+				The file you are trying to display is encoded with a different encoding than the locale one and the conversion to <ulink url="http://en.wikipedia.org/wiki/UTF8">
+				<citetitle>UTF8</citetitle>
+				</ulink>, the default encoding with GTK, fails.
+				 I could set the encoding to <ulink url="http://en.wikipedia.org/wiki/ISO8859-1">
+				<citetitle>ISO8859-1</citetitle>
+				</ulink> because doing this fixes the problem, but it creates another one with german umlauts in ASCII files for example; they would be incorrectly showed. So if you get this error please extract the file and then see it with your favourite text editor.
 			</para>
 		</section>
 	</chapter>
