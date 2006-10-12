@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-09 14:32+0200\n"
+"POT-Creation-Date: 2006-10-12 14:06+0200\n"
 "PO-Revision-Date: 2006-06-10 23:53+0900\n"
 "Last-Translator: Daichi Kawahata <daichi@xfce.org>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/rpm.c:56 ../src/tar.c:48
 #: ../src/zip.c:38
 msgid "Filename"
 msgstr "ファイル名"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Original"
 msgstr "オリジナル"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Compressed"
 msgstr "圧縮済"
 
@@ -36,40 +36,40 @@ msgstr "圧縮済"
 msgid "Attr"
 msgstr "属性"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "時間"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "日付"
 
-#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Ratio"
 msgstr "圧縮率"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "Attributes"
 msgstr "属性"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "GUA"
 msgstr "GUA"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 #, fuzzy
 msgid "Can't run the archiver executable:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "アクセス権"
 
@@ -81,7 +81,7 @@ msgstr ""
 msgid "Owner/Group"
 msgstr "所有者/グループ"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:652 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "サイズ"
@@ -123,20 +123,20 @@ msgstr ""
 "」を確認してください、いくつかのファイルは既に取り出されているかもしれませ"
 "ん。"
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649
 #, fuzzy
 msgid "An error occurred while accessing the archive."
 msgstr ""
 "アーカイブへアクセス中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649 ../src/rpm.c:152
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "アーカイブ「%s」は既に存在します。上書きしてもよろしいですか？"
 
 #: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
-#: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
+#: ../src/callbacks.c:1309 ../src/callbacks.c:1654 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "操作が失敗しました。"
@@ -148,8 +148,8 @@ msgstr "操作が失敗しました。"
 msgid "The sfx archive was saved as:"
 msgstr "ファイルを展開します "
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1330
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "操作が完了しました。"
 
@@ -285,56 +285,71 @@ msgstr ""
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: ../src/callbacks.c:1148
+#: ../src/callbacks.c:1149
 msgid "Waiting for the process to abort..."
 msgstr "このプロセスが中断するのを待っています..."
 
-#: ../src/callbacks.c:1154
+#: ../src/callbacks.c:1155
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: ../src/callbacks.c:1235
+#: ../src/callbacks.c:1240
 msgid "Please select a file, not a directory!"
 msgstr "フォルダではなくファイルを選択してください！"
 
-#: ../src/callbacks.c:1389
+#: ../src/callbacks.c:1310
+#, fuzzy
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr ""
+"表示するファイルを取り出し中にエラーが発生しました。\n"
+"エラーメッセージ・ウィンドウを表示しますか？"
+
+#: ../src/callbacks.c:1319
+#, fuzzy
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
+msgstr ""
+"表示するファイルを取り出し中にエラーが発生しました。\n"
+"エラーメッセージ・ウィンドウを表示しますか？"
+
+#: ../src/callbacks.c:1372
 msgid " bytes"
 msgstr "バイト"
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 #, fuzzy
 msgid "Can't perform another extraction:"
 msgstr "パスワードを入力してください！"
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 #, fuzzy
 msgid "Please wait until the completion of the current one!"
 msgstr "このアーカイブの内容を読み込むまでお待ちください..."
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1844
 msgid "Sorry, I could not perform the operation!"
 msgstr "操作を実行できませんでした！"
 
-#: ../src/callbacks.c:1877 ../src/callbacks.c:1888 ../src/main.c:97
+#: ../src/callbacks.c:1859 ../src/callbacks.c:1870 ../src/main.c:97
 #, fuzzy
 msgid "Can't perform this action:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/callbacks.c:1877
+#: ../src/callbacks.c:1859
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:1885
+#: ../src/callbacks.c:1867
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1869
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2038
+#: ../src/callbacks.c:1987
 msgid "Failed to open link."
 msgstr ""
 
@@ -772,10 +787,6 @@ msgstr "このアーカイブにはパスワードで保護されたファイル
 msgid "Enter Archive Password"
 msgstr "パスワードを入力してください！"
 
-#: ../src/interface.c:493
-msgid "View File Window"
-msgstr "ファイルウィンドウを表示"
-
 #: ../src/interface.c:519
 msgid "Archive Properties Window"
 msgstr "アーカイブプロパティ・ウィンドウ"
@@ -816,101 +827,101 @@ msgstr "ファイル数:"
 msgid "Number of dirs:"
 msgstr "フォルダ数:"
 
-#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
 #, fuzzy
 msgid "Can't create directory:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/iso.c:577
+#: ../src/iso.c:553
 #, fuzzy, c-format
 msgid "Can't write file \"%s\":"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/iso.c:652 ../src/rpm.c:56
 msgid "Permission"
 msgstr "アクセス権"
 
-#: ../src/iso.c:676
+#: ../src/iso.c:652
 msgid "Offset"
 msgstr "オフセット"
 
-#: ../src/iso.c:696
+#: ../src/iso.c:672
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr ""
 
-#: ../src/iso.c:699
+#: ../src/iso.c:675
 msgid "Rock Ridge - unknown version"
 msgstr ""
 
-#: ../src/iso.c:703
+#: ../src/iso.c:679
 #, c-format
 msgid "Apple version %d"
 msgstr ""
 
-#: ../src/iso.c:731
+#: ../src/iso.c:707
 msgid "Standard ISO without extension"
 msgstr ""
 
-#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
 #, c-format
 msgid "Joliet Level %d"
 msgstr ""
 
-#: ../src/iso.c:843
+#: ../src/iso.c:819
 msgid "ISO Information Window"
 msgstr "ISO情報ウィンドウ"
 
-#: ../src/iso.c:862
+#: ../src/iso.c:838
 msgid "Filename:"
 msgstr "ファイル名:"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:846
 #, fuzzy
 msgid "Size:"
 msgstr "サイズ"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:854
 msgid "Extension:"
 msgstr ""
 
-#: ../src/iso.c:886
+#: ../src/iso.c:862
 msgid "System ID:"
 msgstr "システムID:"
 
-#: ../src/iso.c:894
+#: ../src/iso.c:870
 msgid "Volume ID:"
 msgstr "ボリュームID:"
 
-#: ../src/iso.c:902
+#: ../src/iso.c:878
 msgid "Application:"
 msgstr "アプリケーション:"
 
-#: ../src/iso.c:910
+#: ../src/iso.c:886
 msgid "Publisher:"
 msgstr "出版社:"
 
-#: ../src/iso.c:918
+#: ../src/iso.c:894
 msgid "Preparer:"
 msgstr "発行人:"
 
-#: ../src/iso.c:926
+#: ../src/iso.c:902
 msgid "Creation date:"
 msgstr "作成日時:"
 
-#: ../src/iso.c:934
+#: ../src/iso.c:910
 msgid "Modified date:"
 msgstr "変更日時:"
 
-#: ../src/iso.c:942
+#: ../src/iso.c:918
 msgid "Expiration date:"
 msgstr "失効日時:"
 
-#: ../src/iso.c:950
+#: ../src/iso.c:926
 msgid "Effective date:"
 msgstr "有効日時:"
 
@@ -988,15 +999,15 @@ msgstr ""
 msgid "An error occurred!"
 msgstr ""
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
 msgstr ""
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
 msgstr "方式"
 
-#: ../src/rar.c:49
+#: ../src/rar.c:48
 msgid "Version"
 msgstr "バージョン"
 
@@ -1045,11 +1056,11 @@ msgstr ""
 "CPIOアーカイブを解凍中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: ../src/rpm.c:208 ../src/rpm.c:418
+#: ../src/rpm.c:208 ../src/rpm.c:362
 msgid "An error occurred:"
 msgstr ""
 
-#: ../src/rpm.c:373
+#: ../src/rpm.c:317
 msgid "Can't write to /tmp:"
 msgstr ""
 
@@ -1065,6 +1076,9 @@ msgstr "アーカイブマネージャー"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
+
+#~ msgid "View File Window"
+#~ msgstr "ファイルウィンドウを表示"
 
 # FIXME: C format string
 # Extracting files to /tmp
@@ -1200,12 +1214,6 @@ msgstr "Xarchiver"
 
 #~ msgid "Operation successfully completed."
 #~ msgstr "操作が問題なく完了しました。"
-
-#, fuzzy
-#~ msgid "An error occurred while extracting the file to be viewed!"
-#~ msgstr ""
-#~ "表示するファイルを取り出し中にエラーが発生しました。\n"
-#~ "エラーメッセージ・ウィンドウを表示しますか？"
 
 #, fuzzy
 #~ msgid "Add Dialog"

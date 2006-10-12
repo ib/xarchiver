@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-09 14:32+0200\n"
+"POT-Creation-Date: 2006-10-12 14:06+0200\n"
 "PO-Revision-Date: 2006-09-03 13:59-0300\n"
 "Last-Translator: Rodrigo Coacci <rcoacci@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,17 +16,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/rpm.c:56 ../src/tar.c:48
 #: ../src/zip.c:38
 msgid "Filename"
 msgstr "Arquivo"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Original"
 msgstr "Original"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Compressed"
 msgstr "Comprimido"
 
@@ -34,37 +34,37 @@ msgstr "Comprimido"
 msgid "Attr"
 msgstr "Atrib."
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Hora"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "Data"
 
-#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Ratio"
 msgstr "Razão"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "Attributes"
 msgstr "Atributos"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "GUA"
 msgstr "GUA"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 msgid "Can't run the archiver executable:"
 msgstr "Não foi possível executar o xarchiver:"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Permissões"
 
@@ -76,7 +76,7 @@ msgstr "Link Simbólico"
 msgid "Owner/Group"
 msgstr "Dono/Grupo"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:652 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "Tamanho"
@@ -111,17 +111,17 @@ msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "Por favor, cheque \"%s\" já que alguns arquivos já podem ter sido extraídos."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649
 msgid "An error occurred while accessing the archive."
 msgstr "Ocorreu um erro enquanto o arquivo era acessado."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649 ../src/rpm.c:152
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "Deseja sobreescreve-lô?"
 
 #: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
-#: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
+#: ../src/callbacks.c:1309 ../src/callbacks.c:1654 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "Operação falhou."
@@ -131,8 +131,8 @@ msgstr "Operação falhou."
 msgid "The sfx archive was saved as:"
 msgstr "Extraindo arquivo compactado para %s"
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1330
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Operação completada."
 
@@ -246,51 +246,62 @@ msgstr "Essa ação provavelmente danificará o arquivo!"
 msgid "Do you really want to cancel?"
 msgstr "Deseja realmente cancelar?"
 
-#: ../src/callbacks.c:1148
+#: ../src/callbacks.c:1149
 msgid "Waiting for the process to abort..."
 msgstr "Aguardando o cancelamento do processo..."
 
-#: ../src/callbacks.c:1154
+#: ../src/callbacks.c:1155
 msgid "An error occurred while trying to kill the process:"
 msgstr "Ocorreu um erro enquanto o processo era terminado:"
 
-#: ../src/callbacks.c:1235
+#: ../src/callbacks.c:1240
 msgid "Please select a file, not a directory!"
 msgstr "Por favor, selecione um arquivo e não um diretório!"
 
-#: ../src/callbacks.c:1389
+#: ../src/callbacks.c:1310
+#, fuzzy
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr "Ocorreu um erro enquanto o processo era terminado:"
+
+#: ../src/callbacks.c:1319
+#, fuzzy
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
+msgstr "Ocorreu um erro enquanto o processo era terminado:"
+
+#: ../src/callbacks.c:1372
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Can't perform another extraction:"
 msgstr "Impossível executar outra extração:"
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Please wait until the completion of the current one!"
 msgstr "Por favor, aguarde o término da ação atual!"
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1844
 msgid "Sorry, I could not perform the operation!"
 msgstr "Desculpe, não foi possível realizar a operação!"
 
-#: ../src/callbacks.c:1877 ../src/callbacks.c:1888 ../src/main.c:97
+#: ../src/callbacks.c:1859 ../src/callbacks.c:1870 ../src/main.c:97
 msgid "Can't perform this action:"
 msgstr "Impossível executar a ação:"
 
-#: ../src/callbacks.c:1877
+#: ../src/callbacks.c:1859
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:1885
+#: ../src/callbacks.c:1867
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1869
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2038
+#: ../src/callbacks.c:1987
 msgid "Failed to open link."
 msgstr "Erro abrindo o link."
 
@@ -702,10 +713,6 @@ msgstr "Há arquivos protegidos com senha"
 msgid "Enter Archive Password"
 msgstr "Digite a senha"
 
-#: ../src/interface.c:493
-msgid "View File Window"
-msgstr "Vendo Arquivo"
-
 #: ../src/interface.c:519
 msgid "Archive Properties Window"
 msgstr "Janela de propriedades"
@@ -746,95 +753,95 @@ msgstr "Número de arquivos:"
 msgid "Number of dirs:"
 msgstr "Número de diretórios:"
 
-#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
 msgid "Can't create directory:"
 msgstr "Erro ao criar diretório:"
 
-#: ../src/iso.c:577
+#: ../src/iso.c:553
 #, c-format
 msgid "Can't write file \"%s\":"
 msgstr "Impossível escrever para o arquivo \"%s\":"
 
-#: ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/iso.c:652 ../src/rpm.c:56
 msgid "Permission"
 msgstr "Permissão"
 
-#: ../src/iso.c:676
+#: ../src/iso.c:652
 msgid "Offset"
 msgstr "Bloco"
 
-#: ../src/iso.c:696
+#: ../src/iso.c:672
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr "Rock Ridge versão %d"
 
-#: ../src/iso.c:699
+#: ../src/iso.c:675
 msgid "Rock Ridge - unknown version"
 msgstr "Versão desconhecida do Rock Ridge"
 
-#: ../src/iso.c:703
+#: ../src/iso.c:679
 #, c-format
 msgid "Apple version %d"
 msgstr "Versão do Apple %d"
 
-#: ../src/iso.c:731
+#: ../src/iso.c:707
 msgid "Standard ISO without extension"
 msgstr "ISO padrão sem extensões"
 
-#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
 #, c-format
 msgid "Joliet Level %d"
 msgstr "Joliet nível %d"
 
-#: ../src/iso.c:843
+#: ../src/iso.c:819
 msgid "ISO Information Window"
 msgstr "Informações do ISO"
 
-#: ../src/iso.c:862
+#: ../src/iso.c:838
 msgid "Filename:"
 msgstr "Nome do arquivo:"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:846
 msgid "Size:"
 msgstr "Tamanho:"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:854
 msgid "Extension:"
 msgstr ""
 
-#: ../src/iso.c:886
+#: ../src/iso.c:862
 msgid "System ID:"
 msgstr "ID do Sistema:"
 
-#: ../src/iso.c:894
+#: ../src/iso.c:870
 msgid "Volume ID:"
 msgstr "ID do Volume:"
 
-#: ../src/iso.c:902
+#: ../src/iso.c:878
 msgid "Application:"
 msgstr "Aplicação"
 
-#: ../src/iso.c:910
+#: ../src/iso.c:886
 msgid "Publisher:"
 msgstr "Editor:"
 
-#: ../src/iso.c:918
+#: ../src/iso.c:894
 msgid "Preparer:"
 msgstr "Preparador:"
 
-#: ../src/iso.c:926
+#: ../src/iso.c:902
 msgid "Creation date:"
 msgstr "Data de criação:"
 
-#: ../src/iso.c:934
+#: ../src/iso.c:910
 msgid "Modified date:"
 msgstr "Data de modificação:"
 
-#: ../src/iso.c:942
+#: ../src/iso.c:918
 msgid "Expiration date:"
 msgstr "Data de expiração"
 
-#: ../src/iso.c:950
+#: ../src/iso.c:926
 msgid "Effective date:"
 msgstr "Data efetiva:"
 
@@ -908,15 +915,15 @@ msgstr "Impossível executar o comando:"
 msgid "An error occurred!"
 msgstr "Ocorreu um erro!"
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
 msgstr ""
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
 msgstr "Método"
 
-#: ../src/rar.c:49
+#: ../src/rar.c:48
 msgid "Version"
 msgstr "Versão"
 
@@ -957,11 +964,11 @@ msgstr "Erro extraindo arquivo cpio do rpm."
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "Ocorreu um erro enquanto o arquivo cpio era descompactado."
 
-#: ../src/rpm.c:208 ../src/rpm.c:418
+#: ../src/rpm.c:208 ../src/rpm.c:362
 msgid "An error occurred:"
 msgstr "Ocorreu um erro:"
 
-#: ../src/rpm.c:373
+#: ../src/rpm.c:317
 msgid "Can't write to /tmp:"
 msgstr "Erro ao escrever em /tmp"
 
@@ -976,6 +983,9 @@ msgstr "Compactador de Arquivos"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
+
+#~ msgid "View File Window"
+#~ msgstr "Vendo Arquivo"
 
 #, fuzzy
 #~ msgid "The self extracting archive is:\n"

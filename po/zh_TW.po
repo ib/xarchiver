@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-09 14:32+0200\n"
+"POT-Creation-Date: 2006-10-12 14:06+0200\n"
 "PO-Revision-Date: 2006-08-29 23:17+0800\n"
 "Last-Translator: Hydonsingore Cia <hydonsingore@educities.edu.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/rpm.c:56 ../src/tar.c:48
 #: ../src/zip.c:38
 msgid "Filename"
 msgstr "檔案名稱"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Original"
 msgstr "原來大小"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Compressed"
 msgstr "壓縮後大小"
 
@@ -35,40 +35,40 @@ msgstr "壓縮後大小"
 msgid "Attr"
 msgstr "屬性"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "時間"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "日期"
 
-#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Ratio"
 msgstr "壓縮比"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "Attributes"
 msgstr "屬性"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "GUA"
 msgstr "GUA"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 #, fuzzy
 msgid "Can't run the archiver executable:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "權限"
 
@@ -80,7 +80,7 @@ msgstr ""
 msgid "Owner/Group"
 msgstr "使用者/群組"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:652 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "大小"
@@ -114,17 +114,17 @@ msgstr "正在使用 %s 壓縮 tar 檔案，請稍候。"
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "請檢查 \"%s\" 因為有一些檔案可能已經被解壓縮了。"
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649
 msgid "An error occurred while accessing the archive."
 msgstr "嘗試存取壓縮檔時發生錯誤。"
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649 ../src/rpm.c:152
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "您要蓋過它嗎？"
 
 #: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
-#: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
+#: ../src/callbacks.c:1309 ../src/callbacks.c:1654 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "操作失敗。"
@@ -134,8 +134,8 @@ msgstr "操作失敗。"
 msgid "The sfx archive was saved as:"
 msgstr "解壓縮檔案到 "
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1330
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "操作已完成。"
 
@@ -253,54 +253,69 @@ msgstr "這麼作有可能損壞您的壓縮檔。"
 msgid "Do you really want to cancel?"
 msgstr "您真的要取消嗎？"
 
-#: ../src/callbacks.c:1148
+#: ../src/callbacks.c:1149
 msgid "Waiting for the process to abort..."
 msgstr "等待使用者中斷"
 
-#: ../src/callbacks.c:1154
+#: ../src/callbacks.c:1155
 msgid "An error occurred while trying to kill the process:"
 msgstr "試著終止該程序時發生錯誤："
 
-#: ../src/callbacks.c:1235
+#: ../src/callbacks.c:1240
 msgid "Please select a file, not a directory!"
 msgstr "請選取檔案，不要選資料夾。"
 
-#: ../src/callbacks.c:1389
+#: ../src/callbacks.c:1310
+#, fuzzy
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr ""
+"嘗試解壓縮檔案以預覽內容時發生錯誤\n"
+"您要檢視錯誤訊息嗎？"
+
+#: ../src/callbacks.c:1319
+#, fuzzy
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
+msgstr ""
+"嘗試解壓縮檔案以預覽內容時發生錯誤\n"
+"您要檢視錯誤訊息嗎？"
+
+#: ../src/callbacks.c:1372
 msgid " bytes"
 msgstr " byte"
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Can't perform another extraction:"
 msgstr "無法進行另一個解壓縮："
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Please wait until the completion of the current one!"
 msgstr "請等到現在這個完成！"
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1844
 msgid "Sorry, I could not perform the operation!"
 msgstr "抱歉，我無法進行這項操作！"
 
-#: ../src/callbacks.c:1877 ../src/callbacks.c:1888 ../src/main.c:97
+#: ../src/callbacks.c:1859 ../src/callbacks.c:1870 ../src/main.c:97
 #, fuzzy
 msgid "Can't perform this action:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/callbacks.c:1877
+#: ../src/callbacks.c:1859
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:1885
+#: ../src/callbacks.c:1867
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1869
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2038
+#: ../src/callbacks.c:1987
 msgid "Failed to open link."
 msgstr ""
 
@@ -708,10 +723,6 @@ msgstr "這個壓縮檔有設定密碼保護"
 msgid "Enter Archive Password"
 msgstr "請輸入密碼。"
 
-#: ../src/interface.c:493
-msgid "View File Window"
-msgstr "檢視檔案視窗"
-
 #: ../src/interface.c:519
 msgid "Archive Properties Window"
 msgstr "壓縮檔內容視窗"
@@ -752,107 +763,107 @@ msgstr "檔案數:"
 msgid "Number of dirs:"
 msgstr "資料夾數:"
 
-#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
 #, fuzzy
 msgid "Can't create directory:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/iso.c:577
+#: ../src/iso.c:553
 #, fuzzy, c-format
 msgid "Can't write file \"%s\":"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/iso.c:652 ../src/rpm.c:56
 msgid "Permission"
 msgstr "權限"
 
-#: ../src/iso.c:676
+#: ../src/iso.c:652
 msgid "Offset"
 msgstr "Offset"
 
-#: ../src/iso.c:696
+#: ../src/iso.c:672
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr ""
 
-#: ../src/iso.c:699
+#: ../src/iso.c:675
 msgid "Rock Ridge - unknown version"
 msgstr ""
 
-#: ../src/iso.c:703
+#: ../src/iso.c:679
 #, c-format
 msgid "Apple version %d"
 msgstr ""
 
-#: ../src/iso.c:731
+#: ../src/iso.c:707
 msgid "Standard ISO without extension"
 msgstr ""
 
-#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
 #, c-format
 msgid "Joliet Level %d"
 msgstr ""
 
-#: ../src/iso.c:843
+#: ../src/iso.c:819
 #, fuzzy
 msgid "ISO Information Window"
 msgstr "ISO 映像檔資訊視窗"
 
-#: ../src/iso.c:862
+#: ../src/iso.c:838
 #, fuzzy
 msgid "Filename:"
 msgstr "檔案名稱"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:846
 #, fuzzy
 msgid "Size:"
 msgstr "大小"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:854
 msgid "Extension:"
 msgstr ""
 
-#: ../src/iso.c:886
+#: ../src/iso.c:862
 msgid "System ID:"
 msgstr ""
 
-#: ../src/iso.c:894
+#: ../src/iso.c:870
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/iso.c:902
+#: ../src/iso.c:878
 #, fuzzy
 msgid "Application:"
 msgstr "動作(_A)"
 
-#: ../src/iso.c:910
+#: ../src/iso.c:886
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/iso.c:918
+#: ../src/iso.c:894
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/iso.c:926
+#: ../src/iso.c:902
 #, fuzzy
 msgid "Creation date:"
 msgstr "壓縮比率:"
 
-#: ../src/iso.c:934
+#: ../src/iso.c:910
 #, fuzzy
 msgid "Modified date:"
 msgstr "更動時間:"
 
-#: ../src/iso.c:942
+#: ../src/iso.c:918
 #, fuzzy
 msgid "Expiration date:"
 msgstr "操作失敗。"
 
-#: ../src/iso.c:950
+#: ../src/iso.c:926
 msgid "Effective date:"
 msgstr ""
 
@@ -929,15 +940,15 @@ msgstr ""
 msgid "An error occurred!"
 msgstr ""
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
 msgstr ""
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
 msgstr "壓縮演算法"
 
-#: ../src/rar.c:49
+#: ../src/rar.c:48
 #, fuzzy
 msgid "Version"
 msgstr "權限"
@@ -987,11 +998,11 @@ msgstr ""
 "嘗試從 cpio 包裝檔中解壓縮時發生錯誤\n"
 "您要檢視錯誤訊息嗎？"
 
-#: ../src/rpm.c:208 ../src/rpm.c:418
+#: ../src/rpm.c:208 ../src/rpm.c:362
 msgid "An error occurred:"
 msgstr ""
 
-#: ../src/rpm.c:373
+#: ../src/rpm.c:317
 msgid "Can't write to /tmp:"
 msgstr ""
 
@@ -1009,6 +1020,9 @@ msgstr "[壓縮檔名稱]"
 #, fuzzy
 msgid "Xarchiver"
 msgstr "檔案(_A)"
+
+#~ msgid "View File Window"
+#~ msgstr "檢視檔案視窗"
 
 #, fuzzy
 #~ msgid "The self extracting archive is:\n"
@@ -1129,12 +1143,6 @@ msgstr "檔案(_A)"
 
 #~ msgid "Operation successfully completed."
 #~ msgstr "操作順利完成。"
-
-#, fuzzy
-#~ msgid "An error occurred while extracting the file to be viewed!"
-#~ msgstr ""
-#~ "嘗試解壓縮檔案以預覽內容時發生錯誤\n"
-#~ "您要檢視錯誤訊息嗎？"
 
 #, fuzzy
 #~ msgid "Add Dialog"

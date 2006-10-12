@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-09 14:32+0200\n"
+"POT-Creation-Date: 2006-10-12 14:06+0200\n"
 "PO-Revision-Date: 2006-08-17 19:16+0000\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <gl@li.org>\n"
@@ -16,17 +16,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/rpm.c:56 ../src/tar.c:48
 #: ../src/zip.c:38
 msgid "Filename"
 msgstr "Nome de ficheiro"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Original"
 msgstr "Orixinal"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Compressed"
 msgstr ""
 
@@ -34,37 +34,37 @@ msgstr ""
 msgid "Attr"
 msgstr ""
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Hora"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "Data"
 
-#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Ratio"
 msgstr ""
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "Attributes"
 msgstr ""
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "GUA"
 msgstr ""
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "BPMGS"
 msgstr ""
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 msgid "Can't run the archiver executable:"
 msgstr ""
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Permisos"
 
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Owner/Group"
 msgstr "Dono/Grupo"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:652 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "Tamaño"
@@ -110,17 +110,17 @@ msgstr "Engadindo ficheiros ó arquivo, agarde..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649
 msgid "An error occurred while accessing the archive."
 msgstr ""
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649 ../src/rpm.c:152
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "Este arquivo xa existe. Desexa sobrescribilo?"
 
 #: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
-#: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
+#: ../src/callbacks.c:1309 ../src/callbacks.c:1654 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr ""
@@ -130,8 +130,8 @@ msgstr ""
 msgid "The sfx archive was saved as:"
 msgstr "Extraendo ficheiros a "
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1330
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:770
 msgid "Operation completed."
 msgstr ""
 
@@ -251,52 +251,61 @@ msgstr ""
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: ../src/callbacks.c:1148
+#: ../src/callbacks.c:1149
 msgid "Waiting for the process to abort..."
 msgstr ""
 
-#: ../src/callbacks.c:1154
+#: ../src/callbacks.c:1155
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: ../src/callbacks.c:1235
+#: ../src/callbacks.c:1240
 #, fuzzy
 msgid "Please select a file, not a directory!"
 msgstr "Seleccione un ficheiro, e non un directorio!"
 
-#: ../src/callbacks.c:1389
+#: ../src/callbacks.c:1310
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr ""
+
+#: ../src/callbacks.c:1319
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
+msgstr ""
+
+#: ../src/callbacks.c:1372
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Can't perform another extraction:"
 msgstr ""
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Please wait until the completion of the current one!"
 msgstr ""
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1844
 msgid "Sorry, I could not perform the operation!"
 msgstr ""
 
-#: ../src/callbacks.c:1877 ../src/callbacks.c:1888 ../src/main.c:97
+#: ../src/callbacks.c:1859 ../src/callbacks.c:1870 ../src/main.c:97
 msgid "Can't perform this action:"
 msgstr ""
 
-#: ../src/callbacks.c:1877
+#: ../src/callbacks.c:1859
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:1885
+#: ../src/callbacks.c:1867
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1869
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2038
+#: ../src/callbacks.c:1987
 msgid "Failed to open link."
 msgstr ""
 
@@ -697,10 +706,6 @@ msgstr "Este arquivo contén ficheiros protexidos por contrasinal"
 msgid "Enter Archive Password"
 msgstr "Introduza o Contrasinal do Arquivo"
 
-#: ../src/interface.c:493
-msgid "View File Window"
-msgstr ""
-
 #: ../src/interface.c:519
 msgid "Archive Properties Window"
 msgstr ""
@@ -742,97 +747,97 @@ msgstr ""
 msgid "Number of dirs:"
 msgstr ""
 
-#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
 msgid "Can't create directory:"
 msgstr ""
 
-#: ../src/iso.c:577
+#: ../src/iso.c:553
 #, c-format
 msgid "Can't write file \"%s\":"
 msgstr ""
 
-#: ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/iso.c:652 ../src/rpm.c:56
 msgid "Permission"
 msgstr ""
 
-#: ../src/iso.c:676
+#: ../src/iso.c:652
 msgid "Offset"
 msgstr ""
 
-#: ../src/iso.c:696
+#: ../src/iso.c:672
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr ""
 
-#: ../src/iso.c:699
+#: ../src/iso.c:675
 msgid "Rock Ridge - unknown version"
 msgstr ""
 
-#: ../src/iso.c:703
+#: ../src/iso.c:679
 #, c-format
 msgid "Apple version %d"
 msgstr ""
 
-#: ../src/iso.c:731
+#: ../src/iso.c:707
 msgid "Standard ISO without extension"
 msgstr ""
 
-#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
 #, c-format
 msgid "Joliet Level %d"
 msgstr ""
 
-#: ../src/iso.c:843
+#: ../src/iso.c:819
 msgid "ISO Information Window"
 msgstr ""
 
-#: ../src/iso.c:862
+#: ../src/iso.c:838
 #, fuzzy
 msgid "Filename:"
 msgstr "Nome de ficheiro"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:846
 #, fuzzy
 msgid "Size:"
 msgstr "Tamaño"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:854
 msgid "Extension:"
 msgstr ""
 
-#: ../src/iso.c:886
+#: ../src/iso.c:862
 msgid "System ID:"
 msgstr ""
 
-#: ../src/iso.c:894
+#: ../src/iso.c:870
 msgid "Volume ID:"
 msgstr ""
 
-#: ../src/iso.c:902
+#: ../src/iso.c:878
 msgid "Application:"
 msgstr ""
 
-#: ../src/iso.c:910
+#: ../src/iso.c:886
 msgid "Publisher:"
 msgstr ""
 
-#: ../src/iso.c:918
+#: ../src/iso.c:894
 msgid "Preparer:"
 msgstr ""
 
-#: ../src/iso.c:926
+#: ../src/iso.c:902
 msgid "Creation date:"
 msgstr ""
 
-#: ../src/iso.c:934
+#: ../src/iso.c:910
 msgid "Modified date:"
 msgstr ""
 
-#: ../src/iso.c:942
+#: ../src/iso.c:918
 msgid "Expiration date:"
 msgstr ""
 
-#: ../src/iso.c:950
+#: ../src/iso.c:926
 msgid "Effective date:"
 msgstr ""
 
@@ -902,15 +907,15 @@ msgstr ""
 msgid "An error occurred!"
 msgstr ""
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
 msgstr ""
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
 msgstr ""
 
-#: ../src/rar.c:49
+#: ../src/rar.c:48
 #, fuzzy
 msgid "Version"
 msgstr "Permisos"
@@ -954,11 +959,11 @@ msgstr ""
 msgid "An error occurred while decompressing the cpio archive."
 msgstr ""
 
-#: ../src/rpm.c:208 ../src/rpm.c:418
+#: ../src/rpm.c:208 ../src/rpm.c:362
 msgid "An error occurred:"
 msgstr ""
 
-#: ../src/rpm.c:373
+#: ../src/rpm.c:317
 msgid "Can't write to /tmp:"
 msgstr ""
 

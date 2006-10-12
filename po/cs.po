@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.3svn-r22857\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-09 14:32+0200\n"
+"POT-Creation-Date: 2006-10-12 14:06+0200\n"
 "PO-Revision-Date: 2006-10-05 23:38+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -16,17 +16,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/rpm.c:56 ../src/tar.c:48
 #: ../src/zip.c:38
 msgid "Filename"
 msgstr "Název souboru"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Original"
 msgstr "Původní"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Compressed"
 msgstr "Komprimovaný"
 
@@ -34,37 +34,37 @@ msgstr "Komprimovaný"
 msgid "Attr"
 msgstr "Atrib"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Čas"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Ratio"
 msgstr "Poměr"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "Attributes"
 msgstr "Atributy"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "GUA"
 msgstr "GUA"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 msgid "Can't run the archiver executable:"
 msgstr "Nelze spustit program archivátoru:"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Přístupová práva"
 
@@ -76,7 +76,7 @@ msgstr "Symbolický odkaz"
 msgid "Owner/Group"
 msgstr "Vlastník/skupina"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:652 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "Velikost"
@@ -110,16 +110,16 @@ msgstr "Znovu komprimuji soubor tar pomocí %s, prosím čekejte..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Ověřte \"%s\", některé soubory již mohly být rozbaleny."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649
 msgid "An error occurred while accessing the archive."
 msgstr "Při přístupu k archivu došlo k chybě."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649 ../src/rpm.c:152
 msgid "Do you want to view the command line output?"
 msgstr "Chcete si prohlédnout výstup příkazové řádky?"
 
 #: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
-#: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
+#: ../src/callbacks.c:1309 ../src/callbacks.c:1654 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "Operace se nepodařila."
@@ -129,8 +129,8 @@ msgstr "Operace se nepodařila."
 msgid "The sfx archive was saved as:"
 msgstr "Archiv \"%s\" již existuje!"
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1330
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Operace byla dokončena."
 
@@ -241,51 +241,62 @@ msgstr "Touto akcí můžete poškodit archiv!"
 msgid "Do you really want to cancel?"
 msgstr "Chcete akci opravdu zrušit?"
 
-#: ../src/callbacks.c:1148
+#: ../src/callbacks.c:1149
 msgid "Waiting for the process to abort..."
 msgstr "Čekám na ukončení procesu..."
 
-#: ../src/callbacks.c:1154
+#: ../src/callbacks.c:1155
 msgid "An error occurred while trying to kill the process:"
 msgstr "Při pokusu o ukončení procesu došlo k chybě:"
 
-#: ../src/callbacks.c:1235
+#: ../src/callbacks.c:1240
 msgid "Please select a file, not a directory!"
 msgstr "Vyberte soubor, ne adresář!"
 
-#: ../src/callbacks.c:1389
+#: ../src/callbacks.c:1310
+#, fuzzy
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr "Při rozbalování souboru pro zobrazení náhledu nastala chyba!"
+
+#: ../src/callbacks.c:1319
+#, fuzzy
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
+msgstr "Při rozbalování souboru pro zobrazení náhledu nastala chyba!"
+
+#: ../src/callbacks.c:1372
 msgid " bytes"
 msgstr "bajtů"
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Can't perform another extraction:"
 msgstr "Nelze provést další rozbalení:"
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Please wait until the completion of the current one!"
 msgstr "Počkejte prosím, než se dokončí předchozí operace!"
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1844
 msgid "Sorry, I could not perform the operation!"
 msgstr "Omlouváme se, nelze provést operaci!"
 
-#: ../src/callbacks.c:1877 ../src/callbacks.c:1888 ../src/main.c:97
+#: ../src/callbacks.c:1859 ../src/callbacks.c:1870 ../src/main.c:97
 msgid "Can't perform this action:"
 msgstr "Akci nelze provést:"
 
-#: ../src/callbacks.c:1877
+#: ../src/callbacks.c:1859
 msgid "unrar doesn't support archive creation!"
 msgstr "unrar nepodporuje vytváření archivů!"
 
-#: ../src/callbacks.c:1885
+#: ../src/callbacks.c:1867
 msgid "You can't add content to deb packages!"
 msgstr "!Do balíčků deb nemůžete nic přidávat"
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1869
 msgid "You can't add content to rpm packages!"
 msgstr "Do balíčků rpm nemůžete nic přidávat!"
 
-#: ../src/callbacks.c:2038
+#: ../src/callbacks.c:1987
 msgid "Failed to open link."
 msgstr "Nepodařilo se otevřít symbolický odkaz."
 
@@ -698,10 +709,6 @@ msgstr "Tento archiv obsahuje soubory chráněné heslem"
 msgid "Enter Archive Password"
 msgstr "Vložte heslo"
 
-#: ../src/interface.c:493
-msgid "View File Window"
-msgstr "Okno Náhled na soubor"
-
 #: ../src/interface.c:519
 msgid "Archive Properties Window"
 msgstr "Okno Vlastnosti archivu"
@@ -742,95 +749,95 @@ msgstr "Počet souborů:"
 msgid "Number of dirs:"
 msgstr "Počet adresářů:"
 
-#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
 msgid "Can't create directory:"
 msgstr "Nelze vytvořit adresář"
 
-#: ../src/iso.c:577
+#: ../src/iso.c:553
 #, c-format
 msgid "Can't write file \"%s\":"
 msgstr "Nelze zapisovat do souboru \"%s\":"
 
-#: ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/iso.c:652 ../src/rpm.c:56
 msgid "Permission"
 msgstr "Oprávnění"
 
-#: ../src/iso.c:676
+#: ../src/iso.c:652
 msgid "Offset"
 msgstr "Posun"
 
-#: ../src/iso.c:696
+#: ../src/iso.c:672
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr "Rock Ridge, verze %d"
 
-#: ../src/iso.c:699
+#: ../src/iso.c:675
 msgid "Rock Ridge - unknown version"
 msgstr "Rock Ridge - neznámá verze"
 
-#: ../src/iso.c:703
+#: ../src/iso.c:679
 #, c-format
 msgid "Apple version %d"
 msgstr "Apple, verze %d"
 
-#: ../src/iso.c:731
+#: ../src/iso.c:707
 msgid "Standard ISO without extension"
 msgstr "Standardní bitová kopie ISO bez rozšíření"
 
-#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
 #, c-format
 msgid "Joliet Level %d"
 msgstr "Joliet, úroveň %d"
 
-#: ../src/iso.c:843
+#: ../src/iso.c:819
 msgid "ISO Information Window"
 msgstr "Informační okno o souboru ISO"
 
-#: ../src/iso.c:862
+#: ../src/iso.c:838
 msgid "Filename:"
 msgstr "Název souboru:"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:846
 msgid "Size:"
 msgstr "Velikost:"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:854
 msgid "Extension:"
 msgstr "Rozšíření:"
 
-#: ../src/iso.c:886
+#: ../src/iso.c:862
 msgid "System ID:"
 msgstr "Systémový identifikátor (ID):"
 
-#: ../src/iso.c:894
+#: ../src/iso.c:870
 msgid "Volume ID:"
 msgstr "Identifikátor svazku (ID):"
 
-#: ../src/iso.c:902
+#: ../src/iso.c:878
 msgid "Application:"
 msgstr "Aplikace:"
 
-#: ../src/iso.c:910
+#: ../src/iso.c:886
 msgid "Publisher:"
 msgstr "Vydavatel:"
 
-#: ../src/iso.c:918
+#: ../src/iso.c:894
 msgid "Preparer:"
 msgstr "Připravil:"
 
-#: ../src/iso.c:926
+#: ../src/iso.c:902
 msgid "Creation date:"
 msgstr "Vytvořeno:"
 
-#: ../src/iso.c:934
+#: ../src/iso.c:910
 msgid "Modified date:"
 msgstr "Změněno:"
 
-#: ../src/iso.c:942
+#: ../src/iso.c:918
 msgid "Expiration date:"
 msgstr "Datum vypršení:"
 
-#: ../src/iso.c:950
+#: ../src/iso.c:926
 msgid "Effective date:"
 msgstr "Datum nabytí platnosti:"
 
@@ -904,15 +911,15 @@ msgstr "Nelze vytvořit příkaz:"
 msgid "An error occurred!"
 msgstr "Nastala chyba!"
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
 msgstr "Kontrolní součet"
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
 msgstr "Metoda"
 
-#: ../src/rar.c:49
+#: ../src/rar.c:48
 msgid "Version"
 msgstr "Verze"
 
@@ -953,11 +960,11 @@ msgstr "Při rozbalování archivu cpio z rpm."
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "Při rozbalování cpio archivu došlo k chybě."
 
-#: ../src/rpm.c:208 ../src/rpm.c:418
+#: ../src/rpm.c:208 ../src/rpm.c:362
 msgid "An error occurred:"
 msgstr "Došlo k chybě:"
 
-#: ../src/rpm.c:373
+#: ../src/rpm.c:317
 msgid "Can't write to /tmp:"
 msgstr "Nelze zapisovat do /tmp:"
 
@@ -972,6 +979,9 @@ msgstr "Správce archivů"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
+
+#~ msgid "View File Window"
+#~ msgstr "Okno Náhled na soubor"
 
 #~ msgid "Operation completed"
 #~ msgstr "Operace byla dokončena"
@@ -1053,6 +1063,3 @@ msgstr "Xarchiver"
 #~ msgid "bzip2/gzip can't compress more than one file!\n"
 #~ msgstr ""
 #~ "bzip2 a gzip nemohou být použity ke kompresi více než jednoho souboru!\n"
-
-#~ msgid "An error occurred while extracting the file to be viewed!"
-#~ msgstr "Při rozbalování souboru pro zobrazení náhledu nastala chyba!"

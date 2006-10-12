@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-09 14:32+0200\n"
+"POT-Creation-Date: 2006-10-12 14:06+0200\n"
 "PO-Revision-Date: 2006-08-31 17:35+0300\n"
 "Last-Translator: Yuval Tanny <tanai@int.gov.il>\n"
 "Language-Team: Hebrew\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/rpm.c:56 ../src/tar.c:48
 #: ../src/zip.c:38
 msgid "Filename"
 msgstr "שם הקובץ"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Original"
 msgstr "מקורי"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Compressed"
 msgstr "מכווץ"
 
@@ -35,37 +35,37 @@ msgstr "מכווץ"
 msgid "Attr"
 msgstr "Attr"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "זמן"
 
-#: ../src/7zip.c:37 ../src/arj.c:38 ../src/bzip2.c:56 ../src/gzip.c:54
-#: ../src/iso.c:676 ../src/rar.c:49 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "תאריך"
 
-#: ../src/arj.c:38 ../src/rar.c:49 ../src/zip.c:38
+#: ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Ratio"
 msgstr "יחס"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "Attributes"
 msgstr "מאפיינים"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "GUA"
 msgstr "GUA"
 
-#: ../src/arj.c:38
+#: ../src/arj.c:43
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 msgid "Can't run the archiver executable:"
 msgstr "אין אפשרות להריץ את קובץ ההרצה של יוצר הארכיונים:"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:49 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "הרשאות"
 
@@ -77,7 +77,7 @@ msgstr "קישור סמלי"
 msgid "Owner/Group"
 msgstr "בעלים/קבוצה"
 
-#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:652 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "גודל"
@@ -111,17 +111,17 @@ msgstr "מכוון קובץ tar עם %s, אנא המתן..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "מספר קבצים אולי כבר קיימים. אנא בדוק \"%s\"."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649
 msgid "An error occurred while accessing the archive."
 msgstr "ארעה שגיאה בזמן הגישה לארכיון."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1667 ../src/rpm.c:152
+#: ../src/callbacks.c:145 ../src/callbacks.c:1649 ../src/rpm.c:152
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "האם ברצונך להחליפו?"
 
 #: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
-#: ../src/callbacks.c:1338 ../src/callbacks.c:1672 ../src/extract_dialog.c:932
+#: ../src/callbacks.c:1309 ../src/callbacks.c:1654 ../src/extract_dialog.c:932
 #: ../src/rpm.c:120 ../src/rpm.c:149
 msgid "Operation failed."
 msgstr "הפעולה נכשלה."
@@ -131,8 +131,8 @@ msgstr "הפעולה נכשלה."
 msgid "The sfx archive was saved as:"
 msgstr "מחלץ ארכיון אל %s"
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
+#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1330
+#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "הפעולה הושלמה."
 
@@ -246,51 +246,62 @@ msgstr "ביצוע זאת כנראה יהרוס את הארכיון."
 msgid "Do you really want to cancel?"
 msgstr "האם אתה בטוח שברצונך לבטל?"
 
-#: ../src/callbacks.c:1148
+#: ../src/callbacks.c:1149
 msgid "Waiting for the process to abort..."
 msgstr "ממתין לעצירת התהליך..."
 
-#: ../src/callbacks.c:1154
+#: ../src/callbacks.c:1155
 msgid "An error occurred while trying to kill the process:"
 msgstr "ארעה שגיאה בזמן הניסיון להרוג את התהליך:"
 
-#: ../src/callbacks.c:1235
+#: ../src/callbacks.c:1240
 msgid "Please select a file, not a directory!"
 msgstr "אנא בחר קובץ, לא תיקייה."
 
-#: ../src/callbacks.c:1389
+#: ../src/callbacks.c:1310
+#, fuzzy
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr "ארעה שגיאה בזמן הניסיון להרוג את התהליך:"
+
+#: ../src/callbacks.c:1319
+#, fuzzy
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
+msgstr "ארעה שגיאה בזמן הניסיון להרוג את התהליך:"
+
+#: ../src/callbacks.c:1372
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Can't perform another extraction:"
 msgstr "אין אפשרות לבצע עוד חילוץ:"
 
-#: ../src/callbacks.c:1789
+#: ../src/callbacks.c:1771
 msgid "Please wait until the completion of the current one!"
 msgstr "אנא המתן עד לסיום החילוץ הנוכחי."
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1844
 msgid "Sorry, I could not perform the operation!"
 msgstr "סליחה, אין אפשרות לבצע את הפעולה."
 
-#: ../src/callbacks.c:1877 ../src/callbacks.c:1888 ../src/main.c:97
+#: ../src/callbacks.c:1859 ../src/callbacks.c:1870 ../src/main.c:97
 msgid "Can't perform this action:"
 msgstr "אין אפשרות לבצע את פעולה זו:"
 
-#: ../src/callbacks.c:1877
+#: ../src/callbacks.c:1859
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:1885
+#: ../src/callbacks.c:1867
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1869
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2038
+#: ../src/callbacks.c:1987
 msgid "Failed to open link."
 msgstr "כשל בפתיחת קישור."
 
@@ -696,10 +707,6 @@ msgstr "ארכיון זה מכיל קבצים מוגנים בסיסמה"
 msgid "Enter Archive Password"
 msgstr "הכנס סיסמת ארכיון"
 
-#: ../src/interface.c:493
-msgid "View File Window"
-msgstr "הצג חלון קובץ"
-
 #: ../src/interface.c:519
 msgid "Archive Properties Window"
 msgstr "חלון מאפייני הארכיון"
@@ -740,95 +747,95 @@ msgstr "מספר הקבצים:"
 msgid "Number of dirs:"
 msgstr "מספר הספריות:"
 
-#: ../src/iso.c:489 ../src/iso.c:515 ../src/iso.c:547
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
 msgid "Can't create directory:"
 msgstr "אין אפשרות ליצור ספרייה:"
 
-#: ../src/iso.c:577
+#: ../src/iso.c:553
 #, c-format
 msgid "Can't write file \"%s\":"
 msgstr "אין אפשרות לכתוב קובץ \"%s\":"
 
-#: ../src/iso.c:676 ../src/rpm.c:56
+#: ../src/iso.c:652 ../src/rpm.c:56
 msgid "Permission"
 msgstr "הרשאה"
 
-#: ../src/iso.c:676
+#: ../src/iso.c:652
 msgid "Offset"
 msgstr "היסט"
 
-#: ../src/iso.c:696
+#: ../src/iso.c:672
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr "גרסת Rock Ridge %d"
 
-#: ../src/iso.c:699
+#: ../src/iso.c:675
 msgid "Rock Ridge - unknown version"
 msgstr "גרסה לא ידועה - Rock Ridge"
 
-#: ../src/iso.c:703
+#: ../src/iso.c:679
 #, c-format
 msgid "Apple version %d"
 msgstr "Apple, גרסה %d"
 
-#: ../src/iso.c:731
+#: ../src/iso.c:707
 msgid "Standard ISO without extension"
 msgstr "ISO תקני ללא סיומת"
 
-#: ../src/iso.c:739 ../src/iso.c:744 ../src/iso.c:749
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
 #, c-format
 msgid "Joliet Level %d"
 msgstr "דרגת Joliet %d"
 
-#: ../src/iso.c:843
+#: ../src/iso.c:819
 msgid "ISO Information Window"
 msgstr "חלון מידע של ISO"
 
-#: ../src/iso.c:862
+#: ../src/iso.c:838
 msgid "Filename:"
 msgstr "שם קובץ:"
 
-#: ../src/iso.c:870
+#: ../src/iso.c:846
 msgid "Size:"
 msgstr "גודל:"
 
-#: ../src/iso.c:878
+#: ../src/iso.c:854
 msgid "Extension:"
 msgstr ""
 
-#: ../src/iso.c:886
+#: ../src/iso.c:862
 msgid "System ID:"
 msgstr "מספר מערכת:"
 
-#: ../src/iso.c:894
+#: ../src/iso.c:870
 msgid "Volume ID:"
 msgstr "מספר כרך:"
 
-#: ../src/iso.c:902
+#: ../src/iso.c:878
 msgid "Application:"
 msgstr "יישום:"
 
-#: ../src/iso.c:910
+#: ../src/iso.c:886
 msgid "Publisher:"
 msgstr "מוציא לאור:"
 
-#: ../src/iso.c:918
+#: ../src/iso.c:894
 msgid "Preparer:"
 msgstr "מכין:"
 
-#: ../src/iso.c:926
+#: ../src/iso.c:902
 msgid "Creation date:"
 msgstr "תאריך יצירה:"
 
-#: ../src/iso.c:934
+#: ../src/iso.c:910
 msgid "Modified date:"
 msgstr "תאריך שינוי:"
 
-#: ../src/iso.c:942
+#: ../src/iso.c:918
 msgid "Expiration date:"
 msgstr "תאריך תפוגה:"
 
-#: ../src/iso.c:950
+#: ../src/iso.c:926
 msgid "Effective date:"
 msgstr "תאריך אפקטיבי:"
 
@@ -898,15 +905,15 @@ msgstr "אין אפשרות להפעיל את הפקודה:"
 msgid "An error occurred!"
 msgstr "ארעה שגיאה."
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
 msgstr ""
 
-#: ../src/rar.c:49 ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
 msgstr "שיטה"
 
-#: ../src/rar.c:49
+#: ../src/rar.c:48
 msgid "Version"
 msgstr "גרסה"
 
@@ -947,11 +954,11 @@ msgstr "ארעה שגיאה בזמן חילוץ ארכיון ה-cpio מארכי�
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "ארעה שגיאה פריסת ארכיון ה-cpio."
 
-#: ../src/rpm.c:208 ../src/rpm.c:418
+#: ../src/rpm.c:208 ../src/rpm.c:362
 msgid "An error occurred:"
 msgstr "ארעה שגיאה:"
 
-#: ../src/rpm.c:373
+#: ../src/rpm.c:317
 msgid "Can't write to /tmp:"
 msgstr "אין אפשרות לכתוב אל tmp/:"
 
@@ -969,6 +976,9 @@ msgstr "[archive name]"
 #, fuzzy
 msgid "Xarchiver"
 msgstr "_ארכיון"
+
+#~ msgid "View File Window"
+#~ msgstr "הצג חלון קובץ"
 
 #, fuzzy
 #~ msgid "The self extracting archive is:\n"
