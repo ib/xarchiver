@@ -253,12 +253,7 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 {
 	int i;
 	char outline[80];
-
-	GValue *filename = NULL;
-	GValue *permissions = NULL;
-	GValue *size = NULL;
-	GValue *date = NULL;
-	GValue *offset = NULL;
+	GtkTreeIter iter;
 
 	memset(outline, ' ', sizeof(outline));
 
@@ -345,37 +340,18 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 	else
 		archive->nr_of_files++;
 
+	gtk_list_store_append (liststore, &iter);
+
 	g_file_name = g_strconcat (dir_name, name_buf , NULL);
-
-	filename    = g_new0(GValue, 1);
-	permissions = g_new0(GValue, 1);
-	size        = g_new0(GValue, 1);
-	date        = g_new0(GValue, 1);
-	offset      = g_new0(GValue, 1);
-
-	filename = g_value_init(filename, G_TYPE_STRING);
-	g_value_set_string ( filename , g_strdup (g_file_name));
-
-	permissions = g_value_init(permissions, G_TYPE_STRING);
-	g_value_set_string ( permissions , g_strdup ( g_file_permissions ));
-
-	size = g_value_init(size, G_TYPE_UINT64);
-	g_value_set_uint64 ( size , g_file_size );
-
-	date = g_value_init(date, G_TYPE_STRING);
-	g_value_set_string ( date , g_strdup ( g_file_date ));
-
-	offset = g_value_init(offset, G_TYPE_UINT64);
-	g_value_set_uint64 ( offset , g_file_offset );
-
+	gtk_list_store_set (liststore, &iter,0,g_file_name,-1);
 	g_free (g_file_name);
-	archive->dummy_size+= g_value_get_uint64 (size);
 
-	/*archive->row = g_list_prepend (archive->row , filename );
-	archive->row = g_list_prepend (archive->row , permissions);
-	archive->row = g_list_prepend (archive->row,  size);
-	archive->row = g_list_prepend (archive->row,  date);
-	archive->row = g_list_prepend (archive->row,  offset);*/
+	gtk_list_store_set (liststore, &iter,1 , g_file_permissions , -1);
+	gtk_list_store_set (liststore, &iter,2 , g_file_size , -1);
+	gtk_list_store_set (liststore, &iter,3 , g_file_date , -1);
+	gtk_list_store_set (liststore, &iter,4 , g_file_offset , -1);
+
+	archive->dummy_size+= g_file_size;
 }
 
 void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)

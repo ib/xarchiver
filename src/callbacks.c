@@ -733,7 +733,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 		break;
 
 		case XARCHIVETYPE_ARJ:
-        command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
+        command = g_strconcat ("arj y -je1 " , archive->escaped_path, NULL);
 		break;
 
 		default:

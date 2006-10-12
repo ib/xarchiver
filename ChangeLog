@@ -1,13 +1,16 @@
 Xarchiver changelog:
 
 0x/09/06 - 0.4.1:
+		- G R E A T L Y improved speed and memory usage. A tar.bz2 archive of 463817 files is
+		  opened in ~28 sec. with a memory usage of ~130MB (measured on a 1GB Pentium 4 HT).
+		- Added ability to convert archives to self-extracting.
 		- Fixed bug preventing to add files by drag and drop when no archive has been created.
 		- Fixed Xarchiver rar problem when only unrar is available.
 		- Fixed creation of directory with "\ " when extracting an iso whose filename has spaces.
-		- Added LHA archive format thanks to Łukasz
+		- Added LHA archive and DEB format thanks to Łukasz
 		- Fixed code to compile under Solaris.
 		- Changed some strings for a better usability.
-		- Fixed bug #2247.
+		- Fixed bugs #2247, #1736.
 
 01/09/06 - 0.4:
 		- Added symbolic link column in tar/tar.bz2/tar.gz and RPM archives.
