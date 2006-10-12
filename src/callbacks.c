@@ -1327,6 +1327,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	unlink ( filename );
 	g_free (filename);
 	OffTooltipPadlock();
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 	Update_StatusBar (_("Operation completed."));
 }
 
