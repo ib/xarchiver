@@ -131,7 +131,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
             return FALSE;
     	}
     }
-	cpio_tmp = OpenTempFile ( 1 , gzip );
+	cpio_tmp = xa_open_temp_file ( gzip );
     if (cpio_tmp != NULL)
 		g_child_watch_add ( archive->child_pid , (GChildWatchFunc) OpenCPIO , gzip );
     else
@@ -306,7 +306,7 @@ void CloseChannels ( GIOChannel *ioc )
     g_io_channel_unref (ioc);
 }
 
-gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
+gchar *xa_open_temp_file ( gchar *temp_path )
 {
 	gchar *command = NULL;
 	tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
@@ -318,10 +318,10 @@ gchar *OpenTempFile ( gboolean dummy , gchar *temp_path )
 		g_free (tmp);
 		return NULL;
 	}
-	if ( temp_path == NULL)
-		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , archive->escaped_path , NULL );
+	if (xa_detect_archive_type ( temp_path ) == XARCHIVETYPE_GZIP)
+		command = g_strconcat ( "gzip -dc " , temp_path , NULL );
 	else
-		command = g_strconcat ( dummy ? "gzip -dc " : "bzip2 -dc " , temp_path , NULL );
+		command = g_strconcat ( "bzip2 -dc " , temp_path , NULL );
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free ( command );

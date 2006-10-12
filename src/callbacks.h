@@ -90,7 +90,7 @@ void drag_end (GtkWidget *treeview1, GdkDragContext *context, gpointer data);
 void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data);
 
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
-int DetectArchiveType ( gchar *filename );
+int xa_detect_archive_type ( gchar *filename );
 
 gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);

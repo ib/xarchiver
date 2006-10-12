@@ -306,7 +306,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
     gtk_widget_set_sensitive ( iso_info , FALSE );
     gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
 
-    archive->type = DetectArchiveType ( archive->path );
+    archive->type = xa_detect_archive_type ( archive->path );
     if ( archive->type == -2 )
 		return;
     if ( archive->type == -1 )
@@ -919,7 +919,7 @@ gboolean isLha ( FILE *ptr )
 	}
 }
 
-int DetectArchiveType ( gchar *filename )
+int xa_detect_archive_type ( gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
@@ -1896,7 +1896,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		filename = g_filename_from_uri ( array[0] , NULL, NULL );
 		if ( filename == NULL)
 			return;
-		else if ( DetectArchiveType ( filename ) > 0 )
+		else if ( xa_detect_archive_type ( filename ) > 0 )
 		{
 			xa_open_archive ( NULL, filename );
 			g_strfreev ( array );

@@ -136,7 +136,7 @@ int main (int argc, char **argv)
 		else if (archive_name != NULL)
 		{
             /* Is the file an archive? */
-			if ( DetectArchiveType ( archive_name ) > 0 )
+			if ( xa_detect_archive_type ( archive_name ) > 0 )
 			{
 				archive = xa_init_structure_from_cmd_line ( archive_name );
 				if (archive != NULL)
@@ -429,7 +429,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive = xa_init_archive_structure (archive);
 	archive->path = g_strdup (filename);
 	archive->escaped_path = EscapeBadChars(filename , "$\'`\"\\!?* ()&|@#:;");
-	archive->type = DetectArchiveType ( archive->path );
+	archive->type = xa_detect_archive_type ( archive->path );
 	if (archive->type == -2)
 		return NULL;
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
