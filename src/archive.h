@@ -74,8 +74,6 @@ struct _XArchive
 	gint nr_of_dirs;
 	GPid child_pid;
 	unsigned long long int dummy_size;
-	unsigned int row_cnt;
-	GList *row;
 	gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
 };
 

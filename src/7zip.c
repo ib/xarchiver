@@ -67,7 +67,7 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				break;
 
 			/* This to avoid inserting the last line of output */
-			if (strncmp (line, "-------------------", 19) == 0 || strncmp (line, "\x0a",1) == 0)
+			if (strncmp (line, "-----------------", 17) == 0 || strncmp (line, "\x0a",1) == 0)
 			{
 				g_free (line);
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );

@@ -65,7 +65,7 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			/* This to avoid inserting in the list RAR's copyright message */
 			if (jump_header == FALSE )
 			{
-				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if (line == NULL)
 					break;
 				if  (strncmp (line , "--------" , 8) == 0)
@@ -79,14 +79,14 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			if ( jump_header && odd_line )
 			{
 				/* Now read the filename */
-				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if ( line == NULL )
 					break;
 				/* This to avoid inserting in the liststore the last line of Rar output */
 				if (strncmp (line, "--------", 8) == 0 || strncmp (line, "\x0a",1) == 0)
 				{
 					g_free (line);
-					g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 					g_free (line);
 					break;
 				}
@@ -106,7 +106,7 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			else
 			{
 				/* Now read the rest of the data */
-				g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if ( line == NULL)
 					break;
 				fields = split_line (line,9);

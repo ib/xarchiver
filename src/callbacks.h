@@ -50,7 +50,6 @@
 #include "extract_dialog.h"
 #include "add_dialog.h"
 
-void xa_append_rows ( XArchive *archive , unsigned short int nc );
 short int response;
 double content_size;
 unsigned long long int file_size, file_offset;

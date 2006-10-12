@@ -1971,39 +1971,6 @@ void xa_deselect_all ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_widget_set_sensitive (deselect_all,FALSE);
 }
 
-void xa_append_rows ( XArchive *archive , unsigned short int nc )
-{
-	GtkTreeIter iter;
-	unsigned short int i = 0;
-
-	if (archive->row == NULL)
-		return;
-	archive->row = g_list_reverse ( archive->row );
-
-	gtk_list_store_append (liststore, &iter);
-	while ( archive->row )
-	{
-		if ( i == nc )
-		{
-			gtk_list_store_append (liststore, &iter);
-			i = 0;
-		}
-		else
-		{
-			gtk_list_store_set_value(liststore, &iter, i, archive->row->data);
-			g_value_unset (archive->row->data);
-			archive->row = archive->row->next;
-			i++;
-		}
-	}
-	while ( gtk_events_pending() )
-		gtk_main_iteration();
-
-	g_list_foreach(archive->row, (GFunc)g_free, NULL);
-	g_list_free(archive->row);
-	archive->row = NULL;
-}
-
 void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 {
 	GdkScreen *screen;

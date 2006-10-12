@@ -371,11 +371,11 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 	g_free (g_file_name);
 	archive->dummy_size+= g_value_get_uint64 (size);
 
-	archive->row = g_list_prepend (archive->row , filename );
+	/*archive->row = g_list_prepend (archive->row , filename );
 	archive->row = g_list_prepend (archive->row , permissions);
 	archive->row = g_list_prepend (archive->row,  size);
 	archive->row = g_list_prepend (archive->row,  date);
-	archive->row = g_list_prepend (archive->row,  offset);
+	archive->row = g_list_prepend (archive->row,  offset);*/
 }
 
 void parse_dir (gchar *dir_name , int extent, int len, XArchive *archive)
@@ -759,7 +759,7 @@ void OpenISO ( XArchive *archive )
 		read(fileno(iso_stream), &ipd, sizeof(ipd));
 	}
 	parse_dir ("/" , iso_733((unsigned char *)idr->extent), iso_733((unsigned char *)idr->size), archive);
-	xa_append_rows ( archive , 5 );
+	//xa_append_rows ( archive , 5 );
 
 	td = todo_idr;
 
@@ -767,7 +767,7 @@ void OpenISO ( XArchive *archive )
 	{
 		parse_dir( td->name , td->extent, td->length, archive);
 		g_free (td->name);
-		xa_append_rows ( archive , 5 );
+		//xa_append_rows ( archive , 5 );
 		td = td->next;
 	}
 	fclose(iso_stream);

@@ -71,12 +71,7 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				g_free (line);
 				break;
 			}
-			if (arj_line == 4)
-			{
-				arj_line = 1;
-				break;
-			}
-			else if (arj_line == 1)
+			if (arj_line == 1)
 			{
 				/* This to avoid reading the last line of arj output */
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
@@ -94,7 +89,6 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				gtk_list_store_append (liststore, &iter);
 				gtk_list_store_set (liststore, &iter,0,filename,-1);
 				g_free (line);
-				break;
 			}
 			else if (arj_line == 2)
 			{
@@ -114,10 +108,6 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				}
 				archive->dummy_size += atoll(fields[2]);
 				g_free (line);
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				g_free (line);
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				g_free (line);
 				g_strfreev ( fields );
 			}
 			else if (arj_line == 3)
@@ -125,15 +115,19 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if (line != NULL)
 					g_free (line);
+			}
+			else if (arj_line == 4)
+			{
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if (line != NULL)
-				{
-					arj_line++;
 					g_free (line);
-				}
+				arj_line = 1;
+				break;
 			}
+			arj_line++;
 		}
 		while (status == G_IO_STATUS_NORMAL);
+
 		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
 			goto done;
 	}
