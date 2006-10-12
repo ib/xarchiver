@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.3svn-r22857\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-09 14:32+0200\n"
-"PO-Revision-Date: 2006-09-16 12:25+0100\n"
+"PO-Revision-Date: 2006-10-05 23:38+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "Operace se nepodařila."
 #: ../src/callbacks.c:164
 #, fuzzy
 msgid "The sfx archive was saved as:"
-msgstr "Rozbaluji archiv do %s"
+msgstr "Archiv \"%s\" již existuje!"
 
 #: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1347
 #: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:794
@@ -197,19 +197,16 @@ msgid "Deleting files from the archive, please wait..."
 msgstr "Mažu soubory z archivu, prosím čekejte..."
 
 #: ../src/callbacks.c:626
-#, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
-msgstr "Testuji integritu archivu, prosím čekejte..."
+msgstr "Konvertuji archiv na samorozbalitelný, prosím čekejte..."
 
 #: ../src/callbacks.c:688
-#, fuzzy
 msgid "Can't convert the archive to self-extracting:"
-msgstr "Nelze spustit program archivátoru:"
+msgstr "Nelze zkonvertovat archiv na samorozbalitelný:"
 
 #: ../src/callbacks.c:701
-#, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Nelze přidat soubory do archivu"
+msgstr "Modulem unzipsfx nelze zapisovat do archivu:"
 
 #: ../src/callbacks.c:768
 msgid "translator-credits"
@@ -258,7 +255,7 @@ msgstr "Vyberte soubor, ne adresář!"
 
 #: ../src/callbacks.c:1389
 msgid " bytes"
-msgstr ""
+msgstr "bajtů"
 
 #: ../src/callbacks.c:1789
 msgid "Can't perform another extraction:"
@@ -278,15 +275,15 @@ msgstr "Akci nelze provést:"
 
 #: ../src/callbacks.c:1877
 msgid "unrar doesn't support archive creation!"
-msgstr ""
+msgstr "unrar nepodporuje vytváření archivů!"
 
 #: ../src/callbacks.c:1885
 msgid "You can't add content to deb packages!"
-msgstr ""
+msgstr "!Do balíčků deb nemůžete nic přidávat"
 
 #: ../src/callbacks.c:1887
 msgid "You can't add content to rpm packages!"
-msgstr ""
+msgstr "Do balíčků rpm nemůžete nic přidávat!"
 
 #: ../src/callbacks.c:2038
 msgid "Failed to open link."
@@ -317,12 +314,11 @@ msgid "Recurse subdirectories"
 msgstr "Procházet i podadresáře"
 
 #: ../src/add_dialog.c:162
-#, fuzzy
 msgid ""
 "Include everything in the directory recursively \tstarting from the current "
 "directory."
 msgstr ""
-"Zahrne veškerý obsah aktuálního adresáře, včetně jeho souborů a podadresářů"
+"Zahrne veškerý obsah aktuálního adresáře, \tvčetně jeho souborů a podadresářů"
 
 #: ../src/add_dialog.c:167
 msgid "Generate a solid archive"
@@ -393,7 +389,6 @@ msgstr ""
 "komprese, nejpomalejší"
 
 #: ../src/add_dialog.c:232
-#, fuzzy
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = bez komprese, 1 = standardní úroveň komprese, 4 = nejrychlejší komprese "
@@ -401,7 +396,7 @@ msgstr ""
 
 #: ../src/add_dialog.c:239
 msgid "5 = default compression, 7 = max compression"
-msgstr ""
+msgstr "5 = standarní úroveň komprese, 7 = nejsilnější komprese"
 
 #: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:435
 msgid "Password:"
@@ -600,20 +595,18 @@ msgid "_Properties"
 msgstr "_Vlastnosti"
 
 #: ../src/interface.c:119
-#, fuzzy
 msgid "_Action"
 msgstr "A_kce"
 
 #: ../src/interface.c:146
 msgid "Make SF_X"
-msgstr ""
+msgstr "Vy_tvořit samorozbalitelný archiv"
 
 #: ../src/interface.c:167
 msgid "_View"
 msgstr "_Zobrazit"
 
 #: ../src/interface.c:182
-#, fuzzy
 msgid "Sele_ct All"
 msgstr "Vybrat _vše"
 
@@ -671,7 +664,7 @@ msgstr ""
 
 #: ../src/interface.c:285
 msgid "Make the current archive self-extracting"
-msgstr ""
+msgstr "Vytvoří z aktuálně otevřeného archiv samorozbalitelný archiv"
 
 #: ../src/interface.c:292
 msgid "Delete"
@@ -803,7 +796,7 @@ msgstr "Velikost:"
 
 #: ../src/iso.c:878
 msgid "Extension:"
-msgstr ""
+msgstr "Rozšíření:"
 
 #: ../src/iso.c:886
 msgid "System ID:"
@@ -913,7 +906,7 @@ msgstr "Nastala chyba!"
 
 #: ../src/rar.c:49 ../src/zip.c:38
 msgid "Checksum"
-msgstr ""
+msgstr "Kontrolní součet"
 
 #: ../src/rar.c:49 ../src/zip.c:38
 msgid "Method"
@@ -980,16 +973,14 @@ msgstr "Správce archivů"
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#, fuzzy
-#~ msgid "The self extracting archive is:\n"
-#~ msgstr "Rozbaluji archiv do %s"
-
-#, fuzzy
 #~ msgid "Operation completed"
-#~ msgstr "Operace byla dokončena."
+#~ msgstr "Operace byla dokončena"
 
-#~ msgid "The archive \"%s\" already exists!"
-#~ msgstr "Archiv \"%s\" již existuje!"
+#~ msgid "The self extracting archive is:\n"
+#~ msgstr "Samorozbalitelný archiv je: \n"
+
+#~ msgid "Make SFX"
+#~ msgstr "Vytvořit samorozbalitelný archiv"
 
 #~ msgid "Do you want to overwrite it?"
 #~ msgstr "Chcete jej přepsat?"
