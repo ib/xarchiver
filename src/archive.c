@@ -64,6 +64,8 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 		&error_fd,
 		&error) )
 	{
+		xa_hide_progress_bar_stop_button ( archive );
+		Update_StatusBar (_("Operation failed."));
 		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev ( argv );

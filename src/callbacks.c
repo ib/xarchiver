@@ -129,11 +129,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
             g_free (msg);
 		}
 		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
-		{
-			//xa_set_button_state (new,open,0,0,exe,0);
 			gtk_widget_set_sensitive ( check_menu , FALSE );
-		}
-		archive->status = XA_ARCHIVESTATUS_IDLE;
+
+		xa_hide_progress_bar_stop_button(archive);
 		return;
 	}
 
