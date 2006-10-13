@@ -361,7 +361,6 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (viewport2), progressbar);
 
 	viewport3 = gtk_viewport_new (NULL, NULL);
-	gtk_widget_show (viewport3);
 	gtk_box_pack_start (GTK_BOX (hbox_sb), viewport3, FALSE, TRUE, 0);
 
 	ebox = gtk_event_box_new();
@@ -369,10 +368,11 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER(ebox), pad_image);
 	gtk_widget_show (ebox);
 	gtk_container_add (GTK_CONTAINER (viewport3), ebox);
+	gtk_widget_show (pad_image);
 	gtk_widget_set_size_request(ebox, 15, -1);
 	pad_tooltip = gtk_tooltips_new ();
 	gtk_tooltips_set_tip (pad_tooltip , ebox , _("This archive contains password protected files"), NULL );
-	gtk_tooltips_disable ( pad_tooltip );
+	gtk_tooltips_enable ( pad_tooltip );
 
 	g_signal_connect ((gpointer) new1, "activate", G_CALLBACK (xa_new_archive), NULL);
 	g_signal_connect ((gpointer) open1, "activate", G_CALLBACK (xa_open_archive), NULL);
@@ -381,7 +381,7 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect ((gpointer) extract_menu, "activate", G_CALLBACK (xa_extract_archive), NULL);
 	g_signal_connect ((gpointer) exe_menu, "activate", G_CALLBACK (xa_convert_sfx), NULL);
 	g_signal_connect ((gpointer) addfile, "activate", G_CALLBACK (xa_add_files_archive), NULL);
-	g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (ShowShellOutput), NULL);
+	g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (xa_show_cmd_line_output), NULL);
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
 	g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);

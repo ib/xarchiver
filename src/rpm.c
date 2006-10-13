@@ -122,12 +122,11 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 	    	xa_set_window_title (MainWindow , NULL);
 		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Error while extracting the cpio archive from the rpm one."),("Do you want to view the command line output?") );
             if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL);
+				xa_show_cmd_line_output (NULL);
             unlink ( cpio_tmp );
             g_free (cpio_tmp);
 			xa_set_button_state (1,1,0,0,0,0);
-			gtk_widget_set_sensitive (Stop_button,FALSE);
-			archive->status = XA_ARCHIVESTATUS_IDLE;
+			xa_hide_progress_bar_stop_button(archive);
             return FALSE;
     	}
     }
@@ -151,13 +150,12 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	    	xa_set_window_title (MainWindow , NULL);
 		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
-				ShowShellOutput (NULL);
+				xa_show_cmd_line_output (NULL);
 			unlink ( cpio_tmp );
 			unlink ( gzip );
 			g_free (cpio_tmp);
 			xa_set_button_state (1,1,0,0,0,0);
-			gtk_widget_set_sensitive (Stop_button,FALSE);
-			archive->status = XA_ARCHIVESTATUS_IDLE;
+			xa_hide_progress_bar_stop_button(archive);
 			return FALSE;
 		}
 	}

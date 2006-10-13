@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-12 14:06+0200\n"
+"POT-Creation-Date: 2006-10-13 09:14+0200\n"
 "PO-Revision-Date: 2006-08-31 12:16+0200\n"
 "Last-Translator: Giuseppe Torelli <colossus73@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -112,193 +112,189 @@ msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "Controlla \"%s\" dato che alcuni file potrebbero essere già stati estratti."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1649
+#: ../src/callbacks.c:144 ../src/callbacks.c:1643
 msgid "An error occurred while accessing the archive."
 msgstr "Si è verificato un errore mentre accedevo all'archivio."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1649 ../src/rpm.c:152
+#: ../src/callbacks.c:144 ../src/callbacks.c:1643 ../src/rpm.c:151
 msgid "Do you want to view the command line output?"
 msgstr "Vuoi vedere l'output dell'archiviatore?"
 
-#: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
-#: ../src/callbacks.c:1309 ../src/callbacks.c:1654 ../src/extract_dialog.c:932
-#: ../src/rpm.c:120 ../src/rpm.c:149
+#: ../src/callbacks.c:154 ../src/callbacks.c:674 ../src/callbacks.c:687
+#: ../src/callbacks.c:1303 ../src/callbacks.c:1648 ../src/extract_dialog.c:930
+#: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr "Operazione fallita."
 
-#: ../src/callbacks.c:164
+#: ../src/callbacks.c:163
 msgid "The sfx archive was saved as:"
 msgstr "L'archivio auto-estraibile è stato salvato in:"
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1330
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:770
+#: ../src/callbacks.c:173 ../src/callbacks.c:221 ../src/callbacks.c:1324
+#: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Operazione completata."
 
-#: ../src/callbacks.c:178
+#: ../src/callbacks.c:176
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Attendere prego mentre il contenuto dell'archivio viene aggiornato..."
 
-#: ../src/callbacks.c:258
-msgid "Choose Add File to create the compressed file."
-msgstr "Scegli Aggiungi file per creare il file compresso."
-
-#: ../src/callbacks.c:262
+#: ../src/callbacks.c:253
 msgid "Choose Add to begin creating the archive."
 msgstr "Scegli Aggiungi per iniziare a creare l'archivio."
 
-#: ../src/callbacks.c:316
+#: ../src/callbacks.c:306
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Non riesco ad aprire il file \"%s\":"
 
-#: ../src/callbacks.c:319
+#: ../src/callbacks.c:309
 msgid "Archive format is not recognized!"
 msgstr "Il formato di questo archivio non è riconosciuto!"
 
-#: ../src/callbacks.c:342
+#: ../src/callbacks.c:332
 msgid "Sorry, this archive format is not supported:"
 msgstr "Spiacente, questo formato non è supportato:"
 
-#: ../src/callbacks.c:342
+#: ../src/callbacks.c:332
 msgid "the proper archiver is not installed!"
 msgstr "il programma di decompressione non è installato!"
 
-#: ../src/callbacks.c:349
+#: ../src/callbacks.c:339
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Attendere prego mentre il contenuto dell'immagine ISO viene letto..."
 
-#: ../src/callbacks.c:351
+#: ../src/callbacks.c:341
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Attendere prego mentre il contenuto dell'archivio viene letto..."
 
-#: ../src/callbacks.c:426
+#: ../src/callbacks.c:417
 msgid "Testing archive integrity, please wait..."
 msgstr "Sto testando l'integrità dell'archivio, attendere prego..."
 
-#: ../src/callbacks.c:485 ../src/main.c:241
+#: ../src/callbacks.c:477 ../src/main.c:241
 msgid "Ready."
 msgstr "Pronto."
 
-#: ../src/callbacks.c:494
+#: ../src/callbacks.c:486
 msgid "Please hit the Stop button first!"
 msgstr "Si prega di premere prima il pulsante Stop!"
 
-#: ../src/callbacks.c:520
+#: ../src/callbacks.c:508
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Stai per cancellare %d file dall'archivio."
 
-#: ../src/callbacks.c:521
+#: ../src/callbacks.c:509
 msgid "Are you sure you want to do this?"
 msgstr "Sei sicuro di volerlo fare?"
 
-#: ../src/callbacks.c:527
+#: ../src/callbacks.c:515
 msgid "Deleting files from the archive, please wait..."
 msgstr "Sto cancellando i file dall'archivio, attendere prego..."
 
-#: ../src/callbacks.c:626
+#: ../src/callbacks.c:614
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Sto convertendo l'archivio in auto-estraibile, attendere prego..."
 
-#: ../src/callbacks.c:688
+#: ../src/callbacks.c:676
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Non riesco a convertire l'archivio in auto-estraibile:"
 
-#: ../src/callbacks.c:701
+#: ../src/callbacks.c:689
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr ""
 "Non riesco ad aggiungere il modulo auto-estraibile 'unzipsfx' all'archivio:"
 
-#: ../src/callbacks.c:768
+#: ../src/callbacks.c:756
 msgid "translator-credits"
 msgstr "Giuseppe Torelli <colossus73@gmail.com>"
 
-#: ../src/callbacks.c:801 ../src/interface.c:254
+#: ../src/callbacks.c:789 ../src/interface.c:254
 msgid "Open an archive"
 msgstr "Apertura dell'archivio"
 
-#: ../src/callbacks.c:814
+#: ../src/callbacks.c:802
 msgid "All files"
 msgstr "Tutti i file"
 
-#: ../src/callbacks.c:819
+#: ../src/callbacks.c:807
 msgid "Only archives"
 msgstr "Solo gli archivi"
 
-#: ../src/callbacks.c:935
+#: ../src/callbacks.c:923
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Non riesco ad aprire l'archivio \"%s\":"
 
-#: ../src/callbacks.c:1111
+#: ../src/callbacks.c:1105
 msgid "Command line output"
 msgstr "Output della linea di comando"
 
-#: ../src/callbacks.c:1143
+#: ../src/callbacks.c:1137
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Così facendo l'archivio verrà corrotto!"
 
-#: ../src/callbacks.c:1143
+#: ../src/callbacks.c:1137
 msgid "Do you really want to cancel?"
 msgstr "Sei sicuro di annullare?"
 
-#: ../src/callbacks.c:1149
+#: ../src/callbacks.c:1143
 msgid "Waiting for the process to abort..."
 msgstr "In attesa della terminazione del processo..."
 
-#: ../src/callbacks.c:1155
+#: ../src/callbacks.c:1149
 msgid "An error occurred while trying to kill the process:"
 msgstr "Si è verificato un errore mentre cercavo di terminare il processo:"
 
-#: ../src/callbacks.c:1240
+#: ../src/callbacks.c:1234
 msgid "Please select a file, not a directory!"
 msgstr "Si prega di selezionare un file, non una directory!"
 
-#: ../src/callbacks.c:1310
+#: ../src/callbacks.c:1304
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Si è verificato unerrore mentre estraevo il file da visualizzare:"
 
-#: ../src/callbacks.c:1319
+#: ../src/callbacks.c:1313
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr ""
 "Si è verificato unerrore mentre convertivo il contenuto del file "
 "nell'encoding UTF8:"
 
-#: ../src/callbacks.c:1372
+#: ../src/callbacks.c:1366
 msgid " bytes"
 msgstr " bytes"
 
-#: ../src/callbacks.c:1771
+#: ../src/callbacks.c:1756
 msgid "Can't perform another extraction:"
 msgstr "Non posso svolgere un'altra estrazione:"
 
-#: ../src/callbacks.c:1771
+#: ../src/callbacks.c:1756
 msgid "Please wait until the completion of the current one!"
 msgstr "Si prega di attendere il completamento di quella in corso!"
 
-#: ../src/callbacks.c:1844
+#: ../src/callbacks.c:1829
 msgid "Sorry, I could not perform the operation!"
 msgstr "Sono spiacente, non posso svolgere l'operazione!"
 
-#: ../src/callbacks.c:1859 ../src/callbacks.c:1870 ../src/main.c:97
+#: ../src/callbacks.c:1844 ../src/callbacks.c:1855 ../src/main.c:97
 msgid "Can't perform this action:"
 msgstr "Non posso compiere questa azione:"
 
-#: ../src/callbacks.c:1859
+#: ../src/callbacks.c:1844
 msgid "unrar doesn't support archive creation!"
 msgstr "unrar non supporta la creazione di archivi!"
 
-#: ../src/callbacks.c:1867
+#: ../src/callbacks.c:1852
 msgid "You can't add content to deb packages!"
 msgstr "Non puoi aggiungere del contenuto ad un pacchetto deb!"
 
-#: ../src/callbacks.c:1869
+#: ../src/callbacks.c:1854
 msgid "You can't add content to rpm packages!"
 msgstr "Non puoi aggiungere del contenuto ad un pacchetto rpm!"
 
-#: ../src/callbacks.c:1987
+#: ../src/callbacks.c:1972
 msgid "Failed to open link."
 msgstr "Apertura del link non riuscita."
 
@@ -578,20 +574,20 @@ msgstr "Non posso estrarre i files!"
 msgid "Extracting files to %s"
 msgstr "Sto estraendo i files in %s"
 
-#: ../src/extract_dialog.c:602
+#: ../src/extract_dialog.c:601
 #, c-format
 msgid "Extracting archive to %s"
 msgstr "Sto estraendo l'archivio in %s"
 
-#: ../src/extract_dialog.c:881 ../src/extract_dialog.c:903
+#: ../src/extract_dialog.c:879 ../src/extract_dialog.c:901
 msgid "Operation aborted."
 msgstr "Operazione annullata."
 
-#: ../src/extract_dialog.c:930
+#: ../src/extract_dialog.c:928
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Non posso creare la directorty temporanea in /tmp:"
 
-#: ../src/extract_dialog.c:945
+#: ../src/extract_dialog.c:943
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Scegli la directory di destinazione per l'archivio corrente"
 
@@ -952,15 +948,15 @@ msgid "Error while extracting the cpio archive from the rpm one."
 msgstr ""
 "Si è verificato un errore mentre estraevo l'archivio cpio da quello RPM."
 
-#: ../src/rpm.c:152
+#: ../src/rpm.c:151
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "Si è verificato un errore mentre decomprimevo l'archivio cpio."
 
-#: ../src/rpm.c:208 ../src/rpm.c:362
+#: ../src/rpm.c:206 ../src/rpm.c:360
 msgid "An error occurred:"
 msgstr "Si è verificato un errore:"
 
-#: ../src/rpm.c:317
+#: ../src/rpm.c:315
 msgid "Can't write to /tmp:"
 msgstr "Non posso scrivere in /tmp:"
 
@@ -975,6 +971,9 @@ msgstr "Gestore di archivi"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
+
+#~ msgid "Choose Add File to create the compressed file."
+#~ msgstr "Scegli Aggiungi file per creare il file compresso."
 
 #~ msgid "View File Window"
 #~ msgstr "Contenuto del file"

@@ -235,7 +235,7 @@ int main (int argc, char **argv)
 		ArchiveType = g_list_reverse (ArchiveType);
 
 		MainWindow = create_MainWindow ();
-		ShowShellOutput (NULL);
+		xa_show_cmd_line_output (NULL);
 		gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		Update_StatusBar ( _("Ready."));

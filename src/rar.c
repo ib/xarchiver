@@ -110,6 +110,8 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				if ( line == NULL)
 					break;
 				fields = split_line (line,9);
+				if (fields[5] == NULL)
+					break;
 				if ( strstr (fields[5] , "d") == NULL && strstr (fields[5] , "D") == NULL )
 					archive->nr_of_files++;
 				else

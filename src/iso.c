@@ -758,7 +758,7 @@ void OpenISO ( XArchive *archive )
 	todo_idr = NULL;
 
 	xa_set_button_state (1,1,0,1,0,1);
-	OffTooltipPadlock();
+	xa_hide_progress_bar_stop_button(archive);
 	archive->status = XA_ARCHIVESTATUS_IDLE;
 	gtk_widget_set_sensitive ( properties , TRUE );
 	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);

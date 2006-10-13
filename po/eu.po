@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-12 14:06+0200\n"
+"POT-Creation-Date: 2006-10-13 09:14+0200\n"
 "PO-Revision-Date: 2006-09-04 23:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: Basque <eu@li.org>\n"
@@ -113,196 +113,192 @@ msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "Mesedez egiaztatu \"%s\" zenbait fitxategi ateratak izan dira dagoeneko eta."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1649
+#: ../src/callbacks.c:144 ../src/callbacks.c:1643
 msgid "An error occurred while accessing the archive."
 msgstr "Errore bat gertatu da paketea atzitzerakoan."
 
-#: ../src/callbacks.c:145 ../src/callbacks.c:1649 ../src/rpm.c:152
+#: ../src/callbacks.c:144 ../src/callbacks.c:1643 ../src/rpm.c:151
 msgid "Do you want to view the command line output?"
 msgstr "Komando lerro irteera ikusi nahi al duzu?"
 
-#: ../src/callbacks.c:155 ../src/callbacks.c:686 ../src/callbacks.c:699
-#: ../src/callbacks.c:1309 ../src/callbacks.c:1654 ../src/extract_dialog.c:932
-#: ../src/rpm.c:120 ../src/rpm.c:149
+#: ../src/callbacks.c:154 ../src/callbacks.c:674 ../src/callbacks.c:687
+#: ../src/callbacks.c:1303 ../src/callbacks.c:1648 ../src/extract_dialog.c:930
+#: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr "Ekintzak huts egin du."
 
-#: ../src/callbacks.c:164
+#: ../src/callbacks.c:163
 #, fuzzy
 msgid "The sfx archive was saved as:"
 msgstr "\"%s\" paketea badago dagoeneko!"
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:224 ../src/callbacks.c:1330
-#: ../src/extract_dialog.c:568 ../src/extract_dialog.c:791 ../src/iso.c:770
+#: ../src/callbacks.c:173 ../src/callbacks.c:221 ../src/callbacks.c:1324
+#: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Ekintza osatua."
 
-#: ../src/callbacks.c:178
+#: ../src/callbacks.c:176
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Mesedez itxoin paketearen edukia eguneratzen den bitartean..."
 
-#: ../src/callbacks.c:258
-msgid "Choose Add File to create the compressed file."
-msgstr "Fitxategia gehitu hautatu konrpimituriko fitxategia sortzeko."
-
-#: ../src/callbacks.c:262
+#: ../src/callbacks.c:253
 msgid "Choose Add to begin creating the archive."
 msgstr "Gehitu hautatu paketea sortzen hasteko"
 
-#: ../src/callbacks.c:316
+#: ../src/callbacks.c:306
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Ezin da \"%s\" fitxategia ireki:"
 
-#: ../src/callbacks.c:319
+#: ../src/callbacks.c:309
 msgid "Archive format is not recognized!"
 msgstr "Pakete honen formatua ez da ezagutzen!"
 
-#: ../src/callbacks.c:342
+#: ../src/callbacks.c:332
 msgid "Sorry, this archive format is not supported:"
 msgstr "Barkatu, pakete formatu hau ez da onartzen:"
 
-#: ../src/callbacks.c:342
+#: ../src/callbacks.c:332
 msgid "the proper archiver is not installed!"
 msgstr "konpresore egokia ez dago instalaturik!"
 
-#: ../src/callbacks.c:349
+#: ../src/callbacks.c:339
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Mesedez itxoin ISO irudiaren edukia irakurtzen den bitartean..."
 
-#: ../src/callbacks.c:351
+#: ../src/callbacks.c:341
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Mesedez itxoin paketearen edukia irakurtzen den bitartean..."
 
-#: ../src/callbacks.c:426
+#: ../src/callbacks.c:417
 msgid "Testing archive integrity, please wait..."
 msgstr "Paketearen integritatea egiaztatzen, itxoin mesedez..."
 
-#: ../src/callbacks.c:485 ../src/main.c:241
+#: ../src/callbacks.c:477 ../src/main.c:241
 msgid "Ready."
 msgstr "Prest."
 
-#: ../src/callbacks.c:494
+#: ../src/callbacks.c:486
 msgid "Please hit the Stop button first!"
 msgstr "Mesedez Gelditu botoia jo lehenengo!"
 
-#: ../src/callbacks.c:520
+#: ../src/callbacks.c:508
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Paketetik %d fitxategi ezabatzera zoaz."
 
-#: ../src/callbacks.c:521
+#: ../src/callbacks.c:509
 msgid "Are you sure you want to do this?"
 msgstr "Hau egin nahi duzula ziur zaude?"
 
-#: ../src/callbacks.c:527
+#: ../src/callbacks.c:515
 msgid "Deleting files from the archive, please wait..."
 msgstr "Fitxategiak paketetik ezabatzen, itxoin mesedez..."
 
-#: ../src/callbacks.c:626
+#: ../src/callbacks.c:614
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Paketearen integritatea egiaztatzen, itxoin mesedez..."
 
-#: ../src/callbacks.c:688
+#: ../src/callbacks.c:676
 #, fuzzy
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Ezin da xarchiver exekuratagarria abiarazi:"
 
-#: ../src/callbacks.c:701
+#: ../src/callbacks.c:689
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Ezin dira paketera fitxategiak gehitu:"
 
-#: ../src/callbacks.c:768
+#: ../src/callbacks.c:756
 msgid "translator-credits"
 msgstr "Piarres Beobide <pi@beobide.net>"
 
-#: ../src/callbacks.c:801 ../src/interface.c:254
+#: ../src/callbacks.c:789 ../src/interface.c:254
 msgid "Open an archive"
 msgstr "Paketea ireki"
 
-#: ../src/callbacks.c:814
+#: ../src/callbacks.c:802
 msgid "All files"
 msgstr "Fitxategi guztiak"
 
-#: ../src/callbacks.c:819
+#: ../src/callbacks.c:807
 msgid "Only archives"
 msgstr "Paketeak bakarrik"
 
-#: ../src/callbacks.c:935
+#: ../src/callbacks.c:923
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Ezin da \"%s\" paketea ireki:"
 
-#: ../src/callbacks.c:1111
+#: ../src/callbacks.c:1105
 msgid "Command line output"
 msgstr "Komando lerro irteera"
 
-#: ../src/callbacks.c:1143
+#: ../src/callbacks.c:1137
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Hau eginez ziurrenik paketea hondatuko duzu!"
 
-#: ../src/callbacks.c:1143
+#: ../src/callbacks.c:1137
 msgid "Do you really want to cancel?"
 msgstr "Benetan utzi egin nahi duzu?"
 
-#: ../src/callbacks.c:1149
+#: ../src/callbacks.c:1143
 msgid "Waiting for the process to abort..."
 msgstr "Prozesua uzteko itxoiten..."
 
-#: ../src/callbacks.c:1155
+#: ../src/callbacks.c:1149
 msgid "An error occurred while trying to kill the process:"
 msgstr "Errore bat gertatu da prozesua hiltzen saiatzerakoan:"
 
-#: ../src/callbacks.c:1240
+#: ../src/callbacks.c:1234
 msgid "Please select a file, not a directory!"
 msgstr "Mesedez fitxategi bat hautatu, ez direktorio bat!"
 
-#: ../src/callbacks.c:1310
+#: ../src/callbacks.c:1304
 #, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Errore bat gertatu da prozesua hiltzen saiatzerakoan:"
 
-#: ../src/callbacks.c:1319
+#: ../src/callbacks.c:1313
 #, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Errore bat gertatu da prozesua hiltzen saiatzerakoan:"
 
-#: ../src/callbacks.c:1372
+#: ../src/callbacks.c:1366
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1771
+#: ../src/callbacks.c:1756
 msgid "Can't perform another extraction:"
 msgstr "Ezin da beste ateratze bat aurrera eraman:"
 
-#: ../src/callbacks.c:1771
+#: ../src/callbacks.c:1756
 msgid "Please wait until the completion of the current one!"
 msgstr "Mesedez itxoin martxan dagoen  osatzen den bitartean!"
 
-#: ../src/callbacks.c:1844
+#: ../src/callbacks.c:1829
 msgid "Sorry, I could not perform the operation!"
 msgstr "Barkatu ezin dut ekintza aurrera eraman!"
 
-#: ../src/callbacks.c:1859 ../src/callbacks.c:1870 ../src/main.c:97
+#: ../src/callbacks.c:1844 ../src/callbacks.c:1855 ../src/main.c:97
 msgid "Can't perform this action:"
 msgstr "Ezin da ekintza hau aurrera eraman:"
 
-#: ../src/callbacks.c:1859
+#: ../src/callbacks.c:1844
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:1867
+#: ../src/callbacks.c:1852
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:1869
+#: ../src/callbacks.c:1854
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:1987
+#: ../src/callbacks.c:1972
 msgid "Failed to open link."
 msgstr "Huts lotura irekitzerakoan."
 
@@ -577,20 +573,20 @@ msgstr "Ezin da ateratzea aurrera eraman!"
 msgid "Extracting files to %s"
 msgstr "Fitxategiak %s-ra ateratzen: "
 
-#: ../src/extract_dialog.c:602
+#: ../src/extract_dialog.c:601
 #, c-format
 msgid "Extracting archive to %s"
 msgstr "Paketea %s-ra ateratzen: "
 
-#: ../src/extract_dialog.c:881 ../src/extract_dialog.c:903
+#: ../src/extract_dialog.c:879 ../src/extract_dialog.c:901
 msgid "Operation aborted."
 msgstr "Ekintza utzi egin da."
 
-#: ../src/extract_dialog.c:930
+#: ../src/extract_dialog.c:928
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Ezin da /tmp-en aldiroko direktorioa sortu:"
 
-#: ../src/extract_dialog.c:945
+#: ../src/extract_dialog.c:943
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Hautatu uneko paketea ateratzeko karpeta"
 
@@ -959,15 +955,15 @@ msgstr "Ezinda fitxategian fseek egin:"
 msgid "Error while extracting the cpio archive from the rpm one."
 msgstr "Errore bat gertatu rpm paketetik da cpio paketea ateratzerakoan."
 
-#: ../src/rpm.c:152
+#: ../src/rpm.c:151
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "Errore bat gertatu da cpio paketea deskonprimitzerakoan."
 
-#: ../src/rpm.c:208 ../src/rpm.c:362
+#: ../src/rpm.c:206 ../src/rpm.c:360
 msgid "An error occurred:"
 msgstr "Errore bat gertatu da:"
 
-#: ../src/rpm.c:317
+#: ../src/rpm.c:315
 msgid "Can't write to /tmp:"
 msgstr "Ezin da /tmp direktorioan idatzi:"
 
@@ -982,6 +978,9 @@ msgstr "Pakete kudeatzailea"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
+
+#~ msgid "Choose Add File to create the compressed file."
+#~ msgstr "Fitxategia gehitu hautatu konrpimituriko fitxategia sortzeko."
 
 #~ msgid "View File Window"
 #~ msgstr "Fitxategi Leihoa Ikusi"
