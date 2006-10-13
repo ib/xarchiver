@@ -1066,11 +1066,13 @@ int xa_detect_archive_type ( gchar *filename )
 	else if ( memcmp ( magic,"!<arch>\n", 8 ) == 0) xx = XARCHIVETYPE_DEB;
 	fclose ( dummy_ptr );
 
-	if ( archive->has_passwd == FALSE && archive->passwd == NULL)
-		gtk_widget_hide ( viewport3 );
-	else
-		gtk_widget_show ( viewport3 );
-
+	if (! cli)
+	{
+		if ( archive->has_passwd == FALSE && archive->passwd == NULL)
+			gtk_widget_hide ( viewport3 );
+		else
+			gtk_widget_show ( viewport3 );
+	}
 	return xx;
 }
 

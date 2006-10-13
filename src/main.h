@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 #include <glib.h>
 #include "interface.h"
-#include "support.h"
+#include "new_dialog.h"
 #include "archive.h"
 #include "callbacks.h"
 

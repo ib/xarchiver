@@ -166,7 +166,8 @@ int main (int argc, char **argv)
             /* No, it isn't */
 			else
 			{
-				xa_new_archive ( NULL , archive_name );
+				XArchive *archive = NULL;
+				archive = xa_new_archive_dialog (archive_name );
 				if (archive == NULL)
 					return 0;
 

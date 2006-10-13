@@ -39,6 +39,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	GtkTooltips *filter_tooltip;
 	GList *Suffix,*Name;
 	gchar *my_path = NULL;
+	gchar *my_path_ext = NULL;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
 							GTK_WINDOW (MainWindow),
@@ -48,8 +49,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 							_("Cr_eate"),
 							GTK_RESPONSE_ACCEPT,
 							NULL);
-	//if (CurrentFolder != NULL)
-		//gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) , CurrentFolder );
+
 	gtk_dialog_set_default_response (GTK_DIALOG (xa_file_chooser), GTK_RESPONSE_ACCEPT);
 
 	xa_new_archive_dialog_filter = gtk_file_filter_new ();
@@ -125,6 +125,17 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		my_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
+		ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
+
+		if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_extension_cb) ) )
+		{
+			if ( ! g_str_has_suffix ( my_path , ComboArchiveType ) )
+			{
+				my_path_ext = g_strconcat ( my_path, ComboArchiveType , NULL);
+				g_free (my_path);
+				my_path = my_path_ext;
+			}
+		}
 		if ( g_file_test ( my_path , G_FILE_TEST_EXISTS ) )
 		{
 			gchar *utf8_path;
@@ -150,9 +161,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 			/* The following to avoid to update the archive instead of adding to it since the filename exists */
 			unlink ( my_path );
 		}
-
 		archive = xa_init_archive_structure (archive);
-		ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
 		new_combo_box = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 
 		if (strcmp ( ComboArchiveType,".arj") == 0)
@@ -173,17 +182,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 			archive->type = XARCHIVETYPE_7ZIP;
 		else if (strcmp ( ComboArchiveType,".lzh") == 0)
 			archive->type = XARCHIVETYPE_LHA;
-		if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_extension_cb) ) )
-		{
-			if ( ! g_str_has_suffix ( my_path , ComboArchiveType ) )
-			{
-				gtk_widget_destroy (xa_file_chooser);
-				archive->path = g_strconcat ( my_path, ComboArchiveType , NULL);
-				archive->escaped_path = EscapeBadChars (archive->path , "$\'`\"\\!?* ()&|@#:;");
-				g_free (my_path);
-				return archive;
-			}
-		}
+
 		gtk_widget_destroy (xa_file_chooser);
 		archive->path = g_strdup (my_path);
 		archive->escaped_path = EscapeBadChars (archive->path , "$\'`\"\\!?* ()&|@#:;");
