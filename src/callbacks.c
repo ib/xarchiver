@@ -156,6 +156,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 	if (archive->status == XA_ARCHIVESTATUS_SFX)
 	{
+		xa_hide_progress_bar_stop_button(archive);
 		gtk_widget_set_sensitive ( exe_menu, FALSE);
 		gtk_widget_set_sensitive ( Exe_button, FALSE);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
@@ -691,7 +692,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				fwrite (content, 1, length, sfx_archive);
 				g_free (content);
 
-				/* Read archive data and write it after the unzipsfx in the new file */
+				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx) )
 				{
 					fread (&buffer, 1, 1024, archive_not_sfx);
@@ -715,7 +716,114 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
         break;
 
         case XARCHIVETYPE_7ZIP:
-        command = g_strconcat ("7za t " , archive->escaped_path, NULL);
+        {
+        	gchar *archive_name;
+        	gchar *dummy;
+			FILE *sfx_archive;
+			FILE *archive_not_sfx;
+			gchar *content;
+            gsize length;
+            GError *error = NULL;
+			gchar *sfx_path = NULL;
+			gchar buffer[1024];
+			gboolean response;
+			GtkWidget *locate_7zcon = NULL;
+			GtkFileFilter *sfx_filter;
+
+        	dummy = g_strrstr (archive->escaped_path, ".");
+			if (dummy != NULL)
+			{
+				dummy++;
+				unsigned short int x = strlen (archive->path) - strlen ( dummy );
+				archive_name = (gchar *) g_malloc (x + 1);
+				strncpy ( archive_name, archive->path, x );
+				archive_name[x-1] = '\0';
+			}
+			else
+				archive_name = g_strdup(archive->escaped_path);
+
+			if (g_file_test ( "/usr/lib/p7zip/7zCon.sfx" , G_FILE_TEST_EXISTS) )
+				sfx_path = g_strdup("/usr/lib/p7zip/7zCon.sfx");
+			else if (g_file_test ( "/usr/local/lib/p7zip/7zCon.sfx" , G_FILE_TEST_EXISTS) )
+				sfx_path = g_strdup ("/usr/local/lib/p7zip/7zCon.sfx");
+			else if (g_file_test ( "/usr/libexec/p7zip/7zCon.sfx" , G_FILE_TEST_EXISTS) )
+				sfx_path = g_strdup ("/usr/libexec/p7zip/7zCon.sfx");
+			else
+			{
+				sfx_filter = gtk_file_filter_new ();
+				gtk_file_filter_set_name (sfx_filter, "" );
+				gtk_file_filter_add_pattern (sfx_filter, "*.sfx" );
+
+				locate_7zcon = gtk_file_chooser_dialog_new ( _("Please select the 7zCon.sfx module"),
+						GTK_WINDOW (MainWindow),
+						GTK_FILE_CHOOSER_ACTION_OPEN,
+						GTK_STOCK_CANCEL,
+						GTK_RESPONSE_CANCEL,
+						"gtk-open",
+						GTK_RESPONSE_ACCEPT,
+						NULL);
+
+				gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (locate_7zcon), sfx_filter);
+				gtk_dialog_set_default_response (GTK_DIALOG (locate_7zcon), GTK_RESPONSE_ACCEPT);
+				response = gtk_dialog_run (GTK_DIALOG(locate_7zcon) );
+				if (response == GTK_RESPONSE_ACCEPT)
+				{
+					sfx_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (locate_7zcon) );
+					gtk_widget_destroy ( locate_7zcon );
+				}
+				else
+				{
+					gtk_widget_destroy ( locate_7zcon );
+					Update_StatusBar (_("Operation canceled."));
+					xa_hide_progress_bar_stop_button (archive);
+					return;
+				}
+			}
+			if ( sfx_path != NULL )
+			{
+				/* Load the 7zCon.sfx executable in memory ~ 500 KB; is it too much for 128 MB equipped PCs ? */
+				result = g_file_get_contents (sfx_path,&content,&length,&error);
+				if ( ! result)
+				{
+					Update_StatusBar (_("Operation failed."));
+					xa_hide_progress_bar_stop_button (archive);
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
+					g_error_free (error);
+					g_free (sfx_path);
+					return;
+				}
+				g_free (sfx_path);
+
+				/* Write 7zCon.sfx to a new file */
+				sfx_archive = g_fopen ( archive_name ,"w" );
+				if (sfx_archive == NULL)
+				{
+					Update_StatusBar (_("Operation failed."));
+					xa_hide_progress_bar_stop_button (archive);
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno) );
+					return;
+				}
+				archive_not_sfx = g_fopen ( archive->path ,"r" );
+				fwrite (content, 1, length, sfx_archive);
+				g_free (content);
+
+				/* Read archive data and write it after the sfx module in the new file */
+				while ( ! feof(archive_not_sfx) )
+				{
+					fread (&buffer, 1, 1024, archive_not_sfx);
+					fwrite (&buffer, 1, 1024, sfx_archive);
+				}
+				fclose (archive_not_sfx);
+				fclose (sfx_archive);
+
+				archive->tmp = g_strdup ( archive_name );
+				command = g_strconcat ("chmod 755 ", archive_name , NULL);
+				result = xa_run_command (command , 1);
+				g_free (command);
+				command = NULL;
+			}
+			g_free (archive_name);
+        }
 		break;
 
 		case XARCHIVETYPE_ARJ:

@@ -876,7 +876,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
 		gtk_widget_hide (viewport2);
-		Update_StatusBar (_("Operation aborted."));
+		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
 	}
 	chdir (tmp_dir);
@@ -898,7 +898,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
 		gtk_widget_hide (viewport2);
-		Update_StatusBar (_("Operation aborted."));
+		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
 	}
 	if (cpio_flag)
