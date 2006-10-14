@@ -577,9 +577,8 @@ msgid "Choose the destination folder where to extract the current archive"
 msgstr "Kies een bestemmings map waar je het archief in wilt uitpakken"
 
 #: ../src/interface.c:70
-#, fuzzy
 msgid "_File"
-msgstr "Bestanden"
+msgstr "_Bestand"
 
 #: ../src/interface.c:90
 msgid "_Test"
@@ -590,20 +589,18 @@ msgid "_Properties"
 msgstr "Eigenschappen"
 
 #: ../src/interface.c:119
-#, fuzzy
 msgid "_Action"
 msgstr "A_ctie"
 
 #: ../src/interface.c:146
 msgid "Make SF_X"
-msgstr ""
+msgstr "Maak SF_X"
 
 #: ../src/interface.c:167
 msgid "_View"
 msgstr "_Weergeven"
 
 #: ../src/interface.c:182
-#, fuzzy
 msgid "Sele_ct All"
 msgstr "_Alles selecteren"
 
@@ -656,11 +653,11 @@ msgstr ""
 
 #: ../src/interface.c:280
 msgid "SFX"
-msgstr ""
+msgstr "SFX"
 
 #: ../src/interface.c:285
 msgid "Make the current archive self-extracting"
-msgstr ""
+msgstr "Maak het huidige archief zelf-uitpakkend"
 
 #: ../src/interface.c:292
 msgid "Delete"
@@ -788,7 +785,7 @@ msgstr "Grootte:"
 
 #: ../src/iso.c:854
 msgid "Extension:"
-msgstr ""
+msgstr "Extentie:"
 
 #: ../src/iso.c:862
 msgid "System ID:"
@@ -827,38 +824,31 @@ msgid "Effective date:"
 msgstr "Effectieve datum:"
 
 #: ../src/main.c:37
-#, fuzzy
 msgid ""
 "Extract archive to the directory specified by destination_path and quits."
-msgstr "Archief uitpakken en afsluiten."
+msgstr ""
 
 #: ../src/main.c:38
-#, fuzzy
 msgid "destination_path archive"
-msgstr "[bestemmings map]"
+msgstr "bestemmings-_map archief"
 
 #: ../src/main.c:41
-#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
 msgstr "Vraag om bestemmings-map, archief uitpakken en sluiten."
 
 #: ../src/main.c:42 ../src/main.c:50
-#, fuzzy
 msgid "archive"
-msgstr "Xarchiver"
+msgstr "archief"
 
 #: ../src/main.c:45
-#, fuzzy
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Bestanden toevoegen aan archief en sluiten"
 
 #: ../src/main.c:46
-#, fuzzy
 msgid "file1 file2 file3 ... fileN"
-msgstr "[bestand1] [bestand2] ... [bestandN]"
+msgstr "bestand1 bestand2 ... bestandN"
 
 #: ../src/main.c:49
-#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Voeg interactief bestanden toe aan archief en sluit af"
 
@@ -897,7 +887,7 @@ msgstr "Er is iets fout gegaan!"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
-msgstr ""
+msgstr "Checksom"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
@@ -963,85 +953,3 @@ msgstr "Archief beheerder"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
-
-#~ msgid "Operation aborted."
-#~ msgstr "Geannuleerd"
-
-#~ msgid "Choose Add File to create the compressed file."
-#~ msgstr "Kies Bestand Toevoegen om een gecomprimeerd bestand te maken."
-
-#~ msgid "View File Window"
-#~ msgstr "Bestandsweergave venster"
-
-#, fuzzy
-#~ msgid "The self extracting archive is:\n"
-#~ msgstr "Archief uitpakken naar %s"
-
-#, fuzzy
-#~ msgid "Operation completed"
-#~ msgstr "Klaar."
-
-#~ msgid "The archive \"%s\" already exists!"
-#~ msgstr "Het archief \"%s\" bestaat al!"
-
-#~ msgid "Do you want to overwrite it?"
-#~ msgstr "Wilt u het overschrijven?"
-
-#~ msgid ""
-#~ "Select the files to be added to the current archive; use SHIFT to "
-#~ "multiple select"
-#~ msgstr ""
-#~ "Selecteer de bestanden om toe te voegen aan het archief; gebruik SHIFT om "
-#~ "meerdere bestanden te selecteren"
-
-#~ msgid "Select the folder to be added to the current archive"
-#~ msgstr "Selecteer de map die moet worden toegevoegd aan het archief"
-
-#~ msgid ""
-#~ "Select the folders to be added to the current archive; use SHIFT to "
-#~ "multiple select"
-#~ msgstr ""
-#~ "Selecteer de mappen om toe te voegen aan het archief; gebruik SHIFT om "
-#~ "meerdere mappen te selecteren"
-
-#~ msgid "Cr_eate"
-#~ msgstr "Mak_en"
-
-#~ msgid "Archive type:"
-#~ msgstr "Archieftype:"
-
-#~ msgid "Choose the archive type to create"
-#~ msgstr "Kies het te maken archief type"
-
-#~ msgid "Add the archive extension to the filename"
-#~ msgstr "Voeg extensie to aan bestandsnaam"
-
-#~ msgid "Bzip2 or gzip cannot compress more than one file!"
-#~ msgstr "Bzip2 of gzip kan niet meer dan een bestand comprimeren!"
-
-#~ msgid "Please choose another archive format!"
-#~ msgstr "Kies aub een ander archief formaat!"
-
-#~ msgid "Image type:"
-#~ msgstr "Image type:"
-
-#~ msgid "CRC"
-#~ msgstr "CRC"
-
-#~ msgid "CRC-32"
-#~ msgstr "CRC-32"
-
-#~ msgid "Do you want to open the error messages window?"
-#~ msgstr "Wil je het fout-berichten venster openen?"
-
-#~ msgid "Archiver Output Window"
-#~ msgstr "Archiver Uitvoer Venster"
-
-#~ msgid "_Archive"
-#~ msgstr "_Archief"
-
-#~ msgid "View Error _Messages"
-#~ msgstr "Toon Fout berichten"
-
-#~ msgid "[archive path]"
-#~ msgstr "[archief naam]"
