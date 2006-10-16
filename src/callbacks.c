@@ -79,44 +79,10 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	gboolean select	= FALSE;
 	gboolean check	= FALSE;
 	gboolean info	= FALSE;
+	gboolean waiting = TRUE;
+	int ps;
 
 	gtk_widget_set_sensitive (close1,TRUE);
-
-	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
-	{
-		new = open = TRUE;
-		info = exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_DEB)
-	{
-		new = open = extract = select = info = TRUE;
-		exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
-	{
-		new = open = add = extract = select = info = TRUE;
-		check = exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_LHA)
-	{
-		new = open = add = extract = select = info = TRUE;
-		check = TRUE;
-		exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_RAR && unrar)
-	{
-		check = TRUE;
-		add = exe = FALSE;
-		new = open = extract = select = info = TRUE;
-	}
-	else
-	{
-		check = TRUE;
-		new = open = add = extract = exe = select = info = TRUE;
-	}
-	gtk_widget_set_sensitive ( check_menu , check);
-	gtk_widget_set_sensitive ( properties , info);
-	xa_set_button_state (new,open,add,extract,exe,select);
 
 	if ( WIFSIGNALED (status) )
 	{
@@ -212,12 +178,56 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				default:
 				break;
 			}
+			archive->status = XA_ARCHIVESTATUS_IDLE;
+			while (waiting)
+			{
+				ps = waitpid ( archive->child_pid, &status, WNOHANG);
+				if (ps < 0)
+					waiting = FALSE;
+				else
+					gtk_main_iteration_do (FALSE);
+			}
 		}
 	}
+	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
+	{
+		new = open = TRUE;
+		info = exe = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_DEB)
+	{
+		new = open = extract = select = info = TRUE;
+		exe = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
+	{
+		new = open = add = extract = select = info = TRUE;
+		check = exe = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_LHA)
+	{
+		new = open = add = extract = select = info = TRUE;
+		check = TRUE;
+		exe = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_RAR && unrar)
+	{
+		check = TRUE;
+		add = exe = FALSE;
+		new = open = extract = select = info = TRUE;
+	}
+	else
+	{
+		check = TRUE;
+		new = open = add = extract = exe = select = info = TRUE;
+	}
+	gtk_widget_set_sensitive ( check_menu , check);
+	gtk_widget_set_sensitive ( properties , info);
+	xa_set_button_state (new,open,add,extract,exe,select);
 	xa_hide_progress_bar_stop_button(archive);
 	gtk_widget_grab_focus (treeview1);
 	xa_set_window_title (MainWindow , archive->path);
-    Update_StatusBar ( _("Operation completed."));
+	Update_StatusBar ( _("Operation completed."));
 }
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
@@ -339,7 +349,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
     else
 		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
 	archive->status = XA_ARCHIVESTATUS_OPEN;
-	xa_set_button_state ( 1,1,0,0,0,0);
+	xa_set_button_state ( 0,0,0,0,0,0);
 	switch ( archive->type )
 	{
 		case XARCHIVETYPE_ARJ:
@@ -504,7 +514,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
 
 	x = gtk_tree_selection_count_selected_rows (selection);
-	gchar *msg = g_strdup_printf(_("You are about to delete %d file(s) from the archive."),x);
+	gchar *msg = g_strdup_printf (_("You are about to delete %d file(s) from the archive."),x);
 	response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,msg,_( "Are you sure you want to do this?") );
 	g_free (msg);
 
@@ -557,6 +567,8 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 	if (command != NULL)
     {
+    	xa_set_button_state (0,0,0,0,0,0);
+    	gtk_widget_set_sensitive (Stop_button,TRUE);
         xa_run_command ( command , 1);
         g_free (command);
     }
@@ -1246,8 +1258,7 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 		if (response == GTK_RESPONSE_NO)
 			return;
 	}
-	gtk_widget_set_sensitive ( Stop_button , FALSE );
-	gtk_widget_hide ( viewport2 );
+	xa_hide_progress_bar_stop_button (archive);
     Update_StatusBar (_("Waiting for the process to abort..."));
 	stop_flag = TRUE;
 	if (archive->type != XARCHIVETYPE_ISO)
@@ -1718,7 +1729,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	int ps;
 
 	if (watch_child_flag)
-		EmptyTextBuffer ();
+		EmptyTextBuffer();
 	archive->parse_output = 0;
 	SpawnAsyncProcess ( archive , command , 0, 1);
 	if ( archive->child_pid == 0 )
@@ -1806,6 +1817,9 @@ void xa_hide_progress_bar_stop_button( XArchive *archive)
 {
 	archive->status =XA_ARCHIVESTATUS_IDLE;
     gtk_widget_set_sensitive ( Stop_button , FALSE );
+    if (archive->pb_source != 0)
+		g_source_remove (archive->pb_source);
+    archive->pb_source = 0;
     gtk_widget_hide (viewport2);
 }
 

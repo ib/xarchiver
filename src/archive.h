@@ -59,6 +59,7 @@ struct _XArchive
 	gchar *tmp;
 	gchar *format;
 	gchar *extraction_path;
+	gchar *passwd;
 	gboolean has_passwd;
 	gboolean add_recurse;
 	gboolean overwrite;
@@ -69,10 +70,10 @@ struct _XArchive
 	gboolean solid_archive;
 	gboolean remove_files;
 	unsigned short int compression_level;
-	gchar *passwd;
 	gint nr_of_files;
 	gint nr_of_dirs;
 	GPid child_pid;
+	guint pb_source;
 	unsigned long long int dummy_size;
 	gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
 };

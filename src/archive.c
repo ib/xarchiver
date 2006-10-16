@@ -22,11 +22,13 @@
 #include <unistd.h>
 #include <string.h>
 #include <glib.h>
+#include <gtk/gtk.h>
 #include <sys/wait.h>
 #include "archive.h"
 #include "support.h"
 
 extern void xa_watch_child ( GPid pid, gint status, gpointer data);
+extern GtkWidget *viewport2;
 extern int xa_progressbar_pulse ();
 extern int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
 extern gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
@@ -35,10 +37,7 @@ extern const gchar *locale;
 XArchive *xa_init_archive_structure (XArchive *archive)
 {
 	if (archive != NULL)
-	{
-		//TODO: memory leak with other fields ??
 		xa_clean_archive_structure ( archive );
-	}
 	archive = g_new0(XArchive,1);
 	return archive;
 }
@@ -73,7 +72,8 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 		return;
 	}
 	g_strfreev ( argv );
-	g_timeout_add (200, xa_progressbar_pulse, NULL );
+	if (archive->pb_source == 0)
+		archive->pb_source = g_timeout_add (200, xa_progressbar_pulse, NULL );
 
 	if ( archive->parse_output )
 	{
