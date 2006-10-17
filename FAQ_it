@@ -28,6 +28,10 @@ D. E' capitato che Xarchiver dice che si è verificato un errore ma la finestra d
 
 R. Xarchiver è solo un'interfaccia grafica all'archiviatore da linea di comando. Xarchiver legge correttamente l'output da STDOUT e STDERR. Molto probabilmente l'archiviatore esce con un errore ma non scrive niente su questi canali.
 
-D. Quando clicco su View la finestra è vuota, perchè ?
+D. Qual' Ã¨ il significato di questo messaggio d'errore?
 
-R. Perchè il file che stai tentando di visualizzare è encondato come ISO-8859. Potrei impostare tale encoding in maniera prefedefinita ma così facendo i caratteri accentati in uso in altri paesi non verrebbero mostrati correttamente. Perciò ho preferito impostare il locale in uso dall'utente che lancia Xarchiver anche se questo non permette di visualizzare i file ASCII encodati come ISO-8859. Riconoscere tali file richiederebbe del codice addizionale che non penso valga la pena di inserire in Xarchiver perchè questo è un' interfaccia grafica agli archiviatori a linea di comando e non un editor di testi.
+	Invalid byte sequence in conversion input
+
+R. Il file che stai tentando di visualizzare Ã¨ stato encodato con un encoding diverso a quello in us e la conversione all'encoding UTF8, 
+quello in uso dalle librerie GTK, fallisce. Potrei risolvere il problema impostando l'encoding ISO8859-1 ma questo ne creerebbe un altro 
+con i caratteri tedeschi. La soluzione a questo problema sta nell'estrarre il file e visualizzarlo col tuo editor di test preferito.

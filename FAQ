@@ -1,36 +1,38 @@
 Q. Why are ace archives not supported?
 
-A. Because on some strange reasons there is no support on Linux for creating archives, only extraction with unace. When they will 
+A. Because on some strange reasons there is no support on Linux for creating archives, only extraction with unace. When they will
 develop full support for ace archives I will add it to Xarchiver.
 
 Q. How can I create an archive with some files password protected and others not?
 
 A. First of all choose 'New' and select one of arj, 7zip, rar or zip archive formats and choose 'Add' from the Action menu.
-Do NOT check "Password" in the Add dialog. Add your files and then reopen the Add dialog again but this time check "Password" and 
-enter your password. From now on all the files you add to the archive will be password protected. 
+Do NOT check "Password" in the Add dialog. Add your files and then reopen the Add dialog again but this time check "Password" and
+enter your password. From now on all the files you add to the archive will be password protected.
 
 Q. Why does Xarchiver emit this error message when handling some tar archives?
 
         tar: Skipping to next header
         tar: Error exit delayed from previous errors
 
-A. Xarchiver it's only a frontend who runs the archiver and reports ITS error messages. Most probably you are opening an archive 
+A. Xarchiver it's only a frontend which runs the archiver and reports ITS error messages. Most probably you are opening an archive
 produced with older versions of tar than the one you are currently using or the archive is corrupted.
 
 Q. Why is the option "Extract with full path" disabled when using the -e switch with tar archives?
 
-A. Because GNU tar does not provide a full way to extract files without the directories in which they are contained as the other 
-archivers do. Extraction without path when using the GUI is perfomed with a trick who is not available when using the -e switch 
+A. Because GNU tar does not provide a full way to extract files without the directories in which they are contained as the other
+archivers do. Extraction without path when using the GUI is perfomed with a trick which is not available when using the -e switch
 from the command line.
 
 Q. Why does Xarchiver sometimes report errors but the Error messages window is empty?
 
-A. Please remember Xarchiver is only a frontend, it correctly reads any output from STDOUT or STDERR. most probably the archiver 
+A. Please remember Xarchiver is only a frontend, it correctly reads any output from STDOUT or STDERR. most probably the archiver
 didn't write anything to those channels even though it exits with an error code.
 
-Q. Why is the window sometimes empty when I click View?
+Q. What is the meaning of this error message?
 
-A. Becase the file you are trying to display is encoded with ISO-8859. I could set this encoding as a default but then german umlauts
-in ASCII files for example, would be incorrectly showed so I preferred to set the user locale even though this prevents to show
-ISO-8859 encoded ASCII files. Detecting them would require additional code I think it doesn't fit into Xarchiver since it's
-a frontend to command line archivers and not a text editor.
+	Invalid byte sequence in conversion input
+
+A. The file you are trying to display is encoded with a different encoding than the locale one and the conversion to UTF8 , the default 
+encoding with GTK, fails. I could set the encoding to ISO8859-1 because doing this fixes the problem, but it creates another one with 
+german umlauts in ASCII files for example; they would be incorrectly showed. So if you get this error please extract the file and then 
+see it with your favourite text editor. 
