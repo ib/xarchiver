@@ -215,6 +215,12 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_show (tmp_image);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (iso_info), tmp_image);
 
+  password_entry = gtk_image_menu_item_new_with_mnemonic (_("Reset passwo_rd"));
+  gtk_widget_show (password_entry);
+  gtk_widget_set_sensitive ( password_entry , FALSE );
+  gtk_container_add (GTK_CONTAINER (menuitem2_menu), password_entry);
+  gtk_widget_add_accelerator (password_entry, "activate",accel_group,GDK_r, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
   menuitem4 = gtk_menu_item_new_with_mnemonic (_("_Help"));
   gtk_widget_show (menuitem4);
   gtk_container_add (GTK_CONTAINER (menubar1), menuitem4);
@@ -385,6 +391,7 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
 	g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
+	g_signal_connect ((gpointer) password_entry, "activate", G_CALLBACK (xa_reset_password), NULL);
 	g_signal_connect ((gpointer) close1, "activate", G_CALLBACK (xa_close_archive), NULL);
 	g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
 	g_signal_connect ((gpointer) delete_menu, "activate", G_CALLBACK (xa_delete_archive), NULL);
@@ -440,6 +447,8 @@ gchar *password_dialog ()
 	gtk_box_pack_start (GTK_BOX (hbox1), password_entry, TRUE, TRUE, 0);
 	gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(password_entry), TRUE);
+	if (archive->passwd != NULL)
+		gtk_entry_set_text (GTK_ENTRY(password_entry),archive->passwd);
 	gtk_widget_show (password_entry);
 
 	dialog_action_area1 = GTK_DIALOG (passwd)->action_area;

@@ -20,6 +20,8 @@
 #ifndef __XARCHIVER_INTERFACE_H__
 #define __XARCHIVER_INTERFACE_H__
 
+#include "archive.h"
+
 GtkWidget *MainWindow;
 GtkWidget *vbox1;
 GtkWidget *vbox_body;
@@ -71,6 +73,7 @@ GtkWidget *delete_menu;
 GtkWidget *view_menu;
 GtkWidget *view_shell_output1;
 GtkWidget *iso_info;
+GtkWidget *password_entry;
 GtkWidget *image1;
 GtkWidget *image2;
 GtkWidget *menuitem4;
@@ -108,6 +111,6 @@ int xa_progressbar_pulse (gpointer data);
 GtkWidget *view_win ( gchar *title);
 GtkWidget *create_MainWindow (void);
 GtkWidget *create_archive_properties_window (void);
-gchar *password_dialog (void);
+gchar *password_dialog ();
 #endif
 

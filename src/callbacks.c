@@ -224,11 +224,15 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	if (! cli && archive != NULL)
 	{
 		if ( archive->has_passwd == FALSE && archive->passwd == NULL)
+		{
 			gtk_widget_hide ( viewport3 );
+			gtk_widget_set_sensitive ( password_entry , FALSE);
+		}
 		else
 		{
 			gtk_widget_show ( pad_image );
 			gtk_widget_show ( viewport3 );
+			gtk_widget_set_sensitive ( password_entry , TRUE);
 		}
 	}
 	gtk_widget_set_sensitive ( check_menu , check);
@@ -2123,5 +2127,20 @@ void xa_show_help (GtkMenuItem *menuitem , gpointer user_data )
 	gchar *uri = g_strconcat ("file://", DATADIR, "/doc/", PACKAGE, "/html/index.html", NULL);
 	xa_activate_link (NULL,uri,NULL);
 	g_free (uri);
+}
+
+void xa_reset_password (GtkMenuItem *menuitem , gpointer user_data )
+{
+	if (archive == NULL)
+		return;
+
+	if (archive->passwd != NULL)
+	{
+		g_free (archive->passwd);
+		archive->passwd = NULL;
+		Update_StatusBar (_("The password has been reset."));
+	}
+	else
+		Update_StatusBar (_("Please enter the password first!"));
 }
 

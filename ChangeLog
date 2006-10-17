@@ -3,6 +3,8 @@ Xarchiver changelog:
 0x/09/06 - 0.4.1:
 		- G R E A T L Y improved speed and memory usage. A tar.bz2 archive of 463817 files is
 		  opened in ~28 sec. with a memory usage of ~130MB (measured on a 1GB Pentium 4 HT).
+		- Extracting files in encrypted archives with DnD no more fails.
+		- Better behaviour of the GUI while archive operations are in progress.
 		- Fixed unsuccessful open of rpm archives when the cpio archive was compressed with bzip2.c.
 		- Changed View Window title as the filename of the ASCII file whose content the user wants to see. 
 		- Added ability to convert archives to self-extracting.
@@ -12,7 +14,7 @@ Xarchiver changelog:
 		- Added LHA archive and DEB format thanks to Łukasz.
 		- Fixed code to compile under Solaris.
 		- Changed some strings for a better usability.
-		- Fixed bugs #2247, #1736.
+		- Fixed bugs #2434, #2321, #2247, #1736.
 
 01/09/06 - 0.4:
 		- Added symbolic link column in tar/tar.bz2/tar.gz and RPM archives.

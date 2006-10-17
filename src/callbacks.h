@@ -71,6 +71,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data);
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_show_help (GtkMenuItem *menuitem, gpointer user_data);
+void xa_reset_password (GtkMenuItem *menuitem, gpointer user_data );
 void xa_about (GtkMenuItem *menuitem, gpointer user_data);
 void on_options1_activate (GtkMenuItem *menuitem, gpointer user_data);
 void xa_extract_archive ( GtkMenuItem *menuitem, gpointer user_data);

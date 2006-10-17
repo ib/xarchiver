@@ -94,7 +94,7 @@ int main (int argc, char **argv)
 				{
 					if (archive->has_passwd)
 					{
-						archive->passwd = password_dialog ();
+						archive->passwd = password_dialog (archive);
 						if (archive->passwd != NULL)
 						{
 							GString *string = g_string_new ( "" );
