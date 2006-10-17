@@ -305,7 +305,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
     gtk_widget_set_sensitive ( iso_info , FALSE );
     gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
 
-    archive->type = xa_detect_archive_type ( archive->path );
+    archive->type = xa_detect_archive_type ( archive , NULL );
     if ( archive->type == -2 )
 		return;
     if ( archive->type == -1 )
@@ -1025,19 +1025,22 @@ gboolean isLha ( FILE *ptr )
 	}
 }
 
-int xa_detect_archive_type ( gchar *filename )
+int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
 	unsigned char magic[12];
-	dummy_ptr = fopen ( filename , "r" );
+	if (filename != NULL)
+		dummy_ptr = fopen ( filename , "r" );
+	else
+		dummy_ptr = fopen ( archive->path , "r" );
 
 	if (dummy_ptr == NULL)
 	{
 		if ( !cli )
 		{
 			gchar *utf8_path,*msg;
-			utf8_path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
+			utf8_path = g_filename_to_utf8 (archive->path, -1, NULL, NULL, NULL);
 			msg = g_strdup_printf (_("Can't open archive \"%s\":") , utf8_path );
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 			msg,g_strerror (errno));
@@ -1047,7 +1050,7 @@ int xa_detect_archive_type ( gchar *filename )
 		}
 		else
 			return -2;
-	 }
+	}
 	if ( fread ( magic, 1, 12, dummy_ptr ) == 0 )
 	{
 		fclose ( dummy_ptr);
@@ -1055,30 +1058,30 @@ int xa_detect_archive_type ( gchar *filename )
 	}
 
 	if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
-    {
-        if ( ! cli)
+	{
+		if (archive != NULL)
 			archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ZIP , dummy_ptr , magic );
-        xx = XARCHIVETYPE_ZIP;
-    }
+		xx = XARCHIVETYPE_ZIP;
+	}
 	else if ( memcmp ( magic,"\x60\xea",2 ) == 0 )
-    {
-		if (! cli)
+	{
+		if (archive != NULL)
 			archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ARJ , dummy_ptr , magic );
-        xx = XARCHIVETYPE_ARJ;
-    }
+		xx = XARCHIVETYPE_ARJ;
+	}
 	else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 ) xx = XARCHIVETYPE_RAR;
-    else if ( memcmp ( magic,"\x42\x5a\x68",3 ) == 0 ) xx = XARCHIVETYPE_BZIP2;
+	else if ( memcmp ( magic,"\x42\x5a\x68",3 ) == 0 ) xx = XARCHIVETYPE_BZIP2;
 	else if ( memcmp ( magic,"\x1f\x8b",2) == 0 || memcmp ( magic,"\x1f\x9d",2 ) == 0 )  xx = XARCHIVETYPE_GZIP;
-    else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0) xx = XARCHIVETYPE_RPM;
-    else if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 ) xx = XARCHIVETYPE_7ZIP;
-    else if ( isTar ( dummy_ptr ) ) xx = XARCHIVETYPE_TAR;
-    else if ( isISO ( dummy_ptr ) ) xx = XARCHIVETYPE_ISO;
-	//else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
+	else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0) xx = XARCHIVETYPE_RPM;
+	else if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 ) xx = XARCHIVETYPE_7ZIP;
+	else if ( isTar ( dummy_ptr ) ) xx = XARCHIVETYPE_TAR;
+	else if ( isISO ( dummy_ptr ) ) xx = XARCHIVETYPE_ISO;
 	else if ( isLha ( dummy_ptr ) ) xx = XARCHIVETYPE_LHA;
 	else if ( memcmp ( magic,"!<arch>\n", 8 ) == 0) xx = XARCHIVETYPE_DEB;
+	//else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
 	fclose ( dummy_ptr );
 
-	if (! cli)
+	if (! cli && archive != NULL)
 	{
 		if ( archive->has_passwd == FALSE && archive->passwd == NULL)
 			gtk_widget_hide ( viewport3 );
@@ -1953,6 +1956,20 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		return;
 	}
 	gtk_drag_finish (context, TRUE, FALSE, time);
+	one_file = (array[1] == NULL);
+
+	if (one_file)
+	{
+		filename = g_filename_from_uri ( array[0] , NULL, NULL );
+		if ( filename == NULL)
+			return;
+		else if ( xa_detect_archive_type ( NULL , filename ) > 0 )
+		{
+			xa_open_archive ( NULL, filename );
+			g_strfreev ( array );
+			return;
+		}
+    }
 
 	if (archive == NULL)
 	{
@@ -1978,20 +1995,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		return;
 	}
 
-	one_file = (array[1] == NULL);
 
-	if (one_file)
-	{
-		filename = g_filename_from_uri ( array[0] , NULL, NULL );
-		if ( filename == NULL)
-			return;
-		else if ( xa_detect_archive_type ( filename ) > 0 )
-		{
-			xa_open_archive ( NULL, filename );
-			g_strfreev ( array );
-			return;
-		}
-    }
 
 	GString *names = g_string_new (" ");
 	_current_dir = g_path_get_dirname ( array[0] );

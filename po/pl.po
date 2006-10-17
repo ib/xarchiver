@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-13 11:11+0200\n"
+"POT-Creation-Date: 2006-10-17 08:35+0200\n"
 "PO-Revision-Date: 2006-10-12 20:30+0200\n"
 "Last-Translator: Szymon Kałasz <szymon_maestro@gazeta.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -60,14 +60,14 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:68 ../src/callbacks.c:152 ../src/callbacks.c:673
-#: ../src/callbacks.c:686 ../src/callbacks.c:788 ../src/callbacks.c:801
-#: ../src/callbacks.c:1409 ../src/callbacks.c:1754 ../src/extract_dialog.c:930
+#: ../src/archive.c:67 ../src/callbacks.c:118 ../src/callbacks.c:685
+#: ../src/callbacks.c:698 ../src/callbacks.c:800 ../src/callbacks.c:813
+#: ../src/callbacks.c:1425 ../src/callbacks.c:1770 ../src/extract_dialog.c:930
 #: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr "Operacja nie powiodła się."
 
-#: ../src/archive.c:69
+#: ../src/archive.c:68
 msgid "Can't run the archiver executable:"
 msgstr "Nie można uruchomić pliku wykonywalnego archiwizatora:"
 
@@ -98,7 +98,7 @@ msgstr "Rozpakowywanie pliku gzip do %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "Rozpakowywanie pliku bzip2 do %s"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:123 ../src/callbacks.c:777
+#: ../src/bzip2.c:145 ../src/callbacks.c:89 ../src/callbacks.c:789
 #: ../src/extract_dialog.c:313 ../src/extract_dialog.c:879
 #: ../src/extract_dialog.c:901
 msgid "Operation canceled."
@@ -114,192 +114,192 @@ msgstr "Dekompresja pliku tar za pomocą %s, proszę czekać..."
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Ponowna kompresja pliku tar za pomocą %s, proszę czekać..."
 
-#: ../src/callbacks.c:126
+#: ../src/callbacks.c:92
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "Proszę sprawdzić \"%s\", ponieważ niektóre pliki mogły już zostać "
 "rozpakowane."
 
-#: ../src/callbacks.c:142 ../src/callbacks.c:1749
+#: ../src/callbacks.c:108 ../src/callbacks.c:1765
 msgid "An error occurred while accessing the archive."
 msgstr "Wystąpił błąd podczas dostępu do archiwum."
 
-#: ../src/callbacks.c:142 ../src/callbacks.c:1749 ../src/rpm.c:151
+#: ../src/callbacks.c:108 ../src/callbacks.c:1765 ../src/rpm.c:151
 msgid "Do you want to view the command line output?"
 msgstr "Czy chcesz obejrzeć wyjście linii poleceń?"
 
-#: ../src/callbacks.c:162
+#: ../src/callbacks.c:128
 msgid "The sfx archive was saved as:"
 msgstr "Archiwum SFX zostało zapisane jako:"
 
-#: ../src/callbacks.c:172 ../src/callbacks.c:220 ../src/callbacks.c:1430
+#: ../src/callbacks.c:138 ../src/callbacks.c:230 ../src/callbacks.c:1446
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Operacja zakończona."
 
-#: ../src/callbacks.c:175
+#: ../src/callbacks.c:141
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Proszę czekać. Zawartość archiwum jest uaktualniana..."
 
-#: ../src/callbacks.c:252
+#: ../src/callbacks.c:262
 msgid "Choose Add to begin creating the archive."
 msgstr "Wybierz \"Dodaj\", aby rozpocząć tworzenie archiwum."
 
-#: ../src/callbacks.c:305
+#: ../src/callbacks.c:315
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Nie można otworzyć pliku \"%s\":"
 
-#: ../src/callbacks.c:308
+#: ../src/callbacks.c:318
 msgid "Archive format is not recognized!"
 msgstr "Format tego archiwum nie jest rozpoznawany!"
 
-#: ../src/callbacks.c:331
+#: ../src/callbacks.c:341
 msgid "Sorry, this archive format is not supported:"
 msgstr "Przykro mi, ale ten typ archiwum nie jest obsługiwany:"
 
-#: ../src/callbacks.c:331
+#: ../src/callbacks.c:341
 msgid "the proper archiver is not installed!"
 msgstr "odpowiedni archiwizator nie jest zainstalowany!"
 
-#: ../src/callbacks.c:338
+#: ../src/callbacks.c:348
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Proszę czekać. Zawartość obrazu ISO jest odczytywana..."
 
-#: ../src/callbacks.c:340
+#: ../src/callbacks.c:350
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Proszę czekać. Zawartość archiwum jest odczytywana..."
 
-#: ../src/callbacks.c:416
+#: ../src/callbacks.c:426
 msgid "Testing archive integrity, please wait..."
 msgstr "Testowanie spójności archiwum, proszę czekać..."
 
-#: ../src/callbacks.c:476 ../src/main.c:241
+#: ../src/callbacks.c:486 ../src/main.c:242
 msgid "Ready."
 msgstr "Gotowy."
 
-#: ../src/callbacks.c:485
+#: ../src/callbacks.c:495
 msgid "Please hit the Stop button first!"
 msgstr "Najpierw proszę wcisnąć przycisk Stop!"
 
-#: ../src/callbacks.c:507
+#: ../src/callbacks.c:517
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Masz zamiar usunąć %d plik(ów) z archiwum."
 
-#: ../src/callbacks.c:508
+#: ../src/callbacks.c:518
 msgid "Are you sure you want to do this?"
 msgstr "Jesteś pewien, że chcesz to zrobić?"
 
-#: ../src/callbacks.c:514
+#: ../src/callbacks.c:524
 msgid "Deleting files from the archive, please wait..."
 msgstr "Usuwanie plików z archiwum, proszę czekać..."
 
-#: ../src/callbacks.c:613
+#: ../src/callbacks.c:625
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Konwertowanie archiwum do postaci samorozpakowującej, proszę czekać..."
 
-#: ../src/callbacks.c:675 ../src/callbacks.c:790
+#: ../src/callbacks.c:687 ../src/callbacks.c:802
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Nie można skonwertować archiwum do archiwum samorozpakowującego:"
 
-#: ../src/callbacks.c:688 ../src/callbacks.c:803
+#: ../src/callbacks.c:700 ../src/callbacks.c:815
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Nie mogę dopisać modułu unzipsfx do archiwum:"
 
-#: ../src/callbacks.c:757
+#: ../src/callbacks.c:769
 #, fuzzy
 msgid "Please select the 7zCon.sfx module"
 msgstr "Proszę zaznaczyć plik, który chcesz dodać"
 
-#: ../src/callbacks.c:862
+#: ../src/callbacks.c:874
 msgid "translator-credits"
 msgstr "Szymon Kałasz <szymon_maestro@gazeta.pl>"
 
-#: ../src/callbacks.c:895 ../src/interface.c:254
+#: ../src/callbacks.c:907 ../src/interface.c:254
 msgid "Open an archive"
 msgstr "Otwórz archiwum"
 
-#: ../src/callbacks.c:908
+#: ../src/callbacks.c:920
 msgid "All files"
 msgstr "Wszystkie pliki"
 
-#: ../src/callbacks.c:913
+#: ../src/callbacks.c:925
 msgid "Only archives"
 msgstr "Tylko archiwa"
 
-#: ../src/callbacks.c:1029
+#: ../src/callbacks.c:1044
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Nie mogę otworzyć archiwum \"%s\":"
 
-#: ../src/callbacks.c:1211
+#: ../src/callbacks.c:1228
 msgid "Command line output"
 msgstr "Wyjście linii poleceń"
 
-#: ../src/callbacks.c:1243
+#: ../src/callbacks.c:1260
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Ta operacja prawdopodobnie zniszczy twoje archiwum!"
 
-#: ../src/callbacks.c:1243
+#: ../src/callbacks.c:1260
 msgid "Do you really want to cancel?"
 msgstr "Czy na pewno chcesz anulować?"
 
-#: ../src/callbacks.c:1249
+#: ../src/callbacks.c:1265
 msgid "Waiting for the process to abort..."
 msgstr "Oczekiwanie na przerwanie procesu..."
 
-#: ../src/callbacks.c:1255
+#: ../src/callbacks.c:1271
 msgid "An error occurred while trying to kill the process:"
 msgstr "Wystąpił błąd podczas próby zabicia procesu:"
 
-#: ../src/callbacks.c:1340
+#: ../src/callbacks.c:1356
 msgid "Please select a file, not a directory!"
 msgstr "Proszę zaznaczyć plik, nie katalog!"
 
-#: ../src/callbacks.c:1410
+#: ../src/callbacks.c:1426
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Wystąpił błąd podczas rozpakowywania pliku do podglądu:"
 
-#: ../src/callbacks.c:1419
+#: ../src/callbacks.c:1435
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Wystąpił błąd podczas konwersji zawartości pliku do kodowania UTF8:"
 
-#: ../src/callbacks.c:1472
+#: ../src/callbacks.c:1488
 msgid " bytes"
 msgstr " bajtów"
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1881
 msgid "Can't perform another extraction:"
 msgstr "Nie można wykonać jeszcze jednej ekstrakcji:"
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1881
 msgid "Please wait until the completion of the current one!"
 msgstr "Proszę czekać, dopóki bieżąca operacja nie jest ukończona!"
 
-#: ../src/callbacks.c:1935
+#: ../src/callbacks.c:1954
 msgid "Sorry, I could not perform the operation!"
 msgstr "Przykro mi, nie mogę wykonać tej operacji!"
 
-#: ../src/callbacks.c:1950 ../src/callbacks.c:1961 ../src/main.c:97
+#: ../src/callbacks.c:1983 ../src/callbacks.c:1994
 msgid "Can't perform this action:"
 msgstr "Nie mogę wykonać tej operacji:"
 
-#: ../src/callbacks.c:1950
+#: ../src/callbacks.c:1983
 msgid "unrar doesn't support archive creation!"
 msgstr "unrar nie obsługuje tworzenia archiwów!"
 
-#: ../src/callbacks.c:1958
+#: ../src/callbacks.c:1991
 msgid "You can't add content to deb packages!"
 msgstr "Nie możesz dodawać zawartości do pakietów deb!"
 
-#: ../src/callbacks.c:1960
+#: ../src/callbacks.c:1993
 msgid "You can't add content to rpm packages!"
 msgstr "Nie możesz dodawać zawartości do pakietów rpm!"
 
-#: ../src/callbacks.c:2078
+#: ../src/callbacks.c:2098
 msgid "Failed to open link."
 msgstr "Nie udało się otworzyć łącza."
 
@@ -433,7 +433,7 @@ msgstr "Proszę zaznaczyć pliki, które chcesz dodać"
 msgid "Please select the directories you want to add"
 msgstr "Proszę zaznaczyć katalogi, które chcesz dodać"
 
-#: ../src/add_dialog.c:494 ../src/main.c:211
+#: ../src/add_dialog.c:494 ../src/main.c:212
 msgid "Can't add files to the archive:"
 msgstr "Nie mogę dodać plików do archiwum:"
 
@@ -885,21 +885,22 @@ msgstr ""
 msgid "Can't extract files from the archive:"
 msgstr "Nie można rozpakować plików z archiwum:"
 
-#: ../src/main.c:87 ../src/main.c:121 ../src/main.c:211
+#: ../src/main.c:87 ../src/main.c:121 ../src/main.c:212
 msgid "You missed the archive name!\n"
 msgstr "Nie podano nazwy archiwum!\n"
 
-#: ../src/main.c:97
-msgid "This option can't be used with password protected archives!\n"
-msgstr "Ta opcja nie może być używama z archiwami chronionymi hasłem!\n"
-
-#: ../src/main.c:410
+#: ../src/main.c:411
 msgid "Can't spawn the command:"
 msgstr "Nie można uruchomić polecenia:"
 
-#: ../src/main.c:419
+#: ../src/main.c:420
 msgid "An error occurred!"
 msgstr "Wystąpił błąd!"
+
+#: ../src/main.c:434
+#, fuzzy
+msgid "Can't allocate memory for the archive structure!"
+msgstr "Nie można rozpakować plików z archiwum:"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
@@ -969,6 +970,9 @@ msgstr "Zarządca archiwów"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
+
+#~ msgid "This option can't be used with password protected archives!\n"
+#~ msgstr "Ta opcja nie może być używama z archiwami chronionymi hasłem!\n"
 
 #~ msgid "Operation aborted."
 #~ msgstr "Operacja została przerwana."

@@ -696,7 +696,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 									archive->update ? "-u " : "",
 									archive->overwrite ? "-o" : "-n",
 									" -P " , archive->passwd,
-									archive->full_path ? "" : " -j ",
+									archive->full_path ? " " : " -j ",
 									archive->escaped_path , files->str," -d " , path , NULL );
         else
 			command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",

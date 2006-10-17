@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-13 11:11+0200\n"
+"POT-Creation-Date: 2006-10-17 08:35+0200\n"
 "PO-Revision-Date: 2006-08-24 18:44+0200\n"
 "Last-Translator: Stavros Giannouris <stavrosg2002@freemail.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -61,14 +61,14 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:68 ../src/callbacks.c:152 ../src/callbacks.c:673
-#: ../src/callbacks.c:686 ../src/callbacks.c:788 ../src/callbacks.c:801
-#: ../src/callbacks.c:1409 ../src/callbacks.c:1754 ../src/extract_dialog.c:930
+#: ../src/archive.c:67 ../src/callbacks.c:118 ../src/callbacks.c:685
+#: ../src/callbacks.c:698 ../src/callbacks.c:800 ../src/callbacks.c:813
+#: ../src/callbacks.c:1425 ../src/callbacks.c:1770 ../src/extract_dialog.c:930
 #: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr "Η λειτουργία απέτυχε."
 
-#: ../src/archive.c:69
+#: ../src/archive.c:68
 #, fuzzy
 msgid "Can't run the archiver executable:"
 msgstr "Δεν ήταν δυνατή η αποσυμπίεση του αρχείου:"
@@ -100,7 +100,7 @@ msgstr "Αποσυμπίεση αρχείου gzip στο %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "Αποσυμπίεση αρχείου bzip2 στο %s"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:123 ../src/callbacks.c:777
+#: ../src/bzip2.c:145 ../src/callbacks.c:89 ../src/callbacks.c:789
 #: ../src/extract_dialog.c:313 ../src/extract_dialog.c:879
 #: ../src/extract_dialog.c:901
 msgid "Operation canceled."
@@ -116,201 +116,201 @@ msgstr "Αποσυμπίεση αρχείου με %s, παρακαλώ περι
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Συμπίεση αρχείου tar με %s, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:126
+#: ../src/callbacks.c:92
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "Παρακαλώ ελέγξτε το \"%s\" διότι μπορεί να έχουν ήδη εξαχθεί μερικά αρχεία."
 
-#: ../src/callbacks.c:142 ../src/callbacks.c:1749
+#: ../src/callbacks.c:108 ../src/callbacks.c:1765
 msgid "An error occurred while accessing the archive."
 msgstr "Παρουσιάστηκε ένα σφάλμα κατά την πρόσβαση στο συμπιεσμένο αρχείο."
 
-#: ../src/callbacks.c:142 ../src/callbacks.c:1749 ../src/rpm.c:151
+#: ../src/callbacks.c:108 ../src/callbacks.c:1765 ../src/rpm.c:151
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "Θέλετε να το αντικαταστήσετε;"
 
-#: ../src/callbacks.c:162
+#: ../src/callbacks.c:128
 #, fuzzy
 msgid "The sfx archive was saved as:"
 msgstr "Αποσυμπίεση αρχείου στο %s"
 
-#: ../src/callbacks.c:172 ../src/callbacks.c:220 ../src/callbacks.c:1430
+#: ../src/callbacks.c:138 ../src/callbacks.c:230 ../src/callbacks.c:1446
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Η λειτουργία ολοκληρώθηκε."
 
-#: ../src/callbacks.c:175
+#: ../src/callbacks.c:141
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Ανανέωση περιεχομένων αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:252
+#: ../src/callbacks.c:262
 msgid "Choose Add to begin creating the archive."
 msgstr "Επιλέξτε Προσθήκη για να δημιουργήσετε το συμπιεσμένο αρχείο."
 
-#: ../src/callbacks.c:305
+#: ../src/callbacks.c:315
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου \"%s\":"
 
-#: ../src/callbacks.c:308
+#: ../src/callbacks.c:318
 msgid "Archive format is not recognized!"
 msgstr "Αυτό το αρχείο δεν είναι σε μορφή που υποστηρίζεται!"
 
-#: ../src/callbacks.c:331
+#: ../src/callbacks.c:341
 msgid "Sorry, this archive format is not supported:"
 msgstr "Αυτή η μορφή συμπίεσης δεν υποστηρίζεται:"
 
-#: ../src/callbacks.c:331
+#: ../src/callbacks.c:341
 msgid "the proper archiver is not installed!"
 msgstr "Δεν είναι εγκατεστημένο το απαιτούμενο πρόγραμμα συμπίεσης!"
 
-#: ../src/callbacks.c:338
+#: ../src/callbacks.c:348
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Ανάγνωση περιεχομένων αρχείου ISO, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:340
+#: ../src/callbacks.c:350
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Ανάγνωση περιεχομένων αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:416
+#: ../src/callbacks.c:426
 msgid "Testing archive integrity, please wait..."
 msgstr "Έλεγχος ακεραιότητάς αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:476 ../src/main.c:241
+#: ../src/callbacks.c:486 ../src/main.c:242
 msgid "Ready."
 msgstr "Έτοιμο."
 
-#: ../src/callbacks.c:485
+#: ../src/callbacks.c:495
 msgid "Please hit the Stop button first!"
 msgstr "Παρακαλώ επιλέξτε πρώτα το κουμπί 'διακοπή'!"
 
-#: ../src/callbacks.c:507
+#: ../src/callbacks.c:517
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Πρόκειται να διαγράψετε %d αρχεία από το συμπιεσμένο αρχείο."
 
-#: ../src/callbacks.c:508
+#: ../src/callbacks.c:518
 msgid "Are you sure you want to do this?"
 msgstr "Θέλετε σίγουρα να προχωρήσετε;"
 
-#: ../src/callbacks.c:514
+#: ../src/callbacks.c:524
 msgid "Deleting files from the archive, please wait..."
 msgstr "Διαγραφή αρχείων από το συμπιεσμένο αρχείο..."
 
-#: ../src/callbacks.c:613
+#: ../src/callbacks.c:625
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Έλεγχος ακεραιότητάς αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:675 ../src/callbacks.c:790
+#: ../src/callbacks.c:687 ../src/callbacks.c:802
 #, fuzzy
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Δεν ήταν δυνατή η αποσυμπίεση του αρχείου:"
 
-#: ../src/callbacks.c:688 ../src/callbacks.c:803
+#: ../src/callbacks.c:700 ../src/callbacks.c:815
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Δεν είναι δυνατή η προσθήκη αρχείων στο συμπιεσμένο αρχείο:"
 
-#: ../src/callbacks.c:757
+#: ../src/callbacks.c:769
 #, fuzzy
 msgid "Please select the 7zCon.sfx module"
 msgstr "Παρακαλώ επιλέξτε το αρχείο που θέλετε να προσθέσετε"
 
-#: ../src/callbacks.c:862
+#: ../src/callbacks.c:874
 msgid "translator-credits"
 msgstr "Stavros Giannouris <stavrosg2002@freemail.gr>"
 
-#: ../src/callbacks.c:895 ../src/interface.c:254
+#: ../src/callbacks.c:907 ../src/interface.c:254
 msgid "Open an archive"
 msgstr "Άνοιγμα συμπιεσμένου αρχείου"
 
-#: ../src/callbacks.c:908
+#: ../src/callbacks.c:920
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
-#: ../src/callbacks.c:913
+#: ../src/callbacks.c:925
 msgid "Only archives"
 msgstr "Μόνο συμπιεσμένα αρχεία"
 
-#: ../src/callbacks.c:1029
+#: ../src/callbacks.c:1044
 #, fuzzy, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Δεν είναι δυνατό το άνοιγμα του αρχείου %s"
 
-#: ../src/callbacks.c:1211
+#: ../src/callbacks.c:1228
 msgid "Command line output"
 msgstr ""
 
-#: ../src/callbacks.c:1243
+#: ../src/callbacks.c:1260
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Αν προχωρήσετε, είναι πιθανό να καταστρέψετε το αρχείο!"
 
-#: ../src/callbacks.c:1243
+#: ../src/callbacks.c:1260
 msgid "Do you really want to cancel?"
 msgstr "Θέλετε σίγουρα να ακυρώσετε;"
 
-#: ../src/callbacks.c:1249
+#: ../src/callbacks.c:1265
 msgid "Waiting for the process to abort..."
 msgstr "Ακυρώνεται η διεργασία..."
 
-#: ../src/callbacks.c:1255
+#: ../src/callbacks.c:1271
 msgid "An error occurred while trying to kill the process:"
 msgstr "Προέκυψε ένα σφάλμα κατά τον τερματισμό της διεργασίας:"
 
-#: ../src/callbacks.c:1340
+#: ../src/callbacks.c:1356
 msgid "Please select a file, not a directory!"
 msgstr "Παρακαλώ επιλέξτε ένα αρχείο, όχι κατάλογο!"
 
-#: ../src/callbacks.c:1410
+#: ../src/callbacks.c:1426
 #, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση των προς προβολή αρχείων!"
 
-#: ../src/callbacks.c:1419
+#: ../src/callbacks.c:1435
 #, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Προέκυψε ένα σφάλμα κατά την αποσυμπίεση των προς προβολή αρχείων!"
 
-#: ../src/callbacks.c:1472
+#: ../src/callbacks.c:1488
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1881
 #, fuzzy
 msgid "Can't perform another extraction:"
 msgstr "Δεν είναι δυνατή η αποσυμπίεση!"
 
-#: ../src/callbacks.c:1862
+#: ../src/callbacks.c:1881
 #, fuzzy
 msgid "Please wait until the completion of the current one!"
 msgstr "Ανάγνωση περιεχομένων αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/callbacks.c:1935
+#: ../src/callbacks.c:1954
 msgid "Sorry, I could not perform the operation!"
 msgstr "Συγνώμη, δεν ήταν δυνατή η εκτέλεση της λειτουργίας."
 
-#: ../src/callbacks.c:1950 ../src/callbacks.c:1961 ../src/main.c:97
+#: ../src/callbacks.c:1983 ../src/callbacks.c:1994
 #, fuzzy
 msgid "Can't perform this action:"
 msgstr "Δεν είναι δυνατή η εκτέλεση αυτής της ενέργειας!"
 
-#: ../src/callbacks.c:1950
+#: ../src/callbacks.c:1983
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:1958
+#: ../src/callbacks.c:1991
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:1960
+#: ../src/callbacks.c:1993
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2078
+#: ../src/callbacks.c:2098
 msgid "Failed to open link."
 msgstr "Το άνοιγμα του συνδέσμου απέτυχε"
 
@@ -439,7 +439,7 @@ msgstr "Παρακαλώ επιλέξτε τα αρχεία που θέλετε 
 msgid "Please select the directories you want to add"
 msgstr "Παρακαλώ επιλέξτε τους καταλόγους που θέλετε να προσθέσετε"
 
-#: ../src/add_dialog.c:494 ../src/main.c:211
+#: ../src/add_dialog.c:494 ../src/main.c:212
 msgid "Can't add files to the archive:"
 msgstr "Δεν είναι δυνατή η προσθήκη αρχείων στο συμπιεσμένο αρχείο:"
 
@@ -896,24 +896,23 @@ msgstr ""
 msgid "Can't extract files from the archive:"
 msgstr "Δεν είναι δυνατή η προσθήκη αρχείων στο συμπιεσμένο αρχείο:"
 
-#: ../src/main.c:87 ../src/main.c:121 ../src/main.c:211
+#: ../src/main.c:87 ../src/main.c:121 ../src/main.c:212
 msgid "You missed the archive name!\n"
 msgstr "Δεν εισάγατε το όνομα του συμπιεσμένου αρχείου!\n"
 
-#: ../src/main.c:97
-#, fuzzy
-msgid "This option can't be used with password protected archives!\n"
-msgstr ""
-"Αυτή η επιλογή δεν είναι διαθέσιμη στα προστατευμένα με κωδικό αρχεία.\n"
-
-#: ../src/main.c:410
+#: ../src/main.c:411
 #, fuzzy
 msgid "Can't spawn the command:"
 msgstr "Δεν είναι δυνατή η εκτέλεση αυτής της εντολής!"
 
-#: ../src/main.c:419
+#: ../src/main.c:420
 msgid "An error occurred!"
 msgstr "Παρουσιάστηκε ένα σφάλμα!"
+
+#: ../src/main.c:434
+#, fuzzy
+msgid "Can't allocate memory for the archive structure!"
+msgstr "Δεν είναι δυνατή η προσθήκη αρχείων στο συμπιεσμένο αρχείο:"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
@@ -984,6 +983,11 @@ msgstr "Διαχειριστής συμπιεσμένων αρχείων"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
+
+#, fuzzy
+#~ msgid "This option can't be used with password protected archives!\n"
+#~ msgstr ""
+#~ "Αυτή η επιλογή δεν είναι διαθέσιμη στα προστατευμένα με κωδικό αρχεία.\n"
 
 #~ msgid "Operation aborted."
 #~ msgstr "Η λειτουργία ακυρώθηκε."

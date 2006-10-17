@@ -9,7 +9,7 @@ Xarchiver changelog:
 		- Fixed bug preventing to add files by drag and drop when no archive has been created.
 		- Fixed Xarchiver rar problem when only unrar is available.
 		- Fixed creation of directory with "\ " when extracting an iso whose filename has spaces.
-		- Added LHA archive and DEB format thanks to Łukasz
+		- Added LHA archive and DEB format thanks to Łukasz.
 		- Fixed code to compile under Solaris.
 		- Changed some strings for a better usability.
 		- Fixed bugs #2247, #1736.

@@ -94,20 +94,20 @@ int main (int argc, char **argv)
 				{
 					if (archive->has_passwd)
 					{
-						response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("This option can't be used with password protected archives!\n") );
-					}
-					else
-					{
-						GString *string = g_string_new ( "" );
-						archive->full_path = 1;
-						archive->overwrite = 1;
-						gchar *escaped_path = EscapeBadChars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
-						archive->extraction_path = g_strdup (extract_path);
-						cli_command = xa_extract_single_files ( archive , string, escaped_path );
-						g_free (escaped_path);
-						if ( cli_command != NULL )
-							error_output = SpawnSyncCommand ( cli_command );
-						g_string_free (string, TRUE);
+						archive->passwd = password_dialog ();
+						if (archive->passwd != NULL)
+						{
+							GString *string = g_string_new ( "" );
+							archive->full_path = 1;
+							archive->overwrite = 1;
+							gchar *escaped_path = EscapeBadChars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
+							archive->extraction_path = g_strdup (extract_path);
+							cli_command = xa_extract_single_files ( archive , string, escaped_path );
+							g_free (escaped_path);
+							if ( cli_command != NULL )
+								error_output = SpawnSyncCommand ( cli_command );
+							g_string_free (string, TRUE);
+						}
 					}
 				}
 			}
@@ -136,7 +136,7 @@ int main (int argc, char **argv)
 		else if (archive_name != NULL)
 		{
             /* Is the file an archive? */
-			if ( xa_detect_archive_type ( archive_name ) > 0 )
+			if ( xa_detect_archive_type ( NULL , archive_name ) > 0 )
 			{
 				archive = xa_init_structure_from_cmd_line ( archive_name );
 				if (archive != NULL)
@@ -427,10 +427,17 @@ gboolean SpawnSyncCommand ( gchar *command )
 
 XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
-	archive = xa_init_archive_structure (archive);
+	XArchive *archive;
+	archive = xa_init_archive_structure (NULL);
+	if (archive == NULL)
+	{
+		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
+		return NULL;
+	}
+
 	archive->path = g_strdup (filename);
 	archive->escaped_path = EscapeBadChars(filename , "$\'`\"\\!?* ()&|@#:;");
-	archive->type = xa_detect_archive_type ( archive->path );
+	archive->type = xa_detect_archive_type ( archive , NULL );
 	if (archive->type == -2)
 		return NULL;
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
