@@ -221,6 +221,16 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		check = TRUE;
 		new = open = add = extract = exe = select = info = TRUE;
 	}
+	if (! cli && archive != NULL)
+	{
+		if ( archive->has_passwd == FALSE && archive->passwd == NULL)
+			gtk_widget_hide ( viewport3 );
+		else
+		{
+			gtk_widget_show ( pad_image );
+			gtk_widget_show ( viewport3 );
+		}
+	}
 	gtk_widget_set_sensitive ( check_menu , check);
 	gtk_widget_set_sensitive ( properties , info);
 	xa_set_button_state (new,open,add,extract,exe,select);
@@ -1080,18 +1090,10 @@ int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 	else if ( memcmp ( magic,"!<arch>\n", 8 ) == 0) xx = XARCHIVETYPE_DEB;
 	//else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
 	fclose ( dummy_ptr );
-
-	if (! cli && archive != NULL)
-	{
-		if ( archive->has_passwd == FALSE && archive->passwd == NULL)
-			gtk_widget_hide ( viewport3 );
-		else
-			gtk_widget_show ( viewport3 );
-	}
 	return xx;
 }
 
-gboolean DetectPasswordProtectedArchive ( int type , FILE *stream , unsigned char magic[6] )
+gboolean DetectPasswordProtectedArchive ( int type, FILE *stream, unsigned char magic[6] )
 {
     unsigned int fseek_offset;
     unsigned short int password_flag;
@@ -1898,7 +1900,18 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			gtk_drag_finish (dc, FALSE, FALSE, t);
 			return;
 		}
-
+		if ( archive->has_passwd )
+		{
+			if ( archive->passwd == NULL)
+			{
+				archive->passwd = password_dialog ();
+				if ( archive->passwd == NULL)
+				{
+					gtk_drag_finish (dc, FALSE, FALSE, t);
+					return;
+				}
+			}
+		}
 		gtk_tree_model_get_iter(model, &iter, (GtkTreePath*)(_row_list->data));
 		gtk_tree_model_get (model, &iter, 0, &name, -1);
 

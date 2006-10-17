@@ -365,10 +365,10 @@ GtkWidget *create_MainWindow (void)
 
 	ebox = gtk_event_box_new();
 	pad_image = gtk_image_new_from_stock(GTK_STOCK_DIALOG_AUTHENTICATION, GTK_ICON_SIZE_MENU);
+	gtk_widget_show (pad_image);
 	gtk_container_add (GTK_CONTAINER(ebox), pad_image);
 	gtk_widget_show (ebox);
 	gtk_container_add (GTK_CONTAINER (viewport3), ebox);
-	gtk_widget_show (pad_image);
 	gtk_widget_set_size_request(ebox, 15, -1);
 	pad_tooltip = gtk_tooltips_new ();
 	gtk_tooltips_set_tip (pad_tooltip , ebox , _("This archive contains password protected files"), NULL );
