@@ -1114,44 +1114,55 @@ gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 	char magic[3];
 	char sig;
 	guint cmt_len = 0;
-	unsigned int compressed_size;
-	unsigned int uncompressed_size;
-	unsigned short int extra_length;
-	unsigned int fseek_offset;
-	unsigned short int password_flag;
-	unsigned short int file_length;
+	unsigned char eocds[] = { 0x50, 0x4b, 0x05, 0x06 };
+	int byte;
+	unsigned long long int eocds_position = 0;
+	unsigned short int len = 0;
+	int eof;
+	size_t seqptr = 0;
 
 	if (type == XARCHIVETYPE_ZIP)
 	{
 		fseek ( stream, 0 , SEEK_SET );
-		fread (magic , 1 , 4 , stream);
-		fseek ( stream, 2 , SEEK_CUR );
 		/* Let's reach the end of central directory record */
-		while ( memcmp ( magic,"\x50\x4b\x05\x06",4 ) )
+		while( ! feof(stream) )
 		{
-			fread ( &password_flag, 1, 2, stream );
-			fseek ( stream, 10 , SEEK_CUR );
-			fread (&compressed_size,1,4,stream);
-			fread (&uncompressed_size,1,4,stream);
-			fread (&file_length,1,2,stream);
-			/* If the zip archive is empty (no files) it should return here */
-			if (fread (&extra_length,1,2,stream) < 2 )
+			byte = (eof = fgetc(stream));
+			if (eof == EOF)
+				break;
+			if (byte == eocds[seqptr])
 			{
-				archive->comment = NULL;
-				return FALSE;
+				if (++seqptr == sizeof(eocds))
+				{
+					eocds_position = ftell(stream) + 16 ;
+					seqptr = 0;
+				}
+				continue;
 			}
-			fseek_offset = compressed_size + file_length + extra_length;
-			fseek (stream , fseek_offset , SEEK_CUR);
-			fread (magic , 1 , 4 , stream);
-			fseek ( stream , 2 , SEEK_CUR);
-			g_print ("w %x %x %x %x\n",magic[0],magic[1],magic[2],magic[3]);
+			else
+			{
+				if (seqptr)
+					seqptr = 0;
+			}
 		}
-		g_print ("Posizione: %ld\n",ftell(stream));
-		fread (magic , 1 , 4 , stream);
-		g_print ("%x %x %x %x\n",magic[0],magic[1],magic[2],magic[3]);
-		fread (&sig , 1 , 1 , stream);
-		g_print ("%x\n",sig);
-		archive->comment = g_string_new("");
+		g_message ("pos: %d",eocds_position);
+		fseek (stream,eocds_position,SEEK_SET);
+		fread (&len,1,2,stream);
+		g_message ("len: %x",len);
+		if (len == 0)
+			archive->has_comment = FALSE;
+		else
+		{
+			archive->has_comment = TRUE;
+			archive->comment = g_string_new("");
+			while (cmt_len != len)
+			{
+				fread (&sig,1,1,stream);
+				g_string_append (archive->comment,&sig);
+				cmt_len++;
+			}
+			g_print ("\nArchive comment: %s\n",archive->comment->str);
+		}
 	}
 	else if (type == XARCHIVETYPE_ARJ)
 	{
@@ -2115,11 +2126,17 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	dummy_password = archive->has_passwd;
 	full_path = archive->full_path;
 	add_recurse = archive->add_recurse;
+
 	archive->has_passwd = 0;
 	archive->full_path = 0;
 	archive->add_recurse = 1;
+
 	command = xa_add_single_files ( archive, names, NULL );
+
 	archive->has_passwd = dummy_password;
+	archive->full_path = full_path;
+	archive->add_recurse = add_recurse;
+
 	if (command != NULL)
 	{
 		xa_run_command (command , 1);
@@ -2127,8 +2144,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	}
 	g_string_free (names, TRUE);
 	g_strfreev ( array );
-	archive->full_path = full_path;
-	archive->add_recurse = add_recurse;
+
 }
 
 gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer data)
