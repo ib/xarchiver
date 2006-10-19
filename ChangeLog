@@ -1,8 +1,8 @@
 Xarchiver changelog:
 
 0x/09/06 - 0.4.1:
-		- G R E A T L Y improved speed and memory usage. A tar.bz2 archive of 463817 files is
-		  opened in ~28 sec. with a memory usage of ~130MB (measured on a 1GB Pentium 4 HT).
+		- G R E A T L Y improved speed and memory usage.
+		- Added comment support for ARJ and ZIP. The rar one is more difficult since it's compressed in the archive itself.
 		- Extracting files in encrypted archives with DnD no more fails since the password it's now asked.
 		- Better behaviour of the GUI while archive operations are in progress.
 		- Fixed unsuccessful open of rpm archives when the cpio archive was compressed with bzip2.c.
@@ -11,9 +11,10 @@ Xarchiver changelog:
 		- Fixed bug preventing to add files by drag and drop when no archive has been created.
 		- Fixed Xarchiver rar problem when only unrar is available.
 		- Fixed creation of directory with "\ " when extracting an iso whose filename has spaces.
-		- Added LHA archive and DEB format thanks to Łukasz.
+		- Added LHA archive and DEB format (without dpkg executable) thanks to Łukasz.
 		- Fixed code to compile under Solaris.
 		- Changed some strings for a better usability.
+		- A lot of other small bug fixes; thanks to baze for notifying most of them.
 		- Fixed bugs #2434, #2321, #2247, #1736.
 
 01/09/06 - 0.4:

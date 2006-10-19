@@ -170,7 +170,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_menu);
   gtk_widget_add_accelerator (view_menu, "activate",accel_group,GDK_v, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  comment_menu = gtk_image_menu_item_new_with_mnemonic (_("_Show Comment"));
+  comment_menu = gtk_image_menu_item_new_with_mnemonic (_("_Show comment"));
   gtk_widget_set_sensitive (comment_menu, FALSE);
   gtk_widget_show (comment_menu);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), comment_menu);

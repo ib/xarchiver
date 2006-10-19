@@ -1129,7 +1129,7 @@ gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 	if (type == XARCHIVETYPE_ZIP)
 	{
 		fseek ( stream, 0 , SEEK_SET );
-		/* Let's reach the end of central directory record */
+		/* Let's reach the end of central directory signature, is there a better way than reading byte after byte ? */
 		while( ! feof(stream) )
 		{
 			byte = (eof = fgetc(stream));
@@ -1163,6 +1163,7 @@ gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 				g_string_append (archive->comment,&sig);
 				cmt_len++;
 			}
+			g_message (archive->comment->str);
 			return TRUE;
 		}
 	}
@@ -2263,14 +2264,9 @@ void xa_reset_password (GtkMenuItem *menuitem , gpointer user_data )
 void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 {
 	GtkWidget *comment_window;
-	gchar *t;
-	GError *error;
-	gint new_length;
 
 	comment_window = view_win ( _("Archive comment window") );
-	t = g_locale_to_utf8 ( archive->comment->str, archive->comment->len, NULL, &new_length, &error);
-	gtk_text_buffer_insert (viewtextbuf, &viewenditer, t, new_length );
-	g_free (t);
+	gtk_text_buffer_insert (viewtextbuf, &viewenditer, archive->comment->str, archive->comment->len );
 	gtk_widget_show (comment_window);
 }
 
