@@ -135,6 +135,14 @@ void xa_clean_archive_structure ( XArchive *archive)
 			if ( strcmp (archive->extraction_path , "/tmp/") != 0)
 				g_free (archive->extraction_path);
 		}
+	if (archive->has_comment)
+	{
+		if (archive->comment != NULL)
+		{
+			g_string_free (archive->comment,TRUE);
+			archive->comment = NULL;
+		}
+	}
 
 	if (system_id != NULL)
 	{

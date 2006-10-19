@@ -82,6 +82,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	gboolean waiting = TRUE;
 	int ps;
 
+	if (archive->has_comment)
+		gtk_widget_set_sensitive (comment_menu,TRUE);
+	else
+		gtk_widget_set_sensitive (comment_menu,FALSE);
+
 	gtk_widget_set_sensitive (close1,TRUE);
 	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
 	{
@@ -1145,15 +1150,12 @@ gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 					seqptr = 0;
 			}
 		}
-		g_message ("pos: %d",eocds_position);
 		fseek (stream,eocds_position,SEEK_SET);
 		fread (&len,1,2,stream);
-		g_message ("len: %x",len);
 		if (len == 0)
-			archive->has_comment = FALSE;
+			return FALSE;
 		else
 		{
-			archive->has_comment = TRUE;
 			archive->comment = g_string_new("");
 			while (cmt_len != len)
 			{
@@ -1161,7 +1163,7 @@ gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 				g_string_append (archive->comment,&sig);
 				cmt_len++;
 			}
-			g_print ("\nArchive comment: %s\n",archive->comment->str);
+			return TRUE;
 		}
 	}
 	else if (type == XARCHIVETYPE_ARJ)
@@ -1180,13 +1182,22 @@ gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 		while (sig != 0)
 		{
 			fread (&sig,1,1,stream);
-			g_string_append (archive->comment,&sig);
+
+			if (sig == 0 && archive->comment->len == 0)
+			{
+				g_string_free (archive->comment,FALSE);
+				archive->comment = NULL;
+				return FALSE;
+			}
+			else
+				g_string_append (archive->comment,&sig);
 		}
+		return TRUE;
 	}
 	else if (type == XARCHIVETYPE_RAR)
 	{
 	}
-	return TRUE;
+	return FALSE;
 }
 
 gboolean xa_detect_encrypted_archive ( int type, FILE *stream, unsigned char magic[6] )
@@ -1705,6 +1716,12 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     t = g_strdup_printf ( "%.1f %s", content_size,measure);
     gtk_entry_set_text ( GTK_ENTRY (content_data), t );
     g_free (t);
+    //Has Comment
+    if (archive->has_comment)
+		gtk_entry_set_text ( GTK_ENTRY (comment_data), _("Yes") );
+	else
+		gtk_entry_set_text ( GTK_ENTRY (comment_data), _("No") );
+
     //Compression_ratio
     if (content_size != 0)
 		content_size = (double)archive->dummy_size / file_size;
@@ -2241,5 +2258,19 @@ void xa_reset_password (GtkMenuItem *menuitem , gpointer user_data )
 	}
 	else
 		Update_StatusBar (_("Please enter the password first!"));
+}
+
+void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
+{
+	GtkWidget *comment_window;
+	gchar *t;
+	GError *error;
+	gint new_length;
+
+	comment_window = view_win ( _("Archive comment window") );
+	t = g_locale_to_utf8 ( archive->comment->str, archive->comment->len, NULL, &new_length, &error);
+	gtk_text_buffer_insert (viewtextbuf, &viewenditer, t, new_length );
+	g_free (t);
+	gtk_widget_show (comment_window);
 }
 

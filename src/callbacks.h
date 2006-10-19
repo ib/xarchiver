@@ -78,6 +78,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_convert_sfx ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_select_all ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_deselect_all ( GtkMenuItem *menuitem, gpointer user_data);
+void xa_show_archive_comment ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_show_cmd_line_output( GtkMenuItem *menuitem );
 void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data );
