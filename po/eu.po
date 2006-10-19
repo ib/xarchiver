@@ -306,12 +306,11 @@ msgstr "Huts lotura irekitzerakoan."
 
 #: ../src/callbacks.c:2222
 msgid "The password has been reset."
-msgstr ""
+msgstr "Pasahitza berrabiarazi eign da."
 
 #: ../src/callbacks.c:2225
-#, fuzzy
 msgid "Please enter the password first!"
-msgstr "Mesedez pasahitza idatz ezazu."
+msgstr "Mesedez lehenengo pasahitza idatz ezazu!"
 
 #: ../src/add_dialog.c:38
 msgid "Add files to the archive"
@@ -636,9 +635,8 @@ msgid "Show I_SO info"
 msgstr "I_SO argibideak ikusi"
 
 #: ../src/interface.c:218
-#, fuzzy
 msgid "Reset passwo_rd"
-msgstr "Mesedez pasahitza idatz ezazu."
+msgstr "Pasahitza be_rrabiarazi."
 
 #: ../src/interface.c:224
 msgid "_Help"
@@ -908,9 +906,8 @@ msgid "An error occurred!"
 msgstr "Errore bat gertatu da!"
 
 #: ../src/main.c:434
-#, fuzzy
 msgid "Can't allocate memory for the archive structure!"
-msgstr "Ezin dira paketetik fitxategiak atera:"
+msgstr "Ezin da pakete egiturarentzat memoria esleitu!"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
