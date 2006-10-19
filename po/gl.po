@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 10:31+0200\n"
+"POT-Creation-Date: 2006-10-18 14:15+0200\n"
 "PO-Revision-Date: 2006-08-17 19:16+0000\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <gl@li.org>\n"
@@ -60,9 +60,9 @@ msgstr ""
 msgid "BPMGS"
 msgstr ""
 
-#: ../src/archive.c:67 ../src/callbacks.c:118 ../src/callbacks.c:699
+#: ../src/archive.c:67 ../src/callbacks.c:109 ../src/callbacks.c:699
 #: ../src/callbacks.c:712 ../src/callbacks.c:814 ../src/callbacks.c:827
-#: ../src/callbacks.c:1431 ../src/callbacks.c:1776 ../src/extract_dialog.c:930
+#: ../src/callbacks.c:1512 ../src/callbacks.c:1857 ../src/extract_dialog.c:930
 #: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr ""
@@ -119,11 +119,11 @@ msgstr "Engadindo ficheiros ó arquivo, agarde..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 
-#: ../src/callbacks.c:108 ../src/callbacks.c:1771
+#: ../src/callbacks.c:110 ../src/callbacks.c:1852
 msgid "An error occurred while accessing the archive."
 msgstr ""
 
-#: ../src/callbacks.c:108 ../src/callbacks.c:1771 ../src/rpm.c:151
+#: ../src/callbacks.c:110 ../src/callbacks.c:1852 ../src/rpm.c:151
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "Este arquivo xa existe. Desexa sobrescribilo?"
@@ -133,7 +133,7 @@ msgstr "Este arquivo xa existe. Desexa sobrescribilo?"
 msgid "The sfx archive was saved as:"
 msgstr "Extraendo ficheiros a "
 
-#: ../src/callbacks.c:138 ../src/callbacks.c:244 ../src/callbacks.c:1452
+#: ../src/callbacks.c:138 ../src/callbacks.c:244 ../src/callbacks.c:1533
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr ""
@@ -243,81 +243,81 @@ msgstr ""
 "Non se puido abrir o arquivo %s:\n"
 "%s"
 
-#: ../src/callbacks.c:1234
+#: ../src/callbacks.c:1315
 msgid "Command line output"
 msgstr ""
 
-#: ../src/callbacks.c:1266
+#: ../src/callbacks.c:1347
 msgid "Doing so will probably corrupt your archive!"
 msgstr ""
 
-#: ../src/callbacks.c:1266
+#: ../src/callbacks.c:1347
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: ../src/callbacks.c:1271
+#: ../src/callbacks.c:1352
 msgid "Waiting for the process to abort..."
 msgstr ""
 
-#: ../src/callbacks.c:1277
+#: ../src/callbacks.c:1358
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: ../src/callbacks.c:1362
+#: ../src/callbacks.c:1443
 #, fuzzy
 msgid "Please select a file, not a directory!"
 msgstr "Seleccione un ficheiro, e non un directorio!"
 
-#: ../src/callbacks.c:1432
+#: ../src/callbacks.c:1513
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr ""
 
-#: ../src/callbacks.c:1441
+#: ../src/callbacks.c:1522
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr ""
 
-#: ../src/callbacks.c:1494
+#: ../src/callbacks.c:1575
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1968
 msgid "Can't perform another extraction:"
 msgstr ""
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1968
 msgid "Please wait until the completion of the current one!"
 msgstr ""
 
-#: ../src/callbacks.c:1971
+#: ../src/callbacks.c:2052
 msgid "Sorry, I could not perform the operation!"
 msgstr ""
 
-#: ../src/callbacks.c:2000 ../src/callbacks.c:2011
+#: ../src/callbacks.c:2081 ../src/callbacks.c:2092
 msgid "Can't perform this action:"
 msgstr ""
 
-#: ../src/callbacks.c:2000
+#: ../src/callbacks.c:2081
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:2008
+#: ../src/callbacks.c:2089
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2010
+#: ../src/callbacks.c:2091
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2115
+#: ../src/callbacks.c:2196
 msgid "Failed to open link."
 msgstr ""
 
-#: ../src/callbacks.c:2141
+#: ../src/callbacks.c:2222
 msgid "The password has been reset."
 msgstr ""
 
-#: ../src/callbacks.c:2144
+#: ../src/callbacks.c:2225
 #, fuzzy
 msgid "Please enter the password first!"
 msgstr "Introduza un contrasinal!"

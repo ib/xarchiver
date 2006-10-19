@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 10:31+0200\n"
+"POT-Creation-Date: 2006-10-18 14:15+0200\n"
 "PO-Revision-Date: 2006-08-31 12:16+0200\n"
 "Last-Translator: Giuseppe Torelli <colossus73@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -61,9 +61,9 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:67 ../src/callbacks.c:118 ../src/callbacks.c:699
+#: ../src/archive.c:67 ../src/callbacks.c:109 ../src/callbacks.c:699
 #: ../src/callbacks.c:712 ../src/callbacks.c:814 ../src/callbacks.c:827
-#: ../src/callbacks.c:1431 ../src/callbacks.c:1776 ../src/extract_dialog.c:930
+#: ../src/callbacks.c:1512 ../src/callbacks.c:1857 ../src/extract_dialog.c:930
 #: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr "Operazione fallita."
@@ -121,11 +121,11 @@ msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "Controlla \"%s\" dato che alcuni file potrebbero essere già stati estratti."
 
-#: ../src/callbacks.c:108 ../src/callbacks.c:1771
+#: ../src/callbacks.c:110 ../src/callbacks.c:1852
 msgid "An error occurred while accessing the archive."
 msgstr "Si è verificato un errore mentre accedevo all'archivio."
 
-#: ../src/callbacks.c:108 ../src/callbacks.c:1771 ../src/rpm.c:151
+#: ../src/callbacks.c:110 ../src/callbacks.c:1852 ../src/rpm.c:151
 msgid "Do you want to view the command line output?"
 msgstr "Vuoi vedere l'output dell'archiviatore?"
 
@@ -133,7 +133,7 @@ msgstr "Vuoi vedere l'output dell'archiviatore?"
 msgid "The sfx archive was saved as:"
 msgstr "L'archivio auto-estraibile è stato salvato in:"
 
-#: ../src/callbacks.c:138 ../src/callbacks.c:244 ../src/callbacks.c:1452
+#: ../src/callbacks.c:138 ../src/callbacks.c:244 ../src/callbacks.c:1533
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Operazione completata."
@@ -234,82 +234,82 @@ msgstr "Solo gli archivi"
 msgid "Can't open archive \"%s\":"
 msgstr "Non riesco ad aprire l'archivio \"%s\":"
 
-#: ../src/callbacks.c:1234
+#: ../src/callbacks.c:1315
 msgid "Command line output"
 msgstr "Output della linea di comando"
 
-#: ../src/callbacks.c:1266
+#: ../src/callbacks.c:1347
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Così facendo l'archivio verrà corrotto!"
 
-#: ../src/callbacks.c:1266
+#: ../src/callbacks.c:1347
 msgid "Do you really want to cancel?"
 msgstr "Sei sicuro di annullare?"
 
-#: ../src/callbacks.c:1271
+#: ../src/callbacks.c:1352
 msgid "Waiting for the process to abort..."
 msgstr "In attesa della terminazione del processo..."
 
-#: ../src/callbacks.c:1277
+#: ../src/callbacks.c:1358
 msgid "An error occurred while trying to kill the process:"
 msgstr "Si è verificato un errore mentre cercavo di terminare il processo:"
 
-#: ../src/callbacks.c:1362
+#: ../src/callbacks.c:1443
 msgid "Please select a file, not a directory!"
 msgstr "Si prega di selezionare un file, non una directory!"
 
-#: ../src/callbacks.c:1432
+#: ../src/callbacks.c:1513
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Si è verificato unerrore mentre estraevo il file da visualizzare:"
 
-#: ../src/callbacks.c:1441
+#: ../src/callbacks.c:1522
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr ""
 "Si è verificato unerrore mentre convertivo il contenuto del file "
 "nell'encoding UTF8:"
 
-#: ../src/callbacks.c:1494
+#: ../src/callbacks.c:1575
 msgid " bytes"
 msgstr " bytes"
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1968
 msgid "Can't perform another extraction:"
 msgstr "Non posso svolgere un'altra estrazione:"
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1968
 msgid "Please wait until the completion of the current one!"
 msgstr "Si prega di attendere il completamento di quella in corso!"
 
-#: ../src/callbacks.c:1971
+#: ../src/callbacks.c:2052
 msgid "Sorry, I could not perform the operation!"
 msgstr "Sono spiacente, non posso svolgere l'operazione!"
 
-#: ../src/callbacks.c:2000 ../src/callbacks.c:2011
+#: ../src/callbacks.c:2081 ../src/callbacks.c:2092
 msgid "Can't perform this action:"
 msgstr "Non posso compiere questa azione:"
 
-#: ../src/callbacks.c:2000
+#: ../src/callbacks.c:2081
 msgid "unrar doesn't support archive creation!"
 msgstr "unrar non supporta la creazione di archivi!"
 
-#: ../src/callbacks.c:2008
+#: ../src/callbacks.c:2089
 msgid "You can't add content to deb packages!"
 msgstr "Non puoi aggiungere del contenuto ad un pacchetto deb!"
 
-#: ../src/callbacks.c:2010
+#: ../src/callbacks.c:2091
 msgid "You can't add content to rpm packages!"
 msgstr "Non puoi aggiungere del contenuto ad un pacchetto rpm!"
 
-#: ../src/callbacks.c:2115
+#: ../src/callbacks.c:2196
 msgid "Failed to open link."
 msgstr "Apertura del link non riuscita."
 
-#: ../src/callbacks.c:2141
+#: ../src/callbacks.c:2222
 msgid "The password has been reset."
 msgstr "La password è stata azzerata."
 
-#: ../src/callbacks.c:2144
+#: ../src/callbacks.c:2225
 msgid "Please enter the password first!"
 msgstr "Prego immettere la password!"
 

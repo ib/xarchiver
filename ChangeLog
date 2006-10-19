@@ -3,7 +3,7 @@ Xarchiver changelog:
 0x/09/06 - 0.4.1:
 		- G R E A T L Y improved speed and memory usage. A tar.bz2 archive of 463817 files is
 		  opened in ~28 sec. with a memory usage of ~130MB (measured on a 1GB Pentium 4 HT).
-		- Extracting files in encrypted archives with DnD no more fails.
+		- Extracting files in encrypted archives with DnD no more fails since the password it's now asked.
 		- Better behaviour of the GUI while archive operations are in progress.
 		- Fixed unsuccessful open of rpm archives when the cpio archive was compressed with bzip2.c.
 		- Changed View Window title as the filename of the ASCII file whose content the user wants to see. 

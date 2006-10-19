@@ -95,20 +95,19 @@ int main (int argc, char **argv)
 					if (archive->has_passwd)
 					{
 						archive->passwd = password_dialog (archive);
-						if (archive->passwd != NULL)
-						{
-							GString *string = g_string_new ( "" );
-							archive->full_path = 1;
-							archive->overwrite = 1;
-							gchar *escaped_path = EscapeBadChars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
-							archive->extraction_path = g_strdup (extract_path);
-							cli_command = xa_extract_single_files ( archive , string, escaped_path );
-							g_free (escaped_path);
-							if ( cli_command != NULL )
-								error_output = SpawnSyncCommand ( cli_command );
-							g_string_free (string, TRUE);
-						}
+						if (archive->passwd == NULL)
+							goto done;
 					}
+					GString *string = g_string_new ( "" );
+					archive->full_path = 1;
+					archive->overwrite = 1;
+					gchar *escaped_path = EscapeBadChars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
+					archive->extraction_path = g_strdup (extract_path);
+					cli_command = xa_extract_single_files ( archive , string, escaped_path );
+					g_free (escaped_path);
+					if ( cli_command != NULL )
+						error_output = SpawnSyncCommand ( cli_command );
+					g_string_free (string, TRUE);
 				}
 			}
 		}
@@ -223,7 +222,7 @@ int main (int argc, char **argv)
 				g_free (add_window);
 			}
 		}
-		g_list_free ( ArchiveSuffix);
+done:	g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
 		if (archive != NULL)
 			xa_clean_archive_structure ( archive );

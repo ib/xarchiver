@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 10:31+0200\n"
+"POT-Creation-Date: 2006-10-18 14:15+0200\n"
 "PO-Revision-Date: 2006-10-15 22:14+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: librezale <librezale@librezale.org>\n"
@@ -63,9 +63,9 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:67 ../src/callbacks.c:118 ../src/callbacks.c:699
+#: ../src/archive.c:67 ../src/callbacks.c:109 ../src/callbacks.c:699
 #: ../src/callbacks.c:712 ../src/callbacks.c:814 ../src/callbacks.c:827
-#: ../src/callbacks.c:1431 ../src/callbacks.c:1776 ../src/extract_dialog.c:930
+#: ../src/callbacks.c:1512 ../src/callbacks.c:1857 ../src/extract_dialog.c:930
 #: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr "Ekintzak huts egin du."
@@ -123,11 +123,11 @@ msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "Mesedez egiaztatu \"%s\" zenbait fitxategi ateratak izan dira dagoeneko eta."
 
-#: ../src/callbacks.c:108 ../src/callbacks.c:1771
+#: ../src/callbacks.c:110 ../src/callbacks.c:1852
 msgid "An error occurred while accessing the archive."
 msgstr "Errore bat gertatu da paketea atzitzerakoan."
 
-#: ../src/callbacks.c:108 ../src/callbacks.c:1771 ../src/rpm.c:151
+#: ../src/callbacks.c:110 ../src/callbacks.c:1852 ../src/rpm.c:151
 msgid "Do you want to view the command line output?"
 msgstr "Komando lerro irteera ikusi nahi al duzu?"
 
@@ -135,7 +135,7 @@ msgstr "Komando lerro irteera ikusi nahi al duzu?"
 msgid "The sfx archive was saved as:"
 msgstr "sfx paketea honela grabatu zen:"
 
-#: ../src/callbacks.c:138 ../src/callbacks.c:244 ../src/callbacks.c:1452
+#: ../src/callbacks.c:138 ../src/callbacks.c:244 ../src/callbacks.c:1533
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Ekintza osatua."
@@ -235,80 +235,80 @@ msgstr "Paketeak bakarrik"
 msgid "Can't open archive \"%s\":"
 msgstr "Ezin da \"%s\" paketea ireki:"
 
-#: ../src/callbacks.c:1234
+#: ../src/callbacks.c:1315
 msgid "Command line output"
 msgstr "Komando lerro irteera"
 
-#: ../src/callbacks.c:1266
+#: ../src/callbacks.c:1347
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Hau eginez ziurrenik paketea hondatuko duzu!"
 
-#: ../src/callbacks.c:1266
+#: ../src/callbacks.c:1347
 msgid "Do you really want to cancel?"
 msgstr "Benetan utzi egin nahi duzu?"
 
-#: ../src/callbacks.c:1271
+#: ../src/callbacks.c:1352
 msgid "Waiting for the process to abort..."
 msgstr "Prozesua uzteko itxoiten..."
 
-#: ../src/callbacks.c:1277
+#: ../src/callbacks.c:1358
 msgid "An error occurred while trying to kill the process:"
 msgstr "Errore bat gertatu da prozesua hiltzen saiatzerakoan:"
 
-#: ../src/callbacks.c:1362
+#: ../src/callbacks.c:1443
 msgid "Please select a file, not a directory!"
 msgstr "Mesedez fitxategi bat hautatu, ez direktorio bat!"
 
-#: ../src/callbacks.c:1432
+#: ../src/callbacks.c:1513
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Errore bat gertatu ikusteko fitxategia ateratzerakoan:"
 
-#: ../src/callbacks.c:1441
+#: ../src/callbacks.c:1522
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Errore bat gertatu da pakete edukia UTF8 kodeketara bihurtzean:"
 
-#: ../src/callbacks.c:1494
+#: ../src/callbacks.c:1575
 msgid " bytes"
 msgstr " byte"
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1968
 msgid "Can't perform another extraction:"
 msgstr "Ezin da beste ateratze bat aurrera eraman:"
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1968
 msgid "Please wait until the completion of the current one!"
 msgstr "Mesedez itxoin martxan dagoen  osatzen den bitartean!"
 
-#: ../src/callbacks.c:1971
+#: ../src/callbacks.c:2052
 msgid "Sorry, I could not perform the operation!"
 msgstr "Barkatu ezin dut ekintza aurrera eraman!"
 
-#: ../src/callbacks.c:2000 ../src/callbacks.c:2011
+#: ../src/callbacks.c:2081 ../src/callbacks.c:2092
 msgid "Can't perform this action:"
 msgstr "Ezin da ekintza hau aurrera eraman:"
 
-#: ../src/callbacks.c:2000
+#: ../src/callbacks.c:2081
 msgid "unrar doesn't support archive creation!"
 msgstr "unrar-ek ez du pakete sorpena onartzen!"
 
-#: ../src/callbacks.c:2008
+#: ../src/callbacks.c:2089
 msgid "You can't add content to deb packages!"
 msgstr "Ezin duzu deb paketeetara edukia gehitu!"
 
-#: ../src/callbacks.c:2010
+#: ../src/callbacks.c:2091
 msgid "You can't add content to rpm packages!"
 msgstr "Ezin duzu rpm paketeetara edukia gehitu!"
 
-#: ../src/callbacks.c:2115
+#: ../src/callbacks.c:2196
 msgid "Failed to open link."
 msgstr "Huts lotura irekitzerakoan."
 
-#: ../src/callbacks.c:2141
+#: ../src/callbacks.c:2222
 msgid "The password has been reset."
 msgstr ""
 
-#: ../src/callbacks.c:2144
+#: ../src/callbacks.c:2225
 #, fuzzy
 msgid "Please enter the password first!"
 msgstr "Mesedez pasahitza idatz ezazu."

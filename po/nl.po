@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 10:31+0200\n"
+"POT-Creation-Date: 2006-10-18 14:15+0200\n"
 "PO-Revision-Date: 2006-04-24 21:38+0200\n"
 "Last-Translator: Stephan Arts <psybsd@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -61,9 +61,9 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:67 ../src/callbacks.c:118 ../src/callbacks.c:699
+#: ../src/archive.c:67 ../src/callbacks.c:109 ../src/callbacks.c:699
 #: ../src/callbacks.c:712 ../src/callbacks.c:814 ../src/callbacks.c:827
-#: ../src/callbacks.c:1431 ../src/callbacks.c:1776 ../src/extract_dialog.c:930
+#: ../src/callbacks.c:1512 ../src/callbacks.c:1857 ../src/extract_dialog.c:930
 #: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr "Mislukt"
@@ -120,11 +120,11 @@ msgstr "Tar bestand recomprimeren met %s, wachten aub..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Kijk aub naar \"%s\" omdat sommige bestanden al kunnen zijn uitgepakt."
 
-#: ../src/callbacks.c:108 ../src/callbacks.c:1771
+#: ../src/callbacks.c:110 ../src/callbacks.c:1852
 msgid "An error occurred while accessing the archive."
 msgstr "Een fout vond plaats tijdens het benaderen van het archief."
 
-#: ../src/callbacks.c:108 ../src/callbacks.c:1771 ../src/rpm.c:151
+#: ../src/callbacks.c:110 ../src/callbacks.c:1852 ../src/rpm.c:151
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "Wilt u het overschrijven?"
@@ -134,7 +134,7 @@ msgstr "Wilt u het overschrijven?"
 msgid "The sfx archive was saved as:"
 msgstr "Archief uitpakken naar %s"
 
-#: ../src/callbacks.c:138 ../src/callbacks.c:244 ../src/callbacks.c:1452
+#: ../src/callbacks.c:138 ../src/callbacks.c:244 ../src/callbacks.c:1533
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Klaar."
@@ -237,82 +237,82 @@ msgstr "Alleen archieven"
 msgid "Can't open archive \"%s\":"
 msgstr "Kan archief \"%s\" niet openen:"
 
-#: ../src/callbacks.c:1234
+#: ../src/callbacks.c:1315
 msgid "Command line output"
 msgstr ""
 
-#: ../src/callbacks.c:1266
+#: ../src/callbacks.c:1347
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Dit zal waarschijnlijk het het archief stuk maken!"
 
-#: ../src/callbacks.c:1266
+#: ../src/callbacks.c:1347
 msgid "Do you really want to cancel?"
 msgstr "Wilt u echt annuleren?"
 
-#: ../src/callbacks.c:1271
+#: ../src/callbacks.c:1352
 msgid "Waiting for the process to abort..."
 msgstr "Wacht tot het proces annuleerd..."
 
-#: ../src/callbacks.c:1277
+#: ../src/callbacks.c:1358
 msgid "An error occurred while trying to kill the process:"
 msgstr "Het sluiten van het proces ging fout:"
 
-#: ../src/callbacks.c:1362
+#: ../src/callbacks.c:1443
 msgid "Please select a file, not a directory!"
 msgstr "Selecteer een bestand, geen map aub!"
 
-#: ../src/callbacks.c:1432
+#: ../src/callbacks.c:1513
 #, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Het sluiten van het proces ging fout:"
 
-#: ../src/callbacks.c:1441
+#: ../src/callbacks.c:1522
 #, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Het sluiten van het proces ging fout:"
 
-#: ../src/callbacks.c:1494
+#: ../src/callbacks.c:1575
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1968
 msgid "Can't perform another extraction:"
 msgstr "Kan niet nog een keer uitpakken:"
 
-#: ../src/callbacks.c:1887
+#: ../src/callbacks.c:1968
 msgid "Please wait until the completion of the current one!"
 msgstr "Even wachten aub totdat de huidige actie gereed is!"
 
-#: ../src/callbacks.c:1971
+#: ../src/callbacks.c:2052
 msgid "Sorry, I could not perform the operation!"
 msgstr "Sorry, ik kon deze actie niet uitvoeren!"
 
-#: ../src/callbacks.c:2000 ../src/callbacks.c:2011
+#: ../src/callbacks.c:2081 ../src/callbacks.c:2092
 msgid "Can't perform this action:"
 msgstr "Kan deze actie niet uitvoeren:"
 
-#: ../src/callbacks.c:2000
+#: ../src/callbacks.c:2081
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:2008
+#: ../src/callbacks.c:2089
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2010
+#: ../src/callbacks.c:2091
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2115
+#: ../src/callbacks.c:2196
 msgid "Failed to open link."
 msgstr "Kon link niet openen."
 
-#: ../src/callbacks.c:2141
+#: ../src/callbacks.c:2222
 msgid "The password has been reset."
 msgstr ""
 
-#: ../src/callbacks.c:2144
+#: ../src/callbacks.c:2225
 #, fuzzy
 msgid "Please enter the password first!"
 msgstr "Voer aub het wachtwoord in."

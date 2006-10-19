@@ -92,14 +92,17 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
 int xa_detect_archive_type ( XArchive *archive , gchar *filename );
-
-gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
-gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
+gboolean xa_detect_encrypted_archive ( int type, FILE *stream, unsigned char magic[6] );
+gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive );
 gboolean isTar ( FILE *ptr );
 gboolean isISO ( FILE *ptr );
 gboolean isLha ( FILE *ptr );
+
+gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
+gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
+
+void xa_watch_child ( GPid pid, gint status, gpointer data);
 gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
-gboolean DetectPasswordProtectedArchive ( int type , FILE *dummy_ptr, unsigned char magic[6]);
 
 void RemoveColumnsListStore ();
 void EmptyTextBuffer ();
@@ -111,7 +114,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag );
 void OffDeleteandViewButtons();
 void xa_hide_progress_bar_stop_button( XArchive *archive);
 void Update_StatusBar (gchar *msg);
-void xa_watch_child ( GPid pid, gint status, gpointer data);
+
 gchar *xa_open_file_dialog ();
 void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
 gchar *name;

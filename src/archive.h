@@ -61,6 +61,8 @@ struct _XArchive
 	gchar *extraction_path;
 	gchar *passwd;
 	gboolean has_passwd;
+	gboolean has_comment;
+	GString *comment;
 	gboolean add_recurse;
 	gboolean overwrite;
 	gboolean full_path;

@@ -83,7 +83,38 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	int ps;
 
 	gtk_widget_set_sensitive (close1,TRUE);
-
+	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
+	{
+		new = open = TRUE;
+		info = exe = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_DEB)
+	{
+		new = open = extract = select = info = TRUE;
+		exe = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
+	{
+		new = open = add = extract = select = info = TRUE;
+		check = exe = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_LHA)
+	{
+		new = open = add = extract = select = info = TRUE;
+		check = TRUE;
+		exe = FALSE;
+	}
+	else if (archive->type == XARCHIVETYPE_RAR && unrar)
+	{
+		check = TRUE;
+		add = exe = FALSE;
+		new = open = extract = select = info = TRUE;
+	}
+	else
+	{
+		check = TRUE;
+		new = open = add = extract = exe = select = info = TRUE;
+	}
 	if ( WIFSIGNALED (status) )
 	{
 		Update_StatusBar ( _("Operation canceled."));
@@ -105,6 +136,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	{
 		if ( WEXITSTATUS (status) )
 		{
+			xa_hide_progress_bar_stop_button(archive);
+			xa_set_button_state (new,open,0,0,0,0);
+			Update_StatusBar ( _("Operation failed."));
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
 				xa_show_cmd_line_output (NULL);
@@ -114,8 +148,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				g_free (archive->passwd);
 				archive->passwd = NULL;
 			}
-			xa_hide_progress_bar_stop_button(archive);
-			Update_StatusBar ( _("Operation failed."));
 			return;
 		}
 	}
@@ -189,38 +221,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			}
 		}
 	}
-	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
-	{
-		new = open = TRUE;
-		info = exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_DEB)
-	{
-		new = open = extract = select = info = TRUE;
-		exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
-	{
-		new = open = add = extract = select = info = TRUE;
-		check = exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_LHA)
-	{
-		new = open = add = extract = select = info = TRUE;
-		check = TRUE;
-		exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_RAR && unrar)
-	{
-		check = TRUE;
-		add = exe = FALSE;
-		new = open = extract = select = info = TRUE;
-	}
-	else
-	{
-		check = TRUE;
-		new = open = add = extract = exe = select = info = TRUE;
-	}
+
 	if (! cli && archive != NULL)
 	{
 		if ( archive->has_passwd == FALSE && archive->passwd == NULL)
@@ -1074,16 +1075,27 @@ int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 	if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
 	{
 		if (archive != NULL)
-			archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ZIP , dummy_ptr , magic );
+		{
+			archive->has_passwd = xa_detect_encrypted_archive ( XARCHIVETYPE_ZIP , dummy_ptr , magic );
+			archive->has_comment = xa_detect_archive_comment ( XARCHIVETYPE_ZIP , dummy_ptr, archive );
+		}
 		xx = XARCHIVETYPE_ZIP;
 	}
 	else if ( memcmp ( magic,"\x60\xea",2 ) == 0 )
 	{
 		if (archive != NULL)
-			archive->has_passwd = DetectPasswordProtectedArchive ( XARCHIVETYPE_ARJ , dummy_ptr , magic );
+		{
+			archive->has_passwd = xa_detect_encrypted_archive ( XARCHIVETYPE_ARJ , dummy_ptr, magic );
+			archive->has_comment = xa_detect_archive_comment ( XARCHIVETYPE_ARJ , dummy_ptr, archive );
+		}
 		xx = XARCHIVETYPE_ARJ;
 	}
-	else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 ) xx = XARCHIVETYPE_RAR;
+	else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 )
+	{
+		if (archive != NULL)
+			archive->has_comment = xa_detect_archive_comment ( XARCHIVETYPE_RAR , dummy_ptr, archive );
+		 xx = XARCHIVETYPE_RAR;
+	}
 	else if ( memcmp ( magic,"\x42\x5a\x68",3 ) == 0 ) xx = XARCHIVETYPE_BZIP2;
 	else if ( memcmp ( magic,"\x1f\x8b",2) == 0 || memcmp ( magic,"\x1f\x9d",2 ) == 0 )  xx = XARCHIVETYPE_GZIP;
 	else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0) xx = XARCHIVETYPE_RPM;
@@ -1097,7 +1109,76 @@ int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 	return xx;
 }
 
-gboolean DetectPasswordProtectedArchive ( int type, FILE *stream, unsigned char magic[6] )
+gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
+{
+	char magic[3];
+	char sig;
+	guint cmt_len = 0;
+	unsigned int compressed_size;
+	unsigned int uncompressed_size;
+	unsigned short int extra_length;
+	unsigned int fseek_offset;
+	unsigned short int password_flag;
+	unsigned short int file_length;
+
+	if (type == XARCHIVETYPE_ZIP)
+	{
+		fseek ( stream, 0 , SEEK_SET );
+		fread (magic , 1 , 4 , stream);
+		fseek ( stream, 2 , SEEK_CUR );
+		/* Let's reach the end of central directory record */
+		while ( memcmp ( magic,"\x50\x4b\x05\x06",4 ) )
+		{
+			fread ( &password_flag, 1, 2, stream );
+			fseek ( stream, 10 , SEEK_CUR );
+			fread (&compressed_size,1,4,stream);
+			fread (&uncompressed_size,1,4,stream);
+			fread (&file_length,1,2,stream);
+			/* If the zip archive is empty (no files) it should return here */
+			if (fread (&extra_length,1,2,stream) < 2 )
+			{
+				archive->comment = NULL;
+				return FALSE;
+			}
+			fseek_offset = compressed_size + file_length + extra_length;
+			fseek (stream , fseek_offset , SEEK_CUR);
+			fread (magic , 1 , 4 , stream);
+			fseek ( stream , 2 , SEEK_CUR);
+			g_print ("w %x %x %x %x\n",magic[0],magic[1],magic[2],magic[3]);
+		}
+		g_print ("Posizione: %ld\n",ftell(stream));
+		fread (magic , 1 , 4 , stream);
+		g_print ("%x %x %x %x\n",magic[0],magic[1],magic[2],magic[3]);
+		fread (&sig , 1 , 1 , stream);
+		g_print ("%x\n",sig);
+		archive->comment = g_string_new("");
+	}
+	else if (type == XARCHIVETYPE_ARJ)
+	{
+		/* Let's avoid the archive name */
+		fseek ( stream, 39 , SEEK_SET );
+		while (sig != 0)
+		{
+			fread (&sig,1,1,stream);
+			cmt_len++;
+		}
+		fseek ( stream, 39 + cmt_len , SEEK_SET );
+		sig = 1;
+		/* Let's read the archive comment byte after byte now */
+		archive->comment = g_string_new("");
+		while (sig != 0)
+		{
+			fread (&sig,1,1,stream);
+			g_string_append (archive->comment,&sig);
+		}
+	}
+	else if (type == XARCHIVETYPE_RAR)
+	{
+	}
+	return TRUE;
+}
+
+gboolean xa_detect_encrypted_archive ( int type, FILE *stream, unsigned char magic[6] )
 {
     unsigned int fseek_offset;
     unsigned short int password_flag;
@@ -1113,55 +1194,56 @@ gboolean DetectPasswordProtectedArchive ( int type, FILE *stream, unsigned char 
 	unsigned int extended_header_CRC;
 	unsigned char arj_flag;
 
-	fseek ( stream, 0 , SEEK_SET );
 	fseek ( stream, 6 , SEEK_SET );
 	if ( type == XARCHIVETYPE_ZIP )
 	{
 		while ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0  || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
 		{
-            fread ( &password_flag, 1, 2, stream );
-            if (( password_flag & ( 1<<0) ) > 0)
+			fread ( &password_flag, 1, 2, stream );
+			if (( password_flag & ( 1<<0) ) > 0)
 				return TRUE;
-            fseek (stream,10,SEEK_CUR);
-            fread (&compressed_size,1,4,stream);
-            fread (&uncompressed_size,1,4,stream);
-            fread (&file_length,1,2,stream);
-            /* If the zip archive is empty (no files) it should return here */
-            if (fread (&extra_length,1,2,stream) < 2 )
+			fseek (stream,10,SEEK_CUR);
+			fread (&compressed_size,1,4,stream);
+			fread (&uncompressed_size,1,4,stream);
+			fread (&file_length,1,2,stream);
+			/* If the zip archive is empty (no files) it should return here */
+			if (fread (&extra_length,1,2,stream) < 2 )
 				return FALSE;
-            fseek_offset = compressed_size + file_length + extra_length;
-            fseek (stream , fseek_offset , SEEK_CUR);
-            fread (magic , 1 , 4 , stream);
-            fseek ( stream , 2 , SEEK_CUR);
-        }
-    }
-    else if ( type == XARCHIVETYPE_ARJ)
-    {
-        fseek (stream , magic[2]+magic[3] , SEEK_CUR);
-        fseek (stream , 2 , SEEK_CUR);
-        fread (&extended_header_size,1,2,stream);
-        if (extended_header_size != 0) fread (&extended_header_CRC,1,4,stream);
-        fread (&sig,1,2,stream);
-        while ( memcmp (sig,"\x60\xea",2) == 0)
-        {
-            fread ( &basic_header_size , 1 , 2 , stream );
-            if ( basic_header_size == 0 )
+			fseek_offset = compressed_size + file_length + extra_length;
+			fseek (stream , fseek_offset , SEEK_CUR);
+			fread (magic , 1 , 4 , stream);
+			fseek ( stream , 2 , SEEK_CUR);
+		}
+	}
+	else if ( type == XARCHIVETYPE_ARJ)
+	{
+		fseek (stream , magic[2]+magic[3] , SEEK_CUR);
+		fseek (stream , 2 , SEEK_CUR);
+		fread (&extended_header_size,1,2,stream);
+		if (extended_header_size != 0)
+			fread (&extended_header_CRC,1,4,stream);
+		fread (&sig,1,2,stream);
+		while ( memcmp (sig,"\x60\xea",2) == 0)
+		{
+			fread ( &basic_header_size , 1 , 2 , stream );
+			if ( basic_header_size == 0 )
 				break;
-            fseek ( stream , 4 , SEEK_CUR);
-            fread (&arj_flag,1,1,stream);
-            if ((arj_flag & ( 1<<0) ) > 0)
+			fseek ( stream , 4 , SEEK_CUR);
+			fread (&arj_flag,1,1,stream);
+			if ((arj_flag & ( 1<<0) ) > 0)
 				return TRUE;
-            fseek ( stream , 7 , SEEK_CUR);
-            fread (&compressed_size,1,4,stream);
-            fseek ( stream , basic_header_size - 16 , SEEK_CUR);
-            fread (&basic_header_CRC,1,4,stream);
-            fread (&extended_header_size,1,2,stream);
-            if (extended_header_size != 0) fread (&extended_header_CRC,1,4,stream);
-            fseek ( stream , compressed_size , SEEK_CUR);
-            fread (&sig,1,2,stream);
-        }
-    }
-    return FALSE;
+			fseek ( stream , 7 , SEEK_CUR);
+			fread (&compressed_size,1,4,stream);
+			fseek ( stream , basic_header_size - 16 , SEEK_CUR);
+			fread (&basic_header_CRC,1,4,stream);
+			fread (&extended_header_size,1,2,stream);
+			if (extended_header_size != 0)
+				fread (&extended_header_CRC,1,4,stream);
+			fseek ( stream , compressed_size , SEEK_CUR);
+			fread (&sig,1,2,stream);
+		}
+	}
+	return FALSE;
 }
 
 void RemoveColumnsListStore()
@@ -1963,6 +2045,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	gchar *_current_dir = NULL;
 	gchar *current_dir = NULL;
 	gboolean one_file;
+	gboolean dummy_password;
 	unsigned int len = 0;
 
 	array = gtk_selection_data_get_uris ( data );
@@ -2012,8 +2095,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		return;
 	}
 
-
-
 	GString *names = g_string_new (" ");
 	_current_dir = g_path_get_dirname ( array[0] );
 	current_dir = g_filename_from_uri ( _current_dir, NULL, NULL );
@@ -2031,12 +2112,14 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		g_free (name);
 		len++;
 	}
-
+	dummy_password = archive->has_passwd;
 	full_path = archive->full_path;
 	add_recurse = archive->add_recurse;
+	archive->has_passwd = 0;
 	archive->full_path = 0;
 	archive->add_recurse = 1;
 	command = xa_add_single_files ( archive, names, NULL );
+	archive->has_passwd = dummy_password;
 	if (command != NULL)
 	{
 		xa_run_command (command , 1);
