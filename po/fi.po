@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-19 14:28+0200\n"
-"PO-Revision-Date: 2006-10-09 11:25+0300\n"
+"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
+"POT-Creation-Date: 2006-10-19 21:36+0300\n"
+"PO-Revision-Date: 2006-10-19 21:44+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "BPMGS"
 
 #: ../src/archive.c:67 ../src/callbacks.c:146 ../src/callbacks.c:705
 #: ../src/callbacks.c:718 ../src/callbacks.c:820 ../src/callbacks.c:833
-#: ../src/callbacks.c:1535 ../src/callbacks.c:1886 ../src/extract_dialog.c:930
+#: ../src/callbacks.c:1536 ../src/callbacks.c:1887 ../src/extract_dialog.c:930
 #: ../src/rpm.c:120 ../src/rpm.c:148
 msgid "Operation failed."
 msgstr "Toiminto epäonnistui."
@@ -118,19 +118,19 @@ msgstr "Pakataan tar-tiedostoa uudelleen %s-muotoon, odota..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Tarkista \"%s\", sillä osa tiedostoista mahdollisesti purettiin jo."
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1881
+#: ../src/callbacks.c:147 ../src/callbacks.c:1882
 msgid "An error occurred while accessing the archive."
 msgstr "Virhe luettaessa arkistoa."
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1881 ../src/rpm.c:151
+#: ../src/callbacks.c:147 ../src/callbacks.c:1882 ../src/rpm.c:151
 msgid "Do you want to view the command line output?"
 msgstr "Haluatko nähdä komentorivitulostuksen?"
 
 #: ../src/callbacks.c:165
 msgid "The sfx archive was saved as:"
-msgstr ""
+msgstr "Itsepurkautuva arkisto tallennettiin nimellä:"
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1556
+#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1557
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Toiminto suoritettu."
@@ -206,9 +206,8 @@ msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Arkistoon ei voi kirjoittaa unzipsfx-moduulia:"
 
 #: ../src/callbacks.c:789
-#, fuzzy
 msgid "Please select the 7zCon.sfx module"
-msgstr "Valitse tiedostot, jotka haluat lisätä"
+msgstr "Valitse 7zCon.sfx-moduuli"
 
 #: ../src/callbacks.c:894
 msgid "translator-credits"
@@ -231,98 +230,94 @@ msgstr "Vain arkistot"
 msgid "Can't open archive \"%s\":"
 msgstr "Arkistoa \"%s\" ei voi avata:"
 
-#: ../src/callbacks.c:1338
+#: ../src/callbacks.c:1339
 msgid "Command line output"
 msgstr "Komentorivitulostus"
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1371
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Se tekisi arkistosta luultavasti käyttökelvottoman!"
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1371
 msgid "Do you really want to cancel?"
 msgstr "Haluatko todella perua toiminnon?"
 
-#: ../src/callbacks.c:1375
+#: ../src/callbacks.c:1376
 msgid "Waiting for the process to abort..."
 msgstr "Odotetaan, että prosessi peruuntuu..."
 
-#: ../src/callbacks.c:1381
+#: ../src/callbacks.c:1382
 msgid "An error occurred while trying to kill the process:"
 msgstr "Virhe suljettaessa prosessia:"
 
-#: ../src/callbacks.c:1466
+#: ../src/callbacks.c:1467
 msgid "Please select a file, not a directory!"
 msgstr "Valitse tiedosto, älä hakemistoa!"
 
-#: ../src/callbacks.c:1536
-#, fuzzy
+#: ../src/callbacks.c:1537
 msgid "An error occurred while extracting the file to be viewed:"
-msgstr "Virhe suljettaessa prosessia:"
+msgstr "Virhe purettaessa näytettävää tiedostoa:"
 
-#: ../src/callbacks.c:1545
-#, fuzzy
+#: ../src/callbacks.c:1546
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
-msgstr "Virhe suljettaessa prosessia:"
+msgstr "Virhe muunnettaessa tiedoston sisältöä UTF8-merkistöön:"
 
-#: ../src/callbacks.c:1598
+#: ../src/callbacks.c:1599
 msgid " bytes"
 msgstr " tavua"
 
-#: ../src/callbacks.c:1721
+#: ../src/callbacks.c:1722
 msgid "Yes"
-msgstr ""
+msgstr "Kyllä"
 
-#: ../src/callbacks.c:1723
+#: ../src/callbacks.c:1724
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:1998
 msgid "Can't perform another extraction:"
 msgstr "Ei voi purkaa uudelleen:"
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:1998
 msgid "Please wait until the completion of the current one!"
 msgstr "Odota, kunnes nykyinen toiminto valmistuu."
 
-#: ../src/callbacks.c:2082
+#: ../src/callbacks.c:2083
 msgid "Sorry, I could not perform the operation!"
 msgstr "Toimintoa ei valitettavasti voitu suorittaa."
 
-#: ../src/callbacks.c:2111 ../src/callbacks.c:2122
+#: ../src/callbacks.c:2112 ../src/callbacks.c:2123
 msgid "Can't perform this action:"
 msgstr "Toimintoa ei voi suorittaa:"
 
-#: ../src/callbacks.c:2111
+#: ../src/callbacks.c:2112
 msgid "unrar doesn't support archive creation!"
 msgstr "unrar ei voi luoda arkistoa!"
 
-#: ../src/callbacks.c:2119
+#: ../src/callbacks.c:2120
 msgid "You can't add content to deb packages!"
 msgstr "Et voi lisätä sisältöä deb-paketteihin!"
 
-#: ../src/callbacks.c:2121
+#: ../src/callbacks.c:2122
 msgid "You can't add content to rpm packages!"
 msgstr "Et voi lisätä sisältöä rpm-paketteihin!"
 
-#: ../src/callbacks.c:2231
+#: ../src/callbacks.c:2232
 msgid "Failed to open link."
 msgstr "Linkin avaaminen epäonnistui."
 
-#: ../src/callbacks.c:2257
+#: ../src/callbacks.c:2258
 msgid "The password has been reset."
-msgstr ""
+msgstr "Salasana on asetettu."
 
-#: ../src/callbacks.c:2260
-#, fuzzy
+#: ../src/callbacks.c:2261
 msgid "Please enter the password first!"
-msgstr "Ole hyvä ja syötä salasana."
+msgstr "Ole hyvä ja syötä ensin salasana!"
 
-#: ../src/callbacks.c:2270
-#, fuzzy
+#: ../src/callbacks.c:2268
 msgid "Archive comment window"
-msgstr "Arkiston tietoikkuna"
+msgstr "Arkiston kommentti-ikkuna"
 
 #: ../src/add_dialog.c:38
 msgid "Add files to the archive"
@@ -632,7 +627,7 @@ msgstr "_Näytä"
 
 #: ../src/interface.c:173
 msgid "_Show comment"
-msgstr ""
+msgstr "Näytä k_ommentti"
 
 #: ../src/interface.c:188
 msgid "Sele_ct All"
@@ -651,9 +646,8 @@ msgid "Show I_SO info"
 msgstr "Näytä I_SO-vedoksen tiedot"
 
 #: ../src/interface.c:224
-#, fuzzy
 msgid "Reset passwo_rd"
-msgstr "Ole hyvä ja syötä salasana."
+msgstr "Aseta s_alasana."
 
 #: ../src/interface.c:230
 msgid "_Help"
@@ -691,7 +685,7 @@ msgstr "Pura tiedostoja arkistosta. Valitse yksittäiset tiedostot hiirellä."
 
 #: ../src/interface.c:292
 msgid "SFX"
-msgstr ""
+msgstr "Itsepurkautuva"
 
 #: ../src/interface.c:297
 msgid "Make the current archive self-extracting"
@@ -759,7 +753,7 @@ msgstr "Sisällön koko:"
 
 #: ../src/interface.c:595
 msgid "Has comment:"
-msgstr ""
+msgstr "Kommentti:"
 
 #: ../src/interface.c:602
 msgid "Compression ratio:"
@@ -932,9 +926,8 @@ msgid "An error occurred!"
 msgstr "Virhe!"
 
 #: ../src/main.c:433
-#, fuzzy
 msgid "Can't allocate memory for the archive structure!"
-msgstr "Ei voi purkaa tiedostoja arkistosta:"
+msgstr "Arkistorakenteelle ei voi varata muistia!"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
@@ -1004,24 +997,3 @@ msgstr "Arkistonhallinta"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
-
-#~ msgid "This option can't be used with password protected archives!\n"
-#~ msgstr "Valinta ei toimi salasanalla suojattujen arkistojen kanssa.\n"
-
-#~ msgid "Operation aborted."
-#~ msgstr "Toiminto keskeytetty."
-
-#~ msgid "Choose Add File to create the compressed file."
-#~ msgstr "Valitse Lisää tiedosto luodaksesi pakatun tiedoston."
-
-#~ msgid "View File Window"
-#~ msgstr "Näytä tiedostoikkuna"
-
-#~ msgid "Operation completed"
-#~ msgstr "Toiminto suoritettu"
-
-#~ msgid "The self extracting archive is:\n"
-#~ msgstr "Itsepurkautuva arkisto on:\n"
-
-#~ msgid "Make SFX"
-#~ msgstr "Tee itsepurkautuva"
