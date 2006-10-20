@@ -139,7 +139,7 @@ void xa_clean_archive_structure ( XArchive *archive)
 	{
 		if (archive->comment != NULL)
 		{
-			g_string_free (archive->comment,TRUE);
+			g_string_free (archive->comment,FALSE);
 			archive->comment = NULL;
 		}
 	}

@@ -330,7 +330,21 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (toolbar1), Stop_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Stop_button), tooltips, _("Cancel current operation"), NULL);
 
-	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+	vbox_body = gtk_vbox_new (FALSE, 2);
+	gtk_widget_show (vbox_body);
+	gtk_container_set_border_width (GTK_CONTAINER(vbox_body), 2);
+	gtk_box_pack_start(GTK_BOX(vbox1), vbox_body, TRUE, TRUE, 0);
+
+	/* Create the notebook */
+	notebook = GTK_NOTEBOOK(gtk_notebook_new() );
+	gtk_box_pack_end (GTK_BOX(vbox_body), GTK_WIDGET(notebook),TRUE,TRUE,0);
+	gtk_notebook_set_tab_pos (notebook, GTK_POS_TOP);
+	gtk_notebook_set_show_tabs (notebook, TRUE);
+	gtk_notebook_set_scrollable (notebook, TRUE);
+	gtk_notebook_popup_enable (notebook);
+
+  //TODO: to put in xa_add_page();
+	/*scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow1) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_widget_show (scrolledwindow1);
 
@@ -343,13 +357,8 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect (G_OBJECT (treeview1), "drag-data-get",		G_CALLBACK (drag_data_get), NULL );
 	g_signal_connect (G_OBJECT (treeview1), "drag-end",				G_CALLBACK (drag_end), NULL);
 
-	vbox_body = gtk_vbox_new (FALSE, 2);
-	gtk_widget_show (vbox_body);
-	gtk_container_set_border_width (GTK_CONTAINER(vbox_body), 2);
-	gtk_box_pack_start(GTK_BOX(vbox1), vbox_body, TRUE, TRUE, 0);
-
 	gtk_box_pack_start (GTK_BOX (vbox_body), scrolledwindow1, TRUE, TRUE, 0);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);*/
 
 	hbox_sb = gtk_hbox_new (FALSE, 2);
 	gtk_widget_show (hbox_sb);

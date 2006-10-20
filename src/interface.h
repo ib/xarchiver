@@ -25,6 +25,7 @@
 GtkWidget *MainWindow;
 GtkWidget *vbox1;
 GtkWidget *vbox_body;
+GtkNotebook *notebook;
 GtkWidget *hbox_sb;
 GtkWidget *hbox_ap;
 GtkWidget *menubar1;

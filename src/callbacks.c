@@ -1167,7 +1167,6 @@ gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 				g_string_append (archive->comment,&sig);
 				cmt_len++;
 			}
-			g_message (archive->comment->str);
 			return TRUE;
 		}
 	}
