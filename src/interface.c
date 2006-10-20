@@ -362,7 +362,7 @@ GtkWidget *create_MainWindow (void)
 
 	hbox_sb = gtk_hbox_new (FALSE, 2);
 	gtk_widget_show (hbox_sb);
-	gtk_box_pack_start (GTK_BOX (vbox_body), hbox_sb, FALSE, TRUE, 0);
+	gtk_box_pack_end (GTK_BOX (vbox_body), hbox_sb, FALSE, TRUE, 0);
 
 	viewport1 = gtk_viewport_new (NULL, NULL);
 	gtk_widget_show (viewport1);
