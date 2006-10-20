@@ -90,13 +90,13 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 					g_free (line);
 					break;
 				}
-				gtk_list_store_append (liststore, &iter);
+				gtk_list_store_append (archive->liststore, &iter);
 				line[ strlen(line) - 1 ] = '\000';
 				if (line[0] == '*')
 					archive->has_passwd = TRUE;
 				/* This to avoid the white space or the * before the first char of the filename */
 				line++;
-				gtk_list_store_set (liststore, &iter,0,line,-1);
+				gtk_list_store_set (archive->liststore, &iter,0,line,-1);
 				/* Restore the pointer before freeing it */
 				line--;
 				g_free (line);
@@ -119,9 +119,9 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				for (x = 0; x < 9; x++)
 				{
 					if (x == 0 || x == 1)
-						gtk_list_store_set (liststore, &iter,x+1,strtoll(fields[x],NULL,0),-1);
+						gtk_list_store_set (archive->liststore, &iter,x+1,strtoll(fields[x],NULL,0),-1);
 					else
-						gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
+						gtk_list_store_set (archive->liststore, &iter,x+1,fields[x],-1);
 				}
 				while ( gtk_events_pending() )
 					gtk_main_iteration();
@@ -140,8 +140,8 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-		g_object_unref (model);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
 		return FALSE;
 	}
 	return TRUE;

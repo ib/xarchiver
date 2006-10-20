@@ -539,14 +539,14 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					break;
 
 					case XARCHIVETYPE_ISO:
-					end = gtk_tree_model_get_iter_first (model , &iter);
+					end = gtk_tree_model_get_iter_first (archive->model , &iter);
 					gtk_widget_show ( viewport2 );
 					g_timeout_add (200, xa_progressbar_pulse, NULL );
 					while (end)
 					{
 						if (stop_flag)
 							break;
-						gtk_tree_model_get (model, &iter,
+						gtk_tree_model_get (archive->model, &iter,
 						0, &name,
 						1, &permissions,
 						2, &file_size,
@@ -558,7 +558,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 							g_free (permissions);
 							return NULL;
 						}
-						end = gtk_tree_model_iter_next (model,&iter);
+						end = gtk_tree_model_iter_next (archive->model,&iter);
 						g_free (name);
 						g_free (permissions);
 					}
@@ -763,14 +763,14 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			GList *row_list = NULL;
 			GtkTreeSelection *selection;
 
-			selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
-			row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+			selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive->treeview) );
+			row_list = gtk_tree_selection_get_selected_rows (selection, &archive->model);
 			while (row_list)
 			{
 				if (stop_flag)
 					break;
-				gtk_tree_model_get_iter(model, &iter, row_list->data);
-				gtk_tree_model_get (model, &iter,
+				gtk_tree_model_get_iter(archive->model, &iter, row_list->data);
+				gtk_tree_model_get (archive->model, &iter,
 				0, &name,
 				1, &permissions,
 				2, &file_size,
@@ -811,18 +811,21 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	GList *row_list;
 	GSList *filenames = NULL;
 	gboolean result;
+	gint current_page;
 
+	current_page = gtk_notebook_get_current_page(notebook);
 	names = g_string_new ("");
 	unescaped_names = g_string_new ("");
-	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (treeview1) );
-	row_list = gtk_tree_selection_get_selected_rows (selection, &model);
+	//TODO: check if archive pointer is valid
+	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[current_page]->treeview) );
+	row_list = gtk_tree_selection_get_selected_rows (selection, &archive[current_page]->model);
 
 	if (row_list != NULL)
 	{
 		while (row_list)
 		{
-			gtk_tree_model_get_iter(model, &iter, row_list->data);
-			gtk_tree_model_get (model, &iter,
+			gtk_tree_model_get_iter(archive[current_page]->model, &iter, row_list->data);
+			gtk_tree_model_get (archive[current_page]->model, &iter,
 								0, &name,
 								1, &permission,
 								-1);
@@ -840,10 +843,10 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	}
 	else
 	{
-		end = gtk_tree_model_get_iter_first (model , &iter);
+		end = gtk_tree_model_get_iter_first (archive[current_page]->model , &iter);
 		while (end)
 		{
-			gtk_tree_model_get (model, &iter,	0, &name,
+			gtk_tree_model_get (archive[current_page]->model, &iter,	0, &name,
 												1, &permission, -1);
 			if (strstr (permission ,"d") == NULL)
 			{
@@ -851,7 +854,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 				filenames = g_slist_append ( filenames,name );
 			}
 			g_free (permission);
-			end = gtk_tree_model_iter_next (model,&iter);
+			end = gtk_tree_model_iter_next (archive[current_page]->model,&iter);
 		}
 	}
 	result = xa_create_temp_directory (tmp_dir);
@@ -861,7 +864,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	if (cpio_flag)
 	{
 		chdir (tmp_dir);
-		command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
+		command = g_strconcat ( "cpio --make-directories -F " , archive[current_page]->tmp , " -i" , NULL );
 	}
 	else
 		command = g_strconcat ( string, escaped_path,

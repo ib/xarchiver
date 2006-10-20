@@ -60,9 +60,7 @@ GtkWidget *dialog , *textview, *scrollwin, *vbox, *OutputWindow , *view_window, 
 GtkTextBuffer *textbuf , *viewtextbuf;
 GtkTextIter enditer , start, end;
 GtkTextIter viewenditer, viewstart, viewend;
-GtkListStore *liststore;
 gchar *ComboArchiveType;
-GtkTreeModel *model;
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_open_archive (GtkMenuItem *menuitem, gpointer user_data );
@@ -105,7 +103,7 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
 void xa_watch_child ( GPid pid, gint status, gpointer data);
 gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
-void RemoveColumnsListStore ();
+void xa_remove_columns();
 void EmptyTextBuffer ();
 void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[]);
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);

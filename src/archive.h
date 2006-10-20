@@ -60,6 +60,10 @@ struct _XArchive
 	gchar *format;
 	gchar *extraction_path;
 	gchar *passwd;
+	GtkTreeModel *model;
+	GtkListStore *liststore;
+	GtkWidget *treeview;
+	GtkWidget *scrollwindow;
 	gboolean has_passwd;
 	gboolean has_comment;
 	GString *comment;
@@ -86,5 +90,6 @@ gchar *system_id,*volume_id,*publisher_id,*preparer_id,*application_id,*creation
 void SpawnAsyncProcess (XArchive *archive, gchar *command , gboolean input, gboolean output_flag);
 XArchive *xa_init_archive_structure ();
 void xa_clean_archive_structure (XArchive *archive);
-XArchive *archive;
+XArchive *archive[10];
+XArchive *archive_cmd;
 #endif

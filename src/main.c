@@ -34,20 +34,20 @@ gboolean unrar = FALSE;
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
-		N_("Extract archive to the directory specified by destination_path and quits."),
-		N_("destination_path archive")
+		N_("Extract archive_cmd to the directory specified by destination_path and quits."),
+		N_("destination_path archive_cmd")
 	},
 	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_extract,
-		N_("Extract archive by asking the destination directory and quits."),
-		N_("archive")
+		N_("Extract archive_cmd by asking the destination directory and quits."),
+		N_("archive_cmd")
 	},
 	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
-		N_("Add the given files by asking the name of the archive and quits."),
+		N_("Add the given files by asking the name of the archive_cmd and quits."),
 		N_("file1 file2 file3 ... fileN")
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_add,
-		N_("Add files to archive by asking their filenames and quits."),
-		N_("archive")
+		N_("Add files to archive_cmd by asking their filenames and quits."),
+		N_("archive_cmd")
 	},
 	{ NULL }
 };
@@ -59,7 +59,7 @@ int main (int argc, char **argv)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 	#endif
-	gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
+	gtk_init_with_args(&argc, &argv, _("[archive_cmd name]"), entries, PACKAGE, &cli_error);
 	g_get_charset (&locale);
 	if ( cli_error != NULL )
 	{
@@ -84,26 +84,26 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive_cmd:"),_("You missed the archive_cmd name!\n"));
 				return 0;
 			}
 			for ( x = 1; x < argc; x++)
 			{
-				archive = xa_init_structure_from_cmd_line ( argv[x] );
-				if (archive != NULL)
+				archive_cmd = xa_init_structure_from_cmd_line ( argv[x] );
+				if (archive_cmd != NULL)
 				{
-					if (archive->has_passwd)
+					if (archive_cmd->has_passwd)
 					{
-						archive->passwd = password_dialog (archive);
-						if (archive->passwd == NULL)
+						archive_cmd->passwd = password_dialog (archive_cmd);
+						if (archive_cmd->passwd == NULL)
 							goto done;
 					}
 					GString *string = g_string_new ( "" );
-					archive->full_path = 1;
-					archive->overwrite = 1;
+					archive_cmd->full_path = 1;
+					archive_cmd->overwrite = 1;
 					gchar *escaped_path = EscapeBadChars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
-					archive->extraction_path = g_strdup (extract_path);
-					cli_command = xa_extract_single_files ( archive , string, escaped_path );
+					archive_cmd->extraction_path = g_strdup (extract_path);
+					cli_command = xa_extract_single_files ( archive_cmd , string, escaped_path );
 					g_free (escaped_path);
 					if ( cli_command != NULL )
 						error_output = SpawnSyncCommand ( cli_command );
@@ -117,14 +117,14 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive_cmd:"),_("You missed the archive_cmd name!\n"));
 				return 0;
 			}
-			archive = xa_init_structure_from_cmd_line ( argv[1] );
-			if (archive != NULL)
+			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
+			if (archive_cmd != NULL)
 			{
-				extract_window = xa_create_extract_dialog ( 0 , archive);
-				cli_command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
+				extract_window = xa_create_extract_dialog ( 0 , archive_cmd);
+				cli_command = xa_parse_extract_dialog_options ( archive_cmd , extract_window, NULL );
 				gtk_widget_destroy ( extract_window->dialog1 );
 				if ( cli_command != NULL )
 					error_output = SpawnSyncCommand ( cli_command );
@@ -134,11 +134,11 @@ int main (int argc, char **argv)
 		/* Switch -d */
 		else if (archive_name != NULL)
 		{
-            /* Is the file an archive? */
+            /* Is the file an archive_cmd? */
 			if ( xa_detect_archive_type ( NULL , archive_name ) > 0 )
 			{
-				archive = xa_init_structure_from_cmd_line ( archive_name );
-				if (archive != NULL)
+				archive_cmd = xa_init_structure_from_cmd_line ( archive_name );
+				if (archive_cmd != NULL)
 				{
 					_current_dir = g_path_get_dirname (argv[1]);
 					chdir (_current_dir);
@@ -152,11 +152,11 @@ int main (int argc, char **argv)
 						g_free (_current_dir);
 					}
                     /* The recursion behaves differently in 7zip as stated in source package DOCS/MANUAL/switches/recurse.htm file */
-                    if ( archive->type == XARCHIVETYPE_7ZIP)
-					    archive->add_recurse = FALSE;
+                    if ( archive_cmd->type == XARCHIVETYPE_7ZIP)
+					    archive_cmd->add_recurse = FALSE;
                     else
-                        archive->add_recurse = TRUE;
-					cli_command = xa_add_single_files ( archive , string, NULL);
+                        archive_cmd->add_recurse = TRUE;
+					cli_command = xa_add_single_files ( archive_cmd , string, NULL);
 					if (cli_command != NULL)
 						error_output = SpawnSyncCommand ( cli_command );
 					g_string_free (string, TRUE);
@@ -165,12 +165,12 @@ int main (int argc, char **argv)
             /* No, it isn't */
 			else
 			{
-				XArchive *archive = NULL;
-				archive = xa_new_archive_dialog (archive_name );
-				if (archive == NULL)
+				XArchive *archive_cmd = NULL;
+				archive_cmd = xa_new_archive_dialog (archive_name );
+				if (archive_cmd == NULL)
 					return 0;
 
-				if (archive->path != NULL)
+				if (archive_cmd->path != NULL)
 				{
 					_current_dir = g_path_get_dirname(archive_name);
 					chdir (_current_dir);
@@ -190,11 +190,11 @@ int main (int argc, char **argv)
 						ConcatenateFileNames2 ( _current_dir, string );
 						g_free (_current_dir);
 					}
-					if ( archive->type == XARCHIVETYPE_7ZIP)
-					    archive->add_recurse = FALSE;
+					if ( archive_cmd->type == XARCHIVETYPE_7ZIP)
+					    archive_cmd->add_recurse = FALSE;
                     else
-                        archive->add_recurse = TRUE;
-					cli_command = xa_add_single_files ( archive , string, NULL);
+                        archive_cmd->add_recurse = TRUE;
+					cli_command = xa_add_single_files ( archive_cmd , string, NULL);
 					if (cli_command != NULL)
 						error_output = SpawnSyncCommand ( cli_command );
 					g_string_free (string, TRUE);
@@ -208,14 +208,14 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive_cmd:"),_("You missed the archive_cmd name!\n"));
 				return 0;
 			}
-			archive = xa_init_structure_from_cmd_line ( argv[1] );
-			if (archive != NULL)
+			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
+			if (archive_cmd != NULL)
 			{
-				add_window = xa_create_add_dialog (archive);
-				cli_command = xa_parse_add_dialog_options ( archive, add_window );
+				add_window = xa_create_add_dialog (archive_cmd);
+				cli_command = xa_parse_add_dialog_options ( archive_cmd, add_window );
 				gtk_widget_destroy ( add_window->dialog1 );
 				if (cli_command != NULL)
 					error_output = SpawnSyncCommand ( cli_command );
@@ -224,8 +224,8 @@ int main (int argc, char **argv)
 		}
 done:	g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
-		if (archive != NULL)
-			xa_clean_archive_structure ( archive );
+		if (archive_cmd != NULL)
+			xa_clean_archive_structure ( archive_cmd );
 		return exit_status;
 	}
 	else
@@ -240,9 +240,8 @@ done:	g_list_free ( ArchiveSuffix);
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);
-		//archive = xa_init_archive_structure(archive);
 
-		/* This to open the archive from the command line */
+		/* This to open the archive_cmd from the command line */
 		if ( argc == 2 )
 		{
 			gchar *dummy = g_strdup(argv[1]);
@@ -426,23 +425,23 @@ gboolean SpawnSyncCommand ( gchar *command )
 
 XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
-	XArchive *archive;
-	archive = xa_init_archive_structure (NULL);
-	if (archive == NULL)
+	XArchive *archive_cmd;
+	archive_cmd = xa_init_archive_structure ();
+	if (archive_cmd == NULL)
 	{
-		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
+		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive_cmd structure!"),"" );
 		return NULL;
 	}
 
-	archive->path = g_strdup (filename);
-	archive->escaped_path = EscapeBadChars(filename , "$\'`\"\\!?* ()&|@#:;");
-	archive->type = xa_detect_archive_type ( archive , NULL );
-	if (archive->type == -2)
+	archive_cmd->path = g_strdup (filename);
+	archive_cmd->escaped_path = EscapeBadChars(filename , "$\'`\"\\!?* ()&|@#:;");
+	archive_cmd->type = xa_detect_archive_type ( archive_cmd , NULL );
+	if (archive_cmd->type == -2)
 		return NULL;
-	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
-		archive->type = XARCHIVETYPE_TAR_BZ2;
-	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
-		archive->type = XARCHIVETYPE_TAR_GZ;
-	return (archive);
+	if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive_cmd->escaped_path , ".tar.bz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tbz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tbz2" ) )
+		archive_cmd->type = XARCHIVETYPE_TAR_BZ2;
+	else if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.gz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tgz") )
+		archive_cmd->type = XARCHIVETYPE_TAR_GZ;
+	return (archive_cmd);
 }
 

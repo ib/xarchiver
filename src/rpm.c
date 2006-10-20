@@ -112,6 +112,9 @@ void OpenRPM ( XArchive *archive )
 
 GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 {
+	gint current_page;
+
+	current_page = gtk_notebook_get_current_page(notebook);
 	gchar *gzip = data;
 	if ( WIFEXITED(status) )
 	{
@@ -126,13 +129,13 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
             unlink ( cpio_tmp );
             g_free (cpio_tmp);
 			xa_set_button_state (1,1,0,0,0,0);
-			xa_hide_progress_bar_stop_button(archive);
+			xa_hide_progress_bar_stop_button(archive[current_page]);
             return FALSE;
     	}
     }
 	cpio_tmp = xa_open_temp_file ( gzip );
     if (cpio_tmp != NULL)
-		g_child_watch_add ( archive->child_pid , (GChildWatchFunc) OpenCPIO , gzip );
+		g_child_watch_add ( archive[current_page]->child_pid , (GChildWatchFunc) OpenCPIO , gzip );
     else
 		return FALSE;
     return NULL;
@@ -140,6 +143,9 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 
 GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 {
+	gint current_page;
+
+	current_page = gtk_notebook_get_current_page(notebook);
 	gchar *gzip = data;
     if ( WIFEXITED( exit_code ) )
     {
@@ -155,7 +161,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			unlink ( gzip );
 			g_free (cpio_tmp);
 			xa_set_button_state (1,1,0,0,0,0);
-			xa_hide_progress_bar_stop_button(archive);
+			xa_hide_progress_bar_stop_button(archive[current_page]);
 			return FALSE;
 		}
 	}
@@ -166,16 +172,16 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	command cpio -tv with an input pipe so to receive the output from
 	the opened CPIO temp file */
 
-	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , "cpio -tv" , 1, 0 );
-	if ( archive->child_pid == 0 )
+	archive[current_page]->parse_output = 0;
+	SpawnAsyncProcess ( archive[current_page] , "cpio -tv" , 1, 0 );
+	if ( archive[current_page]->child_pid == 0 )
 	{
 		unlink ( cpio_tmp );
 		g_free ( cpio_tmp );
 		return FALSE;
 	}
 	output_ioc = g_io_channel_unix_new ( output_fd );
-	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive );
+	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive[current_page] );
 	g_io_channel_set_encoding (output_ioc, locale , NULL);
 	g_io_channel_set_flags ( output_ioc , G_IO_FLAG_NONBLOCK , NULL );
 
@@ -187,7 +193,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
 	g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
 
-	g_child_watch_add ( archive->child_pid, (GChildWatchFunc) xa_watch_child, archive);
+	g_child_watch_add ( archive[current_page]->child_pid, (GChildWatchFunc) xa_watch_child, archive[current_page]);
   return NULL;
 }
 
@@ -249,7 +255,7 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 
 			fields = split_line (line , 5);
 			filename = get_last_field (line , 9);
-			gtk_list_store_append (liststore, &iter);
+			gtk_list_store_append (archive->liststore, &iter);
 			if ( g_str_has_prefix(fields[0] , "d") == FALSE)
 				archive->nr_of_files++;
             else
@@ -258,22 +264,22 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			temp = g_strrstr (filename,"->");
 			if (temp)
 			{
-				gtk_list_store_set (liststore, &iter,2,g_strstrip(&temp[3]),-1);
+				gtk_list_store_set (archive->liststore, &iter,2,g_strstrip(&temp[3]),-1);
 				temp = g_strstrip(g_strndup(filename, strlen(filename) - strlen(temp) ));
-				gtk_list_store_set (liststore, &iter,0,temp,-1);
+				gtk_list_store_set (archive->liststore, &iter,0,temp,-1);
 				g_free (temp);
 			}
 			else
 			{
-				gtk_list_store_set (liststore, &iter,2,NULL,-1);
-				gtk_list_store_set (liststore, &iter,0,filename,-1);
+				gtk_list_store_set (archive->liststore, &iter,2,NULL,-1);
+				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
 			}
 
-			gtk_list_store_set (liststore, &iter,1,fields[0],-1);
-			gtk_list_store_set (liststore, &iter,3,fields[1],-1);
-			gtk_list_store_set (liststore, &iter,4,fields[2],-1);
-			gtk_list_store_set (liststore, &iter,5,fields[3],-1);
-			gtk_list_store_set (liststore, &iter,6,strtoll(fields[4],NULL,0),-1);
+			gtk_list_store_set (archive->liststore, &iter,1,fields[0],-1);
+			gtk_list_store_set (archive->liststore, &iter,3,fields[1],-1);
+			gtk_list_store_set (archive->liststore, &iter,4,fields[2],-1);
+			gtk_list_store_set (archive->liststore, &iter,5,fields[3],-1);
+			gtk_list_store_set (archive->liststore, &iter,6,strtoll(fields[4],NULL,0),-1);
 
             while (gtk_events_pending() )
 				gtk_main_iteration();
@@ -290,8 +296,8 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 done:	CloseChannels (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-		g_object_unref (model);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
 		archive->tmp = cpio_tmp;
 		return FALSE;
 	}
@@ -306,6 +312,9 @@ void CloseChannels ( GIOChannel *ioc )
 
 gchar *xa_open_temp_file ( gchar *temp_path )
 {
+	gint current_page;
+
+	current_page = gtk_notebook_get_current_page(notebook);
 	gchar *command = NULL;
 	tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
 	fd = g_mkstemp ( tmp );
@@ -320,10 +329,10 @@ gchar *xa_open_temp_file ( gchar *temp_path )
 		command = g_strconcat ( "gzip -dc " , temp_path , NULL );
 	else
 		command = g_strconcat ( "bzip2 -dc " , temp_path , NULL );
-	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0, 0);
+	archive[current_page]->parse_output = 0;
+	SpawnAsyncProcess ( archive[current_page] , command , 0, 0);
 	g_free ( command );
-	if ( archive->child_pid == 0 )
+	if ( archive[current_page]->child_pid == 0 )
 	{
 		fclose ( stream );
 		unlink ( tmp );

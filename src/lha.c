@@ -71,10 +71,10 @@ static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			status = g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
 			if (line == NULL || (strncmp(line, "---------- -", 12) == 0))
 				break;
-			gtk_list_store_append (liststore, &iter);
+			gtk_list_store_append (archive->liststore, &iter);
 
 			permissions = g_strndup(line, 10);
-			gtk_list_store_set (liststore, &iter,1,permissions,-1);
+			gtk_list_store_set (archive->liststore, &iter,1,permissions,-1);
 			if (strstr(permissions, "d") == NULL)
 				archive->nr_of_files++;
 			else
@@ -82,7 +82,7 @@ static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			g_free (permissions);
 
 			owner = g_strndup(&line[11], 11);
-			gtk_list_store_set (liststore, &iter,2,owner,-1);
+			gtk_list_store_set (archive->liststore, &iter,2,owner,-1);
 			g_free (owner);
 
 			num = strlen(line);
@@ -96,20 +96,20 @@ static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				break;
 
 			size = g_strndup(&line[a], n - a);
-			gtk_list_store_set (liststore, &iter,3,strtoll(size,NULL,0),-1);
+			gtk_list_store_set (archive->liststore, &iter,3,strtoll(size,NULL,0),-1);
 			archive->dummy_size += strtoll(size,NULL,0);
 			g_free(size);
 
 			ratio = g_strndup(&line[31], 7);
-			gtk_list_store_set (liststore, &iter,4,ratio,-1);
+			gtk_list_store_set (archive->liststore, &iter,4,ratio,-1);
 			g_free (ratio);
 
 			timestamp = g_strndup(&line[38], 13);
-			gtk_list_store_set (liststore, &iter,5,timestamp,-1);
+			gtk_list_store_set (archive->liststore, &iter,5,timestamp,-1);
 			g_free (timestamp);
 
 			filename = g_strndup(&line[51], num - 51 - 1);
-			gtk_list_store_set (liststore, &iter,0,filename,-1);
+			gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
 			g_free (filename);
 
 			g_free(line);
@@ -124,8 +124,8 @@ static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 done:
 		g_io_channel_shutdown(ioc, TRUE, NULL);
 		g_io_channel_unref(ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-		g_object_unref (model);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
 		return FALSE;
 	}
 	return TRUE;

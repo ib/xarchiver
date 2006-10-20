@@ -340,16 +340,16 @@ void dump_stat(gchar *dir_name , int extent, XArchive *archive)
 	else
 		archive->nr_of_files++;
 
-	gtk_list_store_append (liststore, &iter);
+	gtk_list_store_append (archive->liststore, &iter);
 
 	g_file_name = g_strconcat (dir_name, name_buf , NULL);
-	gtk_list_store_set (liststore, &iter,0,g_file_name,-1);
+	gtk_list_store_set (archive->liststore, &iter,0,g_file_name,-1);
 	g_free (g_file_name);
 
-	gtk_list_store_set (liststore, &iter,1 , g_file_permissions , -1);
-	gtk_list_store_set (liststore, &iter,2 , g_file_size , -1);
-	gtk_list_store_set (liststore, &iter,3 , g_file_date , -1);
-	gtk_list_store_set (liststore, &iter,4 , g_file_offset , -1);
+	gtk_list_store_set (archive->liststore, &iter,1 , g_file_permissions , -1);
+	gtk_list_store_set (archive->liststore, &iter,2 , g_file_size , -1);
+	gtk_list_store_set (archive->liststore, &iter,3 , g_file_date , -1);
+	gtk_list_store_set (archive->liststore, &iter,4 , g_file_offset , -1);
 
 	archive->dummy_size+= g_file_size;
 }
@@ -761,8 +761,8 @@ void OpenISO ( XArchive *archive )
 	xa_hide_progress_bar_stop_button(archive);
 	archive->status = XA_ARCHIVESTATUS_IDLE;
 	gtk_widget_set_sensitive ( properties , TRUE );
-	gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-	g_object_unref (model);
+	gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+	g_object_unref (archive->model);
 	gtk_widget_set_sensitive ( iso_info , TRUE );
 	gtk_widget_set_sensitive ( view_shell_output1 , FALSE );
 	xa_set_window_title (MainWindow , archive->path);

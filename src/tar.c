@@ -70,7 +70,7 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 
 			fields = split_line (line,5);
 			filename = get_last_field (line,6);
-			gtk_list_store_append (liststore, &iter);
+			gtk_list_store_append (archive->liststore, &iter);
 
 			if ( strstr(fields[0] , "d") == NULL )
 				archive->nr_of_files++;
@@ -80,22 +80,22 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			temp = g_strrstr (filename,"->");
 			if (temp)
 			{
-				gtk_list_store_set (liststore, &iter,2,g_strstrip(&temp[3]),-1);
+				gtk_list_store_set (archive->liststore, &iter,2,g_strstrip(&temp[3]),-1);
 				temp = g_strstrip(g_strndup(filename, strlen(filename) - strlen(temp) ));
-				gtk_list_store_set (liststore, &iter,0,temp,-1);
+				gtk_list_store_set (archive->liststore, &iter,0,temp,-1);
 				g_free (temp);
 			}
 			else
 			{
-				gtk_list_store_set (liststore, &iter,2,NULL,-1);
-				gtk_list_store_set (liststore, &iter,0,filename,-1);
+				gtk_list_store_set (archive->liststore, &iter,2,NULL,-1);
+				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
 			}
 
-			gtk_list_store_set (liststore, &iter,1,fields[0],-1);
-			gtk_list_store_set (liststore, &iter,3,fields[1],-1);
-			gtk_list_store_set (liststore, &iter,4,strtoll(fields[2],NULL,0),-1);
-			gtk_list_store_set (liststore, &iter,5,fields[3],-1);
-			gtk_list_store_set (liststore, &iter,6,fields[4],-1);
+			gtk_list_store_set (archive->liststore, &iter,1,fields[0],-1);
+			gtk_list_store_set (archive->liststore, &iter,3,fields[1],-1);
+			gtk_list_store_set (archive->liststore, &iter,4,strtoll(fields[2],NULL,0),-1);
+			gtk_list_store_set (archive->liststore, &iter,5,fields[3],-1);
+			gtk_list_store_set (archive->liststore, &iter,6,fields[4],-1);
 
 			while (gtk_events_pending() )
 				gtk_main_iteration();
@@ -113,8 +113,8 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-		g_object_unref (model);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
 		return FALSE;
 	}
 	return TRUE;

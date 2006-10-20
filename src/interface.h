@@ -27,7 +27,6 @@ GtkWidget *vbox1;
 GtkWidget *vbox_body;
 GtkNotebook *notebook;
 GtkWidget *hbox_sb;
-GtkWidget *hbox_ap;
 GtkWidget *menubar1;
 GtkWidget *menuitem1;
 GtkWidget *menuitem1_menu;
@@ -102,8 +101,6 @@ GtkWidget *Delete_button;
 GtkWidget *View_button;
 GtkWidget *Exe_button;
 GtkWidget *Stop_button;
-GtkWidget *scrolledwindow1;
-GtkWidget *treeview1;
 GtkAccelGroup *accel_group;
 GtkTooltips *tooltips;
 GtkTooltips *pad_tooltip;
@@ -115,6 +112,8 @@ int xa_progressbar_pulse (gpointer data);
 GtkWidget *view_win ( gchar *title);
 GtkWidget *create_MainWindow (void);
 GtkWidget *create_archive_properties_window (void);
+void xa_add_page (XArchive *archive);
+void xa_close_page (GtkWidget *widget, gpointer data);
 gchar *password_dialog ();
 #endif
 

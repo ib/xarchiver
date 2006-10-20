@@ -335,32 +335,14 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_set_border_width (GTK_CONTAINER(vbox_body), 2);
 	gtk_box_pack_start(GTK_BOX(vbox1), vbox_body, TRUE, TRUE, 0);
 
-	/* Create the notebook */
+	/* Create the notebook widget */
 	notebook = GTK_NOTEBOOK(gtk_notebook_new() );
 	gtk_box_pack_end (GTK_BOX(vbox_body), GTK_WIDGET(notebook),TRUE,TRUE,0);
 	gtk_notebook_set_tab_pos (notebook, GTK_POS_TOP);
-	gtk_notebook_set_show_tabs (notebook, TRUE);
 	gtk_notebook_set_scrollable (notebook, TRUE);
 	gtk_notebook_popup_enable (notebook);
 
-  //TODO: to put in xa_add_page();
-	/*scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow1) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-	gtk_widget_show (scrolledwindow1);
-
-	treeview1 = gtk_tree_view_new ();
-	gtk_widget_show (treeview1);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview1);
-	gtk_drag_source_set (treeview1, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-
-	g_signal_connect (G_OBJECT (treeview1), "drag-begin",			G_CALLBACK (drag_begin), NULL);
-	g_signal_connect (G_OBJECT (treeview1), "drag-data-get",		G_CALLBACK (drag_data_get), NULL );
-	g_signal_connect (G_OBJECT (treeview1), "drag-end",				G_CALLBACK (drag_end), NULL);
-
-	gtk_box_pack_start (GTK_BOX (vbox_body), scrolledwindow1, TRUE, TRUE, 0);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);*/
-
-	hbox_sb = gtk_hbox_new (FALSE, 2);
+  	hbox_sb = gtk_hbox_new (FALSE, 2);
 	gtk_widget_show (hbox_sb);
 	gtk_box_pack_end (GTK_BOX (vbox_body), hbox_sb, FALSE, TRUE, 0);
 
@@ -429,6 +411,73 @@ GtkWidget *create_MainWindow (void)
 	return MainWindow;
 }
 
+void xa_add_page (XArchive *archive)
+{
+	GtkWidget *page_hbox, *scrolledwindow1, *label, *close_button, *image, *treeview1;
+	GtkTooltips *close_button_tips = gtk_tooltips_new();
+	gchar *filename_only;
+
+	if ( gtk_notebook_get_current_page(notebook) > 0)
+		gtk_notebook_set_show_tabs (notebook,TRUE);
+	else
+		gtk_notebook_set_show_tabs (notebook,FALSE);
+
+	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow1) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	gtk_widget_show (scrolledwindow1);
+
+	page_hbox = gtk_hbox_new(FALSE, 2);
+
+	filename_only = g_strrstr ( archive->path, "/" );
+    if (filename_only != NULL)
+    {
+        filename_only++;
+		label = gtk_label_new (filename_only);
+    }
+	else
+		label = gtk_label_new (archive->path);
+
+	gtk_label_set_max_width_chars(GTK_LABEL(label), 50);
+	gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_START);
+	gtk_box_pack_start(GTK_BOX(page_hbox), label, FALSE, FALSE, 0);
+
+	close_button = gtk_button_new();
+	gtk_tooltips_set_tip (close_button_tips, close_button, _("Close Archive"), NULL);
+	g_signal_connect (G_OBJECT(close_button), "clicked", G_CALLBACK(xa_close_page), (gpointer) scrolledwindow1);
+
+    image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+	gtk_widget_set_size_request (image, 8, 8);
+	gtk_container_add (GTK_CONTAINER(close_button), image);
+	gtk_button_set_relief (GTK_BUTTON(close_button), GTK_RELIEF_NONE);
+	gtk_box_pack_end (GTK_BOX(page_hbox), close_button, FALSE, FALSE, 0);
+	gtk_widget_show_all (page_hbox);
+
+	gtk_notebook_append_page (notebook, scrolledwindow1, page_hbox);
+	gtk_notebook_set_current_page(notebook, -1);
+
+	treeview1 = gtk_tree_view_new ();
+	gtk_widget_show (treeview1);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview1);
+	gtk_tree_view_set_rules_hint ( GTK_TREE_VIEW (treeview1) , TRUE );
+	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (treeview1),(GtkTreeViewSearchEqualFunc) treeview_select_search, NULL, NULL);
+	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (treeview1) );
+	gtk_tree_selection_set_mode(sel, GTK_SELECTION_MULTIPLE);
+
+	gtk_drag_source_set (treeview1, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+
+	g_signal_connect (G_OBJECT (treeview1), "drag-begin",			G_CALLBACK (drag_begin), NULL);
+	g_signal_connect (G_OBJECT (treeview1), "drag-data-get",		G_CALLBACK (drag_data_get), NULL );
+	g_signal_connect (G_OBJECT (treeview1), "drag-end",				G_CALLBACK (drag_end), NULL);
+
+	gtk_box_pack_start (GTK_BOX (vbox_body), scrolledwindow1, TRUE, TRUE, 0);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
+	//gtk_notebook_append_page ()
+}
+
+void xa_close_page (GtkWidget *widget, gpointer data)
+{
+}
+
 gchar *password_dialog ()
 {
 	GtkWidget *passwd;
@@ -463,8 +512,9 @@ gchar *password_dialog ()
 	gtk_box_pack_start (GTK_BOX (hbox1), password_entry, TRUE, TRUE, 0);
 	gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(password_entry), TRUE);
-	if (archive->passwd != NULL)
-		gtk_entry_set_text (GTK_ENTRY(password_entry),archive->passwd);
+	//TODO:
+	//if (archive->passwd != NULL)
+		//gtk_entry_set_text (GTK_ENTRY(password_entry),archive->passwd);
 	gtk_widget_show (password_entry);
 
 	dialog_action_area1 = GTK_DIALOG (passwd)->action_area;

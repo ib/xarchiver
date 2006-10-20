@@ -34,10 +34,9 @@ extern int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int butto
 extern gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
 extern const gchar *locale;
 
-XArchive *xa_init_archive_structure (XArchive *archive)
+XArchive *xa_init_archive_structure ()
 {
-	if (archive != NULL)
-		xa_clean_archive_structure ( archive );
+	XArchive *archive = NULL;
 	archive = g_new0(XArchive,1);
 	return archive;
 }

@@ -77,7 +77,7 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 
 			fields = split_line ( line , 5 );
 			filename = get_last_field ( line , 6);
-			gtk_list_store_append (liststore, &iter);
+			gtk_list_store_append (archive->liststore, &iter);
 			if ( g_str_has_prefix(fields[2] , "D") == FALSE)
 				archive->nr_of_files++;
 			else
@@ -85,17 +85,17 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			for ( x = 0; x < 5; x++)
 			{
 				if (x == 3)
-					gtk_list_store_set (liststore, &iter,1,strtoll(fields[3],NULL,0),-1);
+					gtk_list_store_set (archive->liststore, &iter,1,strtoll(fields[3],NULL,0),-1);
 				else if (x == 4)
-					gtk_list_store_set (liststore, &iter,2,strtoll(fields[4],NULL,0),-1);
+					gtk_list_store_set (archive->liststore, &iter,2,strtoll(fields[4],NULL,0),-1);
 				else
-					gtk_list_store_set (liststore, &iter,(5-x),fields[x],-1);
+					gtk_list_store_set (archive->liststore, &iter,(5-x),fields[x],-1);
 			}
 			archive->dummy_size += strtoll(fields[3],NULL,0);
 			if ( filename == NULL )
-				gtk_list_store_set (liststore, &iter,0,fields[4],-1);
+				gtk_list_store_set (archive->liststore, &iter,0,fields[4],-1);
 			else
-				gtk_list_store_set (liststore, &iter,0,filename,-1);
+				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
 			g_strfreev ( fields );
 
 			while (gtk_events_pending() )
@@ -110,8 +110,8 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-		g_object_unref (model);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
 		return FALSE;
 	}
 	return TRUE;

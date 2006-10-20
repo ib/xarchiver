@@ -86,8 +86,8 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 					break;
 				}
 				filename = get_last_field ( line , 2 );
-				gtk_list_store_append (liststore, &iter);
-				gtk_list_store_set (liststore, &iter,0,filename,-1);
+				gtk_list_store_append (archive->liststore, &iter);
+				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
 				g_free (line);
 			}
 			else if (arj_line == 2)
@@ -102,9 +102,9 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				for ( x = 2; x < 10; x++)
 				{
 					if ( x == 2 || x == 3)
-						gtk_list_store_set (liststore, &iter,x-1,strtoll(fields[x],NULL,0),-1);
+						gtk_list_store_set (archive->liststore, &iter,x-1,strtoll(fields[x],NULL,0),-1);
 					else
-						gtk_list_store_set (liststore, &iter,x-1,fields[x],-1);
+						gtk_list_store_set (archive->liststore, &iter,x-1,fields[x],-1);
 				}
 				archive->dummy_size += strtoll(fields[2],NULL,0);
 				g_free (line);
@@ -135,8 +135,8 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_io_channel_unref (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(treeview1), model);
-		g_object_unref (model);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
 		return FALSE;
 	}
 	return TRUE;
