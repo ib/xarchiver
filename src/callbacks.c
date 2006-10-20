@@ -1122,14 +1122,18 @@ gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 	unsigned char eocds[] = { 0x50, 0x4b, 0x05, 0x06 };
 	int byte;
 	unsigned long long int eocds_position = 0;
+
 	unsigned short int len = 0;
 	int eof;
 	size_t seqptr = 0;
 
 	if (type == XARCHIVETYPE_ZIP)
 	{
-		fseek ( stream, 0 , SEEK_SET );
-		/* Let's reach the end of central directory signature, is there a better way than reading byte after byte ? */
+		/* Let's position the file indicator to 64KB before the end of the archive */
+		fseek(stream, 0L, SEEK_END);
+        eocds_position = ftell(stream);
+        fseek(stream, eocds_position - 65536, SEEK_SET);
+		/* Let's reach the end of central directory signature now */
 		while( ! feof(stream) )
 		{
 			byte = (eof = fgetc(stream));
@@ -2266,7 +2270,7 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 	GtkWidget *comment_window;
 
 	comment_window = view_win ( _("Archive comment window") );
-	gtk_text_buffer_insert (viewtextbuf, &viewenditer, archive->comment->str, archive->comment->len );
+	gtk_text_buffer_insert (viewtextbuf, &viewenditer, archive->comment->str, archive->comment->len);
 	gtk_widget_show (comment_window);
 }
 

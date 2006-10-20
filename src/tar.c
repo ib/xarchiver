@@ -93,14 +93,14 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 
 			gtk_list_store_set (liststore, &iter,1,fields[0],-1);
 			gtk_list_store_set (liststore, &iter,3,fields[1],-1);
-			gtk_list_store_set (liststore, &iter,4,atoll(fields[2]),-1);
+			gtk_list_store_set (liststore, &iter,4,strtoll(fields[2],NULL,0),-1);
 			gtk_list_store_set (liststore, &iter,5,fields[3],-1);
 			gtk_list_store_set (liststore, &iter,6,fields[4],-1);
 
 			while (gtk_events_pending() )
 				gtk_main_iteration();
 
-			archive->dummy_size += atoll(fields[2]);
+			archive->dummy_size += strtoll(fields[2],NULL,0);
 			g_strfreev ( fields );
 			g_free (line);
 		}

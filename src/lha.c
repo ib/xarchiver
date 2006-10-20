@@ -96,8 +96,8 @@ static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				break;
 
 			size = g_strndup(&line[a], n - a);
-			gtk_list_store_set (liststore, &iter,3,atoll(size),-1);
-			archive->dummy_size += atoll(size);
+			gtk_list_store_set (liststore, &iter,3,strtoll(size,NULL,0),-1);
+			archive->dummy_size += strtoll(size,NULL,0);
 			g_free(size);
 
 			ratio = g_strndup(&line[31], 7);

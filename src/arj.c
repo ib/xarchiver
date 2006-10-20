@@ -102,11 +102,11 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				for ( x = 2; x < 10; x++)
 				{
 					if ( x == 2 || x == 3)
-						gtk_list_store_set (liststore, &iter,x-1,atoll(fields[x]),-1);
+						gtk_list_store_set (liststore, &iter,x-1,strtoll(fields[x],NULL,0),-1);
 					else
 						gtk_list_store_set (liststore, &iter,x-1,fields[x],-1);
 				}
-				archive->dummy_size += atoll(fields[2]);
+				archive->dummy_size += strtoll(fields[2],NULL,0);
 				g_free (line);
 				g_strfreev ( fields );
 			}

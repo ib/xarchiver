@@ -119,13 +119,13 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				for (x = 0; x < 9; x++)
 				{
 					if (x == 0 || x == 1)
-						gtk_list_store_set (liststore, &iter,x+1,atoll (fields[x]),-1);
+						gtk_list_store_set (liststore, &iter,x+1,strtoll(fields[x],NULL,0),-1);
 					else
 						gtk_list_store_set (liststore, &iter,x+1,fields[x],-1);
 				}
 				while ( gtk_events_pending() )
 					gtk_main_iteration();
-				archive->dummy_size += atoll (fields[0]);
+				archive->dummy_size += strtoll(fields[0],NULL,0);
 				g_strfreev ( fields );
 				g_free (line);
 				odd_line = ! odd_line;

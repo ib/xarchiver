@@ -85,13 +85,13 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			for ( x = 0; x < 5; x++)
 			{
 				if (x == 3)
-					gtk_list_store_set (liststore, &iter,1,atoll(fields[3]),-1);
+					gtk_list_store_set (liststore, &iter,1,strtoll(fields[3],NULL,0),-1);
 				else if (x == 4)
-					gtk_list_store_set (liststore, &iter,2,atoll(fields[4]),-1);
+					gtk_list_store_set (liststore, &iter,2,strtoll(fields[4],NULL,0),-1);
 				else
 					gtk_list_store_set (liststore, &iter,(5-x),fields[x],-1);
 			}
-			archive->dummy_size += atoll(fields[3]);
+			archive->dummy_size += strtoll(fields[3],NULL,0);
 			if ( filename == NULL )
 				gtk_list_store_set (liststore, &iter,0,fields[4],-1);
 			else

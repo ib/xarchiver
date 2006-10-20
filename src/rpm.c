@@ -273,12 +273,12 @@ gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			gtk_list_store_set (liststore, &iter,3,fields[1],-1);
 			gtk_list_store_set (liststore, &iter,4,fields[2],-1);
 			gtk_list_store_set (liststore, &iter,5,fields[3],-1);
-			gtk_list_store_set (liststore, &iter,6,atoll(fields[4]),-1);
+			gtk_list_store_set (liststore, &iter,6,strtoll(fields[4],NULL,0),-1);
 
             while (gtk_events_pending() )
 				gtk_main_iteration();
 
-            archive->dummy_size += atoll(fields[4]);
+            archive->dummy_size += strtoll(fields[4],NULL,0);
             g_strfreev ( fields );
 			g_free (line);
 		}
