@@ -274,11 +274,11 @@ msgstr " byte"
 
 #: ../src/callbacks.c:1721
 msgid "Yes"
-msgstr ""
+msgstr "Bai"
 
 #: ../src/callbacks.c:1723
 msgid "No"
-msgstr ""
+msgstr "Ez"
 
 #: ../src/callbacks.c:1997
 msgid "Can't perform another extraction:"
@@ -321,9 +321,8 @@ msgid "Please enter the password first!"
 msgstr "Mesedez lehenengo pasahitza idatz ezazu!"
 
 #: ../src/callbacks.c:2270
-#, fuzzy
 msgid "Archive comment window"
-msgstr "Pakete Propietate Leihoa"
+msgstr "Pakete iruzkin leihoa"
 
 #: ../src/add_dialog.c:38
 msgid "Add files to the archive"
@@ -633,7 +632,7 @@ msgstr "_Ikusi"
 
 #: ../src/interface.c:173
 msgid "_Show comment"
-msgstr ""
+msgstr "_Ikusi iruzkina"
 
 #: ../src/interface.c:188
 msgid "Sele_ct All"
@@ -760,7 +759,7 @@ msgstr "Eduki tamaina:"
 
 #: ../src/interface.c:595
 msgid "Has comment:"
-msgstr ""
+msgstr "Has iruzkina:"
 
 #: ../src/interface.c:602
 msgid "Compression ratio:"
