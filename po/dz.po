@@ -1,0 +1,999 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xarchivr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-10-19 14:28+0200\n"
+"PO-Revision-Date: 2006-10-27 14:12+0530\n"
+"Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
+"Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2;plural=(n!=1);\n"
+"X-Poedit-Language: dzongkha\n"
+"X-Poedit-Country: bhutan\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/zip.c:38
+msgid "Filename"
+msgstr "ཡིག་སྣོད་མིང་།"
+
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
+msgid "Original"
+msgstr "ངོ་མ།"
+
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
+msgid "Compressed"
+msgstr "ཨེབ་བཙུགས་འབད་ཡོདཔ།"
+
+#: ../src/7zip.c:37
+msgid "Attr"
+msgstr "ཨེ་ཊི་ཊི་ཨར།"
+
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
+msgid "Time"
+msgstr "དུས་ཚོད།"
+
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
+msgid "Date"
+msgstr "ཚེས།"
+
+#: ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
+msgid "Ratio"
+msgstr "དཔྱ་ཚད།"
+
+#: ../src/arj.c:43
+msgid "Attributes"
+msgstr "ཁྱད་ཆོས་ཚུ།"
+
+#: ../src/arj.c:43
+msgid "GUA"
+msgstr "ཇི་ཡུ་ཨེ།"
+
+#: ../src/arj.c:43
+msgid "BPMGS"
+msgstr "བི་པི་ཨེམ་ཇི་ཨེསི།"
+
+#: ../src/archive.c:67 ../src/callbacks.c:146 ../src/callbacks.c:705
+#: ../src/callbacks.c:718 ../src/callbacks.c:820 ../src/callbacks.c:833
+#: ../src/callbacks.c:1535 ../src/callbacks.c:1886 ../src/extract_dialog.c:930
+#: ../src/rpm.c:120 ../src/rpm.c:148
+msgid "Operation failed."
+msgstr "བཀོལ་སྤྱོད་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
+
+#: ../src/archive.c:68
+msgid "Can't run the archiver executable:"
+msgstr "ཡིག་མཛོད་ལག་ལེན་འཐབ་ནི་འདི་གཡོག་བཀལ་མི་བཏུབ་པས:"
+
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48
+msgid "Permissions"
+msgstr "གནང་བ་ཚུ།"
+
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rpm.c:56 ../src/tar.c:48
+msgid "Symbolic Link"
+msgstr "བརྡ་མཚོན་པའི་འབྲེལ་ལམ།"
+
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/tar.c:48
+msgid "Owner/Group"
+msgstr "བདག་པོ/སྡེ་ཚན།"
+
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:652 ../src/rpm.c:56
+#: ../src/tar.c:48
+msgid "Size"
+msgstr "ཚད།"
+
+#: ../src/bzip2.c:86
+#, c-format
+msgid "Extracting gzip file to %s"
+msgstr "%sལུ་  ཇི་ཛིཔ་ཡིག་སྣོད་འདི་ཕྱིར་འདོན་འབད་དོ།"
+
+#: ../src/bzip2.c:88
+#, c-format
+msgid "Extracting bzip2 file to %s"
+msgstr "%sལུ་  བི་ཛིཔ་༢ ཡིག་སྣོད་འདི་ཕྱིར་འདོན་འབད་དོ།"
+
+#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:809
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:879
+#: ../src/extract_dialog.c:901
+msgid "Operation canceled."
+msgstr "བཀོལ་སྤྱོད་ཆ་མེད་གཏང་ཡོདཔ།"
+
+#: ../src/bzip2.c:159
+#, c-format
+msgid "Decompressing tar file with %s, please wait..."
+msgstr "%sདང་བཅས་  ཊར་ཡིག་སྣོད་གཡེབ་བཙུགས་བཤོལ་འབད་དོ་, བསྒུག་གནང་..."
+
+#: ../src/bzip2.c:234
+#, c-format
+msgid "Recompressing tar file with %s, please wait..."
+msgstr "%sདང་བཅས་  ཊར་ཡིག་སྣོད་འདི་སླར་གཡེབ་བཙུགས་འབད་དོ་,བསྒུག་གནང་..."
+
+#: ../src/callbacks.c:128
+#, c-format
+msgid "Please check \"%s\" since some files could have been already extracted."
+msgstr ""
+"ཡིག་སྣོད་ལ་ལོ་ཅིག་ཧེ་མ་ལས་ཕྱིར་འདོན་སྦེ་འབདཝ་འོང་  དེ་འབདཝ་ལས་  \"%s\" ཞིབ་དཔྱད་འབད་གནང་།"
+
+#: ../src/callbacks.c:147 ../src/callbacks.c:1881
+msgid "An error occurred while accessing the archive."
+msgstr "ཡིག་མཛོད་འཛུལ་སྤྱོད་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག"
+
+#: ../src/callbacks.c:147 ../src/callbacks.c:1881 ../src/rpm.c:151
+msgid "Do you want to view the command line output?"
+msgstr "ཁྱོད་ཀྱིས་ བརྡ་བཀོད་གྲལ་ཐིག་ཨའུཊི་པུཊི་འདི་བལྟ་ནི་ཨིན་ན?"
+
+#: ../src/callbacks.c:165
+msgid "The sfx archive was saved as:"
+msgstr "ཨེསི་ཨེཕ་ཨེགསི་ཡིག་མཛོད་འདི་དེ་སྦེ་སྲུང་བཞག་འབད་ཡོད:"
+
+#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1556
+#: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
+msgid "Operation completed."
+msgstr "བཀོལ་སྤྱོད་མཇུག་བསྡུས་ཡོདཔ།"
+
+#: ../src/callbacks.c:178
+msgid "Please wait while the content of the archive is being updated..."
+msgstr "ཡིག་མཛོད་ཀྱི་ནང་དོན་འདི་དུས་མཐུན་བཟོཝ་ད་ བསྒུག་གནང་..."
+
+#: ../src/callbacks.c:282
+msgid "Choose Add to begin creating the archive."
+msgstr "ཡིག་མཛོད་གསར་བསྐྲུན་འབད་ནི་འགོ་བཙུགས་ནི་ལུ་  ཁ་སྐོང་བརྐྱབ་འདི་གདམ་ཁ་བརྐྱབ་གནང་།"
+
+#: ../src/callbacks.c:335
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མི་བཏུབ \"%s\":"
+
+#: ../src/callbacks.c:338
+msgid "Archive format is not recognized!"
+msgstr "ཡིག་མཛོད་རྩ་སྒྲིག་འདི་ངོས་འཛིན་མ་འབད་བས!"
+
+#: ../src/callbacks.c:361
+msgid "Sorry, this archive format is not supported:"
+msgstr "དགོངསམ་མ་ཁྲེལ་  ཡིག་མཛོད་རྩ་སྒྲིག་འདི་རྒྱབ་སྐྱོར་མ་འབད་བས:"
+
+#: ../src/callbacks.c:361
+msgid "the proper archiver is not installed!"
+msgstr "ཡིག་མཛོད་ཚུལ་ལྡན་འབད་མི་འདི་ གཞི་བཙུགས་མ་འབད་བས!"
+
+#: ../src/callbacks.c:368
+msgid "Please wait while the content of the ISO image is being read..."
+msgstr "ཨའི་ཨེསི་ཨོ་གཟུགས་བརྙན་གྱི་ནང་དོན་འདི་ལྷག་པའི་བསྒང་  བསྒུག་གནང་..."
+
+#: ../src/callbacks.c:370
+msgid "Please wait while the content of the archive is being read..."
+msgstr "ཡིག་མཛོད་ཀྱི་ནང་དོན་ལྷག་པའི་བསྒང་  བསྒུག་གནང་..."
+
+#: ../src/callbacks.c:446
+msgid "Testing archive integrity, please wait..."
+msgstr "ཡིག་མཛོད་ཆིག་སྒྲིལ་བརྟག་ཞིབ་འབད་དོ་  བསྒུག་གནང་..."
+
+#: ../src/callbacks.c:506 ../src/main.c:241
+msgid "Ready."
+msgstr "གྲ་སྒྲིག"
+
+#: ../src/callbacks.c:515
+msgid "Please hit the Stop button first!"
+msgstr "དང་པ་རང་བཀག་པའི་ཨེབ་རྟ་འདི་གུ་ཨེབ་ད!"
+
+#: ../src/callbacks.c:537
+#, c-format
+msgid "You are about to delete %d file(s) from the archive."
+msgstr "%dཡིག་སྣོད་(ཚུ་)ཡིག་མཛོད་ལས་  ཁྱོད་ཀྱིས་  བཏོན་གཏང་ནི་འབད་དོ།"
+
+#: ../src/callbacks.c:538
+msgid "Are you sure you want to do this?"
+msgstr "ཁྱོད་ཀྱིས་འདི་འབད་ནི་ངེས་ཏིག་ཨིན་ན?"
+
+#: ../src/callbacks.c:544
+msgid "Deleting files from the archive, please wait..."
+msgstr "ཡིག་མཛོད་ལས་ཡིག་སྣོད་ཚུ་བཏོན་གཏང་དོ་བསྒུག་གནང་..."
+
+#: ../src/callbacks.c:645
+msgid "Converting archive to self-extracting, please wait..."
+msgstr "ཡིག་མཛོད་འདི་  རང་-ཕྱིར་འདོན་འབད་དོ་ལུ་གཞི་བསྒྱུར་འབད་དོ་  བསྒུག་གནང་..."
+
+#: ../src/callbacks.c:707 ../src/callbacks.c:822
+msgid "Can't convert the archive to self-extracting:"
+msgstr "ཡིག་མཛོད་འདི་  རང་-ཕྱིར་འདོན་འབད་དོ་ལུ་  གཞི་བསྒྱུར་འབད་མི་བཏུབ:"
+
+#: ../src/callbacks.c:720 ../src/callbacks.c:835
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "ཨན་ཛིཔ་ཨེསི་ཨེཕ་ཨེགསི་ ཚད་གཞི་འདི་  ཡིག་མཛོད་ལུ་འབྲི་མི་བཏུབ:"
+
+#: ../src/callbacks.c:789
+msgid "Please select the 7zCon.sfx module"
+msgstr "7zCon.sfx ཚད་གཞི་འདི་སེལ་འཐུ་འབད་གནང་།"
+
+#: ../src/callbacks.c:894
+msgid "translator-credits"
+msgstr "སྐད་བསྒྱུར་པའི་-ངོ་བསྟོད་ཚུ།"
+
+#: ../src/callbacks.c:927 ../src/interface.c:266
+msgid "Open an archive"
+msgstr "ཡིག་མཛོད་ཅིག་ཁ་ཕྱེ།"
+
+#: ../src/callbacks.c:940
+msgid "All files"
+msgstr "ཡིག་སྣོད་ཚུ་ཆ་མཉམ།"
+
+#: ../src/callbacks.c:945
+msgid "Only archives"
+msgstr "ཡིག་མཛོད་ཚུ་རྐྱངམ་ཅིག"
+
+#: ../src/callbacks.c:1064
+#, c-format
+msgid "Can't open archive \"%s\":"
+msgstr "ཡིག་མཛོད་ \"%s\"འདི་ཁ་ཕྱེ་མི་བཏུབ:"
+
+#: ../src/callbacks.c:1338
+msgid "Command line output"
+msgstr "གྲལ་ཐིག་ཨའུཊི་པུཊི་བརྡ་བཀོད་འབད།"
+
+#: ../src/callbacks.c:1370
+msgid "Doing so will probably corrupt your archive!"
+msgstr "ནི་བཟུམ་འབད་མི་འདི་གིས་  ཡང་ན་ཁྱོད་རའི་ཡིག་མཛོད་ལུ་ངན་ཅན་བཟོ་འོང་!"
+
+#: ../src/callbacks.c:1370
+msgid "Do you really want to cancel?"
+msgstr "ཁྱོད་ཀྱིས་ངེས་ཏིག་ཆ་མེད་གཏང་ནི་ཨིན་ན?"
+
+#: ../src/callbacks.c:1375
+msgid "Waiting for the process to abort..."
+msgstr "ལས་སྦྱོར་ལུ་བར་བཤོལ་ནི་དོན་ལུ་བསྒུག་དོ..."
+
+#: ../src/callbacks.c:1381
+msgid "An error occurred while trying to kill the process:"
+msgstr "ལས་སྦྱོར་འདི་གསད་ནི་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག:"
+
+#: ../src/callbacks.c:1466
+msgid "Please select a file, not a directory!"
+msgstr "སྣོད་ཐོ་མེན་པ་ཡིག་སྣོད་ཅིག་སེལ་འཐུ་འབད་གནང་!"
+
+#: ../src/callbacks.c:1536
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr "ཡིག་སྣོད་འདི་མཐོང་ཚུགསཔ་བཟོ་ནི་ལུ་ཕྱིར་འདོན་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག:"
+
+#: ../src/callbacks.c:1545
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
+msgstr "ཡིག་སྣོད་ནང་དོན་འདི་  UTF8 ཨིན་ཀོ་ཌིང་ལུ་གཞི་བསྒྱུར་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག:"
+
+#: ../src/callbacks.c:1598
+msgid " bytes"
+msgstr "བའིཊིསི།"
+
+#: ../src/callbacks.c:1721
+msgid "Yes"
+msgstr ""
+
+#: ../src/callbacks.c:1723
+msgid "No"
+msgstr ""
+
+#: ../src/callbacks.c:1997
+msgid "Can't perform another extraction:"
+msgstr "ཕྱིར་འདོན་གཞན་  ལཱ་འགན་འགྲུབ་མི་བཏུབ:"
+
+#: ../src/callbacks.c:1997
+msgid "Please wait until the completion of the current one!"
+msgstr "ད་ལྟོ་གི་ཡོངས་སྒྲུབ་མ་འབད་ཚུན་ཚོད་བསྒུག་གནང་!"
+
+#: ../src/callbacks.c:2082
+msgid "Sorry, I could not perform the operation!"
+msgstr "དགོངསམ་མ་ཁྲེལ་ ང་གིས་  བཀོལ་སྤྱོད་ལཱ་འགན་འགྲུབ་མ་ཚུགས!"
+
+#: ../src/callbacks.c:2111 ../src/callbacks.c:2122
+msgid "Can't perform this action:"
+msgstr "བྱ་བ་འདི་ལས་འགན་འགྲུབ་མ་ཚུགས:"
+
+#: ../src/callbacks.c:2111
+msgid "unrar doesn't support archive creation!"
+msgstr "ཡུ་ཨེན་ཨར་ཨེ་ཨར་འདི་གིས་  ཡིག་མཛོད་གསར་བསྐྲུན་འབད་ནི་ལུ་རྒྱབ་སྐྱོར་མི་འབད!"
+
+#: ../src/callbacks.c:2119
+msgid "You can't add content to deb packages!"
+msgstr "ཌེབ་ཐུམ་སྒྲིལ་ཚུ་ལུ་  ཁྱོད་ཀྱིས་ནང་དོན་ཁ་སྐོང་བརྐྱབ་མི་བཏུབ!"
+
+#: ../src/callbacks.c:2121
+msgid "You can't add content to rpm packages!"
+msgstr "ཨར་པི་ཨེམ་ཐུམ་སྒྲིལ་ལུ་  ཁྱོད་ཀྱིས་  ནང་དོན་ཁ་སྐོང་བརྐྱབ་མི་བཏུབ!"
+
+#: ../src/callbacks.c:2231
+msgid "Failed to open link."
+msgstr "འབྲེལ་ལམ་ཁ་ཕྱེ་ནི་ལུ་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
+
+#: ../src/callbacks.c:2257
+msgid "The password has been reset."
+msgstr "ཆོག་ཡིག་འདི་སླར་སྒྲིག་འབད་ཡོདཔ།"
+
+#: ../src/callbacks.c:2260
+msgid "Please enter the password first!"
+msgstr "ཧེ་མ་རང་ཆོག་ཡིག་བཙུགས་གནང་!"
+
+#: ../src/callbacks.c:2270
+#, fuzzy
+msgid "Archive comment window"
+msgstr "ཡིག་མཛོད་རྒྱུ་དངོས་སྒོ་སྒྲིག"
+
+#: ../src/add_dialog.c:38
+msgid "Add files to the archive"
+msgstr "ཡིག་མཛོད་ལུ་ ཡིག་སྣོད་ཚུ་ཁ་སྐོང་བརྐྱབ།"
+
+#: ../src/add_dialog.c:99
+msgid "Files"
+msgstr "ཡིག་སྣོད་ཚུ།"
+
+#: ../src/add_dialog.c:106
+msgid "Directories"
+msgstr "སྣོད་ཐོ་ཚུ།"
+
+#: ../src/add_dialog.c:131
+msgid "Choose the files or directories to add to the archive"
+msgstr "ཡིག་མཛོད་ལུ་ཁ་སྐོང་བརྐྱབ་ནི་དོན་ལུ་  ཡིག་སྣོད་ཚུ་  ཡང་ན་ སྣོད་ཐོ་ཚུ་གདམ་ཁ་བརྐྱབ།"
+
+#: ../src/add_dialog.c:136
+msgid "<b>Files and directories to add </b>"
+msgstr "<b>ཁ་སྐོང་བརྐྱབ་ནི་ལུ་  ཡིག་སྣོད་ཚུ་དང་སྣོད་ཐོ་ཚུ།</b>"
+
+#: ../src/add_dialog.c:156
+msgid "Recurse subdirectories"
+msgstr "ཡན་ལག་ཁ་བྱང་ཐོ་དེབ་སླར་ལོག་འབད།"
+
+#: ../src/add_dialog.c:162
+msgid ""
+"Include everything in the directory recursively \tstarting from the current "
+"directory."
+msgstr "ད་ལྟོའི་སྣོད་ཐོ་ལས་འགོ་བཙུགས་ཏེ་\tསྣོད་ཐོ་ནང་ལུ་སླར་འབྱུང་འབད་ཆ་ཚང་བཙུགས།"
+
+#: ../src/add_dialog.c:167
+msgid "Generate a solid archive"
+msgstr "ཡིག་མཛོད་རག་པ་ཅིག་བཟོ་བཏོན་འབད།"
+
+#: ../src/add_dialog.c:171
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio."
+msgstr ""
+"ཡིག་མཛོད་རགས་པའི་ནང་  ཨེབ་བཙུགས་དཔྱ་ཚད་ལེགས་ཤོམ་ཅིག་གི་རྣམ་པའི་ཐོག་ལས་  ཡིག་སྣོད་ཚུ་གཅིག་ཁར་ཡོད།"
+
+#: ../src/add_dialog.c:176
+msgid "Remove files after adding"
+msgstr "ཡིག་སྣོད་ཚུ་ཁ་སྐོང་འབད་ཚར་བའི་ཤེལ་ལུ་རྩ་བསྐྲད་གཏང་།"
+
+#: ../src/add_dialog.c:184
+msgid "Do not add file paths"
+msgstr "ཡིག་སྣོད་འགྲུལ་ལམ་ཚུ་ཁ་སྐོང་མ་འབད།"
+
+#: ../src/add_dialog.c:188
+msgid "Store just the name of a file without its directory names."
+msgstr "སྣོད་ཐོའི་མིང་ཚུ་མེད་པར་  ཡིག་སྣོད་ཅིག་གི་མིང་གསོག་འཇོག་འབད།"
+
+#: ../src/add_dialog.c:190
+msgid "Freshen an existing entry in the archive"
+msgstr "ཡིག་མཛོད་ནང་ལུ་  གནས་ཏེ་ཡོད་པའི་ཐོ་བཀོད་འདི་གསརཔ་བཟོ།"
+
+#: ../src/add_dialog.c:194
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive."
+msgstr ""
+"ཡིག་མཛོད་ནང་ཧེ་མ་ལས་ཡོད་པའི་འཐོན་རིམ་ལས་  འཕྲལ་སྐབས་ཅིག་ལུ་ལེགས་བཅོས་འབད་དེ་ཡོད་པ་ཅིན་རྐྱངམ་"
+"ཅིག་  གདམ་ཁ་འདི་གིས་ཡིག་མཛོད་ལུ་གནོདཔ་ཨིན་; དུས་མཐུན་གདམ་ཁ་མ་ཡིན་པ་གཞན་འབད་བ་ཅིན་  ཡིག་"
+"མཛོད་ནང་ཧེ་མ་ལས་ཡོད་པའི་ཡིག་སྣོད་ཚུ་ཁ་སྐོང་མི་བརྐྱབ།"
+
+#: ../src/add_dialog.c:198
+msgid "Update an existing entry in the archive"
+msgstr "གནས་ཏེ་ཡོད་པའི་ཐོ་བཀོད་ཚུ་  ཡིག་མཛོད་ནང་དུས་མཐུན་བཟོ།"
+
+#: ../src/add_dialog.c:202
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified."
+msgstr ""
+"གདམ་ཁ་འདི་གིས་  ཡིག་མཛོད་འདི་མཇུག་མམ་གསར་བསྐྲུན་འབད་དེ་/ལེགས་བཅོས་འབད་དེ་ཡོདཔ་ལས་  ལེགས་བཅོས་"
+"འབད་ཡོད་པའི་  ཡིག་སྣོད་གསརཔ་ཚུ་དང་དུས་མཐུན་ཡིག་སྣོད་གང་རུང་ཅིག་ཁ་སྐོང་བརྐྱབ་ཨིན།"
+
+#: ../src/add_dialog.c:211
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "༠ = ཨེབ་བཙུགས་མེད་, ༥་ འདི་སྔོན་སྒྲིག་ཨིན་, ༩ = ཨེབ་བཙུགས་ལེགས་ཤོམ་དེ་འབདཝ་ད་ལྷོད་མི་ཨིན།"
+
+#: ../src/add_dialog.c:218
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "༠ = ཨེབ་བཙུགས་མེད་, ༦ འདི་སྔོན་སྒྲིག་ཨིན་, ༩ = ཨེབ་བཙུགས་ལེགས་ཤོམ་དེ་འབདཝ་ད་ལྷོད་མི།"
+
+#: ../src/add_dialog.c:225
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+"༠ =ཨེབ་བཙུགས་མེད་, ༣་  འདི་སྔོན་སྒྲིག་ཨིན་, ༥ = ཨེབ་བཙུགས་ལེགས་ཤོམ་  དེ་འབདཝ་ད་  ལྷོད་མི་ཨིན།"
+
+#: ../src/add_dialog.c:232
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr ""
+"༠= ཨེབ་བཙུགས་མེད་, ༡་ འདི་སྔོན་སྒྲིག་ཨིན་, ༤ = མགྱོགས་དྲགས་  དེ་འབདཝ་ད་ ཨེབ་བཙུགས་ཉུང་ཤོས་ཨིན།"
+
+#: ../src/add_dialog.c:239
+msgid "5 = default compression, 7 = max compression"
+msgstr "༥ = སྔོན་སྒྲིག་ཨེབ་བཙུགས་, ༧ = ཨེབ་བཙུགས་མང་མཐའ།"
+
+#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:449
+msgid "Password:"
+msgstr "ཆོག་ཡིག:"
+
+#: ../src/add_dialog.c:264
+msgid "Compression level:"
+msgstr "ཨེབ་བཙུགས་ཀྱི་གནས་རིམ:"
+
+#: ../src/add_dialog.c:291 ../src/extract_dialog.c:238
+msgid "<b>Options </b>"
+msgstr "<b>གདམ་ཁ་ཚུ </b>"
+
+#: ../src/add_dialog.c:308 ../src/interface.c:126
+msgid "_Add"
+msgstr "ཁ་སྐོང་།(_A)"
+
+#: ../src/add_dialog.c:378
+msgid "Please select the files you want to add"
+msgstr "ཁྱོད་ཀྱིས་ཁ་སྐོང་བརྐྱབ་དགོ་པའི་ཡིག་སྣོད་ཚུ་སེལ་འཐུ་འབད་གནང་།"
+
+#: ../src/add_dialog.c:383
+msgid "Please select the directories you want to add"
+msgstr "ཁྱོད་ཀྱིས་ཁ་སྐོང་བརྐྱབ་དགོ་པའི་སྣོད་ཐོ་ཚུ་སེལ་འཐུ་འབད་གནང་།"
+
+#: ../src/add_dialog.c:494 ../src/main.c:211
+msgid "Can't add files to the archive:"
+msgstr "ཡིག་མཛོད་ལུ་ཡིག་སྣོད་ཚུ་ཁ་སྐོང་བརྐྱབ་མི་བཏུབ:"
+
+#: ../src/add_dialog.c:494
+msgid "You haven't selected any files to add!"
+msgstr "ཁ་སྐོང་བརྐྱབ་ནི་དོན་ལུ་  ཁྱོད་ཀྱིས་ཡིག་སྣོད་ཚུ་ཅི་ཡང་སེལ་འཐུ་མ་འབད་བས!"
+
+#: ../src/add_dialog.c:502 ../src/interface.c:490
+msgid "You missed the password!"
+msgstr "ཁྱོད་ཀྱིས་ཆོག་ཡིག་འདི་བྱིག་སོང་ནུག!"
+
+#: ../src/add_dialog.c:502 ../src/interface.c:490
+msgid "Please enter it!"
+msgstr "བཙུགས་གནང་!"
+
+#: ../src/add_dialog.c:572
+msgid "Adding files to the archive, please wait..."
+msgstr "ཡིག་མཛོད་ལུ་ཡིག་སྣོད་ཚུ་ཁ་སྐོང་བརྐྱབ་དོ་  བསྒུག་གནང་..."
+
+#: ../src/extract_dialog.c:42
+msgid "Decompress file"
+msgstr "ཡིག་སྣོད་འདི་ཨེབ་བཙུགས་བཤོལ།"
+
+#: ../src/extract_dialog.c:44
+msgid "Extract files from archive"
+msgstr "ཡིག་སྣོད་ཚུ་ཡིག་མཛོད་ལས་ཕྱིར་འདོན་འབད།"
+
+#: ../src/extract_dialog.c:60
+msgid "Extract to:"
+msgstr "ཕྱིར་འདོན་འབད:"
+
+#: ../src/extract_dialog.c:101
+msgid "Choose a folder where to extract files"
+msgstr "ཡིག་སྣོད་ཚུ་ག་སྟེ་ལུ་ཕྱིར་འདོན་འབད་ནི་ཨིན་ན་  སྣོད་འཛིན་ཅིག་གདམ་ཁ་བརྐྱབ།"
+
+#: ../src/extract_dialog.c:123
+msgid "All"
+msgstr "ཆ་མཉམ།"
+
+#: ../src/extract_dialog.c:129
+msgid "Only selected"
+msgstr "སེལ་འཐུ་འབད་ཡོད་མི་རྐྱངམ་ཅིག།"
+
+#: ../src/extract_dialog.c:140
+msgid "<b>Files to extract </b>"
+msgstr "<b>ཕྱིར་འདོན་འབད་ནི་ཨིན་པའི་ཡིག་སྣོད། </b>"
+
+#: ../src/extract_dialog.c:159
+msgid "Overwrite existing files"
+msgstr "གནས་ཏེ་ཡོད་པའི་ཡིག་སྣོད་ཚུ་ཚབ་སྲུང་འབད།"
+
+#: ../src/extract_dialog.c:164
+msgid "Extract files with full path"
+msgstr "ཡིག་སྣོད་ཚུ་འགྲུལ་ལམ་ཆ་ཚང་དང་བཅས་ཕྱིར་འདོན་འབད།"
+
+#: ../src/extract_dialog.c:173
+msgid ""
+"The archive's directory structure is recreated in the extraction directory."
+msgstr "ཡིག་མཛོད་ཀྱི་སྣོད་ཐོའི་གཞི་བཀོད་འདི་  ཕྱིར་འདོན་སྣོད་ཐོ་ནང་སླར་གསར་བསྐྲུན་འབད་ནུག"
+
+#: ../src/extract_dialog.c:178
+msgid "Touch files"
+msgstr "ཡིག་སྣོད་ཚུ་འབྲེལ་བ་བཞག"
+
+#: ../src/extract_dialog.c:181
+msgid ""
+"When this option is used, tar leaves the data modification times of the "
+"files it extracts as the times when the files were extracted, instead of "
+"setting it to the times recorded in the archive."
+msgstr ""
+"གདམ་ཁ་འདི་ལག་ལེན་འཐབ་པའིཤུལ་ལས་  ཊར་འདི་གིས་ཡིག་སྣོད་ཀྱི་གནས་སྡུད་ལེགས་བཅོས་སྐབས་འདི་བཀོག་བཞག་"
+"ནི་དང་  ཡིག་མཛོད་ནང་དྲན་ཐོ་འབད་དེ་ཡོད་པའི་ཆུ་ཚོད་ལུ་སྒྲིག་སྟངས་མ་ཡིན་པར་  ཡིག་སྣོད་ཚུ་ཕྱིར་འདོན་"
+"འབདཝ་ད་  ཆུ་ཚོད་འབད་ཕྱིར་འདོན་འབདཝ་ཨིན།"
+
+#: ../src/extract_dialog.c:194
+msgid "Freshen existing files"
+msgstr "གནས་ཏེ་ཡོད་པའི་ཡིག་སྣོད་ཚུ་གསརཔ་བཟོ།"
+
+#: ../src/extract_dialog.c:195
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies."
+msgstr ""
+"ཧེ་མ་ལས་ཌེཀསི་གུ་གནས་ཏེ་ཡོད་པའི་ཡིག་སྣོད་ཚུ་དང་  ཌིཀསི་འདྲ་བཤུས་ལས་གསརཔ་ཨིན་མི་ཚུ་རྐྱངམ་ཅིག་ཕྱིར་"
+"འདོན་འབད།"
+
+#: ../src/extract_dialog.c:201
+msgid "Update existing files"
+msgstr "གནས་ཏེ་ཡོད་པའི་ཡིག་སྣོད་ཚུ་དུས་མཐུན་བཟོ།"
+
+#: ../src/extract_dialog.c:202
+msgid ""
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
+"extracts those files that do not already exist on disk."
+msgstr ""
+"གདམ་ཁ་འདི་གིས་ གསརཔ་ཅིག་བཟུམ་འབད་ལཱ་འགན་གཅིག་པ་ལཱ་འགན་འགྲུབ་ཨིན་  དེ་ཡང་  ཌིཀསི་གུ་ཡོད་པའི་"
+"མིང་གཅིག་པ་དང་བཅས་མི་ལས་གསརཔ་ཨིན་པའི་  ཡིག་སྣོད་ཚུ་ཕྱིར་འདོན་འབད་ནི་དང་  ཁ་སྐོང་འབད་དེ་གིས་  "
+"ཌིཀསི་གུ་ཧེ་མ་ལས་གནས་ཏེ་མེད་པའི་ཡིག་སྣོད་ཚུ་ཕྱིར་འདོན་འབདཝ་ཨིན།"
+
+#: ../src/extract_dialog.c:255 ../src/interface.c:136
+msgid "_Extract"
+msgstr "ཕྱིར་འདོན་འབད།(_E)"
+
+#: ../src/extract_dialog.c:328
+msgid "You missed where to extract the files!"
+msgstr "ཡིག་སྣོད་ཚུ་ག་སྟེ་ལུ་ཕྱིར་འདོན་འབད་ནི་ཨིན་ན་ ཁྱོད་ཀྱིས་བྱིག་སོང་ནུག!"
+
+#: ../src/extract_dialog.c:328
+msgid "Please enter the extraction path."
+msgstr "ཕྱིར་འདོན་འགྲུལ་ལམ་འདི་ཐོ་བཀོད་འབད་གནང་།"
+
+#: ../src/extract_dialog.c:336
+msgid "This archive is encrypted!"
+msgstr "ཡིག་མཛོད་འདི་གསང་བཟོས་འབད་ནུག!"
+
+#: ../src/extract_dialog.c:336
+msgid "Please enter the password."
+msgstr "ཆོག་ཡིག་འདི་བཙུགས་གནང་།"
+
+#: ../src/extract_dialog.c:344
+#, c-format
+msgid "Can't create directory \"%s\""
+msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་མི་ཚུགསཔ \"%s\""
+
+#: ../src/extract_dialog.c:356
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the folder \"%s"
+"\"."
+msgstr "ཡིག་སྣོད་ཚུ་  སྣོད་འཛིན་\"%s\"ལུ་ཕྱིར་འདོན་འབད་ནི་ལུ་  ཁྱོད་ལུ་ཐོབ་དབང་གནང་བ་མེད།"
+
+#: ../src/extract_dialog.c:357
+msgid "Can't perform extraction!"
+msgstr "ཕྱིརའདོན་ལཱ་འགན་འགྲུབ་མ་ཚུགས!"
+
+#: ../src/extract_dialog.c:385
+#, c-format
+msgid "Extracting files to %s"
+msgstr "ཡིག་སྣོད་ཚུ་  %s ལུ་ཕྱིར་འདོན་འབད་དོ།"
+
+#: ../src/extract_dialog.c:601
+#, c-format
+msgid "Extracting archive to %s"
+msgstr "ཡིག་མཛོད་ཚུ་ %s ལུ་ཕྱིར་འདོན་འབད་དོ།"
+
+#: ../src/extract_dialog.c:928
+msgid "Can't create temporary directory in /tmp:"
+msgstr "/tmpནང་གནས་སྐབས་ཀྱི་སྣོད་ཐོ་གསར་བསྐྲུན་འབད་མི་བཏུབ:"
+
+#: ../src/extract_dialog.c:943
+msgid "Choose the destination folder where to extract the current archive"
+msgstr "ད་ལྟོའི་ཡིག་མཛོད་འདི་ག་སྟེ་ལུ་ཕྱིར་འདོན་འབད་ནི་ཨིན་ན་  འགྲོ་ཡུལ་སྣོད་འཛིན་འདི་གདམ་ཁ་བརྐྱབ།"
+
+#: ../src/interface.c:70
+msgid "_File"
+msgstr "ཡིག་སྣོད།(_F)"
+
+#: ../src/interface.c:90
+msgid "_Test"
+msgstr "བརྟག་ཞིབ།(_T)"
+
+#: ../src/interface.c:100
+msgid "_Properties"
+msgstr "རྒྱུ་དངོས་ཚུ།(_P)"
+
+#: ../src/interface.c:119
+msgid "_Action"
+msgstr "བྱ་བ།(_A)"
+
+#: ../src/interface.c:146
+msgid "Make SF_X"
+msgstr "ཨེསི་ཨེཕ་ཨེགསི་བཟོ།(_X)"
+
+#: ../src/interface.c:167
+msgid "_View"
+msgstr "མཐོང་སྣང་།(_V)"
+
+#: ../src/interface.c:173
+msgid "_Show comment"
+msgstr ""
+
+#: ../src/interface.c:188
+msgid "Sele_ct All"
+msgstr "ཆ་མཉམ་སེལ་འཐུ་འབད།(_c)"
+
+#: ../src/interface.c:194
+msgid "Dese_lect All"
+msgstr "ཆ་ཚང་སེལ་འཐུ་འབད་བཤོལ།(_l)"
+
+#: ../src/interface.c:205
+msgid "Co_mmand line output"
+msgstr "གྲལ་ཐིག་ཨའུཊི་པུཊི་བརྡ་བཀོད་འབད།(_m)"
+
+#: ../src/interface.c:214
+msgid "Show I_SO info"
+msgstr "ཨའི་ཨེསི་ཨོ་བརྡ་དོན་སྟོན།(_S)"
+
+#: ../src/interface.c:224
+msgid "Reset passwo_rd"
+msgstr "ཆོག་ཡིག་སླར་སྒྲིག(_r)"
+
+#: ../src/interface.c:230
+msgid "_Help"
+msgstr "གྲོགས་རམ།(_H)"
+
+#: ../src/interface.c:254
+msgid "New"
+msgstr "གསརཔ།"
+
+#: ../src/interface.c:258
+msgid "Create a new archive"
+msgstr "ཡིག་མཛོད་གསརཔ་ཅིག་གསར་བསྐྲུན་འབད།"
+
+#: ../src/interface.c:262
+msgid "Open"
+msgstr "ཁ་ཕྱེ།"
+
+#: ../src/interface.c:274
+msgid "Add"
+msgstr "ཁ་སྐོང་འབད།"
+
+#: ../src/interface.c:279
+msgid "Add files and directories to the current archive"
+msgstr "ད་ལྟོའི་ཡིག་མཛོད་ལུ་  ཡིག་སྣོད་ཚུ་དང་སྣོད་ཐོ་ཚུ་ཁ་སྐོང་བརྐྱབ།"
+
+#: ../src/interface.c:283
+msgid "Extract"
+msgstr "ཕྱིར་འདོན་འབད།"
+
+#: ../src/interface.c:288
+msgid ""
+"Extract files from the current archive; use the mouse to select files "
+"individually"
+msgstr ""
+"ད་ལྟོའི་ཡིག་མཛོད་ལས་  ཡིག་སྣོད་ཚུ་ཕྱིར་འདོན་འབད; ཡིག་སྣོད་ཚུ་ངོ་རྐྱང་འབད་སེལ་འཐུ་འབད་ནི་ལུ་  མཱའུསི་ལག་"
+"ལེན་འཐབ།"
+
+#: ../src/interface.c:292
+msgid "SFX"
+msgstr "ཨེསི་ཨེཕ་ཨེགསི།"
+
+#: ../src/interface.c:297
+msgid "Make the current archive self-extracting"
+msgstr "ད་ལྟོའི་ཡིག་མཛོད་འདི་ རང་ཕྱིར་འདོན་འབད་བཟོ།"
+
+#: ../src/interface.c:304
+msgid "Delete"
+msgstr "བཏོན་གཏང་།"
+
+#: ../src/interface.c:309
+msgid "Delete files from the current archive"
+msgstr "ད་ལྟོའི་ཡིག་མཛོད་ལས་ཡིག་སྣོད་ཚུ་བཏོན་གཏང་།"
+
+#: ../src/interface.c:313
+msgid "View"
+msgstr "མཐོང་སྣང་།"
+
+#: ../src/interface.c:318
+msgid "View file content in the current archive"
+msgstr "ད་ལྟོའི་ཡིག་མཛོད་ནང་  ཡིག་སྣོད་ནང་དོན་སྟོན།"
+
+#: ../src/interface.c:326
+msgid "Stop"
+msgstr "བཀག"
+
+#: ../src/interface.c:331
+msgid "Cancel current operation"
+msgstr "ད་ལྟོའི་བཀོལ་སྤྱོད་ཆ་མེད་གཏང་།"
+
+#: ../src/interface.c:386
+msgid "This archive contains password protected files"
+msgstr "ཡིག་མཛོད་འདི་ལུ་ ཉེན་སྐྱོབས་འབད་ཡོད་པའི་ཆོག་ཡིག་ཡིག་སྣོད་ཚུ་ཡོདཔ་ཨིན།"
+
+#: ../src/interface.c:437
+msgid "Enter Archive Password"
+msgstr "ཡིག་མཛོད་ཆོག་ཡིག་འདི་ཐོ་བཀོད་འབད།"
+
+#: ../src/interface.c:535
+msgid "Archive Properties Window"
+msgstr "ཡིག་མཛོད་རྒྱུ་དངོས་སྒོ་སྒྲིག"
+
+#: ../src/interface.c:553
+msgid "Name:"
+msgstr "མིང་:"
+
+#: ../src/interface.c:560
+msgid "Path:"
+msgstr "འགྲུལ་ལམ:"
+
+#: ../src/interface.c:567
+msgid "Type:"
+msgstr "དབྱེ་བ:"
+
+#: ../src/interface.c:574
+msgid "Modified on:"
+msgstr "ལེགས་བཅོས་འབད་ཡོད་པའི་ཨཱོན:"
+
+#: ../src/interface.c:581
+msgid "Archive size:"
+msgstr "ཡིག་མཛོད་ཀྱི་ཚད:"
+
+#: ../src/interface.c:588
+msgid "Content size:"
+msgstr "ནང་དོན་ཚད:"
+
+#: ../src/interface.c:595
+msgid "Has comment:"
+msgstr ""
+
+#: ../src/interface.c:602
+msgid "Compression ratio:"
+msgstr "ཨེབ་བཙུགས་དཔྱ་ཚད:"
+
+#: ../src/interface.c:609
+msgid "Number of files:"
+msgstr "ཡིག་སྣོད་ཚུ་གི་ཨང་གྲངས:"
+
+#: ../src/interface.c:616
+msgid "Number of dirs:"
+msgstr "ཌི་ཨའི་ཨར་ཨེསི་གི་ཨང་གྲངས:"
+
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
+msgid "Can't create directory:"
+msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་མི་བཏུབ:"
+
+#: ../src/iso.c:553
+#, c-format
+msgid "Can't write file \"%s\":"
+msgstr "\"%s\"ཡིག་སྣོད་འབྲི་མི་བཏུབ:"
+
+#: ../src/iso.c:652 ../src/rpm.c:56
+msgid "Permission"
+msgstr "གནང་བ།"
+
+#: ../src/iso.c:652
+msgid "Offset"
+msgstr "པར་ལེན།"
+
+#: ../src/iso.c:672
+#, c-format
+msgid "Rock Ridge version %d"
+msgstr "%dའཐོན་རིམ་རྩེ་ཐང་རོཀ།"
+
+#: ../src/iso.c:675
+msgid "Rock Ridge - unknown version"
+msgstr "རོཀ་རྩེ་ཐང་-མ་ཤེས་པའི་འཐོན་རིམ།"
+
+#: ../src/iso.c:679
+#, c-format
+msgid "Apple version %d"
+msgstr "%dཨེ་པཱལ་འཐོན་རིམ།"
+
+#: ../src/iso.c:707
+msgid "Standard ISO without extension"
+msgstr "རྒྱ་བསྐྱེད་མེད་པའི་ཨའི་ཨེསི་ཨོ་ཚད་ལྡན།"
+
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
+#, c-format
+msgid "Joliet Level %d"
+msgstr "%dགནས་རིམ་ཇོ་ལིཡཊི།"
+
+#: ../src/iso.c:819
+msgid "ISO Information Window"
+msgstr "ཨའི་ཨེསི་ཨོ་བརྡ་དོན་སྒོ་སྒྲིག"
+
+#: ../src/iso.c:838
+msgid "Filename:"
+msgstr "ཡིག་སྣོད་མིང་:"
+
+#: ../src/iso.c:846
+msgid "Size:"
+msgstr "ཚད:"
+
+#: ../src/iso.c:854
+msgid "Extension:"
+msgstr "རྒྱ་བསྐྱེད:"
+
+#: ../src/iso.c:862
+msgid "System ID:"
+msgstr "ཨའི་ཌི་རིམ་ལུགས:"
+
+#: ../src/iso.c:870
+msgid "Volume ID:"
+msgstr "ཨའི་ཌི་སྐད་ཤུགས:"
+
+#: ../src/iso.c:878
+msgid "Application:"
+msgstr "གློག་རིམ:"
+
+#: ../src/iso.c:886
+msgid "Publisher:"
+msgstr "དཔེ་བསྐྲུན་པ:"
+
+#: ../src/iso.c:894
+msgid "Preparer:"
+msgstr "གྲ་སྒྲིག་པ:"
+
+#: ../src/iso.c:902
+msgid "Creation date:"
+msgstr "གསར་བསྐྲུན་འབད་བའི་ཚེས་གྲངས:"
+
+#: ../src/iso.c:910
+msgid "Modified date:"
+msgstr "ལེགས་བཅོས་འབད་བའི་ཚེས་གྲངས:"
+
+#: ../src/iso.c:918
+msgid "Expiration date:"
+msgstr "དུས་ཡོལ་ཚེས་གྲངས:"
+
+#: ../src/iso.c:926
+msgid "Effective date:"
+msgstr "ནུས་པའི་ཚེས་གྲངས:"
+
+#: ../src/main.c:37
+msgid ""
+"Extract archive to the directory specified by destination_path and quits."
+msgstr ""
+"འགྲོ་ཡུལ་འགྲུལ་ལམ་དང་སྤང་ཚུ་གི་གསལ་བཀོད་འབད་ཡོད་པའི་  སྣོད་ཐོ་ལུ་ཡིག་མཛོད་ཕྱིར་འདོན་འབད།(_p)"
+
+#: ../src/main.c:38
+msgid "destination_path archive"
+msgstr "འགྲོ་ཡུལ་འགྲུལ་ལམ་ཡིག་མཛོད།(_p)"
+
+#: ../src/main.c:41
+msgid "Extract archive by asking the destination directory and quits."
+msgstr "འགྲོ་ཡུལ་སྣོད་ཐོ་དང་སྤང་ཚུ་ལུ་འདྲི་ཐོག་ལས་  ཡིག་མཛོད་ཕྱིར་འདོན་འབད།"
+
+#: ../src/main.c:42 ../src/main.c:50
+msgid "archive"
+msgstr "ཡིག་མཛོད།"
+
+#: ../src/main.c:45
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "ཡིག་མཛོད་དང་སྤང་ཚུ་གི་མིང་འདྲི་འདི་གིས་  བྱིན་ཡོད་པའི་ཡིག་སྣོད་ཚུ་ཁ་སྐོང་བརྐྱབ།"
+
+#: ../src/main.c:46
+msgid "file1 file2 file3 ... fileN"
+msgstr "ཡིག་སྣོད་༡ ཡིག་སྣོད་༢ ཡིག་སྣོད་༣ ... ཡིག་སྣོད་ཨེན།"
+
+#: ../src/main.c:49
+msgid "Add files to archive by asking their filenames and quits."
+msgstr "ཡིག་སྣོད་མིང་ཚུ་དང་སྤང་ཚུ་འདྲི་འདི་  ཡིག་མཛོད་ལུ་ཡིག་སྣོད་ཚུ་ཁ་སྐོང་བརྐྱབ།"
+
+#: ../src/main.c:62
+msgid "[archive name]"
+msgstr "[ཡིག་མཛོད་མིང་།]"
+
+#: ../src/main.c:66
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"ཨེགསི་ཡིག་མཛོད་: %s\n"
+"ཡིག་མཛོད་ འབད་རྩོལ་བསྐྱེད་--བརྡ་བཀོད་གྲལ་ཐིག་གདམ་ཁ་ཚུ་གི་  ཐོ་ཡིག་ཆ་ཚང་ཅིག་བལྟ་ནི་ལུ་  གྲོགས་རམ་"
+"འབད།\n"
+
+#: ../src/main.c:87 ../src/main.c:120
+msgid "Can't extract files from the archive:"
+msgstr "ཡིག་མཛོད་ལས་ཡིག་སྣོད་ཚུ་ཕྱིར་འདོན་འབད་མི་བཏུབ:"
+
+#: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
+msgid "You missed the archive name!\n"
+msgstr "ཁྱོད་ཀྱིས་ཡིག་མཛོད་མིང་འདི་བྱིག་སོང་ནུག!\n"
+
+#: ../src/main.c:410
+msgid "Can't spawn the command:"
+msgstr "བརྡ་བཀོད་འདི་དར་ཁྱབ་འབྱུང་མི་བཏུབ:"
+
+#: ../src/main.c:419
+msgid "An error occurred!"
+msgstr "འཛོལ་བ་འབྱུང་ནུག!"
+
+#: ../src/main.c:433
+msgid "Can't allocate memory for the archive structure!"
+msgstr "ཡིག་མཛོད་གཞི་བཀོད་དོན་ལུ་  དྲན་ཚད་སྤྲོད་མི་བཏུབ!"
+
+#: ../src/rar.c:48 ../src/zip.c:38
+msgid "Checksum"
+msgstr "ཅེག་སམ།"
+
+#: ../src/rar.c:48 ../src/zip.c:38
+msgid "Method"
+msgstr "ཐབས་ལམ།"
+
+#: ../src/rar.c:48
+msgid "Version"
+msgstr "འཐོན་རིམ།"
+
+#: ../src/rpm.c:46
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "ཨར་པི་ཨེམ་ཡིག་སྣོད་%sཁ་ཕྱེ་མི་བཏུབ:"
+
+#: ../src/rpm.c:56
+msgid "Hard Link"
+msgstr "འབྲེལ་མཐུད་རག་པ།"
+
+#: ../src/rpm.c:56
+msgid "Owner"
+msgstr "བདག་པོ།"
+
+#: ../src/rpm.c:56
+msgid "Group"
+msgstr "སྡེ་ཚན།"
+
+#: ../src/rpm.c:62
+msgid "Can't fseek to position 104:"
+msgstr "གནས་ས་ ༡༠༤ ལུ་ཨེཕ་འཚོལ་མི་བཏུབ:"
+
+#: ../src/rpm.c:68 ../src/rpm.c:84
+msgid "Can't read data from file:"
+msgstr "ཡིག་སྣོད་ལས་གནས་སྡུད་ལྷག་མི་བཏུབ:"
+
+#: ../src/rpm.c:78
+msgid "Can't fseek in file:"
+msgstr "ཡིག་སྣོད་ནང་ཨེཕ་འཚོལ་མི་བཏུབ:"
+
+#: ../src/rpm.c:123
+msgid "Error while extracting the cpio archive from the rpm one."
+msgstr "ཨར་པི་ཨེམ་གཅིག་ལས་ སི་པི་ཨའི་ཨོ་ཡིག་མཛོད་ཕྱིར་འདོན་འབདཝ་ད་  འཛོལ་བ།"
+
+#: ../src/rpm.c:151
+msgid "An error occurred while decompressing the cpio archive."
+msgstr "སི་པི་ཨའི་ཨོ་ཡིག་མཛོད་ཨེབ་བཙུགས་བཤོལ་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག།"
+
+#: ../src/rpm.c:206 ../src/rpm.c:360
+msgid "An error occurred:"
+msgstr "འཛོལ་བ་ཅིག་འབྱུང་ནུག:"
+
+#: ../src/rpm.c:315
+msgid "Can't write to /tmp:"
+msgstr "/tmpལུ་འབྲི་མི་བཏུབ:"
+
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr "ཇི་ཊི་ཀེ་+༢་ ཀྱིས་རྐྱངམ་ཅིག་ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
+
+#: ../xarchiver.desktop.in.h:2
+msgid "Archive manager"
+msgstr "ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
+
+#: ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr "ཨེགསི་ཡིག་མཛོད།"
