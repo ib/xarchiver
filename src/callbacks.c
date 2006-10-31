@@ -358,6 +358,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		gtk_widget_set_sensitive ( properties , FALSE );
 		g_free (utf8_path);
 		g_free (msg);
+		xa_close_archive ( NULL, NULL);
         return;
 	}
     EmptyTextBuffer();
@@ -511,6 +512,10 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gint current_page;
 
 	current_page = gtk_notebook_get_current_page (notebook);
+	if (current_page == 1)
+		gtk_notebook_set_show_tabs (notebook,FALSE);
+	else
+		gtk_notebook_set_show_tabs (notebook,TRUE);
 	if (archive[current_page] == NULL)
 		return;
 
