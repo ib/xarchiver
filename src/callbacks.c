@@ -269,7 +269,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	if (path != NULL)
 		g_free (path);
 
-	//TODO: see if errors with the gtk_dialog are shown in the other routines
 	if (archive[current_page]  == NULL)
 		return;
 

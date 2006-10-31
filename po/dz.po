@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-31 13:32+0100\n"
+"POT-Creation-Date: 2006-10-31 13:58+0100\n"
 "PO-Revision-Date: 2006-10-27 14:12+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -63,9 +63,9 @@ msgstr "ཇི་ཡུ་ཨེ།"
 msgid "BPMGS"
 msgstr "བི་པི་ཨེམ་ཇི་ཨེསི།"
 
-#: ../src/archive.c:66 ../src/callbacks.c:146 ../src/callbacks.c:742
-#: ../src/callbacks.c:755 ../src/callbacks.c:857 ../src/callbacks.c:870
-#: ../src/callbacks.c:1580 ../src/callbacks.c:1945 ../src/extract_dialog.c:933
+#: ../src/archive.c:66 ../src/callbacks.c:146 ../src/callbacks.c:741
+#: ../src/callbacks.c:754 ../src/callbacks.c:856 ../src/callbacks.c:869
+#: ../src/callbacks.c:1579 ../src/callbacks.c:1944 ../src/extract_dialog.c:933
 #: ../src/rpm.c:123 ../src/rpm.c:154
 msgid "Operation failed."
 msgstr "བཀོལ་སྤྱོད་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
@@ -101,7 +101,7 @@ msgstr "%sལུ་  ཇི་ཛིཔ་ཡིག་སྣོད་འདི�
 msgid "Extracting bzip2 file to %s"
 msgstr "%sལུ་  བི་ཛིཔ་༢ ཡིག་སྣོད་འདི་ཕྱིར་འདོན་འབད་དོ།"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:846
+#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:845
 #: ../src/extract_dialog.c:313 ../src/extract_dialog.c:882
 #: ../src/extract_dialog.c:904
 msgid "Operation canceled."
@@ -123,11 +123,11 @@ msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "ཡིག་སྣོད་ལ་ལོ་ཅིག་ཧེ་མ་ལས་ཕྱིར་འདོན་སྦེ་འབདཝ་འོང་  དེ་འབདཝ་ལས་  \"%s\" ཞིབ་དཔྱད་འབད་གནང་།"
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1940
+#: ../src/callbacks.c:147 ../src/callbacks.c:1939
 msgid "An error occurred while accessing the archive."
 msgstr "ཡིག་མཛོད་འཛུལ་སྤྱོད་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག"
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1940 ../src/rpm.c:157
+#: ../src/callbacks.c:147 ../src/callbacks.c:1939 ../src/rpm.c:157
 msgid "Do you want to view the command line output?"
 msgstr "ཁྱོད་ཀྱིས་ བརྡ་བཀོད་གྲལ་ཐིག་ཨའུཊི་པུཊི་འདི་བལྟ་ནི་ཨིན་ན?"
 
@@ -135,7 +135,7 @@ msgstr "ཁྱོད་ཀྱིས་ བརྡ་བཀོད་གྲལ་�
 msgid "The sfx archive was saved as:"
 msgstr "ཨེསི་ཨེཕ་ཨེགསི་ཡིག་མཛོད་འདི་དེ་སྦེ་སྲུང་བཞག་འབད་ཡོད:"
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1601
+#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1600
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "བཀོལ་སྤྱོད་མཇུག་བསྡུས་ཡོདཔ།"
@@ -144,184 +144,184 @@ msgstr "བཀོལ་སྤྱོད་མཇུག་བསྡུས་ཡོ
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "ཡིག་མཛོད་ཀྱི་ནང་དོན་འདི་དུས་མཐུན་བཟོཝ་ད་ བསྒུག་གནང་..."
 
-#: ../src/callbacks.c:288
+#: ../src/callbacks.c:287
 msgid "Choose Add to begin creating the archive."
 msgstr "ཡིག་མཛོད་གསར་བསྐྲུན་འབད་ནི་འགོ་བཙུགས་ནི་ལུ་  ཁ་སྐོང་བརྐྱབ་འདི་གདམ་ཁ་བརྐྱབ་གནང་།"
 
-#: ../src/callbacks.c:331
+#: ../src/callbacks.c:330
 #, fuzzy
 msgid "Can't allocate memory for the archive structure:"
 msgstr "ཡིག་མཛོད་གཞི་བཀོད་དོན་ལུ་  དྲན་ཚད་སྤྲོད་མི་བཏུབ!"
 
-#: ../src/callbacks.c:353
+#: ../src/callbacks.c:352
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མི་བཏུབ \"%s\":"
 
-#: ../src/callbacks.c:356
+#: ../src/callbacks.c:355
 msgid "Archive format is not recognized!"
 msgstr "ཡིག་མཛོད་རྩ་སྒྲིག་འདི་ངོས་འཛིན་མ་འབད་བས!"
 
-#: ../src/callbacks.c:379
+#: ../src/callbacks.c:378
 msgid "Sorry, this archive format is not supported:"
 msgstr "དགོངསམ་མ་ཁྲེལ་  ཡིག་མཛོད་རྩ་སྒྲིག་འདི་རྒྱབ་སྐྱོར་མ་འབད་བས:"
 
-#: ../src/callbacks.c:379
+#: ../src/callbacks.c:378
 msgid "the proper archiver is not installed!"
 msgstr "ཡིག་མཛོད་ཚུལ་ལྡན་འབད་མི་འདི་ གཞི་བཙུགས་མ་འབད་བས!"
 
-#: ../src/callbacks.c:386
+#: ../src/callbacks.c:385
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "ཨའི་ཨེསི་ཨོ་གཟུགས་བརྙན་གྱི་ནང་དོན་འདི་ལྷག་པའི་བསྒང་  བསྒུག་གནང་..."
 
-#: ../src/callbacks.c:388
+#: ../src/callbacks.c:387
 msgid "Please wait while the content of the archive is being read..."
 msgstr "ཡིག་མཛོད་ཀྱི་ནང་དོན་ལྷག་པའི་བསྒང་  བསྒུག་གནང་..."
 
-#: ../src/callbacks.c:464
+#: ../src/callbacks.c:463
 msgid "Testing archive integrity, please wait..."
 msgstr "ཡིག་མཛོད་ཆིག་སྒྲིལ་བརྟག་ཞིབ་འབད་དོ་  བསྒུག་གནང་..."
 
-#: ../src/callbacks.c:528 ../src/main.c:241
+#: ../src/callbacks.c:527 ../src/main.c:241
 msgid "Ready."
 msgstr "གྲ་སྒྲིག"
 
-#: ../src/callbacks.c:567
+#: ../src/callbacks.c:566
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "%dཡིག་སྣོད་(ཚུ་)ཡིག་མཛོད་ལས་  ཁྱོད་ཀྱིས་  བཏོན་གཏང་ནི་འབད་དོ།"
 
-#: ../src/callbacks.c:568
+#: ../src/callbacks.c:567
 msgid "Are you sure you want to do this?"
 msgstr "ཁྱོད་ཀྱིས་འདི་འབད་ནི་ངེས་ཏིག་ཨིན་ན?"
 
-#: ../src/callbacks.c:574
+#: ../src/callbacks.c:573
 msgid "Deleting files from the archive, please wait..."
 msgstr "ཡིག་མཛོད་ལས་ཡིག་སྣོད་ཚུ་བཏོན་གཏང་དོ་བསྒུག་གནང་..."
 
-#: ../src/callbacks.c:682
+#: ../src/callbacks.c:681
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "ཡིག་མཛོད་འདི་  རང་-ཕྱིར་འདོན་འབད་དོ་ལུ་གཞི་བསྒྱུར་འབད་དོ་  བསྒུག་གནང་..."
 
-#: ../src/callbacks.c:744 ../src/callbacks.c:859
+#: ../src/callbacks.c:743 ../src/callbacks.c:858
 msgid "Can't convert the archive to self-extracting:"
 msgstr "ཡིག་མཛོད་འདི་  རང་-ཕྱིར་འདོན་འབད་དོ་ལུ་  གཞི་བསྒྱུར་འབད་མི་བཏུབ:"
 
-#: ../src/callbacks.c:757 ../src/callbacks.c:872
+#: ../src/callbacks.c:756 ../src/callbacks.c:871
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "ཨན་ཛིཔ་ཨེསི་ཨེཕ་ཨེགསི་ ཚད་གཞི་འདི་  ཡིག་མཛོད་ལུ་འབྲི་མི་བཏུབ:"
 
-#: ../src/callbacks.c:826
+#: ../src/callbacks.c:825
 msgid "Please select the 7zCon.sfx module"
 msgstr "7zCon.sfx ཚད་གཞི་འདི་སེལ་འཐུ་འབད་གནང་།"
 
-#: ../src/callbacks.c:931
+#: ../src/callbacks.c:930
 msgid "translator-credits"
 msgstr "སྐད་བསྒྱུར་པའི་-ངོ་བསྟོད་ཚུ།"
 
-#: ../src/callbacks.c:964 ../src/interface.c:268
+#: ../src/callbacks.c:963 ../src/interface.c:268
 msgid "Open an archive"
 msgstr "ཡིག་མཛོད་ཅིག་ཁ་ཕྱེ།"
 
-#: ../src/callbacks.c:977
+#: ../src/callbacks.c:976
 msgid "All files"
 msgstr "ཡིག་སྣོད་ཚུ་ཆ་མཉམ།"
 
-#: ../src/callbacks.c:982
+#: ../src/callbacks.c:981
 msgid "Only archives"
 msgstr "ཡིག་མཛོད་ཚུ་རྐྱངམ་ཅིག"
 
-#: ../src/callbacks.c:1101
+#: ../src/callbacks.c:1100
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "ཡིག་མཛོད་ \"%s\"འདི་ཁ་ཕྱེ་མི་བཏུབ:"
 
-#: ../src/callbacks.c:1376
+#: ../src/callbacks.c:1375
 msgid "Command line output"
 msgstr "གྲལ་ཐིག་ཨའུཊི་པུཊི་བརྡ་བཀོད་འབད།"
 
-#: ../src/callbacks.c:1412
+#: ../src/callbacks.c:1411
 msgid "Doing so will probably corrupt your archive!"
 msgstr "ནི་བཟུམ་འབད་མི་འདི་གིས་  ཡང་ན་ཁྱོད་རའི་ཡིག་མཛོད་ལུ་ངན་ཅན་བཟོ་འོང་!"
 
-#: ../src/callbacks.c:1412
+#: ../src/callbacks.c:1411
 msgid "Do you really want to cancel?"
 msgstr "ཁྱོད་ཀྱིས་ངེས་ཏིག་ཆ་མེད་གཏང་ནི་ཨིན་ན?"
 
-#: ../src/callbacks.c:1417
+#: ../src/callbacks.c:1416
 msgid "Waiting for the process to abort..."
 msgstr "ལས་སྦྱོར་ལུ་བར་བཤོལ་ནི་དོན་ལུ་བསྒུག་དོ..."
 
-#: ../src/callbacks.c:1423
+#: ../src/callbacks.c:1422
 msgid "An error occurred while trying to kill the process:"
 msgstr "ལས་སྦྱོར་འདི་གསད་ནི་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག:"
 
-#: ../src/callbacks.c:1511
+#: ../src/callbacks.c:1510
 msgid "Please select a file, not a directory!"
 msgstr "སྣོད་ཐོ་མེན་པ་ཡིག་སྣོད་ཅིག་སེལ་འཐུ་འབད་གནང་!"
 
-#: ../src/callbacks.c:1581
+#: ../src/callbacks.c:1580
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "ཡིག་སྣོད་འདི་མཐོང་ཚུགསཔ་བཟོ་ནི་ལུ་ཕྱིར་འདོན་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག:"
 
-#: ../src/callbacks.c:1590
+#: ../src/callbacks.c:1589
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "ཡིག་སྣོད་ནང་དོན་འདི་  UTF8 ཨིན་ཀོ་ཌིང་ལུ་གཞི་བསྒྱུར་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག:"
 
-#: ../src/callbacks.c:1646
+#: ../src/callbacks.c:1645
 msgid " bytes"
 msgstr "བའིཊིསི།"
 
-#: ../src/callbacks.c:1772
+#: ../src/callbacks.c:1771
 msgid "Yes"
 msgstr ""
 
-#: ../src/callbacks.c:1774
+#: ../src/callbacks.c:1773
 msgid "No"
 msgstr ""
 
-#: ../src/callbacks.c:2064
+#: ../src/callbacks.c:2063
 msgid "Can't perform another extraction:"
 msgstr "ཕྱིར་འདོན་གཞན་  ལཱ་འགན་འགྲུབ་མི་བཏུབ:"
 
-#: ../src/callbacks.c:2064
+#: ../src/callbacks.c:2063
 msgid "Please wait until the completion of the current one!"
 msgstr "ད་ལྟོ་གི་ཡོངས་སྒྲུབ་མ་འབད་ཚུན་ཚོད་བསྒུག་གནང་!"
 
-#: ../src/callbacks.c:2152
+#: ../src/callbacks.c:2151
 msgid "Sorry, I could not perform the operation!"
 msgstr "དགོངསམ་མ་ཁྲེལ་ ང་གིས་  བཀོལ་སྤྱོད་ལཱ་འགན་འགྲུབ་མ་ཚུགས!"
 
-#: ../src/callbacks.c:2182 ../src/callbacks.c:2193
+#: ../src/callbacks.c:2181 ../src/callbacks.c:2192
 msgid "Can't perform this action:"
 msgstr "བྱ་བ་འདི་ལས་འགན་འགྲུབ་མ་ཚུགས:"
 
-#: ../src/callbacks.c:2182
+#: ../src/callbacks.c:2181
 msgid "unrar doesn't support archive creation!"
 msgstr "ཡུ་ཨེན་ཨར་ཨེ་ཨར་འདི་གིས་  ཡིག་མཛོད་གསར་བསྐྲུན་འབད་ནི་ལུ་རྒྱབ་སྐྱོར་མི་འབད!"
 
-#: ../src/callbacks.c:2190
+#: ../src/callbacks.c:2189
 msgid "You can't add content to deb packages!"
 msgstr "ཌེབ་ཐུམ་སྒྲིལ་ཚུ་ལུ་  ཁྱོད་ཀྱིས་ནང་དོན་ཁ་སྐོང་བརྐྱབ་མི་བཏུབ!"
 
-#: ../src/callbacks.c:2192
+#: ../src/callbacks.c:2191
 msgid "You can't add content to rpm packages!"
 msgstr "ཨར་པི་ཨེམ་ཐུམ་སྒྲིལ་ལུ་  ཁྱོད་ཀྱིས་  ནང་དོན་ཁ་སྐོང་བརྐྱབ་མི་བཏུབ!"
 
-#: ../src/callbacks.c:2307
+#: ../src/callbacks.c:2306
 msgid "Failed to open link."
 msgstr "འབྲེལ་ལམ་ཁ་ཕྱེ་ནི་ལུ་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
 
-#: ../src/callbacks.c:2336
+#: ../src/callbacks.c:2335
 msgid "The password has been reset."
 msgstr "ཆོག་ཡིག་འདི་སླར་སྒྲིག་འབད་ཡོདཔ།"
 
-#: ../src/callbacks.c:2339
+#: ../src/callbacks.c:2338
 msgid "Please enter the password first!"
 msgstr "ཧེ་མ་རང་ཆོག་ཡིག་བཙུགས་གནང་!"
 
-#: ../src/callbacks.c:2348
+#: ../src/callbacks.c:2347
 #, fuzzy
 msgid "Archive comment window"
 msgstr "ཡིག་མཛོད་རྒྱུ་དངོས་སྒོ་སྒྲིག"

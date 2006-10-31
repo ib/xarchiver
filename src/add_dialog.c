@@ -717,7 +717,8 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		break;
 
 		case XARCHIVETYPE_LHA:
-
+		if (compression_string == NULL)
+			compression_string = "5";
 		command = g_strconcat( "lha ",
 								archive->remove_files ? "m" : "a",
 								archive->update ? "u" : "",
@@ -731,6 +732,7 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		command = NULL;
 	}
 	g_free (tar);
+	g_message (command);
 	return command;
 }
 

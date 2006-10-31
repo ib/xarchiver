@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-31 13:32+0100\n"
+"POT-Creation-Date: 2006-10-31 13:58+0100\n"
 "PO-Revision-Date: 2006-06-10 23:53+0900\n"
 "Last-Translator: Daichi Kawahata <daichi@xfce.org>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -62,9 +62,9 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:66 ../src/callbacks.c:146 ../src/callbacks.c:742
-#: ../src/callbacks.c:755 ../src/callbacks.c:857 ../src/callbacks.c:870
-#: ../src/callbacks.c:1580 ../src/callbacks.c:1945 ../src/extract_dialog.c:933
+#: ../src/archive.c:66 ../src/callbacks.c:146 ../src/callbacks.c:741
+#: ../src/callbacks.c:754 ../src/callbacks.c:856 ../src/callbacks.c:869
+#: ../src/callbacks.c:1579 ../src/callbacks.c:1944 ../src/extract_dialog.c:933
 #: ../src/rpm.c:123 ../src/rpm.c:154
 msgid "Operation failed."
 msgstr "操作が失敗しました。"
@@ -107,7 +107,7 @@ msgstr "ファイルを展開します "
 msgid "Extracting bzip2 file to %s"
 msgstr "ファイルを展開します "
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:846
+#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:845
 #: ../src/extract_dialog.c:313 ../src/extract_dialog.c:882
 #: ../src/extract_dialog.c:904
 msgid "Operation canceled."
@@ -132,14 +132,14 @@ msgstr ""
 "」を確認してください、いくつかのファイルは既に取り出されているかもしれませ"
 "ん。"
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1940
+#: ../src/callbacks.c:147 ../src/callbacks.c:1939
 #, fuzzy
 msgid "An error occurred while accessing the archive."
 msgstr ""
 "アーカイブへアクセス中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1940 ../src/rpm.c:157
+#: ../src/callbacks.c:147 ../src/callbacks.c:1939 ../src/rpm.c:157
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "アーカイブ「%s」は既に存在します。上書きしてもよろしいですか？"
@@ -151,7 +151,7 @@ msgstr "アーカイブ「%s」は既に存在します。上書きしてもよ�
 msgid "The sfx archive was saved as:"
 msgstr "ファイルを展開します "
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1601
+#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1600
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "操作が完了しました。"
@@ -160,156 +160,156 @@ msgstr "操作が完了しました。"
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "アーカイブの内容が更新されるまでの間お待ちください..."
 
-#: ../src/callbacks.c:288
+#: ../src/callbacks.c:287
 #, fuzzy
 msgid "Choose Add to begin creating the archive."
 msgstr ""
 "アーカイブの作成を開始するには「ファイルを追加」か「フォルダを追加」を選んで"
 "ください。"
 
-#: ../src/callbacks.c:331
+#: ../src/callbacks.c:330
 #, fuzzy
 msgid "Can't allocate memory for the archive structure:"
 msgstr "ファイルを現在のアーカイブに追加します"
 
-#: ../src/callbacks.c:353
+#: ../src/callbacks.c:352
 #, fuzzy, c-format
 msgid "Can't open file \"%s\":"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/callbacks.c:356
+#: ../src/callbacks.c:355
 #, fuzzy
 msgid "Archive format is not recognized!"
 msgstr "このアーカイブの形式は認識できません！"
 
-#: ../src/callbacks.c:379
+#: ../src/callbacks.c:378
 #, fuzzy
 msgid "Sorry, this archive format is not supported:"
 msgstr ""
 "適切なアーカイバーがインストールされていないため、このアーカイブ形式はサポー"
 "トされません！"
 
-#: ../src/callbacks.c:379
+#: ../src/callbacks.c:378
 #, fuzzy
 msgid "the proper archiver is not installed!"
 msgstr "このアーカイブの形式は認識できません！"
 
-#: ../src/callbacks.c:386
+#: ../src/callbacks.c:385
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "このISOイメージの内容を読み込むまでお待ちください..."
 
-#: ../src/callbacks.c:388
+#: ../src/callbacks.c:387
 msgid "Please wait while the content of the archive is being read..."
 msgstr "このアーカイブの内容を読み込むまでお待ちください..."
 
-#: ../src/callbacks.c:464
+#: ../src/callbacks.c:463
 msgid "Testing archive integrity, please wait..."
 msgstr "アーカイブの整合性を確認しています、お待ちください..."
 
-#: ../src/callbacks.c:528 ../src/main.c:241
+#: ../src/callbacks.c:527 ../src/main.c:241
 msgid "Ready."
 msgstr "準備完了。"
 
 # FIXME: C format steing
 # You are about to delete 5 files from the archive.
 # Are you really sure to do this?
-#: ../src/callbacks.c:567
+#: ../src/callbacks.c:566
 #, fuzzy, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr ""
 "を削除しようとしています。\n"
 "よろしいですか？"
 
-#: ../src/callbacks.c:568
+#: ../src/callbacks.c:567
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: ../src/callbacks.c:574
+#: ../src/callbacks.c:573
 msgid "Deleting files from the archive, please wait..."
 msgstr "ファイルをアーカイブから削除しています、お待ちください..."
 
-#: ../src/callbacks.c:682
+#: ../src/callbacks.c:681
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "アーカイブの整合性を確認しています、お待ちください..."
 
-#: ../src/callbacks.c:744 ../src/callbacks.c:859
+#: ../src/callbacks.c:743 ../src/callbacks.c:858
 #, fuzzy
 msgid "Can't convert the archive to self-extracting:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/callbacks.c:757 ../src/callbacks.c:872
+#: ../src/callbacks.c:756 ../src/callbacks.c:871
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "ファイルを現在のアーカイブに追加します"
 
-#: ../src/callbacks.c:826
+#: ../src/callbacks.c:825
 #, fuzzy
 msgid "Please select the 7zCon.sfx module"
 msgstr "フォルダではなくファイルを選択してください！"
 
-#: ../src/callbacks.c:931
+#: ../src/callbacks.c:930
 msgid "translator-credits"
 msgstr "Daichi Kawahata <daichi@xfce.org>"
 
-#: ../src/callbacks.c:964 ../src/interface.c:268
+#: ../src/callbacks.c:963 ../src/interface.c:268
 msgid "Open an archive"
 msgstr "アーカイブを開きます"
 
-#: ../src/callbacks.c:977
+#: ../src/callbacks.c:976
 msgid "All files"
 msgstr "全てのファイル"
 
-#: ../src/callbacks.c:982
+#: ../src/callbacks.c:981
 msgid "Only archives"
 msgstr "アーカイブのみ"
 
-#: ../src/callbacks.c:1101
+#: ../src/callbacks.c:1100
 #, fuzzy, c-format
 msgid "Can't open archive \"%s\":"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/callbacks.c:1376
+#: ../src/callbacks.c:1375
 msgid "Command line output"
 msgstr ""
 
-#: ../src/callbacks.c:1412
+#: ../src/callbacks.c:1411
 #, fuzzy
 msgid "Doing so will probably corrupt your archive!"
 msgstr ""
 "これを行うとアーカイブを壊してしまうかもしれません。\n"
 "取り消しますか？"
 
-#: ../src/callbacks.c:1412
+#: ../src/callbacks.c:1411
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: ../src/callbacks.c:1417
+#: ../src/callbacks.c:1416
 msgid "Waiting for the process to abort..."
 msgstr "このプロセスが中断するのを待っています..."
 
-#: ../src/callbacks.c:1423
+#: ../src/callbacks.c:1422
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: ../src/callbacks.c:1511
+#: ../src/callbacks.c:1510
 msgid "Please select a file, not a directory!"
 msgstr "フォルダではなくファイルを選択してください！"
 
-#: ../src/callbacks.c:1581
+#: ../src/callbacks.c:1580
 #, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr ""
 "表示するファイルを取り出し中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: ../src/callbacks.c:1590
+#: ../src/callbacks.c:1589
 #, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
@@ -317,65 +317,65 @@ msgstr ""
 "表示するファイルを取り出し中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: ../src/callbacks.c:1646
+#: ../src/callbacks.c:1645
 msgid " bytes"
 msgstr "バイト"
 
-#: ../src/callbacks.c:1772
+#: ../src/callbacks.c:1771
 msgid "Yes"
 msgstr ""
 
-#: ../src/callbacks.c:1774
+#: ../src/callbacks.c:1773
 msgid "No"
 msgstr ""
 
-#: ../src/callbacks.c:2064
+#: ../src/callbacks.c:2063
 #, fuzzy
 msgid "Can't perform another extraction:"
 msgstr "パスワードを入力してください！"
 
-#: ../src/callbacks.c:2064
+#: ../src/callbacks.c:2063
 #, fuzzy
 msgid "Please wait until the completion of the current one!"
 msgstr "このアーカイブの内容を読み込むまでお待ちください..."
 
-#: ../src/callbacks.c:2152
+#: ../src/callbacks.c:2151
 msgid "Sorry, I could not perform the operation!"
 msgstr "操作を実行できませんでした！"
 
-#: ../src/callbacks.c:2182 ../src/callbacks.c:2193
+#: ../src/callbacks.c:2181 ../src/callbacks.c:2192
 #, fuzzy
 msgid "Can't perform this action:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: ../src/callbacks.c:2182
+#: ../src/callbacks.c:2181
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:2190
+#: ../src/callbacks.c:2189
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2192
+#: ../src/callbacks.c:2191
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2307
+#: ../src/callbacks.c:2306
 msgid "Failed to open link."
 msgstr ""
 
-#: ../src/callbacks.c:2336
+#: ../src/callbacks.c:2335
 msgid "The password has been reset."
 msgstr ""
 
-#: ../src/callbacks.c:2339
+#: ../src/callbacks.c:2338
 #, fuzzy
 msgid "Please enter the password first!"
 msgstr "パスワードを入力してください！"
 
-#: ../src/callbacks.c:2348
+#: ../src/callbacks.c:2347
 #, fuzzy
 msgid "Archive comment window"
 msgstr "アーカイブプロパティ・ウィンドウ"
