@@ -42,7 +42,7 @@ void OpenArj ( XArchive *archive )
 
 	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes")),(_("GUA")),(_("BPMGS"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 9, names , (GType *)types );
+	xa_create_liststore ( 9, names , (GType *)types, archive );
 }
 
 static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)

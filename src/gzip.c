@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include "config.h"
 #include "gzip.h"
 #include "bzip2.h"
@@ -35,7 +35,7 @@ void OpenGzip ( XArchive *archive )
     tar = g_find_program_in_path ("gtar");
     if (tar == NULL)
       tar = g_strdup ("tar");
-    
+
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
 		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
@@ -53,7 +53,7 @@ void OpenGzip ( XArchive *archive )
 
 		char *names[]= {(_("Filename")),(_("Permissions")),(_("Symbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
 		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-		xa_create_liststore ( 7, names , (GType *)types );
+		xa_create_liststore ( 7, names , (GType *)types, archive );
         archive->type = XARCHIVETYPE_TAR_GZ;
 	}
 	else

@@ -36,7 +36,7 @@ void Open7Zip ( XArchive *archive)
 
 	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 6, names , (GType *)types );
+	xa_create_liststore ( 6, names , (GType *)types, archive );
 }
 
 static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)

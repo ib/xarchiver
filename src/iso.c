@@ -651,7 +651,7 @@ void OpenISO ( XArchive *archive )
 	archive->format ="ISO";
 	char *names[]= {(_("Filename")),(_("Permission")),(_("Size")),(_("Date")),(_("Offset"))};
     GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_UINT64};
-	xa_create_liststore ( 5, names , (GType *)types );
+	xa_create_liststore ( 5, names , (GType *)types, archive );
 
 	iso_stream = fopen ( archive->path ,"r" );
 

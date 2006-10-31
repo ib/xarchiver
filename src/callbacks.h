@@ -105,7 +105,7 @@ gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer da
 
 void xa_remove_columns();
 void EmptyTextBuffer ();
-void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[]);
+void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[], XArchive *archive);
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void ConcatenateFileNames2 (gchar *filename , GString *data);
 void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);

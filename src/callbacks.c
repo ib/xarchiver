@@ -322,11 +322,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		if (path == NULL)
 			return;
 	}
-	/*if ( liststore != NULL )
-	{
-		RemoveColumnsListStore();
-		EmptyTextBuffer ();
-	}*/
+
 	current_page = gtk_notebook_get_current_page ( notebook);
 	if (current_page == -1)
 		current_page = 0;
@@ -336,14 +332,16 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	archive[current_page] = xa_init_archive_structure();
 	if (archive[current_page] == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"");
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),"Operation aborted!");
 		g_free (path);
 		return;
 	}
-	xa_add_page (archive[current_page]);
+
 	archive[current_page]->path = g_strdup (path);
 	g_free (path);
 	archive[current_page]->escaped_path = EscapeBadChars ( archive[current_page]->path , "$\'`\"\\!?* ()&|@#:;" );
+
+	xa_add_page (archive[current_page]);
 
 	OffDeleteandViewButtons();
     gtk_widget_set_sensitive ( iso_info , FALSE );
@@ -549,7 +547,7 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 
 	n_pages = gtk_notebook_get_n_pages (notebook);
 	g_print ("Nr of pages: %d\n",n_pages);
-	if (n_pages != -1)
+	if (n_pages > 0)
 	{
 		for (i = 0; i <= n_pages ; i++)
 			xa_clean_archive_structure (archive[i]);
@@ -1341,21 +1339,18 @@ void EmptyTextBuffer ()
 	}
 }
 
-void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[])
+void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[], XArchive *archive)
 {
 	unsigned short int x;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	gint current_page;
 
-	current_page = gtk_notebook_get_current_page (notebook);
+	archive->liststore = gtk_list_store_newv ( nc , (GType *)columns_types);
+	gtk_tree_view_set_model ( GTK_TREE_VIEW (archive->treeview), GTK_TREE_MODEL (archive->liststore) );
 
-	archive[current_page]->liststore = gtk_list_store_newv ( nc , (GType *)columns_types);
-	gtk_tree_view_set_model ( GTK_TREE_VIEW (archive[current_page]->treeview), GTK_TREE_MODEL (archive[current_page]->liststore) );
-
-	archive[current_page]->model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive[current_page]->treeview));
-	g_object_ref(archive[current_page]->model);
-	gtk_tree_view_set_model(GTK_TREE_VIEW(archive[current_page]->treeview), NULL);
+	archive->model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
+	g_object_ref(archive->model);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview), NULL);
 
 	for (x = 0; x <= nc-1; x++)
 	{
@@ -1363,7 +1358,7 @@ void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType
 		column = gtk_tree_view_column_new_with_attributes ( columns_names[x],renderer,"text",x,NULL);
 		gtk_tree_view_column_set_resizable (column, TRUE);
 		gtk_tree_view_column_set_sort_column_id (column, x);
-		gtk_tree_view_append_column (GTK_TREE_VIEW (archive[current_page]->treeview), column);
+		gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview), column);
 	}
 }
 

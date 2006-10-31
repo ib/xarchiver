@@ -48,7 +48,7 @@ void OpenRar ( XArchive *archive )
 	char *names[]	= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("Checksum")),(_("Method")),(_("Version"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
     archive->has_passwd = FALSE;
-	xa_create_liststore ( 10, names , (GType *)types );
+	xa_create_liststore ( 10, names , (GType *)types, archive );
 }
 
 static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
