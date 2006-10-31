@@ -34,20 +34,20 @@ gboolean unrar = FALSE;
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
-		N_("Extract archive_cmd to the directory specified by destination_path and quits."),
-		N_("destination_path archive_cmd")
+		N_("Extract archive to the directory specified by destination_path and quits."),
+		N_("destination_path archive")
 	},
 	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_extract,
-		N_("Extract archive_cmd by asking the destination directory and quits."),
-		N_("archive_cmd")
+		N_("Extract archive by asking the destination directory and quits."),
+		N_("archive")
 	},
 	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
-		N_("Add the given files by asking the name of the archive_cmd and quits."),
+		N_("Add the given files by asking the name of the archive and quits."),
 		N_("file1 file2 file3 ... fileN")
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_add,
-		N_("Add files to archive_cmd by asking their filenames and quits."),
-		N_("archive_cmd")
+		N_("Add files to archive by asking their filenames and quits."),
+		N_("archive")
 	},
 	{ NULL }
 };
@@ -59,7 +59,7 @@ int main (int argc, char **argv)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 	#endif
-	gtk_init_with_args(&argc, &argv, _("[archive_cmd name]"), entries, PACKAGE, &cli_error);
+	gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
 	g_get_charset (&locale);
 	if ( cli_error != NULL )
 	{
@@ -84,7 +84,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive_cmd:"),_("You missed the archive_cmd name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			for ( x = 1; x < argc; x++)
@@ -117,7 +117,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive_cmd:"),_("You missed the archive_cmd name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
@@ -208,7 +208,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive_cmd:"),_("You missed the archive_cmd name!\n"));
+				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
@@ -429,7 +429,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive_cmd = xa_init_archive_structure ();
 	if (archive_cmd == NULL)
 	{
-		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive_cmd structure!"),"" );
+		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
 		return NULL;
 	}
 

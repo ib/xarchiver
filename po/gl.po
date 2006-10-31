@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-19 14:28+0200\n"
+"POT-Creation-Date: 2006-10-31 13:32+0100\n"
 "PO-Revision-Date: 2006-08-17 19:16+0000\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <gl@li.org>\n"
@@ -60,14 +60,14 @@ msgstr ""
 msgid "BPMGS"
 msgstr ""
 
-#: ../src/archive.c:67 ../src/callbacks.c:146 ../src/callbacks.c:705
-#: ../src/callbacks.c:718 ../src/callbacks.c:820 ../src/callbacks.c:833
-#: ../src/callbacks.c:1535 ../src/callbacks.c:1886 ../src/extract_dialog.c:930
-#: ../src/rpm.c:120 ../src/rpm.c:148
+#: ../src/archive.c:66 ../src/callbacks.c:146 ../src/callbacks.c:742
+#: ../src/callbacks.c:755 ../src/callbacks.c:857 ../src/callbacks.c:870
+#: ../src/callbacks.c:1580 ../src/callbacks.c:1945 ../src/extract_dialog.c:933
+#: ../src/rpm.c:123 ../src/rpm.c:154
 msgid "Operation failed."
 msgstr ""
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 msgid "Can't run the archiver executable:"
 msgstr ""
 
@@ -98,9 +98,9 @@ msgstr "Extraendo ficheiros a "
 msgid "Extracting bzip2 file to %s"
 msgstr "Extraendo ficheiros a "
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:809
-#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:879
-#: ../src/extract_dialog.c:901
+#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:846
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:882
+#: ../src/extract_dialog.c:904
 msgid "Operation canceled."
 msgstr ""
 
@@ -119,11 +119,11 @@ msgstr "Engadindo ficheiros ó arquivo, agarde..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1881
+#: ../src/callbacks.c:147 ../src/callbacks.c:1940
 msgid "An error occurred while accessing the archive."
 msgstr ""
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1881 ../src/rpm.c:151
+#: ../src/callbacks.c:147 ../src/callbacks.c:1940 ../src/rpm.c:157
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "Este arquivo xa existe. Desexa sobrescribilo?"
@@ -133,7 +133,7 @@ msgstr "Este arquivo xa existe. Desexa sobrescribilo?"
 msgid "The sfx archive was saved as:"
 msgstr "Extraendo ficheiros a "
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1556
+#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1601
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr ""
@@ -142,195 +142,196 @@ msgstr ""
 msgid "Please wait while the content of the archive is being updated..."
 msgstr ""
 
-#: ../src/callbacks.c:282
+#: ../src/callbacks.c:288
 msgid "Choose Add to begin creating the archive."
 msgstr ""
 
-#: ../src/callbacks.c:335
+#: ../src/callbacks.c:331
+#, fuzzy
+msgid "Can't allocate memory for the archive structure:"
+msgstr "Engadir un ficheiro ó arquivo actual"
+
+#: ../src/callbacks.c:353
 #, fuzzy, c-format
 msgid "Can't open file \"%s\":"
 msgstr ""
 "Non se puido abrir o arquivo %s:\n"
 "%s"
 
-#: ../src/callbacks.c:338
+#: ../src/callbacks.c:356
 #, fuzzy
 msgid "Archive format is not recognized!"
 msgstr "Non se puido recoñecer o formato deste arquivo!"
 
-#: ../src/callbacks.c:361
+#: ../src/callbacks.c:379
 msgid "Sorry, this archive format is not supported:"
 msgstr ""
 
-#: ../src/callbacks.c:361
+#: ../src/callbacks.c:379
 #, fuzzy
 msgid "the proper archiver is not installed!"
 msgstr "Non se puido recoñecer o formato deste arquivo!"
 
-#: ../src/callbacks.c:368
+#: ../src/callbacks.c:386
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr ""
 
-#: ../src/callbacks.c:370
+#: ../src/callbacks.c:388
 msgid "Please wait while the content of the archive is being read..."
 msgstr ""
 
-#: ../src/callbacks.c:446
+#: ../src/callbacks.c:464
 #, fuzzy
 msgid "Testing archive integrity, please wait..."
 msgstr "Engadindo ficheiros ó arquivo, agarde..."
 
-#: ../src/callbacks.c:506 ../src/main.c:241
+#: ../src/callbacks.c:528 ../src/main.c:241
 msgid "Ready."
 msgstr ""
 
-#: ../src/callbacks.c:515
-msgid "Please hit the Stop button first!"
-msgstr ""
-
-#: ../src/callbacks.c:537
+#: ../src/callbacks.c:567
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr ""
 
-#: ../src/callbacks.c:538
+#: ../src/callbacks.c:568
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: ../src/callbacks.c:544
+#: ../src/callbacks.c:574
 msgid "Deleting files from the archive, please wait..."
 msgstr ""
 
-#: ../src/callbacks.c:645
+#: ../src/callbacks.c:682
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Engadindo ficheiros ó arquivo, agarde..."
 
-#: ../src/callbacks.c:707 ../src/callbacks.c:822
+#: ../src/callbacks.c:744 ../src/callbacks.c:859
 msgid "Can't convert the archive to self-extracting:"
 msgstr ""
 
-#: ../src/callbacks.c:720 ../src/callbacks.c:835
+#: ../src/callbacks.c:757 ../src/callbacks.c:872
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Engadir un ficheiro ó arquivo actual"
 
-#: ../src/callbacks.c:789
+#: ../src/callbacks.c:826
 #, fuzzy
 msgid "Please select the 7zCon.sfx module"
 msgstr "Seleccione un ficheiro, e non un directorio!"
 
-#: ../src/callbacks.c:894
+#: ../src/callbacks.c:931
 msgid "translator-credits"
 msgstr ""
 
-#: ../src/callbacks.c:927 ../src/interface.c:266
+#: ../src/callbacks.c:964 ../src/interface.c:268
 msgid "Open an archive"
 msgstr "Abrir un arquivo"
 
-#: ../src/callbacks.c:940
+#: ../src/callbacks.c:977
 msgid "All files"
 msgstr ""
 
-#: ../src/callbacks.c:945
+#: ../src/callbacks.c:982
 msgid "Only archives"
 msgstr ""
 
-#: ../src/callbacks.c:1064
+#: ../src/callbacks.c:1101
 #, fuzzy, c-format
 msgid "Can't open archive \"%s\":"
 msgstr ""
 "Non se puido abrir o arquivo %s:\n"
 "%s"
 
-#: ../src/callbacks.c:1338
+#: ../src/callbacks.c:1376
 msgid "Command line output"
 msgstr ""
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1412
 msgid "Doing so will probably corrupt your archive!"
 msgstr ""
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1412
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: ../src/callbacks.c:1375
+#: ../src/callbacks.c:1417
 msgid "Waiting for the process to abort..."
 msgstr ""
 
-#: ../src/callbacks.c:1381
+#: ../src/callbacks.c:1423
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: ../src/callbacks.c:1466
+#: ../src/callbacks.c:1511
 #, fuzzy
 msgid "Please select a file, not a directory!"
 msgstr "Seleccione un ficheiro, e non un directorio!"
 
-#: ../src/callbacks.c:1536
+#: ../src/callbacks.c:1581
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr ""
 
-#: ../src/callbacks.c:1545
+#: ../src/callbacks.c:1590
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr ""
 
-#: ../src/callbacks.c:1598
+#: ../src/callbacks.c:1646
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1721
+#: ../src/callbacks.c:1772
 msgid "Yes"
 msgstr ""
 
-#: ../src/callbacks.c:1723
+#: ../src/callbacks.c:1774
 msgid "No"
 msgstr ""
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:2064
 msgid "Can't perform another extraction:"
 msgstr ""
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:2064
 msgid "Please wait until the completion of the current one!"
 msgstr ""
 
-#: ../src/callbacks.c:2082
+#: ../src/callbacks.c:2152
 msgid "Sorry, I could not perform the operation!"
 msgstr ""
 
-#: ../src/callbacks.c:2111 ../src/callbacks.c:2122
+#: ../src/callbacks.c:2182 ../src/callbacks.c:2193
 msgid "Can't perform this action:"
 msgstr ""
 
-#: ../src/callbacks.c:2111
+#: ../src/callbacks.c:2182
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:2119
+#: ../src/callbacks.c:2190
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2121
+#: ../src/callbacks.c:2192
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2231
+#: ../src/callbacks.c:2307
 msgid "Failed to open link."
 msgstr ""
 
-#: ../src/callbacks.c:2257
+#: ../src/callbacks.c:2336
 msgid "The password has been reset."
 msgstr ""
 
-#: ../src/callbacks.c:2260
+#: ../src/callbacks.c:2339
 #, fuzzy
 msgid "Please enter the password first!"
 msgstr "Introduza un contrasinal!"
 
-#: ../src/callbacks.c:2270
+#: ../src/callbacks.c:2348
 msgid "Archive comment window"
 msgstr ""
 
@@ -430,7 +431,7 @@ msgstr ""
 msgid "5 = default compression, 7 = max compression"
 msgstr ""
 
-#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:449
+#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:560
 msgid "Password:"
 msgstr "Contrasinal:"
 
@@ -442,7 +443,7 @@ msgstr ""
 msgid "<b>Options </b>"
 msgstr ""
 
-#: ../src/add_dialog.c:308 ../src/interface.c:126
+#: ../src/add_dialog.c:308 ../src/interface.c:128
 msgid "_Add"
 msgstr ""
 
@@ -465,12 +466,12 @@ msgstr "Engadir un ficheiro ó arquivo actual"
 msgid "You haven't selected any files to add!"
 msgstr ""
 
-#: ../src/add_dialog.c:502 ../src/interface.c:490
+#: ../src/add_dialog.c:502 ../src/interface.c:602
 #, fuzzy
 msgid "You missed the password!"
 msgstr "Introduza un contrasinal!"
 
-#: ../src/add_dialog.c:502 ../src/interface.c:490
+#: ../src/add_dialog.c:502 ../src/interface.c:602
 #, fuzzy
 msgid "Please enter it!"
 msgstr "Introduza un contrasinal!"
@@ -554,7 +555,7 @@ msgid ""
 "extracts those files that do not already exist on disk."
 msgstr ""
 
-#: ../src/extract_dialog.c:255 ../src/interface.c:136
+#: ../src/extract_dialog.c:255 ../src/interface.c:138
 #, fuzzy
 msgid "_Extract"
 msgstr "Extraer"
@@ -602,182 +603,187 @@ msgstr "Extraendo ficheiros a "
 msgid "Extracting archive to %s"
 msgstr "Extraendo ficheiros a "
 
-#: ../src/extract_dialog.c:928
+#: ../src/extract_dialog.c:931
 msgid "Can't create temporary directory in /tmp:"
 msgstr ""
 
-#: ../src/extract_dialog.c:943
+#: ../src/extract_dialog.c:946
 msgid "Choose the destination folder where to extract the current archive"
 msgstr ""
 
-#: ../src/interface.c:70
+#: ../src/interface.c:72
 #, fuzzy
 msgid "_File"
 msgstr "Nome de ficheiro"
 
-#: ../src/interface.c:90
+#: ../src/interface.c:92
 msgid "_Test"
 msgstr ""
 
-#: ../src/interface.c:100
+#: ../src/interface.c:102
 msgid "_Properties"
 msgstr ""
 
-#: ../src/interface.c:119
+#: ../src/interface.c:121
 msgid "_Action"
 msgstr ""
 
-#: ../src/interface.c:146
+#: ../src/interface.c:148
 msgid "Make SF_X"
 msgstr ""
 
-#: ../src/interface.c:167
+#: ../src/interface.c:169
 #, fuzzy
 msgid "_View"
 msgstr "Ver"
 
-#: ../src/interface.c:173
+#: ../src/interface.c:175
 msgid "_Show comment"
 msgstr ""
 
-#: ../src/interface.c:188
+#: ../src/interface.c:190
 msgid "Sele_ct All"
 msgstr ""
 
-#: ../src/interface.c:194
+#: ../src/interface.c:196
 msgid "Dese_lect All"
 msgstr ""
 
-#: ../src/interface.c:205
+#: ../src/interface.c:207
 msgid "Co_mmand line output"
 msgstr ""
 
-#: ../src/interface.c:214
+#: ../src/interface.c:216
 msgid "Show I_SO info"
 msgstr ""
 
-#: ../src/interface.c:224
+#: ../src/interface.c:226
 #, fuzzy
 msgid "Reset passwo_rd"
 msgstr "Introduza un contrasinal!"
 
-#: ../src/interface.c:230
+#: ../src/interface.c:232
 msgid "_Help"
 msgstr ""
 
-#: ../src/interface.c:254
+#: ../src/interface.c:256
 msgid "New"
 msgstr "Novo"
 
-#: ../src/interface.c:258
+#: ../src/interface.c:260
 msgid "Create a new archive"
 msgstr "Crear un novo arquivo"
 
-#: ../src/interface.c:262
+#: ../src/interface.c:264
 msgid "Open"
 msgstr "Abrir"
 
-#: ../src/interface.c:274
+#: ../src/interface.c:276
 msgid "Add"
 msgstr ""
 
-#: ../src/interface.c:279
+#: ../src/interface.c:281
 #, fuzzy
 msgid "Add files and directories to the current archive"
 msgstr "Engadir un ficheiro ó arquivo actual"
 
-#: ../src/interface.c:283
+#: ../src/interface.c:285
 msgid "Extract"
 msgstr "Extraer"
 
-#: ../src/interface.c:288
+#: ../src/interface.c:290
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
 msgstr ""
 
-#: ../src/interface.c:292
+#: ../src/interface.c:294
 msgid "SFX"
 msgstr ""
 
-#: ../src/interface.c:297
+#: ../src/interface.c:299
 msgid "Make the current archive self-extracting"
 msgstr ""
 
-#: ../src/interface.c:304
+#: ../src/interface.c:306
 msgid "Delete"
 msgstr ""
 
-#: ../src/interface.c:309
+#: ../src/interface.c:311
 msgid "Delete files from the current archive"
 msgstr ""
 
-#: ../src/interface.c:313
+#: ../src/interface.c:315
 msgid "View"
 msgstr "Ver"
 
-#: ../src/interface.c:318
+#: ../src/interface.c:320
 msgid "View file content in the current archive"
 msgstr ""
 
-#: ../src/interface.c:326
+#: ../src/interface.c:328
 msgid "Stop"
 msgstr ""
 
-#: ../src/interface.c:331
+#: ../src/interface.c:333
 msgid "Cancel current operation"
 msgstr ""
 
-#: ../src/interface.c:386
+#: ../src/interface.c:381
 msgid "This archive contains password protected files"
 msgstr "Este arquivo contén ficheiros protexidos por contrasinal"
 
-#: ../src/interface.c:437
+#: ../src/interface.c:498
+#, fuzzy
+msgid "Close Archive"
+msgstr "Abrir un arquivo"
+
+#: ../src/interface.c:548
 msgid "Enter Archive Password"
 msgstr "Introduza o Contrasinal do Arquivo"
 
-#: ../src/interface.c:535
+#: ../src/interface.c:647
 msgid "Archive Properties Window"
 msgstr ""
 
-#: ../src/interface.c:553
+#: ../src/interface.c:665
 msgid "Name:"
 msgstr ""
 
-#: ../src/interface.c:560
+#: ../src/interface.c:672
 msgid "Path:"
 msgstr ""
 
-#: ../src/interface.c:567
+#: ../src/interface.c:679
 msgid "Type:"
 msgstr ""
 
-#: ../src/interface.c:574
+#: ../src/interface.c:686
 msgid "Modified on:"
 msgstr ""
 
-#: ../src/interface.c:581
+#: ../src/interface.c:693
 #, fuzzy
 msgid "Archive size:"
 msgstr "Tipo de arquivo:"
 
-#: ../src/interface.c:588
+#: ../src/interface.c:700
 msgid "Content size:"
 msgstr ""
 
-#: ../src/interface.c:595
+#: ../src/interface.c:707
 msgid "Has comment:"
 msgstr ""
 
-#: ../src/interface.c:602
+#: ../src/interface.c:714
 msgid "Compression ratio:"
 msgstr ""
 
-#: ../src/interface.c:609
+#: ../src/interface.c:721
 msgid "Number of files:"
 msgstr ""
 
-#: ../src/interface.c:616
+#: ../src/interface.c:728
 msgid "Number of dirs:"
 msgstr ""
 
@@ -876,9 +882,10 @@ msgid "Effective date:"
 msgstr ""
 
 #: ../src/main.c:37
+#, fuzzy
 msgid ""
 "Extract archive to the directory specified by destination_path and quits."
-msgstr ""
+msgstr "Engadir un ficheiro ó arquivo actual"
 
 #: ../src/main.c:38
 #, fuzzy
@@ -886,8 +893,9 @@ msgid "destination_path archive"
 msgstr "Engadir un ficheiro ó arquivo actual"
 
 #: ../src/main.c:41
+#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
-msgstr ""
+msgstr "Engadir un ficheiro ó arquivo actual"
 
 #: ../src/main.c:42 ../src/main.c:50
 #, fuzzy
@@ -909,8 +917,9 @@ msgid "Add files to archive by asking their filenames and quits."
 msgstr "Engadir un ficheiro ó arquivo actual"
 
 #: ../src/main.c:62
+#, fuzzy
 msgid "[archive name]"
-msgstr ""
+msgstr "Tipo de arquivo:"
 
 #: ../src/main.c:66
 #, c-format
@@ -925,18 +934,19 @@ msgid "Can't extract files from the archive:"
 msgstr "Engadir un ficheiro ó arquivo actual"
 
 #: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
+#, fuzzy
 msgid "You missed the archive name!\n"
-msgstr ""
+msgstr "Introduza un contrasinal!"
 
-#: ../src/main.c:410
+#: ../src/main.c:409
 msgid "Can't spawn the command:"
 msgstr ""
 
-#: ../src/main.c:419
+#: ../src/main.c:418
 msgid "An error occurred!"
 msgstr ""
 
-#: ../src/main.c:433
+#: ../src/main.c:432
 #, fuzzy
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Engadir un ficheiro ó arquivo actual"
@@ -985,19 +995,19 @@ msgstr ""
 msgid "Can't fseek in file:"
 msgstr ""
 
-#: ../src/rpm.c:123
+#: ../src/rpm.c:126
 msgid "Error while extracting the cpio archive from the rpm one."
 msgstr ""
 
-#: ../src/rpm.c:151
+#: ../src/rpm.c:157
 msgid "An error occurred while decompressing the cpio archive."
 msgstr ""
 
-#: ../src/rpm.c:206 ../src/rpm.c:360
+#: ../src/rpm.c:212 ../src/rpm.c:369
 msgid "An error occurred:"
 msgstr ""
 
-#: ../src/rpm.c:315
+#: ../src/rpm.c:324
 msgid "Can't write to /tmp:"
 msgstr ""
 
@@ -1014,6 +1024,14 @@ msgstr "Tipo de arquivo:"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Can't add files to the archive_cmd:"
+#~ msgstr "Engadir un ficheiro ó arquivo actual"
+
+#, fuzzy
+#~ msgid "Can't allocate memory for the archive_cmd structure!"
+#~ msgstr "Engadir un ficheiro ó arquivo actual"
 
 #, fuzzy
 #~ msgid "This option can't be used with password protected archives!\n"

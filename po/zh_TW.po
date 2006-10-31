@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-19 14:28+0200\n"
+"POT-Creation-Date: 2006-10-31 13:32+0100\n"
 "PO-Revision-Date: 2006-08-29 23:17+0800\n"
 "Last-Translator: Hydonsingore Cia <hydonsingore@educities.edu.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -61,14 +61,14 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:67 ../src/callbacks.c:146 ../src/callbacks.c:705
-#: ../src/callbacks.c:718 ../src/callbacks.c:820 ../src/callbacks.c:833
-#: ../src/callbacks.c:1535 ../src/callbacks.c:1886 ../src/extract_dialog.c:930
-#: ../src/rpm.c:120 ../src/rpm.c:148
+#: ../src/archive.c:66 ../src/callbacks.c:146 ../src/callbacks.c:742
+#: ../src/callbacks.c:755 ../src/callbacks.c:857 ../src/callbacks.c:870
+#: ../src/callbacks.c:1580 ../src/callbacks.c:1945 ../src/extract_dialog.c:933
+#: ../src/rpm.c:123 ../src/rpm.c:154
 msgid "Operation failed."
 msgstr "操作失敗。"
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 #, fuzzy
 msgid "Can't run the archiver executable:"
 msgstr ""
@@ -102,9 +102,9 @@ msgstr "解壓縮 gzip 檔案到 %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "解壓縮 bzip2 檔案到 %s"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:809
-#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:879
-#: ../src/extract_dialog.c:901
+#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:846
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:882
+#: ../src/extract_dialog.c:904
 msgid "Operation canceled."
 msgstr "操作已取消。"
 
@@ -123,11 +123,11 @@ msgstr "正在使用 %s 壓縮 tar 檔案，請稍候。"
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "請檢查 \"%s\" 因為有一些檔案可能已經被解壓縮了。"
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1881
+#: ../src/callbacks.c:147 ../src/callbacks.c:1940
 msgid "An error occurred while accessing the archive."
 msgstr "嘗試存取壓縮檔時發生錯誤。"
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1881 ../src/rpm.c:151
+#: ../src/callbacks.c:147 ../src/callbacks.c:1940 ../src/rpm.c:157
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "您要蓋過它嗎？"
@@ -137,7 +137,7 @@ msgstr "您要蓋過它嗎？"
 msgid "The sfx archive was saved as:"
 msgstr "解壓縮檔案到 "
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1556
+#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1601
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "操作已完成。"
@@ -146,137 +146,138 @@ msgstr "操作已完成。"
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "正在更新壓縮檔內容，請稍候"
 
-#: ../src/callbacks.c:282
+#: ../src/callbacks.c:288
 msgid "Choose Add to begin creating the archive."
 msgstr "選取加入來開始建立壓縮檔。"
 
-#: ../src/callbacks.c:335
+#: ../src/callbacks.c:331
+#, fuzzy
+msgid "Can't allocate memory for the archive structure:"
+msgstr "將檔案加入這個壓縮檔中"
+
+#: ../src/callbacks.c:353
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "無法開啟檔案 \"%s\"："
 
-#: ../src/callbacks.c:338
+#: ../src/callbacks.c:356
 msgid "Archive format is not recognized!"
 msgstr "無法辨識壓縮檔格式！"
 
-#: ../src/callbacks.c:361
+#: ../src/callbacks.c:379
 msgid "Sorry, this archive format is not supported:"
 msgstr "抱歉，不支援這種壓縮檔格式！"
 
-#: ../src/callbacks.c:361
+#: ../src/callbacks.c:379
 msgid "the proper archiver is not installed!"
 msgstr "沒有先安裝好適當的解壓縮程式！"
 
-#: ../src/callbacks.c:368
+#: ../src/callbacks.c:386
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "正在讀取 ISO 映像檔內容，請稍候"
 
-#: ../src/callbacks.c:370
+#: ../src/callbacks.c:388
 msgid "Please wait while the content of the archive is being read..."
 msgstr "正在讀取壓縮檔內容，請稍候。"
 
-#: ../src/callbacks.c:446
+#: ../src/callbacks.c:464
 msgid "Testing archive integrity, please wait..."
 msgstr "正在測試壓縮檔的正確性，請稍候"
 
-#: ../src/callbacks.c:506 ../src/main.c:241
+#: ../src/callbacks.c:528 ../src/main.c:241
 msgid "Ready."
 msgstr "就緒。"
 
-#: ../src/callbacks.c:515
-msgid "Please hit the Stop button first!"
-msgstr "請先按下停止按鈕！"
-
-#: ../src/callbacks.c:537
+#: ../src/callbacks.c:567
 #, fuzzy, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr ""
 " 從這個壓縮檔裡。.\n"
 "您確定要這樣作嗎？"
 
-#: ../src/callbacks.c:538
+#: ../src/callbacks.c:568
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: ../src/callbacks.c:544
+#: ../src/callbacks.c:574
 msgid "Deleting files from the archive, please wait..."
 msgstr "正在從壓縮檔中刪除檔案，請稍候。"
 
-#: ../src/callbacks.c:645
+#: ../src/callbacks.c:682
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "正在測試壓縮檔的正確性，請稍候"
 
-#: ../src/callbacks.c:707 ../src/callbacks.c:822
+#: ../src/callbacks.c:744 ../src/callbacks.c:859
 #, fuzzy
 msgid "Can't convert the archive to self-extracting:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/callbacks.c:720 ../src/callbacks.c:835
+#: ../src/callbacks.c:757 ../src/callbacks.c:872
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "無法將將檔案加入這個壓縮檔中："
 
-#: ../src/callbacks.c:789
+#: ../src/callbacks.c:826
 #, fuzzy
 msgid "Please select the 7zCon.sfx module"
 msgstr "請選取檔案，不要選資料夾。"
 
-#: ../src/callbacks.c:894
+#: ../src/callbacks.c:931
 msgid "translator-credits"
 msgstr "Cosmo Chene <cosmolax@gmail.com>"
 
-#: ../src/callbacks.c:927 ../src/interface.c:266
+#: ../src/callbacks.c:964 ../src/interface.c:268
 msgid "Open an archive"
 msgstr "開啟壓縮檔"
 
-#: ../src/callbacks.c:940
+#: ../src/callbacks.c:977
 msgid "All files"
 msgstr "全部檔案"
 
-#: ../src/callbacks.c:945
+#: ../src/callbacks.c:982
 msgid "Only archives"
 msgstr "只顯示壓縮檔"
 
-#: ../src/callbacks.c:1064
+#: ../src/callbacks.c:1101
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "無法開啟壓縮檔 \"%s\"："
 
-#: ../src/callbacks.c:1338
+#: ../src/callbacks.c:1376
 msgid "Command line output"
 msgstr ""
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1412
 msgid "Doing so will probably corrupt your archive!"
 msgstr "這麼作有可能損壞您的壓縮檔。"
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1412
 msgid "Do you really want to cancel?"
 msgstr "您真的要取消嗎？"
 
-#: ../src/callbacks.c:1375
+#: ../src/callbacks.c:1417
 msgid "Waiting for the process to abort..."
 msgstr "等待使用者中斷"
 
-#: ../src/callbacks.c:1381
+#: ../src/callbacks.c:1423
 msgid "An error occurred while trying to kill the process:"
 msgstr "試著終止該程序時發生錯誤："
 
-#: ../src/callbacks.c:1466
+#: ../src/callbacks.c:1511
 msgid "Please select a file, not a directory!"
 msgstr "請選取檔案，不要選資料夾。"
 
-#: ../src/callbacks.c:1536
+#: ../src/callbacks.c:1581
 #, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr ""
 "嘗試解壓縮檔案以預覽內容時發生錯誤\n"
 "您要檢視錯誤訊息嗎？"
 
-#: ../src/callbacks.c:1545
+#: ../src/callbacks.c:1590
 #, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
@@ -284,63 +285,63 @@ msgstr ""
 "嘗試解壓縮檔案以預覽內容時發生錯誤\n"
 "您要檢視錯誤訊息嗎？"
 
-#: ../src/callbacks.c:1598
+#: ../src/callbacks.c:1646
 msgid " bytes"
 msgstr " byte"
 
-#: ../src/callbacks.c:1721
+#: ../src/callbacks.c:1772
 msgid "Yes"
 msgstr ""
 
-#: ../src/callbacks.c:1723
+#: ../src/callbacks.c:1774
 msgid "No"
 msgstr ""
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:2064
 msgid "Can't perform another extraction:"
 msgstr "無法進行另一個解壓縮："
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:2064
 msgid "Please wait until the completion of the current one!"
 msgstr "請等到現在這個完成！"
 
-#: ../src/callbacks.c:2082
+#: ../src/callbacks.c:2152
 msgid "Sorry, I could not perform the operation!"
 msgstr "抱歉，我無法進行這項操作！"
 
-#: ../src/callbacks.c:2111 ../src/callbacks.c:2122
+#: ../src/callbacks.c:2182 ../src/callbacks.c:2193
 #, fuzzy
 msgid "Can't perform this action:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/callbacks.c:2111
+#: ../src/callbacks.c:2182
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:2119
+#: ../src/callbacks.c:2190
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2121
+#: ../src/callbacks.c:2192
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2231
+#: ../src/callbacks.c:2307
 msgid "Failed to open link."
 msgstr ""
 
-#: ../src/callbacks.c:2257
+#: ../src/callbacks.c:2336
 msgid "The password has been reset."
 msgstr ""
 
-#: ../src/callbacks.c:2260
+#: ../src/callbacks.c:2339
 #, fuzzy
 msgid "Please enter the password first!"
 msgstr "請輸入密碼。"
 
-#: ../src/callbacks.c:2270
+#: ../src/callbacks.c:2348
 #, fuzzy
 msgid "Archive comment window"
 msgstr "壓縮檔內容視窗"
@@ -440,7 +441,7 @@ msgstr "0= 沒有壓縮；1 = 預設值；4 = 最快但最疏鬆的壓縮"
 msgid "5 = default compression, 7 = max compression"
 msgstr ""
 
-#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:449
+#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:560
 msgid "Password:"
 msgstr "密碼:"
 
@@ -452,7 +453,7 @@ msgstr "壓縮程度:"
 msgid "<b>Options </b>"
 msgstr "<b>選項 </b>"
 
-#: ../src/add_dialog.c:308 ../src/interface.c:126
+#: ../src/add_dialog.c:308 ../src/interface.c:128
 msgid "_Add"
 msgstr "加入(_A)"
 
@@ -472,11 +473,11 @@ msgstr "無法將將檔案加入這個壓縮檔中："
 msgid "You haven't selected any files to add!"
 msgstr "您還沒選取要加入的檔案！"
 
-#: ../src/add_dialog.c:502 ../src/interface.c:490
+#: ../src/add_dialog.c:502 ../src/interface.c:602
 msgid "You missed the password!"
 msgstr "您漏打密碼！"
 
-#: ../src/add_dialog.c:502 ../src/interface.c:490
+#: ../src/add_dialog.c:502 ../src/interface.c:602
 msgid "Please enter it!"
 msgstr "請鍵入之！"
 
@@ -559,7 +560,7 @@ msgid ""
 "extracts those files that do not already exist on disk."
 msgstr ""
 
-#: ../src/extract_dialog.c:255 ../src/interface.c:136
+#: ../src/extract_dialog.c:255 ../src/interface.c:138
 #, fuzzy
 msgid "_Extract"
 msgstr "解壓縮"
@@ -611,189 +612,194 @@ msgstr "解壓縮檔案到 "
 msgid "Extracting archive to %s"
 msgstr "解壓縮檔案到 "
 
-#: ../src/extract_dialog.c:928
+#: ../src/extract_dialog.c:931
 #, fuzzy
 msgid "Can't create temporary directory in /tmp:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/extract_dialog.c:943
+#: ../src/extract_dialog.c:946
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "選擇要解壓這個壓縮檔內容的資料夾"
 
-#: ../src/interface.c:70
+#: ../src/interface.c:72
 #, fuzzy
 msgid "_File"
 msgstr "檔案"
 
-#: ../src/interface.c:90
+#: ../src/interface.c:92
 #, fuzzy
 msgid "_Test"
 msgstr "測試"
 
-#: ../src/interface.c:100
+#: ../src/interface.c:102
 #, fuzzy
 msgid "_Properties"
 msgstr "內容"
 
-#: ../src/interface.c:119
+#: ../src/interface.c:121
 #, fuzzy
 msgid "_Action"
 msgstr "動作(_A)"
 
-#: ../src/interface.c:146
+#: ../src/interface.c:148
 msgid "Make SF_X"
 msgstr ""
 
-#: ../src/interface.c:167
+#: ../src/interface.c:169
 #, fuzzy
 msgid "_View"
 msgstr "檢視"
 
-#: ../src/interface.c:173
+#: ../src/interface.c:175
 msgid "_Show comment"
 msgstr ""
 
-#: ../src/interface.c:188
+#: ../src/interface.c:190
 msgid "Sele_ct All"
 msgstr ""
 
-#: ../src/interface.c:194
+#: ../src/interface.c:196
 msgid "Dese_lect All"
 msgstr ""
 
-#: ../src/interface.c:205
+#: ../src/interface.c:207
 msgid "Co_mmand line output"
 msgstr ""
 
-#: ../src/interface.c:214
+#: ../src/interface.c:216
 #, fuzzy
 msgid "Show I_SO info"
 msgstr "顯示 ISO 訊息"
 
-#: ../src/interface.c:224
+#: ../src/interface.c:226
 #, fuzzy
 msgid "Reset passwo_rd"
 msgstr "請輸入密碼。"
 
-#: ../src/interface.c:230
+#: ../src/interface.c:232
 msgid "_Help"
 msgstr ""
 
-#: ../src/interface.c:254
+#: ../src/interface.c:256
 msgid "New"
 msgstr "新建"
 
-#: ../src/interface.c:258
+#: ../src/interface.c:260
 msgid "Create a new archive"
 msgstr "新建壓縮檔"
 
-#: ../src/interface.c:262
+#: ../src/interface.c:264
 msgid "Open"
 msgstr "開啟"
 
-#: ../src/interface.c:274
+#: ../src/interface.c:276
 msgid "Add"
 msgstr ""
 
-#: ../src/interface.c:279
+#: ../src/interface.c:281
 #, fuzzy
 msgid "Add files and directories to the current archive"
 msgstr "將整個資料夾加入壓縮檔中"
 
-#: ../src/interface.c:283
+#: ../src/interface.c:285
 msgid "Extract"
 msgstr "解壓縮"
 
-#: ../src/interface.c:288
+#: ../src/interface.c:290
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
 msgstr "從這個壓縮檔中解壓縮檔案; 使用滑鼠選取要個別解壓的檔案"
 
-#: ../src/interface.c:292
+#: ../src/interface.c:294
 msgid "SFX"
 msgstr ""
 
-#: ../src/interface.c:297
+#: ../src/interface.c:299
 msgid "Make the current archive self-extracting"
 msgstr ""
 
-#: ../src/interface.c:304
+#: ../src/interface.c:306
 msgid "Delete"
 msgstr "刪除"
 
-#: ../src/interface.c:309
+#: ../src/interface.c:311
 msgid "Delete files from the current archive"
 msgstr "從這個壓縮檔中刪除檔案"
 
-#: ../src/interface.c:313
+#: ../src/interface.c:315
 msgid "View"
 msgstr "檢視"
 
-#: ../src/interface.c:318
+#: ../src/interface.c:320
 msgid "View file content in the current archive"
 msgstr "檢視這個壓縮檔的內容"
 
-#: ../src/interface.c:326
+#: ../src/interface.c:328
 msgid "Stop"
 msgstr "停止"
 
-#: ../src/interface.c:331
+#: ../src/interface.c:333
 msgid "Cancel current operation"
 msgstr "取消目前的操作"
 
-#: ../src/interface.c:386
+#: ../src/interface.c:381
 msgid "This archive contains password protected files"
 msgstr "這個壓縮檔有設定密碼保護"
 
-#: ../src/interface.c:437
+#: ../src/interface.c:498
+#, fuzzy
+msgid "Close Archive"
+msgstr "檔案(_A)"
+
+#: ../src/interface.c:548
 #, fuzzy
 msgid "Enter Archive Password"
 msgstr "請輸入密碼。"
 
-#: ../src/interface.c:535
+#: ../src/interface.c:647
 msgid "Archive Properties Window"
 msgstr "壓縮檔內容視窗"
 
-#: ../src/interface.c:553
+#: ../src/interface.c:665
 msgid "Name:"
 msgstr "名稱:"
 
-#: ../src/interface.c:560
+#: ../src/interface.c:672
 msgid "Path:"
 msgstr "路徑:"
 
-#: ../src/interface.c:567
+#: ../src/interface.c:679
 msgid "Type:"
 msgstr ""
 
-#: ../src/interface.c:574
+#: ../src/interface.c:686
 msgid "Modified on:"
 msgstr "更動時間:"
 
-#: ../src/interface.c:581
+#: ../src/interface.c:693
 msgid "Archive size:"
 msgstr "壓縮檔大小:"
 
-#: ../src/interface.c:588
+#: ../src/interface.c:700
 msgid "Content size:"
 msgstr "內容大小:"
 
-#: ../src/interface.c:595
+#: ../src/interface.c:707
 msgid "Has comment:"
 msgstr ""
 
-#: ../src/interface.c:602
+#: ../src/interface.c:714
 msgid "Compression ratio:"
 msgstr "壓縮比率:"
 
-#: ../src/interface.c:609
+#: ../src/interface.c:721
 msgid "Number of files:"
 msgstr "檔案數:"
 
-#: ../src/interface.c:616
+#: ../src/interface.c:728
 msgid "Number of dirs:"
 msgstr "資料夾數:"
 
@@ -937,6 +943,7 @@ msgid "Add files to archive by asking their filenames and quits."
 msgstr "正在把檔案加入壓縮檔中，請稍候。"
 
 #: ../src/main.c:62
+#, fuzzy
 msgid "[archive name]"
 msgstr "[壓縮檔名稱]"
 
@@ -955,21 +962,22 @@ msgid "Can't extract files from the archive:"
 msgstr "將檔案加入這個壓縮檔中"
 
 #: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
+#, fuzzy
 msgid "You missed the archive name!\n"
-msgstr ""
+msgstr "請輸入密碼。"
 
-#: ../src/main.c:410
+#: ../src/main.c:409
 #, fuzzy
 msgid "Can't spawn the command:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/main.c:419
+#: ../src/main.c:418
 msgid "An error occurred!"
 msgstr ""
 
-#: ../src/main.c:433
+#: ../src/main.c:432
 #, fuzzy
 msgid "Can't allocate memory for the archive structure!"
 msgstr "將檔案加入這個壓縮檔中"
@@ -1018,25 +1026,25 @@ msgstr ""
 msgid "Can't fseek in file:"
 msgstr ""
 
-#: ../src/rpm.c:123
+#: ../src/rpm.c:126
 #, fuzzy
 msgid "Error while extracting the cpio archive from the rpm one."
 msgstr ""
 "嘗試從 rpm 檔解壓縮 cpio 檔時發生錯誤\n"
 "您要檢視錯誤訊息嗎？"
 
-#: ../src/rpm.c:151
+#: ../src/rpm.c:157
 #, fuzzy
 msgid "An error occurred while decompressing the cpio archive."
 msgstr ""
 "嘗試從 cpio 包裝檔中解壓縮時發生錯誤\n"
 "您要檢視錯誤訊息嗎？"
 
-#: ../src/rpm.c:206 ../src/rpm.c:360
+#: ../src/rpm.c:212 ../src/rpm.c:369
 msgid "An error occurred:"
 msgstr ""
 
-#: ../src/rpm.c:315
+#: ../src/rpm.c:324
 msgid "Can't write to /tmp:"
 msgstr ""
 
@@ -1054,6 +1062,21 @@ msgstr "[壓縮檔名稱]"
 #, fuzzy
 msgid "Xarchiver"
 msgstr "檔案(_A)"
+
+#, fuzzy
+#~ msgid "Can't add files to the archive_cmd:"
+#~ msgstr "無法將將檔案加入這個壓縮檔中："
+
+#, fuzzy
+#~ msgid "Can't allocate memory for the archive_cmd structure!"
+#~ msgstr "將檔案加入這個壓縮檔中"
+
+#, fuzzy
+#~ msgid "archive_cmd"
+#~ msgstr "檔案(_A)"
+
+#~ msgid "Please hit the Stop button first!"
+#~ msgstr "請先按下停止按鈕！"
 
 #, fuzzy
 #~ msgid "This option can't be used with password protected archives!\n"
@@ -1127,9 +1150,6 @@ msgstr "檔案(_A)"
 #~ msgid "Archiver Output Window"
 #~ msgstr "解壓縮輸出視窗"
 
-#~ msgid "_Archive"
-#~ msgstr "檔案(_A)"
-
 #, fuzzy
 #~ msgid "View Error _Messages"
 #~ msgstr "檢視錯誤訊息"
@@ -1141,10 +1161,6 @@ msgstr "檔案(_A)"
 #, fuzzy
 #~ msgid "Add files to the specified archive and quits."
 #~ msgstr "正在把檔案加入壓縮檔中，請稍候。"
-
-#, fuzzy
-#~ msgid "You missed the files to add!\n"
-#~ msgstr "請輸入密碼。"
 
 #, fuzzy
 #~ msgid "Can't perform the action:"

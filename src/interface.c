@@ -521,8 +521,6 @@ void xa_add_page (XArchive *archive)
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-begin",			G_CALLBACK (drag_begin), NULL);
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-data-get",		G_CALLBACK (drag_data_get), NULL );
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-end",				G_CALLBACK (drag_end), NULL);
-
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (archive->scrollwindow), GTK_SHADOW_IN);
 }
 
 void xa_close_page (GtkWidget *widget, gpointer data)
@@ -542,6 +540,9 @@ gchar *password_dialog ()
 	GtkWidget *okbutton1;
 	gboolean done = FALSE;
 	gchar *password = NULL;
+	gint current_page;
+
+	current_page = gtk_notebook_get_current_page (notebook);
 
 	passwd = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (passwd),_("Enter Archive Password"));
@@ -564,9 +565,9 @@ gchar *password_dialog ()
 	gtk_box_pack_start (GTK_BOX (hbox1), password_entry, TRUE, TRUE, 0);
 	gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(password_entry), TRUE);
-	//TODO:
-	//if (archive->passwd != NULL)
-		//gtk_entry_set_text (GTK_ENTRY(password_entry),archive->passwd);
+
+	if (current_page > 0 && archive[current_page]->passwd != NULL)
+		gtk_entry_set_text (GTK_ENTRY(password_entry),archive[current_page]->passwd);
 	gtk_widget_show (password_entry);
 
 	dialog_action_area1 = GTK_DIALOG (passwd)->action_area;

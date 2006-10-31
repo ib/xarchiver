@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-19 14:28+0200\n"
+"POT-Creation-Date: 2006-10-31 13:32+0100\n"
 "PO-Revision-Date: 2006-08-31 17:35+0300\n"
 "Last-Translator: Yuval Tanny <tanai@int.gov.il>\n"
 "Language-Team: Hebrew\n"
@@ -61,14 +61,14 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:67 ../src/callbacks.c:146 ../src/callbacks.c:705
-#: ../src/callbacks.c:718 ../src/callbacks.c:820 ../src/callbacks.c:833
-#: ../src/callbacks.c:1535 ../src/callbacks.c:1886 ../src/extract_dialog.c:930
-#: ../src/rpm.c:120 ../src/rpm.c:148
+#: ../src/archive.c:66 ../src/callbacks.c:146 ../src/callbacks.c:742
+#: ../src/callbacks.c:755 ../src/callbacks.c:857 ../src/callbacks.c:870
+#: ../src/callbacks.c:1580 ../src/callbacks.c:1945 ../src/extract_dialog.c:933
+#: ../src/rpm.c:123 ../src/rpm.c:154
 msgid "Operation failed."
 msgstr "הפעולה נכשלה."
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 msgid "Can't run the archiver executable:"
 msgstr "אין אפשרות להריץ את קובץ ההרצה של יוצר הארכיונים:"
 
@@ -99,9 +99,9 @@ msgstr "מחלץ קובץ gzip אל %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "מחלץ קובץ bzip2 אל %s"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:809
-#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:879
-#: ../src/extract_dialog.c:901
+#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:846
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:882
+#: ../src/extract_dialog.c:904
 msgid "Operation canceled."
 msgstr "הפעולה מבוטלת."
 
@@ -120,11 +120,11 @@ msgstr "מכוון קובץ tar עם %s, אנא המתן..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "מספר קבצים אולי כבר קיימים. אנא בדוק \"%s\"."
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1881
+#: ../src/callbacks.c:147 ../src/callbacks.c:1940
 msgid "An error occurred while accessing the archive."
 msgstr "ארעה שגיאה בזמן הגישה לארכיון."
 
-#: ../src/callbacks.c:147 ../src/callbacks.c:1881 ../src/rpm.c:151
+#: ../src/callbacks.c:147 ../src/callbacks.c:1940 ../src/rpm.c:157
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "האם ברצונך להחליפו?"
@@ -134,7 +134,7 @@ msgstr "האם ברצונך להחליפו?"
 msgid "The sfx archive was saved as:"
 msgstr "מחלץ ארכיון אל %s"
 
-#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1556
+#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1601
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "הפעולה הושלמה."
@@ -143,190 +143,191 @@ msgstr "הפעולה הושלמה."
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "אנא המתן בזמן שתוכן הארכיון מתעדכן..."
 
-#: ../src/callbacks.c:282
+#: ../src/callbacks.c:288
 msgid "Choose Add to begin creating the archive."
 msgstr "בחר הוסף כדי ליצור את הארכיון."
 
-#: ../src/callbacks.c:335
+#: ../src/callbacks.c:331
+#, fuzzy
+msgid "Can't allocate memory for the archive structure:"
+msgstr "אין אפשרות לחלץ קבצים מהארכיון:"
+
+#: ../src/callbacks.c:353
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "אין אפשרות לפתוח את הקובץ \"%s\":"
 
-#: ../src/callbacks.c:338
+#: ../src/callbacks.c:356
 msgid "Archive format is not recognized!"
 msgstr "לא זוהה סוג הארכיון."
 
-#: ../src/callbacks.c:361
+#: ../src/callbacks.c:379
 msgid "Sorry, this archive format is not supported:"
 msgstr "סליחה, סוג ארכיון זה אינו נתמך:"
 
-#: ../src/callbacks.c:361
+#: ../src/callbacks.c:379
 msgid "the proper archiver is not installed!"
 msgstr "תכנתי הכיווץ הדרושה לא מותקנת."
 
-#: ../src/callbacks.c:368
+#: ../src/callbacks.c:386
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "אנא המתן בזמן שתוכן תמונת ה-ISO נטען..."
 
-#: ../src/callbacks.c:370
+#: ../src/callbacks.c:388
 msgid "Please wait while the content of the archive is being read..."
 msgstr "אנא המתן בזמן שתוכן הארכיון נטען..."
 
-#: ../src/callbacks.c:446
+#: ../src/callbacks.c:464
 msgid "Testing archive integrity, please wait..."
 msgstr "בודק את תקינות הארכיון. אנא המתן..."
 
-#: ../src/callbacks.c:506 ../src/main.c:241
+#: ../src/callbacks.c:528 ../src/main.c:241
 msgid "Ready."
 msgstr "מוכן."
 
-#: ../src/callbacks.c:515
-msgid "Please hit the Stop button first!"
-msgstr "אנא לחץ על עצור קודם."
-
-#: ../src/callbacks.c:537
+#: ../src/callbacks.c:567
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "אתה עומד למחוק %d קבצים מהארכיון."
 
-#: ../src/callbacks.c:538
+#: ../src/callbacks.c:568
 msgid "Are you sure you want to do this?"
 msgstr "האם אתה בטוח כי ברצונך למחוק את קבצים אלה מהארכיון?"
 
-#: ../src/callbacks.c:544
+#: ../src/callbacks.c:574
 msgid "Deleting files from the archive, please wait..."
 msgstr "מוחק קבצים מהארכיון, אנא המתן..."
 
-#: ../src/callbacks.c:645
+#: ../src/callbacks.c:682
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "בודק את תקינות הארכיון. אנא המתן..."
 
-#: ../src/callbacks.c:707 ../src/callbacks.c:822
+#: ../src/callbacks.c:744 ../src/callbacks.c:859
 #, fuzzy
 msgid "Can't convert the archive to self-extracting:"
 msgstr "אין אפשרות להריץ את קובץ ההרצה של יוצר הארכיונים:"
 
-#: ../src/callbacks.c:720 ../src/callbacks.c:835
+#: ../src/callbacks.c:757 ../src/callbacks.c:872
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "אין אפשרות להוסיף קבצים לארכיון:"
 
-#: ../src/callbacks.c:789
+#: ../src/callbacks.c:826
 #, fuzzy
 msgid "Please select the 7zCon.sfx module"
 msgstr "אנא בחר את הקבצים שברצונך להוסיף"
 
-#: ../src/callbacks.c:894
+#: ../src/callbacks.c:931
 msgid "translator-credits"
 msgstr "יובל טנאי <tanai@int.gov.il>"
 
-#: ../src/callbacks.c:927 ../src/interface.c:266
+#: ../src/callbacks.c:964 ../src/interface.c:268
 msgid "Open an archive"
 msgstr "פתח ארכיון"
 
-#: ../src/callbacks.c:940
+#: ../src/callbacks.c:977
 msgid "All files"
 msgstr "כל הקבצים"
 
-#: ../src/callbacks.c:945
+#: ../src/callbacks.c:982
 msgid "Only archives"
 msgstr "רק ארכיונים"
 
-#: ../src/callbacks.c:1064
+#: ../src/callbacks.c:1101
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "אין אפשרות לפתוח את ארכיון \"%s\""
 
-#: ../src/callbacks.c:1338
+#: ../src/callbacks.c:1376
 msgid "Command line output"
 msgstr ""
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1412
 msgid "Doing so will probably corrupt your archive!"
 msgstr "ביצוע זאת כנראה יהרוס את הארכיון."
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1412
 msgid "Do you really want to cancel?"
 msgstr "האם אתה בטוח שברצונך לבטל?"
 
-#: ../src/callbacks.c:1375
+#: ../src/callbacks.c:1417
 msgid "Waiting for the process to abort..."
 msgstr "ממתין לעצירת התהליך..."
 
-#: ../src/callbacks.c:1381
+#: ../src/callbacks.c:1423
 msgid "An error occurred while trying to kill the process:"
 msgstr "ארעה שגיאה בזמן הניסיון להרוג את התהליך:"
 
-#: ../src/callbacks.c:1466
+#: ../src/callbacks.c:1511
 msgid "Please select a file, not a directory!"
 msgstr "אנא בחר קובץ, לא תיקייה."
 
-#: ../src/callbacks.c:1536
+#: ../src/callbacks.c:1581
 #, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "ארעה שגיאה בזמן הניסיון להרוג את התהליך:"
 
-#: ../src/callbacks.c:1545
+#: ../src/callbacks.c:1590
 #, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "ארעה שגיאה בזמן הניסיון להרוג את התהליך:"
 
-#: ../src/callbacks.c:1598
+#: ../src/callbacks.c:1646
 msgid " bytes"
 msgstr ""
 
-#: ../src/callbacks.c:1721
+#: ../src/callbacks.c:1772
 msgid "Yes"
 msgstr ""
 
-#: ../src/callbacks.c:1723
+#: ../src/callbacks.c:1774
 msgid "No"
 msgstr ""
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:2064
 msgid "Can't perform another extraction:"
 msgstr "אין אפשרות לבצע עוד חילוץ:"
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:2064
 msgid "Please wait until the completion of the current one!"
 msgstr "אנא המתן עד לסיום החילוץ הנוכחי."
 
-#: ../src/callbacks.c:2082
+#: ../src/callbacks.c:2152
 msgid "Sorry, I could not perform the operation!"
 msgstr "סליחה, אין אפשרות לבצע את הפעולה."
 
-#: ../src/callbacks.c:2111 ../src/callbacks.c:2122
+#: ../src/callbacks.c:2182 ../src/callbacks.c:2193
 msgid "Can't perform this action:"
 msgstr "אין אפשרות לבצע את פעולה זו:"
 
-#: ../src/callbacks.c:2111
+#: ../src/callbacks.c:2182
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: ../src/callbacks.c:2119
+#: ../src/callbacks.c:2190
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2121
+#: ../src/callbacks.c:2192
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: ../src/callbacks.c:2231
+#: ../src/callbacks.c:2307
 msgid "Failed to open link."
 msgstr "כשל בפתיחת קישור."
 
-#: ../src/callbacks.c:2257
+#: ../src/callbacks.c:2336
 msgid "The password has been reset."
 msgstr ""
 
-#: ../src/callbacks.c:2260
+#: ../src/callbacks.c:2339
 #, fuzzy
 msgid "Please enter the password first!"
 msgstr "אנא הכנס סיסמה."
 
-#: ../src/callbacks.c:2270
+#: ../src/callbacks.c:2348
 #, fuzzy
 msgid "Archive comment window"
 msgstr "חלון מאפייני הארכיון"
@@ -434,7 +435,7 @@ msgstr ""
 msgid "5 = default compression, 7 = max compression"
 msgstr ""
 
-#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:449
+#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:560
 msgid "Password:"
 msgstr "סיסמה:"
 
@@ -446,7 +447,7 @@ msgstr "רמת כיווץ:"
 msgid "<b>Options </b>"
 msgstr "<b>אפשרויות </b>"
 
-#: ../src/add_dialog.c:308 ../src/interface.c:126
+#: ../src/add_dialog.c:308 ../src/interface.c:128
 msgid "_Add"
 msgstr "_הוסף"
 
@@ -466,11 +467,11 @@ msgstr "אין אפשרות להוסיף קבצים לארכיון:"
 msgid "You haven't selected any files to add!"
 msgstr "לא בחרת אף קובץ כדי להוסיף."
 
-#: ../src/add_dialog.c:502 ../src/interface.c:490
+#: ../src/add_dialog.c:502 ../src/interface.c:602
 msgid "You missed the password!"
 msgstr "עליך להכניס סיסמה."
 
-#: ../src/add_dialog.c:502 ../src/interface.c:490
+#: ../src/add_dialog.c:502 ../src/interface.c:602
 msgid "Please enter it!"
 msgstr "אנא הכנס אותה."
 
@@ -558,7 +559,7 @@ msgstr ""
 "מאשר ההעתק שלהם בספרייה, ובנוסף לזאת היא מחלצת את הקבצים אשר לא קיימים "
 "בספרייה."
 
-#: ../src/extract_dialog.c:255 ../src/interface.c:136
+#: ../src/extract_dialog.c:255 ../src/interface.c:138
 msgid "_Extract"
 msgstr "_חלץ"
 
@@ -604,181 +605,186 @@ msgstr "מחלץ קבצים אל %s"
 msgid "Extracting archive to %s"
 msgstr "מחלץ ארכיון אל %s"
 
-#: ../src/extract_dialog.c:928
+#: ../src/extract_dialog.c:931
 msgid "Can't create temporary directory in /tmp:"
 msgstr "אין אפשרות ליצור ספרייה זמנית ב- tmp/:"
 
-#: ../src/extract_dialog.c:943
+#: ../src/extract_dialog.c:946
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "בחר תיקיית יעד שאליה יחולץ הארכיון הנוכחי"
 
-#: ../src/interface.c:70
+#: ../src/interface.c:72
 #, fuzzy
 msgid "_File"
 msgstr "קבצים"
 
-#: ../src/interface.c:90
+#: ../src/interface.c:92
 msgid "_Test"
 msgstr "_בדיקה"
 
-#: ../src/interface.c:100
+#: ../src/interface.c:102
 msgid "_Properties"
 msgstr "_מאפיינים"
 
-#: ../src/interface.c:119
+#: ../src/interface.c:121
 #, fuzzy
 msgid "_Action"
 msgstr "_פעולה"
 
-#: ../src/interface.c:146
+#: ../src/interface.c:148
 msgid "Make SF_X"
 msgstr ""
 
-#: ../src/interface.c:167
+#: ../src/interface.c:169
 msgid "_View"
 msgstr "_תצוגה"
 
-#: ../src/interface.c:173
+#: ../src/interface.c:175
 msgid "_Show comment"
 msgstr ""
 
-#: ../src/interface.c:188
+#: ../src/interface.c:190
 #, fuzzy
 msgid "Sele_ct All"
 msgstr "בחר ה_כל"
 
-#: ../src/interface.c:194
+#: ../src/interface.c:196
 msgid "Dese_lect All"
 msgstr "ב_טל בחירת הכל"
 
-#: ../src/interface.c:205
+#: ../src/interface.c:207
 msgid "Co_mmand line output"
 msgstr ""
 
-#: ../src/interface.c:214
+#: ../src/interface.c:216
 msgid "Show I_SO info"
 msgstr "הצג _מידע של ISO"
 
-#: ../src/interface.c:224
+#: ../src/interface.c:226
 #, fuzzy
 msgid "Reset passwo_rd"
 msgstr "אנא הכנס סיסמה."
 
-#: ../src/interface.c:230
+#: ../src/interface.c:232
 msgid "_Help"
 msgstr "_עזרה"
 
-#: ../src/interface.c:254
+#: ../src/interface.c:256
 msgid "New"
 msgstr "חדש"
 
-#: ../src/interface.c:258
+#: ../src/interface.c:260
 msgid "Create a new archive"
 msgstr "צור ארכיון חדש"
 
-#: ../src/interface.c:262
+#: ../src/interface.c:264
 msgid "Open"
 msgstr "פתח"
 
-#: ../src/interface.c:274
+#: ../src/interface.c:276
 msgid "Add"
 msgstr "הוסף"
 
-#: ../src/interface.c:279
+#: ../src/interface.c:281
 msgid "Add files and directories to the current archive"
 msgstr "הוסף קבצים וספריות לארכיון הנוכחי"
 
-#: ../src/interface.c:283
+#: ../src/interface.c:285
 msgid "Extract"
 msgstr "חלץ"
 
-#: ../src/interface.c:288
+#: ../src/interface.c:290
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
 msgstr "חלץ קבצים מהארכיון הנוכחי. השתמש בעכבר כדי לבחור קבצים באופן יחידני"
 
-#: ../src/interface.c:292
+#: ../src/interface.c:294
 msgid "SFX"
 msgstr ""
 
-#: ../src/interface.c:297
+#: ../src/interface.c:299
 msgid "Make the current archive self-extracting"
 msgstr ""
 
-#: ../src/interface.c:304
+#: ../src/interface.c:306
 msgid "Delete"
 msgstr "מחק"
 
-#: ../src/interface.c:309
+#: ../src/interface.c:311
 msgid "Delete files from the current archive"
 msgstr "מחק קבצים מהארכיון הנוכחי"
 
-#: ../src/interface.c:313
+#: ../src/interface.c:315
 msgid "View"
 msgstr "תצוגה"
 
-#: ../src/interface.c:318
+#: ../src/interface.c:320
 msgid "View file content in the current archive"
 msgstr "הצג את תוכן הקובץ בארכיון הנוכחי"
 
-#: ../src/interface.c:326
+#: ../src/interface.c:328
 msgid "Stop"
 msgstr "עצור"
 
-#: ../src/interface.c:331
+#: ../src/interface.c:333
 msgid "Cancel current operation"
 msgstr "בטל פעולה נוכחית"
 
-#: ../src/interface.c:386
+#: ../src/interface.c:381
 msgid "This archive contains password protected files"
 msgstr "ארכיון זה מכיל קבצים מוגנים בסיסמה"
 
-#: ../src/interface.c:437
+#: ../src/interface.c:498
+#, fuzzy
+msgid "Close Archive"
+msgstr "_ארכיון"
+
+#: ../src/interface.c:548
 msgid "Enter Archive Password"
 msgstr "הכנס סיסמת ארכיון"
 
-#: ../src/interface.c:535
+#: ../src/interface.c:647
 msgid "Archive Properties Window"
 msgstr "חלון מאפייני הארכיון"
 
-#: ../src/interface.c:553
+#: ../src/interface.c:665
 msgid "Name:"
 msgstr "שם:"
 
-#: ../src/interface.c:560
+#: ../src/interface.c:672
 msgid "Path:"
 msgstr "נתיב:"
 
-#: ../src/interface.c:567
+#: ../src/interface.c:679
 msgid "Type:"
 msgstr "סוג:"
 
-#: ../src/interface.c:574
+#: ../src/interface.c:686
 msgid "Modified on:"
 msgstr "שונה ב:"
 
-#: ../src/interface.c:581
+#: ../src/interface.c:693
 msgid "Archive size:"
 msgstr "גודל הארכיון:"
 
-#: ../src/interface.c:588
+#: ../src/interface.c:700
 msgid "Content size:"
 msgstr "גודל תוכן הארכיון:"
 
-#: ../src/interface.c:595
+#: ../src/interface.c:707
 msgid "Has comment:"
 msgstr ""
 
-#: ../src/interface.c:602
+#: ../src/interface.c:714
 msgid "Compression ratio:"
 msgstr "יחס כיווץ:"
 
-#: ../src/interface.c:609
+#: ../src/interface.c:721
 msgid "Number of files:"
 msgstr "מספר הקבצים:"
 
-#: ../src/interface.c:616
+#: ../src/interface.c:728
 msgid "Number of dirs:"
 msgstr "מספר הספריות:"
 
@@ -875,9 +881,10 @@ msgid "Effective date:"
 msgstr "תאריך אפקטיבי:"
 
 #: ../src/main.c:37
+#, fuzzy
 msgid ""
 "Extract archive to the directory specified by destination_path and quits."
-msgstr ""
+msgstr "הוסף קבצים לארכיון"
 
 #: ../src/main.c:38
 #, fuzzy
@@ -885,8 +892,9 @@ msgid "destination_path archive"
 msgstr "הוסף קבצים לארכיון"
 
 #: ../src/main.c:41
+#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
-msgstr ""
+msgstr "הוסף קבצים לארכיון"
 
 #: ../src/main.c:42 ../src/main.c:50
 #, fuzzy
@@ -908,6 +916,7 @@ msgid "Add files to archive by asking their filenames and quits."
 msgstr "הוסף קבצים לארכיון"
 
 #: ../src/main.c:62
+#, fuzzy
 msgid "[archive name]"
 msgstr "[archive name]"
 
@@ -921,22 +930,24 @@ msgstr ""
 "Try xarchiver --help to see a full list of available command line options.\n"
 
 #: ../src/main.c:87 ../src/main.c:120
+#, fuzzy
 msgid "Can't extract files from the archive:"
 msgstr "אין אפשרות לחלץ קבצים מהארכיון:"
 
 #: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
+#, fuzzy
 msgid "You missed the archive name!\n"
 msgstr "עליך לציין שם ארכיון.\n"
 
-#: ../src/main.c:410
+#: ../src/main.c:409
 msgid "Can't spawn the command:"
 msgstr "אין אפשרות להפעיל את הפקודה:"
 
-#: ../src/main.c:419
+#: ../src/main.c:418
 msgid "An error occurred!"
 msgstr "ארעה שגיאה."
 
-#: ../src/main.c:433
+#: ../src/main.c:432
 #, fuzzy
 msgid "Can't allocate memory for the archive structure!"
 msgstr "אין אפשרות לחלץ קבצים מהארכיון:"
@@ -982,19 +993,19 @@ msgstr "אין אפשרות לקרוא מידע מהקובץ:"
 msgid "Can't fseek in file:"
 msgstr "אין אפשרות לבצע fseek בקובץ:"
 
-#: ../src/rpm.c:123
+#: ../src/rpm.c:126
 msgid "Error while extracting the cpio archive from the rpm one."
 msgstr "ארעה שגיאה בזמן חילוץ ארכיון ה-cpio מארכיון הRPM."
 
-#: ../src/rpm.c:151
+#: ../src/rpm.c:157
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "ארעה שגיאה פריסת ארכיון ה-cpio."
 
-#: ../src/rpm.c:206 ../src/rpm.c:360
+#: ../src/rpm.c:212 ../src/rpm.c:369
 msgid "An error occurred:"
 msgstr "ארעה שגיאה:"
 
-#: ../src/rpm.c:315
+#: ../src/rpm.c:324
 msgid "Can't write to /tmp:"
 msgstr "אין אפשרות לכתוב אל tmp/:"
 
@@ -1012,6 +1023,21 @@ msgstr "[archive name]"
 #, fuzzy
 msgid "Xarchiver"
 msgstr "_ארכיון"
+
+#, fuzzy
+#~ msgid "Can't add files to the archive_cmd:"
+#~ msgstr "אין אפשרות להוסיף קבצים לארכיון:"
+
+#, fuzzy
+#~ msgid "Can't allocate memory for the archive_cmd structure!"
+#~ msgstr "אין אפשרות לחלץ קבצים מהארכיון:"
+
+#, fuzzy
+#~ msgid "archive_cmd"
+#~ msgstr "_ארכיון"
+
+#~ msgid "Please hit the Stop button first!"
+#~ msgstr "אנא לחץ על עצור קודם."
 
 #~ msgid "This option can't be used with password protected archives!\n"
 #~ msgstr "אין אפשרות להשתמש באפשרות זו בארכיונים אשר מוגנים בסיסמה.\n"
@@ -1088,9 +1114,6 @@ msgstr "_ארכיון"
 
 #~ msgid "Archiver Output Window"
 #~ msgstr "חלון פלט שורת פקודה"
-
-#~ msgid "_Archive"
-#~ msgstr "_ארכיון"
 
 #~ msgid "View Error _Messages"
 #~ msgstr "הצג הודעות _שגיאה"

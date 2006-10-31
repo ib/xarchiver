@@ -285,9 +285,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     /* Let's off the delete and view buttons and the menu entries to avoid strange behaviours */
     OffDeleteandViewButtons ();
 
-	/*if ( liststore != NULL )
-		RemoveColumnsListStore();*/
-
   	Update_StatusBar ( _("Choose Add to begin creating the archive."));
     gtk_tooltips_disable ( pad_tooltip );
     gtk_widget_hide ( pad_image );
@@ -2148,8 +2145,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	gint current_page;
 
 	current_page = gtk_notebook_get_current_page (notebook);
-	if (current_page == -1)
-		current_page = 0;
 
 	array = gtk_selection_data_get_uris ( data );
 	if (array == NULL)
@@ -2173,12 +2168,13 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 			return;
 		}
     }
-	//TODO:
-	if (archive[current_page] == NULL)
+	if (current_page == -1)
 	{
+		current_page = 0;
 		archive[current_page] = xa_new_archive_dialog ( filename );
 		if (archive[current_page] == NULL)
 			return;
+		xa_add_page (archive[current_page]);
 	}
 
 	if (archive[current_page]->type == XARCHIVETYPE_RAR && unrar)

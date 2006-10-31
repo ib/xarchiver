@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-19 14:28+0200\n"
+"POT-Creation-Date: 2006-10-31 13:32+0100\n"
 "PO-Revision-Date: 2006-10-19 21:08+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -15,29 +15,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/7zip.c:37
-#: ../src/arj.c:43
-#: ../src/bzip2.c:56
-#: ../src/gzip.c:54
-#: ../src/iso.c:652
-#: ../src/rar.c:48
-#: ../src/rpm.c:56
-#: ../src/tar.c:48
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/rpm.c:56 ../src/tar.c:48
 #: ../src/zip.c:38
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: ../src/7zip.c:37
-#: ../src/arj.c:43
-#: ../src/rar.c:48
-#: ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Original"
 msgstr "Eredeti"
 
-#: ../src/7zip.c:37
-#: ../src/arj.c:43
-#: ../src/rar.c:48
-#: ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Compressed"
 msgstr "Tömörített"
 
@@ -45,30 +33,17 @@ msgstr "Tömörített"
 msgid "Attr"
 msgstr "Attr"
 
-#: ../src/7zip.c:37
-#: ../src/arj.c:43
-#: ../src/bzip2.c:56
-#: ../src/gzip.c:54
-#: ../src/rar.c:48
-#: ../src/tar.c:48
-#: ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Idő"
 
-#: ../src/7zip.c:37
-#: ../src/arj.c:43
-#: ../src/bzip2.c:56
-#: ../src/gzip.c:54
-#: ../src/iso.c:652
-#: ../src/rar.c:48
-#: ../src/tar.c:48
-#: ../src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/gzip.c:54
+#: ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Date"
 msgstr "Dátum"
 
-#: ../src/arj.c:43
-#: ../src/rar.c:48
-#: ../src/zip.c:38
+#: ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Ratio"
 msgstr "Arány"
 
@@ -84,48 +59,30 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/archive.c:67
-#: ../src/callbacks.c:146
-#: ../src/callbacks.c:705
-#: ../src/callbacks.c:718
-#: ../src/callbacks.c:820
-#: ../src/callbacks.c:833
-#: ../src/callbacks.c:1535
-#: ../src/callbacks.c:1886
-#: ../src/extract_dialog.c:930
-#: ../src/rpm.c:120
-#: ../src/rpm.c:148
+#: ../src/archive.c:66 ../src/callbacks.c:146 ../src/callbacks.c:742
+#: ../src/callbacks.c:755 ../src/callbacks.c:857 ../src/callbacks.c:870
+#: ../src/callbacks.c:1580 ../src/callbacks.c:1945 ../src/extract_dialog.c:933
+#: ../src/rpm.c:123 ../src/rpm.c:154
 msgid "Operation failed."
 msgstr "A művelet sikertelen."
 
-#: ../src/archive.c:68
+#: ../src/archive.c:67
 msgid "Can't run the archiver executable:"
 msgstr "Nem tudom futtatni az archiválót:"
 
-#: ../src/bzip2.c:56
-#: ../src/gzip.c:54
-#: ../src/rar.c:48
-#: ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Jogok"
 
-#: ../src/bzip2.c:56
-#: ../src/gzip.c:54
-#: ../src/rpm.c:56
-#: ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/rpm.c:56 ../src/tar.c:48
 msgid "Symbolic Link"
 msgstr "Jelképes lánc"
 
-#: ../src/bzip2.c:56
-#: ../src/gzip.c:54
-#: ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/tar.c:48
 msgid "Owner/Group"
 msgstr "Tulajdonos/Csoport"
 
-#: ../src/bzip2.c:56
-#: ../src/gzip.c:54
-#: ../src/iso.c:652
-#: ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/gzip.c:54 ../src/iso.c:652 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Size"
 msgstr "Méret"
@@ -140,12 +97,9 @@ msgstr "Gzip fájl kibontása ide: %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "Bzip2 fájl kibontása ide: %s"
 
-#: ../src/bzip2.c:145
-#: ../src/callbacks.c:125
-#: ../src/callbacks.c:809
-#: ../src/extract_dialog.c:313
-#: ../src/extract_dialog.c:879
-#: ../src/extract_dialog.c:901
+#: ../src/bzip2.c:145 ../src/callbacks.c:125 ../src/callbacks.c:846
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:882
+#: ../src/extract_dialog.c:904
 msgid "Operation canceled."
 msgstr "Művelet törölve."
 
@@ -164,14 +118,11 @@ msgstr "Tar fájl újratömörítése ezzel: %s, kérlek, várj..."
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Ellenőrizd \"%s\"-t mivel egyes fájlok talán már kibontottak."
 
-#: ../src/callbacks.c:147
-#: ../src/callbacks.c:1881
+#: ../src/callbacks.c:147 ../src/callbacks.c:1940
 msgid "An error occurred while accessing the archive."
 msgstr "Hiba történt az archívumhoz féréskor."
 
-#: ../src/callbacks.c:147
-#: ../src/callbacks.c:1881
-#: ../src/rpm.c:151
+#: ../src/callbacks.c:147 ../src/callbacks.c:1940 ../src/rpm.c:157
 msgid "Do you want to view the command line output?"
 msgstr "Megnézed a parancssor kimenetet?"
 
@@ -179,12 +130,8 @@ msgstr "Megnézed a parancssor kimenetet?"
 msgid "The sfx archive was saved as:"
 msgstr "sfx archívum mentve mint:"
 
-#: ../src/callbacks.c:175
-#: ../src/callbacks.c:250
-#: ../src/callbacks.c:1556
-#: ../src/extract_dialog.c:567
-#: ../src/extract_dialog.c:789
-#: ../src/iso.c:770
+#: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1601
+#: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
 msgid "Operation completed."
 msgstr "Művelet kész."
 
@@ -192,187 +139,184 @@ msgstr "Művelet kész."
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Kérlek, várj, az archívum-tartalom frissítéséig..."
 
-#: ../src/callbacks.c:282
+#: ../src/callbacks.c:288
 msgid "Choose Add to begin creating the archive."
 msgstr "Válaszd a Hozzáadás-t az archívum létrehozásához."
 
-#: ../src/callbacks.c:335
+#: ../src/callbacks.c:331
+#, fuzzy
+msgid "Can't allocate memory for the archive structure:"
+msgstr "Nem tudok lefoglalni memóriát az archívum felépítésnek!"
+
+#: ../src/callbacks.c:353
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "\"%s\" fájl nem nyitható meg:"
 
-#: ../src/callbacks.c:338
+#: ../src/callbacks.c:356
 msgid "Archive format is not recognized!"
 msgstr "Ismeretlen archívum formátum!"
 
-#: ../src/callbacks.c:361
+#: ../src/callbacks.c:379
 msgid "Sorry, this archive format is not supported:"
 msgstr "Bocs, ez az archívum forma most nem támogatott:"
 
-#: ../src/callbacks.c:361
+#: ../src/callbacks.c:379
 msgid "the proper archiver is not installed!"
 msgstr "a helyes archiváló nincs telepítve!"
 
-#: ../src/callbacks.c:368
+#: ../src/callbacks.c:386
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Kérlek, várj, az ISO kép tartalmának beolvasásáig..."
 
-#: ../src/callbacks.c:370
+#: ../src/callbacks.c:388
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Kérlek, várj, az archívum tartalmának beolvasásáig..."
 
-#: ../src/callbacks.c:446
+#: ../src/callbacks.c:464
 msgid "Testing archive integrity, please wait..."
 msgstr "Archívum épségének ellenőrzése, kérlek, várj..."
 
-#: ../src/callbacks.c:506
-#: ../src/main.c:241
+#: ../src/callbacks.c:528 ../src/main.c:241
 msgid "Ready."
 msgstr "Kész."
 
-#: ../src/callbacks.c:515
-msgid "Please hit the Stop button first!"
-msgstr "Először nyomd meg az Állj gombot, kérlek!"
-
-#: ../src/callbacks.c:537
+#: ../src/callbacks.c:567
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "%d fájlt törölsz az archívumból."
 
-#: ../src/callbacks.c:538
+#: ../src/callbacks.c:568
 msgid "Are you sure you want to do this?"
 msgstr "Ezt teszed?"
 
-#: ../src/callbacks.c:544
+#: ../src/callbacks.c:574
 msgid "Deleting files from the archive, please wait..."
 msgstr "Fájlok törlése az archívumból, kérlek, várj..."
 
-#: ../src/callbacks.c:645
+#: ../src/callbacks.c:682
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Archívum ön-kicsomagolóvá alakítása, kérlek, várj..."
 
-#: ../src/callbacks.c:707
-#: ../src/callbacks.c:822
+#: ../src/callbacks.c:744 ../src/callbacks.c:859
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Archívum ön-kicsomagolóvá alakítása sikertelen:"
 
-#: ../src/callbacks.c:720
-#: ../src/callbacks.c:835
+#: ../src/callbacks.c:757 ../src/callbacks.c:872
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "unzipsfx modul írása az archívumhoz sikertelen:"
 
-#: ../src/callbacks.c:789
+#: ../src/callbacks.c:826
 msgid "Please select the 7zCon.sfx module"
 msgstr "Jelöld ki a 7zCon.sfx modult"
 
-#: ../src/callbacks.c:894
+#: ../src/callbacks.c:931
 msgid "translator-credits"
 msgstr "SZERVÁC Attila <sas@321.hu>"
 
-#: ../src/callbacks.c:927
-#: ../src/interface.c:266
+#: ../src/callbacks.c:964 ../src/interface.c:268
 msgid "Open an archive"
 msgstr "Archívum megnyitása"
 
-#: ../src/callbacks.c:940
+#: ../src/callbacks.c:977
 msgid "All files"
 msgstr "Minden fájl"
 
-#: ../src/callbacks.c:945
+#: ../src/callbacks.c:982
 msgid "Only archives"
 msgstr "Csak az archívumok"
 
-#: ../src/callbacks.c:1064
+#: ../src/callbacks.c:1101
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "\"%s\" archívum nem nyitható meg:"
 
-#: ../src/callbacks.c:1338
+#: ../src/callbacks.c:1376
 msgid "Command line output"
 msgstr "Parancssor kimenet"
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1412
 msgid "Doing so will probably corrupt your archive!"
 msgstr "E művelet valószínűleg elrontja az archívumot!"
 
-#: ../src/callbacks.c:1370
+#: ../src/callbacks.c:1412
 msgid "Do you really want to cancel?"
 msgstr "Tényleg törlöd a műveletet?"
 
-#: ../src/callbacks.c:1375
+#: ../src/callbacks.c:1417
 msgid "Waiting for the process to abort..."
 msgstr "Várok a folyamat leállására..."
 
-#: ../src/callbacks.c:1381
+#: ../src/callbacks.c:1423
 msgid "An error occurred while trying to kill the process:"
 msgstr "Hiba történt a folyamat leállításakor:"
 
-#: ../src/callbacks.c:1466
+#: ../src/callbacks.c:1511
 msgid "Please select a file, not a directory!"
 msgstr "Kérlek, válassz fájlt, ne könyvtárat!"
 
-#: ../src/callbacks.c:1536
+#: ../src/callbacks.c:1581
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Hiba történt a megtekintendő fájl kibontásakor:"
 
-#: ../src/callbacks.c:1545
-msgid "An error occurred while converting the file content to the UTF8 encoding:"
+#: ../src/callbacks.c:1590
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Hiba történt a a fájl tartalma UTF8 kódolásra alakításakor:"
 
-#: ../src/callbacks.c:1598
+#: ../src/callbacks.c:1646
 msgid " bytes"
 msgstr " bájt"
 
-#: ../src/callbacks.c:1721
+#: ../src/callbacks.c:1772
 msgid "Yes"
 msgstr "Igen"
 
-#: ../src/callbacks.c:1723
+#: ../src/callbacks.c:1774
 msgid "No"
 msgstr "Nem"
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:2064
 msgid "Can't perform another extraction:"
 msgstr "Nem tudok másik kibontást végrehajtani:"
 
-#: ../src/callbacks.c:1997
+#: ../src/callbacks.c:2064
 msgid "Please wait until the completion of the current one!"
 msgstr "Várj a jelenlegi befejezéséig!"
 
-#: ../src/callbacks.c:2082
+#: ../src/callbacks.c:2152
 msgid "Sorry, I could not perform the operation!"
 msgstr "Bocs, a művelet nem sikerült!"
 
-#: ../src/callbacks.c:2111
-#: ../src/callbacks.c:2122
+#: ../src/callbacks.c:2182 ../src/callbacks.c:2193
 msgid "Can't perform this action:"
 msgstr "Nem hajtható végre e művelet:"
 
-#: ../src/callbacks.c:2111
+#: ../src/callbacks.c:2182
 msgid "unrar doesn't support archive creation!"
 msgstr "az unrar nem támogat archívum készítést!"
 
-#: ../src/callbacks.c:2119
+#: ../src/callbacks.c:2190
 msgid "You can't add content to deb packages!"
 msgstr "Nem tudod bővíteni a deb csomagokat!"
 
-#: ../src/callbacks.c:2121
+#: ../src/callbacks.c:2192
 msgid "You can't add content to rpm packages!"
 msgstr "Nem tudod bővíteni az rpm csomagokat!"
 
-#: ../src/callbacks.c:2231
+#: ../src/callbacks.c:2307
 msgid "Failed to open link."
 msgstr "Lánc megnyitása sikertelen."
 
-#: ../src/callbacks.c:2257
+#: ../src/callbacks.c:2336
 msgid "The password has been reset."
 msgstr "Jelszó visszaállítva"
 
-#: ../src/callbacks.c:2260
+#: ../src/callbacks.c:2339
 msgid "Please enter the password first!"
 msgstr "Add meg e jelszót a jelszót előbb!"
 
-#: ../src/callbacks.c:2270
+#: ../src/callbacks.c:2348
 msgid "Archive comment window"
 msgstr "Archívum megjegyzés ablak"
 
@@ -401,15 +345,20 @@ msgid "Recurse subdirectories"
 msgstr "Könyvtárak bejárása"
 
 #: ../src/add_dialog.c:162
-msgid "Include everything in the directory recursively \tstarting from the current directory."
-msgstr "A könyvtárban rekurzívan mindent tartalmaz \ta jelen könyvtártól kezdve."
+msgid ""
+"Include everything in the directory recursively \tstarting from the current "
+"directory."
+msgstr ""
+"A könyvtárban rekurzívan mindent tartalmaz \ta jelen könyvtártól kezdve."
 
 #: ../src/add_dialog.c:167
 msgid "Generate a solid archive"
 msgstr "Sűrű archívum készítése"
 
 #: ../src/add_dialog.c:171
-msgid "In a solid archive the files are grouped together featuring a better compression ratio."
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio."
 msgstr "Egy sűrű archívumban a fájlok egybefogva jobb tömörítési arányt adnak."
 
 #: ../src/add_dialog.c:176
@@ -429,16 +378,26 @@ msgid "Freshen an existing entry in the archive"
 msgstr "Létező elem frissítése az archívumban"
 
 #: ../src/add_dialog.c:194
-msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."
-msgstr "Ez a lehetőség csak akkor hat, ha újabb változat van; a frissítés lehetőséggel szemben nem ad hozzá olyan fájlokat, melyek nincsenek az archívumban."
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive."
+msgstr ""
+"Ez a lehetőség csak akkor hat, ha újabb változat van; a frissítés "
+"lehetőséggel szemben nem ad hozzá olyan fájlokat, melyek nincsenek az "
+"archívumban."
 
 #: ../src/add_dialog.c:198
 msgid "Update an existing entry in the archive"
 msgstr "Létező elem frissítése az archívumban"
 
 #: ../src/add_dialog.c:202
-msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified."
-msgstr "E lehetőség minden új fájlt hozzáad és frissíti azokat, melyek változtak az archívum utolsó létrehozása/módosítása óta."
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified."
+msgstr ""
+"E lehetőség minden új fájlt hozzáad és frissíti azokat, melyek változtak az "
+"archívum utolsó létrehozása/módosítása óta."
 
 #: ../src/add_dialog.c:211
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
@@ -460,9 +419,7 @@ msgstr "0 = nem tömörít, 1 az alap, 4 = leggyorsabb de kisebb tömörítés"
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = alap tömörítés, 7 = legnagyobb tömörítés"
 
-#: ../src/add_dialog.c:250
-#: ../src/extract_dialog.c:217
-#: ../src/interface.c:449
+#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:560
 msgid "Password:"
 msgstr "Jelszó:"
 
@@ -470,13 +427,11 @@ msgstr "Jelszó:"
 msgid "Compression level:"
 msgstr "Tömörítő szint:"
 
-#: ../src/add_dialog.c:291
-#: ../src/extract_dialog.c:238
+#: ../src/add_dialog.c:291 ../src/extract_dialog.c:238
 msgid "<b>Options </b>"
 msgstr "<b>Lehetőségek </b>"
 
-#: ../src/add_dialog.c:308
-#: ../src/interface.c:126
+#: ../src/add_dialog.c:308 ../src/interface.c:128
 msgid "_Add"
 msgstr "Hozzá_ad"
 
@@ -488,8 +443,7 @@ msgstr "Válaszd ki a hozzáadandó fájlokat"
 msgid "Please select the directories you want to add"
 msgstr "Válaszd ki a hozzáadandó könyvtárakat"
 
-#: ../src/add_dialog.c:494
-#: ../src/main.c:211
+#: ../src/add_dialog.c:494 ../src/main.c:211
 msgid "Can't add files to the archive:"
 msgstr "Nem tudtam fájlokat adni az archívumhoz:"
 
@@ -497,13 +451,11 @@ msgstr "Nem tudtam fájlokat adni az archívumhoz:"
 msgid "You haven't selected any files to add!"
 msgstr "Nem jelöltél ki hozzáadandó fájlokat!"
 
-#: ../src/add_dialog.c:502
-#: ../src/interface.c:490
+#: ../src/add_dialog.c:502 ../src/interface.c:602
 msgid "You missed the password!"
 msgstr "Kihagytad a jelszót!"
 
-#: ../src/add_dialog.c:502
-#: ../src/interface.c:490
+#: ../src/add_dialog.c:502 ../src/interface.c:602
 msgid "Please enter it!"
 msgstr "Kérlek, add meg!"
 
@@ -548,7 +500,8 @@ msgid "Extract files with full path"
 msgstr "Fájlok kibontása teljes ösvénnyel"
 
 #: ../src/extract_dialog.c:173
-msgid "The archive's directory structure is recreated in the extraction directory."
+msgid ""
+"The archive's directory structure is recreated in the extraction directory."
 msgstr "Az archívum könyvtár szerkezete újraépítve a kibontó könyvtárban"
 
 #: ../src/extract_dialog.c:178
@@ -556,15 +509,22 @@ msgid "Touch files"
 msgstr "Fájlok érintése"
 
 #: ../src/extract_dialog.c:181
-msgid "When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."
-msgstr "A lehetőség használatakor a tar a módosítási időket a mostanira állítja be, nem az archívumban tároltra."
+msgid ""
+"When this option is used, tar leaves the data modification times of the "
+"files it extracts as the times when the files were extracted, instead of "
+"setting it to the times recorded in the archive."
+msgstr ""
+"A lehetőség használatakor a tar a módosítási időket a mostanira állítja be, "
+"nem az archívumban tároltra."
 
 #: ../src/extract_dialog.c:194
 msgid "Freshen existing files"
 msgstr "Létező fájlok frissítése"
 
 #: ../src/extract_dialog.c:195
-msgid "Extract only those files that already exist on disk and that are newer than the disk copies."
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies."
 msgstr "Csak a lemezen már létező fájlok újabb változatait bontja ki."
 
 #: ../src/extract_dialog.c:201
@@ -572,11 +532,15 @@ msgid "Update existing files"
 msgstr "Létező fájlok frissítése"
 
 #: ../src/extract_dialog.c:202
-msgid "This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk."
-msgstr "E lehetőség hasonló a frissítő módozathoz, kibontja a létező fájlok újabb változatait, ezen felül pedig azokat is, melyek még nem voltak a lemezen."
+msgid ""
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
+"extracts those files that do not already exist on disk."
+msgstr ""
+"E lehetőség hasonló a frissítő módozathoz, kibontja a létező fájlok újabb "
+"változatait, ezen felül pedig azokat is, melyek még nem voltak a lemezen."
 
-#: ../src/extract_dialog.c:255
-#: ../src/interface.c:136
+#: ../src/extract_dialog.c:255 ../src/interface.c:138
 msgid "_Extract"
 msgstr "_Kibont"
 
@@ -603,7 +567,9 @@ msgstr "\"%s\" könyvtár nem hozható létre"
 
 #: ../src/extract_dialog.c:356
 #, c-format
-msgid "You don't have the right permissions to extract the files to the folder \"%s\"."
+msgid ""
+"You don't have the right permissions to extract the files to the folder \"%s"
+"\"."
 msgstr "Nincsenek meg a jogaid az archívum kibontásához e mappába: \"%s\""
 
 #: ../src/extract_dialog.c:357
@@ -620,181 +586,188 @@ msgstr "Fájlok kibontása ide: %s"
 msgid "Extracting archive to %s"
 msgstr "Archívum kibontása ide: %s"
 
-#: ../src/extract_dialog.c:928
+#: ../src/extract_dialog.c:931
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Az átmeneti könyvtár nem hozható létre a /tmp-ben:"
 
-#: ../src/extract_dialog.c:943
+#: ../src/extract_dialog.c:946
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Válaszd ki a jelenlegi archívum kibontási célkönyvtárát"
 
-#: ../src/interface.c:70
+#: ../src/interface.c:72
 msgid "_File"
 msgstr "_Fájl"
 
-#: ../src/interface.c:90
+#: ../src/interface.c:92
 msgid "_Test"
 msgstr "_Teszt"
 
-#: ../src/interface.c:100
+#: ../src/interface.c:102
 msgid "_Properties"
 msgstr "_Tulajdonságok"
 
-#: ../src/interface.c:119
+#: ../src/interface.c:121
 msgid "_Action"
 msgstr "_Művelet"
 
-#: ../src/interface.c:146
+#: ../src/interface.c:148
 msgid "Make SF_X"
 msgstr "SF_X készítése"
 
-#: ../src/interface.c:167
+#: ../src/interface.c:169
 msgid "_View"
 msgstr "_Nézet"
 
-#: ../src/interface.c:173
+#: ../src/interface.c:175
 msgid "_Show comment"
 msgstr "Megjegyzés mutatá_sa"
 
-#: ../src/interface.c:188
+#: ../src/interface.c:190
 msgid "Sele_ct All"
 msgstr "Mindet ki_jelöli"
 
-#: ../src/interface.c:194
+#: ../src/interface.c:196
 msgid "Dese_lect All"
 msgstr "Kije_lölés eldobása"
 
-#: ../src/interface.c:205
+#: ../src/interface.c:207
 msgid "Co_mmand line output"
 msgstr "Parancssor ki_menet"
 
-#: ../src/interface.c:214
+#: ../src/interface.c:216
 msgid "Show I_SO info"
 msgstr "I_SO adatok mutatása"
 
-#: ../src/interface.c:224
+#: ../src/interface.c:226
 msgid "Reset passwo_rd"
 msgstr "Jelszó visszállítása"
 
-#: ../src/interface.c:230
+#: ../src/interface.c:232
 msgid "_Help"
 msgstr "_Súgó"
 
-#: ../src/interface.c:254
+#: ../src/interface.c:256
 msgid "New"
 msgstr "Új"
 
-#: ../src/interface.c:258
+#: ../src/interface.c:260
 msgid "Create a new archive"
 msgstr "Új archívum létrehozása"
 
-#: ../src/interface.c:262
+#: ../src/interface.c:264
 msgid "Open"
 msgstr "Megnyitás"
 
-#: ../src/interface.c:274
+#: ../src/interface.c:276
 msgid "Add"
 msgstr "Hozzáad"
 
-#: ../src/interface.c:279
+#: ../src/interface.c:281
 msgid "Add files and directories to the current archive"
 msgstr "Fájlokat és könyvtárakat ad a jelenlegi archívumhoz"
 
-#: ../src/interface.c:283
+#: ../src/interface.c:285
 msgid "Extract"
 msgstr "Kibont"
 
-#: ../src/interface.c:288
-msgid "Extract files from the current archive; use the mouse to select files individually"
-msgstr "Fájlok kibontása a jelenlegi archívumból; használd az egeret a fájlok egyéni kijelöléséhez"
+#: ../src/interface.c:290
+msgid ""
+"Extract files from the current archive; use the mouse to select files "
+"individually"
+msgstr ""
+"Fájlok kibontása a jelenlegi archívumból; használd az egeret a fájlok egyéni "
+"kijelöléséhez"
 
-#: ../src/interface.c:292
+#: ../src/interface.c:294
 msgid "SFX"
 msgstr "SFX"
 
-#: ../src/interface.c:297
+#: ../src/interface.c:299
 msgid "Make the current archive self-extracting"
 msgstr "Jelen archívum ön-kicsomagolóvá tétele"
 
-#: ../src/interface.c:304
+#: ../src/interface.c:306
 msgid "Delete"
 msgstr "Törlés"
 
-#: ../src/interface.c:309
+#: ../src/interface.c:311
 msgid "Delete files from the current archive"
 msgstr "Fájlok törlése a jelenlegi archívumból"
 
-#: ../src/interface.c:313
+#: ../src/interface.c:315
 msgid "View"
 msgstr "Nézet"
 
-#: ../src/interface.c:318
+#: ../src/interface.c:320
 msgid "View file content in the current archive"
 msgstr "Fájltartalom megtekintése a jelenlegi archívumban"
 
-#: ../src/interface.c:326
+#: ../src/interface.c:328
 msgid "Stop"
 msgstr "Állj"
 
-#: ../src/interface.c:331
+#: ../src/interface.c:333
 msgid "Cancel current operation"
 msgstr "Jelen művelet törlése"
 
-#: ../src/interface.c:386
+#: ../src/interface.c:381
 msgid "This archive contains password protected files"
 msgstr "Ez az archívum jelszóval védett fájlokat tartalmaz"
 
-#: ../src/interface.c:437
+#: ../src/interface.c:498
+#, fuzzy
+msgid "Close Archive"
+msgstr "Csak az archívumok"
+
+#: ../src/interface.c:548
 msgid "Enter Archive Password"
 msgstr "Archívum-jelszó megadása"
 
-#: ../src/interface.c:535
+#: ../src/interface.c:647
 msgid "Archive Properties Window"
 msgstr "Archívum tulajdonságok ablak"
 
-#: ../src/interface.c:553
+#: ../src/interface.c:665
 msgid "Name:"
 msgstr "Név:"
 
-#: ../src/interface.c:560
+#: ../src/interface.c:672
 msgid "Path:"
 msgstr "Útvonal:"
 
-#: ../src/interface.c:567
+#: ../src/interface.c:679
 msgid "Type:"
 msgstr "Típus:"
 
-#: ../src/interface.c:574
+#: ../src/interface.c:686
 msgid "Modified on:"
 msgstr "Módosítva:"
 
-#: ../src/interface.c:581
+#: ../src/interface.c:693
 msgid "Archive size:"
 msgstr "Archívum méret:"
 
-#: ../src/interface.c:588
+#: ../src/interface.c:700
 msgid "Content size:"
 msgstr "Tartalom méret:"
 
-#: ../src/interface.c:595
+#: ../src/interface.c:707
 msgid "Has comment:"
 msgstr "Megjegyzés:"
 
-#: ../src/interface.c:602
+#: ../src/interface.c:714
 msgid "Compression ratio:"
 msgstr "Tömörítési arány:"
 
-#: ../src/interface.c:609
+#: ../src/interface.c:721
 msgid "Number of files:"
 msgstr "Fájlok száma:"
 
-#: ../src/interface.c:616
+#: ../src/interface.c:728
 msgid "Number of dirs:"
 msgstr "Könyvtárak száma:"
 
-#: ../src/iso.c:465
-#: ../src/iso.c:491
-#: ../src/iso.c:523
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
 msgid "Can't create directory:"
 msgstr "A könyvtár nem hozható létre:"
 
@@ -803,8 +776,7 @@ msgstr "A könyvtár nem hozható létre:"
 msgid "Can't write file \"%s\":"
 msgstr "\"%s\" fájl nem írható:"
 
-#: ../src/iso.c:652
-#: ../src/rpm.c:56
+#: ../src/iso.c:652 ../src/rpm.c:56
 msgid "Permission"
 msgstr "Engedély"
 
@@ -830,9 +802,7 @@ msgstr "Apple %d. verzió"
 msgid "Standard ISO without extension"
 msgstr "Szabvány ISO bővítés nélkül"
 
-#: ../src/iso.c:715
-#: ../src/iso.c:720
-#: ../src/iso.c:725
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
 #, c-format
 msgid "Joliet Level %d"
 msgstr "Joliet %d. szint"
@@ -890,23 +860,28 @@ msgid "Effective date:"
 msgstr "Tényleges dátum"
 
 #: ../src/main.c:37
-msgid "Extract archive to the directory specified by destination_path and quits."
+#, fuzzy
+msgid ""
+"Extract archive to the directory specified by destination_path and quits."
 msgstr "Kibontja az archívumot a cél_útvonalban adott könyvtárba és kilép."
 
 #: ../src/main.c:38
+#, fuzzy
 msgid "destination_path archive"
 msgstr "cél_útvonal archívum"
 
 #: ../src/main.c:41
+#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
 msgstr "Kibontja az archívumot a cél-könyvtárra kérdezve és kilép."
 
-#: ../src/main.c:42
-#: ../src/main.c:50
+#: ../src/main.c:42 ../src/main.c:50
+#, fuzzy
 msgid "archive"
-msgstr "archívum"
+msgstr "Xarchiver"
 
 #: ../src/main.c:45
+#, fuzzy
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Hozzáadja a megadott fájlokat az archívum nevére kérdezve és kilép."
 
@@ -915,10 +890,12 @@ msgid "file1 file2 file3 ... fileN"
 msgstr "fájl1 fájl2 fájl3 ... fájlN"
 
 #: ../src/main.c:49
+#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Fájlokat ad az archívumhoz nevükre kérdezve és kilép."
 
 #: ../src/main.c:62
+#, fuzzy
 msgid "[archive name]"
 msgstr "[archívum név]"
 
@@ -931,36 +908,34 @@ msgstr ""
 "xarchiver: %s\n"
 "Lásd az xarchiver --help parancsot az elérhető lehetőségek megtekintéséhez.\n"
 
-#: ../src/main.c:87
-#: ../src/main.c:120
+#: ../src/main.c:87 ../src/main.c:120
+#, fuzzy
 msgid "Can't extract files from the archive:"
 msgstr "Nem tudtam fájlokat kibontani az archívumból:"
 
-#: ../src/main.c:87
-#: ../src/main.c:120
-#: ../src/main.c:211
+#: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
+#, fuzzy
 msgid "You missed the archive name!\n"
 msgstr "Kihagytad az archívum nevet!\n"
 
-#: ../src/main.c:410
+#: ../src/main.c:409
 msgid "Can't spawn the command:"
 msgstr "Nem indítható parancs:"
 
-#: ../src/main.c:419
+#: ../src/main.c:418
 msgid "An error occurred!"
 msgstr "Hiba történt!"
 
-#: ../src/main.c:433
+#: ../src/main.c:432
+#, fuzzy
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Nem tudok lefoglalni memóriát az archívum felépítésnek!"
 
-#: ../src/rar.c:48
-#: ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
 msgstr "Ellenőrző-összeg"
 
-#: ../src/rar.c:48
-#: ../src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
 msgstr "Módszer"
 
@@ -989,8 +964,7 @@ msgstr "Csoport"
 msgid "Can't fseek to position 104:"
 msgstr "Nem tudok a 104-re állni:"
 
-#: ../src/rpm.c:68
-#: ../src/rpm.c:84
+#: ../src/rpm.c:68 ../src/rpm.c:84
 msgid "Can't read data from file:"
 msgstr "Nem tudom olvasni a fájlt:"
 
@@ -998,20 +972,19 @@ msgstr "Nem tudom olvasni a fájlt:"
 msgid "Can't fseek in file:"
 msgstr "Nem tudok fseek-elni a fájlban:"
 
-#: ../src/rpm.c:123
+#: ../src/rpm.c:126
 msgid "Error while extracting the cpio archive from the rpm one."
 msgstr "Hiba történt a cpio archívum kiszedésekor az rpmből."
 
-#: ../src/rpm.c:151
+#: ../src/rpm.c:157
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "Hiba történt a cpio archívum kibontásakor."
 
-#: ../src/rpm.c:206
-#: ../src/rpm.c:360
+#: ../src/rpm.c:212 ../src/rpm.c:369
 msgid "An error occurred:"
 msgstr "Hiba történt:"
 
-#: ../src/rpm.c:315
+#: ../src/rpm.c:324
 msgid "Can't write to /tmp:"
 msgstr "Nem tudok írni a /tmp-be:"
 
@@ -1027,12 +1000,30 @@ msgstr "Archívum kezelő"
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
+#, fuzzy
+#~ msgid "Can't add files to the archive_cmd:"
+#~ msgstr "Nem tudtam fájlokat adni az archívumhoz:"
+
+#, fuzzy
+#~ msgid "Can't allocate memory for the archive_cmd structure!"
+#~ msgstr "Nem tudok lefoglalni memóriát az archívum felépítésnek!"
+
+#, fuzzy
+#~ msgid "archive_cmd"
+#~ msgstr "archívum"
+
+#~ msgid "Please hit the Stop button first!"
+#~ msgstr "Először nyomd meg az Állj gombot, kérlek!"
+
 #~ msgid "This option can't be used with password protected archives!\n"
 #~ msgstr "E kapcsoló nem használható jelszó védett archívumokkal!\n"
+
 #~ msgid "Operation aborted."
 #~ msgstr "Művelet törölve."
+
 #~ msgid "Choose Add File to create the compressed file."
 #~ msgstr "Válaszd a Fájl hozzáadását a tömörített fájl létrehozásához."
+
 #~ msgid "View File Window"
 #~ msgstr "Fájl nézet ablak"
 
@@ -1043,34 +1034,46 @@ msgstr "Xarchiver"
 #, fuzzy
 #~ msgid "Operation completed"
 #~ msgstr "Művelet kész."
+
 #~ msgid "The archive \"%s\" already exists!"
 #~ msgstr "\"%s\" archívum már létezik"
+
 #~ msgid "Do you want to overwrite it?"
 #~ msgstr "Felülírod?"
+
 #~ msgid ""
 #~ "Select the files to be added to the current archive; use SHIFT to "
 #~ "multiple select"
 #~ msgstr "Válaszd ki az archívumhoz adandó fájlokat"
+
 #~ msgid "Select the folder to be added to the current archive"
 #~ msgstr "Válaszd ki az archívumhoz adandó mappát"
+
 #~ msgid ""
 #~ "Select the folders to be added to the current archive; use SHIFT to "
 #~ "multiple select"
 #~ msgstr "Válaszd ki az archívumhoz adandó mappákat"
+
 #~ msgid "Cr_eate"
 #~ msgstr "Létr_ehoz"
+
 #~ msgid "Archive type:"
 #~ msgstr "Archívum típus:"
+
 #~ msgid "Choose the archive type to create"
 #~ msgstr "Válaszd ki a létrehozandó archívum típust"
+
 #~ msgid "Bzip2 or gzip cannot compress more than one file!"
 #~ msgstr "A bzip2 vagy gzip nem tud egynél több fájlt tömöríteni!"
+
 #~ msgid "Please choose another archive format!"
 #~ msgstr "Válassz más archívum formát!"
+
 #~ msgid "Image type:"
 #~ msgstr "Kép típus:"
+
 #~ msgid "CRC"
 #~ msgstr "CRC"
+
 #~ msgid "CRC-32"
 #~ msgstr "CRC-32"
-

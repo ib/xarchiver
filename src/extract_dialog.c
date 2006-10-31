@@ -816,7 +816,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	current_page = gtk_notebook_get_current_page(notebook);
 	names = g_string_new ("");
 	unescaped_names = g_string_new ("");
-	//TODO: check if archive pointer is valid
+
 	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[current_page]->treeview) );
 	row_list = gtk_tree_selection_get_selected_rows (selection, &archive[current_page]->model);
 
