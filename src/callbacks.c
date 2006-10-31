@@ -545,10 +545,9 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	g_list_free ( Name );
 
 	n_pages = gtk_notebook_get_n_pages (notebook);
-	g_print ("Nr of pages: %d\n",n_pages);
 	if (n_pages > 0)
 	{
-		for (i = 0; i <= n_pages ; i++)
+		for (i = 0; i <= n_pages - 1 ; i++)
 			xa_clean_archive_structure (archive[i]);
 	}
 	gtk_main_quit();
