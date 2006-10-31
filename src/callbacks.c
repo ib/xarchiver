@@ -247,7 +247,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	xa_hide_progress_bar_stop_button(archive);
 
 	gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
-	xa_set_window_title (MainWindow , archive->path);
 	Update_StatusBar ( _("Operation completed."));
 }
 
@@ -1929,7 +1928,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	}
 	if (watch_child_flag)
 	{
-		xa_watch_child (archive[current_page]->child_pid, status, archive);
+		xa_watch_child (archive[current_page]->child_pid, status, archive[current_page]);
 		return TRUE;
 	}
 	else

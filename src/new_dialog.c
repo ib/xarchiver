@@ -161,7 +161,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 			/* The following to avoid to update the archive instead of adding to it since the filename exists */
 			unlink ( my_path );
 		}
-		archive = xa_init_archive_structure (archive);
+		archive = xa_init_archive_structure ();
 		new_combo_box = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 
 		if (strcmp ( ComboArchiveType,".arj") == 0)

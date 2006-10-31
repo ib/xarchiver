@@ -45,6 +45,8 @@ static const GtkTargetEntry drop_targets[] =
   { "text/uri-list", 0, 0 },
 };
 
+extern gboolean unrar;
+
 GtkWidget *create_MainWindow (void)
 {
 	tooltips = gtk_tooltips_new ();
@@ -342,6 +344,7 @@ GtkWidget *create_MainWindow (void)
 	gtk_notebook_set_scrollable (notebook, TRUE);
 	gtk_notebook_popup_enable (notebook);
 	gtk_widget_show (GTK_WIDGET(notebook));
+	g_signal_connect ((gpointer) notebook, "switch-page", G_CALLBACK (xa_page_has_changed), NULL);
 
   	hbox_sb = gtk_hbox_new (FALSE, 2);
 	gtk_widget_show (hbox_sb);
@@ -410,6 +413,55 @@ GtkWidget *create_MainWindow (void)
 
 	gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
 	return MainWindow;
+}
+
+void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data)
+{
+	gboolean new	= FALSE;
+	gboolean open	= FALSE;
+	gboolean add	= FALSE;
+	gboolean extract= FALSE;
+	gboolean exe	= FALSE;
+	gboolean select	= FALSE;
+	gboolean check	= FALSE;
+	gboolean info	= FALSE;
+
+	xa_set_window_title (MainWindow , archive[page_num]->path);
+	if ( archive[page_num]->type == XARCHIVETYPE_BZIP2 || archive[page_num]->type == XARCHIVETYPE_GZIP )
+	{
+		new = open = TRUE;
+		info = exe = FALSE;
+	}
+	else if (archive[page_num]->type == XARCHIVETYPE_RPM || archive[page_num]->type == XARCHIVETYPE_DEB)
+	{
+		new = open = extract = select = info = TRUE;
+		exe = FALSE;
+	}
+	else if (archive[page_num]->type == XARCHIVETYPE_TAR_BZ2 || archive[page_num]->type == XARCHIVETYPE_TAR_GZ || archive[page_num]->type == XARCHIVETYPE_TAR )
+	{
+		new = open = add = extract = select = info = TRUE;
+		check = exe = FALSE;
+	}
+	else if (archive[page_num]->type == XARCHIVETYPE_LHA)
+	{
+		new = open = add = extract = select = info = TRUE;
+		check = TRUE;
+		exe = FALSE;
+	}
+	else if (archive[page_num]->type == XARCHIVETYPE_RAR && unrar)
+	{
+		check = TRUE;
+		add = exe = FALSE;
+		new = open = extract = select = info = TRUE;
+	}
+	else
+	{
+		check = TRUE;
+		new = open = add = extract = exe = select = info = TRUE;
+	}
+	gtk_widget_set_sensitive ( check_menu , check);
+	gtk_widget_set_sensitive ( properties , info);
+	xa_set_button_state (new,open,add,extract,exe,select);
 }
 
 void xa_add_page (XArchive *archive)
