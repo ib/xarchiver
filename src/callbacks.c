@@ -336,6 +336,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	}
 
 	archive[current_page]->path = g_strdup (path);
+	g_free (path);
 	archive[current_page]->escaped_path = EscapeBadChars ( archive[current_page]->path , "$\'`\"\\!?* ()&|@#:;" );
 
 	xa_add_page (archive[current_page]);
@@ -557,6 +558,10 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	for (i = 0; i <= gtk_notebook_get_n_pages(notebook) ; i++)
 		if (archive[i] != NULL)
 			xa_clean_archive_structure (archive[i]);
+
+	if (current_open_directory != NULL)
+		g_free (current_open_directory);
+
 	gtk_main_quit();
 }
 
@@ -1019,6 +1024,9 @@ gchar *xa_open_file_dialog ()
 		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (File_Selector) , current_open_directory );
 
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
+
+	if (current_open_directory != NULL)
+		g_free (current_open_directory);
 
 	current_open_directory = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (File_Selector) );
 	open_file_filter = gtk_file_chooser_get_filter ( GTK_FILE_CHOOSER (File_Selector) );
