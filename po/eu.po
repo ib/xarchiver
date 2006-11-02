@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-31 13:58+0100\n"
-"PO-Revision-Date: 2006-10-15 22:14+0200\n"
+"PO-Revision-Date: 2006-11-02 23:09+0100\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: librezale <librezale@librezale.org>\n"
 "MIME-Version: 1.0\n"
@@ -120,8 +120,7 @@ msgstr "Tar fitxategia %s bidez birkonprimitzen, itxoin mesedez..."
 #: ../src/callbacks.c:128
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
-msgstr ""
-"Mesedez egiaztatu \"%s\" zenbait fitxategi ateratak izan dira dagoeneko eta."
+msgstr "Mesedez egiaztatu \"%s\" zenbait fitxategi ateratak izan dira dagoeneko eta."
 
 #: ../src/callbacks.c:147 ../src/callbacks.c:1939
 msgid "An error occurred while accessing the archive."
@@ -149,9 +148,8 @@ msgid "Choose Add to begin creating the archive."
 msgstr "Gehitu hautatu paketea sortzen hasteko"
 
 #: ../src/callbacks.c:330
-#, fuzzy
 msgid "Can't allocate memory for the archive structure:"
-msgstr "Ezin da pakete egiturarentzat memoria esleitu!"
+msgstr "Ezin da pakete egiturarentzat memoria esleitu:"
 
 #: ../src/callbacks.c:352
 #, c-format
@@ -265,8 +263,7 @@ msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Errore bat gertatu ikusteko fitxategia ateratzerakoan:"
 
 #: ../src/callbacks.c:1589
-msgid ""
-"An error occurred while converting the file content to the UTF8 encoding:"
+msgid "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Errore bat gertatu da pakete edukia UTF8 kodeketara bihurtzean:"
 
 #: ../src/callbacks.c:1645
@@ -407,23 +404,19 @@ msgstr ""
 
 #: ../src/add_dialog.c:211
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = konpresiorik ez, 5 lehenetsia, 9 = konpresio hoberen baina geldoena"
+msgstr "0 = konpresiorik ez, 5 lehenetsia, 9 = konpresio hoberen baina geldoena"
 
 #: ../src/add_dialog.c:218
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = konpresiorik ez, 6 lehenetsia, 9 = konpresio hoberen baina geldoena"
+msgstr "0 = konpresiorik ez, 6 lehenetsia, 9 = konpresio hoberen baina geldoena"
 
 #: ../src/add_dialog.c:225
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = konpresiorik ez, 3 lehenetsia, 5 = konpresio hoberen baina geldoena"
+msgstr "0 = konpresiorik ez, 3 lehenetsia, 5 = konpresio hoberen baina geldoena"
 
 #: ../src/add_dialog.c:232
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-"0 = konpresiorik ez, 1 lehenetsia, 4 = azkarren baina konpresio gutxiena"
+msgstr "0 = konpresiorik ez, 1 lehenetsia, 4 = azkarren baina konpresio gutxiena"
 
 #: ../src/add_dialog.c:239
 msgid "5 = default compression, 7 = max compression"
@@ -510,10 +503,8 @@ msgid "Extract files with full path"
 msgstr "Fitxategia bide osoarekin atera"
 
 #: ../src/extract_dialog.c:173
-msgid ""
-"The archive's directory structure is recreated in the extraction directory."
-msgstr ""
-"Paketearen direktorio egitura birsortua izango da ateratze direktorioan."
+msgid "The archive's directory structure is recreated in the extraction directory."
+msgstr "Paketearen direktorio egitura birsortua izango da ateratze direktorioan."
 
 #: ../src/extract_dialog.c:178
 msgid "Touch files"
@@ -687,8 +678,7 @@ msgstr "Atera"
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
-msgstr ""
-"Uneko paketetik fitxategiak atera; sagua erabili fitxategiak hautatzeko"
+msgstr "Uneko paketetik fitxategiak atera; sagua erabili fitxategiak hautatzeko"
 
 #: ../src/interface.c:294
 msgid "SFX"
@@ -727,9 +717,8 @@ msgid "This archive contains password protected files"
 msgstr "Pakete honek pasahitzez babesturiko fitxategiak ditu"
 
 #: ../src/interface.c:498
-#, fuzzy
 msgid "Close Archive"
-msgstr "Paketeak bakarrik"
+msgstr "Paketea Itxi"
 
 #: ../src/interface.c:548
 msgid "Enter Archive Password"
@@ -872,43 +861,34 @@ msgid "Effective date:"
 msgstr "Data efektiboa:"
 
 #: ../src/main.c:37
-#, fuzzy
-msgid ""
-"Extract archive to the directory specified by destination_path and quits."
+msgid "Extract archive to the directory specified by destination_path and quits."
 msgstr "Helburu _bidean ezarritako direktorioan paketea atera eta irten."
 
 #: ../src/main.c:38
-#, fuzzy
 msgid "destination_path archive"
-msgstr "helburu_bide paketea"
+msgstr "Pakete helburu_bidea"
 
 #: ../src/main.c:41
-#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
-msgstr "Paketea atera helburu karpeta galdetuz eta irten."
+msgstr "Paketea atera helburu direktorioa galdetuz eta irten."
 
 #: ../src/main.c:42 ../src/main.c:50
-#, fuzzy
 msgid "archive"
-msgstr "Xarchiver"
+msgstr "paketea"
 
 #: ../src/main.c:45
-#, fuzzy
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr "Paketera fitxategiak gehitu fitxategi izena galdetuz eta irten."
+msgstr "Paketera hemandako fitxategiak gehitu pakete izena galdetuz eta irten."
 
 #: ../src/main.c:46
 msgid "file1 file2 file3 ... fileN"
 msgstr "1fitx 2fitx 3fitx .... Nfitx"
 
 #: ../src/main.c:49
-#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
-msgstr ""
-"Zehaztutako paketera fitxategiak gehitu fitxategi izenak galdetuz eta irten."
+msgstr "Paketera fitxategiak gehitu fitxategi izenak galdetuz eta irten."
 
 #: ../src/main.c:62
-#, fuzzy
 msgid "[archive name]"
 msgstr "[pakete izena]"
 
@@ -923,12 +903,10 @@ msgstr ""
 "ikusteko.\n"
 
 #: ../src/main.c:87 ../src/main.c:120
-#, fuzzy
 msgid "Can't extract files from the archive:"
 msgstr "Ezin dira paketetik fitxategiak atera:"
 
 #: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
-#, fuzzy
 msgid "You missed the archive name!\n"
 msgstr "Pakete izena falta da!\n"
 
@@ -941,7 +919,6 @@ msgid "An error occurred!"
 msgstr "Errore bat gertatu da!"
 
 #: ../src/main.c:432
-#, fuzzy
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Ezin da pakete egiturarentzat memoria esleitu!"
 
@@ -1014,20 +991,3 @@ msgstr "Pakete kudeatzailea"
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#, fuzzy
-#~ msgid "Can't add files to the archive_cmd:"
-#~ msgstr "Ezin dira paketera fitxategiak gehitu:"
-
-#, fuzzy
-#~ msgid "Can't allocate memory for the archive_cmd structure!"
-#~ msgstr "Ezin da pakete egiturarentzat memoria esleitu!"
-
-#, fuzzy
-#~ msgid "archive_cmd"
-#~ msgstr "paketea"
-
-#~ msgid "Please hit the Stop button first!"
-#~ msgstr "Mesedez Gelditu botoia jo lehenengo!"
-
-#~ msgid "This option can't be used with password protected archives!\n"
-#~ msgstr "Aukera hau ezin da erabili pasahitzez babesturiko paketeekin!\n"
