@@ -732,7 +732,6 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		command = NULL;
 	}
 	g_free (tar);
-	g_message (command);
 	return command;
 }
 

@@ -46,6 +46,7 @@ static const GtkTargetEntry drop_targets[] =
 };
 
 extern gboolean unrar;
+extern gint id;
 
 GtkWidget *create_MainWindow (void)
 {
@@ -425,30 +426,35 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 	gboolean select	= FALSE;
 	gboolean check	= FALSE;
 	gboolean info	= FALSE;
+	gint id;
 
-	xa_set_window_title (MainWindow , archive[page_num]->path);
-	if ( archive[page_num]->type == XARCHIVETYPE_BZIP2 || archive[page_num]->type == XARCHIVETYPE_GZIP )
+	id = xa_find_archive_index ( page_num );
+	if (id == -1)
+		return;
+
+	xa_set_window_title (MainWindow , archive[id]->path);
+	if ( archive[id]->type == XARCHIVETYPE_BZIP2 || archive[id]->type == XARCHIVETYPE_GZIP )
 	{
 		new = open = TRUE;
 		info = exe = FALSE;
 	}
-	else if (archive[page_num]->type == XARCHIVETYPE_RPM || archive[page_num]->type == XARCHIVETYPE_DEB)
+	else if (archive[id]->type == XARCHIVETYPE_RPM || archive[id]->type == XARCHIVETYPE_DEB)
 	{
 		new = open = extract = select = info = TRUE;
 		exe = FALSE;
 	}
-	else if (archive[page_num]->type == XARCHIVETYPE_TAR_BZ2 || archive[page_num]->type == XARCHIVETYPE_TAR_GZ || archive[page_num]->type == XARCHIVETYPE_TAR )
+	else if (archive[id]->type == XARCHIVETYPE_TAR_BZ2 || archive[id]->type == XARCHIVETYPE_TAR_GZ || archive[id]->type == XARCHIVETYPE_TAR )
 	{
 		new = open = add = extract = select = info = TRUE;
 		check = exe = FALSE;
 	}
-	else if (archive[page_num]->type == XARCHIVETYPE_LHA)
+	else if (archive[id]->type == XARCHIVETYPE_LHA)
 	{
 		new = open = add = extract = select = info = TRUE;
 		check = TRUE;
 		exe = FALSE;
 	}
-	else if (archive[page_num]->type == XARCHIVETYPE_RAR && unrar)
+	else if (archive[id]->type == XARCHIVETYPE_RAR && unrar)
 	{
 		check = TRUE;
 		add = exe = FALSE;
@@ -470,7 +476,7 @@ void xa_add_page (XArchive *archive)
 	GtkTooltips *close_button_tips = gtk_tooltips_new();
 	gchar *filename_only;
 
-	if ( gtk_notebook_get_current_page(notebook) > -1)
+	if (gtk_notebook_get_current_page(notebook) > -1)
 		gtk_notebook_set_show_tabs (notebook,TRUE);
 	else
 		gtk_notebook_set_show_tabs (notebook,FALSE);
@@ -506,7 +512,6 @@ void xa_add_page (XArchive *archive)
 
 	gtk_notebook_append_page (notebook, archive->scrollwindow, page_hbox);
 	gtk_notebook_set_current_page(notebook, -1);
-
 	archive->treeview = gtk_tree_view_new ();
 	gtk_container_add (GTK_CONTAINER (archive->scrollwindow), archive->treeview);
 	gtk_widget_show (archive->treeview);
@@ -524,7 +529,7 @@ void xa_add_page (XArchive *archive)
 
 void xa_close_page (GtkWidget *widget, gpointer data)
 {
-	xa_close_archive ( NULL , NULL );
+	xa_close_archive ( NULL , data );
 }
 
 gchar *password_dialog ()
@@ -815,3 +820,18 @@ int xa_progressbar_pulse (gpointer data)
 	return TRUE;
 }
 
+gint xa_find_archive_index ( gint page_num )
+{
+	GtkWidget *scrollwindow;
+	gint max_pages;
+	gint i;
+
+	scrollwindow = gtk_notebook_get_nth_page(notebook, page_num);
+	max_pages = gtk_notebook_get_n_pages ( notebook);
+	for (i = 0; i < max_pages; i++)
+	{
+		if (archive[i] != NULL && archive[i]->scrollwindow == scrollwindow)
+			return i;
+	}
+	return -1;
+}

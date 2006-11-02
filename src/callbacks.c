@@ -37,7 +37,7 @@ extern gboolean unrar;
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix , *Name;
-//gint current_archive_suffix = 0;
+gint id = -1;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -307,16 +307,19 @@ int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, cons
 
 void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 {
+	GSList *names = NULL;
 	gchar *path = NULL;
 	gint current_page;
 
 	path = (gchar *)data;
 	if ( path == NULL)
     {
-		path = xa_open_file_dialog ();
-		if (path == NULL)
+		names = xa_open_file_dialog ();
+		if (names == NULL)
 			return;
 	}
+	else
+		names = g_slist_append ( names , path );
 
 	current_page = gtk_notebook_get_current_page ( notebook);
 	if (current_page == -1)
@@ -328,29 +331,29 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	if (archive[current_page] == NULL)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),"Operation aborted!");
-		g_free (path);
+		g_slist_foreach (names, (GFunc) g_free, NULL);
+		g_slist_free (names);
 		return;
 	}
 
-	archive[current_page]->path = g_strdup (path);
-	g_free (path);
+	archive[current_page]->path = g_strdup (names->data);
 	archive[current_page]->escaped_path = EscapeBadChars ( archive[current_page]->path , "$\'`\"\\!?* ()&|@#:;" );
 
 	xa_add_page (archive[current_page]);
 
 	OffDeleteandViewButtons();
-    gtk_widget_set_sensitive ( iso_info , FALSE );
-    gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
+	gtk_widget_set_sensitive ( iso_info , FALSE );
+	gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
 
-    archive[current_page]->type = xa_detect_archive_type ( archive[current_page] , NULL );
-    if ( archive[current_page]->type == -2 )
+	archive[current_page]->type = xa_detect_archive_type ( archive[current_page] , NULL );
+	if ( archive[current_page]->type == -2 )
 		return;
-    if ( archive[current_page]->type == -1 )
-    {
+	if ( archive[current_page]->type == -1 )
+	{
 		gchar *utf8_path,*msg;
 		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"), utf8_path);
-        xa_set_window_title (MainWindow , NULL);
+		xa_set_window_title (MainWindow , NULL);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,
 		_("Archive format is not recognized!"));
 		xa_set_button_state ( 1,1,0,0,0,0);
@@ -359,32 +362,32 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		g_free (utf8_path);
 		g_free (msg);
 		xa_close_archive ( NULL, NULL);
-        return;
+		return;
 	}
-    EmptyTextBuffer();
+	EmptyTextBuffer();
 
-    //Does the user open an archive from the command line whose archiver is not installed ?
-    gchar *ext = NULL;
-    if ( archive[current_page]->type == XARCHIVETYPE_RAR )
+	//Does the user open an archive from the command line whose archiver is not installed ?
+	gchar *ext = NULL;
+	if ( archive[current_page]->type == XARCHIVETYPE_RAR )
 		ext = ".rar";
 	else if ( archive[current_page]->type == XARCHIVETYPE_7ZIP )
 		ext = ".7z";
-    else if ( archive[current_page]->type == XARCHIVETYPE_ARJ )
+	else if ( archive[current_page]->type == XARCHIVETYPE_ARJ )
 		ext = ".arj";
 	else if ( archive[current_page]->type == XARCHIVETYPE_LHA )
 		ext = ".lzh";
-    if ( ext != NULL )
-        if ( ! g_list_find ( ArchiveType , ext ) )
-        {
-            response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported:"),_("the proper archiver is not installed!") );
-            return;
-        }
+	if ( ext != NULL )
+		if ( ! g_list_find ( ArchiveType , ext ) )
+		{
+			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported:"),_("the proper archiver is not installed!") );
+			return;
+		}
 
-    gtk_widget_set_sensitive (Stop_button,TRUE);
-    gtk_widget_show ( viewport2 );
-    if ( archive[current_page]->type == XARCHIVETYPE_ISO )
+	gtk_widget_set_sensitive (Stop_button,TRUE);
+	gtk_widget_show ( viewport2 );
+	if ( archive[current_page]->type == XARCHIVETYPE_ISO )
 		Update_StatusBar ( _("Please wait while the content of the ISO image is being read..."));
-    else
+	else
 		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	xa_set_button_state ( 0,0,0,0,0,0);
@@ -406,9 +409,8 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		OpenGzip ( archive[current_page] );
 		break;
 
-
-        case XARCHIVETYPE_ISO:
-        OpenISO (archive[current_page]);
+		case XARCHIVETYPE_ISO:
+		OpenISO (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_RAR:
@@ -416,8 +418,8 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_RPM:
-        OpenRPM (archive[current_page]);
-        break;
+		OpenRPM (archive[current_page]);
+		break;
 
 		case XARCHIVETYPE_TAR:
 		OpenTar (archive[current_page]);
@@ -427,16 +429,16 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		OpenZip (archive[current_page]);
 		break;
 
-        case XARCHIVETYPE_7ZIP:
-        Open7Zip (archive[current_page]);
-        break;
+		case XARCHIVETYPE_7ZIP:
+		Open7Zip (archive[current_page]);
+		break;
 
 		case XARCHIVETYPE_LHA:
 		OpenLha (archive[current_page]);
 		break;
 
-        default:
-        break;
+		default:
+		break;
 	}
 	archive[current_page]->passwd = NULL;
 }
@@ -510,23 +512,31 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gint current_page;
+	gint idx;
+	GtkWidget *scrollwindow = user_data;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	if (current_page == 1)
+	current_page = gtk_notebook_page_num(notebook, scrollwindow);
+	idx = xa_find_archive_index (current_page);
+	gtk_notebook_remove_page ( notebook , current_page);
+
+	current_page = gtk_notebook_get_n_pages(notebook);
+	if ( current_page == 0)
+	{
+		gtk_widget_set_sensitive (close1,FALSE);
+		xa_set_window_title (MainWindow,NULL);
+	}
+	else if ( current_page == 1)
 		gtk_notebook_set_show_tabs (notebook,FALSE);
 	else
 		gtk_notebook_set_show_tabs (notebook,TRUE);
-	if (archive[current_page] == NULL)
-		return;
 
 	EmptyTextBuffer();
-	gtk_widget_set_sensitive (close1,FALSE);
 	gtk_widget_set_sensitive (properties,FALSE);
 	gtk_widget_set_sensitive (check_menu,FALSE);
 	xa_set_button_state (1,1,0,0,0,0);
 
-	xa_clean_archive_structure (archive[current_page]);
-	gtk_notebook_remove_page ( notebook , current_page);
+	xa_clean_archive_structure (archive[idx]);
+	archive[idx] = NULL;
 
 	gtk_widget_hide ( viewport3 );
 	Update_StatusBar (_("Ready."));
@@ -545,12 +555,9 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	g_list_free ( Suffix );
 	g_list_free ( Name );
 
-	n_pages = gtk_notebook_get_n_pages (notebook);
-	if (n_pages > 0)
-	{
-		for (i = 0; i <= n_pages - 1 ; i++)
+	for (i = 0; i <= gtk_notebook_get_n_pages(notebook) ; i++)
+		if (archive[i] != NULL)
 			xa_clean_archive_structure (archive[i]);
-	}
 	gtk_main_quit();
 }
 
@@ -957,11 +964,11 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_widget_hide (about);
 }
 
-gchar *xa_open_file_dialog ()
+GSList *xa_open_file_dialog ()
 {
 	static GtkWidget *File_Selector = NULL;
 	GtkFileFilter *filter;
-	gchar *path = NULL;
+	GSList *filenames = NULL;
 
 	if (File_Selector == NULL)
 	{
@@ -1018,13 +1025,13 @@ gchar *xa_open_file_dialog ()
 	open_file_filter = gtk_file_chooser_get_filter ( GTK_FILE_CHOOSER (File_Selector) );
 
 	if (response == GTK_RESPONSE_ACCEPT)
-		path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) );
+		filenames = gtk_file_chooser_get_filenames ( GTK_FILE_CHOOSER (File_Selector) );
 	else if ( (response == GTK_RESPONSE_CANCEL) || (response == GTK_RESPONSE_DELETE_EVENT) )
-		path = NULL;
+		filenames = NULL;
 
 	/* Hiding the window instead of destroying it will preserve the pointers to the file chooser stuff */
 	gtk_widget_hide (File_Selector);
-	return path;
+	return filenames;
 }
 
 gboolean isISO ( FILE *ptr )
