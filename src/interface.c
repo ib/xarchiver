@@ -468,6 +468,10 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 	gtk_widget_set_sensitive ( check_menu , check);
 	gtk_widget_set_sensitive ( properties , info);
 	xa_set_button_state (new,open,add,extract,exe,select);
+	if (archive[id]->has_passwd)
+		gtk_widget_show (viewport3);
+	else
+		gtk_widget_hide (viewport3);
 }
 
 void xa_add_page (XArchive *archive)
