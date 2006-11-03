@@ -1,15 +1,16 @@
-# Portuguese translations for xarchiver package.
-# Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
+# Brazilian portuguese translations for xarchiver package.
+# Copyright (C) 2005-2006 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
 # Automatically generated, 2006.
+# Adriano Winter Bess, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.3.9.2beta2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-31 13:58+0100\n"
-"PO-Revision-Date: 2006-09-03 13:59-0300\n"
-"Last-Translator: Rodrigo Coacci <rcoacci@gmail.com>\n"
+"PO-Revision-Date: 2006-11-03 16:30-0200\n"
+"Last-Translator: Adriano Winter Bess <awbess@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -125,14 +126,12 @@ msgid "An error occurred while accessing the archive."
 msgstr "Ocorreu um erro enquanto o arquivo era acessado."
 
 #: ../src/callbacks.c:147 ../src/callbacks.c:1939 ../src/rpm.c:157
-#, fuzzy
 msgid "Do you want to view the command line output?"
-msgstr "Deseja sobreescreve-lô?"
+msgstr "Você deseja ver a saída da linha de comando?"
 
 #: ../src/callbacks.c:165
-#, fuzzy
 msgid "The sfx archive was saved as:"
-msgstr "Extraindo arquivo compactado para %s"
+msgstr "O pacote SFX foi salvo como:"
 
 #: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1600
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
@@ -148,9 +147,8 @@ msgid "Choose Add to begin creating the archive."
 msgstr "Escolha Adicionar para começar a criar o arquivo."
 
 #: ../src/callbacks.c:330
-#, fuzzy
 msgid "Can't allocate memory for the archive structure:"
-msgstr "Erro ao extrair arquivos:"
+msgstr "Não é possível alocar memória para a estrutura do pacote:"
 
 #: ../src/callbacks.c:352
 #, c-format
@@ -199,24 +197,20 @@ msgid "Deleting files from the archive, please wait..."
 msgstr "Apagando arquivos, aguarde por favor..."
 
 #: ../src/callbacks.c:681
-#, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
-msgstr "Testando integridade do arquivo, aguarde por favor..."
+msgstr "Convertendo pacote para extrair automaticamente, aguarde por favor..."
 
 #: ../src/callbacks.c:743 ../src/callbacks.c:858
-#, fuzzy
 msgid "Can't convert the archive to self-extracting:"
-msgstr "Não foi possível executar o xarchiver:"
+msgstr "Não foi possível converter o pacote para extrair automaticamente:"
 
 #: ../src/callbacks.c:756 ../src/callbacks.c:871
-#, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Não foi possível adicionar os arquivos:"
+msgstr "Não foi possível escrever o módulo unzipsfx para o pacote:"
 
 #: ../src/callbacks.c:825
-#, fuzzy
 msgid "Please select the 7zCon.sfx module"
-msgstr "Por favor, selecione os arquivos que deseja adicionar"
+msgstr "Por favor selecione o módulo 7zCon.sfx"
 
 #: ../src/callbacks.c:930
 msgid "translator-credits"
@@ -241,7 +235,7 @@ msgstr "Erro abrindo o arquivo \"%s\":"
 
 #: ../src/callbacks.c:1375
 msgid "Command line output"
-msgstr ""
+msgstr "Saída da linha de comando"
 
 #: ../src/callbacks.c:1411
 msgid "Doing so will probably corrupt your archive!"
@@ -264,27 +258,27 @@ msgid "Please select a file, not a directory!"
 msgstr "Por favor, selecione um arquivo e não um diretório!"
 
 #: ../src/callbacks.c:1580
-#, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
-msgstr "Ocorreu um erro enquanto o processo era terminado:"
+msgstr "Ocorreu um erro durante a extração do arquivo para visualização:"
 
 #: ../src/callbacks.c:1589
-#, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
-msgstr "Ocorreu um erro enquanto o processo era terminado:"
+msgstr ""
+"Ocorreu um erro durante a conversão do conteúdo do arquivo para a "
+"codificação UTF8:"
 
 #: ../src/callbacks.c:1645
 msgid " bytes"
-msgstr ""
+msgstr " bytes"
 
 #: ../src/callbacks.c:1771
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: ../src/callbacks.c:1773
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: ../src/callbacks.c:2063
 msgid "Can't perform another extraction:"
@@ -304,15 +298,15 @@ msgstr "Impossível executar a ação:"
 
 #: ../src/callbacks.c:2181
 msgid "unrar doesn't support archive creation!"
-msgstr ""
+msgstr "unrar não suporta a criação de pacote!"
 
 #: ../src/callbacks.c:2189
 msgid "You can't add content to deb packages!"
-msgstr ""
+msgstr "Você não pode adicionar conteúdo aos pacotes deb!"
 
 #: ../src/callbacks.c:2191
 msgid "You can't add content to rpm packages!"
-msgstr ""
+msgstr "Você não pode adicionar conteúdo aos pacotes rpm!"
 
 #: ../src/callbacks.c:2306
 msgid "Failed to open link."
@@ -320,17 +314,15 @@ msgstr "Erro abrindo o link."
 
 #: ../src/callbacks.c:2335
 msgid "The password has been reset."
-msgstr ""
+msgstr "A senha foi restaurada."
 
 #: ../src/callbacks.c:2338
-#, fuzzy
 msgid "Please enter the password first!"
-msgstr "Digite a senha."
+msgstr "Por favor entre com a senha primeiro!"
 
 #: ../src/callbacks.c:2347
-#, fuzzy
 msgid "Archive comment window"
-msgstr "Janela de propriedades"
+msgstr "Janela de comentário do pacote"
 
 #: ../src/add_dialog.c:38
 msgid "Add files to the archive"
@@ -357,11 +349,12 @@ msgid "Recurse subdirectories"
 msgstr "Incluir subdiretórios"
 
 #: ../src/add_dialog.c:162
-#, fuzzy
 msgid ""
 "Include everything in the directory recursively \tstarting from the current "
 "directory."
-msgstr "Incluir tudo neste diretório juntamente com os sub-diretórios."
+msgstr ""
+"Incluir tudo no diretório recursivamente\n"
+"iniciando a partir do diretório atual."
 
 #: ../src/add_dialog.c:167
 msgid "Generate a solid archive"
@@ -431,14 +424,13 @@ msgstr ""
 "0 = sem compressão, 3 é o padrão, 5 = melhor compressão, porém a mais lenta"
 
 #: ../src/add_dialog.c:232
-#, fuzzy
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = sem compressão, 1 é o padrão, 4 = mais rápido, porém menor compressão"
 
 #: ../src/add_dialog.c:239
 msgid "5 = default compression, 7 = max compression"
-msgstr ""
+msgstr "5 = compressão padrao, 7 = compressão máxima"
 
 #: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:560
 msgid "Password:"
@@ -619,9 +611,8 @@ msgid "Choose the destination folder where to extract the current archive"
 msgstr "Escolha um diretório para extrair o conteúdo do arquivo."
 
 #: ../src/interface.c:72
-#, fuzzy
 msgid "_File"
-msgstr "Arquivos"
+msgstr "_Arquivos"
 
 #: ../src/interface.c:92
 msgid "_Test"
@@ -632,13 +623,12 @@ msgid "_Properties"
 msgstr "_Propriedades"
 
 #: ../src/interface.c:121
-#, fuzzy
 msgid "_Action"
 msgstr "Açã_o"
 
 #: ../src/interface.c:148
 msgid "Make SF_X"
-msgstr ""
+msgstr "Fazer SF_X"
 
 #: ../src/interface.c:169
 msgid "_View"
@@ -646,29 +636,27 @@ msgstr "_Ver"
 
 #: ../src/interface.c:175
 msgid "_Show comment"
-msgstr ""
+msgstr "Mo_strar comentário"
 
 #: ../src/interface.c:190
-#, fuzzy
 msgid "Sele_ct All"
-msgstr "Selecion_ar tudo"
+msgstr "Sele_cionar Tudo"
 
 #: ../src/interface.c:196
 msgid "Dese_lect All"
-msgstr "Não selecionar nada"
+msgstr "Não se_lecionar nada"
 
 #: ../src/interface.c:207
 msgid "Co_mmand line output"
-msgstr ""
+msgstr "Saída da linha de c_omando"
 
 #: ../src/interface.c:216
 msgid "Show I_SO info"
-msgstr "Exibir informações do ISO"
+msgstr "Exibir informações do I_SO"
 
 #: ../src/interface.c:226
-#, fuzzy
 msgid "Reset passwo_rd"
-msgstr "Digite a senha."
+msgstr "Restau_rar a senha"
 
 #: ../src/interface.c:232
 msgid "_Help"
@@ -707,11 +695,11 @@ msgstr ""
 
 #: ../src/interface.c:294
 msgid "SFX"
-msgstr ""
+msgstr "SFX"
 
 #: ../src/interface.c:299
 msgid "Make the current archive self-extracting"
-msgstr ""
+msgstr "Fazer o arquivo atual descompactar automaticamente"
 
 #: ../src/interface.c:306
 msgid "Delete"
@@ -742,9 +730,8 @@ msgid "This archive contains password protected files"
 msgstr "Há arquivos protegidos com senha"
 
 #: ../src/interface.c:498
-#, fuzzy
 msgid "Close Archive"
-msgstr "_Arquivo"
+msgstr "Fechar Pacote"
 
 #: ../src/interface.c:548
 msgid "Enter Archive Password"
@@ -780,7 +767,7 @@ msgstr "Tamanho do conteúdo:"
 
 #: ../src/interface.c:707
 msgid "Has comment:"
-msgstr ""
+msgstr "Tem comentário:"
 
 #: ../src/interface.c:714
 msgid "Compression ratio:"
@@ -848,7 +835,7 @@ msgstr "Tamanho:"
 
 #: ../src/iso.c:854
 msgid "Extension:"
-msgstr ""
+msgstr "Extensão:"
 
 #: ../src/iso.c:862
 msgid "System ID:"
@@ -887,46 +874,39 @@ msgid "Effective date:"
 msgstr "Data efetiva:"
 
 #: ../src/main.c:37
-#, fuzzy
 msgid ""
 "Extract archive to the directory specified by destination_path and quits."
-msgstr "Extrai para o diretório selecionado e sai."
+msgstr ""
+"Extrai o arquivo para o diretório especificado por caminho_de_destino e "
+"termina."
 
 #: ../src/main.c:38
-#, fuzzy
 msgid "destination_path archive"
-msgstr "[caminho de destino]"
+msgstr "caminho_de_destino pacote"
 
 #: ../src/main.c:41
-#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
-msgstr "Extrai pedindo o caminho de destino e sai"
+msgstr "Extrai pacote perguntando o diretório de destino e termina."
 
 #: ../src/main.c:42 ../src/main.c:50
-#, fuzzy
 msgid "archive"
-msgstr "Xarchiver"
+msgstr "pacote"
 
 #: ../src/main.c:45
-#, fuzzy
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr "Adiciona arquivos para um arquivo compactado e sai."
+msgstr "Adiciona os arquivos perguntando o nome do pacote e termina."
 
 #: ../src/main.c:46
-#, fuzzy
 msgid "file1 file2 file3 ... fileN"
-msgstr "[arquivo1] [arquivo2] [arquivo3] ... [arquivoN]"
+msgstr "arquivo1 arquivo2 arquivo3 ... arquivoN"
 
 #: ../src/main.c:49
-#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
-msgstr ""
-"Adiciona arquivos para a compactação desejada perguntando seus nomes e sai."
+msgstr "Adiciona arquivos ao pacote perguntando seus nomes e termina."
 
 #: ../src/main.c:62
-#, fuzzy
 msgid "[archive name]"
-msgstr "[nome do arquivo]"
+msgstr "[nome do pacote]"
 
 #: ../src/main.c:66
 #, c-format
@@ -938,14 +918,12 @@ msgstr ""
 "Execute xarchiver --help para ver uma lista de possíveis comandos.\n"
 
 #: ../src/main.c:87 ../src/main.c:120
-#, fuzzy
 msgid "Can't extract files from the archive:"
-msgstr "Erro ao extrair arquivos:"
+msgstr "Não é possível extrair arquivos do pacote:"
 
 #: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
-#, fuzzy
 msgid "You missed the archive name!\n"
-msgstr "Você esqueceu o nome do arquivo!\n"
+msgstr "Você esqueceu o nome do pacote!\n"
 
 #: ../src/main.c:409
 msgid "Can't spawn the command:"
@@ -956,13 +934,12 @@ msgid "An error occurred!"
 msgstr "Ocorreu um erro!"
 
 #: ../src/main.c:432
-#, fuzzy
 msgid "Can't allocate memory for the archive structure!"
-msgstr "Erro ao extrair arquivos:"
+msgstr "Não é possível alocar memória para a estrutura do pacote!"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
-msgstr ""
+msgstr "Checksum"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
