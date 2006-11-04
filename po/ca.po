@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-31 13:58+0100\n"
-"PO-Revision-Date: 2006-09-20 13:03+0200\n"
+"PO-Revision-Date: 2006-11-04 15:07+0100\n"
 "Last-Translator: Pau Ruŀlan Ferragut <paurullan@bulma.net>\n"
 "Language-Team: Catalan\n"
 "MIME-Version: 1.0\n"
@@ -128,9 +128,8 @@ msgid "Do you want to view the command line output?"
 msgstr "Voleu veure la sortida de la línea d’ordres?"
 
 #: ../src/callbacks.c:165
-#, fuzzy
 msgid "The sfx archive was saved as:"
-msgstr "S’està extraguent l’arxiu a «%s»"
+msgstr "L’arxiu sfx s’ha desat com:"
 
 #: ../src/callbacks.c:175 ../src/callbacks.c:250 ../src/callbacks.c:1600
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:770
@@ -146,9 +145,8 @@ msgid "Choose Add to begin creating the archive."
 msgstr "Seleccioneu «Afegir» per començar a crear l’arxiu."
 
 #: ../src/callbacks.c:330
-#, fuzzy
 msgid "Can't allocate memory for the archive structure:"
-msgstr "No s’ha pogut extreure els fitxers de l’arxiu:"
+msgstr "No s’ha pogut assignar memòria per l’estructura de l’arxiu:"
 
 #: ../src/callbacks.c:352
 #, c-format
@@ -197,24 +195,20 @@ msgid "Deleting files from the archive, please wait..."
 msgstr "S’està esborrant els fitxers de l’arxiu"
 
 #: ../src/callbacks.c:681
-#, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
-msgstr "S’està comprovant la integritat del fitxer"
+msgstr "S’està convertint el fitxer a un auto-extraible"
 
 #: ../src/callbacks.c:743 ../src/callbacks.c:858
-#, fuzzy
 msgid "Can't convert the archive to self-extracting:"
-msgstr "No s’ha pogut executar el compresor:"
+msgstr "No s’ha pogut convertir l’arxiu en un auto-extraible"
 
 #: ../src/callbacks.c:756 ../src/callbacks.c:871
-#, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
-msgstr "No s’han pogut afegir els fitxers a l’arxiu:"
+msgstr "No s’ha pogut escriure el mòdul unzipsfx per l’arxiu:"
 
 #: ../src/callbacks.c:825
-#, fuzzy
 msgid "Please select the 7zCon.sfx module"
-msgstr "Seleccioneu els fitxers a afegir"
+msgstr "Si us plau seleccioneu el mòdul 7zCon.sfx"
 
 #: ../src/callbacks.c:930
 msgid "translator-credits"
@@ -264,27 +258,25 @@ msgid "Please select a file, not a directory!"
 msgstr "Seleccioneu un fitxer i no un directori"
 
 #: ../src/callbacks.c:1580
-#, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
-msgstr "S’ha produit un error mentre es matava el procés:"
+msgstr "S’ha produit un error mentre s’estava extraguent el fitxer per mostrar-lo:"
 
 #: ../src/callbacks.c:1589
-#, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
-msgstr "S’ha produit un error mentre es matava el procés:"
+msgstr "S’ha produit un error mentre s’estava convertint el contingut a UTF-8:"
 
 #: ../src/callbacks.c:1645
 msgid " bytes"
-msgstr ""
+msgstr " octets"
 
 #: ../src/callbacks.c:1771
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: ../src/callbacks.c:1773
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ../src/callbacks.c:2063
 msgid "Can't perform another extraction:"
@@ -304,15 +296,15 @@ msgstr "No s’ha pogut dur a terme:"
 
 #: ../src/callbacks.c:2181
 msgid "unrar doesn't support archive creation!"
-msgstr ""
+msgstr "Unrar no suporta la creació d’arxius"
 
 #: ../src/callbacks.c:2189
 msgid "You can't add content to deb packages!"
-msgstr ""
+msgstr "No podeu afegir contingut als paquets deb"
 
 #: ../src/callbacks.c:2191
 msgid "You can't add content to rpm packages!"
-msgstr ""
+msgstr "No podeu afegir contingut als paquets rpm"
 
 #: ../src/callbacks.c:2306
 msgid "Failed to open link."
@@ -320,17 +312,15 @@ msgstr "No s’ha pogut obrir l’enllaç."
 
 #: ../src/callbacks.c:2335
 msgid "The password has been reset."
-msgstr ""
+msgstr "S’ha reiniciat la contrassenya."
 
 #: ../src/callbacks.c:2338
-#, fuzzy
 msgid "Please enter the password first!"
-msgstr "Si us plau introduiu la contrasenya"
+msgstr "Si us plau introduiu primer la contrasenya"
 
 #: ../src/callbacks.c:2347
-#, fuzzy
 msgid "Archive comment window"
-msgstr "Finestra de propietats de l’arxiu"
+msgstr "Finestrade comentaris de l’arxiu"
 
 #: ../src/add_dialog.c:38
 msgid "Add files to the archive"
@@ -357,12 +347,10 @@ msgid "Recurse subdirectories"
 msgstr "Examina subdirectoris recursivament"
 
 #: ../src/add_dialog.c:162
-#, fuzzy
 msgid ""
 "Include everything in the directory recursively \tstarting from the current "
 "directory."
-msgstr ""
-"Inclou tot el contingut del directori de manera recursiva des de l’actual."
+msgstr "Inclou tot el contingut del directori de manera recur\\tsiva des de l’actual començant del directori actual."
 
 #: ../src/add_dialog.c:167
 msgid "Generate a solid archive"
@@ -431,14 +419,13 @@ msgstr ""
 "0 = sense compressió, 3 per defecte, 5 = millor compressió però més lenta"
 
 #: ../src/add_dialog.c:232
-#, fuzzy
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = sense compressió, 1 per defecte, 4 = més ràpida però amb menor compressió"
 
 #: ../src/add_dialog.c:239
 msgid "5 = default compression, 7 = max compression"
-msgstr ""
+msgstr "5 = compressió per defecte, 7 = compressió màxima"
 
 #: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:560
 msgid "Password:"
@@ -634,13 +621,12 @@ msgid "_Properties"
 msgstr "_Propietats"
 
 #: ../src/interface.c:121
-#, fuzzy
 msgid "_Action"
-msgstr "A_cció"
+msgstr "_Acció"
 
 #: ../src/interface.c:148
 msgid "Make SF_X"
-msgstr ""
+msgstr "Crea SF_X"
 
 #: ../src/interface.c:169
 msgid "_View"
@@ -648,12 +634,11 @@ msgstr "_Visualitza"
 
 #: ../src/interface.c:175
 msgid "_Show comment"
-msgstr ""
+msgstr "Mo_stra comentari"
 
 #: ../src/interface.c:190
-#, fuzzy
 msgid "Sele_ct All"
-msgstr "Selecciona-ho _Tot"
+msgstr "Sele_cciona-ho tot"
 
 #: ../src/interface.c:196
 msgid "Dese_lect All"
@@ -668,9 +653,8 @@ msgid "Show I_SO info"
 msgstr "Mostra la informació I_SO"
 
 #: ../src/interface.c:226
-#, fuzzy
 msgid "Reset passwo_rd"
-msgstr "Si us plau introduiu la contrasenya"
+msgstr "Reinicia cont_rassenya"
 
 #: ../src/interface.c:232
 msgid "_Help"
@@ -710,11 +694,11 @@ msgstr ""
 
 #: ../src/interface.c:294
 msgid "SFX"
-msgstr ""
+msgstr "SFX"
 
 #: ../src/interface.c:299
 msgid "Make the current archive self-extracting"
-msgstr ""
+msgstr "Crea l’arxiu actual auto-extraible"
 
 #: ../src/interface.c:306
 msgid "Delete"
@@ -745,9 +729,8 @@ msgid "This archive contains password protected files"
 msgstr "L’arxiu conté fitxers protegits amb contrassenya"
 
 #: ../src/interface.c:498
-#, fuzzy
 msgid "Close Archive"
-msgstr "Sols arxius"
+msgstr "Tanca arxiu"
 
 #: ../src/interface.c:548
 msgid "Enter Archive Password"
@@ -783,7 +766,7 @@ msgstr "Mida dels continguts:"
 
 #: ../src/interface.c:707
 msgid "Has comment:"
-msgstr ""
+msgstr "L’arxiu té comentaris:"
 
 #: ../src/interface.c:714
 msgid "Compression ratio:"
@@ -851,7 +834,7 @@ msgstr "Mida:"
 
 #: ../src/iso.c:854
 msgid "Extension:"
-msgstr ""
+msgstr "Extensió:"
 
 #: ../src/iso.c:862
 msgid "System ID:"
@@ -890,42 +873,35 @@ msgid "Effective date:"
 msgstr "Data efectiva:"
 
 #: ../src/main.c:37
-#, fuzzy
 msgid ""
 "Extract archive to the directory specified by destination_path and quits."
-msgstr "Afegeix l’extensió de l’arxiu"
+msgstr "Extreu l’arxiu al directori especificat per la _ruta de destí i tanca."
 
 #: ../src/main.c:38
-#, fuzzy
 msgid "destination_path archive"
-msgstr "Afegeix fitxers a l'arxiu"
+msgstr "_ruta de destí de l’arxiu"
 
 #: ../src/main.c:41
-#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
-msgstr "Afegeix l’extensió de l’arxiu"
+msgstr "Extreu l’arxiu demanant la ruta de destí i tanca."
 
 #: ../src/main.c:42 ../src/main.c:50
-#, fuzzy
 msgid "archive"
-msgstr "Sols arxius"
+msgstr "arxiu"
 
 #: ../src/main.c:45
-#, fuzzy
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr "Afegeix l’extensió de l’arxiu"
+msgstr "Afegeix els fitxers segons el nom de l’arxiu i tanca."
 
 #: ../src/main.c:46
 msgid "file1 file2 file3 ... fileN"
-msgstr ""
+msgstr "fitxer1 fitxer2 fitxer3 … fitxerN"
 
 #: ../src/main.c:49
-#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
-msgstr "Afegeix l’extensió de l’arxiu"
+msgstr "Afegeix els fitxers a l’arxiu segons el seu nom i tanca."
 
 #: ../src/main.c:62
-#, fuzzy
 msgid "[archive name]"
 msgstr "[nom de l’arxiu]"
 
@@ -939,14 +915,12 @@ msgstr ""
 "Proveu xarchiver --help per veure un llistat complet de les opcions.\n"
 
 #: ../src/main.c:87 ../src/main.c:120
-#, fuzzy
 msgid "Can't extract files from the archive:"
 msgstr "No s’ha pogut extreure els fitxers de l’arxiu:"
 
 #: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
-#, fuzzy
 msgid "You missed the archive name!\n"
-msgstr "Introduiu el nom per l’arxiu\n"
+msgstr "No heu introduit el nom per l’arxiu\n"
 
 #: ../src/main.c:409
 msgid "Can't spawn the command:"
@@ -957,13 +931,12 @@ msgid "An error occurred!"
 msgstr "S’ha produït un error"
 
 #: ../src/main.c:432
-#, fuzzy
 msgid "Can't allocate memory for the archive structure!"
-msgstr "No s’ha pogut extreure els fitxers de l’arxiu:"
+msgstr "No es pot assignar memòria per l’estructura d’arxiu"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
-msgstr ""
+msgstr "Suma de verificació"
 
 #: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
@@ -1020,97 +993,12 @@ msgstr "No s’ha pogut escriure a /tmp:"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr ""
+msgstr "Un gestor d’arxius GTK+2"
 
 #: ../xarchiver.desktop.in.h:2
-#, fuzzy
 msgid "Archive manager"
-msgstr "[nom de l’arxiu]"
+msgstr "Gestor d’arxius"
 
 #: ../xarchiver.desktop.in.h:3
-#, fuzzy
 msgid "Xarchiver"
-msgstr "Sols arxius"
-
-#, fuzzy
-#~ msgid "Can't add files to the archive_cmd:"
-#~ msgstr "No s’han pogut afegir els fitxers a l’arxiu:"
-
-#, fuzzy
-#~ msgid "Can't allocate memory for the archive_cmd structure!"
-#~ msgstr "No s’ha pogut extreure els fitxers de l’arxiu:"
-
-#, fuzzy
-#~ msgid "archive_cmd"
-#~ msgstr "Sols arxius"
-
-#~ msgid "Please hit the Stop button first!"
-#~ msgstr "Preméu el botó «Atura» abans"
-
-#~ msgid "This option can't be used with password protected archives!\n"
-#~ msgstr ""
-#~ "Aquesta opció és incompatible amb fitxers protegits per contrassenya\n"
-
-#~ msgid "Operation aborted."
-#~ msgstr "S’ha avortat l’operació."
-
-#~ msgid "Choose Add File to create the compressed file."
-#~ msgstr "Seleccioneu «Afegir fitxer» per crear el fitxer comprimit."
-
-#~ msgid "View File Window"
-#~ msgstr "Visualitza la finestra de fitxer"
-
-#, fuzzy
-#~ msgid "The self extracting archive is:\n"
-#~ msgstr "S’està extraguent l’arxiu a «%s»"
-
-#, fuzzy
-#~ msgid "Operation completed"
-#~ msgstr "Operació completada."
-
-#~ msgid "The archive \"%s\" already exists!"
-#~ msgstr "El fitxer «%s» ja existeix"
-
-#~ msgid "Do you want to overwrite it?"
-#~ msgstr "Voleu sobreescriure-lo?"
-
-#~ msgid ""
-#~ "Select the files to be added to the current archive; use SHIFT to "
-#~ "multiple select"
-#~ msgstr ""
-#~ "Seleccioneu els fitxer a afegir a l’arxiu actual; useu la tecla de "
-#~ "fixació de majúscules (SHIFT) per seleccionar-ne varis."
-
-#~ msgid "Select the folder to be added to the current archive"
-#~ msgstr "Seleccioneu el directori a afegir a l’arxiu actual"
-
-#~ msgid ""
-#~ "Select the folders to be added to the current archive; use SHIFT to "
-#~ "multiple select"
-#~ msgstr ""
-#~ "Seleccioneu els directoris a afegir a l’arxiu actual; useu la tecla de "
-#~ "fixació de majúscules (SHIFT) per seleccionar-ne varis."
-
-#~ msgid "Cr_eate"
-#~ msgstr "Cr_ea"
-
-#~ msgid "Archive type:"
-#~ msgstr "Tipus de fitxer:"
-
-#~ msgid "Choose the archive type to create"
-#~ msgstr "Seleccioneu el tipus d’arxiu a crear"
-
-#~ msgid "Bzip2 or gzip cannot compress more than one file!"
-#~ msgstr "Ni Bzip2 ni gzip poden comprimir més d’un fitxer"
-
-#~ msgid "Please choose another archive format!"
-#~ msgstr "Trieu un altre format de fitxer"
-
-#~ msgid "Image type:"
-#~ msgstr "Tipus de la imatge:"
-
-#~ msgid "CRC"
-#~ msgstr "CRC"
-
-#~ msgid "CRC-32"
-#~ msgstr "CRC-32"
+msgstr "Xarchiver"
