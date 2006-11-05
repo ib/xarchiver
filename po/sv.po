@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver\n"
+"Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-31 13:58+0100\n"
 "PO-Revision-Date: 2006-08-23 15:49+0100\n"
