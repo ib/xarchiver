@@ -37,7 +37,7 @@ extern gboolean unrar;
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix , *Name;
-gint id = -1;
+gint page_id = 0;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -267,20 +267,14 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	if (user_data != NULL)
 		path = g_path_get_basename ( user_data);
 
-	current_page = gtk_notebook_get_current_page ( notebook);
-	if (current_page == -1)
-		current_page = 0;
-	else
-		current_page++;
-
-	archive[current_page] = xa_new_archive_dialog ( path );
+	archive[page_id] = xa_new_archive_dialog ( path );
 	if (path != NULL)
 		g_free (path);
 
-	if (archive[current_page]  == NULL)
+	if (archive[page_id]  == NULL)
 		return;
 
-	xa_add_page (archive[current_page]);
+	xa_add_page (archive[page_id]);
 
 	xa_set_button_state (1,1,1,0,0,0 );
     EmptyTextBuffer();
@@ -583,12 +577,12 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gint x;
 	GString *names;
 	gint current_page;
-	gint idx;
+	gint id;
 
 	current_page = gtk_notebook_get_current_page ( notebook);
-	idx = xa_find_archive_index ( current_page);
+	id = xa_find_archive_index ( current_page);
 
-	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
+	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[id]->treeview) );
 	names = g_string_new ( " " );
 	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
 

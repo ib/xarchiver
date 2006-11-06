@@ -77,6 +77,7 @@ struct _XArchive
 	gboolean remove_files;
 	unsigned short int compression_level;
 	gint nr_of_files;
+	gint tab_id;
 	gint nr_of_dirs;
 	GPid child_pid;
 	guint pb_source;
