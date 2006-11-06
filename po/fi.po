@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-06 13:41+0100\n"
+"POT-Creation-Date: 2006-11-06 13:47+0100\n"
 "PO-Revision-Date: 2006-11-03 23:34+0200\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -15,8 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/iso.c:652
-#: src/rar.c:48 src/rpm.c:56 src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/lha.c:40 src/iso.c:652 src/rar.c:48 src/rpm.c:56 src/tar.c:48
+#: src/zip.c:38
 msgid "Filename"
 msgstr "Tiedostonimi"
 
@@ -32,17 +33,174 @@ msgstr "Pakattu"
 msgid "Attr"
 msgstr "Attr"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/rar.c:48
-#: src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/rar.c:48 src/tar.c:48 src/zip.c:38
 msgid "Time"
 msgstr "Aika"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/iso.c:652
-#: src/rar.c:48 src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/iso.c:652 src/rar.c:48 src/tar.c:48 src/zip.c:38
 msgid "Date"
 msgstr "Pvm"
 
-#: src/arj.c:43 src/rar.c:48 src/zip.c:38
+#: src/add_dialog.c:38
+msgid "Add files to the archive"
+msgstr "Lisää tiedostoja arkistoon"
+
+#: src/add_dialog.c:99
+msgid "Files"
+msgstr "Tiedostoja"
+
+#: src/add_dialog.c:106
+msgid "Directories"
+msgstr "Hakemistoja"
+
+#: src/add_dialog.c:131
+msgid "Choose the files or directories to add to the archive"
+msgstr "Valitse arkistoon lisättävät tiedostot tai hakemistot"
+
+#: src/add_dialog.c:136
+msgid "<b>Files and directories to add </b>"
+msgstr "<b>Lisättävät tiedostot tai hakemistot </b>"
+
+#: src/add_dialog.c:156
+msgid "Recurse subdirectories"
+msgstr "Myös alihakemistot"
+
+#: src/add_dialog.c:162
+msgid ""
+"Include everything in the directory recursively \tstarting from the current "
+"directory."
+msgstr ""
+"Sisällytä hakemiston sisältö rekursiivisesti \talkaen nykyisestä "
+"hakemistosta."
+
+#: src/add_dialog.c:167
+msgid "Generate a solid archive"
+msgstr "Luo kiinteä arkisto"
+
+#: src/add_dialog.c:171
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio."
+msgstr ""
+"Kiinteässä arkistossa tiedostot liitetään yhteen paremman pakkaussuhteen "
+"saavuttamiseksi."
+
+#: src/add_dialog.c:176
+msgid "Remove files after adding"
+msgstr "Poista tiedostot lisäämisen jälkeen"
+
+#: src/add_dialog.c:184
+msgid "Do not add file paths"
+msgstr "Älä lisää tiedostojen polkuja"
+
+#: src/add_dialog.c:188
+msgid "Store just the name of a file without its directory names."
+msgstr "Tallenna pelkkä tiedostonimi ilman hakemistojen nimiä."
+
+#: src/add_dialog.c:190
+msgid "Freshen an existing entry in the archive"
+msgstr "Virkistä arkistosta jo löytyvä tiedosto"
+
+#: src/add_dialog.c:194
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive."
+msgstr ""
+"Tämä vaihtoehto muokkaa arkistoa ainoastaan, jos tiedostoa on muokattu sen "
+"arkistoitua vastinetta myöhemmin. Toisin kuin päivitysvaihtoehto, tämä ei "
+"lisää arkistoon tiedostoja, joita se ei jo sisällä."
+
+#: src/add_dialog.c:198
+msgid "Update an existing entry in the archive"
+msgstr "Päivitä arkistossa jo oleva tiedosto"
+
+#: src/add_dialog.c:202
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified."
+msgstr ""
+"Tämä valinta lisää uudet tiedostot ja päivittää sellaiset tiedostot, joita "
+"on muokattu arkiston viimeisen muokkaamisen tai luomisen jälkeen."
+
+#: src/add_dialog.c:211
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "0 = ei pakkausta, 5 = oletus, 9 = paras pakkaus mutta hitain"
+
+#: src/add_dialog.c:218
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "0 = ei pakkausta, 6 = oletus, 9 = paras pakkaus mutta hitain"
+
+#: src/add_dialog.c:225
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr "0 = ei pakkausta, 3 = oletus, 5 = paras pakkaus mutta hitain"
+
+#: src/add_dialog.c:232
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr "0 = ei pakkausta, 1 on oletus, 4 = nopein mutta pakkaa vähiten"
+
+#: src/add_dialog.c:239
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = oletuspakkaus, 7 = maksimipakkaus"
+
+#: src/add_dialog.c:250 src/extract_dialog.c:217 src/interface.c:568
+msgid "Password:"
+msgstr "Salasana:"
+
+#: src/add_dialog.c:264
+msgid "Compression level:"
+msgstr "Pakkaustaso:"
+
+#: src/add_dialog.c:291 src/extract_dialog.c:238
+msgid "<b>Options </b>"
+msgstr "<b>Valinnat </b>"
+
+#: src/add_dialog.c:308 src/interface.c:129
+msgid "_Add"
+msgstr "_Lisää"
+
+#: src/add_dialog.c:378
+msgid "Please select the files you want to add"
+msgstr "Valitse tiedostot, jotka haluat lisätä"
+
+#: src/add_dialog.c:383
+msgid "Please select the directories you want to add"
+msgstr "Valitse hakemistot, jotka haluat lisätä"
+
+#: src/add_dialog.c:494 src/main.c:211
+msgid "Can't add files to the archive:"
+msgstr "Ei voi lisätä tiedostoja arkistoon:"
+
+#: src/add_dialog.c:494
+msgid "You haven't selected any files to add!"
+msgstr "Et valinnut yhtään tiedostoa lisättäväksi."
+
+#: src/add_dialog.c:502 src/interface.c:610
+msgid "You missed the password!"
+msgstr "Salasana puuttuu!"
+
+#: src/add_dialog.c:502 src/interface.c:610
+msgid "Please enter it!"
+msgstr "Ole hyvä ja syötä se!"
+
+#: src/add_dialog.c:572
+msgid "Adding files to the archive, please wait..."
+msgstr "Lisätään tiedostoja arkistoon, odota..."
+
+#: src/archive.c:66 src/callbacks.c:154 src/callbacks.c:772
+#: src/callbacks.c:785 src/callbacks.c:887 src/callbacks.c:900
+#: src/callbacks.c:1613 src/callbacks.c:1980 src/extract_dialog.c:933
+#: src/rpm.c:123 src/rpm.c:154
+msgid "Operation failed."
+msgstr "Toiminto epäonnistui."
+
+#: src/archive.c:67
+msgid "Can't run the archiver executable:"
+msgstr "Arkistointiohjelmaa ei voi suorittaa:"
+
+#: src/arj.c:43 src/lha.c:40 src/rar.c:48 src/zip.c:38
 msgid "Ratio"
 msgstr "Suhde"
 
@@ -58,30 +216,21 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: src/archive.c:66 src/callbacks.c:154 src/callbacks.c:772
-#: src/callbacks.c:785 src/callbacks.c:887 src/callbacks.c:900
-#: src/callbacks.c:1613 src/callbacks.c:1980 src/extract_dialog.c:933
-#: src/rpm.c:123 src/rpm.c:154
-msgid "Operation failed."
-msgstr "Toiminto epäonnistui."
-
-#: src/archive.c:67
-msgid "Can't run the archiver executable:"
-msgstr "Arkistointiohjelmaa ei voi suorittaa:"
-
-#: src/bzip2.c:56 src/gzip.c:54 src/rar.c:48 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/lha.c:40 src/rar.c:48
+#: src/tar.c:48
 msgid "Permissions"
 msgstr "Oikeudet"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/rpm.c:56 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/rpm.c:56 src/tar.c:48
 msgid "Symbolic Link"
 msgstr "Symbolinen linkki"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/tar.c:48
 msgid "Owner/Group"
 msgstr "Omistaja/Ryhmä"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/iso.c:652 src/rpm.c:56 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/lha.c:40 src/iso.c:652
+#: src/rpm.c:56 src/tar.c:48
 msgid "Size"
 msgstr "Koko"
 
@@ -321,152 +470,6 @@ msgstr "Ole hyvä ja syötä ensin salasana!"
 msgid "Archive comment window"
 msgstr "Arkiston kommentti-ikkuna"
 
-#: src/add_dialog.c:38
-msgid "Add files to the archive"
-msgstr "Lisää tiedostoja arkistoon"
-
-#: src/add_dialog.c:99
-msgid "Files"
-msgstr "Tiedostoja"
-
-#: src/add_dialog.c:106
-msgid "Directories"
-msgstr "Hakemistoja"
-
-#: src/add_dialog.c:131
-msgid "Choose the files or directories to add to the archive"
-msgstr "Valitse arkistoon lisättävät tiedostot tai hakemistot"
-
-#: src/add_dialog.c:136
-msgid "<b>Files and directories to add </b>"
-msgstr "<b>Lisättävät tiedostot tai hakemistot </b>"
-
-#: src/add_dialog.c:156
-msgid "Recurse subdirectories"
-msgstr "Myös alihakemistot"
-
-#: src/add_dialog.c:162
-msgid ""
-"Include everything in the directory recursively \tstarting from the current "
-"directory."
-msgstr ""
-"Sisällytä hakemiston sisältö rekursiivisesti \talkaen nykyisestä "
-"hakemistosta."
-
-#: src/add_dialog.c:167
-msgid "Generate a solid archive"
-msgstr "Luo kiinteä arkisto"
-
-#: src/add_dialog.c:171
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio."
-msgstr ""
-"Kiinteässä arkistossa tiedostot liitetään yhteen paremman pakkaussuhteen "
-"saavuttamiseksi."
-
-#: src/add_dialog.c:176
-msgid "Remove files after adding"
-msgstr "Poista tiedostot lisäämisen jälkeen"
-
-#: src/add_dialog.c:184
-msgid "Do not add file paths"
-msgstr "Älä lisää tiedostojen polkuja"
-
-#: src/add_dialog.c:188
-msgid "Store just the name of a file without its directory names."
-msgstr "Tallenna pelkkä tiedostonimi ilman hakemistojen nimiä."
-
-#: src/add_dialog.c:190
-msgid "Freshen an existing entry in the archive"
-msgstr "Virkistä arkistosta jo löytyvä tiedosto"
-
-#: src/add_dialog.c:194
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive."
-msgstr ""
-"Tämä vaihtoehto muokkaa arkistoa ainoastaan, jos tiedostoa on muokattu sen "
-"arkistoitua vastinetta myöhemmin. Toisin kuin päivitysvaihtoehto, tämä ei "
-"lisää arkistoon tiedostoja, joita se ei jo sisällä."
-
-#: src/add_dialog.c:198
-msgid "Update an existing entry in the archive"
-msgstr "Päivitä arkistossa jo oleva tiedosto"
-
-#: src/add_dialog.c:202
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified."
-msgstr ""
-"Tämä valinta lisää uudet tiedostot ja päivittää sellaiset tiedostot, joita "
-"on muokattu arkiston viimeisen muokkaamisen tai luomisen jälkeen."
-
-#: src/add_dialog.c:211
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = ei pakkausta, 5 = oletus, 9 = paras pakkaus mutta hitain"
-
-#: src/add_dialog.c:218
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = ei pakkausta, 6 = oletus, 9 = paras pakkaus mutta hitain"
-
-#: src/add_dialog.c:225
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = ei pakkausta, 3 = oletus, 5 = paras pakkaus mutta hitain"
-
-#: src/add_dialog.c:232
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr "0 = ei pakkausta, 1 on oletus, 4 = nopein mutta pakkaa vähiten"
-
-#: src/add_dialog.c:239
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = oletuspakkaus, 7 = maksimipakkaus"
-
-#: src/add_dialog.c:250 src/extract_dialog.c:217 src/interface.c:568
-msgid "Password:"
-msgstr "Salasana:"
-
-#: src/add_dialog.c:264
-msgid "Compression level:"
-msgstr "Pakkaustaso:"
-
-#: src/add_dialog.c:291 src/extract_dialog.c:238
-msgid "<b>Options </b>"
-msgstr "<b>Valinnat </b>"
-
-#: src/add_dialog.c:308 src/interface.c:129
-msgid "_Add"
-msgstr "_Lisää"
-
-#: src/add_dialog.c:378
-msgid "Please select the files you want to add"
-msgstr "Valitse tiedostot, jotka haluat lisätä"
-
-#: src/add_dialog.c:383
-msgid "Please select the directories you want to add"
-msgstr "Valitse hakemistot, jotka haluat lisätä"
-
-#: src/add_dialog.c:494 src/main.c:211
-msgid "Can't add files to the archive:"
-msgstr "Ei voi lisätä tiedostoja arkistoon:"
-
-#: src/add_dialog.c:494
-msgid "You haven't selected any files to add!"
-msgstr "Et valinnut yhtään tiedostoa lisättäväksi."
-
-#: src/add_dialog.c:502 src/interface.c:610
-msgid "You missed the password!"
-msgstr "Salasana puuttuu!"
-
-#: src/add_dialog.c:502 src/interface.c:610
-msgid "Please enter it!"
-msgstr "Ole hyvä ja syötä se!"
-
-#: src/add_dialog.c:572
-msgid "Adding files to the archive, please wait..."
-msgstr "Lisätään tiedostoja arkistoon, odota..."
-
 #: src/extract_dialog.c:42
 msgid "Decompress file"
 msgstr "Pura tiedosto"
@@ -602,6 +605,15 @@ msgstr "Ei voi luoda väliaikaishakemistoa kohteeseen /tmp:"
 #: src/extract_dialog.c:946
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Valitse kohdehakemisto, johon arkisto puretaan"
+
+#: src/lha.c:40
+msgid "UID/GID"
+msgstr ""
+
+#: src/lha.c:40
+#, fuzzy
+msgid "Timestamp"
+msgstr "Aika"
 
 #: src/interface.c:73
 msgid "_File"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-06 13:41+0100\n"
+"POT-Creation-Date: 2006-11-06 13:47+0100\n"
 "PO-Revision-Date: 2006-10-31 21:28+0100\n"
 "Last-Translator: Maximilian Schleiss <maxschleiss@bluewin.ch>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -16,8 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/iso.c:652
-#: src/rar.c:48 src/rpm.c:56 src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/lha.c:40 src/iso.c:652 src/rar.c:48 src/rpm.c:56 src/tar.c:48
+#: src/zip.c:38
 msgid "Filename"
 msgstr "Nom de fichier"
 
@@ -33,17 +34,175 @@ msgstr "Compressé"
 msgid "Attr"
 msgstr "Attr."
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/rar.c:48
-#: src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/rar.c:48 src/tar.c:48 src/zip.c:38
 msgid "Time"
 msgstr "Temps"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/iso.c:652
-#: src/rar.c:48 src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/iso.c:652 src/rar.c:48 src/tar.c:48 src/zip.c:38
 msgid "Date"
 msgstr "Date"
 
-#: src/arj.c:43 src/rar.c:48 src/zip.c:38
+#: src/add_dialog.c:38
+msgid "Add files to the archive"
+msgstr "Ajouter des fichiers à l'archive"
+
+#: src/add_dialog.c:99
+msgid "Files"
+msgstr "Fichiers"
+
+#: src/add_dialog.c:106
+msgid "Directories"
+msgstr "Répertoires"
+
+#: src/add_dialog.c:131
+msgid "Choose the files or directories to add to the archive"
+msgstr "Choisir les fichiers ou répertoires à ajouter à l'archive"
+
+#: src/add_dialog.c:136
+msgid "<b>Files and directories to add </b>"
+msgstr "<b>Fichiers et répertoires à ajouter </b>"
+
+#: src/add_dialog.c:156
+msgid "Recurse subdirectories"
+msgstr "Sous-répertoires à rebours"
+
+#: src/add_dialog.c:162
+msgid ""
+"Include everything in the directory recursively \tstarting from the current "
+"directory."
+msgstr ""
+"Tout inclure dans le répertoire récursivement \tà partir du répertoire "
+"courant."
+
+#: src/add_dialog.c:167
+msgid "Generate a solid archive"
+msgstr "Générer une archive solide"
+
+#: src/add_dialog.c:171
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio."
+msgstr ""
+"Dans une archive solide les fichiers sont groupés pour atteindre un meilleur "
+"ratio de compression"
+
+#: src/add_dialog.c:176
+msgid "Remove files after adding"
+msgstr "Supprimer les fichiers une fois ajoutés"
+
+#: src/add_dialog.c:184
+msgid "Do not add file paths"
+msgstr "Ne pas ajouter les chemins d'accès des fichiers"
+
+#: src/add_dialog.c:188
+msgid "Store just the name of a file without its directory names."
+msgstr "Stocker le nom de fichier sans le nom des répertoires."
+
+#: src/add_dialog.c:190
+msgid "Freshen an existing entry in the archive"
+msgstr "Rafraîchir une entrée dans l'archive"
+
+#: src/add_dialog.c:194
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive."
+msgstr ""
+"Cette option met l'archive à jour seulement si les fichiers modifiés sont "
+"plus récents que ceux dans l'archive. Au contraire de l'option mettre à "
+"jour, rafraîchir n'ajoutera pas de nouveaux fichiers à l'archive."
+
+#: src/add_dialog.c:198
+msgid "Update an existing entry in the archive"
+msgstr "Mettre à jour une entrée dans l'archive"
+
+#: src/add_dialog.c:202
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified."
+msgstr ""
+"Cette option met à jour des fichiers modifiés et ajoute des fichiers "
+"nouvellement créés dans l'archive."
+
+#: src/add_dialog.c:211
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "0 = pas de compression, 5 par défaut, 9 = meilleure compression (lent)"
+
+#: src/add_dialog.c:218
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "0 = pas de compression, 6 par défaut, 9 = meilleure compression (lent)"
+
+#: src/add_dialog.c:225
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr "0 = pas de compression, 3 par défaut, 9 = meilleure compression (lent)"
+
+#: src/add_dialog.c:232
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr ""
+"0 = pas de compression, 1 par défaut, 4 = rapide mais faible compression"
+
+#: src/add_dialog.c:239
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = compression par défaut, 7 = compression max."
+
+#: src/add_dialog.c:250 src/extract_dialog.c:217 src/interface.c:568
+msgid "Password:"
+msgstr "Mot de passe:"
+
+#: src/add_dialog.c:264
+msgid "Compression level:"
+msgstr "Niveau de compression:"
+
+#: src/add_dialog.c:291 src/extract_dialog.c:238
+msgid "<b>Options </b>"
+msgstr "<b>Options </b>"
+
+#: src/add_dialog.c:308 src/interface.c:129
+msgid "_Add"
+msgstr "_Ajouter"
+
+#: src/add_dialog.c:378
+msgid "Please select the files you want to add"
+msgstr "Sélectionner les fichiers à ajouter"
+
+#: src/add_dialog.c:383
+msgid "Please select the directories you want to add"
+msgstr "Sélectionner les répertoires à ajouter"
+
+#: src/add_dialog.c:494 src/main.c:211
+msgid "Can't add files to the archive:"
+msgstr "Échec à l'ajout de fichiers à l'archive:"
+
+#: src/add_dialog.c:494
+msgid "You haven't selected any files to add!"
+msgstr "Aucun fichier à ajouter sélectionné !"
+
+#: src/add_dialog.c:502 src/interface.c:610
+msgid "You missed the password!"
+msgstr "Mot de passe manquant !"
+
+#: src/add_dialog.c:502 src/interface.c:610
+msgid "Please enter it!"
+msgstr "Veuillez le compléter !"
+
+#: src/add_dialog.c:572
+msgid "Adding files to the archive, please wait..."
+msgstr "Ajouts de fichiers à l'archive, patienter..."
+
+#: src/archive.c:66 src/callbacks.c:154 src/callbacks.c:772
+#: src/callbacks.c:785 src/callbacks.c:887 src/callbacks.c:900
+#: src/callbacks.c:1613 src/callbacks.c:1980 src/extract_dialog.c:933
+#: src/rpm.c:123 src/rpm.c:154
+msgid "Operation failed."
+msgstr "Échec de l'opération."
+
+#: src/archive.c:67
+msgid "Can't run the archiver executable:"
+msgstr "Échec à l'exécution d'archiver :"
+
+#: src/arj.c:43 src/lha.c:40 src/rar.c:48 src/zip.c:38
 msgid "Ratio"
 msgstr "Ratio"
 
@@ -59,30 +218,21 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: src/archive.c:66 src/callbacks.c:154 src/callbacks.c:772
-#: src/callbacks.c:785 src/callbacks.c:887 src/callbacks.c:900
-#: src/callbacks.c:1613 src/callbacks.c:1980 src/extract_dialog.c:933
-#: src/rpm.c:123 src/rpm.c:154
-msgid "Operation failed."
-msgstr "Échec de l'opération."
-
-#: src/archive.c:67
-msgid "Can't run the archiver executable:"
-msgstr "Échec à l'exécution d'archiver :"
-
-#: src/bzip2.c:56 src/gzip.c:54 src/rar.c:48 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/lha.c:40 src/rar.c:48
+#: src/tar.c:48
 msgid "Permissions"
 msgstr "Permissions"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/rpm.c:56 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/rpm.c:56 src/tar.c:48
 msgid "Symbolic Link"
 msgstr "Lien symbolique"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/tar.c:48
 msgid "Owner/Group"
 msgstr "Propriétaire/Groupe"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/iso.c:652 src/rpm.c:56 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/lha.c:40 src/iso.c:652
+#: src/rpm.c:56 src/tar.c:48
 msgid "Size"
 msgstr "Taille"
 
@@ -326,153 +476,6 @@ msgstr "Entrez le mot de passe d'abord!"
 msgid "Archive comment window"
 msgstr "Fenêtre des commentaires de l'archive"
 
-#: src/add_dialog.c:38
-msgid "Add files to the archive"
-msgstr "Ajouter des fichiers à l'archive"
-
-#: src/add_dialog.c:99
-msgid "Files"
-msgstr "Fichiers"
-
-#: src/add_dialog.c:106
-msgid "Directories"
-msgstr "Répertoires"
-
-#: src/add_dialog.c:131
-msgid "Choose the files or directories to add to the archive"
-msgstr "Choisir les fichiers ou répertoires à ajouter à l'archive"
-
-#: src/add_dialog.c:136
-msgid "<b>Files and directories to add </b>"
-msgstr "<b>Fichiers et répertoires à ajouter </b>"
-
-#: src/add_dialog.c:156
-msgid "Recurse subdirectories"
-msgstr "Sous-répertoires à rebours"
-
-#: src/add_dialog.c:162
-msgid ""
-"Include everything in the directory recursively \tstarting from the current "
-"directory."
-msgstr ""
-"Tout inclure dans le répertoire récursivement \tà partir du répertoire "
-"courant."
-
-#: src/add_dialog.c:167
-msgid "Generate a solid archive"
-msgstr "Générer une archive solide"
-
-#: src/add_dialog.c:171
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio."
-msgstr ""
-"Dans une archive solide les fichiers sont groupés pour atteindre un meilleur "
-"ratio de compression"
-
-#: src/add_dialog.c:176
-msgid "Remove files after adding"
-msgstr "Supprimer les fichiers une fois ajoutés"
-
-#: src/add_dialog.c:184
-msgid "Do not add file paths"
-msgstr "Ne pas ajouter les chemins d'accès des fichiers"
-
-#: src/add_dialog.c:188
-msgid "Store just the name of a file without its directory names."
-msgstr "Stocker le nom de fichier sans le nom des répertoires."
-
-#: src/add_dialog.c:190
-msgid "Freshen an existing entry in the archive"
-msgstr "Rafraîchir une entrée dans l'archive"
-
-#: src/add_dialog.c:194
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive."
-msgstr ""
-"Cette option met l'archive à jour seulement si les fichiers modifiés sont "
-"plus récents que ceux dans l'archive. Au contraire de l'option mettre à "
-"jour, rafraîchir n'ajoutera pas de nouveaux fichiers à l'archive."
-
-#: src/add_dialog.c:198
-msgid "Update an existing entry in the archive"
-msgstr "Mettre à jour une entrée dans l'archive"
-
-#: src/add_dialog.c:202
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified."
-msgstr ""
-"Cette option met à jour des fichiers modifiés et ajoute des fichiers "
-"nouvellement créés dans l'archive."
-
-#: src/add_dialog.c:211
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = pas de compression, 5 par défaut, 9 = meilleure compression (lent)"
-
-#: src/add_dialog.c:218
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = pas de compression, 6 par défaut, 9 = meilleure compression (lent)"
-
-#: src/add_dialog.c:225
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = pas de compression, 3 par défaut, 9 = meilleure compression (lent)"
-
-#: src/add_dialog.c:232
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-"0 = pas de compression, 1 par défaut, 4 = rapide mais faible compression"
-
-#: src/add_dialog.c:239
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = compression par défaut, 7 = compression max."
-
-#: src/add_dialog.c:250 src/extract_dialog.c:217 src/interface.c:568
-msgid "Password:"
-msgstr "Mot de passe:"
-
-#: src/add_dialog.c:264
-msgid "Compression level:"
-msgstr "Niveau de compression:"
-
-#: src/add_dialog.c:291 src/extract_dialog.c:238
-msgid "<b>Options </b>"
-msgstr "<b>Options </b>"
-
-#: src/add_dialog.c:308 src/interface.c:129
-msgid "_Add"
-msgstr "_Ajouter"
-
-#: src/add_dialog.c:378
-msgid "Please select the files you want to add"
-msgstr "Sélectionner les fichiers à ajouter"
-
-#: src/add_dialog.c:383
-msgid "Please select the directories you want to add"
-msgstr "Sélectionner les répertoires à ajouter"
-
-#: src/add_dialog.c:494 src/main.c:211
-msgid "Can't add files to the archive:"
-msgstr "Échec à l'ajout de fichiers à l'archive:"
-
-#: src/add_dialog.c:494
-msgid "You haven't selected any files to add!"
-msgstr "Aucun fichier à ajouter sélectionné !"
-
-#: src/add_dialog.c:502 src/interface.c:610
-msgid "You missed the password!"
-msgstr "Mot de passe manquant !"
-
-#: src/add_dialog.c:502 src/interface.c:610
-msgid "Please enter it!"
-msgstr "Veuillez le compléter !"
-
-#: src/add_dialog.c:572
-msgid "Adding files to the archive, please wait..."
-msgstr "Ajouts de fichiers à l'archive, patienter..."
-
 #: src/extract_dialog.c:42
 msgid "Decompress file"
 msgstr "Décompresser le fichier"
@@ -609,6 +612,15 @@ msgstr "Échec à la création du répertoire temporaire dans /tmp :"
 #: src/extract_dialog.c:946
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Choisir le dossier de destination pour extraire l'archive"
+
+#: src/lha.c:40
+msgid "UID/GID"
+msgstr ""
+
+#: src/lha.c:40
+#, fuzzy
+msgid "Timestamp"
+msgstr "Temps"
 
 #: src/interface.c:73
 msgid "_File"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-06 13:41+0100\n"
+"POT-Creation-Date: 2006-11-06 13:47+0100\n"
 "PO-Revision-Date: 2006-04-24 21:38+0200\n"
 "Last-Translator: Stephan Arts <psybsd@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -17,8 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/iso.c:652
-#: src/rar.c:48 src/rpm.c:56 src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/lha.c:40 src/iso.c:652 src/rar.c:48 src/rpm.c:56 src/tar.c:48
+#: src/zip.c:38
 msgid "Filename"
 msgstr "Bestandsnaam"
 
@@ -34,17 +35,166 @@ msgstr "Gecomprimeerd"
 msgid "Attr"
 msgstr "Attr"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/rar.c:48
-#: src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/rar.c:48 src/tar.c:48 src/zip.c:38
 msgid "Time"
 msgstr "Tijd"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/gzip.c:54 src/iso.c:652
-#: src/rar.c:48 src/tar.c:48 src/zip.c:38
+#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
+#: src/iso.c:652 src/rar.c:48 src/tar.c:48 src/zip.c:38
 msgid "Date"
 msgstr "Datum"
 
-#: src/arj.c:43 src/rar.c:48 src/zip.c:38
+#: src/add_dialog.c:38
+#, fuzzy
+msgid "Add files to the archive"
+msgstr "Kan bestanden niet toevoegen aan archief"
+
+#: src/add_dialog.c:99
+msgid "Files"
+msgstr "Bestanden"
+
+#: src/add_dialog.c:106
+msgid "Directories"
+msgstr "Mappen"
+
+#: src/add_dialog.c:131
+msgid "Choose the files or directories to add to the archive"
+msgstr "Kies de toe te voegen bestanden of mappen"
+
+#: src/add_dialog.c:136
+msgid "<b>Files and directories to add </b>"
+msgstr "<b>Bestanden en mappen om toe te voegen </b>"
+
+#: src/add_dialog.c:156
+msgid "Recurse subdirectories"
+msgstr "Recursief sub-mappen doorlopen"
+
+#: src/add_dialog.c:162
+msgid ""
+"Include everything in the directory recursively \tstarting from the current "
+"directory."
+msgstr ""
+
+#: src/add_dialog.c:167
+msgid "Generate a solid archive"
+msgstr "Genereer vast archief"
+
+#: src/add_dialog.c:171
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio."
+msgstr ""
+
+#: src/add_dialog.c:176
+msgid "Remove files after adding"
+msgstr ""
+
+#: src/add_dialog.c:184
+msgid "Do not add file paths"
+msgstr ""
+
+#: src/add_dialog.c:188
+msgid "Store just the name of a file without its directory names."
+msgstr ""
+
+#: src/add_dialog.c:190
+msgid "Freshen an existing entry in the archive"
+msgstr ""
+
+#: src/add_dialog.c:194
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive."
+msgstr ""
+
+#: src/add_dialog.c:198
+msgid "Update an existing entry in the archive"
+msgstr ""
+
+#: src/add_dialog.c:202
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified."
+msgstr ""
+
+#: src/add_dialog.c:211
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr ""
+
+#: src/add_dialog.c:218
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr ""
+
+#: src/add_dialog.c:225
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+
+#: src/add_dialog.c:232
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr ""
+
+#: src/add_dialog.c:239
+msgid "5 = default compression, 7 = max compression"
+msgstr ""
+
+#: src/add_dialog.c:250 src/extract_dialog.c:217 src/interface.c:568
+msgid "Password:"
+msgstr "Wachtwoord:"
+
+#: src/add_dialog.c:264
+msgid "Compression level:"
+msgstr "Compressie niveau:"
+
+#: src/add_dialog.c:291 src/extract_dialog.c:238
+msgid "<b>Options </b>"
+msgstr "<b>Opties </b>"
+
+#: src/add_dialog.c:308 src/interface.c:129
+msgid "_Add"
+msgstr "_Toevoegen"
+
+#: src/add_dialog.c:378
+msgid "Please select the files you want to add"
+msgstr ""
+
+#: src/add_dialog.c:383
+msgid "Please select the directories you want to add"
+msgstr ""
+
+#: src/add_dialog.c:494 src/main.c:211
+msgid "Can't add files to the archive:"
+msgstr "Kan bestanden niet toevoegen aan archief:"
+
+#: src/add_dialog.c:494
+msgid "You haven't selected any files to add!"
+msgstr "Je hebt geen bestanden geselecteerd om toe te voegen!"
+
+#: src/add_dialog.c:502 src/interface.c:610
+msgid "You missed the password!"
+msgstr "Je bent het wachtwoord vergeten!"
+
+#: src/add_dialog.c:502 src/interface.c:610
+msgid "Please enter it!"
+msgstr "Voer het alsjeblieft in!"
+
+#: src/add_dialog.c:572
+msgid "Adding files to the archive, please wait..."
+msgstr "Bestanden toevoegen aan archief, wachten aub..."
+
+#: src/archive.c:66 src/callbacks.c:154 src/callbacks.c:772
+#: src/callbacks.c:785 src/callbacks.c:887 src/callbacks.c:900
+#: src/callbacks.c:1613 src/callbacks.c:1980 src/extract_dialog.c:933
+#: src/rpm.c:123 src/rpm.c:154
+msgid "Operation failed."
+msgstr "Mislukt"
+
+#: src/archive.c:67
+msgid "Can't run the archiver executable:"
+msgstr "Kan archief-applicatie niet uitvoeren:"
+
+#: src/arj.c:43 src/lha.c:40 src/rar.c:48 src/zip.c:38
 msgid "Ratio"
 msgstr "Verhouding"
 
@@ -60,30 +210,21 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: src/archive.c:66 src/callbacks.c:154 src/callbacks.c:772
-#: src/callbacks.c:785 src/callbacks.c:887 src/callbacks.c:900
-#: src/callbacks.c:1613 src/callbacks.c:1980 src/extract_dialog.c:933
-#: src/rpm.c:123 src/rpm.c:154
-msgid "Operation failed."
-msgstr "Mislukt"
-
-#: src/archive.c:67
-msgid "Can't run the archiver executable:"
-msgstr "Kan archief-applicatie niet uitvoeren:"
-
-#: src/bzip2.c:56 src/gzip.c:54 src/rar.c:48 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/lha.c:40 src/rar.c:48
+#: src/tar.c:48
 msgid "Permissions"
 msgstr "Rechten"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/rpm.c:56 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/rpm.c:56 src/tar.c:48
 msgid "Symbolic Link"
 msgstr "Symbolische Link"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/tar.c:48
 msgid "Owner/Group"
 msgstr "Eigenaar/Groep"
 
-#: src/bzip2.c:56 src/gzip.c:54 src/iso.c:652 src/rpm.c:56 src/tar.c:48
+#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/lha.c:40 src/iso.c:652
+#: src/rpm.c:56 src/tar.c:48
 msgid "Size"
 msgstr "Grootte"
 
@@ -332,144 +473,6 @@ msgstr "Voer aub het wachtwoord in."
 msgid "Archive comment window"
 msgstr "Archief eigenschappen"
 
-#: src/add_dialog.c:38
-#, fuzzy
-msgid "Add files to the archive"
-msgstr "Kan bestanden niet toevoegen aan archief"
-
-#: src/add_dialog.c:99
-msgid "Files"
-msgstr "Bestanden"
-
-#: src/add_dialog.c:106
-msgid "Directories"
-msgstr "Mappen"
-
-#: src/add_dialog.c:131
-msgid "Choose the files or directories to add to the archive"
-msgstr "Kies de toe te voegen bestanden of mappen"
-
-#: src/add_dialog.c:136
-msgid "<b>Files and directories to add </b>"
-msgstr "<b>Bestanden en mappen om toe te voegen </b>"
-
-#: src/add_dialog.c:156
-msgid "Recurse subdirectories"
-msgstr "Recursief sub-mappen doorlopen"
-
-#: src/add_dialog.c:162
-msgid ""
-"Include everything in the directory recursively \tstarting from the current "
-"directory."
-msgstr ""
-
-#: src/add_dialog.c:167
-msgid "Generate a solid archive"
-msgstr "Genereer vast archief"
-
-#: src/add_dialog.c:171
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio."
-msgstr ""
-
-#: src/add_dialog.c:176
-msgid "Remove files after adding"
-msgstr ""
-
-#: src/add_dialog.c:184
-msgid "Do not add file paths"
-msgstr ""
-
-#: src/add_dialog.c:188
-msgid "Store just the name of a file without its directory names."
-msgstr ""
-
-#: src/add_dialog.c:190
-msgid "Freshen an existing entry in the archive"
-msgstr ""
-
-#: src/add_dialog.c:194
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive."
-msgstr ""
-
-#: src/add_dialog.c:198
-msgid "Update an existing entry in the archive"
-msgstr ""
-
-#: src/add_dialog.c:202
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified."
-msgstr ""
-
-#: src/add_dialog.c:211
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-
-#: src/add_dialog.c:218
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-
-#: src/add_dialog.c:225
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-
-#: src/add_dialog.c:232
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-
-#: src/add_dialog.c:239
-msgid "5 = default compression, 7 = max compression"
-msgstr ""
-
-#: src/add_dialog.c:250 src/extract_dialog.c:217 src/interface.c:568
-msgid "Password:"
-msgstr "Wachtwoord:"
-
-#: src/add_dialog.c:264
-msgid "Compression level:"
-msgstr "Compressie niveau:"
-
-#: src/add_dialog.c:291 src/extract_dialog.c:238
-msgid "<b>Options </b>"
-msgstr "<b>Opties </b>"
-
-#: src/add_dialog.c:308 src/interface.c:129
-msgid "_Add"
-msgstr "_Toevoegen"
-
-#: src/add_dialog.c:378
-msgid "Please select the files you want to add"
-msgstr ""
-
-#: src/add_dialog.c:383
-msgid "Please select the directories you want to add"
-msgstr ""
-
-#: src/add_dialog.c:494 src/main.c:211
-msgid "Can't add files to the archive:"
-msgstr "Kan bestanden niet toevoegen aan archief:"
-
-#: src/add_dialog.c:494
-msgid "You haven't selected any files to add!"
-msgstr "Je hebt geen bestanden geselecteerd om toe te voegen!"
-
-#: src/add_dialog.c:502 src/interface.c:610
-msgid "You missed the password!"
-msgstr "Je bent het wachtwoord vergeten!"
-
-#: src/add_dialog.c:502 src/interface.c:610
-msgid "Please enter it!"
-msgstr "Voer het alsjeblieft in!"
-
-#: src/add_dialog.c:572
-msgid "Adding files to the archive, please wait..."
-msgstr "Bestanden toevoegen aan archief, wachten aub..."
-
 #: src/extract_dialog.c:42
 msgid "Decompress file"
 msgstr "Bestand decomprimeren"
@@ -599,6 +602,15 @@ msgstr "Kan tijdelijke map \"%s\" niet maken in /tmp:"
 #: src/extract_dialog.c:946
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Kies een bestemmings map waar je het archief in wilt uitpakken"
+
+#: src/lha.c:40
+msgid "UID/GID"
+msgstr ""
+
+#: src/lha.c:40
+#, fuzzy
+msgid "Timestamp"
+msgstr "Tijd"
 
 #: src/interface.c:73
 msgid "_File"

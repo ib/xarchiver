@@ -1,13 +1,15 @@
 # List of source files containing translatable strings.
 
 src/7zip.c
-src/arj.c
+src/add_dialog.c
 src/archive.c
+src/arj.c
 src/bzip2.c
 src/callbacks.c
-src/add_dialog.c
+src/deb.c
 src/extract_dialog.c
 src/gzip.c
+src/lha.c
 src/interface.c
 src/iso.c
 src/main.c
