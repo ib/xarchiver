@@ -196,6 +196,5 @@ void xa_clean_archive_structure ( XArchive *archive)
 		g_free (effective_date);
 		effective_date = NULL;
 	}
-
 	g_free (archive);
 }

@@ -372,6 +372,7 @@ void GetAvailableCompressors()
 
 void xa_set_button_state (gboolean New, gboolean Open,gboolean AddFile,gboolean Extract, gboolean exe, gboolean select)
 {
+	g_print ("xa_setbs\n");
 	gtk_widget_set_sensitive ( New_button, New);
     gtk_widget_set_sensitive ( new1, New);
 	gtk_widget_set_sensitive ( Open_button, Open);

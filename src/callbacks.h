@@ -83,7 +83,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer user_data);
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer user_data );
-void Activate_buttons();
+void xa_activate_delete_and_view();
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data);
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data);
 void drag_end (GtkWidget *treeview1, GdkDragContext *context, gpointer data);

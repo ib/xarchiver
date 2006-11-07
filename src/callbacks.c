@@ -37,7 +37,6 @@ extern gboolean unrar;
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix , *Name;
-gint page_id = 0;
 
 #ifndef HAVE_STRCASESTR
 /*
@@ -150,7 +149,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_widget_set_sensitive ( check_menu , check);
 			gtk_widget_set_sensitive ( properties , info);
 			xa_hide_progress_bar_stop_button(archive);
-			xa_set_button_state (new,open,0,0,0,0);
+			xa_set_button_state (1,1,0,0,0,0);
 			Update_StatusBar ( _("Operation failed."));
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
@@ -267,14 +266,18 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	if (user_data != NULL)
 		path = g_path_get_basename ( user_data);
 
-	archive[page_id] = xa_new_archive_dialog ( path );
+	current_page = xa_get_new_archive_idx();
+	if (current_page == -1)
+		return;
+
+	archive[current_page] = xa_new_archive_dialog ( path );
 	if (path != NULL)
 		g_free (path);
 
-	if (archive[page_id]  == NULL)
+	if (archive[current_page]  == NULL)
 		return;
 
-	xa_add_page (archive[page_id]);
+	xa_add_page (archive[current_page]);
 
 	xa_set_button_state (1,1,1,0,0,0 );
     EmptyTextBuffer();
@@ -320,11 +323,9 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 			return;
 	}
 
-	current_page = gtk_notebook_get_current_page ( notebook);
+	current_page = xa_get_new_archive_idx();
 	if (current_page == -1)
-		current_page = 0;
-	else
-		current_page++;
+		return;
 
 	archive[current_page] = xa_init_archive_structure();
 	if (archive[current_page] == NULL)
@@ -346,7 +347,11 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 
 	archive[current_page]->type = xa_detect_archive_type ( archive[current_page] , NULL );
 	if ( archive[current_page]->type == -2 )
+	{
+		xa_close_archive ( NULL, NULL);
+		xa_set_button_state (1,1,0,0,0,0);
 		return;
+	}
 	if ( archive[current_page]->type == -1 )
 	{
 		gchar *utf8_path,*msg;
@@ -532,12 +537,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_notebook_set_show_tabs (notebook,TRUE);
 
 	EmptyTextBuffer();
-	gtk_widget_set_sensitive (properties,FALSE);
-	gtk_widget_set_sensitive (check_menu,FALSE);
-	xa_set_button_state (1,1,0,0,0,0);
-
 	xa_clean_archive_structure (archive[idx]);
-	archive[idx] = NULL;
 
 	gtk_widget_hide ( viewport3 );
 	Update_StatusBar (_("Ready."));
@@ -545,7 +545,6 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 {
-	gint n_pages;
 	gint i;
 	gint idx;
 
@@ -557,7 +556,7 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	g_list_free ( Suffix );
 	g_list_free ( Name );
 
-	for (i = 0; i <= gtk_notebook_get_n_pages(notebook) ; i++)
+	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
 	{
 		idx = xa_find_archive_index ( i );
 		if (archive[idx] != NULL)
@@ -1827,22 +1826,25 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_widget_show_all ( archive_properties_win );
 }
 
-void Activate_buttons ()
+void xa_activate_delete_and_view ()
 {
 	gint current_page;
+	gint idx;
 
+	g_print ("Son qui");
 	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index (current_page);
 
 	if ( ! GTK_WIDGET_VISIBLE (Extract_button) )
 		return;
 
-	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[current_page]->treeview) );
+	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
 	if (selected == 0 )
 		OffDeleteandViewButtons();
 	else
 	{
-		if ( archive[current_page]->type != XARCHIVETYPE_RPM && archive[current_page]->type != XARCHIVETYPE_ISO && archive[current_page]->type != XARCHIVETYPE_DEB)
+		if ( archive[idx]->type != XARCHIVETYPE_RPM && archive[idx]->type != XARCHIVETYPE_ISO && archive[idx]->type != XARCHIVETYPE_DEB)
 		{
 			gtk_widget_set_sensitive ( delete_menu , TRUE );
 			gtk_widget_set_sensitive ( Delete_button , TRUE );
@@ -1936,22 +1938,25 @@ void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *
 gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 {
 	gint current_page;
+	gint idx;
 	int status;
 	gboolean waiting = TRUE;
 	int ps;
 
 	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index ( current_page );
+
 	if (watch_child_flag)
 		EmptyTextBuffer();
-	archive[current_page]->parse_output = 0;
-	SpawnAsyncProcess ( archive[current_page] , command , 0, 1);
-	if ( archive[current_page]->child_pid == 0 )
+	archive[idx]->parse_output = 0;
+	SpawnAsyncProcess ( archive[idx] , command , 0, 1);
+	if ( archive[idx]->child_pid == 0 )
 		return FALSE;
 
 	gtk_widget_show (viewport2);
 	while (waiting)
 	{
-		ps = waitpid ( archive[current_page]->child_pid, &status, WNOHANG);
+		ps = waitpid ( archive[idx]->child_pid, &status, WNOHANG);
 		if (ps < 0)
 			waiting = FALSE;
 		else
@@ -1959,7 +1964,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	}
 	if (watch_child_flag)
 	{
-		xa_watch_child (archive[current_page]->child_pid, status, archive[current_page]);
+		xa_watch_child (archive[idx]->child_pid, status, archive[idx]);
 		return TRUE;
 	}
 	else
@@ -1975,7 +1980,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 				response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 				if (response == GTK_RESPONSE_YES)
 					xa_show_cmd_line_output (NULL);
-				archive[current_page]->status = XA_ARCHIVESTATUS_IDLE;
+				archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
 				gtk_widget_set_sensitive (Stop_button,FALSE);
 				Update_StatusBar ( _("Operation failed."));
 				return FALSE;
@@ -2087,14 +2092,17 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	GList *row_list, *_row_list;
 	GString *names;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[current_page]->treeview));
+	idx = xa_find_archive_index (current_page);
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
 
 	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL)
 		return;
-	if ( archive[current_page]->status == XA_ARCHIVESTATUS_EXTRACT )
+	if ( archive[idx]->status == XA_ARCHIVESTATUS_EXTRACT )
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!") );
 		return;
@@ -2116,54 +2124,54 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			gtk_drag_finish (dc, FALSE, FALSE, t);
 			return;
 		}
-		if ( archive[current_page]->has_passwd )
+		if ( archive[idx]->has_passwd )
 		{
-			if ( archive[current_page]->passwd == NULL)
+			if ( archive[idx]->passwd == NULL)
 			{
-				archive[current_page]->passwd = password_dialog ();
-				if ( archive[current_page]->passwd == NULL)
+				archive[idx]->passwd = password_dialog ();
+				if ( archive[idx]->passwd == NULL)
 				{
 					gtk_drag_finish (dc, FALSE, FALSE, t);
 					return;
 				}
 			}
 		}
-		gtk_tree_model_get_iter(archive[current_page]->model, &iter, (GtkTreePath*)(_row_list->data));
-		gtk_tree_model_get (archive[current_page]->model, &iter, 0, &name, -1);
+		gtk_tree_model_get_iter(archive[idx]->model, &iter, (GtkTreePath*)(_row_list->data));
+		gtk_tree_model_get (archive[idx]->model, &iter, 0, &name, -1);
 
-		archive[current_page]->extraction_path = extract_local_path ( no_uri_path , name );
+		archive[idx]->extraction_path = extract_local_path ( no_uri_path , name );
 		g_free (name);
 		g_free ( no_uri_path );
-		if (archive[current_page]->extraction_path != NULL)
+		if (archive[idx]->extraction_path != NULL)
 			to_send = "S";
 
 		names = g_string_new ("");
 		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
-		full_path = archive[current_page]->full_path;
-		overwrite = archive[current_page]->overwrite;
-		archive[current_page]->full_path = 0;
-		archive[current_page]->overwrite = 1;
-		command = xa_extract_single_files ( archive[current_page] , names, archive[current_page]->extraction_path );
+		full_path = archive[idx]->full_path;
+		overwrite = archive[idx]->overwrite;
+		archive[idx]->full_path = 0;
+		archive[idx]->overwrite = 1;
+		command = xa_extract_single_files ( archive[idx] , names, archive[idx]->extraction_path );
 		g_string_free (names, TRUE);
 		if ( command != NULL )
 		{
-			archive[current_page]->status = XA_ARCHIVESTATUS_EXTRACT;
+			archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
 			xa_run_command ( command , 1);
 			g_free (command);
 		}
-		archive[current_page]->full_path = full_path;
-		archive[current_page]->overwrite = overwrite;
+		archive[idx]->full_path = full_path;
+		archive[idx]->overwrite = overwrite;
 		gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
 	}
 
-	if (archive[current_page]->extraction_path != NULL)
+	if (archive[idx]->extraction_path != NULL)
 	{
-		g_free (archive[current_page]->extraction_path);
-		archive[current_page]->extraction_path = NULL;
+		g_free (archive[idx]->extraction_path);
+		archive[idx]->extraction_path = NULL;
 	}
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
-	archive[current_page]->status = XA_ARCHIVESTATUS_IDLE;
+	archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
@@ -2205,7 +2213,9 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
     }
 	if (current_page == -1)
 	{
-		current_page = 0;
+		current_page = xa_get_new_archive_idx();
+		if (current_page == -1)
+			return;
 		archive[current_page] = xa_new_archive_dialog ( filename );
 		if (archive[current_page] == NULL)
 			return;
@@ -2290,10 +2300,14 @@ gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer dat
 
 void xa_select_all ( GtkMenuItem *menuitem , gpointer user_data )
 {
+	gint idx;
 	gint current_page;
 
 	current_page = gtk_notebook_get_current_page (notebook);
-	gtk_tree_selection_select_all ( gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[current_page]->treeview) ) );
+	idx = xa_find_archive_index (current_page);
+
+	current_page = gtk_notebook_get_current_page (notebook);
+	gtk_tree_selection_select_all ( gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview) ) );
 	gtk_widget_set_sensitive (select_all,FALSE);
 	gtk_widget_set_sensitive (deselect_all,TRUE);
 }
@@ -2301,9 +2315,12 @@ void xa_select_all ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_deselect_all ( GtkMenuItem *menuitem , gpointer user_data )
 {
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
-	gtk_tree_selection_unselect_all ( gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[current_page]->treeview) ) );
+	idx = xa_find_archive_index (current_page);
+
+	gtk_tree_selection_unselect_all ( gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview) ) );
 	gtk_widget_set_sensitive (select_all,TRUE);
 	gtk_widget_set_sensitive (deselect_all,FALSE);
 }
@@ -2359,15 +2376,18 @@ void xa_show_help (GtkMenuItem *menuitem , gpointer user_data )
 void xa_reset_password (GtkMenuItem *menuitem , gpointer user_data )
 {
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
-	if (archive[current_page] == NULL)
+	idx = xa_find_archive_index ( current_page );
+
+	if (archive[idx] == NULL)
 		return;
 
-	if (archive[current_page]->passwd != NULL)
+	if (archive[idx]->passwd != NULL)
 	{
-		g_free (archive[current_page]->passwd);
-		archive[current_page]->passwd = NULL;
+		g_free (archive[idx]->passwd);
+		archive[idx]->passwd = NULL;
 		Update_StatusBar (_("The password has been reset."));
 	}
 	else
@@ -2378,10 +2398,12 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 {
 	GtkWidget *comment_window;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
 	comment_window = view_win ( _("Archive comment window") );
-	gtk_text_buffer_insert (viewtextbuf, &viewenditer, archive[current_page]->comment->str, archive[current_page]->comment->len);
+	gtk_text_buffer_insert (viewtextbuf, &viewenditer, archive[idx]->comment->str, archive[idx]->comment->len);
 	gtk_widget_show (comment_window);
 }
 

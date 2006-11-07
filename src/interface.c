@@ -827,14 +827,24 @@ int xa_progressbar_pulse (gpointer data)
 gint xa_find_archive_index ( gint page_num )
 {
 	GtkWidget *scrollwindow;
-	gint max_pages;
 	gint i;
 
 	scrollwindow = gtk_notebook_get_nth_page(notebook, page_num);
-	max_pages = gtk_notebook_get_n_pages ( notebook);
-	for (i = 0; i <= max_pages; i++)
+	for (i = 0; i < 1024; i++)
 	{
 		if (archive[i] != NULL && archive[i]->scrollwindow == scrollwindow)
+			return i;
+	}
+	return -1;
+}
+
+gint xa_get_new_archive_idx()
+{
+	gint i;
+
+	for(i = 0; i < 1024; i++)
+	{
+		if (archive[i] == NULL)
 			return i;
 	}
 	return -1;
