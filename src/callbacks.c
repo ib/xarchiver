@@ -1831,7 +1831,6 @@ void xa_activate_delete_and_view ()
 	gint current_page;
 	gint idx;
 
-	g_print ("Son qui");
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
