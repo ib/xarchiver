@@ -656,6 +656,7 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index ( current_page );
+
 	add_window = xa_create_add_dialog (archive[idx]);
 	command = xa_parse_add_dialog_options ( archive[idx], add_window );
 	gtk_widget_destroy ( add_window->dialog1 );
@@ -708,6 +709,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index ( current_page );
+
 	Update_StatusBar ( _("Converting archive to self-extracting, please wait..."));
     gtk_widget_set_sensitive (Stop_button,TRUE);
     archive[idx]->status = XA_ARCHIVESTATUS_SFX;
@@ -1344,12 +1346,15 @@ gboolean xa_detect_encrypted_archive ( int type, FILE *stream, unsigned char mag
 void xa_remove_columns()
 {
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
-	GList *columns = gtk_tree_view_get_columns ( GTK_TREE_VIEW (archive[current_page]->treeview) );
+	idx = xa_find_archive_index (current_page);
+
+	GList *columns = gtk_tree_view_get_columns ( GTK_TREE_VIEW (archive[idx]->treeview) );
 	while (columns != NULL)
 	{
-		gtk_tree_view_remove_column (GTK_TREE_VIEW (archive[current_page]->treeview) , columns->data);
+		gtk_tree_view_remove_column (GTK_TREE_VIEW (archive[idx]->treeview) , columns->data);
 		columns = columns->next;
 	}
 	g_list_free (columns);
@@ -1436,30 +1441,32 @@ void xa_show_cmd_line_output( GtkMenuItem *menuitem )
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 {
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
 
-	if (archive[current_page]->status == XA_ARCHIVESTATUS_ADD || archive[current_page]->status == XA_ARCHIVESTATUS_SFX)
+	if (archive[idx]->status == XA_ARCHIVESTATUS_ADD || archive[idx]->status == XA_ARCHIVESTATUS_SFX)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Doing so will probably corrupt your archive!"),_("Do you really want to cancel?") );
 		if (response == GTK_RESPONSE_NO)
 			return;
 	}
-	xa_hide_progress_bar_stop_button (archive[current_page]);
+	xa_hide_progress_bar_stop_button (archive[idx]);
     Update_StatusBar (_("Waiting for the process to abort..."));
 	stop_flag = TRUE;
-	if (archive[current_page]->type != XARCHIVETYPE_ISO)
+	if (archive[idx]->type != XARCHIVETYPE_ISO)
 	{
-		if ( kill ( archive[current_page]->child_pid , SIGABRT ) < 0 )
+		if ( kill ( archive[idx]->child_pid , SIGABRT ) < 0 )
 	    {
 		    response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while trying to kill the process:"),g_strerror(errno));
 			return;
 	    }
 	}
     /* This in case the user cancels the opening of a password protected archive */
-    if (archive[current_page]->status != XA_ARCHIVESTATUS_ADD || archive[current_page]->status != XA_ARCHIVESTATUS_DELETE)
-		if (archive[current_page]->has_passwd)
-			archive[current_page]->has_passwd = FALSE;
+    if (archive[idx]->status != XA_ARCHIVESTATUS_ADD || archive[idx]->status != XA_ARCHIVESTATUS_DELETE)
+		if (archive[idx]->has_passwd)
+			archive[idx]->has_passwd = FALSE;
 }
 
 void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
@@ -1486,19 +1493,21 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gsize new_length;
 	gchar *t;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index (current_page);
 
-	if ( archive[current_page]->has_passwd )
+	if ( archive[idx]->has_passwd )
 	{
-		if ( archive[current_page]->passwd == NULL)
+		if ( archive[idx]->passwd == NULL)
 		{
-			archive[current_page]->passwd = password_dialog ();
-			if ( archive[current_page]->passwd == NULL)
+			archive[idx]->passwd = password_dialog ();
+			if ( archive[idx]->passwd == NULL)
 				return;
 		}
 	}
-	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[current_page]->treeview) );
+	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
 
 	/* if no or more than one rows selected, do nothing, just for sanity */
 	if ( gtk_tree_selection_count_selected_rows (selection) != 1)
@@ -1513,7 +1522,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_tree_path_free(row_list->data);
 	g_list_free (row_list);
 
-	switch (archive[current_page]->type)
+	switch (archive[idx]->type)
 	{
 		case XARCHIVETYPE_RAR:
 		case XARCHIVETYPE_ARJ:
@@ -1532,7 +1541,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		COL_NAME = 1;
 	}
 	gtk_tree_model_get (model, &iter, COL_NAME, &dir, -1);
-	if (archive[current_page]->type == XARCHIVETYPE_ZIP)
+	if (archive[idx]->type == XARCHIVETYPE_ZIP)
 	{
 		if ( g_str_has_suffix (dir,"/") == TRUE )
 			is_dir = TRUE;
@@ -1546,18 +1555,18 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	}
 	g_free ( dir );
 
-	full_path = archive[current_page]->full_path;
-	overwrite = archive[current_page]->overwrite;
+	full_path = archive[idx]->full_path;
+	overwrite = archive[idx]->overwrite;
 
-	archive[current_page]->full_path = 0;
-	archive[current_page]->overwrite = 1;
+	archive[idx]->full_path = 0;
+	archive[idx]->overwrite = 1;
 
 	names = g_string_new (" ");
 	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
-	archive[current_page]->status = XA_ARCHIVESTATUS_EXTRACT;
+	archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
 	ConcatenateFileNames2 ( dummy_name , names );
 
-	if (archive[current_page]->type == XARCHIVETYPE_ISO)
+	if (archive[idx]->type == XARCHIVETYPE_ISO)
 	{
 		gtk_tree_model_get (model, &iter,
 			0, &dummy_name,
@@ -1565,14 +1574,14 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			2, &file_size,
 			4, &file_offset,
 			-1);
-		xa_extract_iso_file (archive[current_page], permissions, "/tmp/", dummy_name , file_size, file_offset );
+		xa_extract_iso_file (archive[idx], permissions, "/tmp/", dummy_name , file_size, file_offset );
 		g_free (permissions);
 	}
 	else
-		command = xa_extract_single_files ( archive[current_page] , names, "/tmp");
+		command = xa_extract_single_files ( archive[idx] , names, "/tmp");
 
-	archive[current_page]->full_path = full_path;
-	archive[current_page]->overwrite = overwrite;
+	archive[idx]->full_path = full_path;
+	archive[idx]->overwrite = overwrite;
 	EmptyTextBuffer();
 	if (command != NULL)
 	{
@@ -1629,7 +1638,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	}
 	unlink ( filename );
 	g_free (filename);
-	xa_hide_progress_bar_stop_button(archive[current_page]);
+	xa_hide_progress_bar_stop_button(archive[idx]);
 	Update_StatusBar (_("Operation completed."));
 }
 
@@ -1639,21 +1648,23 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
 	unsigned long long int file_size;
 	GtkWidget *iso_properties_win;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index (current_page);
 
-	stat ( archive[current_page]->path , &my_stat );
+	stat ( archive[idx]->path , &my_stat );
 	file_size = my_stat.st_size;
 	iso_properties_win = create_iso_properties_window();
 	//Name
-	text = g_strrstr ( archive[current_page]->path, "/" );
+	text = g_strrstr ( archive[idx]->path, "/" );
 	if (text != NULL)
 	{
 	    text++; //This to avoid the / char in the string
 	    utf8_string = g_filename_display_name (text);
 	}
 	else
-		utf8_string = g_filename_display_name (archive[current_page]->path);
+		utf8_string = g_filename_display_name (archive[idx]->path);
 	gtk_entry_set_text ( GTK_ENTRY (filename_entry), utf8_string );
 	g_free (utf8_string);
     //Size
@@ -1683,7 +1694,7 @@ void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_entry_set_text ( GTK_ENTRY (size_entry), text );
     g_free (text);
 
-	gtk_entry_set_text ( GTK_ENTRY (image_type_entry),archive[current_page]->tmp);
+	gtk_entry_set_text ( GTK_ENTRY (image_type_entry),archive[idx]->tmp);
 
 	gtk_entry_set_text ( GTK_ENTRY (system_id_entry),system_id);
 
@@ -1867,13 +1878,16 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 	gchar *escaped = NULL;
 	gchar *escaped2 = NULL;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index (current_page);
+
 	if ( strstr (filename, "[") || strstr (filename, "]"))
 	{
-		if (archive[current_page]->type == XARCHIVETYPE_ZIP)
+		if (archive[idx]->type == XARCHIVETYPE_ZIP)
 		{
-			if (archive[current_page]->status == XA_ARCHIVESTATUS_ADD)
+			if (archive[idx]->status == XA_ARCHIVESTATUS_ADD)
 			{
 				esc_filename = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
 				g_string_prepend (data, esc_filename);
@@ -1887,9 +1901,9 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 				g_string_prepend (data, esc_filename);
 			}
 		}
-		else if ( archive[current_page]->type == XARCHIVETYPE_TAR_BZ2 || archive[current_page]->type == XARCHIVETYPE_TAR_GZ || archive[current_page]->type == XARCHIVETYPE_TAR )
+		else if ( archive[idx]->type == XARCHIVETYPE_TAR_BZ2 || archive[idx]->type == XARCHIVETYPE_TAR_GZ || archive[idx]->type == XARCHIVETYPE_TAR )
 		{
-			if (archive[current_page]->status == XA_ARCHIVESTATUS_ADD)
+			if (archive[idx]->status == XA_ARCHIVESTATUS_ADD)
 			{
 				esc_filename = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
 				g_string_prepend (data, esc_filename);
@@ -2032,9 +2046,6 @@ void OffDeleteandViewButtons()
 
 void xa_hide_progress_bar_stop_button( XArchive *archive)
 {
-	gint current_page;
-
-	current_page = gtk_notebook_get_current_page (notebook);
 	archive->status = XA_ARCHIVESTATUS_IDLE;
     gtk_widget_set_sensitive ( Stop_button , FALSE );
     if (archive->pb_source != 0)
@@ -2185,6 +2196,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	gboolean dummy_password;
 	unsigned int len = 0;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 
@@ -2212,25 +2224,27 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
     }
 	if (current_page == -1)
 	{
-		current_page = xa_get_new_archive_idx();
-		if (current_page == -1)
+		idx = xa_get_new_archive_idx();
+		if (idx == -1)
 			return;
-		archive[current_page] = xa_new_archive_dialog ( filename );
-		if (archive[current_page] == NULL)
+		archive[idx] = xa_new_archive_dialog ( filename );
+		if (archive[idx] == NULL)
 			return;
-		xa_add_page (archive[current_page]);
+		xa_add_page (archive[idx]);
 	}
+	else
+		idx = xa_find_archive_index ( current_page );
 
-	if (archive[current_page]->type == XARCHIVETYPE_RAR && unrar)
+	if (archive[idx]->type == XARCHIVETYPE_RAR && unrar)
 	{
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("unrar doesn't support archive creation!") );
 		return;
 	}
 
-	if (archive[current_page]->type == XARCHIVETYPE_DEB || archive[current_page]->type == XARCHIVETYPE_RPM)
+	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM)
 	{
 		gchar *msg;
-		if (archive[current_page]->type == XARCHIVETYPE_DEB)
+		if (archive[idx]->type == XARCHIVETYPE_DEB)
 			msg = _("You can't add content to deb packages!");
 		else
 			msg = _("You can't add content to rpm packages!");
@@ -2244,7 +2258,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	g_free (_current_dir);
 	chdir ( current_dir );
 	g_free (current_dir);
-	archive[current_page]->status = XA_ARCHIVESTATUS_ADD;
+	archive[idx]->status = XA_ARCHIVESTATUS_ADD;
 
 	while (array[len])
 	{
@@ -2255,19 +2269,19 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		g_free (name);
 		len++;
 	}
-	dummy_password = archive[current_page]->has_passwd;
-	full_path = archive[current_page]->full_path;
-	add_recurse = archive[current_page]->add_recurse;
+	dummy_password = archive[idx]->has_passwd;
+	full_path = archive[idx]->full_path;
+	add_recurse = archive[idx]->add_recurse;
 
-	archive[current_page]->has_passwd = 0;
-	archive[current_page]->full_path = 0;
-	archive[current_page]->add_recurse = 1;
+	archive[idx]->has_passwd = 0;
+	archive[idx]->full_path = 0;
+	archive[idx]->add_recurse = 1;
 
-	command = xa_add_single_files ( archive[current_page], names, NULL );
+	command = xa_add_single_files ( archive[idx], names, NULL );
 
-	archive[current_page]->has_passwd = dummy_password;
-	archive[current_page]->full_path = full_path;
-	archive[current_page]->add_recurse = add_recurse;
+	archive[idx]->has_passwd = dummy_password;
+	archive[idx]->full_path = full_path;
+	archive[idx]->add_recurse = add_recurse;
 
 	if (command != NULL)
 	{
