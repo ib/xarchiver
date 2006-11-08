@@ -433,11 +433,19 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 		return;
 
 	xa_set_window_title (MainWindow , archive[id]->path);
+	gtk_widget_set_sensitive ( iso_info,FALSE );
 	if ( archive[id]->type == XARCHIVETYPE_BZIP2 || archive[id]->type == XARCHIVETYPE_GZIP )
 	{
 		new = open = TRUE;
 		info = exe = FALSE;
 	}
+	else if (archive[id]->type == XARCHIVETYPE_ISO)
+	{
+		new = open = extract = select = info = TRUE;
+		check = add = exe = FALSE;
+		gtk_widget_set_sensitive ( iso_info,TRUE );
+	}
+
 	else if (archive[id]->type == XARCHIVETYPE_RPM || archive[id]->type == XARCHIVETYPE_DEB)
 	{
 		new = open = extract = select = info = TRUE;
@@ -461,10 +469,8 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 		new = open = extract = select = info = TRUE;
 	}
 	else
-	{
-		check = TRUE;
-		new = open = add = extract = exe = select = info = TRUE;
-	}
+		check = new = open = add = extract = exe = select = info = TRUE;
+
 	gtk_widget_set_sensitive ( check_menu , check);
 	gtk_widget_set_sensitive ( properties , info);
 	xa_set_button_state (new,open,add,extract,exe,select);
@@ -655,7 +661,7 @@ GtkWidget *create_archive_properties_window ()
 {
 	archive_properties_window = gtk_dialog_new_with_buttons (_("Archive Properties Window"),
 									GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,
-									GTK_STOCK_CLOSE, GTK_RESPONSE_NONE, NULL);
+									GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
 
 	g_signal_connect(archive_properties_window, "response", G_CALLBACK(gtk_widget_destroy), NULL);
 	g_signal_connect(archive_properties_window, "delete-event", G_CALLBACK(gtk_widget_destroy), NULL);

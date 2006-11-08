@@ -761,6 +761,8 @@ void OpenISO ( XArchive *archive )
 	xa_hide_progress_bar_stop_button(archive);
 	archive->status = XA_ARCHIVESTATUS_IDLE;
 	gtk_widget_set_sensitive ( properties , TRUE );
+	gtk_widget_set_sensitive ( check_menu , FALSE );
+	gtk_widget_set_sensitive ( exe_menu, FALSE);
 	gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
 	g_object_unref (archive->model);
 	gtk_widget_set_sensitive ( iso_info , TRUE );
@@ -818,7 +820,7 @@ GtkWidget *create_iso_properties_window ()
 {
 	iso_properties_window = gtk_dialog_new_with_buttons (_("ISO Information Window"),
 							GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,
-							GTK_STOCK_CLOSE, GTK_RESPONSE_NONE, NULL);
+							GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (iso_properties_window), TRUE);
 	gtk_window_set_position (GTK_WINDOW (iso_properties_window), GTK_WIN_POS_CENTER);
 	gtk_window_set_resizable (GTK_WINDOW (iso_properties_window), FALSE);
