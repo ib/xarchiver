@@ -260,19 +260,13 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	XArchive *dummy_archive = NULL;
-	gchar *path = NULL;
 	gint current_page;
-
-	if (user_data != NULL)
-		path = g_path_get_basename ( user_data);
 
 	current_page = xa_get_new_archive_idx();
 	if (current_page == -1)
 		return;
 
-	archive[current_page] = xa_new_archive_dialog ( path );
-	if (path != NULL)
-		g_free (path);
+	archive[current_page] = xa_new_archive_dialog ( NULL );
 
 	if (archive[current_page]  == NULL)
 		return;

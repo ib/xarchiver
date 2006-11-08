@@ -40,6 +40,8 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	GList *Suffix,*Name;
 	gchar *my_path = NULL;
 	gchar *my_path_ext = NULL;
+	gchar *basepath = NULL;
+	gchar *dirname = NULL;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
 							GTK_WINDOW (MainWindow),
@@ -113,14 +115,21 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (xa_file_chooser), hbox);
 
 	if (path != NULL)
-		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (xa_file_chooser),path);
+	{
+		basepath = g_path_get_basename (path);
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (xa_file_chooser),basepath);
 
+		dirname = g_path_get_dirname (path);
+		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (xa_file_chooser),dirname);
+	}
 	gtk_window_set_modal (GTK_WINDOW (xa_file_chooser),TRUE);
 	if (current_new_directory != NULL)
 		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) , current_new_directory );
 
 	response = gtk_dialog_run (GTK_DIALOG (xa_file_chooser));
 	current_new_directory = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) );
+	g_free (basepath);
+	g_free (dirname);
 
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
