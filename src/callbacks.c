@@ -164,7 +164,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		}
 	}
 
-	if (archive->status == XA_ARCHIVESTATUS_SFX)
+	if (archive->status == XA_ARCHIVESTATUS_SFX && archive->type == XARCHIVETYPE_RAR)
 	{
 		xa_hide_progress_bar_stop_button(archive);
 		gtk_widget_set_sensitive ( exe_menu, FALSE);
@@ -354,6 +354,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	}
 	if ( archive[current_page]->type == -1 )
 	{
+		xa_close_archive ( NULL, NULL);
 		gchar *utf8_path,*msg;
 		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"), utf8_path);
@@ -365,7 +366,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		gtk_widget_set_sensitive ( properties , FALSE );
 		g_free (utf8_path);
 		g_free (msg);
-		xa_close_archive ( NULL, NULL);
 		return;
 	}
 	EmptyTextBuffer();
@@ -741,8 +741,8 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 
         case XARCHIVETYPE_ZIP:
         {
-        	gchar *archive_name;
-        	gchar *dummy;
+        	gchar *archive_name = NULL;
+        	gchar *archive_name_escaped = NULL;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
@@ -751,18 +751,14 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 			gchar *unzipsfx_path = NULL;
 			gchar buffer[1024];
 
-        	dummy = g_strrstr (archive[idx]->escaped_path, ".");
-			if (dummy != NULL)
-			{
-				dummy++;
-				unsigned short int x = strlen (archive[idx]->path) - strlen ( dummy );
-				archive_name = (gchar *) g_malloc (x + 1);
-				strncpy ( archive_name, archive[idx]->path, x );
-				archive_name[x-1] = '\0';
-			}
-			else
-				archive_name = g_strdup(archive[idx]->escaped_path);
+			archive_name = xa_open_sfx_file_selector ();
 
+			if (archive_name == NULL)
+			{
+				gtk_widget_set_sensitive (Stop_button,FALSE);
+				return;
+			}
+			archive_name_escaped = EscapeBadChars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
 			unzipsfx_path = g_find_program_in_path ( "unzipsfx" );
 			if ( unzipsfx_path != NULL )
 			{
@@ -801,24 +797,24 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
 
-				command = g_strconcat ("chmod 755 ", archive_name , NULL);
+				command = g_strconcat ("chmod 755 ", archive_name_escaped , NULL);
 				result = xa_run_command (command , 0);
 				g_free (command);
 
-				archive[idx]->tmp = g_strdup ( archive_name );
-				command = g_strconcat ("zip -A ",archive_name,NULL);
+				command = g_strconcat ("zip -A ",archive_name_escaped,NULL);
 				result = xa_run_command (command , 1);
 				g_free (command);
 				command = NULL;
 			}
 			g_free (archive_name);
+			g_free (archive_name_escaped);
         }
         break;
 
         case XARCHIVETYPE_7ZIP:
         {
-        	gchar *archive_name;
-        	gchar *dummy;
+        	gchar *archive_name = NULL;
+        	gchar *archive_name_escaped = NULL;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
@@ -830,17 +826,14 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 			GtkWidget *locate_7zcon = NULL;
 			GtkFileFilter *sfx_filter;
 
-        	dummy = g_strrstr (archive[idx]->escaped_path, ".");
-			if (dummy != NULL)
+        	archive_name = xa_open_sfx_file_selector ();
+
+			if (archive_name == NULL)
 			{
-				dummy++;
-				unsigned short int x = strlen (archive[idx]->path) - strlen ( dummy );
-				archive_name = (gchar *) g_malloc (x + 1);
-				strncpy ( archive_name, archive[idx]->path, x );
-				archive_name[x-1] = '\0';
+				gtk_widget_set_sensitive (Stop_button,FALSE);
+				return;
 			}
-			else
-				archive_name = g_strdup(archive[idx]->escaped_path);
+			archive_name_escaped = EscapeBadChars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
 
 			if (g_file_test ( "/usr/lib/p7zip/7zCon.sfx" , G_FILE_TEST_EXISTS) )
 				sfx_path = g_strdup("/usr/lib/p7zip/7zCon.sfx");
@@ -916,13 +909,13 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
 
-				archive[idx]->tmp = g_strdup ( archive_name );
-				command = g_strconcat ("chmod 755 ", archive_name , NULL);
+				command = g_strconcat ("chmod 755 ", archive_name_escaped , NULL);
 				result = xa_run_command (command , 1);
 				g_free (command);
 				command = NULL;
 			}
 			g_free (archive_name);
+			g_free (archive_name_escaped);
         }
 		break;
 
@@ -982,6 +975,31 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 	}
 	gtk_dialog_run ( GTK_DIALOG(about) );
 	gtk_widget_hide (about);
+}
+
+gchar *xa_open_sfx_file_selector ()
+{
+	gchar *sfx_name = NULL;
+	GtkWidget *sfx_file_selector = NULL;
+	gboolean response;
+
+	sfx_file_selector = gtk_file_chooser_dialog_new ( _("Save the self-extracting filename as"),
+						GTK_WINDOW (MainWindow),
+						GTK_FILE_CHOOSER_ACTION_SAVE,
+						GTK_STOCK_CANCEL,
+						GTK_RESPONSE_CANCEL,
+						"gtk-save",
+						GTK_RESPONSE_ACCEPT,
+						NULL);
+
+	gtk_dialog_set_default_response (GTK_DIALOG (sfx_file_selector), GTK_RESPONSE_ACCEPT);
+	response = gtk_dialog_run ( GTK_DIALOG(sfx_file_selector) );
+
+	if (response == GTK_RESPONSE_ACCEPT)
+		sfx_name = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (sfx_file_selector) );
+
+	gtk_widget_destroy (sfx_file_selector);
+	return sfx_name;
 }
 
 gchar *xa_open_file_dialog ()

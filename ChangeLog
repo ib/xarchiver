@@ -15,7 +15,7 @@ Xarchiver changelog:
 		- Fixed code to compile under Solaris.
 		- Changed some strings for a better usability.
 		- A lot of other small bug fixes; thanks to baze for notifying most of them.
-		- Fixed bugs #2434, #2321, #2247, #1736.
+		- Fixed bugs #2434, #2321, #2247, #1736, #2455.
 
 01/09/06 - 0.4:
 		- Added symbolic link column in tar/tar.bz2/tar.gz and RPM archives.

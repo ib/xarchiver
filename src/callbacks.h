@@ -115,6 +115,7 @@ void xa_hide_progress_bar_stop_button( XArchive *archive);
 void Update_StatusBar (gchar *msg);
 
 gchar *xa_open_file_dialog ();
+gchar *xa_open_sfx_file_selector ();
 void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
 gchar *name;
 gchar *permissions;
