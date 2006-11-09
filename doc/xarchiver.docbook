@@ -3,7 +3,7 @@
         "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
 <!ENTITY app "Xarchiver">
 <!ENTITY app_small "xarchiver">
-<!ENTITY appversion "0.4.1">
+<!ENTITY appversion "0.4.4">
 <!ENTITY appurl "http://xarchiver.xfce.org">
 <!ENTITY author_mail "colossus73@gmail.com">
 <!ENTITY date "September 29, 2006">
@@ -353,12 +353,6 @@
 					<title>Reset password</title>
 						<para>
 							Clears the current password. The result of the operation is shown in the status bar. This option is useful when extracting files using Drag and Drop, allowing the user to choose another password if he entered it incorrectly.
-						</para>
-						<para>
-							<figure>
-								<title>ISO properties dialog</title>
-									<graphic fileref="images/iso_properties.png"></graphic>
-							</figure>
 						</para>
 				</section>
 			<section id="help_menu">

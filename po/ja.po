@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-06 13:47+0100\n"
+"POT-Creation-Date: 2006-11-08 14:20+0100\n"
 "PO-Revision-Date: 2006-06-10 23:53+0900\n"
 "Last-Translator: Daichi Kawahata <daichi@xfce.org>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -18,35 +18,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
-#: src/lha.c:40 src/iso.c:652 src/rar.c:48 src/rpm.c:56 src/tar.c:48
-#: src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:69
+#: ../src/gzip.c:54 ../src/lha.c:40 ../src/iso.c:652 ../src/rar.c:48
+#: ../src/rpm.c:56 ../src/tar.c:48 ../src/zip.c:38
 msgid "Filename"
 msgstr "ファイル名"
 
-#: src/7zip.c:37 src/arj.c:43 src/rar.c:48 src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Original"
 msgstr "オリジナル"
 
-#: src/7zip.c:37 src/arj.c:43 src/rar.c:48 src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
 msgid "Compressed"
 msgstr "圧縮済"
 
-#: src/7zip.c:37
+#: ../src/7zip.c:37
 msgid "Attr"
 msgstr "属性"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
-#: src/rar.c:48 src/tar.c:48 src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:69
+#: ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "時間"
 
-#: src/7zip.c:37 src/arj.c:43 src/bzip2.c:56 src/deb.c:69 src/gzip.c:54
-#: src/iso.c:652 src/rar.c:48 src/tar.c:48 src/zip.c:38
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:69
+#: ../src/gzip.c:54 ../src/iso.c:652 ../src/rar.c:48 ../src/tar.c:48
+#: ../src/zip.c:38
 msgid "Date"
 msgstr "日付"
 
-#: src/add_dialog.c:38
+#: ../src/add_dialog.c:38
 #, fuzzy
 msgid "Add files to the archive"
 msgstr "ファイルを現在のアーカイブに追加します"
@@ -55,424 +56,433 @@ msgstr "ファイルを現在のアーカイブに追加します"
 # FIXME: C format steing
 # You are about to delete 5 files from the archive.
 # Are you really sure to do this?
-#: src/add_dialog.c:99
+#: ../src/add_dialog.c:99
 #, fuzzy
 msgid "Files"
 msgstr "個のファイル"
 
-#: src/add_dialog.c:106
+#: ../src/add_dialog.c:106
 #, fuzzy
 msgid "Directories"
 msgstr "削除するフォルダ:"
 
-#: src/add_dialog.c:131
+#: ../src/add_dialog.c:131
 #, fuzzy
 msgid "Choose the files or directories to add to the archive"
 msgstr "現在のアーカイブを展開するフォルダを選択してください"
 
-#: src/add_dialog.c:136
+#: ../src/add_dialog.c:136
 #, fuzzy
 msgid "<b>Files and directories to add </b>"
 msgstr "<b>展開するファイル</b>"
 
-#: src/add_dialog.c:156
+#: ../src/add_dialog.c:156
 #, fuzzy
 msgid "Recurse subdirectories"
 msgstr "削除するフォルダ:"
 
-#: src/add_dialog.c:162
+#: ../src/add_dialog.c:162
 #, fuzzy
 msgid ""
 "Include everything in the directory recursively \tstarting from the current "
 "directory."
 msgstr "アーカイブのフォルダ構成を展開先フォルダで再作成します。"
 
-#: src/add_dialog.c:167
+#: ../src/add_dialog.c:167
 #, fuzzy
 msgid "Generate a solid archive"
 msgstr "新規アーカイブを作成します"
 
-#: src/add_dialog.c:171
+#: ../src/add_dialog.c:171
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio."
 msgstr ""
 
-#: src/add_dialog.c:176
+#: ../src/add_dialog.c:176
 msgid "Remove files after adding"
 msgstr ""
 
-#: src/add_dialog.c:184
+#: ../src/add_dialog.c:184
 msgid "Do not add file paths"
 msgstr ""
 
-#: src/add_dialog.c:188
+#: ../src/add_dialog.c:188
 msgid "Store just the name of a file without its directory names."
 msgstr ""
 
 # FIXME: C format string
 # The integrity of the archive "blah" is OK!
-#: src/add_dialog.c:190
+#: ../src/add_dialog.c:190
 #, fuzzy
 msgid "Freshen an existing entry in the archive"
 msgstr "アーカイブ「"
 
-#: src/add_dialog.c:194
+#: ../src/add_dialog.c:194
 msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
 "not add files that are not already in the archive."
 msgstr ""
 
-#: src/add_dialog.c:198
+#: ../src/add_dialog.c:198
 #, fuzzy
 msgid "Update an existing entry in the archive"
 msgstr "存在するファイルを更新する"
 
-#: src/add_dialog.c:202
+#: ../src/add_dialog.c:202
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified."
 msgstr ""
 
-#: src/add_dialog.c:211
+#: ../src/add_dialog.c:211
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr ""
 
-#: src/add_dialog.c:218
+#: ../src/add_dialog.c:218
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr ""
 
-#: src/add_dialog.c:225
+#: ../src/add_dialog.c:225
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr ""
 
-#: src/add_dialog.c:232
+#: ../src/add_dialog.c:232
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 
-#: src/add_dialog.c:239
+#: ../src/add_dialog.c:239
 msgid "5 = default compression, 7 = max compression"
 msgstr ""
 
-#: src/add_dialog.c:250 src/extract_dialog.c:217 src/interface.c:568
+#: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:575
 msgid "Password:"
 msgstr "パスワード:"
 
-#: src/add_dialog.c:264
+#: ../src/add_dialog.c:264
 #, fuzzy
 msgid "Compression level:"
 msgstr "圧縮率:"
 
-#: src/add_dialog.c:291 src/extract_dialog.c:238
+#: ../src/add_dialog.c:291 ../src/extract_dialog.c:238
 msgid "<b>Options </b>"
 msgstr "<b>オプション</b>"
 
-#: src/add_dialog.c:308 src/interface.c:129
+#: ../src/add_dialog.c:308 ../src/interface.c:129
 msgid "_Add"
 msgstr ""
 
-#: src/add_dialog.c:378
+#: ../src/add_dialog.c:378
 #, fuzzy
 msgid "Please select the files you want to add"
 msgstr "フォルダではなくファイルを選択してください！"
 
-#: src/add_dialog.c:383
+#: ../src/add_dialog.c:383
 #, fuzzy
 msgid "Please select the directories you want to add"
 msgstr "フォルダではなくファイルを選択してください！"
 
-#: src/add_dialog.c:494 src/main.c:211
+#: ../src/add_dialog.c:494 ../src/main.c:211
 #, fuzzy
 msgid "Can't add files to the archive:"
 msgstr "ファイルを現在のアーカイブに追加します"
 
-#: src/add_dialog.c:494
+#: ../src/add_dialog.c:494
 msgid "You haven't selected any files to add!"
 msgstr ""
 
-#: src/add_dialog.c:502 src/interface.c:610
+#: ../src/add_dialog.c:502 ../src/interface.c:617
 #, fuzzy
 msgid "You missed the password!"
 msgstr "パスワードを入力してください！"
 
-#: src/add_dialog.c:502 src/interface.c:610
+#: ../src/add_dialog.c:502 ../src/interface.c:617
 #, fuzzy
 msgid "Please enter it!"
 msgstr "パスワードを入力してください！"
 
-#: src/add_dialog.c:572
+#: ../src/add_dialog.c:572
 msgid "Adding files to the archive, please wait..."
 msgstr "ファイルをアーカイブに追加しています、お待ちください..."
 
-#: src/archive.c:66 src/callbacks.c:154 src/callbacks.c:772
-#: src/callbacks.c:785 src/callbacks.c:887 src/callbacks.c:900
-#: src/callbacks.c:1613 src/callbacks.c:1980 src/extract_dialog.c:933
-#: src/rpm.c:123 src/rpm.c:154
+#: ../src/archive.c:66 ../src/callbacks.c:153 ../src/callbacks.c:764
+#: ../src/callbacks.c:777 ../src/callbacks.c:876 ../src/callbacks.c:889
+#: ../src/callbacks.c:1634 ../src/callbacks.c:2011 ../src/extract_dialog.c:933
+#: ../src/rpm.c:123 ../src/rpm.c:154
 msgid "Operation failed."
 msgstr "操作が失敗しました。"
 
-#: src/archive.c:67
+#: ../src/archive.c:67
 #, fuzzy
 msgid "Can't run the archiver executable:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/arj.c:43 src/lha.c:40 src/rar.c:48 src/zip.c:38
+#: ../src/arj.c:43 ../src/lha.c:40 ../src/rar.c:48 ../src/zip.c:38
 msgid "Ratio"
 msgstr "圧縮率"
 
-#: src/arj.c:43
+#: ../src/arj.c:43
 msgid "Attributes"
 msgstr "属性"
 
-#: src/arj.c:43
+#: ../src/arj.c:43
 msgid "GUA"
 msgstr "GUA"
 
-#: src/arj.c:43
+#: ../src/arj.c:43
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/lha.c:40 src/rar.c:48
-#: src/tar.c:48
+#: ../src/bzip2.c:56 ../src/deb.c:69 ../src/gzip.c:54 ../src/lha.c:40
+#: ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "アクセス権"
 
-#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/rpm.c:56 src/tar.c:48
+#: ../src/bzip2.c:56 ../src/deb.c:69 ../src/gzip.c:54 ../src/rpm.c:56
+#: ../src/tar.c:48
 msgid "Symbolic Link"
 msgstr ""
 
-#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/tar.c:48
+#: ../src/bzip2.c:56 ../src/deb.c:69 ../src/gzip.c:54 ../src/tar.c:48
 msgid "Owner/Group"
 msgstr "所有者/グループ"
 
-#: src/bzip2.c:56 src/deb.c:69 src/gzip.c:54 src/lha.c:40 src/iso.c:652
-#: src/rpm.c:56 src/tar.c:48
+#: ../src/bzip2.c:56 ../src/deb.c:69 ../src/gzip.c:54 ../src/lha.c:40
+#: ../src/iso.c:652 ../src/rpm.c:56 ../src/tar.c:48
 msgid "Size"
 msgstr "サイズ"
 
 # FIXME: C format string
 # Extracting files to /tmp
-#: src/bzip2.c:86
+#: ../src/bzip2.c:86
 #, fuzzy, c-format
 msgid "Extracting gzip file to %s"
 msgstr "ファイルを展開します "
 
 # FIXME: C format string
 # Extracting files to /tmp
-#: src/bzip2.c:88
+#: ../src/bzip2.c:88
 #, fuzzy, c-format
 msgid "Extracting bzip2 file to %s"
 msgstr "ファイルを展開します "
 
-#: src/bzip2.c:145 src/callbacks.c:128 src/callbacks.c:876
-#: src/extract_dialog.c:313 src/extract_dialog.c:882 src/extract_dialog.c:904
+#: ../src/bzip2.c:145 ../src/callbacks.c:127 ../src/callbacks.c:865
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:882
+#: ../src/extract_dialog.c:904
 msgid "Operation canceled."
 msgstr "操作が取り消されました。"
 
-#: src/bzip2.c:159
+#: ../src/bzip2.c:159
 #, fuzzy, c-format
 msgid "Decompressing tar file with %s, please wait..."
 msgstr "Gzipで圧縮しています、お待ちください..."
 
-#: src/bzip2.c:234
+#: ../src/bzip2.c:234
 #, fuzzy, c-format
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Gzipで圧縮しています、お待ちください..."
 
 # FIXME: C format string
 # Please check "blah" since some files could have been already extracted.
-#: src/callbacks.c:131
+#: ../src/callbacks.c:130
 #, fuzzy, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr ""
 "」を確認してください、いくつかのファイルは既に取り出されているかもしれませ"
 "ん。"
 
-#: src/callbacks.c:155 src/callbacks.c:1975
+#: ../src/callbacks.c:154 ../src/callbacks.c:2006
 #, fuzzy
 msgid "An error occurred while accessing the archive."
 msgstr ""
 "アーカイブへアクセス中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: src/callbacks.c:155 src/callbacks.c:1975 src/rpm.c:157
+#: ../src/callbacks.c:154 ../src/callbacks.c:2006 ../src/rpm.c:157
 #, fuzzy
 msgid "Do you want to view the command line output?"
 msgstr "アーカイブ「%s」は既に存在します。上書きしてもよろしいですか？"
 
 # FIXME: C format string
 # Extracting files to /tmp
-#: src/callbacks.c:173
+#: ../src/callbacks.c:172
 #, fuzzy
 msgid "The sfx archive was saved as:"
 msgstr "ファイルを展開します "
 
-#: src/callbacks.c:183 src/callbacks.c:258 src/callbacks.c:1634
-#: src/extract_dialog.c:567 src/extract_dialog.c:789 src/iso.c:770
+#: ../src/callbacks.c:182 ../src/callbacks.c:257 ../src/callbacks.c:1655
+#: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:772
 msgid "Operation completed."
 msgstr "操作が完了しました。"
 
-#: src/callbacks.c:186
+#: ../src/callbacks.c:185
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "アーカイブの内容が更新されるまでの間お待ちください..."
 
-#: src/callbacks.c:289
+#: ../src/callbacks.c:286
 #, fuzzy
 msgid "Choose Add to begin creating the archive."
 msgstr ""
 "アーカイブの作成を開始するには「ファイルを追加」か「フォルダを追加」を選んで"
 "ください。"
 
-#: src/callbacks.c:332
+#: ../src/callbacks.c:328
 #, fuzzy
 msgid "Can't allocate memory for the archive structure:"
 msgstr "ファイルを現在のアーカイブに追加します"
 
-#: src/callbacks.c:354
+#: ../src/callbacks.c:355
 #, fuzzy, c-format
 msgid "Can't open file \"%s\":"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/callbacks.c:357
+#: ../src/callbacks.c:358
 #, fuzzy
 msgid "Archive format is not recognized!"
 msgstr "このアーカイブの形式は認識できません！"
 
-#: src/callbacks.c:381
+#: ../src/callbacks.c:381
 #, fuzzy
 msgid "Sorry, this archive format is not supported:"
 msgstr ""
 "適切なアーカイバーがインストールされていないため、このアーカイブ形式はサポー"
 "トされません！"
 
-#: src/callbacks.c:381
+#: ../src/callbacks.c:381
 #, fuzzy
 msgid "the proper archiver is not installed!"
 msgstr "このアーカイブの形式は認識できません！"
 
-#: src/callbacks.c:388
+#: ../src/callbacks.c:388
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "このISOイメージの内容を読み込むまでお待ちください..."
 
-#: src/callbacks.c:390
+#: ../src/callbacks.c:390
 msgid "Please wait while the content of the archive is being read..."
 msgstr "このアーカイブの内容を読み込むまでお待ちください..."
 
-#: src/callbacks.c:467
+#: ../src/callbacks.c:467
 msgid "Testing archive integrity, please wait..."
 msgstr "アーカイブの整合性を確認しています、お待ちください..."
 
-#: src/callbacks.c:543 src/main.c:241
+#: ../src/callbacks.c:538 ../src/main.c:241
 msgid "Ready."
 msgstr "準備完了。"
 
-#: src/callbacks.c:554
+#: ../src/callbacks.c:548
 msgid "Please hit the Stop button first!"
 msgstr "最初に「中止」ボタンを押してください！"
 
 # FIXME: C format steing
 # You are about to delete 5 files from the archive.
 # Are you really sure to do this?
-#: src/callbacks.c:590
+#: ../src/callbacks.c:584
 #, fuzzy, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr ""
 "を削除しようとしています。\n"
 "よろしいですか？"
 
-#: src/callbacks.c:591
+#: ../src/callbacks.c:585
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: src/callbacks.c:597
+#: ../src/callbacks.c:591
 msgid "Deleting files from the archive, please wait..."
 msgstr "ファイルをアーカイブから削除しています、お待ちください..."
 
-#: src/callbacks.c:712
+#: ../src/callbacks.c:708
 #, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "アーカイブの整合性を確認しています、お待ちください..."
 
-#: src/callbacks.c:774 src/callbacks.c:889
+#: ../src/callbacks.c:766 ../src/callbacks.c:878
 #, fuzzy
 msgid "Can't convert the archive to self-extracting:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/callbacks.c:787 src/callbacks.c:902
+#: ../src/callbacks.c:779 ../src/callbacks.c:891
 #, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "ファイルを現在のアーカイブに追加します"
 
-#: src/callbacks.c:856
+#: ../src/callbacks.c:845
 #, fuzzy
 msgid "Please select the 7zCon.sfx module"
 msgstr "フォルダではなくファイルを選択してください！"
 
-#: src/callbacks.c:961
+#: ../src/callbacks.c:950
 msgid "translator-credits"
 msgstr "Daichi Kawahata <daichi@xfce.org>"
 
-#: src/callbacks.c:994 src/interface.c:269
+# FIXME: C format string
+# Extracting files to /tmp
+#: ../src/callbacks.c:981
+#, fuzzy
+msgid "Save the self-extracting archive as"
+msgstr "ファイルを展開します "
+
+#: ../src/callbacks.c:1008 ../src/interface.c:269
 msgid "Open an archive"
 msgstr "アーカイブを開きます"
 
-#: src/callbacks.c:1007 src/new_dialog.c:56
+#: ../src/callbacks.c:1021 ../src/new_dialog.c:58
 msgid "All files"
 msgstr "全てのファイル"
 
-#: src/callbacks.c:1012 src/new_dialog.c:61
+#: ../src/callbacks.c:1026 ../src/new_dialog.c:63
 msgid "Only archives"
 msgstr "アーカイブのみ"
 
-#: src/callbacks.c:1134
+#: ../src/callbacks.c:1148
 #, fuzzy, c-format
 msgid "Can't open archive \"%s\":"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/callbacks.c:1409
+#: ../src/callbacks.c:1426
 msgid "Command line output"
 msgstr ""
 
-#: src/callbacks.c:1445
+#: ../src/callbacks.c:1464
 #, fuzzy
 msgid "Doing so will probably corrupt your archive!"
 msgstr ""
 "これを行うとアーカイブを壊してしまうかもしれません。\n"
 "取り消しますか？"
 
-#: src/callbacks.c:1445
+#: ../src/callbacks.c:1464
 msgid "Do you really want to cancel?"
 msgstr ""
 
-#: src/callbacks.c:1450
+#: ../src/callbacks.c:1469
 msgid "Waiting for the process to abort..."
 msgstr "このプロセスが中断するのを待っています..."
 
-#: src/callbacks.c:1456
+#: ../src/callbacks.c:1475
 msgid "An error occurred while trying to kill the process:"
 msgstr ""
 
-#: src/callbacks.c:1544
+#: ../src/callbacks.c:1565
 msgid "Please select a file, not a directory!"
 msgstr "フォルダではなくファイルを選択してください！"
 
-#: src/callbacks.c:1614
+#: ../src/callbacks.c:1635
 #, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr ""
 "表示するファイルを取り出し中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: src/callbacks.c:1623
+#: ../src/callbacks.c:1644
 #, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
@@ -480,219 +490,219 @@ msgstr ""
 "表示するファイルを取り出し中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: src/callbacks.c:1679
+#: ../src/callbacks.c:1702
 msgid " bytes"
 msgstr "バイト"
 
-#: src/callbacks.c:1807
+#: ../src/callbacks.c:1830
 msgid "Yes"
 msgstr ""
 
-#: src/callbacks.c:1809
+#: ../src/callbacks.c:1832
 msgid "No"
 msgstr ""
 
-#: src/callbacks.c:2099
+#: ../src/callbacks.c:2130
 #, fuzzy
 msgid "Can't perform another extraction:"
 msgstr "パスワードを入力してください！"
 
-#: src/callbacks.c:2099
+#: ../src/callbacks.c:2130
 #, fuzzy
 msgid "Please wait until the completion of the current one!"
 msgstr "このアーカイブの内容を読み込むまでお待ちください..."
 
-#: src/callbacks.c:2187
+#: ../src/callbacks.c:2219
 msgid "Sorry, I could not perform the operation!"
 msgstr "操作を実行できませんでした！"
 
-#: src/callbacks.c:2217 src/callbacks.c:2228
+#: ../src/callbacks.c:2253 ../src/callbacks.c:2264
 #, fuzzy
 msgid "Can't perform this action:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/callbacks.c:2217
+#: ../src/callbacks.c:2253
 msgid "unrar doesn't support archive creation!"
 msgstr ""
 
-#: src/callbacks.c:2225
+#: ../src/callbacks.c:2261
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: src/callbacks.c:2227
+#: ../src/callbacks.c:2263
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
-#: src/callbacks.c:2342
+#: ../src/callbacks.c:2385
 msgid "Failed to open link."
 msgstr ""
 
-#: src/callbacks.c:2371
+#: ../src/callbacks.c:2417
 msgid "The password has been reset."
 msgstr ""
 
-#: src/callbacks.c:2374
+#: ../src/callbacks.c:2420
 #, fuzzy
 msgid "Please enter the password first!"
 msgstr "パスワードを入力してください！"
 
-#: src/callbacks.c:2383
+#: ../src/callbacks.c:2431
 #, fuzzy
 msgid "Archive comment window"
 msgstr "アーカイブプロパティ・ウィンドウ"
 
 # FIXME: C format string
 # Decompressing tar file with gzip, please wait...
-#: src/extract_dialog.c:42
+#: ../src/extract_dialog.c:42
 #, fuzzy
 msgid "Decompress file"
 msgstr "Tarファイルを"
 
 # FIXME: C format string
 # Extracting files to /tmp
-#: src/extract_dialog.c:44
+#: ../src/extract_dialog.c:44
 #, fuzzy
 msgid "Extract files from archive"
 msgstr "ファイルを展開します "
 
-#: src/extract_dialog.c:60
+#: ../src/extract_dialog.c:60
 msgid "Extract to:"
 msgstr "展開先:"
 
-#: src/extract_dialog.c:101
+#: ../src/extract_dialog.c:101
 msgid "Choose a folder where to extract files"
 msgstr "ファイルの展開先を選択してください"
 
-#: src/extract_dialog.c:123
+#: ../src/extract_dialog.c:123
 msgid "All"
 msgstr "全て"
 
-#: src/extract_dialog.c:129
+#: ../src/extract_dialog.c:129
 msgid "Only selected"
 msgstr "選択したものだけ"
 
-#: src/extract_dialog.c:140
+#: ../src/extract_dialog.c:140
 msgid "<b>Files to extract </b>"
 msgstr "<b>展開するファイル</b>"
 
-#: src/extract_dialog.c:159
+#: ../src/extract_dialog.c:159
 msgid "Overwrite existing files"
 msgstr "存在するファイルを上書きする"
 
-#: src/extract_dialog.c:164
+#: ../src/extract_dialog.c:164
 msgid "Extract files with full path"
 msgstr "ファイルを完全なパスで展開する"
 
-#: src/extract_dialog.c:173
+#: ../src/extract_dialog.c:173
 msgid ""
 "The archive's directory structure is recreated in the extraction directory."
 msgstr "アーカイブのフォルダ構成を展開先フォルダで再作成します。"
 
-#: src/extract_dialog.c:178
+#: ../src/extract_dialog.c:178
 msgid "Touch files"
 msgstr "ファイルタイムスタンプを更新する"
 
-#: src/extract_dialog.c:181
+#: ../src/extract_dialog.c:181
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
 "files it extracts as the times when the files were extracted, instead of "
 "setting it to the times recorded in the archive."
 msgstr ""
 
-#: src/extract_dialog.c:194
+#: ../src/extract_dialog.c:194
 msgid "Freshen existing files"
 msgstr ""
 
-#: src/extract_dialog.c:195
+#: ../src/extract_dialog.c:195
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies."
 msgstr ""
 
-#: src/extract_dialog.c:201
+#: ../src/extract_dialog.c:201
 msgid "Update existing files"
 msgstr "存在するファイルを更新する"
 
-#: src/extract_dialog.c:202
+#: ../src/extract_dialog.c:202
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk."
 msgstr ""
 
-#: src/extract_dialog.c:255 src/interface.c:139
+#: ../src/extract_dialog.c:255 ../src/interface.c:139
 msgid "_Extract"
 msgstr "展開(_E)"
 
-#: src/extract_dialog.c:328
+#: ../src/extract_dialog.c:328
 #, fuzzy
 msgid "You missed where to extract the files!"
 msgstr "ファイルの展開先を選択してください！"
 
-#: src/extract_dialog.c:328
+#: ../src/extract_dialog.c:328
 #, fuzzy
 msgid "Please enter the extraction path."
 msgstr "パスワードを入力してください！"
 
-#: src/extract_dialog.c:336
+#: ../src/extract_dialog.c:336
 msgid "This archive is encrypted!"
 msgstr ""
 
-#: src/extract_dialog.c:336
+#: ../src/extract_dialog.c:336
 #, fuzzy
 msgid "Please enter the password."
 msgstr "パスワードを入力してください！"
 
-#: src/extract_dialog.c:344
+#: ../src/extract_dialog.c:344
 #, fuzzy, c-format
 msgid "Can't create directory \"%s\""
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/extract_dialog.c:356
+#: ../src/extract_dialog.c:356
 #, fuzzy, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the folder \"%s"
 "\"."
 msgstr "アーカイブをフォルダ「%s」に展開するためのアクセス権がありません"
 
-#: src/extract_dialog.c:357
+#: ../src/extract_dialog.c:357
 msgid "Can't perform extraction!"
 msgstr ""
 
 # FIXME: C format string
 # Extracting files to /tmp
-#: src/extract_dialog.c:385
+#: ../src/extract_dialog.c:385
 #, fuzzy, c-format
 msgid "Extracting files to %s"
 msgstr "ファイルを展開します "
 
 # FIXME: C format string
 # Extracting files to /tmp
-#: src/extract_dialog.c:601
+#: ../src/extract_dialog.c:601
 #, fuzzy, c-format
 msgid "Extracting archive to %s"
 msgstr "ファイルを展開します "
 
-#: src/extract_dialog.c:931
+#: ../src/extract_dialog.c:931
 #, fuzzy
 msgid "Can't create temporary directory in /tmp:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/extract_dialog.c:946
+#: ../src/extract_dialog.c:946
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "現在のアーカイブを展開するフォルダを選択してください"
 
-#: src/lha.c:40
+#: ../src/lha.c:40
 msgid "UID/GID"
 msgstr ""
 
-#: src/lha.c:40
+#: ../src/lha.c:40
 #, fuzzy
 msgid "Timestamp"
 msgstr "時間"
@@ -701,88 +711,88 @@ msgstr "時間"
 # FIXME: C format steing
 # You are about to delete 5 files from the archive.
 # Are you really sure to do this?
-#: src/interface.c:73
+#: ../src/interface.c:73
 #, fuzzy
 msgid "_File"
 msgstr "個のファイル"
 
-#: src/interface.c:93
+#: ../src/interface.c:93
 msgid "_Test"
 msgstr "テスト(_T)"
 
-#: src/interface.c:103
+#: ../src/interface.c:103
 msgid "_Properties"
 msgstr "プロパティ(_P)"
 
-#: src/interface.c:122
+#: ../src/interface.c:122
 #, fuzzy
 msgid "_Action"
 msgstr "アクション(_A)"
 
-#: src/interface.c:149
+#: ../src/interface.c:149
 msgid "Make SF_X"
 msgstr ""
 
-#: src/interface.c:170
+#: ../src/interface.c:170
 msgid "_View"
 msgstr "表示(_V)"
 
-#: src/interface.c:176
+#: ../src/interface.c:176
 msgid "_Show comment"
 msgstr ""
 
-#: src/interface.c:191
+#: ../src/interface.c:191
 msgid "Sele_ct All"
 msgstr ""
 
-#: src/interface.c:197
+#: ../src/interface.c:197
 msgid "Dese_lect All"
 msgstr ""
 
-#: src/interface.c:208
+#: ../src/interface.c:208
 msgid "Co_mmand line output"
 msgstr ""
 
-#: src/interface.c:217
+#: ../src/interface.c:217
 #, fuzzy
 msgid "Show I_SO info"
 msgstr "ISO情報を表示"
 
-#: src/interface.c:227
+#: ../src/interface.c:227
 #, fuzzy
 msgid "Reset passwo_rd"
 msgstr "パスワードを入力してください！"
 
-#: src/interface.c:233
+#: ../src/interface.c:233
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: src/interface.c:257
+#: ../src/interface.c:257
 msgid "New"
 msgstr "新規"
 
-#: src/interface.c:261 src/new_dialog.c:44
+#: ../src/interface.c:261 ../src/new_dialog.c:46
 msgid "Create a new archive"
 msgstr "新規アーカイブを作成します"
 
-#: src/interface.c:265
+#: ../src/interface.c:265
 msgid "Open"
 msgstr "開く"
 
-#: src/interface.c:277
+#: ../src/interface.c:277
 msgid "Add"
 msgstr ""
 
-#: src/interface.c:282
+#: ../src/interface.c:282
 #, fuzzy
 msgid "Add files and directories to the current archive"
 msgstr "フォルダごとアーカイブに追加します"
 
-#: src/interface.c:286
+#: ../src/interface.c:286
 msgid "Extract"
 msgstr "展開"
 
-#: src/interface.c:291
+#: ../src/interface.c:291
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
@@ -790,200 +800,235 @@ msgstr ""
 "現在のアーカイブからファイルを取り出します; 個々にファイルを選ぶにはマウスを"
 "ご利用ください"
 
-#: src/interface.c:295
+#: ../src/interface.c:295
 msgid "SFX"
 msgstr ""
 
-#: src/interface.c:300
+#: ../src/interface.c:300
 msgid "Make the current archive self-extracting"
 msgstr ""
 
-#: src/interface.c:307
+#: ../src/interface.c:307
 msgid "Delete"
 msgstr "削除"
 
-#: src/interface.c:312
+#: ../src/interface.c:312
 msgid "Delete files from the current archive"
 msgstr "ファイルを現在のアーカイブから削除します"
 
-#: src/interface.c:316
+#: ../src/interface.c:316
 msgid "View"
 msgstr "表示"
 
-#: src/interface.c:321
+#: ../src/interface.c:321
 msgid "View file content in the current archive"
 msgstr "現在のアーカイブのファイルないようを表示します"
 
-#: src/interface.c:329
+#: ../src/interface.c:329
 msgid "Stop"
 msgstr "中止"
 
-#: src/interface.c:334
+#: ../src/interface.c:334
 msgid "Cancel current operation"
 msgstr "現在の操作を取り消します"
 
-#: src/interface.c:382
+#: ../src/interface.c:382
 msgid "This archive contains password protected files"
 msgstr "このアーカイブにはパスワードで保護されたファイルがあります"
 
-#: src/interface.c:508
+#: ../src/interface.c:514
 #, fuzzy
 msgid "Close Archive"
 msgstr "アーカイブ(_A)"
 
-#: src/interface.c:556
+#: ../src/interface.c:563
 #, fuzzy
 msgid "Enter Archive Password"
 msgstr "パスワードを入力してください！"
 
-#: src/interface.c:655
+#: ../src/interface.c:662
 msgid "Archive Properties Window"
 msgstr "アーカイブプロパティ・ウィンドウ"
 
-#: src/interface.c:673
+#: ../src/interface.c:680
 msgid "Name:"
 msgstr "名前:"
 
-#: src/interface.c:680
+#: ../src/interface.c:687
 msgid "Path:"
 msgstr "パス:"
 
-#: src/interface.c:687
+#: ../src/interface.c:694
 msgid "Type:"
 msgstr ""
 
-#: src/interface.c:694
+#: ../src/interface.c:701
 msgid "Modified on:"
 msgstr "変更日時:"
 
-#: src/interface.c:701
+#: ../src/interface.c:708
 msgid "Archive size:"
 msgstr "サイズ:"
 
-#: src/interface.c:708
+#: ../src/interface.c:715
 msgid "Content size:"
 msgstr "内容のサイズ:"
 
-#: src/interface.c:715
+#: ../src/interface.c:722
 msgid "Has comment:"
 msgstr ""
 
-#: src/interface.c:722
+#: ../src/interface.c:729
 msgid "Compression ratio:"
 msgstr "圧縮率:"
 
-#: src/interface.c:729
+#: ../src/interface.c:736
 msgid "Number of files:"
 msgstr "ファイル数:"
 
-#: src/interface.c:736
+#: ../src/interface.c:743
 msgid "Number of dirs:"
 msgstr "フォルダ数:"
 
-#: src/iso.c:465 src/iso.c:491 src/iso.c:523
+#: ../src/iso.c:465 ../src/iso.c:491 ../src/iso.c:523
 #, fuzzy
 msgid "Can't create directory:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/iso.c:553
+#: ../src/iso.c:553
 #, fuzzy, c-format
 msgid "Can't write file \"%s\":"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/iso.c:652 src/rpm.c:56
+#: ../src/iso.c:652 ../src/rpm.c:56
 msgid "Permission"
 msgstr "アクセス権"
 
-#: src/iso.c:652
+#: ../src/iso.c:652
 msgid "Offset"
 msgstr "オフセット"
 
-#: src/iso.c:672
+#: ../src/iso.c:672
 #, c-format
 msgid "Rock Ridge version %d"
 msgstr ""
 
-#: src/iso.c:675
+#: ../src/iso.c:675
 msgid "Rock Ridge - unknown version"
 msgstr ""
 
-#: src/iso.c:679
+#: ../src/iso.c:679
 #, c-format
 msgid "Apple version %d"
 msgstr ""
 
-#: src/iso.c:707
+#: ../src/iso.c:707
 msgid "Standard ISO without extension"
 msgstr ""
 
-#: src/iso.c:715 src/iso.c:720 src/iso.c:725
+#: ../src/iso.c:715 ../src/iso.c:720 ../src/iso.c:725
 #, c-format
 msgid "Joliet Level %d"
 msgstr ""
 
-#: src/iso.c:819
+#: ../src/iso.c:821
 msgid "ISO Information Window"
 msgstr "ISO情報ウィンドウ"
 
-#: src/iso.c:838
+#: ../src/iso.c:840
 msgid "Filename:"
 msgstr "ファイル名:"
 
-#: src/iso.c:846
+#: ../src/iso.c:848
 #, fuzzy
 msgid "Size:"
 msgstr "サイズ"
 
-#: src/iso.c:854
+#: ../src/iso.c:856
 msgid "Extension:"
 msgstr ""
 
-#: src/iso.c:862
+#: ../src/iso.c:864
 msgid "System ID:"
 msgstr "システムID:"
 
-#: src/iso.c:870
+#: ../src/iso.c:872
 msgid "Volume ID:"
 msgstr "ボリュームID:"
 
-#: src/iso.c:878
+#: ../src/iso.c:880
 msgid "Application:"
 msgstr "アプリケーション:"
 
-#: src/iso.c:886
+#: ../src/iso.c:888
 msgid "Publisher:"
 msgstr "出版社:"
 
-#: src/iso.c:894
+#: ../src/iso.c:896
 msgid "Preparer:"
 msgstr "発行人:"
 
-#: src/iso.c:902
+#: ../src/iso.c:904
 msgid "Creation date:"
 msgstr "作成日時:"
 
-#: src/iso.c:910
+#: ../src/iso.c:912
 msgid "Modified date:"
 msgstr "変更日時:"
 
-#: src/iso.c:918
+#: ../src/iso.c:920
 msgid "Expiration date:"
 msgstr "失効日時:"
 
-#: src/iso.c:926
+#: ../src/iso.c:928
 msgid "Effective date:"
 msgstr "有効日時:"
 
-#: src/main.c:62
+#: ../src/main.c:37
+#, fuzzy
+msgid ""
+"Extract archive to the directory specified by destination_path and quits."
+msgstr "指定したフォルダにアーカイブを展開して終了します。"
+
+#: ../src/main.c:38
+#, fuzzy
+msgid "destination_path archive"
+msgstr "ファイルを現在のアーカイブに追加します"
+
+#: ../src/main.c:41
+#, fuzzy
+msgid "Extract archive by asking the destination directory and quits."
+msgstr "展開先フォルダを質問してアーカイブを展開した上で終了します。"
+
+#: ../src/main.c:42 ../src/main.c:50
+#, fuzzy
+msgid "archive"
+msgstr "Xarchiver"
+
+#: ../src/main.c:45
+#, fuzzy
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "アーカイブ名を質問してファイルを追加した上で終了します。"
+
+#: ../src/main.c:46
+msgid "file1 file2 file3 ... fileN"
+msgstr ""
+
+#: ../src/main.c:49
+#, fuzzy
+msgid "Add files to archive by asking their filenames and quits."
+msgstr "指定したアーカイブにファイルを指定して終了します。"
+
+#: ../src/main.c:62
 #, fuzzy
 msgid "[archive name]"
 msgstr "[アーカイブ名]"
 
-#: src/main.c:66
+#: ../src/main.c:66
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -992,157 +1037,135 @@ msgstr ""
 "xarchiver: %s\n"
 "利用可能なコマンド行オプションを見るには xarchiver --help としてください。\n"
 
-#: src/main.c:87 src/main.c:120
+#: ../src/main.c:87 ../src/main.c:120
 #, fuzzy
 msgid "Can't extract files from the archive:"
 msgstr "ファイルを現在のアーカイブに追加します"
 
-#: src/main.c:87 src/main.c:120 src/main.c:211
+#: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
 #, fuzzy
 msgid "You missed the archive name!\n"
 msgstr "パスワードを入力してください！"
 
-#: src/main.c:409
+#: ../src/main.c:409
 #, fuzzy
 msgid "Can't spawn the command:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/main.c:418
+#: ../src/main.c:418
 msgid "An error occurred!"
 msgstr ""
 
-#: src/main.c:432
+#: ../src/main.c:432
 #, fuzzy
 msgid "Can't allocate memory for the archive structure!"
 msgstr "ファイルを現在のアーカイブに追加します"
 
-#: src/new_dialog.c:49
+#: ../src/new_dialog.c:51
 msgid "Cr_eate"
 msgstr ""
 
-#: src/new_dialog.c:86
+#: ../src/new_dialog.c:88
 msgid "Archive type:"
 msgstr "アーカイブの種類:"
 
-#: src/new_dialog.c:91
+#: ../src/new_dialog.c:93
 msgid "Choose the archive type to create"
 msgstr "作成するアーカイブの種類を選択してください"
 
-#: src/new_dialog.c:109
+#: ../src/new_dialog.c:111
 msgid "Add the archive extension to the filename"
 msgstr "ファイル名にアーカイブ拡張子を追加する"
 
-#: src/new_dialog.c:145
+#: ../src/new_dialog.c:154
 #, fuzzy, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "アーカイブ「%s」は既に存在します。上書きしてもよろしいですか？"
 
-#: src/new_dialog.c:151
+#: ../src/new_dialog.c:160
 #, fuzzy
 msgid "Do you want to overwrite it?"
 msgstr "アーカイブ「%s」は既に存在します。上書きしてもよろしいですか？"
 
-#: src/rar.c:48 src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Checksum"
 msgstr ""
 
-#: src/rar.c:48 src/zip.c:38
+#: ../src/rar.c:48 ../src/zip.c:38
 msgid "Method"
 msgstr "方式"
 
-#: src/rar.c:48
+#: ../src/rar.c:48
 msgid "Version"
 msgstr "バージョン"
 
-#: src/rpm.c:46
+#: ../src/rpm.c:46
 #, fuzzy, c-format
 msgid "Can't open RPM file %s:"
 msgstr ""
 "アーカイブ%sを開けません:\n"
 "%s"
 
-#: src/rpm.c:56
+#: ../src/rpm.c:56
 msgid "Hard Link"
 msgstr "ハードリンク"
 
-#: src/rpm.c:56
+#: ../src/rpm.c:56
 msgid "Owner"
 msgstr "所有者"
 
-#: src/rpm.c:56
+#: ../src/rpm.c:56
 msgid "Group"
 msgstr "所属グループ"
 
-#: src/rpm.c:62
+#: ../src/rpm.c:62
 msgid "Can't fseek to position 104:"
 msgstr ""
 
-#: src/rpm.c:68 src/rpm.c:84
+#: ../src/rpm.c:68 ../src/rpm.c:84
 msgid "Can't read data from file:"
 msgstr ""
 
-#: src/rpm.c:78
+#: ../src/rpm.c:78
 msgid "Can't fseek in file:"
 msgstr ""
 
-#: src/rpm.c:126
+#: ../src/rpm.c:126
 #, fuzzy
 msgid "Error while extracting the cpio archive from the rpm one."
 msgstr ""
 "CPIOアーカイブを展開中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: src/rpm.c:157
+#: ../src/rpm.c:157
 #, fuzzy
 msgid "An error occurred while decompressing the cpio archive."
 msgstr ""
 "CPIOアーカイブを解凍中にエラーが発生しました。\n"
 "エラーメッセージ・ウィンドウを表示しますか？"
 
-#: src/rpm.c:212 src/rpm.c:369
+#: ../src/rpm.c:212 ../src/rpm.c:369
 msgid "An error occurred:"
 msgstr ""
 
-#: src/rpm.c:324
+#: ../src/rpm.c:324
 msgid "Can't write to /tmp:"
 msgstr ""
 
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr "Xfce 4 アーカイブマネージャー"
+
+#: ../xarchiver.desktop.in.h:2
 #, fuzzy
-#~ msgid ""
-#~ "Extract archive to the directory specified by destination_path and quits."
-#~ msgstr "指定したフォルダにアーカイブを展開して終了します。"
+msgid "Archive manager"
+msgstr "アーカイブマネージャー"
 
-#, fuzzy
-#~ msgid "destination_path archive"
-#~ msgstr "ファイルを現在のアーカイブに追加します"
-
-#, fuzzy
-#~ msgid "Extract archive by asking the destination directory and quits."
-#~ msgstr "展開先フォルダを質問してアーカイブを展開した上で終了します。"
-
-#, fuzzy
-#~ msgid "archive"
-#~ msgstr "Xarchiver"
-
-#, fuzzy
-#~ msgid "Add the given files by asking the name of the archive and quits."
-#~ msgstr "アーカイブ名を質問してファイルを追加した上で終了します。"
-
-#, fuzzy
-#~ msgid "Add files to archive by asking their filenames and quits."
-#~ msgstr "指定したアーカイブにファイルを指定して終了します。"
-
-#~ msgid "A GTK+2 only archive manager"
-#~ msgstr "Xfce 4 アーカイブマネージャー"
-
-#, fuzzy
-#~ msgid "Archive manager"
-#~ msgstr "アーカイブマネージャー"
-
-#~ msgid "Xarchiver"
-#~ msgstr "Xarchiver"
+#: ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr "Xarchiver"
 
 #, fuzzy
 #~ msgid "Can't add files to the archive_cmd:"
@@ -1170,12 +1193,6 @@ msgstr ""
 
 #~ msgid "View File Window"
 #~ msgstr "ファイルウィンドウを表示"
-
-# FIXME: C format string
-# Extracting files to /tmp
-#, fuzzy
-#~ msgid "The self extracting archive is:\n"
-#~ msgstr "ファイルを展開します "
 
 #, fuzzy
 #~ msgid "Operation completed"

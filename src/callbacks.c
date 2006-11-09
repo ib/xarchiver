@@ -292,6 +292,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     archive[current_page]->nr_of_files = 0;
     archive[current_page]->nr_of_dirs = 0;
 	xa_set_window_title (MainWindow , archive[current_page]->path );
+	gtk_widget_set_sensitive ( close1 , TRUE );
 }
 
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2)
@@ -522,6 +523,8 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 	current_page = gtk_notebook_get_n_pages(notebook);
 	if ( current_page == 0)
 	{
+		gtk_widget_set_sensitive (check_menu,FALSE);
+		gtk_widget_set_sensitive (properties,FALSE);
 		gtk_widget_set_sensitive (close1,FALSE);
 		xa_set_window_title (MainWindow,NULL);
 	}
@@ -750,6 +753,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 			if (archive_name == NULL)
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
+				Update_StatusBar ( _("Operation canceled."));
 				return;
 			}
 			archive_name_escaped = EscapeBadChars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
@@ -825,6 +829,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 			if (archive_name == NULL)
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
+				Update_StatusBar ( _("Operation canceled."));
 				return;
 			}
 			archive_name_escaped = EscapeBadChars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
@@ -977,7 +982,7 @@ gchar *xa_open_sfx_file_selector ()
 	GtkWidget *sfx_file_selector = NULL;
 	gboolean response;
 
-	sfx_file_selector = gtk_file_chooser_dialog_new ( _("Save the self-extracting filename as"),
+	sfx_file_selector = gtk_file_chooser_dialog_new ( _("Save the self-extracting archive as"),
 						GTK_WINDOW (MainWindow),
 						GTK_FILE_CHOOSER_ACTION_SAVE,
 						GTK_STOCK_CANCEL,

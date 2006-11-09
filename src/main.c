@@ -134,74 +134,42 @@ int main (int argc, char **argv)
 		/* Switch -d */
 		else if (archive_name != NULL)
 		{
-            /* Is the file an archive_cmd? */
-			if ( xa_detect_archive_type ( NULL , archive_name ) > 0 )
+			XArchive *archive_cmd = NULL;
+			archive_cmd = xa_new_archive_dialog (archive_name );
+			if (archive_cmd == NULL)
+				return 0;
+
+			if (archive_cmd->path != NULL)
 			{
-				archive_cmd = xa_init_structure_from_cmd_line ( archive_name );
-				if (archive_cmd != NULL)
+				_current_dir = g_path_get_dirname(archive_name);
+				chdir (_current_dir);
+				g_free (_current_dir);
+				GString *string = g_string_new ( "" );
+
+				if ( g_file_test ( archive_name,G_FILE_TEST_EXISTS) )
 				{
-					_current_dir = g_path_get_dirname (argv[1]);
-					chdir (_current_dir);
+					_current_dir = g_path_get_basename ( archive_name );
+					ConcatenateFileNames2 ( _current_dir, string );
 					g_free (_current_dir);
-
-					GString *string = g_string_new ( "" );
-					for (x = 1; x < argc; x++)
-					{
-						_current_dir = g_path_get_basename ( argv[x] );
-						ConcatenateFileNames2 ( argv[x], string );
-						g_free (_current_dir);
-					}
-                    /* The recursion behaves differently in 7zip as stated in source package DOCS/MANUAL/switches/recurse.htm file */
-                    if ( archive_cmd->type == XARCHIVETYPE_7ZIP)
-					    archive_cmd->add_recurse = FALSE;
-                    else
-                        archive_cmd->add_recurse = TRUE;
-					cli_command = xa_add_single_files ( archive_cmd , string, NULL);
-					if (cli_command != NULL)
-						error_output = SpawnSyncCommand ( cli_command );
-					g_string_free (string, TRUE);
 				}
-			}
-            /* No, it isn't */
-			else
-			{
-				XArchive *archive_cmd = NULL;
-				archive_cmd = xa_new_archive_dialog (archive_name );
-				if (archive_cmd == NULL)
-					return 0;
 
-				if (archive_cmd->path != NULL)
+				for (x = 1; x< argc; x++)
 				{
-					_current_dir = g_path_get_dirname(archive_name);
-					chdir (_current_dir);
+					_current_dir = g_path_get_basename ( argv[x] );
+					ConcatenateFileNames2 ( _current_dir, string );
 					g_free (_current_dir);
-					GString *string = g_string_new ( "" );
-
-                    if ( g_file_test ( archive_name,G_FILE_TEST_EXISTS) )
-                    {
-                        _current_dir = g_path_get_basename ( archive_name );
-					    ConcatenateFileNames2 ( _current_dir, string );
-					    g_free (_current_dir);
-                    }
-
-					for (x = 1; x< argc; x++)
-					{
-						_current_dir = g_path_get_basename ( argv[x] );
-						ConcatenateFileNames2 ( _current_dir, string );
-						g_free (_current_dir);
-					}
-					if ( archive_cmd->type == XARCHIVETYPE_7ZIP)
-					    archive_cmd->add_recurse = FALSE;
-                    else
-                        archive_cmd->add_recurse = TRUE;
-					cli_command = xa_add_single_files ( archive_cmd , string, NULL);
-					if (cli_command != NULL)
-						error_output = SpawnSyncCommand ( cli_command );
-					g_string_free (string, TRUE);
 				}
+				if ( archive_cmd->type == XARCHIVETYPE_7ZIP)
+					archive_cmd->add_recurse = FALSE;
+				else
+					archive_cmd->add_recurse = TRUE;
+				cli_command = xa_add_single_files ( archive_cmd , string, NULL);
 				if (cli_command != NULL)
-					g_free (cli_command);
+					error_output = SpawnSyncCommand ( cli_command );
+				g_string_free (string, TRUE);
 			}
+			if (cli_command != NULL)
+				g_free (cli_command);
 		}
 		/* Switch -a */
 		else if (ask_and_add)
@@ -287,11 +255,7 @@ void GetAvailableCompressors()
 		g_free (absolute_path);
 	}
 
-	/* In future releases of xarchiver we'll use mkisofs to allow creation of iso images
-	if ( g_find_program_in_path("mkisofs"))
-		Allow creation of ISO images
-	*/
-
+	/* In future releases of xarchiver we'll use bkisofs library to allow creation of iso images */
 	ArchiveType = g_list_prepend ( ArchiveType, ".iso");
 	ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
 
