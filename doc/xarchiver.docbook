@@ -51,13 +51,16 @@
 					<listitem><para>Archives are detected by their magic header and not by the extension except for .tar.bz2 and .tar.gz</para></listitem>
 					<listitem><para>Drag and drop from and to Xarchiver window is supported with XDS protocol</para></listitem>
 					<listitem><para>All archive relevant content and ISO info are displayed</para></listitem>
+					<listitem><para>ZIP and ARJ archive comment are supported. RAR comment is not yet supported because it's compressed inside the archive itself</para></listitem>
+					<listitem><para>Tabs Firefox style support</para></listitem>
+					<listitem><para>Ability to convert the archive to self-extracting for those archive types which support it</para></listitem>
 					<listitem><para>Smart detection of arj, zip and rar password encrypted archives</para></listitem>
-					<listitem><para>All the the output of the archiver is displayed in the Xarchiver window</para></listitem>
-					<listitem><para>All common formats are supported: arj, bzip2, gzip, 7z, rar, tar, tar.bz2, tar.gz, zip and RPM (only open,view and extract)</para></listitem>
+					<listitem><para>All the the output of the cmd-line archiver is displayed in the Xarchiver window</para></listitem>
+					<listitem><para>All common formats are supported: arj, bzip2, lha, gzip, 7z, rar, tar, tar.bz2, tar.gz, zip, DEB and RPM (only open,view and extract)</para></listitem>
 					<listitem><para>ISO images are supported without isodump or isoinfo executables (only open,view and extract)</para></listitem>
 					<listitem><para>Support of RPM files without RPM executable. This is useful on not RPM-based distributions like Slackware and Arch Linux</para></listitem>
 					<listitem><para>Useful info about the ISO image are displayed</para></listitem>
-					<listitem><para>Zip, rar, arj and 7z password encrypted archives are fully supported.</para></listitem>
+					<listitem><para>Zip, rar, arj and 7z password encrypted archives are fully supported (7z automatic password detection is not supported)</para></listitem>
 				</itemizedlist>
 			</para>
 		</section>
@@ -409,6 +412,11 @@ enter your password. From now on all the files you add to the archive will be pa
 				 I could set the encoding to <ulink url="http://en.wikipedia.org/wiki/ISO8859-1">
 				<citetitle>ISO8859-1</citetitle>
 				</ulink> because doing this fixes the problem, but it creates another one with german umlauts in ASCII files for example; they would be incorrectly showed. So if you get this error please extract the file and then see it with your favourite text editor.
+			</para>
+		</section>
+		<section id="seventh">
+			<title>Why Xarchiver doesn't allow me to choose the archive self-extracting path as it happens with zip and 7z?</title>
+			<para>Because rar and arj executable do not allow to do so. Zip and 7z convertion to self-extracting is made by appending an sfx module to the archive so it's possible to choose a different path.
 			</para>
 		</section>
 	</chapter>
