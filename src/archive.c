@@ -26,6 +26,7 @@
 #include <sys/wait.h>
 #include "archive.h"
 #include "support.h"
+#include "callbacks.h"
 
 extern void xa_watch_child ( GPid pid, gint status, gpointer data);
 extern GtkWidget *viewport2;

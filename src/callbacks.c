@@ -69,7 +69,6 @@ const char *strcasestr(const char *haystack, const char *needle)
 void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
-	GtkTreeView *treeview1;
 	gboolean new	= FALSE;
 	gboolean open	= FALSE;
 	gboolean add	= FALSE;
@@ -259,7 +258,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-	XArchive *dummy_archive = NULL;
 	gint current_page;
 
 	current_page = xa_get_new_archive_idx();
@@ -1204,7 +1202,6 @@ int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 
 gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive )
 {
-	char magic[3];
 	char sig;
 	guint cmt_len = 0;
 	unsigned char eocds[] = { 0x50, 0x4b, 0x05, 0x06 };
@@ -1488,8 +1485,6 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 
 void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 {
-	GIOChannel *ioc_view = NULL;
-	gchar *line = NULL;
 	gchar *filename = NULL;
 	GError *error = NULL;
 	gchar *string = NULL;
