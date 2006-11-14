@@ -47,9 +47,8 @@ msgid "Date"
 msgstr "Datum"
 
 #: ../src/add_dialog.c:38
-#, fuzzy
 msgid "Add files to the archive"
-msgstr "Kan bestanden niet toevoegen aan archief"
+msgstr "Bestanden toevoegen aan archief"
 
 #: ../src/add_dialog.c:99
 msgid "Files"
@@ -76,6 +75,7 @@ msgid ""
 "Include everything in the directory recursively \tstarting from the current "
 "directory."
 msgstr ""
+"Voeg de map inclusief inhoud toe aan het archief"
 
 #: ../src/add_dialog.c:167
 msgid "Generate a solid archive"
@@ -86,22 +86,23 @@ msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio."
 msgstr ""
+"In een vast archief worden de bestanden gegroepeerd voor betere compressie"
 
 #: ../src/add_dialog.c:176
 msgid "Remove files after adding"
-msgstr ""
+msgstr "Verwijder bestanden na toevoegen"
 
 #: ../src/add_dialog.c:184
 msgid "Do not add file paths"
-msgstr ""
+msgstr "Voeg geen bestands-paden toe"
 
 #: ../src/add_dialog.c:188
 msgid "Store just the name of a file without its directory names."
-msgstr ""
+msgstr "Alleen de naam van het bestand opslaan zonder zijn pad."
 
 #: ../src/add_dialog.c:190
 msgid "Freshen an existing entry in the archive"
-msgstr ""
+msgstr "Ververs een bestaand item in het archief"
 
 #: ../src/add_dialog.c:194
 msgid ""
@@ -109,36 +110,42 @@ msgid ""
 "than the version already in the archive; unlike the update option it will "
 "not add files that are not already in the archive."
 msgstr ""
+"Deze optie beinvloed het archief alleen als het bestand later is veranderd "
+"dan de versie die al in het archief aanwezig is; in tegenstelling tot de "
+"Update optie zal het geen bestanden toevoegen die nog niet in het archief "
+"aanwezig zijn."
 
 #: ../src/add_dialog.c:198
 msgid "Update an existing entry in the archive"
-msgstr ""
+msgstr "Update een bestaand item in het archief"
 
 #: ../src/add_dialog.c:202
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified."
 msgstr ""
+"Deze optie zal alleen nieuwe bestanden toevoegen en bestanden bijwerken "
+"die veranderd zijn sinds het archief het laatst was gemaakt/veranderd"
 
 #: ../src/add_dialog.c:211
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
+msgstr "0 = geen compressie, 5 is standaard, 9 = beste compressie (langzaam)"
 
 #: ../src/add_dialog.c:218
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
+msgstr "0 = geen compressie, 6 is standaard, 9 = beste compressie (langzaam)"
 
 #: ../src/add_dialog.c:225
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
+msgstr "0 = geen compressie, 3 is standaard, 5 = beste compressie (langzaam)"
 
 #: ../src/add_dialog.c:232
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
+msgstr "0 = geen compressie, 1 is standaard, 4 = minste compressie (snel)"
 
 #: ../src/add_dialog.c:239
 msgid "5 = default compression, 7 = max compression"
-msgstr ""
+msgstr "5 = standaard compressie, 7 = maximale compressie"
 
 #: ../src/add_dialog.c:250 ../src/extract_dialog.c:217 ../src/interface.c:575
 msgid "Password:"
@@ -158,11 +165,11 @@ msgstr "_Toevoegen"
 
 #: ../src/add_dialog.c:378
 msgid "Please select the files you want to add"
-msgstr ""
+msgstr "Selecteer de bestanden die je wilt toevoegen"
 
 #: ../src/add_dialog.c:383
 msgid "Please select the directories you want to add"
-msgstr ""
+msgstr "Selecteer de mappen die je wilt toevoegen"
 
 #: ../src/add_dialog.c:494 ../src/main.c:211
 msgid "Can't add files to the archive:"
@@ -266,14 +273,12 @@ msgid "An error occurred while accessing the archive."
 msgstr "Een fout vond plaats tijdens het benaderen van het archief."
 
 #: ../src/callbacks.c:154 ../src/callbacks.c:2006 ../src/rpm.c:157
-#, fuzzy
 msgid "Do you want to view the command line output?"
-msgstr "Wilt u het overschrijven?"
+msgstr "Wil je de command-line uitvoer tonen?"
 
 #: ../src/callbacks.c:172
-#, fuzzy
 msgid "The sfx archive was saved as:"
-msgstr "Archief uitpakken naar %s"
+msgstr "Het sfx archief is opgeslagen als:"
 
 #: ../src/callbacks.c:182 ../src/callbacks.c:257 ../src/callbacks.c:1655
 #: ../src/extract_dialog.c:567 ../src/extract_dialog.c:789 ../src/iso.c:772
@@ -289,9 +294,8 @@ msgid "Choose Add to begin creating the archive."
 msgstr "Kies 'Toevoegen' om het archief te maken"
 
 #: ../src/callbacks.c:328
-#, fuzzy
 msgid "Can't allocate memory for the archive structure:"
-msgstr "Kan bestanden niet uitpakken van archief"
+msgstr "Kan geen geheugen alloceren voor de archief structuur:"
 
 #: ../src/callbacks.c:355
 #, c-format
@@ -344,32 +348,28 @@ msgid "Deleting files from the archive, please wait..."
 msgstr "Bestanden verwijderen uit archief, wachten aub..."
 
 #: ../src/callbacks.c:708
-#, fuzzy
 msgid "Converting archive to self-extracting, please wait..."
-msgstr "Archief integriteit testen, wachten aub..."
+msgstr "Archief zelf-uitpakkend maken, even wachten aub..."
 
 #: ../src/callbacks.c:766 ../src/callbacks.c:878
-#, fuzzy
 msgid "Can't convert the archive to self-extracting:"
-msgstr "Kan archief-applicatie niet uitvoeren:"
+msgstr "Kan archief niet zelf-uitpakkend maken:"
 
 #: ../src/callbacks.c:779 ../src/callbacks.c:891
-#, fuzzy
 msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Kan bestanden niet toevoegen aan archief:"
+msgstr "Kan de unzipsfx module niet toevoegen aan archief:"
 
 #: ../src/callbacks.c:845
 msgid "Please select the 7zCon.sfx module"
-msgstr ""
+msgstr "Selecteer de 7zCon.sfx module"
 
 #: ../src/callbacks.c:950
 msgid "translator-credits"
 msgstr "Stephan Arts <psybsd@gmail.com>"
 
 #: ../src/callbacks.c:981
-#, fuzzy
 msgid "Save the self-extracting archive as"
-msgstr "Archief integriteit testen, wachten aub..."
+msgstr "Zelf-uitpakkend archief opslaan als"
 
 #: ../src/callbacks.c:1008 ../src/interface.c:269
 msgid "Open an archive"
@@ -390,7 +390,7 @@ msgstr "Kan archief \"%s\" niet openen:"
 
 #: ../src/callbacks.c:1426
 msgid "Command line output"
-msgstr ""
+msgstr "Command line uitvoer"
 
 #: ../src/callbacks.c:1464
 msgid "Doing so will probably corrupt your archive!"
@@ -413,27 +413,26 @@ msgid "Please select a file, not a directory!"
 msgstr "Selecteer een bestand, geen map aub!"
 
 #: ../src/callbacks.c:1635
-#, fuzzy
 msgid "An error occurred while extracting the file to be viewed:"
-msgstr "Het sluiten van het proces ging fout:"
+msgstr "Het uitpakken van het bestand dat moet worden weergegeven is mislukt:"
 
 #: ../src/callbacks.c:1644
-#, fuzzy
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
-msgstr "Het sluiten van het proces ging fout:"
+msgstr ""
+"Het converteren van de bestands-inhoud naar UTF8 codering is mislukt:"
 
 #: ../src/callbacks.c:1702
 msgid " bytes"
-msgstr ""
+msgstr " bytes"
 
 #: ../src/callbacks.c:1830
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ../src/callbacks.c:1832
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 #: ../src/callbacks.c:2130
 msgid "Can't perform another extraction:"
@@ -453,15 +452,15 @@ msgstr "Kan deze actie niet uitvoeren:"
 
 #: ../src/callbacks.c:2253
 msgid "unrar doesn't support archive creation!"
-msgstr ""
+msgstr "unrar support het maken van archieven niet!"
 
 #: ../src/callbacks.c:2261
 msgid "You can't add content to deb packages!"
-msgstr ""
+msgstr "Je kunt geen inhoud aan deb pakketten toevoegen!"
 
 #: ../src/callbacks.c:2263
 msgid "You can't add content to rpm packages!"
-msgstr ""
+msgstr "Je kunt geen inhoud aan rpm pakketten toevoegen!"
 
 #: ../src/callbacks.c:2385
 msgid "Failed to open link."
@@ -469,17 +468,15 @@ msgstr "Kon link niet openen."
 
 #: ../src/callbacks.c:2417
 msgid "The password has been reset."
-msgstr ""
+msgstr "Het wachtwoord is gereset"
 
 #: ../src/callbacks.c:2420
-#, fuzzy
 msgid "Please enter the password first!"
-msgstr "Voer aub het wachtwoord in."
+msgstr "Voer aub eerst het wachtwoord in."
 
 #: ../src/callbacks.c:2431
-#, fuzzy
 msgid "Archive comment window"
-msgstr "Archief eigenschappen"
+msgstr "Archief commentaar"
 
 #: ../src/extract_dialog.c:42
 msgid "Decompress file"
@@ -532,10 +529,13 @@ msgid ""
 "files it extracts as the times when the files were extracted, instead of "
 "setting it to the times recorded in the archive."
 msgstr ""
+"Wanneer deze optie wordt gebruikt zet tar de modificatie-tijd van de "
+"uitgepakte bestanden op het moment dat het bestand is uitgepakt, niet de "
+"tijd die in het archief is opgenomen."
 
 #: ../src/extract_dialog.c:194
 msgid "Freshen existing files"
-msgstr "Verfris bestaande bestanden"
+msgstr "Ververs bestaande bestanden"
 
 #: ../src/extract_dialog.c:195
 msgid ""
@@ -547,7 +547,7 @@ msgstr ""
 
 #: ../src/extract_dialog.c:201
 msgid "Update existing files"
-msgstr "Betsaande bestanden updaten"
+msgstr "Bestaande bestanden updaten"
 
 #: ../src/extract_dialog.c:202
 msgid ""
@@ -555,6 +555,9 @@ msgid ""
 "that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk."
 msgstr ""
+"Deze optie doet hetzelfde als de ververs, uitpakken van bestanden die "
+"nieuwer zijn dan die met dezelfde naam op de schijf. Hierbij pakt het ook "
+"de bestanden uit die nog niet op de schijf aanwezig zijn."
 
 #: ../src/extract_dialog.c:255 ../src/interface.c:139
 msgid "_Extract"
@@ -613,12 +616,11 @@ msgstr "Kies een bestemmings map waar je het archief in wilt uitpakken"
 
 #: ../src/lha.c:40
 msgid "UID/GID"
-msgstr ""
+msgstr "UID/GID"
 
 #: ../src/lha.c:40
-#, fuzzy
 msgid "Timestamp"
-msgstr "Tijd"
+msgstr "Timestamp"
 
 #: ../src/interface.c:73
 msgid "_File"
@@ -646,7 +648,7 @@ msgstr "_Weergeven"
 
 #: ../src/interface.c:176
 msgid "_Show comment"
-msgstr ""
+msgstr "_Toon commentaar"
 
 #: ../src/interface.c:191
 msgid "Sele_ct All"
@@ -658,16 +660,15 @@ msgstr "A_lles deselecteren"
 
 #: ../src/interface.c:208
 msgid "Co_mmand line output"
-msgstr ""
+msgstr "Co_mmand line uitvoer"
 
 #: ../src/interface.c:217
 msgid "Show I_SO info"
 msgstr "Toon I_SO informatie"
 
 #: ../src/interface.c:227
-#, fuzzy
 msgid "Reset passwo_rd"
-msgstr "Voer aub het wachtwoord in."
+msgstr "Wachtwoo_rd Resetten"
 
 #: ../src/interface.c:233
 msgid "_Help"
@@ -741,9 +742,8 @@ msgid "This archive contains password protected files"
 msgstr "Dit archief bevat beveiligde bestanden"
 
 #: ../src/interface.c:514
-#, fuzzy
 msgid "Close Archive"
-msgstr "Alleen archieven"
+msgstr "Archief Sluiten"
 
 #: ../src/interface.c:563
 msgid "Enter Archive Password"
@@ -779,7 +779,7 @@ msgstr "Inhoud grootte:"
 
 #: ../src/interface.c:722
 msgid "Has comment:"
-msgstr ""
+msgstr "Heeft commentaar:"
 
 #: ../src/interface.c:729
 msgid "Compression ratio:"
@@ -886,42 +886,36 @@ msgid "Effective date:"
 msgstr "Effectieve datum:"
 
 #: ../src/main.c:37
-#, fuzzy
 msgid ""
 "Extract archive to the directory specified by destination_path and quits."
-msgstr "Vraag om bestemmings-map, archief uitpakken en sluiten."
+msgstr ""
+"Archief uitpakken aan gespecificeerde bestemmings-map en sluiten."
 
 #: ../src/main.c:38
-#, fuzzy
 msgid "destination_path archive"
 msgstr "bestemmings-_map archief"
 
 #: ../src/main.c:41
-#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
 msgstr "Vraag om bestemmings-map, archief uitpakken en sluiten."
 
 #: ../src/main.c:42 ../src/main.c:50
-#, fuzzy
 msgid "archive"
-msgstr "Xarchiver"
+msgstr "archief"
 
 #: ../src/main.c:45
-#, fuzzy
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr "Bestanden toevoegen aan archief en sluiten"
+msgstr "Interactief bestanden toevoegen aan archief en sluiten"
 
 #: ../src/main.c:46
 msgid "file1 file2 file3 ... fileN"
 msgstr "bestand1 bestand2 ... bestandN"
 
 #: ../src/main.c:49
-#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
-msgstr "Vraag om bestemmings-map, archief uitpakken en sluiten."
+msgstr "Interactief bestanden toevoegen aan archief en afsluiten."
 
 #: ../src/main.c:62
-#, fuzzy
 msgid "[archive name]"
 msgstr "[archief naam]"
 
@@ -935,12 +929,10 @@ msgstr ""
 "Probeer xarchiver --help voor een lijst met beschikbare opties.\n"
 
 #: ../src/main.c:87 ../src/main.c:120
-#, fuzzy
 msgid "Can't extract files from the archive:"
-msgstr "Kan bestanden niet uitpakken van archief"
+msgstr "Kan bestanden niet uitpakken van archief:"
 
 #: ../src/main.c:87 ../src/main.c:120 ../src/main.c:211
-#, fuzzy
 msgid "You missed the archive name!\n"
 msgstr "Je bent de archief naam vergeten!\n"
 
@@ -953,35 +945,31 @@ msgid "An error occurred!"
 msgstr "Er is iets fout gegaan!"
 
 #: ../src/main.c:432
-#, fuzzy
 msgid "Can't allocate memory for the archive structure!"
-msgstr "Kan bestanden niet uitpakken van archief"
+msgstr "Kan geen geheugen alloceren voor de archief structuur!"
 
 #: ../src/new_dialog.c:51
 msgid "Cr_eate"
-msgstr ""
+msgstr "Mak_en"
 
 #: ../src/new_dialog.c:88
-#, fuzzy
 msgid "Archive type:"
-msgstr "Archief grootte:"
+msgstr "Archief type:"
 
 #: ../src/new_dialog.c:93
 msgid "Choose the archive type to create"
-msgstr ""
+msgstr "Kies het type voor het te maken archief"
 
 #: ../src/new_dialog.c:111
-#, fuzzy
 msgid "Add the archive extension to the filename"
-msgstr "Voeg interactief bestanden toe aan archief en sluit af"
+msgstr "Voeg de archief extentie toe aan de bestandsnaam"
 
 #: ../src/new_dialog.c:154
-#, fuzzy, c-format
+#, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr "Archief uitpakken naar %s"
+msgstr "Het archief \"%s\" bestaat al!"
 
 #: ../src/new_dialog.c:160
-#, fuzzy
 msgid "Do you want to overwrite it?"
 msgstr "Wilt u het overschrijven?"
 
@@ -1053,18 +1041,3 @@ msgstr "Archief beheerder"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
-
-#, fuzzy
-#~ msgid "Can't add files to the archive_cmd:"
-#~ msgstr "Kan bestanden niet toevoegen aan archief:"
-
-#, fuzzy
-#~ msgid "Can't allocate memory for the archive_cmd structure!"
-#~ msgstr "Kan bestanden niet uitpakken van archief"
-
-#, fuzzy
-#~ msgid "archive_cmd"
-#~ msgstr "archief"
-
-#~ msgid "This option can't be used with password protected archives!\n"
-#~ msgstr "Deze optie kan niet worden gebruikt met beveiligde archieven!\n"
