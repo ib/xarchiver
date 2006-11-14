@@ -4,3 +4,4 @@
 - loading and saving of add/extraction options and window size.
 - support tar on *BSD.
 - avoid reset of extract dialog options when loading a new archive.
+- add tooltip in the Add Dialog to tell user files and dir can be also DnD.

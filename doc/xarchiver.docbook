@@ -281,7 +281,7 @@
 				<section id="add">
 					<title>Add</title>
 						<para>
-							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is diabled when the archive doesn't support encryption.
+							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is disabled when the archive doesn't support encryption. Files and directories can be also added by dragging and dropping them from any file managers.
 						</para>
 						<para>
 							<figure>

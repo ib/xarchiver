@@ -148,7 +148,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_widget_set_sensitive ( check_menu , check);
 			gtk_widget_set_sensitive ( properties , info);
 			xa_hide_progress_bar_stop_button(archive);
-			xa_set_button_state (1,1,0,0,0,0);
+			xa_set_button_state (new,open,add,extract,exe,select);
 			Update_StatusBar ( _("Operation failed."));
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
@@ -387,6 +387,9 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	else
 		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
+	gtk_widget_set_sensitive ( close1 , 	FALSE);
+	gtk_widget_set_sensitive ( check_menu , FALSE);
+	gtk_widget_set_sensitive ( properties , FALSE);
 	xa_set_button_state ( 0,0,0,0,0,0);
 	switch ( archive[current_page]->type )
 	{
@@ -524,6 +527,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_widget_set_sensitive (check_menu,FALSE);
 		gtk_widget_set_sensitive (properties,FALSE);
 		gtk_widget_set_sensitive (close1,FALSE);
+		xa_set_button_state (1,1,0,0,0,0);
 		xa_set_window_title (MainWindow,NULL);
 	}
 	else if ( current_page == 1)
@@ -687,6 +691,10 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 	if (command != NULL)
 	{
+		gtk_widget_set_sensitive ( check_menu , FALSE);
+		gtk_widget_set_sensitive ( close1 , 	FALSE);
+		gtk_widget_set_sensitive ( properties , FALSE);
+		xa_set_button_state (0,0,0,0,0,0);
 		xa_run_command (command , 1);
 		g_free (command);
 	}

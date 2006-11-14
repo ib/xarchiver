@@ -81,7 +81,6 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 		g_io_channel_set_encoding (ioc, locale , NULL);
 		g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, archive->parse_output, archive);
-
 		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 	}
 	if (output_flag)

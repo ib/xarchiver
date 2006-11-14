@@ -23,6 +23,11 @@
 #include "callbacks.h"
 #include "support.h"
 
+static const GtkTargetEntry drop_targets[] =
+{
+	{ "text/uri-list", 0, 0 },
+};
+
 Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 {
 	Add_dialog_data *add_dialog;
@@ -86,7 +91,10 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (add_dialog->file_list_treeview), FALSE);
 	gtk_container_add (GTK_CONTAINER (add_dialog->scrolledwindow3), add_dialog->file_list_treeview);
 	gtk_widget_show (add_dialog->file_list_treeview);
-	g_signal_connect (G_OBJECT (add_dialog->file_liststore),"row-inserted",G_CALLBACK (activate_remove_button) , add_dialog);
+
+	gtk_drag_dest_set (add_dialog->file_list_treeview,GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+	g_signal_connect (G_OBJECT (add_dialog->file_liststore),	"row-inserted",		G_CALLBACK (activate_remove_button) , add_dialog);
+	g_signal_connect (G_OBJECT (add_dialog->file_list_treeview),"drag-data-received",G_CALLBACK (add_drag_data_received), add_dialog);
 
 	add_dialog->hbox1 = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (add_dialog->hbox1);
@@ -109,6 +117,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->directories_radio), FALSE);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->directories_radio), add_dialog->file_dir_radio_group);
 	add_dialog->file_dir_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->directories_radio));
+
 	if (archive->type != XARCHIVETYPE_LHA)
 		g_signal_connect (G_OBJECT (add_dialog->files_radio),"toggled",G_CALLBACK (toggle_recurse) , add_dialog);
 
@@ -358,6 +367,31 @@ void password_toggled_cb ( GtkButton* button , gpointer _add_dialog )
 		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
 }
 
+void add_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
+{
+	Add_dialog_data *add = user_data;
+	gchar **array = NULL;
+	gchar *filename;
+	unsigned int len = 0;
+
+	array = gtk_selection_data_get_uris ( data );
+	if (array == NULL)
+	{
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry, I could not perform the operation!") );
+		gtk_drag_finish (context, FALSE, FALSE, time);
+		return;
+	}
+	gtk_drag_finish (context, TRUE, FALSE, time);
+	while (array[len])
+	{
+		filename = g_filename_from_uri ( array[len] , NULL, NULL );
+		add_files_liststore (filename , add->file_liststore);
+		g_free (filename);
+		len++;
+	}
+	g_strfreev (array);
+}
+
 void activate_remove_button (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, Add_dialog_data *data)
 {
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(data->file_liststore), iter) == TRUE)
@@ -547,7 +581,10 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 				xa_cat_filenames ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
 				gtk_list_store_remove (add_dialog->file_liststore, &iter);
 			}
-			gtk_widget_set_sensitive (Stop_button , TRUE);
+			gtk_widget_set_sensitive ( Stop_button , TRUE);
+			gtk_widget_set_sensitive ( check_menu , FALSE);
+			gtk_widget_set_sensitive ( close1 , 	FALSE);
+			gtk_widget_set_sensitive ( properties , FALSE);
 			xa_set_button_state (0,0,0,0,0,0);
 			gtk_widget_hide (add_dialog->dialog1);
 
