@@ -2305,6 +2305,11 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 
 	if (command != NULL)
 	{
+		gtk_widget_set_sensitive ( Stop_button , TRUE);
+		gtk_widget_set_sensitive ( check_menu , FALSE);
+		gtk_widget_set_sensitive ( close1 , 	FALSE);
+		gtk_widget_set_sensitive ( properties , FALSE);
+		xa_set_button_state (0,0,0,0,0,0);
 		xa_run_command (command , 1);
 		g_free (command);
 	}
