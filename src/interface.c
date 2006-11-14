@@ -46,7 +46,6 @@ static const GtkTargetEntry drop_targets[] =
 };
 
 extern gboolean unrar;
-extern gint id;
 
 GtkWidget *create_MainWindow (void)
 {
@@ -482,7 +481,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 
 void xa_add_page (XArchive *archive)
 {
-	GtkWidget *page_hbox, *label, *close_button, *image;
+	GtkWidget *page_hbox, *label, *tab_label, *close_button, *image;
 	GtkTooltips *close_button_tips = gtk_tooltips_new();
 	gchar *filename_only;
 
@@ -498,13 +497,17 @@ void xa_add_page (XArchive *archive)
 	page_hbox = gtk_hbox_new(FALSE, 2);
 
 	filename_only = g_strrstr ( archive->path, "/" );
-    if (filename_only != NULL)
-    {
-        filename_only++;
+	if (filename_only != NULL)
+	{
+		filename_only++;
 		label = gtk_label_new (filename_only);
-    }
+		tab_label = gtk_label_new (filename_only);
+	}
 	else
+	{
 		label = gtk_label_new (archive->path);
+		tab_label = gtk_label_new (archive->path);
+	}
 
 	gtk_label_set_max_width_chars(GTK_LABEL(label), 50);
 	gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_START);
@@ -514,14 +517,15 @@ void xa_add_page (XArchive *archive)
 	gtk_tooltips_set_tip (close_button_tips, close_button, _("Close Archive"), NULL);
 	g_signal_connect (G_OBJECT(close_button), "clicked", G_CALLBACK(xa_close_page), (gpointer) archive->scrollwindow);
 
-    image = xa_main_window_find_image ("close.png", GTK_ICON_SIZE_MENU);
+	image = xa_main_window_find_image ("close.png", GTK_ICON_SIZE_MENU);
 	gtk_container_add (GTK_CONTAINER(close_button), image);
 	gtk_button_set_relief (GTK_BUTTON(close_button), GTK_RELIEF_NONE);
 	gtk_box_pack_end (GTK_BOX(page_hbox), close_button, FALSE, FALSE, 0);
 	gtk_widget_show_all (page_hbox);
 
-	gtk_notebook_append_page (notebook, archive->scrollwindow, page_hbox);
+	gtk_notebook_append_page_menu (notebook, archive->scrollwindow, page_hbox, tab_label);
 	gtk_notebook_set_current_page(notebook, -1);
+
 	archive->treeview = gtk_tree_view_new ();
 	gtk_container_add (GTK_CONTAINER (archive->scrollwindow), archive->treeview);
 	gtk_widget_show (archive->treeview);
