@@ -140,8 +140,6 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	response = gtk_dialog_run (GTK_DIALOG (xa_file_chooser));
 	current_new_directory = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) );
 
-
-
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		my_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
