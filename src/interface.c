@@ -129,7 +129,7 @@ GtkWidget *create_MainWindow (void)
   gtk_widget_set_sensitive (addfile,FALSE);
   gtk_widget_show (addfile);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
-  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   image2 = xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
@@ -187,11 +187,11 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
   gtk_widget_set_sensitive (separatormenuitem3, FALSE);
 
-  select_all = gtk_image_menu_item_new_with_mnemonic (_("Sele_ct All"));
+  select_all = gtk_image_menu_item_new_with_mnemonic (_("Select _All"));
   gtk_widget_show (select_all);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
   gtk_widget_set_sensitive (select_all, FALSE);
-  gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
   deselect_all = gtk_image_menu_item_new_with_mnemonic (_("Dese_lect All"));
   gtk_widget_show (deselect_all);
