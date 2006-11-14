@@ -25,6 +25,8 @@
 #include "main.h"
 
 extern gboolean unrar;
+extern gboolean cli;
+
 gchar *current_new_directory = NULL;
 gint new_combo_box = -1;
 
@@ -42,6 +44,8 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	gchar *my_path_ext = NULL;
 	gchar *basepath = NULL;
 	gchar *dirname = NULL;
+	gchar *current_dir = NULL;
+	gchar *new_dir = NULL;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
 							GTK_WINDOW (MainWindow),
@@ -120,16 +124,23 @@ XArchive *xa_new_archive_dialog (gchar *path)
 		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (xa_file_chooser),basepath);
 
 		dirname = g_path_get_dirname (path);
-		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (xa_file_chooser),dirname);
+		current_dir = g_get_current_dir ();
+		new_dir = g_strconcat (current_dir,dirname,NULL);
+		g_free (current_dir);
+		g_free (dirname);
+
+		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (xa_file_chooser) , new_dir);
+
+		g_free (basepath);
+		g_free (new_dir);
 	}
 	gtk_window_set_modal (GTK_WINDOW (xa_file_chooser),TRUE);
 	if (current_new_directory != NULL)
 		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) , current_new_directory );
-
 	response = gtk_dialog_run (GTK_DIALOG (xa_file_chooser));
 	current_new_directory = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) );
-	g_free (basepath);
-	g_free (dirname);
+
+
 
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
