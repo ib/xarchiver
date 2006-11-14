@@ -2,7 +2,7 @@ Xarchiver changelog:
 
 0x/11/06 - 0.4.4:
 		- G R E A T L Y improved speed and memory usage.
-		- Added documentation. It will be showed in the system installed browser (currently firefox, opera and mozilla).
+		- Added documentation. It will be showed in the system browser (currently supported are firefox, opera and mozilla).
 		- Added comment support for ARJ and ZIP. The rar one is more difficult since it's compressed in the archive itself.
 		- The files/ directories to add can be dropped into the add dialog window.
 		- Extracting files in encrypted archives with DnD no more fails since the password it's now asked.

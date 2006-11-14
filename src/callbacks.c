@@ -2436,7 +2436,9 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 	comment_window = view_win ( _("Archive comment window") );
-	gtk_text_buffer_insert (viewtextbuf, &viewenditer, archive[idx]->comment->str, archive[idx]->comment->len);
+	gtk_text_buffer_create_tag (viewtextbuf, "bold","weight", PANGO_WEIGHT_BOLD, NULL);
+	gtk_text_buffer_insert (viewtextbuf, &viewenditer, "\n", 1);
+	gtk_text_buffer_insert_with_tags_by_name (viewtextbuf, &viewenditer, archive[idx]->comment->str, archive[idx]->comment->len, "bold", NULL);
 	gtk_widget_show (comment_window);
 }
 
