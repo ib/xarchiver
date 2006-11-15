@@ -339,7 +339,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	}
 
 	archive[current_page]->path = g_strdup (path);
-	g_free (path);
 	archive[current_page]->escaped_path = EscapeBadChars ( archive[current_page]->path , "$\'`\"\\!?* ()&|@#:;" );
 
 	xa_add_page (archive[current_page]);
@@ -369,8 +368,10 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		gtk_widget_set_sensitive ( properties , FALSE );
 		g_free (utf8_path);
 		g_free (msg);
+		g_free (path);
 		return;
 	}
+	g_free (path);
 	EmptyTextBuffer();
 
 	//Does the user open an archive from the command line whose archiver is not installed ?
