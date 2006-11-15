@@ -30,28 +30,30 @@ GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size)
 	GError *error = NULL;
     GtkWidget *file_image;
 	gchar *path;
-	path = g_strconcat(DATADIR, "/xarchiver/pixmaps/", filename, NULL);
-	GdkPixbuf *file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
-	if(!file_pixbuf)
+	GdkPixbuf *file_pixbuf = NULL;
+
+	path = g_strconcat("/usr/share/", "/xarchiver/pixmaps/", filename, NULL);
+	file_pixbuf = gdk_pixbuf_new_from_file (path, &error);
+	g_free (path);
+	if ( file_pixbuf == NULL )
 	{
 		/* perhaps xarchiver has not been installed and is being executed from source dir */
 		g_free (error);
-		g_free (path);
 		error = NULL;
 		path = g_strconcat("./pixmaps/", filename, NULL);
-		file_pixbuf = gdk_pixbuf_new_from_file(path, &error);
+		file_pixbuf = gdk_pixbuf_new_from_file (path, &error);
+		g_free(path);
     }
     if (file_pixbuf)
     {
-		file_image = gtk_image_new_from_pixbuf(file_pixbuf);
-		g_object_unref(file_pixbuf);
+		file_image = gtk_image_new_from_pixbuf (file_pixbuf);
+		g_object_unref (file_pixbuf);
     }
     else
 	{
 		g_free(error);
 		file_image = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, size);
     }
-    g_free(path);
     return file_image;
 }
 
