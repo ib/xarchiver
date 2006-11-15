@@ -519,10 +519,12 @@ void xa_add_page (XArchive *archive)
 
 	image = xa_main_window_find_image ("close.png", GTK_ICON_SIZE_MENU);
 	gtk_container_add (GTK_CONTAINER(close_button), image);
+	gtk_widget_set_size_request(close_button, 19, 18);
 	gtk_button_set_relief (GTK_BUTTON(close_button), GTK_RELIEF_NONE);
 	gtk_box_pack_end (GTK_BOX(page_hbox), close_button, FALSE, FALSE, 0);
 	gtk_widget_show_all (page_hbox);
 
+	gtk_misc_set_alignment(GTK_MISC(tab_label), 0.0, 0);
 	gtk_notebook_append_page_menu (notebook, archive->scrollwindow, page_hbox, tab_label);
 	gtk_notebook_set_current_page(notebook, -1);
 

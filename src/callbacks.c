@@ -307,12 +307,22 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 {
 	gchar *path = NULL;
 	gint current_page;
-
+	gint x;
 	path = (gchar *)data;
 	if ( path == NULL)
     {
 		path = xa_open_file_dialog ();
 		if (path == NULL)
+			return;
+	}
+
+	/* Let's check if the archive is already opened */
+	for (x = 0; x < gtk_notebook_get_n_pages ( notebook) ; x++)
+	{
+		current_page = xa_find_archive_index ( x );
+		if (current_page == -1)
+			break;
+		if (strstr (path,archive[current_page]->path) )
 			return;
 	}
 
@@ -2219,7 +2229,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
-
 	array = gtk_selection_data_get_uris ( data );
 	if (array == NULL)
 	{
