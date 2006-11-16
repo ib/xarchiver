@@ -322,7 +322,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		current_page = xa_find_archive_index ( x );
 		if (current_page == -1)
 			break;
-		if (strstr (path,archive[current_page]->path) )
+		if (strcmp (path,archive[current_page]->path) == 0)
 			return;
 	}
 
@@ -393,10 +393,12 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 
 	gtk_widget_set_sensitive (Stop_button,TRUE);
 	gtk_widget_show ( viewport2 );
+
 	if ( archive[current_page]->type == XARCHIVETYPE_ISO )
 		Update_StatusBar ( _("Please wait while the content of the ISO image is being read..."));
 	else
 		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
+
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	gtk_widget_set_sensitive ( close1 , 	FALSE);
 	gtk_widget_set_sensitive ( check_menu , FALSE);
@@ -538,6 +540,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_widget_set_sensitive (check_menu,FALSE);
 		gtk_widget_set_sensitive (properties,FALSE);
 		gtk_widget_set_sensitive (close1,FALSE);
+		OffDeleteandViewButtons();
 		xa_set_button_state (1,1,0,0,0,0);
 		xa_set_window_title (MainWindow,NULL);
 	}

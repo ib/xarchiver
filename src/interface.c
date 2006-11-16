@@ -434,6 +434,18 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 
 	xa_set_window_title (MainWindow , archive[id]->path);
 	gtk_widget_set_sensitive ( iso_info,FALSE );
+
+	if (archive[id]->status == XA_ARCHIVESTATUS_IDLE)
+	{
+		gtk_widget_set_sensitive ( Stop_button , FALSE);
+		return;
+	}
+	else
+	{
+		gtk_widget_set_sensitive ( Stop_button , TRUE);
+		return;
+	}
+
 	if ( archive[id]->type == XARCHIVETYPE_BZIP2 || archive[id]->type == XARCHIVETYPE_GZIP )
 	{
 		new = open = TRUE;
