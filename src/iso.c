@@ -475,6 +475,11 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 	if (archive->full_path == 0)
 	{
 		filename = g_strconcat (destination_path , g_strrstr ( _filename , "/" ) , NULL);
+		if (archive->overwrite == FALSE && g_file_test ( filename , G_FILE_TEST_EXISTS) == TRUE)
+		{
+			g_free (filename);
+			return TRUE;
+		}
 		result = xa_write_file_to_disk ( archive->path, filename, file_size, file_offset );
 		g_free (filename);
 		return result;
@@ -496,6 +501,11 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 		}
 	}
 	final_path = g_strconcat (destination_path, _filename, NULL);
+	if (archive->overwrite == FALSE && g_file_test ( final_path , G_FILE_TEST_EXISTS) == TRUE)
+	{
+		g_free (final_path);
+		return TRUE;
+	}
 	result = xa_write_file_to_disk ( archive->path, final_path, file_size, file_offset );
 	g_free (final_path);
 	return result;

@@ -5,4 +5,5 @@
 - support tar on *BSD.
 - avoid reset of extract dialog options when loading a new archive.
 - add tooltip in the Add Dialog to tell user files and dir can be also DnD.
-- ability to create directly sfx archives through the Add dialog.
+- ability to create sfx archives through the Add dialog for those archives which support it.
+- ability to create a comment to the archive through the Add dialog.
