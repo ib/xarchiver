@@ -54,10 +54,8 @@ GtkWidget *create_MainWindow (void)
 
 	MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	xa_set_window_title (MainWindow , NULL);
-  /* By using GDK_ACTION_MOVE GDK_ACTION_MOVE GDK_ACTION_LINK GDK_ACTION_ASK we should have KDE DnD compatibility. */
-	gtk_drag_dest_set (MainWindow,GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+
 	gtk_window_set_default_icon_from_file (DATADIR "/pixmaps/xarchiver.png", NULL  );
-	g_signal_connect (G_OBJECT (MainWindow), "drag-data-received",	G_CALLBACK (on_drag_data_received), NULL);
 	g_signal_connect (G_OBJECT (MainWindow), "delete-event", G_CALLBACK (xa_quit_application), NULL);
 
 	/* Create the menus */
@@ -345,6 +343,9 @@ GtkWidget *create_MainWindow (void)
 	gtk_notebook_popup_enable (notebook);
 	gtk_widget_show (GTK_WIDGET(notebook));
 	g_signal_connect ((gpointer) notebook, "switch-page", G_CALLBACK (xa_page_has_changed), NULL);
+
+	gtk_drag_dest_set (GTK_WIDGET(notebook),GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK |	GDK_ACTION_ASK);
+	g_signal_connect (G_OBJECT (notebook), "drag-data-received",	G_CALLBACK (on_drag_data_received), NULL);
 
   	hbox_sb = gtk_hbox_new (FALSE, 2);
 	gtk_widget_show (hbox_sb);
