@@ -1970,16 +1970,25 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 	g_free (filename);
 }
 
-void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
+void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
 {
 	gchar *fullname;
 	gchar *name;
 
 	gtk_tree_model_get (model, iter, 1, &fullname, -1);
 	name = g_path_get_basename ( fullname );
-	g_free (fullname);
+
 	ConcatenateFileNames2 ( name , data );
-	g_free (name);
+	g_free (fullname);
+}
+
+void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
+{
+	gchar *fullname;
+
+	gtk_tree_model_get (model, iter, 1, &fullname, -1);
+	ConcatenateFileNames2 ( fullname , data );
+	g_free (fullname);
 }
 
 gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )

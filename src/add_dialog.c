@@ -188,7 +188,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->remove_files, FALSE, FALSE, 0);
 	}
 
-	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_LHA)
+	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 	{
 		add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->add_full_path), archive->full_path);
@@ -576,10 +576,23 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			 /* Let's concatenate the files to add */
 			names = g_string_new ( " " );
 			archive->status = XA_ARCHIVESTATUS_ADD;
-			while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
+
+			if ( archive->full_path == 1 && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ) )
 			{
-				xa_cat_filenames ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
-				gtk_list_store_remove (add_dialog->file_liststore, &iter);
+				while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
+				{
+					xa_cat_filenames_basename ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
+					gtk_list_store_remove (add_dialog->file_liststore, &iter);
+				}
+			}
+
+			else
+			{
+				while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
+				{
+					xa_cat_filenames ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
+					gtk_list_store_remove (add_dialog->file_liststore, &iter);
+				}
 			}
 			gtk_widget_set_sensitive ( Stop_button , TRUE);
 			gtk_widget_set_sensitive ( check_menu , FALSE);
