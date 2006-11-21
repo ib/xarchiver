@@ -216,6 +216,14 @@
 					Xarchiver will run in the background the cmd-line executable of the archiver with the archiver's proper switches to perform the selected operation. If something goes wrong Xarchiver reports the full output of the archiver executable in the command line output window.
 				</para>
 			</section>
+			<section id="dnd">
+				<title>Drag and Drop</title>
+				<para>
+					Xarchiver supports drag and drop through the <ulink url="http://freedesktop.org/wiki/Standards_2fdirect_2dsave">
+				<citetitle>XDS protocol</citetitle></ulink>. Currently only <ulink url="http://thunar.xfce.org/index.html">
+				<citetitle>Thunar</citetitle></ulink> file manager supports it. Files and directories can dragged from Thunar window to Xarchiver and vice versa. If its window is empty (no archives open) Xarchiver will prompt the user with the <xref linkend="new_dialog"/> asking for the filename and the archive type to be created; after which the dragged files will be added. If the dragged file is a supported archive type Xarchiver will open it instead of prompting the new dialog.
+				</para>
+			</section>
 		</section>
 		<section id="menu">
 			<title>Xarchiver menu</title>
@@ -229,7 +237,7 @@
 							the archive already exists and you choose to overwrite it, the existing archive will be deleted.
 						</para>
 						<para>
-							<figure>
+							<figure id="new_dialog">
 								<title>New dialog</title>
 									<graphic fileref="images/new_dialog.png"></graphic>
 							</figure>
@@ -321,6 +329,12 @@
 							Opens a window containing the ASCII dump of the selected ASCII file. If a file in the archive is encoded with a different enconding than in use by the system you will get an error message. See the <xref linkend="sixth"/> for a possible solution.
 						</para>
 				</section>
+				<section id="comment">
+					<title>Show Comment</title>
+						<para>
+							If the current archive contains a comment this menu entry opens a window showing it.
+						</para>
+				</section>
 				<section id="select">
 					<title>Select</title>
 						<para>
@@ -351,13 +365,13 @@
 							</figure>
 						</para>
 				</section>
-			</section>
 			<section id="reset_password">
 					<title>Reset password</title>
 						<para>
 							Clears the current password. The result of the operation is shown in the status bar. This option is useful when extracting files using Drag and Drop, allowing the user to choose another password if he entered it incorrectly.
 						</para>
 				</section>
+			</section>
 			<section id="help_menu">
 				<title>Help Menu</title>
 					<section id="help">
