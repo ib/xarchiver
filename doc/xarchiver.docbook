@@ -221,7 +221,7 @@
 				<para>
 					Xarchiver supports drag and drop through the <ulink url="http://freedesktop.org/wiki/Standards_2fdirect_2dsave">
 				<citetitle>XDS protocol</citetitle></ulink>. Currently only <ulink url="http://thunar.xfce.org/index.html">
-				<citetitle>Thunar</citetitle></ulink> file manager supports it. Files and directories can dragged from Thunar window to Xarchiver and vice versa. If its window is empty (no archives open) Xarchiver will prompt the user with the <xref linkend="new_dialog"/> asking for the filename and the archive type to be created; after which the dragged files will be added. If the dragged file is a supported archive type Xarchiver will open it instead of prompting the new dialog.
+				<citetitle>Thunar</citetitle></ulink> file manager supports it. Files and directories can dragged from Thunar window to Xarchiver and vice versa. If its window is empty (no archives open) Xarchiver will prompt the user with the <xref linkend="new_dialog"/> asking for the filename and the archive type to be created; after which the dragged files will be added. If the dragged file is a supported archive Xarchiver will open it instead of prompting the new dialog.
 				</para>
 			</section>
 		</section>
