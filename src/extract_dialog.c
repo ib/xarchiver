@@ -545,6 +545,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					g_timeout_add (200, xa_progressbar_pulse, NULL );
 					while (end)
 					{
+						xa_set_button_state (0,0,0,0,0,0);
 						if (stop_flag)
 							break;
 						gtk_tree_model_get (archive->model, &iter,
@@ -768,6 +769,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			row_list = gtk_tree_selection_get_selected_rows (selection, &archive->model);
 			while (row_list)
 			{
+				xa_set_button_state (0,0,0,0,0,0);
 				if (stop_flag)
 					break;
 				gtk_tree_model_get_iter(archive->model, &iter, row_list->data);
