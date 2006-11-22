@@ -19,6 +19,9 @@
 #ifndef STRING_UTILS_H
 #define STRING_UTILS_H
 
+#ifndef HAVE_STRCASESTR
+const char *strcasestr(const char *haystack, const char *needle);
+#endif
 gchar *EscapeBadChars ( gchar *string , gchar *pattern);
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path );
 int CountCharacter ( gchar *string , int chr );
@@ -29,7 +32,7 @@ char *escape_str_common (const char *str, const char *meta_chars, const char  pr
 char *eat_spaces (char *line);
 gchar *remove_level_from_path (const gchar *path);
 gboolean file_extension_is (const char *filename, const char *ext);
-gchar *extract_local_path (gchar *path , gchar *filename);
+gchar *extract_local_path (gchar *path);
 void xa_set_window_title ( GtkWidget *window , gchar *title);
 #endif
 

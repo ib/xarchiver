@@ -38,34 +38,6 @@ gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix , *Name;
 
-#ifndef HAVE_STRCASESTR
-/*
- * case-insensitive version of strstr()
- */
-const char *strcasestr(const char *haystack, const char *needle)
-{
-	const char *h;
-	const char *n;
-
-	h = haystack;
-	n = needle;
-	while (*haystack)
-	{
-		if (tolower((unsigned char) *h) == tolower((unsigned char) *n))
-		{
-			h++;
-			n++;
-			if (!*n)
-				return haystack;
-		} else {
-			h = ++haystack;
-			n = needle;
-		}
-	}
-	return NULL;
-}
-#endif /* !HAVE_STRCASESTR */
-
 void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
@@ -2137,12 +2109,11 @@ void drag_end (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data)
 {
 	GtkTreeSelection *selection;
-	GtkTreeIter iter;
 	guchar *fm_path;
 	int fm_path_len;
-	gchar *command , *no_uri_path , *name;
+	gchar *command , *no_uri_path;
 	gchar *to_send = "E";
-	GList *row_list, *_row_list;
+	GList *row_list;
 	GString *names;
 	gint current_page;
 	gint idx;
@@ -2152,7 +2123,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
 
-	row_list = _row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
+	row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL)
 		return;
 	if ( archive[idx]->status == XA_ARCHIVESTATUS_EXTRACT )
@@ -2189,11 +2160,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 				}
 			}
 		}
-		gtk_tree_model_get_iter(archive[idx]->model, &iter, (GtkTreePath*)(_row_list->data));
-		gtk_tree_model_get (archive[idx]->model, &iter, 0, &name, -1);
-
-		archive[idx]->extraction_path = extract_local_path ( no_uri_path , name );
-		g_free (name);
+		archive[idx]->extraction_path = extract_local_path ( no_uri_path );
 		g_free ( no_uri_path );
 		if (archive[idx]->extraction_path != NULL)
 			to_send = "S";
@@ -2243,9 +2210,9 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	array = gtk_selection_data_get_uris ( data );
-	if (array == NULL)
+	if (array == NULL || GTK_WIDGET_VISIBLE (viewport2) )
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry, I could not perform the operation!") );
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"" );
 		gtk_drag_finish (context, FALSE, FALSE, time);
 		return;
 	}

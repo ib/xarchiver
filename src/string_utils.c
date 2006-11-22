@@ -62,6 +62,34 @@ static char *mkdtemp (gchar *tmpl)
 }
 #endif
 
+#ifndef HAVE_STRCASESTR
+/*
+ * case-insensitive version of strstr()
+ */
+const char *strcasestr(const char *haystack, const char *needle)
+{
+	const char *h;
+	const char *n;
+
+	h = haystack;
+	n = needle;
+	while (*haystack)
+	{
+		if (tolower((unsigned char) *h) == tolower((unsigned char) *n))
+		{
+			h++;
+			n++;
+			if (!*n)
+				return haystack;
+		} else {
+			h = ++haystack;
+			n = needle;
+		}
+	}
+	return NULL;
+}
+#endif /* !HAVE_STRCASESTR */
+
 gchar *EscapeBadChars ( gchar *string , gchar *pattern)
 {
 	return escape_str_common (string, pattern, '\\', 0);
@@ -236,23 +264,12 @@ gboolean file_extension_is (const char *filename, const char *ext)
 }
 /* End code from File-Roller */
 
-gchar *extract_local_path (gchar *path , gchar *filename)
+gchar *extract_local_path (gchar *path)
 {
     gchar *local_path;
     gchar *local_escaped_path;
-	unsigned short int x;
 
-	gchar *no_path = g_strrstr (filename , "/");
-	if (no_path != NULL)
-	{
-		no_path++;
-	    x = strlen (path) - strlen ( no_path );
-	}
-	else
-		x = strlen (path) - strlen ( filename );
-    local_path = (gchar *) g_malloc ( x + 1);
-    strncpy ( local_path, path, x );
-    local_path [x] = '\000';
+    local_path = g_path_get_dirname (path);
     local_escaped_path = EscapeBadChars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
     g_free (local_path);
     return local_escaped_path;
