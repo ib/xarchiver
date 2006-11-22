@@ -1,6 +1,7 @@
 bin_PROGRAMS = xarchiver
 
 xarchiver_SOURCES = \
+	socket.c socket.h \
 	main.c main.h \
 	string_utils.c string_utils.h \
 	support.c support.h \

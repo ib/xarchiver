@@ -16,25 +16,21 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef MAIN_H
-#define MAIN_H
 
-#include <gtk/gtk.h>
-#include <glib.h>
-#include "interface.h"
-#include "new_dialog.h"
-#include "archive.h"
-#include "callbacks.h"
+#ifndef XARCHIVER_SOCKET_H
+#define XARCHIVER_SOCKET_H
 
-GtkWidget *MainWindow;
-GList *ArchiveSuffix;
-GList *ArchiveType;
-const gchar *locale;
+struct
+{
+	gboolean	 ignore_socket;
+	gchar		*file_name;
+	GIOChannel	*read_ioc;
+	gint 		 lock_socket;
+	gint 		 lock_socket_tag;
+} socket_info;
 
-void GetAvailableCompressors();
-void xa_set_button_state ( gboolean, gboolean,gboolean,gboolean, gboolean, gboolean );
-gchar *get_argv_filename(const gchar *filename);
-gboolean SpawnSyncCommand ( gchar *command );
-XArchive *xa_init_structure_from_cmd_line (char *filename);
-#endif /* MAIN_H */
+gint socket_init (gint argc, gchar **argv);
+gboolean socket_lock_input_cb(GIOChannel *source, GIOCondition condition, gpointer data);
+gint socket_finalize();
 
+#endif

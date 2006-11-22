@@ -2122,8 +2122,8 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	idx = xa_find_archive_index (current_page);
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
-
 	row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
+
 	if ( row_list == NULL)
 		return;
 	if ( archive[idx]->status == XA_ARCHIVESTATUS_EXTRACT )

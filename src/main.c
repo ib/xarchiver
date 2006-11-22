@@ -20,6 +20,10 @@
 #include "main.h"
 #include "string_utils.h"
 
+#ifdef HAVE_SOCKET
+#include "socket.h"
+#endif
+
 gint exit_status;
 gchar *cli_command = NULL;
 gchar *absolute_path = NULL;
@@ -60,6 +64,19 @@ int main (int argc, char **argv)
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 	#endif
+
+#ifdef HAVE_SOCKET
+	socket_info.lock_socket = -1;
+	socket_info.lock_socket_tag = 0;
+	socket_info.lock_socket = socket_init(argc, argv);
+
+	if (socket_info.lock_socket < 0)
+	{
+		// Socket exists
+		if (argc > 1)	// filenames were sent to first instance, so quit
+			return 0;
+	}
+#endif
 	gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
 	g_get_charset (&locale);
 	if ( cli_error != NULL )
@@ -217,11 +234,35 @@ done:	g_list_free ( ArchiveSuffix);
 			current_open_directory = g_path_get_dirname (dummy);
 			xa_open_archive ( NULL , dummy );
 		}
+		#ifdef HAVE_SOCKET
+		if (! socket_info.ignore_socket && socket_info.lock_socket > 0)
+		{
+			socket_info.read_ioc = g_io_channel_unix_new(socket_info.lock_socket);
+			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc,	G_IO_IN|G_IO_PRI|G_IO_ERR, socket_lock_input_cb, MainWindow);
+		}
+		#endif
 		gtk_main ();
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
 		return 0;
 	}
+}
+
+gchar *get_argv_filename(const gchar *filename)
+{
+	gchar *result;
+
+	if (g_path_is_absolute(filename))
+		result = g_strdup(filename);
+	else
+	{
+		//use current dir
+		gchar *cur_dir = g_get_current_dir();
+		result = g_strjoin(
+			G_DIR_SEPARATOR_S, cur_dir, filename, NULL);
+		g_free(cur_dir);
+	}
+	return result;
 }
 
 void GetAvailableCompressors()
