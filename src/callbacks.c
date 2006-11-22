@@ -551,6 +551,9 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	if (current_open_directory != NULL)
 		g_free (current_open_directory);
 
+#ifdef HAVE_SOCKET
+	socket_finalize();
+#endif
 	gtk_main_quit();
 }
 

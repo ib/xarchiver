@@ -1,10 +1,7 @@
-pixmapdir = $(pkgdatadir)/pixmaps
-pixmap_DATA =			\
-	add.png			\
-	add_button.png		\
-	extract.png		\
-	extract_button.png	\
-	close.png
+# Inspired by Makefile.am from the Thunar file-manager
 
-EXTRA_DIST =								\
-	$(pixmap_DATA)
+pixmapsdir = $(datadir)/pixmaps/xarchiver
+
+pixmaps_DATA = add.png extract.png close.png add_button.png extract_button.png
+
+EXTRA_DIST = $(pixmaps_DATA)
