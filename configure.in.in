@@ -90,10 +90,12 @@ XDT_FEATURE_DEBUG()
 
 AC_OUTPUT([
 Makefile
-pixmaps/Makefile
 po/Makefile.in
 src/Makefile
 doc/Makefile
+icons/Makefile
+icons/48x48/Makefile
+pixmaps/Makefile
 ])
 
 dnl *********************
