@@ -49,13 +49,18 @@ extern gboolean unrar;
 
 GtkWidget *create_MainWindow (void)
 {
+	GdkPixbuf *icon;
+	GtkIconTheme *icon_theme;
+
 	tooltips = gtk_tooltips_new ();
 	accel_group = gtk_accel_group_new ();
 
 	MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	xa_set_window_title (MainWindow , NULL);
 
-	gtk_window_set_default_icon_from_file (DATADIR "/pixmaps/xarchiver.png", NULL  );
+	icon_theme = gtk_icon_theme_get_default();
+	icon = gtk_icon_theme_load_icon(icon_theme, "xarchiver", 24, 0, NULL);
+	gtk_window_set_icon (GTK_WINDOW(MainWindow),icon);
 	g_signal_connect (G_OBJECT (MainWindow), "delete-event", G_CALLBACK (xa_quit_application), NULL);
 
 	/* Create the menus */

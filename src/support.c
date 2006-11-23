@@ -32,7 +32,7 @@ GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size)
 	gchar *path;
 	GdkPixbuf *file_pixbuf = NULL;
 
-	path = g_strconcat("/usr/share/icons/48x48/", filename, NULL);
+	path = g_strconcat("/pixmaps/xarchiver/", filename, NULL);
 	file_pixbuf = gdk_pixbuf_new_from_file (path, &error);
 	g_free (path);
 	if ( file_pixbuf == NULL )
