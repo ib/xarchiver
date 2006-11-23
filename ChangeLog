@@ -1,10 +1,11 @@
 Xarchiver changelog:
 
-0x/11/06 - 0.4.4:
+23/11/06 - 0.4.4:
 		- G R E A T L Y improved speed and memory usage.
 		- Added documentation. It will be showed in the system browser (currently supported are firefox, opera and mozilla).
+		- Added Firefox like tabs.
 		- Added comment support for ARJ and ZIP. The rar one is more difficult since it's compressed in the archive itself.
-		- The files/ directories to add can be dropped into the add dialog window.
+		- The files and directories to add can be dropped into the add dialog window.
 		- Extracting files in encrypted archives with DnD no more fails since the password it's now asked.
 		- Better behaviour of the GUI while archive operations are in progress.
 		- Fixed unsuccessful open of rpm archives when the cpio archive was compressed with bzip2.c.
