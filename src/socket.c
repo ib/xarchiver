@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "socket.h"
+#include "callbacks.h"
 
 static gint socket_fd_connect_unix	(const gchar *path);
 static gint socket_fd_open_unix		(const gchar *path);

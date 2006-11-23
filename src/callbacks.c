@@ -26,6 +26,7 @@
 #include "interface.h"
 #include "support.h"
 #include "main.h"
+#include "socket.h"
 #include "new_dialog.h"
 
 extern GList *ArchiveType;
