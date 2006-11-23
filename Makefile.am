@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS =							\
 	1.8								\
 	dist-bzip2
 
-SUBDIRS = po src doc
+SUBDIRS = icons pixmaps po src doc
 
 wrapperdir = $(libexecdir)/thunar-archive-plugin/
 wrapper_SCRIPTS = xarchiver.tap
