@@ -542,7 +542,7 @@ void xa_add_page (XArchive *archive)
 	gtk_tooltips_set_tip (close_button_tips, close_button, _("Close Archive"), NULL);
 	g_signal_connect (G_OBJECT(close_button), "clicked", G_CALLBACK(xa_close_page), (gpointer) archive->scrollwindow);
 
-	image = xa_main_window_find_image ("close.png", GTK_ICON_SIZE_MENU);
+	image = xa_main_window_find_image ("xarchiver-close.png", GTK_ICON_SIZE_MENU);
 	gtk_container_add (GTK_CONTAINER(close_button), image);
 	gtk_widget_set_size_request(close_button, 19, 18);
 	gtk_button_set_relief (GTK_BUTTON(close_button), GTK_RELIEF_NONE);
