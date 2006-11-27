@@ -134,7 +134,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
   gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  image2 = xa_main_window_find_image ("add_button.png", GTK_ICON_SIZE_MENU);
+  image2 = xa_main_window_find_image ("xarchiver-add_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
 
@@ -144,7 +144,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
   gtk_widget_add_accelerator (extract_menu, "activate",accel_group,GDK_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  image2 =  xa_main_window_find_image ("extract_button.png", GTK_ICON_SIZE_MENU);
+  image2 =  xa_main_window_find_image ("xarchiver-extract_button.png", GTK_ICON_SIZE_MENU);
   gtk_widget_show (image2);
   gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu), image2);
 
@@ -274,7 +274,7 @@ GtkWidget *create_MainWindow (void)
 	gtk_widget_show (separatortoolitem1);
 	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem1);
 
-	tmp_image = xa_main_window_find_image("add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
+	tmp_image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show (tmp_image);
 	AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Add"));
 	gtk_widget_set_sensitive (AddFile_button,FALSE);
@@ -283,7 +283,7 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (toolbar1), AddFile_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFile_button), tooltips, _("Add files and directories to the current archive"), NULL);
 
-	tmp_image = xa_main_window_find_image("extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
+	tmp_image = xa_main_window_find_image("xarchiver-extract.png", GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show (tmp_image);
 	Extract_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Extract"));
 	gtk_widget_set_sensitive (Extract_button,FALSE);

@@ -1,5 +1,8 @@
 Xarchiver changelog:
 
+27/11/06 - 0.4.5:
+		- Fixed code in support.c to load the images when installing the software.
+
 23/11/06 - 0.4.4:
 		- G R E A T L Y improved speed and memory usage.
 		- Added documentation. It will be showed in the system browser (currently supported are firefox, opera and mozilla).

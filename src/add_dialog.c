@@ -312,7 +312,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	GTK_WIDGET_SET_FLAGS (add_dialog->cancel_button, GTK_CAN_DEFAULT);
 
 	add_dialog->add_button = gtk_button_new();
-	add_dialog->add_image = xa_main_window_find_image("add_button.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	add_dialog->add_image = xa_main_window_find_image("xarchiver-add_button.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
 	add_dialog->add_hbox = gtk_hbox_new(FALSE, 4);
 	add_dialog->add_label = gtk_label_new_with_mnemonic(_("_Add"));
 
