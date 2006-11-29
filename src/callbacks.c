@@ -2364,12 +2364,24 @@ void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 	gchar *argv[3];
 	gchar *browser_path;
 
-	browser_path = g_find_program_in_path ("firefox");
+	browser_path = g_find_program_in_path ("htmlview");
+	if ( browser_path == NULL)
+		browser_path = g_find_program_in_path ("firefox");
+
 	if ( browser_path == NULL)
 		browser_path = g_find_program_in_path ("opera");
 
 	if ( browser_path == NULL)
 		browser_path = g_find_program_in_path ("mozilla");
+
+	if ( browser_path == NULL)
+		browser_path = g_find_program_in_path ("epiphany");
+
+	if ( browser_path == NULL)
+		browser_path = g_find_program_in_path ("konqueror");
+
+	if ( browser_path == NULL)
+		browser_path = g_find_program_in_path ("seamonkey");
 
 	argv[0] = browser_path;
 	argv[1] = (gchar *) link;
