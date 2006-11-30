@@ -14,7 +14,7 @@
 
         * sv.po : Swedish translation update 
 
-2006-11-11  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-11-11  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Greek translation update
 
@@ -88,7 +88,7 @@
 
         * eu.po: Basque translation update.
 
-2006-10-22  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-10-22  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Greek translation update
 
@@ -206,7 +206,7 @@
 
 	* fi.po: Updated Finnish translation.
 
-2006-08-04  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-08-04  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Greek translation update.
 
@@ -222,7 +222,7 @@
 	* de.po: Updated German translations by Enrico Tröger
 	<enrico.troeger@uvena.de>
 
-2006-07-22  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-07-22  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Greek translation update.
 
@@ -231,7 +231,7 @@
 	* fr.po: Updated French translations by Maximilian Schleiss
 	<maxschleiss@bluewin.ch>
 
-2006-07-20  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-07-20  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Greek translation update.
 
@@ -254,7 +254,7 @@
 	* de.po: Updated German translations from Enrico Tröger
 	<enrico.troeger@uvena.de>
 
-2006-07-07  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-07-07  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Greek translation update.
 
@@ -278,7 +278,7 @@
 
 	* fi.po: Updated Finnish translation.
 
-2006-06-11  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-06-11  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Updated Greek translations.
 
@@ -330,7 +330,7 @@
 	* pl.po: Updated Polish translations by Szymon Kalasz
 	  <szymon_maestro@gazeta.pl>.
 
-2006-05-27  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-05-27  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Greek translation update.
 
@@ -343,7 +343,7 @@
 	* ja.po: Updated Japanese translations.
 	* xarchiver.pot, *.po: Updated.
 
-2006-05-26  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-05-26  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Greek translation update.
 
@@ -404,7 +404,7 @@
 	* hu.po: Added Hungary translation.
 	* xarchiver.pot, *.po: Updated .pot.
 
-2006-04-24  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-04-24  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po, nl.po: Greek translation update.
 
@@ -427,7 +427,7 @@
 	  en@quot.header, insert-header.sin, quot.sed,
 	  remove-potcdate.sin: Wiping unneeded symlinks
 
-2006-03-26  Stavros Giannouris <stavrosg2002@freemail.gr>
+2006-03-26  Stavros Giannouris <stavrosg@serverhive.com>
 
 	* el.po: Added Greek translation.
 

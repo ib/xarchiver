@@ -1,7 +1,7 @@
 # Greek translations for xarchiver package.
 # Copyright (C) 2005-2006 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
-# Stavros Giannouris <stavrosg2002@freemail.gr>, 2006.
+# Stavros Giannouris <stavrosg@serverhive.com>, 2006.
 # Stathis Kamperis <ekamperi@auth.gr>, 2006.
 #
 msgid ""
@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-06 13:47+0100\n"
 "PO-Revision-Date: 2006-11-11 14:20+0200\n"
-"Last-Translator: Stavros Giannouris <stavrosg2002@freemail.gr>\n"
+"Last-Translator: Stavros Giannouris <stavrosg@serverhive.com>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -366,7 +366,7 @@ msgstr "Παρακαλώ επιλέξτε το πρόσθετο 7zCon.sfx"
 
 #: src/callbacks.c:961
 msgid "translator-credits"
-msgstr "Stavros Giannouris <stavrosg2002@freemail.gr>"
+msgstr "Stavros Giannouris <stavrosg@serverhive.com>"
 
 #: src/callbacks.c:994 src/interface.c:269
 msgid "Open an archive"
