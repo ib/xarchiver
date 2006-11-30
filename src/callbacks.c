@@ -2364,7 +2364,10 @@ void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 	gchar *argv[3];
 	gchar *browser_path;
 
-	browser_path = g_find_program_in_path ("htmlview");
+	browser_path = g_find_program_in_path ("exo-open");
+	if ( browser_path == NULL)
+		browser_path = g_find_program_in_path ("htmlview");
+
 	if ( browser_path == NULL)
 		browser_path = g_find_program_in_path ("firefox");
 
