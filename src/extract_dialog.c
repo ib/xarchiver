@@ -162,6 +162,8 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->overwrite_check, FALSE, FALSE, 0);
 
 	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
+	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_BZIP2 )
+		goto here;
 	if (cli && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_TAR_BZ2) )
 	{
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
@@ -180,7 +182,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 		gtk_widget_show (dialog_data->touch);
 		gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->touch, _("When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."), NULL );
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->touch, FALSE, FALSE, 0);
-
+here:
 		dialog_data->hbox6 = gtk_hbox_new (FALSE, 2);
 		gtk_widget_show (dialog_data->hbox6);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->hbox6, FALSE, FALSE, 0);
