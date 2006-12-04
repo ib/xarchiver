@@ -190,7 +190,7 @@ GtkWidget *create_MainWindow (void)
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
   gtk_widget_set_sensitive (separatormenuitem3, FALSE);
 
-  select_all = gtk_image_menu_item_new_with_mnemonic (_("Select _All"));
+  select_all = gtk_image_menu_item_new_with_mnemonic (_("Sele_ct All"));
   gtk_widget_show (select_all);
   gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
   gtk_widget_set_sensitive (select_all, FALSE);

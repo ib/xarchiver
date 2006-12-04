@@ -1,7 +1,7 @@
 Xarchiver changelog:
 
 xx/01/06 - 0.5:
-		- Fixed bug #2614, #2626..
+		- Fixed bug #2614, #2620, #2626.
 		- Made tabs reorderable if using gtk 2.10
 
 27/11/06 - 0.4.6:
