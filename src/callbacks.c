@@ -237,7 +237,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	if (current_page == -1)
 		return;
 
-	archive[current_page] = xa_new_archive_dialog ( NULL );
+	archive[current_page] = xa_new_archive_dialog ( NULL , archive );
 
 	if (archive[current_page]  == NULL)
 		return;
@@ -2240,7 +2240,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		idx = xa_get_new_archive_idx();
 		if (idx == -1)
 			return;
-		archive[idx] = xa_new_archive_dialog ( filename );
+		archive[idx] = xa_new_archive_dialog ( filename , archive );
 		if (archive[idx] == NULL)
 			return;
 		xa_add_page (archive[idx]);

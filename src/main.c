@@ -153,7 +153,7 @@ int main (int argc, char **argv)
 		else if (archive_name != NULL)
 		{
 			XArchive *archive_cmd = NULL;
-			archive_cmd = xa_new_archive_dialog (archive_name );
+			archive_cmd = xa_new_archive_dialog (archive_name, NULL );
 			if (archive_cmd == NULL)
 				return 0;
 

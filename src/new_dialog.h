@@ -20,6 +20,6 @@
 #define __NEW_DIALOG_H
 
 #include "archive.h"
-XArchive *xa_new_archive_dialog (gchar *path);
+XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[]);
 #endif
 

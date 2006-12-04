@@ -26,11 +26,10 @@
 
 extern gboolean unrar;
 extern gboolean cli;
-
 gchar *current_new_directory = NULL;
 gint new_combo_box = -1;
 
-XArchive *xa_new_archive_dialog (gchar *path)
+XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 {
 	XArchive *archive = NULL;
 	GtkWidget *xa_file_chooser;
@@ -44,6 +43,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 	gchar *my_path_ext = NULL;
 	gchar *basepath = NULL;
 	gchar *current_dir = NULL;
+	gint current_page;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
 							GTK_WINDOW (MainWindow),
@@ -147,6 +147,26 @@ XArchive *xa_new_archive_dialog (gchar *path)
 				my_path = my_path_ext;
 			}
 		}
+
+		if ( ! cli )
+		{
+			for (x = 0; x < gtk_notebook_get_n_pages ( notebook) ; x++)
+			{
+				current_page = xa_find_archive_index ( x );
+				if (current_page == -1)
+					break;
+				if (strcmp (my_path,archive_open[current_page]->path) == 0)
+				{
+					gchar *msg = g_strdup_printf(_("\"%s\" is already open!") , my_path);
+					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create a new archive:"),msg );
+					g_free (my_path);
+					g_free (msg);
+					gtk_widget_destroy (xa_file_chooser);
+					return NULL;
+				}
+			}
+		}
+
 		if ( g_file_test ( my_path , G_FILE_TEST_EXISTS ) )
 		{
 			gchar *utf8_path;
@@ -172,6 +192,7 @@ XArchive *xa_new_archive_dialog (gchar *path)
 			/* The following to avoid to update the archive instead of adding to it since the filename exists */
 			unlink ( my_path );
 		}
+
 		archive = xa_init_archive_structure ();
 		new_combo_box = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 
