@@ -1133,7 +1133,7 @@ int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
-	unsigned char magic[12];
+	unsigned char magic[14];
 	if (filename != NULL)
 		dummy_ptr = fopen ( filename , "r" );
 	else
@@ -1155,7 +1155,7 @@ int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 		else
 			return -2;
 	}
-	if ( fread ( magic, 1, 12, dummy_ptr ) == 0 )
+	if ( fread ( magic, 1, 14, dummy_ptr ) == 0 )
 	{
 		fclose ( dummy_ptr);
 		return -2;
@@ -1192,7 +1192,7 @@ int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 	else if ( isTar ( dummy_ptr ) ) xx = XARCHIVETYPE_TAR;
 	else if ( isISO ( dummy_ptr ) ) xx = XARCHIVETYPE_ISO;
 	else if ( isLha ( dummy_ptr ) ) xx = XARCHIVETYPE_LHA;
-	else if ( memcmp ( magic,"!<arch>\n", 8 ) == 0) xx = XARCHIVETYPE_DEB;
+	else if ( memcmp ( magic,"!<arch>\ndebian", 14 ) == 0 ) xx = XARCHIVETYPE_DEB;
 	//else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
 	fclose ( dummy_ptr );
 	return xx;

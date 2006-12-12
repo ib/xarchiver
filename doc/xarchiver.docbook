@@ -256,7 +256,7 @@
 					<title>Test</title>
 						<para>
 							Tests the current archive. This option is disabled when
-							the current archive was produced by an archiver who doesn't support testing.
+							the current archive was produced by an archiver which doesn't support testing.
 						</para>
 				</section>
 				<section id="properties">

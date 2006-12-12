@@ -28,8 +28,13 @@ void OpenDeb ( XArchive *archive )
 	gboolean result;
 
 	archive_no_path = g_strrstr (archive->escaped_path,"/");
-	archive_no_path++;
-	archive->tmp = g_strconcat (" /tmp/",archive_no_path,NULL);
+	if (archive_no_path == NULL)
+		archive->tmp = g_strconcat (" /tmp/",archive->escaped_path,NULL);
+	else
+	{
+		archive_no_path++;
+		archive->tmp = g_strconcat (" /tmp/",archive_no_path,NULL);
+	}
 
 	/* Let's copy the .deb archive to /tmp */
 	command = g_strconcat ("cp ",archive->escaped_path,archive->tmp,NULL);
