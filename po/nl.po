@@ -740,9 +740,8 @@ msgid "This archive contains password protected files"
 msgstr "Dit archief bevat beveiligde bestanden"
 
 #: ../src/interface.c:542
-#, fuzzy
 msgid "Close archive"
-msgstr "Archief Sluiten"
+msgstr "Archief sluiten"
 
 #: ../src/interface.c:596
 msgid "Enter Archive Password"
@@ -965,12 +964,11 @@ msgstr "Voeg de archief extentie toe aan de bestandsnaam"
 #: ../src/new_dialog.c:160
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr ""
+msgstr "\"%s\" is al geopend!"
 
 #: ../src/new_dialog.c:161
-#, fuzzy
 msgid "Can't create a new archive:"
-msgstr "Maak een nieuw archief"
+msgstr "Kan geen nieuw archief maken:"
 
 #: ../src/new_dialog.c:176
 #, c-format
