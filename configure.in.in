@@ -94,7 +94,10 @@ po/Makefile.in
 src/Makefile
 doc/Makefile
 icons/Makefile
+icons/16x16/Makefile
+icons/24x24/Makefile
 icons/48x48/Makefile
+icons/scalable/Makefile
 pixmaps/Makefile
 ])
 
