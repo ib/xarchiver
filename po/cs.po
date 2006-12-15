@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-04 13:22+0100\n"
-"PO-Revision-Date: 2006-11-10 10:26+0100\n"
+"PO-Revision-Date: 2006-12-13 17:48+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -379,9 +379,8 @@ msgid "translator-credits"
 msgstr "translator-credits"
 
 #: ../src/callbacks.c:981
-#, fuzzy
 msgid "Save the self-extracting archive as"
-msgstr "Samorozbalitelný archiv je: \n"
+msgstr "Uložit samorozbalitelný archiv jako"
 
 #: ../src/callbacks.c:1008 ../src/interface.c:271
 msgid "Open an archive"
@@ -750,7 +749,6 @@ msgid "This archive contains password protected files"
 msgstr "Tento archiv obsahuje soubory chráněné heslem"
 
 #: ../src/interface.c:542
-#, fuzzy
 msgid "Close archive"
 msgstr "Zavřít archiv"
 
@@ -895,38 +893,31 @@ msgid "Effective date:"
 msgstr "Datum nabytí platnosti:"
 
 #: ../src/main.c:42
-#, fuzzy
 msgid ""
 "Extract archive to the directory specified by destination_path and quits."
-msgstr "Rozbalí archiv do určeného adresáře a ukončí se."
+msgstr "Rozbalí archiv do adresář určeného cílovou_cestou a ukončí se."
 
 #: ../src/main.c:43
-#, fuzzy
 msgid "destination_path archive"
-msgstr "[cílová cesta]"
+msgstr "cílová_cesta archiv"
 
 #: ../src/main.c:46
-#, fuzzy
 msgid "Extract archive by asking the destination directory and quits."
 msgstr "Rozbalí archiv dotazem na cílový adresář a ukončí se."
 
 #: ../src/main.c:47 ../src/main.c:55
-#, fuzzy
 msgid "archive"
-msgstr "Xarchiver"
+msgstr "archiv"
 
 #: ../src/main.c:50
-#, fuzzy
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Zeptá se název archivu, přidá do něj soubory a ukončí se."
 
 #: ../src/main.c:51
-#, fuzzy
 msgid "file1 file2 file3 ... fileN"
-msgstr "[soubor1] [soubor2] [soubor3] ... [souborN]"
+msgstr "soubor1 soubor2 soubor3 ... souborN"
 
 #: ../src/main.c:54
-#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Přidá soubory do určeného archivu dotazem na jejich názvy a ukončí se."
 
@@ -983,12 +974,11 @@ msgstr "Připojit příponu za název souboru"
 #: ../src/new_dialog.c:160
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr ""
+msgstr "\"%s\" je již otevřen!"
 
 #: ../src/new_dialog.c:161
-#, fuzzy
 msgid "Can't create a new archive:"
-msgstr "Vytvořit nový archiv"
+msgstr "Nelze vytvořit nový archiv:"
 
 #: ../src/new_dialog.c:176
 #, c-format
