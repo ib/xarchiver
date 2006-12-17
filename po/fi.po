@@ -6,16 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-04 13:22+0100\n"
-"PO-Revision-Date: 2006-11-09 15:30+0200\n"
+"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
+"POT-Creation-Date: 2006-12-18 00:06+0200\n"
+"PO-Revision-Date: 2006-12-18 00:08+0200\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:69
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:74
 #: ../src/gzip.c:54 ../src/lha.c:40 ../src/iso.c:662 ../src/rar.c:48
 #: ../src/rpm.c:56 ../src/tar.c:48 ../src/zip.c:38
 msgid "Filename"
@@ -33,12 +33,12 @@ msgstr "Pakattu"
 msgid "Attr"
 msgstr "Attr"
 
-#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:69
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:74
 #: ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
 msgid "Time"
 msgstr "Aika"
 
-#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:69
+#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:74
 #: ../src/gzip.c:54 ../src/iso.c:662 ../src/rar.c:48 ../src/tar.c:48
 #: ../src/zip.c:38
 msgid "Date"
@@ -221,21 +221,21 @@ msgstr "GUA"
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/bzip2.c:56 ../src/deb.c:69 ../src/gzip.c:54 ../src/lha.c:40
+#: ../src/bzip2.c:56 ../src/deb.c:74 ../src/gzip.c:54 ../src/lha.c:40
 #: ../src/rar.c:48 ../src/tar.c:48
 msgid "Permissions"
 msgstr "Oikeudet"
 
-#: ../src/bzip2.c:56 ../src/deb.c:69 ../src/gzip.c:54 ../src/rpm.c:56
+#: ../src/bzip2.c:56 ../src/deb.c:74 ../src/gzip.c:54 ../src/rpm.c:56
 #: ../src/tar.c:48
 msgid "Symbolic Link"
 msgstr "Symbolinen linkki"
 
-#: ../src/bzip2.c:56 ../src/deb.c:69 ../src/gzip.c:54 ../src/tar.c:48
+#: ../src/bzip2.c:56 ../src/deb.c:74 ../src/gzip.c:54 ../src/tar.c:48
 msgid "Owner/Group"
 msgstr "Omistaja/Ryhmä"
 
-#: ../src/bzip2.c:56 ../src/deb.c:69 ../src/gzip.c:54 ../src/lha.c:40
+#: ../src/bzip2.c:56 ../src/deb.c:74 ../src/gzip.c:54 ../src/lha.c:40
 #: ../src/iso.c:662 ../src/rpm.c:56 ../src/tar.c:48
 msgid "Size"
 msgstr "Koko"
@@ -739,7 +739,6 @@ msgid "This archive contains password protected files"
 msgstr "Arkistossa on salasanalla suojattuja tiedostoja"
 
 #: ../src/interface.c:542
-#, fuzzy
 msgid "Close archive"
 msgstr "Sulje arkisto"
 
@@ -972,12 +971,11 @@ msgstr "Lisää arkiston pääte tiedostonimeen"
 #: ../src/new_dialog.c:160
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr ""
+msgstr "\"%s\" on jo avoinna!"
 
 #: ../src/new_dialog.c:161
-#, fuzzy
 msgid "Can't create a new archive:"
-msgstr "Luo uusi arkisto"
+msgstr "Uutta arkistoa ei voi luoda:"
 
 #: ../src/new_dialog.c:176
 #, c-format
