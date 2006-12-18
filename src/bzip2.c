@@ -40,6 +40,8 @@ void OpenBzip2 ( XArchive *archive )
 			tar = g_strdup ("tar");
 
 		command = g_strconcat (tar, " tfjv " , archive->escaped_path, NULL );
+		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
+		archive->has_test = archive->has_sfx = FALSE;
 		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
@@ -60,6 +62,8 @@ void OpenBzip2 ( XArchive *archive )
 	}
 	else
 	{
+		archive->has_properties = archive->can_add = archive->has_test = archive->has_sfx = FALSE;
+		archive->can_extract = TRUE;
 		extract_window = xa_create_extract_dialog ( 0 , archive);
 		command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
 		gtk_widget_destroy ( extract_window->dialog1 );
@@ -138,7 +142,7 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 	}
 	if (result == 0)
 	{
-		xa_set_button_state (1,1,0,0,0,0);
+		xa_set_button_state (1,1,0,0,0,0,0);
 		archive->status = XA_ARCHIVESTATUS_IDLE;
 		gtk_widget_set_sensitive (Stop_button, FALSE);
 		gtk_widget_hide ( viewport2 );

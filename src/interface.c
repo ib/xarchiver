@@ -102,142 +102,165 @@ GtkWidget *create_MainWindow (void)
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (check_menu), tmp_image);
 
-  properties = gtk_image_menu_item_new_with_mnemonic (_("_Properties"));
-  gtk_widget_show (properties);
-  gtk_widget_set_sensitive ( properties , FALSE);
-  gtk_container_add (GTK_CONTAINER (menuitem1_menu), properties);
-  gtk_widget_add_accelerator (properties, "activate",accel_group,GDK_p, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	properties = gtk_image_menu_item_new_with_mnemonic (_("_Properties"));
+	gtk_widget_show (properties);
+	gtk_widget_set_sensitive ( properties , FALSE);
+	gtk_container_add (GTK_CONTAINER (menuitem1_menu), properties);
+	gtk_widget_add_accelerator (properties, "activate",accel_group,GDK_p, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  tmp_image = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (tmp_image);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties), tmp_image);
+	tmp_image = gtk_image_new_from_stock ("gtk-properties", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (tmp_image);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (properties), tmp_image);
 
-  close1 = gtk_image_menu_item_new_from_stock ("gtk-close", accel_group);
-  gtk_widget_set_sensitive (close1,FALSE);
-  gtk_widget_show (close1);
-  gtk_container_add (GTK_CONTAINER (menuitem1_menu), close1);
+	close1 = gtk_image_menu_item_new_from_stock ("gtk-close", accel_group);
+	gtk_widget_set_sensitive (close1,FALSE);
+	gtk_widget_show (close1);
+	gtk_container_add (GTK_CONTAINER (menuitem1_menu), close1);
 
-  quit1 = gtk_image_menu_item_new_from_stock ("gtk-quit", accel_group);
-  gtk_widget_show (quit1);
-  gtk_container_add (GTK_CONTAINER (menuitem1_menu), quit1);
+	separatormenuitem2 = gtk_separator_menu_item_new ();
+	gtk_widget_show (separatormenuitem2);
+	gtk_container_add (GTK_CONTAINER (menuitem1_menu), separatormenuitem2);
+	gtk_widget_set_sensitive (separatormenuitem2, FALSE);
+	
+	quit1 = gtk_image_menu_item_new_from_stock ("gtk-quit", accel_group);
+	gtk_widget_show (quit1);
+	gtk_container_add (GTK_CONTAINER (menuitem1_menu), quit1);
 
-  menuitem2 = gtk_menu_item_new_with_mnemonic (_("_Action"));
-  gtk_widget_show (menuitem2);
-  gtk_container_add (GTK_CONTAINER (menubar1), menuitem2);
+	menuitem2 = gtk_menu_item_new_with_mnemonic (_("_Action"));
+	gtk_widget_show (menuitem2);
+	gtk_container_add (GTK_CONTAINER (menubar1), menuitem2);
 
-  menuitem2_menu = gtk_menu_new ();
-  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
+	menuitem2_menu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
-  addfile = gtk_image_menu_item_new_with_mnemonic (_("_Add"));
-  gtk_widget_set_sensitive (addfile,FALSE);
-  gtk_widget_show (addfile);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
-  gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	addfile = gtk_image_menu_item_new_with_mnemonic (_("_Add"));
+	gtk_widget_set_sensitive (addfile,FALSE);
+	gtk_widget_show (addfile);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
+	gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  image2 = xa_main_window_find_image ("xarchiver-add_button.png", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (image2);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
+	image2 = xa_main_window_find_image ("xarchiver-add_button.png", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image2);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
 
-  extract_menu = gtk_image_menu_item_new_with_mnemonic (_("_Extract"));
-  gtk_widget_set_sensitive (extract_menu,FALSE);
-  gtk_widget_show (extract_menu);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
-  gtk_widget_add_accelerator (extract_menu, "activate",accel_group,GDK_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	extract_menu = gtk_image_menu_item_new_with_mnemonic (_("_Extract"));
+	gtk_widget_set_sensitive (extract_menu,FALSE);
+	gtk_widget_show (extract_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
+	gtk_widget_add_accelerator (extract_menu, "activate",accel_group,GDK_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  image2 =  xa_main_window_find_image ("xarchiver-extract_button.png", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (image2);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu), image2);
+	image2 =  xa_main_window_find_image ("xarchiver-extract_button.png", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image2);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu), image2);
 
-  exe_menu = gtk_image_menu_item_new_with_mnemonic (_("Make SF_X"));
-  gtk_widget_set_sensitive (exe_menu,FALSE);
-  gtk_widget_show (exe_menu);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), exe_menu);
-  gtk_widget_add_accelerator (exe_menu, "activate",accel_group,GDK_x, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete", accel_group);
+	gtk_widget_set_sensitive (delete_menu,FALSE);
+	gtk_widget_show (delete_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), delete_menu);
+	gtk_widget_add_accelerator (delete_menu, "activate",accel_group,GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  
+	view_menu = gtk_image_menu_item_new_with_mnemonic (_("_View"));
+	gtk_widget_set_sensitive (view_menu, FALSE);
+	gtk_widget_show (view_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_menu);
+	gtk_widget_add_accelerator (view_menu, "activate",accel_group,GDK_v, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  
+	image2 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image2);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_menu), image2);
 
-  image2 = gtk_image_new_from_stock ("gtk-execute", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (image2);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (exe_menu), image2);
+	separatormenuitem3 = gtk_separator_menu_item_new ();
+	gtk_widget_show (separatormenuitem3);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
+	gtk_widget_set_sensitive (separatormenuitem3, FALSE);
 
-  separatormenuitem2 = gtk_separator_menu_item_new ();
-  gtk_widget_show (separatormenuitem2);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem2);
-  gtk_widget_set_sensitive (separatormenuitem2, FALSE);
+	exe_menu = gtk_image_menu_item_new_with_mnemonic (_("Make SF_X"));
+	gtk_widget_set_sensitive (exe_menu,FALSE);
+	gtk_widget_show (exe_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), exe_menu);
+	gtk_widget_add_accelerator (exe_menu, "activate",accel_group,GDK_x, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete", accel_group);
-  gtk_widget_set_sensitive (delete_menu,FALSE);
-  gtk_widget_show (delete_menu);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), delete_menu);
-  gtk_widget_add_accelerator (delete_menu, "activate",accel_group,GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	image2 = gtk_image_new_from_stock ("gtk-execute", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image2);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (exe_menu), image2);
 
-  view_menu = gtk_image_menu_item_new_with_mnemonic (_("_View"));
-  gtk_widget_set_sensitive (view_menu, FALSE);
-  gtk_widget_show (view_menu);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_menu);
-  gtk_widget_add_accelerator (view_menu, "activate",accel_group,GDK_v, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	comment_menu = gtk_image_menu_item_new_with_mnemonic (_("_Show comment"));
+	gtk_widget_set_sensitive (comment_menu, FALSE);
+	gtk_widget_show (comment_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), comment_menu);
+	gtk_widget_add_accelerator (comment_menu, "activate",accel_group,GDK_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  
+	tmp_image = gtk_image_new_from_stock ("gtk-justify-fill", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (tmp_image);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (comment_menu), tmp_image);
 
-  comment_menu = gtk_image_menu_item_new_with_mnemonic (_("_Show comment"));
-  gtk_widget_set_sensitive (comment_menu, FALSE);
-  gtk_widget_show (comment_menu);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), comment_menu);
-  gtk_widget_add_accelerator (comment_menu, "activate",accel_group,GDK_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	iso_info = gtk_image_menu_item_new_with_mnemonic (_("Show ISO in_fo"));
+	gtk_widget_show (iso_info);
+	gtk_widget_set_sensitive ( iso_info , FALSE );
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), iso_info);
+	gtk_widget_add_accelerator (iso_info, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  image2 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (image2);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_menu), image2);
+	tmp_image = gtk_image_new_from_stock ("gtk-cdrom", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (tmp_image);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (iso_info), tmp_image);
+	
+	separatormenuitem4 = gtk_separator_menu_item_new ();
+	gtk_widget_show (separatormenuitem4);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem4);
+	gtk_widget_set_sensitive (separatormenuitem4, FALSE);
 
-  separatormenuitem3 = gtk_separator_menu_item_new ();
-  gtk_widget_show (separatormenuitem3);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
-  gtk_widget_set_sensitive (separatormenuitem3, FALSE);
+	select_all = gtk_image_menu_item_new_with_mnemonic (_("Sele_ct All"));
+	gtk_widget_show (select_all);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
+	gtk_widget_set_sensitive (select_all, FALSE);
+	gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  select_all = gtk_image_menu_item_new_with_mnemonic (_("Sele_ct All"));
-  gtk_widget_show (select_all);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
-  gtk_widget_set_sensitive (select_all, FALSE);
-  gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	deselect_all = gtk_image_menu_item_new_with_mnemonic (_("Dese_lect All"));
+	gtk_widget_show (deselect_all);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), deselect_all);
+	gtk_widget_set_sensitive (deselect_all, FALSE);
+	gtk_widget_add_accelerator (deselect_all, "activate",accel_group,GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  deselect_all = gtk_image_menu_item_new_with_mnemonic (_("Dese_lect All"));
-  gtk_widget_show (deselect_all);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), deselect_all);
-  gtk_widget_set_sensitive (deselect_all, FALSE);
-  gtk_widget_add_accelerator (deselect_all, "activate",accel_group,GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	separatormenuitem5 = gtk_separator_menu_item_new ();
+	gtk_widget_show (separatormenuitem5);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem5);
+	gtk_widget_set_sensitive (separatormenuitem5, FALSE);
 
-  separatormenuitem4 = gtk_separator_menu_item_new ();
-  gtk_widget_show (separatormenuitem4);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem4);
-  gtk_widget_set_sensitive (separatormenuitem4, FALSE);
+	view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("C_md-line output"));
+	gtk_widget_show (view_shell_output1);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
+	gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-  view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("Co_mmand line output"));
-  gtk_widget_show (view_shell_output1);
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
-  gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	image2 = gtk_image_new_from_stock ("gtk-find-and-replace", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image2);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_shell_output1), image2);
 
-  image2 = gtk_image_new_from_stock ("gtk-find-and-replace", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (image2);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_shell_output1), image2);
+	password_entry = gtk_image_menu_item_new_with_mnemonic (_("Reset passwo_rd"));
+	gtk_widget_show (password_entry);
+	gtk_widget_set_sensitive ( password_entry , FALSE );
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), password_entry);
+	gtk_widget_add_accelerator (password_entry, "activate",accel_group,GDK_r, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  
+	separatormenuitem6 = gtk_separator_menu_item_new ();
+	gtk_widget_show (separatormenuitem6);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem6);
+	gtk_widget_set_sensitive (separatormenuitem6, FALSE);
 
-  iso_info = gtk_image_menu_item_new_with_mnemonic (_("Show I_SO info"));
-  gtk_widget_show (iso_info);
-  gtk_widget_set_sensitive ( iso_info , FALSE );
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), iso_info);
-  gtk_widget_add_accelerator (iso_info, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	prefs_menu = gtk_image_menu_item_new_with_mnemonic (_("_Preferences"));
+	gtk_widget_show (prefs_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), prefs_menu);
+	gtk_widget_add_accelerator (prefs_menu, "activate",accel_group,GDK_p, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 
-  tmp_image = gtk_image_new_from_stock ("gtk-cdrom", GTK_ICON_SIZE_MENU);
-  gtk_widget_show (tmp_image);
-  gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (iso_info), tmp_image);
+	tmp_image = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (tmp_image);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (prefs_menu), tmp_image);
 
-  password_entry = gtk_image_menu_item_new_with_mnemonic (_("Reset passwo_rd"));
-  gtk_widget_show (password_entry);
-  gtk_widget_set_sensitive ( password_entry , FALSE );
-  gtk_container_add (GTK_CONTAINER (menuitem2_menu), password_entry);
-  gtk_widget_add_accelerator (password_entry, "activate",accel_group,GDK_r, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	menuitem4 = gtk_menu_item_new_with_mnemonic (_("_Help"));
+	gtk_widget_show (menuitem4);
+	gtk_container_add (GTK_CONTAINER (menubar1), menuitem4);
 
-  menuitem4 = gtk_menu_item_new_with_mnemonic (_("_Help"));
-  gtk_widget_show (menuitem4);
-  gtk_container_add (GTK_CONTAINER (menubar1), menuitem4);
-
-  menuitem4_menu = gtk_menu_new ();
-  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem4), menuitem4_menu);
+	menuitem4_menu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem4), menuitem4_menu);
 
 	help1 = gtk_image_menu_item_new_from_stock ("gtk-help", accel_group);
 	gtk_widget_show (help1);
@@ -292,18 +315,6 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (toolbar1), Extract_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Extract_button), tooltips, _("Extract files from the current archive; use the mouse to select files individually"), NULL);
 
-	tmp_image = gtk_image_new_from_stock ("gtk-execute", tmp_toolbar_icon_size);
-	gtk_widget_show (tmp_image);
-	Exe_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("SFX"));
-	gtk_widget_set_sensitive (Exe_button,FALSE);
-	gtk_widget_show (Exe_button);
-	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM ( Exe_button ), FALSE);
-	gtk_container_add (GTK_CONTAINER (toolbar1), Exe_button);
-	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Exe_button), tooltips, _("Make the current archive self-extracting"), NULL);
-	separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
-	gtk_widget_show (separatortoolitem2);
-	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem2);
-
 	tmp_image = gtk_image_new_from_stock ("gtk-delete", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
 	Delete_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Delete"));
@@ -322,10 +333,23 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (toolbar1), View_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (View_button), tooltips, _("View file content in the current archive"), NULL);
 
+	separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
+	gtk_widget_show (separatortoolitem2);
+	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem2);
+
+	tmp_image = gtk_image_new_from_stock ("gtk-execute", tmp_toolbar_icon_size);
+	gtk_widget_show (tmp_image);
+	Exe_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("SFX"));
+	gtk_widget_set_sensitive (Exe_button,FALSE);
+	gtk_widget_show (Exe_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM ( Exe_button ), FALSE);
+	gtk_container_add (GTK_CONTAINER (toolbar1), Exe_button);
+	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Exe_button), tooltips, _("Make the current archive self-extracting"), NULL);
+
 	separatortoolitem3 = (GtkWidget*) gtk_separator_tool_item_new ();
 	gtk_widget_show (separatortoolitem3);
 	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem3);
-
+	
 	tmp_image = gtk_image_new_from_stock ("gtk-stop", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
 	Stop_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Stop"));
@@ -399,6 +423,7 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
 	g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
 	g_signal_connect ((gpointer) password_entry, "activate", G_CALLBACK (xa_reset_password), NULL);
+	g_signal_connect ((gpointer) prefs_menu, "activate", G_CALLBACK (xa_show_prefs_dialog), NULL);
 	g_signal_connect ((gpointer) close1, "activate", G_CALLBACK (xa_close_archive), NULL);
 	g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
 	g_signal_connect ((gpointer) delete_menu, "activate", G_CALLBACK (xa_delete_archive), NULL);
@@ -423,14 +448,6 @@ GtkWidget *create_MainWindow (void)
 
 void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data)
 {
-	gboolean new	= FALSE;
-	gboolean open	= FALSE;
-	gboolean add	= FALSE;
-	gboolean extract= FALSE;
-	gboolean exe	= FALSE;
-	gboolean select	= FALSE;
-	gboolean check	= FALSE;
-	gboolean info	= FALSE;
 	gint id;
 
 	id = xa_find_archive_index ( page_num );
@@ -438,7 +455,14 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 		return;
 
 	xa_set_window_title (MainWindow , archive[id]->path);
-	gtk_widget_set_sensitive ( iso_info,FALSE );
+	if (archive[id]->type == XARCHIVETYPE_ISO)
+	{
+		gtk_widget_set_sensitive ( iso_info,TRUE );
+	}
+	else
+	{
+		gtk_widget_set_sensitive ( iso_info,FALSE );
+	}
 
 	if ( GTK_WIDGET_VISIBLE (viewport2 ) )
 	{
@@ -447,51 +471,12 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 			gtk_widget_set_sensitive (Stop_button , FALSE);
 			goto here;
 		}
-		xa_set_button_state (0,0,0,0,0,0);
+		xa_set_button_state (0,0,0,0,0,0,0);
 		gtk_widget_set_sensitive ( Stop_button , TRUE);
 		return;
 	}
 
-	if ( archive[id]->type == XARCHIVETYPE_BZIP2 || archive[id]->type == XARCHIVETYPE_GZIP )
-	{
-		new = open = TRUE;
-		info = exe = FALSE;
-	}
-	else if (archive[id]->type == XARCHIVETYPE_ISO)
-	{
-		new = open = extract = select = info = TRUE;
-		check = add = exe = FALSE;
-		gtk_widget_set_sensitive ( iso_info,TRUE );
-	}
-
-	else if (archive[id]->type == XARCHIVETYPE_RPM || archive[id]->type == XARCHIVETYPE_DEB)
-	{
-		new = open = extract = select = info = TRUE;
-		exe = FALSE;
-	}
-	else if (archive[id]->type == XARCHIVETYPE_TAR_BZ2 || archive[id]->type == XARCHIVETYPE_TAR_GZ || archive[id]->type == XARCHIVETYPE_TAR )
-	{
-		new = open = add = extract = select = info = TRUE;
-		check = exe = FALSE;
-	}
-	else if (archive[id]->type == XARCHIVETYPE_LHA)
-	{
-		new = open = add = extract = select = info = TRUE;
-		check = TRUE;
-		exe = FALSE;
-	}
-	else if (archive[id]->type == XARCHIVETYPE_RAR && unrar)
-	{
-		check = TRUE;
-		add = exe = FALSE;
-		new = open = extract = select = info = TRUE;
-	}
-	else
-		check = new = open = add = extract = exe = select = info = TRUE;
-
-	gtk_widget_set_sensitive ( check_menu , check);
-	gtk_widget_set_sensitive ( properties , info);
-	xa_set_button_state (new,open,add,extract,exe,select);
+	xa_set_button_state (1,1,archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties);
 
 here:
 	if (archive[id]->has_passwd)

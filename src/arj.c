@@ -30,6 +30,7 @@ void OpenArj ( XArchive *archive )
 {
     jump_header = FALSE;
 	gchar *command = g_strconcat ( "arj v -he " , archive->escaped_path, NULL );
+	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;

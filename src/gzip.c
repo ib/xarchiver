@@ -37,6 +37,8 @@ void OpenGzip ( XArchive *archive )
       tar = g_strdup ("tar");
 
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
+		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
+		archive->has_test = archive->has_sfx = FALSE;
 		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
@@ -58,6 +60,8 @@ void OpenGzip ( XArchive *archive )
 	}
 	else
 	{
+		archive->has_properties = archive->can_add = archive->has_test = archive->has_sfx = FALSE;
+		archive->can_extract = TRUE;
 		extract_window = xa_create_extract_dialog ( 0 , archive);
 		command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
 		gtk_widget_destroy ( extract_window->dialog1 );

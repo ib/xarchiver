@@ -49,6 +49,7 @@
 #include "archive.h"
 #include "extract_dialog.h"
 #include "add_dialog.h"
+#include "pref_dialog.h"
 
 short int response;
 double content_size;
@@ -83,6 +84,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer user_data);
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer user_data );
+void xa_show_prefs_dialog ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_activate_delete_and_view();
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data);
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data);

@@ -60,10 +60,12 @@ void OpenDeb ( XArchive *archive )
 
 	/* Finally, let's show the content in /tmp/data.tar.gz */
 	command = g_strconcat ("tar tfzv /tmp/data.tar.gz", NULL);
+	archive->has_properties = archive->can_extract = TRUE;
+	archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nr_of_dirs = 0;
-	archive->format ="DEB";
+	archive->format = "DEB";
 	archive->parse_output = TarOpen;
 	SpawnAsyncProcess ( archive , command , 0, 0);
 	g_free (command);

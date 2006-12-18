@@ -314,7 +314,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				gtk_widget_set_sensitive (Stop_button,FALSE);
 				Update_StatusBar (_("Operation canceled.") );
 				gtk_widget_hide (viewport2);
-				xa_set_button_state (1,1,0,0,0,0);
+				xa_set_button_state (1,1,0,0,0,0,0);
 				archive->status = XA_ARCHIVESTATUS_IDLE;
 			}
 			break;
@@ -547,7 +547,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					g_timeout_add (200, xa_progressbar_pulse, NULL );
 					while (end)
 					{
-						xa_set_button_state (0,0,0,0,0,0);
+						xa_set_button_state (0,0,0,0,0,0,0);
 						if (stop_flag)
 							break;
 						gtk_tree_model_get (archive->model, &iter,
@@ -566,7 +566,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						g_free (name);
 						g_free (permissions);
 					}
-					xa_set_button_state (1,1,0,1,0,1);
+					//xa_set_button_state (1,1,0,1,0,1);
 					xa_hide_progress_bar_stop_button(archive);
 					Update_StatusBar ( _("Operation completed.") );
 					break;
@@ -771,7 +771,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			row_list = gtk_tree_selection_get_selected_rows (selection, &archive->model);
 			while (row_list)
 			{
-				xa_set_button_state (0,0,0,0,0,0);
+				xa_set_button_state (0,0,0,0,0,0,0);
 				if (stop_flag)
 					break;
 				gtk_tree_model_get_iter(archive->model, &iter, row_list->data);
@@ -789,7 +789,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 				row_list = row_list->next;
 			}
 			g_list_free (row_list);
-			xa_set_button_state (1,1,0,1,0,1);
+			//xa_set_button_state (1,1,0,1,0,1);
 			xa_hide_progress_bar_stop_button(archive);
 			Update_StatusBar ( _("Operation completed.") );
 			command = NULL;

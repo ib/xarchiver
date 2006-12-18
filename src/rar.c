@@ -30,11 +30,18 @@ void OpenRar ( XArchive *archive )
 	gchar *rar = NULL;
 
 	if (unrar)
+	{
 		rar = "unrar";
+		archive->can_add = archive->has_sfx = FALSE;
+	}
 	else
+	{
 		rar = "rar";
+		archive->can_add = archive->has_sfx = TRUE;
+	}
 
 	command = g_strconcat ( rar," vl -c- " , archive->escaped_path, NULL );
+	archive->can_extract = archive->has_test = archive->has_properties = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
@@ -45,7 +52,7 @@ void OpenRar ( XArchive *archive )
 	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]	= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("Checksum")),(_("Method")),(_("Version"))};
+	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("Checksum")),(_("Method")),(_("Version"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
     archive->has_passwd = FALSE;
 	xa_create_liststore ( 10, names , (GType *)types, archive );

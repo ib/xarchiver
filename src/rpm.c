@@ -49,6 +49,8 @@ void OpenRPM ( XArchive *archive )
 		g_free (msg);
 		return;
     }
+    archive->can_extract = archive->has_properties = TRUE;
+    archive->can_add = archive->has_sfx = archive->has_test = FALSE;
     archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
@@ -128,7 +130,7 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 				xa_show_cmd_line_output (NULL);
             unlink ( cpio_tmp );
             g_free (cpio_tmp);
-			xa_set_button_state (1,1,0,0,0,0);
+			xa_set_button_state (1,1,0,0,0,0,0);
 			xa_hide_progress_bar_stop_button(archive[current_page]);
             return FALSE;
     	}
@@ -160,7 +162,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			unlink ( cpio_tmp );
 			unlink ( gzip );
 			g_free (cpio_tmp);
-			xa_set_button_state (1,1,0,0,0,0);
+			xa_set_button_state (1,1,0,0,0,0,0);
 			xa_hide_progress_bar_stop_button(archive[current_page]);
 			return FALSE;
 		}

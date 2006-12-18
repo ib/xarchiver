@@ -19,4 +19,26 @@
 #include "config.h"
 #include <glib.h>
 #include <gtk/gtk.h>
+#include "pref_dialog.h"
+#include "interface.h"
 #include "new_dialog.h"
+#include "support.h"
+
+Prefs_dialog_data *xa_create_prefs_dialog()
+{
+	Prefs_dialog_data *prefs_data;
+	
+	prefs_data = g_new0 (Prefs_dialog_data,1);
+	prefs_data->dialog1 = gtk_dialog_new_with_buttons (_("Preferences Window"),
+									GTK_WINDOW (MainWindow), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK, NULL);
+	prefs_data->prefs_notebook = GTK_NOTEBOOK(gtk_notebook_new() );
+	gtk_box_pack_start (GTK_BOX(vbox_body), GTK_WIDGET(prefs_data->prefs_notebook),TRUE,TRUE,0);
+	gtk_notebook_set_tab_pos (prefs_data->prefs_notebook, GTK_POS_TOP);
+	//gtk_notebook_set_scrollable (prefs_data->prefs_notebook, TRUE);
+	gtk_notebook_popup_disable (prefs_data->prefs_notebook);
+	gtk_widget_show (GTK_WIDGET(prefs_data->prefs_notebook));
+	//g_signal_connect ((gpointer) notebook, "switch-page", G_CALLBACK (xa_page_has_changed), NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
+	return prefs_data;
+}

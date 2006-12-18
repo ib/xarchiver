@@ -31,6 +31,8 @@ void OpenTar ( XArchive *archive )
 		tar = g_strdup ("tar");
 
 	command = g_strconcat (tar, " tfv " , archive->escaped_path, NULL);
+	archive->has_properties = archive->can_add = archive->can_extract = TRUE;
+	archive->has_test = archive->has_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nr_of_dirs = 0;

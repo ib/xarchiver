@@ -190,11 +190,17 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 	{
-		add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
+		if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+			add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add absolute paths"));
+		else
+			add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->add_full_path), archive->full_path);
 		gtk_widget_show (add_dialog->add_full_path);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
-		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
+		if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("The files path doesn't include the user home directory."), NULL);
+		else
+			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
 
 		add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->freshen), archive->freshen);
@@ -598,7 +604,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			gtk_widget_set_sensitive ( check_menu , FALSE);
 			gtk_widget_set_sensitive ( close1 , 	FALSE);
 			gtk_widget_set_sensitive ( properties , FALSE);
-			xa_set_button_state (0,0,0,0,0,0);
+			xa_set_button_state (0,0,0,0,0,0,0);
 			gtk_widget_hide (add_dialog->dialog1);
 
 			command = xa_add_single_files ( archive, names, compression_string);

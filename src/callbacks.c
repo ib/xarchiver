@@ -42,14 +42,6 @@ GList *Suffix , *Name;
 void xa_watch_child ( GPid pid, gint status, gpointer data)
 {
 	XArchive *archive = data;
-	gboolean new	= FALSE;
-	gboolean open	= FALSE;
-	gboolean add	= FALSE;
-	gboolean extract= FALSE;
-	gboolean exe	= FALSE;
-	gboolean select	= FALSE;
-	gboolean check	= FALSE;
-	gboolean info	= FALSE;
 	gboolean waiting = TRUE;
 	int ps;
 
@@ -62,38 +54,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		xa_show_archive_comment ( NULL, NULL);
 
 	gtk_widget_set_sensitive (close1,TRUE);
-	if ( archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP )
-	{
-		new = open = TRUE;
-		info = exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_DEB)
-	{
-		new = open = extract = select = info = TRUE;
-		exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR )
-	{
-		new = open = add = extract = select = info = TRUE;
-		check = exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_LHA)
-	{
-		new = open = add = extract = select = info = TRUE;
-		check = TRUE;
-		exe = FALSE;
-	}
-	else if (archive->type == XARCHIVETYPE_RAR && unrar)
-	{
-		check = TRUE;
-		add = exe = FALSE;
-		new = open = extract = select = info = TRUE;
-	}
-	else
-	{
-		check = TRUE;
-		new = open = add = extract = exe = select = info = TRUE;
-	}
+
 	if ( WIFSIGNALED (status) )
 	{
 		Update_StatusBar ( _("Operation canceled."));
@@ -108,9 +69,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_widget_set_sensitive ( check_menu , FALSE );
 
 		xa_hide_progress_bar_stop_button(archive);
-		xa_set_button_state (new,open,add,extract,exe,select);
-		gtk_widget_set_sensitive ( check_menu , check);
-		gtk_widget_set_sensitive ( properties , info);
+		xa_set_button_state (1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 		return;
 	}
 
@@ -118,10 +77,8 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	{
 		if ( WEXITSTATUS (status) )
 		{
-			gtk_widget_set_sensitive ( check_menu , check);
-			gtk_widget_set_sensitive ( properties , info);
 			xa_hide_progress_bar_stop_button(archive);
-			xa_set_button_state (new,open,add,extract,exe,select);
+			xa_set_button_state (1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 			Update_StatusBar ( _("Operation failed."));
 			response = ShowGtkMessageDialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
@@ -220,11 +177,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_widget_set_sensitive ( password_entry , TRUE);
 		}
 	}
-	gtk_widget_set_sensitive ( check_menu , check);
-	gtk_widget_set_sensitive ( properties , info);
-	xa_set_button_state (new,open,add,extract,exe,select);
 	xa_hide_progress_bar_stop_button(archive);
-
+	xa_set_button_state (1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+	
 	gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
 	Update_StatusBar ( _("Operation completed."));
 }
@@ -244,7 +199,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	xa_add_page (archive[current_page]);
 
-	xa_set_button_state (1,1,1,0,0,0 );
+	xa_set_button_state (1,1,1,0,0,0,0 );
     EmptyTextBuffer();
     archive[current_page]->has_passwd = FALSE;
     gtk_widget_set_sensitive ( iso_info , FALSE );
@@ -324,7 +279,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	if ( archive[current_page]->type == -2 )
 	{
 		xa_close_archive ( NULL, NULL);
-		xa_set_button_state (1,1,0,0,0,0);
+		xa_set_button_state (1,1,0,0,0,0,0);
 		return;
 	}
 	if ( archive[current_page]->type == -1 )
@@ -336,7 +291,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		xa_set_window_title (MainWindow , NULL);
 		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,
 		_("Archive format is not recognized!"));
-		xa_set_button_state ( 1,1,0,0,0,0);
+		xa_set_button_state ( 1,1,0,0,0,0,0);
 		gtk_widget_set_sensitive ( check_menu , FALSE );
 		gtk_widget_set_sensitive ( properties , FALSE );
 		g_free (utf8_path);
@@ -376,7 +331,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	gtk_widget_set_sensitive ( close1 , 	FALSE);
 	gtk_widget_set_sensitive ( check_menu , FALSE);
 	gtk_widget_set_sensitive ( properties , FALSE);
-	xa_set_button_state ( 0,0,0,0,0,0);
+	xa_set_button_state ( 0,0,0,0,0,0,0);
 	switch ( archive[current_page]->type )
 	{
 		case XARCHIVETYPE_ARJ:
@@ -454,7 +409,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
     Update_StatusBar ( _("Testing archive integrity, please wait..."));
     gtk_widget_set_sensitive (Stop_button,TRUE);
     gtk_widget_set_sensitive ( check_menu , FALSE );
-    xa_set_button_state (0,0,0,0,0,0);
+    xa_set_button_state (0,0,0,0,0,0,0);
     switch ( archive[id]->type )
 	{
 		case XARCHIVETYPE_RAR:
@@ -514,7 +469,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_widget_set_sensitive (properties,FALSE);
 		gtk_widget_set_sensitive (close1,FALSE);
 		OffDeleteandViewButtons();
-		xa_set_button_state (1,1,0,0,0,0);
+		xa_set_button_state (1,1,0,0,0,0,0);
 		xa_set_window_title (MainWindow,NULL);
 	}
 	else if ( current_page == 1)
@@ -628,7 +583,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 	if (command != NULL)
     {
-    	xa_set_button_state (0,0,0,0,0,0);
+    	xa_set_button_state (0,0,0,0,0,0,0);
     	gtk_widget_set_sensitive (Stop_button,TRUE);
         xa_run_command ( command , 1);
         g_free (command);
@@ -684,12 +639,25 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		gtk_widget_set_sensitive ( check_menu , FALSE);
 		gtk_widget_set_sensitive ( close1 , 	FALSE);
 		gtk_widget_set_sensitive ( properties , FALSE);
-		xa_set_button_state (0,0,0,0,0,0);
+		xa_set_button_state (0,0,0,0,0,0,0);
 		xa_run_command (command , 1);
 		g_free (command);
 	}
 	g_free (extract_window);
 	extract_window = NULL;
+}
+
+void xa_show_prefs_dialog ( GtkMenuItem *menuitem , gpointer user_data )
+{
+	static Prefs_dialog_data *prefs_window = NULL;
+	
+	if (prefs_window == NULL)
+	{
+		prefs_window = xa_create_prefs_dialog();
+		gtk_window_set_destroy_with_parent (GTK_WINDOW (prefs_window->dialog1) , TRUE);
+	}
+	gtk_dialog_run ( GTK_DIALOG(prefs_window->dialog1) );
+	gtk_widget_hide (prefs_window->dialog1);
 }
 
 void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
@@ -932,7 +900,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nMain developer: Giuseppe Torelli <colossus73@gmail.com>\nISO support: Salvatore Santagati <salvatore.santagati@gmail.com>\nLHA and DEB support: Łukasz Zemczak <sil2100@vexillium.org>",NULL};
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for bugs hunting and Tango icons.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
+    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Tango icons.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
 
 	if (about == NULL)
 	{
@@ -2302,7 +2270,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		gtk_widget_set_sensitive ( check_menu , FALSE);
 		gtk_widget_set_sensitive ( close1 , 	FALSE);
 		gtk_widget_set_sensitive ( properties , FALSE);
-		xa_set_button_state (0,0,0,0,0,0);
+		xa_set_button_state (0,0,0,0,0,0,0);
 		xa_run_command (command , 1);
 		g_free (command);
 	}

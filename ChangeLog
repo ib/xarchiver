@@ -1,8 +1,10 @@
 Xarchiver changelog:
 
 xx/01/06 - 0.5:
+		- Added a preferences dialog to set Xarchiver's options.
+		- Better menu layout.
 		- Fixed bug #2614, #2620, #2626.
-		- Made tabs reorderable if using gtk 2.10
+		- Made tabs reorderable if using gtk 2.10.
 
 27/11/06 - 0.4.6:
 		- Fixed code in support.c to load the images when installing the software.
