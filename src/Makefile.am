@@ -2,7 +2,6 @@ bin_PROGRAMS = xarchiver
 
 xarchiver_SOURCES = \
 	socket.c socket.h \
-	pref_dialog.c pref_dialog.h \
 	main.c main.h \
 	string_utils.c string_utils.h \
 	support.c support.h \
@@ -22,7 +21,8 @@ xarchiver_SOURCES = \
 	lha.c lha.h \
 	extract_dialog.c extract_dialog.h \
 	add_dialog.c add_dialog.h \
-	new_dialog.c new_dialog.h
+	new_dialog.c new_dialog.h \
+	pref_dialog.c pref_dialog.h
 
 xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \

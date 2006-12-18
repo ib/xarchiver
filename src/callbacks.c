@@ -179,7 +179,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	}
 	xa_hide_progress_bar_stop_button(archive);
 	xa_set_button_state (1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
-	
+
 	gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
 	Update_StatusBar ( _("Operation completed."));
 }
@@ -507,6 +507,14 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	if (current_open_directory != NULL)
 		g_free (current_open_directory);
 
+	/*
+	if (prefs->save_on_exit)
+		xa_save_prefs();
+
+ 	clean the prefs structure
+	clean the prefs_data structure
+	*/
+
 #ifdef HAVE_SOCKET
 	socket_finalize();
 #endif
@@ -650,7 +658,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_show_prefs_dialog ( GtkMenuItem *menuitem , gpointer user_data )
 {
 	static Prefs_dialog_data *prefs_window = NULL;
-	
+
 	if (prefs_window == NULL)
 	{
 		prefs_window = xa_create_prefs_dialog();
