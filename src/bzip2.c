@@ -142,7 +142,7 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 	}
 	if (result == 0)
 	{
-		xa_set_button_state (1,1,0,0,0,0,0);
+		xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 		archive->status = XA_ARCHIVESTATUS_IDLE;
 		gtk_widget_set_sensitive (Stop_button, FALSE);
 		gtk_widget_hide ( viewport2 );

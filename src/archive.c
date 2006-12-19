@@ -69,6 +69,7 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 		g_error_free (error);
 		g_strfreev ( argv );
 		archive->child_pid = 0;
+		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 		return;
 	}
 	g_strfreev ( argv );

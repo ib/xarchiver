@@ -96,7 +96,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 	Name = g_list_first ( ArchiveType );
 	while ( Name != NULL )
 	{
-		if (Name->data == ".tgz" || Name->data == ".rpm" || Name->data == ".iso" || Name->data == ".gz" || Name->data == ".bz2" ||		(Name->data == ".rar" && unrar) )
+		if (Name->data == "tgz" || Name->data == "rpm" || Name->data == "iso" || Name->data == "gz" || Name->data == "bz2" ||		(Name->data == "rar" && unrar) )
 			goto Next;
 		else
 			gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );

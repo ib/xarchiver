@@ -270,7 +270,7 @@ void GetAvailableCompressors()
 	absolute_path = g_find_program_in_path("arj");
 	if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".arj");
+		ArchiveType = g_list_prepend ( ArchiveType, "arj");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.arj");
 		g_free (absolute_path);
 	}
@@ -278,7 +278,7 @@ void GetAvailableCompressors()
 	absolute_path = g_find_program_in_path("bzip2");
     if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".bz2");
+		ArchiveType = g_list_prepend ( ArchiveType, "bz2");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.bz2");
 		g_free (absolute_path);
 	}
@@ -293,19 +293,19 @@ void GetAvailableCompressors()
 	absolute_path = g_find_program_in_path("gzip");
 	if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".gz");
+		ArchiveType = g_list_prepend ( ArchiveType, "gz");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.gz");
 		g_free (absolute_path);
 	}
 
 	/* In future releases of xarchiver we'll use bkisofs library to allow creation of iso images */
-	ArchiveType = g_list_prepend ( ArchiveType, ".iso");
+	ArchiveType = g_list_prepend ( ArchiveType, "iso");
 	ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
 
 	absolute_path = g_find_program_in_path("lha");
 	if (absolute_path)
 	{
-		ArchiveType = g_list_prepend(ArchiveType, ".lzh");
+		ArchiveType = g_list_prepend(ArchiveType, "lzh");
 		ArchiveSuffix = g_list_prepend(ArchiveSuffix, "*.lzh");
 		g_free (absolute_path);
 		//ArchiveType = g_list_prepend(ArchiveType, ".lha");
@@ -315,7 +315,7 @@ void GetAvailableCompressors()
 	absolute_path = g_find_program_in_path ("rar");
     if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".rar");
+		ArchiveType = g_list_prepend ( ArchiveType, "rar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
 		g_free (absolute_path);
 	}
@@ -325,7 +325,7 @@ void GetAvailableCompressors()
 		if ( absolute_path )
 		{
 			unrar = TRUE;
-			ArchiveType = g_list_prepend ( ArchiveType, ".rar");
+			ArchiveType = g_list_prepend ( ArchiveType, "rar");
 			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
 			g_free (absolute_path);
 		}
@@ -341,18 +341,18 @@ void GetAvailableCompressors()
 	absolute_path = g_find_program_in_path("tar");
 	if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".tar");
+		ArchiveType = g_list_prepend ( ArchiveType, "tar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tar");
 		g_free (absolute_path);
-		if ( g_list_find ( ArchiveType , ".bz2") )
+		if ( g_list_find ( ArchiveType , "bz2") )
 		{
-			ArchiveType = g_list_prepend ( ArchiveType, ".tar.bz2");
+			ArchiveType = g_list_prepend ( ArchiveType, "tar.bz2");
 			/* The following to avoid double filter when opening */
 			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "");
 		}
-		if ( g_list_find ( ArchiveType , ".gz") )
+		if ( g_list_find ( ArchiveType , "gz") )
 		{
-			ArchiveType = g_list_prepend ( ArchiveType, ".tar.gz");
+			ArchiveType = g_list_prepend ( ArchiveType, "tar.gz");
 			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tgz");
 		}
 	}
@@ -360,29 +360,31 @@ void GetAvailableCompressors()
 	absolute_path = g_find_program_in_path ("zip");
     if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, ".jar");
+		ArchiveType = g_list_prepend ( ArchiveType, "jar");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.jar");
 		g_free (absolute_path);
 
-		ArchiveType = g_list_prepend ( ArchiveType, ".zip");
+		ArchiveType = g_list_prepend ( ArchiveType, "zip");
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
 	}
 
 	absolute_path = g_find_program_in_path("7za");
     if ( absolute_path )
     {
-        ArchiveType = g_list_prepend ( ArchiveType, ".7z");
+        ArchiveType = g_list_prepend ( ArchiveType, "7z");
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
 		g_free (absolute_path);
     }
 }
 
-void xa_set_button_state (gboolean New, gboolean Open,gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info)
+void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info)
 {
 	gtk_widget_set_sensitive ( New_button, New);
     gtk_widget_set_sensitive ( new1, New);
 	gtk_widget_set_sensitive ( Open_button, Open);
     gtk_widget_set_sensitive ( open1, Open);
+    gtk_widget_set_sensitive ( Close_button, Close);
+    gtk_widget_set_sensitive ( close1, Open);
 	gtk_widget_set_sensitive ( AddFile_button, add);
 	gtk_widget_set_sensitive ( addfile, add);
 	gtk_widget_set_sensitive ( Extract_button, extract);

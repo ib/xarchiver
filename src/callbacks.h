@@ -113,7 +113,7 @@ void ConcatenateFileNames2 (gchar *filename , GString *data);
 void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 gboolean xa_run_command ( gchar *command , gboolean watch_child_flag );
-void OffDeleteandViewButtons();
+void xa_disable_delete_view_buttons (gboolean value);
 void xa_hide_progress_bar_stop_button( XArchive *archive);
 void Update_StatusBar (gchar *msg);
 

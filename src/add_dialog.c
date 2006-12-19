@@ -604,7 +604,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			gtk_widget_set_sensitive ( check_menu , FALSE);
 			gtk_widget_set_sensitive ( close1 , 	FALSE);
 			gtk_widget_set_sensitive ( properties , FALSE);
-			xa_set_button_state (0,0,0,0,0,0,0);
+			xa_set_button_state (0,0,0,0,0,0,0,0);
 			gtk_widget_hide (add_dialog->dialog1);
 
 			command = xa_add_single_files ( archive, names, compression_string);
