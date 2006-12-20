@@ -342,10 +342,6 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (toolbar1), View_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (View_button), tooltips, _("View file content in the current archive"), NULL);
 
-	separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
-	gtk_widget_show (separatortoolitem2);
-	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem2);
-
 	tmp_image = gtk_image_new_from_stock ("gtk-execute", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
 	Exe_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("SFX"));
@@ -355,9 +351,9 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (toolbar1), Exe_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Exe_button), tooltips, _("Make the current archive self-extracting"), NULL);
 
-	separatortoolitem3 = (GtkWidget*) gtk_separator_tool_item_new ();
-	gtk_widget_show (separatortoolitem3);
-	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem3);
+	separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
+	gtk_widget_show (separatortoolitem2);
+	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem2);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-stop", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
@@ -475,14 +471,14 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 		gtk_widget_set_sensitive ( iso_info,FALSE );
 	}
 
-	if ( GTK_WIDGET_VISIBLE (viewport2 ) )
+	if ( GTK_WIDGET_VISIBLE (viewport2) )
 	{
 		if (archive[id]->status == XA_ARCHIVESTATUS_IDLE)
 		{
 			gtk_widget_set_sensitive (Stop_button , FALSE);
 			goto here;
 		}
-		xa_set_button_state (0,0,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
+		xa_set_button_state (0,0,0,0,0,0,0,0);
 		gtk_widget_set_sensitive ( Stop_button , TRUE);
 		return;
 	}

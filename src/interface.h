@@ -98,7 +98,6 @@ GtkWidget *Open_button;
 GtkWidget *Close_button;
 GtkWidget *separatortoolitem1;
 GtkWidget *separatortoolitem2;
-GtkWidget *separatortoolitem3;
 GtkWidget *AddFile_button;
 GtkWidget *Extract_button;
 GtkWidget *Delete_button;

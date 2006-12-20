@@ -23,8 +23,8 @@
 #include "interface.h"
 #include "main.h"
 #include "support.h"
-#include "archive.h" //TODO da togliere?
 
+extern gboolean unrar;
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
 	GtkNotebook *prefs_notebook;
@@ -78,8 +78,12 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	archive_type = g_list_first ( ArchiveType );
 	while ( archive_type != NULL )
 	{
-		gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box1), archive_type->data );
-		archive_type = g_list_next ( archive_type );
+		if (archive_type->data == "tgz" || archive_type->data == "rpm" || archive_type->data == "iso" || archive_type->data == "gz" || archive_type->data == "bz2" || (archive_type->data == "rar" && unrar) )
+			goto next;
+		else
+			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box1),archive_type->data );
+		next:
+			archive_type = g_list_next ( archive_type );
 	}
 
 	prefs_data->check_save_add_dialog = gtk_check_button_new_with_mnemonic (_("Save settings for add dialog"));
@@ -129,7 +133,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_widget_show (hbox3);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox3, FALSE, TRUE, 0);
 
-	label5 = gtk_label_new (_("Preferred view mode as:"));
+	label5 = gtk_label_new (_("View archive content as"));
 	gtk_widget_show (label5);
 	gtk_box_pack_start (GTK_BOX (hbox3), label5, FALSE, FALSE, 0);
 
