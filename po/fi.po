@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
-"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2006-12-18 00:06+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-12-21 14:33+0100\n"
 "PO-Revision-Date: 2006-12-18 00:08+0200\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -15,32 +15,32 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:74
-#: ../src/gzip.c:54 ../src/lha.c:40 ../src/iso.c:662 ../src/rar.c:48
-#: ../src/rpm.c:56 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/bzip2.c:58 ../src/deb.c:76
+#: ../src/gzip.c:56 ../src/lha.c:42 ../src/iso.c:662 ../src/rar.c:55
+#: ../src/rpm.c:58 ../src/tar.c:50 ../src/zip.c:39
 msgid "Filename"
 msgstr "Tiedostonimi"
 
-#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/rar.c:55 ../src/zip.c:39
 msgid "Original"
 msgstr "Alkuperäinen"
 
-#: ../src/7zip.c:37 ../src/arj.c:43 ../src/rar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/rar.c:55 ../src/zip.c:39
 msgid "Compressed"
 msgstr "Pakattu"
 
-#: ../src/7zip.c:37
+#: ../src/7zip.c:38
 msgid "Attr"
 msgstr "Attr"
 
-#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:74
-#: ../src/gzip.c:54 ../src/rar.c:48 ../src/tar.c:48 ../src/zip.c:38
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/bzip2.c:58 ../src/deb.c:76
+#: ../src/gzip.c:56 ../src/rar.c:55 ../src/tar.c:50 ../src/zip.c:39
 msgid "Time"
 msgstr "Aika"
 
-#: ../src/7zip.c:37 ../src/arj.c:43 ../src/bzip2.c:56 ../src/deb.c:74
-#: ../src/gzip.c:54 ../src/iso.c:662 ../src/rar.c:48 ../src/tar.c:48
-#: ../src/zip.c:38
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/bzip2.c:58 ../src/deb.c:76
+#: ../src/gzip.c:56 ../src/iso.c:662 ../src/rar.c:55 ../src/tar.c:50
+#: ../src/zip.c:39
 msgid "Date"
 msgstr "Pvm"
 
@@ -92,19 +92,28 @@ msgstr ""
 msgid "Remove files after adding"
 msgstr "Poista tiedostot lisäämisen jälkeen"
 
-#: ../src/add_dialog.c:193
+#: ../src/add_dialog.c:194
+#, fuzzy
+msgid "Do not add absolute paths"
+msgstr "Älä lisää tiedostojen polkuja"
+
+#: ../src/add_dialog.c:196
 msgid "Do not add file paths"
 msgstr "Älä lisää tiedostojen polkuja"
 
-#: ../src/add_dialog.c:197
+#: ../src/add_dialog.c:201
+msgid "The files path doesn't include the user home directory."
+msgstr ""
+
+#: ../src/add_dialog.c:203
 msgid "Store just the name of a file without its directory names."
 msgstr "Tallenna pelkkä tiedostonimi ilman hakemistojen nimiä."
 
-#: ../src/add_dialog.c:199
+#: ../src/add_dialog.c:205
 msgid "Freshen an existing entry in the archive"
 msgstr "Virkistä arkistosta jo löytyvä tiedosto"
 
-#: ../src/add_dialog.c:203
+#: ../src/add_dialog.c:209
 msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
@@ -114,11 +123,11 @@ msgstr ""
 "arkistoitua vastinetta myöhemmin. Toisin kuin päivitysvaihtoehto, tämä ei "
 "lisää arkistoon tiedostoja, joita se ei jo sisällä."
 
-#: ../src/add_dialog.c:207
+#: ../src/add_dialog.c:213
 msgid "Update an existing entry in the archive"
 msgstr "Päivitä arkistossa jo oleva tiedosto"
 
-#: ../src/add_dialog.c:211
+#: ../src/add_dialog.c:217
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified."
@@ -126,78 +135,78 @@ msgstr ""
 "Tämä valinta lisää uudet tiedostot ja päivittää sellaiset tiedostot, joita "
 "on muokattu arkiston viimeisen muokkaamisen tai luomisen jälkeen."
 
-#: ../src/add_dialog.c:220
+#: ../src/add_dialog.c:226
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr "0 = ei pakkausta, 5 = oletus, 9 = paras pakkaus mutta hitain"
 
-#: ../src/add_dialog.c:227
+#: ../src/add_dialog.c:233
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr "0 = ei pakkausta, 6 = oletus, 9 = paras pakkaus mutta hitain"
 
-#: ../src/add_dialog.c:234
+#: ../src/add_dialog.c:240
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr "0 = ei pakkausta, 3 = oletus, 5 = paras pakkaus mutta hitain"
 
-#: ../src/add_dialog.c:241
+#: ../src/add_dialog.c:247
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr "0 = ei pakkausta, 1 on oletus, 4 = nopein mutta pakkaa vähiten"
 
-#: ../src/add_dialog.c:248
+#: ../src/add_dialog.c:254
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = oletuspakkaus, 7 = maksimipakkaus"
 
-#: ../src/add_dialog.c:259 ../src/extract_dialog.c:219 ../src/interface.c:608
+#: ../src/add_dialog.c:265 ../src/extract_dialog.c:219 ../src/interface.c:622
 msgid "Password:"
 msgstr "Salasana:"
 
-#: ../src/add_dialog.c:273
+#: ../src/add_dialog.c:279
 msgid "Compression level:"
 msgstr "Pakkaustaso:"
 
-#: ../src/add_dialog.c:300 ../src/extract_dialog.c:240
+#: ../src/add_dialog.c:306 ../src/extract_dialog.c:240
 msgid "<b>Options </b>"
 msgstr "<b>Valinnat </b>"
 
-#: ../src/add_dialog.c:317 ../src/interface.c:131
+#: ../src/add_dialog.c:323 ../src/interface.c:136
 msgid "_Add"
 msgstr "_Lisää"
 
-#: ../src/add_dialog.c:380 ../src/callbacks.c:2219
+#: ../src/add_dialog.c:386 ../src/callbacks.c:2190
 msgid "Sorry, I could not perform the operation!"
 msgstr "Toimintoa ei valitettavasti voitu suorittaa."
 
-#: ../src/add_dialog.c:412
+#: ../src/add_dialog.c:418
 msgid "Please select the files you want to add"
 msgstr "Valitse tiedostot, jotka haluat lisätä"
 
-#: ../src/add_dialog.c:417
+#: ../src/add_dialog.c:423
 msgid "Please select the directories you want to add"
 msgstr "Valitse hakemistot, jotka haluat lisätä"
 
-#: ../src/add_dialog.c:528 ../src/main.c:197
+#: ../src/add_dialog.c:534 ../src/main.c:197
 msgid "Can't add files to the archive:"
 msgstr "Ei voi lisätä tiedostoja arkistoon:"
 
-#: ../src/add_dialog.c:528
+#: ../src/add_dialog.c:534
 msgid "You haven't selected any files to add!"
 msgstr "Et valinnut yhtään tiedostoa lisättäväksi."
 
-#: ../src/add_dialog.c:536 ../src/interface.c:650
+#: ../src/add_dialog.c:542 ../src/interface.c:664
 msgid "You missed the password!"
 msgstr "Salasana puuttuu!"
 
-#: ../src/add_dialog.c:536 ../src/interface.c:650
+#: ../src/add_dialog.c:542 ../src/interface.c:664
 msgid "Please enter it!"
 msgstr "Ole hyvä ja syötä se!"
 
-#: ../src/add_dialog.c:622
+#: ../src/add_dialog.c:628
 msgid "Adding files to the archive, please wait..."
 msgstr "Lisätään tiedostoja arkistoon, odota..."
 
-#: ../src/archive.c:67 ../src/callbacks.c:125 ../src/callbacks.c:763
-#: ../src/callbacks.c:776 ../src/callbacks.c:876 ../src/callbacks.c:889
-#: ../src/callbacks.c:1631 ../src/callbacks.c:2017 ../src/extract_dialog.c:938
-#: ../src/rpm.c:123 ../src/rpm.c:154
+#: ../src/archive.c:67 ../src/callbacks.c:80 ../src/callbacks.c:729
+#: ../src/callbacks.c:742 ../src/callbacks.c:842 ../src/callbacks.c:855
+#: ../src/callbacks.c:1597 ../src/callbacks.c:1988 ../src/extract_dialog.c:938
+#: ../src/rpm.c:125 ../src/rpm.c:156
 msgid "Operation failed."
 msgstr "Toiminto epäonnistui."
 
@@ -205,274 +214,274 @@ msgstr "Toiminto epäonnistui."
 msgid "Can't run the archiver executable:"
 msgstr "Arkistointiohjelmaa ei voi suorittaa:"
 
-#: ../src/arj.c:43 ../src/lha.c:40 ../src/rar.c:48 ../src/zip.c:38
+#: ../src/arj.c:44 ../src/lha.c:42 ../src/rar.c:55 ../src/zip.c:39
 msgid "Ratio"
 msgstr "Suhde"
 
-#: ../src/arj.c:43
+#: ../src/arj.c:44
 msgid "Attributes"
 msgstr "Attribuutit"
 
-#: ../src/arj.c:43
+#: ../src/arj.c:44
 msgid "GUA"
 msgstr "GUA"
 
-#: ../src/arj.c:43
+#: ../src/arj.c:44
 msgid "BPMGS"
 msgstr "BPMGS"
 
-#: ../src/bzip2.c:56 ../src/deb.c:74 ../src/gzip.c:54 ../src/lha.c:40
-#: ../src/rar.c:48 ../src/tar.c:48
+#: ../src/bzip2.c:58 ../src/deb.c:76 ../src/gzip.c:56 ../src/lha.c:42
+#: ../src/rar.c:55 ../src/tar.c:50
 msgid "Permissions"
 msgstr "Oikeudet"
 
-#: ../src/bzip2.c:56 ../src/deb.c:74 ../src/gzip.c:54 ../src/rpm.c:56
-#: ../src/tar.c:48
+#: ../src/bzip2.c:58 ../src/deb.c:76 ../src/gzip.c:56 ../src/rpm.c:58
+#: ../src/tar.c:50
 msgid "Symbolic Link"
 msgstr "Symbolinen linkki"
 
-#: ../src/bzip2.c:56 ../src/deb.c:74 ../src/gzip.c:54 ../src/tar.c:48
+#: ../src/bzip2.c:58 ../src/deb.c:76 ../src/gzip.c:56 ../src/tar.c:50
 msgid "Owner/Group"
 msgstr "Omistaja/Ryhmä"
 
-#: ../src/bzip2.c:56 ../src/deb.c:74 ../src/gzip.c:54 ../src/lha.c:40
-#: ../src/iso.c:662 ../src/rpm.c:56 ../src/tar.c:48
+#: ../src/bzip2.c:58 ../src/deb.c:76 ../src/gzip.c:56 ../src/lha.c:42
+#: ../src/iso.c:662 ../src/rpm.c:58 ../src/tar.c:50
 msgid "Size"
 msgstr "Koko"
 
-#: ../src/bzip2.c:86
+#: ../src/bzip2.c:90
 #, c-format
 msgid "Extracting gzip file to %s"
 msgstr "Puretaan gzip-tiedostoa kohteeseen %s"
 
-#: ../src/bzip2.c:88
+#: ../src/bzip2.c:92
 #, c-format
 msgid "Extracting bzip2 file to %s"
 msgstr "Puretaan bzip2-tiedostoa kohteeseen %s"
 
-#: ../src/bzip2.c:145 ../src/callbacks.c:99 ../src/callbacks.c:752
-#: ../src/callbacks.c:828 ../src/callbacks.c:865 ../src/extract_dialog.c:315
+#: ../src/bzip2.c:149 ../src/callbacks.c:58 ../src/callbacks.c:718
+#: ../src/callbacks.c:794 ../src/callbacks.c:831 ../src/extract_dialog.c:315
 #: ../src/extract_dialog.c:887 ../src/extract_dialog.c:909
 msgid "Operation canceled."
 msgstr "Toiminto peruutettu."
 
-#: ../src/bzip2.c:159
+#: ../src/bzip2.c:163
 #, c-format
 msgid "Decompressing tar file with %s, please wait..."
 msgstr "Puretaan %s-pakattua tar-tiedostoa, odota..."
 
-#: ../src/bzip2.c:234
+#: ../src/bzip2.c:238
 #, c-format
 msgid "Recompressing tar file with %s, please wait..."
 msgstr "Pakataan tar-tiedostoa uudelleen %s-muotoon, odota..."
 
-#: ../src/callbacks.c:102
+#: ../src/callbacks.c:61
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "Tarkista \"%s\", sillä osa tiedostoista mahdollisesti purettiin jo."
 
-#: ../src/callbacks.c:126 ../src/callbacks.c:2012
+#: ../src/callbacks.c:81 ../src/callbacks.c:1983
 msgid "An error occurred while accessing the archive."
 msgstr "Virhe luettaessa arkistoa."
 
-#: ../src/callbacks.c:126 ../src/callbacks.c:2012 ../src/rpm.c:157
+#: ../src/callbacks.c:81 ../src/callbacks.c:1983 ../src/rpm.c:159
 msgid "Do you want to view the command line output?"
 msgstr "Haluatko nähdä komentorivitulostuksen?"
 
-#: ../src/callbacks.c:144
+#: ../src/callbacks.c:99
 msgid "The sfx archive was saved as:"
 msgstr "Itsepurkautuva arkisto tallennettiin nimellä:"
 
-#: ../src/callbacks.c:154 ../src/callbacks.c:229 ../src/callbacks.c:1652
+#: ../src/callbacks.c:109 ../src/callbacks.c:182 ../src/callbacks.c:1618
 #: ../src/extract_dialog.c:571 ../src/extract_dialog.c:794 ../src/iso.c:782
 msgid "Operation completed."
 msgstr "Toiminto suoritettu."
 
-#: ../src/callbacks.c:157
+#: ../src/callbacks.c:112
 msgid "Please wait while the content of the archive is being updated..."
 msgstr "Odota, kun arkiston sisältöä päivitetään..."
 
-#: ../src/callbacks.c:257
+#: ../src/callbacks.c:209
 msgid "Choose Add to begin creating the archive."
 msgstr "Valitse Lisää aloittaaksesi arkiston luomisen."
 
-#: ../src/callbacks.c:309
+#: ../src/callbacks.c:260
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Arkistorakenteelle ei voi varata muistia:"
 
-#: ../src/callbacks.c:335
+#: ../src/callbacks.c:287
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Tiedostoa \"%s\" ei voi avata:"
 
-#: ../src/callbacks.c:338
+#: ../src/callbacks.c:290
 msgid "Archive format is not recognized!"
 msgstr "Tuntematon arkistomuoto!"
 
-#: ../src/callbacks.c:363
+#: ../src/callbacks.c:315
 msgid "Sorry, this archive format is not supported:"
 msgstr "Arkistotyyppiä ei valitettavasti tueta:"
 
-#: ../src/callbacks.c:363
+#: ../src/callbacks.c:315
 msgid "the proper archiver is not installed!"
 msgstr "tarvittavaa arkistointisovellusta ei ole asennettu!"
 
-#: ../src/callbacks.c:371
+#: ../src/callbacks.c:323
 msgid "Please wait while the content of the ISO image is being read..."
 msgstr "Odota, kun ISO-vedosta luetaan..."
 
-#: ../src/callbacks.c:373
+#: ../src/callbacks.c:325
 msgid "Please wait while the content of the archive is being read..."
 msgstr "Odota, kun arkiston sisältöä luetaan..."
 
-#: ../src/callbacks.c:454
+#: ../src/callbacks.c:404
 msgid "Testing archive integrity, please wait..."
 msgstr "Tarkistetaan arkiston eheyttä, odota..."
 
-#: ../src/callbacks.c:529 ../src/main.c:227
+#: ../src/callbacks.c:478 ../src/main.c:227
 msgid "Ready."
 msgstr "Valmis."
 
-#: ../src/callbacks.c:539
+#: ../src/callbacks.c:488
 msgid "Please hit the Stop button first!"
 msgstr "Paina ensin Pysäytä-painiketta!"
 
-#: ../src/callbacks.c:578
+#: ../src/callbacks.c:532
 #, c-format
 msgid "You are about to delete %d file(s) from the archive."
 msgstr "Olet aikeissa poistaa %d tiedostoa arkistosta."
 
-#: ../src/callbacks.c:579
+#: ../src/callbacks.c:533
 msgid "Are you sure you want to do this?"
 msgstr "Haluatko varmasti tehdä sen?"
 
-#: ../src/callbacks.c:585
+#: ../src/callbacks.c:539
 msgid "Deleting files from the archive, please wait..."
 msgstr "Poistetaan tiedostoja arkistosta, odota..."
 
-#: ../src/callbacks.c:706
+#: ../src/callbacks.c:672
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Muunnetaan arkistoa itsepurkautuvaksi, odota..."
 
-#: ../src/callbacks.c:765 ../src/callbacks.c:878
+#: ../src/callbacks.c:731 ../src/callbacks.c:844
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Arkistoa ei voi muuntaa itsepurkautuvaksi:"
 
-#: ../src/callbacks.c:778 ../src/callbacks.c:891
+#: ../src/callbacks.c:744 ../src/callbacks.c:857
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Arkistoon ei voi kirjoittaa unzipsfx-moduulia:"
 
-#: ../src/callbacks.c:845
+#: ../src/callbacks.c:811
 msgid "Please select the 7zCon.sfx module"
 msgstr "Valitse 7zCon.sfx-moduuli"
 
-#: ../src/callbacks.c:950
+#: ../src/callbacks.c:916
 msgid "translator-credits"
 msgstr "Jari Rahkonen <jari.rahkonen@pp1.inet.fi>"
 
-#: ../src/callbacks.c:981
+#: ../src/callbacks.c:947
 msgid "Save the self-extracting archive as"
 msgstr "Tallenna itsepurkautuva arkisto nimellä"
 
-#: ../src/callbacks.c:1008 ../src/interface.c:271
+#: ../src/callbacks.c:974 ../src/interface.c:294
 msgid "Open an archive"
 msgstr "Avaa arkisto"
 
-#: ../src/callbacks.c:1021 ../src/new_dialog.c:60
+#: ../src/callbacks.c:987 ../src/new_dialog.c:60
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
-#: ../src/callbacks.c:1026 ../src/new_dialog.c:65
+#: ../src/callbacks.c:992 ../src/new_dialog.c:65
 msgid "Only archives"
 msgstr "Vain arkistot"
 
-#: ../src/callbacks.c:1148
+#: ../src/callbacks.c:1114
 #, c-format
 msgid "Can't open archive \"%s\":"
 msgstr "Arkistoa \"%s\" ei voi avata:"
 
-#: ../src/callbacks.c:1425
+#: ../src/callbacks.c:1391
 msgid "Command line output"
 msgstr "Komentorivitulostus"
 
-#: ../src/callbacks.c:1463
+#: ../src/callbacks.c:1429
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Se tekisi arkistosta luultavasti käyttökelvottoman!"
 
-#: ../src/callbacks.c:1463
+#: ../src/callbacks.c:1429
 msgid "Do you really want to cancel?"
 msgstr "Haluatko todella perua toiminnon?"
 
-#: ../src/callbacks.c:1468
+#: ../src/callbacks.c:1434
 msgid "Waiting for the process to abort..."
 msgstr "Odotetaan, että prosessi peruuntuu..."
 
-#: ../src/callbacks.c:1474
+#: ../src/callbacks.c:1440
 msgid "An error occurred while trying to kill the process:"
 msgstr "Virhe suljettaessa prosessia:"
 
-#: ../src/callbacks.c:1562
+#: ../src/callbacks.c:1528
 msgid "Please select a file, not a directory!"
 msgstr "Valitse tiedosto, älä hakemistoa!"
 
-#: ../src/callbacks.c:1632
+#: ../src/callbacks.c:1598
 msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Virhe purettaessa näytettävää tiedostoa:"
 
-#: ../src/callbacks.c:1641
+#: ../src/callbacks.c:1607
 msgid ""
 "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Virhe muunnettaessa tiedoston sisältöä UTF8-merkistöön:"
 
-#: ../src/callbacks.c:1699
+#: ../src/callbacks.c:1665
 msgid " bytes"
 msgstr " tavua"
 
-#: ../src/callbacks.c:1827
+#: ../src/callbacks.c:1793
 msgid "Yes"
 msgstr "Kyllä"
 
-#: ../src/callbacks.c:1829
+#: ../src/callbacks.c:1795
 msgid "No"
 msgstr "Ei"
 
-#: ../src/callbacks.c:2135
+#: ../src/callbacks.c:2106
 msgid "Can't perform another extraction:"
 msgstr "Ei voi purkaa uudelleen:"
 
-#: ../src/callbacks.c:2135
+#: ../src/callbacks.c:2106
 msgid "Please wait until the completion of the current one!"
 msgstr "Odota, kunnes nykyinen toiminto valmistuu."
 
-#: ../src/callbacks.c:2253 ../src/callbacks.c:2264
+#: ../src/callbacks.c:2224 ../src/callbacks.c:2235
 msgid "Can't perform this action:"
 msgstr "Toimintoa ei voi suorittaa:"
 
-#: ../src/callbacks.c:2253
+#: ../src/callbacks.c:2224
 msgid "unrar doesn't support archive creation!"
 msgstr "unrar ei voi luoda arkistoa!"
 
-#: ../src/callbacks.c:2261
+#: ../src/callbacks.c:2232
 msgid "You can't add content to deb packages!"
 msgstr "Et voi lisätä sisältöä deb-paketteihin!"
 
-#: ../src/callbacks.c:2263
+#: ../src/callbacks.c:2234
 msgid "You can't add content to rpm packages!"
 msgstr "Et voi lisätä sisältöä rpm-paketteihin!"
 
-#: ../src/callbacks.c:2405
+#: ../src/callbacks.c:2375
 msgid "Failed to open link."
 msgstr "Linkin avaaminen epäonnistui."
 
-#: ../src/callbacks.c:2437
+#: ../src/callbacks.c:2407
 msgid "The password has been reset."
 msgstr "Salasana on asetettu."
 
-#: ../src/callbacks.c:2440
+#: ../src/callbacks.c:2410
 msgid "Please enter the password first!"
 msgstr "Ole hyvä ja syötä ensin salasana!"
 
-#: ../src/callbacks.c:2451
+#: ../src/callbacks.c:2421
 msgid "Archive comment window"
 msgstr "Arkiston kommentti-ikkuna"
 
@@ -556,7 +565,7 @@ msgstr ""
 "Tämäkin valinta purkaa tiedostot, jotka ovat kohteessa olevia uudempia, "
 "mutta lisäksi se purkaa myös sellaiset tiedostot, joita kohteesta ei löydy."
 
-#: ../src/extract_dialog.c:257 ../src/interface.c:141
+#: ../src/extract_dialog.c:257 ../src/interface.c:146
 msgid "_Extract"
 msgstr "P_ura"
 
@@ -612,11 +621,11 @@ msgstr "Ei voi luoda väliaikaishakemistoa kohteeseen /tmp:"
 msgid "Choose the destination folder where to extract the current archive"
 msgstr "Valitse kohdehakemisto, johon arkisto puretaan"
 
-#: ../src/lha.c:40
+#: ../src/lha.c:42
 msgid "UID/GID"
 msgstr "UID/GID"
 
-#: ../src/lha.c:40
+#: ../src/lha.c:42
 msgid "Timestamp"
 msgstr "Aikaleima"
 
@@ -632,161 +641,168 @@ msgstr "_Tarkista"
 msgid "_Properties"
 msgstr "_Ominaisuudet"
 
-#: ../src/interface.c:124
+#: ../src/interface.c:129
 msgid "_Action"
 msgstr "Toi_minto"
 
-#: ../src/interface.c:151
-msgid "Make SF_X"
-msgstr "Tee itse_purkautuva"
-
-#: ../src/interface.c:172
+#: ../src/interface.c:162
 msgid "_View"
 msgstr "_Näytä"
 
-#: ../src/interface.c:178
+#: ../src/interface.c:177
+msgid "Make SF_X"
+msgstr "Tee itse_purkautuva"
+
+#: ../src/interface.c:187
 msgid "_Show comment"
 msgstr "Näytä k_ommentti"
 
-#: ../src/interface.c:193
+#: ../src/interface.c:197
+#, fuzzy
+msgid "Show ISO in_fo"
+msgstr "Näytä I_SO-vedoksen tiedot"
+
+#: ../src/interface.c:212
 msgid "Sele_ct All"
 msgstr "Valitse _kaikki"
 
-#: ../src/interface.c:199
+#: ../src/interface.c:218
 msgid "Dese_lect All"
 msgstr "Poista _valinnat"
 
-#: ../src/interface.c:210
-msgid "Co_mmand line output"
+#: ../src/interface.c:229
+#, fuzzy
+msgid "C_md-line output"
 msgstr "Ko_mentorivitulostus"
 
-#: ../src/interface.c:219
-msgid "Show I_SO info"
-msgstr "Näytä I_SO-vedoksen tiedot"
-
-#: ../src/interface.c:229
+#: ../src/interface.c:238
 msgid "Reset passwo_rd"
 msgstr "Aseta s_alasana."
 
-#: ../src/interface.c:235
+#: ../src/interface.c:249
+#, fuzzy
+msgid "_Preferences"
+msgstr "_Ominaisuudet"
+
+#: ../src/interface.c:258
 msgid "_Help"
 msgstr "_Ohje"
 
-#: ../src/interface.c:259
+#: ../src/interface.c:282
 msgid "New"
 msgstr "Uusi"
 
-#: ../src/interface.c:263 ../src/new_dialog.c:48
+#: ../src/interface.c:286 ../src/new_dialog.c:48
 msgid "Create a new archive"
 msgstr "Luo uusi arkisto"
 
-#: ../src/interface.c:267
+#: ../src/interface.c:290
 msgid "Open"
 msgstr "Avaa"
 
-#: ../src/interface.c:279
+#: ../src/interface.c:302
 msgid "Add"
 msgstr "Lisää"
 
-#: ../src/interface.c:284
+#: ../src/interface.c:307
 msgid "Add files and directories to the current archive"
 msgstr "Lisää tiedostoja ja hakemistoja nykyiseen arkistoon"
 
-#: ../src/interface.c:288
+#: ../src/interface.c:311
 msgid "Extract"
 msgstr "Pura"
 
-#: ../src/interface.c:293
+#: ../src/interface.c:316
 msgid ""
 "Extract files from the current archive; use the mouse to select files "
 "individually"
 msgstr "Pura tiedostoja arkistosta. Valitse yksittäiset tiedostot hiirellä."
 
-#: ../src/interface.c:297
-msgid "SFX"
-msgstr "Itsepurkautuva"
-
-#: ../src/interface.c:302
-msgid "Make the current archive self-extracting"
-msgstr "Tee nykyisestä arkistosta itsepurkautuva"
-
-#: ../src/interface.c:309
+#: ../src/interface.c:320
 msgid "Delete"
 msgstr "Poista"
 
-#: ../src/interface.c:314
+#: ../src/interface.c:325
 msgid "Delete files from the current archive"
 msgstr "Poista tiedostoja arkistosta"
 
-#: ../src/interface.c:318
+#: ../src/interface.c:329 ../src/pref_dialog.c:74
 msgid "View"
 msgstr "Näytä"
 
-#: ../src/interface.c:323
+#: ../src/interface.c:334
 msgid "View file content in the current archive"
 msgstr "Näytä tiedoston sisältö arkistossa"
 
-#: ../src/interface.c:331
+#: ../src/interface.c:338
+msgid "SFX"
+msgstr "Itsepurkautuva"
+
+#: ../src/interface.c:343
+msgid "Make the current archive self-extracting"
+msgstr "Tee nykyisestä arkistosta itsepurkautuva"
+
+#: ../src/interface.c:351
 msgid "Stop"
 msgstr "Pysäytä"
 
-#: ../src/interface.c:336
+#: ../src/interface.c:356
 msgid "Cancel current operation"
 msgstr "Peru nykyinen toiminto"
 
-#: ../src/interface.c:387
+#: ../src/interface.c:407
 msgid "This archive contains password protected files"
 msgstr "Arkistossa on salasanalla suojattuja tiedostoja"
 
-#: ../src/interface.c:542
+#: ../src/interface.c:556
 msgid "Close archive"
 msgstr "Sulje arkisto"
 
-#: ../src/interface.c:596
+#: ../src/interface.c:610
 msgid "Enter Archive Password"
 msgstr "Syötä arkiston salasana"
 
-#: ../src/interface.c:695
+#: ../src/interface.c:708
 msgid "Archive Properties Window"
 msgstr "Arkiston tietoikkuna"
 
-#: ../src/interface.c:713
+#: ../src/interface.c:726
 msgid "Name:"
 msgstr "Nimi:"
 
-#: ../src/interface.c:720
+#: ../src/interface.c:733
 msgid "Path:"
 msgstr "Polku:"
 
-#: ../src/interface.c:727
+#: ../src/interface.c:740
 msgid "Type:"
 msgstr "Tyyppi:"
 
-#: ../src/interface.c:734
+#: ../src/interface.c:747
 msgid "Modified on:"
 msgstr "Muokattu:"
 
-#: ../src/interface.c:741
+#: ../src/interface.c:754
 msgid "Archive size:"
 msgstr "Arkiston koko:"
 
-#: ../src/interface.c:748
+#: ../src/interface.c:761
 msgid "Content size:"
 msgstr "Sisällön koko:"
 
-#: ../src/interface.c:755
+#: ../src/interface.c:768
 msgid "Has comment:"
 msgstr "Kommentti:"
 
-#: ../src/interface.c:762
+#: ../src/interface.c:775
 msgid "Compression ratio:"
 msgstr "Pakkaussuhde:"
 
-#: ../src/interface.c:769
+#: ../src/interface.c:782
 msgid "Number of files:"
 msgstr "Tiedostoja:"
 
-#: ../src/interface.c:776
+#: ../src/interface.c:789
 msgid "Number of dirs:"
 msgstr "Hakemistoja:"
 
@@ -799,7 +815,7 @@ msgstr "Hakemistoa ei voi luoda:"
 msgid "Can't write file \"%s\":"
 msgstr "Tiedostoa \"%s\" ei voi kirjoittaa:"
 
-#: ../src/iso.c:662 ../src/rpm.c:56
+#: ../src/iso.c:662 ../src/rpm.c:58
 msgid "Permission"
 msgstr "Oikeus"
 
@@ -940,15 +956,15 @@ msgstr "Ei voi purkaa tiedostoja arkistosta:"
 msgid "You missed the archive name!\n"
 msgstr "Arkiston nimi puuttuu!\n"
 
-#: ../src/main.c:416
+#: ../src/main.c:419
 msgid "Can't spawn the command:"
 msgstr "Komentoa ei voi poikia:"
 
-#: ../src/main.c:425
+#: ../src/main.c:428
 msgid "An error occurred!"
 msgstr "Virhe!"
 
-#: ../src/main.c:439
+#: ../src/main.c:442
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Arkistorakenteelle ei voi varata muistia!"
 
@@ -986,15 +1002,102 @@ msgstr "Arkisto \"%s\" on jo olemassa!"
 msgid "Do you want to overwrite it?"
 msgstr "Haluatko korvata sen?"
 
-#: ../src/rar.c:48 ../src/zip.c:38
+#: ../src/pref_dialog.c:38
+msgid "Preferences"
+msgstr ""
+
+#: ../src/pref_dialog.c:69
+msgid "Behaviour"
+msgstr ""
+
+#: ../src/pref_dialog.c:79
+msgid "Advanced"
+msgstr ""
+
+#: ../src/pref_dialog.c:110
+#, fuzzy
+msgid "Preferred format for new archives:"
+msgstr "Luo uusi arkisto"
+
+#: ../src/pref_dialog.c:128
+msgid "Save settings for add dialog"
+msgstr ""
+
+#: ../src/pref_dialog.c:134
+msgid "Save settings for extract dialog"
+msgstr ""
+
+#: ../src/pref_dialog.c:140
+msgid "Allow extracting directories by drag and drop"
+msgstr ""
+
+#: ../src/pref_dialog.c:146
+#, fuzzy
+msgid "Confirm deletion of files inside the archive"
+msgstr "Ei voi lisätä tiedostoja arkistoon:"
+
+#: ../src/pref_dialog.c:175
+msgid "View archive content as"
+msgstr ""
+
+#: ../src/pref_dialog.c:182
+msgid "list"
+msgstr ""
+
+#: ../src/pref_dialog.c:183 ../src/pref_dialog.c:249
+msgid "icon"
+msgstr ""
+
+#: ../src/pref_dialog.c:185
+msgid "Show comment in archive after loading it"
+msgstr ""
+
+#: ../src/pref_dialog.c:191
+#, fuzzy
+msgid "Show ISO info after loading the archive"
+msgstr "Valitse Lisää aloittaaksesi arkiston luomisen."
+
+#: ../src/pref_dialog.c:197
+msgid "Sort content by filename"
+msgstr ""
+
+#: ../src/pref_dialog.c:202
+msgid "The filename column is sort after loading the archive"
+msgstr ""
+
+#: ../src/pref_dialog.c:227
+msgid "Preferred web browser:"
+msgstr ""
+
+#: ../src/pref_dialog.c:234
+msgid "xfce default"
+msgstr ""
+
+#: ../src/pref_dialog.c:235
+msgid "konqueror"
+msgstr ""
+
+#: ../src/pref_dialog.c:241
+msgid "Preferred view application:"
+msgstr ""
+
+#: ../src/pref_dialog.c:248
+msgid "internal"
+msgstr ""
+
+#: ../src/pref_dialog.c:251
+msgid "Save window geometry on exit"
+msgstr ""
+
+#: ../src/rar.c:55 ../src/zip.c:39
 msgid "Checksum"
 msgstr "Tarkiste"
 
-#: ../src/rar.c:48 ../src/zip.c:38
+#: ../src/rar.c:55 ../src/zip.c:39
 msgid "Method"
 msgstr "Metodi"
 
-#: ../src/rar.c:48
+#: ../src/rar.c:55
 msgid "Version"
 msgstr "Versio"
 
@@ -1003,43 +1106,43 @@ msgstr "Versio"
 msgid "Can't open RPM file %s:"
 msgstr "RPM-tiedostoa %s ei voi avata:"
 
-#: ../src/rpm.c:56
+#: ../src/rpm.c:58
 msgid "Hard Link"
 msgstr "Kova linkki"
 
-#: ../src/rpm.c:56
+#: ../src/rpm.c:58
 msgid "Owner"
 msgstr "Omistaja"
 
-#: ../src/rpm.c:56
+#: ../src/rpm.c:58
 msgid "Group"
 msgstr "Ryhmä"
 
-#: ../src/rpm.c:62
+#: ../src/rpm.c:64
 msgid "Can't fseek to position 104:"
 msgstr "fseek kohtaan 104 ei onnistu:"
 
-#: ../src/rpm.c:68 ../src/rpm.c:84
+#: ../src/rpm.c:70 ../src/rpm.c:86
 msgid "Can't read data from file:"
 msgstr "Ei voi lukea tiedostosta:"
 
-#: ../src/rpm.c:78
+#: ../src/rpm.c:80
 msgid "Can't fseek in file:"
 msgstr "fseek ei onnistu tiedostossa:"
 
-#: ../src/rpm.c:126
+#: ../src/rpm.c:128
 msgid "Error while extracting the cpio archive from the rpm one."
 msgstr "Virhe purettaessa cpio-arkistoa rpm-arkistosta."
 
-#: ../src/rpm.c:157
+#: ../src/rpm.c:159
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "Virhe purettaessa cpio-arkistoa."
 
-#: ../src/rpm.c:212 ../src/rpm.c:369
+#: ../src/rpm.c:214 ../src/rpm.c:371
 msgid "An error occurred:"
 msgstr "Virhe:"
 
-#: ../src/rpm.c:324
+#: ../src/rpm.c:326
 msgid "Can't write to /tmp:"
 msgstr "Ei voi kirjoittaa kohteeseen /tmp:"
 

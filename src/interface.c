@@ -530,7 +530,7 @@ void xa_add_page (XArchive *archive)
 		gtk_notebook_set_show_tabs (notebook,FALSE);
 
 	archive->scrollwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (archive->scrollwindow) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	g_object_set (G_OBJECT (archive->scrollwindow),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 	gtk_widget_show (archive->scrollwindow);
 
 	page_hbox = gtk_hbox_new(FALSE, 2);
@@ -688,10 +688,9 @@ GtkWidget *view_win ( gchar *title)
 	gtk_window_set_modal ( GTK_WINDOW (view_window),TRUE);
 	gtk_window_set_transient_for ( GTK_WINDOW (view_window) , GTK_WINDOW (MainWindow) );
 	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow2);
+	g_object_set (G_OBJECT (scrolledwindow2),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 	gtk_container_add (GTK_CONTAINER (view_window), scrolledwindow2);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow2), GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow2) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	gtk_widget_show (scrolledwindow2);
 
 	textview1 = gtk_text_view_new ();
 	gtk_widget_show (textview1);
