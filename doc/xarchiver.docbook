@@ -3,7 +3,7 @@
         "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
 <!ENTITY app "Xarchiver">
 <!ENTITY app_small "xarchiver">
-<!ENTITY appversion "0.4.6">
+<!ENTITY appversion "0.5">
 <!ENTITY appurl "http://xarchiver.xfce.org">
 <!ENTITY author_mail "colossus73@gmail.com">
 <!ENTITY date "September 29, 2006">
@@ -310,13 +310,6 @@
 							</figure>
 						</para>
 				</section>
-				<section id="sfx">
-					<title>Make SFX</title>
-						<para>
-							Convert the current archive to self-extracting. This option is disabled when the current archive doesn't support this feature (e.g. tar archives). After converting an archive to self-extracting this option will be disabled.
-
-						</para>
-				</section>
 				<section id="delete">
 					<title>Delete</title>
 						<para>
@@ -329,28 +322,17 @@
 							Opens a window containing the ASCII dump of the selected ASCII file. If a file in the archive is encoded with a different enconding than in use by the system you will get an error message. See the <xref linkend="sixth"/> for a possible solution.
 						</para>
 				</section>
+				<section id="sfx">
+					<title>Make SFX</title>
+						<para>
+							Convert the current archive to self-extracting. This option is disabled when the current archive doesn't support this feature (e.g. tar archives). After converting an archive to self-extracting this option will be disabled.
+
+						</para>
+				</section>
 				<section id="comment">
 					<title>Show Comment</title>
 						<para>
 							If the current archive contains a comment this menu entry opens a window showing it.
-						</para>
-				</section>
-				<section id="select">
-					<title>Select</title>
-						<para>
-							Select all the files in the window.
-						</para>
-				</section>
-				<section id="deselect">
-					<title>Deselect</title>
-						<para>
-							Deselect all the files in the window.
-						</para>
-				</section>
-				<section id="output_window">
-					<title>Command line output</title>
-						<para>
-							Opens a window containing the last archiver output.
 						</para>
 				</section>
 				<section id="iso_info">
@@ -365,10 +347,40 @@
 							</figure>
 						</para>
 				</section>
-			<section id="reset_password">
-					<title>Reset password</title>
+				<section id="select">
+					<title>Select all</title>
 						<para>
+							Select all the files in the window.
+						</para>
+				</section>
+				<section id="deselect">
+					<title>Deselect all</title>
+						<para>
+							Deselect all the files in the window.
+						</para>
+				</section>
+				<section id="output_window">
+					<title>Command line output</title>
+						<para>
+							Opens a window containing the last archiver output.
+						</para>
+				</section>
+				<section id="reset_password">
+						<title>Reset password</title>
+							<para>
 							Clears the current password. The result of the operation is shown in the status bar. This option is useful when extracting files using Drag and Drop, allowing the user to choose another password if he entered it incorrectly.
+							</para>
+				</section>
+				<section id="prefs">
+						<title>Preferences</title>
+							<para>
+							Open the preferences dialog where you can set several options. All the options are automatically saved to ~/.config/xarchiver/xarchiverrc when pressing the Ok button.
+							</para>
+							<para>
+							<figure id="pref_dialog">
+								<title>Preferences dialog</title>
+									<graphic fileref="images/pref_dialog.png"></graphic>
+							</figure>
 						</para>
 				</section>
 			</section>

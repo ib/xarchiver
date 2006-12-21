@@ -20,18 +20,19 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include "pref_dialog.h"
-#include "interface.h"
 #include "main.h"
 #include "support.h"
 
 extern gboolean unrar;
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
-	GtkNotebook *prefs_notebook;
-	GtkWidget *label1, *label2, *label3, *label4, *vbox1, *vbox2, *vbox3, *vbox4, *frame1, *frame2, *frame3;
-	GtkWidget *hbox1, *alignment1,*alignment2, *hbox3, *label5,*alignment3, *hbox4;
-	GtkWidget *hbox5, *label6, *label7;
+	GtkWidget *vbox1, *vbox2, *vbox3, *vbox4,*hbox1, *scrolledwindow1, *prefs_iconview, *label5;
+	GtkWidget *label1, *label2, *label3, *label4, *frame1, *frame2, *frame3, *alignment1, *alignment2, *alignment3;
+	GtkWidget *hbox3, *hbox4, *label6, *label7, *hbox5;
+	GtkTreeIter iter;
 	GList *archive_type;
+	GdkPixbuf *icon_pixbuf;
+	GError *error = NULL;
 	Prefs_dialog_data *prefs_data;
 
 	prefs_data = g_new0 (Prefs_dialog_data,1);
@@ -39,20 +40,62 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 									GTK_WINDOW (MainWindow), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK, NULL);
 	tooltips = gtk_tooltips_new ();
-	prefs_notebook = GTK_NOTEBOOK(gtk_notebook_new() );
-	gtk_notebook_set_tab_pos (prefs_notebook, GTK_POS_TOP);
-	gtk_notebook_popup_disable (prefs_notebook);
-	gtk_widget_show (GTK_WIDGET(prefs_notebook));
+	//gtk_notebook_set_tab_pos (prefs_notebook, GTK_POS_TOP);
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
 
 	vbox1 = GTK_DIALOG (prefs_data->dialog1)->vbox;
 	gtk_widget_show (vbox1);
-	gtk_box_pack_start (GTK_BOX (vbox1), GTK_WIDGET(prefs_notebook), TRUE, TRUE, 6);
+
+	hbox1 = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox1);
+	gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 2);
+
+	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (scrolledwindow1);
+	gtk_box_pack_start (GTK_BOX (hbox1), scrolledwindow1, TRUE, TRUE, 0);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow1) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+
+	prefs_data->prefs_liststore = gtk_list_store_new ( 2, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+
+	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
+	g_object_unref (prefs_data->prefs_liststore);
+	//gtk_widget_set_size_request(prefs_iconview, 110, -1);
+	gtk_icon_view_set_orientation (GTK_ICON_VIEW (prefs_iconview), GTK_ORIENTATION_VERTICAL);
+	gtk_icon_view_set_columns (GTK_ICON_VIEW (prefs_iconview),1);
+	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (prefs_iconview), 0);
+	gtk_icon_view_set_text_column (GTK_ICON_VIEW (prefs_iconview), 1);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow1), prefs_iconview);
+
+	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
+	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", &error);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Behaviour"), -1);
+	g_object_unref (icon_pixbuf);
+
+	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
+	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-add.png", &error);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("View"), -1);
+	g_object_unref (icon_pixbuf);
+
+	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
+	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", &error);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"), -1);
+	g_object_unref (icon_pixbuf);
+	gtk_widget_show (prefs_iconview);
+
+	prefs_data->prefs_notebook = gtk_notebook_new ();
+	gtk_widget_show (prefs_data->prefs_notebook);
+	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->prefs_notebook, TRUE, TRUE, 0);
+	GTK_WIDGET_UNSET_FLAGS (prefs_data->prefs_notebook, GTK_CAN_FOCUS);
+	gtk_notebook_popup_disable (GTK_NOTEBOOK (prefs_data->prefs_notebook));
+	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (prefs_data->prefs_notebook), FALSE);
+	gtk_notebook_set_show_border (GTK_NOTEBOOK (prefs_data->prefs_notebook), FALSE);
+	g_signal_connect (G_OBJECT (prefs_iconview), "selection-changed",G_CALLBACK (xa_prefs_iconview_changed), prefs_data);
 
 	/* Behaviour page*/
 	frame1 = gtk_frame_new (NULL);
 	gtk_widget_show (frame1);
-	gtk_container_add (GTK_CONTAINER (prefs_notebook), frame1);
+	gtk_container_add (GTK_CONTAINER (prefs_data->prefs_notebook), frame1);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_NONE);
 
 	alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -110,14 +153,14 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	GTK_WIDGET_UNSET_FLAGS (prefs_data->confirm_deletion, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->confirm_deletion), FALSE);
 
-	label1 = gtk_label_new (_("Behaviour"));
+	label1 = gtk_label_new ("");
 	gtk_widget_show (label1);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_notebook), 0), label1);
+	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 0), label1);
 
 	/* View page*/
 	frame2 = gtk_frame_new (NULL);
 	gtk_widget_show (frame2);
-	gtk_container_add (GTK_CONTAINER (prefs_notebook), frame2);
+	gtk_container_add (GTK_CONTAINER (prefs_data->prefs_notebook), frame2);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_NONE);
 
 	alignment2 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -162,14 +205,14 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
 	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sort after loading the archive"), NULL);
 
-	label2 = gtk_label_new (_("View"));
+	label2 = gtk_label_new ("");
 	gtk_widget_show (label2);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_notebook), 1), label2);
+	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 1), label2);
 
 	/* Advanced page*/
 	frame3 = gtk_frame_new (NULL);
 	gtk_widget_show (frame3);
-	gtk_container_add (GTK_CONTAINER (prefs_notebook), frame3);
+	gtk_container_add (GTK_CONTAINER (prefs_data->prefs_notebook), frame3);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame3), GTK_SHADOW_NONE);
 
 	alignment3 = gtk_alignment_new (0.5, 0.5, 1, 1);
@@ -215,8 +258,39 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_save_geometry, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_geometry), FALSE);
 
-	label3 = gtk_label_new (_("Advanced"));
+	label3 = gtk_label_new ("");
 	gtk_widget_show (label3);
-	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_notebook), 2), label3);
+	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 2), label3);
 	return prefs_data;
+}
+
+void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
+{
+	Prefs_dialog_data *prefs = data;
+	GList *list;
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	gchar *text = NULL;
+
+	list = gtk_icon_view_get_selected_items (iconview);
+	if (list == NULL)
+		return;
+
+	list = g_list_first (list);
+	path = (GtkTreePath*)list->data;
+
+	gtk_tree_model_get_iter ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, path );
+	gtk_tree_model_get ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, 1, &text, -1);
+
+	gtk_tree_path_free( (GtkTreePath*)list->data );
+	g_list_free (list);
+
+	if (strncmp ( text,"B",1) == 0 )
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),0);
+	else if (strncmp ( text,"V",1) == 0 )
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),1);
+	else if (strncmp ( text,"A",1) == 0 )
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),2);
+
+	g_free (text);
 }
