@@ -95,7 +95,6 @@ GtkWidget *tmp_image;
 GtkWidget *pad_image;
 GtkWidget *New_button;
 GtkWidget *Open_button;
-GtkWidget *Close_button;
 GtkWidget *separatortoolitem1;
 GtkWidget *separatortoolitem2;
 GtkWidget *AddFile_button;

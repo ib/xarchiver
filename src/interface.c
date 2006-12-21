@@ -293,15 +293,6 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (toolbar1), Open_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Open_button), tooltips, _("Open an archive"), NULL);
 
-	tmp_image = gtk_image_new_from_stock ("gtk-close", tmp_toolbar_icon_size);
-	gtk_widget_show (tmp_image);
-	Close_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Close"));
-	gtk_widget_show (Close_button);
-	gtk_widget_set_sensitive (Close_button,FALSE);
-	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Close_button), FALSE);
-	gtk_container_add (GTK_CONTAINER (toolbar1), Close_button);
-	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Close_button), tooltips, _("Close the current archive"), NULL);
-
 	separatortoolitem1 = (GtkWidget*) gtk_separator_tool_item_new ();
 	gtk_widget_show (separatortoolitem1);
 	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem1);
@@ -439,7 +430,6 @@ GtkWidget *create_MainWindow (void)
 
 	g_signal_connect ((gpointer) New_button, "clicked", G_CALLBACK (xa_new_archive), NULL);
 	g_signal_connect ((gpointer) Open_button, "clicked", G_CALLBACK (xa_open_archive), NULL);
-	g_signal_connect ((gpointer) Close_button, "clicked", G_CALLBACK (xa_close_archive), NULL);
 	g_signal_connect ((gpointer) AddFile_button, "clicked", G_CALLBACK (xa_add_files_archive), NULL);
     g_signal_connect ((gpointer) Extract_button, "clicked", G_CALLBACK (xa_extract_archive), NULL);
     g_signal_connect ((gpointer) Exe_button, "clicked", G_CALLBACK (xa_convert_sfx), NULL);

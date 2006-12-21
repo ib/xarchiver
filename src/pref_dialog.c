@@ -32,7 +32,6 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	GtkTreeIter iter;
 	GList *archive_type;
 	GdkPixbuf *icon_pixbuf;
-	GError *error = NULL;
 	Prefs_dialog_data *prefs_data;
 
 	prefs_data = g_new0 (Prefs_dialog_data,1);
@@ -51,16 +50,14 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 2);
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+	gtk_box_pack_start (GTK_BOX (hbox1), scrolledwindow1, FALSE, FALSE, 0);
+	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy", GTK_POLICY_NEVER,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_NEVER, NULL);
 	gtk_widget_show (scrolledwindow1);
-	gtk_box_pack_start (GTK_BOX (hbox1), scrolledwindow1, TRUE, TRUE, 0);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy ( GTK_SCROLLED_WINDOW (scrolledwindow1) , GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 
 	prefs_data->prefs_liststore = gtk_list_store_new ( 2, GDK_TYPE_PIXBUF, G_TYPE_STRING);
 
 	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
-	g_object_unref (prefs_data->prefs_liststore);
-	//gtk_widget_set_size_request(prefs_iconview, 110, -1);
+	gtk_widget_set_size_request(prefs_iconview, 80, -1);
 	gtk_icon_view_set_orientation (GTK_ICON_VIEW (prefs_iconview), GTK_ORIENTATION_VERTICAL);
 	gtk_icon_view_set_columns (GTK_ICON_VIEW (prefs_iconview),1);
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (prefs_iconview), 0);
@@ -68,28 +65,27 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), prefs_iconview);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", &error);
+	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Behaviour"), -1);
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-add.png", &error);
+	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-add.png", NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("View"), -1);
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", &error);
+	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"), -1);
 	g_object_unref (icon_pixbuf);
+	g_object_unref (prefs_data->prefs_liststore);
 	gtk_widget_show (prefs_iconview);
 
 	prefs_data->prefs_notebook = gtk_notebook_new ();
+	g_object_set (G_OBJECT (prefs_data->prefs_notebook),"show-border", FALSE,"show-tabs", FALSE,"enable-popup",FALSE,NULL);
 	gtk_widget_show (prefs_data->prefs_notebook);
 	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->prefs_notebook, TRUE, TRUE, 0);
 	GTK_WIDGET_UNSET_FLAGS (prefs_data->prefs_notebook, GTK_CAN_FOCUS);
-	gtk_notebook_popup_disable (GTK_NOTEBOOK (prefs_data->prefs_notebook));
-	gtk_notebook_set_show_tabs (GTK_NOTEBOOK (prefs_data->prefs_notebook), FALSE);
-	gtk_notebook_set_show_border (GTK_NOTEBOOK (prefs_data->prefs_notebook), FALSE);
 	g_signal_connect (G_OBJECT (prefs_iconview), "selection-changed",G_CALLBACK (xa_prefs_iconview_changed), prefs_data);
 
 	/* Behaviour page*/

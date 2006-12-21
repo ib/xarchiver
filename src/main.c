@@ -383,7 +383,6 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean a
     gtk_widget_set_sensitive ( new1, New);
 	gtk_widget_set_sensitive ( Open_button, Open);
     gtk_widget_set_sensitive ( open1, Open);
-    gtk_widget_set_sensitive ( Close_button, Close);
     gtk_widget_set_sensitive ( close1, Close);
 	gtk_widget_set_sensitive ( AddFile_button, add);
 	gtk_widget_set_sensitive ( addfile, add);
