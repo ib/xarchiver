@@ -436,22 +436,27 @@ gboolean SpawnSyncCommand ( gchar *command )
 XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
 	XArchive *archive_cmd;
+	XArchiveType type;
+
+	type = xa_detect_archive_type ( filename );
+	if (type == -2)
+		return NULL;
+
 	archive_cmd = xa_init_archive_structure ();
 	if (archive_cmd == NULL)
 	{
 		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
 		return NULL;
 	}
-
 	archive_cmd->path = g_strdup (filename);
 	archive_cmd->escaped_path = EscapeBadChars(filename , "$\'`\"\\!?* ()&|@#:;");
-	archive_cmd->type = xa_detect_archive_type ( archive_cmd , NULL );
-	if (archive_cmd->type == -2)
-		return NULL;
+	archive_cmd->type = type;
+
 	if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive_cmd->escaped_path , ".tar.bz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tbz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tbz2" ) )
 		archive_cmd->type = XARCHIVETYPE_TAR_BZ2;
 	else if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.gz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tgz") )
 		archive_cmd->type = XARCHIVETYPE_TAR_GZ;
+
 	return (archive_cmd);
 }
 

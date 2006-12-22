@@ -327,7 +327,7 @@ gchar *xa_open_temp_file ( gchar *temp_path )
 		g_free (tmp);
 		return NULL;
 	}
-	if (xa_detect_archive_type ( NULL , temp_path ) == XARCHIVETYPE_GZIP)
+	if (xa_detect_archive_type ( temp_path ) == XARCHIVETYPE_GZIP)
 		command = g_strconcat ( "gzip -dc " , temp_path , NULL );
 	else
 		command = g_strconcat ( "bzip2 -dc " , temp_path , NULL );

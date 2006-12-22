@@ -232,6 +232,8 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	gchar *path = NULL;
 	gint current_page;
 	gint x;
+	XArchiveType type;
+
 	path = (gchar *)data;
 	if ( path == NULL)
     {
@@ -249,10 +251,26 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		if (strcmp (path,archive[current_page]->path) == 0)
 			return;
 	}
+	type = xa_detect_archive_type ( path );
 
+	if (type == -1)
+	{
+		gchar *utf8_path,*msg;
+		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
+		msg = g_strdup_printf (_("Can't open file \"%s\":"), utf8_path);
+		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,
+		_("Archive format is not recognized!"));
+		g_free (utf8_path);
+		g_free (msg);
+		g_free (path);
+		return;
+	}
 	current_page = xa_get_new_archive_idx();
 	if (current_page == -1)
+	{
+		g_free (path);
 		return;
+	}
 
 	archive[current_page] = xa_init_archive_structure();
 	if (archive[current_page] == NULL)
@@ -262,9 +280,9 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		return;
 	}
 
+	archive[current_page]->type = type;
 	archive[current_page]->path = g_strdup (path);
 	archive[current_page]->escaped_path = EscapeBadChars ( archive[current_page]->path , "$\'`\"\\!?* ()&|@#:;" );
-
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	xa_add_page (archive[current_page]);
 
@@ -272,30 +290,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	gtk_widget_set_sensitive ( iso_info , FALSE );
 	gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
 
-	archive[current_page]->type = xa_detect_archive_type ( archive[current_page] , NULL );
-	if ( archive[current_page]->type == -2 )
-	{
-		xa_close_archive ( NULL, NULL);
-		xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
-		return;
-	}
-	if ( archive[current_page]->type == -1 )
-	{
-		xa_close_archive ( NULL, NULL);
-		gchar *utf8_path,*msg;
-		utf8_path = g_filename_to_utf8 (path, -1, NULL, NULL, NULL);
-		msg = g_strdup_printf (_("Can't open file \"%s\":"), utf8_path);
-		xa_set_window_title (MainWindow , NULL);
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,
-		_("Archive format is not recognized!"));
-		xa_set_button_state ( 1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
-		gtk_widget_set_sensitive ( check_menu , FALSE );
-		gtk_widget_set_sensitive ( properties , FALSE );
-		g_free (utf8_path);
-		g_free (msg);
-		g_free (path);
-		return;
-	}
 	g_free (path);
 	EmptyTextBuffer();
 
@@ -1095,22 +1089,21 @@ gboolean isLha ( FILE *ptr )
 	}
 }
 
-int xa_detect_archive_type ( XArchive *archive , gchar *filename )
+int xa_detect_archive_type ( gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
 	unsigned char magic[14];
+
 	if (filename != NULL)
 		dummy_ptr = fopen ( filename , "r" );
-	else
-		dummy_ptr = fopen ( archive->path , "r" );
 
 	if (dummy_ptr == NULL)
 	{
 		if ( !cli )
 		{
 			gchar *utf8_path,*msg;
-			utf8_path = g_filename_to_utf8 (archive->path, -1, NULL, NULL, NULL);
+			utf8_path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
 			msg = g_strdup_printf (_("Can't open archive \"%s\":") , utf8_path );
 			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 			msg,g_strerror (errno));
@@ -1121,34 +1114,29 @@ int xa_detect_archive_type ( XArchive *archive , gchar *filename )
 		else
 			return -2;
 	}
-	if ( fread ( magic, 1, 14, dummy_ptr ) == 0 )
-	{
-		fclose ( dummy_ptr);
-		return -2;
-	}
-
+	fread ( magic, 1, 14, dummy_ptr );
 	if ( memcmp ( magic,"\x50\x4b\x03\x04",4 ) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0 )
 	{
-		if (archive != NULL)
+		/*if (archive != NULL)
 		{
 			archive->has_passwd = xa_detect_encrypted_archive ( XARCHIVETYPE_ZIP , dummy_ptr , magic );
 			archive->has_comment = xa_detect_archive_comment ( XARCHIVETYPE_ZIP , dummy_ptr, archive );
-		}
+		}*/
 		xx = XARCHIVETYPE_ZIP;
 	}
 	else if ( memcmp ( magic,"\x60\xea",2 ) == 0 )
 	{
-		if (archive != NULL)
+		/*if (archive != NULL)
 		{
 			archive->has_passwd = xa_detect_encrypted_archive ( XARCHIVETYPE_ARJ , dummy_ptr, magic );
 			archive->has_comment = xa_detect_archive_comment ( XARCHIVETYPE_ARJ , dummy_ptr, archive );
-		}
+		}*/
 		xx = XARCHIVETYPE_ARJ;
 	}
 	else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 )
 	{
-		if (archive != NULL)
-			archive->has_comment = xa_detect_archive_comment ( XARCHIVETYPE_RAR , dummy_ptr, archive );
+		/*if (archive != NULL)
+			archive->has_comment = xa_detect_archive_comment ( XARCHIVETYPE_RAR , dummy_ptr, archive );*/
 		 xx = XARCHIVETYPE_RAR;
 	}
 	else if ( memcmp ( magic,"\x42\x5a\x68",3 ) == 0 ) xx = XARCHIVETYPE_BZIP2;
@@ -2199,7 +2187,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		filename = g_filename_from_uri ( array[0] , NULL, NULL );
 		if ( filename == NULL)
 			return;
-		else if ( xa_detect_archive_type ( NULL , filename ) > 0 )
+		else if ( xa_detect_archive_type ( filename ) > 0 )
 		{
 			xa_open_archive ( NULL, filename );
 			g_strfreev ( array );
@@ -2334,6 +2322,7 @@ void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 	gchar *argv[3];
 	gchar *browser_path;
 
+	//TODO: retrieve the user set browser from prefs and use it
 	browser_path = g_find_program_in_path ("exo-open");
 	if ( browser_path == NULL)
 		browser_path = g_find_program_in_path ("htmlview");

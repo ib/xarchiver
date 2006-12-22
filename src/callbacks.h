@@ -92,7 +92,7 @@ void drag_end (GtkWidget *treeview1, GdkDragContext *context, gpointer data);
 void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data);
 
 int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
-int xa_detect_archive_type ( XArchive *archive , gchar *filename );
+int xa_detect_archive_type ( gchar *filename );
 gboolean xa_detect_encrypted_archive ( int type, FILE *stream, unsigned char magic[6] );
 gboolean xa_detect_archive_comment ( int type, FILE *stream, XArchive *archive );
 gboolean isTar ( FILE *ptr );

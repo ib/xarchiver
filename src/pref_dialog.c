@@ -39,7 +39,6 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 									GTK_WINDOW (MainWindow), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK, NULL);
 	tooltips = gtk_tooltips_new ();
-	//gtk_notebook_set_tab_pos (prefs_notebook, GTK_POS_TOP);
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
 
 	vbox1 = GTK_DIALOG (prefs_data->dialog1)->vbox;
@@ -55,8 +54,9 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_widget_show (scrolledwindow1);
 
 	prefs_data->prefs_liststore = gtk_list_store_new ( 2, GDK_TYPE_PIXBUF, G_TYPE_STRING);
-
 	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
+	g_object_unref (prefs_data->prefs_liststore);
+
 	gtk_widget_set_size_request(prefs_iconview, 80, -1);
 	gtk_icon_view_set_orientation (GTK_ICON_VIEW (prefs_iconview), GTK_ORIENTATION_VERTICAL);
 	gtk_icon_view_set_columns (GTK_ICON_VIEW (prefs_iconview),1);
@@ -78,7 +78,6 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"), -1);
 	g_object_unref (icon_pixbuf);
-	g_object_unref (prefs_data->prefs_liststore);
 	gtk_widget_show (prefs_iconview);
 
 	prefs_data->prefs_notebook = gtk_notebook_new ();
