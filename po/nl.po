@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-21 14:33+0100\n"
 "PO-Revision-Date: 2006-04-24 21:38+0200\n"
-"Last-Translator: Stephan Arts <psybsd@gmail.com>\n"
+"Last-Translator: Stephan Arts <stephan@xfce.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,9 +92,8 @@ msgid "Remove files after adding"
 msgstr "Verwijder bestanden na toevoegen"
 
 #: ../src/add_dialog.c:194
-#, fuzzy
 msgid "Do not add absolute paths"
-msgstr "Voeg geen bestands-paden toe"
+msgstr "Voeg geen absolute paden toe"
 
 #: ../src/add_dialog.c:196
 msgid "Do not add file paths"
@@ -377,7 +376,7 @@ msgstr "Selecteer de 7zCon.sfx module"
 
 #: ../src/callbacks.c:916
 msgid "translator-credits"
-msgstr "Stephan Arts <psybsd@gmail.com>"
+msgstr "Stephan Arts <stephan@xfce.org>"
 
 #: ../src/callbacks.c:947
 msgid "Save the self-extracting archive as"
@@ -658,9 +657,8 @@ msgid "_Show comment"
 msgstr "_Toon commentaar"
 
 #: ../src/interface.c:197
-#, fuzzy
 msgid "Show ISO in_fo"
-msgstr "Toon I_SO informatie"
+msgstr "Toon ISO in_formatie"
 
 #: ../src/interface.c:212
 msgid "Sele_ct All"
@@ -671,18 +669,16 @@ msgid "Dese_lect All"
 msgstr "A_lles deselecteren"
 
 #: ../src/interface.c:229
-#, fuzzy
 msgid "C_md-line output"
-msgstr "Co_mmand line uitvoer"
+msgstr "Co_mmando regel uitvoer"
 
 #: ../src/interface.c:238
 msgid "Reset passwo_rd"
 msgstr "Wachtwoo_rd Resetten"
 
 #: ../src/interface.c:249
-#, fuzzy
 msgid "_Preferences"
-msgstr "Eigenschappen"
+msgstr "Voor_keuren"
 
 #: ../src/interface.c:258
 msgid "_Help"
@@ -997,20 +993,19 @@ msgstr "Wilt u het overschrijven?"
 
 #: ../src/pref_dialog.c:38
 msgid "Preferences"
-msgstr ""
+msgstr "Voorkeuren"
 
 #: ../src/pref_dialog.c:69
 msgid "Behaviour"
-msgstr ""
+msgstr "Gedrag"
 
 #: ../src/pref_dialog.c:79
 msgid "Advanced"
-msgstr ""
+msgstr "Geavanceerd"
 
 #: ../src/pref_dialog.c:110
-#, fuzzy
 msgid "Preferred format for new archives:"
-msgstr "Maak een nieuw archief"
+msgstr "Standaard formaat voor nieuwe archieven:"
 
 #: ../src/pref_dialog.c:128
 msgid "Save settings for add dialog"
@@ -1025,62 +1020,60 @@ msgid "Allow extracting directories by drag and drop"
 msgstr ""
 
 #: ../src/pref_dialog.c:146
-#, fuzzy
 msgid "Confirm deletion of files inside the archive"
-msgstr "Kan bestanden niet toevoegen aan archief:"
+msgstr "Om bevestiging vragen voor het verwijderen uit het archief"
 
 #: ../src/pref_dialog.c:175
 msgid "View archive content as"
-msgstr ""
+msgstr "Inhoud weergeven als"
 
 #: ../src/pref_dialog.c:182
 msgid "list"
-msgstr ""
+msgstr "lijst"
 
 #: ../src/pref_dialog.c:183 ../src/pref_dialog.c:249
 msgid "icon"
-msgstr ""
+msgstr "icoon"
 
 #: ../src/pref_dialog.c:185
 msgid "Show comment in archive after loading it"
-msgstr ""
+msgstr "Commentaar in archief tonen na inladen"
 
 #: ../src/pref_dialog.c:191
-#, fuzzy
 msgid "Show ISO info after loading the archive"
-msgstr "Kies 'Toevoegen' om het archief te maken"
+msgstr "Toon ISO informatie na inladen van archief"
 
 #: ../src/pref_dialog.c:197
 msgid "Sort content by filename"
-msgstr ""
+msgstr "Inhoud sorteren op bestandsnaam"
 
 #: ../src/pref_dialog.c:202
 msgid "The filename column is sort after loading the archive"
-msgstr ""
+msgstr "De bestandsnaam kolom is gesorteed na het openen van het archief"
 
 #: ../src/pref_dialog.c:227
 msgid "Preferred web browser:"
-msgstr ""
+msgstr "Standaard web browser:"
 
 #: ../src/pref_dialog.c:234
 msgid "xfce default"
-msgstr ""
+msgstr "xfce standaard"
 
 #: ../src/pref_dialog.c:235
 msgid "konqueror"
-msgstr ""
+msgstr "konqueror"
 
 #: ../src/pref_dialog.c:241
 msgid "Preferred view application:"
-msgstr ""
+msgstr "Standaard weergave programma:"
 
 #: ../src/pref_dialog.c:248
 msgid "internal"
-msgstr ""
+msgstr "intern"
 
 #: ../src/pref_dialog.c:251
 msgid "Save window geometry on exit"
-msgstr ""
+msgstr "Geometrie opslaan bij afsluiten"
 
 #: ../src/rar.c:55 ../src/zip.c:39
 msgid "Checksum"
