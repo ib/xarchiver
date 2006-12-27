@@ -28,6 +28,7 @@ extern gboolean unrar;
 extern gboolean cli;
 gchar *current_new_directory = NULL;
 gint new_combo_box = -1;
+gchar *ComboArchiveType;
 
 XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 {
@@ -142,7 +143,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 		{
 			if ( ! g_str_has_suffix ( my_path , ComboArchiveType ) )
 			{
-				my_path_ext = g_strconcat ( my_path, ComboArchiveType , NULL);
+				my_path_ext = g_strconcat ( my_path, "." , ComboArchiveType , NULL);
 				g_free (my_path);
 				my_path = my_path_ext;
 			}
@@ -158,7 +159,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 				if (strcmp (my_path,archive_open[current_page]->path) == 0)
 				{
 					gchar *msg = g_strdup_printf(_("\"%s\" is already open!") , my_path);
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create a new archive:"),msg );
+					response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create a new archive:"),msg );
 					g_free (my_path);
 					g_free (msg);
 					gtk_widget_destroy (xa_file_chooser);
@@ -174,7 +175,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 
 			utf8_path = g_filename_to_utf8 (my_path, -1, NULL, NULL, NULL);
 			msg = g_strdup_printf (_("The archive \"%s\" already exists!"), utf8_path);
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),
+			response = xa_show_message_dialog (GTK_WINDOW (MainWindow),
 							GTK_DIALOG_MODAL,
 							GTK_MESSAGE_QUESTION,
 							GTK_BUTTONS_YES_NO,
@@ -196,23 +197,23 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 		archive = xa_init_archive_structure ();
 		new_combo_box = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 
-		if (strcmp ( ComboArchiveType,".arj") == 0)
+		if (strcmp ( ComboArchiveType,"arj") == 0)
 			archive->type = XARCHIVETYPE_ARJ;
-		else if (strcmp ( ComboArchiveType,".rar") == 0)
+		else if (strcmp ( ComboArchiveType,"rar") == 0)
 			archive->type = XARCHIVETYPE_RAR;
-		else if (strcmp ( ComboArchiveType,".tar") == 0)
+		else if (strcmp ( ComboArchiveType,"tar") == 0)
 			archive->type = XARCHIVETYPE_TAR;
-		else if (strcmp ( ComboArchiveType,".tar.bz2") == 0)
+		else if (strcmp ( ComboArchiveType,"tar.bz2") == 0)
 			archive->type = XARCHIVETYPE_TAR_BZ2;
-		else if (strcmp ( ComboArchiveType,".tar.gz") == 0)
+		else if (strcmp ( ComboArchiveType,"tar.gz") == 0)
 			archive->type = XARCHIVETYPE_TAR_GZ;
-		else if (strcmp ( ComboArchiveType,".jar") == 0 || strcmp ( ComboArchiveType,".zip") == 0 )
+		else if (strcmp ( ComboArchiveType,"jar") == 0 || strcmp ( ComboArchiveType,"zip") == 0 )
 			archive->type = XARCHIVETYPE_ZIP;
-		else if (strcmp ( ComboArchiveType,".rpm") == 0)
+		else if (strcmp ( ComboArchiveType,"rpm") == 0)
 			archive->type = XARCHIVETYPE_RPM;
-		else if (strcmp ( ComboArchiveType,".7z") == 0)
+		else if (strcmp ( ComboArchiveType,"7z") == 0)
 			archive->type = XARCHIVETYPE_7ZIP;
-		else if (strcmp ( ComboArchiveType,".lzh") == 0)
+		else if (strcmp ( ComboArchiveType,"lzh") == 0)
 			archive->type = XARCHIVETYPE_LHA;
 
 		gtk_widget_destroy (xa_file_chooser);

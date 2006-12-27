@@ -44,6 +44,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for ( GTK_WINDOW (add_dialog->dialog1) , GTK_WINDOW (MainWindow) );
 	gtk_window_set_resizable (GTK_WINDOW (add_dialog->dialog1), FALSE);
+	gtk_dialog_set_has_separator (GTK_DIALOG (add_dialog->dialog1), FALSE);
 
 	add_dialog->add_option_tooltip = gtk_tooltips_new ();
 	add_dialog->dialog_vbox1 = GTK_DIALOG (add_dialog->dialog1)->vbox;
@@ -202,7 +203,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		else
 			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
 
-		add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry in the archive"));
+		add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen an existing entry"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->freshen), archive->freshen);
 		gtk_widget_show (add_dialog->freshen);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->freshen, FALSE, FALSE, 0);
@@ -210,7 +211,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
 	}
 
-	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update an existing entry in the archive"));
+	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update an existing entry"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->update), archive->update);
 	gtk_widget_show (add_dialog->update);
 	gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->update, FALSE, FALSE, 0);
@@ -383,7 +384,7 @@ void add_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,in
 	array = gtk_selection_data_get_uris ( data );
 	if (array == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry, I could not perform the operation!") );
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry, I could not perform the operation!") );
 		gtk_drag_finish (context, FALSE, FALSE, time);
 		return;
 	}
@@ -478,7 +479,7 @@ void remove_files_liststore (GtkWidget *widget, gpointer data)
 	{
 		path = gtk_tree_row_reference_get_path((GtkTreeRowReference *) node->data);
 		if (path)
-	    {
+		{
 			if ( gtk_tree_model_get_iter(GTK_TREE_MODEL(add_dialog->file_liststore), &iter, path) )
 				gtk_list_store_remove(add_dialog->file_liststore, &iter);
 			gtk_tree_path_free(path);
@@ -531,7 +532,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			case GTK_RESPONSE_OK:
 			if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) == FALSE)
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"), _("You haven't selected any files to add!") );
+				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"), _("You haven't selected any files to add!") );
 				break;
 			}
 			if ( add_dialog->add_password != NULL && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
@@ -539,7 +540,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 				temp_password  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (add_dialog->add_password_entry) ));
 				if (strlen(temp_password) == 0)
 				{
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
+					response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
 					g_free (temp_password);
 					break;
 				}

@@ -26,17 +26,23 @@ void OpenDeb ( XArchive *archive )
 	gchar *command = NULL;
 	gchar *archive_no_path = NULL;
 	gboolean result;
+	gchar tmp_dir[14] = "";
+
+	/* Create a unique tmp dir in /tmp */
+	result = xa_create_temp_directory (tmp_dir);
+	if (result == 0)
+		return;
 
 	archive_no_path = g_strrstr (archive->escaped_path,"/");
 	if (archive_no_path == NULL)
-		archive->tmp = g_strconcat (" /tmp/",archive->escaped_path,NULL);
+		archive->tmp = g_strconcat (" ",tmp_dir,"/",archive->escaped_path,NULL);
 	else
 	{
 		archive_no_path++;
-		archive->tmp = g_strconcat (" /tmp/",archive_no_path,NULL);
+		archive->tmp = g_strconcat (" ",tmp_dir,"/",archive_no_path,NULL);
 	}
 
-	/* Let's copy the .deb archive to /tmp */
+	/* Copy the .deb archive to the unique dir */
 	command = g_strconcat ("cp ",archive->escaped_path,archive->tmp,NULL);
 	result = xa_run_command ( command , 0);
 	g_free (command);
@@ -44,22 +50,27 @@ void OpenDeb ( XArchive *archive )
 		return;
 
 	/* Ok, let's now extract the .deb archive with ar */
-	chdir ("/tmp");
+	chdir (tmp_dir);
 	command = g_strconcat ("ar xv" , archive->tmp, NULL);
 	result = xa_run_command ( command , 0);
 	g_free (command);
 	g_free (archive->tmp);
-	archive->tmp = g_strdup ("/tmp/data.tar.gz");
 
-	unlink ("/tmp/control.tar.gz");
-	unlink ("/tmp/debian-binary");
-	unlink (archive_no_path);
+	archive->tmp = g_strconcat (tmp_dir,"/data.tar.gz",NULL);
+	chdir (tmp_dir);
+	unlink ("control.tar.gz");
+	unlink ("debian-binary");
+	/* Delete the .deb archive copied to the unique dir */
+	if (archive_no_path != NULL)
+		unlink (archive_no_path);
+	else
+		unlink (archive->escaped_path);
 
 	if (result == FALSE)
 		return;
 
-	/* Finally, let's show the content in /tmp/data.tar.gz */
-	command = g_strconcat ("tar tfzv /tmp/data.tar.gz", NULL);
+	/* Finally, let's show the content of data.tar.gz in the unique dir */
+	command = g_strconcat ("tar tfzv ",tmp_dir,"/data.tar.gz", NULL);
 	archive->has_properties = archive->can_extract = TRUE;
 	archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 	archive->dummy_size = 0;

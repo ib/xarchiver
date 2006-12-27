@@ -44,6 +44,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for ( GTK_WINDOW (dialog_data->dialog1) , GTK_WINDOW (MainWindow) );
+	gtk_dialog_set_has_separator (GTK_DIALOG (dialog_data->dialog1), FALSE);
 
 	dialog_data->option_tooltip = gtk_tooltips_new ();
 	dialog_data->dialog_vbox1 = GTK_DIALOG (dialog_data->dialog1)->vbox;
@@ -328,7 +329,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			if ( strlen ( archive->extraction_path ) == 0 )
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed where to extract the files!"),_("Please enter the extraction path.") );
+				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed where to extract the files!"),_("Please enter the extraction path.") );
 				break;
 			}
 			if (archive->has_passwd)
@@ -336,7 +337,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
 			if (archive->has_passwd && strlen( archive->passwd ) == 0 )
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This archive is encrypted!"),_("Please enter the password.") );
+				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This archive is encrypted!"),_("Please enter the password.") );
 				break;
 			}
 			if (g_file_test (destination_path , G_FILE_TEST_EXISTS) == FALSE)
@@ -345,7 +346,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				if (result == -1)
 				{
 					gchar *msg = g_strdup_printf(_("Can't create directory \"%s\""), destination_path);
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg, g_strerror(errno ) );
+					response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg, g_strerror(errno ) );
 					g_free (msg);
 					break;
 				}
@@ -357,7 +358,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 
                 utf8_path = g_filename_to_utf8 (destination_path, -1, NULL, NULL, NULL);
                 msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the folder \"%s\"."), utf8_path);
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't perform extraction!"),msg );
+				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't perform extraction!"),msg );
                 g_free (utf8_path);
 				g_free (msg);
 				g_free (destination_path);
@@ -817,20 +818,23 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	GSList *filenames = NULL;
 	gboolean result;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
+
 	names = g_string_new ("");
 	unescaped_names = g_string_new ("");
 
-	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[current_page]->treeview) );
-	row_list = gtk_tree_selection_get_selected_rows (selection, &archive[current_page]->model);
+	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
+	row_list = gtk_tree_selection_get_selected_rows (selection, &archive[idx]->model);
 
 	if (row_list != NULL)
 	{
 		while (row_list)
 		{
-			gtk_tree_model_get_iter(archive[current_page]->model, &iter, row_list->data);
-			gtk_tree_model_get (archive[current_page]->model, &iter,
+			gtk_tree_model_get_iter(archive[idx]->model, &iter, row_list->data);
+			gtk_tree_model_get (archive[idx]->model, &iter,
 								0, &name,
 								1, &permission,
 								-1);
@@ -848,10 +852,10 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	}
 	else
 	{
-		end = gtk_tree_model_get_iter_first (archive[current_page]->model , &iter);
+		end = gtk_tree_model_get_iter_first (archive[idx]->model , &iter);
 		while (end)
 		{
-			gtk_tree_model_get (archive[current_page]->model, &iter,	0, &name,
+			gtk_tree_model_get (archive[idx]->model, &iter,	0, &name,
 												1, &permission, -1);
 			if (strstr (permission ,"d") == NULL)
 			{
@@ -859,17 +863,17 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 				filenames = g_slist_append ( filenames,name );
 			}
 			g_free (permission);
-			end = gtk_tree_model_iter_next (archive[current_page]->model,&iter);
+			end = gtk_tree_model_iter_next (archive[idx]->model,&iter);
 		}
 	}
 	result = xa_create_temp_directory (tmp_dir);
 	if (result == 0)
 		return FALSE;
-
+	//g_message (tmp_dir);
 	if (cpio_flag)
 	{
 		chdir (tmp_dir);
-		command = g_strconcat ( "cpio --make-directories -F " , archive[current_page]->tmp , " -i" , NULL );
+		command = g_strconcat ( "cpio --make-directories -F " , archive[idx]->tmp , " -i" , NULL );
 	}
 	else
 		command = g_strconcat ( string, escaped_path,
@@ -933,7 +937,7 @@ gboolean xa_create_temp_directory ( gchar tmp_dir[] )
 	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
 	if ( mkdtemp ( tmp_dir ) == 0)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
 		gtk_widget_set_sensitive (Stop_button, FALSE);
 		Update_StatusBar (_("Operation failed."));
 		return FALSE;

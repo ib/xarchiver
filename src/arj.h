@@ -22,9 +22,7 @@
 #include <gtk/gtk.h>
 #include "callbacks.h"
 #include "interface.h"
-#include "main.h"
 #include "archive.h"
 
 void OpenArj ( XArchive *archive );
-gboolean no_attr;
 #endif

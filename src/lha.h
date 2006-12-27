@@ -24,7 +24,6 @@
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
-#include "main.h"
 #include "archive.h"
 
 void OpenLha ( XArchive *archive );

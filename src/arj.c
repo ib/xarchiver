@@ -29,7 +29,7 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void OpenArj ( XArchive *archive )
 {
     jump_header = FALSE;
-	gchar *command = g_strconcat ( "arj v -he " , archive->escaped_path, NULL );
+	gchar *command = g_strconcat ( "arj l " , archive->escaped_path, NULL );
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
@@ -51,8 +51,8 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	XArchive *archive = data;
 	gchar **fields = NULL;
 	gchar *line = NULL;
-    gchar *filename = NULL;
 	GIOStatus status = G_IO_STATUS_NORMAL;
+	GtkTreeIter iter;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
@@ -72,13 +72,13 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				g_free (line);
 				break;
 			}
-			if (arj_line == 1)
+			else
 			{
 				/* This to avoid reading the last line of arj output */
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if (line == NULL)
 					break;
-				if (strncmp (line, "----------", 10) == 0 || strncmp (line, "\x0a",1) == 0)
+				if (strncmp (line, "------------ ---------- ---------- -----", 40) == 0 )
 				{
 					g_free (line);
 					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
@@ -86,46 +86,42 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 						g_free (line);
 					break;
 				}
-				filename = get_last_field ( line , 2 );
 				gtk_list_store_append (archive->liststore, &iter);
-				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
-				g_free (line);
-			}
-			else if (arj_line == 2)
-			{
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if ( line == NULL)
-					break;
-				fields = split_line ( line , 10 );
-				if ( g_str_has_prefix(fields[7] , "d") == FALSE)
+				fields = split_line ( line , 9 );
+				if ( g_str_has_prefix(fields[6] , "d") == FALSE)
 					archive->nr_of_files++;
 
-				for ( x = 2; x < 10; x++)
+				if (fields[3][0] == '\0' && fields[4][0] == '\0')
 				{
-					if ( x == 2 || x == 3)
-						gtk_list_store_set (archive->liststore, &iter,x-1,strtoll(fields[x],NULL,0),-1);
-					else
-						gtk_list_store_set (archive->liststore, &iter,x-1,fields[x],-1);
+					gtk_list_store_set (archive->liststore, &iter,0,fields[0],-1);
+					g_strfreev (fields);
+					g_free (line);
+					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+					if (line == NULL)
+						break;
+					fields = split_line ( line , 8 );
+					for ( x = 0; x < 8; x++)
+					{
+						if ( x == 0 || x == 1)
+							gtk_list_store_set (archive->liststore, &iter,x+1,strtoll(fields[x],NULL,0),-1);
+						else
+							gtk_list_store_set (archive->liststore, &iter,x+1,fields[x],-1);
+					}
 				}
-				archive->dummy_size += strtoll(fields[2],NULL,0);
+				else
+				{
+					for ( x = 0; x < 9; x++)
+					{
+						if ( x == 1 || x == 2)
+							gtk_list_store_set (archive->liststore, &iter,x,strtoll(fields[x],NULL,0),-1);
+						else
+							gtk_list_store_set (archive->liststore, &iter,x,fields[x],-1);
+					}
+				}
+				archive->dummy_size += strtoll(fields[1],NULL,0);
 				g_free (line);
 				g_strfreev ( fields );
 			}
-			else if (arj_line == 3)
-			{
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line != NULL)
-					g_free (line);
-			}
-			else if (arj_line == 4)
-			{
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line != NULL)
-					g_free (line);
-				arj_line = 1;
-				break;
-			}
-			arj_line++;
 		}
 		while (status == G_IO_STATUS_NORMAL);
 

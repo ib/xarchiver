@@ -28,13 +28,6 @@
 #include "support.h"
 #include "callbacks.h"
 
-extern void xa_watch_child ( GPid pid, gint status, gpointer data);
-extern GtkWidget *viewport2;
-extern int xa_progressbar_pulse ();
-extern int ShowGtkMessageDialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
-extern gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
-extern const gchar *locale;
-
 XArchive *xa_init_archive_structure ()
 {
 	XArchive *archive = NULL;
@@ -65,7 +58,7 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 	{
 		xa_hide_progress_bar_stop_button ( archive );
 		Update_StatusBar (_("Operation failed."));
-		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
+		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev ( argv );
 		archive->child_pid = 0;
@@ -100,6 +93,10 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 
 void xa_clean_archive_structure ( XArchive *archive)
 {
+	gchar *dummy_string;
+	gchar *msg;
+	int response;
+
 	if (archive == NULL)
 		return;
 
@@ -117,7 +114,19 @@ void xa_clean_archive_structure ( XArchive *archive)
 
 	if (archive->tmp != NULL)
 	{
-		if ( strstr (archive->tmp , "/tmp" ) )
+		if ( strncmp (archive->tmp,"/tmp/xa-",8 ) == 0 )
+		{
+			unlink (archive->tmp);
+			dummy_string = remove_level_from_path (archive->tmp);
+			if (remove (dummy_string) < 0)
+			{
+				msg = g_strdup_printf (_("Couldn't remove temporary directory %s"),dummy_string);
+				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,	msg,g_strerror(errno) );
+				g_free (msg);
+			}
+			g_free (dummy_string);
+		}
+		else
 			unlink (archive->tmp);
 
 		g_free(archive->tmp);
@@ -131,10 +140,11 @@ void xa_clean_archive_structure ( XArchive *archive)
 	}
 
 	if ( archive->extraction_path != NULL )
-		{
-			if ( strcmp (archive->extraction_path , "/tmp/") != 0)
-				g_free (archive->extraction_path);
-		}
+	{
+		if ( strcmp (archive->extraction_path , "/tmp/") != 0)
+			g_free (archive->extraction_path);
+	}
+
 	if (archive->has_comment)
 	{
 		if (archive->comment != NULL)
@@ -199,3 +209,30 @@ void xa_clean_archive_structure ( XArchive *archive)
 	}
 	g_free (archive);
 }
+
+gint xa_find_archive_index ( gint page_num )
+{
+	GtkWidget *scrollwindow;
+	gint i;
+
+	scrollwindow = gtk_notebook_get_nth_page(notebook, page_num);
+	for (i = 0; i < 99; i++)
+	{
+		if (archive[i] != NULL && archive[i]->scrollwindow == scrollwindow)
+			return i;
+	}
+	return -1;
+}
+
+gint xa_get_new_archive_idx()
+{
+	gint i;
+
+	for(i = 0; i < 99; i++)
+	{
+		if (archive[i] == NULL)
+			return i;
+	}
+	return -1;
+}
+

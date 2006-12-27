@@ -94,7 +94,10 @@ gint input_fd, output_fd, error_fd;
 gchar *system_id,*volume_id,*publisher_id,*preparer_id,*application_id,*creation_date,*modified_date,*expiration_date,*effective_date;
 void SpawnAsyncProcess (XArchive *archive, gchar *command , gboolean input, gboolean output_flag);
 XArchive *xa_init_archive_structure ();
-void xa_clean_archive_structure (XArchive *archive);
-XArchive *archive[1024];
+void xa_clean_archive_structure ( XArchive *archive);
+gint xa_find_archive_index ( gint page_num );
+gint xa_get_new_archive_idx();
+
+XArchive *archive[100];
 XArchive *archive_cmd;
 #endif

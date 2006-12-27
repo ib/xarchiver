@@ -462,7 +462,7 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 		final_path = g_strconcat (destination_path, _filename,NULL);
 		if (xa_create_directory_with_parents ( final_path, 0755 ) < 0)
 		{
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
+			response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
 			g_free (final_path);
 			return TRUE;
 		}
@@ -493,7 +493,7 @@ gboolean xa_extract_single_iso_file (XArchive *archive, gchar *permission, gchar
 			g_free (multiple_directories);
 			if ( xa_create_directory_with_parents ( final_path , 0755 ) < 0)
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
+				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
 				g_free (final_path);
 				return FALSE;
 			}
@@ -530,7 +530,7 @@ gboolean xa_extract_iso_file (XArchive *archive, gchar *permission, gchar *desti
 			{
 				if ( xa_create_directory_with_parents (filename, 0755) < 0 )
 				{
-					response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
+					response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create directory:"),g_strerror(errno) );
 					g_free (filename);
 					return FALSE;
 				}
@@ -561,7 +561,7 @@ gboolean xa_write_file_to_disk (gchar *source,gchar *dest, unsigned long long in
 	if ((fdest = fopen (dest, "w")) == NULL)
 	{
 		gchar *msg = g_strdup_printf (_("Can't write file \"%s\":"), dest);
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno) );
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno) );
 		g_free (msg);
 		iso_error_count++;
         return FALSE;

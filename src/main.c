@@ -95,14 +95,14 @@ int main (int argc, char **argv)
 		ArchiveType = g_list_reverse (ArchiveType);
 		MainWindow = create_MainWindow ();
 		gtk_main_iteration_do (FALSE);
-		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2006 Giuseppe Torelli (colossus73)\n\n");
+		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2007 Giuseppe Torelli (colossus73)\n\n");
 
 		/* Switch -x */
 		if (extract_path != NULL)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			for ( x = 1; x < argc; x++)
@@ -135,7 +135,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
@@ -194,7 +194,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
+				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
 			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
@@ -377,24 +377,6 @@ void GetAvailableCompressors()
     }
 }
 
-void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info)
-{
-	gtk_widget_set_sensitive ( New_button, New);
-    gtk_widget_set_sensitive ( new1, New);
-	gtk_widget_set_sensitive ( Open_button, Open);
-    gtk_widget_set_sensitive ( open1, Open);
-    gtk_widget_set_sensitive ( close1, Close);
-	gtk_widget_set_sensitive ( AddFile_button, add);
-	gtk_widget_set_sensitive ( addfile, add);
-	gtk_widget_set_sensitive ( Extract_button, extract);
-	gtk_widget_set_sensitive ( extract_menu, extract);
-	gtk_widget_set_sensitive ( exe_menu, sfx);
-	gtk_widget_set_sensitive ( check_menu, test);
-	gtk_widget_set_sensitive ( properties, info);
-	gtk_widget_set_sensitive ( Exe_button, sfx);
-	//gtk_widget_set_sensitive ( select_all, select);
-}
-
 gboolean SpawnSyncCommand ( gchar *command )
 {
     GError *error = NULL;
@@ -416,7 +398,7 @@ gboolean SpawnSyncCommand ( gchar *command )
 		&exit_status,
 		&error) )
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
 		g_error_free (error);
 		g_strfreev ( argv );
         return FALSE;
@@ -425,7 +407,7 @@ gboolean SpawnSyncCommand ( gchar *command )
 	{
 	    if ( WEXITSTATUS (exit_status) )
 		{
-			response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err );
+			response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err );
 			return FALSE;
 		}
 	}
@@ -445,7 +427,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive_cmd = xa_init_archive_structure ();
 	if (archive_cmd == NULL)
 	{
-		response = ShowGtkMessageDialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
+		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
 		return NULL;
 	}
 	archive_cmd->path = g_strdup (filename);

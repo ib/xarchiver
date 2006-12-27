@@ -44,7 +44,7 @@ void OpenRPM ( XArchive *archive )
 	if (stream == NULL)
     {
         gchar *msg = g_strdup_printf (_("Can't open RPM file %s:") , archive->path);
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg,g_strerror (errno));
 		g_free (msg);
 		return;
@@ -61,13 +61,13 @@ void OpenRPM ( XArchive *archive )
     if (fseek ( stream, 104 , SEEK_CUR ) )
     {
         fclose (stream);
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek to position 104:"),g_strerror(errno));
+        response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek to position 104:"),g_strerror(errno));
         return;
     }
     if ( fread ( bytes, 1, 8, stream ) == 0 )
 	{
 		fclose ( stream );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
 		return;
     }
     il = 256 * ( 256 * ( 256 * bytes[0] + bytes[1]) + bytes[2] ) + bytes[3];
@@ -77,13 +77,13 @@ void OpenRPM ( XArchive *archive )
     if (fseek ( stream, offset  , SEEK_SET ) )
     {
         fclose (stream);
-        response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek in file:"),g_strerror(errno));
+        response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek in file:"),g_strerror(errno));
         return;
     }
     if ( fread ( bytes, 1, 8, stream ) == 0 )
 	{
 		fclose ( stream );
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
 		return;
     }
     il = 256 * ( 256 * ( 256 * bytes[0] + bytes[1]) + bytes[2] ) + bytes[3];
@@ -114,10 +114,13 @@ void OpenRPM ( XArchive *archive )
 
 GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 {
+	gchar *gzip = data;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
-	gchar *gzip = data;
+	idx = xa_find_archive_index (current_page);
+
 	if ( WIFEXITED(status) )
 	{
 		if ( WEXITSTATUS (status) )
@@ -125,19 +128,19 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
             Update_StatusBar ( _("Operation failed."));
             gtk_widget_hide ( viewport2 );
 	    	xa_set_window_title (MainWindow , NULL);
-		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Error while extracting the cpio archive from the rpm one."),("Do you want to view the command line output?") );
+		    response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Error while extracting the cpio archive from the rpm one."),("Do you want to view the command line output?") );
             if (response == GTK_RESPONSE_YES)
 				xa_show_cmd_line_output (NULL);
             unlink ( cpio_tmp );
             g_free (cpio_tmp);
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
-			xa_hide_progress_bar_stop_button(archive[current_page]);
+			xa_hide_progress_bar_stop_button(archive[idx]);
             return FALSE;
     	}
     }
 	cpio_tmp = xa_open_temp_file ( gzip );
     if (cpio_tmp != NULL)
-		g_child_watch_add ( archive[current_page]->child_pid , (GChildWatchFunc) OpenCPIO , gzip );
+		g_child_watch_add ( archive[idx]->child_pid , (GChildWatchFunc) OpenCPIO , gzip );
     else
 		return FALSE;
     return NULL;
@@ -146,8 +149,10 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
 GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 {
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
 	gchar *gzip = data;
     if ( WIFEXITED( exit_code ) )
     {
@@ -156,14 +161,14 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
             Update_StatusBar ( _("Operation failed."));
             gtk_widget_hide ( viewport2 );
 	    	xa_set_window_title (MainWindow , NULL);
-		    response = ShowGtkMessageDialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
+		    response = xa_show_message_dialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
 				xa_show_cmd_line_output (NULL);
 			unlink ( cpio_tmp );
 			unlink ( gzip );
 			g_free (cpio_tmp);
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
-			xa_hide_progress_bar_stop_button(archive[current_page]);
+			xa_hide_progress_bar_stop_button(archive[idx]);
 			return FALSE;
 		}
 	}
@@ -174,16 +179,16 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	command cpio -tv with an input pipe so to receive the output from
 	the opened CPIO temp file */
 
-	archive[current_page]->parse_output = 0;
-	SpawnAsyncProcess ( archive[current_page] , "cpio -tv" , 1, 0 );
-	if ( archive[current_page]->child_pid == 0 )
+	archive[idx]->parse_output = 0;
+	SpawnAsyncProcess ( archive[idx] , "cpio -tv" , 1, 0 );
+	if ( archive[idx]->child_pid == 0 )
 	{
 		unlink ( cpio_tmp );
 		g_free ( cpio_tmp );
 		return FALSE;
 	}
 	output_ioc = g_io_channel_unix_new ( output_fd );
-	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive[current_page] );
+	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive[idx] );
 	g_io_channel_set_encoding (output_ioc, locale , NULL);
 	g_io_channel_set_flags ( output_ioc , G_IO_FLAG_NONBLOCK , NULL );
 
@@ -195,7 +200,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
 	g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
 
-	g_child_watch_add ( archive[current_page]->child_pid, (GChildWatchFunc) xa_watch_child, archive[current_page]);
+	g_child_watch_add ( archive[idx]->child_pid, (GChildWatchFunc) xa_watch_child, archive[idx]);
   return NULL;
 }
 
@@ -211,7 +216,7 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			status = g_io_channel_write_chars ( ioc , buffer , bytes_read , &bytes_written , &error );
 			if (status == G_IO_STATUS_ERROR)
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred:"),error->message);
+				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred:"),error->message);
 				g_error_free (error);
 				CloseChannels ( ioc_cpio );
 				CloseChannels ( ioc );
@@ -315,15 +320,18 @@ void CloseChannels ( GIOChannel *ioc )
 gchar *xa_open_temp_file ( gchar *temp_path )
 {
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
+
 	gchar *command = NULL;
 	tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
 	fd = g_mkstemp ( tmp );
 	stream = fdopen ( fd , "w" );
 	if ( stream == NULL)
 	{
-		response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write to /tmp:"),g_strerror(errno) );
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write to /tmp:"),g_strerror(errno) );
 		g_free (tmp);
 		return NULL;
 	}
@@ -331,10 +339,10 @@ gchar *xa_open_temp_file ( gchar *temp_path )
 		command = g_strconcat ( "gzip -dc " , temp_path , NULL );
 	else
 		command = g_strconcat ( "bzip2 -dc " , temp_path , NULL );
-	archive[current_page]->parse_output = 0;
-	SpawnAsyncProcess ( archive[current_page] , command , 0, 0);
+	archive[idx]->parse_output = 0;
+	SpawnAsyncProcess ( archive[idx] , command , 0, 0);
 	g_free ( command );
-	if ( archive[current_page]->child_pid == 0 )
+	if ( archive[idx]->child_pid == 0 )
 	{
 		fclose ( stream );
 		unlink ( tmp );
@@ -368,7 +376,7 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 			}
 			else if (error != NULL)
 			{
-			response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("An error occurred:"),error->message);
+			response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("An error occurred:"),error->message);
 			g_error_free (error);
 			return FALSE;
 			}

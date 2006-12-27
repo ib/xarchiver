@@ -485,7 +485,7 @@ here:
 	else
 		gtk_widget_set_sensitive (comment_menu,FALSE);
 
-	if (archive[id]->status != XA_ARCHIVESTATUS_OPEN)
+	if (archive[id]->status != XA_ARCHIVESTATUS_OPEN && archive[id]->treeview != NULL)
 	{
 		selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[id]->treeview) );
 		gint selected = gtk_tree_selection_count_selected_rows ( selection );
@@ -661,7 +661,7 @@ gchar *password_dialog ()
 			password = g_strdup (gtk_entry_get_text ( GTK_ENTRY (password_entry) ));
 			if (strlen(password) == 0)
 			{
-				response = ShowGtkMessageDialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
+				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
 				break;
 			}
 			done = TRUE;
@@ -877,28 +877,20 @@ int xa_progressbar_pulse (gpointer data)
 	return TRUE;
 }
 
-gint xa_find_archive_index ( gint page_num )
+void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info)
 {
-	GtkWidget *scrollwindow;
-	gint i;
-
-	scrollwindow = gtk_notebook_get_nth_page(notebook, page_num);
-	for (i = 0; i < 1024; i++)
-	{
-		if (archive[i] != NULL && archive[i]->scrollwindow == scrollwindow)
-			return i;
-	}
-	return -1;
-}
-
-gint xa_get_new_archive_idx()
-{
-	gint i;
-
-	for(i = 0; i < 1024; i++)
-	{
-		if (archive[i] == NULL)
-			return i;
-	}
-	return -1;
+	gtk_widget_set_sensitive ( New_button, New);
+    gtk_widget_set_sensitive ( new1, New);
+	gtk_widget_set_sensitive ( Open_button, Open);
+    gtk_widget_set_sensitive ( open1, Open);
+    gtk_widget_set_sensitive ( close1, Close);
+	gtk_widget_set_sensitive ( AddFile_button, add);
+	gtk_widget_set_sensitive ( addfile, add);
+	gtk_widget_set_sensitive ( Extract_button, extract);
+	gtk_widget_set_sensitive ( extract_menu, extract);
+	gtk_widget_set_sensitive ( exe_menu, sfx);
+	gtk_widget_set_sensitive ( check_menu, test);
+	gtk_widget_set_sensitive ( properties, info);
+	gtk_widget_set_sensitive ( Exe_button, sfx);
+	//gtk_widget_set_sensitive ( select_all, select);
 }
