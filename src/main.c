@@ -221,7 +221,6 @@ done:	g_list_free ( ArchiveSuffix);
 		ArchiveType = g_list_reverse (ArchiveType);
 
 		MainWindow = create_MainWindow ();
-		xa_show_cmd_line_output (NULL);
 		gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		Update_StatusBar ( _("Ready."));

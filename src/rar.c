@@ -47,7 +47,7 @@ void OpenRar ( XArchive *archive )
     archive->nr_of_dirs = 0;
 	archive->parse_output = RarOpen;
 	archive->format ="RAR";
-	SpawnAsyncProcess ( archive , command , 0, 0);
+	xa_spawn_async_process (archive,command,0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;

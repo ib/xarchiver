@@ -869,7 +869,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	result = xa_create_temp_directory (tmp_dir);
 	if (result == 0)
 		return FALSE;
-	//g_message (tmp_dir);
+	g_message (tmp_dir);
 	if (cpio_flag)
 	{
 		chdir (tmp_dir);

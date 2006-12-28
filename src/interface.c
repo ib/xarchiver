@@ -37,12 +37,12 @@
 
 static const GtkTargetEntry drag_targets[] =
 {
-  { "XdndDirectSave0", 0, 0 },
+  { "XdndDirectSave0",0,0 },
 };
 
 static const GtkTargetEntry drop_targets[] =
 {
-  { "text/uri-list", 0, 0 },
+  { "text/uri-list",0,0 },
 };
 
 extern gboolean unrar;
@@ -453,13 +453,9 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 
 	xa_set_window_title (MainWindow , archive[id]->path);
 	if (archive[id]->type == XARCHIVETYPE_ISO)
-	{
 		gtk_widget_set_sensitive ( iso_info,TRUE );
-	}
 	else
-	{
 		gtk_widget_set_sensitive ( iso_info,FALSE );
-	}
 
 	if ( GTK_WIDGET_VISIBLE (viewport2) )
 	{

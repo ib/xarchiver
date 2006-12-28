@@ -30,7 +30,7 @@ void Open7Zip ( XArchive *archive)
     archive->nr_of_dirs = 0;
 	archive->format ="7-ZIP";
 	archive->parse_output = SevenZipOpen;
-	SpawnAsyncProcess ( archive , command , 0, 0);
+	xa_spawn_async_process (archive,command,0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;

@@ -27,7 +27,6 @@
 #include "support.h"
 #include "main.h"
 #include "socket.h"
-#include "new_dialog.h"
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
@@ -220,7 +219,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 int xa_show_message_dialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2)
 {
 	dialog = gtk_message_dialog_new (window, mode, type, button,message1);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_NO);
 	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), message2);
 	response = gtk_dialog_run (GTK_DIALOG (dialog) );
 	gtk_widget_destroy (GTK_WIDGET (dialog) );
@@ -1173,13 +1172,14 @@ void xa_remove_columns()
 
 void EmptyTextBuffer ()
 {
-	if (textbuf != NULL)
+	//TODO
+/*	if (textbuf != NULL)
 	{
 		gtk_text_buffer_get_start_iter (textbuf,&start);
 		gtk_text_buffer_get_end_iter (textbuf,&end);
 		gtk_text_buffer_delete (textbuf,&start,&end);
 		gtk_text_buffer_get_start_iter(textbuf, &enditer);
-	}
+	}*/
 }
 
 void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[], XArchive *archive)
@@ -1217,36 +1217,61 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
     return result;
 }
 
-void xa_show_cmd_line_output( GtkMenuItem *menuitem )
+void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 {
-	if (OutputWindow != NULL)
-	{
-		gtk_window_set_title (GTK_WINDOW (OutputWindow), _("Command line output") );
-		gtk_window_present ( GTK_WINDOW (OutputWindow) );
-		return;
-	}
-	OutputWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_position (GTK_WINDOW (OutputWindow), GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size(GTK_WINDOW(OutputWindow), 380, 250);
-	gtk_window_set_destroy_with_parent (GTK_WINDOW (OutputWindow), TRUE);
-	g_signal_connect (G_OBJECT (OutputWindow), "delete-event",  G_CALLBACK (gtk_widget_hide), &OutputWindow);
+	GtkWidget *vbox,*textview,*scrolledwindow;
+	GtkTextBuffer *textbuffer;
+	GtkTextIter    iter;
+	GList *output;
+	gchar *line = NULL;
+	gchar *utf8_line;
+	gsize bytes_written;
+	gint current_page;
+	gint idx;
 
-	vbox = gtk_vbox_new ( FALSE, 2 );
-	scrollwin = gtk_scrolled_window_new ( NULL,NULL );
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW( scrollwin ), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
 
-	textview = gtk_text_view_new();
-	gtk_text_view_set_editable (GTK_TEXT_VIEW(textview), FALSE);
-	gtk_container_add (GTK_CONTAINER(scrollwin), textview);
-	gtk_box_pack_start (GTK_BOX(vbox), scrollwin, TRUE, TRUE, 0);
-	gtk_container_add (GTK_CONTAINER(OutputWindow), vbox);
-	textbuf = gtk_text_view_get_buffer ( GTK_TEXT_VIEW(textview) );
-	gtk_text_buffer_get_start_iter (textbuf, &enditer);
-	//gtk_text_buffer_create_tag (textbuf, "red_foreground","foreground", "red", NULL);
+	xa_cmd_line_output = gtk_dialog_new_with_buttons (_("Command line output"),
+									GTK_WINDOW (MainWindow), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (xa_cmd_line_output), GTK_RESPONSE_CLOSE);
+	gtk_dialog_set_has_separator (GTK_DIALOG (xa_cmd_line_output), FALSE);
+	gtk_widget_set_size_request (xa_cmd_line_output, 400, 250);
+	vbox = GTK_DIALOG (xa_cmd_line_output)->vbox;
+
+	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (scrolledwindow);
+	gtk_box_pack_start (GTK_BOX (vbox), scrolledwindow, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 4);
+	g_object_set (G_OBJECT (scrolledwindow),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
+
+	textbuffer = gtk_text_buffer_new (NULL);
+	gtk_text_buffer_create_tag (textbuffer, "terminal","family", "fixed", NULL);
+	gtk_text_buffer_get_iter_at_offset (textbuffer, &iter, 0);
+
+	textview = gtk_text_view_new_with_buffer (textbuffer);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (textview), FALSE);
+	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview), FALSE);
 
 	gtk_widget_show (vbox);
-	gtk_widget_show (scrollwin);
+	gtk_widget_show (scrolledwindow);
 	gtk_widget_show (textview);
+
+	output = archive[idx]->cmd_line_output;
+	while (output)
+	{
+		line = output->data;
+		utf8_line = g_locale_to_utf8 (line, -1, NULL, &bytes_written, NULL);
+		gtk_text_buffer_insert_with_tags_by_name (textbuffer, &iter, utf8_line, bytes_written, "terminal", NULL);
+		g_free (utf8_line);
+		output = output->next;
+	}
+
+	gtk_dialog_run (GTK_DIALOG(xa_cmd_line_output));
+	gtk_widget_destroy (xa_cmd_line_output);
+	//gtk_text_buffer_create_tag (textbuf, "red_foreground","foreground", "red", NULL);
 }
 
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
@@ -1782,7 +1807,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	if (watch_child_flag)
 		EmptyTextBuffer();
 	archive[idx]->parse_output = 0;
-	SpawnAsyncProcess ( archive[idx] , command , 0, 1);
+	xa_spawn_async_process ( archive[idx],command,0);
 	if ( archive[idx]->child_pid == 0 )
 		return FALSE;
 
@@ -1826,34 +1851,6 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 void Update_StatusBar ( gchar *msg)
 {
     gtk_label_set_text (GTK_LABEL (info_label), msg);
-}
-
-gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data)
-{
-	GIOStatus status;
-	gchar     buffer[4096];
-	gsize     bytes_read;
-
-	if (cond & (G_IO_IN | G_IO_PRI))
-	{
-		do
-		{
-			status = g_io_channel_read_chars (ioc, buffer, sizeof (buffer), &bytes_read, NULL);
-			if (bytes_read > 0)
-				gtk_text_buffer_insert (textbuf, &enditer, buffer, bytes_read);
-		}
-		while (status == G_IO_STATUS_NORMAL);
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
-	{
-		done:
-			g_io_channel_shutdown (ioc, TRUE, NULL);
-			g_io_channel_unref (ioc);
-			return FALSE;
-	}
-	return TRUE;
 }
 
 void xa_disable_delete_view_buttons (gboolean value)

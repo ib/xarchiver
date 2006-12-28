@@ -100,7 +100,7 @@ void OpenRPM ( XArchive *archive )
 	gchar *command = g_strconcat ( "dd if=" , archive->escaped_path, " ibs=" , ibs , " skip=1 of=" , cpio_tmp , NULL );
 	g_free (ibs);
 	archive->parse_output = 0;
-	SpawnAsyncProcess ( archive , command , 0, 0);
+	xa_spawn_async_process (archive,command,0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 	{
@@ -180,7 +180,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	the opened CPIO temp file */
 
 	archive[idx]->parse_output = 0;
-	SpawnAsyncProcess ( archive[idx] , "cpio -tv" , 1, 0 );
+	xa_spawn_async_process ( archive[idx] , "cpio -tv" , 1);
 	if ( archive[idx]->child_pid == 0 )
 	{
 		unlink ( cpio_tmp );
@@ -340,7 +340,7 @@ gchar *xa_open_temp_file ( gchar *temp_path )
 	else
 		command = g_strconcat ( "bzip2 -dc " , temp_path , NULL );
 	archive[idx]->parse_output = 0;
-	SpawnAsyncProcess ( archive[idx] , command , 0, 0);
+	xa_spawn_async_process (archive[idx],command,0);
 	g_free ( command );
 	if ( archive[idx]->child_pid == 0 )
 	{

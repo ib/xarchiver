@@ -72,6 +72,7 @@ struct _XArchive
 	gboolean can_extract;
 	gboolean has_properties;
 	GString *comment;
+	GList *cmd_line_output;
 	gboolean add_recurse;
 	gboolean overwrite;
 	gboolean full_path;
@@ -92,8 +93,9 @@ struct _XArchive
 unsigned short int x;
 gint input_fd, output_fd, error_fd;
 gchar *system_id,*volume_id,*publisher_id,*preparer_id,*application_id,*creation_date,*modified_date,*expiration_date,*effective_date;
-void SpawnAsyncProcess (XArchive *archive, gchar *command , gboolean input, gboolean output_flag);
+void xa_spawn_async_process (XArchive *archive, gchar *command , gboolean input);
 XArchive *xa_init_archive_structure ();
+gboolean xa_dump_child_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void xa_clean_archive_structure ( XArchive *archive);
 gint xa_find_archive_index ( gint page_num );
 gint xa_get_new_archive_idx();

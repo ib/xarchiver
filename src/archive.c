@@ -35,7 +35,7 @@ XArchive *xa_init_archive_structure ()
 	return archive;
 }
 
-void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gboolean output_flag)
+void xa_spawn_async_process ( XArchive *archive , gchar *command , gboolean input)
 {
 	GIOChannel *ioc , *err_ioc, *out_ioc;
 	GError *error = NULL;
@@ -77,21 +77,49 @@ void SpawnAsyncProcess ( XArchive *archive , gchar *command , gboolean input, gb
 		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, archive->parse_output, archive);
 		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 	}
-	if (output_flag)
+	else
 	{
-		out_ioc = g_io_channel_unix_new ( output_fd );
-		g_io_channel_set_encoding (out_ioc, locale , NULL);
-		g_io_channel_set_flags ( out_ioc , G_IO_FLAG_NONBLOCK , NULL );
-		g_io_add_watch (out_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_report_child_stderr, NULL);
+	out_ioc = g_io_channel_unix_new ( output_fd );
+	g_io_channel_set_encoding (out_ioc, locale , NULL);
+	g_io_channel_set_flags ( out_ioc , G_IO_FLAG_NONBLOCK , NULL );
+	g_io_add_watch (out_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_output, archive);
 	}
 
 	err_ioc = g_io_channel_unix_new ( error_fd );
 	g_io_channel_set_encoding (err_ioc, locale , NULL);
 	g_io_channel_set_flags ( err_ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (err_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_report_child_stderr, NULL);
+	g_io_add_watch (err_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_output, archive);
 }
 
-void xa_clean_archive_structure ( XArchive *archive)
+gboolean xa_dump_child_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XArchive *archive = data;
+	GIOStatus status;
+	gchar *line = NULL;
+
+	if (cond & (G_IO_IN | G_IO_PRI))
+	{
+		do
+		{
+			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
+			if (line != NULL)
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,line);
+		}
+		while (status == G_IO_STATUS_NORMAL);
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+		done:
+			g_io_channel_shutdown (ioc, TRUE, NULL);
+			g_io_channel_unref (ioc);
+			return FALSE;
+	}
+	return TRUE;
+}
+
+void xa_clean_archive_structure (XArchive *archive)
 {
 	gchar *dummy_string;
 	gchar *msg;
@@ -100,13 +128,20 @@ void xa_clean_archive_structure ( XArchive *archive)
 	if (archive == NULL)
 		return;
 
-	if(archive->path != NULL)
+	if (archive->cmd_line_output != NULL)
+	{
+		g_list_foreach (archive->cmd_line_output, (GFunc) g_free, NULL);
+		g_list_free (archive->cmd_line_output);
+		archive->cmd_line_output = NULL;
+	}
+
+	if (archive->path != NULL)
 	{
 		g_free(archive->path);
 		archive->path = NULL;
 	}
 
-	if(archive->escaped_path != NULL)
+	if (archive->escaped_path != NULL)
 	{
 		g_free(archive->escaped_path);
 		archive->escaped_path = NULL;

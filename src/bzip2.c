@@ -47,7 +47,7 @@ void OpenBzip2 ( XArchive *archive )
 		archive->nr_of_dirs = 0;
 		archive->format = "TAR.BZIP2";
 		archive->parse_output = TarOpen;
-		SpawnAsyncProcess ( archive , command , 0, 0);
+		xa_spawn_async_process (archive,command,0);
 
 		g_free (command);
 		g_free (tar);

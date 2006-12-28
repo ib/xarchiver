@@ -36,7 +36,8 @@ GtkWidget *entry1;
 GtkWidget *progressbar;
 GtkWidget *info_label;
 GtkWidget *viewport1,*viewport2,*viewport3;
-
+GtkTextBuffer *viewtextbuf;
+GtkTextIter viewenditer, viewstart, viewend;
 GtkWidget *archive_properties_window;
 GtkWidget *table1;
 GtkWidget *path_label;

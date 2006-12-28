@@ -47,6 +47,7 @@
 #include "rpm.h"
 #include "gzip.h"
 #include "archive.h"
+#include "new_dialog.h"
 #include "extract_dialog.h"
 #include "add_dialog.h"
 #include "pref_dialog.h"
@@ -57,10 +58,7 @@ unsigned long long int file_size, file_offset;
 gboolean done,full_path,overwrite,add_recurse;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
-GtkWidget *dialog , *textview, *scrollwin, *vbox, *OutputWindow , *view_window, *archive_properties_win;
-GtkTextBuffer *textbuf , *viewtextbuf;
-GtkTextIter enditer , start, end;
-GtkTextIter viewenditer, viewstart, viewend;
+GtkWidget *dialog, *scrollwin, *xa_cmd_line_output , *view_window, *archive_properties_win;
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_open_archive (GtkMenuItem *menuitem, gpointer user_data );
@@ -100,8 +98,6 @@ gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer dat
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
 
 void xa_watch_child ( GPid pid, gint status, gpointer data);
-gboolean xa_report_child_stderr (GIOChannel *ioc, GIOCondition cond, gpointer data);
-
 void xa_remove_columns();
 void EmptyTextBuffer ();
 void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[], XArchive *archive);
