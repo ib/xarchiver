@@ -36,9 +36,9 @@ void OpenZip ( XArchive *archive )
 	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]= {(_("Filename")),(_("Original")),(_("Method")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Checksum"))};
+	char *names[]= {(_("Filename")),(_("Original")),(_("Method")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 8, names , (GType *)types, archive );
+	xa_create_liststore ( 7, names , (GType *)types, archive );
 }
 
 static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -58,8 +58,8 @@ static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			if ( line == NULL )
 				break;
 			archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-			fields = split_line (line , 7);
-			filename = get_last_field (line , 8);
+			fields = split_line (line,6);
+			filename = get_last_field (line,8);
 			if ( g_str_has_suffix(filename , "/") == TRUE)
 				archive->nr_of_dirs++;
 			else
@@ -67,7 +67,7 @@ static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			if ( filename != NULL )
 			{
 				gtk_list_store_append (archive->liststore, &iter);
-				for ( x = 0; x < 7; x++)
+				for ( x = 0; x < 6; x++)
 				{
 					if (x == 0 || x == 2)
 						gtk_list_store_set (archive->liststore, &iter,x+1, strtoll (fields[x],NULL,0), -1);

@@ -21,7 +21,6 @@
 
 #include <gtk/gtk.h>
 #include "callbacks.h"
-#include "interface.h"
 #include "archive.h"
 
 void OpenArj ( XArchive *archive );

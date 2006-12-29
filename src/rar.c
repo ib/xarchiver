@@ -52,10 +52,10 @@ void OpenRar ( XArchive *archive )
 	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("Checksum")),(_("Method")),(_("Version"))};
+	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
     archive->has_passwd = FALSE;
-	xa_create_liststore ( 10, names , (GType *)types, archive );
+	xa_create_liststore ( 7, names , (GType *)types, archive );
 }
 
 static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -122,14 +122,14 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				if ( line == NULL)
 					break;
 				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				fields = split_line (line,9);
+				fields = split_line (line,6);
 				if (fields[5] == NULL)
 					break;
 				if ( strstr (fields[5] , "d") == NULL && strstr (fields[5] , "D") == NULL )
 					archive->nr_of_files++;
 				else
 					archive->nr_of_dirs++;
-				for (x = 0; x < 9; x++)
+				for (x = 0; x < 6; x++)
 				{
 					if (x == 0 || x == 1)
 						gtk_list_store_set (archive->liststore, &iter,x+1,strtoll(fields[x],NULL,0),-1);
