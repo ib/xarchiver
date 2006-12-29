@@ -92,7 +92,7 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 					}
 					break;
 				}
-				filename = get_last_field ( line , 2 );
+				filename = get_last_field (line,2);
 				gtk_list_store_append (archive->liststore, &iter);
 				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
 				g_free (line);
@@ -103,10 +103,9 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				if ( line == NULL)
 					break;
-				fields = split_line ( line , 8 );
+				fields = split_line (line,10);
 				if ( g_str_has_prefix(fields[7] , "d") == FALSE)
 					archive->nr_of_files++;
-
     			for ( x = 2; x < 8; x++)
     			{
             		if ( x == 2 || x == 3)
@@ -136,7 +135,7 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
                 	g_free (line);
                 }
 				arj_line = 1;
-                	break;
+                break;
 			}
             arj_line++;
 		}
