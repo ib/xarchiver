@@ -64,6 +64,7 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if (line == NULL)
 					break;
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				if (strncmp (line , "----------" , 10) == 0)
 				{
 					jump_header = TRUE;
@@ -78,15 +79,20 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if (line == NULL)
 					break;
-				if (strncmp (line, "------------ ---------- ---------- -----", 40) == 0 )
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
+				if (strncmp (line, "------------ ---------- ---------- -----", 40) == 0)
 				{
 					g_free (line);
 					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 					if (line != NULL)
+					{
+						archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 						g_free (line);
+					}
 					break;
 				}
 				gtk_list_store_append (archive->liststore, &iter);
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				fields = split_line ( line , 9 );
 				if ( g_str_has_prefix(fields[6] , "d") == FALSE)
 					archive->nr_of_files++;

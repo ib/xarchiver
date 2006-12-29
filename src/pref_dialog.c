@@ -181,7 +181,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box2), _("list") );
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box2), _("icon") );
 
-	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show comment in archive after loading it"));
+	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show archive comment after loading it"));
 	gtk_widget_show (prefs_data->check_show_comment);
 	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_show_comment, FALSE, FALSE, 0);
 	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_show_comment, GTK_CAN_FOCUS);

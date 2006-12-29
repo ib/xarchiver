@@ -75,6 +75,7 @@ static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				break;
 			gtk_list_store_append (archive->liststore, &iter);
 
+			archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 			permissions = g_strndup(line, 10);
 			gtk_list_store_set (archive->liststore, &iter,1,permissions,-1);
 			if (strstr(permissions, "d") == NULL)

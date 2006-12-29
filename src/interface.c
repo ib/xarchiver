@@ -227,9 +227,10 @@ GtkWidget *create_MainWindow (void)
 	gtk_widget_set_sensitive (separatormenuitem5, FALSE);
 
 	view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("C_md-line output"));
-	gtk_widget_show (view_shell_output1);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
 	gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_set_sensitive (view_shell_output1,FALSE);
+	gtk_widget_show (view_shell_output1);
 
 	image2 = gtk_image_new_from_stock ("gtk-find-and-replace", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image2);
@@ -355,9 +356,8 @@ GtkWidget *create_MainWindow (void)
 	gtk_container_add (GTK_CONTAINER (toolbar1), Stop_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Stop_button), tooltips, _("Cancel current operation"), NULL);
 
-	vbox_body = gtk_vbox_new (FALSE, 2);
+	vbox_body = gtk_vbox_new (FALSE,0);
 	gtk_widget_show (vbox_body);
-	gtk_container_set_border_width (GTK_CONTAINER(vbox_body), 2);
 	gtk_box_pack_start(GTK_BOX(vbox1), vbox_body, TRUE, TRUE, 0);
 
 	/* Create the notebook widget */

@@ -459,8 +459,9 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 	gtk_notebook_remove_page ( notebook , current_page);
 
 	current_page = gtk_notebook_get_n_pages(notebook);
-	if ( current_page == 0)
+	if (current_page == 0)
 	{
+		gtk_widget_set_sensitive (view_shell_output1,FALSE);
 		gtk_widget_set_sensitive (check_menu,FALSE);
 		gtk_widget_set_sensitive (properties,FALSE);
 		xa_disable_delete_view_buttons (FALSE);
@@ -1229,6 +1230,7 @@ void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 	gint current_page;
 	gint idx;
 
+	//TODO: find some way to free the glist in the archive
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
@@ -1247,7 +1249,7 @@ void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 	g_object_set (G_OBJECT (scrolledwindow),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 
 	textbuffer = gtk_text_buffer_new (NULL);
-	gtk_text_buffer_create_tag (textbuffer, "terminal","family", "fixed", NULL);
+	gtk_text_buffer_create_tag (textbuffer, "font","family", "monospace", NULL);
 	gtk_text_buffer_get_iter_at_offset (textbuffer, &iter, 0);
 
 	textview = gtk_text_view_new_with_buffer (textbuffer);
@@ -1264,11 +1266,10 @@ void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 	{
 		line = output->data;
 		utf8_line = g_locale_to_utf8 (line, -1, NULL, &bytes_written, NULL);
-		gtk_text_buffer_insert_with_tags_by_name (textbuffer, &iter, utf8_line, bytes_written, "terminal", NULL);
+		gtk_text_buffer_insert_with_tags_by_name (textbuffer, &iter, utf8_line, bytes_written, "font", NULL);
 		g_free (utf8_line);
 		output = output->next;
 	}
-
 	gtk_dialog_run (GTK_DIALOG(xa_cmd_line_output));
 	gtk_widget_destroy (xa_cmd_line_output);
 	//gtk_text_buffer_create_tag (textbuf, "red_foreground","foreground", "red", NULL);

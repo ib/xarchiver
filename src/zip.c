@@ -57,6 +57,7 @@ static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 			if ( line == NULL )
 				break;
+			archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 			fields = split_line (line , 7);
 			filename = get_last_field (line , 8);
 			if ( g_str_has_suffix(filename , "/") == TRUE)

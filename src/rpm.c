@@ -176,8 +176,8 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	unlink ( gzip );
 
 	/* Now I have to open the CPIO temp file in read mode and spawn the
-	command cpio -tv with an input pipe so to receive the output from
-	the opened CPIO temp file */
+	 * command cpio -tv with an input pipe so to receive the output from
+	 * the opened CPIO temp file */
 
 	archive[idx]->parse_output = 0;
 	xa_spawn_async_process ( archive[idx] , "cpio -tv" , 1);

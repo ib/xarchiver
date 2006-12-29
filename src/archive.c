@@ -67,24 +67,23 @@ void xa_spawn_async_process ( XArchive *archive , gchar *command , gboolean inpu
 	}
 	g_strfreev ( argv );
 	if (archive->pb_source == 0)
-		archive->pb_source = g_timeout_add (200, xa_progressbar_pulse, NULL );
+		archive->pb_source = g_timeout_add (200, xa_progressbar_pulse, NULL);
 
 	if ( archive->parse_output )
 	{
-		ioc = g_io_channel_unix_new ( output_fd );
+		ioc = g_io_channel_unix_new (output_fd);
 		g_io_channel_set_encoding (ioc, locale , NULL);
 		g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, archive->parse_output, archive);
 		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 	}
-	else
+	else if (archive->type != XARCHIVETYPE_RPM)
 	{
-	out_ioc = g_io_channel_unix_new ( output_fd );
-	g_io_channel_set_encoding (out_ioc, locale , NULL);
-	g_io_channel_set_flags ( out_ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (out_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_output, archive);
+		out_ioc = g_io_channel_unix_new (output_fd);
+		g_io_channel_set_encoding (out_ioc, locale , NULL);
+		g_io_channel_set_flags ( out_ioc , G_IO_FLAG_NONBLOCK , NULL );
+		g_io_add_watch (out_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_output, archive);
 	}
-
 	err_ioc = g_io_channel_unix_new ( error_fd );
 	g_io_channel_set_encoding (err_ioc, locale , NULL);
 	g_io_channel_set_flags ( err_ioc , G_IO_FLAG_NONBLOCK , NULL );

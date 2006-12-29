@@ -70,6 +70,7 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			if ( line == NULL )
 				break;
 
+			archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 			fields = split_line (line,5);
 			filename = get_last_field (line,6);
 			gtk_list_store_append (archive->liststore, &iter);

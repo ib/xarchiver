@@ -75,6 +75,7 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if (line == NULL)
 					break;
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				if  (strncmp (line , "--------" , 8) == 0)
 				{
 					jump_header = TRUE;
@@ -83,7 +84,7 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				g_free (line);
 				break;
 			}
-			if ( jump_header && odd_line )
+			if (jump_header && odd_line)
 			{
 				/* Now read the filename */
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
@@ -94,10 +95,14 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				{
 					g_free (line);
 					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+					if (line == NULL)
+						break;
+					archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 					g_free (line);
 					break;
 				}
 				gtk_list_store_append (archive->liststore, &iter);
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				line[ strlen(line) - 1 ] = '\000';
 				if (line[0] == '*')
 					archive->has_passwd = TRUE;
@@ -116,6 +121,7 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
 				if ( line == NULL)
 					break;
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				fields = split_line (line,9);
 				if (fields[5] == NULL)
 					break;

@@ -59,6 +59,7 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				for ( x = 0; x <= 7; x++)
 				{
 					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+					archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 					g_free (line);
 				}
 				jump_header = TRUE;
@@ -70,12 +71,16 @@ static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			/* This to avoid inserting the last line of output */
 			if (strncmp (line, "-----------------", 17) == 0 || strncmp (line, "\x0a",1) == 0)
 			{
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				g_free (line);
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+				if (line == NULL)
+					break;
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				g_free (line);
 				break;
 			}
-
+			archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 			fields = split_line ( line , 5 );
 			filename = get_last_field ( line , 6);
 			gtk_list_store_append (archive->liststore, &iter);
