@@ -95,9 +95,8 @@ msgid "Remove files after adding"
 msgstr "Editatu aurretik fitxategiak ezabatu"
 
 #: ../src/add_dialog.c:194
-#, fuzzy
 msgid "Do not add absolute paths"
-msgstr "Ez fitxategi bideak gehitu"
+msgstr "Ez bide absolutuak gehitu"
 
 #: ../src/add_dialog.c:196
 msgid "Do not add file paths"
@@ -105,7 +104,7 @@ msgstr "Ez fitxategi bideak gehitu"
 
 #: ../src/add_dialog.c:201
 msgid "The files path doesn't include the user home directory."
-msgstr ""
+msgstr "Fixategi bideak ez du erabiltzaile etxe direktorioa eduki behar."
 
 #: ../src/add_dialog.c:203
 msgid "Store just the name of a file without its directory names."
@@ -663,7 +662,6 @@ msgid "_Show comment"
 msgstr "_Ikusi iruzkina"
 
 #: ../src/interface.c:197
-#, fuzzy
 msgid "Show ISO in_fo"
 msgstr "I_SO argibideak ikusi"
 
@@ -676,7 +674,6 @@ msgid "Dese_lect All"
 msgstr "_Denari hautapena kendu"
 
 #: ../src/interface.c:229
-#, fuzzy
 msgid "C_md-line output"
 msgstr "Ko_mando lerro irteera"
 
@@ -685,9 +682,8 @@ msgid "Reset passwo_rd"
 msgstr "Pasahitza be_rrabiarazi."
 
 #: ../src/interface.c:249
-#, fuzzy
 msgid "_Preferences"
-msgstr "Pr_opietateak"
+msgstr "Hobes_penak"
 
 #: ../src/interface.c:258
 msgid "_Help"
@@ -761,7 +757,6 @@ msgid "This archive contains password protected files"
 msgstr "Pakete honek pasahitzez babesturiko fitxategiak ditu"
 
 #: ../src/interface.c:556
-#, fuzzy
 msgid "Close archive"
 msgstr "Paketea Itxi"
 
@@ -987,12 +982,11 @@ msgstr "Pakete luzapena gehitu fitxategi izenera"
 #: ../src/new_dialog.c:160
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr ""
+msgstr "\"%s\" dagoeneko irekirik dago!"
 
 #: ../src/new_dialog.c:161
-#, fuzzy
 msgid "Can't create a new archive:"
-msgstr "Pakete berria sortu"
+msgstr "Ezin da pakete berria sortu:"
 
 #: ../src/new_dialog.c:176
 #, c-format
@@ -1005,90 +999,87 @@ msgstr "Gainidatzi nahi duzu?"
 
 #: ../src/pref_dialog.c:38
 msgid "Preferences"
-msgstr ""
+msgstr "Hobespenak"
 
 #: ../src/pref_dialog.c:69
 msgid "Behaviour"
-msgstr ""
+msgstr "Portaera"
 
 #: ../src/pref_dialog.c:79
 msgid "Advanced"
-msgstr ""
+msgstr "Aurreratua"
 
 #: ../src/pref_dialog.c:110
-#, fuzzy
 msgid "Preferred format for new archives:"
-msgstr "Pakete berria sortu"
+msgstr "Pakete berrien lehentsiriko formatua:"
 
 #: ../src/pref_dialog.c:128
 msgid "Save settings for add dialog"
-msgstr ""
+msgstr "Gehitu elkarrizketaren ezarpenk gorde"
 
 #: ../src/pref_dialog.c:134
 msgid "Save settings for extract dialog"
-msgstr ""
+msgstr "Atera elkarrizketaren ezarpenak gorde"
 
 #: ../src/pref_dialog.c:140
 msgid "Allow extracting directories by drag and drop"
-msgstr ""
+msgstr "Onartu arratstratu eta jaregin eginez direktorioak ateratzea"
 
 #: ../src/pref_dialog.c:146
-#, fuzzy
 msgid "Confirm deletion of files inside the archive"
-msgstr "Ezin dira paketera fitxategiak gehitu:"
+msgstr "Pakete barneko fitxategiak ezabatzeko berritsi"
 
 #: ../src/pref_dialog.c:175
 msgid "View archive content as"
-msgstr ""
+msgstr "Ikusi pakete edukiak"
 
 #: ../src/pref_dialog.c:182
 msgid "list"
-msgstr ""
+msgstr "zerrenda bezala"
 
 #: ../src/pref_dialog.c:183 ../src/pref_dialog.c:249
 msgid "icon"
-msgstr ""
+msgstr "ikono bezala"
 
 #: ../src/pref_dialog.c:185
 msgid "Show comment in archive after loading it"
-msgstr ""
+msgstr "Paketeko iruzkina kargatu aurretik ikusi"
 
 #: ../src/pref_dialog.c:191
-#, fuzzy
 msgid "Show ISO info after loading the archive"
-msgstr "Gehitu hautatu paketea sortzen hasteko"
+msgstr "ISO argibideak ikusi fitxategia kargatu ondoren"
 
 #: ../src/pref_dialog.c:197
 msgid "Sort content by filename"
-msgstr ""
+msgstr "Edukiak izenez ordenatu"
 
 #: ../src/pref_dialog.c:202
 msgid "The filename column is sort after loading the archive"
-msgstr ""
+msgstr "Fitxategi izen zutabea ordenatu egingo da paketea kargatu ondoren"
 
 #: ../src/pref_dialog.c:227
 msgid "Preferred web browser:"
-msgstr ""
+msgstr "Hobetsiriko web nabigatzailea"
 
 #: ../src/pref_dialog.c:234
 msgid "xfce default"
-msgstr ""
+msgstr "xfce lehenespena"
 
 #: ../src/pref_dialog.c:235
 msgid "konqueror"
-msgstr ""
+msgstr "konqueror"
 
 #: ../src/pref_dialog.c:241
 msgid "Preferred view application:"
-msgstr ""
+msgstr "Bistaratzeko hobetsiriko aplikazioa"
 
 #: ../src/pref_dialog.c:248
 msgid "internal"
-msgstr ""
+msgstr "barnekoa"
 
 #: ../src/pref_dialog.c:251
 msgid "Save window geometry on exit"
-msgstr ""
+msgstr "Leiho geometria gorde irtetean"
 
 #: ../src/rar.c:55 ../src/zip.c:39
 msgid "Checksum"
