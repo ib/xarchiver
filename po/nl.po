@@ -101,7 +101,7 @@ msgstr "Voeg geen bestands-paden toe"
 
 #: ../src/add_dialog.c:201
 msgid "The files path doesn't include the user home directory."
-msgstr ""
+msgstr "Het pad bevat de gebruiker's persoonlijke map niet."
 
 #: ../src/add_dialog.c:203
 msgid "Store just the name of a file without its directory names."
@@ -1009,15 +1009,15 @@ msgstr "Standaard formaat voor nieuwe archieven:"
 
 #: ../src/pref_dialog.c:128
 msgid "Save settings for add dialog"
-msgstr ""
+msgstr "Instellingen van 'Toevoegen' dialoog opslaan"
 
 #: ../src/pref_dialog.c:134
 msgid "Save settings for extract dialog"
-msgstr ""
+msgstr "Instellingen van 'Uitpakken' dialoog opslaan"
 
 #: ../src/pref_dialog.c:140
 msgid "Allow extracting directories by drag and drop"
-msgstr ""
+msgstr "Het uitpakken van mappen door slepen toestaan"
 
 #: ../src/pref_dialog.c:146
 msgid "Confirm deletion of files inside the archive"
