@@ -69,6 +69,13 @@ void xa_spawn_async_process ( XArchive *archive , gchar *command , gboolean inpu
 	if (archive->pb_source == 0)
 		archive->pb_source = g_timeout_add (200, xa_progressbar_pulse, NULL);
 
+	if (archive->cmd_line_output != NULL)
+	{
+		g_list_foreach (archive->cmd_line_output, (GFunc) g_free, NULL);
+		g_list_free (archive->cmd_line_output);
+		archive->cmd_line_output = NULL;
+	}
+
 	if ( archive->parse_output )
 	{
 		ioc = g_io_channel_unix_new (output_fd);

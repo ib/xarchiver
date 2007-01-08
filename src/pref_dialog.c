@@ -53,7 +53,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy", GTK_POLICY_NEVER,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_NEVER, NULL);
 	gtk_widget_show (scrolledwindow1);
 
-	prefs_data->prefs_liststore = gtk_list_store_new ( 2, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+	prefs_data->prefs_liststore = gtk_list_store_new ( 3, GDK_TYPE_PIXBUF, G_TYPE_STRING,G_TYPE_UINT);
 	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
 	g_object_unref (prefs_data->prefs_liststore);
 
@@ -65,18 +65,18 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), prefs_iconview);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", NULL);
-	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Behaviour"), -1);
+	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-behaviour.svg", NULL);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Behaviour"),2,0,-1);
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-add.png", NULL);
-	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("View"), -1);
+	icon_pixbuf = gtk_widget_render_icon (prefs_iconview, "gtk-find", GTK_ICON_SIZE_DND, NULL);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("View"),2,1,-1);
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-extract.png", NULL);
-	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"), -1);
+    icon_pixbuf = gtk_widget_render_icon (prefs_iconview, "gtk-execute", GTK_ICON_SIZE_DND, NULL);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"),2,2,-1);
 	g_object_unref (icon_pixbuf);
 	gtk_widget_show (prefs_iconview);
 
@@ -187,7 +187,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_show_comment, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_show_comment), FALSE);
 
-	prefs_data->check_show_iso_info = gtk_check_button_new_with_mnemonic (_("Show ISO info after loading the archive"));
+	prefs_data->check_show_iso_info = gtk_check_button_new_with_mnemonic (_("Show ISO info after loading the image"));
 	gtk_widget_show (prefs_data->check_show_iso_info);
 	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_show_iso_info, FALSE, FALSE, 0);
 	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_show_iso_info, GTK_CAN_FOCUS);
@@ -265,7 +265,7 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
 	GList *list;
 	GtkTreePath *path;
 	GtkTreeIter iter;
-	gchar *text = NULL;
+	guint column = 0;
 
 	list = gtk_icon_view_get_selected_items (iconview);
 	if (list == NULL)
@@ -275,17 +275,15 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
 	path = (GtkTreePath*)list->data;
 
 	gtk_tree_model_get_iter ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, path );
-	gtk_tree_model_get ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, 1, &text, -1);
+	gtk_tree_model_get ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, 2, &column, -1);
 
 	gtk_tree_path_free( (GtkTreePath*)list->data );
 	g_list_free (list);
 
-	if (strncmp ( text,"B",1) == 0 )
+	if (column == 0)
 		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),0);
-	else if (strncmp ( text,"V",1) == 0 )
+	else if (column == 1)
 		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),1);
-	else if (strncmp ( text,"A",1) == 0 )
+	else if (column == 2)
 		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),2);
-
-	g_free (text);
 }

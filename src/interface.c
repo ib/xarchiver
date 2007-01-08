@@ -599,8 +599,10 @@ gchar *password_dialog ()
 	gboolean done = FALSE;
 	gchar *password = NULL;
 	gint current_page;
+	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index (current_page);
 
 	passwd = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (passwd),_("Enter Archive Password"));
@@ -624,8 +626,8 @@ gchar *password_dialog ()
 	gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(password_entry), TRUE);
 
-	if (current_page > 0 && archive[current_page]->passwd != NULL)
-		gtk_entry_set_text (GTK_ENTRY(password_entry),archive[current_page]->passwd);
+	if (current_page > 0 && archive[idx]->passwd != NULL)
+		gtk_entry_set_text (GTK_ENTRY(password_entry),archive[idx]->passwd);
 	gtk_widget_show (password_entry);
 
 	dialog_action_area1 = GTK_DIALOG (passwd)->action_area;

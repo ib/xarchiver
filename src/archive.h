@@ -97,7 +97,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command , gboolean input)
 XArchive *xa_init_archive_structure ();
 gboolean xa_dump_child_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void xa_clean_archive_structure ( XArchive *archive);
-gint xa_find_archive_index ( gint page_num );
+gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();
 
 XArchive *archive[100];

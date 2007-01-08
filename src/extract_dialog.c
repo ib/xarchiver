@@ -869,7 +869,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	result = xa_create_temp_directory (tmp_dir);
 	if (result == 0)
 		return FALSE;
-	g_message (tmp_dir);
+
 	if (cpio_flag)
 	{
 		chdir (tmp_dir);
@@ -905,7 +905,6 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	g_free (command);
 	g_slist_free (filenames);
 	g_string_free ( unescaped_names, TRUE );
-
 	if (result == 0 || stop_flag)
 	{
 		xa_delete_temp_directory ( tmp_dir, 0 );
@@ -926,6 +925,7 @@ gboolean xa_delete_temp_directory ( gchar *dir_name, gboolean flag)
 	gchar *command;
 	gboolean result;
 
+	chdir (dir_name);
 	command = g_strconcat ( "rm -rf ", dir_name , NULL );
 	result = xa_run_command (command , flag );
 	g_free (command);

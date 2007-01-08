@@ -99,7 +99,6 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
 
 void xa_watch_child ( GPid pid, gint status, gpointer data);
 void xa_remove_columns();
-void EmptyTextBuffer ();
 void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[], XArchive *archive);
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void ConcatenateFileNames2 (gchar *filename , GString *data);

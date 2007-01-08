@@ -72,8 +72,8 @@ int main (int argc, char **argv)
 
 	if (socket_info.lock_socket < 0)
 	{
-		// Socket exists
-		if (argc > 1)	// filenames were sent to first instance, so quit
+		/* Socket exists; filenames were sent to first instance, so quit */
+		if (argc > 1)
 			return 0;
 	}
 #endif
@@ -357,14 +357,19 @@ void GetAvailableCompressors()
 	}
 
 	absolute_path = g_find_program_in_path ("zip");
-    if ( absolute_path )
+    if (absolute_path)
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, "jar");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.jar");
 		g_free (absolute_path);
+		absolute_path = g_find_program_in_path ("zipinfo");
+    	if (absolute_path)
+		{
+			g_free (absolute_path);
+			ArchiveType = g_list_prepend ( ArchiveType, "jar");
+			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.jar");
 
-		ArchiveType = g_list_prepend ( ArchiveType, "zip");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
+			ArchiveType = g_list_prepend ( ArchiveType, "zip");
+			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
+		}
 	}
 
 	absolute_path = g_find_program_in_path("7za");

@@ -26,10 +26,10 @@ unsigned short int arj_line = 0;
 
 static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
-void OpenArj ( XArchive *archive )
+void OpenArj (XArchive *archive)
 {
     jump_header = FALSE;
-	gchar *command = g_strconcat ( "arj v " , archive->escaped_path, NULL );
+	gchar *command = g_strconcat ("arj v ",archive->escaped_path, NULL);
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
@@ -37,8 +37,8 @@ void OpenArj ( XArchive *archive )
 	archive->parse_output = ArjOpen;
 	archive->format ="ARJ";
 	xa_spawn_async_process (archive,command,0);
-	g_free ( command );
-	if ( archive->child_pid == 0 )
+	g_free (command);
+	if (archive->child_pid == 0)
 		return;
 
 	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes"))};
@@ -81,7 +81,7 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				if (line == NULL)
 					break;
 				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				if (strncmp (line, "----------", 10) == 0 || strncmp (line, "\x0a",1) == 0)
+				if (strncmp (line, "----------", 10) == 0)
 				{
 					g_free (line);
 					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
@@ -100,11 +100,11 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			else if (arj_line == 2)
 			{
 				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 				if ( line == NULL)
 					break;
-				fields = split_line (line,10);
-				if ( g_str_has_prefix(fields[7] , "d") == FALSE)
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
+				fields = split_line (line,8);
+				if (g_str_has_prefix(fields[7] , "d") == FALSE)
 					archive->nr_of_files++;
     			for ( x = 2; x < 8; x++)
     			{
@@ -114,26 +114,25 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
                     	gtk_list_store_set (archive->liststore, &iter,x-1,fields[x],-1);
 				}
 				archive->dummy_size += strtoll(fields[2],NULL,0);
+				g_strfreev (fields);
 				g_free (line);
-				g_strfreev ( fields );
 			}
 			else if (arj_line == 3)
 			{
             	status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line != NULL)
-                {
-                	archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-                	g_free (line);
-                }
+            	if ( line == NULL)
+					break;
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
+                g_free (line);
 			}
 			else if (arj_line == 4)
             {
             	status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-                if (line != NULL)
-                {
-                	archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-                	g_free (line);
-                }
+                if ( line == NULL)
+					break;
+
+				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
+                g_free (line);
 				arj_line = 1;
                 break;
 			}

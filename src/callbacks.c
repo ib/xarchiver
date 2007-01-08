@@ -67,6 +67,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 
 		xa_hide_progress_bar_stop_button(archive);
 		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+		archive->status = XA_ARCHIVESTATUS_IDLE;
 		return;
 	}
 
@@ -75,9 +76,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		if ( WEXITSTATUS (status) )
 		{
 			xa_hide_progress_bar_stop_button(archive);
-			xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+			xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
 			Update_StatusBar ( _("Operation failed."));
-			response = xa_show_message_dialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
+			response = xa_show_message_dialog (GTK_WINDOW(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
 				xa_show_cmd_line_output (NULL);
 			/* In case the user supplies a wrong password we reset it so he can try again */
@@ -86,6 +87,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				g_free (archive->passwd);
 				archive->passwd = NULL;
 			}
+			archive->status = XA_ARCHIVESTATUS_IDLE;
 			return;
 		}
 	}
@@ -95,10 +97,9 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		xa_hide_progress_bar_stop_button(archive);
 		gtk_widget_set_sensitive ( exe_menu, FALSE);
 		gtk_widget_set_sensitive ( Exe_button, FALSE);
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
 	}
-	if (archive->status == XA_ARCHIVESTATUS_TEST)
-		xa_show_cmd_line_output (NULL);
+
 	if ( ! cli )
 	{
 		/* This to automatically reload the content of the archive after adding or deleting */
@@ -148,7 +149,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				default:
 				break;
 			}
-			archive->status = XA_ARCHIVESTATUS_IDLE;
 			while (waiting)
 			{
 				ps = waitpid ( archive->child_pid, &status, WNOHANG);
@@ -157,6 +157,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				else
 					gtk_main_iteration_do (FALSE);
 			}
+			archive->status = XA_ARCHIVESTATUS_IDLE;
 		}
 	}
 
@@ -176,9 +177,13 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 	}
 	xa_hide_progress_bar_stop_button(archive);
 	xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+	Update_StatusBar ( _("Operation completed."));
+
+	if (archive->status == XA_ARCHIVESTATUS_TEST)
+		xa_show_cmd_line_output (NULL);
 
 	gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
-	Update_StatusBar ( _("Operation completed."));
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
@@ -197,7 +202,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	xa_add_page (archive[current_page]);
 
 	xa_set_button_state (1,1,1,1,0,0,0,0 );
-    EmptyTextBuffer();
     archive[current_page]->has_passwd = FALSE;
     gtk_widget_set_sensitive ( iso_info , FALSE );
     gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
@@ -250,6 +254,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		if (strcmp (path,archive[current_page]->path) == 0)
 		{
 			g_free (path);
+			gtk_notebook_set_current_page (notebook,current_page);
 			return;
 		}
 	}
@@ -298,7 +303,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
 
 	g_free (path);
-	EmptyTextBuffer();
 
 	//Does the user open an archive from the command line whose archiver is not installed ?
 	gchar *ext = NULL;
@@ -473,7 +477,6 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 	else
 		gtk_notebook_set_show_tabs (notebook,TRUE);
 
-	EmptyTextBuffer();
 	xa_clean_archive_structure (archive[idx]);
 	archive[idx] = NULL;
 
@@ -539,7 +542,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,msg,_( "Are you sure you want to do this?") );
 	g_free (msg);
 
-	if ( response == GTK_RESPONSE_NO)
+	if (response == GTK_RESPONSE_NO || response == GTK_RESPONSE_DELETE_EVENT)
 		return;
 
 	Update_StatusBar ( _("Deleting files from the archive, please wait..."));
@@ -1171,18 +1174,6 @@ void xa_remove_columns()
 	g_list_free (columns);
 }
 
-void EmptyTextBuffer ()
-{
-	//TODO
-/*	if (textbuf != NULL)
-	{
-		gtk_text_buffer_get_start_iter (textbuf,&start);
-		gtk_text_buffer_get_end_iter (textbuf,&end);
-		gtk_text_buffer_delete (textbuf,&start,&end);
-		gtk_text_buffer_get_start_iter(textbuf, &enditer);
-	}*/
-}
-
 void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[], XArchive *archive)
 {
 	unsigned short int x;
@@ -1230,20 +1221,17 @@ void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 	gint current_page;
 	gint idx;
 
-	//TODO: find some way to free the glist in the archive
-	current_page = gtk_notebook_get_current_page(notebook);
+	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
 	xa_cmd_line_output = gtk_dialog_new_with_buttons (_("Command line output"),
-									GTK_WINDOW (MainWindow), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_WINDOW (MainWindow), GTK_DIALOG_NO_SEPARATOR,
 									GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE, NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (xa_cmd_line_output), GTK_RESPONSE_CLOSE);
-	gtk_dialog_set_has_separator (GTK_DIALOG (xa_cmd_line_output), FALSE);
 	gtk_widget_set_size_request (xa_cmd_line_output, 400, 250);
 	vbox = GTK_DIALOG (xa_cmd_line_output)->vbox;
 
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow);
 	gtk_box_pack_start (GTK_BOX (vbox), scrolledwindow, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 4);
 	g_object_set (G_OBJECT (scrolledwindow),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
@@ -1253,6 +1241,7 @@ void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 	gtk_text_buffer_get_iter_at_offset (textbuffer, &iter, 0);
 
 	textview = gtk_text_view_new_with_buffer (textbuffer);
+	g_object_unref (textbuffer);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
 	gtk_text_view_set_editable (GTK_TEXT_VIEW (textview), FALSE);
 	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview), FALSE);
@@ -1414,7 +1403,6 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 	archive[idx]->full_path = full_path;
 	archive[idx]->overwrite = overwrite;
-	EmptyTextBuffer();
 	if (command != NULL)
 	{
 		result = xa_run_command (command , 0);
@@ -1427,6 +1415,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 			return;
 		}
 	}
+	g_message ("xa_view_file_inside_archive: %s",archive[idx]->tmp);
 	view_window = view_win(names->str);
 	g_string_free (names,TRUE);
 	string = g_strrstr ( dummy_name, "/" );
@@ -1434,14 +1423,14 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		filename = g_strconcat ( "/tmp/" , dummy_name, NULL );
 	else
 	{
-		if ( strchr ( string , ' ' ) )
+		if (strchr (string,' '))
 		{
 			string = RemoveBackSlashes ( string );
 			tofree = TRUE;
 		}
-		filename = g_strconcat ( "/tmp" , string , NULL );
+		filename = g_strconcat ( archive[idx]->tmp , string , NULL );
 		if ( tofree )
-			g_free ( string );
+			g_free (string);
 	}
 	g_free (dummy_name);
 
@@ -1449,7 +1438,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	if ( ! result)
 	{
 		gtk_widget_hide (viewport2);
-		unlink ( filename );
+		unlink (filename);
 		Update_StatusBar ( _("Operation failed."));
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while extracting the file to be viewed:") , error->message);
 		g_error_free (error);
@@ -1805,8 +1794,6 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index ( current_page );
 
-	if (watch_child_flag)
-		EmptyTextBuffer();
 	archive[idx]->parse_output = 0;
 	xa_spawn_async_process ( archive[idx],command,0);
 	if ( archive[idx]->child_pid == 0 )
@@ -1835,7 +1822,6 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 				gtk_tooltips_disable ( pad_tooltip );
 				gtk_widget_hide ( pad_image );
 				gtk_widget_hide ( viewport2 );
-				xa_set_window_title (MainWindow , NULL);
 				response = xa_show_message_dialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 				if (response == GTK_RESPONSE_YES)
 					xa_show_cmd_line_output (NULL);
@@ -1864,7 +1850,6 @@ void xa_disable_delete_view_buttons (gboolean value)
 
 void xa_hide_progress_bar_stop_button( XArchive *archive)
 {
-	archive->status = XA_ARCHIVESTATUS_IDLE;
     gtk_widget_set_sensitive ( Stop_button , FALSE );
     if (archive->pb_source != 0)
 		g_source_remove (archive->pb_source);
@@ -1879,17 +1864,20 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     gchar            *name;
     GList            *row_list;
 	gint current_page;
+	gint idx;
 
 	//gtk_drag_source_set_icon_name (treeview1, DATADIR "/pixmaps/xarchiver.png" );
 	current_page = gtk_notebook_get_current_page(notebook);
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[current_page]->treeview));
+	idx = xa_find_archive_index (current_page);
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
 
 	row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL )
 		return;
 
-	gtk_tree_model_get_iter (archive[current_page]->model, &iter, (GtkTreePath*) (row_list->data) );
-	gtk_tree_model_get (archive[current_page]->model, &iter, 0, &name, -1);
+	gtk_tree_model_get_iter (archive[idx]->model, &iter, (GtkTreePath*) (row_list->data) );
+	gtk_tree_model_get (archive[idx]->model, &iter, 0, &name, -1);
 	gchar *no_slashes = g_strrstr ( name, "/" );
 	if (no_slashes != NULL)
 		no_slashes++;
@@ -2247,10 +2235,10 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
+
 	comment_window = view_win ( _("Archive comment window") );
 	gtk_text_buffer_create_tag (viewtextbuf, "bold","weight", PANGO_WEIGHT_BOLD, NULL);
 	gtk_text_buffer_insert (viewtextbuf, &viewenditer, "\n", 1);
 	gtk_text_buffer_insert_with_tags_by_name (viewtextbuf, &viewenditer, archive[idx]->comment->str, archive[idx]->comment->len, "bold", NULL);
 	gtk_widget_show (comment_window);
 }
-

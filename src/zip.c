@@ -24,7 +24,7 @@
 static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void OpenZip ( XArchive *archive )
 {
-	gchar *command = g_strconcat ( "unzip -vl -qq " , archive->escaped_path, NULL );
+	gchar *command = g_strconcat ( "zipinfo -t -l " , archive->escaped_path, NULL );
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
@@ -54,12 +54,15 @@ static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	{
 		do
 		{
+			/* Let's jump the header */
 			status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if ( line == NULL )
+			if (line != NULL)
+				g_free (line);
+			status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
+			if (line == NULL)
 				break;
-			archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-			fields = split_line (line,6);
-			filename = get_last_field (line,8);
+			fields = split_line (line,9);
+			filename = get_last_field (line,10);
 			if ( g_str_has_suffix(filename , "/") == TRUE)
 				archive->nr_of_dirs++;
 			else
@@ -69,7 +72,7 @@ static gboolean ZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 				gtk_list_store_append (archive->liststore, &iter);
 				for ( x = 0; x < 6; x++)
 				{
-					if (x == 0 || x == 2)
+					if (x == 4 || x == 6)
 						gtk_list_store_set (archive->liststore, &iter,x+1, strtoll (fields[x],NULL,0), -1);
 					else
 						gtk_list_store_set (archive->liststore, &iter,x+1,fields[x], -1);
