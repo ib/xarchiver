@@ -26,5 +26,6 @@
 
 void OpenTar ( XArchive *archive );
 gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
+gboolean isTar ( FILE *ptr );
 #endif
 

@@ -296,6 +296,14 @@ void GetAvailableCompressors()
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.gz");
 		g_free (absolute_path);
 	}
+	
+	absolute_path = g_find_program_in_path("lzma");
+	if ( absolute_path )
+	{
+		ArchiveType = g_list_prepend ( ArchiveType, "lzma");
+		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.lzma");
+		g_free (absolute_path);
+	}
 
 	/* In future releases of xarchiver we'll use bkisofs library to allow creation of iso images */
 	ArchiveType = g_list_prepend ( ArchiveType, "iso");
@@ -353,6 +361,11 @@ void GetAvailableCompressors()
 		{
 			ArchiveType = g_list_prepend ( ArchiveType, "tar.gz");
 			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tgz");
+		}
+		if ( g_list_find ( ArchiveType , "lzma") )
+		{
+			ArchiveType = g_list_prepend ( ArchiveType, "tar.lzma");
+			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tlz");
 		}
 	}
 
@@ -442,6 +455,8 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 		archive_cmd->type = XARCHIVETYPE_TAR_BZ2;
 	else if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.gz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tgz") )
 		archive_cmd->type = XARCHIVETYPE_TAR_GZ;
+	else if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive_cmd->escaped_path , ".tlz") )
+		archive_cmd->type = XARCHIVETYPE_TAR_LZMA;
 
 	return (archive_cmd);
 }

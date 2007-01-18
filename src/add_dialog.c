@@ -181,7 +181,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 		gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio."), NULL);
 	}
 
-	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_ZIP || archive->type ==XARCHIVETYPE_LHA)
+	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ || archive->type == XARCHIVETYPE_ZIP || archive->type ==XARCHIVETYPE_LHA)
 	{
 		add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Remove files after adding"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->remove_files), archive->remove_files);
@@ -191,14 +191,14 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 	{
-		if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+		if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA)
 			add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add absolute paths"));
 		else
 			add_dialog->add_full_path = gtk_check_button_new_with_mnemonic (_("Do not add file paths"));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->add_full_path), archive->full_path);
 		gtk_widget_show (add_dialog->add_full_path);
 		gtk_box_pack_start (GTK_BOX (add_dialog->vbox6), add_dialog->add_full_path, FALSE, FALSE, 0);
-		if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ)
+		if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA)
 			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("The files path doesn't include the user home directory."), NULL);
 		else
 			gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->add_full_path , _("Store just the name of a file without its directory names."), NULL);
@@ -220,7 +220,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	if (archive->type != XARCHIVETYPE_7ZIP)
 		g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_BZ2)
+	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2)
 	{
 		if (archive->type == XARCHIVETYPE_7ZIP)
 		{
@@ -584,7 +584,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			names = g_string_new ( " " );
 			archive->status = XA_ARCHIVESTATUS_ADD;
 
-			if ( archive->full_path == 1 && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ) )
+			if ( archive->full_path == 1 && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA) )
 			{
 				while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
 				{
@@ -695,6 +695,17 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									"-cvvzf ",archive->escaped_path,
+									names->str , NULL );
+		break;
+		
+		case XARCHIVETYPE_TAR_LZMA:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			xa_add_delete_tar_lzma ( names , archive, 1 );
+		else
+			command = g_strconcat (tar, " ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"--use-compress-program=lzma -cvvf ",archive->escaped_path,
 									names->str , NULL );
 		break;
 

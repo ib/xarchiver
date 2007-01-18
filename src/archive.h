@@ -20,18 +20,20 @@
 
 typedef enum
 {
-	XARCHIVETYPE_UNKNOWN,
+	XARCHIVETYPE_UNKNOWN = 0,
 	XARCHIVETYPE_7ZIP,
 	XARCHIVETYPE_ARJ,
 	XARCHIVETYPE_DEB,
 	XARCHIVETYPE_BZIP2,
 	XARCHIVETYPE_GZIP,
 	XARCHIVETYPE_ISO,
+	XARCHIVETYPE_LZMA,
 	XARCHIVETYPE_RAR,
 	XARCHIVETYPE_RPM,
 	XARCHIVETYPE_TAR,
 	XARCHIVETYPE_TAR_BZ2,
 	XARCHIVETYPE_TAR_GZ,
+	XARCHIVETYPE_TAR_LZMA,
 	XARCHIVETYPE_ZIP,
 	XARCHIVETYPE_COMPRESS,
 	XARCHIVETYPE_LHA
@@ -39,7 +41,7 @@ typedef enum
 
 typedef enum
 {
-	XA_ARCHIVESTATUS_IDLE,
+	XA_ARCHIVESTATUS_IDLE = 0,
 	XA_ARCHIVESTATUS_EXTRACT,
 	XA_ARCHIVESTATUS_ADD,
 	XA_ARCHIVESTATUS_DELETE,
@@ -48,12 +50,23 @@ typedef enum
 	XA_ARCHIVESTATUS_SFX
 } XArchiveStatus;
 
+typedef struct _XEntry XEntry;
+
+struct _XEntry
+{
+	gchar *filename;
+	//ThunarVfsMimeInfo *mime_info;
+	gpointer columns;
+	XEntry **children;
+};
+
 typedef struct _XArchive XArchive;
 
 struct _XArchive
 {
 	XArchiveType type;
 	XArchiveStatus status;
+	XEntry *entry;
 	gchar *path;
 	gchar *escaped_path;
 	gchar *tmp;

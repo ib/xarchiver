@@ -97,7 +97,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 	Name = g_list_first ( ArchiveType );
 	while ( Name != NULL )
 	{
-		if (Name->data == "tgz" || Name->data == "rpm" || Name->data == "iso" || Name->data == "gz" || Name->data == "bz2" ||		(Name->data == "rar" && unrar) )
+		if (!strcmp(Name->data, "tgz") || !strcmp(Name->data, "rpm") || !strcmp(Name->data, "iso") || !strcmp(Name->data, "gz") || !strcmp(Name->data, "lzma") || !strcmp(Name->data, "deb") || !strcmp(Name->data, "bz2") || (!strcmp(Name->data, "rar") && unrar) )
 			goto Next;
 		else
 			gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
@@ -207,6 +207,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 			archive->type = XARCHIVETYPE_TAR_BZ2;
 		else if (strcmp ( ComboArchiveType,"tar.gz") == 0)
 			archive->type = XARCHIVETYPE_TAR_GZ;
+		else if (strcmp ( ComboArchiveType,"tar.lzma") == 0)
+			archive->type = XARCHIVETYPE_TAR_LZMA;
 		else if (strcmp ( ComboArchiveType,"jar") == 0 || strcmp ( ComboArchiveType,"zip") == 0 )
 			archive->type = XARCHIVETYPE_ZIP;
 		else if (strcmp ( ComboArchiveType,"rpm") == 0)

@@ -133,3 +133,22 @@ done:
 	}
 	return TRUE;
 }
+
+gboolean isLha ( FILE *ptr )
+{
+	unsigned char magic[2];
+	fseek(ptr, 0, SEEK_SET);
+	if(fseek(ptr, 19, SEEK_CUR) < 0)
+		return FALSE;
+	if(fread(magic, 1, 2, ptr) == 0)
+		return FALSE;
+
+	if(magic[0] == 0x20 && magic[1] <= 0x03)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}

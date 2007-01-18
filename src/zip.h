@@ -20,9 +20,10 @@
 #define ZIP_H
 
 #include <gtk/gtk.h>
-#include "interface.h"
-#include "callbacks.h"
+#include <stdlib.h>
+#include "string_utils.h"
+#include "support.h"
 #include "archive.h"
 
-void OpenZip ( XArchive *archive );
+void xa_open_zip ( XArchive *archive );
 #endif

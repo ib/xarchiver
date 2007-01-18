@@ -17,10 +17,6 @@
  */
 
 #include "config.h"
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <sys/wait.h>

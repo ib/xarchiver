@@ -105,7 +105,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 		/* This to automatically reload the content of the archive after adding or deleting */
 		if (archive->status == XA_ARCHIVESTATUS_DELETE || archive->status == XA_ARCHIVESTATUS_ADD)
 		{
-		    if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
+		    if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
 				Update_StatusBar ( _("Operation completed."));
 			else
 			{
@@ -130,8 +130,12 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				OpenGzip ( archive );
 				break;
 
+				case XARCHIVETYPE_TAR_LZMA:
+				OpenLzma ( archive );
+				break;
+
 				case XARCHIVETYPE_ZIP:
-				OpenZip ( archive );
+				xa_open_zip ( archive );
 				break;
 
 				case XARCHIVETYPE_7ZIP:
@@ -350,6 +354,10 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		OpenGzip ( archive[current_page] );
 		break;
 
+		case XARCHIVETYPE_LZMA:
+		OpenLzma ( archive[current_page] );
+		break;
+
 		case XARCHIVETYPE_ISO:
 		OpenISO (archive[current_page]);
 		break;
@@ -367,7 +375,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_ZIP:
-		OpenZip (archive[current_page]);
+		xa_open_zip (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_7ZIP:
@@ -568,6 +576,10 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
         case XARCHIVETYPE_TAR_GZ:
         xa_add_delete_tar_bzip2_gzip ( names , archive[id] , 1 , 0 );
+		break;
+
+		case XARCHIVETYPE_TAR_LZMA:
+        xa_add_delete_tar_lzma ( names , archive[id] , 0 );
 		break;
 
         case XARCHIVETYPE_ZIP:
@@ -1071,39 +1083,6 @@ gboolean isISO ( FILE *ptr )
 		return FALSE;
 }
 
-gboolean isTar ( FILE *ptr )
-{
-	unsigned char magic[7];
-	fseek ( ptr, 0 , SEEK_SET );
-    if ( fseek ( ptr , 257 , SEEK_CUR) < 0 )
-		return FALSE;
-    if ( fread ( magic, 1, 7, ptr ) == 0 )
-		return FALSE;
-    if ( memcmp ( magic,"\x75\x73\x74\x61\x72\x00\x30",7 ) == 0 || memcmp (magic,"\x75\x73\x74\x61\x72\x20\x20",7 ) == 0)
-		return TRUE;
-    else
-		return FALSE;
-}
-
-gboolean isLha ( FILE *ptr )
-{
-	unsigned char magic[2];
-	fseek(ptr, 0, SEEK_SET);
-	if(fseek(ptr, 19, SEEK_CUR) < 0)
-		return FALSE;
-	if(fread(magic, 1, 2, ptr) == 0)
-		return FALSE;
-
-	if(magic[0] == 0x20 && magic[1] <= 0x03)
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
-}
-
 int xa_detect_archive_type ( gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
@@ -1140,7 +1119,9 @@ int xa_detect_archive_type ( gchar *filename )
 		xx = XARCHIVETYPE_BZIP2;
 	else if ( memcmp ( magic,"\x1f\x8b",2) == 0 || memcmp ( magic,"\x1f\x9d",2 ) == 0 )
 		xx = XARCHIVETYPE_GZIP;
-	else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0)
+	else if ( memcmp ( magic,"\x00\x5d\x80\x00",4 ) == 0 )
+		xx = XARCHIVETYPE_LZMA;
+	else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0 )
 		xx = XARCHIVETYPE_RPM;
 	else if ( memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6 ) == 0 )
 		xx = XARCHIVETYPE_7ZIP;
@@ -1727,7 +1708,7 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 				g_string_prepend (data, esc_filename);
 			}
 		}
-		else if ( archive[idx]->type == XARCHIVETYPE_TAR_BZ2 || archive[idx]->type == XARCHIVETYPE_TAR_GZ || archive[idx]->type == XARCHIVETYPE_TAR )
+		else if ( archive[idx]->type == XARCHIVETYPE_TAR_BZ2 || archive[idx]->type == XARCHIVETYPE_TAR_GZ || archive[idx]->type == XARCHIVETYPE_TAR_LZMA || archive[idx]->type == XARCHIVETYPE_TAR )
 		{
 			if (archive[idx]->status == XA_ARCHIVESTATUS_ADD)
 			{

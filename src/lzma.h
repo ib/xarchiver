@@ -1,6 +1,6 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
- *  Copyright (C) 2006 Lukasz 'Sil2100' Zemczak - <sil2100@vexillium.org>
+ * Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com> 
+ * Copyright (C) 2007 Thomas Dy - <dysprosium66@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,15 +17,15 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef LHA_H
-#define LHA_H
+#ifndef LZMA_H
+#define LZMA_H
 
 #include <gtk/gtk.h>
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
-#include "archive.h"
 
-void OpenLha ( XArchive *archive );
-gboolean isLha ( FILE *ptr );
+void OpenLzma ( XArchive *archive );
+void lzma_extract ( XArchive *archive );
+void xa_add_delete_tar_lzma( GString *list , XArchive *archive , gboolean add );
 #endif

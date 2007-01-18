@@ -46,6 +46,7 @@
 #include "bzip2.h"
 #include "rpm.h"
 #include "gzip.h"
+#include "lzma.h"
 #include "archive.h"
 #include "new_dialog.h"
 #include "extract_dialog.h"
@@ -90,10 +91,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 int xa_show_message_dialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
 int xa_detect_archive_type ( gchar *filename );
-gboolean isTar ( FILE *ptr );
 gboolean isISO ( FILE *ptr );
-gboolean isLha ( FILE *ptr );
-
 gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
 

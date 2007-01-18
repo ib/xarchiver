@@ -123,3 +123,16 @@ done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
 	return TRUE;
 }
 
+gboolean isTar ( FILE *ptr )
+{
+	unsigned char magic[7];
+	fseek ( ptr, 0 , SEEK_SET );
+    if ( fseek ( ptr , 257 , SEEK_CUR) < 0 )
+		return FALSE;
+    if ( fread ( magic, 1, 7, ptr ) == 0 )
+		return FALSE;
+    if ( memcmp ( magic,"\x75\x73\x74\x61\x72\x00\x30",7 ) == 0 || memcmp (magic,"\x75\x73\x74\x61\x72\x20\x20",7 ) == 0)
+		return TRUE;
+    else
+		return FALSE;
+}
