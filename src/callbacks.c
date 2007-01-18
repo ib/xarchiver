@@ -918,7 +918,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer: Giuseppe Torelli <colossus73@gmail.com>\nISO support: Salvatore Santagati <salvatore.santagati@gmail.com>\nLHA and DEB support: Łukasz Zemczak <sil2100@vexillium.org>",NULL};
+    const char *authors[] = {"\nMain developer: Giuseppe Torelli <colossus73@gmail.com>\nISO support: Salvatore Santagati <salvatore.santagati@gmail.com>\nLHA and DEB support: Łukasz Zemczak <sil2100@vexillium.org>\nLZMA support: Thomas Dy <dysprosium66@gmail.com>",NULL};
     const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Tango icons.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
 
 	if (about == NULL)
@@ -1168,9 +1168,25 @@ void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType
 	g_object_ref(archive->model);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview), NULL);
 
-	for (x = 0; x <= nc-1; x++)
+	/* First column: icon + text */
+	column = gtk_tree_view_column_new();
+	renderer = gtk_cell_renderer_pixbuf_new();
+	g_object_set(G_OBJECT(renderer), "stock-size", GTK_ICON_SIZE_SMALL_TOOLBAR, NULL);
+	gtk_tree_view_column_pack_start(column, renderer, FALSE);
+	gtk_tree_view_column_set_attributes(column, renderer, "icon-name",0,NULL);
+
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start(column, renderer, TRUE);
+	gtk_tree_view_column_set_attributes( column,renderer,"text",1,NULL);
+	gtk_tree_view_column_set_title(column, columns_names[1]);
+	gtk_tree_view_column_set_resizable (column, TRUE);
+	gtk_tree_view_column_set_sort_column_id (column, 1);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview), column);
+
+	/* All the others */
+	for (x = 2; x < nc; x++)
 	{
-		renderer = gtk_cell_renderer_text_new ();
+		renderer = gtk_cell_renderer_text_new();
 		column = gtk_tree_view_column_new_with_attributes ( columns_names[x],renderer,"text",x,NULL);
 		gtk_tree_view_column_set_resizable (column, TRUE);
 		gtk_tree_view_column_set_sort_column_id (column, x);

@@ -37,9 +37,9 @@ void xa_open_zip ( XArchive *archive )
 	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]= {(_("Filename")),(_("Permissions")),(_("Version")),(_("OS")),(_("Original")),(_("Compressed")),(_("Method")),(_("Date")),(_("Time"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 9, names , (GType *)types, archive );
+	char *names[]= {(""),(_("Filename")),(_("Permissions")),(_("Version")),(_("OS")),(_("Original")),(_("Compressed")),(_("Method")),(_("Date")),(_("Time"))};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	xa_create_liststore (10,names,(GType *)types,archive);
 }
 
 static gboolean xa_parse_zip_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -73,25 +73,25 @@ static gboolean xa_parse_zip_output (GIOChannel *ioc, GIOCondition cond, gpointe
 			if ( filename != NULL )
 			{
 				gtk_list_store_append (archive->liststore, &iter);
-				for (x = 1; x < 9; x++)
+				for (x = 2; x < 9; x++)
 				{
-					if (x == 4)
-						gtk_list_store_set (archive->liststore, &iter,3,fields[1], -1);
-					if (x == 4)
-						continue;
-					else if (x == 3 || x == 5)
+					if (x == 2)
+						gtk_list_store_set (archive->liststore, &iter,4,fields[2], -1);
+					if (x == 3 || x == 5)
 					{
 						if (x == 3)
-							gtk_list_store_set (archive->liststore, &iter,4, strtoll (fields[x],NULL,0), -1);
-						else
 							gtk_list_store_set (archive->liststore, &iter,5, strtoll (fields[x],NULL,0), -1);
+						else
+							gtk_list_store_set (archive->liststore, &iter,6, strtoll (fields[x],NULL,0), -1);
 					}
+					else if (x == 4)
+						gtk_list_store_set (archive->liststore, &iter,3,fields[1], -1);
 					else
-						gtk_list_store_set (archive->liststore, &iter,x,fields[x], -1);
+						gtk_list_store_set (archive->liststore, &iter,x+1,fields[x], -1);
 				}
 				archive->dummy_size += strtoll (fields[0],NULL,0);
-				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
-				gtk_list_store_set (archive->liststore, &iter,1,fields[0],-1);
+				gtk_list_store_set (archive->liststore, &iter,0,GTK_STOCK_DIRECTORY,1,filename,-1);
+				gtk_list_store_set (archive->liststore, &iter,2,fields[0],-1);
 			}
 			while ( gtk_events_pending() )
 				gtk_main_iteration();
