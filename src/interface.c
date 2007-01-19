@@ -31,7 +31,7 @@
 #include <gtk/gtk.h>
 
 #include "string_utils.h"
-#include "callbacks.h"
+#include "window.h"
 #include "interface.h"
 #include "support.h"
 
@@ -867,12 +867,6 @@ void set_label (GtkWidget *label , gchar *text)
     gchar *tmp_markup = g_strdup_printf ("<b>%s</b>",text );
     gtk_label_set_markup ( GTK_LABEL (label) , tmp_markup);
     g_free (tmp_markup);
-}
-
-int xa_progressbar_pulse (gpointer data)
-{
-	gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progressbar) );
-	return TRUE;
 }
 
 void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info)

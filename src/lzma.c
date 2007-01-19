@@ -143,8 +143,9 @@ void lzma_extract ( XArchive *archive )
 		gtk_widget_hide ( viewport2 );
 		Update_StatusBar ( _("Operation canceled."));
 	}
-	else
-		xa_watch_child (archive->child_pid, 0, archive);
+	//TODO:
+	/*else
+		xa_watch_child (archive->child_pid, 0, archive);*/
 }
 
 void xa_add_delete_tar_lzma ( GString *list , XArchive *archive , gboolean add )

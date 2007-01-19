@@ -20,7 +20,6 @@
 #define GZIP_H
 
 #include <gtk/gtk.h>
-#include "callbacks.h"
 #include "interface.h"
 #include "support.h"
 

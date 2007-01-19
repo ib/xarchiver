@@ -20,10 +20,12 @@
 #define SEVENZIP_H
 
 #include <gtk/gtk.h>
-#include "callbacks.h"
-#include "interface.h"
-#include "archive.h"
+#include <string.h>
+#include <stdlib.h>
 #include "string_utils.h"
+#include "support.h"
+#include "archive.h"
 
+gboolean jump_header;
 void Open7Zip ( XArchive *archive );
 #endif

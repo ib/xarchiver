@@ -22,7 +22,7 @@
 #include <sys/wait.h>
 #include "archive.h"
 #include "support.h"
-#include "callbacks.h"
+#include "window.h"
 
 XArchive *xa_init_archive_structure ()
 {
@@ -31,12 +31,11 @@ XArchive *xa_init_archive_structure ()
 	return archive;
 }
 
-void xa_spawn_async_process ( XArchive *archive , gchar *command , gboolean input)
+void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input)
 {
-	GIOChannel *ioc , *err_ioc, *out_ioc;
-	GError *error = NULL;
 	gchar **argv;
 	gint argcp, response;
+	GError *error = NULL;
 
 	g_shell_parse_argv ( command , &argcp , &argv , NULL);
 	if ( ! g_spawn_async_with_pipes (
@@ -47,12 +46,11 @@ void xa_spawn_async_process ( XArchive *archive , gchar *command , gboolean inpu
 		NULL,
 		NULL,
 		&archive->child_pid,
-		input ? &input_fd : NULL,
-		&output_fd,
-		&error_fd,
+		input ? &archive->input_fd : NULL,
+		&archive->output_fd,
+		&archive->error_fd,
 		&error) )
 	{
-		xa_hide_progress_bar_stop_button ( archive );
 		Update_StatusBar (_("Operation failed."));
 		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
@@ -62,8 +60,6 @@ void xa_spawn_async_process ( XArchive *archive , gchar *command , gboolean inpu
 		return;
 	}
 	g_strfreev ( argv );
-	if (archive->pb_source == 0)
-		archive->pb_source = g_timeout_add (200, xa_progressbar_pulse, NULL);
 
 	if (archive->cmd_line_output != NULL)
 	{
@@ -72,53 +68,38 @@ void xa_spawn_async_process ( XArchive *archive , gchar *command , gboolean inpu
 		archive->cmd_line_output = NULL;
 	}
 
-	if ( archive->parse_output )
-	{
-		ioc = g_io_channel_unix_new (output_fd);
-		g_io_channel_set_encoding (ioc, locale , NULL);
-		g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
-		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, archive->parse_output, archive);
-		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
-	}
-	else if (archive->type != XARCHIVETYPE_RPM)
-	{
-		out_ioc = g_io_channel_unix_new (output_fd);
-		g_io_channel_set_encoding (out_ioc, locale , NULL);
-		g_io_channel_set_flags ( out_ioc , G_IO_FLAG_NONBLOCK , NULL );
-		g_io_add_watch (out_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_output, archive);
-	}
-	err_ioc = g_io_channel_unix_new ( error_fd );
-	g_io_channel_set_encoding (err_ioc, locale , NULL);
-	g_io_channel_set_flags ( err_ioc , G_IO_FLAG_NONBLOCK , NULL );
-	g_io_add_watch (err_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_output, archive);
+	fcntl (archive->output_fd, F_SETFL, O_NONBLOCK);
+	fcntl (archive->error_fd, F_SETFL, O_NONBLOCK);
+	archive->source = g_timeout_add (20,xa_watch_child,archive);
 }
 
-gboolean xa_dump_child_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+gboolean xa_dump_output (XArchive *archive)
 {
-	XArchive *archive = data;
-	GIOStatus status;
 	gchar *line = NULL;
+	gint br;
 
-	if (cond & (G_IO_IN | G_IO_PRI))
+	gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progressbar) );
+	br = xa_read_line ( archive->output_fd,&line);
+	if (line != NULL)
 	{
-		do
-		{
-			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
-			if (line != NULL)
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,line);
-		}
-		while (status == G_IO_STATUS_NORMAL);
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
+		archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line) );
+		if (archive->parse_output)
+			(*archive->parse_output) (line,archive);
+		g_free (line);
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
-	{
-		done:
-			g_io_channel_shutdown (ioc, TRUE, NULL);
-			g_io_channel_unref (ioc);
-			return FALSE;
-	}
-	return TRUE;
+	return br > 0;
+}
+
+gboolean xa_dump_errors (XArchive *archive)
+{
+	gchar *line = NULL;
+	gint br;
+
+	br = xa_read_line ( archive->error_fd,&line);
+
+	if (line != NULL)
+		g_free (line);
+	return br > 0;
 }
 
 void xa_clean_archive_structure (XArchive *archive)
@@ -157,7 +138,7 @@ void xa_clean_archive_structure (XArchive *archive)
 			dummy_string = remove_level_from_path (archive->tmp);
 			if (remove (dummy_string) < 0)
 			{
-				msg = g_strdup_printf (_("Couldn't remove temporary directory %s"),dummy_string);
+				msg = g_strdup_printf (_("Couldn't remove temporary directory %s:"),dummy_string);
 				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,	msg,g_strerror(errno) );
 				g_free (msg);
 			}
@@ -272,4 +253,30 @@ gint xa_get_new_archive_idx()
 	}
 	return -1;
 }
+
+gint xa_read_line (int fd, gchar **return_string)
+{
+	gint n;
+	gchar c;
+	GString *string;
+
+	string = g_string_new ("");
+
+  	do
+	{
+		n = read(fd, &c, 1);
+		if ( n > 0)
+			string = g_string_append_c(string,c);
+	}
+	while ( (n>0) && (c != '\n') );
+
+	if (n>0)
+		*return_string = g_strndup (string->str, string->len);
+	else
+		*return_string = NULL;
+
+	g_string_free(string,FALSE);
+	return (n>0);
+}
+
 

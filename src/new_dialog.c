@@ -20,7 +20,7 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include "new_dialog.h"
-#include "callbacks.h"
+#include "window.h"
 #include "string_utils.h"
 #include "main.h"
 

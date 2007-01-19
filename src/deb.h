@@ -20,7 +20,12 @@
 #ifndef DEB_H
 #define DEB_H
 
-#include "callbacks.h"
+#include <gtk/gtk.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "tar.h"
+#include "string_utils.h"
+#include "support.h"
 #include "archive.h"
 
 void OpenDeb ( XArchive *archive );

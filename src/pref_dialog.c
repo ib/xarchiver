@@ -247,6 +247,13 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box4), _("internal") );
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box4), _("icon") );
 
+	prefs_data->dump_archiver_output = gtk_check_button_new_with_mnemonic (_("Don't dump archive output"));
+	gtk_widget_show (prefs_data->dump_archiver_output);
+	gtk_box_pack_start (GTK_BOX (vbox3), prefs_data->dump_archiver_output, FALSE, FALSE, 0);
+	GTK_WIDGET_UNSET_FLAGS (prefs_data->dump_archiver_output, GTK_CAN_FOCUS);
+	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->dump_archiver_output), FALSE);
+	gtk_tooltips_set_tip(tooltips, prefs_data->dump_archiver_output, _("Spares memory if checked but error messages from the archiver will not be available"), NULL);
+
 	prefs_data->check_save_geometry = gtk_check_button_new_with_mnemonic (_("Save window geometry on exit"));
 	gtk_widget_show (prefs_data->check_save_geometry);
 	gtk_box_pack_start (GTK_BOX (vbox3), prefs_data->check_save_geometry, FALSE, FALSE, 0);

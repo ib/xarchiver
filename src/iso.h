@@ -24,7 +24,7 @@
 
 #include <gtk/gtk.h>
 #include "interface.h"
-#include "callbacks.h"
+#include "window.h"
 #include "archive.h"
 
 /* volume descriptor types */

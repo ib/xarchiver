@@ -20,7 +20,7 @@
 #define RPM_H
 
 #include <gtk/gtk.h>
-#include "callbacks.h"
+#include "window.h"
 #include "interface.h"
 #include "archive.h"
 

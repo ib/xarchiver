@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include "extract_dialog.h"
 #include "interface.h"
-#include "callbacks.h"
+#include "window.h"
 #include "string_utils.h"
 #include "support.h"
 
@@ -403,7 +403,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					case XARCHIVETYPE_GZIP:
 					gzip_bzip2_extract (archive , 1);
 					break;
-					
+
 					case XARCHIVETYPE_LZMA:
 					lzma_extract (archive);
 					break;
@@ -468,7 +468,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						command = NULL;
 					}
 					break;
-					
+
 					case XARCHIVETYPE_TAR_LZMA:
 					if (archive->full_path == 1)
 					{
@@ -564,7 +564,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					case XARCHIVETYPE_ISO:
 					end = gtk_tree_model_get_iter_first (archive->model , &iter);
 					gtk_widget_show ( viewport2 );
-					g_timeout_add (200, xa_progressbar_pulse, NULL );
 					while (end)
 					{
 						xa_set_button_state (0,0,0,0,0,0,0,0);
@@ -587,7 +586,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 						g_free (permissions);
 					}
 					//xa_set_button_state (1,1,0,1,0,1);
-					xa_hide_progress_bar_stop_button(archive);
 					Update_StatusBar ( _("Operation completed.") );
 					break;
 
@@ -637,7 +635,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		case XARCHIVETYPE_GZIP:
 		gzip_bzip2_extract (archive , 1);
 		break;
-		
+
 		case XARCHIVETYPE_LZMA:
 		lzma_extract (archive);
 		break;
@@ -702,7 +700,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			command = NULL;
 		}
 		break;
-		
+
 		case XARCHIVETYPE_TAR_LZMA:
 		if (archive->full_path == 1)
 		{
@@ -829,7 +827,6 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			}
 			g_list_free (row_list);
 			//xa_set_button_state (1,1,0,1,0,1);
-			xa_hide_progress_bar_stop_button(archive);
 			Update_StatusBar ( _("Operation completed.") );
 			command = NULL;
 		}

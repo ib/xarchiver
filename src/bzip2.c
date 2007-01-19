@@ -148,8 +148,9 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 		gtk_widget_hide ( viewport2 );
 		Update_StatusBar ( _("Operation canceled."));
 	}
-	else
-		xa_watch_child (archive->child_pid, 0, archive);
+	//TODO:
+	/*else
+		xa_watch_child (archive->child_pid, 0, archive);*/
 }
 
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )

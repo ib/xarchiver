@@ -20,7 +20,7 @@
 #include <gtk/gtk.h>
 #include "add_dialog.h"
 #include "interface.h"
-#include "callbacks.h"
+#include "window.h"
 #include "support.h"
 
 static const GtkTargetEntry drop_targets[] =

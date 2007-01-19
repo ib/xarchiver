@@ -18,9 +18,12 @@
 #ifndef __XARCHIVER_ARCHIVE_H__
 #define __XARCHIVER_ARCHIVE_H__
 
+#include <unistd.h>
+#include <fcntl.h>
+
 typedef enum
 {
-	XARCHIVETYPE_UNKNOWN = 0,
+	XARCHIVETYPE_UNKNOWN,
 	XARCHIVETYPE_7ZIP,
 	XARCHIVETYPE_ARJ,
 	XARCHIVETYPE_DEB,
@@ -35,13 +38,12 @@ typedef enum
 	XARCHIVETYPE_TAR_GZ,
 	XARCHIVETYPE_TAR_LZMA,
 	XARCHIVETYPE_ZIP,
-	XARCHIVETYPE_COMPRESS,
 	XARCHIVETYPE_LHA
 } XArchiveType;
 
 typedef enum
 {
-	XA_ARCHIVESTATUS_IDLE = 0,
+	XA_ARCHIVESTATUS_IDLE,
 	XA_ARCHIVESTATUS_EXTRACT,
 	XA_ARCHIVESTATUS_ADD,
 	XA_ARCHIVESTATUS_DELETE,
@@ -50,23 +52,12 @@ typedef enum
 	XA_ARCHIVESTATUS_SFX
 } XArchiveStatus;
 
-typedef struct _XEntry XEntry;
-
-struct _XEntry
-{
-	gchar *filename;
-	//ThunarVfsMimeInfo *mime_info;
-	gpointer columns;
-	XEntry **children;
-};
-
 typedef struct _XArchive XArchive;
 
 struct _XArchive
 {
 	XArchiveType type;
 	XArchiveStatus status;
-	XEntry *entry;
 	gchar *path;
 	gchar *escaped_path;
 	gchar *tmp;
@@ -97,21 +88,43 @@ struct _XArchive
 	unsigned short int compression_level;
 	gint nr_of_files;
 	gint nr_of_dirs;
+	gint input_fd;
+	gint output_fd;
+	gint error_fd;
+	guint source;
 	GPid child_pid;
-	guint pb_source;
 	unsigned long long int dummy_size;
-	gboolean (*parse_output) (GIOChannel *ioc, GIOCondition cond, gpointer data);
+	void (*parse_output) (gchar *line, gpointer data);
 };
 
+typedef struct
+{
+	gchar *name;
+    unsigned posixFileMode;
+    unsigned size;
+    gboolean onImage;
+    unsigned position;
+    gchar *pathAndName;
+
+} File;
+
+typedef struct FileLL
+{
+    File file;
+    struct FileLL* next;
+
+} FileLL;
+
 unsigned short int x;
-gint input_fd, output_fd, error_fd;
 gchar *system_id,*volume_id,*publisher_id,*preparer_id,*application_id,*creation_date,*modified_date,*expiration_date,*effective_date;
 void xa_spawn_async_process (XArchive *archive, gchar *command , gboolean input);
 XArchive *xa_init_archive_structure ();
-gboolean xa_dump_child_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
+gboolean xa_dump_output (XArchive *archive);
+gboolean xa_dump_errors (XArchive *archive);
 void xa_clean_archive_structure ( XArchive *archive);
 gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();
+gint xa_read_line (int fd, gchar **return_string);
 
 XArchive *archive[100];
 XArchive *archive_cmd;

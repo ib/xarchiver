@@ -7,7 +7,7 @@ xarchiver_SOURCES = \
 	support.c support.h \
 	archive.c archive.h \
 	interface.c interface.h \
-	callbacks.c callbacks.h \
+	window.c window.h \
 	arj.c arj.h \
 	deb.c deb.h \
 	lzma.c lzma.h \

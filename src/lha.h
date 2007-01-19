@@ -21,7 +21,8 @@
 #define LHA_H
 
 #include <gtk/gtk.h>
-#include "callbacks.h"
+#include <string.h>
+#include <stdlib.h>
 #include "interface.h"
 #include "support.h"
 #include "archive.h"

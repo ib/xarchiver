@@ -16,8 +16,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __XARCHIVER_CALLBACK_H
-#define __XARCHIVER_CALLBACK_H
+#ifndef __XARCHIVER_WINDOW_H
+#define __XARCHIVER_WINDOW_H
 
 #define _GNU_SOURCE
 #include <string.h>
@@ -94,8 +94,7 @@ int xa_detect_archive_type ( gchar *filename );
 gboolean isISO ( FILE *ptr );
 gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
-
-void xa_watch_child ( GPid pid, gint status, gpointer data);
+gint xa_watch_child ( gpointer data);
 void xa_remove_columns();
 void xa_create_liststore ( unsigned short int nc, gchar *columns_names[] , GType columns_types[], XArchive *archive);
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
@@ -104,7 +103,6 @@ void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *
 void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 gboolean xa_run_command ( gchar *command , gboolean watch_child_flag );
 void xa_disable_delete_view_buttons (gboolean value);
-void xa_hide_progress_bar_stop_button( XArchive *archive);
 void Update_StatusBar (gchar *msg);
 
 gchar *xa_open_file_dialog ();

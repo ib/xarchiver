@@ -110,7 +110,6 @@ GtkTooltips *pad_tooltip;
 GtkWidget *ebox;
 
 void set_label (GtkWidget *label,gchar *text);
-int xa_progressbar_pulse (gpointer data);
 
 GtkWidget *view_win ( gchar *title);
 GtkWidget *create_MainWindow (void);

@@ -47,9 +47,9 @@ void OpenTar ( XArchive *archive )
 	if (archive->child_pid == 0)
 		return;
 
-	char *names[]= {(_("Filename")),(_("Permissions")),(_("Symbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 7, names , (GType *)types, archive );
+	char *names[]= {(""),(_("Filename")),(_("Permissions")),(_("Symbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+	xa_create_liststore ( 8, names , (GType *)types, archive );
 }
 
 gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -91,14 +91,14 @@ gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			else
 			{
 				gtk_list_store_set (archive->liststore, &iter,2,NULL,-1);
-				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
+				gtk_list_store_set (archive->liststore, &iter,1,filename,-1);
 			}
 
-			gtk_list_store_set (archive->liststore, &iter,1,fields[0],-1);
-			gtk_list_store_set (archive->liststore, &iter,3,fields[1],-1);
-			gtk_list_store_set (archive->liststore, &iter,4,strtoll(fields[2],NULL,0),-1);
-			gtk_list_store_set (archive->liststore, &iter,5,fields[3],-1);
-			gtk_list_store_set (archive->liststore, &iter,6,fields[4],-1);
+			gtk_list_store_set (archive->liststore, &iter,2,fields[0],-1);
+			gtk_list_store_set (archive->liststore, &iter,4,fields[1],-1);
+			gtk_list_store_set (archive->liststore, &iter,5,strtoll(fields[2],NULL,0),-1);
+			gtk_list_store_set (archive->liststore, &iter,6,fields[3],-1);
+			gtk_list_store_set (archive->liststore, &iter,7,fields[4],-1);
 
 			while (gtk_events_pending() )
 				gtk_main_iteration();

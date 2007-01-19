@@ -21,7 +21,6 @@
 #include "rpm.h"
 #include "string_utils.h"
 
-extern int output_fd, input_fd;
 FILE *stream;
 int fd;
 gchar *cpio_tmp = NULL;
@@ -134,7 +133,8 @@ GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
             unlink ( cpio_tmp );
             g_free (cpio_tmp);
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
-			xa_hide_progress_bar_stop_button(archive[idx]);
+			//TODO:
+			//xa_hide_progress_bar_stop_button(archive[idx]);
             return FALSE;
     	}
     }
@@ -168,7 +168,8 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			unlink ( gzip );
 			g_free (cpio_tmp);
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
-			xa_hide_progress_bar_stop_button(archive[idx]);
+			//TODO:
+			//xa_hide_progress_bar_stop_button(archive[idx]);
 			return FALSE;
 		}
 	}
@@ -187,12 +188,12 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 		g_free ( cpio_tmp );
 		return FALSE;
 	}
-	output_ioc = g_io_channel_unix_new ( output_fd );
+	output_ioc = g_io_channel_unix_new ( archive[idx]->output_fd );
 	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive[idx] );
 	g_io_channel_set_encoding (output_ioc, locale , NULL);
 	g_io_channel_set_flags ( output_ioc , G_IO_FLAG_NONBLOCK , NULL );
 
-	input_ioc = g_io_channel_unix_new ( input_fd );
+	input_ioc = g_io_channel_unix_new ( archive[idx]->input_fd );
 	g_io_add_watch (input_ioc, G_IO_IN|G_IO_OUT|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, WriteCPIOInput, NULL );
 	g_io_channel_set_encoding (input_ioc, NULL , NULL);
 
@@ -349,7 +350,7 @@ gchar *xa_open_temp_file ( gchar *temp_path )
 		g_free (tmp);
 		return NULL;
 	}
-	GIOChannel *ioc = g_io_channel_unix_new ( output_fd );
+	GIOChannel *ioc = g_io_channel_unix_new ( archive[idx]->output_fd );
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);

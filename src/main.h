@@ -24,7 +24,7 @@
 #include "interface.h"
 #include "new_dialog.h"
 #include "archive.h"
-#include "callbacks.h"
+#include "window.h"
 
 GtkWidget *MainWindow;
 GList *ArchiveSuffix;
