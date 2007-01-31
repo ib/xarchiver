@@ -59,6 +59,7 @@ static GOptionEntry entries[] =
 
 int main (int argc, char **argv)
 {
+	unsigned short int x;
 	#ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -296,7 +297,7 @@ void GetAvailableCompressors()
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.gz");
 		g_free (absolute_path);
 	}
-	
+
 	absolute_path = g_find_program_in_path("lzma");
 	if ( absolute_path )
 	{

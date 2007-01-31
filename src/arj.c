@@ -54,6 +54,7 @@ static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	gchar *filename = NULL;
 	GtkTreeIter iter;
 	GIOStatus status = G_IO_STATUS_NORMAL;
+	unsigned short int x;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{

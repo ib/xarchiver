@@ -1,13 +1,13 @@
 Xarchiver changelog:
 
 xx/01/07 - 0.5:
+		- Implemented archive navigation.
 		- Added a preferences dialog to set Xarchiver's options.
-		- The archive content dump is restored in the cmd-line output window.
-		- The cmd-line output window now displays each archive cmd-line output.
+		- The cmd-line output window now displays each archiver's output.
 		- The cmd-line output window has a close button and a better layout.
-		- Tabs are now reorderable if using gtk 2.10.
+		- Tabs are now reorderable.
 		- Better menu layout.
-		- Fixed bugs #2614, #2616, #2620, #2626.
+		- Fixed bugs #2614, #2616, #2620, #2626, #2799.
 		- Fixed valgrind's message 'Invalid read of size 4'.
 
 27/11/06 - 0.4.6:

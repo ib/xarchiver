@@ -77,9 +77,9 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 		strncpy ( extraction_string, archive->path, x );
 		extraction_string [x-1] = '\0';
 
-		if ( strstr (extraction_string , ".tar") )
+		if (strstr (extraction_string,".tar"))
 		{
-			extraction_string = g_realloc ( extraction_string, x - 5);
+			extraction_string = g_realloc (extraction_string, x - 5);
 			strncpy ( extraction_string, archive->path, x - 5);
 			extraction_string[x-5] = '\0';
 		}
@@ -321,6 +321,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			break;
 
 			case GTK_RESPONSE_OK:
+			//TODO: apply Edward's patch
 			destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
 			if (archive->type != XARCHIVETYPE_ISO)
 				archive->extraction_path = EscapeBadChars ( destination_path , "$\'`\"\\!?* ()&|@#:;" );

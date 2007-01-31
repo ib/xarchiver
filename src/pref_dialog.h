@@ -25,8 +25,8 @@ typedef struct
 	GtkWidget *dialog_vbox1;
 	GtkWidget *combo_box1, *check_save_add_dialog, *check_save_extract_dialog;
 	GtkWidget *allow_dir_extract_with_dnd, *confirm_deletion, *combo_box2;
-	GtkWidget *check_show_comment, *check_sort_filename_column, *check_show_iso_info;
-	GtkWidget *combo_box3, *combo_box4, *check_save_geometry, *dump_archiver_output, *prefs_notebook;
+	GtkWidget *check_show_comment, *check_sort_filename_column, *check_show_iso_info,*show_location_bar;
+	GtkWidget *combo_box3, *combo_box4, *check_save_geometry,*prefs_notebook;
 	GtkListStore *prefs_liststore;
 	GtkTooltips *tooltips;
 } Prefs_dialog_data;

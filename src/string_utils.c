@@ -16,10 +16,6 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <string.h>
@@ -27,7 +23,7 @@
 #include "errno.h"
 
 #ifndef HAVE_MKDTEMP
-static char *mkdtemp (gchar *tmpl)
+char *mkdtemp (gchar *tmpl)
 {
 	static const gchar LETTERS[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	static guint64     value = 0;
@@ -144,7 +140,7 @@ char *get_last_field (char *line,int last_field)
 		field = eat_spaces (field);
 	}
 	//The following line is mine, I replace the \n with the null terminated
-    if (field != NULL) field [ strlen(field) -1 ] = '\000';
+    if (field != NULL) field [ strlen(field) -1 ] = '\0';
 	return field;
 }
 
@@ -167,8 +163,9 @@ char **split_line (char *line,int n_fields)
 		}
 		field_end = strchr (scan, ' ');
 		//The following line is mine, I added the case when the last field ends with a newline
-		if (field_end == NULL) field_end = strchr (scan, '\n');
-		if (field_end != NULL)
+		if (field_end == NULL)
+			field_end = strchr (scan, '\n');
+		else
 		{
 			fields[i] = g_strndup (scan, field_end - scan);
 			scan = eat_spaces (field_end);

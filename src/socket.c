@@ -39,8 +39,7 @@ static gint socket_fd_read			(gint sock, gchar *buf, gint len);
 static gint socket_fd_recv			(gint fd, gchar *buf, gint len, gint flags);
 static gint socket_fd_close			(gint sock);
 
-/* (Unix domain) socket support to replace the old FIFO code
- * (taken from Sylpheed, thanks) */
+/* (Unix domain) socket support; taken from Geany */
 gint socket_init(gint argc, gchar **argv)
 {
 	gint sock;

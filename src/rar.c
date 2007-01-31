@@ -64,6 +64,7 @@ static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
 	gchar **fields = NULL;
 	gchar *line = NULL;
 	GIOStatus status = G_IO_STATUS_NORMAL;
+	unsigned short int x;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{

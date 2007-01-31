@@ -18,70 +18,162 @@
  */
 
 #include "config.h"
+#include <string.h>
 #include "zip.h"
 
-extern void xa_create_liststore ( unsigned short int nc, gchar *columns_names[], GType columns_types[], XArchive *archive);
+
+extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 static void xa_get_zip_line_content (gchar *line, gpointer data);
 
 void xa_open_zip ( XArchive *archive )
 {
-	gchar *command = g_strconcat ( "zipinfo -t -l " , archive->escaped_path, NULL );
+	unsigned short int i;
+
+	gchar *command = g_strconcat ("zipinfo -t -l ",archive->escaped_path, NULL);
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
-	archive->dummy_size = 0;
+	archive->dummy_size  = 0;
     archive->nr_of_files = 0;
-    archive->nr_of_dirs = 0;
+    archive->nr_of_dirs  = 0;
+    archive->nc = 8;
 	archive->parse_output = xa_get_zip_line_content;
 	archive->format ="ZIP";
 	xa_spawn_async_process (archive,command,0);
 	g_free ( command );
-	if ( archive->child_pid == 0 )
+
+	if (archive->child_pid == 0)
 		return;
 
-	char *names[]= {(""),(_("Filename")),(_("Permissions")),(_("Version")),(_("OS")),(_("Original")),(_("Compressed")),(_("Method")),(_("Date")),(_("Time"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore (10,names,(GType *)types,archive);
+	GType types[] = {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 10; i++)
+		archive->column_types[i] = types[i];
+
+	char *names[]= {(_("Permissions")),(_("Version")),(_("OS")),(_("Size")),(_("Compressed")),(_("Method")),(_("Date")),(_("Time"))};
+	xa_create_liststore (archive,names);
 }
 
 void xa_get_zip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	gchar **fields = NULL;
-	gchar *filename = NULL;
-	GtkTreeIter iter;
+	gchar *filename;
+	gpointer item[8];
+	unsigned short int i = 0;
+	unsigned int linesize,n,a;
+	gboolean encrypted,is_dir;
+
+	encrypted = is_dir = FALSE;
 
 	if ((line[0] != 'd') && (line[0] != '-'))
 		return;
 
-	fields = split_line (line,9);
-	filename = get_last_field (line,10);
-	if ( g_str_has_suffix(filename , "/") == TRUE)
-		archive->nr_of_dirs++;
-	else
-		archive->nr_of_files++;
-	if ( filename != NULL )
+	linesize = strlen(line);
+
+	/* permissions */
+	for(n=0; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n]='\0';
+	item[i] = line + a;
+	if ( (line+a)[0] == 'd')
+		is_dir = TRUE;
+	i++;
+	n++;
+
+	/* version */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n] = '\0';
+	item[i] = line + a;
+	i++;
+	n++;
+
+	/* OS */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n]='\0';
+	item[i] = line + a;
+	i++;
+	n++;
+
+	/* size */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n]='\0';
+	item[i] = line + a;
+	i++;
+	n++;
+
+	/* tx/bx */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n]='\0';
+	if (line[0] == 'B' || line[0] == 'T')
+		encrypted = TRUE;
+	n++;
+
+	/* compressed size */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n]='\0';
+	item[i] = line + a;
+	i++;
+	n++;
+
+	/* method */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n]='\0';
+	item[i] = line + a;
+	i++;
+	n++;
+
+	/* date */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n]='\0';
+	item[i] = line + a;
+	i++;
+	n++;
+
+	/* time */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+
+	line[n]='\0';
+	item[i] = line + a;
+	i++;
+	n++;
+
+	/* filename */
+	line[linesize-1] = '\0';
+	filename = line + n;
+	//item[0] = GTK_STOCK_DIRECTORY;//xa_get_mime_icon (line+a);
+
+	archive->entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	if (archive->entry != NULL)
 	{
-		gtk_list_store_append (archive->liststore, &iter);
-		for (x = 2; x < 9; x++)
-		{
-			if (x == 2)
-				gtk_list_store_set (archive->liststore, &iter,4,fields[2], -1);
-			if (x == 3 || x == 5)
-			{
-				if (x == 3)
-					gtk_list_store_set (archive->liststore, &iter,5, strtoll (fields[x],NULL,0), -1);
-				else
-					gtk_list_store_set (archive->liststore, &iter,6, strtoll (fields[x],NULL,0), -1);
-			}
-			else if (x == 4)
-				gtk_list_store_set (archive->liststore, &iter,3,fields[1], -1);
-			else
-				gtk_list_store_set (archive->liststore, &iter,x+1,fields[x], -1);
-		}
-		archive->dummy_size += strtoll (fields[0],NULL,0);
-		gtk_list_store_set (archive->liststore, &iter,0,GTK_STOCK_DIRECTORY,1,filename,-1);
-		gtk_list_store_set (archive->liststore, &iter,2,fields[0],-1);
+		archive->entry->is_dir = is_dir;
+		archive->entry->is_encrypted = encrypted;
 	}
-	while ( gtk_events_pending() )
-		gtk_main_iteration();
-	g_strfreev (fields);
+	else
+	{
+		//TODO: found a way to stop calling this function over and over again; i.e. kill (archive->child_pid,SIGABRT) ??
+		g_message ("*** Can't allocate memory for the archive data!");
+	}
 }

@@ -19,8 +19,15 @@
 #ifndef STRING_UTILS_H
 #define STRING_UTILS_H
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #ifndef HAVE_STRCASESTR
 const char *strcasestr(const char *haystack, const char *needle);
+#endif
+#ifndef HAVE_MKDTEMP
+char *mkdtemp (gchar *tmpl);
 #endif
 gchar *EscapeBadChars ( gchar *string , gchar *pattern);
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path );

@@ -19,10 +19,11 @@
 #include "config.h"
 #include <glib.h>
 #include <gtk/gtk.h>
-#include <sys/wait.h>
 #include "archive.h"
 #include "support.h"
 #include "window.h"
+
+static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
 XArchive *xa_init_archive_structure ()
 {
@@ -33,6 +34,7 @@ XArchive *xa_init_archive_structure ()
 
 void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input)
 {
+	GIOChannel *ioc,*err_ioc;
 	gchar **argv;
 	gint argcp, response;
 	GError *error = NULL;
@@ -42,7 +44,7 @@ void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input
 		NULL,
 		argv,
 		NULL,
-		G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+		G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
 		NULL,
 		NULL,
 		&archive->child_pid,
@@ -61,45 +63,100 @@ void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input
 	}
 	g_strfreev ( argv );
 
-	if (archive->cmd_line_output != NULL)
+	if (archive->pb_source == 0)
+		archive->pb_source = g_timeout_add (200, xa_progressbar_pulse, NULL );
+
+	if (archive->error_output != NULL)
 	{
-		g_list_foreach (archive->cmd_line_output, (GFunc) g_free, NULL);
-		g_list_free (archive->cmd_line_output);
-		archive->cmd_line_output = NULL;
+		g_slist_foreach (archive->error_output, (GFunc) g_free, NULL);
+		g_slist_free (archive->error_output);
+		archive->error_output = NULL;
 	}
 
-	fcntl (archive->output_fd, F_SETFL, O_NONBLOCK);
-	fcntl (archive->error_fd, F_SETFL, O_NONBLOCK);
-	archive->source = g_timeout_add (20,xa_watch_child,archive);
-}
+	ioc = g_io_channel_unix_new ( archive->output_fd );
+	g_io_channel_set_encoding (ioc, locale , NULL);
+	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 
-gboolean xa_dump_output (XArchive *archive)
-{
-	gchar *line = NULL;
-	gint br;
-
-	gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progressbar) );
-	br = xa_read_line ( archive->output_fd,&line);
-	if (line != NULL)
+	if ( archive->parse_output )
 	{
-		archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line) );
-		if (archive->parse_output)
-			(*archive->parse_output) (line,archive);
-		g_free (line);
+		filename_paths_buffer = g_hash_table_new (g_str_hash, g_str_equal);
+		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_process_output, archive);
 	}
-	return br > 0;
+	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
+
+	err_ioc = g_io_channel_unix_new ( archive->error_fd );
+	g_io_channel_set_encoding (err_ioc, locale , NULL);
+	g_io_channel_set_flags ( err_ioc , G_IO_FLAG_NONBLOCK , NULL );
+	g_io_add_watch (err_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_error_messages, archive);
 }
 
-gboolean xa_dump_errors (XArchive *archive)
+static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
+	XArchive *archive = data;
+	GIOStatus status;
 	gchar *line = NULL;
-	gint br;
 
-	br = xa_read_line ( archive->error_fd,&line);
+	if (cond & (G_IO_IN | G_IO_PRI))
+	{
+		do
+		{
+			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
+			if (line != NULL)
+			{
+				(*archive->parse_output) (line,archive);
+				archive->error_output = g_slist_append (archive->error_output,g_strdup(line) );
+				g_free (line);
+			}
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+		while (status == G_IO_STATUS_NORMAL);
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+	done:
+		g_io_channel_shutdown (ioc, TRUE, NULL);
+		g_io_channel_unref (ioc);
 
-	if (line != NULL)
-		g_free (line);
-	return br > 0;
+		xa_update_window_with_archive_entries (archive);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XArchive *archive = data;
+	GIOStatus status;
+	gchar *line = NULL;
+
+	if (cond & (G_IO_IN | G_IO_PRI))
+	{
+		do
+		{
+			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
+			if (line != NULL)
+			{
+				archive->error_output = g_slist_append (archive->error_output,g_strdup(line) );
+				g_free (line);
+			}
+		}
+		while (status == G_IO_STATUS_NORMAL);
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	{
+	done:
+		g_io_channel_shutdown (ioc, TRUE, NULL);
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
 }
 
 void xa_clean_archive_structure (XArchive *archive)
@@ -111,11 +168,15 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive == NULL)
 		return;
 
-	if (archive->cmd_line_output != NULL)
+	//TODO: to free entry, g_hash_table,entries
+	if (archive->column_types != NULL)
+		g_free(archive->column_types);
+
+	if (archive->error_output != NULL)
 	{
-		g_list_foreach (archive->cmd_line_output, (GFunc) g_free, NULL);
-		g_list_free (archive->cmd_line_output);
-		archive->cmd_line_output = NULL;
+		g_slist_foreach (archive->error_output, (GFunc) g_free, NULL);
+		g_slist_free (archive->error_output);
+		archive->error_output = NULL;
 	}
 
 	if (archive->path != NULL)
@@ -156,7 +217,7 @@ void xa_clean_archive_structure (XArchive *archive)
 		g_free (archive->passwd);
 		archive->passwd = NULL;
 	}
-
+	//TODO: to remove this
 	if ( archive->extraction_path != NULL )
 	{
 		if ( strcmp (archive->extraction_path , "/tmp/") != 0)
@@ -170,60 +231,6 @@ void xa_clean_archive_structure (XArchive *archive)
 			g_string_free (archive->comment,FALSE);
 			archive->comment = NULL;
 		}
-	}
-
-	if (system_id != NULL)
-	{
-		g_free (system_id);
-		system_id = NULL;
-	}
-
-	if (volume_id != NULL)
-	{
-		g_free (volume_id);
-		volume_id = NULL;
-	}
-
-	if (publisher_id != NULL)
-	{
-		g_free (publisher_id);
-		publisher_id = NULL;
-	}
-
-	if (preparer_id != NULL)
-	{
-		g_free (preparer_id);
-		preparer_id = NULL;
-	}
-
-	if (application_id != NULL)
-	{
-		g_free (application_id);
-		application_id = NULL;
-	}
-
-	if (creation_date != NULL)
-	{
-		g_free (creation_date);
-		creation_date = NULL;
-	}
-
-	if (modified_date != NULL)
-	{
-		g_free (modified_date);
-		modified_date = NULL;
-	}
-
-	if (expiration_date != NULL)
-	{
-		g_free (expiration_date);
-		expiration_date = NULL;
-	}
-
-	if (effective_date != NULL)
-	{
-		g_free (effective_date);
-		effective_date = NULL;
 	}
 	g_free (archive);
 }
@@ -254,29 +261,125 @@ gint xa_get_new_archive_idx()
 	return -1;
 }
 
-gint xa_read_line (int fd, gchar **return_string)
+/* This switch is taken from Squeeze source code */
+XEntry *xa_alloc_memory_for_each_row (guint nc,GType column_types[])
 {
-	gint n;
-	gchar c;
-	GString *string;
+	XEntry *entry = NULL;
+	unsigned short int i;
+	gint size = 0;
 
-	string = g_string_new ("");
+	entry = g_new0(XEntry,1);
+	if (entry == NULL)
+		return NULL;
 
-  	do
+	for (i = 0; i < nc+2; i++)
 	{
-		n = read(fd, &c, 1);
-		if ( n > 0)
-			string = g_string_append_c(string,c);
+		switch(column_types[i])
+		{
+			case G_TYPE_STRING:
+				size += sizeof(gchar *);
+			break;
+
+			case G_TYPE_UINT64:
+				size += sizeof(guint64);
+			break;
+		}
 	}
-	while ( (n>0) && (c != '\n') );
-
-	if (n>0)
-		*return_string = g_strndup (string->str, string->len);
-	else
-		*return_string = NULL;
-
-	g_string_free(string,FALSE);
-	return (n>0);
+	entry->columns = g_malloc0 (size);
+	return entry;
 }
 
+XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items)
+{
+	gchar *temp,*pos;
+	XEntry *entry = NULL;
 
+	pos = strchr (filename,'/');
+	if (pos != NULL)
+	{
+		temp = g_strndup (filename, (gsize) (pos - filename) );
+		entry = g_hash_table_lookup (filename_paths_buffer,temp);
+		if (entry == NULL)
+		{
+			//g_message ("Inserico %s nell'hash",temp);
+			entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
+			entry->filename = temp;
+			g_hash_table_insert (filename_paths_buffer,temp,entry);
+			archive->entries = g_list_prepend (archive->entries,entry);
+		}
+	}
+	else
+	{
+		entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
+		if (entry == NULL)
+			return NULL;
+		entry->filename = g_strdup(filename);
+		//g_message ("*%s",filename);
+		entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,entry,items);
+		entry->child = NULL;
+		archive->entries = g_list_prepend (archive->entries,entry);
+	}
+	return entry;
+}
+
+gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items)
+{
+	unsigned int i;
+	gpointer current_column;
+
+	current_column = entry->columns;
+
+	for (i = 0; i < archive->nc; i++)
+	{
+		switch(archive->column_types[i+2])
+		{
+			case G_TYPE_STRING:
+				(*((gchar **)current_column)) = g_strdup((gchar*)items[i]);
+				//g_message ("%d - %s",i,(*((gchar **)current_column)));
+				current_column += sizeof(gchar *);
+			break;
+
+			case G_TYPE_UINT64:
+				(*((guint64 *)current_column)) = atol(items[i]);
+				//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
+				current_column += sizeof(guint64);
+			break;
+		}
+	}
+	return entry->columns;
+}
+
+void xa_update_window_with_archive_entries (XArchive *archive)
+{
+	GtkTreeIter iter;
+	unsigned short int i;
+	gpointer current_column;
+
+	GList *container = g_list_reverse (archive->entries);
+	while (container)
+	{
+		XEntry *entry = container->data;
+		current_column = entry->columns;
+		gtk_list_store_append (archive->liststore, &iter);
+		gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
+
+		for (i = 0; i < archive->nc; i++)
+		{
+			switch(archive->column_types[i+2])
+			{
+				case G_TYPE_STRING:
+					//g_message ("%d - %s",i,(*((gchar **)current_column)));
+					gtk_list_store_set (archive->liststore,&iter,i+2,(*((gchar **)current_column)),-1);
+					current_column += sizeof(gchar *);
+				break;
+
+				case G_TYPE_UINT64:
+					//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
+					gtk_list_store_set (archive->liststore,&iter,i+2,(*((guint64 *)current_column)),-1);
+					current_column += sizeof(guint64);
+				break;
+			}
+		}
+		container = container->next;
+	}
+}

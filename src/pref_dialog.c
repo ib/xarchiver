@@ -127,25 +127,21 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->check_save_add_dialog = gtk_check_button_new_with_mnemonic (_("Save settings for add dialog"));
 	gtk_widget_show (prefs_data->check_save_add_dialog);
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_save_add_dialog, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_save_add_dialog, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_add_dialog), FALSE);
 
 	prefs_data->check_save_extract_dialog = gtk_check_button_new_with_mnemonic (_("Save settings for extract dialog"));
 	gtk_widget_show (prefs_data->check_save_extract_dialog);
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_save_extract_dialog, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_save_extract_dialog, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_extract_dialog), FALSE);
 
 	prefs_data->allow_dir_extract_with_dnd = gtk_check_button_new_with_mnemonic (_("Allow extracting directories by drag and drop"));
 	gtk_widget_show (prefs_data->allow_dir_extract_with_dnd);
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->allow_dir_extract_with_dnd, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->allow_dir_extract_with_dnd, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->allow_dir_extract_with_dnd), FALSE);
 
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files inside the archive"));
 	gtk_widget_show (prefs_data->confirm_deletion);
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->confirm_deletion, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->confirm_deletion), FALSE);
 
 	label1 = gtk_label_new ("");
@@ -184,21 +180,23 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show archive comment after loading it"));
 	gtk_widget_show (prefs_data->check_show_comment);
 	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_show_comment, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_show_comment, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_show_comment), FALSE);
 
 	prefs_data->check_show_iso_info = gtk_check_button_new_with_mnemonic (_("Show ISO info after loading the image"));
 	gtk_widget_show (prefs_data->check_show_iso_info);
 	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_show_iso_info, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_show_iso_info, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_show_iso_info), FALSE);
 
 	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic (_("Sort content by filename"));
 	gtk_widget_show (prefs_data->check_sort_filename_column);
 	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_sort_filename_column, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_sort_filename_column, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
 	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sort after loading the archive"), NULL);
+
+	prefs_data->show_location_bar = gtk_check_button_new_with_mnemonic (_("Show location bar"));
+	gtk_widget_show (prefs_data->show_location_bar);
+	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->show_location_bar, FALSE, FALSE, 0);
+	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_location_bar), FALSE);
 
 	label2 = gtk_label_new ("");
 	gtk_widget_show (label2);
@@ -244,20 +242,11 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->combo_box4 = gtk_combo_box_new_text();
 	gtk_widget_show (prefs_data->combo_box4);
 	gtk_box_pack_start (GTK_BOX (hbox5), prefs_data->combo_box4, FALSE, TRUE, 0);
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box4), _("internal") );
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box4), _("icon") );
-
-	prefs_data->dump_archiver_output = gtk_check_button_new_with_mnemonic (_("Don't dump archive output"));
-	gtk_widget_show (prefs_data->dump_archiver_output);
-	gtk_box_pack_start (GTK_BOX (vbox3), prefs_data->dump_archiver_output, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->dump_archiver_output, GTK_CAN_FOCUS);
-	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->dump_archiver_output), FALSE);
-	gtk_tooltips_set_tip(tooltips, prefs_data->dump_archiver_output, _("Spares memory if checked but error messages from the archiver will not be available"), NULL);
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box4), _("choose...") );
 
 	prefs_data->check_save_geometry = gtk_check_button_new_with_mnemonic (_("Save window geometry on exit"));
 	gtk_widget_show (prefs_data->check_save_geometry);
 	gtk_box_pack_start (GTK_BOX (vbox3), prefs_data->check_save_geometry, FALSE, FALSE, 0);
-	GTK_WIDGET_UNSET_FLAGS (prefs_data->check_save_geometry, GTK_CAN_FOCUS);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_geometry), FALSE);
 
 	label3 = gtk_label_new ("");

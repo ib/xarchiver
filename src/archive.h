@@ -18,12 +18,9 @@
 #ifndef __XARCHIVER_ARCHIVE_H__
 #define __XARCHIVER_ARCHIVE_H__
 
-#include <unistd.h>
-#include <fcntl.h>
-
 typedef enum
 {
-	XARCHIVETYPE_UNKNOWN,
+	XARCHIVETYPE_UNKNOWN = 0,
 	XARCHIVETYPE_7ZIP,
 	XARCHIVETYPE_ARJ,
 	XARCHIVETYPE_DEB,
@@ -43,7 +40,7 @@ typedef enum
 
 typedef enum
 {
-	XA_ARCHIVESTATUS_IDLE,
+	XA_ARCHIVESTATUS_IDLE = 0,
 	XA_ARCHIVESTATUS_EXTRACT,
 	XA_ARCHIVESTATUS_ADD,
 	XA_ARCHIVESTATUS_DELETE,
@@ -52,12 +49,25 @@ typedef enum
 	XA_ARCHIVESTATUS_SFX
 } XArchiveStatus;
 
+typedef struct _XEntry XEntry;
+
+struct _XEntry
+{
+	gchar *filename;
+	gchar *mime_type;
+	gpointer columns;
+	gboolean is_dir;
+	gboolean is_encrypted;
+	XEntry *child;
+};
+
 typedef struct _XArchive XArchive;
 
 struct _XArchive
 {
 	XArchiveType type;
 	XArchiveStatus status;
+	XEntry *entry;
 	gchar *path;
 	gchar *escaped_path;
 	gchar *tmp;
@@ -76,7 +86,11 @@ struct _XArchive
 	gboolean can_extract;
 	gboolean has_properties;
 	GString *comment;
+	//TODO: remove this once you fix the various arj,rar,etc
 	GList *cmd_line_output;
+	GSList *error_output;
+	GList *entries;
+	GType *column_types;
 	gboolean add_recurse;
 	gboolean overwrite;
 	gboolean full_path;
@@ -86,46 +100,31 @@ struct _XArchive
 	gboolean solid_archive;
 	gboolean remove_files;
 	unsigned short int compression_level;
+	unsigned short int nc;
 	gint nr_of_files;
 	gint nr_of_dirs;
 	gint input_fd;
 	gint output_fd;
 	gint error_fd;
-	guint source;
+	guint pb_source;
 	GPid child_pid;
 	unsigned long long int dummy_size;
 	void (*parse_output) (gchar *line, gpointer data);
 };
 
-typedef struct
-{
-	gchar *name;
-    unsigned posixFileMode;
-    unsigned size;
-    gboolean onImage;
-    unsigned position;
-    gchar *pathAndName;
-
-} File;
-
-typedef struct FileLL
-{
-    File file;
-    struct FileLL* next;
-
-} FileLL;
-
-unsigned short int x;
+GHashTable *filename_paths_buffer;
 gchar *system_id,*volume_id,*publisher_id,*preparer_id,*application_id,*creation_date,*modified_date,*expiration_date,*effective_date;
 void xa_spawn_async_process (XArchive *archive, gchar *command , gboolean input);
 XArchive *xa_init_archive_structure ();
-gboolean xa_dump_output (XArchive *archive);
-gboolean xa_dump_errors (XArchive *archive);
 void xa_clean_archive_structure ( XArchive *archive);
+gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();
-gint xa_read_line (int fd, gchar **return_string);
-
+//gint xa_read_line (XArchive *archive, FILE *stream, gchar **return_string);
+XEntry *xa_alloc_memory_for_each_row ( guint nc,GType column_types[]);
+XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items);
+gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items);
+void xa_update_window_with_archive_entries (XArchive *archive);
 XArchive *archive[100];
 XArchive *archive_cmd;
 #endif

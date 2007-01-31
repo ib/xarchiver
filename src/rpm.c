@@ -56,7 +56,7 @@ void OpenRPM ( XArchive *archive )
 	archive->format ="RPM";
 	char *names[]= {(_("Filename")),(_("Permission")),(_("Symbolic Link")),(_("Hard Link")),(_("Owner")),(_("Group")),(_("Size"))};
 	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64};
-	xa_create_liststore ( 7, names , (GType *)types, archive );
+	//xa_create_liststore ( 7, names , (GType *)types, archive );
     if (fseek ( stream, 104 , SEEK_CUR ) )
     {
         fclose (stream);
