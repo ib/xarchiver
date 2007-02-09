@@ -121,6 +121,7 @@ int xa_progressbar_pulse (gpointer data);
 GtkWidget *view_win ( gchar *title);
 GtkWidget *create_MainWindow (void);
 GtkWidget *create_archive_properties_window (void);
+void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data);
 void xa_add_page (XArchive *archive);
 void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data);
 void xa_close_page (GtkWidget *widget, gpointer data);

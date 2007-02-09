@@ -104,7 +104,7 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 			if (line != NULL)
 			{
 				(*archive->parse_output) (line,archive);
-				archive->error_output = g_slist_append (archive->error_output,g_strdup(line) );
+				archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line) );
 				g_free (line);
 			}
 			while (gtk_events_pending())
@@ -120,7 +120,7 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 		g_io_channel_shutdown (ioc, TRUE, NULL);
 		g_io_channel_unref (ioc);
 
-		xa_update_window_with_archive_entries (archive);
+		xa_update_window_with_archive_entries (archive,"/");
 		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
 		g_object_unref (archive->model);
 		return FALSE;
@@ -141,7 +141,7 @@ gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpoin
 			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
 			if (line != NULL)
 			{
-				archive->error_output = g_slist_append (archive->error_output,g_strdup(line) );
+				archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line) );
 				g_free (line);
 			}
 		}
@@ -291,35 +291,60 @@ XEntry *xa_alloc_memory_for_each_row (guint nc,GType column_types[])
 
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items)
 {
-	gchar *temp,*pos;
-	XEntry *entry = NULL;
+	gchar **path_items = NULL;
+	XEntry *home_entry = NULL;
+	XEntry *child_entry= NULL;
+	XEntry *last_entry = NULL;
+	unsigned short int x = 1;
 
-	pos = strchr (filename,'/');
-	if (pos != NULL)
+	if (strchr(filename,'/') != NULL)
 	{
-		temp = g_strndup (filename, (gsize) (pos - filename) );
-		entry = g_hash_table_lookup (filename_paths_buffer,temp);
-		if (entry == NULL)
+		path_items = g_strsplit_set(filename,"/",-1);
+		home_entry = g_hash_table_lookup(filename_paths_buffer,path_items[0]);
+		if (home_entry == NULL)
 		{
-			//g_message ("Inserico %s nell'hash",temp);
-			entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
-			entry->filename = temp;
-			g_hash_table_insert (filename_paths_buffer,temp,entry);
-			archive->entries = g_list_prepend (archive->entries,entry);
+			home_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
+			home_entry->filename = g_strdup(path_items[0]);
+			home_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,home_entry,items);
+			g_hash_table_insert (filename_paths_buffer,home_entry->filename,home_entry);
+			archive->entries = g_list_prepend (archive->entries,home_entry);
 		}
+		last_entry = home_entry;
+		while (path_items[x])
+		{
+			if (strlen (path_items[x]) == 0)
+				goto here;
+			child_entry = g_hash_table_lookup(filename_paths_buffer,path_items[x]);
+			if (child_entry == NULL)
+			{
+				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
+				child_entry->filename = g_strdup(path_items[x]);
+				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
+				g_hash_table_insert (filename_paths_buffer,child_entry->filename,child_entry);
+
+				child_entry->next = last_entry->child;
+				last_entry->child = child_entry;
+			}
+			last_entry = child_entry;
+here:
+			x++;
+		}
+		g_strfreev(path_items);
 	}
 	else
 	{
-		entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
-		if (entry == NULL)
+		home_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
+		if (home_entry == NULL)
 			return NULL;
-		entry->filename = g_strdup(filename);
-		//g_message ("*%s",filename);
-		entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,entry,items);
-		entry->child = NULL;
-		archive->entries = g_list_prepend (archive->entries,entry);
+		home_entry->filename = g_strdup(filename);
+		home_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,home_entry,items);
+		home_entry->child = NULL;
+
+		archive->entries = g_list_prepend (archive->entries,home_entry);
+		if (archive->entries->prev != NULL)
+			home_entry->next = archive->entries->prev->data;
 	}
-	return entry;
+	return home_entry;
 }
 
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items)
@@ -349,16 +374,63 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *
 	return entry->columns;
 }
 
-void xa_update_window_with_archive_entries (XArchive *archive)
+void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 {
+	GList *s = NULL;
+	XEntry *entry = NULL;
+	gchar *location_path = NULL;
 	GtkTreeIter iter;
 	unsigned short int i;
 	gpointer current_column;
 
-	GList *container = g_list_reverse (archive->entries);
-	while (container)
+	if (*path == '/')
 	{
-		XEntry *entry = container->data;
+		gtk_list_store_clear(archive->liststore);
+		s = archive->entries;
+		for (; s; s = s->next)
+		{
+			entry = s->data;
+			current_column = entry->columns;
+			gtk_list_store_append (archive->liststore, &iter);
+			gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
+
+			for (i = 0; i < archive->nc; i++)
+			{
+				switch(archive->column_types[i+2])
+				{
+					case G_TYPE_STRING:
+						//g_message ("%d - %s",i,(*((gchar **)current_column)));
+						gtk_list_store_set (archive->liststore,&iter,i+2,(*((gchar **)current_column)),-1);
+						current_column += sizeof(gchar *);
+					break;
+
+					case G_TYPE_UINT64:
+						//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
+						gtk_list_store_set (archive->liststore,&iter,i+2,(*((guint64 *)current_column)),-1);
+						current_column += sizeof(guint64);
+					break;
+				}
+			}
+		}
+		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
+		return;
+	}
+	else
+	{
+		entry = g_hash_table_lookup (filename_paths_buffer,path);
+		if (entry == NULL || entry->child == NULL)
+			return;
+
+		location_path = g_strconcat (gtk_entry_get_text(GTK_ENTRY(location_entry)), entry->filename, "/", NULL);
+		gtk_entry_set_text(GTK_ENTRY(location_entry),location_path);
+		g_free (location_path);
+
+		entry = entry->child;
+	}
+	gtk_list_store_clear(archive->liststore);
+
+	while (entry)
+	{
 		current_column = entry->columns;
 		gtk_list_store_append (archive->liststore, &iter);
 		gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
@@ -380,6 +452,11 @@ void xa_update_window_with_archive_entries (XArchive *archive)
 				break;
 			}
 		}
-		container = container->next;
+		entry=entry->next;
 	}
+}
+
+void _xa_update_window_with_archive_entries (XArchive *archive,gpointer column)
+{
+
 }

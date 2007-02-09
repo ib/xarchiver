@@ -53,30 +53,30 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy", GTK_POLICY_NEVER,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_NEVER, NULL);
 	gtk_widget_show (scrolledwindow1);
 
-	prefs_data->prefs_liststore = gtk_list_store_new ( 3, GDK_TYPE_PIXBUF, G_TYPE_STRING,G_TYPE_UINT);
+	prefs_data->prefs_liststore = gtk_list_store_new ( 2, GDK_TYPE_PIXBUF, G_TYPE_UINT);
 	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
 	g_object_unref (prefs_data->prefs_liststore);
 
-	gtk_widget_set_size_request(prefs_iconview, 80, -1);
+	gtk_widget_set_size_request(prefs_iconview, 80, 140);
 	gtk_icon_view_set_orientation (GTK_ICON_VIEW (prefs_iconview), GTK_ORIENTATION_VERTICAL);
 	gtk_icon_view_set_columns (GTK_ICON_VIEW (prefs_iconview),1);
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (prefs_iconview), 0);
-	gtk_icon_view_set_text_column (GTK_ICON_VIEW (prefs_iconview), 1);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), prefs_iconview);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
 	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-behaviour.svg", NULL);
-	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Behaviour"),2,0,-1);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1,0,-1);
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
 	icon_pixbuf = gtk_widget_render_icon (prefs_iconview, "gtk-find", GTK_ICON_SIZE_DND, NULL);
-	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("View"),2,1,-1);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1,1,-1);
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
     icon_pixbuf = gtk_widget_render_icon (prefs_iconview, "gtk-execute", GTK_ICON_SIZE_DND, NULL);
-	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"),2,2,-1);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1,2,-1);
+	gtk_tooltips_set_tip(tooltips, icon_pixbuf, _("View"), NULL);
 	g_object_unref (icon_pixbuf);
 	gtk_widget_show (prefs_iconview);
 
@@ -271,7 +271,7 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
 	path = (GtkTreePath*)list->data;
 
 	gtk_tree_model_get_iter ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, path );
-	gtk_tree_model_get ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, 2, &column, -1);
+	gtk_tree_model_get ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, 1, &column, -1);
 
 	gtk_tree_path_free( (GtkTreePath*)list->data );
 	g_list_free (list);

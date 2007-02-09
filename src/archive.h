@@ -59,6 +59,7 @@ struct _XEntry
 	gboolean is_dir;
 	gboolean is_encrypted;
 	XEntry *child;
+	XEntry *next;
 };
 
 typedef struct _XArchive XArchive;
@@ -124,7 +125,8 @@ gint xa_get_new_archive_idx();
 XEntry *xa_alloc_memory_for_each_row ( guint nc,GType column_types[]);
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items);
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items);
-void xa_update_window_with_archive_entries (XArchive *archive);
+void xa_update_window_with_archive_entries (XArchive *archive,gchar *path);
+void _xa_update_window_with_archive_entries (XArchive *archive,gpointer column);
 XArchive *archive[100];
 XArchive *archive_cmd;
 #endif

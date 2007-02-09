@@ -328,7 +328,7 @@ GtkWidget *create_MainWindow (void)
 	gtk_widget_show (home_button);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (home_button), FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1), home_button);
-	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (home_button), tooltips, _("Home"), NULL);
+	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (home_button), tooltips, _("Root"), NULL);
 
 	separatortoolitem3 = (GtkWidget*) gtk_separator_tool_item_new ();
 	gtk_widget_show (separatortoolitem3);
@@ -447,13 +447,19 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect ((gpointer) help1, "activate", G_CALLBACK (xa_show_help), NULL);
 	g_signal_connect ((gpointer) about1, "activate", G_CALLBACK (xa_about), NULL);
 
-	g_signal_connect ((gpointer) New_button, "clicked", G_CALLBACK (xa_new_archive), NULL);
-	g_signal_connect ((gpointer) Open_button, "clicked", G_CALLBACK (xa_open_archive), NULL);
-	g_signal_connect ((gpointer) AddFile_button, "clicked", G_CALLBACK (xa_add_files_archive), NULL);
-    g_signal_connect ((gpointer) Extract_button, "clicked", G_CALLBACK (xa_extract_archive), NULL);
-	g_signal_connect ((gpointer) View_button, "clicked", G_CALLBACK (xa_view_file_inside_archive), NULL);
-	g_signal_connect ((gpointer) Stop_button, "clicked", G_CALLBACK (xa_cancel_archive), NULL);
-	g_signal_connect (MainWindow, "key-press-event", G_CALLBACK (key_press_function), NULL);
+	g_signal_connect ((gpointer) New_button,	"clicked", G_CALLBACK (xa_new_archive), NULL);
+	g_signal_connect ((gpointer) Open_button,	"clicked", G_CALLBACK (xa_open_archive), NULL);
+
+	g_signal_connect ((gpointer) back_button,	"clicked", G_CALLBACK (xa_handle_navigation_buttons), (gpointer) 1 );
+	g_signal_connect ((gpointer) up_button,		"clicked", G_CALLBACK (xa_handle_navigation_buttons), (gpointer) 2 );
+	g_signal_connect ((gpointer) forward_button,"clicked", G_CALLBACK (xa_handle_navigation_buttons), (gpointer) 3 );
+	g_signal_connect ((gpointer) home_button,	"clicked", G_CALLBACK (xa_handle_navigation_buttons), (gpointer) 0 );
+
+	g_signal_connect ((gpointer) AddFile_button,"clicked", G_CALLBACK (xa_add_files_archive), 		NULL);
+    g_signal_connect ((gpointer) Extract_button,"clicked", G_CALLBACK (xa_extract_archive), 		NULL);
+	g_signal_connect ((gpointer) View_button,	"clicked", G_CALLBACK (xa_view_file_inside_archive),NULL);
+	g_signal_connect ((gpointer) Stop_button,	"clicked", G_CALLBACK (xa_cancel_archive),			NULL);
+	g_signal_connect (MainWindow, 		"key-press-event", G_CALLBACK (key_press_function),			NULL);
 
 	gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
 	return MainWindow;
@@ -596,6 +602,7 @@ void xa_add_page (XArchive *archive)
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-begin",	G_CALLBACK (drag_begin), NULL);
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-data-get",G_CALLBACK (drag_data_get), NULL );
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-end",		G_CALLBACK (drag_end), NULL);
+	g_signal_connect (G_OBJECT (archive->treeview), "row-activated",G_CALLBACK (xa_treeview_row_activated), NULL);
 }
 
 void xa_close_page (GtkWidget *widget, gpointer data)
@@ -901,4 +908,31 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean a
 	gtk_widget_set_sensitive ( check_menu, test);
 	gtk_widget_set_sensitive ( properties, info);
 	//gtk_widget_set_sensitive ( select_all, select);
+}
+
+void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
+{
+	unsigned short int bp = GPOINTER_TO_UINT(user_data);
+	gint current_page;
+	gint idx;
+	gchar *up = NULL;
+
+	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index (current_page);
+
+	switch (bp)
+	{
+		/* Root */
+		case 0:
+			xa_update_window_with_archive_entries(archive[idx],"/");
+		break;
+
+		/* Up */
+		case 2:
+			//up = get_parent_dir (gtk_entry_get_text(GTK_ENTRY(location_entry)) );
+			g_message (up);
+			xa_update_window_with_archive_entries(archive[idx],up);
+			g_free (up);
+		break;
+	}
 }

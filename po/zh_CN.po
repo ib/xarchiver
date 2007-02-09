@@ -1,0 +1,1125 @@
+# The Simplified Chinese Translations for Xarchiver.
+# Copyright (C) 2005-2007 Giuseppe Torelli
+# This file is distributed under the same license as the Xarchiver package.
+# wuli <wurisky@gmail.com>,2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: xarchiver 0.4.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-12-21 14:33+0100\n"
+"PO-Revision-Date: 2007-02-01 22:10+0800\n"
+"Last-Translator: wuli<wurisky@gmail.com>\n"
+"Language-Team: Chinese <risky@linuxsir.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/bzip2.c:58 ../src/deb.c:76
+#: ../src/gzip.c:56 ../src/lha.c:42 ../src/iso.c:662 ../src/rar.c:55
+#: ../src/rpm.c:58 ../src/tar.c:50 ../src/zip.c:39
+msgid "Filename"
+msgstr "文件名称"
+
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/rar.c:55 ../src/zip.c:39
+msgid "Original"
+msgstr "原始大小"
+
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/rar.c:55 ../src/zip.c:39
+msgid "Compressed"
+msgstr "压缩后大小"
+
+#: ../src/7zip.c:38
+msgid "Attr"
+msgstr "属性"
+
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/bzip2.c:58 ../src/deb.c:76
+#: ../src/gzip.c:56 ../src/rar.c:55 ../src/tar.c:50 ../src/zip.c:39
+msgid "Time"
+msgstr "时间"
+
+#: ../src/7zip.c:38 ../src/arj.c:44 ../src/bzip2.c:58 ../src/deb.c:76
+#: ../src/gzip.c:56 ../src/iso.c:662 ../src/rar.c:55 ../src/tar.c:50
+#: ../src/zip.c:39
+msgid "Date"
+msgstr "日期"
+
+#: ../src/add_dialog.c:43
+msgid "Add files to the archive"
+msgstr "添加文件到压缩文件中"
+
+#: ../src/add_dialog.c:107
+msgid "Files"
+msgstr "文件"
+
+#: ../src/add_dialog.c:114
+msgid "Directories"
+msgstr "目录"
+
+#: ../src/add_dialog.c:140
+msgid "Choose the files or directories to add to the archive"
+msgstr "选择要添加到压缩文件的文件或目录"
+
+#: ../src/add_dialog.c:145
+msgid "<b>Files and directories to add </b>"
+msgstr "<b>要添加的文件和目录</b>"
+
+#: ../src/add_dialog.c:165
+msgid "Recurse subdirectories"
+msgstr "包含子目录"
+
+#: ../src/add_dialog.c:171
+msgid ""
+"Include everything in the directory recursively \tstarting from the current "
+"directory."
+msgstr "包含当前目录下所有目录"
+
+#: ../src/add_dialog.c:176
+msgid "Generate a solid archive"
+msgstr "新建固实压缩文件"
+
+#: ../src/add_dialog.c:180
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio."
+msgstr "固实压缩文件具有更好的压缩率。"
+
+#: ../src/add_dialog.c:185
+msgid "Remove files after adding"
+msgstr "添加后移除文件"
+
+#: ../src/add_dialog.c:194
+msgid "Do not add absolute paths"
+msgstr "不要加入绝对路径"
+
+#: ../src/add_dialog.c:196
+msgid "Do not add file paths"
+msgstr "不要加入文件路径"
+
+#: ../src/add_dialog.c:201
+msgid "The files path doesn't include the user home directory."
+msgstr "文件路径不包含用户主目录。"
+
+#: ../src/add_dialog.c:203
+msgid "Store just the name of a file without its directory names."
+msgstr "只保存文件名，不包含文件所在目录名。"
+
+#: ../src/add_dialog.c:205
+msgid "Freshen an existing entry in the archive"
+msgstr "刷新压缩文件己存在项目"
+
+#: ../src/add_dialog.c:209
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive."
+msgstr "此项有bug"
+
+#: ../src/add_dialog.c:213
+msgid "Update an existing entry in the archive"
+msgstr "更新压缩文件已存在项目"
+
+#: ../src/add_dialog.c:217
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified."
+msgstr "bug"
+
+#: ../src/add_dialog.c:226
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "0= 不压缩；5 = 默认；9 = 最好压缩率但压缩最慢"
+
+#: ../src/add_dialog.c:233
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "0= 不压缩；5 = 默认；9 = 最好压缩率但压缩最慢"
+
+#: ../src/add_dialog.c:240
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr "0= 不压缩；5 = 默认；5 = 最好压缩率但压缩最慢"
+
+#: ../src/add_dialog.c:247
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr "0= 不压缩；5 = 默认；4 = 最好压缩率但压缩最慢"
+
+#: ../src/add_dialog.c:254
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = 默认压缩, 7 = 最大压缩"
+
+#: ../src/add_dialog.c:265 ../src/extract_dialog.c:219 ../src/interface.c:622
+msgid "Password:"
+msgstr "密码："
+
+#: ../src/add_dialog.c:279
+msgid "Compression level:"
+msgstr "压缩等级："
+
+#: ../src/add_dialog.c:306 ../src/extract_dialog.c:240
+msgid "<b>Options </b>"
+msgstr "<b>选项</b>"
+
+#: ../src/add_dialog.c:323 ../src/interface.c:136
+msgid "_Add"
+msgstr "添加(_A)"
+
+#: ../src/add_dialog.c:386 ../src/callbacks.c:2190
+msgid "Sorry, I could not perform the operation!"
+msgstr "对不起，无法执行此项操作"
+
+#: ../src/add_dialog.c:418
+msgid "Please select the files you want to add"
+msgstr "请选择你要添加的文件"
+
+#: ../src/add_dialog.c:423
+msgid "Please select the directories you want to add"
+msgstr "请选择你要添加的目录"
+
+#: ../src/add_dialog.c:534 ../src/main.c:197
+msgid "Can't add files to the archive:"
+msgstr "无法添加文件到压缩文件："
+
+#: ../src/add_dialog.c:534
+msgid "You haven't selected any files to add!"
+msgstr "你还没有选择要添加的文件！"
+
+#: ../src/add_dialog.c:542 ../src/interface.c:664
+msgid "You missed the password!"
+msgstr "密码错误！"
+
+#: ../src/add_dialog.c:542 ../src/interface.c:664
+msgid "Please enter it!"
+msgstr "请输入！"
+
+#: ../src/add_dialog.c:628
+msgid "Adding files to the archive, please wait..."
+msgstr "正在添加文件到压缩文件中，请稍候……"
+
+#: ../src/archive.c:67 ../src/callbacks.c:80 ../src/callbacks.c:729
+#: ../src/callbacks.c:742 ../src/callbacks.c:842 ../src/callbacks.c:855
+#: ../src/callbacks.c:1597 ../src/callbacks.c:1988 ../src/extract_dialog.c:938
+#: ../src/rpm.c:125 ../src/rpm.c:156
+msgid "Operation failed."
+msgstr "操作失败。"
+
+#: ../src/archive.c:68
+msgid "Can't run the archiver executable:"
+msgstr "无法打开压缩文件："
+
+#: ../src/arj.c:44 ../src/lha.c:42 ../src/rar.c:55 ../src/zip.c:39
+msgid "Ratio"
+msgstr "压缩率"
+
+#: ../src/arj.c:44
+msgid "Attributes"
+msgstr "属性"
+
+#: ../src/arj.c:44
+msgid "GUA"
+msgstr "GUA"
+
+#: ../src/arj.c:44
+msgid "BPMGS"
+msgstr "BPMGS"
+
+#: ../src/bzip2.c:58 ../src/deb.c:76 ../src/gzip.c:56 ../src/lha.c:42
+#: ../src/rar.c:55 ../src/tar.c:50
+msgid "Permissions"
+msgstr "权限"
+
+#: ../src/bzip2.c:58 ../src/deb.c:76 ../src/gzip.c:56 ../src/rpm.c:58
+#: ../src/tar.c:50
+msgid "Symbolic Link"
+msgstr "符号链接"
+
+#: ../src/bzip2.c:58 ../src/deb.c:76 ../src/gzip.c:56 ../src/tar.c:50
+msgid "Owner/Group"
+msgstr "所有者/组"
+
+#: ../src/bzip2.c:58 ../src/deb.c:76 ../src/gzip.c:56 ../src/lha.c:42
+#: ../src/iso.c:662 ../src/rpm.c:58 ../src/tar.c:50
+msgid "Size"
+msgstr "大小"
+
+#: ../src/bzip2.c:90
+#, c-format
+msgid "Extracting gzip file to %s"
+msgstr "解压 gzip 文件到 %s"
+
+#: ../src/bzip2.c:92
+#, c-format
+msgid "Extracting bzip2 file to %s"
+msgstr "解压 bzip2 文件到 %s"
+
+#: ../src/bzip2.c:149 ../src/callbacks.c:58 ../src/callbacks.c:718
+#: ../src/callbacks.c:794 ../src/callbacks.c:831 ../src/extract_dialog.c:315
+#: ../src/extract_dialog.c:887 ../src/extract_dialog.c:909
+msgid "Operation canceled."
+msgstr "操作被取消"
+
+#: ../src/bzip2.c:163
+#, c-format
+msgid "Decompressing tar file with %s, please wait..."
+msgstr "正在使用 %s 压缩 tar 文件，请稍候…… "
+
+#: ../src/bzip2.c:238
+#, c-format
+msgid "Recompressing tar file with %s, please wait..."
+msgstr "正在使用 %s 压缩 tar 文件，请稍候……"
+
+#: ../src/callbacks.c:61
+#, c-format
+msgid "Please check \"%s\" since some files could have been already extracted."
+msgstr "请检查 \"%s\" 因为某些文件可能已被解压了。"
+
+#: ../src/callbacks.c:81 ../src/callbacks.c:1983
+msgid "An error occurred while accessing the archive."
+msgstr "存取压缩文件时发生错误。"
+
+#: ../src/callbacks.c:81 ../src/callbacks.c:1983 ../src/rpm.c:159
+msgid "Do you want to view the command line output?"
+msgstr "你想要查看命令行输出吗？"
+
+#: ../src/callbacks.c:99
+msgid "The sfx archive was saved as:"
+msgstr "自解压文件保存为："
+
+#: ../src/callbacks.c:109 ../src/callbacks.c:182 ../src/callbacks.c:1618
+#: ../src/extract_dialog.c:571 ../src/extract_dialog.c:794 ../src/iso.c:782
+msgid "Operation completed."
+msgstr "操作已完成。"
+
+#: ../src/callbacks.c:112
+msgid "Please wait while the content of the archive is being updated..."
+msgstr "正在更新压缩文件内容，请稍候……"
+
+#: ../src/callbacks.c:209
+msgid "Choose Add to begin creating the archive."
+msgstr "选择添加来创建压缩文件"
+
+#: ../src/callbacks.c:260
+msgid "Can't allocate memory for the archive structure:"
+msgstr "无法为压缩文件分配内存："
+
+#: ../src/callbacks.c:287
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "无法打开文件 \"%s\"："
+
+#: ../src/callbacks.c:290
+msgid "Archive format is not recognized!"
+msgstr "无法识别压缩文件格式！"
+
+#: ../src/callbacks.c:315
+msgid "Sorry, this archive format is not supported:"
+msgstr "对不起，不支持此压缩文件格式！"
+
+#: ../src/callbacks.c:315
+msgid "the proper archiver is not installed!"
+msgstr "没有先安装好解压程序！"
+
+#: ../src/callbacks.c:323
+msgid "Please wait while the content of the ISO image is being read..."
+msgstr "正在读取ISO镜像内容，请稍候……"
+
+#: ../src/callbacks.c:325
+msgid "Please wait while the content of the archive is being read..."
+msgstr "正在读取压缩文件内容，请稍候……"
+
+#: ../src/callbacks.c:404
+msgid "Testing archive integrity, please wait..."
+msgstr "正在测试压缩文件正确性，请稍候……"
+
+#: ../src/callbacks.c:478 ../src/main.c:227
+msgid "Ready."
+msgstr "准备就绪。"
+
+#: ../src/callbacks.c:488
+msgid "Please hit the Stop button first!"
+msgstr "请先按下停止按钮！"
+
+#: ../src/callbacks.c:532
+#, c-format
+msgid "You are about to delete %d file(s) from the archive."
+msgstr "你正要从压缩文件中删除 %d "
+
+#: ../src/callbacks.c:533
+msgid "Are you sure you want to do this?"
+msgstr "你确定要这样做吗？"
+
+#: ../src/callbacks.c:539
+msgid "Deleting files from the archive, please wait..."
+msgstr "正在从压缩文件中删除文件，请稍候……"
+
+#: ../src/callbacks.c:672
+msgid "Converting archive to self-extracting, please wait..."
+msgstr "转换压缩文件为自解压文件，请稍候……"
+
+#: ../src/callbacks.c:731 ../src/callbacks.c:844
+msgid "Can't convert the archive to self-extracting:"
+msgstr "无法转换压缩文件为自解压文件："
+
+#: ../src/callbacks.c:744 ../src/callbacks.c:857
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "无法将unzipsfx文件添加到压缩文件："
+
+#: ../src/callbacks.c:811
+msgid "Please select the 7zCon.sfx module"
+msgstr "请选择 7zCon.sfx文件"
+
+#: ../src/callbacks.c:916
+msgid "translator-credits"
+msgstr "wuli <wurisky@gmail.com>"
+
+#: ../src/callbacks.c:947
+msgid "Save the self-extracting archive as"
+msgstr "保存自解压文件到"
+
+#: ../src/callbacks.c:974 ../src/interface.c:294
+msgid "Open an archive"
+msgstr "打开压缩文件"
+
+#: ../src/callbacks.c:987 ../src/new_dialog.c:60
+msgid "All files"
+msgstr "所有文件"
+
+#: ../src/callbacks.c:992 ../src/new_dialog.c:65
+msgid "Only archives"
+msgstr "只显示压缩文件"
+
+#: ../src/callbacks.c:1114
+#, c-format
+msgid "Can't open archive \"%s\":"
+msgstr "不能打开压缩文件 \"%s\"："
+
+#: ../src/callbacks.c:1391
+msgid "Command line output"
+msgstr "命令行输出"
+
+#: ../src/callbacks.c:1429
+msgid "Doing so will probably corrupt your archive!"
+msgstr "这样做可能会破坏你的压缩文件！"
+
+#: ../src/callbacks.c:1429
+msgid "Do you really want to cancel?"
+msgstr "你真的要取消吗？"
+
+#: ../src/callbacks.c:1434
+msgid "Waiting for the process to abort..."
+msgstr "等待使用者中止"
+
+#: ../src/callbacks.c:1440
+msgid "An error occurred while trying to kill the process:"
+msgstr "终止该程序时发生错误："
+
+#: ../src/callbacks.c:1528
+msgid "Please select a file, not a directory!"
+msgstr "请选择文件,不要选择目录"
+
+#: ../src/callbacks.c:1598
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr "解压文件以预览时发生错误："
+
+#: ../src/callbacks.c:1607
+msgid ""
+"An error occurred while converting the file content to the UTF8 encoding:"
+msgstr "转换文件内容编码为 UTF8 时发生错误："
+
+#: ../src/callbacks.c:1665
+msgid " bytes"
+msgstr "字节"
+
+#: ../src/callbacks.c:1793
+msgid "Yes"
+msgstr "是"
+
+#: ../src/callbacks.c:1795
+msgid "No"
+msgstr "否"
+
+#: ../src/callbacks.c:2106
+msgid "Can't perform another extraction:"
+msgstr "无法进行另一个解压缩："
+
+#: ../src/callbacks.c:2106
+msgid "Please wait until the completion of the current one!"
+msgstr "请等到现在这个完成！"
+
+#: ../src/callbacks.c:2224 ../src/callbacks.c:2235
+msgid "Can't perform this action:"
+msgstr "无法进行这个动作："
+
+#: ../src/callbacks.c:2224
+msgid "unrar doesn't support archive creation!"
+msgstr "unrar 不支持压缩文件创建！"
+
+#: ../src/callbacks.c:2232
+msgid "You can't add content to deb packages!"
+msgstr "不能添加内容到 deb 包！"
+
+#: ../src/callbacks.c:2234
+msgid "You can't add content to rpm packages!"
+msgstr "不能添加内容到 rpm 包！"
+
+#: ../src/callbacks.c:2375
+msgid "Failed to open link."
+msgstr "打开链接失败。"
+
+#: ../src/callbacks.c:2407
+msgid "The password has been reset."
+msgstr "密码已被重置。"
+
+#: ../src/callbacks.c:2410
+msgid "Please enter the password first!"
+msgstr "请输入密码！"
+
+#: ../src/callbacks.c:2421
+msgid "Archive comment window"
+msgstr "压缩文件内容窗口"
+
+#: ../src/extract_dialog.c:42
+msgid "Decompress file"
+msgstr "解压缩文件"
+
+#: ../src/extract_dialog.c:44
+msgid "Extract files from archive"
+msgstr "从压缩文件中解压"
+
+#: ../src/extract_dialog.c:60
+msgid "Extract to:"
+msgstr "解压到："
+
+#: ../src/extract_dialog.c:101
+msgid "Choose a folder where to extract files"
+msgstr "选择存放解压文件的文件夹"
+
+#: ../src/extract_dialog.c:123
+msgid "All"
+msgstr "所有"
+
+#: ../src/extract_dialog.c:129
+msgid "Only selected"
+msgstr "只选择部分"
+
+#: ../src/extract_dialog.c:140
+msgid "<b>Files to extract </b>"
+msgstr "<b>文件解压</b>"
+
+#: ../src/extract_dialog.c:159
+msgid "Overwrite existing files"
+msgstr "覆盖已存在文件"
+
+#: ../src/extract_dialog.c:164
+msgid "Extract files with full path"
+msgstr "以完全路径解压文件"
+
+#: ../src/extract_dialog.c:175
+msgid ""
+"The archive's directory structure is recreated in the extraction directory."
+msgstr "压缩文件目录结构被解压目录重建"
+
+#: ../src/extract_dialog.c:180
+msgid "Touch files"
+msgstr "文件时间戳"
+
+#: ../src/extract_dialog.c:183
+msgid ""
+"When this option is used, tar leaves the data modification times of the "
+"files it extracts as the times when the files were extracted, instead of "
+"setting it to the times recorded in the archive."
+msgstr ""
+
+#: ../src/extract_dialog.c:196
+msgid "Freshen existing files"
+msgstr "刷新已存在文件"
+
+#: ../src/extract_dialog.c:197
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies."
+msgstr "只解压硬盘已存在的且比其更新的文件"
+
+#: ../src/extract_dialog.c:203
+msgid "Update existing files"
+msgstr "更新已存在文件"
+
+#: ../src/extract_dialog.c:204
+msgid ""
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
+"extracts those files that do not already exist on disk."
+msgstr ""
+
+#: ../src/extract_dialog.c:257 ../src/interface.c:146
+msgid "_Extract"
+msgstr "解压(_E)"
+
+#: ../src/extract_dialog.c:331
+msgid "You missed where to extract the files!"
+msgstr "请选择要存放文件的地方！"
+
+#: ../src/extract_dialog.c:331
+msgid "Please enter the extraction path."
+msgstr "请输入要存放文件的路径。"
+
+#: ../src/extract_dialog.c:339
+msgid "This archive is encrypted!"
+msgstr "此压缩文件已被加密！"
+
+#: ../src/extract_dialog.c:339
+msgid "Please enter the password."
+msgstr "请输入密码。"
+
+#: ../src/extract_dialog.c:347
+#, c-format
+msgid "Can't create directory \"%s\""
+msgstr "无法创建目录 \"%s\""
+
+#: ../src/extract_dialog.c:359
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the folder \"%s"
+"\"."
+msgstr "你没有权限解压文件到目录 \"%s\" "
+
+#: ../src/extract_dialog.c:360
+msgid "Can't perform extraction!"
+msgstr "无法执行解压！"
+
+#: ../src/extract_dialog.c:388
+#, c-format
+msgid "Extracting files to %s"
+msgstr "解压文件到 %s"
+
+#: ../src/extract_dialog.c:605
+#, c-format
+msgid "Extracting archive to %s"
+msgstr "解压压缩文件到 %s"
+
+#: ../src/extract_dialog.c:936
+msgid "Can't create temporary directory in /tmp:"
+msgstr "无法在 /tmp 创建临时目录"
+
+#: ../src/extract_dialog.c:951
+msgid "Choose the destination folder where to extract the current archive"
+msgstr "选择目标文件夹解压此压缩文件"
+
+#: ../src/lha.c:42
+msgid "UID/GID"
+msgstr ""
+
+#: ../src/lha.c:42
+msgid "Timestamp"
+msgstr "时间戳"
+
+#: ../src/interface.c:75
+msgid "_File"
+msgstr "文件(_F)"
+
+#: ../src/interface.c:95
+msgid "_Test"
+msgstr "测试(_T)"
+
+#: ../src/interface.c:105
+msgid "_Properties"
+msgstr "文件属性(_P)"
+
+#: ../src/interface.c:129
+msgid "_Action"
+msgstr "动作(_A)"
+
+#: ../src/interface.c:162
+msgid "_View"
+msgstr "查看(_V)"
+
+#: ../src/interface.c:177
+msgid "Make SF_X"
+msgstr "制作自解压格式(_X)"
+
+#: ../src/interface.c:187
+msgid "_Show comment"
+msgstr "显示注释(_S)"
+
+#: ../src/interface.c:197
+msgid "Show ISO in_fo"
+msgstr "显示 ISO 信息(_f)"
+
+#: ../src/interface.c:212
+msgid "Sele_ct All"
+msgstr "选择所有(_A)"
+
+#: ../src/interface.c:218
+msgid "Dese_lect All"
+msgstr "反选所有(_l)"
+
+#: ../src/interface.c:229
+msgid "C_md-line output"
+msgstr "命令行输出(_M)"
+
+#: ../src/interface.c:238
+msgid "Reset passwo_rd"
+msgstr "重置密码(_r)"
+
+#: ../src/interface.c:249
+msgid "_Preferences"
+msgstr "参数选择(_P)"
+
+#: ../src/interface.c:258
+msgid "_Help"
+msgstr "帮助(_H)"
+
+#: ../src/interface.c:282
+msgid "New"
+msgstr "新建"
+
+#: ../src/interface.c:286 ../src/new_dialog.c:48
+msgid "Create a new archive"
+msgstr "新建压缩文件"
+
+#: ../src/interface.c:290
+msgid "Open"
+msgstr "打开"
+
+#: ../src/interface.c:302
+msgid "Add"
+msgstr "添加"
+
+#: ../src/interface.c:307
+msgid "Add files and directories to the current archive"
+msgstr "添加文件和目录到此压缩文件"
+
+#: ../src/interface.c:311
+msgid "Extract"
+msgstr "解压"
+
+#: ../src/interface.c:316
+msgid ""
+"Extract files from the current archive; use the mouse to select files "
+"individually"
+msgstr "从当前压缩文件中解压：用鼠标选择要个别解压的文件"
+
+#: ../src/interface.c:320
+msgid "Delete"
+msgstr "删除"
+
+#: ../src/interface.c:325
+msgid "Delete files from the current archive"
+msgstr "从当前压缩文件中删除文件"
+
+#: ../src/interface.c:329 ../src/pref_dialog.c:74
+msgid "View"
+msgstr "查看"
+
+#: ../src/interface.c:334
+msgid "View file content in the current archive"
+msgstr "从当前压缩文件中查看文件内容"
+
+#: ../src/interface.c:338
+msgid "SFX"
+msgstr "自解压格式"
+
+#: ../src/interface.c:343
+msgid "Make the current archive self-extracting"
+msgstr "当前压缩文件转为自解压格式文件"
+
+#: ../src/interface.c:351
+msgid "Stop"
+msgstr "停止"
+
+#: ../src/interface.c:356
+msgid "Cancel current operation"
+msgstr "取消当前操作"
+
+#: ../src/interface.c:407
+msgid "This archive contains password protected files"
+msgstr "压缩文件包含密码保护文件"
+
+#: ../src/interface.c:556
+msgid "Close archive"
+msgstr "关闭压缩文件"
+
+#: ../src/interface.c:610
+msgid "Enter Archive Password"
+msgstr "输入压缩文件密码"
+
+#: ../src/interface.c:708
+msgid "Archive Properties Window"
+msgstr "压缩文件属性窗口"
+
+#: ../src/interface.c:726
+msgid "Name:"
+msgstr "名称："
+
+#: ../src/interface.c:733
+msgid "Path:"
+msgstr "路径："
+
+#: ../src/interface.c:740
+msgid "Type:"
+msgstr "类型："
+
+#: ../src/interface.c:747
+msgid "Modified on:"
+msgstr "修改时间："
+
+#: ../src/interface.c:754
+msgid "Archive size:"
+msgstr "压缩文件大小："
+
+#: ../src/interface.c:761
+msgid "Content size:"
+msgstr "内容大小："
+
+#: ../src/interface.c:768
+msgid "Has comment:"
+msgstr "注释："
+
+#: ../src/interface.c:775
+msgid "Compression ratio:"
+msgstr "压缩率"
+
+#: ../src/interface.c:782
+msgid "Number of files:"
+msgstr "文件数目："
+
+#: ../src/interface.c:789
+msgid "Number of dirs:"
+msgstr "目录数目："
+
+#: ../src/iso.c:465 ../src/iso.c:496 ../src/iso.c:533
+msgid "Can't create directory:"
+msgstr "无法创建目录："
+
+#: ../src/iso.c:563
+#, c-format
+msgid "Can't write file \"%s\":"
+msgstr "无法写入文件 \"%s\":"
+
+#: ../src/iso.c:662 ../src/rpm.c:58
+msgid "Permission"
+msgstr "权限"
+
+#: ../src/iso.c:662
+msgid "Offset"
+msgstr "偏移量"
+
+#: ../src/iso.c:682
+#, c-format
+msgid "Rock Ridge version %d"
+msgstr "Rock Ridge 版本 %d"
+
+#: ../src/iso.c:685
+msgid "Rock Ridge - unknown version"
+msgstr "Rock Ridge - 未知版本"
+
+#: ../src/iso.c:689
+#, c-format
+msgid "Apple version %d"
+msgstr "Apple 版本 %d"
+
+#: ../src/iso.c:717
+msgid "Standard ISO without extension"
+msgstr "标准 ISO 格式"
+
+#: ../src/iso.c:725 ../src/iso.c:730 ../src/iso.c:735
+#, c-format
+msgid "Joliet Level %d"
+msgstr ""
+
+#: ../src/iso.c:831
+msgid "ISO Information Window"
+msgstr "ISO 信息窗口"
+
+#: ../src/iso.c:850
+msgid "Filename:"
+msgstr "文件名称："
+
+#: ../src/iso.c:858
+msgid "Size:"
+msgstr "大小："
+
+#: ../src/iso.c:866
+msgid "Extension:"
+msgstr "格式："
+
+#: ../src/iso.c:874
+msgid "System ID:"
+msgstr "系统 ID："
+
+#: ../src/iso.c:882
+msgid "Volume ID:"
+msgstr "卷 ID："
+
+#: ../src/iso.c:890
+msgid "Application:"
+msgstr "应该程序："
+
+#: ../src/iso.c:898
+msgid "Publisher:"
+msgstr "发布者："
+
+#: ../src/iso.c:906
+msgid "Preparer:"
+msgstr "制作者："
+
+#: ../src/iso.c:914
+msgid "Creation date:"
+msgstr "创建时间："
+
+#: ../src/iso.c:922
+msgid "Modified date:"
+msgstr "修改时间："
+
+#: ../src/iso.c:930
+msgid "Expiration date:"
+msgstr "过期时间："
+
+#: ../src/iso.c:938
+msgid "Effective date:"
+msgstr "有效时间："
+
+#: ../src/main.c:42
+msgid ""
+"Extract archive to the directory specified by destination_path and quits."
+msgstr "解压到指定目标路径然后退出。"
+
+#: ../src/main.c:43
+msgid "destination_path archive"
+msgstr "目标路径压缩文件"
+
+#: ../src/main.c:46
+msgid "Extract archive by asking the destination directory and quits."
+msgstr "解压时询问目标目录然后退出。"
+
+#: ../src/main.c:47 ../src/main.c:55
+msgid "archive"
+msgstr "压缩文件"
+
+#: ../src/main.c:50
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "添加文件时询问压缩文件名称然后退出。"
+
+#: ../src/main.c:51
+msgid "file1 file2 file3 ... fileN"
+msgstr "文件1 文件2 文件3 ...文件N"
+
+#: ../src/main.c:54
+msgid "Add files to archive by asking their filenames and quits."
+msgstr "添加文件到压缩文件时询问文件名称然后退出。"
+
+#: ../src/main.c:80
+msgid "[archive name]"
+msgstr "[压缩文件名称]"
+
+#: ../src/main.c:84
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"请用xarchiver --help 查看所有可用命令选项及参数。\n"
+
+#: ../src/main.c:105 ../src/main.c:138
+msgid "Can't extract files from the archive:"
+msgstr "无法从压缩文件中解压："
+
+#: ../src/main.c:105 ../src/main.c:138 ../src/main.c:197
+msgid "You missed the archive name!\n"
+msgstr "请输入压缩文件名称！\n"
+
+#: ../src/main.c:419
+msgid "Can't spawn the command:"
+msgstr "无法解析命令："
+
+#: ../src/main.c:428
+msgid "An error occurred!"
+msgstr "发生错误！"
+
+#: ../src/main.c:442
+msgid "Can't allocate memory for the archive structure!"
+msgstr "无法为压缩文件分配内存！"
+
+#: ../src/new_dialog.c:53
+msgid "Cr_eate"
+msgstr "创建(_e)"
+
+#: ../src/new_dialog.c:90
+msgid "Archive type:"
+msgstr "压缩文件类型："
+
+#: ../src/new_dialog.c:95
+msgid "Choose the archive type to create"
+msgstr "选择要创建的压缩文件类型"
+
+#: ../src/new_dialog.c:113
+msgid "Add the archive extension to the filename"
+msgstr "添加压缩文件扩展名到文件名称"
+
+#: ../src/new_dialog.c:160
+#, c-format
+msgid "\"%s\" is already open!"
+msgstr "\"%s\" 已经打开！"
+
+#: ../src/new_dialog.c:161
+msgid "Can't create a new archive:"
+msgstr "无法创建新压缩文件："
+
+#: ../src/new_dialog.c:176
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "压缩文件 \"%s\" 已存在！"
+
+#: ../src/new_dialog.c:182
+msgid "Do you want to overwrite it?"
+msgstr "你想要覆盖它吗？"
+
+#: ../src/pref_dialog.c:38
+msgid "Preferences"
+msgstr "参数选择"
+
+#: ../src/pref_dialog.c:69
+msgid "Behaviour"
+msgstr "特性"
+
+#: ../src/pref_dialog.c:79
+msgid "Advanced"
+msgstr "高级"
+
+#: ../src/pref_dialog.c:110
+msgid "Preferred format for new archives:"
+msgstr "新建压缩文件首选格式："
+
+#: ../src/pref_dialog.c:128
+msgid "Save settings for add dialog"
+msgstr "为添加对话框保存设置"
+
+#: ../src/pref_dialog.c:134
+msgid "Save settings for extract dialog"
+msgstr "为解压对话框保存设置"
+
+#: ../src/pref_dialog.c:140
+msgid "Allow extracting directories by drag and drop"
+msgstr "允许鼠标拖曳解压目录"
+
+#: ../src/pref_dialog.c:146
+msgid "Confirm deletion of files inside the archive"
+msgstr "确认压缩文件内删除文件部分"
+
+#: ../src/pref_dialog.c:175
+msgid "View archive content as"
+msgstr "查看压缩文件内容"
+
+#: ../src/pref_dialog.c:182
+msgid "list"
+msgstr "列表"
+
+#: ../src/pref_dialog.c:183 ../src/pref_dialog.c:249
+msgid "icon"
+msgstr "图标"
+
+#: ../src/pref_dialog.c:185
+msgid "Show comment in archive after loading it"
+msgstr "加载后在压缩文件中查看注释"
+
+#: ../src/pref_dialog.c:191
+msgid "Show ISO info after loading the archive"
+msgstr "加载压缩文件后查看 ISO 信息"
+
+#: ../src/pref_dialog.c:197
+msgid "Sort content by filename"
+msgstr "按文件名排序"
+
+#: ../src/pref_dialog.c:202
+msgid "The filename column is sort after loading the archive"
+msgstr "加载压缩文件后按文件名称列排序"
+
+#: ../src/pref_dialog.c:227
+msgid "Preferred web browser:"
+msgstr "首选网页浏览器："
+
+#: ../src/pref_dialog.c:234
+msgid "xfce default"
+msgstr "xfce 默认"
+
+#: ../src/pref_dialog.c:235
+msgid "konqueror"
+msgstr ""
+
+#: ../src/pref_dialog.c:241
+msgid "Preferred view application:"
+msgstr "首选查看应用程序："
+
+#: ../src/pref_dialog.c:248
+msgid "internal"
+msgstr "内部"
+
+#: ../src/pref_dialog.c:251
+msgid "Save window geometry on exit"
+msgstr "退出时保存窗口"
+
+#: ../src/rar.c:55 ../src/zip.c:39
+msgid "Checksum"
+msgstr "校验"
+
+#: ../src/rar.c:55 ../src/zip.c:39
+msgid "Method"
+msgstr "方式"
+
+#: ../src/rar.c:55
+msgid "Version"
+msgstr "版本"
+
+#: ../src/rpm.c:46
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "无法打开 RPM 文件 %s"
+
+#: ../src/rpm.c:58
+msgid "Hard Link"
+msgstr "硬链接"
+
+#: ../src/rpm.c:58
+msgid "Owner"
+msgstr "所有者"
+
+#: ../src/rpm.c:58
+msgid "Group"
+msgstr "组"
+
+#: ../src/rpm.c:64
+msgid "Can't fseek to position 104:"
+msgstr ""
+
+#: ../src/rpm.c:70 ../src/rpm.c:86
+msgid "Can't read data from file:"
+msgstr "无法从文件中读取数据"
+
+#: ../src/rpm.c:80
+msgid "Can't fseek in file:"
+msgstr ""
+
+#: ../src/rpm.c:128
+msgid "Error while extracting the cpio archive from the rpm one."
+msgstr "从 rpm 包解压 cpio 包时发生错误。"
+
+#: ../src/rpm.c:159
+msgid "An error occurred while decompressing the cpio archive."
+msgstr "解压 cpio 包时发生错误。"
+
+#: ../src/rpm.c:214 ../src/rpm.c:371
+msgid "An error occurred:"
+msgstr "发生错误："
+
+#: ../src/rpm.c:326
+msgid "Can't write to /tmp:"
+msgstr "无法写到 /tmp"
+
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h:2
+msgid "Archive manager"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr ""

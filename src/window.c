@@ -907,8 +907,8 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer: Giuseppe Torelli <colossus73@gmail.com>\nISO support: Salvatore Santagati <salvatore.santagati@gmail.com>\nLHA and DEB support: Łukasz Zemczak <sil2100@vexillium.org>\nLZMA support: Thomas Dy <dysprosium66@gmail.com>",NULL};
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Tango icons.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
+    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>",NULL};
+    const char *documenters[] = {"\nVery special thanks to John Berthels for\nhelping me in fixing archive navigation code.\n\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
 
 	if (about == NULL)
 	{
@@ -1236,7 +1236,7 @@ void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 	gtk_widget_show (scrolledwindow);
 	gtk_widget_show (textview);
 
-	output = archive[idx]->error_output;
+	output = g_slist_reverse (archive[idx]->error_output);
 	while (output)
 	{
 		line = output->data;
@@ -1550,7 +1550,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_entry_set_text ( GTK_ENTRY (name_data), utf8_string );
     g_free (utf8_string);
     //Path
-    dummy_string = remove_level_from_path (archive[idx]->path);
+    dummy_string = remove_level_from_path ("/home/gt/Projects/xarchiver");//(archive[idx]->path);
     if ( strlen(dummy_string) != 0)
 		utf8_string = g_filename_display_name (dummy_string);
     else
@@ -2209,4 +2209,21 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_text_buffer_insert (viewtextbuf, &viewenditer, "\n", 1);
 	gtk_text_buffer_insert_with_tags_by_name (viewtextbuf, &viewenditer, archive[idx]->comment->str, archive[idx]->comment->len, "bold", NULL);
 	gtk_widget_show (comment_window);
+}
+
+void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)
+{
+	gint current_page;
+	gint idx;
+	gchar *name;
+	GtkTreeIter iter;
+
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
+
+	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive[idx]->liststore),&iter,path))
+		return;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,1, &name,-1);
+	xa_update_window_with_archive_entries(archive[idx],name);
 }
