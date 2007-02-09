@@ -309,6 +309,7 @@ GtkWidget *create_MainWindow (void)
 	tmp_image = gtk_image_new_from_stock ("gtk-go-up", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
 	up_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Up"));
+	gtk_widget_set_sensitive(up_button,FALSE);
 	gtk_widget_show (up_button);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (up_button), FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1), up_button);
@@ -916,6 +917,8 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 	gint current_page;
 	gint idx;
 	gchar *up = NULL;
+	gchar *path = NULL;
+	gchar *_path = NULL;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
@@ -924,13 +927,25 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 	{
 		/* Root */
 		case 0:
+			gtk_widget_set_sensitive (up_button,FALSE);
+			archive[idx]->location_entry_path = NULL;
 			xa_update_window_with_archive_entries(archive[idx],"/");
 		break;
 
 		/* Up */
 		case 2:
-			//up = get_parent_dir (gtk_entry_get_text(GTK_ENTRY(location_entry)) );
-			g_message (up);
+			path =	g_strndup((gchar*)gtk_entry_get_text(GTK_ENTRY(location_entry)),
+					strlen(gtk_entry_get_text(GTK_ENTRY(location_entry)))-1);
+			up = xa_get_parent_dir (path);
+			if (*up == '/')
+				archive[idx]->location_entry_path = NULL;
+			else
+			{
+				_path = remove_level_from_path(path);
+				archive[idx]->location_entry_path = g_strconcat (_path,"/",NULL);
+			}
+			g_free (_path);
+			g_free (path);
 			xa_update_window_with_archive_entries(archive[idx],up);
 			g_free (up);
 		break;

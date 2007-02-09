@@ -176,19 +176,21 @@ char **split_line (char *line,int n_fields)
 
 static int count_chars_to_escape (const char *str, const char *meta_chars)
 {
-        int         meta_chars_n = strlen (meta_chars);
-        const char *s;
-        int         n = 0;
+	int meta_chars_n = strlen (meta_chars);
+	const char *s;
+	int n = 0;
 
-        for (s = str; *s != 0; s++) {
-                int i;
-                for (i = 0; i < meta_chars_n; i++)
-                        if (*s == meta_chars[i]) {
-                                n++;
-                                break;
-                        }
-        }
-        return n;
+	for (s = str; *s != 0; s++)
+	{
+		int i;
+		for (i = 0; i < meta_chars_n; i++)
+			if (*s == meta_chars[i])
+			{
+        		n++;
+            	break;
+			}
+		}
+	return n;
 }
 char *escape_str_common (const char *str, const char *meta_chars, const char  prefix, const char  postfix)
 {
@@ -270,6 +272,37 @@ gchar *extract_local_path (gchar *path)
     local_escaped_path = EscapeBadChars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
     g_free (local_path);
     return local_escaped_path;
+}
+
+gchar *xa_get_parent_dir (gchar *current_dir)
+{
+	gchar *first_slash = NULL;
+	gchar *second_slash = NULL;
+	gchar *reverse = NULL;
+	gchar *retval = NULL;
+
+	reverse = g_strdup (current_dir);
+	g_strreverse (reverse);
+
+	first_slash = strchr(reverse,'/');
+	if (first_slash == NULL)
+	{
+		retval = g_strdup("/");
+		goto here;
+	}
+	first_slash++;
+	second_slash = strchr(first_slash,'/');
+
+	if (second_slash == NULL)
+		retval = g_strdup(first_slash);
+	else
+		retval = g_strndup(first_slash, (second_slash - first_slash) );
+
+	g_free (reverse);
+	g_strreverse(retval);
+
+here:
+	return retval;
 }
 
 void xa_set_window_title ( GtkWidget *window , gchar *title)

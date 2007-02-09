@@ -378,7 +378,6 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 {
 	GList *s = NULL;
 	XEntry *entry = NULL;
-	gchar *location_path = NULL;
 	GtkTreeIter iter;
 	unsigned short int i;
 	gpointer current_column;
@@ -412,7 +411,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 				}
 			}
 		}
-		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
+		if (archive->location_entry_path == NULL)
+			gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 		return;
 	}
 	else
@@ -421,9 +421,13 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 		if (entry == NULL || entry->child == NULL)
 			return;
 
-		location_path = g_strconcat (gtk_entry_get_text(GTK_ENTRY(location_entry)), entry->filename, "/", NULL);
-		gtk_entry_set_text(GTK_ENTRY(location_entry),location_path);
-		g_free (location_path);
+		gtk_widget_set_sensitive(up_button,TRUE);
+		if (archive->location_entry_path == NULL)
+			archive->location_entry_path = g_strconcat (gtk_entry_get_text(GTK_ENTRY(location_entry)), entry->filename, "/", NULL);
+
+		gtk_entry_set_text(GTK_ENTRY(location_entry),archive->location_entry_path);
+		g_free (archive->location_entry_path);
+		archive->location_entry_path = NULL;
 
 		entry = entry->child;
 	}

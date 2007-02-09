@@ -37,6 +37,7 @@ char *get_last_field (char *line,int last_field);
 char **split_line (char *line,int n_fields);
 char *escape_str_common (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
 char *eat_spaces (char *line);
+gchar *xa_get_parent_dir (gchar *current_dir);
 gchar *remove_level_from_path (const gchar *path);
 gboolean file_extension_is (const char *filename, const char *ext);
 gchar *extract_local_path (gchar *path);

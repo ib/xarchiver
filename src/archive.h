@@ -75,6 +75,7 @@ struct _XArchive
 	gchar *format;
 	gchar *extraction_path;
 	gchar *passwd;
+	gchar *location_entry_path;
 	GtkTreeModel *model;
 	GtkListStore *liststore;
 	GtkWidget *treeview;
