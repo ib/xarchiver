@@ -927,7 +927,6 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 	{
 		/* Root */
 		case 0:
-			gtk_widget_set_sensitive (up_button,FALSE);
 			archive[idx]->location_entry_path = NULL;
 			xa_update_window_with_archive_entries(archive[idx],"/");
 		break;
@@ -937,13 +936,13 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 			path =	g_strndup((gchar*)gtk_entry_get_text(GTK_ENTRY(location_entry)),
 					strlen(gtk_entry_get_text(GTK_ENTRY(location_entry)))-1);
 			up = xa_get_parent_dir (path);
-			if (*up == '/')
+			_path = remove_level_from_path(path);
+
+			if (_path == NULL || *up == '/')
 				archive[idx]->location_entry_path = NULL;
 			else
-			{
-				_path = remove_level_from_path(path);
 				archive[idx]->location_entry_path = g_strconcat (_path,"/",NULL);
-			}
+
 			g_free (_path);
 			g_free (path);
 			xa_update_window_with_archive_entries(archive[idx],up);

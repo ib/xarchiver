@@ -411,8 +411,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 				}
 			}
 		}
-		if (archive->location_entry_path == NULL)
-			gtk_entry_set_text(GTK_ENTRY(location_entry),"");
+		gtk_widget_set_sensitive(up_button,FALSE);
+		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 		return;
 	}
 	else
