@@ -953,6 +953,7 @@ msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
+"xarchiver: %s\n"
 "Prova xarchiver --help per vedere la lista delle opzioni disponibili a linea "
 "di comando.\n"
 
