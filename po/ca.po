@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-21 14:33+0100\n"
-"PO-Revision-Date: 2006-11-25 12:45+0100\n"
+"PO-Revision-Date: 2007-04-05 14:14+0200\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,6 @@ msgid "Remove files after adding"
 msgstr "Suprimeix els fitxers després d’afegir-los"
 
 #: ../src/add_dialog.c:194
-#, fuzzy
 msgid "Do not add absolute paths"
 msgstr "No afegexis els camins dels fitxers"
 
@@ -108,7 +107,7 @@ msgstr "No afegexis els camins dels fitxers"
 
 #: ../src/add_dialog.c:201
 msgid "The files path doesn't include the user home directory."
-msgstr ""
+msgstr "El fitxer de rutes no inclou el directori de l’usuari."
 
 #: ../src/add_dialog.c:203
 msgid "Store just the name of a file without its directory names."
@@ -392,9 +391,8 @@ msgstr ""
 "<paurullan@bulma.net>"
 
 #: ../src/callbacks.c:947
-#, fuzzy
 msgid "Save the self-extracting archive as"
-msgstr "S’està convertint el fitxer a un auto-extraible"
+msgstr "Desa l’arxiu autodescomprimible com"
 
 #: ../src/callbacks.c:974 ../src/interface.c:294
 msgid "Open an archive"
@@ -673,7 +671,6 @@ msgid "_Show comment"
 msgstr "Mo_stra comentari"
 
 #: ../src/interface.c:197
-#, fuzzy
 msgid "Show ISO in_fo"
 msgstr "Mostra la informació I_SO"
 
@@ -686,7 +683,6 @@ msgid "Dese_lect All"
 msgstr "Desse_lecciona-ho tot"
 
 #: ../src/interface.c:229
-#, fuzzy
 msgid "C_md-line output"
 msgstr "S_ortida de la línea d’ordres"
 
@@ -695,9 +691,8 @@ msgid "Reset passwo_rd"
 msgstr "Reinicia cont_rassenya"
 
 #: ../src/interface.c:249
-#, fuzzy
 msgid "_Preferences"
-msgstr "_Propietats"
+msgstr "_Preferències"
 
 #: ../src/interface.c:258
 msgid "_Help"
@@ -772,7 +767,6 @@ msgid "This archive contains password protected files"
 msgstr "L’arxiu conté fitxers protegits amb contrassenya"
 
 #: ../src/interface.c:556
-#, fuzzy
 msgid "Close archive"
 msgstr "Tanca arxiu"
 
@@ -942,9 +936,8 @@ msgid "file1 file2 file3 ... fileN"
 msgstr "fitxer1 fitxer2 fitxer3 … fitxerN"
 
 #: ../src/main.c:54
-#, fuzzy
 msgid "Add files to archive by asking their filenames and quits."
-msgstr "Extreu l’arxiu demanant la ruta de destí i tanca."
+msgstr "Afegeix fitxers a l’arxiu demanant el seu nom i surt."
 
 #: ../src/main.c:80
 msgid "[archive name]"
@@ -998,12 +991,11 @@ msgstr "Afegeix l'extensió de l'arxiu al nom de fitxer."
 #: ../src/new_dialog.c:160
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr ""
+msgstr "«%s» ja està obert"
 
 #: ../src/new_dialog.c:161
-#, fuzzy
 msgid "Can't create a new archive:"
-msgstr "Crea un nou arxiu"
+msgstr "No s’ha pogut crear un arxiu nou:"
 
 #: ../src/new_dialog.c:176
 #, c-format
@@ -1016,90 +1008,87 @@ msgstr "Voleu sobreescriure'l?"
 
 #: ../src/pref_dialog.c:38
 msgid "Preferences"
-msgstr ""
+msgstr "Preferències"
 
 #: ../src/pref_dialog.c:69
 msgid "Behaviour"
-msgstr ""
+msgstr "Comportament"
 
 #: ../src/pref_dialog.c:79
 msgid "Advanced"
-msgstr ""
+msgstr "Avançat"
 
 #: ../src/pref_dialog.c:110
-#, fuzzy
 msgid "Preferred format for new archives:"
-msgstr "Crea un nou arxiu"
+msgstr "Format predeterminat pels arxius nous:"
 
 #: ../src/pref_dialog.c:128
 msgid "Save settings for add dialog"
-msgstr ""
+msgstr "Desa els ajustaments pel diàleg d’afegir"
 
 #: ../src/pref_dialog.c:134
 msgid "Save settings for extract dialog"
-msgstr ""
+msgstr "Desa els ajustaments pel diàleg d’extreure"
 
 #: ../src/pref_dialog.c:140
 msgid "Allow extracting directories by drag and drop"
-msgstr ""
+msgstr "Permet extreure directoris arrossegant i deixant anar"
 
 #: ../src/pref_dialog.c:146
-#, fuzzy
 msgid "Confirm deletion of files inside the archive"
-msgstr "No s’han pogut afegir els fitxers a l’arxiu:"
+msgstr "Confirma la supresió de fitxers dins els arxius"
 
 #: ../src/pref_dialog.c:175
 msgid "View archive content as"
-msgstr ""
+msgstr "Visualitza el contingut de l’arxiu com"
 
 #: ../src/pref_dialog.c:182
 msgid "list"
-msgstr ""
+msgstr "llista"
 
 #: ../src/pref_dialog.c:183 ../src/pref_dialog.c:249
 msgid "icon"
-msgstr ""
+msgstr "iconca"
 
 #: ../src/pref_dialog.c:185
 msgid "Show comment in archive after loading it"
-msgstr ""
+msgstr "Mostra el comentari a l’arxiu després de carregar-lo"
 
 #: ../src/pref_dialog.c:191
-#, fuzzy
 msgid "Show ISO info after loading the archive"
-msgstr "Seleccioneu «Afegir» per començar a crear l’arxiu."
+msgstr "Mostra la informació ISO un cop s’hagi carregat l’arxiu"
 
 #: ../src/pref_dialog.c:197
 msgid "Sort content by filename"
-msgstr ""
+msgstr "Mostra el contingut segon els nom del fitxer"
 
 #: ../src/pref_dialog.c:202
 msgid "The filename column is sort after loading the archive"
-msgstr ""
+msgstr "La columna de nom de fitxer s’ordena després d’haver carregat l’arxiu"
 
 #: ../src/pref_dialog.c:227
 msgid "Preferred web browser:"
-msgstr ""
+msgstr "Navegador web preferit"
 
 #: ../src/pref_dialog.c:234
 msgid "xfce default"
-msgstr ""
+msgstr "Predeterminat d’Xfce"
 
 #: ../src/pref_dialog.c:235
 msgid "konqueror"
-msgstr ""
+msgstr "konqueror"
 
 #: ../src/pref_dialog.c:241
 msgid "Preferred view application:"
-msgstr ""
+msgstr "Aplicació de visualització preferida"
 
 #: ../src/pref_dialog.c:248
 msgid "internal"
-msgstr ""
+msgstr "intern"
 
 #: ../src/pref_dialog.c:251
 msgid "Save window geometry on exit"
-msgstr ""
+msgstr "Desa la geometria de la finestra en sortir"
 
 #: ../src/rar.c:55 ../src/zip.c:39
 msgid "Checksum"
@@ -1116,7 +1105,7 @@ msgstr "Versió"
 #: ../src/rpm.c:46
 #, c-format
 msgid "Can't open RPM file %s:"
-msgstr "No s’ha pogut obrir el fitxer RPM «%s»:"
+msgstr "No s’ha pogut obrir el fitxer RPM %s"
 
 #: ../src/rpm.c:58
 msgid "Hard Link"
