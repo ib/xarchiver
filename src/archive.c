@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (c) 2007 Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input
 	}
 
 	ioc = g_io_channel_unix_new ( archive->output_fd );
-	g_io_channel_set_encoding (ioc, locale , NULL);
+	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 
 	if ( archive->parse_output )
@@ -299,7 +299,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 
 	if (strchr(filename,'/') != NULL)
 	{
-		path_items = g_strsplit_set(filename,"/",-1);
+		path_items = g_strsplit_set(filename,"/\n",-1);
 		home_entry = g_hash_table_lookup(filename_paths_buffer,path_items[0]);
 		if (home_entry == NULL)
 		{
@@ -312,6 +312,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 		last_entry = home_entry;
 		while (path_items[x])
 		{
+			//Let's avoid to insert empty rows
 			if (strlen (path_items[x]) == 0)
 				goto here;
 			child_entry = g_hash_table_lookup(filename_paths_buffer,path_items[x]);
@@ -319,8 +320,11 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			{
 				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 				child_entry->filename = g_strdup(path_items[x]);
+				g_print ("Inserisco: %s da %s\n",path_items[x],path_items[x-1]);
 				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
-				g_hash_table_insert (filename_paths_buffer,child_entry->filename,child_entry);
+				//Do not insert files in the hash table
+				if (path_items[x+1] != NULL)
+					g_hash_table_insert (filename_paths_buffer,child_entry->filename,child_entry);
 
 				child_entry->next = last_entry->child;
 				last_entry->child = child_entry;
@@ -391,7 +395,11 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 			entry = s->data;
 			current_column = entry->columns;
 			gtk_list_store_append (archive->liststore, &iter);
-			gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
+			//TODO: free the char in g_convert and also  at line 445
+			if(!g_utf8_validate(entry->filename, -1, NULL) )
+				gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL),-1);
+			else
+				gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
 
 			for (i = 0; i < archive->nc; i++)
 			{
@@ -437,7 +445,10 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 	{
 		current_column = entry->columns;
 		gtk_list_store_append (archive->liststore, &iter);
-		gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
+		if(!g_utf8_validate(entry->filename, -1, NULL))
+			gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL),-1);
+		else
+			gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
 
 		for (i = 0; i < archive->nc; i++)
 		{

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -667,6 +667,7 @@ void xa_show_prefs_dialog ( GtkMenuItem *menuitem , gpointer user_data )
 		prefs_window = xa_create_prefs_dialog();
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (prefs_window->dialog1) , TRUE);
 	}
+	gtk_widget_show_all(prefs_window->dialog1);
 	gtk_dialog_run ( GTK_DIALOG(prefs_window->dialog1) );
 	gtk_widget_hide (prefs_window->dialog1);
 }
