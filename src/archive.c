@@ -291,64 +291,73 @@ XEntry *xa_alloc_memory_for_each_row (guint nc,GType column_types[])
 
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items)
 {
-	gchar **path_items = NULL;
-	XEntry *home_entry = NULL;
 	XEntry *child_entry= NULL;
 	XEntry *last_entry = NULL;
-	unsigned short int x = 1;
+
+	gchar *full_path_name = NULL;
+	gchar *filename_only = NULL;
+	gchar *p = NULL;
 
 	if (strchr(filename,'/') != NULL)
 	{
-		path_items = g_strsplit_set(filename,"/\n",-1);
-		home_entry = g_hash_table_lookup(filename_paths_buffer,path_items[0]);
-		if (home_entry == NULL)
+		p = strchr(filename,'/');
+		full_path_name = g_strndup(filename,(p-filename));
+		last_entry = g_hash_table_lookup(filename_paths_buffer,full_path_name);
+		if (last_entry == NULL)
 		{
-			home_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
-			home_entry->filename = g_strdup(path_items[0]);
-			home_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,home_entry,items);
-			g_hash_table_insert (filename_paths_buffer,home_entry->filename,home_entry);
-			archive->entries = g_list_prepend (archive->entries,home_entry);
+			last_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
+			last_entry->filename = full_path_name;
+			last_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,last_entry,items);
+			g_hash_table_insert (filename_paths_buffer,last_entry->filename,last_entry);
+			archive->entries = g_list_prepend (archive->entries,last_entry);
 		}
-		last_entry = home_entry;
-		while (path_items[x])
+		p++;
+		while ( (p = strchr(p,'/')) )
 		{
-			//Let's avoid to insert empty rows
-			if (strlen (path_items[x]) == 0)
-				goto here;
-			child_entry = g_hash_table_lookup(filename_paths_buffer,path_items[x]);
+			full_path_name = g_strndup(filename,(p-filename));
+			//g_print ("%s\t%s\n",filename,full_path_name);
+			child_entry = g_hash_table_lookup(filename_paths_buffer,full_path_name);
 			if (child_entry == NULL)
 			{
 				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
-				child_entry->filename = g_strdup(path_items[x]);
-				g_print ("Inserisco: %s da %s\n",path_items[x],path_items[x-1]);
+				child_entry->filename = full_path_name;
 				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
-				//Do not insert files in the hash table
-				if (path_items[x+1] != NULL)
-					g_hash_table_insert (filename_paths_buffer,child_entry->filename,child_entry);
+
+				g_hash_table_insert (filename_paths_buffer,child_entry->filename,child_entry);
 
 				child_entry->next = last_entry->child;
 				last_entry->child = child_entry;
 			}
 			last_entry = child_entry;
-here:
-			x++;
+			p++;
 		}
-		g_strfreev(path_items);
+		p = strrchr(filename,'/');
+		if (strlen(p) > 1)
+		{
+			filename_only = g_strndup(++p,strlen(p));
+			child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
+			child_entry->filename = filename_only;
+			child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
+
+			child_entry->next = last_entry->child;
+			last_entry->child = child_entry;
+			last_entry = child_entry;
+		}
 	}
 	else
 	{
-		home_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
-		if (home_entry == NULL)
+		last_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
+		if (last_entry == NULL)
 			return NULL;
-		home_entry->filename = g_strdup(filename);
-		home_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,home_entry,items);
-		home_entry->child = NULL;
+		last_entry->filename = g_strdup(filename);
+		last_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,last_entry,items);
+		last_entry->child = NULL;
 
-		archive->entries = g_list_prepend (archive->entries,home_entry);
+		archive->entries = g_list_prepend (archive->entries,last_entry);
 		if (archive->entries->prev != NULL)
-			home_entry->next = archive->entries->prev->data;
+			last_entry->next = archive->entries->prev->data;
 	}
-	return home_entry;
+	return last_entry;
 }
 
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items)
@@ -471,7 +480,3 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 	}
 }
 
-void _xa_update_window_with_archive_entries (XArchive *archive,gpointer column)
-{
-
-}
