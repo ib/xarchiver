@@ -586,10 +586,7 @@ void xa_add_page (XArchive *archive)
 	gtk_misc_set_alignment(GTK_MISC(tab_label), 0.0, 0);
 	gtk_notebook_append_page_menu (notebook, archive->scrollwindow, page_hbox, tab_label);
 	gtk_notebook_set_current_page(notebook, -1);
-	#if GTK_CHECK_VERSION(2, 10, 0)
-		if (gtk_check_version(2, 10, 0) == NULL)
-			gtk_notebook_set_tab_reorderable(notebook, archive->scrollwindow, TRUE);
-	#endif
+	gtk_notebook_set_tab_reorderable(notebook, archive->scrollwindow, TRUE);
 	archive->treeview = gtk_tree_view_new ();
 	gtk_container_add (GTK_CONTAINER (archive->scrollwindow), archive->treeview);
 	gtk_widget_show (archive->treeview);
@@ -928,7 +925,7 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 		/* Root */
 		case 0:
 			archive[idx]->location_entry_path = NULL;
-			xa_update_window_with_archive_entries(archive[idx],"/");
+			xa_update_window_with_archive_entries(archive[idx],NULL);
 		break;
 
 		/* Up */

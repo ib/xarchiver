@@ -91,7 +91,7 @@ struct _XArchive
 	//TODO: remove this once you fix the various arj,rar,etc
 	GList *cmd_line_output;
 	GSList *error_output;
-	GList *entries;
+	GSList *entries;
 	GType *column_types;
 	gboolean add_recurse;
 	gboolean overwrite;
@@ -124,6 +124,7 @@ gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();
 //gint xa_read_line (XArchive *archive, FILE *stream, gchar **return_string);
 XEntry *xa_alloc_memory_for_each_row ( guint nc,GType column_types[]);
+XEntry *xa_find_archive_entry(XEntry *entry, gchar *string);
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items);
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items);
 void xa_update_window_with_archive_entries (XArchive *archive,gchar *path);

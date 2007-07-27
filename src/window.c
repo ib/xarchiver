@@ -909,7 +909,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>",NULL};
-    const char *documenters[] = {"\nVery special thanks to John Berthels for\nhelping me in fixing archive navigation code.\n\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\nThe people of gtk-app-devel-list.", NULL};
+    const char *documenters[] = {"\nVery special thanks to John Berthels for\nhelping me in fixing archive navigation code.\n\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\n", NULL};
 
 	if (about == NULL)
 	{
@@ -2120,27 +2120,10 @@ void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 	gchar *browser_path;
 
 	//TODO: retrieve the user set browser from prefs and use it
-	browser_path = g_find_program_in_path ("exo-open");
-	if ( browser_path == NULL)
-		browser_path = g_find_program_in_path ("htmlview");
+	browser_path = g_find_program_in_path ("xelp");
 
 	if ( browser_path == NULL)
 		browser_path = g_find_program_in_path ("firefox");
-
-	if ( browser_path == NULL)
-		browser_path = g_find_program_in_path ("opera");
-
-	if ( browser_path == NULL)
-		browser_path = g_find_program_in_path ("mozilla");
-
-	if ( browser_path == NULL)
-		browser_path = g_find_program_in_path ("epiphany");
-
-	if ( browser_path == NULL)
-		browser_path = g_find_program_in_path ("konqueror");
-
-	if ( browser_path == NULL)
-		browser_path = g_find_program_in_path ("seamonkey");
 
 	argv[0] = browser_path;
 	argv[1] = (gchar *) link;
