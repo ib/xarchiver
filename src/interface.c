@@ -934,14 +934,19 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 					strlen(gtk_entry_get_text(GTK_ENTRY(location_entry)))-1);
 			up = xa_get_parent_dir (path);
 			_path = remove_level_from_path(path);
+			g_free (path);
 
 			if (_path == NULL || *up == '/')
+			{
+				g_free (up);
 				archive[idx]->location_entry_path = NULL;
+				xa_update_window_with_archive_entries(archive[idx],NULL);
+				return;
+			}
 			else
 				archive[idx]->location_entry_path = g_strconcat (_path,"/",NULL);
 
 			g_free (_path);
-			g_free (path);
 			xa_update_window_with_archive_entries(archive[idx],up);
 			g_free (up);
 		break;

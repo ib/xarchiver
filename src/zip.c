@@ -55,6 +55,7 @@ void xa_open_zip ( XArchive *archive )
 void xa_get_zip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
+	XEntry *entry = NULL;
 	gchar *filename;
 	gpointer item[8];
 	unsigned short int i = 0;
@@ -165,8 +166,8 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	filename = line + n;
 	//item[0] = GTK_STOCK_DIRECTORY;//xa_get_mime_icon (line+a);
 
-	archive->entry = xa_set_archive_entries_for_each_row (archive,filename,item);
-	if (archive->entry != NULL)
+	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	/*if (archive->entry != NULL)
 	{
 		archive->entry->is_dir = is_dir;
 		archive->entry->is_encrypted = encrypted;
@@ -175,5 +176,5 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	{
 		//TODO: found a way to stop calling this function over and over again; i.e. kill (archive->child_pid,SIGABRT) ??
 		g_message ("*** Can't allocate memory for the archive data!");
-	}
+	}*/
 }

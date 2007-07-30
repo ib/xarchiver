@@ -2210,4 +2210,5 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 
 	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,1, &name,-1);
 	xa_update_window_with_archive_entries(archive[idx],name);
+	g_free(name);
 }

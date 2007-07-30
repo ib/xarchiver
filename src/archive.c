@@ -339,16 +339,13 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			child_entry = xa_find_archive_entry(last_entry,full_path_name);
 			if (child_entry == NULL)
 			{
-				//g_print ("child_entry è null per %s\n",full_path_name);
 				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 				child_entry->filename = full_path_name;
-				//g_print ("** %s\n",full_path_name);
 				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
 
 				child_entry->next = last_entry->child;
 				last_entry->child = child_entry;
-				//questa entry last_entry->child contiene tutte le dir
-				//g_message (child_entry->filename);
+				//thid entry, last_entry->child, contains all the dirs
 			}
 			last_entry = child_entry;
 			p++;
@@ -359,12 +356,10 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			filename_only = g_strndup(++p,strlen(p));
 			child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 			child_entry->filename = filename_only;
-			//g_print ("%s\n",filename_only);
-			child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
 
+			child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
 			child_entry->next = last_entry->child;
 			last_entry->child = child_entry;
-			last_entry = child_entry;
 		}
 	}
 	else
@@ -410,7 +405,8 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *
 void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 {
 	GSList *s = NULL;
-	XEntry *entry = NULL;
+	XEntry *entry  = NULL;
+	XEntry *entry2 = NULL;
 	GtkTreeIter iter;
 	unsigned short int i;
 	gpointer current_column;
@@ -425,7 +421,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 			current_column = entry->columns;
 			gtk_list_store_append (archive->liststore, &iter);
 
-			//TODO: free the char in g_convert and also  at line 445
+			//TODO: free the char in g_convert and also at line 445
 			if(!g_utf8_validate(entry->filename, -1, NULL) )
 				gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL),-1);
 			else
@@ -448,18 +444,28 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 					break;
 				}
 			}
+			entry = entry->next;
 		}
 		gtk_widget_set_sensitive(up_button,FALSE);
+		gtk_widget_set_sensitive(home_button,FALSE);
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 		return;
 	}
 	else
 	{
-		entry = xa_find_archive_entry(s->data,path);
+		for (; s; s = s->next)
+		{
+			entry = xa_find_archive_entry(s->data,path);
+			if (entry == NULL || entry->child == NULL)
+				continue;			
+			else
+				break;
+		}
 		if (entry == NULL || entry->child == NULL)
 			return;
 
 		gtk_widget_set_sensitive(up_button,TRUE);
+		gtk_widget_set_sensitive(home_button,TRUE);
 		if (archive->location_entry_path == NULL)
 			archive->location_entry_path = g_strconcat (gtk_entry_get_text(GTK_ENTRY(location_entry)), entry->filename, "/", NULL);
 
@@ -468,7 +474,6 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 		archive->location_entry_path = NULL;
 
 		entry = entry->child;
-		//g_print ("entry->child = %s\n",entry->filename);
 	}
 	gtk_list_store_clear(archive->liststore);
 	
@@ -510,8 +515,6 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 			}
 		}
 		entry = entry->next;
-		/*if (entry != NULL)
-			g_print ("entry->next = %s\n",entry->filename);*/
 	}
 }
 
