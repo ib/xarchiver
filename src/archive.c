@@ -345,7 +345,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 
 				child_entry->next = last_entry->child;
 				last_entry->child = child_entry;
-				//thid entry, last_entry->child, contains all the dirs
+				//this entry, last_entry->child, contains all the dirs
 			}
 			last_entry = child_entry;
 			p++;
@@ -406,7 +406,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 {
 	GSList *s = NULL;
 	XEntry *entry  = NULL;
-	XEntry *entry2 = NULL;
+
 	GtkTreeIter iter;
 	unsigned short int i;
 	gpointer current_column;
@@ -421,9 +421,12 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 			current_column = entry->columns;
 			gtk_list_store_append (archive->liststore, &iter);
 
-			//TODO: free the char in g_convert and also at line 445
 			if(!g_utf8_validate(entry->filename, -1, NULL) )
-				gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL),-1);
+			{
+				gchar *dummy = g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL);
+				g_free (entry->filename);
+				entry->filename = dummy;
+			}
 			else
 				gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
 
@@ -479,6 +482,12 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 	
 	while (entry)
 	{
+		if(!g_utf8_validate(entry->filename, -1, NULL) )
+		{
+			gchar *dummy = g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL);
+			g_free (entry->filename);
+			entry->filename = dummy;
+		}
 		/* Remove the path from the filename */
 		gchar *slash = strrchr(entry->filename,'/');
 		if (slash != NULL)
@@ -492,10 +501,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 		current_column = entry->columns;
 		gtk_list_store_append (archive->liststore, &iter);
 		
-		if(!g_utf8_validate(entry->filename, -1, NULL))
-			gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL),-1);
-		else
-			gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
+		gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
 
 		for (i = 0; i < archive->nc; i++)
 		{
