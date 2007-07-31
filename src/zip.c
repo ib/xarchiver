@@ -112,6 +112,7 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 
 	line[n]='\0';
 	item[i] = line + a;
+	archive->dummy_size += strtoll(item[i],NULL,0);
 	i++;
 	n++;
 

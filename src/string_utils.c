@@ -298,10 +298,10 @@ gchar *xa_get_parent_dir (gchar *current_dir)
 	else
 		retval = g_strndup(first_slash, (second_slash - first_slash) );
 
-	g_free (reverse);
 	g_strreverse(retval);
 
 here:
+	g_free (reverse);
 	return retval;
 }
 

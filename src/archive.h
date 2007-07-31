@@ -124,6 +124,7 @@ gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();
 //gint xa_read_line (XArchive *archive, FILE *stream, gchar **return_string);
 XEntry *xa_alloc_memory_for_each_row ( guint nc,GType column_types[]);
+void xa_free_entry (XArchive *archive,XEntry *entry);
 XEntry *xa_find_archive_entry(XEntry *entry, gchar *string);
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items);
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items);

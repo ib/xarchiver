@@ -159,14 +159,24 @@ gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpoin
 
 void xa_clean_archive_structure (XArchive *archive)
 {
+	GSList *s = NULL;
 	gchar *dummy_string;
 	gchar *msg;
 	int response;
+	unsigned short int i;
+	XEntry *entry;
+	gpointer current_column;
 
 	if (archive == NULL)
 		return;
 
-	//TODO: to free entry, g_hash_table,entries
+	s = archive->entries;
+	for (; s; s = s->next)
+	{
+		entry = s->data;
+		xa_free_entry (archive,entry);
+	}
+	
 	if (archive->column_types != NULL)
 		g_free(archive->column_types);
 
@@ -285,6 +295,38 @@ XEntry *xa_alloc_memory_for_each_row (guint nc,GType column_types[])
 	}
 	entry->columns = g_malloc0 (size);
 	return entry;
+}
+
+void xa_free_entry (XArchive *archive,XEntry *entry)
+{
+	gpointer current_column;
+	unsigned short int i;
+
+	if (entry->child)
+		xa_free_entry(archive,entry->child);
+
+	if (entry->next)
+		xa_free_entry(archive,entry->next);
+
+	current_column = entry->columns;
+
+	for (i = 0; i < archive->nc; i++)
+	{
+		switch(archive->column_types[i+2])
+		{
+			case G_TYPE_STRING:
+				g_free (*((gchar **)current_column));
+				current_column += sizeof(gchar *);
+			break;
+
+			case G_TYPE_UINT64:
+				current_column += sizeof(guint64);
+			break;
+		}
+	}
+	g_free(entry->columns);
+	g_free(entry->filename);
+	g_free(entry);
 }
 
 XEntry *xa_find_archive_entry(XEntry *entry, gchar *string)
