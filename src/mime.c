@@ -26,9 +26,18 @@ GdkPixbuf *xa_get_stock_mime_icon(gchar *filename)
 {
 	const char *mime;
 	GdkPixbuf *pixbuf = NULL;
+	const char *icon_name = "GTK_STOCK_FILE";
 
 	mime = xdg_mime_get_mime_type_from_file_name(filename);
-	pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),mime, GTK_ICON_SIZE_SMALL_TOOLBAR, 0, NULL);
+	g_print ("%s\n",mime);
+	if (strncmp(mime,"image/",6) == 0)
+		icon_name = "image";
+	else if (strcmp(mime,"text/html") == 0)
+		icon_name = "html";
+	else if (strcmp(mime,"application/octet-stream") == 0)
+		icon_name = "folder";
+	
+	pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default(),icon_name, GTK_ICON_SIZE_SMALL_TOOLBAR, 0, NULL);
 	return pixbuf;
 }
 

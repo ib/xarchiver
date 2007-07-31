@@ -43,7 +43,7 @@ void xa_open_zip ( XArchive *archive )
 	if (archive->child_pid == 0)
 		return;
 
-	GType types[] = {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	GType types[] = {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
 	archive->column_types = g_malloc0(sizeof(types));
 	for (i = 0; i < 10; i++)
 		archive->column_types[i] = types[i];
@@ -170,7 +170,6 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	line[linesize-1] = '\0';
 	filename = line + n;
 	//item[0] = GTK_STOCK_DIRECTORY;//xa_get_mime_icon (line+a);
-	xa_get_stock_mime_icon(filename);
 	archive->entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	if (archive->entry != NULL)
 	{

@@ -122,7 +122,6 @@ void xa_clean_archive_structure ( XArchive *archive);
 gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();
-//gint xa_read_line (XArchive *archive, FILE *stream, gchar **return_string);
 XEntry *xa_alloc_memory_for_each_row ( guint nc,GType column_types[]);
 void xa_free_entry (XArchive *archive,XEntry *entry);
 XEntry *xa_find_archive_entry(XEntry *entry, gchar *string);

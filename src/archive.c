@@ -20,6 +20,7 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include "archive.h"
+#include "mime.h"
 #include "support.h"
 #include "window.h"
 
@@ -471,8 +472,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 				g_free (entry->filename);
 				entry->filename = dummy;
 			}
-			else
-				gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
+			gtk_list_store_set (archive->liststore,&iter,0,xa_get_stock_mime_icon(entry->filename),1,entry->filename,-1);
 
 			for (i = 0; i < archive->nc; i++)
 			{
@@ -544,8 +544,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 
 		current_column = entry->columns;
 		gtk_list_store_append (archive->liststore, &iter);
-		
-		gtk_list_store_set (archive->liststore,&iter,0,GTK_STOCK_DIRECTORY,1,entry->filename,-1);
+		GdkPixbuf *pixbuf = xa_get_stock_mime_icon(entry->filename);
+		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
 
 		for (i = 0; i < archive->nc; i++)
 		{

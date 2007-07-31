@@ -474,13 +474,13 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		xa_disable_delete_view_buttons (FALSE);
 		xa_set_button_state (1,1,0,0,0,0,0,0);
 		xa_set_window_title (MainWindow,NULL);
+		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 	}
 	else if ( current_page == 1)
 		gtk_notebook_set_show_tabs (notebook,FALSE);
 	else
 		gtk_notebook_set_show_tabs (notebook,TRUE);
 
-	gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 	xa_clean_archive_structure (archive[idx]);
 	archive[idx] = NULL;
 
@@ -1164,7 +1164,6 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
 	renderer = gtk_cell_renderer_pixbuf_new();
-	g_object_set(G_OBJECT(renderer), "stock-size", GTK_ICON_SIZE_SMALL_TOOLBAR, NULL);
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, renderer, "pixbuf",0,NULL);
 
@@ -1175,6 +1174,7 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	gtk_tree_view_column_set_resizable (column, TRUE);
 	gtk_tree_view_column_set_sort_column_id (column, 1);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview), column);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
 	/* All the others */
 	for (x = 0; x < archive->nc; x++)
