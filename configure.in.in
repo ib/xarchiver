@@ -92,6 +92,7 @@ AC_OUTPUT([
 Makefile
 po/Makefile.in
 src/Makefile
+src/xdgmime/Makefile
 doc/Makefile
 icons/Makefile
 icons/16x16/Makefile

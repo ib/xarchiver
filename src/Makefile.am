@@ -1,9 +1,12 @@
 bin_PROGRAMS = xarchiver
 
+SUBDIRS = xdgmime
+
 xarchiver_SOURCES = \
 	socket.c socket.h \
 	main.c main.h \
 	string_utils.c string_utils.h \
+	mime.c mime.h \
 	support.c support.h \
 	archive.c archive.h \
 	interface.c interface.h \
@@ -33,6 +36,7 @@ xarchiver_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\"
 
 xarchiver_LDADD = \
+	 $(top_builddir)/src/xdgmime/libxdgmime.la \
 	@GTK_LIBS@ \
 	@GLIB_LIBS@
 

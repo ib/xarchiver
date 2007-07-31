@@ -19,18 +19,16 @@
 
 #include "mime.h"
 
-//pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),"svg", 24, 0, NULL);
+//
 //gboolean gtk_icon_theme_has_icon
 
-const gchar xa_get_stock_mime_icon(gchar *filename)
+GdkPixbuf *xa_get_stock_mime_icon(gchar *filename)
 {
+	const char *mime;
+	GdkPixbuf *pixbuf = NULL;
 
-}
-
-void xa_create_stock_mime_icons()
-{
-	const gchar extensions[] = {
-								"/",".tar",".tar.bz2",".tar.gz",".tgz",".tzo",".arj",".rar",".zip",".7z",".bz2",".gz",".lha",
-
+	mime = xdg_mime_get_mime_type_from_file_name(filename);
+	pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),mime, GTK_ICON_SIZE_SMALL_TOOLBAR, 0, NULL);
+	return pixbuf;
 }
 

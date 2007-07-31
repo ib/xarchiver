@@ -170,7 +170,7 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	line[linesize-1] = '\0';
 	filename = line + n;
 	//item[0] = GTK_STOCK_DIRECTORY;//xa_get_mime_icon (line+a);
-
+	xa_get_stock_mime_icon(filename);
 	archive->entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	if (archive->entry != NULL)
 	{
