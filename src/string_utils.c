@@ -241,13 +241,15 @@ gchar *remove_level_from_path (const gchar *path)
 {
     const gchar *ptr = path;
     gint p;
-    if (! path) return NULL;
-    p = strlen (path) - 1;
-    if (p < 0) return NULL;
-    while ((ptr[p] != '/') && (p > 0))
-        p--;
-    if ((p == 0) && (ptr[p] == '/')) p++;
-    return g_strndup (path, (guint)p);
+
+	if (! path) return NULL;
+	p = strlen (path) - 1;
+	if (p < 0) return NULL;
+	while ((ptr[p] != '/') && (p > 0))
+		p--;
+	if ((p == 0) && (ptr[p] == '/'))
+		p++;
+	return g_strndup (path, (guint)p);
 }
 
 gboolean file_extension_is (const char *filename, const char *ext)

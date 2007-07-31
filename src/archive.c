@@ -163,9 +163,7 @@ void xa_clean_archive_structure (XArchive *archive)
 	gchar *dummy_string;
 	gchar *msg;
 	int response;
-	unsigned short int i;
 	XEntry *entry;
-	gpointer current_column;
 
 	if (archive == NULL)
 		return;
@@ -240,6 +238,7 @@ void xa_clean_archive_structure (XArchive *archive)
 			archive->comment = NULL;
 		}
 	}
+	g_slist_free (archive->entries);
 	g_free (archive);
 }
 
@@ -370,11 +369,12 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 		if (last_entry == NULL)
 		{
 			last_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
-			last_entry->filename = full_path_name;
+			last_entry->filename = g_strdup(full_path_name);
 			last_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,last_entry,items);
 			archive->entries = g_slist_prepend (archive->entries,last_entry);
 		}
 		p++;
+		g_free(full_path_name);
 		while ( (p = strchr(p,'/')) )
 		{
 			full_path_name = g_strndup(filename,(p-filename));
@@ -382,20 +382,22 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			if (child_entry == NULL)
 			{
 				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
-				child_entry->filename = full_path_name;
+				child_entry->filename = g_strdup(full_path_name);
 				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
 
 				child_entry->next = last_entry->child;
 				last_entry->child = child_entry;
 				//this entry, last_entry->child, contains all the dirs
 			}
+			g_free(full_path_name);
 			last_entry = child_entry;
 			p++;
 		}
 		p = strrchr(filename,'/');
 		if (strlen(p) > 1)
 		{
-			filename_only = g_strndup(++p,strlen(p));
+			p++;
+			filename_only = g_strndup(p,strlen(p));
 			child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 			child_entry->filename = filename_only;
 

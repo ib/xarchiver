@@ -469,6 +469,8 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_widget_set_sensitive (view_shell_output1,FALSE);
 		gtk_widget_set_sensitive (check_menu,FALSE);
 		gtk_widget_set_sensitive (properties,FALSE);
+		gtk_widget_set_sensitive (up_button,FALSE);
+		gtk_widget_set_sensitive (home_button,FALSE);
 		xa_disable_delete_view_buttons (FALSE);
 		xa_set_button_state (1,1,0,0,0,0,0,0);
 		xa_set_window_title (MainWindow,NULL);
@@ -478,6 +480,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 	else
 		gtk_notebook_set_show_tabs (notebook,TRUE);
 
+	gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 	xa_clean_archive_structure (archive[idx]);
 	archive[idx] = NULL;
 
@@ -1551,7 +1554,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     gtk_entry_set_text ( GTK_ENTRY (name_data), utf8_string );
     g_free (utf8_string);
     //Path
-    dummy_string = remove_level_from_path ("/home/gt/Projects/xarchiver");//(archive[idx]->path);
+    dummy_string = remove_level_from_path (archive[idx]->path);
     if ( strlen(dummy_string) != 0)
 		utf8_string = g_filename_display_name (dummy_string);
     else

@@ -939,6 +939,7 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 			if (_path == NULL || *up == '/')
 			{
 				g_free (up);
+				g_free (_path);
 				archive[idx]->location_entry_path = NULL;
 				xa_update_window_with_archive_entries(archive[idx],NULL);
 				return;

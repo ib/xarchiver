@@ -44,15 +44,13 @@ GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size)
 		g_free(path);
     }
     if (file_pixbuf)
-    {
 		file_image = gtk_image_new_from_pixbuf (file_pixbuf);
-		g_object_unref (file_pixbuf);
-    }
     else
 	{
 		g_free(error);
 		file_image = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, size);
     }
+    g_object_unref (file_pixbuf);
     return file_image;
 }
 
