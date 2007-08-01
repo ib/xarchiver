@@ -1164,6 +1164,8 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
 	renderer = gtk_cell_renderer_pixbuf_new();
+	//GTK_ICON_SIZE_SMALL_TOOLBAR = 2;
+	//GTK_ICON_SIZE_LARGE_TOOLBAR = 3;
 	g_object_set(G_OBJECT(renderer), "stock-size", GTK_ICON_SIZE_SMALL_TOOLBAR, NULL);
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, renderer, "icon-name",0,NULL);

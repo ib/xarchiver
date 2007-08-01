@@ -26,8 +26,10 @@ const char *xa_get_stock_mime_icon(char *filename)
 	const char *icon_name = "binary";
 
 	mime = xdg_mime_get_mime_type_from_file_name(filename);
-	//g_print ("%s\t%s\n",filename,mime);
-	if (strncmp(mime,"image/",6) == 0)
+	g_print ("%s\t%s\n",filename,mime);
+	if (strstr(filename,".ogg") || strstr(filename,".flac") )
+		icon_name = "sound";
+	else if (strncmp(mime,"image/",6) == 0)
 		icon_name = "image";
 	else if (strcmp(mime,"text/html") == 0)
 		icon_name = "html";
@@ -40,7 +42,8 @@ const char *xa_get_stock_mime_icon(char *filename)
 	else if (strcmp(mime,"application/vnd.ms-excel") == 0)
 		icon_name = "gnome-mime-application-vnd.ms-excel";
 	else if (strcmp(mime,"application/zip") == 0 || strcmp(mime,"application/x-rar") == 0 || strcmp(mime,"application/x-tar") == 0
-		|| strcmp(mime,"application/x-7z-compressed") == 0)
+		|| strcmp(mime,"application/x-7z-compressed") == 0 || strcmp(mime,"application/x-bzip-compressed-tar") == 0
+		|| strcmp (mime,"application/x-compressed-tar") == 0 )
 		icon_name = "package";
 	else if (strcmp(mime,"application/x-shockwave-flash") == 0 || strcmp(mime,"video/mpeg") == 0 || strcmp(mime,"video/quicktime") == 0
 		|| strcmp(mime,"video/x-msvideo") == 0)
@@ -51,7 +54,8 @@ const char *xa_get_stock_mime_icon(char *filename)
 		icon_name = "gnome-mime-application-x-php";
 	else if (strcmp(mime,"application/x-perl") == 0 || strcmp (mime,"application/x-csh") == 0 || strcmp (mime,"application/x-shellscript") == 0)
 		icon_name = "gnome-mime-application-x-perl";
-
+	else if (strcmp(mime,"application/vnd.ms-powerpoint") == 0)
+		icon_name = "gnome-mime-application-vnd.ms-powerpoint";
 	return icon_name;		
 }
 
