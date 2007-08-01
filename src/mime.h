@@ -23,5 +23,5 @@
 #include "xdgmime/xdgmime.h"
 #include <gtk/gtk.h>
 
-GdkPixbuf *xa_get_stock_mime_icon(gchar *filename);
+const char *xa_get_stock_mime_icon(gchar *filename);
 #endif

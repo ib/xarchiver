@@ -43,7 +43,7 @@ void xa_open_zip ( XArchive *archive )
 	if (archive->child_pid == 0)
 		return;
 
-	GType types[] = {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	GType types[] = {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
 	archive->column_types = g_malloc0(sizeof(types));
 	for (i = 0; i < 10; i++)
 		archive->column_types[i] = types[i];

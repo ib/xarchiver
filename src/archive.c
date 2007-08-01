@@ -544,8 +544,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 
 		current_column = entry->columns;
 		gtk_list_store_append (archive->liststore, &iter);
-		GdkPixbuf *pixbuf = xa_get_stock_mime_icon(entry->filename);
-		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
+		gtk_list_store_set (archive->liststore,&iter,0,xa_get_stock_mime_icon(entry->filename),1,entry->filename,-1);
 
 		for (i = 0; i < archive->nc; i++)
 		{
