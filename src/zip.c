@@ -55,6 +55,8 @@ void xa_open_zip ( XArchive *archive )
 void xa_get_zip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
+	XEntry *entry = NULL;
+
 	gchar *filename;
 	gpointer item[8];
 	unsigned short int i = 0;
@@ -122,7 +124,7 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	if (line[0] == 'B' || line[0] == 'T')
+	if ((line+a)[0] == 'B' || (line+a)[0] == 'T')
 		encrypted = TRUE;
 	n++;
 
@@ -169,12 +171,12 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	/* filename */
 	line[linesize-1] = '\0';
 	filename = line + n;
-	//item[0] = GTK_STOCK_DIRECTORY;//xa_get_mime_icon (line+a);
-	archive->entry = xa_set_archive_entries_for_each_row (archive,filename,item);
-	if (archive->entry != NULL)
+
+	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	if (entry != NULL)
 	{
-		archive->entry->is_dir = is_dir;
-		archive->entry->is_encrypted = encrypted;
+		entry->is_dir = is_dir;
+		entry->is_encrypted = encrypted;
 	}
 	else
 	{

@@ -21,7 +21,6 @@
 #define __XARCHIVER_MIME_H__
 
 #include "xdgmime/xdgmime.h"
-#include <gtk/gtk.h>
 
-const char *xa_get_stock_mime_icon(gchar *filename);
+const char *xa_get_stock_mime_icon(char *filename);
 #endif

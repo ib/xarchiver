@@ -20,13 +20,13 @@
 #include "mime.h"
 #include <string.h>
 
-const char *xa_get_stock_mime_icon(gchar *filename)
+const char *xa_get_stock_mime_icon(char *filename)
 {
 	const char *mime;
 	const char *icon_name = "binary";
 
 	mime = xdg_mime_get_mime_type_from_file_name(filename);
-	g_print ("%s\t%s\n",filename,mime);
+	//g_print ("%s\t%s\n",filename,mime);
 	if (strncmp(mime,"image/",6) == 0)
 		icon_name = "image";
 	else if (strcmp(mime,"text/html") == 0)

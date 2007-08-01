@@ -385,7 +385,8 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 				child_entry->filename = g_strdup(full_path_name);
 				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
-
+				child_entry->is_dir = TRUE;
+				g_print ("%s in %x è %d\n",child_entry->filename,child_entry,child_entry->is_dir);
 				child_entry->next = last_entry->child;
 				last_entry->child = child_entry;
 				//this entry, last_entry->child, contains all the dirs
@@ -451,6 +452,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 {
 	GSList *s = NULL;
 	XEntry *entry  = NULL;
+	const char *icon_name;
 
 	GtkTreeIter iter;
 	unsigned short int i;
@@ -472,7 +474,14 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 				g_free (entry->filename);
 				entry->filename = dummy;
 			}
-			gtk_list_store_set (archive->liststore,&iter,0,xa_get_stock_mime_icon(entry->filename),1,entry->filename,-1);
+			if (entry->is_dir)
+				icon_name = "folder";
+			else if (entry->is_encrypted)
+				icon_name = "password";
+			else
+				icon_name = xa_get_stock_mime_icon(entry->filename);
+
+			gtk_list_store_set (archive->liststore,&iter,0,icon_name,1,entry->filename,-1);
 
 			for (i = 0; i < archive->nc; i++)
 			{
@@ -526,6 +535,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 	
 	while (entry)
 	{
+		g_print ("inserisco %s in %x is_dir è %d\n",entry->filename,entry,entry->is_dir);
 		if(!g_utf8_validate(entry->filename, -1, NULL) )
 		{
 			gchar *dummy = g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL);
@@ -544,7 +554,19 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 
 		current_column = entry->columns;
 		gtk_list_store_append (archive->liststore, &iter);
-		gtk_list_store_set (archive->liststore,&iter,0,xa_get_stock_mime_icon(entry->filename),1,entry->filename,-1);
+
+		if (entry->is_dir)
+		{
+			g_print ("%s è una dir\n",entry->filename);
+			icon_name = "folder";
+		}
+		else if (entry->is_encrypted)
+			icon_name = "password";
+		
+		else
+			icon_name = xa_get_stock_mime_icon(entry->filename);
+
+		gtk_list_store_set (archive->liststore,&iter,0,icon_name,1,entry->filename,-1);
 
 		for (i = 0; i < archive->nc; i++)
 		{
