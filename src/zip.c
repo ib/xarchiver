@@ -61,9 +61,9 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	gpointer item[8];
 	unsigned short int i = 0;
 	unsigned int linesize,n,a;
-	gboolean encrypted,is_dir;
+	gboolean encrypted,dir;
 
-	encrypted = is_dir = FALSE;
+	encrypted = dir = FALSE;
 
 	if ((line[0] != 'd') && (line[0] != '-'))
 		return;
@@ -79,7 +79,7 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	item[i] = line + a;
 	if ( (line+a)[0] == 'd')
 	{
-		is_dir = TRUE;
+		dir = TRUE;
 		archive->nr_of_dirs++;
 	}
 	else
@@ -175,8 +175,10 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	if (entry != NULL)
 	{
-		entry->is_dir = is_dir;
-		entry->is_encrypted = encrypted;
+		if (dir)
+			 entry->is_dir = TRUE;
+		if (encrypted)
+			entry->is_encrypted = TRUE;
 	}
 	else
 	{

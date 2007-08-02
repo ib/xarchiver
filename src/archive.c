@@ -534,7 +534,6 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 	
 	while (entry)
 	{
-		g_print ("inserisco %s in %x is_dir è %d\n",entry->filename,entry,entry->is_dir);
 		if(!g_utf8_validate(entry->filename, -1, NULL) )
 		{
 			gchar *dummy = g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL);
@@ -555,10 +554,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 		gtk_list_store_append (archive->liststore, &iter);
 
 		if (entry->is_dir)
-		{
-			g_print ("%s è una dir\n",entry->filename);
 			icon_name = "folder";
-		}
 		else if (entry->is_encrypted)
 			icon_name = "password";
 		
