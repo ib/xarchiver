@@ -349,7 +349,7 @@ XEntry *xa_find_archive_entry(XEntry *entry, gchar *string)
 	return found_entry;
 }
 
-XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items)
+XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gboolean encrypted,gpointer *items)
 {
 	XEntry *child_entry= NULL;
 	XEntry *last_entry = NULL;
@@ -372,6 +372,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			last_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
 			last_entry->filename = g_strdup(full_path_name);
 			last_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,last_entry,items);
+			last_entry->is_dir = TRUE;
 			archive->entries = g_slist_prepend (archive->entries,last_entry);
 		}
 		p++;
@@ -401,8 +402,11 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			filename_only = g_strndup(p,strlen(p));
 			child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 			child_entry->filename = filename_only;
-
 			child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
+			
+			if (encrypted)
+				child_entry->is_encrypted = TRUE;
+
 			child_entry->next = last_entry->child;
 			last_entry->child = child_entry;
 		}
