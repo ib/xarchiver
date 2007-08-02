@@ -78,10 +78,7 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	line[n]='\0';
 	item[i] = line + a;
 	if ( (line+a)[0] == 'd')
-	{
 		dir = TRUE;
-		archive->nr_of_dirs++;
-	}
 	else
 		archive->nr_of_files++;
 	i++;

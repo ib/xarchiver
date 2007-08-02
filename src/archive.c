@@ -374,6 +374,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			last_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,last_entry,items);
 			last_entry->is_dir = TRUE;
 			archive->entries = g_slist_prepend (archive->entries,last_entry);
+			archive->nr_of_dirs++;
 		}
 		p++;
 		g_free(full_path_name);
@@ -390,6 +391,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 
 				child_entry->next = last_entry->child;
 				last_entry->child = child_entry;
+				archive->nr_of_dirs++;
 			}
 			g_free(full_path_name);
 			last_entry = child_entry;
