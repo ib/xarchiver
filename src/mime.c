@@ -46,7 +46,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 		icon_name = "gnome-mime-application-vnd.ms-powerpoint";
 	else if (strcmp(mime,"application/zip") == 0 || strcmp(mime,"application/x-rar") == 0 || strcmp(mime,"application/x-tar") == 0
 		|| strcmp(mime,"application/x-7z-compressed") == 0 || strcmp(mime,"application/x-bzip-compressed-tar") == 0
-		|| strcmp (mime,"application/x-compressed-tar") == 0 )
+		|| strcmp (mime,"application/x-compressed-tar") == 0 || strcmp (mime,"application/x-lha") == 0 )
 		icon_name = "package";
 	else if (strcmp(mime,"application/x-shockwave-flash") == 0 || strcmp(mime,"video/mpeg") == 0 || strcmp(mime,"video/quicktime") == 0
 		|| strcmp(mime,"video/x-msvideo") == 0)

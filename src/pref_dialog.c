@@ -28,7 +28,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 {
 	GtkWidget *vbox1, *vbox2, *vbox3, *vbox4,*hbox1, *scrolledwindow1, *prefs_iconview, *label5;
 	GtkWidget *label1, *label2, *label3, *label4, *frame1, *frame2, *frame3, *alignment1, *alignment2, *alignment3;
-	GtkWidget *hbox3, *hbox4, *label6, *label7, *hbox5, *label8, *hbox6;
+	GtkWidget *hbox3, *hbox4, *label6, *label7, *hbox5, *label8, *label9, *hbox6, *hbox7;
 	GtkTreeIter iter;
 	GList *archive_type;
 	GdkPixbuf *icon_pixbuf;
@@ -100,15 +100,15 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	label4 = gtk_label_new (_("Preferred format for new archives:"));
 	gtk_box_pack_start (GTK_BOX (hbox1), label4, FALSE, FALSE, 0);
 
-	prefs_data->combo_box1 = gtk_combo_box_new_text();
-	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->combo_box1, FALSE, TRUE, 0);
+	prefs_data->combo_prefered_format = gtk_combo_box_new_text();
+	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->combo_prefered_format, FALSE, TRUE, 0);
 	archive_type = g_list_first ( ArchiveType );
 	while ( archive_type != NULL )
 	{
 		if (archive_type->data == "tgz" || archive_type->data == "rpm" || archive_type->data == "iso" || archive_type->data == "gz" || archive_type->data == "bz2" || (archive_type->data == "rar" && unrar) )
 			goto next;
 		else
-			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box1),archive_type->data );
+			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_format),archive_type->data );
 		next:
 			archive_type = g_list_next ( archive_type );
 	}
@@ -150,10 +150,21 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	label5 = gtk_label_new (_("View archive content as"));
 	gtk_box_pack_start (GTK_BOX (hbox3), label5, FALSE, FALSE, 0);
 
-	prefs_data->combo_box2 = gtk_combo_box_new_text();
-	gtk_box_pack_start (GTK_BOX (hbox3), prefs_data->combo_box2, FALSE, TRUE, 0);
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box2), _("list") );
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box2), _("icon") );
+	prefs_data->combo_archive_view = gtk_combo_box_new_text();
+	gtk_box_pack_start (GTK_BOX (hbox3), prefs_data->combo_archive_view, FALSE, TRUE, 0);
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_archive_view), _("list") );
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_archive_view), _("icon") );
+	
+	hbox7 = gtk_hbox_new (FALSE, 5);
+	gtk_box_pack_start (GTK_BOX (vbox2), hbox7, FALSE, TRUE, 0);
+	
+	label9 = gtk_label_new (_("Size of the mimetype icons"));
+	gtk_box_pack_start (GTK_BOX (hbox7), label9, FALSE, FALSE, 0);
+
+	prefs_data->combo_icon_size = gtk_combo_box_new_text();
+	gtk_box_pack_start (GTK_BOX (hbox7), prefs_data->combo_icon_size, FALSE, TRUE, 0);
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("Large") );
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("Small") );
 
 	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show archive comment after loading it"));
 	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_show_comment, FALSE, FALSE, 0);
@@ -190,23 +201,23 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	hbox4 = gtk_hbox_new (FALSE, 5);
 	gtk_box_pack_start (GTK_BOX (vbox3), hbox4, FALSE, TRUE, 0);
 
-	label6 = gtk_label_new (_("Preferred web browser:"));
+	label6 = gtk_label_new (_("View HTML help with:"));
 	gtk_box_pack_start (GTK_BOX (hbox4), label6, FALSE, FALSE, 0);
 
-	prefs_data->combo_box3 = gtk_combo_box_new_text();
-	gtk_box_pack_start (GTK_BOX (hbox4), prefs_data->combo_box3, FALSE, TRUE, 0);
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box3), _("xfce default") );
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box3), _("konqueror") );
+	prefs_data->combo_prefered_web_browser = gtk_combo_box_new_text();
+	gtk_box_pack_start (GTK_BOX (hbox4), prefs_data->combo_prefered_web_browser, FALSE, TRUE, 0);
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_web_browser), _("Firefox") );
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_web_browser), _("choose...") );
 
 	hbox5 = gtk_hbox_new (FALSE, 5);
 	gtk_box_pack_start (GTK_BOX (vbox3), hbox5, FALSE, TRUE, 0);
 
-	label7 = gtk_label_new (_("Preferred view application:"));
+	label7 = gtk_label_new (_("Open text files with:"));
 	gtk_box_pack_start (GTK_BOX (hbox5), label7, FALSE, FALSE, 0);
 
-	prefs_data->combo_box4 = gtk_combo_box_new_text();
-	gtk_box_pack_start (GTK_BOX (hbox5), prefs_data->combo_box4, FALSE, TRUE, 0);
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box4), _("choose...") );
+	prefs_data->combo_prefered_editor = gtk_combo_box_new_text();
+	gtk_box_pack_start (GTK_BOX (hbox5), prefs_data->combo_prefered_editor, FALSE, TRUE, 0);
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_editor), _("choose...") );
 	
 	hbox6 = gtk_hbox_new (FALSE, 5);
 	gtk_box_pack_start (GTK_BOX (vbox3), hbox6, FALSE, TRUE, 0);
@@ -214,9 +225,10 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	label8 = gtk_label_new (_("Preferred temp directory:"));
 	gtk_box_pack_start (GTK_BOX (hbox6), label8, FALSE, FALSE, 0);
 	
-	prefs_data->combo_box5 = gtk_combo_box_new_text();
-	gtk_box_pack_start (GTK_BOX (hbox6), prefs_data->combo_box5, FALSE, TRUE, 0);
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_box5), _("choose...") );
+	prefs_data->combo_prefered_temp_dir = gtk_combo_box_new_text();
+	gtk_box_pack_start (GTK_BOX (hbox6), prefs_data->combo_prefered_temp_dir, FALSE, TRUE, 0);
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_temp_dir), _("/tmp") );
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_temp_dir), _("choose...") );
 
 	prefs_data->check_save_geometry = gtk_check_button_new_with_mnemonic (_("Save window geometry on exit"));
 	gtk_box_pack_start (GTK_BOX (vbox3), prefs_data->check_save_geometry, FALSE, FALSE, 0);
@@ -255,3 +267,55 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
 	else if (column == 2)
 		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),2);
 }
+
+void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
+{
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),2);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),TRUE);
+
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),0);
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
+	
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),0);
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);	
+}
+
+void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
+{
+	// leggi i valori dei widget e salva
+	
+}
+
+void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
+{
+	GKeyFile *xa_key_file = NULL;
+	gchar *config_dir = NULL;
+	gchar *xarchiver_config_dir = NULL;
+	gchar *config_file = NULL;
+
+	xa_key_file = g_key_file_new();
+	config_dir = g_strconcat (g_get_home_dir(),"/.config",NULL);
+	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
+		g_mkdir_with_parents(config_dir,0600);
+					
+	xarchiver_config_dir = g_strconcat (config_dir,"/xarchiver",NULL);
+	g_free (config_dir);
+	if (g_file_test(xarchiver_config_dir, G_FILE_TEST_EXISTS) == FALSE)
+		g_mkdir_with_parents(xarchiver_config_dir,0600);
+
+	config_file = g_strconcat (xarchiver_config_dir,"/xarchiverrc",NULL);
+	g_free (xarchiver_config_dir);
+		
+	if ( ! g_key_file_load_from_file(xa_key_file,config_file,G_KEY_FILE_KEEP_COMMENTS,NULL) )
+	{
+		g_print ("Chiamo il default\n");
+		xa_prefs_dialog_set_default_options(prefs_data);
+		xa_prefs_save_options(prefs_data,config_file);
+	}
+	else
+		//imposta i widget con i valori caricati
+	g_key_file_free(xa_key_file);
+}
+

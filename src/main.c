@@ -35,6 +35,7 @@ gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
 gboolean cli = FALSE;
 gboolean unrar = FALSE;
 extern gchar *current_open_directory;
+Prefs_dialog_data *prefs_window = NULL;
 
 static GOptionEntry entries[] =
 {
@@ -220,8 +221,11 @@ done:	g_list_free ( ArchiveSuffix);
 		GetAvailableCompressors();
 		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
 		ArchiveType = g_list_reverse (ArchiveType);
-
 		MainWindow = create_MainWindow ();
+
+		prefs_window = xa_create_prefs_dialog();
+		xa_prefs_load_options (prefs_window);
+
 		gtk_window_set_position ( GTK_WINDOW (MainWindow),GTK_WIN_POS_CENTER);
 		gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
 		Update_StatusBar ( _("Ready."));

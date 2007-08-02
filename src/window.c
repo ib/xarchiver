@@ -35,6 +35,7 @@ extern gboolean cli;
 extern gboolean stop_flag;
 extern gboolean unrar;
 
+extern Prefs_dialog_data *prefs_window;
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix , *Name;
@@ -663,13 +664,9 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 void xa_show_prefs_dialog ( GtkMenuItem *menuitem , gpointer user_data )
 {
-	static Prefs_dialog_data *prefs_window = NULL;
-
 	if (prefs_window == NULL)
-	{
 		prefs_window = xa_create_prefs_dialog();
-		gtk_window_set_destroy_with_parent (GTK_WINDOW (prefs_window->dialog1) , TRUE);
-	}
+
 	gtk_widget_show_all(prefs_window->dialog1);
 	gtk_dialog_run ( GTK_DIALOG(prefs_window->dialog1) );
 	gtk_widget_hide (prefs_window->dialog1);
@@ -1164,9 +1161,9 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
 	renderer = gtk_cell_renderer_pixbuf_new();
-	//GTK_ICON_SIZE_SMALL_TOOLBAR = 2;
 	//GTK_ICON_SIZE_LARGE_TOOLBAR = 3;
-	g_object_set(G_OBJECT(renderer), "stock-size", GTK_ICON_SIZE_LARGE_TOOLBAR, NULL);
+	//GTK_ICON_SIZE_SMALL_TOOLBAR = 2;
+	g_object_set(G_OBJECT(renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, renderer, "icon-name",0,NULL);
 

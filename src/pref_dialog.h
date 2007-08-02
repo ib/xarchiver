@@ -23,15 +23,18 @@ typedef struct
 {
 	GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;
-	GtkWidget *combo_box1, *check_save_add_dialog, *check_save_extract_dialog;
-	GtkWidget *allow_dir_extract_with_dnd, *confirm_deletion, *combo_box2;
+	GtkWidget *combo_prefered_format, *check_save_add_dialog, *check_save_extract_dialog;
+	GtkWidget *allow_dir_extract_with_dnd, *confirm_deletion, *combo_archive_view,*combo_icon_size;
 	GtkWidget *check_show_comment, *check_sort_filename_column, *check_show_iso_info,*show_location_bar;
-	GtkWidget *combo_box3, *combo_box4, *combo_box5, *check_save_geometry,*prefs_notebook;
+	GtkWidget *combo_prefered_web_browser, *combo_prefered_editor, *combo_prefered_temp_dir, *check_save_geometry,*prefs_notebook;
 	GtkListStore *prefs_liststore;
 	GtkTooltips *tooltips;
 } Prefs_dialog_data;
 
 Prefs_dialog_data *xa_create_prefs_dialog ();
 void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer user_data);
+void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data);
+void xa_prefs_save_options (Prefs_dialog_data *prefs_data,const char *filename);
+void xa_prefs_load_options (Prefs_dialog_data *prefs_data);
 #endif
 
