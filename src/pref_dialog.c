@@ -218,13 +218,13 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->combo_prefered_editor = gtk_combo_box_new_text();
 	gtk_box_pack_start (GTK_BOX (hbox5), prefs_data->combo_prefered_editor, FALSE, TRUE, 0);
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_editor), _("choose...") );
-	
+
 	hbox6 = gtk_hbox_new (FALSE, 5);
 	gtk_box_pack_start (GTK_BOX (vbox3), hbox6, FALSE, TRUE, 0);
 
 	label8 = gtk_label_new (_("Preferred temp directory:"));
 	gtk_box_pack_start (GTK_BOX (hbox6), label8, FALSE, FALSE, 0);
-	
+
 	prefs_data->combo_prefered_temp_dir = gtk_combo_box_new_text();
 	gtk_box_pack_start (GTK_BOX (hbox6), prefs_data->combo_prefered_temp_dir, FALSE, TRUE, 0);
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_temp_dir), _("/tmp") );
@@ -276,26 +276,64 @@ void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),0);
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
-	
+
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),0);
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);	
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),FALSE);
 }
 
 void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 {
-	// leggi i valori dei widget e salva
+	gchar *conf;
+	FILE *fp;
+	gint bytes_written, len;
+	GKeyFile *xa_key_file = g_key_file_new();
+
+	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"save_add_dialog_settings",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_add_dialog)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"save_ext_dialog_settings",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_extract_dialog)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"confirm_deletion",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion)));
+
+	g_key_file_set_integer (xa_key_file,PACKAGE,"archive_view",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_archive_view)));
+	g_key_file_set_integer (xa_key_file,PACKAGE,"icon_size",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_icon_size)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_archive_comment",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_show_comment)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_iso_info",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_show_iso_info)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"sort_filename_content",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_sort_filename_column)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_location_bar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar)));
 	
+	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_web_browser",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser)));
+	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_editor",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor)));
+	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_temp_dir",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir)));
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->check_save_geometry)) )
+	{
+		gtk_window_get_position (GTK_WINDOW(MainWindow),&prefs_data->geometry[0],&prefs_data->geometry[1]);
+		gtk_window_get_size (GTK_WINDOW(MainWindow),&prefs_data->geometry[2],&prefs_data->geometry[3]);
+		g_key_file_set_integer_list(xa_key_file, PACKAGE, "geometry", prefs_data->geometry, 4);
+	}
+	conf = g_key_file_to_data (xa_key_file, NULL, NULL);
+	len = strlen(conf);
+
+	fp = fopen(filename, "w");
+	if (fp != NULL)
+	{
+		bytes_written = fwrite(conf, sizeof (gchar), len, fp);
+		fclose(fp);
+	}
+	g_free (conf);
+	g_key_file_free(xa_key_file);
 }
 
 void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 {
-	GKeyFile *xa_key_file = NULL;
+	gint *coords;
+	guint coords_len;
 	gchar *config_dir = NULL;
 	gchar *xarchiver_config_dir = NULL;
 	gchar *config_file = NULL;
+	GKeyFile *xa_key_file = g_key_file_new();
+	GError *error = NULL;
 
-	xa_key_file = g_key_file_new();
 	config_dir = g_strconcat (g_get_home_dir(),"/.config",NULL);
 	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
 		g_mkdir_with_parents(config_dir,0600);
@@ -303,19 +341,54 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	xarchiver_config_dir = g_strconcat (config_dir,"/xarchiver",NULL);
 	g_free (config_dir);
 	if (g_file_test(xarchiver_config_dir, G_FILE_TEST_EXISTS) == FALSE)
-		g_mkdir_with_parents(xarchiver_config_dir,0600);
+		g_mkdir_with_parents(xarchiver_config_dir,0700);
 
 	config_file = g_strconcat (xarchiver_config_dir,"/xarchiverrc",NULL);
 	g_free (xarchiver_config_dir);
 		
 	if ( ! g_key_file_load_from_file(xa_key_file,config_file,G_KEY_FILE_KEEP_COMMENTS,NULL) )
 	{
-		g_print ("Chiamo il default\n");
+		/* Write the config file with the default options */
 		xa_prefs_dialog_set_default_options(prefs_data);
 		xa_prefs_save_options(prefs_data,config_file);
 	}
 	else
-		//imposta i widget con i valori caricati
-	g_key_file_free(xa_key_file);
+	{
+		/* set the options from the config file */
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_format",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_add_dialog),g_key_file_get_boolean(xa_key_file,PACKAGE,"save_add_dialog_settings",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_extract_dialog),g_key_file_get_boolean(xa_key_file,PACKAGE,"save_ext_dialog_settings",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),g_key_file_get_boolean(xa_key_file,PACKAGE,"confirm_deletion",NULL));
+
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),g_key_file_get_integer(xa_key_file,PACKAGE,"archive_view",NULL));
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),g_key_file_get_integer(xa_key_file,PACKAGE,"icon_size",NULL));
+
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_comment),g_key_file_get_integer(xa_key_file,PACKAGE,"show_archive_comment",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_iso_info),g_key_file_get_integer(xa_key_file,PACKAGE,"show_iso_info",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column),g_key_file_get_integer(xa_key_file,PACKAGE,"sort_filename_content",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar),g_key_file_get_integer(xa_key_file,PACKAGE,"show_location_bar",NULL));
+		
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_web_browser",NULL));
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_editor",NULL));
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_temp_dir",NULL));
+		coords = g_key_file_get_integer_list(xa_key_file, PACKAGE, "geometry", &coords_len, &error);
+		if (error)
+		{
+			prefs_data->geometry[0] = -1;
+			g_error_free(error);
+			error = NULL;
+		}
+		else
+		{	
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);	
+			prefs_data->geometry[0] = coords[0];
+			prefs_data->geometry[1] = coords[1];
+			prefs_data->geometry[2] = coords[2];
+			prefs_data->geometry[3] = coords[3];
+		}
+	}
+	g_key_file_free (xa_key_file);
+	g_free (config_file);
 }
 

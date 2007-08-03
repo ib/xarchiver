@@ -29,6 +29,7 @@ typedef struct
 	GtkWidget *combo_prefered_web_browser, *combo_prefered_editor, *combo_prefered_temp_dir, *check_save_geometry,*prefs_notebook;
 	GtkListStore *prefs_liststore;
 	GtkTooltips *tooltips;
+	int geometry[3];
 } Prefs_dialog_data;
 
 Prefs_dialog_data *xa_create_prefs_dialog ();
