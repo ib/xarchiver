@@ -97,7 +97,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	hbox1 = gtk_hbox_new (FALSE, 5);
 	gtk_box_pack_start (GTK_BOX (vbox4), hbox1, FALSE, TRUE, 0);
 
-	label4 = gtk_label_new (_("Preferred format for new archives:"));
+	label4 = gtk_label_new (_("Preferred archive format"));
 	gtk_box_pack_start (GTK_BOX (hbox1), label4, FALSE, FALSE, 0);
 
 	prefs_data->combo_prefered_format = gtk_combo_box_new_text();
@@ -121,11 +121,11 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_save_extract_dialog, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_extract_dialog), FALSE);
 
-	prefs_data->allow_dir_extract_with_dnd = gtk_check_button_new_with_mnemonic (_("Allow extracting directories by drag and drop"));
+	prefs_data->allow_dir_extract_with_dnd = gtk_check_button_new_with_mnemonic (_("Allow extracting dirs by drag and drop"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->allow_dir_extract_with_dnd, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->allow_dir_extract_with_dnd), FALSE);
 
-	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files inside the archive"));
+	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->confirm_deletion), FALSE);
 
@@ -167,8 +167,8 @@ Prefs_dialog_data *xa_create_prefs_dialog()
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (label9), 0.99, 0.5);
 	prefs_data->combo_icon_size = gtk_combo_box_new_text();
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("Large") );
-	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("Small") );
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("large") );
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("small") );
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->combo_icon_size, 1, 2, 1, 2,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
