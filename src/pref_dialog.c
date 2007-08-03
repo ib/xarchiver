@@ -288,7 +288,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	FILE *fp;
 	gint bytes_written, len;
 	GKeyFile *xa_key_file = g_key_file_new();
-
+	
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"save_add_dialog_settings",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_add_dialog)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"save_ext_dialog_settings",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_extract_dialog)));
@@ -330,7 +330,6 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	guint coords_len;
 	gchar *config_dir = NULL;
 	gchar *xarchiver_config_dir = NULL;
-	gchar *config_file = NULL;
 	GKeyFile *xa_key_file = g_key_file_new();
 	GError *error = NULL;
 
@@ -364,10 +363,10 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),g_key_file_get_integer(xa_key_file,PACKAGE,"archive_view",NULL));
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),g_key_file_get_integer(xa_key_file,PACKAGE,"icon_size",NULL));
 
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_comment),g_key_file_get_integer(xa_key_file,PACKAGE,"show_archive_comment",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_iso_info),g_key_file_get_integer(xa_key_file,PACKAGE,"show_iso_info",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column),g_key_file_get_integer(xa_key_file,PACKAGE,"sort_filename_content",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar),g_key_file_get_integer(xa_key_file,PACKAGE,"show_location_bar",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_comment),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_archive_comment",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_iso_info),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_iso_info",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column),g_key_file_get_boolean(xa_key_file,PACKAGE,"sort_filename_content",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_location_bar",NULL));
 		
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_web_browser",NULL));
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_editor",NULL));
@@ -389,6 +388,6 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		}
 	}
 	g_key_file_free (xa_key_file);
-	g_free (config_file);
+	/* config_file is freed in window.c:519 */
 }
 

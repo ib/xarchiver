@@ -34,8 +34,9 @@ extern GList *ArchiveSuffix;
 extern gboolean cli;
 extern gboolean stop_flag;
 extern gboolean unrar;
-
 extern Prefs_dialog_data *prefs_window;
+extern gchar *config_file;
+
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix , *Name;
@@ -514,10 +515,8 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	if (current_open_directory != NULL)
 		g_free (current_open_directory);
 
-	/*
- 	clean the prefs structure because it's hidden
-	clean the prefs_data structure
-	*/
+	xa_prefs_save_options (prefs_window,config_file);
+	g_free (config_file);
 
 #ifdef HAVE_SOCKET
 	socket_finalize();
@@ -667,8 +666,8 @@ void xa_show_prefs_dialog ( GtkMenuItem *menuitem , gpointer user_data )
 	if (prefs_window == NULL)
 		prefs_window = xa_create_prefs_dialog();
 
-	gtk_widget_show_all(prefs_window->dialog1);
-	gtk_dialog_run ( GTK_DIALOG(prefs_window->dialog1) );
+	gtk_widget_show_all (prefs_window->dialog1);
+	gtk_dialog_run (GTK_DIALOG(prefs_window->dialog1));
 	gtk_widget_hide (prefs_window->dialog1);
 }
 

@@ -226,7 +226,7 @@ done:	g_list_free ( ArchiveSuffix);
 		prefs_window = xa_create_prefs_dialog();
 		xa_prefs_load_options (prefs_window);
 
-		if (prefs_window->check_save_geometry && prefs_window->geometry[0] != -1)
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
 		{
 			gtk_window_move (GTK_WINDOW(MainWindow), prefs_window->geometry[0], prefs_window->geometry[1]);
 			gtk_window_set_default_size (GTK_WINDOW(MainWindow), prefs_window->geometry[2], prefs_window->geometry[3]);
@@ -254,7 +254,6 @@ done:	g_list_free ( ArchiveSuffix);
 		}
 		#endif
 		gtk_main ();
-		xa_prefs_save_options (prefs_window,"/home/gt/.config/xarchiver/xarchiverrc");
 		g_list_free ( ArchiveSuffix);
 		g_list_free ( ArchiveType);
 		return 0;

@@ -32,6 +32,7 @@ GList *ArchiveType;
 const gchar *locale;
 
 void GetAvailableCompressors();
+gchar *config_file;
 gchar *get_argv_filename(const gchar *filename);
 gboolean SpawnSyncCommand ( gchar *command );
 XArchive *xa_init_structure_from_cmd_line (char *filename);
