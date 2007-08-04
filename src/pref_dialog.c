@@ -26,7 +26,7 @@
 extern gboolean unrar;
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
-	GtkWidget *vbox1, *vbox2, *vbox3, *vbox4,*hbox1, *scrolledwindow1, *prefs_iconview, *label5;
+	GtkWidget *vbox1, *vbox4, *hbox1, *scrolledwindow1, *prefs_iconview, *label5;
 	GtkWidget *label1, *label2, *label3, *label4, *frame1, *frame2, *frame3, *alignment1, *alignment2, *alignment3;
 	GtkWidget *label6, *label7, *label8, *label9, *table1, *table2;
 	GtkTreeIter iter;
@@ -141,11 +141,8 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_container_add (GTK_CONTAINER (frame2), alignment2);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment2), 0, 0, 12, 0);
 
-	vbox2 = gtk_vbox_new (FALSE, 2);
-	gtk_container_add (GTK_CONTAINER (alignment2), vbox2);
-	
-	table1 = gtk_table_new (2, 2,FALSE);
-	gtk_container_add (GTK_CONTAINER (vbox2), table1);
+	table1 = gtk_table_new (6, 2,FALSE);
+	gtk_container_add (GTK_CONTAINER (alignment2), table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 4);
 
@@ -165,7 +162,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_attach (GTK_TABLE (table1), label9, 0, 1, 1, 2,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
-	gtk_misc_set_alignment (GTK_MISC (label9), 0.99, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
 	prefs_data->combo_icon_size = gtk_combo_box_new_text();
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("large") );
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("small") );
@@ -174,20 +171,28 @@ Prefs_dialog_data *xa_create_prefs_dialog()
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	
 	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show archive comment after loading it"));
-	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_show_comment, FALSE, FALSE, 0);
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_show_comment, 0, 2, 2, 3,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_show_comment), FALSE);
 
 	prefs_data->check_show_iso_info = gtk_check_button_new_with_mnemonic (_("Show ISO info after loading the image"));
-	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_show_iso_info, FALSE, FALSE, 0);
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_show_iso_info, 0, 2, 3, 4,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_show_iso_info), FALSE);
 
 	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic (_("Sort content by filename"));
-	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->check_sort_filename_column, FALSE, FALSE, 0);
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_sort_filename_column, 0, 2, 4, 5,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
 	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sort after loading the archive"), NULL);
 
 	prefs_data->show_location_bar = gtk_check_button_new_with_mnemonic (_("Show location bar"));
-	gtk_box_pack_start (GTK_BOX (vbox2), prefs_data->show_location_bar, FALSE, FALSE, 0);
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_location_bar, 0, 2, 5, 6,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_location_bar), FALSE);
 
 	label2 = gtk_label_new ("");
@@ -202,11 +207,8 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_container_add (GTK_CONTAINER (frame3), alignment3);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment3), 0, 0, 12, 0);
 
-	vbox3 = gtk_vbox_new (FALSE, 2);
-	gtk_container_add (GTK_CONTAINER (alignment3), vbox3);
-
-	table2 = gtk_table_new (3, 2,FALSE);
-	gtk_container_add (GTK_CONTAINER (vbox3), table2);
+	table2 = gtk_table_new (4, 2,FALSE);
+	gtk_container_add (GTK_CONTAINER (alignment3), table2);
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table2), 4);
 
@@ -244,7 +246,9 @@ Prefs_dialog_data *xa_create_prefs_dialog()
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	prefs_data->check_save_geometry = gtk_check_button_new_with_mnemonic (_("Save window geometry on exit"));
-	gtk_box_pack_start (GTK_BOX (vbox3), prefs_data->check_save_geometry, FALSE, FALSE, 0);
+	gtk_table_attach (GTK_TABLE (table2), prefs_data->check_save_geometry, 0, 2, 3, 4,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_geometry), FALSE);
 
 	label3 = gtk_label_new ("");
