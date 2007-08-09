@@ -117,7 +117,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			switch ( archive->type )
 			{
 				case XARCHIVETYPE_RAR:
-			    OpenRar ( archive );
+			    xa_open_rar ( archive );
 				break;
 
 				case XARCHIVETYPE_TAR:
@@ -358,7 +358,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_RAR:
-		OpenRar (archive[current_page]);
+		xa_open_rar (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_RPM:
@@ -2195,6 +2195,20 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_text_buffer_insert (viewtextbuf, &viewenditer, "\n", 1);
 	gtk_text_buffer_insert_with_tags_by_name (viewtextbuf, &viewenditer, archive[idx]->comment->str, archive[idx]->comment->len, "bold", NULL);
 	gtk_widget_show (comment_window);
+}
+
+void xa_location_entry_activated (GtkEntry *entry, gpointer  user_data)
+{
+	gchar *parent = NULL;
+	gint current_page;
+	gint idx;
+
+	parent = xa_get_parent_dir ((const gchar*)gtk_entry_get_text(entry));
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
+	g_print ("parent: %s\t loc.entry: %s\n",parent,archive[idx]->location_entry_path);
+	//xa_update_window_with_archive_entries(archive[idx],parent);
+	g_free (parent);
 }
 
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)

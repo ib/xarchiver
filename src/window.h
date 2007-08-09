@@ -108,6 +108,7 @@ void Update_StatusBar (gchar *msg);
 gchar *xa_open_file_dialog ();
 gchar *xa_open_sfx_file_selector ();
 void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
+void xa_location_entry_activated (GtkEntry *entry,gpointer  user_data);
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data);
 gchar *name;
 gchar *permissions;

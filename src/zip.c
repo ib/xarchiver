@@ -25,7 +25,7 @@
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 static void xa_get_zip_line_content (gchar *line, gpointer data);
 
-void xa_open_zip ( XArchive *archive )
+void xa_open_zip (XArchive *archive)
 {
 	unsigned short int i;
 

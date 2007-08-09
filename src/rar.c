@@ -17,17 +17,19 @@
  */
 
 #include "config.h"
+#include <string.h>
 #include "rar.h"
 
 extern gboolean unrar;
-static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
-GtkTreeIter iter;
+extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
+static void xa_get_rar_line_content (gchar *line, gpointer data);
 
-void OpenRar ( XArchive *archive )
+void xa_open_rar (XArchive *archive)
 {
-	jump_header = FALSE;
+	unsigned short int i;
 	gchar *command = NULL;
 	gchar *rar = NULL;
+	jump_header = read_filename = last_line = FALSE;
 
 	if (unrar)
 	{
@@ -40,123 +42,152 @@ void OpenRar ( XArchive *archive )
 		archive->can_add = archive->has_sfx = TRUE;
 	}
 
-	command = g_strconcat ( rar," vl -c- " , archive->escaped_path, NULL );
+	command = g_strconcat ( rar," v " , archive->escaped_path, NULL );
 	archive->can_extract = archive->has_test = archive->has_properties = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
-	archive->parse_output = RarOpen;
+    archive->nc = 9;
+	archive->parse_output = xa_get_rar_line_content;
 	archive->format ="RAR";
 	xa_spawn_async_process (archive,command,0);
 	g_free ( command );
+
 	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-    archive->has_passwd = FALSE;
-	xa_create_liststore ( 7, names , (GType *)types, archive );
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 11; i++)
+		archive->column_types[i] = types[i];
+
+	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version"))};
+    xa_create_liststore (archive,names);
 }
 
-static gboolean RarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
+void xa_get_rar_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	gchar **fields = NULL;
-	gchar *line = NULL;
-	GIOStatus status = G_IO_STATUS_NORMAL;
-	unsigned short int x;
+	XEntry *entry;
 
-	if (cond & (G_IO_IN | G_IO_PRI) )
+	gpointer item[9];
+	unsigned short int i = 0;
+	unsigned int linesize,n,a;
+	gboolean encrypted,dir;
+
+	encrypted = dir = FALSE;
+
+	if (last_line)
+		return;
+
+	if (jump_header == FALSE)
 	{
-		do
+		if (line[0] == '-')
 		{
-			/* This to avoid inserting in the list RAR's copyright message */
-			if (jump_header == FALSE )
-			{
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line == NULL)
-					break;
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				if  (strncmp (line , "--------" , 8) == 0)
-				{
-					jump_header = TRUE;
-					odd_line = TRUE;
-				}
-				g_free (line);
-				break;
-			}
-			if (jump_header && odd_line)
-			{
-				/* Now read the filename */
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if ( line == NULL )
-					break;
-				/* This to avoid inserting in the liststore the last line of Rar output */
-				if (strncmp (line, "--------", 8) == 0 || strncmp (line, "\x0a",1) == 0)
-				{
-					g_free (line);
-					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-					if (line == NULL)
-						break;
-					archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-					g_free (line);
-					break;
-				}
-				gtk_list_store_append (archive->liststore, &iter);
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				line[ strlen(line) - 1 ] = '\000';
-				if (line[0] == '*')
-					archive->has_passwd = TRUE;
-				/* This to avoid the white space or the * before the first char of the filename */
-				line++;
-				gtk_list_store_set (archive->liststore, &iter,0,line,-1);
-				/* Restore the pointer before freeing it */
-				line--;
-				g_free (line);
-				odd_line = ! odd_line;
-				break;
-			}
-			else
-			{
-				/* Now read the rest of the data */
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if ( line == NULL)
-					break;
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				fields = split_line (line,6);
-				if (fields[5] == NULL)
-					break;
-				if ( strstr (fields[5] , "d") == NULL && strstr (fields[5] , "D") == NULL )
-					archive->nr_of_files++;
-				else
-					archive->nr_of_dirs++;
-				for (x = 0; x < 6; x++)
-				{
-					if (x == 0 || x == 1)
-						gtk_list_store_set (archive->liststore, &iter,x+1,strtoll(fields[x],NULL,0),-1);
-					else
-						gtk_list_store_set (archive->liststore, &iter,x+1,fields[x],-1);
-				}
-				while ( gtk_events_pending() )
-					gtk_main_iteration();
-				archive->dummy_size += strtoll(fields[0],NULL,0);
-				g_strfreev ( fields );
-				g_free (line);
-				odd_line = ! odd_line;
-			}
+			jump_header = TRUE;
+			return;
 		}
-		while (status == G_IO_STATUS_NORMAL);
-
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
+		return;
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	if (read_filename == FALSE)
 	{
-done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
-		g_object_unref (archive->model);
-		return FALSE;
+		linesize = strlen(line);
+		if(line[0] == '*')
+			encrypted = TRUE;
+		else if (line[0] == '-')
+		{
+			last_line = TRUE;
+			return;
+		}
+		line[linesize - 1] = '\0';
+		filename = g_strdup(line+1);
+		read_filename = TRUE;
 	}
-	return TRUE;
+	else
+	{
+		/* size */
+		for(n=0; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n]='\0';
+		item[i] = line + a;
+		i++;
+		n++;
+		
+		/* Packed */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n]='\0';
+		item[i] = line + a;
+		i++;
+		n++;
+
+		/* Ratio */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n] = '\0';
+		item[i] = line + a;
+		i++;
+		n++;
+
+		/* Date */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n] = '\0';
+		item[i] = line + a;
+		i++;
+		n++;
+
+		/* Time */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n] = '\0';
+		item[i] = line + a;
+		i++;
+		n++;
+
+		/* Attr */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n] = '\0';
+		item[i] = line + a;
+		i++;
+		n++;
+
+		/* CRC */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n] = '\0';
+		item[i] = line + a;
+		i++;
+		n++;
+
+		/* Method */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n] = '\0';
+		item[i] = line + a;
+		i++;
+		n++;
+
+		/* version */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' ' && line[n] != '\n'; n++);
+		line[n] = '\0';
+		item[i] = line + a;
+		i++;
+		n++;
+
+		entry = xa_set_archive_entries_for_each_row (archive,filename,encrypted,item);
+		g_free(filename);
+		read_filename = FALSE;
+	}
 }

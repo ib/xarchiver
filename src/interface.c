@@ -391,7 +391,7 @@ GtkWidget *create_MainWindow (void)
 
 	location_entry = gtk_entry_new();
 	gtk_box_pack_start (GTK_BOX (hbox1), location_entry, TRUE, TRUE, 0);
-
+	g_signal_connect (G_OBJECT (location_entry), "activate",	G_CALLBACK (xa_location_entry_activated), NULL);
 	gtk_widget_show_all(toolbar2);
 
 	/* Create the notebook widget */

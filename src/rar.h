@@ -20,12 +20,11 @@
 #define RAR_H
 
 #include <gtk/gtk.h>
-#include <string.h>
 #include <stdlib.h>
 #include "string_utils.h"
 #include "support.h"
 #include "archive.h"
-
-gboolean jump_header , odd_line;
-void OpenRar ( XArchive *archive );
+gboolean jump_header,read_filename, last_line;
+gchar *filename;
+void xa_open_rar ( XArchive *archive );
 #endif
