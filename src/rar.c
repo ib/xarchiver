@@ -113,6 +113,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n]='\0';
 		item[i] = line + a;
+		archive->dummy_size += strtoll(item[i],NULL,0);
 		i++;
 		n++;
 		
@@ -159,6 +160,8 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		line[n] = '\0';
 		if ((line+a)[0] == 'd')
 			dir = TRUE;
+		else
+			archive->nr_of_files++;
 		item[i] = line + a;
 		i++;
 		n++;

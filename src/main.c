@@ -244,6 +244,11 @@ done:	g_list_free ( ArchiveSuffix);
 		{
 			gchar *dummy = g_strdup(argv[1]);
 			current_open_directory = g_path_get_dirname (dummy);
+			if (strcmp(current_open_directory,"..") == 0)
+			{
+				g_free (current_open_directory);
+				current_open_directory = g_get_current_dir();
+			}
 			xa_open_archive ( NULL , dummy );
 		}
 		#ifdef HAVE_SOCKET

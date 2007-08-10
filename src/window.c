@@ -1554,13 +1554,14 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     g_free (utf8_string);
     //Path
     dummy_string = remove_level_from_path (archive[idx]->path);
-    if ( strlen(dummy_string) != 0)
-		utf8_string = g_filename_display_name (dummy_string);
+    if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0)
+		utf8_string = g_filename_display_name (g_get_current_dir ());
     else
-		utf8_string = g_filename_display_name ( g_get_current_dir () );
+		utf8_string = g_filename_display_name (dummy_string);
+    g_free ( dummy_string );
+
     gtk_entry_set_text ( GTK_ENTRY (path_data), utf8_string );
     g_free ( utf8_string );
-    g_free ( dummy_string );
 	//Type
 	gtk_entry_set_text ( GTK_ENTRY (type_data), archive[idx]->format );
     //Modified Date
@@ -2203,7 +2204,7 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer  user_data)
 	gint current_page;
 	gint idx;
 
-	parent = xa_get_parent_dir ((const gchar*)gtk_entry_get_text(entry));
+	parent = xa_get_parent_dir (gtk_entry_get_text(entry));
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 	g_print ("parent: %s\t loc.entry: %s\n",parent,archive[idx]->location_entry_path);
