@@ -99,13 +99,15 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 			last_line = TRUE;
 			return;
 		}
-		line[linesize - 1] = '\0';
-		filename = g_strdup(line+1);
+		line++;
+		line[linesize - 2] = '\0';
+		filename = g_strdup(line);
 		read_filename = TRUE;
 	}
 	else
 	{
-		/* size */
+		linesize = strlen(line);
+		/* Size */
 		for(n=0; n < linesize && line[n] == ' '; n++);
 		a = n;
 		for(; n < linesize && line[n] != ' '; n++);
@@ -114,7 +116,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		i++;
 		n++;
 		
-		/* Packed */
+		/* Compressed */
 		for(; n < linesize && line[n] == ' '; n++);
 		a = n;
 		for(; n < linesize && line[n] != ' '; n++);
@@ -150,11 +152,13 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		i++;
 		n++;
 
-		/* Attr */
+		/* Permissions */
 		for(; n < linesize && line[n] == ' '; n++);
 		a = n;
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n] = '\0';
+		if ((line+a)[0] == 'd')
+			dir = TRUE;
 		item[i] = line + a;
 		i++;
 		n++;
@@ -183,9 +187,13 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		for(; n < linesize && line[n] != ' ' && line[n] != '\n'; n++);
 		line[n] = '\0';
 		item[i] = line + a;
-		i++;
-		n++;
 
+		if (dir)
+		{
+			gchar *filename_with_slash = g_strconcat (filename,"/",NULL);
+			g_free (filename);
+			filename = filename_with_slash;
+		}
 		entry = xa_set_archive_entries_for_each_row (archive,filename,encrypted,item);
 		g_free(filename);
 		read_filename = FALSE;

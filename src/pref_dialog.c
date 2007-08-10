@@ -51,6 +51,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	
 	prefs_data->prefs_liststore = gtk_list_store_new ( 3, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT);
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
+	//TODO: fix the absolute path
 	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-behaviour.svg", NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Behaviour"),2,0,-1);
 	g_object_unref (icon_pixbuf);
@@ -245,7 +246,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_temp_dir, 1, 2, 2, 3,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
-	prefs_data->check_save_geometry = gtk_check_button_new_with_mnemonic (_("Save window geometry on exit"));
+	prefs_data->check_save_geometry = gtk_check_button_new_with_mnemonic (_("Save window geometry"));
 	gtk_table_attach (GTK_TABLE (table2), prefs_data->check_save_geometry, 0, 2, 3, 4,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
@@ -344,7 +345,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 {
 	gint *coords = NULL;
-	guint coords_len;
+	guint coords_len = 0;
 	gchar *config_dir = NULL;
 	gchar *xarchiver_config_dir = NULL;
 	GKeyFile *xa_key_file = g_key_file_new();
