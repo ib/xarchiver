@@ -124,6 +124,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	{
 		gint len = strlen(filename) - strlen(temp);
 		item[0] = (filename +=3) + len;
+		filename[strlen(filename) - strlen(temp)] = '\0';
 	}
 	else
 		item[0] = NULL;
