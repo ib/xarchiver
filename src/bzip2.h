@@ -20,12 +20,11 @@
 #define BZIP2_H
 
 #include <gtk/gtk.h>
-#include "interface.h"
 #include "support.h"
 #include "main.h"
 #include "archive.h"
 
-void OpenBzip2 ( XArchive *archive );
+void xa_open_bzip2 (XArchive *archive);
 void gzip_bzip2_extract ( XArchive *archive , gboolean flag );
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add );
 GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data);

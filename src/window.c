@@ -125,11 +125,11 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				break;
 
 				case XARCHIVETYPE_TAR_BZ2:
-				OpenBzip2 ( archive );
+				xa_open_bzip2 ( archive );
 				break;
 
 				case XARCHIVETYPE_TAR_GZ:
-				OpenGzip ( archive );
+				xa_open_gzip ( archive );
 				break;
 
 				case XARCHIVETYPE_TAR_LZMA:
@@ -342,11 +342,11 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_BZIP2:
-		OpenBzip2 (archive[current_page]);
+		xa_open_bzip2 (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_GZIP:
-		OpenGzip ( archive[current_page] );
+		xa_open_gzip ( archive[current_page] );
 		break;
 
 		case XARCHIVETYPE_LZMA:

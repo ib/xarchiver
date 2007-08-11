@@ -20,8 +20,9 @@
 #define GZIP_H
 
 #include <gtk/gtk.h>
-#include "interface.h"
 #include "support.h"
+#include "main.h"
+#include "archive.h"
 
-void OpenGzip ( XArchive *archive );
+void xa_open_gzip (XArchive *archive);
 #endif

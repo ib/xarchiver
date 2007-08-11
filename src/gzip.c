@@ -24,17 +24,17 @@
 FILE *fd;
 extern int output_fd;
 
-void OpenGzip ( XArchive *archive )
+void xa_open_gzip (XArchive *archive)
 {
 	gchar *command;
+	gchar *tar;
+	unsigned short int i;
 
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
 	{
-    gchar *tar;
-
-    tar = g_find_program_in_path ("gtar");
-    if (tar == NULL)
-      tar = g_strdup ("tar");
+	    tar = g_find_program_in_path ("gtar");
+	    if (tar == NULL)
+    		tar = g_strdup ("tar");
 
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
 		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
@@ -43,20 +43,23 @@ void OpenGzip ( XArchive *archive )
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
 		archive->format ="TAR.GZIP";
+		archive->nc = 6;
 		archive->parse_output = xa_get_tar_line_content;
-
 		xa_spawn_async_process (archive,command,0);
 
 		g_free (command);
 		g_free (tar);
 
-		if ( archive->child_pid == 0 )
+		if (archive->child_pid == 0)
 			return;
 
-		char *names[]= {(_("Filename")),(_("Permissions")),(_("Symbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-		//xa_create_liststore ( 7, names , (GType *)types, archive );
-        archive->type = XARCHIVETYPE_TAR_GZ;
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+		archive->column_types = g_malloc0(sizeof(types));
+		for (i = 0; i < 8; i++)
+			archive->column_types[i] = types[i];
+
+		char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+		xa_create_liststore (archive,names);
 	}
 	else
 	{
