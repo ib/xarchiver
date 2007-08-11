@@ -121,7 +121,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				break;
 
 				case XARCHIVETYPE_TAR:
-				OpenTar ( archive );
+				xa_open_tar ( archive );
 				break;
 
 				case XARCHIVETYPE_TAR_BZ2:
@@ -366,7 +366,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_TAR:
-		OpenTar (archive[current_page]);
+		xa_open_tar (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_ZIP:
@@ -1160,8 +1160,6 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
 	renderer = gtk_cell_renderer_pixbuf_new();
-	//GTK_ICON_SIZE_LARGE_TOOLBAR = 3;
-	//GTK_ICON_SIZE_SMALL_TOOLBAR = 2;
 	g_object_set(G_OBJECT(renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, renderer, "icon-name",0,NULL);

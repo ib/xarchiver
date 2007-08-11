@@ -20,14 +20,13 @@
 #define TAR_H
 
 #include <gtk/gtk.h>
-#include <string.h>
 #include <stdlib.h>
 #include "string_utils.h"
 #include "support.h"
 #include "archive.h"
 
-void OpenTar ( XArchive *archive );
-gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
+void xa_open_tar ( XArchive *archive );
+void xa_get_tar_line_content (gchar *line, gpointer data);
 gboolean isTar ( FILE *ptr );
 #endif
 

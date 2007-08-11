@@ -43,7 +43,7 @@ void OpenGzip ( XArchive *archive )
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
 		archive->format ="TAR.GZIP";
-		archive->parse_output = TarOpen;
+		archive->parse_output = xa_get_tar_line_content;
 
 		xa_spawn_async_process (archive,command,0);
 
