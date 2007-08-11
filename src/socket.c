@@ -69,12 +69,10 @@ gint socket_init(gint argc, gchar **argv)
 			{
 				socket_fd_write_all(sock, filename, strlen(filename));
 				socket_fd_write_all(sock, "\n", 1);
-				g_free(filename);
 			}
 		}
 		socket_fd_write_all(sock, ".\n", 2);
 	}
-
 	socket_fd_close(sock);
 	return -1;
 }
@@ -300,5 +298,3 @@ gint socket_fd_write(gint fd, const gchar *buf, gint len)
 }
 
 #endif
-
-

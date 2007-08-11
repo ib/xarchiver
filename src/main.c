@@ -239,7 +239,7 @@ done:	g_list_free ( ArchiveSuffix);
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (MainWindow);
 
-		/* This to open the archive_cmd from the command line */
+		/* This to open the archive from the command line */
 		if ( argc == 2 )
 		{
 			gchar *dummy = g_strdup(argv[1]);
