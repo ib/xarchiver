@@ -24,7 +24,7 @@
 #include "string_utils.h"
 #include "support.h"
 #include "archive.h"
-gboolean jump_header,read_filename, last_line;
+gboolean jump_header,read_filename, last_line, encrypted;
 gchar *filename;
 void xa_open_rar ( XArchive *archive );
 #endif

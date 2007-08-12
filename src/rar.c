@@ -29,7 +29,7 @@ void xa_open_rar (XArchive *archive)
 	unsigned short int i;
 	gchar *command = NULL;
 	gchar *rar = NULL;
-	jump_header = read_filename = last_line = FALSE;
+	jump_header = read_filename = last_line = encrypted = FALSE;
 
 	if (unrar)
 	{
@@ -49,7 +49,7 @@ void xa_open_rar (XArchive *archive)
     archive->nr_of_dirs = 0;
     archive->nc = 9;
 	archive->parse_output = xa_get_rar_line_content;
-	archive->format ="RAR";
+	archive->format = "RAR";
 	xa_spawn_async_process (archive,command,0);
 	g_free ( command );
 
@@ -62,7 +62,7 @@ void xa_open_rar (XArchive *archive)
 		archive->column_types[i] = types[i];
 
 	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version"))};
-    xa_create_liststore (archive,names);
+	xa_create_liststore (archive,names);
 }
 
 void xa_get_rar_line_content (gchar *line, gpointer data)
@@ -73,9 +73,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 	gpointer item[9];
 	unsigned short int i = 0;
 	unsigned int linesize,n,a;
-	gboolean encrypted,dir;
-
-	encrypted = dir = FALSE;
+	gboolean dir = FALSE;
 
 	if (last_line)
 		return;
@@ -202,5 +200,6 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		entry = xa_set_archive_entries_for_each_row (archive,filename,encrypted,item);
 		g_free(filename);
 		read_filename = FALSE;
+		encrypted = FALSE;
 	}
 }

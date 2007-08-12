@@ -31,7 +31,7 @@ GList *ArchiveSuffix;
 GList *ArchiveType;
 const gchar *locale;
 
-void GetAvailableCompressors();
+void xa_get_available_archivers();
 gchar *config_file;
 gchar *get_argv_filename(const gchar *filename);
 gboolean SpawnSyncCommand ( gchar *command );

@@ -47,15 +47,13 @@ static const GtkTargetEntry drop_targets[] =
 
 extern gboolean unrar;
 
-GtkWidget *create_MainWindow (void)
+void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 {
 	GdkPixbuf *icon;
 	GtkIconTheme *icon_theme;
 
 	tooltips = gtk_tooltips_new ();
 	accel_group = gtk_accel_group_new ();
-
-	MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	xa_set_window_title (MainWindow , NULL);
 
 	icon_theme = gtk_icon_theme_get_default();
@@ -392,7 +390,8 @@ GtkWidget *create_MainWindow (void)
 	location_entry = gtk_entry_new();
 	gtk_box_pack_start (GTK_BOX (hbox1), location_entry, TRUE, TRUE, 0);
 	g_signal_connect (G_OBJECT (location_entry), "activate",	G_CALLBACK (xa_location_entry_activated), NULL);
-	gtk_widget_show_all(toolbar2);
+	if (show_location)
+		gtk_widget_show_all(toolbar2);
 
 	/* Create the notebook widget */
 	notebook = GTK_NOTEBOOK(gtk_notebook_new() );
@@ -463,7 +462,6 @@ GtkWidget *create_MainWindow (void)
 	g_signal_connect (MainWindow, 		"key-press-event", G_CALLBACK (key_press_function),			NULL);
 
 	gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
-	return MainWindow;
 }
 
 int xa_progressbar_pulse (gpointer data)
@@ -481,15 +479,15 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 	gint id;
 	GtkTreeSelection *selection;
 
-	id = xa_find_archive_index ( page_num );
+	id = xa_find_archive_index (page_num);
 	if (id == -1)
 		return;
 
 	xa_set_window_title (MainWindow , archive[id]->path);
 	if (archive[id]->type == XARCHIVETYPE_ISO)
-		gtk_widget_set_sensitive ( iso_info,TRUE );
+		gtk_widget_set_sensitive (iso_info,TRUE);
 	else
-		gtk_widget_set_sensitive ( iso_info,FALSE );
+		gtk_widget_set_sensitive (iso_info,FALSE);
 
 	if ( GTK_WIDGET_VISIBLE (viewport2) )
 	{
@@ -502,7 +500,6 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 		gtk_widget_set_sensitive ( Stop_button , TRUE);
 		return;
 	}
-
 	xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties);
 
 here:
@@ -515,7 +512,7 @@ here:
 	{
 		selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[id]->treeview) );
 		gint selected = gtk_tree_selection_count_selected_rows ( selection );
-		if (selected == 0 )
+		if (selected == 0)
 			xa_disable_delete_view_buttons (FALSE);
 		else
 		{
@@ -534,6 +531,9 @@ here:
 				gtk_widget_set_sensitive ( view_menu, TRUE );
 			}
 		}
+		/* Let's set the location entry */
+		if (archive[id]->location_entry_path != NULL)
+			gtk_entry_set_text(GTK_ENTRY(location_entry),archive[id]->location_entry_path);
 		gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
 	}
 }

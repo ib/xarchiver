@@ -21,6 +21,7 @@
 #include "7zip.h"
 
 extern gboolean sevenzr;
+extern gboolean sevenza;
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 gchar *exe;
 
@@ -31,11 +32,10 @@ void xa_open_7zip (XArchive *archive)
 
 	if (sevenzr)
 		exe = "7zr ";
-	else
+	if (sevenza)
 		exe = "7za ";
 
 	gchar *command = g_strconcat ( exe,"l " , archive->escaped_path, NULL );
-	g_print (command);
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;

@@ -34,7 +34,7 @@ GError *cli_error = NULL;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
 gboolean cli = FALSE;
 gboolean unrar = FALSE;
-gboolean sevenzr = FALSE;
+gboolean sevenzr = FALSE, sevenza = FALSE;
 extern gchar *current_open_directory;
 Prefs_dialog_data *prefs_window = NULL;
 
@@ -93,10 +93,10 @@ int main (int argc, char **argv)
 
 	if (cli == TRUE)
 	{
-		GetAvailableCompressors();
+		xa_get_available_archivers();
 		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
 		ArchiveType = g_list_reverse (ArchiveType);
-		MainWindow = create_MainWindow ();
+	//	MainWindow = create_MainWindow (FALSE);
 		gtk_main_iteration_do (FALSE);
 		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2007 Giuseppe Torelli (colossus73)\n\n");
 
@@ -219,13 +219,15 @@ done:	g_list_free ( ArchiveSuffix);
 	}
 	else
 	{
-		GetAvailableCompressors();
+		xa_get_available_archivers();
 		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
 		ArchiveType = g_list_reverse (ArchiveType);
-		MainWindow = create_MainWindow ();
 
+		MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 		prefs_window = xa_create_prefs_dialog();
 		xa_prefs_load_options (prefs_window);
+		
+		xa_create_mainwindow (MainWindow,gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_location_bar)));
 
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
 		{
@@ -283,7 +285,7 @@ gchar *get_argv_filename(const gchar *filename)
 	return result;
 }
 
-void GetAvailableCompressors()
+void xa_get_available_archivers()
 {
 	absolute_path = g_find_program_in_path("arj");
 	if ( absolute_path )
@@ -404,9 +406,11 @@ void GetAvailableCompressors()
 		}
 	}
 	absolute_path = g_find_program_in_path("7za");
-    if (absolute_path == NULL)
+    if (absolute_path != NULL)
+    	sevenza = TRUE;
+    else
     	absolute_path = g_find_program_in_path("7zr");
-    if (absolute_path)
+    if (absolute_path != NULL)
     {
     	sevenzr = TRUE;
         ArchiveType = g_list_prepend ( ArchiveType, "7z");
