@@ -17,71 +17,144 @@
  */
 
 #include "config.h"
+#include <string.h>
 #include "7zip.h"
 
-static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
-void Open7Zip ( XArchive *archive)
+extern gboolean sevenzr;
+extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
+gchar *exe;
+
+void xa_open_7zip (XArchive *archive)
 {
-    jump_header = FALSE;
-	gchar *command = g_strconcat ( "7za l " , archive->escaped_path, NULL );
+	jump_header = last_line = FALSE;
+	unsigned short int i = 0;
+
+	if (sevenzr)
+		exe = "7zr ";
+	else
+		exe = "7za ";
+
+	gchar *command = g_strconcat ( exe,"l " , archive->escaped_path, NULL );
+	g_print (command);
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
-    archive->nr_of_files = 0;
-    archive->nr_of_dirs = 0;
+	archive->nr_of_files = 0;
+	archive->nr_of_dirs = 0;
 	archive->format ="7-ZIP";
-	archive->parse_output = SevenZipOpen;
+	archive->nc = 5;
+	archive->parse_output = xa_get_7zip_line_content;
 	xa_spawn_async_process (archive,command,0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 6, names , (GType *)types, archive );
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 7; i++)
+		archive->column_types[i] = types[i];
+
+	char *names[]= {(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date"))};
+	xa_create_liststore (archive,names);
 }
 
-static gboolean SevenZipOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
+void xa_get_7zip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	gchar **fields = NULL;
-	gchar *filename = NULL;
-	gchar *line = NULL;
-	GtkTreeIter iter;
-	GIOStatus status = G_IO_STATUS_NORMAL;
-	unsigned short int x;
+	XEntry *entry;
+	gchar *filename;
+	gpointer item[5];
+	unsigned short int i = 0;
+	gint linesize = 0,n = 0,a = 0;
+	gboolean dir = FALSE;
 
-	if (cond & (G_IO_IN | G_IO_PRI) )
+	if (last_line)
+		return;
+
+	if (jump_header == FALSE)
 	{
-		do
+		if (line[0] == '-')
 		{
-			/* This to avoid inserting in the liststore 7zip's message */
-			if (jump_header == FALSE )
-			{
-				for ( x = 0; x <= 7; x++)
-				{
-					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-					archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-					g_free (line);
-				}
-				jump_header = TRUE;
-			}
-			status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-			if ( line == NULL )
-				break;
+			jump_header = TRUE;
+			return;
+		}
+		return;
+	}
+	if (line[0] == '-')
+	{
+		last_line = TRUE;
+		return;
+	}
+	
+	linesize = strlen(line);
 
-			/* This to avoid inserting the last line of output */
-			if (strncmp (line, "-----------------", 17) == 0 || strncmp (line, "\x0a",1) == 0)
-			{
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				g_free (line);
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line == NULL)
-					break;
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				g_free (line);
-				break;
-			}
-			archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
+	/* Date */
+	line[10] = '\0';
+	item[4] = line;
+
+	/* Time */
+	for(n=13; n < linesize; ++n)
+		if(line[n] == ' ')
+			break;
+	line[n] = '\0';
+	item[3] = line + 11;
+	a = ++n;
+	
+	/* Permissions */
+	for(; n < linesize; n++)
+		if(line[n] == ' ')
+			break;
+	line[n] = '\0';
+	if ((line+a)[0] == 'D')
+		dir = TRUE;
+	else
+		archive->nr_of_files++;
+	item[2] = line + a;
+	
+	/* Size */
+	for(++n; n < linesize; ++n)
+		if(line[n] >= '0' && line[n] <= '9')
+			break;
+	a = n;
+
+	for(; n < linesize; ++n)
+		if(line[n] == ' ')
+			break;
+
+	line[n] = '\0';
+	item[0] = line + a;
+	archive->dummy_size += strtoll(item[0],NULL,0);
+
+	/* Compressed */
+	for(++n; n < linesize; ++n)
+		if(line[n] >= '0' && line[n] <= '9')
+			break;
+	a = n;
+
+	for(; n < linesize; ++n)
+		if(line[n] == ' ')
+			break;
+
+	line[n] = '\0';
+	item[1] = line + a;
+	n+= 2;
+
+	/* Filename */
+	line[linesize-1] = '\0';
+	filename = g_strdup(line + n);
+	
+	/* Work around for 7za which doesn't
+	* output / with directories */
+	if (dir)
+	{
+		gchar *filename_with_slash = g_strconcat (filename,"/",NULL);
+		g_free (filename);
+		filename = filename_with_slash;
+	}
+	
+	entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
+	g_free(filename);
+
+	/* 		archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
 			fields = split_line ( line , 5 );
 			filename = get_last_field ( line , 6);
 			gtk_list_store_append (archive->liststore, &iter);
@@ -121,6 +194,6 @@ done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
 		g_object_unref (archive->model);
 		return FALSE;
 	}
-	return TRUE;
+	return TRUE;*/
 }
 

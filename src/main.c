@@ -34,6 +34,7 @@ GError *cli_error = NULL;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
 gboolean cli = FALSE;
 gboolean unrar = FALSE;
+gboolean sevenzr = FALSE;
 extern gchar *current_open_directory;
 Prefs_dialog_data *prefs_window = NULL;
 
@@ -407,6 +408,7 @@ void GetAvailableCompressors()
     	absolute_path = g_find_program_in_path("7zr");
     if (absolute_path)
     {
+    	sevenzr = TRUE;
         ArchiveType = g_list_prepend ( ArchiveType, "7z");
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
 		g_free (absolute_path);

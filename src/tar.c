@@ -65,8 +65,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	XEntry *entry;
 	gchar *filename;
 	gpointer item[6];
-	gsize linesize = 0;
-	gint n = 0, a = 0;
+	gint n = 0, a = 0 ,linesize = 0;
 	gboolean dir = FALSE;
 
 	linesize = strlen(line);

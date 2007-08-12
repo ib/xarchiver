@@ -191,10 +191,10 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		line[n] = '\0';
 		item[i] = line + a;
 
+		/* Work around for rar which doesn't
+		 * output / with directories */
 		if (dir)
 		{
-			/* Work around for rar which doesn't
-			 * output / with directories */
 			gchar *filename_with_slash = g_strconcat (filename,"/",NULL);
 			g_free (filename);
 			filename = filename_with_slash;

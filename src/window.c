@@ -117,39 +117,39 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			switch ( archive->type )
 			{
 				case XARCHIVETYPE_RAR:
-			    xa_open_rar ( archive );
+			    xa_open_rar (archive);
 				break;
 
 				case XARCHIVETYPE_TAR:
-				xa_open_tar ( archive );
+				xa_open_tar (archive);
 				break;
 
 				case XARCHIVETYPE_TAR_BZ2:
-				xa_open_bzip2 ( archive );
+				xa_open_bzip2 (archive);
 				break;
 
 				case XARCHIVETYPE_TAR_GZ:
-				xa_open_gzip ( archive );
+				xa_open_gzip (archive);
 				break;
 
 				case XARCHIVETYPE_TAR_LZMA:
-				OpenLzma ( archive );
+				OpenLzma (archive);
 				break;
 
 				case XARCHIVETYPE_ZIP:
-				xa_open_zip ( archive );
+				xa_open_zip (archive);
 				break;
 
 				case XARCHIVETYPE_7ZIP:
-				Open7Zip ( archive );
+				xa_open_7zip (archive);
 				break;
 
 				case XARCHIVETYPE_ARJ:
-				OpenArj ( archive );
+				OpenArj (archive);
 				break;
 
 				case XARCHIVETYPE_LHA:
-				OpenLha ( archive );
+				OpenLha (archive);
 				break;
 
 				default:
@@ -374,7 +374,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_7ZIP:
-		Open7Zip (archive[current_page]);
+		xa_open_7zip (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_LHA:
