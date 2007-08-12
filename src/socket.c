@@ -45,7 +45,7 @@ gint socket_init(gint argc, gchar **argv)
 	gint sock;
 
 	if (socket_info.file_name == NULL)
-		socket_info.file_name = g_strdup ("/tmp/xarchiver_socket");
+		socket_info.file_name = g_strconcat ("/tmp/xarchiver_",g_get_user_name(),"_socket",NULL);
 
 	sock = socket_fd_connect_unix(socket_info.file_name);
 	if (sock < 0)

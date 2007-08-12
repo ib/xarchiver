@@ -402,9 +402,10 @@ void GetAvailableCompressors()
 			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
 		}
 	}
-
 	absolute_path = g_find_program_in_path("7za");
-    if ( absolute_path )
+    if (absolute_path == NULL)
+    	absolute_path = g_find_program_in_path("7zr");
+    if (absolute_path)
     {
         ArchiveType = g_list_prepend ( ArchiveType, "7z");
 	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
