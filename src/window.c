@@ -145,7 +145,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				break;
 
 				case XARCHIVETYPE_ARJ:
-				OpenArj (archive);
+				xa_open_arj (archive);
 				break;
 
 				case XARCHIVETYPE_LHA:
@@ -334,7 +334,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	switch ( archive[current_page]->type )
 	{
 		case XARCHIVETYPE_ARJ:
-		OpenArj (archive[current_page]);
+		xa_open_arj (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_DEB:

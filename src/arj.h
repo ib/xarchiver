@@ -25,6 +25,8 @@
 #include "string_utils.h"
 #include "support.h"
 #include "archive.h"
-
-void OpenArj ( XArchive *archive );
+gboolean jump_header, encrypted, last_line;
+unsigned short int arj_line;
+gchar *filename;
+void xa_open_arj (XArchive *archive);
 #endif

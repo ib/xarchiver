@@ -18,139 +18,134 @@
 
 #include "config.h"
 #include "arj.h"
-#include "string_utils.h"
 
-GtkTreeIter iter;
-gboolean jump_header = FALSE;
-unsigned short int arj_line = 0;
+extern gboolean unrar;
+extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
+void xa_get_arj_line_content (gchar *line, gpointer data);
 
-static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
-
-void OpenArj (XArchive *archive)
+void xa_open_arj (XArchive *archive)
 {
-    jump_header = FALSE;
+	unsigned short int i;
+    jump_header = encrypted = last_line = FALSE;
+	arj_line = 0;
 	gchar *command = g_strconcat ("arj v ",archive->escaped_path, NULL);
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
-    archive->nr_of_files = 0;
-    archive->nr_of_dirs = 0;
-	archive->parse_output = ArjOpen;
+	archive->nr_of_files = 0;
+	archive->nr_of_dirs = 0;
+	archive->nc = 8;
 	archive->format ="ARJ";
+	archive->parse_output = xa_get_arj_line_content;
 	xa_spawn_async_process (archive,command,0);
 	g_free (command);
 	if (archive->child_pid == 0)
 		return;
 
-	char *names[]= {(_("Filename")),(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 7, names , (GType *)types, archive );
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 10; i++)
+		archive->column_types[i] = types[i];
+
+	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes")),("GUA"),("BPMGS")};
+	xa_create_liststore (archive,names);
 }
 
-static gboolean ArjOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
+void xa_get_arj_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	gchar **fields = NULL;
-	gchar *line = NULL;
-	gchar *filename = NULL;
-	GtkTreeIter iter;
-	GIOStatus status = G_IO_STATUS_NORMAL;
-	unsigned short int x;
+	XEntry *entry;
+	gpointer item[8];
+	unsigned int linesize,n,a;
+	gboolean dir = FALSE;
 
-	if (cond & (G_IO_IN | G_IO_PRI) )
+	if (last_line)
+		return;
+
+	if (arj_line == 3)
 	{
-		do
+		arj_line++;
+		return;
+	}
+	if (arj_line == 4)
+	{
+		arj_line = 1;	
+		return;
+	}
+
+	if (jump_header == FALSE)
+	{
+		if (line[0] == '-')
 		{
-			/* This to avoid inserting in the liststore arj copyright message */
-			if (jump_header == FALSE )
-			{
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line == NULL)
-					break;
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				if (strncmp (line , "----------" , 10) == 0)
-				{
-					jump_header = TRUE;
-					arj_line = 1;
-				}
-				g_free (line);
-				break;
-			}
-			if (arj_line == 1)
-			{
-				/* This to avoid reading the last line of arj output */
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if (line == NULL)
-					break;
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				if (strncmp (line, "----------", 10) == 0)
-				{
-					g_free (line);
-					status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-					if (line != NULL)
-					{
-						archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-						g_free (line);
-					}
-					break;
-				}
-				filename = get_last_field (line,2);
-				gtk_list_store_append (archive->liststore, &iter);
-				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
-				g_free (line);
-			}
-			else if (arj_line == 2)
-			{
-				status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-				if ( line == NULL)
-					break;
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-				fields = split_line (line,8);
-				if (g_str_has_prefix(fields[7] , "d") == FALSE)
-					archive->nr_of_files++;
-    			for ( x = 2; x < 8; x++)
-    			{
-            		if ( x == 2 || x == 3)
-	                    gtk_list_store_set (archive->liststore, &iter,x-1,strtoll(fields[x],NULL,0),-1);
-            		else
-                    	gtk_list_store_set (archive->liststore, &iter,x-1,fields[x],-1);
-				}
-				archive->dummy_size += strtoll(fields[2],NULL,0);
-				g_strfreev (fields);
-				g_free (line);
-			}
-			else if (arj_line == 3)
-			{
-            	status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-            	if ( line == NULL)
-					break;
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-                g_free (line);
-			}
-			else if (arj_line == 4)
-            {
-            	status = g_io_channel_read_line ( ioc, &line, NULL, NULL, NULL );
-                if ( line == NULL)
-					break;
-
-				archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-                g_free (line);
-				arj_line = 1;
-                break;
-			}
-            arj_line++;
+			jump_header = TRUE;
+			arj_line = 1;
+			return;
 		}
-        while (status == G_IO_STATUS_NORMAL);
+		return;
+	}
+	if (arj_line == 1)
+	{
+		linesize = strlen(line);
+		if(line[0] == '*')
+			encrypted = TRUE;
+		else if (line[0] == '-')
+		{
+			last_line = TRUE;
+			return;
+		}
+		line[linesize - 1] = '\0';
+		filename = g_strdup(line+5);
+		arj_line++;
+		return;
+	}
+	else if (arj_line == 2)
+	{
+		linesize = strlen(line);
+		/* Size */
+		for(n=12; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n]='\0';
+		item[0] = line + a;
+		archive->dummy_size += strtoll(item[0],NULL,0);
+		n++;
+		
+		/* Compressed */
+		for(; n < linesize && line[n] == ' '; n++);
+		a = n;
+		for(; n < linesize && line[n] != ' '; n++);
+		line[n]='\0';
+		item[1] = line + a;
+		n++;
 
-        if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-        	goto done;
+		/* Ratio */
+    	line[40] = '\0';
+    	item[2] = line + 35;
+
+		/* Date */
+		line[49] = '\0';
+		item[3] = line + 41;
+
+		/* Time */
+		line[58] = '\0';
+		item[4] = line + 50;
+
+		/* Permissions */
+		line[69] = '\0';
+		item[5] = line + 59;
+		if ((line+59)[0] != 'd')
+			archive->nr_of_files++;
+
+		/* GUA */
+		line[73] = '\0';
+		item[6] = line + 70;
+
+		/* BPMGS */
+		line[77] = '\0';
+		item[7] = line + 74;
+
+		entry = xa_set_archive_entries_for_each_row (archive,filename,encrypted,item);
+		g_free(filename);
+		arj_line++;
+		encrypted = FALSE;
 	}
-    else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
-    {
-done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
- 		g_io_channel_unref (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
-		g_object_unref (archive->model);
-		return FALSE;
-	}
-	return TRUE;
 }

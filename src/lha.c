@@ -92,6 +92,7 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 	line[22] = '\0';
 	item[1] = line + 11;
 
+	//TODO verify the len of the size column with a big archive
 	/* Size */
 	for(n = 23;n < linesize;n++)
 	if(line[n] != ' ')

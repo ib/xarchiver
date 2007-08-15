@@ -20,6 +20,7 @@
 #define RAR_H
 
 #include <gtk/gtk.h>
+#include <string.h>
 #include <stdlib.h>
 #include "string_utils.h"
 #include "support.h"

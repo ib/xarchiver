@@ -17,7 +17,6 @@
  */
 
 #include "config.h"
-#include <string.h>
 #include "rar.h"
 
 extern gboolean unrar;
@@ -69,7 +68,6 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;
-
 	gpointer item[9];
 	unsigned short int i = 0;
 	unsigned int linesize,n,a;
