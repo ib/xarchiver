@@ -26,6 +26,7 @@ void OpenDeb ( XArchive *archive )
 	gchar *command = NULL;
 	gchar *archive_no_path = NULL;
 	gboolean result;
+	unsigned short int i;
 	gchar tmp_dir[14] = "";
 
 	/* Create a unique tmp dir in /tmp */
@@ -76,6 +77,7 @@ void OpenDeb ( XArchive *archive )
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nr_of_dirs = 0;
+	archive->nc = 6;
 	archive->format = "DEB";
 	archive->parse_output = xa_get_tar_line_content;
 	xa_spawn_async_process (archive,command,0);
@@ -84,7 +86,10 @@ void OpenDeb ( XArchive *archive )
 	if (archive->child_pid == 0)
 		return;
 
-	char *names[]= {(_("Filename")),(_("Permissions")),(_("Symbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore ( 7, names , (GType *)types, archive );
+	char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 8; i++)
+		archive->column_types[i] = types[i];
+	xa_create_liststore (archive,names);
 }

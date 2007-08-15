@@ -95,9 +95,8 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 			last_line = TRUE;
 			return;
 		}
-		line++;
 		line[linesize - 2] = '\0';
-		filename = g_strdup(line);
+		filename = g_strdup(line+1);
 		read_filename = TRUE;
 	}
 	else

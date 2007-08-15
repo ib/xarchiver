@@ -61,6 +61,7 @@ static GOptionEntry entries[] =
 
 int main (int argc, char **argv)
 {
+	gboolean no_bzip2_gzip;
 	unsigned short int x;
 	#ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
@@ -156,7 +157,11 @@ int main (int argc, char **argv)
 		else if (archive_name != NULL)
 		{
 			XArchive *archive_cmd = NULL;
-			archive_cmd = xa_new_archive_dialog (archive_name, NULL );
+			if (argc > 1 || g_file_test ( archive_name,G_FILE_TEST_IS_DIR) )
+				no_bzip2_gzip = TRUE;
+			else
+				no_bzip2_gzip = FALSE;
+			archive_cmd = xa_new_archive_dialog (archive_name, NULL, no_bzip2_gzip);
 			if (archive_cmd == NULL)
 				return 0;
 
@@ -180,6 +185,7 @@ int main (int argc, char **argv)
 					ConcatenateFileNames2 ( _current_dir, string );
 					g_free (_current_dir);
 				}
+
 				if ( archive_cmd->type == XARCHIVETYPE_7ZIP)
 					archive_cmd->add_recurse = FALSE;
 				else

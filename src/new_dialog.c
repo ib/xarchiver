@@ -30,7 +30,7 @@ gchar *current_new_directory = NULL;
 gint new_combo_box = -1;
 gchar *ComboArchiveType;
 
-XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
+XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean flag)
 {
 	XArchive *archive = NULL;
 	GtkWidget *xa_file_chooser;
@@ -95,15 +95,18 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 
 	filter_tooltip = gtk_tooltips_new();
 	gtk_tooltips_set_tip (filter_tooltip,combo_box, _("Choose the archive type to create") , NULL);
-	Name = g_list_first ( ArchiveType );
-	while ( Name != NULL )
+	Name = g_list_first (ArchiveType);
+	while (Name)
 	{
-		if (!strcmp(Name->data, "tgz") || !strcmp(Name->data, "rpm") || !strcmp(Name->data, "iso") || !strcmp(Name->data, "gz") || !strcmp(Name->data, "lzma") || !strcmp(Name->data, "deb") || !strcmp(Name->data, "bz2") || (!strcmp(Name->data, "rar") && unrar) )
-			goto Next;
+		if (!strcmp(Name->data, "tgz") || !strcmp(Name->data, "rpm") || !strcmp(Name->data, "iso") || (!strcmp(Name->data, "gz") && flag)
+		|| !strcmp(Name->data, "lzma") || !strcmp(Name->data, "deb") || (!strcmp(Name->data, "bz2") && flag)
+		|| (!strcmp(Name->data, "rar") && unrar) )
+			goto there;
 		else
 			gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
-		Next:
-			Name = g_list_next ( Name );
+
+	there:
+		Name = g_list_next ( Name );
 	}
 	if (new_combo_box == -1)
 		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , 0 );
