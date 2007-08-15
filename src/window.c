@@ -149,7 +149,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				break;
 
 				case XARCHIVETYPE_LHA:
-				OpenLha (archive);
+				xa_open_lha (archive);
 				break;
 
 				default:
@@ -378,7 +378,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_LHA:
-		OpenLha (archive[current_page]);
+		xa_open_lha (archive[current_page]);
 		break;
 
 		default:

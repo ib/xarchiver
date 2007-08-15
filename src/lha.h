@@ -27,6 +27,7 @@
 #include "support.h"
 #include "archive.h"
 
-void OpenLha ( XArchive *archive );
+void xa_open_lha (XArchive *archive);
+gboolean jump_header, last_line;
 gboolean isLha ( FILE *ptr );
 #endif

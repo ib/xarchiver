@@ -482,7 +482,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 			if (entry->is_dir)
 				icon_name = "folder";
 			else if (entry->is_encrypted)
-				icon_name = "password";
+				icon_name = "gtk-dialog-authentication";
 			else
 				icon_name = xa_get_stock_mime_icon(entry->filename);
 
@@ -562,7 +562,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 		if (entry->is_dir)
 			icon_name = "folder";
 		else if (entry->is_encrypted)
-			icon_name = "password";
+			icon_name = "gtk-dialog-authentication";
 		
 		else
 			icon_name = xa_get_stock_mime_icon(entry->filename);

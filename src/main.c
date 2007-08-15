@@ -96,7 +96,7 @@ int main (int argc, char **argv)
 		xa_get_available_archivers();
 		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
 		ArchiveType = g_list_reverse (ArchiveType);
-	//	MainWindow = create_MainWindow (FALSE);
+		MainWindow = NULL;
 		gtk_main_iteration_do (FALSE);
 		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2007 Giuseppe Torelli (colossus73)\n\n");
 

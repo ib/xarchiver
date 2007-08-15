@@ -22,7 +22,7 @@
 
 extern gboolean unrar;
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
-static void xa_get_rar_line_content (gchar *line, gpointer data);
+void xa_get_rar_line_content (gchar *line, gpointer data);
 
 void xa_open_rar (XArchive *archive)
 {

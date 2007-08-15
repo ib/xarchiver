@@ -153,47 +153,5 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	
 	entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
 	g_free(filename);
-
-	/* 		archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-			fields = split_line ( line , 5 );
-			filename = get_last_field ( line , 6);
-			gtk_list_store_append (archive->liststore, &iter);
-			if ( g_str_has_prefix(fields[2] , "D") == FALSE)
-				archive->nr_of_files++;
-			else
-				archive->nr_of_dirs++;
-			for ( x = 0; x < 5; x++)
-			{
-				if (x == 3)
-					gtk_list_store_set (archive->liststore, &iter,1,strtoll(fields[3],NULL,0),-1);
-				else if (x == 4)
-					gtk_list_store_set (archive->liststore, &iter,2,strtoll(fields[4],NULL,0),-1);
-				else
-					gtk_list_store_set (archive->liststore, &iter,(5-x),fields[x],-1);
-			}
-			archive->dummy_size += strtoll(fields[3],NULL,0);
-			if ( filename == NULL )
-				gtk_list_store_set (archive->liststore, &iter,0,fields[4],-1);
-			else
-				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
-			g_strfreev ( fields );
-
-			while (gtk_events_pending() )
-				gtk_main_iteration();
-			g_free (line);
-		}
-		while (status == G_IO_STATUS_NORMAL);
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP) )
-	{
-done:	g_io_channel_shutdown ( ioc,TRUE,NULL );
-		g_io_channel_unref (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
-		g_object_unref (archive->model);
-		return FALSE;
-	}
-	return TRUE;*/
 }
 

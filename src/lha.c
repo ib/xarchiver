@@ -20,10 +20,13 @@
 #include "config.h"
 #include "lha.h"
 
-static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
-void OpenLha ( XArchive *archive )
+void xa_get_lha_line_content (gchar *line, gpointer data);
+extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
+void xa_open_lha (XArchive *archive)
 {
 	gchar *command;
+	unsigned short int i;
+	jump_header = last_line = FALSE;
 
 	command = g_strconcat ("lha l " , archive->escaped_path, NULL);
 	archive->has_properties = archive->can_extract = archive->can_add = archive->has_test = TRUE;
@@ -32,106 +35,89 @@ void OpenLha ( XArchive *archive )
 	archive->nr_of_files = 0;
 	archive->nr_of_dirs = 0;
 	archive->format ="LHA";
-	archive->parse_output = LhaOpen;
+	archive->nc = 5;
+	archive->parse_output = xa_get_lha_line_content;
 	xa_spawn_async_process (archive,command,0);
-	g_free (command);
+	g_free ( command );
 
-	if (archive->child_pid == 0)
+	if ( archive->child_pid == 0 )
 		return;
 
-	char *names[]= {(_("Filename")),(_("Permissions")),(_("UID/GID")),(_("Size")),(_("Ratio")),(_("Timestamp"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-	xa_create_liststore(6, names, (GType *)types, archive);
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 7; i++)
+		archive->column_types[i] = types[i];
+		
+	char *names[]= {(_("Permissions")),(_("UID/GID")),(_("Size")),(_("Ratio")),(_("Timestamp"))};
+	xa_create_liststore (archive,names);
 }
 
-static gboolean LhaOpen (GIOChannel *ioc, GIOCondition cond, gpointer data)
+void xa_get_lha_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	GtkTreeIter iter;
-	gchar *permissions = NULL;
-	gchar *owner = NULL;
-	gchar *ratio = NULL;
-	gchar *timestamp = NULL;
-	gchar *size = NULL;
-	gchar *line = NULL;
-	gchar *filename = NULL;
-	GIOStatus status = G_IO_STATUS_NORMAL;
-	unsigned short int a = 0, n = 0, num;
+	XEntry *entry;
+	gpointer item[5];
+	unsigned short int i = 0;
+	unsigned int linesize,n,a;
+	gboolean dir = FALSE;
+	gchar *filename;
 
-	if (cond & (G_IO_IN | G_IO_PRI) )
+	if (last_line)
+		return;
+	if (jump_header == FALSE)
 	{
-		// We don't need the first two lines. No actual data there.
-		g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
-		if (line != NULL)
-			g_free (line);
-
-		g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
-		if (line != NULL)
-			g_free (line);
-		do
+		if (line[0] == '-')
 		{
-			status = g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
-			if (line == NULL || (strncmp(line, "---------- -", 12) == 0))
-				break;
-			gtk_list_store_append (archive->liststore, &iter);
-
-			archive->cmd_line_output = g_list_append (archive->cmd_line_output,g_strdup(line));
-			permissions = g_strndup(line, 10);
-			gtk_list_store_set (archive->liststore, &iter,1,permissions,-1);
-			if (strstr(permissions, "d") == NULL)
-				archive->nr_of_files++;
-			else
-				archive->nr_of_dirs++;
-			g_free (permissions);
-
-			owner = g_strndup(&line[11], 11);
-			gtk_list_store_set (archive->liststore, &iter,2,owner,-1);
-			g_free (owner);
-
-			num = strlen(line);
-			for(n = 23;n < num;n++)
-			if(line[n] != ' ')
-				break;
-
-			a = n;
-			for(;n < num;n++)
-			if(line[n] == ' ')
-				break;
-
-			size = g_strndup(&line[a], n - a);
-			gtk_list_store_set (archive->liststore, &iter,3,strtoll(size,NULL,0),-1);
-			archive->dummy_size += strtoll(size,NULL,0);
-			g_free(size);
-
-			ratio = g_strndup(&line[31], 7);
-			gtk_list_store_set (archive->liststore, &iter,4,ratio,-1);
-			g_free (ratio);
-
-			timestamp = g_strndup(&line[38], 13);
-			gtk_list_store_set (archive->liststore, &iter,5,timestamp,-1);
-			g_free (timestamp);
-
-			filename = g_strndup(&line[51], num - 51 - 1);
-			gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
-			g_free (filename);
-
-			g_free(line);
+			jump_header = TRUE;
+			return;
 		}
-		while (status == G_IO_STATUS_NORMAL);
-
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-		goto done;
+		return;
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	if (strncmp(line,"----",4) == 0)
 	{
-done:
-		g_io_channel_shutdown(ioc, TRUE, NULL);
-		g_io_channel_unref(ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
-		g_object_unref (archive->model);
-		return FALSE;
+		last_line = TRUE;
+		return;
 	}
-	return TRUE;
+	linesize = strlen(line);
+
+	/* Permission */
+	line[10] = '\0';
+	item[0] = line;
+	if(line[0] == 'd')
+		dir = TRUE;
+	else
+		archive->nr_of_files++;
+
+	/* UID/GID */
+	line[22] = '\0';
+	item[1] = line + 11;
+
+	/* Size */
+	for(n = 23;n < linesize;n++)
+	if(line[n] != ' ')
+		break;
+
+	a = n;
+	for(;n < linesize;n++)
+	if(line[n] == ' ')
+		break;
+
+	line[a+(n-a)] = '\0';
+	item[2] = line + a;
+	archive->dummy_size += strtoll(item[2],NULL,0);
+
+    /* Ratio */
+    line[37] = '\0';
+    item[3] = line + 31;
+
+    /* Timestamp */
+    line[50] = '\0';
+    item[4] = line + 38;
+
+	line[(linesize- 1)] = '\0';
+	filename = line + 51;
+
+	entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
 }
 
 gboolean isLha ( FILE *ptr )
