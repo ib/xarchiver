@@ -79,9 +79,10 @@ void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 
 	if ( archive->parse_output )
+	{
 		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_process_output, archive);
-
-	g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
+		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
+	}
 
 	err_ioc = g_io_channel_unix_new ( archive->error_fd );
 	g_io_channel_set_encoding (err_ioc, locale , NULL);
@@ -161,9 +162,6 @@ gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpoin
 void xa_clean_archive_structure (XArchive *archive)
 {
 	GSList *s = NULL;
-	gchar *dummy_string;
-	gchar *msg;
-	int response;
 	XEntry *entry;
 
 	if (archive == NULL)
@@ -200,23 +198,8 @@ void xa_clean_archive_structure (XArchive *archive)
 
 	if (archive->tmp != NULL)
 	{
-		if ( strncmp (archive->tmp,"/tmp/xa-",8 ) == 0 )
-		{
-			unlink (archive->tmp);
-			dummy_string = remove_level_from_path (archive->tmp);
-			if (remove (dummy_string) < 0)
-			{
-				msg = g_strdup_printf (_("Couldn't remove temporary directory %s:"),dummy_string);
-				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,	msg,g_strerror(errno) );
-				g_free (msg);
-			}
-			g_free (dummy_string);
-		}
-		else
-			unlink (archive->tmp);
-
-		g_free(archive->tmp);
-		archive->tmp = NULL;
+		xa_delete_temp_directory (archive->tmp,1);
+		g_free (archive->tmp);
 	}
 
 	if (archive->passwd != NULL)

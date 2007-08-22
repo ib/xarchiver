@@ -22,8 +22,6 @@
 #define _GNU_SOURCE
 #include <string.h>
 
-#define ISODCL(from, to) (to - from + 1)
-
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gstdio.h>
@@ -38,7 +36,6 @@
 #include "arj.h"
 #include "deb.h"
 #include "lha.h"
-#include "iso.h"
 #include "zip.h"
 #include "rar.h"
 #include "tar.h"
@@ -77,7 +74,6 @@ void xa_select_all ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_deselect_all ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_show_archive_comment ( GtkMenuItem *menuitem, gpointer user_data);
 void xa_show_cmd_line_output( GtkMenuItem *menuitem );
-void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer user_data);
@@ -91,7 +87,6 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 int xa_show_message_dialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
 int xa_detect_archive_type ( gchar *filename );
-gboolean isISO ( FILE *ptr );
 gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
 void xa_watch_child ( GPid pid, gint status, gpointer data);

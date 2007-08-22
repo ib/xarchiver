@@ -25,12 +25,10 @@
 #include "archive.h"
 
 void OpenRPM ( XArchive *archive );
-GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data);
 GChildWatchFunc *OpenCPIO (GPid pid , gint status , gpointer data);
-gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data);
 void CloseChannels ( GIOChannel *ioc );
 gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond , gpointer data);
-gchar *xa_open_temp_file ( gchar *temp_path );
+void xa_open_temp_file (gchar *tmp_dir,gchar *temp_path);
 
 #endif

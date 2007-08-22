@@ -207,7 +207,7 @@ int main (int argc, char **argv)
 				return 0;
 			}
 			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
-			if (archive_cmd != NULL)
+			if (archive_cmd == NULL)
 			{
 				add_window = xa_create_add_dialog (archive_cmd);
 				cli_command = xa_parse_add_dialog_options ( archive_cmd, add_window );
@@ -331,10 +331,6 @@ void xa_get_available_archivers()
 		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.lzma");
 		g_free (absolute_path);
 	}
-
-	/* In future releases of xarchiver we'll use bkisofs library to allow creation of iso images */
-	ArchiveType = g_list_prepend ( ArchiveType, "iso");
-	ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.iso");
 
 	absolute_path = g_find_program_in_path("lha");
 	if (absolute_path)

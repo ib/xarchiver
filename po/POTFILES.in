@@ -5,13 +5,12 @@ src/add_dialog.c
 src/archive.c
 src/arj.c
 src/bzip2.c
-src/callbacks.c
+src/window.c
 src/deb.c
 src/extract_dialog.c
 src/gzip.c
 src/lha.c
 src/interface.c
-src/iso.c
 src/main.c
 src/new_dialog.c
 src/pref_dialog.c

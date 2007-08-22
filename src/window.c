@@ -202,7 +202,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	xa_set_button_state (1,1,1,1,0,0,0,0 );
     archive[current_page]->has_passwd = FALSE;
-    gtk_widget_set_sensitive ( iso_info , FALSE );
     gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
     gtk_widget_set_sensitive ( check_menu , FALSE);
     gtk_widget_set_sensitive ( properties , FALSE );
@@ -298,7 +297,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	xa_add_page (archive[current_page]);
 
 	xa_disable_delete_view_buttons (FALSE);
-	gtk_widget_set_sensitive ( iso_info , FALSE );
 	gtk_widget_set_sensitive ( view_shell_output1 , TRUE );
 
 	g_free (path);
@@ -323,10 +321,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 	gtk_widget_set_sensitive (Stop_button,TRUE);
 	gtk_widget_show ( viewport2 );
 
-	if ( archive[current_page]->type == XARCHIVETYPE_ISO )
-		Update_StatusBar ( _("Please wait while the content of the ISO image is being read..."));
-	else
-		Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
+	Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
 
 	gtk_widget_set_sensitive ( check_menu , FALSE);
 	gtk_widget_set_sensitive ( properties , FALSE);
@@ -338,7 +333,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_DEB:
-		OpenDeb (archive[current_page]);
+		xa_open_deb (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_BZIP2:
@@ -351,10 +346,6 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 
 		case XARCHIVETYPE_LZMA:
 		OpenLzma ( archive[current_page] );
-		break;
-
-		case XARCHIVETYPE_ISO:
-		OpenISO (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_RAR:
@@ -1046,32 +1037,6 @@ gchar *xa_open_file_dialog ()
 	return path;
 }
 
-gboolean isISO ( FILE *ptr )
-{
-	int offset_image;
-	if ((offset_image = DetectImage(ptr)) > 0 )
-	{
-		fseek ( ptr , offset_image, SEEK_SET );
-		fread ( &ipd, 1, sizeof(ipd), ptr );
-		system_id = g_strndup ( ipd.system_id, 30);
-		volume_id = g_strndup ( ipd.volume_id, 30);
-		application_id = g_strndup ( ipd.application_id, 126);
-		publisher_id = g_strndup ( ipd.publisher_id, 126);
-		preparer_id = g_strndup ( ipd.preparer_id, 126);
-
-		creation_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.creation_date[0],&ipd.creation_date[4],&ipd.creation_date[6],&ipd.creation_date[8],&ipd.creation_date[10],&ipd.creation_date[12],&ipd.creation_date[14]);
-
-		modified_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.modification_date[0],&ipd.modification_date[4],&ipd.modification_date[6],&ipd.modification_date[8],&ipd.modification_date[10],&ipd.modification_date[12],&ipd.modification_date[14]);
-
-		expiration_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.expiration_date[0],&ipd.expiration_date[4],&ipd.expiration_date[6],&ipd.expiration_date[8],&ipd.expiration_date[10],&ipd.expiration_date[12],&ipd.expiration_date[14]);
-
-		effective_date = g_strdup_printf ("%4.4s %2.2s %2.2s %2.2s:%2.2s:%2.2s.%2.2s",&ipd.effective_date[0],&ipd.effective_date[4],&ipd.effective_date[6],&ipd.effective_date[8],&ipd.effective_date[10],&ipd.effective_date[12],&ipd.effective_date[14]);
-        return TRUE;
-	}
-    else
-		return FALSE;
-}
-
 int xa_detect_archive_type ( gchar *filename )
 {
 	FILE *dummy_ptr = NULL;
@@ -1116,8 +1081,6 @@ int xa_detect_archive_type ( gchar *filename )
 		xx = XARCHIVETYPE_7ZIP;
 	else if ( isTar ( dummy_ptr ) )
 		xx = XARCHIVETYPE_TAR;
-	else if ( isISO ( dummy_ptr ) )
-		xx = XARCHIVETYPE_ISO;
 	else if ( isLha ( dummy_ptr ) )
 		xx = XARCHIVETYPE_LHA;
 	else if ( memcmp ( magic,"!<arch>\ndebian", 14 ) == 0 )
@@ -1266,7 +1229,7 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 	}
     Update_StatusBar (_("Waiting for the process to abort..."));
 	stop_flag = TRUE;
-	if (archive[idx]->type != XARCHIVETYPE_ISO && archive[idx]->child_pid)
+	if (archive[idx]->child_pid)
 	{
 		if ( kill ( archive[idx]->child_pid , SIGABRT ) < 0 )
 	    {
@@ -1372,19 +1335,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
 	ConcatenateFileNames2 ( dummy_name , names );
 
-	if (archive[idx]->type == XARCHIVETYPE_ISO)
-	{
-		gtk_tree_model_get (model, &iter,
-			0, &dummy_name,
-			1, &permissions,
-			2, &file_size,
-			4, &file_offset,
-			-1);
-		xa_extract_iso_file (archive[idx], permissions, "/tmp/", dummy_name , file_size, file_offset );
-		g_free (permissions);
-	}
-	else
-		command = xa_extract_single_files ( archive[idx] , names, "/tmp");
+	command = xa_extract_single_files ( archive[idx] , names, "/tmp");
 
 	archive[idx]->full_path = full_path;
 	archive[idx]->overwrite = overwrite;
@@ -1447,85 +1398,9 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	Update_StatusBar (_("Operation completed."));
 }
 
-void xa_iso_properties ( GtkMenuItem *menuitem , gpointer user_data )
-{
-	gchar *utf8_string, *text, *measure;
-	unsigned long long int file_size;
-	GtkWidget *iso_properties_win;
-	gint current_page;
-	gint idx;
-
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
-
-	stat ( archive[idx]->path , &my_stat );
-	file_size = my_stat.st_size;
-	iso_properties_win = create_iso_properties_window();
-	//Name
-	text = g_strrstr ( archive[idx]->path, "/" );
-	if (text != NULL)
-	{
-	    text++; //This to avoid the / char in the string
-	    utf8_string = g_filename_display_name (text);
-	}
-	else
-		utf8_string = g_filename_display_name (archive[idx]->path);
-	gtk_entry_set_text ( GTK_ENTRY (filename_entry), utf8_string );
-	g_free (utf8_string);
-    //Size
-	if (file_size > 1024*1024*1024 )
-	{
-		content_size = (double)file_size / (1024*1024*1024);
-		measure = " GB";
-	}
-	else if (file_size > 1024*1024 )
-	{
-		content_size = (double)file_size / (1024*1024);
-		measure = " MB";
-	}
-
-    else if (file_size > 1024 )
-	{
-		content_size = (double)file_size / 1024;
-		measure = " KB";
-	}
-	else
-	{
-		measure = _(" bytes");
-		content_size = file_size;
-	}
-
-    text = g_strdup_printf ("%.1f %s", content_size,measure);
-    gtk_entry_set_text ( GTK_ENTRY (size_entry), text );
-    g_free (text);
-
-	gtk_entry_set_text ( GTK_ENTRY (image_type_entry),archive[idx]->tmp);
-
-	gtk_entry_set_text ( GTK_ENTRY (system_id_entry),system_id);
-
-	gtk_entry_set_text ( GTK_ENTRY (volume_id_entry),volume_id);
-
-	gtk_entry_set_text ( GTK_ENTRY (application_entry),application_id);
-
-	gtk_entry_set_text ( GTK_ENTRY (publisher_entry),publisher_id);
-	gtk_widget_show (iso_properties_win);
-
-	gtk_entry_set_text ( GTK_ENTRY (preparer_entry),preparer_id);
-	gtk_widget_show (iso_properties_win);
-
-	gtk_entry_set_text ( GTK_ENTRY (creation_date_entry),creation_date);
-
-	gtk_entry_set_text ( GTK_ENTRY (modified_date_entry),modified_date);
-	gtk_widget_show (iso_properties_win);
-
-	gtk_entry_set_text ( GTK_ENTRY (expiration_date_entry),expiration_date);
-
-	gtk_entry_set_text ( GTK_ENTRY (effective_date_entry),effective_date);
-	gtk_widget_show (iso_properties_win);
-}
-
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
 {
+	struct stat my_stat;
     gchar *utf8_string , *measure, *text, *dummy_string;
     char date[64];
     gchar *t;
@@ -1536,7 +1411,7 @@ void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
     current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
-    stat ( archive[idx]->path , &my_stat );
+    stat (archive[idx]->path , &my_stat );
     file_size = my_stat.st_size;
     archive_properties_win = create_archive_properties_window();
     //Name
@@ -1662,7 +1537,7 @@ void xa_activate_delete_and_view ()
 	{
 		if (archive[idx]->type == XARCHIVETYPE_RAR && unrar)
 			gtk_widget_set_sensitive ( delete_menu , FALSE );
-		else if ( archive[idx]->type != XARCHIVETYPE_RPM && archive[idx]->type != XARCHIVETYPE_ISO && archive[idx]->type != XARCHIVETYPE_DEB )
+		else if ( archive[idx]->type != XARCHIVETYPE_RPM && archive[idx]->type != XARCHIVETYPE_DEB )
 			gtk_widget_set_sensitive ( delete_menu , TRUE );
 		if (selected > 1 )
 		{

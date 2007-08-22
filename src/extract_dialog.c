@@ -294,8 +294,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 	gchar *tar;
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
-	gboolean end = FALSE;
-	GtkTreeIter iter;
 	GString *names;
 
 	if (unrar)
@@ -323,10 +321,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			case GTK_RESPONSE_OK:
 			//TODO: apply Edward's patch
 			destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
-			if (archive->type != XARCHIVETYPE_ISO)
-				archive->extraction_path = EscapeBadChars ( destination_path , "$\'`\"\\!?* ()&|@#:;" );
-			else
-				archive->extraction_path = g_strdup ( destination_path );
+			archive->extraction_path = EscapeBadChars ( destination_path , "$\'`\"\\!?* ()&|@#:;" );
 
 			if ( strlen ( archive->extraction_path ) == 0 )
 			{
@@ -562,34 +557,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 											archive->extraction_path, " ", archive->escaped_path , NULL);
 					break;
 
-					case XARCHIVETYPE_ISO:
-					end = gtk_tree_model_get_iter_first (archive->model , &iter);
-					gtk_widget_show ( viewport2 );
-					while (end)
-					{
-						xa_set_button_state (0,0,0,0,0,0,0,0);
-						if (stop_flag)
-							break;
-						gtk_tree_model_get (archive->model, &iter,
-						0, &name,
-						1, &permissions,
-						2, &file_size,
-						4, &file_offset,
-						-1);
-						if (xa_extract_iso_file (archive, permissions, archive->extraction_path, name , file_size, file_offset ) == FALSE )
-						{
-							g_free (name);
-							g_free (permissions);
-							return NULL;
-						}
-						end = gtk_tree_model_iter_next (archive->model,&iter);
-						g_free (name);
-						g_free (permissions);
-					}
-					//xa_set_button_state (1,1,0,1,0,1);
-					Update_StatusBar ( _("Operation completed.") );
-					break;
-
 					default:
 					command = NULL;
 				}
@@ -614,7 +581,6 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 {
 	gchar *command = NULL;
 	gchar *tar;
-	GtkTreeIter iter;
 
 	if (unrar)
 		rar = "unrar";
@@ -798,39 +764,6 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 			command = g_strconcat ("lha ", archive->full_path ? "x" : "xi",
 											archive->overwrite ? "f" : "", "w=",
 											path, " ", archive->escaped_path , files->str, NULL);
-		break;
-
-		case XARCHIVETYPE_ISO:
-		{
-			GList *row_list = NULL;
-			GtkTreeSelection *selection;
-
-			selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive->treeview) );
-			row_list = gtk_tree_selection_get_selected_rows (selection, &archive->model);
-			while (row_list)
-			{
-				xa_set_button_state (0,0,0,0,0,0,0,0);
-				if (stop_flag)
-					break;
-				gtk_tree_model_get_iter(archive->model, &iter, row_list->data);
-				gtk_tree_model_get (archive->model, &iter,
-				0, &name,
-				1, &permissions,
-				2, &file_size,
-				4, &file_offset,
-				-1);
-				gtk_tree_path_free (row_list->data);
-
-				xa_extract_single_iso_file (archive, permissions, archive->extraction_path, name , file_size, file_offset );
-				g_free (name);
-				g_free (permissions);
-				row_list = row_list->next;
-			}
-			g_list_free (row_list);
-			//xa_set_button_state (1,1,0,1,0,1);
-			Update_StatusBar ( _("Operation completed.") );
-			command = NULL;
-		}
 		break;
 
 		default:

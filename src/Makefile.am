@@ -21,7 +21,6 @@ xarchiver_SOURCES = \
 	bzip2.c bzip2.h \
 	gzip.c gzip.h \
 	rpm.c rpm.h \
-	iso.c iso.h \
 	lha.c lha.h \
 	extract_dialog.c extract_dialog.h \
 	add_dialog.c add_dialog.h \

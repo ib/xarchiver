@@ -192,16 +192,6 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (comment_menu), tmp_image);
 
-	iso_info = gtk_image_menu_item_new_with_mnemonic (_("Show ISO in_fo"));
-	gtk_widget_show (iso_info);
-	gtk_widget_set_sensitive ( iso_info, FALSE );
-	gtk_container_add (GTK_CONTAINER (menuitem2_menu), iso_info);
-	gtk_widget_add_accelerator (iso_info, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
-	tmp_image = gtk_image_new_from_stock ("gtk-cdrom", GTK_ICON_SIZE_MENU);
-	gtk_widget_show (tmp_image);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (iso_info), tmp_image);
-
 	separatormenuitem4 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem4);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem4);
@@ -436,7 +426,6 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (xa_show_cmd_line_output), NULL);
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
-	g_signal_connect ((gpointer) iso_info, "activate", G_CALLBACK (xa_iso_properties), NULL);
 	g_signal_connect ((gpointer) password_entry, "activate", G_CALLBACK (xa_reset_password), NULL);
 	g_signal_connect ((gpointer) prefs_menu, "activate", G_CALLBACK (xa_show_prefs_dialog), NULL);
 	g_signal_connect ((gpointer) close1, "activate", G_CALLBACK (xa_close_archive), NULL);
@@ -484,10 +473,6 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 		return;
 
 	xa_set_window_title (MainWindow , archive[id]->path);
-	if (archive[id]->type == XARCHIVETYPE_ISO)
-		gtk_widget_set_sensitive (iso_info,TRUE);
-	else
-		gtk_widget_set_sensitive (iso_info,FALSE);
 
 	if ( GTK_WIDGET_VISIBLE (viewport2) )
 	{
@@ -518,7 +503,7 @@ here:
 		{
 			if (archive[id]->type == XARCHIVETYPE_RAR && unrar)
 				gtk_widget_set_sensitive ( delete_menu , FALSE );
-			else if ( archive[id]->type != XARCHIVETYPE_RPM && archive[id]->type != XARCHIVETYPE_ISO && archive[id]->type != XARCHIVETYPE_DEB )
+			else if ( archive[id]->type != XARCHIVETYPE_RPM && archive[id]->type != XARCHIVETYPE_DEB )
 				gtk_widget_set_sensitive ( delete_menu , TRUE );
 			if (selected > 1 )
 			{

@@ -22,19 +22,21 @@
 #include "string_utils.h"
 
 FILE *stream;
-int fd;
-gchar *cpio_tmp = NULL;
-gchar *tmp = NULL;
+gchar *cpio_tmp , *gzip_tmp = NULL;
+gchar tmp_dir[14] = "";
 gchar buffer[2048];
 gsize bytes_read = 0;
 gsize bytes_written = 0;
 GIOStatus status;
+gboolean result;
 GError *error = NULL;
 GIOChannel *ioc_cpio , *input_ioc, *output_ioc;
+void xa_get_cpio_line_content (gchar *line, gpointer data);
 
 void OpenRPM ( XArchive *archive )
 {
 	unsigned char bytes[8];
+	unsigned short int i;
     int dl,il,sigsize,offset;
     gchar *ibs;
 
@@ -53,10 +55,16 @@ void OpenRPM ( XArchive *archive )
     archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
+    archive->nc = 7;
 	archive->format ="RPM";
-	char *names[]= {(_("Filename")),(_("Permission")),(_("Symbolic Link")),(_("Hard Link")),(_("Owner")),(_("Group")),(_("Size"))};
-	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64};
-	//xa_create_liststore ( 7, names , (GType *)types, archive );
+
+	char *names[]= {(_("Points to")),(_("Size")),(_("Permission")),(_("Date")),(_("Hard Link")),(_("Owner")),(_("Group"))};
+	GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 9; i++)
+		archive->column_types[i] = types[i];
+
+	xa_create_liststore (archive,names);
     if (fseek ( stream, 104 , SEEK_CUR ) )
     {
         fclose (stream);
@@ -91,59 +99,29 @@ void OpenRPM ( XArchive *archive )
 	offset = offset + sigsize;
 	fclose (stream);
 
-	cpio_tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
-	fd = g_mkstemp ( cpio_tmp );
+	/* Create a unique temp dir in /tmp */
+	result = xa_create_temp_directory (tmp_dir);
+	if (result == 0)
+		return;
+
+	archive->tmp = g_strdup(tmp_dir);
+	gzip_tmp = g_strconcat (tmp_dir,"/file_gz_bz",NULL);
 	ibs = g_strdup_printf ( "%u" , offset );
 
 	//Now I run dd to have the bzip2 / gzip compressed cpio archive in /tmp
-	gchar *command = g_strconcat ( "dd if=" , archive->escaped_path, " ibs=" , ibs , " skip=1 of=" , cpio_tmp , NULL );
+	gchar *command = g_strconcat ( "dd if=" , archive->escaped_path, " ibs=" , ibs , " skip=1 of=" , gzip_tmp , NULL );
 	g_free (ibs);
-	archive->parse_output = 0;
-	xa_spawn_async_process (archive,command,0);
-	g_free ( command );
-	if ( archive->child_pid == 0 )
-	{
-		fclose ( stream );
-		unlink ( cpio_tmp );
-		g_free (cpio_tmp);
+	result = xa_run_command ( command , 0);
+	g_free (command);
+	if (result == FALSE)
+	{	
+		fclose (stream);
+		g_free (gzip_tmp);
+		xa_delete_temp_directory (tmp_dir,1);
 		return;
 	}
-	g_child_watch_add ( archive->child_pid , (GChildWatchFunc) DecompressCPIO , cpio_tmp );
-}
-
-GChildWatchFunc *DecompressCPIO (GPid pid , gint status , gpointer data)
-{
-	gchar *gzip = data;
-	gint current_page;
-	gint idx;
-
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
-
-	if ( WIFEXITED(status) )
-	{
-		if ( WEXITSTATUS (status) )
-		{
-            Update_StatusBar ( _("Operation failed."));
-            gtk_widget_hide ( viewport2 );
-	    	xa_set_window_title (MainWindow , NULL);
-		    response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Error while extracting the cpio archive from the rpm one."),("Do you want to view the command line output?") );
-            if (response == GTK_RESPONSE_YES)
-				xa_show_cmd_line_output (NULL);
-            unlink ( cpio_tmp );
-            g_free (cpio_tmp);
-			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
-			//TODO:
-			//xa_hide_progress_bar_stop_button(archive[idx]);
-            return FALSE;
-    	}
-    }
-	cpio_tmp = xa_open_temp_file ( gzip );
-    if (cpio_tmp != NULL)
-		g_child_watch_add ( archive[idx]->child_pid , (GChildWatchFunc) OpenCPIO , gzip );
-    else
-		return FALSE;
-    return NULL;
+	/* Let's decompress the gzip/bzip2 resulting file*/
+	xa_open_temp_file ( tmp_dir,gzip_tmp );
 }
 
 GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
@@ -154,6 +132,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 	gchar *gzip = data;
+	
     if ( WIFEXITED( exit_code ) )
     {
 	    if ( WEXITSTATUS ( exit_code ) )
@@ -161,11 +140,10 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
             Update_StatusBar ( _("Operation failed."));
             gtk_widget_hide ( viewport2 );
 	    	xa_set_window_title (MainWindow , NULL);
-		    response = xa_show_message_dialog (GTK_WINDOW 		(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
+		    response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
 				xa_show_cmd_line_output (NULL);
-			unlink ( cpio_tmp );
-			unlink ( gzip );
+			xa_delete_temp_directory (tmp_dir,1);
 			g_free (cpio_tmp);
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 			//TODO:
@@ -173,23 +151,20 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 			return FALSE;
 		}
 	}
-	/* Let's delete the tmp gzip compressed CPIO archive since we don't need it anymore */
-	unlink ( gzip );
 
 	/* Now I have to open the CPIO temp file in read mode and spawn the
 	 * command cpio -tv with an input pipe so to receive the output from
 	 * the opened CPIO temp file */
 
-	archive[idx]->parse_output = 0;
+	archive[idx]->parse_output = xa_get_cpio_line_content;
 	xa_spawn_async_process ( archive[idx] , "cpio -tv" , 1);
 	if ( archive[idx]->child_pid == 0 )
 	{
-		unlink ( cpio_tmp );
+		xa_delete_temp_directory (tmp_dir,1);
 		g_free ( cpio_tmp );
 		return FALSE;
 	}
 	output_ioc = g_io_channel_unix_new ( archive[idx]->output_fd );
-	g_io_add_watch (output_ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ReadCPIOOutput, archive[idx] );
 	g_io_channel_set_encoding (output_ioc, locale , NULL);
 	g_io_channel_set_flags ( output_ioc , G_IO_FLAG_NONBLOCK , NULL );
 
@@ -197,7 +172,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	g_io_add_watch (input_ioc, G_IO_IN|G_IO_OUT|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, WriteCPIOInput, NULL );
 	g_io_channel_set_encoding (input_ioc, NULL , NULL);
 
-	ioc_cpio = g_io_channel_new_file ( cpio_tmp , "r" , NULL );
+	ioc_cpio = g_io_channel_new_file ( gzip , "r" , NULL );
 	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
 	g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
 
@@ -219,6 +194,7 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 			{
 				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred:"),error->message);
 				g_error_free (error);
+				xa_delete_temp_directory (tmp_dir,1);
 				CloseChannels ( ioc_cpio );
 				CloseChannels ( ioc );
 				return FALSE;
@@ -242,99 +218,119 @@ gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 }
 
 /* output pipe */
-gboolean ReadCPIOOutput (GIOChannel *ioc, GIOCondition cond, gpointer data)
+void xa_get_cpio_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	gchar **fields = NULL;
-    gchar *line = NULL;
-    gchar *filename = NULL;
-	GIOStatus status = G_IO_STATUS_NORMAL;
-	GtkTreeIter iter;
-	gchar *temp = NULL;
+	XEntry *entry;
+	gchar *filename;
+	gpointer item[7];
+	gint n = 0, a = 0 ,linesize = 0;
+	gboolean dir = FALSE;
 
-    /* Is there output from "cpio -tv" to read ? */
-	if (cond & (G_IO_IN | G_IO_PRI) )
+	linesize = strlen(line);
+
+	/* Permissions */
+	line[10] = '\0';
+	item[2] = line;
+	a = 11;
+
+	/* Hard Link */
+	for(n=a; n < linesize && line[n] == ' '; ++n);
+	line[++n] = '\0';
+	item[4] = line + a;
+	n++;
+	a = n;
+
+	/* Owner */
+	for(; n < linesize && line[n] != ' '; ++n);
+	line[n] = '\0';
+	item[5] = line + a;
+	n++;
+
+	/* Group */
+	for(; n < linesize && line[n] == ' '; ++n);
+	a = n;
+
+	for(; n < linesize && line[n] != ' '; ++n);
+	line[n] = '\0';
+	item[6] = line + a;
+	n++;
+
+	/* Size */	
+	for(; n < linesize && line[n] == ' '; ++n);
+	a = n;
+
+	for(; n < linesize && line[n] != ' '; ++n);
+	line[n] = '\0';
+	item[1] = line + a;
+	archive->dummy_size += strtoll(item[1],NULL,0);
+	n++;
+	
+	/* Date */
+	line[54] = '\0';
+	item[3] = line + n;
+	n = 55;
+
+	line[linesize-1] = '\0';
+	filename = line + n;
+
+	/* Symbolic link */
+	gchar *temp = g_strrstr (filename,"->"); 
+	if (temp) 
 	{
-		do
-		{
-			status = g_io_channel_read_line ( ioc, &line, NULL, NULL , NULL );
-			if (line == NULL)
-				break;
-
-			fields = split_line (line , 5);
-			filename = get_last_field (line , 9);
-			gtk_list_store_append (archive->liststore, &iter);
-			if ( g_str_has_prefix(fields[0] , "d") == FALSE)
-				archive->nr_of_files++;
-            else
-				archive->nr_of_dirs++;
-
-			temp = g_strrstr (filename,"->");
-			if (temp)
-			{
-				gtk_list_store_set (archive->liststore, &iter,2,g_strstrip(&temp[3]),-1);
-				temp = g_strstrip(g_strndup(filename, strlen(filename) - strlen(temp) ));
-				gtk_list_store_set (archive->liststore, &iter,0,temp,-1);
-				g_free (temp);
-			}
-			else
-			{
-				gtk_list_store_set (archive->liststore, &iter,2,NULL,-1);
-				gtk_list_store_set (archive->liststore, &iter,0,filename,-1);
-			}
-
-			gtk_list_store_set (archive->liststore, &iter,1,fields[0],-1);
-			gtk_list_store_set (archive->liststore, &iter,3,fields[1],-1);
-			gtk_list_store_set (archive->liststore, &iter,4,fields[2],-1);
-			gtk_list_store_set (archive->liststore, &iter,5,fields[3],-1);
-			gtk_list_store_set (archive->liststore, &iter,6,strtoll(fields[4],NULL,0),-1);
-
-            while (gtk_events_pending() )
-				gtk_main_iteration();
-
-            archive->dummy_size += strtoll(fields[4],NULL,0);
-            g_strfreev ( fields );
-			g_free (line);
-		}
-		while (status == G_IO_STATUS_NORMAL);
-
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
+		a = 3;
+		gint len = strlen(filename) - strlen(temp);
+		item[0] = filename + a + len;
+		filename[strlen(filename) - strlen(temp)] = '\0';
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	else
+		item[0] = NULL;
+
+	if(line[0] == 'd')
 	{
-done:	CloseChannels (ioc);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
-		g_object_unref (archive->model);
-		archive->tmp = cpio_tmp;
-		return FALSE;
+		dir = TRUE;
+		/* Work around for cpio, which does
+		 * not output / with directories */
+
+		if(line[linesize-2] != '/')
+			filename = g_strconcat(line + n, "/", NULL); 
+		else
+			filename = g_strdup(line + n); 
 	}
-	return TRUE;
+	else
+	{
+		archive->nr_of_files++;
+		filename = g_strdup(line + n); 
+	}
+	
+	entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
+	g_free (filename);
 }
 
-void CloseChannels ( GIOChannel *ioc )
+void CloseChannels (GIOChannel *ioc)
 {
     g_io_channel_shutdown ( ioc,TRUE,NULL );
     g_io_channel_unref (ioc);
 }
 
-gchar *xa_open_temp_file ( gchar *temp_path )
+void xa_open_temp_file (gchar *tmp_dir,gchar *temp_path)
 {
 	gint current_page;
 	gint idx;
+	gchar *tmp = NULL;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
 	gchar *command = NULL;
-	tmp = g_strdup ("/tmp/xarchiver-XXXXXX");
-	fd = g_mkstemp ( tmp );
-	stream = fdopen ( fd , "w" );
-	if ( stream == NULL)
+	tmp = g_strconcat (tmp_dir,"/file.cpio",NULL);
+
+	stream = fopen (tmp,"w");
+	if (stream == NULL)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write to /tmp:"),g_strerror(errno) );
 		g_free (tmp);
-		return NULL;
+		return;
 	}
 	if (xa_detect_archive_type ( temp_path ) == XARCHIVETYPE_GZIP)
 		command = g_strconcat ( "gzip -dc " , temp_path , NULL );
@@ -342,19 +338,20 @@ gchar *xa_open_temp_file ( gchar *temp_path )
 		command = g_strconcat ( "bzip2 -dc " , temp_path , NULL );
 	archive[idx]->parse_output = 0;
 	xa_spawn_async_process (archive[idx],command,0);
-	g_free ( command );
-	if ( archive[idx]->child_pid == 0 )
+	g_free (command);
+	if (archive[idx]->child_pid == 0)
 	{
 		fclose ( stream );
-		unlink ( tmp );
+		xa_delete_temp_directory (tmp_dir,1);
 		g_free (tmp);
-		return NULL;
+		return;
 	}
 	GIOChannel *ioc = g_io_channel_unix_new ( archive[idx]->output_fd );
 	g_io_channel_set_encoding (ioc, NULL , NULL);
 	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, ExtractToDifferentLocation, stream);
-	return tmp;
+
+	g_child_watch_add ( archive[idx]->child_pid , (GChildWatchFunc) OpenCPIO , tmp );
 }
 
 gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointer data)

@@ -98,7 +98,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	Name = g_list_first (ArchiveType);
 	while (Name)
 	{
-		if (!strcmp(Name->data, "tgz") || !strcmp(Name->data, "rpm") || !strcmp(Name->data, "iso") || (!strcmp(Name->data, "gz") && flag)
+		if (!strcmp(Name->data, "tgz") || !strcmp(Name->data, "rpm") || (!strcmp(Name->data, "gz") && flag)
 		|| !strcmp(Name->data, "lzma") || !strcmp(Name->data, "deb") || (!strcmp(Name->data, "bz2") && flag)
 		|| (!strcmp(Name->data, "rar") && unrar) )
 			goto there;

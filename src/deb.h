@@ -28,5 +28,5 @@
 #include "support.h"
 #include "archive.h"
 
-void OpenDeb ( XArchive *archive );
+void xa_open_deb ( XArchive *archive );
 #endif

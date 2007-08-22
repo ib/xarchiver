@@ -25,9 +25,8 @@ extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 void xa_open_lha (XArchive *archive)
 {
 	gchar *command;
-	unsigned short int i;
 	jump_header = last_line = FALSE;
-
+	unsigned short int i;
 	command = g_strconcat ("lha l " , archive->escaped_path, NULL);
 	archive->has_properties = archive->can_extract = archive->can_add = archive->has_test = TRUE;
 	archive->has_sfx = FALSE;
@@ -57,7 +56,6 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 	XArchive *archive = data;
 	XEntry *entry;
 	gpointer item[5];
-	unsigned short int i = 0;
 	unsigned int linesize,n,a;
 	gboolean dir = FALSE;
 	gchar *filename;

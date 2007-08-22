@@ -21,7 +21,9 @@
 #include "deb.h"
 #include "string_utils.h"
 
-void OpenDeb ( XArchive *archive )
+extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
+
+void xa_open_deb ( XArchive *archive )
 {
 	gchar *command = NULL;
 	gchar *archive_no_path = NULL;
