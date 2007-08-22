@@ -77,7 +77,6 @@ GtkWidget *delete_menu;
 GtkWidget *view_menu;
 GtkWidget *comment_menu;
 GtkWidget *view_shell_output1;
-GtkWidget *iso_info;
 GtkWidget *prefs_menu;
 GtkWidget *password_entry;
 GtkWidget *image1;
