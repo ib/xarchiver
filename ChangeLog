@@ -1,14 +1,15 @@
 Xarchiver changelog:
 
 xx/01/07 - 0.5:
-		- Implemented archive navigation.
+		- Implemented archive navigation within directories.
+		- Each archive's entry has now its own mime icon.
 		- Added a preferences dialog to set Xarchiver's options.
 		- The cmd-line output window now displays each archiver's output.
 		- The cmd-line output window has a close button and a better layout.
 		- Tabs are now reorderable.
 		- Better menu layout.
-		- Fixed bugs #2614, #2616, #2620, #2626, #2799.
-		- Fixed valgrind's message 'Invalid read of size 4'.
+		- Fixed bugs #2045,#2614, #2616, #2620, #2626, #2627, #2799.
+		- Fixed valgrind's messages 'Invalid read of size 4'.
 
 27/11/06 - 0.4.6:
 		- Fixed code in support.c to load the images when installing the software.

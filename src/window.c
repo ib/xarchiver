@@ -485,7 +485,7 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	gint i;
 	gint idx;
 
-	if ( GTK_WIDGET_VISIBLE (viewport2 ) )
+	if (GTK_WIDGET_VISIBLE (viewport2))
 	{
 		Update_StatusBar ( _("Please hit the Stop button first!"));
 		return;
@@ -495,7 +495,7 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 
 	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
 	{
-		idx = xa_find_archive_index ( i );
+		idx = xa_find_archive_index (i);
 		if (archive[idx] != NULL)
 		{
 			xa_clean_archive_structure (archive[idx]);

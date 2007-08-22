@@ -105,7 +105,7 @@ void OpenRPM ( XArchive *archive )
 		return;
 
 	archive->tmp = g_strdup(tmp_dir);
-	gzip_tmp = g_strconcat (tmp_dir,"/file_gz_bz",NULL);
+	gzip_tmp = g_strconcat (tmp_dir,"/file.gz_bz",NULL);
 	ibs = g_strdup_printf ( "%u" , offset );
 
 	//Now I run dd to have the bzip2 / gzip compressed cpio archive in /tmp
