@@ -889,31 +889,6 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	return result;
 }
 
-gboolean xa_delete_temp_directory ( gchar *dir_name, gboolean flag)
-{
-	gchar *command;
-	gboolean result;
-
-	chdir (dir_name);
-	command = g_strconcat ( "rm -rf ", dir_name , NULL );
-	result = xa_run_command (command , flag );
-	g_free (command);
-	return result;
-}
-
-gboolean xa_create_temp_directory ( gchar tmp_dir[] )
-{
-	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
-	if ( mkdtemp ( tmp_dir ) == 0)
-	{
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
-		gtk_widget_set_sensitive (Stop_button, FALSE);
-		Update_StatusBar (_("Operation failed."));
-		return FALSE;
-	}
-	return TRUE;
-}
-
 void xa_choose_extraction_directory (GtkWidget *widget, gpointer data)
 {
 	Extract_dialog_data *dialog_data = data;

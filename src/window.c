@@ -1637,59 +1637,6 @@ void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *
 	g_free (fullname);
 }
 
-gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
-{
-	gint current_page;
-	gint idx;
-	int status;
-	gboolean waiting = TRUE;
-	int ps;
-
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index ( current_page );
-
-	archive[idx]->parse_output = 0;
-	xa_spawn_async_process ( archive[idx],command,0);
-	if ( archive[idx]->child_pid == 0 )
-		return FALSE;
-
-	gtk_widget_show (viewport2);
-	while (waiting)
-	{
-		ps = waitpid ( archive[idx]->child_pid, &status, WNOHANG);
-		if (ps < 0)
-			waiting = FALSE;
-		else
-			gtk_main_iteration_do (FALSE);
-	}
-	//TODO:
-	/*if (watch_child_flag)
-	{
-		xa_watch_child (archive[idx]->child_pid, status, archive[idx]);
-		return TRUE;
-	}
-	else
-	{
-		if ( WIFEXITED (status) )
-		{
-			if ( WEXITSTATUS (status) )
-			{
-				gtk_tooltips_disable ( pad_tooltip );
-				gtk_widget_hide ( pad_image );
-				gtk_widget_hide ( viewport2 );
-				response = xa_show_message_dialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
-				if (response == GTK_RESPONSE_YES)
-					xa_show_cmd_line_output (NULL);
-				archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
-				gtk_widget_set_sensitive (Stop_button,FALSE);
-				Update_StatusBar ( _("Operation failed."));
-				return FALSE;
-			}
-		}
-	}*/
-	return TRUE;
-}
-
 void Update_StatusBar ( gchar *msg)
 {
     gtk_label_set_text (GTK_LABEL (info_label), msg);

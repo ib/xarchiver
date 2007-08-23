@@ -23,6 +23,8 @@
 #include "mime.h"
 #include "support.h"
 #include "window.h"
+#include <sys/types.h>
+#include <dirent.h>
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
@@ -224,6 +226,92 @@ void xa_clean_archive_structure (XArchive *archive)
 	}
 	g_slist_free (archive->entries);
 	g_free (archive);
+}
+
+gboolean xa_delete_temp_directory (gchar *dir_name, gboolean flag)
+{
+	DIR *dirp;
+	struct dirent *dp;
+
+	chdir (dir_name);
+	dirp = opendir(dir_name);
+	if (dirp == NULL)
+		return FALSE;
+
+	while ((dp = readdir(dirp)) != NULL)
+	{
+		if (dp->d_name[0] != '.')
+	    	unlink (dp->d_name);
+	}
+	closedir(dirp);
+	rmdir (dir_name);
+	return TRUE;
+}
+
+gboolean xa_create_temp_directory ( gchar tmp_dir[] )
+{
+	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
+	if ( mkdtemp ( tmp_dir ) == 0)
+	{
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
+		gtk_widget_set_sensitive (Stop_button, FALSE);
+		Update_StatusBar (_("Operation failed."));
+		return FALSE;
+	}
+	return TRUE;
+}
+
+gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
+{
+	gint current_page;
+	gint idx;
+	int status;
+	gboolean waiting = TRUE;
+	int ps;
+
+	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index ( current_page );
+
+	archive[idx]->parse_output = 0;
+	xa_spawn_async_process ( archive[idx],command,0);
+	if ( archive[idx]->child_pid == 0 )
+		return FALSE;
+
+	gtk_widget_show (viewport2);
+	while (waiting)
+	{
+		ps = waitpid ( archive[idx]->child_pid, &status, WNOHANG);
+		if (ps < 0)
+			waiting = FALSE;
+		else
+			gtk_main_iteration_do (FALSE);
+	}
+	//TODO:
+	/*if (watch_child_flag)
+	{
+		xa_watch_child (archive[idx]->child_pid, status, archive[idx]);
+		return TRUE;
+	}
+	else
+	{
+		if ( WIFEXITED (status) )
+		{
+			if ( WEXITSTATUS (status) )
+			{
+				gtk_tooltips_disable ( pad_tooltip );
+				gtk_widget_hide ( pad_image );
+				gtk_widget_hide ( viewport2 );
+				response = xa_show_message_dialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
+				if (response == GTK_RESPONSE_YES)
+					xa_show_cmd_line_output (NULL);
+				archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
+				gtk_widget_set_sensitive (Stop_button,FALSE);
+				Update_StatusBar ( _("Operation failed."));
+				return FALSE;
+			}
+		}
+	}*/
+	return TRUE;
 }
 
 gint xa_find_archive_index ( gint page_num )

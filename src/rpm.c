@@ -172,11 +172,13 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	g_io_add_watch (input_ioc, G_IO_IN|G_IO_OUT|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, WriteCPIOInput, NULL );
 	g_io_channel_set_encoding (input_ioc, NULL , NULL);
 
-	ioc_cpio = g_io_channel_new_file ( gzip , "r" , NULL );
+	ioc_cpio = g_io_channel_new_file (gzip , "r" , NULL);
+	g_free (gzip);
 	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
 	g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
 
 	g_child_watch_add ( archive[idx]->child_pid, (GChildWatchFunc) xa_watch_child, archive[idx]);
+
   return NULL;
 }
 

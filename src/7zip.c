@@ -63,7 +63,6 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	XEntry *entry;
 	gchar *filename;
 	gpointer item[5];
-	unsigned short int i = 0;
 	gint linesize = 0,n = 0,a = 0;
 	gboolean dir = FALSE;
 

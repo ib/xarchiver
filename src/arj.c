@@ -56,7 +56,6 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	XEntry *entry;
 	gpointer item[8];
 	unsigned int linesize,n,a;
-	gboolean dir = FALSE;
 
 	if (last_line)
 		return;

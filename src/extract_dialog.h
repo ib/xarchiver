@@ -68,9 +68,7 @@ void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path);
-gboolean xa_create_temp_directory (gchar tmp_dir[]);
 gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path, gboolean overwrite, gboolean tar_touch, gchar *extract_path , gboolean cpio_flag);
-gboolean xa_delete_temp_directory ( gchar *dir_name, gboolean flag);
 void xa_choose_extraction_directory (GtkWidget *widget, gpointer data);
 #endif
 
