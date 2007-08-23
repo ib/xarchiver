@@ -630,9 +630,11 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
 	gint selected = gtk_tree_selection_count_selected_rows ( selection );
+
     extract_window = xa_create_extract_dialog (selected , archive[idx]);
 	if (archive[idx]->extraction_path != NULL)
 		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),archive[idx]->extraction_path);
+
     command = xa_parse_extract_dialog_options ( archive[idx] , extract_window, selection );
 	if (extract_window->dialog1 != NULL)
 	{

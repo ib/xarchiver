@@ -209,12 +209,9 @@ void xa_clean_archive_structure (XArchive *archive)
 		g_free (archive->passwd);
 		archive->passwd = NULL;
 	}
-	//TODO: to remove this
-	if ( archive->extraction_path != NULL )
-	{
-		if ( strcmp (archive->extraction_path , "/tmp/") != 0)
+
+	if (archive->extraction_path != NULL)
 			g_free (archive->extraction_path);
-	}
 
 	if (archive->has_comment)
 	{
@@ -280,37 +277,18 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 	gtk_widget_show (viewport2);
 	while (waiting)
 	{
-		ps = waitpid ( archive[idx]->child_pid, &status, WNOHANG);
+		ps = waitpid (archive[idx]->child_pid, &status, WNOHANG);
 		if (ps < 0)
 			waiting = FALSE;
 		else
 			gtk_main_iteration_do (FALSE);
 	}
-	//TODO:
-	/*if (watch_child_flag)
+
+	if (watch_child_flag)
 	{
 		xa_watch_child (archive[idx]->child_pid, status, archive[idx]);
 		return TRUE;
 	}
-	else
-	{
-		if ( WIFEXITED (status) )
-		{
-			if ( WEXITSTATUS (status) )
-			{
-				gtk_tooltips_disable ( pad_tooltip );
-				gtk_widget_hide ( pad_image );
-				gtk_widget_hide ( viewport2 );
-				response = xa_show_message_dialog (GTK_WINDOW	(MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
-				if (response == GTK_RESPONSE_YES)
-					xa_show_cmd_line_output (NULL);
-				archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
-				gtk_widget_set_sensitive (Stop_button,FALSE);
-				Update_StatusBar ( _("Operation failed."));
-				return FALSE;
-			}
-		}
-	}*/
 	return TRUE;
 }
 
