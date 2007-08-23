@@ -35,6 +35,7 @@ void xa_open_bzip2 (XArchive *archive)
 
     if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 	{
+		archive->type = XARCHIVETYPE_TAR_BZ2;
 		tar = g_find_program_in_path ("gtar");
 		if (tar == NULL)
 			tar = g_strdup ("tar");

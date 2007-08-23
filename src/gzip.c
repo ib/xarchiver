@@ -32,6 +32,7 @@ void xa_open_gzip (XArchive *archive)
 
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
 	{
+		archive->type = XARCHIVETYPE_TAR_GZ;
 	    tar = g_find_program_in_path ("gtar");
 	    if (tar == NULL)
     		tar = g_strdup ("tar");

@@ -1085,7 +1085,6 @@ int xa_detect_archive_type ( gchar *filename )
 		xx = XARCHIVETYPE_LHA;
 	else if ( memcmp ( magic,"!<arch>\ndebian", 14 ) == 0 )
 		xx = XARCHIVETYPE_DEB;
-	//else if ( memcmp (magic,"\x00\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00",12) == 0 ) xx = XARCHIVETYPE_BIN;
 	fclose ( dummy_ptr );
 	return xx;
 }

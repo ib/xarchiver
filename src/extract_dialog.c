@@ -83,7 +83,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 			strncpy ( extraction_string, archive->path, x - 5);
 			extraction_string[x-5] = '\0';
 		}
-		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry), extraction_string);
+		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry), g_strdup(extraction_string));
 		g_free (extraction_string);
 	}
 	else
@@ -319,7 +319,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			break;
 
 			case GTK_RESPONSE_OK:
-			//TODO: apply Edward's patch
 			destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
 			archive->extraction_path = EscapeBadChars ( destination_path , "$\'`\"\\!?* ()&|@#:;" );
 
@@ -327,6 +326,12 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			{
 				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed where to extract the files!"),_("Please enter the extraction path.") );
 				break;
+			}
+			if (archive->extraction_path[0] != '/')
+			{
+				gchar *cur_dir = g_get_current_dir();
+				archive->extraction_path = g_strconcat(cur_dir, "/", archive->extraction_path, NULL);
+				g_free (cur_dir);
 			}
 			if (archive->has_passwd)
 				archive->passwd  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->password_entry) ));
