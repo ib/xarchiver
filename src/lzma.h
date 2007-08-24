@@ -21,10 +21,13 @@
 #define LZMA_H
 
 #include <gtk/gtk.h>
-#include "interface.h"
+#include <string.h>
+#include <stdlib.h>
+#include "string_utils.h"
 #include "support.h"
+#include "archive.h"
 
-void OpenLzma ( XArchive *archive );
+void xa_open_lzma ( XArchive *archive );
 void lzma_extract ( XArchive *archive );
 void xa_add_delete_tar_lzma( GString *list , XArchive *archive , gboolean add );
 #endif

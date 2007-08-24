@@ -110,7 +110,7 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 		else
 			command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp" , filename_only, flag ? ".gz" : ".bz2", NULL);
 
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command , 0);
 		g_free (command);
 		if (result == 0)
 			return ;
@@ -119,7 +119,7 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 		else
 			command = g_strconcat (flag ? "gzip -f -d -n " : "bzip2 -f -d ","/tmp",filename_only, flag ? ".gz" : ".bz2", NULL);
 
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command , 0);
 		g_free (command);
 		if (result == 0)
 			return;
@@ -140,7 +140,7 @@ void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
 				command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
 		}
 
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command , 0);
 		g_free (command);
 		if (result == 0)
 			return;
@@ -172,10 +172,12 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	}
 
 	/* Let's copy the archive to /tmp first */
+	
+	//TODO: replace /tmp with the user chosen dir in the pref dialog
 	temp_name = g_strconcat ( " /tmp", g_strrstr (archive->escaped_path , "/"), NULL);
 	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL);
 	if ( ! cli)
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command , 0);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);
@@ -186,9 +188,9 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	}
 	command = g_strconcat (dummy ? "gzip -f " : "bzip2 ", "-f -d ",temp_name,NULL);
 	if ( ! cli )
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command , 0);
 	else
-		result = SpawnSyncCommand ( command );
+		result = SpawnSyncCommand (command);
 	g_free (command);
 	if (result == 0)
 	{
@@ -228,7 +230,7 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	else
 		command = g_strconcat (tar, " --delete -f " , temp_name , list->str , NULL );
 	if ( ! cli)
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command,0);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);
@@ -248,9 +250,9 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 
 	command = g_strconcat ( dummy ? "gzip -f " : "bzip2 ", "-f " , temp_name , NULL );
 	if ( ! cli )
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command , 0);
 	else
-		result = SpawnSyncCommand ( command );
+		result = SpawnSyncCommand (command);
 	g_free (command);
 
 	if (result == 0)
@@ -265,9 +267,9 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	/* Let's move the modified archive from /tmp to the original archive location */
 	command = g_strconcat ( "mv " , temp_name , file_ext, " " ,archive->escaped_path, NULL );
 	if ( ! cli )
-		result = xa_run_command (command , 1);
+		result = xa_run_command (archive,command,1);
 	else
-		result = SpawnSyncCommand ( command );
+		result = SpawnSyncCommand (command);
 	g_free (command);
 	g_free (temp_name);
 

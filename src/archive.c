@@ -23,8 +23,6 @@
 #include "mime.h"
 #include "support.h"
 #include "window.h"
-#include <sys/types.h>
-#include <dirent.h>
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
@@ -225,27 +223,24 @@ void xa_clean_archive_structure (XArchive *archive)
 	g_free (archive);
 }
 
-gboolean xa_delete_temp_directory (gchar *dir_name, gboolean flag)
+gboolean xa_delete_temp_directory (gchar *dir_name,gboolean flag)
 {
-	DIR *dirp;
-	struct dirent *dp;
+	gchar *command;
+	gboolean result;
+	gint current_page;
+	gint idx;
+
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
 
 	chdir (dir_name);
-	dirp = opendir(dir_name);
-	if (dirp == NULL)
-		return FALSE;
-
-	while ((dp = readdir(dirp)) != NULL)
-	{
-		if (dp->d_name[0] != '.')
-	    	unlink (dp->d_name);
-	}
-	closedir(dirp);
-	rmdir (dir_name);
-	return TRUE;
+	command = g_strconcat ("rm -rf ",dir_name,NULL);
+	result = xa_run_command (archive[idx],command,flag );
+	g_free (command);
+	return result;
 }
 
-gboolean xa_create_temp_directory ( gchar tmp_dir[] )
+gboolean xa_create_temp_directory (gchar tmp_dir[])
 {
 	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
 	if ( mkdtemp ( tmp_dir ) == 0)
@@ -258,26 +253,21 @@ gboolean xa_create_temp_directory ( gchar tmp_dir[] )
 	return TRUE;
 }
 
-gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
+gboolean xa_run_command (XArchive *archive,gchar *command , gboolean watch_child_flag)
 {
-	gint current_page;
-	gint idx;
 	int status;
 	gboolean waiting = TRUE;
 	int ps;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index ( current_page );
-
-	archive[idx]->parse_output = 0;
-	xa_spawn_async_process ( archive[idx],command,0);
-	if ( archive[idx]->child_pid == 0 )
+	archive->parse_output = 0;
+	xa_spawn_async_process ( archive,command,0);
+	if ( archive->child_pid == 0 )
 		return FALSE;
 
 	gtk_widget_show (viewport2);
 	while (waiting)
 	{
-		ps = waitpid (archive[idx]->child_pid, &status, WNOHANG);
+		ps = waitpid (archive->child_pid, &status, WNOHANG);
 		if (ps < 0)
 			waiting = FALSE;
 		else
@@ -286,7 +276,7 @@ gboolean xa_run_command ( gchar *command , gboolean watch_child_flag )
 
 	if (watch_child_flag)
 	{
-		xa_watch_child (archive[idx]->child_pid, status, archive[idx]);
+		xa_watch_child (archive->child_pid, status, archive);
 		return TRUE;
 	}
 	return TRUE;
@@ -376,6 +366,17 @@ void xa_free_entry (XArchive *archive,XEntry *entry)
 	g_free(entry->columns);
 	g_free(entry->filename);
 	g_free(entry);
+}
+
+void xa_store_entries_in_gslist (XEntry *entry, GSList **list)
+{
+	if (entry == NULL)
+		return;
+		
+	*list = g_slist_prepend (*list,entry->filename);
+
+	xa_store_entries_in_gslist(entry->child, list);
+	xa_store_entries_in_gslist(entry->next, list);
 }
 
 XEntry *xa_find_archive_entry(XEntry *entry, gchar *string)

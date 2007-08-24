@@ -202,7 +202,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_container_add (GTK_CONTAINER (frame3), alignment3);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment3), 0, 0, 12, 0);
 
-	table2 = gtk_table_new (4, 2,FALSE);
+	table2 = gtk_table_new (5, 2,FALSE);
 	gtk_container_add (GTK_CONTAINER (alignment3), table2);
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table2), 4);
@@ -229,19 +229,31 @@ Prefs_dialog_data *xa_create_prefs_dialog()
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
                     
-	label8 = gtk_label_new (_("Preferred temp directory:"));
+	label8 = gtk_label_new (_("Open image files with:"));
 	gtk_table_attach (GTK_TABLE (table2), label8, 0, 1, 2, 3,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (label8), 0, 0.5);
+	prefs_data->combo_prefered_viewer = gtk_combo_box_new_text();
+	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_viewer), _("choose...") );
+	gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_viewer, 1, 2, 2, 3,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);
+
+	label9 = gtk_label_new (_("Preferred temp directory:"));
+	gtk_table_attach (GTK_TABLE (table2), label9, 0, 1, 3, 4,
+                     (GtkAttachOptions) (GTK_FILL),
+                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
 	prefs_data->combo_prefered_temp_dir = gtk_combo_box_new_text();
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_temp_dir), _("/tmp") );
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_temp_dir), _("choose...") );
-	gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_temp_dir, 1, 2, 2, 3,
+	gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_temp_dir, 1, 2, 3, 4,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
+
 	prefs_data->check_save_geometry = gtk_check_button_new_with_mnemonic (_("Save window geometry"));
-	gtk_table_attach (GTK_TABLE (table2), prefs_data->check_save_geometry, 0, 2, 3, 4,
+	gtk_table_attach (GTK_TABLE (table2), prefs_data->check_save_geometry, 0, 2, 4, 5,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_geometry), FALSE);
@@ -315,6 +327,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_web_browser",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser)));
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_editor",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor)));
+	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_viewer",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_viewer)));
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_temp_dir",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir)));
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->check_save_geometry)) )
 	{
@@ -380,6 +393,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_web_browser",NULL));
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_editor",NULL));
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_viewer),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_viewer",NULL));
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_temp_dir",NULL));
 		coords = g_key_file_get_integer_list(xa_key_file, PACKAGE, "geometry", &coords_len, &error);
 		if (error)

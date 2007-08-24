@@ -27,15 +27,14 @@
 
 FILE *fd;
 
-extern gboolean TarOpen (GIOChannel *ioc, GIOCondition cond, gpointer data);
 extern int output_fd;
 extern gboolean cli;
-
 short int l;
 
-void OpenLzma ( XArchive *archive )
+void xa_open_lzma ( XArchive *archive )
 {
 	gchar *command;
+	unsigned short int i;
 
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive->escaped_path , ".tlz") )
 	{
@@ -49,6 +48,7 @@ void OpenLzma ( XArchive *archive )
 		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
+		archive->nc = 6;
 		archive->format ="TAR.LZMA";
 		archive->parse_output = xa_get_tar_line_content;
 
@@ -60,9 +60,13 @@ void OpenLzma ( XArchive *archive )
 		if ( archive->child_pid == 0 )
 			return;
 
-		char *names[]= {(_("Filename")),(_("Permissions")),(_("Symbolic Link")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
-//		xa_create_liststore ( 7, names , (GType *)types, archive );
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+		archive->column_types = g_malloc0(sizeof(types));
+		for (i = 0; i < 8; i++)
+			archive->column_types[i] = types[i];
+
+		char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+		xa_create_liststore (archive,names);
         archive->type = XARCHIVETYPE_TAR_LZMA;
 	}
 	else
@@ -106,7 +110,7 @@ void lzma_extract ( XArchive *archive )
 		else
 			command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp" , filename_only, ".lzma", NULL);
 
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command,0);
 		g_free (command);
 		if (result == 0)
 			return ;
@@ -115,7 +119,7 @@ void lzma_extract ( XArchive *archive )
 		else
 			command = g_strconcat ("lzma -f -d ","/tmp",filename_only, ".lzma", NULL);
 
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command,0);
 		g_free (command);
 		if (result == 0)
 			return;
@@ -130,7 +134,7 @@ void lzma_extract ( XArchive *archive )
 			command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
 		}
 
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command,0);
 		g_free (command);
 		if (result == 0)
 			return;
@@ -165,7 +169,7 @@ void xa_add_delete_tar_lzma ( GString *list , XArchive *archive , gboolean add )
 	temp_name = g_strconcat ( " /tmp", g_strrstr (archive->escaped_path , "/"), NULL);
 	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL);
 	if ( ! cli)
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command,0);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);
@@ -176,7 +180,7 @@ void xa_add_delete_tar_lzma ( GString *list , XArchive *archive , gboolean add )
 	}
 	command = g_strconcat ("lzma ", "-f -d ",temp_name,NULL);
 	if ( ! cli )
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command,0);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);
@@ -209,7 +213,7 @@ void xa_add_delete_tar_lzma ( GString *list , XArchive *archive , gboolean add )
 	else
 		command = g_strconcat (tar, " --delete -f " , temp_name , list->str , NULL );
 	if ( ! cli)
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command,0);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);
@@ -229,7 +233,7 @@ void xa_add_delete_tar_lzma ( GString *list , XArchive *archive , gboolean add )
 
 	command = g_strconcat ( "lzma ", "-f " , temp_name , NULL );
 	if ( ! cli )
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive,command,0);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);
@@ -244,7 +248,7 @@ void xa_add_delete_tar_lzma ( GString *list , XArchive *archive , gboolean add )
 	/* Let's move the modified archive from /tmp to the original archive location */
 	command = g_strconcat ( "mv " , temp_name , file_ext, " " ,archive->escaped_path, NULL );
 	if ( ! cli )
-		result = xa_run_command (command , 1);
+		result = xa_run_command (archive,command,1);
 	else
 		result = SpawnSyncCommand ( command );
 	g_free (command);

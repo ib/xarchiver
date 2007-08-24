@@ -392,9 +392,9 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					g_free (text);
 				}
 				g_free (destination_path);
-        tar = g_find_program_in_path ("gtar");
-        if (tar == NULL)
-          tar = g_strdup ("tar");
+    		    tar = g_find_program_in_path ("gtar");
+        		if (tar == NULL)
+          			tar = g_strdup ("tar");
 				switch ( archive->type )
 				{
 					case XARCHIVETYPE_BZIP2:
@@ -435,7 +435,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
+						xa_extract_tar_without_directories ( "tar -xvf ",archive,NULL,FALSE );
 						command = NULL;
 					}
 					break;
@@ -450,7 +450,8 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvjf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path , FALSE );
+						g_print ("ALL files\n");
+						xa_extract_tar_without_directories ( "tar -xvjf ",archive,archive->extraction_path,FALSE );
 						command = NULL;
 					}
 					break;
@@ -465,7 +466,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
+						xa_extract_tar_without_directories ( "tar -xvzf ",archive,archive->extraction_path,FALSE );
 						command = NULL;
 					}
 					break;
@@ -480,7 +481,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
+						xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,NULL,FALSE);
 						command = NULL;
 					}
 					break;
@@ -495,7 +496,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvzf " , archive->tmp, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
+						xa_extract_tar_without_directories ( "tar -xvzf ",archive,archive->tmp,FALSE );
 						command = NULL;
 					}
 					break;
@@ -524,7 +525,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,archive->extraction_path , TRUE);
+						xa_extract_tar_without_directories ( "tar -xvzf " , archive,archive->escaped_path,TRUE);
 						command = NULL;
 					}
                     break;
@@ -567,7 +568,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				}
 				g_free (tar);
 
-				if ( command != NULL )
+				if (command != NULL)
 					return command;
 			}
 			else
@@ -638,7 +639,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, FALSE );
+			xa_extract_tar_without_directories ( "tar -xvf " , archive,archive->escaped_path,FALSE );
 			command = NULL;
 		}
 		break;
@@ -653,7 +654,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xjvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, FALSE );
+			xa_extract_tar_without_directories ( "tar -xjvf " , archive,archive->escaped_path,FALSE );
 			command = NULL;
 		}
 		break;
@@ -668,7 +669,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xzvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, FALSE );
+			xa_extract_tar_without_directories ( "tar -xzvf " , archive,archive->escaped_path,FALSE );
 			command = NULL;
 		}
 		break;
@@ -683,7 +684,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path, FALSE );
+			xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf " , archive,archive->escaped_path,FALSE );
 			command = NULL;
 		}
 		break;
@@ -698,7 +699,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xvzf " , archive->tmp, archive->overwrite,archive->tar_touch,archive->extraction_path, FALSE );
+			xa_extract_tar_without_directories ( "tar -xvzf " , archive,archive->tmp,FALSE );
 			command = NULL;
 		}
 		break;
@@ -727,7 +728,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xvzf " , archive->escaped_path, archive->overwrite,archive->tar_touch,path , TRUE);
+			xa_extract_tar_without_directories ( "tar -xvzf " , archive,archive->escaped_path,TRUE);
 			command = NULL;
 		}
         break;
@@ -778,7 +779,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 	return command;
 }
 
-gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path, gboolean overwrite, gboolean tar_touch, gchar *extract_path, gboolean cpio_flag )
+gboolean xa_extract_tar_without_directories ( gchar *string, XArchive *archive, gchar *extract_path,gboolean cpio_flag)
 {
 	gchar *command = NULL;
 	gchar *name = NULL;
@@ -786,31 +787,26 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	gchar tmp_dir[14] = "";
 	GtkTreeSelection *selection;
 	GString *names, *unescaped_names;
-	gboolean end = FALSE;
 	GtkTreeIter iter;
 	GList *row_list;
 	GSList *filenames = NULL;
+	GSList *xxx = NULL;
 	gboolean result;
-	gint current_page;
-	gint idx;
-
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
 
 	names = g_string_new ("");
 	unescaped_names = g_string_new ("");
 
-	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
-	row_list = gtk_tree_selection_get_selected_rows (selection, &archive[idx]->model);
+	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive->treeview) );
+	row_list = gtk_tree_selection_get_selected_rows (selection, &archive->model);
 
 	if (row_list != NULL)
 	{
 		while (row_list)
 		{
-			gtk_tree_model_get_iter(archive[idx]->model, &iter, row_list->data);
-			gtk_tree_model_get (archive[idx]->model, &iter,
-								0, &name,
-								1, &permission,
+			gtk_tree_model_get_iter(archive->model, &iter, row_list->data);
+			gtk_tree_model_get (archive->model, &iter,
+								1, &name,
+								3, &permission,
 								-1);
 			gtk_tree_path_free (row_list->data);
 
@@ -826,20 +822,18 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	}
 	else
 	{
-		end = gtk_tree_model_get_iter_first (archive[idx]->model , &iter);
-		while (end)
+		/* *Here we have to fill a GSList with all the filenames in the archive so that we can use mv on all of them */
+		XEntry *entry;
+		GSList *s = archive->entries;
+
+		for (; s; s = s->next)
 		{
-			gtk_tree_model_get (archive[idx]->model, &iter,	0, &name,
-												1, &permission, -1);
-			if (strstr (permission ,"d") == NULL)
-			{
-				ConcatenateFileNames2 ( name , names );
-				filenames = g_slist_append ( filenames,name );
-			}
-			g_free (permission);
-			end = gtk_tree_model_iter_next (archive[idx]->model,&iter);
+			entry = s->data;
+			xa_store_entries_in_gslist(entry,&xxx);
 		}
 	}
+	filenames = g_slist_reverse(xxx);
+	
 	result = xa_create_temp_directory (tmp_dir);
 	if (result == 0)
 		return FALSE;
@@ -847,14 +841,14 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 	if (cpio_flag)
 	{
 		chdir (tmp_dir);
-		command = g_strconcat ( "cpio --make-directories -F " , archive[idx]->tmp , " -i" , NULL );
+		command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
 	}
 	else
-		command = g_strconcat ( string, escaped_path,
-										overwrite ? " --overwrite" : " --keep-old-files",
-										tar_touch ? " --touch" : "",
+		command = g_strconcat ( string, archive->escaped_path,
+										archive->overwrite ? " --overwrite" : " --keep-old-files",
+										archive->tar_touch ? " --touch" : "",
 										" -C " , tmp_dir , names->str, NULL );
-	result = xa_run_command (command , 0);
+	result = xa_run_command (archive,command,0);
 	g_string_free (names, TRUE);
 	g_free (command);
 
@@ -866,26 +860,29 @@ gboolean xa_extract_tar_without_directories ( gchar *string, gchar *escaped_path
 		return FALSE;
 	}
 	chdir (tmp_dir);
+	
 	while (filenames)
 	{
-		gchar *unescaped = EscapeBadChars ( filenames->data , "$\'`\"\\!?* ()[]&|@#:;");
+		gchar *unescaped = EscapeBadChars ( (gchar*)filenames->data , "$\'`\"\\!?* ()[]&|@#:;");
 		g_string_prepend ( unescaped_names, unescaped );
 		g_string_prepend_c (unescaped_names, ' ');
 		g_free (unescaped);
 		filenames = filenames->next;
 	}
 	command = g_strconcat ( "mv -f ", unescaped_names->str, " " , extract_path , NULL );
-	result = xa_run_command (command , 0);
+	g_print ("%s\n",command);
+	result = xa_run_command (archive,command,0);
 	g_free (command);
 	g_slist_free (filenames);
 	g_string_free ( unescaped_names, TRUE );
 	if (result == 0 || stop_flag)
 	{
-		xa_delete_temp_directory ( tmp_dir, 0 );
+		xa_delete_temp_directory (tmp_dir,0);
 		gtk_widget_hide (viewport2);
 		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
 	}
+
 	if (cpio_flag)
 		xa_delete_temp_directory ( tmp_dir, 0 );
 	else

@@ -111,7 +111,7 @@ void OpenRPM ( XArchive *archive )
 	//Now I run dd to have the bzip2 / gzip compressed cpio archive in /tmp
 	gchar *command = g_strconcat ( "dd if=" , archive->escaped_path, " ibs=" , ibs , " skip=1 of=" , gzip_tmp , NULL );
 	g_free (ibs);
-	result = xa_run_command ( command , 0);
+	result = xa_run_command (archive,command,0);
 	g_free (command);
 	if (result == FALSE)
 	{	

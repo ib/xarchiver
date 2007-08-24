@@ -133,7 +133,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				break;
 
 				case XARCHIVETYPE_TAR_LZMA:
-				OpenLzma (archive);
+				xa_open_lzma (archive);
 				break;
 
 				case XARCHIVETYPE_ZIP:
@@ -345,7 +345,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_LZMA:
-		OpenLzma ( archive[current_page] );
+		xa_open_lzma ( archive[current_page] );
 		break;
 
 		case XARCHIVETYPE_RAR:
@@ -442,7 +442,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 		command = NULL;
 	}
 	archive[id]->status = XA_ARCHIVESTATUS_TEST;
-    xa_run_command ( command , 1);
+    xa_run_command (archive[id],command,1);
     g_free (command);
 }
 
@@ -591,7 +591,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
     {
     	xa_set_button_state (0,0,0,0,0,0,0,0);
     	gtk_widget_set_sensitive (Stop_button,TRUE);
-        xa_run_command ( command , 1);
+        xa_run_command (archive[id],command,1);
         g_free (command);
     }
     g_string_free (names , TRUE );
@@ -612,7 +612,7 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 	gtk_widget_destroy ( add_window->dialog1 );
 	if (command != NULL)
 	{
-		xa_run_command (command , 1);
+		xa_run_command (archive[idx],command,1);
 		g_free (command);
 	}
 	g_free ( add_window );
@@ -647,7 +647,7 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		gtk_widget_set_sensitive ( check_menu , FALSE);
 		gtk_widget_set_sensitive ( properties , FALSE);
 		xa_set_button_state (0,0,0,0,0,0,0,0);
-		xa_run_command (command , 1);
+		xa_run_command (archive[idx],command,1);
 		g_free (command);
 	}
 	g_free (extract_window);
@@ -764,11 +764,11 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				fclose (sfx_archive);
 
 				command = g_strconcat ("chmod 755 ", archive_name_escaped , NULL);
-				result = xa_run_command (command , 0);
+				result = xa_run_command (archive[idx],command,0);
 				g_free (command);
 
 				command = g_strconcat ("zip -A ",archive_name_escaped,NULL);
-				result = xa_run_command (command , 1);
+				result = xa_run_command (archive[idx],command,1);
 				g_free (command);
 				command = NULL;
 			}
@@ -874,7 +874,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				fclose (sfx_archive);
 
 				command = g_strconcat ("chmod 755 ", archive_name_escaped , NULL);
-				result = xa_run_command (command , 1);
+				result = xa_run_command (archive[idx],command,1);
 				g_free (command);
 				command = NULL;
 			}
@@ -892,7 +892,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 	}
 	if (command != NULL)
 	{
-		xa_run_command ( command , 1);
+		xa_run_command (archive[idx],command,1);
 		g_free (command);
 	}
 }
@@ -1342,7 +1342,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	archive[idx]->overwrite = overwrite;
 	if (command != NULL)
 	{
-		result = xa_run_command (command , 0);
+		result = xa_run_command (archive[idx],command,0);
 		g_free (command);
 		if ( result == 0 )
 		{
@@ -1760,7 +1760,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		if ( command != NULL )
 		{
 			archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
-			xa_run_command ( command , 1);
+			xa_run_command (archive[idx],command,1);
 			g_free (command);
 		}
 		archive[idx]->full_path = full_path;
@@ -1882,7 +1882,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		gtk_widget_set_sensitive ( check_menu , FALSE);
 		gtk_widget_set_sensitive ( properties , FALSE);
 		xa_set_button_state (0,0,0,0,0,0,0,0);
-		xa_run_command (command , 1);
+		xa_run_command (archive[idx],command,1);
 		g_free (command);
 	}
 	g_string_free (names, TRUE);

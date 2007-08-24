@@ -47,7 +47,7 @@ void xa_open_deb ( XArchive *archive )
 
 	/* Copy the .deb archive to the unique dir */
 	command = g_strconcat ("cp ",archive->escaped_path,archive->tmp,NULL);
-	result = xa_run_command ( command , 0);
+	result = xa_run_command (archive,command,0);
 	g_free (command);
 	if (result == FALSE)
 		return;
@@ -55,7 +55,7 @@ void xa_open_deb ( XArchive *archive )
 	/* Ok, let's now extract the .deb archive with ar */
 	chdir (tmp_dir);
 	command = g_strconcat ("ar xv" , archive->tmp, NULL);
-	result = xa_run_command ( command , 0);
+	result = xa_run_command (archive,command,0);
 	g_free (command);
 	g_free (archive->tmp);
 
