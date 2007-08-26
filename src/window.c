@@ -656,12 +656,17 @@ void xa_extract_archive ( GtkMenuItem *menuitem , gpointer user_data )
 
 void xa_show_prefs_dialog ( GtkMenuItem *menuitem , gpointer user_data )
 {
+	gboolean response;
+
 	if (prefs_window == NULL)
 		prefs_window = xa_create_prefs_dialog();
 
 	gtk_widget_show_all (prefs_window->dialog1);
-	gtk_dialog_run (GTK_DIALOG(prefs_window->dialog1));
+	response = gtk_dialog_run (GTK_DIALOG(prefs_window->dialog1));
 	gtk_widget_hide (prefs_window->dialog1);
+
+	if (response == GTK_RESPONSE_OK)
+		xa_apply_prefs_option(prefs_window);
 }
 
 void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )

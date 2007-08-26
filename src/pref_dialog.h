@@ -37,5 +37,8 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer user_data);
 void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data);
 void xa_prefs_save_options (Prefs_dialog_data *prefs_data,const char *filename);
 void xa_prefs_load_options (Prefs_dialog_data *prefs_data);
+void xa_prefs_combo_changed (GtkComboBox *widget,gpointer user_data);
+void xa_apply_prefs_option(Prefs_dialog_data *);
+gchar *xa_prefs_choose_program(gboolean flag);
 #endif
 

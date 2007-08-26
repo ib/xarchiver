@@ -99,7 +99,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	gtk_widget_set_size_request (dialog_data->image1, 30, 30);
 
 	gtk_container_add(GTK_CONTAINER(dialog_data->button1), dialog_data->image1);
-	gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->button1 , _("Choose a folder where to extract files"), NULL );
+	gtk_tooltips_set_tip (dialog_data->option_tooltip,dialog_data->button1 , _("Choose a directory where to extract files"), NULL );
 	g_signal_connect ( (gpointer) dialog_data->button1, "clicked", G_CALLBACK (xa_choose_extraction_directory) , dialog_data );
 
 	dialog_data->hbox4 = gtk_hbox_new (TRUE, 7);
@@ -358,7 +358,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				gchar  *msg;
 
                 utf8_path = g_filename_to_utf8 (destination_path, -1, NULL, NULL, NULL);
-                msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the folder \"%s\"."), utf8_path);
+                msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."), utf8_path);
 				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't perform extraction!"),msg );
                 g_free (utf8_path);
 				g_free (msg);
@@ -450,7 +450,6 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						g_print ("ALL files\n");
 						xa_extract_tar_without_directories ( "tar -xvjf ",archive,archive->extraction_path,FALSE );
 						command = NULL;
 					}
@@ -825,7 +824,7 @@ gboolean xa_extract_tar_without_directories ( gchar *string, XArchive *archive, 
 		/* *Here we have to fill a GSList with all the filenames in the archive so that we can use mv on all of them */
 		XEntry *entry;
 		GSList *s = archive->entries;
-
+		g_print ("%s\n",gtk_entry_get_text(GTK_ENTRY(location_entry)));
 		for (; s; s = s->next)
 		{
 			entry = s->data;
@@ -898,7 +897,7 @@ void xa_choose_extraction_directory (GtkWidget *widget, gpointer data)
 	int response;
 	gchar *path;
 
-	File_Selector = gtk_file_chooser_dialog_new ( _("Choose the destination folder where to extract the current archive"),
+	File_Selector = gtk_file_chooser_dialog_new ( _("Choose the destination directory"),
 					GTK_WINDOW (MainWindow),
 					GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
 					GTK_STOCK_CANCEL,
