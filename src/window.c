@@ -195,7 +195,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	archive[current_page] = xa_new_archive_dialog (NULL,archive,FALSE);
 
-	if (archive[current_page]  == NULL)
+	if (archive[current_page] == NULL)
 		return;
 
 	xa_add_page (archive[current_page]);

@@ -519,6 +519,7 @@ here:
 		/* Let's set the location entry */
 		if (archive[id]->location_entry_path != NULL)
 			gtk_entry_set_text(GTK_ENTRY(location_entry),archive[id]->location_entry_path);
+		
 		gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
 	}
 }

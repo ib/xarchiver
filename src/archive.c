@@ -74,11 +74,14 @@ void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input
 		archive->error_output = NULL;
 	}
 
-	ioc = g_io_channel_unix_new ( archive->output_fd );
-	g_io_channel_set_encoding (ioc, NULL , NULL);
-	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
+	if (archive->parse_output)
+	{
+		ioc = g_io_channel_unix_new (archive->output_fd);
+		g_io_channel_set_encoding (ioc, NULL , NULL);
+		g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
+	}
 
-	if ( archive->parse_output )
+	if (archive->parse_output)
 	{
 		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_process_output, archive);
 		g_child_watch_add ( archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
@@ -198,7 +201,8 @@ void xa_clean_archive_structure (XArchive *archive)
 
 	if (archive->tmp != NULL)
 	{
-		xa_delete_temp_directory (archive->tmp,1);
+		xa_delete_temp_directory (archive,0);
+		gtk_widget_hide(viewport2);
 		g_free (archive->tmp);
 	}
 
@@ -223,19 +227,16 @@ void xa_clean_archive_structure (XArchive *archive)
 	g_free (archive);
 }
 
-gboolean xa_delete_temp_directory (gchar *dir_name,gboolean flag)
+gboolean xa_delete_temp_directory (XArchive *archive,gboolean flag)
 {
 	gchar *command;
 	gboolean result;
-	gint current_page;
-	gint idx;
+		
+	chdir (archive->tmp);
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	command = g_strconcat ("rm -rf ",archive->tmp,NULL);
 
-	chdir (dir_name);
-	command = g_strconcat ("rm -rf ",dir_name,NULL);
-	result = xa_run_command (archive[idx],command,flag );
+	result = xa_run_command (archive,command,flag );
 	g_free (command);
 	return result;
 }
@@ -253,15 +254,15 @@ gboolean xa_create_temp_directory (gchar tmp_dir[])
 	return TRUE;
 }
 
-gboolean xa_run_command (XArchive *archive,gchar *command , gboolean watch_child_flag)
+gboolean xa_run_command (XArchive *archive,gchar *command,gboolean watch_child_flag)
 {
 	int status;
 	gboolean waiting = TRUE;
 	int ps;
 
 	archive->parse_output = 0;
-	xa_spawn_async_process ( archive,command,0);
-	if ( archive->child_pid == 0 )
+	xa_spawn_async_process (archive,command,0);
+	if (archive->child_pid == 0)
 		return FALSE;
 
 	gtk_widget_show (viewport2);

@@ -120,7 +120,7 @@ XArchive *xa_init_archive_structure ();
 void xa_clean_archive_structure ( XArchive *archive);
 gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean xa_create_temp_directory (gchar tmp_dir[]);
-gboolean xa_delete_temp_directory (gchar *dir_name, gboolean flag);
+gboolean xa_delete_temp_directory (XArchive *archive,gboolean flag);
 gboolean xa_run_command (XArchive *archive,gchar *command , gboolean watch_child_flag);
 gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();

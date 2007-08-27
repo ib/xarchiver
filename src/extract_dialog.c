@@ -767,8 +767,8 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 
 		case XARCHIVETYPE_LHA:
 			command = g_strconcat ("lha ", archive->full_path ? "x" : "xi",
-											archive->overwrite ? "f" : "", "w=",
-											path, " ", archive->escaped_path , files->str, NULL);
+										archive->overwrite ? "f" : "", "w=",
+										path, " ", archive->escaped_path , files->str, NULL);
 		break;
 
 		default:
@@ -778,7 +778,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 	return command;
 }
 
-gboolean xa_extract_tar_without_directories ( gchar *string, XArchive *archive, gchar *extract_path,gboolean cpio_flag)
+gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, gchar *extract_path,gboolean cpio_flag)
 {
 	gchar *command = NULL;
 	gchar *name = NULL;
