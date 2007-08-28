@@ -30,10 +30,10 @@ gsize bytes_written = 0;
 GIOStatus status;
 gboolean result;
 GError *error = NULL;
-GIOChannel *ioc_cpio , *input_ioc, *output_ioc;
+GIOChannel *ioc_cpio,*input_ioc;
 void xa_get_cpio_line_content (gchar *line, gpointer data);
 
-void OpenRPM ( XArchive *archive )
+void OpenRPM (XArchive *archive)
 {
 	unsigned char bytes[8];
 	unsigned short int i;
@@ -117,7 +117,7 @@ void OpenRPM ( XArchive *archive )
 	{	
 		fclose (stream);
 		g_free (gzip_tmp);
-		xa_delete_temp_directory (tmp_dir,1);
+		xa_delete_temp_directory (archive,1);
 		return;
 	}
 	/* Let's decompress the gzip/bzip2 resulting file*/
@@ -133,9 +133,9 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 	idx = xa_find_archive_index (current_page);
 	gchar *gzip = data;
 	
-    if ( WIFEXITED( exit_code ) )
+    if (WIFEXITED( exit_code) )
     {
-	    if ( WEXITSTATUS ( exit_code ) )
+	    if ( WEXITSTATUS (exit_code) )
     	{
             Update_StatusBar ( _("Operation failed."));
             gtk_widget_hide ( viewport2 );
@@ -143,7 +143,7 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 		    response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_YES)
 				xa_show_cmd_line_output (NULL);
-			xa_delete_temp_directory (tmp_dir,1);
+			xa_delete_temp_directory (archive[idx],1);
 			g_free (cpio_tmp);
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 			//TODO:
@@ -152,32 +152,27 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 		}
 	}
 
-	/* Now I have to open the CPIO temp file in read mode and spawn the
-	 * command cpio -tv with an input pipe so to receive the output from
-	 * the opened CPIO temp file */
+	/* Now I have to read the CPIO temp file and send its content to the
+	 * command cpio -tv so to receive its output in the xa_get_cpio_line_content() */
 
 	archive[idx]->parse_output = xa_get_cpio_line_content;
 	xa_spawn_async_process ( archive[idx] , "cpio -tv" , 1);
 	if ( archive[idx]->child_pid == 0 )
 	{
-		xa_delete_temp_directory (tmp_dir,1);
+		xa_delete_temp_directory (archive[idx],1);
 		g_free ( cpio_tmp );
 		return FALSE;
 	}
-	output_ioc = g_io_channel_unix_new ( archive[idx]->output_fd );
-	g_io_channel_set_encoding (output_ioc, locale , NULL);
-	g_io_channel_set_flags ( output_ioc , G_IO_FLAG_NONBLOCK , NULL );
+	ioc_cpio = g_io_channel_new_file (gzip,"r",NULL);
+	g_free (gzip);
+	g_io_channel_set_encoding (ioc_cpio,NULL,NULL);
+	g_io_channel_set_flags (ioc_cpio,G_IO_FLAG_NONBLOCK,NULL);
 
 	input_ioc = g_io_channel_unix_new ( archive[idx]->input_fd );
-	g_io_add_watch (input_ioc, G_IO_IN|G_IO_OUT|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, WriteCPIOInput, NULL );
-	g_io_channel_set_encoding (input_ioc, NULL , NULL);
+	g_io_add_watch (input_ioc, G_IO_IN|G_IO_OUT|G_IO_PRI, WriteCPIOInput, archive[idx] );
+	g_io_channel_set_encoding (input_ioc,NULL,NULL);
 
-	ioc_cpio = g_io_channel_new_file (gzip , "r" , NULL);
-	g_free (gzip);
-	g_io_channel_set_encoding (ioc_cpio , NULL , NULL);
-	g_io_channel_set_flags ( ioc_cpio , G_IO_FLAG_NONBLOCK , NULL );
-
-	g_child_watch_add ( archive[idx]->child_pid, (GChildWatchFunc) xa_watch_child, archive[idx]);
+	g_child_watch_add (archive[idx]->child_pid, (GChildWatchFunc) xa_watch_child, archive[idx]);
 
   return NULL;
 }
@@ -185,34 +180,34 @@ GChildWatchFunc *OpenCPIO (GPid pid , gint exit_code , gpointer data)
 /* input pipe */
 gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
+	XArchive *archive = data;
+
 	if (cond & (G_IO_IN | G_IO_PRI | G_IO_OUT) )
     {
-		/* Doing so I write to the input pipe of the g_spawned "cpio -tv" so to produce the list of files in the cpio archive */
-		status = g_io_channel_read_chars ( ioc_cpio , buffer, sizeof(buffer), &bytes_read, &error);
-		if ( status != G_IO_STATUS_EOF)
+		/* Doing so I write to the input pipe of the spawned "cpio -tv" so to output the list of files in the cpio archive */
+		status = g_io_channel_read_chars (ioc_cpio,buffer, sizeof(buffer), &bytes_read, NULL);
+		if (status != G_IO_STATUS_EOF)
 		{
-			status = g_io_channel_write_chars ( ioc , buffer , bytes_read , &bytes_written , &error );
+			status = g_io_channel_write_chars (ioc,buffer,bytes_read, &bytes_written, &error);
 			if (status == G_IO_STATUS_ERROR)
 			{
 				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred:"),error->message);
 				g_error_free (error);
-				xa_delete_temp_directory (tmp_dir,1);
-				CloseChannels ( ioc_cpio );
-				CloseChannels ( ioc );
+				xa_delete_temp_directory (archive,1);
+				CloseChannels (ioc_cpio);
+				CloseChannels (ioc);
 				return FALSE;
 			}
-			/*
-			while ( bytes_read != bytes_written )
-				status = g_io_channel_write_chars ( ioc , buffer + bytes_written , bytes_read - bytes_written , &bytes_written , &error );
-			g_print ("*Written:%d\tStatus:%d\n",bytes_written,status);
-			*/
-			g_io_channel_flush ( ioc , NULL );
+			/*while ( bytes_read != bytes_written )
+				status = g_io_channel_write_chars (ioc,buffer + bytes_written,bytes_read - bytes_written,&bytes_written,&error);*/
+
+			g_io_channel_flush (ioc,NULL);
 			return TRUE;
 		}
 		else
 		{
-			CloseChannels ( ioc_cpio );
-			CloseChannels ( ioc );
+			CloseChannels (ioc_cpio);
+			CloseChannels (ioc);
 			return FALSE;
 		}
 	}
@@ -343,8 +338,8 @@ void xa_open_temp_file (gchar *tmp_dir,gchar *temp_path)
 	g_free (command);
 	if (archive[idx]->child_pid == 0)
 	{
-		fclose ( stream );
-		xa_delete_temp_directory (tmp_dir,1);
+		fclose (stream);
+		xa_delete_temp_directory (archive[idx],1);
 		g_free (tmp);
 		return;
 	}

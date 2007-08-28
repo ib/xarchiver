@@ -853,7 +853,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 
 	if (result == 0 || stop_flag)
 	{
-		xa_delete_temp_directory ( tmp_dir, 0 );
+		xa_delete_temp_directory (archive,0);
 		gtk_widget_hide (viewport2);
 		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
@@ -876,16 +876,16 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	g_string_free ( unescaped_names, TRUE );
 	if (result == 0 || stop_flag)
 	{
-		xa_delete_temp_directory (tmp_dir,0);
+		xa_delete_temp_directory (archive,0);
 		gtk_widget_hide (viewport2);
 		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
 	}
 
 	if (cpio_flag)
-		xa_delete_temp_directory ( tmp_dir, 0 );
+		xa_delete_temp_directory (archive,0);
 	else
-		xa_delete_temp_directory ( tmp_dir, 1 );
+		xa_delete_temp_directory (archive,1);
 
 	return result;
 }
