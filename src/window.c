@@ -1158,7 +1158,7 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
     char *filename;
     gboolean result;
 
-    gtk_tree_model_get (model, iter, 0, &filename, -1);
+    gtk_tree_model_get (model, iter, 1, &filename, -1);
     if ( strcasestr (filename, key) ) result = FALSE;
         else result = TRUE;
     g_free (filename);

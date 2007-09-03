@@ -134,13 +134,22 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 			break;
 
 	line[n] = '\0';
-	item[1] = line + a;
-	n+= 2;
 
-	/* Filename */
-	line[linesize-1] = '\0';
-	filename = g_strdup(line + n);
-	
+	if (line[50] != ' ')
+	{
+		n+=2;
+		item[1] = line + a;
+		line[linesize-1] = '\0';
+		filename = g_strdup(line + n);
+	}
+	/* Is this a solid archive? */
+	else
+	{
+		item[1] = "0";
+		line[n-1] = '\0';
+		filename = g_strdup(line + 53);
+	}
+
 	/* Work around for 7za which doesn't
 	* output / with directories */
 	if (dir)
@@ -149,7 +158,6 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 		g_free (filename);
 		filename = filename_with_slash;
 	}
-	
 	entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
 	g_free(filename);
 }

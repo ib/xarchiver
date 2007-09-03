@@ -70,7 +70,7 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	gtk_widget_show (menubar1);
 	gtk_box_pack_start (GTK_BOX (vbox1), menubar1, FALSE, FALSE, 0);
 
-	menuitem1 = gtk_menu_item_new_with_mnemonic (_("_File"));
+	menuitem1 = gtk_menu_item_new_with_mnemonic (_("_Archive"));
 	gtk_widget_show (menuitem1);
 	gtk_container_add (GTK_CONTAINER (menubar1), menuitem1);
 
