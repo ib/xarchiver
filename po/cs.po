@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-22 12:45+0200\n"
-"PO-Revision-Date: 2006-12-23 12:50+0100\n"
+"PO-Revision-Date: 2007-09-10 20:22+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,11 +16,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../src/7zip.c:56 ../src/arj.c:49 ../src/rar.c:63
+#: ../src/7zip.c:56
+#: ../src/arj.c:49
+#: ../src/rar.c:63
 msgid "Original"
 msgstr "Původní"
 
-#: ../src/7zip.c:56 ../src/arj.c:49 ../src/rar.c:63 ../src/zip.c:51
+#: ../src/7zip.c:56
+#: ../src/arj.c:49
+#: ../src/rar.c:63
+#: ../src/zip.c:51
 msgid "Compressed"
 msgstr "Komprimovaný"
 
@@ -28,13 +33,25 @@ msgstr "Komprimovaný"
 msgid "Attr"
 msgstr "Atrib"
 
-#: ../src/7zip.c:56 ../src/arj.c:49 ../src/bzip2.c:64 ../src/deb.c:91
-#: ../src/gzip.c:61 ../src/rar.c:63 ../src/tar.c:58 ../src/zip.c:51
+#: ../src/7zip.c:56
+#: ../src/arj.c:49
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/rar.c:63
+#: ../src/tar.c:58
+#: ../src/zip.c:51
 msgid "Time"
 msgstr "Čas"
 
-#: ../src/7zip.c:56 ../src/arj.c:49 ../src/bzip2.c:64 ../src/deb.c:91
-#: ../src/gzip.c:61 ../src/rar.c:63 ../src/rpm.c:61 ../src/tar.c:58
+#: ../src/7zip.c:56
+#: ../src/arj.c:49
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/rar.c:63
+#: ../src/rpm.c:61
+#: ../src/tar.c:58
 #: ../src/zip.c:51
 msgid "Date"
 msgstr "Datum"
@@ -64,23 +81,16 @@ msgid "Recurse subdirectories"
 msgstr "Procházet i podadresáře"
 
 #: ../src/add_dialog.c:172
-msgid ""
-"Include everything in the directory recursively \tstarting from the current "
-"directory."
-msgstr ""
-"Zahrne veškerý obsah aktuálního adresáře, \tvčetně jeho souborů a podadresářů"
+msgid "Include everything in the directory recursively \tstarting from the current directory."
+msgstr "Zahrne veškerý obsah aktuálního adresáře, \tvčetně jeho souborů a podadresářů"
 
 #: ../src/add_dialog.c:177
 msgid "Generate a solid archive"
 msgstr "Vytvořit archiv typu solid"
 
 #: ../src/add_dialog.c:181
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio."
-msgstr ""
-"V archivu typu solid jsou všechny soubory spojeny do jednoho, což umožní "
-"lepší kompresní poměr"
+msgid "In a solid archive the files are grouped together featuring a better compression ratio."
+msgstr "V archivu typu solid jsou všechny soubory spojeny do jednoho, což umožní lepší kompresní poměr"
 
 #: ../src/add_dialog.c:186
 msgid "Remove files after adding"
@@ -103,62 +113,44 @@ msgid "Store just the name of a file without its directory names."
 msgstr "Uloží pouze název souboru bez názvu adresáře."
 
 #: ../src/add_dialog.c:206
-#, fuzzy
 msgid "Freshen an existing entry"
-msgstr "Aktualizovat existující položku v archivu"
+msgstr "Aktualizovat existující položku"
 
 #: ../src/add_dialog.c:210
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive."
-msgstr ""
-"Tato volba ovlivní archiv pouze pokud byla položka určená k aktualizaci "
-"modifikována později než verze obsažená v archivu. Na rozdíl od volby "
-"Doplnit tato akce nepřidá do archivu soubor, který v něm dosud není obsažen."
+msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."
+msgstr "Tato volba ovlivní archiv pouze pokud byla položka určená k aktualizaci modifikována později než verze obsažená v archivu. Na rozdíl od volby Doplnit tato akce nepřidá do archivu soubor, který v něm dosud není obsažen."
 
 #: ../src/add_dialog.c:214
-#, fuzzy
 msgid "Update an existing entry"
-msgstr "Doplnit existující položku v archivu"
+msgstr "Doplnit existující položku"
 
 #: ../src/add_dialog.c:218
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified."
-msgstr ""
-"Tato volba přidá nové soubory a aktualizuje již obsažené soubory, které byly "
-"pozměněny od doby vytvoření nebo pozměnění archivu."
+msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified."
+msgstr "Tato volba přidá nové soubory a aktualizuje již obsažené soubory, které byly pozměněny od doby vytvoření nebo pozměnění archivu."
 
 #: ../src/add_dialog.c:227
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = bez komprese, 5 = standardní stupeň komprese, 9 = nejvyšší stupeň "
-"komprese, nejpomalejší"
+msgstr "0 = bez komprese, 5 = standardní stupeň komprese, 9 = nejvyšší stupeň komprese, nejpomalejší"
 
 #: ../src/add_dialog.c:234
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = bez komprese, 6 = standardní stupeň komprese, 9 = nejvyšší stupeň "
-"komprese, nejpomalejší"
+msgstr "0 = bez komprese, 6 = standardní stupeň komprese, 9 = nejvyšší stupeň komprese, nejpomalejší"
 
 #: ../src/add_dialog.c:241
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = bez komprese, 3 = standardní stupeň komprese, 5 = nejvyšší stupeň "
-"komprese, nejpomalejší"
+msgstr "0 = bez komprese, 3 = standardní stupeň komprese, 5 = nejvyšší stupeň komprese, nejpomalejší"
 
 #: ../src/add_dialog.c:248
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-"0 = bez komprese, 1 = standardní úroveň komprese, 4 = nejrychlejší komprese "
-"s nízkým kompresním poměrem"
+msgstr "0 = bez komprese, 1 = standardní úroveň komprese, 4 = nejrychlejší komprese s nízkým kompresním poměrem"
 
 #: ../src/add_dialog.c:255
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = standarní úroveň komprese, 7 = nejsilnější komprese"
 
-#: ../src/add_dialog.c:266 ../src/extract_dialog.c:220 ../src/interface.c:628
+#: ../src/add_dialog.c:266
+#: ../src/extract_dialog.c:220
+#: ../src/interface.c:628
 msgid "Password:"
 msgstr "Heslo:"
 
@@ -166,15 +158,18 @@ msgstr "Heslo:"
 msgid "Compression level:"
 msgstr "Úroveň komprese:"
 
-#: ../src/add_dialog.c:307 ../src/extract_dialog.c:241
+#: ../src/add_dialog.c:307
+#: ../src/extract_dialog.c:241
 msgid "<b>Options </b>"
 msgstr "<b>Volby </b>"
 
-#: ../src/add_dialog.c:324 ../src/interface.c:134
+#: ../src/add_dialog.c:324
+#: ../src/interface.c:134
 msgid "_Add"
 msgstr "Přid_at"
 
-#: ../src/add_dialog.c:387 ../src/window.c:1851
+#: ../src/add_dialog.c:387
+#: ../src/window.c:1851
 msgid "Sorry, I could not perform the operation!"
 msgstr "Omlouváme se, nelze provést operaci!"
 
@@ -186,7 +181,8 @@ msgstr "Vyberte soubory, které chcete přidat"
 msgid "Please select the directories you want to add"
 msgstr "Vyberte adresáře, které chcete přidat"
 
-#: ../src/add_dialog.c:535 ../src/main.c:206
+#: ../src/add_dialog.c:535
+#: ../src/main.c:206
 msgid "Can't add files to the archive:"
 msgstr "Nelze přidat soubory do archivu"
 
@@ -194,11 +190,13 @@ msgstr "Nelze přidat soubory do archivu"
 msgid "You haven't selected any files to add!"
 msgstr "Nevybrali jste žádné soubory pro přidání!"
 
-#: ../src/add_dialog.c:543 ../src/interface.c:670
+#: ../src/add_dialog.c:543
+#: ../src/interface.c:670
 msgid "You missed the password!"
 msgstr "Neuvedli jste heslo!"
 
-#: ../src/add_dialog.c:543 ../src/interface.c:670
+#: ../src/add_dialog.c:543
+#: ../src/interface.c:670
 msgid "Please enter it!"
 msgstr "Zadejte heslo!"
 
@@ -206,9 +204,15 @@ msgstr "Zadejte heslo!"
 msgid "Adding files to the archive, please wait..."
 msgstr "Přidávám soubory do archivu, prosím čekejte..."
 
-#: ../src/archive.c:57 ../src/window.c:76 ../src/window.c:733
-#: ../src/window.c:746 ../src/window.c:845 ../src/window.c:857
-#: ../src/window.c:1378 ../src/extract_dialog.c:911 ../src/rpm.c:140
+#: ../src/archive.c:57
+#: ../src/window.c:76
+#: ../src/window.c:733
+#: ../src/window.c:746
+#: ../src/window.c:845
+#: ../src/window.c:857
+#: ../src/window.c:1378
+#: ../src/extract_dialog.c:911
+#: ../src/rpm.c:140
 msgid "Operation failed."
 msgstr "Operace se nepodařila."
 
@@ -216,7 +220,9 @@ msgstr "Operace se nepodařila."
 msgid "Can't run the archiver executable:"
 msgstr "Nelze spustit program archivátoru:"
 
-#: ../src/arj.c:49 ../src/lha.c:50 ../src/rar.c:63
+#: ../src/arj.c:49
+#: ../src/lha.c:50
+#: ../src/rar.c:63
 msgid "Ratio"
 msgstr "Poměr"
 
@@ -224,22 +230,38 @@ msgstr "Poměr"
 msgid "Attributes"
 msgstr "Atributy"
 
-#: ../src/bzip2.c:64 ../src/deb.c:91 ../src/gzip.c:61 ../src/rpm.c:61
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/rpm.c:61
 #: ../src/tar.c:58
 msgid "Points to"
-msgstr ""
+msgstr "Ukazuje na"
 
-#: ../src/bzip2.c:64 ../src/deb.c:91 ../src/gzip.c:61 ../src/lha.c:50
-#: ../src/rar.c:63 ../src/tar.c:58 ../src/zip.c:51
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/lha.c:50
+#: ../src/rar.c:63
+#: ../src/tar.c:58
+#: ../src/zip.c:51
 msgid "Permissions"
 msgstr "Přístupová práva"
 
-#: ../src/bzip2.c:64 ../src/deb.c:91 ../src/gzip.c:61 ../src/tar.c:58
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/tar.c:58
 msgid "Owner/Group"
 msgstr "Vlastník/skupina"
 
-#: ../src/bzip2.c:64 ../src/deb.c:91 ../src/gzip.c:61 ../src/lha.c:50
-#: ../src/rpm.c:61 ../src/tar.c:58 ../src/zip.c:51
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/lha.c:50
+#: ../src/rpm.c:61
+#: ../src/tar.c:58
+#: ../src/zip.c:51
 msgid "Size"
 msgstr "Velikost"
 
@@ -253,9 +275,14 @@ msgstr "Rozbaluji soubor gzip do %s"
 msgid "Extracting bzip2 file to %s"
 msgstr "Rozbaluji soubor bzip2 do %s"
 
-#: ../src/bzip2.c:153 ../src/window.c:55 ../src/window.c:722
-#: ../src/window.c:798 ../src/window.c:835 ../src/extract_dialog.c:314
-#: ../src/extract_dialog.c:860 ../src/extract_dialog.c:881
+#: ../src/bzip2.c:153
+#: ../src/window.c:55
+#: ../src/window.c:722
+#: ../src/window.c:798
+#: ../src/window.c:835
+#: ../src/extract_dialog.c:314
+#: ../src/extract_dialog.c:860
+#: ../src/extract_dialog.c:881
 msgid "Operation canceled."
 msgstr "Operace byla zrušena."
 
@@ -278,7 +305,8 @@ msgstr "Ověřte \"%s\", některé soubory již mohly být rozbaleny."
 msgid "An error occurred while accessing the archive."
 msgstr "Při přístupu k archivu došlo k chybě."
 
-#: ../src/window.c:77 ../src/rpm.c:143
+#: ../src/window.c:77
+#: ../src/rpm.c:143
 msgid "Do you want to view the command line output?"
 msgstr "Chcete si prohlédnout výstup příkazové řádky?"
 
@@ -286,7 +314,9 @@ msgstr "Chcete si prohlédnout výstup příkazové řádky?"
 msgid "The sfx archive was saved as:"
 msgstr "Spustitelný samorozbalovací archiv byl uložen pod názvem:"
 
-#: ../src/window.c:111 ../src/window.c:178 ../src/window.c:1398
+#: ../src/window.c:111
+#: ../src/window.c:178
+#: ../src/window.c:1398
 msgid "Operation completed."
 msgstr "Operace byla dokončena."
 
@@ -327,7 +357,8 @@ msgstr "Čekejte, než se načte obsah archivu..."
 msgid "Testing archive integrity, please wait..."
 msgstr "Testuji integritu archivu, prosím čekejte..."
 
-#: ../src/window.c:480 ../src/main.c:248
+#: ../src/window.c:480
+#: ../src/main.c:248
 msgid "Ready."
 msgstr "Připraven."
 
@@ -352,11 +383,13 @@ msgstr "Mažu soubory z archivu, prosím čekejte..."
 msgid "Converting archive to self-extracting, please wait..."
 msgstr "Konvertuji archiv na samorozbalitelný, prosím čekejte..."
 
-#: ../src/window.c:735 ../src/window.c:846
+#: ../src/window.c:735
+#: ../src/window.c:846
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Nelze zkonvertovat archiv na samorozbalitelný:"
 
-#: ../src/window.c:748 ../src/window.c:858
+#: ../src/window.c:748
+#: ../src/window.c:858
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Modulem unzipsfx nelze zapisovat do archivu:"
 
@@ -372,15 +405,18 @@ msgstr "translator-credits"
 msgid "Save the self-extracting archive as"
 msgstr "Uložit samorozbalitelný archiv jako"
 
-#: ../src/window.c:975 ../src/interface.c:283
+#: ../src/window.c:975
+#: ../src/interface.c:283
 msgid "Open an archive"
 msgstr "Otevřít archiv"
 
-#: ../src/window.c:988 ../src/new_dialog.c:62
+#: ../src/window.c:988
+#: ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Všechny soubory"
 
-#: ../src/window.c:993 ../src/new_dialog.c:67
+#: ../src/window.c:993
+#: ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "Pouze archivy"
 
@@ -422,8 +458,7 @@ msgid "An error occurred while extracting the file to be viewed:"
 msgstr "Při rozbalování souboru pro zobrazení náhledu nastala chyba:"
 
 #: ../src/window.c:1388
-msgid ""
-"An error occurred while converting the file content to the UTF8 encoding:"
+msgid "An error occurred while converting the file content to the UTF8 encoding:"
 msgstr "Při konverzi souboru do kódování UTF8 nastala chyba:"
 
 #: ../src/window.c:1498
@@ -442,7 +477,8 @@ msgstr "Nelze provést další rozbalení:"
 msgid "Please wait until the completion of the current one!"
 msgstr "Počkejte prosím, než se dokončí předchozí operace!"
 
-#: ../src/window.c:1885 ../src/window.c:1896
+#: ../src/window.c:1885
+#: ../src/window.c:1896
 msgid "Can't perform this action:"
 msgstr "Akci nelze provést:"
 
@@ -511,52 +547,35 @@ msgid "Extract files with full path"
 msgstr "Rozbalit soubory s úplnou cestou"
 
 #: ../src/extract_dialog.c:176
-msgid ""
-"The archive's directory structure is recreated in the extraction directory."
-msgstr ""
-"Adresářová struktura archivu bude nově vytvořena do adresáře určeného pro "
-"rozbalení."
+msgid "The archive's directory structure is recreated in the extraction directory."
+msgstr "Adresářová struktura archivu bude nově vytvořena do adresáře určeného pro rozbalení."
 
 #: ../src/extract_dialog.c:181
 msgid "Touch files"
 msgstr "Dotknout se souborů"
 
 #: ../src/extract_dialog.c:184
-msgid ""
-"When this option is used, tar leaves the data modification times of the "
-"files it extracts as the times when the files were extracted, instead of "
-"setting it to the times recorded in the archive."
-msgstr ""
-"Použijete-li tuto volbu, tar nastaví všem souborům po rozbalení aktuální čas "
-"v době rozbalení, namísto původního času, uloženého v archivu."
+msgid "When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."
+msgstr "Použijete-li tuto volbu, tar nastaví všem souborům po rozbalení aktuální čas v době rozbalení, namísto původního času, uloženého v archivu."
 
 #: ../src/extract_dialog.c:197
 msgid "Freshen existing files"
 msgstr "Aktualizovat existující soubory"
 
 #: ../src/extract_dialog.c:198
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies."
-msgstr ""
-"Rozbalit pouze ty soubory, jejichž kopie již existují na disku, a jsou "
-"současně novější."
+msgid "Extract only those files that already exist on disk and that are newer than the disk copies."
+msgstr "Rozbalit pouze ty soubory, jejichž kopie již existují na disku, a jsou současně novější."
 
 #: ../src/extract_dialog.c:204
 msgid "Update existing files"
 msgstr "Doplnit existující soubory"
 
 #: ../src/extract_dialog.c:205
-msgid ""
-"This option performs the same function as the freshen one, extracting files "
-"that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk."
-msgstr ""
-"Tato volba provede stejnou akci jako aktualizace, rozbalí a přepíše soubory, "
-"jejichž starší kopie se vyskytují na disku a navíc rozbalí i takové soubory, "
-"jejichž kopie na disku neexistují."
+msgid "This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk."
+msgstr "Tato volba provede stejnou akci jako aktualizace, rozbalí a přepíše soubory, jejichž starší kopie se vyskytují na disku a navíc rozbalí i takové soubory, jejichž kopie na disku neexistují."
 
-#: ../src/extract_dialog.c:258 ../src/interface.c:144
+#: ../src/extract_dialog.c:258
+#: ../src/interface.c:144
 msgid "_Extract"
 msgstr "_Rozbalit"
 
@@ -583,9 +602,7 @@ msgstr "Nelze vytvořit adresář \"%s\""
 
 #: ../src/extract_dialog.c:356
 #, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the folder \"%s"
-"\"."
+msgid "You don't have the right permissions to extract the files to the folder \"%s\"."
 msgstr "Nemáte oprávnění potřebná pro rozbalení  souborů do adresáře \"%s\""
 
 #: ../src/extract_dialog.c:357
@@ -674,7 +691,8 @@ msgstr "_Nápověda"
 msgid "New"
 msgstr "Nový"
 
-#: ../src/interface.c:275 ../src/new_dialog.c:50
+#: ../src/interface.c:275
+#: ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "Vytvořit nový archiv"
 
@@ -682,25 +700,29 @@ msgstr "Vytvořit nový archiv"
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../src/interface.c:291 ../src/interface.c:295
+#: ../src/interface.c:291
+#: ../src/interface.c:295
 msgid "Back"
-msgstr ""
+msgstr "Zpět"
 
-#: ../src/interface.c:299 ../src/interface.c:304
+#: ../src/interface.c:299
+#: ../src/interface.c:304
 msgid "Up"
-msgstr ""
+msgstr "Nahoru"
 
-#: ../src/interface.c:308 ../src/interface.c:312
+#: ../src/interface.c:308
+#: ../src/interface.c:312
 msgid "Forward"
-msgstr ""
+msgstr "Vpřed"
 
 #: ../src/interface.c:316
 msgid "Home"
-msgstr ""
+msgstr "Domů"
 
 #: ../src/interface.c:320
+#, fuzzy
 msgid "Root"
-msgstr ""
+msgstr "Kořen"
 
 #: ../src/interface.c:328
 msgid "Add"
@@ -715,11 +737,11 @@ msgid "Extract"
 msgstr "Rozbalit"
 
 #: ../src/interface.c:342
-#, fuzzy
 msgid "Extract files from the current archive"
-msgstr "Smaže soubory z aktuálního archivu"
+msgstr "Rozbalit soubory z aktuálního archivu"
 
-#: ../src/interface.c:346 ../src/pref_dialog.c:61
+#: ../src/interface.c:346
+#: ../src/pref_dialog.c:61
 msgid "View"
 msgstr "Zobrazit"
 
@@ -736,9 +758,8 @@ msgid "Cancel current operation"
 msgstr "Zrušit aktuální operaci"
 
 #: ../src/interface.c:377
-#, fuzzy
 msgid "Location:"
-msgstr "Aplikace:"
+msgstr "Umístění:"
 
 #: ../src/interface.c:561
 msgid "Close archive"
@@ -793,8 +814,7 @@ msgid "Number of dirs:"
 msgstr "Počet adresářů:"
 
 #: ../src/main.c:44
-msgid ""
-"Extract archive to the directory specified by destination_path and quits."
+msgid "Extract archive to the directory specified by destination_path and quits."
 msgstr "Rozbalí archiv do adresář určeného cílovou_cestou a ukončí se."
 
 #: ../src/main.c:45
@@ -805,7 +825,8 @@ msgstr "cílová_cesta archiv"
 msgid "Extract archive by asking the destination directory and quits."
 msgstr "Rozbalí archiv dotazem na cílový adresář a ukončí se."
 
-#: ../src/main.c:49 ../src/main.c:57
+#: ../src/main.c:49
+#: ../src/main.c:57
 msgid "archive"
 msgstr "archiv"
 
@@ -832,14 +853,16 @@ msgid ""
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Použijte xarchiver --help pro zobrazení kompletního seznamu dostupných voleb "
-"z příkazové řádky.\n"
+"Použijte xarchiver --help pro zobrazení kompletního seznamu dostupných voleb z příkazové řádky.\n"
 
-#: ../src/main.c:109 ../src/main.c:142
+#: ../src/main.c:109
+#: ../src/main.c:142
 msgid "Can't extract files from the archive:"
 msgstr "Nelze rozbalit soubory z archivu:"
 
-#: ../src/main.c:109 ../src/main.c:142 ../src/main.c:206
+#: ../src/main.c:109
+#: ../src/main.c:142
+#: ../src/main.c:206
 msgid "You missed the archive name!\n"
 msgstr "Zapomněli jste vložit název archivu!\n"
 
@@ -902,9 +925,8 @@ msgid "Advanced"
 msgstr "Pokročilé"
 
 #: ../src/pref_dialog.c:101
-#, fuzzy
 msgid "Preferred archive format"
-msgstr "Zvolte jiný formát archivu!"
+msgstr "Upřednostňovaný formát archivu"
 
 #: ../src/pref_dialog.c:117
 msgid "Save settings for add dialog"
@@ -915,14 +937,12 @@ msgid "Save settings for extract dialog"
 msgstr "Uložit nastavení pro dialogové okno rozbalit"
 
 #: ../src/pref_dialog.c:125
-#, fuzzy
 msgid "Allow extracting dirs by drag and drop"
-msgstr "Povolit rozbalování adresářů pomocí \"táhni a pusť\""
+msgstr "Povolit rozbalování adresářů přetáhnutím"
 
 #: ../src/pref_dialog.c:129
-#, fuzzy
 msgid "Confirm deletion of files"
-msgstr "Potvrzovat mazání souborů v archivu"
+msgstr "Potvrzovat mazání souborů"
 
 #: ../src/pref_dialog.c:150
 msgid "View archive content as"
@@ -937,19 +957,19 @@ msgid "icon"
 msgstr "ikona"
 
 #: ../src/pref_dialog.c:162
+#, fuzzy
 msgid "Size of the mimetype icons"
-msgstr ""
+msgstr "Velikost ikon typů MIME"
 
 #: ../src/pref_dialog.c:168
 msgid "large"
-msgstr ""
+msgstr "velký"
 
 #: ../src/pref_dialog.c:169
 msgid "small"
-msgstr ""
+msgstr "malý"
 
 #: ../src/pref_dialog.c:174
-#, fuzzy
 msgid "Show archive comment after loading it"
 msgstr "Zobrazit komentář archivu po načtení"
 
@@ -963,47 +983,49 @@ msgstr "Sloupec název souboru je řazen po načtení archivu"
 
 #: ../src/pref_dialog.c:187
 msgid "Show location bar"
-msgstr ""
+msgstr "Zobrazovat panel umístění"
 
 #: ../src/pref_dialog.c:210
 msgid "View HTML help with:"
-msgstr ""
+msgstr "Zobrazit nápovědu ve formátu HTML pomocí:"
 
 #: ../src/pref_dialog.c:216
 msgid "Firefox"
-msgstr ""
+msgstr "Firefox"
 
-#: ../src/pref_dialog.c:217 ../src/pref_dialog.c:227 ../src/pref_dialog.c:239
+#: ../src/pref_dialog.c:217
+#: ../src/pref_dialog.c:227
+#: ../src/pref_dialog.c:239
 msgid "choose..."
-msgstr ""
+msgstr "zvolit..."
 
 #: ../src/pref_dialog.c:221
 msgid "Open text files with:"
-msgstr ""
+msgstr "Otevřít textové soubory pomocí:"
 
 #: ../src/pref_dialog.c:232
-#, fuzzy
 msgid "Preferred temp directory:"
-msgstr "Upřednostňovaný webový prohlížeč:"
+msgstr "Upřednostňovaný dočasný adresář:"
 
 #: ../src/pref_dialog.c:238
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: ../src/pref_dialog.c:243
-#, fuzzy
 msgid "Save window geometry"
-msgstr "Uložit rozměry okna při ukončení"
+msgstr "Uložit rozměry okna"
 
 #: ../src/rar.c:63
 msgid "CRC"
 msgstr "Kontrolní součet CRC"
 
-#: ../src/rar.c:63 ../src/zip.c:51
+#: ../src/rar.c:63
+#: ../src/zip.c:51
 msgid "Method"
 msgstr "Metoda"
 
-#: ../src/rar.c:63 ../src/zip.c:51
+#: ../src/rar.c:63
+#: ../src/zip.c:51
 msgid "Version"
 msgstr "Verze"
 
@@ -1032,7 +1054,8 @@ msgstr "Skupina"
 msgid "Can't fseek to position 104:"
 msgstr "Nelze se přesunout na pozici funkcí fseek 104:"
 
-#: ../src/rpm.c:77 ../src/rpm.c:93
+#: ../src/rpm.c:77
+#: ../src/rpm.c:93
 msgid "Can't read data from file:"
 msgstr "Nelze číst data ze souboru:"
 
@@ -1044,7 +1067,8 @@ msgstr "Nelze použít funkci fseek pro přesun v souboru:"
 msgid "An error occurred while decompressing the cpio archive."
 msgstr "Při rozbalování cpio archivu došlo k chybě."
 
-#: ../src/rpm.c:195 ../src/rpm.c:377
+#: ../src/rpm.c:195
+#: ../src/rpm.c:377
 msgid "An error occurred:"
 msgstr "Došlo k chybě:"
 
@@ -1054,7 +1078,7 @@ msgstr "Nelze zapisovat do /tmp:"
 
 #: ../src/zip.c:51
 msgid "OS"
-msgstr ""
+msgstr "OS"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
@@ -1070,122 +1094,84 @@ msgstr "Xarchiver"
 
 #~ msgid "GUA"
 #~ msgstr "GUA"
-
 #~ msgid "BPMGS"
 #~ msgstr "BPMGS"
-
 #~ msgid "Symbolic Link"
 #~ msgstr "Symbolický odkaz"
-
 #~ msgid "Please wait while the content of the ISO image is being read..."
 #~ msgstr "Čekejte, než se načte obsah souboru ISO..."
-
 #~ msgid " bytes"
 #~ msgstr "bajtů"
-
 #~ msgid "Show ISO in_fo"
 #~ msgstr "Zobrazit informace o souboru I_SO"
-
 #~ msgid ""
 #~ "Extract files from the current archive; use the mouse to select files "
 #~ "individually"
 #~ msgstr ""
 #~ "Rozbalí soubory z aktuálního archivu. Pro výběr jednotlivých souborů "
 #~ "použijte myš"
-
 #~ msgid "Delete"
 #~ msgstr "Smazat"
-
 #~ msgid "SFX"
 #~ msgstr "SFX (spustitelný samorozbalovací archiv)"
-
 #~ msgid "Make the current archive self-extracting"
 #~ msgstr "Vytvoří z aktuálně otevřeného archiv samorozbalitelný archiv"
-
 #~ msgid "This archive contains password protected files"
 #~ msgstr "Tento archiv obsahuje soubory chráněné heslem"
-
 #~ msgid "Can't create directory:"
 #~ msgstr "Nelze vytvořit adresář"
-
 #~ msgid "Can't write file \"%s\":"
 #~ msgstr "Nelze zapisovat do souboru \"%s\":"
-
 #~ msgid "Offset"
 #~ msgstr "Posun"
-
 #~ msgid "Rock Ridge version %d"
 #~ msgstr "Rock Ridge, verze %d"
-
 #~ msgid "Rock Ridge - unknown version"
 #~ msgstr "Rock Ridge - neznámá verze"
-
 #~ msgid "Apple version %d"
 #~ msgstr "Apple, verze %d"
-
 #~ msgid "Standard ISO without extension"
 #~ msgstr "Standardní bitová kopie ISO bez rozšíření"
-
 #~ msgid "Joliet Level %d"
 #~ msgstr "Joliet, úroveň %d"
-
 #~ msgid "ISO Information Window"
 #~ msgstr "Informační okno o souboru ISO"
-
 #~ msgid "Filename:"
 #~ msgstr "Název souboru:"
-
 #~ msgid "Size:"
 #~ msgstr "Velikost:"
-
 #~ msgid "Extension:"
 #~ msgstr "Rozšíření:"
-
 #~ msgid "System ID:"
 #~ msgstr "Systémový identifikátor (ID):"
-
 #~ msgid "Volume ID:"
 #~ msgstr "Identifikátor svazku (ID):"
-
 #~ msgid "Publisher:"
 #~ msgstr "Vydavatel:"
-
 #~ msgid "Preparer:"
 #~ msgstr "Připravil:"
-
 #~ msgid "Creation date:"
 #~ msgstr "Vytvořeno:"
-
 #~ msgid "Modified date:"
 #~ msgstr "Změněno:"
-
 #~ msgid "Expiration date:"
 #~ msgstr "Datum vypršení:"
-
 #~ msgid "Effective date:"
 #~ msgstr "Datum nabytí platnosti:"
-
 #~ msgid "Preferred format for new archives:"
 #~ msgstr "Upřednostňovaný formát nových archivů:"
-
 #~ msgid "Show ISO info after loading the archive"
 #~ msgstr "Zobrazit informace o archivu ISO po načtení archivu"
-
 #~ msgid "xfce default"
 #~ msgstr "výchozí pro xfce"
-
 #~ msgid "konqueror"
 #~ msgstr "konqueror"
-
 #~ msgid "Preferred view application:"
 #~ msgstr "Upřednostňovaná aplikace pro prohlížení"
-
 #~ msgid "internal"
 #~ msgstr "interní"
-
 #~ msgid "Checksum"
 #~ msgstr "Kontrolní součet"
-
 #~ msgid "Error while extracting the cpio archive from the rpm one."
 #~ msgstr "Při rozbalování archivu cpio z rpm."
 
@@ -1200,69 +1186,51 @@ msgstr "Xarchiver"
 #, fuzzy
 #~ msgid "archive_cmd"
 #~ msgstr "Xarchiver"
-
 #~ msgid "This option can't be used with password protected archives!\n"
 #~ msgstr "Tuto volbu nelze použít pro archivy chráněné heslem!\n"
-
 #~ msgid "Operation aborted."
 #~ msgstr "Operace byla přerušena."
-
 #~ msgid "Choose Add File to create the compressed file."
 #~ msgstr "Zvolte Přidat soubor pro vytvoření komprimovaného souboru."
-
 #~ msgid "View File Window"
 #~ msgstr "Okno Náhled na soubor"
-
 #~ msgid "Operation completed"
 #~ msgstr "Operace byla dokončena"
-
 #~ msgid "Make SFX"
 #~ msgstr "Vytvořit samorozbalitelný archiv"
-
 #~ msgid ""
 #~ "Select the files to be added to the current archive; use SHIFT to "
 #~ "multiple select"
 #~ msgstr ""
 #~ "Vyberte soubory pro přidání do aktuálního archivu. Pro výběr více souborů "
 #~ "použijte klávesu SHIFT"
-
 #~ msgid "Select the folder to be added to the current archive"
 #~ msgstr "Vyberte adresář pro přidání do aktuálního archivu"
-
 #~ msgid ""
 #~ "Select the folders to be added to the current archive; use SHIFT to "
 #~ "multiple select"
 #~ msgstr ""
 #~ "Vyberte adresáře pro přidání do aktuálního archivu. Pro výběr více "
 #~ "souborů použijte klávesu SHIFT"
-
 #~ msgid "Bzip2 or gzip cannot compress more than one file!"
 #~ msgstr "Bzip2 a gzip nemohou zkomprimovat více než jeden soubor!"
-
 #~ msgid "Image type:"
 #~ msgstr "Typ bitové kopie:"
-
 #~ msgid "CRC-32"
 #~ msgstr "Kontrolní součet CRC-32"
-
 #~ msgid "Do you want to open the error messages window?"
 #~ msgstr "Chcete otevřít okno s chybovými hláškami?"
-
 #~ msgid "Archiver Output Window"
 #~ msgstr "Výstupní okno archivátoru"
-
 #~ msgid "View Error _Messages"
 #~ msgstr "Zobrazit chybové _zprávy"
-
 #~ msgid "[archive path]"
 #~ msgstr "[cesta archivu]"
-
 #~ msgid "You missed the files to add!\n"
 #~ msgstr "Nepřidali jste žádné soubory!\n"
-
 #~ msgid "Can't perform the action:"
 #~ msgstr "Akci nelze provést:"
-
 #~ msgid "bzip2/gzip can't compress more than one file!\n"
 #~ msgstr ""
 #~ "bzip2 a gzip nemohou být použity ke kompresi více než jednoho souboru!\n"
+
