@@ -1251,27 +1251,19 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 
 void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 {
-	gchar *filename = NULL;
-	GError *error = NULL;
-	gchar *string = NULL;
 	gchar *command = NULL;
+	gchar tmp_dir[14] = "";
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	gchar *dir;
-	gchar *dummy_name;
-	gchar *t;
+	gchar *name = NULL;
+	XEntry *entry = NULL;
+	gchar *full_pathname;
 	GList *row_list = NULL;
-	GString *names;
-	gchar *content;
-	unsigned short int COL_NAME;
-	gboolean is_dir = FALSE;
-	gboolean tofree = FALSE;
 	gboolean result = FALSE;
-	gsize length;
-	gsize new_length;
 	gint current_page;
 	gint idx;
+	GString *names = g_string_new ( " " );
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
@@ -1297,51 +1289,37 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_tree_path_free(row_list->data);
 	g_list_free (row_list);
 
-	switch (archive[idx]->type)
-	{
-		case XARCHIVETYPE_RAR:
-		case XARCHIVETYPE_ARJ:
-		COL_NAME = 6;
-		break;
+	gtk_tree_model_get (model, &iter, 1, &name, -1);
+	entry = xa_find_archive_entry(archive[idx]->entries->data,name);
+	g_print ("Cerco %s\n",name);
 
-		case XARCHIVETYPE_ZIP:
-		COL_NAME = 0;
-		break;
-
-		case XARCHIVETYPE_7ZIP:
-		COL_NAME = 3;
-		break;
-
-		default:
-		COL_NAME = 1;
-	}
-	gtk_tree_model_get (model, &iter, COL_NAME, &dir, -1);
-	if (archive[idx]->type == XARCHIVETYPE_ZIP)
+	if (entry == NULL || entry->is_dir)
 	{
-		if ( g_str_has_suffix (dir,"/") == TRUE )
-			is_dir = TRUE;
-	}
-	else if ( strstr ( dir , "d" ) || strstr ( dir , "D" ) ) is_dir = TRUE;
-	if (is_dir)
-	{
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,"Can't perform the action:",_("Please select a file, not a directory!") );
-		g_free ( dir );
+		g_print ("Ritorno\n");
+		g_free (name);
 		return;
 	}
-	g_free ( dir );
 
+	full_pathname = g_strconcat(gtk_entry_get_text(GTK_ENTRY(location_entry)),name,NULL);
+	g_free (name);
+	g_print ("%s\n",full_pathname);
+	
 	full_path = archive[idx]->full_path;
 	overwrite = archive[idx]->overwrite;
 
 	archive[idx]->full_path = 0;
 	archive[idx]->overwrite = 1;
 
-	names = g_string_new (" ");
-	gtk_tree_model_get (model, &iter, 0, &dummy_name, -1);
-	archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
-	ConcatenateFileNames2 ( dummy_name , names );
-
-	command = xa_extract_single_files ( archive[idx] , names, "/tmp");
+	if (archive[idx]->tmp == NULL)
+	{
+		result = xa_create_temp_directory(tmp_dir);
+		archive[idx]->tmp = g_strdup(tmp_dir);
+	}
+	g_print ("%s\n",archive[idx]->tmp);
+	names = g_string_append(names,full_pathname);
+	command = xa_extract_single_files(archive[idx],names,archive[idx]->tmp);
+	g_print ("%s\n",command);
+	g_string_free (names,TRUE);
 
 	archive[idx]->full_path = full_path;
 	archive[idx]->overwrite = overwrite;
@@ -1349,14 +1327,16 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	{
 		result = xa_run_command (archive[idx],command,0);
 		g_free (command);
-		if ( result == 0 )
+		if (result == 0)
 		{
-			unlink (dummy_name);
+			/*unlink (dummy_name);
 			g_free (dummy_name);
-			g_string_free (names,TRUE);
+			g_string_free (names,TRUE);*/
 			return;
 		}
 	}
+	g_free(full_pathname);
+	/*
 	g_message ("xa_view_file_inside_archive: %s",archive[idx]->tmp);
 	view_window = view_win(names->str);
 	g_string_free (names,TRUE);
@@ -1400,7 +1380,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		gtk_text_buffer_insert (viewtextbuf, &viewenditer, t, new_length );
 	}
 	unlink ( filename );
-	g_free (filename);
+	g_free (filename);*/
 	Update_StatusBar (_("Operation completed."));
 }
 
@@ -1683,7 +1663,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 		               gdk_atom_intern ("XdndDirectSave0", FALSE),
 			           gdk_atom_intern ("text/plain", FALSE), 8,
 				       GDK_PROP_MODE_REPLACE,
-					   (const guchar *) no_slashes != NULL ? no_slashes : name, no_slashes != NULL ? strlen (no_slashes) : strlen (name) );
+					   (const guchar *) (no_slashes != NULL ? no_slashes : name), no_slashes != NULL ? strlen (no_slashes) : strlen (name) );
 
 	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free (row_list);
@@ -2017,7 +1997,7 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
-	comment_window = view_win ( _("Archive comment window") );
+	comment_window = xa_create_comment_window();
 	gtk_text_buffer_create_tag (viewtextbuf, "bold","weight", PANGO_WEIGHT_BOLD, NULL);
 	gtk_text_buffer_insert (viewtextbuf, &viewenditer, "\n", 1);
 	gtk_text_buffer_insert_with_tags_by_name (viewtextbuf, &viewenditer, archive[idx]->comment->str, archive[idx]->comment->len, "bold", NULL);

@@ -348,7 +348,7 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	gtk_widget_set_sensitive (View_button,FALSE);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (View_button), FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1), View_button);
-	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (View_button), tooltips, _("View file content in the current archive"), NULL);
+	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (View_button), tooltips, _("View file with an external editor/viewer"), NULL);
 
 	separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
 	gtk_widget_show (separatortoolitem2);
@@ -680,14 +680,14 @@ gchar *password_dialog ()
 }
 
 
-GtkWidget *view_win ( gchar *title)
+GtkWidget *xa_create_comment_window()
 {
 	GtkWidget *view_window;
 	GtkWidget *scrolledwindow2;
 	GtkWidget *textview1;
 
 	view_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (view_window), title);
+	gtk_window_set_title (GTK_WINDOW (view_window), _("Archive comment window"));
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (view_window), TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (view_window), GDK_WINDOW_TYPE_HINT_UTILITY);
 	gtk_window_set_position (GTK_WINDOW (view_window), GTK_WIN_POS_CENTER);

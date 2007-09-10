@@ -276,7 +276,7 @@ gchar *extract_local_path (gchar *path)
     return local_escaped_path;
 }
 
-gchar *xa_get_parent_dir (gchar *current_dir)
+gchar *xa_get_parent_dir (const gchar *current_dir)
 {
 	gchar *first_slash = NULL;
 	gchar *second_slash = NULL;

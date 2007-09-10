@@ -133,7 +133,7 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 
 gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	XArchive *archive = data;
+	//XArchive *archive = data;
 	GIOStatus status;
 	gchar *line = NULL;
 

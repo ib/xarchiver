@@ -117,7 +117,7 @@ GtkWidget *ebox;
 
 void set_label (GtkWidget *label,gchar *text);
 int xa_progressbar_pulse (gpointer data);
-GtkWidget *view_win ( gchar *title);
+GtkWidget *xa_create_comment_window();
 void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location);
 GtkWidget *create_archive_properties_window (void);
 void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data);

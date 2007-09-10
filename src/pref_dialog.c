@@ -54,7 +54,8 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	//TODO: fix the absolute path
 	icon_pixbuf = gdk_pixbuf_new_from_file ("./pixmaps/xarchiver-behaviour.svg", NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Behaviour"),2,0,-1);
-	g_object_unref (icon_pixbuf);
+	if(icon_pixbuf != NULL)
+		g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
 	icon_pixbuf = gtk_widget_render_icon (prefs_data->dialog1, "gtk-find", GTK_ICON_SIZE_DND, NULL);
@@ -62,7 +63,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-    icon_pixbuf = gtk_widget_render_icon (prefs_data->dialog1, "gtk-execute", GTK_ICON_SIZE_DND, NULL);
+	icon_pixbuf = gtk_widget_render_icon (prefs_data->dialog1, "gtk-execute", GTK_ICON_SIZE_DND, NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"),2,2,-1);
 	g_object_unref (icon_pixbuf);
 
