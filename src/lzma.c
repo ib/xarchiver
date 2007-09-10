@@ -38,11 +38,11 @@ void xa_open_lzma ( XArchive *archive )
 
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive->escaped_path , ".tlz") )
 	{
-    gchar *tar;
+    	gchar *tar;
+	    tar = g_find_program_in_path ("gtar");
 
-    tar = g_find_program_in_path ("gtar");
-    if (tar == NULL)
-      tar = g_strdup ("tar");
+		if (tar == NULL)
+			tar = g_strdup ("tar");
 
 		command = g_strconcat (tar, " tv --use-compress-program=lzma -f " , archive->escaped_path, NULL );
 		archive->dummy_size = 0;

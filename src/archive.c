@@ -423,6 +423,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			last_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
 			last_entry->filename = g_strdup(full_path_name);
 			last_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,last_entry,items);
+			last_entry->prev = NULL;
 			last_entry->is_dir = TRUE;
 			archive->entries = g_slist_prepend (archive->entries,last_entry);
 			archive->nr_of_dirs++;
@@ -438,6 +439,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 				child_entry->filename = g_strdup(full_path_name);
 				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
+				child_entry->prev = last_entry;
 				child_entry->is_dir = TRUE;
 
 				child_entry->next = last_entry->child;
@@ -462,6 +464,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 
 			child_entry->next = last_entry->child;
 			last_entry->child = child_entry;
+			child_entry->prev = last_entry;
 		}
 	}
 	else
@@ -641,3 +644,13 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 	}
 }
 
+gchar *xa_build_pathname_from_entries (XArchive *archive,XEntry *entry)
+{
+	while (entry)
+	{
+		g_print ("%s\n",entry->filename);
+		entry = entry->prev;
+	}
+	g_print ("\n");
+	return NULL;
+}

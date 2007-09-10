@@ -1075,12 +1075,12 @@ int xa_detect_archive_type ( gchar *filename )
 	else if ( memcmp ( magic,"\x60\xea",2 ) == 0 )
 		xx = XARCHIVETYPE_ARJ;
 	else if ( memcmp ( magic,"\x52\x61\x72\x21",4 ) == 0 )
-		 xx = XARCHIVETYPE_RAR;
+		xx = XARCHIVETYPE_RAR;
 	else if ( memcmp ( magic,"\x42\x5a\x68",3 ) == 0 )
 		xx = XARCHIVETYPE_BZIP2;
 	else if ( memcmp ( magic,"\x1f\x8b",2) == 0 || memcmp ( magic,"\x1f\x9d",2 ) == 0 )
 		xx = XARCHIVETYPE_GZIP;
-	else if ( memcmp ( magic,"\x00\x5d\x80\x00",4 ) == 0 )
+	else if ( memcmp ( magic,"\x5d\x00\x00\x80",4 ) == 0 )
 		xx = XARCHIVETYPE_LZMA;
 	else if ( memcmp ( magic,"\xed\xab\xee\xdb",4 ) == 0 )
 		xx = XARCHIVETYPE_RPM;

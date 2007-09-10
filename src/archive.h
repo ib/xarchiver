@@ -59,6 +59,7 @@ struct _XEntry
 	gboolean is_encrypted;
 	XEntry *child;
 	XEntry *next;
+	XEntry *prev;
 };
 
 typedef struct _XArchive XArchive;
@@ -131,6 +132,7 @@ XEntry *xa_find_archive_entry(XEntry *entry, gchar *string);
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gboolean encrypted,gpointer *items);
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items);
 void xa_update_window_with_archive_entries (XArchive *archive,gchar *path);
+gchar *xa_build_pathname_from_entries (XArchive *archive,XEntry *entry);
 XArchive *archive[100];
 XArchive *archive_cmd;
 #endif

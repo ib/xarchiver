@@ -824,11 +824,14 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		/* *Here we have to fill a GSList with all the filenames in the archive so that we can use mv on all of them */
 		XEntry *entry;
 		GSList *s = archive->entries;
-		g_print ("%s\n",gtk_entry_get_text(GTK_ENTRY(location_entry)));
+		//g_print ("%s\n",gtk_entry_get_text(GTK_ENTRY(location_entry)));
 		for (; s; s = s->next)
 		{
 			entry = s->data;
-			xa_store_entries_in_gslist(entry,&xxx);
+			XEntry *p = xa_find_archive_entry(s->data,entry->filename);
+			g_print ("Ho trovato: %s\n",p->filename);
+			xa_build_pathname_from_entries (archive,p);
+			//xa_store_entries_in_gslist(entry,&xxx);
 		}
 	}
 	filenames = g_slist_reverse(xxx);
