@@ -83,7 +83,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 			strncpy ( extraction_string, archive->path, x - 5);
 			extraction_string[x-5] = '\0';
 		}
-		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry), g_strdup(extraction_string));
+		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry), extraction_string);
 		g_free (extraction_string);
 	}
 	else
@@ -821,17 +821,14 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	}
 	else
 	{
-		/* *Here we have to fill a GSList with all the filenames in the archive so that we can use mv on all of them */
+		/* *Here we have to fill a GSList with all the entries in the archive so that we can use mv on all of them */
 		XEntry *entry;
 		GSList *s = archive->entries;
 		//g_print ("%s\n",gtk_entry_get_text(GTK_ENTRY(location_entry)));
 		for (; s; s = s->next)
 		{
 			entry = s->data;
-			XEntry *p = xa_find_archive_entry(s->data,entry->filename);
-			g_print ("Ho trovato: %s\n",p->filename);
-			xa_build_pathname_from_entries (archive,p);
-			//xa_store_entries_in_gslist(entry,&xxx);
+			xa_entries_to_filelist(entry, &xxx,"");
 		}
 	}
 	filenames = g_slist_reverse(xxx);
@@ -862,7 +859,6 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		return FALSE;
 	}
 	chdir (tmp_dir);
-	
 	while (filenames)
 	{
 		gchar *unescaped = EscapeBadChars ( (gchar*)filenames->data , "$\'`\"\\!?* ()[]&|@#:;");
@@ -871,8 +867,8 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		g_free (unescaped);
 		filenames = filenames->next;
 	}
+	xa_destroy_filelist (filenames);
 	command = g_strconcat ( "mv -f ", unescaped_names->str, " " , extract_path , NULL );
-	g_print ("%s\n",command);
 	result = xa_run_command (archive,command,0);
 	g_free (command);
 	g_slist_free (filenames);

@@ -28,7 +28,6 @@ IMAGE_FILES = \
 	images/add_dialog.png \
 	images/archive_properties.png \
 	images/extract_dialog.png \
-	images/iso_properties.png \
 	images/new_dialog.png
 
 EXTRA_DIST = xarchiver.css xarchiver.xsl \

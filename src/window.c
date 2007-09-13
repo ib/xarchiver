@@ -905,8 +905,8 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>",NULL};
-    const char *documenters[] = {"\nVery special thanks to John Berthels for\nhelping me in fixing archive navigation code.\n\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\n", NULL};
+    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nArchive navigation code:\nJohn Berthels\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n",NULL};
+    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\n", NULL};
 
 	if (about == NULL)
 	{
@@ -915,17 +915,17 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_about_dialog_set_url_hook (xa_activate_link, NULL, NULL);
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (about) , TRUE);
 		g_object_set (about,
-				"name",  "Xarchiver",
-				"version", PACKAGE_VERSION,
-				"copyright", "Copyright \xC2\xA9 2005-2007 Giuseppe Torelli",
-				"comments", "A lightweight GTK+2 archive manager",
-				"authors", authors,
-				"documenters",documenters,
-				"translator_credits", _("translator-credits"),
-				"logo_icon_name", "xarchiver",
-				"website", "http://xarchiver.xfce.org",
-				"license",    "Copyright \xC2\xA9 2005-2007 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
-		      			"This is free software; you can redistribute it and/or\n"
+			"name",  "Xarchiver",
+			"version", PACKAGE_VERSION,
+			"copyright", "Copyright \xC2\xA9 2005-2007 Giuseppe Torelli",
+			"comments", "A lightweight GTK+2 archive manager",
+			"authors", authors,
+			"documenters",documenters,
+			"translator_credits", _("translator-credits"),
+			"logo_icon_name", "xarchiver",
+			"website", "http://xarchiver.xfce.org",
+			"license",    "Copyright \xC2\xA9 2005-2007 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
+		    			"This is free software; you can redistribute it and/or\n"
     					"modify it under the terms of the GNU Library General Public License as\n"
     					"published by the Free Software Foundation; either version 2 of the\n"
     					"License, or (at your option) any later version.\n"
@@ -1129,6 +1129,7 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
 	renderer = gtk_cell_renderer_pixbuf_new();
+	//TODO; have this in real time according to the user set preferences
 	g_object_set(G_OBJECT(renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, renderer, "icon-name",0,NULL);

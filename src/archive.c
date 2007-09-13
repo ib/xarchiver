@@ -369,17 +369,6 @@ void xa_free_entry (XArchive *archive,XEntry *entry)
 	g_free(entry);
 }
 
-void xa_store_entries_in_gslist (XEntry *entry, GSList **list)
-{
-	if (entry == NULL)
-		return;
-		
-	*list = g_slist_prepend (*list,entry->filename);
-
-	xa_store_entries_in_gslist(entry->child, list);
-	xa_store_entries_in_gslist(entry->next, list);
-}
-
 XEntry *xa_find_archive_entry(XEntry *entry, gchar *string)
 {
 	if (entry == NULL)
@@ -423,7 +412,6 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			last_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
 			last_entry->filename = g_strdup(full_path_name);
 			last_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,last_entry,items);
-			last_entry->prev = NULL;
 			last_entry->is_dir = TRUE;
 			archive->entries = g_slist_prepend (archive->entries,last_entry);
 			archive->nr_of_dirs++;
@@ -439,7 +427,6 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 				child_entry->filename = g_strdup(full_path_name);
 				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
-				child_entry->prev = last_entry;
 				child_entry->is_dir = TRUE;
 
 				child_entry->next = last_entry->child;
@@ -464,7 +451,6 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 
 			child_entry->next = last_entry->child;
 			last_entry->child = child_entry;
-			child_entry->prev = last_entry;
 		}
 	}
 	else
@@ -644,13 +630,34 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 	}
 }
 
-gchar *xa_build_pathname_from_entries (XArchive *archive,XEntry *entry)
+void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_path)
 {
-	while (entry)
-	{
-		g_print ("%s\n",entry->filename);
-		entry = entry->prev;
-	}
-	g_print ("\n");
-	return NULL;
+    if (entry == NULL)
+        return;
+
+    /* Recurse to siblings with the same path */
+    xa_entries_to_filelist(entry->next, p_file_list, current_path);
+
+    if (entry->child)
+    {
+        /* This is a directory, recurse to children, with new path */
+        gchar *extended_path = g_strdup(entry->filename);
+        xa_entries_to_filelist(entry->child, p_file_list, extended_path);
+        g_free(extended_path);
+    }
+    else
+    {
+        /* This is a file, add this entry with a full pathname */
+        gchar *full_path = g_strconcat(current_path,"/",entry->filename,NULL);
+        *p_file_list = g_slist_append(*p_file_list, full_path);
+    }
+
+    return;
 }
+
+void xa_destroy_filelist(GSList *file_list)
+{
+	g_slist_foreach (file_list,(GFunc)g_free, NULL);
+	g_slist_free (file_list);
+}
+
