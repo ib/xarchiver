@@ -22,6 +22,7 @@ HTML_FILES = \
 	html/ch04s04.html \
 	html/ch04s05.html \
 	html/ch04s06.html \
+	html/ch04s07.html \
 	html/index.html \
 	xarchiver.css
 IMAGE_FILES = \
