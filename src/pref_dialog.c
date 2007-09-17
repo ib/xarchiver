@@ -108,7 +108,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	archive_type = g_list_first ( ArchiveType );
 	while ( archive_type != NULL )
 	{
-		if (archive_type->data == "tgz" || archive_type->data == "rpm" || archive_type->data == "gz" || archive_type->data == "bz2" || (archive_type->data == "rar" && unrar) )
+		if (archive_type->data == "tgz" || archive_type->data == "rpm" || (archive_type->data == "rar" && unrar) )
 			goto next;
 		else
 			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_format),archive_type->data );
