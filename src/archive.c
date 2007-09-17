@@ -233,9 +233,7 @@ gboolean xa_delete_temp_directory (XArchive *archive,gboolean flag)
 	gboolean result;
 		
 	chdir (archive->tmp);
-
 	command = g_strconcat ("rm -rf ",archive->tmp,NULL);
-
 	result = xa_run_command (archive,command,flag );
 	g_free (command);
 	return result;

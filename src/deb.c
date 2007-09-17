@@ -59,7 +59,7 @@ void xa_open_deb ( XArchive *archive )
 	g_free (command);
 	g_free (archive->tmp);
 
-	archive->tmp = g_strconcat (tmp_dir,"/data.tar.gz",NULL);
+	archive->tmp = g_strdup(tmp_dir);
 	chdir (tmp_dir);
 	unlink ("control.tar.gz");
 	unlink ("debian-binary");

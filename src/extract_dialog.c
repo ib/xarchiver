@@ -68,12 +68,18 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	gtk_widget_set_size_request (dialog_data->destination_path_entry, 385, -1);
 	gtk_entry_set_activates_default (GTK_ENTRY (dialog_data->destination_path_entry), TRUE);
 
-	gchar *dummy = strstr(archive->path, ".");
+	gchar *dummy = g_strrstr(archive->path, ".");
 	if (dummy != NULL)
 	{
 		dummy++;
 		unsigned short int x = strlen (archive->path) - strlen ( dummy );
-		gchar *extraction_string = g_strndup(archive->path,x-1);
+		gchar *extraction_string = g_strndup(archive->path, x-1);
+		if (strstr (extraction_string,".tar"))
+		{
+			gchar *extraction_string_no_tar = g_strndup(extraction_string, x-5);
+			g_free (extraction_string);
+			extraction_string = extraction_string_no_tar;
+		}
 		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry), extraction_string);
 		g_free (extraction_string);
 	}
@@ -486,7 +492,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 					}
 					else
 					{
-						xa_extract_tar_without_directories ( "tar -xvzf ",archive,archive->tmp,FALSE );
+						xa_extract_tar_without_directories ( "tar -xvzf ",archive,archive->extraction_path,FALSE );
 						command = NULL;
 					}
 					break;
@@ -802,6 +808,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 
 			if (strstr (permission ,"d") == NULL)
 			{
+				//concatena il percorso nella barra degli indirizzi col nome dei files selezionato e mettilo in name
 				ConcatenateFileNames2 ( name , names );
 				filenames = g_slist_append ( filenames,name );
 			}
@@ -812,10 +819,10 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	}
 	else
 	{
-		/* *Here we have to fill a GSList with all the entries in the archive so that we can use mv on all of them */
+		/* *Here we need to fill a GSList with all the entries in the archive so that we can use mv on all of them */
 		XEntry *entry;
 		GSList *s = archive->entries;
-		//g_print ("%s\n",gtk_entry_get_text(GTK_ENTRY(location_entry)));
+
 		for (; s; s = s->next)
 		{
 			entry = s->data;
@@ -828,9 +835,10 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	if (result == 0)
 		return FALSE;
 
+	archive->tmp = strdup(tmp_dir);
 	if (cpio_flag)
 	{
-		chdir (tmp_dir);
+		chdir (archive->tmp);
 		command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
 	}
 	else
@@ -838,6 +846,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 										archive->overwrite ? " --overwrite" : " --keep-old-files",
 										archive->tar_touch ? " --touch" : "",
 										" -C " , tmp_dir , names->str, NULL );
+	g_print ("%s\n",command);
 	result = xa_run_command (archive,command,0);
 	g_string_free (names, TRUE);
 	g_free (command);
@@ -849,7 +858,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
 	}
-	chdir (tmp_dir);
+	chdir (archive->tmp);
 	while (filenames)
 	{
 		gchar *unescaped = EscapeBadChars ( (gchar*)filenames->data , "$\'`\"\\!?* ()[]&|@#:;");
