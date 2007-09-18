@@ -226,7 +226,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 		gtk_widget_destroy (xa_file_chooser);
 		archive->path = g_strdup (my_path);
-		archive->escaped_path = EscapeBadChars (archive->path , "$\'`\"\\!?* ()&|@#:;");
+		archive->escaped_path = xa_escape_bad_chars (archive->path , "$\'`\"\\!?* ()&|@#:;");
 		g_free (my_path);
 		return archive;
 	}

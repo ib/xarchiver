@@ -93,7 +93,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data);
 void xa_remove_columns();
 void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
-void ConcatenateFileNames2 (gchar *filename , GString *data);
+void xa_concat_filenames (gchar *filename , GString *data);
 void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void xa_disable_delete_view_buttons (gboolean value);

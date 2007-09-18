@@ -407,6 +407,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			last_entry = xa_find_archive_entry(NULL,full_path_name);
 		if (last_entry == NULL)
 		{
+			//g_print ("prendo %s da %s\n",full_path_name,filename);
 			last_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
 			last_entry->filename = g_strdup(full_path_name);
 			last_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,last_entry,items);
@@ -419,9 +420,11 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 		while ( (p = strchr(p,'/')) )
 		{
 			full_path_name = g_strndup(filename,(p-filename));
+
 			child_entry = xa_find_archive_entry(last_entry,full_path_name);
 			if (child_entry == NULL)
 			{
+				//g_print ("w: prendo %s da %s\n",full_path_name,p);
 				child_entry = xa_alloc_memory_for_each_row (archive->nc,archive->column_types);
 				child_entry->filename = g_strdup(full_path_name);
 				child_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,child_entry,items);
@@ -630,6 +633,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 
 void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_path)
 {
+	gchar *full_path = NULL;
+
     if (entry == NULL)
         return;
 
@@ -643,10 +648,15 @@ void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_pa
         xa_entries_to_filelist(entry->child, p_file_list, extended_path);
         g_free(extended_path);
     }
+    /* This is a file, add this entry with a full pathname */
     else
     {
-        /* This is a file, add this entry with a full pathname */
-        gchar *full_path = g_strconcat(current_path,"/",entry->filename,NULL);
+        /* This in case the files are in the root directory */
+        if (strlen(current_path) == 0)
+        	full_path = g_strdup(entry->filename);
+        else
+        	full_path = g_strconcat(current_path,"/",entry->filename,NULL);
+
         *p_file_list = g_slist_append(*p_file_list, full_path);
     }
 

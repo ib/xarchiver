@@ -292,7 +292,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 
 	archive[current_page]->type = type;
 	archive[current_page]->path = g_strdup (path);
-	archive[current_page]->escaped_path = EscapeBadChars ( archive[current_page]->path , "$\'`\"\\!?* ()&|@#:;" );
+	archive[current_page]->escaped_path = xa_escape_bad_chars ( archive[current_page]->path , "$\'`\"\\!?* ()&|@#:;" );
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	xa_add_page (archive[current_page]);
 
@@ -729,7 +729,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				Update_StatusBar ( _("Operation canceled."));
 				return;
 			}
-			archive_name_escaped = EscapeBadChars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
+			archive_name_escaped = xa_escape_bad_chars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
 			unzipsfx_path = g_find_program_in_path ( "unzipsfx" );
 			if ( unzipsfx_path != NULL )
 			{
@@ -805,7 +805,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				Update_StatusBar ( _("Operation canceled."));
 				return;
 			}
-			archive_name_escaped = EscapeBadChars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
+			archive_name_escaped = xa_escape_bad_chars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
 
 			if (g_file_test ( "/usr/lib/p7zip/7zCon.sfx" , G_FILE_TEST_EXISTS) )
 				sfx_path = g_strdup("/usr/lib/p7zip/7zCon.sfx");
@@ -1539,7 +1539,7 @@ void xa_activate_delete_and_view ()
 	}
 }
 
-void ConcatenateFileNames2 (gchar *filename , GString *data)
+void xa_concat_filenames (gchar *filename , GString *data)
 {
 	gchar *esc_filename = NULL;
 	gchar *escaped = NULL;
@@ -1550,19 +1550,19 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
-	if ( strstr (filename, "[") || strstr (filename, "]"))
+	if (strstr(filename,"[") || strstr (filename, "]"))
 	{
 		if (archive[idx]->type == XARCHIVETYPE_ZIP)
 		{
 			if (archive[idx]->status == XA_ARCHIVESTATUS_ADD)
 			{
-				esc_filename = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
+				esc_filename = xa_escape_bad_chars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
 				g_string_prepend (data, esc_filename);
 			}
 			else
 			{
-				escaped = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;");
-				escaped2 = escape_str_common (escaped , "*?[]", '\\', 0);
+				escaped = xa_escape_bad_chars ( filename ,"$\'`\"\\!?* ()[]&|@#:;");
+				escaped2 = xa_escape_common_chars (escaped , "*?[]", '\\', 0);
 				g_free (escaped);
 				esc_filename = escaped2;
 				g_string_prepend (data, esc_filename);
@@ -1572,13 +1572,13 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 		{
 			if (archive[idx]->status == XA_ARCHIVESTATUS_ADD)
 			{
-				esc_filename = EscapeBadChars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
+				esc_filename = xa_escape_bad_chars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
 				g_string_prepend (data, esc_filename);
 			}
 			else
 			{
-				escaped = EscapeBadChars ( filename ,"?*\\'& !|()@#:;");
-				escaped2 = escape_str_common ( escaped , "[]", '[', ']');
+				escaped = xa_escape_bad_chars ( filename ,"?*\\'& !|()@#:;");
+				escaped2 = xa_escape_common_chars ( escaped , "[]", '[', ']');
 				g_free (escaped);
 				esc_filename = escaped2;
 				g_string_prepend (data, esc_filename);
@@ -1587,7 +1587,7 @@ void ConcatenateFileNames2 (gchar *filename , GString *data)
 	}
 	else
 	{
-		esc_filename = EscapeBadChars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
+		esc_filename = xa_escape_bad_chars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
 		g_string_prepend (data, esc_filename);
 	}
 	g_string_prepend_c (data, ' ');
@@ -1599,7 +1599,7 @@ void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIt
 	gchar *filename = NULL;
 
 	gtk_tree_model_get (model, iter, 0, &filename, -1);
-	ConcatenateFileNames2 ( filename , data );
+	xa_concat_filenames ( filename , data );
 	g_free (filename);
 }
 
@@ -1611,7 +1611,7 @@ void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkT
 	gtk_tree_model_get (model, iter, 1, &fullname, -1);
 	name = g_path_get_basename ( fullname );
 
-	ConcatenateFileNames2 ( name , data );
+	xa_concat_filenames ( name , data );
 	g_free (fullname);
 }
 
@@ -1620,7 +1620,7 @@ void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *
 	gchar *fullname;
 
 	gtk_tree_model_get (model, iter, 1, &fullname, -1);
-	ConcatenateFileNames2 ( fullname , data );
+	xa_concat_filenames ( fullname , data );
 	g_free (fullname);
 }
 
@@ -1844,7 +1844,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		filename = g_filename_from_uri ( array[len] , NULL, NULL );
 		name = g_path_get_basename ( filename );
 		g_free (filename);
-		ConcatenateFileNames2 ( name, names );
+		xa_concat_filenames ( name, names );
 		g_free (name);
 		len++;
 	}

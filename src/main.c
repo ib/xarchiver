@@ -123,7 +123,7 @@ int main (int argc, char **argv)
 					GString *string = g_string_new ( "" );
 					archive_cmd->full_path = 1;
 					archive_cmd->overwrite = 1;
-					gchar *escaped_path = EscapeBadChars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
+					gchar *escaped_path = xa_escape_bad_chars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
 					archive_cmd->extraction_path = g_strdup (extract_path);
 					cli_command = xa_extract_single_files ( archive_cmd , string, escaped_path );
 					g_free (escaped_path);
@@ -175,14 +175,14 @@ int main (int argc, char **argv)
 				if ( g_file_test ( archive_name,G_FILE_TEST_EXISTS) )
 				{
 					_current_dir = g_path_get_basename ( archive_name );
-					ConcatenateFileNames2 ( _current_dir, string );
+					xa_concat_filenames ( _current_dir, string );
 					g_free (_current_dir);
 				}
 
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename ( argv[x] );
-					ConcatenateFileNames2 ( _current_dir, string );
+					xa_concat_filenames ( _current_dir, string );
 					g_free (_current_dir);
 				}
 
@@ -475,7 +475,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 		return NULL;
 	}
 	archive_cmd->path = g_strdup (filename);
-	archive_cmd->escaped_path = EscapeBadChars(filename , "$\'`\"\\!?* ()&|@#:;");
+	archive_cmd->escaped_path = xa_escape_bad_chars(filename , "$\'`\"\\!?* ()&|@#:;");
 	archive_cmd->type = type;
 
 	if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive_cmd->escaped_path , ".tar.bz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tbz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tbz2" ) )

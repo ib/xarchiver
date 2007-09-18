@@ -113,8 +113,6 @@ struct _XArchive
 	void (*parse_output) (gchar *line, gpointer data);
 };
 
-GHashTable *filename_paths_buffer;
-gchar *system_id,*volume_id,*publisher_id,*preparer_id,*application_id,*creation_date,*modified_date,*expiration_date,*effective_date;
 void xa_spawn_async_process (XArchive *archive, gchar *command , gboolean input);
 XArchive *xa_init_archive_structure ();
 void xa_clean_archive_structure ( XArchive *archive);

@@ -86,9 +86,9 @@ const char *strcasestr(const char *haystack, const char *needle)
 }
 #endif /* !HAVE_STRCASESTR */
 
-gchar *EscapeBadChars ( gchar *string , gchar *pattern)
+gchar *xa_escape_bad_chars ( gchar *string , gchar *pattern)
 {
-	return escape_str_common (string, pattern, '\\', 0);
+	return xa_escape_common_chars (string, pattern, '\\', 0);
 }
 
 gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path )
@@ -192,7 +192,7 @@ static int count_chars_to_escape (const char *str, const char *meta_chars)
 		}
 	return n;
 }
-char *escape_str_common (const char *str, const char *meta_chars, const char  prefix, const char  postfix)
+char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char  postfix)
 {
         int         meta_chars_n = strlen (meta_chars);
         char       *escaped;
@@ -271,7 +271,7 @@ gchar *extract_local_path (gchar *path)
     gchar *local_escaped_path;
 
     local_path = g_path_get_dirname (path);
-    local_escaped_path = EscapeBadChars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
+    local_escaped_path = xa_escape_bad_chars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
     g_free (local_path);
     return local_escaped_path;
 }

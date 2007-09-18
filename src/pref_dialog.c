@@ -303,7 +303,7 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
 
 void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
 {
-	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),2);
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),TRUE);
 
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),0);
@@ -522,4 +522,6 @@ void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 	else
 		gtk_widget_hide (toolbar2);
 	
+	/*renderer = gtk_cell_renderer_pixbuf_new();
+	g_object_set(G_OBJECT(renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);*/
 }
