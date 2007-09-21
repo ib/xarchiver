@@ -1128,11 +1128,10 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
-	renderer = gtk_cell_renderer_pixbuf_new();
-	//TODO; have this in real time according to the user set preferences
-	g_object_set(G_OBJECT(renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);
-	gtk_tree_view_column_pack_start(column, renderer, FALSE);
-	gtk_tree_view_column_set_attributes(column, renderer, "icon-name",0,NULL);
+	archive->renderer = gtk_cell_renderer_pixbuf_new();
+	g_object_set(G_OBJECT(archive->renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);
+	gtk_tree_view_column_pack_start(column, archive->renderer, FALSE);
+	gtk_tree_view_column_set_attributes(column, archive->renderer, "icon-name",0,NULL);
 
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -1929,11 +1928,15 @@ void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 	gchar *argv[3];
 	gchar *browser_path;
 
-	//TODO: retrieve the user set browser from prefs and use it
-	browser_path = g_find_program_in_path ("xelp");
+	browser_path = gtk_combo_box_get_active_text(GTK_COMBO_BOX(prefs_window->combo_prefered_web_browser));
 
-	if ( browser_path == NULL)
-		browser_path = g_find_program_in_path ("firefox");
+	if (strlen(browser_path) == 0)
+	{
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+		_("You didn't set the browser to use!"),_("Please go to Preferences->Advanced and set it."));		
+		g_free (browser_path);
+		return;	
+	}
 
 	argv[0] = browser_path;
 	argv[1] = (gchar *) link;

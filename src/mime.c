@@ -58,6 +58,8 @@ const char *xa_get_stock_mime_icon(char *filename)
 		icon_name = "gnome-mime-application-x-php";
 	else if (strcmp(mime,"application/x-perl") == 0 || strcmp (mime,"application/x-csh") == 0 || strcmp (mime,"application/x-shellscript") == 0)
 		icon_name = "gnome-mime-application-x-perl";
+	else if (strcmp(mime,"application/x-font-ttf") == 0)
+		icon_name = "gnome-mime-application-x-font-ttf";
 	return icon_name;		
 }
 

@@ -22,6 +22,7 @@
 #include "extract_dialog.h"
 #include "string_utils.h"
 
+extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 extern gboolean xa_tar_open (GIOChannel *ioc, GIOCondition cond, gpointer data);
 extern gboolean cli;
 
@@ -29,18 +30,28 @@ short int l;
 
 void xa_open_bzip2 (XArchive *archive)
 {
-	gchar *command;
+	XEntry *entry;
+	struct stat my_stat;
+	gchar tmp_dir[14] = "";
+	gchar *compressed = NULL;
+	gchar *size = NULL;
+	gchar *command = NULL;
+	gchar *filename = NULL;;
+	gchar *_filename;
 	gchar *tar;
+	gpointer item[3];
 	unsigned short int i;
+	gboolean result;
 
-    if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
+	if (g_str_has_suffix(archive->escaped_path,".tar.bz2") || g_str_has_suffix (archive->escaped_path,".tar.bz")
+    	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
 	{
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 		tar = g_find_program_in_path ("gtar");
 		if (tar == NULL)
 			tar = g_strdup ("tar");
 
-		command = g_strconcat (tar, " tfjv " , archive->escaped_path, NULL );
+		command = g_strconcat (tar, " tfjv ",archive->escaped_path,NULL);
 		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
 		archive->has_test = archive->has_sfx = FALSE;
 		archive->dummy_size = 0;
@@ -69,10 +80,67 @@ void xa_open_bzip2 (XArchive *archive)
 	{
 		archive->has_properties = archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 		archive->can_extract = TRUE;
-		extract_window = xa_create_extract_dialog ( 0 , archive);
-		command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
-		gtk_widget_destroy ( extract_window->dialog1 );
-		g_free (extract_window);
+		archive->nc = 3;
+
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING};
+		archive->column_types = g_malloc0(sizeof(types));
+		for (i = 0; i < 5; i++)
+			archive->column_types[i] = types[i];
+
+		char *names[]= {(_("Compressed")),(_("Size")),(_("Modification Date"))};
+		xa_create_liststore (archive,names);
+		result = xa_create_temp_directory (tmp_dir);
+		if (result == 0)
+			return;
+
+		archive->tmp = strdup(tmp_dir);
+		/* Let's copy the bzip2 file in the tmp dir */
+		command = g_strconcat("cp -f ",archive->escaped_path," ",archive->tmp,NULL);
+		result = xa_run_command (archive,command,0);
+		g_free (command);
+		if (!result)
+		{
+			xa_delete_temp_directory (archive,0);
+			gtk_widget_hide (viewport2);
+			Update_StatusBar (_("Operation canceled."));
+			return;
+		}
+		/* Let's extract it */
+		chdir (archive->tmp);
+		_filename = g_strrstr (archive->escaped_path , "/");
+		command = g_strconcat("bzip2 -f -d ",archive->tmp,_filename,NULL);
+		result = xa_run_command (archive,command,1);
+		g_free (command);
+		if (!result)
+		{
+			xa_delete_temp_directory (archive,0);
+			gtk_widget_hide (viewport2);
+			Update_StatusBar (_("Operation canceled."));
+			return;
+		}
+		/* Let's get its compressed file size */
+		stat (archive->escaped_path,&my_stat);
+		compressed = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
+		item[0] = compressed;
+		item[2] = ctime(&my_stat.st_mtime);
+
+		/* and its uncompressed file size */
+		_filename++;
+		filename = g_strndup(_filename,strlen(_filename)-4);
+		command = g_strconcat(archive->tmp,"/",filename,NULL);
+		stat (command,&my_stat);
+		g_free(command);
+		size = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
+		item[1] = size;
+
+		entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
+		g_free(compressed);
+		g_free(size);
+		g_free(filename);
+		
+		xa_update_window_with_archive_entries (archive,NULL);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
 	}
 }
 

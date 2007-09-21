@@ -76,6 +76,7 @@ struct _XArchive
 	gchar *passwd;
 	gchar *location_entry_path;
 	GtkTreeModel *model;
+	GtkCellRenderer *renderer;
 	GtkListStore *liststore;
 	GtkWidget *treeview;
 	GtkWidget *scrollwindow;

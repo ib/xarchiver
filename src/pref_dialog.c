@@ -209,7 +209,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table2), 4);
 
-	label6 = gtk_label_new (_("View HTML help with:"));
+	label6 = gtk_label_new (_("Browser to use:"));
 	gtk_table_attach (GTK_TABLE (table2), label6, 0, 1, 0, 1,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
@@ -517,11 +517,19 @@ gchar *xa_prefs_choose_program(gboolean flag)
 
 void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 {
+	gint i,idx;
+
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar)))
 		gtk_widget_show_all (toolbar2);
 	else
 		gtk_widget_hide (toolbar2);
+
+	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
+	{
+		idx = xa_find_archive_index (i);
+		if (archive[idx] != NULL)
+			g_object_set(G_OBJECT(archive[idx]->renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_data->combo_icon_size))), NULL);
+		gtk_widget_queue_draw(GTK_WIDGET(archive[idx]->treeview));
+	}
 	
-	/*renderer = gtk_cell_renderer_pixbuf_new();
-	g_object_set(G_OBJECT(renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);*/
 }
