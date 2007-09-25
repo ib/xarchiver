@@ -71,12 +71,12 @@ void xa_open_gzip (XArchive *archive)
 		archive->nr_of_dirs = 0;
 		archive->format = "GZIP";
 
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64};
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING};
 		archive->column_types = g_malloc0(sizeof(types));
 		for (i = 0; i < 5; i++)
 			archive->column_types[i] = types[i];
 
-		char *names[]= {(_("Ratio")),(_("Compressed")),(_("Size"))};
+		char *names[]= {(_("Compressed")),(_("Size")),(_("Ratio"))};
 		xa_create_liststore (archive,names);
 		
 		command = g_strconcat ("gzip -l ",archive->escaped_path,NULL);
@@ -106,7 +106,7 @@ void xa_get_gzip_line_content (gchar *line, gpointer data)
 	a = n;
 	for(; n < linesize && line[n] != ' '; n++);
 	line[n]='\0';
-	item[2] = line + a;
+	item[0] = line + a;
 	n++;
 
 	/* Compressed */
@@ -123,13 +123,16 @@ void xa_get_gzip_line_content (gchar *line, gpointer data)
 	a = n;
 	for(; n < linesize && line[n] != ' '; n++);
 	line[n] = '\0';
-	item[0] = line + a;
+	item[2] = line + a;
 	n++;
 	
 	line[linesize-1] = '\0';
 	filename = line+n;
 	
 	basename = g_path_get_basename(filename);
+	if (basename == NULL)
+		basename = g_strdup(filename);
+
 	entry = xa_set_archive_entries_for_each_row (archive,basename,FALSE,item);
 	g_free(basename);
 }
