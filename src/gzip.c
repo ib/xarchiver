@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -21,8 +21,7 @@
 #include "gzip.h"
 #include "bzip2.h"
 
-FILE *fd;
-extern int output_fd;
+extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
 
 void xa_open_gzip (XArchive *archive)
 {
@@ -30,7 +29,7 @@ void xa_open_gzip (XArchive *archive)
 	gchar *tar;
 	unsigned short int i;
 
-	if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
+	if (g_str_has_suffix (archive->escaped_path,".tar.gz") || g_str_has_suffix (archive->escaped_path,".tgz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_GZ;
 	    tar = g_find_program_in_path ("gtar");
@@ -64,13 +63,73 @@ void xa_open_gzip (XArchive *archive)
 	}
 	else
 	{
-		archive->has_properties = archive->can_add = archive->has_test = archive->has_sfx = FALSE;
-		archive->can_extract = TRUE;
-		extract_window = xa_create_extract_dialog ( 0 , archive);
-		command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
-		gtk_widget_destroy ( extract_window->dialog1 );
-		g_free (extract_window);
+		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
+		archive->has_properties = archive->can_extract = TRUE;
+		archive->nc = 3;
+		archive->parse_output = xa_get_gzip_line_content;
+		archive->nr_of_files = 1;
+		archive->nr_of_dirs = 0;
+		archive->format = "GZIP";
+
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64};
+		archive->column_types = g_malloc0(sizeof(types));
+		for (i = 0; i < 5; i++)
+			archive->column_types[i] = types[i];
+
+		char *names[]= {(_("Ratio")),(_("Compressed")),(_("Size"))};
+		xa_create_liststore (archive,names);
+		
+		command = g_strconcat ("gzip -l ",archive->escaped_path,NULL);
+		xa_spawn_async_process (archive,command,0);
+		g_free (command);
+
+		if (archive->child_pid == 0)
+			return;
 	}
 }
 
+void xa_get_gzip_line_content (gchar *line, gpointer data)
+{
+	XArchive *archive = data;
+	XEntry *entry;
+	gchar *filename;
+	gchar *basename;
+	gpointer item[2];
+	gint n = 0, a = 0 ,linesize = 0;
 
+	linesize = strlen(line);
+	if (line[9] == 'c')
+		return;
+
+	/* Size */
+	for(n=0; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+	line[n]='\0';
+	item[2] = line + a;
+	n++;
+
+	/* Compressed */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+	line[n]='\0';
+	item[1] = line + a;
+	archive->dummy_size += strtoll(item[1],NULL,0);
+	n++;
+
+	/* Ratio */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+	line[n] = '\0';
+	item[0] = line + a;
+	n++;
+	
+	line[linesize-1] = '\0';
+	filename = line+n;
+	
+	basename = g_path_get_basename(filename);
+	entry = xa_set_archive_entries_for_each_row (archive,basename,FALSE,item);
+	g_free(basename);
+}

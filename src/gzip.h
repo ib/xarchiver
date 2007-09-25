@@ -25,4 +25,5 @@
 #include "archive.h"
 
 void xa_open_gzip (XArchive *archive);
+void xa_get_gzip_line_content (gchar *line, gpointer data);
 #endif

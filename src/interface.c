@@ -772,7 +772,7 @@ GtkWidget *create_archive_properties_window ()
 	gtk_misc_set_alignment (GTK_MISC (content_label), 0.99, 0.5);
 
 	comment_label = gtk_label_new ("");
-	set_label ( comment_label , _("Has comment:"));
+	set_label ( comment_label , _("Comment:"));
 	gtk_table_attach (GTK_TABLE (table1), comment_label, 0, 1, 6, 7,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL), 0, 0);
@@ -871,7 +871,7 @@ GtkWidget *create_archive_properties_window ()
 	return archive_properties_window;
 }
 
-void set_label (GtkWidget *label , gchar *text)
+void set_label (GtkWidget *label,gchar *text)
 {
     gchar *tmp_markup = g_strdup_printf ("<b>%s</b>",text );
     gtk_label_set_markup ( GTK_LABEL (label) , tmp_markup);
