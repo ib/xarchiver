@@ -24,10 +24,7 @@
 #include "interface.h"
 #include "archive.h"
 
-void OpenRPM ( XArchive *archive );
-GChildWatchFunc *OpenCPIO (GPid pid , gint status , gpointer data);
-gboolean WriteCPIOInput (GIOChannel *ioc, GIOCondition cond, gpointer data);
-void CloseChannels ( GIOChannel *ioc );
+void xa_open_rpm ( XArchive *archive );
 gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond , gpointer data);
 void xa_open_temp_file (gchar *tmp_dir,gchar *temp_path);
 

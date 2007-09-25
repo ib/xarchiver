@@ -27,6 +27,4 @@
 void xa_open_bzip2 (XArchive *archive);
 void gzip_bzip2_extract ( XArchive *archive , gboolean flag );
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add );
-GChildWatchFunc *AddToTar (GPid pid,gint status , gpointer data);
-gboolean file_extension_is (const char *filename, const char *ext);
 #endif

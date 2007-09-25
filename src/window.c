@@ -353,7 +353,7 @@ void xa_open_archive (GtkMenuItem *menuitem, gpointer data)
 		break;
 
 		case XARCHIVETYPE_RPM:
-		OpenRPM (archive[current_page]);
+		xa_open_rpm (archive[current_page]);
 		break;
 
 		case XARCHIVETYPE_TAR:

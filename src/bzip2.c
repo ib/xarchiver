@@ -39,7 +39,7 @@ void xa_open_bzip2 (XArchive *archive)
 	gchar *filename = NULL;;
 	gchar *_filename;
 	gchar *tar;
-	gpointer item[3];
+	gpointer item[2];
 	unsigned short int i;
 	gboolean result;
 
@@ -78,16 +78,19 @@ void xa_open_bzip2 (XArchive *archive)
 	}
 	else
 	{
-		archive->has_properties = archive->can_add = archive->has_test = archive->has_sfx = FALSE;
-		archive->can_extract = TRUE;
-		archive->nc = 3;
+		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
+		archive->has_properties = archive->can_extract = TRUE;
+		archive->nc = 2;
+		archive->nr_of_files = 1;
+		archive->nr_of_dirs = 0;
+		archive->format = "BZIP2";
 
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING};
+		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64};
 		archive->column_types = g_malloc0(sizeof(types));
-		for (i = 0; i < 5; i++)
+		for (i = 0; i < 4; i++)
 			archive->column_types[i] = types[i];
 
-		char *names[]= {(_("Compressed")),(_("Size")),(_("Modification Date"))};
+		char *names[]= {(_("Compressed")),(_("Size"))};
 		xa_create_liststore (archive,names);
 		result = xa_create_temp_directory (tmp_dir);
 		if (result == 0)
@@ -105,10 +108,20 @@ void xa_open_bzip2 (XArchive *archive)
 			Update_StatusBar (_("Operation canceled."));
 			return;
 		}
+
+		/* Let's get its compressed file size */
+		stat (archive->escaped_path,&my_stat);
+		compressed = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
+		item[0] = compressed;
+
 		/* Let's extract it */
 		chdir (archive->tmp);
 		_filename = g_strrstr (archive->escaped_path , "/");
-		command = g_strconcat("bzip2 -f -d ",archive->tmp,_filename,NULL);
+		if (_filename)
+			command = g_strconcat("bzip2 -f -d ",archive->tmp,_filename,NULL);
+		else
+			command = g_strconcat("bzip2 -f -d ",archive->tmp,"/",archive->escaped_path,NULL);
+
 		result = xa_run_command (archive,command,1);
 		g_free (command);
 		if (!result)
@@ -118,19 +131,23 @@ void xa_open_bzip2 (XArchive *archive)
 			Update_StatusBar (_("Operation canceled."));
 			return;
 		}
-		/* Let's get its compressed file size */
-		stat (archive->escaped_path,&my_stat);
-		compressed = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
-		item[0] = compressed;
-		item[2] = ctime(&my_stat.st_mtime);
 
-		/* and its uncompressed file size */
-		_filename++;
-		filename = g_strndup(_filename,strlen(_filename)-4);
-		command = g_strconcat(archive->tmp,"/",filename,NULL);
+		/* and let's get its uncompressed file size */
+		if (_filename)
+		{
+			_filename++;
+			filename = g_strndup(_filename,strlen(_filename)-4);
+			command = g_strconcat(archive->tmp,"/",filename,NULL);
+		}
+		else
+		{
+			command = g_strconcat(archive->tmp,"/",archive->escaped_path,NULL);
+			filename = g_strdup(archive->escaped_path);
+		}
 		stat (command,&my_stat);
 		g_free(command);
 		size = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
+		archive->dummy_size = my_stat.st_size;
 		item[1] = size;
 
 		entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
@@ -144,7 +161,7 @@ void xa_open_bzip2 (XArchive *archive)
 	}
 }
 
-void gzip_bzip2_extract ( XArchive *archive , gboolean flag )
+void gzip_bzip2_extract (XArchive *archive , gboolean flag )
 {
     gchar *text = NULL;
 	gchar *filename_only = NULL;
