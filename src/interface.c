@@ -50,7 +50,6 @@ extern gboolean unrar;
 void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 {
 	GdkPixbuf *icon;
-	GtkIconTheme *icon_theme;
 
 	tooltips = gtk_tooltips_new ();
 	accel_group = gtk_accel_group_new ();

@@ -496,6 +496,7 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *
 
 void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 {
+	GdkPixbuf *pixbuf = NULL;
 	GSList *s = NULL;
 	XEntry *entry  = NULL;
 	const char *icon_name;
@@ -525,9 +526,10 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 			else if (entry->is_encrypted)
 				icon_name = "gtk-dialog-authentication";
 			else
-				icon_name = xa_get_stock_mime_icon(entry->filename);
+				pixbuf = xa_get_pixbuf_icon_from_cache(entry->filename);
+				//icon_name = xa_get_stock_mime_icon(entry->filename);
 
-			gtk_list_store_set (archive->liststore,&iter,0,icon_name,1,entry->filename,-1);
+			gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
 
 			for (i = 0; i < archive->nc; i++)
 			{
@@ -606,9 +608,10 @@ void xa_update_window_with_archive_entries (XArchive *archive,gchar *path)
 			icon_name = "gtk-dialog-authentication";
 		
 		else
-			icon_name = xa_get_stock_mime_icon(entry->filename);
+			pixbuf = xa_get_pixbuf_icon_from_cache(entry->filename);
+			//icon_name = xa_get_stock_mime_icon(entry->filename);
 
-		gtk_list_store_set (archive->liststore,&iter,0,icon_name,1,entry->filename,-1);
+		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
 
 		for (i = 0; i < archive->nc; i++)
 		{

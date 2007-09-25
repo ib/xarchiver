@@ -18,7 +18,8 @@
  */
 
 #include "mime.h"
-#include <string.h>
+
+static GSList *icon_cache = NULL;
 
 const char *xa_get_stock_mime_icon(char *filename)
 {
@@ -63,3 +64,43 @@ const char *xa_get_stock_mime_icon(char *filename)
 	return icon_name;		
 }
 
+GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename)
+{
+	pixbuf_cache *tie;
+	const gchar *icon_name;
+	GSList *found;
+	GdkPixbuf *pixbuf;
+
+	icon_name = xa_get_stock_mime_icon(filename);
+	found = g_slist_find_custom(icon_cache,icon_name,(GCompareFunc)xa_icon_name_compare_func);
+
+	if (found)
+		return found->data;
+	else
+	{
+		pixbuf = gtk_icon_theme_load_icon(icon_theme,"package",48,GTK_ICON_LOOKUP_FORCE_SVG,NULL);
+		if (pixbuf)
+		{
+			tie = g_new0(pixbuf_cache,1);
+			if (tie)
+			{
+				tie->icon_name = icon_name;
+				tie->pixbuf = pixbuf;
+				icon_cache = g_slist_prepend(icon_cache,tie);
+			}
+		}
+	}
+	return pixbuf;
+}
+
+gint xa_icon_name_compare_func(gconstpointer a, gconstpointer b)
+{
+	struct _pixbuf_cache *_a = (struct _pixbuf_cache *)a;
+	struct _pixbuf_cache *_b = (struct _pixbuf_cache *)b;
+	return strcmp(_a->icon_name, _b->icon_name);
+}
+
+void xa_free_pixbuf_cache()
+{
+	g_slist_foreach(icon_cache,(GFunc) g_free,NULL);
+}

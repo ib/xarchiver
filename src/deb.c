@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Lukasz 'Sil2100' Zemczak - <sil2100@vexillium.org>
  *
  *  This program is free software; you can redistribute it and/or modify
