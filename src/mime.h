@@ -30,12 +30,12 @@ typedef struct _pixbuf_cache pixbuf_cache;
 
 struct _pixbuf_cache
 {
-	const gchar *icon_name;
+	gchar *icon_name;
 	GdkPixbuf *pixbuf;
 };
 
 const char *xa_get_stock_mime_icon(char *filename);
 GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename);
-gint xa_icon_name_compare_func(gconstpointer a, gconstpointer b);
+gint xa_icon_name_compare_func(pixbuf_cache *a, pixbuf_cache *b);
 void xa_free_pixbuf_cache();
 #endif

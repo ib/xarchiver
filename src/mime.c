@@ -19,7 +19,7 @@
 
 #include "mime.h"
 
-static GSList *icon_cache = NULL;
+GSList *icon_cache = NULL;
 
 const char *xa_get_stock_mime_icon(char *filename)
 {
@@ -66,25 +66,34 @@ const char *xa_get_stock_mime_icon(char *filename)
 
 GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename)
 {
-	pixbuf_cache *tie;
+	pixbuf_cache *tie = NULL;
 	const gchar *icon_name;
-	GSList *found;
-	GdkPixbuf *pixbuf;
+	GSList *found = NULL;
+	GdkPixbuf *pixbuf = NULL;
 
-	icon_name = xa_get_stock_mime_icon(filename);
-	found = g_slist_find_custom(icon_cache,icon_name,(GCompareFunc)xa_icon_name_compare_func);
-
-	if (found)
-		return found->data;
+	if (strcmp(filename,"folder") == 0)
+		icon_name = filename;
+	else if (strcmp(filename,"lock") == 0)
+		icon_name = "gtk-dialog-authentication";
 	else
+		icon_name = xa_get_stock_mime_icon(filename);
+
+	tie = g_new0(pixbuf_cache,1);
+	if (tie)
 	{
-		pixbuf = gtk_icon_theme_load_icon(icon_theme,"package",48,GTK_ICON_LOOKUP_FORCE_SVG,NULL);
-		if (pixbuf)
+		tie->icon_name = g_strdup(icon_name);
+		found = g_slist_find_custom(icon_cache,tie,(GCompareFunc)xa_icon_name_compare_func);
+		if (found)
 		{
-			tie = g_new0(pixbuf_cache,1);
-			if (tie)
+			g_free (tie->icon_name);
+			g_free (tie);
+			return ((pixbuf_cache *)found->data)->pixbuf;
+		}
+		else
+		{
+			pixbuf = gtk_icon_theme_load_icon(icon_theme,icon_name,16,GTK_ICON_LOOKUP_FORCE_SVG,NULL);
+			if (pixbuf)
 			{
-				tie->icon_name = icon_name;
 				tie->pixbuf = pixbuf;
 				icon_cache = g_slist_prepend(icon_cache,tie);
 			}
@@ -93,14 +102,21 @@ GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename)
 	return pixbuf;
 }
 
-gint xa_icon_name_compare_func(gconstpointer a, gconstpointer b)
+gint xa_icon_name_compare_func(pixbuf_cache *a, pixbuf_cache *b)
 {
-	struct _pixbuf_cache *_a = (struct _pixbuf_cache *)a;
-	struct _pixbuf_cache *_b = (struct _pixbuf_cache *)b;
-	return strcmp(_a->icon_name, _b->icon_name);
+	return strcmp(a->icon_name, b->icon_name);
 }
 
 void xa_free_pixbuf_cache()
 {
-	g_slist_foreach(icon_cache,(GFunc) g_free,NULL);
+	GSList *x = icon_cache;
+
+	while (x)
+	{
+		pixbuf_cache *tie = x->data;
+		g_free (tie->icon_name);
+		g_object_unref (tie->pixbuf);
+		g_free(tie);
+		x = x->next;
+	}
 }

@@ -36,6 +36,7 @@ extern gboolean stop_flag;
 extern gboolean unrar;
 extern Prefs_dialog_data *prefs_window;
 extern gchar *config_file;
+extern void xa_free_pixbuf_cache();
 
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
@@ -508,6 +509,7 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 
 	xa_prefs_save_options (prefs_window,config_file);
 	g_free (config_file);
+	xa_free_pixbuf_cache();
 
 #ifdef HAVE_SOCKET
 	socket_finalize();
@@ -1131,7 +1133,7 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	archive->renderer = gtk_cell_renderer_pixbuf_new();
 	g_object_set(G_OBJECT(archive->renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);
 	gtk_tree_view_column_pack_start(column, archive->renderer, FALSE);
-	gtk_tree_view_column_set_attributes(column, archive->renderer, "icon-name",0,NULL);
+	gtk_tree_view_column_set_attributes(column, archive->renderer, "pixbuf",0,NULL);
 
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
