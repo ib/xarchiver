@@ -107,7 +107,7 @@ gint xa_icon_name_compare_func(pixbuf_cache *a, pixbuf_cache *b)
 	return strcmp(a->icon_name, b->icon_name);
 }
 
-void xa_free_pixbuf_cache()
+void xa_free_icon_cache()
 {
 	GSList *x = icon_cache;
 
@@ -119,4 +119,5 @@ void xa_free_pixbuf_cache()
 		g_free(tie);
 		x = x->next;
 	}
+	g_slist_free(icon_cache);
 }

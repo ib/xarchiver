@@ -36,7 +36,7 @@ extern gboolean stop_flag;
 extern gboolean unrar;
 extern Prefs_dialog_data *prefs_window;
 extern gchar *config_file;
-extern void xa_free_pixbuf_cache();
+extern void xa_free_icon_cache();
 
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
@@ -509,7 +509,7 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 
 	xa_prefs_save_options (prefs_window,config_file);
 	g_free (config_file);
-	xa_free_pixbuf_cache();
+	xa_free_icon_cache();
 
 #ifdef HAVE_SOCKET
 	socket_finalize();
