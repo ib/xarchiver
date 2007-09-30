@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-22 12:45+0200\n"
-"PO-Revision-Date: 2007-04-05 14:14+0200\n"
+"PO-Revision-Date: 2007-09-30 10:53+0200\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -108,9 +108,8 @@ msgid "Store just the name of a file without its directory names."
 msgstr "Enmaguetzema sols el nom del fitxer sense el nom del directori pare."
 
 #: ../src/add_dialog.c:206
-#, fuzzy
 msgid "Freshen an existing entry"
-msgstr "Refresca una entrada existent a l’arxiu"
+msgstr "Refresca una entrada existent"
 
 #: ../src/add_dialog.c:210
 msgid ""
@@ -123,9 +122,8 @@ msgstr ""
 "els fitxers que no estiguin a l’arxiu."
 
 #: ../src/add_dialog.c:214
-#, fuzzy
 msgid "Update an existing entry"
-msgstr "Actualitza una entrada existent a l’arxiu"
+msgstr "Actualitza una entrada existent"
 
 #: ../src/add_dialog.c:218
 msgid ""
@@ -229,7 +227,7 @@ msgstr "Atributs"
 #: ../src/bzip2.c:64 ../src/deb.c:91 ../src/gzip.c:61 ../src/rpm.c:61
 #: ../src/tar.c:58
 msgid "Points to"
-msgstr ""
+msgstr "Apunta a"
 
 #: ../src/bzip2.c:64 ../src/deb.c:91 ../src/gzip.c:61 ../src/lha.c:50
 #: ../src/rar.c:63 ../src/tar.c:58 ../src/zip.c:51
@@ -690,23 +688,23 @@ msgstr "Obre"
 
 #: ../src/interface.c:291 ../src/interface.c:295
 msgid "Back"
-msgstr ""
+msgstr "Enrera"
 
 #: ../src/interface.c:299 ../src/interface.c:304
 msgid "Up"
-msgstr ""
+msgstr "Amunt"
 
 #: ../src/interface.c:308 ../src/interface.c:312
 msgid "Forward"
-msgstr ""
+msgstr "Envant"
 
 #: ../src/interface.c:316
 msgid "Home"
-msgstr ""
+msgstr "Inici"
 
 #: ../src/interface.c:320
 msgid "Root"
-msgstr ""
+msgstr "Arrel"
 
 #: ../src/interface.c:328
 msgid "Add"
@@ -721,7 +719,6 @@ msgid "Extract"
 msgstr "Extreu"
 
 #: ../src/interface.c:342
-#, fuzzy
 msgid "Extract files from the current archive"
 msgstr "Suprimeix fitxers de l’arxiu actual"
 
@@ -742,9 +739,8 @@ msgid "Cancel current operation"
 msgstr "Cancela l’operació actual"
 
 #: ../src/interface.c:377
-#, fuzzy
 msgid "Location:"
-msgstr "Aplicació:"
+msgstr "Localització:"
 
 #: ../src/interface.c:561
 msgid "Close archive"
@@ -907,7 +903,6 @@ msgid "Advanced"
 msgstr "Avançat"
 
 #: ../src/pref_dialog.c:101
-#, fuzzy
 msgid "Preferred archive format"
 msgstr "Navegador web preferit"
 
@@ -920,14 +915,12 @@ msgid "Save settings for extract dialog"
 msgstr "Desa els ajustaments pel diàleg d’extreure"
 
 #: ../src/pref_dialog.c:125
-#, fuzzy
 msgid "Allow extracting dirs by drag and drop"
 msgstr "Permet extreure directoris arrossegant i deixant anar"
 
 #: ../src/pref_dialog.c:129
-#, fuzzy
 msgid "Confirm deletion of files"
-msgstr "Confirma la supresió de fitxers dins els arxius"
+msgstr "Confirma la supresió de fitxers"
 
 #: ../src/pref_dialog.c:150
 msgid "View archive content as"
@@ -943,20 +936,19 @@ msgstr "iconca"
 
 #: ../src/pref_dialog.c:162
 msgid "Size of the mimetype icons"
-msgstr ""
+msgstr "Tamany de les icones de tipus"
 
 #: ../src/pref_dialog.c:168
 msgid "large"
-msgstr ""
+msgstr "gran"
 
 #: ../src/pref_dialog.c:169
 msgid "small"
-msgstr ""
+msgstr "petit"
 
 #: ../src/pref_dialog.c:174
-#, fuzzy
 msgid "Show archive comment after loading it"
-msgstr "Mostra el comentari a l’arxiu després de carregar-lo"
+msgstr "Mostra el comentari després de carregar l’arxiu"
 
 #: ../src/pref_dialog.c:180
 msgid "Sort content by filename"
@@ -968,41 +960,39 @@ msgstr "La columna de nom de fitxer s’ordena després d’haver carregat l’a
 
 #: ../src/pref_dialog.c:187
 msgid "Show location bar"
-msgstr ""
+msgstr "Mostra la barra de localització"
 
 #: ../src/pref_dialog.c:210
 msgid "View HTML help with:"
-msgstr ""
+msgstr "Visualitza l’ajuda HTML amb:"
 
 #: ../src/pref_dialog.c:216
 msgid "Firefox"
-msgstr ""
+msgstr "Firefox"
 
 #: ../src/pref_dialog.c:217 ../src/pref_dialog.c:227 ../src/pref_dialog.c:239
 msgid "choose..."
-msgstr ""
+msgstr "esculliu…"
 
 #: ../src/pref_dialog.c:221
 msgid "Open text files with:"
-msgstr ""
+msgstr "Obre els fitxers de text amb:"
 
 #: ../src/pref_dialog.c:232
-#, fuzzy
 msgid "Preferred temp directory:"
-msgstr "Navegador web preferit"
+msgstr "Directori temporal preferit:"
 
 #: ../src/pref_dialog.c:238
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: ../src/pref_dialog.c:243
-#, fuzzy
 msgid "Save window geometry"
-msgstr "Desa la geometria de la finestra en sortir"
+msgstr "Desa la geometria de la finestra"
 
 #: ../src/rar.c:63
 msgid "CRC"
-msgstr ""
+msgstr "CRC"
 
 #: ../src/rar.c:63 ../src/zip.c:51
 msgid "Method"
@@ -1059,7 +1049,7 @@ msgstr "No s’ha pogut escriure a /tmp:"
 
 #: ../src/zip.c:51
 msgid "OS"
-msgstr ""
+msgstr "Sistema Operatiu"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
@@ -1072,124 +1062,3 @@ msgstr "Gestor d’arxius"
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
-
-#~ msgid "GUA"
-#~ msgstr "GUA"
-
-#~ msgid "BPMGS"
-#~ msgstr "BPMGS"
-
-#~ msgid "Symbolic Link"
-#~ msgstr "Enllaç simbòlic"
-
-#~ msgid "Please wait while the content of the ISO image is being read..."
-#~ msgstr "S’està llegint el contingut de la imatge ISO"
-
-#~ msgid " bytes"
-#~ msgstr " octets"
-
-#~ msgid "Show ISO in_fo"
-#~ msgstr "Mostra la informació I_SO"
-
-#~ msgid ""
-#~ "Extract files from the current archive; use the mouse to select files "
-#~ "individually"
-#~ msgstr ""
-#~ "Extreu fitxers de l’arxiu actual; useu el ratolí per seleccionar-los "
-#~ "individualment"
-
-#~ msgid "Delete"
-#~ msgstr "Suprimeix"
-
-#~ msgid "SFX"
-#~ msgstr "SFX"
-
-#~ msgid "Make the current archive self-extracting"
-#~ msgstr "Crea l’arxiu actual auto-extraible"
-
-#~ msgid "This archive contains password protected files"
-#~ msgstr "L’arxiu conté fitxers protegits amb contrassenya"
-
-#~ msgid "Can't create directory:"
-#~ msgstr "No s’ha pogut crear el directori:"
-
-#~ msgid "Can't write file \"%s\":"
-#~ msgstr "No s’ha pogut escriure el fitxer «%s»:"
-
-#~ msgid "Offset"
-#~ msgstr "Desplaçament"
-
-#~ msgid "Rock Ridge version %d"
-#~ msgstr "Versió Rock Ridge: %d"
-
-#~ msgid "Rock Ridge - unknown version"
-#~ msgstr "Versió Rock Ridge: desconeguda"
-
-#~ msgid "Apple version %d"
-#~ msgstr "Versió Apple: %d"
-
-#~ msgid "Standard ISO without extension"
-#~ msgstr "Estàndar ISO sense extensió"
-
-#~ msgid "Joliet Level %d"
-#~ msgstr "Nivell Joliet: %d"
-
-#~ msgid "ISO Information Window"
-#~ msgstr "Finestra de informació ISO"
-
-#~ msgid "Filename:"
-#~ msgstr "Nom de fitxer:"
-
-#~ msgid "Size:"
-#~ msgstr "Mida:"
-
-#~ msgid "Extension:"
-#~ msgstr "Extensió:"
-
-#~ msgid "System ID:"
-#~ msgstr "Identificador de sistema:"
-
-#~ msgid "Volume ID:"
-#~ msgstr "Identificador de volum:"
-
-#~ msgid "Publisher:"
-#~ msgstr "Editor:"
-
-#~ msgid "Preparer:"
-#~ msgstr "Creador:"
-
-#~ msgid "Creation date:"
-#~ msgstr "Data de creació:"
-
-#~ msgid "Modified date:"
-#~ msgstr "Data de modificació:"
-
-#~ msgid "Expiration date:"
-#~ msgstr "Data d’expiració:"
-
-#~ msgid "Effective date:"
-#~ msgstr "Data efectiva:"
-
-#~ msgid "Preferred format for new archives:"
-#~ msgstr "Format predeterminat pels arxius nous:"
-
-#~ msgid "Show ISO info after loading the archive"
-#~ msgstr "Mostra la informació ISO un cop s’hagi carregat l’arxiu"
-
-#~ msgid "xfce default"
-#~ msgstr "Predeterminat d’Xfce"
-
-#~ msgid "konqueror"
-#~ msgstr "konqueror"
-
-#~ msgid "Preferred view application:"
-#~ msgstr "Aplicació de visualització preferida"
-
-#~ msgid "internal"
-#~ msgstr "intern"
-
-#~ msgid "Checksum"
-#~ msgstr "Suma de verificació"
-
-#~ msgid "Error while extracting the cpio archive from the rpm one."
-#~ msgstr "S’ha produït un error en extreure l’arxiu cpio de l’rpm."
