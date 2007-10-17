@@ -1147,10 +1147,18 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	/* All the others */
 	for (x = 0; x < archive->nc; x++)
 	{
-		renderer = gtk_cell_renderer_text_new();
-		column = gtk_tree_view_column_new_with_attributes ( columns_names[x],renderer,"text",x+2,NULL);
-		gtk_tree_view_column_set_resizable (column, TRUE);
-		gtk_tree_view_column_set_sort_column_id (column, x+2);
+		if (x+1 == archive->nc)
+		{
+			column = gtk_tree_view_column_new();
+			gtk_tree_view_column_set_visible(column,FALSE);
+		}
+		else
+		{
+			renderer = gtk_cell_renderer_text_new();
+			column = gtk_tree_view_column_new_with_attributes ( columns_names[x],renderer,"text",x+2,NULL);
+			gtk_tree_view_column_set_resizable (column, TRUE);
+			gtk_tree_view_column_set_sort_column_id (column, x+2);
+		}
 		gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview), column);
 	}
 }
@@ -1292,7 +1300,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 	g_list_free (row_list);
 
 	gtk_tree_model_get (model, &iter, 1, &name, -1);
-	entry = xa_find_archive_entry(archive[idx]->entries->data,name);
+	entry = xa_find_child_entry(archive[idx]->root_entry,name);
 	g_print ("Cerco %s\n",name);
 
 	if (entry == NULL || entry->is_dir)
@@ -2028,7 +2036,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 {
 	gint current_page;
 	gint idx;
-	gchar *name;
+	XEntry *entry;
 	GtkTreeIter iter;
 
 	current_page = gtk_notebook_get_current_page(notebook);
@@ -2037,7 +2045,6 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive[idx]->liststore),&iter,path))
 		return;
 
-	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,1, &name,-1);
-	xa_update_window_with_archive_entries(archive[idx],name);
-	g_free(name);
+	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,archive[idx]->nc+1,&entry, -1);
+	xa_update_window_with_archive_entries(archive[idx],entry);
 }

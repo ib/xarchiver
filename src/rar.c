@@ -46,7 +46,7 @@ void xa_open_rar (XArchive *archive)
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs = 0;
-    archive->nc = 9;
+    archive->nc = 10;
 	archive->parse_output = xa_get_rar_line_content;
 	archive->format = "RAR";
 	xa_spawn_async_process (archive,command,0);
@@ -55,12 +55,12 @@ void xa_open_rar (XArchive *archive)
 	if ( archive->child_pid == 0 )
 		return;
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 11; i++)
+	for (i = 0; i < 12; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version"))};
+	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version"),NULL)};
 	xa_create_liststore (archive,names);
 }
 

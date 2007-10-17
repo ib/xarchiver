@@ -1,6 +1,5 @@
 /*
  *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
- *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -34,7 +33,7 @@ void xa_open_zip (XArchive *archive)
 	archive->dummy_size  = 0;
     archive->nr_of_files = 0;
     archive->nr_of_dirs  = 0;
-    archive->nc = 8;
+    archive->nc = 9;
 	archive->parse_output = xa_get_zip_line_content;
 	archive->format ="ZIP";
 	xa_spawn_async_process (archive,command,0);
@@ -43,12 +42,12 @@ void xa_open_zip (XArchive *archive)
 	if (archive->child_pid == 0)
 		return;
 
-	GType types[] = {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	GType types[] = {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < 11; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Permissions")),(_("Version")),(_("OS")),(_("Size")),(_("Compressed")),(_("Method")),(_("Date")),(_("Time"))};
+	char *names[]= {(_("Permissions")),(_("Version")),(_("OS")),(_("Size")),(_("Compressed")),(_("Method")),(_("Date")),(_("Time")),NULL};
 	xa_create_liststore (archive,names);
 }
 
@@ -162,7 +161,6 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 
 	line[n]='\0';
 	item[i] = line + a;
-	i++;
 	n++;
 
 	/* filename */
@@ -176,10 +174,5 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 			 entry->is_dir = TRUE;
 		if (encrypted)
 			entry->is_encrypted = TRUE;
-	}
-	else
-	{
-		//TODO: found a way to stop calling this function over and over again; i.e. kill (archive->child_pid,SIGABRT) ??
-		g_message ("*** Can't allocate memory for the archive data!");
 	}
 }

@@ -33,7 +33,7 @@ void xa_open_arj (XArchive *archive)
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nr_of_dirs = 0;
-	archive->nc = 8;
+	archive->nc = 9;
 	archive->format ="ARJ";
 	archive->parse_output = xa_get_arj_line_content;
 	xa_spawn_async_process (archive,command,0);
@@ -41,12 +41,12 @@ void xa_open_arj (XArchive *archive)
 	if (archive->child_pid == 0)
 		return;
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < 11; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes")),("GUA"),("BPMGS")};
+	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes")),("GUA"),("BPMGS"),NULL};
 	xa_create_liststore (archive,names);
 }
 

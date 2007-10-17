@@ -41,19 +41,19 @@ void xa_open_7zip (XArchive *archive)
 	archive->nr_of_files = 0;
 	archive->nr_of_dirs = 0;
 	archive->format ="7-ZIP";
-	archive->nc = 5;
+	archive->nc = 6;
 	archive->parse_output = xa_get_7zip_line_content;
 	xa_spawn_async_process (archive,command,0);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
 		return;
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date"))};
+	char *names[]= {(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date")),NULL};
 	xa_create_liststore (archive,names);
 }
 

@@ -1,6 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli <colossus73@gmail.com>
- *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
+ *  Copyright (C) 2007 Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -58,7 +57,7 @@ void xa_open_bzip2 (XArchive *archive)
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
 		archive->format = "TAR.BZIP2";
-		archive->nc = 6;
+		archive->nc = 7;
 		archive->parse_output = xa_get_tar_line_content;
 		xa_spawn_async_process (archive,command,0);
 
@@ -68,12 +67,12 @@ void xa_open_bzip2 (XArchive *archive)
 		if (archive->child_pid == 0)
 			return;
 
-		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 		archive->column_types = g_malloc0(sizeof(types));
-		for (i = 0; i < 8; i++)
+		for (i = 0; i < 9; i++)
 			archive->column_types[i] = types[i];
 
-		char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+		char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"),NULL)};
 		xa_create_liststore (archive,names);
 	}
 	else
