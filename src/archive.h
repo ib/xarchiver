@@ -58,6 +58,7 @@ struct _XEntry
 	gboolean is_dir;
 	gboolean is_encrypted;
 	XEntry *child;
+	XEntry *prev;
 	XEntry *next;
 };
 
@@ -125,11 +126,11 @@ gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();
 XEntry *xa_alloc_memory_for_each_row ( guint nc,GType column_types[]);
 void xa_free_entry (XArchive *archive,XEntry *entry);
-//XEntry *xa_find_archive_entry(XEntry *entry, gchar *string);
 XEntry *xa_find_child_entry(XEntry *entry, gchar *string);
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gboolean encrypted,gpointer *items);
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items);
 void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry);
+gchar *xa_build_full_path_name_from_entry(XEntry *entry);
 void xa_entries_to_filelist(XEntry *, GSList **, gchar *);
 void xa_destroy_filelist(GSList *file_list);
 XArchive *archive[100];

@@ -515,10 +515,12 @@ here:
 				gtk_widget_set_sensitive ( view_menu, TRUE );
 			}
 		}
-		/* Let's set the location entry */
+		/* Let's set the location bar */
 		if (archive[id]->location_entry_path != NULL)
 			gtk_entry_set_text(GTK_ENTRY(location_entry),archive[id]->location_entry_path);
-		
+		else
+			gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
+
 		gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
 	}
 }
@@ -910,6 +912,11 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 	{
 		/* Root */
 		case 0:
+			if (archive[idx]->location_entry_path != NULL)
+			{
+				g_free(archive[idx]->location_entry_path);
+				archive[idx]->location_entry_path = NULL;
+			}
 			archive[idx]->location_entry_path = NULL;
 			xa_update_window_with_archive_entries(archive[idx],NULL);
 		break;

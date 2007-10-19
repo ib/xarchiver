@@ -379,26 +379,6 @@ XEntry *xa_find_child_entry(XEntry *entry, gchar *string)
   return xa_find_child_entry(entry->next, string);
 }
 
-/*XEntry *xa_find_archive_entry(XEntry *entry, gchar *string)
-{
-	if (entry == NULL)
-		return NULL;
-
-	if (strcmp(entry->filename, string) == 0)
-		return entry;
-
-    XEntry *found_entry;
-
-	found_entry = xa_find_archive_entry(entry->child, string);
-
-	if (found_entry != NULL)
-		return found_entry;
-
-	found_entry = xa_find_archive_entry(entry->next, string);
-
-	return found_entry;
-}*/
-
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gboolean encrypted,gpointer *items)
 {
 	XEntry *new_entry= NULL;
@@ -423,6 +403,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			}
 			new_entry->next = last_entry->child;
 			last_entry->child = new_entry;
+			new_entry->prev = last_entry;
 		}
 		last_entry = new_entry;
 		x++;
@@ -474,12 +455,17 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		return;
 	else
 	{
-		archive->location_entry_path = g_strconcat(gtk_entry_get_text(GTK_ENTRY(location_entry)),"/",entry->filename,NULL);
+		if (archive->location_entry_path != NULL)
+		{
+			g_free(archive->location_entry_path);
+			archive->location_entry_path = NULL;
+		}
+		archive->location_entry_path = xa_build_full_path_name_from_entry(entry);
 		gtk_entry_set_text(GTK_ENTRY(location_entry),archive->location_entry_path);
-		g_free(archive->location_entry_path);
 		entry = entry->child;
 	}
 	gtk_list_store_clear(archive->liststore);
+
 	while (entry)
 	{
 		current_column = entry->columns;
@@ -520,6 +506,23 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		}
 		entry = entry->next;
 	}
+}
+
+gchar *xa_build_full_path_name_from_entry(XEntry *entry)
+{
+	GString *dummy = g_string_new('\0');
+	gchar *fullpathname = NULL;
+	
+	while (entry)
+	{
+		dummy = g_string_prepend_c(dummy,'/');
+		dummy = g_string_prepend(dummy,entry->filename);
+		entry = entry->prev;
+	}
+	fullpathname = g_strdup(dummy->str);
+	g_string_free(dummy,TRUE);
+	g_print ("%s\n",fullpathname);
+	return fullpathname;
 }
 
 void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_path)
