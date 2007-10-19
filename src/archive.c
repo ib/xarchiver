@@ -466,57 +466,60 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gpointer current_column;
 
 	if (entry == NULL)
+	{
 		entry = archive->root_entry->child;
+		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
+	}
 	else if (entry->child == NULL)
 		return;
 	else
+	{
+		archive->location_entry_path = g_strconcat(gtk_entry_get_text(GTK_ENTRY(location_entry)),"/",entry->filename,NULL);
+		gtk_entry_set_text(GTK_ENTRY(location_entry),archive->location_entry_path);
+		g_free(archive->location_entry_path);
 		entry = entry->child;
-
-		gtk_list_store_clear(archive->liststore);
-		while (entry)
+	}
+	gtk_list_store_clear(archive->liststore);
+	while (entry)
+	{
+		current_column = entry->columns;
+		gtk_list_store_append (archive->liststore, &iter);
+		
+		if(!g_utf8_validate(entry->filename, -1, NULL) )
 		{
-			current_column = entry->columns;
-			gtk_list_store_append (archive->liststore, &iter);
-
-			if(!g_utf8_validate(entry->filename, -1, NULL) )
-			{
-				gchar *dummy = g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL);
-				g_free (entry->filename);
-				entry->filename = dummy;
-			}
-			if (entry->is_dir)
-				pixbuf = xa_get_pixbuf_icon_from_cache("folder");
-			else if (entry->is_encrypted)
-				pixbuf = xa_get_pixbuf_icon_from_cache("lock");
-			else
-				pixbuf = xa_get_pixbuf_icon_from_cache(entry->filename);
-
-			gtk_list_store_set (archive->liststore,&iter,archive->nc+1, entry,-1);
-			gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
-
-			for (i = 0; i < archive->nc; i++)
-			{
-				switch(archive->column_types[i+2])
-				{
-					case G_TYPE_STRING:
-						//g_message ("%d - %s",i,(*((gchar **)current_column)));
-						gtk_list_store_set (archive->liststore,&iter,i+2,(*((gchar **)current_column)),-1);
-						current_column += sizeof(gchar *);
-					break;
-
-					case G_TYPE_UINT64:
-						//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
-						gtk_list_store_set (archive->liststore,&iter,i+2,(*((guint64 *)current_column)),-1);
-						current_column += sizeof(guint64);
-					break;
-				}
-			}
-			entry = entry->next;
+			gchar *dummy = g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL);
+			g_free (entry->filename);
+			entry->filename = dummy;
 		}
-		/*gtk_widget_set_sensitive(up_button,FALSE);
-		gtk_widget_set_sensitive(home_button,FALSE);
-		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
-		return;*/
+		if (entry->is_dir)
+			pixbuf = xa_get_pixbuf_icon_from_cache("folder");
+		else if (entry->is_encrypted)
+			pixbuf = xa_get_pixbuf_icon_from_cache("lock");
+		else
+			pixbuf = xa_get_pixbuf_icon_from_cache(entry->filename);
+
+		gtk_list_store_set (archive->liststore,&iter,archive->nc+1, entry,-1);
+		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
+
+		for (i = 0; i < archive->nc; i++)
+		{
+			switch(archive->column_types[i+2])
+			{
+				case G_TYPE_STRING:
+					//g_message ("%d - %s",i,(*((gchar **)current_column)));
+					gtk_list_store_set (archive->liststore,&iter,i+2,(*((gchar **)current_column)),-1);
+					current_column += sizeof(gchar *);
+				break;
+
+				case G_TYPE_UINT64:
+					//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
+					gtk_list_store_set (archive->liststore,&iter,i+2,(*((guint64 *)current_column)),-1);
+					current_column += sizeof(guint64);
+				break;
+			}
+		}
+		entry = entry->next;
+	}
 }
 
 void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_path)
