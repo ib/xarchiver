@@ -130,6 +130,7 @@ XEntry *xa_find_child_entry(XEntry *entry, gchar *string);
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gboolean encrypted,gpointer *items);
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items);
 void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry);
+XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname);
 gchar *xa_build_full_path_name_from_entry(XEntry *entry);
 void xa_entries_to_filelist(XEntry *, GSList **, gchar *);
 void xa_destroy_filelist(GSList *file_list);

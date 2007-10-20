@@ -296,7 +296,7 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	tmp_image = gtk_image_new_from_stock ("gtk-go-up", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
 	up_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Up"));
-	gtk_widget_set_sensitive(up_button,TRUE);
+	gtk_widget_set_sensitive(up_button,FALSE);
 	gtk_widget_show (up_button);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (up_button), FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1), up_button);
@@ -902,13 +902,10 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 	unsigned short int bp = GPOINTER_TO_UINT(user_data);
 	gint current_page;
 	gint idx;
-	gchar **components = NULL;
-	unsigned short int x = 0;
 	XEntry *new_entry = NULL;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
-	XEntry *last_entry = archive[idx]->root_entry;
 
 	switch (bp)
 	{
@@ -919,20 +916,12 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 				g_free(archive[idx]->location_entry_path);
 				archive[idx]->location_entry_path = NULL;
 			}
-			archive[idx]->location_entry_path = NULL;
 			xa_update_window_with_archive_entries(archive[idx],NULL);
 		break;
 
 		/* Up */
 		case 2:
-			components = g_strsplit(gtk_entry_get_text(GTK_ENTRY(location_entry)),"/",-1);
-			while (components[x] && strlen(components[x]) > 0)
-			{
-				new_entry = xa_find_child_entry(last_entry->child,components[x]);
-				last_entry = new_entry;
-				x++;
-			}
-			g_strfreev(components);
+			new_entry = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
 			if (new_entry->prev->prev == NULL)
 			{
 				xa_update_window_with_archive_entries(archive[idx],NULL);

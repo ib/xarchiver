@@ -176,7 +176,6 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_widget_set_sensitive ( password_entry , TRUE);
 	}
 	xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
-	gtk_widget_set_sensitive(home_button,TRUE);
 	Update_StatusBar ( _("Operation completed."));
 
 	if (archive->status == XA_ARCHIVESTATUS_TEST)
@@ -2021,16 +2020,19 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 
 void xa_location_entry_activated (GtkEntry *entry, gpointer  user_data)
 {
-	gchar *parent = NULL;
+	XEntry *new_entry = NULL;
 	gint current_page;
 	gint idx;
 
-	parent = xa_get_parent_dir (gtk_entry_get_text(entry));
-	current_page = gtk_notebook_get_current_page(notebook);
+	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
-	g_print ("parent: %s\t loc.entry: %s\n",parent,archive[idx]->location_entry_path);
-	//xa_update_window_with_archive_entries(archive[idx],parent);
-	g_free (parent);
+	new_entry = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
+	xa_update_window_with_archive_entries(archive[idx],new_entry);
+	if (new_entry != NULL && new_entry->prev != NULL)
+	{
+		gtk_widget_set_sensitive(up_button,TRUE);
+		gtk_widget_set_sensitive(home_button,TRUE);
+	}
 }
 
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)
@@ -2047,5 +2049,10 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		return;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,archive[idx]->nc+1,&entry, -1);
+	if (entry->is_dir)
+	{
+		gtk_widget_set_sensitive(up_button,TRUE);
+		gtk_widget_set_sensitive(home_button,TRUE);
+	}
 	xa_update_window_with_archive_entries(archive[idx],entry);
 }

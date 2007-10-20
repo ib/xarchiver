@@ -450,6 +450,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	{
 		entry = archive->root_entry->child;
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
+		gtk_widget_set_sensitive(up_button,FALSE);
+		gtk_widget_set_sensitive(home_button,FALSE);
 	}
 	else if (entry->child == NULL)
 		return;
@@ -506,6 +508,23 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		}
 		entry = entry->next;
 	}
+}
+
+XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
+{
+	gchar **components = NULL;
+	unsigned short int x = 0;
+	XEntry *new_entry = NULL;
+
+	components = g_strsplit(fullpathname,"/",-1);
+	while (components[x] && strlen(components[x]) > 0)
+	{
+		new_entry = xa_find_child_entry(root_entry->child,components[x]);
+		root_entry = new_entry;
+		x++;
+	}
+	g_strfreev(components);
+	return new_entry;
 }
 
 gchar *xa_build_full_path_name_from_entry(XEntry *entry)
