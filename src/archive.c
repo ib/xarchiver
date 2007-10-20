@@ -519,9 +519,9 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 		dummy = g_string_prepend(dummy,entry->filename);
 		entry = entry->prev;
 	}
-	fullpathname = g_strdup(dummy->str);
+	fullpathname = g_strdup(++dummy->str);
+	dummy->str--;
 	g_string_free(dummy,TRUE);
-	g_print ("%s\n",fullpathname);
 	return fullpathname;
 }
 

@@ -176,6 +176,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 			gtk_widget_set_sensitive ( password_entry , TRUE);
 	}
 	xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+	gtk_widget_set_sensitive(home_button,TRUE);
 	Update_StatusBar ( _("Operation completed."));
 
 	if (archive->status == XA_ARCHIVESTATUS_TEST)
