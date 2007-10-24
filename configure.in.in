@@ -24,7 +24,7 @@ AC_COPYRIGHT([Copyright (c) 2006
         The Xfce development team. All rights reserved.
         
 Written for Xfce by Giuseppe Torelli <colossus73@gmail.com>.])
-AC_INIT([xarchiver], [xarchiver_version()], [http://bugzilla.xfce.org/])
+AC_INIT([xarchiver], [xarchiver_version], [http://bugzilla.xfce.org/])
 AC_PREREQ([2.50])
 AC_CANONICAL_TARGET()
 AC_REVISION([$Id$])
