@@ -919,6 +919,12 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 			xa_update_window_with_archive_entries(archive[idx],NULL);
 		break;
 
+		/* Back */
+		case 1:
+			archive[idx]->present = archive[idx]->present->prev;
+			xa_update_window_with_archive_entries(archive[idx],archive[idx]->present->data);
+		break;
+
 		/* Up */
 		case 2:
 			new_entry = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
@@ -929,6 +935,12 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 				return;
 			}
 			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
+		break;
+		
+		/* Forward */
+		case 3:
+			archive[idx]->present = archive[idx]->present->next;
+			xa_update_window_with_archive_entries(archive[idx],archive[idx]->present->data);
 		break;
 	}
 }

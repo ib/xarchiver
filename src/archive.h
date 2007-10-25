@@ -70,6 +70,8 @@ struct _XArchive
 	XArchiveStatus status;
 	XEntry *root_entry;
 	XEntry *entry;
+	GList *history;
+	GList *present;
 	gchar *path;
 	gchar *escaped_path;
 	gchar *tmp;
