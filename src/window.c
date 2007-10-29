@@ -2018,15 +2018,26 @@ void xa_show_archive_comment ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_widget_show (comment_window);
 }
 
-void xa_location_entry_activated (GtkEntry *entry, gpointer  user_data)
+void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 {
-	XEntry *new_entry = NULL;
+	XEntry *prev_entry = NULL;
+	XEntry *new_entry  = NULL;
 	gint current_page;
 	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
-	new_entry = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
+
+	new_entry  = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
+	if (new_entry == NULL)
+	{
+		gtk_entry_set_text(GTK_ENTRY(location_entry),archive[idx]->location_entry_path);
+		return;
+	}
+	prev_entry = xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path);
+	if (prev_entry != NULL)
+		archive[idx]->back = g_slist_prepend(archive[idx]->back,prev_entry);
+
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
 	if (new_entry != NULL && new_entry->prev != NULL)
 	{
