@@ -2053,16 +2053,13 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	{
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
-	}
-	if (archive[idx]->location_entry_path != NULL)
-	{
-		archive[idx]->history = g_list_append(archive[idx]->history,xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path));
-		archive[idx]->present = g_list_last(archive[idx]->history);
-	}
-	else
-	{
-		archive[idx]->history = g_list_append(archive[idx]->history,archive[idx]->root_entry);
-		archive[idx]->present = g_list_last(archive[idx]->history);
+		gtk_widget_set_sensitive(back_button,TRUE);
+
+		if (archive[idx]->location_entry_path != NULL)
+			archive[idx]->back = g_slist_prepend(archive[idx]->back,xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path));
+		/* Put NULL so to display the root entry */
+		else
+			archive[idx]->back = g_slist_prepend(archive[idx]->back,NULL);
 	}
 	xa_update_window_with_archive_entries(archive[idx],entry);
 }

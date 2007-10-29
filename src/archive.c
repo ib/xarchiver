@@ -450,6 +450,11 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	{
 		entry = archive->root_entry->child;
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
+		if (archive->location_entry_path != NULL)
+		{
+			g_free(archive->location_entry_path);
+			archive->location_entry_path = NULL;
+		}
 		//gtk_widget_set_sensitive(back_button,FALSE);
 		gtk_widget_set_sensitive(up_button,FALSE);
 		gtk_widget_set_sensitive(home_button,FALSE);

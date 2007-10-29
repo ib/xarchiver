@@ -288,6 +288,7 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	tmp_image = gtk_image_new_from_stock ("gtk-go-back", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
 	back_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Back"));
+	gtk_widget_set_sensitive(back_button,FALSE);
 	gtk_widget_show (back_button);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (back_button), FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1), back_button);
@@ -305,6 +306,7 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	tmp_image = gtk_image_new_from_stock ("gtk-go-forward", tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
 	forward_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("Forward"));
+	gtk_widget_set_sensitive(forward_button,FALSE);
 	gtk_widget_show (forward_button);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (forward_button), FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1), forward_button);
@@ -921,8 +923,19 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 
 		/* Back */
 		case 1:
-			archive[idx]->present = archive[idx]->present->prev;
-			xa_update_window_with_archive_entries(archive[idx],archive[idx]->present->data);
+			//archive[idx]->forward = g_slist_prepend(archive[idx]->forward,xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path));
+			if (archive[idx]->back->data != NULL)
+			{
+				xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
+				archive[idx]->back = archive[idx]->back->next;
+			}
+			else
+			{
+				gtk_widget_set_sensitive(back_button,FALSE);
+				xa_update_window_with_archive_entries(archive[idx],NULL);
+				g_slist_free(archive[idx]->back);
+				archive[idx]->back = NULL;
+			}
 		break;
 
 		/* Up */
@@ -931,16 +944,26 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 			if (new_entry->prev->prev == NULL)
 			{
 				xa_update_window_with_archive_entries(archive[idx],NULL);
+				gtk_widget_set_sensitive(back_button,FALSE);
 				gtk_widget_set_sensitive(up_button,FALSE);
 				return;
 			}
 			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
 		break;
-		
+
 		/* Forward */
 		case 3:
-			archive[idx]->present = archive[idx]->present->next;
-			xa_update_window_with_archive_entries(archive[idx],archive[idx]->present->data);
+			/*if (archive[idx]->forward != NULL && archive[idx]->forward->data != NULL)
+			{
+				xa_update_window_with_archive_entries(archive[idx],archive[idx]->forward->data);
+				archive[idx]->forward = archive[idx]->forward->next;
+			}
+			else
+			{
+				gtk_widget_set_sensitive(forward_button,FALSE);
+				//xa_update_window_with_archive_entries(archive[idx],NULL);
+				//g_slist_free(archive[idx]->forward);
+			}*/
 		break;
 	}
 }
