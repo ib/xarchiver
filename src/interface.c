@@ -884,19 +884,19 @@ void set_label (GtkWidget *label,gchar *text)
 
 void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info)
 {
-	gtk_widget_set_sensitive ( New_button, New);
-    gtk_widget_set_sensitive ( new1, New);
-	gtk_widget_set_sensitive ( Open_button, Open);
-    gtk_widget_set_sensitive ( open1, Open);
-    gtk_widget_set_sensitive ( close1, Close);
-	gtk_widget_set_sensitive ( AddFile_button, add);
-	gtk_widget_set_sensitive ( addfile, add);
-	gtk_widget_set_sensitive ( Extract_button, extract);
-	gtk_widget_set_sensitive ( extract_menu, extract);
-	gtk_widget_set_sensitive ( exe_menu, sfx);
-	gtk_widget_set_sensitive ( check_menu, test);
-	gtk_widget_set_sensitive ( properties, info);
-	//gtk_widget_set_sensitive ( select_all, select);
+	gtk_widget_set_sensitive (New_button, New);
+    gtk_widget_set_sensitive (new1, New);
+	gtk_widget_set_sensitive (Open_button, Open);
+    gtk_widget_set_sensitive (open1, Open);
+    gtk_widget_set_sensitive (close1, Close);
+	gtk_widget_set_sensitive (AddFile_button, add);
+	gtk_widget_set_sensitive (addfile, add);
+	gtk_widget_set_sensitive (Extract_button, extract);
+	gtk_widget_set_sensitive (extract_menu, extract);
+	gtk_widget_set_sensitive (exe_menu, sfx);
+	gtk_widget_set_sensitive (check_menu, test);
+	gtk_widget_set_sensitive (properties, info);
+	//gtk_widget_set_sensitive (select_all, select);
 }
 
 void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
@@ -923,28 +923,23 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 
 		/* Back */
 		case 1:
-			//archive[idx]->forward = g_slist_prepend(archive[idx]->forward,xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path));
-			if (archive[idx]->back->data != NULL)
-			{
-				xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
-				archive[idx]->back = archive[idx]->back->next;
-			}
-			else
-			{
+			if (g_slist_find(archive[idx]->forward,archive[idx]->current_entry) == NULL)
+				archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
+			xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
+			archive[idx]->back = archive[idx]->back->next;
+			if (archive[idx]->back == NULL)
 				gtk_widget_set_sensitive(back_button,FALSE);
-				xa_update_window_with_archive_entries(archive[idx],NULL);
-				g_slist_free(archive[idx]->back);
-				archive[idx]->back = NULL;
-			}
+			if (archive[idx]->forward != NULL)
+				gtk_widget_set_sensitive(forward_button,TRUE);
 		break;
 
 		/* Up */
 		case 2:
-			new_entry = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
+			archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
+			new_entry = archive[idx]->current_entry;
 			if (new_entry->prev->prev == NULL)
 			{
 				xa_update_window_with_archive_entries(archive[idx],NULL);
-				gtk_widget_set_sensitive(back_button,FALSE);
 				gtk_widget_set_sensitive(up_button,FALSE);
 				return;
 			}
@@ -953,17 +948,15 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 
 		/* Forward */
 		case 3:
-			/*if (archive[idx]->forward != NULL && archive[idx]->forward->data != NULL)
+			if (g_slist_find(archive[idx]->back,archive[idx]->current_entry) == NULL)
+				archive[idx]->back = g_slist_prepend(archive[idx]->back,archive[idx]->current_entry);
+			xa_update_window_with_archive_entries(archive[idx],archive[idx]->forward->data);
+			archive[idx]->forward = archive[idx]->forward->next;
+			if (archive[idx]->forward == NULL)
 			{
-				xa_update_window_with_archive_entries(archive[idx],archive[idx]->forward->data);
-				archive[idx]->forward = archive[idx]->forward->next;
-			}
-			else
-			{
+				gtk_widget_set_sensitive(back_button,TRUE);
 				gtk_widget_set_sensitive(forward_button,FALSE);
-				//xa_update_window_with_archive_entries(archive[idx],NULL);
-				//g_slist_free(archive[idx]->forward);
-			}*/
+			}
 		break;
 	}
 }

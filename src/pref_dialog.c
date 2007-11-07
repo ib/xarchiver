@@ -209,7 +209,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table2), 4);
 
-	label6 = gtk_label_new (_("Browser to use:"));
+	label6 = gtk_label_new (_("Web browser to use:"));
 	gtk_table_attach (GTK_TABLE (table2), label6, 0, 1, 0, 1,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);

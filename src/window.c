@@ -1259,61 +1259,52 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 			archive[idx]->has_passwd = FALSE;
 }
 
-void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
+void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 {
 	gchar *command = NULL;
 	gchar tmp_dir[14] = "";
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	gchar *name = NULL;
 	XEntry *entry = NULL;
 	gchar *full_pathname;
 	GList *row_list = NULL;
 	gboolean result = FALSE;
 	gint current_page;
 	gint idx;
-	GString *names = g_string_new ( " " );
+	GtkWidget *message;
+	GString *names = g_string_new (" ");
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
-	if ( archive[idx]->has_passwd )
+	if (archive[idx]->has_passwd)
 	{
-		if ( archive[idx]->passwd == NULL)
+		if (archive[idx]->passwd == NULL)
 		{
-			archive[idx]->passwd = password_dialog ();
-			if ( archive[idx]->passwd == NULL)
+			archive[idx]->passwd = password_dialog();
+			if (archive[idx]->passwd == NULL)
 				return;
 		}
 	}
 	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
-	if ( gtk_tree_selection_count_selected_rows (selection) != 1)
+	if (gtk_tree_selection_count_selected_rows (selection) != 1)
 		return;
 
 	row_list = gtk_tree_selection_get_selected_rows (selection, &model);
-	if ( row_list == NULL )
+	if (row_list == NULL)
 		return;
 
 	gtk_tree_model_get_iter(model, &iter, row_list->data);
 	gtk_tree_path_free(row_list->data);
 	g_list_free (row_list);
 
-	gtk_tree_model_get (model, &iter, 1, &name, -1);
-	entry = xa_find_child_entry(archive[idx]->root_entry,name);
-	g_print ("Cerco %s\n",name);
-
+	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,archive[idx]->nc+1,&entry, -1);
 	if (entry == NULL || entry->is_dir)
-	{
-		g_print ("Ritorno\n");
-		g_free (name);
 		return;
-	}
 
-	full_pathname = g_strconcat(gtk_entry_get_text(GTK_ENTRY(location_entry)),name,NULL);
-	g_free (name);
-	g_print ("%s\n",full_pathname);
-	
+	full_pathname = xa_build_full_path_name_from_entry(entry);
+
 	full_path = archive[idx]->full_path;
 	overwrite = archive[idx]->overwrite;
 
@@ -1325,8 +1316,8 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		result = xa_create_temp_directory(tmp_dir);
 		archive[idx]->tmp = g_strdup(tmp_dir);
 	}
-	g_print ("%s\n",archive[idx]->tmp);
 	names = g_string_append(names,full_pathname);
+	g_free(full_pathname);
 	command = xa_extract_single_files(archive[idx],names,archive[idx]->tmp);
 	g_print ("%s\n",command);
 	g_string_free (names,TRUE);
@@ -1340,58 +1331,17 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data )
 		if (result == 0)
 		{
 			/*unlink (dummy_name);
-			g_free (dummy_name);
-			g_string_free (names,TRUE);*/
+			g_free (dummy_name);*/
 			return;
 		}
 	}
-	g_free(full_pathname);
-	/*
-	g_message ("xa_view_file_inside_archive: %s",archive[idx]->tmp);
-	view_window = view_win(names->str);
-	g_string_free (names,TRUE);
-	string = g_strrstr ( dummy_name, "/" );
-	if (  string == NULL )
-		filename = g_strconcat ( "/tmp/" , dummy_name, NULL );
-	else
-	{
-		if (strchr (string,' '))
-		{
-			string = RemoveBackSlashes ( string );
-			tofree = TRUE;
-		}
-		filename = g_strconcat ( archive[idx]->tmp , string , NULL );
-		if ( tofree )
-			g_free (string);
-	}
-	g_free (dummy_name);
+	full_pathname = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_editor));
+	command = g_strconcat(archive[idx]->tmp,"/",entry->filename,NULL);
 
-	result = g_file_get_contents (filename,&content,&length,&error);
-	if ( ! result)
-	{
-		gtk_widget_hide (viewport2);
-		unlink (filename);
-		Update_StatusBar ( _("Operation failed."));
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while extracting the file to be viewed:") , error->message);
-		g_error_free (error);
-		g_free (filename);
-		return;
-	}
-	t = g_locale_to_utf8 ( content, length, NULL, &new_length, &error);
-	g_free ( content );
-	if ( t == NULL)
-	{
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while converting the file content to the UTF8 encoding:") , error->message);
-		g_free (error);
-	}
+	if (xa_launch_external_program(full_pathname,command))
+		Update_StatusBar (_("Operation completed."));
 	else
-	{
-		gtk_widget_show (view_window);
-		gtk_text_buffer_insert (viewtextbuf, &viewenditer, t, new_length );
-	}
-	unlink ( filename );
-	g_free (filename);*/
-	Update_StatusBar (_("Operation completed."));
+		Update_StatusBar (_("Operation failed."));
 }
 
 void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
@@ -1640,9 +1590,9 @@ void Update_StatusBar ( gchar *msg)
 
 void xa_disable_delete_view_buttons (gboolean value)
 {
-    gtk_widget_set_sensitive ( delete_menu, value);
-    gtk_widget_set_sensitive ( View_button, value);
-    gtk_widget_set_sensitive ( view_menu, value);
+    gtk_widget_set_sensitive (delete_menu, value);
+    gtk_widget_set_sensitive (View_button, value);
+    gtk_widget_set_sensitive (view_menu, value);
 }
 
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
@@ -1932,10 +1882,6 @@ void xa_deselect_all ( GtkMenuItem *menuitem , gpointer user_data )
 
 void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 {
-	GdkScreen *screen;
-	GtkWidget *message;
-	GError *error = NULL;
-	gchar *argv[3];
 	gchar *browser_path;
 
 	browser_path = gtk_combo_box_get_active_text(GTK_COMBO_BOX(prefs_window->combo_prefered_web_browser));
@@ -1943,35 +1889,41 @@ void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 	if (strlen(browser_path) == 0)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
-		_("You didn't set the browser to use!"),_("Please go to Preferences->Advanced and set it."));		
+		_("You didn't set which web browser to use!"),_("Please go to Preferences->Advanced and set it."));		
 		g_free (browser_path);
 		return;	
 	}
+	if (browser_path != NULL)
+		g_free (browser_path);
+}
 
-	argv[0] = browser_path;
-	argv[1] = (gchar *) link;
+gboolean xa_launch_external_program(gchar *program,gchar *arg)
+{
+	GtkWidget *message;
+	GError *error = NULL;
+	gchar *argv[3];
+	GdkScreen *screen;
+
+	argv[0] = program;
+	argv[1] = arg;
 	argv[2] = NULL;
 
-	if (about == NULL)
-		screen = gtk_widget_get_screen (GTK_WIDGET (MainWindow));
-	else
-		screen = gtk_widget_get_screen (GTK_WIDGET (about));
-
+	screen = gtk_widget_get_screen (GTK_WIDGET (MainWindow));
 	if (!gdk_spawn_on_screen (screen, NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
 	{
-		message = gtk_message_dialog_new (GTK_WINDOW (about),
+		message = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
 										GTK_DIALOG_MODAL
 										| GTK_DIALOG_DESTROY_WITH_PARENT,
 										GTK_MESSAGE_ERROR,
 										GTK_BUTTONS_CLOSE,
-										_("Failed to open link."));
+										_("Failed to launch the program!"));
 		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (message), "%s.", error->message);
 		gtk_dialog_run (GTK_DIALOG (message));
 		gtk_widget_destroy (message);
 		g_error_free (error);
+		return FALSE;
 	}
-	if (browser_path != NULL)
-		g_free (browser_path);
+	return TRUE;
 }
 
 void xa_show_help (GtkMenuItem *menuitem , gpointer user_data )
@@ -2028,6 +1980,11 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
+	if (strlen(gtk_entry_get_text(GTK_ENTRY(location_entry))) == 0)
+	{
+		xa_update_window_with_archive_entries(archive[idx],new_entry);
+		return;
+	}
 	new_entry  = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
 	if (new_entry == NULL)
 	{
@@ -2039,11 +1996,6 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 		archive[idx]->back = g_slist_prepend(archive[idx]->back,prev_entry);
 
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
-	if (new_entry != NULL && new_entry->prev != NULL)
-	{
-		gtk_widget_set_sensitive(up_button,TRUE);
-		gtk_widget_set_sensitive(home_button,TRUE);
-	}
 }
 
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)
@@ -2060,17 +2012,13 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		return;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,archive[idx]->nc+1,&entry, -1);
-	if (entry->is_dir)
-	{
-		gtk_widget_set_sensitive(up_button,TRUE);
-		gtk_widget_set_sensitive(home_button,TRUE);
-		gtk_widget_set_sensitive(back_button,TRUE);
-
-		if (archive[idx]->location_entry_path != NULL)
-			archive[idx]->back = g_slist_prepend(archive[idx]->back,xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path));
+	if (! entry->is_dir)
+		return;
+	if (archive[idx]->location_entry_path != NULL)
+		archive[idx]->back = g_slist_prepend(archive[idx]->back,xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path));
+	else
 		/* Put NULL so to display the root entry */
-		else
-			archive[idx]->back = g_slist_prepend(archive[idx]->back,NULL);
-	}
+		archive[idx]->back = g_slist_prepend(archive[idx]->back,NULL);
+
 	xa_update_window_with_archive_entries(archive[idx],entry);
 }

@@ -64,6 +64,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data);
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data);
+gboolean xa_launch_external_program(gchar *program,gchar *arg);
 void xa_show_help (GtkMenuItem *menuitem, gpointer user_data);
 void xa_reset_password (GtkMenuItem *menuitem, gpointer user_data );
 void xa_about (GtkMenuItem *menuitem, gpointer user_data);

@@ -446,6 +446,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	unsigned short int i;
 	gpointer current_column;
 
+	archive->current_entry = entry;
 	if (entry == NULL)
 	{
 		entry = archive->root_entry->child;
@@ -468,6 +469,9 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 			g_free(archive->location_entry_path);
 			archive->location_entry_path = NULL;
 		}
+		gtk_widget_set_sensitive(back_button,TRUE);
+		gtk_widget_set_sensitive(up_button,TRUE);
+		gtk_widget_set_sensitive(home_button,TRUE);
 		archive->location_entry_path = xa_build_full_path_name_from_entry(entry);
 		gtk_entry_set_text(GTK_ENTRY(location_entry),archive->location_entry_path);
 		entry = entry->child;
@@ -535,17 +539,21 @@ XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
 
 gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 {
-	GString *dummy = g_string_new('\0');
 	gchar *fullpathname = NULL;
-	
+	GString *dummy = g_string_new("");
 	while (entry)
 	{
-		dummy = g_string_prepend_c(dummy,'/');
-		dummy = g_string_prepend(dummy,entry->filename);
+		if (strlen(entry->filename) == 0)
+			break;
+		else
+		{
+			if (entry->is_dir)
+				dummy = g_string_prepend_c(dummy,'/');
+			dummy = g_string_prepend(dummy,entry->filename);
+		}
 		entry = entry->prev;
 	}
-	fullpathname = g_strdup(++dummy->str);
-	dummy->str--;
+	fullpathname = g_strdup(dummy->str);
 	g_string_free(dummy,TRUE);
 	return fullpathname;
 }

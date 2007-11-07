@@ -69,7 +69,7 @@ struct _XArchive
 	XArchiveType type;
 	XArchiveStatus status;
 	XEntry *root_entry;
-	XEntry *entry;
+	XEntry *current_entry;
 	GSList *back;
 	GSList *forward;
 	gchar *path;
