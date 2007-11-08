@@ -49,7 +49,7 @@ void xa_open_rar (XArchive *archive)
     archive->nc = 10;
 	archive->parse_output = xa_get_rar_line_content;
 	archive->format = "RAR";
-	xa_spawn_async_process (archive,command,0);
+	xa_spawn_async_process (archive,command);
 	g_free ( command );
 
 	if ( archive->child_pid == 0 )

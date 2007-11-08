@@ -44,7 +44,7 @@ void xa_open_gzip (XArchive *archive)
 		archive->format ="TAR.GZIP";
 		archive->nc = 7;
 		archive->parse_output = xa_get_tar_line_content;
-		xa_spawn_async_process (archive,command,0);
+		xa_spawn_async_process (archive,command);
 
 		g_free (command);
 		g_free (tar);
@@ -79,7 +79,7 @@ void xa_open_gzip (XArchive *archive)
 		xa_create_liststore (archive,names);
 		
 		command = g_strconcat ("gzip -l ",archive->escaped_path,NULL);
-		xa_spawn_async_process (archive,command,0);
+		xa_spawn_async_process (archive,command);
 		g_free (command);
 
 		if (archive->child_pid == 0)

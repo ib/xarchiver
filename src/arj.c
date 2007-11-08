@@ -36,7 +36,7 @@ void xa_open_arj (XArchive *archive)
 	archive->nc = 9;
 	archive->format ="ARJ";
 	archive->parse_output = xa_get_arj_line_content;
-	xa_spawn_async_process (archive,command,0);
+	xa_spawn_async_process (archive,command);
 	g_free (command);
 	if (archive->child_pid == 0)
 		return;

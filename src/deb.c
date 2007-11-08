@@ -82,7 +82,7 @@ void xa_open_deb ( XArchive *archive )
 	archive->nc = 7;
 	archive->format = "DEB";
 	archive->parse_output = xa_get_tar_line_content;
-	xa_spawn_async_process (archive,command,0);
+	xa_spawn_async_process (archive,command);
 	g_free (command);
 
 	if (archive->child_pid == 0)

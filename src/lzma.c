@@ -52,7 +52,7 @@ void xa_open_lzma ( XArchive *archive )
 		archive->format ="TAR.LZMA";
 		archive->parse_output = xa_get_tar_line_content;
 
-		xa_spawn_async_process (archive,command,0);
+		xa_spawn_async_process (archive,command);
 
 		g_free (command);
 		g_free (tar);

@@ -36,7 +36,7 @@ void xa_open_lha (XArchive *archive)
 	archive->format ="LHA";
 	archive->nc = 5;
 	archive->parse_output = xa_get_lha_line_content;
-	xa_spawn_async_process (archive,command,0);
+	xa_spawn_async_process (archive,command);
 	g_free ( command );
 
 	if ( archive->child_pid == 0 )

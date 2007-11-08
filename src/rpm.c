@@ -152,7 +152,7 @@ GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
 	command = g_strconcat ("cpio -tv --file ",gzip,NULL);
 	g_free(gzip);
 	archive[idx]->parse_output = xa_get_cpio_line_content;
-	xa_spawn_async_process ( archive[idx],command,1);
+	xa_spawn_async_process ( archive[idx],command);
 	g_free(command);
 	if ( archive[idx]->child_pid == 0 )
 	{
@@ -278,7 +278,7 @@ void xa_open_temp_file (gchar *tmp_dir,gchar *temp_path)
 		command = g_strconcat ("bzip2 -dc ",temp_path,NULL);
 
 	archive[idx]->parse_output = 0;
-	xa_spawn_async_process (archive[idx],command,0);
+	xa_spawn_async_process (archive[idx],command);
 	g_free (command);
 	if (archive[idx]->child_pid == 0)
 	{

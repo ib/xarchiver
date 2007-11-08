@@ -90,6 +90,9 @@ int xa_show_message_dialog ( GtkWindow *window, int mode,int type,int button, co
 int xa_detect_archive_type ( gchar *filename );
 gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
+gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status);
+void xa_archive_operation_finished(XArchive *archive,gboolean error);
+void xa_reload_archive_content(XArchive *archive);
 void xa_watch_child ( GPid pid, gint status, gpointer data);
 void xa_remove_columns();
 void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);

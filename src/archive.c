@@ -38,7 +38,7 @@ XArchive *xa_init_archive_structure ()
 	return archive;
 }
 
-void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input)
+void xa_spawn_async_process (XArchive *archive , gchar *command)
 {
 	GIOChannel *ioc,*err_ioc;
 	gchar **argv;
@@ -54,7 +54,7 @@ void xa_spawn_async_process (XArchive *archive , gchar *command , gboolean input
 		NULL,
 		NULL,
 		&archive->child_pid,
-		input ? &archive->input_fd : NULL,
+		NULL,
 		&archive->output_fd,
 		&archive->error_fd,
 		&error) )
@@ -233,15 +233,16 @@ gboolean xa_delete_temp_directory (XArchive *archive,gboolean flag)
 		
 	chdir (archive->tmp);
 	command = g_strconcat ("rm -rf ",archive->tmp,NULL);
-	result = xa_run_command (archive,command,flag );
+	result = xa_run_command (archive,command,flag);
 	g_free (command);
 	return result;
 }
 
 gboolean xa_create_temp_directory (gchar tmp_dir[])
 {
+	//TODO user the user set tmp dir in the pref dialog
 	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
-	if ( mkdtemp ( tmp_dir ) == 0)
+	if (mkdtemp (tmp_dir) == 0)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
 		gtk_widget_set_sensitive (Stop_button, FALSE);
@@ -251,14 +252,15 @@ gboolean xa_create_temp_directory (gchar tmp_dir[])
 	return TRUE;
 }
 
-gboolean xa_run_command (XArchive *archive,gchar *command,gboolean watch_child_flag)
+gboolean xa_run_command (XArchive *archive,gchar *command,gboolean set_gui)
 {
 	int status;
 	gboolean waiting = TRUE;
+	gboolean result;
 	int ps;
 
 	archive->parse_output = 0;
-	xa_spawn_async_process (archive,command,0);
+	xa_spawn_async_process (archive,command);
 	if (archive->child_pid == 0)
 		return FALSE;
 
@@ -271,16 +273,14 @@ gboolean xa_run_command (XArchive *archive,gchar *command,gboolean watch_child_f
 		else
 			gtk_main_iteration_do (FALSE);
 	}
+	result = xa_check_child_for_error_on_exit(archive,status);
+	if (set_gui)
+		xa_archive_operation_finished(archive,result);
 
-	if (watch_child_flag)
-	{
-		xa_watch_child (archive->child_pid, status, archive);
-		return TRUE;
-	}
-	return TRUE;
+	return result;
 }
 
-gint xa_find_archive_index ( gint page_num )
+gint xa_find_archive_index (gint page_num)
 {
 	GtkWidget *scrollwindow;
 	gint i;
@@ -543,14 +543,9 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 	GString *dummy = g_string_new("");
 	while (entry)
 	{
-		if (strlen(entry->filename) == 0)
-			break;
-		else
-		{
-			if (entry->is_dir)
-				dummy = g_string_prepend_c(dummy,'/');
-			dummy = g_string_prepend(dummy,entry->filename);
-		}
+		if (entry->is_dir)
+			dummy = g_string_prepend_c(dummy,'/');
+		dummy = g_string_prepend(dummy,entry->filename);
 		entry = entry->prev;
 	}
 	fullpathname = g_strdup(dummy->str);

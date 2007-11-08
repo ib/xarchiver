@@ -40,35 +40,10 @@ extern void xa_free_icon_cache();
 
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
-GList *Suffix , *Name;
+GList *Suffix, *Name;
 
-void xa_watch_child ( GPid pid, gint status, gpointer data)
+gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 {
-	XArchive *archive = data;
-	gboolean waiting = TRUE;
-	int ps;
-
-	gtk_widget_hide(viewport2);
-	gtk_widget_set_sensitive(Stop_button,FALSE);
-
-	if ( WIFSIGNALED (status) )
-	{
-		Update_StatusBar ( _("Operation canceled."));
-		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
-		{
-			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),archive->extraction_path);
-
-            response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,	GTK_BUTTONS_OK,"",msg );
-            g_free (msg);
-		}
-		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
-			gtk_widget_set_sensitive ( check_menu , FALSE );
-
-		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
-		archive->status = XA_ARCHIVESTATUS_IDLE;
-		return;
-	}
-	/* Check if the child exits with an error code */
 	if ( WIFEXITED (status) )
 	{
 		if ( WEXITSTATUS (status) )
@@ -85,24 +60,14 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				archive->passwd = NULL;
 			}
 			archive->status = XA_ARCHIVESTATUS_IDLE;
-			return;
+			return FALSE;
 		}
 	}
+	return TRUE;
+}
 
-	if (archive->has_comment)
-		gtk_widget_set_sensitive (comment_menu,TRUE);
-	else
-		gtk_widget_set_sensitive (comment_menu,FALSE);
-
-	if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN)
-		xa_show_archive_comment ( NULL, NULL);
-
-	if (archive->status == XA_ARCHIVESTATUS_SFX && archive->type == XARCHIVETYPE_RAR)
-	{
-		gtk_widget_set_sensitive ( exe_menu, FALSE);
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
-	}
-
+void xa_reload_archive_content(XArchive *archive)
+{
 	if ( ! cli )
 	{
 		/* This to automatically reload the content of the archive after adding or deleting */
@@ -156,34 +121,89 @@ void xa_watch_child ( GPid pid, gint status, gpointer data)
 				default:
 				break;
 			}
-			while (waiting)
+			/*while (waiting)
 			{
 				ps = waitpid ( archive->child_pid, &status, WNOHANG);
 				if (ps < 0)
 					waiting = FALSE;
 				else
 					gtk_main_iteration_do (FALSE);
-			}
+			}*/
 			archive->status = XA_ARCHIVESTATUS_IDLE;
 		}
 	}
+}
 
-	if (! cli && archive != NULL)
+void xa_archive_operation_finished(XArchive *archive,gboolean error)
+{
+	gtk_widget_hide(viewport2);
+	gtk_widget_set_sensitive(Stop_button,FALSE);
+
+	if (archive->has_comment)
+		gtk_widget_set_sensitive (comment_menu,TRUE);
+	else
+		gtk_widget_set_sensitive (comment_menu,FALSE);
+
+	if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN)
+		xa_show_archive_comment ( NULL, NULL);
+
+	if (archive->status == XA_ARCHIVESTATUS_SFX && archive->type == XARCHIVETYPE_RAR)
 	{
-		if ( archive->has_passwd == FALSE && archive->passwd == NULL)
-			gtk_widget_set_sensitive ( password_entry , FALSE);
-		else
-			gtk_widget_set_sensitive ( password_entry , TRUE);
+		gtk_widget_set_sensitive ( exe_menu, FALSE);
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
 	}
 	xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
-	Update_StatusBar ( _("Operation completed."));
+	if (error)
+		Update_StatusBar ( _("Operation completed."));
+	else
+		Update_StatusBar ( _("Operation failed!"));
 
 	if (archive->status == XA_ARCHIVESTATUS_TEST)
 		xa_show_cmd_line_output (NULL);
 
 	gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
 	archive->status = XA_ARCHIVESTATUS_IDLE;
-	return;
+}
+
+void xa_watch_child (GPid pid,gint status,gpointer data)
+{
+	gboolean result;
+	XArchive *archive = data;
+
+	if (WIFSIGNALED (status) )
+	{
+		Update_StatusBar (_("Operation canceled."));
+		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
+		{
+			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),archive->extraction_path);
+
+            response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"",msg );
+            g_free (msg);
+		}
+		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
+			gtk_widget_set_sensitive (check_menu,FALSE );
+
+		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+		archive->status = XA_ARCHIVESTATUS_IDLE;
+		return;
+	}
+	result = xa_check_child_for_error_on_exit (archive,status);
+	if (result)
+	{
+		xa_archive_operation_finished(archive,result);
+		return;
+	}
+	else
+		xa_archive_operation_finished(archive,result);
+
+	//xa_reload_archuve_content
+	if (! cli && archive != NULL)
+	{
+		if (archive->has_passwd == FALSE && archive->passwd == NULL)
+			gtk_widget_set_sensitive (password_entry,FALSE);
+		else
+			gtk_widget_set_sensitive (password_entry,TRUE);
+	}
 }
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
@@ -771,7 +791,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 				fclose (sfx_archive);
 
 				command = g_strconcat ("chmod 755 ", archive_name_escaped , NULL);
-				result = xa_run_command (archive[idx],command,0);
+				result = xa_run_command (archive[idx],command,1);
 				g_free (command);
 
 				command = g_strconcat ("zip -A ",archive_name_escaped,NULL);
@@ -1272,7 +1292,6 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 	gboolean result = FALSE;
 	gint current_page;
 	gint idx;
-	GtkWidget *message;
 	GString *names = g_string_new (" ");
 
 	current_page = gtk_notebook_get_current_page (notebook);
@@ -1319,7 +1338,6 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 	names = g_string_append(names,full_pathname);
 	g_free(full_pathname);
 	command = xa_extract_single_files(archive[idx],names,archive[idx]->tmp);
-	g_print ("%s\n",command);
 	g_string_free (names,TRUE);
 
 	archive[idx]->full_path = full_path;
@@ -1329,22 +1347,21 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 		result = xa_run_command (archive[idx],command,0);
 		g_free (command);
 		if (result == 0)
-		{
-			/*unlink (dummy_name);
-			g_free (dummy_name);*/
 			return;
-		}
 	}
 	full_pathname = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_editor));
 	command = g_strconcat(archive[idx]->tmp,"/",entry->filename,NULL);
 
 	if (xa_launch_external_program(full_pathname,command))
-		Update_StatusBar (_("Operation completed."));
+		xa_archive_operation_finished(archive[idx],1);
 	else
-		Update_StatusBar (_("Operation failed."));
+		xa_archive_operation_finished(archive[idx],0);
+
+	g_free(full_pathname);
+	g_free(command);
 }
 
-void xa_archive_properties ( GtkMenuItem *menuitem , gpointer user_data )
+void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 {
 	struct stat my_stat;
     gchar *utf8_string , *measure, *text, *dummy_string;
@@ -1655,7 +1672,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 	if ( row_list == NULL)
 		return;
-	if ( archive[idx]->status == XA_ARCHIVESTATUS_EXTRACT )
+	if (archive[idx]->status == XA_ARCHIVESTATUS_EXTRACT)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!") );
 		return;
@@ -1705,6 +1722,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		if ( command != NULL )
 		{
 			archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
+			//TODO if 1 or 0?
 			xa_run_command (archive[idx],command,1);
 			g_free (command);
 		}
@@ -1837,19 +1855,20 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 
 gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
-    if (event == NULL) return FALSE;
+	if (event == NULL)
+		return FALSE;
 	switch (event->keyval)
-    {
-	    case GDK_Escape:
-	    if ( GTK_WIDGET_VISIBLE (viewport2) )
+	{
+		case GDK_Escape:
+		if ( GTK_WIDGET_VISIBLE (viewport2) )
 			xa_cancel_archive (NULL, NULL);
-	    break;
+		break;
 
-	    case GDK_Delete:
-        if ( GTK_WIDGET_STATE (delete_menu) != GTK_STATE_INSENSITIVE )
+		case GDK_Delete:
+		if ( GTK_WIDGET_STATE (delete_menu) != GTK_STATE_INSENSITIVE )
 			xa_delete_archive ( NULL , NULL );
 		break;
-    }
+	}
 	return FALSE;
 }
 
