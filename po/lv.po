@@ -1,0 +1,1091 @@
+# Latvian translation for xarchiver package.
+# opyright (C) 2005-2007 Giuseppe Torelli.
+# This file is distributed under the same license as the xarchiver package.
+# Rihards Prieditis <rprieditis@inbox.lv>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xarchiver 0.4.2rc2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-22 12:45+0200\n"
+"PO-Revision-Date: 2007-11-11 18:52+0300\n"
+"Last-Translator: Rihards Priedītis <rprieditis@inbox.lv>\n"
+"Language-Team: Latvian <RPrieditis@inbox.lv>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/7zip.c:56
+#: ../src/arj.c:49
+#: ../src/rar.c:63
+msgid "Original"
+msgstr "Sākotnējais"
+
+#: ../src/7zip.c:56
+#: ../src/arj.c:49
+#: ../src/rar.c:63
+#: ../src/zip.c:51
+msgid "Compressed"
+msgstr "Saspiestais"
+
+#: ../src/7zip.c:56
+msgid "Attr"
+msgstr "Atrb"
+
+#: ../src/7zip.c:56
+#: ../src/arj.c:49
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/rar.c:63
+#: ../src/tar.c:58
+#: ../src/zip.c:51
+msgid "Time"
+msgstr "Laiks"
+
+#: ../src/7zip.c:56
+#: ../src/arj.c:49
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/rar.c:63
+#: ../src/rpm.c:61
+#: ../src/tar.c:58
+#: ../src/zip.c:51
+msgid "Date"
+msgstr "Datums"
+
+#: ../src/add_dialog.c:43
+msgid "Add files to the archive"
+msgstr "Pievienot failus arhīvam"
+
+#: ../src/add_dialog.c:108
+msgid "Files"
+msgstr "Faili"
+
+#: ../src/add_dialog.c:115
+msgid "Directories"
+msgstr "Direktorijas"
+
+#: ../src/add_dialog.c:141
+msgid "Choose the files or directories to add to the archive"
+msgstr "Izvēlaties failus vai mapes, kurus pieveinot arhīvam"
+
+#: ../src/add_dialog.c:146
+msgid "<b>Files and directories to add </b>"
+msgstr "<b>Pievienojamie faili un direktorijas </b>"
+
+#: ../src/add_dialog.c:166
+msgid "Recurse subdirectories"
+msgstr "Apakšmapju rekursija"
+
+#: ../src/add_dialog.c:172
+msgid "Include everything in the directory recursively \tstarting from the current directory."
+msgstr "Iekļaut rekursīvi visu \tsākot ar šo direktoriju."
+
+#: ../src/add_dialog.c:177
+msgid "Generate a solid archive"
+msgstr "Ģenerēt viendabīgu arhīvu"
+
+#: ../src/add_dialog.c:181
+msgid "In a solid archive the files are grouped together featuring a better compression ratio."
+msgstr "Viendabīgos arhīvos faili tiek grupēti kopā, piedāvājot labāku saspiešanas attiecību."
+
+#: ../src/add_dialog.c:186
+msgid "Remove files after adding"
+msgstr "Dzēst failus pēc pievienošanas"
+
+#: ../src/add_dialog.c:195
+msgid "Do not add absolute paths"
+msgstr "Nepievienot absolūtos ceļus"
+
+#: ../src/add_dialog.c:197
+msgid "Do not add file paths"
+msgstr "Nepievienot faila ceļus"
+
+#: ../src/add_dialog.c:202
+msgid "The files path doesn't include the user home directory."
+msgstr "Faila ceļs nesatur mājas direktoriju."
+
+#: ../src/add_dialog.c:204
+msgid "Store just the name of a file without its directory names."
+msgstr "Glabāt tikai faila nosaukumu, bez direktoriju nosaukumiem."
+
+#: ../src/add_dialog.c:206
+msgid "Freshen an existing entry"
+msgstr "Atsvaidzināt eksistējošu ierakstu"
+
+#: ../src/add_dialog.c:210
+msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."
+msgstr "Šī opcija ietekmē tikai arhīvu, ja fails ir modificēts pēc tam, kad tika ievietots arhīvā; atšķirībā no atjaunošanas opcijas, faili, kuri nav arhīvā netiks ievietoti."
+
+#: ../src/add_dialog.c:214
+msgid "Update an existing entry"
+msgstr "Atjaunināt eksistējošu ierakstu"
+
+#: ../src/add_dialog.c:218
+msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified."
+msgstr "Šī opcija pievienos jaunos failus un atjaunos esošos, ja tie ir modificēti pēc ievietošanas/modificēšanas arhīvā."
+
+#: ../src/add_dialog.c:227
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "0 = nesaspiest, 5 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
+
+#: ../src/add_dialog.c:234
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "0 = nesaspiest, 6 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
+
+#: ../src/add_dialog.c:241
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr "0 = nesaspiest, 3 = noklusētā vērtība, 9 = labākā saspiešana, bet lēnākā"
+
+#: ../src/add_dialog.c:248
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr "0 = nesaspiest, 1 = noklusētā vērtība, 4 = ātrākā, bez vismazākā saspiešana"
+
+#: ../src/add_dialog.c:255
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = noklusētā saspiešana, 7 = maksimālā saspiešana"
+
+#: ../src/add_dialog.c:266
+#: ../src/extract_dialog.c:220
+#: ../src/interface.c:628
+msgid "Password:"
+msgstr "Parole:"
+
+#: ../src/add_dialog.c:280
+msgid "Compression level:"
+msgstr "Saspiešanas līmenis:"
+
+#: ../src/add_dialog.c:307
+#: ../src/extract_dialog.c:241
+msgid "<b>Options </b>"
+msgstr "<b>Uzstādījumi </b>"
+
+#: ../src/add_dialog.c:324
+#: ../src/interface.c:134
+msgid "_Add"
+msgstr "_Pievienot"
+
+#: ../src/add_dialog.c:387
+#: ../src/window.c:1851
+msgid "Sorry, I could not perform the operation!"
+msgstr "Piedodiet, nevarēju veikt operāciju!"
+
+#: ../src/add_dialog.c:419
+msgid "Please select the files you want to add"
+msgstr "Lūdzu norādiet failus, kurus vēlaties pievienot"
+
+#: ../src/add_dialog.c:424
+msgid "Please select the directories you want to add"
+msgstr "Lūdzu norādiet direktorijas, kuras vēlaties pievienot"
+
+#: ../src/add_dialog.c:535
+#: ../src/main.c:206
+msgid "Can't add files to the archive:"
+msgstr "Nevar pievienot failus arhīvam:"
+
+#: ../src/add_dialog.c:535
+msgid "You haven't selected any files to add!"
+msgstr "Jūs, neesat atlasījis pievienošanai nevienu failu!"
+
+#: ../src/add_dialog.c:543
+#: ../src/interface.c:670
+msgid "You missed the password!"
+msgstr "Jūs, palaidāt garām paroli!"
+
+#: ../src/add_dialog.c:543
+#: ../src/interface.c:670
+msgid "Please enter it!"
+msgstr "Lūdzu, ievadiet!"
+
+#: ../src/add_dialog.c:629
+msgid "Adding files to the archive, please wait..."
+msgstr "Pievienoju failus arhīvam, lūdzu uzgaidiet..."
+
+#: ../src/archive.c:57
+#: ../src/window.c:76
+#: ../src/window.c:733
+#: ../src/window.c:746
+#: ../src/window.c:845
+#: ../src/window.c:857
+#: ../src/window.c:1378
+#: ../src/extract_dialog.c:911
+#: ../src/rpm.c:140
+msgid "Operation failed."
+msgstr "Operācija neizdevās."
+
+#: ../src/archive.c:58
+msgid "Can't run the archiver executable:"
+msgstr "Nevar palaist arhivātora izpildāmo failu:"
+
+#: ../src/arj.c:49
+#: ../src/lha.c:50
+#: ../src/rar.c:63
+msgid "Ratio"
+msgstr "Attiecība"
+
+#: ../src/arj.c:49
+msgid "Attributes"
+msgstr "Atribūti"
+
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/rpm.c:61
+#: ../src/tar.c:58
+msgid "Points to"
+msgstr "Norāda uz"
+
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/lha.c:50
+#: ../src/rar.c:63
+#: ../src/tar.c:58
+#: ../src/zip.c:51
+msgid "Permissions"
+msgstr "Atļaujas"
+
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/tar.c:58
+msgid "Owner/Group"
+msgstr "Īpašnieks/Grupa"
+
+#: ../src/bzip2.c:64
+#: ../src/deb.c:91
+#: ../src/gzip.c:61
+#: ../src/lha.c:50
+#: ../src/rpm.c:61
+#: ../src/tar.c:58
+#: ../src/zip.c:51
+msgid "Size"
+msgstr "Izmērs"
+
+#: ../src/bzip2.c:94
+#, c-format
+msgid "Extracting gzip file to %s"
+msgstr "Atpakoju gzip failu uz %s"
+
+#: ../src/bzip2.c:96
+#, c-format
+msgid "Extracting bzip2 file to %s"
+msgstr "Atpakoju bzip2 failu uz %s"
+
+#: ../src/bzip2.c:153
+#: ../src/window.c:55
+#: ../src/window.c:722
+#: ../src/window.c:798
+#: ../src/window.c:835
+#: ../src/extract_dialog.c:314
+#: ../src/extract_dialog.c:860
+#: ../src/extract_dialog.c:881
+msgid "Operation canceled."
+msgstr "Operācija atcelta."
+
+#: ../src/bzip2.c:168
+#, c-format
+msgid "Decompressing tar file with %s, please wait..."
+msgstr "Atpakoju tar failu ar %s, lūdzu uzgaidiet..."
+
+#: ../src/bzip2.c:243
+#, c-format
+msgid "Recompressing tar file with %s, please wait..."
+msgstr "Sapakoju tar failu ar %s, lūdzu uzgaidiet..."
+
+#: ../src/window.c:58
+#, c-format
+msgid "Please check \"%s\" since some files could have been already extracted."
+msgstr "Lūdzu pārbaudiet \"%s\", jo daži faili, jau var būt atspiesti."
+
+#: ../src/window.c:77
+msgid "An error occurred while accessing the archive."
+msgstr "Notika kļūda piekļūstot arhīvam."
+
+#: ../src/window.c:77
+#: ../src/rpm.c:143
+msgid "Do you want to view the command line output?"
+msgstr "Vai vēlaties aplūkot komandu rindas izvadu?"
+
+#: ../src/window.c:102
+msgid "The sfx archive was saved as:"
+msgstr "SFX arhīvs tika saglabāts:"
+
+#: ../src/window.c:111
+#: ../src/window.c:178
+#: ../src/window.c:1398
+msgid "Operation completed."
+msgstr "Operācija pabeigta."
+
+#: ../src/window.c:114
+msgid "Please wait while the content of the archive is being updated..."
+msgstr "Lūdzu pagaidiet, kamēr arhīva saturs tiek atjaunināts..."
+
+#: ../src/window.c:210
+msgid "Choose Add to begin creating the archive."
+msgstr "Izvēlaties Pievienot, lai uzsāktu arhīva veidošanu."
+
+#: ../src/window.c:265
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "Nevar atvērt failu \"%s\":"
+
+#: ../src/window.c:267
+msgid "Archive format is not recognized!"
+msgstr "Arhīva formāts nav atpazīts!"
+
+#: ../src/window.c:288
+msgid "Can't allocate memory for the archive structure:"
+msgstr "Nevar iedalīt atmiņu arhīva struktūrai:"
+
+#: ../src/window.c:317
+msgid "Sorry, this archive format is not supported:"
+msgstr "Piedodiet, arhīva formāts netiek atbalstīts:"
+
+#: ../src/window.c:317
+msgid "the proper archiver is not installed!"
+msgstr "atbilstošais arhivātors nav instalēts!"
+
+#: ../src/window.c:324
+msgid "Please wait while the content of the archive is being read..."
+msgstr "Lūdzu pagaidiet, kamēr arhīvs tiek lasīts..."
+
+#: ../src/window.c:403
+msgid "Testing archive integrity, please wait..."
+msgstr "Pārbaudu arhīva integritāti, lūdzu pagaidiet..."
+
+#: ../src/window.c:480
+#: ../src/main.c:248
+msgid "Ready."
+msgstr "Gatavs."
+
+#: ../src/window.c:490
+msgid "Please hit the Stop button first!"
+msgstr "Lūdzu, nospiediet vispirms Apturēt pogu!"
+
+#: ../src/window.c:535
+#, c-format
+msgid "You are about to delete %d file(s) from the archive."
+msgstr "Jūs gatavojaties dzēst %d failu(-s) no arhīva."
+
+#: ../src/window.c:536
+msgid "Are you sure you want to do this?"
+msgstr "Esat drošs, ka vēlaties to darīt?"
+
+#: ../src/window.c:542
+msgid "Deleting files from the archive, please wait..."
+msgstr "Dzēšu failus no arhīva, lūdzu uzgaidiet..."
+
+#: ../src/window.c:676
+msgid "Converting archive to self-extracting, please wait..."
+msgstr "Konvertēju arhīvu uz pašizpletes arhīvu, lūdzu uzgaidiet..."
+
+#: ../src/window.c:735
+#: ../src/window.c:846
+msgid "Can't convert the archive to self-extracting:"
+msgstr "Nevar pārkonvertēt arhīvu uz pašizpletes arhīvu:"
+
+#: ../src/window.c:748
+#: ../src/window.c:858
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "Nevar ierakstīts unzipsfx moduli arhīvā:"
+
+#: ../src/window.c:815
+msgid "Please select the 7zCon.sfx module"
+msgstr "Lūdzu norādiet 7zCon.sfx moduli"
+
+#: ../src/window.c:917
+msgid "translator-credits"
+msgstr "Tulkotāji"
+
+#: ../src/window.c:948
+msgid "Save the self-extracting archive as"
+msgstr "Saglabāt pašizpletes arhīvu kā"
+
+#: ../src/window.c:975
+#: ../src/interface.c:283
+msgid "Open an archive"
+msgstr "Atvērt arhīvu"
+
+#: ../src/window.c:988
+#: ../src/new_dialog.c:62
+msgid "All files"
+msgstr "Visi faili"
+
+#: ../src/window.c:993
+#: ../src/new_dialog.c:67
+msgid "Only archives"
+msgstr "Tikai arhīvi"
+
+#: ../src/window.c:1055
+#, c-format
+msgid "Can't open archive \"%s\":"
+msgstr "Nevaru atvērt arhīvu \"%s\":"
+
+#: ../src/window.c:1133
+msgid "Filename"
+msgstr "Faila nosaukums"
+
+#: ../src/window.c:1177
+msgid "Command line output"
+msgstr "Komandu rindas izvads"
+
+#: ../src/window.c:1226
+msgid "Doing so will probably corrupt your archive!"
+msgstr "Šī darbība var sabojāt arhīvu!"
+
+#: ../src/window.c:1226
+msgid "Do you really want to cancel?"
+msgstr "Vai tiešām vēlaties atcelt?"
+
+#: ../src/window.c:1230
+msgid "Waiting for the process to abort..."
+msgstr "Gaidu, kamēr notiek procesa atcelšana..."
+
+#: ../src/window.c:1236
+msgid "An error occurred while trying to kill the process:"
+msgstr "Notika kļūda mēģinot nokaut procesu:"
+
+#: ../src/window.c:1321
+msgid "Please select a file, not a directory!"
+msgstr "Lūdzu norādiet failu, nevis direktoriju!"
+
+#: ../src/window.c:1379
+msgid "An error occurred while extracting the file to be viewed:"
+msgstr "Notika kļuda mēģinot atspiest failu apskatei:"
+
+#: ../src/window.c:1388
+msgid "An error occurred while converting the file content to the UTF8 encoding:"
+msgstr "Notika kļūda mēginot konvērtēt faila saturu uz UTF8 kodējumu:"
+
+#: ../src/window.c:1498
+msgid "Yes"
+msgstr "Jā"
+
+#: ../src/window.c:1500
+msgid "No"
+msgstr "Nē"
+
+#: ../src/window.c:1767
+msgid "Can't perform another extraction:"
+msgstr "Nevar veikt vēlvienu atspiešanu:"
+
+#: ../src/window.c:1767
+msgid "Please wait until the completion of the current one!"
+msgstr "Lūdzu pagadiet, kamēr esošā būs pabeigta!"
+
+#: ../src/window.c:1885
+#: ../src/window.c:1896
+msgid "Can't perform this action:"
+msgstr "Nevar izpildīt šo darbību:"
+
+#: ../src/window.c:1885
+msgid "unrar doesn't support archive creation!"
+msgstr "unrar neatbalsta arhīvu veidošanu!"
+
+#: ../src/window.c:1893
+msgid "You can't add content to deb packages!"
+msgstr "Jūs, nevarat pievienot saturu deb pakotnēm!"
+
+#: ../src/window.c:1895
+msgid "You can't add content to rpm packages!"
+msgstr "Jūs, nevarat pievienot saturu rpm pakotnēm!"
+
+#: ../src/window.c:2020
+msgid "Failed to open link."
+msgstr "Neizdevās atvērt saiti."
+
+#: ../src/window.c:2052
+msgid "The password has been reset."
+msgstr "Parole ir atiestatīta."
+
+#: ../src/window.c:2055
+msgid "Please enter the password first!"
+msgstr "Lūdzu sākumā ievadiet paroli!"
+
+#: ../src/window.c:2067
+msgid "Archive comment window"
+msgstr "Atrhīva komentāru logs"
+
+#: ../src/extract_dialog.c:42
+msgid "Decompress file"
+msgstr "Atspiest failu"
+
+#: ../src/extract_dialog.c:44
+msgid "Extract files from archive"
+msgstr "Atspiest failus no arhīva"
+
+#: ../src/extract_dialog.c:61
+msgid "Extract to:"
+msgstr "Atspiest uz:"
+
+#: ../src/extract_dialog.c:102
+msgid "Choose a folder where to extract files"
+msgstr "Norādiet mapi, kurā atspiest failus"
+
+#: ../src/extract_dialog.c:124
+msgid "All"
+msgstr "Visus"
+
+#: ../src/extract_dialog.c:130
+msgid "Only selected"
+msgstr "Tikai atlasi"
+
+#: ../src/extract_dialog.c:141
+msgid "<b>Files to extract </b>"
+msgstr "<b>Atspiežamie faili </b>"
+
+#: ../src/extract_dialog.c:160
+msgid "Overwrite existing files"
+msgstr "Pārrakstīt eksistējošiem failiem"
+
+#: ../src/extract_dialog.c:165
+msgid "Extract files with full path"
+msgstr "Atspiest failus ar pilnu ceļu"
+
+#: ../src/extract_dialog.c:176
+msgid "The archive's directory structure is recreated in the extraction directory."
+msgstr "Arhīva direktoriju struktūra, tiks atveidota atspiešanas mapē."
+
+#: ../src/extract_dialog.c:181
+msgid "Touch files"
+msgstr "Pieskarties failiem"
+
+#: ../src/extract_dialog.c:184
+msgid "When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."
+msgstr "Kad šī opcija tiek lietota, tar uzstāda modifikācijas datumu, atspiešanas datumu, nevis datumu, ar kuru faili tika ievietoti arhīvā."
+
+#: ../src/extract_dialog.c:197
+msgid "Freshen existing files"
+msgstr "Atsvaidzināt eksistējošos failus"
+
+#: ../src/extract_dialog.c:198
+msgid "Extract only those files that already exist on disk and that are newer than the disk copies."
+msgstr "Atspiest tikais tos failus, kas jau eksistē uz cietā diska un ir jaunāki, nekā diska kopijas."
+
+#: ../src/extract_dialog.c:204
+msgid "Update existing files"
+msgstr "Atjaunināt eksistejošos failus"
+
+#: ../src/extract_dialog.c:205
+msgid "This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk."
+msgstr "Šī opcija izpilda to pašu funkciju kā atsvaidzināšana, atspiežot failus, kas ir jaunāki, pa diska kopijām, bet papildus arī atspiež failus, kuri nav diskā."
+
+#: ../src/extract_dialog.c:258
+#: ../src/interface.c:144
+msgid "_Extract"
+msgstr "_Atspiest"
+
+#: ../src/extract_dialog.c:328
+msgid "You missed where to extract the files!"
+msgstr "Jūs palaidāt garām, kur atspiest failus!"
+
+#: ../src/extract_dialog.c:328
+msgid "Please enter the extraction path."
+msgstr "Lūdzu norādiet atspiešanas ceļu."
+
+#: ../src/extract_dialog.c:336
+msgid "This archive is encrypted!"
+msgstr "Arhīvs ir šifrēts!"
+
+#: ../src/extract_dialog.c:336
+msgid "Please enter the password."
+msgstr "Lūdzu, ievadiet paroli."
+
+#: ../src/extract_dialog.c:344
+#, c-format
+msgid "Can't create directory \"%s\""
+msgstr "Nevar izveidot mapi \"%s\""
+
+#: ../src/extract_dialog.c:356
+#, c-format
+msgid "You don't have the right permissions to extract the files to the folder \"%s\"."
+msgstr "Jums nav tiesību atspiest failus mapē \"%s\""
+
+#: ../src/extract_dialog.c:357
+msgid "Can't perform extraction!"
+msgstr "Nevar izpildīt atspiešanu!"
+
+#: ../src/extract_dialog.c:385
+#, c-format
+msgid "Extracting files to %s"
+msgstr "Atspiežu failus %s"
+
+#: ../src/extract_dialog.c:590
+#, c-format
+msgid "Extracting archive to %s"
+msgstr "Atspiežu arhīvu %s"
+
+#: ../src/extract_dialog.c:909
+msgid "Can't create temporary directory in /tmp:"
+msgstr "Nevar izveidot pagaidu mapi iekš /tmp:"
+
+#: ../src/extract_dialog.c:924
+msgid "Choose the destination folder where to extract the current archive"
+msgstr "Norādiet esošā arhīva atspiešanas mapi"
+
+#: ../src/lha.c:50
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/lha.c:50
+msgid "Timestamp"
+msgstr "Laikaspiedogs  "
+
+#: ../src/interface.c:73
+msgid "_File"
+msgstr "_Fails"
+
+#: ../src/interface.c:93
+msgid "_Test"
+msgstr "_Tests"
+
+#: ../src/interface.c:103
+msgid "_Properties"
+msgstr "_Rekvizīti"
+
+#: ../src/interface.c:127
+msgid "_Action"
+msgstr "_Darbība"
+
+#: ../src/interface.c:160
+msgid "_View"
+msgstr "_Skats"
+
+#: ../src/interface.c:175
+msgid "Make SF_X"
+msgstr "Veidot SF_X"
+
+#: ../src/interface.c:185
+msgid "_Show comment"
+msgstr "_Rādīt komentārus"
+
+#: ../src/interface.c:200
+msgid "Sele_ct All"
+msgstr "At_lasīt Visu"
+
+#: ../src/interface.c:206
+msgid "Dese_lect All"
+msgstr "A_tcelt Atlasi"
+
+#: ../src/interface.c:217
+msgid "C_md-line output"
+msgstr "_Kmd-rindas izvads"
+
+#: ../src/interface.c:227
+msgid "Reset passwo_rd"
+msgstr "Atiestatīt pa_roli"
+
+#: ../src/interface.c:238
+msgid "_Preferences"
+msgstr "_Uzstādījumi"
+
+#: ../src/interface.c:247
+msgid "_Help"
+msgstr "_Palīdzība"
+
+#: ../src/interface.c:271
+msgid "New"
+msgstr "Jauns"
+
+#: ../src/interface.c:275
+#: ../src/new_dialog.c:50
+msgid "Create a new archive"
+msgstr "Izveidot jaunu arhīvu"
+
+#: ../src/interface.c:279
+msgid "Open"
+msgstr "Atvērt"
+
+#: ../src/interface.c:291
+#: ../src/interface.c:295
+msgid "Back"
+msgstr "Atpakaļ"
+
+#: ../src/interface.c:299
+#: ../src/interface.c:304
+msgid "Up"
+msgstr "Uz augšu"
+
+#: ../src/interface.c:308
+#: ../src/interface.c:312
+msgid "Forward"
+msgstr "Uz priekšu"
+
+#: ../src/interface.c:316
+msgid "Home"
+msgstr "Mājas"
+
+#: ../src/interface.c:320
+msgid "Root"
+msgstr "Sakne"
+
+#: ../src/interface.c:328
+msgid "Add"
+msgstr "Pievienot"
+
+#: ../src/interface.c:333
+msgid "Add files and directories to the current archive"
+msgstr "Pievienot failus un direktorijas esošajam arhīvam"
+
+#: ../src/interface.c:337
+msgid "Extract"
+msgstr "Atspiest"
+
+#: ../src/interface.c:342
+msgid "Extract files from the current archive"
+msgstr "Atspiest failus no esošā arhīva"
+
+#: ../src/interface.c:346
+#: ../src/pref_dialog.c:61
+msgid "View"
+msgstr "Skatīt"
+
+#: ../src/interface.c:351
+msgid "View file content in the current archive"
+msgstr "Skatit esošā arhīva faila saturu"
+
+#: ../src/interface.c:359
+msgid "Stop"
+msgstr "Apturēt"
+
+#: ../src/interface.c:364
+msgid "Cancel current operation"
+msgstr "Atcelt pašreizējo operāciju"
+
+#: ../src/interface.c:377
+msgid "Location:"
+msgstr "Vieta:"
+
+#: ../src/interface.c:561
+msgid "Close archive"
+msgstr "Aizvērt arhīvu"
+
+#: ../src/interface.c:616
+msgid "Enter Archive Password"
+msgstr "Ievadiet Arhīva Paroli"
+
+#: ../src/interface.c:714
+msgid "Archive Properties Window"
+msgstr "Arhīva Rekvizītu Logs"
+
+#: ../src/interface.c:732
+msgid "Name:"
+msgstr "Nosaukums:"
+
+#: ../src/interface.c:739
+msgid "Path:"
+msgstr "Ceļš:"
+
+#: ../src/interface.c:746
+msgid "Type:"
+msgstr "Tips:"
+
+#: ../src/interface.c:753
+msgid "Modified on:"
+msgstr "Modificēts:"
+
+#: ../src/interface.c:760
+msgid "Archive size:"
+msgstr "Arhīva izmērs:"
+
+#: ../src/interface.c:767
+msgid "Content size:"
+msgstr "Satura izmērs:"
+
+#: ../src/interface.c:774
+msgid "Has comment:"
+msgstr "Ir komentāri:"
+
+#: ../src/interface.c:781
+msgid "Compression ratio:"
+msgstr "Saspiešanas attieciba:"
+
+#: ../src/interface.c:788
+msgid "Number of files:"
+msgstr "Failu skaits:"
+
+#: ../src/interface.c:795
+msgid "Number of dirs:"
+msgstr "Direktoriju skaits:"
+
+#: ../src/main.c:44
+msgid "Extract archive to the directory specified by destination_path and quits."
+msgstr "Atspiež failus norādītāja destination_path un iziet."
+
+#: ../src/main.c:45
+msgid "destination_path archive"
+msgstr "destination_path arhīvam"
+
+#: ../src/main.c:48
+msgid "Extract archive by asking the destination directory and quits."
+msgstr "Atspiest arhīvu, jautājot par atspiešanas direktoriju un iziet."
+
+#: ../src/main.c:49
+#: ../src/main.c:57
+msgid "archive"
+msgstr "arhīvs"
+
+#: ../src/main.c:52
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "Pievieno dotos failus, pajautā par arhīva nosaukumu un iziet."
+
+#: ../src/main.c:53
+msgid "file1 file2 file3 ... fileN"
+msgstr "fails1 fails2 fails3 ... failsN"
+
+#: ../src/main.c:56
+msgid "Add files to archive by asking their filenames and quits."
+msgstr "Pievieno failus arhīvam, pajautājot par faila nosaukumiem un iziet."
+
+#: ../src/main.c:84
+msgid "[archive name]"
+msgstr "[arhīva nosaukums]"
+
+#: ../src/main.c:88
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"Mēģiniet xarchiver --help , lai redzētu pieejamās komandu rindu opcijas.\n"
+
+#: ../src/main.c:109
+#: ../src/main.c:142
+msgid "Can't extract files from the archive:"
+msgstr "Nevar atspiest failus no arhīva:"
+
+#: ../src/main.c:109
+#: ../src/main.c:142
+#: ../src/main.c:206
+msgid "You missed the archive name!\n"
+msgstr "Jūs palaidāt garām arhīva vārdu!\n"
+
+#: ../src/main.c:445
+msgid "Can't spawn the command:"
+msgstr "Nevar izveidot komandu:"
+
+#: ../src/main.c:454
+msgid "An error occurred!"
+msgstr "Notika kļūda!"
+
+#: ../src/main.c:474
+msgid "Can't allocate memory for the archive structure!"
+msgstr "Nevar iedalīt atmiņu arhīva struktūrai!"
+
+#: ../src/new_dialog.c:55
+msgid "Cr_eate"
+msgstr "Iz_veidot"
+
+#: ../src/new_dialog.c:92
+msgid "Archive type:"
+msgstr "Arhīva tips:"
+
+#: ../src/new_dialog.c:97
+msgid "Choose the archive type to create"
+msgstr "Norādiet veidojamā arhīva tipu"
+
+#: ../src/new_dialog.c:118
+msgid "Add the archive extension to the filename"
+msgstr "Pievienot arhīva paplašinājums failam"
+
+#: ../src/new_dialog.c:165
+#, c-format
+msgid "\"%s\" is already open!"
+msgstr "\"%s\" jau ir atvērts!"
+
+#: ../src/new_dialog.c:166
+msgid "Can't create a new archive:"
+msgstr "Nevar izveidot jaunu arhīvu:"
+
+#: ../src/new_dialog.c:181
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "Arhīvs \"%s\" jau eksistē!"
+
+#: ../src/new_dialog.c:187
+msgid "Do you want to overwrite it?"
+msgstr "Vai vēlaties pārrakstīt?"
+
+#: ../src/pref_dialog.c:38
+msgid "Preferences"
+msgstr "Uzstādījumi"
+
+#: ../src/pref_dialog.c:56
+msgid "Behaviour"
+msgstr "Uzvedība"
+
+#: ../src/pref_dialog.c:66
+msgid "Advanced"
+msgstr "Paplašināti"
+
+#: ../src/pref_dialog.c:101
+msgid "Preferred archive format"
+msgstr "Vēlamais arhīva formāts"
+
+#: ../src/pref_dialog.c:117
+msgid "Save settings for add dialog"
+msgstr "Saglabāt uzstādījums pievienošanas dialogam"
+
+#: ../src/pref_dialog.c:121
+msgid "Save settings for extract dialog"
+msgstr "Saglabāt uzstādījumus atspiešanas dialogam"
+
+#: ../src/pref_dialog.c:125
+msgid "Allow extracting dirs by drag and drop"
+msgstr "Atļaut atspiest direktorijā ar vilkt un nomest"
+
+#: ../src/pref_dialog.c:129
+msgid "Confirm deletion of files"
+msgstr "Apstiprināt faila dzēšanu"
+
+#: ../src/pref_dialog.c:150
+msgid "View archive content as"
+msgstr "Skatīt arhīva saturu kā"
+
+#: ../src/pref_dialog.c:156
+msgid "list"
+msgstr "saraksts"
+
+#: ../src/pref_dialog.c:157
+msgid "icon"
+msgstr "ikona"
+
+#: ../src/pref_dialog.c:162
+msgid "Size of the mimetype icons"
+msgstr "MIME tipa ikonu izmērs"
+
+#: ../src/pref_dialog.c:168
+msgid "large"
+msgstr "liels"
+
+#: ../src/pref_dialog.c:169
+msgid "small"
+msgstr "mazs"
+
+#: ../src/pref_dialog.c:174
+msgid "Show archive comment after loading it"
+msgstr "Rādīt arhīva komentārus pēc ielādes"
+
+#: ../src/pref_dialog.c:180
+msgid "Sort content by filename"
+msgstr "Kārtot pēc faila nosaukuma"
+
+#: ../src/pref_dialog.c:185
+msgid "The filename column is sort after loading the archive"
+msgstr "Pēc faila nosaukuma kolonnas tiek kārtots arhīva saturs"
+
+#: ../src/pref_dialog.c:187
+msgid "Show location bar"
+msgstr "Rādīt vietas joslu"
+
+#: ../src/pref_dialog.c:210
+msgid "View HTML help with:"
+msgstr "HTML palīdzibu skatīt ar:"
+
+#: ../src/pref_dialog.c:216
+msgid "Firefox"
+msgstr "Firefox"
+
+#: ../src/pref_dialog.c:217
+#: ../src/pref_dialog.c:227
+#: ../src/pref_dialog.c:239
+msgid "choose..."
+msgstr "izvēlēties..."
+
+#: ../src/pref_dialog.c:221
+msgid "Open text files with:"
+msgstr "Atvert teksta failus ar:"
+
+#: ../src/pref_dialog.c:232
+msgid "Preferred temp directory:"
+msgstr "Vēlamā pagaidu direktorija:"
+
+#: ../src/pref_dialog.c:238
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/pref_dialog.c:243
+msgid "Save window geometry"
+msgstr "Saglabāt loga ģeometriju"
+
+#: ../src/rar.c:63
+msgid "CRC"
+msgstr "CRC"
+
+#: ../src/rar.c:63
+#: ../src/zip.c:51
+msgid "Method"
+msgstr "Metode"
+
+#: ../src/rar.c:63
+#: ../src/zip.c:51
+msgid "Version"
+msgstr "Versija"
+
+#: ../src/rpm.c:47
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "Nevar atvērt RMP failu %s:"
+
+#: ../src/rpm.c:61
+msgid "Permission"
+msgstr "Atļaujas"
+
+#: ../src/rpm.c:61
+msgid "Hard Link"
+msgstr "Cietā Saite"
+
+#: ../src/rpm.c:61
+msgid "Owner"
+msgstr "Īpašnieks"
+
+#: ../src/rpm.c:61
+msgid "Group"
+msgstr "Grupa"
+
+#: ../src/rpm.c:71
+msgid "Can't fseek to position 104:"
+msgstr "Nevar fseek no 104 pozīcijas:"
+
+#: ../src/rpm.c:77
+#: ../src/rpm.c:93
+msgid "Can't read data from file:"
+msgstr "Nevar nolasīt datus no faila:"
+
+#: ../src/rpm.c:87
+msgid "Can't fseek in file:"
+msgstr "Nevar fseek failu:"
+
+#: ../src/rpm.c:143
+msgid "An error occurred while decompressing the cpio archive."
+msgstr "Notika kļīda atspiežot cpio arhīvu."
+
+#: ../src/rpm.c:195
+#: ../src/rpm.c:377
+msgid "An error occurred:"
+msgstr "Notika kļūda:"
+
+#: ../src/rpm.c:331
+msgid "Can't write to /tmp:"
+msgstr "Nevar rakstit /tmp:"
+
+#: ../src/zip.c:51
+msgid "OS"
+msgstr "OS"
+
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr "GTK+2 arhīvu pārvaldnieks"
+
+#: ../xarchiver.desktop.in.h:2
+msgid "Archive manager"
+msgstr "Arhīvu pārvaldnieks"
+
+#: ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr "Xarhivātors"
+
