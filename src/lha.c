@@ -37,9 +37,9 @@ void xa_open_lha (XArchive *archive)
 	archive->nc = 5;
 	archive->parse_output = xa_get_lha_line_content;
 	xa_spawn_async_process (archive,command);
-	g_free ( command );
+	g_free (command);
 
-	if ( archive->child_pid == 0 )
+	if (archive->child_pid == 0)
 		return;
 
 	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};

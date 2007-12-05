@@ -44,6 +44,8 @@ GList *Suffix, *Name;
 
 gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 {
+	gtk_widget_set_sensitive(Stop_button,FALSE);
+	gtk_widget_hide(viewport2);
 	if ( WIFEXITED (status) )
 	{
 		if ( WEXITSTATUS (status) )
@@ -68,84 +70,82 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 
 void xa_reload_archive_content(XArchive *archive)
 {
-	if ( ! cli )
+	XEntry *entry;
+	if (! cli)
 	{
-		/* This to automatically reload the content of the archive after adding or deleting */
-		if (archive->status == XA_ARCHIVESTATUS_DELETE || archive->status == XA_ARCHIVESTATUS_ADD)
+		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
+			Update_StatusBar ( _("Operation completed."));
+		else
 		{
-		    if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
-				Update_StatusBar ( _("Operation completed."));
-			else
-			{
-				Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
-				xa_remove_columns();
-			}
-			switch ( archive->type )
-			{
-				case XARCHIVETYPE_RAR:
-			    xa_open_rar (archive);
-				break;
-
-				case XARCHIVETYPE_TAR:
-				xa_open_tar (archive);
-				break;
-
-				case XARCHIVETYPE_TAR_BZ2:
-				xa_open_bzip2 (archive);
-				break;
-
-				case XARCHIVETYPE_TAR_GZ:
-				xa_open_gzip (archive);
-				break;
-
-				case XARCHIVETYPE_TAR_LZMA:
-				xa_open_lzma (archive);
-				break;
-
-				case XARCHIVETYPE_ZIP:
-				xa_open_zip (archive);
-				break;
-
-				case XARCHIVETYPE_7ZIP:
-				xa_open_7zip (archive);
-				break;
-
-				case XARCHIVETYPE_ARJ:
-				xa_open_arj (archive);
-				break;
-
-				case XARCHIVETYPE_LHA:
-				xa_open_lha (archive);
-				break;
-
-				default:
-				break;
-			}
-			/*while (waiting)
-			{
-				ps = waitpid ( archive->child_pid, &status, WNOHANG);
-				if (ps < 0)
-					waiting = FALSE;
-				else
-					gtk_main_iteration_do (FALSE);
-			}*/
-			archive->status = XA_ARCHIVESTATUS_IDLE;
+			Update_StatusBar ( _("Please wait while the content of the archive is being updated..."));
+			xa_free_entry (archive,archive->root_entry);
+			if (archive->column_types != NULL)
+				g_free(archive->column_types);
+			xa_remove_columns();
+			entry = g_new0(XEntry,1);
+			entry->filename = "";
+			archive->root_entry = entry;
 		}
+
+		switch (archive->type)
+		{
+			case XARCHIVETYPE_RAR:
+			xa_open_rar (archive);
+			break;
+
+			case XARCHIVETYPE_TAR:
+			xa_open_tar (archive);
+			break;
+
+			case XARCHIVETYPE_TAR_BZ2:
+			xa_open_bzip2 (archive);
+			break;
+
+			case XARCHIVETYPE_TAR_GZ:
+			xa_open_gzip (archive);
+			break;
+
+			case XARCHIVETYPE_TAR_LZMA:
+			xa_open_lzma (archive);
+			break;
+
+			case XARCHIVETYPE_ZIP:
+			xa_open_zip (archive);
+			break;
+
+			case XARCHIVETYPE_7ZIP:
+			xa_open_7zip (archive);
+			break;
+
+			case XARCHIVETYPE_ARJ:
+			xa_open_arj (archive);
+			break;
+
+			case XARCHIVETYPE_LHA:
+			xa_open_lha (archive);
+			break;
+
+			default:
+			break;
+		}
+		archive->status = XA_ARCHIVESTATUS_IDLE;
 	}
 }
 
 void xa_archive_operation_finished(XArchive *archive,gboolean error)
 {
-	gtk_widget_hide(viewport2);
-	gtk_widget_set_sensitive(Stop_button,FALSE);
-
+	if (archive->status == XA_ARCHIVESTATUS_RELOAD)
+	{
+		xa_reload_archive_content(archive);
+		return;
+	}
 	if (archive->has_comment)
 		gtk_widget_set_sensitive (comment_menu,TRUE);
 	else
 		gtk_widget_set_sensitive (comment_menu,FALSE);
 
-	if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN)
-		xa_show_archive_comment ( NULL, NULL);
+	if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN) // && the button is checked in the pref dialog)
+		xa_show_archive_comment (NULL, NULL);
 
 	if (archive->status == XA_ARCHIVESTATUS_SFX && archive->type == XARCHIVETYPE_RAR)
 	{
@@ -196,7 +196,6 @@ void xa_watch_child (GPid pid,gint status,gpointer data)
 	else
 		xa_archive_operation_finished(archive,result);
 
-	//xa_reload_archuve_content
 	if (! cli && archive != NULL)
 	{
 		if (archive->has_passwd == FALSE && archive->passwd == NULL)
@@ -539,6 +538,8 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
+	gboolean result;
+	gchar *esc_filename = NULL;
 	gchar *command = NULL;
 	gchar *tar;
 	gint x;
@@ -548,10 +549,9 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	current_page = gtk_notebook_get_current_page ( notebook);
 	id = xa_find_archive_index ( current_page);
-
 	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[id]->treeview) );
 	names = g_string_new ( " " );
-	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+	gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) xa_concat_filenames,names);
 
 	x = gtk_tree_selection_count_selected_rows (selection);
 	gchar *msg = g_strdup_printf (_("You are about to delete %d file(s) from the archive."),x);
@@ -562,7 +562,6 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 		return;
 
 	Update_StatusBar ( _("Deleting files from the archive, please wait..."));
-	archive[id]->status = XA_ARCHIVESTATUS_DELETE;
 
 	tar = g_find_program_in_path ("gtar");
 	if (tar == NULL)
@@ -591,7 +590,10 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 		break;
 
         case XARCHIVETYPE_ZIP:
-		command = g_strconcat ( "zip -d " , archive[id]->escaped_path , names->str , NULL );
+        /* single quotes are not enough when deleting */
+        esc_filename = xa_escape_common_chars (names->str , "*?[]", '\\', 0);
+		command = g_strconcat ( "zip -d " , archive[id]->escaped_path , esc_filename , NULL );
+		g_free (esc_filename);
 		break;
 
         case XARCHIVETYPE_7ZIP:
@@ -611,16 +613,17 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 	if (command != NULL)
     {
+    	archive[id]->status = XA_ARCHIVESTATUS_RELOAD;
     	xa_set_button_state (0,0,0,0,0,0,0,0);
     	gtk_widget_set_sensitive (Stop_button,TRUE);
-        xa_run_command (archive[id],command,1);
+        result = xa_run_command (archive[id],command,1);
         g_free (command);
     }
-    g_string_free (names , TRUE );
+    g_string_free (names,TRUE);
     g_free (tar);
 }
 
-void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
+void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
 {
 	gchar *command = NULL;
 	gint current_page;
@@ -634,6 +637,7 @@ void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer data )
 	gtk_widget_destroy ( add_window->dialog1 );
 	if (command != NULL)
 	{
+		archive[idx]->status = XA_ARCHIVESTATUS_RELOAD;
 		xa_run_command (archive[idx],command,1);
 		g_free (command);
 	}
@@ -1249,7 +1253,7 @@ void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 	gtk_widget_destroy (xa_cmd_line_output);
 }
 
-void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
+void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 {
 	gint current_page;
 	gint idx;
@@ -1263,20 +1267,21 @@ void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer data )
 		if (response == GTK_RESPONSE_NO)
 			return;
 	}
-    Update_StatusBar (_("Waiting for the process to abort..."));
+	Update_StatusBar (_("Waiting for the process to abort..."));
 	stop_flag = TRUE;
 	if (archive[idx]->child_pid)
 	{
-		if ( kill ( archive[idx]->child_pid , SIGABRT ) < 0 )
-	    {
-		    response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while trying to kill the process:"),g_strerror(errno));
+		if (kill (archive[idx]->child_pid,SIGABRT) < 0)
+		{
+			response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while trying to kill the process:"),g_strerror(errno));
 			return;
-	    }
+		}
 	}
-    /* This in case the user cancels the opening of a password protected archive */
-    if (archive[idx]->status != XA_ARCHIVESTATUS_ADD || archive[idx]->status != XA_ARCHIVESTATUS_DELETE)
+	/* This in case the user cancels the opening of a password protected archive */
+	if (archive[idx]->status != XA_ARCHIVESTATUS_ADD)
 		if (archive[idx]->has_passwd)
 			archive[idx]->has_passwd = FALSE;
+	xa_close_archive(NULL,NULL);
 }
 
 void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
@@ -1288,6 +1293,8 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 	GtkTreeIter iter;
 	XEntry *entry = NULL;
 	gchar *full_pathname;
+	gchar *editor_path;
+	gchar *dummy;
 	GList *row_list = NULL;
 	gboolean result = FALSE;
 	gint current_page;
@@ -1297,15 +1304,6 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
-	if (archive[idx]->has_passwd)
-	{
-		if (archive[idx]->passwd == NULL)
-		{
-			archive[idx]->passwd = password_dialog();
-			if (archive[idx]->passwd == NULL)
-				return;
-		}
-	}
 	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
 	if (gtk_tree_selection_count_selected_rows (selection) != 1)
 		return;
@@ -1322,7 +1320,29 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 	if (entry == NULL || entry->is_dir)
 		return;
 
+	editor_path = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_editor));
+	if (strlen(editor_path) == 0)
+	{
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+		_("You didn't set which editor to use!"),_("Please go to Preferences->Advanced and set it."));		
+		g_free (editor_path);
+		return;	
+	}
+
+	if (entry->is_encrypted)
+	{
+		if (archive[idx]->passwd == NULL)
+		{
+			archive[idx]->passwd = password_dialog();
+			if (archive[idx]->passwd == NULL)
+				return;
+		}
+	}
+
 	full_pathname = xa_build_full_path_name_from_entry(entry);
+	dummy = g_shell_quote(full_pathname);
+	g_free(full_pathname);
+	full_pathname = dummy;
 
 	full_path = archive[idx]->full_path;
 	overwrite = archive[idx]->overwrite;
@@ -1349,15 +1369,14 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 		if (result == 0)
 			return;
 	}
-	full_pathname = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_editor));
 	command = g_strconcat(archive[idx]->tmp,"/",entry->filename,NULL);
 
-	if (xa_launch_external_program(full_pathname,command))
+	if (xa_launch_external_program(editor_path,command))
 		xa_archive_operation_finished(archive[idx],1);
 	else
 		xa_archive_operation_finished(archive[idx],0);
 
-	g_free(full_pathname);
+	g_free(editor_path);
 	g_free(command);
 }
 
@@ -1515,67 +1534,29 @@ void xa_activate_delete_and_view ()
 	}
 }
 
-void xa_concat_filenames (gchar *filename , GString *data)
+void xa_shell_quote_filename (gchar *filename,GString *data)
 {
-	gchar *esc_filename = NULL;
-	gchar *escaped = NULL;
-	gchar *escaped2 = NULL;
+	gchar *quoted_filename = NULL;
+
+	quoted_filename = g_shell_quote (filename);
+	g_string_prepend (data, quoted_filename);
+	g_string_prepend_c (data, ' ');
+	g_free (quoted_filename);
+}
+
+void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
+{
+	XEntry *entry = NULL;
+	gchar *filename = NULL;
 	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_get_current_page (notebook);
+	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
-
-	if (strstr(filename,"[") || strstr (filename, "]"))
-	{
-		if (archive[idx]->type == XARCHIVETYPE_ZIP)
-		{
-			if (archive[idx]->status == XA_ARCHIVESTATUS_ADD)
-			{
-				esc_filename = xa_escape_bad_chars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
-				g_string_prepend (data, esc_filename);
-			}
-			else
-			{
-				escaped = xa_escape_bad_chars ( filename ,"$\'`\"\\!?* ()[]&|@#:;");
-				escaped2 = xa_escape_common_chars (escaped , "*?[]", '\\', 0);
-				g_free (escaped);
-				esc_filename = escaped2;
-				g_string_prepend (data, esc_filename);
-			}
-		}
-		else if ( archive[idx]->type == XARCHIVETYPE_TAR_BZ2 || archive[idx]->type == XARCHIVETYPE_TAR_GZ || archive[idx]->type == XARCHIVETYPE_TAR_LZMA || archive[idx]->type == XARCHIVETYPE_TAR )
-		{
-			if (archive[idx]->status == XA_ARCHIVESTATUS_ADD)
-			{
-				esc_filename = xa_escape_bad_chars ( filename ,"$\'`\"\\!?* ()[]&|@#:;" );
-				g_string_prepend (data, esc_filename);
-			}
-			else
-			{
-				escaped = xa_escape_bad_chars ( filename ,"?*\\'& !|()@#:;");
-				escaped2 = xa_escape_common_chars ( escaped , "[]", '[', ']');
-				g_free (escaped);
-				esc_filename = escaped2;
-				g_string_prepend (data, esc_filename);
-			}
-		}
-	}
-	else
-	{
-		esc_filename = xa_escape_bad_chars ( filename , "$\'`\"\\!?* ()[]&|@#:;" );
-		g_string_prepend (data, esc_filename);
-	}
-	g_string_prepend_c (data, ' ');
-	g_free (esc_filename);
-}
-
-void ConcatenateFileNames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
-{
-	gchar *filename = NULL;
-
-	gtk_tree_model_get (model, iter, 0, &filename, -1);
-	xa_concat_filenames ( filename , data );
+	
+	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
+	filename = xa_build_full_path_name_from_entry(entry);
+	xa_shell_quote_filename (filename,data);
 	g_free (filename);
 }
 
@@ -1587,7 +1568,7 @@ void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkT
 	gtk_tree_model_get (model, iter, 1, &fullname, -1);
 	name = g_path_get_basename ( fullname );
 
-	xa_concat_filenames ( name , data );
+	xa_shell_quote_filename ( name , data );
 	g_free (fullname);
 }
 
@@ -1596,7 +1577,7 @@ void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *
 	gchar *fullname;
 
 	gtk_tree_model_get (model, iter, 1, &fullname, -1);
-	xa_concat_filenames ( fullname , data );
+	xa_shell_quote_filename ( fullname , data );
 	g_free (fullname);
 }
 
@@ -1712,7 +1693,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			to_send = "S";
 
 		names = g_string_new ("");
-		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) xa_concat_filenames, names );
 		full_path = archive[idx]->full_path;
 		overwrite = archive[idx]->overwrite;
 		archive[idx]->full_path = 0;
@@ -1821,7 +1802,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		filename = g_filename_from_uri ( array[len] , NULL, NULL );
 		name = g_path_get_basename ( filename );
 		g_free (filename);
-		xa_concat_filenames ( name, names );
+		xa_shell_quote_filename ( name, names );
 		g_free (name);
 		len++;
 	}
@@ -1865,8 +1846,8 @@ gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer dat
 		break;
 
 		case GDK_Delete:
-		if ( GTK_WIDGET_STATE (delete_menu) != GTK_STATE_INSENSITIVE )
-			xa_delete_archive ( NULL , NULL );
+		if (GTK_WIDGET_STATE (delete_menu) != GTK_STATE_INSENSITIVE)
+			xa_delete_archive (NULL,NULL);
 		break;
 	}
 	return FALSE;

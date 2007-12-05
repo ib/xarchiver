@@ -569,7 +569,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			else
 			{
 				names = g_string_new ( " " );
-				gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) ConcatenateFileNames, names );
+				gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) xa_concat_filenames, names );
 				command = xa_extract_single_files ( archive , names, archive->extraction_path );
 				g_string_free (names, TRUE);
 			}
@@ -809,7 +809,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 				_name = g_strconcat (gtk_entry_get_text(GTK_ENTRY(location_entry)),name,NULL);
 				g_free (name);
 				name = _name;
-				xa_concat_filenames (name,names);
+				xa_shell_quote_filename (name,names);
 				xxx = g_slist_append (xxx,name);
 			}
 			g_free (permission);
@@ -859,7 +859,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	chdir (archive->tmp);
 	while (filenames)
 	{
-		gchar *unescaped = xa_escape_bad_chars ( (gchar*)filenames->data , "$\'`\"\\!?* ()[]&|@#:;");
+		gchar *unescaped = xa_escape_bad_chars ( (gchar*)filenames->data , "$\'`\"\\!?* ()&|@#:;");
 		g_string_prepend ( unescaped_names, unescaped );
 		g_string_prepend_c (unescaped_names, ' ');
 		g_free (unescaped);
@@ -870,7 +870,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	result = xa_run_command (archive,command,0);
 	g_free (command);
 	g_slist_free (filenames);
-	g_string_free ( unescaped_names, TRUE );
+	g_string_free (unescaped_names,TRUE);
 	if (result == 0 || stop_flag)
 	{
 		xa_delete_temp_directory (archive,0);
@@ -894,14 +894,14 @@ void xa_choose_extraction_directory (GtkWidget *widget, gpointer data)
 	int response;
 	gchar *path;
 
-	File_Selector = gtk_file_chooser_dialog_new ( _("Choose the destination directory"),
+	File_Selector = gtk_file_chooser_dialog_new (_("Choose the destination directory"),
 					GTK_WINDOW (MainWindow),
 					GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
 					GTK_STOCK_CANCEL,
 					GTK_RESPONSE_CANCEL,
 					GTK_STOCK_OPEN,
 					GTK_RESPONSE_ACCEPT,
-					NULL );
+					NULL);
 	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
 	if (response == GTK_RESPONSE_ACCEPT)
 	{

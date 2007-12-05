@@ -112,8 +112,7 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 			if (line != NULL)
 			{
 				(*archive->parse_output) (line,archive);
-				//archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line) );
-				g_free (line);
+				archive->error_output = g_slist_prepend (archive->error_output,line);
 			}
 			while (gtk_events_pending())
 				gtk_main_iteration();
@@ -138,7 +137,7 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 
 gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
-	//XArchive *archive = data;
+	XArchive *archive = data;
 	GIOStatus status;
 	gchar *line = NULL;
 
@@ -148,10 +147,7 @@ gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpoin
 		{
 			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
 			if (line != NULL)
-			{
-				//archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line) );
-				g_free (line);
-			}
+				archive->error_output = g_slist_prepend (archive->error_output,line);
 		}
 		while (status == G_IO_STATUS_NORMAL);
 		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
@@ -240,7 +236,7 @@ gboolean xa_delete_temp_directory (XArchive *archive,gboolean flag)
 
 gboolean xa_create_temp_directory (gchar tmp_dir[])
 {
-	//TODO user the user set tmp dir in the pref dialog
+	//TODO use the user set tmp dir in the pref dialog
 	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
 	if (mkdtemp (tmp_dir) == 0)
 	{
@@ -274,6 +270,7 @@ gboolean xa_run_command (XArchive *archive,gchar *command,gboolean set_gui)
 			gtk_main_iteration_do (FALSE);
 	}
 	result = xa_check_child_for_error_on_exit(archive,status);
+
 	if (set_gui)
 		xa_archive_operation_finished(archive,result);
 
