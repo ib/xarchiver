@@ -319,7 +319,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	GTK_WIDGET_SET_FLAGS (add_dialog->cancel_button, GTK_CAN_DEFAULT);
 
 	add_dialog->add_button = gtk_button_new();
-	add_dialog->add_image = xa_main_window_find_image("xarchiver-add_button.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	add_dialog->add_image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
 	add_dialog->add_hbox = gtk_hbox_new(FALSE, 4);
 	add_dialog->add_label = gtk_label_new_with_mnemonic(_("_Add"));
 
@@ -549,42 +549,42 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			}
 			done = TRUE;
 			if (add_dialog->recurse != NULL)
-				archive->add_recurse = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->recurse ));
+				archive->add_recurse = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->recurse));
 
 			if (add_dialog->add_full_path != NULL)
-				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->add_full_path ));
+				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->add_full_path));
 
 			if (add_dialog->update != NULL)
-				archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->update ));
+				archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->update));
 
 			if (add_dialog->remove_files != NULL)
-				archive->remove_files = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->remove_files ));
+				archive->remove_files = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->remove_files));
 
 			if (add_dialog->freshen != NULL)
-				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->freshen ));
+				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->freshen));
 
 			if (add_dialog->solid_archive)
-				archive->solid_archive = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( add_dialog->solid_archive ));
+				archive->solid_archive = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->solid_archive));
 
 			if (add_dialog->compression_scale != NULL)
 			{
-				archive->compression_level = gtk_adjustment_get_value (GTK_ADJUSTMENT ( add_dialog->compression_value ));
-				compression_string = g_strdup_printf ( "%d",archive->compression_level );
+				archive->compression_level = gtk_adjustment_get_value (GTK_ADJUSTMENT (add_dialog->compression_value));
+				compression_string = g_strdup_printf ("%d",archive->compression_level);
 			}
 
 			//Set the current dir so to avoid archiving the leading directory inside the archive
-			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter);
-			gtk_tree_model_get (GTK_TREE_MODEL(add_dialog->file_liststore), &iter, 1, &first_item, -1);
-			gchar *current_dir = g_path_get_dirname ( first_item );
-			g_free ( first_item );
-			chdir ( current_dir );
-			g_free ( current_dir );
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore),&iter);
+			gtk_tree_model_get (GTK_TREE_MODEL(add_dialog->file_liststore),&iter,1,&first_item,-1);
+			gchar *current_dir = g_path_get_dirname (first_item);
+			g_free (first_item);
+			chdir (current_dir);
+			g_free (current_dir);
 
 			 /* Let's concatenate the files to add */
 			names = g_string_new ( " " );
 			archive->status = XA_ARCHIVESTATUS_ADD;
 
-			if ( archive->full_path == 1 && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA) )
+			if (archive->full_path == 1 && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA) )
 			{
 				while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
 				{
@@ -601,14 +601,14 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					gtk_list_store_remove (add_dialog->file_liststore, &iter);
 				}
 			}
-			gtk_widget_set_sensitive ( Stop_button , TRUE);
-			gtk_widget_set_sensitive ( check_menu , FALSE);
-			gtk_widget_set_sensitive ( close1 , 	FALSE);
-			gtk_widget_set_sensitive ( properties , FALSE);
+			gtk_widget_set_sensitive (Stop_button,TRUE);
+			gtk_widget_set_sensitive (check_menu,FALSE);
+			gtk_widget_set_sensitive (close1,FALSE);
+			gtk_widget_set_sensitive (properties,FALSE);
 			xa_set_button_state (0,0,0,0,0,0,0,0);
 			gtk_widget_hide (add_dialog->dialog1);
 
-			command = xa_add_single_files ( archive, names, compression_string);
+			command = xa_add_single_files (archive,names,compression_string);
 			g_string_free ( names, TRUE);
 			if (compression_string != NULL)
 				g_free (compression_string);

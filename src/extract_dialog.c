@@ -250,7 +250,7 @@ here:
 	GTK_WIDGET_SET_FLAGS (dialog_data->cancel_button, GTK_CAN_DEFAULT);
 
 	dialog_data->extract_button = gtk_button_new();
-	dialog_data->extract_image = xa_main_window_find_image("xarchiver-extract_button.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
+	dialog_data->extract_image = xa_main_window_find_image("xarchiver-extract.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
 	dialog_data->extract_hbox = gtk_hbox_new(FALSE, 4);
 	dialog_data->extract_label = gtk_label_new_with_mnemonic(_("_Extract"));
 
@@ -809,7 +809,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 				_name = g_strconcat (gtk_entry_get_text(GTK_ENTRY(location_entry)),name,NULL);
 				g_free (name);
 				name = _name;
-				xa_shell_quote_filename (name,names);
+				xa_shell_quote_filename (name,names,archive);
 				xxx = g_slist_append (xxx,name);
 			}
 			g_free (permission);

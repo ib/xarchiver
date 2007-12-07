@@ -56,7 +56,7 @@ unsigned long long int file_size, file_offset;
 gboolean done,full_path,overwrite,add_recurse;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
-GtkWidget *dialog, *scrollwin, *xa_cmd_line_output , *view_window, *archive_properties_win;
+GtkWidget *dialog, *scrollwin, *view_window, *archive_properties_win;
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data);
 void xa_open_archive (GtkMenuItem *menuitem, gpointer user_data );
@@ -88,6 +88,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 
 int xa_show_message_dialog ( GtkWindow *window, int mode,int type,int button, const gchar *message1,const gchar *message2);
 int xa_detect_archive_type ( gchar *filename );
+gboolean xa_detect_archive_comment ( int type, gchar *filename, XArchive *archive );
 gboolean key_press_function ( GtkWidget* widget, GdkEventKey* event,gpointer data);
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data);
 gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status);
@@ -97,7 +98,7 @@ void xa_watch_child ( GPid pid, gint status, gpointer data);
 void xa_remove_columns();
 void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
-void xa_shell_quote_filename (gchar *filename , GString *data);
+void xa_shell_quote_filename (gchar *filename,GString *data,XArchive *archive);
 void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data);
 void xa_disable_delete_view_buttons (gboolean value);

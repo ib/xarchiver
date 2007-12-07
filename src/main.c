@@ -174,15 +174,15 @@ int main (int argc, char **argv)
 
 				if ( g_file_test ( archive_name,G_FILE_TEST_EXISTS) )
 				{
-					_current_dir = g_path_get_basename ( archive_name );
-					xa_shell_quote_filename ( _current_dir, string );
+					_current_dir = g_path_get_basename (archive_name);
+					xa_shell_quote_filename (_current_dir,string,archive_cmd);
 					g_free (_current_dir);
 				}
 
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename ( argv[x] );
-					xa_shell_quote_filename ( _current_dir, string );
+					xa_shell_quote_filename (_current_dir,string,archive_cmd);
 					g_free (_current_dir);
 				}
 

@@ -136,7 +136,7 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
 	gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-	image2 = xa_main_window_find_image ("xarchiver-add_button.png", GTK_ICON_SIZE_MENU);
+	image2 = xa_main_window_find_image ("xarchiver-add.png", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (addfile), image2);
 
@@ -146,7 +146,7 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), extract_menu);
 	gtk_widget_add_accelerator (extract_menu, "activate",accel_group,GDK_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-	image2 =  xa_main_window_find_image ("xarchiver-extract_button.png", GTK_ICON_SIZE_MENU);
+	image2 =  xa_main_window_find_image ("xarchiver-extract.png", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu), image2);
 
@@ -683,35 +683,36 @@ gchar *password_dialog ()
 	return password;
 }
 
-
-GtkWidget *xa_create_comment_window()
+widget_data *xa_create_output_window(gchar *title)
 {
-	GtkWidget *view_window;
-	GtkWidget *scrolledwindow2;
-	GtkWidget *textview1;
+	GtkWidget *vbox,*textview,*scrolledwindow;
+	widget_data *data;
 
-	view_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (view_window), _("Archive comment window"));
-	gtk_window_set_destroy_with_parent (GTK_WINDOW (view_window), TRUE);
-	gtk_window_set_type_hint (GTK_WINDOW (view_window), GDK_WINDOW_TYPE_HINT_UTILITY);
-	gtk_window_set_position (GTK_WINDOW (view_window), GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size(GTK_WINDOW (view_window), 450, 300);
-	gtk_window_set_modal ( GTK_WINDOW (view_window),TRUE);
-	gtk_window_set_transient_for ( GTK_WINDOW (view_window) , GTK_WINDOW (MainWindow) );
-	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
-	g_object_set (G_OBJECT (scrolledwindow2),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
-	gtk_container_add (GTK_CONTAINER (view_window), scrolledwindow2);
-	gtk_widget_show (scrolledwindow2);
+	data = g_new0(widget_data,1);
+	data->dialog1 = gtk_dialog_new_with_buttons (title,
+									GTK_WINDOW (MainWindow), GTK_DIALOG_NO_SEPARATOR,
+									GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE, NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (data->dialog1), GTK_RESPONSE_CLOSE);
+	gtk_widget_set_size_request (data->dialog1, 400, 250);
+	vbox = GTK_DIALOG (data->dialog1)->vbox;
 
-	textview1 = gtk_text_view_new ();
-	gtk_widget_show (textview1);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow2), textview1);
-	gtk_container_set_border_width (GTK_CONTAINER (textview1), 5);
-	gtk_text_view_set_editable (GTK_TEXT_VIEW (textview1), FALSE);
-	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview1), FALSE);
-	viewtextbuf = gtk_text_view_get_buffer ( GTK_TEXT_VIEW (textview1) );
-	gtk_text_buffer_get_start_iter (viewtextbuf, &viewenditer);
-	return view_window;
+	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_box_pack_start (GTK_BOX (vbox), scrolledwindow, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 4);
+	g_object_set (G_OBJECT (scrolledwindow),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
+
+	data->textbuffer = gtk_text_buffer_new (NULL);
+	gtk_text_buffer_create_tag (data->textbuffer, "font","family", "monospace", NULL);
+	gtk_text_buffer_get_iter_at_offset (data->textbuffer, &data->iter, 0);
+
+	textview = gtk_text_view_new_with_buffer (data->textbuffer);
+	g_object_unref (data->textbuffer);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (textview), FALSE);
+	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview), FALSE);
+
+	gtk_widget_show_all (data->dialog1);
+	return data;
 }
 
 GtkWidget *create_archive_properties_window ()
