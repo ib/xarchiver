@@ -72,6 +72,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 	unsigned short int i = 0;
 	unsigned int linesize,n,a;
 	gboolean dir = FALSE;
+	static gchar *filename;
 
 	if (last_line)
 		return;

@@ -27,6 +27,5 @@
 #include "archive.h"
 gboolean jump_header, encrypted, last_line;
 unsigned short int arj_line;
-gchar *filename;
 void xa_open_arj (XArchive *archive);
 #endif

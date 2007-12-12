@@ -19,7 +19,6 @@
 #include "config.h"
 #include "arj.h"
 
-extern gboolean unrar;
 extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
 void xa_get_arj_line_content (gchar *line, gpointer data);
 
@@ -56,6 +55,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	XEntry *entry;
 	gpointer item[8];
 	unsigned int linesize,n,a;
+	static gchar *filename;
 
 	if (last_line)
 		return;

@@ -110,7 +110,6 @@ GtkWidget *location_label;
 GtkWidget *location_entry;
 GtkAccelGroup *accel_group;
 GtkTooltips *tooltips;
-GtkTooltips *pad_tooltip;
 GtkWidget *ebox;
 
 typedef struct

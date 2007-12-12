@@ -228,8 +228,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     xa_disable_delete_view_buttons (FALSE);
 
   	Update_StatusBar ( _("Choose Add to begin creating the archive."));
-    gtk_tooltips_disable ( pad_tooltip );
-    gtk_widget_hide ( pad_image );
 
     archive[current_page]->passwd = NULL;
     archive[current_page]->dummy_size = 0;
@@ -634,8 +632,8 @@ void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
 	idx = xa_find_archive_index ( current_page );
 
 	add_window = xa_create_add_dialog (archive[idx]);
-	command = xa_parse_add_dialog_options ( archive[idx], add_window );
-	gtk_widget_destroy ( add_window->dialog1 );
+	command = xa_parse_add_dialog_options (archive[idx],add_window);
+	gtk_widget_destroy (add_window->dialog1);
 	if (command != NULL)
 	{
 		archive[idx]->status = XA_ARCHIVESTATUS_ADD;
@@ -1645,11 +1643,11 @@ void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkT
 //TODO: to remove this and also in add_dialog.c:600
 void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
 {
-	gchar *fullname;
+	gchar *filename;
 
-	gtk_tree_model_get (model,iter,1,&fullname,-1);
-	//xa_shell_quote_filename (fullname,data);
-	g_free (fullname);
+	gtk_tree_model_get (model,iter,1,&filename,-1);
+	//xa_shell_quote_filename (filename,data);
+	g_free (filename);
 }
 
 void Update_StatusBar (gchar *msg)

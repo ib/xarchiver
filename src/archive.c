@@ -26,7 +26,7 @@
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
-XArchive *xa_init_archive_structure ()
+XArchive *xa_init_archive_structure()
 {
 	XEntry *entry = NULL;
 	XArchive *archive = NULL;
@@ -38,14 +38,14 @@ XArchive *xa_init_archive_structure ()
 	return archive;
 }
 
-void xa_spawn_async_process (XArchive *archive , gchar *command)
+void xa_spawn_async_process (XArchive *archive, gchar *command)
 {
 	GIOChannel *ioc,*err_ioc;
 	gchar **argv;
 	gint argcp, response;
 	GError *error = NULL;
 
-	g_shell_parse_argv ( command , &argcp , &argv , NULL);
+	g_shell_parse_argv ( command,&argcp,&argv,NULL);
 	if ( ! g_spawn_async_with_pipes (
 		NULL,
 		argv,

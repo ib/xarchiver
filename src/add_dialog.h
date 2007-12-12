@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,34 +25,14 @@ typedef struct
 {
 	GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;
+	GtkWidget *notebook1;
 	GtkWidget *vbox1;
-	GtkWidget *vbox6;
-	GtkWidget *vbox7;
-	GtkWidget *vbox8;
-	GtkWidget *hbox1;
-	GtkWidget *hbox2;
-	GtkWidget *hbox3;
-	GtkWidget *frame5;
-	GtkWidget *frame4;
-	GtkWidget *remove_button;
-	GtkWidget *add_files_button;
-	GtkWidget *label2;
-	GtkWidget *label3;
-	GtkWidget *label4;
-	GtkWidget *files_radio;
-	GtkWidget *directories_radio;
-	GSList *file_dir_radio_group;
-	GtkWidget *hbuttonbox2;
-	GtkWidget *alignment4;
-	GtkWidget *alignment5;
-	GtkWidget *alignment6;
-	GtkWidget *scrolledwindow3;
-	GtkWidget *file_list_treeview;
-	GtkListStore *file_liststore;
-	GtkCellRenderer *renderer;
-	GtkTreeSelection *selection;
-	GtkTreeViewColumn *column;
-	GtkWidget *add_full_path;
+	GtkWidget *filechooserwidget1;
+	GtkWidget *frame1;
+	GtkWidget *radiobutton3;
+	GSList *path_group;
+	GtkWidget *radiobutton4;
+	GtkWidget *dialog_action_area1;
 	GtkWidget *remove_files;
 	GtkWidget *update;
 	GtkWidget *freshen;
@@ -77,15 +57,9 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive);
 void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data);
 void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data);
 void password_toggled_cb ( GtkButton* button , gpointer _add_dialog );
-void toggle_recurse (GtkButton* button, Add_dialog_data *data);
 gchar *xa_parse_add_dialog_options ( XArchive *archive, Add_dialog_data *dialog_data );
-void activate_remove_button (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, Add_dialog_data *data);
-void add_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data);
 void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog );
 gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compression_string);
-void add_files_liststore (gchar *file_path, GtkListStore *liststore);
-void remove_files_liststore (GtkWidget *widget, gpointer data);
-void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, GList **rowref_list);
 void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data);
 
 #endif
