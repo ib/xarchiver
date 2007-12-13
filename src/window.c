@@ -2061,15 +2061,21 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 		xa_update_window_with_archive_entries(archive[idx],new_entry);
 		return;
 	}
+
 	new_entry  = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
 	if (new_entry == NULL)
 	{
 		gtk_entry_set_text(GTK_ENTRY(location_entry),archive[idx]->location_entry_path);
 		return;
 	}
-	prev_entry = xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path);
+
+	if (archive[idx]->location_entry_path != NULL)
+		prev_entry = xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path);
+
 	if (prev_entry != NULL)
 		archive[idx]->back = g_slist_prepend(archive[idx]->back,prev_entry);
+	else
+		archive[idx]->back = g_slist_prepend(archive[idx]->back,NULL);
 
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
 }

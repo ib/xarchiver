@@ -26,13 +26,11 @@ typedef struct
 	GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;
 	GtkWidget *notebook1;
-	GtkWidget *vbox1;
 	GtkWidget *filechooserwidget1;
 	GtkWidget *frame1;
 	GtkWidget *radiobutton3;
 	GSList *path_group;
 	GtkWidget *radiobutton4;
-	GtkWidget *dialog_action_area1;
 	GtkWidget *remove_files;
 	GtkWidget *update;
 	GtkWidget *freshen;
@@ -48,7 +46,6 @@ typedef struct
 	GtkWidget *add_button;
 	GtkTooltips *add_option_tooltip;
 	GtkWidget *add_option_label;
-	GtkWidget *dialog_action_area2;
 	GtkTooltips *option_tooltip;
 	GtkObject *compression_value;
 } Add_dialog_data;
