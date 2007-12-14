@@ -629,7 +629,7 @@ void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
 	gint idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index ( current_page );
+	idx = xa_find_archive_index (current_page);
 
 	add_window = xa_create_add_dialog (archive[idx]);
 	command = xa_parse_add_dialog_options (archive[idx],add_window);
@@ -640,7 +640,7 @@ void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
 		xa_run_command (archive[idx],command,1);
 		g_free (command);
 	}
-	g_free ( add_window );
+	g_free (add_window);
 	add_window = NULL;
 }
 
@@ -1629,25 +1629,29 @@ void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIte
 	g_free (filename);
 }
 
-void xa_cat_filenames_basename (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
+void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 {
-	gchar *fullname;
-	gchar *name;
+	GSList *slist = list;
 
-	gtk_tree_model_get (model,iter,1,&fullname,-1);
-	name = g_path_get_basename (fullname);
-
-	//xa_shell_quote_filename (name,data);
-	g_free (fullname);
+	while (slist)
+	{
+		xa_shell_quote_filename(slist->data,data,archive);
+		slist = slist->next;
+	}
 }
-//TODO: to remove this and also in add_dialog.c:600
-void xa_cat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
-{
-	gchar *filename;
 
-	gtk_tree_model_get (model,iter,1,&filename,-1);
-	//xa_shell_quote_filename (filename,data);
-	g_free (filename);
+void xa_cat_filenames_basename (XArchive *archive,GSList *list,GString *data)
+{
+	gchar *basename;
+	GSList *slist = list;
+
+	while (slist)
+	{
+		basename = g_path_get_basename (slist->data);
+		xa_shell_quote_filename(basename,data,archive);
+		g_free (basename);
+		slist = slist->next;
+	}
 }
 
 void Update_StatusBar (gchar *msg)

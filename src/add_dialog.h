@@ -28,9 +28,9 @@ typedef struct
 	GtkWidget *notebook1;
 	GtkWidget *filechooserwidget1;
 	GtkWidget *frame1;
-	GtkWidget *radiobutton3;
 	GSList *path_group;
-	GtkWidget *radiobutton4;
+	GtkWidget *store_path;
+	GtkWidget *no_store_path;
 	GtkWidget *remove_files;
 	GtkWidget *update;
 	GtkWidget *freshen;

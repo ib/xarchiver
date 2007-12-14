@@ -172,7 +172,6 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	{
 		if (dir)
 			 entry->is_dir = TRUE;
-		if (encrypted)
-			entry->is_encrypted = TRUE;
+		entry->is_encrypted = encrypted;
 	}
 }

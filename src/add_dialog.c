@@ -59,9 +59,9 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (add_dialog->notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (add_dialog->notebook1), 0), label1);
 	
 	add_dialog->filechooserwidget1 = gtk_file_chooser_widget_new (GTK_FILE_CHOOSER_ACTION_OPEN);
-	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
-	gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
 	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE, 0);
+	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
+	//gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
 
 	add_dialog->frame1 = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->frame1, FALSE, TRUE, 5);
@@ -77,18 +77,27 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	hbox1 = gtk_hbox_new (TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (alignment1), hbox1);
 
-	add_dialog->radiobutton3 = gtk_radio_button_new_with_mnemonic (NULL, _("Store full paths"));
-	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->radiobutton3, FALSE, FALSE, 0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->radiobutton3), add_dialog->path_group);
-	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->radiobutton3));
-	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->radiobutton3), FALSE);
+	add_dialog->store_path = gtk_radio_button_new_with_mnemonic (NULL, _("Store full paths"));
+	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->store_path, FALSE, FALSE, 0);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->store_path), add_dialog->path_group);
+	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->store_path));
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->store_path), FALSE);
 
-	add_dialog->radiobutton4 = gtk_radio_button_new_with_mnemonic (NULL, _("Do not store paths"));
-	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->radiobutton4, FALSE, FALSE, 0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->radiobutton4), add_dialog->path_group);
-	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->radiobutton4));
-	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->radiobutton4), FALSE);
-	//gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->radiobutton4),TRUE);
+	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic (NULL, _("Do not store paths"));
+	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->no_store_path, FALSE, FALSE, 0);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->no_store_path), add_dialog->path_group);
+	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->no_store_path));
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->no_store_path), FALSE);
+
+	/* 7z doesn't appear to let the user chooses if storing full paths */
+	if (archive->type == XARCHIVETYPE_7ZIP)
+ 	{
+ 		gtk_widget_set_sensitive(label3,FALSE);
+ 		gtk_widget_set_sensitive(add_dialog->store_path,FALSE);
+ 		gtk_widget_set_sensitive(add_dialog->no_store_path,FALSE);
+ 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->no_store_path), TRUE);
+	}
+	//gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
 
 	/* Options page */
 	option_notebook_vbox = gtk_vbox_new (FALSE, 0);
@@ -112,16 +121,18 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	vbox3 = gtk_vbox_new (TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (alignment4),vbox3);
 
-	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update"));
+	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update and add"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->update), archive->update);
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
 	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified."), NULL );
 
 	if (archive->type != XARCHIVETYPE_7ZIP)
 		g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
 
-	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen"));
+	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen and replace"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->freshen), archive->freshen);
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
 	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."), NULL );
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
@@ -130,12 +141,14 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 
 	add_dialog->recurse = gtk_check_button_new_with_mnemonic (_("Include subdirectories"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->recurse), archive->add_recurse);
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->recurse), FALSE);
 	if(archive->type == XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->recurse,FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->recurse, FALSE, FALSE, 0);
 
 	add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Create a solid archive"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->solid_archive), archive->solid_archive);
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->solid_archive), FALSE);
 	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio."), NULL);
 	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_7ZIP)
 		flag = TRUE;
@@ -143,6 +156,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->solid_archive, FALSE, FALSE, 0);
 
 	add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Delete files after adding"));
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->remove_files), FALSE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->remove_files), archive->remove_files);
 	gtk_box_pack_start (GTK_BOX (vbox3),add_dialog->remove_files, FALSE, FALSE, 0);
 
@@ -322,19 +336,19 @@ void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
 		gtk_adjustment_set_value (adjustment, digit-1);
 }
 
-gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_dialog )
+gchar *xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 {
 	gchar *command = NULL;
 	gchar *temp_password = NULL;
 	gchar *compression_string = NULL;
-	gchar *first_item = NULL;
 	gboolean done = FALSE;
 	GSList *files = NULL;
 	GString *names;
 
+	names = g_string_new (" ");
 	while ( ! done )
 	{
-		switch (gtk_dialog_run ( GTK_DIALOG (add_dialog->dialog1 ) ) )
+		switch (gtk_dialog_run(GTK_DIALOG(add_dialog->dialog1)))
 		{
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
@@ -361,59 +375,41 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 					archive->passwd = temp_password;
 			}
 			done = TRUE;
-			if (add_dialog->recurse != NULL)
-				archive->add_recurse = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->recurse));
-/* TODO: look at the radio button in the select page
-			if (add_dialog->add_full_path != NULL)
-				archive->full_path = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->add_full_path));
-*/
+
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->store_path)))
+				archive->full_path = TRUE;
+			else
+				archive->full_path = FALSE;
+			archive->add_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->recurse));
+
 			if (add_dialog->update != NULL)
-				archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->update));
+				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
 
 			if (add_dialog->remove_files != NULL)
-				archive->remove_files = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->remove_files));
+				archive->remove_files = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->remove_files));
 
-			if (add_dialog->freshen != NULL)
-				archive->freshen = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->freshen));
+			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->freshen))
+				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->freshen));
 
-			if (add_dialog->solid_archive)
-				archive->solid_archive = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (add_dialog->solid_archive));
+			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->solid_archive))
+				archive->solid_archive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->solid_archive));
 
-			if (add_dialog->compression_scale != NULL)
+			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->compression_scale))
 			{
-				archive->compression_level = gtk_adjustment_get_value (GTK_ADJUSTMENT (add_dialog->compression_value));
-				compression_string = g_strdup_printf ("%d",archive->compression_level);
+				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT (add_dialog->compression_value));
+				compression_string = g_strdup_printf("%d",archive->compression_level);
 			}
 
-			//Set the current dir so to avoid archiving the leading directory inside the archive
-			//gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore),&iter);
-			//gtk_tree_model_get (GTK_TREE_MODEL(add_dialog->file_liststore),&iter,1,&first_item,-1);
-			gchar *current_dir = g_path_get_dirname (first_item);
-			g_free (first_item);
-			chdir (current_dir);
-			g_free (current_dir);
-
-			 /* Let's concatenate the files to add */
-			names = g_string_new ( " " );
-			archive->status = XA_ARCHIVESTATUS_ADD;
-
-			/*if (archive->full_path == 1 && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA) )
+			if ( ! archive->full_path)
 			{
-				while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
-				{
-					xa_cat_filenames_basename ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
-					gtk_list_store_remove (add_dialog->file_liststore, &iter);
-				}
+				gchar *current_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
+				chdir (current_dir);
+				g_free (current_dir);
+				xa_cat_filenames_basename(archive,files,names);
 			}
-
 			else
-			{
-				while (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(add_dialog->file_liststore), &iter) )
-				{
-					xa_cat_filenames ( GTK_TREE_MODEL(add_dialog->file_liststore), NULL, &iter, names );
-					gtk_list_store_remove (add_dialog->file_liststore, &iter);
-				}
-			}*/
+				xa_cat_filenames(archive,files,names);
+
 			gtk_widget_set_sensitive (Stop_button,TRUE);
 			gtk_widget_set_sensitive (check_menu,FALSE);
 			gtk_widget_set_sensitive (close1,FALSE);
@@ -422,7 +418,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 			gtk_widget_hide (add_dialog->dialog1);
 
 			command = xa_add_single_files (archive,names,compression_string);
-			g_string_free ( names, TRUE);
+			g_string_free (names,TRUE);
 			g_slist_free(files);
 			if (compression_string != NULL)
 				g_free (compression_string);
@@ -431,7 +427,7 @@ gchar *xa_parse_add_dialog_options ( XArchive *archive , Add_dialog_data *add_di
 	return command;
 }
 
-gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compression_string)
+gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_string)
 {
 	gchar *command = NULL;
 	gchar *tar;
@@ -441,6 +437,7 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 		tar = g_strdup ("tar");
 
 	Update_StatusBar ( _("Adding files to the archive, please wait..."));
+	archive->status = XA_ARCHIVESTATUS_ADD;
 
 	switch (archive->type)
 	{
@@ -455,7 +452,6 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 									archive->remove_files ? "-df " : "",
 									"-p" , archive->passwd,
 									archive->add_recurse ? " -r " : "",
-									archive->full_path ? "-ep " : "",
 									"-idp ",
 									"-m",compression_string," ",
 									archive->escaped_path,
@@ -467,7 +463,6 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 									archive->solid_archive ? "-s " : "",
 									archive->remove_files ? "-df " : "",
 									archive->add_recurse ? " -r " : "",
-									archive->full_path ? "-ep " : "",
 									"-idp ",
 									"-m",compression_string," ",
 									archive->escaped_path,
@@ -536,7 +531,6 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 									archive->freshen ? "-f " : "",
 									archive->add_recurse ? "-r " : "",
 									archive->remove_files ? "-m " : "",
-									archive->full_path ? "-j " : "",
 									"-P ", archive->passwd," ",
 									"-",compression_string," ",
 									archive->escaped_path,
@@ -547,7 +541,6 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 									archive->freshen ? "-f " : "",
 									archive->add_recurse ? "-r " : "",
 									archive->remove_files ? "-m " : "",
-									archive->full_path ? "-j " : "",
 									"-",compression_string," ",
 									archive->escaped_path,
 									names->str , NULL );
@@ -584,7 +577,6 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 									archive->freshen ? "-f " : "",
 									archive->add_recurse ? "-r " : "",
 									archive->remove_files ? "-d1 " : "",
-									archive->full_path ? "-e " : "",
 									"-g" , archive->passwd , " -i ",
 									"-m",compression_string," ",
 									archive->escaped_path,
@@ -595,7 +587,6 @@ gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compress
 									archive->freshen ? "-f " : "",
 									archive->add_recurse ? "-r " : "",
 									archive->remove_files ? "-d1 " : "",
-									archive->full_path ? "-e " : "",
 									" -i ",
 									"-m",compression_string," ",
 									archive->escaped_path,

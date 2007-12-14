@@ -32,7 +32,7 @@ void xa_open_arj (XArchive *archive)
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nr_of_dirs = 0;
-	archive->nc = 9;
+	archive->nc = 8;
 	archive->format ="ARJ";
 	archive->parse_output = xa_get_arj_line_content;
 	xa_spawn_async_process (archive,command);
@@ -40,12 +40,12 @@ void xa_open_arj (XArchive *archive)
 	if (archive->child_pid == 0)
 		return;
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 11; i++)
+	for (i = 0; i < 10; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes")),("GUA"),("BPMGS"),NULL};
+	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes")),("GUA"),NULL};
 	xa_create_liststore (archive,names);
 }
 
@@ -53,7 +53,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;
-	gpointer item[8];
+	gpointer item[7];
 	unsigned int linesize,n,a;
 	static gchar *filename;
 
@@ -139,12 +139,12 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		item[6] = line + 70;
 
 		/* BPMGS */
-		line[77] = '\0';
-		item[7] = line + 74;
-
+		line[78] = '\0';
+		encrypted = (g_ascii_strcasecmp (line+76, "11") == 0);
 		entry = xa_set_archive_entries_for_each_row (archive,filename,encrypted,item);
+		if (entry != NULL)
+			entry->is_encrypted	= encrypted;
 		g_free(filename);
 		arj_line++;
-		encrypted = FALSE;
 	}
 }
