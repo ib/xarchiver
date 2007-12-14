@@ -1,9 +1,9 @@
 Xarchiver changelog:
 
-xx/01/07 - 0.5:
-		- Implemented archive navigation within directories.
-		- Each archive's entry has now its own mime icon.
-		- Added a preferences dialog to set Xarchiver's options.
+xx/01/08 - 0.5:
+		- Archive directories are now browsable just like a file managers.
+		- Mime icon for each of the archive entries.
+		- Preferences dialog to set Xarchiver's options.
 		- The cmd-line output window now displays each archiver's output.
 		- The cmd-line output window has a close button and a better layout.
 		- Tabs are now reorderable.

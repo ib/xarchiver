@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2007 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -60,7 +60,6 @@ void xa_open_bzip2 (XArchive *archive)
 		archive->nc = 7;
 		archive->parse_output = xa_get_tar_line_content;
 		xa_spawn_async_process (archive,command);
-
 		g_free (command);
 		g_free (tar);
 
@@ -79,14 +78,14 @@ void xa_open_bzip2 (XArchive *archive)
 	{
 		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 		archive->has_properties = archive->can_extract = TRUE;
-		archive->nc = 2;
+		archive->nc = 3;
 		archive->nr_of_files = 1;
 		archive->nr_of_dirs = 0;
 		archive->format = "BZIP2";
 
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64};
+		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_POINTER};
 		archive->column_types = g_malloc0(sizeof(types));
-		for (i = 0; i < 4; i++)
+		for (i = 0; i < 5; i++)
 			archive->column_types[i] = types[i];
 
 		char *names[]= {(_("Compressed")),(_("Size"))};
@@ -149,7 +148,7 @@ void xa_open_bzip2 (XArchive *archive)
 		archive->dummy_size = my_stat.st_size;
 		item[1] = size;
 
-		entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
+		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 		g_free(compressed);
 		g_free(size);
 		g_free(filename);
@@ -237,9 +236,6 @@ void gzip_bzip2_extract (XArchive *archive , gboolean flag )
 		gtk_widget_hide ( viewport2 );
 		Update_StatusBar ( _("Operation canceled."));
 	}
-	//TODO:
-	/*else
-		xa_watch_child (archive->child_pid, 0, archive);*/
 }
 
 void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean dummy , gboolean add )
@@ -247,6 +243,7 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	gchar *command, *msg, *tar,*temp_name,*file_ext;
 	gboolean result;
 
+	archive->status = XA_ARCHIVESTATUS_DELETE;
 	if ( ! cli )
 	{
 		gtk_widget_show (viewport2);
@@ -256,7 +253,6 @@ void xa_add_delete_tar_bzip2_gzip ( GString *list , XArchive *archive , gboolean
 	}
 
 	/* Let's copy the archive to /tmp first */
-	
 	//TODO: replace /tmp with the user chosen dir in the pref dialog
 	temp_name = g_strconcat ( " /tmp", g_strrstr (archive->escaped_path , "/"), NULL);
 	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL);

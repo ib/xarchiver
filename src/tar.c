@@ -144,7 +144,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 		filename = g_strdup(line + n); 
 	}
 
-	entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
+	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
 }
 

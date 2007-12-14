@@ -1962,7 +1962,7 @@ void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 	if (strlen(browser_path) == 0)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
-		_("You didn't set which web browser to use!"),_("Please go to Preferences->Advanced and set it."));		
+		_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));		
 		g_free (browser_path);
 		return;	
 	}
@@ -1982,14 +1982,14 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 	argv[2] = NULL;
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (MainWindow));
-	if (!gdk_spawn_on_screen (screen, NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+	if (!gdk_spawn_on_screen (screen,NULL,argv,NULL,G_SPAWN_SEARCH_PATH,NULL,NULL,NULL,&error))
 	{
 		message = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
 										GTK_DIALOG_MODAL
 										| GTK_DIALOG_DESTROY_WITH_PARENT,
 										GTK_MESSAGE_ERROR,
 										GTK_BUTTONS_CLOSE,
-										_("Failed to launch the program!"));
+										_("Failed to launch the application!"));
 		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (message), "%s.", error->message);
 		gtk_dialog_run (GTK_DIALOG (message));
 		gtk_widget_destroy (message);

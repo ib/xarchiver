@@ -64,15 +64,15 @@ void xa_open_gzip (XArchive *archive)
 	{
 		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 		archive->has_properties = archive->can_extract = TRUE;
-		archive->nc = 3;
+		archive->nc = 4;
 		archive->parse_output = xa_get_gzip_line_content;
 		archive->nr_of_files = 1;
 		archive->nr_of_dirs = 0;
 		archive->format = "GZIP";
 
-		GType types[]= {G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING};
+		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
 		archive->column_types = g_malloc0(sizeof(types));
-		for (i = 0; i < 5; i++)
+		for (i = 0; i < 6; i++)
 			archive->column_types[i] = types[i];
 
 		char *names[]= {(_("Compressed")),(_("Size")),(_("Ratio"))};
@@ -132,6 +132,6 @@ void xa_get_gzip_line_content (gchar *line, gpointer data)
 	if (basename == NULL)
 		basename = g_strdup(filename);
 
-	entry = xa_set_archive_entries_for_each_row (archive,basename,FALSE,item);
+	entry = xa_set_archive_entries_for_each_row (archive,basename,item);
 	g_free(basename);
 }

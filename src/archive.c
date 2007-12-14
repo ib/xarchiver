@@ -376,7 +376,7 @@ XEntry *xa_find_child_entry(XEntry *entry, gchar *string)
   return xa_find_child_entry(entry->next, string);
 }
 
-XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gboolean encrypted,gpointer *items)
+XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items)
 {
 	XEntry *new_entry= NULL;
 	XEntry *last_entry = archive->root_entry;

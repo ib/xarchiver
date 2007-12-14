@@ -158,7 +158,7 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 		g_free (filename);
 		filename = filename_with_slash;
 	}
-	entry = xa_set_archive_entries_for_each_row (archive,filename,FALSE,item);
+	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
 }
 

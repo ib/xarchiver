@@ -167,7 +167,7 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	line[linesize-1] = '\0';
 	filename = line + n;
 
-	entry = xa_set_archive_entries_for_each_row (archive,filename,encrypted,item);
+	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	if (entry != NULL)
 	{
 		if (dir)

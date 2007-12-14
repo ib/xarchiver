@@ -141,7 +141,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		/* BPMGS */
 		line[78] = '\0';
 		encrypted = (g_ascii_strcasecmp (line+76, "11") == 0);
-		entry = xa_set_archive_entries_for_each_row (archive,filename,encrypted,item);
+		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 		if (entry != NULL)
 			entry->is_encrypted	= encrypted;
 		g_free(filename);

@@ -195,7 +195,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 			g_free (filename);
 			filename = filename_with_slash;
 		}
-		entry = xa_set_archive_entries_for_each_row (archive,filename,encrypted,item);
+		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 		if (entry != NULL)
 			entry->is_encrypted = encrypted;
 		g_free(filename);
