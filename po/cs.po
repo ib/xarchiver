@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-22 12:45+0200\n"
-"PO-Revision-Date: 2007-09-10 20:22+0100\n"
+"PO-Revision-Date: 2007-12-16 16:51+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -720,9 +720,8 @@ msgid "Home"
 msgstr "Domů"
 
 #: ../src/interface.c:320
-#, fuzzy
 msgid "Root"
-msgstr "Kořen"
+msgstr "Kořenový adresář"
 
 #: ../src/interface.c:328
 msgid "Add"
@@ -957,9 +956,8 @@ msgid "icon"
 msgstr "ikona"
 
 #: ../src/pref_dialog.c:162
-#, fuzzy
 msgid "Size of the mimetype icons"
-msgstr "Velikost ikon typů MIME"
+msgstr "Velikost ikon pro typy MIME"
 
 #: ../src/pref_dialog.c:168
 msgid "large"
