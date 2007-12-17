@@ -498,10 +498,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 
 		case XARCHIVETYPE_TAR_GZ:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-		{
-			g_print ("Son qui\n");
 			xa_add_delete_tar_bzip2_gzip ( names , archive, 1 , 1 );
-		}
 		/* This is executed when the archive is newly created */
 		else
 			command = g_strconcat (tar, " ",

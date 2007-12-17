@@ -819,7 +819,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	}
 	else
 	{
-		/* *Here we need to fill a GSList with all the entries in the archive so that we can use mv on all of them */
+		/* Here we need to fill a GSList with all the entries in the archive so that we can use mv on all of them */
 		XEntry *entry = archive->root_entry;
 
 		while(entry)
@@ -830,11 +830,10 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	}
 	filenames = g_slist_reverse(xxx);
 
-	result = xa_create_temp_directory (tmp_dir);
+	result = xa_create_temp_directory (archive,tmp_dir);
 	if (result == 0)
 		return FALSE;
 
-	archive->tmp = strdup(tmp_dir);
 	if (cpio_flag)
 	{
 		chdir (archive->tmp);
@@ -844,7 +843,8 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		command = g_strconcat ( string, archive->escaped_path,
 										archive->overwrite ? " --overwrite" : " --keep-old-files",
 										archive->tar_touch ? " --touch" : "",
-										" -C " , tmp_dir , names->str, NULL );
+										" --no-wildcards -C ",
+										archive->tmp,names->str,NULL);
 	result = xa_run_command (archive,command,0);
 	g_string_free (names, TRUE);
 	g_free (command);
@@ -856,7 +856,6 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
 	}
-	chdir (archive->tmp);
 	while (filenames)
 	{
 		gchar *unescaped = xa_escape_bad_chars ( (gchar*)filenames->data , "$\'`\"\\!?* ()&|@#:;");
@@ -866,7 +865,12 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		filenames = filenames->next;
 	}
 	xa_destroy_filelist (filenames);
+	if (extract_path == NULL)
+		extract_path = archive->tmp;
+
+	chdir (archive->tmp);
 	command = g_strconcat ( "mv -f ", unescaped_names->str, " " , extract_path , NULL );
+
 	result = xa_run_command (archive,command,0);
 	g_free (command);
 	g_slist_free (filenames);
@@ -878,12 +882,6 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
 	}
-
-	if (cpio_flag)
-		xa_delete_temp_directory (archive,0);
-	else
-		xa_delete_temp_directory (archive,1);
-
 	return result;
 }
 

@@ -96,12 +96,11 @@ void xa_open_rpm (XArchive *archive)
 	fclose (stream);
 
 	/* Create a unique temp dir in /tmp */
-	result = xa_create_temp_directory (tmp_dir);
+	result = xa_create_temp_directory (archive,tmp_dir);
 	if (result == 0)
 		return;
 
-	archive->tmp = g_strdup(tmp_dir);
-	gzip_tmp = g_strconcat (tmp_dir,"/file.gz_bz",NULL);
+	gzip_tmp = g_strconcat (archive->tmp,"/file.gz_bz",NULL);
 	ibs = g_strdup_printf ( "%u" , offset );
 
 	//Now I run dd to have the bzip2 / gzip compressed cpio archive in /tmp

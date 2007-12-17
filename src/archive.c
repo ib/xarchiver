@@ -200,6 +200,7 @@ void xa_clean_archive_structure (XArchive *archive)
 		xa_delete_temp_directory (archive,0);
 		gtk_widget_hide(viewport2);
 		g_free (archive->tmp);
+		archive->tmp = NULL;
 	}
 
 	if (archive->passwd != NULL)
@@ -226,16 +227,16 @@ gboolean xa_delete_temp_directory (XArchive *archive,gboolean flag)
 {
 	gchar *command;
 	gboolean result;
-		
-	chdir (archive->tmp);
 	command = g_strconcat ("rm -rf ",archive->tmp,NULL);
 	result = xa_run_command (archive,command,flag);
 	g_free (command);
 	return result;
 }
 
-gboolean xa_create_temp_directory (gchar tmp_dir[])
+gboolean xa_create_temp_directory (XArchive *archive,gchar tmp_dir[])
 {
+	if (archive->tmp != NULL)
+		return TRUE;
 	//TODO use the user set tmp dir in the pref dialog
 	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
 	if (mkdtemp (tmp_dir) == 0)
@@ -245,6 +246,7 @@ gboolean xa_create_temp_directory (gchar tmp_dir[])
 		Update_StatusBar (_("Operation failed."));
 		return FALSE;
 	}
+	archive->tmp = strdup(tmp_dir);
 	return TRUE;
 }
 

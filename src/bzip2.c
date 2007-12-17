@@ -90,7 +90,7 @@ void xa_open_bzip2 (XArchive *archive)
 
 		char *names[]= {(_("Compressed")),(_("Size"))};
 		xa_create_liststore (archive,names);
-		result = xa_create_temp_directory (tmp_dir);
+		result = xa_create_temp_directory (archive,tmp_dir);
 		if (result == 0)
 			return;
 

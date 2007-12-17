@@ -1346,7 +1346,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	xa_close_archive(NULL,NULL);
 }
 
-void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
+void xa_view_file_inside_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
 	gchar *command = NULL;
 	gchar tmp_dir[14] = "";
@@ -1410,11 +1410,7 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem , gpointer user_data)
 	archive[idx]->full_path = 0;
 	archive[idx]->overwrite = 1;
 
-	if (archive[idx]->tmp == NULL)
-	{
-		result = xa_create_temp_directory(tmp_dir);
-		archive[idx]->tmp = g_strdup(tmp_dir);
-	}
+	result = xa_create_temp_directory(archive[idx],tmp_dir);
 
 	command = xa_extract_single_files(archive[idx],names,archive[idx]->tmp);
 	g_string_free (names,TRUE);
@@ -1599,7 +1595,8 @@ void xa_shell_quote_filename (gchar *filename,GString *data,XArchive *archive)
 	gchar *esc_filename = NULL;
 
 	quoted_filename = g_shell_quote(filename);
-	if (archive->status != XA_ARCHIVESTATUS_ADD)
+	if (archive->status != XA_ARCHIVESTATUS_ADD && archive->type != XARCHIVETYPE_TAR
+		&& archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_GZ)
 	{
 		if (strstr(filename,"[") || strstr(filename,"]"))
 		{
