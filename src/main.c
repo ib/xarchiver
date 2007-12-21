@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 #include "socket.h"
 #endif
 
-gint exit_status;
 gchar *cli_command = NULL;
 gchar *absolute_path = NULL;
 gchar *archive_name = NULL;
@@ -41,11 +40,11 @@ Prefs_dialog_data *prefs_window = NULL;
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
-		N_("Extract archive to the directory specified by destination_path and quits."),
-		N_("destination_path archive")
+		N_("Extract archive to the destination directory and quits."),
+		N_("destination archive")
 	},
 	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_extract,
-		N_("Extract archive by asking the destination directory and quits."),
+		N_("Extract archive by asking the extraction directory and quits."),
 		N_("archive")
 	},
 	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
@@ -61,6 +60,7 @@ static GOptionEntry entries[] =
 
 int main (int argc, char **argv)
 {
+	XArchive *archive = NULL;
 	gboolean no_bzip2_gzip;
 	unsigned short int x;
 	#ifdef ENABLE_NLS
@@ -92,14 +92,17 @@ int main (int argc, char **argv)
 	if (ask_and_extract || ask_and_add || archive_name != NULL || extract_path != NULL)
 		cli = TRUE;
 
+	xa_get_available_archivers();
+	prefs_window = xa_create_prefs_dialog();
+	xa_prefs_load_options(prefs_window);
+
 	if (cli == TRUE)
 	{
-		xa_get_available_archivers();
-		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
-		ArchiveType = g_list_reverse (ArchiveType);
 		MainWindow = NULL;
 		gtk_main_iteration_do (FALSE);
-		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2007 Giuseppe Torelli (colossus73)\n\n");
+		if (archive_name == NULL)
+			archive = xa_init_structure_from_cmd_line (argv[1]);
+		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2008 Giuseppe Torelli\n");
 
 		/* Switch -x */
 		if (extract_path != NULL)
@@ -109,27 +112,26 @@ int main (int argc, char **argv)
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
-			for ( x = 1; x < argc; x++)
+			for (x = 1; x < argc; x++)
 			{
-				archive_cmd = xa_init_structure_from_cmd_line ( argv[x] );
-				if (archive_cmd != NULL)
+				if (archive != NULL)
 				{
-					if (archive_cmd->has_passwd)
+					if (archive->has_passwd)
 					{
-						archive_cmd->passwd = password_dialog (archive_cmd);
-						if (archive_cmd->passwd == NULL)
+						archive->passwd = password_dialog (archive);
+						if (archive->passwd == NULL)
 							goto done;
 					}
-					GString *string = g_string_new ( "" );
-					archive_cmd->full_path = 1;
-					archive_cmd->overwrite = 1;
-					gchar *escaped_path = xa_escape_bad_chars (extract_path , "$\'`\"\\!?* ()[]&|@#:;");
-					archive_cmd->extraction_path = g_strdup (extract_path);
-					cli_command = xa_extract_single_files ( archive_cmd , string, escaped_path );
+					GString *string = g_string_new ("");
+					archive->full_path = 1;
+					archive->overwrite = 1;
+					gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
+					archive->extraction_path = g_strdup (extract_path);
+					cli_command = xa_extract_single_files (archive,string,escaped_path);
 					g_free (escaped_path);
-					if ( cli_command != NULL )
-						error_output = SpawnSyncCommand ( cli_command );
-					g_string_free (string, TRUE);
+					if (cli_command != NULL)
+						error_output = xa_spawn_sync_process (cli_command);
+					g_string_free (string,TRUE);
 				}
 			}
 		}
@@ -142,58 +144,56 @@ int main (int argc, char **argv)
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
-			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
-			if (archive_cmd != NULL)
+			if (archive != NULL)
 			{
-				extract_window = xa_create_extract_dialog ( 0 , archive_cmd);
-				cli_command = xa_parse_extract_dialog_options ( archive_cmd , extract_window, NULL );
-				gtk_widget_destroy ( extract_window->dialog1 );
-				if ( cli_command != NULL )
-					error_output = SpawnSyncCommand ( cli_command );
+				extract_window = xa_create_extract_dialog (0,archive);
+				cli_command = xa_parse_extract_dialog_options (archive,extract_window,NULL);
+				gtk_widget_destroy (extract_window->dialog1);
+				if (cli_command != NULL)
+					error_output = xa_spawn_sync_process (cli_command);
 				g_free (extract_window);
 			}
 		}
 		/* Switch -d */
 		else if (archive_name != NULL)
 		{
-			XArchive *archive_cmd = NULL;
-			if (argc > 1 || g_file_test ( archive_name,G_FILE_TEST_IS_DIR) )
+			if (argc > 1 || g_file_test (archive_name,G_FILE_TEST_IS_DIR))
 				no_bzip2_gzip = TRUE;
 			else
 				no_bzip2_gzip = FALSE;
-			archive_cmd = xa_new_archive_dialog (archive_name, NULL, no_bzip2_gzip);
-			if (archive_cmd == NULL)
+			archive = xa_new_archive_dialog (archive_name,NULL,no_bzip2_gzip);
+			if (archive == NULL)
 				return 0;
 
-			if (archive_cmd->path != NULL)
+			if (archive->path != NULL)
 			{
 				_current_dir = g_path_get_dirname(archive_name);
 				chdir (_current_dir);
 				g_free (_current_dir);
-				GString *string = g_string_new ( "" );
+				GString *string = g_string_new ("");
 
-				if ( g_file_test ( archive_name,G_FILE_TEST_EXISTS) )
+				if (g_file_test (archive_name,G_FILE_TEST_EXISTS))
 				{
-					_current_dir = g_path_get_basename (archive_name);
-					xa_shell_quote_filename (_current_dir,string,archive_cmd);
+					_current_dir = g_path_get_basename(archive_name);
+					xa_shell_quote_filename(_current_dir,string,archive);
 					g_free (_current_dir);
 				}
 
 				for (x = 1; x< argc; x++)
 				{
-					_current_dir = g_path_get_basename ( argv[x] );
-					xa_shell_quote_filename (_current_dir,string,archive_cmd);
+					_current_dir = g_path_get_basename(argv[x]);
+					xa_shell_quote_filename(_current_dir,string,archive);
 					g_free (_current_dir);
 				}
 
-				if ( archive_cmd->type == XARCHIVETYPE_7ZIP)
-					archive_cmd->add_recurse = FALSE;
+				if (archive->type == XARCHIVETYPE_7ZIP)
+					archive->add_recurse = FALSE;
 				else
-					archive_cmd->add_recurse = TRUE;
-				cli_command = xa_add_single_files ( archive_cmd , string, NULL);
+					archive->add_recurse = TRUE;
+				cli_command = xa_add_single_files(archive,string,NULL);
 				if (cli_command != NULL)
-					error_output = SpawnSyncCommand ( cli_command );
-				g_string_free (string, TRUE);
+					error_output = xa_spawn_sync_process(cli_command);
+				g_string_free (string,TRUE);
 			}
 			if (cli_command != NULL)
 				g_free (cli_command);
@@ -206,33 +206,25 @@ int main (int argc, char **argv)
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
 				return 0;
 			}
-			archive_cmd = xa_init_structure_from_cmd_line ( argv[1] );
-			if (archive_cmd == NULL)
+			if (archive != NULL)
 			{
-				add_window = xa_create_add_dialog (archive_cmd);
-				cli_command = xa_parse_add_dialog_options ( archive_cmd, add_window );
-				gtk_widget_destroy ( add_window->dialog1 );
+				add_window = xa_create_add_dialog (archive);
+				cli_command = xa_parse_add_dialog_options (archive, add_window);
+				gtk_widget_destroy (add_window->dialog1);
 				if (cli_command != NULL)
-					error_output = SpawnSyncCommand ( cli_command );
+					error_output = xa_spawn_sync_process (cli_command);
 				g_free (add_window);
 			}
 		}
-done:	g_list_free ( ArchiveSuffix);
-		g_list_free ( ArchiveType);
-		if (archive_cmd != NULL)
-			xa_clean_archive_structure ( archive_cmd );
-		return exit_status;
+done:	g_list_free (ArchiveSuffix);
+		g_list_free (ArchiveType);
+		if (archive != NULL)
+			xa_clean_archive_structure (archive);
+		return 0;
 	}
 	else
 	{
-		xa_get_available_archivers();
-		ArchiveSuffix = g_list_reverse (ArchiveSuffix);
-		ArchiveType = g_list_reverse (ArchiveType);
-
 		MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-		prefs_window = xa_create_prefs_dialog();
-		xa_prefs_load_options (prefs_window);
-		
 		xa_create_mainwindow (MainWindow,gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_location_bar)));
 
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
@@ -282,10 +274,8 @@ gchar *get_argv_filename(const gchar *filename)
 		result = g_strdup(filename);
 	else
 	{
-		//use current dir
 		gchar *cur_dir = g_get_current_dir();
-		result = g_strjoin(
-			G_DIR_SEPARATOR_S, cur_dir, filename, NULL);
+		result = g_strjoin("/",cur_dir,filename,NULL);
 		g_free(cur_dir);
 	}
 	return result;
@@ -296,67 +286,67 @@ void xa_get_available_archivers()
 	absolute_path = g_find_program_in_path("arj");
 	if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, "arj");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.arj");
+		ArchiveType = g_list_append(ArchiveType, "arj");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.arj");
 		g_free (absolute_path);
 	}
 
 	absolute_path = g_find_program_in_path("bzip2");
     if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, "bz2");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.bz2");
+		ArchiveType = g_list_append (ArchiveType, "bz2");
+		ArchiveSuffix = g_list_append (ArchiveSuffix, "*.bz2");
 		g_free (absolute_path);
 	}
 
 	absolute_path = g_find_program_in_path("ar");
     if ( absolute_path )
 	{
-	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.deb");
+	    ArchiveSuffix = g_list_append (ArchiveSuffix, "*.deb");
 		g_free (absolute_path);
 	}
 
 	absolute_path = g_find_program_in_path("gzip");
 	if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, "gz");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.gz");
+		ArchiveType = g_list_append(ArchiveType, "gz");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.gz");
 		g_free (absolute_path);
 	}
 
 	absolute_path = g_find_program_in_path("lzma");
 	if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, "lzma");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.lzma");
+		ArchiveType = g_list_append(ArchiveType, "lzma");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzma");
 		g_free (absolute_path);
 	}
 
 	absolute_path = g_find_program_in_path("lha");
 	if (absolute_path)
 	{
-		ArchiveType = g_list_prepend(ArchiveType, "lzh");
-		ArchiveSuffix = g_list_prepend(ArchiveSuffix, "*.lzh");
+		ArchiveType = g_list_append(ArchiveType, "lzh");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzh");
 		g_free (absolute_path);
-		//ArchiveType = g_list_prepend(ArchiveType, ".lha");
-		//ArchiveSuffix = g_list_prepend(ArchiveSuffix, "");
+		//ArchiveType = g_list_append(ArchiveType, ".lha");
+		//ArchiveSuffix = g_list_append(ArchiveSuffix, "");
 	}
 
 	absolute_path = g_find_program_in_path ("rar");
     if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, "rar");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
+		ArchiveType = g_list_append(ArchiveType, "rar");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
 		g_free (absolute_path);
 	}
 	else
 	{
-		absolute_path = g_find_program_in_path ("unrar");
+		absolute_path = g_find_program_in_path("unrar");
 		if ( absolute_path )
 		{
 			unrar = TRUE;
-			ArchiveType = g_list_prepend ( ArchiveType, "rar");
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rar");
+			ArchiveType = g_list_append(ArchiveType, "rar");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
 			g_free (absolute_path);
 		}
 	}
@@ -364,31 +354,31 @@ void xa_get_available_archivers()
 	absolute_path = g_find_program_in_path("cpio");
     if ( absolute_path )
 	{
-	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.rpm");
+	    ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rpm");
 		g_free (absolute_path);
 	}
 
 	absolute_path = g_find_program_in_path("tar");
 	if ( absolute_path )
 	{
-		ArchiveType = g_list_prepend ( ArchiveType, "tar");
-		ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tar");
+		ArchiveType = g_list_append(ArchiveType, "tar");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar");
 		g_free (absolute_path);
 		if ( g_list_find ( ArchiveType , "bz2") )
 		{
-			ArchiveType = g_list_prepend ( ArchiveType, "tar.bz2");
+			ArchiveType = g_list_append(ArchiveType, "tar.bz2");
 			/* The following to avoid double filter when opening */
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "");
 		}
 		if ( g_list_find ( ArchiveType , "gz") )
 		{
-			ArchiveType = g_list_prepend ( ArchiveType, "tar.gz");
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tgz");
+			ArchiveType = g_list_append(ArchiveType, "tar.gz");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tgz");
 		}
 		if ( g_list_find ( ArchiveType , "lzma") )
 		{
-			ArchiveType = g_list_prepend ( ArchiveType, "tar.lzma");
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.tlz");
+			ArchiveType = g_list_append(ArchiveType, "tar.lzma");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
 		}
 	}
 
@@ -400,11 +390,11 @@ void xa_get_available_archivers()
     	if (absolute_path)
 		{
 			g_free (absolute_path);
-			ArchiveType = g_list_prepend ( ArchiveType, "jar");
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.jar");
+			ArchiveType = g_list_append(ArchiveType, "jar");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.jar");
 
-			ArchiveType = g_list_prepend ( ArchiveType, "zip");
-			ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.zip");
+			ArchiveType = g_list_append(ArchiveType, "zip");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.zip");
 		}
 	}
 	absolute_path = g_find_program_in_path("7za");
@@ -415,76 +405,37 @@ void xa_get_available_archivers()
     if (absolute_path != NULL)
     {
     	sevenzr = TRUE;
-        ArchiveType = g_list_prepend ( ArchiveType, "7z");
-	    ArchiveSuffix = g_list_prepend ( ArchiveSuffix, "*.7z");
+        ArchiveType = g_list_append(ArchiveType, "7z");
+	    ArchiveSuffix = g_list_append(ArchiveSuffix, "*.7z");
 		g_free (absolute_path);
     }
 }
 
-gboolean SpawnSyncCommand ( gchar *command )
-{
-    GError *error = NULL;
-    gchar *std_out;
-    gchar *std_err;
-	gchar **argv;
-	int argcp;
-
-	g_shell_parse_argv ( command , &argcp , &argv , NULL);
-	if ( ! g_spawn_sync (
-		NULL,
-		argv,
-		NULL,
-		G_SPAWN_SEARCH_PATH,
-		NULL,
-		NULL, //user data
-		&std_out,
-		&std_err,
-		&exit_status,
-		&error) )
-	{
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
-		g_error_free (error);
-		g_strfreev ( argv );
-        return FALSE;
-	}
-    if ( WIFEXITED (exit_status) )
-	{
-	    if ( WEXITSTATUS (exit_status) )
-		{
-			response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err );
-			return FALSE;
-		}
-	}
-	g_strfreev ( argv );
-    return TRUE;
-}
-
 XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
-	XArchive *archive_cmd;
+	XArchive *archive;
 	XArchiveType type;
 
-	type = xa_detect_archive_type ( filename );
+	type = xa_detect_archive_type (filename);
 	if (type == -2)
 		return NULL;
 
-	archive_cmd = xa_init_archive_structure ();
-	if (archive_cmd == NULL)
+	archive = xa_init_archive_structure ();
+	if (archive == NULL)
 	{
 		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
 		return NULL;
 	}
-	archive_cmd->path = g_strdup (filename);
-	archive_cmd->escaped_path = xa_escape_bad_chars(filename , "$\'`\"\\!?* ()&|@#:;");
-	archive_cmd->type = type;
+	archive->path = g_strdup (filename);
+	archive->escaped_path = xa_escape_bad_chars(filename , "$\'`\"\\!?* ()&|@#:;");
+	archive->type = type;
 
-	if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive_cmd->escaped_path , ".tar.bz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tbz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tbz2" ) )
-		archive_cmd->type = XARCHIVETYPE_TAR_BZ2;
-	else if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.gz") || g_str_has_suffix ( archive_cmd->escaped_path , ".tgz") )
-		archive_cmd->type = XARCHIVETYPE_TAR_GZ;
-	else if ( g_str_has_suffix ( archive_cmd->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive_cmd->escaped_path , ".tlz") )
-		archive_cmd->type = XARCHIVETYPE_TAR_LZMA;
-
-	return (archive_cmd);
+	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
+		archive->type = XARCHIVETYPE_TAR_BZ2;
+	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
+		archive->type = XARCHIVETYPE_TAR_GZ;
+	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive->escaped_path , ".tlz") )
+		archive->type = XARCHIVETYPE_TAR_LZMA;
+	return (archive);
 }
 

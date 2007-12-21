@@ -49,8 +49,8 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_box_pack_start (GTK_BOX (hbox1), scrolledwindow1, TRUE, TRUE, 6);
 	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy", GTK_POLICY_NEVER,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_NEVER, NULL);
 	
-	prefs_data->prefs_liststore = gtk_list_store_new ( 3, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT);
-	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
+	prefs_data->prefs_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT);
+	gtk_list_store_append (prefs_data->prefs_liststore,&iter);
 	gchar *pixbuf_file = g_strconcat(DATADIR,"/pixmaps/xarchiver-behaviour.svg",NULL);
 	icon_pixbuf = gdk_pixbuf_new_from_file (pixbuf_file,NULL);
 	g_free (pixbuf_file);
@@ -105,7 +105,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	prefs_data->combo_prefered_format = gtk_combo_box_new_text();
 	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->combo_prefered_format, FALSE, TRUE, 0);
-	archive_type = g_list_first ( ArchiveType );
+	archive_type = g_list_first (ArchiveType);
 	while ( archive_type != NULL )
 	{
 		if (archive_type->data == "tgz" || archive_type->data == "rpm" || (archive_type->data == "rar" && unrar) )
@@ -113,7 +113,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 		else
 			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_format),archive_type->data );
 		next:
-			archive_type = g_list_next ( archive_type );
+			archive_type = g_list_next (archive_type);
 	}
 
 	prefs_data->check_save_add_dialog = gtk_check_button_new_with_mnemonic (_("Save settings for add dialog"));

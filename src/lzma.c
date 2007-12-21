@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ * Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  * Copyright (C) 2007 Thomas Dy - <dysprosium66@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -17,26 +17,20 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-//this file is modified from bzip2 module
-
 #include "config.h"
 #include "lzma.h"
 #include "bzip2.h"
 #include "extract_dialog.h"
 #include "string_utils.h"
 
-FILE *fd;
-
-extern int output_fd;
-extern gboolean cli;
 short int l;
 
-void xa_open_lzma ( XArchive *archive )
+void xa_open_lzma (XArchive *archive)
 {
 	gchar *command;
 	unsigned short int i;
 
-	if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive->escaped_path , ".tlz") )
+	if (g_str_has_suffix(archive->escaped_path , ".tar.lzma") || g_str_has_suffix (archive->escaped_path , ".tlz"))
 	{
     	gchar *tar;
 	    tar = g_find_program_in_path ("gtar");
@@ -44,55 +38,55 @@ void xa_open_lzma ( XArchive *archive )
 		if (tar == NULL)
 			tar = g_strdup ("tar");
 
-		command = g_strconcat (tar, " tv --use-compress-program=lzma -f " , archive->escaped_path, NULL );
+		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->escaped_path,NULL);
+		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
 		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->nr_of_dirs = 0;
-		archive->nc = 6;
+		archive->nc = 7;
 		archive->format ="TAR.LZMA";
 		archive->parse_output = xa_get_tar_line_content;
-
 		xa_spawn_async_process (archive,command);
 
 		g_free (command);
 		g_free (tar);
 
-		if ( archive->child_pid == 0 )
+		if (archive->child_pid == 0)
 			return;
 
-		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING};
+		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 		archive->column_types = g_malloc0(sizeof(types));
-		for (i = 0; i < 8; i++)
+		for (i = 0; i < 9; i++)
 			archive->column_types[i] = types[i];
 
-		char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time"))};
+		char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time")),NULL};
 		xa_create_liststore (archive,names);
         archive->type = XARCHIVETYPE_TAR_LZMA;
 	}
 	else
 	{
-		extract_window = xa_create_extract_dialog ( 0 , archive);
-		command = xa_parse_extract_dialog_options ( archive , extract_window, NULL );
-		gtk_widget_destroy ( extract_window->dialog1 );
+		extract_window = xa_create_extract_dialog (0,archive);
+		command = xa_parse_extract_dialog_options (archive,extract_window,NULL);
+		gtk_widget_destroy (extract_window->dialog1);
 		g_free (extract_window);
 	}
 }
 
-
-void lzma_extract ( XArchive *archive )
+void lzma_extract (XArchive *archive)
 {
+	GSList *list = NULL;
     gchar *text = NULL;
 	gchar *filename_only = NULL;
 	gchar *command = NULL;
 	gboolean result = FALSE;
 	gboolean ext;
 
-	if ( ! cli )
+	if (MainWindow)
 		archive->extraction_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
 
-	if ( strlen ( archive->extraction_path ) > 0 )
+	if (strlen(archive->extraction_path) > 0)
 	{
-		if (! cli)
+		if (MainWindow)
 		{
 			text = g_strdup_printf(_("Extracting lzma file to %s"), archive->extraction_path);
 			Update_StatusBar ( text );
@@ -110,19 +104,14 @@ void lzma_extract ( XArchive *archive )
 		else
 			command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp" , filename_only, ".lzma", NULL);
 
-		result = xa_run_command (archive,command,0);
-		g_free (command);
-		if (result == 0)
-			return ;
-		if ( ext  )
+		list = g_slist_append(list,command);
+
+		if (ext)
 			command = g_strconcat ("lzma -f -d ", "/tmp",filename_only, NULL);
 		else
 			command = g_strconcat ("lzma -f -d ","/tmp",filename_only, ".lzma", NULL);
 
-		result = xa_run_command (archive,command,0);
-		g_free (command);
-		if (result == 0)
-			return;
+		list = g_slist_append(list,command);
 
 		if (ext)
 		{
@@ -133,77 +122,50 @@ void lzma_extract ( XArchive *archive )
 		{
 			command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
 		}
-
-		result = xa_run_command (archive,command,0);
+		list = g_slist_append(list,command);
+		result = xa_run_command (archive,list);
 		g_free (command);
 		if (result == 0)
 			return;
 	}
-	if (result == 0)
+/*	if (result == 0)
 	{
 		xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 		archive->status = XA_ARCHIVESTATUS_IDLE;
 		gtk_widget_set_sensitive (Stop_button, FALSE);
 		gtk_widget_hide ( viewport2 );
 		Update_StatusBar ( _("Operation canceled."));
-	}
-	//TODO:
-	/*else
-		xa_watch_child (archive->child_pid, 0, archive);*/
+	}*/
 }
 
-void xa_add_delete_tar_lzma ( GString *list , XArchive *archive , gboolean add )
+void xa_add_delete_tar_lzma (GString *list,XArchive *archive,gboolean add)
 {
-	gchar *command, *msg, *tar,*temp_name,*file_ext;
+	GSList *_list = NULL;
+	gchar *command,*tar,*temp_name,*file_ext;
 	gboolean result;
 
-	if ( ! cli )
-	{
-		gtk_widget_show (viewport2);
-		msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , "lzma");
-		Update_StatusBar ( msg );
-		g_free (msg);
-	}
-
 	/* Let's copy the archive to /tmp first */
-	temp_name = g_strconcat ( " /tmp", g_strrstr (archive->escaped_path , "/"), NULL);
+	temp_name = g_strconcat (" /tmp",g_strrstr (archive->escaped_path,"/"),NULL);
 	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL);
-	if ( ! cli)
-		result = xa_run_command (archive,command,0);
-	else
-		result = SpawnSyncCommand ( command );
-	g_free (command);
-	if (result == 0)
-	{
-		g_free (temp_name);
-		return;
-	}
-	command = g_strconcat ("lzma ", "-f -d ",temp_name,NULL);
-	if ( ! cli )
-		result = xa_run_command (archive,command,0);
-	else
-		result = SpawnSyncCommand ( command );
-	g_free (command);
-	if (result == 0)
-	{
-		g_free (temp_name);
-		return;
-	}
+	_list = g_slist_append(_list,command);
+
+	command = g_strconcat ("lzma -f -d ",temp_name,NULL);
+	_list = g_slist_append(_list,command);
 
 	tar = g_find_program_in_path ("gtar");
 	if (tar == NULL)
 		tar = g_strdup ("tar");
 	l = strlen (temp_name);
 
-	if (file_extension_is (archive->escaped_path,".tar.lzma") )
+	if (file_extension_is (archive->escaped_path,".tar.lzma"))
 		temp_name[l - 5] = 0;
-	else if (file_extension_is (archive->escaped_path,".tlz") )
+	else if (file_extension_is (archive->escaped_path,".tlz"))
 	{
 		temp_name[l - 2] = 'a';
 		temp_name[l - 1] = 'r';
 	}
 
-	if ( add )
+	if (add)
 		command = g_strconcat (tar, " ",
 							archive->add_recurse ? "" : "--no-recursion ",
 							archive->remove_files ? "--remove-files " : "",
@@ -211,50 +173,18 @@ void xa_add_delete_tar_lzma ( GString *list , XArchive *archive , gboolean add )
 							temp_name,
 							list->str , NULL );
 	else
-		command = g_strconcat (tar, " --delete -f " , temp_name , list->str , NULL );
-	if ( ! cli)
-		result = xa_run_command (archive,command,0);
-	else
-		result = SpawnSyncCommand ( command );
-	g_free (command);
+		command = g_strconcat (tar," --no-wildcards --delete -f ",temp_name,list->str,NULL);
 	g_free (tar);
-	if (result == 0)
-	{
-		g_free (temp_name);
-		return;
-	}
+	_list = g_slist_append(_list,command);
 
-	if ( ! cli )
-	{
-		msg = g_strdup_printf(_("Recompressing tar file with %s, please wait...") , "lzma");
-		Update_StatusBar ( msg );
-		g_free (msg);
-	}
-
-	command = g_strconcat ( "lzma ", "-f " , temp_name , NULL );
-	if ( ! cli )
-		result = xa_run_command (archive,command,0);
-	else
-		result = SpawnSyncCommand ( command );
-	g_free (command);
-
-	if (result == 0)
-	{
-		g_free (temp_name);
-		return;
-	}
+	command = g_strconcat ("lzma -f ",temp_name,NULL);
+	_list = g_slist_append(_list,command);
 	file_ext = ".lzma";
 
 	/* Let's move the modified archive from /tmp to the original archive location */
-	command = g_strconcat ( "mv " , temp_name , file_ext, " " ,archive->escaped_path, NULL );
-	if ( ! cli )
-		result = xa_run_command (archive,command,1);
-	else
-		result = SpawnSyncCommand ( command );
-	g_free (command);
+	command = g_strconcat ("mv ",temp_name,file_ext," ",archive->escaped_path,NULL);
+	_list = g_slist_append(_list,command);
+	result = xa_run_command (archive,_list);
 	g_free (temp_name);
-
-	if (result == 0)
-		return;
 }
 

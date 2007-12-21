@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -60,7 +60,10 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	
 	add_dialog->filechooserwidget1 = gtk_file_chooser_widget_new (GTK_FILE_CHOOSER_ACTION_OPEN);
 	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE, 0);
-	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
+	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
+		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),FALSE);
+	else
+		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
 	//gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
 
 	add_dialog->frame1 = gtk_frame_new (NULL);
@@ -90,7 +93,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->no_store_path), FALSE);
 
 	/* 7z doesn't appear to let the user chooses if storing full paths */
-	if (archive->type == XARCHIVETYPE_7ZIP)
+	if (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
  	{
  		gtk_widget_set_sensitive(label3,FALSE);
  		gtk_widget_set_sensitive(add_dialog->store_path,FALSE);
@@ -409,13 +412,6 @@ gchar *xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialo
 			}
 			else
 				xa_cat_filenames(archive,files,names);
-
-			gtk_widget_set_sensitive (Stop_button,TRUE);
-			gtk_widget_set_sensitive (check_menu,FALSE);
-			gtk_widget_set_sensitive (close1,FALSE);
-			gtk_widget_set_sensitive (properties,FALSE);
-			xa_set_button_state (0,0,0,0,0,0,0,0);
-			gtk_widget_hide (add_dialog->dialog1);
 
 			command = xa_add_single_files (archive,names,compression_string);
 			g_string_free (names,TRUE);

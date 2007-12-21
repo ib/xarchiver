@@ -1,9 +1,5 @@
-- fix bug #2176.
-- fix missing add/extract/properties when with one archive loaded Xarchiver doesn't recognize another one (sudoku.tar)
-- get rid of memory leaks notified by valgrind [DONE]
-- allow switching by right click on the toolbar to icons with text/ no text/ small icons.
 - add a small progress window when using Xarchiver cmd-line switches.
-- loading and saving of add/extraction options and window size.
+- loading and saving of add/extraction options.
 - support tar on *BSD.
 - avoid reset of extract dialog options when loading a new archive.
 - ability to create sfx archives through the Add dialog for those archives which support it.

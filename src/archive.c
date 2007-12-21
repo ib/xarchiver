@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2007 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (c) 2008 Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -96,6 +96,45 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
 	g_io_channel_set_flags (err_ioc,G_IO_FLAG_NONBLOCK,NULL);
 	g_io_add_watch (err_ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_error_messages, archive);
+}
+
+gboolean xa_spawn_sync_process (gchar *command)
+{
+	int exit_status;
+    GError *error = NULL;
+    gboolean result = FALSE;
+    gchar *std_out;
+    gchar *std_err;
+	gchar **argv;
+	int argcp;
+
+	g_shell_parse_argv(command,&argcp,&argv,NULL);
+	if ( ! g_spawn_sync(
+		NULL,
+		argv,
+		NULL,
+		G_SPAWN_SEARCH_PATH,
+		NULL,
+		NULL,
+		&std_out,
+		&std_err,
+		&exit_status,
+		&error))
+	{
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
+		g_error_free (error);
+		g_strfreev (argv);
+		return result;
+	}
+	if (WIFEXITED(exit_status))
+	{
+		if (WEXITSTATUS(exit_status))
+			response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err);
+		else
+			result = TRUE;
+	}
+	g_strfreev (argv);
+	return result;
 }
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -225,11 +264,13 @@ void xa_clean_archive_structure (XArchive *archive)
 
 gboolean xa_delete_temp_directory (XArchive *archive,gboolean flag)
 {
+	GSList *list = NULL;
 	gchar *command;
 	gboolean result;
+
 	command = g_strconcat ("rm -rf ",archive->tmp,NULL);
-	result = xa_run_command (archive,command,flag);
-	g_free (command);
+	list = g_slist_append(list,command);
+	result = xa_run_command (archive,list);
 	return result;
 }
 
@@ -250,32 +291,39 @@ gboolean xa_create_temp_directory (XArchive *archive,gchar tmp_dir[])
 	return TRUE;
 }
 
-gboolean xa_run_command (XArchive *archive,gchar *command,gboolean set_gui)
+gboolean xa_run_command (XArchive *archive,GSList *commands)
 {
 	int status;
-	gboolean waiting = TRUE;
-	gboolean result;
 	int ps;
+	gboolean waiting = TRUE;
+	gboolean result = FALSE;
+	GSList *_commands = commands;
 
 	archive->parse_output = 0;
-	xa_spawn_async_process (archive,command);
-	if (archive->child_pid == 0)
-		return FALSE;
-
 	gtk_widget_show (viewport2);
-	while (waiting)
+	while (_commands)
 	{
-		ps = waitpid (archive->child_pid, &status, WNOHANG);
-		if (ps < 0)
-			waiting = FALSE;
-		else
-			gtk_main_iteration_do (FALSE);
+		g_print ("%s\n",_commands->data);
+		xa_spawn_async_process (archive,_commands->data);
+		if (archive->child_pid == 0)
+			break;
+		while (waiting)
+		{
+			ps = waitpid (archive->child_pid, &status, WNOHANG);
+			if (ps < 0)
+				break;
+			else
+				gtk_main_iteration_do (FALSE);
+		}
+		result = xa_check_child_for_error_on_exit(archive,status);
+		if (result == FALSE)
+			break;
+		_commands = _commands->next;
 	}
-	result = xa_check_child_for_error_on_exit(archive,status);
+	g_slist_foreach (commands, (GFunc) g_free, NULL);
+	g_slist_free(commands);
 
-	if (set_gui)
-		xa_archive_operation_finished(archive,result);
-
+	xa_archive_operation_finished(archive,result);
 	return result;
 }
 

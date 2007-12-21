@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -26,7 +26,6 @@
 #include "support.h"
 
 gboolean stop_flag;
-extern gboolean cli;
 extern gboolean unrar;
 gchar *rar;
 
@@ -162,7 +161,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
 	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 )
 		goto here;
-	if (cli && (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_TAR_BZ2) )
+	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_TAR_BZ2)
 	{
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
 		gtk_widget_set_sensitive (dialog_data->extract_full, FALSE);
@@ -184,7 +183,6 @@ here:
 		dialog_data->hbox6 = gtk_hbox_new (FALSE, 2);
 		gtk_widget_show (dialog_data->hbox6);
 		gtk_box_pack_start (GTK_BOX (dialog_data->vbox4), dialog_data->hbox6, FALSE, FALSE, 0);
-
 	}
 	else
 		dialog_data->touch = NULL;
@@ -282,10 +280,10 @@ void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data
 		return;
 	gboolean active = gtk_toggle_button_get_active (button);
 	if (active)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh),FALSE);
 }
 
-gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection)
+gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
 {
 	gchar *command = NULL;
 	gchar *tar;
@@ -298,17 +296,17 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 	else
 		rar = "rar";
 
-    while ( ! done )
+    while (! done)
 	{
-		switch (gtk_dialog_run ( GTK_DIALOG (dialog_data->dialog1 ) ) )
+		switch (gtk_dialog_run(GTK_DIALOG(dialog_data->dialog1)))
 		{
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
-			if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 )
+			if (MainWindow && (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2) )
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
-				Update_StatusBar (_("Operation canceled.") );
+				Update_StatusBar (_("Operation canceled."));
 				gtk_widget_hide (viewport2);
 				xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 				archive->status = XA_ARCHIVESTATUS_IDLE;
@@ -316,10 +314,10 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			break;
 
 			case GTK_RESPONSE_OK:
-			destination_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->destination_path_entry) ));
-			archive->extraction_path = xa_escape_bad_chars ( destination_path , "$\'`\"\\!?* ()&|@#:;" );
+			destination_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog_data->destination_path_entry)));
+			archive->extraction_path = xa_escape_bad_chars (destination_path , "$\'`\"\\!?* ()&|@#:;");
 
-			if ( strlen ( archive->extraction_path ) == 0 )
+			if (strlen(archive->extraction_path) == 0)
 			{
 				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed where to extract the files!"),_("Please enter the extraction path.") );
 				break;
@@ -327,13 +325,13 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			if (archive->extraction_path[0] != '/')
 			{
 				gchar *cur_dir = g_get_current_dir();
-				archive->extraction_path = g_strconcat(cur_dir, "/", archive->extraction_path, NULL);
+				archive->extraction_path = g_strconcat(cur_dir, "/",archive->extraction_path,NULL);
 				g_free (cur_dir);
 			}
 			if (archive->has_passwd)
-				archive->passwd  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (dialog_data->password_entry) ));
+				archive->passwd  = g_strdup (gtk_entry_get_text (GTK_ENTRY(dialog_data->password_entry)));
 
-			if (archive->has_passwd && strlen( archive->passwd ) == 0 )
+			if (archive->has_passwd && strlen(archive->passwd) == 0 )
 			{
 				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This archive is encrypted!"),_("Please enter the password.") );
 				break;
@@ -376,13 +374,13 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 			if (dialog_data->update != NULL)
 				archive->update = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->update ));
 
-			gtk_widget_set_sensitive (Stop_button,TRUE);
+			//gtk_widget_set_sensitive (Stop_button,TRUE);
 			gtk_widget_hide (dialog_data->dialog1);
 			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			/* Are all files selected? */
 			if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( dialog_data->all_files_radio )) )
 			{
-				if ( ! cli )
+				if (MainWindow)
 				{
 					gchar *text = g_strdup_printf(_("Extracting files to %s"), destination_path);
 					Update_StatusBar ( text );
@@ -571,7 +569,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 				names = g_string_new ( " " );
 				gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) xa_concat_filenames, names );
 				command = xa_extract_single_files ( archive , names, archive->extraction_path );
-				g_string_free (names, TRUE);
+				g_string_free(names,TRUE);
 			}
 		}
 	}
@@ -579,7 +577,7 @@ gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data
 	return command;
 }
 
-gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path)
+gchar *xa_extract_single_files (XArchive *archive,GString *files,gchar *path)
 {
 	gchar *command = NULL;
 	gchar *tar;
@@ -719,7 +717,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
         case XARCHIVETYPE_RPM:
         if (archive->full_path == 1)
 		{
-			chdir ( path );
+			chdir (path);
 			command = g_strconcat ( "cpio --make-directories " , files->str , " -F " , archive->tmp , " -i" , NULL);
 		}
 		else
@@ -730,7 +728,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
         break;
 
         case XARCHIVETYPE_7ZIP:
-        if ( archive->passwd != NULL)
+        if (archive->passwd != NULL)
 			command = g_strconcat ("7za " , archive->full_path ? "x" : "e",
 									" -p",archive->passwd,
 									archive->overwrite ? " -aoa" : " -aos",
@@ -845,7 +843,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 										archive->tar_touch ? " --touch" : "",
 										" --no-wildcards -C ",
 										archive->tmp,names->str,NULL);
-	result = xa_run_command (archive,command,0);
+	result = xa_run_command (archive,command);
 	g_string_free (names, TRUE);
 	g_free (command);
 
@@ -871,7 +869,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	chdir (archive->tmp);
 	command = g_strconcat ( "mv -f ", unescaped_names->str, " " , extract_path , NULL );
 
-	result = xa_run_command (archive,command,0);
+	result = xa_run_command (archive,command);
 	g_free (command);
 	g_slist_free (filenames);
 	g_string_free (unescaped_names,TRUE);

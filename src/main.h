@@ -34,7 +34,6 @@ const gchar *locale;
 void xa_get_available_archivers();
 gchar *config_file;
 gchar *get_argv_filename(const gchar *filename);
-gboolean SpawnSyncCommand ( gchar *command );
 XArchive *xa_init_structure_from_cmd_line (char *filename);
 #endif /* MAIN_H */
 

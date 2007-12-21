@@ -21,10 +21,11 @@
 #include "deb.h"
 #include "string_utils.h"
 
-extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
+extern void xa_create_liststore (XArchive *archive,gchar *columns_names[]);
 
-void xa_open_deb ( XArchive *archive )
+void xa_open_deb (XArchive *archive)
 {
+	GSList *list = NULL;
 	gchar *command = NULL;
 	gchar *dummy = NULL;
 	gchar *archive_no_path = NULL;
@@ -39,35 +40,22 @@ void xa_open_deb ( XArchive *archive )
 
 	archive_no_path = g_strrstr (archive->escaped_path,"/");
 	if (archive_no_path == NULL)
-		dummy = g_strconcat (" ",tmp_dir,"/",archive->escaped_path,NULL);
+		dummy = g_strconcat (tmp_dir,"/",archive->escaped_path,NULL);
 	else
 	{
 		archive_no_path++;
-		dummy = g_strconcat (" ",tmp_dir,"/",archive_no_path,NULL);
+		dummy = g_strconcat (tmp_dir,"/",archive_no_path,NULL);
 	}
-
 	/* Copy the .deb archive to the unique dir */
 	command = g_strconcat ("cp ",archive->escaped_path," ",archive->tmp,NULL);
-	result = xa_run_command (archive,command,0);
-	g_free (command);
-	if (result == FALSE)
-		return;
+	list = g_slist_append(list,command);
 
 	/* Ok, let's now extract the .deb archive with ar */
-	chdir (tmp_dir);
-	command = g_strconcat ("ar xv" , dummy, NULL);
-	result = xa_run_command (archive,command,0);
-	g_free (command);
-	g_free (dummy);
-
 	chdir (archive->tmp);
-	unlink ("control.tar.gz");
-	unlink ("debian-binary");
-	/* Delete the .deb archive copied to the unique dir */
-	if (archive_no_path != NULL)
-		unlink (archive_no_path);
-	else
-		unlink (archive->escaped_path);
+	command = g_strconcat ("ar xv ",dummy,NULL);
+	list = g_slist_append(list,command);
+	result = xa_run_command (archive,list);
+	g_free (dummy);
 
 	if (result == FALSE)
 		return;

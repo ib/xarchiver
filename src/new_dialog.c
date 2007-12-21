@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,10 +25,9 @@
 #include "main.h"
 
 extern gboolean unrar;
-extern gboolean cli;
 extern Prefs_dialog_data *prefs_window;
 gchar *current_new_directory = NULL;
-gint new_combo_box = -1;
+gint  new_combo_box = -1;
 gchar *ComboArchiveType;
 
 XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean flag)
@@ -105,15 +104,15 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		|| (!strcmp(Name->data, "rar") && unrar) )
 			goto there;
 		else
-			gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), Name->data );
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combo_box),Name->data);
 
 	there:
-		Name = g_list_next ( Name );
+		Name = g_list_next (Name);
 	}
 	if (new_combo_box == -1)
-		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_box),gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_prefered_format)));
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_box),gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_prefered_format))-3);
 	else
-		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box) , new_combo_box );
+		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box),new_combo_box);
 
 	gtk_box_pack_start (GTK_BOX (hbox), combo_box, TRUE, TRUE, 0);
 
@@ -155,7 +154,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			}
 		}
 
-		if ( ! cli )
+		if (MainWindow)
 		{
 			for (x = 0; x < gtk_notebook_get_n_pages ( notebook) ; x++)
 			{
@@ -205,6 +204,12 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 		if (strcmp ( ComboArchiveType,"arj") == 0)
 			archive->type = XARCHIVETYPE_ARJ;
+		else if (strcmp ( ComboArchiveType,"bz2") == 0)
+			archive->type = XARCHIVETYPE_BZIP2;
+		else if (strcmp ( ComboArchiveType,"gz") == 0)
+			archive->type = XARCHIVETYPE_GZIP;
+		else if (strcmp ( ComboArchiveType,"lzma") == 0)
+			archive->type = XARCHIVETYPE_LZMA;
 		else if (strcmp ( ComboArchiveType,"rar") == 0)
 			archive->type = XARCHIVETYPE_RAR;
 		else if (strcmp ( ComboArchiveType,"tar") == 0)

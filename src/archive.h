@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2007 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (c) 2008 Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -92,8 +92,6 @@ struct _XArchive
 	gboolean can_extract;
 	gboolean has_properties;
 	GString *comment;
-	//TODO: remove this once you fix the various arj,rar,etc
-	GList *cmd_line_output;
 	GSList *error_output;
 	GType *column_types;
 	gboolean add_recurse;
@@ -116,13 +114,14 @@ struct _XArchive
 	void (*parse_output) (gchar *line, gpointer data);
 };
 
+gboolean xa_spawn_sync_process (gchar *command);
 void xa_spawn_async_process (XArchive *archive, gchar *command);
-XArchive *xa_init_archive_structure ();
-void xa_clean_archive_structure ( XArchive *archive);
+XArchive *xa_init_archive_structure();
+void xa_clean_archive_structure (XArchive *archive);
 gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean xa_create_temp_directory(XArchive *archive,gchar tmp_dir[]);
 gboolean xa_delete_temp_directory(XArchive *archive,gboolean flag);
-gboolean xa_run_command (XArchive *archive,gchar *command,gboolean set_gui);
+gboolean xa_run_command (XArchive *archive,GSList *commands);
 gint xa_find_archive_index (gint page_num);
 gint xa_get_new_archive_idx();
 XEntry *xa_alloc_memory_for_each_row ( guint nc,GType column_types[]);
@@ -136,5 +135,4 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry);
 void xa_entries_to_filelist(XEntry *, GSList **, gchar *);
 void xa_destroy_filelist(GSList *file_list);
 XArchive *archive[100];
-XArchive *archive_cmd;
 #endif
