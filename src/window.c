@@ -1294,7 +1294,7 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
 void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 {
 	widget_data *xa_cmd_line_output;
-	GSList *output;
+	GSList *output = NULL;
 	gchar *line = NULL;
 	gchar *utf8_line;
 	gsize bytes_written;
@@ -1677,7 +1677,8 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     GList            *row_list;
 	gint current_page;
 	gint idx;
-
+	XEntry *entry;
+	
 	//gtk_drag_source_set_icon_name (treeview1, DATADIR "/pixmaps/xarchiver.png" );
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
@@ -1685,12 +1686,13 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
 
 	row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
-	if ( row_list == NULL )
+	if ( row_list == NULL)
 		return;
 
-	gtk_tree_model_get_iter (archive[idx]->model, &iter, (GtkTreePath*) (row_list->data) );
-	gtk_tree_model_get (archive[idx]->model, &iter, 0, &name, -1);
-	gchar *no_slashes = g_strrstr ( name, "/" );
+	gtk_tree_model_get_iter(archive[idx]->model,&iter,(GtkTreePath*) (row_list->data));
+	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,archive[idx]->nc+1,&entry, -1);
+	name = xa_build_full_path_name_from_entry(entry);
+	gchar *no_slashes = g_strrstr(name,"/");
 	if (no_slashes != NULL)
 		no_slashes++;
 	gdk_property_change (context->source_window,
@@ -1798,7 +1800,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
 }
 
-void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
+void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int y,GtkSelectionData *data, unsigned int info,unsigned int time,gpointer user_data)
 {
 	GSList *list = NULL;
 	gchar **array = NULL;
@@ -1813,26 +1815,26 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	array = gtk_selection_data_get_uris ( data );
-	if (array == NULL || GTK_WIDGET_VISIBLE (viewport2) )
+	current_page = gtk_notebook_get_current_page(notebook);
+	array = gtk_selection_data_get_uris(data);
+	if (array == NULL || GTK_WIDGET_VISIBLE(viewport2))
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"" );
-		gtk_drag_finish (context, FALSE, FALSE, time);
+		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
-	gtk_drag_finish (context, TRUE, FALSE, time);
+	gtk_drag_finish (context,TRUE,FALSE,time);
 	one_file = (array[1] == NULL);
 
 	if (one_file)
 	{
-		filename = g_filename_from_uri ( array[0] , NULL, NULL );
-		if ( filename == NULL)
+		filename = g_filename_from_uri(array[0],NULL,NULL);
+		if (filename == NULL)
 			return;
-		else if ( xa_detect_archive_type ( filename ) > 0 )
+		else if (xa_detect_archive_type(filename) > 0)
 		{
-			xa_open_archive ( NULL, filename );
-			g_strfreev ( array );
+			xa_open_archive(NULL,filename);
+			g_strfreev(array);
 			return;
 		}
     }
@@ -1847,7 +1849,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int
 		xa_add_page (archive[idx]);
 	}
 	else
-		idx = xa_find_archive_index ( current_page );
+		idx = xa_find_archive_index (current_page);
 
 	if (archive[idx]->type == XARCHIVETYPE_RAR && unrar)
 	{

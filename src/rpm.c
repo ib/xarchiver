@@ -35,6 +35,7 @@ void xa_open_rpm (XArchive *archive)
 	unsigned short int i;
     int dl,il,sigsize,offset;
     gchar *ibs;
+	GSList *list = NULL;
 
     signal (SIGPIPE, SIG_IGN);
     stream = fopen ( archive->path , "r" );
@@ -42,7 +43,7 @@ void xa_open_rpm (XArchive *archive)
     {
         gchar *msg = g_strdup_printf (_("Can't open RPM file %s:") , archive->path);
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
-		msg,g_strerror (errno));
+		msg,g_strerror(errno));
 		g_free (msg);
 		return;
     }
@@ -106,8 +107,9 @@ void xa_open_rpm (XArchive *archive)
 	//Now I run dd to have the bzip2 / gzip compressed cpio archive in /tmp
 	gchar *command = g_strconcat ( "dd if=" , archive->escaped_path, " ibs=" , ibs , " skip=1 of=" , gzip_tmp , NULL );
 	g_free (ibs);
-	result = xa_run_command (archive,command);
-	g_free (command);
+	list = g_slist_append(list,command);
+	result = xa_run_command (archive,list);
+
 	if (result == FALSE)
 	{	
 		fclose (stream);
