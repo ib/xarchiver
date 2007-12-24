@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -80,7 +80,7 @@ void xa_view_file_inside_archive ( GtkMenuItem *menuitem , gpointer user_data );
 void xa_cancel_archive ( GtkMenuItem *menuitem , gpointer user_data);
 void xa_add_files_archive ( GtkMenuItem *menuitem, gpointer user_data );
 void xa_show_prefs_dialog ( GtkMenuItem *menuitem , gpointer user_data );
-void xa_activate_delete_and_view();
+void xa_activate_delete_and_view (GtkTreeSelection *treeselection,gpointer data);
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context, int x,int y,GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data);
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data);
 void drag_end (GtkWidget *treeview1, GdkDragContext *context, gpointer data);
@@ -106,9 +106,10 @@ void Update_StatusBar (gchar *msg);
 
 gchar *xa_open_file_dialog ();
 gchar *xa_open_sfx_file_selector ();
-void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data);
-void xa_location_entry_activated (GtkEntry *entry,gpointer  user_data);
+void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data);
+void xa_location_entry_activated (GtkEntry *entry,gpointer user_data);
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data);
+int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,gpointer data);
 gchar *name;
 gchar *permissions;
 #endif

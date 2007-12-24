@@ -51,6 +51,7 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 {
 	GdkPixbuf *icon;
 
+	xa_create_popup_menu();
 	tooltips = gtk_tooltips_new ();
 	accel_group = gtk_accel_group_new ();
 	xa_set_window_title (MainWindow , NULL);
@@ -389,13 +390,13 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 	notebook = GTK_NOTEBOOK(gtk_notebook_new() );
 	gtk_box_pack_start (GTK_BOX(vbox1), GTK_WIDGET(notebook),TRUE,TRUE,0);
 	gtk_notebook_set_tab_pos (notebook, GTK_POS_TOP);
-	gtk_notebook_set_scrollable (notebook, TRUE);
+	gtk_notebook_set_scrollable (notebook,TRUE);
 	gtk_notebook_popup_enable (notebook);
 	gtk_widget_show (GTK_WIDGET(notebook));
-	g_signal_connect ((gpointer) notebook, "switch-page", G_CALLBACK (xa_page_has_changed), NULL);
+	g_signal_connect ((gpointer) notebook, "switch-page",G_CALLBACK (xa_page_has_changed),NULL);
 
-	gtk_drag_dest_set (GTK_WIDGET(notebook),GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK |	GDK_ACTION_ASK);
-	g_signal_connect (G_OBJECT (notebook), "drag-data-received",	G_CALLBACK (on_drag_data_received), NULL);
+	gtk_drag_dest_set (GTK_WIDGET(notebook),GTK_DEST_DEFAULT_ALL,drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+	g_signal_connect (G_OBJECT (notebook), "drag-data-received",G_CALLBACK (on_drag_data_received), NULL);
 
   	hbox_sb = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (hbox_sb);
@@ -574,24 +575,25 @@ void xa_add_page (XArchive *archive)
 	gtk_widget_show_all (page_hbox);
 
 	gtk_misc_set_alignment(GTK_MISC(tab_label), 0.0, 0);
-	gtk_notebook_append_page_menu (notebook, archive->scrollwindow, page_hbox, tab_label);
+	gtk_notebook_append_page_menu (notebook, archive->scrollwindow,page_hbox,tab_label);
 	gtk_notebook_set_current_page(notebook, -1);
-	gtk_notebook_set_tab_reorderable(notebook, archive->scrollwindow, TRUE);
+	gtk_notebook_set_tab_reorderable(notebook, archive->scrollwindow,TRUE);
 	archive->treeview = gtk_tree_view_new ();
 	gtk_container_add (GTK_CONTAINER (archive->scrollwindow), archive->treeview);
 	gtk_widget_show (archive->treeview);
-	gtk_tree_view_set_rules_hint ( GTK_TREE_VIEW (archive->treeview) , TRUE );
-	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (archive->treeview),(GtkTreeViewSearchEqualFunc) treeview_select_search, NULL, NULL);
-	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (archive->treeview) );
+	gtk_tree_view_set_rules_hint ( GTK_TREE_VIEW (archive->treeview),TRUE);
+	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (archive->treeview),(GtkTreeViewSearchEqualFunc) treeview_select_search,NULL,NULL);
+	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (archive->treeview));
 	gtk_tree_selection_set_mode(sel, GTK_SELECTION_MULTIPLE);
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
 
 	gtk_drag_source_set (archive->treeview, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-	g_signal_connect ((gpointer) sel, 				"changed", 		G_CALLBACK (xa_activate_delete_and_view), NULL);
-	g_signal_connect (G_OBJECT (archive->treeview), "drag-begin",	G_CALLBACK (drag_begin), NULL);
-	g_signal_connect (G_OBJECT (archive->treeview), "drag-data-get",G_CALLBACK (drag_data_get), NULL );
-	g_signal_connect (G_OBJECT (archive->treeview), "drag-end",		G_CALLBACK (drag_end), NULL);
-	g_signal_connect (G_OBJECT (archive->treeview), "row-activated",G_CALLBACK (xa_treeview_row_activated), NULL);
+	g_signal_connect ((gpointer) sel, 				"changed", 		G_CALLBACK (xa_activate_delete_and_view),archive);
+	g_signal_connect (G_OBJECT (archive->treeview), "drag_begin",	G_CALLBACK (drag_begin),archive);
+	g_signal_connect (G_OBJECT (archive->treeview), "drag_data_get",G_CALLBACK (drag_data_get),archive);
+	g_signal_connect (G_OBJECT (archive->treeview), "drag_end",		G_CALLBACK (drag_end),NULL);
+	g_signal_connect (G_OBJECT (archive->treeview), "row_activated",G_CALLBACK (xa_treeview_row_activated),archive);
+	g_signal_connect (G_OBJECT (archive->treeview), "button_press_event",G_CALLBACK (xa_mouse_button_event),archive);
 }
 
 void xa_close_page (GtkWidget *widget, gpointer data)
@@ -715,7 +717,100 @@ widget_data *xa_create_output_window(gchar *title)
 	return data;
 }
 
-GtkWidget *create_archive_properties_window ()
+void xa_create_popup_menu()
+{
+	GtkWidget *cut;
+	GtkWidget *image6;
+	GtkWidget *copy;
+	GtkWidget *image7;
+	GtkWidget *paste;
+	GtkWidget *image8;
+	GtkWidget *separator;
+	GtkWidget *view;
+	GtkWidget *extract;
+	GtkWidget *image9;
+	GtkWidget *ddelete;
+	GtkWidget *image10;
+	GtkWidget *rename;
+	GtkWidget *image11;
+
+	xa_popup_menu = gtk_menu_new();
+
+	view = gtk_image_menu_item_new_with_mnemonic (_("View"));
+	gtk_widget_show (view);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu),view);
+
+	image9 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image9);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view), image9);
+
+	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract"));
+	gtk_widget_show (extract);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu),extract);
+	
+	image9 =  xa_main_window_find_image ("xarchiver-extract.png", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image9);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract), image9);
+
+	separator = gtk_separator_menu_item_new ();
+	gtk_widget_show (separator);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu), separator);
+	gtk_widget_set_sensitive (separator,FALSE);
+	
+	cut = gtk_image_menu_item_new_with_mnemonic (_("Cut"));
+	gtk_widget_show (cut);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu), cut);
+
+	image6 = gtk_image_new_from_stock ("gtk-cut", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image6);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (cut), image6);
+
+	copy = gtk_image_menu_item_new_with_mnemonic (_("Copy"));
+	gtk_widget_show (copy);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu), copy);
+
+	image7 = gtk_image_new_from_stock ("gtk-copy", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image7);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (copy), image7);
+
+	paste = gtk_image_menu_item_new_with_mnemonic (_("Paste"));
+	gtk_widget_show (paste);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu), paste);
+
+	image8 = gtk_image_new_from_stock ("gtk-paste", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image8);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (paste), image8);
+
+	separator = gtk_separator_menu_item_new();
+	gtk_widget_show (separator);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu), separator);
+	gtk_widget_set_sensitive (separator,FALSE);
+
+	ddelete = gtk_image_menu_item_new_with_mnemonic (_("Delete"));
+	gtk_widget_show (ddelete);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu), ddelete);
+
+	image10 = gtk_image_new_from_stock ("gtk-delete", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image10);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (ddelete), image10);
+
+	rename = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
+	gtk_widget_show (rename);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu), rename);
+
+	image11 = gtk_image_new_from_stock ("gtk-refresh", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image11);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename), image11);
+
+	/*g_signal_connect ((gpointer) cut, "activate",G_CALLBACK (on_xa_cut_activate),NULL);
+	g_signal_connect ((gpointer) copy, "activate",G_CALLBACK (on_xa_copy_activate),NULL);
+	g_signal_connect ((gpointer) paste, "activate",G_CALLBACK (on_xa_paste_activate),NULL);
+	g_signal_connect ((gpointer) open, "activate",G_CALLBACK (on_xa_open_activate),NULL);
+	g_signal_connect ((gpointer) ddelete, "activate",G_CALLBACK (on_xa_delete_activate),NULL);
+	g_signal_connect ((gpointer) rename, "activate",G_CALLBACK (on_xa_rename_activate),NULL);*/
+}
+
+GtkWidget *create_archive_properties_window()
 {
 	archive_properties_window = gtk_dialog_new_with_buttons (_("Archive Properties Window"),
 									GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,

@@ -1409,14 +1409,16 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem,gpointer user_data)
 	xa_shell_quote_filename(full_pathname,names,archive[idx]);
 	g_free(full_pathname);
 
+	result = xa_create_temp_directory(archive[idx],tmp_dir);
+	if (result == FALSE)
+		return;
+
 	full_path = archive[idx]->full_path;
 	overwrite = archive[idx]->overwrite;
 
 	archive[idx]->full_path = 0;
 	archive[idx]->overwrite = 1;
-
-	result = xa_create_temp_directory(archive[idx],tmp_dir);
-
+	
 	command = xa_extract_single_files(archive[idx],names,archive[idx]->tmp);
 	g_string_free (names,TRUE);
 
@@ -1559,36 +1561,33 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     gtk_widget_show_all ( archive_properties_win );
 }
 
-void xa_activate_delete_and_view ()
+void xa_activate_delete_and_view (GtkTreeSelection *treeselection,gpointer data)
 {
-	gint current_page;
-	gint idx;
+	XArchive *archive = data;
+	GtkTreeSelection *selection;
 
 	if ( ! GTK_WIDGET_VISIBLE (Extract_button) )
 		return;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
-
-	GtkTreeSelection *selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
-	gint selected = gtk_tree_selection_count_selected_rows ( selection );
+	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive->treeview));
+	gint selected = gtk_tree_selection_count_selected_rows (selection);
 	if (selected == 0 )
 		xa_disable_delete_view_buttons (FALSE);
 	else
 	{
-		if (archive[idx]->type == XARCHIVETYPE_RAR && unrar)
-			gtk_widget_set_sensitive ( delete_menu , FALSE );
-		else if ( archive[idx]->type != XARCHIVETYPE_RPM && archive[idx]->type != XARCHIVETYPE_DEB )
-			gtk_widget_set_sensitive ( delete_menu , TRUE );
+		if (archive->type == XARCHIVETYPE_RAR && unrar)
+			gtk_widget_set_sensitive ( delete_menu,FALSE);
+		else if ( archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_DEB)
+			gtk_widget_set_sensitive (delete_menu,TRUE);
 		if (selected > 1 )
 		{
-			gtk_widget_set_sensitive ( View_button , FALSE);
-			gtk_widget_set_sensitive ( view_menu, FALSE );
+			gtk_widget_set_sensitive (View_button,FALSE);
+			gtk_widget_set_sensitive (view_menu,FALSE );
 		}
 		else
 		{
-			gtk_widget_set_sensitive ( View_button , TRUE );
-			gtk_widget_set_sensitive ( view_menu, TRUE );
+			gtk_widget_set_sensitive (View_button,TRUE);
+			gtk_widget_set_sensitive (view_menu,TRUE);
 		}
 	}
 }
@@ -1665,32 +1664,30 @@ void Update_StatusBar (gchar *msg)
 void xa_disable_delete_view_buttons (gboolean value)
 {
     gtk_widget_set_sensitive (delete_menu,value);
+    //TODO: disable the popupmenu entries
+    //gtk_widget_set_sensitive (ddelete,value);
     gtk_widget_set_sensitive (View_button,value);
     gtk_widget_set_sensitive (view_menu,value);
 }
 
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 {
+	XArchive *archive = data;
     GtkTreeSelection *selection;
     GtkTreeIter       iter;
     gchar            *name;
     GList            *row_list;
-	gint current_page;
-	gint idx;
 	XEntry *entry;
 	
 	//gtk_drag_source_set_icon_name (treeview1, DATADIR "/pixmaps/xarchiver.png" );
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
-
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 
 	row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 	if ( row_list == NULL)
 		return;
 
-	gtk_tree_model_get_iter(archive[idx]->model,&iter,(GtkTreePath*) (row_list->data));
-	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,archive[idx]->nc+1,&entry, -1);
+	gtk_tree_model_get_iter(archive->model,&iter,(GtkTreePath*) (row_list->data));
+	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry, -1);
 	name = xa_build_full_path_name_from_entry(entry);
 	gchar *no_slashes = g_strrstr(name,"/");
 	if (no_slashes != NULL)
@@ -1713,6 +1710,7 @@ void drag_end (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
 
 void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data)
 {
+	XArchive *archive = data;
 	GtkTreeSelection *selection;
 	guchar *fm_path;
 	int fm_path_len;
@@ -1721,18 +1719,13 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	GList *row_list = NULL;
 	GSList *list = NULL;
 	GString *names;
-	gint current_page;
-	gint idx;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
-
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
 
 	if ( row_list == NULL)
 		return;
-	if (archive[idx]->status == XA_ARCHIVESTATUS_EXTRACT)
+	if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!") );
 		return;
@@ -1754,50 +1747,50 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 			gtk_drag_finish (dc, FALSE, FALSE, t);
 			return;
 		}
-		if ( archive[idx]->has_passwd )
+		if (archive->has_passwd)
 		{
-			if ( archive[idx]->passwd == NULL)
+			if (archive->passwd == NULL)
 			{
-				archive[idx]->passwd = password_dialog ();
-				if ( archive[idx]->passwd == NULL)
+				archive->passwd = password_dialog();
+				if ( archive->passwd == NULL)
 				{
-					gtk_drag_finish (dc, FALSE, FALSE, t);
+					gtk_drag_finish (dc,FALSE,FALSE,t);
 					return;
 				}
 			}
 		}
-		archive[idx]->extraction_path = extract_local_path ( no_uri_path );
-		g_free ( no_uri_path );
-		if (archive[idx]->extraction_path != NULL)
+		archive->extraction_path = extract_local_path (no_uri_path);
+		g_free (no_uri_path);
+		if (archive->extraction_path != NULL)
 			to_send = "S";
 
 		names = g_string_new ("");
-		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) xa_concat_filenames, names );
-		full_path = archive[idx]->full_path;
-		overwrite = archive[idx]->overwrite;
-		archive[idx]->full_path = 0;
-		archive[idx]->overwrite = 1;
-		command = xa_extract_single_files ( archive[idx] , names, archive[idx]->extraction_path );
+		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) xa_concat_filenames,names);
+		full_path = archive->full_path;
+		overwrite = archive->overwrite;
+		archive->full_path = 0;
+		archive->overwrite = 1;
+		command = xa_extract_single_files (archive,names,archive->extraction_path);
 		g_string_free (names, TRUE);
 		if ( command != NULL )
 		{
-			archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
+			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			list = g_slist_append(list,command);
-			xa_run_command (archive[idx],list);
+			xa_run_command (archive,list);
 		}
-		archive[idx]->full_path = full_path;
-		archive[idx]->overwrite = overwrite;
-		gtk_selection_data_set (selection_data, selection_data->target, 8, (guchar*)to_send, 1);
+		archive->full_path = full_path;
+		archive->overwrite = overwrite;
+		gtk_selection_data_set (selection_data, selection_data->target,8,(guchar*)to_send,1);
 	}
 
-	if (archive[idx]->extraction_path != NULL)
+	if (archive->extraction_path != NULL)
 	{
-		g_free (archive[idx]->extraction_path);
-		archive[idx]->extraction_path = NULL;
+		g_free (archive->extraction_path);
+		archive->extraction_path = NULL;
 	}
-	g_list_foreach (row_list, (GFunc) gtk_tree_path_free, NULL);
+	g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
 	g_list_free (row_list);
-	archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int y,GtkSelectionData *data, unsigned int info,unsigned int time,gpointer user_data)
@@ -1932,7 +1925,7 @@ gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer dat
 	return FALSE;
 }
 
-void xa_select_all ( GtkMenuItem *menuitem , gpointer user_data )
+void xa_select_all(GtkMenuItem *menuitem,gpointer user_data)
 {
 	gint idx;
 	gint current_page;
@@ -1959,9 +1952,10 @@ void xa_deselect_all ( GtkMenuItem *menuitem , gpointer user_data )
 	gtk_widget_set_sensitive (deselect_all,FALSE);
 }
 
-void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
+void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data)
 {
 	gchar *browser_path;
+	gboolean result;
 
 	browser_path = gtk_combo_box_get_active_text(GTK_COMBO_BOX(prefs_window->combo_prefered_web_browser));
 
@@ -1972,6 +1966,8 @@ void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 		g_free (browser_path);
 		return;	
 	}
+	result = xa_launch_external_program(browser_path,(gchar *)link);
+
 	if (browser_path != NULL)
 		g_free (browser_path);
 }
@@ -2090,27 +2086,47 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
 }
 
+int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,gpointer data)
+{
+	XArchive *archive = data;
+	GtkTreePath *path;
+	GtkTreeIter  iter;
+	GtkTreeSelection *selection;
+
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
+	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (archive->treeview),event->x, event->y,&path,NULL,NULL,NULL);
+	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3))
+	{
+		gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path);
+		gtk_tree_path_free (path);
+		if (! gtk_tree_selection_iter_is_selected (selection, &iter))
+		{
+			gtk_tree_selection_unselect_all (selection);
+			gtk_tree_selection_select_iter (selection, &iter);
+		}
+		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,MainWindow,event->button,event->time);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)
 {
-	gint current_page;
-	gint idx;
+	XArchive *archive = user_data;
 	XEntry *entry;
 	GtkTreeIter iter;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
-
-	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive[idx]->liststore),&iter,path))
+	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path))
 		return;
 
-	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,archive[idx]->nc+1,&entry, -1);
+	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry,-1);
 	if (! entry->is_dir)
 		return;
-	if (archive[idx]->location_entry_path != NULL)
-		archive[idx]->back = g_slist_prepend(archive[idx]->back,xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path));
+	if (archive->location_entry_path != NULL)
+		archive->back = g_slist_prepend(archive->back,xa_find_entry_from_path(archive->root_entry,archive->location_entry_path));
+	/* Put NULL so to display the root entry */
 	else
-		/* Put NULL so to display the root entry */
-		archive[idx]->back = g_slist_prepend(archive[idx]->back,NULL);
+		archive->back = g_slist_prepend(archive->back,NULL);
 
-	xa_update_window_with_archive_entries(archive[idx],entry);
+	xa_update_window_with_archive_entries(archive,entry);
 }

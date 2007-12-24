@@ -773,7 +773,7 @@ gchar *xa_extract_single_files (XArchive *archive,GString *files,gchar *path)
 	return command;
 }
 
-gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, gchar *extract_path,gboolean cpio_flag)
+gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *extract_path,gboolean cpio_flag)
 {
 	gchar *command = NULL;
 	gchar *name = NULL;
@@ -835,16 +835,16 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	if (cpio_flag)
 	{
 		chdir (archive->tmp);
-		command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
+		command = g_strconcat ("cpio --make-directories -F ",archive->tmp," -i",NULL);
 	}
 	else
-		command = g_strconcat ( string, archive->escaped_path,
+		command = g_strconcat (string, archive->escaped_path,
 										archive->overwrite ? " --overwrite" : " --keep-old-files",
 										archive->tar_touch ? " --touch" : "",
 										" --no-wildcards -C ",
 										archive->tmp,names->str,NULL);
 	result = xa_run_command (archive,command);
-	g_string_free (names, TRUE);
+	g_string_free (names,TRUE);
 	g_free (command);
 
 	if (result == 0 || stop_flag)
@@ -856,8 +856,8 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 	}
 	while (filenames)
 	{
-		gchar *unescaped = xa_escape_bad_chars ( (gchar*)filenames->data , "$\'`\"\\!?* ()&|@#:;");
-		g_string_prepend ( unescaped_names, unescaped );
+		gchar *unescaped = xa_escape_bad_chars((gchar*)filenames->data,"$\'`\"\\!?* ()&|@#:;");
+		g_string_prepend (unescaped_names,unescaped);
 		g_string_prepend_c (unescaped_names, ' ');
 		g_free (unescaped);
 		filenames = filenames->next;
@@ -867,7 +867,7 @@ gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, g
 		extract_path = archive->tmp;
 
 	chdir (archive->tmp);
-	command = g_strconcat ( "mv -f ", unescaped_names->str, " " , extract_path , NULL );
+	command = g_strconcat ("mv -f ",unescaped_names->str," ",extract_path,NULL);
 
 	result = xa_run_command (archive,command);
 	g_free (command);

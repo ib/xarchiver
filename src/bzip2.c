@@ -25,7 +25,7 @@ short int l;
 
 void xa_open_bzip2 (XArchive *archive)
 {
-	XEntry *entry;
+	XEntry *entry = NULL;
 	struct stat my_stat;
 	gchar tmp_dir[14] = "";
 	gchar *compressed = NULL;

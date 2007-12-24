@@ -21,7 +21,7 @@
 #define __XARCHIVER_INTERFACE_H__
 
 #include "archive.h"
-
+GtkWidget *xa_popup_menu;
 GtkWidget *MainWindow;
 GtkWidget *vbox1;
 GtkNotebook *notebook;
@@ -119,12 +119,13 @@ typedef struct
 	GtkTextIter iter;
 } widget_data;
 
-gchar *password_dialog ();
+gchar *password_dialog();
 void set_label (GtkWidget *label,gchar *text);
 int xa_progressbar_pulse (gpointer data);
+void xa_create_popup_menu();
 widget_data *xa_create_output_window(gchar *);
 void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location);
-GtkWidget *create_archive_properties_window (void);
+GtkWidget *create_archive_properties_window();
 void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data);
 void xa_add_page (XArchive *archive);
 void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data);

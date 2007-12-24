@@ -27,9 +27,18 @@ short int l;
 
 void xa_open_lzma (XArchive *archive)
 {
-	gchar *command;
+	XEntry *entry = NULL;
+	gchar *command = NULL;
 	unsigned short int i;
-
+	struct stat my_stat;
+	gboolean result;
+	gchar tmp_dir[14] = "";
+	gchar *compressed = NULL;
+	gchar *size = NULL;
+	gchar *filename = NULL;;
+	gchar *_filename;
+	gpointer item[2];
+	
 	if (g_str_has_suffix(archive->escaped_path , ".tar.lzma") || g_str_has_suffix (archive->escaped_path , ".tlz"))
 	{
     	gchar *tar;
@@ -65,10 +74,70 @@ void xa_open_lzma (XArchive *archive)
 	}
 	else
 	{
-		extract_window = xa_create_extract_dialog (0,archive);
-		command = xa_parse_extract_dialog_options (archive,extract_window,NULL);
-		gtk_widget_destroy (extract_window->dialog1);
-		g_free (extract_window);
+		GSList *list = NULL;
+		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
+		archive->has_properties = archive->can_extract = TRUE;
+		archive->nc = 3;
+		archive->nr_of_files = 1;
+		archive->nr_of_dirs = 0;
+		archive->format = "LZMA";
+
+		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_POINTER};
+		archive->column_types = g_malloc0(sizeof(types));
+		for (i = 0; i < 5; i++)
+			archive->column_types[i] = types[i];
+
+		char *names[]= {(_("Compressed")),(_("Size"))};
+		xa_create_liststore (archive,names);
+		result = xa_create_temp_directory (archive,tmp_dir);
+		if (result == 0)
+			return;
+
+		/* Let's copy the lzma file in the tmp dir */
+		command = g_strconcat("cp -f ",archive->escaped_path," ",archive->tmp,NULL);
+		list = g_slist_append(list,command);
+		/* Let's get its compressed file size */
+		stat (archive->escaped_path,&my_stat);
+		compressed = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
+		item[0] = compressed;
+
+		/* Let's extract it */
+		chdir (archive->tmp);
+		_filename = g_strrstr (archive->escaped_path , "/");
+		if (_filename)
+			command = g_strconcat("lzma -f -d ",archive->tmp,_filename,NULL);
+		else
+			command = g_strconcat("lzma -f -d ",archive->tmp,"/",archive->escaped_path,NULL);
+
+		list = g_slist_append(list,command);
+		result = xa_run_command (archive,list);
+
+		/* and let's get its uncompressed file size */
+		if (_filename)
+		{
+			_filename++;
+			filename = g_strndup(_filename,strlen(_filename)-4);
+			command = g_strconcat(archive->tmp,"/",filename,NULL);
+		}
+		else
+		{
+			command = g_strconcat(archive->tmp,"/",archive->escaped_path,NULL);
+			filename = g_strdup(archive->escaped_path);
+		}
+		stat (command,&my_stat);
+		g_free(command);
+		size = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
+		archive->dummy_size = my_stat.st_size;
+		item[1] = size;
+
+		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+		g_free(compressed);
+		g_free(size);
+		g_free(filename);
+		
+		xa_update_window_with_archive_entries (archive,NULL);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		g_object_unref (archive->model);
 	}
 }
 
