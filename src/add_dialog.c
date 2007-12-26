@@ -91,6 +91,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->no_store_path), add_dialog->path_group);
 	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->no_store_path));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->no_store_path), FALSE);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
 
 	/* 7z doesn't appear to let the user chooses if storing full paths */
 	if (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
@@ -100,7 +101,6 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
  		gtk_widget_set_sensitive(add_dialog->no_store_path,FALSE);
  		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->no_store_path), TRUE);
 	}
-	//gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
 
 	/* Options page */
 	option_notebook_vbox = gtk_vbox_new (FALSE, 0);
@@ -482,8 +482,8 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			xa_add_delete_tar_bzip2_gzip ( names , archive, 0 , 1 );
+		if ( g_file_test (archive->escaped_path,G_FILE_TEST_EXISTS))
+			xa_add_delete_tar_bzip2_gzip_lzma (names,archive,1);
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
@@ -493,8 +493,8 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			xa_add_delete_tar_bzip2_gzip ( names , archive, 1 , 1 );
+		if ( g_file_test (archive->escaped_path,G_FILE_TEST_EXISTS))
+			xa_add_delete_tar_bzip2_gzip_lzma (names,archive,1);
 		/* This is executed when the archive is newly created */
 		else
 			command = g_strconcat (tar, " ",
@@ -506,7 +506,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 		
 		case XARCHIVETYPE_TAR_LZMA:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
-			xa_add_delete_tar_lzma ( names , archive, 1 );
+			xa_add_delete_tar_bzip2_gzip_lzma (names,archive,1);
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",

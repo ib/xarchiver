@@ -147,8 +147,13 @@ void lzma_extract (XArchive *archive)
     gchar *text = NULL;
 	gchar *filename_only = NULL;
 	gchar *command = NULL;
+	gchar tmp_dir[14] = "";
 	gboolean result = FALSE;
 	gboolean ext;
+
+	result = xa_create_temp_directory(archive,tmp_dir);
+	if (result == 0)
+		return;
 
 	if (MainWindow)
 		archive->extraction_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
@@ -169,27 +174,27 @@ void lzma_extract (XArchive *archive)
 			ext = FALSE;
 
 		if (ext)
-			command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp", NULL);
+			command = g_strconcat ("cp -f ", archive->escaped_path," ",archive->tmp,NULL);
 		else
-			command = g_strconcat ("cp -f ", archive->escaped_path, " /tmp" , filename_only, ".lzma", NULL);
+			command = g_strconcat ("cp -f ", archive->escaped_path," ",archive->tmp,filename_only, ".lzma",NULL);
 
 		list = g_slist_append(list,command);
 
 		if (ext)
-			command = g_strconcat ("lzma -f -d ", "/tmp",filename_only, NULL);
+			command = g_strconcat ("lzma -f -d ",archive->tmp,filename_only, NULL);
 		else
-			command = g_strconcat ("lzma -f -d ","/tmp",filename_only, ".lzma", NULL);
+			command = g_strconcat ("lzma -f -d ",archive->tmp,filename_only, ".lzma", NULL);
 
 		list = g_slist_append(list,command);
 
 		if (ext)
 		{
 			filename_only[strlen(filename_only) - 5] = '\0';
-			command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
+			command = g_strconcat ("mv -f ",archive->tmp,filename_only," ",archive->extraction_path,NULL);
 		}
 		else
 		{
-			command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
+			command = g_strconcat ("mv -f ",archive->tmp,filename_only," ",archive->extraction_path,NULL);
 		}
 		list = g_slist_append(list,command);
 		result = xa_run_command (archive,list);
@@ -205,55 +210,5 @@ void lzma_extract (XArchive *archive)
 		gtk_widget_hide ( viewport2 );
 		Update_StatusBar ( _("Operation canceled."));
 	}*/
-}
-
-void xa_add_delete_tar_lzma (GString *list,XArchive *archive,gboolean add)
-{
-	GSList *_list = NULL;
-	gchar *command,*tar,*temp_name,*file_ext;
-	gboolean result;
-
-	/* Let's copy the archive to /tmp first */
-	temp_name = g_strconcat (" /tmp",g_strrstr (archive->escaped_path,"/"),NULL);
-	command = g_strconcat ("cp -ar " ,archive->escaped_path,temp_name,NULL);
-	_list = g_slist_append(_list,command);
-
-	command = g_strconcat ("lzma -f -d ",temp_name,NULL);
-	_list = g_slist_append(_list,command);
-
-	tar = g_find_program_in_path ("gtar");
-	if (tar == NULL)
-		tar = g_strdup ("tar");
-	l = strlen (temp_name);
-
-	if (file_extension_is (archive->escaped_path,".tar.lzma"))
-		temp_name[l - 5] = 0;
-	else if (file_extension_is (archive->escaped_path,".tlz"))
-	{
-		temp_name[l - 2] = 'a';
-		temp_name[l - 1] = 'r';
-	}
-
-	if (add)
-		command = g_strconcat (tar, " ",
-							archive->add_recurse ? "" : "--no-recursion ",
-							archive->remove_files ? "--remove-files " : "",
-							archive->update ? "-uvvf " : "-rvvf ",
-							temp_name,
-							list->str , NULL );
-	else
-		command = g_strconcat (tar," --no-wildcards --delete -f ",temp_name,list->str,NULL);
-	g_free (tar);
-	_list = g_slist_append(_list,command);
-
-	command = g_strconcat ("lzma -f ",temp_name,NULL);
-	_list = g_slist_append(_list,command);
-	file_ext = ".lzma";
-
-	/* Let's move the modified archive from /tmp to the original archive location */
-	command = g_strconcat ("mv ",temp_name,file_ext," ",archive->escaped_path,NULL);
-	_list = g_slist_append(_list,command);
-	result = xa_run_command (archive,_list);
-	g_free (temp_name);
 }
 

@@ -581,15 +581,15 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		xa_add_delete_tar_bzip2_gzip (names,archive[id],0,0);
+		xa_add_delete_tar_bzip2_gzip_lzma (names,archive[id],0);
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-		xa_add_delete_tar_bzip2_gzip (names,archive[id],1,0);
+		xa_add_delete_tar_bzip2_gzip_lzma (names,archive[id],0);
 		break;
 
 		case XARCHIVETYPE_TAR_LZMA:
-		xa_add_delete_tar_lzma ( names , archive[id],0);
+		xa_add_delete_tar_bzip2_gzip_lzma (names,archive[id],0);
 		break;
 
 		case XARCHIVETYPE_ZIP:

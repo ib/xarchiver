@@ -164,7 +164,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected , XArchive *archive
 	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_TAR_BZ2)
 	{
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), TRUE);
-		gtk_widget_set_sensitive (dialog_data->extract_full, FALSE);
+		//gtk_widget_set_sensitive (dialog_data->extract_full, FALSE);
 	}
 	else
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full), archive->full_path);
@@ -781,24 +781,24 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 	gchar *permission = NULL;
 	gchar tmp_dir[14] = "";
 	GtkTreeSelection *selection;
-	GString *names, *unescaped_names;
+	GString *names;
 	GtkTreeIter iter;
 	GList *row_list;
+	GSList *list = NULL;
 	GSList *filenames = NULL;
 	GSList *xxx = NULL;
 	gboolean result;
 
 	names = g_string_new ("");
-	unescaped_names = g_string_new ("");
 
-	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive->treeview) );
-	row_list = gtk_tree_selection_get_selected_rows (selection, &archive->model);
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
+	row_list = gtk_tree_selection_get_selected_rows(selection, &archive->model);
 
 	if (row_list != NULL)
 	{
 		while (row_list)
 		{
-			gtk_tree_model_get_iter(archive->model, &iter, row_list->data);
+			gtk_tree_model_get_iter(archive->model, &iter,row_list->data);
 			gtk_tree_model_get (archive->model, &iter,1, &name,3, &permission,-1);
 			gtk_tree_path_free (row_list->data);
 
@@ -817,16 +817,24 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 	}
 	else
 	{
-		/* Here we need to fill a GSList with all the entries in the archive so that we can use mv on all of them */
+		/* Here we need to fill a GSList with all the entries in the archive so to extract it entirely */
 		XEntry *entry = archive->root_entry;
-
 		while(entry)
 		{
 			xa_entries_to_filelist(entry, &xxx,"");
 			entry = entry->next;
 		}
+		filenames = g_slist_reverse(xxx);
+		/* Let's concatenate all the entries in one gstring */
+		while (filenames)
+		{
+			g_string_prepend (names,(gchar*)filenames->data);
+			g_string_prepend_c (names,' ');
+			filenames = filenames->next;
+		}
+		xa_destroy_filelist (filenames);
+		g_slist_free (filenames);
 	}
-	filenames = g_slist_reverse(xxx);
 
 	result = xa_create_temp_directory (archive,tmp_dir);
 	if (result == 0)
@@ -843,43 +851,19 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 										archive->tar_touch ? " --touch" : "",
 										" --no-wildcards -C ",
 										archive->tmp,names->str,NULL);
-	result = xa_run_command (archive,command);
-	g_string_free (names,TRUE);
-	g_free (command);
+	list = g_slist_append(list,command);
 
-	if (result == 0 || stop_flag)
-	{
-		xa_delete_temp_directory (archive,0);
-		gtk_widget_hide (viewport2);
-		Update_StatusBar (_("Operation canceled."));
-		return FALSE;
-	}
-	while (filenames)
-	{
-		gchar *unescaped = xa_escape_bad_chars((gchar*)filenames->data,"$\'`\"\\!?* ()&|@#:;");
-		g_string_prepend (unescaped_names,unescaped);
-		g_string_prepend_c (unescaped_names, ' ');
-		g_free (unescaped);
-		filenames = filenames->next;
-	}
-	xa_destroy_filelist (filenames);
 	if (extract_path == NULL)
 		extract_path = archive->tmp;
 
 	chdir (archive->tmp);
-	command = g_strconcat ("mv -f ",unescaped_names->str," ",extract_path,NULL);
+	command = g_strconcat ("mv -f ",names->str," ",extract_path,NULL);
+	g_string_free(names,TRUE);
 
-	result = xa_run_command (archive,command);
-	g_free (command);
-	g_slist_free (filenames);
-	g_string_free (unescaped_names,TRUE);
+	list = g_slist_append(list,command);
+	result = xa_run_command (archive,list);
 	if (result == 0 || stop_flag)
-	{
-		xa_delete_temp_directory (archive,0);
-		gtk_widget_hide (viewport2);
-		Update_StatusBar (_("Operation canceled."));
 		return FALSE;
-	}
 	return result;
 }
 

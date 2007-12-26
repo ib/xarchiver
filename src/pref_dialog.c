@@ -116,14 +116,6 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 			archive_type = g_list_next (archive_type);
 	}
 
-	prefs_data->check_save_add_dialog = gtk_check_button_new_with_mnemonic (_("Save settings for add dialog"));
-	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_save_add_dialog, FALSE, FALSE, 0);
-	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_add_dialog), FALSE);
-
-	prefs_data->check_save_extract_dialog = gtk_check_button_new_with_mnemonic (_("Save settings for extract dialog"));
-	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_save_extract_dialog, FALSE, FALSE, 0);
-	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_extract_dialog), FALSE);
-
 	prefs_data->allow_dir_extract_with_dnd = gtk_check_button_new_with_mnemonic (_("Allow extracting dirs by drag and drop"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->allow_dir_extract_with_dnd, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->allow_dir_extract_with_dnd), FALSE);
@@ -326,8 +318,6 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	GKeyFile *xa_key_file = g_key_file_new();
 	
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"save_add_dialog_settings",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_add_dialog)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"save_ext_dialog_settings",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_extract_dialog)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"confirm_deletion",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion)));
 
@@ -412,8 +402,6 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	{
 		/* set the options from the config file */
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_format",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_add_dialog),g_key_file_get_boolean(xa_key_file,PACKAGE,"save_add_dialog_settings",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_extract_dialog),g_key_file_get_boolean(xa_key_file,PACKAGE,"save_ext_dialog_settings",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),g_key_file_get_boolean(xa_key_file,PACKAGE,"confirm_deletion",NULL));
 

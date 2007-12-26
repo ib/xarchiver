@@ -29,5 +29,4 @@
 
 void xa_open_lzma ( XArchive *archive );
 void lzma_extract ( XArchive *archive );
-void xa_add_delete_tar_lzma( GString *list , XArchive *archive , gboolean add );
 #endif

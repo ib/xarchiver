@@ -139,138 +139,129 @@ void xa_open_bzip2 (XArchive *archive)
 	}
 }
 
-void gzip_bzip2_extract (XArchive *archive , gboolean flag )
+void gzip_bzip2_extract (XArchive *archive,gboolean flag)
 {
 	GSList *list = NULL;
     gchar *text = NULL;
 	gchar *filename_only = NULL;
 	gchar *command = NULL;
+	gchar tmp_dir[14] = "";
 	gboolean result = FALSE;
 	gboolean ext;
 
+	result = xa_create_temp_directory(archive,tmp_dir);
+	if (result == 0)
+		return;
+//TODO: fix the crash when viewing a bzip2 compressed file
 	if (MainWindow)
-		archive->extraction_path = g_strdup (gtk_entry_get_text ( GTK_ENTRY (extract_window->destination_path_entry) ));
+		archive->extraction_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (extract_window->destination_path_entry)));
 
-	if ( strlen ( archive->extraction_path ) > 0 )
+	if (strlen(archive->extraction_path) > 0)
 	{
 		if (MainWindow)
 		{
 			if (flag)
-				text = g_strdup_printf(_("Extracting gzip file to %s"), archive->extraction_path);
+				text = g_strdup_printf(_("Extracting gzip file to %s"),archive->extraction_path);
 			else
-				text = g_strdup_printf(_("Extracting bzip2 file to %s"), archive->extraction_path);
-			Update_StatusBar ( text );
+				text = g_strdup_printf(_("Extracting bzip2 file to %s"),archive->extraction_path);
+			Update_StatusBar (text);
 			g_free (text);
 		}
 
-		filename_only = g_strrstr (archive->escaped_path , "/");
+		filename_only = g_strrstr (archive->escaped_path,"/");
 		if (file_extension_is (filename_only,".gz") || file_extension_is (filename_only,".bz2"))
 			ext = TRUE;
 		else
 			ext = FALSE;
 
 		if (ext)
-			command = g_strconcat ("cp -f ",archive->escaped_path," /tmp",NULL);
+			command = g_strconcat ("cp -f ",archive->escaped_path," ",archive->tmp,NULL);
 		else
-			command = g_strconcat ("cp -f ",archive->escaped_path," /tmp",filename_only,flag ? ".gz" : ".bz2",NULL);
+			command = g_strconcat ("cp -f ",archive->escaped_path," ",archive->tmp,filename_only,flag ? ".gz" : ".bz2",NULL);
 
 		list = g_slist_append(list,command);
 		if (ext)
-			command = g_strconcat(flag ? "gzip -f -d -n " : "bzip2 -f -d ", "/tmp",filename_only,NULL);
+			command = g_strconcat(flag ? "gzip -f -d -n " : "bzip2 -f -d ",archive->tmp,filename_only,NULL);
 		else
-			command = g_strconcat(flag ? "gzip -f -d -n " : "bzip2 -f -d ","/tmp",filename_only,flag ? ".gz" : ".bz2",NULL);
+			command = g_strconcat(flag ? "gzip -f -d -n " : "bzip2 -f -d ",archive->tmp,filename_only,flag ? ".gz" : ".bz2",NULL);
 
 		list = g_slist_append(list,command);
 
 		if (ext)
 		{
 			if (flag)
-				filename_only[strlen(filename_only) - 3] = '\0';
+				filename_only[strlen(filename_only)-3] = '\0';
 			else
-				filename_only[strlen(filename_only) - 4] = '\0';
-				command = g_strconcat ("mv -f /tmp",filename_only, " ", archive->extraction_path,NULL);
+				filename_only[strlen(filename_only)-4] = '\0';
+				command = g_strconcat ("mv -f ",archive->tmp,filename_only, " ",archive->extraction_path,NULL);
 		}
 		else
 		{
 			if (g_file_test (archive->extraction_path, G_FILE_TEST_IS_DIR) )
-				command = g_strconcat("mv -f /tmp",filename_only," ",archive->extraction_path,filename_only,NULL);
+				command = g_strconcat("mv -f ",archive->tmp,filename_only," ",archive->extraction_path,filename_only,NULL);
 			else
-				command = g_strconcat("mv -f /tmp",filename_only," ",archive->extraction_path,NULL);
+				command = g_strconcat("mv -f ",archive->tmp,filename_only," ",archive->extraction_path,NULL);
 		}
 		list = g_slist_append(list,command);
 		result = xa_run_command (archive,list);
 	}
 }
 
-void xa_add_delete_tar_bzip2_gzip ( GString *_list , XArchive *archive , gboolean dummy , gboolean add )
+void xa_add_delete_tar_bzip2_gzip_lzma (GString *_list,XArchive *archive,gboolean add)
 {
-	gchar *command, *msg, *tar,*temp_name,*file_ext;
+	gchar *command,*tar,*executable,*filename;
+	gchar tmp_dir[14] = "";
 	gboolean result;
 	GSList *list = NULL;
 
-	archive->status = XA_ARCHIVESTATUS_DELETE;
-	if (MainWindow)
+	switch (archive->type)
 	{
-		gtk_widget_show (viewport2);
-		msg = g_strdup_printf(_("Decompressing tar file with %s, please wait...") , dummy ? "gzip" : "bzip2");
-		Update_StatusBar ( msg );
-		g_free (msg);
+		case XARCHIVETYPE_TAR_BZ2:
+			executable = "bzip2 -f ";
+			filename = "dummy.bz2";
+		break;
+		case XARCHIVETYPE_TAR_GZ:
+			executable = "gzip -f ";
+			filename = "dummy.gz";
+		break;
+		case XARCHIVETYPE_TAR_LZMA:
+			executable = "lzma -f ";
+			filename = "dummy.lzma";
+		break;
 	}
+	/* Let's copy the archive to /tmp first */
+	result = xa_create_temp_directory(archive,tmp_dir);
+	if (result == 0)
+		return;
 
 	/* Let's copy the archive to /tmp first */
-	//TODO: replace /tmp with the user chosen dir in the pref dialog
-	temp_name = g_strconcat (" /tmp", g_strrstr (archive->escaped_path , "/"),NULL);
-	command = g_strconcat ("cp -a ",archive->escaped_path,temp_name,NULL);
+	command = g_strconcat ("cp -a ",archive->escaped_path," ",archive->tmp,"/",filename,NULL);
 	list = g_slist_append(list,command);
 
-	command = g_strconcat (dummy ? "gzip -f " : "bzip2 ", "-f -d ",temp_name,NULL);
+	command = g_strconcat (executable,"-d ",archive->tmp,"/",filename,NULL);
 	list = g_slist_append(list,command);
 
 	tar = g_find_program_in_path ("gtar");
 	if (tar == NULL)
 		tar = g_strdup ("tar");
-	l = strlen (temp_name);
-
-	if (file_extension_is (archive->escaped_path,".tar.bz2") )
-		temp_name[l - 4] = 0;
-	else if (file_extension_is (archive->escaped_path,".tbz2") )
-	{
-		temp_name[l - 3] = 'a';
-		temp_name[l - 2] = 'r';
-		temp_name[l - 1] = 0;
-	}
-	else if (file_extension_is (archive->escaped_path,".tar.gz") )
-		temp_name[l - 3] = 0;
-
-	else if (file_extension_is (archive->escaped_path,".tgz") || file_extension_is (archive->escaped_path, ".tbz") )
-	{
-		temp_name[l - 2] = 'a';
-		temp_name[l - 1] = 'r';
-	}
 	if (add)
 		command = g_strconcat (tar, " ",
 							archive->add_recurse ? "" : "--no-recursion ",
 							archive->remove_files ? "--remove-files " : "",
 							archive->update ? "-uvvf " : "-rvvf ",
-							temp_name,
+							archive->tmp,"/dummy",
 							_list->str , NULL );
 	else
-		command = g_strconcat (tar, " --delete -f ",temp_name,_list->str,NULL);
-	list = g_slist_append(list,command);
+		command = g_strconcat (tar," --no-wildcards --delete -f ",archive->tmp,"/dummy ",_list->str,NULL);
 	g_free (tar);
-
-	command = g_strconcat(dummy ? "gzip -f " : "bzip2 ", "-f ",temp_name,NULL);
 	list = g_slist_append(list,command);
 
-	if (dummy)
-		file_ext = ".gz";
-	else
-		file_ext = ".bz2";
+	command = g_strconcat (executable,archive->tmp,"/dummy",NULL);
+	list = g_slist_append(list,command);
+
 	/* Let's move the modified archive from /tmp to the original archive location */
-	command = g_strconcat ( "cp ",temp_name,file_ext," ",archive->escaped_path,NULL);
+	command = g_strconcat ("mv ",archive->tmp,"/",filename," ",archive->escaped_path,NULL);
 	list = g_slist_append(list,command);
-
 	result = xa_run_command (archive,list);
-	g_free (temp_name);
 }
 

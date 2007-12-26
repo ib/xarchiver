@@ -303,7 +303,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	gtk_widget_show (viewport2);
 	while (_commands)
 	{
-		g_print ("%s\n",_commands->data);
+		g_print ("%s\n",(gchar*)_commands->data);
 		xa_spawn_async_process (archive,_commands->data);
 		if (archive->child_pid == 0)
 			break;
@@ -603,6 +603,7 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_path)
 {
 	gchar *full_path = NULL;
+	gchar *quoted_path = NULL;
 
     if (entry == NULL)
         return;
@@ -624,7 +625,10 @@ void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_pa
 	}
 		/* This is a file, add this entry with a full pathname */
 	else
-		*p_file_list = g_slist_append(*p_file_list, full_path);
+	{
+		quoted_path = g_shell_quote(full_path);
+		*p_file_list = g_slist_append(*p_file_list,quoted_path);
+	}
 
 	return;
 }

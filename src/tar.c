@@ -118,11 +118,11 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	
 	/* Symbolic link */
 	gchar *temp = g_strrstr (filename,"->"); 
-	if (temp ) 
+	if (temp) 
 	{
 		gint len = strlen(filename) - strlen(temp);
 		item[0] = (filename +=3) + len;
-		filename[strlen(filename) - strlen(temp)] = '\0';
+		filename[strlen(filename) - strlen(temp)-1] = '\0';
 	}
 	else
 		item[0] = NULL;
@@ -141,14 +141,13 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	else
 	{
 		archive->nr_of_files++;
-		filename = g_strdup(line + n); 
+		filename = g_strdup(line + n);
 	}
-
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
 }
 
-gboolean isTar ( FILE *ptr )
+gboolean isTar (FILE *ptr)
 {
 	unsigned char magic[7];
 	fseek ( ptr, 0 , SEEK_SET );
