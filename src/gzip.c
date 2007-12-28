@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

@@ -43,7 +43,6 @@
 #include "bzip2.h"
 #include "rpm.h"
 #include "gzip.h"
-#include "lzma.h"
 #include "archive.h"
 #include "new_dialog.h"
 #include "extract_dialog.h"

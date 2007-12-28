@@ -95,7 +95,7 @@ void xa_reload_archive_content(XArchive *archive)
 			break;
 
 			case XARCHIVETYPE_TAR_BZ2:
-			xa_open_bzip2 (archive);
+			xa_open_bzip2_lzma (archive,XARCHIVETYPE_TAR_BZ2);
 			break;
 
 			case XARCHIVETYPE_TAR_GZ:
@@ -103,7 +103,7 @@ void xa_reload_archive_content(XArchive *archive)
 			break;
 
 			case XARCHIVETYPE_TAR_LZMA:
-			xa_open_lzma (archive);
+			xa_open_bzip2_lzma (archive,XARCHIVETYPE_TAR_LZMA);
 			break;
 
 			case XARCHIVETYPE_ZIP:
@@ -359,7 +359,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		break;
 
 		case XARCHIVETYPE_BZIP2:
-		xa_open_bzip2 (archive[current_page]);
+		xa_open_bzip2_lzma (archive[current_page],XARCHIVETYPE_BZIP2);
 		break;
 
 		case XARCHIVETYPE_GZIP:
@@ -367,7 +367,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		break;
 
 		case XARCHIVETYPE_LZMA:
-		xa_open_lzma ( archive[current_page] );
+		xa_open_bzip2_lzma ( archive[current_page],XARCHIVETYPE_LZMA);
 		break;
 
 		case XARCHIVETYPE_RAR:

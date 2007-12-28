@@ -23,62 +23,53 @@
 
 short int l;
 
-void xa_open_bzip2 (XArchive *archive)
+void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
 {
 	XEntry *entry = NULL;
-	struct stat my_stat;
 	gchar tmp_dir[14] = "";
-	gchar *compressed = NULL;
-	gchar *size = NULL;
-	gchar *command = NULL;
 	gchar *filename = NULL;;
 	gchar *_filename;
-	gchar *tar;
 	gpointer item[2];
-	unsigned short int i;
 	gboolean result;
 
 	if (g_str_has_suffix(archive->escaped_path,".tar.bz2") || g_str_has_suffix (archive->escaped_path,".tar.bz")
     	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
 	{
 		archive->type = XARCHIVETYPE_TAR_BZ2;
-		tar = g_find_program_in_path ("gtar");
-		if (tar == NULL)
-			tar = g_strdup ("tar");
-
-		command = g_strconcat (tar, " tfjv ",archive->escaped_path,NULL);
-		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
-		archive->has_test = archive->has_sfx = FALSE;
-		archive->dummy_size = 0;
-		archive->nr_of_files = 0;
-		archive->nr_of_dirs = 0;
 		archive->format = "TAR.BZIP2";
-		archive->nc = 7;
-		archive->parse_output = xa_get_tar_line_content;
-		xa_spawn_async_process (archive,command);
-		g_free (command);
-		g_free (tar);
-
-		if (archive->child_pid == 0)
-			return;
-
-		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-		archive->column_types = g_malloc0(sizeof(types));
-		for (i = 0; i < 9; i++)
-			archive->column_types[i] = types[i];
-
-		char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time")),NULL};
-		xa_create_liststore (archive,names);
+		xa_open_tar_compressed_file(archive);
+	}
+	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
+	{
+		archive->type = XARCHIVETYPE_TAR_LZMA;
+		archive->format = "TAR.LZMA";
+		xa_open_tar_compressed_file(archive);
 	}
 	else
 	{
+		struct stat my_stat;
+		gchar *compressed = NULL;
+		gchar *size = NULL;
+		gchar *command = NULL;
+		gchar *executable = NULL;
+		unsigned short int i;
 		GSList *list = NULL;
+
+		if (type == XARCHIVETYPE_BZIP2)
+		{
+			archive->format = "BZIP2";
+			executable = "bzip2 ";
+		}
+		else
+		{
+			archive->format = "LZMA";
+			executable = "lzma ";
+		}
 		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 		archive->has_properties = archive->can_extract = TRUE;
 		archive->nc = 3;
 		archive->nr_of_files = 1;
 		archive->nr_of_dirs = 0;
-		archive->format = "BZIP2";
 
 		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_POINTER};
 		archive->column_types = g_malloc0(sizeof(types));
@@ -100,12 +91,11 @@ void xa_open_bzip2 (XArchive *archive)
 		item[0] = compressed;
 
 		/* Let's extract it */
-		chdir (archive->tmp);
 		_filename = g_strrstr (archive->escaped_path , "/");
 		if (_filename)
-			command = g_strconcat("bzip2 -f -d ",archive->tmp,_filename,NULL);
+			command = g_strconcat(executable,"-f -d ",archive->tmp,_filename,NULL);
 		else
-			command = g_strconcat("bzip2 -f -d ",archive->tmp,"/",archive->escaped_path,NULL);
+			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",archive->escaped_path,NULL);
 
 		list = g_slist_append(list,command);
 		result = xa_run_command (archive,list);
@@ -139,69 +129,85 @@ void xa_open_bzip2 (XArchive *archive)
 	}
 }
 
-void gzip_bzip2_extract (XArchive *archive,gboolean flag)
+void xa_open_tar_compressed_file(XArchive *archive)
+{
+	gchar *command = NULL;
+	gchar *tar;
+	unsigned short int i;
+
+	tar = g_find_program_in_path ("gtar");
+	if (tar == NULL)
+		tar = g_strdup ("tar");
+
+	if (archive->type == XARCHIVETYPE_TAR_BZ2)
+		command = g_strconcat(tar, " tfjv ",archive->escaped_path,NULL);
+	else
+		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->escaped_path,NULL);
+
+	archive->has_properties = archive->can_add = archive->can_extract = TRUE;
+	archive->has_test = archive->has_sfx = FALSE;
+	archive->dummy_size = 0;
+	archive->nr_of_files = 0;
+	archive->nr_of_dirs = 0;
+	archive->nc = 7;
+	archive->parse_output = xa_get_tar_line_content;
+	xa_spawn_async_process (archive,command);
+	g_free (command);
+	g_free (tar);
+
+	if (archive->child_pid == 0)
+		return;
+
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 9; i++)
+		archive->column_types[i] = types[i];
+
+	char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time")),NULL};
+	xa_create_liststore (archive,names);
+}
+
+void lzma_gzip_bzip2_extract (XArchive *archive)
 {
 	GSList *list = NULL;
-    gchar *text = NULL;
-	gchar *filename_only = NULL;
-	gchar *command = NULL;
+	gchar *command,*executable = NULL,*filename = NULL;
 	gchar tmp_dir[14] = "";
 	gboolean result = FALSE;
-	gboolean ext;
+
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_BZIP2:
+			executable = "bzip2 -f -d ";
+			filename = "dummy.bz2";
+		break;
+		case XARCHIVETYPE_GZIP:
+			executable = "gzip -f -d -n ";
+			filename = "dummy.gz";
+		break;
+		case XARCHIVETYPE_LZMA:
+			executable = "lzma -f -d ";
+			filename = "dummy.lzma";
+		break;
+		
+		default:
+		break;
+	}
 
 	result = xa_create_temp_directory(archive,tmp_dir);
 	if (result == 0)
 		return;
 //TODO: fix the crash when viewing a bzip2 compressed file
-	if (MainWindow)
+	if (MainWindow && extract_window)
+	{
 		archive->extraction_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (extract_window->destination_path_entry)));
 
-	if (strlen(archive->extraction_path) > 0)
-	{
-		if (MainWindow)
-		{
-			if (flag)
-				text = g_strdup_printf(_("Extracting gzip file to %s"),archive->extraction_path);
-			else
-				text = g_strdup_printf(_("Extracting bzip2 file to %s"),archive->extraction_path);
-			Update_StatusBar (text);
-			g_free (text);
-		}
-
-		filename_only = g_strrstr (archive->escaped_path,"/");
-		if (file_extension_is (filename_only,".gz") || file_extension_is (filename_only,".bz2"))
-			ext = TRUE;
-		else
-			ext = FALSE;
-
-		if (ext)
-			command = g_strconcat ("cp -f ",archive->escaped_path," ",archive->tmp,NULL);
-		else
-			command = g_strconcat ("cp -f ",archive->escaped_path," ",archive->tmp,filename_only,flag ? ".gz" : ".bz2",NULL);
-
-		list = g_slist_append(list,command);
-		if (ext)
-			command = g_strconcat(flag ? "gzip -f -d -n " : "bzip2 -f -d ",archive->tmp,filename_only,NULL);
-		else
-			command = g_strconcat(flag ? "gzip -f -d -n " : "bzip2 -f -d ",archive->tmp,filename_only,flag ? ".gz" : ".bz2",NULL);
-
+		command = g_strconcat ("cp -f ",archive->escaped_path," ",archive->tmp,"/",filename,NULL);
 		list = g_slist_append(list,command);
 
-		if (ext)
-		{
-			if (flag)
-				filename_only[strlen(filename_only)-3] = '\0';
-			else
-				filename_only[strlen(filename_only)-4] = '\0';
-				command = g_strconcat ("mv -f ",archive->tmp,filename_only, " ",archive->extraction_path,NULL);
-		}
-		else
-		{
-			if (g_file_test (archive->extraction_path, G_FILE_TEST_IS_DIR) )
-				command = g_strconcat("mv -f ",archive->tmp,filename_only," ",archive->extraction_path,filename_only,NULL);
-			else
-				command = g_strconcat("mv -f ",archive->tmp,filename_only," ",archive->extraction_path,NULL);
-		}
+		command = g_strconcat(executable,archive->tmp,"/",filename,NULL);
+		list = g_slist_append(list,command);
+
+		command = g_strconcat("mv -f ",archive->tmp,"/dummy ",archive->extraction_path,"/",archive->root_entry->child->filename,NULL);
 		list = g_slist_append(list,command);
 		result = xa_run_command (archive,list);
 	}
@@ -209,7 +215,7 @@ void gzip_bzip2_extract (XArchive *archive,gboolean flag)
 
 void xa_add_delete_tar_bzip2_gzip_lzma (GString *_list,XArchive *archive,gboolean add)
 {
-	gchar *command,*tar,*executable,*filename;
+	gchar *command,*tar,*executable = NULL,*filename = NULL;
 	gchar tmp_dir[14] = "";
 	gboolean result;
 	GSList *list = NULL;
@@ -227,6 +233,9 @@ void xa_add_delete_tar_bzip2_gzip_lzma (GString *_list,XArchive *archive,gboolea
 		case XARCHIVETYPE_TAR_LZMA:
 			executable = "lzma -f ";
 			filename = "dummy.lzma";
+		break;
+		
+		default:
 		break;
 	}
 	/* Let's copy the archive to /tmp first */

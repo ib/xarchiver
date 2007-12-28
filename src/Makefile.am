@@ -13,7 +13,6 @@ xarchiver_SOURCES = \
 	window.c window.h \
 	arj.c arj.h \
 	deb.c deb.h \
-	lzma.c lzma.h \
 	zip.c zip.h \
 	rar.c rar.h \
 	7zip.c 7zip.h \

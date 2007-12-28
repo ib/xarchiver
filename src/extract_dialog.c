@@ -392,15 +392,15 @@ gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *d
 				switch ( archive->type )
 				{
 					case XARCHIVETYPE_BZIP2:
-					gzip_bzip2_extract (archive , 0);
+					lzma_gzip_bzip2_extract (archive);
 					break;
 
 					case XARCHIVETYPE_GZIP:
-					gzip_bzip2_extract (archive , 1);
+					lzma_gzip_bzip2_extract (archive);
 					break;
 
 					case XARCHIVETYPE_LZMA:
-					lzma_extract (archive);
+					lzma_gzip_bzip2_extract (archive);
 					break;
 
 					case XARCHIVETYPE_RAR:
@@ -596,15 +596,15 @@ gchar *xa_extract_single_files (XArchive *archive,GString *files,gchar *path)
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_BZIP2:
-		gzip_bzip2_extract (archive , 0);
+		lzma_gzip_bzip2_extract (archive);
 		break;
 
 		case XARCHIVETYPE_GZIP:
-		gzip_bzip2_extract (archive , 1);
+		lzma_gzip_bzip2_extract (archive);
 		break;
 
 		case XARCHIVETYPE_LZMA:
-		lzma_extract (archive);
+		lzma_gzip_bzip2_extract (archive);
 		break;
 
 		case XARCHIVETYPE_RAR:
