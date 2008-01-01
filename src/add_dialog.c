@@ -38,7 +38,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->option_tooltip = gtk_tooltips_new ();
 
 	add_dialog->dialog1 = gtk_dialog_new ();
-	gtk_widget_set_size_request (add_dialog->dialog1, 520, 370);
+	gtk_widget_set_size_request (add_dialog->dialog1,520,370);
 	gtk_window_set_title (GTK_WINDOW (add_dialog->dialog1), _("Add files to the archive"));
 	gtk_window_set_resizable(GTK_WINDOW (add_dialog->dialog1),FALSE);
 	gtk_window_set_transient_for (GTK_WINDOW (add_dialog->dialog1),GTK_WINDOW(MainWindow));
@@ -48,18 +48,18 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	add_dialog->dialog_vbox1 = GTK_DIALOG (add_dialog->dialog1)->vbox;
 
 	add_dialog->notebook1 = gtk_notebook_new ();
-	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1), add_dialog->notebook1, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->notebook1), 4);
+	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1),add_dialog->notebook1, TRUE, TRUE,0);
+	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->notebook1),4);
 
 	/* Selection page */
-	vbox1 = gtk_vbox_new (FALSE, 0);
+	vbox1 = gtk_vbox_new (FALSE,0);
 	gtk_container_add (GTK_CONTAINER (add_dialog->notebook1), vbox1);
 
 	label1 = gtk_label_new (_("Selection"));
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (add_dialog->notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (add_dialog->notebook1), 0), label1);
 	
 	add_dialog->filechooserwidget1 = gtk_file_chooser_widget_new (GTK_FILE_CHOOSER_ACTION_OPEN);
-	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE,0);
 	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),FALSE);
 	else
@@ -67,8 +67,8 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	//gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
 
 	add_dialog->frame1 = gtk_frame_new (NULL);
-	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->frame1, FALSE, TRUE, 5);
-	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->frame1), 5);
+	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->frame1, FALSE, TRUE,5);
+	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->frame1),5);
 
 	alignment1 = gtk_alignment_new (0.5, 0.5, 1, 1);
 	gtk_container_add (GTK_CONTAINER (add_dialog->frame1), alignment1);
@@ -413,7 +413,7 @@ gchar *xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialo
 			else
 				xa_cat_filenames(archive,files,names);
 
-			command = xa_add_single_files (archive,names,compression_string);
+			command = xa_execute_add_commands (archive,names,compression_string);
 			g_string_free (names,TRUE);
 			g_slist_free(files);
 			if (compression_string != NULL)
@@ -423,7 +423,7 @@ gchar *xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialo
 	return command;
 }
 
-gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_string)
+gchar *xa_execute_add_commands (XArchive *archive,GString *names,gchar *compression_string)
 {
 	gchar *command = NULL;
 	gchar *tar;
@@ -451,7 +451,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									"-idp ",
 									"-m",compression_string," ",
 									archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		else
 			command = g_strconcat ( "rar a ",
 									archive->update ? "-u " : "",
@@ -462,7 +462,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									"-idp ",
 									"-m",compression_string," ",
 									archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		break;
 
 		case XARCHIVETYPE_TAR:
@@ -472,13 +472,13 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									archive->remove_files ? "--remove-files " : "",
 									archive->update ? "-uvvf " : "-rvvf ",
 									archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									"-cvvf ",archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
@@ -489,7 +489,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									"-cvvjf ",archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
@@ -501,7 +501,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									"-cvvzf ",archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		break;
 		
 		case XARCHIVETYPE_TAR_LZMA:
@@ -512,7 +512,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",
 									"--use-compress-program=lzma -cvvf ",archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		break;
 
 		case XARCHIVETYPE_ZIP:
@@ -527,7 +527,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									"-P ", archive->passwd," ",
 									"-",compression_string," ",
 									archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		else
 			command = g_strconcat ( "zip ",
 									archive->update ? "-u " : "",
@@ -536,7 +536,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									archive->remove_files ? "-m " : "",
 									"-",compression_string," ",
 									archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		break;
 
 		case XARCHIVETYPE_7ZIP:
@@ -550,7 +550,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									archive->escaped_path,
 									archive->add_recurse ? " -r " : " ",
 									"-mx=",compression_string,"",
-									names->str , NULL );
+									names->str,NULL);
 		else
 			command = g_strconcat ( "7za ",
 									archive->update ? "u " : "a ",
@@ -558,7 +558,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									archive->escaped_path,
 									archive->add_recurse ? " -r " : " ",
 									"-mx=",compression_string,"",
-									names->str , NULL );
+									names->str,NULL);
 		break;
 
 		case XARCHIVETYPE_ARJ:
@@ -573,7 +573,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									"-g" , archive->passwd , " -i ",
 									"-m",compression_string," ",
 									archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		else
 			command = g_strconcat ( "arj a ",
 									archive->update ? "-u " : "",
@@ -583,7 +583,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 									" -i ",
 									"-m",compression_string," ",
 									archive->escaped_path,
-									names->str , NULL );
+									names->str,NULL);
 		break;
 
 		case XARCHIVETYPE_LHA:
@@ -595,7 +595,7 @@ gchar *xa_add_single_files (XArchive *archive,GString *names,gchar *compression_
 								"o",compression_string,
 								" ",
 								archive->escaped_path,
-								names->str, NULL);
+								names->str,NULL);
 		break;
 
 		default:

@@ -190,7 +190,7 @@ int main (int argc, char **argv)
 					archive->add_recurse = FALSE;
 				else
 					archive->add_recurse = TRUE;
-				cli_command = xa_add_single_files(archive,string,NULL);
+				cli_command = xa_execute_add_commands(archive,string,NULL);
 				if (cli_command != NULL)
 					error_output = xa_spawn_sync_process(cli_command);
 				g_string_free (string,TRUE);

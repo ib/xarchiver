@@ -539,7 +539,10 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		if (entry->is_dir)
 			pixbuf = xa_get_pixbuf_icon_from_cache("folder");
 		else if (entry->is_encrypted)
+		{
 			pixbuf = xa_get_pixbuf_icon_from_cache("lock");
+			archive->has_passwd = TRUE;
+		}
 		else
 			pixbuf = xa_get_pixbuf_icon_from_cache(entry->filename);
 

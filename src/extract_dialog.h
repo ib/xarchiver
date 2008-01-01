@@ -20,55 +20,45 @@
 #define __EXTRACT_DIALOG_H
 
 #include "archive.h"
+#include <sys/types.h>
+#include <dirent.h>
 
 typedef struct
 {
 	GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;
-	GtkWidget *vbox1;
-	GtkWidget *vbox2;
-	GtkWidget *hbox3;
-	GtkWidget *extract_to_label;
 	GtkWidget *destination_path_entry;
-	GtkWidget *button1;
-	GtkWidget *image1;
-	GtkWidget *hbox4;
-	GtkWidget *frame1;
-	GtkWidget *alignment1;
-	GtkWidget *alignment2;
-	GtkWidget *alignment3;
-	GtkWidget *vbox3;
-	GtkWidget *all_files_radio;
-	GtkWidget *selected_files_radio;
-	GSList *radio_group;
-	GtkWidget *files_frame_label;
-	GtkWidget *frame2;
-	GtkWidget *vbox4;
 	GtkWidget *overwrite_check;
 	GtkWidget *extract_full;
 	GtkWidget *touch;
 	GtkWidget *fresh;
 	GtkWidget *update;
-	GtkWidget *hbox5;
-	GtkWidget *hbox6;
-	GtkWidget *label_password;
+	GtkWidget *all_files_radio;
 	GtkWidget *password_entry;
-	GtkWidget *options_frame_label;
-	GtkWidget *dialog_action_area1;
-	GtkWidget *cancel_button;
-	GtkWidget *extract_button;
-	GtkWidget *extract_image;
-	GtkWidget *extract_label;
-	GtkWidget *extract_hbox;
-	GtkTooltips *option_tooltip;
 } Extract_dialog_data;
 
+GtkWidget *label1,*label2,*label3,*label4,*label_password;
+GtkWidget *hbox1,*hbox2,*hbox3,*vbox1,*vbox2,*vbox3,*vbox4,*vbox5;
+GtkWidget *frame1,*frame2,*alignment1,*alignment2,*alignment3;
+GtkWidget *radiobutton1,*radiobutton3;
+GtkWidget *entry2,*create_dir;
+GtkWidget *scrolledwindow1,*treeview3;
+GtkWidget *dialog_action_area1,*cancel_button,*okbutton1,*extract_button,*extract_image,*extract_hbox,*extract_label;
+GtkTreeStore *model;
+GtkCellRenderer *renderer;
+GtkTreeViewColumn *column;
+GtkTooltips *option_tooltip;
+const gchar *home_dir;
+	
 Extract_dialog_data *xa_create_extract_dialog (gint selected ,XArchive *archive);
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
 gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path);
 gboolean xa_extract_tar_without_directories ( gchar *string, XArchive *archive,gchar *extract_path,gboolean cpio_flag);
+void xa_browse_dir (GtkTreeStore *model,gchar *dir, GtkTreeIter *iter);
+void xa_tree_view_row_selected(GtkTreeSelection *selection, gpointer data);
+void xa_expand_dir(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gpointer data);
 void xa_choose_extraction_directory (GtkWidget *widget, gpointer data);
 #endif
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data
 void password_toggled_cb ( GtkButton* button , gpointer _add_dialog );
 gchar *xa_parse_add_dialog_options ( XArchive *archive, Add_dialog_data *dialog_data );
 void xa_select_files_to_add ( GtkButton* button , gpointer _add_dialog );
-gchar *xa_add_single_files ( XArchive *archive , GString *names, gchar *compression_string);
+gchar *xa_execute_add_commands ( XArchive *archive , GString *names, gchar *compression_string);
 void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data);
 
 #endif

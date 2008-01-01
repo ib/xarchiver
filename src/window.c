@@ -1886,7 +1886,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	archive[idx]->full_path = 0;
 	archive[idx]->add_recurse = 1;
 
-	command = xa_add_single_files (archive[idx],names,NULL);
+	command = xa_execute_add_commands(archive[idx],names,NULL);
 
 	archive[idx]->has_passwd = dummy_password;
 	archive[idx]->full_path = full_path;
@@ -1901,8 +1901,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		list = g_slist_append(list,command);
 		xa_run_command (archive[idx],list);
 	}
-	g_string_free (names, TRUE);
-	g_strfreev ( array );
+	g_string_free (names,TRUE);
+	g_strfreev (array);
 
 }
 
@@ -2095,14 +2095,16 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,gpointer data)
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (archive->treeview),event->x, event->y,&path,NULL,NULL,NULL);
+	if (path == NULL)
+		return FALSE;
 	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3))
 	{
 		gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path);
 		gtk_tree_path_free (path);
-		if (! gtk_tree_selection_iter_is_selected (selection, &iter))
+		if (! gtk_tree_selection_iter_is_selected (selection,&iter))
 		{
 			gtk_tree_selection_unselect_all (selection);
-			gtk_tree_selection_select_iter (selection, &iter);
+			gtk_tree_selection_select_iter (selection,&iter);
 		}
 		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,MainWindow,event->button,event->time);
 		return TRUE;
