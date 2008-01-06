@@ -37,20 +37,24 @@ typedef struct
 	GtkWidget *files_radio;
 	GtkWidget *entry2;
 	GtkWidget *password_entry;
+	GtkWidget *create_dir;
+	GtkWidget *treeview3;
+	GtkCellRenderer *renderer;
 } Extract_dialog_data;
 
 GtkWidget *label1,*label2,*label3,*label4,*label_password;
-GtkWidget *hbox1,*hbox2,*hbox3,*vbox1,*vbox2,*vbox3,*vbox4,*vbox5;
+GtkWidget *hbox1,*hbox2,*hbox3,*hbox4,*vbox1,*vbox2,*vbox3,*vbox4,*vbox5;
 GtkWidget *frame1,*frame2,*alignment1,*alignment2,*alignment3;
-GtkWidget *radiobutton1,*create_dir,*scrolledwindow1,*treeview3;
+GtkWidget *radiobutton1,*scrolledwindow1;
 GtkWidget *dialog_action_area1,*cancel_button,*okbutton1,*extract_button,*extract_image,*extract_hbox,*extract_label;
 GtkTreeStore *model;
-GtkCellRenderer *renderer;
 GtkTreeViewColumn *column;
 GtkTooltips *option_tooltip;
 const gchar *home_dir;
 	
 Extract_dialog_data *xa_create_extract_dialog (gint selected ,XArchive *archive);
+void xa_create_dir_button_pressed (GtkButton *button, gpointer data);
+void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_text,gpointer data);
 void xa_activate_entry(GtkToggleButton *button,gpointer data);
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
@@ -59,7 +63,7 @@ gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path
 gboolean xa_extract_tar_without_directories ( gchar *string, XArchive *archive,gchar *extract_path,gboolean cpio_flag);
 void xa_browse_dir (GtkTreeStore *model,gchar *dir, GtkTreeIter *iter);
 void xa_tree_view_row_selected(GtkTreeSelection *selection, gpointer data);
+void xa_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data);
 void xa_expand_dir(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gpointer data);
-void xa_choose_extraction_directory (GtkWidget *widget, gpointer data);
 #endif
 

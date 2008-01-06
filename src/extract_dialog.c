@@ -182,31 +182,33 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 
 	model = gtk_tree_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
-	treeview3 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(model));
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), treeview3);
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (treeview3), FALSE);
+	dialog_data->treeview3 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(model));
+	gtk_container_add (GTK_CONTAINER (scrolledwindow1), dialog_data->treeview3);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dialog_data->treeview3), FALSE);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model),1,GTK_SORT_ASCENDING);
-	g_signal_connect (G_OBJECT (treeview3),"row-expanded",G_CALLBACK(xa_expand_dir),dialog_data->destination_path_entry);
-	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (treeview3));
+	g_signal_connect (G_OBJECT (dialog_data->treeview3),"row-expanded",G_CALLBACK(xa_expand_dir),dialog_data->destination_path_entry);
+	g_signal_connect (G_OBJECT (dialog_data->treeview3),"row-activated",G_CALLBACK(xa_row_activated),dialog_data->destination_path_entry);
+	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (dialog_data->treeview3));
 	g_signal_connect ((gpointer) sel,"changed",G_CALLBACK (xa_tree_view_row_selected),dialog_data->destination_path_entry);
 
 	column = gtk_tree_view_column_new();
-	renderer = gtk_cell_renderer_pixbuf_new();
-	gtk_tree_view_column_pack_start(column,renderer,FALSE);
-	gtk_tree_view_column_set_attributes(column,renderer, "stock-id",0,NULL);
+	dialog_data->renderer = gtk_cell_renderer_pixbuf_new();
+	gtk_tree_view_column_pack_start(column,dialog_data->renderer,FALSE);
+	gtk_tree_view_column_set_attributes(column,dialog_data->renderer, "stock-id",0,NULL);
 
-	renderer = gtk_cell_renderer_text_new();
-	gtk_tree_view_column_pack_start(column,renderer,TRUE);
-	gtk_tree_view_column_set_attributes( column,renderer,"text",1,NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (treeview3),column);
+	dialog_data->renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(column,dialog_data->renderer,TRUE);
+	gtk_tree_view_column_set_attributes( column,dialog_data->renderer,"text",1,NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (dialog_data->treeview3),column);
+	g_signal_connect (dialog_data->renderer, "edited",G_CALLBACK (xa_cell_edited),model);
 
-	alignment3 = gtk_alignment_new (0.5, 0.5, 1, 1);
-	gtk_box_pack_start (GTK_BOX (vbox1), alignment3,FALSE,FALSE,0);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment3),0,0,370,0);
+	hbox4 = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_end (GTK_BOX (vbox1), hbox4, FALSE, FALSE, 0);
   
-	create_dir = gtk_button_new_with_mnemonic (_("Create Dir"));
-	gtk_container_add (GTK_CONTAINER (alignment3),create_dir);
-  
+	dialog_data->create_dir = gtk_button_new_with_mnemonic (_("Create New Dir"));
+	gtk_box_pack_end (GTK_BOX (hbox4),dialog_data->create_dir,FALSE, FALSE,0);
+	g_signal_connect (G_OBJECT(dialog_data->create_dir),"clicked",G_CALLBACK(xa_create_dir_button_pressed),dialog_data);
+
 	hbox3 = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox5),hbox3,TRUE,TRUE,0);
 
@@ -254,6 +256,61 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_widget_show_all(dialog_data->dialog1);
 	return dialog_data;
 }
+
+void xa_create_dir_button_pressed (GtkButton *button,gpointer data)
+{
+	Extract_dialog_data *dialog = data;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter,new_iter;
+	GtkTreePath *path = NULL;
+	GtkTreeViewColumn *column;
+
+	g_object_set(dialog->renderer,"editable",TRUE,NULL);
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(dialog->treeview3));
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(dialog->treeview3));
+
+	if (gtk_tree_selection_get_selected (selection,NULL,&iter))
+	{
+		gtk_widget_set_sensitive(dialog->create_dir,FALSE);	
+		gtk_tree_store_append(GTK_TREE_STORE(model),&new_iter,&iter);
+		gtk_tree_view_get_cursor(GTK_TREE_VIEW(dialog->treeview3),&path,NULL);
+		gtk_tree_view_expand_to_path(GTK_TREE_VIEW(dialog->treeview3),path);
+
+		column = gtk_tree_view_get_column (GTK_TREE_VIEW (dialog->treeview3),0);
+		gtk_tree_path_down(path);
+		gtk_tree_view_set_cursor(GTK_TREE_VIEW(dialog->treeview3),path,column,TRUE);
+		gtk_tree_selection_select_iter(selection,&new_iter);
+		gtk_tree_path_free (path);
+	}
+}
+
+void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_text,gpointer data)
+{
+	GtkTreeModel *model = data;
+	GtkTreeIter iter;
+	GtkTreeIter prev_iter;
+	gchar *previous_dir;
+	gchar *fullname;
+	gint result;
+
+	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+	gtk_tree_model_get_iter (model, &iter,path);
+	gtk_tree_path_up(path);
+	gtk_tree_model_get_iter (model, &prev_iter,path);
+	gtk_tree_model_get(model,&prev_iter,2,&previous_dir,-1);
+	
+	fullname = g_strconcat(previous_dir,"/",new_text,NULL);
+	g_free(previous_dir);
+	gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-directory",1,new_text,2,fullname,-1);
+	gtk_tree_path_free(path);
+
+	if (g_mkdir_with_parents(fullname,0700) < 0)
+		g_print ("%s\n",strerror(errno));
+	g_free(fullname);
+	//gtk_widget_set_sensitive(dialog->create_dir,TRUE);
+}
+
 
 void xa_activate_entry(GtkToggleButton *button,gpointer data)
 {
@@ -900,9 +957,20 @@ void xa_tree_view_row_selected(GtkTreeSelection *selection, gpointer data)
 	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
 		gtk_tree_model_get (model,&iter,2,&dir,-1);
-		gtk_entry_set_text(entry,dir);
-		g_free(dir);
+		if (dir != NULL)
+		{
+			gtk_entry_set_text(entry,dir);
+			g_free(dir);
+		}
 	}
+}
+
+void xa_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)
+{
+	if (gtk_tree_view_row_expanded(tree_view,path))
+		gtk_tree_view_collapse_row(tree_view,path);
+	else
+		gtk_tree_view_expand_to_path(tree_view,path);
 }
 
 void xa_expand_dir(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gpointer data)
@@ -927,29 +995,4 @@ void xa_expand_dir(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gp
 	
 	gtk_entry_set_text(entry,dir);
 	g_free(dir);
-}
-
-void xa_choose_extraction_directory (GtkWidget *widget, gpointer data)
-{
-	Extract_dialog_data *dialog_data = data;
-	GtkWidget *File_Selector;
-	int response;
-	gchar *path;
-
-	File_Selector = gtk_file_chooser_dialog_new (_("Choose the destination directory"),
-					GTK_WINDOW (MainWindow),
-					GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-					GTK_STOCK_CANCEL,
-					GTK_RESPONSE_CANCEL,
-					GTK_STOCK_OPEN,
-					GTK_RESPONSE_ACCEPT,
-					NULL);
-	response = gtk_dialog_run (GTK_DIALOG (File_Selector));
-	if (response == GTK_RESPONSE_ACCEPT)
-	{
-		path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (File_Selector) );
-		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),path);
-		g_free (path);
-	}
-	gtk_widget_destroy (File_Selector);
 }
