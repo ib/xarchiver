@@ -189,7 +189,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	g_signal_connect (G_OBJECT (dialog_data->treeview3),"row-expanded",G_CALLBACK(xa_expand_dir),dialog_data->destination_path_entry);
 	g_signal_connect (G_OBJECT (dialog_data->treeview3),"row-activated",G_CALLBACK(xa_row_activated),dialog_data->destination_path_entry);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (dialog_data->treeview3));
-	g_signal_connect ((gpointer) sel,"changed",G_CALLBACK (xa_tree_view_row_selected),dialog_data->destination_path_entry);
+	g_signal_connect (sel,"changed",G_CALLBACK (xa_tree_view_row_selected),dialog_data->destination_path_entry);
 
 	column = gtk_tree_view_column_new();
 	dialog_data->renderer = gtk_cell_renderer_pixbuf_new();
@@ -200,7 +200,8 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_tree_view_column_pack_start(column,dialog_data->renderer,TRUE);
 	gtk_tree_view_column_set_attributes( column,dialog_data->renderer,"text",1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dialog_data->treeview3),column);
-	g_signal_connect (dialog_data->renderer, "edited",G_CALLBACK (xa_cell_edited),model);
+	g_signal_connect (dialog_data->renderer, "editing-canceled",G_CALLBACK (xa_cell_edited_canceled),dialog_data);
+	g_signal_connect (dialog_data->renderer, "edited",G_CALLBACK (xa_cell_edited),dialog_data);
 
 	hbox4 = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_end (GTK_BOX (vbox1), hbox4, FALSE, FALSE, 0);
@@ -285,30 +286,62 @@ void xa_create_dir_button_pressed (GtkButton *button,gpointer data)
 	}
 }
 
+void xa_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
+{
+	Extract_dialog_data *dialog = data;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreeSelection *selection;
+	
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview3));
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(dialog->treeview3));
+	if (selection)
+	{
+		gtk_tree_selection_get_selected(selection,&model,&iter);
+		gtk_tree_store_remove(GTK_TREE_STORE(model),&iter);
+		gtk_widget_set_sensitive(dialog->create_dir,TRUE);
+		g_object_set(dialog->renderer,"editable",FALSE,NULL);
+	}
+}
+
 void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_text,gpointer data)
 {
-	GtkTreeModel *model = data;
+	Extract_dialog_data *dialog = data;
+	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GtkTreeIter prev_iter;
 	gchar *previous_dir;
 	gchar *fullname;
 	gint result;
 
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(dialog->treeview3));
 	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
 	gtk_tree_model_get_iter (model, &iter,path);
 	gtk_tree_path_up(path);
 	gtk_tree_model_get_iter (model, &prev_iter,path);
 	gtk_tree_model_get(model,&prev_iter,2,&previous_dir,-1);
-	
+
 	fullname = g_strconcat(previous_dir,"/",new_text,NULL);
 	g_free(previous_dir);
 	gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-directory",1,new_text,2,fullname,-1);
-	gtk_tree_path_free(path);
 
-	if (g_mkdir_with_parents(fullname,0700) < 0)
-		g_print ("%s\n",strerror(errno));
+	result = mkdir (fullname,S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
+	if (result == -1)
+	{
+		gchar *msg = g_strdup_printf(_("Can't create directory \"%s\""),fullname);
+		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno ));
+		g_free (msg);
+		gtk_tree_store_remove(GTK_TREE_STORE(model),&iter);
+	}
+	else
+	{
+		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(dialog->treeview3),path,NULL,FALSE,0,0);
+		gtk_entry_set_text(GTK_ENTRY(dialog->destination_path_entry),fullname);
+	}
 	g_free(fullname);
-	//gtk_widget_set_sensitive(dialog->create_dir,TRUE);
+	gtk_tree_path_free(path);
+	gtk_widget_set_sensitive(dialog->create_dir,TRUE);
+	g_object_set(dialog->renderer,"editable",FALSE,NULL);
 }
 
 
@@ -394,17 +427,7 @@ gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *d
 				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This archive is encrypted!"),_("Please enter the password.") );
 				break;
 			}
-			if (g_file_test (destination_path,G_FILE_TEST_EXISTS) == FALSE)
-			{
-				int result = mkdir (destination_path , S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
-				if (result == -1)
-				{
-					gchar *msg = g_strdup_printf(_("Can't create directory \"%s\""), destination_path);
-					response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, msg, g_strerror(errno ) );
-					g_free (msg);
-					break;
-				}
-			}
+
 			if ( g_file_test (destination_path,G_FILE_TEST_IS_DIR) && access (destination_path, R_OK | W_OK | X_OK ) )
 			{
 				gchar *utf8_path;

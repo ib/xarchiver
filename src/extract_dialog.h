@@ -54,6 +54,7 @@ const gchar *home_dir;
 	
 Extract_dialog_data *xa_create_extract_dialog (gint selected ,XArchive *archive);
 void xa_create_dir_button_pressed (GtkButton *button, gpointer data);
+void xa_cell_edited_canceled(GtkCellRenderer *renderer,gpointer user_data);
 void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_text,gpointer data);
 void xa_activate_entry(GtkToggleButton *button,gpointer data);
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
