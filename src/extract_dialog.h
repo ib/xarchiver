@@ -40,6 +40,8 @@ typedef struct
 	GtkWidget *create_dir;
 	GtkWidget *treeview3;
 	GtkCellRenderer *renderer;
+	gchar *string;
+	gulong signal_id;
 } Extract_dialog_data;
 
 GtkWidget *label1,*label2,*label3,*label4,*label_password;
@@ -66,5 +68,6 @@ void xa_browse_dir (GtkTreeStore *model,gchar *dir, GtkTreeIter *iter);
 void xa_tree_view_row_selected(GtkTreeSelection *selection, gpointer data);
 void xa_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data);
 void xa_expand_dir(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gpointer data);
+void xa_treeview_exposed (GtkWidget *widget,GdkEventExpose *event,gpointer data);
 #endif
 

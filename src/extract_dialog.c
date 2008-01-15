@@ -186,6 +186,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), dialog_data->treeview3);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dialog_data->treeview3), FALSE);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model),1,GTK_SORT_ASCENDING);
+
 	g_signal_connect (G_OBJECT (dialog_data->treeview3),"row-expanded",G_CALLBACK(xa_expand_dir),dialog_data->destination_path_entry);
 	g_signal_connect (G_OBJECT (dialog_data->treeview3),"row-activated",G_CALLBACK(xa_row_activated),dialog_data->destination_path_entry);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (dialog_data->treeview3));
@@ -263,25 +264,25 @@ void xa_create_dir_button_pressed (GtkButton *button,gpointer data)
 	Extract_dialog_data *dialog = data;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
-	GtkTreeIter iter,new_iter;
-	GtkTreePath *path = NULL;
+	GtkTreeIter child,iter;
+	GtkTreePath *path;
 	GtkTreeViewColumn *column;
 
 	g_object_set(dialog->renderer,"editable",TRUE,NULL);
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(dialog->treeview3));
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(dialog->treeview3));
 
-	if (gtk_tree_selection_get_selected (selection,NULL,&iter))
+	if (selection)
 	{
-		gtk_widget_set_sensitive(dialog->create_dir,FALSE);	
-		gtk_tree_store_append(GTK_TREE_STORE(model),&new_iter,&iter);
-		gtk_tree_view_get_cursor(GTK_TREE_VIEW(dialog->treeview3),&path,NULL);
+		gtk_tree_selection_get_selected(selection,NULL,&iter);
+		gtk_widget_set_sensitive(dialog->create_dir,FALSE);
+		gtk_tree_store_append(GTK_TREE_STORE(model),&child,&iter);
+		gtk_tree_view_get_cursor(GTK_TREE_VIEW(dialog->treeview3),&path,&column);
 		gtk_tree_view_expand_to_path(GTK_TREE_VIEW(dialog->treeview3),path);
 
-		column = gtk_tree_view_get_column (GTK_TREE_VIEW (dialog->treeview3),0);
 		gtk_tree_path_down(path);
+		gtk_tree_selection_select_iter(selection,&child);
 		gtk_tree_view_set_cursor(GTK_TREE_VIEW(dialog->treeview3),path,column,TRUE);
-		gtk_tree_selection_select_iter(selection,&new_iter);
 		gtk_tree_path_free (path);
 	}
 }
@@ -297,10 +298,10 @@ void xa_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(dialog->treeview3));
 	if (selection)
 	{
+		g_object_set(dialog->renderer,"editable",FALSE,NULL);
 		gtk_tree_selection_get_selected(selection,&model,&iter);
 		gtk_tree_store_remove(GTK_TREE_STORE(model),&iter);
 		gtk_widget_set_sensitive(dialog->create_dir,TRUE);
-		g_object_set(dialog->renderer,"editable",FALSE,NULL);
 	}
 }
 
@@ -309,7 +310,6 @@ void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gc
 	Extract_dialog_data *dialog = data;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	GtkTreeIter prev_iter;
 	gchar *previous_dir;
 	gchar *fullname;
 	gint result;
@@ -317,12 +317,11 @@ void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gc
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW(dialog->treeview3));
 	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
 	gtk_tree_model_get_iter (model, &iter,path);
-	gtk_tree_path_up(path);
-	gtk_tree_model_get_iter (model, &prev_iter,path);
-	gtk_tree_model_get(model,&prev_iter,2,&previous_dir,-1);
-
+	
+	previous_dir = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog->destination_path_entry)));
 	fullname = g_strconcat(previous_dir,"/",new_text,NULL);
 	g_free(previous_dir);
+
 	gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-directory",1,new_text,2,fullname,-1);
 
 	result = mkdir (fullname,S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXGRP);
@@ -335,7 +334,8 @@ void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gc
 	}
 	else
 	{
-		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(dialog->treeview3),path,NULL,FALSE,0,0);
+		dialog->string = gtk_tree_path_to_string (gtk_tree_model_get_path (model, &iter));
+		dialog->signal_id = g_signal_connect_after(G_OBJECT(GTK_TREE_VIEW(dialog->treeview3)),"expose-event",G_CALLBACK(xa_treeview_exposed),dialog);
 		gtk_entry_set_text(GTK_ENTRY(dialog->destination_path_entry),fullname);
 	}
 	g_free(fullname);
@@ -344,25 +344,24 @@ void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gc
 	g_object_set(dialog->renderer,"editable",FALSE,NULL);
 }
 
-
 void xa_activate_entry(GtkToggleButton *button,gpointer data)
 {
 	Extract_dialog_data *dialog = data;
 
-	if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(dialog->files_radio)))
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(dialog->files_radio)))
 	{
-		gtk_widget_set_sensitive (dialog->entry2, TRUE);
+		gtk_widget_set_sensitive (dialog->entry2,TRUE);
 		gtk_widget_grab_focus (dialog->entry2);
 	}
 	else
 		gtk_widget_set_sensitive (dialog->entry2,FALSE);
 }
 
-void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
+void fresh_update_toggled_cb (GtkToggleButton *button,Extract_dialog_data *data)
 {
-	gboolean active = gtk_toggle_button_get_active (button);
+	gboolean active = gtk_toggle_button_get_active(button);
 	if (active)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update),FALSE);
 }
 
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data)
@@ -977,7 +976,7 @@ void xa_tree_view_row_selected(GtkTreeSelection *selection, gpointer data)
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 
-	if (gtk_tree_selection_get_selected (selection, &model, &iter))
+	if (gtk_tree_selection_get_selected (selection,&model,&iter))
 	{
 		gtk_tree_model_get (model,&iter,2,&dir,-1);
 		if (dir != NULL)
@@ -1018,4 +1017,14 @@ void xa_expand_dir(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gp
 	
 	gtk_entry_set_text(entry,dir);
 	g_free(dir);
+}
+
+void xa_treeview_exposed (GtkWidget *widget,GdkEventExpose *event,gpointer data)
+{
+	Extract_dialog_data *dialog = data;
+
+	GtkTreePath *path = gtk_tree_path_new_from_string (dialog->string);
+	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(widget),path,NULL,FALSE,0,0);
+	gtk_tree_path_free (path);
+	g_signal_handler_disconnect (G_OBJECT(widget),dialog->signal_id);
 }
