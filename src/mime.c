@@ -16,17 +16,86 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
+#include "glib-mem.h"	/* provide compatibility macros for g_slice */
 #include "mime.h"
 
-GSList *icon_cache = NULL;
+typedef struct _XAMimeType
+{
+	char* name;
+	char* icon_name;
+	char* desc;
+	GdkPixbuf* icon;
+}XAMimeType;
+
+static GHashTable *mime_cache = NULL;
+static GdkPixbuf *folder_icon = NULL;
+static GdkPixbuf *lock_icon = NULL;
+	
+static xa_mime_type_free( XAMimeType* type )
+{
+	g_free( type->name );
+	g_free( type->icon_name );
+	g_free( type->desc );
+	if( type->icon )
+		g_object_unref( type->icon );
+	g_slice_free( XAMimeType, type );
+}
+
+void xa_mime_type_init()
+{
+#ifdef USE_MIMETYPE
+/*
+    GtkIconTheme * theme;
+    MimeCache** caches;
+    int i, n_caches;
+*/
+    mime_type_init();
+
+#if 0
+    /* install file alteration monitor for mime-cache */
+    caches = mime_type_get_caches( &n_caches );
+    mime_caches_monitor = g_new0( VFSFileMonitor*, n_caches );
+    for( i = 0; i < n_caches; ++i )
+    {
+        VFSFileMonitor* fm = vfs_file_monitor_add_file( caches[i]->file_path,
+                                                                on_mime_cache_changed, caches[i] );
+        mime_caches_monitor[i] = fm;
+    }
+    theme = gtk_icon_theme_get_default();
+    theme_change_notify = g_signal_connect( theme, "changed",
+                                            G_CALLBACK( on_icon_theme_changed ),
+                                            NULL );
+#endif
+
+#endif
+
+    mime_cache = g_hash_table_new_full( g_str_hash, g_str_equal,
+                                       NULL, xa_mime_type_free );
+
+}
+
+static XAMimeType* lookup_mime_type( const char* name )
+{
+    XAMimeType* type;
+    type = (XAMimeType*)g_hash_table_lookup( mime_cache, name );
+    if( G_UNLIKELY( ! type ) )
+    {
+    	type = g_slice_new0( XAMimeType );
+    	type->name = g_strdup( name );
+    	g_hash_table_insert( mime_cache, type->name, type);
+    }
+	return type;
+}
 
 const char *xa_get_stock_mime_icon(char *filename)
 {
 	const char *mime;
 	const char *icon_name = "binary";
 
-	mime = xdg_mime_get_mime_type_from_file_name(filename);
 	//g_print ("%s\t%s\n",filename,mime);
 	if (strstr(filename,".ogg") || strstr(filename,".flac") )
 		icon_name = "sound";
@@ -67,58 +136,89 @@ const char *xa_get_stock_mime_icon(char *filename)
 
 GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename)
 {
-	pixbuf_cache *tie = NULL;
-	const gchar *icon_name;
-	GSList *found = NULL;
-	GdkPixbuf *pixbuf = NULL;
+    char icon_name[ 100 ];
+	const char* mime_type;
+	XAMimeType* mime;
 
 	if (strcmp(filename,"folder") == 0)
-		icon_name = filename;
-	else if (strcmp(filename,"lock") == 0)
-		icon_name = "gtk-dialog-authentication";
-	else
-		icon_name = xa_get_stock_mime_icon(filename);
-
-	tie = g_new0(pixbuf_cache,1);
-	if (tie)
 	{
-		tie->icon_name = g_strdup(icon_name);
-		found = g_slist_find_custom(icon_cache,tie,(GCompareFunc)xa_icon_name_compare_func);
-		if (found)
+		if( G_LIKELY( folder_icon ) )
+			return (GdkPixbuf*)g_object_ref( folder_icon );
+		folder_icon = gtk_icon_theme_load_icon(icon_theme,"folder", 20, 0, NULL);
+		if( G_UNLIKELY( ! folder_icon ) )
+			folder_icon = gtk_icon_theme_load_icon(icon_theme,"gnome-fs-directory", 20, 0, NULL);
+		return folder_icon ? (GdkPixbuf*)g_object_ref( folder_icon ) : NULL;
+	}
+	else if (strcmp(filename,"lock") == 0)
+	{
+		if( G_LIKELY( lock_icon ) )
+			return (GdkPixbuf*)g_object_ref( lock_icon );
+		lock_icon = gtk_icon_theme_load_icon(icon_theme,GTK_STOCK_DIALOG_AUTHENTICATION, 20, 0,NULL);
+		return lock_icon ? (GdkPixbuf*)g_object_ref( lock_icon ) : NULL;
+	}
+	else
+	{
+		char* sep;
+		GdkPixbuf* icon = NULL;
+#ifdef USE_MIMETYPE
+		mime_type = mime_type_get_by_filename(filename, NULL);
+#else
+		mime_type = xdg_mime_get_mime_type_from_file_name(filename);
+#endif
+		if( mime_type )
 		{
-			g_free (tie->icon_name);
-			g_free (tie);
-			return ((pixbuf_cache *)found->data)->pixbuf;
-		}
-		else
-		{
-			pixbuf = gtk_icon_theme_load_icon(icon_theme,icon_name,16,GTK_ICON_LOOKUP_FORCE_SVG,NULL);
-			if (pixbuf)
+			mime = lookup_mime_type( mime_type );
+
+			if( mime->icon )
+				return (GdkPixbuf*)g_object_ref( mime->icon );
+
+			sep = strchr( mime->name, '/' );
+			if ( sep )
 			{
-				tie->pixbuf = pixbuf;
-				icon_cache = g_slist_prepend(icon_cache,tie);
+				strcpy( icon_name, mime->name );
+				icon_name[ (sep - mime->name) ] = '-';
+				icon = gtk_icon_theme_load_icon ( icon_theme, icon_name, 20, 0, NULL );
+				if ( ! icon )
+				{
+					strcpy( icon_name, "gnome-mime-" );
+					strncat( icon_name, mime->name, ( sep - mime->name ) );
+					strcat( icon_name, "-" );
+					strcat( icon_name, sep + 1 );
+					icon = gtk_icon_theme_load_icon ( icon_theme, icon_name, 20, 0, NULL );
+				}
+				if ( G_UNLIKELY( ! icon ) )
+				{
+					icon_name[ 11 ] = 0;
+					strncat( icon_name, mime->name, ( sep - mime->name ) );
+					icon = gtk_icon_theme_load_icon ( icon_theme, icon_name, 20, 0, NULL );
+				}
 			}
 		}
-	}
-	return pixbuf;
-}
 
-gint xa_icon_name_compare_func(pixbuf_cache *a, pixbuf_cache *b)
-{
-	return strcmp(a->icon_name, b->icon_name);
+		if( G_UNLIKELY( !icon ) )
+		{
+			const char* fallback = xa_get_stock_mime_icon(filename);
+			icon = gtk_icon_theme_load_icon ( icon_theme, fallback, 20, 0, NULL );			
+		}
+		if( G_UNLIKELY( !icon ) )
+		{
+			/* prevent endless recursion of XDG_MIME_TYPE_UNKNOWN */
+			if( G_LIKELY( strcmp(mime->name, XDG_MIME_TYPE_UNKNOWN) ) )
+			{
+				/* FIXME: fallback to icon of parent mime-type */
+				icon = xa_get_pixbuf_icon_from_cache( XDG_MIME_TYPE_UNKNOWN );
+			}
+			else /* unknown */
+				icon = gtk_icon_theme_load_icon ( icon_theme, "unknown", 20, 0, NULL );
+		}
+
+		mime->icon = icon;
+		return (GdkPixbuf*)g_object_ref( icon );
+	}
+	return NULL;
 }
 
 void xa_free_icon_cache()
 {
-	GSList *x = icon_cache;
-
-	while (x)
-	{
-		pixbuf_cache *tie = x->data;
-		g_free (tie->icon_name);
-		g_object_unref (tie->pixbuf);
-		g_free(tie);
-		x = x->next;
-	}
-	g_slist_free(icon_cache);
+	g_hash_table_destroy( mime_cache );
 }

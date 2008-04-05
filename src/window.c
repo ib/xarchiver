@@ -1599,7 +1599,8 @@ void xa_shell_quote_filename (gchar *filename,GString *data,XArchive *archive)
 
 	quoted_filename = g_shell_quote(filename);
 	if (archive->status != XA_ARCHIVESTATUS_ADD && archive->type != XARCHIVETYPE_TAR
-		&& archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_GZ)
+		&& archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_GZ
+		&& archive->type != XARCHIVETYPE_RAR)
 	{
 		if (strstr(filename,"[") || strstr(filename,"]"))
 		{
@@ -1665,7 +1666,7 @@ void xa_disable_delete_view_buttons (gboolean value)
 {
     gtk_widget_set_sensitive (delete_menu,value);
     //TODO: disable the popupmenu entries
-    //gtk_widget_set_sensitive (ddelete,value);
+    //gtk_widget_set_sensitive (delete,value);
     gtk_widget_set_sensitive (View_button,value);
     gtk_widget_set_sensitive (view_menu,value);
 }

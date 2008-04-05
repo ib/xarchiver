@@ -19,6 +19,7 @@
 #include "config.h"
 #include "main.h"
 #include "string_utils.h"
+#include "mime.h"
 
 #ifdef HAVE_SOCKET
 #include "socket.h"
@@ -91,6 +92,8 @@ int main (int argc, char **argv)
 	}
 	if (ask_and_extract || ask_and_add || archive_name != NULL || extract_path != NULL)
 		cli = TRUE;
+
+	xa_mime_type_init();	/* initialize mime-type cache */
 
 	xa_get_available_archivers();
 	prefs_window = xa_create_prefs_dialog();

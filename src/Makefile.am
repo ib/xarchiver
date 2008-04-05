@@ -1,6 +1,14 @@
 bin_PROGRAMS = xarchiver
 
-SUBDIRS = xdgmime
+if USE_LIBMIMETYPE
+MIME_TYPE_DIR = mime-type
+MIME_LIB = $(top_builddir)/src/mime-type/libmimetype.la
+else
+MIME_TYPE_DIR = xdgmime
+MIME_LIB = $(top_builddir)/src/xdgmime/libxdgmime.la
+endif
+
+SUBDIRS = $(MIME_TYPE_DIR)
 
 xarchiver_SOURCES = \
 	socket.c socket.h \
@@ -24,7 +32,8 @@ xarchiver_SOURCES = \
 	extract_dialog.c extract_dialog.h \
 	add_dialog.c add_dialog.h \
 	new_dialog.c new_dialog.h \
-	pref_dialog.c pref_dialog.h
+	pref_dialog.c pref_dialog.h \
+	glib-mem.h
 
 xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \
@@ -34,7 +43,7 @@ xarchiver_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\"
 
 xarchiver_LDADD = \
-	 $(top_builddir)/src/xdgmime/libxdgmime.la \
+	$(MIME_LIB) \
 	@GTK_LIBS@ \
 	@GLIB_LIBS@
 
