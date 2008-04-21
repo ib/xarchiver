@@ -33,7 +33,9 @@ xarchiver_SOURCES = \
 	add_dialog.c add_dialog.h \
 	new_dialog.c new_dialog.h \
 	pref_dialog.c pref_dialog.h \
-	glib-mem.h
+	glib-mem.h \
+	glib-utils.h \
+	glib-utils.c
 
 xarchiver_CFLAGS = \
 	@GTK_CFLAGS@ \
