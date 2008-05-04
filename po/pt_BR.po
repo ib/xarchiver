@@ -1089,11 +1089,11 @@ msgstr "SO"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr "Um gerente de pacotes baseado no GTK+2"
+msgstr "Um gerenciador de pacotes baseado no GTK+2"
 
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
-msgstr "Gerente de pacotes"
+msgstr "Gerenciador de pacotes"
 
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
