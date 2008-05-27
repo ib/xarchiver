@@ -131,5 +131,6 @@ void xa_add_page (XArchive *archive);
 void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data);
 void xa_close_page (GtkWidget *widget, gpointer data);
 void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info);
+void xa_restore_navigation(int idx);
 #endif
 

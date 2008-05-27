@@ -491,6 +491,8 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 	xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties);
 
 here:
+	xa_restore_navigation(id);
+
 	if (archive[id]->has_comment)
 		gtk_widget_set_sensitive (comment_menu,TRUE);
 	else
@@ -1014,7 +1016,10 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 				g_free(archive[idx]->location_entry_path);
 				archive[idx]->location_entry_path = NULL;
 			}
+
 			xa_update_window_with_archive_entries(archive[idx],NULL);
+
+			xa_restore_navigation(idx);
 		break;
 
 		/* Back */
@@ -1023,36 +1028,58 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 				archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
 			xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
 			archive[idx]->back = archive[idx]->back->next;
-			if (archive[idx]->back == NULL)
-				gtk_widget_set_sensitive(back_button,FALSE);
-			if (archive[idx]->forward != NULL)
-				gtk_widget_set_sensitive(forward_button,TRUE);
+
+			xa_restore_navigation(idx);
 		break;
 
 		/* Up */
 		case 2:
 			archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
 			new_entry = archive[idx]->current_entry;
+
 			if (new_entry->prev->prev == NULL)
-			{
 				xa_update_window_with_archive_entries(archive[idx],NULL);
-				gtk_widget_set_sensitive(up_button,FALSE);
-				return;
-			}
-			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
+			else
+				xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
+
+			xa_restore_navigation(idx);
 		break;
 
 		/* Forward */
 		case 3:
 			if (g_slist_find(archive[idx]->back,archive[idx]->current_entry) == NULL)
 				archive[idx]->back = g_slist_prepend(archive[idx]->back,archive[idx]->current_entry);
+
 			xa_update_window_with_archive_entries(archive[idx],archive[idx]->forward->data);
 			archive[idx]->forward = archive[idx]->forward->next;
-			if (archive[idx]->forward == NULL)
-			{
-				gtk_widget_set_sensitive(back_button,TRUE);
-				gtk_widget_set_sensitive(forward_button,FALSE);
-			}
+
+			xa_restore_navigation(idx);
 		break;
 	}
 }
+
+void xa_restore_navigation(int idx)
+{
+	gboolean back = FALSE,up = FALSE,forward = FALSE, home=FALSE;
+	gchar* slash;
+
+	/*If the pointers exist, we should show the icon*/
+	if(archive[idx]->forward!=NULL) forward=TRUE;
+	if(archive[idx]->back!=NULL) back=TRUE;
+
+	if(archive[idx]->location_entry_path!=NULL)
+	{
+		/* If there's a slash on the path, we should allow UP and HOME operations */
+		if(strstr(archive[idx]->location_entry_path,"/")!=NULL)
+		{
+			home=TRUE;
+			up=TRUE;
+		}
+	}
+
+	gtk_widget_set_sensitive(back_button,back);
+	gtk_widget_set_sensitive(forward_button,forward);
+	gtk_widget_set_sensitive(up_button,up);
+	gtk_widget_set_sensitive(home_button,home);
+}
+
