@@ -110,7 +110,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		Name = g_list_next (Name);
 	}
 	if (new_combo_box == -1)
-		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_box),gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_prefered_format))-3);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_box),gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_prefered_format)));
 	else
 		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box),new_combo_box);
 
