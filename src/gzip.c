@@ -93,7 +93,7 @@ void xa_get_gzip_line_content (gchar *line, gpointer data)
 	XEntry *entry;
 	gchar *filename;
 	gchar *basename;
-	gpointer item[2];
+	gpointer item[3];
 	gint n = 0, a = 0 ,linesize = 0;
 
 	linesize = strlen(line);

@@ -2063,6 +2063,11 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
+	//Avoid segfault if there's no file opened
+	if(idx<0)
+		return;
+
+
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(location_entry))) == 0)
 	{
 		xa_update_window_with_archive_entries(archive[idx],new_entry);

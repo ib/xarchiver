@@ -312,7 +312,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			ps = waitpid (archive->child_pid, &status, WNOHANG);
 			if (ps < 0)
 				break;
-			else
+			else if(MainWindow) //avoid if we are on console
 				gtk_main_iteration_do (FALSE);
 		}
 		result = xa_check_child_for_error_on_exit(archive,status);
@@ -503,7 +503,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 			g_free(archive->location_entry_path);
 			archive->location_entry_path = NULL;
 		}
-		//gtk_widget_set_sensitive(back_button,FALSE);
+		gtk_widget_set_sensitive(back_button,FALSE);
 		gtk_widget_set_sensitive(up_button,FALSE);
 		gtk_widget_set_sensitive(home_button,FALSE);
 	}
