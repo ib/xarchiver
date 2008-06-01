@@ -131,36 +131,50 @@ void xa_reload_archive_content(XArchive *archive)
 
 void xa_archive_operation_finished(XArchive *archive,gboolean error)
 {
-	gtk_widget_set_sensitive(Stop_button,FALSE);
-	gtk_widget_hide(viewport2);
+	if(MainWindow)
+	{
+		gtk_widget_set_sensitive(Stop_button,FALSE);
+		gtk_widget_hide(viewport2);
+	}
+
 	if (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE)
 	{
 		xa_reload_archive_content(archive);
 		return;
 	}
-	if (archive->has_comment)
-		gtk_widget_set_sensitive (comment_menu,TRUE);
-	else
-		gtk_widget_set_sensitive (comment_menu,FALSE);
 
-	if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-		xa_show_archive_comment (NULL, NULL);
+	if(MainWindow)
+	{
+		if (archive->has_comment)
+			gtk_widget_set_sensitive (comment_menu,TRUE);
+		else
+			gtk_widget_set_sensitive (comment_menu,FALSE);
+
+		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+			xa_show_archive_comment (NULL, NULL);
+	}
 
 	if (archive->status == XA_ARCHIVESTATUS_SFX && archive->type == XARCHIVETYPE_RAR)
 	{
-		gtk_widget_set_sensitive ( exe_menu, FALSE);
+		if(MainWindow)
+			gtk_widget_set_sensitive ( exe_menu, FALSE);
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
 	}
-	xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
-	if (error)
-		Update_StatusBar ( _("Operation completed."));
-	else
-		Update_StatusBar ( _("Operation failed!"));
+
+	if(MainWindow)
+	{
+		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+		if (error)
+			Update_StatusBar ( _("Operation completed."));
+		else
+			Update_StatusBar ( _("Operation failed!"));
+	}
 
 	if (archive->status == XA_ARCHIVESTATUS_TEST)
 		xa_show_cmd_line_output (NULL);
 
-	gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
+	if(MainWindow)
+		gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
 	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
@@ -934,7 +948,7 @@ void xa_convert_sfx ( GtkMenuItem *menuitem , gpointer user_data )
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nArchive navigation code:\nJohn Berthels\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n",NULL};
+    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nBruno Jesus <00cpxxx@gmail.com>\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n",NULL};
     const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\n", NULL};
 
 	if (about == NULL)
@@ -1077,7 +1091,7 @@ int xa_detect_archive_type (gchar *filename)
 {
 	FILE *dummy_ptr = NULL;
     int xx = -1;
-	unsigned char magic[14];
+	unsigned char magic[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0}; /* avoid problems with garbage */
 
 	if (filename != NULL)
 		dummy_ptr = fopen (filename,"r");

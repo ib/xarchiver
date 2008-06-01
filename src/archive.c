@@ -237,7 +237,8 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->tmp != NULL)
 	{
 		xa_delete_temp_directory (archive,0);
-		gtk_widget_hide(viewport2);
+		if(MainWindow)
+			gtk_widget_hide(viewport2);
 		g_free (archive->tmp);
 		archive->tmp = NULL;
 	}
@@ -283,8 +284,11 @@ gboolean xa_create_temp_directory (XArchive *archive,gchar tmp_dir[])
 	if (mkdtemp (tmp_dir) == 0)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
-		gtk_widget_set_sensitive (Stop_button, FALSE);
-		Update_StatusBar (_("Operation failed."));
+		if(MainWindow) //avoid if we're on console
+		{
+			gtk_widget_set_sensitive (Stop_button, FALSE);
+			Update_StatusBar (_("Operation failed."));
+		}
 		return FALSE;
 	}
 	archive->tmp = strdup(tmp_dir);
@@ -300,7 +304,8 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	GSList *_commands = commands;
 
 	archive->parse_output = 0;
-	gtk_widget_show (viewport2);
+	if(MainWindow)
+		gtk_widget_show (viewport2);
 	while (_commands)
 	{
 		g_print ("%s\n",(gchar*)_commands->data);
@@ -314,6 +319,8 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 				break;
 			else if(MainWindow) //avoid if we are on console
 				gtk_main_iteration_do (FALSE);
+
+			usleep(1000); //give the processor time to rest (0.1 sec)
 		}
 		result = xa_check_child_for_error_on_exit(archive,status);
 		if (result == FALSE)

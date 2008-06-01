@@ -420,7 +420,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	XArchiveType type;
 
 	type = xa_detect_archive_type (filename);
-	if (type == -2)
+	if (type == -1 || type == -2)
 		return NULL;
 
 	archive = xa_init_archive_structure ();

@@ -458,6 +458,8 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
 
 int xa_progressbar_pulse (gpointer data)
 {
+	if ( ! MainWindow)
+		return;
 	if ( ! GTK_WIDGET_VISIBLE(viewport2) )
 		return FALSE;
 

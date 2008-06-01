@@ -170,7 +170,7 @@ void xa_open_tar_compressed_file(XArchive *archive)
 void lzma_gzip_bzip2_extract (XArchive *archive)
 {
 	GSList *list = NULL;
-	gchar *command,*executable = NULL,*filename = NULL;
+	gchar *command,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
 	gchar tmp_dir[14] = "";
 	gboolean result = FALSE;
 
@@ -178,15 +178,15 @@ void lzma_gzip_bzip2_extract (XArchive *archive)
 	{
 		case XARCHIVETYPE_BZIP2:
 			executable = "bzip2 -f -d ";
-			filename = "dummy.bz2";
+			filename = archive->escaped_path;
 		break;
 		case XARCHIVETYPE_GZIP:
 			executable = "gzip -f -d -n ";
-			filename = "dummy.gz";
+			filename = archive->escaped_path;
 		break;
 		case XARCHIVETYPE_LZMA:
 			executable = "lzma -f -d ";
-			filename = "dummy.lzma";
+			filename = archive->escaped_path;
 		break;
 		
 		default:
@@ -197,7 +197,7 @@ void lzma_gzip_bzip2_extract (XArchive *archive)
 	if (result == 0)
 		return;
 //TODO: fix the crash when viewing a bzip2 compressed file
-	if (MainWindow && extract_window)
+	if (extract_window)
 	{
 		archive->extraction_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (extract_window->destination_path_entry)));
 
@@ -207,7 +207,17 @@ void lzma_gzip_bzip2_extract (XArchive *archive)
 		command = g_strconcat(executable,archive->tmp,"/",filename,NULL);
 		list = g_slist_append(list,command);
 
-		command = g_strconcat("mv -f ",archive->tmp,"/dummy ",archive->extraction_path,"/",archive->root_entry->child->filename,NULL);
+		if (MainWindow)
+			command = g_strconcat("mv -f ",archive->tmp," ",archive->extraction_path,"/",archive->root_entry->child->filename,NULL);
+		else
+		{
+			dot = strchr(filename,'.');
+			if (G_LIKELY(dot))
+			filename_noext = g_strndup(filename, ( dot - filename ));
+			command = g_strconcat("mv -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path);
+			g_free(filename_noext);
+		}
+
 		list = g_slist_append(list,command);
 		result = xa_run_command (archive,list);
 	}
