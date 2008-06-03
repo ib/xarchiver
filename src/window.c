@@ -306,13 +306,31 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		g_free (path);
 		return;
 	}
+	
+	/* Does the user open an archive from the command line whose archiver is not installed? */
+	gchar *ext = NULL;
+	if (type == XARCHIVETYPE_RAR)
+		ext = "rar";
+	else if (type == XARCHIVETYPE_7ZIP)
+		ext = "7z";
+	else if (type == XARCHIVETYPE_ARJ)
+		ext = "arj";
+	else if (type == XARCHIVETYPE_LHA)
+		ext = "lzh";
+	if (ext != NULL)
+	{
+		if (!g_list_find (ArchiveType,ext))
+		{
+			response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported:"),_("the proper archiver is not installed!") );
+			return;
+		}
+	}
 	current_page = xa_get_new_archive_idx();
 	if (current_page == -1)
 	{
 		g_free (path);
 		return;
 	}
-
 	archive[current_page] = xa_init_archive_structure();
 	if (archive[current_page] == NULL)
 	{
@@ -334,35 +352,17 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 
 	xa_disable_delete_view_buttons (FALSE);
 	gtk_widget_set_sensitive (view_shell_output1,TRUE);
-
 	g_free (path);
 
-	//Does the user open an archive from the command line whose archiver is not installed ?
-	gchar *ext = NULL;
-	if ( archive[current_page]->type == XARCHIVETYPE_RAR)
-		ext = "rar";
-	else if (archive[current_page]->type == XARCHIVETYPE_7ZIP)
-		ext = "7z";
-	else if (archive[current_page]->type == XARCHIVETYPE_ARJ)
-		ext = "arj";
-	else if (archive[current_page]->type == XARCHIVETYPE_LHA)
-		ext = "lzh";
-	if ( ext != NULL )
-		if (!g_list_find (ArchiveType,ext))
-		{
-			response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,_("Sorry, this archive format is not supported:"),_("the proper archiver is not installed!") );
-			return;
-		}
-
 	gtk_widget_set_sensitive (Stop_button,TRUE);
-	gtk_widget_show ( viewport2 );
+	gtk_widget_show (viewport2);
 
-	Update_StatusBar ( _("Please wait while the content of the archive is being read..."));
+	Update_StatusBar (_("Please wait while the content of the archive is being read..."));
 
-	gtk_widget_set_sensitive ( check_menu , FALSE);
-	gtk_widget_set_sensitive ( properties , FALSE);
+	gtk_widget_set_sensitive (check_menu,FALSE);
+	gtk_widget_set_sensitive (properties,FALSE);
 	xa_set_button_state ( 0,0,0,0,0,0,0,0);
-	switch ( archive[current_page]->type )
+	switch (archive[current_page]->type)
 	{
 		case XARCHIVETYPE_ARJ:
 		xa_open_arj (archive[current_page]);
@@ -2077,10 +2077,9 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
-	//Avoid segfault if there's no file opened
+	/* Avoid segfault if there's no file opened */
 	if(idx<0)
 		return;
-
 
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(location_entry))) == 0)
 	{
@@ -2091,7 +2090,8 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 	new_entry  = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
 	if (new_entry == NULL)
 	{
-		gtk_entry_set_text(GTK_ENTRY(location_entry),archive[idx]->location_entry_path);
+		if (archive[idx]->location_entry_path != NULL)
+			gtk_entry_set_text(GTK_ENTRY(location_entry),archive[idx]->location_entry_path);
 		return;
 	}
 
