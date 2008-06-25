@@ -47,24 +47,24 @@ static const GtkTargetEntry drop_targets[] =
 
 extern gboolean unrar;
 
-void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
+void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 {
 	GdkPixbuf *icon;
 
 	xa_create_popup_menu();
 	tooltips = gtk_tooltips_new ();
 	accel_group = gtk_accel_group_new ();
-	xa_set_window_title (MainWindow , NULL);
+	xa_set_window_title (xa_main_window , NULL);
 
 	icon_theme = gtk_icon_theme_get_default();
 	icon = gtk_icon_theme_load_icon(icon_theme, "xarchiver", 24, 0, NULL);
-	gtk_window_set_icon (GTK_WINDOW(MainWindow),icon);
-	g_signal_connect (G_OBJECT (MainWindow), "delete-event", G_CALLBACK (xa_quit_application), NULL);
+	gtk_window_set_icon (GTK_WINDOW(xa_main_window),icon);
+	g_signal_connect (G_OBJECT (xa_main_window), "delete-event", G_CALLBACK (xa_quit_application), NULL);
 
 	/* Create the menus */
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_show (vbox1);
-	gtk_container_add (GTK_CONTAINER (MainWindow), vbox1);
+	gtk_container_add (GTK_CONTAINER (xa_main_window), vbox1);
 
 	menubar1 = gtk_menu_bar_new ();
 	gtk_widget_show (menubar1);
@@ -451,15 +451,15 @@ void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location)
     g_signal_connect ((gpointer) Extract_button,"clicked", G_CALLBACK (xa_extract_archive), 		NULL);
 	g_signal_connect ((gpointer) View_button,	"clicked", G_CALLBACK (xa_view_file_inside_archive),NULL);
 	g_signal_connect ((gpointer) Stop_button,	"clicked", G_CALLBACK (xa_cancel_archive),			NULL);
-	g_signal_connect (MainWindow, 		"key-press-event", G_CALLBACK (key_press_function),			NULL);
+	g_signal_connect (xa_main_window, 		"key-press-event", G_CALLBACK (key_press_function),			NULL);
 
-	gtk_window_add_accel_group (GTK_WINDOW (MainWindow), accel_group);
+	gtk_window_add_accel_group (GTK_WINDOW (xa_main_window), accel_group);
 }
 
 int xa_progressbar_pulse (gpointer data)
 {
-	if ( ! MainWindow)
-		return;
+	if ( ! xa_main_window)
+		return FALSE;
 	if ( ! GTK_WIDGET_VISIBLE(viewport2) )
 		return FALSE;
 
@@ -477,7 +477,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 	if (id == -1)
 		return;
 
-	xa_set_window_title (MainWindow , archive[id]->path);
+	xa_set_window_title (xa_main_window , archive[id]->path);
 
 	if ( GTK_WIDGET_VISIBLE (viewport2) )
 	{
@@ -626,7 +626,7 @@ gchar *password_dialog ()
 	passwd = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (passwd),_("Enter Archive Password"));
 	gtk_window_set_type_hint (GTK_WINDOW (passwd), GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_window_set_transient_for ( GTK_WINDOW (passwd) , GTK_WINDOW (MainWindow) );
+	gtk_window_set_transient_for ( GTK_WINDOW (passwd) , GTK_WINDOW (xa_main_window) );
 	gtk_window_set_default_size(GTK_WINDOW(passwd), 300, 80);
 
 	dialog_vbox1 = GTK_DIALOG (passwd)->vbox;
@@ -678,7 +678,7 @@ gchar *password_dialog ()
 			password = g_strdup (gtk_entry_get_text ( GTK_ENTRY (password_entry) ));
 			if (strlen(password) == 0)
 			{
-				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
+				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
 				break;
 			}
 			done = TRUE;
@@ -696,7 +696,7 @@ widget_data *xa_create_output_window(gchar *title)
 
 	data = g_new0(widget_data,1);
 	data->dialog1 = gtk_dialog_new_with_buttons (title,
-									GTK_WINDOW (MainWindow), GTK_DIALOG_NO_SEPARATOR,
+									GTK_WINDOW (xa_main_window), GTK_DIALOG_NO_SEPARATOR,
 									GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE, NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (data->dialog1), GTK_RESPONSE_CLOSE);
 	gtk_widget_set_size_request (data->dialog1, 400, 250);
@@ -817,7 +817,7 @@ void xa_create_popup_menu()
 GtkWidget *create_archive_properties_window()
 {
 	archive_properties_window = gtk_dialog_new_with_buttons (_("Archive Properties Window"),
-									GTK_WINDOW (MainWindow), GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_WINDOW (xa_main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
 
 	g_signal_connect(archive_properties_window, "response", G_CALLBACK(gtk_widget_destroy), NULL);
@@ -1063,7 +1063,6 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 void xa_restore_navigation(int idx)
 {
 	gboolean back = FALSE,up = FALSE,forward = FALSE, home=FALSE;
-	gchar* slash;
 
 	/*If the pointers exist, we should show the icon*/
 	if(archive[idx]->forward!=NULL) forward=TRUE;

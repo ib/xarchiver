@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Lukasz 'Sil2100' Zemczak - <sil2100@vexillium.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -27,7 +27,12 @@
 #include "support.h"
 #include "archive.h"
 
+void xa_lha_delete (XArchive *,GString *);
+void xa_lha_add (XArchive *,GString *,gchar *);
+void xa_lha_extract(XArchive *,GString *,gchar *extraction_path);
+void xa_lha_test (XArchive *);
+void xa_get_lha_line_content (gchar *line, gpointer data);
 void xa_open_lha (XArchive *archive);
 gboolean jump_header, last_line;
-gboolean isLha ( FILE *ptr );
+gboolean isLha (FILE *ptr);
 #endif

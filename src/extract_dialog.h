@@ -35,6 +35,7 @@ typedef struct
 	GtkWidget *update;
 	GtkWidget *all_files_radio;
 	GtkWidget *files_radio;
+	GtkWidget *selected_radio;
 	GtkWidget *entry2;
 	GtkWidget *password_entry;
 	GtkWidget *create_dir;
@@ -47,8 +48,7 @@ typedef struct
 GtkWidget *label1,*label2,*label3,*label4,*label_password;
 GtkWidget *hbox1,*hbox2,*hbox3,*hbox4,*vbox1,*vbox2,*vbox3,*vbox4,*vbox5;
 GtkWidget *frame1,*frame2,*alignment1,*alignment2,*alignment3;
-GtkWidget *radiobutton1,*scrolledwindow1;
-GtkWidget *dialog_action_area1,*cancel_button,*okbutton1,*extract_button,*extract_image,*extract_hbox,*extract_label;
+GtkWidget *scrolledwindow1,*dialog_action_area1,*cancel_button,*okbutton1,*extract_button,*extract_image,*extract_hbox,*extract_label;
 GtkTreeStore *model;
 GtkTreeViewColumn *column;
 GtkTooltips *option_tooltip;
@@ -62,8 +62,6 @@ void xa_activate_entry(GtkToggleButton *button,gpointer data);
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
-gchar *xa_extract_single_files ( XArchive *archive , GString *files, gchar *path);
-gboolean xa_extract_tar_without_directories ( gchar *string, XArchive *archive,gchar *extract_path,gboolean cpio_flag);
 void xa_browse_dir (GtkTreeStore *model,gchar *dir, GtkTreeIter *iter);
 void xa_tree_view_row_selected(GtkTreeSelection *selection, gpointer data);
 void xa_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data);

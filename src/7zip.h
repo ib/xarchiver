@@ -26,6 +26,10 @@
 #include "archive.h"
 
 gboolean jump_header, last_line;
+void xa_7zip_delete (XArchive *,GString *);
+void xa_7zip_add (XArchive *,GString *,gchar *);
+void xa_7zip_extract(XArchive *,GString *,gchar *extraction_path);
+void xa_7zip_test (XArchive *);
 void xa_open_7zip (XArchive *archive);
 void xa_get_7zip_line_content (gchar *line, gpointer data);
 #endif

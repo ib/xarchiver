@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,6 +26,5 @@
 
 void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type);
 void lzma_gzip_bzip2_extract (XArchive *archive);
-void xa_add_delete_tar_bzip2_gzip_lzma (GString *list,XArchive *archive,gboolean add);
 void xa_open_tar_compressed_file(XArchive *archive);
 #endif

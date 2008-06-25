@@ -111,12 +111,16 @@ struct _XArchive
 	guint pb_source;
 	GPid child_pid;
 	unsigned long long int dummy_size;
-	void (*parse_output) (gchar *line, gpointer data);
+	void 	(*parse_output)	(gchar *line, gpointer);
+	void 	(*delete)	(XArchive *archive,GString *);
+	void 	(*add)		(XArchive *,GString *,gchar *);
+	void 	(*extract)	(XArchive *,GString *,gchar *extraction_path);
+	void 	(*test)		(XArchive *);
 };
 
 gboolean xa_spawn_sync_process (gchar *command);
 void xa_spawn_async_process (XArchive *archive, gchar *command);
-XArchive *xa_init_archive_structure();
+XArchive *xa_init_archive_structure(gint);
 void xa_clean_archive_structure (XArchive *archive);
 gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data);
 gboolean xa_create_temp_directory(XArchive *archive,gchar tmp_dir[]);
@@ -132,7 +136,7 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *
 void xa_update_window_with_archive_entries(XArchive *archive,XEntry *entry);
 XEntry* xa_find_entry_from_path(XEntry *root_entry,const gchar *fullpathname);
 gchar *xa_build_full_path_name_from_entry(XEntry *entry);
-void xa_entries_to_filelist(XEntry *, GSList **, gchar *);
-void xa_destroy_filelist(GSList *file_list);
+void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path,gboolean flag);
+void xa_entries_to_filelist(XEntry *, GString **, gchar *);
 XArchive *archive[100];
 #endif

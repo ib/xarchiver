@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,5 +26,10 @@
 #include "support.h"
 #include "archive.h"
 gboolean jump_header,read_filename, last_line, encrypted;
+void xa_rar_delete (XArchive *,GString *);
+void xa_rar_add (XArchive *,GString *,gchar *);
+void xa_rar_extract(XArchive *,GString *,gchar *extraction_path);
+void xa_rar_test (XArchive *);
+void xa_get_rar_line_content (gchar *line, gpointer data);
 void xa_open_rar ( XArchive *archive );
 #endif

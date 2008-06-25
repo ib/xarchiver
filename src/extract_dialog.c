@@ -1,6 +1,5 @@
 /*
  *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
- *  Copyright (C) 2006 Benedikt Meurer - <benny@xfce.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,7 +43,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	else
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_window_set_transient_for (GTK_WINDOW(dialog_data->dialog1),GTK_WINDOW (MainWindow));
+	gtk_window_set_transient_for (GTK_WINDOW(dialog_data->dialog1),GTK_WINDOW (xa_main_window));
 	gtk_dialog_set_has_separator (GTK_DIALOG(dialog_data->dialog1),FALSE);
 	gtk_widget_set_size_request (dialog_data->dialog1,492,372);
 
@@ -86,15 +85,15 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->all_files_radio), radiobutton1_group);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->all_files_radio));
 
-	radiobutton1 = gtk_radio_button_new_with_mnemonic (NULL, _("Selected files"));
-	gtk_box_pack_start (GTK_BOX (vbox3), radiobutton1, FALSE, FALSE, 0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (radiobutton1), radiobutton1_group);
-	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (radiobutton1));
+	dialog_data->selected_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Selected files"));
+	gtk_box_pack_start (GTK_BOX (vbox3), dialog_data->selected_radio, FALSE, FALSE, 0);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->selected_radio), radiobutton1_group);
+	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->selected_radio));
 
 	if (selected)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radiobutton1),TRUE);
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_radio),TRUE);
 	else
-		gtk_widget_set_sensitive (radiobutton1,FALSE);
+		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
 
 	hbox2 = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox3), hbox2, FALSE, FALSE, 0);
@@ -328,7 +327,7 @@ void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gc
 	if (result == -1)
 	{
 		gchar *msg = g_strdup_printf(_("Can't create directory \"%s\""),fullname);
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno ));
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno ));
 		g_free (msg);
 		gtk_tree_store_remove(GTK_TREE_STORE(model),&iter);
 	}
@@ -376,11 +375,11 @@ void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data
 gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
 {
 	gchar *command = NULL;
-	gchar *tar;
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
 	GString *names;
 
+	names = g_string_new (" ");
 	if (unrar)
 		rar = "unrar";
 	else
@@ -393,7 +392,7 @@ gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *d
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
-			if (MainWindow && (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2) )
+			if (xa_main_window && (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2) )
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
 				Update_StatusBar (_("Operation canceled."));
@@ -409,7 +408,7 @@ gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *d
 
 			if (strlen(archive->extraction_path) == 0)
 			{
-				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed where to extract the files!"),_("Please enter the extraction path.") );
+				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed where to extract the files!"),_("Please enter the extraction path.") );
 				break;
 			}
 			if (archive->extraction_path[0] != '/')
@@ -423,18 +422,18 @@ gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *d
 
 			if (archive->has_passwd && strlen(archive->passwd) == 0 )
 			{
-				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This archive is encrypted!"),_("Please enter the password.") );
+				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("This archive is encrypted!"),_("Please enter the password.") );
 				break;
 			}
 
-			if ( g_file_test (destination_path,G_FILE_TEST_IS_DIR) && access (destination_path, R_OK | W_OK | X_OK ) )
+			if (g_file_test (destination_path,G_FILE_TEST_IS_DIR) && access (destination_path, R_OK | W_OK | X_OK ))
 			{
 				gchar *utf8_path;
 				gchar  *msg;
 
                 utf8_path = g_filename_to_utf8 (destination_path, -1, NULL, NULL, NULL);
                 msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."), utf8_path);
-				response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't perform extraction!"),msg );
+				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't perform extraction!"),msg );
                 g_free (utf8_path);
 				g_free (msg);
 				g_free (destination_path);
@@ -450,495 +449,24 @@ gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *d
 			//gtk_widget_set_sensitive (Stop_button,TRUE);
 			gtk_widget_hide (dialog_data->dialog1);
 			archive->status = XA_ARCHIVESTATUS_EXTRACT;
-			/* Are all files selected? */
-			if (gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (dialog_data->all_files_radio)))
+			/* Is the radiobutton Files selected? */
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->files_radio)))
 			{
-				if (MainWindow)
+				if (xa_main_window)
 				{
 					gchar *text = g_strdup_printf(_("Extracting files to %s"),destination_path);
 					Update_StatusBar ( text );
 					g_free (text);
 				}
-    		    tar = g_find_program_in_path ("gtar");
-        		if (tar == NULL)
-          			tar = g_strdup ("tar");
-				switch ( archive->type )
-				{
-					case XARCHIVETYPE_BZIP2:
-					lzma_gzip_bzip2_extract (archive);
-					break;
-
-					case XARCHIVETYPE_GZIP:
-					lzma_gzip_bzip2_extract (archive);
-					break;
-
-					case XARCHIVETYPE_LZMA:
-					lzma_gzip_bzip2_extract (archive);
-					break;
-
-					case XARCHIVETYPE_RAR:
-					if (archive->passwd != NULL)
-						command = g_strconcat ( rar, " " , archive->full_path ? "x " : "e ",
-												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-												" -p",archive->passwd,
-												archive->overwrite ? " -o+" : " -o-",
-												" -idp ",
-												archive->escaped_path , " " , archive->extraction_path , NULL );
-					else
-						command = g_strconcat ( rar, " ", archive->full_path ? "x " : "e ",
-												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-												archive->overwrite ? "-o+" : "-o-",
-												" -idp ",
-												archive->escaped_path , " " , archive->extraction_path , NULL );
-					break;
-
-					case XARCHIVETYPE_TAR:
-					if (archive->full_path == 1)
-					{
-						command = g_strconcat (tar, " -xvf ", archive->escaped_path,
-											archive->overwrite ? " --overwrite" : " --keep-old-files",
-											archive->tar_touch ? " --touch" : "",
-											" -C " , archive->extraction_path , NULL );
-					}
-					else
-					{
-						xa_extract_tar_without_directories ( "tar -xvf ",archive,NULL,FALSE );
-						command = NULL;
-					}
-					break;
-
-					case XARCHIVETYPE_TAR_BZ2:
-					if (archive->full_path == 1)
-					{
-						command = g_strconcat (tar, " -xvjf " , archive->escaped_path,
-											archive->overwrite ? " --overwrite" : " --keep-old-files",
-											archive->tar_touch ? " --touch" : "",
-											" -C " , archive->extraction_path , NULL );
-					}
-					else
-					{
-						xa_extract_tar_without_directories ( "tar -xvjf ",archive,archive->extraction_path,FALSE );
-						command = NULL;
-					}
-					break;
-
-					case XARCHIVETYPE_TAR_GZ:
-					if (archive->full_path == 1)
-					{
-						command = g_strconcat (tar, " -xvzf " , archive->escaped_path,
-											archive->overwrite ? " --overwrite" : " --keep-old-files",
-											archive->tar_touch ? " --touch" : "",
-											" -C " , archive->extraction_path , NULL );
-					}
-					else
-					{
-						xa_extract_tar_without_directories ( "tar -xvzf ",archive,archive->extraction_path,FALSE );
-						command = NULL;
-					}
-					break;
-
-					case XARCHIVETYPE_TAR_LZMA:
-					if (archive->full_path == 1)
-					{
-						command = g_strconcat (tar, " --use-compress-program=lzma -xvf " , archive->escaped_path,
-											archive->overwrite ? " --overwrite" : " --keep-old-files",
-											archive->tar_touch ? " --touch" : "",
-											" -C " , archive->extraction_path , NULL );
-					}
-					else
-					{
-						xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,NULL,FALSE);
-						command = NULL;
-					}
-					break;
-
-					case XARCHIVETYPE_DEB:
-					if (archive->full_path == 1)
-					{
-						command = g_strconcat (tar, " -xvzf " , archive->tmp,
-											archive->overwrite ? " --overwrite" : " --keep-old-files",
-											archive->tar_touch ? " --touch" : "",
-											" -C " , archive->extraction_path , NULL );
-					}
-					else
-					{
-						xa_extract_tar_without_directories ( "tar -xvzf ",archive,archive->extraction_path,FALSE );
-						command = NULL;
-					}
-					break;
-
-                    case XARCHIVETYPE_ZIP:
-                    if ( archive->passwd != NULL )
-						command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
-												archive->update ? "-u " : "" ,
-												archive->overwrite ? "-o" : "-n",
-												" -P " , archive->passwd,
-												archive->full_path ? "" : " -j ",
-												archive->escaped_path , " -d ", archive->extraction_path , NULL );
-                    else
-						command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
-												archive->update ? "-u " : "",
-												archive->overwrite ? "-o " : "-n ",
-												archive->full_path ? "" : " -j ",
-												archive->escaped_path , " -d ", archive->extraction_path , NULL );
-					break;
-
-					case XARCHIVETYPE_RPM:
-					if (archive->full_path == 1)
-					{
-						chdir ( archive->extraction_path );
-						command = g_strconcat ( "cpio --make-directories -F " , archive->tmp , " -i" , NULL );
-					}
-					else
-					{
-						xa_extract_tar_without_directories ( "tar -xvzf " , archive,archive->escaped_path,TRUE);
-						command = NULL;
-					}
-                    break;
-
-                    case XARCHIVETYPE_7ZIP:
-                    if (archive->passwd != NULL)
-						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
-												archive->overwrite ? "-aoa" : "-aos",
-												" -bd -p",archive->passwd," ",
-												archive->escaped_path , " -o" , archive->extraction_path , NULL );
-					else
-						command = g_strconcat ( "7za " , archive->full_path ? "x " : "e ",
-												archive->overwrite ? "-aoa" : "-aos",
-												" -bd ",
-												archive->escaped_path , " -o" , archive->extraction_path , NULL );
-                    break;
-
-					case XARCHIVETYPE_ARJ:
-					if (archive->passwd != NULL)
-						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ",
-												"-g",archive->passwd,
-												archive->overwrite ? "" : " -n" , " -i ",
-												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-												"-y " , archive->escaped_path , " " , archive->extraction_path , NULL );
-                    else
-						command = g_strconcat ( "arj " , archive->full_path ? "x " : "e ",
-												archive->overwrite ? "" : " -n" , " -i ",
-												archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-												"-y " , archive->escaped_path , " " , archive->extraction_path , NULL );
-					break;
-
-					case XARCHIVETYPE_LHA:
-					command = g_strconcat ("lha ", archive->full_path ? "x" : "xi",
-											archive->overwrite ? "f" : "", "w=",
-											archive->extraction_path, " ", archive->escaped_path , NULL);
-					break;
-
-					default:
-					command = NULL;
-				}
-				g_free (tar);
-
-				if (command != NULL)
-					return command;
 			}
-			else
-			{
-				//TODO: to check also the Files radio button
-				names = g_string_new (" ");
+			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->selected_radio)))
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,names);
-				command = xa_extract_single_files(archive,names,archive->extraction_path);
-				g_string_free(names,TRUE);
-			}
+
+			(*archive->extract) (archive,names,archive->extraction_path);
 		}
 	}
 	g_free (destination_path);
 	return command;
-}
-
-gchar *xa_extract_single_files (XArchive *archive,GString *files,gchar *path)
-{
-	gchar *command = NULL;
-	gchar *tar;
-
-	if (unrar)
-		rar = "unrar";
-	else
-		rar = "rar";
-
-	gchar *msg = g_strdup_printf ( _("Extracting archive to %s") , path);
-	Update_StatusBar (msg);
-	g_free (msg);
-	tar = g_find_program_in_path ("gtar");
-	if (tar == NULL)
-		tar = g_strdup ("tar");
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_BZIP2:
-		lzma_gzip_bzip2_extract (archive);
-		break;
-
-		case XARCHIVETYPE_GZIP:
-		lzma_gzip_bzip2_extract (archive);
-		break;
-
-		case XARCHIVETYPE_LZMA:
-		lzma_gzip_bzip2_extract (archive);
-		break;
-
-		case XARCHIVETYPE_RAR:
-		if (archive->passwd != NULL)
-			command = g_strconcat ( rar," ", archive->full_path ? "x " : "e " ,
-									archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-									" -p",archive->passwd,
-									archive->overwrite ? " -o+" : " -o-",
-									" -idp ",
-									archive->escaped_path , " " , files->str , " " , path , NULL );
-        else
-			command = g_strconcat ( rar," ", archive->full_path ? "x " : "e " ,
-									archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-									archive->overwrite ? "-o+" : "-o-",
-									" -idp ",
-									archive->escaped_path , " " , files->str , " ", path ,NULL);
-		break;
-
-		case XARCHIVETYPE_TAR:
-		if (archive->full_path == 1)
-		{
-			command = g_strconcat (tar, " -xvf " , archive->escaped_path,
-								archive->overwrite ? " --overwrite" : " --keep-old-files",
-								archive->tar_touch ? " --touch" : "",
-								" -C " , path , files->str , NULL );
-		}
-		else
-		{
-			xa_extract_tar_without_directories ( "tar -xvf " , archive,path,FALSE );
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_TAR_BZ2:
-		if (archive->full_path == 1)
-		{
-			command = g_strconcat (tar, " -xjvf " , archive->escaped_path,
-								archive->overwrite ? " --overwrite" : " --keep-old-files",
-								archive->tar_touch ? " --touch" : "",
-								" -C " , path , files->str , NULL );
-		}
-		else
-		{
-			xa_extract_tar_without_directories ( "tar -xjvf " , archive,path,FALSE );
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_TAR_GZ:
-		if (archive->full_path == 1)
-		{
-			command = g_strconcat (tar, " -xzvf " , archive->escaped_path,
-								archive->overwrite ? " --overwrite" : " --keep-old-files",
-								archive->tar_touch ? " --touch" : "",
-								" -C " , path , files->str , NULL );
-		}
-		else
-		{
-			xa_extract_tar_without_directories ( "tar -xzvf " , archive,path,FALSE );
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_TAR_LZMA:
-		if (archive->full_path == 1)
-		{
-			command = g_strconcat (tar, " --use-compress-program=lzma -xvf " , archive->escaped_path,
-								archive->overwrite ? " --overwrite" : " --keep-old-files",
-								archive->tar_touch ? " --touch" : "",
-								" -C " , path , files->str , NULL );
-		}
-		else
-		{
-			xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf " , archive,path,FALSE );
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_DEB:
-		if (archive->full_path == 1)
-		{
-			command = g_strconcat (tar, " -xvzf " , archive->tmp,
-					archive->overwrite ? " --overwrite" : " --keep-old-files",
-					archive->tar_touch ? " --touch" : "",
-					" -C " , archive->extraction_path , files->str, NULL );
-		}
-		else
-		{
-			xa_extract_tar_without_directories ( "tar -xvzf " , archive,archive->tmp,FALSE );
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_ZIP:
-        if ( archive->passwd != NULL )
-			command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
-									archive->update ? "-u " : "",
-									archive->overwrite ? "-o" : "-n",
-									" -P " , archive->passwd,
-									archive->full_path ? " " : " -j ",
-									archive->escaped_path , files->str," -d " , path , NULL );
-        else
-			command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
-									archive->update ? "-u " : "",
-									archive->overwrite ? "-o " : "-n ",
-									archive->full_path ? "" : " -j ",
-									archive->escaped_path , files->str," -d " , path , NULL );
-		break;
-
-        case XARCHIVETYPE_RPM:
-        if (archive->full_path == 1)
-		{
-			chdir (path);
-			command = g_strconcat ( "cpio --make-directories " , files->str , " -F " , archive->tmp , " -i" , NULL);
-		}
-		else
-		{
-			xa_extract_tar_without_directories ( "tar -xvzf " , archive,archive->escaped_path,TRUE);
-			command = NULL;
-		}
-        break;
-
-        case XARCHIVETYPE_7ZIP:
-        if (archive->passwd != NULL)
-			command = g_strconcat ("7za " , archive->full_path ? "x" : "e",
-									" -p",archive->passwd,
-									archive->overwrite ? " -aoa" : " -aos",
-									" -bd ",
-									archive->escaped_path , files->str , " -o" , path , NULL );
-        else
-			command = g_strconcat ( "7za " , archive->full_path ? "x" : "e",
-									archive->overwrite ? " -aoa" : " -aos",
-									" -bd ",
-									archive->escaped_path , files->str , " -o" , path , NULL );
-        break;
-
-		case XARCHIVETYPE_ARJ:
-		if (archive->passwd != NULL)
-			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
-									" -g",archive->passwd,
-									archive->overwrite ? "" : " -n" ,
-									" -i " ,
-									archive->freshen ? "-f " : "" ,
-									archive->update ? "-u " : " ",
-									"-y ",
-									archive->escaped_path , " " , path , files->str , NULL );
-        else
-			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
-									archive->overwrite ? "" : " -n" ,
-									" -i " , archive->freshen ? "-f " : "",
-									archive->update ? "-u " : " ",
-									"-y ",
-									archive->escaped_path , " " , path , files->str, NULL );
-		break;
-
-		case XARCHIVETYPE_LHA:
-			command = g_strconcat ("lha ", archive->full_path ? "x" : "xi",
-										archive->overwrite ? "f" : "", "w=",
-										path, " ", archive->escaped_path , files->str, NULL);
-		break;
-
-		default:
-		command = NULL;
-    }
-	g_free (tar);
-	return command;
-}
-
-gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *extract_path,gboolean cpio_flag)
-{
-	gchar *command = NULL;
-	gchar *name = NULL;
-	gchar *_name = NULL;
-	gchar *permission = NULL;
-	gchar tmp_dir[14] = "";
-	GtkTreeSelection *selection;
-	GString *names;
-	GtkTreeIter iter;
-	GList *row_list;
-	GSList *list = NULL;
-	GSList *filenames = NULL;
-	GSList *xxx = NULL;
-	gboolean result;
-
-	names = g_string_new ("");
-
-	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
-	row_list = gtk_tree_selection_get_selected_rows(selection, &archive->model);
-
-	if (row_list != NULL)
-	{
-		while (row_list)
-		{
-			gtk_tree_model_get_iter(archive->model, &iter,row_list->data);
-			gtk_tree_model_get (archive->model, &iter,1, &name,3, &permission,-1);
-			gtk_tree_path_free (row_list->data);
-
-			if (strstr (permission ,"d") == NULL)
-			{
-				_name = g_strconcat (gtk_entry_get_text(GTK_ENTRY(location_entry)),name,NULL);
-				g_free (name);
-				name = _name;
-				xa_shell_quote_filename (name,names,archive);
-				xxx = g_slist_append (xxx,name);
-			}
-			g_free (permission);
-			row_list = row_list->next;
-		}
-		g_list_free (row_list);
-	}
-	else
-	{
-		/* Here we need to fill a GSList with all the entries in the archive so to extract it entirely */
-		XEntry *entry = archive->root_entry;
-		while(entry)
-		{
-			xa_entries_to_filelist(entry, &xxx,"");
-			entry = entry->next;
-		}
-		filenames = g_slist_reverse(xxx);
-		/* Let's concatenate all the entries in one gstring */
-		while (filenames)
-		{
-			g_string_prepend (names,(gchar*)filenames->data);
-			g_string_prepend_c (names,' ');
-			filenames = filenames->next;
-		}
-		xa_destroy_filelist (filenames);
-		g_slist_free (filenames);
-	}
-
-	result = xa_create_temp_directory (archive,tmp_dir);
-	if (result == 0)
-		return FALSE;
-
-	if (cpio_flag)
-	{
-		chdir (archive->tmp);
-		command = g_strconcat ("cpio --make-directories -F ",archive->tmp," -i",NULL);
-	}
-	else
-		command = g_strconcat (string, archive->escaped_path,
-										archive->overwrite ? " --overwrite" : " --keep-old-files",
-										archive->tar_touch ? " --touch" : "",
-										" --no-wildcards -C ",
-										archive->tmp,names->str,NULL);
-	list = g_slist_append(list,command);
-
-	if (extract_path == NULL)
-		extract_path = archive->tmp;
-
-	chdir (archive->tmp);
-	command = g_strconcat ("mv -f ",names->str," ",extract_path,NULL);
-	g_string_free(names,TRUE);
-
-	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-	if (result == 0 || stop_flag)
-		return FALSE;
-	return result;
 }
 
 void xa_browse_dir(GtkTreeStore *model,gchar *path, GtkTreeIter *parent)

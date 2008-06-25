@@ -22,7 +22,6 @@
 
 
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
-void xa_get_zip_line_content (gchar *line, gpointer data);
 
 void xa_open_zip (XArchive *archive)
 {
@@ -175,3 +174,87 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 		entry->is_encrypted = encrypted;
 	}
 }
+
+void xa_zip_delete (XArchive *archive,GString *files)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	archive->status = XA_ARCHIVESTATUS_DELETE;
+	command = g_strconcat ("zip -d ",archive->escaped_path," ",files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
+{
+	GSList *list = NULL;
+	gchar *command = NULL;
+
+	if (compression_string == NULL)
+		compression_string = "6";
+	if (archive->passwd != NULL)
+		command = g_strconcat ( "zip ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->add_recurse ? "-r " : "",
+									archive->remove_files ? "-m " : "",
+									"-P ", archive->passwd," ",
+									"-",compression_string," ",
+									archive->escaped_path,
+									files->str,NULL);
+	else
+		command = g_strconcat ( "zip ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->add_recurse ? "-r " : "",
+									archive->remove_files ? "-m " : "",
+									"-",compression_string," ",
+									archive->escaped_path,
+									files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_zip_extract(XArchive *archive,GString *files,gchar *extraction_path)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	if ( archive->passwd != NULL )
+		command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
+												archive->update ? "-u " : "" ,
+												archive->overwrite ? "-o" : "-n",
+												" -P " , archive->passwd,
+												archive->full_path ? "" : " -j ",
+												archive->escaped_path , " -d ", archive->extraction_path,files->str,NULL);
+	else
+		command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
+												archive->update ? "-u " : "",
+												archive->overwrite ? "-o " : "-n ",
+												archive->full_path ? "" : " -j ",
+												archive->escaped_path , " -d ", archive->extraction_path,files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_zip_test (XArchive *archive)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	archive->status = XA_ARCHIVESTATUS_TEST;
+	if (archive->passwd != NULL)
+		command = g_strconcat ("unzip -P ", archive->passwd, " -t " , archive->escaped_path, NULL);
+	else
+		command = g_strconcat ("unzip -t " , archive->escaped_path, NULL);
+
+	list = g_slist_append(list,command);
+	xa_run_command (archive,list);
+ }

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,9 +16,9 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include "config.h"
 #include <glib.h>
 #include <gtk/gtk.h>
+#include "config.h"
 #include "pref_dialog.h"
 #include "main.h"
 #include "support.h"
@@ -36,7 +36,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	prefs_data = g_new0 (Prefs_dialog_data,1);
 	prefs_data->dialog1 = gtk_dialog_new_with_buttons (_("Preferences"),
-									GTK_WINDOW (MainWindow), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_WINDOW (xa_main_window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK, NULL);
 	tooltips = gtk_tooltips_new ();
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
@@ -353,8 +353,8 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	}
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->check_save_geometry)) )
 	{
-		gtk_window_get_position (GTK_WINDOW(MainWindow),&prefs_data->geometry[0],&prefs_data->geometry[1]);
-		gtk_window_get_size (GTK_WINDOW(MainWindow),&prefs_data->geometry[2],&prefs_data->geometry[3]);
+		gtk_window_get_position (GTK_WINDOW(xa_main_window),&prefs_data->geometry[0],&prefs_data->geometry[1]);
+		gtk_window_get_size (GTK_WINDOW(xa_main_window),&prefs_data->geometry[2],&prefs_data->geometry[3]);
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "geometry", prefs_data->geometry, 4);
 	}
 	conf = g_key_file_to_data (xa_key_file, NULL, NULL);
@@ -489,7 +489,7 @@ gchar *xa_prefs_choose_program(gboolean flag)
 	GtkWidget *dialog;
 
 	dialog = gtk_file_chooser_dialog_new (flag ? _("Choose the temp directory to use") : _("Choose the application to use"),
-				      GTK_WINDOW(MainWindow),
+				      GTK_WINDOW(xa_main_window),
 				      flag ? GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER : GTK_FILE_CHOOSER_ACTION_OPEN,
 				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 				      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,

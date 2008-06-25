@@ -22,7 +22,7 @@
 
 #include "archive.h"
 GtkWidget *xa_popup_menu;
-GtkWidget *MainWindow;
+GtkWidget *xa_main_window;
 GtkWidget *vbox1;
 GtkNotebook *notebook;
 GtkWidget *hbox_sb;
@@ -124,7 +124,7 @@ void set_label (GtkWidget *label,gchar *text);
 int xa_progressbar_pulse (gpointer data);
 void xa_create_popup_menu();
 widget_data *xa_create_output_window(gchar *);
-void xa_create_mainwindow (GtkWidget *MainWindow,gboolean show_location);
+void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location);
 GtkWidget *create_archive_properties_window();
 void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data);
 void xa_add_page (XArchive *archive);

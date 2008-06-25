@@ -21,6 +21,9 @@
 #include "extract_dialog.h"
 #include "string_utils.h"
 
+extern int delete	[15];
+extern int add		[15];
+extern int extract	[15];
 short int l;
 
 void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
@@ -37,6 +40,9 @@ void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
 	{
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 		archive->format = "TAR.BZIP2";
+		archive->delete =	(void *)delete[archive->type];
+		archive->add = 		(void *)add[archive->type];
+		archive->extract = 	(void *)extract[archive->type];
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
@@ -132,12 +138,7 @@ void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
 void xa_open_tar_compressed_file(XArchive *archive)
 {
 	gchar *command = NULL;
-	gchar *tar;
 	unsigned short int i;
-
-	tar = g_find_program_in_path ("gtar");
-	if (tar == NULL)
-		tar = g_strdup ("tar");
 
 	if (archive->type == XARCHIVETYPE_TAR_BZ2)
 		command = g_strconcat(tar, " tfjv ",archive->escaped_path,NULL);
@@ -153,7 +154,6 @@ void xa_open_tar_compressed_file(XArchive *archive)
 	archive->parse_output = xa_get_tar_line_content;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
-	g_free (tar);
 
 	if (archive->child_pid == 0)
 		return;
@@ -207,14 +207,14 @@ void lzma_gzip_bzip2_extract (XArchive *archive)
 		command = g_strconcat(executable,archive->tmp,"/",filename,NULL);
 		list = g_slist_append(list,command);
 
-		if (MainWindow)
+		if (xa_main_window)
 			command = g_strconcat("mv -f ",archive->tmp," ",archive->extraction_path,"/",archive->root_entry->child->filename,NULL);
 		else
 		{
 			dot = strchr(filename,'.');
 			if (G_LIKELY(dot))
 			filename_noext = g_strndup(filename, ( dot - filename ));
-			command = g_strconcat("mv -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path);
+			command = g_strconcat("mv -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path,NULL);
 			g_free(filename_noext);
 		}
 
@@ -222,65 +222,3 @@ void lzma_gzip_bzip2_extract (XArchive *archive)
 		result = xa_run_command (archive,list);
 	}
 }
-
-void xa_add_delete_tar_bzip2_gzip_lzma (GString *_list,XArchive *archive,gboolean add)
-{
-	gchar *command,*tar,*executable = NULL,*filename = NULL;
-	gchar tmp_dir[14] = "";
-	gboolean result;
-	GSList *list = NULL;
-
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_TAR_BZ2:
-			executable = "bzip2 -f ";
-			filename = "dummy.bz2";
-		break;
-		case XARCHIVETYPE_TAR_GZ:
-			executable = "gzip -f ";
-			filename = "dummy.gz";
-		break;
-		case XARCHIVETYPE_TAR_LZMA:
-			executable = "lzma -f ";
-			filename = "dummy.lzma";
-		break;
-		
-		default:
-		break;
-	}
-	/* Let's copy the archive to /tmp first */
-	result = xa_create_temp_directory(archive,tmp_dir);
-	if (result == 0)
-		return;
-
-	/* Let's copy the archive to /tmp first */
-	command = g_strconcat ("cp -a ",archive->escaped_path," ",archive->tmp,"/",filename,NULL);
-	list = g_slist_append(list,command);
-
-	command = g_strconcat (executable,"-d ",archive->tmp,"/",filename,NULL);
-	list = g_slist_append(list,command);
-
-	tar = g_find_program_in_path ("gtar");
-	if (tar == NULL)
-		tar = g_strdup ("tar");
-	if (add)
-		command = g_strconcat (tar, " ",
-							archive->add_recurse ? "" : "--no-recursion ",
-							archive->remove_files ? "--remove-files " : "",
-							archive->update ? "-uvvf " : "-rvvf ",
-							archive->tmp,"/dummy",
-							_list->str , NULL );
-	else
-		command = g_strconcat (tar," --no-wildcards --delete -f ",archive->tmp,"/dummy ",_list->str,NULL);
-	g_free (tar);
-	list = g_slist_append(list,command);
-
-	command = g_strconcat (executable,archive->tmp,"/dummy",NULL);
-	list = g_slist_append(list,command);
-
-	/* Let's move the modified archive from /tmp to the original archive location */
-	command = g_strconcat ("mv ",archive->tmp,"/",filename," ",archive->escaped_path,NULL);
-	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-}
-

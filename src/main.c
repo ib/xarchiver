@@ -38,6 +38,16 @@ gboolean sevenzr = FALSE, sevenza = FALSE;
 extern gchar *current_open_directory;
 Prefs_dialog_data *prefs_window = NULL;
 
+typedef void (*_delete)	(XArchive *,GString *);
+typedef void (*_add)	(XArchive *,GString *,gchar *);
+typedef void (*_extract)(XArchive *,GString *,gchar *extraction_path);
+typedef void (*_test)	(XArchive *);
+
+_delete 	delete[15]	= {NULL};
+_add		add[15]		= {NULL};
+_extract	extract[15]	= {NULL};
+_test		test[15]	= {NULL};
+
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
@@ -95,13 +105,13 @@ int main (int argc, char **argv)
 
 	xa_mime_type_init();	/* initialize mime-type cache */
 
-	xa_get_available_archivers();
+	xa_set_available_archivers();
 	prefs_window = xa_create_prefs_dialog();
 	xa_prefs_load_options(prefs_window);
 
 	if (cli == TRUE)
 	{
-		MainWindow = NULL;
+		xa_main_window = NULL;
 		gtk_main_iteration_do (FALSE);
 		if (archive_name == NULL)
 			archive = xa_init_structure_from_cmd_line (argv[1]);
@@ -130,7 +140,7 @@ int main (int argc, char **argv)
 					archive->overwrite = 1;
 					gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
 					archive->extraction_path = g_strdup (extract_path);
-					cli_command = xa_extract_single_files (archive,string,escaped_path);
+					(*archive->extract) (archive,string,escaped_path);
 					g_free (escaped_path);
 					if (cli_command != NULL)
 						error_output = xa_spawn_sync_process (cli_command);
@@ -193,7 +203,8 @@ int main (int argc, char **argv)
 					archive->add_recurse = FALSE;
 				else
 					archive->add_recurse = TRUE;
-				cli_command = xa_execute_add_commands(archive,string,NULL);
+				xa_execute_add_commands(archive,string,NULL);
+				//TODO
 				if (cli_command != NULL)
 					error_output = xa_spawn_sync_process(cli_command);
 				g_string_free (string,TRUE);
@@ -227,21 +238,21 @@ done:	g_list_free (ArchiveSuffix);
 	}
 	else
 	{
-		MainWindow = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-		xa_create_mainwindow (MainWindow,gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_location_bar)));
+		xa_main_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+		xa_create_main_window (xa_main_window,gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_location_bar)));
 
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
 		{
-			gtk_window_move (GTK_WINDOW(MainWindow), prefs_window->geometry[0], prefs_window->geometry[1]);
-			gtk_window_set_default_size (GTK_WINDOW(MainWindow), prefs_window->geometry[2], prefs_window->geometry[3]);
+			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
+			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), prefs_window->geometry[2], prefs_window->geometry[3]);
 		}
 		else
 		{
-			gtk_window_set_position (GTK_WINDOW(MainWindow),GTK_WIN_POS_CENTER);
-			gtk_window_set_default_size (GTK_WINDOW(MainWindow), 600, 400);
+			gtk_window_set_position (GTK_WINDOW(xa_main_window),GTK_WIN_POS_CENTER);
+			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), 600, 400);
 		}
 		Update_StatusBar ( _("Ready."));
-		gtk_widget_show (MainWindow);
+		gtk_widget_show (xa_main_window);
 
 		/* This to open the archive from the command line */
 		if ( argc == 2 )
@@ -259,7 +270,7 @@ done:	g_list_free (ArchiveSuffix);
 		if (! socket_info.ignore_socket && socket_info.lock_socket > 0)
 		{
 			socket_info.read_ioc = g_io_channel_unix_new(socket_info.lock_socket);
-			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc,	G_IO_IN|G_IO_PRI|G_IO_ERR, socket_lock_input_cb, MainWindow);
+			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc,	G_IO_IN|G_IO_PRI|G_IO_ERR, socket_lock_input_cb, xa_main_window);
 		}
 		#endif
 		gtk_main ();
@@ -284,8 +295,60 @@ gchar *get_argv_filename(const gchar *filename)
 	return result;
 }
 
-void xa_get_available_archivers()
+void xa_set_available_archivers()
 {
+	delete[0]  = 0;
+	delete[1]  = &xa_7zip_delete;
+	delete[2]  = &xa_arj_delete;
+	delete[3]  = 0;
+	delete[4]  = 0;
+	delete[5]  = 0;
+	delete[6]  = 0;
+	delete[7]  = &xa_rar_delete;
+	delete[8]  = 0;
+	delete[9]  = delete[10] = delete[11] = delete[12] = &xa_tar_delete;
+	delete[13] = &xa_zip_delete;
+	delete[14] = &xa_lha_delete;
+	
+	add[0]  = 0;
+	add[1]  = &xa_7zip_add;
+	add[2]  = &xa_arj_add;
+	add[3]  = 0;
+	add[4]  = 0;
+	add[5]  = 0;
+	add[6]  = 0;
+	add[7]  = &xa_rar_add;
+	add[8]  = 0;
+	add[9]  = add[10] = add[11] = add[12] = &xa_tar_add;
+	add[13] = &xa_zip_add;
+	add[14] = &xa_lha_add;
+	
+	extract[0]  = 0;
+	extract[1]  = &xa_7zip_extract;
+	extract[2]  = &xa_arj_extract;
+	extract[3]  = 0;
+	extract[4]  = 0;
+	extract[5]  = 0;
+	extract[6]  = 0;
+	extract[7]  = &xa_rar_extract;
+	extract[8]  = 0;
+	extract[9]  = extract[10] = extract[11] = extract[12] = &xa_tar_extract;
+	extract[13] = &xa_zip_extract;
+	extract[14] = &xa_lha_extract;
+	
+	test[0]  = 0;
+	test[1]  = &xa_7zip_test;
+	test[2]  = &xa_arj_test;
+	test[3]  = 0;
+	test[4]  = 0;
+	test[5]  = 0;
+	test[6]  = 0;
+	test[7]  = &xa_rar_test;
+	test[8]  = 0;
+	test[9]  = test[10] = test[11] = test[12] = 0;
+	test[13] = &xa_zip_test;
+	test[14] = &xa_lha_test;
+
 	absolute_path = g_find_program_in_path("arj");
 	if ( absolute_path )
 	{
@@ -361,9 +424,11 @@ void xa_get_available_archivers()
 		g_free (absolute_path);
 	}
 
-	absolute_path = g_find_program_in_path("tar");
-	if ( absolute_path )
+	absolute_path = g_find_program_in_path("gtar");
+	
+	if (absolute_path == NULL)
 	{
+		tar = "tar";
 		ArchiveType = g_list_append(ArchiveType, "tar");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar");
 		g_free (absolute_path);
@@ -423,7 +488,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	if (type == -1 || type == -2)
 		return NULL;
 
-	archive = xa_init_archive_structure ();
+	archive = xa_init_archive_structure (type);
 	if (archive == NULL)
 	{
 		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
@@ -432,7 +497,9 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive->path = g_strdup (filename);
 	archive->escaped_path = xa_escape_bad_chars(filename , "$\'`\"\\!?* ()&|@#:;");
 	archive->type = type;
-
+	archive->add = 		(void *)add[type];
+	archive->extract = 	(void *)extract[type];
+	
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )

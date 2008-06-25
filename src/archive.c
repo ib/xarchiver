@@ -16,25 +16,36 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "config.h"
 #include <glib.h>
 #include <gtk/gtk.h>
+#include "config.h"
 #include "archive.h"
 #include "mime.h"
 #include "support.h"
 #include "window.h"
 
+extern int delete	[15];
+extern int add		[15];
+extern int extract	[15];
+extern int test		[15];
+
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
-XArchive *xa_init_archive_structure()
+XArchive *xa_init_archive_structure(gint type)
 {
 	XEntry *entry = NULL;
 	XArchive *archive = NULL;
 
 	archive = g_new0(XArchive,1);
+	if (archive == NULL)
+		return NULL;
 	entry = g_new0(XEntry,1);
 	entry->filename = "";
 	archive->root_entry = entry;
+	archive->delete =	(void *)delete[type];
+	archive->add = 		(void *)add[type];
+	archive->extract = 	(void *)extract[type];
+	archive->test = 	(void *)test[type];
 	return archive;
 }
 
@@ -121,7 +132,7 @@ gboolean xa_spawn_sync_process (gchar *command)
 		&exit_status,
 		&error))
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
 		g_error_free (error);
 		g_strfreev (argv);
 		return result;
@@ -237,7 +248,7 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->tmp != NULL)
 	{
 		xa_delete_temp_directory (archive,0);
-		if(MainWindow)
+		if(xa_main_window)
 			gtk_widget_hide(viewport2);
 		g_free (archive->tmp);
 		archive->tmp = NULL;
@@ -283,8 +294,8 @@ gboolean xa_create_temp_directory (XArchive *archive,gchar tmp_dir[])
 	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
 	if (mkdtemp (tmp_dir) == 0)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (MainWindow),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
-		if(MainWindow) //avoid if we're on console
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
+		if(xa_main_window) //avoid if we're on console
 		{
 			gtk_widget_set_sensitive (Stop_button, FALSE);
 			Update_StatusBar (_("Operation failed."));
@@ -304,7 +315,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	GSList *_commands = commands;
 
 	archive->parse_output = 0;
-	if(MainWindow)
+	if(xa_main_window)
 		gtk_widget_show (viewport2);
 	while (_commands)
 	{
@@ -312,12 +323,14 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 		xa_spawn_async_process (archive,_commands->data);
 		if (archive->child_pid == 0)
 			break;
+
+		gtk_widget_set_sensitive (Stop_button,TRUE);
 		while (waiting)
 		{
 			ps = waitpid (archive->child_pid, &status, WNOHANG);
 			if (ps < 0)
 				break;
-			else if(MainWindow) //avoid if we are on console
+			else if(xa_main_window) //avoid if we are on console
 				gtk_main_iteration_do (FALSE);
 
 			usleep(1000); //give the processor time to rest (0.1 sec)
@@ -329,7 +342,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	}
 	g_slist_foreach (commands, (GFunc) g_free, NULL);
 	g_slist_free(commands);
-
+	g_print ("vado a xa_archive\n");
 	xa_archive_operation_finished(archive,result);
 	return result;
 }
@@ -600,6 +613,7 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 {
 	gchar *fullpathname = NULL;
 	GString *dummy = g_string_new("");
+	
 	while (entry)
 	{
 		if (entry->is_dir)
@@ -612,42 +626,82 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 	return fullpathname;
 }
 
-void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_path)
+void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path,gboolean flag)
 {
+	gint idx,current_page;
 	gchar *full_path = NULL;
-	gchar *quoted_path = NULL;
+	gchar *quoted_path, *parent_dirs = NULL;
 
-    if (entry == NULL)
-        return;
+	if (entry == NULL)
+		return;
+		
+	current_page = gtk_notebook_get_current_page (notebook);
+	idx = xa_find_archive_index (current_page);
 
-    /* Recurse to siblings with the same path */
-    xa_entries_to_filelist(entry->next, p_file_list, current_path);
+	if (entry == archive[idx]->root_entry)
+		parent_dirs = "";
+	else
+		parent_dirs = g_strdup(archive[idx]->location_entry_path);
+		
+	/* Recurse to siblings with the same path */
+	if (flag)
+	 	xa_fill_list_with_recursed_entries(entry->next, p_file_list, current_path,TRUE);
 
- 	/* This in case the files are in the root directory */
 	if (strlen(current_path) == 0)
 		full_path = g_strdup(entry->filename);
 	else
 		full_path = g_strconcat(current_path,"/",entry->filename,NULL);
-        	
-    if (entry->child)
+
+	if (entry->child)
 	{
-		/* This is a directory, recurse to children, with new path */
-        xa_entries_to_filelist(entry->child, p_file_list, full_path);
-        g_free(full_path);
+		if (flag == TRUE)
+		{
+			quoted_path = g_shell_quote(entry->filename);
+			*p_file_list = g_string_prepend (*p_file_list,quoted_path);
+			*p_file_list = g_string_prepend_c (*p_file_list,' ');
+		}
+		xa_fill_list_with_recursed_entries(entry->child, p_file_list, full_path,TRUE);
+		g_free(full_path);
 	}
-		/* This is a file, add this entry with a full pathname */
 	else
 	{
 		quoted_path = g_shell_quote(full_path);
-		*p_file_list = g_slist_append(*p_file_list,quoted_path);
+		*p_file_list = g_string_prepend (*p_file_list,quoted_path);
+		*p_file_list = g_string_prepend_c (*p_file_list,' ');
 	}
-
+	g_print ("%s\n",parent_dirs);
+	g_free(parent_dirs);
 	return;
 }
 
-void xa_destroy_filelist(GSList *file_list)
+
+void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_path)
 {
-	g_slist_foreach (file_list,(GFunc)g_free, NULL);
-	g_slist_free (file_list);
+	gchar *full_path = NULL;
+	gchar *quoted_path = NULL;
+
+	if (entry == NULL)
+		return;
+		
+	/* Recurse to siblings with the same path */
+ 	xa_entries_to_filelist(entry->next, p_file_list, current_path);
+
+	if (strlen(current_path) == 0)
+		full_path = g_strdup(entry->filename);
+	else
+		full_path = g_strconcat(current_path,"/",entry->filename,NULL);
+
+	if (entry->child)
+	{
+		xa_entries_to_filelist(entry->child, p_file_list, full_path);
+		g_free(full_path);
+	}
+	else
+	{
+		quoted_path = g_shell_quote(full_path);
+		*p_file_list = g_string_prepend (*p_file_list,quoted_path);
+		*p_file_list = g_string_prepend_c (*p_file_list,' ');
+	}
+	return;
 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,7 +20,6 @@
 #include "arj.h"
 
 extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
-void xa_get_arj_line_content (gchar *line, gpointer data);
 
 void xa_open_arj (XArchive *archive)
 {
@@ -148,3 +147,90 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		arj_line++;
 	}
 }
+
+void xa_arj_delete (XArchive *archive,GString *files)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	archive->status = XA_ARCHIVESTATUS_DELETE;
+	command = g_strconcat ("arj d ",archive->escaped_path," ",files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_arj_add (XArchive *archive,GString *files,gchar *compression_string)
+{
+	GSList *list = NULL;
+	gchar *command = NULL;
+	
+	if (compression_string == NULL)
+		compression_string = "1";
+	if (archive->passwd != NULL)
+		command = g_strconcat ( "arj a ",
+								archive->update ? "-u " : "",
+								archive->freshen ? "-f " : "",
+								archive->add_recurse ? "-r " : "",
+								archive->remove_files ? "-d1 " : "",
+								"-g" , archive->passwd , " -i ",
+								"-m",compression_string," ",
+								archive->escaped_path,files->str,NULL);
+	else
+		command = g_strconcat ( "arj a ",
+								archive->update ? "-u " : "",
+								archive->freshen ? "-f " : "",
+								archive->add_recurse ? "-r " : "",
+								archive->remove_files ? "-d1 " : "",
+								" -i ",
+								"-m",compression_string," ",
+								archive->escaped_path,files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_arj_extract(XArchive *archive,GString *files,gchar *extraction_path)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+	
+	if (archive->passwd != NULL)
+		command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
+								" -g",archive->passwd,
+								archive->overwrite ? "" : " -n" ,
+								" -i " ,
+								archive->freshen ? "-f " : "" ,
+								archive->update ? "-u " : " ",
+								"-y ",
+								archive->escaped_path , " ",extraction_path,files->str,NULL);
+	else
+		command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
+								archive->overwrite ? "" : " -n" ,
+								" -i " , archive->freshen ? "-f " : "",
+								archive->update ? "-u " : " ",
+								"-y ",
+								archive->escaped_path , " ",extraction_path,files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_arj_test (XArchive *archive)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	archive->status = XA_ARCHIVESTATUS_TEST;
+	if (archive->passwd != NULL)
+		command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->escaped_path, NULL);
+	else
+		command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
+
+	list = g_slist_append(list,command);
+	xa_run_command (archive,list);
+ }
+

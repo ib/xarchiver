@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,5 +27,10 @@
 #include "archive.h"
 gboolean jump_header, encrypted, last_line;
 unsigned short int arj_line;
+void xa_arj_delete (XArchive *,GString *);
+void xa_arj_add (XArchive *,GString *,gchar *);
+void xa_arj_extract(XArchive *,GString *,gchar *extraction_path);
+void xa_arj_test (XArchive *);
+void xa_get_arj_line_content (gchar *line, gpointer data);
 void xa_open_arj (XArchive *archive);
 #endif

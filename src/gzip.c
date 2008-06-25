@@ -21,19 +21,21 @@
 #include "bzip2.h"
 
 extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
+extern int delete	[15];
+extern int add		[15];
+extern int extract	[15];
 
 void xa_open_gzip (XArchive *archive)
 {
 	gchar *command;
-	gchar *tar;
 	unsigned short int i;
 
 	if (g_str_has_suffix (archive->escaped_path,".tar.gz") || g_str_has_suffix (archive->escaped_path,".tgz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_GZ;
-	    tar = g_find_program_in_path ("gtar");
-	    if (tar == NULL)
-    		tar = g_strdup ("tar");
+	    archive->delete =	(void *)delete[archive->type];
+		archive->add = 		(void *)add[archive->type];
+		archive->extract = 	(void *)extract[archive->type];
 
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
 		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
@@ -47,7 +49,6 @@ void xa_open_gzip (XArchive *archive)
 		xa_spawn_async_process (archive,command);
 
 		g_free (command);
-		g_free (tar);
 
 		if (archive->child_pid == 0)
 			return;

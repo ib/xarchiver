@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,5 +25,10 @@
 #include "support.h"
 #include "archive.h"
 
-void xa_open_zip ( XArchive *archive );
+void xa_zip_delete (XArchive *,GString *);
+void xa_zip_add (XArchive *,GString *,gchar *);
+void xa_zip_extract(XArchive *,GString *,gchar *extraction_path);
+void xa_zip_test (XArchive *);
+void xa_get_zip_line_content (gchar *line, gpointer data);
+void xa_open_zip ( XArchive *);
 #endif

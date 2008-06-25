@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Lukasz 'Sil2100' Zemczak - <sil2100@vexillium.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -20,8 +20,8 @@
 #include "config.h"
 #include "lha.h"
 
-void xa_get_lha_line_content (gchar *line, gpointer data);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
+
 void xa_open_lha (XArchive *archive)
 {
 	gchar *command;
@@ -54,7 +54,7 @@ void xa_open_lha (XArchive *archive)
 void xa_get_lha_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	XEntry *entry;
+	XEntry *entry = NULL;
 	gpointer item[5];
 	unsigned int linesize,n,a;
 	gboolean dir = FALSE;
@@ -129,11 +129,79 @@ gboolean isLha ( FILE *ptr )
 		return FALSE;
 
 	if(magic[0] == 0x20 && magic[1] <= 0x03)
-	{
 		return TRUE;
-	}
 	else
-	{
 		return FALSE;
-	}
 }
+
+void xa_lha_delete (XArchive *archive,GString *files)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	archive->status = XA_ARCHIVESTATUS_DELETE;
+	command = g_strconcat ("lha t " , archive->escaped_path, NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_lha_add (XArchive *archive,GString *files,gchar *compression_string)
+{
+	GSList *list = NULL;
+	gchar *command = NULL;
+	
+	if (compression_string == NULL)
+		compression_string = "5";
+	command = g_strconcat( "lha ",
+							archive->remove_files ? "m" : "a",
+							archive->update ? "u" : "",
+							"o",compression_string,
+							" ",
+							archive->escaped_path,
+							files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_lha_extract(XArchive *archive,GString *files,gchar *extraction_path)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	if (archive->passwd != NULL)
+		command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
+								" -g",archive->passwd,
+								archive->overwrite ? "" : " -n" ,
+								" -i " ,
+								archive->freshen ? "-f " : "" ,
+								archive->update ? "-u " : " ",
+								"-y ",
+								archive->escaped_path , " ",extraction_path,files->str,NULL);
+	else
+		command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
+								archive->overwrite ? "" : " -n" ,
+								" -i " , archive->freshen ? "-f " : "",
+								archive->update ? "-u " : " ",
+								"-y ",
+								archive->escaped_path , " ",extraction_path,files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_lha_test (XArchive *archive)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	archive->status = XA_ARCHIVESTATUS_TEST;
+	command = g_strconcat ("lha t ",archive->escaped_path,NULL);
+
+	list = g_slist_append(list,command);
+	xa_run_command (archive,list);
+ }

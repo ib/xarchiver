@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 
 extern gboolean unrar;
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
-void xa_get_rar_line_content (gchar *line, gpointer data);
 
 void xa_open_rar (XArchive *archive)
 {
@@ -203,3 +202,105 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		encrypted = FALSE;
 	}
 }
+
+void xa_rar_delete (XArchive *archive,GString *files)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	archive->status = XA_ARCHIVESTATUS_DELETE;
+	command = g_strconcat ("rar d ",archive->escaped_path," ",files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
+{
+	GSList *list = NULL;
+	gchar *command = NULL;
+
+
+	if (compression_string == NULL)
+		compression_string = "3";
+	if (archive->passwd != NULL)
+		command = g_strconcat ( "rar a ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->solid_archive ? "-s " : "",
+									archive->remove_files ? "-df " : "",
+									"-p" , archive->passwd,
+									archive->add_recurse ? " -r " : "",
+									"-idp ",
+									"-m",compression_string," ",
+									archive->escaped_path,
+									files->str,NULL);
+	else
+		command = g_strconcat ( "rar a ",
+									archive->update ? "-u " : "",
+									archive->freshen ? "-f " : "",
+									archive->solid_archive ? "-s " : "",
+									archive->remove_files ? "-df " : "",
+									archive->add_recurse ? " -r " : "",
+									"-idp ",
+									"-m",compression_string," ",
+									archive->escaped_path,
+									files->str,NULL);
+
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_rar_extract(XArchive *archive,GString *files,gchar *extraction_path)
+{
+	gchar *rar = NULL;
+	gchar *command = NULL;
+	GSList *list = NULL;
+	
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
+
+	if (archive->passwd != NULL)
+		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
+										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+										" -p",archive->passwd,
+										archive->overwrite ? " -o+" : " -o-",
+										" -idp ",
+										archive->escaped_path , " " ,files->str,archive->extraction_path , NULL );
+	else
+		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
+										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+										archive->overwrite ? "-o+" : "-o-",
+										" -idp ",
+										archive->escaped_path , " " ,files->str,archive->extraction_path , NULL );
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+}
+
+void xa_rar_test (XArchive *archive)
+{
+	gchar *rar = NULL;
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
+
+	archive->status = XA_ARCHIVESTATUS_TEST;
+	if (archive->passwd != NULL)
+		command = g_strconcat (rar," t -idp -p" , archive->passwd ," " , archive->escaped_path, NULL);
+	else
+		command = g_strconcat (rar," t -idp " , archive->escaped_path, NULL);
+
+	list = g_slist_append(list,command);
+	xa_run_command (archive,list);
+ }

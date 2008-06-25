@@ -26,13 +26,12 @@
 #include "archive.h"
 #include "window.h"
 
-GtkWidget *MainWindow;
 GList *ArchiveSuffix;
 GList *ArchiveType;
 const gchar *locale;
+gchar *config_file,*tar;
+void xa_set_available_archivers();
 
-void xa_get_available_archivers();
-gchar *config_file;
 gchar *get_argv_filename(const gchar *filename);
 XArchive *xa_init_structure_from_cmd_line (char *filename);
 #endif /* MAIN_H */
