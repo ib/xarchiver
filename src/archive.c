@@ -440,7 +440,7 @@ XEntry *xa_find_child_entry(XEntry *entry, gchar *string)
 {
 	if (entry == NULL)
 		return NULL;
-	if (strcmp(entry->filename, string) == 0)
+	if (entry->is_dir && strcmp(entry->filename, string) == 0)
 		return entry;
 
   return xa_find_child_entry(entry->next, string);
