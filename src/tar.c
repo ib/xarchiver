@@ -369,7 +369,7 @@ void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *
 			gtk_tree_path_free (row_list->data);
 
 			if (entry->is_dir)
-				xa_fill_list_with_recursed_entries(entry, &names,"",TRUE);
+				xa_fill_list_with_recursed_entries(entry, &names,"");
 			else
 				g_string_prepend (names,xa_build_full_path_name_from_entry(entry));
 

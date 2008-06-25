@@ -136,7 +136,7 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *
 void xa_update_window_with_archive_entries(XArchive *archive,XEntry *entry);
 XEntry* xa_find_entry_from_path(XEntry *root_entry,const gchar *fullpathname);
 gchar *xa_build_full_path_name_from_entry(XEntry *entry);
-void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path,gboolean flag);
+void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path);
 void xa_entries_to_filelist(XEntry *, GString **, gchar *);
 XArchive *archive[100];
 #endif

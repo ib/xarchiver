@@ -131,7 +131,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	menuitem2_menu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
-	addfile = gtk_image_menu_item_new_with_mnemonic (_("_Add"));
+	addfile = gtk_image_menu_item_new_with_mnemonic (_("Add"));
 	gtk_widget_set_sensitive (addfile,FALSE);
 	gtk_widget_show (addfile);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
@@ -202,12 +202,21 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
 	gtk_widget_set_sensitive (select_all, FALSE);
 	gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	
+	tmp_image = gtk_image_new_from_stock ("gtk-select-all", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (tmp_image);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (select_all), tmp_image);
 
 	deselect_all = gtk_image_menu_item_new_with_mnemonic (_("Dese_lect All"));
 	gtk_widget_show (deselect_all);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), deselect_all);
 	gtk_widget_set_sensitive (deselect_all, FALSE);
 	gtk_widget_add_accelerator (deselect_all, "activate",accel_group,GDK_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+	select_pattern = gtk_image_menu_item_new_with_mnemonic (_("Select _by pattern"));
+	gtk_widget_show (select_pattern);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_pattern);
+	gtk_widget_add_accelerator (select_pattern, "activate",accel_group,GDK_b, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	separatormenuitem5 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem5);
@@ -238,7 +247,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	prefs_menu = gtk_image_menu_item_new_with_mnemonic (_("_Preferences"));
 	gtk_widget_show (prefs_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), prefs_menu);
-	gtk_widget_add_accelerator (prefs_menu, "activate",accel_group,GDK_p, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator (prefs_menu, "activate",accel_group,GDK_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-preferences", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
@@ -429,6 +438,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (xa_show_cmd_line_output), NULL);
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
+	g_signal_connect ((gpointer) select_pattern, "activate", G_CALLBACK (xa_create_delete_dialog), NULL);
 	g_signal_connect ((gpointer) password_entry, "activate", G_CALLBACK (xa_reset_password), NULL);
 	g_signal_connect ((gpointer) prefs_menu, "activate", G_CALLBACK (xa_show_prefs_dialog), NULL);
 	g_signal_connect ((gpointer) close1, "activate", G_CALLBACK (xa_close_archive), NULL);
@@ -748,7 +758,7 @@ void xa_create_popup_menu()
 	gtk_widget_show (image9);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view), image9);
 
-	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract"));
+	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract..."));
 	gtk_widget_show (extract);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu),extract);
 	
@@ -798,7 +808,7 @@ void xa_create_popup_menu()
 	gtk_widget_show (image10);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (ddelete), image10);
 
-	rename = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
+	rename = gtk_image_menu_item_new_with_mnemonic (_("Rename..."));
 	gtk_widget_show (rename);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu), rename);
 
@@ -813,6 +823,87 @@ void xa_create_popup_menu()
 	g_signal_connect ((gpointer) ddelete, "activate",G_CALLBACK (on_xa_delete_activate),NULL);
 	g_signal_connect ((gpointer) rename, "activate",G_CALLBACK (on_xa_rename_activate),NULL);*/
 }
+
+void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
+{
+	GtkWidget *ddialog1;
+	GtkWidget *ddialog_vbox1;
+	GtkWidget *dhbox1;
+	GtkWidget *pattern_label;
+	GtkWidget *pattern_entry;
+	GtkWidget *dialog_action_area1;
+	GtkWidget *cancelbutton1;
+	GtkWidget *okbutton1;
+  	gchar *string = NULL;
+  	gboolean done = FALSE;
+  
+	ddialog1 = gtk_dialog_new ();
+	gtk_window_set_title (GTK_WINDOW (ddialog1), _("Select by Pattern"));
+	gtk_window_set_modal (GTK_WINDOW (ddialog1), TRUE);
+	gtk_window_set_type_hint (GTK_WINDOW (ddialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
+	gtk_widget_set_size_request(ddialog1,286,93);
+	gtk_window_set_transient_for (GTK_WINDOW (ddialog1),GTK_WINDOW (xa_main_window));
+	ddialog_vbox1 = GTK_DIALOG (ddialog1)->vbox;
+	gtk_widget_show (ddialog_vbox1);
+
+	dhbox1 = gtk_hbox_new (FALSE, 10);
+	gtk_widget_show (dhbox1);
+	gtk_box_pack_start (GTK_BOX (ddialog_vbox1), dhbox1, TRUE, TRUE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (dhbox1), 5);
+
+	pattern_label = gtk_label_new (_("Pattern:"));
+	gtk_widget_show (pattern_label);
+	gtk_box_pack_start (GTK_BOX (dhbox1), pattern_label, FALSE, FALSE, 0);
+
+	pattern_entry = gtk_entry_new ();
+	gtk_widget_show (pattern_entry);
+	gtk_box_pack_start (GTK_BOX (dhbox1), pattern_entry, TRUE, TRUE, 0);
+	gtk_entry_set_activates_default(GTK_ENTRY(pattern_entry), TRUE);
+
+	dialog_action_area1 = GTK_DIALOG (ddialog1)->action_area;
+	gtk_widget_show (dialog_action_area1);
+	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
+
+	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
+	gtk_widget_show (cancelbutton1);
+	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1), cancelbutton1,GTK_RESPONSE_CANCEL);
+	GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
+
+	okbutton1 = gtk_button_new_with_mnemonic (_("Select"));
+	gtk_widget_show (okbutton1);
+	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1), okbutton1,GTK_RESPONSE_OK);
+	GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
+	gtk_dialog_set_default_response (GTK_DIALOG (ddialog1), GTK_RESPONSE_OK);
+	
+	while ( ! done )
+	{
+		switch (gtk_dialog_run (GTK_DIALOG(ddialog1)))
+		{
+			case GTK_RESPONSE_CANCEL:
+			case GTK_RESPONSE_DELETE_EVENT:
+			done = TRUE;
+			goto destroy_delete_dialog;
+			break;
+
+			case GTK_RESPONSE_OK:
+			string = g_strdup (gtk_entry_get_text(GTK_ENTRY(pattern_entry)));
+			if (strlen(string) == 0)
+			{
+				xa_deselect_all(NULL,NULL);
+				done = TRUE;
+				break;
+			}
+			done = TRUE;
+			break;
+		}
+	}
+	//check and select the rows matching the pattern here
+	
+	g_free(string);
+
+destroy_delete_dialog:
+	gtk_widget_destroy (ddialog1);
+ }
 
 GtkWidget *create_archive_properties_window()
 {
@@ -996,7 +1087,8 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean a
 	gtk_widget_set_sensitive (exe_menu, sfx);
 	gtk_widget_set_sensitive (check_menu, test);
 	gtk_widget_set_sensitive (properties, info);
-	//gtk_widget_set_sensitive (select_all, select);
+	gtk_widget_set_sensitive (select_all, Close);
+	gtk_widget_set_sensitive (select_pattern, Close);
 }
 
 void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)

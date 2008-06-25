@@ -80,8 +80,7 @@ GtkWidget *password_entry;
 GtkWidget *image1;
 GtkWidget *image2;
 GtkWidget *menuitem4;
-GtkWidget *select_all;
-GtkWidget *deselect_all;
+GtkWidget *select_all,*deselect_all,*select_pattern;
 GtkWidget *exe_menu;
 GtkWidget *menuitem4_menu;
 GtkWidget *about1;
@@ -126,11 +125,12 @@ void xa_create_popup_menu();
 widget_data *xa_create_output_window(gchar *);
 void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location);
 GtkWidget *create_archive_properties_window();
+void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data);
 void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data);
 void xa_add_page (XArchive *archive);
 void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data);
 void xa_close_page (GtkWidget *widget, gpointer data);
-void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info);
+void xa_set_button_state (gboolean,gboolean,gboolean,gboolean,gboolean, gboolean, gboolean,gboolean);
 void xa_restore_navigation(int idx);
 #endif
 

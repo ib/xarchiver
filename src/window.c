@@ -453,6 +453,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_widget_set_sensitive (properties,FALSE);
 		gtk_widget_set_sensitive (up_button,FALSE);
 		gtk_widget_set_sensitive (home_button,FALSE);
+		gtk_widget_set_sensitive (deselect_all,FALSE);
 		xa_disable_delete_view_buttons (FALSE);
 		xa_set_button_state (1,1,0,0,0,0,0,0);
 		xa_set_window_title (xa_main_window,NULL);
@@ -527,16 +528,24 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 			gtk_tree_model_get (archive[id]->model,&iter,archive[id]->nc+1,&entry,-1);
 			gtk_tree_path_free (row_list->data);
 			if (entry->is_dir)
-				xa_fill_list_with_recursed_entries(entry, &names,"",TRUE);
+			{
+				if (archive[id]->type == XARCHIVETYPE_TAR || is_tar_compressed(archive[id]->type))
+					goto one_file;
+				else
+					xa_fill_list_with_recursed_entries(entry, &names,"");
+			}
 			else
+			{
+				one_file:
+				g_string_prepend_c (names,' ');
 				g_string_prepend (names,xa_build_full_path_name_from_entry(entry));
+			}
 			row_list = row_list->next;
 		}
 		g_list_free (row_list);
-		g_print (names->str);
 	}
 
-	response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"You are about to delete %d file(s) from the archive.",_( "Are you sure you want to do this?") );
+	response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"You are about to delete entries from the archive.",_( "Are you sure you want to do this?") );
 	if (response == GTK_RESPONSE_NO || response == GTK_RESPONSE_DELETE_EVENT)
 		return;
 
@@ -843,7 +852,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		g_object_set (about,
 			"name",  "Xarchiver",
 			"version", PACKAGE_VERSION,
-			"copyright", "Copyright \xC2\xA9 2005-2007 Giuseppe Torelli",
+			"copyright", "Copyright \xC2\xA9 2005-2008 Giuseppe Torelli",
 			"comments", "A lightweight GTK+2 archive manager",
 			"authors", authors,
 			"documenters",documenters,

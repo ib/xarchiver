@@ -15,6 +15,7 @@ xarchiver_SOURCES = \
 	main.c main.h \
 	string_utils.c string_utils.h \
 	mime.c mime.h \
+	utf8-fnmatch.c utf8-fnmatch.h \
 	support.c support.h \
 	archive.c archive.h \
 	interface.c interface.h \

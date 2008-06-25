@@ -626,11 +626,11 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 	return fullpathname;
 }
 
-void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path,gboolean flag)
+void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path)
 {
 	gint idx,current_page;
-	gchar *full_path = NULL;
-	gchar *quoted_path, *parent_dirs = NULL;
+	gchar *full_path, *_dummy = NULL;
+	gchar *quoted_path, *parent_dir = NULL;
 
 	if (entry == NULL)
 		return;
@@ -639,41 +639,33 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gcha
 	idx = xa_find_archive_index (current_page);
 
 	if (entry == archive[idx]->root_entry)
-		parent_dirs = "";
+		parent_dir = "";
 	else
-		parent_dirs = g_strdup(archive[idx]->location_entry_path);
-		
+		parent_dir = g_strdup(archive[idx]->location_entry_path);
+
 	/* Recurse to siblings with the same path */
-	if (flag)
-	 	xa_fill_list_with_recursed_entries(entry->next, p_file_list, current_path,TRUE);
+	xa_fill_list_with_recursed_entries(entry->next,p_file_list,current_path);
 
 	if (strlen(current_path) == 0)
 		full_path = g_strdup(entry->filename);
 	else
 		full_path = g_strconcat(current_path,"/",entry->filename,NULL);
 
-	if (entry->child)
-	{
-		if (flag == TRUE)
-		{
-			quoted_path = g_shell_quote(entry->filename);
-			*p_file_list = g_string_prepend (*p_file_list,quoted_path);
-			*p_file_list = g_string_prepend_c (*p_file_list,' ');
-		}
-		xa_fill_list_with_recursed_entries(entry->child, p_file_list, full_path,TRUE);
-		g_free(full_path);
-	}
+	if (parent_dir)
+		_dummy = g_strconcat (parent_dir,entry->filename,NULL);
 	else
-	{
-		quoted_path = g_shell_quote(full_path);
-		*p_file_list = g_string_prepend (*p_file_list,quoted_path);
-		*p_file_list = g_string_prepend_c (*p_file_list,' ');
-	}
-	g_print ("%s\n",parent_dirs);
-	g_free(parent_dirs);
+		_dummy = g_strdup(entry->filename);
+
+	quoted_path = g_shell_quote(_dummy);
+	g_free(_dummy);
+	*p_file_list = g_string_prepend (*p_file_list,quoted_path);
+	*p_file_list = g_string_prepend_c (*p_file_list,' ');
+	g_free(parent_dir);		
+	if (entry->child)
+		xa_fill_list_with_recursed_entries(entry->child, p_file_list, full_path);
+	g_free(full_path);
 	return;
 }
-
 
 void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_path)
 {
@@ -684,7 +676,7 @@ void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_p
 		return;
 		
 	/* Recurse to siblings with the same path */
- 	xa_entries_to_filelist(entry->next, p_file_list, current_path);
+ 	xa_entries_to_filelist(entry->next,p_file_list,current_path);
 
 	if (strlen(current_path) == 0)
 		full_path = g_strdup(entry->filename);
@@ -693,7 +685,7 @@ void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_p
 
 	if (entry->child)
 	{
-		xa_entries_to_filelist(entry->child, p_file_list, full_path);
+		xa_entries_to_filelist(entry->child, p_file_list,full_path);
 		g_free(full_path);
 	}
 	else
