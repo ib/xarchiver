@@ -216,6 +216,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	select_pattern = gtk_image_menu_item_new_with_mnemonic (_("Select _by pattern"));
 	gtk_widget_show (select_pattern);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_pattern);
+	gtk_widget_set_sensitive (select_pattern, FALSE);
 	gtk_widget_add_accelerator (select_pattern, "activate",accel_group,GDK_b, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	separatormenuitem5 = gtk_separator_menu_item_new ();
@@ -826,6 +827,7 @@ void xa_create_popup_menu()
 
 void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
 {
+	GtkTreeSelection *selection;
 	GtkWidget *ddialog1;
 	GtkWidget *ddialog_vbox1;
 	GtkWidget *dhbox1;
@@ -834,9 +836,16 @@ void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
 	GtkWidget *dialog_action_area1;
 	GtkWidget *cancelbutton1;
 	GtkWidget *okbutton1;
-  	gchar *string = NULL;
+	GtkWidget *tmp_image,*select_hbox,*select_label;
+	gchar *string;
   	gboolean done = FALSE;
-  
+	gint current_page;
+	gint id;
+
+	current_page = gtk_notebook_get_current_page (notebook);
+	id = xa_find_archive_index (current_page);
+
+  	GtkTooltips *tooltip = gtk_tooltips_new();
 	ddialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (ddialog1), _("Select by Pattern"));
 	gtk_window_set_modal (GTK_WINDOW (ddialog1), TRUE);
@@ -856,6 +865,7 @@ void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
 	gtk_box_pack_start (GTK_BOX (dhbox1), pattern_label, FALSE, FALSE, 0);
 
 	pattern_entry = gtk_entry_new ();
+	gtk_tooltips_set_tip (tooltip, pattern_entry, _("example: *.txt; ac*"), NULL);
 	gtk_widget_show (pattern_entry);
 	gtk_box_pack_start (GTK_BOX (dhbox1), pattern_entry, TRUE, TRUE, 0);
 	gtk_entry_set_activates_default(GTK_ENTRY(pattern_entry), TRUE);
@@ -869,13 +879,23 @@ void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
 	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1), cancelbutton1,GTK_RESPONSE_CANCEL);
 	GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
 
-	okbutton1 = gtk_button_new_with_mnemonic (_("Select"));
-	gtk_widget_show (okbutton1);
+	okbutton1 = gtk_button_new();
+	tmp_image = gtk_image_new_from_stock ("gtk-ok", GTK_ICON_SIZE_BUTTON);
+	select_hbox = gtk_hbox_new(FALSE, 4);
+	select_label = gtk_label_new_with_mnemonic(_("_Select"));
+
+	alignment2 = gtk_alignment_new (0.5, 0.5, 0, 0);
+	gtk_container_add (GTK_CONTAINER (alignment2), select_hbox);
+
+	gtk_box_pack_start(GTK_BOX(select_hbox),tmp_image,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(select_hbox),select_label,FALSE,TRUE,0);
+	gtk_container_add(GTK_CONTAINER(okbutton1),alignment2);
+	gtk_widget_show_all (okbutton1);
 	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1), okbutton1,GTK_RESPONSE_OK);
-	GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
-	gtk_dialog_set_default_response (GTK_DIALOG (ddialog1), GTK_RESPONSE_OK);
+	GTK_WIDGET_SET_FLAGS (okbutton1,GTK_CAN_DEFAULT);
+	gtk_dialog_set_default_response (GTK_DIALOG (ddialog1),GTK_RESPONSE_OK);
 	
-	while ( ! done )
+	while (! done)
 	{
 		switch (gtk_dialog_run (GTK_DIALOG(ddialog1)))
 		{
@@ -897,13 +917,40 @@ void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
 			break;
 		}
 	}
-	//check and select the rows matching the pattern here
-	
+	gtk_tree_model_foreach(archive[id]->model,(GtkTreeModelForeachFunc)select_matched_rows,string);
 	g_free(string);
 
 destroy_delete_dialog:
 	gtk_widget_destroy (ddialog1);
- }
+}
+
+gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data)
+{
+	gchar *string = data;
+	gchar *utf8_name = NULL;
+	char **patterns;
+	XEntry *entry = NULL;
+	gint current_page;
+	gint idx;
+
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
+	patterns = g_strsplit(string,";",-1);
+	
+	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
+	utf8_name = g_filename_to_utf8 (entry->filename, -1, NULL, NULL, NULL);
+
+	if (match_patterns (patterns,utf8_name,0))
+		gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview)),iter);
+	else
+		gtk_tree_selection_unselect_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview)),iter);
+	g_free (utf8_name);
+
+	if (patterns != NULL)
+		g_strfreev (patterns);
+
+	return FALSE;
+}
 
 GtkWidget *create_archive_properties_window()
 {

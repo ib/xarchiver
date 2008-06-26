@@ -125,6 +125,7 @@ void xa_create_popup_menu();
 widget_data *xa_create_output_window(gchar *);
 void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location);
 GtkWidget *create_archive_properties_window();
+gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data);
 void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data);
 void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data);
 void xa_add_page (XArchive *archive);

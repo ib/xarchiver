@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 #include <glib.h>
 #include <string.h>
 #include "string_utils.h"
+#include "utf8-fnmatch.h"
 #include "errno.h"
 
 #ifndef HAVE_MKDTEMP
@@ -323,4 +324,25 @@ void xa_set_window_title (GtkWidget *window , gchar *title)
 			g_free (x);
 		}
 	}
+}
+
+gboolean match_patterns (char **patterns,const char *string,int flags)
+{
+	int i;
+	int result;
+
+	if (patterns[0] == NULL)
+		return TRUE;
+
+	if (string == NULL)
+		return FALSE;
+
+	result = FNM_NOMATCH;
+	i = 0;
+	while ((result != 0) && (patterns[i] != NULL))
+	{
+		result = g_utf8_fnmatch (patterns[i], string, flags);
+		i++;
+	}
+	return (result == 0);
 }

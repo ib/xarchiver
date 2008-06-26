@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -42,5 +42,6 @@ gchar *remove_level_from_path (const gchar *path);
 gboolean file_extension_is (const char *filename, const char *ext);
 gchar *extract_local_path (gchar *path);
 void xa_set_window_title ( GtkWidget *window , gchar *title);
+gboolean match_patterns (char **patterns,const char *string,int flags);
 #endif
 

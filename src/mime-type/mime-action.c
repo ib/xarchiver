@@ -24,7 +24,6 @@
 #endif
 
 #include "mime-action.h"
-#include "glib-utils.h"
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>

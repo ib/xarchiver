@@ -850,7 +850,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_about_dialog_set_url_hook (xa_activate_link, NULL, NULL);
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (about) , TRUE);
 		g_object_set (about,
-			"name",  "Xarchiver",
+			"name",  "xarchiver",
 			"version", PACKAGE_VERSION,
 			"copyright", "Copyright \xC2\xA9 2005-2008 Giuseppe Torelli",
 			"comments", "A lightweight GTK+2 archive manager",
