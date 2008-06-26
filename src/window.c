@@ -1203,6 +1203,9 @@ void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
+	
+	if (archive[idx] == NULL)
+		return;
 	xa_cmd_line_output = xa_create_output_window(_("Command line output"));
 
 	if ( ! archive[idx]->list_reversed)
