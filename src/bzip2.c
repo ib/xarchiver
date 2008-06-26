@@ -104,7 +104,7 @@ void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
 			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",archive->escaped_path,NULL);
 
 		list = g_slist_append(list,command);
-		result = xa_run_command (archive,list);
+		xa_run_command (archive,list);
 
 		/* and let's get its uncompressed file size */
 		if (_filename)
@@ -219,6 +219,6 @@ void lzma_gzip_bzip2_extract (XArchive *archive)
 		}
 
 		list = g_slist_append(list,command);
-		result = xa_run_command (archive,list);
+		xa_run_command (archive,list);
 	}
 }

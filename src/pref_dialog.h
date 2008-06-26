@@ -22,7 +22,7 @@
 typedef struct
 {
 	GtkWidget *dialog1,*dialog_vbox1,*combo_prefered_format;
-	GtkWidget *allow_dir_extract_with_dnd, *confirm_deletion, *combo_archive_view,*combo_icon_size;
+	GtkWidget *allow_dir_extract_with_dnd, *confirm_deletion, *store_output,*combo_archive_view,*combo_icon_size;
 	GtkWidget *check_show_comment, *check_sort_filename_column,*show_location_bar,*combo_prefered_viewer;
 	GtkWidget *combo_prefered_web_browser, *combo_prefered_editor, *combo_prefered_temp_dir, *check_save_geometry,*prefs_notebook;
 	GtkListStore *prefs_liststore;

@@ -333,7 +333,7 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *_list,XArchive *arch
 	/* Let's move the modified archive from /tmp to the original archive location */
 	command = g_strconcat ("mv ",archive->tmp,"/",filename," ",archive->escaped_path,NULL);
 	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
+	xa_run_command (archive,list);
 }
 
 gboolean is_tar_compressed (gint type)

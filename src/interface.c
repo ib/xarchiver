@@ -50,7 +50,6 @@ extern gboolean unrar;
 void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 {
 	GdkPixbuf *icon;
-
 	xa_create_popup_menu();
 	tooltips = gtk_tooltips_new ();
 	accel_group = gtk_accel_group_new ();
@@ -227,7 +226,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("C_md-line output"));
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
 	gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_set_sensitive (view_shell_output1,FALSE);
 	gtk_widget_show (view_shell_output1);
 
 	image2 = gtk_image_new_from_stock ("gtk-find-and-replace", GTK_ICON_SIZE_MENU);
@@ -469,6 +467,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 
 int xa_progressbar_pulse (gpointer data)
 {
+	//TODO to remove?
 	if ( ! xa_main_window)
 		return FALSE;
 	if ( ! GTK_WIDGET_VISIBLE(viewport2) )
@@ -827,7 +826,6 @@ void xa_create_popup_menu()
 
 void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
 {
-	GtkTreeSelection *selection;
 	GtkWidget *ddialog1;
 	GtkWidget *ddialog_vbox1;
 	GtkWidget *dhbox1;

@@ -54,13 +54,13 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gchar *pixbuf_file = g_strconcat(DATADIR,"/pixmaps/xarchiver-behaviour.svg",NULL);
 	icon_pixbuf = gdk_pixbuf_new_from_file (pixbuf_file,NULL);
 	g_free (pixbuf_file);
-	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Behaviour"),2,0,-1);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Archive"),2,0,-1);
 	if(icon_pixbuf != NULL)
 		g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
-	icon_pixbuf = gtk_widget_render_icon (prefs_data->dialog1, "gtk-find", GTK_ICON_SIZE_DND, NULL);
-	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("View"),2,1,-1);
+	icon_pixbuf = gtk_widget_render_icon (prefs_data->dialog1, "gtk-leave-fullscreen", GTK_ICON_SIZE_DND, NULL);
+	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Window"),2,1,-1);
 	g_object_unref (icon_pixbuf);
 
 	gtk_list_store_append (prefs_data->prefs_liststore, &iter);
@@ -85,7 +85,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	GTK_WIDGET_UNSET_FLAGS (prefs_data->prefs_notebook, GTK_CAN_FOCUS);
 	g_signal_connect (G_OBJECT (prefs_iconview), "selection-changed",G_CALLBACK (xa_prefs_iconview_changed), prefs_data);
 
-	/* Behaviour page*/
+	/* Archive page*/
 	frame1 = gtk_frame_new (NULL);
 	gtk_container_add (GTK_CONTAINER (prefs_data->prefs_notebook), frame1);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_NONE);
@@ -123,11 +123,16 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->confirm_deletion), FALSE);
+	
+	prefs_data->store_output = gtk_check_button_new_with_mnemonic (_("Store archiver output"));
+	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->store_output, FALSE, FALSE, 0);
+	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->store_output), FALSE);
+	gtk_tooltips_set_tip(tooltips, prefs_data->store_output, _("It takes a lot of memory with large archives!"), NULL);
 
 	label1 = gtk_label_new ("");
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 0), label1);
 
-	/* View page*/
+	/* Window page*/
 	frame2 = gtk_frame_new (NULL);
 	gtk_container_add (GTK_CONTAINER (prefs_data->prefs_notebook), frame2);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_NONE);
@@ -297,6 +302,8 @@ void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
 {
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),FALSE);
+	
 
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),0);
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
@@ -320,6 +327,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"confirm_deletion",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"store_output",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->store_output)));
 
 	g_key_file_set_integer (xa_key_file,PACKAGE,"archive_view",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_archive_view)));
 	g_key_file_set_integer (xa_key_file,PACKAGE,"icon_size",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_icon_size)));
@@ -404,6 +412,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_format",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),g_key_file_get_boolean(xa_key_file,PACKAGE,"confirm_deletion",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),g_key_file_get_boolean(xa_key_file,PACKAGE,"store_output",NULL));
 
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),g_key_file_get_integer(xa_key_file,PACKAGE,"archive_view",NULL));
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),g_key_file_get_integer(xa_key_file,PACKAGE,"icon_size",NULL));

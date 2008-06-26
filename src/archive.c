@@ -28,6 +28,7 @@ extern int delete	[15];
 extern int add		[15];
 extern int extract	[15];
 extern int test		[15];
+extern Prefs_dialog_data *prefs_window;
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
@@ -161,8 +162,10 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
 			if (line != NULL)
 			{
+				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
 				(*archive->parse_output) (line,archive);
-				archive->error_output = g_slist_prepend (archive->error_output,line);
+				g_free(line);
 			}
 			while (gtk_events_pending())
 				gtk_main_iteration();
@@ -174,11 +177,11 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 	done:
-		g_io_channel_shutdown (ioc, TRUE, NULL);
+		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 
 		xa_update_window_with_archive_entries (archive,NULL);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
+		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
 		g_object_unref (archive->model);
 		return FALSE;
 	}
@@ -274,16 +277,14 @@ void xa_clean_archive_structure (XArchive *archive)
 	g_free (archive);
 }
 
-gboolean xa_delete_temp_directory (XArchive *archive,gboolean flag)
+void xa_delete_temp_directory (XArchive *archive,gboolean flag)
 {
 	GSList *list = NULL;
 	gchar *command;
-	gboolean result;
 
 	command = g_strconcat ("rm -rf ",archive->tmp,NULL);
 	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-	return result;
+	xa_run_command (archive,list);
 }
 
 gboolean xa_create_temp_directory (XArchive *archive,gchar tmp_dir[])
@@ -330,7 +331,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			ps = waitpid (archive->child_pid, &status, WNOHANG);
 			if (ps < 0)
 				break;
-			else if(xa_main_window) //avoid if we are on console
+			else if(xa_main_window)
 				gtk_main_iteration_do (FALSE);
 
 			usleep(1000); //give the processor time to rest (0.1 sec)
@@ -340,9 +341,8 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			break;
 		_commands = _commands->next;
 	}
-	g_slist_foreach (commands, (GFunc) g_free, NULL);
+	g_slist_foreach (commands,(GFunc) g_free,NULL);
 	g_slist_free(commands);
-	g_print ("vado a xa_archive\n");
 	xa_archive_operation_finished(archive,result);
 	return result;
 }
