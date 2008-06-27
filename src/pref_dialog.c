@@ -108,7 +108,9 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	archive_type = g_list_first (ArchiveType);
 	while ( archive_type != NULL )
 	{
-		if (archive_type->data == "tgz" || archive_type->data == "rpm" || (archive_type->data == "rar" && unrar) )
+		if (strcmp(archive_type->data, "tgz") == 0 ||
+			strcmp(archive_type->data, "rpm") == 0 ||
+			(strcmp(archive_type->data, "rar") == 0 && unrar) )
 			goto next;
 		else
 			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_format),archive_type->data );
@@ -382,7 +384,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 {
 	gint *coords = NULL;
 	gchar *value;
-	guint coords_len = 0;
+	gsize coords_len = 0;
 	gchar *config_dir = NULL;
 	gchar *xarchiver_config_dir = NULL;
 	GKeyFile *xa_key_file = g_key_file_new();
