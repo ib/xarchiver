@@ -167,7 +167,7 @@ void xa_lha_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_lha_extract(XArchive *archive,GString *files,gchar *extraction_path)
+void xa_lha_extract(XArchive *archive,GString *files)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
@@ -180,14 +180,14 @@ void xa_lha_extract(XArchive *archive,GString *files,gchar *extraction_path)
 								archive->freshen ? "-f " : "" ,
 								archive->update ? "-u " : " ",
 								"-y ",
-								archive->escaped_path , " ",extraction_path,files->str,NULL);
+								archive->escaped_path , " ",archive->extraction_path,files->str,NULL);
 	else
 		command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
 								archive->overwrite ? "" : " -n" ,
 								" -i " , archive->freshen ? "-f " : "",
 								archive->update ? "-u " : " ",
 								"-y ",
-								archive->escaped_path , " ",extraction_path,files->str,NULL);
+								archive->escaped_path , " ",archive->extraction_path,files->str,NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 

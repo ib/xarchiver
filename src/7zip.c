@@ -215,7 +215,7 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_7zip_extract(XArchive *archive,GString *files,gchar *extraction_path)
+void xa_7zip_extract(XArchive *archive,GString *files)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
@@ -225,12 +225,12 @@ void xa_7zip_extract(XArchive *archive,GString *files,gchar *extraction_path)
 								" -p",archive->passwd,
 								archive->overwrite ? " -aoa" : " -aos",
 								" -bd ",
-								archive->escaped_path , files->str , " -o",extraction_path,NULL);
+								archive->escaped_path , files->str , " -o",archive->extraction_path,NULL);
 	else
 		command = g_strconcat ( "7za " , archive->full_path ? "x" : "e",
 								archive->overwrite ? " -aoa" : " -aos",
 								" -bd ",
-								archive->escaped_path , files->str , " -o",extraction_path,NULL);
+								archive->escaped_path , files->str , " -o",archive->extraction_path,NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 

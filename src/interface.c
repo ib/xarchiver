@@ -467,8 +467,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 
 int xa_progressbar_pulse (gpointer data)
 {
-	//TODO to remove?
-	if ( ! xa_main_window)
+	if (xa_main_window == NULL)
 		return FALSE;
 	if ( ! GTK_WIDGET_VISIBLE(viewport2) )
 		return FALSE;

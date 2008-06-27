@@ -27,7 +27,7 @@
 
 void xa_zip_delete (XArchive *,GString *);
 void xa_zip_add (XArchive *,GString *,gchar *);
-void xa_zip_extract(XArchive *,GString *,gchar *extraction_path);
+void xa_zip_extract(XArchive *,GString *);
 void xa_zip_test (XArchive *);
 void xa_get_zip_line_content (gchar *line, gpointer data);
 void xa_open_zip ( XArchive *);

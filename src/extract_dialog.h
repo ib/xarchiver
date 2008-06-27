@@ -61,7 +61,7 @@ void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gc
 void xa_activate_entry(GtkToggleButton *button,gpointer data);
 void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
 void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
-gchar *xa_parse_extract_dialog_options ( XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
+void xa_parse_extract_dialog_options (XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
 void xa_browse_dir (GtkTreeStore *model,gchar *dir, GtkTreeIter *iter);
 void xa_tree_view_row_selected(GtkTreeSelection *selection, gpointer data);
 void xa_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data);

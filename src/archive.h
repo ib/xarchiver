@@ -18,6 +18,8 @@
 #ifndef __XARCHIVER_ARCHIVE_H__
 #define __XARCHIVER_ARCHIVE_H__
 
+int status;
+
 typedef enum
 {
 	XARCHIVETYPE_UNKNOWN = 0,
@@ -115,7 +117,7 @@ struct _XArchive
 	void 	(*parse_output)	(gchar *line, gpointer);
 	void 	(*delete)	(XArchive *archive,GString *);
 	void 	(*add)		(XArchive *,GString *,gchar *);
-	void 	(*extract)	(XArchive *,GString *,gchar *extraction_path);
+	void 	(*extract)	(XArchive *,GString *);
 	void 	(*test)		(XArchive *);
 };
 

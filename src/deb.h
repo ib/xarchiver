@@ -29,4 +29,5 @@
 #include "archive.h"
 
 void xa_open_deb ( XArchive *archive );
+void xa_deb_extract(XArchive *archive,GString *files);
 #endif

@@ -23,11 +23,9 @@
 FILE *stream;
 gchar *cpio_tmp,*gzip_tmp = NULL;
 gchar tmp_dir[14] = "";
-GIOStatus status;
 gboolean result;
 GError *error = NULL;
 GIOChannel *ioc_cpio;
-void xa_get_cpio_line_content (gchar *line, gpointer data);
 
 void xa_open_rpm (XArchive *archive)
 {
@@ -300,14 +298,14 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	FILE *stream = data;
 	gchar buffer[65536];
 	gsize bytes_read;
-	GIOStatus status;
+	GIOStatus _status;
 	GError *error = NULL;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
 		do
 	    {
-			status = g_io_channel_read_chars (ioc, buffer, sizeof(buffer), &bytes_read, &error);
+			_status = g_io_channel_read_chars (ioc, buffer, sizeof(buffer), &bytes_read, &error);
 			if (bytes_read > 0)
 			{
 				/* Write the content of the bzip/gzip extracted file to the file pointed by the file stream */
@@ -320,9 +318,9 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 			return FALSE;
 			}
 		}
-		while (status == G_IO_STATUS_NORMAL);
+		while (_status == G_IO_STATUS_NORMAL);
 
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+		if (_status == G_IO_STATUS_ERROR || _status == G_IO_STATUS_EOF)
 		goto done;
 	}
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
@@ -336,3 +334,15 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	return TRUE;
 }
 
+void xa_rpm_extract(XArchive *archive,GString *files)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	chdir (archive->extraction_path);
+	command = g_strconcat ( "cpio -id " , files->str," -F ",archive->tmp,"/file.cpio",NULL);
+
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+	xa_run_command (archive,list);
+}

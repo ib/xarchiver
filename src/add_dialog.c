@@ -337,9 +337,8 @@ void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
 		gtk_adjustment_set_value (adjustment, digit-1);
 }
 
-gchar *xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
+void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 {
-	gchar *command = NULL;
 	gchar *temp_password = NULL;
 	gchar *compression_string = NULL;
 	gboolean done = FALSE;
@@ -418,7 +417,6 @@ gchar *xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialo
 				g_free (compression_string);
 		}
 	}
-	return command;
 }
 
 void xa_execute_add_commands (XArchive *archive,GString *names,gchar *compression_string)

@@ -29,6 +29,7 @@ extern int add		[15];
 extern int extract	[15];
 extern int test		[15];
 extern Prefs_dialog_data *prefs_window;
+extern gboolean batch_mode;
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 
@@ -112,41 +113,8 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 
 gboolean xa_spawn_sync_process (gchar *command)
 {
-	int exit_status;
-    GError *error = NULL;
-    gboolean result = FALSE;
-    gchar *std_out;
-    gchar *std_err;
-	gchar **argv;
-	int argcp;
 
-	g_shell_parse_argv(command,&argcp,&argv,NULL);
-	if ( ! g_spawn_sync(
-		NULL,
-		argv,
-		NULL,
-		G_SPAWN_SEARCH_PATH,
-		NULL,
-		NULL,
-		&std_out,
-		&std_err,
-		&exit_status,
-		&error))
-	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
-		g_error_free (error);
-		g_strfreev (argv);
-		return result;
-	}
-	if (WIFEXITED(exit_status))
-	{
-		if (WEXITSTATUS(exit_status))
-			response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err);
-		else
-			result = TRUE;
-	}
-	g_strfreev (argv);
-	return result;
+	return FALSE;
 }
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -309,41 +277,75 @@ gboolean xa_create_temp_directory (XArchive *archive,gchar tmp_dir[])
 
 gboolean xa_run_command (XArchive *archive,GSList *commands)
 {
-	int status;
-	int ps;
+	int ps,argcp;
 	gboolean waiting = TRUE;
 	gboolean result = FALSE;
 	GSList *_commands = commands;
 
-	archive->parse_output = 0;
-	if(xa_main_window)
-		gtk_widget_show (viewport2);
-	while (_commands)
+	GError *error = NULL;
+    gchar *std_out,*std_err;
+    gchar **argv;
+
+	if (batch_mode)
 	{
-		g_print ("%s\n",(gchar*)_commands->data);
-		xa_spawn_async_process (archive,_commands->data);
-		if (archive->child_pid == 0)
-			break;
-
-		gtk_widget_set_sensitive (Stop_button,TRUE);
-		while (waiting)
+		g_shell_parse_argv(commands->data,&argcp,&argv,NULL);
+		if ( ! g_spawn_sync(
+			NULL,
+			argv,
+			NULL,
+			G_SPAWN_SEARCH_PATH,
+			NULL,
+			NULL,
+			&std_out,
+			&std_err,
+			&status,
+			&error))
 		{
-			ps = waitpid (archive->child_pid, &status, WNOHANG);
-			if (ps < 0)
-				break;
-			else if(xa_main_window)
-				gtk_main_iteration_do (FALSE);
-
-			usleep(1000); //give the processor time to rest (0.1 sec)
+			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
+			g_error_free (error);
+			g_strfreev (argv);
+			return result;
 		}
-		result = xa_check_child_for_error_on_exit(archive,status);
-		if (result == FALSE)
-			break;
-		_commands = _commands->next;
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status))
+				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err);
+			else
+				result = TRUE;
+		}
+		g_strfreev (argv);
 	}
-	g_slist_foreach (commands,(GFunc) g_free,NULL);
-	g_slist_free(commands);
-	xa_archive_operation_finished(archive,result);
+	else
+	{
+		archive->parse_output = 0;
+		gtk_widget_show (viewport2);
+		while (_commands)
+		{
+			g_print ("%s\n",(gchar*)_commands->data);
+			xa_spawn_async_process (archive,_commands->data);
+			if (archive->child_pid == 0)
+				break;
+
+			gtk_widget_set_sensitive (Stop_button,TRUE);
+			while (waiting)
+			{
+				ps = waitpid (archive->child_pid, &status, WNOHANG);
+				if (ps < 0)
+					break;
+				else if(xa_main_window)
+					gtk_main_iteration_do (FALSE);
+
+				usleep(1000); //give the processor time to rest (0.1 sec)
+			}
+			result = xa_check_child_for_error_on_exit(archive,status);
+			if (result == FALSE)
+				break;
+			_commands = _commands->next;
+		}
+		g_slist_foreach (commands,(GFunc) g_free,NULL);
+		g_slist_free(commands);
+		xa_archive_operation_finished(archive,result);
+	}
 	return result;
 }
 

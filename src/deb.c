@@ -22,6 +22,7 @@
 #include "string_utils.h"
 
 extern void xa_create_liststore (XArchive *archive,gchar *columns_names[]);
+extern gchar *tar;
 
 void xa_open_deb (XArchive *archive)
 {
@@ -82,4 +83,27 @@ void xa_open_deb (XArchive *archive)
 	for (i = 0; i < 9; i++)
 		archive->column_types[i] = types[i];
 	xa_create_liststore (archive,names);
+}
+
+//TODO to remove when you have dbus integration
+void xa_deb_extract(XArchive *archive,GString *files)
+{
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	if (archive->full_path)
+	{
+		command = g_strconcat (tar, " -xvzf " , archive->tmp,"/data.tar.gz ",
+												archive->overwrite ? " --overwrite" : " --keep-old-files",
+												archive->tar_touch ? " --touch" : "",
+												" -C " , archive->extraction_path , files->str, NULL );
+	}
+	
+
+	if (command != NULL)
+	{
+		g_string_free(files,TRUE);
+		list = g_slist_append(list,command);
+		xa_run_command (archive,list);
+	}
 }

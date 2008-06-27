@@ -220,7 +220,7 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_zip_extract(XArchive *archive,GString *files,gchar *extraction_path)
+void xa_zip_extract(XArchive *archive,GString *files)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;

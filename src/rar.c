@@ -254,7 +254,7 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_rar_extract(XArchive *archive,GString *files,gchar *extraction_path)
+void xa_rar_extract(XArchive *archive,GString *files)
 {
 	gchar *rar = NULL;
 	gchar *command = NULL;

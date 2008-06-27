@@ -201,7 +201,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 	}
 }
 
-void xa_tar_extract(XArchive *archive,GString *files,gchar *extraction_path)
+void xa_tar_extract(XArchive *archive,GString *files)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
@@ -209,31 +209,31 @@ void xa_tar_extract(XArchive *archive,GString *files,gchar *extraction_path)
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_TAR:
-		if (archive->full_path == 1)
+		if (archive->full_path)
 		{
 			command = g_strconcat (tar, " -xvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
-								" -C ",extraction_path,files->str,NULL);
+								" -C ",archive->extraction_path,files->str,NULL);
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xvf ",archive,extraction_path,FALSE );
+			xa_extract_tar_without_directories ( "tar -xvf ",archive,archive->extraction_path,FALSE );
 			command = NULL;
 		}
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		if (archive->full_path == 1)
+		if (archive->full_path)
 		{
 			command = g_strconcat (tar, " -xjvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
-								" -C ",extraction_path,files->str,NULL);
+								" -C ",archive->extraction_path,files->str,NULL);
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xjvf ",archive,extraction_path,FALSE);
+			xa_extract_tar_without_directories ( "tar -xjvf ",archive,archive->extraction_path,FALSE);
 			command = NULL;
 		}
 		break;
@@ -244,11 +244,11 @@ void xa_tar_extract(XArchive *archive,GString *files,gchar *extraction_path)
 			command = g_strconcat (tar, " -xzvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
-								" -C ",extraction_path,files->str,NULL);
+								" -C ",archive->extraction_path,files->str,NULL);
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xzvf ",archive,extraction_path,FALSE);
+			xa_extract_tar_without_directories ( "tar -xzvf ",archive,archive->extraction_path,FALSE);
 			command = NULL;
 		}
 		break;
@@ -259,11 +259,11 @@ void xa_tar_extract(XArchive *archive,GString *files,gchar *extraction_path)
 			command = g_strconcat (tar, " --use-compress-program=lzma -xvf " , archive->escaped_path,
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 								archive->tar_touch ? " --touch" : "",
-								" -C ",extraction_path,files->str,NULL);
+								" -C ",archive->extraction_path,files->str,NULL);
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,extraction_path,FALSE);
+			xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,archive->extraction_path,FALSE);
 			command = NULL;
 		}
 		break;
@@ -343,7 +343,6 @@ gboolean is_tar_compressed (gint type)
 
 void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *extract_path,gboolean cpio_flag)
 {
-	g_print ("%s\n",extract_path);
 	XEntry *entry;
 	gchar *command = NULL;
 	gchar tmp_dir[14] = "";

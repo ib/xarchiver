@@ -119,20 +119,23 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	alignment2 = gtk_alignment_new (0.5, 0.5, 1, 1);
 	gtk_container_add (GTK_CONTAINER (frame2),alignment2);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment2),0,0,12,0);
-	
+
 	vbox5 = gtk_vbox_new (FALSE,0);
 	gtk_container_add (GTK_CONTAINER (alignment2),vbox5);
-	
+
 	dialog_data->overwrite_check = gtk_check_button_new_with_mnemonic (_("Overwrite existing files"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->overwrite_check),archive->overwrite);
 	gtk_box_pack_start (GTK_BOX (vbox5), dialog_data->overwrite_check,FALSE,FALSE,0);
 
 	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
-	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 )
+	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM)
 		flag = FALSE;
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full),flag);
 	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
+	if (archive->type == XARCHIVETYPE_RPM)
+		flag = ! flag;
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full),flag);
 	gtk_tooltips_set_tip(option_tooltip,dialog_data->extract_full , _("The archive's directory structure is recreated in the extraction directory."), NULL );
 	gtk_box_pack_start (GTK_BOX (vbox5), dialog_data->extract_full, FALSE, FALSE, 0);
 
@@ -372,9 +375,8 @@ void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh),FALSE);
 }
 
-gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
+void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
 {
-	gchar *command = NULL;
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
 	GString *names;
@@ -462,11 +464,10 @@ gchar *xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *d
 			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->selected_radio)))
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,names);
 
-			(*archive->extract) (archive,names,archive->extraction_path);
+			(*archive->extract) (archive,names);
 		}
 	}
 	g_free (destination_path);
-	return command;
 }
 
 void xa_browse_dir(GtkTreeStore *model,gchar *path, GtkTreeIter *parent)

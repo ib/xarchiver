@@ -25,22 +25,22 @@
 #include "socket.h"
 #endif
 
-gchar *cli_command = NULL;
 gchar *absolute_path = NULL;
 gchar *archive_name = NULL;
 gchar *_current_dir = NULL;
 gchar *extract_path = NULL;
 GError *cli_error = NULL;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
-gboolean cli = FALSE;
+gboolean batch_mode = FALSE;
 gboolean unrar = FALSE;
 gboolean sevenzr = FALSE, sevenza = FALSE;
 extern gchar *current_open_directory;
+extern int status;
 Prefs_dialog_data *prefs_window = NULL;
 
 typedef void (*_delete)	(XArchive *,GString *);
 typedef void (*_add)	(XArchive *,GString *,gchar *);
-typedef void (*_extract)(XArchive *,GString *,gchar *extraction_path);
+typedef void (*_extract)(XArchive *,GString *);
 typedef void (*_test)	(XArchive *);
 
 _delete 	delete[15]	= {NULL};
@@ -101,7 +101,7 @@ int main (int argc, char **argv)
 		return 0;
 	}
 	if (ask_and_extract || ask_and_add || archive_name != NULL || extract_path != NULL)
-		cli = TRUE;
+		batch_mode = TRUE;
 
 	xa_mime_type_init();	/* initialize mime-type cache */
 
@@ -109,10 +109,10 @@ int main (int argc, char **argv)
 	prefs_window = xa_create_prefs_dialog();
 	xa_prefs_load_options(prefs_window);
 
-	if (cli == TRUE)
+	if (batch_mode == TRUE)
 	{
 		xa_main_window = NULL;
-		gtk_main_iteration_do (FALSE);
+		//gtk_main_iteration_do (FALSE);
 		if (archive_name == NULL)
 			archive = xa_init_structure_from_cmd_line (argv[1]);
 		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2008 Giuseppe Torelli\n");
@@ -123,49 +123,36 @@ int main (int argc, char **argv)
 			if (argv[1] == NULL)
 			{
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
-				return 0;
+				return -1;
+			}
+			if (archive->has_passwd)
+			{
+				archive->passwd = password_dialog (archive);
+				if (archive->passwd == NULL)
+					goto done;
 			}
 			for (x = 1; x < argc; x++)
 			{
-				if (archive != NULL)
-				{
-					if (archive->has_passwd)
-					{
-						archive->passwd = password_dialog (archive);
-						if (archive->passwd == NULL)
-							goto done;
-					}
-					GString *string = g_string_new ("");
-					archive->full_path = 1;
-					archive->overwrite = 1;
-					gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
-					archive->extraction_path = g_strdup (extract_path);
-					(*archive->extract) (archive,string,escaped_path);
-					g_free (escaped_path);
-					if (cli_command != NULL)
-						error_output = xa_spawn_sync_process (cli_command);
-					g_string_free (string,TRUE);
-				}
+				GString *string = g_string_new ("");
+				archive->full_path = 1;
+				archive->overwrite = 1;
+				gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
+				archive->extraction_path = escaped_path;
+				(*archive->extract) (archive,string);
 			}
 		}
-
 		/* Switch -e */
 		else if (ask_and_extract)
 		{
 			if (argv[1] == NULL)
 			{
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
-				return 0;
+				return -1;
 			}
-			if (archive != NULL)
-			{
-				extract_window = xa_create_extract_dialog (0,archive);
-				cli_command = xa_parse_extract_dialog_options (archive,extract_window,NULL);
-				gtk_widget_destroy (extract_window->dialog1);
-				if (cli_command != NULL)
-					error_output = xa_spawn_sync_process (cli_command);
-				g_free (extract_window);
-			}
+			extract_window = xa_create_extract_dialog (0,archive);
+			xa_parse_extract_dialog_options (archive,extract_window,NULL);
+			gtk_widget_destroy (extract_window->dialog1);
+			g_free (extract_window);
 		}
 		/* Switch -d */
 		else if (archive_name != NULL)
@@ -176,7 +163,7 @@ int main (int argc, char **argv)
 				no_bzip2_gzip = FALSE;
 			archive = xa_new_archive_dialog (archive_name,NULL,no_bzip2_gzip);
 			if (archive == NULL)
-				return 0;
+				return -1;
 
 			if (archive->path != NULL)
 			{
@@ -184,33 +171,24 @@ int main (int argc, char **argv)
 				chdir (_current_dir);
 				g_free (_current_dir);
 				GString *string = g_string_new ("");
-
 				if (g_file_test (archive_name,G_FILE_TEST_EXISTS))
 				{
 					_current_dir = g_path_get_basename(archive_name);
 					xa_shell_quote_filename(_current_dir,string,archive);
 					g_free (_current_dir);
 				}
-
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
 					xa_shell_quote_filename(_current_dir,string,archive);
 					g_free (_current_dir);
 				}
-
 				if (archive->type == XARCHIVETYPE_7ZIP)
 					archive->add_recurse = FALSE;
 				else
 					archive->add_recurse = TRUE;
 				xa_execute_add_commands(archive,string,NULL);
-				//TODO
-				if (cli_command != NULL)
-					error_output = xa_spawn_sync_process(cli_command);
-				g_string_free (string,TRUE);
 			}
-			if (cli_command != NULL)
-				g_free (cli_command);
 		}
 		/* Switch -a */
 		else if (ask_and_add)
@@ -218,15 +196,13 @@ int main (int argc, char **argv)
 			if (argv[1] == NULL)
 			{
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
-				return 0;
+				return -1;
 			}
 			if (archive != NULL)
 			{
 				add_window = xa_create_add_dialog (archive);
-				cli_command = xa_parse_add_dialog_options (archive, add_window);
+				xa_parse_add_dialog_options (archive,add_window);
 				gtk_widget_destroy (add_window->dialog1);
-				if (cli_command != NULL)
-					error_output = xa_spawn_sync_process (cli_command);
 				g_free (add_window);
 			}
 		}
@@ -234,7 +210,7 @@ done:	g_list_free (ArchiveSuffix);
 		g_list_free (ArchiveType);
 		if (archive != NULL)
 			xa_clean_archive_structure (archive);
-		return 0;
+		return status;
 	}
 	else
 	{
@@ -274,8 +250,8 @@ done:	g_list_free (ArchiveSuffix);
 		}
 		#endif
 		gtk_main ();
-		g_list_free ( ArchiveSuffix);
-		g_list_free ( ArchiveType);
+		g_list_free (ArchiveSuffix);
+		g_list_free (ArchiveType);
 		return 0;
 	}
 }
@@ -326,12 +302,12 @@ void xa_set_available_archivers()
 	extract[0]  = 0;
 	extract[1]  = &xa_7zip_extract;
 	extract[2]  = &xa_arj_extract;
-	extract[3]  = 0;
+	extract[3]  = &xa_deb_extract;;
 	extract[4]  = 0;
 	extract[5]  = 0;
 	extract[6]  = 0;
 	extract[7]  = &xa_rar_extract;
-	extract[8]  = 0;
+	extract[8]  = &xa_rpm_extract;
 	extract[9]  = extract[10] = extract[11] = extract[12] = &xa_tar_extract;
 	extract[13] = &xa_zip_extract;
 	extract[14] = &xa_lha_extract;
@@ -499,7 +475,6 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive->type = type;
 	archive->add = 		(void *)add[type];
 	archive->extract = 	(void *)extract[type];
-	
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )

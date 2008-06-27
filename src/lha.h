@@ -29,7 +29,7 @@
 
 void xa_lha_delete (XArchive *,GString *);
 void xa_lha_add (XArchive *,GString *,gchar *);
-void xa_lha_extract(XArchive *,GString *,gchar *extraction_path);
+void xa_lha_extract(XArchive *,GString *);
 void xa_lha_test (XArchive *);
 void xa_get_lha_line_content (gchar *line, gpointer data);
 void xa_open_lha (XArchive *archive);

@@ -29,7 +29,7 @@
 void xa_open_tar ( XArchive *archive );
 void xa_tar_delete (XArchive *,GString *);
 void xa_tar_add (XArchive *,GString *,gchar *compression_string);
-void xa_tar_extract(XArchive *,GString *,gchar *extraction_path);
+void xa_tar_extract(XArchive *,GString *);
 void xa_get_tar_line_content (gchar *line, gpointer data);
 gboolean isTar ( FILE *ptr );
 gboolean is_tar_compressed (gint type);

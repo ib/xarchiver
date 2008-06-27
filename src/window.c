@@ -42,7 +42,7 @@ GList *Suffix, *Name;
 
 gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 {
-	if (GTK_WIDGET_REALIZED(viewport2))
+	if (xa_main_window)
 	{
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_widget_hide(viewport2);
@@ -547,7 +547,6 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
 {
-	gchar *command = NULL;
 	gint current_page;
 	gint idx;
 
@@ -555,7 +554,7 @@ void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
 	idx = xa_find_archive_index (current_page);
 
 	add_window = xa_create_add_dialog (archive[idx]);
-	command = xa_parse_add_dialog_options (archive[idx],add_window);
+	xa_parse_add_dialog_options (archive[idx],add_window);
 	gtk_widget_destroy (add_window->dialog1);
 	add_window->dialog1 = NULL;
 	g_free (add_window);
@@ -564,7 +563,6 @@ void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
 
 void xa_extract_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gchar *command = NULL;
 	gint current_page;
 	gint idx;
 
@@ -578,7 +576,7 @@ void xa_extract_archive (GtkMenuItem *menuitem,gpointer user_data)
 	if (archive[idx]->extraction_path != NULL)
 		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),archive[idx]->extraction_path);
 
-    command = xa_parse_extract_dialog_options(archive[idx],extract_window,selection);
+    xa_parse_extract_dialog_options(archive[idx],extract_window,selection);
 	gtk_widget_destroy (extract_window->dialog1);
 	extract_window->dialog1 = NULL;
 	g_free (extract_window);
@@ -1327,8 +1325,10 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem,gpointer user_data)
 
 	archive[idx]->full_path = 0;
 	archive[idx]->overwrite = 1;
-	
-	(*archive[idx]->extract) (archive[idx],names,archive[idx]->tmp);
+
+	//TODO: check for memleak here in extraction_path
+	archive[idx]->extraction_path = archive[idx]->tmp;
+	(*archive[idx]->extract) (archive[idx],names);
 	g_string_free (names,TRUE);
 
 	archive[idx]->full_path = full_path;
@@ -1679,7 +1679,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		overwrite = archive->overwrite;
 		archive->full_path = 0;
 		archive->overwrite = 1;
-		(*archive->extract) (archive,names,archive->extraction_path);
+		(*archive->extract) (archive,names);
 
 		archive->full_path = full_path;
 		archive->overwrite = overwrite;
