@@ -340,7 +340,7 @@ void xa_rpm_extract(XArchive *archive,GString *files)
 	GSList *list = NULL;
 
 	chdir (archive->extraction_path);
-	command = g_strconcat ( "cpio -id " , files->str," -F ",archive->tmp,"/file.cpio",NULL);
+	command = g_strconcat ( "cpio -id" , files->str,"-F ",archive->tmp,"/file.cpio",NULL);
 
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);

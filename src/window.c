@@ -73,6 +73,9 @@ void xa_archive_operation_finished(XArchive *archive,gboolean error)
 {
 	if(xa_main_window)
 	{
+		gtk_widget_set_sensitive(Stop_button,FALSE);
+		gtk_widget_hide(viewport2);
+
 		if (archive->has_comment)
 			gtk_widget_set_sensitive (comment_menu,TRUE);
 		else
@@ -89,7 +92,6 @@ void xa_archive_operation_finished(XArchive *archive,gboolean error)
 			
 		gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
 	}
-
 	if (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE)
 		xa_reload_archive_content(archive);
 
@@ -165,14 +167,13 @@ void xa_reload_archive_content(XArchive *archive)
 			default:
 			break;
 		}
-		archive->status = XA_ARCHIVESTATUS_IDLE;
 	}
 }
 
 void xa_watch_child (GPid pid,gint status,gpointer data)
 {
-	gboolean result;
 	XArchive *archive = data;
+	gboolean result;
 
 	if (WIFSIGNALED (status) )
 	{
@@ -503,7 +504,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	GString *names;
 	gint current_page,id;
 
-	names = g_string_new ( " " );
+	names = g_string_new (" ");
 	current_page = gtk_notebook_get_current_page (notebook);
 	id = xa_find_archive_index (current_page);
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
@@ -542,6 +543,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 
 	Update_StatusBar ( _("Deleting files from the archive, please wait..."));
+	archive[id]->status = XA_ARCHIVESTATUS_DELETE;
 	(*archive[id]->delete) (archive[id],names);
 }
 
@@ -1254,7 +1256,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	if (archive[idx]->status != XA_ARCHIVESTATUS_ADD)
 		if (archive[idx]->has_passwd)
 			archive[idx]->has_passwd = FALSE;
-	xa_close_archive(NULL,NULL);
+	xa_archive_operation_finished(archive[idx],0);
 }
 
 void xa_view_file_inside_archive (GtkMenuItem *menuitem,gpointer user_data)

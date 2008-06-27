@@ -48,7 +48,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_box_pack_start (GTK_BOX (hbox1), scrolledwindow1, TRUE, TRUE, 6);
 	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy", GTK_POLICY_NEVER,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_NEVER, NULL);
-	
+
 	prefs_data->prefs_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT);
 	gtk_list_store_append (prefs_data->prefs_liststore,&iter);
 	gchar *pixbuf_file = g_strconcat(DATADIR,"/pixmaps/xarchiver-behaviour.svg",NULL);

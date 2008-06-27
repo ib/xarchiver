@@ -174,27 +174,63 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 	GSList *list = NULL;
 	gchar *command = NULL;
 
-	if (is_tar_compressed(archive->type))
-		xa_add_delete_bzip2_gzip_lzma_compressed_tar(files,archive,1);
-	else
+	switch (archive->type)
 	{
-		if ( g_file_test (archive->escaped_path,G_FILE_TEST_EXISTS))
-		{
+		case XARCHIVETYPE_TAR:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 			command = g_strconcat (tar, " ",
-								archive->add_recurse ? "" : "--no-recursion ",
-								archive->remove_files ? "--remove-files " : "",
-								archive->update ? "-uvvf " : "-rvvf ",
-								archive->escaped_path,
-								files->str,NULL);
-		}
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									archive->update ? "-uvvf " : "-rvvf ",
+									archive->escaped_path,
+									files->str , NULL );
 		else
-		{
 			command = g_strconcat (tar, " ",
-								archive->add_recurse ? "" : "--no-recursion ",
-								archive->remove_files ? "--remove-files " : "",
-								"-cvvf ",archive->escaped_path,
-								files->str,NULL);
-		}
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"-cvvf ",archive->escaped_path,
+									files->str , NULL );
+		break;
+
+		case XARCHIVETYPE_TAR_BZ2:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
+		else
+			command = g_strconcat (tar, " ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"-cvvjf ",archive->escaped_path,
+									files->str , NULL );
+		break;
+
+		case XARCHIVETYPE_TAR_GZ:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
+		else
+			command = g_strconcat (tar, " ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"-cvvzf ",archive->escaped_path,
+									files->str , NULL );
+		break;
+		
+		case XARCHIVETYPE_TAR_LZMA:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
+		else
+			command = g_strconcat (tar, " ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"--use-compress-program=lzma -cvvf ",archive->escaped_path,
+									files->str , NULL );
+		break;
+
+		default:
+		command = NULL;
+	}
+
+	if (command != NULL)
+	{
 		g_string_free(files,TRUE);
 		list = g_slist_append(list,command);
 		xa_run_command (archive,list);

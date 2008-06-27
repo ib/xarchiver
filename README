@@ -1,22 +1,23 @@
 What is it?
 ===========
-
 Xarchiver is a Desktop Environment independent archiver frontend. All common archive types are supported.
 RPM and DEB packages are handled without their package managers. To run it you only need GTK+2 libraries and
 obviously the various rar, arj and 7z for these archive types. All the others archivers are installed by
 default in most distro.
 
+How to use it:
+=============
+Please read the documentation accessible from the Help menu.
+
 How to compile:
 ===============
-
 ./configure --prefix=/usr
 make
 
 become root with command su
 make install
 
-
 Please report bugs to: http://bugzilla.xfce.org , registration is needed.
 Suggestions and criticism please email me at <colossus73@gmail.com>
 
-Giuseppe Torelli - colossus
+Giuseppe Torelli

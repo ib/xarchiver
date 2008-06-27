@@ -1,3 +1,7 @@
+- to fix missed password detection when working with cmd-line switches.
+- add ability to add files in specific archive directories.
+- enrich the status bar
+- to fix the arrow buttons
 - add a small progress window when using Xarchiver cmd-line switches.
 - loading and saving of add/extraction options.
 - support tar on *BSD.
