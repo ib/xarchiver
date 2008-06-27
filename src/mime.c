@@ -91,15 +91,17 @@ static XAMimeType* lookup_mime_type( const char* name )
 	return type;
 }
 
-const char *xa_get_stock_mime_icon(char *filename)
+const char *xa_get_stock_mime_icon(char *filename, const char *mime)
 {
-	const char *mime;
-	const char *icon_name = "binary";
+	const char *icon_name = NULL;
 
 	//g_print ("%s\t%s\n",filename,mime);
 	if (strstr(filename,".ogg") || strstr(filename,".flac") )
 		icon_name = "sound";
-	else if (strncmp(mime,"image/",6) == 0)
+	else if( NULL == mime )
+		return NULL;
+
+	if (strncmp(mime,"image/",6) == 0)
 		icon_name = "image";
 	else if (strcmp(mime,"text/html") == 0)
 		icon_name = "html";
@@ -131,7 +133,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 		icon_name = "gnome-mime-application-x-perl";
 	else if (strcmp(mime,"application/x-font-ttf") == 0)
 		icon_name = "gnome-mime-application-x-font-ttf";
-	return icon_name;		
+	return icon_name;
 }
 
 GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename)
@@ -165,6 +167,7 @@ GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename)
 #else
 		mime_type = xdg_mime_get_mime_type_from_file_name(filename);
 #endif
+
 		if( mime_type )
 		{
 			mime = lookup_mime_type( mime_type );
@@ -197,8 +200,9 @@ GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename)
 
 		if( G_UNLIKELY( !icon ) )
 		{
-			const char* fallback = xa_get_stock_mime_icon(filename);
-			icon = gtk_icon_theme_load_icon ( icon_theme, fallback, 20, 0, NULL );			
+			const char* fallback = xa_get_stock_mime_icon(filename, mime_type);
+			if( fallback )
+				icon = gtk_icon_theme_load_icon ( icon_theme, fallback, 20, 0, NULL );			
 		}
 		if( G_UNLIKELY( !icon ) )
 		{
