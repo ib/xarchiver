@@ -125,8 +125,9 @@ int main (int argc, char **argv)
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
-			if (archive->has_passwd)
+			if (xa_detect_encrypted_archive (archive))
 			{
+				archive->has_passwd = TRUE;
 				archive->passwd = password_dialog (archive);
 				if (archive->passwd == NULL)
 					goto done;
@@ -142,13 +143,16 @@ int main (int argc, char **argv)
 			}
 		}
 		/* Switch -e */
-		else if (ask_and_extract)
+		else if (ask_and_extract && archive != NULL)
 		{
 			if (argv[1] == NULL)
 			{
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
+			if (xa_detect_encrypted_archive (archive))
+				archive->has_passwd = TRUE;
+
 			extract_window = xa_create_extract_dialog (0,archive);
 			xa_parse_extract_dialog_options (archive,extract_window,NULL);
 			gtk_widget_destroy (extract_window->dialog1);

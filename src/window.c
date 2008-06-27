@@ -1246,11 +1246,8 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	stop_flag = TRUE;
 	if (archive[idx]->child_pid)
 	{
-		if (kill (archive[idx]->child_pid,SIGABRT) < 0)
-		{
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred while trying to kill the process:"),g_strerror(errno));
-			return;
-		}
+		kill (archive[idx]->child_pid,SIGABRT);
+		archive[idx]->child_pid = 0;
 	}
 	/* This in case the user cancels the opening of a password protected archive */
 	if (archive[idx]->status != XA_ARCHIVESTATUS_ADD)

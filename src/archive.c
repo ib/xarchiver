@@ -699,3 +699,87 @@ void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_p
 	return;
 }
 
+gboolean xa_detect_encrypted_archive (XArchive *archive)
+{
+	FILE *file;
+    unsigned int fseek_offset;
+    unsigned short int password_flag;
+    unsigned int compressed_size;
+    unsigned int uncompressed_size;
+    unsigned short int file_length;
+    unsigned short int extra_length;
+
+	unsigned char sig[2];
+	unsigned short int basic_header_size;
+	unsigned short int extended_header_size;
+	unsigned int basic_header_CRC;
+	unsigned int extended_header_CRC;
+	unsigned char arj_flag;
+	unsigned char magic[3];
+	gboolean flag = FALSE;
+
+	file = fopen (archive->path,"r");
+	fread (magic,1,4,file);
+	
+	fseek (file,6,SEEK_SET);
+	if (archive->type == XARCHIVETYPE_ZIP)
+	{
+		while (memcmp (magic,"\x50\x4b\x03\x04",4) == 0  || memcmp (magic,"\x50\x4b\x05\x06",4) == 0)
+		{
+			fread (&password_flag,1,2,file);
+			if ((password_flag & ( 1<<0) ) > 0)
+			{
+				flag = TRUE;
+				break;
+			}
+			fseek (file,10,SEEK_CUR);
+			fread (&compressed_size,1,4,file);
+			fread (&uncompressed_size,1,4,file);
+			fread (&file_length,1,2,file);
+			/* If the zip archive is empty (no files) it should return here */
+			if (fread (&extra_length,1,2,file) < 2)
+			{
+				flag = FALSE;
+				break;
+			}
+			fseek_offset = compressed_size + file_length + extra_length;
+			fseek (file,fseek_offset,SEEK_CUR);
+			fread (magic,1,4,file);
+			fseek (file,2,SEEK_CUR);
+		}
+	}
+	else if (archive->type == XARCHIVETYPE_ARJ)
+	{
+		fseek (file,magic[2]+magic[3],SEEK_CUR);
+		fseek (file,2,SEEK_CUR);
+		fread (&extended_header_size,1,2,file);
+		if (extended_header_size != 0)
+			fread (&extended_header_CRC,1,4,file);
+		fread (&sig,1,2,file);
+		while ( memcmp (sig,"\x60\xea",2) == 0)
+		{
+			fread ( &basic_header_size,1,2,file);
+			if ( basic_header_size == 0 )
+				break;
+			fseek ( file , 4 , SEEK_CUR);
+			fread (&arj_flag,1,1,file);
+			if ((arj_flag & ( 1<<0) ) > 0)
+			{
+				flag = TRUE;
+				break;
+			}
+			fseek (file,7,SEEK_CUR);
+			fread (&compressed_size,1,4,file);
+			fseek (file,basic_header_size - 16,SEEK_CUR);
+			fread (&basic_header_CRC,1,4,file);
+			fread (&extended_header_size,1,2,file);
+			if (extended_header_size != 0)
+				fread (&extended_header_CRC,1,4,file);
+			fseek (file,compressed_size,SEEK_CUR);
+			fread (&sig,1,2,file);
+		}
+	}
+	fclose (file);
+	return flag;
+}
+

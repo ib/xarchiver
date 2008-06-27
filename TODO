@@ -1,4 +1,3 @@
-- to fix missed password detection when working with cmd-line switches.
 - add ability to add files in specific archive directories.
 - enrich the status bar
 - to fix the arrow buttons

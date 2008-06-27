@@ -141,5 +141,6 @@ XEntry* xa_find_entry_from_path(XEntry *root_entry,const gchar *fullpathname);
 gchar *xa_build_full_path_name_from_entry(XEntry *entry);
 void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path);
 void xa_entries_to_filelist(XEntry *, GString **, gchar *);
+gboolean xa_detect_encrypted_archive (XArchive *archive);
 XArchive *archive[100];
 #endif
