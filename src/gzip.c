@@ -20,15 +20,20 @@
 #include "gzip.h"
 #include "bzip2.h"
 
-extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
+extern gboolean batch_mode;
+
 extern int delete	[15];
 extern int add		[15];
 extern int extract	[15];
 
-void xa_open_gzip (XArchive *archive)
+/* GString here is used only to respect the prototype of the
+ * extract function so to make life easier to the coder :)*/
+
+void xa_open_gzip (XArchive *archive,GString *dummy)
 {
 	gchar *command;
 	unsigned short int i;
+	dummy = g_string_new("");
 
 	if (g_str_has_suffix (archive->escaped_path,".tar.gz") || g_str_has_suffix (archive->escaped_path,".tgz"))
 	{
@@ -37,6 +42,12 @@ void xa_open_gzip (XArchive *archive)
 		archive->add = 		(void *)add[archive->type];
 		archive->extract = 	(void *)extract[archive->type];
 
+		if (batch_mode)
+		{
+			
+			(*archive->extract) (archive,dummy);
+			return;
+		}
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
 		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
 		archive->has_test = archive->has_sfx = FALSE;
@@ -47,7 +58,6 @@ void xa_open_gzip (XArchive *archive)
 		archive->nc = 7;
 		archive->parse_output = xa_get_tar_line_content;
 		xa_spawn_async_process (archive,command);
-
 		g_free (command);
 
 		if (archive->child_pid == 0)

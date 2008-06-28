@@ -715,7 +715,7 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 	unsigned int basic_header_CRC;
 	unsigned int extended_header_CRC;
 	unsigned char arj_flag;
-	unsigned char magic[3];
+	unsigned char magic[4];
 	gboolean flag = FALSE;
 
 	file = fopen (archive->path,"r");

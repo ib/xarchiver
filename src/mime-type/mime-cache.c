@@ -74,7 +74,7 @@ static void mime_cache_unload( MimeCache* cache, gboolean clear )
 #ifdef HAVE_MMAP
         munmap( (char*)cache->buffer, cache->size );
 #else
-        g_free( cache->buffer );
+        g_free( (char*)cache->buffer );
 #endif
     }
     g_free( cache->file_path );

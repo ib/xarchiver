@@ -137,15 +137,15 @@ void xa_reload_archive_content(XArchive *archive)
 			break;
 
 			case XARCHIVETYPE_TAR_BZ2:
-			xa_open_bzip2_lzma (archive,XARCHIVETYPE_TAR_BZ2);
+			xa_open_bzip2_lzma (archive,NULL);
 			break;
 
 			case XARCHIVETYPE_TAR_GZ:
-			xa_open_gzip (archive);
+			xa_open_gzip (archive,NULL);
 			break;
 
 			case XARCHIVETYPE_TAR_LZMA:
-			xa_open_bzip2_lzma (archive,XARCHIVETYPE_TAR_LZMA);
+			xa_open_bzip2_lzma (archive,NULL);
 			break;
 
 			case XARCHIVETYPE_ZIP:
@@ -364,15 +364,15 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		break;
 
 		case XARCHIVETYPE_BZIP2:
-		xa_open_bzip2_lzma (archive[current_page],XARCHIVETYPE_BZIP2);
+		xa_open_bzip2_lzma (archive[current_page],NULL);
 		break;
 
 		case XARCHIVETYPE_GZIP:
-		xa_open_gzip ( archive[current_page] );
+		xa_open_gzip ( archive[current_page],NULL);
 		break;
 
 		case XARCHIVETYPE_LZMA:
-		xa_open_bzip2_lzma ( archive[current_page],XARCHIVETYPE_LZMA);
+		xa_open_bzip2_lzma ( archive[current_page],NULL);
 		break;
 
 		case XARCHIVETYPE_RAR:
@@ -936,7 +936,7 @@ gchar *xa_open_file_dialog ()
 		Suffix = g_list_first ( ArchiveSuffix );
 		while ( Suffix != NULL )
 		{
-			if ( Suffix->data != "" )	/* To avoid double filtering when opening the archive */
+			if ( strcmp(Suffix->data, "") != 0 )	/* To avoid double filtering when opening the archive */
 			{
 				filter = gtk_file_filter_new ();
 				gtk_file_filter_set_name (filter, Suffix->data );

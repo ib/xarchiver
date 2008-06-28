@@ -21,12 +21,13 @@
 #include "extract_dialog.h"
 #include "string_utils.h"
 
+extern gboolean batch_mode;
 extern int delete	[15];
 extern int add		[15];
 extern int extract	[15];
 short int l;
 
-void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
+void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 {
 	XEntry *entry = NULL;
 	gchar tmp_dir[14] = "";
@@ -34,6 +35,7 @@ void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
 	gchar *_filename;
 	gpointer item[2];
 	gboolean result;
+	dummy = g_string_new("");
 
 	if (g_str_has_suffix(archive->escaped_path,".tar.bz2") || g_str_has_suffix (archive->escaped_path,".tar.bz")
     	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
@@ -43,12 +45,22 @@ void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
 		archive->delete =	(void *)delete[archive->type];
 		archive->add = 		(void *)add[archive->type];
 		archive->extract = 	(void *)extract[archive->type];
+		if (batch_mode)
+		{
+			(*archive->extract) (archive,dummy);
+			return;
+		}
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
 		archive->format = "TAR.LZMA";
+		if (batch_mode)
+		{
+			(*archive->extract) (archive,dummy);
+			return;
+		}
 		xa_open_tar_compressed_file(archive);
 	}
 	else
@@ -61,7 +73,7 @@ void xa_open_bzip2_lzma (XArchive *archive,XArchiveType type)
 		unsigned short int i;
 		GSList *list = NULL;
 
-		if (type == XARCHIVETYPE_BZIP2)
+		if (archive->type == XARCHIVETYPE_BZIP2)
 		{
 			archive->format = "BZIP2";
 			executable = "bzip2 ";

@@ -19,7 +19,10 @@
 #ifndef __XARCHIVER_WINDOW_H
 #define __XARCHIVER_WINDOW_H
 
-#define _GNU_SOURCE
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE 1
+#endif
+
 #include <string.h>
 
 #include <gtk/gtk.h>

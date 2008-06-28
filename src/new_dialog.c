@@ -79,7 +79,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 	while ( Suffix != NULL )
 	{
-		if ( Suffix->data != "" )	/* To avoid double filtering when opening the archive */
+		if ( strcmp(Suffix->data, "") != 0 )	/* To avoid double filtering when opening the archive */
 		{
 			xa_new_archive_dialog_filter = gtk_file_filter_new ();
 			gtk_file_filter_set_name (xa_new_archive_dialog_filter, Suffix->data );

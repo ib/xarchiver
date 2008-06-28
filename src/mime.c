@@ -22,6 +22,7 @@
 
 #include "glib-mem.h"	/* provide compatibility macros for g_slice */
 #include "mime.h"
+#include "mime-type/mime-type.h"
 
 typedef struct _XAMimeType
 {
@@ -35,7 +36,7 @@ static GHashTable *mime_cache = NULL;
 static GdkPixbuf *folder_icon = NULL;
 static GdkPixbuf *lock_icon = NULL;
 	
-static xa_mime_type_free( XAMimeType* type )
+static void xa_mime_type_free( XAMimeType* type )
 {
 	g_free( type->name );
 	g_free( type->icon_name );
@@ -74,7 +75,7 @@ void xa_mime_type_init()
 #endif
 
     mime_cache = g_hash_table_new_full( g_str_hash, g_str_equal,
-                                       NULL, xa_mime_type_free );
+                                       NULL, (GDestroyNotify)xa_mime_type_free );
 
 }
 
@@ -91,7 +92,7 @@ static XAMimeType* lookup_mime_type( const char* name )
 	return type;
 }
 
-const char *xa_get_stock_mime_icon(char *filename, const char *mime)
+const char *xa_get_stock_mime_icon(const char *filename, const char *mime)
 {
 	const char *icon_name = NULL;
 
@@ -136,11 +137,11 @@ const char *xa_get_stock_mime_icon(char *filename, const char *mime)
 	return icon_name;
 }
 
-GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename)
+GdkPixbuf *xa_get_pixbuf_icon_from_cache(const gchar *filename)
 {
     char icon_name[ 100 ];
 	const char* mime_type;
-	XAMimeType* mime;
+	XAMimeType* mime = NULL;
 
 	if (strcmp(filename,"folder") == 0)
 	{

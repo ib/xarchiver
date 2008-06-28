@@ -307,8 +307,8 @@ void xa_set_available_archivers()
 	extract[1]  = &xa_7zip_extract;
 	extract[2]  = &xa_arj_extract;
 	extract[3]  = &xa_deb_extract;;
-	extract[4]  = 0;
-	extract[5]  = 0;
+	extract[4]  = &xa_open_bzip2_lzma;
+	extract[5]  = &xa_open_gzip;
 	extract[6]  = 0;
 	extract[7]  = &xa_rar_extract;
 	extract[8]  = &xa_rpm_extract;
@@ -477,8 +477,6 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive->path = g_strdup (filename);
 	archive->escaped_path = xa_escape_bad_chars(filename , "$\'`\"\\!?* ()&|@#:;");
 	archive->type = type;
-	archive->add = 		(void *)add[type];
-	archive->extract = 	(void *)extract[type];
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
