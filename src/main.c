@@ -294,9 +294,7 @@ void xa_set_available_archivers()
 	add[1]  = &xa_7zip_add;
 	add[2]  = &xa_arj_add;
 	add[3]  = 0;
-	add[4]  = 0;
-	add[5]  = 0;
-	add[6]  = 0;
+	add[4]  = add[5] = add[6] = &xa_tar_add;
 	add[7]  = &xa_rar_add;
 	add[8]  = 0;
 	add[9]  = add[10] = add[11] = add[12] = &xa_tar_add;
@@ -307,9 +305,7 @@ void xa_set_available_archivers()
 	extract[1]  = &xa_7zip_extract;
 	extract[2]  = &xa_arj_extract;
 	extract[3]  = &xa_deb_extract;;
-	extract[4]  = &xa_open_bzip2_lzma;
-	extract[5]  = &xa_open_gzip;
-	extract[6]  = 0;
+	extract[4]  = extract[5] = extract[6] = &xa_tar_extract;
 	extract[7]  = &xa_rar_extract;
 	extract[8]  = &xa_rpm_extract;
 	extract[9]  = extract[10] = extract[11] = extract[12] = &xa_tar_extract;
@@ -319,10 +315,7 @@ void xa_set_available_archivers()
 	test[0]  = 0;
 	test[1]  = &xa_7zip_test;
 	test[2]  = &xa_arj_test;
-	test[3]  = 0;
-	test[4]  = 0;
-	test[5]  = 0;
-	test[6]  = 0;
+	test[3]  = test[4] = test[5] = test[6] = 0;
 	test[7]  = &xa_rar_test;
 	test[8]  = 0;
 	test[9]  = test[10] = test[11] = test[12] = 0;

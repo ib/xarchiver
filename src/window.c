@@ -997,7 +997,7 @@ int xa_detect_archive_type (gchar *filename)
 			return -2;
 	}
 	fread (magic, 1, 14, dummy_ptr);
-	if (memcmp (magic,"\x50\x4b\x03\x04",4) == 0 || memcmp ( magic,"\x50\x4b\x05\x06",4 ) == 0)
+	if (memcmp (magic,"\x50\x4b",2) == 0)
 		xx = XARCHIVETYPE_ZIP;
 	else if (memcmp (magic,"\x60\xea",2 ) == 0)
 		xx = XARCHIVETYPE_ARJ;

@@ -161,7 +161,7 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->remove_files), archive->remove_files);
 	gtk_box_pack_start (GTK_BOX (vbox3),add_dialog->remove_files, FALSE, FALSE, 0);
 
-	label7 = gtk_label_new (_("Actions; "));
+	label7 = gtk_label_new (_("Actions: "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame4), label7);
 	
 	hbox3 = gtk_hbox_new (TRUE, 10);
@@ -421,7 +421,8 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 
 void xa_execute_add_commands (XArchive *archive,GString *names,gchar *compression_string)
 {
-	Update_StatusBar ( _("Adding files to the archive, please wait..."));
+	if (xa_main_window)
+		Update_StatusBar ( _("Adding files to the archive, please wait..."));
 	archive->status = XA_ARCHIVESTATUS_ADD;
 	(*archive->add) (archive,names,compression_string);
 }

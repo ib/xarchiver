@@ -26,7 +26,7 @@
 extern gboolean unrar;
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
-	GtkWidget *vbox1, *vbox4, *hbox1, *scrolledwindow1, *prefs_iconview, *label5;
+	GtkWidget *vbox1, *vbox4, *hbox1, *scrolledwindow1, *prefs_iconview;
 	GtkWidget *label1, *label2, *label3, *label4, *frame1, *frame2, *frame3, *alignment1, *alignment2, *alignment3;
 	GtkWidget *label6, *label7, *label8, *label9, *table1, *table2;
 	GtkTreeIter iter;
@@ -118,9 +118,9 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 			archive_type = g_list_next (archive_type);
 	}
 
-	prefs_data->allow_dir_extract_with_dnd = gtk_check_button_new_with_mnemonic (_("Allow extracting dirs by drag and drop"));
+	/*prefs_data->allow_dir_extract_with_dnd = gtk_check_button_new_with_mnemonic (_("Allow extracting dirs by drag and drop"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->allow_dir_extract_with_dnd, FALSE, FALSE, 0);
-	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->allow_dir_extract_with_dnd), FALSE);
+	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->allow_dir_extract_with_dnd), FALSE);*/
 
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
@@ -148,7 +148,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 4);
 
-	label5 = gtk_label_new (_("View archive content as"));
+	/*label5 = gtk_label_new (_("View archive content as"));
 	gtk_table_attach (GTK_TABLE (table1), label5, 0, 1, 0, 1,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
@@ -158,35 +158,35 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_archive_view), _("icon") );
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->combo_archive_view, 1, 2, 0, 1,
                      (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);
+                    (GtkAttachOptions) (GTK_SHRINK), 0, 0);*/
 	
-	label9 = gtk_label_new (_("Size of the mimetype icons"));
-	gtk_table_attach (GTK_TABLE (table1), label9, 0, 1, 1, 2,
+	label9 = gtk_label_new (_("Size of the mime type icons"));
+	gtk_table_attach (GTK_TABLE (table1), label9, 0, 1, 0, 1,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
 	prefs_data->combo_icon_size = gtk_combo_box_new_text();
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("large") );
 	gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_icon_size), _("small") );
-	gtk_table_attach (GTK_TABLE (table1), prefs_data->combo_icon_size, 1, 2, 1, 2,
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->combo_icon_size, 1, 2, 0, 1,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	
 	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show archive comment after loading it"));
-	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_show_comment, 0, 2, 2, 3,
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_show_comment, 0, 2, 1, 2,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_show_comment), FALSE);
 
 	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic (_("Sort content by filename"));
-	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_sort_filename_column, 0, 2, 4, 5,
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_sort_filename_column, 0, 2, 2, 3,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
 	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sort after loading the archive"), NULL);
 
 	prefs_data->show_location_bar = gtk_check_button_new_with_mnemonic (_("Show location bar"));
-	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_location_bar, 0, 2, 5, 6,
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_location_bar, 0, 2, 4, 5,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_location_bar), FALSE);
@@ -307,7 +307,7 @@ void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),FALSE);
 	
 
-	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),0);
+	//gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),0);
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
 
@@ -327,11 +327,11 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	GKeyFile *xa_key_file = g_key_file_new();
 	
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd)));
+	//key_file_set_boolean (xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"confirm_deletion",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"store_output",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->store_output)));
 
-	g_key_file_set_integer (xa_key_file,PACKAGE,"archive_view",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_archive_view)));
+	//g_key_file_set_integer (xa_key_file,PACKAGE,"archive_view",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_archive_view)));
 	g_key_file_set_integer (xa_key_file,PACKAGE,"icon_size",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_icon_size)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_archive_comment",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_show_comment)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"sort_filename_content",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_sort_filename_column)));
@@ -412,11 +412,11 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	{
 		/* set the options from the config file */
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_format",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",NULL));
+		//gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),g_key_file_get_boolean(xa_key_file,PACKAGE,"confirm_deletion",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),g_key_file_get_boolean(xa_key_file,PACKAGE,"store_output",NULL));
 
-		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),g_key_file_get_integer(xa_key_file,PACKAGE,"archive_view",NULL));
+		//gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),g_key_file_get_integer(xa_key_file,PACKAGE,"archive_view",NULL));
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),g_key_file_get_integer(xa_key_file,PACKAGE,"icon_size",NULL));
 
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_comment),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_archive_comment",NULL));

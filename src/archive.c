@@ -283,37 +283,54 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	GSList *_commands = commands;
 
 	GError *error = NULL;
-    gchar *std_out,*std_err;
+    gchar *std_out,*std_err,*new_std_err,*dummy;
     gchar **argv;
 
 	if (batch_mode)
 	{
-		g_shell_parse_argv(commands->data,&argcp,&argv,NULL);
-		if ( ! g_spawn_sync(
-			NULL,
-			argv,
-			NULL,
-			G_SPAWN_SEARCH_PATH,
-			NULL,
-			NULL,
-			&std_out,
-			&std_err,
-			&status,
-			&error))
+		while (_commands)
 		{
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
-			g_error_free (error);
-			g_strfreev (argv);
-			return result;
-		}
-		if (WIFEXITED(status))
-		{
-			if (WEXITSTATUS(status))
-				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err);
-			else
-				result = TRUE;
+			g_print ("%s\n",(gchar*)_commands->data);
+			g_shell_parse_argv(_commands->data,&argcp,&argv,NULL);
+			if ( ! g_spawn_sync(
+				NULL,
+				argv,
+				NULL,
+				G_SPAWN_SEARCH_PATH,
+				NULL,
+				NULL,
+				&std_out,
+				&std_err,
+				&status,
+				&error))
+			{
+				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
+				g_error_free (error);
+				g_strfreev (argv);
+				goto here;
+			}
+			if (WIFEXITED(status))
+			{
+				if (WEXITSTATUS(status))
+				{
+					if (strlen(std_err) > 1954)
+					{
+						new_std_err = g_strndup(std_err,1954);
+						dummy = g_strconcat(new_std_err,_("\n\n** Output was shortened; too many errors!"),NULL);
+						g_free(new_std_err);
+						response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),dummy);
+						g_free(dummy);
+					}
+					else
+						response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err);
+				}
+				else
+					result = TRUE;
+			}
+			_commands = _commands->next;
 		}
 		g_strfreev (argv);
+		goto here;
 	}
 	else
 	{
@@ -334,17 +351,18 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 					break;
 				else if(xa_main_window)
 					gtk_main_iteration_do (FALSE);
-
-				usleep(1000); //give the processor time to rest (0.1 sec)
+				//usleep(1000); //give the processor time to rest (0.1 sec)
 			}
 			result = xa_check_child_for_error_on_exit(archive,status);
 			if (result == FALSE)
 				break;
 			_commands = _commands->next;
 		}
+		xa_archive_operation_finished(archive,result);
+here:
 		g_slist_foreach (commands,(GFunc) g_free,NULL);
 		g_slist_free(commands);
-		xa_archive_operation_finished(archive,result);
+		
 	}
 	return result;
 }

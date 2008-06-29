@@ -20,8 +20,6 @@
 #include "gzip.h"
 #include "bzip2.h"
 
-extern gboolean batch_mode;
-
 extern int delete	[15];
 extern int add		[15];
 extern int extract	[15];
@@ -42,12 +40,6 @@ void xa_open_gzip (XArchive *archive,GString *dummy)
 		archive->add = 		(void *)add[archive->type];
 		archive->extract = 	(void *)extract[archive->type];
 
-		if (batch_mode)
-		{
-			
-			(*archive->extract) (archive,dummy);
-			return;
-		}
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
 		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
 		archive->has_test = archive->has_sfx = FALSE;

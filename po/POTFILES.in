@@ -10,7 +10,6 @@ src/deb.c
 src/extract_dialog.c
 src/gzip.c
 src/lha.c
-src/lzma.c
 src/interface.c
 src/main.c
 src/new_dialog.c

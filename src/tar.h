@@ -33,7 +33,7 @@ void xa_tar_extract(XArchive *,GString *);
 void xa_get_tar_line_content (gchar *line, gpointer data);
 gboolean isTar ( FILE *ptr );
 gboolean is_tar_compressed (gint type);
-void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *list,XArchive *archive,gboolean add);
-void xa_extract_tar_without_directories ( gchar *string, XArchive *archive,gchar *extract_path,gboolean cpio_flag);
+void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *,XArchive *,gboolean add);
+void xa_extract_tar_without_directories ( gchar *, XArchive *,gchar *,gboolean cpio_flag);
 #endif
 
