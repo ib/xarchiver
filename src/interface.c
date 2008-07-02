@@ -47,9 +47,10 @@ static const GtkTargetEntry drop_targets[] =
 
 extern gboolean unrar;
 
-void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
+void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gboolean show_output_menu_item,gboolean show_sidebar)
 {
 	GdkPixbuf *icon;
+
 	xa_create_popup_menu();
 	tooltips = gtk_tooltips_new ();
 	accel_group = gtk_accel_group_new ();
@@ -60,11 +61,11 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	gtk_window_set_icon (GTK_WINDOW(xa_main_window),icon);
 	g_signal_connect (G_OBJECT (xa_main_window), "delete-event", G_CALLBACK (xa_quit_application), NULL);
 
-	/* Create the menus */
-	vbox1 = gtk_vbox_new (FALSE, 0);
+	vbox1 = gtk_vbox_new (FALSE,2);
 	gtk_widget_show (vbox1);
 	gtk_container_add (GTK_CONTAINER (xa_main_window), vbox1);
-
+	
+	/* Create the menus */
 	menubar1 = gtk_menu_bar_new ();
 	gtk_widget_show (menubar1);
 	gtk_box_pack_start (GTK_BOX (vbox1), menubar1, FALSE, FALSE, 0);
@@ -156,16 +157,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), delete_menu);
 	gtk_widget_add_accelerator (delete_menu, "activate",accel_group,GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-	view_menu = gtk_image_menu_item_new_with_mnemonic (_("_View"));
-	gtk_widget_set_sensitive (view_menu, FALSE);
-	gtk_widget_show (view_menu);
-	gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_menu);
-	gtk_widget_add_accelerator (view_menu, "activate",accel_group,GDK_v, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-
-	image2 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
-	gtk_widget_show (image2);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_menu), image2);
-
 	separatormenuitem3 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem3);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem3);
@@ -226,17 +217,21 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("C_md-line output"));
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), view_shell_output1);
 	gtk_widget_add_accelerator (view_shell_output1, "activate",accel_group,GDK_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	if (show_output_menu_item)
+		gtk_widget_set_sensitive(view_shell_output1,TRUE);
+	else
+		gtk_widget_set_sensitive(view_shell_output1,FALSE);
 	gtk_widget_show (view_shell_output1);
 
 	image2 = gtk_image_new_from_stock ("gtk-find-and-replace", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_shell_output1), image2);
 
-	password_entry = gtk_image_menu_item_new_with_mnemonic (_("Reset passwo_rd"));
-	gtk_widget_show (password_entry);
-	gtk_widget_set_sensitive ( password_entry , FALSE );
-	gtk_container_add (GTK_CONTAINER (menuitem2_menu), password_entry);
-	gtk_widget_add_accelerator (password_entry, "activate",accel_group,GDK_r, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	password_entry_menu = gtk_image_menu_item_new_with_mnemonic (_("Reset passwo_rd"));
+	gtk_widget_show (password_entry_menu);
+	gtk_widget_set_sensitive ( password_entry_menu , FALSE );
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu), password_entry_menu);
+	gtk_widget_add_accelerator (password_entry_menu, "activate",accel_group,GDK_r, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	separatormenuitem6 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem6);
@@ -352,15 +347,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	gtk_container_add (GTK_CONTAINER (toolbar1), Extract_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Extract_button), tooltips, _("Extract files"), NULL);
 
-	tmp_image = gtk_image_new_from_stock ("gtk-find", tmp_toolbar_icon_size);
-	gtk_widget_show (tmp_image);
-	View_button = (GtkWidget*) gtk_tool_button_new (tmp_image, _("View"));
-	gtk_widget_show (View_button);
-	gtk_widget_set_sensitive (View_button,FALSE);
-	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (View_button), FALSE);
-	gtk_container_add (GTK_CONTAINER (toolbar1), View_button);
-	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (View_button), tooltips, _("View file with an external editor/viewer"), NULL);
-
 	separatortoolitem2 = (GtkWidget*) gtk_separator_tool_item_new ();
 	gtk_widget_show (separatortoolitem2);
 	gtk_container_add (GTK_CONTAINER (toolbar1), separatortoolitem2);
@@ -394,9 +380,47 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	if (show_location)
 		gtk_widget_show_all(toolbar2);
 
+	/* Create the paned widgets */
+	hpaned1 = gtk_hpaned_new ();
+	gtk_widget_show (hpaned1);
+  	gtk_box_pack_start (GTK_BOX (vbox1),hpaned1,TRUE,TRUE,0);
+  	//gtk_paned_set_position (GTK_PANED (hpaned1),200);
+  	
+  	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
+  	if (show_sidebar)
+  		gtk_widget_show (scrolledwindow2);
+  	else
+  		gtk_widget_hide (scrolledwindow2);
+  	gtk_paned_pack1 (GTK_PANED (hpaned1), scrolledwindow2, FALSE, TRUE);
+	g_object_set (G_OBJECT (scrolledwindow2),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
+
+  	archive_dir_model = gtk_tree_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	archive_dir_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(archive_dir_model));
+	gtk_container_add (GTK_CONTAINER (scrolledwindow2), archive_dir_treeview);
+	gtk_widget_show(archive_dir_treeview);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (archive_dir_treeview), FALSE);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
+
+	/*g_signal_connect (G_OBJECT (archive_dir_treeview),"row-expanded",G_CALLBACK(xa_expand_dir),dialog_data->destination_path_entry);
+	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-activated",G_CALLBACK(xa_row_activated),dialog_data->destination_path_entry);
+	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
+	g_signal_connect (sel,"changed",G_CALLBACK (xa_tree_view_row_selected),dialog_data->destination_path_entry);*/
+
+	column = gtk_tree_view_column_new();
+	archive_dir_renderer = gtk_cell_renderer_pixbuf_new();
+	gtk_tree_view_column_pack_start(column,archive_dir_renderer,FALSE);
+	gtk_tree_view_column_set_attributes(column,archive_dir_renderer, "stock-id",0,NULL);
+
+	archive_dir_renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(column,archive_dir_renderer,TRUE);
+	gtk_tree_view_column_set_attributes(column,archive_dir_renderer,"text",1,NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (archive_dir_treeview),column);
+	/*g_signal_connect (renderer, "editing-canceled",G_CALLBACK (xa_cell_edited_canceled),dialog_data);
+	g_signal_connect (renderer, "edited",G_CALLBACK (xa_cell_edited),dialog_data);*/
+  	
 	/* Create the notebook widget */
 	notebook = GTK_NOTEBOOK(gtk_notebook_new() );
-	gtk_box_pack_start (GTK_BOX(vbox1), GTK_WIDGET(notebook),TRUE,TRUE,0);
+	gtk_paned_pack2(GTK_PANED (hpaned1),GTK_WIDGET(notebook),TRUE,TRUE);
 	gtk_notebook_set_tab_pos (notebook, GTK_POS_TOP);
 	gtk_notebook_set_scrollable (notebook,TRUE);
 	gtk_notebook_popup_enable (notebook);
@@ -438,12 +462,11 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
 	g_signal_connect ((gpointer) select_pattern, "activate", G_CALLBACK (xa_create_delete_dialog), NULL);
-	g_signal_connect ((gpointer) password_entry, "activate", G_CALLBACK (xa_reset_password), NULL);
+	g_signal_connect ((gpointer) password_entry_menu, "activate", G_CALLBACK (xa_reset_password), NULL);
 	g_signal_connect ((gpointer) prefs_menu, "activate", G_CALLBACK (xa_show_prefs_dialog), NULL);
 	g_signal_connect ((gpointer) close1, "activate", G_CALLBACK (xa_close_archive), NULL);
 	g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
 	g_signal_connect ((gpointer) delete_menu, "activate", G_CALLBACK (xa_delete_archive), NULL);
-	g_signal_connect ((gpointer) view_menu, "activate", G_CALLBACK (xa_view_file_inside_archive), NULL);
 	g_signal_connect ((gpointer) comment_menu, "activate", G_CALLBACK (xa_show_archive_comment), NULL);
 	g_signal_connect ((gpointer) help1, "activate", G_CALLBACK (xa_show_help), NULL);
 	g_signal_connect ((gpointer) about1, "activate", G_CALLBACK (xa_about), NULL);
@@ -458,7 +481,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location)
 
 	g_signal_connect ((gpointer) AddFile_button,"clicked", G_CALLBACK (xa_add_files_archive), 		NULL);
     g_signal_connect ((gpointer) Extract_button,"clicked", G_CALLBACK (xa_extract_archive), 		NULL);
-	g_signal_connect ((gpointer) View_button,	"clicked", G_CALLBACK (xa_view_file_inside_archive),NULL);
 	g_signal_connect ((gpointer) Stop_button,	"clicked", G_CALLBACK (xa_cancel_archive),			NULL);
 	g_signal_connect (xa_main_window, 		"key-press-event", G_CALLBACK (key_press_function),			NULL);
 
@@ -514,23 +536,13 @@ here:
 		selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[id]->treeview) );
 		gint selected = gtk_tree_selection_count_selected_rows ( selection );
 		if (selected == 0)
-			xa_disable_delete_view_buttons (FALSE);
+			xa_disable_delete_buttons (FALSE);
 		else
 		{
 			if (archive[id]->type == XARCHIVETYPE_RAR && unrar)
 				gtk_widget_set_sensitive ( delete_menu , FALSE );
 			else if ( archive[id]->type != XARCHIVETYPE_RPM && archive[id]->type != XARCHIVETYPE_DEB )
 				gtk_widget_set_sensitive ( delete_menu , TRUE );
-			if (selected > 1 )
-			{
-				gtk_widget_set_sensitive ( View_button , FALSE);
-				gtk_widget_set_sensitive ( view_menu, FALSE );
-			}
-			else
-			{
-				gtk_widget_set_sensitive ( View_button , TRUE );
-				gtk_widget_set_sensitive ( view_menu, TRUE );
-			}
 		}
 		/* Let's set the location bar */
 		if (archive[id]->location_entry_path != NULL)
@@ -591,6 +603,7 @@ void xa_add_page (XArchive *archive)
 	gtk_notebook_append_page_menu (notebook, archive->scrollwindow,page_hbox,tab_label);
 	gtk_notebook_set_current_page(notebook, -1);
 	gtk_notebook_set_tab_reorderable(notebook, archive->scrollwindow,TRUE);
+
 	archive->treeview = gtk_tree_view_new ();
 	gtk_container_add (GTK_CONTAINER (archive->scrollwindow), archive->treeview);
 	gtk_widget_show (archive->treeview);
@@ -611,71 +624,78 @@ void xa_add_page (XArchive *archive)
 
 void xa_close_page (GtkWidget *widget, gpointer data)
 {
-	xa_close_archive ( NULL , data );
+	xa_close_archive (NULL,data);
 }
 
-gchar *password_dialog ()
+gchar *xa_create_password_dialog(gchar *archive_name)
 {
-	GtkWidget *passwd;
-	GtkWidget *dialog_vbox1;
-	GtkWidget *hbox1;
-	GtkWidget *label1;
-	GtkWidget *password_entry;
-	GtkWidget *dialog_action_area1;
-	GtkWidget *cancelbutton1;
-	GtkWidget *okbutton1;
-	gboolean done = FALSE;
+	GtkWidget *password_dialog,*dialog_vbox1,*vbox1,*hbox2,*image2,*vbox2,*label_pwd_required,*label_filename,*hbox1,*label34,*pw_password_entry;
 	gchar *password = NULL;
-	gint current_page;
-	gint idx;
+	
+  	password_dialog = gtk_dialog_new_with_buttons ("Xarchiver " VERSION,
+									GTK_WINDOW (xa_main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+  	gtk_container_set_border_width (GTK_CONTAINER (password_dialog), 6);
+  	gtk_window_set_position (GTK_WINDOW (password_dialog), GTK_WIN_POS_CENTER_ON_PARENT);
+  	gtk_window_set_resizable (GTK_WINDOW (password_dialog), FALSE);
+  	gtk_window_set_type_hint (GTK_WINDOW (password_dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
+  	gtk_dialog_set_has_separator (GTK_DIALOG (password_dialog), FALSE);
 
-	passwd = gtk_dialog_new ();
-	gtk_window_set_title (GTK_WINDOW (passwd),_("Enter Archive Password"));
-	gtk_window_set_type_hint (GTK_WINDOW (passwd), GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_window_set_transient_for ( GTK_WINDOW (passwd) , GTK_WINDOW (xa_main_window) );
-	gtk_window_set_default_size(GTK_WINDOW(passwd), 300, 80);
+  	dialog_vbox1 = GTK_DIALOG (password_dialog)->vbox;
+  	gtk_widget_show (dialog_vbox1);
 
-	dialog_vbox1 = GTK_DIALOG (passwd)->vbox;
-	gtk_widget_show (dialog_vbox1);
+  	vbox1 = gtk_vbox_new (FALSE, 12);
+  	gtk_widget_show (vbox1);
+  	gtk_box_pack_start (GTK_BOX (dialog_vbox1), vbox1, TRUE, TRUE, 0);
+  	gtk_container_set_border_width (GTK_CONTAINER (vbox1), 6);
 
-	hbox1 = gtk_hbox_new (FALSE, 0);
-	gtk_widget_show (hbox1);
-	gtk_box_pack_start (GTK_BOX (dialog_vbox1), hbox1, TRUE, FALSE, 0);
+  	hbox2 = gtk_hbox_new (FALSE, 12);
+  	gtk_widget_show (hbox2);
+  	gtk_box_pack_start (GTK_BOX (vbox1), hbox2, TRUE, TRUE, 0);
 
-	label1 = gtk_label_new (_("Password:"));
-	gtk_widget_show (label1);
-	gtk_box_pack_start (GTK_BOX (hbox1), label1, FALSE, FALSE, 0);
+  	image2 = gtk_image_new_from_stock ("gtk-dialog-authentication", GTK_ICON_SIZE_DIALOG);
+  	gtk_widget_show (image2);
+  	gtk_box_pack_start (GTK_BOX (hbox2), image2, FALSE, TRUE, 0);
+  	gtk_misc_set_alignment (GTK_MISC (image2), 0, 0);
 
-	password_entry = gtk_entry_new ();
-	gtk_box_pack_start (GTK_BOX (hbox1), password_entry, TRUE, TRUE, 0);
-	gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
-	gtk_entry_set_activates_default(GTK_ENTRY(password_entry), TRUE);
+  	vbox2 = gtk_vbox_new (FALSE, 0);
+  	gtk_widget_show (vbox2);
+  	gtk_box_pack_start (GTK_BOX (hbox2), vbox2, TRUE, TRUE, 0);
 
-	if (current_page > 0 && archive[idx]->passwd != NULL)
-		gtk_entry_set_text (GTK_ENTRY(password_entry),archive[idx]->passwd);
-	gtk_widget_show (password_entry);
+  	label_pwd_required = gtk_label_new (_("<span weight=\"bold\" size=\"larger\">Password required for</span>"));
+  	gtk_widget_show (label_pwd_required);
+  	gtk_box_pack_start (GTK_BOX (vbox2), label_pwd_required, FALSE, FALSE, 0);
+  	gtk_label_set_use_markup (GTK_LABEL (label_pwd_required), TRUE);
+  	gtk_misc_set_alignment (GTK_MISC (label_pwd_required), 0, 0.5);
 
-	dialog_action_area1 = GTK_DIALOG (passwd)->action_area;
-	gtk_widget_show (dialog_action_area1);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
+  	label_filename = gtk_label_new ("");
+  	gtk_widget_show (label_filename);
+  	gtk_box_pack_start (GTK_BOX (vbox2), label_filename, FALSE, FALSE, 12);
+  	gtk_misc_set_alignment (GTK_MISC (label_filename), 0, 0.5);
 
-	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
-	gtk_widget_show (cancelbutton1);
-	gtk_dialog_add_action_widget (GTK_DIALOG (passwd), cancelbutton1, GTK_RESPONSE_CANCEL);
-	GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
+	if (archive_name != NULL)
+		gtk_label_set_text(GTK_LABEL(label_filename),archive_name);
+		
+  	hbox1 = gtk_hbox_new (FALSE, 5);
+  	gtk_widget_show (hbox1);
+  	gtk_box_pack_start (GTK_BOX (vbox2), hbox1, TRUE, TRUE, 0);
 
-	okbutton1 = gtk_button_new_from_stock ("gtk-ok");
-	gtk_widget_show (okbutton1);
-	gtk_dialog_add_action_widget (GTK_DIALOG (passwd), okbutton1, GTK_RESPONSE_OK);
-	GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
-	gtk_dialog_set_default_response (GTK_DIALOG (passwd), GTK_RESPONSE_OK);
+  	label34 = gtk_label_new_with_mnemonic (_("_Password:"));
+  	gtk_widget_show (label34);
+  	gtk_box_pack_start (GTK_BOX (hbox1), label34, FALSE, FALSE, 0);
 
-	while ( ! done )
+  	pw_password_entry = gtk_entry_new ();
+  	gtk_widget_show (pw_password_entry);
+  	gtk_box_pack_start (GTK_BOX (hbox1), pw_password_entry, TRUE, TRUE, 0);
+  	gtk_entry_set_visibility (GTK_ENTRY (pw_password_entry), FALSE);
+  	gtk_entry_set_invisible_char (GTK_ENTRY (pw_password_entry), 9679);
+  	gtk_entry_set_activates_default (GTK_ENTRY (pw_password_entry), TRUE);
+  	gtk_dialog_set_default_response (GTK_DIALOG (password_dialog), GTK_RESPONSE_OK);
+ 
+	while (! done)
 	{
-		switch (gtk_dialog_run ( GTK_DIALOG (passwd ) ) )
+		switch (gtk_dialog_run (GTK_DIALOG(password_dialog)) )
 		{
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
@@ -684,7 +704,7 @@ gchar *password_dialog ()
 			break;
 
 			case GTK_RESPONSE_OK:
-			password = g_strdup (gtk_entry_get_text ( GTK_ENTRY (password_entry) ));
+			password = g_strdup (gtk_entry_get_text(GTK_ENTRY(pw_password_entry)) );
 			if (strlen(password) == 0)
 			{
 				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("You missed the password!"),_("Please enter it!") );
@@ -694,7 +714,7 @@ gchar *password_dialog ()
 			break;
 		}
 	}
-	gtk_widget_destroy (passwd);
+	gtk_widget_destroy (password_dialog);
 	return password;
 }
 
@@ -1220,3 +1240,9 @@ void xa_restore_navigation(int idx)
 	gtk_widget_set_sensitive(home_button,home);
 }
 
+void xa_disable_delete_buttons (gboolean value)
+{
+    gtk_widget_set_sensitive (delete_menu,value);
+    //TODO: disable the popupmenu entries
+    //gtk_widget_set_sensitive (delete,value);
+}

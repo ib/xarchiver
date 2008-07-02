@@ -51,10 +51,17 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 	{
 		if (WEXITSTATUS (status))
 		{
-			xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
+			if (WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP)
+				return TRUE;
 			Update_StatusBar ( _("Operation failed."));
-			response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
-			if (response == GTK_RESPONSE_YES)
+			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+			{
+				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please uncheck the 'Store archiver output' option to see it.") );	
+				return FALSE;
+			}
+			xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
+			response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
+			if (response == GTK_RESPONSE_OK)
 				xa_show_cmd_line_output (NULL);
 			/* In case the user supplies a wrong password we reset it so he can try again */
 			if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
@@ -204,9 +211,9 @@ void xa_watch_child (GPid pid,gint status,gpointer data)
 	if ( xa_main_window != NULL && archive != NULL)
 	{
 		if (archive->has_passwd == FALSE && archive->passwd == NULL)
-			gtk_widget_set_sensitive (password_entry,FALSE);
+			gtk_widget_set_sensitive (password_entry_menu,FALSE);
 		else
-			gtk_widget_set_sensitive (password_entry,TRUE);
+			gtk_widget_set_sensitive (password_entry_menu,TRUE);
 	}
 }
 
@@ -229,7 +236,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     archive[current_page]->has_passwd = FALSE;
     gtk_widget_set_sensitive(check_menu,FALSE);
     gtk_widget_set_sensitive(properties,FALSE );
-    xa_disable_delete_view_buttons(FALSE);
+    xa_disable_delete_buttons(FALSE);
 
   	Update_StatusBar ( _("Choose Add to begin creating the archive."));
 
@@ -342,7 +349,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	xa_add_page (archive[current_page]);
 
-	xa_disable_delete_view_buttons (FALSE);
+	xa_disable_delete_buttons (FALSE);
 	g_free (path);
 
 	gtk_widget_set_sensitive (Stop_button,TRUE);
@@ -417,7 +424,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 	{
 		if ( archive[id]->passwd == NULL)
 		{
-			archive[id]->passwd = password_dialog ();
+			archive[id]->passwd = xa_create_password_dialog (NULL);
 			if ( archive[id]->passwd == NULL)
 				return;
 		}
@@ -444,7 +451,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_widget_set_sensitive (up_button,FALSE);
 		gtk_widget_set_sensitive (home_button,FALSE);
 		gtk_widget_set_sensitive (deselect_all,FALSE);
-		xa_disable_delete_view_buttons (FALSE);
+		xa_disable_delete_buttons (FALSE);
 		xa_set_button_state (1,1,0,0,0,0,0,0);
 		xa_set_window_title (xa_main_window,NULL);
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
@@ -537,8 +544,8 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->confirm_deletion)))
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"You are about to delete entries from the archive.",_( "Are you sure you want to do this?") );
-		if (response == GTK_RESPONSE_NO || response == GTK_RESPONSE_DELETE_EVENT)
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,"You are about to delete entries from the archive.",_( "Are you sure you want to do this?") );
+		if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 			return;
 	}
 
@@ -1194,7 +1201,7 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
 void xa_show_cmd_line_output (GtkMenuItem *menuitem)
 {
 	GSList *output = NULL;
-	widget_data *xa_cmd_line_output;
+	widget_data *xa_cmd_line_output = NULL;
 	gchar *line = NULL;
 	gchar *utf8_line;
 	gsize bytes_written;
@@ -1305,7 +1312,7 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem,gpointer user_data)
 	{
 		if (archive[idx]->passwd == NULL)
 		{
-			archive[idx]->passwd = password_dialog();
+			archive[idx]->passwd = xa_create_password_dialog(NULL);
 			if (archive[idx]->passwd == NULL)
 				return;
 		}
@@ -1480,23 +1487,13 @@ void xa_activate_delete_and_view (GtkTreeSelection *treeselection,gpointer data)
 	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive->treeview));
 	gint selected = gtk_tree_selection_count_selected_rows (selection);
 	if (selected == 0 )
-		xa_disable_delete_view_buttons (FALSE);
+		xa_disable_delete_buttons (FALSE);
 	else
 	{
 		if (archive->type == XARCHIVETYPE_RAR && unrar)
 			gtk_widget_set_sensitive ( delete_menu,FALSE);
 		else if ( archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_DEB)
 			gtk_widget_set_sensitive (delete_menu,TRUE);
-		if (selected > 1 )
-		{
-			gtk_widget_set_sensitive (View_button,FALSE);
-			gtk_widget_set_sensitive (view_menu,FALSE );
-		}
-		else
-		{
-			gtk_widget_set_sensitive (View_button,TRUE);
-			gtk_widget_set_sensitive (view_menu,TRUE);
-		}
 	}
 }
 
@@ -1568,15 +1565,6 @@ void Update_StatusBar (gchar *msg)
 	if (xa_main_window == NULL)
 		return;
 	gtk_label_set_text (GTK_LABEL(info_label),msg);
-}
-
-void xa_disable_delete_view_buttons (gboolean value)
-{
-    gtk_widget_set_sensitive (delete_menu,value);
-    //TODO: disable the popupmenu entries
-    //gtk_widget_set_sensitive (delete,value);
-    gtk_widget_set_sensitive (View_button,value);
-    gtk_widget_set_sensitive (view_menu,value);
 }
 
 void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
@@ -1659,7 +1647,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		{
 			if (archive->passwd == NULL)
 			{
-				archive->passwd = password_dialog();
+				archive->passwd = xa_create_password_dialog(NULL);
 				if ( archive->passwd == NULL)
 				{
 					gtk_drag_finish (dc,FALSE,FALSE,t);

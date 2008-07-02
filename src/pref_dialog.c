@@ -118,14 +118,15 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 			archive_type = g_list_next (archive_type);
 	}
 
-	/*prefs_data->allow_dir_extract_with_dnd = gtk_check_button_new_with_mnemonic (_("Allow extracting dirs by drag and drop"));
-	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->allow_dir_extract_with_dnd, FALSE, FALSE, 0);
-	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->allow_dir_extract_with_dnd), FALSE);*/
-
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->confirm_deletion), FALSE);
 	
+	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic(_("Sort content by filename"));
+	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_sort_filename_column, FALSE, FALSE, 0);
+	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
+	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sort after loading the archive"), NULL);
+
 	prefs_data->store_output = gtk_check_button_new_with_mnemonic (_("Store archiver output"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->store_output, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->store_output), FALSE);
@@ -178,14 +179,13 @@ Prefs_dialog_data *xa_create_prefs_dialog()
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_show_comment), FALSE);
 
-	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic (_("Sort content by filename"));
-	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_sort_filename_column, 0, 2, 2, 3,
+	prefs_data->show_sidebar = gtk_check_button_new_with_mnemonic (_("Show archive tree sidebar"));
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_sidebar, 0, 2, 2, 3,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
-	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
-	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sort after loading the archive"), NULL);
+	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_sidebar), FALSE);
 
-	prefs_data->show_location_bar = gtk_check_button_new_with_mnemonic (_("Show location bar"));
+	prefs_data->show_location_bar = gtk_check_button_new_with_mnemonic (_("Show archive location bar"));
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_location_bar, 0, 2, 4, 5,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
@@ -310,6 +310,7 @@ void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
 	//gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),0);
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar),TRUE);
 
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),0);
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor),0);
@@ -327,14 +328,14 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	GKeyFile *xa_key_file = g_key_file_new();
 	
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
-	//key_file_set_boolean (xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"confirm_deletion",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"sort_filename_content",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_sort_filename_column)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"store_output",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->store_output)));
 
 	//g_key_file_set_integer (xa_key_file,PACKAGE,"archive_view",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_archive_view)));
 	g_key_file_set_integer (xa_key_file,PACKAGE,"icon_size",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_icon_size)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_archive_comment",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_show_comment)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"sort_filename_content",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_sort_filename_column)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_sidebar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_location_bar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar)));
 	
 	value = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser));
@@ -361,11 +362,13 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 		g_key_file_set_string (xa_key_file,PACKAGE,"preferred_temp_dir",value);
 		g_free(value);
 	}
+
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->check_save_geometry)) )
 	{
+		prefs_data->geometry[4] = gtk_paned_get_position(GTK_PANED(hpaned1));
 		gtk_window_get_position (GTK_WINDOW(xa_main_window),&prefs_data->geometry[0],&prefs_data->geometry[1]);
 		gtk_window_get_size (GTK_WINDOW(xa_main_window),&prefs_data->geometry[2],&prefs_data->geometry[3]);
-		g_key_file_set_integer_list(xa_key_file, PACKAGE, "geometry", prefs_data->geometry, 4);
+		g_key_file_set_integer_list(xa_key_file, PACKAGE, "geometry", prefs_data->geometry,5);
 	}
 	conf = g_key_file_to_data (xa_key_file, NULL, NULL);
 	len = strlen(conf);
@@ -412,7 +415,6 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	{
 		/* set the options from the config file */
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_format",NULL));
-		//gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_dir_extract_with_dnd),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_ext_dir_by_dnd",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),g_key_file_get_boolean(xa_key_file,PACKAGE,"confirm_deletion",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),g_key_file_get_boolean(xa_key_file,PACKAGE,"store_output",NULL));
 
@@ -421,6 +423,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_comment),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_archive_comment",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column),g_key_file_get_boolean(xa_key_file,PACKAGE,"sort_filename_content",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_sidebar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_sidebar",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_location_bar",NULL));
 
 		value = g_key_file_get_string(xa_key_file,PACKAGE,"preferred_web_browser",NULL);
@@ -470,6 +473,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			prefs_data->geometry[1] = coords[1];
 			prefs_data->geometry[2] = coords[2];
 			prefs_data->geometry[3] = coords[3];
+			prefs_data->geometry[4] = coords[4];
 		}
 	}
 	g_key_file_free (xa_key_file);
@@ -522,6 +526,16 @@ void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 		gtk_widget_show_all (toolbar2);
 	else
 		gtk_widget_hide (toolbar2);
+		
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(prefs_data->show_sidebar)))
+		gtk_widget_show(scrolledwindow2);
+	else
+		gtk_widget_hide(scrolledwindow2);
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(prefs_data->store_output)))
+		gtk_widget_set_sensitive(view_shell_output1,TRUE);
+	else
+		gtk_widget_set_sensitive(view_shell_output1,FALSE);
 
 	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
 	{

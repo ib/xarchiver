@@ -168,7 +168,11 @@ gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpoin
 		{
 			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
 			if (line != NULL)
-				archive->error_output = g_slist_prepend (archive->error_output,line);
+			{
+				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
+				g_free(line);
+			}
 		}
 		while (status == G_IO_STATUS_NORMAL);
 		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
@@ -351,7 +355,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 					break;
 				else if(xa_main_window)
 					gtk_main_iteration_do (FALSE);
-				//usleep(1000); //give the processor time to rest (0.1 sec)
 			}
 			result = xa_check_child_for_error_on_exit(archive,status);
 			if (result == FALSE)
@@ -529,7 +532,7 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *
 void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 {
 	GdkPixbuf *pixbuf = NULL;
-	GtkTreeIter iter;
+	GtkTreeIter iter,dummy_iter;
 	unsigned short int i;
 	gpointer current_column;
 
@@ -610,6 +613,9 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		}
 		entry = entry->next;
 	}
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(archive_dir_model),&dummy_iter));
+	else
+		xa_browse_dir_sidebar(archive->root_entry,archive_dir_model,NULL,NULL);
 }
 
 XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
@@ -648,55 +654,58 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 
 void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path)
 {
+	gchar *full_path, *_full_path = NULL;
+	gchar *quoted_path = NULL;
 	gint idx,current_page;
-	gchar *full_path, *_dummy = NULL;
-	gchar *quoted_path, *parent_dir = NULL;
 
 	if (entry == NULL)
 		return;
-		
+
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
-	if (entry == archive[idx]->root_entry)
-		parent_dir = "";
-	else
-		parent_dir = g_strdup(archive[idx]->location_entry_path);
-
 	/* Recurse to siblings with the same path */
-	xa_fill_list_with_recursed_entries(entry->next,p_file_list,current_path);
+ 	if (entry->prev->is_dir)
+ 		xa_fill_list_with_recursed_entries(entry->next,p_file_list,current_path);
 
 	if (strlen(current_path) == 0)
 		full_path = g_strdup(entry->filename);
 	else
 		full_path = g_strconcat(current_path,"/",entry->filename,NULL);
 
-	if (parent_dir)
-		_dummy = g_strconcat (parent_dir,entry->filename,NULL);
-	else
-		_dummy = g_strdup(entry->filename);
-
-	quoted_path = g_shell_quote(_dummy);
-	g_free(_dummy);
-	*p_file_list = g_string_prepend (*p_file_list,quoted_path);
-	*p_file_list = g_string_prepend_c (*p_file_list,' ');
-	g_free(parent_dir);		
 	if (entry->child)
-		xa_fill_list_with_recursed_entries(entry->child, p_file_list, full_path);
-	g_free(full_path);
+	{
+		xa_fill_list_with_recursed_entries(entry->child, p_file_list,full_path);
+		g_free(full_path);
+	}
+	else
+	{
+		if (archive[idx]->location_entry_path != NULL)
+		{
+			if (entry->is_dir)
+				_full_path = g_strconcat(archive[idx]->location_entry_path,full_path,"/",NULL);
+			else
+				_full_path = g_strconcat(archive[idx]->location_entry_path,full_path,NULL);
+			g_free (full_path);
+			full_path = _full_path;
+		}
+		quoted_path = g_shell_quote(full_path);
+		*p_file_list = g_string_prepend (*p_file_list,quoted_path);
+		*p_file_list = g_string_prepend_c (*p_file_list,' ');
+	}
 	return;
 }
 
 void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_path)
 {
-	gchar *full_path = NULL;
+	gchar *full_path;
 	gchar *quoted_path = NULL;
 
 	if (entry == NULL)
 		return;
-		
+
 	/* Recurse to siblings with the same path */
- 	xa_entries_to_filelist(entry->next,p_file_list,current_path);
+	xa_entries_to_filelist(entry->next,p_file_list,current_path);
 
 	if (strlen(current_path) == 0)
 		full_path = g_strdup(entry->filename);
@@ -714,7 +723,6 @@ void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_p
 		*p_file_list = g_string_prepend (*p_file_list,quoted_path);
 		*p_file_list = g_string_prepend_c (*p_file_list,' ');
 	}
-	return;
 }
 
 gboolean xa_detect_encrypted_archive (XArchive *archive)
@@ -799,5 +807,30 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 	}
 	fclose (file);
 	return flag;
+}
+
+void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model,gchar *path, GtkTreeIter *containing_iter)
+{
+	GtkTreeIter child_iter;
+
+	if (!entry)
+		return;
+
+	if (strlen(entry->filename) == 0)
+		return xa_browse_dir_sidebar(entry->child, model, path, containing_iter);
+
+	if (entry->is_dir)
+	{
+		gtk_tree_store_append(model,&child_iter,containing_iter);
+		gtk_tree_store_set(model,&child_iter,0,"gtk-directory",1,entry->filename,2,"",-1);
+	}
+	xa_browse_dir_sidebar(entry->child,model,NULL,&child_iter);
+	xa_browse_dir_sidebar(entry->next, model,NULL,containing_iter);
+
+}
+
+void xa_clean_dir_sidebar()
+{
+	gtk_tree_store_clear(GTK_TREE_STORE(model));
 }
 

@@ -128,7 +128,7 @@ int main (int argc, char **argv)
 			if (xa_detect_encrypted_archive (archive))
 			{
 				archive->has_passwd = TRUE;
-				archive->passwd = password_dialog (archive);
+				archive->passwd = xa_create_password_dialog(archive->escaped_path);
 				if (archive->passwd == NULL)
 					goto done;
 			}
@@ -214,22 +214,26 @@ done:	g_list_free (ArchiveSuffix);
 		g_list_free (ArchiveType);
 		if (archive != NULL)
 			xa_clean_archive_structure (archive);
-		return status;
+		return WIFEXITED (status);
 	}
 	else
 	{
 		xa_main_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-		xa_create_main_window (xa_main_window,gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_location_bar)));
+		xa_create_main_window (xa_main_window,	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_location_bar)),
+												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->store_output)),
+												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_sidebar)));
 
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
 		{
 			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
 			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), prefs_window->geometry[2], prefs_window->geometry[3]);
+			gtk_paned_set_position (GTK_PANED (hpaned1),prefs_window->geometry[4]);
 		}
 		else
 		{
 			gtk_window_set_position (GTK_WINDOW(xa_main_window),GTK_WIN_POS_CENTER);
 			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), 600, 400);
+			gtk_paned_set_position (GTK_PANED (hpaned1),200);
 		}
 		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (xa_main_window);

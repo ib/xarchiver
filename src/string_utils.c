@@ -298,30 +298,30 @@ here:
 	return retval;
 }
 
-void xa_set_window_title (GtkWidget *window , gchar *title)
+void xa_set_window_title (GtkWidget *window,gchar *title)
 {
 	gchar *x 	= NULL;
 	gchar *slash= NULL;
 
 	if (title == NULL)
-		gtk_window_set_title (GTK_WINDOW (window) , "Xarchiver " VERSION);
+		gtk_window_set_title (GTK_WINDOW (window),"Xarchiver " VERSION);
 	else
 	{
 		slash = g_strrstr (title , "/");
 		if (slash == NULL)
 		{
-			x = g_strconcat (title , " - " , "Xarchiver " , VERSION , NULL);
-			gtk_window_set_title ( GTK_WINDOW (window) , x);
+			x = g_strconcat (title , " - ","Xarchiver ",VERSION,NULL);
+			gtk_window_set_title (GTK_WINDOW (window),x);
 			g_free (x);
 			return;
 		}
 		else
 		{
-			x = g_strconcat (slash , " - " , "Xarchiver " , VERSION , NULL);
+			x = g_strconcat (slash, " - ","Xarchiver ",VERSION,NULL);
 			x++;
-			gtk_window_set_title (GTK_WINDOW (window) , x);
+			gtk_window_set_title (GTK_WINDOW (window),x);
 			x--;
-			g_free (x);
+			g_free(x);
 		}
 	}
 }
@@ -341,7 +341,7 @@ gboolean match_patterns (char **patterns,const char *string,int flags)
 	i = 0;
 	while ((result != 0) && (patterns[i] != NULL))
 	{
-		result = g_utf8_fnmatch (patterns[i], string, flags);
+		result = g_utf8_fnmatch (patterns[i],string,flags);
 		i++;
 	}
 	return (result == 0);

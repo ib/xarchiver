@@ -103,7 +103,6 @@ void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIte
 void xa_shell_quote_filename (gchar *filename,GString *data,XArchive *archive);
 void xa_cat_filenames (XArchive *archive,GSList *list,GString *data);
 void xa_cat_filenames_basename (XArchive *archive,GSList *list,GString *data);
-void xa_disable_delete_view_buttons (gboolean value);
 void Update_StatusBar (gchar *msg);
 
 gchar *xa_open_file_dialog ();

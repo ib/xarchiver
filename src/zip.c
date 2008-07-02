@@ -240,7 +240,6 @@ void xa_zip_extract(XArchive *archive,GString *files)
 												archive->escaped_path , " -d ", archive->extraction_path,files->str,NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
-g_print  ("%s\n",command);
 	xa_run_command (archive,list);
 }
 

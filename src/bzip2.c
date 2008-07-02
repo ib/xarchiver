@@ -36,21 +36,23 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 	gboolean result;
 	dummy = g_string_new("");
 
-	archive->delete =	(void *)delete[archive->type];
-	archive->add = 		(void *)add[archive->type];
-	archive->extract = 	(void *)extract[archive->type];
-
 	if (g_str_has_suffix(archive->escaped_path,".tar.bz2") || g_str_has_suffix (archive->escaped_path,".tar.bz")
     	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
 	{
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 		archive->format = "TAR.BZIP2";
+		archive->delete =	(void *)delete[archive->type];
+		archive->add = 		(void *)add[archive->type];
+		archive->extract = 	(void *)extract[archive->type];
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
 		archive->format = "TAR.LZMA";
+		archive->delete =	(void *)delete[archive->type];
+		archive->add = 		(void *)add[archive->type];
+		archive->extract = 	(void *)extract[archive->type];
 		xa_open_tar_compressed_file(archive);
 	}
 	else

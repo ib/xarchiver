@@ -72,11 +72,10 @@ GtkWidget *menuitem2_menu;
 GtkWidget *addfile;
 GtkWidget *extract_menu;
 GtkWidget *delete_menu;
-GtkWidget *view_menu;
 GtkWidget *comment_menu;
 GtkWidget *view_shell_output1;
 GtkWidget *prefs_menu;
-GtkWidget *password_entry;
+GtkWidget *password_entry_menu;
 GtkWidget *image1;
 GtkWidget *image2;
 GtkWidget *menuitem4;
@@ -102,14 +101,19 @@ GtkWidget *separatortoolitem2;
 GtkWidget *separatortoolitem3;
 GtkWidget *AddFile_button;
 GtkWidget *Extract_button;
-GtkWidget *View_button;
 GtkWidget *Stop_button;
 GtkWidget *toolitem1;
 GtkWidget *location_label;
 GtkWidget *location_entry;
+GtkWidget *hpaned1;
+GtkWidget *archive_dir_treeview,*scrolledwindow2;
+GtkTreeStore *archive_dir_model;
+GtkTreeViewColumn *column;
+GtkCellRenderer *archive_dir_renderer;
+GtkWidget *ebox;
 GtkAccelGroup *accel_group;
 GtkTooltips *tooltips;
-GtkWidget *ebox;
+
 
 typedef struct
 {
@@ -118,12 +122,12 @@ typedef struct
 	GtkTextIter iter;
 } widget_data;
 
-gchar *password_dialog();
+gchar *xa_create_password_dialog(gchar *archive_name);
 void set_label (GtkWidget *label,gchar *text);
 int xa_progressbar_pulse (gpointer data);
 void xa_create_popup_menu();
 widget_data *xa_create_output_window(gchar *);
-void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location);
+void xa_create_main_window (GtkWidget *xa_main_window,gboolean,gboolean,gboolean);
 GtkWidget *create_archive_properties_window();
 gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data);
 void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data);
@@ -133,5 +137,6 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 void xa_close_page (GtkWidget *widget, gpointer data);
 void xa_set_button_state (gboolean,gboolean,gboolean,gboolean,gboolean, gboolean, gboolean,gboolean);
 void xa_restore_navigation(int idx);
+void xa_disable_delete_buttons (gboolean value);
 #endif
 

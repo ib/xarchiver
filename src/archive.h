@@ -142,5 +142,7 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry);
 void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path);
 void xa_entries_to_filelist(XEntry *, GString **, gchar *);
 gboolean xa_detect_encrypted_archive (XArchive *archive);
+void xa_browse_dir_sidebar (XEntry *, GtkTreeStore *,gchar *,GtkTreeIter *);
+void xa_clean_dir_sidebar();
 XArchive *archive[100];
 #endif
