@@ -34,7 +34,6 @@ gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path );
 int CountCharacter ( gchar *string , int chr );
 gchar *RemoveBackSlashes ( gchar *name);
 char *get_last_field (char *line,int last_field);
-char **split_line (char *line,int n_fields);
 char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
 char *eat_spaces (char *line);
 gchar *xa_get_parent_dir (const gchar *current_dir);
@@ -43,5 +42,6 @@ gboolean file_extension_is (const char *filename, const char *ext);
 gchar *extract_local_path (gchar *path);
 void xa_set_window_title ( GtkWidget *window , gchar *title);
 gboolean match_patterns (char **patterns,const char *string,int flags);
+gchar *xa_remove_path_from_archive_name(gchar *name);
 #endif
 

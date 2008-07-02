@@ -852,7 +852,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 			"name",  "xarchiver",
 			"version", PACKAGE_VERSION,
 			"copyright", "Copyright \xC2\xA9 2005-2008 Giuseppe Torelli",
-			"comments", "A lightweight GTK+2 archive manager",
+			"comments", "The best GUI for handling archivers on Linux",
 			"authors", authors,
 			"documenters",documenters,
 			"translator_credits", _("translator-credits"),
@@ -1360,7 +1360,7 @@ void xa_view_file_inside_archive (GtkMenuItem *menuitem,gpointer user_data)
 void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 {
 	struct stat my_stat;
-    gchar *utf8_string , *measure, *text, *dummy_string;
+    gchar *utf8_string , *measure,*dummy_string;
     char date[64];
     gchar *t;
     unsigned long long int file_size;
@@ -1372,17 +1372,9 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     stat (archive[idx]->path , &my_stat );
     file_size = my_stat.st_size;
     archive_properties_win = create_archive_properties_window();
-    //Name
-    text = g_strrstr ( archive[idx]->path, "/" );
-    if (text != NULL)
-    {
-        text++;
-        utf8_string = g_filename_display_name (text);
-    }
-    else
-		utf8_string = g_filename_display_name (archive[idx]->path);
-    gtk_entry_set_text ( GTK_ENTRY (name_data), utf8_string );
-    g_free (utf8_string);
+    utf8_string = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
+	gtk_entry_set_text ( GTK_ENTRY (name_data), utf8_string );
+	g_free (utf8_string);
     //Path
     dummy_string = remove_level_from_path (archive[idx]->path);
     if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0)

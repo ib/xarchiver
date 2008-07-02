@@ -145,36 +145,6 @@ char *get_last_field (char *line,int last_field)
 	return field;
 }
 
-char **split_line (char *line,int n_fields)
-{
-	char **fields;
-	char *scan, *field_end;
-	int i;
-
-	fields = g_new0 (char *, n_fields + 1);
-	fields[n_fields] = NULL;
-
-	scan = eat_spaces (line);
-	for (i = 0; i < n_fields; i++)
-	{
-		if (scan == NULL)
-		{
-			fields[i] = NULL;
-			continue;
-		}
-		field_end = strchr (scan, ' ');
-		//The following line is mine, I added the case when the last field ends with a newline
-		if (field_end == NULL)
-			field_end = strchr (scan, '\n');
-		else
-		{
-			fields[i] = g_strndup (scan, field_end - scan);
-			scan = eat_spaces (field_end);
-		}
-	}
-	return fields;
-}
-
 static int count_chars_to_escape (const char *str, const char *meta_chars)
 {
 	int meta_chars_n = strlen (meta_chars);
@@ -345,4 +315,20 @@ gboolean match_patterns (char **patterns,const char *string,int flags)
 		i++;
 	}
 	return (result == 0);
+}
+
+gchar *xa_remove_path_from_archive_name(gchar *name)
+{
+	gchar *utf8_string,*text;
+
+	text = g_strrstr (name,"/");
+	if (text != NULL)
+	{
+		text++;
+		utf8_string = g_filename_display_name (text);
+	}
+	else
+		utf8_string = g_filename_display_name (name);
+
+	return utf8_string;
 }

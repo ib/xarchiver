@@ -1,6 +1,7 @@
 What is it?
 ===========
-Xarchiver is a Desktop Environment independent archiver frontend. All common archive types are supported.
+Xarchiver is the best user graphic interface on Linux for handling archives. It's a Desktop Environment independent 
+archiver frontend. All common archive types are supported.
 RPM and DEB packages are handled without their package managers. To run it you only need GTK+2 libraries and
 obviously the various rar, arj and 7z for these archive types. All the others archivers are installed by
 default in most distro.

@@ -384,7 +384,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	hpaned1 = gtk_hpaned_new ();
 	gtk_widget_show (hpaned1);
   	gtk_box_pack_start (GTK_BOX (vbox1),hpaned1,TRUE,TRUE,0);
-  	//gtk_paned_set_position (GTK_PANED (hpaned1),200);
   	
   	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
   	if (show_sidebar)
@@ -394,17 +393,15 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
   	gtk_paned_pack1 (GTK_PANED (hpaned1), scrolledwindow2, FALSE, TRUE);
 	g_object_set (G_OBJECT (scrolledwindow2),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 
-  	archive_dir_model = gtk_tree_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+  	archive_dir_model = gtk_tree_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	archive_dir_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(archive_dir_model));
 	gtk_container_add (GTK_CONTAINER (scrolledwindow2), archive_dir_treeview);
 	gtk_widget_show(archive_dir_treeview);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (archive_dir_treeview), FALSE);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
 
-	/*g_signal_connect (G_OBJECT (archive_dir_treeview),"row-expanded",G_CALLBACK(xa_expand_dir),dialog_data->destination_path_entry);
-	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-activated",G_CALLBACK(xa_row_activated),dialog_data->destination_path_entry);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
-	g_signal_connect (sel,"changed",G_CALLBACK (xa_tree_view_row_selected),dialog_data->destination_path_entry);*/
+	g_signal_connect (sel,"changed",G_CALLBACK (xa_sidepane_row_selected),NULL);
 
 	column = gtk_tree_view_column_new();
 	archive_dir_renderer = gtk_cell_renderer_pixbuf_new();
@@ -415,8 +412,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_tree_view_column_pack_start(column,archive_dir_renderer,TRUE);
 	gtk_tree_view_column_set_attributes(column,archive_dir_renderer,"text",1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (archive_dir_treeview),column);
-	/*g_signal_connect (renderer, "editing-canceled",G_CALLBACK (xa_cell_edited_canceled),dialog_data);
-	g_signal_connect (renderer, "edited",G_CALLBACK (xa_cell_edited),dialog_data);*/
   	
 	/* Create the notebook widget */
 	notebook = GTK_NOTEBOOK(gtk_notebook_new() );
@@ -675,8 +670,12 @@ gchar *xa_create_password_dialog(gchar *archive_name)
   	gtk_misc_set_alignment (GTK_MISC (label_filename), 0, 0.5);
 
 	if (archive_name != NULL)
-		gtk_label_set_text(GTK_LABEL(label_filename),archive_name);
-		
+	{
+		gchar *name;
+		name = xa_remove_path_from_archive_name(archive_name);
+		gtk_label_set_text(GTK_LABEL(label_filename),name);
+		g_free (name);
+	}	
   	hbox1 = gtk_hbox_new (FALSE, 5);
   	gtk_widget_show (hbox1);
   	gtk_box_pack_start (GTK_BOX (vbox2), hbox1, TRUE, TRUE, 0);

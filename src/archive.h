@@ -143,6 +143,7 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gcha
 void xa_entries_to_filelist(XEntry *, GString **, gchar *);
 gboolean xa_detect_encrypted_archive (XArchive *archive);
 void xa_browse_dir_sidebar (XEntry *, GtkTreeStore *,gchar *,GtkTreeIter *);
-void xa_clean_dir_sidebar();
+void xa_fill_dir_sidebar(XArchive *);
+void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data);
 XArchive *archive[100];
 #endif

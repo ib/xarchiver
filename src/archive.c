@@ -532,7 +532,7 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *
 void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 {
 	GdkPixbuf *pixbuf = NULL;
-	GtkTreeIter iter,dummy_iter;
+	GtkTreeIter iter;
 	unsigned short int i;
 	gpointer current_column;
 
@@ -613,9 +613,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		}
 		entry = entry->next;
 	}
-	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(archive_dir_model),&dummy_iter));
-	else
-		xa_browse_dir_sidebar(archive->root_entry,archive_dir_model,NULL,NULL);
+	xa_fill_dir_sidebar(archive);
 }
 
 XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
@@ -822,15 +820,57 @@ void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model,gchar *path, GtkT
 	if (entry->is_dir)
 	{
 		gtk_tree_store_append(model,&child_iter,containing_iter);
-		gtk_tree_store_set(model,&child_iter,0,"gtk-directory",1,entry->filename,2,"",-1);
+		gtk_tree_store_set(model,&child_iter,0,"gtk-directory",1,entry->filename,2,entry,-1);
 	}
 	xa_browse_dir_sidebar(entry->child,model,NULL,&child_iter);
 	xa_browse_dir_sidebar(entry->next, model,NULL,containing_iter);
 
 }
 
-void xa_clean_dir_sidebar()
+void xa_fill_dir_sidebar(XArchive *archive)
 {
-	gtk_tree_store_clear(GTK_TREE_STORE(model));
+	GtkTreeIter iter;
+
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(archive_dir_model),&iter))
+		return;
+
+	gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
+	xa_browse_dir_sidebar(archive->root_entry,archive_dir_model,NULL,NULL);
 }
 
+void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
+{
+	XEntry *entry;
+	GtkTreeIter iter;
+	GtkTreeIter parent;
+	GtkTreeModel *model;
+	GString *string = g_string_new("");
+	gchar *dir;
+	gint current_page;
+	gint idx;
+
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index(current_page);
+
+	if (gtk_tree_selection_get_selected (selection,&model,&iter))
+	{
+		/* Let get the last selected dir */
+		gtk_tree_model_get(model,&iter,1,&dir,-1);
+		g_string_prepend_c(string,'/');
+		g_string_prepend(string,dir);
+
+		/* Get the memory address of entry so to update the main listview */
+		gtk_tree_model_get(model,&iter,2,&entry,-1);
+		while (gtk_tree_model_iter_parent(model,&parent,&iter))
+		{
+			gtk_tree_model_get(model,&parent,1,&dir,-1);
+			g_string_prepend_c(string,'/');
+			g_string_prepend(string,dir);
+			iter = parent;
+		}
+		gtk_entry_set_text(GTK_ENTRY(location_entry),string->str);
+		g_string_free(string,TRUE);
+
+		xa_update_window_with_archive_entries(archive[idx],entry);
+	}
+}
