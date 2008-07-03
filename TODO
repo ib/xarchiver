@@ -1,6 +1,5 @@
 - fix the directories bug with 7z
 - fix the remaining bugs in bugzilla.xfce.org
-- add ability to add files in specific archive directories.
 - enrich the status bar
 - to fix the arrow buttons
 - add a small progress window when using Xarchiver cmd-line switches.
