@@ -341,9 +341,16 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 {
 	gchar *temp_password = NULL;
 	gchar *compression_string = NULL;
+	gchar *command = NULL;
+	gchar *new_path = NULL;
+	gchar tmp_dir[14];
 	gboolean done = FALSE;
+	gboolean result = FALSE;
 	GSList *files = NULL;
+	GSList *slist = NULL;	
+	GSList *list = NULL;
 	GString *names;
+	GString *items;
 
 	names = g_string_new (" ");
 	while ( ! done )
@@ -375,6 +382,29 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 					archive->passwd = temp_password;
 			}
 			done = TRUE;
+			/* This in case the user wants to add files not in the archive root directory */
+			if (archive->location_entry_path != NULL)
+			{
+				result = xa_create_temp_directory(archive,tmp_dir);
+				if (result == FALSE)
+					return;
+
+				items = g_string_new("");
+				new_path = g_strconcat (archive->tmp,"/",archive->location_entry_path,NULL);
+				command = g_strconcat ("mkdir -p ",new_path,NULL);
+				list = g_slist_append(list,command);
+				slist = files;
+				while (slist)
+				{
+					g_string_append(items,slist->data);
+					g_string_append_c(items,' ');
+					slist = slist->next;
+				}
+				command = g_strconcat ("cp -r ",items->str," ",new_path,NULL);
+				g_string_free(items,FALSE);
+				list = g_slist_append(list,command);
+				xa_run_command (archive,list);
+			}
 
 			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->store_path)))
 				archive->full_path = TRUE;
@@ -405,18 +435,21 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				gchar *current_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
 				chdir (current_dir);
 				g_free (current_dir);
-				xa_cat_filenames_basename(archive,files,names);
+				xa_cat_filenames_basename(archive,files,names,archive->location_entry_path);
 			}
 			else
-				xa_cat_filenames(archive,files,names);
+				xa_cat_filenames(archive,files,names,archive->location_entry_path);
 
 			gtk_widget_hide(add_dialog->dialog1);
+			
 			xa_execute_add_commands (archive,names,compression_string);
 			g_slist_free(files);
 			if (compression_string != NULL)
 				g_free (compression_string);
 		}
 	}
+	if (new_path != NULL)
+		g_free(new_path);
 }
 
 void xa_execute_add_commands (XArchive *archive,GString *names,gchar *compression_string)
@@ -426,4 +459,3 @@ void xa_execute_add_commands (XArchive *archive,GString *names,gchar *compressio
 	archive->status = XA_ARCHIVESTATUS_ADD;
 	(*archive->add) (archive,names,compression_string);
 }
-

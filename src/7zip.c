@@ -18,6 +18,7 @@
 
 #include "config.h"
 #include <string.h>
+#include <unistd.h>
 #include "7zip.h"
 
 extern gboolean sevenzr;
@@ -189,7 +190,10 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 		exe = "7zr ";
 	if (sevenza)
 		exe = "7za ";
-		
+
+	if (archive->location_entry_path != NULL)
+		chdir (archive->tmp);
+
 	if (compression_string == NULL)
 		compression_string = "5";
 	if (archive->passwd != NULL)

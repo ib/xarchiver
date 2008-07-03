@@ -241,3 +241,20 @@ gchar *xa_remove_path_from_archive_name(gchar *name)
 
 	return utf8_string;
 }
+
+void xa_shell_quote_filename (gchar *filename,GString *data,XArchive *archive)
+{
+	gchar *quoted_filename = NULL;
+	gchar *esc_filename = NULL;
+
+	quoted_filename = g_shell_quote(filename);
+	if (strstr(filename,"[") || strstr(filename,"]"))
+	{
+		esc_filename = xa_escape_common_chars (quoted_filename , "*?[]", '\\', 0);
+		g_free(quoted_filename);
+		quoted_filename = esc_filename;
+	}
+	g_string_prepend (data,quoted_filename);
+	g_string_prepend_c (data,' ');
+	g_free (quoted_filename);
+}

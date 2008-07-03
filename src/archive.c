@@ -32,8 +32,6 @@ extern Prefs_dialog_data *prefs_window;
 extern gboolean batch_mode;
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
-void xa_sidepane_select_row(XEntry *entry);
-gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data);
 
 XArchive *xa_init_archive_structure(gint type)
 {
@@ -552,8 +550,6 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		gtk_widget_set_sensitive(up_button,FALSE);
 		gtk_widget_set_sensitive(home_button,FALSE);
 	}
-	else if (entry->child == NULL)
-		return;
 	else
 	{
 		if (archive->location_entry_path != NULL)

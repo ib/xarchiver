@@ -174,6 +174,9 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 	GSList *list = NULL;
 	gchar *command = NULL;
 
+	if (archive->location_entry_path != NULL)
+		chdir (archive->tmp);
+
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_TAR:

@@ -456,6 +456,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		xa_disable_delete_buttons (FALSE);
 		xa_set_button_state (1,1,0,0,0,0,0,0);
 		xa_set_window_title (xa_main_window,NULL);
+		gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 	}
 	else if ( current_page == 1)
@@ -841,8 +842,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nBruno Jesus <00cpxxx@gmail.com>\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n",NULL};
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nEnrico Tröger\nUracile for the stunning logo\n", NULL};
+    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n",NULL};
+    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n", NULL};
 
 	if (about == NULL)
 	{
@@ -854,7 +855,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 			"name",  "xarchiver",
 			"version", PACKAGE_VERSION,
 			"copyright", "Copyright \xC2\xA9 2005-2008 Giuseppe Torelli",
-			"comments", "The best GUI for handling archivers on Linux",
+			"comments", "The best GUI for handling archives on Linux",
 			"authors", authors,
 			"documenters",documenters,
 			"translator_credits", _("translator-credits"),
@@ -1265,100 +1266,6 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	xa_archive_operation_finished(archive[idx],0);
 }
 
-void xa_view_file_inside_archive (GtkMenuItem *menuitem,gpointer user_data)
-{
-	gchar *command = NULL;
-	gchar tmp_dir[14] = "";
-	GtkTreeSelection *selection;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	XEntry *entry = NULL;
-	gchar *full_pathname;
-	gchar *editor_path;
-	GString *names = g_string_new("");
-	GList *row_list = NULL;
-	GSList *list = NULL;
-	gboolean result = FALSE;
-	gint current_page;
-	gint idx;
-
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
-
-	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[idx]->treeview) );
-	if (gtk_tree_selection_count_selected_rows (selection) != 1)
-		return;
-
-	row_list = gtk_tree_selection_get_selected_rows (selection, &model);
-	if (row_list == NULL)
-		return;
-
-	gtk_tree_model_get_iter(model, &iter, row_list->data);
-	gtk_tree_path_free(row_list->data);
-	g_list_free (row_list);
-
-	gtk_tree_model_get (GTK_TREE_MODEL (archive[idx]->liststore),&iter,archive[idx]->nc+1,&entry, -1);
-	if (entry == NULL || entry->is_dir)
-		return;
-
-	editor_path = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_editor));
-	if (strlen(editor_path) == 0)
-	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
-		_("You didn't set which editor to use!"),_("Please go to Preferences->Advanced and set it."));		
-		g_free (editor_path);
-		return;	
-	}
-
-	if (entry->is_encrypted)
-	{
-		if (archive[idx]->passwd == NULL)
-		{
-			archive[idx]->passwd = xa_create_password_dialog(NULL);
-			if (archive[idx]->passwd == NULL)
-				return;
-		}
-	}
-
-	full_pathname = xa_build_full_path_name_from_entry(entry);
-	xa_shell_quote_filename(full_pathname,names,archive[idx]);
-	g_free(full_pathname);
-
-	result = xa_create_temp_directory(archive[idx],tmp_dir);
-	if (result == FALSE)
-		return;
-
-	full_path = archive[idx]->full_path;
-	overwrite = archive[idx]->overwrite;
-
-	archive[idx]->full_path = 0;
-	archive[idx]->overwrite = 1;
-
-	//TODO: check for memleak here in extraction_path
-	archive[idx]->extraction_path = archive[idx]->tmp;
-	(*archive[idx]->extract) (archive[idx],names);
-	g_string_free (names,TRUE);
-
-	archive[idx]->full_path = full_path;
-	archive[idx]->overwrite = overwrite;
-	if (command != NULL)
-	{
-		list = g_slist_append(list,command);
-		result = xa_run_command (archive[idx],list);
-		if (result == 0)
-			return;
-	}
-	command = g_strconcat(archive[idx]->tmp,"/",entry->filename,NULL);
-
-	if (xa_launch_external_program(editor_path,command))
-		xa_archive_operation_finished(archive[idx],1);
-	else
-		xa_archive_operation_finished(archive[idx],0);
-
-	g_free(editor_path);
-	g_free(command);
-}
-
 void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 {
 	struct stat my_stat;
@@ -1373,7 +1280,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	idx = xa_find_archive_index (current_page);
     stat (archive[idx]->path , &my_stat );
     file_size = my_stat.st_size;
-    archive_properties_win = create_archive_properties_window();
+    archive_properties_window = create_archive_properties_window();
     utf8_string = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
 	gtk_entry_set_text ( GTK_ENTRY (name_data), utf8_string );
 	g_free (utf8_string);
@@ -1467,7 +1374,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     t = g_strdup_printf ( "%d", archive[idx]->nr_of_dirs);
     gtk_entry_set_text ( GTK_ENTRY (number_of_dirs_data), t );
     g_free (t);
-    gtk_widget_show_all ( archive_properties_win );
+    gtk_widget_show_all (archive_properties_window);
 }
 
 void xa_activate_delete_and_view (GtkTreeSelection *treeselection,gpointer data)
@@ -1491,28 +1398,6 @@ void xa_activate_delete_and_view (GtkTreeSelection *treeselection,gpointer data)
 	}
 }
 
-void xa_shell_quote_filename (gchar *filename,GString *data,XArchive *archive)
-{
-	gchar *quoted_filename = NULL;
-	gchar *esc_filename = NULL;
-
-	quoted_filename = g_shell_quote(filename);
-	if (archive->status != XA_ARCHIVESTATUS_ADD && archive->type != XARCHIVETYPE_TAR
-		&& archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_GZ
-		&& archive->type != XARCHIVETYPE_RAR)
-	{
-		if (strstr(filename,"[") || strstr(filename,"]"))
-		{
-			esc_filename = xa_escape_common_chars (quoted_filename , "*?[]", '\\', 0);
-			g_free(quoted_filename);
-			quoted_filename = esc_filename;
-		}
-	}
-	g_string_prepend (data,quoted_filename);
-	g_string_prepend_c (data,' ');
-	g_free (quoted_filename);
-}
-
 void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
 {
 	XEntry *entry = NULL;
@@ -1529,27 +1414,46 @@ void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIte
 	g_free (filename);
 }
 
-void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
+void xa_cat_filenames (XArchive *archive,GSList *list,GString *data,gchar *new_path)
 {
 	GSList *slist = list;
+	gchar *name = NULL;
 
 	while (slist)
 	{
-		xa_shell_quote_filename(slist->data,data,archive);
+		if (new_path != NULL)
+		{
+			name = g_strconcat(new_path,slist->data,NULL);
+			xa_shell_quote_filename(name,data,archive);
+			g_free(name);
+		}
+		else
+			xa_shell_quote_filename(slist->data,data,archive);
 		slist = slist->next;
 	}
 }
 
-void xa_cat_filenames_basename (XArchive *archive,GSList *list,GString *data)
+void xa_cat_filenames_basename (XArchive *archive,GSList *list,GString *data,gchar *new_path)
 {
 	gchar *basename;
 	GSList *slist = list;
 
 	while (slist)
 	{
-		basename = g_path_get_basename (slist->data);
-		xa_shell_quote_filename(basename,data,archive);
-		g_free (basename);
+		if (new_path != NULL)
+		{
+			basename = g_path_get_basename (slist->data);
+			name = g_strconcat(new_path,basename,NULL);
+			g_free(basename);
+			xa_shell_quote_filename(name,data,archive);
+			g_free(name);
+		}
+		else
+		{
+			basename = g_path_get_basename (slist->data);
+			xa_shell_quote_filename(basename,data,archive);
+			g_free (basename);
+		}
 		slist = slist->next;
 	}
 }
@@ -1775,7 +1679,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	archive[idx]->add_recurse = add_recurse;
 
 	g_strfreev (array);
-
 }
 
 gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer data)
@@ -1789,10 +1692,6 @@ gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer dat
 			xa_cancel_archive (NULL, NULL);
 		break;
 
-		case GDK_Delete:
-		if (GTK_WIDGET_STATE (delete_menu) != GTK_STATE_INSENSITIVE)
-			xa_delete_archive (NULL,NULL);
-		break;
 	}
 	return FALSE;
 }
@@ -1960,6 +1859,7 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 	else
 		archive[idx]->back = g_slist_prepend(archive[idx]->back,NULL);
 
+	xa_sidepane_select_row(new_entry);
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
 }
 

@@ -18,6 +18,7 @@
 
 #include "config.h"
 #include "rar.h"
+#include <unistd.h>
 
 extern gboolean unrar;
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
@@ -207,10 +208,13 @@ void xa_rar_delete (XArchive *archive,GString *files)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
+	GString *e_filenames = g_string_new("");
 
 	archive->status = XA_ARCHIVESTATUS_DELETE;
-	command = g_strconcat ("rar d ",archive->escaped_path," ",files->str,NULL);
+	xa_shell_quote_filename(files->str,e_filenames,archive);
+	command = g_strconcat ("rar d ",archive->escaped_path," ",e_filenames->str,NULL);
 	g_string_free(files,TRUE);
+	g_string_free(e_filenames,TRUE);
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);
@@ -221,6 +225,8 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 	GSList *list = NULL;
 	gchar *command = NULL;
 
+	if (archive->location_entry_path != NULL)
+		chdir (archive->tmp);
 
 	if (compression_string == NULL)
 		compression_string = "3";

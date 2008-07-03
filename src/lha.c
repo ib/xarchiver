@@ -19,6 +19,7 @@
 
 #include "config.h"
 #include "lha.h"
+#include <unistd.h>
 
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 
@@ -151,7 +152,10 @@ void xa_lha_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
-	
+
+	if (archive->location_entry_path != NULL)
+		chdir (archive->tmp);
+
 	if (compression_string == NULL)
 		compression_string = "5";
 	command = g_strconcat( "lha ",

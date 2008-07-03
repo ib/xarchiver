@@ -131,11 +131,11 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	menuitem2_menu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem2), menuitem2_menu);
 
-	addfile = gtk_image_menu_item_new_with_mnemonic (_("Add"));
+	addfile = gtk_image_menu_item_new_with_mnemonic (_("A_dd"));
 	gtk_widget_set_sensitive (addfile,FALSE);
 	gtk_widget_show (addfile);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), addfile);
-	gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_c, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator (addfile, "activate",accel_group,GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	image2 = xa_main_window_find_image ("xarchiver-add.png", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image2);
@@ -151,11 +151,11 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu), image2);
 
-	delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete", accel_group);
+	delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete",accel_group);
 	gtk_widget_set_sensitive (delete_menu,FALSE);
 	gtk_widget_show (delete_menu);
-	gtk_container_add (GTK_CONTAINER (menuitem2_menu), delete_menu);
-	gtk_widget_add_accelerator (delete_menu, "activate",accel_group,GDK_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
+	gtk_widget_add_accelerator (delete_menu, "activate",accel_group,GDK_Delete, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
 
 	separatormenuitem3 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem3);
@@ -247,16 +247,21 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (prefs_menu), tmp_image);
 
-	menuitem4 = gtk_menu_item_new_with_mnemonic (_("_Help"));
+	menuitem4 = gtk_image_menu_item_new_with_mnemonic (_("_Help"));
 	gtk_widget_show (menuitem4);
 	gtk_container_add (GTK_CONTAINER (menubar1), menuitem4);
 
 	menuitem4_menu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem4), menuitem4_menu);
 
-	help1 = gtk_image_menu_item_new_from_stock ("gtk-help", accel_group);
+	help1 = gtk_image_menu_item_new_with_mnemonic ("_Contents");
 	gtk_widget_show (help1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu), help1);
+	gtk_widget_add_accelerator (help1, "activate",accel_group,GDK_F1, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
+	
+	tmp_image = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
+	gtk_widget_show (tmp_image);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), tmp_image);
 
 	about1 = gtk_image_menu_item_new_from_stock ("gtk-about", accel_group);
 	gtk_widget_show (about1);
@@ -391,13 +396,13 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
   	else
   		gtk_widget_hide (scrolledwindow2);
   	gtk_paned_pack1 (GTK_PANED (hpaned1), scrolledwindow2, FALSE, TRUE);
-	g_object_set (G_OBJECT (scrolledwindow2),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
+	g_object_set (G_OBJECT (scrolledwindow2),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 
   	archive_dir_model = gtk_tree_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	archive_dir_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(archive_dir_model));
 	gtk_container_add (GTK_CONTAINER (scrolledwindow2), archive_dir_treeview);
 	gtk_widget_show(archive_dir_treeview);
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (archive_dir_treeview), FALSE);
+	//gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (archive_dir_treeview), FALSE);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
 
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
@@ -407,6 +412,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	archive_dir_renderer = gtk_cell_renderer_pixbuf_new();
 	gtk_tree_view_column_pack_start(column,archive_dir_renderer,FALSE);
 	gtk_tree_view_column_set_attributes(column,archive_dir_renderer, "stock-id",0,NULL);
+	gtk_tree_view_column_set_title(column, _("Archive tree"));
 
 	archive_dir_renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(column,archive_dir_renderer,TRUE);

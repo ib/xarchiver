@@ -145,5 +145,7 @@ gboolean xa_detect_encrypted_archive (XArchive *archive);
 void xa_browse_dir_sidebar (XEntry *, GtkTreeStore *,gchar *,GtkTreeIter *);
 void xa_fill_dir_sidebar(XArchive *,gboolean);
 void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data);
+void xa_sidepane_select_row(XEntry *entry);
+gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data);
 XArchive *archive[100];
 #endif

@@ -18,6 +18,7 @@
 
 #include "config.h"
 #include <string.h>
+#include <unistd.h>
 #include "zip.h"
 
 
@@ -192,6 +193,9 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
+
+	if (archive->location_entry_path != NULL)
+		chdir (archive->tmp);
 
 	if (compression_string == NULL)
 		compression_string = "6";
