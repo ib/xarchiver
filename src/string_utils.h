@@ -30,13 +30,7 @@ const char *strcasestr(const char *haystack, const char *needle);
 char *mkdtemp (gchar *tmpl);
 #endif
 gchar *xa_escape_bad_chars ( gchar *string , gchar *pattern);
-gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path );
-int CountCharacter ( gchar *string , int chr );
-gchar *RemoveBackSlashes ( gchar *name);
-char *get_last_field (char *line,int last_field);
 char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
-char *eat_spaces (char *line);
-gchar *xa_get_parent_dir (const gchar *current_dir);
 gchar *remove_level_from_path (const gchar *path);
 gboolean file_extension_is (const char *filename, const char *ext);
 gchar *extract_local_path (gchar *path);

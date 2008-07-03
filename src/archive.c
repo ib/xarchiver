@@ -32,6 +32,8 @@ extern Prefs_dialog_data *prefs_window;
 extern gboolean batch_mode;
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
+void xa_sidepane_select_row(XEntry *entry);
+gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data);
 
 XArchive *xa_init_archive_structure(gint type)
 {
@@ -613,7 +615,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		}
 		entry = entry->next;
 	}
-	xa_fill_dir_sidebar(archive);
+	xa_fill_dir_sidebar(archive,FALSE);
 }
 
 XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
@@ -827,11 +829,11 @@ void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model,gchar *path, GtkT
 
 }
 
-void xa_fill_dir_sidebar(XArchive *archive)
+void xa_fill_dir_sidebar(XArchive *archive,gboolean force_reload)
 {
 	GtkTreeIter iter;
 
-	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(archive_dir_model),&iter))
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(archive_dir_model),&iter) && force_reload == FALSE)
 		return;
 
 	gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
@@ -873,4 +875,34 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 
 		xa_update_window_with_archive_entries(archive[idx],entry);
 	}
+}
+
+void xa_sidepane_select_row(XEntry *entry)
+{
+	gtk_tree_model_foreach(GTK_TREE_MODEL(archive_dir_model),(GtkTreeModelForeachFunc)_xa_sidepane_select_row,entry);
+}
+
+gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data)
+{
+	XEntry *entry = data;
+	XEntry *entry2;
+	GtkTreeIter parent;
+
+	gtk_tree_model_get (model,iter,2,&entry2,-1);
+	
+	if (entry == entry2)
+	{
+		gtk_tree_model_iter_parent(model,&parent,iter);
+		if ( ! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),path))
+			gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),path);
+
+		gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)),iter);
+	}
+	else
+	{
+		return FALSE;
+		gtk_tree_selection_unselect_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)),iter);
+	}
+
+	return FALSE;
 }

@@ -92,58 +92,7 @@ gchar *xa_escape_bad_chars ( gchar *string , gchar *pattern)
 	return xa_escape_common_chars (string, pattern, '\\', 0);
 }
 
-gchar *JoinPathArchiveName ( const gchar *extract_path , gchar *path )
-{
-	return g_strconcat (extract_path , path , NULL);
-}
-
-int CountCharacter ( gchar *string , int chr )
-{
-    int n = 0;
-    while ( *string )
-    {
-        if ( *string == chr ) n++;
-        string++;
-    }
-    return n;
-}
-
-gchar *RemoveBackSlashes ( gchar *name)
-{
-    gchar *nome, *q;
-    int x = CountCharacter ( name , '\\' );
-    nome = (char *) g_malloc (strlen(name) - x + 1);
-    q = nome;
-    while ( *name )
-    {
-        if ( *name == '\\' ) name++;
-        *q++ = *name++;
-    }
-    *q = '\000';
-    return nome;
-}
-
 /* These functions are from File-Roller code */
-char *get_last_field (char *line,int last_field)
-{
-	char *field;
-	int i;
-
-	if (line == NULL)
-		return NULL;
-
-	last_field--;
-	field = eat_spaces (line);
-	for (i = 0; i < last_field; i++) {
-		if (field == NULL)
-			return NULL;
-		field = strchr (field, ' ');
-		field = eat_spaces (field);
-	}
-	//The following line is mine, I replace the \n with the null terminated
-    if (field != NULL) field [ strlen(field) -1 ] = '\0';
-	return field;
-}
 
 static int count_chars_to_escape (const char *str, const char *meta_chars)
 {
@@ -199,15 +148,6 @@ char *xa_escape_common_chars (const char *str, const char *meta_chars, const cha
         return escaped;
 }
 
-char *eat_spaces (char *line)
-{
-	if (line == NULL)
-		return NULL;
-	while ((*line == ' ') && (*line != 0))
-		line++;
-	return line;
-}
-
 gchar *remove_level_from_path (const gchar *path)
 {
 	return g_path_get_dirname(path);
@@ -235,37 +175,6 @@ gchar *extract_local_path (gchar *path)
     local_escaped_path = xa_escape_bad_chars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
     g_free (local_path);
     return local_escaped_path;
-}
-
-gchar *xa_get_parent_dir (const gchar *current_dir)
-{
-	gchar *first_slash = NULL;
-	gchar *second_slash = NULL;
-	gchar *reverse = NULL;
-	gchar *retval = NULL;
-
-	reverse = g_strdup (current_dir);
-	g_strreverse (reverse);
-
-	first_slash = strchr(reverse,'/');
-	if (first_slash == NULL)
-	{
-		retval = g_strdup("/");
-		goto here;
-	}
-	first_slash++;
-	second_slash = strchr(first_slash,'/');
-
-	if (second_slash == NULL)
-		retval = g_strdup(first_slash);
-	else
-		retval = g_strndup(first_slash, (second_slash - first_slash) );
-
-	g_strreverse(retval);
-
-here:
-	g_free (reverse);
-	return retval;
 }
 
 void xa_set_window_title (GtkWidget *window,gchar *title)

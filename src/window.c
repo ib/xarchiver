@@ -175,6 +175,7 @@ void xa_reload_archive_content(XArchive *archive)
 			break;
 		}
 	}
+	xa_fill_dir_sidebar(archive,TRUE);
 }
 
 void xa_watch_child (GPid pid,gint status,gpointer data)
@@ -410,6 +411,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		break;
 	}
 	archive[current_page]->passwd = NULL;
+	xa_fill_dir_sidebar(archive[current_page],TRUE);
 }
 
 void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
@@ -2005,5 +2007,6 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	else
 		archive->back = g_slist_prepend(archive->back,NULL);
 
+	xa_sidepane_select_row(entry);
 	xa_update_window_with_archive_entries(archive,entry);
 }

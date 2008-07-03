@@ -546,6 +546,7 @@ here:
 			gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
 
 		gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
+		xa_fill_dir_sidebar(archive[id],TRUE);
 	}
 }
 
