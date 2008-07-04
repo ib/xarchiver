@@ -122,21 +122,21 @@ typedef struct
 	GtkTextIter iter;
 } widget_data;
 
-gchar *xa_create_password_dialog(gchar *archive_name);
-void set_label (GtkWidget *label,gchar *text);
-int xa_progressbar_pulse (gpointer data);
+gchar *xa_create_password_dialog(gchar *);
+void set_label (GtkWidget *label,gchar *);
+int xa_progressbar_pulse (gpointer );
 void xa_create_popup_menu();
 widget_data *xa_create_output_window(gchar *);
-void xa_create_main_window (GtkWidget *xa_main_window,gboolean,gboolean,gboolean);
+void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean);
 GtkWidget *create_archive_properties_window();
-gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data);
-void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data);
-void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data);
-void xa_add_page (XArchive *archive);
-void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, gpointer user_data);
-void xa_close_page (GtkWidget *widget, gpointer data);
+gboolean select_matched_rows(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
+void xa_create_delete_dialog(GtkMenuItem *, gpointer );
+void xa_handle_navigation_buttons (GtkMenuItem *, gpointer );
+void xa_add_page (XArchive *);
+void xa_page_has_changed (GtkNotebook *, GtkNotebookPage *, guint , gpointer );
+void xa_close_page (GtkWidget *, gpointer );
 void xa_set_button_state (gboolean,gboolean,gboolean,gboolean,gboolean, gboolean, gboolean,gboolean);
 void xa_restore_navigation(int idx);
-void xa_disable_delete_buttons (gboolean value);
+void xa_disable_delete_buttons (gboolean );
 #endif
 

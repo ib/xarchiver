@@ -361,7 +361,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 				break;
 			_commands = _commands->next;
 		}
-		xa_archive_operation_finished(archive,result);
+		xa_archive_operation_finished(archive);
 here:
 		g_slist_foreach (commands,(GFunc) g_free,NULL);
 		g_slist_free(commands);
@@ -612,6 +612,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		entry = entry->next;
 	}
 	xa_fill_dir_sidebar(archive,FALSE);
+	xa_handle_selected_rows(NULL,archive);
 }
 
 XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
@@ -870,6 +871,7 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 		g_string_free(string,TRUE);
 
 		xa_update_window_with_archive_entries(archive[idx],entry);
+		xa_handle_selected_rows(NULL,archive[idx]);
 	}
 }
 

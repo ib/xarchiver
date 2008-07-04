@@ -76,7 +76,7 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 	return TRUE;
 }
 
-void xa_archive_operation_finished(XArchive *archive,gboolean error)
+void xa_archive_operation_finished(XArchive *archive)
 {
 	if(xa_main_window)
 	{
@@ -89,10 +89,6 @@ void xa_archive_operation_finished(XArchive *archive,gboolean error)
 			gtk_widget_set_sensitive (comment_menu,FALSE);
 			
 		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
-		if (error)
-			Update_StatusBar ( _("Operation completed."));
-		else
-			Update_StatusBar ( _("Operation failed!"));
 
 		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 			xa_show_archive_comment (NULL, NULL);
@@ -201,14 +197,6 @@ void xa_watch_child (GPid pid,gint status,gpointer data)
 		return;
 	}
 	result = xa_check_child_for_error_on_exit (archive,status);
-	if (result)
-	{
-		xa_archive_operation_finished(archive,result);
-		return;
-	}
-	else
-		xa_archive_operation_finished(archive,result);
-
 	if ( xa_main_window != NULL && archive != NULL)
 	{
 		if (archive->has_passwd == FALSE && archive->passwd == NULL)
@@ -216,6 +204,7 @@ void xa_watch_child (GPid pid,gint status,gpointer data)
 		else
 			gtk_widget_set_sensitive (password_entry_menu,TRUE);
 	}
+	xa_archive_operation_finished(archive);
 }
 
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
@@ -1263,7 +1252,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	if (archive[idx]->status != XA_ARCHIVESTATUS_ADD)
 		if (archive[idx]->has_passwd)
 			archive[idx]->has_passwd = FALSE;
-	xa_archive_operation_finished(archive[idx],0);
+	xa_archive_operation_finished(archive[idx]);
 }
 
 void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
@@ -1377,16 +1366,58 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     gtk_widget_show_all (archive_properties_window);
 }
 
-void xa_activate_delete_and_view (GtkTreeSelection *treeselection,gpointer data)
+void xa_handle_selected_rows (GtkTreeSelection *selection,gpointer data)
 {
 	XArchive *archive = data;
-	GtkTreeSelection *selection;
+	GList *list = NULL;
+	gchar *measure = NULL;
+	gchar *info = NULL;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GtkTreePath *path;
+	gint selected,n_elem = 0,pos = 0;
+	unsigned long int total_size = 0;
+	unsigned int size = 0;
 
-	if ( ! GTK_WIDGET_VISIBLE (Extract_button) )
-		return;
+	/*if ( ! GTK_WIDGET_VISIBLE (Extract_button) )
+		return;*/
 
-	selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive->treeview));
-	gint selected = gtk_tree_selection_count_selected_rows (selection);
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_RPM:
+		pos = 3;
+		break;
+
+		case XARCHIVETYPE_RAR:
+		case XARCHIVETYPE_ARJ:
+		case XARCHIVETYPE_7ZIP:
+		pos = 2;
+		break;
+
+		case XARCHIVETYPE_LHA:
+		pos = 4;
+		break;
+
+		case XARCHIVETYPE_TAR_GZ:
+		case XARCHIVETYPE_TAR_BZ2:
+		case XARCHIVETYPE_TAR_LZMA:
+		case XARCHIVETYPE_TAR:
+		case XARCHIVETYPE_DEB:
+		case XARCHIVETYPE_ZIP:
+		pos = 5;
+		break;
+
+		default:
+		size = 0;
+	}
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
+	if (selection == NULL)
+		goto here;
+	selected = gtk_tree_selection_count_selected_rows (selection);
+
 	if (selected == 0 )
 		xa_disable_delete_buttons (FALSE);
 	else
@@ -1396,6 +1427,79 @@ void xa_activate_delete_and_view (GtkTreeSelection *treeselection,gpointer data)
 		else if ( archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_DEB)
 			gtk_widget_set_sensitive (delete_menu,TRUE);
 	}
+	if (selected > 0)
+	{
+		list = gtk_tree_selection_get_selected_rows(selection,NULL);
+		while (list)
+		{
+			gtk_tree_model_get_iter(model,&iter,list->data);
+			gtk_tree_model_get (model,&iter,pos,&size,-1);
+			gtk_tree_path_free (list->data);
+			total_size += size;
+			list = list->next;
+		}
+		g_list_free(list);
+		if (total_size > 1024*1024*1024 )
+		{
+			content_size = (double)total_size / (1024*1024*1024);
+			measure = "GB";
+		}
+		else if (total_size > 1024*1024 )
+		{
+			content_size = (double)total_size / (1024*1024);
+			measure = "MB";
+		}
+    	else if (total_size > 1024 )
+		{
+			content_size = (double)total_size / 1024;
+			measure = "KB";
+		}
+		else
+		{
+			measure = "Bytes";
+			content_size = total_size;
+		}
+		info = g_strdup_printf(ngettext ("%d item selected (%.1f %s)", "%d items selected (%.1f %s)", selected),selected,content_size,measure);
+	}
+	else
+	{
+here:
+		if (model == NULL)
+			return;
+		path = gtk_tree_path_new_first();
+		if (gtk_tree_model_get_iter (model, &iter, path) == FALSE)
+			return;
+		do
+    	{
+    		n_elem++;
+    		gtk_tree_model_get (model,&iter,pos,&size,-1);
+	  		total_size += size;
+    	}
+  		while (gtk_tree_model_iter_next (model,&iter));
+  		if (total_size > 1024*1024*1024 )
+		{
+			content_size = (double)total_size / (1024*1024*1024);
+			measure = "GB";
+		}
+		else if (total_size > 1024*1024 )
+		{
+			content_size = (double)total_size / (1024*1024);
+			measure = "MB";
+		}
+    	else if (total_size > 1024 )
+		{
+			content_size = (double)total_size / 1024;
+			measure = "KB";
+		}
+		else
+		{
+			measure = "Bytes";
+			content_size = total_size;
+		}
+		info = g_strdup_printf(ngettext ("%d item (%.1f %s)", "%d items (%.1f %s)", n_elem),n_elem,content_size,measure);
+	}
+	Update_StatusBar(info);
+	g_free(info);
 }
 
 void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)

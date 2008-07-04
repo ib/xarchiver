@@ -455,7 +455,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 void xa_execute_add_commands (XArchive *archive,GString *names,gchar *compression_string)
 {
 	if (xa_main_window)
-		Update_StatusBar ( _("Adding files to the archive, please wait..."));
+		Update_StatusBar (_("Adding files to the archive, please wait..."));
 	archive->status = XA_ARCHIVESTATUS_ADD;
 	(*archive->add) (archive,names,compression_string);
 }

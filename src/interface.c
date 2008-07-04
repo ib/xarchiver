@@ -402,7 +402,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	archive_dir_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(archive_dir_model));
 	gtk_container_add (GTK_CONTAINER (scrolledwindow2), archive_dir_treeview);
 	gtk_widget_show(archive_dir_treeview);
-	//gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (archive_dir_treeview), FALSE);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
 
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
@@ -431,11 +430,12 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_drag_dest_set (GTK_WIDGET(notebook),GTK_DEST_DEFAULT_ALL,drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
 	g_signal_connect (G_OBJECT (notebook), "drag-data-received",G_CALLBACK (on_drag_data_received), NULL);
 
-  	hbox_sb = gtk_hbox_new (FALSE, 0);
+  	hbox_sb = gtk_hbox_new (FALSE,2);
 	gtk_widget_show (hbox_sb);
-	gtk_box_pack_end (GTK_BOX (vbox1), hbox_sb, FALSE, TRUE, 0);
+	gtk_box_pack_end (GTK_BOX (vbox1), hbox_sb, FALSE, TRUE,0);
 
 	viewport1 = gtk_viewport_new (NULL, NULL);
+	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport1),GTK_SHADOW_NONE);
 	gtk_widget_show (viewport1);
 	gtk_box_pack_start (GTK_BOX (hbox_sb), viewport1, TRUE, TRUE, 0);
 
@@ -445,11 +445,12 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (viewport1), info_label);
 
 	viewport2 = gtk_viewport_new (NULL, NULL);
+	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport2),GTK_SHADOW_NONE);
 	gtk_box_pack_start (GTK_BOX (hbox_sb), viewport2, TRUE, TRUE, 0);
 
 	progressbar = gtk_progress_bar_new ();
 	gtk_widget_show (progressbar);
-	gtk_widget_set_size_request(progressbar, 80, 1);
+	gtk_widget_set_size_request(progressbar,-1,10);
 	gtk_container_add (GTK_CONTAINER (viewport2), progressbar);
 
 	g_signal_connect ((gpointer) new1, "activate", G_CALLBACK (xa_new_archive), NULL);
@@ -616,7 +617,7 @@ void xa_add_page (XArchive *archive)
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
 
 	gtk_drag_source_set (archive->treeview, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-	g_signal_connect ((gpointer) sel, 				"changed", 		G_CALLBACK (xa_activate_delete_and_view),archive);
+	g_signal_connect ((gpointer) sel, 				"changed", 		G_CALLBACK (xa_handle_selected_rows),archive);
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-begin",	G_CALLBACK (drag_begin),archive);
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-data-get",G_CALLBACK (drag_data_get),archive);
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-end",		G_CALLBACK (drag_end),NULL);
@@ -1167,6 +1168,9 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 	gint current_page;
 	gint idx;
 	XEntry *new_entry = NULL;
+	GtkTreeIter iter;
+	GtkTreeSelection *selection;
+	GtkTreeModel *model;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
@@ -1180,9 +1184,12 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 				g_free(archive[idx]->location_entry_path);
 				archive[idx]->location_entry_path = NULL;
 			}
+			/* Let's unselect the row in the sidepane */
+			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
+			gtk_tree_selection_get_selected (selection,&model,&iter);
+			gtk_tree_selection_unselect_iter(selection,&iter);
 
 			xa_update_window_with_archive_entries(archive[idx],NULL);
-
 			xa_restore_navigation(idx);
 		break;
 
@@ -1192,7 +1199,6 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_data)
 				archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
 			xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
 			archive[idx]->back = archive[idx]->back->next;
-
 			xa_restore_navigation(idx);
 		break;
 

@@ -1,3 +1,4 @@
+- fix adding in the archive directories with dnd.
 - fix the directories bug with 7z
 - fix the remaining bugs in bugzilla.xfce.org
 - enrich the status bar
