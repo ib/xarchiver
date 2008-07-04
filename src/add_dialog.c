@@ -50,19 +50,18 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->notebook1),4);
 
 	/* Selection page */
-	vbox1 = gtk_vbox_new (FALSE,0);
+	vbox1 = gtk_vbox_new (FALSE,2);
 	gtk_container_add (GTK_CONTAINER (add_dialog->notebook1), vbox1);
 
 	label1 = gtk_label_new (_("Selection"));
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (add_dialog->notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (add_dialog->notebook1), 0), label1);
 	
 	add_dialog->filechooserwidget1 = gtk_file_chooser_widget_new (GTK_FILE_CHOOSER_ACTION_OPEN);
-	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE,0);
+	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE,2);
 	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),FALSE);
 	else
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
-	//gtk_file_chooser_unselect_all(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
 
 	add_dialog->frame1 = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->frame1, FALSE, TRUE,5);

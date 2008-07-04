@@ -171,27 +171,27 @@ void xa_open_tar_compressed_file(XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void lzma_gzip_bzip2_extract (XArchive *archive)
+void lzma_gzip_bzip2_extract (XArchive *archive,GString *dummy)
 {
 	GSList *list = NULL;
 	gchar *command,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
 	gchar tmp_dir[14] = "";
 	gboolean result = FALSE;
 
+	filename = xa_remove_path_from_archive_name(archive->escaped_path);
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_BZIP2:
 			executable = "bzip2 -f -d ";
-			filename = archive->escaped_path;
-		break;
+			break;
+
 		case XARCHIVETYPE_GZIP:
 			executable = "gzip -f -d -n ";
-			filename = archive->escaped_path;
-		break;
+			break;
+
 		case XARCHIVETYPE_LZMA:
 			executable = "lzma -f -d ";
-			filename = archive->escaped_path;
-		break;
+			break;
 		
 		default:
 		break;
@@ -200,29 +200,23 @@ void lzma_gzip_bzip2_extract (XArchive *archive)
 	result = xa_create_temp_directory(archive,tmp_dir);
 	if (result == 0)
 		return;
-//TODO: fix the crash when viewing a bzip2 compressed file
-	if (extract_window)
+
+	
+	command = g_strconcat ("cp -f ",archive->escaped_path," ",archive->tmp,NULL);
+	list = g_slist_append(list,command);
+
+	command = g_strconcat(executable,archive->tmp,"/",filename,NULL);
+	list = g_slist_append(list,command);
+
+	dot = strchr(filename,'.');
+	if (G_LIKELY(dot))
 	{
-		archive->extraction_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (extract_window->destination_path_entry)));
-
-		command = g_strconcat ("cp -f ",archive->escaped_path," ",archive->tmp,"/",filename,NULL);
-		list = g_slist_append(list,command);
-
-		command = g_strconcat(executable,archive->tmp,"/",filename,NULL);
-		list = g_slist_append(list,command);
-
-		if (xa_main_window)
-			command = g_strconcat("mv -f ",archive->tmp," ",archive->extraction_path,"/",archive->root_entry->child->filename,NULL);
-		else
-		{
-			dot = strchr(filename,'.');
-			if (G_LIKELY(dot))
-			filename_noext = g_strndup(filename, ( dot - filename ));
-			command = g_strconcat("mv -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path,NULL);
-			g_free(filename_noext);
-		}
-
-		list = g_slist_append(list,command);
-		xa_run_command (archive,list);
+		filename_noext = g_strndup(filename, ( dot - filename ));
+		command = g_strconcat("mv -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path,NULL);
+		g_free(filename_noext);
 	}
+	g_free(filename);
+
+	list = g_slist_append(list,command);
+	xa_run_command (archive,list);
 }
