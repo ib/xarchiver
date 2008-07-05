@@ -57,6 +57,7 @@ dnl **************************
 AC_DISABLE_STATIC()
 AC_PROG_LIBTOOL()
 
+xdg_open=yes
 
 dnl ***********************************
 dnl *** Enable new features provided by libmime-type ***
@@ -71,6 +72,13 @@ if test x"$use_libmimetype" = x"yes"; then
     AC_DEFINE([USE_MIMETYPE], [1], [Define to 1 if libmimetype is used.])
 fi
 AM_CONDITIONAL(USE_LIBMIMETYPE, test x"$use_libmimetype" = x"yes")
+
+dnl **************************
+dnl *** Check for xdg-open ***
+dnl **************************
+AC_CHECK_FILE("/usr/bin/xdg-open",
+	AC_DEFINE([XDG_OPEN], [1], [Define to 1 if xdg-open is available.]),
+	xdg_open="no")
 
 dnl ***********************************************
 dnl *** Work-around system-specific limitations ***
@@ -97,6 +105,7 @@ dnl *** Check for required packages ***
 dnl ***********************************
 XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.10.0])
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.10.0])
+GTK_VERSION=`$PKG_CONFIG --modversion gtk+-2.0`
 
 dnl ***********************************
 dnl *** Check for debugging support ***
@@ -118,12 +127,13 @@ icons/scalable/Makefile
 pixmaps/Makefile
 ])
 
-dnl *********************
-dnl *** Print summary ***
-dnl *********************
-echo "----------------------------------------"
-echo "$PACKAGE_TARNAME $PACKAGE_VERSION"
-echo ""
-echo "The binary will be installed in $prefix/bin"
-echo ""
-echo "Configure finished, type 'make' to build."
+echo "
+
+Xarchiver configuration:
+------------------------
+
+	Binary      :       $PACKAGE_TARNAME $PACKAGE_VERSION
+	GTK version :       ${GTK_VERSION}
+	Use xdg-open:       ${xdg_open}
+
+"
