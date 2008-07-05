@@ -24,10 +24,10 @@
 #include "support.h"
 #include "window.h"
 
-extern int delete	[15];
-extern int add		[15];
-extern int extract	[15];
-extern int test		[15];
+extern delete_func	delete	[XARCHIVETYPE_COUNT];
+extern add_func		add	[XARCHIVETYPE_COUNT];
+extern extract_func 	extract	[XARCHIVETYPE_COUNT];
+extern test_func	test	[XARCHIVETYPE_COUNT];
 extern Prefs_dialog_data *prefs_window;
 extern gboolean batch_mode;
 
@@ -44,10 +44,10 @@ XArchive *xa_init_archive_structure(gint type)
 	entry = g_new0(XEntry,1);
 	entry->filename = "";
 	archive->root_entry = entry;
-	archive->delete =	(void *)delete[type];
-	archive->add = 		(void *)add[type];
-	archive->extract = 	(void *)extract[type];
-	archive->test = 	(void *)test[type];
+	archive->delete =	delete[type];
+	archive->add = 		add[type];
+	archive->extract = 	extract[type];
+	archive->test = 	test[type];
 	return archive;
 }
 

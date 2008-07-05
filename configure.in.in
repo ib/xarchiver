@@ -57,8 +57,6 @@ dnl **************************
 AC_DISABLE_STATIC()
 AC_PROG_LIBTOOL()
 
-xdg_open=yes
-
 dnl ***********************************
 dnl *** Enable new features provided by libmime-type ***
 dnl ***********************************
@@ -77,8 +75,7 @@ dnl **************************
 dnl *** Check for xdg-open ***
 dnl **************************
 AC_CHECK_FILE("/usr/bin/xdg-open",
-	AC_DEFINE([XDG_OPEN], [1], [Define to 1 if xdg-open is available.]),
-	xdg_open="no")
+	xdg_open=yes,xdg_open="no")
 
 dnl ***********************************************
 dnl *** Work-around system-specific limitations ***
@@ -133,6 +130,7 @@ Xarchiver configuration:
 ------------------------
 
 	Binary      :       $PACKAGE_TARNAME $PACKAGE_VERSION
+	Install in  :       ${prefix}/bin
 	GTK version :       ${GTK_VERSION}
 	Use xdg-open:       ${xdg_open}
 

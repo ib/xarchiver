@@ -36,7 +36,8 @@ typedef enum
 	XARCHIVETYPE_TAR_GZ,
 	XARCHIVETYPE_TAR_LZMA,
 	XARCHIVETYPE_ZIP,
-	XARCHIVETYPE_LHA
+	XARCHIVETYPE_LHA,
+	XARCHIVETYPE_COUNT
 } XArchiveType;
 
 typedef enum
@@ -65,6 +66,12 @@ struct _XEntry
 };
 
 typedef struct _XArchive XArchive;
+
+typedef void (*parse_output_func)	(gchar *line, gpointer);
+typedef void (*delete_func)		(XArchive *,GString *);
+typedef void (*add_func)		(XArchive *,GString *,gchar *);
+typedef void (*extract_func)		(XArchive *,GString *);
+typedef void (*test_func)		(XArchive *);
 
 struct _XArchive
 {
@@ -114,11 +121,11 @@ struct _XArchive
 	guint pb_source;
 	GPid child_pid;
 	unsigned long long int dummy_size;
-	void 	(*parse_output)	(gchar *line, gpointer);
-	void 	(*delete)	(XArchive *archive,GString *);
-	void 	(*add)		(XArchive *,GString *,gchar *);
-	void 	(*extract)	(XArchive *,GString *);
-	void 	(*test)		(XArchive *);
+	parse_output_func parse_output;
+	delete_func delete;
+	add_func add;
+	extract_func extract;
+	test_func test;
 };
 
 gboolean xa_spawn_sync_process (gchar *command);

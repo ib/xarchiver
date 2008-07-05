@@ -18,6 +18,7 @@
 
 #include "config.h"
 #include "main.h"
+#include "archive.h"
 #include "string_utils.h"
 #include "mime.h"
 
@@ -33,20 +34,15 @@ GError *cli_error = NULL;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
 gboolean batch_mode = FALSE;
 gboolean unrar = FALSE;
-gboolean sevenzr = FALSE, sevenza = FALSE;
+gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
 extern gchar *current_open_directory;
 extern int status;
 Prefs_dialog_data *prefs_window = NULL;
 
-typedef void (*_delete)	(XArchive *,GString *);
-typedef void (*_add)	(XArchive *,GString *,gchar *);
-typedef void (*_extract)(XArchive *,GString *);
-typedef void (*_test)	(XArchive *);
-
-_delete 	delete[15]	= {NULL};
-_add		add[15]		= {NULL};
-_extract	extract[15]	= {NULL};
-_test		test[15]	= {NULL};
+delete_func	delete[XARCHIVETYPE_COUNT]	= {NULL};
+add_func	add[XARCHIVETYPE_COUNT]		= {NULL};
+extract_func	extract[XARCHIVETYPE_COUNT]	= {NULL};
+test_func	test[XARCHIVETYPE_COUNT]	= {NULL};
 
 static GOptionEntry entries[] =
 {
@@ -454,6 +450,9 @@ void xa_set_available_archivers()
 	    ArchiveSuffix = g_list_append(ArchiveSuffix, "*.7z");
 		g_free (absolute_path);
     }
+    absolute_path = g_find_program_in_path("xdg-open");
+    if (absolute_path != NULL)
+    	xdg_open = TRUE;
 }
 
 XArchive *xa_init_structure_from_cmd_line (char *filename)

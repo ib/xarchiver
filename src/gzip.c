@@ -20,9 +20,9 @@
 #include "gzip.h"
 #include "bzip2.h"
 
-extern int delete	[15];
-extern int add		[15];
-extern int extract	[15];
+extern delete_func	delete	[XARCHIVETYPE_COUNT];
+extern add_func		add	[XARCHIVETYPE_COUNT];
+extern extract_func	extract	[XARCHIVETYPE_COUNT];
 
 /* GString here is used only to respect the prototype of the
  * extract function so to make life easier to the coder :)*/
@@ -36,9 +36,9 @@ void xa_open_gzip (XArchive *archive,GString *dummy)
 	if (g_str_has_suffix (archive->escaped_path,".tar.gz") || g_str_has_suffix (archive->escaped_path,".tgz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_GZ;
-	    archive->delete =	(void *)delete[archive->type];
-		archive->add = 		(void *)add[archive->type];
-		archive->extract = 	(void *)extract[archive->type];
+		archive->delete =	delete[archive->type];
+		archive->add = 		add[archive->type];
+		archive->extract = 	extract[archive->type];
 
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
 		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
