@@ -71,12 +71,6 @@ if test x"$use_libmimetype" = x"yes"; then
 fi
 AM_CONDITIONAL(USE_LIBMIMETYPE, test x"$use_libmimetype" = x"yes")
 
-dnl **************************
-dnl *** Check for xdg-open ***
-dnl **************************
-AC_CHECK_FILE("/usr/bin/xdg-open",
-	xdg_open=yes,xdg_open="no")
-
 dnl ***********************************************
 dnl *** Work-around system-specific limitations ***
 dnl ***********************************************
@@ -132,6 +126,5 @@ Xarchiver configuration:
 	Binary      :       $PACKAGE_TARNAME $PACKAGE_VERSION
 	Install in  :       ${prefix}/bin
 	GTK version :       ${GTK_VERSION}
-	Use xdg-open:       ${xdg_open}
 
 "
