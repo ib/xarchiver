@@ -133,7 +133,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command);
 XArchive *xa_init_archive_structure(gint);
 void xa_clean_archive_structure (XArchive *archive);
 gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data);
-gboolean xa_create_temp_directory(XArchive *archive,gchar tmp_dir[]);
+gboolean xa_create_temp_directory(XArchive *archive);
 void xa_delete_temp_directory(XArchive *archive,gboolean flag);
 gboolean xa_run_command (XArchive *archive,GSList *commands);
 gint xa_find_archive_index (gint page_num);

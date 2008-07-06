@@ -32,20 +32,19 @@ void xa_open_deb (XArchive *archive)
 	gchar *archive_no_path = NULL;
 	gboolean result;
 	unsigned short int i;
-	gchar tmp_dir[14] = "";
 
 	/* Create a unique tmp dir in /tmp */
-	result = xa_create_temp_directory (archive,tmp_dir);
-	if (result == 0)
+	result = xa_create_temp_directory (archive);
+	if (!result)
 		return;
 
 	archive_no_path = g_strrstr (archive->escaped_path,"/");
 	if (archive_no_path == NULL)
-		dummy = g_strconcat (tmp_dir,"/",archive->escaped_path,NULL);
+		dummy = g_strconcat (archive->tmp,"/",archive->escaped_path,NULL);
 	else
 	{
 		archive_no_path++;
-		dummy = g_strconcat (tmp_dir,"/",archive_no_path,NULL);
+		dummy = g_strconcat (archive->tmp,"/",archive_no_path,NULL);
 	}
 	/* Copy the .deb archive to the unique dir */
 	command = g_strconcat ("cp ",archive->escaped_path," ",archive->tmp,NULL);

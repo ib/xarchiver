@@ -29,7 +29,6 @@ short int l;
 void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 {
 	XEntry *entry = NULL;
-	gchar tmp_dir[14] = "";
 	gchar *filename = NULL;;
 	gchar *_filename;
 	gpointer item[2];
@@ -88,8 +87,8 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 
 		char *names[]= {(_("Compressed")),(_("Size"))};
 		xa_create_liststore (archive,names);
-		result = xa_create_temp_directory (archive,tmp_dir);
-		if (result == 0)
+		result = xa_create_temp_directory (archive);
+		if (!result)
 			return;
 
 		/* Let's copy the bzip2 file in the tmp dir */
@@ -175,7 +174,6 @@ void lzma_gzip_bzip2_extract (XArchive *archive,GString *dummy)
 {
 	GSList *list = NULL;
 	gchar *command,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
-	gchar tmp_dir[14] = "";
 	gboolean result = FALSE;
 
 	filename = xa_remove_path_from_archive_name(archive->escaped_path);
@@ -197,8 +195,8 @@ void lzma_gzip_bzip2_extract (XArchive *archive,GString *dummy)
 		break;
 	}
 
-	result = xa_create_temp_directory(archive,tmp_dir);
-	if (result == 0)
+	result = xa_create_temp_directory(archive);
+	if (!result)
 		return;
 
 	

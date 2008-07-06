@@ -342,7 +342,6 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 	gchar *compression_string = NULL;
 	gchar *command = NULL;
 	gchar *new_path = NULL;
-	gchar tmp_dir[14];
 	gboolean done = FALSE;
 	gboolean result = FALSE;
 	GSList *files = NULL;
@@ -384,7 +383,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			/* This in case the user wants to add files not in the archive root directory */
 			if (archive->location_entry_path != NULL)
 			{
-				result = xa_create_temp_directory(archive,tmp_dir);
+				result = xa_create_temp_directory(archive);
 				if (result == FALSE)
 					return;
 

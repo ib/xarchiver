@@ -72,7 +72,6 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		&archive->error_fd,
 		&error) )
 	{
-		Update_StatusBar (_("Operation failed."));
 		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev ( argv );
@@ -259,23 +258,27 @@ void xa_delete_temp_directory (XArchive *archive,gboolean flag)
 	xa_run_command (archive,list);
 }
 
-gboolean xa_create_temp_directory (XArchive *archive,gchar tmp_dir[])
+gboolean xa_create_temp_directory (XArchive *archive)
 {
+	gchar *tmp_dir;
+	gchar *value;
+
 	if (archive->tmp != NULL)
 		return TRUE;
-	//TODO use the user set tmp dir in the pref dialog
-	strcpy (tmp_dir,"/tmp/xa-XXXXXX");
+
+	value = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_temp_dir));
+	tmp_dir = g_strconcat(value,"/xa-XXXXXX",NULL);
+
 	if (mkdtemp (tmp_dir) == 0)
 	{
+		g_free(tmp_dir);
+		tmp_dir = NULL;
+
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
-		if(xa_main_window) //avoid if we're on console
-		{
-			gtk_widget_set_sensitive (Stop_button, FALSE);
-			Update_StatusBar (_("Operation failed."));
-		}
 		return FALSE;
 	}
-	archive->tmp = strdup(tmp_dir);
+
+	archive->tmp = tmp_dir;
 	return TRUE;
 }
 

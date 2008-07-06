@@ -321,7 +321,6 @@ void xa_tar_extract(XArchive *archive,GString *files)
 void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *_list,XArchive *archive,gboolean add)
 {
 	gchar *command = NULL,*executable = NULL,*filename = NULL;
-	gchar tmp_dir[14] = "";
 	gboolean result;
 	GSList *list = NULL;
 
@@ -344,8 +343,8 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *_list,XArchive *arch
 		break;
 	}
 	/* Let's copy the archive to /tmp first */
-	result = xa_create_temp_directory(archive,tmp_dir);
-	if (result == 0)
+	result = xa_create_temp_directory(archive);
+	if (!result)
 		return;
 
 	/* Let's copy the archive to /tmp first */
@@ -384,7 +383,6 @@ void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *
 {
 	XEntry *entry;
 	gchar *command = NULL;
-	gchar tmp_dir[14] = "";
 	GtkTreeSelection *selection;
 	GString *names;
 	GtkTreeIter iter;
@@ -426,8 +424,8 @@ void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *
 		}
 	}
 
-	result = xa_create_temp_directory (archive,tmp_dir);
-	if (result == 0)
+	result = xa_create_temp_directory (archive);
+	if (!result)
 	{
 		g_string_free(names,TRUE);
 		return;

@@ -53,10 +53,9 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 		{
 			if (WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP)
 				return TRUE;
-			Update_StatusBar ( _("Operation failed."));
 			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 			{
-				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please uncheck the 'Store archiver output' option to see it.") );	
+				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it.") );	
 				return FALSE;
 			}
 			xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
@@ -670,7 +669,6 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 				result = g_file_get_contents (unzipsfx_path,&content,&length,&error);
 				if ( ! result)
 				{
-					Update_StatusBar (_("Operation failed."));
 					gtk_widget_set_sensitive (Stop_button,FALSE);
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
 					g_error_free (error);
@@ -683,7 +681,6 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 				sfx_archive = g_fopen ( archive_name ,"w" );
 				if (sfx_archive == NULL)
 				{
-					Update_StatusBar (_("Operation failed."));
 					gtk_widget_set_sensitive (Stop_button,FALSE);
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno) );
 					return;
@@ -779,7 +776,6 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 				result = g_file_get_contents (sfx_path,&content,&length,&error);
 				if ( ! result)
 				{
-					Update_StatusBar (_("Operation failed."));
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
 					g_error_free (error);
 					g_free (sfx_path);
@@ -791,7 +787,6 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 				sfx_archive = g_fopen ( archive_name ,"w" );
 				if (sfx_archive == NULL)
 				{
-					Update_StatusBar (_("Operation failed."));
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno) );
 					return;
 				}

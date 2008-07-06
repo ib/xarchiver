@@ -95,8 +95,8 @@ void xa_open_rpm (XArchive *archive)
 	fclose (stream);
 
 	/* Create a unique temp dir in /tmp */
-	result = xa_create_temp_directory (archive,tmp_dir);
-	if (result == 0)
+	result = xa_create_temp_directory (archive);
+	if (!result)
 		return;
 
 	gzip_tmp = g_strconcat (archive->tmp,"/file.gz_bz",NULL);
@@ -133,7 +133,6 @@ GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
     {
 	    if ( WEXITSTATUS (exit_code) )
     	{
-            Update_StatusBar ( _("Operation failed."));
             gtk_widget_hide ( viewport2 );
 	    	xa_set_window_title (xa_main_window , NULL);
 		    response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
