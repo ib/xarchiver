@@ -385,7 +385,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	if (show_location)
 		gtk_widget_show_all(toolbar2);
 
-	/* Create the paned widgets */
+	/* Create the sidepane */
 	hpaned1 = gtk_hpaned_new ();
 	gtk_widget_show (hpaned1);
   	gtk_box_pack_start (GTK_BOX (vbox1),hpaned1,TRUE,TRUE,0);
@@ -403,6 +403,8 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (scrolledwindow2), archive_dir_treeview);
 	gtk_widget_show(archive_dir_treeview);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
+	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview),drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+	g_signal_connect (G_OBJECT (archive_dir_treeview), "drag-data-received",G_CALLBACK (xa_sidepane_drag_data_received), NULL);
 
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
 	g_signal_connect (sel,"changed",G_CALLBACK (xa_sidepane_row_selected),NULL);

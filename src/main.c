@@ -422,6 +422,8 @@ void xa_set_available_archivers()
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
 		}
 	}
+	else
+		tar = "gtar";
 
 	absolute_path = g_find_program_in_path ("zip");
     if (absolute_path)
