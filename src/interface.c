@@ -64,7 +64,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	vbox1 = gtk_vbox_new (FALSE,2);
 	gtk_widget_show (vbox1);
 	gtk_container_add (GTK_CONTAINER (xa_main_window), vbox1);
-	
+
 	/* Create the menus */
 	menubar1 = gtk_menu_bar_new ();
 	gtk_widget_show (menubar1);
@@ -192,7 +192,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
 	gtk_widget_set_sensitive (select_all, FALSE);
 	gtk_widget_add_accelerator (select_all, "activate",accel_group,GDK_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-	
+
 	tmp_image = gtk_image_new_from_stock ("gtk-select-all", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (select_all), tmp_image);
@@ -258,7 +258,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (help1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu), help1);
 	gtk_widget_add_accelerator (help1, "activate",accel_group,GDK_F1, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
-	
+
 	tmp_image = gtk_image_new_from_stock ("gtk-help", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1), tmp_image);
@@ -389,7 +389,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	hpaned1 = gtk_hpaned_new ();
 	gtk_widget_show (hpaned1);
   	gtk_box_pack_start (GTK_BOX (vbox1),hpaned1,TRUE,TRUE,0);
-  	
+
   	scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
   	if (show_sidebar)
   		gtk_widget_show (scrolledwindow2);
@@ -419,7 +419,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_tree_view_column_pack_start(column,archive_dir_renderer,TRUE);
 	gtk_tree_view_column_set_attributes(column,archive_dir_renderer,"text",1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (archive_dir_treeview),column);
-  	
+
 	/* Create the notebook widget */
 	notebook = GTK_NOTEBOOK(gtk_notebook_new() );
 	gtk_paned_pack2(GTK_PANED (hpaned1),GTK_WIDGET(notebook),TRUE,TRUE);
@@ -636,7 +636,7 @@ gchar *xa_create_password_dialog(gchar *archive_name)
 {
 	GtkWidget *password_dialog,*dialog_vbox1,*vbox1,*hbox2,*image2,*vbox2,*label_pwd_required,*label_filename,*hbox1,*label34,*pw_password_entry;
 	gchar *password = NULL;
-	
+
   	password_dialog = gtk_dialog_new_with_buttons ("Xarchiver " VERSION,
 									GTK_WINDOW (xa_main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
@@ -685,7 +685,7 @@ gchar *xa_create_password_dialog(gchar *archive_name)
 		name = xa_remove_path_from_archive_name(archive_name);
 		gtk_label_set_text(GTK_LABEL(label_filename),name);
 		g_free (name);
-	}	
+	}
   	hbox1 = gtk_hbox_new (FALSE, 5);
   	gtk_widget_show (hbox1);
   	gtk_box_pack_start (GTK_BOX (vbox2), hbox1, TRUE, TRUE, 0);
@@ -701,7 +701,7 @@ gchar *xa_create_password_dialog(gchar *archive_name)
   	gtk_entry_set_invisible_char (GTK_ENTRY (pw_password_entry), 9679);
   	gtk_entry_set_activates_default (GTK_ENTRY (pw_password_entry), TRUE);
   	gtk_dialog_set_default_response (GTK_DIALOG (password_dialog), GTK_RESPONSE_OK);
- 
+
 	while (! done)
 	{
 		switch (gtk_dialog_run (GTK_DIALOG(password_dialog)) )
@@ -789,7 +789,7 @@ void xa_create_popup_menu()
 	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract..."));
 	gtk_widget_show (extract);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu),extract);
-	
+
 	image9 =  xa_main_window_find_image ("xarchiver-extract.png", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image9);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract), image9);
@@ -798,7 +798,7 @@ void xa_create_popup_menu()
 	gtk_widget_show (separator);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu), separator);
 	gtk_widget_set_sensitive (separator,FALSE);
-	
+
 	cut = gtk_image_menu_item_new_with_mnemonic (_("Cut"));
 	gtk_widget_show (cut);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu), cut);
@@ -920,7 +920,7 @@ void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
 	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1), okbutton1,GTK_RESPONSE_OK);
 	GTK_WIDGET_SET_FLAGS (okbutton1,GTK_CAN_DEFAULT);
 	gtk_dialog_set_default_response (GTK_DIALOG (ddialog1),GTK_RESPONSE_OK);
-	
+
 	while (! done)
 	{
 		switch (gtk_dialog_run (GTK_DIALOG(ddialog1)))
@@ -962,7 +962,7 @@ gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 	patterns = g_strsplit(string,";",-1);
-	
+
 	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
 	utf8_name = g_filename_to_utf8 (entry->filename, -1, NULL, NULL, NULL);
 
@@ -1259,4 +1259,26 @@ void xa_disable_delete_buttons (gboolean value)
     gtk_widget_set_sensitive (delete_menu,value);
     //TODO: disable the popupmenu entries
     //gtk_widget_set_sensitive (delete,value);
+}
+
+/*
+ * Get file path of an item in the archive dir tree.
+ * The returned allocated string should be freed when no longer needed.
+ * By Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ */
+char *xa_dir_tree_get_path( GtkTreeIter* it )
+{
+    GtkTreeIter parent_it;
+    char *path = NULL, *parent_path = NULL, *name = NULL;
+    gtk_tree_model_get( archive_dir_model, it, 1, &name, -1 );
+    if( gtk_tree_model_iter_parent( archive_dir_model, &parent_it, it ) )
+    {
+        parent_path = xa_dir_tree_get_path( &parent_it );
+        path = g_build_filename( parent_path, name, NULL );
+        g_free( parent_path );
+        g_free( name );
+    }
+    else
+        path = name;
+    return path;
 }

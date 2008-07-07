@@ -138,5 +138,7 @@ void xa_close_page (GtkWidget *, gpointer );
 void xa_set_button_state (gboolean,gboolean,gboolean,gboolean,gboolean, gboolean, gboolean,gboolean);
 void xa_restore_navigation(int idx);
 void xa_disable_delete_buttons (gboolean );
+char *xa_dir_tree_get_path( GtkTreeIter* it );
+
 #endif
 
