@@ -82,7 +82,9 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->store_path), add_dialog->path_group);
 	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->store_path));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->store_path), FALSE);
-
+	if (archive->location_entry_path != NULL)
+		gtk_widget_set_sensitive(add_dialog->store_path,FALSE);
+	
 	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic (NULL, _("Do not store paths"));
 	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->no_store_path, FALSE, FALSE, 0);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->no_store_path), add_dialog->path_group);
@@ -184,28 +186,24 @@ Add_dialog_data *xa_create_add_dialog (XArchive *archive)
 			default_value = 5;
 			max_value = 9;
 		}
-
 		else if (archive->type == XARCHIVETYPE_ZIP)
 		{
 			compression_msg = _("0 = no compression, 6 is default, 9 = best compression but slowest");
 			default_value = 6;
 			max_value = 9;
 		}
-
 		else if (archive->type == XARCHIVETYPE_RAR)
 		{
 			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
 			default_value = 3;
 			max_value = 5;
 		}
-
 		else if (archive->type == XARCHIVETYPE_ARJ)
 		{
 			compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression");
 			default_value = 1;
 			max_value = 4;
 		}
-
 		else if (archive->type == XARCHIVETYPE_LHA)
 		{
 			compression_msg = _("5 = default compression, 7 = max compression");
@@ -340,17 +338,11 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 {
 	gchar *temp_password = NULL;
 	gchar *compression_string = NULL;
-	gchar *command = NULL;
-	gchar *new_path = NULL;
 	gboolean done = FALSE;
-	gboolean result = FALSE;
-	GSList *files = NULL;
-	GSList *slist = NULL;	
 	GSList *list = NULL;
-	GString *names;
-	GString *items;
+	GString *filenames;
 
-	names = g_string_new (" ");
+	filenames = g_string_new (" ");
 	while ( ! done )
 	{
 		switch (gtk_dialog_run(GTK_DIALOG(add_dialog->dialog1)))
@@ -361,8 +353,8 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			break;
 
 			case GTK_RESPONSE_OK:
-			files = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
-			if (g_slist_length(files) == 0)
+			list = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
+			if (g_slist_length(list) == 0)
 			{
 				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"), _("You haven't selected any files to add!") );
 				break;
@@ -380,30 +372,6 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 					archive->passwd = temp_password;
 			}
 			done = TRUE;
-			/* This in case the user wants to add files not in the archive root directory */
-			if (archive->location_entry_path != NULL)
-			{
-				result = xa_create_temp_directory(archive);
-				if (result == FALSE)
-					return;
-
-				items = g_string_new("");
-				new_path = g_strconcat (archive->tmp,"/",archive->location_entry_path,NULL);
-				command = g_strconcat ("mkdir -p ",new_path,NULL);
-				list = g_slist_append(list,command);
-				slist = files;
-				while (slist)
-				{
-					g_string_append(items,slist->data);
-					g_string_append_c(items,' ');
-					slist = slist->next;
-				}
-				command = g_strconcat ("cp -r ",items->str," ",new_path,NULL);
-				g_string_free(items,FALSE);
-				list = g_slist_append(list,command);
-				xa_run_command (archive,list);
-			}
-
 			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->store_path)))
 				archive->full_path = TRUE;
 			else
@@ -427,33 +395,68 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT (add_dialog->compression_value));
 				compression_string = g_strdup_printf("%d",archive->compression_level);
 			}
+			gtk_widget_hide(add_dialog->dialog1);
 
-			if ( ! archive->full_path)
+			if (!archive->full_path)
 			{
 				gchar *current_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
 				chdir (current_dir);
 				g_free (current_dir);
-				xa_cat_filenames_basename(archive,files,names,archive->location_entry_path);
+				xa_cat_filenames_basename(archive,list,filenames);
 			}
 			else
-				xa_cat_filenames(archive,files,names,archive->location_entry_path);
+				xa_cat_filenames(archive,list,filenames);
 
-			gtk_widget_hide(add_dialog->dialog1);
-			
-			xa_execute_add_commands (archive,names,compression_string);
-			g_slist_free(files);
+			xa_execute_add_commands (archive,filenames,list,compression_string);
+			g_slist_foreach(list,(GFunc)g_free,NULL);
+			g_slist_free(list);
 			if (compression_string != NULL)
 				g_free (compression_string);
 		}
 	}
-	if (new_path != NULL)
-		g_free(new_path);
 }
 
-void xa_execute_add_commands (XArchive *archive,GString *names,gchar *compression_string)
+void xa_execute_add_commands (XArchive *archive,GString *names,GSList *list,gchar *compression_string)
 {
+	gchar *new_path = NULL;
+	gchar *esc,*esc2;
+	gboolean result = FALSE;
+	GString *items;
+	gchar *command = NULL;
+	GSList *slist = NULL;
+	GSList *cmd_list = NULL;
+
 	if (xa_main_window)
+	{
 		Update_StatusBar (_("Adding files to the archive, please wait..."));
+		/* This in case the user wants to add files in the archive directories */
+		if (archive->location_entry_path != NULL)
+		{
+			result = xa_create_temp_directory(archive);
+			if (result == FALSE)
+				return;
+
+			items = g_string_new("");
+			new_path = g_strconcat (archive->tmp,"/",archive->location_entry_path,NULL);
+			command = g_strconcat ("mkdir -p ",new_path,NULL);
+			cmd_list = g_slist_append(cmd_list,command);
+			slist = list;
+			while (slist)
+			{
+				esc = xa_escape_bad_chars (slist->data, "\\");
+				esc2 = xa_escape_bad_chars (esc, "$'`\"\\!?* ()[]&|:;<>#");
+				g_free (esc);
+				g_string_append(items,esc2);
+				g_string_append_c(items,' ');
+				slist = slist->next;
+			}
+			command = g_strconcat ("cp -r ",items->str," ",new_path,NULL);
+			g_free(new_path);
+			g_string_free(items,TRUE);
+			cmd_list = g_slist_append(cmd_list,command);
+			xa_run_command (archive,cmd_list);
+		}
+	}
 	archive->status = XA_ARCHIVESTATUS_ADD;
 	(*archive->add) (archive,names,compression_string);
 }

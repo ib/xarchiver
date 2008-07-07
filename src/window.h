@@ -73,6 +73,7 @@ void xa_about (GtkMenuItem *, gpointer);
 void on_options1_activate (GtkMenuItem *, gpointer);
 void xa_extract_archive ( GtkMenuItem *, gpointer);
 void xa_convert_sfx ( GtkMenuItem *, gpointer);
+void xa_concat_filenames (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GString *);
 void xa_select_all ( GtkMenuItem *, gpointer);
 void xa_deselect_all ( GtkMenuItem *, gpointer);
 void xa_show_archive_comment ( GtkMenuItem *, gpointer);
@@ -99,9 +100,6 @@ void xa_reload_archive_content(XArchive *);
 void xa_watch_child ( GPid pid, gint status, gpointer data);
 void xa_remove_columns();
 void xa_create_liststore ( XArchive *, gchar *columns_names[]);
-void xa_concat_filenames (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GString *);
-void xa_cat_filenames (XArchive *,GSList *,GString *,gchar *);
-void xa_cat_filenames_basename (XArchive *,GSList *,GString *,gchar *);
 void Update_StatusBar (gchar *);
 
 gchar *xa_open_file_dialog ();
@@ -110,7 +108,5 @@ void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data);
 void xa_location_entry_activated (GtkEntry *entry,gpointer );
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer );
 int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,gpointer data);
-gchar *name;
-gchar *permissions;
 #endif
 

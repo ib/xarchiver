@@ -242,13 +242,55 @@ gchar *xa_remove_path_from_archive_name(gchar *name)
 	return utf8_string;
 }
 
-void xa_shell_quote_filename (gchar *filename,GString *data,XArchive *archive)
+void xa_escape_filename (gchar *filename,GString *data,XArchive *archive)
 {
-	gchar *quoted_filename = NULL;
 	gchar *esc_filename = NULL;
 	
 	esc_filename = xa_escape_common_chars (filename , " '*?[]", '\\', 0);
-
 	g_string_prepend (data,esc_filename);
 	g_string_prepend_c (data,' ');
+}
+
+void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
+{
+	GSList *slist = list;
+	gchar *name = NULL;
+
+	while (slist)
+	{
+		if (archive->location_entry_path != NULL)
+		{
+			name = g_strconcat(archive->location_entry_path,slist->data,NULL);
+			xa_escape_filename(name,data,archive);
+			g_free(name);
+		}
+		else
+			xa_escape_filename(slist->data,data,archive);
+		slist = slist->next;
+	}
+}
+
+void xa_cat_filenames_basename (XArchive *archive,GSList *list,GString *data)
+{
+	gchar *basename, *name;
+	GSList *slist = list;
+
+	while (slist)
+	{
+		if (archive->location_entry_path != NULL)
+		{
+			basename = g_path_get_basename (slist->data);
+			name = g_strconcat(archive->location_entry_path,basename,NULL);
+			g_free(basename);
+			xa_escape_filename(name,data,archive);
+			g_free(name);
+		}
+		else
+		{
+			basename = g_path_get_basename (slist->data);
+			xa_escape_filename(basename,data,archive);
+			g_free (basename);
+		}
+		slist = slist->next;
+	}
 }

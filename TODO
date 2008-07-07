@@ -1,4 +1,5 @@
-- fix adding in the archive directories with dnd.
+- fix store output when test archives
+- fix segfault in xa_launch_external_command
 - fix the directories bug with 7z
 - fix the remaining bugs in bugzilla.xfce.org
 - to fix the arrow buttons

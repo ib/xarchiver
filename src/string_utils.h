@@ -38,6 +38,8 @@ gchar *extract_local_path (gchar *path);
 void xa_set_window_title ( GtkWidget *window , gchar *title);
 gboolean match_patterns (char **patterns,const char *string,int flags);
 gchar *xa_remove_path_from_archive_name(gchar *name);
-void xa_shell_quote_filename (gchar *,GString *data,XArchive *);
+void xa_cat_filenames (XArchive *,GSList *,GString *);
+void xa_cat_filenames_basename (XArchive *,GSList *,GString *);
+void xa_escape_filename (gchar *,GString *data,XArchive *);
 #endif
 

@@ -183,13 +183,13 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),
 							GTK_DIALOG_MODAL,
 							GTK_MESSAGE_QUESTION,
-							GTK_BUTTONS_YES_NO,
+							GTK_BUTTONS_OK_CANCEL,
 							msg,
 							_("Do you want to overwrite it?")
 							);
 			g_free (utf8_path);
 			g_free (msg);
-			if (response != GTK_RESPONSE_YES)
+			if (response != GTK_RESPONSE_OK)
 			{
 				g_free (my_path);
 				gtk_widget_destroy (xa_file_chooser);

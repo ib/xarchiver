@@ -56,7 +56,7 @@ void add_update_fresh_toggled_cb (GtkToggleButton *, Add_dialog_data *);
 void password_toggled_cb ( GtkButton* ,gpointer);
 void xa_parse_add_dialog_options ( XArchive *, Add_dialog_data *);
 void xa_select_files_to_add ( GtkButton* ,gpointer );
-void xa_execute_add_commands ( XArchive *,GString *, gchar *);
+void xa_execute_add_commands ( XArchive *,GString *, GSList *, gchar *);
 void fix_adjustment_value (GtkAdjustment *,gpointer );
 #endif
 

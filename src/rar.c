@@ -211,7 +211,7 @@ void xa_rar_delete (XArchive *archive,GString *files)
 	GString *e_filenames = g_string_new("");
 
 	archive->status = XA_ARCHIVESTATUS_DELETE;
-	xa_shell_quote_filename(files->str,e_filenames,archive);
+	xa_escape_filename(files->str,e_filenames,archive);
 	command = g_strconcat ("rar d ",archive->escaped_path," ",e_filenames->str,NULL);
 	g_string_free(files,TRUE);
 	g_string_free(e_filenames,TRUE);

@@ -128,7 +128,6 @@ struct _XArchive
 	test_func test;
 };
 
-gboolean xa_spawn_sync_process (gchar *command);
 void xa_spawn_async_process (XArchive *archive, gchar *command);
 XArchive *xa_init_archive_structure(gint);
 void xa_clean_archive_structure (XArchive *archive);

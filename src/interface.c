@@ -766,7 +766,7 @@ void xa_create_popup_menu()
 	GtkWidget *paste;
 	GtkWidget *image8;
 	GtkWidget *separator;
-	GtkWidget *view;
+	GtkWidget *open;
 	GtkWidget *extract;
 	GtkWidget *image9;
 	GtkWidget *ddelete;
@@ -776,13 +776,13 @@ void xa_create_popup_menu()
 
 	xa_popup_menu = gtk_menu_new();
 
-	view = gtk_image_menu_item_new_with_mnemonic (_("View"));
-	gtk_widget_show (view);
-	gtk_container_add (GTK_CONTAINER (xa_popup_menu),view);
+	open = gtk_image_menu_item_new_with_mnemonic (_("Open"));
+	gtk_widget_show (open);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu),open);
 
-	image9 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_MENU);
+	image9 = gtk_image_new_from_stock ("gtk-open", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image9);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view), image9);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (open), image9);
 
 	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract..."));
 	gtk_widget_show (extract);

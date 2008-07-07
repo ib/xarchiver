@@ -90,7 +90,6 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_slist_free (archive->error_output);
 		archive->error_output = NULL;
 	}
-
 	if (archive->parse_output)
 	{
 		ioc = g_io_channel_unix_new (archive->output_fd);
@@ -108,12 +107,6 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
 	g_io_channel_set_flags (err_ioc,G_IO_FLAG_NONBLOCK,NULL);
 	g_io_add_watch (err_ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_error_messages, archive);
-}
-
-gboolean xa_spawn_sync_process (gchar *command)
-{
-
-	return FALSE;
 }
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
@@ -343,14 +336,13 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	{
 		archive->parse_output = 0;
 		gtk_widget_show (viewport2);
+		gtk_widget_set_sensitive (Stop_button,TRUE);
 		while (_commands)
 		{
 			g_print ("%s\n",(gchar*)_commands->data);
 			xa_spawn_async_process (archive,_commands->data);
 			if (archive->child_pid == 0)
 				break;
-
-			gtk_widget_set_sensitive (Stop_button,TRUE);
 			while (waiting)
 			{
 				ps = waitpid (archive->child_pid, &status, WNOHANG);

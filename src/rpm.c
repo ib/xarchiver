@@ -135,8 +135,8 @@ GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
     	{
             gtk_widget_hide ( viewport2 );
 	    	xa_set_window_title (xa_main_window , NULL);
-		    response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
-			if (response == GTK_RESPONSE_YES)
+		    response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
+			if (response == GTK_RESPONSE_OK)
 				xa_show_cmd_line_output (NULL);
 			xa_delete_temp_directory (archive[idx],1);
 			g_free (cpio_tmp);

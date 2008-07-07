@@ -174,20 +174,20 @@ int main (int argc, char **argv)
 				if (g_file_test (archive_name,G_FILE_TEST_EXISTS))
 				{
 					_current_dir = g_path_get_basename(archive_name);
-					xa_shell_quote_filename(_current_dir,string,archive);
+					xa_escape_filename(_current_dir,string,archive);
 					g_free (_current_dir);
 				}
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
-					xa_shell_quote_filename(_current_dir,string,archive);
+					xa_escape_filename(_current_dir,string,archive);
 					g_free (_current_dir);
 				}
 				if (archive->type == XARCHIVETYPE_7ZIP)
 					archive->add_recurse = FALSE;
 				else
 					archive->add_recurse = TRUE;
-				xa_execute_add_commands(archive,string,NULL);
+				xa_execute_add_commands(archive,string,NULL,NULL);
 			}
 		}
 		/* Switch -a */

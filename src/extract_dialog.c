@@ -448,7 +448,6 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			archive->freshen   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
 			archive->update    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
 
-			//gtk_widget_set_sensitive (Stop_button,TRUE);
 			gtk_widget_hide (dialog_data->dialog1);
 			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			/* Is the radiobutton Files selected? */
@@ -458,12 +457,12 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				{
 					gchar *text = g_strdup_printf(_("Extracting files to %s"),destination_path);
 					Update_StatusBar ( text );
+					gtk_widget_set_sensitive (Stop_button,TRUE);
 					g_free (text);
 				}
 			}
 			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->selected_radio)))
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,names);
-
 			(*archive->extract) (archive,names);
 		}
 	}
