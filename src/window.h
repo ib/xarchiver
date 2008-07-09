@@ -60,6 +60,7 @@ Add_dialog_data *add_window;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win;
 
 void xa_new_archive (GtkMenuItem *, gpointer);
+void xa_save_archive (GtkMenuItem *,gpointer);
 void xa_open_archive (GtkMenuItem *, gpointer);
 void xa_test_archive (GtkMenuItem *, gpointer);
 void xa_close_archive (GtkMenuItem *, gpointer);

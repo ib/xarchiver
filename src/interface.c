@@ -84,6 +84,10 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	open1 = gtk_image_menu_item_new_from_stock ("gtk-open", accel_group);
 	gtk_widget_show (open1);
 	gtk_container_add (GTK_CONTAINER (menuitem1_menu), open1);
+	
+	save1 = gtk_image_menu_item_new_from_stock ("gtk-save-as", accel_group);
+	gtk_widget_show (save1);
+	gtk_container_add (GTK_CONTAINER (menuitem1_menu), save1);
 
 	separatormenuitem1 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem1);
@@ -457,6 +461,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	g_signal_connect ((gpointer) new1, "activate", G_CALLBACK (xa_new_archive), NULL);
 	g_signal_connect ((gpointer) open1, "activate", G_CALLBACK (xa_open_archive), NULL);
+	g_signal_connect ((gpointer) save1, "activate", G_CALLBACK (xa_save_archive), NULL);
 	g_signal_connect ((gpointer) check_menu, "activate", G_CALLBACK (xa_test_archive), NULL);
 	g_signal_connect ((gpointer) properties, "activate", G_CALLBACK (xa_archive_properties), NULL);
 	g_signal_connect ((gpointer) extract_menu, "activate", G_CALLBACK (xa_extract_archive), NULL);

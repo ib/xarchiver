@@ -31,6 +31,7 @@ GtkWidget *menuitem1;
 GtkWidget *menuitem1_menu;
 GtkWidget *new1;
 GtkWidget *open1;
+GtkWidget *save1;
 GtkWidget *entry1;
 GtkWidget *progressbar;
 GtkWidget *info_label;

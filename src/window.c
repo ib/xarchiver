@@ -247,6 +247,41 @@ int xa_show_message_dialog (GtkWindow *window,int mode,int type,int button,const
 	return response;
 }
 
+void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
+{
+	gint current_page;
+	gint idx;
+	GtkWidget *save = NULL;
+	gchar *path = NULL,*command,*filename;
+	gboolean response;
+	GSList *list = NULL;
+
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
+
+	save = gtk_file_chooser_dialog_new ( _("Save the archive as"),
+						GTK_WINDOW (xa_main_window),
+						GTK_FILE_CHOOSER_ACTION_SAVE,
+						GTK_STOCK_CANCEL,
+						GTK_RESPONSE_CANCEL,
+						"gtk-save",
+						GTK_RESPONSE_ACCEPT,
+						NULL);
+	filename = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
+	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (save), filename);
+	g_free(filename);
+	response = gtk_dialog_run (GTK_DIALOG(save));
+	if (response == GTK_RESPONSE_ACCEPT)
+		path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(save));
+	gtk_widget_destroy (save);
+	if (path != NULL)
+	{
+		command = g_strconcat ("cp ",archive[idx]->escaped_path," ",path,NULL);
+		list = g_slist_append(list,command);
+		xa_run_command(archive[idx],list);
+	}
+}
+
 void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 {
 	gchar *path = NULL;
