@@ -51,7 +51,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	prefs_data->prefs_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT);
 	gtk_list_store_append (prefs_data->prefs_liststore,&iter);
-	gchar *pixbuf_file = g_strconcat(DATADIR,"/pixmaps/xarchiver-behaviour.svg",NULL);
+	gchar *pixbuf_file = g_strconcat(DATADIR,"/pixmaps/xarchiver/xarchiver-behaviour.svg",NULL);
 	icon_pixbuf = gdk_pixbuf_new_from_file (pixbuf_file,NULL);
 	g_free (pixbuf_file);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Archive"),2,0,-1);
