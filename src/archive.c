@@ -900,37 +900,3 @@ gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIt
 	return FALSE;
 }
 
-void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int y,GtkSelectionData *data, unsigned int info,unsigned int time,gpointer user_data)
-{
-	gchar **array = NULL;
-	gchar *filename = NULL;
-	gchar *dirname = NULL;
-	unsigned int len = 0;
-	GtkTreeIter iter;
-	GtkTreeSelection *selection;
-	GtkTreeModel *model;
-
-	array = gtk_selection_data_get_uris(data);
-	if (array == NULL || GTK_WIDGET_VISIBLE(viewport2))
-	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"" );
-		gtk_drag_finish(context,FALSE,FALSE,time);
-		return;
-	}
-	gtk_drag_finish (context,TRUE,FALSE,time);
-
-	while (array[len])
-	{
-		filename = g_filename_from_uri (array[len],NULL,NULL);
-		g_print ("You sent: %s\n",filename);
-		g_free(filename);
-		len++;
-	}
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
-	if (gtk_tree_selection_get_selected (selection,&model,&iter))
-	{
-		gtk_tree_model_get(model,&iter,1,&dirname,-1);
-		g_print ("Hai selezionato: %s\n",dirname);
-		g_free(dirname);
-	}
-}

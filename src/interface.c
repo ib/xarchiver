@@ -405,7 +405,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
 	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview),drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
 	g_signal_connect (G_OBJECT (archive_dir_treeview), "drag-data-received",G_CALLBACK (xa_sidepane_drag_data_received), NULL);
-
+	g_signal_connect (G_OBJECT (archive_dir_treeview), "drag-motion",G_CALLBACK (xa_sidepane_drag_motion), NULL);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
 	g_signal_connect (sel,"changed",G_CALLBACK (xa_sidepane_row_selected),NULL);
 
@@ -636,6 +636,7 @@ gchar *xa_create_password_dialog(gchar *archive_name)
 {
 	GtkWidget *password_dialog,*dialog_vbox1,*vbox1,*hbox2,*image2,*vbox2,*label_pwd_required,*label_filename,*hbox1,*label34,*pw_password_entry;
 	gchar *password = NULL;
+	gboolean done = FALSE;
 
   	password_dialog = gtk_dialog_new_with_buttons ("Xarchiver " VERSION,
 									GTK_WINDOW (xa_main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -1261,24 +1262,111 @@ void xa_disable_delete_buttons (gboolean value)
     //gtk_widget_set_sensitive (delete,value);
 }
 
-/*
- * Get file path of an item in the archive dir tree.
- * The returned allocated string should be freed when no longer needed.
- * By Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
- */
-char *xa_dir_tree_get_path( GtkTreeIter* it )
+void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int y,GtkSelectionData *data, unsigned int info,unsigned int time,gpointer user_data)
 {
-    GtkTreeIter parent_it;
-    char *path = NULL, *parent_path = NULL, *name = NULL;
-    gtk_tree_model_get( archive_dir_model, it, 1, &name, -1 );
-    if( gtk_tree_model_iter_parent( archive_dir_model, &parent_it, it ) )
-    {
-        parent_path = xa_dir_tree_get_path( &parent_it );
-        path = g_build_filename( parent_path, name, NULL );
-        g_free( parent_path );
-        g_free( name );
-    }
-    else
-        path = name;
-    return path;
+	gchar **array = NULL;
+	gchar *filename = NULL;
+	gchar *name = NULL;
+	unsigned int len = 0;
+	gint current_page;
+	gint idx;
+	GString *names = g_string_new("");
+	GSList *list = NULL;
+	GtkTreeModel *model;
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	GtkTreeIter parent;
+	GString *full_pathname = g_string_new("");
+	gboolean full_path,add_recurse,dummy_password;
+
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index(current_page);
+
+	array = gtk_selection_data_get_uris(data);
+	if (array == NULL || GTK_WIDGET_VISIBLE(viewport2))
+	{
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"" );
+		gtk_drag_finish(context,FALSE,FALSE,time);
+		return;
+	}
+	while (array[len])
+	{
+		filename = g_filename_from_uri (array[len],NULL,NULL);
+		list = g_slist_append(list,filename);
+		len++;
+	}
+	const char *home_dir = g_get_home_dir();
+	chdir (home_dir);
+
+	/* Let's get the full pathname so to add dropped files there */
+	path = g_object_get_data(G_OBJECT(context),"current_path");
+	if (path == NULL)
+	{
+		gtk_drag_finish (context,TRUE,FALSE,time);
+		return;
+	}
+	gtk_tree_model_get_iter(model,&iter,path);
+	gtk_tree_model_get(model,&iter,1,&name,-1);
+	g_string_prepend_c(full_pathname,'/');
+	g_string_prepend(full_pathname,name);
+	gtk_tree_path_free(path);
+
+	while (gtk_tree_model_iter_parent(model,&parent,&iter))
+	{
+		gtk_tree_model_get(model,&parent,1,&name,-1);
+		g_string_prepend_c(full_pathname,'/');
+		g_string_prepend(full_pathname,name);
+		iter = parent;
+	}
+	if (archive[idx]->location_entry_path != NULL)
+		g_free(archive[idx]->location_entry_path);
+
+	/* This to store the dragged files inside an archive dir */
+	archive[idx]->location_entry_path = g_strdup(full_pathname->str);
+	xa_cat_filenames_basename(archive[idx],list,names);
+	dummy_password = archive[idx]->has_passwd;
+	full_path = archive[idx]->full_path;
+	add_recurse = archive[idx]->add_recurse;
+
+	archive[idx]->has_passwd = 0;
+	archive[idx]->full_path = 0;
+	archive[idx]->add_recurse = 1;
+	xa_execute_add_commands(archive[idx],names,list,NULL);
+
+	archive[idx]->has_passwd = dummy_password;
+	archive[idx]->full_path = full_path;
+	archive[idx]->add_recurse = add_recurse;
+	
+	g_string_free(full_pathname,TRUE);
+	if (list != NULL)
+	{
+		g_slist_foreach(list,(GFunc) g_free,NULL);
+		g_slist_free(list);
+	}
+	g_strfreev (array);
+	gtk_drag_finish (context,TRUE,FALSE,time);
+}
+
+gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint x,gint y,guint time,gpointer user_data)
+{
+	GtkTreePath *path;
+	GtkTreeViewDropPosition pos;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
+	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,&pos);
+	if (path)
+	{
+		if (! gtk_tree_view_row_expanded(GTK_TREE_VIEW(widget),path))
+			gtk_tree_view_expand_to_path(GTK_TREE_VIEW(widget),path);
+
+		gtk_tree_model_get_iter (GTK_TREE_MODEL(model),&iter,path);
+		g_object_set_data(G_OBJECT(context),"current_path",path);
+		/* This to set the focus on the dropped row */
+		gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
+	}
+	gdk_drag_status (context, context->suggested_action, time);
+	return TRUE;
 }

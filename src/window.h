@@ -55,7 +55,6 @@
 short int response;
 double content_size;
 unsigned long long int file_size, file_offset;
-gboolean done,full_path,overwrite,add_recurse;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win;

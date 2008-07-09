@@ -260,21 +260,6 @@ done:	g_list_free (ArchiveSuffix);
 	}
 }
 
-gchar *get_argv_filename(const gchar *filename)
-{
-	gchar *result;
-
-	if (g_path_is_absolute(filename))
-		result = g_strdup(filename);
-	else
-	{
-		gchar *cur_dir = g_get_current_dir();
-		result = g_strjoin("/",cur_dir,filename,NULL);
-		g_free(cur_dir);
-	}
-	return result;
-}
-
 void xa_set_available_archivers()
 {
 	delete[0]  = 0;
@@ -454,7 +439,10 @@ void xa_set_available_archivers()
     }
     absolute_path = g_find_program_in_path("xdg-open");
     if (absolute_path != NULL)
+    {
     	xdg_open = TRUE;
+    	g_free (absolute_path);
+    }
 }
 
 XArchive *xa_init_structure_from_cmd_line (char *filename)

@@ -32,6 +32,7 @@ extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean stop_flag;
 extern gboolean unrar;
+extern gboolean xdg_open;
 extern Prefs_dialog_data *prefs_window;
 extern gchar *config_file;
 extern void xa_free_icon_cache();
@@ -1133,6 +1134,7 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	gtk_tree_view_set_model ( GTK_TREE_VIEW (archive->treeview), GTK_TREE_MODEL (archive->liststore) );
 
 	archive->model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
+	//gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model),1,GTK_SORT_ASCENDING);
 	g_object_ref(archive->model);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview), NULL);
 
@@ -1552,6 +1554,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	gchar *to_send = "E";
 	GList *row_list = NULL;
 	GString *names;
+	gboolean full_path,overwrite;
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	row_list = gtk_tree_selection_get_selected_rows (selection, NULL);
@@ -1629,6 +1632,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	GSList *list = NULL;
 	gboolean one_file;
 	gboolean dummy_password;
+	gboolean full_path,add_recurse;
 	unsigned int len = 0;
 	gint current_page;
 	gint idx;
@@ -1778,22 +1782,24 @@ void xa_deselect_all ( GtkMenuItem *menuitem , gpointer user_data )
 
 void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data)
 {
-	gchar *browser_path;
 	gboolean result;
 
-	browser_path = gtk_combo_box_get_active_text(GTK_COMBO_BOX(prefs_window->combo_prefered_web_browser));
-
-	if (strlen(browser_path) == 0)
+	if ( !xdg_open)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
-		_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));		
-		g_free (browser_path);
-		return;	
+		gchar *browser_path = NULL;
+		browser_path = gtk_combo_box_get_active_text(GTK_COMBO_BOX(prefs_window->combo_prefered_web_browser));
+		if (strlen(browser_path) == 0)
+		{
+			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));
+			g_free (browser_path);
+			return;
+		}
+		result = xa_launch_external_program(browser_path,(gchar *)link);
+		if (browser_path != NULL)
+			g_free (browser_path);
 	}
-	result = xa_launch_external_program(browser_path,(gchar *)link);
-
-	if (browser_path != NULL)
-		g_free (browser_path);
+	else
+		xa_launch_external_program("xdg-open",(gchar *)link);
 }
 
 gboolean xa_launch_external_program(gchar *program,gchar *arg)
@@ -1825,7 +1831,7 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 	return TRUE;
 }
 
-void xa_show_help (GtkMenuItem *menuitem , gpointer user_data )
+void xa_show_help (GtkMenuItem *menuitem,gpointer user_data )
 {
 	gchar *uri = g_strconcat ("file://", DATADIR, "/doc/", PACKAGE, "/html/index.html", NULL);
 	xa_activate_link (NULL,uri,NULL);
