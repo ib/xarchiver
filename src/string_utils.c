@@ -242,7 +242,7 @@ gchar *xa_remove_path_from_archive_name(gchar *name)
 	return utf8_string;
 }
 
-void xa_escape_filename (gchar *filename,GString *data,XArchive *archive)
+void xa_escape_filename (gchar *filename,GString *data)
 {
 	gchar *esc_filename = NULL;
 	
@@ -261,11 +261,11 @@ void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 		if (archive->location_entry_path != NULL)
 		{
 			name = g_strconcat(archive->location_entry_path,slist->data,NULL);
-			xa_escape_filename(name,data,archive);
+			xa_escape_filename(name,data);
 			g_free(name);
 		}
 		else
-			xa_escape_filename(slist->data,data,archive);
+			xa_escape_filename(slist->data,data);
 		slist = slist->next;
 	}
 }
@@ -282,13 +282,13 @@ void xa_cat_filenames_basename (XArchive *archive,GSList *list,GString *data)
 			basename = g_path_get_basename (slist->data);
 			name = g_strconcat(archive->location_entry_path,basename,NULL);
 			g_free(basename);
-			xa_escape_filename(name,data,archive);
+			xa_escape_filename(name,data);
 			g_free(name);
 		}
 		else
 		{
 			basename = g_path_get_basename (slist->data);
-			xa_escape_filename(basename,data,archive);
+			xa_escape_filename(basename,data);
 			g_free (basename);
 		}
 		slist = slist->next;

@@ -22,6 +22,7 @@
 
 #include "window.h"
 #include "archive.h"
+#include "mime.h"
 #include "string_utils.h"
 #include "interface.h"
 #include "support.h"
@@ -59,7 +60,7 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it.") );	
 				return FALSE;
 			}
-			xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
+			xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
 			response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_OK)
 				xa_show_cmd_line_output (NULL);
@@ -88,7 +89,7 @@ void xa_archive_operation_finished(XArchive *archive)
 		else
 			gtk_widget_set_sensitive (comment_menu,FALSE);
 			
-		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 
 		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 			xa_show_archive_comment (NULL, NULL);
@@ -192,7 +193,7 @@ void xa_watch_child (GPid pid,gint status,gpointer data)
 		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
 			gtk_widget_set_sensitive (check_menu,FALSE );
 
-		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 		archive->status = XA_ARCHIVESTATUS_IDLE;
 		return;
 	}
@@ -222,7 +223,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	xa_add_page (archive[current_page]);
 
-	xa_set_button_state (1,1,1,1,0,0,0,0 );
+	xa_set_button_state (1,1,1,1,1,0,0,0,0 );
     archive[current_page]->has_passwd = FALSE;
     gtk_widget_set_sensitive(check_menu,FALSE);
     gtk_widget_set_sensitive(properties,FALSE );
@@ -384,7 +385,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 
 	gtk_widget_set_sensitive (check_menu,FALSE);
 	gtk_widget_set_sensitive (properties,FALSE);
-	xa_set_button_state ( 0,0,0,0,0,0,0,0);
+	xa_set_button_state ( 0,0,0,0,0,0,0,0,0);
 	switch (archive[current_page]->type)
 	{
 		case XARCHIVETYPE_ARJ:
@@ -478,7 +479,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_widget_set_sensitive (home_button,FALSE);
 		gtk_widget_set_sensitive (deselect_all,FALSE);
 		xa_disable_delete_buttons (FALSE);
-		xa_set_button_state (1,1,0,0,0,0,0,0);
+		xa_set_button_state (1,1,0,0,0,0,0,0,0);
 		xa_set_window_title (xa_main_window,NULL);
 		gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
@@ -1784,7 +1785,7 @@ void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIte
 	
 	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
 	filename = xa_build_full_path_name_from_entry(entry);
-	xa_escape_filename (filename,data,archive[idx]);
+	xa_escape_filename (filename,data);
 	g_free (filename);
 }
 
@@ -2003,4 +2004,106 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 
 	xa_sidepane_select_row(entry);
 	xa_update_window_with_archive_entries(archive,entry);
+}
+
+void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
+{
+	GdkPixbuf *pixbuf = NULL;
+	GtkTreeIter iter;
+	GtkTreeIter *last_dir_iter = NULL;
+	unsigned short int i;
+	gpointer current_column;
+
+	archive->current_entry = entry;
+	if (entry == NULL)
+	{
+		entry = archive->root_entry->child;
+		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
+		gtk_tree_selection_unselect_all(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)));
+		if (archive->location_entry_path != NULL)
+		{
+			g_free(archive->location_entry_path);
+			archive->location_entry_path = NULL;
+		}
+		gtk_widget_set_sensitive(back_button,FALSE);
+		gtk_widget_set_sensitive(up_button,FALSE);
+		gtk_widget_set_sensitive(home_button,FALSE);
+	}
+	else
+	{
+		if (archive->location_entry_path != NULL)
+		{
+			g_free(archive->location_entry_path);
+			archive->location_entry_path = NULL;
+		}
+		gtk_widget_set_sensitive(back_button,TRUE);
+		gtk_widget_set_sensitive(up_button,TRUE);
+		gtk_widget_set_sensitive(home_button,TRUE);
+		archive->location_entry_path = xa_build_full_path_name_from_entry(entry);
+		gtk_entry_set_text(GTK_ENTRY(location_entry),archive->location_entry_path);
+		entry = entry->child;
+	}
+	gtk_list_store_clear(archive->liststore);
+
+	while (entry)
+	{
+		current_column = entry->columns;
+		//gtk_list_store_append (archive->liststore, &iter);
+		if (entry->is_dir)
+		{
+			if (last_dir_iter == NULL)
+				gtk_list_store_prepend(archive->liststore, &iter);
+			else
+			{
+				gtk_list_store_insert_after(archive->liststore, &iter, last_dir_iter);
+				gtk_tree_iter_free(last_dir_iter);
+			}
+			last_dir_iter = gtk_tree_iter_copy(&iter);
+		}
+		else
+			gtk_list_store_append(archive->liststore, &iter);
+
+		if(!g_utf8_validate(entry->filename, -1, NULL) )
+		{
+			gchar *dummy = g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL);
+			if (dummy != NULL)
+			{
+				g_free (entry->filename);
+				entry->filename = dummy;
+			}
+		}
+		if (entry->is_dir)
+			pixbuf = xa_get_pixbuf_icon_from_cache("folder");
+		else if (entry->is_encrypted)
+		{
+			pixbuf = xa_get_pixbuf_icon_from_cache("lock");
+			archive->has_passwd = TRUE;
+		}
+		else
+			pixbuf = xa_get_pixbuf_icon_from_cache(entry->filename);
+
+		gtk_list_store_set (archive->liststore,&iter,archive->nc+1, entry,-1);
+		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
+
+		for (i = 0; i < archive->nc; i++)
+		{
+			switch(archive->column_types[i+2])
+			{
+				case G_TYPE_STRING:
+					//g_message ("%d - %s",i,(*((gchar **)current_column)));
+					gtk_list_store_set (archive->liststore,&iter,i+2,(*((gchar **)current_column)),-1);
+					current_column += sizeof(gchar *);
+				break;
+
+				case G_TYPE_UINT64:
+					//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
+					gtk_list_store_set (archive->liststore,&iter,i+2,(*((guint64 *)current_column)),-1);
+					current_column += sizeof(guint64);
+				break;
+			}
+		}
+		entry = entry->next;
+	}
+	xa_fill_dir_sidebar(archive,FALSE);
+	xa_handle_selected_rows(NULL,archive);
 }

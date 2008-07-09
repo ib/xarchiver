@@ -136,7 +136,7 @@ void xa_handle_navigation_buttons (GtkMenuItem *, gpointer );
 void xa_add_page (XArchive *);
 void xa_page_has_changed (GtkNotebook *, GtkNotebookPage *, guint , gpointer );
 void xa_close_page (GtkWidget *, gpointer );
-void xa_set_button_state (gboolean,gboolean,gboolean,gboolean,gboolean, gboolean, gboolean,gboolean);
+void xa_set_button_state (gboolean,gboolean,gboolean,gboolean,gboolean,gboolean, gboolean, gboolean,gboolean);
 void xa_restore_navigation(int idx);
 void xa_disable_delete_buttons (gboolean);
 void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int y,GtkSelectionData *data, unsigned int info,unsigned int time,gpointer user_data);

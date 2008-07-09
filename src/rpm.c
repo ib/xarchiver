@@ -140,7 +140,7 @@ GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
 				xa_show_cmd_line_output (NULL);
 			xa_delete_temp_directory (archive[idx],1);
 			g_free (cpio_tmp);
-			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
+			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 			//TODO: xa_hide_progress_bar_stop_button(archive[idx]);
 			return FALSE;
 		}

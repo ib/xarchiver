@@ -526,11 +526,11 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 			gtk_widget_set_sensitive (Stop_button , FALSE);
 			goto here;
 		}
-		xa_set_button_state (0,0,0,0,0,0,0,0);
+		xa_set_button_state (0,0,0,0,0,0,0,0,0);
 		gtk_widget_set_sensitive ( Stop_button , TRUE);
 		return;
 	}
-	xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties);
+	xa_set_button_state (1,1,1,GTK_WIDGET_IS_SENSITIVE(close1),archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties);
 
 here:
 	xa_restore_navigation(id);
@@ -1152,13 +1152,14 @@ void set_label (GtkWidget *label,gchar *text)
     g_free (tmp_markup);
 }
 
-void xa_set_button_state (gboolean New, gboolean Open,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info)
+void xa_set_button_state (gboolean New, gboolean Open,gboolean save,gboolean Close, gboolean add,gboolean extract, gboolean sfx, gboolean test, gboolean info)
 {
 	gtk_widget_set_sensitive (New_button, New);
     gtk_widget_set_sensitive (new1, New);
 	gtk_widget_set_sensitive (Open_button, Open);
     gtk_widget_set_sensitive (open1, Open);
     gtk_widget_set_sensitive (close1, Close);
+    gtk_widget_set_sensitive (save1, save);
 	gtk_widget_set_sensitive (AddFile_button, add);
 	gtk_widget_set_sensitive (addfile, add);
 	gtk_widget_set_sensitive (Extract_button, extract);
@@ -1327,7 +1328,7 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	if (archive[idx]->location_entry_path != NULL)
 		g_free(archive[idx]->location_entry_path);
 
-	/* This to store the dragged files inside an archive dir */
+	/* This to store the dragged files inside the dropped archive dir */
 	archive[idx]->location_entry_path = g_strdup(full_pathname->str);
 	xa_cat_filenames_basename(archive[idx],list,names);
 	dummy_password = archive[idx]->has_passwd;
@@ -1356,12 +1357,11 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint x,gint y,guint time,gpointer user_data)
 {
 	GtkTreePath *path;
-	GtkTreeViewDropPosition pos;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
-	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,&pos);
+	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);
 	if (path)
 	{
 		if (! gtk_tree_view_row_expanded(GTK_TREE_VIEW(widget),path))
@@ -1371,6 +1371,7 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 		g_object_set_data(G_OBJECT(context),"current_path",path);
 		/* This to set the focus on the dropped row */
 		gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
+		gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-open",-1);
 	}
 	gdk_drag_status (context, context->suggested_action, time);
 	return TRUE;

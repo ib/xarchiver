@@ -20,7 +20,6 @@
 #include <gtk/gtk.h>
 #include "config.h"
 #include "archive.h"
-#include "mime.h"
 #include "support.h"
 #include "window.h"
 
@@ -76,7 +75,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_error_free (error);
 		g_strfreev ( argv );
 		archive->child_pid = 0;
-		xa_set_button_state (1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 		return;
 	}
 	g_strfreev ( argv );
@@ -524,107 +523,6 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *
 	return entry->columns;
 }
 
-void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
-{
-	GdkPixbuf *pixbuf = NULL;
-	GtkTreeIter iter;
-	GtkTreeIter *last_dir_iter = NULL;
-	unsigned short int i;
-	gpointer current_column;
-
-	archive->current_entry = entry;
-	if (entry == NULL)
-	{
-		entry = archive->root_entry->child;
-		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
-		if (archive->location_entry_path != NULL)
-		{
-			g_free(archive->location_entry_path);
-			archive->location_entry_path = NULL;
-		}
-		gtk_widget_set_sensitive(back_button,FALSE);
-		gtk_widget_set_sensitive(up_button,FALSE);
-		gtk_widget_set_sensitive(home_button,FALSE);
-	}
-	else
-	{
-		if (archive->location_entry_path != NULL)
-		{
-			g_free(archive->location_entry_path);
-			archive->location_entry_path = NULL;
-		}
-		gtk_widget_set_sensitive(back_button,TRUE);
-		gtk_widget_set_sensitive(up_button,TRUE);
-		gtk_widget_set_sensitive(home_button,TRUE);
-		archive->location_entry_path = xa_build_full_path_name_from_entry(entry);
-		gtk_entry_set_text(GTK_ENTRY(location_entry),archive->location_entry_path);
-		entry = entry->child;
-	}
-	gtk_list_store_clear(archive->liststore);
-
-	while (entry)
-	{
-		current_column = entry->columns;
-		//gtk_list_store_append (archive->liststore, &iter);
-		if (entry->is_dir)
-		{
-			if (last_dir_iter == NULL)
-				gtk_list_store_prepend(archive->liststore, &iter);
-			else
-			{
-				gtk_list_store_insert_after(archive->liststore, &iter, last_dir_iter);
-				gtk_tree_iter_free(last_dir_iter);
-			}
-			last_dir_iter = gtk_tree_iter_copy(&iter);
-		}
-		else
-			gtk_list_store_append(archive->liststore, &iter);
-
-		if(!g_utf8_validate(entry->filename, -1, NULL) )
-		{
-			gchar *dummy = g_convert(entry->filename, -1, "UTF-8", "WINDOWS-1252", NULL, NULL, NULL);
-			if (dummy != NULL)
-			{
-				g_free (entry->filename);
-				entry->filename = dummy;
-			}
-		}
-		if (entry->is_dir)
-			pixbuf = xa_get_pixbuf_icon_from_cache("folder");
-		else if (entry->is_encrypted)
-		{
-			pixbuf = xa_get_pixbuf_icon_from_cache("lock");
-			archive->has_passwd = TRUE;
-		}
-		else
-			pixbuf = xa_get_pixbuf_icon_from_cache(entry->filename);
-
-		gtk_list_store_set (archive->liststore,&iter,archive->nc+1, entry,-1);
-		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
-
-		for (i = 0; i < archive->nc; i++)
-		{
-			switch(archive->column_types[i+2])
-			{
-				case G_TYPE_STRING:
-					//g_message ("%d - %s",i,(*((gchar **)current_column)));
-					gtk_list_store_set (archive->liststore,&iter,i+2,(*((gchar **)current_column)),-1);
-					current_column += sizeof(gchar *);
-				break;
-
-				case G_TYPE_UINT64:
-					//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
-					gtk_list_store_set (archive->liststore,&iter,i+2,(*((guint64 *)current_column)),-1);
-					current_column += sizeof(guint64);
-				break;
-			}
-		}
-		entry = entry->next;
-	}
-	xa_fill_dir_sidebar(archive,FALSE);
-	xa_handle_selected_rows(NULL,archive);
-}
-
 XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
 {
 	gchar **components = NULL;
@@ -852,6 +750,7 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 	XEntry *entry;
 	GtkTreeIter iter;
 	GtkTreeIter parent;
+	GtkTreePath *path;
 	GtkTreeModel *model;
 	GString *string = g_string_new("");
 	gchar *dir;
@@ -863,6 +762,10 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 
 	if (gtk_tree_selection_get_selected (selection,&model,&iter))
 	{
+		path = gtk_tree_model_get_path(model,&iter);
+		if ( ! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),path))
+			gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),path);
+		gtk_tree_path_free(path);
 		/* Let get the last selected dir */
 		gtk_tree_model_get(model,&iter,1,&dir,-1);
 		g_string_prepend_c(string,'/');

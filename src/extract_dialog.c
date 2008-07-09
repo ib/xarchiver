@@ -399,7 +399,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				gtk_widget_set_sensitive (Stop_button,FALSE);
 				Update_StatusBar (_("Operation canceled."));
 				gtk_widget_hide (viewport2);
-				xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
+				xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 				archive->status = XA_ARCHIVESTATUS_IDLE;
 			}
 			break;

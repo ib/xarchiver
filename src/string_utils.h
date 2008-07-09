@@ -40,6 +40,6 @@ gboolean match_patterns (char **patterns,const char *string,int flags);
 gchar *xa_remove_path_from_archive_name(gchar *name);
 void xa_cat_filenames (XArchive *,GSList *,GString *);
 void xa_cat_filenames_basename (XArchive *,GSList *,GString *);
-void xa_escape_filename (gchar *,GString *data,XArchive *);
+void xa_escape_filename (gchar *,GString *data);
 #endif
 

@@ -106,7 +106,8 @@ gchar *xa_open_file_dialog ();
 gchar *xa_open_sfx_file_selector ();
 void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data);
 void xa_location_entry_activated (GtkEntry *entry,gpointer );
-void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer );
 int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,gpointer data);
+void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer );
+void xa_update_window_with_archive_entries(XArchive *archive,XEntry *entry);
 #endif
 
