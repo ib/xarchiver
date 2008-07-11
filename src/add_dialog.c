@@ -340,9 +340,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 	gchar *compression_string = NULL;
 	gboolean done = FALSE;
 	GSList *list = NULL;
-	GString *filenames;
 
-	filenames = g_string_new (" ");
 	while ( ! done )
 	{
 		switch (gtk_dialog_run(GTK_DIALOG(add_dialog->dialog1)))
@@ -402,21 +400,15 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				gchar *current_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
 				chdir (current_dir);
 				g_free (current_dir);
-				xa_cat_filenames_basename(archive,list,filenames);
 			}
-			else
-				xa_cat_filenames(archive,list,filenames);
-
-			xa_execute_add_commands (archive,filenames,list,compression_string);
-			g_slist_foreach(list,(GFunc)g_free,NULL);
-			g_slist_free(list);
+			xa_execute_add_commands (archive,list,compression_string);
 			if (compression_string != NULL)
 				g_free (compression_string);
 		}
 	}
 }
 
-void xa_execute_add_commands (XArchive *archive,GString *names,GSList *list,gchar *compression_string)
+void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_string)
 {
 	gchar *new_path = NULL;
 	gchar *esc,*esc2;
@@ -458,5 +450,5 @@ void xa_execute_add_commands (XArchive *archive,GString *names,GSList *list,gcha
 		}
 	}
 	archive->status = XA_ARCHIVESTATUS_ADD;
-	(*archive->add) (archive,names,compression_string);
+	(*archive->add) (archive,list,compression_string);
 }

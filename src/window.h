@@ -73,7 +73,7 @@ void xa_about (GtkMenuItem *, gpointer);
 void on_options1_activate (GtkMenuItem *, gpointer);
 void xa_extract_archive ( GtkMenuItem *, gpointer);
 void xa_convert_sfx ( GtkMenuItem *, gpointer);
-void xa_concat_filenames (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GString *);
+void xa_concat_filenames (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GSList **);
 void xa_select_all ( GtkMenuItem *, gpointer);
 void xa_deselect_all ( GtkMenuItem *, gpointer);
 void xa_show_archive_comment ( GtkMenuItem *, gpointer);

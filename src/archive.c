@@ -557,10 +557,9 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 	return fullpathname;
 }
 
-void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path)
+void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list,gchar *current_path)
 {
 	gchar *full_path, *_full_path = NULL;
-	gchar *quoted_path = NULL;
 	gint idx,current_page;
 
 	if (entry == NULL)
@@ -594,14 +593,12 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gcha
 			g_free (full_path);
 			full_path = _full_path;
 		}
-		quoted_path = g_shell_quote(full_path);
-		*p_file_list = g_string_prepend (*p_file_list,quoted_path);
-		*p_file_list = g_string_prepend_c (*p_file_list,' ');
+		*p_file_list = g_slist_prepend (*p_file_list,full_path);
 	}
 	return;
 }
 
-void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_path)
+void xa_entries_to_filelist(XEntry *entry,GSList **p_file_list,gchar *current_path)
 {
 	gchar *full_path;
 	gchar *quoted_path = NULL;
@@ -624,9 +621,7 @@ void xa_entries_to_filelist(XEntry *entry,GString **p_file_list,gchar *current_p
 	}
 	else
 	{
-		quoted_path = g_shell_quote(full_path);
-		*p_file_list = g_string_prepend (*p_file_list,quoted_path);
-		*p_file_list = g_string_prepend_c (*p_file_list,' ');
+		*p_file_list = g_slist_prepend (*p_file_list,quoted_path);
 	}
 }
 

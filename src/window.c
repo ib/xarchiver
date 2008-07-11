@@ -223,7 +223,7 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	xa_add_page (archive[current_page]);
 
-	xa_set_button_state (1,1,1,1,1,0,0,0,0 );
+	xa_set_button_state (0,0,0,1,1,0,0,0,0);
     archive[current_page]->has_passwd = FALSE;
     gtk_widget_set_sensitive(check_menu,FALSE);
     gtk_widget_set_sensitive(properties,FALSE );
@@ -536,10 +536,9 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 	GList  *row_list = NULL;
 	XEntry *entry = NULL;
 	GtkTreeIter iter;
-	GString *names;
+	GSList *list = NULL;
 	gint current_page,id;
 
-	names = g_string_new (" ");
 	current_page = gtk_notebook_get_current_page (notebook);
 	id = xa_find_archive_index (current_page);
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
@@ -557,13 +556,12 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 				if (archive[id]->type == XARCHIVETYPE_TAR || is_tar_compressed(archive[id]->type))
 					goto one_file;
 				else
-					xa_fill_list_with_recursed_entries(entry, &names,"");
+					xa_fill_list_with_recursed_entries(entry, &list,"");
 			}
 			else
 			{
 				one_file:
-				g_string_prepend_c (names,' ');
-				g_string_prepend (names,xa_build_full_path_name_from_entry(entry));
+				list = g_slist_prepend (list,xa_build_full_path_name_from_entry(entry));
 			}
 			row_list = row_list->next;
 		}
@@ -579,7 +577,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	Update_StatusBar ( _("Deleting files from the archive, please wait..."));
 	archive[id]->status = XA_ARCHIVESTATUS_DELETE;
-	(*archive[id]->delete) (archive[id],names);
+	(*archive[id]->delete) (archive[id],list);
 }
 
 void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
@@ -1589,7 +1587,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 	gchar *no_uri_path;
 	gchar *to_send = "E";
 	GList *row_list = NULL;
-	GString *names;
+	GSList *names = NULL;
 	gboolean full_path,overwrite;
 
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
@@ -1636,8 +1634,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 		if (archive->extraction_path != NULL)
 			to_send = "S";
 
-		names = g_string_new ("");
-		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) xa_concat_filenames,names);
+		gtk_tree_selection_selected_foreach (selection, (GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);
 		full_path = archive->full_path;
 		overwrite = archive->overwrite;
 		archive->full_path = 0;
@@ -1724,7 +1721,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"), msg );
 		return;
 	}
-	GString *names = g_string_new (" ");
 	_current_dir = g_path_get_dirname (array[0]);
 	current_dir = g_filename_from_uri (_current_dir,NULL,NULL);
 	g_free (_current_dir);
@@ -1737,7 +1733,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		list = g_slist_append(list,filename);
 		len++;
 	}
-	xa_cat_filenames_basename(archive[idx],list,names);
 	dummy_password = archive[idx]->has_passwd;
 	full_path = archive[idx]->full_path;
 	add_recurse = archive[idx]->add_recurse;
@@ -1745,7 +1740,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	archive[idx]->has_passwd = 0;
 	archive[idx]->full_path = 0;
 	archive[idx]->add_recurse = 1;
-	xa_execute_add_commands(archive[idx],names,list,NULL);
+	xa_execute_add_commands(archive[idx],list,NULL);
 
 	archive[idx]->has_passwd = dummy_password;
 	archive[idx]->full_path = full_path;
@@ -1773,7 +1768,7 @@ gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer dat
 	return FALSE;
 }
 
-void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GString *data)
+void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GSList **data)
 {
 	XEntry *entry = NULL;
 	gchar *filename = NULL;
@@ -1785,8 +1780,7 @@ void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIte
 	
 	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
 	filename = xa_build_full_path_name_from_entry(entry);
-	xa_escape_filename (filename,data);
-	g_free (filename);
+	*data = g_slist_prepend (*data,filename);
 }
 
 void xa_select_all(GtkMenuItem *menuitem,gpointer user_data)

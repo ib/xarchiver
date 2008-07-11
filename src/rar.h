@@ -26,9 +26,9 @@
 #include "support.h"
 #include "archive.h"
 gboolean jump_header,read_filename, last_line, encrypted;
-void xa_rar_delete (XArchive *,GString *);
-void xa_rar_add (XArchive *,GString *,gchar *);
-void xa_rar_extract(XArchive *,GString *);
+void xa_rar_delete (XArchive *,GSList *);
+void xa_rar_add (XArchive *,GSList *,gchar *);
+void xa_rar_extract(XArchive *,GSList *);
 void xa_rar_test (XArchive *);
 void xa_get_rar_line_content (gchar *line, gpointer data);
 void xa_open_rar ( XArchive *archive );

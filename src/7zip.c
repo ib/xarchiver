@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -163,17 +163,30 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	g_free(filename);
 }
 
-void xa_7zip_delete (XArchive *archive,GString *files)
+void xa_7zip_delete (XArchive *archive,GSList *names)
 {
-	gchar *command,*exe = NULL;
+	gchar *command,*exe,*e_filename = NULL;
 	GSList *list = NULL;
+	GString *files = g_string_new("");
 
 	if (sevenzr)
 		exe = "7zr d ";
 	if (sevenza)
 		exe = "7za d ";
-		
+
 	archive->status = XA_ARCHIVESTATUS_DELETE;
+	GSList *_names;
+ 	
+ 	_names = names;
+ 	while (_names)
+	{
+		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
+		_names = _names->next;
+	}
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
 	command = g_strconcat (exe,archive->escaped_path," ",files->str,NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
@@ -181,15 +194,20 @@ void xa_7zip_delete (XArchive *archive,GString *files)
 	xa_run_command (archive,list);
 }
 
-void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_7zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command,*exe = NULL;
+	GString *files = g_string_new("");
 
 	if (sevenzr)
 		exe = "7zr ";
 	if (sevenza)
 		exe = "7za ";
+
+	xa_cat_filenames(archive,names,files);
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
 
 	if (archive->location_entry_path != NULL)
 		chdir (archive->tmp);
@@ -219,23 +237,35 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_7zip_extract(XArchive *archive,GString *files)
+void xa_7zip_extract(XArchive *archive,GSList *files)
 {
-	gchar *command = NULL;
-	GSList *list = NULL;
+	gchar *command,*e_filename = NULL;
+	GSList *list = NULL,*_files = NULL;
+	GString *names = g_string_new("");
+
+	_files = files;
+	while (_files)
+	{
+		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (names,e_filename);
+		g_string_prepend_c (names,' ');
+		_files = _files->next;
+	}
+	g_slist_foreach(_files,(GFunc)g_free,NULL);
+	g_slist_free(_files);
 
 	if (archive->passwd != NULL)
 		command = g_strconcat ("7za " , archive->full_path ? "x" : "e",
 								" -p",archive->passwd,
 								archive->overwrite ? " -aoa" : " -aos",
 								" -bd ",
-								archive->escaped_path , files->str , " -o",archive->extraction_path,NULL);
+								archive->escaped_path,names->str , " -o",archive->extraction_path,NULL);
 	else
 		command = g_strconcat ( "7za " , archive->full_path ? "x" : "e",
 								archive->overwrite ? " -aoa" : " -aos",
 								" -bd ",
-								archive->escaped_path , files->str , " -o",archive->extraction_path,NULL);
-	g_string_free(files,TRUE);
+								archive->escaped_path,names->str , " -o",archive->extraction_path,NULL);
+	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);

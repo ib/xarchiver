@@ -86,6 +86,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (menuitem1_menu), open1);
 	
 	save1 = gtk_image_menu_item_new_from_stock ("gtk-save-as", accel_group);
+	gtk_widget_set_sensitive(save1,FALSE);
 	gtk_widget_show (save1);
 	gtk_container_add (GTK_CONTAINER (menuitem1_menu), save1);
 
@@ -1158,8 +1159,8 @@ void xa_set_button_state (gboolean New, gboolean Open,gboolean save,gboolean Clo
     gtk_widget_set_sensitive (new1, New);
 	gtk_widget_set_sensitive (Open_button, Open);
     gtk_widget_set_sensitive (open1, Open);
-    gtk_widget_set_sensitive (close1, Close);
     gtk_widget_set_sensitive (save1, save);
+    gtk_widget_set_sensitive (close1, Close);
 	gtk_widget_set_sensitive (AddFile_button, add);
 	gtk_widget_set_sensitive (addfile, add);
 	gtk_widget_set_sensitive (Extract_button, extract);
@@ -1276,7 +1277,6 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	unsigned int len = 0;
 	gint current_page;
 	gint idx;
-	GString *names = g_string_new("");
 	GSList *list = NULL;
 	GtkTreeModel *model;
 	GtkTreePath *path;
@@ -1330,7 +1330,6 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 
 	/* This to store the dragged files inside the dropped archive dir */
 	archive[idx]->location_entry_path = g_strdup(full_pathname->str);
-	xa_cat_filenames_basename(archive[idx],list,names);
 	dummy_password = archive[idx]->has_passwd;
 	full_path = archive[idx]->full_path;
 	add_recurse = archive[idx]->add_recurse;
@@ -1338,7 +1337,7 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	archive[idx]->has_passwd = 0;
 	archive[idx]->full_path = 0;
 	archive[idx]->add_recurse = 1;
-	xa_execute_add_commands(archive[idx],names,list,NULL);
+	xa_execute_add_commands(archive[idx],list,NULL);
 
 	archive[idx]->has_passwd = dummy_password;
 	archive[idx]->full_path = full_path;

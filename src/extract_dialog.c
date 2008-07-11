@@ -379,9 +379,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 {
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
-	GString *names;
+	GSList *names = NULL;
 
-	names = g_string_new (" ");
 	if (unrar)
 		rar = "unrar";
 	else
@@ -462,7 +461,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				}
 			}
 			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->selected_radio)))
-				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,names);
+				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);
+
 			(*archive->extract) (archive,names);
 		}
 	}

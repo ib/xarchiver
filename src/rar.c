@@ -204,26 +204,42 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 	}
 }
 
-void xa_rar_delete (XArchive *archive,GString *files)
+void xa_rar_delete (XArchive *archive,GSList *names)
 {
-	gchar *command = NULL;
+	gchar *command,*e_filename = NULL;
 	GSList *list = NULL;
-	GString *e_filenames = g_string_new("");
+	GString *files = g_string_new("");
 
 	archive->status = XA_ARCHIVESTATUS_DELETE;
-	xa_escape_filename(files->str,e_filenames);
-	command = g_strconcat ("rar d ",archive->escaped_path," ",e_filenames->str,NULL);
+	GSList *_names;
+ 	
+ 	_names = names;
+ 	while (_names)
+	{
+		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
+		_names = _names->next;
+	}
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
+	
+	command = g_strconcat ("rar d ",archive->escaped_path," ",files->str,NULL);
 	g_string_free(files,TRUE);
-	g_string_free(e_filenames,TRUE);
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);
 }
 
-void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_rar_add (XArchive *archive,GSList *names,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
+ 	GString *files = g_string_new("");
+
+ 	xa_cat_filenames(archive,names,files);
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
 
 	if (archive->location_entry_path != NULL)
 		chdir (archive->tmp);
@@ -260,31 +276,42 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_rar_extract(XArchive *archive,GString *files)
+void xa_rar_extract(XArchive *archive,GSList *files)
 {
-	gchar *rar = NULL;
-	gchar *command = NULL;
-	GSList *list = NULL;
-	
+	gchar *rar, *command, *e_filename = NULL;
+	GSList *list = NULL,*_files = NULL;
+	GString *names = g_string_new("");
+
+	_files = files;
 	if (unrar)
 		rar = "unrar";
 	else
 		rar = "rar";
 
+	while (_files)
+	{
+		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (names,e_filename);
+		g_string_prepend_c (names,' ');
+		_files = _files->next;
+	}
+	g_slist_foreach(_files,(GFunc)g_free,NULL);
+	g_slist_free(_files);
+	
 	if (archive->passwd != NULL)
 		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 										" -p",archive->passwd,
 										archive->overwrite ? " -o+" : " -o-",
 										" -idp ",
-										archive->escaped_path , " " ,files->str,archive->extraction_path , NULL );
+										archive->escaped_path , " " ,names->str,archive->extraction_path , NULL );
 	else
 		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 										archive->overwrite ? "-o+" : "-o-",
 										" -idp ",
-										archive->escaped_path , " " ,files->str,archive->extraction_path , NULL );
-	g_string_free(files,TRUE);
+										archive->escaped_path , " " ,names->str,archive->extraction_path , NULL );
+	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);

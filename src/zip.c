@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -176,12 +176,14 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	}
 }
 
-void xa_zip_delete (XArchive *archive,GString *files)
+void xa_zip_delete (XArchive *archive,GSList *names)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
-
+	GString *files = g_string_new("");
+	
 	archive->status = XA_ARCHIVESTATUS_DELETE;
+	xa_zip_prepend_backslash(names,files);
 	command = g_strconcat ("zip -d ",archive->escaped_path," ",files->str,NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
@@ -189,10 +191,15 @@ void xa_zip_delete (XArchive *archive,GString *files)
 	xa_run_command (archive,list);
 }
 
-void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
+ 	GString *files = g_string_new("");
+ 
+ 	xa_cat_filenames(archive,names,files);
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
 
 	if (archive->location_entry_path != NULL)
 		chdir (archive->tmp);
@@ -224,10 +231,15 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_zip_extract(XArchive *archive,GString *files)
+void xa_zip_extract(XArchive *archive,GSList *files)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
+	GString *names = g_string_new("");
+	
+	if (files == NULL)
+		g_print ("files è null\n");
+	xa_zip_prepend_backslash(files,names);
 
 	if ( archive->passwd != NULL )
 		command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
@@ -235,14 +247,14 @@ void xa_zip_extract(XArchive *archive,GString *files)
 												archive->overwrite ? "-o" : "-n",
 												" -P " , archive->passwd,
 												archive->full_path ? " " : " -j ",
-												archive->escaped_path , " -d ", archive->extraction_path,files->str,NULL);
+												archive->escaped_path , " -d ", archive->extraction_path,names->str,NULL);
 	else
 		command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
 												archive->update ? "-u " : "",
 												archive->overwrite ? "-o " : "-n ",
 												archive->full_path ? "" : " -j ",
-												archive->escaped_path , " -d ", archive->extraction_path,files->str,NULL);
-	g_string_free(files,TRUE);
+												archive->escaped_path , " -d ", archive->extraction_path,names->str,NULL);
+	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
 }
@@ -261,3 +273,22 @@ void xa_zip_test (XArchive *archive)
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
  }
+ 
+ void xa_zip_prepend_backslash(GSList *names,GString *files)
+ {
+ 	gchar *e_filename,*e_filename2 = NULL;
+ 	GSList *_names;
+ 	
+ 	_names = names;
+ 	while (_names)
+	{
+		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
+		e_filename2 = xa_escape_filename(e_filename,"*?[]");
+		g_free(e_filename);
+		g_string_prepend (files,e_filename2);
+		g_string_prepend_c (files,' ');
+		_names = _names->next;
+	}
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
+}

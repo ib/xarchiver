@@ -39,10 +39,10 @@ extern gchar *current_open_directory;
 extern int status;
 Prefs_dialog_data *prefs_window = NULL;
 
-delete_func	delete[XARCHIVETYPE_COUNT]	= {NULL};
-add_func	add[XARCHIVETYPE_COUNT]		= {NULL};
+delete_func		delete[XARCHIVETYPE_COUNT]	= {NULL};
+add_func		add[XARCHIVETYPE_COUNT]		= {NULL};
 extract_func	extract[XARCHIVETYPE_COUNT]	= {NULL};
-test_func	test[XARCHIVETYPE_COUNT]	= {NULL};
+test_func		test[XARCHIVETYPE_COUNT]	= {NULL};
 
 static GOptionEntry entries[] =
 {
@@ -187,7 +187,8 @@ int main (int argc, char **argv)
 					archive->add_recurse = FALSE;
 				else
 					archive->add_recurse = TRUE;
-				xa_execute_add_commands(archive,string,NULL,NULL);
+					//TODO: the second NULL is a GSList you must fill!
+				xa_execute_add_commands(archive,NULL,NULL);
 			}
 		}
 		/* Switch -a */

@@ -135,23 +135,42 @@ gboolean isLha ( FILE *ptr )
 		return FALSE;
 }
 
-void xa_lha_delete (XArchive *archive,GString *files)
+void xa_lha_delete (XArchive *archive,GSList *names)
 {
-	gchar *command = NULL;
+	gchar *command,*e_filename = NULL;
 	GSList *list = NULL;
+	GString *files = g_string_new("");
 
 	archive->status = XA_ARCHIVESTATUS_DELETE;
-	command = g_strconcat ("lha t " , archive->escaped_path, NULL);
+	GSList *_names;
+
+	_names = names;
+ 	while (_names)
+	{
+		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
+		_names = _names->next;
+	}
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
+
+	command = g_strconcat ("lha d " , archive->escaped_path," ",files->str,NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);
 }
 
-void xa_lha_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_lha_add (XArchive *archive,GSList *names,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
+	GString *files = g_string_new("");
+
+ 	xa_cat_filenames(archive,names,files);
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
 
 	if (archive->location_entry_path != NULL)
 		chdir (archive->tmp);
@@ -171,28 +190,27 @@ void xa_lha_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_lha_extract(XArchive *archive,GString *files)
+void xa_lha_extract(XArchive *archive,GSList *files)
 {
-	gchar *command = NULL;
-	GSList *list = NULL;
+	gchar *command,*e_filename = NULL;
+	GSList *list = NULL,*_files = NULL;
+	GString *names = g_string_new("");
 
-	if (archive->passwd != NULL)
-		command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
-								" -g",archive->passwd,
-								archive->overwrite ? "" : " -n" ,
-								" -i " ,
-								archive->freshen ? "-f " : "" ,
-								archive->update ? "-u " : " ",
-								"-y ",
-								archive->escaped_path , " ",archive->extraction_path,files->str,NULL);
-	else
-		command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
-								archive->overwrite ? "" : " -n" ,
-								" -i " , archive->freshen ? "-f " : "",
-								archive->update ? "-u " : " ",
-								"-y ",
-								archive->escaped_path , " ",archive->extraction_path,files->str,NULL);
-	g_string_free(files,TRUE);
+	_files = files;
+	while (_files)
+	{
+		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (names,e_filename);
+		g_string_prepend_c (names,' ');
+		_files = _files->next;
+	}
+	g_slist_foreach(_files,(GFunc)g_free,NULL);
+	g_slist_free(_files);
+
+	command = g_strconcat ("lha ",	archive->full_path ? "x" : "xi",
+									archive->overwrite ? "f" : "", "w=",
+									archive->extraction_path," ",archive->escaped_path,names->str,NULL);
+	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);

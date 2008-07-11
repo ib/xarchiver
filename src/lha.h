@@ -23,13 +23,13 @@
 #include <gtk/gtk.h>
 #include <string.h>
 #include <stdlib.h>
-#include "interface.h"
 #include "support.h"
+#include "string_utils.h"
 #include "archive.h"
 
-void xa_lha_delete (XArchive *,GString *);
-void xa_lha_add (XArchive *,GString *,gchar *);
-void xa_lha_extract(XArchive *,GString *);
+void xa_lha_delete (XArchive *,GSList *);
+void xa_lha_add (XArchive *,GSList *,gchar *);
+void xa_lha_extract(XArchive *,GSList *);
 void xa_lha_test (XArchive *);
 void xa_get_lha_line_content (gchar *line, gpointer data);
 void xa_open_lha (XArchive *archive);

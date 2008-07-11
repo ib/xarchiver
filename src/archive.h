@@ -68,10 +68,10 @@ struct _XEntry
 typedef struct _XArchive XArchive;
 
 typedef void (*parse_output_func)	(gchar *line, gpointer);
-typedef void (*delete_func)		(XArchive *,GString *);
-typedef void (*add_func)		(XArchive *,GString *,gchar *);
-typedef void (*extract_func)		(XArchive *,GString *);
-typedef void (*test_func)		(XArchive *);
+typedef void (*delete_func)			(XArchive *,GSList *);
+typedef void (*add_func)			(XArchive *,GSList *,gchar *);
+typedef void (*extract_func)		(XArchive *,GSList *);
+typedef void (*test_func)			(XArchive *);
 
 struct _XArchive
 {
@@ -128,29 +128,29 @@ struct _XArchive
 	test_func test;
 };
 
-void xa_spawn_async_process (XArchive *archive, gchar *command);
+void xa_spawn_async_process (XArchive *, gchar *);
 XArchive *xa_init_archive_structure(gint);
-void xa_clean_archive_structure (XArchive *archive);
-gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data);
-gboolean xa_create_temp_directory(XArchive *archive);
-void xa_delete_temp_directory(XArchive *archive,gboolean flag);
-gboolean xa_run_command (XArchive *archive,GSList *commands);
-gint xa_find_archive_index (gint page_num);
+void xa_clean_archive_structure (XArchive *);
+gboolean xa_dump_child_error_messages (GIOChannel *, GIOCondition , gpointer );
+gboolean xa_create_temp_directory(XArchive *);
+void xa_delete_temp_directory(XArchive *,gboolean );
+gboolean xa_run_command (XArchive *,GSList *);
+gint xa_find_archive_index (gint );
 gint xa_get_new_archive_idx();
-XEntry *xa_alloc_memory_for_each_row ( guint nc,GType column_types[]);
-void xa_free_entry(XArchive *archive,XEntry *entry);
-XEntry *xa_find_child_entry(XEntry *entry, gchar *string);
-XEntry *xa_set_archive_entries_for_each_row(XArchive *archive,gchar *filename,gpointer *items);
-gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items);
-XEntry* xa_find_entry_from_path(XEntry *root_entry,const gchar *fullpathname);
-gchar *xa_build_full_path_name_from_entry(XEntry *entry);
-void xa_fill_list_with_recursed_entries(XEntry *entry,GString **p_file_list,gchar *current_path);
-void xa_entries_to_filelist(XEntry *, GString **, gchar *);
-gboolean xa_detect_encrypted_archive (XArchive *archive);
+XEntry *xa_alloc_memory_for_each_row ( guint ,GType column_types[]);
+void xa_free_entry(XArchive *archive,XEntry *);
+XEntry *xa_find_child_entry(XEntry *, gchar *);
+XEntry *xa_set_archive_entries_for_each_row(XArchive *,gchar *,gpointer *);
+gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *,XEntry *,gpointer *);
+XEntry* xa_find_entry_from_path(XEntry *root_entry,const gchar *);
+gchar *xa_build_full_path_name_from_entry(XEntry *);
+void xa_fill_list_with_recursed_entries(XEntry *,GSList **,gchar *);
+void xa_entries_to_filelist(XEntry *, GSList **, gchar *);
+gboolean xa_detect_encrypted_archive (XArchive *);
 void xa_browse_dir_sidebar (XEntry *, GtkTreeStore *,gchar *,GtkTreeIter *);
 void xa_fill_dir_sidebar(XArchive *,gboolean);
-void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data);
+void xa_sidepane_row_selected(GtkTreeSelection *, gpointer );
 void xa_sidepane_select_row(XEntry *entry);
-gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data);
+gboolean _xa_sidepane_select_row(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
 XArchive *archive[100];
 #endif
