@@ -1717,6 +1717,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		else
 			msg = _("You can't add content to rpm packages!");
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"), msg );
+		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
 	_current_dir = g_path_get_dirname (array[0]);

@@ -1289,6 +1289,17 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index(current_page);
 
+	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM)
+	{
+		gchar *msg;
+		if (archive[idx]->type == XARCHIVETYPE_DEB)
+			msg = _("You can't add content to deb packages!");
+		else
+			msg = _("You can't add content to rpm packages!");
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"), msg );
+		gtk_drag_finish(context,FALSE,FALSE,time);
+		return;
+	}
 	array = gtk_selection_data_get_uris(data);
 	if (array == NULL || GTK_WIDGET_VISIBLE(viewport2))
 	{
@@ -1353,25 +1364,51 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	gtk_drag_finish (context,TRUE,FALSE,time);
 }
 
+gboolean xa_sidepane_drag_motion_expand_timeout (GtkTreePath **path)
+{
+	if (path == NULL || *path == NULL)
+		return FALSE;
+
+	if (! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),*path))
+		gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),*path);
+	
+	return FALSE;
+}
+
 gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint x,gint y,guint time,gpointer user_data)
 {
-	GtkTreePath *path;
-	GtkTreeIter iter;
 	GtkTreeModel *model;
-	
+	GtkTreeIter iter;
+	GtkTreePath *path;
+	static GtkTreePath  *lastpath;
+
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);
 	if (path)
 	{
-		if (! gtk_tree_view_row_expanded(GTK_TREE_VIEW(widget),path))
-			gtk_tree_view_expand_to_path(GTK_TREE_VIEW(widget),path);
+		if ( lastpath != NULL && lastpath != path)
+		{
+			gtk_tree_model_get_iter (GTK_TREE_MODEL(model),&iter,lastpath);
+			gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-directory",-1);
+			g_source_remove_by_user_data(&lastpath);
+		}
 
-		gtk_tree_model_get_iter (GTK_TREE_MODEL(model),&iter,path);
+		if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(widget), path))
+			g_timeout_add(1000, (GSourceFunc) xa_sidepane_drag_motion_expand_timeout, &lastpath);
+
 		g_object_set_data(G_OBJECT(context),"current_path",path);
+		gtk_tree_model_get_iter (GTK_TREE_MODEL(model),&iter,path);
+		gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-open",-1);
 		/* This to set the focus on the dropped row */
 		gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
-		gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-open",-1);
 	}
+	else
+		g_source_remove_by_user_data(&lastpath);
+
+	if (lastpath)
+		gtk_tree_path_free(lastpath);
+
+  	lastpath = path;
 	gdk_drag_status (context, context->suggested_action, time);
 	return TRUE;
 }
