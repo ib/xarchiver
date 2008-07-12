@@ -130,7 +130,7 @@ int main (int argc, char **argv)
 			}
 			for (x = 1; x < argc; x++)
 			{
-				GString *string = g_string_new ("");
+				GSList *string = NULL;
 				archive->full_path = 1;
 				archive->overwrite = 1;
 				gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
@@ -169,26 +169,17 @@ int main (int argc, char **argv)
 			{
 				_current_dir = g_path_get_dirname(archive_name);
 				chdir (_current_dir);
-				g_free (_current_dir);
-				GString *string = g_string_new ("");
+				g_free(_current_dir);
+				GSList *files = NULL;
 				if (g_file_test (archive_name,G_FILE_TEST_EXISTS))
-				{
-					_current_dir = g_path_get_basename(archive_name);
-					xa_escape_filename(_current_dir,string);
-					g_free (_current_dir);
-				}
+					files = g_slist_append(files,xa_escape_filename(archive_name,"$'`\"\\!?* ()[]&|:;<>#"));
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
-					xa_escape_filename(_current_dir,string);
+					files = g_slist_append(files,xa_escape_filename(_current_dir,"$'`\"\\!?* ()[]&|:;<>#"));
 					g_free (_current_dir);
 				}
-				if (archive->type == XARCHIVETYPE_7ZIP)
-					archive->add_recurse = FALSE;
-				else
-					archive->add_recurse = TRUE;
-					//TODO: the second NULL is a GSList you must fill!
-				xa_execute_add_commands(archive,NULL,NULL);
+				xa_execute_add_commands(archive,files,NULL);
 			}
 		}
 		/* Switch -a */

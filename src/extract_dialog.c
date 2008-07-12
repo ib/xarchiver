@@ -24,7 +24,6 @@
 #include "string_utils.h"
 #include "support.h"
 
-gboolean stop_flag;
 extern gboolean unrar;
 gchar *rar;
 
@@ -32,7 +31,6 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 {
 	GSList *radiobutton1_group = NULL;
 	Extract_dialog_data *dialog_data;
-	stop_flag = FALSE;
 	gboolean flag = TRUE;
 
 	home_dir = g_get_home_dir();
@@ -90,8 +88,13 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->selected_radio), radiobutton1_group);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->selected_radio));
 
-	if (selected)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_radio),TRUE);
+	if (archive->type != XARCHIVETYPE_RPM)
+	{
+		if (selected)
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_radio),TRUE);
+		else
+			gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
+	}
 	else
 		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
 

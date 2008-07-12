@@ -28,6 +28,6 @@
 #include "support.h"
 #include "archive.h"
 
-void xa_open_deb ( XArchive *archive );
-void xa_deb_extract(XArchive *archive,GString *files);
+void xa_open_deb ( XArchive *);
+void xa_deb_extract(XArchive *,GSList *);
 #endif

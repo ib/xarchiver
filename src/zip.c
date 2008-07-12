@@ -236,9 +236,7 @@ void xa_zip_extract(XArchive *archive,GSList *files)
 	gchar *command = NULL;
 	GSList *list = NULL;
 	GString *names = g_string_new("");
-	
-	if (files == NULL)
-		g_print ("files è null\n");
+
 	xa_zip_prepend_backslash(files,names);
 
 	if ( archive->passwd != NULL )

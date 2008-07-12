@@ -84,24 +84,36 @@ void xa_open_deb (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-//TODO to remove when you have dbus integration
-void xa_deb_extract(XArchive *archive,GString *files)
+void xa_deb_extract(XArchive *archive,GSList *files)
 {
-	gchar *command = NULL;
-	GSList *list = NULL;
+	//TODO to remove when you have xdg-open working so that control.tar.gz is opened in another tab and the user can extract its content from that tab
+	gchar *command = NULL,*e_filename = NULL;
+	GSList *list = NULL,*_files = NULL;
+	GString *names = g_string_new("");
+
+	_files = files;
+	while (_files)
+	{
+		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (names,e_filename);
+		g_string_prepend_c (names,' ');
+		_files = _files->next;
+	}
+	g_slist_foreach(files,(GFunc)g_free,NULL);
+	g_slist_free(files);
 
 	if (archive->full_path)
 	{
 		command = g_strconcat (tar, " -xvzf " , archive->tmp,"/data.tar.gz ",
 												archive->overwrite ? " --overwrite" : " --keep-old-files",
 												archive->tar_touch ? " --touch" : "",
-												" -C " , archive->extraction_path , files->str, NULL );
+												" -C " , archive->extraction_path , names->str, NULL );
 	}
 	
 
 	if (command != NULL)
 	{
-		g_string_free(files,TRUE);
+		g_string_free(names,TRUE);
 		list = g_slist_append(list,command);
 		xa_run_command (archive,list);
 	}

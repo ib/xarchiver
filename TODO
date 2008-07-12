@@ -1,6 +1,7 @@
 - fix store output when test archives
 - fix segfault in xa_launch_external_command
-- fix the directories bug with 7z
+- fill the gslist with the directories to add for the recursive bug in 7z
+- do the same as above for arj when using the switches from cmd-line
 - fix the remaining bugs in bugzilla.xfce.org
 - to fix the arrow buttons
 - add a small progress window when using Xarchiver cmd-line switches.

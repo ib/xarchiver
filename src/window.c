@@ -31,7 +31,6 @@
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
-extern gboolean stop_flag;
 extern gboolean unrar;
 extern gboolean xdg_open;
 extern Prefs_dialog_data *prefs_window;
@@ -49,7 +48,7 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_widget_hide(viewport2);
 	}
-	if ( WIFEXITED (status) )
+	if (WIFEXITED (status))
 	{
 		if (WEXITSTATUS (status))
 		{
@@ -88,12 +87,12 @@ void xa_archive_operation_finished(XArchive *archive)
 			gtk_widget_set_sensitive (comment_menu,TRUE);
 		else
 			gtk_widget_set_sensitive (comment_menu,FALSE);
-			
+
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 
 		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 			xa_show_archive_comment (NULL, NULL);
-			
+
 		gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
 	}
 	if (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE)
@@ -1272,8 +1271,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 		if (response == GTK_RESPONSE_CANCEL)
 			return;
 	}
-	Update_StatusBar (_("Waiting for the process to abort..."));
-	stop_flag = TRUE;
+	Update_StatusBar (_("Operation aborted."));
 	if (archive[idx]->child_pid)
 	{
 		kill (archive[idx]->child_pid,SIGABRT);

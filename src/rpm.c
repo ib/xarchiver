@@ -20,20 +20,16 @@
 #include "rpm.h"
 #include "string_utils.h"
 
-FILE *stream;
-gchar *cpio_tmp,*gzip_tmp = NULL;
-gchar tmp_dir[14] = "";
-gboolean result;
-GError *error = NULL;
-GIOChannel *ioc_cpio;
-
 void xa_open_rpm (XArchive *archive)
 {
 	unsigned char bytes[8];
 	unsigned short int i;
     int dl,il,sigsize,offset;
     gchar *ibs;
+    gchar *gzip_tmp = NULL;
 	GSList *list = NULL;
+	FILE *stream;
+	gboolean result;
 
     signal (SIGPIPE, SIG_IGN);
     stream = fopen ( archive->path , "r" );
@@ -112,11 +108,10 @@ void xa_open_rpm (XArchive *archive)
 	{	
 		fclose (stream);
 		g_free (gzip_tmp);
-		xa_delete_temp_directory (archive,1);
 		return;
 	}
 	/* Let's decompress the gzip/bzip2 resulting file*/
-	xa_open_temp_file ( tmp_dir,gzip_tmp );
+	xa_open_temp_file ( archive->tmp,gzip_tmp );
 }
 
 GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
@@ -138,8 +133,6 @@ GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
 		    response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
 			if (response == GTK_RESPONSE_OK)
 				xa_show_cmd_line_output (NULL);
-			xa_delete_temp_directory (archive[idx],1);
-			g_free (cpio_tmp);
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 			//TODO: xa_hide_progress_bar_stop_button(archive[idx]);
 			return FALSE;
@@ -152,11 +145,7 @@ GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
 	xa_spawn_async_process ( archive[idx],command);
 	g_free(command);
 	if ( archive[idx]->child_pid == 0 )
-	{
-		xa_delete_temp_directory (archive[idx],1);
-		g_free ( cpio_tmp );
 		return FALSE;
-	}
 
   return NULL;
 }
@@ -255,12 +244,13 @@ void xa_open_temp_file (gchar *tmp_dir,gchar *temp_path)
 	gint current_page;
 	gint idx;
 	gchar *tmp = NULL;
+	FILE *stream;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
 	gchar *command = NULL;
-	tmp = g_strconcat (tmp_dir,"/file.cpio",NULL);
+	tmp = g_strconcat (archive[idx]->tmp,"/file.cpio",NULL);
 
 	stream = fopen (tmp,"w");
 	if (stream == NULL)
@@ -280,19 +270,18 @@ void xa_open_temp_file (gchar *tmp_dir,gchar *temp_path)
 	if (archive[idx]->child_pid == 0)
 	{
 		fclose (stream);
-		xa_delete_temp_directory (archive[idx],1);
 		g_free (tmp);
 		return;
 	}
 	GIOChannel *ioc = g_io_channel_unix_new (archive[idx]->output_fd);
 	g_io_channel_set_encoding (ioc,NULL,NULL);
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
-	g_io_add_watch (ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,ExtractToDifferentLocation,stream);
+	g_io_add_watch (ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_extract_to_different_location,stream);
 
 	g_child_watch_add (archive[idx]->child_pid ,(GChildWatchFunc) xa_open_cpio,tmp);
 }
 
-gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointer data)
+gboolean xa_extract_to_different_location (GIOChannel *ioc, GIOCondition cond, gpointer data)
 {
 	FILE *stream = data;
 	gchar buffer[65536];
@@ -333,15 +322,27 @@ gboolean ExtractToDifferentLocation (GIOChannel *ioc, GIOCondition cond, gpointe
 	return TRUE;
 }
 
-void xa_rpm_extract(XArchive *archive,GString *files)
+void xa_rpm_extract(XArchive *archive,GSList *files)
 {
-	gchar *command = NULL;
-	GSList *list = NULL;
+	gchar *command = NULL,*e_filename = NULL;
+	GSList *list = NULL,*_files = NULL;
+	GString *names = g_string_new("");
 
+	_files = files;
+	while (_files)
+	{
+		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (names,e_filename);
+		g_string_prepend_c (names,' ');
+		_files = _files->next;
+	}
+	g_slist_foreach(files,(GFunc)g_free,NULL);
+	g_slist_free(files);
+	
 	chdir (archive->extraction_path);
-	command = g_strconcat ( "cpio -id" , files->str,"-F ",archive->tmp,"/file.cpio",NULL);
+	command = g_strconcat ( "cpio -id" , names->str," -F ",archive->tmp,"/file.cpio",NULL);
 
-	g_string_free(files,TRUE);
+	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
 }

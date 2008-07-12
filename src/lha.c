@@ -118,6 +118,7 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 	filename = line + 51;
 
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	g_print ("%s\n",entry->filename);
 }
 
 gboolean isLha ( FILE *ptr )

@@ -170,47 +170,18 @@ void xa_open_tar_compressed_file(XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void lzma_gzip_bzip2_extract (XArchive *archive,GString *dummy)
+void lzma_gzip_bzip2_extract (XArchive *archive,GSList *dummy)
 {
 	GSList *list = NULL;
-	gchar *command,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
-	gboolean result = FALSE;
+	gchar *command = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
 
 	filename = xa_remove_path_from_archive_name(archive->escaped_path);
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_BZIP2:
-			executable = "bzip2 -f -d ";
-			break;
-
-		case XARCHIVETYPE_GZIP:
-			executable = "gzip -f -d -n ";
-			break;
-
-		case XARCHIVETYPE_LZMA:
-			executable = "lzma -f -d ";
-			break;
-		
-		default:
-		break;
-	}
-
-	result = xa_create_temp_directory(archive);
-	if (!result)
-		return;
-
-	
-	command = g_strconcat ("cp -f ",archive->escaped_path," ",archive->tmp,NULL);
-	list = g_slist_append(list,command);
-
-	command = g_strconcat(executable,archive->tmp,"/",filename,NULL);
-	list = g_slist_append(list,command);
 
 	dot = strchr(filename,'.');
 	if (G_LIKELY(dot))
 	{
 		filename_noext = g_strndup(filename, ( dot - filename ));
-		command = g_strconcat("mv -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path,NULL);
+		command = g_strconcat("cp -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path,NULL);
 		g_free(filename_noext);
 	}
 	g_free(filename);
