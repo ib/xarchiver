@@ -19,6 +19,7 @@
 #include "config.h"
 #include <string.h>
 #include <unistd.h>
+#include <dirent.h>
 #include "7zip.h"
 
 extern gboolean sevenzr;
@@ -197,6 +198,7 @@ void xa_7zip_delete (XArchive *archive,GSList *names)
 void xa_7zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 {
 	GSList *list = NULL;
+	GSList *dirlist;
 	gchar *command,*exe = NULL;
 	GString *files = g_string_new("");
 
@@ -205,7 +207,12 @@ void xa_7zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 	if (sevenza)
 		exe = "7za ";
 
-	xa_cat_filenames(archive,names,files);
+	while (names)
+	{
+		xa_7zip_recurse_local_directory((gchar*)names->data,&dirlist,archive->add_recurse);
+		names = names->next;
+	}
+	xa_cat_filenames(archive,dirlist,files);
 	g_slist_foreach(names,(GFunc)g_free,NULL);
 	g_slist_free(names);
 
@@ -219,16 +226,14 @@ void xa_7zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 								archive->update ? "u " : "a ",
 								archive->solid_archive ? "-ms=on " : "-ms=off ",
 								"-p" , archive->passwd, " ",
-								archive->escaped_path,
-								archive->add_recurse ? " -r " : " ",
+								archive->escaped_path," ",
 								"-mx=",compression_string,"",
 								files->str,NULL);
 	else
 		command = g_strconcat ( exe,
 								archive->update ? "u " : "a ",
 								archive->solid_archive ? "-ms=on " : "-ms=off ",
-								archive->escaped_path,
-								archive->add_recurse ? " -r " : " ",
+								archive->escaped_path," ",
 								"-mx=",compression_string,"",
 								files->str,NULL);
 	g_string_free(files,TRUE);
@@ -284,4 +289,29 @@ void xa_7zip_test (XArchive *archive)
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
+}
+
+void xa_7zip_recurse_local_directory(gchar *path,GSList **list,gboolean recurse)
+{
+	DIR *dir;
+	struct dirent *dirlist;
+	gchar *fullname = NULL;
+
+	dir = opendir(path);
+
+	if (dir == NULL)
+		return;
+	*list = g_slist_append(*list,path);
+	if (recurse)
+	{
+		while ((dirlist = readdir(dir)))
+		{
+			if (dirlist->d_name[0] == '.')
+				continue;
+			fullname = g_strconcat (path,"/",dirlist->d_name,NULL);
+			if (g_file_test(fullname,G_FILE_TEST_IS_DIR))
+				xa_7zip_recurse_local_directory(fullname,list,recurse);
+		}
+	}
+	closedir(dir);
 }

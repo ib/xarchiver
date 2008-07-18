@@ -77,7 +77,6 @@ void xa_concat_filenames (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GSList *
 void xa_select_all ( GtkMenuItem *, gpointer);
 void xa_deselect_all ( GtkMenuItem *, gpointer);
 void xa_show_archive_comment ( GtkMenuItem *, gpointer);
-void xa_show_cmd_line_output( GtkMenuItem * );
 void xa_archive_properties ( GtkMenuItem * , gpointer);
 void xa_view_file_inside_archive ( GtkMenuItem * , gpointer);
 void xa_cancel_archive ( GtkMenuItem * , gpointer);

@@ -60,9 +60,7 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 				return FALSE;
 			}
 			xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
-			response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("An error occurred while accessing the archive."),_("Do you want to view the command line output?") );
-			if (response == GTK_RESPONSE_OK)
-				xa_show_cmd_line_output (NULL);
+			xa_show_cmd_line_output (NULL);
 			/* In case the user supplies a wrong password we reset it so he can try again */
 			if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
 			{
@@ -1218,43 +1216,6 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
 		result = TRUE;
     g_free (filename);
     return result;
-}
-
-void xa_show_cmd_line_output (GtkMenuItem *menuitem)
-{
-	GSList *output = NULL;
-	widget_data *xa_cmd_line_output = NULL;
-	gchar *line = NULL;
-	gchar *utf8_line;
-	gsize bytes_written;
-	gint current_page;
-	gint idx;
-
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
-	
-	if (archive[idx] == NULL)
-		return;
-	xa_cmd_line_output = xa_create_output_window(_("Command line output"));
-
-	if ( ! archive[idx]->list_reversed)
-	{
-		archive[idx]->error_output = g_slist_reverse(archive[idx]->error_output);
-		archive[idx]->list_reversed = TRUE;
-	}
-
-	output = archive[idx]->error_output;
-	while (output)
-	{
-		line = output->data;
-		utf8_line = g_locale_to_utf8 (line, -1, NULL, &bytes_written, NULL);
-		gtk_text_buffer_insert_with_tags_by_name (xa_cmd_line_output->textbuffer, &xa_cmd_line_output->iter, utf8_line, bytes_written, "font", NULL);
-		g_free (utf8_line);
-		output = output->next;
-	}
-	gtk_dialog_run (GTK_DIALOG(xa_cmd_line_output->dialog1));
-	gtk_widget_destroy (xa_cmd_line_output->dialog1);
-	g_free(xa_cmd_line_output);
 }
 
 void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
