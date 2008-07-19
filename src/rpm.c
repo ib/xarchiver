@@ -124,17 +124,14 @@ GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
 	idx = xa_find_archive_index (current_page);
 	gchar *gzip = data;
 	
+	archive[idx]->child_pid = 0;
     if (WIFEXITED( exit_code) )
     {
 	    if ( WEXITSTATUS (exit_code) )
     	{
-            gtk_widget_hide ( viewport2 );
 	    	xa_set_window_title (xa_main_window , NULL);
-		    response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("An error occurred while decompressing the cpio archive."),_("Do you want to view the command line output?") );
-			if (response == GTK_RESPONSE_OK)
-				xa_show_cmd_line_output (NULL);
+		    xa_show_cmd_line_output (NULL);
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
-			//TODO: xa_hide_progress_bar_stop_button(archive[idx]);
 			return FALSE;
 		}
 	}

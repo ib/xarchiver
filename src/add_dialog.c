@@ -420,7 +420,6 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 
 	if (xa_main_window)
 	{
-		Update_StatusBar (_("Adding files to the archive, please wait..."));
 		/* This in case the user wants to add files in the archive directories */
 		if (archive->location_entry_path != NULL)
 		{

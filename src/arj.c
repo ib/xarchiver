@@ -262,7 +262,7 @@ void xa_arj_test (XArchive *archive)
 	if (archive->passwd != NULL)
 		command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->escaped_path, NULL);
 	else
-		command = g_strconcat ("arj t -i " , archive->escaped_path, NULL);
+		command = g_strconcat ("arj t -i -y - " , archive->escaped_path, NULL);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);

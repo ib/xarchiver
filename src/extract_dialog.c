@@ -19,7 +19,6 @@
 #include <gtk/gtk.h>
 #include <stdlib.h>
 #include "extract_dialog.h"
-#include "interface.h"
 #include "window.h"
 #include "string_utils.h"
 #include "support.h"
@@ -399,8 +398,6 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			if (xa_main_window && (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2) )
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
-				Update_StatusBar (_("Operation canceled."));
-				gtk_widget_hide (viewport2);
 				xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 				archive->status = XA_ARCHIVESTATUS_IDLE;
 			}
@@ -456,12 +453,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->files_radio)))
 			{
 				if (xa_main_window)
-				{
-					gchar *text = g_strdup_printf(_("Extracting files to %s"),destination_path);
-					Update_StatusBar ( text );
 					gtk_widget_set_sensitive (Stop_button,TRUE);
-					g_free (text);
-				}
 			}
 			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->selected_radio)))
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);

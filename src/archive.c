@@ -81,7 +81,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_strfreev ( argv );
 
 	if (archive->pb_source == 0)
-		archive->pb_source = g_timeout_add (200, xa_progressbar_pulse, NULL );
+		archive->pb_source = g_timeout_add (350,xa_flash_led_indicator,archive);
 
 	if (archive->error_output != NULL)
 	{
@@ -211,8 +211,6 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->tmp != NULL)
 	{
 		xa_delete_temp_directory (archive,0);
-		if(xa_main_window)
-			gtk_widget_hide(viewport2);
 		g_free (archive->tmp);
 		archive->tmp = NULL;
 	}
@@ -331,7 +329,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	else
 	{
 		archive->parse_output = 0;
-		gtk_widget_show (viewport2);
 		gtk_widget_set_sensitive (Stop_button,TRUE);
 		while (_commands)
 		{
@@ -776,7 +773,7 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 		g_string_free(string,TRUE);
 
 		xa_update_window_with_archive_entries(archive[idx],entry);
-		xa_handle_selected_rows(NULL,archive[idx]);
+		xa_set_statusbar_message_for_displayed_rows(archive[idx]);
 	}
 }
 

@@ -223,7 +223,6 @@ done:	g_list_free (ArchiveSuffix);
 			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), 600, 400);
 			gtk_paned_set_position (GTK_PANED (hpaned1),200);
 		}
-		Update_StatusBar ( _("Ready."));
 		gtk_widget_show (xa_main_window);
 
 		/* This to open the archive from the command line */

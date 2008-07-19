@@ -8,4 +8,3 @@
 - support tar on *BSD.
 - avoid reset of extract dialog options when loading a new archive.
 - ability to create sfx archives through the Add dialog for those archives which support it.
-- have two real status bars with displayed number of dirs.

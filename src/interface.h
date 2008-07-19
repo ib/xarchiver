@@ -33,9 +33,10 @@ GtkWidget *new1;
 GtkWidget *open1;
 GtkWidget *save1;
 GtkWidget *entry1;
+GtkWidget *green_led;
+GtkWidget *red_led;
 GtkWidget *progressbar;
-GtkWidget *info_label;
-GtkWidget *viewport1,*viewport2;
+GtkWidget *total_label,*selected_label;
 GtkWidget *archive_properties_window;
 GtkWidget *table1;
 GtkWidget *path_label;
@@ -125,7 +126,7 @@ typedef struct
 
 gchar *xa_create_password_dialog(gchar *);
 void set_label (GtkWidget *label,gchar *);
-int xa_progressbar_pulse (gpointer );
+int xa_flash_led_indicator (gpointer );
 void xa_create_popup_menu();
 widget_data *xa_create_output_window(gchar *);
 void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean);

@@ -441,24 +441,43 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (hbox_sb);
 	gtk_box_pack_end (GTK_BOX (vbox1), hbox_sb, FALSE, TRUE,0);
 
-	viewport1 = gtk_viewport_new (NULL, NULL);
-	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport1),GTK_SHADOW_NONE);
-	gtk_widget_show (viewport1);
-	gtk_box_pack_start (GTK_BOX (hbox_sb), viewport1, TRUE, TRUE, 0);
-
-	info_label = gtk_label_new (NULL);
-	gtk_misc_set_alignment (GTK_MISC(info_label), 0.0, 0.5);
-	gtk_widget_show (info_label);
-	gtk_container_add (GTK_CONTAINER (viewport1), info_label);
-
-	viewport2 = gtk_viewport_new (NULL, NULL);
-	gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport2),GTK_SHADOW_NONE);
-	gtk_box_pack_start (GTK_BOX (hbox_sb), viewport2, TRUE, TRUE, 0);
-
+	/*
 	progressbar = gtk_progress_bar_new ();
 	gtk_widget_show (progressbar);
 	gtk_widget_set_size_request(progressbar,-1,10);
-	gtk_container_add (GTK_CONTAINER (viewport2), progressbar);
+	gtk_container_add (GTK_CONTAINER (viewport2), progressbar);*/
+	
+	frame1 = gtk_frame_new (NULL);
+	gtk_widget_show (frame1);
+	gtk_box_pack_start (GTK_BOX (hbox_sb), frame1, TRUE, TRUE, 0);
+	gtk_frame_set_label_align (GTK_FRAME (frame1), 0, 0);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
+
+	total_label = gtk_label_new (NULL);
+	gtk_misc_set_alignment (GTK_MISC(total_label), 0.0, 0.5);
+	gtk_widget_show (total_label);
+	gtk_container_add (GTK_CONTAINER (frame1), total_label);
+	
+	frame2 = gtk_frame_new (NULL);
+	gtk_widget_show (frame2);
+	gtk_box_pack_start (GTK_BOX (hbox_sb), frame2, TRUE, TRUE, 0);
+	gtk_frame_set_label_align (GTK_FRAME (frame2), 0, 0);
+	gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_IN);
+
+	selected_label = gtk_label_new (NULL);
+	gtk_misc_set_alignment (GTK_MISC(selected_label), 0.0, 0.5);
+	gtk_widget_show (selected_label);
+	gtk_container_add (GTK_CONTAINER (frame2), selected_label);
+	
+	green_led = gtk_image_new_from_icon_name ("gtk-yes", GTK_ICON_SIZE_BUTTON);
+	gtk_widget_show (green_led);
+	gtk_box_pack_start (GTK_BOX (hbox_sb), green_led, FALSE, FALSE, 0);
+	gtk_misc_set_alignment (GTK_MISC (green_led), 1, 1);
+	gtk_tooltips_set_tip (tooltips,green_led, _("This is Xarchiver led status indicator. When the red light is on Xarchiver is busy"), NULL);
+
+	red_led = gtk_image_new_from_icon_name ("gtk-no", GTK_ICON_SIZE_BUTTON);
+	gtk_box_pack_start (GTK_BOX (hbox_sb),red_led,FALSE, FALSE, 0);
+	gtk_misc_set_alignment (GTK_MISC (red_led),1,1);
 
 	g_signal_connect ((gpointer) new1, "activate", G_CALLBACK (xa_new_archive), NULL);
 	g_signal_connect ((gpointer) open1, "activate", G_CALLBACK (xa_open_archive), NULL);
@@ -497,14 +516,27 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_window_add_accel_group (GTK_WINDOW (xa_main_window), accel_group);
 }
 
-int xa_progressbar_pulse (gpointer data)
+int xa_flash_led_indicator (gpointer data)
 {
-	if (xa_main_window == NULL)
-		return FALSE;
-	if ( ! GTK_WIDGET_VISIBLE(viewport2) )
-		return FALSE;
+	XArchive *archive = data;
 
-	gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progressbar) );
+	if (xa_main_window == NULL || archive->child_pid == 0)
+	{
+		gtk_widget_show(green_led);
+		gtk_widget_hide(red_led);
+		return FALSE;
+	}
+
+	if (GTK_WIDGET_VISIBLE(green_led))
+	{
+		gtk_widget_hide(green_led);
+		gtk_widget_show(red_led);
+	}
+	else
+	{
+		gtk_widget_show(green_led);
+		gtk_widget_hide(red_led);
+	}
 	return TRUE;
 }
 
@@ -520,7 +552,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 
 	xa_set_window_title (xa_main_window , archive[id]->path);
 
-	if ( GTK_WIDGET_VISIBLE (viewport2) )
+	if (archive[id]->child_pid)
 	{
 		if (archive[id]->status == XA_ARCHIVESTATUS_IDLE)
 		{
@@ -625,7 +657,7 @@ void xa_add_page (XArchive *archive)
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
 
 	gtk_drag_source_set (archive->treeview, GDK_BUTTON1_MASK, drag_targets, 1, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-	g_signal_connect ((gpointer) sel, 				"changed", 		G_CALLBACK (xa_handle_selected_rows),archive);
+	g_signal_connect ((gpointer) sel, 				"changed", 		G_CALLBACK (xa_set_statusbar_message_for_selected_rows),archive);
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-begin",	G_CALLBACK (drag_begin),archive);
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-data-get",G_CALLBACK (drag_data_get),archive);
 	g_signal_connect (G_OBJECT (archive->treeview), "drag-end",		G_CALLBACK (drag_end),NULL);
@@ -1301,7 +1333,7 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 		return;
 	}
 	array = gtk_selection_data_get_uris(data);
-	if (array == NULL || GTK_WIDGET_VISIBLE(viewport2))
+	if (array == NULL || archive[idx]->child_pid)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"" );
 		gtk_drag_finish(context,FALSE,FALSE,time);
@@ -1441,7 +1473,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem)
 	image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_ERROR, GTK_ICON_SIZE_DIALOG);
 	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
 
-	label = gtk_label_new (_("An error occurred while working on the archive:"));
+	label = gtk_label_new (_("An error occurred while accessing the archive:"));
 	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
 	gtk_label_set_selectable (GTK_LABEL (label), TRUE);
 
