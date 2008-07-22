@@ -35,6 +35,7 @@ gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
 gboolean batch_mode = FALSE;
 gboolean unrar = FALSE;
 gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
+int response;
 extern gchar *current_open_directory;
 extern int status;
 Prefs_dialog_data *prefs_window = NULL;
@@ -223,6 +224,7 @@ done:	g_list_free (ArchiveSuffix);
 			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), 600, 400);
 			gtk_paned_set_position (GTK_PANED (hpaned1),200);
 		}
+		gtk_label_set_text(GTK_LABEL(total_label),"Select \"New\" to create or \"Open\" to open an archive");
 		gtk_widget_show (xa_main_window);
 
 		/* This to open the archive from the command line */

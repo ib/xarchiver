@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (c) 2008 Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -116,19 +116,10 @@ GtkWidget *ebox;
 GtkAccelGroup *accel_group;
 GtkTooltips *tooltips;
 
-
-typedef struct
-{
-	GtkWidget *dialog1;
-	GtkTextBuffer *textbuffer;
-	GtkTextIter iter;
-} widget_data;
-
 gchar *xa_create_password_dialog(gchar *);
 void set_label (GtkWidget *label,gchar *);
 int xa_flash_led_indicator (gpointer );
 void xa_create_popup_menu();
-widget_data *xa_create_output_window(gchar *);
 void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean);
 GtkWidget *create_archive_properties_window();
 gboolean select_matched_rows(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
@@ -143,5 +134,5 @@ void xa_disable_delete_buttons (gboolean);
 void xa_sidepane_drag_data_received (GtkWidget *,GdkDragContext *,int x,int y,GtkSelectionData *, unsigned int info,unsigned int time,gpointer );
 gboolean xa_sidepane_drag_motion_expand_timeout (GtkTreePath **);
 gboolean xa_sidepane_drag_motion (GtkWidget *,GdkDragContext *,gint x,gint y,guint ,gpointer );
-void xa_show_cmd_line_output(GtkMenuItem *menuitem);
+void xa_show_cmd_line_output(GtkMenuItem *menuitem,gpointer data);
 #endif

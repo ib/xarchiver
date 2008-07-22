@@ -79,6 +79,21 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 
 	if (jump_header == FALSE)
 	{
+		if (strncmp(line,"Comment:",8) == 0)
+		{
+			jump_comment = archive->has_comment = TRUE;
+			archive->comment = g_string_new("");
+			archive->comment = g_string_append(archive->comment,&line[9]);
+			return;
+		}
+		if (jump_comment == TRUE)
+		{
+			if (strncmp(line,"Pathname/Comment",16) != 0)
+			{	archive->comment = g_string_append(archive->comment,line);
+				return;
+			}
+			jump_comment = FALSE;
+		}
 		if (line[0] == '-')
 		{
 			jump_header = TRUE;
@@ -86,6 +101,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		}
 		return;
 	}
+
 	if (read_filename == FALSE)
 	{
 		linesize = strlen(line);
@@ -304,13 +320,13 @@ void xa_rar_extract(XArchive *archive,GSList *files)
 										" -p",archive->passwd,
 										archive->overwrite ? " -o+" : " -o-",
 										" -idp ",
-										archive->escaped_path , " " ,names->str,archive->extraction_path , NULL );
+										archive->escaped_path , " " ,names->str," ",archive->extraction_path , NULL );
 	else
 		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 										archive->overwrite ? "-o+" : "-o-",
 										" -idp ",
-										archive->escaped_path , " " ,names->str,archive->extraction_path , NULL );
+										archive->escaped_path , " " ,names->str," ",archive->extraction_path , NULL );
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 

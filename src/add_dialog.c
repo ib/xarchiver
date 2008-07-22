@@ -340,6 +340,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 	gchar *compression_string = NULL;
 	gboolean done = FALSE;
 	GSList *list = NULL;
+	int response;
 
 	while ( ! done )
 	{

@@ -129,7 +129,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (quit1);
 	gtk_container_add (GTK_CONTAINER (menuitem1_menu), quit1);
 
-	menuitem2 = gtk_menu_item_new_with_mnemonic (_("_Action"));
+	menuitem2 = gtk_menu_item_new_with_mnemonic (_("A_ction"));
 	gtk_widget_show (menuitem2);
 	gtk_container_add (GTK_CONTAINER (menubar1), menuitem2);
 
@@ -177,7 +177,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (exe_menu), image2);
 
-	comment_menu = gtk_image_menu_item_new_with_mnemonic (_("_Show comment"));
+	comment_menu = gtk_image_menu_item_new_with_mnemonic (_("Archive comment"));
 	gtk_widget_set_sensitive (comment_menu, FALSE);
 	gtk_widget_show (comment_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), comment_menu);
@@ -192,7 +192,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), separatormenuitem4);
 	gtk_widget_set_sensitive (separatormenuitem4, FALSE);
 
-	select_all = gtk_image_menu_item_new_with_mnemonic (_("Sele_ct All"));
+	select_all = gtk_image_menu_item_new_with_mnemonic (_("Select _all"));
 	gtk_widget_show (select_all);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), select_all);
 	gtk_widget_set_sensitive (select_all, FALSE);
@@ -202,7 +202,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (select_all), tmp_image);
 
-	deselect_all = gtk_image_menu_item_new_with_mnemonic (_("Dese_lect All"));
+	deselect_all = gtk_image_menu_item_new_with_mnemonic (_("Dese_lect all"));
 	gtk_widget_show (deselect_all);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu), deselect_all);
 	gtk_widget_set_sensitive (deselect_all, FALSE);
@@ -459,7 +459,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (frame1), total_label);
 	
 	frame2 = gtk_frame_new (NULL);
-	gtk_widget_show (frame2);
 	gtk_box_pack_start (GTK_BOX (hbox_sb), frame2, TRUE, TRUE, 0);
 	gtk_frame_set_label_align (GTK_FRAME (frame2), 0, 0);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_IN);
@@ -473,7 +472,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (green_led);
 	gtk_box_pack_start (GTK_BOX (hbox_sb), green_led, FALSE, FALSE, 0);
 	gtk_misc_set_alignment (GTK_MISC (green_led), 1, 1);
-	gtk_tooltips_set_tip (tooltips,green_led, _("This is Xarchiver led status indicator. When the red light is on Xarchiver is busy"), NULL);
+	gtk_tooltips_set_tip (tooltips,green_led, _("This is Xarchiver led status. When it's flashing Xarchiver is busy"), NULL);
 
 	red_led = gtk_image_new_from_icon_name ("gtk-no", GTK_ICON_SIZE_BUTTON);
 	gtk_box_pack_start (GTK_BOX (hbox_sb),red_led,FALSE, FALSE, 0);
@@ -487,7 +486,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) extract_menu, "activate", G_CALLBACK (xa_extract_archive), NULL);
 	g_signal_connect ((gpointer) exe_menu, "activate", G_CALLBACK (xa_convert_sfx), NULL);
 	g_signal_connect ((gpointer) addfile, "activate", G_CALLBACK (xa_add_files_archive), NULL);
-	g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (xa_show_cmd_line_output), NULL);
+	g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (xa_show_cmd_line_output), (gpointer) 0);
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
 	g_signal_connect ((gpointer) select_pattern, "activate", G_CALLBACK (xa_create_delete_dialog), NULL);
@@ -568,7 +567,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GtkNotebookPage *page, guint pa
 here:
 	xa_restore_navigation(id);
 
-	if (archive[id]->has_comment)
+	if (archive[id]->type == XARCHIVETYPE_7ZIP || archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_ARJ)
 		gtk_widget_set_sensitive (comment_menu,TRUE);
 	else
 		gtk_widget_set_sensitive (comment_menu,FALSE);
@@ -675,6 +674,7 @@ gchar *xa_create_password_dialog(gchar *archive_name)
 	GtkWidget *password_dialog,*dialog_vbox1,*vbox1,*hbox2,*image2,*vbox2,*label_pwd_required,*label_filename,*hbox1,*label34,*pw_password_entry;
 	gchar *password = NULL;
 	gboolean done = FALSE;
+	int response;
 
   	password_dialog = gtk_dialog_new_with_buttons ("Xarchiver " VERSION,
 									GTK_WINDOW (xa_main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -764,38 +764,6 @@ gchar *xa_create_password_dialog(gchar *archive_name)
 	}
 	gtk_widget_destroy (password_dialog);
 	return password;
-}
-
-widget_data *xa_create_output_window(gchar *title)
-{
-	GtkWidget *vbox,*textview,*scrolledwindow;
-	widget_data *data;
-
-	data = g_new0(widget_data,1);
-	data->dialog1 = gtk_dialog_new_with_buttons (title,
-									GTK_WINDOW (xa_main_window), GTK_DIALOG_NO_SEPARATOR,
-									GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE, NULL);
-	gtk_dialog_set_default_response (GTK_DIALOG (data->dialog1), GTK_RESPONSE_CLOSE);
-	gtk_widget_set_size_request (data->dialog1, 400, 250);
-	vbox = GTK_DIALOG (data->dialog1)->vbox;
-
-	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_start (GTK_BOX (vbox), scrolledwindow, TRUE, TRUE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 4);
-	g_object_set (G_OBJECT (scrolledwindow),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
-
-	data->textbuffer = gtk_text_buffer_new (NULL);
-	gtk_text_buffer_create_tag (data->textbuffer, "font","family", "monospace", NULL);
-	gtk_text_buffer_get_iter_at_offset (data->textbuffer, &data->iter, 0);
-
-	textview = gtk_text_view_new_with_buffer (data->textbuffer);
-	g_object_unref (data->textbuffer);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
-	gtk_text_view_set_editable (GTK_TEXT_VIEW (textview), FALSE);
-	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (textview), FALSE);
-
-	gtk_widget_show_all (data->dialog1);
-	return data;
 }
 
 void xa_create_popup_menu()
@@ -975,9 +943,9 @@ void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
 			if (strlen(string) == 0)
 			{
 				xa_deselect_all(NULL,NULL);
-				done = TRUE;
-				break;
+				goto destroy_delete_dialog;
 			}
+			gtk_widget_set_sensitive(deselect_all,TRUE);
 			done = TRUE;
 			break;
 		}
@@ -1030,6 +998,7 @@ GtkWidget *create_archive_properties_window()
 	gtk_window_set_resizable (GTK_WINDOW (archive_properties_window), FALSE);
 	gtk_window_set_modal (GTK_WINDOW (archive_properties_window), TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window), GDK_WINDOW_TYPE_HINT_UTILITY);
+	gtk_dialog_set_has_separator(GTK_DIALOG(archive_properties_window),FALSE);
 
 	table1 = gtk_table_new (10, 2, TRUE);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (archive_properties_window)->vbox), table1);
@@ -1316,6 +1285,7 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	GtkTreeIter parent;
 	GString *full_pathname = g_string_new("");
 	gboolean full_path,add_recurse,dummy_password;
+	int response;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	current_page = gtk_notebook_get_current_page(notebook);
@@ -1445,8 +1415,9 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 	return TRUE;
 }
 
-void xa_show_cmd_line_output(GtkMenuItem *menuitem)
+void xa_show_cmd_line_output(GtkMenuItem *menuitem,gpointer data)
 {
+	gboolean create_image = GPOINTER_TO_INT(data);
 	GSList *output = NULL;
 	gchar *line = NULL;
 	gchar *utf8_line;
@@ -1460,9 +1431,9 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem)
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
-	dialog = gtk_dialog_new_with_buttons ("",
-					      GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_STOCK_OK, GTK_RESPONSE_OK,NULL);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+	dialog = gtk_dialog_new_with_buttons (_("Archiver output"),
+					      GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_OK);
 
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
@@ -1470,16 +1441,9 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem)
 	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 8);
 	gtk_widget_set_size_request (dialog, 400, -1);
 
-	image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_ERROR, GTK_ICON_SIZE_DIALOG);
-	gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
-
-	label = gtk_label_new (_("An error occurred while accessing the archive:"));
-	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
-	gtk_label_set_selectable (GTK_LABEL (label), TRUE);
-
 	scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 4);
 	g_object_set (G_OBJECT (scrolledwindow),"hscrollbar-policy", GTK_POLICY_AUTOMATIC,"shadow-type", GTK_SHADOW_IN,"vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
+	gtk_widget_set_size_request (scrolledwindow,-1,200);
 
 	textbuffer = gtk_text_buffer_new (NULL);
 	gtk_text_buffer_create_tag (textbuffer, "font","family", "monospace", NULL);
@@ -1492,20 +1456,27 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem)
 
 	vbox = gtk_vbox_new (FALSE, 6);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
+	
+	if (create_image)
+	{
+		create_image = FALSE;
+		image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_ERROR, GTK_ICON_SIZE_DIALOG);
+		gtk_misc_set_alignment (GTK_MISC (image), 0.5, 0.0);
 
-	hbox = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (hbox), image,FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (hbox), label,FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox,TRUE, TRUE, 0);
-	hbox = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox,TRUE, TRUE, 0);
+		label = gtk_label_new (_("An error occurred while accessing the archive:"));
+		gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
+		gtk_label_set_selectable (GTK_LABEL (label), TRUE);
 
+		hbox = gtk_hbox_new (FALSE, 6);
+		gtk_box_pack_start (GTK_BOX (hbox), image,FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX (hbox), label,FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX (vbox), hbox,TRUE, TRUE, 0);
+	}
 	gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
 	gtk_box_pack_start (GTK_BOX (vbox), scrolledwindow,FALSE, FALSE,0);
-
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),vbox,FALSE, FALSE, 0);
 
-	if ( ! archive[idx]->list_reversed)
+	if ( archive[idx]->list_reversed == FALSE)
 	{
 		archive[idx]->error_output = g_slist_reverse(archive[idx]->error_output);
 		archive[idx]->list_reversed = TRUE;

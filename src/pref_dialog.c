@@ -38,8 +38,9 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->dialog1 = gtk_dialog_new_with_buttons (_("Preferences"),
 									GTK_WINDOW (xa_main_window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK, NULL);
-	tooltips = gtk_tooltips_new ();
+	tooltips = gtk_tooltips_new();
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
+	gtk_window_set_position (GTK_WINDOW(prefs_data->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 
 	vbox1 = GTK_DIALOG (prefs_data->dialog1)->vbox;
 	hbox1 = gtk_hbox_new (FALSE, 6);

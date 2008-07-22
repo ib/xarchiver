@@ -44,7 +44,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gchar *my_path_ext = NULL;
 	gchar *basepath = NULL;
 	gchar *current_dir = NULL;
-	gint current_page, type = 0;
+	gint current_page, response,type = 0;
 	unsigned short int x;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),

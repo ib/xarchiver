@@ -52,12 +52,11 @@
 #include "add_dialog.h"
 #include "pref_dialog.h"
 
-short int response;
 double content_size;
 unsigned long long int file_size, file_offset;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
-GtkWidget *dialog, *scrollwin, *view_window, *_properties_win;
+GtkWidget *dialog, *scrollwin, *view_window, *_properties_win,*comment_dialog;
 
 void xa_new_archive (GtkMenuItem *, gpointer);
 void xa_save_archive (GtkMenuItem *,gpointer);
@@ -101,12 +100,14 @@ void xa_watch_child ( GPid , gint , gpointer );
 void xa_remove_columns();
 void xa_create_liststore (XArchive *,gchar *[]);
 gchar *xa_get_statusbar_message(unsigned long int,gint,gint,gboolean);
-void Update_StatusBar (gchar *);
-
 gchar *xa_open_file_dialog ();
 gchar *xa_open_sfx_file_selector ();
-void xa_activate_link (GtkAboutDialog *about,const gchar *,gpointer );
-void xa_location_entry_activated (GtkEntry *entry,gpointer );
+void xa_activate_link (GtkAboutDialog *,const gchar *,gpointer );
+void xa_comment_window_insert_in_archive(GtkButton *,gpointer );
+void xa_load_comment_window_from_file(GtkButton *,gpointer );
+void xa_clear_comment_window(GtkButton *,gpointer );
+void xa_destroy_comment_window(GtkButton *,gpointer);
+void xa_location_entry_activated (GtkEntry *,gpointer );
 int xa_mouse_button_event(GtkWidget *,GdkEventButton *,gpointer );
 void xa_treeview_row_activated(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,gpointer );
 void xa_update_window_with_archive_entries(XArchive *,XEntry *);

@@ -332,7 +332,7 @@ void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gc
 	if (result == -1)
 	{
 		gchar *msg = g_strdup_printf(_("Can't create directory \"%s\""),fullname);
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno ));
+		result = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno ));
 		g_free (msg);
 		gtk_tree_store_remove(GTK_TREE_STORE(model),&iter);
 	}
@@ -382,6 +382,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 	gchar *destination_path = NULL;
 	gboolean done = FALSE;
 	GSList *names = NULL;
+	int response;
 
 	if (unrar)
 		rar = "unrar";

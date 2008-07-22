@@ -78,7 +78,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 		return;
 	}
-	g_strfreev ( argv );
+	g_strfreev (argv);
 
 	if (archive->pb_source == 0)
 		archive->pb_source = g_timeout_add (350,xa_flash_led_indicator,archive);
@@ -88,16 +88,14 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_slist_foreach (archive->error_output, (GFunc) g_free, NULL);
 		g_slist_free (archive->error_output);
 		archive->error_output = NULL;
+		archive->list_reversed = FALSE;
 	}
-	if (archive->parse_output)
-	{
-		ioc = g_io_channel_unix_new (archive->output_fd);
-		g_io_channel_set_encoding (ioc, NULL , NULL);
-		g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
+	ioc = g_io_channel_unix_new (archive->output_fd);
+	g_io_channel_set_encoding (ioc, NULL , NULL);
+	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 
-		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_process_output, archive);
-		g_child_watch_add (archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
-	}
+	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_process_output, archive);
+	g_child_watch_add (archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
 
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
@@ -120,7 +118,9 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 			{
 				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
-				(*archive->parse_output) (line,archive);
+
+				if (*archive->parse_output)
+					(*archive->parse_output) (line,archive);
 				g_free(line);
 			}
 			while (gtk_events_pending())
@@ -136,9 +136,12 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 
-		xa_update_window_with_archive_entries (archive,NULL);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
-		g_object_unref (archive->model);
+		if (*archive->parse_output)
+		{
+			xa_update_window_with_archive_entries (archive,NULL);
+			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
+			g_object_unref (archive->model);
+		}
 		return FALSE;
 	}
 	return TRUE;
@@ -228,7 +231,7 @@ void xa_clean_archive_structure (XArchive *archive)
 	{
 		if (archive->comment != NULL)
 		{
-			g_string_free (archive->comment,FALSE);
+			g_string_free (archive->comment,TRUE);
 			archive->comment = NULL;
 		}
 	}
@@ -249,6 +252,7 @@ gboolean xa_create_temp_directory (XArchive *archive)
 {
 	gchar *tmp_dir;
 	gchar *value;
+	int response;
 
 	if (archive->tmp != NULL)
 		return TRUE;
@@ -274,6 +278,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	int ps,argcp;
 	gboolean waiting = TRUE;
 	gboolean result = FALSE;
+	int response;
 	GSList *_commands = commands;
 
 	GError *error = NULL;

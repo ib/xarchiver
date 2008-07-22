@@ -24,7 +24,7 @@ void xa_open_rpm (XArchive *archive)
 {
 	unsigned char bytes[8];
 	unsigned short int i;
-    int dl,il,sigsize,offset;
+    int dl,il,sigsize,offset,response;
     gchar *ibs;
     gchar *gzip_tmp = NULL;
 	GSList *list = NULL;
@@ -130,7 +130,7 @@ GChildWatchFunc *xa_open_cpio (GPid pid , gint exit_code , gpointer data)
 	    if ( WEXITSTATUS (exit_code) )
     	{
 	    	xa_set_window_title (xa_main_window , NULL);
-		    xa_show_cmd_line_output (NULL);
+		    xa_show_cmd_line_output (NULL,GINT_TO_POINTER(1));
 			xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0);
 			return FALSE;
 		}
@@ -238,8 +238,7 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 
 void xa_open_temp_file (gchar *tmp_dir,gchar *temp_path)
 {
-	gint current_page;
-	gint idx;
+	gint current_page,idx,response;
 	gchar *tmp = NULL;
 	FILE *stream;
 
@@ -285,6 +284,7 @@ gboolean xa_extract_to_different_location (GIOChannel *ioc, GIOCondition cond, g
 	gsize bytes_read;
 	GIOStatus _status;
 	GError *error = NULL;
+	int response;
 
 	if (cond & (G_IO_IN | G_IO_PRI) )
 	{
