@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the xarchiver package.
 # Automatically generated, 2006.
 # Adriano Winter Bess <adriano@xfce.org>, 2006.
-# Fábio Nogueira <deb-user-ba@ubuntu.com>, 2008.
 # Og Maciel <ogmaciel@gnome.org>, 2008.
+# Fábio Nogueira <deb-user-ba@ubuntu.com>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2008-06-29 19:14+0200\n"
-"PO-Revision-Date: 2008-07-01 09:16-0500\n"
-"Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
+"PO-Revision-Date: 2008-07-21 21:57-0300\n"
+"Last-Translator: Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -442,7 +442,7 @@ msgstr "Não é possível efetuar outra extração:"
 
 #: ../src/window.c:1638
 msgid "Please wait until the completion of the current one!"
-msgstr "Por favor, aguarde o término da ação atual!"
+msgstr "Por favor, aguarde completar a ação atual!"
 
 #: ../src/window.c:1715
 msgid "Sorry, I could not perform the operation!"
