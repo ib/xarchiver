@@ -1952,31 +1952,44 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 	result = xa_create_temp_directory(archive[idx]);
 	tmp = g_strconcat(archive[idx]->tmp,"/xa_tmp_file",NULL);
 	gtk_widget_destroy(comment_dialog);
-	if (strlen(content) > 0)
+	
+	if (archive[idx]->comment == NULL)
 	{
-		stream = fopen (tmp,"w");
-		fwrite (content,1,strlen(content),stream);
-		fclose (stream);
-		g_free(content);
-		switch (archive[idx]->type)
-		{
-			case XARCHIVETYPE_ARJ:
-			command = g_strconcat ("arj c ",archive[idx]->escaped_path," -z",tmp,NULL);
-			break;
-			
-			case XARCHIVETYPE_RAR:
-			command = g_strconcat ("rar c ",archive[idx]->escaped_path," -z",tmp,NULL);
-			break;
-			
-			case XARCHIVETYPE_ZIP:
-			break;
-			
-			default:
-			break;
-		}
-		list = g_slist_append(list,command);
-		xa_run_command(archive[idx],list);
+		archive[idx]->comment = g_string_new("");
+		archive[idx]->has_comment = TRUE;
 	}
+	/* Return if the user hasn't modified the comment */
+	if (strcmp(archive[idx]->comment->str,content) == 0)
+		return;
+
+	stream = fopen (tmp,"w");
+	fwrite (content,1,strlen(content),stream);
+	fclose (stream);
+
+	switch (archive[idx]->type)
+	{
+		case XARCHIVETYPE_ARJ:
+		command = g_strconcat ("arj c ",archive[idx]->escaped_path," -z",tmp,NULL);
+		break;
+			
+		case XARCHIVETYPE_RAR:
+		command = g_strconcat ("rar c ",archive[idx]->escaped_path," -z",tmp,NULL);
+		break;
+			
+		case XARCHIVETYPE_ZIP:
+		command = g_strconcat ("sh -c \"zip ",archive[idx]->escaped_path," -z <",tmp,"\"",NULL);
+		break;
+			
+		default:
+		break;
+	}
+	if (strlen(archive[idx]->comment->str) > 0)
+		g_string_erase(archive[idx]->comment,0,strlen(archive[idx]->comment->str));
+	if (strlen(content) > 0)
+		g_string_append(archive[idx]->comment,content);
+
+	list = g_slist_append(list,command);
+	xa_run_command(archive[idx],list);
 	g_free(tmp);
 }
 

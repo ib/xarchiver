@@ -85,25 +85,26 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 
 	if (archive->error_output != NULL)
 	{
-		g_slist_foreach (archive->error_output, (GFunc) g_free, NULL);
+		g_slist_foreach (archive->error_output, (GFunc) g_free,NULL);
 		g_slist_free (archive->error_output);
 		archive->error_output = NULL;
 		archive->list_reversed = FALSE;
 	}
-	ioc = g_io_channel_unix_new (archive->output_fd);
-	g_io_channel_set_encoding (ioc, NULL , NULL);
-	g_io_channel_set_flags ( ioc , G_IO_FLAG_NONBLOCK , NULL );
 
-	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_process_output, archive);
-	g_child_watch_add (archive->child_pid, (GChildWatchFunc)xa_watch_child, archive);
+	ioc = g_io_channel_unix_new (archive->output_fd);
+	g_io_channel_set_encoding (ioc,NULL,NULL);
+	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
+
+	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output,archive);
+	g_child_watch_add (archive->child_pid, (GChildWatchFunc)xa_watch_child,archive);
 
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
 	g_io_channel_set_flags (err_ioc,G_IO_FLAG_NONBLOCK,NULL);
-	g_io_add_watch (err_ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL, xa_dump_child_error_messages, archive);
+	g_io_add_watch (err_ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_dump_child_error_messages,archive);
 }
 
-static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer data)
 {
 	XArchive *archive = data;
 	GIOStatus status;
@@ -119,7 +120,7 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
 
-				if (*archive->parse_output)
+				if (archive->parse_output)
 					(*archive->parse_output) (line,archive);
 				g_free(line);
 			}
@@ -136,7 +137,7 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 
-		if (*archive->parse_output)
+		if (archive->parse_output)
 		{
 			xa_update_window_with_archive_entries (archive,NULL);
 			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
