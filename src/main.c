@@ -282,7 +282,7 @@ void xa_set_available_archivers()
 	extract[0]  = 0;
 	extract[1]  = &xa_7zip_extract;
 	extract[2]  = &xa_arj_extract;
-	extract[3]  = &xa_deb_extract;;
+	extract[3]  = &xa_tar_extract;;
 	extract[4]  = extract[5] = extract[6] = &lzma_gzip_bzip2_extract;
 	extract[7]  = &xa_rar_extract;
 	extract[8]  = &xa_rpm_extract;

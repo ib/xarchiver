@@ -16,7 +16,7 @@ xx/08/08 - 0.5:
 		- The cmd-line output window has a close button and a better layout.
 		- Tabs are now reorderable.
 		- Better menu layout.
-		- Fixed bugs #2045,#2614, #2616, #2620, #2626, #2627, #2799, #3422, #3542, #3548, #4102
+		- Fixed bugs #2045,#2614, #2616, #2620, #2626, #2627, #2799, #3422, #3542, #3548, #4102, #4103
 		- Fixed several memory leaks thanks to valgrind.
 
 27/11/06 - 0.4.6:

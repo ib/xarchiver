@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2007 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *  Copyright (C) 2006 Lukasz 'Sil2100' Zemczak - <sil2100@vexillium.org>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -19,102 +19,96 @@
 
 #include "config.h"
 #include "deb.h"
-#include "string_utils.h"
+#include <string.h>
 
 extern void xa_create_liststore (XArchive *archive,gchar *columns_names[]);
-extern gchar *tar;
 
 void xa_open_deb (XArchive *archive)
 {
-	GSList *list = NULL;
 	gchar *command = NULL;
-	gchar *dummy = NULL;
-	gchar *archive_no_path = NULL;
-	gboolean result;
 	unsigned short int i;
 
-	/* Create a unique tmp dir in /tmp */
-	result = xa_create_temp_directory (archive);
-	if (!result)
-		return;
-
-	archive_no_path = g_strrstr (archive->escaped_path,"/");
-	if (archive_no_path == NULL)
-		dummy = g_strconcat (archive->tmp,"/",archive->escaped_path,NULL);
-	else
-	{
-		archive_no_path++;
-		dummy = g_strconcat (archive->tmp,"/",archive_no_path,NULL);
-	}
-	/* Copy the .deb archive to the unique dir */
-	command = g_strconcat ("cp ",archive->escaped_path," ",archive->tmp,NULL);
-	list = g_slist_append(list,command);
-
-	/* Ok, let's now extract the .deb archive with ar */
-	chdir (archive->tmp);
-	command = g_strconcat ("ar xv ",dummy,NULL);
-	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-	g_free (dummy);
-
-	if (result == FALSE)
-		return;
-
-	/* Finally, let's show the content of data.tar.gz in the unique dir */
-	command = g_strconcat ("tar tfzv ",archive->tmp,"/data.tar.gz", NULL);
+	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
 	archive->has_properties = archive->can_extract = TRUE;
 	archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nr_of_dirs = 0;
-	archive->nc = 7;
+	archive->nc = 5;
 	archive->format = "DEB";
-	archive->parse_output = xa_get_tar_line_content;
+	archive->parse_output = xa_get_ar_line_content;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
 	if (archive->child_pid == 0)
 		return;
 
-	char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time")),NULL};
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	char *names[]= {(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date modified")),NULL};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 9; i++)
+	for (i = 0; i < 7; i++)
 		archive->column_types[i] = types[i];
 	xa_create_liststore (archive,names);
 }
 
+void xa_get_ar_line_content (gchar *line, gpointer data)
+{
+	XArchive *archive = data;
+	XEntry *entry;
+	gchar *filename;
+	gpointer item[4];
+	gint n = 0, a = 0 ,linesize = 0, cnt = 0;
+
+	linesize = strlen(line);
+
+	/* Permissions */
+	line[9] = '\0';
+	item[0] = line;
+	
+	/* Owner */
+	for(n=12; n < linesize; ++n)
+		if(line[n] == ' ')
+			break;
+	line[n] = '\0';
+	item[1] = line+10;
+
+	/* Size */	
+	for(++n; n < linesize; ++n)
+		if(line[n] >= '0' && line[n] <= '9')
+			break;
+	a = n;
+
+	for(; n < linesize; ++n)
+		if(line[n] == ' ')
+			break;
+
+	line[n] = '\0';
+	item[2] = line + a;
+	archive->dummy_size += strtoll(item[3],NULL,0);
+	a = ++n;
+
+	/* Date Modified */	
+	for(; n < linesize; ++n)
+	{
+		if(line[n] == ' ')
+			cnt++;
+		if (cnt == 4)
+			break;
+	}
+
+	line[n] = '\0';
+	item[3] = line + a;
+
+	n++;
+	line[linesize-1] = '\0';
+	filename = line + n;
+
+	archive->nr_of_files++;
+	filename = g_strdup(line + n);
+	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	g_free(filename);
+}
+
 void xa_deb_extract(XArchive *archive,GSList *files)
 {
-	//TODO to remove when you have xdg-open working so that control.tar.gz is opened in another tab and the user can extract its content from that tab
-	gchar *command = NULL,*e_filename = NULL;
-	GSList *list = NULL,*_files = NULL;
-	GString *names = g_string_new("");
-
-	_files = files;
-	while (_files)
-	{
-		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (names,e_filename);
-		g_string_prepend_c (names,' ');
-		_files = _files->next;
-	}
-	g_slist_foreach(files,(GFunc)g_free,NULL);
-	g_slist_free(files);
-
-	if (archive->full_path)
-	{
-		command = g_strconcat (tar, " -xvzf " , archive->tmp,"/data.tar.gz ",
-												archive->overwrite ? " --overwrite" : " --keep-old-files",
-												archive->tar_touch ? " --touch" : "",
-												" -C " , archive->extraction_path , names->str, NULL );
-	}
-	
-
-	if (command != NULL)
-	{
-		g_string_free(names,TRUE);
-		list = g_slist_append(list,command);
-		xa_run_command (archive,list);
-	}
 }
