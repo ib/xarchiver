@@ -25,7 +25,6 @@
 #include "archive.h"
 
 void xa_open_rpm ( XArchive *);
-gboolean xa_extract_to_different_location (GIOChannel *, GIOCondition,gpointer );
 void xa_open_temp_file (gchar *,gchar *);
 void xa_rpm_extract(XArchive *,GSList *);
 void xa_get_cpio_line_content (gchar *, gpointer );

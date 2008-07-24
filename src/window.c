@@ -994,28 +994,14 @@ gchar *xa_open_file_dialog ()
 int xa_detect_archive_type (gchar *filename)
 {
 	FILE *dummy_ptr = NULL;
-    int response,xx = -1;
+    int xx = -1;
 	unsigned char magic[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0}; /* avoid problems with garbage */
 
-	if (filename != NULL)
-		dummy_ptr = fopen (filename,"r");
+	dummy_ptr = fopen (filename,"r");
 
 	if (dummy_ptr == NULL)
-	{
-		if (xa_main_window != NULL)
-		{
-			gchar *utf8_path,*msg;
-			utf8_path = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
-			msg = g_strdup_printf (_("Can't open archive \"%s\":") , utf8_path );
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
-			msg,g_strerror (errno));
-			g_free (msg);
-			g_free (utf8_path);
-			return -2;
-		}
-		else
-			return -2;
-	}
+		return -2;
+
 	fread (magic, 1, 14, dummy_ptr);
 	if (memcmp (magic,"\x50\x4b",2) == 0)
 		xx = XARCHIVETYPE_ZIP;
@@ -2161,6 +2147,8 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	/* The selected entry it's not a dir so extract it to the tmp dir and send it to xa_determine_program_to_run() */
 	else
 	{
+		if (archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_DEB)
+			return;
 	   	if (archive->extraction_path)
 	   	{
 	   		dummy = g_strdup(archive->extraction_path);

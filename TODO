@@ -1,4 +1,3 @@
-- fix rpm.c to avoid reading from an open file stream.
 - fix sorting of directories before the files
 - fix store output when test archives
 - handle the matter of the password in window.c:xa_reset_password()
