@@ -57,7 +57,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	gint argcp, response;
 	GError *error = NULL;
 
-	g_shell_parse_argv ( command,&argcp,&argv,NULL);
+	g_shell_parse_argv (command,&argcp,&argv,NULL);
 	if ( ! g_spawn_async_with_pipes (
 		NULL,
 		argv,

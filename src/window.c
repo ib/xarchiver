@@ -69,10 +69,11 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 				g_free (archive->passwd);
 				archive->passwd = NULL;
 			}
-			archive->status = XA_ARCHIVESTATUS_IDLE;
+			archive->status = XA_ARCHIVESTATUS_ERROR;			
 			return FALSE;
 		}
 	}
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 	return TRUE;
 }
 
@@ -94,7 +95,8 @@ void xa_archive_operation_finished(XArchive *archive)
 		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 			xa_show_archive_comment (NULL, NULL);
 
-		gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
+		if (archive->treeview)
+			gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
 	}
 	if (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE)
 		xa_reload_archive_content(archive);
@@ -107,8 +109,6 @@ void xa_archive_operation_finished(XArchive *archive)
 	}
 	else if (archive->status == XA_ARCHIVESTATUS_TEST)
 		xa_show_cmd_line_output (NULL,FALSE);
-
-	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void xa_reload_archive_content(XArchive *archive)
@@ -476,7 +476,7 @@ void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
 		gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 		gtk_label_set_text(GTK_LABEL(total_label),"Select \"New\" to create or \"Open\" to open an archive");
-		gtk_widget_hide(frame2);
+		gtk_widget_hide(selected_frame);
 	}
 	else if ( current_page == 1)
 		gtk_notebook_set_show_tabs (notebook,FALSE);
@@ -514,6 +514,8 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 		g_free (current_open_directory);
 
 	xa_prefs_save_options (prefs_window,config_file);
+	gtk_widget_destroy(prefs_window->dialog1);
+	gtk_widget_destroy(xa_popup_menu);
 	g_free (config_file);
 	xa_free_icon_cache();
 
@@ -1457,10 +1459,11 @@ void xa_set_statusbar_message_for_selected_rows (GtkTreeSelection *selection,gpo
 	{
 		
 		xa_disable_delete_buttons (FALSE);
-		gtk_widget_hide(frame2);
+		gtk_widget_hide(selected_frame);
 		return;
 	}
-	gtk_widget_show(frame2);
+	else
+		gtk_widget_show(selected_frame);
 	if (archive->type == XARCHIVETYPE_RAR && unrar)
 		gtk_widget_set_sensitive (delete_menu,FALSE);
 	else if ( archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_DEB)
@@ -1806,7 +1809,17 @@ void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data)
 			g_free (browser_path);
 	}
 	else
-		xa_launch_external_program("xdg-open",(gchar *)link);
+		xa_launch_external_program("xdg-open",(gchar*)link);
+}
+
+void xa_determine_program_to_run(gchar *file)
+{
+	if ( !xdg_open)
+	{
+
+	}
+	else
+		xa_launch_external_program("xdg-open",file);
 }
 
 gboolean xa_launch_external_program(gchar *program,gchar *arg)
@@ -2128,21 +2141,50 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	XArchive *archive = user_data;
 	XEntry *entry;
 	GtkTreeIter iter;
-
+	gchar *dummy = NULL,*item,*file = NULL;
+	GSList *names = NULL;
+		
 	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path))
 		return;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry,-1);
-	if (! entry->is_dir)
-		return;
-	if (archive->location_entry_path != NULL)
-		archive->back = g_slist_prepend(archive->back,xa_find_entry_from_path(archive->root_entry,archive->location_entry_path));
-	/* Put NULL so to display the root entry */
+	if (entry->is_dir)
+	{
+		if (archive->location_entry_path != NULL)
+			archive->back = g_slist_prepend(archive->back,xa_find_entry_from_path(archive->root_entry,archive->location_entry_path));
+		/* Put NULL so to display the root entry */
+		else
+			archive->back = g_slist_prepend(archive->back,NULL);
+		xa_sidepane_select_row(entry);
+		xa_update_window_with_archive_entries(archive,entry);
+	}
+	/* The selected entry it's not a dir so extract it to the tmp dir and send it to xa_determine_program_to_run() */
 	else
-		archive->back = g_slist_prepend(archive->back,NULL);
+	{
+	   	if (archive->extraction_path)
+	   	{
+	   		dummy = g_strdup(archive->extraction_path);
+	   		g_free(archive->extraction_path);
+	   	}
+	   	xa_create_temp_directory(archive);
+	   	archive->extraction_path = g_strdup(archive->tmp);
+	   	item = xa_build_full_path_name_from_entry(entry);
+	   	names = g_slist_append(names,item);
+		(*archive->extract) (archive,names);
 
-	xa_sidepane_select_row(entry);
-	xa_update_window_with_archive_entries(archive,entry);
+		g_free(archive->extraction_path);
+		archive->extraction_path = NULL;
+		if (dummy)
+		{
+			archive->extraction_path = g_strdup(dummy);
+			g_free(dummy);
+		}
+		if (archive->status == XA_ARCHIVESTATUS_ERROR)
+			return;
+		file = g_strconcat(archive->tmp,"/",entry->filename,NULL);
+		xa_determine_program_to_run(file);
+		g_free(file);
+	}
 }
 
 void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)

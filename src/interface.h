@@ -37,6 +37,7 @@ GtkWidget *green_led;
 GtkWidget *red_led;
 GtkWidget *progressbar;
 GtkWidget *total_label,*selected_label;
+GtkWidget *total_frame,*selected_frame;
 GtkWidget *archive_properties_window;
 GtkWidget *table1;
 GtkWidget *path_label;

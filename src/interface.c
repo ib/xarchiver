@@ -447,26 +447,26 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_size_request(progressbar,-1,10);
 	gtk_container_add (GTK_CONTAINER (viewport2), progressbar);*/
 	
-	frame1 = gtk_frame_new (NULL);
-	gtk_widget_show (frame1);
-	gtk_box_pack_start (GTK_BOX (hbox_sb), frame1, TRUE, TRUE, 0);
-	gtk_frame_set_label_align (GTK_FRAME (frame1), 0, 0);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
+	total_frame = gtk_frame_new (NULL);
+	gtk_widget_show (total_frame);
+	gtk_box_pack_start (GTK_BOX (hbox_sb), total_frame, TRUE, TRUE, 0);
+	gtk_frame_set_label_align (GTK_FRAME (total_frame), 0, 0);
+	gtk_frame_set_shadow_type (GTK_FRAME (total_frame), GTK_SHADOW_IN);
 
 	total_label = gtk_label_new (NULL);
 	gtk_misc_set_alignment (GTK_MISC(total_label), 0.0, 0.5);
 	gtk_widget_show (total_label);
-	gtk_container_add (GTK_CONTAINER (frame1), total_label);
+	gtk_container_add (GTK_CONTAINER (total_frame), total_label);
 	
-	frame2 = gtk_frame_new (NULL);
-	gtk_box_pack_start (GTK_BOX (hbox_sb), frame2, TRUE, TRUE, 0);
-	gtk_frame_set_label_align (GTK_FRAME (frame2), 0, 0);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_IN);
+	selected_frame = gtk_frame_new (NULL);
+	gtk_box_pack_start (GTK_BOX (hbox_sb), selected_frame, TRUE, TRUE, 0);
+	gtk_frame_set_label_align (GTK_FRAME (selected_frame), 0, 0);
+	gtk_frame_set_shadow_type (GTK_FRAME (selected_frame), GTK_SHADOW_IN);
 
 	selected_label = gtk_label_new (NULL);
 	gtk_misc_set_alignment (GTK_MISC(selected_label), 0.0, 0.5);
 	gtk_widget_show (selected_label);
-	gtk_container_add (GTK_CONTAINER (frame2), selected_label);
+	gtk_container_add (GTK_CONTAINER (selected_frame), selected_label);
 	
 	green_led = gtk_image_new_from_icon_name ("gtk-yes", GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show (green_led);
