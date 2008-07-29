@@ -117,7 +117,7 @@ GtkWidget *ebox;
 GtkAccelGroup *accel_group;
 GtkTooltips *tooltips;
 
-gchar *xa_create_password_dialog(gchar *);
+gchar *xa_create_password_dialog(XArchive *);
 void set_label (GtkWidget *label,gchar *);
 int xa_flash_led_indicator (gpointer );
 void xa_create_popup_menu();

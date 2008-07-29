@@ -139,6 +139,13 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 
 		if (archive->parse_output)
 		{
+			if (archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+				xa_show_archive_comment (NULL, NULL);
+			if (archive->has_passwd == FALSE)
+				gtk_widget_set_sensitive (password_entry_menu,FALSE);
+			else
+				gtk_widget_set_sensitive (password_entry_menu,TRUE);
+
 			xa_update_window_with_archive_entries (archive,NULL);
 			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
 			g_object_unref (archive->model);
@@ -350,9 +357,11 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 				else if(xa_main_window)
 					gtk_main_iteration_do (FALSE);
 			}
-			result = xa_check_child_for_error_on_exit(archive,status);
-			if (result == FALSE)
-				break;
+			if (WIFEXITED (status))
+			{
+				if (WEXITSTATUS (status))
+					break;
+			}
 			_commands = _commands->next;
 		}
 		xa_archive_operation_finished(archive);

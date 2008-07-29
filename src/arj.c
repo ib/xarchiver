@@ -85,7 +85,10 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	{
 		linesize = strlen(line);
 		if(line[0] == '*')
+		{
+			archive->has_passwd = TRUE;
 			encrypted = TRUE;
+		}
 		else if (line[0] == '-')
 		{
 			last_line = TRUE;

@@ -125,7 +125,7 @@ int main (int argc, char **argv)
 			if (xa_detect_encrypted_archive (archive))
 			{
 				archive->has_passwd = TRUE;
-				archive->passwd = xa_create_password_dialog(archive->escaped_path);
+				archive->passwd = xa_create_password_dialog(archive);
 				if (archive->passwd == NULL)
 					goto done;
 			}

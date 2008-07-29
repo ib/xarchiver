@@ -121,7 +121,10 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 
 	line[n]='\0';
 	if ((line+a)[0] == 'B' || (line+a)[0] == 'T')
+	{
+		archive->has_passwd = TRUE;
 		encrypted = TRUE;
+	}
 	n++;
 
 	/* compressed size */

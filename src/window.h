@@ -68,7 +68,7 @@ void xa_delete_archive (GtkMenuItem *, gpointer);
 void xa_determine_program_to_run(gchar *file);
 gboolean xa_launch_external_program(gchar *program,gchar *arg);
 void xa_show_help (GtkMenuItem *, gpointer);
-void xa_reset_password (GtkMenuItem *, gpointer);
+void xa_enter_password (GtkMenuItem *, gpointer);
 void xa_about (GtkMenuItem *, gpointer);
 void on_options1_activate (GtkMenuItem *, gpointer);
 void xa_extract_archive ( GtkMenuItem *, gpointer);

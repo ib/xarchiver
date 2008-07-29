@@ -41,10 +41,11 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	tooltips = gtk_tooltips_new();
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
 	gtk_window_set_position (GTK_WINDOW(prefs_data->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_dialog_set_has_separator(GTK_DIALOG(prefs_data->dialog1),FALSE);
 
 	vbox1 = GTK_DIALOG (prefs_data->dialog1)->vbox;
 	hbox1 = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 6);
+	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,TRUE,TRUE,10);
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
 	gtk_box_pack_start (GTK_BOX (hbox1), scrolledwindow1, TRUE, TRUE, 6);

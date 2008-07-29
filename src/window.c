@@ -41,6 +41,31 @@ gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix, *Name;
 
+void xa_watch_child (GPid pid,gint status,gpointer data)
+{
+	XArchive *archive = data;
+	int response;
+	gboolean result;
+
+	archive->child_pid = archive->pb_source = 0;
+	if (WIFSIGNALED (status) )
+	{
+		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
+		{
+			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),archive->extraction_path);
+            response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"",msg );
+            g_free (msg);
+		}
+		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
+			gtk_widget_set_sensitive (check_menu,FALSE );
+
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+		return;
+	}
+	result = xa_check_child_for_error_on_exit (archive,status);
+	xa_archive_operation_finished(archive);
+}
+
 gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 {
 	int response;
@@ -72,7 +97,6 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 			return FALSE;
 		}
 	}
-	archive->status = XA_ARCHIVESTATUS_IDLE;
 	return TRUE;
 }
 
@@ -108,6 +132,8 @@ void xa_archive_operation_finished(XArchive *archive)
 	}
 	else if (archive->status == XA_ARCHIVESTATUS_TEST)
 		xa_show_cmd_line_output (NULL,FALSE);
+
+	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void xa_reload_archive_content(XArchive *archive)
@@ -168,40 +194,6 @@ void xa_reload_archive_content(XArchive *archive)
 	xa_fill_dir_sidebar(archive,TRUE);
 }
 
-void xa_watch_child (GPid pid,gint status,gpointer data)
-{
-	XArchive *archive = data;
-	int response;
-	gboolean result;
-
-	archive->child_pid = archive->pb_source = 0;
-	if (WIFSIGNALED (status) )
-	{
-		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
-		{
-			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),archive->extraction_path);
-
-            response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"",msg );
-            g_free (msg);
-		}
-		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
-			gtk_widget_set_sensitive (check_menu,FALSE );
-
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
-		archive->status = XA_ARCHIVESTATUS_IDLE;
-		return;
-	}
-	result = xa_check_child_for_error_on_exit (archive,status);
-	if ( xa_main_window != NULL && archive != NULL)
-	{
-		if (archive->has_passwd == FALSE && archive->passwd == NULL)
-			gtk_widget_set_sensitive (password_entry_menu,FALSE);
-		else
-			gtk_widget_set_sensitive (password_entry_menu,TRUE);
-	}
-	xa_archive_operation_finished(archive);
-}
-
 void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gint current_page;
@@ -218,7 +210,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
 	xa_add_page (archive[current_page]);
 
 	xa_set_button_state (0,0,0,1,1,0,0,0,0);
-    archive[current_page]->has_passwd = FALSE;
     gtk_widget_set_sensitive(check_menu,FALSE);
     gtk_widget_set_sensitive(properties,FALSE );
     xa_disable_delete_buttons(FALSE);
@@ -263,7 +254,7 @@ void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
 						GTK_RESPONSE_ACCEPT,
 						NULL);
 	filename = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
-	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (save), filename);
+	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (save),filename);
 	g_free(filename);
 	response = gtk_dialog_run (GTK_DIALOG(save));
 	if (response == GTK_RESPONSE_ACCEPT)
@@ -294,9 +285,9 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	}
 
 	/* Let's check if the archive is already opened */
-	for (x = 0; x < gtk_notebook_get_n_pages ( notebook) ; x++)
+	for (x = 0; x < gtk_notebook_get_n_pages (notebook) ; x++)
 	{
-		current_page = xa_find_archive_index ( x );
+		current_page = xa_find_archive_index (x);
 		if (current_page == -1)
 			break;
 		if (strcmp (path,archive[current_page]->path) == 0)
@@ -442,7 +433,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 	{
 		if ( archive[id]->passwd == NULL)
 		{
-			archive[id]->passwd = xa_create_password_dialog (NULL);
+			archive[id]->passwd = xa_create_password_dialog (archive[id]);
 			if ( archive[id]->passwd == NULL)
 				return;
 		}
@@ -856,9 +847,9 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 	if (about == NULL)
 	{
 		about = gtk_about_dialog_new ();
-		gtk_about_dialog_set_email_hook (xa_activate_link, NULL, NULL);
-		gtk_about_dialog_set_url_hook (xa_activate_link, NULL, NULL);
-		gtk_window_set_destroy_with_parent (GTK_WINDOW (about) , TRUE);
+		gtk_about_dialog_set_email_hook (xa_activate_link,NULL,NULL);
+		gtk_about_dialog_set_url_hook (xa_activate_link,NULL,NULL);
+		gtk_window_set_destroy_with_parent (GTK_WINDOW (about),TRUE);
 		g_object_set (about,
 			"name",  "xarchiver",
 			"version", PACKAGE_VERSION,
@@ -869,7 +860,7 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 			"translator_credits", _("translator-credits"),
 			"logo_icon_name", "xarchiver",
 			"website", "http://xarchiver.xfce.org",
-			"license",    "Copyright \xC2\xA9 2005-2007 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
+			"license", "Copyright \xC2\xA9 2005-2007 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
 		    			"This is free software; you can redistribute it and/or\n"
     					"modify it under the terms of the GNU Library General Public License as\n"
     					"published by the Free Software Foundation; either version 2 of the\n"
@@ -1822,8 +1813,7 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 	if (!gdk_spawn_on_screen (screen,NULL,argv,NULL,G_SPAWN_SEARCH_PATH,NULL,NULL,NULL,&error))
 	{
 		message = gtk_message_dialog_new (GTK_WINDOW (xa_main_window),
-										GTK_DIALOG_MODAL
-										| GTK_DIALOG_DESTROY_WITH_PARENT,
+										GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 										GTK_MESSAGE_ERROR,
 										GTK_BUTTONS_CLOSE,
 										_("Failed to launch the application!"));
@@ -1843,7 +1833,7 @@ void xa_show_help (GtkMenuItem *menuitem,gpointer user_data )
 	g_free (uri);
 }
 
-void xa_reset_password (GtkMenuItem *menuitem , gpointer user_data )
+void xa_enter_password (GtkMenuItem *menuitem , gpointer user_data )
 {
 	gint current_page;
 	gint idx;
@@ -1853,15 +1843,12 @@ void xa_reset_password (GtkMenuItem *menuitem , gpointer user_data )
 
 	if (archive[idx] == NULL)
 		return;
-
-	if (archive[idx]->passwd != NULL)
+	else
 	{
 		g_free (archive[idx]->passwd);
 		archive[idx]->passwd = NULL;
-		gtk_label_set_text(GTK_LABEL(total_label),(_("The password has been reset.")));
 	}
-	else
-		gtk_label_set_text(GTK_LABEL(total_label),(_("Please enter the password first!")));
+	archive[idx]->passwd = xa_create_password_dialog (archive[idx]);
 }
 
 void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)

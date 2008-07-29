@@ -45,7 +45,7 @@ static const GtkTargetEntry drop_targets[] =
   { "text/uri-list",0,0 },
 };
 
-extern gboolean unrar;
+extern gboolean unrar,batch_mode;
 
 void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gboolean show_output_menu_item,gboolean show_sidebar)
 {
@@ -232,10 +232,10 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_shell_output1), image2);
 
-	password_entry_menu = gtk_image_menu_item_new_with_mnemonic (_("Reset passwo_rd"));
+	password_entry_menu = gtk_image_menu_item_new_with_mnemonic (_("Enter passwo_rd"));
 	gtk_widget_show (password_entry_menu);
-	gtk_widget_set_sensitive ( password_entry_menu , FALSE );
-	gtk_container_add (GTK_CONTAINER (menuitem2_menu), password_entry_menu);
+	gtk_widget_set_sensitive (password_entry_menu,FALSE);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu),password_entry_menu);
 	gtk_widget_add_accelerator (password_entry_menu, "activate",accel_group,GDK_r, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	separatormenuitem6 = gtk_separator_menu_item_new ();
@@ -492,7 +492,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
 	g_signal_connect ((gpointer) select_pattern, "activate", G_CALLBACK (xa_select_by_pattern_dialog), NULL);
-	g_signal_connect ((gpointer) password_entry_menu, "activate", G_CALLBACK (xa_reset_password), NULL);
+	g_signal_connect ((gpointer) password_entry_menu, "activate", G_CALLBACK (xa_enter_password), NULL);
 	g_signal_connect ((gpointer) prefs_menu, "activate", G_CALLBACK (xa_show_prefs_dialog), NULL);
 	g_signal_connect ((gpointer) close1, "activate", G_CALLBACK (xa_close_archive), NULL);
 	g_signal_connect ((gpointer) quit1, "activate", G_CALLBACK (xa_quit_application), NULL);
@@ -671,10 +671,11 @@ void xa_close_page (GtkWidget *widget, gpointer data)
 	xa_close_archive (NULL,data);
 }
 
-gchar *xa_create_password_dialog(gchar *archive_name)
+gchar *xa_create_password_dialog(XArchive *archive)
 {
 	GtkWidget *password_dialog,*dialog_vbox1,*vbox1,*hbox2,*image2,*vbox2,*label_pwd_required,*label_filename,*hbox1,*label34,*pw_password_entry;
 	gchar *password = NULL;
+	gchar *name;
 	gboolean done = FALSE;
 	int response;
 
@@ -709,7 +710,11 @@ gchar *xa_create_password_dialog(gchar *archive_name)
   	gtk_widget_show (vbox2);
   	gtk_box_pack_start (GTK_BOX (hbox2), vbox2, TRUE, TRUE, 0);
 
-  	label_pwd_required = gtk_label_new (_("<span weight='bold' size='larger'>Password required for</span>"));
+  	if (batch_mode)
+  		label_pwd_required = gtk_label_new (_("<span weight='bold' size='larger'>Password required for:</span>"));
+  	else
+		label_pwd_required = gtk_label_new (_("<span weight='bold' size='larger'>Enter password for:</span>"));  	
+
   	gtk_widget_show (label_pwd_required);
   	gtk_box_pack_start (GTK_BOX (vbox2), label_pwd_required, FALSE, FALSE, 0);
   	gtk_label_set_use_markup (GTK_LABEL (label_pwd_required), TRUE);
@@ -720,13 +725,10 @@ gchar *xa_create_password_dialog(gchar *archive_name)
   	gtk_box_pack_start (GTK_BOX (vbox2), label_filename, FALSE, FALSE, 12);
   	gtk_misc_set_alignment (GTK_MISC (label_filename), 0, 0.5);
 
-	if (archive_name != NULL)
-	{
-		gchar *name;
-		name = xa_remove_path_from_archive_name(archive_name);
-		gtk_label_set_text(GTK_LABEL(label_filename),name);
-		g_free (name);
-	}
+	name = xa_remove_path_from_archive_name(archive->escaped_path);
+	gtk_label_set_text(GTK_LABEL(label_filename),name);
+	g_free (name);
+	
   	hbox1 = gtk_hbox_new (FALSE, 5);
   	gtk_widget_show (hbox1);
   	gtk_box_pack_start (GTK_BOX (vbox2), hbox1, TRUE, TRUE, 0);
