@@ -111,4 +111,26 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 
 void xa_deb_extract(XArchive *archive,GSList *files)
 {
+	gchar *command;
+	GSList *list = NULL,*_files = NULL;
+	GString *names = g_string_new("");
+
+	_files = files;
+	while (_files)
+	{
+		g_string_prepend (names,(gchar*)_files->data);
+		g_string_prepend_c (names,' ');
+		_files = _files->next;
+	}
+	g_slist_foreach(files,(GFunc)g_free,NULL);
+	g_slist_free(files);
+
+	chdir (archive->extraction_path);
+	command = g_strconcat ("ar x ",archive->escaped_path," ",names->str,NULL);
+	if (command != NULL)
+	{
+		g_string_free(names,FALSE);
+		list = g_slist_append(list,command);
+		xa_run_command (archive,list);
+	}
 }

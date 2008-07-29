@@ -47,9 +47,8 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 
 	archive->child_pid = archive->pb_source = 0;
 	if (xa_main_window)
-	{
 		gtk_widget_set_sensitive(Stop_button,FALSE);
-	}
+
 	if (WIFEXITED (status))
 	{
 		if (WEXITSTATUS (status))
@@ -1875,7 +1874,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	GtkWidget *dialog_vbox1;
 	GtkWidget *scrolledwindow1;
 	GtkWidget *dialog_action_area1;
-	GtkWidget *file,*clear,*close,*cancel;
+	GtkWidget *tmp_image,*file,*clear,*close,*cancel,*file_hbox,*file_label;
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
 
@@ -1910,7 +1909,16 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	gtk_dialog_add_action_widget (GTK_DIALOG (comment_dialog),clear,0);
 	g_signal_connect (G_OBJECT (clear),"clicked",G_CALLBACK (xa_clear_comment_window),textbuffer);
 
-	file = gtk_button_new_with_mnemonic (_("From File"));
+	file = gtk_button_new();
+	tmp_image = gtk_image_new_from_stock ("gtk-harddisk", GTK_ICON_SIZE_BUTTON);
+	file_hbox = gtk_hbox_new(FALSE, 4);
+	file_label = gtk_label_new_with_mnemonic(_("From File"));
+
+	alignment2 = gtk_alignment_new (0.5, 0.5, 0, 0);
+	gtk_container_add (GTK_CONTAINER (alignment2), file_hbox);
+	gtk_box_pack_start(GTK_BOX(file_hbox),tmp_image,FALSE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(file_hbox),file_label,FALSE,TRUE,0);
+	gtk_container_add(GTK_CONTAINER(file),alignment2);
 	gtk_dialog_add_action_widget (GTK_DIALOG (comment_dialog),file,0);
 	g_signal_connect (G_OBJECT (file),"clicked",G_CALLBACK (xa_load_comment_window_from_file),textbuffer);
 
@@ -2147,7 +2155,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	/* The selected entry it's not a dir so extract it to the tmp dir and send it to xa_determine_program_to_run() */
 	else
 	{
-		if (archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_DEB)
+		if (archive->type == XARCHIVETYPE_RPM)
 			return;
 	   	if (archive->extraction_path)
 	   	{

@@ -409,6 +409,8 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show(archive_dir_treeview);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
 	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview),drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-collapsed",G_CALLBACK(xa_sidepane_row_expanded),archive_dir_model);
+	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-expanded",G_CALLBACK(xa_sidepane_row_expanded),archive_dir_model);
 	g_signal_connect (G_OBJECT (archive_dir_treeview), "drag-data-received",G_CALLBACK (xa_sidepane_drag_data_received), NULL);
 	g_signal_connect (G_OBJECT (archive_dir_treeview), "drag-motion",G_CALLBACK (xa_sidepane_drag_motion), NULL);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
@@ -451,7 +453,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (total_frame);
 	gtk_box_pack_start (GTK_BOX (hbox_sb), total_frame, TRUE, TRUE, 0);
 	gtk_frame_set_label_align (GTK_FRAME (total_frame), 0, 0);
-	gtk_frame_set_shadow_type (GTK_FRAME (total_frame), GTK_SHADOW_IN);
+	gtk_frame_set_shadow_type (GTK_FRAME (total_frame), GTK_SHADOW_ETCHED_OUT);
 
 	total_label = gtk_label_new (NULL);
 	gtk_misc_set_alignment (GTK_MISC(total_label), 0.0, 0.5);
@@ -461,7 +463,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	selected_frame = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (hbox_sb), selected_frame, TRUE, TRUE, 0);
 	gtk_frame_set_label_align (GTK_FRAME (selected_frame), 0, 0);
-	gtk_frame_set_shadow_type (GTK_FRAME (selected_frame), GTK_SHADOW_IN);
+	gtk_frame_set_shadow_type (GTK_FRAME (selected_frame), GTK_SHADOW_ETCHED_OUT);
 
 	selected_label = gtk_label_new (NULL);
 	gtk_misc_set_alignment (GTK_MISC(selected_label), 0.0, 0.5);
@@ -1267,7 +1269,16 @@ void xa_disable_delete_buttons (gboolean value)
 {
     gtk_widget_set_sensitive (delete_menu,value);
     //TODO: disable the popupmenu entries
-    //gtk_widget_set_sensitive (delete,value);
+}
+
+void xa_sidepane_row_expanded(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gpointer data)
+{
+	GtkTreeModel *model = data;
+
+	if (gtk_tree_view_row_expanded(tree_view,path))
+		gtk_tree_store_set(GTK_TREE_STORE(model),iter,0,"gtk-open",-1);
+	else
+		gtk_tree_store_set(GTK_TREE_STORE(model),iter,0,"gtk-directory",-1);
 }
 
 void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int y,GtkSelectionData *data, unsigned int info,unsigned int time,gpointer user_data)
@@ -1373,7 +1384,6 @@ gboolean xa_sidepane_drag_motion_expand_timeout (GtkTreePath **path)
 
 	if (! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),*path))
 		gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),*path);
-	
 	return FALSE;
 }
 
