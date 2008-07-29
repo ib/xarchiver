@@ -32,7 +32,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	Extract_dialog_data *dialog_data;
 	gboolean flag = TRUE;
 
-	home_dir = g_get_home_dir();
+	archive_dir = remove_level_from_path (archive->path);
 	dialog_data = g_new0 (Extract_dialog_data, 1);
 	dialog_data->dialog1 = gtk_dialog_new ();
 	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
@@ -56,7 +56,8 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_misc_set_alignment (GTK_MISC (label1), 0, 0.5);
 
 	dialog_data->destination_path_entry = gtk_entry_new ();
-	gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),home_dir);
+	gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
+	g_free(archive_dir);
 	gtk_entry_set_editable(GTK_ENTRY(dialog_data->destination_path_entry),FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox1), dialog_data->destination_path_entry, FALSE, FALSE, 0);
 
@@ -379,9 +380,10 @@ void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data
 
 void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
 {
-	gchar *destination_path = NULL;
+	gchar *destination_path = NULL, *string;
 	gboolean done = FALSE;
 	GSList *names = NULL;
+	GtkTreeModel *model;
 	int response;
 
 	if (unrar)
@@ -453,12 +455,18 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			/* Is the radiobutton Files selected? */
 			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->files_radio)))
 			{
-				if (xa_main_window)
-					gtk_widget_set_sensitive (Stop_button,TRUE);
+				model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
+				string = g_strdup (gtk_entry_get_text(GTK_ENTRY(dialog_data->entry2)));
+				gtk_tree_model_foreach(model,(GtkTreeModelForeachFunc)select_matched_rows,string);
+				selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
+				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);
+				g_free(string);
 			}
 			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->selected_radio)))
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);
 
+			if (xa_main_window)
+				gtk_widget_set_sensitive (Stop_button,TRUE);
 			(*archive->extract) (archive,names);
 		}
 	}
@@ -551,4 +559,5 @@ void xa_treeview_exposed (GtkWidget *widget,GdkEventExpose *event,gpointer data)
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(widget),path,NULL,FALSE,0,0);
 	gtk_tree_path_free (path);
 	g_signal_handler_disconnect (G_OBJECT(widget),dialog->signal_id);
+	g_print ("pluto\n");
 }

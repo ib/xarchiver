@@ -491,7 +491,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) view_shell_output1, "activate", G_CALLBACK (xa_show_cmd_line_output), (gpointer) 0);
 	g_signal_connect ((gpointer) select_all, "activate", G_CALLBACK (xa_select_all), NULL);
 	g_signal_connect ((gpointer) deselect_all, "activate", G_CALLBACK (xa_deselect_all), NULL);
-	g_signal_connect ((gpointer) select_pattern, "activate", G_CALLBACK (xa_create_delete_dialog), NULL);
+	g_signal_connect ((gpointer) select_pattern, "activate", G_CALLBACK (xa_select_by_pattern_dialog), NULL);
 	g_signal_connect ((gpointer) password_entry_menu, "activate", G_CALLBACK (xa_reset_password), NULL);
 	g_signal_connect ((gpointer) prefs_menu, "activate", G_CALLBACK (xa_show_prefs_dialog), NULL);
 	g_signal_connect ((gpointer) close1, "activate", G_CALLBACK (xa_close_archive), NULL);
@@ -861,7 +861,7 @@ void xa_create_popup_menu()
 	g_signal_connect ((gpointer) rename, "activate",G_CALLBACK (on_xa_rename_activate),NULL);*/
 }
 
-void xa_create_delete_dialog(GtkMenuItem *menuitem, gpointer user_data)
+void xa_select_by_pattern_dialog(GtkMenuItem *menuitem, gpointer user_data)
 {
 	GtkWidget *ddialog1;
 	GtkWidget *ddialog_vbox1;

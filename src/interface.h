@@ -124,7 +124,7 @@ void xa_create_popup_menu();
 void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean);
 GtkWidget *create_archive_properties_window();
 gboolean select_matched_rows(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
-void xa_create_delete_dialog(GtkMenuItem *, gpointer );
+void xa_select_by_pattern_dialog(GtkMenuItem *, gpointer );
 void xa_handle_navigation_buttons (GtkMenuItem *, gpointer );
 void xa_add_page (XArchive *);
 void xa_page_has_changed (GtkNotebook *, GtkNotebookPage *, guint ,gpointer );

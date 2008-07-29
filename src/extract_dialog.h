@@ -52,20 +52,20 @@ GtkWidget *scrolledwindow1,*dialog_action_area1,*cancel_button,*okbutton1,*extra
 GtkTreeStore *model;
 GtkTreeViewColumn *column;
 GtkTooltips *option_tooltip;
-const gchar *home_dir;
+gchar *archive_dir;
 	
-Extract_dialog_data *xa_create_extract_dialog (gint selected ,XArchive *archive);
-void xa_create_dir_button_pressed (GtkButton *button, gpointer data);
-void xa_cell_edited_canceled(GtkCellRenderer *renderer,gpointer user_data);
-void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_text,gpointer data);
-void xa_activate_entry(GtkToggleButton *button,gpointer data);
-void fresh_update_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
-void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data);
-void xa_parse_extract_dialog_options (XArchive *archive , Extract_dialog_data *dialog_data, GtkTreeSelection *selection);
-void xa_browse_dir (GtkTreeStore *model,gchar *dir, GtkTreeIter *iter);
-void xa_tree_view_row_selected(GtkTreeSelection *selection, gpointer data);
-void xa_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data);
-void xa_expand_dir(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gpointer data);
-void xa_treeview_exposed (GtkWidget *widget,GdkEventExpose *event,gpointer data);
+Extract_dialog_data *xa_create_extract_dialog (gint,XArchive *);
+void xa_create_dir_button_pressed (GtkButton *, gpointer );
+void xa_cell_edited_canceled(GtkCellRenderer *,gpointer );
+void xa_cell_edited (GtkCellRendererText *,const gchar *,const gchar *,gpointer );
+void xa_activate_entry(GtkToggleButton *,gpointer );
+void fresh_update_toggled_cb (GtkToggleButton *, Extract_dialog_data *);
+void update_fresh_toggled_cb (GtkToggleButton *, Extract_dialog_data *);
+void xa_parse_extract_dialog_options (XArchive * , Extract_dialog_data *, GtkTreeSelection *);
+void xa_browse_dir(GtkTreeStore *,gchar *,GtkTreeIter *);
+void xa_tree_view_row_selected(GtkTreeSelection *, gpointer );
+void xa_row_activated(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,gpointer );
+void xa_expand_dir(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer );
+void xa_treeview_exposed (GtkWidget *,GdkEventExpose *,gpointer );
 #endif
 
