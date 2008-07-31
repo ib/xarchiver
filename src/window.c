@@ -451,7 +451,7 @@ void xa_list_archive (GtkMenuItem *menuitem, gpointer data)
 	gint idx;
 	FILE *stream;
 	GtkWidget *save = NULL;
-	gchar *_filename,*filename,*filename_plus = NULL;
+	gchar *t,*_filename,*filename,*filename_plus = NULL;
 	int response;
 	struct stat my_stat;
 	unsigned long long int file_size;
@@ -523,16 +523,20 @@ void xa_list_archive (GtkMenuItem *menuitem, gpointer data)
 			g_fprintf(stream,"</a><br><br><b>");
 		stat (archive[idx]->path , &my_stat );
     	file_size = my_stat.st_size;
+    	t = xa_set_size_string(file_size);
 		g_fprintf (stream,_("Compressed   size: "));
     	if (bp)
     		g_fprintf (stream,"</b>");
-    	g_fprintf (stream,"%.1f\n",file_size);
+    	g_fprintf (stream,"%s\n",t);
+    	g_free(t);
     	if (bp)
 			g_fprintf(stream,"<br><br><b>");
     	g_fprintf (stream,_("Uncompressed size: "));
+    	t = xa_set_size_string(archive[idx]->dummy_size);
     	if (bp)
     		g_fprintf (stream,"</b>");
-    	g_fprintf (stream,"%.1f\n",archive[idx]->dummy_size);
+    	g_fprintf (stream,"%s\n",t);
+    	g_free(t);
     	if (bp)
 			g_fprintf(stream,"<br><br><b>");
     	g_fprintf (stream,_("Number of files: "));
@@ -1392,12 +1396,12 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 {
 	struct stat my_stat;
-    gchar *utf8_string , *measure,*dummy_string;
+    gchar *utf8_string ,*dummy_string,*t;
     char date[64];
-    gchar *t;
-    unsigned long long int file_size;
     gint current_page;
 	gint idx;
+	unsigned long long int file_size;
+	double content_size;
 
     current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
@@ -1425,52 +1429,11 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     gtk_entry_set_text ( GTK_ENTRY (modified_data), t);
     g_free (t);
     //Archive Size
-	if (file_size > 1024*1024*1024 )
-	{
-		content_size = (double)file_size / (1024*1024*1024);
-		measure = " GB";
-	}
-	else if (file_size > 1024*1024 )
-	{
-		content_size = (double)file_size / (1024*1024);
-		measure = " MB";
-	}
-
-    else if (file_size > 1024 )
-	{
-		content_size = (double)file_size / 1024;
-		measure = " KB";
-	}
-	else
-	{
-		measure = " Bytes";
-		content_size = file_size;
-	}
-    t = g_strdup_printf ("%.1f %s", content_size,measure);
+	t = xa_set_size_string(file_size);
     gtk_entry_set_text ( GTK_ENTRY (size_data), t );
     g_free (t);
     //content_size
-    if (archive[idx]->dummy_size > 1024*1024*1024 )
-    {
-		content_size = (double)archive[idx]->dummy_size / (1024*1024*1024);
-		measure = " GB";
-    }
-	else if (archive[idx]->dummy_size > 1024*1024 )
-	{
-		content_size = (double)archive[idx]->dummy_size / (1024*1024);
-		measure = " MB";
-	}
-	else if (archive[idx]->dummy_size > 1024 )
-	{
-		content_size = (double)archive[idx]->dummy_size / 1024;
-		measure = " KB";
-	}
-	else
-	{
-		measure = " Bytes";
-		content_size = archive[idx]->dummy_size;
-	}
-    t = g_strdup_printf ( "%.1f %s", content_size,measure);
+    t = xa_set_size_string(archive[idx]->dummy_size);
     gtk_entry_set_text ( GTK_ENTRY (content_data), t );
     g_free (t);
     //Has Comment
@@ -1480,10 +1443,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 		gtk_entry_set_text ( GTK_ENTRY (comment_data), _("No") );
 
     //Compression_ratio
-    if (content_size != 0)
-		content_size = (double)archive[idx]->dummy_size / file_size;
-    else
-		content_size = 0.0;
+    content_size = (double)archive[idx]->dummy_size / file_size;
     t = g_strdup_printf ( "%.2f", content_size);
     gtk_entry_set_text ( GTK_ENTRY (compression_data), t );
     g_free (t);
@@ -1496,6 +1456,37 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     gtk_entry_set_text ( GTK_ENTRY (number_of_dirs_data), t );
     g_free (t);
     gtk_widget_show_all (archive_properties_window);
+}
+
+gchar *xa_set_size_string (unsigned long long int file_size)
+{
+	gchar *message = NULL;
+	gchar *measure;
+	double content_size;
+
+	if (file_size > 1024*1024*1024 )
+	{
+		content_size = (double)file_size / (1024*1024*1024);
+		measure = "GB";
+	}
+	else if (file_size > 1024*1024 )
+	{
+		content_size = (double)file_size / (1024*1024);
+		measure = "MB";
+	}
+
+    else if (file_size > 1024 )
+	{
+		content_size = (double)file_size / 1024;
+		measure = "KB";
+	}
+	else
+	{
+		measure = "Bytes";
+		content_size = file_size;
+	}
+    message = g_strdup_printf ("%.1f %s", content_size,measure);
+	return message;
 }
 
 void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
@@ -1644,30 +1635,13 @@ gchar *xa_get_statusbar_message(unsigned long int total_size,gint n_elem,gint di
 {
 	gchar *measure = NULL, *info = NULL;
 
-	if (total_size > 1024*1024*1024)
-	{
-		content_size = (double)total_size / (1024*1024*1024);
-		measure = "GB";
-	}
-	else if (total_size > 1024*1024)
-	{
-		content_size = (double)total_size / (1024*1024);
-		measure = "MB";
-	}
-	else if (total_size > 1024)
-	{
-		content_size = (double)total_size / 1024;
-		measure = "KB";
-	}
-	else
-	{
-		measure = "Bytes";
-		content_size = total_size;
-	}
+	measure = xa_set_size_string(total_size);
 	if (selection)
-		info = g_strdup_printf(ngettext ("%d file and %d dir selected (%.1f %s)","%d files and %d dirs selected (%.1f %s)",n_elem),n_elem,dirs,content_size,measure);
+		info = g_strdup_printf(ngettext ("%d file and %d dir selected (%s)","%d files and %d dirs selected (%s)",n_elem),n_elem,dirs,measure);
 	else
-		info = g_strdup_printf(ngettext ("%d file, %d dir (%.1f %s)", "%d files, %d dirs (%.1f %s)", n_elem),n_elem,dirs,content_size,measure);
+		info = g_strdup_printf(ngettext ("%d file, %d dir (%s)", "%d files, %d dirs (%s)", n_elem),n_elem,dirs,measure);
+
+	g_free(measure);
 	return info;
 }
 

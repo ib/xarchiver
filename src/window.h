@@ -52,8 +52,7 @@
 #include "add_dialog.h"
 #include "pref_dialog.h"
 
-double content_size;
-unsigned long long int file_size, file_offset;
+unsigned long long int file_offset;
 Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win,*comment_dialog;
@@ -84,6 +83,7 @@ void xa_view_file_inside_archive ( GtkMenuItem * , gpointer);
 void xa_cancel_archive ( GtkMenuItem * , gpointer);
 void xa_add_files_archive ( GtkMenuItem *, gpointer);
 void xa_show_prefs_dialog ( GtkMenuItem * , gpointer);
+gchar *xa_set_size_string (unsigned long long int file_size);
 void xa_set_statusbar_message_for_selected_rows (GtkTreeSelection *,gpointer );
 void xa_set_statusbar_message_for_displayed_rows(XArchive *);
 void on_drag_data_received (GtkWidget *,GdkDragContext *, int x,int y,GtkSelectionData *, unsigned int , unsigned int , gpointer );
