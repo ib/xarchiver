@@ -18,10 +18,17 @@
 
 #include <glib.h>
 #include <gtk/gtk.h>
+#include <sys/param.h>
 #include "config.h"
 #include "archive.h"
 #include "support.h"
 #include "window.h"
+
+#ifndef NCARGS
+#define NCARGS _POSIX_ARG_MAX
+#endif
+
+#define MAX_CMD_LEN (NCARGS * 2 / 3)
 
 extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];
@@ -88,7 +95,6 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_slist_foreach (archive->error_output, (GFunc) g_free,NULL);
 		g_slist_free (archive->error_output);
 		archive->error_output = NULL;
-		archive->list_reversed = FALSE;
 	}
 
 	ioc = g_io_channel_unix_new (archive->output_fd);
@@ -96,12 +102,34 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
 
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output,archive);
-	g_child_watch_add (archive->child_pid, (GChildWatchFunc)xa_watch_child,archive);
+	g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
 
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
 	g_io_channel_set_flags (err_ioc,G_IO_FLAG_NONBLOCK,NULL);
 	g_io_add_watch (err_ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_dump_child_error_messages,archive);
+}
+
+gchar *xa_split_command_line(XArchive *archive,GSList *list)
+{
+	gchar *command = NULL;
+	GSList *chunks = NULL;
+	GSList *scan = NULL;
+	int length;
+
+	for (scan = list; scan != NULL; )
+	{
+		length = 0;
+		while ((scan != NULL) && (length < 5000))
+		{
+			length += strlen (scan->data);
+			chunks = g_slist_prepend(chunks,scan->data);
+			scan = scan->next;
+		}
+		chunks = g_slist_prepend(chunks,"****** ");
+	}
+	chunks = g_slist_reverse(chunks);
+	return command;
 }
 
 static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer data)
@@ -134,12 +162,14 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
 	{
 	done:
+		if (archive->error_output != NULL)
+			archive->error_output = g_slist_reverse (archive->error_output);
 		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 
 		if (archive->parse_output)
 		{
-			if (archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+			if (archive->has_comment && archive->type == XARCHIVETYPE_RAR && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 				xa_show_archive_comment (NULL, NULL);
 			if (archive->has_passwd == FALSE)
 				gtk_widget_set_sensitive (password_entry_menu,FALSE);
@@ -368,7 +398,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 here:
 		g_slist_foreach (commands,(GFunc) g_free,NULL);
 		g_slist_free(commands);
-		
 	}
 	return result;
 }
@@ -822,3 +851,20 @@ gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIt
 	return FALSE;
 }
 
+gint xa_sort_dirs_before_files(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer data)
+{
+	XEntry *entry1, *entry2;
+	XArchive *archive = data;
+
+	gtk_tree_model_get(model,a,archive->nc+1,&entry1,-1);
+	gtk_tree_model_get(model,b,archive->nc+1,&entry2,-1);
+	if (entry1->is_dir != entry2->is_dir)
+	{
+		if (entry1->is_dir)
+			return -1;
+		else
+			return 1;
+	}
+	/* This for sorting the files */
+	return strcasecmp (entry1->filename,entry2->filename);
+}

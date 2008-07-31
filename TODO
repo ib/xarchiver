@@ -1,4 +1,5 @@
-- fix sorting of directories before the files
+- reduce the loading time when opening large archives.
+- fix crash when opening rar archives produces under winzozz.
 - recurse with opendir for arj when using the switches from cmd-line
 - fix the remaining bugs in bugzilla.xfce.org
 - to fix the arrow buttons
@@ -6,4 +7,3 @@
 - loading and saving of add/extraction options.
 - support tar on *BSD.
 - avoid reset of extract dialog options when loading a new archive.
-- ability to create sfx archives through the Add dialog for those archives which support it.

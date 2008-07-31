@@ -42,6 +42,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for (GTK_WINDOW(dialog_data->dialog1),GTK_WINDOW (xa_main_window));
 	gtk_dialog_set_has_separator (GTK_DIALOG(dialog_data->dialog1),FALSE);
+	//TODO set the size from the .xarchiverrc file
 	gtk_widget_set_size_request (dialog_data->dialog1,492,372);
 
 	option_tooltip = gtk_tooltips_new ();
@@ -559,5 +560,4 @@ void xa_treeview_exposed (GtkWidget *widget,GdkEventExpose *event,gpointer data)
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(widget),path,NULL,FALSE,0,0);
 	gtk_tree_path_free (path);
 	g_signal_handler_disconnect (G_OBJECT(widget),dialog->signal_id);
-	g_print ("pluto\n");
 }

@@ -263,11 +263,12 @@ void xa_tar_extract(XArchive *archive,GSList *files)
 	_files = files;
 	while (_files)
 	{
-		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
+		e_filename = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
 		g_string_prepend (names,e_filename);
 		g_string_prepend_c (names,' ');
 		_files = _files->next;
 	}
+	command = xa_split_command_line(archive,files);
 	g_slist_foreach(files,(GFunc)g_free,NULL);
 	g_slist_free(files);
 

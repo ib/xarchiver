@@ -101,7 +101,6 @@ struct _XArchive
 	gboolean can_add;
 	gboolean can_extract;
 	gboolean has_properties;
-	gboolean list_reversed;
 	GString *comment;
 	GSList *error_output;
 	GType *column_types;
@@ -128,8 +127,8 @@ struct _XArchive
 	extract_func extract;
 	test_func test;
 };
-
 void xa_spawn_async_process (XArchive *, gchar *);
+gchar *xa_split_command_line(XArchive *archive,GSList *list);
 XArchive *xa_init_archive_structure(gint);
 void xa_clean_archive_structure (XArchive *);
 gboolean xa_dump_child_error_messages (GIOChannel *, GIOCondition , gpointer );
@@ -153,5 +152,6 @@ void xa_fill_dir_sidebar(XArchive *,gboolean);
 void xa_sidepane_row_selected(GtkTreeSelection *, gpointer );
 void xa_sidepane_select_row(XEntry *entry);
 gboolean _xa_sidepane_select_row(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
+gint xa_sort_dirs_before_files(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer data);
 XArchive *archive[100];
 #endif

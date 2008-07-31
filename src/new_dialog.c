@@ -128,27 +128,27 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (xa_file_chooser),basepath);
 
 		current_dir = g_get_current_dir ();
-		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (xa_file_chooser) , current_dir);
+		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (xa_file_chooser),current_dir);
 
 		g_free (basepath);
 		g_free (current_dir);
 	}
 	gtk_window_set_modal (GTK_WINDOW (xa_file_chooser),TRUE);
 	if (current_new_directory != NULL)
-		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) , current_new_directory );
+		gtk_file_chooser_set_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser),current_new_directory);
 	response = gtk_dialog_run (GTK_DIALOG (xa_file_chooser));
-	current_new_directory = gtk_file_chooser_get_current_folder ( GTK_FILE_CHOOSER (xa_file_chooser) );
+	current_new_directory = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (xa_file_chooser));
 
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		my_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
 		ComboArchiveType = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
 
-		if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_extension_cb) ) )
+		if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_extension_cb)))
 		{
-			if ( ! g_str_has_suffix ( my_path , ComboArchiveType ) )
+			if ( ! g_str_has_suffix (my_path,ComboArchiveType))
 			{
-				my_path_ext = g_strconcat ( my_path, "." , ComboArchiveType , NULL);
+				my_path_ext = g_strconcat (my_path, ".",ComboArchiveType,NULL);
 				g_free (my_path);
 				my_path = my_path_ext;
 			}
@@ -156,14 +156,14 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 		if (xa_main_window)
 		{
-			for (x = 0; x < gtk_notebook_get_n_pages ( notebook) ; x++)
+			for (x = 0; x < gtk_notebook_get_n_pages (notebook) ; x++)
 			{
-				current_page = xa_find_archive_index ( x );
+				current_page = xa_find_archive_index (x);
 				if (current_page == -1)
 					break;
 				if (strcmp (my_path,archive_open[current_page]->path) == 0)
 				{
-					gchar *msg = g_strdup_printf(_("\"%s\" is already open!") , my_path);
+					gchar *msg = g_strdup_printf(_("\"%s\" is already open!"),my_path);
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create a new archive:"),msg );
 					g_free (my_path);
 					g_free (msg);
