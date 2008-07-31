@@ -33,7 +33,6 @@ void xa_open_deb (XArchive *archive)
 	archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
-	archive->nr_of_dirs = 0;
 	archive->nc = 5;
 	archive->format = "DEB";
 	archive->parse_output = xa_get_ar_line_content;

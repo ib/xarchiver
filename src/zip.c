@@ -32,7 +32,6 @@ void xa_open_zip (XArchive *archive)
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size  = 0;
     archive->nr_of_files = 0;
-    archive->nr_of_dirs  = 0;
     archive->nc = 9;
 	archive->parse_output = xa_get_zip_line_content;
 	archive->format ="ZIP";
@@ -63,10 +62,10 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	gboolean encrypted,dir;
 
 	encrypted = dir = FALSE;
-
 	if ((line[0] != 'd') && (line[0] != '-'))
 		return;
 
+	archive->nr_of_files++;
 	linesize = strlen(line);
 
 	/* permissions */
@@ -78,8 +77,6 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	item[i] = line + a;
 	if ( (line+a)[0] == 'd')
 		dir = TRUE;
-	else
-		archive->nr_of_files++;
 	i++;
 	n++;
 

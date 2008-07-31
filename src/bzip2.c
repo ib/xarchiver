@@ -78,7 +78,6 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 		archive->has_properties = archive->can_extract = TRUE;
 		archive->nc = 3;
 		archive->nr_of_files = 1;
-		archive->nr_of_dirs = 0;
 
 		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_POINTER};
 		archive->column_types = g_malloc0(sizeof(types));
@@ -152,7 +151,6 @@ void xa_open_tar_compressed_file(XArchive *archive)
 	archive->has_test = archive->has_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
-	archive->nr_of_dirs = 0;
 	archive->nc = 7;
 	archive->parse_output = xa_get_tar_line_content;
 	xa_spawn_async_process (archive,command);

@@ -31,7 +31,6 @@ void xa_open_arj (XArchive *archive)
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
-	archive->nr_of_dirs = 0;
 	archive->nc = 8;
 	archive->format ="ARJ";
 	archive->parse_output = xa_get_arj_line_content;
@@ -96,6 +95,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		}
 		line[linesize - 1] = '\0';
 		filename = g_strdup(line+5);
+		archive->nr_of_files++;
 		arj_line++;
 		return;
 	}
@@ -134,8 +134,6 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		/* Permissions */
 		line[69] = '\0';
 		item[5] = line + 59;
-		if ((line+59)[0] != 'd')
-			archive->nr_of_files++;
 
 		/* GUA */
 		line[73] = '\0';

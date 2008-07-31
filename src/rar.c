@@ -45,7 +45,6 @@ void xa_open_rar (XArchive *archive)
 	archive->can_extract = archive->has_test = archive->has_properties = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
-    archive->nr_of_dirs = 0;
     archive->nc = 10;
 	archive->parse_output = xa_get_rar_line_content;
 	archive->format = "RAR";
@@ -122,6 +121,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 	else
 	{
 		linesize = strlen(line);
+		archive->nr_of_files++;
 		/* Size */
 		for(n=0; n < linesize && line[n] == ' '; n++);
 		a = n;
@@ -175,8 +175,6 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		line[n] = '\0';
 		if ((line+a)[0] == 'd')
 			dir = TRUE;
-		else
-			archive->nr_of_files++;
 		item[i] = line + a;
 		i++;
 		n++;

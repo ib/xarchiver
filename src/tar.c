@@ -33,7 +33,6 @@ void xa_open_tar (XArchive *archive)
 	archive->has_test = archive->has_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
-	archive->nr_of_dirs = 0;
 	archive->nc = 7;
 	archive->parse_output = xa_get_tar_line_content;
 	archive->format ="TAR";
@@ -63,6 +62,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	gboolean dir = FALSE;
 
 	linesize = strlen(line);
+	archive->nr_of_files++;
 
 	/* Permissions */
 	line[10] = '\0';
@@ -132,10 +132,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 			filename = g_strdup(line + n); 
 	}
 	else
-	{
-		archive->nr_of_files++;
 		filename = g_strdup(line + n);
-	}
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
 }

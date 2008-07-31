@@ -46,7 +46,6 @@ void xa_open_rpm (XArchive *archive)
     archive->can_add = archive->has_sfx = archive->has_test = FALSE;
     archive->dummy_size = 0;
     archive->nr_of_files = 0;
-    archive->nr_of_dirs = 0;
     archive->nc = 8;
 	archive->format ="RPM";
 
@@ -140,6 +139,7 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 	gboolean dir = FALSE;
 
 	linesize = strlen(line);
+	archive->nr_of_files++;
 
 	/* Permissions */
 	line[10] = '\0';
@@ -210,10 +210,7 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 			filename = g_strdup(line + n); 
 	}
 	else
-	{
-		archive->nr_of_files++;
 		filename = g_strdup(line + n); 
-	}
 	
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free (filename);

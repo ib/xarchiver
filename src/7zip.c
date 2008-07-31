@@ -41,7 +41,6 @@ void xa_open_7zip (XArchive *archive)
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
-	archive->nr_of_dirs = 0;
 	archive->format ="7-ZIP";
 	archive->nc = 6;
 	archive->parse_output = xa_get_7zip_line_content;
@@ -87,6 +86,7 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	}
 	
 	linesize = strlen(line);
+	archive->nr_of_files++;
 
 	/* Date */
 	line[10] = '\0';
@@ -107,8 +107,6 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	line[n] = '\0';
 	if ((line+a)[0] == 'D')
 		dir = TRUE;
-	else
-		archive->nr_of_files++;
 	item[2] = line + a;
 	
 	/* Size */

@@ -218,7 +218,6 @@ void xa_new_archive (GtkMenuItem *menuitem, gpointer user_data)
     archive[current_page]->passwd = NULL;
     archive[current_page]->dummy_size = 0;
     archive[current_page]->nr_of_files = 0;
-    archive[current_page]->nr_of_dirs = 0;
 	xa_set_window_title (xa_main_window , archive[current_page]->path );
 }
 
@@ -543,12 +542,6 @@ void xa_list_archive (GtkMenuItem *menuitem, gpointer data)
     	if (bp)
 			g_fprintf(stream,"</b>");
     	 g_fprintf (stream,"%d\n",archive[idx]->nr_of_files);
-    	if (bp)
-			g_fprintf(stream,"<br><br><b>");
-		g_fprintf (stream,_("Number of dirs: "));
-		if (bp)
-			g_fprintf(stream,"</b>");
-		 g_fprintf (stream,"%d\n\n",archive[idx]->nr_of_dirs);
 		if (bp)
 			g_fprintf(stream,"<br><br><b>");
 		if (archive[idx]->has_comment)
@@ -1450,10 +1443,6 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     //Number of files
     t = g_strdup_printf ( "%d", archive[idx]->nr_of_files);
     gtk_entry_set_text ( GTK_ENTRY (number_of_files_data), t );
-    g_free (t);
-    //Number of dirs
-    t = g_strdup_printf ( "%d", archive[idx]->nr_of_dirs);
-    gtk_entry_set_text ( GTK_ENTRY (number_of_dirs_data), t );
     g_free (t);
     gtk_widget_show_all (archive_properties_window);
 }

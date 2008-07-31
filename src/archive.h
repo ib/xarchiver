@@ -115,7 +115,6 @@ struct _XArchive
 	unsigned short int compression_level;
 	unsigned short int nc;
 	gint nr_of_files;
-	gint nr_of_dirs;
 	gint output_fd;
 	gint error_fd;
 	guint pb_source;

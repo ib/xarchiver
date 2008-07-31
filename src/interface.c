@@ -1030,7 +1030,7 @@ GtkWidget *create_archive_properties_window()
 	gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window),GDK_WINDOW_TYPE_HINT_UTILITY);
 	gtk_dialog_set_has_separator(GTK_DIALOG(archive_properties_window),FALSE);
 
-	table1 = gtk_table_new (10,2,TRUE);
+	table1 = gtk_table_new (9,2,TRUE);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (archive_properties_window)->vbox),table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1),6);
 	gtk_table_set_col_spacings (GTK_TABLE (table1),6);
@@ -1086,7 +1086,7 @@ GtkWidget *create_archive_properties_window()
 
 	compression_label = gtk_label_new ("");
 	set_label ( compression_label ,_("Compression ratio:"));
-	gtk_table_attach (GTK_TABLE (table1),compression_label,0,1,9,10,
+	gtk_table_attach (GTK_TABLE (table1),compression_label,0,1,8,9,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL),0,0);
 	gtk_misc_set_alignment (GTK_MISC (compression_label),0.99,0.5);
@@ -1098,24 +1098,10 @@ GtkWidget *create_archive_properties_window()
                     (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL),0,0);
 	gtk_misc_set_alignment (GTK_MISC (number_of_files_label),0.99,0.5);
 
-	number_of_dirs_label = gtk_label_new ("");
-	set_label ( number_of_dirs_label ,_("Number of dirs:"));
-	gtk_table_attach (GTK_TABLE (table1),number_of_dirs_label,0,1,8,9,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_SHRINK | GTK_FILL),0,0);
-	gtk_misc_set_alignment (GTK_MISC (number_of_dirs_label),0.99,0.5);
-
 	compression_data = gtk_entry_new ();
 	gtk_editable_set_editable (GTK_EDITABLE (compression_data),FALSE);
 	gtk_entry_set_has_frame (GTK_ENTRY (compression_data),FALSE);
-	gtk_table_attach (GTK_TABLE (table1),compression_data,1,2,9,10,
-                    (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
-                    (GtkAttachOptions) (0),0,0);
-
-	number_of_dirs_data = gtk_entry_new ();
-	gtk_editable_set_editable (GTK_EDITABLE (number_of_dirs_data),FALSE);
-	gtk_entry_set_has_frame (GTK_ENTRY (number_of_dirs_data),FALSE);
-	gtk_table_attach (GTK_TABLE (table1),number_of_dirs_data,1,2,8,9,
+	gtk_table_attach (GTK_TABLE (table1),compression_data,1,2,8,9,
                     (GtkAttachOptions) (GTK_FILL | GTK_EXPAND),
                     (GtkAttachOptions) (0),0,0);
 

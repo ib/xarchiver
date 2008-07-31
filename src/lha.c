@@ -33,7 +33,6 @@ void xa_open_lha (XArchive *archive)
 	archive->has_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
-	archive->nr_of_dirs = 0;
 	archive->format ="LHA";
 	archive->nc = 5;
 	archive->parse_output = xa_get_lha_line_content;
@@ -78,14 +77,13 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 		return;
 	}
 	linesize = strlen(line);
+	archive->nr_of_files++;
 
 	/* Permission */
 	line[10] = '\0';
 	item[0] = line;
 	if(line[0] == 'd')
 		dir = TRUE;
-	else
-		archive->nr_of_files++;
 
 	/* UID/GID */
 	line[22] = '\0';

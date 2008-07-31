@@ -519,10 +519,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			new_entry->filename = g_strdup(components[x]);
 			new_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,new_entry,items);
 			if (components[x+1] != NULL)
-			{
 				new_entry->is_dir = TRUE;
-				archive->nr_of_dirs++;
-			}
 			new_entry->next = last_entry->child;
 			last_entry->child = new_entry;
 			new_entry->prev = last_entry;
