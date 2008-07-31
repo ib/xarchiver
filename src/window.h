@@ -57,6 +57,7 @@ Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win,*comment_dialog;
 
+void xa_show_cmd_line_output(GtkMenuItem *menuitem,gpointer data);
 void xa_new_archive (GtkMenuItem *, gpointer);
 void xa_save_archive (GtkMenuItem *,gpointer);
 void xa_open_archive (GtkMenuItem *, gpointer);
