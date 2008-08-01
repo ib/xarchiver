@@ -1578,6 +1578,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		pos = 2;
 		break;
 
+		case XARCHIVETYPE_DEB:
 		case XARCHIVETYPE_LHA:
 		pos = 4;
 		break;
@@ -1586,7 +1587,6 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZMA:
 		case XARCHIVETYPE_TAR:
-		case XARCHIVETYPE_DEB:
 		case XARCHIVETYPE_ZIP:
 		pos = 5;
 		break;
@@ -1638,6 +1638,7 @@ void xa_set_statusbar_message_for_selected_rows (GtkTreeSelection *selection,gpo
 		break;
 
 		case XARCHIVETYPE_LHA:
+		case XARCHIVETYPE_DEB:
 		pos = 4;
 		break;
 
@@ -1645,7 +1646,6 @@ void xa_set_statusbar_message_for_selected_rows (GtkTreeSelection *selection,gpo
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZMA:
 		case XARCHIVETYPE_TAR:
-		case XARCHIVETYPE_DEB:
 		case XARCHIVETYPE_ZIP:
 		pos = 5;
 		break;
@@ -2359,6 +2359,16 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,gpointer data)
 		return TRUE;
 	}
 	return FALSE;
+}
+
+void xa_open_from_popupmenu(GtkMenuItem* item,gpointer data)
+{
+	gint current_index,idx;
+
+	current_index = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index(current_index);
+	g_signal_emit_by_name(G_OBJECT (archive[idx]->treeview),"row-activated",archive[idx]);
+	
 }
 
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)

@@ -4,6 +4,4 @@
 - fix the remaining bugs in bugzilla.xfce.org
 - to fix the arrow buttons
 - add a small progress window when using Xarchiver cmd-line switches.
-- loading and saving of add/extraction options.
 - support tar on *BSD.
-- avoid reset of extract dialog options when loading a new archive.

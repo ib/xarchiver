@@ -809,7 +809,6 @@ void xa_create_popup_menu()
 	GtkWidget *open;
 	GtkWidget *extract;
 	GtkWidget *image9;
-	GtkWidget *ddelete;
 	GtkWidget *image10;
 	GtkWidget *rename;
 	GtkWidget *image11;
@@ -884,10 +883,11 @@ void xa_create_popup_menu()
 
 	/*g_signal_connect ((gpointer) cut,"activate",G_CALLBACK (on_xa_cut_activate),NULL);
 	g_signal_connect ((gpointer) copy,"activate",G_CALLBACK (on_xa_copy_activate),NULL);
-	g_signal_connect ((gpointer) paste,"activate",G_CALLBACK (on_xa_paste_activate),NULL);
-	g_signal_connect ((gpointer) open,"activate",G_CALLBACK (on_xa_open_activate),NULL);
-	g_signal_connect ((gpointer) ddelete,"activate",G_CALLBACK (on_xa_delete_activate),NULL);
-	g_signal_connect ((gpointer) rename,"activate",G_CALLBACK (on_xa_rename_activate),NULL);*/
+	g_signal_connect ((gpointer) paste,"activate",G_CALLBACK (on_xa_paste_activate),NULL);*/
+	g_signal_connect ((gpointer) open,	 "activate",G_CALLBACK(xa_open_from_popupmenu),NULL);
+	g_signal_connect ((gpointer) extract,"activate",G_CALLBACK(xa_extract_archive),NULL);
+	g_signal_connect ((gpointer) ddelete,"activate",G_CALLBACK(xa_delete_archive),NULL);
+	/*g_signal_connect ((gpointer) rename,"activate",G_CALLBACK (on_xa_rename_activate),NULL);*/
 }
 
 void xa_select_by_pattern_dialog(GtkMenuItem *menuitem,gpointer user_data)
@@ -1283,7 +1283,7 @@ void xa_restore_navigation(int idx)
 void xa_disable_delete_buttons (gboolean value)
 {
     gtk_widget_set_sensitive (delete_menu,value);
-    //TODO: disable the popupmenu entries
+    gtk_widget_set_sensitive (ddelete,value);
 }
 
 void xa_sidepane_row_expanded(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gpointer data)
