@@ -24,26 +24,21 @@
 #include "support.h"
 
 extern gboolean unrar;
+extern Prefs_dialog_data *prefs_window;
 gchar *rar;
 
-Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
+Extract_dialog_data *xa_create_extract_dialog()
 {
 	GSList *radiobutton1_group = NULL;
 	Extract_dialog_data *dialog_data;
-	gboolean flag = TRUE;
 
-	archive_dir = remove_level_from_path (archive->path);
-	dialog_data = g_new0 (Extract_dialog_data, 1);
-	dialog_data->dialog1 = gtk_dialog_new ();
-	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
-		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Decompress file"));
-	else
-		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
+	dialog_data = g_new0 (Extract_dialog_data,1);
+	dialog_data->dialog1 = gtk_dialog_new();
+
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for (GTK_WINDOW(dialog_data->dialog1),GTK_WINDOW (xa_main_window));
 	gtk_dialog_set_has_separator (GTK_DIALOG(dialog_data->dialog1),FALSE);
-	//TODO set the size from the .xarchiverrc file
-	gtk_widget_set_size_request (dialog_data->dialog1,492,372);
+	gtk_window_set_destroy_with_parent(GTK_WINDOW (dialog_data->dialog1),TRUE);
 
 	option_tooltip = gtk_tooltips_new ();
 	dialog_data->dialog_vbox1 = GTK_DIALOG (dialog_data->dialog1)->vbox;
@@ -57,8 +52,6 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_misc_set_alignment (GTK_MISC (label1), 0, 0.5);
 
 	dialog_data->destination_path_entry = gtk_entry_new ();
-	gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
-	g_free(archive_dir);
 	gtk_entry_set_editable(GTK_ENTRY(dialog_data->destination_path_entry),FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox1), dialog_data->destination_path_entry, FALSE, FALSE, 0);
 
@@ -89,16 +82,6 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->selected_radio), radiobutton1_group);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->selected_radio));
 
-	if (archive->type != XARCHIVETYPE_RPM)
-	{
-		if (selected)
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_radio),TRUE);
-		else
-			gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
-	}
-	else
-		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
-
 	hbox2 = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox3), hbox2, FALSE, FALSE, 0);
 
@@ -128,51 +111,26 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	gtk_container_add (GTK_CONTAINER (alignment2),vbox5);
 
 	dialog_data->overwrite_check = gtk_check_button_new_with_mnemonic (_("Overwrite existing files"));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->overwrite_check),archive->overwrite);
 	gtk_box_pack_start (GTK_BOX (vbox5), dialog_data->overwrite_check,FALSE,FALSE,0);
 
 	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
-	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM)
-		flag = FALSE;
-
-	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
-	if (archive->type == XARCHIVETYPE_RPM)
-		flag = ! flag;
-
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full),flag);
 	gtk_tooltips_set_tip(option_tooltip,dialog_data->extract_full , _("The archive's directory structure is recreated in the extraction directory."), NULL );
 	gtk_box_pack_start (GTK_BOX (vbox5), dialog_data->extract_full, FALSE, FALSE, 0);
 
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB)
-		flag = FALSE;
-	else
-		flag = TRUE;
-
 	dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->touch),archive->tar_touch);
 	gtk_tooltips_set_tip (option_tooltip,dialog_data->touch, _("When this option is used, tar leaves the data modification times of the files it extracts as the times when the files were extracted, instead of setting it to the times recorded in the archive."), NULL );
 	gtk_box_pack_start (GTK_BOX (vbox5), dialog_data->touch, FALSE,FALSE,0);
-	gtk_widget_set_sensitive (dialog_data->touch,flag);
-
-	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
-		flag = TRUE;
-	else
-		flag = FALSE;	
 
 	dialog_data->fresh = gtk_check_button_new_with_mnemonic (_("Freshen existing files"));
 	gtk_tooltips_set_tip (option_tooltip,dialog_data->fresh , _("Extract only those files that already exist on disk and that are newer than the disk copies."), NULL );
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->fresh), archive->freshen);
 	gtk_box_pack_start (GTK_BOX (vbox5), dialog_data->fresh, FALSE, FALSE, 0);
 	g_signal_connect (G_OBJECT (dialog_data->fresh),"toggled",G_CALLBACK (fresh_update_toggled_cb) , dialog_data);
 
 	dialog_data->update = gtk_check_button_new_with_mnemonic (_("Update existing files"));
 	gtk_tooltips_set_tip (option_tooltip,dialog_data->update , _("This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk."), NULL );
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->update), archive->update);
 	gtk_box_pack_start (GTK_BOX (vbox5), dialog_data->update, FALSE, FALSE, 0);
 	g_signal_connect (G_OBJECT (dialog_data->update),"toggled",G_CALLBACK (update_fresh_toggled_cb) , dialog_data);
-	gtk_widget_set_sensitive(dialog_data->fresh,flag);
-	gtk_widget_set_sensitive(dialog_data->update,flag);
-
+	
 	label3 = gtk_label_new (_("Options "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame2), label3);
 
@@ -211,13 +169,13 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	g_signal_connect (dialog_data->renderer, "edited",G_CALLBACK (xa_cell_edited),dialog_data);
 
 	hbox4 = gtk_hbox_new (FALSE, 0);
-	gtk_box_pack_end (GTK_BOX (vbox1), hbox4, FALSE, FALSE, 0);
+	gtk_box_pack_end (GTK_BOX (vbox1),hbox4,FALSE,FALSE,0);
   
 	dialog_data->create_dir = gtk_button_new_with_mnemonic (_("Create New Dir"));
 	gtk_box_pack_end (GTK_BOX (hbox4),dialog_data->create_dir,FALSE, FALSE,0);
 	g_signal_connect (G_OBJECT(dialog_data->create_dir),"clicked",G_CALLBACK(xa_create_dir_button_pressed),dialog_data);
 
-	hbox3 = gtk_hbox_new (FALSE, 0);
+	hbox3 = gtk_hbox_new (FALSE,0);
 	gtk_box_pack_start (GTK_BOX (vbox5),hbox3,TRUE,TRUE,0);
 
 	label_password = gtk_label_new (_("Password:"));
@@ -226,18 +184,6 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	dialog_data->password_entry = gtk_entry_new ();
 	gtk_box_pack_start (GTK_BOX (hbox3), dialog_data->password_entry,TRUE,TRUE,0);
 	gtk_entry_set_visibility (GTK_ENTRY (dialog_data->password_entry),FALSE);
-	if (archive->has_passwd)
-    {
-		gtk_widget_set_sensitive (label_password,TRUE);
-		gtk_widget_set_sensitive (dialog_data->password_entry,TRUE);
-		if (archive->passwd != NULL)
-			gtk_entry_set_text (GTK_ENTRY(dialog_data->password_entry),archive->passwd);
-    }
-	else
-	{
-		gtk_widget_set_sensitive (label_password,FALSE);
-		gtk_widget_set_sensitive (dialog_data->password_entry,FALSE);
-	}
 
 	dialog_action_area1 = GTK_DIALOG (dialog_data->dialog1)->action_area;
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
@@ -248,7 +194,7 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 
 	extract_button = gtk_button_new();
 	extract_image = xa_main_window_find_image("xarchiver-extract.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
-	extract_hbox = gtk_hbox_new(FALSE, 4);
+	extract_hbox = gtk_hbox_new(FALSE,4);
 	extract_label = gtk_label_new_with_mnemonic(_("_Extract"));
 
 	alignment3 = gtk_alignment_new (0.5, 0.5, 0, 0);
@@ -261,7 +207,6 @@ Extract_dialog_data *xa_create_extract_dialog (gint selected,XArchive *archive)
 	GTK_WIDGET_SET_FLAGS (extract_button, GTK_CAN_DEFAULT);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog_data->dialog1),GTK_RESPONSE_OK);
 	xa_browse_dir(model,NULL,NULL);
-	gtk_widget_show_all(dialog_data->dialog1);
 	return dialog_data;
 }
 
@@ -379,6 +324,76 @@ void update_fresh_toggled_cb (GtkToggleButton *button, Extract_dialog_data *data
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh),FALSE);
 }
 
+void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selected,XArchive *archive)
+{
+	gchar *archive_dir = NULL;
+	gboolean flag = TRUE;
+
+	archive_dir = remove_level_from_path (archive->path);
+
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->extract_dialog[0] != -1)
+		gtk_window_set_default_size (GTK_WINDOW(dialog_data->dialog1), prefs_window->extract_dialog[0], prefs_window->extract_dialog[1]);
+	else
+		gtk_widget_set_size_request (dialog_data->dialog1,492,372);
+
+	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
+		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Decompress file"));
+	else
+		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
+
+	if (archive->type != XARCHIVETYPE_RPM)
+	{
+		if (selected)
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_radio),TRUE);
+		else
+			gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
+	}
+	else
+		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->overwrite_check),archive->overwrite);
+	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM)
+		flag = FALSE;
+
+	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
+
+	if (archive->type == XARCHIVETYPE_RPM)
+		flag = ! flag;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full),flag);
+	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB)
+		flag = FALSE;
+	else
+		flag = TRUE;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->touch),archive->tar_touch);
+	gtk_widget_set_sensitive (dialog_data->touch,flag);
+
+	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
+		flag = TRUE;
+	else
+		flag = FALSE;
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->fresh), archive->freshen);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->update), archive->update);
+	gtk_widget_set_sensitive(dialog_data->fresh,flag);
+	gtk_widget_set_sensitive(dialog_data->update,flag);
+	
+	gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
+	g_free(archive_dir);
+	if (archive->has_passwd)
+    {
+		gtk_widget_set_sensitive (label_password,TRUE);
+		gtk_widget_set_sensitive (dialog_data->password_entry,TRUE);
+		if (archive->passwd != NULL)
+			gtk_entry_set_text (GTK_ENTRY(dialog_data->password_entry),archive->passwd);
+    }
+	else
+	{
+		gtk_widget_set_sensitive (label_password,FALSE);
+		gtk_widget_set_sensitive (dialog_data->password_entry,FALSE);
+	}
+	gtk_widget_show_all(dialog_data->dialog1);
+}
+
 void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
 {
 	gchar *destination_path = NULL, *string;
@@ -445,6 +460,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				break;
 			}
 			done = TRUE;
+			g_free (destination_path);
+
 			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
 			archive->tar_touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
 			archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
@@ -471,7 +488,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			(*archive->extract) (archive,names);
 		}
 	}
-	g_free (destination_path);
+	gtk_widget_hide (dialog_data->dialog1);
 }
 
 void xa_browse_dir(GtkTreeStore *model,gchar *path, GtkTreeIter *parent)

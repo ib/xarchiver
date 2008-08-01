@@ -52,15 +52,15 @@ GtkWidget *scrolledwindow1,*dialog_action_area1,*cancel_button,*okbutton1,*extra
 GtkTreeStore *model;
 GtkTreeViewColumn *column;
 GtkTooltips *option_tooltip;
-gchar *archive_dir;
 	
-Extract_dialog_data *xa_create_extract_dialog (gint,XArchive *);
+Extract_dialog_data *xa_create_extract_dialog();
 void xa_create_dir_button_pressed (GtkButton *, gpointer );
 void xa_cell_edited_canceled(GtkCellRenderer *,gpointer );
 void xa_cell_edited (GtkCellRendererText *,const gchar *,const gchar *,gpointer );
 void xa_activate_entry(GtkToggleButton *,gpointer );
 void fresh_update_toggled_cb (GtkToggleButton *, Extract_dialog_data *);
 void update_fresh_toggled_cb (GtkToggleButton *, Extract_dialog_data *);
+void xa_set_extract_dialog_options(Extract_dialog_data *,gint ,XArchive *);
 void xa_parse_extract_dialog_options (XArchive * , Extract_dialog_data *, GtkTreeSelection *);
 void xa_browse_dir(GtkTreeStore *,gchar *,GtkTreeIter *);
 void xa_tree_view_row_selected(GtkTreeSelection *, gpointer );

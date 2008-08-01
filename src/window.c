@@ -33,7 +33,9 @@ extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean unrar;
 extern gboolean xdg_open;
-extern Prefs_dialog_data *prefs_window;
+extern Prefs_dialog_data   *prefs_window;
+extern Extract_dialog_data *extract_window;
+extern Add_dialog_data     *add_window;
 extern gchar *config_file;
 extern void xa_free_icon_cache();
 
@@ -749,8 +751,15 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 		g_free (current_open_directory);
 
 	xa_prefs_save_options (prefs_window,config_file);
-	//gtk_widget_destroy (extract_window->dialog1);
 	gtk_widget_destroy(prefs_window->dialog1);
+	g_free(prefs_window);
+	
+	gtk_widget_destroy (extract_window->dialog1);
+	g_free(extract_window);
+	
+	gtk_widget_destroy (add_window->dialog1);
+	g_free(add_window);
+
 	gtk_widget_destroy(xa_popup_menu);
 	g_free (config_file);
 	xa_free_icon_cache();
@@ -811,42 +820,26 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
 {
-	gint current_page;
-	gint idx;
+	gint current_page,idx;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
-	add_window = xa_create_add_dialog (archive[idx]);
+	xa_set_add_dialog_options(add_window,archive[idx]);
 	xa_parse_add_dialog_options (archive[idx],add_window);
-	gtk_widget_destroy (add_window->dialog1);
-	add_window->dialog1 = NULL;
-	g_free (add_window);
-	add_window = NULL;
 }
 
 void xa_extract_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gint current_page;
-	gint idx;
+	gint current_page,idx,selected;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(archive[idx]->treeview));
-	gint selected = gtk_tree_selection_count_selected_rows (selection);
-
-	//xa_set_extract_dialog_options(selected,archive[idx]);
-	extract_window = xa_create_extract_dialog (selected,archive[idx]);
-	if (archive[idx]->extraction_path != NULL)
-		gtk_entry_set_text (GTK_ENTRY(extract_window->destination_path_entry),archive[idx]->extraction_path);
-
+	selected = gtk_tree_selection_count_selected_rows (selection);
+	xa_set_extract_dialog_options(extract_window,selected,archive[idx]);
     xa_parse_extract_dialog_options(archive[idx],extract_window,selection);
-	//TODO: remove the following so to allow xa_prefs_save_options to store all the settings of the extract dialog.
-	gtk_widget_destroy (extract_window->dialog1);
-	extract_window->dialog1 = NULL;
-	g_free (extract_window);
-	extract_window = NULL;
 }
 
 void xa_show_prefs_dialog (GtkMenuItem *menuitem,gpointer user_data)

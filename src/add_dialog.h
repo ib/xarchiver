@@ -25,6 +25,7 @@ typedef struct
 {
 	GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;
+	GtkWidget *alignment2;
 	GtkWidget *notebook1;
 	GtkWidget *filechooserwidget1;
 	GtkWidget *frame1;
@@ -50,7 +51,8 @@ typedef struct
 	GtkObject *compression_value;
 } Add_dialog_data;
 
-Add_dialog_data *xa_create_add_dialog (XArchive *);
+Add_dialog_data *xa_create_add_dialog();
+void xa_set_add_dialog_options(Add_dialog_data *,XArchive *);
 void add_fresh_update_toggled_cb (GtkToggleButton *, Add_dialog_data *);
 void add_update_fresh_toggled_cb (GtkToggleButton *, Add_dialog_data *);
 void password_toggled_cb ( GtkButton* ,gpointer);

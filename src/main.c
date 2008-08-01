@@ -38,7 +38,9 @@ gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
 int response;
 extern gchar *current_open_directory;
 extern int status;
-Prefs_dialog_data *prefs_window = NULL;
+Prefs_dialog_data   *prefs_window   = NULL;
+Extract_dialog_data *extract_window = NULL;
+Add_dialog_data     *add_window = NULL;
 
 delete_func		delete[XARCHIVETYPE_COUNT]	= {NULL};
 add_func		add[XARCHIVETYPE_COUNT]		= {NULL};
@@ -103,8 +105,10 @@ int main (int argc, char **argv)
 	xa_mime_type_init();	/* initialize mime-type cache */
 
 	xa_set_available_archivers();
-	prefs_window = xa_create_prefs_dialog();
-	xa_prefs_load_options(prefs_window);
+	prefs_window   = xa_create_prefs_dialog();
+	extract_window = xa_create_extract_dialog();
+	add_window     = xa_create_add_dialog();
+	xa_prefs_load_options(prefs_window,extract_window);//add_window);
 
 	if (batch_mode == TRUE)
 	{
@@ -150,7 +154,7 @@ int main (int argc, char **argv)
 			if (xa_detect_encrypted_archive (archive))
 				archive->has_passwd = TRUE;
 
-			extract_window = xa_create_extract_dialog (0,archive);
+			xa_set_extract_dialog_options(extract_window,0,archive);
 			xa_parse_extract_dialog_options (archive,extract_window,NULL);
 			gtk_widget_destroy (extract_window->dialog1);
 			g_free (extract_window);

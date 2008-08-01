@@ -18,6 +18,7 @@
 
 #ifndef __PREF_DIALOG_H
 #define __PREF_DIALOG_H
+#include "extract_dialog.h"
 
 typedef struct
 {
@@ -28,15 +29,17 @@ typedef struct
 	GtkListStore *prefs_liststore;
 	GtkTooltips *tooltips;
 	gint geometry[5];
+	gint extract_dialog[2];
+	gint add_coords[2];
 } Prefs_dialog_data;
 
 Prefs_dialog_data *xa_create_prefs_dialog ();
-void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer user_data);
-void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data);
-void xa_prefs_save_options (Prefs_dialog_data *prefs_data,const char *filename);
-void xa_prefs_load_options (Prefs_dialog_data *prefs_data);
-void xa_prefs_combo_changed (GtkComboBox *widget,gpointer user_data);
+void xa_prefs_iconview_changed (GtkIconView *, gpointer );
+void xa_prefs_dialog_set_default_options (Prefs_dialog_data *);
+void xa_prefs_save_options (Prefs_dialog_data *,const char *);
+void xa_prefs_load_options(Prefs_dialog_data *,Extract_dialog_data *);
+void xa_prefs_combo_changed (GtkComboBox *,gpointer );
 void xa_apply_prefs_option(Prefs_dialog_data *);
-gchar *xa_prefs_choose_program(gboolean flag);
+gchar *xa_prefs_choose_program(gboolean );
 #endif
 

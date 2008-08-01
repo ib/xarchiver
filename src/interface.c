@@ -685,11 +685,11 @@ void xa_add_page (XArchive *archive)
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
 
 	gtk_drag_source_set (archive->treeview,GDK_BUTTON1_MASK,drag_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-	g_signal_connect ((gpointer) sel,				"changed",		G_CALLBACK (xa_set_statusbar_message_for_selected_rows),archive);
+	g_signal_connect ((gpointer) sel,			   "changed",		G_CALLBACK (xa_set_statusbar_message_for_selected_rows),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-begin",	G_CALLBACK (drag_begin),archive);
-	g_signal_connect (G_OBJECT (archive->treeview),"drag-data-get",G_CALLBACK (drag_data_get),archive);
+	g_signal_connect (G_OBJECT (archive->treeview),"drag-data-get", G_CALLBACK (drag_data_get),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-end",		G_CALLBACK (drag_end),NULL);
-	g_signal_connect (G_OBJECT (archive->treeview),"row-activated",G_CALLBACK (xa_treeview_row_activated),archive);
+	g_signal_connect (G_OBJECT (archive->treeview),"row-activated", G_CALLBACK (xa_treeview_row_activated),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"button-press-event",G_CALLBACK (xa_mouse_button_event),archive);
 }
 

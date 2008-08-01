@@ -53,7 +53,6 @@
 #include "pref_dialog.h"
 
 unsigned long long int file_offset;
-Extract_dialog_data *extract_window;
 Add_dialog_data *add_window;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win,*comment_dialog;
 
