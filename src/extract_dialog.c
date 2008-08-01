@@ -351,20 +351,14 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->overwrite_check),archive->overwrite);
 	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM)
 		flag = FALSE;
-
 	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
 
-	if (archive->type == XARCHIVETYPE_RPM)
-		flag = ! flag;
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->extract_full),flag);
 	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB)
 		flag = FALSE;
 	else
 		flag = TRUE;
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->touch),archive->tar_touch);
 	gtk_widget_set_sensitive (dialog_data->touch,flag);
 
 	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
@@ -372,8 +366,6 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		flag = FALSE;
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->fresh), archive->freshen);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->update), archive->update);
 	gtk_widget_set_sensitive(dialog_data->fresh,flag);
 	gtk_widget_set_sensitive(dialog_data->update,flag);
 	

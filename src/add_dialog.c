@@ -221,25 +221,19 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
  		gtk_widget_set_sensitive(label3,FALSE);
  		gtk_widget_set_sensitive(add_dialog->store_path,FALSE);
  		gtk_widget_set_sensitive(add_dialog->no_store_path,FALSE);
- 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->no_store_path), TRUE);
 	}
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->update), archive->update);
 	if (archive->type != XARCHIVETYPE_7ZIP)
 		g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->freshen), archive->freshen);
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->recurse), archive->add_recurse);
 	if(archive->type == XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->recurse,FALSE);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->solid_archive), archive->solid_archive);
 	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_7ZIP)
 		flag = TRUE;
 	gtk_widget_set_sensitive(add_dialog->solid_archive,flag);
 	
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_dialog->remove_files), archive->remove_files);	
 	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2)
 	{
 		flag = TRUE;

@@ -197,7 +197,7 @@ int main (int argc, char **argv)
 			}
 			if (archive != NULL)
 			{
-				add_window = xa_create_add_dialog (archive);
+				xa_set_add_dialog_options(add_window,archive);
 				xa_parse_add_dialog_options (archive,add_window);
 				gtk_widget_destroy (add_window->dialog1);
 				g_free (add_window);
