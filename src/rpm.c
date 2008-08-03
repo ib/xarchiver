@@ -104,10 +104,8 @@ void xa_open_rpm (XArchive *archive)
 	list = g_slist_append(list,command);
 	batch_mode = TRUE;
 	result = xa_run_command (archive,list);
-
 	if (result == FALSE)
 	{	
-		fclose (stream);
 		g_free (gzip_tmp);
 		return;
 	}
@@ -120,12 +118,18 @@ void xa_open_rpm (XArchive *archive)
 	g_free(gzip_tmp);
 	list = NULL;
 	list = g_slist_append(list,command);
-	xa_run_command(archive,list);
-
+	result = xa_run_command (archive,list);
+	if (result == FALSE)
+	{
+		gtk_widget_set_sensitive(Stop_button,FALSE);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
+		gtk_label_set_text(GTK_LABEL(total_label),"");
+		return;
+	}
 	/* And finally cpio to receive the content */
 	command = g_strconcat ("sh -c \"cpio -tv < ",archive->tmp,"/file.cpio\"",NULL);
 	archive->parse_output = xa_get_cpio_line_content;
-	xa_spawn_async_process ( archive,command);
+	xa_spawn_async_process (archive,command);
 	g_free(command);
 }
 

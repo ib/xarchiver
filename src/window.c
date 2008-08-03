@@ -1610,7 +1610,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	g_free(info);
 }
 
-void xa_set_statusbar_message_for_selected_rows (GtkTreeSelection *selection,gpointer data)
+void xa_row_selected (GtkTreeSelection *selection,gpointer data)
 {
 	XArchive *archive = data;
 	GList *list = NULL;
@@ -1658,7 +1658,6 @@ void xa_set_statusbar_message_for_selected_rows (GtkTreeSelection *selection,gpo
 
 	if (selected == 0)
 	{
-		
 		xa_disable_delete_buttons (FALSE);
 		gtk_widget_hide(selected_frame);
 		return;
@@ -1669,9 +1668,23 @@ void xa_set_statusbar_message_for_selected_rows (GtkTreeSelection *selection,gpo
 		gtk_widget_set_sensitive(deselect_all,TRUE);
 	}
 	if (archive->type == XARCHIVETYPE_RAR && unrar)
+	{
 		gtk_widget_set_sensitive (delete_menu,FALSE);
-	else if ( archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_DEB)
+		gtk_widget_set_sensitive (ddelete,FALSE);
+		gtk_widget_set_sensitive (rename_menu,FALSE);
+		gtk_widget_set_sensitive (rrename,FALSE);
+	}
+	else if (archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_DEB)
+	{
 		gtk_widget_set_sensitive (delete_menu,TRUE);
+		gtk_widget_set_sensitive (ddelete,TRUE);
+		gtk_widget_set_sensitive (rename_menu,TRUE);
+	}
+	if (selected > 1)
+	{
+		gtk_widget_set_sensitive (rename_menu,FALSE);
+		gtk_widget_set_sensitive (rrename,FALSE);
+	}
 
 	list = gtk_tree_selection_get_selected_rows(selection,NULL);
 	while (list)
@@ -2364,11 +2377,50 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,gpointer data)
 void xa_open_from_popupmenu(GtkMenuItem* item,gpointer data)
 {
 	gint current_index,idx;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	GList *row_list = NULL;
+	GSList *list = NULL;
+	gchar *dummy = NULL;
+	XEntry *entry;
 
 	current_index = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index(current_index);
-	g_signal_emit_by_name(G_OBJECT (archive[idx]->treeview),"row-activated",archive[idx]);
-	
+
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
+	row_list = gtk_tree_selection_get_selected_rows(selection, &archive[idx]->model);
+   	if (archive[idx]->extraction_path)
+   	{
+   		dummy = g_strdup(archive[idx]->extraction_path);
+   		g_free(archive[idx]->extraction_path);
+   	}
+   	xa_create_temp_directory(archive[idx]);
+   	archive[idx]->extraction_path = g_strdup(archive[idx]->tmp);
+
+	if (row_list != NULL)
+	{
+		while (row_list)
+		{
+			gtk_tree_model_get_iter(archive[idx]->model, &iter,row_list->data);
+			gtk_tree_model_get (archive[idx]->model,&iter,archive[idx]->nc+1,&entry,-1);
+			gtk_tree_path_free (row_list->data);
+			list = g_slist_append (list,xa_build_full_path_name_from_entry(entry));
+			row_list = row_list->next;
+		}
+		g_list_free (row_list);
+		(*archive[idx]->extract) (archive[idx],list);
+		g_free(archive[idx]->extraction_path);
+		archive[idx]->extraction_path = NULL;
+		if (dummy)
+		{
+			archive[idx]->extraction_path = g_strdup(dummy);
+			g_free(dummy);
+		}
+		if (archive[idx]->status == XA_ARCHIVESTATUS_ERROR)
+			return;
+		chdir(archive[idx]->tmp);
+		xa_determine_program_to_run(entry->filename);
+	}
 }
 
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)
@@ -2378,7 +2430,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	GtkTreeIter iter;
 	gchar *dummy = NULL,*item,*file = NULL;
 	GSList *names = NULL;
-		
+
 	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path))
 		return;
 

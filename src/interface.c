@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006 Giuseppe Torelli <colossus73@gmail.com>
+ *  Copyright (c) 2008 Giuseppe Torelli <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -181,6 +181,15 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu),image2);
 
+	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
+	gtk_widget_set_sensitive (rename_menu,FALSE);
+	gtk_widget_show (rename_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu),rename_menu);
+
+	tmp_image = gtk_image_new_from_stock ("gtk-refresh",GTK_ICON_SIZE_MENU);
+	gtk_widget_show (tmp_image);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename_menu),tmp_image);
+
 	delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete",accel_group);
 	gtk_widget_set_sensitive (delete_menu,FALSE);
 	gtk_widget_show (delete_menu);
@@ -233,7 +242,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_sensitive (deselect_all,FALSE);
 	gtk_widget_add_accelerator (deselect_all,"activate",accel_group,GDK_l,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
 
-	select_pattern = gtk_image_menu_item_new_with_mnemonic (_("Select _by pattern"));
+	select_pattern = gtk_menu_item_new_with_mnemonic (_("Select _by pattern"));
 	gtk_widget_show (select_pattern);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),select_pattern);
 	gtk_widget_set_sensitive (select_pattern,FALSE);
@@ -257,7 +266,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_shell_output1),image2);
 
-	password_entry_menu = gtk_image_menu_item_new_with_mnemonic (_("Enter passwo_rd"));
+	password_entry_menu = gtk_menu_item_new_with_mnemonic (_("Enter passwo_rd"));
 	gtk_widget_show (password_entry_menu);
 	gtk_widget_set_sensitive (password_entry_menu,FALSE);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),password_entry_menu);
@@ -572,12 +581,14 @@ int xa_flash_led_indicator (gpointer data)
 void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page_num,gpointer user_data)
 {
 	gint id;
-	GtkTreeSelection *selection;
+	GtkTreeSelection *selection = NULL;
 
 	id = xa_find_archive_index (page_num);
 	if (id == -1)
 		return;
 
+	if (archive[id]->treeview != NULL)
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
 	xa_set_window_title (xa_main_window ,archive[id]->path);
 
 	if (archive[id]->child_pid)
@@ -595,6 +606,8 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 
 here:
 	xa_restore_navigation(id);
+	if (selection != NULL)
+		xa_row_selected(selection,archive[id]);
 
 	if (archive[id]->type == XARCHIVETYPE_7ZIP || archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_ARJ)
 		gtk_widget_set_sensitive (comment_menu,TRUE);
@@ -603,16 +616,29 @@ here:
 
 	if (archive[id]->status != XA_ARCHIVESTATUS_OPEN && archive[id]->treeview != NULL)
 	{
-		selection = gtk_tree_view_get_selection ( GTK_TREE_VIEW (archive[id]->treeview) );
-		gint selected = gtk_tree_selection_count_selected_rows ( selection );
+		gint selected = gtk_tree_selection_count_selected_rows (selection);
 		if (selected == 0)
+		{
 			xa_disable_delete_buttons (FALSE);
+			gtk_widget_hide(selected_frame);
+		}
 		else
 		{
+			gtk_widget_show(selected_frame);
+			gtk_widget_set_sensitive(deselect_all,TRUE);
 			if (archive[id]->type == XARCHIVETYPE_RAR && unrar)
-				gtk_widget_set_sensitive ( delete_menu ,FALSE );
+			{
+				gtk_widget_set_sensitive (delete_menu,FALSE);
+				gtk_widget_set_sensitive (ddelete,FALSE);
+				gtk_widget_set_sensitive (rename_menu,FALSE);
+				gtk_widget_set_sensitive (rrename,FALSE);
+			}
 			else if ( archive[id]->type != XARCHIVETYPE_RPM && archive[id]->type != XARCHIVETYPE_DEB )
-				gtk_widget_set_sensitive ( delete_menu ,TRUE );
+			{
+				gtk_widget_set_sensitive (delete_menu,TRUE);
+				gtk_widget_set_sensitive (ddelete,TRUE);
+				gtk_widget_set_sensitive (rename_menu,TRUE);
+			}
 		}
 		/* Let's set the location bar */
 		if (archive[id]->location_entry_path != NULL)
@@ -685,7 +711,7 @@ void xa_add_page (XArchive *archive)
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
 
 	gtk_drag_source_set (archive->treeview,GDK_BUTTON1_MASK,drag_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-	g_signal_connect ((gpointer) sel,			   "changed",		G_CALLBACK (xa_set_statusbar_message_for_selected_rows),archive);
+	g_signal_connect ((gpointer) sel,			   "changed",		G_CALLBACK (xa_row_selected),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-begin",	G_CALLBACK (drag_begin),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-data-get", G_CALLBACK (drag_data_get),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-end",		G_CALLBACK (drag_end),NULL);
@@ -810,7 +836,6 @@ void xa_create_popup_menu()
 	GtkWidget *extract;
 	GtkWidget *image9;
 	GtkWidget *image10;
-	GtkWidget *rename;
 	GtkWidget *image11;
 
 	xa_popup_menu = gtk_menu_new();
@@ -823,7 +848,7 @@ void xa_create_popup_menu()
 	gtk_widget_show (image9);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (open),image9);
 
-	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract..."));
+	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract"));
 	gtk_widget_show (extract);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu),extract);
 
@@ -866,6 +891,7 @@ void xa_create_popup_menu()
 	gtk_widget_set_sensitive (separator,FALSE);
 
 	ddelete = gtk_image_menu_item_new_with_mnemonic (_("Delete"));
+	gtk_widget_set_sensitive (ddelete,FALSE);
 	gtk_widget_show (ddelete);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu),ddelete);
 
@@ -873,13 +899,13 @@ void xa_create_popup_menu()
 	gtk_widget_show (image10);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (ddelete),image10);
 
-	rename = gtk_image_menu_item_new_with_mnemonic (_("Rename..."));
-	gtk_widget_show (rename);
-	gtk_container_add (GTK_CONTAINER (xa_popup_menu),rename);
+	rrename = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
+	gtk_widget_show (rrename);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu),rrename);
 
 	image11 = gtk_image_new_from_stock ("gtk-refresh",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image11);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename),image11);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rrename),image11);
 
 	/*g_signal_connect ((gpointer) cut,"activate",G_CALLBACK (on_xa_cut_activate),NULL);
 	g_signal_connect ((gpointer) copy,"activate",G_CALLBACK (on_xa_copy_activate),NULL);
@@ -887,7 +913,7 @@ void xa_create_popup_menu()
 	g_signal_connect ((gpointer) open,	 "activate",G_CALLBACK(xa_open_from_popupmenu),NULL);
 	g_signal_connect ((gpointer) extract,"activate",G_CALLBACK(xa_extract_archive),NULL);
 	g_signal_connect ((gpointer) ddelete,"activate",G_CALLBACK(xa_delete_archive),NULL);
-	/*g_signal_connect ((gpointer) rename,"activate",G_CALLBACK (on_xa_rename_activate),NULL);*/
+	/*g_signal_connect ((gpointer) rrename,"activate",G_CALLBACK (on_xa_rename_activate),NULL);*/
 }
 
 void xa_select_by_pattern_dialog(GtkMenuItem *menuitem,gpointer user_data)
@@ -1283,7 +1309,9 @@ void xa_restore_navigation(int idx)
 void xa_disable_delete_buttons (gboolean value)
 {
     gtk_widget_set_sensitive (delete_menu,value);
-    gtk_widget_set_sensitive (ddelete,value);
+    //gtk_widget_set_sensitive (ddelete,value);
+    gtk_widget_set_sensitive (rename_menu,value);
+    //gtk_widget_set_sensitive (rrename,value);
 }
 
 void xa_sidepane_row_expanded(GtkTreeView *tree_view,GtkTreeIter *iter,GtkTreePath *path,gpointer data)

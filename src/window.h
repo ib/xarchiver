@@ -84,7 +84,7 @@ void xa_cancel_archive ( GtkMenuItem * , gpointer);
 void xa_add_files_archive ( GtkMenuItem *, gpointer);
 void xa_show_prefs_dialog ( GtkMenuItem * , gpointer);
 gchar *xa_set_size_string (unsigned long long int file_size);
-void xa_set_statusbar_message_for_selected_rows (GtkTreeSelection *,gpointer );
+void xa_row_selected (GtkTreeSelection *,gpointer );
 void xa_set_statusbar_message_for_displayed_rows(XArchive *);
 void on_drag_data_received (GtkWidget *,GdkDragContext *, int x,int y,GtkSelectionData *, unsigned int , unsigned int , gpointer );
 void drag_begin (GtkWidget *,GdkDragContext *, gpointer );
