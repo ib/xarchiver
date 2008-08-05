@@ -56,7 +56,7 @@ unsigned long long int file_offset;
 Add_dialog_data *add_window;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win,*comment_dialog;
 
-void xa_show_cmd_line_output(GtkMenuItem *menuitem,gpointer data);
+void xa_show_cmd_line_output(GtkMenuItem *,gpointer );
 void xa_new_archive (GtkMenuItem *, gpointer);
 void xa_save_archive (GtkMenuItem *,gpointer);
 void xa_open_archive (GtkMenuItem *, gpointer);
@@ -66,8 +66,8 @@ void xa_print_entry_in_file(XEntry *, FILE *,int);
 void xa_close_archive (GtkMenuItem *, gpointer);
 void xa_quit_application (GtkMenuItem *, gpointer);
 void xa_delete_archive (GtkMenuItem *, gpointer);
-void xa_determine_program_to_run(gchar *file);
-gboolean xa_launch_external_program(gchar *program,gchar *arg);
+void xa_determine_program_to_run(gchar *);
+gboolean xa_launch_external_program(gchar *,gchar *);
 void xa_show_help (GtkMenuItem *, gpointer);
 void xa_enter_password (GtkMenuItem *, gpointer);
 void xa_about (GtkMenuItem *, gpointer);
@@ -83,7 +83,7 @@ void xa_view_file_inside_archive ( GtkMenuItem * , gpointer);
 void xa_cancel_archive ( GtkMenuItem * , gpointer);
 void xa_add_files_archive ( GtkMenuItem *, gpointer);
 void xa_show_prefs_dialog ( GtkMenuItem * , gpointer);
-gchar *xa_set_size_string (unsigned long long int file_size);
+gchar *xa_set_size_string (unsigned long long int );
 void xa_row_selected (GtkTreeSelection *,XArchive *);
 void xa_set_statusbar_message_for_displayed_rows(XArchive *);
 void on_drag_data_received (GtkWidget *,GdkDragContext *, int x,int y,GtkSelectionData *, unsigned int , unsigned int , gpointer );
@@ -93,7 +93,7 @@ void drag_data_get (GtkWidget *, GdkDragContext *dc, GtkSelectionData *, guint ,
 
 int xa_show_message_dialog (GtkWindow *, int,int ,int , const gchar *,const gchar *);
 int xa_detect_archive_type (gchar *);
-gboolean xa_detect_archive_comment (int type,gchar *,XArchive *);
+gboolean xa_detect_archive_comment (int ,gchar *,XArchive *);
 gboolean key_press_function ( GtkWidget* , GdkEventKey* ,gpointer );
 gboolean treeview_select_search (GtkTreeModel *,gint ,const gchar *,GtkTreeIter *,gpointer );
 gboolean xa_check_child_for_error_on_exit(XArchive *,gint );

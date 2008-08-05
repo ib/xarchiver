@@ -1434,7 +1434,6 @@ gboolean xa_sidepane_drag_motion_expand_timeout (GtkTreePath **path)
 gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint x,gint y,guint time,gpointer user_data)
 {
 	GtkTreeModel *model;
-	GtkTreeIter iter;
 	GtkTreePath *path;
 	static GtkTreePath  *lastpath;
 
@@ -1443,18 +1442,12 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 	if (path)
 	{
 		if ( lastpath != NULL && lastpath != path)
-		{
-			gtk_tree_model_get_iter (GTK_TREE_MODEL(model),&iter,lastpath);
-			gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-directory",-1);
 			g_source_remove_by_user_data(&lastpath);
-		}
 
 		if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(widget),path))
 			g_timeout_add(1000,(GSourceFunc) xa_sidepane_drag_motion_expand_timeout,&lastpath);
 
 		g_object_set_data(G_OBJECT(context),"current_path",path);
-		gtk_tree_model_get_iter (GTK_TREE_MODEL(model),&iter,path);
-		gtk_tree_store_set(GTK_TREE_STORE(model),&iter,0,"gtk-open",-1);
 		/* This to set the focus on the dropped row */
 		gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
 	}
