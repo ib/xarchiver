@@ -606,6 +606,7 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 
 here:
 	xa_restore_navigation(id);
+	xa_set_statusbar_message_for_displayed_rows(archive[id]);
 	if (selection != NULL)
 		xa_row_selected(selection,archive[id]);
 
@@ -1042,7 +1043,7 @@ gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *
 	return FALSE;
 }
 
-GtkWidget *create_archive_properties_window()
+GtkWidget *xa_create_archive_properties_window()
 {
 	archive_properties_window = gtk_dialog_new_with_buttons (_("Archive Properties Window"),
 									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,

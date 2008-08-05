@@ -46,7 +46,7 @@ void set_label (GtkWidget *label,gchar *);
 int xa_flash_led_indicator (gpointer );
 void xa_create_popup_menu();
 void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean);
-GtkWidget *create_archive_properties_window();
+GtkWidget *xa_create_archive_properties_window();
 gboolean select_matched_rows(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
 void xa_select_by_pattern_dialog(GtkMenuItem *, gpointer );
 void xa_handle_navigation_buttons (GtkMenuItem *, gpointer );

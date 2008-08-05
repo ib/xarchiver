@@ -43,9 +43,8 @@ gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix, *Name;
 
-void xa_watch_child (GPid pid,gint status,gpointer data)
+void xa_watch_child (GPid pid,gint status,XArchive *archive)
 {
-	XArchive *archive = data;
 	int response;
 	gboolean result;
 
@@ -445,6 +444,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	g_free (path);
 
 	gtk_widget_set_sensitive (Stop_button,TRUE);
+	gtk_widget_set_sensitive (listing,FALSE);
 	gtk_widget_set_sensitive (check_menu,FALSE);
 	gtk_widget_set_sensitive (properties,FALSE);
 	xa_set_button_state ( 0,0,0,0,0,0,0,0,0);
@@ -1471,11 +1471,11 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	idx = xa_find_archive_index (current_page);
     stat (archive[idx]->path , &my_stat );
     file_size = my_stat.st_size;
-    archive_properties_window = create_archive_properties_window();
+    archive_properties_window = xa_create_archive_properties_window();
     utf8_string = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
 	gtk_entry_set_text ( GTK_ENTRY (name_data), utf8_string );
 	g_free (utf8_string);
-    //Path
+    /* Path */
     dummy_string = remove_level_from_path (archive[idx]->path);
     if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0)
 		utf8_string = g_filename_display_name (g_get_current_dir ());
@@ -1485,33 +1485,33 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 
     gtk_entry_set_text ( GTK_ENTRY (path_data), utf8_string );
     g_free ( utf8_string );
-	//Type
+	/* Type */
 	gtk_entry_set_text ( GTK_ENTRY (type_data), archive[idx]->format );
-    //Modified Date
+    /* Modified Date */
     strftime (date, 64, "%c", localtime (&my_stat.st_mtime) );
     t = g_locale_to_utf8 ( date, -1, 0, 0, 0);
     gtk_entry_set_text ( GTK_ENTRY (modified_data), t);
     g_free (t);
-    //Archive Size
+    /* Archive Size */
 	t = xa_set_size_string(file_size);
     gtk_entry_set_text ( GTK_ENTRY (size_data), t );
     g_free (t);
-    //content_size
+    /* content_size */
     t = xa_set_size_string(archive[idx]->dummy_size);
     gtk_entry_set_text ( GTK_ENTRY (content_data), t );
     g_free (t);
-    //Has Comment
+    /* Has Comment */
     if (archive[idx]->has_comment)
 		gtk_entry_set_text ( GTK_ENTRY (comment_data), _("Yes") );
 	else
 		gtk_entry_set_text ( GTK_ENTRY (comment_data), _("No") );
 
-    //Compression_ratio
+    /* Compression_ratio */
     content_size = (double)archive[idx]->dummy_size / file_size;
     t = g_strdup_printf ( "%.2f", content_size);
     gtk_entry_set_text ( GTK_ENTRY (compression_data), t );
     g_free (t);
-    //Number of files
+    /* Number of files */
     t = g_strdup_printf ( "%d", archive[idx]->nr_of_files);
     gtk_entry_set_text ( GTK_ENTRY (number_of_files_data), t );
     g_free (t);
@@ -1560,7 +1560,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	XEntry *entry;
 
 	path = gtk_tree_path_new_first();
-	if (gtk_tree_model_get_iter (archive->model, &iter, path) == FALSE)
+	if (! GTK_IS_TREE_MODEL(archive->model) || gtk_tree_model_get_iter (archive->model, &iter, path) == FALSE)
 		return;
 
 	switch (archive->type)
@@ -1597,11 +1597,12 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	gtk_tree_path_free(path);
 	do
 	{
-		n_elem++;
 		gtk_tree_model_get (archive->model,&iter,pos,&size,-1);
 		gtk_tree_model_get (archive->model,&iter,archive->nc+1,&entry,-1);
 		if (entry->is_dir)
 			dirs++;
+		else
+			n_elem++;
 		total_size += size;
 	}
 	while (gtk_tree_model_iter_next (archive->model,&iter));
@@ -1610,9 +1611,8 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	g_free(info);
 }
 
-void xa_row_selected (GtkTreeSelection *selection,gpointer data)
+void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 {
-	XArchive *archive = data;
 	GList *list = NULL;
 	gchar *msg = NULL;
 	GtkTreeIter iter;
@@ -1685,7 +1685,7 @@ void xa_row_selected (GtkTreeSelection *selection,gpointer data)
 		gtk_widget_set_sensitive (rename_menu,FALSE);
 		gtk_widget_set_sensitive (rrename,FALSE);
 	}
-
+	selected = 0;
 	list = gtk_tree_selection_get_selected_rows(selection,NULL);
 	while (list)
 	{
@@ -1694,6 +1694,8 @@ void xa_row_selected (GtkTreeSelection *selection,gpointer data)
 		gtk_tree_model_get (archive->model,&iter,archive->nc+1,&entry,-1);
 		if (entry->is_dir)
 			dirs++;
+		else
+			selected++;
 		gtk_tree_path_free (list->data);
 		total_size += size;
 		list = list->next;
@@ -1707,20 +1709,28 @@ void xa_row_selected (GtkTreeSelection *selection,gpointer data)
 gchar *xa_get_statusbar_message(unsigned long int total_size,gint n_elem,gint dirs,gboolean selection)
 {
 	gchar *measure = NULL, *info = NULL;
+	gchar *text = "";
 
 	measure = xa_set_size_string(total_size);
 	if (selection)
-		info = g_strdup_printf(ngettext ("%d file and %d dir selected (%s)","%d files and %d dirs selected (%s)",n_elem),n_elem,dirs,measure);
+		text = _("selected");
+
+	if (dirs)
+	{
+		if (n_elem)
+			info = g_strdup_printf(ngettext ("%d file and %d dir %s (%s)","%d files and %d dirs %s (%s)",n_elem),n_elem,dirs,text,measure);
+		else
+			info = g_strdup_printf(ngettext ("%d dir %s (%s)","%d dirs %s (%s)",dirs),dirs,text,measure);
+	}
 	else
-		info = g_strdup_printf(ngettext ("%d file, %d dir (%s)", "%d files, %d dirs (%s)", n_elem),n_elem,dirs,measure);
+		info = g_strdup_printf(ngettext ("%d file %s (%s)","%d files %s (%s)",n_elem),n_elem,text,measure);
 
 	g_free(measure);
 	return info;
 }
 
-void drag_begin (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
+void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 {
-	XArchive *archive = data;
     GtkTreeSelection *selection;
     GtkTreeIter       iter;
     gchar            *name;
@@ -1756,9 +1766,8 @@ void drag_end (GtkWidget *treeview1,GdkDragContext *context, gpointer data)
    /* Nothing to do */
 }
 
-void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, gpointer data)
+void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *selection_data, guint info, guint t, XArchive *archive)
 {
-	XArchive *archive = data;
 	GtkTreeSelection *selection;
 	guchar *fm_path;
 	int fm_path_len,response;
@@ -2348,9 +2357,8 @@ void xa_location_entry_activated (GtkEntry *entry, gpointer user_data)
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
 }
 
-int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,gpointer data)
+int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *archive)
 {
-	XArchive *archive = data;
 	GtkTreePath *path;
 	GtkTreeIter  iter;
 	GtkTreeSelection *selection;
@@ -2423,9 +2431,8 @@ void xa_open_from_popupmenu(GtkMenuItem* item,gpointer data)
 	}
 }
 
-void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,gpointer user_data)
+void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,XArchive *archive)
 {
-	XArchive *archive = user_data;
 	XEntry *entry;
 	GtkTreeIter iter;
 	gchar *dummy = NULL,*item,*file = NULL;
