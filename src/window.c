@@ -1937,11 +1937,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	archive[idx]->has_passwd = dummy_password;
 	archive[idx]->full_path = full_path;
 	archive[idx]->add_recurse = add_recurse;
-	if (list != NULL)
-	{
-		g_slist_foreach(list,(GFunc) g_free,NULL);
-		g_slist_free(list);
-	}
 	g_strfreev (array);
 }
 
