@@ -67,6 +67,7 @@ struct _XEntry
 };
 
 typedef struct _XArchive XArchive;
+typedef struct _XAClipboard XAClipboard;
 
 typedef void (*parse_output_func)	(gchar *line, gpointer);
 typedef void (*delete_func)			(XArchive *,GSList *);
@@ -80,6 +81,7 @@ struct _XArchive
 	XArchiveStatus status;
 	XEntry *root_entry;
 	XEntry *current_entry;
+	XAClipboard *clipboard_data;
 	GSList *back;
 	GSList *forward;
 	gchar *path;
@@ -101,6 +103,7 @@ struct _XArchive
 	gboolean can_add;
 	gboolean can_extract;
 	gboolean has_properties;
+	gboolean cut_copy_string;
 	GString *comment;
 	GSList *error_output;
 	GType *column_types;
@@ -126,6 +129,23 @@ struct _XArchive
 	extract_func extract;
 	test_func test;
 };
+
+#define XA_CLIPBOARD (gdk_atom_intern_static_string ("XARCHIVER_OWN_CLIPBOARD")) 
+#define XA_INFO_LIST (gdk_atom_intern_static_string ("application/xarchiver-info-list"))
+
+typedef enum
+{
+	XA_CLIPBOARD_CUT,
+	XA_CLIPBOARD_COPY
+} XAClipboardMode;
+
+struct _XAClipboard
+{
+	gchar *filename;
+	XAClipboardMode mode;
+	GSList *files;
+};
+
 void xa_spawn_async_process (XArchive *, gchar *);
 gchar *xa_split_command_line(XArchive *archive,GSList *list);
 XArchive *xa_init_archive_structure(gint);

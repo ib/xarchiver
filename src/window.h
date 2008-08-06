@@ -112,7 +112,15 @@ void xa_clear_comment_window(GtkButton *,gpointer );
 void xa_destroy_comment_window(GtkButton *,gpointer);
 void xa_location_entry_activated (GtkEntry *,gpointer );
 int xa_mouse_button_event(GtkWidget *,GdkEventButton *,XArchive *);
-void xa_open_from_popupmenu(GtkMenuItem *,gpointer );
+XAClipboard *xa_clipboard_data_new();
+void xa_clipboard_cut(GtkMenuItem* ,gpointer );
+void xa_clipboard_copy(GtkMenuItem* ,gpointer );
+void xa_clipboard_paste(GtkMenuItem* ,gpointer );
+void xa_view_file(GtkMenuItem *,gpointer );
+void xa_clipboard_cut_copy_operation(XArchive *, XAClipboardMode );
+XAClipboard *xa_get_paste_data_from_clipboard_selection(const char *);
+void xa_clipboard_get (GtkClipboard *,GtkSelectionData *,guint ,gpointer );
+void xa_clipboard_clear (GtkClipboard *,gpointer );
 void xa_treeview_row_activated(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,XArchive *);
 void xa_update_window_with_archive_entries(XArchive *,XEntry *);
 #endif

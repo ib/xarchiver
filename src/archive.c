@@ -32,7 +32,7 @@
 
 extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];
-extern extract_func 	extract	[XARCHIVETYPE_COUNT];
+extern extract_func extract	[XARCHIVETYPE_COUNT];
 extern test_func	test	[XARCHIVETYPE_COUNT];
 extern Prefs_dialog_data *prefs_window;
 extern gboolean batch_mode;
@@ -273,6 +273,8 @@ void xa_clean_archive_structure (XArchive *archive)
 			archive->comment = NULL;
 		}
 	}
+	if (archive->clipboard_data)
+		xa_clipboard_clear(NULL,archive);
 	g_free (archive);
 }
 

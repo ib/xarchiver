@@ -181,6 +181,12 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu),image2);
 
+	delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete",accel_group);
+	gtk_widget_set_sensitive (delete_menu,FALSE);
+	gtk_widget_show (delete_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
+	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+
 	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
 	gtk_widget_set_sensitive (rename_menu,FALSE);
 	gtk_widget_show (rename_menu);
@@ -189,12 +195,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	tmp_image = gtk_image_new_from_stock ("gtk-refresh",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename_menu),tmp_image);
-
-	delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete",accel_group);
-	gtk_widget_set_sensitive (delete_menu,FALSE);
-	gtk_widget_show (delete_menu);
-	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
-	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
 
 	separatormenuitem3 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem3);
@@ -830,24 +830,22 @@ void xa_create_popup_menu()
 	GtkWidget *image6;
 	GtkWidget *copy;
 	GtkWidget *image7;
-	GtkWidget *paste;
 	GtkWidget *image8;
 	GtkWidget *separator;
-	GtkWidget *open;
+	GtkWidget *view;
 	GtkWidget *extract;
 	GtkWidget *image9;
 	GtkWidget *image10;
 	GtkWidget *image11;
 
 	xa_popup_menu = gtk_menu_new();
+	view = gtk_image_menu_item_new_with_mnemonic (_("View"));
+	gtk_widget_show (view);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu),view);
 
-	open = gtk_image_menu_item_new_with_mnemonic (_("Open"));
-	gtk_widget_show (open);
-	gtk_container_add (GTK_CONTAINER (xa_popup_menu),open);
-
-	image9 = gtk_image_new_from_stock ("gtk-open",GTK_ICON_SIZE_MENU);
+	image9 = gtk_image_new_from_stock ("gtk-find",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image9);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (open),image9);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view),image9);
 
 	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract"));
 	gtk_widget_show (extract);
@@ -879,6 +877,7 @@ void xa_create_popup_menu()
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (copy),image7);
 
 	paste = gtk_image_menu_item_new_with_mnemonic (_("Paste"));
+	gtk_widget_set_sensitive(paste,FALSE);
 	gtk_widget_show (paste);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu),paste);
 
@@ -908,10 +907,10 @@ void xa_create_popup_menu()
 	gtk_widget_show (image11);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rrename),image11);
 
-	/*g_signal_connect ((gpointer) cut,"activate",G_CALLBACK (on_xa_cut_activate),NULL);
-	g_signal_connect ((gpointer) copy,"activate",G_CALLBACK (on_xa_copy_activate),NULL);
-	g_signal_connect ((gpointer) paste,"activate",G_CALLBACK (on_xa_paste_activate),NULL);*/
-	g_signal_connect ((gpointer) open,	 "activate",G_CALLBACK(xa_open_from_popupmenu),NULL);
+	g_signal_connect ((gpointer) cut,	"activate",	G_CALLBACK(xa_clipboard_cut),NULL);
+	g_signal_connect ((gpointer) copy,	"activate",	G_CALLBACK(xa_clipboard_copy),NULL);
+	g_signal_connect ((gpointer) paste,	"activate",	G_CALLBACK(xa_clipboard_paste),NULL);
+	g_signal_connect ((gpointer) view,	"activate",	G_CALLBACK(xa_view_file),NULL);
 	g_signal_connect ((gpointer) extract,"activate",G_CALLBACK(xa_extract_archive),NULL);
 	g_signal_connect ((gpointer) ddelete,"activate",G_CALLBACK(xa_delete_archive),NULL);
 	/*g_signal_connect ((gpointer) rrename,"activate",G_CALLBACK (on_xa_rename_activate),NULL);*/

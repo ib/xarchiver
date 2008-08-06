@@ -295,3 +295,16 @@ void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 		slist = slist->next;
 	}
 }
+
+GSList *xa_slist_copy(GSList *list)
+{
+	GSList *x,*y = NULL;
+	x = list;
+
+	while (x)
+	{
+		y = g_slist_prepend(y,g_strdup(x->data));
+		x = x->next;
+	}
+	return g_slist_reverse(y);
+}
