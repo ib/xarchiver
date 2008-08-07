@@ -317,7 +317,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 {
 	int ps,argcp;
 	gboolean waiting = TRUE;
-	gboolean result = FALSE;
+	gboolean result = TRUE;
 	int response;
 	GSList *_commands = commands;
 
@@ -392,7 +392,10 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			if (WIFEXITED (status))
 			{
 				if (WEXITSTATUS (status))
+				{
+					result = FALSE;
 					break;
+				}
 			}
 			_commands = _commands->next;
 		}

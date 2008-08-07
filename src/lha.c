@@ -188,11 +188,12 @@ void xa_lha_add (XArchive *archive,GSList *names,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_lha_extract(XArchive *archive,GSList *files)
+gboolean xa_lha_extract(XArchive *archive,GSList *files)
 {
 	gchar *command,*e_filename = NULL;
 	GSList *list = NULL,*_files = NULL;
 	GString *names = g_string_new("");
+	gboolean result = FALSE;
 
 	_files = files;
 	while (_files)
@@ -211,7 +212,8 @@ void xa_lha_extract(XArchive *archive,GSList *files)
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 
-	xa_run_command (archive,list);
+	result = xa_run_command (archive,list);
+	return result;
 }
 
 void xa_lha_test (XArchive *archive)

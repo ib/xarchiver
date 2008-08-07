@@ -72,7 +72,7 @@ typedef struct _XAClipboard XAClipboard;
 typedef void (*parse_output_func)	(gchar *line, gpointer);
 typedef void (*delete_func)			(XArchive *,GSList *);
 typedef void (*add_func)			(XArchive *,GSList *,gchar *);
-typedef void (*extract_func)		(XArchive *,GSList *);
+typedef gboolean (*extract_func)	(XArchive *,GSList *);
 typedef void (*test_func)			(XArchive *);
 
 struct _XArchive
@@ -143,6 +143,7 @@ struct _XAClipboard
 {
 	gchar *filename;
 	XAClipboardMode mode;
+	XArchive *cut_copy_archive;
 	GSList *files;
 };
 

@@ -251,12 +251,13 @@ void xa_tar_add (XArchive *archive,GSList *names,gchar *compression_string)
 	}
 }
 
-void xa_tar_extract(XArchive *archive,GSList *files)
+gboolean xa_tar_extract(XArchive *archive,GSList *files)
 {
 	gchar *command,*e_filename = NULL;
 	GSList *list = NULL,*_files = NULL;
 	GString *names = g_string_new("");
-	
+	gboolean result = FALSE;
+
 	_files = files;
 	while (_files)
 	{
@@ -338,8 +339,9 @@ void xa_tar_extract(XArchive *archive,GSList *files)
 	{
 		g_string_free(names,TRUE);
 		list = g_slist_append(list,command);
-		xa_run_command (archive,list);
+		result = xa_run_command (archive,list);
 	}
+	return result;
 }
 
 void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *archive,gboolean add)

@@ -168,10 +168,11 @@ void xa_open_tar_compressed_file(XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void lzma_gzip_bzip2_extract (XArchive *archive,GSList *dummy)
+gboolean lzma_gzip_bzip2_extract (XArchive *archive,GSList *dummy)
 {
 	GSList *list = NULL;
 	gchar *command = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
+	gboolean result = FALSE;
 
 	filename = xa_remove_path_from_archive_name(archive->escaped_path);
 
@@ -185,5 +186,6 @@ void lzma_gzip_bzip2_extract (XArchive *archive,GSList *dummy)
 	g_free(filename);
 
 	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+	result = xa_run_command (archive,list);
+	return result;
 }

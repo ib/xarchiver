@@ -28,7 +28,7 @@
 gboolean jump_header,jump_comment,read_filename, last_line, encrypted;
 void xa_rar_delete (XArchive *,GSList *);
 void xa_rar_add (XArchive *,GSList *,gchar *);
-void xa_rar_extract(XArchive *,GSList *);
+gboolean xa_rar_extract(XArchive *,GSList *);
 void xa_rar_test (XArchive *);
 void xa_get_rar_line_content (gchar *line, gpointer data);
 void xa_open_rar ( XArchive *archive );

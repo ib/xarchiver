@@ -29,7 +29,7 @@ gboolean jump_header, encrypted, last_line;
 unsigned short int arj_line;
 void xa_arj_delete (XArchive *,GSList *);
 void xa_arj_add (XArchive *,GSList *,gchar *);
-void xa_arj_extract(XArchive *,GSList *);
+gboolean xa_arj_extract(XArchive *,GSList *);
 void xa_arj_test (XArchive *);
 void xa_get_arj_line_content (gchar *line, gpointer data);
 void xa_open_arj (XArchive *archive);

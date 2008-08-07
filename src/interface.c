@@ -647,14 +647,15 @@ here:
 		else
 			gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
 
-		gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
+		if (GTK_IS_TREE_VIEW(archive[id]->treeview))
+			gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
 		xa_fill_dir_sidebar(archive[id],TRUE);
 	}
 }
 
 void xa_add_page (XArchive *archive)
 {
-	GtkWidget *page_hbox,*label,*tab_label,*close_button,*image;
+	GtkWidget	*page_hbox,*label,*tab_label,*close_button,*image;
 	GtkTooltips *close_button_tips = gtk_tooltips_new();
 	gchar *filename_only;
 

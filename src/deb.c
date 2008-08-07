@@ -108,11 +108,12 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 	g_free(filename);
 }
 
-void xa_deb_extract(XArchive *archive,GSList *files)
+gboolean xa_deb_extract(XArchive *archive,GSList *files)
 {
 	gchar *command;
 	GSList *list = NULL,*_files = NULL;
 	GString *names = g_string_new("");
+	gboolean result = FALSE;
 
 	_files = files;
 	while (_files)
@@ -130,6 +131,7 @@ void xa_deb_extract(XArchive *archive,GSList *files)
 	{
 		g_string_free(names,FALSE);
 		list = g_slist_append(list,command);
-		xa_run_command (archive,list);
+		result = xa_run_command (archive,list);
 	}
+	return result;
 }

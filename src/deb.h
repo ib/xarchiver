@@ -30,5 +30,5 @@
 
 void xa_open_deb (XArchive *);
 void xa_get_ar_line_content (gchar *, gpointer );
-void xa_deb_extract(XArchive *,GSList *);
+gboolean xa_deb_extract(XArchive *,GSList *);
 #endif

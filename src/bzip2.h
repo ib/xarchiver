@@ -25,6 +25,6 @@
 #include "archive.h"
 
 void xa_open_bzip2_lzma (XArchive *,GString *);
-void lzma_gzip_bzip2_extract (XArchive *,GSList*);
+gboolean lzma_gzip_bzip2_extract (XArchive *,GSList*);
 void xa_open_tar_compressed_file(XArchive *);
 #endif

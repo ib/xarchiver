@@ -28,7 +28,7 @@
 gboolean jump_header, last_line;
 void xa_7zip_delete (XArchive *,GSList *);
 void xa_7zip_add (XArchive *,GSList *,gchar *);
-void xa_7zip_extract(XArchive *,GSList *);
+gboolean xa_7zip_extract(XArchive *,GSList *);
 void xa_7zip_test (XArchive *);
 void xa_open_7zip (XArchive *);
 void xa_get_7zip_line_content (gchar *, gpointer );

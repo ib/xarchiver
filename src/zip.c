@@ -231,11 +231,12 @@ void xa_zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 	xa_run_command (archive,list);
 }
 
-void xa_zip_extract(XArchive *archive,GSList *files)
+gboolean xa_zip_extract(XArchive *archive,GSList *files)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
 	GString *names = g_string_new("");
+	gboolean result = FALSE;
 
 	xa_zip_prepend_backslash(files,names);
 
@@ -254,7 +255,8 @@ void xa_zip_extract(XArchive *archive,GSList *files)
 												archive->escaped_path , " -d ", archive->extraction_path,names->str,NULL);
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+	result = xa_run_command (archive,list);
+	return result;
 }
 
 void xa_zip_test (XArchive *archive)

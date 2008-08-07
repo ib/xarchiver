@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) 2008 Giuseppe Torelli - <colossus73@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,6 +26,6 @@
 
 void xa_open_rpm ( XArchive *);
 void xa_open_temp_file (gchar *,gchar *);
-void xa_rpm_extract(XArchive *,GSList *);
+gboolean xa_rpm_extract(XArchive *,GSList *);
 void xa_get_cpio_line_content (gchar *, gpointer );
 #endif
