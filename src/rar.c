@@ -322,13 +322,13 @@ gboolean xa_rar_extract(XArchive *archive,GSList *files)
 										" -p",archive->passwd,
 										archive->overwrite ? " -o+" : " -o-",
 										" -idp ",
-										archive->escaped_path , " " ,names->str," ",archive->extraction_path , NULL );
+										archive->escaped_path,names->str," ",archive->extraction_path , NULL );
 	else
 		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 										archive->overwrite ? "-o+" : "-o-",
 										" -idp ",
-										archive->escaped_path , " " ,names->str," ",archive->extraction_path , NULL );
+										archive->escaped_path,names->str," ",archive->extraction_path , NULL );
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 

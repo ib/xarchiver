@@ -146,7 +146,7 @@ void xa_reload_archive_content(XArchive *archive)
 		xa_free_entry (archive,archive->root_entry);
 		if (archive->column_types != NULL)
 			g_free(archive->column_types);
-		xa_remove_columns();
+		xa_remove_columns(archive);
 		entry = g_new0(XEntry,1);
 		entry->filename = "";
 		archive->root_entry = entry;
@@ -395,7 +395,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		g_free (path);
 		return;
 	}
-	
+
 	/* Does the user open an archive from the command line whose archiver is not installed? */
 	gchar *ext = NULL;
 	if (type == XARCHIVETYPE_RAR)
@@ -1350,18 +1350,12 @@ gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *archive
 	return FALSE;
 }
 
-void xa_remove_columns()
+void xa_remove_columns(XArchive *archive)
 {
-	gint current_page;
-	gint idx;
-
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
-
-	GList *columns = gtk_tree_view_get_columns ( GTK_TREE_VIEW (archive[idx]->treeview) );
+	GList *columns = gtk_tree_view_get_columns ( GTK_TREE_VIEW (archive->treeview) );
 	while (columns != NULL)
 	{
-		gtk_tree_view_remove_column (GTK_TREE_VIEW (archive[idx]->treeview) , columns->data);
+		gtk_tree_view_remove_column (GTK_TREE_VIEW (archive->treeview),columns->data);
 		columns = columns->next;
 	}
 	g_list_free (columns);
@@ -2412,6 +2406,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	GSList *list = NULL;
 	gchar *dummy_ex_path = NULL;
 	gboolean result = FALSE;
+	gboolean overwrite;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index(current_page);
@@ -2432,7 +2427,10 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	xa_create_temp_directory(paste_data->cut_copy_archive);
 	paste_data->cut_copy_archive->extraction_path = g_strdup(paste_data->cut_copy_archive->tmp);
 	list = xa_slist_copy(paste_data->files);
+	overwrite = paste_data->cut_copy_archive->overwrite;
+	paste_data->cut_copy_archive->overwrite = TRUE;
 	result = (*paste_data->cut_copy_archive->extract) (paste_data->cut_copy_archive,list);
+	paste_data->cut_copy_archive->overwrite = overwrite;
 
 	g_free(paste_data->cut_copy_archive->extraction_path);
 	paste_data->cut_copy_archive->extraction_path = NULL;
@@ -2520,7 +2518,7 @@ void xa_clipboard_get (GtkClipboard *clipboard,GtkSelectionData *selection_data,
 	string = itoa((int)archive,10);
 	g_string_append (params,string);
 	g_string_append (params,"\r\n");
-	
+
 	while (_files)
 	{
 		g_string_append (params,_files->data);
@@ -2534,11 +2532,16 @@ void xa_clipboard_get (GtkClipboard *clipboard,GtkSelectionData *selection_data,
 void xa_clipboard_clear (GtkClipboard *clipboard,gpointer data)
 {
 	XArchive *archive = data;
+
 	if (archive->clipboard_data != NULL)
 	{
-		g_slist_foreach (archive->clipboard_data->files, (GFunc) g_free, NULL);
-		g_slist_free (archive->clipboard_data->files);
-		g_free (archive->clipboard_data);	
+		if (archive->clipboard_data->files != NULL)
+		{
+			g_slist_foreach (archive->clipboard_data->files, (GFunc) g_free, NULL);
+			g_slist_free (archive->clipboard_data->files);
+			archive->clipboard_data->files = NULL;
+		}
+		g_free (archive->clipboard_data);
 		archive->clipboard_data = NULL;
 	}
 }

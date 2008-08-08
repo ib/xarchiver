@@ -100,7 +100,7 @@ gboolean xa_check_child_for_error_on_exit(XArchive *,gint );
 void xa_archive_operation_finished(XArchive *);
 void xa_reload_archive_content(XArchive *);
 void xa_watch_child ( GPid,gint,XArchive *);
-void xa_remove_columns();
+void xa_remove_columns(XArchive *);
 void xa_create_liststore (XArchive *,gchar *[]);
 gchar *xa_get_statusbar_message(unsigned long int,gint,gint,gboolean);
 gchar *xa_open_file_dialog ();
