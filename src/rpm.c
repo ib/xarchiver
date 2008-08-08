@@ -239,7 +239,7 @@ gboolean xa_rpm_extract(XArchive *archive,GSList *files)
 	g_slist_free(files);
 	
 	chdir (archive->extraction_path);
-	command = g_strconcat ( "cpio -id" , names->str," -F ",archive->tmp,"/file.cpio",NULL);
+	command = g_strconcat ( "sh -c \"cpio -id" , names->str," < ",archive->tmp,"/file.cpio\"",NULL);
 
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);

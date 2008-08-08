@@ -2365,7 +2365,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			gtk_widget_set_sensitive(rrename,FALSE);
 		else
 			gtk_widget_set_sensitive(rrename,TRUE);
-		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
+		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_RPM)
 		{
 			gtk_widget_set_sensitive(ddelete,FALSE);
 			gtk_widget_set_sensitive(rrename,FALSE);
