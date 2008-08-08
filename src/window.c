@@ -814,7 +814,6 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 			return;
 	}
 
-	archive[id]->status = XA_ARCHIVESTATUS_DELETE;
 	(*archive[id]->delete) (archive[id],list);
 }
 
@@ -1384,14 +1383,16 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	gtk_tree_view_column_pack_start(column, archive->renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, archive->renderer, "pixbuf",0,NULL);
 
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start(column, renderer, TRUE);
-	gtk_tree_view_column_set_attributes( column,renderer,"text",1,NULL);
+	archive->renderer_text = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start(column, archive->renderer_text, TRUE);
+	gtk_tree_view_column_set_attributes( column,archive->renderer_text,"text",1,NULL);
 	gtk_tree_view_column_set_title(column, _("Filename"));
 	gtk_tree_view_column_set_resizable (column, TRUE);
 	gtk_tree_view_column_set_sort_column_id (column, 1);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview), column);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	g_signal_connect (archive->renderer_text, "editing-canceled",G_CALLBACK (xa_rename_cell_edited_canceled),archive);
+	g_signal_connect (archive->renderer_text, "edited",G_CALLBACK (xa_rename_cell_edited),archive);
 
 	/* All the others */
 	for (x = 0; x < archive->nc; x++)
@@ -1664,24 +1665,19 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		gtk_widget_show(selected_frame);
 		gtk_widget_set_sensitive(deselect_all,TRUE);
 	}
-	if (archive->type == XARCHIVETYPE_RAR && unrar)
+	if ( (archive->type == XARCHIVETYPE_RAR && unrar) || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
 	{
 		gtk_widget_set_sensitive (delete_menu,FALSE);
-		gtk_widget_set_sensitive (ddelete,FALSE);
 		gtk_widget_set_sensitive (rename_menu,FALSE);
-		gtk_widget_set_sensitive (rrename,FALSE);
 	}
 	else if (archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_DEB)
 	{
 		gtk_widget_set_sensitive (delete_menu,TRUE);
-		gtk_widget_set_sensitive (ddelete,TRUE);
 		gtk_widget_set_sensitive (rename_menu,TRUE);
 	}
 	if (selected > 1)
-	{
 		gtk_widget_set_sensitive (rename_menu,FALSE);
-		gtk_widget_set_sensitive (rrename,FALSE);
-	}
+
 	selected = 0;
 	list = gtk_tree_selection_get_selected_rows(selection,NULL);
 	while (list)
@@ -2349,8 +2345,10 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 	GtkTreePath *path;
 	GtkTreeIter  iter;
 	GtkTreeSelection *selection;
+	int selected;
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
+	selected = gtk_tree_selection_count_selected_rows(selection);
 	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (archive->treeview),event->x, event->y,&path,NULL,NULL,NULL);
 	if (path == NULL)
 		return FALSE;
@@ -2363,6 +2361,20 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			gtk_tree_selection_unselect_all (selection);
 			gtk_tree_selection_select_iter (selection,&iter);
 		}
+		if (selected > 1)
+			gtk_widget_set_sensitive(rrename,FALSE);
+		else
+			gtk_widget_set_sensitive(rrename,TRUE);
+		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
+		{
+			gtk_widget_set_sensitive(ddelete,FALSE);
+			gtk_widget_set_sensitive(rrename,FALSE);
+			gtk_widget_set_sensitive(cut  ,FALSE);
+			gtk_widget_set_sensitive(copy ,FALSE);
+			gtk_widget_set_sensitive(paste,FALSE);
+		}
+		else
+			gtk_widget_set_sensitive(ddelete,TRUE);
 		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,xa_main_window,event->button,event->time);
 		return TRUE;
 	}
@@ -2546,8 +2558,106 @@ void xa_clipboard_clear (GtkClipboard *clipboard,gpointer data)
 	}
 }
 
-void xa_view_file(GtkMenuItem* item,gpointer data)
+void xa_rename_archive(GtkMenuItem* item,gpointer data)
 {
+	gint current_index,idx;
+	GtkTreeSelection *selection;
+	GtkTreeViewColumn *column;
+	GtkTreeModel *model;
+	GList *row_list = NULL;
+
+	current_index = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index(current_index);
+
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW (archive[idx]->treeview));
+	row_list = gtk_tree_selection_get_selected_rows(selection,&model);
+
+	g_object_set(archive[idx]->renderer_text,"editable",TRUE,NULL);
+	column = gtk_tree_view_get_column(GTK_TREE_VIEW (archive[idx]->treeview),0);
+	gtk_tree_view_set_cursor(GTK_TREE_VIEW(archive[idx]->treeview),row_list->data,column,TRUE);
+	gtk_tree_path_free (row_list->data);
+	g_list_free(row_list);
+}
+
+void xa_rename_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
+{
+	g_object_set(renderer,"editable",FALSE,NULL);
+}
+
+void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_name,XArchive *archive)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	XEntry *entry;
+	gchar *old_name,*_old_name,*_new_name,*dummy = NULL;
+	GSList *names = NULL,*list = NULL;
+	gboolean result = FALSE,full_path,overwrite;
+
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
+	if (gtk_tree_model_get_iter_from_string(model,&iter,path_string))
+	{
+		gtk_tree_model_get(model,&iter,archive->nc+1,&entry,-1);
+		/* Extract the file to the tmp dir */
+		if (archive->extraction_path)
+		{
+			dummy = g_strdup(archive->extraction_path);
+			g_free(archive->extraction_path);
+		}
+		xa_create_temp_directory(archive);
+		archive->extraction_path = g_strdup(archive->tmp);
+		old_name  = xa_build_full_path_name_from_entry(entry);
+		_old_name = xa_escape_filename(old_name,"$'`\"\\!?* ()[]&|:;<>#");
+		names = g_slist_append(names,old_name);
+
+		full_path = archive->full_path;
+		overwrite = archive->overwrite;
+		archive->overwrite = archive->full_path = TRUE;
+		result = (*archive->extract) (archive,names);
+
+		archive->overwrite = full_path;
+		archive->full_path = overwrite;
+		g_free(archive->extraction_path);
+		archive->extraction_path = NULL;
+		if (dummy)
+		{
+			archive->extraction_path = g_strdup(dummy);
+			g_free(dummy);
+		}
+		if (result == FALSE)
+		{
+			g_free(_old_name);
+			return;
+		}
+		/* Rename the file in the tmp dir as the new file entered by the user */
+		_new_name = xa_escape_filename((gchar*)new_name,"$'`\"\\!?* ()[]&|:;<>#");
+		dummy = g_strconcat("mv -f ",archive->tmp,"/",_old_name," ",archive->tmp,"/",_new_name,NULL);
+		g_free(_old_name);
+		list = g_slist_append(list,dummy);
+		xa_run_command(archive,list);
+		list = NULL;
+
+		/* Delete the selected file from the archive */
+		old_name = xa_build_full_path_name_from_entry(entry);
+		list = g_slist_append(list,old_name);
+		archive->status = XA_ARCHIVESTATUS_RENAME;
+		(archive->delete) (archive,list);
+		list = NULL;
+
+		/* Add the renamed file to the archive */
+		old_name = xa_build_full_path_name_from_entry(entry);
+		_new_name = g_strdup(new_name);
+		list = g_slist_append(list,_new_name);
+		chdir (archive->tmp);
+		//TODO put the above in archive[idx]->tmp
+		xa_execute_add_commands(archive,list,NULL);
+	}
+	g_object_set(cell,"editable",FALSE,NULL);
+}
+
+void xa_open_file_from_popupmenu(GtkMenuItem* item,gpointer data)
+{
+	gboolean result = FALSE;
 	gint current_index,idx;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
@@ -2580,7 +2690,7 @@ void xa_view_file(GtkMenuItem* item,gpointer data)
 			row_list = row_list->next;
 		}
 		g_list_free (row_list);
-		(*archive[idx]->extract) (archive[idx],list);
+		result = (*archive[idx]->extract) (archive[idx],list);
 		g_free(archive[idx]->extraction_path);
 		archive[idx]->extraction_path = NULL;
 		if (dummy)
@@ -2588,7 +2698,7 @@ void xa_view_file(GtkMenuItem* item,gpointer data)
 			archive[idx]->extraction_path = g_strdup(dummy);
 			g_free(dummy);
 		}
-		if (archive[idx]->status == XA_ARCHIVESTATUS_ERROR)
+		if (result == FALSE)
 			return;
 		chdir(archive[idx]->tmp);
 		xa_determine_program_to_run(entry->filename);
@@ -2601,6 +2711,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	GtkTreeIter iter;
 	gchar *dummy = NULL,*item,*file = NULL;
 	GSList *names = NULL;
+	gboolean result = FALSE;
 
 	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path))
 		return;
@@ -2630,7 +2741,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	archive->extraction_path = g_strdup(archive->tmp);
 	   	item = xa_build_full_path_name_from_entry(entry);
 	   	names = g_slist_append(names,item);
-		(*archive->extract) (archive,names);
+		result = (*archive->extract) (archive,names);
 
 		g_free(archive->extraction_path);
 		archive->extraction_path = NULL;
@@ -2639,7 +2750,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 			archive->extraction_path = g_strdup(dummy);
 			g_free(dummy);
 		}
-		if (archive->status == XA_ARCHIVESTATUS_ERROR)
+		if (result == FALSE)
 			return;
 		file = g_strconcat(archive->tmp,"/",entry->filename,NULL);
 		xa_determine_program_to_run(file);

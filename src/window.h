@@ -56,6 +56,11 @@ unsigned long long int file_offset;
 Add_dialog_data *add_window;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win,*comment_dialog;
 
+gchar *xa_set_size_string (unsigned long long int );
+gchar *xa_get_statusbar_message(unsigned long int,gint,gint,gboolean);
+gchar *xa_open_file_dialog ();
+gchar *xa_open_sfx_file_selector ();
+
 void xa_show_cmd_line_output(GtkMenuItem *,gpointer );
 void xa_new_archive (GtkMenuItem *, gpointer);
 void xa_save_archive (GtkMenuItem *,gpointer);
@@ -67,7 +72,6 @@ void xa_close_archive (GtkMenuItem *, gpointer);
 void xa_quit_application (GtkMenuItem *, gpointer);
 void xa_delete_archive (GtkMenuItem *, gpointer);
 void xa_determine_program_to_run(gchar *);
-gboolean xa_launch_external_program(gchar *,gchar *);
 void xa_show_help (GtkMenuItem *, gpointer);
 void xa_enter_password (GtkMenuItem *, gpointer);
 void xa_about (GtkMenuItem *, gpointer);
@@ -83,45 +87,47 @@ void xa_view_file_inside_archive ( GtkMenuItem * , gpointer);
 void xa_cancel_archive ( GtkMenuItem * , gpointer);
 void xa_add_files_archive ( GtkMenuItem *, gpointer);
 void xa_show_prefs_dialog ( GtkMenuItem * , gpointer);
-gchar *xa_set_size_string (unsigned long long int );
 void xa_row_selected (GtkTreeSelection *,XArchive *);
 void xa_set_statusbar_message_for_displayed_rows(XArchive *);
 void on_drag_data_received (GtkWidget *,GdkDragContext *, int x,int y,GtkSelectionData *, unsigned int , unsigned int , gpointer );
 void drag_begin (GtkWidget *,GdkDragContext *, XArchive *);
 void drag_end (GtkWidget *, GdkDragContext *, gpointer );
 void drag_data_get (GtkWidget *, GdkDragContext *dc, GtkSelectionData *, guint , guint t, XArchive *);
-
-int xa_show_message_dialog (GtkWindow *, int,int ,int , const gchar *,const gchar *);
-int xa_detect_archive_type (gchar *);
-gboolean xa_detect_archive_comment (int ,gchar *,XArchive *);
-gboolean key_press_function ( GtkWidget* , GdkEventKey* ,gpointer );
-gboolean treeview_select_search (GtkTreeModel *,gint ,const gchar *,GtkTreeIter *,gpointer );
-gboolean xa_check_child_for_error_on_exit(XArchive *,gint );
 void xa_archive_operation_finished(XArchive *);
 void xa_reload_archive_content(XArchive *);
 void xa_watch_child ( GPid,gint,XArchive *);
 void xa_remove_columns(XArchive *);
 void xa_create_liststore (XArchive *,gchar *[]);
-gchar *xa_get_statusbar_message(unsigned long int,gint,gint,gboolean);
-gchar *xa_open_file_dialog ();
-gchar *xa_open_sfx_file_selector ();
 void xa_activate_link (GtkAboutDialog *,const gchar *,gpointer );
 void xa_comment_window_insert_in_archive(GtkButton *,gpointer );
 void xa_load_comment_window_from_file(GtkButton *,gpointer );
 void xa_clear_comment_window(GtkButton *,gpointer );
 void xa_destroy_comment_window(GtkButton *,gpointer);
 void xa_location_entry_activated (GtkEntry *,gpointer );
-int xa_mouse_button_event(GtkWidget *,GdkEventButton *,XArchive *);
-XAClipboard *xa_clipboard_data_new();
-void xa_clipboard_cut(GtkMenuItem* ,gpointer );
-void xa_clipboard_copy(GtkMenuItem* ,gpointer );
-void xa_clipboard_paste(GtkMenuItem* ,gpointer );
-void xa_view_file(GtkMenuItem *,gpointer );
+void xa_clipboard_cut(GtkMenuItem  *,gpointer );
+void xa_clipboard_copy(GtkMenuItem *,gpointer );
+void xa_clipboard_paste(GtkMenuItem*,gpointer );
+void xa_rename_archive(GtkMenuItem *,gpointer );
+void xa_rename_cell_edited_canceled(GtkCellRenderer *,gpointer );
+void xa_rename_cell_edited (GtkCellRendererText *,const gchar *,const gchar *,XArchive * );
+void xa_open_file_from_popupmenu(GtkMenuItem *,gpointer );
 void xa_clipboard_cut_copy_operation(XArchive *, XAClipboardMode );
-XAClipboard *xa_get_paste_data_from_clipboard_selection(const char *);
 void xa_clipboard_get (GtkClipboard *,GtkSelectionData *,guint ,gpointer );
 void xa_clipboard_clear (GtkClipboard *,gpointer );
 void xa_treeview_row_activated(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,XArchive *);
 void xa_update_window_with_archive_entries(XArchive *,XEntry *);
+
+int xa_show_message_dialog (GtkWindow *, int,int ,int , const gchar *,const gchar *);
+int xa_detect_archive_type (gchar *);
+int xa_mouse_button_event(GtkWidget *,GdkEventButton *,XArchive *);
+
+gboolean xa_launch_external_program(gchar *,gchar *);
+gboolean xa_detect_archive_comment (int ,gchar *,XArchive *);
+gboolean key_press_function ( GtkWidget* , GdkEventKey* ,gpointer );
+gboolean treeview_select_search (GtkTreeModel *,gint ,const gchar *,GtkTreeIter *,gpointer );
+gboolean xa_check_child_for_error_on_exit(XArchive *,gint );
+
+XAClipboard *xa_clipboard_data_new();
+XAClipboard *xa_get_paste_data_from_clipboard_selection(const char *);
 #endif
 

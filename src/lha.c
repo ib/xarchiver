@@ -139,7 +139,8 @@ void xa_lha_delete (XArchive *archive,GSList *names)
 	GSList *list = NULL;
 	GString *files = g_string_new("");
 
-	archive->status = XA_ARCHIVESTATUS_DELETE;
+	if (archive->status != XA_ARCHIVESTATUS_RENAME)
+		archive->status = XA_ARCHIVESTATUS_DELETE;
 	GSList *_names;
 
 	_names = names;

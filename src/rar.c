@@ -227,7 +227,8 @@ void xa_rar_delete (XArchive *archive,GSList *names)
 	GSList *list = NULL;
 	GString *files = g_string_new("");
 
-	archive->status = XA_ARCHIVESTATUS_DELETE;
+	if (archive->status != XA_ARCHIVESTATUS_RENAME)
+		archive->status = XA_ARCHIVESTATUS_DELETE;
 	GSList *_names;
  	
  	_names = names;
@@ -308,7 +309,7 @@ gboolean xa_rar_extract(XArchive *archive,GSList *files)
 
 	while (_files)
 	{
-		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
+		e_filename = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
 		g_string_prepend (names,e_filename);
 		g_string_prepend_c (names,' ');
 		_files = _files->next;

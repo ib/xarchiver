@@ -220,12 +220,10 @@ void xa_create_dir_button_pressed (GtkButton *button,gpointer data)
 	GtkTreeViewColumn *column;
 
 	g_object_set(dialog->renderer,"editable",TRUE,NULL);
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(dialog->treeview3));
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(dialog->treeview3));
-
 	if (selection)
 	{
-		gtk_tree_selection_get_selected(selection,NULL,&iter);
+		gtk_tree_selection_get_selected(selection,&model,&iter);
 		gtk_widget_set_sensitive(dialog->create_dir,FALSE);
 		gtk_tree_store_append(GTK_TREE_STORE(model),&child,&iter);
 		gtk_tree_view_get_cursor(GTK_TREE_VIEW(dialog->treeview3),&path,&column);
@@ -244,8 +242,7 @@ void xa_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	GtkTreeSelection *selection;
-	
-	model = gtk_tree_view_get_model(GTK_TREE_VIEW(dialog->treeview3));
+
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(dialog->treeview3));
 	if (selection)
 	{
@@ -265,8 +262,8 @@ void xa_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gc
 	gchar *fullname;
 	gint result;
 
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW(dialog->treeview3));
 	GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW(dialog->treeview3));
 	gtk_tree_model_get_iter (model, &iter,path);
 	
 	previous_dir = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog->destination_path_entry)));

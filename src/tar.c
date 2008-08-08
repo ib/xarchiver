@@ -157,6 +157,8 @@ void xa_tar_delete (XArchive *archive,GSList *files)
 	GSList *_files,*list = NULL;
 	GString *names = g_string_new("");
 	
+	if (archive->status != XA_ARCHIVESTATUS_RENAME)
+		archive->status = XA_ARCHIVESTATUS_DELETE;
 	_files = files;
 	while (_files)
 	{

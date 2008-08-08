@@ -46,6 +46,7 @@ typedef enum
 	XA_ARCHIVESTATUS_EXTRACT,
 	XA_ARCHIVESTATUS_ADD,
 	XA_ARCHIVESTATUS_DELETE,
+	XA_ARCHIVESTATUS_RENAME,
 	XA_ARCHIVESTATUS_OPEN,
 	XA_ARCHIVESTATUS_TEST,
 	XA_ARCHIVESTATUS_SFX,
@@ -93,6 +94,7 @@ struct _XArchive
 	gchar *location_entry_path;
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
+	GtkCellRenderer *renderer_text;
 	GtkListStore *liststore;
 	GtkWidget *treeview;
 	GtkWidget *scrollwindow;

@@ -287,10 +287,10 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
 	list = g_list_first (list);
 	path = (GtkTreePath*)list->data;
 
-	gtk_tree_model_get_iter ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, path );
-	gtk_tree_model_get ( GTK_TREE_MODEL(prefs->prefs_liststore), &iter, 2, &column, -1);
+	gtk_tree_model_get_iter (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,path);
+	gtk_tree_model_get (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,2,&column,-1);
 
-	gtk_tree_path_free( (GtkTreePath*)list->data );
+	gtk_tree_path_free(path);
 	g_list_free (list);
 
 	if (column == 0)

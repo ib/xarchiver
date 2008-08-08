@@ -173,7 +173,8 @@ void xa_7zip_delete (XArchive *archive,GSList *names)
 	if (sevenza)
 		exe = "7za d ";
 
-	archive->status = XA_ARCHIVESTATUS_DELETE;
+	if (archive->status != XA_ARCHIVESTATUS_RENAME)
+		archive->status = XA_ARCHIVESTATUS_DELETE;
 	GSList *_names;
  	
  	_names = names;
