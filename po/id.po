@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2008-06-29 19:14+0200\n"
-"PO-Revision-Date: 2008-04-27 19:10+0700\n"
+"PO-Revision-Date: 2008-07-20 20:15+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,31 +44,28 @@ msgid "Add files to the archive"
 msgstr "Tambah berkas ke arsip"
 
 #: ../src/add_dialog.c:56
-#, fuzzy
 msgid "Selection"
-msgstr "_Aksi"
+msgstr "Pilihan"
 
 #: ../src/add_dialog.c:75
 msgid "File Paths: "
-msgstr ""
+msgstr "Alamat Berkas: "
 
 #: ../src/add_dialog.c:81
 msgid "Store full paths"
-msgstr ""
+msgstr "Simpan alamat penuh"
 
 #: ../src/add_dialog.c:87
-#, fuzzy
 msgid "Do not store paths"
-msgstr "Jangan menambah alamat absolut"
+msgstr "Jangan menyimpan alamat"
 
 #: ../src/add_dialog.c:107
-#, fuzzy
 msgid "Options"
-msgstr "<b>Opsi </b>"
+msgstr "Opsi"
 
 #: ../src/add_dialog.c:125
 msgid "Update and add"
-msgstr ""
+msgstr "Mutakhirkan dan tambah"
 
 #: ../src/add_dialog.c:128
 msgid ""
@@ -80,7 +77,7 @@ msgstr ""
 
 #: ../src/add_dialog.c:134
 msgid "Freshen and replace"
-msgstr ""
+msgstr "Segarkan dan ganti"
 
 #: ../src/add_dialog.c:137
 msgid ""
@@ -93,14 +90,12 @@ msgstr ""
 "tidak menambah berkas yang tidak ada di arsip."
 
 #: ../src/add_dialog.c:143
-#, fuzzy
 msgid "Include subdirectories"
-msgstr "Rekursi subdirektori"
+msgstr "Termasuk subdirektori"
 
 #: ../src/add_dialog.c:150
-#, fuzzy
 msgid "Create a solid archive"
-msgstr "Bangkitkan arsip solid"
+msgstr "Buat arsip solid"
 
 #: ../src/add_dialog.c:153
 msgid ""
@@ -111,14 +106,12 @@ msgstr ""
 "kompresi yang lebih baik."
 
 #: ../src/add_dialog.c:159
-#, fuzzy
 msgid "Delete files after adding"
-msgstr "Hapus berkas setelah penambahan"
+msgstr "Hapus berkas setelah menambahkan"
 
 #: ../src/add_dialog.c:164
-#, fuzzy
 msgid "Actions; "
-msgstr "_Aksi"
+msgstr "Aksi; "
 
 #: ../src/add_dialog.c:184
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
@@ -145,9 +138,8 @@ msgid "5 = default compression, 7 = max compression"
 msgstr "5 = kompresi standar, 7 = kompresi maksimum"
 
 #: ../src/add_dialog.c:243
-#, fuzzy
 msgid "Compression: "
-msgstr "Level kompresi:"
+msgstr "Kompresi: "
 
 #: ../src/add_dialog.c:262 ../src/extract_dialog.c:219 ../src/interface.c:648
 msgid "Password:"
@@ -155,7 +147,7 @@ msgstr "Sandi lewat:"
 
 #: ../src/add_dialog.c:273
 msgid "Encryption: "
-msgstr ""
+msgstr "Enkripsi: "
 
 #: ../src/add_dialog.c:286
 msgid "_Add"
@@ -244,9 +236,8 @@ msgid "Operation completed."
 msgstr "Operasi selesai."
 
 #: ../src/window.c:88
-#, fuzzy
 msgid "Operation failed!"
-msgstr "Operasi gagal."
+msgstr "Operasi gagal!"
 
 #: ../src/window.c:102
 msgid "The sfx archive was saved as:"
@@ -381,11 +372,11 @@ msgstr "Menunggu proses untuk dibatalkan..."
 
 #: ../src/window.c:1299
 msgid "You didn't set which editor to use!"
-msgstr ""
+msgstr "Anda belum memilih penyunting yang akan digunakan!"
 
 #: ../src/window.c:1299 ../src/window.c:1855
 msgid "Please go to Preferences->Advanced and set it."
-msgstr ""
+msgstr "Silakan pergi ke Pengaturan->Mahir lalu atur itu."
 
 #: ../src/window.c:1449
 msgid "Yes"
@@ -425,11 +416,11 @@ msgstr "Anda tak dapat menambah isi ke paket rpm!"
 
 #: ../src/window.c:1855
 msgid "You didn't set which browser to use!"
-msgstr ""
+msgstr "Anda belum memilih peramban yang akan digunakan!"
 
 #: ../src/window.c:1884
 msgid "Failed to launch the application!"
-msgstr ""
+msgstr "Gagal menjalankan aplikasi"
 
 #: ../src/window.c:1916
 msgid "The password has been reset."
@@ -440,9 +431,8 @@ msgid "Please enter the password first!"
 msgstr "Silakan masukkan sandi lewat dulu!"
 
 #: ../src/window.c:1933
-#, fuzzy
 msgid "Archive Comment"
-msgstr "Jendela komentar arsip"
+msgstr "Komentar Arsip"
 
 #: ../src/extract_dialog.c:42
 msgid "Decompress file"
@@ -457,19 +447,16 @@ msgid "Extract to:"
 msgstr "Ekstrak ke:"
 
 #: ../src/extract_dialog.c:88
-#, fuzzy
 msgid "Selected files"
-msgstr "Pilih Semua (_c)"
+msgstr "Berkas terpilih"
 
 #: ../src/extract_dialog.c:101
-#, fuzzy
 msgid "Files: "
-msgstr "Berkas"
+msgstr "Berkas: "
 
 #: ../src/extract_dialog.c:112
-#, fuzzy
 msgid "Files "
-msgstr "Berkas"
+msgstr "Berkas "
 
 #: ../src/extract_dialog.c:126
 msgid "Overwrite existing files"
@@ -525,19 +512,16 @@ msgstr ""
 "tambahan juga mengekstrak berkas yang belum ada di cakram."
 
 #: ../src/extract_dialog.c:172
-#, fuzzy
 msgid "Options "
-msgstr "<b>Opsi </b>"
+msgstr "Opsi "
 
 #: ../src/extract_dialog.c:178
-#, fuzzy
 msgid "Directories Tree:"
-msgstr "Direktori"
+msgstr "Pohon Direktori:"
 
 #: ../src/extract_dialog.c:212
-#, fuzzy
 msgid "Create New Dir"
-msgstr "Buat arsip baru"
+msgstr "Buat Direktori Baru"
 
 #: ../src/extract_dialog.c:248 ../src/interface.c:143
 msgid "_Extract"
@@ -565,13 +549,13 @@ msgid "Please enter the password."
 msgstr "Silakan masukkan sandi lewat."
 
 #: ../src/extract_dialog.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr ""
-"Anda tak memiliki hak akses yang cukup untuk mengekstrak berkas ke folder \"%"
-"s\"."
+"Anda tak memiliki hak akses yang cukup untuk mengekstrak berkas ke direktori "
+"\"%s\"."
 
 #: ../src/extract_dialog.c:438
 msgid "Can't perform extraction!"
@@ -591,9 +575,8 @@ msgid "Timestamp"
 msgstr "Penanda waktu"
 
 #: ../src/interface.c:72
-#, fuzzy
 msgid "_Archive"
-msgstr "arsip"
+msgstr "_Arsip"
 
 #: ../src/interface.c:92
 msgid "_Test"
@@ -633,7 +616,7 @@ msgstr "Tak Pilih Semua (_l)"
 
 #: ../src/interface.c:215
 msgid "Select _by pattern"
-msgstr ""
+msgstr "Pilih menu_rut pola"
 
 #: ../src/interface.c:226
 msgid "C_md-line output"
@@ -684,18 +667,16 @@ msgid "Root"
 msgstr "Root"
 
 #: ../src/interface.c:344
-#, fuzzy
 msgid "Add files"
-msgstr "Semua berkas"
+msgstr "Tambah berkas"
 
 #: ../src/interface.c:348
 msgid "Extract"
 msgstr "Ekstrak"
 
 #: ../src/interface.c:353
-#, fuzzy
 msgid "Extract files"
-msgstr "Mengekstrak berkas ke %s"
+msgstr "Ekstrak berkas"
 
 #: ../src/interface.c:357 ../src/interface.c:752
 msgid "View"
@@ -703,7 +684,7 @@ msgstr "Tampilan"
 
 #: ../src/interface.c:362
 msgid "View file with an external editor/viewer"
-msgstr ""
+msgstr "Tampilkan berkas menggunakan penyunting/penilik eksternal"
 
 #: ../src/interface.c:370
 msgid "Stop"
@@ -726,49 +707,44 @@ msgid "Enter Archive Password"
 msgstr "Masukkan Sandi Lewat Arsip"
 
 #: ../src/interface.c:760
-#, fuzzy
 msgid "Extract..."
-msgstr "Ekstrak"
+msgstr "Ekstrak..."
 
 #: ../src/interface.c:773
 msgid "Cut"
-msgstr ""
+msgstr "Potong"
 
 #: ../src/interface.c:781
 msgid "Copy"
-msgstr ""
+msgstr "Salin"
 
 #: ../src/interface.c:789
-#, fuzzy
 msgid "Paste"
-msgstr "Tanggal"
+msgstr "Rekat"
 
 #: ../src/interface.c:802
-#, fuzzy
 msgid "Delete"
-msgstr "Tanggal"
+msgstr "Hapus"
 
 #: ../src/interface.c:810
 msgid "Rename..."
-msgstr ""
+msgstr "Ganti nama..."
 
 #: ../src/interface.c:847
 msgid "Select by Pattern"
-msgstr ""
+msgstr "Pilih Sesuai Pola"
 
 #: ../src/interface.c:860
-#, fuzzy
 msgid "Pattern:"
-msgstr "Alamat:"
+msgstr "Pola:"
 
 #: ../src/interface.c:865
 msgid "example: *.txt; ac*"
-msgstr ""
+msgstr "misalnya: *.txt; ac*"
 
 #: ../src/interface.c:882
-#, fuzzy
 msgid "_Select"
-msgstr "Pilih Semua (_c)"
+msgstr "_Pilih"
 
 #: ../src/interface.c:954
 msgid "Archive Properties Window"
@@ -799,9 +775,8 @@ msgid "Content size:"
 msgstr "Ukuran isi:"
 
 #: ../src/interface.c:1014
-#, fuzzy
 msgid "Comment:"
-msgstr "Punya komentar:"
+msgstr "Komentar:"
 
 #: ../src/interface.c:1021
 msgid "Compression ratio:"
@@ -816,19 +791,17 @@ msgid "Number of dirs:"
 msgstr "Jumlah direktori:"
 
 #: ../src/main.c:54
-#, fuzzy
 msgid "Extract archive to the destination directory and quits."
-msgstr "Ekstrak arsip dengan menanyakan direktori tujuan lalu keluar."
+msgstr "Ekstrak arsip ke direktori tujuan lalu keluar."
 
 #: ../src/main.c:55
-#, fuzzy
 msgid "destination archive"
-msgstr "alamat tujuan arsip (_p)"
+msgstr "arsip tujuan"
 
 #: ../src/main.c:58
-#, fuzzy
 msgid "Extract archive by asking the extraction directory and quits."
-msgstr "Ekstrak arsip dengan menanyakan direktori tujuan lalu keluar."
+msgstr ""
+"Ekstrak arsip dengan menanyakan direktori tempat ekstraksi lalu keluar."
 
 #: ../src/main.c:59 ../src/main.c:67
 msgid "archive"
@@ -911,13 +884,12 @@ msgid "Preferences"
 msgstr "Pengaturan"
 
 #: ../src/pref_dialog.c:57
-#, fuzzy
 msgid "Archive"
-msgstr "arsip"
+msgstr "Arsip"
 
 #: ../src/pref_dialog.c:63
 msgid "Window"
-msgstr ""
+msgstr "Jendela"
 
 #: ../src/pref_dialog.c:68
 msgid "Advanced"
@@ -936,11 +908,11 @@ msgstr "Konfirmasi penghapusan berkas"
 
 #: ../src/pref_dialog.c:129
 msgid "Store archiver output"
-msgstr ""
+msgstr "Simpan keluaran pengarsip"
 
 #: ../src/pref_dialog.c:132
 msgid "It takes a lot of memory with large archives!"
-msgstr ""
+msgstr "Akan menghabiskan banyak memori pada arsip besar!"
 
 #. label5 = gtk_label_new (_("View archive content as"));
 #. gtk_table_attach (GTK_TABLE (table1), label5, 0, 1, 0, 1,
@@ -983,7 +955,7 @@ msgstr "Tampilkan batang lokasi"
 
 #: ../src/pref_dialog.c:211
 msgid "Web browser to use:"
-msgstr ""
+msgstr "Peramban web yang akan digunakan:"
 
 #: ../src/pref_dialog.c:218 ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
 #: ../src/pref_dialog.c:257
@@ -995,9 +967,8 @@ msgid "Open text files with:"
 msgstr "Buka berkas teks dengan:"
 
 #: ../src/pref_dialog.c:237
-#, fuzzy
 msgid "Open image files with:"
-msgstr "Buka berkas teks dengan:"
+msgstr "Buka berkas citra dengan:"
 
 #: ../src/pref_dialog.c:250
 msgid "Preferred temp directory:"
@@ -1012,14 +983,12 @@ msgid "Save window geometry"
 msgstr "Simpan geometri jendela"
 
 #: ../src/pref_dialog.c:502
-#, fuzzy
 msgid "Choose the temp directory to use"
-msgstr "Pilih tipe arsip untuk dibuat"
+msgstr "Pilih direktori sementara yang akan digunakan"
 
 #: ../src/pref_dialog.c:502
-#, fuzzy
 msgid "Choose the application to use"
-msgstr "Pilih tipe arsip untuk dibuat"
+msgstr "Pilih aplikasi yang akan digunakan"
 
 #: ../src/rar.c:62
 msgid "CRC"
