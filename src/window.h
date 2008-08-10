@@ -82,6 +82,7 @@ void xa_concat_filenames (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GSList *
 void xa_select_all ( GtkMenuItem *, gpointer);
 void xa_deselect_all ( GtkMenuItem *, gpointer);
 void xa_show_archive_comment ( GtkMenuItem *, gpointer);
+void xa_show_multi_extract_dialog ( GtkMenuItem *, gpointer);
 void xa_archive_properties ( GtkMenuItem * , gpointer);
 void xa_view_file_inside_archive ( GtkMenuItem * , gpointer);
 void xa_cancel_archive ( GtkMenuItem * , gpointer);
@@ -109,6 +110,7 @@ void xa_clipboard_copy(GtkMenuItem *,gpointer );
 void xa_clipboard_paste(GtkMenuItem*,gpointer );
 void xa_rename_archive(GtkMenuItem *,gpointer );
 void xa_rename_cell_edited_canceled(GtkCellRenderer *,gpointer );
+void xa_rename_cell_editing_started (GtkCellRenderer *,GtkCellEditable *,const gchar *,XArchive *);
 void xa_rename_cell_edited (GtkCellRendererText *,const gchar *,const gchar *,XArchive * );
 void xa_open_file_from_popupmenu(GtkMenuItem *,gpointer );
 void xa_clipboard_cut_copy_operation(XArchive *, XAClipboardMode );
@@ -123,7 +125,6 @@ int xa_mouse_button_event(GtkWidget *,GdkEventButton *,XArchive *);
 
 gboolean xa_launch_external_program(gchar *,gchar *);
 gboolean xa_detect_archive_comment (int ,gchar *,XArchive *);
-gboolean key_press_function ( GtkWidget* , GdkEventKey* ,gpointer );
 gboolean treeview_select_search (GtkTreeModel *,gint ,const gchar *,GtkTreeIter *,gpointer );
 gboolean xa_check_child_for_error_on_exit(XArchive *,gint );
 

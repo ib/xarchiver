@@ -32,9 +32,8 @@ char *mkdtemp (gchar *tmpl);
 #endif
 gchar *xa_escape_bad_chars ( gchar *string , gchar *pattern);
 char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
-gchar *remove_level_from_path (const gchar *path);
+gchar *xa_remove_level_from_path (const gchar *path);
 gboolean file_extension_is (const char *filename, const char *ext);
-gchar *extract_local_path (gchar *path);
 void xa_set_window_title ( GtkWidget *window , gchar *title);
 gboolean match_patterns (char **patterns,const char *string,int flags);
 gchar *xa_remove_path_from_archive_name(gchar *name);

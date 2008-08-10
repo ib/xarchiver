@@ -1,5 +1,4 @@
 - reduce the loading time when opening large archives.
-- finish developing the callbacks for the popup menu.
 - develop the dlg-open dialog.
 - develop the extract multi archive.
 - fix crash when opening rar archives produces under winzozz.

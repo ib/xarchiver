@@ -35,7 +35,7 @@ GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuite
 *archive_properties_window, *table1, *path_label, *modified_label, *size_label, *content_label, *comment_label, *compression_label, *number_of_files_label,
 *name_label, *type_label, *compression_data, *number_of_files_data, *content_data, *comment_data, *size_data, *modified_data, *path_data, *type_data,
 *name_data, *separatormenuitem1, *separatormenuitem2, *separatormenuitem3, *separatormenuitem4, *separatormenuitem5, *separatormenuitem6, *quit1,
-*close1, *check_menu, *properties, *menuitem2, *menuitem2_menu, *addfile, *extract_menu, *delete_menu, *comment_menu, *view_shell_output1,
+*close1, *check_menu, *properties, *menuitem2, *menuitem2_menu, *addfile, *extract_menu, *delete_menu, *comment_menu, *multi_extract,*view_shell_output1,
 *prefs_menu,*password_entry_menu, *image1, *image2, *menuitem4, *select_all,*deselect_all,*select_pattern, *exe_menu, *menuitem4_menu,
 *about1, *help1, *toolbar1, *toolbar2, *hbox1, *tmp_image, *pad_image, *New_button, *Open_button, *back_button, *home_button, *forward_button,
 *up_button,*separatortoolitem1,*separatortoolitem2,*separatortoolitem3,*AddFile_button,*Extract_button,*Stop_button,*toolitem1,*location_label,

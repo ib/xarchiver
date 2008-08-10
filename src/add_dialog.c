@@ -35,7 +35,8 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->dialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (add_dialog->dialog1), _("Add files to the archive"));
-	gtk_window_set_transient_for (GTK_WINDOW (add_dialog->dialog1),GTK_WINDOW(xa_main_window));
+	gtk_window_set_position (GTK_WINDOW (add_dialog->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_dialog_set_has_separator (GTK_DIALOG (add_dialog->dialog1),FALSE);
 
 	add_dialog->add_option_tooltip = gtk_tooltips_new ();
@@ -106,13 +107,13 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update and add"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified."), NULL );
+	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified"), NULL );
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
 
 	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen and replace"));
 
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive."), NULL );
+	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"), NULL );
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->freshen, FALSE, FALSE, 0);
 	g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
 
@@ -122,7 +123,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Create a solid archive"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->solid_archive), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio."), NULL);
+	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio"), NULL);
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->solid_archive, FALSE, FALSE, 0);
 
 	add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Delete files after adding"));
@@ -430,6 +431,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 
 	if (xa_main_window)
 	{
+		gtk_label_set_text(GTK_LABEL(total_label),_("Adding files to the archive, please wait..."));
 		/* This in case the user wants to add files in the archive directories */
 		if (archive->location_entry_path != NULL)
 		{

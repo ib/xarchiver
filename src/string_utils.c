@@ -148,9 +148,15 @@ char *xa_escape_common_chars (const char *str, const char *meta_chars, const cha
         return escaped;
 }
 
-gchar *remove_level_from_path (const gchar *path)
+gchar *xa_remove_level_from_path (const gchar *path)
 {
-	return g_path_get_dirname(path);
+	gchar *local_path;
+    gchar *local_escaped_path;
+
+    local_path = g_path_get_dirname (path);
+    local_escaped_path = xa_escape_bad_chars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
+    g_free (local_path);
+    return local_escaped_path;
 }
 
 gboolean file_extension_is (const char *filename, const char *ext)
@@ -165,17 +171,6 @@ gboolean file_extension_is (const char *filename, const char *ext)
     return strcasecmp (filename + filename_l - ext_l, ext) == 0;
 }
 /* End code from File-Roller */
-
-gchar *extract_local_path (gchar *path)
-{
-    gchar *local_path;
-    gchar *local_escaped_path;
-
-    local_path = g_path_get_dirname (path);
-    local_escaped_path = xa_escape_bad_chars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
-    g_free (local_path);
-    return local_escaped_path;
-}
 
 void xa_set_window_title (GtkWidget *window,gchar *title)
 {

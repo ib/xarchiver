@@ -181,11 +181,10 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract_menu),image2);
 
-	delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete",accel_group);
+	delete_menu = gtk_image_menu_item_new_from_stock ("gtk-delete",NULL);
 	gtk_widget_set_sensitive (delete_menu,FALSE);
 	gtk_widget_show (delete_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
-	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
 
 	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
 	gtk_widget_set_sensitive (rename_menu,FALSE);
@@ -221,6 +220,11 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (comment_menu),tmp_image);
 
+	multi_extract = gtk_menu_item_new_with_mnemonic (_("_Multi-Extract"));
+	gtk_widget_show (multi_extract);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu),multi_extract);
+	gtk_widget_add_accelerator (multi_extract,"activate",accel_group,GDK_m,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+
 	separatormenuitem4 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem4);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),separatormenuitem4);
@@ -253,9 +257,9 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),separatormenuitem5);
 	gtk_widget_set_sensitive (separatormenuitem5,FALSE);
 
-	view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("C_md-line output"));
+	view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("Cmd-line outp_ut"));
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),view_shell_output1);
-	gtk_widget_add_accelerator (view_shell_output1,"activate",accel_group,GDK_m,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator (view_shell_output1,"activate",accel_group,GDK_u,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
 	if (show_output_menu_item)
 		gtk_widget_set_sensitive(view_shell_output1,TRUE);
 	else
@@ -535,6 +539,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) delete_menu,"activate",G_CALLBACK (xa_delete_archive),NULL);
 	g_signal_connect ((gpointer) rename_menu,"activate",G_CALLBACK (xa_rename_archive),NULL);
 	g_signal_connect ((gpointer) comment_menu,"activate",G_CALLBACK (xa_show_archive_comment),NULL);
+	g_signal_connect ((gpointer) multi_extract,"activate",G_CALLBACK (xa_show_multi_extract_dialog),NULL);
 	g_signal_connect ((gpointer) help1,"activate",G_CALLBACK (xa_show_help),NULL);
 	g_signal_connect ((gpointer) about1,"activate",G_CALLBACK (xa_about),NULL);
 
@@ -549,8 +554,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) AddFile_button,"clicked",G_CALLBACK (xa_add_files_archive),		NULL);
     g_signal_connect ((gpointer) Extract_button,"clicked",G_CALLBACK (xa_extract_archive),		NULL);
 	g_signal_connect ((gpointer) Stop_button,	"clicked",G_CALLBACK (xa_cancel_archive),			NULL);
-	g_signal_connect (xa_main_window,		"key-press-event",G_CALLBACK (key_press_function),			NULL);
-
 	gtk_window_add_accel_group (GTK_WINDOW (xa_main_window),accel_group);
 }
 
@@ -1048,10 +1051,11 @@ GtkWidget *xa_create_archive_properties_window()
 	g_signal_connect(archive_properties_window,"response",G_CALLBACK(gtk_widget_destroy),NULL);
 	g_signal_connect(archive_properties_window,"delete-event",G_CALLBACK(gtk_widget_destroy),NULL);
 
-	gtk_window_set_position (GTK_WINDOW (archive_properties_window),GTK_WIN_POS_CENTER);
+	gtk_window_set_position (GTK_WINDOW (archive_properties_window),GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_window_set_transient_for (GTK_WINDOW (archive_properties_window),GTK_WINDOW (xa_main_window));
+	gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_resizable (GTK_WINDOW (archive_properties_window),FALSE);
 	gtk_window_set_modal (GTK_WINDOW (archive_properties_window),TRUE);
-	gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window),GDK_WINDOW_TYPE_HINT_UTILITY);
 	gtk_dialog_set_has_separator(GTK_DIALOG(archive_properties_window),FALSE);
 
 	table1 = gtk_table_new (9,2,TRUE);
@@ -1259,7 +1263,10 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 			new_entry = archive[idx]->current_entry;
 
 			if (new_entry->prev->prev == NULL)
+			{
+				gtk_widget_set_sensitive(back_button,FALSE);
 				xa_update_window_with_archive_entries(archive[idx],NULL);
+			}
 			else
 				xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
 
@@ -1284,19 +1291,18 @@ void xa_restore_navigation(int idx)
 	gboolean back = FALSE,up = FALSE,forward = FALSE,home=FALSE;
 
 	/*If the pointers exist,we should show the icon*/
-	if(archive[idx]->forward!=NULL) forward=TRUE;
-	if(archive[idx]->back!=NULL) back=TRUE;
+	if(archive[idx]->forward !=NULL)
+		forward = TRUE;
+
+	if(archive[idx]->back !=NULL)
+		back = TRUE;
 
 	if(archive[idx]->location_entry_path!=NULL)
 	{
 		/* If there's a slash on the path,we should allow UP and HOME operations */
 		if(strstr(archive[idx]->location_entry_path,"/")!=NULL)
-		{
-			home=TRUE;
-			up=TRUE;
-		}
+			home = up = TRUE;
 	}
-
 	gtk_widget_set_sensitive(back_button,back);
 	gtk_widget_set_sensitive(forward_button,forward);
 	gtk_widget_set_sensitive(up_button,up);
@@ -1390,7 +1396,7 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	if (archive[idx]->location_entry_path != NULL)
 		g_free(archive[idx]->location_entry_path);
 
-	/* This to store the dragged files inside the dropped archive dir */
+	/* This is to have the dragged files stored inside current archive location entry */
 	archive[idx]->location_entry_path = g_strdup(full_pathname->str);
 	dummy_password = archive[idx]->has_passwd;
 	full_path = archive[idx]->full_path;

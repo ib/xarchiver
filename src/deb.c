@@ -100,7 +100,6 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 
 	n++;
 	line[linesize-1] = '\0';
-	filename = line + n;
 
 	archive->nr_of_files++;
 	filename = g_strdup(line + n);

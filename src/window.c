@@ -780,6 +780,7 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	id = xa_find_archive_index (current_page);
+
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
 
 	row_list = gtk_tree_selection_get_selected_rows(selection, &archive[id]->model);
@@ -813,7 +814,6 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 		if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 			return;
 	}
-
 	(*archive[id]->delete) (archive[id],list);
 }
 
@@ -1392,6 +1392,7 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview), column);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	g_signal_connect (archive->renderer_text, "editing-canceled",G_CALLBACK (xa_rename_cell_edited_canceled),archive);
+	g_signal_connect (archive->renderer_text, "editing-started" ,G_CALLBACK(xa_rename_cell_editing_started),archive);
 	g_signal_connect (archive->renderer_text, "edited",G_CALLBACK (xa_rename_cell_edited),archive);
 
 	/* All the others */
@@ -1471,7 +1472,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	gtk_entry_set_text ( GTK_ENTRY (name_data), utf8_string );
 	g_free (utf8_string);
     /* Path */
-    dummy_string = remove_level_from_path (archive[idx]->path);
+    dummy_string = xa_remove_level_from_path (archive[idx]->path);
     if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0)
 		utf8_string = g_filename_display_name (g_get_current_dir ());
     else
@@ -1809,7 +1810,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *dc, GtkSelectionData *sel
 				}
 			}
 		}
-		archive->extraction_path = extract_local_path (no_uri_path);
+		archive->extraction_path = xa_remove_level_from_path (no_uri_path);
 		g_free (no_uri_path);
 		if (archive->extraction_path != NULL)
 			to_send = "S";
@@ -1912,6 +1913,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	while (array[len])
 	{
 		filename = g_filename_from_uri (array[len],NULL,NULL);
+		g_print ("drag_data: %s\n",filename);
 		list = g_slist_append(list,filename);
 		len++;
 	}
@@ -1928,20 +1930,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	archive[idx]->full_path = full_path;
 	archive[idx]->add_recurse = add_recurse;
 	g_strfreev (array);
-}
-
-gboolean key_press_function (GtkWidget *widget, GdkEventKey *event, gpointer data)
-{
-	if (event == NULL)
-		return FALSE;
-	switch (event->keyval)
-	{
-		case GDK_Escape:
-		xa_cancel_archive (NULL, NULL);
-		break;
-
-	}
-	return FALSE;
 }
 
 void xa_concat_filenames (GtkTreeModel *model, GtkTreePath *treepath, GtkTreeIter *iter, GSList **data)
@@ -2585,6 +2573,32 @@ void xa_rename_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
 	g_object_set(renderer,"editable",FALSE,NULL);
 }
 
+void xa_rename_cell_editing_started (GtkCellRenderer *cell,GtkCellEditable *editable,const gchar *path,XArchive *archive)
+{
+	GtkEntry *gtk_entry;
+	gchar *text;
+	XEntry *entry;
+	glong offset;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+
+	if (GTK_IS_ENTRY (editable)) 
+	{
+		model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
+		gtk_tree_model_get_iter_from_string(model,&iter,path);
+		gtk_tree_model_get(model,&iter,archive->nc+1,&entry,-1);
+		text = g_utf8_strrchr (entry->filename,-1,'.');
+		if (G_LIKELY (text != NULL))
+		{
+			gtk_entry = GTK_ENTRY (editable);
+			gtk_widget_grab_focus (GTK_WIDGET(gtk_entry));
+			offset = g_utf8_pointer_to_offset (entry->filename,text);
+			if (G_LIKELY (offset > 0))
+				gtk_editable_select_region (GTK_EDITABLE(editable),0,offset);
+		}
+	}
+}
+
 void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_name,XArchive *archive)
 {
 	GtkTreeIter iter;
@@ -2843,4 +2857,22 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	}
 	xa_fill_dir_sidebar(archive,FALSE);
 	xa_set_statusbar_message_for_displayed_rows(archive);
+}
+
+void xa_show_multi_extract_dialog ( GtkMenuItem *menu_item, gpointer data)
+{
+	GtkWidget *dialog;
+	gint response;
+	gboolean result = FALSE;
+
+	dialog = xa_create_multi_extract_dialog();
+	response = gtk_dialog_run(GTK_DIALOG(dialog));
+	if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
+	{
+		gtk_widget_destroy(dialog);
+		return;
+	}
+	result = xa_multi_extract_archive(dialog);
+	if (result)
+		xa_show_cmd_line_output(NULL,NULL);
 }

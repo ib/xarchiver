@@ -52,6 +52,7 @@ GtkWidget *scrolledwindow1,*dialog_action_area1,*cancel_button,*okbutton1,*extra
 GtkTreeStore *model;
 GtkTreeViewColumn *column;
 GtkTooltips *option_tooltip;
+GtkListStore *files_liststore;
 	
 Extract_dialog_data *xa_create_extract_dialog();
 void xa_create_dir_button_pressed (GtkButton *, gpointer );
@@ -67,5 +68,11 @@ void xa_tree_view_row_selected(GtkTreeSelection *, gpointer );
 void xa_row_activated(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,gpointer );
 void xa_expand_dir(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer );
 void xa_treeview_exposed (GtkWidget *,GdkEventExpose *,gpointer );
+GtkWidget *xa_create_multi_extract_dialog();
+void xa_remove_files_liststore (GtkWidget *, GtkTreeView *);
+void xa_activate_remove_button (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GtkWidget *);
+gboolean xa_multi_extract_archive(GtkWidget *);
+void xa_select_files_to_add ( GtkButton* , gpointer );
+void xa_add_files_liststore (gchar *, GtkListStore *);
 #endif
 
