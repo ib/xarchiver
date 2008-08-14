@@ -33,7 +33,7 @@ xarchiver_SOURCES = \
 	extract_dialog.c extract_dialog.h \
 	add_dialog.c add_dialog.h \
 	new_dialog.c new_dialog.h \
-	dlg-open-with.c dlg-open-with.h \
+	open-with-dlg.c open-with-dlg.h \
 	pref_dialog.c pref_dialog.h \
 	glib-mem.h
 

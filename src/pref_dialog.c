@@ -42,6 +42,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 									GTK_WINDOW (xa_main_window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK, NULL);
 	tooltips = gtk_tooltips_new();
+	icon_theme = gtk_icon_theme_get_default();
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
 	gtk_window_set_position (GTK_WINDOW(prefs_data->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_dialog_set_has_separator(GTK_DIALOG(prefs_data->dialog1),FALSE);
@@ -56,9 +57,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	prefs_data->prefs_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT);
 	gtk_list_store_append (prefs_data->prefs_liststore,&iter);
-	gchar *pixbuf_file = g_strconcat(DATADIR,"/pixmaps/xarchiver/xarchiver-behaviour.svg",NULL);
-	icon_pixbuf = gdk_pixbuf_new_from_file (pixbuf_file,NULL);
-	g_free (pixbuf_file);
+	icon_pixbuf = gtk_icon_theme_load_icon(icon_theme,"gnome-mime-application-zip",40,0,NULL);
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Archive"),2,0,-1);
 	if(icon_pixbuf != NULL)
 		g_object_unref (icon_pixbuf);
@@ -410,7 +409,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_free(xa_key_file);
 }
 
-void xa_prefs_load_options(Prefs_dialog_data *prefs_data,Extract_dialog_data *extract_data)
+void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 {
 	gint *coords = NULL;
 	gint *extract_coords = NULL;

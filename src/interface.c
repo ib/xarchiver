@@ -56,7 +56,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	accel_group = gtk_accel_group_new ();
 	xa_set_window_title (xa_main_window ,NULL);
 
-	icon_theme = gtk_icon_theme_get_default();
 	icon = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
 	gtk_window_set_icon (GTK_WINDOW(xa_main_window),icon);
 	g_signal_connect (G_OBJECT (xa_main_window),"delete-event",G_CALLBACK (xa_quit_application),NULL);
@@ -96,14 +95,14 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_sensitive(listing,FALSE);
 	gtk_widget_show (listing_submenu);
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (listing),listing_submenu);
-	listing_text = gtk_image_menu_item_new_with_mnemonic (_("Text format"));
+	listing_text = gtk_image_menu_item_new_with_mnemonic (_("Text file"));
 	gtk_widget_show (listing_text);
 	gtk_container_add (GTK_CONTAINER (listing_submenu),listing_text);
 	tmp_image = gtk_image_new_from_stock ("gtk-edit",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (listing_text),tmp_image);
 	
-	listing_html = gtk_image_menu_item_new_with_mnemonic (_("HTML format"));
+	listing_html = gtk_image_menu_item_new_with_mnemonic (_("HTML file"));
 	gtk_widget_show (listing_html);
 	gtk_container_add (GTK_CONTAINER (listing_submenu),listing_html);
 	tmp_image =  xa_main_window_find_image ("xarchiver-html.png",GTK_ICON_SIZE_MENU);
@@ -210,6 +209,11 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (exe_menu),image2);
 
+	multi_extract_menu = gtk_menu_item_new_with_mnemonic (_("_Multi-Extract"));
+	gtk_widget_show (multi_extract_menu);
+	gtk_container_add (GTK_CONTAINER (menuitem2_menu),multi_extract_menu);
+	gtk_widget_add_accelerator (multi_extract_menu,"activate",accel_group,GDK_m,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+
 	comment_menu = gtk_image_menu_item_new_with_mnemonic (_("Archive comment"));
 	gtk_widget_set_sensitive (comment_menu,FALSE);
 	gtk_widget_show (comment_menu);
@@ -219,12 +223,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	tmp_image = gtk_image_new_from_stock ("gtk-justify-fill",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (comment_menu),tmp_image);
-
-	multi_extract = gtk_menu_item_new_with_mnemonic (_("_Multi-Extract"));
-	gtk_widget_show (multi_extract);
-	gtk_container_add (GTK_CONTAINER (menuitem2_menu),multi_extract);
-	gtk_widget_add_accelerator (multi_extract,"activate",accel_group,GDK_m,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
-
 	separatormenuitem4 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem4);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),separatormenuitem4);
@@ -539,7 +537,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) delete_menu,"activate",G_CALLBACK (xa_delete_archive),NULL);
 	g_signal_connect ((gpointer) rename_menu,"activate",G_CALLBACK (xa_rename_archive),NULL);
 	g_signal_connect ((gpointer) comment_menu,"activate",G_CALLBACK (xa_show_archive_comment),NULL);
-	g_signal_connect ((gpointer) multi_extract,"activate",G_CALLBACK (xa_show_multi_extract_dialog),NULL);
+	g_signal_connect ((gpointer) multi_extract_menu,"activate",G_CALLBACK (xa_show_multi_extract_dialog),NULL);
 	g_signal_connect ((gpointer) help1,"activate",G_CALLBACK (xa_show_help),NULL);
 	g_signal_connect ((gpointer) about1,"activate",G_CALLBACK (xa_about),NULL);
 
@@ -1460,4 +1458,58 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
   	lastpath = path;
 	gdk_drag_status (context,context->suggested_action,time);
 	return TRUE;
+}
+
+void xa_increase_progress_bar(gchar *archive_name,double fraction)
+{
+	static GtkWidget *progress_window = NULL;
+	GtkWidget *vbox1,*extract_message,*hbox1,*icon_pixbuf,*archive_label,*total_label,*progressbar1;
+	GdkPixbuf *pixbuf;
+
+	if (progress_window == NULL)
+	{
+		progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+		gtk_window_set_title (GTK_WINDOW (progress_window), _("Xarchiver"));
+		gtk_window_set_position (GTK_WINDOW (progress_window), GTK_WIN_POS_CENTER_ON_PARENT);
+		gtk_container_set_border_width (GTK_CONTAINER (progress_window), 5);
+		gtk_window_set_default_size (GTK_WINDOW (progress_window), 412,-1);
+		gtk_window_set_transient_for (GTK_WINDOW (progress_window),GTK_WINDOW (xa_main_window));	
+
+		vbox1 = gtk_vbox_new (TRUE, 0);
+		gtk_container_add (GTK_CONTAINER (progress_window), vbox1);
+
+		extract_message = gtk_label_new (_("Extracting archive x of y:"));
+		//gtk_label_set_use_markup (GTK_LABEL (extract_message), TRUE);
+		gtk_box_pack_start (GTK_BOX (vbox1), extract_message, FALSE, FALSE, 0);
+		gtk_misc_set_alignment (GTK_MISC (extract_message), 0, 0);
+
+		hbox1 = gtk_hbox_new (FALSE, 5);
+		gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 0);
+
+		pixbuf = gtk_icon_theme_load_icon(icon_theme,"gnome-mime-application-zip",40,0,NULL);
+		icon_pixbuf = gtk_image_new_from_pixbuf(pixbuf);
+		g_object_unref(pixbuf);
+
+		gtk_box_pack_start (GTK_BOX (hbox1), icon_pixbuf, FALSE, FALSE, 0);
+		gtk_misc_set_alignment (GTK_MISC (icon_pixbuf), 0.5, 0.5);
+
+		archive_label = gtk_label_new (_("Name of the archive"));
+		gtk_box_pack_start (GTK_BOX (hbox1), archive_label, FALSE, FALSE, 0);
+		gtk_misc_set_alignment (GTK_MISC (archive_label), 0.5, 0.5);
+
+		total_label = gtk_label_new (_("Total Progress:"));
+		gtk_box_pack_start (GTK_BOX (vbox1), total_label, FALSE, FALSE, 0);
+		gtk_misc_set_alignment (GTK_MISC (total_label), 0, 0);
+
+		progressbar1 = gtk_progress_bar_new ();
+		if (fraction < 0)
+			g_print ("This means we are using a bounce progress bar");
+		gtk_box_pack_start (GTK_BOX (vbox1), progressbar1, FALSE, FALSE, 0);
+		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progressbar1), 0.5);
+		gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar1), 0);
+		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progressbar1), _("50%"));
+		gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR (progressbar1), PANGO_ELLIPSIZE_MIDDLE);
+		gtk_widget_show_all(vbox1);
+	}
+	gtk_widget_show(progress_window);
 }

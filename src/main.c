@@ -40,7 +40,8 @@ extern gchar *current_open_directory;
 extern int status;
 Prefs_dialog_data   *prefs_window   = NULL;
 Extract_dialog_data *extract_window = NULL;
-Add_dialog_data     *add_window = NULL;
+Add_dialog_data     *add_window		= NULL;
+Multi_extract_data	*multi_extract_window	= NULL;
 
 delete_func		delete[XARCHIVETYPE_COUNT]	= {NULL};
 add_func		add[XARCHIVETYPE_COUNT]		= {NULL};
@@ -108,7 +109,8 @@ int main (int argc, char **argv)
 	prefs_window   = xa_create_prefs_dialog();
 	extract_window = xa_create_extract_dialog();
 	add_window     = xa_create_add_dialog();
-	xa_prefs_load_options(prefs_window,extract_window);//add_window);
+	multi_extract_window = xa_create_multi_extract_dialog();
+	xa_prefs_load_options(prefs_window);
 
 	if (batch_mode == TRUE)
 	{
@@ -218,6 +220,7 @@ done:	g_list_free (ArchiveSuffix);
 
 		gtk_window_set_transient_for (GTK_WINDOW (extract_window->dialog1),GTK_WINDOW (xa_main_window));
 		gtk_window_set_transient_for (GTK_WINDOW (add_window->dialog1),GTK_WINDOW (xa_main_window));
+		gtk_window_set_transient_for (GTK_WINDOW (prefs_window->dialog1),GTK_WINDOW (xa_main_window));
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
 		{
 			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
@@ -252,6 +255,7 @@ done:	g_list_free (ArchiveSuffix);
 			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc,	G_IO_IN|G_IO_PRI|G_IO_ERR, socket_lock_input_cb, xa_main_window);
 		}
 		#endif
+		xa_increase_progress_bar("Pippo",0.0);
 		gtk_main ();
 		g_list_free (ArchiveSuffix);
 		g_list_free (ArchiveType);

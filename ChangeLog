@@ -1,16 +1,17 @@
 Xarchiver changelog:
 
 xx/08/08 - 0.5:
-		- Archive content can be browsed just like a file manager.
+		- Archive content can now be browsed just like a file manager.
 		- Mime icon for each of the archive entries.
 		- New archive type support: lzma and tar.lzma.
-		- Archive directories can be browsed through a sidepane.
-		- Files and directories can be added into archive directories.
+		- Archive directories can now be browsed through a sidepane.
+		- Files and directories can now be added into archive directories.
 		- Files can be directly opened with the registered application within Xarchiver.
 		- Ability to add a comment for those archives supporting it.
 		- Added a brand new preferences dialog to set Xarchiver's options.
 		- Ability to save the archive content in text or HTML format.
 		- The add and extract dialogs layout have been redesigned.
+		- Multi-Extract dialog for extracting multiple archives in one shot.
 		- Context menu on each of the entries with cut/copy/paste ability from and to archives.
 		- Ability to rename entries in the archives.
 		- The cmd-line output window now displays each archiver's output.

@@ -33,9 +33,11 @@ extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean unrar;
 extern gboolean xdg_open;
-extern Prefs_dialog_data   *prefs_window;
-extern Extract_dialog_data *extract_window;
-extern Add_dialog_data     *add_window;
+extern Prefs_dialog_data	*prefs_window;
+extern Extract_dialog_data	*extract_window;
+extern Add_dialog_data		*add_window;
+extern Multi_extract_data	*multi_extract_window;
+
 extern gchar *config_file;
 extern void xa_free_icon_cache();
 
@@ -252,12 +254,12 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,gpointer data)
 
 		hbox = gtk_hbox_new (FALSE,6);
 		gtk_box_pack_start (GTK_BOX (hbox),image,FALSE,FALSE,0);
-		gtk_box_pack_start (GTK_BOX (hbox),label,FALSE,FALSE,0);
-		gtk_box_pack_start (GTK_BOX (vbox),hbox,TRUE,TRUE,0);
+		gtk_box_pack_start (GTK_BOX (hbox),label,TRUE,TRUE,0);
+		gtk_box_pack_start (GTK_BOX (vbox),hbox,FALSE,FALSE,0);
 	}
 	gtk_container_add (GTK_CONTAINER (scrolledwindow),textview);
-	gtk_box_pack_start (GTK_BOX (vbox),scrolledwindow,FALSE,FALSE,0);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),vbox,FALSE,FALSE,0);
+	gtk_box_pack_start (GTK_BOX (vbox),scrolledwindow,TRUE,TRUE,0);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),vbox,TRUE,TRUE,0);
 
 	output = archive[idx]->error_output;
 	while (output)
@@ -637,55 +639,78 @@ void xa_list_archive (GtkMenuItem *menuitem, gpointer data)
 		}
 		if ( ! bp)
 		{
-			g_fprintf (stream,"------------------------------------------------------------------------------------\n");
-			g_fprintf (stream,_("Files:\n"));
-			g_fprintf (stream,"------------------------------------------------------------------------------------\n");
+			g_fprintf (stream,"-------------------------------------------------------------------------------------------------------------\n");
+			g_fprintf (stream,_("Files:%*s%s"),80," ",_("|Compressed\n"));
+			g_fprintf (stream,"-------------------------------------------------------------------------------------------------------------\n");
 		}
 		else
 		{
-			g_fprintf(stream,"<br><table border=0 cellpadding=6 cellspacing=1><tr><th>");
-			g_fprintf(stream,_("Files:"));
+			g_fprintf(stream,"<br><table border=0 cellpadding=6 cellspacing=1><tr>");
+			g_fprintf(stream,_("<th>Files:</th>"));
+			g_fprintf(stream,_("<th>Compressed:</th>"));
 			g_fprintf(stream,"</th></tr>");
+			
 		}
-		xa_print_entry_in_file(archive[idx]->root_entry,stream,bp);
+		xa_print_entry_in_file(archive[idx]->root_entry,idx,0,stream,bp);
 		if (bp)
 			g_fprintf (stream,"</table></body></html>");
 		fclose (stream);
 	}
 }
 
-void xa_print_entry_in_file(XEntry *entry, FILE *stream,int bp)
+void xa_print_entry_in_file(XEntry *entry,gint idx,unsigned long long int size,FILE *stream,int bp)
 {
 	gchar *path;
 	static int x = 1;
-	
+	gint i;
+	gpointer current_column;
+	unsigned long long int file_size = 0;
+
 	if (!entry)
 		return;
 
     if (entry->filename && !entry->is_dir)
     {
+    	current_column = entry->columns;
+		/* Let's retrieve the sizes of the entry from its column */
 		path = xa_build_full_path_name_from_entry(entry);
 		if (strlen(path) == 0)
 			goto here;
+		for (i = 0; i < archive[idx]->nc; i++)
+		{
+			switch(archive[idx]->column_types[i+2])
+			{
+				case G_TYPE_STRING:
+					current_column += sizeof(gchar *);
+				break;
+
+				case G_TYPE_UINT64:
+					file_size = (*((guint64 *)current_column));
+					current_column += sizeof(guint64);
+				break;
+			}
+		}
 		if (bp)
 		{
-			g_fprintf(stream,"<tr class=\"row%d\"><td>",x);
+			g_fprintf(stream,"<tr class=\"row%d\">",x);
+			g_fprintf(stream,"<td>%s</td><td>%lld</td></tr>",path,file_size);
+			g_fprintf(stream,"</td></tr>");
 			if (x == 2)
 				x = 1;
 			else
 				x = 2;
 		}
-		g_fprintf(stream,"%s\n",path);
-		if (bp)
-			g_fprintf(stream,"</td></tr>");
+		else
+			g_fprintf(stream,"%-90s %lld\n",path,file_size);
+
 		g_free(path);
-    }
+	}
 here:
-	xa_print_entry_in_file(entry->child,stream,bp);
-    xa_print_entry_in_file(entry->next,stream,bp);
+	xa_print_entry_in_file(entry->child,idx,file_size,stream,bp);
+	xa_print_entry_in_file(entry->next,idx,file_size,stream,bp);
 }
 
-void xa_close_archive (GtkMenuItem *menuitem, gpointer user_data)
+void xa_close_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
 	gint current_page;
 	gint idx;
@@ -759,6 +784,9 @@ void xa_quit_application (GtkMenuItem *menuitem, gpointer user_data)
 	
 	gtk_widget_destroy (add_window->dialog1);
 	g_free(add_window);
+
+	gtk_widget_destroy (multi_extract_window->multi_extract);
+	g_free(multi_extract_window);
 
 	gtk_widget_destroy(xa_popup_menu);
 	g_free (config_file);
@@ -1089,6 +1117,8 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
 		about = gtk_about_dialog_new ();
 		gtk_about_dialog_set_email_hook (xa_activate_link,NULL,NULL);
 		gtk_about_dialog_set_url_hook (xa_activate_link,NULL,NULL);
+		gtk_window_set_position (GTK_WINDOW (about),GTK_WIN_POS_CENTER_ON_PARENT);
+		gtk_window_set_transient_for (GTK_WINDOW (about),GTK_WINDOW (xa_main_window));
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (about),TRUE);
 		g_object_set (about,
 			"name",  "xarchiver",
@@ -1116,7 +1146,6 @@ void xa_about (GtkMenuItem *menuitem, gpointer user_data)
     					"write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
     					"Boston, MA 02111-1307, USA.\n",
 		      NULL);
-		gtk_window_set_position (GTK_WINDOW (about),GTK_WIN_POS_CENTER);
 	}
 	gtk_dialog_run ( GTK_DIALOG(about) );
 	gtk_widget_hide (about);
@@ -1552,7 +1581,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	GtkTreeIter iter;
 	gint n_elem = 0,pos = 0,dirs = 0;
 	unsigned long int total_size = 0;
-	unsigned int size = 0;
+	unsigned long int size = 0;
 	XEntry *entry;
 
 	path = gtk_tree_path_new_first();
@@ -1618,7 +1647,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	GtkTreeModel *model;
 	gint selected = 0,pos = 0, dirs = 0;
 	unsigned long int total_size = 0;
-	unsigned int size = 0;
+	unsigned long int size = 0;
 	XEntry *entry;
 
 	switch (archive->type)
@@ -1854,7 +1883,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	idx = xa_find_archive_index (current_page);
 	array = gtk_selection_data_get_uris(data);
 
-	if (array == NULL || archive[idx]->child_pid)
+	if (array == NULL)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"" );
 		gtk_drag_finish(context,FALSE,FALSE,time);
@@ -1890,17 +1919,12 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 
 	if (archive[idx]->type == XARCHIVETYPE_RAR && unrar)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("unrar doesn't support archive creation!") );
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install rar package!") );
 		return;
 	}
-	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM)
+	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM || archive[idx]->type == XARCHIVETYPE_GZIP || archive[idx]->type == XARCHIVETYPE_BZIP2)
 	{
-		gchar *msg;
-		if (archive[idx]->type == XARCHIVETYPE_DEB)
-			msg = _("You can't add content to deb packages!");
-		else
-			msg = _("You can't add content to rpm packages!");
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"), msg );
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("The archiver doesn't support this feature!"));
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
@@ -2104,7 +2128,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	idx = xa_find_archive_index (current_page);
 
 	comment_dialog = gtk_dialog_new_with_buttons (_("Comment"),GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,NULL);
-	gtk_window_set_position (GTK_WINDOW (comment_dialog),GTK_WIN_POS_CENTER);
+	gtk_window_set_position (GTK_WINDOW (comment_dialog),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (comment_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_dialog_set_has_separator (GTK_DIALOG (comment_dialog),FALSE);
 	dialog_vbox1 = GTK_DIALOG (comment_dialog)->vbox;
@@ -2679,6 +2703,8 @@ void xa_open_file_from_popupmenu(GtkMenuItem* item,gpointer data)
 	GSList *list = NULL;
 	gchar *dummy = NULL;
 	XEntry *entry;
+	GdkPixbuf *pixbuf = NULL;
+	GtkWidget *dlg_open;
 
 	current_index = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index(current_index);
@@ -2698,9 +2724,9 @@ void xa_open_file_from_popupmenu(GtkMenuItem* item,gpointer data)
 		while (row_list)
 		{
 			gtk_tree_model_get_iter(archive[idx]->model, &iter,row_list->data);
-			gtk_tree_model_get (archive[idx]->model,&iter,archive[idx]->nc+1,&entry,-1);
-			gtk_tree_path_free (row_list->data);
-			list = g_slist_append (list,xa_build_full_path_name_from_entry(entry));
+			gtk_tree_model_get(archive[idx]->model,&iter,0,&pixbuf,archive[idx]->nc+1,&entry,-1);
+			gtk_tree_path_free(row_list->data);
+			list = g_slist_append(list,xa_build_full_path_name_from_entry(entry));
 			row_list = row_list->next;
 		}
 		g_list_free (row_list);
@@ -2715,7 +2741,9 @@ void xa_open_file_from_popupmenu(GtkMenuItem* item,gpointer data)
 		if (result == FALSE)
 			return;
 		chdir(archive[idx]->tmp);
-		xa_determine_program_to_run(entry->filename);
+		dlg_open = xa_create_open_with_dialog(pixbuf,entry->filename);
+		gtk_dialog_run(GTK_DIALOG(dlg_open));
+		//xa_determine_program_to_run(entry->filename);
 	}
 }
 
@@ -2778,6 +2806,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	GtkTreeIter iter;
 	unsigned short int i;
 	gpointer current_column;
+	gchar *filename;
 
 	archive->current_entry = entry;
 	if (entry == NULL)
@@ -2824,15 +2853,16 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 			}
 		}
 		if (entry->is_dir)
-			pixbuf = xa_get_pixbuf_icon_from_cache("folder");
+			filename = "folder";
 		else if (entry->is_encrypted)
 		{
-			pixbuf = xa_get_pixbuf_icon_from_cache("lock");
+			filename = "lock";
 			archive->has_passwd = TRUE;
 		}
 		else
-			pixbuf = xa_get_pixbuf_icon_from_cache(entry->filename);
+			filename = entry->filename;
 
+		pixbuf = xa_get_pixbuf_icon_from_cache(filename);
 		gtk_list_store_set (archive->liststore,&iter,archive->nc+1, entry,-1);
 		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
 
@@ -2861,18 +2891,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 
 void xa_show_multi_extract_dialog ( GtkMenuItem *menu_item, gpointer data)
 {
-	GtkWidget *dialog;
-	gint response;
-	gboolean result = FALSE;
+	Multi_extract_data *multi_extract;
 
-	dialog = xa_create_multi_extract_dialog();
-	response = gtk_dialog_run(GTK_DIALOG(dialog));
-	if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
-	{
-		gtk_widget_destroy(dialog);
-		return;
-	}
-	result = xa_multi_extract_archive(dialog);
-	if (result)
-		xa_show_cmd_line_output(NULL,NULL);
+	multi_extract = xa_create_multi_extract_dialog();
+	xa_parse_multi_extract_archive(multi_extract);	
 }

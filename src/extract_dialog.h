@@ -25,25 +25,20 @@
 
 typedef struct
 {
-	GtkWidget *dialog1;
-	GtkWidget *dialog_vbox1;
-	GtkWidget *destination_path_entry;
-	GtkWidget *overwrite_check;
-	GtkWidget *extract_full;
-	GtkWidget *touch;
-	GtkWidget *fresh;
-	GtkWidget *update;
-	GtkWidget *all_files_radio;
-	GtkWidget *files_radio;
-	GtkWidget *selected_radio;
-	GtkWidget *entry2;
-	GtkWidget *password_entry;
-	GtkWidget *create_dir;
-	GtkWidget *treeview3;
+	GtkWidget *dialog1,*dialog_vbox1,*destination_path_entry,*overwrite_check,*extract_full,*touch,*fresh,*update,*all_files_radio,*files_radio,
+	 *selected_radio,*entry2,*password_entry,*create_dir,*treeview3;
 	GtkCellRenderer *renderer;
 	gchar *string;
 	gulong signal_id;
 } Extract_dialog_data;
+
+typedef struct
+{
+	GtkWidget *multi_extract,*files_treeview,*hbox2,*extract_to,*entry1,*extract_to_archive_name,*label1,*frame2,*alignment2,*vbox3,*overwrite,*full_path,*label2,*dialog_action_area1,
+	*extract_button,*extract_image,*extract_hbox,*extract_label,*image1;
+	GtkListStore *files_liststore;
+	gulong handler;
+} Multi_extract_data;
 
 GtkWidget *label1,*label2,*label3,*label4,*label_password;
 GtkWidget *hbox1,*hbox2,*hbox3,*hbox4,*vbox1,*vbox2,*vbox3,*vbox4,*vbox5;
@@ -52,7 +47,6 @@ GtkWidget *scrolledwindow1,*dialog_action_area1,*cancel_button,*okbutton1,*extra
 GtkTreeStore *model;
 GtkTreeViewColumn *column;
 GtkTooltips *option_tooltip;
-GtkListStore *files_liststore;
 	
 Extract_dialog_data *xa_create_extract_dialog();
 void xa_create_dir_button_pressed (GtkButton *, gpointer );
@@ -68,11 +62,9 @@ void xa_tree_view_row_selected(GtkTreeSelection *, gpointer );
 void xa_row_activated(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,gpointer );
 void xa_expand_dir(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer );
 void xa_treeview_exposed (GtkWidget *,GdkEventExpose *,gpointer );
-GtkWidget *xa_create_multi_extract_dialog();
-void xa_remove_files_liststore (GtkWidget *, GtkTreeView *);
+Multi_extract_data *xa_create_multi_extract_dialog();
 void xa_activate_remove_button (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GtkWidget *);
-gboolean xa_multi_extract_archive(GtkWidget *);
-void xa_select_files_to_add ( GtkButton* , gpointer );
 void xa_add_files_liststore (gchar *, GtkListStore *);
+void xa_parse_multi_extract_archive(Multi_extract_data *);
 #endif
 

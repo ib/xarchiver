@@ -3,7 +3,6 @@
 pixmapsdir = $(datadir)/pixmaps/xarchiver
 
 pixmaps_DATA = 	xarchiver-add.png \
-		xarchiver-extract.png \
-		xarchiver-behaviour.svg
+		xarchiver-extract.png
 
 EXTRA_DIST = $(pixmaps_DATA)

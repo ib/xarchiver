@@ -58,9 +58,7 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 	{
 		struct stat my_stat;
 		gchar *compressed = NULL;
-		gchar *size = NULL;
-		gchar *command = NULL;
-		gchar *executable = NULL;
+		gchar *size = NULL,*command = NULL,*executable = NULL,*dot = NULL;
 		unsigned short int i;
 		GSList *list = NULL;
 
@@ -84,7 +82,7 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 		for (i = 0; i < 5; i++)
 			archive->column_types[i] = types[i];
 
-		char *names[]= {(_("Compressed")),(_("Size"))};
+		char *names[]= {(_("Original")),(_("Compressed"))};
 		xa_create_liststore (archive,names);
 		result = xa_create_temp_directory (archive);
 		if (!result)
@@ -96,10 +94,10 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 		/* Let's get its compressed file size */
 		stat (archive->escaped_path,&my_stat);
 		compressed = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
-		item[0] = compressed;
+		item[1] = compressed;
 
 		/* Let's extract it */
-		_filename = g_strrstr (archive->escaped_path , "/");
+		_filename = g_strrstr (archive->escaped_path,"/");
 		if (_filename)
 			command = g_strconcat(executable,"-f -d ",archive->tmp,_filename,NULL);
 		else
@@ -109,7 +107,8 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 		xa_run_command (archive,list);
 
 		/* and let's get its uncompressed file size */
-		if (_filename)
+		dot = strrchr(_filename,'.');
+		if (_filename || G_LIKELY(dot))
 		{
 			_filename++;
 			filename = g_strndup(_filename,strlen(_filename)-4);
@@ -124,7 +123,7 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 		g_free(command);
 		size = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
 		archive->dummy_size = my_stat.st_size;
-		item[1] = size;
+		item[0] = size;
 
 		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 		g_free(compressed);
@@ -143,7 +142,7 @@ void xa_open_tar_compressed_file(XArchive *archive)
 	unsigned short int i;
 
 	if (archive->type == XARCHIVETYPE_TAR_BZ2)
-		command = g_strconcat(tar, " tfjv ",archive->escaped_path,NULL);
+		command = g_strconcat(tar," tfjv ",archive->escaped_path,NULL);
 	else
 		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->escaped_path,NULL);
 
@@ -175,15 +174,17 @@ gboolean lzma_gzip_bzip2_extract (XArchive *archive,GSList *dummy)
 	gboolean result = FALSE;
 
 	filename = xa_remove_path_from_archive_name(archive->escaped_path);
-
-	dot = strchr(filename,'.');
+	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
 	{
 		filename_noext = g_strndup(filename, ( dot - filename ));
-		command = g_strconcat("cp -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path,NULL);
-		g_free(filename_noext);
+		g_free(filename);	
 	}
-	g_free(filename);
+	else
+		filename_noext = filename;
+
+	command = g_strconcat("cp -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path,NULL);
+	g_free(filename_noext);	
 
 	list = g_slist_append(list,command);
 	result = xa_run_command (archive,list);

@@ -16,4 +16,9 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include "dlg-open-with.h"
+#ifndef __DLG_OPEN_H
+#define __DLG_OPEN_H
+#include <gtk/gtk.h>
+
+GtkWidget *xa_create_open_with_dialog(GdkPixbuf *,gchar *);
+#endif

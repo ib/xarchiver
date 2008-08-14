@@ -46,7 +46,7 @@ void xa_open_zip (XArchive *archive)
 	for (i = 0; i < 11; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Permissions")),(_("Version")),(_("OS")),(_("Size")),(_("Compressed")),(_("Method")),(_("Date")),(_("Time")),NULL};
+	char *names[]= {(_("Permissions")),(_("Version")),(_("OS")),(_("Original")),(_("Compressed")),(_("Method")),(_("Date")),(_("Time")),NULL};
 	xa_create_liststore (archive,names);
 }
 
