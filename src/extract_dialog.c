@@ -484,7 +484,10 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);
 
 			if (xa_main_window)
+			{
 				gtk_widget_set_sensitive (Stop_button,TRUE);
+				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive, please wait..."));
+			}
 			(*archive->extract) (archive,names);
 		}
 	}
@@ -601,7 +604,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog_data->multi_extract),TRUE);
 	gtk_widget_set_size_request(dialog_data->multi_extract,455,294);
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog_data->multi_extract),FALSE);
-	gtk_window_set_title (GTK_WINDOW (dialog_data->multi_extract), _("Multi-Extract dialog"));
+	gtk_window_set_title (GTK_WINDOW (dialog_data->multi_extract), _("Xarchiver Multi-Extract dialog"));
 	gtk_window_set_transient_for (GTK_WINDOW (dialog_data->multi_extract),GTK_WINDOW (xa_main_window));
 
 	dialog_vbox1 = GTK_DIALOG (dialog_data->multi_extract)->vbox;
@@ -672,7 +675,6 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_widget_show (image1);
 	gtk_box_pack_end(GTK_BOX (hbox3),browse, FALSE, TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(browse),image1);
-	gtk_tooltips_set_tip (multi_tooltip,browse,_("Browse"),NULL);
 	g_signal_connect( (gpointer) browse, "clicked", G_CALLBACK (xa_select_where_to_extract),dialog_data);
 
 	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic (NULL, _("Extract to dir \"Archive Name\""));
@@ -885,7 +887,7 @@ run:
 	}
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(dialog->files_liststore), &iter) == FALSE)
 	{
-		xa_show_message_dialog(GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't multi-extract archives:"), _("You haven't selected any of them!") );
+		xa_show_message_dialog(GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't multi-extract archives:"),_("You haven't added any of them!") );
 		goto run;
 	}
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->extract_to)))
@@ -919,7 +921,7 @@ run:
 	while (gtk_tree_model_iter_next (GTK_TREE_MODEL(dialog->files_liststore),&iter));
 	
 	if (strlen(output->str) > 0)
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Some errors occurrred:"),output->str );
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Some errors occurred:"),output->str );
 
 	g_string_free(output,TRUE);
 	if (dest_path != NULL)

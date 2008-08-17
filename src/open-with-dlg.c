@@ -17,57 +17,56 @@
  */
 
 #include "open-with-dlg.h"
+#include "window.h"
+#include "mime.h"
 #include "support.h"
 
 /*gtk_tree_model_get(archive->liststore,&iter,0,pixbuf);
-open_with_dialog = xa_create_open_with_dialog(pixbuf);*/
+open_with_dialog = xa_create_open_with_dialog(filename);*/
 
-GtkWidget *xa_create_open_with_dialog(GdkPixbuf *pixbuf,gchar *filename)
+GtkWidget *xa_create_open_with_dialog(gchar *filename)
 {
-	gchar *text = NULL;
 	GtkWidget	*dialog1,*dialog_vbox1,*vbox1,*hbox1,*mime_icon,*open_text,*scrolledwindow1,*apps_treeview,*app_description,*dialog_action_area1,
-				*cancelbutton1,*okbutton1;
+				*custom_command_expander,*custom_command_entry,*hbox_expander,*browse,*cancelbutton1,*okbutton1;
 	GtkCellRenderer		*renderer;
 	GtkTreeViewColumn	*column;
-	
+	GdkPixbuf *pixbuf;
+	gchar *text = NULL;
+
 	dialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (dialog1), _("Open With"));
 	gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_modal (GTK_WINDOW (dialog1), TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
+	gtk_window_set_transient_for(GTK_WINDOW(dialog1),GTK_WINDOW(xa_main_window));
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog1),FALSE);
+	gtk_container_set_border_width (GTK_CONTAINER (dialog1),5);
+	gtk_widget_set_size_request(dialog1,355,377);
 	dialog_vbox1 = GTK_DIALOG (dialog1)->vbox;
-	gtk_widget_show (dialog_vbox1);
 
 	vbox1 = gtk_vbox_new (FALSE, 5);
-	gtk_widget_show (vbox1);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1),vbox1,TRUE,TRUE,0);
 
 	hbox1 = gtk_hbox_new (FALSE, 1);
-	gtk_widget_show (hbox1);
 	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,FALSE,FALSE,0);
 
 	pixbuf = xa_get_pixbuf_icon_from_cache(filename);
 	mime_icon = gtk_image_new_from_pixbuf(pixbuf);
 	gtk_box_pack_start (GTK_BOX (hbox1),mime_icon,FALSE,TRUE,0);
 	gtk_misc_set_alignment (GTK_MISC (mime_icon),0,0);
-	gtk_widget_show (mime_icon);
 
 	open_text = gtk_label_new("");
-	text = g_strdup_printf(_("Open <i>%s</i> with"),filename);
+	text = g_strdup_printf(_("Open <i>%s</i> with:"),filename);
 	gtk_label_set_use_markup (GTK_LABEL (open_text),TRUE);
 	gtk_label_set_markup (GTK_LABEL (open_text),text);
 	g_free(text);
-	gtk_widget_show (open_text);
 	gtk_box_pack_start (GTK_BOX (hbox1),open_text,FALSE,FALSE,10);
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL,NULL);
-	gtk_widget_show (scrolledwindow1);
 	gtk_box_pack_start (GTK_BOX (vbox1),scrolledwindow1,TRUE,TRUE,0);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1),GTK_SHADOW_IN);
+	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"shadow-type",GTK_SHADOW_IN,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
 
 	apps_treeview = gtk_tree_view_new();
-	gtk_widget_show (apps_treeview);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),apps_treeview);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(apps_treeview),FALSE);
 
@@ -85,22 +84,34 @@ GtkWidget *xa_create_open_with_dialog(GdkPixbuf *pixbuf,gchar *filename)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (apps_treeview), column);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
-	app_description = gtk_label_new ("");
-	gtk_widget_show (app_description);
+	app_description = gtk_label_new ("This should be the app description");
+	gtk_misc_set_alignment(GTK_MISC(app_description),0.05,0.0);
 	gtk_box_pack_start (GTK_BOX (vbox1),app_description,FALSE,FALSE,0);
 
+	custom_command_expander = gtk_expander_new_with_mnemonic(_("Use a custom command:"));
+	gtk_box_pack_start (GTK_BOX (vbox1),custom_command_expander,FALSE,FALSE,0);
+
+	hbox_expander = gtk_hbox_new(FALSE,5);
+
+	custom_command_entry = gtk_entry_new();
+	browse = gtk_button_new_with_label(_("Browse"));
+
+	gtk_box_pack_start (GTK_BOX (hbox_expander),custom_command_entry,TRUE,TRUE,0);
+	gtk_box_pack_start (GTK_BOX (hbox_expander),browse,TRUE,TRUE,0);
+	gtk_container_add(GTK_CONTAINER(custom_command_expander),hbox_expander);
+
 	dialog_action_area1 = GTK_DIALOG (dialog1)->action_area;
-	gtk_widget_show (dialog_action_area1);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_widget_show (cancelbutton1);
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog1), cancelbutton1, GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_action_widget (GTK_DIALOG (dialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
 	GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
 
 	okbutton1 = gtk_button_new_from_stock ("gtk-open");
 	gtk_widget_show (okbutton1);
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog1), okbutton1, GTK_RESPONSE_OK);
+	gtk_dialog_add_action_widget (GTK_DIALOG (dialog1),okbutton1,GTK_RESPONSE_OK);
 	GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
+	gtk_widget_show_all(vbox1);
 	return dialog1;
 }

@@ -75,32 +75,32 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
 	g_object_unref (prefs_data->prefs_liststore);	
 
-	gtk_widget_set_size_request(prefs_iconview, 140, 190);
+	gtk_widget_set_size_request(prefs_iconview, -1, 190);
 	gtk_icon_view_set_orientation (GTK_ICON_VIEW (prefs_iconview), GTK_ORIENTATION_VERTICAL);
 	gtk_icon_view_set_item_width (GTK_ICON_VIEW (prefs_iconview),130);
 	gtk_icon_view_set_columns (GTK_ICON_VIEW (prefs_iconview),1);
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (prefs_iconview), 0);
-	gtk_icon_view_set_text_column(GTK_ICON_VIEW (prefs_iconview), 1);
+	gtk_icon_view_set_text_column(GTK_ICON_VIEW (prefs_iconview),1);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), prefs_iconview);
 	
 	prefs_data->prefs_notebook = gtk_notebook_new ();
 	g_object_set (G_OBJECT (prefs_data->prefs_notebook),"show-border", FALSE,"show-tabs", FALSE,"enable-popup",FALSE,NULL);
-	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->prefs_notebook, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->prefs_notebook,TRUE,TRUE,0);
 	GTK_WIDGET_UNSET_FLAGS (prefs_data->prefs_notebook, GTK_CAN_FOCUS);
-	g_signal_connect (G_OBJECT (prefs_iconview), "selection-changed",G_CALLBACK (xa_prefs_iconview_changed), prefs_data);
+	g_signal_connect (G_OBJECT (prefs_iconview),"selection-changed",G_CALLBACK (xa_prefs_iconview_changed),prefs_data);
 
 	/* Archive page*/
 	vbox4 = gtk_vbox_new (FALSE, 2);
-	gtk_container_add (GTK_CONTAINER (prefs_data->prefs_notebook), vbox4);
+	gtk_container_add (GTK_CONTAINER (prefs_data->prefs_notebook),vbox4);
 
 	hbox1 = gtk_hbox_new (FALSE, 5);
-	gtk_box_pack_start (GTK_BOX (vbox4), hbox1, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox4), hbox1, FALSE, TRUE,0);
 
 	label4 = gtk_label_new (_("Preferred archive format"));
-	gtk_box_pack_start (GTK_BOX (hbox1), label4, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox1), label4, FALSE, FALSE,0);
 
 	prefs_data->combo_prefered_format = gtk_combo_box_new_text();
-	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->combo_prefered_format, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->combo_prefered_format,FALSE,TRUE,0);
 	archive_type = g_list_first (ArchiveType);
 	while ( archive_type != NULL )
 	{

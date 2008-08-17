@@ -27,11 +27,11 @@
 #endif
 
 gchar *absolute_path = NULL;
-gchar *archive_name = NULL;
+//gchar *archive_name = NULL;
 gchar *_current_dir = NULL;
 gchar *extract_path = NULL;
 GError *cli_error = NULL;
-gboolean error_output, file_to_open, ask_and_extract, ask_and_add;
+gboolean error_output, file_to_open, ask_and_extract, add_files,ask_and_add, multi_extract;
 gboolean batch_mode = FALSE;
 gboolean unrar = FALSE;
 gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
@@ -58,7 +58,11 @@ static GOptionEntry entries[] =
 		N_("Extract archive by asking the extraction directory and quits."),
 		N_("archive")
 	},
-	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &archive_name,
+	{	"multi-extract", 'm', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &multi_extract,
+		N_("Multi-extract archives"),
+		N_("filenames")
+	},
+	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &add_files,
 		N_("Add the given files by asking the name of the archive and quits."),
 		N_("file1 file2 file3 ... fileN")
 	},
@@ -100,7 +104,7 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
-	if (ask_and_extract || ask_and_add || archive_name != NULL || extract_path != NULL)
+	if (multi_extract || add_files || ask_and_extract || ask_and_add || extract_path != NULL)
 		batch_mode = TRUE;
 
 	xa_mime_type_init();	/* initialize mime-type cache */
@@ -116,8 +120,7 @@ int main (int argc, char **argv)
 	{
 		xa_main_window = NULL;
 		//gtk_main_iteration_do (FALSE);
-		if (archive_name == NULL)
-			archive = xa_init_structure_from_cmd_line (argv[1]);
+		archive = xa_init_structure_from_cmd_line (argv[1]);
 		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2008 Giuseppe Torelli\n");
 
 		/* Switch -x */
@@ -161,25 +164,34 @@ int main (int argc, char **argv)
 			gtk_widget_destroy (extract_window->dialog1);
 			g_free (extract_window);
 		}
-		/* Switch -d */
-		else if (archive_name != NULL)
+		/* Switch -m */
+		else if (multi_extract)
 		{
-			if (argc > 1 || g_file_test (archive_name,G_FILE_TEST_IS_DIR))
+			Multi_extract_data *multi_extract = NULL;
+			multi_extract = xa_create_multi_extract_dialog();
+			for (x = 1; x< argc; x++)
+				xa_add_files_liststore(argv[x],multi_extract->files_liststore);
+			xa_parse_multi_extract_archive(multi_extract);
+			gtk_widget_destroy (multi_extract->multi_extract);
+			g_free(multi_extract);
+		}
+		/* Switch -d */
+		else if (add_files)
+		{
+			if (argc > 1 || g_file_test (argv[1],G_FILE_TEST_IS_DIR))
 				no_bzip2_gzip = TRUE;
 			else
 				no_bzip2_gzip = FALSE;
-			archive = xa_new_archive_dialog (archive_name,NULL,no_bzip2_gzip);
+			archive = xa_new_archive_dialog (argv[1],NULL,no_bzip2_gzip);
 			if (archive == NULL)
 				return -1;
 
 			if (archive->path != NULL)
 			{
-				_current_dir = g_path_get_dirname(archive_name);
+				_current_dir = g_path_get_dirname(argv[1]);
 				chdir (_current_dir);
 				g_free(_current_dir);
 				GSList *files = NULL;
-				if (g_file_test (archive_name,G_FILE_TEST_EXISTS))
-					files = g_slist_append(files,xa_escape_filename(archive_name,"$'`\"\\!?* ()[]&|:;<>#"));
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
@@ -233,7 +245,7 @@ done:	g_list_free (ArchiveSuffix);
 			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), 600, 400);
 			gtk_paned_set_position (GTK_PANED (hpaned1),200);
 		}
-		gtk_label_set_text(GTK_LABEL(total_label),"Select \"New\" to create or \"Open\" to open an archive");
+		gtk_label_set_text(GTK_LABEL(total_label),_("Select \"New\" to create or \"Open\" to open an archive"));
 		gtk_widget_show (xa_main_window);
 
 		/* This to open the archive from the command line */
@@ -255,7 +267,6 @@ done:	g_list_free (ArchiveSuffix);
 			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc,	G_IO_IN|G_IO_PRI|G_IO_ERR, socket_lock_input_cb, xa_main_window);
 		}
 		#endif
-		xa_increase_progress_bar("Pippo",0.0);
 		gtk_main ();
 		g_list_free (ArchiveSuffix);
 		g_list_free (ArchiveType);

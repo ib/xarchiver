@@ -176,6 +176,7 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 			else
 				gtk_widget_set_sensitive (password_entry_menu,TRUE);
 
+			gtk_label_set_text(GTK_LABEL(total_label),"");
 			xa_update_window_with_archive_entries (archive,NULL);
 			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
 			g_object_unref (archive->model);

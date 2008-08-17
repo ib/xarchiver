@@ -20,5 +20,5 @@
 #define __DLG_OPEN_H
 #include <gtk/gtk.h>
 
-GtkWidget *xa_create_open_with_dialog(GdkPixbuf *,gchar *);
+GtkWidget *xa_create_open_with_dialog(gchar *);
 #endif

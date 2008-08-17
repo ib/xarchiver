@@ -124,6 +124,7 @@ void xa_archive_operation_finished(XArchive *archive)
 
 		if (GTK_IS_TREE_VIEW(archive->treeview))
 			gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
+		xa_set_statusbar_message_for_displayed_rows(archive);
 	}
 	if (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE)
 		xa_reload_archive_content(archive);
@@ -521,6 +522,7 @@ void xa_test_archive (GtkMenuItem *menuitem, gpointer user_data)
 				return;
 		}
 	}
+	gtk_label_set_text(GTK_LABEL(total_label),_("Testing archive, please wait..."));
 	(*archive[id]->test) (archive[id]);
 }
 
@@ -2741,7 +2743,7 @@ void xa_open_file_from_popupmenu(GtkMenuItem* item,gpointer data)
 		if (result == FALSE)
 			return;
 		chdir(archive[idx]->tmp);
-		dlg_open = xa_create_open_with_dialog(pixbuf,entry->filename);
+		dlg_open = xa_create_open_with_dialog(entry->filename);
 		gtk_dialog_run(GTK_DIALOG(dlg_open));
 		//xa_determine_program_to_run(entry->filename);
 	}
@@ -2889,10 +2891,10 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	xa_set_statusbar_message_for_displayed_rows(archive);
 }
 
-void xa_show_multi_extract_dialog ( GtkMenuItem *menu_item, gpointer data)
+void xa_show_multi_extract_dialog (GtkMenuItem *menu_item, gpointer data)
 {
-	Multi_extract_data *multi_extract;
+	Multi_extract_data *multi_extract = NULL;
 
 	multi_extract = xa_create_multi_extract_dialog();
-	xa_parse_multi_extract_archive(multi_extract);	
+	xa_parse_multi_extract_archive(multi_extract);
 }

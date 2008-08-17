@@ -654,9 +654,11 @@ here:
 
 void xa_add_page (XArchive *archive)
 {
-	GtkWidget	*page_hbox,*label,*tab_label,*close_button,*image;
+	GtkWidget	*page_hbox,*label,*tab_label,*close_button,*image,*align;
 	GtkTooltips *close_button_tips = gtk_tooltips_new();
 	gchar *filename_only;
+	GtkRcStyle *rcstyle;
+	GtkRequisition size;
 
 	if (gtk_notebook_get_current_page(notebook) > -1)
 		gtk_notebook_set_show_tabs (notebook,TRUE);
@@ -687,15 +689,24 @@ void xa_add_page (XArchive *archive)
 	gtk_box_pack_start(GTK_BOX(page_hbox),label,FALSE,FALSE,0);
 
 	close_button = gtk_button_new();
+	gtk_button_set_focus_on_click(GTK_BUTTON(close_button), FALSE);
+	gtk_button_set_relief (GTK_BUTTON(close_button),GTK_RELIEF_NONE);
 	gtk_tooltips_set_tip (close_button_tips,close_button,_("Close archive"),NULL);
 	g_signal_connect (G_OBJECT(close_button),"clicked",G_CALLBACK(xa_close_page),(gpointer) archive->scrollwindow);
 
-	image = gtk_image_new_from_stock ("gtk-close",GTK_ICON_SIZE_MENU);
+	rcstyle = gtk_rc_style_new();
+	rcstyle->xthickness = rcstyle->ythickness = 0;
+	gtk_widget_modify_style(close_button, rcstyle);
+	gtk_rc_style_unref(rcstyle);
+
+	image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,GTK_ICON_SIZE_MENU);
+	gtk_widget_size_request(image, &size);
+	gtk_widget_set_size_request(close_button,size.width,size.height);
 	gtk_container_add (GTK_CONTAINER(close_button),image);
-	gtk_widget_set_size_request (close_button,19,18);
-	gtk_button_set_relief (GTK_BUTTON(close_button),GTK_RELIEF_NONE);
-	gtk_box_pack_end (GTK_BOX(page_hbox),close_button,FALSE,FALSE,0);
-	gtk_widget_show_all (page_hbox);
+	align = gtk_alignment_new(1.0, 0.0, 0.0, 0.0);
+	gtk_container_add(GTK_CONTAINER(align),close_button);
+	gtk_box_pack_start(GTK_BOX(page_hbox),align,TRUE,TRUE,0);
+	gtk_widget_show_all(page_hbox);
 
 	gtk_misc_set_alignment(GTK_MISC(tab_label),0.0,0);
 	gtk_notebook_append_page_menu (notebook,archive->scrollwindow,page_hbox,tab_label);
@@ -774,14 +785,12 @@ gchar *xa_create_password_dialog(XArchive *archive)
   	gtk_label_set_use_markup (GTK_LABEL (label_pwd_required),TRUE);
   	gtk_misc_set_alignment (GTK_MISC (label_pwd_required),0,0.5);
 
-  	label_filename = gtk_label_new ("");
+  	name = xa_remove_path_from_archive_name(archive->path);
+  	label_filename = gtk_label_new (name);
+	g_free (name);
   	gtk_widget_show (label_filename);
   	gtk_box_pack_start (GTK_BOX (vbox2),label_filename,FALSE,FALSE,12);
   	gtk_misc_set_alignment (GTK_MISC (label_filename),0,0.5);
-
-	name = xa_remove_path_from_archive_name(archive->escaped_path);
-	gtk_label_set_text(GTK_LABEL(label_filename),name);
-	g_free (name);
 	
   	hbox1 = gtk_hbox_new (FALSE,5);
   	gtk_widget_show (hbox1);
@@ -1463,7 +1472,7 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 void xa_increase_progress_bar(gchar *archive_name,double fraction)
 {
 	static GtkWidget *progress_window = NULL;
-	GtkWidget *vbox1,*extract_message,*hbox1,*icon_pixbuf,*archive_label,*total_label,*progressbar1;
+	GtkWidget *vbox1,*vbox2,*extract_message,*hbox1,*icon_pixbuf,*archive_label,*total_label,*progressbar1;
 	GdkPixbuf *pixbuf;
 
 	if (progress_window == NULL)
@@ -1471,44 +1480,53 @@ void xa_increase_progress_bar(gchar *archive_name,double fraction)
 		progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 		gtk_window_set_title (GTK_WINDOW (progress_window), _("Xarchiver"));
 		gtk_window_set_position (GTK_WINDOW (progress_window), GTK_WIN_POS_CENTER_ON_PARENT);
-		gtk_container_set_border_width (GTK_CONTAINER (progress_window), 5);
-		gtk_window_set_default_size (GTK_WINDOW (progress_window), 412,-1);
+		gtk_window_set_default_size(GTK_WINDOW(progress_window),-1,117);
+		gtk_window_set_resizable(GTK_WINDOW (progress_window),FALSE);
+		gtk_container_set_border_width (GTK_CONTAINER (progress_window),6);
 		gtk_window_set_transient_for (GTK_WINDOW (progress_window),GTK_WINDOW (xa_main_window));	
 
-		vbox1 = gtk_vbox_new (TRUE, 0);
-		gtk_container_add (GTK_CONTAINER (progress_window), vbox1);
+		vbox1 = gtk_vbox_new (FALSE,12);
+  		gtk_container_add (GTK_CONTAINER (progress_window), vbox1);
+  		gtk_container_set_border_width (GTK_CONTAINER (vbox1),6);
 
-		extract_message = gtk_label_new (_("Extracting archive x of y:"));
-		//gtk_label_set_use_markup (GTK_LABEL (extract_message), TRUE);
-		gtk_box_pack_start (GTK_BOX (vbox1), extract_message, FALSE, FALSE, 0);
-		gtk_misc_set_alignment (GTK_MISC (extract_message), 0, 0);
+  		hbox1 = gtk_hbox_new (FALSE,12);
+  		gtk_box_pack_start (GTK_BOX (vbox1),hbox1,TRUE,TRUE,0);
 
-		hbox1 = gtk_hbox_new (FALSE, 5);
-		gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 0);
-
-		pixbuf = gtk_icon_theme_load_icon(icon_theme,"gnome-mime-application-zip",40,0,NULL);
+  		pixbuf = gtk_icon_theme_load_icon(icon_theme,"gnome-mime-application-zip",40,0,NULL);
 		icon_pixbuf = gtk_image_new_from_pixbuf(pixbuf);
 		g_object_unref(pixbuf);
 
 		gtk_box_pack_start (GTK_BOX (hbox1), icon_pixbuf, FALSE, FALSE, 0);
-		gtk_misc_set_alignment (GTK_MISC (icon_pixbuf), 0.5, 0.5);
+		gtk_misc_set_alignment (GTK_MISC (icon_pixbuf), 0.0, 0.0);
 
-		archive_label = gtk_label_new (_("Name of the archive"));
-		gtk_box_pack_start (GTK_BOX (hbox1), archive_label, FALSE, FALSE, 0);
-		gtk_misc_set_alignment (GTK_MISC (archive_label), 0.5, 0.5);
+  		vbox2 = gtk_vbox_new (FALSE,0);
+  		gtk_box_pack_start (GTK_BOX (hbox1),vbox2,TRUE,TRUE,0);
+
+		extract_message = gtk_label_new (_("Extracting archive:"));
+		gtk_label_set_use_markup (GTK_LABEL (extract_message), TRUE);
+		gtk_box_pack_start (GTK_BOX (vbox2), extract_message, FALSE, FALSE, 0);
+		gtk_misc_set_alignment (GTK_MISC (extract_message),0,0.5);
+
+  		archive_label = gtk_label_new (archive_name);
+  		gtk_box_pack_start (GTK_BOX (vbox2),archive_label,FALSE,FALSE,12);
+  		gtk_misc_set_alignment (GTK_MISC (archive_label),0,0.5);
 
 		total_label = gtk_label_new (_("Total Progress:"));
-		gtk_box_pack_start (GTK_BOX (vbox1), total_label, FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX (vbox2), total_label, FALSE, FALSE, 0);
 		gtk_misc_set_alignment (GTK_MISC (total_label), 0, 0);
 
 		progressbar1 = gtk_progress_bar_new ();
 		if (fraction < 0)
 			g_print ("This means we are using a bounce progress bar");
-		gtk_box_pack_start (GTK_BOX (vbox1), progressbar1, FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX (vbox2), progressbar1, FALSE, FALSE, 0);
 		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (progressbar1), 0.5);
 		gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar1), 0);
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR (progressbar1), _("50%"));
 		gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR (progressbar1), PANGO_ELLIPSIZE_MIDDLE);
+		/*gchar *message = g_strdup_printf("%.0f complete", percent);
+		gtk_progress_bar_set_fraction(progress, percent/100.0 );
+		gtk_progress_bar_set_text(progress, message);
+		progress +=*/
 		gtk_widget_show_all(vbox1);
 	}
 	gtk_widget_show(progress_window);

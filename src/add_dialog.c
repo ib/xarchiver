@@ -431,7 +431,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 
 	if (xa_main_window)
 	{
-		gtk_label_set_text(GTK_LABEL(total_label),_("Adding files to the archive, please wait..."));
+		gtk_label_set_text(GTK_LABEL(total_label),_("Adding files to archive, please wait..."));
 		/* This in case the user wants to add files in the archive directories */
 		if (archive->location_entry_path != NULL)
 		{
@@ -446,7 +446,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 			slist = list;
 			while (slist)
 			{
-				esc = xa_escape_bad_chars (slist->data, "\\");
+				esc  = xa_escape_bad_chars (slist->data, "\\");
 				esc2 = xa_escape_bad_chars (esc, "$'`\"\\!?* ()[]&|:;<>#");
 				g_free (esc);
 				g_string_append(items,esc2);
