@@ -321,7 +321,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	gboolean result = TRUE;
 	int response;
 	GSList *_commands = commands;
-
 	GError *error = NULL;
     gchar *std_out,*std_err,*new_std_err,*dummy;
     gchar **argv;
@@ -351,7 +350,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			}
 			if (WIFEXITED(status))
 			{
-				if (WEXITSTATUS(status))
+				if (WEXITSTATUS(status) && 0 == 1)
 				{
 					if (strlen(std_err) > 1954)
 					{

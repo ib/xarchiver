@@ -372,9 +372,9 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->check_save_geometry)) )
 	{
 		/* Main window coords */
-		prefs_data->geometry[4] = gtk_paned_get_position(GTK_PANED(hpaned1));
 		gtk_window_get_position (GTK_WINDOW(xa_main_window),&prefs_data->geometry[0],&prefs_data->geometry[1]);
 		gtk_window_get_size (GTK_WINDOW(xa_main_window),&prefs_data->geometry[2],&prefs_data->geometry[3]);
+		prefs_data->geometry[4] = gtk_paned_get_position(GTK_PANED(hpaned1));
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "mainwindow", prefs_data->geometry,5);
 		/* Extract dialog coords */
 		gtk_window_get_size (GTK_WINDOW(extract_window->dialog1),&prefs_data->extract_dialog[0],&prefs_data->extract_dialog[1]);

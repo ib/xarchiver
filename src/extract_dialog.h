@@ -37,7 +37,7 @@ typedef struct
 	GtkWidget *multi_extract,*files_treeview,*hbox2,*extract_to,*entry1,*extract_to_archive_name,*label1,*frame2,*alignment2,*vbox3,*overwrite,*full_path,*label2,*dialog_action_area1,
 	*extract_button,*extract_image,*extract_hbox,*extract_label,*image1;
 	GtkListStore *files_liststore;
-	gulong handler;
+	gint nr;
 } Multi_extract_data;
 
 GtkWidget *label1,*label2,*label3,*label4,*label_password;
@@ -64,7 +64,7 @@ void xa_expand_dir(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer );
 void xa_treeview_exposed (GtkWidget *,GdkEventExpose *,gpointer );
 Multi_extract_data *xa_create_multi_extract_dialog();
 void xa_activate_remove_button (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GtkWidget *);
-void xa_add_files_liststore (gchar *, GtkListStore *);
+void xa_add_files_liststore (gchar *, Multi_extract_data *);
 void xa_parse_multi_extract_archive(Multi_extract_data *);
 #endif
 

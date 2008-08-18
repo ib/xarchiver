@@ -22,6 +22,15 @@
 #include "archive.h"
 #include "pref_dialog.h"
 
+typedef struct _Progress_bar_data Progress_bar_data;
+
+struct _Progress_bar_data
+{
+	GtkWidget *progress_window;
+	GtkWidget *progressbar1;
+	GtkWidget *archive_label;
+};
+
 GtkNotebook *notebook;
 GtkIconSize tmp_toolbar_icon_size;
 GtkTreeStore *archive_dir_model;
@@ -60,4 +69,6 @@ void xa_sidepane_row_expanded(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer
 void xa_sidepane_drag_data_received ( GtkWidget*,GdkDragContext *,int x,int y,GtkSelectionData *, unsigned int info,unsigned int time,gpointer );
 gboolean xa_sidepane_drag_motion_expand_timeout (GtkTreePath **);
 gboolean xa_sidepane_drag_motion ( GtkWidget*,GdkDragContext *,gint x,gint y,guint ,gpointer );
+Progress_bar_data *xa_create_progress_bar();
+void xa_increase_progress_bar(Progress_bar_data *,gchar *,double ,gboolean );
 #endif

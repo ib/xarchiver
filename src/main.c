@@ -119,7 +119,6 @@ int main (int argc, char **argv)
 	if (batch_mode == TRUE)
 	{
 		xa_main_window = NULL;
-		//gtk_main_iteration_do (FALSE);
 		archive = xa_init_structure_from_cmd_line (argv[1]);
 		g_print ("Xarchiver " VERSION " (\xC2\xA9)2005-2008 Giuseppe Torelli\n");
 
@@ -170,7 +169,7 @@ int main (int argc, char **argv)
 			Multi_extract_data *multi_extract = NULL;
 			multi_extract = xa_create_multi_extract_dialog();
 			for (x = 1; x< argc; x++)
-				xa_add_files_liststore(argv[x],multi_extract->files_liststore);
+				xa_add_files_liststore(argv[x],multi_extract);
 			xa_parse_multi_extract_archive(multi_extract);
 			gtk_widget_destroy (multi_extract->multi_extract);
 			g_free(multi_extract);
