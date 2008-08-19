@@ -543,23 +543,21 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) forward_button,"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 3 );
 	g_signal_connect ((gpointer) home_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 0 );
 
-	g_signal_connect ((gpointer) AddFile_button,"clicked",G_CALLBACK (xa_add_files_archive),		NULL);
-    g_signal_connect ((gpointer) Extract_button,"clicked",G_CALLBACK (xa_extract_archive),		NULL);
-	g_signal_connect ((gpointer) Stop_button,	"clicked",G_CALLBACK (xa_cancel_archive),			NULL);
+	g_signal_connect ((gpointer) AddFile_button,"clicked",G_CALLBACK (xa_add_files_archive),NULL);
+    g_signal_connect ((gpointer) Extract_button,"clicked",G_CALLBACK (xa_extract_archive),	NULL);
+	g_signal_connect ((gpointer) Stop_button,	"clicked",G_CALLBACK (xa_cancel_archive),	NULL);
 	gtk_window_add_accel_group (GTK_WINDOW (xa_main_window),accel_group);
 }
 
-int xa_flash_led_indicator (gpointer data)
+gboolean xa_flash_led_indicator (XArchive *archive)
 {
-	XArchive *archive = data;
-
-	if (xa_main_window == NULL || archive->child_pid == 0)
+	if (archive->child_pid == 0)
 	{
 		gtk_widget_show(green_led);
 		gtk_widget_hide(red_led);
+		archive->pb_source = 0;
 		return FALSE;
 	}
-
 	if (GTK_WIDGET_VISIBLE(green_led))
 	{
 		gtk_widget_hide(green_led);
@@ -572,7 +570,6 @@ int xa_flash_led_indicator (gpointer data)
 	}
 	return TRUE;
 }
-
 
 void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page_num,gpointer user_data)
 {
@@ -1472,8 +1469,8 @@ Progress_bar_data *xa_create_progress_bar()
 	pb = g_new0(Progress_bar_data,1);
 	pb->progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (pb->progress_window), _("Xarchiver"));
-	gtk_window_set_position (GTK_WINDOW (pb->progress_window), GTK_WIN_POS_CENTER_ON_PARENT);
-	gtk_window_set_default_size(GTK_WINDOW(pb->progress_window),-1,117);
+	gtk_window_set_position (GTK_WINDOW (pb->progress_window),GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_window_set_default_size(GTK_WINDOW(pb->progress_window),-1,217);
 	gtk_window_set_resizable(GTK_WINDOW (pb->progress_window),FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (pb->progress_window),6);
 	gtk_window_set_transient_for (GTK_WINDOW (pb->progress_window),GTK_WINDOW (xa_main_window));	
@@ -1519,12 +1516,13 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *archive_name,double p
 {
 	gchar *message = NULL;
 
-	GDK_THREADS_ENTER ();
 	gtk_label_set_text(GTK_LABEL(pb->archive_label),archive_name);
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),CLAMP (percent, 0.0, 1.0));
 	//gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar1),0);
 	message = g_strdup_printf("%.0f%s",percent,"%");
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
 	g_free(message);
-	GDK_THREADS_LEAVE ();
+	
+	while (gtk_events_pending())
+		gtk_main_iteration();
 }

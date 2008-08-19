@@ -257,7 +257,7 @@ done:	g_list_free (ArchiveSuffix);
 				g_free (current_open_directory);
 				current_open_directory = g_get_current_dir();
 			}
-			xa_open_archive ( NULL , dummy );
+			xa_open_archive (NULL,dummy);
 		}
 		#ifdef HAVE_SOCKET
 		if (! socket_info.ignore_socket && socket_info.lock_socket > 0)

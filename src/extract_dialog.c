@@ -955,7 +955,7 @@ static gchar *xa_multi_extract_archive(gchar *filename,gboolean overwrite,gboole
 			_filename = filename;
 		dest_path	= xa_remove_level_from_path(_filename);
 		dirname		= xa_remove_path_from_archive_name(_filename);
-		new_path = g_strconcat(dest_path,"/",dirname,NULL);
+		new_path	= g_strconcat(dest_path,"/",dirname,NULL);
 		g_free(dirname);
 		g_free(dest_path);
 		if (g_mkdir(new_path,0700) < 0)
@@ -970,6 +970,8 @@ static gchar *xa_multi_extract_archive(gchar *filename,gboolean overwrite,gboole
 	archive->full_path = full_path;
 	archive->escaped_path = xa_escape_bad_chars (filename,"$\'`\"\\!?* ()&|@#:;");
 	archive->extraction_path = g_strdup(dest_path);
+	while (gtk_events_pending())
+		gtk_main_iteration();
 	(*archive->extract) (archive,NULL);
 	xa_clean_archive_structure(archive);
 	return NULL;

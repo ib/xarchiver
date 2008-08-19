@@ -80,7 +80,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	{
 		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
-		g_strfreev ( argv );
+		g_strfreev (argv);
 		archive->child_pid = 0;
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 		return;
@@ -88,11 +88,11 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_strfreev (argv);
 
 	if (archive->pb_source == 0)
-		archive->pb_source = g_timeout_add (350,xa_flash_led_indicator,archive);
+		archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 
 	if (archive->error_output != NULL)
 	{
-		g_slist_foreach (archive->error_output, (GFunc) g_free,NULL);
+		g_slist_foreach (archive->error_output,(GFunc)g_free,NULL);
 		g_slist_free (archive->error_output);
 		archive->error_output = NULL;
 	}
@@ -176,7 +176,6 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 			else
 				gtk_widget_set_sensitive (password_entry_menu,TRUE);
 
-			gtk_label_set_text(GTK_LABEL(total_label),"");
 			xa_update_window_with_archive_entries (archive,NULL);
 			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
 			g_object_unref (archive->model);
@@ -186,7 +185,7 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 	return TRUE;
 }
 
-gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data)
+gboolean xa_dump_child_error_messages (GIOChannel *ioc,GIOCondition cond,gpointer data)
 {
 	XArchive *archive = data;
 	GIOStatus status;
@@ -350,7 +349,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			}
 			if (WIFEXITED(status))
 			{
-				if (WEXITSTATUS(status) && 0 == 1)
+				if (WEXITSTATUS(status))
 				{
 					if (strlen(std_err) > 1954)
 					{
@@ -377,6 +376,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 		gtk_widget_set_sensitive (Stop_button,TRUE);
 		while (_commands)
 		{
+			g_print ("xa_run_command: pb source: %d\n",archive->pb_source);
 			g_print ("%s\n",(gchar*)_commands->data);
 			xa_spawn_async_process (archive,_commands->data);
 			if (archive->child_pid == 0)

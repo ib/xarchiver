@@ -52,7 +52,7 @@ GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuite
 
 gchar *xa_create_password_dialog(XArchive *);
 void set_label (GtkWidget *label,gchar *);
-int xa_flash_led_indicator (gpointer );
+gboolean xa_flash_led_indicator (XArchive *);
 void xa_create_popup_menu();
 void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean);
 GtkWidget *xa_create_archive_properties_window();

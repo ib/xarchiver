@@ -132,13 +132,14 @@ void xa_archive_operation_finished(XArchive *archive)
 	else if (archive->status == XA_ARCHIVESTATUS_SFX && archive->type == XARCHIVETYPE_RAR)
 	{
 		if(xa_main_window)
-			gtk_widget_set_sensitive ( exe_menu, FALSE);
+			gtk_widget_set_sensitive (exe_menu,FALSE);
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
 	}
 	else if (archive->status == XA_ARCHIVESTATUS_TEST)
 		xa_show_cmd_line_output (NULL,FALSE);
 
 	archive->status = XA_ARCHIVESTATUS_IDLE;
+	gtk_label_set_text(GTK_LABEL(total_label),"");
 }
 
 void xa_reload_archive_content(XArchive *archive)
@@ -1401,7 +1402,8 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	gtk_tree_view_set_model ( GTK_TREE_VIEW (archive->treeview), GTK_TREE_MODEL (archive->liststore) );
 
 	archive->model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model),1,GTK_SORT_ASCENDING);
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_sort_filename_column)))
+		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model),1,GTK_SORT_ASCENDING);
 	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(archive->liststore),1,xa_sort_dirs_before_files,archive,NULL);
 
 	g_object_ref(archive->model);
@@ -1939,7 +1941,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	while (array[len])
 	{
 		filename = g_filename_from_uri (array[len],NULL,NULL);
-		g_print ("drag_data: %s\n",filename);
 		list = g_slist_append(list,filename);
 		len++;
 	}

@@ -118,15 +118,15 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->confirm_deletion), FALSE);
 	
-	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic(_("Sort content by filename"));
+	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic(_("Sort archive by filename"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_sort_filename_column, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
-	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sort after loading the archive"), NULL);
+	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sorted after loading the archive"), NULL);
 
 	prefs_data->store_output = gtk_check_button_new_with_mnemonic (_("Store archiver output"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->store_output, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->store_output), FALSE);
-	gtk_tooltips_set_tip(tooltips, prefs_data->store_output, _("It takes a lot of memory with large archives!"), NULL);
+	gtk_tooltips_set_tip(tooltips, prefs_data->store_output, _("This option takes a lot of memory with large archives"), NULL);
 
 	label1 = gtk_label_new ("");
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 0), label1);
