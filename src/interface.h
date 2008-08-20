@@ -43,7 +43,7 @@ GtkIconTheme *icon_theme;
 GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuitem1, *menuitem1_menu, *new1, *open1, *listing, *listing_submenu,
 *listing_text, *listing_html, *save1, *entry1, *green_led, *red_led, *progressbar, *total_label,*selected_label, *total_frame,*selected_frame,
 *archive_properties_window, *table1, *path_label, *modified_label, *size_label, *content_label, *comment_label, *compression_label, *number_of_files_label,
-*name_label, *type_label, *compression_data, *number_of_files_data, *content_data, *comment_data, *size_data, *modified_data, *path_data, *type_data,
+*name_label, *type_label, *compression_data, *encrypted_data, *encrypted_label,*number_of_files_data, *content_data, *comment_data, *size_data, *modified_data, *path_data, *type_data,
 *name_data, *separatormenuitem1, *separatormenuitem2, *separatormenuitem3, *separatormenuitem4, *separatormenuitem5, *separatormenuitem6, *quit1,
 *close1, *check_menu, *properties, *menuitem2, *menuitem2_menu, *addfile, *extract_menu, *delete_menu, *comment_menu, *multi_extract_menu,*view_shell_output1,
 *prefs_menu,*password_entry_menu, *image1, *image2, *menuitem4, *select_all,*deselect_all,*select_pattern, *exe_menu, *menuitem4_menu,

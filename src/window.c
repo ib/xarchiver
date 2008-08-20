@@ -1502,7 +1502,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     file_size = my_stat.st_size;
     archive_properties_window = xa_create_archive_properties_window();
     utf8_string = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
-	gtk_entry_set_text ( GTK_ENTRY (name_data), utf8_string );
+	gtk_label_set_text(GTK_LABEL(name_data), utf8_string );
 	g_free (utf8_string);
     /* Path */
     dummy_string = xa_remove_level_from_path (archive[idx]->path);
@@ -1512,38 +1512,43 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 		utf8_string = g_filename_display_name (dummy_string);
     g_free ( dummy_string );
 
-    gtk_entry_set_text ( GTK_ENTRY (path_data), utf8_string );
+    gtk_label_set_text(GTK_LABEL(path_data), utf8_string);
     g_free ( utf8_string );
 	/* Type */
-	gtk_entry_set_text ( GTK_ENTRY (type_data), archive[idx]->format );
+	gtk_label_set_text(GTK_LABEL(type_data), archive[idx]->format );
     /* Modified Date */
     strftime (date, 64, "%c", localtime (&my_stat.st_mtime) );
     t = g_locale_to_utf8 ( date, -1, 0, 0, 0);
-    gtk_entry_set_text ( GTK_ENTRY (modified_data), t);
+    gtk_label_set_text(GTK_LABEL(modified_data), t);
     g_free (t);
     /* Archive Size */
 	t = xa_set_size_string(file_size);
-    gtk_entry_set_text ( GTK_ENTRY (size_data), t );
+    gtk_label_set_text(GTK_LABEL(size_data), t );
     g_free (t);
     /* content_size */
     t = xa_set_size_string(archive[idx]->dummy_size);
-    gtk_entry_set_text ( GTK_ENTRY (content_data), t );
+    gtk_label_set_text(GTK_LABEL(content_data), t );
     g_free (t);
     /* Has Comment */
     if (archive[idx]->has_comment)
-		gtk_entry_set_text ( GTK_ENTRY (comment_data), _("Yes") );
+		gtk_label_set_text(GTK_LABEL(comment_data), _("Yes") );
 	else
-		gtk_entry_set_text ( GTK_ENTRY (comment_data), _("No") );
+		gtk_label_set_text(GTK_LABEL(comment_data), _("No") );
 
     /* Compression_ratio */
     content_size = (double)archive[idx]->dummy_size / file_size;
     t = g_strdup_printf ( "%.2f", content_size);
-    gtk_entry_set_text ( GTK_ENTRY (compression_data), t );
+    gtk_label_set_text(GTK_LABEL(compression_data), t );
     g_free (t);
     /* Number of files */
     t = g_strdup_printf ( "%d", archive[idx]->nr_of_files);
-    gtk_entry_set_text ( GTK_ENTRY (number_of_files_data), t );
+    gtk_label_set_text(GTK_LABEL(number_of_files_data), t );
     g_free (t);
+    
+    if (archive[idx]->has_passwd)
+    	gtk_label_set_text(GTK_LABEL(encrypted_data), _("Yes") );
+	else
+		gtk_label_set_text(GTK_LABEL(encrypted_data), _("No") );
     gtk_widget_show_all (archive_properties_window);
 }
 
@@ -2646,6 +2651,12 @@ void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,c
 	if (gtk_tree_model_get_iter_from_string(model,&iter,path_string))
 	{
 		gtk_tree_model_get(model,&iter,archive->nc+1,&entry,-1);
+		if (entry->is_encrypted)
+		{
+			archive->passwd = xa_create_password_dialog(archive);
+			if (archive->passwd == NULL)
+				return;
+		}
 		/* Extract the file to the tmp dir */
 		if (archive->extraction_path)
 		{
