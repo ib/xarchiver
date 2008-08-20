@@ -137,7 +137,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 4);
 
-	label9 = gtk_label_new (_("Size of the mime type icons"));
+	label9 = gtk_label_new (_("Icons size (requires restart)"));
 	gtk_table_attach (GTK_TABLE (table1), label9, 0, 1, 0, 1,
                      (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (GTK_SHRINK), 0, 0);
@@ -444,7 +444,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_format",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),g_key_file_get_boolean(xa_key_file,PACKAGE,"confirm_deletion",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),g_key_file_get_boolean(xa_key_file,PACKAGE,"store_output",NULL));
-		//gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_archive_view),g_key_file_get_integer(xa_key_file,PACKAGE,"archive_view",NULL));
+
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),g_key_file_get_integer(xa_key_file,PACKAGE,"icon_size",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_comment),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_archive_comment",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column),g_key_file_get_boolean(xa_key_file,PACKAGE,"sort_filename_content",NULL));

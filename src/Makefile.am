@@ -1,14 +1,6 @@
 bin_PROGRAMS = xarchiver
 
-if USE_LIBMIMETYPE
-MIME_TYPE_DIR = mime-type
-MIME_LIB = $(top_builddir)/src/mime-type/libmimetype.la
-else
-MIME_TYPE_DIR = xdgmime
-MIME_LIB = $(top_builddir)/src/xdgmime/libxdgmime.la
-endif
-
-SUBDIRS = $(MIME_TYPE_DIR)
+SUBDIRS = xdgmime
 
 xarchiver_SOURCES = \
 	socket.c socket.h \
@@ -45,7 +37,7 @@ xarchiver_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\"
 
 xarchiver_LDADD = \
-	$(MIME_LIB) \
+	$(top_builddir)/src/xdgmime/libxdgmime.la \
 	@GTK_LIBS@ \
 	@GLIB_LIBS@
 

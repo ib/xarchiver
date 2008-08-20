@@ -32,5 +32,4 @@ gboolean xa_7zip_extract(XArchive *,GSList *);
 void xa_7zip_test (XArchive *);
 void xa_open_7zip (XArchive *);
 void xa_get_7zip_line_content (gchar *, gpointer );
-void xa_7zip_recurse_local_directory(gchar *,GSList **,gboolean);
 #endif

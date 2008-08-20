@@ -16,12 +16,7 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include <gtk/gtk.h>
-#include <glib.h>
-#include <string.h>
 #include "string_utils.h"
-#include "utf8-fnmatch.h"
-#include "errno.h"
 
 #ifndef HAVE_MKDTEMP
 char *mkdtemp (gchar *tmpl)
@@ -335,4 +330,28 @@ gchar *itoa(int value,int radix)
     *sp++ = *--tp;
   *sp = 0;
   return string;
+}
+
+void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse)
+{
+	DIR *dir;
+	struct dirent *dirlist;
+	gchar *fullname = NULL;
+
+	dir = opendir(path);
+
+	if (dir == NULL)
+		return;
+	*list = g_slist_append(*list,path);
+	while ((dirlist = readdir(dir)))
+	{
+		if (dirlist->d_name[0] == '.')
+			continue;
+		fullname = g_strconcat (path,"/",dirlist->d_name,NULL);
+		if (recurse && g_file_test(fullname,G_FILE_TEST_IS_DIR))
+			xa_recurse_local_directory(fullname,list,recurse);
+		else
+			*list = g_slist_append(*list,fullname);		
+	}
+	closedir(dir);
 }

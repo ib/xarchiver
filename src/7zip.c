@@ -19,7 +19,6 @@
 #include "config.h"
 #include <string.h>
 #include <unistd.h>
-#include <dirent.h>
 #include "7zip.h"
 
 extern gboolean sevenzr;
@@ -210,21 +209,16 @@ void xa_7zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 	_names = names;
 	while (_names)
 	{
-		xa_7zip_recurse_local_directory((gchar*)_names->data,&dirlist,archive->add_recurse);
+		xa_recurse_local_directory((gchar*)_names->data,&dirlist,archive->add_recurse);
 		_names = _names->next;
 	}
 	if (dirlist == NULL)
-		xa_cat_filenames(archive,names,files);
-	else
-		xa_cat_filenames(archive,dirlist,files);
+		dirlist = names;
 
-	if (dirlist != NULL)
-	{
-		g_slist_foreach(dirlist,(GFunc)g_free,NULL);
-		g_slist_free(dirlist);
-	}
-	g_slist_foreach(names,(GFunc)g_free,NULL);
-	g_slist_free(names);
+	xa_cat_filenames(archive,dirlist,files);
+
+	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
+	g_slist_free(dirlist);
 
 	if (archive->location_entry_path != NULL)
 		chdir (archive->tmp);
@@ -303,27 +297,3 @@ void xa_7zip_test (XArchive *archive)
 	xa_run_command (archive,list);
 }
 
-void xa_7zip_recurse_local_directory(gchar *path,GSList **list,gboolean recurse)
-{
-	DIR *dir;
-	struct dirent *dirlist;
-	gchar *fullname = NULL;
-
-	dir = opendir(path);
-
-	if (dir == NULL)
-		return;
-	*list = g_slist_append(*list,path);
-	if (recurse)
-	{
-		while ((dirlist = readdir(dir)))
-		{
-			if (dirlist->d_name[0] == '.')
-				continue;
-			fullname = g_strconcat (path,"/",dirlist->d_name,NULL);
-			if (g_file_test(fullname,G_FILE_TEST_IS_DIR))
-				xa_7zip_recurse_local_directory(fullname,list,recurse);
-		}
-	}
-	closedir(dir);
-}

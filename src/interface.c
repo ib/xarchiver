@@ -56,6 +56,8 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	accel_group = gtk_accel_group_new ();
 	xa_set_window_title (xa_main_window ,NULL);
 
+	/* icon_theme is initialized in pref_dialog.c:45 */
+	g_signal_connect (G_OBJECT (icon_theme), "changed",G_CALLBACK (xa_icon_theme_changed),NULL);
 	icon = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
 	gtk_window_set_icon (GTK_WINDOW(xa_main_window),icon);
 	g_signal_connect (G_OBJECT (xa_main_window),"delete-event",G_CALLBACK (xa_quit_application),NULL);
@@ -483,7 +485,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (total_frame);
 	gtk_box_pack_start (GTK_BOX (hbox_sb),total_frame,TRUE,TRUE,0);
 	gtk_frame_set_label_align (GTK_FRAME (total_frame),0,0);
-	gtk_frame_set_shadow_type (GTK_FRAME (total_frame),GTK_SHADOW_ETCHED_OUT);
+	gtk_frame_set_shadow_type (GTK_FRAME (total_frame),GTK_SHADOW_OUT);
 
 	total_label = gtk_label_new (NULL);
 	gtk_misc_set_alignment (GTK_MISC(total_label),0.0,0.5);
@@ -493,7 +495,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	selected_frame = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (hbox_sb),selected_frame,TRUE,TRUE,0);
 	gtk_frame_set_label_align (GTK_FRAME (selected_frame),0,0);
-	gtk_frame_set_shadow_type (GTK_FRAME (selected_frame),GTK_SHADOW_ETCHED_OUT);
+	gtk_frame_set_shadow_type (GTK_FRAME (selected_frame),GTK_SHADOW_OUT);
 
 	selected_label = gtk_label_new (NULL);
 	gtk_misc_set_alignment (GTK_MISC(selected_label),0.0,0.5);
@@ -1522,7 +1524,14 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *archive_name,double p
 	message = g_strdup_printf("%.0f%s",percent,"%");
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
 	g_free(message);
-	
 	while (gtk_events_pending())
 		gtk_main_iteration();
+}
+
+void xa_icon_theme_changed (GtkIconTheme *icon_theme,gpointer data)
+{
+ 	/* TODO:
+ 	 * Here we should reload all the icons currently displayed according to the
+ 	 * new icon_theme. xa_get_pixbuf_icon_from_cache() is to be called as many
+ 	 * time as the filenames currently displayed. What of the other tabs then? */ 	
 }

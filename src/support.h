@@ -24,7 +24,6 @@
 #endif
 
 #include <gtk/gtk.h>
-GtkIconTheme *icon_theme;
 
 /*
  * Standard gettext macros.

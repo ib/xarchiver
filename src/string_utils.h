@@ -23,6 +23,13 @@
 #include "config.h"
 #endif
 
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <string.h>
+#include <dirent.h>
+#include "string_utils.h"
+#include "utf8-fnmatch.h"
+#include "errno.h"
 #include "archive.h"
 #ifndef HAVE_STRCASESTR
 const char *strcasestr(const char *haystack, const char *needle);
@@ -41,5 +48,6 @@ void xa_cat_filenames (XArchive *,GSList *,GString *);
 gchar *xa_escape_filename (gchar *filename,gchar *meta_chars);
 GSList *xa_slist_copy(GSList *);
 gchar *itoa(int,int );
+void xa_recurse_local_directory(gchar *,GSList **,gboolean);
 #endif
 

@@ -446,8 +446,8 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 			slist = list;
 			while (slist)
 			{
-				esc  = xa_escape_bad_chars (slist->data, "\\");
-				esc2 = xa_escape_bad_chars (esc, "$'`\"\\!?* ()[]&|:;<>#");
+				esc  = xa_escape_bad_chars (slist->data,"\\");
+				esc2 = xa_escape_bad_chars (esc,"$'`\"\\!?* ()[]&|:;<>#");
 				g_free (esc);
 				g_string_append(items,esc2);
 				g_string_append_c(items,' ');
@@ -459,7 +459,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 			cmd_list = g_slist_append(cmd_list,command);
 			xa_run_command (archive,cmd_list);
 		}
+		archive->status = XA_ARCHIVESTATUS_ADD;
 	}
-	archive->status = XA_ARCHIVESTATUS_ADD;
 	(*archive->add) (archive,list,compression_string);
 }

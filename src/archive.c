@@ -69,7 +69,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		NULL,
 		argv,
 		NULL,
-		G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+		(G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD),
 		NULL,
 		NULL,
 		&archive->child_pid,
@@ -120,7 +120,7 @@ gchar *xa_split_command_line(XArchive *archive,GSList *list)
 	for (scan = list; scan != NULL; )
 	{
 		length = 0;
-		while ((scan != NULL) && (length < 5000))
+		while ((scan != NULL) && (length < 5000)) //MAX_CMD_LEN
 		{
 			length += strlen (scan->data);
 			chunks = g_slist_prepend(chunks,scan->data);
@@ -376,7 +376,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 		gtk_widget_set_sensitive (Stop_button,TRUE);
 		while (_commands)
 		{
-			g_print ("xa_run_command: pb source: %d\n",archive->pb_source);
 			g_print ("%s\n",(gchar*)_commands->data);
 			xa_spawn_async_process (archive,_commands->data);
 			if (archive->child_pid == 0)

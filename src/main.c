@@ -107,8 +107,6 @@ int main (int argc, char **argv)
 	if (multi_extract || add_files || ask_and_extract || ask_and_add || extract_path != NULL)
 		batch_mode = TRUE;
 
-	xa_mime_type_init();	/* initialize mime-type cache */
-
 	xa_set_available_archivers();
 	prefs_window   = xa_create_prefs_dialog();
 	extract_window = xa_create_extract_dialog();

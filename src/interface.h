@@ -38,6 +38,7 @@ GtkTreeViewColumn *column;
 GtkCellRenderer *archive_dir_renderer;
 GtkAccelGroup *accel_group;
 GtkTooltips *tooltips;
+GtkIconTheme *icon_theme;
 
 GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuitem1, *menuitem1_menu, *new1, *open1, *listing, *listing_submenu,
 *listing_text, *listing_html, *save1, *entry1, *green_led, *red_led, *progressbar, *total_label,*selected_label, *total_frame,*selected_frame,
@@ -71,4 +72,5 @@ gboolean xa_sidepane_drag_motion_expand_timeout (GtkTreePath **);
 gboolean xa_sidepane_drag_motion ( GtkWidget*,GdkDragContext *,gint x,gint y,guint ,gpointer );
 Progress_bar_data *xa_create_progress_bar();
 void xa_increase_progress_bar(Progress_bar_data *,gchar *,double ,gboolean );
+void xa_icon_theme_changed (GtkIconTheme *,gpointer );
 #endif

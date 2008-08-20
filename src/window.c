@@ -2817,6 +2817,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	unsigned short int i;
 	gpointer current_column;
 	gchar *filename;
+	gint size;
 
 	archive->current_entry = entry;
 	if (entry == NULL)
@@ -2872,7 +2873,11 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		else
 			filename = entry->filename;
 
-		pixbuf = xa_get_pixbuf_icon_from_cache(filename);
+		if (gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
+			size = 30;
+		else
+			size = 20;
+		pixbuf = xa_get_pixbuf_icon_from_cache(filename,size);
 		gtk_list_store_set (archive->liststore,&iter,archive->nc+1, entry,-1);
 		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
 

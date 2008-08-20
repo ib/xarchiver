@@ -50,7 +50,7 @@ GtkWidget *xa_create_open_with_dialog(gchar *filename)
 	hbox1 = gtk_hbox_new (FALSE, 1);
 	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,FALSE,FALSE,0);
 
-	pixbuf = xa_get_pixbuf_icon_from_cache(filename);
+	pixbuf = xa_get_pixbuf_icon_from_cache(filename,40);
 	mime_icon = gtk_image_new_from_pixbuf(pixbuf);
 	gtk_box_pack_start (GTK_BOX (hbox1),mime_icon,FALSE,TRUE,0);
 	gtk_misc_set_alignment (GTK_MISC (mime_icon),0,0);
