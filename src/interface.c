@@ -610,6 +610,10 @@ here:
 	else
 		gtk_widget_set_sensitive (comment_menu,FALSE);
 
+	if (archive[id]->type == XARCHIVETYPE_TAR || is_tar_compressed(archive[id]->type))
+			gtk_widget_set_sensitive (password_entry_menu,FALSE);
+		else
+			gtk_widget_set_sensitive (password_entry_menu,TRUE);
 	if (archive[id]->status != XA_ARCHIVESTATUS_OPEN && archive[id]->treeview != NULL)
 	{
 		gint selected = gtk_tree_selection_count_selected_rows (selection);

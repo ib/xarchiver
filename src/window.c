@@ -116,9 +116,14 @@ void xa_archive_operation_finished(XArchive *archive)
 			gtk_widget_set_sensitive (comment_menu,TRUE);
 		else
 			gtk_widget_set_sensitive (comment_menu,FALSE);
+		if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
+			gtk_widget_set_sensitive (password_entry_menu,FALSE);
+		else
+			gtk_widget_set_sensitive (password_entry_menu,TRUE);
 
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 		gtk_widget_set_sensitive(listing,TRUE);
+
 		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 			xa_show_archive_comment (NULL, NULL);
 

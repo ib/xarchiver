@@ -337,12 +337,10 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	gchar *archive_dir = NULL;
 	gboolean flag = TRUE;
 
-	archive_dir = xa_remove_level_from_path (archive->path);
-
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->extract_dialog[0] != -1)
 		gtk_window_set_default_size (GTK_WINDOW(dialog_data->dialog1), prefs_window->extract_dialog[0], prefs_window->extract_dialog[1]);
 	else
-		gtk_widget_set_size_request (dialog_data->dialog1,492,372);
+		gtk_widget_set_size_request (dialog_data->dialog1,-1,372);
 
 	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Decompress file"));
@@ -352,9 +350,15 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	if (archive->type != XARCHIVETYPE_RPM)
 	{
 		if (selected)
+		{
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_radio),TRUE);
+			gtk_widget_set_sensitive (dialog_data->selected_radio,TRUE);
+		}
 		else
+		{
 			gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (dialog_data->all_files_radio),TRUE);
+		}
 	}
 	else
 		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
@@ -377,7 +381,14 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	gtk_widget_set_sensitive(dialog_data->fresh,flag);
 	gtk_widget_set_sensitive(dialog_data->update,flag);
 	
-	gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
+	if (archive->extraction_path == NULL)
+	{
+		archive_dir = xa_remove_level_from_path (archive->path);
+		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
+	}
+	else
+		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive->extraction_path);
+
 	g_free(archive_dir);
 	if (archive->has_passwd)
     {
@@ -485,7 +496,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			if (xa_main_window)
 			{
-				gtk_widget_set_sensitive (Stop_button,TRUE);
+				xa_set_button_state (0,0,0,0,0,0,0,0,0);
+				gtk_widget_set_sensitive ( Stop_button ,TRUE);
 				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive, please wait..."));
 			}
 			(*archive->extract) (archive,names);
@@ -906,7 +918,6 @@ run:
 
 	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->full_path));
-	batch_mode = FALSE;
 	double fraction = 1.0 / dialog->nr;
 	pb_struct = xa_create_progress_bar();
 	do

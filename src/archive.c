@@ -171,10 +171,6 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 		{
 			if (archive->has_comment && archive->type == XARCHIVETYPE_RAR && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 				xa_show_archive_comment (NULL, NULL);
-			if (archive->has_passwd == FALSE)
-				gtk_widget_set_sensitive (password_entry_menu,FALSE);
-			else
-				gtk_widget_set_sensitive (password_entry_menu,TRUE);
 
 			xa_update_window_with_archive_entries (archive,NULL);
 			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
