@@ -347,7 +347,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Decompress file"));
 	else
-		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files from archive"));
+		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1), _("Extract files"));
 
 	if (archive->type != XARCHIVETYPE_RPM)
 	{
@@ -602,9 +602,9 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_window_set_position (GTK_WINDOW (dialog_data->multi_extract),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->multi_extract), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog_data->multi_extract),TRUE);
-	gtk_widget_set_size_request(dialog_data->multi_extract,455,294);
+	gtk_widget_set_size_request(dialog_data->multi_extract,-1,300);
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog_data->multi_extract),FALSE);
-	gtk_window_set_title (GTK_WINDOW (dialog_data->multi_extract), _("Xarchiver Multi-Extract dialog"));
+	gtk_window_set_title (GTK_WINDOW (dialog_data->multi_extract), _("Multi-Extract"));
 	gtk_window_set_transient_for (GTK_WINDOW (dialog_data->multi_extract),GTK_WINDOW (xa_main_window));
 
 	dialog_vbox1 = GTK_DIALOG (dialog_data->multi_extract)->vbox;
@@ -906,8 +906,8 @@ run:
 
 	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->full_path));
-	batch_mode = TRUE;
-	double fraction = 100 / dialog->nr;
+	batch_mode = FALSE;
+	double fraction = 1.0 / dialog->nr;
 	pb_struct = xa_create_progress_bar();
 	do
 	{

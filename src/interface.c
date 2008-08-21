@@ -1528,7 +1528,7 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *archive_name,double p
 	gtk_label_set_text(GTK_LABEL(pb->archive_label),archive_name);
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),CLAMP (percent, 0.0, 1.0));
 	//gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar1),0);
-	message = g_strdup_printf("%.0f%s",percent,"%");
+	message = g_strdup_printf("%.0f%%",(percent*100));
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
 	g_free(message);
 	while (gtk_events_pending())

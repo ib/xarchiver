@@ -21,8 +21,7 @@
 #include "mime.h"
 #include "support.h"
 
-/*gtk_tree_model_get(archive->liststore,&iter,0,pixbuf);
-open_with_dialog = xa_create_open_with_dialog(filename);*/
+/*open_with_dialog = xa_create_open_with_dialog(filename);*/
 
 GtkWidget *xa_create_open_with_dialog(gchar *filename)
 {
@@ -41,7 +40,7 @@ GtkWidget *xa_create_open_with_dialog(gchar *filename)
 	gtk_window_set_transient_for(GTK_WINDOW(dialog1),GTK_WINDOW(xa_main_window));
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog1),FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog1),5);
-	gtk_widget_set_size_request(dialog1,355,377);
+	gtk_widget_set_size_request(dialog1,-1,380);
 	dialog_vbox1 = GTK_DIALOG (dialog1)->vbox;
 
 	vbox1 = gtk_vbox_new (FALSE, 5);
@@ -52,6 +51,7 @@ GtkWidget *xa_create_open_with_dialog(gchar *filename)
 
 	pixbuf = xa_get_pixbuf_icon_from_cache(filename,40);
 	mime_icon = gtk_image_new_from_pixbuf(pixbuf);
+	g_object_unref(pixbuf);
 	gtk_box_pack_start (GTK_BOX (hbox1),mime_icon,FALSE,TRUE,0);
 	gtk_misc_set_alignment (GTK_MISC (mime_icon),0,0);
 
@@ -97,7 +97,7 @@ GtkWidget *xa_create_open_with_dialog(gchar *filename)
 	browse = gtk_button_new_with_label(_("Browse"));
 
 	gtk_box_pack_start (GTK_BOX (hbox_expander),custom_command_entry,TRUE,TRUE,0);
-	gtk_box_pack_start (GTK_BOX (hbox_expander),browse,TRUE,TRUE,0);
+	gtk_box_pack_start (GTK_BOX (hbox_expander),browse,FALSE,TRUE,0);
 	gtk_container_add(GTK_CONTAINER(custom_command_expander),hbox_expander);
 
 	dialog_action_area1 = GTK_DIALOG (dialog1)->action_area;
