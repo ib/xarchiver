@@ -1482,8 +1482,8 @@ Progress_bar_data *xa_create_progress_bar()
 	pb = g_new0(Progress_bar_data,1);
 	pb->progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (pb->progress_window), _("Xarchiver"));
-	gtk_window_set_position (GTK_WINDOW (pb->progress_window),GTK_WIN_POS_CENTER_ON_PARENT);
-	gtk_window_set_default_size(GTK_WINDOW(pb->progress_window),-1,217);
+	gtk_window_set_position (GTK_WINDOW (pb->progress_window),GTK_WIN_POS_CENTER_ALWAYS);
+	gtk_widget_set_size_request(pb->progress_window,400,-1);
 	gtk_window_set_resizable(GTK_WINDOW (pb->progress_window),FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (pb->progress_window),6);
 	gtk_window_set_transient_for (GTK_WINDOW (pb->progress_window),GTK_WINDOW (xa_main_window));	
@@ -1511,8 +1511,9 @@ Progress_bar_data *xa_create_progress_bar()
 	gtk_misc_set_alignment (GTK_MISC (extract_message),0,0.5);
 
 	pb->archive_label = gtk_label_new("");
-	gtk_box_pack_start (GTK_BOX (vbox2),pb->archive_label,FALSE,FALSE,12);
+	gtk_label_set_ellipsize(GTK_LABEL(pb->archive_label),PANGO_ELLIPSIZE_END);
 	gtk_misc_set_alignment (GTK_MISC (pb->archive_label),0,0.5);
+	gtk_box_pack_start (GTK_BOX (vbox2),pb->archive_label,FALSE,FALSE,12);
 
 	total_label = gtk_label_new (_("Total Progress:"));
 	gtk_box_pack_start (GTK_BOX (vbox2), total_label,FALSE,FALSE,0);
@@ -1520,7 +1521,6 @@ Progress_bar_data *xa_create_progress_bar()
 
 	pb->progressbar1 = gtk_progress_bar_new ();
 	gtk_box_pack_start (GTK_BOX (vbox2), pb->progressbar1,FALSE,FALSE,0);
-	gtk_progress_bar_set_ellipsize (GTK_PROGRESS_BAR (pb->progressbar1),PANGO_ELLIPSIZE_MIDDLE);
 	gtk_widget_show_all(pb->progress_window);
 	return pb;
 }
@@ -1530,7 +1530,7 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *archive_name,double p
 	gchar *message = NULL;
 
 	gtk_label_set_text(GTK_LABEL(pb->archive_label),archive_name);
-	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),CLAMP (percent, 0.0, 1.0));
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),percent);
 	//gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar1),0);
 	message = g_strdup_printf("%.0f%%",(percent*100));
 	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);

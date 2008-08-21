@@ -946,8 +946,6 @@ run:
 	g_string_free(output,TRUE);
 	if (dest_path != NULL)
 		g_free(dest_path);
-
-	batch_mode = FALSE;
 }
 
 static gchar *xa_multi_extract_archive(gchar *filename,gboolean overwrite,gboolean full_path,gchar *dest_path)
@@ -981,8 +979,6 @@ static gchar *xa_multi_extract_archive(gchar *filename,gboolean overwrite,gboole
 	archive->full_path = full_path;
 	archive->escaped_path = xa_escape_bad_chars (filename,"$\'`\"\\!?* ()&|@#:;");
 	archive->extraction_path = g_strdup(dest_path);
-	while (gtk_events_pending())
-		gtk_main_iteration();
 	(*archive->extract) (archive,NULL);
 	xa_clean_archive_structure(archive);
 	return NULL;
