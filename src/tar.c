@@ -180,20 +180,18 @@ void xa_tar_delete (XArchive *archive,GSList *files)
 	}
 }
 
-void xa_tar_add (XArchive *archive,GSList *names,gchar *compression_string)
+void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
- 	GString *files = g_string_new("");
- 
- 	xa_cat_filenames(archive,names,files);
+
 	if (archive->location_entry_path != NULL)
-		chdir (archive->tmp);
+		archive->working_dir = g_strdup(archive->tmp);
 
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_TAR:
-		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+		if ( g_file_test (archive->escaped_path,G_FILE_TEST_EXISTS))
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
 									archive->remove_files ? "--remove-files " : "",

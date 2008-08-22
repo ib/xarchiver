@@ -192,18 +192,13 @@ void xa_zip_delete (XArchive *archive,GSList *names)
 	xa_run_command (archive,list);
 }
 
-void xa_zip_add (XArchive *archive,GSList *names,gchar *compression_string)
+void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
- 	GString *files = g_string_new("");
- 
- 	xa_cat_filenames(archive,names,files);
-	g_slist_foreach(names,(GFunc)g_free,NULL);
-	g_slist_free(names);
 
 	if (archive->location_entry_path != NULL)
-		chdir (archive->tmp);
+		archive->working_dir = g_strdup(archive->tmp);
 
 	if (compression_string == NULL)
 		compression_string = "6";
@@ -211,7 +206,6 @@ void xa_zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 		command = g_strconcat ( "zip ",
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
-									archive->add_recurse ? "-r " : "",
 									archive->remove_files ? "-m " : "",
 									"-P ", archive->passwd," ",
 									"-",compression_string," ",
@@ -221,14 +215,13 @@ void xa_zip_add (XArchive *archive,GSList *names,gchar *compression_string)
 		command = g_strconcat ( "zip ",
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
-									archive->add_recurse ? "-r " : "",
 									archive->remove_files ? "-m " : "",
 									"-",compression_string," ",
 									archive->escaped_path,
 									files->str,NULL);
 	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
 
+	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
 }
 

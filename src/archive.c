@@ -66,7 +66,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 
 	g_shell_parse_argv (command,&argcp,&argv,NULL);
 	if ( ! g_spawn_async_with_pipes (
-		NULL,
+		archive->working_dir,
 		argv,
 		NULL,
 		(G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD),
@@ -234,29 +234,22 @@ void xa_clean_archive_structure (XArchive *archive)
 	}
 
 	if (archive->path != NULL)
-	{
 		g_free(archive->path);
-		archive->path = NULL;
-	}
 
 	if (archive->escaped_path != NULL)
-	{
 		g_free(archive->escaped_path);
-		archive->escaped_path = NULL;
-	}
 
 	if (archive->tmp != NULL)
 	{
 		xa_delete_temp_directory (archive,0);
 		g_free (archive->tmp);
-		archive->tmp = NULL;
 	}
 
 	if (archive->passwd != NULL)
-	{
 		g_free (archive->passwd);
-		archive->passwd = NULL;
-	}
+	
+	if (archive->working_dir != NULL)
+		g_free (archive->working_dir);
 
 	if (archive->extraction_path != NULL)
 		g_free (archive->extraction_path);
@@ -264,10 +257,7 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->has_comment)
 	{
 		if (archive->comment != NULL)
-		{
 			g_string_free (archive->comment,TRUE);
-			archive->comment = NULL;
-		}
 	}
 	if (archive->clipboard_data)
 		xa_clipboard_clear(NULL,archive);
@@ -830,7 +820,6 @@ gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIt
 	GtkTreeIter parent;
 
 	gtk_tree_model_get (model,iter,2,&entry2,-1);
-	
 	if (entry == entry2)
 	{
 		gtk_tree_model_iter_parent(model,&parent,iter);
@@ -844,7 +833,6 @@ gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIt
 		return FALSE;
 		gtk_tree_selection_unselect_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)),iter);
 	}
-
 	return FALSE;
 }
 

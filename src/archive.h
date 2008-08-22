@@ -72,7 +72,7 @@ typedef struct _XAClipboard XAClipboard;
 
 typedef void (*parse_output_func)	(gchar *line, gpointer);
 typedef void (*delete_func)			(XArchive *,GSList *);
-typedef void (*add_func)			(XArchive *,GSList *,gchar *);
+typedef void (*add_func)			(XArchive *,GString *,gchar *);
 typedef gboolean (*extract_func)	(XArchive *,GSList *);
 typedef void (*test_func)			(XArchive *);
 
@@ -92,6 +92,7 @@ struct _XArchive
 	gchar *extraction_path;
 	gchar *passwd;
 	gchar *location_entry_path;
+	gchar *working_dir;
 	GtkTreeModel *model;
 	GtkCellRenderer *renderer;
 	GtkCellRenderer *renderer_text;

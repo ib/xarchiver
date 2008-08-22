@@ -193,35 +193,18 @@ void xa_7zip_delete (XArchive *archive,GSList *names)
 	xa_run_command (archive,list);
 }
 
-void xa_7zip_add (XArchive *archive,GSList *names,gchar *compression_string)
+void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
-	GSList *dirlist = NULL;
-	GSList *_names = NULL;
 	gchar *command,*exe = NULL;
-	GString *files = g_string_new("");
 
 	if (sevenzr)
 		exe = "7zr ";
 	if (sevenza)
 		exe = "7za ";
 
-	_names = names;
-	while (_names)
-	{
-		xa_recurse_local_directory((gchar*)_names->data,&dirlist,archive->add_recurse);
-		_names = _names->next;
-	}
-	if (dirlist == NULL)
-		dirlist = names;
-
-	xa_cat_filenames(archive,dirlist,files);
-
-	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
-	g_slist_free(dirlist);
-
 	if (archive->location_entry_path != NULL)
-		chdir (archive->tmp);
+		archive->working_dir = g_strdup(archive->tmp);
 
 	if (compression_string == NULL)
 		compression_string = "5";

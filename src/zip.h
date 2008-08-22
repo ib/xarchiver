@@ -26,7 +26,7 @@
 #include "archive.h"
 
 void xa_zip_delete (XArchive *,GSList *);
-void xa_zip_add (XArchive *,GSList *,gchar *);
+void xa_zip_add (XArchive *,GString *,gchar *);
 gboolean xa_zip_extract(XArchive *,GSList *);
 void xa_zip_test (XArchive *);
 void xa_get_zip_line_content (gchar *line, gpointer data);

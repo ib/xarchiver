@@ -229,8 +229,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
 
-	if(archive->type == XARCHIVETYPE_LHA)
-		gtk_widget_set_sensitive(add_dialog->recurse,FALSE);
 	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_7ZIP)
 		flag = TRUE;
 	gtk_widget_set_sensitive(add_dialog->solid_archive,flag);
@@ -407,9 +405,8 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 
 			if (!archive->full_path)
 			{
-				gchar *current_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1));
-				chdir (current_dir);
-				g_free (current_dir);
+				gchar *current_dir = g_path_get_dirname(list->data);
+				archive->working_dir = current_dir;
 			}
 			xa_execute_add_commands (archive,list,compression_string);
 			if (compression_string != NULL)
@@ -428,11 +425,13 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 	gchar *command = NULL;
 	GSList *slist = NULL;
 	GSList *cmd_list = NULL;
+	GSList *dirlist = NULL;
+	GString *files = g_string_new("");
 
 	if (xa_main_window)
 	{
 		gtk_label_set_text(GTK_LABEL(total_label),_("Adding files to archive, please wait..."));
-		/* This in case the user wants to add files in the archive directories */
+		/* This in case the user wants to add files in a directory in the archive tree */
 		if (archive->location_entry_path != NULL)
 		{
 			result = xa_create_temp_directory(archive);
@@ -461,5 +460,20 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 		}
 		archive->status = XA_ARCHIVESTATUS_ADD;
 	}
-	(*archive->add) (archive,list,compression_string);
+	while (list)
+	{
+		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse);
+		list = list->next;
+	}
+
+ 	xa_cat_filenames(archive,dirlist,files);
+	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
+	g_slist_free(dirlist);
+	(*archive->add) (archive,files,compression_string);
+
+	if (archive->working_dir != NULL)
+	{
+		g_free(archive->working_dir);
+		archive->working_dir = NULL;
+	}
 }

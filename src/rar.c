@@ -249,18 +249,13 @@ void xa_rar_delete (XArchive *archive,GSList *names)
 	xa_run_command (archive,list);
 }
 
-void xa_rar_add (XArchive *archive,GSList *names,gchar *compression_string)
+void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
- 	GString *files = g_string_new("");
-
- 	xa_cat_filenames(archive,names,files);
-	g_slist_foreach(names,(GFunc)g_free,NULL);
-	g_slist_free(names);
 
 	if (archive->location_entry_path != NULL)
-		chdir (archive->tmp);
+		archive->working_dir = g_strdup(archive->tmp);
 
 	if (compression_string == NULL)
 		compression_string = "3";
@@ -271,7 +266,6 @@ void xa_rar_add (XArchive *archive,GSList *names,gchar *compression_string)
 									archive->solid_archive ? "-s " : "",
 									archive->remove_files ? "-df " : "",
 									"-p" , archive->passwd,
-									archive->add_recurse ? " -r " : "",
 									"-idp ",
 									"-m",compression_string," ",
 									archive->escaped_path,
@@ -282,7 +276,6 @@ void xa_rar_add (XArchive *archive,GSList *names,gchar *compression_string)
 									archive->freshen ? "-f " : "",
 									archive->solid_archive ? "-s " : "",
 									archive->remove_files ? "-df " : "",
-									archive->add_recurse ? " -r " : "",
 									"-idp ",
 									"-m",compression_string," ",
 									archive->escaped_path,
