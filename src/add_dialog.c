@@ -377,6 +377,12 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				else
 					archive->passwd = temp_password;
 			}
+			else if (archive->passwd != NULL)
+			{
+				g_free(archive->passwd);
+				archive->passwd = NULL;
+			}
+
 			done = TRUE;
 			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->store_path)))
 				archive->full_path = TRUE;

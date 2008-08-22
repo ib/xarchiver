@@ -1888,8 +1888,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	gchar *current_dir = NULL;
 	GSList *list = NULL;
 	gboolean one_file;
-	gboolean dummy_password;
-	gboolean full_path,add_recurse;
 	unsigned int len = 0;
 	gint current_page,idx,response;
 
@@ -1961,18 +1959,9 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		list = g_slist_append(list,filename);
 		len++;
 	}
-	dummy_password = archive[idx]->has_passwd;
-	full_path = archive[idx]->full_path;
-	add_recurse = archive[idx]->add_recurse;
-
-	archive[idx]->has_passwd = 0;
-	archive[idx]->full_path = 0;
-	archive[idx]->add_recurse = 1;
+	archive[idx]->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_window->store_path));
+	archive[idx]->add_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_window->recurse));
 	xa_execute_add_commands(archive[idx],list,NULL);
-
-	archive[idx]->has_passwd = dummy_password;
-	archive[idx]->full_path = full_path;
-	archive[idx]->add_recurse = add_recurse;
 	g_strfreev (array);
 }
 
