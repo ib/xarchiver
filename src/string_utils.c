@@ -238,6 +238,9 @@ gchar *xa_strip_directories_except_last(gchar *filename)
 
 	len = strlen(filename);
 	slash = g_strrstr(filename,"/");
+	if (slash == NULL)
+		return g_strdup(filename);
+
 	while (len)
 	{
 		slash--;
