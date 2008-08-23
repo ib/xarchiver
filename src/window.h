@@ -111,7 +111,6 @@ void xa_clipboard_copy(GtkMenuItem *,gpointer );
 void xa_clipboard_paste(GtkMenuItem*,gpointer );
 void xa_rename_archive(GtkMenuItem *,gpointer );
 void xa_rename_cell_edited_canceled(GtkCellRenderer *,gpointer );
-void xa_rename_cell_editing_started (GtkCellRenderer *,GtkCellEditable *,const gchar *,XArchive *);
 void xa_rename_cell_edited (GtkCellRendererText *,const gchar *,const gchar *,XArchive * );
 void xa_open_file_from_popupmenu(GtkMenuItem *,gpointer );
 void xa_clipboard_cut_copy_operation(XArchive *, XAClipboardMode );

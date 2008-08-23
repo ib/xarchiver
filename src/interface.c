@@ -186,7 +186,8 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_sensitive (delete_menu,FALSE);
 	gtk_widget_show (delete_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
-
+	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+	
 	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
 	gtk_widget_set_sensitive (rename_menu,FALSE);
 	gtk_widget_show (rename_menu);

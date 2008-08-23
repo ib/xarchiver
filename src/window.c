@@ -1430,7 +1430,6 @@ void xa_create_liststore (XArchive *archive, gchar *columns_names[])
 	gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview), column);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	g_signal_connect (archive->renderer_text, "editing-canceled",G_CALLBACK (xa_rename_cell_edited_canceled),archive);
-	g_signal_connect (archive->renderer_text, "editing-started" ,G_CALLBACK(xa_rename_cell_editing_started),archive);
 	g_signal_connect (archive->renderer_text, "edited",G_CALLBACK (xa_rename_cell_edited),archive);
 
 	/* All the others */
@@ -2604,32 +2603,6 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 void xa_rename_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
 {
 	g_object_set(renderer,"editable",FALSE,NULL);
-}
-
-void xa_rename_cell_editing_started (GtkCellRenderer *cell,GtkCellEditable *editable,const gchar *path,XArchive *archive)
-{
-	GtkEntry *gtk_entry;
-	gchar *text;
-	XEntry *entry;
-	glong offset;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-
-	if (GTK_IS_ENTRY (editable)) 
-	{
-		model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
-		gtk_tree_model_get_iter_from_string(model,&iter,path);
-		gtk_tree_model_get(model,&iter,archive->nc+1,&entry,-1);
-		text = g_utf8_strrchr (entry->filename,-1,'.');
-		if (G_LIKELY (text != NULL))
-		{
-			gtk_entry = GTK_ENTRY (editable);
-			gtk_widget_grab_focus (GTK_WIDGET(gtk_entry));
-			offset = g_utf8_pointer_to_offset (entry->filename,text);
-			if (G_LIKELY (offset > 0))
-				gtk_editable_select_region (GTK_EDITABLE(editable),0,offset);
-		}
-	}
 }
 
 void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_name,XArchive *archive)

@@ -231,24 +231,38 @@ gchar *xa_escape_filename (gchar *filename,gchar *meta_chars)
 	return xa_escape_common_chars (filename , meta_chars, '\\', 0);
 }
 
+gchar *xa_strip_directories_except_last(gchar *filename)
+{
+	gchar *basename,*slash;
+	int len = 0;
+
+	len = strlen(filename);
+	slash = g_strrstr(filename,"/");
+	while (len)
+	{
+		slash--;
+		if (*slash == '/')
+			break;
+		len--;
+	}
+	basename = g_strdup(++slash);
+	return basename;
+}
+
 void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 {
 	gchar *basename, *name, *e_filename;
 	GSList *slist = list;
-	int home_dir_len = 0;
 
-	home_dir_len = strlen(g_get_home_dir())+1;
 	while (slist)
 	{
 		if (archive->location_entry_path != NULL)
 		{
 			if (archive->full_path == 0)
 			{
-				if (strchr(slist->data,'/'))
-					basename = slist->data + home_dir_len;
-				else
-					basename = slist->data;
+				basename = xa_strip_directories_except_last(slist->data);
 				name = g_strconcat(archive->location_entry_path,basename,NULL);
+				g_free(basename);
 				e_filename = xa_escape_filename(name,"$'`\"\\!?* ()[]&|:;<>#");
 				g_string_prepend (data,e_filename);
 				g_string_prepend_c (data,' ');
@@ -267,11 +281,9 @@ void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 		{
 			if (archive->full_path == 0)
 			{
-				if (strchr(slist->data,'/'))
-					basename = slist->data + home_dir_len;
-				else
-					basename = slist->data;
+				basename = xa_strip_directories_except_last(slist->data);
 				e_filename = xa_escape_filename(basename,"$'`\"\\!?* ()[]&|:;<>#");
+				g_free(basename);
 				g_string_prepend (data,e_filename);
 				g_string_prepend_c (data,' ');
 			}

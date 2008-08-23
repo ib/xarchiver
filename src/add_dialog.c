@@ -215,7 +215,12 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
 
 	if (archive->location_entry_path != NULL)
+	{
 		gtk_widget_set_sensitive(add_dialog->store_path,FALSE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->store_path),FALSE);
+	}
+	else
+		gtk_widget_set_sensitive(add_dialog->store_path,TRUE);
 	/* 7z doesn't appear to let the user chooses if storing full paths */
 	if (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
  	{
@@ -477,6 +482,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 	g_slist_free(dirlist);
 	(*archive->add) (archive,files,compression_string);
 
+	/* These instructions are executed only after xa_reload_archive_content in window.c */
 	if (archive->working_dir != NULL)
 	{
 		g_free(archive->working_dir);
