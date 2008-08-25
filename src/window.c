@@ -832,7 +832,10 @@ void xa_delete_archive (GtkMenuItem *menuitem, gpointer user_data)
 				if (archive[id]->type == XARCHIVETYPE_TAR || is_tar_compressed(archive[id]->type))
 					goto one_file;
 				else
-					xa_fill_list_with_recursed_entries(entry, &list,"");
+				{	
+					list = g_slist_prepend (list,xa_build_full_path_name_from_entry(entry));
+					xa_fill_list_with_recursed_entries(entry->child, &list);
+				}
 			}
 			else
 			{

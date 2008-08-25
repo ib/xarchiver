@@ -428,7 +428,7 @@ void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *
 			gtk_tree_model_get (archive->model,&iter,archive->nc+1,&entry,-1);
 			gtk_tree_path_free (row_list->data);
 			if (entry->is_dir)
-				xa_fill_list_with_recursed_entries(entry, &files,"");
+				xa_fill_list_with_recursed_entries(entry, &files);
 			else
 				files = g_slist_prepend(files,xa_build_full_path_name_from_entry(entry));
 			row_list = row_list->next;

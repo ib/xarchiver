@@ -39,7 +39,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 	else if (strcmp(mime,"application/rtf") == 0 || strcmp(mime,"application/pdf") == 0 || strcmp(mime,"application/msword") == 0
 		|| strcmp (mime,"application/vnd.oasis.opendocument.text") == 0)
 		icon_name = "document";
-	else if (strcmp(mime,"audio/mpeg") == 0 || strcmp(mime,"audio/midi") == 0 )
+	else if (strcmp(mime,"audio/mpeg") == 0 || strcmp(mime,"audio/midi") == 0 || strcmp (mime,"audio/mp2") == 0)
 		icon_name = "sound";
 	else if (strcmp(mime,"application/vnd.ms-excel") == 0 || strcmp(mime,"application/vnd.oasis.opendocument.spreadsheet") == 0)
 		icon_name = "gnome-mime-application-vnd.ms-excel";
@@ -52,7 +52,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 		|| strcmp (mime,"application/x-bzip") == 0  || strcmp (mime,"application/x-gzip") == 0)
 		icon_name = "package";
 	else if (strcmp(mime,"application/x-shockwave-flash") == 0 || strcmp(mime,"video/mpeg") == 0 || strcmp(mime,"video/quicktime") == 0
-		|| strcmp(mime,"video/x-msvideo") == 0 || strcmp(mime,"application/x-flash-video") == 0)
+		|| strcmp(mime,"video/x-msvideo") == 0 || strcmp (mime,"video/mp4") == 0 || strcmp(mime,"application/x-flash-video") == 0)
 		icon_name = "video";
 	else if (strcmp(mime,"application/x-cd-image") == 0)
 		icon_name = "application-x-cd-image";
