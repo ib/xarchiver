@@ -52,7 +52,8 @@ const char *xa_get_stock_mime_icon(char *filename)
 		|| strcmp (mime,"application/x-bzip") == 0  || strcmp (mime,"application/x-gzip") == 0)
 		icon_name = "package";
 	else if (strcmp(mime,"application/x-shockwave-flash") == 0 || strcmp(mime,"video/mpeg") == 0 || strcmp(mime,"video/quicktime") == 0
-		|| strcmp(mime,"video/x-msvideo") == 0 || strcmp (mime,"video/mp4") == 0 || strcmp(mime,"application/x-flash-video") == 0)
+		|| strcmp(mime,"video/x-msvideo") == 0 || strcmp (mime,"video/mp4") == 0 || strcmp(mime,"application/x-flash-video") == 0
+		|| strcmp(mime,"video/dv") == 0)
 		icon_name = "video";
 	else if (strcmp(mime,"application/x-cd-image") == 0)
 		icon_name = "application-x-cd-image";

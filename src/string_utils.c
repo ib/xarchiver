@@ -375,7 +375,7 @@ void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse)
 
 	while ((dirlist = readdir(dir)))
 	{
-		if (dirlist->d_name[0] == '.')
+		if (strcmp(dirlist->d_name,".") == 0 || strcmp(dirlist->d_name,"..") == 0)
 			continue;
 		fullname = g_strconcat (path,"/",dirlist->d_name,NULL);
 		is_dir = g_file_test(fullname,G_FILE_TEST_IS_DIR);

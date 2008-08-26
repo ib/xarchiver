@@ -1,5 +1,4 @@
 - reduce the loading time when opening large archives.
-- develop the dlg-open dialog.
 - fix crash when opening rar archives produces under winzozz.
 - recurse with opendir for arj when using the switches from cmd-line
 - fix the remaining bugs in bugzilla.xfce.org

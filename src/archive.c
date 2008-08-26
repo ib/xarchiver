@@ -760,7 +760,6 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 		gtk_tree_model_get(model,&iter,1,&dir,-1);
 		g_string_prepend_c(string,'/');
 		g_string_prepend(string,dir);
-
 		/* Get the memory address of entry so to update the main listview */
 		gtk_tree_model_get(model,&iter,2,&entry,-1);
 		while (gtk_tree_model_iter_parent(model,&parent,&iter))

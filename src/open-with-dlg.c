@@ -21,26 +21,46 @@
 #include "mime.h"
 #include "support.h"
 
-/*open_with_dialog = xa_create_open_with_dialog(filename);*/
+static void xa_read_desktop_directories(GtkListStore *,const gchar *);
+static void xa_parse_desktop_files(GSList **,GSList **,GSList **,gchar *,gchar *);
+static void xa_open_with_dialog_row_selected (GtkTreeSelection *,GtkListStore *);
+static void xa_open_with_dialog_browse_custom_command(GtkButton *,gpointer );
 
-GtkWidget *xa_create_open_with_dialog(gchar *filename)
+GtkWidget *custom_command_entry;
+
+gchar *xa_create_open_with_dialog(gchar *filename,int nr)
 {
-	GtkWidget	*dialog1,*dialog_vbox1,*vbox1,*hbox1,*mime_icon,*open_text,*scrolledwindow1,*apps_treeview,*app_description,*dialog_action_area1,
-				*custom_command_expander,*custom_command_entry,*hbox_expander,*browse,*cancelbutton1,*okbutton1;
+	GtkWidget	*dialog1,*dialog_vbox1,*vbox1,*hbox1,*mime_icon,*open_text,*scrolledwindow1,*apps_treeview,*dialog_action_area1,
+				*custom_command_expander,*hbox_expander,*browse,*cancelbutton1,*okbutton1;
+	GtkListStore *apps_liststore;
 	GtkCellRenderer		*renderer;
 	GtkTreeViewColumn	*column;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
 	GdkPixbuf *pixbuf;
 	gchar *text = NULL;
+	gchar *exec = NULL;
+	gchar *title;
+	const gchar *icon_name = NULL;	
+	const gchar* const *desktop_dirs;
+	gint x = 0;
+	gint response;
 
 	dialog1 = gtk_dialog_new ();
-	gtk_window_set_title (GTK_WINDOW (dialog1), _("Open With"));
+	if (nr == 1)
+		title = _("Open With");
+	else
+		title = _("Open the selected files with");
+
+	gtk_window_set_title (GTK_WINDOW (dialog1),title);
 	gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_modal (GTK_WINDOW (dialog1), TRUE);
 	gtk_window_set_type_hint (GTK_WINDOW (dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_transient_for(GTK_WINDOW(dialog1),GTK_WINDOW(xa_main_window));
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog1),FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog1),5);
-	gtk_widget_set_size_request(dialog1,-1,380);
+	gtk_widget_set_size_request(dialog1,380,380);
 	dialog_vbox1 = GTK_DIALOG (dialog1)->vbox;
 
 	vbox1 = gtk_vbox_new (FALSE, 5);
@@ -49,26 +69,32 @@ GtkWidget *xa_create_open_with_dialog(gchar *filename)
 	hbox1 = gtk_hbox_new (FALSE, 1);
 	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,FALSE,FALSE,0);
 
-	pixbuf = xa_get_pixbuf_icon_from_cache(filename,40);
-	mime_icon = gtk_image_new_from_pixbuf(pixbuf);
-	g_object_unref(pixbuf);
-	gtk_box_pack_start (GTK_BOX (hbox1),mime_icon,FALSE,TRUE,0);
-	gtk_misc_set_alignment (GTK_MISC (mime_icon),0,0);
-
-	open_text = gtk_label_new("");
-	text = g_strdup_printf(_("Open <i>%s</i> with:"),filename);
-	gtk_label_set_use_markup (GTK_LABEL (open_text),TRUE);
-	gtk_label_set_markup (GTK_LABEL (open_text),text);
-	g_free(text);
-	gtk_box_pack_start (GTK_BOX (hbox1),open_text,FALSE,FALSE,10);
-
+	if (nr == 1)
+	{
+		icon_name = xa_get_stock_mime_icon(filename);
+		pixbuf = gtk_icon_theme_load_icon(icon_theme,icon_name,40,0,NULL);
+		mime_icon = gtk_image_new_from_pixbuf(pixbuf);
+		g_object_unref(pixbuf);
+		gtk_box_pack_start (GTK_BOX (hbox1),mime_icon,FALSE,TRUE,0);
+		gtk_misc_set_alignment (GTK_MISC (mime_icon),0,0);
+	
+		open_text = gtk_label_new("");
+		gtk_box_pack_start (GTK_BOX (hbox1),open_text,FALSE,FALSE,10);
+		text = g_strdup_printf(_("Open <i>%s</i> with:"),filename);
+		gtk_label_set_use_markup (GTK_LABEL (open_text),TRUE);
+		gtk_label_set_markup (GTK_LABEL (open_text),text);
+		g_free(text);
+	}
 	scrolledwindow1 = gtk_scrolled_window_new (NULL,NULL);
 	gtk_box_pack_start (GTK_BOX (vbox1),scrolledwindow1,TRUE,TRUE,0);
 	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"shadow-type",GTK_SHADOW_IN,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
 
-	apps_treeview = gtk_tree_view_new();
+	apps_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING);
+	apps_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(apps_liststore));
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),apps_treeview);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(apps_treeview),FALSE);
+	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (apps_treeview));
+	g_signal_connect ((gpointer) sel,"changed",G_CALLBACK (xa_open_with_dialog_row_selected),apps_liststore);
 
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
@@ -80,13 +106,14 @@ GtkWidget *xa_create_open_with_dialog(gchar *filename)
 	gtk_tree_view_column_pack_start(column,renderer, TRUE);
 	gtk_tree_view_column_set_attributes( column,renderer,"text",1,NULL);
 	gtk_tree_view_column_set_resizable (column, TRUE);
-	gtk_tree_view_column_set_sort_column_id (column, 1);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(apps_liststore),1,GTK_SORT_ASCENDING);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (apps_treeview), column);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
-	app_description = gtk_label_new ("This should be the app description");
-	gtk_misc_set_alignment(GTK_MISC(app_description),0.05,0.0);
-	gtk_box_pack_start (GTK_BOX (vbox1),app_description,FALSE,FALSE,0);
+	/* Hidden column with the application executable name */
+	column = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_visible(column,FALSE);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (apps_treeview), column);
 
 	custom_command_expander = gtk_expander_new_with_mnemonic(_("Use a custom command:"));
 	gtk_box_pack_start (GTK_BOX (vbox1),custom_command_expander,FALSE,FALSE,0);
@@ -95,6 +122,7 @@ GtkWidget *xa_create_open_with_dialog(gchar *filename)
 
 	custom_command_entry = gtk_entry_new();
 	browse = gtk_button_new_with_label(_("Browse"));
+	g_signal_connect (G_OBJECT (browse),"clicked",G_CALLBACK (xa_open_with_dialog_browse_custom_command),NULL);
 
 	gtk_box_pack_start (GTK_BOX (hbox_expander),custom_command_entry,TRUE,TRUE,0);
 	gtk_box_pack_start (GTK_BOX (hbox_expander),browse,FALSE,TRUE,0);
@@ -113,5 +141,181 @@ GtkWidget *xa_create_open_with_dialog(gchar *filename)
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog1),okbutton1,GTK_RESPONSE_OK);
 	GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
 	gtk_widget_show_all(vbox1);
-	return dialog1;
+
+	/* Let's parse the desktop files in all the system data dirs */
+	desktop_dirs = g_get_system_data_dirs();
+	while (desktop_dirs[x])
+	{
+		xa_read_desktop_directories(apps_liststore,desktop_dirs[x]);
+		x++;
+	}
+	response = gtk_dialog_run(GTK_DIALOG(dialog1));
+	if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
+	{
+		gtk_widget_destroy(dialog1);
+		return NULL;
+	}
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(apps_treeview));
+	gtk_tree_selection_get_selected(selection,&model,&iter);
+	gtk_tree_model_get(model,&iter,2,&exec,-1);
+	gtk_widget_destroy(dialog1);
+	return exec;
+}
+
+static void xa_read_desktop_directories(GtkListStore *liststore,const gchar *dirname)
+{
+	DIR *dir;
+	gchar *filename = NULL;
+	struct dirent *dirlist;
+	GSList *app_icon = NULL;
+	GSList *app_name  = NULL;
+	GSList *app_exe = NULL;
+	GtkTreeIter iter;
+
+	filename = g_strconcat(dirname,"applications",NULL);
+	dir = opendir(filename);
+
+	if (dir == NULL)
+	{
+		g_free(filename);
+		return;
+	}
+	while ((dirlist = readdir(dir)))
+	{
+		if (g_str_has_suffix(dirlist->d_name,".desktop"))
+			xa_parse_desktop_files(&app_name,&app_exe,&app_icon,filename,dirlist->d_name);
+	}
+	while (app_name)
+	{
+		gtk_list_store_append(liststore,&iter);
+		gtk_list_store_set(liststore,&iter,0,app_icon->data,1,app_name->data,2,app_exe->data,-1);
+		if (app_icon->data != NULL)
+			g_object_unref(app_icon->data);
+		app_name = app_name->next;
+		app_icon = app_icon->next;
+		app_exe  = app_exe->next;
+	}
+	g_free(filename);
+	closedir(dir);
+
+	g_slist_foreach(app_name,(GFunc)g_free,NULL);
+	g_slist_foreach(app_exe,(GFunc)g_free,NULL);
+	g_slist_free(app_name);
+	g_slist_free(app_exe);
+}
+
+static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,GSList **app_icon_list,gchar *path,gchar *name)
+{
+	gchar *filename,*line;
+	gchar *app_name = NULL, *app_exe = NULL, *app_icon = NULL;
+	GIOStatus status;
+	GIOChannel *file;
+	gboolean has_mimetype = FALSE;
+
+	filename = g_strconcat(path,"/",name,NULL);
+	file = g_io_channel_new_file(filename,"r",NULL);
+	g_free(filename);
+
+	if (file == FALSE)
+		return;
+
+	do
+	{
+		status = g_io_channel_read_line (file, &line, NULL, NULL, NULL);
+		if (line != NULL)
+		{
+			if (g_str_has_prefix(line,"Name="))
+			{
+				app_name = g_strndup(line + 5,(strlen(line)-6));
+				continue;
+			}
+			if (g_str_has_prefix(line,"Exec="))
+			{
+				app_exe = strstr(line," ");
+				if (app_exe)
+					app_exe = g_strndup(line + 5,app_exe - (line+5));
+				else
+					app_exe = g_strndup(line + 5,(strlen(line)-6));
+				continue;
+			}
+			if (g_str_has_prefix(line,"Icon="))
+			{
+				app_icon = strstr(line,".");
+				if (app_icon)
+					app_icon = g_strndup(line + 5,app_icon - (line+5));
+				else
+					app_icon = g_strndup(line + 5,(strlen(line)-6));
+				continue;
+			}
+			if (g_str_has_prefix(line,"MimeType="))
+				has_mimetype = TRUE;
+			g_free(line);
+		}
+	}
+	while (status != G_IO_STATUS_EOF);
+	if (has_mimetype)
+	{
+		*app_name_list	= g_slist_prepend(*app_name_list,app_name);
+		*app_exe_list	= g_slist_prepend(*app_exe_list ,app_exe);
+		if (app_icon == NULL)
+			app_icon = "";
+		*app_icon_list = g_slist_prepend(*app_icon_list,gtk_icon_theme_load_icon(icon_theme,app_icon,40,0,NULL));
+		g_io_channel_close(file);	
+		return;
+	}
+	if (app_name != NULL)
+	{
+		g_free(app_name);
+		app_name = NULL;
+	}
+	if (app_exe != NULL)
+	{
+		g_free(app_exe);
+		app_exe = NULL;
+	}
+	if (app_icon != NULL)
+	{
+		g_free(app_icon);
+		app_icon = NULL;
+	}
+	g_io_channel_close(file);	
+}
+
+static void xa_open_with_dialog_row_selected (GtkTreeSelection *selection,GtkListStore *liststore)
+{
+	gchar *exec;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+
+	gtk_tree_selection_get_selected(selection,&model,&iter);
+	gtk_tree_model_get(model,&iter,2,&exec,-1);
+	
+	gtk_entry_set_text(GTK_ENTRY(custom_command_entry),exec);
+	g_free(exec);
+}
+
+static void xa_open_with_dialog_browse_custom_command(GtkButton *button,gpointer data)
+{
+	GtkWidget *file_selector;
+	gchar *dest_dir;
+	gint response;
+
+	file_selector = gtk_file_chooser_dialog_new (_("Select an application"),
+							GTK_WINDOW (xa_main_window),
+							GTK_FILE_CHOOSER_ACTION_OPEN,
+							GTK_STOCK_CANCEL,
+							GTK_RESPONSE_CANCEL,
+							GTK_STOCK_OPEN,
+							GTK_RESPONSE_ACCEPT,
+							NULL);
+
+	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (file_selector),"/usr/bin");
+	response = gtk_dialog_run (GTK_DIALOG(file_selector));
+	if (response == GTK_RESPONSE_ACCEPT)
+	{
+		dest_dir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (file_selector));
+		gtk_entry_set_text(GTK_ENTRY(custom_command_entry),dest_dir);
+		g_free(dest_dir);
+	}
+	gtk_widget_destroy(file_selector);
 }

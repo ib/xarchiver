@@ -836,6 +836,7 @@ void xa_create_popup_menu()
 	GtkWidget *image6;
 	GtkWidget *image7;
 	GtkWidget *image8;
+	GtkWidget *image1;
 	GtkWidget *separator;
 	GtkWidget *open;
 	GtkWidget *extract;
@@ -844,7 +845,7 @@ void xa_create_popup_menu()
 	GtkWidget *image11;
 
 	xa_popup_menu = gtk_menu_new();
-	open = gtk_image_menu_item_new_with_mnemonic (_("Open"));
+	open = gtk_image_menu_item_new_with_mnemonic (_("Open With"));
 	gtk_widget_show (open);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu),open);
 
@@ -859,6 +860,14 @@ void xa_create_popup_menu()
 	image9 =  xa_main_window_find_image ("xarchiver-extract.png",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image9);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract),image9);
+
+	view = gtk_image_menu_item_new_with_mnemonic (_("View"));
+	gtk_widget_show (view);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu),view);
+
+	image1 = gtk_image_new_from_stock ("gtk-find",GTK_ICON_SIZE_MENU);
+	gtk_widget_show (image1);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view),image1);
 
 	separator = gtk_separator_menu_item_new ();
 	gtk_widget_show (separator);
@@ -912,10 +921,11 @@ void xa_create_popup_menu()
 	gtk_widget_show (image11);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rrename),image11);
 
+	g_signal_connect ((gpointer) open,	"activate",	G_CALLBACK(xa_open_with_from_popupmenu),(gpointer) 0);
+	g_signal_connect ((gpointer) view,	"activate",	G_CALLBACK(xa_open_with_from_popupmenu),(gpointer) 1);
 	g_signal_connect ((gpointer) cut,	"activate",	G_CALLBACK(xa_clipboard_cut),NULL);
 	g_signal_connect ((gpointer) copy,	"activate",	G_CALLBACK(xa_clipboard_copy),NULL);
 	g_signal_connect ((gpointer) paste,	"activate",	G_CALLBACK(xa_clipboard_paste),NULL);
-	g_signal_connect ((gpointer) open,	"activate",	G_CALLBACK(xa_open_file_from_popupmenu),NULL);
 	g_signal_connect ((gpointer) extract,"activate",G_CALLBACK(xa_extract_archive),NULL);
 	g_signal_connect ((gpointer) ddelete,"activate",G_CALLBACK(xa_delete_archive),NULL);
 	g_signal_connect ((gpointer) rrename,"activate",G_CALLBACK(xa_rename_archive),NULL);
