@@ -57,20 +57,6 @@ dnl **************************
 AC_DISABLE_STATIC()
 AC_PROG_LIBTOOL()
 
-dnl ***********************************
-dnl *** Enable new features provided by libmime-type ***
-dnl ***********************************
-AC_ARG_ENABLE(
-    [libmimetype],
-    AS_HELP_STRING([--enable-libmimetype],
-                   [use new libmimetype instead of xdgmime (default: yes)]),
-    use_libmimetype=$enableval, use_libmimetype="yes")
- echo "CHECK!!! use_libmimetype" "$use_libmimetype"
-if test x"$use_libmimetype" = x"yes"; then
-    AC_DEFINE([USE_MIMETYPE], [1], [Define to 1 if libmimetype is used.])
-fi
-AM_CONDITIONAL(USE_LIBMIMETYPE, test x"$use_libmimetype" = x"yes")
-
 dnl ***********************************************
 dnl *** Work-around system-specific limitations ***
 dnl ***********************************************
@@ -108,7 +94,6 @@ Makefile
 po/Makefile.in
 src/Makefile
 src/xdgmime/Makefile
-src/mime-type/Makefile
 doc/Makefile
 icons/Makefile
 icons/16x16/Makefile
