@@ -12,6 +12,7 @@ src/gzip.c
 src/lha.c
 src/interface.c
 src/main.c
+src/open-with-dlg.c
 src/new_dialog.c
 src/pref_dialog.c
 src/rar.c

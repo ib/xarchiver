@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.6\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-06-29 19:14+0200\n"
+"POT-Creation-Date: 2008-08-26 13:56+0200\n"
 "PO-Revision-Date: 2007-02-01 22:10+0800\n"
 "Last-Translator: wuli<wurisky@gmail.com>\n"
 "Language-Team: Chinese <risky@linuxsir.org>\n"
@@ -14,11 +14,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/7zip.c:56 ../src/arj.c:47 ../src/rar.c:62
+#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:85 ../src/rar.c:62
+#: ../src/zip.c:49
 msgid "Original"
 msgstr "原始大小"
 
-#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:97 ../src/gzip.c:89
+#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:85 ../src/gzip.c:79
 #: ../src/rar.c:62 ../src/zip.c:49
 msgid "Compressed"
 msgstr "压缩后大小"
@@ -27,171 +28,176 @@ msgstr "压缩后大小"
 msgid "Attr"
 msgstr "属性"
 
-#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:178 ../src/deb.c:80
-#: ../src/gzip.c:71 ../src/rar.c:62 ../src/tar.c:52 ../src/zip.c:49
+#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:166 ../src/gzip.c:62
+#: ../src/rar.c:62 ../src/tar.c:51 ../src/zip.c:49
 msgid "Time"
 msgstr "时间"
 
-#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:178 ../src/deb.c:80
-#: ../src/gzip.c:71 ../src/rar.c:62 ../src/rpm.c:56 ../src/tar.c:52
-#: ../src/zip.c:49
+#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:166 ../src/gzip.c:62
+#: ../src/rar.c:62 ../src/rpm.c:52 ../src/tar.c:51 ../src/zip.c:49
 msgid "Date"
 msgstr "日期"
 
-#: ../src/add_dialog.c:41
-msgid "Add files to the archive"
-msgstr "添加文件到压缩文件中"
+#: ../src/add_dialog.c:37 ../src/interface.c:388
+#, fuzzy
+msgid "Add files"
+msgstr "所有文件"
 
-#: ../src/add_dialog.c:56
+#: ../src/add_dialog.c:53
 #, fuzzy
 msgid "Selection"
 msgstr "动作(_A)"
 
-#: ../src/add_dialog.c:75
+#: ../src/add_dialog.c:67
 msgid "File Paths: "
 msgstr ""
 
-#: ../src/add_dialog.c:81
+#: ../src/add_dialog.c:73
 msgid "Store full paths"
 msgstr ""
 
-#: ../src/add_dialog.c:87
+#: ../src/add_dialog.c:79
 #, fuzzy
 msgid "Do not store paths"
 msgstr "不要加入绝对路径"
 
-#: ../src/add_dialog.c:107
+#: ../src/add_dialog.c:90
 #, fuzzy
 msgid "Options"
 msgstr "<b>选项</b>"
 
-#: ../src/add_dialog.c:125
+#: ../src/add_dialog.c:108
 msgid "Update and add"
 msgstr ""
 
-#: ../src/add_dialog.c:128
+#: ../src/add_dialog.c:110
+#, fuzzy
 msgid ""
 "This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified."
+"modified since the archive was last created/modified"
 msgstr "bug"
 
-#: ../src/add_dialog.c:134
+#: ../src/add_dialog.c:113
 msgid "Freshen and replace"
 msgstr ""
 
-#: ../src/add_dialog.c:137
+#: ../src/add_dialog.c:116
+#, fuzzy
 msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive."
+"not add files that are not already in the archive"
 msgstr "此项有bug"
 
-#: ../src/add_dialog.c:143
+#: ../src/add_dialog.c:120
 #, fuzzy
 msgid "Include subdirectories"
 msgstr "包含子目录"
 
-#: ../src/add_dialog.c:150
+#: ../src/add_dialog.c:124
 #, fuzzy
 msgid "Create a solid archive"
 msgstr "新建固实压缩文件"
 
-#: ../src/add_dialog.c:153
+#: ../src/add_dialog.c:126
+#, fuzzy
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
-"compression ratio."
+"compression ratio"
 msgstr "固实压缩文件具有更好的压缩率。"
 
-#: ../src/add_dialog.c:159
+#: ../src/add_dialog.c:129
 #, fuzzy
 msgid "Delete files after adding"
 msgstr "添加后移除文件"
 
-#: ../src/add_dialog.c:164
+#: ../src/add_dialog.c:133
 #, fuzzy
-msgid "Actions; "
+msgid "Actions: "
 msgstr "动作(_A)"
 
-#: ../src/add_dialog.c:184
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0= 不压缩；5 = 默认；9 = 最好压缩率但压缩最慢"
-
-#: ../src/add_dialog.c:191
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0= 不压缩；5 = 默认；9 = 最好压缩率但压缩最慢"
-
-#: ../src/add_dialog.c:198
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0= 不压缩；5 = 默认；5 = 最好压缩率但压缩最慢"
-
-#: ../src/add_dialog.c:205
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr "0= 不压缩；5 = 默认；4 = 最好压缩率但压缩最慢"
-
-#: ../src/add_dialog.c:212
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = 默认压缩, 7 = 最大压缩"
-
-#: ../src/add_dialog.c:243
+#: ../src/add_dialog.c:148
 #, fuzzy
 msgid "Compression: "
 msgstr "压缩等级："
 
-#: ../src/add_dialog.c:262 ../src/extract_dialog.c:219 ../src/interface.c:648
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:192
 msgid "Password:"
 msgstr "密码："
 
-#: ../src/add_dialog.c:273
+#: ../src/add_dialog.c:172
 msgid "Encryption: "
 msgstr ""
 
-#: ../src/add_dialog.c:286
+#: ../src/add_dialog.c:185
 msgid "_Add"
 msgstr "添加(_A)"
 
-#: ../src/add_dialog.c:362 ../src/main.c:202
+#: ../src/add_dialog.c:246
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "0= 不压缩；5 = 默认；9 = 最好压缩率但压缩最慢"
+
+#: ../src/add_dialog.c:252
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "0= 不压缩；5 = 默认；9 = 最好压缩率但压缩最慢"
+
+#: ../src/add_dialog.c:258
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr "0= 不压缩；5 = 默认；5 = 最好压缩率但压缩最慢"
+
+#: ../src/add_dialog.c:264
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr "0= 不压缩；5 = 默认；4 = 最好压缩率但压缩最慢"
+
+#: ../src/add_dialog.c:270
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = 默认压缩, 7 = 最大压缩"
+
+#: ../src/add_dialog.c:370 ../src/main.c:206
 msgid "Can't add files to the archive:"
 msgstr "无法添加文件到压缩文件："
 
-#: ../src/add_dialog.c:362
+#: ../src/add_dialog.c:370
 msgid "You haven't selected any files to add!"
 msgstr "你还没有选择要添加的文件！"
 
-#: ../src/add_dialog.c:370 ../src/interface.c:690
+#: ../src/add_dialog.c:378 ../src/interface.c:823
 msgid "You missed the password!"
 msgstr "密码错误！"
 
-#: ../src/add_dialog.c:370 ../src/interface.c:690
+#: ../src/add_dialog.c:378 ../src/interface.c:823
 msgid "Please enter it!"
 msgstr "请输入！"
 
-#: ../src/add_dialog.c:424
-msgid "Adding files to the archive, please wait..."
+#: ../src/add_dialog.c:444
+#, fuzzy
+msgid "Adding files to archive, please wait..."
 msgstr "正在添加文件到压缩文件中，请稍候……"
 
-#: ../src/archive.c:75 ../src/archive.c:270 ../src/window.c:55
-#: ../src/window.c:674 ../src/window.c:687 ../src/window.c:783
-#: ../src/window.c:795 ../src/rpm.c:136
-msgid "Operation failed."
-msgstr "操作失败。"
-
-#: ../src/archive.c:76
+#: ../src/archive.c:81
 msgid "Can't run the archiver executable:"
 msgstr "无法打开压缩文件："
 
-#: ../src/archive.c:266
+#: ../src/archive.c:294
 msgid "Can't create temporary directory in /tmp:"
 msgstr "无法在 /tmp 创建临时目录"
 
-#: ../src/archive.c:304
+#: ../src/archive.c:331
 msgid "Can't spawn the command:"
 msgstr "无法解析命令："
 
-#: ../src/archive.c:312
+#: ../src/archive.c:343
+msgid ""
+"\n"
+"\n"
+"** Output was shortened; too many errors!"
+msgstr ""
+
+#: ../src/archive.c:345 ../src/archive.c:349 ../src/window.c:88
 msgid "An error occurred!"
 msgstr "发生错误！"
 
-#: ../src/arj.c:47 ../src/gzip.c:89 ../src/lha.c:50 ../src/rar.c:62
+#: ../src/arj.c:47 ../src/gzip.c:79 ../src/lha.c:50 ../src/rar.c:62
 msgid "Ratio"
 msgstr "压缩率"
 
@@ -199,363 +205,511 @@ msgstr "压缩率"
 msgid "Attributes"
 msgstr "属性"
 
-#: ../src/bzip2.c:97 ../src/bzip2.c:178 ../src/deb.c:80 ../src/gzip.c:71
-#: ../src/gzip.c:89 ../src/lha.c:50 ../src/rpm.c:56 ../src/tar.c:52
-#: ../src/zip.c:49
-msgid "Size"
-msgstr "大小"
-
-#: ../src/bzip2.c:178 ../src/deb.c:80 ../src/gzip.c:71 ../src/rpm.c:56
-#: ../src/tar.c:52
+#: ../src/bzip2.c:166 ../src/gzip.c:62 ../src/rpm.c:52 ../src/tar.c:51
 msgid "Points to"
 msgstr ""
 
-#: ../src/bzip2.c:178 ../src/deb.c:80 ../src/gzip.c:71 ../src/lha.c:50
-#: ../src/rar.c:62 ../src/tar.c:52 ../src/zip.c:49
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/gzip.c:62 ../src/lha.c:50
+#: ../src/rar.c:62 ../src/tar.c:51 ../src/zip.c:49
 msgid "Permissions"
 msgstr "权限"
 
-#: ../src/bzip2.c:178 ../src/deb.c:80 ../src/gzip.c:71 ../src/tar.c:52
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/gzip.c:62 ../src/tar.c:51
 msgid "Owner/Group"
 msgstr "所有者/组"
 
-#: ../src/window.c:56
-msgid "An error occurred while accessing the archive."
-msgstr "存取压缩文件时发生错误。"
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:607
+#: ../src/gzip.c:62 ../src/gzip.c:79 ../src/lha.c:50 ../src/rpm.c:52
+#: ../src/tar.c:51
+msgid "Size"
+msgstr "大小"
 
-#: ../src/window.c:56 ../src/rpm.c:139
-msgid "Do you want to view the command line output?"
-msgstr "你想要查看命令行输出吗？"
-
-#: ../src/window.c:86 ../src/window.c:116
-msgid "Operation completed."
-msgstr "操作已完成。"
-
-#: ../src/window.c:88
-#, fuzzy
-msgid "Operation failed!"
-msgstr "操作失败。"
-
-#: ../src/window.c:102
-msgid "The sfx archive was saved as:"
-msgstr "自解压文件保存为："
-
-#: ../src/window.c:119
-msgid "Please wait while the content of the archive is being updated..."
-msgstr "正在更新压缩文件内容，请稍候……"
-
-#: ../src/window.c:180 ../src/window.c:663 ../src/window.c:736
-#: ../src/window.c:773 ../src/extract_dialog.c:400
-msgid "Operation canceled."
-msgstr "操作被取消"
-
-#: ../src/window.c:183
+#: ../src/window.c:58
 #, c-format
 msgid "Please check \"%s\" since some files could have been already extracted."
 msgstr "请检查 \"%s\" 因为某些文件可能已被解压了。"
 
-#: ../src/window.c:234
-msgid "Choose Add to begin creating the archive."
-msgstr "选择添加来创建压缩文件"
+#: ../src/window.c:88
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr ""
 
-#: ../src/window.c:287
+#: ../src/window.c:141
+msgid "The sfx archive was saved as:"
+msgstr "自解压文件保存为："
+
+#: ../src/window.c:226
+#, fuzzy
+msgid "Archiver output"
+msgstr "压缩文件类型："
+
+#: ../src/window.c:258
+#, fuzzy
+msgid "An error occurred while accessing the archive:"
+msgstr "存取压缩文件时发生错误。"
+
+#: ../src/window.c:335
+#, fuzzy
+msgid "Save the archive as"
+msgstr "保存自解压文件到"
+
+#: ../src/window.c:394
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "无法打开文件 \"%s\"："
 
-#: ../src/window.c:289
+#: ../src/window.c:396
 msgid "Archive format is not recognized!"
 msgstr "无法识别压缩文件格式！"
 
-#: ../src/window.c:315
+#: ../src/window.c:422
 msgid "Sorry, this archive format is not supported:"
 msgstr "对不起，不支持此压缩文件格式！"
 
-#: ../src/window.c:315
+#: ../src/window.c:422
 msgid "the proper archiver is not installed!"
 msgstr "没有先安装好解压程序！"
 
-#: ../src/window.c:329
+#: ../src/window.c:436
 msgid "Can't allocate memory for the archive structure:"
 msgstr "无法为压缩文件分配内存："
 
-#: ../src/window.c:351
-msgid "Please wait while the content of the archive is being read..."
-msgstr "正在读取压缩文件内容，请稍候……"
-
-#: ../src/window.c:425
-msgid "Testing archive integrity, please wait..."
+#: ../src/window.c:460
+#, fuzzy
+msgid "Opening archive, please wait..."
 msgstr "正在测试压缩文件正确性，请稍候……"
 
-#: ../src/window.c:460 ../src/main.c:234
-msgid "Ready."
-msgstr "准备就绪。"
+#: ../src/window.c:531
+#, fuzzy
+msgid "Testing archive, please wait..."
+msgstr "正在测试压缩文件正确性，请稍候……"
 
-#: ../src/window.c:470
-msgid "Please hit the Stop button first!"
-msgstr "请先按下停止按钮！"
+#: ../src/window.c:551
+#, fuzzy
+msgid "Print the archive content as HTML"
+msgstr "查看压缩文件内容"
 
-#: ../src/window.c:540
+#: ../src/window.c:553
+#, fuzzy
+msgid "Print the archive content as text"
+msgstr "查看压缩文件内容"
+
+#: ../src/window.c:602
+#, fuzzy, c-format
+msgid "Archive contents:\n"
+msgstr "查看压缩文件内容"
+
+#: ../src/window.c:606
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Name: "
+msgstr "名称："
+
+#: ../src/window.c:615
+#, fuzzy, c-format
+msgid "Compressed   size: "
+msgstr "压缩后大小"
+
+#: ../src/window.c:622
+#, fuzzy, c-format
+msgid "Uncompressed size: "
+msgstr "解压缩文件"
+
+#: ../src/window.c:630
+#, fuzzy, c-format
+msgid "Number of files: "
+msgstr "文件数目："
+
+#: ../src/window.c:638
+#, fuzzy, c-format
+msgid "Comment:\n"
+msgstr "注释："
+
+#: ../src/window.c:651
+#, fuzzy, c-format
+msgid "Files:%*s%s"
+msgstr "文件"
+
+#: ../src/window.c:651
+#, fuzzy
+msgid "|Compressed\n"
+msgstr "压缩后大小"
+
+#: ../src/window.c:657
+#, c-format
+msgid "<th>Files:</th>"
+msgstr ""
+
+#: ../src/window.c:658
+#, fuzzy, c-format
+msgid "<th>Compressed:</th>"
+msgstr "压缩后大小"
+
+#: ../src/window.c:852
 msgid "Are you sure you want to do this?"
 msgstr "你确定要这样做吗？"
 
-#: ../src/window.c:545
-msgid "Deleting files from the archive, please wait..."
-msgstr "正在从压缩文件中删除文件，请稍候……"
-
-#: ../src/window.c:615
-msgid "Converting archive to self-extracting, please wait..."
-msgstr "转换压缩文件为自解压文件，请稍候……"
-
-#: ../src/window.c:676 ../src/window.c:784
+#: ../src/window.c:969 ../src/window.c:1073
 msgid "Can't convert the archive to self-extracting:"
 msgstr "无法转换压缩文件为自解压文件："
 
-#: ../src/window.c:689 ../src/window.c:796
+#: ../src/window.c:981 ../src/window.c:1084
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "无法将unzipsfx文件添加到压缩文件："
 
-#: ../src/window.c:753
+#: ../src/window.c:1044
 msgid "Please select the 7zCon.sfx module"
 msgstr "请选择 7zCon.sfx文件"
 
-#: ../src/window.c:851
+#: ../src/window.c:1141
 msgid "translator-credits"
 msgstr "wuli <wurisky@gmail.com>"
 
-#: ../src/window.c:882
+#: ../src/window.c:1171
 msgid "Save the self-extracting archive as"
 msgstr "保存自解压文件到"
 
-#: ../src/window.c:909 ../src/interface.c:291
+#: ../src/window.c:1200 ../src/interface.c:335
 msgid "Open an archive"
 msgstr "打开压缩文件"
 
-#: ../src/window.c:922 ../src/extract_dialog.c:83 ../src/new_dialog.c:62
+#: ../src/window.c:1213 ../src/extract_dialog.c:86 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "所有文件"
 
-#: ../src/window.c:927 ../src/new_dialog.c:67
+#: ../src/window.c:1218 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "只显示压缩文件"
 
-#: ../src/window.c:989
-#, c-format
-msgid "Can't open archive \"%s\":"
-msgstr "不能打开压缩文件 \"%s\"："
-
-#: ../src/window.c:1155
+#: ../src/window.c:1430
 msgid "Filename"
 msgstr "文件名称"
 
-#: ../src/window.c:1209
-msgid "Command line output"
-msgstr "命令行输出"
-
-#: ../src/window.c:1241
+#: ../src/window.c:1480
 msgid "Doing so will probably corrupt your archive!"
 msgstr "这样做可能会破坏你的压缩文件！"
 
-#: ../src/window.c:1241
+#: ../src/window.c:1480
 msgid "Do you really want to cancel?"
 msgstr "你真的要取消吗？"
 
-#: ../src/window.c:1245
-msgid "Waiting for the process to abort..."
-msgstr "等待使用者中止"
-
-#: ../src/window.c:1299
-msgid "You didn't set which editor to use!"
-msgstr ""
-
-#: ../src/window.c:1299 ../src/window.c:1855
-msgid "Please go to Preferences->Advanced and set it."
-msgstr ""
-
-#: ../src/window.c:1449
+#: ../src/window.c:1541 ../src/window.c:1556
 msgid "Yes"
 msgstr "是"
 
-#: ../src/window.c:1451
+#: ../src/window.c:1543 ../src/window.c:1558
 msgid "No"
 msgstr "否"
 
-#: ../src/window.c:1638
+#: ../src/window.c:1757
+#, fuzzy
+msgid "selected"
+msgstr "只选择部分"
+
+#: ../src/window.c:1762
+#, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/window.c:1764
+#, c-format
+msgid "%d dir %s (%s)"
+msgid_plural "%d dirs %s (%s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/window.c:1767
+#, c-format
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/window.c:1828
 msgid "Can't perform another extraction:"
 msgstr "无法进行另一个解压缩："
 
-#: ../src/window.c:1638
+#: ../src/window.c:1828
 msgid "Please wait until the completion of the current one!"
 msgstr "请等到现在这个完成！"
 
-#: ../src/window.c:1715
+#: ../src/window.c:1904 ../src/extract_dialog.c:846
 msgid "Sorry, I could not perform the operation!"
 msgstr "对不起，无法执行此项操作"
 
-#: ../src/window.c:1749 ../src/window.c:1760
+#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1378
 msgid "Can't perform this action:"
 msgstr "无法进行这个动作："
 
-#: ../src/window.c:1749
-msgid "unrar doesn't support archive creation!"
-msgstr "unrar 不支持压缩文件创建！"
+#: ../src/window.c:1938
+msgid "You have to install rar package!"
+msgstr ""
 
-#: ../src/window.c:1757
+#: ../src/window.c:1945 ../src/interface.c:1375
 msgid "You can't add content to deb packages!"
 msgstr "不能添加内容到 deb 包！"
 
-#: ../src/window.c:1759
+#: ../src/window.c:1947 ../src/interface.c:1377
 msgid "You can't add content to rpm packages!"
 msgstr "不能添加内容到 rpm 包！"
 
-#: ../src/window.c:1855
+#: ../src/window.c:1949
+#, fuzzy
+msgid "The archiver doesn't support this feature!"
+msgstr "unrar 不支持压缩文件创建！"
+
+#: ../src/window.c:2025
 msgid "You didn't set which browser to use!"
 msgstr ""
 
-#: ../src/window.c:1884
+#: ../src/window.c:2025 ../src/window.c:2066
+msgid "Please go to Preferences->Advanced and set it."
+msgstr ""
+
+#: ../src/window.c:2057
+#, fuzzy
+msgid "This file type is not supported!"
+msgstr "对不起，不支持此压缩文件格式！"
+
+#: ../src/window.c:2057
+msgid "Please install xdg-utils package."
+msgstr ""
+
+#: ../src/window.c:2066
+msgid "You didn't set which program to use for opening this file!"
+msgstr ""
+
+#: ../src/window.c:2091
 msgid "Failed to launch the application!"
 msgstr ""
 
-#: ../src/window.c:1916
-msgid "The password has been reset."
-msgstr "密码已被重置。"
-
-#: ../src/window.c:1919
-msgid "Please enter the password first!"
-msgstr "请输入密码！"
-
-#: ../src/window.c:1933
+#: ../src/window.c:2143
 #, fuzzy
-msgid "Archive Comment"
-msgstr "压缩文件内容窗口"
+msgid "Comment"
+msgstr "注释："
 
-#: ../src/extract_dialog.c:42
-msgid "Decompress file"
-msgstr "解压缩文件"
+#: ../src/window.c:2173
+msgid "From File"
+msgstr ""
 
-#: ../src/extract_dialog.c:44
-msgid "Extract files from archive"
-msgstr "从压缩文件中解压"
+#: ../src/window.c:2278
+#, fuzzy
+msgid "Open a text file"
+msgstr "操作失败。"
 
-#: ../src/extract_dialog.c:57
+#: ../src/window.c:2296
+#, fuzzy, c-format
+msgid "Can't open file %s:"
+msgstr "无法打开文件 \"%s\"："
+
+#: ../src/deb.c:45
+msgid "Date modified"
+msgstr ""
+
+#: ../src/extract_dialog.c:61 ../src/extract_dialog.c:677
 msgid "Extract to:"
 msgstr "解压到："
 
-#: ../src/extract_dialog.c:88
+#: ../src/extract_dialog.c:91
 #, fuzzy
 msgid "Selected files"
 msgstr "选择所有(_A)"
 
-#: ../src/extract_dialog.c:101
+#: ../src/extract_dialog.c:99
 #, fuzzy
 msgid "Files: "
 msgstr "文件"
 
-#: ../src/extract_dialog.c:112
+#: ../src/extract_dialog.c:110
 #, fuzzy
 msgid "Files "
 msgstr "文件"
 
-#: ../src/extract_dialog.c:126
+#: ../src/extract_dialog.c:124 ../src/extract_dialog.c:709
 msgid "Overwrite existing files"
 msgstr "覆盖已存在文件"
 
-#: ../src/extract_dialog.c:130
+#: ../src/extract_dialog.c:127
 msgid "Extract files with full path"
 msgstr "以完全路径解压文件"
 
-#: ../src/extract_dialog.c:139
+#: ../src/extract_dialog.c:128
+#, fuzzy
 msgid ""
-"The archive's directory structure is recreated in the extraction directory."
+"The archive's directory structure is recreated in the extraction directory"
 msgstr "压缩文件目录结构被解压目录重建"
 
-#: ../src/extract_dialog.c:147
+#: ../src/extract_dialog.c:131
 msgid "Touch files"
 msgstr "文件时间戳"
 
-#: ../src/extract_dialog.c:149
+#: ../src/extract_dialog.c:132
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
 "files it extracts as the times when the files were extracted, instead of "
-"setting it to the times recorded in the archive."
+"setting it to the times recorded in the archive"
 msgstr ""
 
-#: ../src/extract_dialog.c:158
+#: ../src/extract_dialog.c:135
 msgid "Freshen existing files"
 msgstr "刷新已存在文件"
 
-#: ../src/extract_dialog.c:159
+#: ../src/extract_dialog.c:136
+#, fuzzy
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
-"the disk copies."
+"the disk copies"
 msgstr "只解压硬盘已存在的且比其更新的文件"
 
-#: ../src/extract_dialog.c:164
+#: ../src/extract_dialog.c:140
 msgid "Update existing files"
 msgstr "更新已存在文件"
 
-#: ../src/extract_dialog.c:165
+#: ../src/extract_dialog.c:141
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
-"extracts those files that do not already exist on disk."
+"extracts those files that do not already exist on disk"
 msgstr ""
 
-#: ../src/extract_dialog.c:172
+#: ../src/extract_dialog.c:145
 #, fuzzy
 msgid "Options "
 msgstr "<b>选项</b>"
 
-#: ../src/extract_dialog.c:178
+#: ../src/extract_dialog.c:151
 #, fuzzy
 msgid "Directories Tree:"
 msgstr "目录"
 
-#: ../src/extract_dialog.c:212
+#: ../src/extract_dialog.c:185
 #, fuzzy
 msgid "Create New Dir"
 msgstr "新建压缩文件"
 
-#: ../src/extract_dialog.c:248 ../src/interface.c:143
+#: ../src/extract_dialog.c:209 ../src/extract_dialog.c:725
+#: ../src/interface.c:175
 msgid "_Extract"
 msgstr "解压(_E)"
 
-#: ../src/extract_dialog.c:332
+#: ../src/extract_dialog.c:289
 #, c-format
 msgid "Can't create directory \"%s\""
 msgstr "无法创建目录 \"%s\""
 
-#: ../src/extract_dialog.c:413
+#: ../src/extract_dialog.c:346
+msgid "Decompress file"
+msgstr "解压缩文件"
+
+#: ../src/extract_dialog.c:348 ../src/interface.c:397
+#, fuzzy
+msgid "Extract files"
+msgstr "解压文件到 %s"
+
+#: ../src/extract_dialog.c:442 ../src/extract_dialog.c:913
 msgid "You missed where to extract the files!"
 msgstr "请选择要存放文件的地方！"
 
-#: ../src/extract_dialog.c:413
+#: ../src/extract_dialog.c:442
 msgid "Please enter the extraction path."
 msgstr "请输入要存放文件的路径。"
 
-#: ../src/extract_dialog.c:427
+#: ../src/extract_dialog.c:456
 msgid "This archive is encrypted!"
 msgstr "此压缩文件已被加密！"
 
-#: ../src/extract_dialog.c:427
+#: ../src/extract_dialog.c:456
 msgid "Please enter the password."
 msgstr "请输入密码。"
 
-#: ../src/extract_dialog.c:437
+#: ../src/extract_dialog.c:466
 #, fuzzy, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "你没有权限解压文件到目录 \"%s\" "
 
-#: ../src/extract_dialog.c:438
+#: ../src/extract_dialog.c:467
 msgid "Can't perform extraction!"
 msgstr "无法执行解压！"
 
-#: ../src/extract_dialog.c:459
-#, c-format
-msgid "Extracting files to %s"
+#: ../src/extract_dialog.c:501
+#, fuzzy
+msgid "Extracting files from archive, please wait..."
+msgstr "正在从压缩文件中删除文件，请稍候……"
+
+#: ../src/extract_dialog.c:607
+#, fuzzy
+msgid "Archive Name"
+msgstr "[压缩文件名称]"
+
+#: ../src/extract_dialog.c:607
+#, fuzzy
+msgid "Path"
+msgstr "路径："
+
+#: ../src/extract_dialog.c:619
+#, fuzzy
+msgid "Multi-Extract"
+msgstr "解压"
+
+#: ../src/extract_dialog.c:692
+#, fuzzy
+msgid "Extract to dir \"Archive Name\""
+msgstr "从压缩文件中解压"
+
+#: ../src/extract_dialog.c:693
+#, fuzzy
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr "选择要添加到压缩文件的文件或目录"
+
+#: ../src/extract_dialog.c:697
+#, fuzzy
+msgid "Destination dirs:"
+msgstr "目标路径压缩文件"
+
+#: ../src/extract_dialog.c:711
+#, fuzzy
+msgid "Extract pathnames"
 msgstr "解压文件到 %s"
+
+#: ../src/extract_dialog.c:713
+#, fuzzy
+msgid "Options:"
+msgstr "<b>选项</b>"
+
+#: ../src/extract_dialog.c:745
+#, fuzzy
+msgid "Please select the archives you want to extract"
+msgstr "请选择你要添加的文件"
+
+#: ../src/extract_dialog.c:867
+#, fuzzy
+msgid "Please select the destination directory"
+msgstr "请选择文件,不要选择目录"
+
+#: ../src/extract_dialog.c:905
+#, fuzzy
+msgid "Can't multi-extract archives:"
+msgstr "无法从压缩文件中解压："
+
+#: ../src/extract_dialog.c:905
+#, fuzzy
+msgid "You haven't added any of them!"
+msgstr "你还没有选择要添加的文件！"
+
+#: ../src/extract_dialog.c:913
+#, fuzzy
+msgid "Please fill the \"Extract to\" field!"
+msgstr "请先按下停止按钮！"
+
+#: ../src/extract_dialog.c:944
+#, fuzzy
+msgid "Some errors occurred:"
+msgstr "发生错误："
 
 #: ../src/lha.c:50
 msgid "UID/GID"
@@ -565,230 +719,282 @@ msgstr ""
 msgid "Timestamp"
 msgstr "时间戳"
 
-#: ../src/interface.c:72
+#: ../src/interface.c:74
 #, fuzzy
 msgid "_Archive"
 msgstr "压缩文件"
 
-#: ../src/interface.c:92
+#: ../src/interface.c:89
+msgid "List as"
+msgstr ""
+
+#: ../src/interface.c:100
+#, fuzzy
+msgid "Text file"
+msgstr "解压文件到 %s"
+
+#: ../src/interface.c:107
+#, fuzzy
+msgid "HTML file"
+msgstr "文件时间戳"
+
+#: ../src/interface.c:124
 msgid "_Test"
 msgstr "测试(_T)"
 
-#: ../src/interface.c:102
+#: ../src/interface.c:134
 msgid "_Properties"
 msgstr "文件属性(_P)"
 
-#: ../src/interface.c:126
-msgid "_Action"
+#: ../src/interface.c:158
+#, fuzzy
+msgid "A_ction"
 msgstr "动作(_A)"
 
-#: ../src/interface.c:133 ../src/interface.c:339
-msgid "Add"
+#: ../src/interface.c:165
+#, fuzzy
+msgid "A_dd"
 msgstr "添加"
 
-#: ../src/interface.c:159
-msgid "_View"
-msgstr "查看(_V)"
+#: ../src/interface.c:191 ../src/interface.c:916
+#, fuzzy
+msgid "Rename"
+msgstr "文件名称"
 
-#: ../src/interface.c:174
+#: ../src/interface.c:205
 msgid "Make SF_X"
 msgstr "制作自解压格式(_X)"
 
-#: ../src/interface.c:184
-msgid "_Show comment"
-msgstr "显示注释(_S)"
+#: ../src/interface.c:215
+#, fuzzy
+msgid "_Multi-Extract"
+msgstr "解压(_E)"
 
-#: ../src/interface.c:199
-msgid "Sele_ct All"
+#: ../src/interface.c:220
+#, fuzzy
+msgid "Archive comment"
+msgstr "压缩文件内容窗口"
+
+#: ../src/interface.c:234
+#, fuzzy
+msgid "Select _all"
 msgstr "选择所有(_A)"
 
-#: ../src/interface.c:209
-msgid "Dese_lect All"
+#: ../src/interface.c:244
+#, fuzzy
+msgid "Dese_lect all"
 msgstr "反选所有(_l)"
 
-#: ../src/interface.c:215
+#: ../src/interface.c:250
 msgid "Select _by pattern"
 msgstr ""
 
-#: ../src/interface.c:226
-msgid "C_md-line output"
+#: ../src/interface.c:261
+#, fuzzy
+msgid "Cmd-line outp_ut"
 msgstr "命令行输出(_M)"
 
-#: ../src/interface.c:235
-msgid "Reset passwo_rd"
+#: ../src/interface.c:274
+#, fuzzy
+msgid "Enter passwo_rd"
 msgstr "重置密码(_r)"
 
-#: ../src/interface.c:246
+#: ../src/interface.c:285
 msgid "_Preferences"
 msgstr "参数选择(_P)"
 
-#: ../src/interface.c:255
+#: ../src/interface.c:294
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: ../src/interface.c:279
+#: ../src/interface.c:323
 msgid "New"
 msgstr "新建"
 
-#: ../src/interface.c:283 ../src/new_dialog.c:50
+#: ../src/interface.c:327 ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "新建压缩文件"
 
-#: ../src/interface.c:287
+#: ../src/interface.c:331
 msgid "Open"
 msgstr "打开"
 
-#: ../src/interface.c:299 ../src/interface.c:304
+#: ../src/interface.c:343 ../src/interface.c:348
 msgid "Back"
 msgstr ""
 
-#: ../src/interface.c:308 ../src/interface.c:313
+#: ../src/interface.c:352 ../src/interface.c:357
 msgid "Up"
 msgstr ""
 
-#: ../src/interface.c:317 ../src/interface.c:322
+#: ../src/interface.c:361 ../src/interface.c:366
 msgid "Forward"
 msgstr ""
 
-#: ../src/interface.c:326
+#: ../src/interface.c:370
 msgid "Home"
 msgstr ""
 
-#: ../src/interface.c:331
+#: ../src/interface.c:375
 msgid "Root"
 msgstr ""
 
-#: ../src/interface.c:344
-#, fuzzy
-msgid "Add files"
-msgstr "所有文件"
+#: ../src/interface.c:383
+msgid "Add"
+msgstr "添加"
 
-#: ../src/interface.c:348
+#: ../src/interface.c:392 ../src/interface.c:856
 msgid "Extract"
 msgstr "解压"
 
-#: ../src/interface.c:353
-#, fuzzy
-msgid "Extract files"
-msgstr "解压文件到 %s"
-
-#: ../src/interface.c:357 ../src/interface.c:752
-msgid "View"
-msgstr "查看"
-
-#: ../src/interface.c:362
-msgid "View file with an external editor/viewer"
-msgstr ""
-
-#: ../src/interface.c:370
+#: ../src/interface.c:405
 msgid "Stop"
 msgstr "停止"
 
-#: ../src/interface.c:375
+#: ../src/interface.c:410
 msgid "Cancel current operation"
 msgstr "取消当前操作"
 
-#: ../src/interface.c:388
+#: ../src/interface.c:423
 #, fuzzy
 msgid "Location:"
 msgstr "应该程序："
 
-#: ../src/interface.c:580
+#: ../src/interface.c:462
+#, fuzzy
+msgid "Archive tree"
+msgstr "压缩文件类型："
+
+#: ../src/interface.c:510
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr ""
+
+#: ../src/interface.c:692
 msgid "Close archive"
 msgstr "关闭压缩文件"
 
-#: ../src/interface.c:636
-msgid "Enter Archive Password"
-msgstr "输入压缩文件密码"
+#: ../src/interface.c:777
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr ""
 
-#: ../src/interface.c:760
+#: ../src/interface.c:779
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr ""
+
+#: ../src/interface.c:797
 #, fuzzy
-msgid "Extract..."
-msgstr "解压"
+msgid "_Password:"
+msgstr "密码："
 
-#: ../src/interface.c:773
+#: ../src/interface.c:848 ../src/open-with-dlg.c:52
+#, fuzzy
+msgid "Open With"
+msgstr "打开"
+
+#: ../src/interface.c:864
+msgid "View"
+msgstr "查看"
+
+#: ../src/interface.c:877
 msgid "Cut"
 msgstr ""
 
-#: ../src/interface.c:781
+#: ../src/interface.c:885
 msgid "Copy"
 msgstr ""
 
-#: ../src/interface.c:789
+#: ../src/interface.c:893
 #, fuzzy
 msgid "Paste"
 msgstr "日期"
 
-#: ../src/interface.c:802
+#: ../src/interface.c:907
 msgid "Delete"
 msgstr "删除"
 
-#: ../src/interface.c:810
-msgid "Rename..."
-msgstr ""
-
-#: ../src/interface.c:847
+#: ../src/interface.c:955
 msgid "Select by Pattern"
 msgstr ""
 
-#: ../src/interface.c:860
+#: ../src/interface.c:968
 #, fuzzy
 msgid "Pattern:"
 msgstr "路径："
 
-#: ../src/interface.c:865
+#: ../src/interface.c:973
 msgid "example: *.txt; ac*"
 msgstr ""
 
-#: ../src/interface.c:882
+#: ../src/interface.c:990
 #, fuzzy
 msgid "_Select"
 msgstr "选择所有(_A)"
 
-#: ../src/interface.c:954
-msgid "Archive Properties Window"
+#: ../src/interface.c:1062
+#, fuzzy
+msgid "Archive Properties"
 msgstr "压缩文件属性窗口"
 
-#: ../src/interface.c:972
+#: ../src/interface.c:1084
 msgid "Name:"
 msgstr "名称："
 
-#: ../src/interface.c:979
+#: ../src/interface.c:1091
 msgid "Path:"
 msgstr "路径："
 
-#: ../src/interface.c:986
+#: ../src/interface.c:1098
 msgid "Type:"
 msgstr "类型："
 
-#: ../src/interface.c:993
+#: ../src/interface.c:1105
+msgid "Encrypted:"
+msgstr ""
+
+#: ../src/interface.c:1112
 msgid "Modified on:"
 msgstr "修改时间："
 
-#: ../src/interface.c:1000
-msgid "Archive size:"
-msgstr "压缩文件大小："
+#: ../src/interface.c:1119
+#, fuzzy
+msgid "Compressed size:"
+msgstr "压缩后大小"
 
-#: ../src/interface.c:1007
-msgid "Content size:"
-msgstr "内容大小："
+#: ../src/interface.c:1126
+#, fuzzy
+msgid "Uncompressed size:"
+msgstr "解压缩文件"
 
-#: ../src/interface.c:1014
+#: ../src/interface.c:1133
 #, fuzzy
 msgid "Comment:"
 msgstr "注释："
 
-#: ../src/interface.c:1021
-msgid "Compression ratio:"
-msgstr "压缩率"
-
-#: ../src/interface.c:1028
+#: ../src/interface.c:1140
 msgid "Number of files:"
 msgstr "文件数目："
 
-#: ../src/interface.c:1035
-msgid "Number of dirs:"
-msgstr "目录数目："
+#: ../src/interface.c:1147
+msgid "Compression ratio:"
+msgstr "压缩率"
+
+#: ../src/interface.c:1385
+#, fuzzy
+msgid "Sorry,I could not perform the operation!"
+msgstr "对不起，无法执行此项操作"
+
+#: ../src/interface.c:1495 ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr ""
+
+#: ../src/interface.c:1519
+#, fuzzy
+msgid "Extracting archive:"
+msgstr "解压压缩文件到 %s"
+
+#: ../src/interface.c:1529
+msgid "Total Progress:"
+msgstr ""
 
 #: ../src/main.c:54
 #, fuzzy
@@ -805,27 +1011,37 @@ msgstr "目标路径压缩文件"
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "解压时询问目标目录然后退出。"
 
-#: ../src/main.c:59 ../src/main.c:67
+#: ../src/main.c:59 ../src/main.c:71
 msgid "archive"
 msgstr "压缩文件"
 
 #: ../src/main.c:62
+#, fuzzy
+msgid "Multi-extract archives"
+msgstr "解压压缩文件到 %s"
+
+#: ../src/main.c:63
+#, fuzzy
+msgid "filenames"
+msgstr "文件名称"
+
+#: ../src/main.c:66
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "添加文件时询问压缩文件名称然后退出。"
 
-#: ../src/main.c:63
+#: ../src/main.c:67
 msgid "file1 file2 file3 ... fileN"
 msgstr "文件1 文件2 文件3 ...文件N"
 
-#: ../src/main.c:66
+#: ../src/main.c:70
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "添加文件到压缩文件时询问文件名称然后退出。"
 
-#: ../src/main.c:95
+#: ../src/main.c:99
 msgid "[archive name]"
 msgstr "[压缩文件名称]"
 
-#: ../src/main.c:99
+#: ../src/main.c:103
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -834,17 +1050,44 @@ msgstr ""
 "xarchiver: %s\n"
 "请用xarchiver --help 查看所有可用命令选项及参数。\n"
 
-#: ../src/main.c:125 ../src/main.c:150
+#: ../src/main.c:128 ../src/main.c:153
 msgid "Can't extract files from the archive:"
 msgstr "无法从压缩文件中解压："
 
-#: ../src/main.c:125 ../src/main.c:150 ../src/main.c:202
+#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:206
 msgid "You missed the archive name!\n"
 msgstr "请输入压缩文件名称！\n"
 
-#: ../src/main.c:474
+#: ../src/main.c:245
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+
+#: ../src/main.c:471
 msgid "Can't allocate memory for the archive structure!"
 msgstr "无法为压缩文件分配内存！"
+
+#: ../src/open-with-dlg.c:54
+#, fuzzy
+msgid "Open the selected files with"
+msgstr "选择所有(_A)"
+
+#: ../src/open-with-dlg.c:83
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr ""
+
+#: ../src/open-with-dlg.c:118
+msgid "Use a custom command:"
+msgstr ""
+
+#: ../src/open-with-dlg.c:124
+msgid "Browse"
+msgstr ""
+
+#: ../src/open-with-dlg.c:303
+#, fuzzy
+msgid "Select an application"
+msgstr "首选查看应用程序："
 
 #: ../src/new_dialog.c:55
 msgid "Cr_eate"
@@ -880,121 +1123,124 @@ msgstr "压缩文件 \"%s\" 已存在！"
 msgid "Do you want to overwrite it?"
 msgstr "你想要覆盖它吗？"
 
-#: ../src/pref_dialog.c:38
+#: ../src/pref_dialog.c:41
 msgid "Preferences"
 msgstr "参数选择"
 
-#: ../src/pref_dialog.c:57
+#: ../src/pref_dialog.c:61
 #, fuzzy
 msgid "Archive"
 msgstr "压缩文件"
 
-#: ../src/pref_dialog.c:63
+#: ../src/pref_dialog.c:67
 msgid "Window"
 msgstr ""
 
-#: ../src/pref_dialog.c:68
+#: ../src/pref_dialog.c:72
 msgid "Advanced"
 msgstr "高级"
 
-#: ../src/pref_dialog.c:103
+#: ../src/pref_dialog.c:99
 #, fuzzy
 msgid "Preferred archive format"
 msgstr "首选网页浏览器："
 
-#. prefs_data->allow_dir_extract_with_dnd = gtk_check_button_new_with_mnemonic (_("Allow extracting dirs by drag and drop"));
-#. gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->allow_dir_extract_with_dnd, FALSE, FALSE, 0);
-#. gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->allow_dir_extract_with_dnd), FALSE);
-#: ../src/pref_dialog.c:125
+#: ../src/pref_dialog.c:117
 #, fuzzy
 msgid "Confirm deletion of files"
 msgstr "确认压缩文件内删除文件部分"
 
-#: ../src/pref_dialog.c:129
+#: ../src/pref_dialog.c:121
+#, fuzzy
+msgid "Sort archive by filename"
+msgstr "按文件名排序"
+
+#: ../src/pref_dialog.c:124
+#, fuzzy
+msgid "The filename column is sorted after loading the archive"
+msgstr "加载压缩文件后按文件名称列排序"
+
+#: ../src/pref_dialog.c:126
 msgid "Store archiver output"
 msgstr ""
 
-#: ../src/pref_dialog.c:132
-msgid "It takes a lot of memory with large archives!"
+#: ../src/pref_dialog.c:129
+msgid "This option takes more memory with large archives"
 msgstr ""
 
-#. label5 = gtk_label_new (_("View archive content as"));
-#. gtk_table_attach (GTK_TABLE (table1), label5, 0, 1, 0, 1,
-#. (GtkAttachOptions) (GTK_FILL),
-#. (GtkAttachOptions) (GTK_SHRINK), 0, 0);
-#. gtk_misc_set_alignment (GTK_MISC (label5), 0, 0.5);
-#. prefs_data->combo_archive_view = gtk_combo_box_new_text();
-#. gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_archive_view), _("list") );
-#. gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_archive_view), _("icon") );
-#. gtk_table_attach (GTK_TABLE (table1), prefs_data->combo_archive_view, 1, 2, 0, 1,
-#. (GtkAttachOptions) (GTK_FILL),
-#. (GtkAttachOptions) (GTK_SHRINK), 0, 0);
-#: ../src/pref_dialog.c:163
-msgid "Size of the mimetype icons"
+#: ../src/pref_dialog.c:140
+msgid "Icons size (requires restart)"
 msgstr ""
 
-#: ../src/pref_dialog.c:169
+#: ../src/pref_dialog.c:146
 msgid "large"
 msgstr ""
 
-#: ../src/pref_dialog.c:170
+#: ../src/pref_dialog.c:147
 msgid "small"
 msgstr ""
 
-#: ../src/pref_dialog.c:175
+#: ../src/pref_dialog.c:152
 #, fuzzy
-msgid "Show archive comment after loading it"
-msgstr "加载后在压缩文件中查看注释"
+msgid "Show archive comment"
+msgstr "压缩文件内容窗口"
 
-#: ../src/pref_dialog.c:181
-msgid "Sort content by filename"
-msgstr "按文件名排序"
-
-#: ../src/pref_dialog.c:186
-msgid "The filename column is sort after loading the archive"
-msgstr "加载压缩文件后按文件名称列排序"
-
-#: ../src/pref_dialog.c:188
-msgid "Show location bar"
+#: ../src/pref_dialog.c:153
+msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
 
-#: ../src/pref_dialog.c:211
-msgid "Web browser to use:"
+#: ../src/pref_dialog.c:159
+msgid "Show archive tree sidebar"
 msgstr ""
 
-#: ../src/pref_dialog.c:218 ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
-#: ../src/pref_dialog.c:257
-msgid "choose..."
-msgstr ""
+#: ../src/pref_dialog.c:165
+#, fuzzy
+msgid "Show archive location bar"
+msgstr "查看压缩文件内容"
 
-#: ../src/pref_dialog.c:224
-msgid "Open text files with:"
-msgstr ""
-
-#: ../src/pref_dialog.c:237
-msgid "Open image files with:"
-msgstr ""
-
-#: ../src/pref_dialog.c:250
+#: ../src/pref_dialog.c:187 ../src/pref_dialog.c:246
 #, fuzzy
 msgid "Preferred temp directory:"
 msgstr "首选网页浏览器："
 
-#: ../src/pref_dialog.c:256
+#: ../src/pref_dialog.c:193 ../src/pref_dialog.c:252
 msgid "/tmp"
 msgstr ""
 
-#: ../src/pref_dialog.c:263
+#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:214 ../src/pref_dialog.c:227
+#: ../src/pref_dialog.c:240 ../src/pref_dialog.c:253
+msgid "choose..."
+msgstr ""
+
+#: ../src/pref_dialog.c:200 ../src/pref_dialog.c:259
 #, fuzzy
 msgid "Save window geometry"
 msgstr "退出时保存窗口"
 
-#: ../src/pref_dialog.c:502
+#: ../src/pref_dialog.c:207
+msgid "Web browser to use:"
+msgstr ""
+
+#: ../src/pref_dialog.c:220
+msgid "Open text files with:"
+msgstr ""
+
+#: ../src/pref_dialog.c:233
+msgid "Open image files with:"
+msgstr ""
+
+#: ../src/pref_dialog.c:264
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+
+#: ../src/pref_dialog.c:574
 #, fuzzy
 msgid "Choose the temp directory to use"
 msgstr "选择要创建的压缩文件类型"
 
-#: ../src/pref_dialog.c:502
+#: ../src/pref_dialog.c:574
 #, fuzzy
 msgid "Choose the application to use"
 msgstr "选择要创建的压缩文件类型"
@@ -1011,50 +1257,38 @@ msgstr "方式"
 msgid "Version"
 msgstr "版本"
 
-#: ../src/rpm.c:42
+#: ../src/rpm.c:39
 #, c-format
 msgid "Can't open RPM file %s:"
 msgstr "无法打开 RPM 文件 %s"
 
-#: ../src/rpm.c:56
+#: ../src/rpm.c:52
 msgid "Permission"
 msgstr "权限"
 
-#: ../src/rpm.c:56
+#: ../src/rpm.c:52
 msgid "Hard Link"
 msgstr "硬链接"
 
-#: ../src/rpm.c:56
+#: ../src/rpm.c:52
 msgid "Owner"
 msgstr "所有者"
 
-#: ../src/rpm.c:56
+#: ../src/rpm.c:52
 msgid "Group"
 msgstr "组"
 
-#: ../src/rpm.c:66
+#: ../src/rpm.c:62
 msgid "Can't fseek to position 104:"
 msgstr ""
 
-#: ../src/rpm.c:72 ../src/rpm.c:88
+#: ../src/rpm.c:68 ../src/rpm.c:84
 msgid "Can't read data from file:"
 msgstr "无法从文件中读取数据"
 
-#: ../src/rpm.c:82
+#: ../src/rpm.c:78
 msgid "Can't fseek in file:"
 msgstr ""
-
-#: ../src/rpm.c:139
-msgid "An error occurred while decompressing the cpio archive."
-msgstr "解压 cpio 包时发生错误。"
-
-#: ../src/rpm.c:269
-msgid "Can't write to /tmp:"
-msgstr "无法写到 /tmp"
-
-#: ../src/rpm.c:316
-msgid "An error occurred:"
-msgstr "发生错误："
 
 #: ../src/zip.c:49
 msgid "OS"
@@ -1068,12 +1302,86 @@ msgstr ""
 msgid "Archive manager"
 msgstr ""
 
-#: ../xarchiver.desktop.in.h:3
-msgid "Xarchiver"
-msgstr ""
+#~ msgid "Add files to the archive"
+#~ msgstr "添加文件到压缩文件中"
 
-#~ msgid "Choose the files or directories to add to the archive"
-#~ msgstr "选择要添加到压缩文件的文件或目录"
+#~ msgid "Do you want to view the command line output?"
+#~ msgstr "你想要查看命令行输出吗？"
+
+#~ msgid "Operation completed."
+#~ msgstr "操作已完成。"
+
+#, fuzzy
+#~ msgid "Operation failed!"
+#~ msgstr "操作失败。"
+
+#~ msgid "Please wait while the content of the archive is being updated..."
+#~ msgstr "正在更新压缩文件内容，请稍候……"
+
+#~ msgid "Operation canceled."
+#~ msgstr "操作被取消"
+
+#~ msgid "Choose Add to begin creating the archive."
+#~ msgstr "选择添加来创建压缩文件"
+
+#~ msgid "Please wait while the content of the archive is being read..."
+#~ msgstr "正在读取压缩文件内容，请稍候……"
+
+#~ msgid "Ready."
+#~ msgstr "准备就绪。"
+
+#~ msgid "Converting archive to self-extracting, please wait..."
+#~ msgstr "转换压缩文件为自解压文件，请稍候……"
+
+#~ msgid "Can't open archive \"%s\":"
+#~ msgstr "不能打开压缩文件 \"%s\"："
+
+#~ msgid "Command line output"
+#~ msgstr "命令行输出"
+
+#~ msgid "Waiting for the process to abort..."
+#~ msgstr "等待使用者中止"
+
+#~ msgid "The password has been reset."
+#~ msgstr "密码已被重置。"
+
+#~ msgid "Please enter the password first!"
+#~ msgstr "请输入密码！"
+
+#~ msgid "Extracting files to %s"
+#~ msgstr "解压文件到 %s"
+
+#~ msgid "_View"
+#~ msgstr "查看(_V)"
+
+#~ msgid "_Show comment"
+#~ msgstr "显示注释(_S)"
+
+#~ msgid "Enter Archive Password"
+#~ msgstr "输入压缩文件密码"
+
+#, fuzzy
+#~ msgid "Extract..."
+#~ msgstr "解压"
+
+#~ msgid "Archive size:"
+#~ msgstr "压缩文件大小："
+
+#~ msgid "Content size:"
+#~ msgstr "内容大小："
+
+#~ msgid "Number of dirs:"
+#~ msgstr "目录数目："
+
+#, fuzzy
+#~ msgid "Show archive comment after loading it"
+#~ msgstr "加载后在压缩文件中查看注释"
+
+#~ msgid "An error occurred while decompressing the cpio archive."
+#~ msgstr "解压 cpio 包时发生错误。"
+
+#~ msgid "Can't write to /tmp:"
+#~ msgstr "无法写到 /tmp"
 
 #~ msgid "<b>Files and directories to add </b>"
 #~ msgstr "<b>要添加的文件和目录</b>"
@@ -1100,9 +1408,6 @@ msgstr ""
 #~ msgid "Update an existing entry"
 #~ msgstr "更新压缩文件已存在项目"
 
-#~ msgid "Please select the files you want to add"
-#~ msgstr "请选择你要添加的文件"
-
 #~ msgid "Please select the directories you want to add"
 #~ msgstr "请选择你要添加的目录"
 
@@ -1124,9 +1429,6 @@ msgstr ""
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "终止该程序时发生错误："
 
-#~ msgid "Please select a file, not a directory!"
-#~ msgstr "请选择文件,不要选择目录"
-
 #~ msgid "An error occurred while extracting the file to be viewed:"
 #~ msgstr "解压文件以预览时发生错误："
 
@@ -1143,14 +1445,8 @@ msgstr ""
 #~ msgid "All"
 #~ msgstr "所有"
 
-#~ msgid "Only selected"
-#~ msgstr "只选择部分"
-
 #~ msgid "<b>Files to extract </b>"
 #~ msgstr "<b>文件解压</b>"
-
-#~ msgid "Extracting archive to %s"
-#~ msgstr "解压压缩文件到 %s"
 
 #~ msgid "Choose the destination folder where to extract the current archive"
 #~ msgstr "选择目标文件夹解压此压缩文件"
@@ -1184,9 +1480,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Allow extracting dirs by drag and drop"
 #~ msgstr "允许鼠标拖曳解压目录"
-
-#~ msgid "View archive content as"
-#~ msgstr "查看压缩文件内容"
 
 #~ msgid "list"
 #~ msgstr "列表"
@@ -1291,9 +1584,6 @@ msgstr ""
 
 #~ msgid "xfce default"
 #~ msgstr "xfce 默认"
-
-#~ msgid "Preferred view application:"
-#~ msgstr "首选查看应用程序："
 
 #~ msgid "internal"
 #~ msgstr "内部"
