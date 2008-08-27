@@ -296,7 +296,6 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			g_print("%s\n",names->str);
 			xa_extract_tar_without_directories ( "tar -xjvf ",archive,names->str);
 			command = NULL;
 		}

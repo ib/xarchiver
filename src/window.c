@@ -1952,11 +1952,13 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		return;
 	}
 	_current_dir = g_path_get_dirname (array[0]);
-	current_dir = g_filename_from_uri (_current_dir,NULL,NULL);
-	g_free (_current_dir);
-	chdir (current_dir);
-	g_free (current_dir);
-
+	if (archive[idx]->working_dir != NULL)
+	{
+		g_free(archive[idx]->working_dir);
+		archive[idx]->working_dir = NULL;
+	}
+	archive[idx]->working_dir = g_filename_from_uri (_current_dir,NULL,NULL);
+	g_free(_current_dir);
 	while (array[len])
 	{
 		filename = g_filename_from_uri (array[len],NULL,NULL);
