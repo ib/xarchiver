@@ -281,7 +281,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xvf ",archive,archive->extraction_path,FALSE );
+			xa_extract_tar_without_directories ( "tar -xvf ",archive,archive->extraction_path);
 			command = NULL;
 		}
 		break;
@@ -297,7 +297,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		else
 		{
 			g_print("%s\n",names->str);
-			xa_extract_tar_without_directories ( "tar -xjvf ",archive,names->str,FALSE);
+			xa_extract_tar_without_directories ( "tar -xjvf ",archive,names->str);
 			command = NULL;
 		}
 		break;
@@ -312,7 +312,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xzvf ",archive,archive->extraction_path,FALSE);
+			xa_extract_tar_without_directories ( "tar -xzvf ",archive,archive->extraction_path);
 			command = NULL;
 		}
 		break;
@@ -327,7 +327,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,archive->extraction_path,FALSE);
+			xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,archive->extraction_path);
 			command = NULL;
 		}
 		break;
@@ -405,7 +405,7 @@ gboolean is_tar_compressed (gint type)
 	return (type == XARCHIVETYPE_TAR_BZ2 || type == XARCHIVETYPE_TAR_GZ || type == XARCHIVETYPE_TAR_LZMA);
 }
 
-void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract,gboolean cpio_flag)
+void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
@@ -415,13 +415,7 @@ void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *
 	if (!result)
 		return;
 
-	if (cpio_flag)
-	{
-		chdir (archive->tmp);
-		command = g_strconcat ("cpio --make-directories -F ",archive->tmp," -i",NULL);
-	}
-	else
-		command = g_strconcat (string, archive->escaped_path,
+	command = g_strconcat (string, archive->escaped_path,
 										archive->overwrite ? " --overwrite" : " --keep-old-files",
 										archive->tar_touch ? " --touch" : "",
 										" --no-wildcards -C ",
