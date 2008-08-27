@@ -2798,8 +2798,6 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	/* The selected entry it's not a dir so extract it to the tmp dir and send it to xa_determine_program_to_run() */
 	else
 	{
-		if (archive->type == XARCHIVETYPE_RPM)
-			return;
 	   	if (archive->extraction_path)
 	   	{
 	   		dummy = g_strdup(archive->extraction_path);
