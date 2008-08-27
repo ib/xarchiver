@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-08-26 13:56+0200\n"
+"POT-Creation-Date: 2008-08-27 15:18+0200\n"
 "PO-Revision-Date: 2007-11-11 18:52+0300\n"
 "Last-Translator: Rihards Priedītis <rprieditis@inbox.lv>\n"
 "Language-Team: Latvian <RPrieditis@inbox.lv>\n"
@@ -181,7 +181,7 @@ msgstr "Jūs, palaidāt garām paroli!"
 msgid "Please enter it!"
 msgstr "Lūdzu, ievadiet!"
 
-#: ../src/add_dialog.c:444
+#: ../src/add_dialog.c:448
 #, fuzzy
 msgid "Adding files to archive, please wait..."
 msgstr "Pievienoju failus arhīvam, lūdzu uzgaidiet..."
@@ -472,46 +472,46 @@ msgstr "Jūs, nevarat pievienot saturu rpm pakotnēm!"
 msgid "The archiver doesn't support this feature!"
 msgstr "unrar neatbalsta arhīvu veidošanu!"
 
-#: ../src/window.c:2025
+#: ../src/window.c:2027
 msgid "You didn't set which browser to use!"
 msgstr ""
 
-#: ../src/window.c:2025 ../src/window.c:2066
+#: ../src/window.c:2027 ../src/window.c:2068
 msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
-#: ../src/window.c:2057
+#: ../src/window.c:2059
 #, fuzzy
 msgid "This file type is not supported!"
 msgstr "Piedodiet, arhīva formāts netiek atbalstīts:"
 
-#: ../src/window.c:2057
+#: ../src/window.c:2059
 msgid "Please install xdg-utils package."
 msgstr ""
 
-#: ../src/window.c:2066
+#: ../src/window.c:2068
 msgid "You didn't set which program to use for opening this file!"
 msgstr ""
 
-#: ../src/window.c:2091
+#: ../src/window.c:2093
 msgid "Failed to launch the application!"
 msgstr ""
 
-#: ../src/window.c:2143
+#: ../src/window.c:2145
 #, fuzzy
 msgid "Comment"
 msgstr "Ir komentāri:"
 
-#: ../src/window.c:2173
+#: ../src/window.c:2175
 msgid "From File"
 msgstr ""
 
-#: ../src/window.c:2278
+#: ../src/window.c:2280
 #, fuzzy
 msgid "Open a text file"
 msgstr "Atvert teksta failus ar:"
 
-#: ../src/window.c:2296
+#: ../src/window.c:2298
 #, fuzzy, c-format
 msgid "Can't open file %s:"
 msgstr "Nevar atvērt failu \"%s\":"
@@ -1217,48 +1217,58 @@ msgstr ""
 msgid "Show archive location bar"
 msgstr "Rādīt vietas joslu"
 
-#: ../src/pref_dialog.c:187 ../src/pref_dialog.c:246
-msgid "Preferred temp directory:"
-msgstr "Vēlamā pagaidu direktorija:"
-
-#: ../src/pref_dialog.c:193 ../src/pref_dialog.c:252
-msgid "/tmp"
-msgstr "/tmp"
-
-#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:214 ../src/pref_dialog.c:227
-#: ../src/pref_dialog.c:240 ../src/pref_dialog.c:253
-msgid "choose..."
-msgstr "izvēlēties..."
-
-#: ../src/pref_dialog.c:200 ../src/pref_dialog.c:259
-msgid "Save window geometry"
-msgstr "Saglabāt loga ģeometriju"
-
-#: ../src/pref_dialog.c:207
+#: ../src/pref_dialog.c:187
 msgid "Web browser to use:"
 msgstr ""
 
-#: ../src/pref_dialog.c:220
+#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:207 ../src/pref_dialog.c:220
+#: ../src/pref_dialog.c:233
+msgid "choose..."
+msgstr "izvēlēties..."
+
+#: ../src/pref_dialog.c:200
 msgid "Open text files with:"
 msgstr "Atvert teksta failus ar:"
 
-#: ../src/pref_dialog.c:233
+#: ../src/pref_dialog.c:213
 #, fuzzy
 msgid "Open image files with:"
 msgstr "Atvert teksta failus ar:"
 
-#: ../src/pref_dialog.c:264
+#: ../src/pref_dialog.c:226
+msgid "Preferred temp directory:"
+msgstr "Vēlamā pagaidu direktorija:"
+
+#: ../src/pref_dialog.c:232
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/pref_dialog.c:239
+msgid "Save window geometry"
+msgstr "Saglabāt loga ģeometriju"
+
+#: ../src/pref_dialog.c:244
+#, fuzzy
+msgid "Allow subdirs with drag and drop"
+msgstr "Atļaut atspiest direktorijā ar vilkt un nomest"
+
+#: ../src/pref_dialog.c:248
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+
+#: ../src/pref_dialog.c:253
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
 msgstr ""
 
-#: ../src/pref_dialog.c:574
+#: ../src/pref_dialog.c:563
 #, fuzzy
 msgid "Choose the temp directory to use"
 msgstr "Norādiet veidojamā arhīva tipu"
 
-#: ../src/pref_dialog.c:574
+#: ../src/pref_dialog.c:563
 #, fuzzy
 msgid "Choose the application to use"
 msgstr "Norādiet veidojamā arhīva tipu"
@@ -1496,9 +1506,6 @@ msgstr "Arhīvu pārvaldnieks"
 
 #~ msgid "Save settings for extract dialog"
 #~ msgstr "Saglabāt uzstādījumus atspiešanas dialogam"
-
-#~ msgid "Allow extracting dirs by drag and drop"
-#~ msgstr "Atļaut atspiest direktorijā ar vilkt un nomest"
 
 #~ msgid "list"
 #~ msgstr "saraksts"

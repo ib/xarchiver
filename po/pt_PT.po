@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-08-26 13:56+0200\n"
+"POT-Creation-Date: 2008-08-27 15:18+0200\n"
 "PO-Revision-Date: 2008-03-16 16:15+0100\n"
 "Last-Translator: Nuno Miguel <nunis@netcabo.pt>\n"
 "Language-Team: \n"
@@ -184,7 +184,7 @@ msgstr "Esqueceu-se da senha!"
 msgid "Please enter it!"
 msgstr "Por favor, digite-a!"
 
-#: ../src/add_dialog.c:444
+#: ../src/add_dialog.c:448
 #, fuzzy
 msgid "Adding files to archive, please wait..."
 msgstr "Adicionando ficheiros, aguarde por favor..."
@@ -477,46 +477,46 @@ msgstr "Não pode adicionar conteúdo aos pacotes rpm!"
 msgid "The archiver doesn't support this feature!"
 msgstr "unrar não suporta a criação de pacote!"
 
-#: ../src/window.c:2025
+#: ../src/window.c:2027
 msgid "You didn't set which browser to use!"
 msgstr ""
 
-#: ../src/window.c:2025 ../src/window.c:2066
+#: ../src/window.c:2027 ../src/window.c:2068
 msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
-#: ../src/window.c:2057
+#: ../src/window.c:2059
 #, fuzzy
 msgid "This file type is not supported!"
 msgstr "Desculpe, esse formato de arquivo não é suportado:"
 
-#: ../src/window.c:2057
+#: ../src/window.c:2059
 msgid "Please install xdg-utils package."
 msgstr ""
 
-#: ../src/window.c:2066
+#: ../src/window.c:2068
 msgid "You didn't set which program to use for opening this file!"
 msgstr ""
 
-#: ../src/window.c:2091
+#: ../src/window.c:2093
 msgid "Failed to launch the application!"
 msgstr ""
 
-#: ../src/window.c:2143
+#: ../src/window.c:2145
 #, fuzzy
 msgid "Comment"
 msgstr "Tem comentário:"
 
-#: ../src/window.c:2173
+#: ../src/window.c:2175
 msgid "From File"
 msgstr ""
 
-#: ../src/window.c:2278
+#: ../src/window.c:2280
 #, fuzzy
 msgid "Open a text file"
 msgstr "Abrir ficheiros de texto com:"
 
-#: ../src/window.c:2296
+#: ../src/window.c:2298
 #, fuzzy, c-format
 msgid "Can't open file %s:"
 msgstr "Incapaz de abrir o ficheiro \"%s\":"
@@ -1223,48 +1223,58 @@ msgstr ""
 msgid "Show archive location bar"
 msgstr "Mostra barra"
 
-#: ../src/pref_dialog.c:187 ../src/pref_dialog.c:246
-msgid "Preferred temp directory:"
-msgstr "Pasta temp preferida:"
-
-#: ../src/pref_dialog.c:193 ../src/pref_dialog.c:252
-msgid "/tmp"
-msgstr "/tmp"
-
-#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:214 ../src/pref_dialog.c:227
-#: ../src/pref_dialog.c:240 ../src/pref_dialog.c:253
-msgid "choose..."
-msgstr "escolher..."
-
-#: ../src/pref_dialog.c:200 ../src/pref_dialog.c:259
-msgid "Save window geometry"
-msgstr "Gravar geometria da janela"
-
-#: ../src/pref_dialog.c:207
+#: ../src/pref_dialog.c:187
 msgid "Web browser to use:"
 msgstr ""
 
-#: ../src/pref_dialog.c:220
+#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:207 ../src/pref_dialog.c:220
+#: ../src/pref_dialog.c:233
+msgid "choose..."
+msgstr "escolher..."
+
+#: ../src/pref_dialog.c:200
 msgid "Open text files with:"
 msgstr "Abrir ficheiros de texto com:"
 
-#: ../src/pref_dialog.c:233
+#: ../src/pref_dialog.c:213
 #, fuzzy
 msgid "Open image files with:"
 msgstr "Abrir ficheiros de texto com:"
 
-#: ../src/pref_dialog.c:264
+#: ../src/pref_dialog.c:226
+msgid "Preferred temp directory:"
+msgstr "Pasta temp preferida:"
+
+#: ../src/pref_dialog.c:232
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/pref_dialog.c:239
+msgid "Save window geometry"
+msgstr "Gravar geometria da janela"
+
+#: ../src/pref_dialog.c:244
+#, fuzzy
+msgid "Allow subdirs with drag and drop"
+msgstr "Permitir extracção de pastas através de arrastar e largar"
+
+#: ../src/pref_dialog.c:248
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+
+#: ../src/pref_dialog.c:253
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
 msgstr ""
 
-#: ../src/pref_dialog.c:574
+#: ../src/pref_dialog.c:563
 #, fuzzy
 msgid "Choose the temp directory to use"
 msgstr "Escolha o tipo de arquivo"
 
-#: ../src/pref_dialog.c:574
+#: ../src/pref_dialog.c:563
 #, fuzzy
 msgid "Choose the application to use"
 msgstr "Escolha o tipo de arquivo"
@@ -1510,9 +1520,6 @@ msgstr "Gestor de Arquivos"
 
 #~ msgid "Save settings for extract dialog"
 #~ msgstr "Gravar configurações para o diálogo de extrair"
-
-#~ msgid "Allow extracting dirs by drag and drop"
-#~ msgstr "Permitir extracção de pastas através de arrastar e largar"
 
 #~ msgid "list"
 #~ msgstr "lista"

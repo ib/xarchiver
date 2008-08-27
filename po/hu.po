@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-08-26 13:56+0200\n"
+"POT-Creation-Date: 2008-08-27 15:18+0200\n"
 "PO-Revision-Date: 2008-07-03 15:10+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -167,7 +167,7 @@ msgstr "Kihagytad a jelszót!"
 msgid "Please enter it!"
 msgstr "Kérlek, add meg!"
 
-#: ../src/add_dialog.c:444
+#: ../src/add_dialog.c:448
 #, fuzzy
 msgid "Adding files to archive, please wait..."
 msgstr "Fájlok hozzáadása az archívumhoz, kérlek, várj..."
@@ -458,47 +458,47 @@ msgstr "Nem tudod bővíteni az rpm csomagokat!"
 msgid "The archiver doesn't support this feature!"
 msgstr "az unrar nem támogat archívum készítést!"
 
-#: ../src/window.c:2025
+#: ../src/window.c:2027
 msgid "You didn't set which browser to use!"
 msgstr "Nem állítottad be a használandó böngészőt!"
 
-#: ../src/window.c:2025 ../src/window.c:2066
+#: ../src/window.c:2027 ../src/window.c:2068
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Menj a Beállítások->Haladó menübe és állítsd be"
 
-#: ../src/window.c:2057
+#: ../src/window.c:2059
 #, fuzzy
 msgid "This file type is not supported!"
 msgstr "Bocs, ez az archívum forma most nem támogatott:"
 
-#: ../src/window.c:2057
+#: ../src/window.c:2059
 msgid "Please install xdg-utils package."
 msgstr ""
 
-#: ../src/window.c:2066
+#: ../src/window.c:2068
 #, fuzzy
 msgid "You didn't set which program to use for opening this file!"
 msgstr "Nem állítottad be a használandó böngészőt!"
 
-#: ../src/window.c:2091
+#: ../src/window.c:2093
 msgid "Failed to launch the application!"
 msgstr "Nem tudtam futtatni az alkalmazást!"
 
-#: ../src/window.c:2143
+#: ../src/window.c:2145
 #, fuzzy
 msgid "Comment"
 msgstr "Megjegyzés:"
 
-#: ../src/window.c:2173
+#: ../src/window.c:2175
 msgid "From File"
 msgstr ""
 
-#: ../src/window.c:2278
+#: ../src/window.c:2280
 #, fuzzy
 msgid "Open a text file"
 msgstr "Szöveg fájlok megnyitása ezzel:"
 
-#: ../src/window.c:2296
+#: ../src/window.c:2298
 #, fuzzy, c-format
 msgid "Can't open file %s:"
 msgstr "\"%s\" fájl nem nyitható meg:"
@@ -1186,46 +1186,56 @@ msgstr ""
 msgid "Show archive location bar"
 msgstr "Útvonal sáv mutatása"
 
-#: ../src/pref_dialog.c:187 ../src/pref_dialog.c:246
-msgid "Preferred temp directory:"
-msgstr "Kívánt átmeneti könyvtár:"
-
-#: ../src/pref_dialog.c:193 ../src/pref_dialog.c:252
-msgid "/tmp"
-msgstr "/tmp"
-
-#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:214 ../src/pref_dialog.c:227
-#: ../src/pref_dialog.c:240 ../src/pref_dialog.c:253
-msgid "choose..."
-msgstr "válassz..."
-
-#: ../src/pref_dialog.c:200 ../src/pref_dialog.c:259
-msgid "Save window geometry"
-msgstr "Ablak méretének mentése"
-
-#: ../src/pref_dialog.c:207
+#: ../src/pref_dialog.c:187
 msgid "Web browser to use:"
 msgstr "Használandó web-böngésző:"
 
-#: ../src/pref_dialog.c:220
+#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:207 ../src/pref_dialog.c:220
+#: ../src/pref_dialog.c:233
+msgid "choose..."
+msgstr "válassz..."
+
+#: ../src/pref_dialog.c:200
 msgid "Open text files with:"
 msgstr "Szöveg fájlok megnyitása ezzel:"
 
-#: ../src/pref_dialog.c:233
+#: ../src/pref_dialog.c:213
 msgid "Open image files with:"
 msgstr "Kép-fájlok megnyitása ezzel:"
 
-#: ../src/pref_dialog.c:264
+#: ../src/pref_dialog.c:226
+msgid "Preferred temp directory:"
+msgstr "Kívánt átmeneti könyvtár:"
+
+#: ../src/pref_dialog.c:232
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/pref_dialog.c:239
+msgid "Save window geometry"
+msgstr "Ablak méretének mentése"
+
+#: ../src/pref_dialog.c:244
+#, fuzzy
+msgid "Allow subdirs with drag and drop"
+msgstr "Könyvtár-kibontás engedélyezése vidd és ejtsd módon"
+
+#: ../src/pref_dialog.c:248
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+
+#: ../src/pref_dialog.c:253
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
 msgstr ""
 
-#: ../src/pref_dialog.c:574
+#: ../src/pref_dialog.c:563
 msgid "Choose the temp directory to use"
 msgstr "Jelöld ki a használandó átmeneti könyvtárat"
 
-#: ../src/pref_dialog.c:574
+#: ../src/pref_dialog.c:563
 msgid "Choose the application to use"
 msgstr "Válaszd ki a használandó alkalmazást"
 
@@ -1467,9 +1477,6 @@ msgstr "Archívum kezelő"
 
 #~ msgid "Save settings for extract dialog"
 #~ msgstr "Kibontás párbeszéd beállításai mentése"
-
-#~ msgid "Allow extracting dirs by drag and drop"
-#~ msgstr "Könyvtár-kibontás engedélyezése vidd és ejtsd módon"
 
 #~ msgid "list"
 #~ msgstr "lista"
