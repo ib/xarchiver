@@ -2,6 +2,5 @@
 - fix crash when opening rar archives produces under winzozz.
 - recurse with opendir for arj when using the switches from cmd-line
 - fix the remaining bugs in bugzilla.xfce.org
-- to fix the arrow buttons
 - add a small progress window when using Xarchiver cmd-line switches.
 - support tar on *BSD.

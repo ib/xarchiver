@@ -168,7 +168,6 @@ gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *,XEntry *,gpoint
 XEntry* xa_find_entry_from_path(XEntry *root_entry,const gchar *);
 gchar *xa_build_full_path_name_from_entry(XEntry *);
 void xa_fill_list_with_recursed_entries(XEntry *,GSList **);
-void xa_entries_to_filelist(XEntry *, GSList **, gchar *);
 gboolean xa_detect_encrypted_archive (XArchive *);
 void xa_browse_dir_sidebar (XEntry *, GtkTreeStore *,gchar *,GtkTreeIter *);
 void xa_fill_dir_sidebar(XArchive *,gboolean);

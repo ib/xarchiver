@@ -1269,7 +1269,6 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 			xa_update_window_with_archive_entries(archive[idx],NULL);
 			xa_restore_navigation(idx);
 		break;
-
 		/* Back */
 		case 1:
 			if (g_slist_find(archive[idx]->forward,archive[idx]->current_entry) == NULL)
@@ -1278,7 +1277,6 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 			archive[idx]->back = archive[idx]->back->next;
 			xa_restore_navigation(idx);
 		break;
-
 		/* Up */
 		case 2:
 			archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
@@ -1292,9 +1290,10 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 			else
 				xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
 
+			if (archive[idx]->back)
+				archive[idx]->back = archive[idx]->back->next;
 			xa_restore_navigation(idx);
 		break;
-
 		/* Forward */
 		case 3:
 			if (g_slist_find(archive[idx]->back,archive[idx]->current_entry) == NULL)
