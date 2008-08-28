@@ -81,7 +81,7 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 	{
 		if (WEXITSTATUS (status))
 		{
-			if (WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP)
+			if ((WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP) || (WEXITSTATUS (status) == 6 && archive->type == XARCHIVETYPE_ARJ))
 				return TRUE;
 			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 			{

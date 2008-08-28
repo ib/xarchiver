@@ -185,6 +185,8 @@ int main (int argc, char **argv)
 
 			if (archive->path != NULL)
 			{
+				xa_create_temp_directory(archive);
+				archive->add_recurse = TRUE;
 				_current_dir = g_path_get_dirname(argv[1]);
 				chdir (_current_dir);
 				g_free(_current_dir);

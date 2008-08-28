@@ -477,7 +477,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 	}
 	while (list)
 	{
-		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse);
+		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse,archive->type);
 		list = list->next;
 	}
 

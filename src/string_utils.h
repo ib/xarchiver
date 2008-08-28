@@ -48,7 +48,7 @@ void xa_cat_filenames (XArchive *,GSList *,GString *);
 gchar *xa_escape_filename (gchar *filename,gchar *meta_chars);
 GSList *xa_slist_copy(GSList *);
 gchar *itoa(int,int );
-void xa_recurse_local_directory(gchar *,GSList **,gboolean);
+void xa_recurse_local_directory(gchar *,GSList **,gboolean,gint);
 gchar *xa_strip_current_working_dir_from_path(gchar *,gchar *);
 #endif
 

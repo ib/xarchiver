@@ -238,7 +238,7 @@ gchar *xa_strip_current_working_dir_from_path(gchar *working_dir,gchar *filename
 
 	len = strlen(working_dir)+1;
 	slash = g_strrstr(filename,"/");
-	if (slash == NULL)
+	if (slash == NULL || ! g_path_is_absolute(filename))
 		return filename;
 
 	return filename+len;
@@ -343,7 +343,7 @@ gchar *itoa(int value,int radix)
   return string;
 }
 
-void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse)
+void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse,gint type)
 {
 	DIR *dir;
 	struct dirent *dirlist;
@@ -352,7 +352,7 @@ void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse)
 
 	dir = opendir(path);
 	is_dir = g_file_test(path,G_FILE_TEST_IS_DIR);
-	if (is_dir)
+	if (is_dir && type != XARCHIVETYPE_ARJ)
 		*list = g_slist_prepend(*list,g_strdup(path));
 	if (dir == NULL)
 	{
@@ -370,11 +370,10 @@ void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse)
 			continue;
 		fullname = g_strconcat (path,"/",dirlist->d_name,NULL);
 		is_dir = g_file_test(fullname,G_FILE_TEST_IS_DIR);
-		*list = g_slist_prepend(*list,fullname);
+		if (type == XARCHIVETYPE_ARJ && ! is_dir)
+			*list = g_slist_prepend(*list,fullname);
 		if (recurse && is_dir)
-			xa_recurse_local_directory(fullname,list,recurse);
-		/*else if (! is_dir)
-			*list = g_slist_prepend(*list,fullname);*/
+			xa_recurse_local_directory(fullname,list,recurse,type);
 	}
 	closedir(dir);
 }

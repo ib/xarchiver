@@ -266,12 +266,7 @@ void xa_clean_archive_structure (XArchive *archive)
 
 void xa_delete_temp_directory (XArchive *archive,gboolean flag)
 {
-	GSList *list = NULL;
-	gchar *command;
-
-	command = g_strconcat ("rm -rf ",archive->tmp,NULL);
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+	xa_launch_external_program("rm -rf",archive->tmp);
 }
 
 gboolean xa_create_temp_directory (XArchive *archive)
