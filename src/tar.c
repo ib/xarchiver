@@ -281,7 +281,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xvf ",archive,archive->extraction_path);
+			result = xa_extract_tar_without_directories ( "tar -xvf ",archive,archive->extraction_path);
 			command = NULL;
 		}
 		break;
@@ -296,7 +296,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xjvf ",archive,names->str);
+			result = xa_extract_tar_without_directories ( "tar -xjvf ",archive,names->str);
 			command = NULL;
 		}
 		break;
@@ -311,7 +311,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar -xzvf ",archive,archive->extraction_path);
+			result = xa_extract_tar_without_directories ( "tar -xzvf ",archive,archive->extraction_path);
 			command = NULL;
 		}
 		break;
@@ -326,7 +326,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,archive->extraction_path);
+			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,archive->extraction_path);
 			command = NULL;
 		}
 		break;
@@ -404,7 +404,7 @@ gboolean is_tar_compressed (gint type)
 	return (type == XARCHIVETYPE_TAR_BZ2 || type == XARCHIVETYPE_TAR_GZ || type == XARCHIVETYPE_TAR_LZMA);
 }
 
-void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)
+gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
@@ -424,7 +424,10 @@ void xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *
 	if (archive->extraction_path == NULL)
 		archive->extraction_path = archive->tmp;
 
-	command = g_strconcat ("mv -f ",archive->tmp,"/",files_to_extract," ",archive->extraction_path,NULL);
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+	if (strcmp(archive->tmp,archive->extraction_path))
+	{
+		command = g_strconcat ("mv -f ",archive->tmp,"/",files_to_extract," ",archive->extraction_path,NULL);
+		list = g_slist_append(list,command);
+	}
+	return xa_run_command (archive,list);
 }
