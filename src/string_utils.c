@@ -255,7 +255,7 @@ void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 		{
 			if (archive->full_path == 0)
 			{
-				basename = xa_strip_current_working_dir_from_path(archive->working_dir,slist->data);
+				basename = xa_strip_current_working_dir_from_path(archive->working_dir ? archive->working_dir : archive->tmp,slist->data);
 				name = g_strconcat(archive->location_entry_path,basename,NULL);
 				e_filename = xa_escape_filename(name,"$'`\"\\!?* ()[]&|:;<>#");
 				g_string_prepend (data,e_filename);
@@ -275,7 +275,7 @@ void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 		{
 			if (archive->full_path == 0)
 			{
-				basename = xa_strip_current_working_dir_from_path(archive->working_dir,slist->data);
+				basename = xa_strip_current_working_dir_from_path(archive->working_dir ? archive->working_dir : archive->tmp,slist->data);
 				e_filename = xa_escape_filename(basename,"$'`\"\\!?* ()[]&|:;<>#");
 				g_string_prepend (data,e_filename);
 				g_string_prepend_c (data,' ');

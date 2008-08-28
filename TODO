@@ -1,4 +1,5 @@
 - reduce the loading time when opening large archives.
+- fix deletion of all files in archive when deleting from rar archives.
 - fix crash when opening rar archives produces under winzozz.
 - recurse with opendir for arj when using the switches from cmd-line
 - fix the remaining bugs in bugzilla.xfce.org
