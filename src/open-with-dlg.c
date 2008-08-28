@@ -215,10 +215,9 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 	filename = g_strconcat(path,"/",name,NULL);
 	file = g_io_channel_new_file(filename,"r",NULL);
 	g_free(filename);
-
-	if (file == FALSE)
+	if (file == NULL)
 		return;
-
+	g_io_channel_set_encoding(file,NULL,NULL);
 	do
 	{
 		status = g_io_channel_read_line (file, &line, NULL, NULL, NULL);
