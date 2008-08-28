@@ -228,21 +228,20 @@ gchar *xa_remove_path_from_archive_name(gchar *name)
 
 gchar *xa_escape_filename (gchar *filename,gchar *meta_chars)
 {
-	return xa_escape_common_chars (filename , meta_chars, '\\', 0);
+	return xa_escape_common_chars (filename,meta_chars,'\\',0);
 }
 
 gchar *xa_strip_current_working_dir_from_path(gchar *working_dir,gchar *filename)
 {
-	gchar *basename,*slash;
+	gchar *slash;
 	int len = 0;
 
 	len = strlen(working_dir)+1;
 	slash = g_strrstr(filename,"/");
 	if (slash == NULL)
-		return g_strdup(filename);
+		return filename;
 
-	basename = g_strndup(filename+len,strlen(filename) - len);
-	return basename;
+	return filename+len;
 }
 
 void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
@@ -258,7 +257,6 @@ void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 			{
 				basename = xa_strip_current_working_dir_from_path(archive->working_dir,slist->data);
 				name = g_strconcat(archive->location_entry_path,basename,NULL);
-				g_free(basename);
 				e_filename = xa_escape_filename(name,"$'`\"\\!?* ()[]&|:;<>#");
 				g_string_prepend (data,e_filename);
 				g_string_prepend_c (data,' ');
@@ -279,7 +277,6 @@ void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
 			{
 				basename = xa_strip_current_working_dir_from_path(archive->working_dir,slist->data);
 				e_filename = xa_escape_filename(basename,"$'`\"\\!?* ()[]&|:;<>#");
-				g_free(basename);
 				g_string_prepend (data,e_filename);
 				g_string_prepend_c (data,' ');
 			}

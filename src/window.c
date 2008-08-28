@@ -1951,7 +1951,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
-	_current_dir = g_path_get_dirname (array[0]);
+	_current_dir = g_path_get_dirname(array[0]);
 	if (archive[idx]->working_dir != NULL)
 	{
 		g_free(archive[idx]->working_dir);
@@ -1965,8 +1965,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		list = g_slist_append(list,filename);
 		len++;
 	}
-	archive[idx]->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_window->store_path));
-	archive[idx]->add_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_window->recurse));
+	archive[idx]->full_path 	= gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_window->store_path));
+	archive[idx]->add_recurse	= gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (prefs_window->allow_sub_dir));
 	xa_execute_add_commands(archive[idx],list,NULL);
 	g_strfreev (array);
 }
