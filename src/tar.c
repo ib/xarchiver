@@ -281,7 +281,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar -xvf ",archive,archive->extraction_path);
+			result = xa_extract_tar_without_directories ( "tar -xvf ",archive,names->str);
 			command = NULL;
 		}
 		break;
@@ -311,7 +311,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar -xzvf ",archive,archive->extraction_path);
+			result = xa_extract_tar_without_directories ( "tar -xzvf ",archive,names->str);
 			command = NULL;
 		}
 		break;
@@ -326,7 +326,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,archive->extraction_path);
+			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,names->str);
 			command = NULL;
 		}
 		break;
@@ -407,6 +407,7 @@ gboolean is_tar_compressed (gint type)
 gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)
 {
 	gchar *command = NULL;
+	gchar *source = NULL;
 	GSList *list = NULL;
 	gboolean result;
 
@@ -424,10 +425,13 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 	if (archive->extraction_path == NULL)
 		archive->extraction_path = archive->tmp;
 
-	if (strcmp(archive->tmp,archive->extraction_path))
+	source = g_strconcat(archive->tmp,"/",files_to_extract,NULL);
+
+	if (strcmp(source,archive->extraction_path))
 	{
-		command = g_strconcat ("mv -f ",archive->tmp,"/",files_to_extract," ",archive->extraction_path,NULL);
+		command = g_strconcat ("mv -f ",source," ",archive->extraction_path,NULL);
 		list = g_slist_append(list,command);
 	}
+	g_free(source);
 	return xa_run_command (archive,list);
 }
