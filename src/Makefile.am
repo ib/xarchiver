@@ -4,6 +4,7 @@ SUBDIRS = xdgmime
 
 xarchiver_SOURCES = \
 	socket.c socket.h \
+	sexy-icon-entry.c sexy-icon-entry.h \
 	main.c main.h \
 	string_utils.c string_utils.h \
 	mime.c mime.h \
