@@ -155,9 +155,7 @@ gchar *xa_create_open_with_dialog(gchar *filename,int nr)
 		gtk_widget_destroy(dialog1);
 		return NULL;
 	}
-	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(apps_treeview));
-	gtk_tree_selection_get_selected(selection,&model,&iter);
-	gtk_tree_model_get(model,&iter,2,&exec,-1);
+	exec = g_strdup(gtk_entry_get_text(GTK_ENTRY(custom_command_entry)));
 	gtk_widget_destroy(dialog1);
 	return exec;
 }
