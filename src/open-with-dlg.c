@@ -149,6 +149,8 @@ gchar *xa_create_open_with_dialog(gchar *filename,int nr)
 		xa_read_desktop_directories(apps_liststore,desktop_dirs[x]);
 		x++;
 	}
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(apps_liststore),&iter);
+	gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (apps_treeview)),&iter);
 	response = gtk_dialog_run(GTK_DIALOG(dialog1));
 	if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 	{
