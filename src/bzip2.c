@@ -170,7 +170,7 @@ void xa_open_tar_compressed_file(XArchive *archive)
 gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 {
 	GSList *list = NULL;
-	gchar *command = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
+	gchar  *command = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
 	gboolean result = FALSE;
 
 	filename = xa_remove_path_from_archive_name(archive->escaped_path);
@@ -186,7 +186,7 @@ gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 	dot = g_strconcat(archive->tmp,"/",filename_noext,NULL);
 	g_free(filename_noext);
 
-	if (g_file_test(dot,G_FILE_TEST_EXISTS) == FALSE)
+	if (strcmp(archive->tmp,archive->extraction_path) != 0)
 	{
 		command = g_strconcat("cp -f ",dot," ",archive->extraction_path,NULL);
 		list = g_slist_append(list,command);
