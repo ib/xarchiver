@@ -379,7 +379,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			}
 			_commands = _commands->next;
 		}
-		xa_archive_operation_finished(archive);
+		xa_watch_child (archive->child_pid, status, archive);
 here:
 		g_slist_foreach (commands,(GFunc) g_free,NULL);
 		g_slist_free(commands);

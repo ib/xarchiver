@@ -95,7 +95,6 @@ void on_drag_data_received (GtkWidget *,GdkDragContext *, int x,int y,GtkSelecti
 void drag_begin (GtkWidget *,GdkDragContext *, XArchive *);
 void drag_end (GtkWidget *, GdkDragContext *, gpointer );
 void drag_data_get (GtkWidget *, GdkDragContext *dc, GtkSelectionData *, guint , guint t, XArchive *);
-void xa_archive_operation_finished(XArchive *);
 void xa_reload_archive_content(XArchive *);
 void xa_watch_child ( GPid,gint,XArchive *);
 void xa_remove_columns(XArchive *);
@@ -126,7 +125,6 @@ int xa_mouse_button_event(GtkWidget *,GdkEventButton *,XArchive *);
 gboolean xa_launch_external_program(gchar *,gchar *);
 gboolean xa_detect_archive_comment (int ,gchar *,XArchive *);
 gboolean treeview_select_search (GtkTreeModel *,gint ,const gchar *,GtkTreeIter *,gpointer );
-gboolean xa_check_child_for_error_on_exit(XArchive *,gint );
 
 XAClipboard *xa_clipboard_data_new();
 XAClipboard *xa_get_paste_data_from_clipboard_selection(const char *);

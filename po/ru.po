@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-08-27 15:18+0200\n"
+"POT-Creation-Date: 2008-09-25 11:08+0200\n"
 "PO-Revision-Date: 2007-11-01 13:27+0300\n"
 "Last-Translator: Andrey Cherepanov <sibskull@mail.ru>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -134,7 +134,7 @@ msgstr "_Действия"
 msgid "Compression: "
 msgstr "Уровень сжатия:"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:192
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:153
 msgid "Password:"
 msgstr "Пароль:"
 
@@ -166,7 +166,7 @@ msgstr "0: без сжатия, 1: по умолчанию, 4: самое быс
 msgid "5 = default compression, 7 = max compression"
 msgstr "5: по умолчанию, 7: максимальное сжатие"
 
-#: ../src/add_dialog.c:370 ../src/main.c:206
+#: ../src/add_dialog.c:370 ../src/main.c:208
 msgid "Can't add files to the archive:"
 msgstr "Не удаётся добавить файлы в архив:"
 
@@ -191,22 +191,22 @@ msgstr "Добавление файлов в архив, подождите..."
 msgid "Can't run the archiver executable:"
 msgstr "Невозможно запустить программу-архиватор:"
 
-#: ../src/archive.c:294
+#: ../src/archive.c:289
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Не удаётся создать временную папку в /tmp:"
 
-#: ../src/archive.c:331
+#: ../src/archive.c:326
 msgid "Can't spawn the command:"
 msgstr "Не удалось выполнить команду:"
 
-#: ../src/archive.c:343
+#: ../src/archive.c:338
 msgid ""
 "\n"
 "\n"
 "** Output was shortened; too many errors!"
 msgstr ""
 
-#: ../src/archive.c:345 ../src/archive.c:349 ../src/window.c:88
+#: ../src/archive.c:340 ../src/archive.c:344 ../src/window.c:88
 msgid "An error occurred!"
 msgstr "Произошла ошибка!"
 
@@ -231,7 +231,7 @@ msgstr "Права"
 msgid "Owner/Group"
 msgstr "Владелец/Группа"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:607
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:397
 #: ../src/gzip.c:62 ../src/gzip.c:79 ../src/lha.c:50 ../src/rpm.c:52
 #: ../src/tar.c:51
 msgid "Size"
@@ -386,7 +386,7 @@ msgstr "Распаковка архива в %s"
 msgid "Open an archive"
 msgstr "Открыть архив"
 
-#: ../src/window.c:1213 ../src/extract_dialog.c:86 ../src/new_dialog.c:62
+#: ../src/window.c:1213 ../src/extract_dialog.c:88 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Все файлы"
 
@@ -451,11 +451,11 @@ msgstr "Не удалось извлечь:"
 msgid "Please wait until the completion of the current one!"
 msgstr "Дождитесь окончания текущей операции!"
 
-#: ../src/window.c:1904 ../src/extract_dialog.c:846
+#: ../src/window.c:1904 ../src/extract_dialog.c:631
 msgid "Sorry, I could not perform the operation!"
 msgstr "Не удалось выполнить операцию!"
 
-#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1378
+#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1377
 msgid "Can't perform this action:"
 msgstr "Не удалось выполнить операцию:"
 
@@ -463,11 +463,11 @@ msgstr "Не удалось выполнить операцию:"
 msgid "You have to install rar package!"
 msgstr ""
 
-#: ../src/window.c:1945 ../src/interface.c:1375
+#: ../src/window.c:1945 ../src/interface.c:1374
 msgid "You can't add content to deb packages!"
 msgstr "Вы не можете добавить файлы в пакет deb!"
 
-#: ../src/window.c:1947 ../src/interface.c:1377
+#: ../src/window.c:1947 ../src/interface.c:1376
 msgid "You can't add content to rpm packages!"
 msgstr "Вы не можете добавить файлы в пакет RPM!"
 
@@ -524,44 +524,44 @@ msgstr "Не удаётся открыть файл «%s»:"
 msgid "Date modified"
 msgstr ""
 
-#: ../src/extract_dialog.c:61 ../src/extract_dialog.c:677
+#: ../src/extract_dialog.c:62 ../src/extract_dialog.c:467
 msgid "Extract to:"
 msgstr "Извлечь в:"
 
-#: ../src/extract_dialog.c:91
+#: ../src/extract_dialog.c:93
 #, fuzzy
 msgid "Selected files"
 msgstr "Выбрать _все"
 
-#: ../src/extract_dialog.c:99
+#: ../src/extract_dialog.c:101
 #, fuzzy
 msgid "Files: "
 msgstr "Файлы"
 
-#: ../src/extract_dialog.c:110
+#: ../src/extract_dialog.c:112
 #, fuzzy
 msgid "Files "
 msgstr "Файлы"
 
-#: ../src/extract_dialog.c:124 ../src/extract_dialog.c:709
+#: ../src/extract_dialog.c:126 ../src/extract_dialog.c:494
 msgid "Overwrite existing files"
 msgstr "Перезаписать существующие файлы"
 
-#: ../src/extract_dialog.c:127
+#: ../src/extract_dialog.c:129
 msgid "Extract files with full path"
 msgstr "Извлечь с полным путём"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:130
 #, fuzzy
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "При извлечении будет воссоздана полная структура папок."
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c:133
 msgid "Touch files"
 msgstr "Установить время изменений файлов"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:134
 #, fuzzy
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
@@ -571,11 +571,11 @@ msgstr ""
 "При извлечении из архива tar время изменения файлов будет установлено такое "
 "же, как время извлечения, а не время, сохранённое в архиве."
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c:137
 msgid "Freshen existing files"
 msgstr "Обновить существующие файлы"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:138
 #, fuzzy
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
@@ -583,11 +583,11 @@ msgid ""
 msgstr ""
 "Извлечь только файлы, существующие на диске и более свежие, чем существующие."
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c:142
 msgid "Update existing files"
 msgstr "Обновить файлы"
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:143
 #, fuzzy
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
@@ -597,139 +597,124 @@ msgstr ""
 "При этой операции будут извлечены файлы, существующие на диске и более "
 "свежие, чем существующие, а также файлы, отсутствующие на диске."
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c:147
 #, fuzzy
 msgid "Options "
 msgstr "<b>Параметры</b>"
 
-#: ../src/extract_dialog.c:151
-#, fuzzy
-msgid "Directories Tree:"
-msgstr "Папки"
-
-#: ../src/extract_dialog.c:185
-#, fuzzy
-msgid "Create New Dir"
-msgstr "Создать новый архив"
-
-#: ../src/extract_dialog.c:209 ../src/extract_dialog.c:725
+#: ../src/extract_dialog.c:170 ../src/extract_dialog.c:510
 #: ../src/interface.c:175
 msgid "_Extract"
 msgstr "_Извлечь"
 
-#: ../src/extract_dialog.c:289
-#, c-format
-msgid "Can't create directory \"%s\""
-msgstr "Не удаётся создать папку «%s»"
-
-#: ../src/extract_dialog.c:346
+#: ../src/extract_dialog.c:224
 msgid "Decompress file"
 msgstr "Извлечь файл"
 
-#: ../src/extract_dialog.c:348 ../src/interface.c:397
+#: ../src/extract_dialog.c:226 ../src/interface.c:397
 #, fuzzy
 msgid "Extract files"
 msgstr "Извлечение из архива в %s"
 
-#: ../src/extract_dialog.c:442 ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:320 ../src/extract_dialog.c:698
 msgid "You missed where to extract the files!"
 msgstr "Вы не указали, куда извлечь файлы!"
 
-#: ../src/extract_dialog.c:442
+#: ../src/extract_dialog.c:320
 msgid "Please enter the extraction path."
 msgstr "Введите путь для извлечения."
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "This archive is encrypted!"
 msgstr "Этот архив зашифрован!"
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "Please enter the password."
 msgstr "Введите пароль."
 
-#: ../src/extract_dialog.c:466
+#: ../src/extract_dialog.c:344
 #, fuzzy, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "У вас нет прав на извлечение файлов в папку «%s»."
 
-#: ../src/extract_dialog.c:467
+#: ../src/extract_dialog.c:345
 msgid "Can't perform extraction!"
 msgstr "Не удаётся выполнить извлечение!"
 
-#: ../src/extract_dialog.c:501
+#: ../src/extract_dialog.c:379
 #, fuzzy
 msgid "Extracting files from archive, please wait..."
 msgstr "Удаляются файлы из архива, подождите..."
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 #, fuzzy
 msgid "Archive Name"
 msgstr "[имя архива]"
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 #, fuzzy
 msgid "Path"
 msgstr "Путь:"
 
-#: ../src/extract_dialog.c:619
+#: ../src/extract_dialog.c:409
 #, fuzzy
 msgid "Multi-Extract"
 msgstr "Извлечь"
 
-#: ../src/extract_dialog.c:692
+#: ../src/extract_dialog.c:477
 #, fuzzy
 msgid "Extract to dir \"Archive Name\""
 msgstr "Извлечь файлы из архива"
 
-#: ../src/extract_dialog.c:693
+#: ../src/extract_dialog.c:478
 #, fuzzy
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "Выбрать файлы или папки, которые будут добавлены в архив"
 
-#: ../src/extract_dialog.c:697
+#: ../src/extract_dialog.c:482
 #, fuzzy
 msgid "Destination dirs:"
 msgstr "Открыть архив"
 
-#: ../src/extract_dialog.c:711
+#: ../src/extract_dialog.c:496
 #, fuzzy
 msgid "Extract pathnames"
 msgstr "Извлечение из архива в %s"
 
-#: ../src/extract_dialog.c:713
+#: ../src/extract_dialog.c:498
 #, fuzzy
 msgid "Options:"
 msgstr "<b>Параметры</b>"
 
-#: ../src/extract_dialog.c:745
+#: ../src/extract_dialog.c:530
 #, fuzzy
 msgid "Please select the archives you want to extract"
 msgstr "Выберите файлы, которые вы хотите добавить"
 
-#: ../src/extract_dialog.c:867
+#: ../src/extract_dialog.c:652
 #, fuzzy
 msgid "Please select the destination directory"
 msgstr "Выберите файл, а не папку!"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 #, fuzzy
 msgid "Can't multi-extract archives:"
 msgstr "Не удалось извлечь файлы из архива:"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 #, fuzzy
 msgid "You haven't added any of them!"
 msgstr "Вы не выбрали ни одного файла!"
 
-#: ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:698
 #, fuzzy
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Сначала нажмите кнопку «Остановить»!"
 
-#: ../src/extract_dialog.c:944
+#: ../src/extract_dialog.c:729
 #, fuzzy
 msgid "Some errors occurred:"
 msgstr "Произошла ошибка:"
@@ -1003,22 +988,22 @@ msgstr "Количество файлов:"
 msgid "Compression ratio:"
 msgstr "Коэффициент сжатия:"
 
-#: ../src/interface.c:1385
+#: ../src/interface.c:1384
 #, fuzzy
 msgid "Sorry,I could not perform the operation!"
 msgstr "Не удалось выполнить операцию!"
 
-#: ../src/interface.c:1495 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1494 ../xarchiver.desktop.in.h:3
 #, fuzzy
 msgid "Xarchiver"
 msgstr "Только архивы"
 
-#: ../src/interface.c:1519
+#: ../src/interface.c:1518
 #, fuzzy
 msgid "Extracting archive:"
 msgstr "Извлечь файлы из архива"
 
-#: ../src/interface.c:1529
+#: ../src/interface.c:1528
 msgid "Total Progress:"
 msgstr ""
 
@@ -1081,15 +1066,15 @@ msgstr ""
 msgid "Can't extract files from the archive:"
 msgstr "Не удалось извлечь файлы из архива:"
 
-#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:206
+#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:208
 msgid "You missed the archive name!\n"
 msgstr "Вы не указали имя архива!\n"
 
-#: ../src/main.c:245
+#: ../src/main.c:247
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 
-#: ../src/main.c:471
+#: ../src/main.c:473
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Не удаётся выделить память для структуры архива!"
 
@@ -1111,7 +1096,7 @@ msgstr ""
 msgid "Browse"
 msgstr ""
 
-#: ../src/open-with-dlg.c:303
+#: ../src/open-with-dlg.c:302
 #, fuzzy
 msgid "Select an application"
 msgstr "_Действия"
@@ -1334,6 +1319,17 @@ msgstr ""
 #, fuzzy
 msgid "Archive manager"
 msgstr "[имя архива]"
+
+#, fuzzy
+#~ msgid "Directories Tree:"
+#~ msgstr "Папки"
+
+#, fuzzy
+#~ msgid "Create New Dir"
+#~ msgstr "Создать новый архив"
+
+#~ msgid "Can't create directory \"%s\""
+#~ msgstr "Не удаётся создать папку «%s»"
 
 #~ msgid "Add files to the archive"
 #~ msgstr "Добавление файлов в архив"

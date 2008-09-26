@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-08-27 15:18+0200\n"
+"POT-Creation-Date: 2008-09-25 11:08+0200\n"
 "PO-Revision-Date: 2006-08-29 23:17+0800\n"
 "Last-Translator: Hydonsingore Cia <hydonsingore@educities.edu.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -121,7 +121,7 @@ msgstr "動作(_A)"
 msgid "Compression: "
 msgstr "壓縮程度:"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:192
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:153
 msgid "Password:"
 msgstr "密碼:"
 
@@ -154,7 +154,7 @@ msgstr "0= 沒有壓縮；1 = 預設值；4 = 最快但最疏鬆的壓縮"
 msgid "5 = default compression, 7 = max compression"
 msgstr ""
 
-#: ../src/add_dialog.c:370 ../src/main.c:206
+#: ../src/add_dialog.c:370 ../src/main.c:208
 msgid "Can't add files to the archive:"
 msgstr "無法將將檔案加入這個壓縮檔中："
 
@@ -182,28 +182,28 @@ msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/archive.c:294
+#: ../src/archive.c:289
 #, fuzzy
 msgid "Can't create temporary directory in /tmp:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/archive.c:331
+#: ../src/archive.c:326
 #, fuzzy
 msgid "Can't spawn the command:"
 msgstr ""
 "無法開啟壓縮檔 %s:\n"
 "%s"
 
-#: ../src/archive.c:343
+#: ../src/archive.c:338
 msgid ""
 "\n"
 "\n"
 "** Output was shortened; too many errors!"
 msgstr ""
 
-#: ../src/archive.c:345 ../src/archive.c:349 ../src/window.c:88
+#: ../src/archive.c:340 ../src/archive.c:344 ../src/window.c:88
 msgid "An error occurred!"
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr "權限"
 msgid "Owner/Group"
 msgstr "使用者/群組"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:607
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:397
 #: ../src/gzip.c:62 ../src/gzip.c:79 ../src/lha.c:50 ../src/rpm.c:52
 #: ../src/tar.c:51
 msgid "Size"
@@ -390,7 +390,7 @@ msgstr "解壓縮檔案到 "
 msgid "Open an archive"
 msgstr "開啟壓縮檔"
 
-#: ../src/window.c:1213 ../src/extract_dialog.c:86 ../src/new_dialog.c:62
+#: ../src/window.c:1213 ../src/extract_dialog.c:88 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "全部檔案"
 
@@ -449,11 +449,11 @@ msgstr "無法進行另一個解壓縮："
 msgid "Please wait until the completion of the current one!"
 msgstr "請等到現在這個完成！"
 
-#: ../src/window.c:1904 ../src/extract_dialog.c:846
+#: ../src/window.c:1904 ../src/extract_dialog.c:631
 msgid "Sorry, I could not perform the operation!"
 msgstr "抱歉，我無法進行這項操作！"
 
-#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1378
+#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1377
 #, fuzzy
 msgid "Can't perform this action:"
 msgstr ""
@@ -464,11 +464,11 @@ msgstr ""
 msgid "You have to install rar package!"
 msgstr ""
 
-#: ../src/window.c:1945 ../src/interface.c:1375
+#: ../src/window.c:1945 ../src/interface.c:1374
 msgid "You can't add content to deb packages!"
 msgstr ""
 
-#: ../src/window.c:1947 ../src/interface.c:1377
+#: ../src/window.c:1947 ../src/interface.c:1376
 msgid "You can't add content to rpm packages!"
 msgstr ""
 
@@ -524,211 +524,194 @@ msgstr "無法開啟檔案 \"%s\"："
 msgid "Date modified"
 msgstr ""
 
-#: ../src/extract_dialog.c:61 ../src/extract_dialog.c:677
+#: ../src/extract_dialog.c:62 ../src/extract_dialog.c:467
 msgid "Extract to:"
 msgstr "解壓縮到："
 
-#: ../src/extract_dialog.c:91
+#: ../src/extract_dialog.c:93
 #, fuzzy
 msgid "Selected files"
 msgstr "全部檔案"
 
-#: ../src/extract_dialog.c:99
+#: ../src/extract_dialog.c:101
 #, fuzzy
 msgid "Files: "
 msgstr "檔案"
 
-#: ../src/extract_dialog.c:110
+#: ../src/extract_dialog.c:112
 #, fuzzy
 msgid "Files "
 msgstr "檔案"
 
-#: ../src/extract_dialog.c:124 ../src/extract_dialog.c:709
+#: ../src/extract_dialog.c:126 ../src/extract_dialog.c:494
 msgid "Overwrite existing files"
 msgstr ""
 
-#: ../src/extract_dialog.c:127
+#: ../src/extract_dialog.c:129
 #, fuzzy
 msgid "Extract files with full path"
 msgstr "解壓縮檔案到 "
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:130
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c:133
 #, fuzzy
 msgid "Touch files"
 msgstr "檔案"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:134
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
 "files it extracts as the times when the files were extracted, instead of "
 "setting it to the times recorded in the archive"
 msgstr ""
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c:137
 msgid "Freshen existing files"
 msgstr ""
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:138
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
 msgstr ""
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c:142
 msgid "Update existing files"
 msgstr ""
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:143
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk"
 msgstr ""
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c:147
 #, fuzzy
 msgid "Options "
 msgstr "<b>選項 </b>"
 
-#: ../src/extract_dialog.c:151
-#, fuzzy
-msgid "Directories Tree:"
-msgstr "目錄"
-
-#: ../src/extract_dialog.c:185
-#, fuzzy
-msgid "Create New Dir"
-msgstr "新建壓縮檔"
-
-#: ../src/extract_dialog.c:209 ../src/extract_dialog.c:725
+#: ../src/extract_dialog.c:170 ../src/extract_dialog.c:510
 #: ../src/interface.c:175
 #, fuzzy
 msgid "_Extract"
 msgstr "解壓縮"
 
-#: ../src/extract_dialog.c:289
-#, fuzzy, c-format
-msgid "Can't create directory \"%s\""
-msgstr ""
-"無法開啟壓縮檔 %s:\n"
-"%s"
-
-#: ../src/extract_dialog.c:346
+#: ../src/extract_dialog.c:224
 msgid "Decompress file"
 msgstr "解壓縮檔案"
 
-#: ../src/extract_dialog.c:348 ../src/interface.c:397
+#: ../src/extract_dialog.c:226 ../src/interface.c:397
 #, fuzzy
 msgid "Extract files"
 msgstr "解壓縮檔案到 "
 
-#: ../src/extract_dialog.c:442 ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:320 ../src/extract_dialog.c:698
 #, fuzzy
 msgid "You missed where to extract the files!"
 msgstr "請選擇放置解壓檔案的地方！"
 
-#: ../src/extract_dialog.c:442
+#: ../src/extract_dialog.c:320
 #, fuzzy
 msgid "Please enter the extraction path."
 msgstr "請輸入密碼。"
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "This archive is encrypted!"
 msgstr ""
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 #, fuzzy
 msgid "Please enter the password."
 msgstr "請輸入密碼。"
 
-#: ../src/extract_dialog.c:466
+#: ../src/extract_dialog.c:344
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr ""
 
-#: ../src/extract_dialog.c:467
+#: ../src/extract_dialog.c:345
 msgid "Can't perform extraction!"
 msgstr ""
 
-#: ../src/extract_dialog.c:501
+#: ../src/extract_dialog.c:379
 #, fuzzy
 msgid "Extracting files from archive, please wait..."
 msgstr "正在從壓縮檔中刪除檔案，請稍候。"
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 #, fuzzy
 msgid "Archive Name"
 msgstr "[壓縮檔名稱]"
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 #, fuzzy
 msgid "Path"
 msgstr "路徑:"
 
-#: ../src/extract_dialog.c:619
+#: ../src/extract_dialog.c:409
 #, fuzzy
 msgid "Multi-Extract"
 msgstr "解壓縮"
 
-#: ../src/extract_dialog.c:692
+#: ../src/extract_dialog.c:477
 #, fuzzy
 msgid "Extract to dir \"Archive Name\""
 msgstr "從壓縮檔取出檔案"
 
-#: ../src/extract_dialog.c:693
+#: ../src/extract_dialog.c:478
 #, fuzzy
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "選擇要放入這個壓縮檔的檔案和目錄"
 
-#: ../src/extract_dialog.c:697
+#: ../src/extract_dialog.c:482
 #, fuzzy
 msgid "Destination dirs:"
 msgstr "將檔案加入這個壓縮檔中"
 
-#: ../src/extract_dialog.c:711
+#: ../src/extract_dialog.c:496
 #, fuzzy
 msgid "Extract pathnames"
 msgstr "解壓縮檔案到 "
 
-#: ../src/extract_dialog.c:713
+#: ../src/extract_dialog.c:498
 #, fuzzy
 msgid "Options:"
 msgstr "<b>選項 </b>"
 
-#: ../src/extract_dialog.c:745
+#: ../src/extract_dialog.c:530
 #, fuzzy
 msgid "Please select the archives you want to extract"
 msgstr "請選取您要加入的檔案"
 
-#: ../src/extract_dialog.c:867
+#: ../src/extract_dialog.c:652
 #, fuzzy
 msgid "Please select the destination directory"
 msgstr "請選取檔案，不要選資料夾。"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 #, fuzzy
 msgid "Can't multi-extract archives:"
 msgstr "將檔案加入這個壓縮檔中"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 #, fuzzy
 msgid "You haven't added any of them!"
 msgstr "您還沒選取要加入的檔案！"
 
-#: ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:698
 #, fuzzy
 msgid "Please fill the \"Extract to\" field!"
 msgstr "請選擇放置解壓檔案的地方！"
 
-#: ../src/extract_dialog.c:944
+#: ../src/extract_dialog.c:729
 msgid "Some errors occurred:"
 msgstr ""
 
@@ -1001,22 +984,22 @@ msgstr "檔案數:"
 msgid "Compression ratio:"
 msgstr "壓縮比率:"
 
-#: ../src/interface.c:1385
+#: ../src/interface.c:1384
 #, fuzzy
 msgid "Sorry,I could not perform the operation!"
 msgstr "抱歉，我無法進行這項操作！"
 
-#: ../src/interface.c:1495 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1494 ../xarchiver.desktop.in.h:3
 #, fuzzy
 msgid "Xarchiver"
 msgstr "檔案(_A)"
 
-#: ../src/interface.c:1519
+#: ../src/interface.c:1518
 #, fuzzy
 msgid "Extracting archive:"
 msgstr "解壓縮檔案到 "
 
-#: ../src/interface.c:1529
+#: ../src/interface.c:1528
 msgid "Total Progress:"
 msgstr ""
 
@@ -1083,16 +1066,16 @@ msgstr ""
 msgid "Can't extract files from the archive:"
 msgstr "將檔案加入這個壓縮檔中"
 
-#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:206
+#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:208
 #, fuzzy
 msgid "You missed the archive name!\n"
 msgstr "請輸入密碼。"
 
-#: ../src/main.c:245
+#: ../src/main.c:247
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 
-#: ../src/main.c:471
+#: ../src/main.c:473
 #, fuzzy
 msgid "Can't allocate memory for the archive structure!"
 msgstr "將檔案加入這個壓縮檔中"
@@ -1115,7 +1098,7 @@ msgstr ""
 msgid "Browse"
 msgstr ""
 
-#: ../src/open-with-dlg.c:303
+#: ../src/open-with-dlg.c:302
 #, fuzzy
 msgid "Select an application"
 msgstr "動作(_A)"
@@ -1352,6 +1335,20 @@ msgstr "[壓縮檔名稱]"
 #, fuzzy
 msgid "Archive manager"
 msgstr "[壓縮檔名稱]"
+
+#, fuzzy
+#~ msgid "Directories Tree:"
+#~ msgstr "目錄"
+
+#, fuzzy
+#~ msgid "Create New Dir"
+#~ msgstr "新建壓縮檔"
+
+#, fuzzy
+#~ msgid "Can't create directory \"%s\""
+#~ msgstr ""
+#~ "無法開啟壓縮檔 %s:\n"
+#~ "%s"
 
 #~ msgid "Add files to the archive"
 #~ msgstr "將檔案加入這個壓縮檔中"

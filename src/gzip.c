@@ -136,3 +136,23 @@ void xa_get_gzip_line_content (gchar *line, gpointer data)
 	entry = xa_set_archive_entries_for_each_row (archive,basename,item);
 	g_free(basename);
 }
+
+gboolean gzip_extract(XArchive *archive,GSList *dummy)
+{
+	gchar *command = NULL,*filename = NULL,*dot,*filename_noext;
+	GSList *list = NULL;
+
+	filename = xa_remove_path_from_archive_name(archive->escaped_path);
+	dot = strrchr(filename,'.');
+	if (G_LIKELY(dot))
+	{
+		filename_noext = g_strndup(filename,(dot - filename));
+		g_free(filename);
+	}
+	else
+		filename_noext = filename;
+
+	command = g_strconcat("sh -c \"gunzip -cd ",archive->escaped_path," > ",archive->extraction_path,"/",filename_noext,"\"",NULL);
+	list = g_slist_append(list,command);
+	return xa_run_command (archive,list);
+}

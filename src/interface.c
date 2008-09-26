@@ -591,11 +591,11 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 	{
 		if (archive[id]->status == XA_ARCHIVESTATUS_IDLE)
 		{
-			gtk_widget_set_sensitive (Stop_button ,FALSE);
+			gtk_widget_set_sensitive (Stop_button,FALSE);
 			goto here;
 		}
 		xa_set_button_state (0,0,0,0,0,0,0,0,0);
-		gtk_widget_set_sensitive ( Stop_button ,TRUE);
+		gtk_widget_set_sensitive (Stop_button,TRUE);
 		return;
 	}
 	xa_set_button_state (1,1,1,GTK_WIDGET_IS_SENSITIVE(close1),archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties);

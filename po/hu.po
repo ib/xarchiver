@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-08-27 15:18+0200\n"
+"POT-Creation-Date: 2008-09-25 11:08+0200\n"
 "PO-Revision-Date: 2008-09-01 03:59+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -117,7 +117,7 @@ msgstr "Műveletek: "
 msgid "Compression: "
 msgstr "Tömörítés:"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:192
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:153
 msgid "Password:"
 msgstr "Jelszó:"
 
@@ -149,7 +149,7 @@ msgstr "0 = nem tömörít, 1 az alap, 4 = leggyorsabb de kisebb tömörítés"
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = alap tömörítés, 7 = legnagyobb tömörítés"
 
-#: ../src/add_dialog.c:370 ../src/main.c:206
+#: ../src/add_dialog.c:370 ../src/main.c:208
 msgid "Can't add files to the archive:"
 msgstr "Nem tudtam fájlokat adni az archívumhoz:"
 
@@ -173,15 +173,15 @@ msgstr "Fájlok hozzáadása az archívumhoz, kérlek, várj..."
 msgid "Can't run the archiver executable:"
 msgstr "Nem tudom futtatni az archiválót:"
 
-#: ../src/archive.c:294
+#: ../src/archive.c:289
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Az átmeneti könyvtár nem hozható létre a /tmp-ben:"
 
-#: ../src/archive.c:331
+#: ../src/archive.c:326
 msgid "Can't spawn the command:"
 msgstr "Nem indítható parancs:"
 
-#: ../src/archive.c:343
+#: ../src/archive.c:338
 msgid ""
 "\n"
 "\n"
@@ -191,7 +191,7 @@ msgstr ""
 "\n"
 "** Kimenet lerövidítve; túl sok hiba!"
 
-#: ../src/archive.c:345 ../src/archive.c:349 ../src/window.c:88
+#: ../src/archive.c:340 ../src/archive.c:344 ../src/window.c:88
 msgid "An error occurred!"
 msgstr "Hiba történt!"
 
@@ -216,7 +216,7 @@ msgstr "Jogok"
 msgid "Owner/Group"
 msgstr "Tulajdonos/Csoport"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:607
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:397
 #: ../src/gzip.c:62 ../src/gzip.c:79 ../src/lha.c:50 ../src/rpm.c:52
 #: ../src/tar.c:51
 msgid "Size"
@@ -365,7 +365,7 @@ msgstr "Ön-kicsomagoló archívum mentése mint"
 msgid "Open an archive"
 msgstr "Archívum megnyitása"
 
-#: ../src/window.c:1213 ../src/extract_dialog.c:86 ../src/new_dialog.c:62
+#: ../src/window.c:1213 ../src/extract_dialog.c:88 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Minden fájl"
 
@@ -426,11 +426,11 @@ msgstr "Nem tudok másik kibontást végrehajtani:"
 msgid "Please wait until the completion of the current one!"
 msgstr "Várj a jelenlegi befejezéséig!"
 
-#: ../src/window.c:1904 ../src/extract_dialog.c:846
+#: ../src/window.c:1904 ../src/extract_dialog.c:631
 msgid "Sorry, I could not perform the operation!"
 msgstr "Bocs, a művelet nem sikerült!"
 
-#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1378
+#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1377
 msgid "Can't perform this action:"
 msgstr "Nem hajtható végre e művelet:"
 
@@ -438,11 +438,11 @@ msgstr "Nem hajtható végre e művelet:"
 msgid "You have to install rar package!"
 msgstr "Telepítsd a rar csomagot!"
 
-#: ../src/window.c:1945 ../src/interface.c:1375
+#: ../src/window.c:1945 ../src/interface.c:1374
 msgid "You can't add content to deb packages!"
 msgstr "Nem tudod bővíteni a deb csomagokat!"
 
-#: ../src/window.c:1947 ../src/interface.c:1377
+#: ../src/window.c:1947 ../src/interface.c:1376
 msgid "You can't add content to rpm packages!"
 msgstr "Nem tudod bővíteni az rpm csomagokat!"
 
@@ -495,40 +495,40 @@ msgstr "%s fájl nem nyitható meg:"
 msgid "Date modified"
 msgstr "Dátum módosítva"
 
-#: ../src/extract_dialog.c:61 ../src/extract_dialog.c:677
+#: ../src/extract_dialog.c:62 ../src/extract_dialog.c:467
 msgid "Extract to:"
 msgstr "Kibontás ide:"
 
-#: ../src/extract_dialog.c:91
+#: ../src/extract_dialog.c:93
 msgid "Selected files"
 msgstr "Kijelölt fájlok"
 
-#: ../src/extract_dialog.c:99
+#: ../src/extract_dialog.c:101
 msgid "Files: "
 msgstr "Fájlok:"
 
-#: ../src/extract_dialog.c:110
+#: ../src/extract_dialog.c:112
 msgid "Files "
 msgstr "Fájlok"
 
-#: ../src/extract_dialog.c:124 ../src/extract_dialog.c:709
+#: ../src/extract_dialog.c:126 ../src/extract_dialog.c:494
 msgid "Overwrite existing files"
 msgstr "Létező fájlokat felülír"
 
-#: ../src/extract_dialog.c:127
+#: ../src/extract_dialog.c:129
 msgid "Extract files with full path"
 msgstr "Fájlok kibontása teljes ösvénnyel"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:130
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Az archívum könyvtár szerkezete újraépítve a kibontó könyvtárban"
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c:133
 msgid "Touch files"
 msgstr "Fájlok érintése"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:134
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
 "files it extracts as the times when the files were extracted, instead of "
@@ -537,21 +537,21 @@ msgstr ""
 "A lehetőség használatakor a tar a módosítási időket a mostanira állítja be, "
 "nem az archívumban tároltra"
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c:137
 msgid "Freshen existing files"
 msgstr "Létező fájlok frissítése"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:138
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
 msgstr "Csak a lemezen már létező fájlok újabb változatait bontja ki"
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c:142
 msgid "Update existing files"
 msgstr "Létező fájlok frissítése"
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:143
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
@@ -560,122 +560,109 @@ msgstr ""
 "E lehetőség hasonló a frissítő módozathoz, kibontja a létező fájlok újabb "
 "változatait, ezen felül pedig azokat is, melyek még nem voltak a lemezen"
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c:147
 msgid "Options "
 msgstr "Lehetőségek"
 
-#: ../src/extract_dialog.c:151
-msgid "Directories Tree:"
-msgstr "Könyvtárak fája:"
-
-#: ../src/extract_dialog.c:185
-msgid "Create New Dir"
-msgstr "Új könyvtár"
-
-#: ../src/extract_dialog.c:209 ../src/extract_dialog.c:725
+#: ../src/extract_dialog.c:170 ../src/extract_dialog.c:510
 #: ../src/interface.c:175
 msgid "_Extract"
 msgstr "_Kibont"
 
-#: ../src/extract_dialog.c:289
-#, c-format
-msgid "Can't create directory \"%s\""
-msgstr "\"%s\" könyvtár nem hozható létre"
-
-#: ../src/extract_dialog.c:346
+#: ../src/extract_dialog.c:224
 msgid "Decompress file"
 msgstr "Fájl kitömörítése"
 
-#: ../src/extract_dialog.c:348 ../src/interface.c:397
+#: ../src/extract_dialog.c:226 ../src/interface.c:397
 msgid "Extract files"
 msgstr "Fájlok kibontása"
 
-#: ../src/extract_dialog.c:442 ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:320 ../src/extract_dialog.c:698
 msgid "You missed where to extract the files!"
 msgstr "Kihagytad a kibontandó fájlok helyét!"
 
-#: ../src/extract_dialog.c:442
+#: ../src/extract_dialog.c:320
 msgid "Please enter the extraction path."
 msgstr "Add meg a kibontás útját."
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "This archive is encrypted!"
 msgstr "Az archívum titkosított!"
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "Please enter the password."
 msgstr "Add meg e jelszót"
 
-#: ../src/extract_dialog.c:466
+#: ../src/extract_dialog.c:344
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "Nincsenek meg a jogaid a fájlok kibontásához e mappába: \"%s\""
 
-#: ../src/extract_dialog.c:467
+#: ../src/extract_dialog.c:345
 msgid "Can't perform extraction!"
 msgstr "Kibontás nem sikerült!"
 
-#: ../src/extract_dialog.c:501
+#: ../src/extract_dialog.c:379
 msgid "Extracting files from archive, please wait..."
 msgstr "Fájlok kibontása az archívumból, kérlek, várj..."
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 msgid "Archive Name"
 msgstr "Archívum név"
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 msgid "Path"
 msgstr "Útvonal"
 
-#: ../src/extract_dialog.c:619
+#: ../src/extract_dialog.c:409
 msgid "Multi-Extract"
 msgstr "Többszörös-kibontás"
 
-#: ../src/extract_dialog.c:692
+#: ../src/extract_dialog.c:477
 msgid "Extract to dir \"Archive Name\""
 msgstr "Kibontás az \"Archívum név\" mappába"
 
-#: ../src/extract_dialog.c:693
+#: ../src/extract_dialog.c:478
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr ""
 "E lehetőség az archívum nevének megfelelő mappába bontja ki az archívumot"
 
-#: ../src/extract_dialog.c:697
+#: ../src/extract_dialog.c:482
 msgid "Destination dirs:"
 msgstr "Cél-mappák:"
 
-#: ../src/extract_dialog.c:711
+#: ../src/extract_dialog.c:496
 msgid "Extract pathnames"
 msgstr "Útvonal nevek kibontása"
 
-#: ../src/extract_dialog.c:713
+#: ../src/extract_dialog.c:498
 msgid "Options:"
 msgstr "Lehetőségek:"
 
-#: ../src/extract_dialog.c:745
+#: ../src/extract_dialog.c:530
 msgid "Please select the archives you want to extract"
 msgstr "Jelöld ki a kibontandó archívumot"
 
-#: ../src/extract_dialog.c:867
+#: ../src/extract_dialog.c:652
 msgid "Please select the destination directory"
 msgstr "Kérlek, jelöld ki a cél mappát"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 msgid "Can't multi-extract archives:"
 msgstr "Nem tudtam többszörösen kibontani egyes archívumokat:"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 msgid "You haven't added any of them!"
 msgstr "Nem adtál hozzá egyet sem!"
 
-#: ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:698
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Kérlek, töltsd ki a \"Kicsomagolás ide\" mezőt!"
 
-#: ../src/extract_dialog.c:944
+#: ../src/extract_dialog.c:729
 msgid "Some errors occurred:"
 msgstr "Hibák történtek:"
 
@@ -923,19 +910,19 @@ msgstr "Fájlok száma:"
 msgid "Compression ratio:"
 msgstr "Tömörítési arány:"
 
-#: ../src/interface.c:1385
+#: ../src/interface.c:1384
 msgid "Sorry,I could not perform the operation!"
 msgstr "Bocs, a művelet nem sikerült!"
 
-#: ../src/interface.c:1495 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1494 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1519
+#: ../src/interface.c:1518
 msgid "Extracting archive:"
 msgstr "Archívum kibontása:"
 
-#: ../src/interface.c:1529
+#: ../src/interface.c:1528
 msgid "Total Progress:"
 msgstr "Teljes folyamat:"
 
@@ -992,17 +979,17 @@ msgstr ""
 msgid "Can't extract files from the archive:"
 msgstr "Nem tudtam fájlokat kibontani az archívumból:"
 
-#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:206
+#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:208
 msgid "You missed the archive name!\n"
 msgstr "Kihagytad az archívum nevet!\n"
 
-#: ../src/main.c:245
+#: ../src/main.c:247
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 "Válaszd az \"Új\" pontot létrehozáshoz vagy a  \"Megnyitás\"-t egy archívum "
 "megnyitásához"
 
-#: ../src/main.c:471
+#: ../src/main.c:473
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Nem tudok lefoglalni memóriát az archívum felépítésnek!"
 
@@ -1023,7 +1010,7 @@ msgstr "Egyéni parancs használata:"
 msgid "Browse"
 msgstr "Böngészés"
 
-#: ../src/open-with-dlg.c:303
+#: ../src/open-with-dlg.c:302
 msgid "Select an application"
 msgstr "Válassz alkalmazást"
 
@@ -1240,6 +1227,15 @@ msgstr "Egy GTK+2 archívum kezelő"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Archívum kezelő"
+
+#~ msgid "Directories Tree:"
+#~ msgstr "Könyvtárak fája:"
+
+#~ msgid "Create New Dir"
+#~ msgstr "Új könyvtár"
+
+#~ msgid "Can't create directory \"%s\""
+#~ msgstr "\"%s\" könyvtár nem hozható létre"
 
 #~ msgid "Add files to the archive"
 #~ msgstr "Fájlok adása az archívumhoz"

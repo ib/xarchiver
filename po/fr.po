@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta1\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-08-27 15:18+0200\n"
+"POT-Creation-Date: 2008-09-25 11:08+0200\n"
 "PO-Revision-Date: 2008-09-03 15:26+0100\n"
 "Last-Translator: Maximilian Schleiss <maximilian@xfce.org>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -119,7 +119,7 @@ msgstr "Actions :"
 msgid "Compression: "
 msgstr "Compression :"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:192
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:153
 msgid "Password:"
 msgstr "Mot de passe:"
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = compression par défaut, 7 = compression max."
 
-#: ../src/add_dialog.c:370 ../src/main.c:206
+#: ../src/add_dialog.c:370 ../src/main.c:208
 msgid "Can't add files to the archive:"
 msgstr "Échec à l'ajout de fichiers à l'archive:"
 
@@ -176,15 +176,15 @@ msgstr "Ajouts de fichiers à l'archive, veuillez patienter..."
 msgid "Can't run the archiver executable:"
 msgstr "Échec à l'exécution d'archiver :"
 
-#: ../src/archive.c:294
+#: ../src/archive.c:289
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Échec à la création du répertoire temporaire dans /tmp :"
 
-#: ../src/archive.c:331
+#: ../src/archive.c:326
 msgid "Can't spawn the command:"
 msgstr "Échec à l'exécution de la commande :"
 
-#: ../src/archive.c:343
+#: ../src/archive.c:338
 msgid ""
 "\n"
 "\n"
@@ -194,7 +194,7 @@ msgstr ""
 "\n"
 "** Sortie raccourcie; trop d'erreurs !"
 
-#: ../src/archive.c:345 ../src/archive.c:349 ../src/window.c:88
+#: ../src/archive.c:340 ../src/archive.c:344 ../src/window.c:88
 msgid "An error occurred!"
 msgstr "Une erreur s'est produite !"
 
@@ -219,7 +219,7 @@ msgstr "Permissions"
 msgid "Owner/Group"
 msgstr "Propriétaire/Groupe"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:607
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:397
 #: ../src/gzip.c:62 ../src/gzip.c:79 ../src/lha.c:50 ../src/rpm.c:52
 #: ../src/tar.c:51
 msgid "Size"
@@ -371,7 +371,7 @@ msgstr "Enregistrer l'archive auto-extractible en tant que"
 msgid "Open an archive"
 msgstr "Ouvrir une archive"
 
-#: ../src/window.c:1213 ../src/extract_dialog.c:86 ../src/new_dialog.c:62
+#: ../src/window.c:1213 ../src/extract_dialog.c:88 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Tous les fichiers"
 
@@ -432,11 +432,11 @@ msgstr "Impossible de faire une autre extraction :"
 msgid "Please wait until the completion of the current one!"
 msgstr "Attendez que celle en cours soit finie !"
 
-#: ../src/window.c:1904 ../src/extract_dialog.c:846
+#: ../src/window.c:1904 ../src/extract_dialog.c:631
 msgid "Sorry, I could not perform the operation!"
 msgstr "Échec à l'exécution de l'opération !"
 
-#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1378
+#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1377
 msgid "Can't perform this action:"
 msgstr "Échec à l'exécution de cette action !"
 
@@ -444,11 +444,11 @@ msgstr "Échec à l'exécution de cette action !"
 msgid "You have to install rar package!"
 msgstr "Vous devez installer le paquet rar !"
 
-#: ../src/window.c:1945 ../src/interface.c:1375
+#: ../src/window.c:1945 ../src/interface.c:1374
 msgid "You can't add content to deb packages!"
 msgstr "Vous ne pouvez pas ajouter des données aux paquets deb !"
 
-#: ../src/window.c:1947 ../src/interface.c:1377
+#: ../src/window.c:1947 ../src/interface.c:1376
 msgid "You can't add content to rpm packages!"
 msgstr "Vous ne pouvez pas ajouter des données aux paquets rpm !"
 
@@ -501,40 +501,40 @@ msgstr "Échec à l'ouverture du fichier %s :"
 msgid "Date modified"
 msgstr "Date de modificarion"
 
-#: ../src/extract_dialog.c:61 ../src/extract_dialog.c:677
+#: ../src/extract_dialog.c:62 ../src/extract_dialog.c:467
 msgid "Extract to:"
 msgstr "Extraire vers :"
 
-#: ../src/extract_dialog.c:91
+#: ../src/extract_dialog.c:93
 msgid "Selected files"
 msgstr "Fichiers sélectionnés"
 
-#: ../src/extract_dialog.c:99
+#: ../src/extract_dialog.c:101
 msgid "Files: "
 msgstr "Fichiers :"
 
-#: ../src/extract_dialog.c:110
+#: ../src/extract_dialog.c:112
 msgid "Files "
 msgstr "Fichiers"
 
-#: ../src/extract_dialog.c:124 ../src/extract_dialog.c:709
+#: ../src/extract_dialog.c:126 ../src/extract_dialog.c:494
 msgid "Overwrite existing files"
 msgstr "Écraser les fichiers existants"
 
-#: ../src/extract_dialog.c:127
+#: ../src/extract_dialog.c:129
 msgid "Extract files with full path"
 msgstr "Extraire les fichiers avec leur chemin d'accès complet"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:130
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "La structure de répertoire est recréée dans le répertoire d'extraction"
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c:133
 msgid "Touch files"
 msgstr "Touch fichiers"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:134
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
 "files it extracts as the times when the files were extracted, instead of "
@@ -543,22 +543,22 @@ msgstr ""
 "Cette option remplace la date de création ou de modification des fichiers "
 "par la date actuelle de leur extraction."
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c:137
 msgid "Freshen existing files"
 msgstr "Rafraîchir les fichiers"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:138
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
 msgstr ""
 "Extraire seulement les fichiers existants et plus récents que ceux du disque"
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c:142
 msgid "Update existing files"
 msgstr "Mettre à jour les fichiers"
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:143
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
@@ -568,53 +568,40 @@ msgstr ""
 "extraire les fichiers existants et plus récents que ceux du disque mais en "
 "plus, elle ajoute les fichiers qui n'existent pas encore sur le disque"
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c:147
 msgid "Options "
 msgstr "Options"
 
-#: ../src/extract_dialog.c:151
-msgid "Directories Tree:"
-msgstr "Arborescence :"
-
-#: ../src/extract_dialog.c:185
-msgid "Create New Dir"
-msgstr "Nouveau dossier"
-
-#: ../src/extract_dialog.c:209 ../src/extract_dialog.c:725
+#: ../src/extract_dialog.c:170 ../src/extract_dialog.c:510
 #: ../src/interface.c:175
 msgid "_Extract"
 msgstr "_Extraire"
 
-#: ../src/extract_dialog.c:289
-#, c-format
-msgid "Can't create directory \"%s\""
-msgstr "Échec à la création du répertoire \"%s\""
-
-#: ../src/extract_dialog.c:346
+#: ../src/extract_dialog.c:224
 msgid "Decompress file"
 msgstr "Décompresser le fichier"
 
-#: ../src/extract_dialog.c:348 ../src/interface.c:397
+#: ../src/extract_dialog.c:226 ../src/interface.c:397
 msgid "Extract files"
 msgstr "Extraire les fichiers"
 
-#: ../src/extract_dialog.c:442 ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:320 ../src/extract_dialog.c:698
 msgid "You missed where to extract the files!"
 msgstr "Chemin d'extraction manquant !"
 
-#: ../src/extract_dialog.c:442
+#: ../src/extract_dialog.c:320
 msgid "Please enter the extraction path."
 msgstr "Compléter le chemin d'extraction des fichiers."
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "This archive is encrypted!"
 msgstr "Cette archive est cryptée !"
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "Please enter the password."
 msgstr "Entrez le mot de passe."
 
-#: ../src/extract_dialog.c:466
+#: ../src/extract_dialog.c:344
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
@@ -623,68 +610,68 @@ msgstr ""
 "Vous n'avez pas les permissions nécessaires à l'extraction des fichiers dans "
 "le dossier \"%s\"."
 
-#: ../src/extract_dialog.c:467
+#: ../src/extract_dialog.c:345
 msgid "Can't perform extraction!"
 msgstr "Échec à l'extraction !"
 
-#: ../src/extract_dialog.c:501
+#: ../src/extract_dialog.c:379
 msgid "Extracting files from archive, please wait..."
 msgstr "Extraction des fichiers de l'archive, veuillez patienter..."
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 msgid "Archive Name"
 msgstr "Nom de l'archive"
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 msgid "Path"
 msgstr "Chemin"
 
-#: ../src/extract_dialog.c:619
+#: ../src/extract_dialog.c:409
 msgid "Multi-Extract"
 msgstr "Extraction multiple"
 
-#: ../src/extract_dialog.c:692
+#: ../src/extract_dialog.c:477
 msgid "Extract to dir \"Archive Name\""
 msgstr "Extraire les fichiers dans \"Nom de l'archive\""
 
-#: ../src/extract_dialog.c:693
+#: ../src/extract_dialog.c:478
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "Extraire l'archive dans un dossier portant le nom de l'archive"
 
-#: ../src/extract_dialog.c:697
+#: ../src/extract_dialog.c:482
 msgid "Destination dirs:"
 msgstr "Dossier de destination :"
 
-#: ../src/extract_dialog.c:711
+#: ../src/extract_dialog.c:496
 msgid "Extract pathnames"
 msgstr "Extraire les chemins d'accès"
 
-#: ../src/extract_dialog.c:713
+#: ../src/extract_dialog.c:498
 msgid "Options:"
 msgstr "Options :"
 
-#: ../src/extract_dialog.c:745
+#: ../src/extract_dialog.c:530
 msgid "Please select the archives you want to extract"
 msgstr "Sélectionnez les archives à extraire"
 
-#: ../src/extract_dialog.c:867
+#: ../src/extract_dialog.c:652
 msgid "Please select the destination directory"
 msgstr "Sélectionnez le dossier de destination"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 msgid "Can't multi-extract archives:"
 msgstr "Échec à l'extraction multiple d'archives :"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 msgid "You haven't added any of them!"
 msgstr "Aucune archive ajoutée !"
 
-#: ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:698
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Veuillez compléter le champ \"Extraire vers\" !"
 
-#: ../src/extract_dialog.c:944
+#: ../src/extract_dialog.c:729
 msgid "Some errors occurred:"
 msgstr "Quelques erreurs se sont produites :"
 
@@ -932,19 +919,19 @@ msgstr "Nombre de fichiers :"
 msgid "Compression ratio:"
 msgstr "Taux de compression :"
 
-#: ../src/interface.c:1385
+#: ../src/interface.c:1384
 msgid "Sorry,I could not perform the operation!"
 msgstr "Échec à l'exécution de l'opération !"
 
-#: ../src/interface.c:1495 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1494 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1519
+#: ../src/interface.c:1518
 msgid "Extracting archive:"
 msgstr "Extraction de l'archive :"
 
-#: ../src/interface.c:1529
+#: ../src/interface.c:1528
 msgid "Total Progress:"
 msgstr "Progression totale :"
 
@@ -1001,16 +988,16 @@ msgstr ""
 msgid "Can't extract files from the archive:"
 msgstr "Échec à l'extraction de fichiers de l'archive :"
 
-#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:206
+#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:208
 msgid "You missed the archive name!\n"
 msgstr "Nom de l'archive manquant !\n"
 
-#: ../src/main.c:245
+#: ../src/main.c:247
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 "Sélectionnez \"Nouvelle\" pour créer ou \"Ouvrir\" pour ouvrir une archive"
 
-#: ../src/main.c:471
+#: ../src/main.c:473
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Échec à l'allocation de mémoire pour la structure de l'archive!"
 
@@ -1031,7 +1018,7 @@ msgstr "Utiliser une commande personnalisée :"
 msgid "Browse"
 msgstr "Naviguer"
 
-#: ../src/open-with-dlg.c:303
+#: ../src/open-with-dlg.c:302
 msgid "Select an application"
 msgstr "Sélectionnez une application"
 
@@ -1248,6 +1235,15 @@ msgstr "Un gestionnaire d'archive pour GTK+2 seulement"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Gestionnaire d'archives"
+
+#~ msgid "Directories Tree:"
+#~ msgstr "Arborescence :"
+
+#~ msgid "Create New Dir"
+#~ msgstr "Nouveau dossier"
+
+#~ msgid "Can't create directory \"%s\""
+#~ msgstr "Échec à la création du répertoire \"%s\""
 
 #~ msgid "Add files to the archive"
 #~ msgstr "Ajouter des fichiers à l'archive"

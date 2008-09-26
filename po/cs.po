@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-08-27 15:18+0200\n"
+"POT-Creation-Date: 2008-09-25 11:08+0200\n"
 "PO-Revision-Date: 2008-08-28 13:49+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -120,7 +120,7 @@ msgstr "Akce:"
 msgid "Compression: "
 msgstr "Úroveň komprese:"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:192
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:153
 msgid "Password:"
 msgstr "Heslo:"
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = standardní úroveň komprese, 7 = nejvyšší úroveň komprese"
 
-#: ../src/add_dialog.c:370 ../src/main.c:206
+#: ../src/add_dialog.c:370 ../src/main.c:208
 msgid "Can't add files to the archive:"
 msgstr "Nelze přidat soubory do archivu"
 
@@ -184,15 +184,15 @@ msgstr "Do archivu se přidávají soubory, prosím čekejte..."
 msgid "Can't run the archiver executable:"
 msgstr "Nelze spustit program archivátoru:"
 
-#: ../src/archive.c:294
+#: ../src/archive.c:289
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Nelze vytvořit dočasný adresář v adresáři /tmp:"
 
-#: ../src/archive.c:331
+#: ../src/archive.c:326
 msgid "Can't spawn the command:"
 msgstr "Nelze vytvořit příkaz:"
 
-#: ../src/archive.c:343
+#: ../src/archive.c:338
 msgid ""
 "\n"
 "\n"
@@ -202,7 +202,7 @@ msgstr ""
 "\n"
 "** Výpis byl zkrácen, došlo k příliš velkému množství chyb."
 
-#: ../src/archive.c:345 ../src/archive.c:349 ../src/window.c:88
+#: ../src/archive.c:340 ../src/archive.c:344 ../src/window.c:88
 msgid "An error occurred!"
 msgstr "Nastala chyba!"
 
@@ -227,7 +227,7 @@ msgstr "Přístupová práva"
 msgid "Owner/Group"
 msgstr "Vlastník/skupina"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:607
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:397
 #: ../src/gzip.c:62 ../src/gzip.c:79 ../src/lha.c:50 ../src/rpm.c:52
 #: ../src/tar.c:51
 msgid "Size"
@@ -376,7 +376,7 @@ msgstr "Uložit samorozbalitelný archiv jako"
 msgid "Open an archive"
 msgstr "Otevřít archiv"
 
-#: ../src/window.c:1213 ../src/extract_dialog.c:86 ../src/new_dialog.c:62
+#: ../src/window.c:1213 ../src/extract_dialog.c:88 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Všechny soubory"
 
@@ -440,11 +440,11 @@ msgstr "Nelze provést další rozbalení:"
 msgid "Please wait until the completion of the current one!"
 msgstr "Počkejte prosím, než se dokončí předchozí operace!"
 
-#: ../src/window.c:1904 ../src/extract_dialog.c:846
+#: ../src/window.c:1904 ../src/extract_dialog.c:631
 msgid "Sorry, I could not perform the operation!"
 msgstr "Omlouváme se, nelze provést operaci!"
 
-#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1378
+#: ../src/window.c:1938 ../src/window.c:1950 ../src/interface.c:1377
 msgid "Can't perform this action:"
 msgstr "Akci nelze provést:"
 
@@ -452,11 +452,11 @@ msgstr "Akci nelze provést:"
 msgid "You have to install rar package!"
 msgstr "Je nutné nainstalovat balíček rar."
 
-#: ../src/window.c:1945 ../src/interface.c:1375
+#: ../src/window.c:1945 ../src/interface.c:1374
 msgid "You can't add content to deb packages!"
 msgstr "!Do balíčků deb nemůžete nic přidávat"
 
-#: ../src/window.c:1947 ../src/interface.c:1377
+#: ../src/window.c:1947 ../src/interface.c:1376
 msgid "You can't add content to rpm packages!"
 msgstr "Do balíčků rpm nemůžete nic přidávat!"
 
@@ -509,42 +509,42 @@ msgstr "Nelze otevřít soubor %s:"
 msgid "Date modified"
 msgstr "Datum změny"
 
-#: ../src/extract_dialog.c:61 ../src/extract_dialog.c:677
+#: ../src/extract_dialog.c:62 ../src/extract_dialog.c:467
 msgid "Extract to:"
 msgstr "Rozbalit do:"
 
-#: ../src/extract_dialog.c:91
+#: ../src/extract_dialog.c:93
 msgid "Selected files"
 msgstr "Vybrané soubory"
 
-#: ../src/extract_dialog.c:99
+#: ../src/extract_dialog.c:101
 msgid "Files: "
 msgstr "Soubory:"
 
-#: ../src/extract_dialog.c:110
+#: ../src/extract_dialog.c:112
 msgid "Files "
 msgstr "Soubory"
 
-#: ../src/extract_dialog.c:124 ../src/extract_dialog.c:709
+#: ../src/extract_dialog.c:126 ../src/extract_dialog.c:494
 msgid "Overwrite existing files"
 msgstr "Přepsat existující soubory"
 
-#: ../src/extract_dialog.c:127
+#: ../src/extract_dialog.c:129
 msgid "Extract files with full path"
 msgstr "Rozbalit soubory s úplnou cestou"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:130
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 "Adresářová struktura archivu bude opětovně vytvořena do adresáře určeného "
 "pro rozbalení."
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c:133
 msgid "Touch files"
 msgstr "Dotknout se souborů"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:134
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
 "files it extracts as the times when the files were extracted, instead of "
@@ -553,21 +553,21 @@ msgstr ""
 "Použijete-li tuto volbu, archivátor tar nastaví všem souborům po rozbalení "
 "aktuální čas doby rozbalení, namísto původního času uloženého v archivu."
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c:137
 msgid "Freshen existing files"
 msgstr "Aktualizovat existující soubory"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:138
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
 msgstr "Rozbalit pouze ty soubory, jejichž starší kopie již existují na disku."
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c:142
 msgid "Update existing files"
 msgstr "Doplnit existující soubory"
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:143
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
 "that are newer than those with the same name on disk, and in addition it "
@@ -577,122 +577,109 @@ msgstr ""
 "jejichž starší kopie se vyskytují na disku a navíc rozbalí i takové soubory, "
 "které na disku neexistují."
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c:147
 msgid "Options "
 msgstr "Volby"
 
-#: ../src/extract_dialog.c:151
-msgid "Directories Tree:"
-msgstr "Strom adresářů:"
-
-#: ../src/extract_dialog.c:185
-msgid "Create New Dir"
-msgstr "Vytvořit adresář"
-
-#: ../src/extract_dialog.c:209 ../src/extract_dialog.c:725
+#: ../src/extract_dialog.c:170 ../src/extract_dialog.c:510
 #: ../src/interface.c:175
 msgid "_Extract"
 msgstr "_Rozbalit"
 
-#: ../src/extract_dialog.c:289
-#, c-format
-msgid "Can't create directory \"%s\""
-msgstr "Nelze vytvořit adresář \"%s\""
-
-#: ../src/extract_dialog.c:346
+#: ../src/extract_dialog.c:224
 msgid "Decompress file"
 msgstr "Rozbalit soubor"
 
-#: ../src/extract_dialog.c:348 ../src/interface.c:397
+#: ../src/extract_dialog.c:226 ../src/interface.c:397
 msgid "Extract files"
 msgstr "Rozbalit soubory"
 
-#: ../src/extract_dialog.c:442 ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:320 ../src/extract_dialog.c:698
 msgid "You missed where to extract the files!"
 msgstr "Neuvedli jste, kam mají být soubory rozbaleny"
 
-#: ../src/extract_dialog.c:442
+#: ../src/extract_dialog.c:320
 msgid "Please enter the extraction path."
 msgstr "Vložte cestu pro rozbalení."
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "This archive is encrypted!"
 msgstr "Tento archiv je šifrovaný!"
 
-#: ../src/extract_dialog.c:456
+#: ../src/extract_dialog.c:334
 msgid "Please enter the password."
 msgstr "Vložte heslo."
 
-#: ../src/extract_dialog.c:466
+#: ../src/extract_dialog.c:344
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "Nemáte oprávnění potřebná pro rozbalení souborů do adresáře \"%s\"."
 
-#: ../src/extract_dialog.c:467
+#: ../src/extract_dialog.c:345
 msgid "Can't perform extraction!"
 msgstr "Nelze rozbalit archiv!"
 
-#: ../src/extract_dialog.c:501
+#: ../src/extract_dialog.c:379
 msgid "Extracting files from archive, please wait..."
 msgstr "Rozbalují se soubory z archivu, prosím čekejte..."
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 msgid "Archive Name"
 msgstr "Název archivu"
 
-#: ../src/extract_dialog.c:607
+#: ../src/extract_dialog.c:397
 msgid "Path"
 msgstr "Cesta"
 
-#: ../src/extract_dialog.c:619
+#: ../src/extract_dialog.c:409
 msgid "Multi-Extract"
 msgstr "Vícenásobné rozbalení"
 
-#: ../src/extract_dialog.c:692
+#: ../src/extract_dialog.c:477
 msgid "Extract to dir \"Archive Name\""
 msgstr "Rozbalit do adresáře \"Název archivu\""
 
-#: ../src/extract_dialog.c:693
+#: ../src/extract_dialog.c:478
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr ""
 "Tato volba rozbaluje archivy do adresářů pojmenovaných podle jejich názvů"
 
-#: ../src/extract_dialog.c:697
+#: ../src/extract_dialog.c:482
 msgid "Destination dirs:"
 msgstr "Cílové adresáře:"
 
-#: ../src/extract_dialog.c:711
+#: ../src/extract_dialog.c:496
 msgid "Extract pathnames"
 msgstr "Rozbalit cesty souborů"
 
-#: ../src/extract_dialog.c:713
+#: ../src/extract_dialog.c:498
 msgid "Options:"
 msgstr "Volby:"
 
-#: ../src/extract_dialog.c:745
+#: ../src/extract_dialog.c:530
 msgid "Please select the archives you want to extract"
 msgstr "Vyberte archivy, které chcete rozbalit"
 
-#: ../src/extract_dialog.c:867
+#: ../src/extract_dialog.c:652
 msgid "Please select the destination directory"
 msgstr "Vyberte cílový adresář"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 msgid "Can't multi-extract archives:"
 msgstr "Nelze rozbalit více archivů:"
 
-#: ../src/extract_dialog.c:905
+#: ../src/extract_dialog.c:690
 msgid "You haven't added any of them!"
 msgstr "Nepřidali jste žádný z nich."
 
-#: ../src/extract_dialog.c:913
+#: ../src/extract_dialog.c:698
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Vyplňte pole \"Rozbalit do\"."
 
-#: ../src/extract_dialog.c:944
+#: ../src/extract_dialog.c:729
 msgid "Some errors occurred:"
 msgstr "Došlo k několika chybám:"
 
@@ -942,19 +929,19 @@ msgstr "Počet souborů:"
 msgid "Compression ratio:"
 msgstr "Kompresní poměr:"
 
-#: ../src/interface.c:1385
+#: ../src/interface.c:1384
 msgid "Sorry,I could not perform the operation!"
 msgstr "Omlouváme se za potíže, ale operaci nelze provést."
 
-#: ../src/interface.c:1495 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1494 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1519
+#: ../src/interface.c:1518
 msgid "Extracting archive:"
 msgstr "Rozbalování archivu:"
 
-#: ../src/interface.c:1529
+#: ../src/interface.c:1528
 msgid "Total Progress:"
 msgstr "Celkový průběh:"
 
@@ -1012,15 +999,15 @@ msgstr ""
 msgid "Can't extract files from the archive:"
 msgstr "Nelze rozbalit soubory z archivu:"
 
-#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:206
+#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:208
 msgid "You missed the archive name!\n"
 msgstr "Zapomněli jste vložit název archivu!\n"
 
-#: ../src/main.c:245
+#: ../src/main.c:247
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Vyberte \"Nový\" pro vytvoření nebo \"Otevřít\" pro otevření archivu"
 
-#: ../src/main.c:471
+#: ../src/main.c:473
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Nelze přidělit paměť pro strukturu archivu!"
 
@@ -1041,7 +1028,7 @@ msgstr "Použít vlastní příkaz:"
 msgid "Browse"
 msgstr "Procházet"
 
-#: ../src/open-with-dlg.c:303
+#: ../src/open-with-dlg.c:302
 msgid "Select an application"
 msgstr "Vybrat aplikaci"
 
@@ -1260,6 +1247,15 @@ msgstr "Správce archivů pouze pro GTK+2"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Správce archivů"
+
+#~ msgid "Directories Tree:"
+#~ msgstr "Strom adresářů:"
+
+#~ msgid "Create New Dir"
+#~ msgstr "Vytvořit adresář"
+
+#~ msgid "Can't create directory \"%s\""
+#~ msgstr "Nelze vytvořit adresář \"%s\""
 
 #~ msgid "Add files to the archive"
 #~ msgstr "Přidat soubory do archivu"

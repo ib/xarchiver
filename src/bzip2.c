@@ -129,7 +129,7 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 		g_free(compressed);
 		g_free(size);
 		g_free(filename);
-		
+
 		xa_update_window_with_archive_entries (archive,NULL);
 		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
 		g_object_unref (archive->model);
@@ -167,7 +167,7 @@ void xa_open_tar_compressed_file(XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-gboolean lzma_gzip_bzip2_extract (XArchive *archive,GSList *dummy)
+gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 {
 	GSList *list = NULL;
 	gchar *command = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
@@ -177,16 +177,23 @@ gboolean lzma_gzip_bzip2_extract (XArchive *archive,GSList *dummy)
 	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
 	{
-		filename_noext = g_strndup(filename, ( dot - filename ));
-		g_free(filename);	
+		filename_noext = g_strndup(filename,(dot - filename));
+		g_free(filename);
 	}
 	else
 		filename_noext = filename;
 
-	command = g_strconcat("cp -f ",archive->tmp,"/",filename_noext," ",archive->extraction_path,NULL);
-	g_free(filename_noext);	
+	dot = g_strconcat(archive->tmp,"/",filename_noext,NULL);
+	g_free(filename_noext);
 
-	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
+	if (g_file_test(dot,G_FILE_TEST_EXISTS) == FALSE)
+	{
+		command = g_strconcat("cp -f ",dot," ",archive->extraction_path,NULL);
+		list = g_slist_append(list,command);
+		result = xa_run_command (archive,list);
+	}
+	else
+		result = TRUE;
+	g_free(dot);	
 	return result;
 }

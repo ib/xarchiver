@@ -56,8 +56,8 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
 		{
 			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),archive->extraction_path);
-            response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"",msg );
-            g_free (msg);
+			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"",msg );
+			g_free (msg);
 		}
 		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
 			gtk_widget_set_sensitive (check_menu,FALSE);
@@ -65,30 +65,19 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
 		return;
 	}
-	result = xa_check_child_for_error_on_exit (archive,status);
-	xa_archive_operation_finished(archive);
-}
-
-gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
-{
-	int response;
-
-	archive->child_pid = archive->pb_source = 0;
-	if (xa_main_window)
-		gtk_widget_set_sensitive(Stop_button,FALSE);
-
 	if (WIFEXITED (status))
 	{
 		if (WEXITSTATUS (status))
 		{
 			if ((WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP) || (WEXITSTATUS (status) == 6 && archive->type == XARCHIVETYPE_ARJ))
-				return TRUE;
+				goto there;
 			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 			{
 				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it.") );	
-				return FALSE;
+				return;
 			}
 			xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
+			gtk_widget_set_sensitive(Stop_button,FALSE);
 			xa_show_cmd_line_output (NULL,GINT_TO_POINTER(1));
 			/* In case the user supplies a wrong password we reset it so he can try again */
 			if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
@@ -97,16 +86,10 @@ gboolean xa_check_child_for_error_on_exit(XArchive *archive,gint status)
 				archive->passwd = NULL;
 			}
 			archive->status = XA_ARCHIVESTATUS_ERROR;			
-			return FALSE;
+			return;
 		}
 	}
-	return TRUE;
-}
-
-void xa_archive_operation_finished(XArchive *archive)
-{
-	int response;
-
+there:
 	if(xa_main_window)
 	{
 		archive->child_pid = archive->pb_source = 0;
@@ -130,21 +113,21 @@ void xa_archive_operation_finished(XArchive *archive)
 		if (GTK_IS_TREE_VIEW(archive->treeview))
 			gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
 		xa_set_statusbar_message_for_displayed_rows(archive);
-	}
-	if (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE)
-		xa_reload_archive_content(archive);
 
-	else if (archive->status == XA_ARCHIVESTATUS_SFX && archive->type == XARCHIVETYPE_RAR)
-	{
-		if(xa_main_window)
-			gtk_widget_set_sensitive (exe_menu,FALSE);
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
-	}
-	else if (archive->status == XA_ARCHIVESTATUS_TEST)
-		xa_show_cmd_line_output (NULL,FALSE);
+		if (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE)
+			xa_reload_archive_content(archive);
+		else if (archive->status == XA_ARCHIVESTATUS_SFX && archive->type == XARCHIVETYPE_RAR)
+		{
+			if(xa_main_window)
+				gtk_widget_set_sensitive (exe_menu,FALSE);
+			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("The sfx archive was saved as:"),archive->tmp );
+		}
+		else if (archive->status == XA_ARCHIVESTATUS_TEST)
+			xa_show_cmd_line_output (NULL,FALSE);
 
-	archive->status = XA_ARCHIVESTATUS_IDLE;
-	gtk_label_set_text(GTK_LABEL(total_label),"");
+		archive->status = XA_ARCHIVESTATUS_IDLE;
+		gtk_label_set_text(GTK_LABEL(total_label),"");
+	}
 }
 
 void xa_reload_archive_content(XArchive *archive)
@@ -907,7 +890,6 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index ( current_page );
 
-    gtk_widget_set_sensitive (Stop_button,TRUE);
     archive[idx]->status = XA_ARCHIVESTATUS_SFX;
     switch ( archive[idx]->type )
 	{
@@ -950,22 +932,21 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 			gchar buffer[1024];
 			int response;
 
-			archive_name = xa_open_sfx_file_selector ();
+			archive_name = xa_open_sfx_file_selector();
 
 			if (archive_name == NULL)
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
 				return;
 			}
-			archive_name_escaped = xa_escape_bad_chars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
-			unzipsfx_path = g_find_program_in_path ( "unzipsfx" );
-			if ( unzipsfx_path != NULL )
+			archive_name_escaped = xa_escape_bad_chars (archive_name ,"$\'`\"\\!?* ()[]&|@#:;");
+			unzipsfx_path = g_find_program_in_path ("unzipsfx");
+			if (unzipsfx_path != NULL)
 			{
 				/* Load the unzipsfx executable in memory, about 50 KB */
 				result = g_file_get_contents (unzipsfx_path,&content,&length,&error);
 				if ( ! result)
 				{
-					gtk_widget_set_sensitive (Stop_button,FALSE);
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
 					g_error_free (error);
 					g_free (unzipsfx_path);
@@ -977,7 +958,6 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 				sfx_archive = fopen ( archive_name ,"w" );
 				if (sfx_archive == NULL)
 				{
-					gtk_widget_set_sensitive (Stop_button,FALSE);
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno) );
 					return;
 				}
@@ -988,8 +968,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx) )
 				{
-					fread (&buffer, 1, 1024, archive_not_sfx);
-					fwrite (&buffer, 1, 1024, sfx_archive);
+					fread (&buffer ,1,1024,archive_not_sfx);
+					fwrite (&buffer,1,1024,sfx_archive);
 				}
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
@@ -1023,10 +1003,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem , gpointer user_data)
         	archive_name = xa_open_sfx_file_selector ();
 
 			if (archive_name == NULL)
-			{
-				gtk_widget_set_sensitive (Stop_button,FALSE);
 				return;
-			}
 			archive_name_escaped = xa_escape_bad_chars ( archive_name ,"$\'`\"\\!?* ()[]&|@#:;" );
 
 			if (g_file_test ( "/usr/lib/p7zip/7zCon.sfx" , G_FILE_TEST_EXISTS) )
@@ -1459,7 +1436,7 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
     char *filename;
     gboolean result;
 
-    gtk_tree_model_get (model, iter, 1, &filename, -1);
+    gtk_tree_model_get(model,iter,1,&filename,-1);
     if (strcasestr (filename, key))
     	result = FALSE;
 	else
@@ -1474,7 +1451,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
-
+	gtk_widget_set_sensitive(Stop_button,FALSE);
 	if (archive[idx]->status == XA_ARCHIVESTATUS_ADD || archive[idx]->status == XA_ARCHIVESTATUS_SFX)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("Doing so will probably corrupt your archive!"),_("Do you really want to cancel?") );
@@ -1490,7 +1467,9 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	if (archive[idx]->status != XA_ARCHIVESTATUS_ADD)
 		if (archive[idx]->has_passwd)
 			archive[idx]->has_passwd = FALSE;
-	xa_archive_operation_finished(archive[idx]);
+
+	gtk_label_set_text(GTK_LABEL(total_label),"");
+	archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
@@ -1514,48 +1493,48 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     /* Path */
     dummy_string = xa_remove_level_from_path (archive[idx]->path);
     if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0)
-		utf8_string = g_filename_display_name (g_get_current_dir ());
+		utf8_string = g_filename_display_name (g_get_current_dir());
     else
 		utf8_string = g_filename_display_name (dummy_string);
     g_free ( dummy_string );
 
-    gtk_label_set_text(GTK_LABEL(path_data), utf8_string);
+    gtk_label_set_text(GTK_LABEL(path_data),utf8_string);
     g_free ( utf8_string );
 	/* Type */
-	gtk_label_set_text(GTK_LABEL(type_data), archive[idx]->format );
+	gtk_label_set_text(GTK_LABEL(type_data),archive[idx]->format);
     /* Modified Date */
-    strftime (date, 64, "%c", localtime (&my_stat.st_mtime) );
-    t = g_locale_to_utf8 ( date, -1, 0, 0, 0);
-    gtk_label_set_text(GTK_LABEL(modified_data), t);
+    strftime (date, 64, "%c", localtime (&my_stat.st_mtime));
+    t = g_locale_to_utf8 (date,-1,0,0,0);
+    gtk_label_set_text(GTK_LABEL(modified_data),t);
     g_free (t);
     /* Archive Size */
 	t = xa_set_size_string(file_size);
-    gtk_label_set_text(GTK_LABEL(size_data), t );
+    gtk_label_set_text(GTK_LABEL(size_data),t);
     g_free (t);
     /* content_size */
     t = xa_set_size_string(archive[idx]->dummy_size);
-    gtk_label_set_text(GTK_LABEL(content_data), t );
+    gtk_label_set_text(GTK_LABEL(content_data),t);
     g_free (t);
     /* Has Comment */
     if (archive[idx]->has_comment)
-		gtk_label_set_text(GTK_LABEL(comment_data), _("Yes") );
+		gtk_label_set_text(GTK_LABEL(comment_data), _("Yes"));
 	else
-		gtk_label_set_text(GTK_LABEL(comment_data), _("No") );
+		gtk_label_set_text(GTK_LABEL(comment_data), _("No"));
 
     /* Compression_ratio */
     content_size = (double)archive[idx]->dummy_size / file_size;
     t = g_strdup_printf ( "%.2f", content_size);
-    gtk_label_set_text(GTK_LABEL(compression_data), t );
+    gtk_label_set_text(GTK_LABEL(compression_data),t);
     g_free (t);
     /* Number of files */
     t = g_strdup_printf ( "%d", archive[idx]->nr_of_files);
-    gtk_label_set_text(GTK_LABEL(number_of_files_data), t );
+    gtk_label_set_text(GTK_LABEL(number_of_files_data),t);
     g_free (t);
     
     if (archive[idx]->has_passwd)
-    	gtk_label_set_text(GTK_LABEL(encrypted_data), _("Yes") );
+    	gtk_label_set_text(GTK_LABEL(encrypted_data),_("Yes"));
 	else
-		gtk_label_set_text(GTK_LABEL(encrypted_data), _("No") );
+		gtk_label_set_text(GTK_LABEL(encrypted_data),_("No"));
     gtk_widget_show_all (archive_properties_window);
 }
 
@@ -2068,6 +2047,7 @@ void xa_determine_program_to_run(gchar *file)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which program to use for opening this file!"),_("Please go to Preferences->Advanced and set it."));
 		return;
 	}
+	g_print ("%s\t%s\n",program,file);
 	xa_launch_external_program(program,file);
 	g_free(program);
 }
