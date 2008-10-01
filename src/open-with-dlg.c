@@ -35,9 +35,7 @@ gchar *xa_create_open_with_dialog(gchar *filename,int nr)
 	GtkListStore *apps_liststore;
 	GtkCellRenderer		*renderer;
 	GtkTreeViewColumn	*column;
-	GtkTreeSelection *selection;
 	GtkTreeIter iter;
-	GtkTreeModel *model;
 	GdkPixbuf *pixbuf;
 	gchar *text = NULL;
 	gchar *exec = NULL;

@@ -48,7 +48,6 @@ GList *Suffix, *Name;
 void xa_watch_child (GPid pid,gint status,XArchive *archive)
 {
 	int response;
-	gboolean result;
 
 	archive->child_pid = archive->pb_source = 0;
 	if (WIFSIGNALED (status) )
@@ -132,6 +131,7 @@ there:
 
 void xa_reload_archive_content(XArchive *archive)
 {
+	g_print ("Reload\n");
 	XEntry *entry;
 	if (xa_main_window != NULL)
 	{
@@ -1868,7 +1868,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	gchar **array = NULL;
 	gchar *filename = NULL;
 	gchar *_current_dir = NULL;
-	gchar *current_dir = NULL;
 	GSList *list = NULL;
 	gboolean one_file;
 	unsigned int len = 0;
@@ -2353,7 +2352,11 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 	GtkTreePath *path;
 	GtkTreeIter  iter;
 	GtkTreeSelection *selection;
-	int selected;
+	gint selected;
+	GtkClipboard *clipboard;
+	GtkSelectionData *clipboard_selection;
+	XAClipboard *paste_data;
+	gboolean value = FALSE;
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	selected = gtk_tree_selection_count_selected_rows(selection);
@@ -2380,16 +2383,29 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			gtk_widget_set_sensitive(rrename,TRUE);
 			gtk_widget_set_sensitive(view,TRUE);
 		}
+		clipboard = gtk_clipboard_get(XA_CLIPBOARD);
+		clipboard_selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
+		if (clipboard_selection != NULL)
+		{
+			paste_data = xa_get_paste_data_from_clipboard_selection((char*)clipboard_selection->data);
+			gtk_selection_data_free (clipboard_selection);
+			if (strcmp(archive->escaped_path,paste_data->cut_copy_archive->escaped_path) == 0)
+				value = FALSE;
+			else
+				value = TRUE;
+		}
 		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_RPM)
 		{
 			gtk_widget_set_sensitive(ddelete,FALSE);
 			gtk_widget_set_sensitive(rrename,FALSE);
 			gtk_widget_set_sensitive(cut  ,FALSE);
 			gtk_widget_set_sensitive(copy ,FALSE);
-			gtk_widget_set_sensitive(paste,FALSE);
+			value = FALSE;
 		}
 		else
 			gtk_widget_set_sensitive(ddelete,TRUE);
+
+		gtk_widget_set_sensitive(paste,value);
 		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,xa_main_window,event->button,event->time);
 		return TRUE;
 	}
@@ -2446,6 +2462,11 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	gtk_selection_data_free (selection);
 
 	/* Let's extract the selected files to the archive tmp dir */
+	if (paste_data->cut_copy_archive->has_passwd)
+	{
+		if(xa_create_password_dialog(paste_data->cut_copy_archive) == NULL)
+			return;
+	}
 	if (paste_data->cut_copy_archive->extraction_path)
 	{
 		dummy_ex_path = g_strdup(paste_data->cut_copy_archive->extraction_path);
@@ -2670,7 +2691,6 @@ void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,c
 		_new_name = g_strdup(new_name);
 		list = g_slist_append(list,_new_name);
 		chdir (archive->tmp);
-		//TODO put the above in archive[idx]->tmp
 		xa_execute_add_commands(archive,list,NULL);
 	}
 	g_object_set(cell,"editable",FALSE,NULL);
@@ -2688,9 +2708,8 @@ void xa_open_with_from_popupmenu(GtkMenuItem* item,gpointer data)
 	GSList *list = NULL;
 	GSList *list_of_files = NULL;
 	GString *names = g_string_new("");
-	gchar *dummy = NULL;
+	gchar *dummy = NULL,*e_filename = NULL,*program = NULL;
 	XEntry *entry;
-	gchar *program = NULL;
 
 	current_index = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index(current_index);
@@ -2744,7 +2763,15 @@ void xa_open_with_from_popupmenu(GtkMenuItem* item,gpointer data)
 	chdir(archive[idx]->tmp);
 	if (choice == 0)
 	{
-		xa_cat_filenames(archive[idx],list_of_files,names);
+		while (list_of_files)
+		{
+			dummy = g_path_get_basename(list_of_files->data);
+			e_filename = xa_escape_filename(dummy,"$'`\"\\!?* ()[]&|:;<>#");
+			g_free(dummy);
+			g_string_prepend (names,e_filename);
+			g_string_prepend_c (names,' ');
+			list_of_files = list_of_files->next;
+		}
 		xa_launch_external_program(program,names->str);
 		g_free(program);
 		g_string_free(names,TRUE);

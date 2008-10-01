@@ -455,7 +455,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 
 			items = g_string_new("");
 			new_path = g_strconcat (archive->tmp,"/",archive->location_entry_path,NULL);
-			command = g_strconcat ("mkdir -p ",new_path,NULL);
+			command  = g_strconcat ("mkdir -p ",new_path,NULL);
 			cmd_list = g_slist_append(cmd_list,command);
 			slist = list;
 			while (slist)
@@ -475,21 +475,19 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 		}
 		archive->status = XA_ARCHIVESTATUS_ADD;
 	}
-	while (list)
-	{
-		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse,archive->type);
-		list = list->next;
-	}
-
- 	xa_cat_filenames(archive,dirlist,files);
-	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
-	g_slist_free(dirlist);
-	(*archive->add) (archive,files,compression_string);
-
-	/* These instructions are executed only after xa_reload_archive_content in window.c */
 	if (archive->working_dir != NULL)
 	{
 		g_free(archive->working_dir);
 		archive->working_dir = NULL;
 	}
+	archive->working_dir = g_path_get_dirname(list->data);
+	while (list)
+	{
+		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse,archive->type);
+		list = list->next;
+	}
+ 	xa_cat_filenames(archive,dirlist,files);
+	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
+	g_slist_free(dirlist);
+	(*archive->add) (archive,files,compression_string);
 }
