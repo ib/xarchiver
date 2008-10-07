@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2008-10-07 13:44+0300\n"
-"PO-Revision-Date: 2008-10-07 14:33+0300\n"
+"PO-Revision-Date: 2008-10-07 17:03+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -230,7 +230,7 @@ msgstr "Tarkista \"%s\", sillä osa tiedostoista mahdollisesti purettiin jo."
 
 #: ../src/window.c:75
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr "Valitse 'Säilytä arkistointiohjelman tulostus' nähdäksesi sen"
+msgstr "Valitse asetus \"Säilytä arkistoijan tulostus\" nähdäksesi sen"
 
 #: ../src/window.c:122
 msgid "The sfx archive was saved as:"
@@ -302,12 +302,12 @@ msgstr ""
 #: ../src/window.c:598
 #, c-format
 msgid "Compressed   size: "
-msgstr "Pakattu koko:     "
+msgstr "Pakattu koko:   "
 
 #: ../src/window.c:605
 #, c-format
 msgid "Uncompressed size: "
-msgstr "Koko purettuna:   "
+msgstr "Koko purettuna: "
 
 #: ../src/window.c:613
 #, c-format
@@ -322,11 +322,11 @@ msgstr "Kommentti:\n"
 #: ../src/window.c:634
 #, c-format
 msgid "Files:%*s%s"
-msgstr "Tiedostoja:%*s%s"
+msgstr "Tiedostot:%*s%s"
 
 #: ../src/window.c:634
 msgid "|Compressed\n"
-msgstr "|Pakattu\n"
+msgstr "|Pakattu:\n"
 
 #: ../src/window.c:640
 #, c-format
@@ -396,7 +396,7 @@ msgstr "Ei"
 
 #: ../src/window.c:1736
 msgid "selected"
-msgstr "Poista"
+msgstr "valittu"
 
 #: ../src/window.c:1741
 #, c-format
@@ -718,7 +718,7 @@ msgstr "Nimeä uudelleen"
 
 #: ../src/interface.c:205
 msgid "Make SF_X"
-msgstr "Tee itse_purkautuva"
+msgstr "_Tee itsepurkautuva"
 
 #: ../src/interface.c:215
 msgid "_Multi-Extract"
@@ -746,7 +746,7 @@ msgstr "Ko_mentorivitulostus"
 
 #: ../src/interface.c:274
 msgid "Enter passwo_rd"
-msgstr "Syötä s_alasana"
+msgstr "Syötä _salasana"
 
 #: ../src/interface.c:285
 msgid "_Preferences"
@@ -1100,7 +1100,7 @@ msgstr "Tämä käyttää enemmän muistia, jos arkisto on suuri"
 
 #: ../src/pref_dialog.c:140
 msgid "Icons size (requires restart)"
-msgstr "Kuvakkeiden koko (vaatii uudelleenkäynnistyksen)"
+msgstr "Kuvakkeiden koko\n(vaatii uudelleenkäynnistyksen)"
 
 #: ../src/pref_dialog.c:146
 msgid "large"
@@ -1157,7 +1157,7 @@ msgstr "Tallenna ikkunan sijainti ja koko"
 
 #: ../src/pref_dialog.c:244
 msgid "Allow subdirs with drag and drop"
-msgstr "Lisää alihakemiston raahaamalla"
+msgstr "Lisää alihakemistot raahaamalla"
 
 #: ../src/pref_dialog.c:248
 msgid ""
