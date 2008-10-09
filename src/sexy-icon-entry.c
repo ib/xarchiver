@@ -917,17 +917,6 @@ sexy_icon_entry_get_icon_highlight(const SexyIconEntry *entry,
 	return entry->priv->icons[icon_pos].highlight;
 }
 
-static void
-clear_button_clicked_cb(SexyIconEntry *icon_entry,
-						SexyIconEntryPosition icon_pos,
-						int button)
-{
-	if (icon_pos != SEXY_ICON_ENTRY_SECONDARY || button != 1)
-		return;
-
-	gtk_entry_set_text(GTK_ENTRY(icon_entry), "");
-}
-
 /**
  * sexy_icon_entry_add_clear_button
  * @icon_entry: A #SexyIconEntry.

@@ -1,6 +1,6 @@
 - reduce the loading time when opening large archives.
-- fix deletion of all files in archive when deleting from rar archives.
-- fix crash when opening rar archives produces under winzozz.
-- fix the remaining bugs in bugzilla.xfce.org
+- to fix bugs #4299 and #3235.
+- to fix crashes when using cut/copy/paste
+- to fix missed extraction of tar/bz2 tar/gz when using multi-extract
 - add a small progress window when using Xarchiver cmd-line switches.
-- support tar on *BSD.
+

@@ -36,6 +36,8 @@ typedef struct
 	*extract_button,*extract_image,*extract_hbox,*extract_label,*image1;
 	GtkListStore *files_liststore;
 	gint nr;
+	gboolean stop_pressed;
+	XArchive *archive;
 } Multi_extract_data;
 
 GtkWidget *label1,*label2,*label3,*label_password;

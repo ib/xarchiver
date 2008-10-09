@@ -28,7 +28,7 @@ extern gboolean unrar,batch_mode;
 extern Prefs_dialog_data *prefs_window;
 gchar *rar;
 
-static gchar *xa_multi_extract_archive(gchar *,gboolean,gboolean,gchar *);
+static gchar *xa_multi_extract_archive(Multi_extract_data *,gchar *,gboolean,gboolean,gchar *);
 static void xa_select_where_to_extract ( GtkButton*,Multi_extract_data * );
 static void xa_remove_files_liststore (GtkWidget *,Multi_extract_data *);
 static void xa_multi_extract_dialog_select_files_to_add ( GtkButton* , Multi_extract_data * );
@@ -387,8 +387,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 Multi_extract_data *xa_create_multi_extract_dialog()
 {
 	Multi_extract_data *dialog_data;
-	GtkWidget	*dialog_vbox1,*vbox1,*scrolledwindow1,*hbox1,*frame1,*alignment1,*vbox2,*hbox3,*remove_button,*add_button,*browse,
-				*cancelbutton1;
+	GtkWidget	*dialog_vbox1,*vbox1,*scrolledwindow1,*hbox1,*frame1,*alignment1,*vbox2,*hbox3,*remove_button,*add_button,*cancelbutton1;
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
@@ -712,13 +711,15 @@ run:
 		xa_increase_progress_bar(pb_struct,filename,percent,TRUE);
 		g_free(file);
 		g_free(path);
-		message = xa_multi_extract_archive(filename,overwrite,full_path,dest_path);
+		message = xa_multi_extract_archive(dialog,filename,overwrite,full_path,dest_path);
 		if (message != NULL)
 		{
 			name = g_strconcat(filename,": ",message,"\n",NULL);
 			g_string_append(output,name);
 		}
 		g_free(filename);
+		if (dialog->stop_pressed)
+			break;
 		percent += fraction;
 	}
 	while (gtk_tree_model_iter_next (GTK_TREE_MODEL(dialog->files_liststore),&iter));
@@ -733,12 +734,13 @@ run:
 		g_free(dest_path);
 }
 
-static gchar *xa_multi_extract_archive(gchar *filename,gboolean overwrite,gboolean full_path,gchar *dest_path)
+static gchar *xa_multi_extract_archive(Multi_extract_data *dialog,gchar *filename,gboolean overwrite,gboolean full_path,gchar *dest_path)
 {
 	XArchive *archive = NULL;
 	gchar *dirname = NULL;
 	gchar *new_path = NULL;
 	gchar *_filename = NULL;
+	gint type;
 
 	if (dest_path == NULL)
 	{
@@ -759,7 +761,10 @@ static gchar *xa_multi_extract_archive(gchar *filename,gboolean overwrite,gboole
 		}
 		dest_path = new_path;
 	}
-	archive = xa_init_archive_structure(xa_detect_archive_type(filename));
+	type = xa_detect_archive_type(filename);
+	archive = xa_init_archive_structure(type);
+	dialog->archive = archive;
+	archive->type = type;
 	archive->overwrite = overwrite;
 	archive->full_path = full_path;
 	archive->escaped_path = xa_escape_bad_chars (filename,"$\'`\"\\!?* ()&|@#:;");

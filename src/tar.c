@@ -275,7 +275,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		if (archive->full_path)
 		{
 			command = g_strconcat (tar, " -xvf " , archive->escaped_path,
+						#ifdef __FreeBSD__
+								archive->overwrite ? " " : " -k",
+						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
+						#endif
 								archive->tar_touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
@@ -290,7 +294,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		if (archive->full_path)
 		{
 			command = g_strconcat (tar, " -xjvf " , archive->escaped_path,
+						#ifdef __FreeBSD__
+								archive->overwrite ? " " : " -k",
+						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
+						#endif
 								archive->tar_touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
@@ -305,7 +313,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		if (archive->full_path == 1)
 		{
 			command = g_strconcat (tar, " -xzvf " , archive->escaped_path,
+						#ifdef __FreeBSD__
+								archive->overwrite ? " " : " -k",
+						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
+						#endif
 								archive->tar_touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
@@ -320,7 +332,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		if (archive->full_path == 1)
 		{
 			command = g_strconcat (tar, " --use-compress-program=lzma -xvf " , archive->escaped_path,
+						#ifdef __FreeBSD__
+								archive->overwrite ? " " : " -k",
+						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
+						#endif
 								archive->tar_touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
@@ -329,6 +345,16 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,names->str);
 			command = NULL;
 		}
+		break;
+
+		case XARCHIVETYPE_BZIP2:
+		result = lzma_bzip2_extract(archive,NULL);
+		command = NULL;
+		break;
+
+		case XARCHIVETYPE_GZIP:
+		result = gzip_extract(archive,NULL);
+		command = NULL;
 		break;
 
 		default:
@@ -407,13 +433,12 @@ gboolean is_tar_compressed (gint type)
 gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)
 {
 	gchar *command = NULL;
-	gchar *source = NULL;
 	GSList *list = NULL;
 	gboolean result;
 
 	result = xa_create_temp_directory (archive);
 	if (!result)
-		return;
+		return FALSE;
 
 	command = g_strconcat (string, archive->escaped_path,
 										archive->overwrite ? " --overwrite" : " --keep-old-files",
@@ -425,13 +450,8 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 	if (archive->extraction_path == NULL)
 		archive->extraction_path = archive->tmp;
 
-	source = g_strconcat(archive->tmp,"/",files_to_extract,NULL);
-
-	if (strcmp(source,archive->extraction_path))
-	{
-		command = g_strconcat ("mv -f ",source," ",archive->extraction_path,NULL);
-		list = g_slist_append(list,command);
-	}
-	g_free(source);
+	archive->working_dir = g_strdup(archive->tmp);
+	command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_path,NULL);
+	list = g_slist_append(list,command);
 	return xa_run_command (archive,list);
 }

@@ -111,7 +111,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_add_watch (err_ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_dump_child_error_messages,archive);
 }
 
-gchar *xa_split_command_line(XArchive *archive,GSList *list)
+/*gchar *xa_split_command_line(XArchive *archive,GSList *list)
 {
 	gchar *command = NULL;
 	GSList *chunks = NULL;
@@ -132,7 +132,7 @@ gchar *xa_split_command_line(XArchive *archive,GSList *list)
 	chunks = g_slist_reverse(chunks);
 	return command;
 }
-
+*/
 static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer data)
 {
 	XArchive *archive = data;
@@ -564,11 +564,12 @@ XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
 	return new_entry;
 }
 
-gchar *xa_build_full_path_name_from_entry(XEntry *entry)
+gchar *xa_build_full_path_name_from_entry(XEntry *entry, gint status)
 {
 	gchar *fullpathname = NULL;
 	GString *dummy = g_string_new("");
-	
+	gint n = 0;
+
 	while (entry)
 	{
 		if (entry->is_dir)
@@ -576,7 +577,11 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry)
 		dummy = g_string_prepend(dummy,entry->filename);
 		entry = entry->prev;
 	}
-	fullpathname = g_strdup(dummy->str);
+	n = strlen(dummy->str)-1;
+	if (status == XA_ARCHIVESTATUS_DELETE && dummy->str[n] == '/')
+		fullpathname = g_strndup(dummy->str,n);
+	else
+		fullpathname = g_strdup(dummy->str);
 	g_string_free(dummy,TRUE);
 	return fullpathname;
 }
@@ -588,7 +593,7 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
 
 	xa_fill_list_with_recursed_entries(entry->next ,p_file_list);
 	xa_fill_list_with_recursed_entries(entry->child,p_file_list);
-	*p_file_list = g_slist_prepend (*p_file_list,xa_build_full_path_name_from_entry(entry));
+	*p_file_list = g_slist_prepend (*p_file_list,xa_build_full_path_name_from_entry(entry,0));
 }
 
 gboolean xa_detect_encrypted_archive (XArchive *archive)

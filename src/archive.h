@@ -151,7 +151,7 @@ struct _XAClipboard
 };
 
 void xa_spawn_async_process (XArchive *, gchar *);
-gchar *xa_split_command_line(XArchive *archive,GSList *list);
+//gchar *xa_split_command_line(XArchive *archive,GSList *list);
 XArchive *xa_init_archive_structure(gint);
 void xa_clean_archive_structure (XArchive *);
 gboolean xa_dump_child_error_messages (GIOChannel *, GIOCondition , gpointer );
@@ -166,7 +166,7 @@ XEntry *xa_find_child_entry(XEntry *, gchar *);
 XEntry *xa_set_archive_entries_for_each_row(XArchive *,gchar *,gpointer *);
 gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *,XEntry *,gpointer *);
 XEntry* xa_find_entry_from_path(XEntry *root_entry,const gchar *);
-gchar *xa_build_full_path_name_from_entry(XEntry *);
+gchar *xa_build_full_path_name_from_entry(XEntry *, gint);
 void xa_fill_list_with_recursed_entries(XEntry *,GSList **);
 gboolean xa_detect_encrypted_archive (XArchive *);
 void xa_browse_dir_sidebar (XEntry *, GtkTreeStore *,gchar *,GtkTreeIter *);

@@ -310,6 +310,17 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	about1 = gtk_image_menu_item_new_from_stock ("gtk-about",accel_group);
 	gtk_widget_show (about1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),about1);
+	
+	menuitem5 = gtk_image_menu_item_new_with_mnemonic (_("_Thanks to"));
+	gtk_widget_show (menuitem5);
+	gtk_container_add (GTK_CONTAINER (menubar1),menuitem5);
+
+	menuitem5_menu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem5),menuitem5_menu);
+	
+	donators = gtk_image_menu_item_new_with_mnemonic ("Your name and website here");
+	gtk_widget_show (donators);
+	gtk_container_add (GTK_CONTAINER (menuitem5_menu),donators);
 
 	/* Create the toolbar */
 	toolbar1 = gtk_toolbar_new ();
@@ -1540,11 +1551,16 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *archive_name,double p
 	gchar *message = NULL;
 
 	gtk_label_set_text(GTK_LABEL(pb->archive_label),archive_name);
-	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),percent);
-	//gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (progressbar1),0);
-	message = g_strdup_printf("%.0f%%",(percent*100));
-	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
-	g_free(message);
+	if (multi_extract)
+	{
+		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),percent);
+		message = g_strdup_printf("%.0f%%",(percent*100));
+		gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
+		g_free(message);
+	}
+	else
+		//gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (pb->progressbar1),0);
+		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
 	while (gtk_events_pending())
 		gtk_main_iteration();
 }

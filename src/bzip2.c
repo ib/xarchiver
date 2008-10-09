@@ -183,6 +183,9 @@ gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 	else
 		filename_noext = filename;
 
+	if (archive->tmp == NULL)
+		result = xa_create_temp_directory(archive);
+
 	dot = g_strconcat(archive->tmp,"/",filename_noext,NULL);
 	g_free(filename_noext);
 
