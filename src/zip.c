@@ -190,6 +190,7 @@ void xa_zip_delete (XArchive *archive,GSList *names)
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);
+	xa_reload_archive_content(archive);
 }
 
 void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
@@ -223,6 +224,7 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
+	xa_reload_archive_content(archive);
 }
 
 gboolean xa_zip_extract(XArchive *archive,GSList *files)

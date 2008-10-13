@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-10-08 13:09+0200\n"
+"POT-Creation-Date: 2008-10-13 13:35+0200\n"
 "PO-Revision-Date: 2006-11-11 14:20+0200\n"
 "Last-Translator: Stavros Giannouris <stavrosg@serverhive.com>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -129,7 +129,7 @@ msgstr "_Ενέργεια"
 msgid "Compression: "
 msgstr "Επίπεδο συμπίεσης:"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:153
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
 msgid "Password:"
 msgstr "Κωδικός πρόσβασης:"
 
@@ -186,26 +186,26 @@ msgstr "Παρακαλώ εισάγετε τον!"
 msgid "Adding files to archive, please wait..."
 msgstr "Προσθήκη αρχείων στο συμπιεσμένο αρχείο..."
 
-#: ../src/archive.c:82
+#: ../src/archive.c:83
 msgid "Can't run the archiver executable:"
 msgstr "Δεν ήταν δυνατή η εκτέλεση του προγράμματος:"
 
-#: ../src/archive.c:290
+#: ../src/archive.c:291
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Δεν ήταν δυνατή η δημιουργία προσωρινού καταλόγου στο /tmp:"
 
-#: ../src/archive.c:327
+#: ../src/archive.c:328
 msgid "Can't spawn the command:"
 msgstr "Δεν είναι δυνατή η εκτέλεση της εντολής:"
 
-#: ../src/archive.c:339
+#: ../src/archive.c:340
 msgid ""
 "\n"
 "\n"
 "** Output was shortened; too many errors!"
 msgstr ""
 
-#: ../src/archive.c:341 ../src/archive.c:345 ../src/window.c:75
+#: ../src/archive.c:342 ../src/archive.c:346 ../src/window.c:75
 msgid "An error occurred!"
 msgstr "Παρουσιάστηκε ένα σφάλμα!"
 
@@ -230,7 +230,7 @@ msgstr "Δικαιώματα"
 msgid "Owner/Group"
 msgstr "Ιδιοκτήτης / Ομάδα"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:396
+#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:398
 #: ../src/gzip.c:62 ../src/gzip.c:79 ../src/lha.c:50 ../src/rpm.c:52
 #: ../src/tar.c:51
 msgid "Size"
@@ -246,274 +246,270 @@ msgstr ""
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr ""
 
-#: ../src/window.c:122
-msgid "The sfx archive was saved as:"
-msgstr "Το αυτόματα αποσυμπιεζόμενο αρχείο αποθηκεύτηκε ως:"
-
-#: ../src/window.c:208
+#: ../src/window.c:202
 #, fuzzy
 msgid "Archiver output"
 msgstr "Τύπος συμπιεσμένου αρχείου:"
 
-#: ../src/window.c:240
+#: ../src/window.c:234
 #, fuzzy
 msgid "An error occurred while accessing the archive:"
 msgstr "Παρουσιάστηκε ένα σφάλμα κατά την πρόσβαση στο συμπιεσμένο αρχείο."
 
-#: ../src/window.c:318
+#: ../src/window.c:310
 #, fuzzy
 msgid "Save the archive as"
 msgstr "Αποθήκευση του αυτο-αποσυμπιεζόμενου αρχείου ως"
 
-#: ../src/window.c:377
+#: ../src/window.c:369
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου \"%s\":"
 
-#: ../src/window.c:379
+#: ../src/window.c:371
 msgid "Archive format is not recognized!"
 msgstr "Αυτό το αρχείο δεν είναι σε μορφή που υποστηρίζεται!"
 
-#: ../src/window.c:405
+#: ../src/window.c:397
 msgid "Sorry, this archive format is not supported:"
 msgstr "Αυτή η μορφή συμπίεσης δεν υποστηρίζεται:"
 
-#: ../src/window.c:405
+#: ../src/window.c:397
 msgid "the proper archiver is not installed!"
 msgstr "Δεν είναι εγκατεστημένο το απαιτούμενο πρόγραμμα συμπίεσης!"
 
-#: ../src/window.c:419
+#: ../src/window.c:411
 msgid "Can't allocate memory for the archive structure:"
 msgstr ""
 "Δεν είναι δυνατή η εκχώρηση μνήμης για τη δομή του συμπιεσμένου αρχείου:"
 
-#: ../src/window.c:443
+#: ../src/window.c:432
 #, fuzzy
 msgid "Opening archive, please wait..."
 msgstr "Έλεγχος ακεραιότητάς αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/window.c:514
+#: ../src/window.c:503
 #, fuzzy
 msgid "Testing archive, please wait..."
 msgstr "Έλεγχος ακεραιότητάς αρχείου, παρακαλώ περιμένετε..."
 
-#: ../src/window.c:534
+#: ../src/window.c:523
 msgid "Print the archive content as HTML"
 msgstr ""
 
-#: ../src/window.c:536
+#: ../src/window.c:525
 #, fuzzy
 msgid "Print the archive content as text"
 msgstr "Επιλέξτε τον τύπο του αρχείου που θα δημιουργήσετε"
 
-#: ../src/window.c:585
+#: ../src/window.c:574
 #, fuzzy, c-format
 msgid "Archive contents:\n"
 msgstr "Σχόλια συμπιεσμένου αρχείου"
 
-#: ../src/window.c:589
+#: ../src/window.c:578
 #, fuzzy, c-format
 msgid ""
 "\n"
 "Name: "
 msgstr "Όνομα:"
 
-#: ../src/window.c:598
+#: ../src/window.c:587
 #, fuzzy, c-format
 msgid "Compressed   size: "
 msgstr "Συμπιεσμένο"
 
-#: ../src/window.c:605
+#: ../src/window.c:594
 #, fuzzy, c-format
 msgid "Uncompressed size: "
 msgstr "Αποσυμπίεση αρχείου"
 
-#: ../src/window.c:613
+#: ../src/window.c:602
 #, fuzzy, c-format
 msgid "Number of files: "
 msgstr "Αριθμός αρχείων:"
 
-#: ../src/window.c:621
+#: ../src/window.c:610
 #, fuzzy, c-format
 msgid "Comment:\n"
 msgstr "Έχει σχόλιο:"
 
-#: ../src/window.c:634
+#: ../src/window.c:623
 #, fuzzy, c-format
 msgid "Files:%*s%s"
 msgstr "Αρχεία"
 
-#: ../src/window.c:634
+#: ../src/window.c:623
 #, fuzzy
 msgid "|Compressed\n"
 msgstr "Συμπιεσμένο"
 
-#: ../src/window.c:640
+#: ../src/window.c:629
 #, c-format
 msgid "<th>Files:</th>"
 msgstr ""
 
-#: ../src/window.c:641
+#: ../src/window.c:630
 #, fuzzy, c-format
 msgid "<th>Compressed:</th>"
 msgstr "Συμπιεσμένο"
 
-#: ../src/window.c:834
+#: ../src/window.c:819
 msgid "Are you sure you want to do this?"
 msgstr "Θέλετε σίγουρα να προχωρήσετε;"
 
-#: ../src/window.c:949 ../src/window.c:1049
+#: ../src/window.c:914 ../src/window.c:1014
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Δεν ήταν δυνατή η μετατροπή του αρχείου σε αυτόματα αποσυμπιεζόμενο:"
 
-#: ../src/window.c:960 ../src/window.c:1060
+#: ../src/window.c:925 ../src/window.c:1025
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr ""
 "Δεν είναι δυνατή η προσθήκη του πρόσθετου unzipsfx στο συμπιεσμένο αρχείο:"
 
-#: ../src/window.c:1020
+#: ../src/window.c:985
 msgid "Please select the 7zCon.sfx module"
 msgstr "Παρακαλώ επιλέξτε το πρόσθετο 7zCon.sfx"
 
-#: ../src/window.c:1117
+#: ../src/window.c:1082
 msgid "translator-credits"
 msgstr "Stavros Giannouris <stavrosg@serverhive.com>"
 
-#: ../src/window.c:1147
+#: ../src/window.c:1112
 msgid "Save the self-extracting archive as"
 msgstr "Αποθήκευση του αυτο-αποσυμπιεζόμενου αρχείου ως"
 
-#: ../src/window.c:1176 ../src/interface.c:346
+#: ../src/window.c:1141 ../src/interface.c:346
 msgid "Open an archive"
 msgstr "Άνοιγμα συμπιεσμένου αρχείου"
 
-#: ../src/window.c:1189 ../src/extract_dialog.c:88 ../src/new_dialog.c:62
+#: ../src/window.c:1154 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
-#: ../src/window.c:1194 ../src/new_dialog.c:67
+#: ../src/window.c:1159 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "Μόνο συμπιεσμένα αρχεία"
 
-#: ../src/window.c:1406
+#: ../src/window.c:1371
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
-#: ../src/window.c:1464
+#: ../src/window.c:1428
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Αν προχωρήσετε, είναι πιθανό να καταστρέψετε το αρχείο!"
 
-#: ../src/window.c:1464
+#: ../src/window.c:1428
 msgid "Do you really want to cancel?"
 msgstr "Θέλετε σίγουρα να ακυρώσετε;"
 
-#: ../src/window.c:1528 ../src/window.c:1543
+#: ../src/window.c:1492 ../src/window.c:1507
 msgid "Yes"
 msgstr "Ναι"
 
-#: ../src/window.c:1530 ../src/window.c:1545
+#: ../src/window.c:1494 ../src/window.c:1509
 msgid "No"
 msgstr "Όχι"
 
-#: ../src/window.c:1744
+#: ../src/window.c:1708
 #, fuzzy
 msgid "selected"
 msgstr "Εξαγωγή Επιλεγμένων"
 
-#: ../src/window.c:1749
+#: ../src/window.c:1713
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1751
+#: ../src/window.c:1715
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1754
+#: ../src/window.c:1718
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1815
+#: ../src/window.c:1779
 msgid "Can't perform another extraction:"
 msgstr "Δεν είναι δυνατό να γίνει άλλη αποσυμπίεση:"
 
-#: ../src/window.c:1815
+#: ../src/window.c:1779
 msgid "Please wait until the completion of the current one!"
 msgstr "Παρακαλώ περιμένετε μέχρι να ολοκληρωθεί η τρέχουσα."
 
-#: ../src/window.c:1890 ../src/extract_dialog.c:630
+#: ../src/window.c:1854 ../src/extract_dialog.c:654
 msgid "Sorry, I could not perform the operation!"
 msgstr "Συγνώμη, δεν ήταν δυνατή η εκτέλεση της λειτουργίας."
 
-#: ../src/window.c:1924 ../src/window.c:1936 ../src/interface.c:1388
+#: ../src/window.c:1888 ../src/window.c:1900 ../src/interface.c:1390
 msgid "Can't perform this action:"
 msgstr "Δεν είναι δυνατή η εκτέλεση αυτής της ενέργειας:"
 
-#: ../src/window.c:1924
+#: ../src/window.c:1888
 msgid "You have to install rar package!"
 msgstr ""
 
-#: ../src/window.c:1931 ../src/interface.c:1385
+#: ../src/window.c:1895 ../src/interface.c:1387
 msgid "You can't add content to deb packages!"
 msgstr "Δε μπορείτε να προσθέσετε περιεχόμενο στα πακέτα deb!"
 
-#: ../src/window.c:1933 ../src/interface.c:1387
+#: ../src/window.c:1897 ../src/interface.c:1389
 msgid "You can't add content to rpm packages!"
 msgstr "Δε μπορείτε να προσθέσετε περιεχόμενο στα πακέτα rpm!"
 
-#: ../src/window.c:1935
+#: ../src/window.c:1899
 #, fuzzy
 msgid "The archiver doesn't support this feature!"
 msgstr "το unrar δεν υποστηρίζει δημιουργία συμπιεσμένων αρχείων!"
 
-#: ../src/window.c:2013
+#: ../src/window.c:1977
 msgid "You didn't set which browser to use!"
 msgstr ""
 
-#: ../src/window.c:2013 ../src/window.c:2054
+#: ../src/window.c:1977 ../src/window.c:2018
 msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
-#: ../src/window.c:2045
+#: ../src/window.c:2009
 #, fuzzy
 msgid "This file type is not supported!"
 msgstr "Αυτή η μορφή συμπίεσης δεν υποστηρίζεται:"
 
-#: ../src/window.c:2045
+#: ../src/window.c:2009
 msgid "Please install xdg-utils package."
 msgstr ""
 
-#: ../src/window.c:2054
+#: ../src/window.c:2018
 msgid "You didn't set which program to use for opening this file!"
 msgstr ""
 
-#: ../src/window.c:2080
+#: ../src/window.c:2045
 msgid "Failed to launch the application!"
 msgstr ""
 
-#: ../src/window.c:2132
+#: ../src/window.c:2097
 #, fuzzy
 msgid "Comment"
 msgstr "Έχει σχόλιο:"
 
-#: ../src/window.c:2162
+#: ../src/window.c:2127
 msgid "From File"
 msgstr ""
 
-#: ../src/window.c:2267
+#: ../src/window.c:2232
 #, fuzzy
 msgid "Open a text file"
 msgstr "Η λειτουργία απέτυχε."
 
-#: ../src/window.c:2285
+#: ../src/window.c:2250
 #, fuzzy, c-format
 msgid "Can't open file %s:"
 msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου \"%s\":"
@@ -522,44 +518,44 @@ msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου \
 msgid "Date modified"
 msgstr ""
 
-#: ../src/extract_dialog.c:62 ../src/extract_dialog.c:466
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:472
 msgid "Extract to:"
 msgstr "Αποσυμπίεση σε:"
 
-#: ../src/extract_dialog.c:93
+#: ../src/extract_dialog.c:95
 #, fuzzy
 msgid "Selected files"
 msgstr "Επιλογή _όλων"
 
-#: ../src/extract_dialog.c:101
+#: ../src/extract_dialog.c:103
 #, fuzzy
 msgid "Files: "
 msgstr "Αρχεία"
 
-#: ../src/extract_dialog.c:112
+#: ../src/extract_dialog.c:114
 #, fuzzy
 msgid "Files "
 msgstr "Αρχεία"
 
-#: ../src/extract_dialog.c:126 ../src/extract_dialog.c:493
+#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:499
 msgid "Overwrite existing files"
 msgstr "Αντικατάσταση υπαρχόντων αρχείων"
 
-#: ../src/extract_dialog.c:129
+#: ../src/extract_dialog.c:131
 msgid "Extract files with full path"
 msgstr "Αποσυμπίεση με διατήρηση της δομής των καταλόγων"
 
-#: ../src/extract_dialog.c:130
+#: ../src/extract_dialog.c:132
 #, fuzzy
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "ερ"
 
-#: ../src/extract_dialog.c:133
+#: ../src/extract_dialog.c:135
 msgid "Touch files"
 msgstr "Ενημέρωση χρονοσήμανσης αρχείων"
 
-#: ../src/extract_dialog.c:134
+#: ../src/extract_dialog.c:136
 #, fuzzy
 msgid ""
 "When this option is used, tar leaves the data modification times of the "
@@ -569,11 +565,11 @@ msgstr ""
 "Με αυτή την επιλογή, ως ώρα τροποποίησης ορίζεται η ώρα που έγινε η "
 "αποσυμπίεση, αντί για την ώρα που είχε αποθηκευτεί στο συμπιεσμένο αρχείο."
 
-#: ../src/extract_dialog.c:137
+#: ../src/extract_dialog.c:139
 msgid "Freshen existing files"
 msgstr "Ενημέρωση υπαρχόντων αρχείων"
 
-#: ../src/extract_dialog.c:138
+#: ../src/extract_dialog.c:140
 #, fuzzy
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
@@ -582,11 +578,11 @@ msgstr ""
 "Αποσυμπίεση μόνο των αρχείων που ήδη υπάρχουν στο δίσκο και είναι νεότερα "
 "από τα υπάρχοντα."
 
-#: ../src/extract_dialog.c:142
+#: ../src/extract_dialog.c:144
 msgid "Update existing files"
 msgstr "Ενημέρωση υπαρχόντων αρχείων"
 
-#: ../src/extract_dialog.c:143
+#: ../src/extract_dialog.c:145
 #, fuzzy
 msgid ""
 "This option performs the same function as the freshen one, extracting files "
@@ -597,42 +593,42 @@ msgstr ""
 "είναι νεότερα από αυτά στο δίσκο, αλλά και αυτά που δεν υπάρχουν ήδη στο "
 "δίσκο."
 
-#: ../src/extract_dialog.c:147
+#: ../src/extract_dialog.c:149
 #, fuzzy
 msgid "Options "
 msgstr "<b>Επιλογές</b>"
 
-#: ../src/extract_dialog.c:170 ../src/extract_dialog.c:509
+#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:515
 #: ../src/interface.c:175
 msgid "_Extract"
 msgstr "_Αποσυμπίεση"
 
-#: ../src/extract_dialog.c:224
+#: ../src/extract_dialog.c:226
 msgid "Decompress file"
 msgstr "Αποσυμπίεση αρχείου"
 
-#: ../src/extract_dialog.c:226 ../src/interface.c:408
+#: ../src/extract_dialog.c:228 ../src/interface.c:408
 #, fuzzy
 msgid "Extract files"
 msgstr "Αποσυμπίεση αρχείων στο %s"
 
-#: ../src/extract_dialog.c:320 ../src/extract_dialog.c:697
+#: ../src/extract_dialog.c:322 ../src/extract_dialog.c:722
 msgid "You missed where to extract the files!"
 msgstr "Δεν εισάγατε τη διαδρομή προορισμού!"
 
-#: ../src/extract_dialog.c:320
+#: ../src/extract_dialog.c:322
 msgid "Please enter the extraction path."
 msgstr "Παρακαλώ εισάγετε τη διαδρομή αποσυμπίεσης."
 
-#: ../src/extract_dialog.c:334
+#: ../src/extract_dialog.c:336
 msgid "This archive is encrypted!"
 msgstr "Αυτό το συμπιεσμένο αρχείο είναι κρυπτογραφημένο!"
 
-#: ../src/extract_dialog.c:334
+#: ../src/extract_dialog.c:336
 msgid "Please enter the password."
 msgstr "Παρακαλώ εισάγετε τον κωδικό πρόσβασης."
 
-#: ../src/extract_dialog.c:344
+#: ../src/extract_dialog.c:346
 #, fuzzy, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
@@ -641,82 +637,82 @@ msgstr ""
 "Δεν έχετε τα απαραίτητα δικαιώματα για να αποσυμπιέσετε αρχεία στο φάκελο \"%"
 "s\"."
 
-#: ../src/extract_dialog.c:345
+#: ../src/extract_dialog.c:347
 msgid "Can't perform extraction!"
 msgstr "Δεν είναι δυνατή η αποσυμπίεση!"
 
-#: ../src/extract_dialog.c:379
+#: ../src/extract_dialog.c:381
 #, fuzzy
 msgid "Extracting files from archive, please wait..."
 msgstr "Διαγραφή αρχείων από το συμπιεσμένο αρχείο..."
 
-#: ../src/extract_dialog.c:396
+#: ../src/extract_dialog.c:398
 #, fuzzy
 msgid "Archive Name"
 msgstr "[όνομα αρχείου]"
 
-#: ../src/extract_dialog.c:396
+#: ../src/extract_dialog.c:398
 #, fuzzy
 msgid "Path"
 msgstr "Διαδρομή:"
 
-#: ../src/extract_dialog.c:408
+#: ../src/extract_dialog.c:410
 #, fuzzy
 msgid "Multi-Extract"
 msgstr "Αποσυμπίεση"
 
-#: ../src/extract_dialog.c:476
+#: ../src/extract_dialog.c:482
 #, fuzzy
 msgid "Extract to dir \"Archive Name\""
 msgstr "Αποσυμπίεση αρχείων"
 
-#: ../src/extract_dialog.c:477
+#: ../src/extract_dialog.c:483
 #, fuzzy
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "Επιλέξτε τα αρχεία ή φακέλους για να προσθέσετε στο συμπιεσμένο αρχείο"
 
-#: ../src/extract_dialog.c:481
+#: ../src/extract_dialog.c:487
 #, fuzzy
 msgid "Destination dirs:"
 msgstr "destination_path archive"
 
-#: ../src/extract_dialog.c:495
+#: ../src/extract_dialog.c:501
 #, fuzzy
 msgid "Extract pathnames"
 msgstr "Αποσυμπίεση αρχείων στο %s"
 
-#: ../src/extract_dialog.c:497
+#: ../src/extract_dialog.c:503
 #, fuzzy
 msgid "Options:"
 msgstr "<b>Επιλογές</b>"
 
-#: ../src/extract_dialog.c:529
+#: ../src/extract_dialog.c:535
 #, fuzzy
 msgid "Please select the archives you want to extract"
 msgstr "Παρακαλώ επιλέξτε τα αρχεία που θέλετε να προσθέσετε"
 
-#: ../src/extract_dialog.c:651
+#: ../src/extract_dialog.c:675
 #, fuzzy
 msgid "Please select the destination directory"
 msgstr "Παρακαλώ επιλέξτε ένα αρχείο, όχι κατάλογο!"
 
-#: ../src/extract_dialog.c:689
+#: ../src/extract_dialog.c:714
 #, fuzzy
 msgid "Can't multi-extract archives:"
 msgstr "Δεν είναι δυνατή η εξαγωγή αρχείων από το συμπιεσμένο αρχείο:"
 
-#: ../src/extract_dialog.c:689
+#: ../src/extract_dialog.c:714
 #, fuzzy
 msgid "You haven't added any of them!"
 msgstr "Δεν έχετε επιλέξει αρχεία για προσθήκη!"
 
-#: ../src/extract_dialog.c:697
+#: ../src/extract_dialog.c:722
 #, fuzzy
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Παρακαλώ επιλέξτε πρώτα το κουμπί 'διακοπή'!"
 
-#: ../src/extract_dialog.c:730
+#: ../src/extract_dialog.c:758
 #, fuzzy
 msgid "Some errors occurred:"
 msgstr "Παρουσιάστηκε ένα σφάλμα:"
@@ -902,7 +898,7 @@ msgstr ""
 msgid "_Password:"
 msgstr "Κωδικός πρόσβασης:"
 
-#: ../src/interface.c:859 ../src/open-with-dlg.c:50
+#: ../src/interface.c:859 ../src/open-with-dlg.c:53
 #, fuzzy
 msgid "Open With"
 msgstr "Άνοιγμα"
@@ -994,21 +990,21 @@ msgstr "Αριθμός αρχείων:"
 msgid "Compression ratio:"
 msgstr "Λόγος συμπίεσης:"
 
-#: ../src/interface.c:1395
+#: ../src/interface.c:1397
 #, fuzzy
 msgid "Sorry,I could not perform the operation!"
 msgstr "Συγνώμη, δεν ήταν δυνατή η εκτέλεση της λειτουργίας."
 
-#: ../src/interface.c:1505 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1507 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1529
+#: ../src/interface.c:1531
 #, fuzzy
 msgid "Extracting archive:"
 msgstr "Αποσυμπίεση αρχείου στο %s"
 
-#: ../src/interface.c:1539
+#: ../src/interface.c:1541
 msgid "Total Progress:"
 msgstr ""
 
@@ -1081,30 +1077,30 @@ msgstr "Δεν εισάγατε το όνομα του συμπιεσμένου 
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 
-#: ../src/main.c:474
+#: ../src/main.c:473
 msgid "Can't allocate memory for the archive structure!"
 msgstr ""
 "Δεν είναι δυνατή η εκχώρηση μνήμης για τη δομή του συμπιεσμένου αρχείου!"
 
-#: ../src/open-with-dlg.c:52
+#: ../src/open-with-dlg.c:55
 #, fuzzy
 msgid "Open the selected files with"
 msgstr "Επιλογή _όλων"
 
-#: ../src/open-with-dlg.c:81
+#: ../src/open-with-dlg.c:84
 #, c-format
 msgid "Open <i>%s</i> with:"
 msgstr ""
 
-#: ../src/open-with-dlg.c:116
+#: ../src/open-with-dlg.c:119
 msgid "Use a custom command:"
 msgstr ""
 
-#: ../src/open-with-dlg.c:122
+#: ../src/open-with-dlg.c:127
 msgid "Browse"
 msgstr ""
 
-#: ../src/open-with-dlg.c:300
+#: ../src/open-with-dlg.c:311
 #, fuzzy
 msgid "Select an application"
 msgstr "_Ενέργεια"
@@ -1328,6 +1324,9 @@ msgstr "Ένας διαχειριστής συμπιεσμένων αρχείω�
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Διαχειριστής συμπιεσμένων αρχείων"
+
+#~ msgid "The sfx archive was saved as:"
+#~ msgstr "Το αυτόματα αποσυμπιεζόμενο αρχείο αποθηκεύτηκε ως:"
 
 #, fuzzy
 #~ msgid "Directories Tree:"

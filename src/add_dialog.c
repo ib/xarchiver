@@ -474,6 +474,8 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 			xa_run_command (archive,cmd_list);
 		}
 		archive->status = XA_ARCHIVESTATUS_ADD;
+		g_print ("add: setto a 0\n");
+		xa_set_button_state (0,0,0,0,0,0,0,0,0,0,0);
 	}
 	if (archive->working_dir != NULL)
 	{

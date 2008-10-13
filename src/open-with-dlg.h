@@ -20,5 +20,15 @@
 #define __DLG_OPEN_H
 #include <gtk/gtk.h>
 
-gchar *xa_create_open_with_dialog(gchar *,int);
+typedef struct _open_with_data Open_with_data;
+
+struct _open_with_data
+{
+	GtkWidget *dialog1;
+	GtkWidget *custom_command_entry;
+	GtkListStore *apps_liststore;
+	gchar *file_list;
+};
+
+void xa_create_open_with_dialog(gchar *,gchar *,int);
 #endif

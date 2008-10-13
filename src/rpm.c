@@ -122,7 +122,7 @@ void xa_open_rpm (XArchive *archive)
 	if (result == FALSE)
 	{
 		gtk_widget_set_sensitive(Stop_button,FALSE);
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties,archive->has_passwd,0);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 		return;
 	}

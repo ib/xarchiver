@@ -54,6 +54,7 @@ XArchive *xa_init_archive_structure(gint type)
 	archive->add = 		add[type];
 	archive->extract = 	extract[type];
 	archive->test = 	test[type];
+	archive->type = type;
 	return archive;
 }
 
@@ -76,14 +77,14 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		NULL,
 		&archive->output_fd,
 		&archive->error_fd,
-		&error) )
+		&error))
 	//TODO: change the string to: An error occurred!
 	{
 		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev (argv);
 		archive->child_pid = 0;
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,archive->has_passwd,1);
 		return;
 	}
 	g_strfreev (argv);
@@ -118,7 +119,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	GSList *scan = NULL;
 	int length;
 
-	for (scan = list; scan != NULL; )
+	for (scan = list; scan != NULL;)
 	{
 		length = 0;
 		while ((scan != NULL) && (length < 5000)) //MAX_CMD_LEN
@@ -160,7 +161,7 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
 			goto done;
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
 	{
 	done:
 		if (archive->error_output != NULL)
@@ -204,7 +205,7 @@ gboolean xa_dump_child_error_messages (GIOChannel *ioc,GIOCondition cond,gpointe
 		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
 			goto done;
 	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL) )
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
 	{
 	done:
 		g_io_channel_shutdown (ioc, TRUE, NULL);
@@ -287,7 +288,7 @@ gboolean xa_create_temp_directory (XArchive *archive)
 		g_free(tmp_dir);
 		tmp_dir = NULL;
 
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno) );
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno));
 		return FALSE;
 	}
 
@@ -624,7 +625,7 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 		while (memcmp (magic,"\x50\x4b\x03\x04",4) == 0  || memcmp (magic,"\x50\x4b\x05\x06",4) == 0)
 		{
 			fread (&password_flag,1,2,file);
-			if ((password_flag & ( 1<<0) ) > 0)
+			if ((password_flag & ( 1<<0)) > 0)
 			{
 				flag = TRUE;
 				break;
@@ -656,11 +657,11 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 		while ( memcmp (sig,"\x60\xea",2) == 0)
 		{
 			fread ( &basic_header_size,1,2,file);
-			if ( basic_header_size == 0 )
+			if ( basic_header_size == 0)
 				break;
 			fseek ( file , 4 , SEEK_CUR);
 			fread (&arj_flag,1,1,file);
-			if ((arj_flag & ( 1<<0) ) > 0)
+			if ((arj_flag & ( 1<<0)) > 0)
 			{
 				flag = TRUE;
 				break;

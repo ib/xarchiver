@@ -248,6 +248,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		g_string_free(files,TRUE);
 		list = g_slist_append(list,command);
 		xa_run_command (archive,list);
+		xa_reload_archive_content(archive);
 	}
 }
 
@@ -347,6 +348,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		break;
 
+		case XARCHIVETYPE_LZMA:
+		result = lzma_bzip2_extract(archive,NULL);
+		command = NULL;
+		break;
+
 		case XARCHIVETYPE_BZIP2:
 		result = lzma_bzip2_extract(archive,NULL);
 		command = NULL;
@@ -423,6 +429,7 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 	command = g_strconcat ("mv ",archive->tmp,"/",filename," ",archive->escaped_path,NULL);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
+	xa_reload_archive_content(archive);
 }
 
 gboolean is_tar_compressed (gint type)
@@ -451,6 +458,7 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 		archive->extraction_path = archive->tmp;
 
 	archive->working_dir = g_strdup(archive->tmp);
+
 	command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_path,NULL);
 	list = g_slist_append(list,command);
 	return xa_run_command (archive,list);

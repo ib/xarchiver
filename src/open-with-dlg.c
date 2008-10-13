@@ -23,43 +23,46 @@
 
 static void xa_read_desktop_directories(GtkListStore *,const gchar *);
 static void xa_parse_desktop_files(GSList **,GSList **,GSList **,gchar *,gchar *);
-static void xa_open_with_dialog_row_selected (GtkTreeSelection *,GtkListStore *);
-static void xa_open_with_dialog_browse_custom_command(GtkButton *,gpointer );
-
-GtkWidget *custom_command_entry;
-
-gchar *xa_create_open_with_dialog(gchar *filename,int nr)
+static void xa_open_with_dialog_selection_changed (GtkTreeSelection *,Open_with_data *);
+static void xa_open_with_dialog_browse_custom_command(GtkButton *,Open_with_data *);
+static void xa_open_with_dialog_row_selected(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,Open_with_data *);
+static void xa_destroy_open_with_dialog(GtkWidget *,Open_with_data *);
+static void xa_open_with_dialog_execute_command(GtkWidget *,Open_with_data *);
+static void xa_open_with_dialog_custom_entry_activated(GtkEditable *,Open_with_data *);
+		       
+void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 {
-	GtkWidget	*dialog1,*dialog_vbox1,*vbox1,*hbox1,*mime_icon,*open_text,*scrolledwindow1,*apps_treeview,*dialog_action_area1,
+	Open_with_data *data = NULL;
+	GtkWidget	*dialog_vbox1,*vbox1,*hbox1,*mime_icon,*open_text,*scrolledwindow1,*apps_treeview,*dialog_action_area1,
 				*custom_command_expander,*hbox_expander,*browse,*cancelbutton1,*okbutton1;
-	GtkListStore *apps_liststore;
 	GtkCellRenderer		*renderer;
 	GtkTreeViewColumn	*column;
 	GtkTreeIter iter;
 	GdkPixbuf *pixbuf;
 	gchar *text = NULL;
-	gchar *exec = NULL;
 	gchar *title;
 	const gchar *icon_name = NULL;	
 	const gchar* const *desktop_dirs;
 	gint x = 0;
 	gint response;
 
-	dialog1 = gtk_dialog_new ();
+	data = g_new0(Open_with_data,1);
+	data->file_list = filenames;
+	data->dialog1 = gtk_dialog_new ();
 	if (nr == 1)
 		title = _("Open With");
 	else
 		title = _("Open the selected files with");
 
-	gtk_window_set_title (GTK_WINDOW (dialog1),title);
-	gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER_ON_PARENT);
-	gtk_window_set_modal (GTK_WINDOW (dialog1), TRUE);
-	gtk_window_set_type_hint (GTK_WINDOW (dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_window_set_transient_for(GTK_WINDOW(dialog1),GTK_WINDOW(xa_main_window));
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog1),FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (dialog1),5);
-	gtk_widget_set_size_request(dialog1,380,380);
-	dialog_vbox1 = GTK_DIALOG (dialog1)->vbox;
+	gtk_window_set_title (GTK_WINDOW (data->dialog1),title);
+	gtk_window_set_position (GTK_WINDOW (data->dialog1), GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_window_set_modal (GTK_WINDOW (data->dialog1), TRUE);
+	gtk_window_set_type_hint (GTK_WINDOW (data->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
+	gtk_window_set_transient_for(GTK_WINDOW(data->dialog1),GTK_WINDOW(xa_main_window));
+	gtk_dialog_set_has_separator (GTK_DIALOG (data->dialog1),FALSE);
+	gtk_container_set_border_width (GTK_CONTAINER (data->dialog1),5);
+	gtk_widget_set_size_request(data->dialog1,380,380);
+	dialog_vbox1 = GTK_DIALOG (data->dialog1)->vbox;
 
 	vbox1 = gtk_vbox_new (FALSE, 5);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1),vbox1,TRUE,TRUE,0);
@@ -87,12 +90,12 @@ gchar *xa_create_open_with_dialog(gchar *filename,int nr)
 	gtk_box_pack_start (GTK_BOX (vbox1),scrolledwindow1,TRUE,TRUE,0);
 	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"shadow-type",GTK_SHADOW_IN,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
 
-	apps_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING);
-	apps_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(apps_liststore));
+	data->apps_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING);
+	apps_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(data->apps_liststore));
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),apps_treeview);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(apps_treeview),FALSE);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (apps_treeview));
-	g_signal_connect ((gpointer) sel,"changed",G_CALLBACK (xa_open_with_dialog_row_selected),apps_liststore);
+	g_signal_connect ((gpointer) sel,"changed",G_CALLBACK (xa_open_with_dialog_selection_changed),data);
 
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
@@ -104,7 +107,7 @@ gchar *xa_create_open_with_dialog(gchar *filename,int nr)
 	gtk_tree_view_column_pack_start(column,renderer, TRUE);
 	gtk_tree_view_column_set_attributes( column,renderer,"text",1,NULL);
 	gtk_tree_view_column_set_resizable (column, TRUE);
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(apps_liststore),1,GTK_SORT_ASCENDING);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(data->apps_liststore),1,GTK_SORT_ASCENDING);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (apps_treeview), column);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
@@ -118,48 +121,51 @@ gchar *xa_create_open_with_dialog(gchar *filename,int nr)
 
 	hbox_expander = gtk_hbox_new(FALSE,5);
 
-	custom_command_entry = gtk_entry_new();
-	browse = gtk_button_new_with_label(_("Browse"));
-	g_signal_connect (G_OBJECT (browse),"clicked",G_CALLBACK (xa_open_with_dialog_browse_custom_command),NULL);
+	data->custom_command_entry = gtk_entry_new();
+	g_signal_connect (G_OBJECT (data->custom_command_entry),"activate",G_CALLBACK (xa_open_with_dialog_custom_entry_activated),data);
 
-	gtk_box_pack_start (GTK_BOX (hbox_expander),custom_command_entry,TRUE,TRUE,0);
+	browse = gtk_button_new_with_label(_("Browse"));
+	g_signal_connect (G_OBJECT (browse),"clicked",G_CALLBACK (xa_open_with_dialog_browse_custom_command),data);
+
+	gtk_box_pack_start (GTK_BOX (hbox_expander),data->custom_command_entry,TRUE,TRUE,0);
 	gtk_box_pack_start (GTK_BOX (hbox_expander),browse,FALSE,TRUE,0);
 	gtk_container_add(GTK_CONTAINER(custom_command_expander),hbox_expander);
 
-	dialog_action_area1 = GTK_DIALOG (dialog1)->action_area;
+	dialog_action_area1 = GTK_DIALOG (data->dialog1)->action_area;
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_widget_show (cancelbutton1);
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_action_widget (GTK_DIALOG (data->dialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
 	GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
+	g_signal_connect_swapped (G_OBJECT (cancelbutton1),"clicked",G_CALLBACK (gtk_widget_destroy),G_OBJECT(data->dialog1));
 
 	okbutton1 = gtk_button_new_from_stock ("gtk-open");
 	gtk_widget_show (okbutton1);
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog1),okbutton1,GTK_RESPONSE_OK);
+	gtk_dialog_add_action_widget (GTK_DIALOG (data->dialog1),okbutton1,GTK_RESPONSE_OK);
+	g_signal_connect (G_OBJECT (okbutton1),"clicked",G_CALLBACK (xa_open_with_dialog_execute_command),data);
 	GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
-	gtk_widget_show_all(vbox1);
+	gtk_widget_show_all(data->dialog1);
 
 	/* Let's parse the desktop files in all the system data dirs */
 	desktop_dirs = g_get_system_data_dirs();
 	while (desktop_dirs[x])
 	{
-		xa_read_desktop_directories(apps_liststore,desktop_dirs[x]);
+		xa_read_desktop_directories(data->apps_liststore,desktop_dirs[x]);
 		x++;
 	}
-	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(apps_liststore),&iter);
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(data->apps_liststore),&iter);
 	gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (apps_treeview)),&iter);
-	response = gtk_dialog_run(GTK_DIALOG(dialog1));
-	if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
-	{
-		gtk_widget_destroy(dialog1);
-		return NULL;
-	}
-	exec = g_strdup(gtk_entry_get_text(GTK_ENTRY(custom_command_entry)));
-	gtk_widget_destroy(dialog1);
-	return exec;
+
+	g_signal_connect (G_OBJECT (apps_treeview),	"row-activated",G_CALLBACK(xa_open_with_dialog_row_selected),data);
+	g_signal_connect (G_OBJECT (data->dialog1),	"destroy",		G_CALLBACK(xa_destroy_open_with_dialog),data);
 }
 
+static void xa_destroy_open_with_dialog(GtkWidget *widget,Open_with_data *data)
+{
+	g_free(data);
+}
+		       
 static void xa_read_desktop_directories(GtkListStore *liststore,const gchar *dirname)
 {
 	DIR *dir;
@@ -278,7 +284,7 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 	g_io_channel_close(file);	
 }
 
-static void xa_open_with_dialog_row_selected (GtkTreeSelection *selection,GtkListStore *liststore)
+static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection,Open_with_data *data)
 {
 	gchar *exec;
 	GtkTreeIter iter;
@@ -287,11 +293,16 @@ static void xa_open_with_dialog_row_selected (GtkTreeSelection *selection,GtkLis
 	gtk_tree_selection_get_selected(selection,&model,&iter);
 	gtk_tree_model_get(model,&iter,2,&exec,-1);
 	
-	gtk_entry_set_text(GTK_ENTRY(custom_command_entry),exec);
+	gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry),exec);
 	g_free(exec);
 }
 
-static void xa_open_with_dialog_browse_custom_command(GtkButton *button,gpointer data)
+static void xa_open_with_dialog_custom_entry_activated(GtkEditable *entry,Open_with_data *data)
+{
+	xa_open_with_dialog_execute_command(NULL,data);
+}
+
+static void xa_open_with_dialog_browse_custom_command(GtkButton *button,Open_with_data *data)
 {
 	GtkWidget *file_selector;
 	gchar *dest_dir;
@@ -311,8 +322,22 @@ static void xa_open_with_dialog_browse_custom_command(GtkButton *button,gpointer
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		dest_dir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (file_selector));
-		gtk_entry_set_text(GTK_ENTRY(custom_command_entry),dest_dir);
+		gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry),dest_dir);
 		g_free(dest_dir);
 	}
 	gtk_widget_destroy(file_selector);
+}
+
+static void xa_open_with_dialog_row_selected(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,Open_with_data *data)
+{
+	xa_open_with_dialog_execute_command(NULL,data);
+}
+
+static void xa_open_with_dialog_execute_command(GtkWidget *widget, Open_with_data *data)
+{
+	const char *application;	
+
+	application = gtk_entry_get_text(GTK_ENTRY(data->custom_command_entry));
+	xa_launch_external_program((gchar*)application,data->file_list);
+	gtk_widget_destroy(data->dialog1);
 }

@@ -111,7 +111,7 @@ void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
 		if (_filename || G_LIKELY(dot))
 		{
 			_filename++;
-			filename = g_strndup(_filename,strlen(_filename)-4);
+			filename = g_strndup(_filename,strlen(_filename)-5);
 			command = g_strconcat(archive->tmp,"/",filename,NULL);
 		}
 		else
