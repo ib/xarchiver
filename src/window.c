@@ -89,36 +89,34 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 		}
 	}
 there:
-	if(xa_main_window)
-	{
-		archive->child_pid = archive->pb_source = 0;
-		gtk_widget_set_sensitive(Stop_button,FALSE);
+	archive->child_pid = archive->pb_source = 0;
+	gtk_widget_set_sensitive(Stop_button,FALSE);
 
-		if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ)
-			gtk_widget_set_sensitive (comment_menu,TRUE);
-		else
-			gtk_widget_set_sensitive (comment_menu,FALSE);
-		if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
-			gtk_widget_set_sensitive (password_entry_menu,FALSE);
-		else
-			gtk_widget_set_sensitive (password_entry_menu,TRUE);
+	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ)
+		gtk_widget_set_sensitive (comment_menu,TRUE);
+	else
+		gtk_widget_set_sensitive (comment_menu,FALSE);
+	if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
+		gtk_widget_set_sensitive (password_entry_menu,FALSE);
+	else
+		gtk_widget_set_sensitive (password_entry_menu,TRUE);
 
+	gtk_widget_set_sensitive(listing,TRUE);
+
+	if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+		xa_show_archive_comment (NULL,NULL);
+
+	if (GTK_IS_TREE_VIEW(archive->treeview))
+		gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
+	xa_set_statusbar_message_for_displayed_rows(archive);
+
+	if (archive->status == XA_ARCHIVESTATUS_TEST)
+		xa_show_cmd_line_output (NULL,FALSE);
+
+	if (archive->status == XA_ARCHIVESTATUS_OPEN)
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
-		gtk_widget_set_sensitive(listing,TRUE);
-
-		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-			xa_show_archive_comment (NULL,NULL);
-
-		if (GTK_IS_TREE_VIEW(archive->treeview))
-			gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
-		xa_set_statusbar_message_for_displayed_rows(archive);
-
-		if (archive->status == XA_ARCHIVESTATUS_TEST)
-			xa_show_cmd_line_output (NULL,FALSE);
-
-		archive->status = XA_ARCHIVESTATUS_IDLE;
-		gtk_label_set_text(GTK_LABEL(total_label),"");
-	}
+	archive->status = XA_ARCHIVESTATUS_IDLE;
+	gtk_label_set_text(GTK_LABEL(total_label),"");
 }
 
 void xa_reload_archive_content(XArchive *archive)
@@ -126,58 +124,18 @@ void xa_reload_archive_content(XArchive *archive)
 	XEntry *entry;
 	
 	//TODO: have the status bar notyfing the reload
-	if (xa_main_window != NULL)
-	{
-		xa_free_entry (archive,archive->root_entry);
-		if (archive->column_types != NULL)
-			g_free(archive->column_types);
-		xa_remove_columns(archive);
-		entry = g_new0(XEntry,1);
-		entry->filename = "";
-		archive->root_entry = entry;
+	if (xa_main_window == NULL)
+		return;
 
-		switch (archive->type)
-		{
-			case XARCHIVETYPE_RAR:
-			xa_open_rar (archive);
-			break;
+	xa_free_entry (archive,archive->root_entry);
+	if (archive->column_types != NULL)
+		g_free(archive->column_types);
+	xa_remove_columns(archive);
+	entry = g_new0(XEntry,1);
+	entry->filename = "";
+	archive->root_entry = entry;
 
-			case XARCHIVETYPE_TAR:
-			xa_open_tar (archive);
-			break;
-
-			case XARCHIVETYPE_TAR_BZ2:
-			xa_open_bzip2_lzma (archive,NULL);
-			break;
-
-			case XARCHIVETYPE_TAR_GZ:
-			xa_open_gzip (archive,NULL);
-			break;
-
-			case XARCHIVETYPE_TAR_LZMA:
-			xa_open_bzip2_lzma (archive,NULL);
-			break;
-
-			case XARCHIVETYPE_ZIP:
-			xa_open_zip (archive);
-			break;
-
-			case XARCHIVETYPE_7ZIP:
-			xa_open_7zip (archive);
-			break;
-
-			case XARCHIVETYPE_ARJ:
-			xa_open_arj (archive);
-			break;
-
-			case XARCHIVETYPE_LHA:
-			xa_open_lha (archive);
-			break;
-
-			default:
-			break;
-		}
-	}
+	(*archive->open_archive) (archive);
 	xa_fill_dir_sidebar(archive,TRUE);
 }
 
@@ -348,7 +306,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	}
 
 	/* Let's check if the archive is already opened */
-	for (x = 0; x < gtk_notebook_get_n_pages (notebook) ; x++)
+	for (x = 0; x < gtk_notebook_get_n_pages (notebook); x++)
 	{
 		current_page = xa_find_archive_index (x);
 		if (current_page == -1)
@@ -430,55 +388,8 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	gtk_widget_set_sensitive (listing,FALSE);
 	xa_set_button_state (0,0,0,0,0,0,0,0,0,0,0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
-	switch (archive[current_page]->type)
-	{
-		case XARCHIVETYPE_ARJ:
-		xa_open_arj (archive[current_page]);
-		break;
+	(*archive[current_page]->open_archive) (archive[current_page]);
 
-		case XARCHIVETYPE_DEB:
-		xa_open_deb (archive[current_page]);
-		break;
-
-		case XARCHIVETYPE_BZIP2:
-		xa_open_bzip2_lzma (archive[current_page],NULL);
-		break;
-
-		case XARCHIVETYPE_GZIP:
-		xa_open_gzip ( archive[current_page],NULL);
-		break;
-
-		case XARCHIVETYPE_LZMA:
-		xa_open_bzip2_lzma ( archive[current_page],NULL);
-		break;
-
-		case XARCHIVETYPE_RAR:
-		xa_open_rar (archive[current_page]);
-		break;
-
-		case XARCHIVETYPE_RPM:
-		xa_open_rpm (archive[current_page]);
-		break;
-
-		case XARCHIVETYPE_TAR:
-		xa_open_tar (archive[current_page]);
-		break;
-
-		case XARCHIVETYPE_ZIP:
-		xa_open_zip (archive[current_page]);
-		break;
-
-		case XARCHIVETYPE_7ZIP:
-		xa_open_7zip (archive[current_page]);
-		break;
-
-		case XARCHIVETYPE_LHA:
-		xa_open_lha (archive[current_page]);
-		break;
-
-		default:
-		break;
-	}
 	archive[current_page]->passwd = NULL;
 	xa_fill_dir_sidebar(archive[current_page],TRUE);
 }
@@ -867,7 +778,6 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 	gchar *command = NULL;
 	GSList *list = NULL;
 	gboolean result;
-	unsigned short int l = 0;
 	gint current_page;
 	gint idx;
 
@@ -2345,15 +2255,29 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			gtk_tree_selection_unselect_all (selection);
 			gtk_tree_selection_select_iter (selection,&iter);
 		}
-		if (selected > 1 || entry->is_dir)
+		if (selected > 1)
 		{
+			if (entry->is_dir)
+				gtk_widget_set_sensitive(open_popupmenu,FALSE);
+			else
+				gtk_widget_set_sensitive(open_popupmenu,TRUE);
 			gtk_widget_set_sensitive(rrename,FALSE);
 			gtk_widget_set_sensitive(view,FALSE);
 		}
 		else
 		{
+			if (entry->is_dir)
+			{
+				gtk_widget_set_sensitive(view,FALSE);
+				gtk_widget_set_sensitive(open_popupmenu,FALSE);
+			}
+			else
+			{
+				gtk_widget_set_sensitive(open_popupmenu,TRUE);
+				gtk_widget_set_sensitive(view,TRUE);
+			}
 			gtk_widget_set_sensitive(rrename,TRUE);
-			gtk_widget_set_sensitive(view,TRUE);
+			
 		}
 		clipboard = gtk_clipboard_get(XA_CLIPBOARD);
 		clipboard_selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
@@ -2677,7 +2601,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	GSList *list = NULL;
 	GSList *list_of_files = NULL;
 	GString *names = g_string_new("");
-	gchar *dummy = NULL,*e_filename = NULL,*program = NULL;
+	gchar *dummy = NULL,*e_filename = NULL;
 	XEntry *entry;
 
 	current_index = gtk_notebook_get_current_page(notebook);
@@ -2722,21 +2646,17 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 		return;
 		
 	chdir(archive[idx]->tmp);
-	if (nr > 1)
+	do
 	{
-		do
-		{
-			dummy = g_path_get_basename(list_of_files->data);
-			e_filename = xa_escape_filename(dummy,"$'`\"\\!?* ()[]&|:;<>#");
-			g_free(dummy);
-			g_string_append (names,e_filename);
-			g_string_append_c (names,' ');
-			list_of_files = list_of_files->next;
-		}
-		while (list_of_files);
+		dummy = g_path_get_basename(list_of_files->data);
+		e_filename = xa_escape_filename(dummy,"$'`\"\\!?* ()[]&|:;<>#");
+		g_free(dummy);
+		g_string_append (names,e_filename);
+		g_string_append_c (names,' ');
+		list_of_files = list_of_files->next;
 	}
+	while (list_of_files);
 	xa_create_open_with_dialog(entry->filename,names->str,nr);
-	g_print ("1)%s 2)%s\n",entry->filename,names->str);
 	g_slist_foreach(list_of_files,(GFunc)g_free,NULL);
 	g_slist_free(list_of_files);	
 }
@@ -2745,7 +2665,6 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 {
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
-	GtkTreeModel *model;
 	GSList *list = NULL;
 	GList *row_list = NULL;
 	gboolean result		= FALSE;

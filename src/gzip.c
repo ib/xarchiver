@@ -27,11 +27,10 @@ extern extract_func	extract	[XARCHIVETYPE_COUNT];
 /* GString here is used only to respect the prototype of the
  * extract function so to make life easier to the coder :)*/
 
-void xa_open_gzip (XArchive *archive,GString *dummy)
+void xa_open_gzip (XArchive *archive)
 {
 	gchar *command;
 	unsigned short int i;
-	dummy = g_string_new("");
 
 	if (g_str_has_suffix (archive->escaped_path,".tar.gz") || g_str_has_suffix (archive->escaped_path,".tgz"))
 	{

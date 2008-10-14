@@ -25,6 +25,7 @@
 #include "string_utils.h"
 #include "support.h"
 #include "archive.h"
+#include "gzip.h"
 
 void xa_open_tar ( XArchive * );
 void xa_tar_delete (XArchive *,GSList *);

@@ -75,6 +75,7 @@ typedef void (*delete_func)			(XArchive *,GSList *);
 typedef void (*add_func)			(XArchive *,GString *,gchar *);
 typedef gboolean (*extract_func)	(XArchive *,GSList *);
 typedef void (*test_func)			(XArchive *);
+typedef void (*open_func)			(XArchive *);
 
 struct _XArchive
 {
@@ -131,6 +132,7 @@ struct _XArchive
 	add_func add;
 	extract_func extract;
 	test_func test;
+	open_func open_archive;
 };
 
 #define XA_CLIPBOARD (gdk_atom_intern_static_string ("XARCHIVER_OWN_CLIPBOARD")) 

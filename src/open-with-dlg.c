@@ -44,7 +44,6 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 	const gchar *icon_name = NULL;	
 	const gchar* const *desktop_dirs;
 	gint x = 0;
-	gint response;
 
 	data = g_new0(Open_with_data,1);
 	data->file_list = filenames;

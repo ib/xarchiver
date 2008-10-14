@@ -47,6 +47,7 @@ delete_func		delete[XARCHIVETYPE_COUNT]	= {NULL};
 add_func		add[XARCHIVETYPE_COUNT]		= {NULL};
 extract_func	extract[XARCHIVETYPE_COUNT]	= {NULL};
 test_func		test[XARCHIVETYPE_COUNT]	= {NULL};
+open_func		open_archive[XARCHIVETYPE_COUNT]	= {NULL};
 
 static GOptionEntry entries[] =
 {
@@ -275,6 +276,19 @@ done:	g_list_free (ArchiveSuffix);
 
 void xa_set_available_archivers()
 {
+	open_archive[0]  = 0;
+	open_archive[1]  = &xa_open_7zip;
+	open_archive[2]  = &xa_open_arj;
+	open_archive[3]  = &xa_open_deb;
+	open_archive[4]  = &xa_open_bzip2_lzma;
+	open_archive[5]  = &xa_open_gzip;
+	open_archive[6]  = &xa_open_bzip2_lzma;
+	open_archive[7]  = &xa_open_rar;
+	open_archive[8]  = &xa_open_rpm;
+	open_archive[9]  = open_archive[10] = open_archive[11] = open_archive[12] = &xa_open_tar;
+	open_archive[13] = &xa_open_zip;
+	open_archive[14] = &xa_open_lha;
+	
 	delete[0]  = 0;
 	delete[1]  = &xa_7zip_delete;
 	delete[2]  = &xa_arj_delete;

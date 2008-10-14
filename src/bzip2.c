@@ -26,14 +26,13 @@ extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func	extract	[XARCHIVETYPE_COUNT];
 short int l;
 
-void xa_open_bzip2_lzma (XArchive *archive,GString *dummy)
+void xa_open_bzip2_lzma (XArchive *archive)
 {
 	XEntry *entry = NULL;
 	gchar *filename = NULL;;
 	gchar *_filename;
 	gpointer item[2];
 	gboolean result;
-	dummy = g_string_new("");
 
 	if (g_str_has_suffix(archive->escaped_path,".tar.bz2") || g_str_has_suffix (archive->escaped_path,".tar.bz")
     	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )

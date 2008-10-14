@@ -849,20 +849,19 @@ void xa_create_popup_menu()
 	GtkWidget *image8;
 	GtkWidget *image1;
 	GtkWidget *separator;
-	GtkWidget *open;
 	GtkWidget *extract;
 	GtkWidget *image9;
 	GtkWidget *image10;
 	GtkWidget *image11;
 
 	xa_popup_menu = gtk_menu_new();
-	open = gtk_image_menu_item_new_with_mnemonic (_("Open With"));
-	gtk_widget_show (open);
-	gtk_container_add (GTK_CONTAINER (xa_popup_menu),open);
+	open_popupmenu = gtk_image_menu_item_new_with_mnemonic (_("Open With"));
+	gtk_widget_show (open_popupmenu);
+	gtk_container_add (GTK_CONTAINER (xa_popup_menu),open_popupmenu);
 
 	image9 = gtk_image_new_from_stock ("gtk-open",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image9);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (open),image9);
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (open_popupmenu),image9);
 
 	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract"));
 	gtk_widget_show (extract);
@@ -932,7 +931,7 @@ void xa_create_popup_menu()
 	gtk_widget_show (image11);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rrename),image11);
 
-	g_signal_connect ((gpointer) open,	"activate",	G_CALLBACK(xa_open_with_from_popupmenu),NULL);
+	g_signal_connect ((gpointer) open_popupmenu,"activate",	G_CALLBACK(xa_open_with_from_popupmenu),NULL);
 	g_signal_connect ((gpointer) view,	"activate",	G_CALLBACK(xa_view_from_popupmenu),NULL);
 	g_signal_connect ((gpointer) cut,	"activate",	G_CALLBACK(xa_clipboard_cut),NULL);
 	g_signal_connect ((gpointer) copy,	"activate",	G_CALLBACK(xa_clipboard_copy),NULL);

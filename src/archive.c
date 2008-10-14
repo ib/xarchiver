@@ -30,6 +30,7 @@
 
 #define MAX_CMD_LEN (NCARGS * 2 / 3)
 
+extern open_func	open_archive[XARCHIVETYPE_COUNT];
 extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func extract	[XARCHIVETYPE_COUNT];
@@ -50,8 +51,9 @@ XArchive *xa_init_archive_structure(gint type)
 	entry = g_new0(XEntry,1);
 	entry->filename = "";
 	archive->root_entry = entry;
+	archive->open_archive =	open_archive[type];
 	archive->delete =	delete[type];
-	archive->add = 		add[type];
+	archive->add =		add[type];
 	archive->extract = 	extract[type];
 	archive->test = 	test[type];
 	archive->type = type;
@@ -104,7 +106,8 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
 
 	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output,archive);
-	g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
+	if (xa_main_window)
+		g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
 
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
@@ -364,7 +367,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			if (archive->child_pid == 0)
 			{
 				result = FALSE;
-				goto here;
+				break;
 			}
 			while (waiting)
 			{
@@ -384,11 +387,12 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			}
 			_commands = _commands->next;
 		}
-here:
 		xa_watch_child (archive->child_pid, status, archive);
+here:
 		g_slist_foreach (commands,(GFunc) g_free,NULL);
 		g_slist_free(commands);
 	}
+	xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
 	return result;
 }
 
