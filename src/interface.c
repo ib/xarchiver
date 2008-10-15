@@ -1275,9 +1275,11 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 			}
 			/* Let's unselect the row in the sidepane */
 			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
-			gtk_tree_selection_get_selected (selection,&model,&iter);
-			gtk_tree_selection_unselect_iter(selection,&iter);
-
+			if (selection != NULL)
+			{
+				gtk_tree_selection_get_selected (selection,&model,&iter);
+				gtk_tree_selection_unselect_iter(selection,&iter);
+			}
 			xa_update_window_with_archive_entries(archive[idx],NULL);
 			xa_restore_navigation(idx);
 		break;
@@ -1285,7 +1287,10 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 		case 1:
 			if (g_slist_find(archive[idx]->forward,archive[idx]->current_entry) == NULL)
 				archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
+
 			xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
+			xa_sidepane_select_row(archive[idx]->back->data);
+
 			archive[idx]->back = archive[idx]->back->next;
 			xa_restore_navigation(idx);
 		break;
@@ -1300,8 +1305,10 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 				xa_update_window_with_archive_entries(archive[idx],NULL);
 			}
 			else
+			{
 				xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
-
+				xa_sidepane_select_row(new_entry->prev);
+			}
 			if (archive[idx]->back)
 				archive[idx]->back = archive[idx]->back->next;
 			xa_restore_navigation(idx);
@@ -1312,6 +1319,7 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 				archive[idx]->back = g_slist_prepend(archive[idx]->back,archive[idx]->current_entry);
 
 			xa_update_window_with_archive_entries(archive[idx],archive[idx]->forward->data);
+			xa_sidepane_select_row(archive[idx]->forward->data);
 			archive[idx]->forward = archive[idx]->forward->next;
 
 			xa_restore_navigation(idx);

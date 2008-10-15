@@ -266,9 +266,6 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		archive_dir = xa_remove_level_from_path (archive->path);
 		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
 	}
-	else
-		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive->extraction_path);
-
 	g_free(archive_dir);
 	if (archive->has_passwd)
     {

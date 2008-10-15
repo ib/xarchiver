@@ -2801,7 +2801,10 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 			g_free(archive->location_entry_path);
 			archive->location_entry_path = NULL;
 		}
-		gtk_widget_set_sensitive(back_button,TRUE);
+		if (archive->back == NULL)
+			gtk_widget_set_sensitive(back_button,FALSE);
+		else
+			gtk_widget_set_sensitive(back_button,TRUE);
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
 		archive->location_entry_path = xa_build_full_path_name_from_entry(entry,0);

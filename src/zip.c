@@ -21,7 +21,7 @@
 #include <unistd.h>
 #include "zip.h"
 
-
+extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 
 void xa_open_zip (XArchive *archive)

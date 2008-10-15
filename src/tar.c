@@ -20,6 +20,7 @@
 #include <string.h>
 #include "tar.h"
 
+extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 extern gchar *tar;
 

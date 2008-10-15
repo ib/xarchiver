@@ -777,6 +777,7 @@ gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIt
 			gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),path);
 
 		gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)),iter);
+		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW(archive_dir_treeview),path,NULL,FALSE,0,0);
 	}
 	else
 	{
