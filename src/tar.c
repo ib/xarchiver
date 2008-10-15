@@ -157,9 +157,7 @@ void xa_tar_delete (XArchive *archive,GSList *files)
 	gchar *e_filename,*command = NULL;
 	GSList *_files,*list = NULL;
 	GString *names = g_string_new("");
-	
-	if (archive->status != XA_ARCHIVESTATUS_RENAME)
-		archive->status = XA_ARCHIVESTATUS_DELETE;
+
 	_files = files;
 	while (_files)
 	{
@@ -178,6 +176,8 @@ void xa_tar_delete (XArchive *archive,GSList *files)
 		command = g_strconcat (tar, " --delete -vf ",archive->escaped_path," ",names->str,NULL);
 		list = g_slist_append(list,command);
 		xa_run_command (archive,list);
+		if (archive->status == XA_ARCHIVESTATUS_DELETE)
+			xa_reload_archive_content(archive);
 	}
 }
 
@@ -430,7 +430,8 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 	command = g_strconcat ("mv ",archive->tmp,"/",filename," ",archive->escaped_path,NULL);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
-	xa_reload_archive_content(archive);
+	if (archive->status == XA_ARCHIVESTATUS_DELETE || archive->status == XA_ARCHIVESTATUS_ADD)
+		xa_reload_archive_content(archive);
 }
 
 gboolean is_tar_compressed (gint type)

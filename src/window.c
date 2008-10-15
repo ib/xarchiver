@@ -115,7 +115,7 @@ there:
 
 	if (archive->status == XA_ARCHIVESTATUS_OPEN)
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
-	archive->status = XA_ARCHIVESTATUS_IDLE;
+
 	gtk_label_set_text(GTK_LABEL(total_label),"");
 }
 
@@ -731,6 +731,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 		if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 			return;
 	}
+	archive[id]->status = XA_ARCHIVESTATUS_DELETE;
 	(*archive[id]->delete) (archive[id],list);
 }
 
@@ -1259,7 +1260,7 @@ void xa_create_liststore (XArchive *archive,gchar *columns_names[])
 	archive->liststore = gtk_list_store_newv ( archive->nc+2 ,archive->column_types);
 	gtk_tree_view_set_model ( GTK_TREE_VIEW (archive->treeview),GTK_TREE_MODEL (archive->liststore));
 
-	archive->model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
+	archive->model = GTK_TREE_MODEL(archive->liststore);
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_sort_filename_column)))
 		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model),1,GTK_SORT_ASCENDING);
 	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(archive->liststore),1,xa_sort_dirs_before_files,archive,NULL);
@@ -1349,7 +1350,6 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 				archive[idx]->has_passwd = FALSE;
 
 		gtk_label_set_text(GTK_LABEL(total_label),"");
-		archive[idx]->status = XA_ARCHIVESTATUS_IDLE;
 	}
 }
 
@@ -1741,7 +1741,6 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 	}
 	g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
 	g_list_free (row_list);
-	archive->status = XA_ARCHIVESTATUS_IDLE;
 }
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int y,GtkSelectionData *data,unsigned int info,unsigned int time,gpointer user_data)

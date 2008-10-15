@@ -182,15 +182,14 @@ void xa_zip_delete (XArchive *archive,GSList *names)
 	GSList *list = NULL;
 	GString *files = g_string_new("");
 	
-	if (archive->status != XA_ARCHIVESTATUS_RENAME)
-		archive->status = XA_ARCHIVESTATUS_DELETE;
 	xa_zip_prepend_backslash(names,files);
 	command = g_strconcat ("zip -d ",archive->escaped_path," ",files->str,NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
-
 	xa_run_command (archive,list);
-	xa_reload_archive_content(archive);
+
+	if (archive->status == XA_ARCHIVESTATUS_DELETE)
+		xa_reload_archive_content(archive);
 }
 
 void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)

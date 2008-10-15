@@ -158,8 +158,6 @@ void xa_arj_delete (XArchive *archive,GSList *names)
 	GSList *_names;
 	GString *files = g_string_new("");
 
-	if (archive->status != XA_ARCHIVESTATUS_RENAME)
-		archive->status = XA_ARCHIVESTATUS_DELETE;
  	_names = names;
  	while (_names)
 	{
@@ -176,7 +174,8 @@ void xa_arj_delete (XArchive *archive,GSList *names)
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);
-	xa_reload_archive_content(archive);
+	if (archive->status == XA_ARCHIVESTATUS_DELETE)
+		xa_reload_archive_content(archive);
 }
 
 void xa_arj_add (XArchive *archive,GString *files,gchar *compression_string)

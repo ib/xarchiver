@@ -587,33 +587,17 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 
 void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page_num,gpointer user_data)
 {
-	gint id;
+	gint id,selected = 0;
 	GtkTreeSelection *selection = NULL;
 
 	id = xa_find_archive_index (page_num);
 	if (id == -1)
 		return;
 
-	if (archive[id]->treeview != NULL)
-		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
 	xa_set_window_title (xa_main_window,archive[id]->path);
-
-	if (archive[id]->child_pid)
-	{
-		if (archive[id]->status == XA_ARCHIVESTATUS_IDLE)
-		{
-			gtk_widget_set_sensitive (Stop_button,FALSE);
-			goto here;
-		}
-		xa_set_button_state (0,0,0,0,0,0,0,0,0,0,0);
-		gtk_widget_set_sensitive (Stop_button,TRUE);
-		return;
-	}
-	xa_set_button_state (1,1,1,GTK_WIDGET_IS_SENSITIVE(close1),archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties,archive[id]->has_passwd,1);
-
-here:
 	xa_restore_navigation(id);
 	xa_set_statusbar_message_for_displayed_rows(archive[id]);
+
 	if (selection != NULL)
 		xa_row_selected(selection,archive[id]);
 
@@ -626,9 +610,11 @@ here:
 			gtk_widget_set_sensitive (password_entry_menu,FALSE);
 		else
 			gtk_widget_set_sensitive (password_entry_menu,TRUE);
-	if (archive[id]->status != XA_ARCHIVESTATUS_OPEN && archive[id]->treeview != NULL)
+
+	if (archive[id]->treeview != NULL)
 	{
-		gint selected = gtk_tree_selection_count_selected_rows (selection);
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
+		selected = gtk_tree_selection_count_selected_rows (selection);
 		if (selected == 0)
 		{
 			xa_disable_delete_buttons (FALSE);
@@ -1555,21 +1541,16 @@ Progress_bar_data *xa_create_progress_bar()
 	return pb;
 }
 
-void xa_increase_progress_bar(Progress_bar_data *pb,gchar *archive_name,double percent,gboolean multi_extract)
+void xa_increase_progress_bar(Progress_bar_data *pb,gchar *archive_name,double percent)
 {
 	gchar *message = NULL;
 
 	gtk_label_set_text(GTK_LABEL(pb->archive_label),archive_name);
-	if (multi_extract)
-	{
-		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),percent);
-		message = g_strdup_printf("%.0f%%",(percent*100));
-		gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
-		g_free(message);
-	}
-	else
-		//gtk_progress_bar_set_pulse_step (GTK_PROGRESS_BAR (pb->progressbar1),0);
-		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),percent);
+	message = g_strdup_printf("%.0f%%",(percent*100));
+	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
+	g_free(message);
+
 	while (gtk_events_pending())
 		gtk_main_iteration();
 }
@@ -1580,4 +1561,18 @@ void xa_icon_theme_changed (GtkIconTheme *icon_theme,gpointer data)
  	 * Here we should reload all the icons currently displayed according to the
  	 * new icon_theme. xa_get_pixbuf_icon_from_cache() is to be called as many
  	 * time as the filenames currently displayed. What of the other tabs then? */ 	
+}
+
+gboolean xa_progress_bar_pulse_function(Progress_bar_data *pb)
+{
+	if (pb != NULL)
+	{
+		while (gtk_events_pending())
+			gtk_main_iteration();
+		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
+		return TRUE;
+	}
+	else
+		return FALSE;
+		
 }

@@ -225,13 +225,9 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 void xa_rar_delete (XArchive *archive,GSList *names)
 {
 	gchar *command,*e_filename = NULL;
-	GSList *list = NULL;
+	GSList *list = NULL,*_names;
 	GString *files = g_string_new("");
 
-	if (archive->status != XA_ARCHIVESTATUS_RENAME)
-		archive->status = XA_ARCHIVESTATUS_DELETE;
-	GSList *_names;
- 	
  	_names = names;
  	while (_names)
 	{
@@ -248,7 +244,8 @@ void xa_rar_delete (XArchive *archive,GSList *names)
 	list = g_slist_append(list,command);
 
 	xa_run_command (archive,list);
-	xa_reload_archive_content(archive);
+	if (archive->status == XA_ARCHIVESTATUS_DELETE)
+		xa_reload_archive_content(archive);
 }
 
 void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
