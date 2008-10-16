@@ -174,7 +174,7 @@ gboolean xa_detect_encrypted_archive (XArchive *);
 void xa_browse_dir_sidebar (XEntry *, GtkTreeStore *,gchar *,GtkTreeIter *);
 void xa_fill_dir_sidebar(XArchive *,gboolean);
 void xa_sidepane_row_selected(GtkTreeSelection *, gpointer );
-void xa_sidepane_select_row(XEntry *entry);
+void xa_sidepane_select_row(XEntry *);
 gboolean _xa_sidepane_select_row(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
 gint xa_sort_dirs_before_files(GtkTreeModel *,GtkTreeIter *,GtkTreeIter *,gpointer );
 XArchive *archive[100];

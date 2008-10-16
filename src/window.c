@@ -122,7 +122,7 @@ there:
 void xa_reload_archive_content(XArchive *archive)
 {
 	XEntry *entry;
-	
+
 	//TODO: have the status bar notyfing the reload
 	if (xa_main_window == NULL)
 		return;
@@ -2395,6 +2395,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 
 	if (paste_data->mode == XA_CLIPBOARD_CUT)
 	{
+		paste_data->cut_copy_archive->status = XA_ARCHIVESTATUS_DELETE;
 		list = xa_slist_copy(paste_data->files);
 		(paste_data->cut_copy_archive->delete) (paste_data->cut_copy_archive,list);
 	}
@@ -2503,6 +2504,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&model);
 
 	g_object_set(archive[idx]->renderer_text,"editable",TRUE,NULL);
+	gtk_accel_group_disconnect_key(accel_group,GDK_Delete,GDK_MODE_DISABLED);
 	column = gtk_tree_view_get_column(GTK_TREE_VIEW (archive[idx]->treeview),0);
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(archive[idx]->treeview),row_list->data,column,TRUE);
 	gtk_tree_path_free (row_list->data);
@@ -2512,6 +2514,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 void xa_rename_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
 {
 	g_object_set(renderer,"editable",FALSE,NULL);
+	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
 }
 
 void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_name,XArchive *archive)
@@ -2586,6 +2589,7 @@ void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,c
 		chdir (archive->tmp);
 		xa_execute_add_commands(archive,list,NULL);
 	}
+	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
 	g_object_set(cell,"editable",FALSE,NULL);
 }
 
@@ -2778,7 +2782,14 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gchar *filename;
 	gint size;
 
-	archive->current_entry = entry;
+	if ( (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE) && archive->location_entry_path != NULL)
+	{
+		archive->status = XA_ARCHIVESTATUS_IDLE;
+		entry = xa_find_entry_from_path(archive->root_entry,archive->location_entry_path);
+	}
+	else
+		archive->current_entry = entry;
+
 	if (entry == NULL)
 	{
 		entry = archive->root_entry->child;

@@ -187,7 +187,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (delete_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
 	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
-	
+
 	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
 	gtk_widget_set_sensitive (rename_menu,FALSE);
 	gtk_widget_show (rename_menu);
@@ -1283,18 +1283,18 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 		/* Up */
 		case 2:
 			archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
-			new_entry = archive[idx]->current_entry;
 
-			if (new_entry->prev->prev == NULL)
+			/* Let's unselect the row in the sidepane */
+			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
+			if (selection != NULL)
 			{
-				gtk_widget_set_sensitive(back_button,FALSE);
-				xa_update_window_with_archive_entries(archive[idx],NULL);
+				gtk_tree_selection_get_selected (selection,&model,&iter);
+				gtk_tree_selection_unselect_iter(selection,&iter);
 			}
-			else
-			{
-				xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
-				xa_sidepane_select_row(new_entry->prev);
-			}
+			new_entry = xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path);
+			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
+			xa_sidepane_select_row(new_entry->prev);
+
 			if (archive[idx]->back)
 				archive[idx]->back = archive[idx]->back->next;
 			xa_restore_navigation(idx);

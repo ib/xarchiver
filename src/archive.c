@@ -768,6 +768,7 @@ gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIt
 	XEntry *entry = data;
 	XEntry *entry2;
 	GtkTreeIter parent;
+	gboolean value;
 
 	gtk_tree_model_get (model,iter,2,&entry2,-1);
 	if (entry == entry2)
@@ -778,13 +779,12 @@ gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIt
 
 		gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)),iter);
 		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW(archive_dir_treeview),path,NULL,FALSE,0,0);
+		value = TRUE;
 	}
 	else
-	{
-		return FALSE;
-		gtk_tree_selection_unselect_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)),iter);
-	}
-	return FALSE;
+		value = FALSE;
+
+	return value;
 }
 
 gint xa_sort_dirs_before_files(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer data)

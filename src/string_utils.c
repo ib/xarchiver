@@ -124,7 +124,7 @@ char *xa_escape_common_chars (const char *str, const char *meta_chars, const cha
                 extra_chars++;
 
         new_l = strlen (str) + (count_chars_to_escape (str, meta_chars) * extra_chars);
-        escaped = g_malloc (new_l + 1);
+        escaped = g_malloc0 (new_l + 1);
 
         s = str;
         t = escaped;
@@ -146,9 +146,17 @@ char *xa_escape_common_chars (const char *str, const char *meta_chars, const cha
 gchar *xa_remove_level_from_path (const gchar *path)
 {
 	gchar *local_path;
+	gchar *_local_path;
     gchar *local_escaped_path;
 
-    local_path = g_path_get_dirname (path);
+	if (path[strlen(path)-1] == '/')
+	{
+		_local_path = g_strndup(path,strlen(path)-1);
+		local_path  = g_path_get_dirname (_local_path);
+		g_free(_local_path);
+	}
+	else
+    	local_path = g_path_get_dirname (path);
     local_escaped_path = xa_escape_bad_chars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
     g_free (local_path);
     return local_escaped_path;
