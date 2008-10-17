@@ -38,7 +38,10 @@ extern test_func	test	[XARCHIVETYPE_COUNT];
 extern Prefs_dialog_data *prefs_window;
 extern gboolean batch_mode;
 
+Progress_bar_data *pb = NULL;
+
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
+static gboolean xa_process_output_from_command_line (GIOChannel *ioc,GIOCondition cond,gpointer data);
 
 XArchive *xa_init_archive_structure(gint type)
 {
@@ -91,7 +94,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	}
 	g_strfreev (argv);
 
-	if (archive->pb_source == 0)
+	if (archive->status == XA_ARCHIVESTATUS_OPEN)
 		archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 
 	if (archive->error_output != NULL)
@@ -104,10 +107,13 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	ioc = g_io_channel_unix_new (archive->output_fd);
 	g_io_channel_set_encoding (ioc,NULL,NULL);
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
-
-	g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output,archive);
+	
 	if (xa_main_window)
-		g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
+		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output,archive);
+	else
+		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output_from_command_line,archive);
+
+	g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
 
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
@@ -137,6 +143,40 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	return command;
 }
 */
+
+static gboolean xa_process_output_from_command_line (GIOChannel *ioc,GIOCondition cond,gpointer data)
+{
+	XArchive *archive = data;
+	GIOStatus status;
+	gchar *line = NULL;
+
+	if (cond & (G_IO_IN | G_IO_PRI))
+	{
+		do
+		{
+			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
+			if (line != NULL)
+			{
+				xa_increase_progress_bar(pb,line,0.0);
+				g_free(line);
+			}
+		}
+		while (status == G_IO_STATUS_NORMAL);
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
+	{
+	done:
+		if (archive->error_output != NULL)
+			archive->error_output = g_slist_reverse (archive->error_output);
+		g_io_channel_shutdown (ioc,TRUE,NULL);
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
+}
+
 static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer data)
 {
 	XArchive *archive = data;
@@ -271,7 +311,9 @@ void xa_clean_archive_structure (XArchive *archive)
 
 void xa_delete_temp_directory (XArchive *archive,gboolean flag)
 {
-	xa_launch_external_program("rm -rf",archive->tmp);
+	gchar *command = g_strconcat("rm -rf ",archive->tmp,NULL);
+	xa_spawn_async_process(archive,command);
+	g_free(command);
 }
 
 gboolean xa_create_temp_directory (XArchive *archive)
@@ -301,98 +343,54 @@ gboolean xa_create_temp_directory (XArchive *archive)
 
 gboolean xa_run_command (XArchive *archive,GSList *commands)
 {
-	int ps,argcp;
+	int ps;
 	gboolean waiting = TRUE;
 	gboolean result = TRUE;
-	int response;
 	GSList *_commands = commands;
-	GError *error = NULL;
-    gchar *std_out,*std_err,*new_std_err,*dummy;
-    gchar **argv;
 
-	if (batch_mode)
+	archive->parse_output = 0;
+	if (xa_main_window)
 	{
-		while (_commands)
-		{
-			g_print ("%s\n",(gchar*)_commands->data);
-			g_shell_parse_argv(_commands->data,&argcp,&argv,NULL);
-			if ( ! g_spawn_sync(
-				NULL,
-				argv,
-				NULL,
-				G_SPAWN_SEARCH_PATH,
-				NULL,
-				NULL,
-				&std_out,
-				&std_err,
-				&status,
-				&error))
-			{
-				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't spawn the command:"),error->message);
-				g_error_free (error);
-				g_strfreev (argv);
-				goto here;
-			}
-			if (WIFEXITED(status))
-			{
-				if (WEXITSTATUS(status))
-				{
-					if (strlen(std_err) > 1954)
-					{
-						new_std_err = g_strndup(std_err,1954);
-						dummy = g_strconcat(new_std_err,_("\n\n** Output was shortened; too many errors!"),NULL);
-						g_free(new_std_err);
-						response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),dummy);
-						g_free(dummy);
-					}
-					else
-						response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),std_err);
-				}
-				else
-					result = TRUE;
-			}
-			_commands = _commands->next;
-		}
-		g_strfreev (argv);
-		goto here;
+		gtk_widget_set_sensitive (Stop_button,TRUE);
+		if (archive->pb_source == 0)
+			archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 	}
 	else
+		pb = xa_create_progress_bar(TRUE,archive);
+
+	while (_commands)
 	{
-		archive->parse_output = 0;
-		gtk_widget_set_sensitive (Stop_button,TRUE);
-		while (_commands)
+		g_print ("%s\n",(gchar*)_commands->data);
+		xa_spawn_async_process (archive,_commands->data);
+		if (archive->child_pid == 0)
 		{
-			g_print ("%s\n",(gchar*)_commands->data);
-			xa_spawn_async_process (archive,_commands->data);
-			if (archive->child_pid == 0)
+			result = FALSE;
+			break;
+		}
+		while (waiting)
+		{
+			ps = waitpid (archive->child_pid, &status, WNOHANG);
+			if (ps < 0)
+				break;
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+		if (WIFEXITED (status))
+		{
+			if (WEXITSTATUS (status))
 			{
 				result = FALSE;
 				break;
 			}
-			while (waiting)
-			{
-				ps = waitpid (archive->child_pid, &status, WNOHANG);
-				if (ps < 0)
-					break;
-				else if(xa_main_window)
-					gtk_main_iteration_do (FALSE);
-			}
-			if (WIFEXITED (status))
-			{
-				if (WEXITSTATUS (status))
-				{
-					result = FALSE;
-					break;
-				}
-			}
-			_commands = _commands->next;
 		}
-		xa_watch_child (archive->child_pid, status, archive);
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
-here:
-		g_slist_foreach (commands,(GFunc) g_free,NULL);
-		g_slist_free(commands);
+		_commands = _commands->next;
 	}
+	xa_watch_child (archive->child_pid, status, archive);
+	if (xa_main_window)
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
+
+	g_slist_foreach (commands,(GFunc) g_free,NULL);
+	g_slist_free(commands);
 	return result;
 }
 

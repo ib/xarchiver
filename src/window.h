@@ -52,6 +52,12 @@
 #include "add_dialog.h"
 #include "pref_dialog.h"
 #include "open-with-dlg.h"
+#include "mime.h"
+#include "string_utils.h"
+#include "interface.h"
+#include "support.h"
+#include "main.h"
+#include "socket.h"
 
 unsigned long long int file_offset;
 Add_dialog_data *add_window;

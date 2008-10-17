@@ -38,6 +38,8 @@ gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
 int response;
 extern gchar *current_open_directory;
 extern int status;
+
+extern Progress_bar_data *pb;
 Prefs_dialog_data   *prefs_window   = NULL;
 Extract_dialog_data *extract_window = NULL;
 Add_dialog_data     *add_window		= NULL;
@@ -219,9 +221,13 @@ int main (int argc, char **argv)
 		}
 done:	g_list_free (ArchiveSuffix);
 		g_list_free (ArchiveType);
+		if (pb != NULL)
+		{
+			gtk_widget_destroy(pb->progress_window);
+			g_free(pb);
+		}
 		if (archive != NULL)
 			xa_clean_archive_structure (archive);
-		return WIFEXITED (status);
 	}
 	else
 	{
@@ -270,8 +276,8 @@ done:	g_list_free (ArchiveSuffix);
 		gtk_main ();
 		g_list_free (ArchiveSuffix);
 		g_list_free (ArchiveType);
-		return 0;
 	}
+	return 0;
 }
 
 void xa_set_available_archivers()

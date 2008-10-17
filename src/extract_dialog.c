@@ -306,6 +306,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
 				xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0,0,0);
+				archive->status = XA_ARCHIVESTATUS_IDLE;
 			}
 			break;
 
@@ -723,7 +724,7 @@ run:
 
 	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	double fraction = 1.0 / dialog->nr;
-	pb_struct = xa_create_progress_bar();
+	pb_struct = xa_create_progress_bar(FALSE,NULL);
 	do
 	{
 		gtk_tree_model_get (GTK_TREE_MODEL(dialog->files_liststore),&iter,0,&file,2,&path,3,&type,-1);
@@ -732,7 +733,7 @@ run:
 		else
 			full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->full_path));
 		filename = g_strconcat (path,"/",file,NULL);
-		xa_increase_progress_bar(pb_struct,filename,percent);
+		xa_increase_progress_bar(pb_struct,NULL,percent);
 		g_free(file);
 		g_free(path);
 		message = xa_multi_extract_archive(dialog,filename,overwrite,full_path,dest_path);

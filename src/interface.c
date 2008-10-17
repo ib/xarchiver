@@ -47,6 +47,9 @@ static const GtkTargetEntry drop_targets[] =
 
 extern gboolean unrar,batch_mode;
 
+static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid pid);
+static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid pid);
+
 void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gboolean show_output_menu_item,gboolean show_sidebar)
 {
 	GdkPixbuf *icon;
@@ -1489,11 +1492,13 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 	return TRUE;
 }
 
-Progress_bar_data *xa_create_progress_bar()
+Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 {
-	GtkWidget *vbox1,*vbox2,*extract_message,*hbox1,*icon_pixbuf,*total_label;
+	GtkWidget *vbox1,*vbox2,*message,*hbox1,*icon_pixbuf,*total_label,*action_area;
 	GdkPixbuf *pixbuf;
+	PangoAttrList *italic_attr;
 	Progress_bar_data *pb = NULL;
+	gchar *text,*markup;
 
 	pb = g_new0(Progress_bar_data,1);
 	pb->progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -1521,36 +1526,75 @@ Progress_bar_data *xa_create_progress_bar()
 	vbox2 = gtk_vbox_new (FALSE,0);
 	gtk_box_pack_start (GTK_BOX (hbox1),vbox2,TRUE,TRUE,0);
 
-	extract_message = gtk_label_new (_("Extracting archive:"));
-	gtk_label_set_use_markup (GTK_LABEL (extract_message),TRUE);
-	gtk_box_pack_start (GTK_BOX (vbox2),extract_message,FALSE,FALSE,0);
-	gtk_misc_set_alignment (GTK_MISC (extract_message),0,0.5);
+	if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
+		text = _("Extracting from archive:");
+	else
+		text = _("Adding to archive:");
+
+	message = gtk_label_new("");
+	markup = g_markup_printf_escaped ("<b>%s</b>", text);
+	gtk_label_set_markup (GTK_LABEL (message), markup);
+	g_free (markup);
+
+	gtk_box_pack_start (GTK_BOX (vbox2),message,FALSE,FALSE,0);
+	gtk_misc_set_alignment (GTK_MISC (message),0,0.5);
 
 	pb->archive_label = gtk_label_new("");
 	gtk_label_set_ellipsize(GTK_LABEL(pb->archive_label),PANGO_ELLIPSIZE_END);
 	gtk_misc_set_alignment (GTK_MISC (pb->archive_label),0,0.5);
 	gtk_box_pack_start (GTK_BOX (vbox2),pb->archive_label,FALSE,FALSE,12);
+	gtk_label_set_text(GTK_LABEL(pb->archive_label),archive->path);
 
-	total_label = gtk_label_new (_("Total Progress:"));
-	gtk_box_pack_start (GTK_BOX (vbox2),total_label,FALSE,FALSE,0);
-	gtk_misc_set_alignment (GTK_MISC (total_label),0,0);
-
+	if ( ! flag)
+	{
+		total_label = gtk_label_new (_("Total Progress:"));
+		gtk_box_pack_start (GTK_BOX (vbox2),total_label,FALSE,FALSE,0);
+		gtk_misc_set_alignment (GTK_MISC (total_label),0,0);
+	}
 	pb->progressbar1 = gtk_progress_bar_new ();
 	gtk_box_pack_start (GTK_BOX (vbox2),pb->progressbar1,FALSE,FALSE,0);
+
+	if (flag)
+	{
+		pb->file_label = gtk_label_new("");
+		italic_attr = pango_attr_list_new ();
+		pango_attr_list_insert (italic_attr, pango_attr_style_new (PANGO_STYLE_ITALIC));
+		gtk_label_set_attributes (GTK_LABEL (pb->file_label),italic_attr);
+		pango_attr_list_unref (italic_attr);
+		gtk_label_set_ellipsize(GTK_LABEL(pb->file_label),PANGO_ELLIPSIZE_END);
+		gtk_misc_set_alignment (GTK_MISC (pb->file_label),0,0.5);
+		gtk_box_pack_start (GTK_BOX (vbox2),pb->file_label,FALSE,FALSE,12);
+		
+		action_area = gtk_hbutton_box_new ();
+		gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area),GTK_BUTTONBOX_END);  
+  		gtk_box_pack_end (GTK_BOX (vbox2),action_area,FALSE, TRUE, 0);
+
+		cancel_button = gtk_button_new_from_stock ("gtk-cancel");
+		gtk_box_pack_end (GTK_BOX (action_area),cancel_button,TRUE,TRUE,12);
+
+		g_signal_connect (G_OBJECT (cancel_button),		 "clicked",		G_CALLBACK (xa_progress_dialog_stop_action), GINT_TO_POINTER (archive->child_pid));
+		g_signal_connect (G_OBJECT (pb->progress_window),"delete_event",G_CALLBACK (xa_progress_dialog_delete_event),GINT_TO_POINTER (archive->child_pid));
+	}
 	gtk_widget_show_all(pb->progress_window);
 	return pb;
 }
 
-void xa_increase_progress_bar(Progress_bar_data *pb,gchar *archive_name,double percent)
+void xa_increase_progress_bar(Progress_bar_data *pb,gchar *filename,double percent)
 {
 	gchar *message = NULL;
 
-	gtk_label_set_text(GTK_LABEL(pb->archive_label),archive_name);
-	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),percent);
-	message = g_strdup_printf("%.0f%%",(percent*100));
-	gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
-	g_free(message);
-
+	if (filename == NULL)
+	{
+		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),percent);
+		message = g_strdup_printf("%.0f%%",(percent*100));
+		gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
+		g_free(message);
+	}
+	else
+	{
+		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
+		gtk_label_set_text(GTK_LABEL(pb->file_label),filename);
+	}
 	while (gtk_events_pending())
 		gtk_main_iteration();
 }
@@ -1563,16 +1607,13 @@ void xa_icon_theme_changed (GtkIconTheme *icon_theme,gpointer data)
  	 * time as the filenames currently displayed. What of the other tabs then? */ 	
 }
 
-gboolean xa_progress_bar_pulse_function(Progress_bar_data *pb)
+static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid pid)
 {
-	if (pb != NULL)
-	{
-		while (gtk_events_pending())
-			gtk_main_iteration();
-		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
-		return TRUE;
-	}
-	else
-		return FALSE;
-		
+	kill (pid,SIGABRT);
+	return TRUE;
+}
+
+static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid pid)
+{
+	kill (pid,SIGABRT);
 }

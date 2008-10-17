@@ -21,13 +21,6 @@
 #endif
 
 #include "window.h"
-#include "archive.h"
-#include "mime.h"
-#include "string_utils.h"
-#include "interface.h"
-#include "support.h"
-#include "main.h"
-#include "socket.h"
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
@@ -50,20 +43,6 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 	int response;
 
 	archive->child_pid = archive->pb_source = 0;
-	if (WIFSIGNALED (status))
-	{
-		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
-		{
-			gchar *msg = g_strdup_printf(_("Please check \"%s\" since some files could have been already extracted."),archive->extraction_path);
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"",msg);
-			g_free (msg);
-		}
-		else if (archive->status == XA_ARCHIVESTATUS_OPEN)
-			gtk_widget_set_sensitive (check_menu,FALSE);
-
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,archive->has_passwd,1);
-		return;
-	}
 	if (WIFEXITED (status))
 	{
 		if (WEXITSTATUS (status))
@@ -75,48 +54,54 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it."));	
 				return;
 			}
-			xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties,archive->has_passwd,1);
-			gtk_widget_set_sensitive(Stop_button,FALSE);
-			xa_show_cmd_line_output (NULL,GINT_TO_POINTER(1));
-			/* In case the user supplies a wrong password we reset it so he can try again */
-			if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
+			if (xa_main_window)
 			{
-				g_free (archive->passwd);
-				archive->passwd = NULL;
+				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties,archive->has_passwd,1);
+				xa_show_cmd_line_output (NULL,GINT_TO_POINTER(1));
+				/* In case the user supplies a wrong password we reset it so he can try again */
+				if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
+				{
+					g_free (archive->passwd);
+					archive->passwd = NULL;
+				}
+				archive->status = XA_ARCHIVESTATUS_ERROR;
+				gtk_widget_set_sensitive(Stop_button,FALSE);
+				return;
 			}
-			archive->status = XA_ARCHIVESTATUS_ERROR;			
-			return;
 		}
 	}
 there:
-	archive->child_pid = archive->pb_source = 0;
-	gtk_widget_set_sensitive(Stop_button,FALSE);
+	if (xa_main_window)
+	{
+		archive->child_pid = archive->pb_source = 0;
+		gtk_widget_set_sensitive(Stop_button,FALSE);
 
-	if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ)
-		gtk_widget_set_sensitive (comment_menu,TRUE);
-	else
-		gtk_widget_set_sensitive (comment_menu,FALSE);
-	if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
-		gtk_widget_set_sensitive (password_entry_menu,FALSE);
-	else
-		gtk_widget_set_sensitive (password_entry_menu,TRUE);
+		if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ)
+			gtk_widget_set_sensitive (comment_menu,TRUE);
+		else
+			gtk_widget_set_sensitive (comment_menu,FALSE);
+		if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
+			gtk_widget_set_sensitive (password_entry_menu,FALSE);
+		else
+			gtk_widget_set_sensitive (password_entry_menu,TRUE);
 
-	gtk_widget_set_sensitive(listing,TRUE);
+		gtk_widget_set_sensitive(listing,TRUE);
 
-	if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-		xa_show_archive_comment (NULL,NULL);
+		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+			xa_show_archive_comment (NULL,NULL);
 
-	if (GTK_IS_TREE_VIEW(archive->treeview))
-		gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
-	xa_set_statusbar_message_for_displayed_rows(archive);
+		if (GTK_IS_TREE_VIEW(archive->treeview))
+			gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
+		xa_set_statusbar_message_for_displayed_rows(archive);
 
-	if (archive->status == XA_ARCHIVESTATUS_TEST)
-		xa_show_cmd_line_output (NULL,FALSE);
+		if (archive->status == XA_ARCHIVESTATUS_TEST)
+			xa_show_cmd_line_output (NULL,FALSE);
 
-	if (archive->status == XA_ARCHIVESTATUS_OPEN)
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
+		if (archive->status == XA_ARCHIVESTATUS_OPEN)
+			xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
 
-	gtk_label_set_text(GTK_LABEL(total_label),"");
+		gtk_label_set_text(GTK_LABEL(total_label),"");
+	}
 }
 
 void xa_reload_archive_content(XArchive *archive)
@@ -1683,7 +1668,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 	if ( row_list == NULL)
 		return;
-	if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
+	if (archive->child_pid!= 0)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!"));
 		return;
@@ -2614,6 +2599,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[idx]->model);
 	if (row_list == NULL)
 		return;
+		
 	nr = gtk_tree_selection_count_selected_rows(selection);
 	while (row_list)
 	{
@@ -2689,6 +2675,12 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	list = g_slist_append(list,xa_build_full_path_name_from_entry(entry,0));
 	g_list_free(row_list);
 
+	if (entry->is_encrypted)
+	{
+		archive[idx]->passwd = xa_create_password_dialog(archive[idx]);
+		if (archive[idx]->passwd == NULL)
+			return;
+	}
 	filename = g_strconcat(archive[idx]->tmp,"/",entry->filename,NULL);
 	if (g_file_test(filename,G_FILE_TEST_EXISTS))
 		goto here;

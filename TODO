@@ -1,4 +1,3 @@
 - reduce the loading time when opening large archives.
 - to fix bugs #4299 and #3235.
 - to fix crashes when using cut/copy/paste
-- add a small progress window when using Xarchiver cmd-line switches.
