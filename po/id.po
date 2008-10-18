@@ -8,11 +8,11 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2008-10-13 13:35+0200\n"
-"PO-Revision-Date: 2008-09-10 22:33+0700\n"
+"PO-Revision-Date: 2008-10-11 19:40+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -128,7 +128,7 @@ msgstr "Enkripsi: "
 
 #: ../src/add_dialog.c:185
 msgid "_Add"
-msgstr "Tambah (_A)"
+msgstr "_Tambah"
 
 #: ../src/add_dialog.c:246
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
@@ -359,7 +359,7 @@ msgid "translator-credits"
 msgstr ""
 "Ahmad Riza H Nst <rizahnst@gnome.org>\n"
 "http://id.gnome.org/\n"
-"Andhika Padmawan <andhika.padmawan@gmail.com> 2008"
+"Andhika Padmawan <andhika.padmawan@gmail.com>, 2008."
 
 #: ../src/window.c:1112
 msgid "Save the self-extracting archive as"
@@ -757,11 +757,11 @@ msgstr "_Pengaturan"
 
 #: ../src/interface.c:294
 msgid "_Help"
-msgstr "Bantuan (_H)"
+msgstr "Ba_ntuan"
 
 #: ../src/interface.c:314
 msgid "_Thanks to"
-msgstr ""
+msgstr "_Terima kasih untuk"
 
 #: ../src/interface.c:334
 msgid "New"
@@ -822,7 +822,9 @@ msgstr "Pohon arsip"
 #: ../src/interface.c:521
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr ""
-"Ini adalah status led Xarchiver. Jika berkedip maka Xarchiver sedang sibuk"
+"Ini adalah status led Xarchiver. Jika berkedip maka Xarchiver sedang "
+"sibukIni adalah status led Xarchiver. Jika berkedip maka Xarchiver sedang "
+"sibuk"
 
 #: ../src/interface.c:703
 msgid "Close archive"
@@ -1030,7 +1032,7 @@ msgstr "Pilih sebuah aplikasi"
 
 #: ../src/new_dialog.c:55
 msgid "Cr_eate"
-msgstr "Buat (_e)"
+msgstr "B_uat"
 
 #: ../src/new_dialog.c:92
 msgid "Archive type:"
