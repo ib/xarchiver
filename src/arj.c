@@ -57,7 +57,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	unsigned int linesize,n,a;
 	static gchar *filename;
 
-	if (last_line)
+	if (last_line || strstr(line,"HardLink"))
 		return;
 
 	if (arj_line == 3)
@@ -104,14 +104,14 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	{
 		linesize = strlen(line);
 		/* Size */
-		for(n=12; n < linesize && line[n] == ' '; n++);
+		for(n=0; n < linesize && line[n] == ' '; n++);
 		a = n;
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n]='\0';
 		item[0] = line + a;
 		archive->dummy_size += strtoll(item[0],NULL,0);
 		n++;
-		
+
 		/* Compressed */
 		for(; n < linesize && line[n] == ' '; n++);
 		a = n;

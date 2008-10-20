@@ -83,7 +83,6 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		&archive->output_fd,
 		&archive->error_fd,
 		&error))
-	//TODO: change the string to: An error occurred!
 	{
 		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
@@ -356,7 +355,11 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 	}
 	else
+	{
 		pb = xa_create_progress_bar(TRUE,archive);
+		if (archive->pb_source == 0)
+			archive->pb_source = g_timeout_add (100,(GSourceFunc)xa_pulse_progress_bar_window,pb);
+	}
 
 	while (_commands)
 	{

@@ -47,6 +47,8 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 	{
 		if (WEXITSTATUS (status))
 		{
+			if (xa_main_window == NULL)
+				goto error;
 			if ((WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP) || (WEXITSTATUS (status) == 6 && archive->type == XARCHIVETYPE_ARJ))
 				goto there;
 			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
@@ -56,16 +58,18 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 			}
 			if (xa_main_window)
 			{
+				archive->status = XA_ARCHIVESTATUS_ERROR;
+				gtk_widget_set_sensitive(Stop_button,FALSE);
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties,archive->has_passwd,1);
-				xa_show_cmd_line_output (NULL,GINT_TO_POINTER(1));
+		error:
+				archive->create_image = TRUE;
+				xa_show_cmd_line_output (NULL,archive);
 				/* In case the user supplies a wrong password we reset it so he can try again */
 				if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
 				{
 					g_free (archive->passwd);
 					archive->passwd = NULL;
 				}
-				archive->status = XA_ARCHIVESTATUS_ERROR;
-				gtk_widget_set_sensitive(Stop_button,FALSE);
 				return;
 			}
 		}
@@ -95,8 +99,10 @@ there:
 		xa_set_statusbar_message_for_displayed_rows(archive);
 
 		if (archive->status == XA_ARCHIVESTATUS_TEST)
-			xa_show_cmd_line_output (NULL,FALSE);
-
+		{
+			archive->create_image = FALSE;
+			xa_show_cmd_line_output (NULL,archive);
+		}
 		if (archive->status == XA_ARCHIVESTATUS_OPEN)
 			xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
 
@@ -124,25 +130,30 @@ void xa_reload_archive_content(XArchive *archive)
 	xa_fill_dir_sidebar(archive,TRUE);
 }
 
-void xa_show_cmd_line_output(GtkMenuItem *menuitem,gpointer data)
+void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 {
-	gboolean create_image = GPOINTER_TO_INT(data);
 	GSList *output = NULL;
+	gchar *title = NULL;
 	gchar *line = NULL;
 	gchar *utf8_line;
 	gsize bytes_written;
 	GtkWidget *dialog,*label,*image,*hbox,*vbox,*textview,*scrolledwindow;
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
-	gint current_page;
-	gint idx;
+	gint current_page,idx = -1;
+	
+	if (_archive == NULL)
+	{
+		current_page = gtk_notebook_get_current_page(notebook);
+		idx = xa_find_archive_index (current_page);
+		_archive = archive[idx];
+	}
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
-
-	if (archive[idx] == NULL)
-		return;
-	dialog = gtk_dialog_new_with_buttons (_("Archiver output"),
+	if (xa_main_window)
+		title = _("Archiver output");
+	else
+		title = ("Xarchiver " VERSION);
+	dialog = gtk_dialog_new_with_buttons (title,
 					      GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_OK);
 
@@ -168,16 +179,13 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,gpointer data)
 	vbox = gtk_vbox_new (FALSE,6);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox),5);
 	
-	if (create_image)
+	if (_archive->create_image)
 	{
-		create_image = FALSE;
+		_archive->create_image = FALSE;
 		image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_ERROR,GTK_ICON_SIZE_DIALOG);
 		gtk_misc_set_alignment (GTK_MISC (image),0.5,0.0);
 
 		label = gtk_label_new (_("An error occurred while accessing the archive:"));
-		gtk_label_set_line_wrap (GTK_LABEL (label),TRUE);
-		gtk_label_set_selectable (GTK_LABEL (label),TRUE);
-
 		hbox = gtk_hbox_new (FALSE,6);
 		gtk_box_pack_start (GTK_BOX (hbox),image,FALSE,FALSE,0);
 		gtk_box_pack_start (GTK_BOX (hbox),label,TRUE,TRUE,0);
@@ -187,7 +195,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,gpointer data)
 	gtk_box_pack_start (GTK_BOX (vbox),scrolledwindow,TRUE,TRUE,0);
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),vbox,TRUE,TRUE,0);
 
-	output = archive[idx]->error_output;
+	output = _archive->error_output;
 	while (output)
 	{
 		line = output->data;
@@ -215,7 +223,6 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 		return;
 
 	xa_add_page (archive[current_page]);
-
 	xa_set_button_state (0,0,0,1,1,0,0,0,0,1,0);
     xa_disable_delete_buttons(FALSE);
 
@@ -1311,7 +1318,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 	gtk_widget_set_sensitive(Stop_button,FALSE);
-	if (GTK_WIDGET_REALIZED(multi_extract_window->multi_extract))
+	if (GTK_WIDGET_VISIBLE(multi_extract_window->multi_extract))
 	{
 		multi_extract_window->stop_pressed = TRUE;
 		kill (multi_extract_window->archive->child_pid,SIGABRT);
@@ -2599,13 +2606,22 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[idx]->model);
 	if (row_list == NULL)
 		return;
-		
+
 	nr = gtk_tree_selection_count_selected_rows(selection);
 	while (row_list)
 	{
 		gtk_tree_model_get_iter(archive[idx]->model,&iter,row_list->data);
 		gtk_tree_model_get(archive[idx]->model,&iter,archive[idx]->nc+1,&entry,-1);
 		gtk_tree_path_free(row_list->data);
+		if (entry->is_encrypted)
+		{
+			if (archive[idx]->passwd == NULL)
+			{
+				archive[idx]->passwd = xa_create_password_dialog(archive[idx]);
+				if (archive[idx]->passwd == NULL)
+					return;
+			}
+		}
 		list = g_slist_append(list,xa_build_full_path_name_from_entry(entry,0));
 		row_list = row_list->next;
 	}
@@ -2633,7 +2649,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	}
 	if (result == FALSE)
 		return;
-		
+
 	chdir(archive[idx]->tmp);
 	do
 	{

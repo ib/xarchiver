@@ -537,7 +537,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) extract_menu,"activate",G_CALLBACK (xa_extract_archive),NULL);
 	g_signal_connect ((gpointer) exe_menu,"activate",G_CALLBACK (xa_convert_sfx),NULL);
 	g_signal_connect ((gpointer) addfile,"activate",G_CALLBACK (xa_add_files_archive),NULL);
-	g_signal_connect ((gpointer) view_shell_output1,"activate",G_CALLBACK (xa_show_cmd_line_output),(gpointer) 0);
+	g_signal_connect ((gpointer) view_shell_output1,"activate",G_CALLBACK (xa_show_cmd_line_output),NULL);
 	g_signal_connect ((gpointer) select_all,"activate",G_CALLBACK (xa_select_all),NULL);
 	g_signal_connect ((gpointer) deselect_all,"activate",G_CALLBACK (xa_deselect_all),NULL);
 	g_signal_connect ((gpointer) select_pattern,"activate",G_CALLBACK (xa_select_by_pattern_dialog),NULL);
@@ -1067,7 +1067,6 @@ GtkWidget *xa_create_archive_properties_window()
 
 	gtk_container_set_border_width (GTK_CONTAINER (archive_properties_window),6);
 	gtk_window_set_position (GTK_WINDOW (archive_properties_window),GTK_WIN_POS_CENTER_ON_PARENT);
-	gtk_window_set_transient_for (GTK_WINDOW (archive_properties_window),GTK_WINDOW (xa_main_window));
 	gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_resizable (GTK_WINDOW (archive_properties_window),FALSE);
 	gtk_window_set_modal (GTK_WINDOW (archive_properties_window),TRUE);
@@ -1556,6 +1555,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 
 	if (flag)
 	{
+		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(pb->progressbar1),0.033);
 		pb->file_label = gtk_label_new("");
 		italic_attr = pango_attr_list_new ();
 		pango_attr_list_insert (italic_attr, pango_attr_style_new (PANGO_STYLE_ITALIC));
@@ -1591,10 +1591,8 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *filename,double perce
 		g_free(message);
 	}
 	else
-	{
-		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
 		gtk_label_set_text(GTK_LABEL(pb->file_label),filename);
-	}
+
 	while (gtk_events_pending())
 		gtk_main_iteration();
 }
@@ -1616,4 +1614,15 @@ static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *eve
 static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid pid)
 {
 	kill (pid,SIGABRT);
+}
+
+gboolean xa_pulse_progress_bar_window (Progress_bar_data *pb)
+{
+	if (GTK_WIDGET_VISIBLE(pb->progress_window))
+	{
+		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
+		return TRUE;
+	}
+	else
+		return FALSE;
 }

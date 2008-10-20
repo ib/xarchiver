@@ -405,7 +405,6 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_widget_set_size_request(dialog_data->multi_extract,-1,300);
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog_data->multi_extract),FALSE);
 	gtk_window_set_title (GTK_WINDOW (dialog_data->multi_extract),_("Multi-Extract"));
-	gtk_window_set_transient_for (GTK_WINDOW (dialog_data->multi_extract),GTK_WINDOW (xa_main_window));
 
 	dialog_vbox1 = GTK_DIALOG (dialog_data->multi_extract)->vbox;
 	vbox1 = gtk_vbox_new (FALSE,5);

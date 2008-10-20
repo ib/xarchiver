@@ -68,7 +68,7 @@ gchar *xa_get_statusbar_message(unsigned long int,gint,gint,gboolean);
 gchar *xa_open_file_dialog ();
 gchar *xa_open_sfx_file_selector ();
 
-void xa_show_cmd_line_output(GtkMenuItem *,gpointer );
+void xa_show_cmd_line_output(GtkMenuItem *,XArchive *);
 void xa_new_archive (GtkMenuItem *, gpointer);
 void xa_save_archive (GtkMenuItem *,gpointer);
 void xa_open_archive (GtkMenuItem *, gpointer);

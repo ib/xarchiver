@@ -108,6 +108,7 @@ struct _XArchive
 	gboolean can_extract;
 	gboolean has_properties;
 	gboolean cut_copy_string;
+	gboolean create_image;
 	GString *comment;
 	GSList *error_output;
 	GType *column_types;
