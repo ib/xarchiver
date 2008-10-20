@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-10-13 13:35+0200\n"
+"POT-Creation-Date: 2008-10-20 13:19+0200\n"
 "PO-Revision-Date: 2008-09-23 22:41+0400\n"
 "Last-Translator: NIkitaBelobrov <qvzqvz@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -24,31 +24,31 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:85 ../src/rar.c:62
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:84 ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
 msgstr "Исходный"
 
-#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:85 ../src/gzip.c:79
-#: ../src/rar.c:62 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:84 ../src/gzip.c:78
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Сжатый"
 
-#: ../src/7zip.c:56
+#: ../src/7zip.c:57
 msgid "Attr"
 msgstr "Атрибуты"
 
-#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:166 ../src/gzip.c:62
-#: ../src/rar.c:62 ../src/tar.c:51 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:165 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/tar.c:52 ../src/zip.c:49
 msgid "Time"
 msgstr "Время"
 
-#: ../src/7zip.c:56 ../src/arj.c:47 ../src/bzip2.c:166 ../src/gzip.c:62
-#: ../src/rar.c:62 ../src/rpm.c:52 ../src/tar.c:51 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:165 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:52 ../src/zip.c:49
 msgid "Date"
 msgstr "Дата"
 
-#: ../src/add_dialog.c:37 ../src/interface.c:399
+#: ../src/add_dialog.c:37 ../src/interface.c:402
 msgid "Add files"
 msgstr "Добавить файлы"
 
@@ -158,7 +158,7 @@ msgstr "0: без сжатия, 1: по умолчанию, 4: самое быс
 msgid "5 = default compression, 7 = max compression"
 msgstr "5: по умолчанию, 7: максимальное сжатие"
 
-#: ../src/add_dialog.c:370 ../src/main.c:208
+#: ../src/add_dialog.c:370 ../src/main.c:211
 msgid "Can't add files to the archive:"
 msgstr "Не удаётся добавить файлы в архив:"
 
@@ -166,11 +166,11 @@ msgstr "Не удаётся добавить файлы в архив:"
 msgid "You haven't selected any files to add!"
 msgstr "Вы не выбрали ни одного файла!"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:834
+#: ../src/add_dialog.c:378 ../src/interface.c:823
 msgid "You missed the password!"
 msgstr "Вы не указали пароль!"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:834
+#: ../src/add_dialog.c:378 ../src/interface.c:823
 msgid "Please enter it!"
 msgstr "Введите его!"
 
@@ -178,124 +178,107 @@ msgstr "Введите его!"
 msgid "Adding files to archive, please wait..."
 msgstr "Добавление файлов в архив, подождите..."
 
-#: ../src/archive.c:83
+#: ../src/archive.c:87
 msgid "Can't run the archiver executable:"
 msgstr "Невозможно запустить программу-архиватор:"
 
-#: ../src/archive.c:291
+#: ../src/archive.c:335
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Не удаётся создать временную папку в /tmp:"
 
-#: ../src/archive.c:328
-msgid "Can't spawn the command:"
-msgstr "Не удалось выполнить команду:"
-
-#: ../src/archive.c:340
-msgid ""
-"\n"
-"\n"
-"** Output was shortened; too many errors!"
-msgstr ""
-"\n"
-"\n"
-"** Вывод был обрезан, из-за большого количества ошибок!"
-
-#: ../src/archive.c:342 ../src/archive.c:346 ../src/window.c:75
-msgid "An error occurred!"
-msgstr "Произошла ошибка!"
-
-#: ../src/arj.c:47 ../src/gzip.c:79 ../src/lha.c:50 ../src/rar.c:62
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
 msgstr "Коэффициент"
 
-#: ../src/arj.c:47
+#: ../src/arj.c:48
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: ../src/bzip2.c:166 ../src/gzip.c:62 ../src/rpm.c:52 ../src/tar.c:51
+#: ../src/bzip2.c:165 ../src/gzip.c:61 ../src/rpm.c:52 ../src/tar.c:52
 msgid "Points to"
 msgstr "Указывает на"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/gzip.c:62 ../src/lha.c:50
-#: ../src/rar.c:62 ../src/tar.c:51 ../src/zip.c:49
+#: ../src/bzip2.c:165 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:63 ../src/tar.c:52 ../src/zip.c:49
 msgid "Permissions"
 msgstr "Права"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/gzip.c:62 ../src/tar.c:51
+#: ../src/bzip2.c:165 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:52
 msgid "Owner/Group"
 msgstr "Владелец/Группа"
 
-#: ../src/bzip2.c:166 ../src/deb.c:45 ../src/extract_dialog.c:398
-#: ../src/gzip.c:62 ../src/gzip.c:79 ../src/lha.c:50 ../src/rpm.c:52
-#: ../src/tar.c:51
+#: ../src/bzip2.c:165 ../src/deb.c:45 ../src/extract_dialog.c:395
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/tar.c:52
 msgid "Size"
 msgstr "Размер"
 
-#: ../src/window.c:57
-#, c-format
-msgid "Please check \"%s\" since some files could have been already extracted."
-msgstr ""
-"Пожалуйста, проверьте «%s» так как некоторые файлы уже могли быть извлечены."
+#: ../src/window.c:56
+msgid "An error occurred!"
+msgstr "Произошла ошибка!"
 
-#: ../src/window.c:75
+#: ../src/window.c:56
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr "Проверьте параметр 'Store archiver output' чтобы увидеть это."
 
-#: ../src/window.c:202
+#: ../src/window.c:153
 msgid "Archiver output"
 msgstr "Сообщения архиватора:"
 
-#: ../src/window.c:234
+#: ../src/window.c:188
 msgid "An error occurred while accessing the archive:"
 msgstr "Ошибка обработки архива."
 
-#: ../src/window.c:310
+#: ../src/window.c:260
 msgid "Save the archive as"
 msgstr "Сохранить архив как"
 
-#: ../src/window.c:369
+#: ../src/window.c:319
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Не удалось открыть файл «%s»:"
 
-#: ../src/window.c:371
+#: ../src/window.c:321
 msgid "Archive format is not recognized!"
 msgstr "Не удаётся определить тип архива!"
 
-#: ../src/window.c:397
-msgid "Sorry, this archive format is not supported:"
+#: ../src/window.c:347
+#, fuzzy
+msgid "Sorry,this archive format is not supported:"
 msgstr "Этот тип архива не поддерживается:"
 
-#: ../src/window.c:397
+#: ../src/window.c:347
 msgid "the proper archiver is not installed!"
 msgstr "не установлен соответствующий архиватор!"
 
-#: ../src/window.c:411
+#: ../src/window.c:361
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Не удаётся выделить память для структуры архива:"
 
-#: ../src/window.c:432
-msgid "Opening archive, please wait..."
+#: ../src/window.c:382
+#, fuzzy
+msgid "Opening archive,please wait..."
 msgstr "Открытие архива, пожалуйста подождите..."
 
-#: ../src/window.c:503
-msgid "Testing archive, please wait..."
+#: ../src/window.c:406
+#, fuzzy
+msgid "Testing archive,please wait..."
 msgstr "Проверка целостности архива, подождите..."
 
-#: ../src/window.c:523
+#: ../src/window.c:426
 msgid "Print the archive content as HTML"
 msgstr "Напечатать содержимое архива в виде HTML"
 
-#: ../src/window.c:525
+#: ../src/window.c:428
 msgid "Print the archive content as text"
 msgstr "Напечатать содержимое архива как текст"
 
-#: ../src/window.c:574
+#: ../src/window.c:477
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Комментарий к архиву:\n"
 
-#: ../src/window.c:578
+#: ../src/window.c:481
 #, c-format
 msgid ""
 "\n"
@@ -304,106 +287,106 @@ msgstr ""
 "\n"
 "Имя: "
 
-#: ../src/window.c:587
+#: ../src/window.c:490
 #, c-format
 msgid "Compressed   size: "
 msgstr "Сжатый: "
 
-#: ../src/window.c:594
+#: ../src/window.c:497
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Распакованный: "
 
-#: ../src/window.c:602
+#: ../src/window.c:505
 #, c-format
 msgid "Number of files: "
 msgstr "Количество файлов: "
 
-#: ../src/window.c:610
+#: ../src/window.c:513
 #, c-format
 msgid "Comment:\n"
 msgstr "Комментарий:\n"
 
-#: ../src/window.c:623
+#: ../src/window.c:526
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Файлы:%*s%s"
 
-#: ../src/window.c:623
+#: ../src/window.c:526
 msgid "|Compressed\n"
 msgstr "|Сжатый\n"
 
-#: ../src/window.c:629
+#: ../src/window.c:532
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Files:</th>"
 
-#: ../src/window.c:630
+#: ../src/window.c:533
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Сжатый:</th>"
 
-#: ../src/window.c:819
+#: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Вы уверены, что хотите сделать это?"
 
-#: ../src/window.c:914 ../src/window.c:1014
+#: ../src/window.c:816 ../src/window.c:916
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Не удаётся сделать архив самораспаковывающимся:"
 
-#: ../src/window.c:925 ../src/window.c:1025
+#: ../src/window.c:827 ../src/window.c:927
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Не удаётся вставить модуль unzipsfx в архив:"
 
-#: ../src/window.c:985
+#: ../src/window.c:887
 msgid "Please select the 7zCon.sfx module"
 msgstr "Выберите модуль 7zCon.sfx"
 
-#: ../src/window.c:1082
+#: ../src/window.c:984
 msgid "translator-credits"
 msgstr "Fedoseev Sergey <fedoseev.sergey@gmail.com>"
 
-#: ../src/window.c:1112
+#: ../src/window.c:1014
 msgid "Save the self-extracting archive as"
 msgstr "Сохранить самораспаковывающийся архив как"
 
-#: ../src/window.c:1141 ../src/interface.c:346
+#: ../src/window.c:1043 ../src/interface.c:349
 msgid "Open an archive"
 msgstr "Открыть архив"
 
-#: ../src/window.c:1154 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1056 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Все файлы"
 
-#: ../src/window.c:1159 ../src/new_dialog.c:67
+#: ../src/window.c:1061 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "Только архивы"
 
-#: ../src/window.c:1371
+#: ../src/window.c:1273
 msgid "Filename"
 msgstr "Имя файла"
 
-#: ../src/window.c:1428
+#: ../src/window.c:1330
 msgid "Doing so will probably corrupt your archive!"
 msgstr "При этой операции архив может быть повреждён!"
 
-#: ../src/window.c:1428
+#: ../src/window.c:1330
 msgid "Do you really want to cancel?"
 msgstr "Отменить операцию?"
 
-#: ../src/window.c:1492 ../src/window.c:1507
+#: ../src/window.c:1393 ../src/window.c:1408
 msgid "Yes"
 msgstr "Да"
 
-#: ../src/window.c:1494 ../src/window.c:1509
+#: ../src/window.c:1395 ../src/window.c:1410
 msgid "No"
 msgstr "Нет"
 
-#: ../src/window.c:1708
+#: ../src/window.c:1609
 msgid "selected"
 msgstr "Только выбранные"
 
-#: ../src/window.c:1713
+#: ../src/window.c:1614
 #, fuzzy, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
@@ -411,7 +394,7 @@ msgstr[0] "%d файл и %d каталог %s (%s)"
 msgstr[1] "%d файлов и %d каталогов %s (%s)"
 msgstr[2] "%d файлов и %d каталогов %s (%s)"
 
-#: ../src/window.c:1715
+#: ../src/window.c:1616
 #, fuzzy, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
@@ -419,7 +402,7 @@ msgstr[0] "%d каталог %s (%s)"
 msgstr[1] "%d каталог %s (%s)"
 msgstr[2] "%d каталог %s (%s)"
 
-#: ../src/window.c:1718
+#: ../src/window.c:1619
 #, fuzzy, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
@@ -427,76 +410,76 @@ msgstr[0] "%d файл %s (%s)"
 msgstr[1] "%d файл %s (%s)"
 msgstr[2] "%d файл %s (%s)"
 
-#: ../src/window.c:1779
+#: ../src/window.c:1680
 msgid "Can't perform another extraction:"
 msgstr "Не удалось извлечь:"
 
-#: ../src/window.c:1779
+#: ../src/window.c:1680
 msgid "Please wait until the completion of the current one!"
 msgstr "Дождитесь окончания текущей операции!"
 
-#: ../src/window.c:1854 ../src/extract_dialog.c:654
-msgid "Sorry, I could not perform the operation!"
-msgstr "Не удалось выполнить операцию!"
+#: ../src/window.c:1754 ../src/extract_dialog.c:650 ../src/interface.c:1392
+msgid "Sorry,I could not perform the operation!"
+msgstr "Не удалось выполнить операцию."
 
-#: ../src/window.c:1888 ../src/window.c:1900 ../src/interface.c:1390
+#: ../src/window.c:1788 ../src/window.c:1800 ../src/interface.c:1385
 msgid "Can't perform this action:"
 msgstr "Не удалось выполнить операцию:"
 
-#: ../src/window.c:1888
+#: ../src/window.c:1788
 msgid "You have to install rar package!"
 msgstr "Необходимо установить rar"
 
-#: ../src/window.c:1895 ../src/interface.c:1387
+#: ../src/window.c:1795 ../src/interface.c:1382
 msgid "You can't add content to deb packages!"
 msgstr "Вы не можете добавить файлы в пакет deb!"
 
-#: ../src/window.c:1897 ../src/interface.c:1389
+#: ../src/window.c:1797 ../src/interface.c:1384
 msgid "You can't add content to rpm packages!"
 msgstr "Вы не можете добавить файлы в пакет RPM!"
 
-#: ../src/window.c:1899
+#: ../src/window.c:1799
 msgid "The archiver doesn't support this feature!"
 msgstr "Архиватор не поддерживает такую возможность."
 
-#: ../src/window.c:1977
+#: ../src/window.c:1877
 msgid "You didn't set which browser to use!"
 msgstr "Необходимо указать используемый обозреватель!"
 
-#: ../src/window.c:1977 ../src/window.c:2018
+#: ../src/window.c:1877 ../src/window.c:1918
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Перейдите в пункт меню Настройки->Дополнительно и установите его."
 
-#: ../src/window.c:2009
+#: ../src/window.c:1909
 msgid "This file type is not supported!"
 msgstr "Этот тип файлов не поддерживается."
 
-#: ../src/window.c:2009
+#: ../src/window.c:1909
 msgid "Please install xdg-utils package."
 msgstr "Установите xdg-utils"
 
-#: ../src/window.c:2018
+#: ../src/window.c:1918
 msgid "You didn't set which program to use for opening this file!"
 msgstr ""
 "Необходимо указать программу, с помощью которой следует открывать этот файл."
 
-#: ../src/window.c:2045
+#: ../src/window.c:1945
 msgid "Failed to launch the application!"
 msgstr "Невозможно запустить внешнее приложение."
 
-#: ../src/window.c:2097
+#: ../src/window.c:1997
 msgid "Comment"
 msgstr "Комментарий"
 
-#: ../src/window.c:2127
+#: ../src/window.c:2027
 msgid "From File"
 msgstr "Из файла"
 
-#: ../src/window.c:2232
+#: ../src/window.c:2132
 msgid "Open a text file"
 msgstr "Открыть как текстовый файл"
 
-#: ../src/window.c:2250
+#: ../src/window.c:2150
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Не удалось открыть файл %s:"
@@ -505,7 +488,7 @@ msgstr "Не удалось открыть файл %s:"
 msgid "Date modified"
 msgstr "Дата изменения"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:472
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
 msgid "Extract to:"
 msgstr "Извлечь в:"
 
@@ -521,7 +504,7 @@ msgstr "Файлы: "
 msgid "Files "
 msgstr "Файлы "
 
-#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:499
+#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:495
 msgid "Overwrite existing files"
 msgstr "Перезаписать существующие файлы"
 
@@ -539,10 +522,11 @@ msgid "Touch files"
 msgstr "Установить время изменений файлов"
 
 #: ../src/extract_dialog.c:136
+#, fuzzy
 msgid ""
-"When this option is used, tar leaves the data modification times of the "
-"files it extracts as the times when the files were extracted, instead of "
-"setting it to the times recorded in the archive"
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
 msgstr ""
 "При извлечении из архива tar время изменения файлов будет установлено такое "
 "же, как время извлечения, а не время, сохранённое в архиве."
@@ -563,9 +547,10 @@ msgid "Update existing files"
 msgstr "Обновить файлы"
 
 #: ../src/extract_dialog.c:145
+#, fuzzy
 msgid ""
-"This option performs the same function as the freshen one, extracting files "
-"that are newer than those with the same name on disk, and in addition it "
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
 "extracts those files that do not already exist on disk"
 msgstr ""
 "При этой операции будут извлечены файлы, существующие на диске и более "
@@ -575,8 +560,8 @@ msgstr ""
 msgid "Options "
 msgstr "Параметры"
 
-#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:515
-#: ../src/interface.c:175
+#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:511
+#: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Извлечь"
 
@@ -584,405 +569,408 @@ msgstr "_Извлечь"
 msgid "Decompress file"
 msgstr "Извлечь файл"
 
-#: ../src/extract_dialog.c:228 ../src/interface.c:408
+#: ../src/extract_dialog.c:228 ../src/interface.c:411
 msgid "Extract files"
 msgstr "Извлечение из архива"
 
-#: ../src/extract_dialog.c:322 ../src/extract_dialog.c:722
+#: ../src/extract_dialog.c:319 ../src/extract_dialog.c:718
 msgid "You missed where to extract the files!"
 msgstr "Вы не указали, куда извлечь файлы."
 
-#: ../src/extract_dialog.c:322
+#: ../src/extract_dialog.c:319
 msgid "Please enter the extraction path."
 msgstr "Введите путь для извлечения."
 
-#: ../src/extract_dialog.c:336
+#: ../src/extract_dialog.c:333
 msgid "This archive is encrypted!"
 msgstr "Этот архив зашифрован."
 
-#: ../src/extract_dialog.c:336
+#: ../src/extract_dialog.c:333
 msgid "Please enter the password."
 msgstr "Введите пароль."
 
-#: ../src/extract_dialog.c:346
+#: ../src/extract_dialog.c:343
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "У вас не достаточно прав для извлечения в каталог«%s»."
 
-#: ../src/extract_dialog.c:347
+#: ../src/extract_dialog.c:344
 msgid "Can't perform extraction!"
 msgstr "Не удаётся выполнить извлечение!"
 
-#: ../src/extract_dialog.c:381
-msgid "Extracting files from archive, please wait..."
+#: ../src/extract_dialog.c:378
+#, fuzzy
+msgid "Extracting files from archive,please wait..."
 msgstr "Удаляются файлы из архива, подождите..."
 
-#: ../src/extract_dialog.c:398
+#: ../src/extract_dialog.c:395
 msgid "Archive Name"
 msgstr "Имя архива"
 
-#: ../src/extract_dialog.c:398
+#: ../src/extract_dialog.c:395
 msgid "Path"
 msgstr "Путь "
 
-#: ../src/extract_dialog.c:410
+#: ../src/extract_dialog.c:407
 msgid "Multi-Extract"
 msgstr "Множественное извлечение"
 
-#: ../src/extract_dialog.c:482
+#: ../src/extract_dialog.c:478
 msgid "Extract to dir \"Archive Name\""
 msgstr "Извлечь в папку «Имя архива»"
 
-#: ../src/extract_dialog.c:483
+#: ../src/extract_dialog.c:479
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "Извлечь архивы в папки с такими же именами как имена архивов."
 
-#: ../src/extract_dialog.c:487
+#: ../src/extract_dialog.c:483
 msgid "Destination dirs:"
 msgstr "Целевые катлоги:"
 
-#: ../src/extract_dialog.c:501
+#: ../src/extract_dialog.c:497
 msgid "Extract pathnames"
 msgstr "Извлечь каталоги"
 
-#: ../src/extract_dialog.c:503
+#: ../src/extract_dialog.c:499
 msgid "Options:"
 msgstr "Параметры:"
 
-#: ../src/extract_dialog.c:535
+#: ../src/extract_dialog.c:531
 msgid "Please select the archives you want to extract"
 msgstr "Выберите архивы, которые вы хотите распаковать"
 
-#: ../src/extract_dialog.c:675
+#: ../src/extract_dialog.c:671
 msgid "Please select the destination directory"
 msgstr "Укажите целевой каталог"
 
-#: ../src/extract_dialog.c:714
+#: ../src/extract_dialog.c:710
 msgid "Can't multi-extract archives:"
 msgstr "Не удалось множественное извлечение из архивов:"
 
-#: ../src/extract_dialog.c:714
+#: ../src/extract_dialog.c:710
 msgid "You haven't added any of them!"
 msgstr "Ни одного не добавлено."
 
-#: ../src/extract_dialog.c:722
+#: ../src/extract_dialog.c:718
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Пожалуйста, укажите путь для извлечения."
 
-#: ../src/extract_dialog.c:758
+#: ../src/extract_dialog.c:754
 msgid "Some errors occurred:"
 msgstr "Произошла ошибка:"
 
-#: ../src/lha.c:50
+#: ../src/lha.c:51
 msgid "UID/GID"
 msgstr "UID/GID"
 
-#: ../src/lha.c:50
+#: ../src/lha.c:51
 msgid "Timestamp"
 msgstr "Время"
 
-#: ../src/interface.c:74
+#: ../src/interface.c:77
 msgid "_Archive"
 msgstr "Архив"
 
-#: ../src/interface.c:89
+#: ../src/interface.c:92
 msgid "List as"
 msgstr "Вывести как"
 
-#: ../src/interface.c:100
+#: ../src/interface.c:103
 msgid "Text file"
 msgstr "Текстовый файл"
 
-#: ../src/interface.c:107
+#: ../src/interface.c:110
 msgid "HTML file"
 msgstr "HTML файл"
 
-#: ../src/interface.c:124
+#: ../src/interface.c:127
 msgid "_Test"
 msgstr "_Проверить"
 
-#: ../src/interface.c:134
+#: ../src/interface.c:137
 msgid "_Properties"
 msgstr "С_войства"
 
-#: ../src/interface.c:158
+#: ../src/interface.c:161
 msgid "A_ction"
 msgstr "_Действия"
 
-#: ../src/interface.c:165
+#: ../src/interface.c:168
 msgid "A_dd"
 msgstr "Добавить"
 
-#: ../src/interface.c:191 ../src/interface.c:927
+#: ../src/interface.c:194 ../src/interface.c:915
 msgid "Rename"
 msgstr "Переименовать"
 
-#: ../src/interface.c:205
+#: ../src/interface.c:208
 msgid "Make SF_X"
 msgstr "Сделать _SFX"
 
-#: ../src/interface.c:215
+#: ../src/interface.c:218
 msgid "_Multi-Extract"
 msgstr "_Извлечь несколько архивов"
 
-#: ../src/interface.c:220
+#: ../src/interface.c:223
 msgid "Archive comment"
 msgstr "Комментарий к архиву"
 
-#: ../src/interface.c:234
+#: ../src/interface.c:237
 msgid "Select _all"
 msgstr "Выбрать _все"
 
-#: ../src/interface.c:244
+#: ../src/interface.c:247
 msgid "Dese_lect all"
 msgstr "О_тменить выделение"
 
-#: ../src/interface.c:250
+#: ../src/interface.c:253
 msgid "Select _by pattern"
 msgstr "Выбрать по шаблону"
 
-#: ../src/interface.c:261
+#: ../src/interface.c:264
 msgid "Cmd-line outp_ut"
 msgstr "Вывод _командной строки"
 
-#: ../src/interface.c:274
+#: ../src/interface.c:277
 msgid "Enter passwo_rd"
 msgstr "_Введите пароль"
 
-#: ../src/interface.c:285
+#: ../src/interface.c:288
 msgid "_Preferences"
 msgstr "С_войства"
 
-#: ../src/interface.c:294
+#: ../src/interface.c:297
 msgid "_Help"
 msgstr "_Справка"
 
-#: ../src/interface.c:314
+#: ../src/interface.c:317
 msgid "_Thanks to"
 msgstr ""
 
-#: ../src/interface.c:334
+#: ../src/interface.c:337
 msgid "New"
 msgstr "Новый"
 
-#: ../src/interface.c:338 ../src/new_dialog.c:50
+#: ../src/interface.c:341 ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "Создать новый архив"
 
-#: ../src/interface.c:342
+#: ../src/interface.c:345
 msgid "Open"
 msgstr "Открыть"
 
-#: ../src/interface.c:354 ../src/interface.c:359
+#: ../src/interface.c:357 ../src/interface.c:362
 msgid "Back"
 msgstr "Назад"
 
-#: ../src/interface.c:363 ../src/interface.c:368
+#: ../src/interface.c:366 ../src/interface.c:371
 msgid "Up"
 msgstr "Вверх"
 
-#: ../src/interface.c:372 ../src/interface.c:377
+#: ../src/interface.c:375 ../src/interface.c:380
 msgid "Forward"
 msgstr "Вперед"
 
-#: ../src/interface.c:381
+#: ../src/interface.c:384
 msgid "Home"
 msgstr "Домой"
 
-#: ../src/interface.c:386
+#: ../src/interface.c:389
 msgid "Root"
 msgstr "Корень"
 
-#: ../src/interface.c:394
+#: ../src/interface.c:397
 msgid "Add"
 msgstr "Добавить"
 
-#: ../src/interface.c:403 ../src/interface.c:867
+#: ../src/interface.c:406 ../src/interface.c:855
 msgid "Extract"
 msgstr "Извлечь"
 
-#: ../src/interface.c:416
+#: ../src/interface.c:419
 msgid "Stop"
 msgstr "Остановить"
 
-#: ../src/interface.c:421
+#: ../src/interface.c:424
 msgid "Cancel current operation"
 msgstr "Отменить текущую операцию"
 
-#: ../src/interface.c:434
+#: ../src/interface.c:437
 msgid "Location:"
 msgstr "Приложение:"
 
-#: ../src/interface.c:473
+#: ../src/interface.c:476
 msgid "Archive tree"
 msgstr "Дерево архива:"
 
-#: ../src/interface.c:521
+#: ../src/interface.c:524
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr "Это индикатор Xarchiver. Когда он мигает Xarchiver занят."
 
-#: ../src/interface.c:703
+#: ../src/interface.c:692
 msgid "Close archive"
 msgstr "Закрыть архив"
 
-#: ../src/interface.c:788
+#: ../src/interface.c:777
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>Необходим пароль для:</span>"
 
-#: ../src/interface.c:790
+#: ../src/interface.c:779
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>Введите пароль для:</span>"
 
-#: ../src/interface.c:808
+#: ../src/interface.c:797
 msgid "_Password:"
 msgstr "Пароль:"
 
-#: ../src/interface.c:859 ../src/open-with-dlg.c:53
+#: ../src/interface.c:847 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "Открыть с помощью"
 
-#: ../src/interface.c:875
+#: ../src/interface.c:863
 msgid "View"
 msgstr "Просмотреть"
 
-#: ../src/interface.c:888
+#: ../src/interface.c:876
 msgid "Cut"
 msgstr "Вырезать"
 
-#: ../src/interface.c:896
+#: ../src/interface.c:884
 msgid "Copy"
 msgstr "Копировать"
 
-#: ../src/interface.c:904
+#: ../src/interface.c:892
 msgid "Paste"
 msgstr "Вставить"
 
-#: ../src/interface.c:918
+#: ../src/interface.c:906
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../src/interface.c:966
+#: ../src/interface.c:954
 msgid "Select by Pattern"
 msgstr "Выбрать по шаблону"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:967
 msgid "Pattern:"
 msgstr "Шаблон:"
 
-#: ../src/interface.c:984
+#: ../src/interface.c:972
 msgid "example: *.txt; ac*"
 msgstr "например: *.txt; ac*"
 
-#: ../src/interface.c:1001
+#: ../src/interface.c:989
 msgid "_Select"
 msgstr "Выбрать"
 
-#: ../src/interface.c:1073
+#: ../src/interface.c:1061
 msgid "Archive Properties"
 msgstr "Свойства архива"
 
-#: ../src/interface.c:1095
+#: ../src/interface.c:1082
 msgid "Name:"
 msgstr "Имя:"
 
-#: ../src/interface.c:1102
+#: ../src/interface.c:1089
 msgid "Path:"
 msgstr "Путь:"
 
-#: ../src/interface.c:1109
+#: ../src/interface.c:1096
 msgid "Type:"
 msgstr "Тип:"
 
-#: ../src/interface.c:1116
+#: ../src/interface.c:1103
 msgid "Encrypted:"
 msgstr "Зашифровано:"
 
-#: ../src/interface.c:1123
+#: ../src/interface.c:1110
 msgid "Modified on:"
 msgstr "Изменён:"
 
-#: ../src/interface.c:1130
+#: ../src/interface.c:1117
 msgid "Compressed size:"
 msgstr "Сжатый:"
 
-#: ../src/interface.c:1137
+#: ../src/interface.c:1124
 msgid "Uncompressed size:"
 msgstr "Распакованный:"
 
-#: ../src/interface.c:1144
+#: ../src/interface.c:1131
 msgid "Comment:"
 msgstr "Комментарий:"
 
-#: ../src/interface.c:1151
+#: ../src/interface.c:1138
 msgid "Number of files:"
 msgstr "Количество файлов:"
 
-#: ../src/interface.c:1158
+#: ../src/interface.c:1145
 msgid "Compression ratio:"
 msgstr "Коэффициент сжатия:"
 
-#: ../src/interface.c:1397
-msgid "Sorry,I could not perform the operation!"
-msgstr "Не удалось выполнить операцию."
-
-#: ../src/interface.c:1507 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1504 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1531
-msgid "Extracting archive:"
+#: ../src/interface.c:1529
+#, fuzzy
+msgid "Extracting from archive:"
 msgstr "Извлечь файлы из архива:"
 
-#: ../src/interface.c:1541
+#: ../src/interface.c:1531
+#, fuzzy
+msgid "Adding to archive:"
+msgstr "Не удаётся добавить файлы в архив:"
+
+#: ../src/interface.c:1549
 msgid "Total Progress:"
 msgstr "Всего:"
 
-#: ../src/main.c:54
+#: ../src/main.c:57
 msgid "Extract archive to the destination directory and quits."
 msgstr "Извлечь архив в целевой каталог и завершить работу."
 
-#: ../src/main.c:55
+#: ../src/main.c:58
 msgid "destination archive"
 msgstr "Целевой архив"
 
-#: ../src/main.c:58
+#: ../src/main.c:61
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr ""
 "Запросить каталог, извлечь в него содержимое архива и завершить работу."
 
-#: ../src/main.c:59 ../src/main.c:71
+#: ../src/main.c:62 ../src/main.c:74
 msgid "archive"
 msgstr "архив"
 
-#: ../src/main.c:62
+#: ../src/main.c:65
 msgid "Multi-extract archives"
 msgstr "Распаковка нескольких архивов"
 
-#: ../src/main.c:63
+#: ../src/main.c:66
 msgid "filenames"
 msgstr "Имена файлов"
 
-#: ../src/main.c:66
+#: ../src/main.c:69
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr ""
 "Запросить имя архива, добавить в него выбранные файлы и завершить работу."
 
-#: ../src/main.c:67
+#: ../src/main.c:70
 msgid "file1 file2 file3 ... fileN"
 msgstr "file1 file2 file3 ... fileN"
 
-#: ../src/main.c:70
+#: ../src/main.c:73
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Спросить имена файлов, добавить их в архив и завершить работу."
 
-#: ../src/main.c:99
+#: ../src/main.c:102
 msgid "[archive name]"
 msgstr "[имя архива]"
 
-#: ../src/main.c:103
+#: ../src/main.c:106
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -992,41 +980,41 @@ msgstr ""
 "Запустите xarchiver --help, чтобы получить список доступных параметров "
 "командной строки.\n"
 
-#: ../src/main.c:128 ../src/main.c:153
+#: ../src/main.c:131 ../src/main.c:156
 msgid "Can't extract files from the archive:"
 msgstr "Не удалось извлечь файлы из архива:"
 
-#: ../src/main.c:128 ../src/main.c:153 ../src/main.c:208
+#: ../src/main.c:131 ../src/main.c:156 ../src/main.c:211
 msgid "You missed the archive name!\n"
 msgstr "Вы не указали имя архива!\n"
 
-#: ../src/main.c:247
+#: ../src/main.c:255
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 "Выберите «Новый» чтобы создать или «Открыть» чтобы открыть существующий архив."
 
-#: ../src/main.c:473
+#: ../src/main.c:494
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Не удаётся выделить память для структуры архива!"
 
-#: ../src/open-with-dlg.c:55
+#: ../src/open-with-dlg.c:54
 msgid "Open the selected files with"
 msgstr "Открыть выбранные файлы с помощью"
 
-#: ../src/open-with-dlg.c:84
+#: ../src/open-with-dlg.c:83
 #, c-format
 msgid "Open <i>%s</i> with:"
 msgstr "Открыть <i>%s</i> с помощью:"
 
-#: ../src/open-with-dlg.c:119
+#: ../src/open-with-dlg.c:118
 msgid "Use a custom command:"
 msgstr "Использовать указанную команду:"
 
-#: ../src/open-with-dlg.c:127
+#: ../src/open-with-dlg.c:126
 msgid "Browse"
 msgstr "Просмотреть"
 
-#: ../src/open-with-dlg.c:311
+#: ../src/open-with-dlg.c:310
 msgid "Select an application"
 msgstr "Укажите приложение"
 
@@ -1189,15 +1177,15 @@ msgstr "Укажите каталог временных файлов"
 msgid "Choose the application to use"
 msgstr "Укажите приложение"
 
-#: ../src/rar.c:62
+#: ../src/rar.c:63
 msgid "CRC"
 msgstr ""
 
-#: ../src/rar.c:62 ../src/zip.c:49
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Method"
 msgstr "Метод"
 
-#: ../src/rar.c:62 ../src/zip.c:49
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Version"
 msgstr "Версия"
 
@@ -1245,6 +1233,27 @@ msgstr "Менеджер архивов только для GTK+2"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Менеджер архивов"
+
+#~ msgid "Can't spawn the command:"
+#~ msgstr "Не удалось выполнить команду:"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "** Output was shortened; too many errors!"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "** Вывод был обрезан, из-за большого количества ошибок!"
+
+#~ msgid ""
+#~ "Please check \"%s\" since some files could have been already extracted."
+#~ msgstr ""
+#~ "Пожалуйста, проверьте «%s» так как некоторые файлы уже могли быть "
+#~ "извлечены."
+
+#~ msgid "Sorry, I could not perform the operation!"
+#~ msgstr "Не удалось выполнить операцию!"
 
 #~ msgid "The sfx archive was saved as:"
 #~ msgstr "SFX-архив был сохранён как:"
@@ -1382,10 +1391,6 @@ msgstr "Менеджер архивов"
 
 #~ msgid "Can't create directory \"%s\""
 #~ msgstr "Невозможно создать каталог «%s»"
-
-#, fuzzy
-#~ msgid "Add files to the archive"
-#~ msgstr "Не удаётся добавить файлы в архив:"
 
 #, fuzzy
 #~ msgid "Do you want to view the command line output?"
