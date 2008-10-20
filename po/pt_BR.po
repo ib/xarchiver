@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-10-20 13:19+0200\n"
+"POT-Creation-Date: 2008-10-20 09:28-0400\n"
 "PO-Revision-Date: 2008-09-07 15:30-0300\n"
 "Last-Translator: Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -243,9 +243,8 @@ msgid "Archive format is not recognized!"
 msgstr "Formato do arquivo não reconhecido!"
 
 #: ../src/window.c:347
-#, fuzzy
 msgid "Sorry,this archive format is not supported:"
-msgstr "Desculpe, esse formato de arquivo não é suportado:"
+msgstr "Desculpe, não há suporte para este formato de pacote:"
 
 #: ../src/window.c:347
 msgid "the proper archiver is not installed!"
@@ -256,12 +255,10 @@ msgid "Can't allocate memory for the archive structure:"
 msgstr "Não foi possível alocar memória para a estrutura do pacote:"
 
 #: ../src/window.c:382
-#, fuzzy
 msgid "Opening archive,please wait..."
 msgstr "Abrindo o pacote, aguarde por favor..."
 
 #: ../src/window.c:406
-#, fuzzy
 msgid "Testing archive,please wait..."
 msgstr "Testando o pacote, aguarde por favor..."
 
@@ -525,7 +522,6 @@ msgid "Touch files"
 msgstr "Atualizar data"
 
 #: ../src/extract_dialog.c:136
-#, fuzzy
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -552,7 +548,6 @@ msgid "Update existing files"
 msgstr "Atualizar arquivos existentes"
 
 #: ../src/extract_dialog.c:145
-#, fuzzy
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -609,7 +604,6 @@ msgid "Can't perform extraction!"
 msgstr "Não foi possível extrair!"
 
 #: ../src/extract_dialog.c:378
-#, fuzzy
 msgid "Extracting files from archive,please wait..."
 msgstr "Extraindo arquivos do pacote, aguarde por favor..."
 
@@ -756,7 +750,7 @@ msgstr "Aj_uda"
 
 #: ../src/interface.c:317
 msgid "_Thanks to"
-msgstr ""
+msgstr "_Graças a"
 
 #: ../src/interface.c:337
 msgid "New"
@@ -924,14 +918,12 @@ msgid "Xarchiver"
 msgstr "Xarchiver"
 
 #: ../src/interface.c:1529
-#, fuzzy
 msgid "Extracting from archive:"
-msgstr "Extraindo pacote:"
+msgstr "Extraindo  do pacote:"
 
 #: ../src/interface.c:1531
-#, fuzzy
 msgid "Adding to archive:"
-msgstr "Adicionar arquivos ao pacote"
+msgstr "Adicionando do pacote"
 
 #: ../src/interface.c:1549
 msgid "Total Progress:"
