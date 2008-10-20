@@ -1,5 +1,5 @@
 # Finnish translation of xarchiver.
-# Copyright (C) 2005-2007 Giuseppe Torelli.
+# Copyright (C) 2005-2008 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
 # Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2007-2008.
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-10-20 13:19+0200\n"
-"PO-Revision-Date: 2008-10-07 17:03+0300\n"
+"POT-Creation-Date: 2008-10-20 14:39+0300\n"
+"PO-Revision-Date: 2008-10-20 15:24+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -235,7 +235,6 @@ msgid "Archive format is not recognized!"
 msgstr "Tuntematon arkistomuoto!"
 
 #: ../src/window.c:347
-#, fuzzy
 msgid "Sorry,this archive format is not supported:"
 msgstr "Arkistotyyppiä ei valitettavasti tueta:"
 
@@ -248,12 +247,10 @@ msgid "Can't allocate memory for the archive structure:"
 msgstr "Arkistorakenteelle ei voi varata muistia:"
 
 #: ../src/window.c:382
-#, fuzzy
 msgid "Opening archive,please wait..."
 msgstr "Avataan arkistoa, odota..."
 
 #: ../src/window.c:406
-#, fuzzy
 msgid "Testing archive,please wait..."
 msgstr "Tarkistetaan arkistoa, odota..."
 
@@ -510,7 +507,6 @@ msgid "Touch files"
 msgstr "Kosketa tiedostoja"
 
 #: ../src/extract_dialog.c:136
-#, fuzzy
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -537,7 +533,6 @@ msgid "Update existing files"
 msgstr "Päivitä tiedostot"
 
 #: ../src/extract_dialog.c:145
-#, fuzzy
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -593,7 +588,6 @@ msgid "Can't perform extraction!"
 msgstr "Ei voi purkaa!"
 
 #: ../src/extract_dialog.c:378
-#, fuzzy
 msgid "Extracting files from archive,please wait..."
 msgstr "Puretaan tiedostoja arkistosta, odota..."
 
@@ -740,7 +734,7 @@ msgstr "_Ohje"
 
 #: ../src/interface.c:317
 msgid "_Thanks to"
-msgstr ""
+msgstr "_Kiitokset"
 
 #: ../src/interface.c:337
 msgid "New"
@@ -909,14 +903,12 @@ msgid "Xarchiver"
 msgstr "Xarchiver"
 
 #: ../src/interface.c:1529
-#, fuzzy
 msgid "Extracting from archive:"
-msgstr "Puretaan tiedostoja arkistosta:"
+msgstr "Puretaan arkistosta:"
 
 #: ../src/interface.c:1531
-#, fuzzy
 msgid "Adding to archive:"
-msgstr "Lisää tiedostoja arkistoon"
+msgstr "Lisätään arkistoon"
 
 #: ../src/interface.c:1549
 msgid "Total Progress:"
@@ -924,19 +916,19 @@ msgstr "Etenemisaste:"
 
 #: ../src/main.c:57
 msgid "Extract archive to the destination directory and quits."
-msgstr "Pura arkisto kohdehakemistoon ja poistu."
+msgstr "Pura arkisto kohdehakemistoon"
 
 #: ../src/main.c:58
 msgid "destination archive"
-msgstr "kohdearkisto"
+msgstr "KOHDEARKISTO"
 
 #: ../src/main.c:61
 msgid "Extract archive by asking the extraction directory and quits."
-msgstr "Pura arkisto kysyen kohdehakemistoa ja poistu."
+msgstr "Pura arkisto kysyen kohdehakemistoa"
 
 #: ../src/main.c:62 ../src/main.c:74
 msgid "archive"
-msgstr "arkisto"
+msgstr "ARKISTO"
 
 #: ../src/main.c:65
 msgid "Multi-extract archives"
@@ -944,23 +936,21 @@ msgstr "Pura useita arkistoja"
 
 #: ../src/main.c:66
 msgid "filenames"
-msgstr "tiedostonimet"
+msgstr "TIEDOSTOT"
 
 #: ../src/main.c:69
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr ""
-"Lisää annetut tiedostot kysyen\n"
-"                                          arkiston nimeä ja poistu."
+"Kysy arkiston nimeä ja lisää määritetyt\n"
+"                                    tiedostot"
 
 #: ../src/main.c:70
 msgid "file1 file2 file3 ... fileN"
-msgstr "[tied1] ... [tiedN]"
+msgstr "[TIED1] ... [TIEDN]"
 
 #: ../src/main.c:73
 msgid "Add files to archive by asking their filenames and quits."
-msgstr ""
-"Lisää tiedostoja arkistoon kysyen\n"
-"                                          niiden nimet ja poistu."
+msgstr "Kysy tiedostonimet ja lisää ne arkistoon"
 
 #: ../src/main.c:102
 msgid "[archive name]"
