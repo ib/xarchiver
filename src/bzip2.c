@@ -33,6 +33,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 	gchar *_filename;
 	gpointer item[2];
 	gboolean result;
+	int len = 0;
 
 	if (g_str_has_suffix(archive->escaped_path,".tar.bz2") || g_str_has_suffix (archive->escaped_path,".tar.bz")
     	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
@@ -107,10 +108,14 @@ void xa_open_bzip2_lzma (XArchive *archive)
 
 		/* and let's get its uncompressed file size */
 		dot = strrchr(_filename,'.');
+		if (strcmp(executable,"lzma") == 0)
+			len = 5;
+		else
+			len = 4;
 		if (_filename || G_LIKELY(dot))
 		{
 			_filename++;
-			filename = g_strndup(_filename,strlen(_filename)-5);
+			filename = g_strndup(_filename,strlen(_filename) - len);
 			command = g_strconcat(archive->tmp,"/",filename,NULL);
 		}
 		else
