@@ -388,7 +388,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 		}
 		_commands = _commands->next;
 	}
-	xa_watch_child (archive->child_pid, status, archive);
 	if (xa_main_window)
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
 

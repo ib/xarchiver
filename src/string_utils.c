@@ -339,7 +339,7 @@ void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse,gint 
 			continue;
 		fullname = g_strconcat (path,"/",dirlist->d_name,NULL);
 		is_dir = g_file_test(fullname,G_FILE_TEST_IS_DIR);
-		if (type == XARCHIVETYPE_ARJ && ! is_dir)
+		if ( ! is_dir)
 			*list = g_slist_prepend(*list,fullname);
 		if (recurse && is_dir)
 			xa_recurse_local_directory(fullname,list,recurse,type);

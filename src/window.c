@@ -2674,6 +2674,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	GList *row_list = NULL;
 	gboolean result		= FALSE;
 	gboolean full_path  = FALSE;
+	gboolean overwrite  = FALSE;
 	gint current_index,idx;
 	gchar *dummy = NULL,*filename = NULL,*e_filename = NULL;
 	XEntry *entry;
@@ -2706,11 +2707,14 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 		g_free(archive[idx]->extraction_path);
 	}
 	archive[idx]->extraction_path = g_strdup(archive[idx]->tmp);
+	overwrite = archive[idx]->overwrite;
 	full_path = archive[idx]->full_path;
 	archive[idx]->full_path = FALSE;
+	archive[idx]->overwrite = TRUE;
 
 	result = (*archive[idx]->extract) (archive[idx],list);
 	archive[idx]->full_path = full_path;
+	archive[idx]->overwrite = overwrite;
 	g_free(archive[idx]->extraction_path);
 	archive[idx]->extraction_path = NULL;
 	if (dummy)
@@ -2736,6 +2740,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	gchar *dummy = NULL,*item,*file = NULL,*e_filename = NULL;
 	GSList *names = NULL;
 	gboolean result = FALSE;
+	gboolean overwrite = FALSE;
 
 	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path))
 		return;
@@ -2762,7 +2767,10 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	archive->extraction_path = g_strdup(archive->tmp);
 	   	item = xa_build_full_path_name_from_entry(entry,0);
 	   	names = g_slist_append(names,item);
+	   	overwrite = archive->overwrite;
+	   	archive->overwrite = TRUE;
 		result = (*archive->extract) (archive,names);
+		archive->overwrite = overwrite;
 
 		g_free(archive->extraction_path);
 		archive->extraction_path = NULL;
