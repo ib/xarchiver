@@ -112,7 +112,8 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	else
 		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output_from_command_line,archive);
 
-	g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
+	if (archive->parse_output)
+		g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
 
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
@@ -311,6 +312,7 @@ void xa_clean_archive_structure (XArchive *archive)
 void xa_delete_temp_directory (XArchive *archive,gboolean flag)
 {
 	gchar *command = g_strconcat("rm -rf ",archive->tmp,NULL);
+	archive->parse_output = 0;
 	xa_spawn_async_process(archive,command);
 	g_free(command);
 }
@@ -388,6 +390,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 		}
 		_commands = _commands->next;
 	}
+	xa_watch_child (archive->child_pid, status, archive);
 	if (xa_main_window)
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
 

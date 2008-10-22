@@ -455,7 +455,7 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 										" --no-wildcards -C ",
 										archive->tmp," ",files_to_extract,NULL);
 	list = g_slist_append(list,command);
-	if (archive->extraction_path != NULL)
+	if (strcmp(archive->extraction_path,archive->tmp))
 	{
 		archive->working_dir = g_strdup(archive->tmp);
 		command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_path,NULL);
