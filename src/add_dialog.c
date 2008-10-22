@@ -434,7 +434,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_string)
 {
 	gchar *new_path = NULL;
-	gchar *esc,*esc2;
+	gchar *esc,*esc2,*basename;
 	gboolean result = FALSE;
 	GString *items;
 	gchar *command = NULL;
@@ -467,7 +467,9 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 				g_string_append_c(items,' ');
 				slist = slist->next;
 			}
-			command = g_strconcat ("cp -r ",items->str," ",new_path,NULL);
+			basename = g_path_get_basename(items->str);
+			command = g_strconcat ("cp -f ",basename," ",new_path,NULL);
+			g_free(basename);
 			g_free(new_path);
 			g_string_free(items,TRUE);
 			cmd_list = g_slist_append(cmd_list,command);
@@ -479,9 +481,9 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 	if (archive->working_dir != NULL)
 	{
 		g_free(archive->working_dir);
-		archive->working_dir = NULL;
+		archive->working_dir = g_path_get_dirname(list->data);
 	}
-	archive->working_dir = g_path_get_dirname(list->data);
+	
 	while (list)
 	{
 		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse,archive->type);

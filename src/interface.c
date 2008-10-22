@@ -1470,7 +1470,7 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 {
 	GtkTreeModel *model;
 	GtkTreePath *path;
-	static GtkTreePath  *lastpath;
+	static GtkTreePath *lastpath;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);

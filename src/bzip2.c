@@ -33,7 +33,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 	gchar *_filename;
 	gpointer item[2];
 	gboolean result;
-	int len = 0;
+	gint len = 0;
 
 	if (g_str_has_suffix(archive->escaped_path,".tar.bz2") || g_str_has_suffix (archive->escaped_path,".tar.bz")
     	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
@@ -66,11 +66,13 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		{
 			archive->format = "BZIP2";
 			executable = "bzip2 ";
+			len = 4;
 		}
 		else
 		{
 			archive->format = "LZMA";
 			executable = "lzma ";
+			len = 5;
 		}
 		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 		archive->has_properties = archive->can_extract = TRUE;
@@ -108,10 +110,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
 
 		/* and let's get its uncompressed file size */
 		dot = strrchr(_filename,'.');
-		if (strcmp(executable,"lzma") == 0)
-			len = 5;
-		else
-			len = 4;
 		if (_filename || G_LIKELY(dot))
 		{
 			_filename++;
@@ -174,9 +172,20 @@ void xa_open_tar_compressed_file(XArchive *archive)
 gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 {
 	GSList *list = NULL;
-	gchar  *command = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
+	gchar  *command = NULL,*executable,*filename = NULL, *dot = NULL, *filename_noext = NULL;
 	gboolean result = FALSE;
+	gint len = 0;
 
+	if (archive->type == XARCHIVETYPE_BZIP2)
+	{
+		executable = "bzip2 ";
+		len = 4;
+	}
+	else
+	{
+		executable = "lzma ";
+		len = 5;
+	}
 	filename = xa_remove_path_from_archive_name(archive->escaped_path);
 	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
@@ -187,20 +196,9 @@ gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 	else
 		filename_noext = filename;
 
-	if (archive->tmp == NULL)
-		result = xa_create_temp_directory(archive);
-
-	dot = g_strconcat(archive->tmp,"/",filename_noext,NULL);
+	command = g_strconcat("sh -c \"",executable, " ",archive->escaped_path," -dc > ",archive->extraction_path,"/",filename_noext,"\"",NULL);
 	g_free(filename_noext);
-
-	if (strcmp(archive->tmp,archive->extraction_path) != 0)
-	{
-		command = g_strconcat("cp -f ",dot," ",archive->extraction_path,NULL);
-		list = g_slist_append(list,command);
-		result = xa_run_command (archive,list);
-	}
-	else
-		result = TRUE;
-	g_free(dot);	
+	list = g_slist_append(list,command);
+	result = xa_run_command (archive,list);
 	return result;
 }

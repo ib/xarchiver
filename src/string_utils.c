@@ -244,6 +244,8 @@ gchar *xa_strip_current_working_dir_from_path(gchar *working_dir,gchar *filename
 	gchar *slash;
 	int len = 0;
 
+	if (working_dir == NULL)
+		return filename;
 	len = strlen(working_dir)+1;
 	slash = g_strrstr(filename,"/");
 	if (slash == NULL || ! g_path_is_absolute(filename))

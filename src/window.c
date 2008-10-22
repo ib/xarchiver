@@ -2334,9 +2334,6 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	GtkSelectionData *selection;
 	XAClipboard *paste_data;
 	GSList *list = NULL;
-	gchar *dummy_ex_path = NULL;
-	gboolean result = FALSE;
-	gboolean overwrite;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index(current_page);
@@ -2348,39 +2345,10 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	paste_data = xa_get_paste_data_from_clipboard_selection((char*)selection->data);
 	gtk_selection_data_free (selection);
 
-	/* Let's extract the selected files to the archive tmp dir */
-	if (paste_data->cut_copy_archive->has_passwd)
-	{
-		if(xa_create_password_dialog(paste_data->cut_copy_archive) == NULL)
-			return;
-	}
-	if (paste_data->cut_copy_archive->extraction_path)
-	{
-		dummy_ex_path = g_strdup(paste_data->cut_copy_archive->extraction_path);
-		g_free(paste_data->cut_copy_archive->extraction_path);
-	}
-	xa_create_temp_directory(paste_data->cut_copy_archive);
-	paste_data->cut_copy_archive->extraction_path = g_strdup(paste_data->cut_copy_archive->tmp);
-	list = xa_slist_copy(paste_data->files);
-	overwrite = paste_data->cut_copy_archive->overwrite;
-	paste_data->cut_copy_archive->overwrite = TRUE;
-	result = (*paste_data->cut_copy_archive->extract) (paste_data->cut_copy_archive,list);
-	paste_data->cut_copy_archive->overwrite = overwrite;
-
-	g_free(paste_data->cut_copy_archive->extraction_path);
-	paste_data->cut_copy_archive->extraction_path = NULL;
-	if (dummy_ex_path)
-	{
-		paste_data->cut_copy_archive->extraction_path = g_strdup(dummy_ex_path);
-		g_free(dummy_ex_path);
-	}
-	if (result == FALSE)
-		return;
-
-	/* Now let's add the extracted files in the tmp dir to the current archive dir */
+	/* Let's add the already extracted files in the tmp dir to the current archive dir */
 	list = xa_slist_copy(paste_data->files);
 	chdir (paste_data->cut_copy_archive->tmp);
-	//TODO put the above in archive[idx]->tmp
+
 	xa_execute_add_commands(archive[idx],list,NULL);
 	if (archive[idx]->status == XA_ARCHIVESTATUS_ERROR)
 		return;
@@ -2398,6 +2366,9 @@ void xa_clipboard_cut_copy_operation(XArchive *archive,XAClipboardMode mode)
 	GtkClipboard *clipboard;
 	XAClipboard *clipboard_data = NULL;
 	GSList *files = NULL;
+	gchar *dummy_ex_path = NULL;
+	gboolean result = FALSE;
+	gboolean overwrite;
 	GtkTreeSelection *selection;
 	GtkTargetEntry targets[] = 
 	{
@@ -2412,11 +2383,38 @@ void xa_clipboard_cut_copy_operation(XArchive *archive,XAClipboardMode mode)
 	if (clipboard_data == NULL)
 		return;
 
-	clipboard_data->files = files;
+	clipboard_data->files = xa_slist_copy(files);
 	clipboard_data->mode  = mode;
 	gtk_clipboard_set_with_data (clipboard,targets,G_N_ELEMENTS (targets),xa_clipboard_get,xa_clipboard_clear,(gpointer)archive);
 	archive->clipboard_data = clipboard_data;
 	gtk_widget_set_sensitive(paste,TRUE);
+
+	/* Let's extract the selected files to the archive tmp dir */
+	if (archive->has_passwd)
+	{
+		if(xa_create_password_dialog(archive) == NULL)
+			return;
+	}
+	if (archive->extraction_path)
+	{
+		dummy_ex_path = g_strdup(archive->extraction_path);
+		g_free(archive->extraction_path);
+	}
+	xa_create_temp_directory(archive);
+	archive->extraction_path = g_strdup(archive->tmp);
+	overwrite = archive->overwrite;
+	archive->overwrite = TRUE;
+
+	result = (*archive->extract) (archive,files);
+	archive->overwrite = overwrite;
+	g_free(archive->extraction_path);
+
+	archive->extraction_path = NULL;
+	if (dummy_ex_path)
+	{
+		archive->extraction_path = g_strdup(dummy_ex_path);
+		g_free(dummy_ex_path);
+	}
 }
 
 XAClipboard *xa_get_paste_data_from_clipboard_selection(const char *data)
