@@ -22,6 +22,8 @@
 
 #include "window.h"
 
+#define	XDS_FILENAME "xds.txt"
+
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
 extern gboolean unrar;
@@ -1321,7 +1323,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	if (GTK_WIDGET_VISIBLE(multi_extract_window->multi_extract))
 	{
 		multi_extract_window->stop_pressed = TRUE;
-		kill (multi_extract_window->archive->child_pid,SIGABRT);
+		kill (multi_extract_window->archive->child_pid,SIGINT);
 	}
 	else
 	{
@@ -1333,7 +1335,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 		}
 		if (archive[idx]->child_pid)
 		{
-			kill (archive[idx]->child_pid,SIGABRT);
+			kill (archive[idx]->child_pid,SIGINT);
 			archive[idx]->child_pid = 0;
 		}
 		/* This in case the user cancels the opening of a password protected archive */
@@ -1626,7 +1628,6 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 {
     GtkTreeSelection *selection;
     GtkTreeIter       iter;
-    gchar            *name;
     GList            *row_list;
 	XEntry *entry;
 	
@@ -1639,64 +1640,50 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 
 	gtk_tree_model_get_iter(archive->model,&iter,(GtkTreePath*) (row_list->data));
 	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry,-1);
-	name = xa_build_full_path_name_from_entry(entry,0);
-	gchar *no_slashes = g_strrstr(name,"/");
-	if (no_slashes != NULL)
-		no_slashes++;
+
 	gdk_property_change (context->source_window,
-		               gdk_atom_intern ("XdndDirectSave0",FALSE),
-			           gdk_atom_intern ("text/plain",FALSE),8,
-				       GDK_PROP_MODE_REPLACE,
-					   (const guchar *) (no_slashes != NULL ? no_slashes : name),no_slashes != NULL ? strlen (no_slashes) : strlen (name));
+					gdk_atom_intern ("XdndDirectSave0",FALSE),
+					gdk_atom_intern ("text/plain",FALSE),
+					8,GDK_PROP_MODE_REPLACE,
+					(guchar *) XDS_FILENAME,
+			     	strlen (XDS_FILENAME));
 
 	g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
 	g_list_free (row_list);
-	g_free (name);
 }
 
 void drag_end (GtkWidget *treeview1,GdkDragContext *context,gpointer data)
 {
-   /* Nothing to do */
+	/* Nothing to do */
 }
 
 void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selection_data,guint info,guint t,XArchive *archive)
 {
 	GtkTreeSelection *selection;
-	guchar *fm_path;
-	int fm_path_len,response;
-	gchar *no_uri_path;
-	gchar *to_send = "E";
 	GList *row_list = NULL;
 	GSList *names = NULL;
 	gboolean full_path,overwrite;
+	guchar *_destination;
+	gchar *destination,*to_send;
+	int response;
 
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	row_list = gtk_tree_selection_get_selected_rows (selection,NULL);
 
-	if ( row_list == NULL)
+	if (row_list == NULL)
 		return;
+
 	if (archive->child_pid!= 0)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!"));
 		return;
 	}
-	if ( gdk_property_get (dc->source_window,
-							gdk_atom_intern ("XdndDirectSave0",FALSE),
-							gdk_atom_intern ("text/plain",FALSE),
-							0,1024,FALSE,NULL,NULL,&fm_path_len,&fm_path)
-							&& fm_path != NULL)
+	gdk_property_get (	dc->source_window,
+						gdk_atom_intern ("XdndDirectSave0",FALSE),
+						gdk_atom_intern ("text/plain",FALSE),
+						0,4096,FALSE,NULL,NULL,NULL,&_destination );
+	if (_destination)
 	{
-		/*  Zero-Terminate the string */
-		fm_path = g_realloc (fm_path,fm_path_len + 1);
-		fm_path[fm_path_len] = '\0';
-		no_uri_path = g_filename_from_uri ( (gchar*)fm_path,NULL,NULL);
-		/* g_message ("%s - %s",fm_path,no_uri_path); */
-		g_free ( fm_path);
-		if (no_uri_path == NULL)
-		{
-			gtk_drag_finish (dc,FALSE,FALSE,t);
-			return;
-		}
 		if (archive->has_passwd)
 		{
 			if (archive->passwd == NULL)
@@ -1709,30 +1696,48 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 				}
 			}
 		}
-		archive->extraction_path = xa_remove_level_from_path (no_uri_path);
-		g_free (no_uri_path);
-		if (archive->extraction_path != NULL)
+		destination = g_filename_from_uri((gchar*)_destination,NULL,NULL);
+		g_free(_destination);
+
+		archive->extraction_path = xa_remove_level_from_path (destination);
+		g_free(destination);
+
+		if (access (archive->extraction_path,R_OK | W_OK | X_OK))
+		{
+			gchar *utf8_path;
+			gchar  *msg;
+
+			utf8_path = g_filename_to_utf8 (archive->extraction_path,-1,NULL,NULL,NULL);
+			msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),utf8_path);
+			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
+			g_free (utf8_path);
+			g_free (msg);
+			to_send = "E";
+		}
+		else
+		{
+			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);
+			full_path = archive->full_path;
+			overwrite = archive->overwrite;
+			archive->full_path = 0;
+			archive->overwrite = 1;
+			(*archive->extract) (archive,names);
+
+			archive->full_path = full_path;
+			archive->overwrite = overwrite;
+
+
+			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
+			g_list_free (row_list);
 			to_send = "S";
-
-		gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);
-		full_path = archive->full_path;
-		overwrite = archive->overwrite;
-		archive->full_path = 0;
-		archive->overwrite = 1;
-		(*archive->extract) (archive,names);
-
-		archive->full_path = full_path;
-		archive->overwrite = overwrite;
+		}
+		if (archive->extraction_path != NULL)
+		{
+			g_free (archive->extraction_path);
+			archive->extraction_path = NULL;
+		}
 		gtk_selection_data_set (selection_data,selection_data->target,8,(guchar*)to_send,1);
 	}
-
-	if (archive->extraction_path != NULL)
-	{
-		g_free (archive->extraction_path);
-		archive->extraction_path = NULL;
-	}
-	g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
-	g_list_free (row_list);
 }
 
 void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int y,GtkSelectionData *data,unsigned int info,unsigned int time,gpointer user_data)

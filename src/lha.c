@@ -35,7 +35,7 @@ void xa_open_lha (XArchive *archive)
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->format ="LHA";
-	archive->nc = 5;
+	archive->nc = 6;
 	archive->parse_output = xa_get_lha_line_content;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
@@ -43,12 +43,12 @@ void xa_open_lha (XArchive *archive)
 	if (archive->child_pid == 0)
 		return;
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 8; i++)
 		archive->column_types[i] = types[i];
 		
-	char *names[]= {(_("Permissions")),(_("UID/GID")),(_("Size")),(_("Ratio")),(_("Timestamp"))};
+	char *names[]= {(_("Points to")),(_("Permissions")),(_("UID/GID")),(_("Size")),(_("Ratio")),(_("Timestamp"))};
 	xa_create_liststore (archive,names);
 }
 
@@ -56,7 +56,7 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry = NULL;
-	gpointer item[5];
+	gpointer item[6];
 	unsigned int linesize,n,a;
 	gboolean dir = FALSE;
 	gchar *filename;
@@ -82,13 +82,13 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 
 	/* Permission */
 	line[10] = '\0';
-	item[0] = line;
+	item[1] = line;
 	if(line[0] == 'd')
 		dir = TRUE;
 
 	/* UID/GID */
 	line[22] = '\0';
-	item[1] = line + 11;
+	item[2] = line + 11;
 
 	//TODO verify the len of the size column with a big archive
 	/* Size */
@@ -102,19 +102,31 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 		break;
 
 	line[a+(n-a)] = '\0';
-	item[2] = line + a;
+	item[3] = line + a;
 	archive->dummy_size += strtoll(item[2],NULL,0);
 
     /* Ratio */
     line[37] = '\0';
-    item[3] = line + 31;
+    item[4] = line + 31;
 
     /* Timestamp */
     line[50] = '\0';
-    item[4] = line + 38;
+    item[5] = line + 38;
 
 	line[(linesize- 1)] = '\0';
 	filename = line + 51;
+
+	/* Symbolic link */
+	gchar *temp = g_strrstr (filename,"->"); 
+	if (temp) 
+	{
+		gint len = strlen(filename) - strlen(temp);
+		item[0] = (filename +=3) + len;
+		filename -= 3;
+		filename[strlen(filename) - strlen(temp)-1] = '\0';
+	}
+	else
+		item[0] = NULL;
 
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 }

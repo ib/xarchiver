@@ -434,7 +434,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_string)
 {
 	gchar *new_path = NULL;
-	gchar *esc,*esc2,*basename;
+	gchar *esc,*esc2,*basedir;
 	gboolean result = FALSE;
 	GString *items;
 	gchar *command = NULL;
@@ -467,9 +467,14 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 				g_string_append_c(items,' ');
 				slist = slist->next;
 			}
-			basename = g_path_get_basename(items->str);
-			command = g_strconcat ("cp -f ",basename," ",new_path,NULL);
-			g_free(basename);
+			basedir = g_path_get_dirname(items->str);
+			if (archive->working_dir != NULL)
+			{
+				g_free(archive->working_dir);
+				archive->working_dir = g_strdup(basedir);
+			}
+			g_free(basedir);
+			command = g_strconcat ("cp -f ",items->str," ",new_path,NULL);
 			g_free(new_path);
 			g_string_free(items,TRUE);
 			cmd_list = g_slist_append(cmd_list,command);
@@ -478,12 +483,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 		archive->status = XA_ARCHIVESTATUS_ADD;
 		xa_set_button_state (0,0,0,0,0,0,0,0,0,0,0);
 	}
-	if (archive->working_dir != NULL)
-	{
-		g_free(archive->working_dir);
-		archive->working_dir = g_path_get_dirname(list->data);
-	}
-	
+
 	while (list)
 	{
 		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse,archive->type);

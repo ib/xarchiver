@@ -71,7 +71,7 @@ void xa_restore_navigation(int idx);
 void xa_disable_delete_buttons (gboolean);
 void xa_sidepane_row_expanded(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer );
 void xa_sidepane_drag_data_received ( GtkWidget*,GdkDragContext *, int x, int y, GtkSelectionData *, unsigned int, unsigned int, gpointer );
-gboolean xa_sidepane_drag_motion_expand_timeout (GtkTreePath **);
+gboolean xa_sidepane_drag_motion_expand_timeout (gpointer );
 gboolean xa_sidepane_drag_motion ( GtkWidget*,GdkDragContext *,gint x,gint y,guint ,gpointer );
 Progress_bar_data *xa_create_progress_bar(gboolean,XArchive *archive);
 void xa_increase_progress_bar(Progress_bar_data *,gchar *,double);

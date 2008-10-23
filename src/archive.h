@@ -159,7 +159,7 @@ XArchive *xa_init_archive_structure(gint);
 void xa_clean_archive_structure (XArchive *);
 gboolean xa_dump_child_error_messages (GIOChannel *, GIOCondition , gpointer );
 gboolean xa_create_temp_directory(XArchive *);
-void xa_delete_temp_directory(XArchive *,gboolean );
+void xa_delete_temp_directory(XArchive *);
 gboolean xa_run_command (XArchive *,GSList *);
 gint xa_find_archive_index (gint );
 gint xa_get_new_archive_idx();

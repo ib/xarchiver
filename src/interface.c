@@ -724,9 +724,9 @@ void xa_add_page (XArchive *archive)
 	gtk_drag_source_set (archive->treeview,GDK_BUTTON1_MASK,drag_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
 	g_signal_connect ((gpointer) sel,			   "changed",		G_CALLBACK (xa_row_selected),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-begin",	G_CALLBACK (drag_begin),archive);
-	g_signal_connect (G_OBJECT (archive->treeview),"drag-data-get",G_CALLBACK (drag_data_get),archive);
+	g_signal_connect (G_OBJECT (archive->treeview),"drag-data-get", G_CALLBACK (drag_data_get),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-end",		G_CALLBACK (drag_end),NULL);
-	g_signal_connect (G_OBJECT (archive->treeview),"row-activated",G_CALLBACK (xa_treeview_row_activated),archive);
+	g_signal_connect (G_OBJECT (archive->treeview),"row-activated", G_CALLBACK (xa_treeview_row_activated),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"button-press-event",G_CALLBACK (xa_mouse_button_event),archive);
 }
 
@@ -1456,43 +1456,35 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	gtk_drag_finish (context,TRUE,FALSE,time);
 }
 
-gboolean xa_sidepane_drag_motion_expand_timeout (GtkTreePath **path)
+gboolean xa_sidepane_drag_motion_expand_timeout (gpointer data)
 {
-	if (path == NULL || *path == NULL)
-		return FALSE;
+	GtkTreePath *path;
 
-	if (! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),*path))
-		gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),*path);
-	return FALSE;
+	gtk_tree_view_get_drag_dest_row (GTK_TREE_VIEW(archive_dir_treeview), &path, NULL);
+	if (G_LIKELY (path != NULL))
+	{
+		gtk_tree_view_expand_row (GTK_TREE_VIEW(archive_dir_treeview), path, FALSE);
+		gtk_tree_path_free (path);
+		return FALSE;
+	}
+	else
+		return TRUE;
 }
 
 gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint x,gint y,guint time,gpointer user_data)
 {
 	GtkTreeModel *model;
 	GtkTreePath *path;
-	static GtkTreePath *lastpath;
-
+	
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);
 	if (path)
 	{
-		if ( lastpath != NULL && lastpath != path)
-			g_source_remove_by_user_data(&lastpath);
-
-		if (!gtk_tree_view_row_expanded(GTK_TREE_VIEW(widget),path))
-			g_timeout_add(1000,(GSourceFunc) xa_sidepane_drag_motion_expand_timeout,&lastpath);
-
+		g_timeout_add_full (G_PRIORITY_LOW, 1000,(GSourceFunc) xa_sidepane_drag_motion_expand_timeout,NULL,NULL);
 		g_object_set_data(G_OBJECT(context),"current_path",path);
-		/* This to set the focus on the dropped row */
-		gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
 	}
-	else
-		g_source_remove_by_user_data(&lastpath);
-
-	if (lastpath)
-		gtk_tree_path_free(lastpath);
-
-  	lastpath = path;
+	/* This to set the focus on the dropped row */
+	gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
 	gdk_drag_status (context,context->suggested_action,time);
 	return TRUE;
 }
@@ -1613,13 +1605,13 @@ void xa_icon_theme_changed (GtkIconTheme *icon_theme,gpointer data)
 
 static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid pid)
 {
-	kill (pid,SIGABRT);
+	kill (pid,SIGINT);
 	return TRUE;
 }
 
 static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid pid)
 {
-	kill (pid,SIGABRT);
+	kill (pid,SIGINT);
 }
 
 gboolean xa_pulse_progress_bar_window (Progress_bar_data *pb)

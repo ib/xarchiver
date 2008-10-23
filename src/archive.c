@@ -286,7 +286,7 @@ void xa_clean_archive_structure (XArchive *archive)
 
 	if (archive->tmp != NULL)
 	{
-		xa_delete_temp_directory (archive,0);
+		xa_delete_temp_directory (archive);
 		g_free (archive->tmp);
 	}
 
@@ -309,12 +309,19 @@ void xa_clean_archive_structure (XArchive *archive)
 	g_free (archive);
 }
 
-void xa_delete_temp_directory (XArchive *archive,gboolean flag)
+void xa_delete_temp_directory (XArchive *archive)
 {
-	gchar *command = g_strconcat("rm -rf ",archive->tmp,NULL);
-	archive->parse_output = 0;
-	xa_spawn_async_process(archive,command);
-	g_free(command);
+	if (xa_main_window)
+		xa_launch_external_program("rm -rf",archive->tmp);
+	else
+	{
+		char *argv[4];
+		argv[0] = "rm";
+		argv[1] = "-rf";
+		argv[2] = archive->tmp;
+		argv[3] = NULL;
+		g_spawn_sync (NULL, argv, NULL,G_SPAWN_SEARCH_PATH,NULL, NULL,NULL,NULL, NULL,NULL);
+	}
 }
 
 gboolean xa_create_temp_directory (XArchive *archive)

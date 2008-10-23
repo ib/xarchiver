@@ -450,7 +450,11 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 		return FALSE;
 
 	command = g_strconcat (string, archive->escaped_path,
-										archive->overwrite ? " --overwrite" : " --keep-old-files",
+										#ifdef __FreeBSD__
+											archive->overwrite ? " " : " -k",
+										#else
+											archive->overwrite ? " --overwrite" : " --keep-old-files",
+										#endif
 										archive->tar_touch ? " --touch" : "",
 										" --no-wildcards -C ",
 										archive->tmp," ",files_to_extract,NULL);
