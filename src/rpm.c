@@ -179,7 +179,7 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 	for(; n < linesize && line[n] != ' '; ++n);
 	line[n] = '\0';
 	item[1] = line + a;
-	archive->dummy_size += strtoll(item[1],NULL,0);
+	archive->dummy_size += g_ascii_strtoull(item[1],NULL,0);
 	n++;
 	
 	/* Date */

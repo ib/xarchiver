@@ -126,7 +126,7 @@ void xa_treeview_row_activated(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,X
 void xa_update_window_with_archive_entries(XArchive *,XEntry *);
 
 int xa_show_message_dialog (GtkWindow *, int,int ,int , const gchar *,const gchar *);
-int xa_detect_archive_type (gchar *);
+XArchiveType xa_detect_archive_type (gchar *);
 int xa_mouse_button_event(GtkWidget *,GdkEventButton *,XArchive *);
 
 gboolean xa_launch_external_program(gchar *,gchar *);

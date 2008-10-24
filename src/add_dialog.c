@@ -474,7 +474,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 				archive->working_dir = g_strdup(basedir);
 			}
 			g_free(basedir);
-			command = g_strconcat ("cp -f ",items->str," ",new_path,NULL);
+			command = g_strconcat ("cp -rf ",items->str," ",new_path,NULL);
 			g_free(new_path);
 			g_string_free(items,TRUE);
 			cmd_list = g_slist_append(cmd_list,command);

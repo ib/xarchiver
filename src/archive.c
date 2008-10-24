@@ -579,7 +579,7 @@ XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
 	return new_entry;
 }
 
-gchar *xa_build_full_path_name_from_entry(XEntry *entry, gint status)
+gchar *xa_build_full_path_name_from_entry(XEntry *entry, XArchive *archive)
 {
 	gchar *fullpathname = NULL;
 	GString *dummy = g_string_new("");
@@ -592,11 +592,16 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry, gint status)
 		dummy = g_string_prepend(dummy,entry->filename);
 		entry = entry->prev;
 	}
+	if (archive == NULL)
+		goto there;
+
 	n = strlen(dummy->str)-1;
-	if (status == XA_ARCHIVESTATUS_DELETE && dummy->str[n] == '/')
+	if (archive->status == XA_ARCHIVESTATUS_DELETE && dummy->str[n] == '/' && archive->type != XARCHIVETYPE_ZIP)
 		fullpathname = g_strndup(dummy->str,n);
 	else
+there:
 		fullpathname = g_strdup(dummy->str);
+
 	g_string_free(dummy,TRUE);
 	return fullpathname;
 }
@@ -608,7 +613,7 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
 
 	xa_fill_list_with_recursed_entries(entry->next ,p_file_list);
 	xa_fill_list_with_recursed_entries(entry->child,p_file_list);
-	*p_file_list = g_slist_prepend (*p_file_list,xa_build_full_path_name_from_entry(entry,0));
+	*p_file_list = g_slist_prepend (*p_file_list,xa_build_full_path_name_from_entry(entry,NULL));
 }
 
 gboolean xa_detect_encrypted_archive (XArchive *archive)

@@ -109,7 +109,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n]='\0';
 		item[0] = line + a;
-		archive->dummy_size += strtoll(item[0],NULL,0);
+		archive->dummy_size += g_ascii_strtoull(item[0],NULL,0);
 		n++;
 
 		/* Compressed */

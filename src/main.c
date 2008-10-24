@@ -246,8 +246,8 @@ done:	g_list_free (ArchiveSuffix);
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
 		{
 			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
-			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), prefs_window->geometry[2], prefs_window->geometry[3]);
-			gtk_paned_set_position (GTK_PANED (hpaned1),prefs_window->geometry[4]);
+			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), prefs_window->geometry[XARCHIVETYPE_7ZIP], prefs_window->geometry[XARCHIVETYPE_ARJ]);
+			gtk_paned_set_position (GTK_PANED (hpaned1),prefs_window->geometry[XARCHIVETYPE_DEB]);
 		}
 		else
 		{
@@ -287,62 +287,62 @@ done:	g_list_free (ArchiveSuffix);
 void xa_set_available_archivers()
 {
 	open_archive[0]  = 0;
-	open_archive[1]  = &xa_open_7zip;
-	open_archive[2]  = &xa_open_arj;
-	open_archive[3]  = &xa_open_deb;
-	open_archive[4]  = &xa_open_bzip2_lzma;
-	open_archive[5]  = &xa_open_gzip;
-	open_archive[6]  = &xa_open_bzip2_lzma;
-	open_archive[7]  = &xa_open_rar;
-	open_archive[8]  = &xa_open_rpm;
-	open_archive[9]  = open_archive[10] = open_archive[11] = open_archive[12] = &xa_open_tar;
-	open_archive[13] = &xa_open_zip;
-	open_archive[14] = &xa_open_lha;
+	open_archive[XARCHIVETYPE_7ZIP]  = &xa_open_7zip;
+	open_archive[XARCHIVETYPE_ARJ]  = &xa_open_arj;
+	open_archive[XARCHIVETYPE_DEB]  = &xa_open_deb;
+	open_archive[XARCHIVETYPE_BZIP2]  = &xa_open_bzip2_lzma;
+	open_archive[XARCHIVETYPE_GZIP]  = &xa_open_gzip;
+	open_archive[XARCHIVETYPE_LZMA]  = &xa_open_bzip2_lzma;
+	open_archive[XARCHIVETYPE_RAR]  = &xa_open_rar;
+	open_archive[XARCHIVETYPE_RPM]  = &xa_open_rpm;
+	open_archive[XARCHIVETYPE_TAR]  = open_archive[XARCHIVETYPE_TAR_BZ2] = open_archive[XARCHIVETYPE_TAR_GZ] = open_archive[XARCHIVETYPE_TAR_LZMA] = &xa_open_tar;
+	open_archive[XARCHIVETYPE_ZIP] = &xa_open_zip;
+	open_archive[XARCHIVETYPE_LHA] = &xa_open_lha;
 	
 	delete[0]  = 0;
-	delete[1]  = &xa_7zip_delete;
-	delete[2]  = &xa_arj_delete;
-	delete[3]  = 0;
-	delete[4]  = 0;
-	delete[5]  = 0;
-	delete[6]  = 0;
-	delete[7]  = &xa_rar_delete;
-	delete[8]  = 0;
-	delete[9]  = delete[10] = delete[11] = delete[12] = &xa_tar_delete;
-	delete[13] = &xa_zip_delete;
-	delete[14] = &xa_lha_delete;
+	delete[XARCHIVETYPE_7ZIP]  = &xa_7zip_delete;
+	delete[XARCHIVETYPE_ARJ]  = &xa_arj_delete;
+	delete[XARCHIVETYPE_DEB]  = 0;
+	delete[XARCHIVETYPE_BZIP2]  = 0;
+	delete[XARCHIVETYPE_GZIP]  = 0;
+	delete[XARCHIVETYPE_LZMA]  = 0;
+	delete[XARCHIVETYPE_RAR]  = &xa_rar_delete;
+	delete[XARCHIVETYPE_RPM]  = 0;
+	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = &xa_tar_delete;
+	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
+	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
 	
 	add[0]  = 0;
-	add[1]  = &xa_7zip_add;
-	add[2]  = &xa_arj_add;
-	add[3]  = 0;
-	add[4]  = add[5] = add[6] = &xa_tar_add;
-	add[7]  = &xa_rar_add;
-	add[8]  = 0;
-	add[9]  = add[10] = add[11] = add[12] = &xa_tar_add;
-	add[13] = &xa_zip_add;
-	add[14] = &xa_lha_add;
+	add[XARCHIVETYPE_7ZIP]  = &xa_7zip_add;
+	add[XARCHIVETYPE_ARJ]  = &xa_arj_add;
+	add[XARCHIVETYPE_DEB]  = 0;
+	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = &xa_tar_add;
+	add[XARCHIVETYPE_RAR]  = &xa_rar_add;
+	add[XARCHIVETYPE_RPM]  = 0;
+	add[XARCHIVETYPE_TAR]  = add[XARCHIVETYPE_TAR_BZ2] = add[XARCHIVETYPE_TAR_GZ] = add[XARCHIVETYPE_TAR_LZMA] = &xa_tar_add;
+	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
+	add[XARCHIVETYPE_LHA] = &xa_lha_add;
 	
 	extract[0]  = 0;
-	extract[1]  = &xa_7zip_extract;
-	extract[2]  = &xa_arj_extract;
-	extract[3]  = &xa_deb_extract;;
-	extract[4]  = extract[5] = extract[6] = &xa_tar_extract;
-	extract[7]  = &xa_rar_extract;
-	extract[8]  = &xa_rpm_extract;
-	extract[9]  = extract[10] = extract[11] = extract[12] = &xa_tar_extract;
-	extract[13] = &xa_zip_extract;
-	extract[14] = &xa_lha_extract;
+	extract[XARCHIVETYPE_7ZIP]  = &xa_7zip_extract;
+	extract[XARCHIVETYPE_ARJ]  = &xa_arj_extract;
+	extract[XARCHIVETYPE_DEB]  = &xa_deb_extract;;
+	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = &xa_tar_extract;
+	extract[XARCHIVETYPE_RAR]  = &xa_rar_extract;
+	extract[XARCHIVETYPE_RPM]  = &xa_rpm_extract;
+	extract[XARCHIVETYPE_TAR]  = extract[XARCHIVETYPE_TAR_BZ2] = extract[XARCHIVETYPE_TAR_GZ] = extract[XARCHIVETYPE_TAR_LZMA] = &xa_tar_extract;
+	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
+	extract[XARCHIVETYPE_LHA] = &xa_lha_extract;
 	
 	test[0]  = 0;
-	test[1]  = &xa_7zip_test;
-	test[2]  = &xa_arj_test;
-	test[3]  = test[4] = test[5] = test[6] = 0;
-	test[7]  = &xa_rar_test;
-	test[8]  = 0;
-	test[9]  = test[10] = test[11] = test[12] = 0;
-	test[13] = &xa_zip_test;
-	test[14] = &xa_lha_test;
+	test[XARCHIVETYPE_7ZIP]  = &xa_7zip_test;
+	test[XARCHIVETYPE_ARJ]  = &xa_arj_test;
+	test[XARCHIVETYPE_DEB]  = test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = 0;
+	test[XARCHIVETYPE_RAR]  = &xa_rar_test;
+	test[XARCHIVETYPE_RPM]  = 0;
+	test[XARCHIVETYPE_TAR]  = test[XARCHIVETYPE_TAR_BZ2] = test[XARCHIVETYPE_TAR_GZ] = test[XARCHIVETYPE_TAR_LZMA] = 0;
+	test[XARCHIVETYPE_ZIP] = &xa_zip_test;
+	test[XARCHIVETYPE_LHA] = &xa_lha_test;
 
 	absolute_path = g_find_program_in_path("arj");
 	if ( absolute_path )
@@ -488,7 +488,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	XArchiveType type;
 
 	type = xa_detect_archive_type (filename);
-	if (type == -1 || type == -2)
+	if (type == XARCHIVETYPE_UNKNOWN || type == XARCHIVETYPE_NOT_FOUND)
 		return NULL;
 
 	archive = xa_init_archive_structure (type);

@@ -83,18 +83,23 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 
 	line[n] = '\0';
 	item[2] = line + a;
-	archive->dummy_size += strtoll(item[3],NULL,0);
+	archive->dummy_size += g_ascii_strtoull(item[2],NULL,0);
 	a = ++n;
 
 	/* Date Modified */	
 	for(; n < linesize; ++n)
 	{
-		if(line[n] == ' ')
-			cnt++;
-		if (cnt == 4)
+		if(n == 38)
 			break;
 	}
-
+	if (line[n] != ' ')
+	{
+		for(; n < linesize; ++n)
+		{
+			if(line[n] == ' ')
+			break;
+		}
+	}
 	line[n] = '\0';
 	item[3] = line + a;
 

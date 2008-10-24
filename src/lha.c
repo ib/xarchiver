@@ -103,7 +103,7 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 
 	line[a+(n-a)] = '\0';
 	item[3] = line + a;
-	archive->dummy_size += strtoll(item[2],NULL,0);
+	archive->dummy_size += g_ascii_strtoull(item[3],NULL,0);
 
     /* Ratio */
     line[37] = '\0';

@@ -148,6 +148,8 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 	{
 		current_page = gtk_notebook_get_current_page(notebook);
 		idx = xa_find_archive_index (current_page);
+		if (idx < 0)
+			return;
 		_archive = archive[idx];
 	}
 
@@ -287,6 +289,7 @@ void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
 void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 {
 	gchar *path = NULL;
+	gchar *utf8_path,*msg;
 	gint current_page;
 	gint x,response;
 	XArchiveType type;
@@ -314,20 +317,17 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	}
 	type = xa_detect_archive_type (path);
 
-	if (type == -1)
+	if (type == 0 || type == 1)
 	{
-		gchar *utf8_path,*msg;
 		utf8_path = g_filename_to_utf8 (path,-1,NULL,NULL,NULL);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"),utf8_path);
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,
-		_("Archive format is not recognized!"));
+		if (type == 0)
+			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,("Archive format is not recognized!"));
+		else
+			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno));
+	
 		g_free (utf8_path);
 		g_free (msg);
-		g_free (path);
-		return;
-	}
-	else if (type == -2)
-	{
 		g_free (path);
 		return;
 	}
@@ -558,7 +558,7 @@ void xa_print_entry_in_file(XEntry *entry,gint idx,unsigned long long int size,F
     {
     	current_column = entry->columns;
 		/* Let's retrieve the sizes of the entry from its column */
-		path = xa_build_full_path_name_from_entry(entry,0);
+		path = xa_build_full_path_name_from_entry(entry,NULL);
 		if (strlen(path) == 0)
 			goto here;
 		for (i = 0; i < archive[idx]->nc; i++)
@@ -695,6 +695,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[id]->model);
 	if (row_list != NULL)
 	{
+		archive[id]->status = XA_ARCHIVESTATUS_DELETE;
 		while (row_list)
 		{
 			gtk_tree_model_get_iter(archive[id]->model,&iter,row_list->data);
@@ -706,14 +707,14 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 					goto one_file;
 				else
 				{	
-					list = g_slist_prepend (list,xa_build_full_path_name_from_entry(entry,XA_ARCHIVESTATUS_DELETE));
+					list = g_slist_prepend (list,xa_build_full_path_name_from_entry(entry,archive[id]));
 					xa_fill_list_with_recursed_entries(entry->child,&list);
 				}
 			}
 			else
 			{
 				one_file:
-				list = g_slist_prepend (list,xa_build_full_path_name_from_entry(entry,0));
+				list = g_slist_prepend (list,xa_build_full_path_name_from_entry(entry,archive[id]));
 			}
 			row_list = row_list->next;
 		}
@@ -725,7 +726,6 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 		if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 			return;
 	}
-	archive[id]->status = XA_ARCHIVESTATUS_DELETE;
 	(*archive[id]->delete) (archive[id],list);
 }
 
@@ -1107,16 +1107,16 @@ gchar *xa_open_file_dialog ()
 	return path;
 }
 
-int xa_detect_archive_type (gchar *filename)
+XArchiveType xa_detect_archive_type (gchar *filename)
 {
 	FILE *dummy_ptr = NULL;
-    int xx = -1;
+    int xx = XARCHIVETYPE_UNKNOWN;
 	unsigned char magic[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0}; /* avoid problems with garbage */
 
 	dummy_ptr = fopen (filename,"r");
 
 	if (dummy_ptr == NULL)
-		return -2;
+		return XARCHIVETYPE_NOT_FOUND;
 
 	fread (magic,1,14,dummy_ptr);
 	if (memcmp (magic,"\x50\x4b",2) == 0)
@@ -1830,11 +1830,10 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 	idx = xa_find_archive_index (current_page);
 	
 	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
-	//TODO controlla che solo tar vada bene e metti if !is_tar_compressed invece di archive[idx]->type
 	if (entry->is_dir)
 		xa_fill_list_with_recursed_entries(entry->child,data);
 	else
-		filename = xa_build_full_path_name_from_entry(entry,0);
+		filename = xa_build_full_path_name_from_entry(entry,archive[idx]);
 	*data = g_slist_prepend (*data,filename);
 }
 
@@ -2536,7 +2535,7 @@ void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,c
 		}
 		xa_create_temp_directory(archive);
 		archive->extraction_path = g_strdup(archive->tmp);
-		old_name  = xa_build_full_path_name_from_entry(entry,0);
+		old_name  = xa_build_full_path_name_from_entry(entry,archive);
 		_old_name = xa_escape_filename(old_name,"$'`\"\\!?* ()[]&|:;<>#");
 		names = g_slist_append(names,old_name);
 
@@ -2568,14 +2567,15 @@ void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,c
 		list = NULL;
 
 		/* Delete the selected file from the archive */
-		old_name = xa_build_full_path_name_from_entry(entry,XA_ARCHIVESTATUS_DELETE);
+		archive->status = XA_ARCHIVESTATUS_DELETE;
+		old_name = xa_build_full_path_name_from_entry(entry,archive);
 		list = g_slist_append(list,old_name);
 		archive->status = XA_ARCHIVESTATUS_RENAME;
 		(archive->delete) (archive,list);
 		list = NULL;
 
 		/* Add the renamed file to the archive */
-		old_name = xa_build_full_path_name_from_entry(entry,0);
+		old_name = xa_build_full_path_name_from_entry(entry,archive);
 		_new_name = g_strdup(new_name);
 		list = g_slist_append(list,_new_name);
 		chdir (archive->tmp);
@@ -2622,7 +2622,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 					return;
 			}
 		}
-		list = g_slist_append(list,xa_build_full_path_name_from_entry(entry,0));
+		list = g_slist_append(list,xa_build_full_path_name_from_entry(entry,archive[idx]));
 		row_list = row_list->next;
 	}
 	g_list_free (row_list);
@@ -2689,7 +2689,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	gtk_tree_model_get_iter(archive[idx]->model,&iter,row_list->data);
 	gtk_tree_model_get(archive[idx]->model,&iter,archive[idx]->nc+1,&entry,-1);
 	gtk_tree_path_free(row_list->data);
-	list = g_slist_append(list,xa_build_full_path_name_from_entry(entry,0));
+	list = g_slist_append(list,xa_build_full_path_name_from_entry(entry,archive[idx]));
 	g_list_free(row_list);
 
 	if (entry->is_encrypted)
@@ -2765,7 +2765,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	}
 	   	xa_create_temp_directory(archive);
 	   	archive->extraction_path = g_strdup(archive->tmp);
-	   	item = xa_build_full_path_name_from_entry(entry,0);
+	   	item = xa_build_full_path_name_from_entry(entry,archive);
 	   	names = g_slist_append(names,item);
 	   	overwrite = archive->overwrite;
 	   	archive->overwrite = TRUE;
@@ -2833,7 +2833,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 			gtk_widget_set_sensitive(back_button,TRUE);
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
-		archive->location_entry_path = xa_build_full_path_name_from_entry(entry,0);
+		archive->location_entry_path = xa_build_full_path_name_from_entry(entry,archive);
 		gtk_entry_set_text(GTK_ENTRY(location_entry),archive->location_entry_path);
 		entry = entry->child;
 	}

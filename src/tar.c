@@ -90,7 +90,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 
 	line[n] = '\0';
 	item[3] = line + a;
-	archive->dummy_size += strtoll(item[3],NULL,0);
+	archive->dummy_size += g_ascii_strtoull(item[3],NULL,0);
 	a = ++n;
 
 	/* Date */	
