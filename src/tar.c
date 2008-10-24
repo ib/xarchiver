@@ -24,6 +24,8 @@ extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 extern gchar *tar;
 
+static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list);
+
 void xa_open_tar (XArchive *archive)
 {
 	gchar *command;
@@ -441,23 +443,41 @@ gboolean is_tar_compressed (gint type)
 
 gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)
 {
-	gchar *command = NULL;
+	gchar *command = NULL, *e_filename = NULL;
 	GSList *list = NULL;
+	GSList *files = NULL;
+	GString *names = g_string_new("");
 	gboolean result;
 
 	result = xa_create_temp_directory (archive);
 	if (!result)
 		return FALSE;
 
+	if (strlen(files_to_extract) == 0)
+	{
+		gtk_tree_model_foreach(GTK_TREE_MODEL(archive->liststore),(GtkTreeModelForeachFunc) xa_concat_filenames,&files);
+
+		while (files)
+		{
+			e_filename = xa_escape_filename((gchar*)files->data,"$'`\"\\!?* ()[]&|:;<>#");
+			g_string_prepend_c (names,' ');
+			g_string_prepend (names,e_filename);
+			files = files->next;
+		}
+		g_slist_foreach(files,(GFunc)g_free,NULL);
+		g_slist_free(files);
+		files_to_extract = names->str;
+	}
+	
 	command = g_strconcat (string, archive->escaped_path,
 										#ifdef __FreeBSD__
 											archive->overwrite ? " " : " -k",
 										#else
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
+											" --no-wildcards ",
 										#endif
 										archive->tar_touch ? " --touch" : "",
-										" --no-wildcards -C ",
-										archive->tmp," ",files_to_extract,NULL);
+										"-C ",archive->tmp," ",files_to_extract,NULL);
 	list = g_slist_append(list,command);
 	if (strcmp(archive->extraction_path,archive->tmp))
 	{
@@ -465,5 +485,22 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 		command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_path,NULL);
 		list = g_slist_append(list,command);
 	}
+	g_string_free(names,TRUE);
 	return xa_run_command (archive,list);
+}
+
+static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list)
+{
+	XEntry *entry;
+	gint current_page,idx;
+
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
+
+	gtk_tree_model_get(model,iter,archive[idx]->nc+1,&entry,-1);
+	if (entry == NULL)
+		return TRUE;
+	else
+		xa_fill_list_with_recursed_entries(entry->child,list);
+	return FALSE;
 }

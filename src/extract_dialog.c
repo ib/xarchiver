@@ -243,7 +243,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
 
-	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM)
+	if ( (xa_main_window == NULL && is_tar_compressed(archive->type)) || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM)
 		flag = FALSE;
 	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
 
@@ -365,12 +365,12 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				string = g_strdup (gtk_entry_get_text(GTK_ENTRY(dialog_data->entry2)));
 				gtk_tree_model_foreach(model,(GtkTreeModelForeachFunc)select_matched_rows,string);
 				selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
-				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_filenames,&names);
+				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_selected_filenames,&names);
 				g_free(string);
 			}
 			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->selected_radio)))
-				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_filenames,&names);
-
+				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_selected_filenames,&names);
+			else
 			if (xa_main_window)
 			{
 				xa_set_button_state (0,0,0,0,0,0,0,0,0,0,0);
@@ -616,7 +616,7 @@ void xa_remove_files_liststore (GtkWidget *widget,Multi_extract_data *multi_extr
 		}
 	}
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model),&iter)== FALSE)
-		gtk_widget_set_sensitive ( widget,FALSE);
+		gtk_widget_set_sensitive (widget,FALSE);
 	g_list_foreach(rr_list,(GFunc)gtk_tree_row_reference_free,NULL);
 	g_list_free(rr_list);
 }

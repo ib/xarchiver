@@ -1662,7 +1662,6 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 	GtkTreeSelection *selection;
 	GList *row_list = NULL;
 	GSList *names = NULL;
-	gboolean full_path,overwrite;
 	guchar *_destination;
 	gchar *destination,*to_send;
 	int response;
@@ -1716,16 +1715,10 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		}
 		else
 		{
-			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&names);
-			full_path = archive->full_path;
-			overwrite = archive->overwrite;
-			archive->full_path = 0;
-			archive->overwrite = 1;
+			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
+			archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->extract_full));
+			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->overwrite_check));
 			(*archive->extract) (archive,names);
-
-			archive->full_path = full_path;
-			archive->overwrite = overwrite;
-
 
 			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
 			g_list_free (row_list);
@@ -1826,7 +1819,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	g_strfreev (array);
 }
 
-void xa_concat_filenames (GtkTreeModel *model,GtkTreePath *treepath,GtkTreeIter *iter,GSList **data)
+void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,GtkTreeIter *iter,GSList **data)
 {
 	XEntry *entry = NULL;
 	gchar *filename = NULL;
@@ -1837,7 +1830,11 @@ void xa_concat_filenames (GtkTreeModel *model,GtkTreePath *treepath,GtkTreeIter 
 	idx = xa_find_archive_index (current_page);
 	
 	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
-	filename = xa_build_full_path_name_from_entry(entry,0);
+	//TODO controlla che solo tar vada bene e metti if !is_tar_compressed invece di archive[idx]->type
+	if (entry->is_dir)
+		xa_fill_list_with_recursed_entries(entry->child,data);
+	else
+		filename = xa_build_full_path_name_from_entry(entry,0);
 	*data = g_slist_prepend (*data,filename);
 }
 
@@ -2381,7 +2378,7 @@ void xa_clipboard_cut_copy_operation(XArchive *archive,XAClipboardMode mode)
 	};
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
-	gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_filenames,&files);
+	gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&files);
 
 	clipboard = gtk_clipboard_get (XA_CLIPBOARD);
 	clipboard_data = xa_clipboard_data_new();
