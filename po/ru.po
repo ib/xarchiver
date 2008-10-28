@@ -1,4 +1,4 @@
-# translation of ru.po to Russian
+# translation of ru.po to ru_RU
 # Russian translation for xarchiver package.
 # Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xarchiver package.
@@ -8,20 +8,19 @@
 # Andrey Fedoseev <andrey.fedoseev@gmail.com>, 2006.
 # Fedoseev Sergey <fedoseev.sergey@gmail.com>, 2006.
 # Andrey Cherepanov <sibskull@mail.ru>, 2008.
-# NIkitaBelobrov <qvzqvz@gmail.com>, 2008.
+# Nikita Belobrov <qvzqvz@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2008-10-20 13:19+0200\n"
-"PO-Revision-Date: 2008-09-23 22:41+0400\n"
-"Last-Translator: NIkitaBelobrov <qvzqvz@gmail.com>\n"
-"Language-Team: Russian\n"
+"PO-Revision-Date: 2008-10-24 18:48+0400\n"
+"Last-Translator: Nikita Belobrov <qvzqvz@gmail.com>\n"
+"Language-Team: ru_RU <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:84 ../src/rar.c:63
@@ -219,7 +218,7 @@ msgstr "Произошла ошибка!"
 
 #: ../src/window.c:56
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr "Проверьте параметр 'Store archiver output' чтобы увидеть это."
+msgstr "Проверьте параметр «Сохранять сообщения архиватора» чтобы увидеть это."
 
 #: ../src/window.c:153
 msgid "Archiver output"
@@ -243,7 +242,6 @@ msgid "Archive format is not recognized!"
 msgstr "Не удаётся определить тип архива!"
 
 #: ../src/window.c:347
-#, fuzzy
 msgid "Sorry,this archive format is not supported:"
 msgstr "Этот тип архива не поддерживается:"
 
@@ -256,12 +254,10 @@ msgid "Can't allocate memory for the archive structure:"
 msgstr "Не удаётся выделить память для структуры архива:"
 
 #: ../src/window.c:382
-#, fuzzy
 msgid "Opening archive,please wait..."
 msgstr "Открытие архива, пожалуйста подождите..."
 
 #: ../src/window.c:406
-#, fuzzy
 msgid "Testing archive,please wait..."
 msgstr "Проверка целостности архива, подождите..."
 
@@ -387,7 +383,7 @@ msgid "selected"
 msgstr "Только выбранные"
 
 #: ../src/window.c:1614
-#, fuzzy, c-format
+#, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d файл и %d каталог %s (%s)"
@@ -395,7 +391,7 @@ msgstr[1] "%d файлов и %d каталогов %s (%s)"
 msgstr[2] "%d файлов и %d каталогов %s (%s)"
 
 #: ../src/window.c:1616
-#, fuzzy, c-format
+#, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d каталог %s (%s)"
@@ -403,7 +399,7 @@ msgstr[1] "%d каталог %s (%s)"
 msgstr[2] "%d каталог %s (%s)"
 
 #: ../src/window.c:1619
-#, fuzzy, c-format
+#, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d файл %s (%s)"
@@ -460,8 +456,7 @@ msgstr "Установите xdg-utils"
 
 #: ../src/window.c:1918
 msgid "You didn't set which program to use for opening this file!"
-msgstr ""
-"Необходимо указать программу, с помощью которой следует открывать этот файл."
+msgstr "Необходимо указать программу, с помощью которой следует открывать этот файл."
 
 #: ../src/window.c:1945
 msgid "Failed to launch the application!"
@@ -513,8 +508,7 @@ msgid "Extract files with full path"
 msgstr "Извлечь с полным путём"
 
 #: ../src/extract_dialog.c:132
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
+msgid "The archive's directory structure is recreated in the extraction directory"
 msgstr "При извлечении будет воссоздана полная структура папок."
 
 #: ../src/extract_dialog.c:135
@@ -522,7 +516,6 @@ msgid "Touch files"
 msgstr "Установить время изменений файлов"
 
 #: ../src/extract_dialog.c:136
-#, fuzzy
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -539,15 +532,13 @@ msgstr "Обновить существующие файлы"
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
-msgstr ""
-"Извлечь только файлы, существующие на диске и более свежие, чем существующие."
+msgstr "Извлечь только файлы, существующие на диске и более свежие, чем существующие."
 
 #: ../src/extract_dialog.c:144
 msgid "Update existing files"
 msgstr "Обновить файлы"
 
 #: ../src/extract_dialog.c:145
-#, fuzzy
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -601,7 +592,6 @@ msgid "Can't perform extraction!"
 msgstr "Не удаётся выполнить извлечение!"
 
 #: ../src/extract_dialog.c:378
-#, fuzzy
 msgid "Extracting files from archive,please wait..."
 msgstr "Удаляются файлы из архива, подождите..."
 
@@ -622,8 +612,7 @@ msgid "Extract to dir \"Archive Name\""
 msgstr "Извлечь в папку «Имя архива»"
 
 #: ../src/extract_dialog.c:479
-msgid ""
-"This option extracts archives in directories named with the archive names"
+msgid "This option extracts archives in directories named with the archive names"
 msgstr "Извлечь архивы в папки с такими же именами как имена архивов."
 
 #: ../src/extract_dialog.c:483
@@ -748,7 +737,7 @@ msgstr "_Справка"
 
 #: ../src/interface.c:317
 msgid "_Thanks to"
-msgstr ""
+msgstr "Благодарности"
 
 #: ../src/interface.c:337
 msgid "New"
@@ -915,14 +904,12 @@ msgid "Xarchiver"
 msgstr "Xarchiver"
 
 #: ../src/interface.c:1529
-#, fuzzy
 msgid "Extracting from archive:"
 msgstr "Извлечь файлы из архива:"
 
 #: ../src/interface.c:1531
-#, fuzzy
 msgid "Adding to archive:"
-msgstr "Не удаётся добавить файлы в архив:"
+msgstr "Добавление в архив:"
 
 #: ../src/interface.c:1549
 msgid "Total Progress:"
@@ -938,8 +925,7 @@ msgstr "Целевой архив"
 
 #: ../src/main.c:61
 msgid "Extract archive by asking the extraction directory and quits."
-msgstr ""
-"Запросить каталог, извлечь в него содержимое архива и завершить работу."
+msgstr "Запросить каталог, извлечь в него содержимое архива и завершить работу."
 
 #: ../src/main.c:62 ../src/main.c:74
 msgid "archive"
@@ -955,8 +941,7 @@ msgstr "Имена файлов"
 
 #: ../src/main.c:69
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr ""
-"Запросить имя архива, добавить в него выбранные файлы и завершить работу."
+msgstr "Запросить имя архива, добавить в него выбранные файлы и завершить работу."
 
 #: ../src/main.c:70
 msgid "file1 file2 file3 ... fileN"
@@ -990,8 +975,7 @@ msgstr "Вы не указали имя архива!\n"
 
 #: ../src/main.c:255
 msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
-"Выберите «Новый» чтобы создать или «Открыть» чтобы открыть существующий архив."
+msgstr "Выберите «Новый» чтобы создать или «Открыть» чтобы открыть существующий архив."
 
 #: ../src/main.c:494
 msgid "Can't allocate memory for the archive structure!"
@@ -1035,7 +1019,7 @@ msgid "Add the archive extension to the filename"
 msgstr "Добавить расширение архива к имени файла"
 
 #: ../src/new_dialog.c:166
-#, fuzzy, c-format
+#, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" уже открыт."
 
@@ -1110,8 +1094,7 @@ msgstr "Показать комментарий к архиву"
 
 #: ../src/pref_dialog.c:153
 msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr ""
-"Если установлен, то комментарий архива будет показываться после его загрузки."
+msgstr "Если установлен, то комментарий архива будет показываться после его загрузки."
 
 #: ../src/pref_dialog.c:159
 msgid "Show archive tree sidebar"
@@ -1144,7 +1127,7 @@ msgstr "Каталог временных файлов по умолчанию:"
 
 #: ../src/pref_dialog.c:232
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: ../src/pref_dialog.c:239
 msgid "Save window geometry"
@@ -1155,8 +1138,7 @@ msgid "Allow subdirs with drag and drop"
 msgstr "Разрешить перетаскивание подкаталогов"
 
 #: ../src/pref_dialog.c:248
-msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
+msgid "This option includes the subdirectories when you add files with drag and drop"
 msgstr ""
 "Эта опция включает подкаталоги при добавлении файлов при помощи "
 "перетаскивания"
@@ -1179,7 +1161,7 @@ msgstr "Укажите приложение"
 
 #: ../src/rar.c:63
 msgid "CRC"
-msgstr ""
+msgstr "CRC"
 
 #: ../src/rar.c:63 ../src/zip.c:49
 msgid "Method"
@@ -1224,7 +1206,7 @@ msgstr "Не удаётся выполнить fseek в файле:"
 
 #: ../src/zip.c:49
 msgid "OS"
-msgstr ""
+msgstr "OS"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
@@ -1234,317 +1216,3 @@ msgstr "Менеджер архивов только для GTK+2"
 msgid "Archive manager"
 msgstr "Менеджер архивов"
 
-#~ msgid "Can't spawn the command:"
-#~ msgstr "Не удалось выполнить команду:"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "** Output was shortened; too many errors!"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "** Вывод был обрезан, из-за большого количества ошибок!"
-
-#~ msgid ""
-#~ "Please check \"%s\" since some files could have been already extracted."
-#~ msgstr ""
-#~ "Пожалуйста, проверьте «%s» так как некоторые файлы уже могли быть "
-#~ "извлечены."
-
-#~ msgid "Sorry, I could not perform the operation!"
-#~ msgstr "Не удалось выполнить операцию!"
-
-#~ msgid "The sfx archive was saved as:"
-#~ msgstr "SFX-архив был сохранён как:"
-
-#~ msgid "Operation completed."
-#~ msgstr "Операция завершена."
-
-#~ msgid "Operation canceled."
-#~ msgstr "Операция отменена."
-
-#~ msgid "Choose Add to begin creating the archive."
-#~ msgstr "Выберите «Добавить», чтобы начать создание архива"
-
-#~ msgid "Ready."
-#~ msgstr "Готово."
-
-#~ msgid "Waiting for the process to abort..."
-#~ msgstr "Прерывание операции, подождите..."
-
-#~ msgid "The password has been reset."
-#~ msgstr "Пароль сброшен."
-
-#~ msgid "Can't write to /tmp:"
-#~ msgstr "Не удаётся записать в /tmp:"
-
-#~ msgid "<b>Files and directories to add </b>"
-#~ msgstr "<b>Файлы и папки, которые будут добавлены</b>"
-
-#~ msgid ""
-#~ "Include everything in the directory recursively \tstarting from the "
-#~ "current directory."
-#~ msgstr "Добавить все вложенные папки, начиная с указанной."
-
-#~ msgid "Store just the name of a file without its directory names."
-#~ msgstr "Сохранять только имена файлов, без названия папок."
-
-#~ msgid "GUA"
-#~ msgstr "GUA"
-
-#~ msgid "BPMGS"
-#~ msgstr "BPMGS"
-
-#~ msgid "Symbolic Link"
-#~ msgstr "Символическая ссылка"
-
-#~ msgid " bytes"
-#~ msgstr " байт"
-
-#~ msgid "Failed to open link."
-#~ msgstr "Ошибка открытия ссылки."
-
-#~ msgid "All"
-#~ msgstr "Все"
-
-#~ msgid "<b>Files to extract </b>"
-#~ msgstr "<b>Извлечь файлы</b>"
-
-#~ msgid "Choose the destination folder where to extract the current archive"
-#~ msgstr "Выберите папку, в которую будет распакован текущий архив"
-
-#~ msgid "Show I_SO info"
-#~ msgstr "Информация об образе _ISO"
-
-#~ msgid "Add files and directories to the current archive"
-#~ msgstr "Добавить файлы и папки в текущий архив"
-
-#~ msgid ""
-#~ "Extract files from the current archive; use the mouse to select files "
-#~ "individually"
-#~ msgstr ""
-#~ "Извлечь файлы из текущего архива; используйте мышь для выбора отдельных "
-#~ "файлов"
-
-#~ msgid "SFX"
-#~ msgstr "SFX"
-
-#~ msgid "View file content in the current archive"
-#~ msgstr "Просмотреть содержимое файла из текущего архива"
-
-#~ msgid "This archive contains password protected files"
-#~ msgstr "Этот архив содержит файлы, защищённые паролем"
-
-#~ msgid "Offset"
-#~ msgstr "Смещение"
-
-#~ msgid "Rock Ridge version %d"
-#~ msgstr "Rock Ridge версии %d"
-
-#~ msgid "Rock Ridge - unknown version"
-#~ msgstr "Неизвестная версия Rock Ridge"
-
-#~ msgid "Apple version %d"
-#~ msgstr "Apple версии %d"
-
-#~ msgid "Standard ISO without extension"
-#~ msgstr "Обычный ISO без расширений"
-
-#~ msgid "Joliet Level %d"
-#~ msgstr "Joliet уровня %d"
-
-#~ msgid "ISO Information Window"
-#~ msgstr "Информация об образе ISO"
-
-#~ msgid "Extension:"
-#~ msgstr "Расширение:"
-
-#~ msgid "System ID:"
-#~ msgstr "ID системы:"
-
-#~ msgid "Volume ID:"
-#~ msgstr "ID тома:"
-
-#~ msgid "Publisher:"
-#~ msgstr "Издатель:"
-
-#~ msgid "Preparer:"
-#~ msgstr "Подготовка:"
-
-#~ msgid "Effective date:"
-#~ msgstr "Дата эффективности:"
-
-#~ msgid "Checksum"
-#~ msgstr ""
-#~ "Контрольная\n"
-#~ "сумма"
-
-#~ msgid "Error while extracting the cpio archive from the rpm one."
-#~ msgstr "Ошибка во время извлечения архива cpio из пакета RPM."
-
-#~ msgid "Directories Tree:"
-#~ msgstr "Дерево катлогов:"
-
-#~ msgid "Create New Dir"
-#~ msgstr "Создать новый каталог"
-
-#~ msgid "Can't create directory \"%s\""
-#~ msgstr "Невозможно создать каталог «%s»"
-
-#, fuzzy
-#~ msgid "Do you want to view the command line output?"
-#~ msgstr "Перезаписать?"
-
-#, fuzzy
-#~ msgid "Operation failed!"
-#~ msgstr "Открыть как текстовый файл"
-
-#, fuzzy
-#~ msgid "Please wait while the content of the archive is being updated..."
-#~ msgstr "Дождитесь окончания текущей операции!"
-
-#, fuzzy
-#~ msgid "Please wait while the content of the archive is being read..."
-#~ msgstr "Дождитесь окончания текущей операции!"
-
-#, fuzzy
-#~ msgid "Converting archive to self-extracting, please wait..."
-#~ msgstr "Не удаётся сделать архив самораспаковывающимся:"
-
-#, fuzzy
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "Не удалось открыть файл «%s»:"
-
-#, fuzzy
-#~ msgid "Command line output"
-#~ msgstr "Вывод _командной строки"
-
-#, fuzzy
-#~ msgid "Please enter the password first!"
-#~ msgstr "Введите пароль."
-
-#, fuzzy
-#~ msgid "Extracting files to %s"
-#~ msgstr "Извлечение из архива"
-
-#, fuzzy
-#~ msgid "_View"
-#~ msgstr "Просмотреть"
-
-#, fuzzy
-#~ msgid "_Show comment"
-#~ msgstr "Показать комментарий к архиву"
-
-#, fuzzy
-#~ msgid "Enter Archive Password"
-#~ msgstr "_Введите пароль"
-
-#, fuzzy
-#~ msgid "Extract..."
-#~ msgstr "Извлечь"
-
-#, fuzzy
-#~ msgid "Archive size:"
-#~ msgstr "Тип архива:"
-
-#, fuzzy
-#~ msgid "Content size:"
-#~ msgstr "Сжатый:"
-
-#, fuzzy
-#~ msgid "Number of dirs:"
-#~ msgstr "Количество файлов:"
-
-#, fuzzy
-#~ msgid "An error occurred while decompressing the cpio archive."
-#~ msgstr "Ошибка обработки архива."
-
-#, fuzzy
-#~ msgid "Freshen an existing entry in the archive"
-#~ msgstr "Обновить существующие файлы"
-
-#, fuzzy
-#~ msgid "Update an existing entry in the archive"
-#~ msgstr "Не удаётся добавить файлы в архив:"
-
-#, fuzzy
-#~ msgid "Please select the directories you want to add"
-#~ msgstr "Выберите архивы, которые вы хотите распаковать"
-
-#, fuzzy
-#~ msgid "Extracting gzip file to %s"
-#~ msgstr "Извлечение из архива"
-
-#, fuzzy
-#~ msgid "Extracting bzip2 file to %s"
-#~ msgstr "Извлечение из архива"
-
-#, fuzzy
-#~ msgid "Decompressing tar file with %s, please wait..."
-#~ msgstr "Открытие архива, пожалуйста подождите..."
-
-#, fuzzy
-#~ msgid "Recompressing tar file with %s, please wait..."
-#~ msgstr "Открытие архива, пожалуйста подождите..."
-
-#, fuzzy
-#~ msgid "Please wait while the content of the ISO image is being read..."
-#~ msgstr "Дождитесь окончания текущей операции!"
-
-#, fuzzy
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "Не удалось извлечь файлы из архива:"
-
-#, fuzzy
-#~ msgid "An error occurred while trying to kill the process:"
-#~ msgstr "Ошибка обработки архива."
-
-#, fuzzy
-#~ msgid "An error occurred while extracting the file to be viewed:"
-#~ msgstr "Ошибка обработки архива."
-
-#, fuzzy
-#~ msgid ""
-#~ "An error occurred while converting the file content to the UTF8 encoding:"
-#~ msgstr "Ошибка обработки архива."
-
-#, fuzzy
-#~ msgid "Choose a folder where to extract files"
-#~ msgstr "Вы не указали, куда извлечь файлы."
-
-#, fuzzy
-#~ msgid "_File"
-#~ msgstr "Файлы "
-
-#, fuzzy
-#~ msgid "Make the current archive self-extracting"
-#~ msgstr "Не удаётся сделать архив самораспаковывающимся:"
-
-#, fuzzy
-#~ msgid "Delete files from the current archive"
-#~ msgstr "Не удалось извлечь файлы из архива:"
-
-#, fuzzy
-#~ msgid "Can't write file \"%s\":"
-#~ msgstr "Не удалось открыть файл «%s»:"
-
-#, fuzzy
-#~ msgid "Filename:"
-#~ msgstr "Имя файла"
-
-#, fuzzy
-#~ msgid "Size:"
-#~ msgstr "Размер"
-
-#, fuzzy
-#~ msgid "Creation date:"
-#~ msgstr "Коэффициент сжатия:"
-
-#, fuzzy
-#~ msgid "Modified date:"
-#~ msgstr "Изменён:"
-
-#, fuzzy
-#~ msgid "Expiration date:"
-#~ msgstr "Извлечь файлы из архива:"

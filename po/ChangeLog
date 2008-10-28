@@ -1,3 +1,18 @@
+2008-10-29  Maximilian Schleiss <maximilian@xfce.org>
+
+	* bg.po: Bulgarian translation added (Adrian Dimitrov)
+	* ca.po: Catalan translation update (Carles Muñoz Gorriz)
+	* de.po: German translation udpate (Fabian Nowak)
+	* es.po: Spanish translation update (Abel Martin)
+	* fr.po: French translation update
+	* id.po: Indonesian translation update (Andhika Padmawan)
+	* nl.po: Dutch translation update (Vincent Tunru)
+	* pl.po: Polish translation update (Szymon Kałasz)
+	* pt_PT: European Portuguese translation update (Nuno Miguel)
+	* ru.po: Russian translation update (Nikita Belobrov)
+	* sq.po: Albanian translation update (Besnik Bleta)
+	* tr.po, LINGUAS: Turkish translation added (Özgür Kuru)
+
 2008-10-28 Lars Nielsen <lars@mit-web.dk>
 
 	* da.po: Updated Danish translation
