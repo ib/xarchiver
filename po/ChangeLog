@@ -1,5 +1,9 @@
 2008-10-29  Maximilian Schleiss <maximilian@xfce.org>
 
+	* nb_NO.po, LINGUAS: Norwegian Bokmal translation added (Terje Uriansrud)
+
+2008-10-29  Maximilian Schleiss <maximilian@xfce.org>
+
 	* bg.po: Bulgarian translation added (Adrian Dimitrov)
 	* ca.po: Catalan translation update (Carles Muñoz Gorriz)
 	* de.po: German translation udpate (Fabian Nowak)
