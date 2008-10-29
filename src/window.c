@@ -98,6 +98,12 @@ void xa_reload_archive_content(XArchive *_archive)
 	if (xa_main_window == NULL)
 		return;
 
+	g_slist_free (_archive->forward);
+	_archive->forward = NULL;
+
+	g_slist_free (_archive->back);
+	_archive->back = NULL;
+
 	xa_free_entry (_archive,_archive->root_entry);
 	if (_archive->column_types != NULL)
 		g_free(_archive->column_types);
@@ -2329,8 +2335,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
 	list = xa_slist_copy(paste_data->files);
-	chdir (paste_data->cut_copy_archive->tmp);
-
+	archive[idx]->working_dir = g_strdup(paste_data->cut_copy_archive->tmp);
 	xa_execute_add_commands(archive[idx],list,NULL);
 	if (archive[idx]->status == XA_ARCHIVESTATUS_ERROR)
 		return;
@@ -2812,6 +2817,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 			gtk_widget_set_sensitive(back_button,FALSE);
 		else
 			gtk_widget_set_sensitive(back_button,TRUE);
+
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
 		archive->location_entry_path = xa_build_full_path_name_from_entry(entry,archive);

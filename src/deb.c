@@ -56,7 +56,7 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 	XEntry *entry;
 	gchar *filename;
 	gpointer item[4];
-	gint n = 0, a = 0 ,linesize = 0, cnt = 0;
+	gint n = 0, a = 0 ,linesize = 0;
 
 	linesize = strlen(line);
 

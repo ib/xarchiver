@@ -302,7 +302,7 @@ void xa_clean_archive_structure (XArchive *archive)
 		g_slist_free (archive->error_output);
 		archive->error_output = NULL;
 	}
-
+	
 	if (archive->path != NULL)
 		g_free(archive->path);
 

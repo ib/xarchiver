@@ -1279,18 +1279,22 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 		break;
 		/* Back */
 		case 1:
-			if (g_slist_find(archive[idx]->forward,archive[idx]->current_entry) == NULL)
-				archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
+			if (archive[idx]->back)
+			{
+				if (g_slist_find(archive[idx]->forward,archive[idx]->current_entry) == NULL)
+					archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
 
-			xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
-			xa_sidepane_select_row(archive[idx]->back->data);
+				xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
+				xa_sidepane_select_row(archive[idx]->back->data);
+			}
 
 			archive[idx]->back = archive[idx]->back->next;
 			xa_restore_navigation(idx);
 		break;
 		/* Up */
 		case 2:
-			archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
+			if (archive[idx]->back)
+				archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
 
 			/* Let's unselect the row in the sidepane */
 			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
@@ -1309,13 +1313,15 @@ void xa_handle_navigation_buttons (GtkMenuItem *menuitem,gpointer user_data)
 		break;
 		/* Forward */
 		case 3:
-			if (g_slist_find(archive[idx]->back,archive[idx]->current_entry) == NULL)
-				archive[idx]->back = g_slist_prepend(archive[idx]->back,archive[idx]->current_entry);
+			if (archive[idx]->forward)
+			{
+				if (g_slist_find(archive[idx]->back,archive[idx]->current_entry) == NULL)
+					archive[idx]->back = g_slist_prepend(archive[idx]->back,archive[idx]->current_entry);
 
-			xa_update_window_with_archive_entries(archive[idx],archive[idx]->forward->data);
-			xa_sidepane_select_row(archive[idx]->forward->data);
-			archive[idx]->forward = archive[idx]->forward->next;
-
+				xa_update_window_with_archive_entries(archive[idx],archive[idx]->forward->data);
+				xa_sidepane_select_row(archive[idx]->forward->data);
+				archive[idx]->forward = archive[idx]->forward->next;
+			}
 			xa_restore_navigation(idx);
 		break;
 	}
