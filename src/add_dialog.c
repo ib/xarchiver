@@ -455,9 +455,14 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 
 			items = g_string_new("");
 			new_path = g_strconcat (archive->tmp,"/",archive->location_entry_path,NULL);
-			command  = g_strconcat ("mkdir -p ",new_path,NULL);
-			cmd_list = g_slist_append(cmd_list,command);
+			result = g_mkdir_with_parents(new_path,0700);
+			if (result < 0)
+			{
+				g_free(new_path);
+				return;
+			}
 			slist = list;
+			basedir = g_path_get_dirname(slist->data);
 			while (slist)
 			{
 				esc  = xa_escape_bad_chars (slist->data,"\\");
@@ -467,7 +472,6 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 				g_string_append_c(items,' ');
 				slist = slist->next;
 			}
-			basedir = g_path_get_dirname(items->str);
 			if (archive->working_dir != NULL)
 			{
 				g_free(archive->working_dir);

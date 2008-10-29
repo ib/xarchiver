@@ -8,11 +8,13 @@
 							</p><div class="figure"><a id="new_dialog"></a><p class="title"><b>Figure 3.1. New dialog</b></p><div class="figure-contents"><div><img src="images/new_dialog.png" alt="New dialog" /></div></div></div><p><br class="figure-break" />
 						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="open"></a>Open</h4></div></div></div><p>
 							Opens a new archive. If you force Xarchiver to open an unsupported archive
-							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also. The password detection is done by looking for the password flag inside the archive structure except for rar ones since encrypted files in rar archives have an asterisk right before their filename. 7zip encrypted archives are not detected due to the complexity of 7zip format. Please see <a href="http://sourceforge.net/forum/forum.php?thread_id=1378003&amp;forum_id=383044" target="_top">
+							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also. The password detection doesn't work for 7zip archives because of the complexity of 7zip format. Please see <a href="http://sourceforge.net/forum/forum.php?thread_id=1378003&amp;forum_id=383044" target="_top">
 				<em class="citetitle">this thread on sf.net</em>
 				</a>for more information.
-						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="test"></a>Test</h4></div></div></div><p>
-							Tests the current archive. This option is disabled when
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="test"></a>List as</h4></div></div></div><p>This facility allow you to dump the content of the whole archive as .txt or .html format.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="test"></a>Save as</h4></div></div></div><p>Save the current archive in a different location. This is useful when you open an archive from the Web browser and you want to save it to a different location from /tmp.
+						</p></div>
+						<div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="test"></a>Test</h4></div></div></div><p>Tests the current archive. This option is disabled when
 							the current archive was produced by an archiver which doesn't support testing.
 						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="properties"></a>Properties</h4></div></div></div><p>
 							Shows an archive dialog with useful info about the archive.
@@ -23,7 +25,7 @@
 						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="quit"></a>Quit</h4></div></div></div><p>
 							Frees all the memory in use and quit Xarchiver.
 						</p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="action_menu"></a>Action menu</h3></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="add"></a>Add</h4></div></div></div><p>
-							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is disabled when the archive doesn't support encryption. Files and directories can be also added by dragging and dropping them from any file managers.
+							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is disabled when the archive doesn't support encryption.
 						</p><p>
 							</p><div class="figure"><a id="id2498130"></a><p class="title"><b>Figure 3.3. Add dialog</b></p><div class="figure-contents"><div><img src="images/add_dialog.png" alt="Add dialog" /></div></div></div><p><br class="figure-break" />
 						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="extract"></a>Extract</h4></div></div></div><p>
@@ -32,26 +34,29 @@
 							</p><div class="figure"><a id="id2544716"></a><p class="title"><b>Figure 3.4. Extract dialog</b></p><div class="figure-contents"><div><img src="images/extract_dialog.png" alt="Extract dialog" /></div></div></div><p><br class="figure-break" />
 						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="delete"></a>Delete</h4></div></div></div><p>
 							Delete the selected files from the archive. A warning dialog will be shown.
-						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="view"></a>View</h4></div></div></div><p>
-							Opens a window containing the ASCII dump of the selected ASCII file. If a file in the archive is encoded with a different enconding than in use by the system you will get an error message. See the <a href="ch04s06.html" title="What is the meaning of this error message?">the section called “What is the meaning of this error message?”</a> for a possible solution.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="rename"></a>Rename</h4></div></div></div><p>
+							Allows to rename the current selected file. Renaming directories is not allowed.
 						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="sfx"></a>Make SFX</h4></div></div></div><p>
 							Convert the current archive to self-extracting. This option is disabled when the current archive doesn't support this feature (e.g. tar archives). After converting an archive to self-extracting this option will be disabled.
 
-						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="comment"></a>Show Comment</h4></div></div></div><p>
-							If the current archive contains a comment this menu entry opens a window showing it.
-						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="select"></a>Select all</h4></div></div></div><p>
-							Select all the files in the window.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="sfx"></a>Multi-Extract</h4></div></div></div><p>
+							Open the Multi-Extract dialog allowing you to extract archives in one shot by loading them in the window. You can choose to extract them in a specific directory or to extract each of them in a directory named with the archive name itself.</p><div class="figure"><a id="multi-extraxt_dialog"></a><p class="title"><b>Figure 3.5. Multi-Extract dialog</b></p><div class="figure-contents"><div><img src="images/multi_extract_dialog.png" alt="Multi-Extract dialog" /></div></div></div><p><br class="figure-break" /></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="comment"></a>Archive comment</h4></div></div></div><p>
+							Opens the Archive comment dialog. Here you can modify, load from a file or delete the archive comment.
+						</p></div><div class="figure"><a id="comment_dialog"></a><p class="title"><b>Figure 3.6. Archive comment dialog</b></p><div class="figure-contents"><div><img src="images/archive_comment_dialog.png" alt="Archive comment dialog" /></div></div></div><p><br class="figure-break" />
+						
+						<div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="select"></a>Select all</h4></div></div></div><p>
+							Select all the entries in the window.
 						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="deselect"></a>Deselect all</h4></div></div></div><p>
-							Deselect all the files in the window.
-						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="output_window"></a>Command line output</h4></div></div></div><p>
+							Deselect all the entries in the window.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="output_window"></a>Cmd-line output</h4></div></div></div><p>
 							Opens a window containing the last archiver output.
-						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="reset_password"></a>Reset password</h4></div></div></div><p>
-							Clears the current password. The result of the operation is shown in the status bar. This option is useful when extracting files using Drag and Drop, allowing the user to choose another password if he entered it incorrectly.
-							</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="prefs"></a>Preferences</h4></div></div></div><p>
-							Open the preferences dialog where you can set several options. All the options are automatically saved to ~/.config/xarchiver/xarchiverrc when pressing the Ok button.
+						</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="reset_password"></a>Enter password</h4></div></div></div><p>
+							Pops up the Password dialog. This facility was introduced because of 7zip archives. If you notice that Xarchiver freezes while extracting from such archives you can try to enter the password by means of this dialog before extracting them.
+							</p></div><div class="figure"><a id="password_dialog"></a><p class="title"><b>Figure 3.7. Password dialog</b></p><div class="figure-contents"><div><img src="images/password_dialog.png" alt="Password dialog" /></div></div></div><p><br class="figure-break" /><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="prefs"></a>Preferences</h4></div></div></div><p>
+							Open the preferences dialog where you can set several options. All the options are saved to ~/.config/xarchiver/xarchiverrc when pressing the Ok button.
 							</p><p>
-							</p><div class="figure"><a id="pref_dialog"></a><p class="title"><b>Figure 3.5. Preferences dialog</b></p><div class="figure-contents"><div><img src="images/pref_dialog.png" alt="Preferences dialog" /></div></div></div><p><br class="figure-break" />
+							</p><div class="figure"><a id="pref_dialog"></a><p class="title"><b>Figure 3.8. Preferences dialog</b></p><div class="figure-contents"><div><img src="images/pref_dialog.png" alt="Preferences dialog" /></div></div></div><p><br class="figure-break" />
 						</p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="help_menu"></a>Help Menu</h3></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="help"></a>Help</h4></div></div></div><p>
-								Show this documentation in system installed browser.
-								Currently firefox, opera and mozilla are supported.
-							</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="about"></a>About</h4></div></div></div><p>Shows the credit dialog with the contributors to Xarchiver</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">General </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4. FAQ</td></tr></table></div></body></html>
+								Show this documentation in system installed Web browser.</p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="about"></a>About</h4></div></div></div><p>Shows the credit dialog with the contributors to Xarchiver</p></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="help_menu"></a>Thanks to</h3></div></div></div><p>
+							This menu was introduced as a courtesy toward all those who kindly donate to the development of Xarchiver, your name and your website will be added to the submenu and clicking on it will open your web page in the system installed browser.
+							</p><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch03.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">General </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4. FAQ</td></tr></table></div></body></html>

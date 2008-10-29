@@ -30,7 +30,7 @@ extern extract_func extract	[XARCHIVETYPE_COUNT];
 gchar *rar;
 
 static gchar *xa_multi_extract_archive(Multi_extract_data *,gchar *,gboolean,gboolean,gchar *);
-static void xa_select_where_to_extract ( GtkButton*,Multi_extract_data * );
+static void xa_select_where_to_extract (GtkButton*,Multi_extract_data * );
 static void xa_remove_files_liststore (GtkWidget *,Multi_extract_data *);
 static void xa_multi_extract_dialog_select_files_to_add ( GtkButton*,Multi_extract_data * );
 static void xa_multi_extract_dialog_selection_changed(GtkTreeSelection *selection,Multi_extract_data *);

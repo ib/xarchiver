@@ -81,55 +81,36 @@ there:
 	{
 		archive->child_pid = archive->pb_source = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
-
-		if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ)
-			gtk_widget_set_sensitive (comment_menu,TRUE);
-		else
-			gtk_widget_set_sensitive (comment_menu,FALSE);
-		if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
-			gtk_widget_set_sensitive (password_entry_menu,FALSE);
-		else
-			gtk_widget_set_sensitive (password_entry_menu,TRUE);
-
-		gtk_widget_set_sensitive(listing,TRUE);
-
-		if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-			xa_show_archive_comment (NULL,NULL);
-
-		if (GTK_IS_TREE_VIEW(archive->treeview))
-			gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
-		xa_set_statusbar_message_for_displayed_rows(archive);
-
-		if (archive->status == XA_ARCHIVESTATUS_TEST)
-		{
-			archive->create_image = FALSE;
-			xa_show_cmd_line_output (NULL,archive);
-		}
-		if (archive->status == XA_ARCHIVESTATUS_OPEN)
-			xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,1,1);
-
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 	}
 }
 
-void xa_reload_archive_content(XArchive *archive)
+void xa_reload_archive_content(XArchive *_archive)
 {
 	XEntry *entry;
+	gint current_page,idx = 0;
 
 	//TODO: have the status bar notyfing the reload
+
+	current_page = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index (current_page);
+
 	if (xa_main_window == NULL)
 		return;
 
-	xa_free_entry (archive,archive->root_entry);
-	if (archive->column_types != NULL)
-		g_free(archive->column_types);
-	xa_remove_columns(archive);
+	xa_free_entry (_archive,_archive->root_entry);
+	if (_archive->column_types != NULL)
+		g_free(_archive->column_types);
+	xa_remove_columns(_archive);
+
 	entry = g_new0(XEntry,1);
 	entry->filename = "";
-	archive->root_entry = entry;
+	_archive->root_entry = entry;
 
-	(*archive->open_archive) (archive);
-	xa_fill_dir_sidebar(archive,TRUE);
+	(*_archive->open_archive) (_archive);
+
+	if (strcmp(_archive->path,archive[idx]->path) == 0)
+		xa_fill_dir_sidebar(_archive,TRUE);
 }
 
 void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)

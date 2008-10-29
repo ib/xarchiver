@@ -1,4 +1,4 @@
 - reduce the loading time when opening large archives.
 - to fix bugs #4299 and #3235.
-- to fix uncorrect sidebar display when cut & paste.
 - to fix crash when deleting a child directory and then going back with the navigations arrows.
+- fix add problem when copy paste

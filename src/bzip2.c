@@ -99,11 +99,11 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		item[1] = compressed;
 
 		/* Let's extract it */
-		_filename = g_strrstr (archive->escaped_path,"/");
-		if (_filename)
-			command = g_strconcat(executable,"-f -d ",archive->tmp,_filename,NULL);
-		else
+		_filename = g_path_get_basename(archive->escaped_path);
+		if (_filename[0] == '.')
 			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",archive->escaped_path,NULL);
+		else
+			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",_filename,NULL);
 
 		list = g_slist_append(list,command);
 		xa_run_command (archive,list);
@@ -112,7 +112,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		dot = strrchr(_filename,'.');
 		if (_filename || G_LIKELY(dot))
 		{
-			_filename++;
 			filename = g_strndup(_filename,strlen(_filename) - len);
 			command = g_strconcat(archive->tmp,"/",filename,NULL);
 		}

@@ -214,12 +214,37 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 
 		if (archive->parse_output)
 		{
-			if (archive->has_comment && archive->type == XARCHIVETYPE_RAR && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-				xa_show_archive_comment (NULL, NULL);
+			if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+				xa_show_archive_comment (NULL,NULL);
 
 			xa_update_window_with_archive_entries (archive,NULL);
 			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
 			g_object_unref (archive->model);
+			
+			if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ)
+				gtk_widget_set_sensitive (comment_menu,TRUE);
+			else
+				gtk_widget_set_sensitive (comment_menu,FALSE);
+
+			if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
+				gtk_widget_set_sensitive (password_entry_menu,FALSE);
+			else
+				gtk_widget_set_sensitive (password_entry_menu,TRUE);
+
+			gtk_widget_set_sensitive(listing,TRUE);
+
+			if (GTK_IS_TREE_VIEW(archive->treeview))
+				gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
+
+			xa_set_statusbar_message_for_displayed_rows(archive);
+
+			if (archive->status == XA_ARCHIVESTATUS_TEST)
+			{
+				archive->create_image = FALSE;
+				xa_show_cmd_line_output (NULL,archive);
+			}
+			if (archive->status == XA_ARCHIVESTATUS_OPEN)
+				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->has_sfx,archive->has_test,archive->has_properties,archive->has_passwd,1);
 		}
 		return FALSE;
 	}
@@ -356,7 +381,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	gboolean result = TRUE;
 	GSList *_commands = commands;
 
-	archive->parse_output = 0;
+	archive->parse_output = NULL;
 	if (xa_main_window)
 	{
 		gtk_widget_set_sensitive (Stop_button,TRUE);
@@ -589,6 +614,7 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry, XArchive *archive)
 	{
 		if (entry->is_dir)
 			dummy = g_string_prepend_c(dummy,'/');
+		
 		dummy = g_string_prepend(dummy,entry->filename);
 		entry = entry->prev;
 	}
