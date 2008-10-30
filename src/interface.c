@@ -310,6 +310,10 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1),tmp_image);
 
+	about1 = gtk_image_menu_item_new_from_stock ("gtk-about",accel_group);
+	gtk_widget_show (about1);
+	gtk_container_add (GTK_CONTAINER (menuitem4_menu),about1);
+
 	thanks_to = gtk_image_menu_item_new_with_mnemonic (_("_Thanks to"));
 	gtk_widget_show (thanks_to);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),thanks_to);
@@ -321,10 +325,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	donators = gtk_image_menu_item_new_with_mnemonic ("Your name and website here");
 	gtk_widget_show (donators);
 	gtk_container_add (GTK_CONTAINER (thanks_to_submenu),donators);
-
-	about1 = gtk_image_menu_item_new_from_stock ("gtk-about",accel_group);
-	gtk_widget_show (about1);
-	gtk_container_add (GTK_CONTAINER (menuitem4_menu),about1);
 
 	/* Create the toolbar */
 	toolbar1 = gtk_toolbar_new ();
