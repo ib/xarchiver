@@ -22,14 +22,17 @@ HTML_FILES = \
 	html/ch04s04.html \
 	html/ch04s05.html \
 	html/ch04s06.html \
-	html/ch04s07.html \
 	html/index.html \
 	xarchiver.css
 IMAGE_FILES = \
 	images/add_dialog.png \
 	images/archive_properties.png \
 	images/extract_dialog.png \
-	images/new_dialog.png
+	images/new_dialog.png \
+	images/archive_comment_dialog.png \
+	images/multi_extract_dialog.png \
+	images/password_dialog.png \
+	images/pref_dialog.png
 
 EXTRA_DIST = xarchiver.css xarchiver.xsl \
 		xarchiver.docbook $(HTML_FILES) $(IMAGE_FILES)
