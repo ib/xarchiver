@@ -30,9 +30,9 @@ extern extract_func extract	[XARCHIVETYPE_COUNT];
 gchar *rar;
 
 static gchar *xa_multi_extract_archive(Multi_extract_data *,gchar *,gboolean,gboolean,gchar *);
-static void xa_select_where_to_extract (GtkButton*,Multi_extract_data * );
+static void xa_select_where_to_extract(SexyIconEntry *,SexyIconEntryPosition ,int ,Multi_extract_data *);
 static void xa_remove_files_liststore (GtkWidget *,Multi_extract_data *);
-static void xa_multi_extract_dialog_select_files_to_add ( GtkButton*,Multi_extract_data * );
+static void xa_multi_extract_dialog_select_files_to_add (GtkButton*,Multi_extract_data *);
 static void xa_multi_extract_dialog_selection_changed(GtkTreeSelection *selection,Multi_extract_data *);
 static void remove_foreach_func (GtkTreeModel *,GtkTreePath *,GtkTreeIter *,GList **);
 static void xa_multi_extract_dialog_drag_data_received (GtkWidget *,GdkDragContext *,int x,int y,GtkSelectionData *,unsigned int,unsigned int,gpointer );
@@ -66,7 +66,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_misc_set_alignment (GTK_MISC (label1),0,0.5);
 
 	dialog_data->destination_path_entry = sexy_icon_entry_new();
-    sexy_icon_entry_add_clear_button( SEXY_ICON_ENTRY(dialog_data->destination_path_entry),dialog_data,xa_select_where_to_extract);
+	sexy_icon_entry_add_clear_button( SEXY_ICON_ENTRY(dialog_data->destination_path_entry),dialog_data,xa_select_where_to_extract);
     sexy_icon_entry_set_icon_highlight( SEXY_ICON_ENTRY(dialog_data->destination_path_entry),SEXY_ICON_ENTRY_PRIMARY,TRUE );
 	gtk_box_pack_start (GTK_BOX (vbox1),dialog_data->destination_path_entry,FALSE,FALSE,0);
 
@@ -665,10 +665,11 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget,GdkDra
 	g_strfreev (array);
 }
 
-void xa_select_where_to_extract(GtkButton *widget,Multi_extract_data *dialog_data)
+void xa_select_where_to_extract(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,int button,Multi_extract_data *dialog_data)
 {
 	GtkWidget *file_selector;
 	gchar *dest_dir;
+	const char *current_path;
 	gint response;
 
 	file_selector = gtk_file_chooser_dialog_new (_("Please select the destination directory"),
@@ -679,11 +680,16 @@ void xa_select_where_to_extract(GtkButton *widget,Multi_extract_data *dialog_dat
 							GTK_STOCK_OPEN,
 							GTK_RESPONSE_ACCEPT,
 							NULL);
+
+	current_path = gtk_entry_get_text(GTK_ENTRY(entry));
+	if (strlen(current_path) > 0)
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (file_selector),current_path);	
+
 	response = gtk_dialog_run (GTK_DIALOG(file_selector));
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		dest_dir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (file_selector));
-		gtk_entry_set_text(GTK_ENTRY(widget),dest_dir);
+		gtk_entry_set_text(GTK_ENTRY(entry),dest_dir);
 		g_free(dest_dir);
 	}
 	gtk_widget_destroy(file_selector);
