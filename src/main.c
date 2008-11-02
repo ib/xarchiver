@@ -131,22 +131,20 @@ int main (int argc, char **argv)
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
-			if (xa_detect_encrypted_archive (archive))
+			if (xa_detect_encrypted_archive(archive))
 			{
 				archive->has_passwd = TRUE;
 				archive->passwd = xa_create_password_dialog(archive);
 				if (archive->passwd == NULL)
 					goto done;
 			}
-			for (x = 1; x < argc; x++)
-			{
-				GSList *string = NULL;
-				archive->full_path = 1;
-				archive->overwrite = 1;
-				gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
-				archive->extraction_path = escaped_path;
-				(*archive->extract) (archive,string);
-			}
+			GSList *string = NULL;
+			archive->full_path = 1;
+			archive->overwrite = 1;
+			gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
+			archive->extraction_path = escaped_path;
+			archive->status = XA_ARCHIVESTATUS_EXTRACT;
+			(*archive->extract) (archive,string);
 		}
 		/* Switch -e */
 		else if (ask_and_extract && archive != NULL)
@@ -156,7 +154,7 @@ int main (int argc, char **argv)
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
-			if (xa_detect_encrypted_archive (archive))
+			if (xa_detect_encrypted_archive(archive))
 				archive->has_passwd = TRUE;
 
 			xa_set_extract_dialog_options(extract_window,0,archive);
