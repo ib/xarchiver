@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2008-10-20 13:19+0200\n"
-"PO-Revision-Date: 2008-10-27 23:02+0100\n"
+"PO-Revision-Date: 2008-11-02 18:30+0100\n"
 "Last-Translator: Abel Martín <abel.martin.ruiz@gmail.com>\n"
 "Language-Team: Spanish <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -138,23 +138,23 @@ msgstr "_Añadir"
 
 #: ../src/add_dialog.c:246
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = sin compression, 5 es el valor por defecto, 9 = mejor compresión pero la más lenta"
+msgstr "0 = sin compression, 5 es el valor predeterminado, 9 = la mejor compresión pero la más lenta"
 
 #: ../src/add_dialog.c:252
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = sin compression, 6 es el valor por defecto, 9 = mejor compresión pero la más lenta"
+msgstr "0 = sin compression, 6 es el valor predeterminado, 9 = la mejor compresión pero la más lenta"
 
 #: ../src/add_dialog.c:258
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = sin compression, 3 es el valor por defecto, 5 = mejor compresión pero la más lenta"
+msgstr "0 = sin compression, 3 es el valor predeterminado, 5 = la mejor compresión pero la más lenta"
 
 #: ../src/add_dialog.c:264
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr "0 = sin compresión, 1 es por defecto, 4 = la más rápida pero la menor compresión"
+msgstr "0 = sin compresión, 1 es el valor predeterminado, 4 = la más rápida pero la menor compresión"
 
 #: ../src/add_dialog.c:270
 msgid "5 = default compression, 7 = max compression"
-msgstr "5 = compresión por defecto, 7 = máxima compresión"
+msgstr "5 = compresión predeterminada, 7 = máxima compresión"
 
 #: ../src/add_dialog.c:370
 #: ../src/main.c:211
