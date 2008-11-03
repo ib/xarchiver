@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-10-20 13:19+0200\n"
+"POT-Creation-Date: 2008-11-03 10:41+0100\n"
 "PO-Revision-Date: 2007-10-28 19:45+0200\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmai.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -19,12 +19,12 @@ msgstr ""
 "X-Poedit-Country: PAKISTAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:84 ../src/rar.c:63
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:87 ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
 msgstr "اصل"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:84 ../src/gzip.c:78
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:87 ../src/gzip.c:78
 #: ../src/rar.c:63 ../src/zip.c:49
 msgid "Compressed"
 msgstr "دبی ہوئی"
@@ -33,17 +33,17 @@ msgstr "دبی ہوئی"
 msgid "Attr"
 msgstr "صفت"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:165 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/tar.c:52 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:167 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Time"
 msgstr "وقت"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:165 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:52 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:167 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
 msgid "Date"
 msgstr "تاریخ"
 
-#: ../src/add_dialog.c:37 ../src/interface.c:402
+#: ../src/add_dialog.c:37 ../src/interface.c:403
 #, fuzzy
 msgid "Add files"
 msgstr "تمام فائلیں"
@@ -162,7 +162,7 @@ msgstr "0 = کوئی دباؤ نہیں، 1 طے شدہ ہے، 4 = تیز تر م
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = طے شدہ دباؤ، 7 = زیادہ سے زیادہ دباؤ"
 
-#: ../src/add_dialog.c:370 ../src/main.c:211
+#: ../src/add_dialog.c:370 ../src/main.c:209
 msgid "Can't add files to the archive:"
 msgstr "محفوظہ میں فائیں شامل نہیں کی جاسکتیں:"
 
@@ -170,11 +170,11 @@ msgstr "محفوظہ میں فائیں شامل نہیں کی جاسکتیں:"
 msgid "You haven't selected any files to add!"
 msgstr "آپ نے شامل کرنے کے لیے کوئی فائل منتخب نہیں کی!"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:823
+#: ../src/add_dialog.c:378 ../src/interface.c:825
 msgid "You missed the password!"
 msgstr "آپ پاس ورڈ بھول گئے!"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:823
+#: ../src/add_dialog.c:378 ../src/interface.c:825
 msgid "Please enter it!"
 msgstr "برائے مہربانی اسے لکھیں!"
 
@@ -187,7 +187,7 @@ msgstr "فائلیں محفوظہ میں شامل کی جارہی ہیں، ان�
 msgid "Can't run the archiver executable:"
 msgstr "محفوظہ اطلاقی نہیں چلایا جاسکا:"
 
-#: ../src/archive.c:335
+#: ../src/archive.c:371
 msgid "Can't create temporary directory in /tmp:"
 msgstr "وقتی ڈائریکٹری /tmp میں نہیں بنائی جاسکتی:"
 
@@ -199,298 +199,306 @@ msgstr "ریشو"
 msgid "Attributes"
 msgstr "صفتیں"
 
-#: ../src/bzip2.c:165 ../src/gzip.c:61 ../src/rpm.c:52 ../src/tar.c:52
+#: ../src/bzip2.c:167 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/tar.c:54
 msgid "Points to"
 msgstr ""
 
-#: ../src/bzip2.c:165 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
-#: ../src/rar.c:63 ../src/tar.c:52 ../src/zip.c:49
+#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Permissions"
 msgstr "اجازے"
 
-#: ../src/bzip2.c:165 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:52
+#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
 msgid "Owner/Group"
 msgstr "مالک/گروپ"
 
-#: ../src/bzip2.c:165 ../src/deb.c:45 ../src/extract_dialog.c:395
+#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/extract_dialog.c:398
 #: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:52
+#: ../src/tar.c:54
 msgid "Size"
 msgstr "حجم"
 
-#: ../src/window.c:56
+#: ../src/window.c:58
 msgid "An error occurred!"
 msgstr "کوئی غلطی ہوئی ہے!"
 
-#: ../src/window.c:56
+#: ../src/window.c:58
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr ""
 
-#: ../src/window.c:153
+#: ../src/window.c:144
 #, fuzzy
 msgid "Archiver output"
 msgstr "محقوظہ قسم:"
 
-#: ../src/window.c:188
+#: ../src/window.c:179
 #, fuzzy
 msgid "An error occurred while accessing the archive:"
 msgstr "محفوظہ تک رسائی میں غلطی ہوئی ہے."
 
-#: ../src/window.c:260
+#: ../src/window.c:251
 #, fuzzy
 msgid "Save the archive as"
 msgstr "محفوظ کریں self-extracting محفوظہ کو بطور"
 
-#: ../src/window.c:319
+#: ../src/window.c:310
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "فائل \"%s\" نہیں کھولی جاسکتی:"
 
-#: ../src/window.c:321
-msgid "Archive format is not recognized!"
-msgstr "محفوظہ کا فارمیٹ معترف بہ نہیں ہے!"
-
-#: ../src/window.c:347
+#: ../src/window.c:336
 #, fuzzy
 msgid "Sorry,this archive format is not supported:"
 msgstr "معاف کیجیے: محفوظہ کے اس فارمیٹ کی معاونت نہیں ہے:"
 
-#: ../src/window.c:347
+#: ../src/window.c:336
 msgid "the proper archiver is not installed!"
 msgstr "درست محفوظہ نصب نہیں ہے!"
 
-#: ../src/window.c:361
+#: ../src/window.c:350
 msgid "Can't allocate memory for the archive structure:"
 msgstr "محفوظہ کے ڈھنچہ لیے مختص یاداشت نہیں مل رہی:"
 
-#: ../src/window.c:382
+#: ../src/window.c:374
 #, fuzzy
 msgid "Opening archive,please wait..."
 msgstr "محفوظہ کی درستگی معلوم کی جارہی ہے، انتظار فرمائیں..."
 
-#: ../src/window.c:406
+#: ../src/window.c:398
 #, fuzzy
 msgid "Testing archive,please wait..."
 msgstr "محفوظہ کی درستگی معلوم کی جارہی ہے، انتظار فرمائیں..."
 
-#: ../src/window.c:426
+#: ../src/window.c:418
 #, fuzzy
 msgid "Print the archive content as HTML"
 msgstr "محفوظہ کا مواد دیکھیں بطور"
 
-#: ../src/window.c:428
+#: ../src/window.c:420
 #, fuzzy
 msgid "Print the archive content as text"
 msgstr "محفوظہ کا مواد دیکھیں بطور"
 
-#: ../src/window.c:477
+#: ../src/window.c:469
 #, fuzzy, c-format
 msgid "Archive contents:\n"
 msgstr "محفوظہ کا مواد دیکھیں بطور"
 
-#: ../src/window.c:481
+#: ../src/window.c:473
 #, fuzzy, c-format
 msgid ""
 "\n"
 "Name: "
 msgstr "نام:"
 
-#: ../src/window.c:490
+#: ../src/window.c:482
 #, fuzzy, c-format
 msgid "Compressed   size: "
 msgstr "دبی ہوئی"
 
-#: ../src/window.c:497
+#: ../src/window.c:489
 #, fuzzy, c-format
 msgid "Uncompressed size: "
 msgstr "فائل کھولیں"
 
-#: ../src/window.c:505
+#: ../src/window.c:497
 #, fuzzy, c-format
 msgid "Number of files: "
 msgstr "فائلوں کی تعداد:"
 
-#: ../src/window.c:513
+#: ../src/window.c:505
 #, fuzzy, c-format
 msgid "Comment:\n"
 msgstr "تبصرہ رکھتی ہے:"
 
-#: ../src/window.c:526
+#: ../src/window.c:518
 #, fuzzy, c-format
 msgid "Files:%*s%s"
 msgstr "فائلیں"
 
-#: ../src/window.c:526
+#: ../src/window.c:518
 #, fuzzy
 msgid "|Compressed\n"
 msgstr "دبی ہوئی"
 
-#: ../src/window.c:532
+#: ../src/window.c:524
 #, c-format
 msgid "<th>Files:</th>"
 msgstr ""
 
-#: ../src/window.c:533
+#: ../src/window.c:525
 #, fuzzy, c-format
 msgid "<th>Compressed:</th>"
 msgstr "دبی ہوئی"
 
-#: ../src/window.c:722
+#: ../src/window.c:715
 msgid "Are you sure you want to do this?"
 msgstr "کیا آپ واقعی ایسا کرنا چاہتے ہیں؟"
 
-#: ../src/window.c:816 ../src/window.c:916
+#: ../src/window.c:808 ../src/window.c:908
 msgid "Can't convert the archive to self-extracting:"
 msgstr "محفوظہ کو self-extracting میں نہیں بدلا جاسکتا:"
 
-#: ../src/window.c:827 ../src/window.c:927
+#: ../src/window.c:819 ../src/window.c:919
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "unzipsfx ماڈیول محفوظہ پر نہیں لکھا جاسکتا:"
 
-#: ../src/window.c:887
+#: ../src/window.c:879
 msgid "Please select the 7zCon.sfx module"
 msgstr "برائے مہربانی 7zCon.sfx ماڈیول منتخب کریں"
 
-#: ../src/window.c:984
+#: ../src/window.c:976
 msgid "translator-credits"
 msgstr "محمد علی مکی makki.ma@gmail.com makki@gmail.com"
 
-#: ../src/window.c:1014
+#: ../src/window.c:1006
 msgid "Save the self-extracting archive as"
 msgstr "محفوظ کریں self-extracting محفوظہ کو بطور"
 
-#: ../src/window.c:1043 ../src/interface.c:349
+#: ../src/window.c:1035 ../src/interface.c:350
 msgid "Open an archive"
 msgstr "محفوظہ کھولیں"
 
-#: ../src/window.c:1056 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1048 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "تمام فائلیں"
 
-#: ../src/window.c:1061 ../src/new_dialog.c:67
+#: ../src/window.c:1053 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "صرف محفوظے"
 
-#: ../src/window.c:1273
+#: ../src/window.c:1265
 msgid "Filename"
 msgstr "فائل کا نام"
 
-#: ../src/window.c:1330
+#: ../src/window.c:1322
 msgid "Doing so will probably corrupt your archive!"
 msgstr "ایسا کرنے سے ممکنہ طور پر محفوظہ خراب ہوسکتی ہے!"
 
-#: ../src/window.c:1330
+#: ../src/window.c:1322
 msgid "Do you really want to cancel?"
 msgstr "کیا آپ واقعی مسترد کرنا چاہتے ہیں؟"
 
-#: ../src/window.c:1393 ../src/window.c:1408
+#: ../src/window.c:1385 ../src/window.c:1400
 msgid "Yes"
 msgstr "ہاں"
 
-#: ../src/window.c:1395 ../src/window.c:1410
+#: ../src/window.c:1387 ../src/window.c:1402
 msgid "No"
 msgstr "نہیں"
 
-#: ../src/window.c:1609
+#: ../src/window.c:1601
 #, fuzzy
 msgid "selected"
 msgstr "صرف منتخب کردہ"
 
-#: ../src/window.c:1614
+#: ../src/window.c:1606
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1616
+#: ../src/window.c:1608
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1619
+#: ../src/window.c:1611
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1680
+#: ../src/window.c:1667
 msgid "Can't perform another extraction:"
 msgstr "دوسرا کھولنے کا عمل ادا نہیں کیا جاسکتا:"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1667
 msgid "Please wait until the completion of the current one!"
 msgstr "حالیہ کی تکمیل تک انتظار فرمائیں!"
 
-#: ../src/window.c:1754 ../src/extract_dialog.c:650 ../src/interface.c:1392
+#: ../src/window.c:1700 ../src/extract_dialog.c:343
+#, fuzzy, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr "آپ کے پاس فائلوں کو فولڈر میں کھولنے کا درست اجازہ نہیں ہے \"%s\"."
+
+#: ../src/window.c:1701 ../src/extract_dialog.c:344
+msgid "Can't perform extraction!"
+msgstr "کھولنے کا عمل ادا نہیں کیا جاسکتا!"
+
+#: ../src/window.c:1742 ../src/extract_dialog.c:653 ../src/interface.c:1405
 #, fuzzy
 msgid "Sorry,I could not perform the operation!"
 msgstr "معاف کیجیے، میں یہ عمل نہیں کرسکتا!"
 
-#: ../src/window.c:1788 ../src/window.c:1800 ../src/interface.c:1385
+#: ../src/window.c:1776 ../src/window.c:1788 ../src/interface.c:1398
 msgid "Can't perform this action:"
 msgstr "یہ عمل ادا نہیں کیا جاسکتا:"
 
-#: ../src/window.c:1788
+#: ../src/window.c:1776
 msgid "You have to install rar package!"
 msgstr ""
 
-#: ../src/window.c:1795 ../src/interface.c:1382
+#: ../src/window.c:1783 ../src/interface.c:1395
 msgid "You can't add content to deb packages!"
 msgstr "آپ deb پیکج میں مواد شامل نہیں کرسکتے!"
 
-#: ../src/window.c:1797 ../src/interface.c:1384
+#: ../src/window.c:1785 ../src/interface.c:1397
 msgid "You can't add content to rpm packages!"
 msgstr "آپ rpm پیکج میں مواد شامل نہیں کرسکتے!"
 
-#: ../src/window.c:1799
+#: ../src/window.c:1787
 #, fuzzy
 msgid "The archiver doesn't support this feature!"
 msgstr "unrar محفوظہ بنانے کی معاونت نہیں رکھتا!"
 
-#: ../src/window.c:1877
+#: ../src/window.c:1868
 msgid "You didn't set which browser to use!"
 msgstr ""
 
-#: ../src/window.c:1877 ../src/window.c:1918
+#: ../src/window.c:1868 ../src/window.c:1909
 msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
-#: ../src/window.c:1909
+#: ../src/window.c:1900
 #, fuzzy
 msgid "This file type is not supported!"
 msgstr "معاف کیجیے: محفوظہ کے اس فارمیٹ کی معاونت نہیں ہے:"
 
-#: ../src/window.c:1909
+#: ../src/window.c:1900
 msgid "Please install xdg-utils package."
 msgstr ""
 
-#: ../src/window.c:1918
+#: ../src/window.c:1909
 msgid "You didn't set which program to use for opening this file!"
 msgstr ""
 
-#: ../src/window.c:1945
+#: ../src/window.c:1936
 msgid "Failed to launch the application!"
 msgstr ""
 
-#: ../src/window.c:1997
+#: ../src/window.c:1988
 #, fuzzy
 msgid "Comment"
 msgstr "تبصرہ رکھتی ہے:"
 
-#: ../src/window.c:2027
+#: ../src/window.c:2018
 msgid "From File"
 msgstr ""
 
-#: ../src/window.c:2132
+#: ../src/window.c:2123
 #, fuzzy
 msgid "Open a text file"
 msgstr "عمل ناکام ہوگیا."
 
-#: ../src/window.c:2150
+#: ../src/window.c:2141
 #, fuzzy, c-format
 msgid "Can't open file %s:"
 msgstr "فائل \"%s\" نہیں کھولی جاسکتی:"
@@ -499,7 +507,7 @@ msgstr "فائل \"%s\" نہیں کھولی جاسکتی:"
 msgid "Date modified"
 msgstr ""
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:471
 msgid "Extract to:"
 msgstr "کھولیں تا:"
 
@@ -518,7 +526,7 @@ msgstr "فائلیں"
 msgid "Files "
 msgstr "فائلیں"
 
-#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:495
+#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:498
 msgid "Overwrite existing files"
 msgstr "سابقہ فائلوں پر لکھیں"
 
@@ -580,7 +588,7 @@ msgstr ""
 msgid "Options "
 msgstr "<b>اختیارات </b>"
 
-#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:511
+#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:514
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_کھولیں"
@@ -589,12 +597,12 @@ msgstr "_کھولیں"
 msgid "Decompress file"
 msgstr "فائل کھولیں"
 
-#: ../src/extract_dialog.c:228 ../src/interface.c:411
+#: ../src/extract_dialog.c:228 ../src/interface.c:412
 #, fuzzy
 msgid "Extract files"
 msgstr "فائلیں کھولی جارہی ہیں تا %s"
 
-#: ../src/extract_dialog.c:319 ../src/extract_dialog.c:718
+#: ../src/extract_dialog.c:319 ../src/extract_dialog.c:727
 msgid "You missed where to extract the files!"
 msgstr "آپ یہ بتانا بھول گئے کہ فائلیں کہاں کھولنی ہیں!"
 
@@ -610,89 +618,78 @@ msgstr "یہ محفوظہ رمز شدہ ہے!"
 msgid "Please enter the password."
 msgstr "برائے مہربانی پاس ورڈ لکھیں."
 
-#: ../src/extract_dialog.c:343
-#, fuzzy, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr "آپ کے پاس فائلوں کو فولڈر میں کھولنے کا درست اجازہ نہیں ہے \"%s\"."
-
-#: ../src/extract_dialog.c:344
-msgid "Can't perform extraction!"
-msgstr "کھولنے کا عمل ادا نہیں کیا جاسکتا!"
-
-#: ../src/extract_dialog.c:378
+#: ../src/extract_dialog.c:381
 #, fuzzy
 msgid "Extracting files from archive,please wait..."
 msgstr "محفوظہ سے فائلیں حذف کی جارہی ہیں، انتظار فرمائیں..."
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:398
 #, fuzzy
 msgid "Archive Name"
 msgstr "[محفوظہ کا نام]"
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:398
 #, fuzzy
 msgid "Path"
 msgstr "پاتھ:"
 
-#: ../src/extract_dialog.c:407
+#: ../src/extract_dialog.c:410
 #, fuzzy
 msgid "Multi-Extract"
 msgstr "کھولیں"
 
-#: ../src/extract_dialog.c:478
+#: ../src/extract_dialog.c:481
 #, fuzzy
 msgid "Extract to dir \"Archive Name\""
 msgstr "محفوظہ سے فائلیں نکالیں"
 
-#: ../src/extract_dialog.c:479
+#: ../src/extract_dialog.c:482
 #, fuzzy
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "محفوظہ میں شامل کرنے کے لیے فائلیں یا ڈائریکٹریاں منتخب کریں"
 
-#: ../src/extract_dialog.c:483
+#: ../src/extract_dialog.c:486
 #, fuzzy
 msgid "Destination dirs:"
 msgstr "سمت پاتھ م_حفوظہ"
 
-#: ../src/extract_dialog.c:497
+#: ../src/extract_dialog.c:500
 #, fuzzy
 msgid "Extract pathnames"
 msgstr "فائلیں کھولی جارہی ہیں تا %s"
 
-#: ../src/extract_dialog.c:499
+#: ../src/extract_dialog.c:502
 #, fuzzy
 msgid "Options:"
 msgstr "<b>اختیارات </b>"
 
-#: ../src/extract_dialog.c:531
+#: ../src/extract_dialog.c:534
 #, fuzzy
 msgid "Please select the archives you want to extract"
 msgstr "شامل کرنے کے لیے فائلیں منتخب کریں"
 
-#: ../src/extract_dialog.c:671
+#: ../src/extract_dialog.c:675
 #, fuzzy
 msgid "Please select the destination directory"
 msgstr "فائل منتخب کریں ڈائریکٹری نہیں!"
 
-#: ../src/extract_dialog.c:710
+#: ../src/extract_dialog.c:719
 #, fuzzy
 msgid "Can't multi-extract archives:"
 msgstr "محفوظہ سے فائلیں نہیں نکالی جاسکتیں:"
 
-#: ../src/extract_dialog.c:710
+#: ../src/extract_dialog.c:719
 #, fuzzy
 msgid "You haven't added any of them!"
 msgstr "آپ نے شامل کرنے کے لیے کوئی فائل منتخب نہیں کی!"
 
-#: ../src/extract_dialog.c:718
+#: ../src/extract_dialog.c:727
 #, fuzzy
 msgid "Please fill the \"Extract to\" field!"
 msgstr "برائے مہربانی پہلے روکنے کا بٹن دبائیں!"
 
-#: ../src/extract_dialog.c:754
+#: ../src/extract_dialog.c:763
 #, fuzzy
 msgid "Some errors occurred:"
 msgstr "کوئی غلطی ہوئی ہے:"
@@ -742,7 +739,7 @@ msgstr "_حرکت"
 msgid "A_dd"
 msgstr "شامل کریں"
 
-#: ../src/interface.c:194 ../src/interface.c:915
+#: ../src/interface.c:194 ../src/interface.c:922
 #, fuzzy
 msgid "Rename"
 msgstr "فائل کا نام"
@@ -797,192 +794,192 @@ msgstr "_ہدایات"
 msgid "_Thanks to"
 msgstr ""
 
-#: ../src/interface.c:337
+#: ../src/interface.c:338
 msgid "New"
 msgstr "نیا"
 
-#: ../src/interface.c:341 ../src/new_dialog.c:50
+#: ../src/interface.c:342 ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "نئی محفوظہ بنائیں"
 
-#: ../src/interface.c:345
+#: ../src/interface.c:346
 msgid "Open"
 msgstr "کھولیں"
 
-#: ../src/interface.c:357 ../src/interface.c:362
+#: ../src/interface.c:358 ../src/interface.c:363
 msgid "Back"
 msgstr ""
 
-#: ../src/interface.c:366 ../src/interface.c:371
+#: ../src/interface.c:367 ../src/interface.c:372
 msgid "Up"
 msgstr ""
 
-#: ../src/interface.c:375 ../src/interface.c:380
+#: ../src/interface.c:376 ../src/interface.c:381
 msgid "Forward"
 msgstr ""
 
-#: ../src/interface.c:384
+#: ../src/interface.c:385
 msgid "Home"
 msgstr ""
 
-#: ../src/interface.c:389
+#: ../src/interface.c:390
 msgid "Root"
 msgstr ""
 
-#: ../src/interface.c:397
+#: ../src/interface.c:398
 msgid "Add"
 msgstr "شامل کریں"
 
-#: ../src/interface.c:406 ../src/interface.c:855
+#: ../src/interface.c:407 ../src/interface.c:862
 msgid "Extract"
 msgstr "کھولیں"
 
-#: ../src/interface.c:419
+#: ../src/interface.c:420
 msgid "Stop"
 msgstr "روکیں"
 
-#: ../src/interface.c:424
+#: ../src/interface.c:425
 msgid "Cancel current operation"
 msgstr "حالیہ عمل روکیں"
 
-#: ../src/interface.c:437
+#: ../src/interface.c:438
 #, fuzzy
 msgid "Location:"
 msgstr "اطلاقیہ:"
 
-#: ../src/interface.c:476
+#: ../src/interface.c:477
 #, fuzzy
 msgid "Archive tree"
 msgstr "محقوظہ قسم:"
 
-#: ../src/interface.c:524
+#: ../src/interface.c:525
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr ""
 
-#: ../src/interface.c:692
+#: ../src/interface.c:694
 msgid "Close archive"
 msgstr "محفوظہ بند کریں"
 
-#: ../src/interface.c:777
+#: ../src/interface.c:779
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr ""
 
-#: ../src/interface.c:779
+#: ../src/interface.c:781
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr ""
 
-#: ../src/interface.c:797
+#: ../src/interface.c:799
 #, fuzzy
 msgid "_Password:"
 msgstr "پاس ورڈ:"
 
-#: ../src/interface.c:847 ../src/open-with-dlg.c:52
+#: ../src/interface.c:854 ../src/open-with-dlg.c:52
 #, fuzzy
 msgid "Open With"
 msgstr "کھولیں"
 
-#: ../src/interface.c:863
+#: ../src/interface.c:870
 msgid "View"
 msgstr "منظر"
 
-#: ../src/interface.c:876
+#: ../src/interface.c:883
 msgid "Cut"
 msgstr ""
 
-#: ../src/interface.c:884
+#: ../src/interface.c:891
 msgid "Copy"
 msgstr ""
 
-#: ../src/interface.c:892
+#: ../src/interface.c:899
 #, fuzzy
 msgid "Paste"
 msgstr "تاریخ"
 
-#: ../src/interface.c:906
+#: ../src/interface.c:913
 msgid "Delete"
 msgstr "حذف"
 
-#: ../src/interface.c:954
+#: ../src/interface.c:961
 msgid "Select by Pattern"
 msgstr ""
 
-#: ../src/interface.c:967
+#: ../src/interface.c:974
 #, fuzzy
 msgid "Pattern:"
 msgstr "پاتھ:"
 
-#: ../src/interface.c:972
+#: ../src/interface.c:979
 msgid "example: *.txt; ac*"
 msgstr ""
 
-#: ../src/interface.c:989
+#: ../src/interface.c:996
 #, fuzzy
 msgid "_Select"
 msgstr "م_نتخب تمام"
 
-#: ../src/interface.c:1061
+#: ../src/interface.c:1068
 #, fuzzy
 msgid "Archive Properties"
 msgstr "محفوظہ خصوصیات ونڈو"
 
-#: ../src/interface.c:1082
+#: ../src/interface.c:1089
 msgid "Name:"
 msgstr "نام:"
 
-#: ../src/interface.c:1089
+#: ../src/interface.c:1096
 msgid "Path:"
 msgstr "پاتھ:"
 
-#: ../src/interface.c:1096
+#: ../src/interface.c:1103
 msgid "Type:"
 msgstr "قسم:"
 
-#: ../src/interface.c:1103
+#: ../src/interface.c:1110
 msgid "Encrypted:"
 msgstr ""
 
-#: ../src/interface.c:1110
+#: ../src/interface.c:1117
 msgid "Modified on:"
 msgstr "تاریخ تدوین:"
 
-#: ../src/interface.c:1117
+#: ../src/interface.c:1124
 #, fuzzy
 msgid "Compressed size:"
 msgstr "دبی ہوئی"
 
-#: ../src/interface.c:1124
+#: ../src/interface.c:1131
 #, fuzzy
 msgid "Uncompressed size:"
 msgstr "فائل کھولیں"
 
-#: ../src/interface.c:1131
+#: ../src/interface.c:1138
 #, fuzzy
 msgid "Comment:"
 msgstr "تبصرہ رکھتی ہے:"
 
-#: ../src/interface.c:1138
+#: ../src/interface.c:1145
 msgid "Number of files:"
 msgstr "فائلوں کی تعداد:"
 
-#: ../src/interface.c:1145
+#: ../src/interface.c:1152
 msgid "Compression ratio:"
 msgstr "دباؤ کا ریشو:"
 
-#: ../src/interface.c:1504 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1509 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1529
+#: ../src/interface.c:1534
 #, fuzzy
 msgid "Extracting from archive:"
 msgstr "محفوظہ کھولا جا رہا ہے تا %s"
 
-#: ../src/interface.c:1531
+#: ../src/interface.c:1536
 #, fuzzy
 msgid "Adding to archive:"
 msgstr "محفوظہ میں فائلیں شامل کریں"
 
-#: ../src/interface.c:1549
+#: ../src/interface.c:1554
 msgid "Total Progress:"
 msgstr ""
 
@@ -1040,19 +1037,19 @@ msgstr ""
 "xarchiver: %s\n"
 "مکمل دستیاب کمانڈ لائن اختیارات دیکھنے کے لیے xarchiver --help ٹرائی کریں.\n"
 
-#: ../src/main.c:131 ../src/main.c:156
+#: ../src/main.c:131 ../src/main.c:154
 msgid "Can't extract files from the archive:"
 msgstr "محفوظہ سے فائلیں نہیں نکالی جاسکتیں:"
 
-#: ../src/main.c:131 ../src/main.c:156 ../src/main.c:211
+#: ../src/main.c:131 ../src/main.c:154 ../src/main.c:209
 msgid "You missed the archive name!\n"
 msgstr "آپ محفوظہ کا نام بھول گئے!\n"
 
-#: ../src/main.c:255
+#: ../src/main.c:256
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 
-#: ../src/main.c:494
+#: ../src/main.c:495
 msgid "Can't allocate memory for the archive structure!"
 msgstr "محفوظہ کے ڈھانچے کے لیے مخصوص یاداشت نہیں مل سکی!"
 
@@ -1301,6 +1298,9 @@ msgstr "صرف GTK+2 محفوظہ منیجر"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "محفوظہ منیجر"
+
+#~ msgid "Archive format is not recognized!"
+#~ msgstr "محفوظہ کا فارمیٹ معترف بہ نہیں ہے!"
 
 #~ msgid "Can't spawn the command:"
 #~ msgstr "کمانڈ spawn نہیں کی جاسکتی:"

@@ -121,7 +121,9 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_add_watch (err_ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_dump_child_error_messages,archive);
 }
 
-/*gchar *xa_split_command_line(XArchive *archive,GSList *list)
+/*	TODO: workaround for bug #3235
+ * 
+ * gchar *xa_split_command_line(XArchive *archive,GSList *list)
 {
 	gchar *command = NULL;
 	GSList *chunks = NULL;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-10-31 13:51+0200\n"
+"POT-Creation-Date: 2008-11-03 10:41+0100\n"
 "PO-Revision-Date: 2008-10-31 14:01+0200\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -150,7 +150,7 @@ msgstr "0 = ei pakkausta, 1 on oletus, 4 = nopein mutta pakkaa vähiten"
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = oletuspakkaus, 7 = tehokkain pakkaus"
 
-#: ../src/add_dialog.c:370 ../src/main.c:211
+#: ../src/add_dialog.c:370 ../src/main.c:209
 msgid "Can't add files to the archive:"
 msgstr "Ei voi lisätä tiedostoja arkistoon:"
 
@@ -174,7 +174,7 @@ msgstr "Lisätään tiedostoja arkistoon, odota..."
 msgid "Can't run the archiver executable:"
 msgstr "Arkistointiohjelmaa ei voi suorittaa:"
 
-#: ../src/archive.c:369
+#: ../src/archive.c:371
 msgid "Can't create temporary directory in /tmp:"
 msgstr "Ei voi luoda väliaikaiskansiota kohteeseen /tmp:"
 
@@ -243,28 +243,28 @@ msgstr "tarvittavaa arkistointisovellusta ei ole asennettu!"
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Arkistorakenteelle ei voi varata muistia:"
 
-#: ../src/window.c:371
+#: ../src/window.c:374
 msgid "Opening archive,please wait..."
 msgstr "Avataan arkistoa, odota..."
 
-#: ../src/window.c:395
+#: ../src/window.c:398
 msgid "Testing archive,please wait..."
 msgstr "Tarkistetaan arkistoa, odota..."
 
-#: ../src/window.c:415
+#: ../src/window.c:418
 msgid "Print the archive content as HTML"
 msgstr "Tulosta arkiston sisältö HTML-muodossa"
 
-#: ../src/window.c:417
+#: ../src/window.c:420
 msgid "Print the archive content as text"
 msgstr "Tulosta arkiston sisältö tekstimuodossa"
 
-#: ../src/window.c:466
+#: ../src/window.c:469
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Arkiston sisältö:\n"
 
-#: ../src/window.c:470
+#: ../src/window.c:473
 #, c-format
 msgid ""
 "\n"
@@ -273,207 +273,206 @@ msgstr ""
 "\n"
 "Nimi: "
 
-#: ../src/window.c:479
+#: ../src/window.c:482
 #, c-format
 msgid "Compressed   size: "
 msgstr "Pakattu koko:   "
 
-#: ../src/window.c:486
+#: ../src/window.c:489
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Koko purettuna: "
 
-#: ../src/window.c:494
+#: ../src/window.c:497
 #, c-format
 msgid "Number of files: "
 msgstr "Tiedostomäärä: "
 
-#: ../src/window.c:502
+#: ../src/window.c:505
 #, c-format
 msgid "Comment:\n"
 msgstr "Kommentti:\n"
 
-#: ../src/window.c:515
+#: ../src/window.c:518
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Tiedostot:%*s%s"
 
-#: ../src/window.c:515
+#: ../src/window.c:518
 msgid "|Compressed\n"
 msgstr "|Pakattu:\n"
 
-#: ../src/window.c:521
+#: ../src/window.c:524
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Tiedostot:</th>"
 
-#: ../src/window.c:522
+#: ../src/window.c:525
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Pakattu:</th>"
 
-#: ../src/window.c:712
+#: ../src/window.c:715
 msgid "Are you sure you want to do this?"
 msgstr "Haluatko varmasti tehdä sen?"
 
-#: ../src/window.c:805 ../src/window.c:905
+#: ../src/window.c:808 ../src/window.c:908
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Arkistoa ei voi muuntaa itsepurkautuvaksi:"
 
-#: ../src/window.c:816 ../src/window.c:916
+#: ../src/window.c:819 ../src/window.c:919
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Arkistoon ei voi kirjoittaa unzipsfx-moduulia:"
 
-#: ../src/window.c:876
+#: ../src/window.c:879
 msgid "Please select the 7zCon.sfx module"
 msgstr "Valitse 7zCon.sfx-moduuli"
 
-#: ../src/window.c:973
+#: ../src/window.c:976
 msgid "translator-credits"
 msgstr "Jari Rahkonen <jari.rahkonen@pp1.inet.fi>"
 
-#: ../src/window.c:1003
+#: ../src/window.c:1006
 msgid "Save the self-extracting archive as"
 msgstr "Tallenna itsepurkautuva arkisto nimellä"
 
-#: ../src/window.c:1032 ../src/interface.c:350
+#: ../src/window.c:1035 ../src/interface.c:350
 msgid "Open an archive"
 msgstr "Avaa arkisto"
 
-#: ../src/window.c:1045 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1048 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
-#: ../src/window.c:1050 ../src/new_dialog.c:67
+#: ../src/window.c:1053 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "Vain arkistot"
 
-#: ../src/window.c:1262
+#: ../src/window.c:1265
 msgid "Filename"
 msgstr "Tiedostonimi"
 
-#: ../src/window.c:1319
+#: ../src/window.c:1322
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Se tekisi arkistosta luultavasti käyttökelvottoman!"
 
-#: ../src/window.c:1319
+#: ../src/window.c:1322
 msgid "Do you really want to cancel?"
 msgstr "Haluatko todella perua toiminnon?"
 
-#: ../src/window.c:1382 ../src/window.c:1397
+#: ../src/window.c:1385 ../src/window.c:1400
 msgid "Yes"
 msgstr "Kyllä"
 
-#: ../src/window.c:1384 ../src/window.c:1399
+#: ../src/window.c:1387 ../src/window.c:1402
 msgid "No"
 msgstr "Ei"
 
-#: ../src/window.c:1598
+#: ../src/window.c:1601
 msgid "selected"
 msgstr "valittu"
 
-#: ../src/window.c:1603
+#: ../src/window.c:1606
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d tiedosto ja %d kansio %s (%s)"
 msgstr[1] "%d tiedostoa ja %d kansiota %s (%s)"
 
-#: ../src/window.c:1605
+#: ../src/window.c:1608
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d kansio %s (%s)"
 msgstr[1] "%d kansiota %s (%s)"
 
-#: ../src/window.c:1608
+#: ../src/window.c:1611
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d tiedosto %s (%s)"
 msgstr[1] "%d tiedostoa %s (%s)"
 
-#: ../src/window.c:1664
+#: ../src/window.c:1667
 msgid "Can't perform another extraction:"
 msgstr "Ei voi purkaa uudelleen:"
 
-#: ../src/window.c:1664
+#: ../src/window.c:1667
 msgid "Please wait until the completion of the current one!"
 msgstr "Odota, kunnes nykyinen toiminto valmistuu."
 
-#: ../src/window.c:1697 ../src/extract_dialog.c:343
+#: ../src/window.c:1700 ../src/extract_dialog.c:343
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
-msgstr ""
-"Oikeutesi eivät riitä tiedostojen purkamiseen kansioon \"%s\"."
+msgstr "Oikeutesi eivät riitä tiedostojen purkamiseen kansioon \"%s\"."
 
-#: ../src/window.c:1698 ../src/extract_dialog.c:344
+#: ../src/window.c:1701 ../src/extract_dialog.c:344
 msgid "Can't perform extraction!"
 msgstr "Ei voi purkaa!"
 
-#: ../src/window.c:1739 ../src/extract_dialog.c:653 ../src/interface.c:1405
+#: ../src/window.c:1742 ../src/extract_dialog.c:653 ../src/interface.c:1405
 msgid "Sorry,I could not perform the operation!"
 msgstr "Toiminnon suoritus epäonnistui!"
 
-#: ../src/window.c:1773 ../src/window.c:1785 ../src/interface.c:1398
+#: ../src/window.c:1776 ../src/window.c:1788 ../src/interface.c:1398
 msgid "Can't perform this action:"
 msgstr "Toimintoa ei voi suorittaa:"
 
-#: ../src/window.c:1773
+#: ../src/window.c:1776
 msgid "You have to install rar package!"
 msgstr "Asenna paketti rar."
 
-#: ../src/window.c:1780 ../src/interface.c:1395
+#: ../src/window.c:1783 ../src/interface.c:1395
 msgid "You can't add content to deb packages!"
 msgstr "Et voi lisätä sisältöä deb-paketteihin!"
 
-#: ../src/window.c:1782 ../src/interface.c:1397
+#: ../src/window.c:1785 ../src/interface.c:1397
 msgid "You can't add content to rpm packages!"
 msgstr "Et voi lisätä sisältöä rpm-paketteihin!"
 
-#: ../src/window.c:1784
+#: ../src/window.c:1787
 msgid "The archiver doesn't support this feature!"
 msgstr "Arkistoija ei tue tätä ominaisuutta!"
 
-#: ../src/window.c:1865
+#: ../src/window.c:1868
 msgid "You didn't set which browser to use!"
 msgstr "Et valinnut käytettävää selainta!"
 
-#: ../src/window.c:1865 ../src/window.c:1906
+#: ../src/window.c:1868 ../src/window.c:1909
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Aseta se kohdassa Asetukset->Lisäasetukset."
 
-#: ../src/window.c:1897
+#: ../src/window.c:1900
 msgid "This file type is not supported!"
 msgstr "Tiedostotyyppiä ei tueta!"
 
-#: ../src/window.c:1897
+#: ../src/window.c:1900
 msgid "Please install xdg-utils package."
 msgstr "Asenna paketti xdg-utils."
 
-#: ../src/window.c:1906
+#: ../src/window.c:1909
 msgid "You didn't set which program to use for opening this file!"
 msgstr "Et valinnut tiedoston avaamiseen käytettävää sovellusta!"
 
-#: ../src/window.c:1933
+#: ../src/window.c:1936
 msgid "Failed to launch the application!"
 msgstr "Sovelluksen suoritus epäonnistui!"
 
-#: ../src/window.c:1985
+#: ../src/window.c:1988
 msgid "Comment"
 msgstr "Kommentti"
 
-#: ../src/window.c:2015
+#: ../src/window.c:2018
 msgid "From File"
 msgstr "Tiedostosta"
 
-#: ../src/window.c:2120
+#: ../src/window.c:2123
 msgid "Open a text file"
 msgstr "Avaa tekstitiedosto"
 
-#: ../src/window.c:2138
+#: ../src/window.c:2141
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Tiedostoa \"%s\" ei voi avata:"
@@ -568,7 +567,7 @@ msgstr "Pura tiedosto"
 msgid "Extract files"
 msgstr "Pura tiedostoja"
 
-#: ../src/extract_dialog.c:319 ../src/extract_dialog.c:721
+#: ../src/extract_dialog.c:319 ../src/extract_dialog.c:727
 msgid "You missed where to extract the files!"
 msgstr "Unohdit ilmoittaa, mihin tiedostot puretaan!"
 
@@ -607,8 +606,7 @@ msgstr "Pura kansioon \"Arkiston nimi\""
 #: ../src/extract_dialog.c:482
 msgid ""
 "This option extracts archives in directories named with the archive names"
-msgstr ""
-"Tämä valinta purkaa tiedostot arkistojen mukaan nimettäviin kansioihin"
+msgstr "Tämä valinta purkaa tiedostot arkistojen mukaan nimettäviin kansioihin"
 
 #: ../src/extract_dialog.c:486
 msgid "Destination dirs:"
@@ -626,23 +624,23 @@ msgstr "Valinnat:"
 msgid "Please select the archives you want to extract"
 msgstr "Valitse purettavat arkistot"
 
-#: ../src/extract_dialog.c:674
+#: ../src/extract_dialog.c:675
 msgid "Please select the destination directory"
 msgstr "Valitse kohdekansio"
 
-#: ../src/extract_dialog.c:713
+#: ../src/extract_dialog.c:719
 msgid "Can't multi-extract archives:"
 msgstr "Ei voi purkaa useita arkistoja:"
 
-#: ../src/extract_dialog.c:713
+#: ../src/extract_dialog.c:719
 msgid "You haven't added any of them!"
 msgstr "Et valinnut yhtään arkistoa!"
 
-#: ../src/extract_dialog.c:721
+#: ../src/extract_dialog.c:727
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Täytä \"Kohde\"-kenttä!"
 
-#: ../src/extract_dialog.c:757
+#: ../src/extract_dialog.c:763
 msgid "Some errors occurred:"
 msgstr "Tapahtui virheitä:"
 
@@ -963,19 +961,19 @@ msgstr ""
 "xarchiver: %s\n"
 "Kirjoittamalla xarchiver --help saat täyden listan komentorivivalitsimista.\n"
 
-#: ../src/main.c:131 ../src/main.c:156
+#: ../src/main.c:131 ../src/main.c:154
 msgid "Can't extract files from the archive:"
 msgstr "Ei voi purkaa tiedostoja arkistosta:"
 
-#: ../src/main.c:131 ../src/main.c:156 ../src/main.c:211
+#: ../src/main.c:131 ../src/main.c:154 ../src/main.c:209
 msgid "You missed the archive name!\n"
 msgstr "Arkiston nimi puuttuu!\n"
 
-#: ../src/main.c:258
+#: ../src/main.c:256
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Valitse \"Uusi\" luodaksesi tai \"Avaa\" avataksesi arkiston"
 
-#: ../src/main.c:497
+#: ../src/main.c:495
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Arkistorakenteelle ei voi varata muistia!"
 
@@ -1214,3 +1212,7 @@ msgstr "GTK+2 -arkistonhallintasovellus"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Arkistonhallinta"
+
+#, fuzzy
+#~ msgid "Archive format is not recognized!"
+#~ msgstr "Arkistotyyppiä ei valitettavasti tueta:"

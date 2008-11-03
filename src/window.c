@@ -282,7 +282,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	XArchiveType type;
 
 	path = (gchar *)data;
-	if ( path == NULL)
+	if (path == NULL)
     {
 		path = xa_open_file_dialog ();
 		if (path == NULL)
@@ -357,7 +357,10 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	else if (type == XARCHIVETYPE_ARJ)
 		archive[current_page]->has_comment = xa_detect_archive_comment (XARCHIVETYPE_ARJ,path,archive[current_page]);
 
-	archive[current_page]->path = g_strdup (path);
+	if (g_path_is_absolute(path) == FALSE)
+		archive[current_page]->path = g_strconcat(g_get_current_dir(),"/",path,NULL);
+	else
+		archive[current_page]->path = g_strdup(path);
 	archive[current_page]->escaped_path = xa_escape_bad_chars (archive[current_page]->path,"$\'`\"\\!?* ()&|@#:;");
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	xa_add_page (archive[current_page]);
@@ -1354,7 +1357,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	g_free (utf8_string);
     /* Path */
     dummy_string = xa_remove_level_from_path (archive[idx]->path);
-    if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0)
+    if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0 || strcmp(dummy_string,".") == 0)
 		utf8_string = g_filename_display_name (g_get_current_dir());
     else
 		utf8_string = g_filename_display_name (dummy_string);
