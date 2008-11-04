@@ -30,6 +30,7 @@ struct _Progress_bar_data
 	GtkWidget *progressbar1;
 	GtkWidget *archive_label;
 	GtkWidget *file_label;
+	gboolean multi_extract;
 };
 
 GtkNotebook *notebook;
@@ -73,7 +74,7 @@ void xa_sidepane_row_expanded(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer
 void xa_sidepane_drag_data_received ( GtkWidget*,GdkDragContext *, int x, int y, GtkSelectionData *, unsigned int, unsigned int, gpointer );
 gboolean xa_sidepane_drag_motion_expand_timeout (gpointer );
 gboolean xa_sidepane_drag_motion ( GtkWidget*,GdkDragContext *,gint x,gint y,guint ,gpointer );
-Progress_bar_data *xa_create_progress_bar(gboolean,XArchive *archive);
+Progress_bar_data *xa_create_progress_bar(gboolean,XArchive *);
 void xa_increase_progress_bar(Progress_bar_data *,gchar *,double);
-void xa_icon_theme_changed (GtkIconTheme *,gpointer );
+//void xa_icon_theme_changed (GtkIconTheme *,gpointer );
 #endif

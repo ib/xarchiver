@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.6\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-11-03 10:41+0100\n"
+"POT-Creation-Date: 2008-11-04 07:31+0100\n"
 "PO-Revision-Date: 2007-02-01 22:10+0800\n"
 "Last-Translator: wuli<wurisky@gmail.com>\n"
 "Language-Team: Chinese <risky@linuxsir.org>\n"
@@ -178,7 +178,7 @@ msgstr "正在添加文件到压缩文件中，请稍候……"
 msgid "Can't run the archiver executable:"
 msgstr "无法打开压缩文件："
 
-#: ../src/archive.c:371
+#: ../src/archive.c:372
 msgid "Can't create temporary directory in /tmp:"
 msgstr "无法在 /tmp 创建临时目录"
 
@@ -251,245 +251,245 @@ msgstr "没有先安装好解压程序！"
 msgid "Can't allocate memory for the archive structure:"
 msgstr "无法为压缩文件分配内存："
 
-#: ../src/window.c:374
+#: ../src/window.c:375
 #, fuzzy
 msgid "Opening archive,please wait..."
 msgstr "正在测试压缩文件正确性，请稍候……"
 
-#: ../src/window.c:398
+#: ../src/window.c:399
 #, fuzzy
 msgid "Testing archive,please wait..."
 msgstr "正在测试压缩文件正确性，请稍候……"
 
-#: ../src/window.c:418
+#: ../src/window.c:419
 #, fuzzy
 msgid "Print the archive content as HTML"
 msgstr "查看压缩文件内容"
 
-#: ../src/window.c:420
+#: ../src/window.c:421
 #, fuzzy
 msgid "Print the archive content as text"
 msgstr "查看压缩文件内容"
 
-#: ../src/window.c:469
+#: ../src/window.c:470
 #, fuzzy, c-format
 msgid "Archive contents:\n"
 msgstr "查看压缩文件内容"
 
-#: ../src/window.c:473
+#: ../src/window.c:474
 #, fuzzy, c-format
 msgid ""
 "\n"
 "Name: "
 msgstr "名称："
 
-#: ../src/window.c:482
+#: ../src/window.c:483
 #, fuzzy, c-format
 msgid "Compressed   size: "
 msgstr "压缩后大小"
 
-#: ../src/window.c:489
+#: ../src/window.c:490
 #, fuzzy, c-format
 msgid "Uncompressed size: "
 msgstr "解压缩文件"
 
-#: ../src/window.c:497
+#: ../src/window.c:498
 #, fuzzy, c-format
 msgid "Number of files: "
 msgstr "文件数目："
 
-#: ../src/window.c:505
+#: ../src/window.c:506
 #, fuzzy, c-format
 msgid "Comment:\n"
 msgstr "注释："
 
-#: ../src/window.c:518
+#: ../src/window.c:519
 #, fuzzy, c-format
 msgid "Files:%*s%s"
 msgstr "文件"
 
-#: ../src/window.c:518
+#: ../src/window.c:519
 #, fuzzy
 msgid "|Compressed\n"
 msgstr "压缩后大小"
 
-#: ../src/window.c:524
+#: ../src/window.c:525
 #, c-format
 msgid "<th>Files:</th>"
 msgstr ""
 
-#: ../src/window.c:525
+#: ../src/window.c:526
 #, fuzzy, c-format
 msgid "<th>Compressed:</th>"
 msgstr "压缩后大小"
 
-#: ../src/window.c:715
+#: ../src/window.c:716
 msgid "Are you sure you want to do this?"
 msgstr "你确定要这样做吗？"
 
-#: ../src/window.c:808 ../src/window.c:908
+#: ../src/window.c:809 ../src/window.c:909
 msgid "Can't convert the archive to self-extracting:"
 msgstr "无法转换压缩文件为自解压文件："
 
-#: ../src/window.c:819 ../src/window.c:919
+#: ../src/window.c:820 ../src/window.c:920
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "无法将unzipsfx文件添加到压缩文件："
 
-#: ../src/window.c:879
+#: ../src/window.c:880
 msgid "Please select the 7zCon.sfx module"
 msgstr "请选择 7zCon.sfx文件"
 
-#: ../src/window.c:976
+#: ../src/window.c:977
 msgid "translator-credits"
 msgstr "wuli <wurisky@gmail.com>"
 
-#: ../src/window.c:1006
+#: ../src/window.c:1007
 msgid "Save the self-extracting archive as"
 msgstr "保存自解压文件到"
 
-#: ../src/window.c:1035 ../src/interface.c:350
+#: ../src/window.c:1036 ../src/interface.c:350
 msgid "Open an archive"
 msgstr "打开压缩文件"
 
-#: ../src/window.c:1048 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1049 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "所有文件"
 
-#: ../src/window.c:1053 ../src/new_dialog.c:67
+#: ../src/window.c:1054 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "只显示压缩文件"
 
-#: ../src/window.c:1265
+#: ../src/window.c:1266
 msgid "Filename"
 msgstr "文件名称"
 
-#: ../src/window.c:1322
+#: ../src/window.c:1323
 msgid "Doing so will probably corrupt your archive!"
 msgstr "这样做可能会破坏你的压缩文件！"
 
-#: ../src/window.c:1322
+#: ../src/window.c:1323
 msgid "Do you really want to cancel?"
 msgstr "你真的要取消吗？"
 
-#: ../src/window.c:1385 ../src/window.c:1400
+#: ../src/window.c:1386 ../src/window.c:1401
 msgid "Yes"
 msgstr "是"
 
-#: ../src/window.c:1387 ../src/window.c:1402
+#: ../src/window.c:1388 ../src/window.c:1403
 msgid "No"
 msgstr "否"
 
-#: ../src/window.c:1601
+#: ../src/window.c:1602
 #, fuzzy
 msgid "selected"
 msgstr "只选择部分"
 
-#: ../src/window.c:1606
+#: ../src/window.c:1607
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1608
+#: ../src/window.c:1609
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1611
+#: ../src/window.c:1612
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/window.c:1667
+#: ../src/window.c:1668
 msgid "Can't perform another extraction:"
 msgstr "无法进行另一个解压缩："
 
-#: ../src/window.c:1667
+#: ../src/window.c:1668
 msgid "Please wait until the completion of the current one!"
 msgstr "请等到现在这个完成！"
 
-#: ../src/window.c:1700 ../src/extract_dialog.c:343
+#: ../src/window.c:1701 ../src/extract_dialog.c:343
 #, fuzzy, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "你没有权限解压文件到目录 \"%s\" "
 
-#: ../src/window.c:1701 ../src/extract_dialog.c:344
+#: ../src/window.c:1702 ../src/extract_dialog.c:344
 msgid "Can't perform extraction!"
 msgstr "无法执行解压！"
 
-#: ../src/window.c:1742 ../src/extract_dialog.c:653 ../src/interface.c:1405
+#: ../src/window.c:1743 ../src/extract_dialog.c:653 ../src/interface.c:1405
 #, fuzzy
 msgid "Sorry,I could not perform the operation!"
 msgstr "对不起，无法执行此项操作"
 
-#: ../src/window.c:1776 ../src/window.c:1788 ../src/interface.c:1398
+#: ../src/window.c:1777 ../src/window.c:1789 ../src/interface.c:1398
 msgid "Can't perform this action:"
 msgstr "无法进行这个动作："
 
-#: ../src/window.c:1776
+#: ../src/window.c:1777
 msgid "You have to install rar package!"
 msgstr ""
 
-#: ../src/window.c:1783 ../src/interface.c:1395
+#: ../src/window.c:1784 ../src/interface.c:1395
 msgid "You can't add content to deb packages!"
 msgstr "不能添加内容到 deb 包！"
 
-#: ../src/window.c:1785 ../src/interface.c:1397
+#: ../src/window.c:1786 ../src/interface.c:1397
 msgid "You can't add content to rpm packages!"
 msgstr "不能添加内容到 rpm 包！"
 
-#: ../src/window.c:1787
+#: ../src/window.c:1788
 #, fuzzy
 msgid "The archiver doesn't support this feature!"
 msgstr "unrar 不支持压缩文件创建！"
 
-#: ../src/window.c:1868
+#: ../src/window.c:1869
 msgid "You didn't set which browser to use!"
 msgstr ""
 
-#: ../src/window.c:1868 ../src/window.c:1909
+#: ../src/window.c:1869 ../src/window.c:1910
 msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
-#: ../src/window.c:1900
+#: ../src/window.c:1901
 #, fuzzy
 msgid "This file type is not supported!"
 msgstr "对不起，不支持此压缩文件格式！"
 
-#: ../src/window.c:1900
+#: ../src/window.c:1901
 msgid "Please install xdg-utils package."
 msgstr ""
 
-#: ../src/window.c:1909
+#: ../src/window.c:1910
 msgid "You didn't set which program to use for opening this file!"
 msgstr ""
 
-#: ../src/window.c:1936
+#: ../src/window.c:1937
 msgid "Failed to launch the application!"
 msgstr ""
 
-#: ../src/window.c:1988
+#: ../src/window.c:1989
 #, fuzzy
 msgid "Comment"
 msgstr "注释："
 
-#: ../src/window.c:2018
+#: ../src/window.c:2019
 msgid "From File"
 msgstr ""
 
-#: ../src/window.c:2123
+#: ../src/window.c:2124
 #, fuzzy
 msgid "Open a text file"
 msgstr "操作失败。"
 
-#: ../src/window.c:2141
+#: ../src/window.c:2142
 #, fuzzy, c-format
 msgid "Can't open file %s:"
 msgstr "无法打开文件 \"%s\"："
@@ -670,7 +670,7 @@ msgstr "你还没有选择要添加的文件！"
 msgid "Please fill the \"Extract to\" field!"
 msgstr "请先按下停止按钮！"
 
-#: ../src/extract_dialog.c:763
+#: ../src/extract_dialog.c:760
 #, fuzzy
 msgid "Some errors occurred:"
 msgstr "发生错误："
@@ -946,21 +946,21 @@ msgstr "文件数目："
 msgid "Compression ratio:"
 msgstr "压缩率"
 
-#: ../src/interface.c:1509 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1513 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr ""
 
-#: ../src/interface.c:1534
+#: ../src/interface.c:1540
 #, fuzzy
 msgid "Extracting from archive:"
 msgstr "解压压缩文件到 %s"
 
-#: ../src/interface.c:1536
+#: ../src/interface.c:1542
 #, fuzzy
 msgid "Adding to archive:"
 msgstr "添加文件到压缩文件中"
 
-#: ../src/interface.c:1554
+#: ../src/interface.c:1562
 msgid "Total Progress:"
 msgstr ""
 
@@ -1026,11 +1026,11 @@ msgstr "无法从压缩文件中解压："
 msgid "You missed the archive name!\n"
 msgstr "请输入压缩文件名称！\n"
 
-#: ../src/main.c:256
+#: ../src/main.c:257
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 
-#: ../src/main.c:495
+#: ../src/main.c:496
 msgid "Can't allocate memory for the archive structure!"
 msgstr "无法为压缩文件分配内存！"
 

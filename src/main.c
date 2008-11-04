@@ -219,6 +219,7 @@ int main (int argc, char **argv)
 		}
 done:	g_list_free (ArchiveSuffix);
 		g_list_free (ArchiveType);
+
 		if (pb != NULL)
 		{
 			gtk_widget_destroy(pb->progress_window);

@@ -26,6 +26,7 @@
 
 extern gboolean unrar,batch_mode;
 extern Prefs_dialog_data *prefs_window;
+extern Progress_bar_data *pb;
 extern extract_func extract	[XARCHIVETYPE_COUNT];
 gchar *rar;
 
@@ -700,7 +701,6 @@ void xa_parse_multi_extract_archive(Multi_extract_data *dialog)
 	GtkTreeIter iter;
 	gchar *filename = NULL,*file,*path,*message = NULL,*name,*dest_path = NULL;
 	GString *output = g_string_new("");
-	Progress_bar_data *pb_struct;
 	gboolean overwrite,full_path;
 	gint response,type;
 	double percent = 0.0;
@@ -732,16 +732,13 @@ run:
 
 	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	double fraction = 1.0 / dialog->nr;
-	pb_struct = xa_create_progress_bar(FALSE,NULL);
+	pb = xa_create_progress_bar(FALSE,NULL);
 	do
 	{
 		gtk_tree_model_get (GTK_TREE_MODEL(dialog->files_liststore),&iter,0,&file,2,&path,3,&type,-1);
-		if (type == 4 || type == 5 || type == 6 || type == 9)
-			full_path = 1;
-		else
-			full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->full_path));
+		full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->full_path));
 		filename = g_strconcat (path,"/",file,NULL);
-		xa_increase_progress_bar(pb_struct,NULL,percent);
+		xa_increase_progress_bar(pb,filename,percent);
 		g_free(file);
 		g_free(path);
 		message = xa_multi_extract_archive(dialog,filename,overwrite,full_path,dest_path);
@@ -756,8 +753,6 @@ run:
 		percent += fraction;
 	}
 	while (gtk_tree_model_iter_next (GTK_TREE_MODEL(dialog->files_liststore),&iter));
-	gtk_widget_destroy(pb_struct->progress_window);
-	g_free(pb_struct);
 
 	if (strlen(output->str)> 0)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Some errors occurred:"),output->str );

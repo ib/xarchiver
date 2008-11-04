@@ -159,7 +159,8 @@ static gboolean xa_process_output_from_command_line (GIOChannel *ioc,GIOConditio
 			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
 			if (line != NULL)
 			{
-				xa_increase_progress_bar(pb,line,0.0);
+				if (pb->multi_extract == FALSE)
+					xa_increase_progress_bar(pb,line,0.0);
 				g_free(line);
 			}
 		}
@@ -393,7 +394,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	else
 	{
 		pb = xa_create_progress_bar(TRUE,archive);
-		if (archive->pb_source == 0)
+		if (archive->pb_source == 0 && pb->multi_extract == FALSE)
 			archive->pb_source = g_timeout_add (100,(GSourceFunc)xa_pulse_progress_bar_window,pb);
 	}
 

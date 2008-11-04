@@ -147,7 +147,6 @@ gchar *xa_remove_level_from_path (const gchar *path)
 {
 	gchar *local_path;
 	gchar *_local_path;
-    gchar *local_escaped_path;
 
 	if (path[strlen(path)-1] == '/')
 	{
@@ -157,9 +156,7 @@ gchar *xa_remove_level_from_path (const gchar *path)
 	}
 	else
     	local_path = g_path_get_dirname (path);
-    local_escaped_path = xa_escape_bad_chars ( local_path ,"$\'`\"\\!?* ()[]&|@#:;");
-    g_free (local_path);
-    return local_escaped_path;
+    return local_path;
 }
 
 gboolean file_extension_is (const char *filename, const char *ext)

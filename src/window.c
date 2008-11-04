@@ -51,7 +51,9 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 		{
 			if (xa_main_window == NULL)
 				goto error;
-			if ((WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP) || (WEXITSTATUS (status) == 6 && archive->type == XARCHIVETYPE_ARJ))
+			if ((WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP) || 
+				(WEXITSTATUS (status) == 6 && archive->type == XARCHIVETYPE_ARJ) ||
+				(WEXITSTATUS (status) == 1 && is_tar_compressed(archive->type)))
 				goto there;
 			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 			{
@@ -361,6 +363,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		archive[current_page]->path = g_strconcat(g_get_current_dir(),"/",path,NULL);
 	else
 		archive[current_page]->path = g_strdup(path);
+
 	archive[current_page]->escaped_path = xa_escape_bad_chars (archive[current_page]->path,"$\'`\"\\!?* ()&|@#:;");
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	xa_add_page (archive[current_page]);
