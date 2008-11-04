@@ -1,23 +1,24 @@
 Xarchiver changelog:
 
-xx/08/08 - 0.5:
-		- Archive content can now be browsed just like a file manager.
+06/11/08 - 0.5:
+		- Archive content can be browsed just like a file manager.
+		- Archive content can also now be browsed through a sidepane.
 		- Mime icon for each of the archive entries.
 		- New archive type support: lzma and tar.lzma.
-		- Archive directories can now be browsed through a sidepane.
 		- Files and directories can now be added into archive directories.
 		- Files can be directly opened with the registered application within Xarchiver.
+		- Progress window when using Xarchiver from the cmd-line or from Thunar.
 		- Ability to add a comment for those archives supporting it.
 		- Added a brand new preferences dialog to set Xarchiver's options.
 		- Ability to save the archive content in text or HTML format.
 		- The add and extract dialogs layout have been redesigned.
-		- Multi-Extract dialog for extracting multiple archives in one shot.
+		- Multi-Extract dialog for extracting more archives in one shot with percentage progress window.
 		- Context menu on each of the entries with cut/copy/paste ability from and to archives.
 		- Ability to rename entries in the archives.
 		- The cmd-line output window now displays each archiver's output.
 		- Tabs are now reorderable.
 		- Better menu layout.
-		- Fixed bugs #2045,#2614, #2616, #2620, #2626, #2627, #2799, #3422, #3542, #3548, #4102, #4103
+		- Fixed bugs #2045,#2614, #2616, #2620, #2626, #2627, #2799, #3422, #3542, #3548, #4102, #4103 and many others.
 		- Fixed several memory leaks thanks to valgrind.
 
 27/11/06 - 0.4.6:
