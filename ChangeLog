@@ -1,6 +1,6 @@
 Xarchiver changelog:
 
-06/11/08 - 0.5:
+06/11/08 - 0.5.0:
 		- Archive content can be browsed just like a file manager.
 		- Archive content can also now be browsed through a sidepane.
 		- Mime icon for each of the archive entries.
