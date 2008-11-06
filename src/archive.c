@@ -400,7 +400,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 
 	while (_commands)
 	{
-		g_print ("%s\n",(gchar*)_commands->data);
 		xa_spawn_async_process (archive,_commands->data);
 		if (archive->child_pid == 0)
 		{

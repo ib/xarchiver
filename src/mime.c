@@ -27,7 +27,6 @@ const char *xa_get_stock_mime_icon(char *filename)
 	const char *icon_name = "binary";
 
 	mime = xdg_mime_get_mime_type_from_file_name(filename);
-	//g_print ("%s\t%s\n",filename,mime);
 	if (strstr(filename,".ogg") || strstr(filename,".flac") )
 		icon_name = "sound";
 	else if (strncmp(mime,"image/",6) == 0)
