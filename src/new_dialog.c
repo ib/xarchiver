@@ -209,6 +209,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			type = XARCHIVETYPE_GZIP;
 		else if (strcmp ( ComboArchiveType,"lzma") == 0)
 			type = XARCHIVETYPE_LZMA;
+		else if (strcmp ( ComboArchiveType,"lzop") == 0)
+			type = XARCHIVETYPE_LZOP;
 		else if (strcmp ( ComboArchiveType,"rar") == 0)
 			type = XARCHIVETYPE_RAR;
 		else if (strcmp ( ComboArchiveType,"tar") == 0)
@@ -219,6 +221,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			type = XARCHIVETYPE_TAR_GZ;
 		else if (strcmp ( ComboArchiveType,"tar.lzma") == 0)
 			type = XARCHIVETYPE_TAR_LZMA;
+		else if (strcmp ( ComboArchiveType,"tar.lzop") == 0)
+			type = XARCHIVETYPE_TAR_LZOP;
 		else if (strcmp ( ComboArchiveType,"jar") == 0 || strcmp ( ComboArchiveType,"zip") == 0 )
 			type = XARCHIVETYPE_ZIP;
 		else if (strcmp ( ComboArchiveType,"rpm") == 0)

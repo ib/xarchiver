@@ -958,7 +958,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n",NULL};
+    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n\nLZOP support:\nKevin Day\n",NULL};
     const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n",NULL};
 
 	if (about == NULL)
@@ -1124,6 +1124,8 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 		xx = XARCHIVETYPE_GZIP;
 	else if (memcmp ( magic,"\x5d\x00\x00\x80",4) == 0)
 		xx = XARCHIVETYPE_LZMA;
+	else if (memcmp ( magic,"\211LZO",4) == 0)
+		xx = XARCHIVETYPE_LZOP;
 	else if (memcmp ( magic,"\xed\xab\xee\xdb",4) == 0)
 		xx = XARCHIVETYPE_RPM;
 	else if (memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6) == 0)
@@ -1459,6 +1461,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		case XARCHIVETYPE_GZIP:
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_RPM:
 		pos = 3;
 		break;
@@ -1477,6 +1480,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZMA:
+		case XARCHIVETYPE_TAR_LZOP:
 		case XARCHIVETYPE_TAR:
 		case XARCHIVETYPE_ZIP:
 		pos = 5;
@@ -1520,6 +1524,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		case XARCHIVETYPE_GZIP:
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_RPM:
 		pos = 3;
 		break;
@@ -1538,6 +1543,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZMA:
+		case XARCHIVETYPE_TAR_LZOP:
 		case XARCHIVETYPE_TAR:
 		case XARCHIVETYPE_ZIP:
 		pos = 5;

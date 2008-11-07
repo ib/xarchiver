@@ -1,5 +1,10 @@
 Xarchiver changelog:
 
+07/11/08 - 0.5.1:
+		- Added support to lzop thanks to Kevin Day.
+		- Fixed bug when adding with tar.
+		- Added turkish translation.
+
 06/11/08 - 0.5.0:
 		- Archive content can be browsed just like a file manager.
 		- Archive content can also now be browsed through a sidepane.

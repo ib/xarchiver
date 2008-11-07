@@ -241,6 +241,17 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 									"--use-compress-program=lzma -cvvf ",archive->escaped_path,
 									files->str , NULL );
 		break;
+		
+		case XARCHIVETYPE_TAR_LZOP:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
+		else
+			command = g_strconcat (tar, " ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"--use-compress-program=lzop -cvvf ",archive->escaped_path,
+									files->str , NULL );
+		break;
 
 		default:
 		command = NULL;
@@ -351,7 +362,31 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		}
 		break;
 
+		case XARCHIVETYPE_TAR_LZOP:
+		if (archive->full_path == 1)
+		{
+			command = g_strconcat (tar, " --use-compress-program=lzop -xvf " , archive->escaped_path,
+						#ifdef __FreeBSD__
+								archive->overwrite ? " " : " -k",
+						#else
+								archive->overwrite ? " --overwrite" : " --keep-old-files",
+						#endif
+								archive->tar_touch ? " --touch" : "",
+								" -C ",archive->extraction_path," ",names->str,NULL);
+		}
+		else
+		{
+			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzop -xvf ",archive,names->str);
+			command = NULL;
+		}
+		break;
+
 		case XARCHIVETYPE_LZMA:
+		result = lzma_bzip2_extract(archive,NULL);
+		command = NULL;
+		break;
+
+		case XARCHIVETYPE_LZOP:
 		result = lzma_bzip2_extract(archive,NULL);
 		command = NULL;
 		break;
@@ -398,6 +433,10 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 			executable = "lzma -f ";
 			filename = "dummy.lzma";
 		break;
+		case XARCHIVETYPE_TAR_LZOP:
+			executable = "lzop -f ";
+			filename = "dummy.lzop";
+		break;
 		
 		default:
 		break;
@@ -438,7 +477,7 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 
 gboolean is_tar_compressed (gint type)
 {
-	return (type == XARCHIVETYPE_TAR_BZ2 || type == XARCHIVETYPE_TAR_GZ || type == XARCHIVETYPE_TAR_LZMA);
+	return (type == XARCHIVETYPE_TAR_BZ2 || type == XARCHIVETYPE_TAR_GZ || type == XARCHIVETYPE_TAR_LZMA || type == XARCHIVETYPE_TAR_LZOP);
 }
 
 gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)

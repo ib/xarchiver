@@ -223,7 +223,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_widget_set_size_request (dialog_data->dialog1,-1,370);
 
-	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
+	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP)
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Decompress file"));
 	else
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Extract files"));
@@ -244,11 +244,11 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
 
-	if ( (xa_main_window == NULL && is_tar_compressed(archive->type)) || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM)
+	if ( (xa_main_window == NULL && is_tar_compressed(archive->type)) || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_LZOP)
 		flag = FALSE;
 	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
 
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB)
+	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB && archive->type != XARCHIVETYPE_TAR_LZOP)
 		flag = FALSE;
 	else
 		flag = TRUE;
@@ -303,7 +303,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
-			if (xa_main_window && (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2))
+			if (xa_main_window && (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_LZOP))
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
 				xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0,0,0);
@@ -813,6 +813,11 @@ static gchar *xa_multi_extract_archive(Multi_extract_data *dialog,gchar *filenam
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_LZMA];
+	}
+	else if (g_str_has_suffix(archive->escaped_path,".tar.lzop")|| g_str_has_suffix (archive->escaped_path,".tzo"))
+	{
+		archive->type = XARCHIVETYPE_TAR_LZOP;
+		archive->extract = 	extract[XARCHIVETYPE_TAR_LZOP];
 	}
 	(*archive->extract)(archive,NULL);
 	xa_clean_archive_structure(archive);

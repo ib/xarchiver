@@ -31,6 +31,8 @@
 #include "utf8-fnmatch.h"
 #include "errno.h"
 #include "archive.h"
+#include "tar.h"
+
 #ifndef HAVE_STRCASESTR
 const char *strcasestr(const char *haystack, const char *needle);
 #endif
