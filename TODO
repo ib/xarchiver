@@ -1,2 +1,4 @@
 - reduce the loading time when opening large archives.
 - to fix bugs #4299 and #3235.
+- fix adding when using tap
+
