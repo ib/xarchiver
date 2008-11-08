@@ -435,7 +435,7 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 		break;
 		case XARCHIVETYPE_TAR_LZOP:
 			executable = "lzop -f ";
-			filename = "dummy.lzop";
+			filename = "dummy.lzo";
 		break;
 		
 		default:

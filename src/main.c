@@ -27,11 +27,11 @@
 #endif
 
 gchar *absolute_path = NULL;
-//gchar *archive_name = NULL;
 gchar *_current_dir = NULL;
 gchar *extract_path = NULL;
 GError *cli_error = NULL;
-gboolean error_output, file_to_open, ask_and_extract, add_files,ask_and_add, multi_extract;
+gchar *add_files;
+gboolean error_output, file_to_open, ask_and_extract, ask_and_add, multi_extract;
 gboolean batch_mode = FALSE;
 gboolean unrar = FALSE;
 gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
@@ -65,7 +65,7 @@ static GOptionEntry entries[] =
 		N_("Multi-extract archives"),
 		N_("filenames")
 	},
-	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &add_files,
+	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_STRING, &add_files,
 		N_("Add the given files by asking the name of the archive and quits."),
 		N_("file1 file2 file3 ... fileN")
 	},
@@ -192,6 +192,10 @@ int main (int argc, char **argv)
 				chdir (_current_dir);
 				g_free(_current_dir);
 				GSList *files = NULL;
+				_current_dir = g_path_get_basename(add_files);
+				files = g_slist_append(files,xa_escape_filename(_current_dir,"$'`\"\\!?* ()[]&|:;<>#"));
+				g_free(_current_dir);
+				g_free(add_files);
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
