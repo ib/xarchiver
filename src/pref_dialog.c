@@ -467,16 +467,15 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 				gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_viewer),0);
 				g_free(value);
 			}
-			value = g_key_file_get_string(xa_key_file,PACKAGE,"preferred_temp_dir",NULL);
-			if (value != NULL)
-			{
-				gtk_combo_box_remove_text(GTK_COMBO_BOX (prefs_data->combo_prefered_temp_dir),0);
-				gtk_combo_box_insert_text (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0,value);
-				gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0);
-				g_free(value);
-			}
 		}
-		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0);
+		value = g_key_file_get_string(xa_key_file,PACKAGE,"preferred_temp_dir",NULL);
+		if (value != NULL)
+		{
+			gtk_combo_box_remove_text(GTK_COMBO_BOX (prefs_data->combo_prefered_temp_dir),0);
+			gtk_combo_box_insert_text (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0,value);
+			gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0);
+			g_free(value);
+		}
 		coords = g_key_file_get_integer_list(xa_key_file, PACKAGE, "mainwindow", &coords_len, &error);
 		if (error)
 		{
