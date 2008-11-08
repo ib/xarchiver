@@ -265,7 +265,7 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 									archive->solid_archive ? "-s " : "",
 									archive->remove_files ? "-df " : "",
 									"-p" , archive->passwd,
-									"-idp ",
+									" -idp ",
 									"-m",compression_string," ",
 									archive->escaped_path,
 									files->str,NULL);

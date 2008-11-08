@@ -326,7 +326,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				archive->extraction_path = g_strconcat(cur_dir,"/",archive->extraction_path,NULL);
 				g_free (cur_dir);
 			}
-			if (archive->has_passwd)
+			if (archive->has_passwd || (xa_main_window == FALSE && strlen(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry))) > 0) )
 				archive->passwd  = g_strdup (gtk_entry_get_text (GTK_ENTRY(dialog_data->password_entry)));
 
 			if (archive->has_passwd && strlen(archive->passwd)== 0 )
@@ -381,6 +381,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				gtk_widget_set_sensitive (Stop_button,TRUE);
 				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive,please wait..."));
 			}
+			g_print ("%s\n",archive->passwd);
 			(*archive->extract)(archive,names);
 		}
 	}
