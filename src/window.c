@@ -81,6 +81,7 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 there:
 	if (xa_main_window)
 	{
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties,archive->has_passwd,1);
 		archive->child_pid = archive->pb_source = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
