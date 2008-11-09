@@ -75,9 +75,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
 	g_object_unref (prefs_data->prefs_liststore);	
 
-	gtk_widget_set_size_request(prefs_iconview, -1, 190);
 	gtk_icon_view_set_orientation (GTK_ICON_VIEW (prefs_iconview), GTK_ORIENTATION_VERTICAL);
-	gtk_icon_view_set_item_width (GTK_ICON_VIEW (prefs_iconview),130);
 	gtk_icon_view_set_columns (GTK_ICON_VIEW (prefs_iconview),1);
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (prefs_iconview), 0);
 	gtk_icon_view_set_text_column(GTK_ICON_VIEW (prefs_iconview),1);
