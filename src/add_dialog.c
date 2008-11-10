@@ -25,7 +25,7 @@ extern Prefs_dialog_data *prefs_window;
 
 Add_dialog_data *xa_create_add_dialog()
 {
-	GtkWidget *label1,*label2,*label3,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4,*option_notebook_vbox;
+	GtkWidget *label1,*label2,*label3,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
 	GtkWidget *dialog_action_area1,*alignment1,*alignment2,*alignment3,*vbox3,*frame2,*frame3,*frame4,*alignment4;
 	Add_dialog_data *add_dialog;
 
@@ -84,14 +84,14 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
 
 	/* Options page */
-	option_notebook_vbox = gtk_vbox_new (FALSE, 0);
-	gtk_container_add (GTK_CONTAINER (add_dialog->notebook1), option_notebook_vbox);
+	add_dialog->option_notebook_vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (add_dialog->notebook1), add_dialog->option_notebook_vbox);
 
 	label2 = gtk_label_new (_("Options"));
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (add_dialog->notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (add_dialog->notebook1), 1), label2);
 	
 	hbox2 = gtk_hbox_new (TRUE, 10);
-	gtk_box_pack_start (GTK_BOX (option_notebook_vbox), hbox2, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (add_dialog->option_notebook_vbox), hbox2, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox2), 5);
 
 	frame4 = gtk_frame_new (NULL);
@@ -134,7 +134,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_frame_set_label_widget (GTK_FRAME (frame4), label7);
 	
 	hbox3 = gtk_hbox_new (TRUE, 10);
-	gtk_box_pack_start (GTK_BOX (option_notebook_vbox), hbox3, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (add_dialog->option_notebook_vbox), hbox3, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox3), 5);
 
 	frame2 = gtk_frame_new (NULL);
@@ -209,7 +209,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	else
 		gtk_widget_set_size_request (add_dialog->dialog1,530,420);
 
-	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
+	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP)
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),FALSE);
 	else
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
@@ -222,12 +222,18 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	else
 		gtk_widget_set_sensitive(add_dialog->store_path,TRUE);
 	/* 7z doesn't appear to let the user chooses if storing full paths */
-	if (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
+	if (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
  	{
- 		gtk_widget_set_sensitive(label3,FALSE);
- 		gtk_widget_set_sensitive(add_dialog->store_path,FALSE);
- 		gtk_widget_set_sensitive(add_dialog->no_store_path,FALSE);
+ 		flag = FALSE;
 	}
+	else
+		flag = TRUE;
+
+	gtk_widget_set_sensitive(add_dialog->option_notebook_vbox,flag);
+	gtk_widget_set_sensitive(label3,flag);
+	gtk_widget_set_sensitive(add_dialog->store_path,flag);
+	gtk_widget_set_sensitive(add_dialog->no_store_path,flag);
+ 		
 	if (archive->type != XARCHIVETYPE_7ZIP)
 		g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 

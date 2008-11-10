@@ -32,6 +32,7 @@ typedef struct
 	GSList *path_group;
 	GtkWidget *store_path;
 	GtkWidget *no_store_path;
+	GtkWidget *option_notebook_vbox;
 	GtkWidget *remove_files;
 	GtkWidget *update;
 	GtkWidget *freshen;

@@ -209,7 +209,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			type = XARCHIVETYPE_GZIP;
 		else if (strcmp ( ComboArchiveType,"lzma") == 0)
 			type = XARCHIVETYPE_LZMA;
-		else if (strcmp ( ComboArchiveType,"lzop") == 0)
+		else if (strcmp ( ComboArchiveType,"lzo") == 0)
 			type = XARCHIVETYPE_LZOP;
 		else if (strcmp ( ComboArchiveType,"rar") == 0)
 			type = XARCHIVETYPE_RAR;

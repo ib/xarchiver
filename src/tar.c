@@ -253,6 +253,22 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 									files->str , NULL );
 		break;
 
+		case XARCHIVETYPE_BZIP2:
+			command = g_strconcat("sh -c \"bzip2 -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
+		break;
+
+		case XARCHIVETYPE_GZIP:
+			command = g_strconcat("sh -c \"gzip -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
+		break;
+
+		case XARCHIVETYPE_LZMA:
+			command = g_strconcat("sh -c \"lzma -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
+		break;
+
+		case XARCHIVETYPE_LZOP:
+			command = g_strconcat("sh -c \"lzop -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
+		break;
+
 		default:
 		command = NULL;
 	}

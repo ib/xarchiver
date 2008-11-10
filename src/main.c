@@ -395,8 +395,8 @@ void xa_set_available_archivers()
 	absolute_path = g_find_program_in_path("lzop");
 	if ( absolute_path )
 	{
-		ArchiveType = g_list_append(ArchiveType, "lzop");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzop");
+		ArchiveType = g_list_append(ArchiveType, "lzo");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzo");
 		g_free (absolute_path);
 	}
 

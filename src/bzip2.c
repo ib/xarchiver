@@ -87,7 +87,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		{
 			archive->format = "LZOP";
 			executable = "lzop ";
-			len = 5;
+			len = 4;
 		} /* else fail? */
 		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
 		archive->has_properties = archive->can_extract = TRUE;
