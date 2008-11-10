@@ -54,7 +54,9 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->extract = 	extract[archive->type];
 		xa_open_tar_compressed_file(archive);
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.lzop") || g_str_has_suffix (archive->escaped_path,".tzo"))
+	else if (g_str_has_suffix(archive->escaped_path,".tar.lzop") ||
+		g_str_has_suffix (archive->escaped_path,".tzo") ||
+		g_str_has_suffix(archive->escaped_path,".tar.lzo"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		archive->format = "TAR.LZOP";

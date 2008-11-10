@@ -221,7 +221,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			type = XARCHIVETYPE_TAR_GZ;
 		else if (strcmp ( ComboArchiveType,"tar.lzma") == 0)
 			type = XARCHIVETYPE_TAR_LZMA;
-		else if (strcmp ( ComboArchiveType,"tar.lzop") == 0)
+		else if (strcmp ( ComboArchiveType,"tar.lzo") == 0)
 			type = XARCHIVETYPE_TAR_LZOP;
 		else if (strcmp ( ComboArchiveType,"jar") == 0 || strcmp ( ComboArchiveType,"zip") == 0 )
 			type = XARCHIVETYPE_ZIP;

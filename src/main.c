@@ -460,9 +460,9 @@ void xa_set_available_archivers()
 			ArchiveType = g_list_append(ArchiveType, "tar.lzma");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
 		}
-		if ( g_list_find ( ArchiveType , "lzop") )
+		if ( g_list_find ( ArchiveType , "lzo") )
 		{
-			ArchiveType = g_list_append(ArchiveType, "tar.lzop");
+			ArchiveType = g_list_append(ArchiveType, "tar.lzo");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tzo");
 		}
 	}
@@ -528,7 +528,9 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 		archive->type = XARCHIVETYPE_TAR_GZ;
 	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive->escaped_path , ".tlz") )
 		archive->type = XARCHIVETYPE_TAR_LZMA;
-	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzop") || g_str_has_suffix ( archive->escaped_path , ".tzo") )
+	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzo") ||
+		g_str_has_suffix ( archive->escaped_path , ".tzo") ||
+		g_str_has_suffix ( archive->escaped_path , ".tar.lzop"))
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 	return (archive);
 }
