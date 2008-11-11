@@ -1387,7 +1387,8 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index(current_page);
-
+	if (idx < 0)
+		return;
 	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM)
 	{
 		gchar *msg;

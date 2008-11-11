@@ -320,7 +320,7 @@ void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse,gint 
 
 	dir = opendir(path);
 	is_dir = g_file_test(path,G_FILE_TEST_IS_DIR);
-	if (is_dir && type != XARCHIVETYPE_ARJ && is_tar_compressed(type) == FALSE)
+	if (is_dir && type != XARCHIVETYPE_ARJ && type != XARCHIVETYPE_TAR && is_tar_compressed(type) == FALSE)
 		*list = g_slist_prepend(*list,g_strdup(path));
 	if (dir == NULL)
 	{
