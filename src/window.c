@@ -1786,7 +1786,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install rar package!"));
 		return;
 	}
-	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM || archive[idx]->type == XARCHIVETYPE_GZIP || archive[idx]->type == XARCHIVETYPE_BZIP2)
+	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM)
 	{
 		gchar *msg;
 		if (archive[idx]->type == XARCHIVETYPE_DEB)
