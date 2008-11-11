@@ -100,8 +100,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	while (Name)
 	{
 		if (!strcmp(Name->data, "tgz") || !strcmp(Name->data, "rpm") || (!strcmp(Name->data, "gz") && flag)
-		|| (!strcmp(Name->data, "lzma") && flag) || !strcmp(Name->data, "deb") || (!strcmp(Name->data, "bz2") && flag)
-		|| (!strcmp(Name->data, "rar") && unrar) )
+		|| (!strcmp(Name->data, "lzma") && flag) || !strcmp(Name->data, "deb") || !strcmp(Name->data, "deb")
+		|| (!strcmp(Name->data, "bz2") && flag)  || (!strcmp(Name->data, "lzo") && flag) || (!strcmp(Name->data, "rar") && unrar) )
 			goto there;
 		else
 			gtk_combo_box_append_text(GTK_COMBO_BOX(combo_box),Name->data);
