@@ -374,14 +374,12 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			}
 			else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->selected_radio)))
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_selected_filenames,&names);
-			else
 			if (xa_main_window)
 			{
 				xa_set_button_state (0,0,0,0,0,0,0,0,0,0,0);
 				gtk_widget_set_sensitive (Stop_button,TRUE);
 				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive,please wait..."));
 			}
-			g_print ("%s\n",archive->passwd);
 			(*archive->extract)(archive,names);
 		}
 	}
