@@ -980,7 +980,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 			"translator_credits",_("translator-credits"),
 			"logo_icon_name","xarchiver",
 			"website","http://xarchiver.xfce.org",
-			"license","Copyright \xC2\xA9 2005-2007 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
+			"license","Copyright \xC2\xA9 2005-2008 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
 		    			"This is free software; you can redistribute it and/or\n"
     					"modify it under the terms of the GNU Library General Public License as\n"
     					"published by the Free Software Foundation; either version 2 of the\n"

@@ -35,6 +35,7 @@ gboolean error_output, file_to_open, ask_and_extract, ask_and_add, multi_extract
 gboolean batch_mode = FALSE;
 gboolean unrar = FALSE;
 gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
+static gboolean show_version = FALSE;
 int response;
 extern gchar *current_open_directory;
 extern int status;
@@ -73,6 +74,8 @@ static GOptionEntry entries[] =
 		N_("Add files to archive by asking their filenames and quits."),
 		N_("archive")
 	},
+	{	"version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &show_version,
+		N_("Show version and exit"), NULL },
 	{ NULL }
 };
 
@@ -107,6 +110,18 @@ int main (int argc, char **argv)
 		g_error_free (cli_error);
 		return 0;
 	}
+    /* print version information */
+    if (show_version)
+    {
+        g_print ("%s %s \n\n", PACKAGE, PACKAGE_VERSION);
+        g_print ("%s\n", "Copyright (c) 2005-2008");
+        g_print ("\t%s\n\n", "Giuseppe Torelli - Colossus <colossus73@gmail.com>");
+        g_print (_("Please report bugs to <%s>."), PACKAGE_BUGREPORT);
+        g_print ("\n");
+
+        return EXIT_SUCCESS;
+    }
+
 	if (multi_extract || add_files || ask_and_extract || ask_and_add || extract_path != NULL)
 		batch_mode = TRUE;
 
