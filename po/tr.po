@@ -1012,7 +1012,7 @@ msgstr "Arşiv ismini atladınız!\n"
 
 #: ../src/main.c:257
 msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Oluşturmak için \"Yeni\" veya bir arşiv açmak için \"Aç\"ı seçin"
+msgstr "Bir arşiv oluşturmak için \"Yeni\"yi, açmak için \"Aç\"ı seçin"
 
 #: ../src/main.c:496
 msgid "Can't allocate memory for the archive structure!"
@@ -1162,7 +1162,7 @@ msgstr "Resim dosyalarını şununla aç:"
 
 #: ../src/pref_dialog.c:226
 msgid "Preferred temp directory:"
-msgstr "Tercih edilen temp dizini:"
+msgstr "Tercih edilen geçici dizin:"
 
 #: ../src/pref_dialog.c:232
 msgid "/tmp"
@@ -1170,7 +1170,7 @@ msgstr "/tmp"
 
 #: ../src/pref_dialog.c:239
 msgid "Save window geometry"
-msgstr "Pencere geometrisini kaydet"
+msgstr "Pencere boyutlandırmasını kaydet"
 
 #: ../src/pref_dialog.c:244
 msgid "Allow subdirs with drag and drop"
@@ -1190,7 +1190,7 @@ msgstr ""
 
 #: ../src/pref_dialog.c:563
 msgid "Choose the temp directory to use"
-msgstr "Kullanacağınız temp dizinini seçin"
+msgstr "Kullanacağınız geçici dizini seçin"
 
 #: ../src/pref_dialog.c:563
 msgid "Choose the application to use"
