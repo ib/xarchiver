@@ -175,7 +175,7 @@ static void xa_read_desktop_directories(GtkListStore *liststore,const gchar *dir
 	GSList *app_exe = NULL;
 	GtkTreeIter iter;
 
-	filename = g_strconcat(dirname,"applications",NULL);
+	filename = g_build_path ("/",dirname,"applications",NULL);
 	dir = opendir(filename);
 
 	if (dir == NULL)

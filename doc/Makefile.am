@@ -39,7 +39,7 @@ EXTRA_DIST = xarchiver.css xarchiver.xsl \
 
 pdf:
 	jw -b pdf xarchiver.docbook
-	mv xarchiver.pdf geany-$(VERSION).pdf
+	mv xarchiver.pdf xarchiver-$(VERSION).pdf
 
 htmldoc: xarchiver.docbook
 	xmlto -m xarchiver.xsl -o html/ xhtml xarchiver.docbook; \

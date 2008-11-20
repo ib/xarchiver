@@ -624,7 +624,7 @@ void xa_close_archive (GtkMenuItem *menuitem,gpointer user_data)
 	archive[idx] = NULL;
 }
 
-void xa_quit_application (GtkMenuItem *menuitem,gpointer user_data)
+gboolean xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer data)
 {
 	gint i;
 	gint idx;
@@ -632,7 +632,7 @@ void xa_quit_application (GtkMenuItem *menuitem,gpointer user_data)
 	i = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (i);
 	if (idx > -1 && archive[idx]->child_pid)
-		return;
+		return TRUE;
 	
 	g_list_free ( Suffix);
 	g_list_free ( Name);
@@ -671,6 +671,7 @@ void xa_quit_application (GtkMenuItem *menuitem,gpointer user_data)
 	socket_finalize();
 #endif
 	gtk_main_quit();
+	return FALSE;
 }
 
 void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
