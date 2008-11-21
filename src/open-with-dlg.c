@@ -289,11 +289,12 @@ static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection,O
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 
-	gtk_tree_selection_get_selected(selection,&model,&iter);
-	gtk_tree_model_get(model,&iter,2,&exec,-1);
-	
-	gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry),exec);
-	g_free(exec);
+	if (gtk_tree_selection_get_selected(selection,&model,&iter))
+	{
+		gtk_tree_model_get(model,&iter,2,&exec,-1);
+		gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry),exec);
+		g_free(exec);
+	}
 }
 
 static void xa_open_with_dialog_custom_entry_activated(GtkEditable *entry,Open_with_data *data)
