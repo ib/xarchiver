@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2008-11-04 07:31+0100\n"
-"PO-Revision-Date: 2008-11-08 17:29+0100\n"
+"PO-Revision-Date: 2008-11-30 12:17+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -533,7 +533,7 @@ msgid ""
 "to the times recorded in the archive"
 msgstr ""
 "En activar aquesta opció, tar deixa les dates de modificació dels fitxers "
-"que extrau amb la data i hora del moment d'extracció, en lloc de la data i "
+"que extreu amb la data i hora del moment d'extracció, en lloc de la data i "
 "hora del moment de desar-los"
 
 #: ../src/extract_dialog.c:139
@@ -559,7 +559,7 @@ msgid ""
 "extracts those files that do not already exist on disk"
 msgstr ""
 "Aquesta opció fa la mateixa funció que la de refresc, extraient els fitxers "
-"que siguin més nous que els del mateix nom al disc, i a més a més extraurà "
+"que siguin més nous que els del mateix nom al disc, i a més a més extreurà "
 "els fitxers que no existien ja al disc"
 
 #: ../src/extract_dialog.c:149
@@ -569,7 +569,7 @@ msgstr "Opcions "
 #: ../src/extract_dialog.c:172 ../src/extract_dialog.c:514
 #: ../src/interface.c:178
 msgid "_Extract"
-msgstr "_Extrau"
+msgstr "_Extreu"
 
 #: ../src/extract_dialog.c:226
 msgid "Decompress file"
@@ -585,7 +585,7 @@ msgstr "No heu seleccionat un directori per extreure els fitxers"
 
 #: ../src/extract_dialog.c:319
 msgid "Please enter the extraction path."
-msgstr "Si us plau introduiu el camí per extreure"
+msgstr "Si us plau introduïu el camí per extreure."
 
 #: ../src/extract_dialog.c:333
 msgid "This archive is encrypted!"
@@ -731,7 +731,7 @@ msgstr "S_ortida de la línia d'ordres"
 
 #: ../src/interface.c:277
 msgid "Enter passwo_rd"
-msgstr "Entreu la cont_rassenya"
+msgstr "Introduïu la cont_rasenya"
 
 #: ../src/interface.c:288
 msgid "_Preferences"
@@ -743,7 +743,7 @@ msgstr "_Ajuda"
 
 #: ../src/interface.c:317
 msgid "_Thanks to"
-msgstr "_Agraïments especials per a:"
+msgstr "_Agraïments"
 
 #: ../src/interface.c:338
 msgid "New"
@@ -751,7 +751,7 @@ msgstr "Nou"
 
 #: ../src/interface.c:342 ../src/new_dialog.c:50
 msgid "Create a new archive"
-msgstr "Crea un nou arxiu"
+msgstr "Crea un arxiu nou"
 
 #: ../src/interface.c:346
 msgid "Open"
@@ -804,7 +804,7 @@ msgstr "Arbre de l'arxiu"
 #: ../src/interface.c:525
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr ""
-"Això són els leds de l'Xarchiver. Quan fan pampallugues l'Xarxiver està "
+"Això són els leds del Xarchiver. Quan fan pampallugues el Xarxiver està "
 "ocupat"
 
 #: ../src/interface.c:694
@@ -925,7 +925,7 @@ msgstr "Progrés total: "
 
 #: ../src/main.c:57
 msgid "Extract archive to the destination directory and quits."
-msgstr "Extrau l’arxiu al directori de destí i tanca."
+msgstr "Extreu l’arxiu al directori de destí i tanca."
 
 #: ../src/main.c:58
 msgid "destination archive"
@@ -1061,11 +1061,11 @@ msgstr "Avançat"
 
 #: ../src/pref_dialog.c:99
 msgid "Preferred archive format"
-msgstr "Navegador web preferit"
+msgstr "Format d'arxiu preferit"
 
 #: ../src/pref_dialog.c:117
 msgid "Confirm deletion of files"
-msgstr "Confirma la supresió de fitxers"
+msgstr "Confirma la supressió de fitxers"
 
 #: ../src/pref_dialog.c:121
 msgid "Sort archive by filename"
@@ -1219,7 +1219,7 @@ msgstr "Sistema Operatiu"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr "Un gestor d’arxius GTK+2"
+msgstr "Un gestor d'arxius només GTK+2"
 
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"

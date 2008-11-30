@@ -9,7 +9,7 @@
 #
 # 110	solid archive	ソリッドアーカイブ	一般的な名称か？
 # 228	Points to	留意点	文脈不明
-# 300	structure	構造	
+# 300	structure	構造
 # 504	Preferences	環境設定	UI。「設定」だとSettingsと紛らわしいのでこちらで統一
 # 504	Advanced	詳細	UI
 # 658	Multi-Extract	複数展開	英語のまま？
@@ -24,22 +24,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-11-04 07:31+0100\n"
-"PO-Revision-Date: 2008-10-21 23:24+0900\n"
-"Last-Translator: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>\n"
+"POT-Creation-Date: 2008-11-24 15:46+0900\n"
+"PO-Revision-Date: 2008-11-28 00:08+0900\n"
+"Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:87 ../src/rar.c:63
+#: ../src/7zip.c:57
+#: ../src/arj.c:48
+#: ../src/bzip2.c:104
+#: ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
 msgstr "オリジナル"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:87 ../src/gzip.c:78
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/7zip.c:57
+#: ../src/arj.c:48
+#: ../src/bzip2.c:104
+#: ../src/gzip.c:78
+#: ../src/rar.c:63
+#: ../src/zip.c:49
 msgid "Compressed"
 msgstr "圧縮済"
 
@@ -47,20 +54,33 @@ msgstr "圧縮済"
 msgid "Attr"
 msgstr "属性"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:167 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57
+#: ../src/arj.c:48
+#: ../src/bzip2.c:187
+#: ../src/gzip.c:61
+#: ../src/rar.c:63
+#: ../src/tar.c:54
+#: ../src/zip.c:49
 msgid "Time"
 msgstr "時間"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:167 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57
+#: ../src/arj.c:48
+#: ../src/bzip2.c:187
+#: ../src/gzip.c:61
+#: ../src/rar.c:63
+#: ../src/rpm.c:52
+#: ../src/tar.c:54
+#: ../src/zip.c:49
 msgid "Date"
 msgstr "日付"
 
-#: ../src/add_dialog.c:37 ../src/interface.c:403
+#: ../src/add_dialog.c:37
+#: ../src/interface.c:396
 msgid "Add files"
-msgstr "ファイルを追加する"
+msgstr "ファイルを追加します。"
 
+# Tab name in Add files dialog.
 #: ../src/add_dialog.c:53
 msgid "Selection"
 msgstr "選択"
@@ -71,7 +91,7 @@ msgstr "ファイルパス:"
 
 #: ../src/add_dialog.c:73
 msgid "Store full paths"
-msgstr "完全なパスを保存する"
+msgstr "フルパスを保存する"
 
 #: ../src/add_dialog.c:79
 msgid "Do not store paths"
@@ -86,26 +106,16 @@ msgid "Update and add"
 msgstr "更新して追加する"
 
 #: ../src/add_dialog.c:110
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
-msgstr ""
-"このオプションでは、新しいファイルを追加し、アーカイブが最後に作成/変更された"
-"後に変更のあったファイルを更新します"
+msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified"
+msgstr "このオプションでは、新しいファイルを追加し、アーカイブが最後に作成/変更された後に変更のあったファイルを更新します。"
 
 #: ../src/add_dialog.c:113
 msgid "Freshen and replace"
 msgstr "新しくして置き換える"
 
 #: ../src/add_dialog.c:116
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
-msgstr ""
-"このオプションが影響するのは、アーカイブ内にすでに存在するバージョンよりも後"
-"に変更のあったアーカイブのみです; 更新オプションとは異なり、アーカイブ内にま"
-"だ存在しないファイルを追加することはありません"
+msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"
+msgstr "このオプションが影響するのは、アーカイブ内にすでに存在するバージョンよりも後に変更のあったアーカイブのみです。更新オプションとは異なり、アーカイブ内にまだ存在しないファイルを追加することはありません。"
 
 # FIXME: should be revised
 #: ../src/add_dialog.c:120
@@ -117,11 +127,8 @@ msgid "Create a solid archive"
 msgstr "ソリッドアーカイブを作成する"
 
 #: ../src/add_dialog.c:126
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio"
-msgstr ""
-"ソリッドアーカイブでは、より高い圧縮率を使ってファイルがグループ化されます"
+msgid "In a solid archive the files are grouped together featuring a better compression ratio"
+msgstr "ソリッドアーカイブでは、より高い圧縮率でファイルがグループ化されます。"
 
 #: ../src/add_dialog.c:129
 msgid "Delete files after adding"
@@ -135,7 +142,8 @@ msgstr "アクション:"
 msgid "Compression: "
 msgstr "圧縮:"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
+#: ../src/add_dialog.c:162
+#: ../src/extract_dialog.c:156
 msgid "Password:"
 msgstr "パスワード:"
 
@@ -147,43 +155,46 @@ msgstr "暗号化:"
 msgid "_Add"
 msgstr "追加(_A)"
 
-#: ../src/add_dialog.c:246
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "縮なし、5 = デフォルト, 9 = 最高圧縮だが最も遅い"
-
 #: ../src/add_dialog.c:252
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = 圧縮なし、6 = デフォルト, 9 = 最高圧縮だが最も遅い"
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "0 = 圧縮なし、5 = デフォルト、9 = 最高圧縮だが最も遅い"
 
 #: ../src/add_dialog.c:258
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = 圧縮なし、3 = デフォルト, 5 = 最高圧縮だが最も遅い"
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "0 = 圧縮なし、6 = デフォルト、9 = 最高圧縮だが最も遅い"
 
 #: ../src/add_dialog.c:264
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr "0 = 圧縮なし、1 = デフォルト, 4 = 最も速いが最低圧縮"
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr "0 = 圧縮なし、3 = デフォルト、5 = 最高圧縮だが最も遅い"
 
 #: ../src/add_dialog.c:270
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr "0 = 圧縮なし、1 = デフォルト、4 = 最も速いが圧縮率は最も低い"
+
+#: ../src/add_dialog.c:276
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = デフォルト圧縮、7 = 最大圧縮"
 
-#: ../src/add_dialog.c:370 ../src/main.c:209
+#: ../src/add_dialog.c:376
+#: ../src/main.c:228
 msgid "Can't add files to the archive:"
 msgstr "ファイルをアーカイブに追加できません:"
 
-#: ../src/add_dialog.c:370
+#: ../src/add_dialog.c:376
 msgid "You haven't selected any files to add!"
-msgstr "追加するファイルを選択していません！"
+msgstr "追加するファイルを選択していません!"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:825
+#: ../src/add_dialog.c:384
+#: ../src/interface.c:816
 msgid "You missed the password!"
-msgstr "パスワードを入力していません！"
+msgstr "パスワードを入力していません!"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:825
+#: ../src/add_dialog.c:384
+#: ../src/interface.c:816
 msgid "Please enter it!"
-msgstr "入力してください！"
+msgstr "入力してください!"
 
-#: ../src/add_dialog.c:448
+#: ../src/add_dialog.c:454
 msgid "Adding files to archive, please wait..."
 msgstr "ファイルをアーカイブに追加しています、お待ちください..."
 
@@ -195,7 +206,10 @@ msgstr "アーカイブツールを実行できません:"
 msgid "Can't create temporary directory in /tmp:"
 msgstr "/tmp に一時作業フォルダを作成できません:"
 
-#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
+#: ../src/arj.c:48
+#: ../src/gzip.c:78
+#: ../src/lha.c:51
+#: ../src/rar.c:63
 msgid "Ratio"
 msgstr "圧縮率"
 
@@ -203,89 +217,103 @@ msgstr "圧縮率"
 msgid "Attributes"
 msgstr "属性"
 
-#: ../src/bzip2.c:167 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/bzip2.c:187
+#: ../src/gzip.c:61
+#: ../src/lha.c:51
+#: ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Points to"
 msgstr "留意点"
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/bzip2.c:187
+#: ../src/deb.c:45
+#: ../src/gzip.c:61
+#: ../src/lha.c:51
+#: ../src/rar.c:63
+#: ../src/tar.c:54
+#: ../src/zip.c:49
 msgid "Permissions"
 msgstr "アクセス権"
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+#: ../src/bzip2.c:187
+#: ../src/deb.c:45
+#: ../src/gzip.c:61
+#: ../src/tar.c:54
 msgid "Owner/Group"
 msgstr "所有者/グループ"
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/extract_dialog.c:398
-#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/bzip2.c:187
+#: ../src/deb.c:45
+#: ../src/extract_dialog.c:398
+#: ../src/gzip.c:61
+#: ../src/gzip.c:78
+#: ../src/lha.c:51
+#: ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Size"
 msgstr "サイズ"
 
-#: ../src/window.c:58
+#: ../src/window.c:60
 msgid "An error occurred!"
-msgstr "エラーが発生しました！"
+msgstr "エラーが発生しました!"
 
-#: ../src/window.c:58
+#: ../src/window.c:60
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr ""
-"確認するには、'アーカイブツールの出力を保存する' オプションをチェックしてくだ"
-"さい。"
+msgstr "確認する場合は 'アーカイブツールの出力を保存する' オプションにチェックマークをつけてください。"
 
-#: ../src/window.c:144
+#: ../src/window.c:147
 msgid "Archiver output"
 msgstr "アーカイブツールの出力"
 
-#: ../src/window.c:179
+#: ../src/window.c:182
 msgid "An error occurred while accessing the archive:"
 msgstr "アーカイブへアクセス中にエラーが発生しました:"
 
 # FIXME: C format string
 # Extracting files to /tmp
-#: ../src/window.c:251
+#: ../src/window.c:254
 msgid "Save the archive as"
 msgstr "アーカイブに名前を付けて保存する"
 
-#: ../src/window.c:310
+#: ../src/window.c:313
 #, c-format
 msgid "Can't open file \"%s\":"
-msgstr "ファイル「%s」を開けません:"
+msgstr "ファイル \"%s\" を開けません:"
 
-#: ../src/window.c:336
+#: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "申し訳ありません、このアーカイブ形式はサポートされていません:"
 
-#: ../src/window.c:336
+#: ../src/window.c:339
 msgid "the proper archiver is not installed!"
-msgstr "適切なアーカイブツールがインストールされていません！"
+msgstr "適切なアーカイブツールがインストールされていません!"
 
-#: ../src/window.c:350
+#: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
-msgstr "アーカイブ構造にメモリを割り当てられません:"
+msgstr "アーカイブ構造にメモリを割り当てることができません:"
 
-#: ../src/window.c:375
+#: ../src/window.c:378
 msgid "Opening archive,please wait..."
 msgstr "アーカイブを開いています、お待ちください..."
 
-#: ../src/window.c:399
+#: ../src/window.c:402
 msgid "Testing archive,please wait..."
 msgstr "アーカイブをテストしています、お待ちください..."
 
-#: ../src/window.c:419
+#: ../src/window.c:422
 msgid "Print the archive content as HTML"
-msgstr "アーカイブの内容を HTML としてプリントする"
+msgstr "アーカイブの内容を HTML として出力する"
 
-#: ../src/window.c:421
+#: ../src/window.c:424
 msgid "Print the archive content as text"
-msgstr "アーカイブの内容をテキストとしてプリントする"
+msgstr "アーカイブの内容をテキストとして出力する"
 
-#: ../src/window.c:470
+#: ../src/window.c:473
 #, c-format
 msgid "Archive contents:\n"
 msgstr "アーカイブ内容:\n"
 
-#: ../src/window.c:474
+#: ../src/window.c:477
 #, c-format
 msgid ""
 "\n"
@@ -294,206 +322,223 @@ msgstr ""
 "\n"
 "名前: "
 
-#: ../src/window.c:483
+#: ../src/window.c:486
 #, c-format
 msgid "Compressed   size: "
 msgstr "圧縮後のサイズ:"
 
-#: ../src/window.c:490
+#: ../src/window.c:493
 #, c-format
 msgid "Uncompressed size: "
 msgstr "解凍後のサイズ:"
 
-#: ../src/window.c:498
+#: ../src/window.c:501
 #, c-format
 msgid "Number of files: "
 msgstr "ファイル数:"
 
-#: ../src/window.c:506
+#: ../src/window.c:509
 #, c-format
 msgid "Comment:\n"
 msgstr "コメント:\n"
 
 # FIXME: ngettext()
-#: ../src/window.c:519
+#: ../src/window.c:522
 #, c-format
 msgid "Files:%*s%s"
 msgstr "ファイル:%*s%s"
 
-#: ../src/window.c:519
+#: ../src/window.c:522
 msgid "|Compressed\n"
 msgstr "|圧縮済\n"
 
-#: ../src/window.c:525
+#: ../src/window.c:528
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>ファイル:</th>"
 
-#: ../src/window.c:526
+#: ../src/window.c:529
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>圧縮済:</th>"
 
-#: ../src/window.c:716
+#: ../src/window.c:720
 msgid "Are you sure you want to do this?"
-msgstr "よろしいですか？"
+msgstr "よろしいですか?"
 
-#: ../src/window.c:809 ../src/window.c:909
+#: ../src/window.c:813
+#: ../src/window.c:913
 msgid "Can't convert the archive to self-extracting:"
-msgstr "アーカイブを自己展開に変換できません:"
+msgstr "アーカイブを自己展開形式に変換できません:"
 
-#: ../src/window.c:820 ../src/window.c:920
+#: ../src/window.c:824
+#: ../src/window.c:924
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "アーカイブに unzipsfx モジュールを書き込めません:"
 
-#: ../src/window.c:880
+#: ../src/window.c:884
 msgid "Please select the 7zCon.sfx module"
 msgstr "7zCon.sfx モジュールを選択してください"
 
-#: ../src/window.c:977
+#: ../src/window.c:981
 msgid "translator-credits"
-msgstr "Daichi Kawahata <daichi@xfce.org>"
+msgstr ""
+"Daichi Kawahata <daichi@xfce.org>\n"
+"Masato Hashimoto <cabezon.hashimoto@gmail.com>"
 
 # FIXME: C format string
 # Extracting files to /tmp
-#: ../src/window.c:1007
+#: ../src/window.c:1011
 msgid "Save the self-extracting archive as"
 msgstr "自己展開アーカイブに名前をつけて保存する"
 
-#: ../src/window.c:1036 ../src/interface.c:350
+#: ../src/window.c:1040
+#: ../src/interface.c:348
 msgid "Open an archive"
 msgstr "アーカイブを開きます"
 
-#: ../src/window.c:1049 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1053
+#: ../src/extract_dialog.c:91
+#: ../src/new_dialog.c:62
 msgid "All files"
 msgstr "全てのファイル"
 
-#: ../src/window.c:1054 ../src/new_dialog.c:67
+#: ../src/window.c:1058
+#: ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "アーカイブのみ"
 
-#: ../src/window.c:1266
+#: ../src/window.c:1272
 msgid "Filename"
 msgstr "ファイル名"
 
-#: ../src/window.c:1323
+#: ../src/window.c:1329
 msgid "Doing so will probably corrupt your archive!"
-msgstr "これを行うとアーカイブを壊してしまうかもしれません！"
+msgstr "これを行うとアーカイブを壊してしまうかもしれません!"
 
-#: ../src/window.c:1323
+#: ../src/window.c:1329
 msgid "Do you really want to cancel?"
-msgstr "本当に取り消してもよろしいですか？"
+msgstr "本当に取り消してもよろしいですか?"
 
-#: ../src/window.c:1386 ../src/window.c:1401
+#: ../src/window.c:1392
+#: ../src/window.c:1407
 msgid "Yes"
 msgstr "はい"
 
-#: ../src/window.c:1388 ../src/window.c:1403
+#: ../src/window.c:1394
+#: ../src/window.c:1409
 msgid "No"
 msgstr "いいえ"
 
-#: ../src/window.c:1602
+#: ../src/window.c:1612
 msgid "selected"
 msgstr "選択済"
 
-#: ../src/window.c:1607
+#: ../src/window.c:1617
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d ファイルおよび %d フォルダ %s (%s)"
 
-#: ../src/window.c:1609
+#: ../src/window.c:1619
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d フォルダ %s (%s)"
 
-#: ../src/window.c:1612
+#: ../src/window.c:1622
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d ファイル %s (%s)"
 
-#: ../src/window.c:1668
+#: ../src/window.c:1678
 msgid "Can't perform another extraction:"
 msgstr "別の展開を実行できません:"
 
-#: ../src/window.c:1668
+#: ../src/window.c:1678
 msgid "Please wait until the completion of the current one!"
-msgstr "現在の処理が完了するまでお待ちください！"
+msgstr "現在の処理が完了するまでお待ちください!"
 
-#: ../src/window.c:1701 ../src/extract_dialog.c:343
+#: ../src/window.c:1711
+#: ../src/extract_dialog.c:344
 #, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr "ファイルをフォルダ「%s」に展開するためのアクセス権がありません。"
+msgid "You don't have the right permissions to extract the files to the directory \"%s\"."
+msgstr "ファイルをフォルダ \"%s\" に展開するためのアクセス権がありません。"
 
-#: ../src/window.c:1702 ../src/extract_dialog.c:344
+#: ../src/window.c:1712
+#: ../src/extract_dialog.c:345
 msgid "Can't perform extraction!"
-msgstr "展開できません！"
+msgstr "展開できません!"
 
-#: ../src/window.c:1743 ../src/extract_dialog.c:653 ../src/interface.c:1405
+#: ../src/window.c:1753
+#: ../src/extract_dialog.c:653
+#: ../src/interface.c:1400
 msgid "Sorry,I could not perform the operation!"
-msgstr "申し訳ありません、操作を実行できませんでした！"
+msgstr "申し訳ありません、操作を実行できませんでした!"
 
-#: ../src/window.c:1777 ../src/window.c:1789 ../src/interface.c:1398
+#: ../src/window.c:1787
+#: ../src/window.c:1799
+#: ../src/interface.c:1393
 msgid "Can't perform this action:"
 msgstr "このアクションを実行できません:"
 
-#: ../src/window.c:1777
+#: ../src/window.c:1787
 msgid "You have to install rar package!"
-msgstr "RAR パッケージをインストールする必要があります！"
+msgstr "RAR パッケージをインストールする必要があります!"
 
-#: ../src/window.c:1784 ../src/interface.c:1395
+#: ../src/window.c:1794
+#: ../src/interface.c:1390
 msgid "You can't add content to deb packages!"
-msgstr "Debパッケージには追加できません！"
+msgstr "Deb パッケージには追加できません!"
 
-#: ../src/window.c:1786 ../src/interface.c:1397
+#: ../src/window.c:1796
+#: ../src/interface.c:1392
 msgid "You can't add content to rpm packages!"
-msgstr "RPMパッケージには追加できません！"
+msgstr "RPM パッケージには追加できません!"
 
-#: ../src/window.c:1788
+#: ../src/window.c:1798
 msgid "The archiver doesn't support this feature!"
-msgstr "アーカイブツールはこの機能に対応していません！"
+msgstr "アーカイブツールはこの機能に対応していません!"
 
-#: ../src/window.c:1869
+#: ../src/window.c:1879
 msgid "You didn't set which browser to use!"
-msgstr "使用するブラウザを設定していません！"
+msgstr "使用するブラウザを設定していません!"
 
-#: ../src/window.c:1869 ../src/window.c:1910
+#: ../src/window.c:1879
+#: ../src/window.c:1920
 msgid "Please go to Preferences->Advanced and set it."
-msgstr "環境設定 -> 詳細で設定してください。"
+msgstr "環境設定 → 詳細で設定してください。"
 
-#: ../src/window.c:1901
+#: ../src/window.c:1911
 msgid "This file type is not supported!"
-msgstr "このファイル形式はサポートされていません！"
+msgstr "このファイル形式はサポートされていません!"
 
-#: ../src/window.c:1901
+#: ../src/window.c:1911
 msgid "Please install xdg-utils package."
 msgstr "xdg-utils パッケージをインストールしてください。"
 
-#: ../src/window.c:1910
+#: ../src/window.c:1920
 msgid "You didn't set which program to use for opening this file!"
-msgstr "このファイルを開くのに使用するプログラムを設定していません！"
+msgstr "このファイルを開くのに使用するプログラムを設定していません!"
 
-#: ../src/window.c:1937
+#: ../src/window.c:1946
 msgid "Failed to launch the application!"
-msgstr "アプリケーションの起動に失敗しました！"
+msgstr "アプリケーションの起動に失敗しました!"
 
-#: ../src/window.c:1989
+#: ../src/window.c:1998
 msgid "Comment"
 msgstr "コメント"
 
-#: ../src/window.c:2019
+#: ../src/window.c:2028
 msgid "From File"
 msgstr "ファイルから"
 
-#: ../src/window.c:2124
+#: ../src/window.c:2133
 msgid "Open a text file"
 msgstr "テキストファイルを開く"
 
-#: ../src/window.c:2142
+#: ../src/window.c:2151
 #, c-format
 msgid "Can't open file %s:"
 msgstr "ファイル %s を開けません:"
@@ -502,105 +547,95 @@ msgstr "ファイル %s を開けません:"
 msgid "Date modified"
 msgstr "変更日時"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:471
+#: ../src/extract_dialog.c:65
+#: ../src/extract_dialog.c:471
 msgid "Extract to:"
 msgstr "展開先:"
 
-#: ../src/extract_dialog.c:95
+#: ../src/extract_dialog.c:96
 msgid "Selected files"
 msgstr "選択されたファイル"
 
 # FIXME: ngettext()
-#: ../src/extract_dialog.c:103
+#: ../src/extract_dialog.c:104
 msgid "Files: "
 msgstr "ファイル:"
 
 # FIXME: ngettext()
-#: ../src/extract_dialog.c:114
+#: ../src/extract_dialog.c:115
 msgid "Files "
 msgstr "ファイル"
 
-#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:498
+#: ../src/extract_dialog.c:129
+#: ../src/extract_dialog.c:498
 msgid "Overwrite existing files"
-msgstr "存在するファイルを上書きする"
-
-#: ../src/extract_dialog.c:131
-msgid "Extract files with full path"
-msgstr "ファイルを完全なパスで展開する"
+msgstr "既存のファイルを上書きする"
 
 #: ../src/extract_dialog.c:132
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr "アーカイブのフォルダ構造は展開フォルダに再作成されます"
+msgid "Extract files with full path"
+msgstr "ファイルをフルパスで展開する"
 
-#: ../src/extract_dialog.c:135
-msgid "Touch files"
-msgstr "ファイルタイムスタンプを更新する"
+#: ../src/extract_dialog.c:133
+msgid "The archive's directory structure is recreated in the extraction directory"
+msgstr "アーカイブのフォルダ構造は展開フォルダに再作成されます。"
 
 #: ../src/extract_dialog.c:136
-msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
-msgstr ""
-"このオプションを使用すると、tar は、展開したファイルのデータ変更時刻を、アー"
-"カイブ内に記録された時刻に設定せずに、ファイルが展開された時刻のままにします"
+msgid "Touch files"
+msgstr "ファイルのタイムスタンプを更新する"
 
-#: ../src/extract_dialog.c:139
+#: ../src/extract_dialog.c:137
+msgid "When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"
+msgstr "このオプションを使用すると、tar は展開したファイルのデータ変更日時をアーカイブ内に記録された日時に設定せず、ファイルが展開された日時にします。"
+
+#: ../src/extract_dialog.c:140
 msgid "Freshen existing files"
 msgstr "既存のファイルを新しくする"
 
-#: ../src/extract_dialog.c:140
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr ""
-"ディスクにすでに存在していて、ディスクコピーより新しいファイルのみ展開する"
+#: ../src/extract_dialog.c:141
+msgid "Extract only those files that already exist on disk and that are newer than the disk copies"
+msgstr "ディスクにすでに存在していて、ディスクにあるものより新しいファイルのみ展開します。"
 
-#: ../src/extract_dialog.c:144
+#: ../src/extract_dialog.c:145
 msgid "Update existing files"
 msgstr "存在するファイルを更新する"
 
-#: ../src/extract_dialog.c:145
-msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
-"extracts those files that do not already exist on disk"
-msgstr ""
-"このオプションは、新しくするオプションと同じ機能を実行します。ディスク上の同"
-"じ名前を持つファイルより新しいファイルを展開し、さらに、ディスクにまだ存在し"
-"ないファイルを展開します"
+#: ../src/extract_dialog.c:146
+msgid "This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"
+msgstr "このオプションは、新しくするオプションと同じ機能を実行します。ディスク上の同じ名前を持つファイルより新しいファイルを展開し、さらに、ディスクにまだ存在しないファイルを展開します。"
 
-#: ../src/extract_dialog.c:149
+#: ../src/extract_dialog.c:150
 msgid "Options "
 msgstr "オプション"
 
-#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:514
+#: ../src/extract_dialog.c:173
+#: ../src/extract_dialog.c:514
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "展開(_E)"
 
-#: ../src/extract_dialog.c:226
+#: ../src/extract_dialog.c:227
 msgid "Decompress file"
 msgstr "ファイルを解凍します"
 
-#: ../src/extract_dialog.c:228 ../src/interface.c:412
+#: ../src/extract_dialog.c:229
+#: ../src/interface.c:404
 msgid "Extract files"
-msgstr "ファイルを展開する"
+msgstr "ファイルを展開します"
 
-#: ../src/extract_dialog.c:319 ../src/extract_dialog.c:727
+#: ../src/extract_dialog.c:320
+#: ../src/extract_dialog.c:726
 msgid "You missed where to extract the files!"
-msgstr "ファイルの展開先を選択してください！"
+msgstr "ファイルの展開先を選択してください!"
 
-#: ../src/extract_dialog.c:319
+#: ../src/extract_dialog.c:320
 msgid "Please enter the extraction path."
-msgstr "展開先のパスを入力してください！"
+msgstr "展開先のパスを入力してください!"
 
-#: ../src/extract_dialog.c:333
+#: ../src/extract_dialog.c:334
 msgid "This archive is encrypted!"
-msgstr "このアーカイブは暗号化されています！"
+msgstr "このアーカイブは暗号化されています!"
 
-#: ../src/extract_dialog.c:333
+#: ../src/extract_dialog.c:334
 msgid "Please enter the password."
 msgstr "パスワードを入力してください。"
 
@@ -622,13 +657,11 @@ msgstr "複数展開"
 
 #: ../src/extract_dialog.c:481
 msgid "Extract to dir \"Archive Name\""
-msgstr "フォルダ「アーカイブ名」に展開する"
+msgstr "フォルダ \"アーカイブ名\" に展開する"
 
 #: ../src/extract_dialog.c:482
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-"このオプションでは、アーカイブ名の付いたフォルダにアーカイブを展開します"
+msgid "This option extracts archives in directories named with the archive names"
+msgstr "このオプションでは、アーカイブ名の付いたフォルダにアーカイブを展開します。"
 
 #: ../src/extract_dialog.c:486
 msgid "Destination dirs:"
@@ -650,19 +683,19 @@ msgstr "展開したいアーカイブを選択してください"
 msgid "Please select the destination directory"
 msgstr "展開先フォルダを選択してください"
 
-#: ../src/extract_dialog.c:719
+#: ../src/extract_dialog.c:718
 msgid "Can't multi-extract archives:"
 msgstr "アーカイブを複数展開できません:"
 
-#: ../src/extract_dialog.c:719
+#: ../src/extract_dialog.c:718
 msgid "You haven't added any of them!"
-msgstr "何も追加していません！"
+msgstr "何も追加していません!"
 
-#: ../src/extract_dialog.c:727
+#: ../src/extract_dialog.c:726
 msgid "Please fill the \"Extract to\" field!"
-msgstr "「展開先」フィールドに入力してください！"
+msgstr "\"展開先\" フィールドに入力してください!"
 
-#: ../src/extract_dialog.c:760
+#: ../src/extract_dialog.c:757
 msgid "Some errors occurred:"
 msgstr "エラーが発生しました:"
 
@@ -680,7 +713,7 @@ msgstr "アーカイブ(_A)"
 
 #: ../src/interface.c:92
 msgid "List as"
-msgstr "リスト方法"
+msgstr "リスト出力"
 
 #: ../src/interface.c:103
 msgid "Text file"
@@ -706,13 +739,14 @@ msgstr "アクション(_C)"
 msgid "A_dd"
 msgstr "追加(_D)"
 
-#: ../src/interface.c:194 ../src/interface.c:922
+#: ../src/interface.c:194
+#: ../src/interface.c:913
 msgid "Rename"
-msgstr "名称変更"
+msgstr "名前の変更"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
-msgstr "SFXアーカイブを作成(_X)"
+msgstr "SFX アーカイブを作成(_X)"
 
 #: ../src/interface.c:218
 msgid "_Multi-Extract"
@@ -728,7 +762,7 @@ msgstr "全て選択(_A)"
 
 #: ../src/interface.c:247
 msgid "Dese_lect all"
-msgstr "すべて選択解除(_L)"
+msgstr "全ての選択を解除(_L)"
 
 #: ../src/interface.c:253
 msgid "Select _by pattern"
@@ -754,249 +788,242 @@ msgstr "ヘルプ(_H)"
 msgid "_Thanks to"
 msgstr "謝辞(_T)"
 
-#: ../src/interface.c:338
-msgid "New"
-msgstr "新規"
-
-#: ../src/interface.c:342 ../src/new_dialog.c:50
+#: ../src/interface.c:341
+#: ../src/new_dialog.c:50
 msgid "Create a new archive"
-msgstr "新規アーカイブを作成します"
+msgstr "新しいアーカイブを作成します"
 
-#: ../src/interface.c:346
-msgid "Open"
-msgstr "開く"
-
-#: ../src/interface.c:358 ../src/interface.c:363
+#: ../src/interface.c:360
 msgid "Back"
 msgstr "戻る"
 
-#: ../src/interface.c:367 ../src/interface.c:372
+#: ../src/interface.c:368
 msgid "Up"
 msgstr "上位フォルダへ"
 
-#: ../src/interface.c:376 ../src/interface.c:381
+#: ../src/interface.c:376
 msgid "Forward"
 msgstr "進む"
 
-#: ../src/interface.c:385
-msgid "Home"
-msgstr "ホーム"
-
-#: ../src/interface.c:390
+#: ../src/interface.c:384
 msgid "Root"
 msgstr "ルート"
 
-#: ../src/interface.c:398
-msgid "Add"
-msgstr "追加"
-
-#: ../src/interface.c:407 ../src/interface.c:862
-msgid "Extract"
-msgstr "展開"
-
-#: ../src/interface.c:420
-msgid "Stop"
-msgstr "中止"
-
-#: ../src/interface.c:425
+#: ../src/interface.c:416
 msgid "Cancel current operation"
 msgstr "現在の操作を取り消します"
 
-#: ../src/interface.c:438
+#: ../src/interface.c:429
 msgid "Location:"
 msgstr "位置:"
 
-#: ../src/interface.c:477
+#: ../src/interface.c:468
 msgid "Archive tree"
 msgstr "アーカイブツリー"
 
-#: ../src/interface.c:525
+#: ../src/interface.c:516
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr "これは Xarchiver LED ステータスです。点滅中は Xarchiver がビジーです"
+msgstr "これは Xarchiver LED ステータスです。点滅中は Xarchiver がビジーです。"
 
-#: ../src/interface.c:694
+#: ../src/interface.c:685
 msgid "Close archive"
 msgstr "アーカイブを閉じる"
 
-#: ../src/interface.c:779
+#: ../src/interface.c:770
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>パスワードが必要です:</span>"
 
-#: ../src/interface.c:781
+#: ../src/interface.c:772
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>パスワードを入力してください:</span>"
 
-#: ../src/interface.c:799
+#: ../src/interface.c:790
 msgid "_Password:"
 msgstr "パスワード(_P):"
 
-#: ../src/interface.c:854 ../src/open-with-dlg.c:52
+#: ../src/interface.c:845
+#: ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "アプリケーションを選択して開く"
 
-#: ../src/interface.c:870
+#: ../src/interface.c:853
+msgid "Extract"
+msgstr "展開"
+
+#: ../src/interface.c:861
 msgid "View"
 msgstr "表示"
 
-#: ../src/interface.c:883
+#: ../src/interface.c:874
 msgid "Cut"
 msgstr "切り取り"
 
-#: ../src/interface.c:891
+#: ../src/interface.c:882
 msgid "Copy"
 msgstr "コピー"
 
-#: ../src/interface.c:899
+#: ../src/interface.c:890
 msgid "Paste"
 msgstr "貼り付け"
 
-#: ../src/interface.c:913
+#: ../src/interface.c:904
 msgid "Delete"
 msgstr "削除"
 
-#: ../src/interface.c:961
+#: ../src/interface.c:952
 msgid "Select by Pattern"
 msgstr "パターンで選択"
 
-#: ../src/interface.c:974
+#: ../src/interface.c:965
 msgid "Pattern:"
 msgstr "パターン:"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:970
 msgid "example: *.txt; ac*"
 msgstr "例: *.txt; ac*"
 
-#: ../src/interface.c:996
+#: ../src/interface.c:987
 msgid "_Select"
 msgstr "選択(_S)"
 
-#: ../src/interface.c:1068
+#: ../src/interface.c:1059
 msgid "Archive Properties"
 msgstr "アーカイブプロパティ"
 
-#: ../src/interface.c:1089
+#: ../src/interface.c:1080
 msgid "Name:"
 msgstr "名前:"
 
-#: ../src/interface.c:1096
+#: ../src/interface.c:1087
 msgid "Path:"
 msgstr "パス:"
 
-#: ../src/interface.c:1103
+#: ../src/interface.c:1094
 msgid "Type:"
 msgstr "タイプ:"
 
-#: ../src/interface.c:1110
+#: ../src/interface.c:1101
 msgid "Encrypted:"
-msgstr "暗号化済:"
+msgstr "暗号化:"
 
-#: ../src/interface.c:1117
+#: ../src/interface.c:1108
 msgid "Modified on:"
 msgstr "変更日時:"
 
-#: ../src/interface.c:1124
+#: ../src/interface.c:1115
 msgid "Compressed size:"
 msgstr "圧縮後のサイズ:"
 
-#: ../src/interface.c:1131
+#: ../src/interface.c:1122
 msgid "Uncompressed size:"
 msgstr "解凍後のサイズ:"
 
-#: ../src/interface.c:1138
+#: ../src/interface.c:1129
 msgid "Comment:"
 msgstr "コメント:"
 
-#: ../src/interface.c:1145
+#: ../src/interface.c:1136
 msgid "Number of files:"
 msgstr "ファイル数:"
 
-#: ../src/interface.c:1152
+#: ../src/interface.c:1143
 msgid "Compression ratio:"
 msgstr "圧縮率:"
 
-#: ../src/interface.c:1513 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1507
+#: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1540
+#: ../src/interface.c:1534
 msgid "Extracting from archive:"
 msgstr "アーカイブからファイルを展開しています:"
 
-#: ../src/interface.c:1542
+#: ../src/interface.c:1536
 msgid "Adding to archive:"
 msgstr "アーカイブに追加しています:"
 
-#: ../src/interface.c:1562
+#: ../src/interface.c:1556
 msgid "Total Progress:"
 msgstr "全体の進捗:"
 
-#: ../src/main.c:57
-msgid "Extract archive to the destination directory and quits."
-msgstr "展開先フォルダにアーカイブを展開し、終了します。"
-
 #: ../src/main.c:58
+msgid "Extract archive to the destination directory and quits."
+msgstr "展開先フォルダにアーカイブを展開し終了する。"
+
+#: ../src/main.c:59
 msgid "destination archive"
 msgstr "展開先のアーカイブ"
 
-#: ../src/main.c:61
+#: ../src/main.c:62
 msgid "Extract archive by asking the extraction directory and quits."
-msgstr "展開先フォルダを確認してアーカイブを展開し、終了します。"
+msgstr "展開先フォルダを確認してアーカイブを展開し終了する。"
 
-#: ../src/main.c:62 ../src/main.c:74
+#: ../src/main.c:63
+#: ../src/main.c:75
 msgid "archive"
 msgstr "アーカイブ"
 
-#: ../src/main.c:65
+#: ../src/main.c:66
 msgid "Multi-extract archives"
 msgstr "アーカイブを複数展開する"
 
-#: ../src/main.c:66
+#: ../src/main.c:67
 msgid "filenames"
 msgstr "ファイル名"
 
-#: ../src/main.c:69
-msgid "Add the given files by asking the name of the archive and quits."
-msgstr "アーカイブ名を確認して指定されたファイルを追加し、終了します。"
-
 #: ../src/main.c:70
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "アーカイブ名を確認して指定されたファイルを追加し終了する。"
+
+#: ../src/main.c:71
 msgid "file1 file2 file3 ... fileN"
-msgstr "ファイル1 ファイル2 ファイル3 ... ファイルN"
+msgstr "ファイル1 ファイル2 ... ファイルN"
 
-#: ../src/main.c:73
+#: ../src/main.c:74
 msgid "Add files to archive by asking their filenames and quits."
-msgstr ""
-"アーカイブのファイル名を確認してアーカイブにファイルを追加し、終了します。"
+msgstr "アーカイブのファイル名を確認してアーカイブにファイルを追加し終了する。"
 
-#: ../src/main.c:102
+#: ../src/main.c:78
+msgid "Show version and exit"
+msgstr "バージョン情報を表示して終了する"
+
+#: ../src/main.c:105
 msgid "[archive name]"
 msgstr "[アーカイブ名]"
 
-#: ../src/main.c:106
+#: ../src/main.c:109
 #, c-format
 msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"利用可能なコマンド行オプションを見るには xarchiver --help としてください。\n"
+"xarchiver --help と入力すると利用可能な全てのコマンドラインオプションが表示されます。\n"
 
-#: ../src/main.c:131 ../src/main.c:154
+#: ../src/main.c:119
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr "バグは <%s> まで報告してください。"
+
+#: ../src/main.c:146
+#: ../src/main.c:169
 msgid "Can't extract files from the archive:"
 msgstr "アーカイブからファイルを展開できません:"
 
-#: ../src/main.c:131 ../src/main.c:154 ../src/main.c:209
+#: ../src/main.c:146
+#: ../src/main.c:169
+#: ../src/main.c:228
 msgid "You missed the archive name!\n"
-msgstr "アーカイブ名を入力してください！\n"
+msgstr "アーカイブ名を入力してください!\n"
 
-#: ../src/main.c:257
+#: ../src/main.c:276
 msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
-"「新規」を選択してアーカイブを作成するか、「開く」を選択してアーカイブを開き"
-"ます"
+msgstr "\"新規\" の選択でアーカイブを作成、\"開く\" の選択でアーカイブを開きます"
 
-#: ../src/main.c:496
+#: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
-msgstr "アーカイブ構造にメモリを割り当てられません！"
+msgstr "アーカイブ構造にメモリを割り当てられません!"
 
 #: ../src/open-with-dlg.c:54
 msgid "Open the selected files with"
@@ -1015,9 +1042,9 @@ msgstr "カスタムコマンドを使用する:"
 msgid "Browse"
 msgstr "参照"
 
-#: ../src/open-with-dlg.c:310
+#: ../src/open-with-dlg.c:311
 msgid "Select an application"
-msgstr "アプリケーションを選択する"
+msgstr "アプリケーションを選択してください"
 
 #: ../src/new_dialog.c:55
 msgid "Cr_eate"
@@ -1029,29 +1056,29 @@ msgstr "アーカイブの種類:"
 
 #: ../src/new_dialog.c:97
 msgid "Choose the archive type to create"
-msgstr "作成するアーカイブの種類を選択してください"
+msgstr "作成するアーカイブの種類を選択してください。"
 
-#: ../src/new_dialog.c:119
+#: ../src/new_dialog.c:112
 msgid "Add the archive extension to the filename"
 msgstr "ファイル名にアーカイブ拡張子を追加する"
 
-#: ../src/new_dialog.c:166
+#: ../src/new_dialog.c:159
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr "「%s」はすでに開いています！"
+msgstr "\"%s\" はすでに開かれています!"
 
-#: ../src/new_dialog.c:167
+#: ../src/new_dialog.c:160
 msgid "Can't create a new archive:"
 msgstr "新規アーカイブを作成できません:"
 
-#: ../src/new_dialog.c:182
+#: ../src/new_dialog.c:175
 #, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr "アーカイブ「%s」は既に存在します！"
+msgstr "アーカイブ \"%s\" はすでに存在します!"
 
-#: ../src/new_dialog.c:188
+#: ../src/new_dialog.c:181
 msgid "Do you want to overwrite it?"
-msgstr "上書きしてもよろしいですか？"
+msgstr "上書きしてもよろしいですか?"
 
 #: ../src/pref_dialog.c:41
 msgid "Preferences"
@@ -1069,101 +1096,98 @@ msgstr "ウィンドウ"
 msgid "Advanced"
 msgstr "詳細"
 
-#: ../src/pref_dialog.c:99
+#: ../src/pref_dialog.c:97
 msgid "Preferred archive format"
 msgstr "優先するアーカイブ形式"
 
-#: ../src/pref_dialog.c:117
+#: ../src/pref_dialog.c:115
 msgid "Confirm deletion of files"
 msgstr "ファイルの削除を確認する"
 
-#: ../src/pref_dialog.c:121
+#: ../src/pref_dialog.c:119
 msgid "Sort archive by filename"
 msgstr "アーカイブをファイル名で並べ替える"
 
-#: ../src/pref_dialog.c:124
+#: ../src/pref_dialog.c:122
 msgid "The filename column is sorted after loading the archive"
-msgstr "ファイル名列はアーカイブの読み込み後に並び替えられます"
+msgstr "ファイル名列はアーカイブの読み込み後に並び替えられます。"
 
-#: ../src/pref_dialog.c:126
+#: ../src/pref_dialog.c:124
 msgid "Store archiver output"
 msgstr "アーカイブツールの出力を保存する"
 
-#: ../src/pref_dialog.c:129
+#: ../src/pref_dialog.c:127
 msgid "This option takes more memory with large archives"
-msgstr ""
-"大きいアーカイブでこのオプションを利用するには、より多くのメモリが必要です"
+msgstr "大きいアーカイブでこのオプションを利用する場合、メモリ消費量が大きくなります。"
 
-#: ../src/pref_dialog.c:140
+#: ../src/pref_dialog.c:138
 msgid "Icons size (requires restart)"
 msgstr "アイコンサイズ (再起動が必要)"
 
-#: ../src/pref_dialog.c:146
+#: ../src/pref_dialog.c:144
 msgid "large"
 msgstr "大"
 
-#: ../src/pref_dialog.c:147
+#: ../src/pref_dialog.c:145
 msgid "small"
 msgstr "小"
 
-#: ../src/pref_dialog.c:152
+#: ../src/pref_dialog.c:150
 msgid "Show archive comment"
 msgstr "アーカイブコメントを表示する"
 
-#: ../src/pref_dialog.c:153
+#: ../src/pref_dialog.c:151
 msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr ""
-"チェックすると、アーカイブの読み込み後にアーカイブコメントが表示されます"
+msgstr "このオプションを有効にすると、アーカイブの読み込み後にアーカイブコメントが表示されます。"
 
-#: ../src/pref_dialog.c:159
+#: ../src/pref_dialog.c:157
 msgid "Show archive tree sidebar"
 msgstr "アーカイブツリーサイドバーを表示する"
 
-#: ../src/pref_dialog.c:165
+#: ../src/pref_dialog.c:163
 msgid "Show archive location bar"
 msgstr "アーカイブロケーションバーを表示する"
 
-#: ../src/pref_dialog.c:187
+#: ../src/pref_dialog.c:185
 msgid "Web browser to use:"
-msgstr "使用する Web ブラウザ:"
+msgstr "使用するウェブブラウザ:"
 
-#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:207 ../src/pref_dialog.c:220
-#: ../src/pref_dialog.c:233
+#: ../src/pref_dialog.c:192
+#: ../src/pref_dialog.c:205
+#: ../src/pref_dialog.c:218
+#: ../src/pref_dialog.c:231
 msgid "choose..."
 msgstr "選択してください..."
 
-#: ../src/pref_dialog.c:200
+#: ../src/pref_dialog.c:198
 msgid "Open text files with:"
 msgstr "アプリケーションを選択してテキストファイルを開く:"
 
-#: ../src/pref_dialog.c:213
+#: ../src/pref_dialog.c:211
 msgid "Open image files with:"
 msgstr "アプリケーションを選択してイメージファイルを開く:"
 
-#: ../src/pref_dialog.c:226
+#: ../src/pref_dialog.c:224
 msgid "Preferred temp directory:"
-msgstr "優先する一時フォルダ:"
+msgstr "優先する作業フォルダ:"
 
-#: ../src/pref_dialog.c:232
+#: ../src/pref_dialog.c:230
 msgid "/tmp"
 msgstr "/tmp"
 
-#: ../src/pref_dialog.c:239
+#: ../src/pref_dialog.c:237
 msgid "Save window geometry"
-msgstr "ウィンドウの配置を保存"
+msgstr "ウィンドウの配置を保存する"
 
-#: ../src/pref_dialog.c:244
+#: ../src/pref_dialog.c:242
 msgid "Allow subdirs with drag and drop"
-msgstr "ドラッグ＆ドロップ時に下位フォルダを許可する"
+msgstr "下位フォルダへのドラッグアンドドロップを許可する"
 
-#: ../src/pref_dialog.c:248
-msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
-msgstr ""
-"このオプションにより、ドラッグ＆ドロップでファイルを追加する時に下位のフォル"
-"ダも含まれます"
+#: ../src/pref_dialog.c:246
+msgid "This option includes the subdirectories when you add files with drag and drop"
+msgstr "このオプションを有効にすると、ドラッグアンドドロップでファイルを追加する時に下位のフォルダに対しても行えるようになります。"
 
-#: ../src/pref_dialog.c:253
+#: ../src/pref_dialog.c:251
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
@@ -1171,11 +1195,11 @@ msgstr ""
 "<span color='red' style='italic'>xdg-utils パッケージをインストールして\n"
 "Xarchiver がより多くのファイル形式を認識できるようにしてください。</span>"
 
-#: ../src/pref_dialog.c:563
+#: ../src/pref_dialog.c:560
 msgid "Choose the temp directory to use"
-msgstr "使用する一時フォルダを選択する"
+msgstr "使用する作業フォルダを選択してください"
 
-#: ../src/pref_dialog.c:563
+#: ../src/pref_dialog.c:560
 msgid "Choose the application to use"
 msgstr "使用するアプリケーションを選択してください"
 
@@ -1183,18 +1207,20 @@ msgstr "使用するアプリケーションを選択してください"
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:63
+#: ../src/zip.c:49
 msgid "Method"
 msgstr "方式"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:63
+#: ../src/zip.c:49
 msgid "Version"
 msgstr "バージョン"
 
 #: ../src/rpm.c:39
 #, c-format
 msgid "Can't open RPM file %s:"
-msgstr "RPMファイル %s を開けません:"
+msgstr "RPM ファイル %s を開けません:"
 
 #: ../src/rpm.c:52
 msgid "Permission"
@@ -1216,7 +1242,8 @@ msgstr "所属グループ"
 msgid "Can't fseek to position 104:"
 msgstr "位置 104 への fseek ができません:"
 
-#: ../src/rpm.c:68 ../src/rpm.c:84
+#: ../src/rpm.c:68
+#: ../src/rpm.c:84
 msgid "Can't read data from file:"
 msgstr "ファイルからデータを読み取れません:"
 
@@ -1236,298 +1263,3 @@ msgstr "Xfce 4 アーカイブマネージャ"
 msgid "Archive manager"
 msgstr "アーカイブマネージャ"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "アーカイブの形式を認識できません！"
-
-#~ msgid "Can't spawn the command:"
-#~ msgstr "コマンドを実行できません:"
-
-#~ msgid ""
-#~ "Please check \"%s\" since some files could have been already extracted."
-#~ msgstr ""
-#~ "一部のファイルは既に取り出されているかもしれませんので、「%s」を確認してみ"
-#~ "てください。"
-
-#~ msgid "Sorry, I could not perform the operation!"
-#~ msgstr "操作を実行できませんでした！"
-
-# FIXME: should be revised
-#~ msgid "The sfx archive was saved as:"
-#~ msgstr "SFXアーカイブの保存名:"
-
-# FIXME: ngettext()
-#, fuzzy
-#~ msgid "Directories Tree:"
-#~ msgstr "フォルダ"
-
-#, fuzzy
-#~ msgid "Create New Dir"
-#~ msgstr "新規アーカイブを作成します"
-
-#~ msgid "Can't create directory \"%s\""
-#~ msgstr "フォルダ「%s」を作成できません"
-
-#, fuzzy
-#~ msgid "Do you want to view the command line output?"
-#~ msgstr "アーカイブ「%s」は既に存在します。上書きしてもよろしいですか？"
-
-#~ msgid "Operation completed."
-#~ msgstr "操作が完了しました。"
-
-#, fuzzy
-#~ msgid "Operation failed!"
-#~ msgstr "操作が失敗しました。"
-
-#~ msgid "Please wait while the content of the archive is being updated..."
-#~ msgstr "アーカイブの内容が更新されるまでの間お待ちください..."
-
-#~ msgid "Operation canceled."
-#~ msgstr "操作が取り消されました。"
-
-#, fuzzy
-#~ msgid "Choose Add to begin creating the archive."
-#~ msgstr ""
-#~ "アーカイブの作成を開始するには「ファイルを追加」か「フォルダを追加」を選ん"
-#~ "でください。"
-
-#~ msgid "Please wait while the content of the archive is being read..."
-#~ msgstr "このアーカイブの内容を読み込むまでお待ちください..."
-
-#~ msgid "Ready."
-#~ msgstr "用意が整いました。"
-
-#, fuzzy
-#~ msgid "Converting archive to self-extracting, please wait..."
-#~ msgstr "アーカイブの整合性を確認しています、お待ちください..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "アーカイブ「%s」を開けません:"
-
-#~ msgid "Command line output"
-#~ msgstr "コマンド行出力"
-
-#~ msgid "Waiting for the process to abort..."
-#~ msgstr "このプロセスが中断するのを待っています..."
-
-#~ msgid "The password has been reset."
-#~ msgstr "パスワードはリセットされています。"
-
-#~ msgid "Please enter the password first!"
-#~ msgstr "初めにパスワードを入力してください！"
-
-#~ msgid "Extracting files to %s"
-#~ msgstr "ファイルを %s に展開しています"
-
-#~ msgid "_View"
-#~ msgstr "表示(_V)"
-
-#~ msgid "_Show comment"
-#~ msgstr "コメントを表示(_S)"
-
-#~ msgid "Enter Archive Password"
-#~ msgstr "アーカイブのパスワードを入力してください"
-
-#, fuzzy
-#~ msgid "Extract..."
-#~ msgstr "展開"
-
-#~ msgid "Archive size:"
-#~ msgstr "サイズ:"
-
-#~ msgid "Content size:"
-#~ msgstr "内容のサイズ:"
-
-#~ msgid "Number of dirs:"
-#~ msgstr "フォルダ数:"
-
-#, fuzzy
-#~ msgid "Show archive comment after loading it"
-#~ msgstr ""
-#~ "アーカイブの作成を開始するには「ファイルを追加」か「フォルダを追加」を選ん"
-#~ "でください。"
-
-#, fuzzy
-#~ msgid "An error occurred while decompressing the cpio archive."
-#~ msgstr ""
-#~ "CPIOアーカイブを解凍中にエラーが発生しました。\n"
-#~ "エラーメッセージ・ウィンドウを表示しますか？"
-
-# INFO: there's a space right after 'add'
-#~ msgid "<b>Files and directories to add </b>"
-#~ msgstr "<b>追加するファイルおよびフォルダ</b>"
-
-#, fuzzy
-#~ msgid ""
-#~ "Include everything in the directory recursively \tstarting from the "
-#~ "current directory."
-#~ msgstr "アーカイブのフォルダ構成を展開先フォルダで再作成します。"
-
-#, fuzzy
-#~ msgid "Freshen an existing entry"
-#~ msgstr "アーカイブ「"
-
-#, fuzzy
-#~ msgid "Update an existing entry"
-#~ msgstr "存在するファイルを更新する"
-
-#~ msgid "Please select the directories you want to add"
-#~ msgstr "追加するフォルダを選択してください"
-
-#~ msgid "Extracting gzip file to %s"
-#~ msgstr "gzip ファイルを %s に展開しています"
-
-#~ msgid "Extracting bzip2 file to %s"
-#~ msgstr "bzip2 ファイルを %s に展開しています"
-
-#~ msgid "Decompressing tar file with %s, please wait..."
-#~ msgstr "Tarファイルを%sで解凍しています、お待ちください..."
-
-#~ msgid "Recompressing tar file with %s, please wait..."
-#~ msgstr "Tarファイルを%sで圧縮しています、お待ちください..."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "%d 個のファイルをアーカイブからを削除しようとしています。"
-
-#~ msgid "An error occurred while trying to kill the process:"
-#~ msgstr "プロセスを終了させようとしている際にエラーが発生しました:"
-
-#~ msgid "An error occurred while extracting the file to be viewed:"
-#~ msgstr "表示するファイルを取り出している際にエラーが発生しました:"
-
-#~ msgid ""
-#~ "An error occurred while converting the file content to the UTF8 encoding:"
-#~ msgstr "ファイルの内容をUTF-8に変換している際にエラーが発生しました:"
-
-#~ msgid "Failed to open link."
-#~ msgstr "リンクを開けませんでした。"
-
-#~ msgid "Choose a folder where to extract files"
-#~ msgstr "ファイルの展開先を選択してください"
-
-#~ msgid "All"
-#~ msgstr "全て"
-
-# INFO: there's a space right after 'extract'
-#~ msgid "<b>Files to extract </b>"
-#~ msgstr "<b>展開するファイル</b>"
-
-#~ msgid "Choose the destination folder where to extract the current archive"
-#~ msgstr "現在のアーカイブを展開するフォルダを選択してください"
-
-#~ msgid "_File"
-#~ msgstr "ファイル(_F)"
-
-#~ msgid "Add files and directories to the current archive"
-#~ msgstr "現在のアーカイブにファイルおよびフォルダを追加します"
-
-#~ msgid "Extract files from the current archive"
-#~ msgstr "現在のアーカイブからファイルを取り出します"
-
-#~ msgid "View file content in the current archive"
-#~ msgstr "現在のアーカイブのファイルの内容を表示します"
-
-#~ msgid ""
-#~ "Extract archive to the directory specified by destination_path and quits."
-#~ msgstr ""
-#~ "destination_path で指定したフォルダにアーカイブを展開して終了します。"
-
-#~ msgid "list"
-#~ msgstr "リスト"
-
-#~ msgid "icon"
-#~ msgstr "アイコン"
-
-#~ msgid "Couldn't remove temporary directory %s:"
-#~ msgstr "一時作業フォルダ %s を削除できません:"
-
-# INFO: `Symbolic' is omitted
-#~ msgid "Symbolic Link"
-#~ msgstr "リンク"
-
-#~ msgid "Show ISO in_fo"
-#~ msgstr "ISO情報を表示(_F)"
-
-#~ msgid "Can't create directory:"
-#~ msgstr "フォルダを作成できません:"
-
-#~ msgid "Can't write file \"%s\":"
-#~ msgstr "ファイル「%s」を書き込めません:"
-
-#~ msgid "Offset"
-#~ msgstr "オフセット"
-
-#~ msgid "Rock Ridge version %d"
-#~ msgstr "ロックリッジ・バージョン %d"
-
-#~ msgid "Rock Ridge - unknown version"
-#~ msgstr "ロックリッジ - バージョン不明"
-
-#~ msgid "ISO Information Window"
-#~ msgstr "ISO情報ウィンドウ"
-
-#~ msgid "Filename:"
-#~ msgstr "ファイル名:"
-
-#~ msgid "Size:"
-#~ msgstr "サイズ:"
-
-#~ msgid "Extension:"
-#~ msgstr "拡張子:"
-
-#~ msgid "System ID:"
-#~ msgstr "システムID:"
-
-#~ msgid "Volume ID:"
-#~ msgstr "ボリュームID:"
-
-#~ msgid "Application:"
-#~ msgstr "アプリケーション:"
-
-#~ msgid "Publisher:"
-#~ msgstr "出版社:"
-
-#~ msgid "Preparer:"
-#~ msgstr "発行人:"
-
-#~ msgid "Creation date:"
-#~ msgstr "作成日時:"
-
-#~ msgid "Modified date:"
-#~ msgstr "変更日時:"
-
-#~ msgid "Expiration date:"
-#~ msgstr "失効日時:"
-
-#~ msgid "Effective date:"
-#~ msgstr "有効日時:"
-
-#~ msgid "Extracting lzma file to %s"
-#~ msgstr "LZMA ファイルを %s に展開しています"
-
-#, fuzzy
-#~ msgid "Preferred format for new archives:"
-#~ msgstr "新規アーカイブを作成します"
-
-#, fuzzy
-#~ msgid "Show ISO info after loading the image"
-#~ msgstr ""
-#~ "アーカイブの作成を開始するには「ファイルを追加」か「フォルダを追加」を選ん"
-#~ "でください。"
-
-#~ msgid "xfce default"
-#~ msgstr "Xfce の標準"
-
-#~ msgid "konqueror"
-#~ msgstr "Konqueror"
-
-#, fuzzy
-#~ msgid "Error while extracting the cpio archive from the rpm one."
-#~ msgstr ""
-#~ "CPIOアーカイブを展開中にエラーが発生しました。\n"
-#~ "エラーメッセージ・ウィンドウを表示しますか？"
-
-#~ msgid "Please wait while the content of the ISO image is being read..."
-#~ msgstr "このISOイメージの内容を読み込むまでお待ちください..."
-
-#~ msgid " bytes"
-#~ msgstr "バイト"
