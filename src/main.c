@@ -195,7 +195,7 @@ int main (int argc, char **argv)
 				no_bzip2_gzip = TRUE;
 			else
 				no_bzip2_gzip = FALSE;
-			archive = xa_new_archive_dialog (argv[1],NULL,no_bzip2_gzip);
+			archive = xa_new_archive_dialog (add_files,NULL,no_bzip2_gzip);
 			if (archive == NULL)
 				return -1;
 
@@ -203,7 +203,7 @@ int main (int argc, char **argv)
 			{
 				xa_create_temp_directory(archive);
 				archive->add_recurse = TRUE;
-				_current_dir = g_path_get_dirname(argv[1]);
+				_current_dir = g_path_get_dirname(add_files);
 				chdir (_current_dir);
 				g_free(_current_dir);
 				GSList *files = NULL;
