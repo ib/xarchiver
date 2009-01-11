@@ -9,23 +9,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-11-04 07:31+0100\n"
+"POT-Creation-Date: 2009-01-11 12:52+0100\n"
 "PO-Revision-Date: 2008-11-30 08:52+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.2.0\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:87 ../src/rar.c:63
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
 msgstr "Jatorrizkoa"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:87 ../src/gzip.c:78
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
 #: ../src/rar.c:63 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Konprimiturik"
@@ -34,17 +34,17 @@ msgstr "Konprimiturik"
 msgid "Attr"
 msgstr "Atrib"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:167 ../src/gzip.c:61
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
 #: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Time"
 msgstr "Ordua"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:167 ../src/gzip.c:61
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
 #: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
 msgid "Date"
 msgstr "Data"
 
-#: ../src/add_dialog.c:37 ../src/interface.c:403
+#: ../src/add_dialog.c:37 ../src/interface.c:396
 msgid "Add files"
 msgstr "Gehitu fitxategiak"
 
@@ -122,7 +122,7 @@ msgstr "Ekintzak: "
 msgid "Compression: "
 msgstr "Konpresio maila: "
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:156
 msgid "Password:"
 msgstr "Pasahitza:"
 
@@ -134,47 +134,47 @@ msgstr "Enkriptazioa: "
 msgid "_Add"
 msgstr "_Gehitu"
 
-#: ../src/add_dialog.c:246
+#: ../src/add_dialog.c:252
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = konpresiorik ez, 5 lehenetsia, 9 = konpresio hoberen baina geldoena"
 
-#: ../src/add_dialog.c:252
+#: ../src/add_dialog.c:258
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = konpresiorik ez, 6 lehenetsia, 9 = konpresio hoberen baina geldoena"
 
-#: ../src/add_dialog.c:258
+#: ../src/add_dialog.c:264
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr ""
 "0 = konpresiorik ez, 3 lehenetsia, 5 = konpresio hoberen baina geldoena"
 
-#: ../src/add_dialog.c:264
+#: ../src/add_dialog.c:270
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = konpresiorik ez, 1 lehenetsia, 4 = azkarren baina konpresio gutxiena"
 
-#: ../src/add_dialog.c:270
+#: ../src/add_dialog.c:276
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = lehenetsiriko konpresioa, 7 = konpresio handiena"
 
-#: ../src/add_dialog.c:370 ../src/main.c:209
+#: ../src/add_dialog.c:376 ../src/main.c:228
 msgid "Can't add files to the archive:"
 msgstr "Ezin dira fitxategiak artxibora gehitu:"
 
-#: ../src/add_dialog.c:370
+#: ../src/add_dialog.c:376
 msgid "You haven't selected any files to add!"
 msgstr "Ez duzu gehitzeko fitxategirik hautatu!"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:825
+#: ../src/add_dialog.c:384 ../src/interface.c:816
 msgid "You missed the password!"
 msgstr "Mesedez pasahitza idatzi!"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:825
+#: ../src/add_dialog.c:384 ../src/interface.c:816
 msgid "Please enter it!"
 msgstr "Mesedez idatz ezazu!"
 
-#: ../src/add_dialog.c:448
+#: ../src/add_dialog.c:454
 msgid "Adding files to archive, please wait..."
 msgstr "Fitxategiak artxibora gehitzen, itxoin mesedez..."
 
@@ -194,85 +194,85 @@ msgstr "Erlazioa"
 msgid "Attributes"
 msgstr "Atributuak"
 
-#: ../src/bzip2.c:167 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Points to"
 msgstr "Hona lotua: "
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
 #: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Permissions"
 msgstr "Baimenak"
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
 msgid "Owner/Group"
 msgstr "Jabea/Taldea"
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/extract_dialog.c:398
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:398
 #: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Size"
 msgstr "Tamaina"
 
-#: ../src/window.c:58
+#: ../src/window.c:60
 msgid "An error occurred!"
 msgstr "Errore bat gertatu da!"
 
-#: ../src/window.c:58
+#: ../src/window.c:60
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr "Mesedez hautatu 'Biltegi artxibatze irteera' berau ikusteko."
 
-#: ../src/window.c:144
+#: ../src/window.c:147
 msgid "Archiver output"
 msgstr "Artxibatze irteera"
 
-#: ../src/window.c:179
+#: ../src/window.c:182
 msgid "An error occurred while accessing the archive:"
 msgstr "Errore bat gertatu da artxiboa atzitzerakoan:"
 
-#: ../src/window.c:251
+#: ../src/window.c:254
 msgid "Save the archive as"
 msgstr "Gorde artxiboa honela"
 
-#: ../src/window.c:310
+#: ../src/window.c:313
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Ezin da \"%s\" fitxategia ireki:"
 
-#: ../src/window.c:336
+#: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Barkatu, artxibo formatu hau ez da onartzen:"
 
-#: ../src/window.c:336
+#: ../src/window.c:339
 msgid "the proper archiver is not installed!"
 msgstr "konpresore egokia ez dago instalaturik!"
 
-#: ../src/window.c:350
+#: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Ezin da artxibo egiturarentzat memoria esleitu:"
 
-#: ../src/window.c:375
+#: ../src/window.c:378
 msgid "Opening archive,please wait..."
 msgstr "Artxiboa irekitzan, itxoin mesedez..."
 
-#: ../src/window.c:399
+#: ../src/window.c:402
 msgid "Testing archive,please wait..."
 msgstr "Artxiboa probatzen, itxoin mesedez..."
 
-#: ../src/window.c:419
+#: ../src/window.c:422
 msgid "Print the archive content as HTML"
 msgstr "Inprimatu artxibo edukia HTML gisa"
 
-#: ../src/window.c:421
+#: ../src/window.c:424
 msgid "Print the archive content as text"
 msgstr "Inprimatu artxibo edukia testu gisa"
 
-#: ../src/window.c:470
+#: ../src/window.c:473
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Artxibo edukiak:\n"
 
-#: ../src/window.c:474
+#: ../src/window.c:477
 #, c-format
 msgid ""
 "\n"
@@ -281,206 +281,206 @@ msgstr ""
 "\n"
 "Izena: "
 
-#: ../src/window.c:483
+#: ../src/window.c:486
 #, c-format
 msgid "Compressed   size: "
 msgstr "Tamaina konprimiturik: "
 
-#: ../src/window.c:490
+#: ../src/window.c:493
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Konprimitu-gabeko tamaina: "
 
-#: ../src/window.c:498
+#: ../src/window.c:501
 #, c-format
 msgid "Number of files: "
 msgstr "Fitxategi kopurua: "
 
-#: ../src/window.c:506
+#: ../src/window.c:509
 #, c-format
 msgid "Comment:\n"
 msgstr "Iruzkina:\n"
 
-#: ../src/window.c:519
+#: ../src/window.c:522
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Fitxategiak:%*s%s"
 
-#: ../src/window.c:519
+#: ../src/window.c:522
 msgid "|Compressed\n"
 msgstr "Konprimiturik\n"
 
-#: ../src/window.c:525
+#: ../src/window.c:528
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Fitxategiak:</th>"
 
-#: ../src/window.c:526
+#: ../src/window.c:529
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Konprimiturik:</th>"
 
-#: ../src/window.c:716
+#: ../src/window.c:720
 msgid "Are you sure you want to do this?"
 msgstr "Ziur zaude hau egin nahi duzula?"
 
-#: ../src/window.c:809 ../src/window.c:909
+#: ../src/window.c:813 ../src/window.c:913
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Ezin da paketea auto-ateragarri egin:"
 
-#: ../src/window.c:820 ../src/window.c:920
+#: ../src/window.c:824 ../src/window.c:924
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Ezin da unzipsfx modulua paketean idatzi:"
 
-#: ../src/window.c:880
+#: ../src/window.c:884
 msgid "Please select the 7zCon.sfx module"
 msgstr "Mesedez hautatu 7zCon.sfx modulua"
 
-#: ../src/window.c:977
+#: ../src/window.c:981
 msgid "translator-credits"
 msgstr "Piarres Beobide <pi@beobide.net>"
 
-#: ../src/window.c:1007
+#: ../src/window.c:1011
 msgid "Save the self-extracting archive as"
 msgstr "Artxibo auto-ateragarria horrela gorde: "
 
-#: ../src/window.c:1036 ../src/interface.c:350
+#: ../src/window.c:1040 ../src/interface.c:348
 msgid "Open an archive"
 msgstr "Artxiboa ireki"
 
-#: ../src/window.c:1049 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1053 ../src/extract_dialog.c:91 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Fitxategi guztiak"
 
-#: ../src/window.c:1054 ../src/new_dialog.c:67
+#: ../src/window.c:1058 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "Artxiboak bakarrik"
 
-#: ../src/window.c:1266
+#: ../src/window.c:1272
 msgid "Filename"
 msgstr "Fitxategi Izena"
 
-#: ../src/window.c:1323
+#: ../src/window.c:1329
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Hau eginez ziurrenik paketea hondatuko duzu!"
 
-#: ../src/window.c:1323
+#: ../src/window.c:1329
 msgid "Do you really want to cancel?"
 msgstr "Benetan utzi egin nahi duzu?"
 
-#: ../src/window.c:1386 ../src/window.c:1401
+#: ../src/window.c:1392 ../src/window.c:1407
 msgid "Yes"
 msgstr "Bai"
 
-#: ../src/window.c:1388 ../src/window.c:1403
+#: ../src/window.c:1394 ../src/window.c:1409
 msgid "No"
 msgstr "Ez"
 
-#: ../src/window.c:1602
+#: ../src/window.c:1612
 msgid "selected"
 msgstr "Hautatutakoak"
 
-#: ../src/window.c:1607
+#: ../src/window.c:1617
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "Fitxategi %d eta direktorio %d %s (%s)"
 msgstr[1] "%d fitxategi eta %d direktorio %s (%s)"
 
-#: ../src/window.c:1609
+#: ../src/window.c:1619
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "Direktorio %d %s (%s)"
 msgstr[1] "%d direktorio %s (%s)"
 
-#: ../src/window.c:1612
+#: ../src/window.c:1622
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "fitxategi %d %s (%s)"
 msgstr[1] "%d fitxategi %s (%s)"
 
-#: ../src/window.c:1668
+#: ../src/window.c:1678
 msgid "Can't perform another extraction:"
 msgstr "Ezin da beste ateratze bat aurrera eraman:"
 
-#: ../src/window.c:1668
+#: ../src/window.c:1678
 msgid "Please wait until the completion of the current one!"
 msgstr "Mesedez itxoin martxan dagoen  osatzen den bitartean!"
 
-#: ../src/window.c:1701 ../src/extract_dialog.c:343
+#: ../src/window.c:1711 ../src/extract_dialog.c:344
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "Ez duzu baimenik fitxategiak \"%s\" direktoriora ateratzeko."
 
-#: ../src/window.c:1702 ../src/extract_dialog.c:344
+#: ../src/window.c:1712 ../src/extract_dialog.c:345
 msgid "Can't perform extraction!"
 msgstr "Ezin da ateratzea aurrera eraman!"
 
-#: ../src/window.c:1743 ../src/extract_dialog.c:653 ../src/interface.c:1405
+#: ../src/window.c:1753 ../src/extract_dialog.c:653 ../src/interface.c:1400
 msgid "Sorry,I could not perform the operation!"
 msgstr "Barkatu ezin dut ekintza aurrera eraman!"
 
-#: ../src/window.c:1777 ../src/window.c:1789 ../src/interface.c:1398
+#: ../src/window.c:1787 ../src/window.c:1799 ../src/interface.c:1393
 msgid "Can't perform this action:"
 msgstr "Ezin da ekintza hau aurrera eraman:"
 
-#: ../src/window.c:1777
+#: ../src/window.c:1787
 msgid "You have to install rar package!"
 msgstr "Rar paketea instalatu behar duzu!"
 
-#: ../src/window.c:1784 ../src/interface.c:1395
+#: ../src/window.c:1794 ../src/interface.c:1390
 msgid "You can't add content to deb packages!"
 msgstr "Ezin duzu deb paketeetara edukia gehitu!"
 
-#: ../src/window.c:1786 ../src/interface.c:1397
+#: ../src/window.c:1796 ../src/interface.c:1392
 msgid "You can't add content to rpm packages!"
 msgstr "Ezin duzu rpm paketeetara edukia gehitu!"
 
-#: ../src/window.c:1788
+#: ../src/window.c:1798
 msgid "The archiver doesn't support this feature!"
 msgstr "Konprimatzaileak ez du ezaugarri hau onartzen!"
 
-#: ../src/window.c:1869
+#: ../src/window.c:1879
 msgid "You didn't set which browser to use!"
 msgstr "Ez duzu zein nabigatzaile erabili ezarri!"
 
-#: ../src/window.c:1869 ../src/window.c:1910
+#: ../src/window.c:1879 ../src/window.c:1920
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Joan Hobespenak->Aurreratuak atalera eta ezarri ezazu."
 
-#: ../src/window.c:1901
+#: ../src/window.c:1911
 msgid "This file type is not supported!"
 msgstr "Fitxategi formatu hau ez da onartzen!"
 
-#: ../src/window.c:1901
+#: ../src/window.c:1911
 msgid "Please install xdg-utils package."
 msgstr "Mesedez instalatu xdg-utils paketea."
 
-#: ../src/window.c:1910
+#: ../src/window.c:1920
 msgid "You didn't set which program to use for opening this file!"
 msgstr "Ez duzu ezarri zein programa erabili fitxategi hau irekitzeko!"
 
-#: ../src/window.c:1937
+#: ../src/window.c:1946
 msgid "Failed to launch the application!"
 msgstr "Huts aplikazioa abiaraztean!"
 
-#: ../src/window.c:1989
+#: ../src/window.c:1998
 msgid "Comment"
 msgstr "Iruzkina:"
 
-#: ../src/window.c:2019
+#: ../src/window.c:2028
 msgid "From File"
 msgstr "Fitxategitik"
 
-#: ../src/window.c:2124
+#: ../src/window.c:2133
 msgid "Open a text file"
 msgstr "Ireki testu fitxategi bat"
 
-#: ../src/window.c:2142
+#: ../src/window.c:2151
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Ezin da %s fitxategia ireki"
@@ -489,41 +489,41 @@ msgstr "Ezin da %s fitxategia ireki"
 msgid "Date modified"
 msgstr "Data aldatua"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:471
+#: ../src/extract_dialog.c:65 ../src/extract_dialog.c:471
 msgid "Extract to:"
 msgstr "Hona atera:"
 
-#: ../src/extract_dialog.c:95
+#: ../src/extract_dialog.c:96
 msgid "Selected files"
 msgstr "Hautaturiko fitxategiak"
 
-#: ../src/extract_dialog.c:103
+#: ../src/extract_dialog.c:104
 msgid "Files: "
 msgstr "Fitxategiak: "
 
-#: ../src/extract_dialog.c:114
+#: ../src/extract_dialog.c:115
 msgid "Files "
 msgstr "Fitxategiak "
 
-#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:498
+#: ../src/extract_dialog.c:129 ../src/extract_dialog.c:498
 msgid "Overwrite existing files"
 msgstr "Dauden fitxategiak gainidatzi"
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c:132
 msgid "Extract files with full path"
 msgstr "Fitxategia bide osoarekin atera"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:133
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 "Artxiboaren direktorio egitura birsortua izango da ateratze direktorioan."
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c:136
 msgid "Touch files"
 msgstr "Fitxategiak ukitu"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:137
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -532,11 +532,11 @@ msgstr ""
 "Aukera hau erabiltzean tar-ek fitxategiaren eraldatze data fitxategiak atera "
 "direnean ezartzen du, paketean gorde ziren data erabili beharrean."
 
-#: ../src/extract_dialog.c:139
+#: ../src/extract_dialog.c:140
 msgid "Freshen existing files"
 msgstr "Dauden fitxategiak freskatu"
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c:141
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
@@ -544,11 +544,11 @@ msgstr ""
 "Diskoan dauden eta diskoko kopia baino berriagoak diren fitxategiak bakarrik "
 "atera."
 
-#: ../src/extract_dialog.c:144
+#: ../src/extract_dialog.c:145
 msgid "Update existing files"
 msgstr "Dauden fitxategiak eguneratu"
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c:146
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -557,36 +557,36 @@ msgstr ""
 "Freskatze aukeran bezala diskoan dauden eta diskoko kopia baino berriagoak "
 "diren fitxategiak ateratzen ditu baina baita diskoan ez dauden fitxategiak."
 
-#: ../src/extract_dialog.c:149
+#: ../src/extract_dialog.c:150
 msgid "Options "
 msgstr "Aukerak "
 
-#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:514
+#: ../src/extract_dialog.c:173 ../src/extract_dialog.c:514
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Atera"
 
-#: ../src/extract_dialog.c:226
+#: ../src/extract_dialog.c:227
 msgid "Decompress file"
 msgstr "Fitxategia deskonprimitu"
 
-#: ../src/extract_dialog.c:228 ../src/interface.c:412
+#: ../src/extract_dialog.c:229 ../src/interface.c:404
 msgid "Extract files"
 msgstr "Atera fitxategiak"
 
-#: ../src/extract_dialog.c:319 ../src/extract_dialog.c:727
+#: ../src/extract_dialog.c:320 ../src/extract_dialog.c:726
 msgid "You missed where to extract the files!"
 msgstr "Mesedez fitxategiak nora atera hautatu!"
 
-#: ../src/extract_dialog.c:319
+#: ../src/extract_dialog.c:320
 msgid "Please enter the extraction path."
 msgstr "Mesedez ateratze bidea idatzi."
 
-#: ../src/extract_dialog.c:333
+#: ../src/extract_dialog.c:334
 msgid "This archive is encrypted!"
 msgstr "Artxiboa enkriptatua dago!"
 
-#: ../src/extract_dialog.c:333
+#: ../src/extract_dialog.c:334
 msgid "Please enter the password."
 msgstr "Mesedez pasahitza idatz ezazu."
 
@@ -637,19 +637,19 @@ msgstr "Mesedez atera nahi dituzun fitxategiak hautatu"
 msgid "Please select the destination directory"
 msgstr "Mesedez hautatu helburu direktorioa"
 
-#: ../src/extract_dialog.c:719
+#: ../src/extract_dialog.c:718
 msgid "Can't multi-extract archives:"
 msgstr "Ezin dira artxiboak atera-anitz:"
 
-#: ../src/extract_dialog.c:719
+#: ../src/extract_dialog.c:718
 msgid "You haven't added any of them!"
 msgstr "Ez duzu gehitzeko bat ere ez hautatu!"
 
-#: ../src/extract_dialog.c:727
+#: ../src/extract_dialog.c:726
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Mesedez bete \"aterahona\" eremua!"
 
-#: ../src/extract_dialog.c:760
+#: ../src/extract_dialog.c:757
 msgid "Some errors occurred:"
 msgstr "Zenbait errore gertatu dira:"
 
@@ -693,7 +693,7 @@ msgstr "Ekintz_a"
 msgid "A_dd"
 msgstr "Ge_hitu"
 
-#: ../src/interface.c:194 ../src/interface.c:922
+#: ../src/interface.c:194 ../src/interface.c:913
 msgid "Rename"
 msgstr "Berizendatu"
 
@@ -741,225 +741,209 @@ msgstr "_Laguntza"
 msgid "_Thanks to"
 msgstr "E_skerrak honi"
 
-#: ../src/interface.c:338
-msgid "New"
-msgstr "Berria"
-
-#: ../src/interface.c:342 ../src/new_dialog.c:50
+#: ../src/interface.c:341 ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "Pakete berria sortu"
 
-#: ../src/interface.c:346
-msgid "Open"
-msgstr "Ireki"
-
-#: ../src/interface.c:358 ../src/interface.c:363
+#: ../src/interface.c:360
 msgid "Back"
 msgstr "Atzera"
 
-#: ../src/interface.c:367 ../src/interface.c:372
+#: ../src/interface.c:368
 msgid "Up"
 msgstr "Gora"
 
-#: ../src/interface.c:376 ../src/interface.c:381
+#: ../src/interface.c:376
 msgid "Forward"
 msgstr "Aurrera"
 
-#: ../src/interface.c:385
-msgid "Home"
-msgstr "Etxea"
-
-#: ../src/interface.c:390
+#: ../src/interface.c:384
 msgid "Root"
 msgstr "Erroa"
 
-#: ../src/interface.c:398
-msgid "Add"
-msgstr "Gehitu"
-
-#: ../src/interface.c:407 ../src/interface.c:862
-msgid "Extract"
-msgstr "Atera"
-
-#: ../src/interface.c:420
-msgid "Stop"
-msgstr "Gelditu"
-
-#: ../src/interface.c:425
+#: ../src/interface.c:416
 msgid "Cancel current operation"
 msgstr "Uneko ekintza ezeztatu"
 
-#: ../src/interface.c:438
+#: ../src/interface.c:429
 msgid "Location:"
 msgstr "Kokapena:"
 
-#: ../src/interface.c:477
+#: ../src/interface.c:468
 msgid "Archive tree"
 msgstr "Artxibo zuhaitza"
 
-#: ../src/interface.c:525
+#: ../src/interface.c:516
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr ""
 "Hau Xarchiver argi egoera da. Dir-dir egitean Xarchiver lanpeturik dago."
 
-#: ../src/interface.c:694
+#: ../src/interface.c:685
 msgid "Close archive"
 msgstr "Itxi artxiboa"
 
-#: ../src/interface.c:779
+#: ../src/interface.c:770
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr ""
 "<span weight='bold' size='larger'>Pasahitza beharrezkoa honentzat:</span>"
 
-#: ../src/interface.c:781
+#: ../src/interface.c:772
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>Idatzi honen pasahitza:</span>"
 
-#: ../src/interface.c:799
+#: ../src/interface.c:790
 msgid "_Password:"
 msgstr "_Pasahitza:"
 
-#: ../src/interface.c:854 ../src/open-with-dlg.c:52
+#: ../src/interface.c:845 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "Ireki honekin"
 
-#: ../src/interface.c:870
+#: ../src/interface.c:853
+msgid "Extract"
+msgstr "Atera"
+
+#: ../src/interface.c:861
 msgid "View"
 msgstr "Ikusi"
 
-#: ../src/interface.c:883
+#: ../src/interface.c:874
 msgid "Cut"
 msgstr "Ebaki"
 
-#: ../src/interface.c:891
+#: ../src/interface.c:882
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: ../src/interface.c:899
+#: ../src/interface.c:890
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: ../src/interface.c:913
+#: ../src/interface.c:904
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: ../src/interface.c:961
+#: ../src/interface.c:952
 msgid "Select by Pattern"
 msgstr "Hautatu patroiez"
 
-#: ../src/interface.c:974
+#: ../src/interface.c:965
 msgid "Pattern:"
 msgstr "Patroia:"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:970
 msgid "example: *.txt; ac*"
 msgstr "adibidez: *.txt; ac*"
 
-#: ../src/interface.c:996
+#: ../src/interface.c:987
 msgid "_Select"
 msgstr "Hau_tatu"
 
-#: ../src/interface.c:1068
+#: ../src/interface.c:1059
 msgid "Archive Properties"
 msgstr "Artxibo Propietateak"
 
-#: ../src/interface.c:1089
+#: ../src/interface.c:1080
 msgid "Name:"
 msgstr "Izena:"
 
-#: ../src/interface.c:1096
+#: ../src/interface.c:1087
 msgid "Path:"
 msgstr "Bidea:"
 
-#: ../src/interface.c:1103
+#: ../src/interface.c:1094
 msgid "Type:"
 msgstr "Mota:"
 
-#: ../src/interface.c:1110
+#: ../src/interface.c:1101
 msgid "Encrypted:"
 msgstr "Enkriptatua:"
 
-#: ../src/interface.c:1117
+#: ../src/interface.c:1108
 msgid "Modified on:"
 msgstr "Eraldaketa data:"
 
-#: ../src/interface.c:1124
+#: ../src/interface.c:1115
 msgid "Compressed size:"
 msgstr "Konprimituriko tamaina:"
 
-#: ../src/interface.c:1131
+#: ../src/interface.c:1122
 msgid "Uncompressed size:"
 msgstr "Konprimitu gabeko tamaina:"
 
-#: ../src/interface.c:1138
+#: ../src/interface.c:1129
 msgid "Comment:"
 msgstr "Iruzkina:"
 
-#: ../src/interface.c:1145
+#: ../src/interface.c:1136
 msgid "Number of files:"
 msgstr "Fitxategi kopurua:"
 
-#: ../src/interface.c:1152
+#: ../src/interface.c:1143
 msgid "Compression ratio:"
 msgstr "Konpresio erlazioa:"
 
-#: ../src/interface.c:1513 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1507 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1540
+#: ../src/interface.c:1534
 msgid "Extracting from archive:"
 msgstr "Artxibotik ateratzen:"
 
-#: ../src/interface.c:1542
+#: ../src/interface.c:1536
 msgid "Adding to archive:"
 msgstr "Artxibora gehitzen:"
 
-#: ../src/interface.c:1562
+#: ../src/interface.c:1556
 msgid "Total Progress:"
 msgstr "Aurrerapena:"
 
-#: ../src/main.c:57
+#: ../src/main.c:58
 msgid "Extract archive to the destination directory and quits."
 msgstr "Helburu direktorioa galdetuaz artxiboa atera eta irten,"
 
-#: ../src/main.c:58
+#: ../src/main.c:59
 msgid "destination archive"
 msgstr "helburu artxiboa"
 
-#: ../src/main.c:61
+#: ../src/main.c:62
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "Helburu direktorioa galdetuaz artxiboa  atera eta irten,"
 
-#: ../src/main.c:62 ../src/main.c:74
+#: ../src/main.c:63 ../src/main.c:75
 msgid "archive"
 msgstr "artxiboa"
 
-#: ../src/main.c:65
+#: ../src/main.c:66
 msgid "Multi-extract archives"
 msgstr "Artxibo ateratze-anitz"
 
-#: ../src/main.c:66
+#: ../src/main.c:67
 msgid "filenames"
 msgstr "Fitxategi-izenak"
 
-#: ../src/main.c:69
+#: ../src/main.c:70
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Emandako fitxategiak artxibo izena galdetuaz gehitu eta irten."
 
-#: ../src/main.c:70
+#: ../src/main.c:71
 msgid "file1 file2 file3 ... fileN"
 msgstr "fitx1 fitx2 fitx3 ... fitxN"
 
-#: ../src/main.c:73
+#: ../src/main.c:74
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Fitxategiak gehitu artxibora izenak galdetuaz eta irten."
 
-#: ../src/main.c:102
+#: ../src/main.c:78
+msgid "Show version and exit"
+msgstr ""
+
+#: ../src/main.c:105
 msgid "[archive name]"
 msgstr "[artxibo izena]"
 
-#: ../src/main.c:106
+#: ../src/main.c:109
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -969,19 +953,24 @@ msgstr ""
 "xarchiver --help erabili komando lerro bidezko aukera guztien zerrenda osoa "
 "ikusteko.\n"
 
-#: ../src/main.c:131 ../src/main.c:154
+#: ../src/main.c:119
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr ""
+
+#: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
 msgstr "Ezin dira artxibotik fitxategiak atera:"
 
-#: ../src/main.c:131 ../src/main.c:154 ../src/main.c:209
+#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Artxibo izena falta da!\n"
 
-#: ../src/main.c:257
+#: ../src/main.c:276
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "\"Berria\" hautatu sortzeko edo \"Ireki\" artxibo bat irekitzeko"
 
-#: ../src/main.c:496
+#: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Ezin da artxibo egiturarentzat memoria esleitu!"
 
@@ -1002,7 +991,7 @@ msgstr "Komando pertsonalizatu bat erabili:"
 msgid "Browse"
 msgstr "Nabigatu"
 
-#: ../src/open-with-dlg.c:310
+#: ../src/open-with-dlg.c:311
 msgid "Select an application"
 msgstr "Hautatu aplikazio bat"
 
@@ -1018,25 +1007,25 @@ msgstr "Artxibo mota:"
 msgid "Choose the archive type to create"
 msgstr "Hautatu sortu behar den artxiboaren mota"
 
-#: ../src/new_dialog.c:119
+#: ../src/new_dialog.c:112
 msgid "Add the archive extension to the filename"
 msgstr "Artxibo luzapena gehitu fitxategi izenera"
 
-#: ../src/new_dialog.c:166
+#: ../src/new_dialog.c:159
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" dagoeneko irekirik dago!"
 
-#: ../src/new_dialog.c:167
+#: ../src/new_dialog.c:160
 msgid "Can't create a new archive:"
 msgstr "Ezin da artxibo berria sortu:"
 
-#: ../src/new_dialog.c:182
+#: ../src/new_dialog.c:175
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "\"%s\" artxiboa badago dagoeneko!"
 
-#: ../src/new_dialog.c:188
+#: ../src/new_dialog.c:181
 msgid "Do you want to overwrite it?"
 msgstr "Gainidatzi nahi duzu?"
 
@@ -1056,98 +1045,98 @@ msgstr "Leihoa"
 msgid "Advanced"
 msgstr "Aurreratua"
 
-#: ../src/pref_dialog.c:99
+#: ../src/pref_dialog.c:97
 msgid "Preferred archive format"
 msgstr "Hobetsiriko artxibo formatua"
 
-#: ../src/pref_dialog.c:117
+#: ../src/pref_dialog.c:115
 msgid "Confirm deletion of files"
 msgstr "Fitxategi ezabatzea berretsi"
 
-#: ../src/pref_dialog.c:121
+#: ../src/pref_dialog.c:119
 msgid "Sort archive by filename"
 msgstr "Edukiak izenez ordenatu"
 
-#: ../src/pref_dialog.c:124
+#: ../src/pref_dialog.c:122
 msgid "The filename column is sorted after loading the archive"
 msgstr "Fitxategi izen zutabea ordenatu egingo da paketea kargatu ondoren"
 
-#: ../src/pref_dialog.c:126
+#: ../src/pref_dialog.c:124
 msgid "Store archiver output"
 msgstr "Gorde artxibo irteera"
 
-#: ../src/pref_dialog.c:129
+#: ../src/pref_dialog.c:127
 msgid "This option takes more memory with large archives"
 msgstr "Aukera honek memoria asko erabiltzen du artxibo handiekin"
 
-#: ../src/pref_dialog.c:140
+#: ../src/pref_dialog.c:138
 msgid "Icons size (requires restart)"
 msgstr "Ikono tamaina (berrabiaraztea beharrezkoa)"
 
-#: ../src/pref_dialog.c:146
+#: ../src/pref_dialog.c:144
 msgid "large"
 msgstr "handia"
 
-#: ../src/pref_dialog.c:147
+#: ../src/pref_dialog.c:145
 msgid "small"
 msgstr "txikia"
 
-#: ../src/pref_dialog.c:152
+#: ../src/pref_dialog.c:150
 msgid "Show archive comment"
 msgstr "Ikusi artxibo iruzkina"
 
-#: ../src/pref_dialog.c:153
+#: ../src/pref_dialog.c:151
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Hautaturik badago artxiboiruzkina ikusiko da artxiboa kargatzerakoan"
 
-#: ../src/pref_dialog.c:159
+#: ../src/pref_dialog.c:157
 msgid "Show archive tree sidebar"
 msgstr "Ikusiartxibo zuhaitz alboko-barra"
 
-#: ../src/pref_dialog.c:165
+#: ../src/pref_dialog.c:163
 msgid "Show archive location bar"
 msgstr "Artxibo kokapen-barra ikusi"
 
-#: ../src/pref_dialog.c:187
+#: ../src/pref_dialog.c:185
 msgid "Web browser to use:"
 msgstr "Erabiliko den web nabigatzailea:"
 
-#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:207 ../src/pref_dialog.c:220
-#: ../src/pref_dialog.c:233
+#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
+#: ../src/pref_dialog.c:231
 msgid "choose..."
 msgstr "hautatu..."
 
-#: ../src/pref_dialog.c:200
+#: ../src/pref_dialog.c:198
 msgid "Open text files with:"
 msgstr "Ireki testu fitxategiak honekin:"
 
-#: ../src/pref_dialog.c:213
+#: ../src/pref_dialog.c:211
 msgid "Open image files with:"
 msgstr "Ireki irudi fitxategiak honekin:"
 
-#: ../src/pref_dialog.c:226
+#: ../src/pref_dialog.c:224
 msgid "Preferred temp directory:"
 msgstr "Hobetsiriko aldiroko direktorioa"
 
-#: ../src/pref_dialog.c:232
+#: ../src/pref_dialog.c:230
 msgid "/tmp"
 msgstr "/tmp"
 
-#: ../src/pref_dialog.c:239
+#: ../src/pref_dialog.c:237
 msgid "Save window geometry"
 msgstr "Gorde leiho geometria"
 
-#: ../src/pref_dialog.c:244
+#: ../src/pref_dialog.c:242
 msgid "Allow subdirs with drag and drop"
 msgstr "Onartu azpidirektorioak arratstratu eta jaregitea"
 
-#: ../src/pref_dialog.c:248
+#: ../src/pref_dialog.c:246
 msgid ""
 "This option includes the subdirectories when you add files with drag and drop"
 msgstr ""
 "Aukera honek azpidirektorioak ere hartzen ditu zuk arratratu eta jaregitean"
 
-#: ../src/pref_dialog.c:253
+#: ../src/pref_dialog.c:251
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
@@ -1156,11 +1145,11 @@ msgstr ""
 "Xarchiver\n"
 "fitxategi mota gehiago ezagutzeko gai izateko.</span>"
 
-#: ../src/pref_dialog.c:563
+#: ../src/pref_dialog.c:560
 msgid "Choose the temp directory to use"
 msgstr "Hautatu erabiliko den aldiroko direktorioa"
 
-#: ../src/pref_dialog.c:563
+#: ../src/pref_dialog.c:560
 msgid "Choose the application to use"
 msgstr "Hautatu erabiliko den aplikazioa"
 
@@ -1220,6 +1209,21 @@ msgstr "GTK+2-rako bakarrik artxibo kudeatzailea"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Pakete kudeatzailea"
+
+#~ msgid "New"
+#~ msgstr "Berria"
+
+#~ msgid "Open"
+#~ msgstr "Ireki"
+
+#~ msgid "Home"
+#~ msgstr "Etxea"
+
+#~ msgid "Add"
+#~ msgstr "Gehitu"
+
+#~ msgid "Stop"
+#~ msgstr "Gelditu"
 
 #~ msgid "Archive format is not recognized!"
 #~ msgstr "Artxibo honen formatua ez da ezagutzen!"

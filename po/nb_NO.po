@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2008-11-04 07:31+0100\n"
+"POT-Creation-Date: 2009-01-11 12:52+0100\n"
 "PO-Revision-Date: 2008-10-22 20:11+0200\n"
 "Last-Translator: Terje Uriansrud <ter@operamail.com>\n"
 "Language-Team: Norwegian Bokmal\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:87 ../src/rar.c:63
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
 msgstr "Original"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:87 ../src/gzip.c:78
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
 #: ../src/rar.c:63 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Pakket"
@@ -30,17 +30,17 @@ msgstr "Pakket"
 msgid "Attr"
 msgstr "Attr"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:167 ../src/gzip.c:61
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
 #: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Time"
 msgstr "Tid"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:167 ../src/gzip.c:61
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
 #: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
 msgid "Date"
 msgstr "Dato"
 
-#: ../src/add_dialog.c:37 ../src/interface.c:403
+#: ../src/add_dialog.c:37 ../src/interface.c:396
 msgid "Add files"
 msgstr "Legg til filer"
 
@@ -117,7 +117,7 @@ msgstr "Aksjoner: "
 msgid "Compression: "
 msgstr "Komprimering: "
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:156
 msgid "Password:"
 msgstr "Passord: "
 
@@ -129,47 +129,47 @@ msgstr "Kryptering: "
 msgid "_Add"
 msgstr "_Legg til"
 
-#: ../src/add_dialog.c:246
+#: ../src/add_dialog.c:252
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = ingen komprimering, 5 er forvalgt, 9 = best komprimering men tregere"
 
-#: ../src/add_dialog.c:252
+#: ../src/add_dialog.c:258
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = ingen komprimering, 6 er forvalgt, 9 = best komprimering men tregere"
 
-#: ../src/add_dialog.c:258
+#: ../src/add_dialog.c:264
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr ""
 "0 = ingen komprimering, 3 er forvalgt, 5 = best komprimering men tregere"
 
-#: ../src/add_dialog.c:264
+#: ../src/add_dialog.c:270
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = ingen komprimering, 1 er forvalgt, 4 = raskest men mindre komrimering"
 
-#: ../src/add_dialog.c:270
+#: ../src/add_dialog.c:276
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = forvalgt komprimering, 7 = maks komprimering"
 
-#: ../src/add_dialog.c:370 ../src/main.c:209
+#: ../src/add_dialog.c:376 ../src/main.c:228
 msgid "Can't add files to the archive:"
 msgstr "Kan ikke legge til filer i arkivet:"
 
-#: ../src/add_dialog.c:370
+#: ../src/add_dialog.c:376
 msgid "You haven't selected any files to add!"
 msgstr "Du har ikke valgt noen filer som skal legges til"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:825
+#: ../src/add_dialog.c:384 ../src/interface.c:816
 msgid "You missed the password!"
 msgstr "Du glemte passordet"
 
-#: ../src/add_dialog.c:378 ../src/interface.c:825
+#: ../src/add_dialog.c:384 ../src/interface.c:816
 msgid "Please enter it!"
 msgstr "Legg det inn!"
 
-#: ../src/add_dialog.c:448
+#: ../src/add_dialog.c:454
 msgid "Adding files to archive, please wait..."
 msgstr "Legger til filer i arkivet, vennligst vent..."
 
@@ -189,85 +189,85 @@ msgstr "Forhold"
 msgid "Attributes"
 msgstr "Egenskaper"
 
-#: ../src/bzip2.c:167 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Points to"
 msgstr "Peker til"
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
 #: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Permissions"
 msgstr "Rettigheter"
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
 msgid "Owner/Group"
 msgstr "Eier/gruppe"
 
-#: ../src/bzip2.c:167 ../src/deb.c:45 ../src/extract_dialog.c:398
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:398
 #: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../src/window.c:58
+#: ../src/window.c:60
 msgid "An error occurred!"
 msgstr "En feil oppsto!"
 
-#: ../src/window.c:58
+#: ../src/window.c:60
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr "Vennligst kryss av for 'Lagre programlogg' for å se den."
 
-#: ../src/window.c:144
+#: ../src/window.c:147
 msgid "Archiver output"
 msgstr "Programlogg"
 
-#: ../src/window.c:179
+#: ../src/window.c:182
 msgid "An error occurred while accessing the archive:"
 msgstr "En feil oppsto under lesing av arkivet:"
 
-#: ../src/window.c:251
+#: ../src/window.c:254
 msgid "Save the archive as"
 msgstr "Large arkivet som"
 
-#: ../src/window.c:310
+#: ../src/window.c:313
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Klarte ikke å åpne filen \"%s\":"
 
-#: ../src/window.c:336
+#: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Beklager, dette arkivformatet er ikke støttet:"
 
-#: ../src/window.c:336
+#: ../src/window.c:339
 msgid "the proper archiver is not installed!"
 msgstr "riktig akrivprogram er ikke installert!"
 
-#: ../src/window.c:350
+#: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Kan ikke allokere minne for arkivstrukturen:"
 
-#: ../src/window.c:375
+#: ../src/window.c:378
 msgid "Opening archive,please wait..."
 msgstr "Åpner arkiv, vennligst vent..."
 
-#: ../src/window.c:399
+#: ../src/window.c:402
 msgid "Testing archive,please wait..."
 msgstr "Tester arkiv, vennligst vent..."
 
-#: ../src/window.c:419
+#: ../src/window.c:422
 msgid "Print the archive content as HTML"
 msgstr "Skriv ut arkivinnhold som Html"
 
-#: ../src/window.c:421
+#: ../src/window.c:424
 msgid "Print the archive content as text"
 msgstr "Skriv ut arkivinnhold som tekst"
 
-#: ../src/window.c:470
+#: ../src/window.c:473
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Arkivinnhold:\n"
 
-#: ../src/window.c:474
+#: ../src/window.c:477
 #, c-format
 msgid ""
 "\n"
@@ -276,206 +276,206 @@ msgstr ""
 "\n"
 "Navn: "
 
-#: ../src/window.c:483
+#: ../src/window.c:486
 #, c-format
 msgid "Compressed   size: "
 msgstr "Komprimert størrelse: "
 
-#: ../src/window.c:490
+#: ../src/window.c:493
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Ukomprimert størrelse: "
 
-#: ../src/window.c:498
+#: ../src/window.c:501
 #, c-format
 msgid "Number of files: "
 msgstr "Antall filer: "
 
-#: ../src/window.c:506
+#: ../src/window.c:509
 #, c-format
 msgid "Comment:\n"
 msgstr "Kommentar:\n"
 
-#: ../src/window.c:519
+#: ../src/window.c:522
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Filer:%*s%s"
 
-#: ../src/window.c:519
+#: ../src/window.c:522
 msgid "|Compressed\n"
 msgstr "|Komprimert\n"
 
-#: ../src/window.c:525
+#: ../src/window.c:528
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Filer:</th>"
 
-#: ../src/window.c:526
+#: ../src/window.c:529
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Komprimert:</th>"
 
-#: ../src/window.c:716
+#: ../src/window.c:720
 msgid "Are you sure you want to do this?"
 msgstr "Er du sikker at du vil gjøre dette?"
 
-#: ../src/window.c:809 ../src/window.c:909
+#: ../src/window.c:813 ../src/window.c:913
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Kan ikke konvertere arkivet til selvutpakkende arkiv:"
 
-#: ../src/window.c:820 ../src/window.c:920
+#: ../src/window.c:824 ../src/window.c:924
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Kan ikke skrive 'unzipsfx' modul til arkivet:"
 
-#: ../src/window.c:880
+#: ../src/window.c:884
 msgid "Please select the 7zCon.sfx module"
 msgstr "Vennligst velg '7zCon.sfx' modul"
 
-#: ../src/window.c:977
+#: ../src/window.c:981
 msgid "translator-credits"
 msgstr "Oversettere"
 
-#: ../src/window.c:1007
+#: ../src/window.c:1011
 msgid "Save the self-extracting archive as"
 msgstr "Lagre selvutpakkende arkiv som"
 
-#: ../src/window.c:1036 ../src/interface.c:350
+#: ../src/window.c:1040 ../src/interface.c:348
 msgid "Open an archive"
 msgstr "Åpne et arkiv"
 
-#: ../src/window.c:1049 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1053 ../src/extract_dialog.c:91 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Alle filer"
 
-#: ../src/window.c:1054 ../src/new_dialog.c:67
+#: ../src/window.c:1058 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "Bare arkiver"
 
-#: ../src/window.c:1266
+#: ../src/window.c:1272
 msgid "Filename"
 msgstr "Filnavn"
 
-#: ../src/window.c:1323
+#: ../src/window.c:1329
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Å gjøre dette vil antakeligvis gjøre arkivet ditt korrupt!"
 
-#: ../src/window.c:1323
+#: ../src/window.c:1329
 msgid "Do you really want to cancel?"
 msgstr "Ønsker du å avbryte?"
 
-#: ../src/window.c:1386 ../src/window.c:1401
+#: ../src/window.c:1392 ../src/window.c:1407
 msgid "Yes"
 msgstr "Ja"
 
-#: ../src/window.c:1388 ../src/window.c:1403
+#: ../src/window.c:1394 ../src/window.c:1409
 msgid "No"
 msgstr "Nei"
 
-#: ../src/window.c:1602
+#: ../src/window.c:1612
 msgid "selected"
 msgstr "valgt"
 
-#: ../src/window.c:1607
+#: ../src/window.c:1617
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d fil og %d mappe %s (%s)"
 msgstr[1] "%d filer og %d mapper %s (%s)"
 
-#: ../src/window.c:1609
+#: ../src/window.c:1619
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d mappe %s (%s)"
 msgstr[1] "%d mapper %s (%s)"
 
-#: ../src/window.c:1612
+#: ../src/window.c:1622
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d fil %s (%s)"
 msgstr[1] "%d filer %s (%s)"
 
-#: ../src/window.c:1668
+#: ../src/window.c:1678
 msgid "Can't perform another extraction:"
 msgstr "Kan ikke pakke ut en til:"
 
-#: ../src/window.c:1668
+#: ../src/window.c:1678
 msgid "Please wait until the completion of the current one!"
 msgstr "Vennligst vent til gjeldende fil er fullført!"
 
-#: ../src/window.c:1701 ../src/extract_dialog.c:343
+#: ../src/window.c:1711 ../src/extract_dialog.c:344
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "Du har ikke korrekte rettigheter til å pakke ut filer i mappen \"%s\"."
 
-#: ../src/window.c:1702 ../src/extract_dialog.c:344
+#: ../src/window.c:1712 ../src/extract_dialog.c:345
 msgid "Can't perform extraction!"
 msgstr "Kan ikke pakke ut"
 
-#: ../src/window.c:1743 ../src/extract_dialog.c:653 ../src/interface.c:1405
+#: ../src/window.c:1753 ../src/extract_dialog.c:653 ../src/interface.c:1400
 msgid "Sorry,I could not perform the operation!"
 msgstr "Beklager, kan ikke utføre operasjonen!"
 
-#: ../src/window.c:1777 ../src/window.c:1789 ../src/interface.c:1398
+#: ../src/window.c:1787 ../src/window.c:1799 ../src/interface.c:1393
 msgid "Can't perform this action:"
 msgstr "Kan ikke utføre denne operasjonen:"
 
-#: ../src/window.c:1777
+#: ../src/window.c:1787
 msgid "You have to install rar package!"
 msgstr "Du må installere en 'rar' pakke!"
 
-#: ../src/window.c:1784 ../src/interface.c:1395
+#: ../src/window.c:1794 ../src/interface.c:1390
 msgid "You can't add content to deb packages!"
 msgstr "Du kan ikke legge til innhold i Debian pakker!"
 
-#: ../src/window.c:1786 ../src/interface.c:1397
+#: ../src/window.c:1796 ../src/interface.c:1392
 msgid "You can't add content to rpm packages!"
 msgstr "Du kan ikke legge til innhold i rpm pakker!"
 
-#: ../src/window.c:1788
+#: ../src/window.c:1798
 msgid "The archiver doesn't support this feature!"
 msgstr "Pakkeprogrammet støtter ikke denne funksjonen!"
 
-#: ../src/window.c:1869
+#: ../src/window.c:1879
 msgid "You didn't set which browser to use!"
 msgstr "Du har ikke satt hvilken nettleser som skal brukes!"
 
-#: ../src/window.c:1869 ../src/window.c:1910
+#: ../src/window.c:1879 ../src/window.c:1920
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Vennligst endre under Innstillinger->Avansert."
 
-#: ../src/window.c:1901
+#: ../src/window.c:1911
 msgid "This file type is not supported!"
 msgstr "Denne filtypen er ikke støttet!"
 
-#: ../src/window.c:1901
+#: ../src/window.c:1911
 msgid "Please install xdg-utils package."
 msgstr "Vennligst installer en 'xdg-utils'-pakke."
 
-#: ../src/window.c:1910
+#: ../src/window.c:1920
 msgid "You didn't set which program to use for opening this file!"
 msgstr "Da har ikke angitt hvilket program som skal åpne denne filen."
 
-#: ../src/window.c:1937
+#: ../src/window.c:1946
 msgid "Failed to launch the application!"
 msgstr "Klarte ikke å starte programmet"
 
-#: ../src/window.c:1989
+#: ../src/window.c:1998
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ../src/window.c:2019
+#: ../src/window.c:2028
 msgid "From File"
 msgstr "Fra fil"
 
-#: ../src/window.c:2124
+#: ../src/window.c:2133
 msgid "Open a text file"
 msgstr "Åpne en tekstfil"
 
-#: ../src/window.c:2142
+#: ../src/window.c:2151
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Kan ikke åpne filen %s:"
@@ -484,40 +484,40 @@ msgstr "Kan ikke åpne filen %s:"
 msgid "Date modified"
 msgstr "Dato modifisert"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:471
+#: ../src/extract_dialog.c:65 ../src/extract_dialog.c:471
 msgid "Extract to:"
 msgstr "Pakk ut til:"
 
-#: ../src/extract_dialog.c:95
+#: ../src/extract_dialog.c:96
 msgid "Selected files"
 msgstr "Valgte filer"
 
-#: ../src/extract_dialog.c:103
+#: ../src/extract_dialog.c:104
 msgid "Files: "
 msgstr "Filer: "
 
-#: ../src/extract_dialog.c:114
+#: ../src/extract_dialog.c:115
 msgid "Files "
 msgstr "Filer "
 
-#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:498
+#: ../src/extract_dialog.c:129 ../src/extract_dialog.c:498
 msgid "Overwrite existing files"
 msgstr "Overskriv eksisterende filer"
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c:132
 msgid "Extract files with full path"
 msgstr "Pakk ut filer med full sti"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:133
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Arkivet sin mappestruktur er gjenskapt i målkatalogen."
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c:136
 msgid "Touch files"
 msgstr "Berør filer"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:137
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -527,11 +527,11 @@ msgstr ""
 "pakker ut være lik utpakkingstidpunktet, fremfor å sette endringstidspunktet "
 "til dato som ligger i arkivet."
 
-#: ../src/extract_dialog.c:139
+#: ../src/extract_dialog.c:140
 msgid "Freshen existing files"
 msgstr "Oppdater eksisterende filer"
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c:141
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
@@ -539,11 +539,11 @@ msgstr ""
 "Pakk ut bare de filene som allerede finnes og er nyere enn de som ligger i "
 "filsystemet."
 
-#: ../src/extract_dialog.c:144
+#: ../src/extract_dialog.c:145
 msgid "Update existing files"
 msgstr "Oppdater eksisterende filer"
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c:146
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -553,36 +553,36 @@ msgstr ""
 "nyere date i arkivet. I tillegg tas også med alle filer som ikke finne i "
 "filsystemet."
 
-#: ../src/extract_dialog.c:149
+#: ../src/extract_dialog.c:150
 msgid "Options "
 msgstr "Innstillinger"
 
-#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:514
+#: ../src/extract_dialog.c:173 ../src/extract_dialog.c:514
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Pakk ut"
 
-#: ../src/extract_dialog.c:226
+#: ../src/extract_dialog.c:227
 msgid "Decompress file"
 msgstr "Dekomprimer fil"
 
-#: ../src/extract_dialog.c:228 ../src/interface.c:412
+#: ../src/extract_dialog.c:229 ../src/interface.c:404
 msgid "Extract files"
 msgstr "Pakk ut filer"
 
-#: ../src/extract_dialog.c:319 ../src/extract_dialog.c:727
+#: ../src/extract_dialog.c:320 ../src/extract_dialog.c:726
 msgid "You missed where to extract the files!"
 msgstr "Du må angi hvor filene skal pakkes ut"
 
-#: ../src/extract_dialog.c:319
+#: ../src/extract_dialog.c:320
 msgid "Please enter the extraction path."
 msgstr "Vennligst angi stien hvor filer skal pakkes ut."
 
-#: ../src/extract_dialog.c:333
+#: ../src/extract_dialog.c:334
 msgid "This archive is encrypted!"
 msgstr "Dette arkivet er kryptert"
 
-#: ../src/extract_dialog.c:333
+#: ../src/extract_dialog.c:334
 msgid "Please enter the password."
 msgstr "Skriv inn passord."
 
@@ -632,19 +632,19 @@ msgstr "Vennligst velg arkivene du ønsker å pakke ut"
 msgid "Please select the destination directory"
 msgstr "Angi hvor filer skal pakkes ut"
 
-#: ../src/extract_dialog.c:719
+#: ../src/extract_dialog.c:718
 msgid "Can't multi-extract archives:"
 msgstr "Kan ikke Multiutpakke arkivene:"
 
-#: ../src/extract_dialog.c:719
+#: ../src/extract_dialog.c:718
 msgid "You haven't added any of them!"
 msgstr "Du har ikke lagt til noen"
 
-#: ../src/extract_dialog.c:727
+#: ../src/extract_dialog.c:726
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Fyll inn i \"Pakk ut til\" feltet"
 
-#: ../src/extract_dialog.c:760
+#: ../src/extract_dialog.c:757
 msgid "Some errors occurred:"
 msgstr "Feil oppsto:"
 
@@ -688,7 +688,7 @@ msgstr "_Aksjon"
 msgid "A_dd"
 msgstr "_Legg til"
 
-#: ../src/interface.c:194 ../src/interface.c:922
+#: ../src/interface.c:194 ../src/interface.c:913
 msgid "Rename"
 msgstr "Gi nytt navn"
 
@@ -736,223 +736,207 @@ msgstr "_Hjelp"
 msgid "_Thanks to"
 msgstr "_Takk til"
 
-#: ../src/interface.c:338
-msgid "New"
-msgstr "Ny"
-
-#: ../src/interface.c:342 ../src/new_dialog.c:50
+#: ../src/interface.c:341 ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "Lag et nytt arkiv"
 
-#: ../src/interface.c:346
-msgid "Open"
-msgstr "Åpne"
-
-#: ../src/interface.c:358 ../src/interface.c:363
+#: ../src/interface.c:360
 msgid "Back"
 msgstr "Tilbake"
 
-#: ../src/interface.c:367 ../src/interface.c:372
+#: ../src/interface.c:368
 msgid "Up"
 msgstr "Opp"
 
-#: ../src/interface.c:376 ../src/interface.c:381
+#: ../src/interface.c:376
 msgid "Forward"
 msgstr "Forover"
 
-#: ../src/interface.c:385
-msgid "Home"
-msgstr "Hjem"
-
-#: ../src/interface.c:390
+#: ../src/interface.c:384
 msgid "Root"
 msgstr "Rot"
 
-#: ../src/interface.c:398
-msgid "Add"
-msgstr "Legg til"
-
-#: ../src/interface.c:407 ../src/interface.c:862
-msgid "Extract"
-msgstr "Pakk ut"
-
-#: ../src/interface.c:420
-msgid "Stop"
-msgstr "Stopp"
-
-#: ../src/interface.c:425
+#: ../src/interface.c:416
 msgid "Cancel current operation"
 msgstr "Avbryt gjeldende operasjon"
 
-#: ../src/interface.c:438
+#: ../src/interface.c:429
 msgid "Location:"
 msgstr "Plassering:"
 
-#: ../src/interface.c:477
+#: ../src/interface.c:468
 msgid "Archive tree"
 msgstr "Trevisning"
 
-#: ../src/interface.c:525
+#: ../src/interface.c:516
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr "Dette er Xarchiver lysstatus. Når den blinker er Xarchiver opptatt"
 
-#: ../src/interface.c:694
+#: ../src/interface.c:685
 msgid "Close archive"
 msgstr "Lukk arkiv"
 
-#: ../src/interface.c:779
+#: ../src/interface.c:770
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>Passord for:</span>"
 
-#: ../src/interface.c:781
+#: ../src/interface.c:772
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>Skriv passord for:</span>"
 
-#: ../src/interface.c:799
+#: ../src/interface.c:790
 msgid "_Password:"
 msgstr "_Passord:"
 
-#: ../src/interface.c:854 ../src/open-with-dlg.c:52
+#: ../src/interface.c:845 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "Åpne med"
 
-#: ../src/interface.c:870
+#: ../src/interface.c:853
+msgid "Extract"
+msgstr "Pakk ut"
+
+#: ../src/interface.c:861
 msgid "View"
 msgstr "Vis"
 
-#: ../src/interface.c:883
+#: ../src/interface.c:874
 msgid "Cut"
 msgstr "Klipp ut"
 
-#: ../src/interface.c:891
+#: ../src/interface.c:882
 msgid "Copy"
 msgstr "Kopier"
 
-#: ../src/interface.c:899
+#: ../src/interface.c:890
 msgid "Paste"
 msgstr "Lim inn"
 
-#: ../src/interface.c:913
+#: ../src/interface.c:904
 msgid "Delete"
 msgstr "Slett"
 
-#: ../src/interface.c:961
+#: ../src/interface.c:952
 msgid "Select by Pattern"
 msgstr "Velg etter mønster"
 
-#: ../src/interface.c:974
+#: ../src/interface.c:965
 msgid "Pattern:"
 msgstr "Mønster:"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:970
 msgid "example: *.txt; ac*"
 msgstr "Eksempel: *.txt; ac*"
 
-#: ../src/interface.c:996
+#: ../src/interface.c:987
 msgid "_Select"
 msgstr "_Velg"
 
-#: ../src/interface.c:1068
+#: ../src/interface.c:1059
 msgid "Archive Properties"
 msgstr "Arkivegenskaper"
 
-#: ../src/interface.c:1089
+#: ../src/interface.c:1080
 msgid "Name:"
 msgstr "Navn:"
 
-#: ../src/interface.c:1096
+#: ../src/interface.c:1087
 msgid "Path:"
 msgstr "Sti:"
 
-#: ../src/interface.c:1103
+#: ../src/interface.c:1094
 msgid "Type:"
 msgstr "Type:"
 
-#: ../src/interface.c:1110
+#: ../src/interface.c:1101
 msgid "Encrypted:"
 msgstr "Kryptert:"
 
-#: ../src/interface.c:1117
+#: ../src/interface.c:1108
 msgid "Modified on:"
 msgstr "Modifisert"
 
-#: ../src/interface.c:1124
+#: ../src/interface.c:1115
 msgid "Compressed size:"
 msgstr "Komprimert størrelse:"
 
-#: ../src/interface.c:1131
+#: ../src/interface.c:1122
 msgid "Uncompressed size:"
 msgstr "Ukomprimert størrelse:"
 
-#: ../src/interface.c:1138
+#: ../src/interface.c:1129
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: ../src/interface.c:1145
+#: ../src/interface.c:1136
 msgid "Number of files:"
 msgstr "Antall filer:"
 
-#: ../src/interface.c:1152
+#: ../src/interface.c:1143
 msgid "Compression ratio:"
 msgstr "Kompresjonsgrad"
 
-#: ../src/interface.c:1513 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1507 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1540
+#: ../src/interface.c:1534
 msgid "Extracting from archive:"
 msgstr "Pakker ut fra arkiv:"
 
-#: ../src/interface.c:1542
+#: ../src/interface.c:1536
 msgid "Adding to archive:"
 msgstr "Legger til arkiv:"
 
-#: ../src/interface.c:1562
+#: ../src/interface.c:1556
 msgid "Total Progress:"
 msgstr "Total fremgang:"
 
-#: ../src/main.c:57
+#: ../src/main.c:58
 msgid "Extract archive to the destination directory and quits."
 msgstr "Pakk ut arkiv til målkatalogen og avslutter."
 
-#: ../src/main.c:58
+#: ../src/main.c:59
 msgid "destination archive"
 msgstr "målarkiv"
 
-#: ../src/main.c:61
+#: ../src/main.c:62
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "Spør etter målkatalog. Pakk ut arkivet og avslutt."
 
-#: ../src/main.c:62 ../src/main.c:74
+#: ../src/main.c:63 ../src/main.c:75
 msgid "archive"
 msgstr "arkiv"
 
-#: ../src/main.c:65
+#: ../src/main.c:66
 msgid "Multi-extract archives"
 msgstr "Multiutpakkingarkiver"
 
-#: ../src/main.c:66
+#: ../src/main.c:67
 msgid "filenames"
 msgstr "filnavn"
 
-#: ../src/main.c:69
+#: ../src/main.c:70
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Legg til filene ved å spøøre om navn på arkivet, deretter avslutt."
 
-#: ../src/main.c:70
+#: ../src/main.c:71
 msgid "file1 file2 file3 ... fileN"
 msgstr "fil1 fil2 fil3 ... filN"
 
-#: ../src/main.c:73
+#: ../src/main.c:74
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Legg filer til arkiv ved å spørre etter filnavn, deretter avslutt."
 
-#: ../src/main.c:102
+#: ../src/main.c:78
+msgid "Show version and exit"
+msgstr ""
+
+#: ../src/main.c:105
 msgid "[archive name]"
 msgstr "[arkivnavn]"
 
-#: ../src/main.c:106
+#: ../src/main.c:109
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -961,19 +945,24 @@ msgstr ""
 "xarchiver: %s\n"
 "Prøv xarchiver --help for å se alle tilgjengelige kommandolinjevalg.\n"
 
-#: ../src/main.c:131 ../src/main.c:154
+#: ../src/main.c:119
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr ""
+
+#: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
 msgstr "Kan ikke pakke ut filer fra arkivet:"
 
-#: ../src/main.c:131 ../src/main.c:154 ../src/main.c:209
+#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Du mangler arkivnavn\n"
 
-#: ../src/main.c:257
+#: ../src/main.c:276
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Velg \"Ny\" for å lage nytt eller \"Åpne\" for å åpne et arkiv"
 
-#: ../src/main.c:496
+#: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Kan ikke allokere minne for arkivstrukturen"
 
@@ -994,7 +983,7 @@ msgstr "Bruk tilpasset kommando:"
 msgid "Browse"
 msgstr "Bla gjennom"
 
-#: ../src/open-with-dlg.c:310
+#: ../src/open-with-dlg.c:311
 msgid "Select an application"
 msgstr "Velg et program"
 
@@ -1010,25 +999,25 @@ msgstr "Arkivtype:"
 msgid "Choose the archive type to create"
 msgstr "Velg arkivtype som skal lages"
 
-#: ../src/new_dialog.c:119
+#: ../src/new_dialog.c:112
 msgid "Add the archive extension to the filename"
 msgstr "Legg til arkiv filetternavn til filnavnet"
 
-#: ../src/new_dialog.c:166
+#: ../src/new_dialog.c:159
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" er allerede åpen"
 
-#: ../src/new_dialog.c:167
+#: ../src/new_dialog.c:160
 msgid "Can't create a new archive:"
 msgstr "Kan ikke lage nytt arkiv:"
 
-#: ../src/new_dialog.c:182
+#: ../src/new_dialog.c:175
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "Arkivet \"%s\" finnes allerede"
 
-#: ../src/new_dialog.c:188
+#: ../src/new_dialog.c:181
 msgid "Do you want to overwrite it?"
 msgstr "Ønsker du å overskrive det?"
 
@@ -1048,98 +1037,98 @@ msgstr "Vindu"
 msgid "Advanced"
 msgstr "Avansert"
 
-#: ../src/pref_dialog.c:99
+#: ../src/pref_dialog.c:97
 msgid "Preferred archive format"
 msgstr "Foretrukket arkivformat"
 
-#: ../src/pref_dialog.c:117
+#: ../src/pref_dialog.c:115
 msgid "Confirm deletion of files"
 msgstr "Bekreft sletting av filer"
 
-#: ../src/pref_dialog.c:121
+#: ../src/pref_dialog.c:119
 msgid "Sort archive by filename"
 msgstr "Sorter arkiv etter filnavn"
 
-#: ../src/pref_dialog.c:124
+#: ../src/pref_dialog.c:122
 msgid "The filename column is sorted after loading the archive"
 msgstr "Filnavn kolonnen sorteres etter lasting av arkivet"
 
-#: ../src/pref_dialog.c:126
+#: ../src/pref_dialog.c:124
 msgid "Store archiver output"
 msgstr "Lagre arkivprogramlogg"
 
-#: ../src/pref_dialog.c:129
+#: ../src/pref_dialog.c:127
 msgid "This option takes more memory with large archives"
 msgstr "Dette valget bruker mer minne for store arkiver"
 
-#: ../src/pref_dialog.c:140
+#: ../src/pref_dialog.c:138
 msgid "Icons size (requires restart)"
 msgstr "Ikon størrelse (krever omstart)"
 
-#: ../src/pref_dialog.c:146
+#: ../src/pref_dialog.c:144
 msgid "large"
 msgstr "stop"
 
-#: ../src/pref_dialog.c:147
+#: ../src/pref_dialog.c:145
 msgid "small"
 msgstr "liten"
 
-#: ../src/pref_dialog.c:152
+#: ../src/pref_dialog.c:150
 msgid "Show archive comment"
 msgstr "Vis arkivkommentarer"
 
-#: ../src/pref_dialog.c:153
+#: ../src/pref_dialog.c:151
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Hvis valgt vil arkivkommentar vises etter arkivet er lastet inn"
 
-#: ../src/pref_dialog.c:159
+#: ../src/pref_dialog.c:157
 msgid "Show archive tree sidebar"
 msgstr "Vis trevisning"
 
-#: ../src/pref_dialog.c:165
+#: ../src/pref_dialog.c:163
 msgid "Show archive location bar"
 msgstr "Vis stilinje"
 
-#: ../src/pref_dialog.c:187
+#: ../src/pref_dialog.c:185
 msgid "Web browser to use:"
 msgstr "Nettleser som skal bruker:"
 
-#: ../src/pref_dialog.c:194 ../src/pref_dialog.c:207 ../src/pref_dialog.c:220
-#: ../src/pref_dialog.c:233
+#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
+#: ../src/pref_dialog.c:231
 msgid "choose..."
 msgstr "Velg..."
 
-#: ../src/pref_dialog.c:200
+#: ../src/pref_dialog.c:198
 msgid "Open text files with:"
 msgstr "Åpne tekstfiler med:"
 
-#: ../src/pref_dialog.c:213
+#: ../src/pref_dialog.c:211
 msgid "Open image files with:"
 msgstr "Åpne bildefiler med:"
 
-#: ../src/pref_dialog.c:226
+#: ../src/pref_dialog.c:224
 msgid "Preferred temp directory:"
 msgstr "Foretrukket midlertidig mappe:"
 
-#: ../src/pref_dialog.c:232
+#: ../src/pref_dialog.c:230
 msgid "/tmp"
 msgstr "/tmp"
 
-#: ../src/pref_dialog.c:239
+#: ../src/pref_dialog.c:237
 msgid "Save window geometry"
 msgstr "Lagre vindusgeometri"
 
-#: ../src/pref_dialog.c:244
+#: ../src/pref_dialog.c:242
 msgid "Allow subdirs with drag and drop"
 msgstr "Tillat undermapper med dra og slipp"
 
-#: ../src/pref_dialog.c:248
+#: ../src/pref_dialog.c:246
 msgid ""
 "This option includes the subdirectories when you add files with drag and drop"
 msgstr ""
 "Dette valget inkluderer undermapper når du legger til filer med dra og slipp"
 
-#: ../src/pref_dialog.c:253
+#: ../src/pref_dialog.c:251
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
@@ -1147,11 +1136,11 @@ msgstr ""
 "<span color='red' style='italic'>Vennligst installer xdg-utils pakken slik\n"
 " at Xarchiver can gjenkjenne flere filtyper.</span>"
 
-#: ../src/pref_dialog.c:563
+#: ../src/pref_dialog.c:560
 msgid "Choose the temp directory to use"
 msgstr "Velg hvilken midelrtidig mappe som skal brukes"
 
-#: ../src/pref_dialog.c:563
+#: ../src/pref_dialog.c:560
 msgid "Choose the application to use"
 msgstr "Velg hvilket program som skal brukes"
 
@@ -1211,6 +1200,21 @@ msgstr "En GTK+2 basert arkivbehandler"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Arkivbehandler"
+
+#~ msgid "New"
+#~ msgstr "Ny"
+
+#~ msgid "Open"
+#~ msgstr "Åpne"
+
+#~ msgid "Home"
+#~ msgstr "Hjem"
+
+#~ msgid "Add"
+#~ msgstr "Legg til"
+
+#~ msgid "Stop"
+#~ msgstr "Stopp"
 
 #~ msgid "Archive format is not recognized!"
 #~ msgstr "Arkivformatet er ukjent!"
