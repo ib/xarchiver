@@ -1,7 +1,7 @@
 # Catalan translation of xarchiver.
 # Copyright (C) 2006 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
-# Carles Muñoz Gorriz <carlesmu@internautas.org>, 2006, 2008.
+# Carles Muñoz Gorriz <carlesmu@internautas.org>, 2006, 2008-2009.
 # Pau Ruŀlan Ferragut <paurullan@bulma.net>, 2006.
 #
 #
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2009-01-11 12:52+0100\n"
-"PO-Revision-Date: 2008-11-30 12:17+0100\n"
+"PO-Revision-Date: 2009-01-11 20:08+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -941,7 +941,7 @@ msgstr "Afegeix fitxers a l’arxiu demanant el seu nom i surt."
 
 #: ../src/main.c:78
 msgid "Show version and exit"
-msgstr ""
+msgstr "Mostra la versió i surt"
 
 #: ../src/main.c:105
 msgid "[archive name]"
@@ -959,7 +959,7 @@ msgstr ""
 #: ../src/main.c:119
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr ""
+msgstr "Envieu els errors a <%s>."
 
 #: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
