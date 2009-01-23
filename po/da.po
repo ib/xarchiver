@@ -773,7 +773,7 @@ msgstr "_Tak til"
 #: ../src/interface.c:341
 #: ../src/new_dialog.c:50
 msgid "Create a new archive"
-msgstr "Opret nyt arkiv"
+msgstr "Opret et nyt arkiv"
 
 #: ../src/interface.c:360
 msgid "Back"
