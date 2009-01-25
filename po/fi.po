@@ -1,14 +1,14 @@
 # Finnish translation of xarchiver.
 # Copyright (C) 2005-2008 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
-# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2007-2008.
+# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2007-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-01-11 12:52+0100\n"
-"PO-Revision-Date: 2008-10-31 14:01+0200\n"
+"POT-Creation-Date: 2009-01-25 09:51+0200\n"
+"PO-Revision-Date: 2009-01-25 10:07+0200\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgid ""
 "not add files that are not already in the archive"
 msgstr ""
 "Tämä vaihtoehto päivittää arkiston ainoastaan, jos jotain tiedostoa on "
-"muokattu sen arkistoimisen jälkeen. Toisin kuin päivitysvaihtoehdossa, "
+"muokattu sen pakkaamisen jälkeen. Toisin kuin päivitysvaihtoehdossa, "
 "arkistoon ei lisätä tiedostoja, joita se ei jo sisällä"
 
 #: ../src/add_dialog.c:120
@@ -172,7 +172,7 @@ msgstr "Lisätään tiedostoja arkistoon, odota..."
 
 #: ../src/archive.c:87
 msgid "Can't run the archiver executable:"
-msgstr "Arkistointiohjelmaa ei voi suorittaa:"
+msgstr "Pakkausohjelmaa ei voi suorittaa:"
 
 #: ../src/archive.c:372
 msgid "Can't create temporary directory in /tmp:"
@@ -212,11 +212,11 @@ msgstr "Virhe!"
 
 #: ../src/window.c:60
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr "Valitse asetus \"Säilytä arkistoijan tulostus\" nähdäksesi sen"
+msgstr "Valitse \"Säilytä pakkausohjelman tulostus\" nähdäksesi sen."
 
 #: ../src/window.c:147
 msgid "Archiver output"
-msgstr "Arkistoijan tulostus"
+msgstr "Pakkausohjelman tulostus"
 
 #: ../src/window.c:182
 msgid "An error occurred while accessing the archive:"
@@ -237,7 +237,7 @@ msgstr "Arkistotyyppiä ei valitettavasti tueta:"
 
 #: ../src/window.c:339
 msgid "the proper archiver is not installed!"
-msgstr "tarvittavaa arkistointisovellusta ei ole asennettu!"
+msgstr "tarvittavaa pakkausohjelmaa ei ole asennettu!"
 
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
@@ -434,7 +434,7 @@ msgstr "Et voi lisätä sisältöä rpm-paketteihin!"
 
 #: ../src/window.c:1798
 msgid "The archiver doesn't support this feature!"
-msgstr "Arkistoija ei tue tätä ominaisuutta!"
+msgstr "Pakkausohjelma ei tue tätä ominaisuutta!"
 
 #: ../src/window.c:1879
 msgid "You didn't set which browser to use!"
@@ -930,7 +930,7 @@ msgstr "Kysy tiedostonimet ja lisää ne arkistoon"
 
 #: ../src/main.c:78
 msgid "Show version and exit"
-msgstr ""
+msgstr "Näytä versiotiedot"
 
 #: ../src/main.c:105
 msgid "[archive name]"
@@ -948,7 +948,7 @@ msgstr ""
 #: ../src/main.c:119
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr ""
+msgstr "Ilmoita ohjelmavirheistä osoitteeseen <%s>."
 
 #: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
@@ -1055,7 +1055,7 @@ msgstr "Tiedostonimisarake järjestetään, kun arkisto on avattu"
 
 #: ../src/pref_dialog.c:124
 msgid "Store archiver output"
-msgstr "Säilytä arkistoijan tulostus"
+msgstr "Säilytä pakkausohjelman tulostus"
 
 #: ../src/pref_dialog.c:127
 msgid "This option takes more memory with large archives"
@@ -1196,27 +1196,8 @@ msgstr "Järjestelmä"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr "GTK+2 -arkistonhallintasovellus"
+msgstr "GTK+2 -pakkaussovellus"
 
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
-msgstr "Arkistonhallinta"
-
-#~ msgid "New"
-#~ msgstr "Uusi"
-
-#~ msgid "Open"
-#~ msgstr "Avaa"
-
-#~ msgid "Home"
-#~ msgstr "Koti"
-
-#~ msgid "Add"
-#~ msgstr "Lisää"
-
-#~ msgid "Stop"
-#~ msgstr "Pysäytä"
-
-#, fuzzy
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Arkistotyyppiä ei valitettavasti tueta:"
+msgstr "Pakkausohjelma"
