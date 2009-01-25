@@ -366,7 +366,6 @@ msgstr "已选的"
 
 #: ../src/window.c:1607
 #, c-format
-#, fuzzy
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d 个文件和 %d 个目录 %s（%s）"
