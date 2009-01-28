@@ -1448,7 +1448,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	GtkTreeIter iter;
 	gint n_elem = 0,pos = 0,dirs = 0;
 	unsigned long int total_size = 0;
-	unsigned long int size = 0;
+	guint64 size = 0;
 	XEntry *entry = NULL;
 
 	path = gtk_tree_path_new_first();
@@ -1518,7 +1518,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	GtkTreeModel *model;
 	gint selected = 0,pos = 0,dirs = 0;
 	unsigned long int total_size = 0;
-	unsigned long int size = 0;
+	guint64 size = 0;
 	XEntry *entry;
 
 	switch (archive->type)
