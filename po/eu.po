@@ -937,7 +937,7 @@ msgstr "Fitxategiak gehitu artxibora izenak galdetuaz eta irten."
 
 #: ../src/main.c:78
 msgid "Show version and exit"
-msgstr ""
+msgstr "Ikusi bertsioa eta irten"
 
 #: ../src/main.c:105
 msgid "[archive name]"
@@ -956,7 +956,7 @@ msgstr ""
 #: ../src/main.c:119
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr ""
+msgstr "Programa erroreen berri <%s> helbidean eman"
 
 #: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
