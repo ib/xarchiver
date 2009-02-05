@@ -315,8 +315,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 {
 	gchar *conf;
 	gchar *value= NULL;
-	FILE *fp;
-	gint bytes_written, len;
+	gsize len;
 	GKeyFile *xa_key_file = g_key_file_new();
 	
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
@@ -384,15 +383,9 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"recurse",   	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->recurse)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"solid_archive",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->solid_archive)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"remove_files", gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->remove_files)));
-	conf = g_key_file_to_data (xa_key_file, NULL, NULL);
-	len = strlen(conf);
 
-	fp = fopen(filename, "w");
-	if (fp != NULL)
-	{
-		bytes_written = fwrite(conf, sizeof (gchar), len, fp);
-		fclose(fp);
-	}
+	conf = g_key_file_to_data(xa_key_file, &len, NULL);
+	g_file_set_contents(filename, conf, len, NULL);
 	g_free (conf);
 	g_key_file_free(xa_key_file);
 }
