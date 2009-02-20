@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2009-01-11 12:52+0100\n"
-"PO-Revision-Date: 2009-01-11 20:08+0100\n"
+"PO-Revision-Date: 2009-02-01 11:17+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -559,7 +559,7 @@ msgid ""
 "extracts those files that do not already exist on disk"
 msgstr ""
 "Aquesta opció fa la mateixa funció que la de refresc, extraient els fitxers "
-"que siguin més nous que els del mateix nom al disc, i a més a més extreurà "
+"que siguin més nous que els del mateix nom al disc, i a més a més extraurà "
 "els fitxers que no existien ja al disc"
 
 #: ../src/extract_dialog.c:150
@@ -683,7 +683,7 @@ msgstr "Fitxer HTML"
 
 #: ../src/interface.c:127
 msgid "_Test"
-msgstr "_Prova"
+msgstr "P_rova"
 
 #: ../src/interface.c:137
 msgid "_Properties"
@@ -695,11 +695,11 @@ msgstr "A_cció"
 
 #: ../src/interface.c:168
 msgid "A_dd"
-msgstr "A_fegeix"
+msgstr "_Afegeix"
 
 #: ../src/interface.c:194 ../src/interface.c:913
 msgid "Rename"
-msgstr "Canvia el nom"
+msgstr "Reanomena"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
@@ -735,11 +735,11 @@ msgstr "Introduïu la cont_rasenya"
 
 #: ../src/interface.c:288
 msgid "_Preferences"
-msgstr "_Preferències"
+msgstr "Preferè_ncies"
 
 #: ../src/interface.c:297
 msgid "_Help"
-msgstr "_Ajuda"
+msgstr "A_juda"
 
 #: ../src/interface.c:317
 msgid "_Thanks to"
@@ -751,7 +751,7 @@ msgstr "Crea un arxiu nou"
 
 #: ../src/interface.c:360
 msgid "Back"
-msgstr "Enrera"
+msgstr "Endarrere"
 
 #: ../src/interface.c:368
 msgid "Up"
@@ -759,7 +759,7 @@ msgstr "Amunt"
 
 #: ../src/interface.c:376
 msgid "Forward"
-msgstr "Envant"
+msgstr "Endavant"
 
 #: ../src/interface.c:384
 msgid "Root"
@@ -988,7 +988,7 @@ msgstr "Obre «<i>%s</i>» amb:"
 
 #: ../src/open-with-dlg.c:118
 msgid "Use a custom command:"
-msgstr "Usa una ordre personalitzada:"
+msgstr "Empra una ordre personalitzada:"
 
 #: ../src/open-with-dlg.c:126
 msgid "Browse"
@@ -1328,7 +1328,7 @@ msgstr "Gestor d'arxius"
 #~ msgstr "Nombre de directoris:"
 
 #~ msgid "Size of the mimetype icons"
-#~ msgstr "Tamany de les icones de tipus"
+#~ msgstr "Mida de les icones de tipus"
 
 #~ msgid "Show archive comment after loading it"
 #~ msgstr "Mostra el comentari després de carregar l’arxiu"
