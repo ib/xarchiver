@@ -1,14 +1,14 @@
 # Spanish translation for the xarchiver package.
 # Copyright (C) 2006-2008 Giuseppe Torelli <colossus73@gmail.com>
 # This file is distributed under the same license as the xarchiver package.
-# Abel Martín <abel.martin.ruiz@gmail.com>, 2008.
+# Abel Martín <abel.martin.ruiz@gmail.com>, 2008-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2009-01-11 12:52+0100\n"
-"PO-Revision-Date: 2009-01-18 11:39+0100\n"
+"PO-Revision-Date: 2009-02-24 13:39+0100\n"
 "Last-Translator: Abel Martín <abel.martin.ruiz@gmail.com>\n"
 "Language-Team: Spanish/ES <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "Refrescar y reemplazar"
 
 #: ../src/add_dialog.c:116
 msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"
-msgstr "Esta opción afecta al archivo comprimido sólo si ha sido modificado más recientemente que la versión ya existente dentro de él; al contrario que la opción actualizar, no añadirá archivos que no existan ya en el archivo comprimido."
+msgstr "Esta opción afecta al archivo comprimido sólo si ha sido modificado más recientemente que la versión ya existente dentro de él; al contrario que la opción actualizar, no añadirá archivos que no existiesen en el archivo comprimido."
 
 #: ../src/add_dialog.c:120
 msgid "Include subdirectories"
@@ -117,11 +117,11 @@ msgstr "Borrar archivos después de añadir"
 
 #: ../src/add_dialog.c:133
 msgid "Actions: "
-msgstr "Acciones:"
+msgstr "Acciones: "
 
 #: ../src/add_dialog.c:148
 msgid "Compression: "
-msgstr "Compresión:"
+msgstr "Compresión: "
 
 #: ../src/add_dialog.c:162
 #: ../src/extract_dialog.c:156
@@ -130,7 +130,7 @@ msgstr "Contraseña:"
 
 #: ../src/add_dialog.c:172
 msgid "Encryption: "
-msgstr "Cifrado:"
+msgstr "Cifrado: "
 
 #: ../src/add_dialog.c:185
 msgid "_Add"
@@ -214,7 +214,7 @@ msgstr "Apunta a"
 #: ../src/tar.c:54
 #: ../src/zip.c:49
 msgid "Permissions"
-msgstr "Permiso"
+msgstr "Permisos"
 
 #: ../src/bzip2.c:187
 #: ../src/deb.c:45
@@ -261,7 +261,7 @@ msgstr "No se puede abrir el archivo \"%s\":"
 
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
-msgstr "Lo siento. Este formato de archivo no está soportado."
+msgstr "Lo siento. Este formato de archivo no está soportado:"
 
 #: ../src/window.c:339
 msgid "the proper archiver is not installed!"
@@ -281,11 +281,11 @@ msgstr "Comprobando archivo. Por favor, espere..."
 
 #: ../src/window.c:422
 msgid "Print the archive content as HTML"
-msgstr "Imprimir el contenido del archivo como HTML"
+msgstr "Mostrar el contenido del archivo como HTML"
 
 #: ../src/window.c:424
 msgid "Print the archive content as text"
-msgstr "Imprimir el contenido del archivo como texto"
+msgstr "Mostrar el contenido del archivo como texto"
 
 #: ../src/window.c:473
 #, c-format
@@ -388,7 +388,7 @@ msgstr "Nombre de archivo"
 
 #: ../src/window.c:1329
 msgid "Doing so will probably corrupt your archive!"
-msgstr "¡Hacer esto probablemente corromperá el archivo comprimido!"
+msgstr "¡Hacer esto probablemente corrompa el archivo comprimido!"
 
 #: ../src/window.c:1329
 msgid "Do you really want to cancel?"
@@ -485,7 +485,7 @@ msgstr "¡No especificó el visor de archivos a usar!"
 #: ../src/window.c:1879
 #: ../src/window.c:1920
 msgid "Please go to Preferences->Advanced and set it."
-msgstr "Por favor, vaya a Preferencias -> Avanzadas y configúrelo."
+msgstr "Por favor, vaya a Preferencias->Avanzadas y configúrelo."
 
 #: ../src/window.c:1911
 msgid "This file type is not supported!"
@@ -556,7 +556,7 @@ msgstr "La estructura de directorios del archivo comprimido es recreada en el di
 
 #: ../src/extract_dialog.c:136
 msgid "Touch files"
-msgstr "Actualiza la fecha del archivo"
+msgstr "Actualizar la fecha de los archivos"
 
 #: ../src/extract_dialog.c:137
 msgid "When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"
@@ -568,7 +568,7 @@ msgstr "Refrescar archivos existentes"
 
 #: ../src/extract_dialog.c:141
 msgid "Extract only those files that already exist on disk and that are newer than the disk copies"
-msgstr "Extraer "
+msgstr "Extraer sólo aquellos archivos que ya existen en el disco y que son más nuevos que las copias en disco"
 
 #: ../src/extract_dialog.c:145
 msgid "Update existing files"
@@ -580,7 +580,7 @@ msgstr "Esta opción realiza la misma función que la de refrescar, extrayendo l
 
 #: ../src/extract_dialog.c:150
 msgid "Options "
-msgstr "Opciones"
+msgstr "Opciones "
 
 #: ../src/extract_dialog.c:173
 #: ../src/extract_dialog.c:514
@@ -806,7 +806,7 @@ msgstr "Cerrar achivo"
 
 #: ../src/interface.c:770
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr "<span weight='bold' size='larger'>Contraseña para:</span>"
+msgstr "<span weight='bold' size='larger'>Contraseña requerida para:</span>"
 
 #: ../src/interface.c:772
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
@@ -990,7 +990,7 @@ msgstr "No se pueden extraer archivos del archivo comprimido:"
 #: ../src/main.c:169
 #: ../src/main.c:228
 msgid "You missed the archive name!\n"
-msgstr "¡Se le olvidó el nombre de archivo!\n"
+msgstr "¡Se le olvidó el nombre del archivo!\n"
 
 #: ../src/main.c:276
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -1040,7 +1040,7 @@ msgstr "Añadir la extensión del archivo comprimido al nombre del archivo"
 #: ../src/new_dialog.c:159
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr "¡\"%s\" ya se encuentra abierto!"
+msgstr "¡\"%s\" ya está abierto!"
 
 #: ../src/new_dialog.c:160
 msgid "Can't create a new archive:"
@@ -1053,7 +1053,7 @@ msgstr "¡El archivo \"%s\" ya existe!"
 
 #: ../src/new_dialog.c:181
 msgid "Do you want to overwrite it?"
-msgstr "¡Desea sobreescribirlo!"
+msgstr "¿Desea sobreescribirlo?"
 
 #: ../src/pref_dialog.c:41
 msgid "Preferences"
