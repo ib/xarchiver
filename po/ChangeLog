@@ -1,3 +1,8 @@
+2009-03-14  Maximilian Schleiss <maximilian@xfce.org>
+
+	* fr.po: French translation update
+	* gl.po: Galician translation update (Leandro Regueiro)
+
 2009-03-05  Mike Massonnet <mmassonnet@xfce.org>
 
 	* pt.po: Renamed pt_PT.po to pt.po (bug #4574)
