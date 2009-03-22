@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-02-24 17:35+0900\n"
-"PO-Revision-Date: 2008-12-30 12:07+0900\n"
+"POT-Creation-Date: 2009-03-22 18:03+0900\n"
+"PO-Revision-Date: 2009-03-22 18:00+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "時間"
 msgid "Date"
 msgstr "日付"
 
-#: ../src/add_dialog.c:36 ../src/interface.c:396
+#: ../src/add_dialog.c:36 ../src/interface.c:388
 msgid "Add files"
 msgstr "ファイルを追加します。"
 
@@ -175,11 +175,11 @@ msgstr "ファイルをアーカイブに追加できません:"
 msgid "You haven't selected any files to add!"
 msgstr "追加するファイルを選択していません!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:816
+#: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "You missed the password!"
 msgstr "パスワードを入力していません!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:816
+#: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "Please enter it!"
 msgstr "入力してください!"
 
@@ -354,6 +354,8 @@ msgstr "7zCon.sfx モジュールを選択してください"
 msgid "translator-credits"
 msgstr ""
 "Daichi Kawahata <daichi@xfce.org>\n"
+"Yuko Iwamatsu <nigauri@gmail.com>\n"
+"Nobuhiro Iwamatsu <iwamatsu@nigauri.org>\n"
 "Masato Hashimoto <cabezon.hashimoto@gmail.com>"
 
 # FIXME: C format string
@@ -362,7 +364,7 @@ msgstr ""
 msgid "Save the self-extracting archive as"
 msgstr "自己展開アーカイブに名前をつけて保存する"
 
-#: ../src/window.c:1040 ../src/interface.c:348
+#: ../src/window.c:1040 ../src/interface.c:340
 msgid "Open an archive"
 msgstr "アーカイブを開きます"
 
@@ -435,11 +437,11 @@ msgstr "ファイルをフォルダ \"%s\" に展開するためのアクセス�
 msgid "Can't perform extraction!"
 msgstr "展開できません!"
 
-#: ../src/window.c:1753 ../src/extract_dialog.c:649 ../src/interface.c:1400
+#: ../src/window.c:1753 ../src/extract_dialog.c:649 ../src/interface.c:1392
 msgid "Sorry,I could not perform the operation!"
 msgstr "申し訳ありません、操作を実行できませんでした!"
 
-#: ../src/window.c:1787 ../src/window.c:1799 ../src/interface.c:1393
+#: ../src/window.c:1787 ../src/window.c:1799 ../src/interface.c:1385
 msgid "Can't perform this action:"
 msgstr "このアクションを実行できません:"
 
@@ -447,11 +449,11 @@ msgstr "このアクションを実行できません:"
 msgid "You have to install rar package!"
 msgstr "RAR パッケージをインストールする必要があります!"
 
-#: ../src/window.c:1794 ../src/interface.c:1390
+#: ../src/window.c:1794 ../src/interface.c:1382
 msgid "You can't add content to deb packages!"
 msgstr "Deb パッケージには追加できません!"
 
-#: ../src/window.c:1796 ../src/interface.c:1392
+#: ../src/window.c:1796 ../src/interface.c:1384
 msgid "You can't add content to rpm packages!"
 msgstr "RPM パッケージには追加できません!"
 
@@ -587,7 +589,7 @@ msgstr "展開(_E)"
 msgid "Decompress file"
 msgstr "ファイルを復元します"
 
-#: ../src/extract_dialog.c:225 ../src/interface.c:404
+#: ../src/extract_dialog.c:225 ../src/interface.c:396
 msgid "Extract files"
 msgstr "ファイルを展開します"
 
@@ -709,7 +711,7 @@ msgstr "アクション(_C)"
 msgid "A_dd"
 msgstr "追加(_D)"
 
-#: ../src/interface.c:194 ../src/interface.c:913
+#: ../src/interface.c:194 ../src/interface.c:905
 msgid "Rename"
 msgstr "名前の変更"
 
@@ -753,163 +755,163 @@ msgstr "設定(_P)"
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../src/interface.c:317
-msgid "_Thanks to"
-msgstr "謝辞(_T)"
+#: ../src/interface.c:313
+msgid "_Donate"
+msgstr "寄付(_D)"
 
-#: ../src/interface.c:341 ../src/new_dialog.c:50
+#: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "新しいアーカイブを作成します"
 
-#: ../src/interface.c:360
+#: ../src/interface.c:352
 msgid "Back"
 msgstr "戻る"
 
-#: ../src/interface.c:368
+#: ../src/interface.c:360
 msgid "Up"
 msgstr "上位フォルダへ"
 
-#: ../src/interface.c:376
+#: ../src/interface.c:368
 msgid "Forward"
 msgstr "進む"
 
-#: ../src/interface.c:384
+#: ../src/interface.c:376
 msgid "Root"
 msgstr "ルート"
 
-#: ../src/interface.c:416
+#: ../src/interface.c:408
 msgid "Cancel current operation"
 msgstr "現在の操作を取り消します"
 
-#: ../src/interface.c:429
+#: ../src/interface.c:421
 msgid "Location:"
 msgstr "位置:"
 
-#: ../src/interface.c:468
+#: ../src/interface.c:460
 msgid "Archive tree"
 msgstr "アーカイブツリー"
 
-#: ../src/interface.c:516
+#: ../src/interface.c:508
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr "これは Xarchiver LED ステータスです。点滅中は Xarchiver がビジーです。"
 
-#: ../src/interface.c:685
+#: ../src/interface.c:677
 msgid "Close archive"
 msgstr "アーカイブを閉じる"
 
-#: ../src/interface.c:770
+#: ../src/interface.c:762
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>パスワードが必要です:</span>"
 
-#: ../src/interface.c:772
+#: ../src/interface.c:764
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>パスワードを入力してください:</span>"
 
-#: ../src/interface.c:790
+#: ../src/interface.c:782
 msgid "_Password:"
 msgstr "パスワード(_P):"
 
-#: ../src/interface.c:845 ../src/open-with-dlg.c:52
+#: ../src/interface.c:837 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "アプリケーションを選択して開く"
 
-#: ../src/interface.c:853
+#: ../src/interface.c:845
 msgid "Extract"
 msgstr "展開"
 
-#: ../src/interface.c:861
+#: ../src/interface.c:853
 msgid "View"
 msgstr "表示"
 
-#: ../src/interface.c:874
+#: ../src/interface.c:866
 msgid "Cut"
 msgstr "切り取り"
 
-#: ../src/interface.c:882
+#: ../src/interface.c:874
 msgid "Copy"
 msgstr "コピー"
 
-#: ../src/interface.c:890
+#: ../src/interface.c:882
 msgid "Paste"
 msgstr "貼り付け"
 
-#: ../src/interface.c:904
+#: ../src/interface.c:896
 msgid "Delete"
 msgstr "削除"
 
-#: ../src/interface.c:952
+#: ../src/interface.c:944
 msgid "Select by Pattern"
 msgstr "パターンで選択"
 
-#: ../src/interface.c:965
+#: ../src/interface.c:957
 msgid "Pattern:"
 msgstr "パターン:"
 
-#: ../src/interface.c:970
+#: ../src/interface.c:962
 msgid "example: *.txt; ac*"
 msgstr "例: *.txt; ac*"
 
-#: ../src/interface.c:987
+#: ../src/interface.c:979
 msgid "_Select"
 msgstr "選択(_S)"
 
-#: ../src/interface.c:1059
+#: ../src/interface.c:1051
 msgid "Archive Properties"
 msgstr "アーカイブプロパティ"
 
-#: ../src/interface.c:1080
+#: ../src/interface.c:1072
 msgid "Name:"
 msgstr "名前:"
 
-#: ../src/interface.c:1087
+#: ../src/interface.c:1079
 msgid "Path:"
 msgstr "パス:"
 
-#: ../src/interface.c:1094
+#: ../src/interface.c:1086
 msgid "Type:"
 msgstr "タイプ:"
 
-#: ../src/interface.c:1101
+#: ../src/interface.c:1093
 msgid "Encrypted:"
 msgstr "暗号化:"
 
-#: ../src/interface.c:1108
+#: ../src/interface.c:1100
 msgid "Modified on:"
 msgstr "変更日時:"
 
-#: ../src/interface.c:1115
+#: ../src/interface.c:1107
 msgid "Compressed size:"
 msgstr "圧縮後のサイズ:"
 
-#: ../src/interface.c:1122
+#: ../src/interface.c:1114
 msgid "Uncompressed size:"
 msgstr "復元後のサイズ:"
 
-#: ../src/interface.c:1129
+#: ../src/interface.c:1121
 msgid "Comment:"
 msgstr "コメント:"
 
-#: ../src/interface.c:1136
+#: ../src/interface.c:1128
 msgid "Number of files:"
 msgstr "ファイル数:"
 
-#: ../src/interface.c:1143
+#: ../src/interface.c:1135
 msgid "Compression ratio:"
 msgstr "圧縮率:"
 
-#: ../src/interface.c:1507 ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
-#: ../src/interface.c:1534
+#: ../src/interface.c:1526
 msgid "Extracting from archive:"
 msgstr "アーカイブからファイルを展開しています:"
 
-#: ../src/interface.c:1536
+#: ../src/interface.c:1528
 msgid "Adding to archive:"
 msgstr "アーカイブに追加しています:"
 
-#: ../src/interface.c:1556
+#: ../src/interface.c:1548
 msgid "Total Progress:"
 msgstr "全体の進捗:"
 
@@ -1228,3 +1230,6 @@ msgstr "Xfce 4 アーカイブマネージャ"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "アーカイブマネージャ"
+
+#~ msgid "_Thanks to"
+#~ msgstr "謝辞(_T)"
