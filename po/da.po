@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2009-01-11 12:52+0100\n"
-"PO-Revision-Date: 2009-01-23 10:04+0100\n"
+"PO-Revision-Date: 2009-04-08 11:18+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -715,7 +715,7 @@ msgstr "_Egenskaber"
 
 #: ../src/interface.c:161
 msgid "A_ction"
-msgstr "_Handling"
+msgstr "H_andling"
 
 #: ../src/interface.c:168
 msgid "A_dd"
@@ -748,7 +748,7 @@ msgstr "Afmar_kér alle"
 
 #: ../src/interface.c:253
 msgid "Select _by pattern"
-msgstr "Markér efter _mønster"
+msgstr "Markér e_fter mønster"
 
 #: ../src/interface.c:264
 msgid "Cmd-line outp_ut"
