@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2008-11-04 07:31+0100\n"
-"PO-Revision-Date: 2009-04-08 12:16+0100\n"
+"PO-Revision-Date: 2009-04-29 15:24+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <xfce-it-translators@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "Compresso"
 
 #: ../src/7zip.c:57
 msgid "Attr"
-msgstr "Permessi"
+msgstr "Attributi"
 
 #: ../src/7zip.c:57
 #: ../src/arj.c:48
@@ -99,7 +99,7 @@ msgstr "Rinfresca e sostituisci"
 
 #: ../src/add_dialog.c:116
 msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"
-msgstr "Questa opzione aggiunge un file all'archivio solo se questo è più recente di quello già presente nell'archivio stesso; a differenza dell'opzione «Aggiorna», questa non aggiunge alcun file a meno che non siano già presenti nell'archivio."
+msgstr "Questa opzione aggiunge un file all'archivio solo se questo è più recente di quello già presente nell'archivio stesso; a differenza dell'opzione «Aggiorna», questa non aggiunge alcun file a meno che non sia già presente nell'archivio."
 
 #: ../src/add_dialog.c:120
 msgid "Include subdirectories"
@@ -107,11 +107,11 @@ msgstr "Includi le sottocartelle"
 
 #: ../src/add_dialog.c:124
 msgid "Create a solid archive"
-msgstr "Crea un archivio solido"
+msgstr "Crea un archivio compatto"
 
 #: ../src/add_dialog.c:126
 msgid "In a solid archive the files are grouped together featuring a better compression ratio"
-msgstr "In un archivio solido i file sono raggruppati insieme permettendo di ottenere un miglior rapporto di compressione"
+msgstr "In un archivio compatto i file sono raggruppati insieme permettendo di ottenere un miglior rapporto di compressione"
 
 #: ../src/add_dialog.c:129
 msgid "Delete files after adding"
@@ -1220,7 +1220,7 @@ msgstr "Permessi"
 
 #: ../src/rpm.c:52
 msgid "Hard Link"
-msgstr "Hard Link"
+msgstr "Collegamento rigido"
 
 #: ../src/rpm.c:52
 msgid "Owner"
