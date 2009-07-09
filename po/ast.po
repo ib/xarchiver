@@ -1,0 +1,1219 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: xarchiver\n"
+"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
+"POT-Creation-Date: 2009-04-18 21:08+0200\n"
+"PO-Revision-Date: 2009-07-06 18:43+0100\n"
+"Last-Translator: astur <malditoastur@gmail.com>\n"
+"Language-Team: Asturian <alministradores@softastur.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:116 ../src/rar.c:63
+#: ../src/zip.c:49
+msgid "Original"
+msgstr "Orixinal"
+
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:116 ../src/gzip.c:78
+#: ../src/rar.c:63 ../src/zip.c:49
+msgid "Compressed"
+msgstr "Comprimíu"
+
+#: ../src/7zip.c:57
+msgid "Attr"
+msgstr "Atributu"
+
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/gzip.c:61 ../src/rar.c:63
+#: ../src/tar.c:55 ../src/zip.c:49
+msgid "Time"
+msgstr "Hora"
+
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/gzip.c:61 ../src/rar.c:63
+#: ../src/rpm.c:52 ../src/tar.c:55 ../src/zip.c:49
+msgid "Date"
+msgstr "Data"
+
+#: ../src/add_dialog.c:36 ../src/interface.c:388
+msgid "Add files"
+msgstr "Amestar ficheros"
+
+#: ../src/add_dialog.c:52
+msgid "Selection"
+msgstr "Escoyeta"
+
+#: ../src/add_dialog.c:66
+msgid "File Paths: "
+msgstr "Camín de ficheros:"
+
+#: ../src/add_dialog.c:72
+msgid "Store full paths"
+msgstr "Atroxar caminos completos"
+
+#: ../src/add_dialog.c:76
+msgid "Do not store paths"
+msgstr "Nun atroxar caminos"
+
+#: ../src/add_dialog.c:85
+msgid "Options"
+msgstr "Opciones"
+
+#: ../src/add_dialog.c:103
+msgid "Update and add"
+msgstr "Anovar y amestar"
+
+#: ../src/add_dialog.c:105
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr ""
+"Esta opción amestará cualesquier ficheru nuevu y anovará cualesquier ficheru "
+"qu'heba camudáose dempués de la criación/modificación del ficheru comprimíu"
+
+#: ../src/add_dialog.c:108
+msgid "Freshen and replace"
+msgstr "Refrescar y camudar"
+
+#: ../src/add_dialog.c:111
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+"Esta opción afeuta al ficheru comprimíu namái si foi camudáu enantes que la "
+"versión ya esistente dientro d'él. Al contrario que la opción anovar, nun "
+"amestará ficheros que nun esistieren nel ficheru comprimíu"
+
+#: ../src/add_dialog.c:115
+msgid "Include subdirectories"
+msgstr "Incluyir subdireutorios"
+
+#: ../src/add_dialog.c:119
+msgid "Create a solid archive"
+msgstr "Criar archivu sólidu"
+
+#: ../src/add_dialog.c:121
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr ""
+"Dientro d'un ficheru sólidu los ficheros agrúpense de mou qu'algame una "
+"meyor tasa de compresión"
+
+#: ../src/add_dialog.c:124
+msgid "Delete files after adding"
+msgstr "Desaniciar ficheros dempués d'amestar"
+
+#: ../src/add_dialog.c:128
+msgid "Actions: "
+msgstr "Aiciones: "
+
+#: ../src/add_dialog.c:143
+msgid "Compression: "
+msgstr "Compresión: "
+
+#: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
+msgid "Password:"
+msgstr "Contraseña:"
+
+#: ../src/add_dialog.c:167
+msgid "Encryption: "
+msgstr "Cifráu: "
+
+#: ../src/add_dialog.c:180
+msgid "_Add"
+msgstr "_Amestar"
+
+#: ../src/add_dialog.c:247
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr ""
+"0 = ensin compresión, 5 ye'l valor predetermináu, 9 = la meyor compresión "
+"pero la más lenta"
+
+#: ../src/add_dialog.c:253
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr ""
+"0 = ensin compresión, 6 ye'l valor predetermináu, 9 = la meyor compresión "
+"pero la más lenta"
+
+#: ../src/add_dialog.c:259
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+"0 = ensin compresión, 3 ye'l valor predetermináu, 5 = la meyor compresión "
+"pero la más lenta"
+
+#: ../src/add_dialog.c:265
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr ""
+"0 = ensin compresión, 1 ye'l valor predetermináu, 4 = la más rápida pero la "
+"menor compresión"
+
+#: ../src/add_dialog.c:271
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = compresión predeterminada, 7 = máxima compresión"
+
+#: ../src/add_dialog.c:371 ../src/main.c:228
+msgid "Can't add files to the archive:"
+msgstr "Nun pueden amestase ficheros al ficheru comprimíu:"
+
+#: ../src/add_dialog.c:371
+msgid "You haven't selected any files to add!"
+msgstr "¡Nun esbillasti dengún ficheru p'amestar!"
+
+#: ../src/add_dialog.c:379 ../src/interface.c:808
+msgid "You missed the password!"
+msgstr "¡Equivocástete de contraseña!"
+
+#: ../src/add_dialog.c:379 ../src/interface.c:808
+msgid "Please enter it!"
+msgstr "¡Por favor, introdúzla!"
+
+#: ../src/add_dialog.c:449
+msgid "Adding files to archive, please wait..."
+msgstr "Amestando ficheros a ficheru comprimíu. Por favor, espera..."
+
+#: ../src/archive.c:89
+msgid "Can't run the archiver executable:"
+msgstr "Nun puede executase l'executable del programa de compresión:"
+
+#: ../src/archive.c:374
+msgid "Can't create temporary directory in /tmp:"
+msgstr "Nun puede criase un direutoriu temporal en /tmp:"
+
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
+msgid "Ratio"
+msgstr "Tasa"
+
+#: ../src/arj.c:48
+msgid "Attributes"
+msgstr "Atributos"
+
+#: ../src/window.c:60
+msgid "An error occurred!"
+msgstr "¡Asocedió un fallu!"
+
+#: ../src/window.c:60
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr ""
+"Por favor, activa la opción 'Atroxar la salida del programa de compresión' "
+"pa velo."
+
+#: ../src/window.c:147
+msgid "Archiver output"
+msgstr "Salida del programa de compresión"
+
+#: ../src/window.c:182
+msgid "An error occurred while accessing the archive:"
+msgstr "Asocedió un fallu al acceder al ficheru comprimíu:"
+
+#: ../src/window.c:254
+msgid "Save the archive as"
+msgstr "Guardar el ficheru como"
+
+#: ../src/window.c:313
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "Nun puede abrise'l ficheru \"%s\":"
+
+#: ../src/window.c:339
+msgid "Sorry,this archive format is not supported:"
+msgstr "Siéntolo, esti formatu de ficheru nun ta sofitáu:"
+
+#: ../src/window.c:339
+msgid "the proper archiver is not installed!"
+msgstr "¡El programa de compresión afayaízu nun ta instaláu!"
+
+#: ../src/window.c:353
+msgid "Can't allocate memory for the archive structure:"
+msgstr "Nun puede reservase memoria pa la estructura del ficheru:"
+
+#: ../src/window.c:378
+msgid "Opening archive,please wait..."
+msgstr "Abriendo ficheru. Por favor, espera..."
+
+#: ../src/window.c:402
+msgid "Testing archive,please wait..."
+msgstr "Comprobando ficheru. Por favor, espera..."
+
+#: ../src/window.c:422
+msgid "Print the archive content as HTML"
+msgstr "Amosar el conteníu del ficheru como HTML"
+
+#: ../src/window.c:424
+msgid "Print the archive content as text"
+msgstr "Amosar el conteníu del ficheru como testu"
+
+#: ../src/window.c:473
+#, c-format
+msgid "Archive contents:\n"
+msgstr "Conteníu del ficheru:\n"
+
+#: ../src/window.c:477
+#, c-format
+msgid ""
+"\n"
+"Name: "
+msgstr ""
+"\n"
+"Nome:"
+
+#: ../src/window.c:486
+#, c-format
+msgid "Compressed   size: "
+msgstr "Tamañu comprimíu:"
+
+#: ../src/window.c:493
+#, c-format
+msgid "Uncompressed size: "
+msgstr "Tamañu ensin comprimir:"
+
+#: ../src/window.c:501
+#, c-format
+msgid "Number of files: "
+msgstr "Númberu de ficheros:"
+
+#: ../src/window.c:509
+#, c-format
+msgid "Comment:\n"
+msgstr "Comentariu:\n"
+
+#: ../src/window.c:522
+#, c-format
+msgid "Files:%*s%s"
+msgstr "Ficheru: %*s%s"
+
+#: ../src/window.c:522
+msgid "|Compressed\n"
+msgstr "|Comprimíu\n"
+
+#: ../src/window.c:528
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>Ficheros:</th>"
+
+#: ../src/window.c:529
+#, c-format
+msgid "<th>Compressed:</th>"
+msgstr "<th>Comprimíu:</th>"
+
+#: ../src/window.c:720
+msgid "Are you sure you want to do this?"
+msgstr "¿De xuru que quies facer esto?"
+
+#: ../src/window.c:813 ../src/window.c:913
+msgid "Can't convert the archive to self-extracting:"
+msgstr "Nun puede convertise'l ficheru n'autoestrayíble:"
+
+#: ../src/window.c:824 ../src/window.c:924
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "Nun puede escribise'l módulu unzipsfx nel ficheru:"
+
+#: ../src/window.c:884
+msgid "Please select the 7zCon.sfx module"
+msgstr "Por favor, seleiciona'l módulu 7zCon.sfx"
+
+#: ../src/window.c:981
+msgid "translator-credits"
+msgstr "Softastur www.softastur.org"
+
+#: ../src/window.c:1011
+msgid "Save the self-extracting archive as"
+msgstr "Guardar ficheru autoestrayíble como"
+
+#: ../src/window.c:1040 ../src/interface.c:340
+msgid "Open an archive"
+msgstr "Abrir un ficheru comprimíu"
+
+#: ../src/window.c:1053 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+msgid "All files"
+msgstr "Tolos ficheros"
+
+#: ../src/window.c:1058 ../src/new_dialog.c:67
+msgid "Only archives"
+msgstr "Namái ficheros comprimíos"
+
+#: ../src/window.c:1272
+msgid "Filename"
+msgstr "Nome de ficheru"
+
+#: ../src/window.c:1329
+msgid "Doing so will probably corrupt your archive!"
+msgstr "¡Facer esto dablemente corrompa'l ficheru comprimíu!"
+
+#: ../src/window.c:1329
+msgid "Do you really want to cancel?"
+msgstr "¿De xuru que quies encaboxar?"
+
+#: ../src/window.c:1392 ../src/window.c:1407
+msgid "Yes"
+msgstr "Sí"
+
+#: ../src/window.c:1394 ../src/window.c:1409
+msgid "No"
+msgstr "Non"
+
+#: ../src/window.c:1612
+msgid "selected"
+msgstr "seleicionáu"
+
+#: ../src/window.c:1617
+#, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] "%d ficheru y %d direutoriu %s (%s)"
+msgstr[1] "%d ficheros y %d direutorios %s (%s)"
+
+#: ../src/window.c:1619
+#, c-format
+msgid "%d dir %s (%s)"
+msgid_plural "%d dirs %s (%s)"
+msgstr[0] "%d direutoriu %s (%s)"
+msgstr[1] "%d direutorios %s (%s)"
+
+#: ../src/window.c:1622
+#, c-format
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
+msgstr[0] "%d ficheru %s (%s)"
+msgstr[1] "%d ficheros %s (%s)"
+
+#: ../src/window.c:1678
+msgid "Can't perform another extraction:"
+msgstr "Nun puede realizase otra estraición:"
+
+#: ../src/window.c:1678
+msgid "Please wait until the completion of the current one!"
+msgstr "¡Por favor, espera fasta que complete l'actual!"
+
+#: ../src/window.c:1717 ../src/extract_dialog.c:340
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr ""
+"Nun tienes los permisos necesarios pa estrayer los ficheros nel direutoriu "
+"\"%s\"."
+
+#: ../src/window.c:1718 ../src/extract_dialog.c:341
+msgid "Can't perform extraction!"
+msgstr "¡Nun puede facese la estraición!"
+
+#: ../src/window.c:1759 ../src/extract_dialog.c:649 ../src/interface.c:1392
+msgid "Sorry,I could not perform the operation!"
+msgstr "¡Siéntolo, nun pudo facese la operación!"
+
+#: ../src/window.c:1793 ../src/window.c:1805 ../src/interface.c:1385
+msgid "Can't perform this action:"
+msgstr "Nun puede facese esta aición:"
+
+#: ../src/window.c:1793
+msgid "You have to install rar package!"
+msgstr "¡Necesites instalar el paquete rar!"
+
+#: ../src/window.c:1800 ../src/interface.c:1382
+msgid "You can't add content to deb packages!"
+msgstr "¡Nun pueden amestase conteníos a paquetes deb!"
+
+#: ../src/window.c:1802 ../src/interface.c:1384
+msgid "You can't add content to rpm packages!"
+msgstr "¡Nun pueden amestase conteníos a paquetes rpm!"
+
+#: ../src/window.c:1804
+msgid "The archiver doesn't support this feature!"
+msgstr "¡El programa de compresión nun sofita esta funcionalidá!"
+
+#: ../src/window.c:1885
+msgid "You didn't set which browser to use!"
+msgstr "¡Nun especificaste'l visor de ficheros a usar!"
+
+#: ../src/window.c:1885 ../src/window.c:1926
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "Por favor, vete a Preferencies->Avanzáu y configúralu."
+
+#: ../src/window.c:1917
+msgid "This file type is not supported!"
+msgstr "¡Esta triba de ficheru nun ta sofitada!"
+
+#: ../src/window.c:1917
+msgid "Please install xdg-utils package."
+msgstr "Por favor, instala'l paquete xdg-utils."
+
+#: ../src/window.c:1926
+msgid "You didn't set which program to use for opening this file!"
+msgstr "¡Nun especificaste qué programa usar p'abrir esti ficheru!"
+
+#: ../src/window.c:1953
+msgid "Failed to launch the application!"
+msgstr "¡Fallu al executar l'aplicación!"
+
+#: ../src/window.c:2006
+msgid "Comment"
+msgstr "Comentariu"
+
+#: ../src/window.c:2036
+msgid "From File"
+msgstr "Dende ficheru"
+
+#: ../src/window.c:2141
+msgid "Open a text file"
+msgstr "Abrir un ficheru de testu"
+
+#: ../src/window.c:2159
+#, c-format
+msgid "Can't open file %s:"
+msgstr "Nun puede abrise'l ficheru %s:"
+
+#: ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51 ../src/rar.c:63
+#: ../src/tar.c:55 ../src/zip.c:49
+msgid "Permissions"
+msgstr "Permisos"
+
+#: ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
+msgid "Owner/Group"
+msgstr "Propietariu/Grupu"
+
+#: ../src/deb.c:45 ../src/extract_dialog.c:394 ../src/gzip.c:61
+#: ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52 ../src/tar.c:55
+msgid "Size"
+msgstr "Tamañu"
+
+#: ../src/deb.c:45
+msgid "Date modified"
+msgstr "Data camudada"
+
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:467
+msgid "Extract to:"
+msgstr "Estrayer en:"
+
+#: ../src/extract_dialog.c:94
+msgid "Selected files"
+msgstr "Ficheros seleicionaos"
+
+#: ../src/extract_dialog.c:101
+msgid "Files: "
+msgstr "Ficheros:"
+
+#: ../src/extract_dialog.c:111
+msgid "Files "
+msgstr "Ficheros"
+
+#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:494
+msgid "Overwrite existing files"
+msgstr "Sobroescribir ficheros esistentes"
+
+#: ../src/extract_dialog.c:128
+msgid "Extract files with full path"
+msgstr "Estrayer ficheros col camín completu"
+
+#: ../src/extract_dialog.c:129
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr ""
+"La estructura de direutorios del ficheru comprimíu ye recriada nel "
+"direutoriu d'estraición"
+
+#: ../src/extract_dialog.c:132
+msgid "Touch files"
+msgstr "Anovar la data de los ficheros"
+
+#: ../src/extract_dialog.c:133
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr ""
+"Cuando s'usa esta opción, tar dexa la data de modificación de datos de los "
+"ficheros qu'estrái como la data en que los ficheros s'estrayeron, n'arróu de "
+"caltener la data atroxada nel ficheru"
+
+#: ../src/extract_dialog.c:136
+msgid "Freshen existing files"
+msgstr "Refrescar ficheros esistentes"
+
+#: ../src/extract_dialog.c:137
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+"Estrayer namái aquellos ficheros que yá esisten nel discu y que son más "
+"nuevos que les copies en discu"
+
+#: ../src/extract_dialog.c:141
+msgid "Update existing files"
+msgstr "Anovar ficheros esistentes"
+
+#: ../src/extract_dialog.c:142
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+"Esta opción fai la mesma función que la de refrescar, estrayendo los "
+"ficheros que son más nuevos qu'aquellos que tien el mesmu nome en discu, "
+"arriendes d'estrayer aquellos qu'entá nun esisten nel discu"
+
+#: ../src/extract_dialog.c:146
+msgid "Options "
+msgstr "Opciones "
+
+#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:510
+#: ../src/interface.c:178
+msgid "_Extract"
+msgstr "_Estrayer"
+
+#: ../src/extract_dialog.c:223
+msgid "Decompress file"
+msgstr "Descomprimir ficheru"
+
+#: ../src/extract_dialog.c:225 ../src/interface.c:396
+msgid "Extract files"
+msgstr "Estrayer ficheros"
+
+#: ../src/extract_dialog.c:316 ../src/extract_dialog.c:722
+msgid "You missed where to extract the files!"
+msgstr "¡Escaeciste definir d'au estrayer los ficheros!"
+
+#: ../src/extract_dialog.c:316
+msgid "Please enter the extraction path."
+msgstr "Por favor, introduz el camín d'estraición."
+
+#: ../src/extract_dialog.c:330
+msgid "This archive is encrypted!"
+msgstr "¡Esti ficheru ta cifráu!"
+
+#: ../src/extract_dialog.c:330
+msgid "Please enter the password."
+msgstr "Por favor, introduz la contraseña."
+
+#: ../src/extract_dialog.c:377
+msgid "Extracting files from archive,please wait..."
+msgstr "Estrayendo ficheros de ficheru comprimíu. Por favor, espera..."
+
+#: ../src/extract_dialog.c:394
+msgid "Archive Name"
+msgstr "Nome de ficheru"
+
+#: ../src/extract_dialog.c:394
+msgid "Path"
+msgstr "Camín"
+
+#: ../src/extract_dialog.c:406
+msgid "Multi-Extract"
+msgstr "Multi-estraición"
+
+#: ../src/extract_dialog.c:477
+msgid "Extract to dir \"Archive Name\""
+msgstr "Estrayer al direutoriu \"Nome del ficheru\""
+
+#: ../src/extract_dialog.c:478
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr ""
+"Esta opción estrái los ficheros nun direutoriu col mesmu nome que'l del "
+"ficheru comprimíu"
+
+#: ../src/extract_dialog.c:482
+msgid "Destination dirs:"
+msgstr "Direutorios de destín:"
+
+#: ../src/extract_dialog.c:496
+msgid "Extract pathnames"
+msgstr "Estrayer nomes de caminos"
+
+#: ../src/extract_dialog.c:498
+msgid "Options:"
+msgstr "Opciones:"
+
+#: ../src/extract_dialog.c:530
+msgid "Please select the archives you want to extract"
+msgstr "Por favor, esbilla los ficheros que quies estrayer"
+
+#: ../src/extract_dialog.c:671
+msgid "Please select the destination directory"
+msgstr "Por favor, esbilla'l direutoriu de destín"
+
+#: ../src/extract_dialog.c:714
+msgid "Can't multi-extract archives:"
+msgstr "Nun pueden multi-estrayese ficheros:"
+
+#: ../src/extract_dialog.c:714
+msgid "You haven't added any of them!"
+msgstr "¡Nun amestaste dengún d'ellos!"
+
+#: ../src/extract_dialog.c:722
+msgid "Please fill the \"Extract to\" field!"
+msgstr "¡Por favor, rellena'l campu \"Estrayer en\"!"
+
+#: ../src/extract_dialog.c:753
+msgid "Some errors occurred:"
+msgstr "Asocedieron dalgunos fallos:"
+
+#: ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52 ../src/tar.c:55
+msgid "Points to"
+msgstr "Apunta a"
+
+#: ../src/lha.c:51
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/lha.c:51
+msgid "Timestamp"
+msgstr "Marca de tiempu"
+
+#: ../src/interface.c:77
+msgid "_Archive"
+msgstr "_Ficheru"
+
+#: ../src/interface.c:92
+msgid "List as"
+msgstr "Llistar como"
+
+#: ../src/interface.c:103
+msgid "Text file"
+msgstr "Ficheru de testu"
+
+#: ../src/interface.c:110
+msgid "HTML file"
+msgstr "Ficheru HTML"
+
+#: ../src/interface.c:127
+msgid "_Test"
+msgstr "_Comprobar"
+
+#: ../src/interface.c:137
+msgid "_Properties"
+msgstr "_Propiedaes"
+
+#: ../src/interface.c:161
+msgid "A_ction"
+msgstr "Ai_ción"
+
+#: ../src/interface.c:168
+msgid "A_dd"
+msgstr "Ames_tar"
+
+#: ../src/interface.c:194 ../src/interface.c:905
+msgid "Rename"
+msgstr "Renomar"
+
+#: ../src/interface.c:208
+msgid "Make SF_X"
+msgstr "Facer ficheru autoe_strayíble"
+
+#: ../src/interface.c:218
+msgid "_Multi-Extract"
+msgstr "_Multi-estrayer"
+
+#: ../src/interface.c:223
+msgid "Archive comment"
+msgstr "Comentariu de ficheru"
+
+#: ../src/interface.c:237
+msgid "Select _all"
+msgstr "Seleicionar _too"
+
+#: ../src/interface.c:247
+msgid "Dese_lect all"
+msgstr "Dese_leicionar too"
+
+#: ../src/interface.c:253
+msgid "Select _by pattern"
+msgstr "Seleicionar por pa_trón"
+
+#: ../src/interface.c:264
+msgid "Cmd-line outp_ut"
+msgstr "Salida de la _llinia de comandos"
+
+#: ../src/interface.c:277
+msgid "Enter passwo_rd"
+msgstr "Introduz _contraseña"
+
+#: ../src/interface.c:288
+msgid "_Preferences"
+msgstr "_Preferencies"
+
+#: ../src/interface.c:297
+msgid "_Help"
+msgstr "Ai_da"
+
+#: ../src/interface.c:304
+msgid "_Contents"
+msgstr "_Conteníos"
+
+#: ../src/interface.c:313
+msgid "Donate"
+msgstr "Donar"
+
+#: ../src/interface.c:333 ../src/new_dialog.c:50
+msgid "Create a new archive"
+msgstr "Criar un ficheru nuevu"
+
+#: ../src/interface.c:352
+msgid "Back"
+msgstr "P'atrás"
+
+#: ../src/interface.c:360
+msgid "Up"
+msgstr "P'arriba"
+
+#: ../src/interface.c:368
+msgid "Forward"
+msgstr "Alantre"
+
+#: ../src/interface.c:376
+msgid "Root"
+msgstr "Raíz"
+
+#: ../src/interface.c:408
+msgid "Cancel current operation"
+msgstr "Encaboxar operación actual"
+
+#: ../src/interface.c:421
+msgid "Location:"
+msgstr "Llugar:"
+
+#: ../src/interface.c:460
+msgid "Archive tree"
+msgstr "Árbol de ficheros"
+
+#: ../src/interface.c:508
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr ""
+"Ésti ye l'indicador d'estáu de Xarchiver. Cuando parpaguia, Xarchiver ta "
+"ocupáu."
+
+#: ../src/interface.c:677
+msgid "Close archive"
+msgstr "Zarrar ficheru"
+
+#: ../src/interface.c:762
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight='bold' size='larger'>Contraseña requerida pa:</span>"
+
+#: ../src/interface.c:764
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight='bold' size='larger'>Introduz contraseña pa:</span>"
+
+#: ../src/interface.c:782
+msgid "_Password:"
+msgstr "_Contraseña:"
+
+#: ../src/interface.c:837 ../src/open-with-dlg.c:52
+msgid "Open With"
+msgstr "Abrir con"
+
+#: ../src/interface.c:845
+msgid "Extract"
+msgstr "Estrayer"
+
+#: ../src/interface.c:853
+msgid "View"
+msgstr "Ver"
+
+#: ../src/interface.c:866
+msgid "Cut"
+msgstr "Cortar"
+
+#: ../src/interface.c:874
+msgid "Copy"
+msgstr "Copiar"
+
+#: ../src/interface.c:882
+msgid "Paste"
+msgstr "Apegar"
+
+#: ../src/interface.c:896
+msgid "Delete"
+msgstr "Desaniciar"
+
+#: ../src/interface.c:944
+msgid "Select by Pattern"
+msgstr "Seleicionar según patrón"
+
+#: ../src/interface.c:957
+msgid "Pattern:"
+msgstr "Patrón:"
+
+#: ../src/interface.c:962
+msgid "example: *.txt; ac*"
+msgstr "exemplu: *.txt; ac*"
+
+#: ../src/interface.c:979
+msgid "_Select"
+msgstr "_Seleicionar"
+
+#: ../src/interface.c:1051
+msgid "Archive Properties"
+msgstr "Propiedaes de ficheru"
+
+#: ../src/interface.c:1072
+msgid "Name:"
+msgstr "Nome:"
+
+#: ../src/interface.c:1079
+msgid "Path:"
+msgstr "Camín:"
+
+#: ../src/interface.c:1086
+msgid "Type:"
+msgstr "Triba:"
+
+#: ../src/interface.c:1093
+msgid "Encrypted:"
+msgstr "Cifráu:"
+
+#: ../src/interface.c:1100
+msgid "Modified on:"
+msgstr "Camudáu:"
+
+#: ../src/interface.c:1107
+msgid "Compressed size:"
+msgstr "Tamañu comprimíu:"
+
+#: ../src/interface.c:1114
+msgid "Uncompressed size:"
+msgstr "Tamañu descomprimíu:"
+
+#: ../src/interface.c:1121
+msgid "Comment:"
+msgstr "Comentariu:"
+
+#: ../src/interface.c:1128
+msgid "Number of files:"
+msgstr "Númberu de ficheros:"
+
+#: ../src/interface.c:1135
+msgid "Compression ratio:"
+msgstr "Tasa de compresión:"
+
+#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr "Xarchiver"
+
+#: ../src/interface.c:1526
+msgid "Extracting from archive:"
+msgstr "Estrayendo de ficheru:"
+
+#: ../src/interface.c:1528
+msgid "Adding to archive:"
+msgstr "Amestando a ficheru:"
+
+#: ../src/interface.c:1548
+msgid "Total Progress:"
+msgstr "Progresu total:"
+
+#: ../src/main.c:58
+msgid "Extract archive to the destination directory and quits."
+msgstr "Estrái ficheru nel direutoriu de destín y cuela."
+
+#: ../src/main.c:59
+msgid "destination archive"
+msgstr "ficheru de destín"
+
+#: ../src/main.c:62
+msgid "Extract archive by asking the extraction directory and quits."
+msgstr "Estrái ficheru pidiendo'l direutoriu d'estraición y cuela."
+
+#: ../src/main.c:63 ../src/main.c:75
+msgid "archive"
+msgstr "ficheru"
+
+#: ../src/main.c:66
+msgid "Multi-extract archives"
+msgstr "Multi-estrayer ficheros"
+
+#: ../src/main.c:67
+msgid "filenames"
+msgstr "nomes de ficheru"
+
+#: ../src/main.c:70
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "Amiesta los ficheros pidiendo'l nome del ficheru comprimíu y cuela."
+
+#: ../src/main.c:71
+msgid "file1 file2 file3 ... fileN"
+msgstr "ficheru1 ficheru2 ficheru3 ... ficheruN"
+
+#: ../src/main.c:74
+msgid "Add files to archive by asking their filenames and quits."
+msgstr ""
+"Amesta los ficheros al ficheru comprimíu pidiendo los sos nomes y cuela."
+
+#: ../src/main.c:78
+msgid "Show version and exit"
+msgstr "Amosar versión y colar"
+
+#: ../src/main.c:105
+msgid "[archive name]"
+msgstr "[nome de ficheru]"
+
+#: ../src/main.c:109
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"Preba xarchiver --help pa ver una llista completa d'opciones de llinia de "
+"comandos.\n"
+
+#: ../src/main.c:119
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr "Por favor, informa de fallos a <%s>."
+
+#: ../src/main.c:146 ../src/main.c:169
+msgid "Can't extract files from the archive:"
+msgstr "Nun pueden estrayese ficheros del ficheru comprimíu:"
+
+#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
+msgid "You missed the archive name!\n"
+msgstr "¡Escaeciste'l nome del ficheru!\n"
+
+#: ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Seleiciona \"Nuevu\" pa criar o \"Abrir\" p'abrir un ficheru"
+
+#: ../src/main.c:534
+msgid "Can't allocate memory for the archive structure!"
+msgstr "¡Nun puede reservase memoria pa la estructura del ficheru!"
+
+#: ../src/open-with-dlg.c:54
+msgid "Open the selected files with"
+msgstr "Abrir los ficheros seleicionaos con"
+
+#: ../src/open-with-dlg.c:83
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "Abrir <i>%s</i> con:"
+
+#: ../src/open-with-dlg.c:118
+msgid "Use a custom command:"
+msgstr "Usar un comandu personalizáu:"
+
+#: ../src/open-with-dlg.c:126
+msgid "Browse"
+msgstr "Restolar"
+
+#: ../src/open-with-dlg.c:311
+msgid "Select an application"
+msgstr "Seleicionar una aplicación"
+
+#: ../src/new_dialog.c:55
+msgid "Cr_eate"
+msgstr "Cr_iar"
+
+#: ../src/new_dialog.c:92
+msgid "Archive type:"
+msgstr "Triba de ficheru:"
+
+#: ../src/new_dialog.c:97
+msgid "Choose the archive type to create"
+msgstr "Escoyer la triba de ficheru a criar"
+
+#: ../src/new_dialog.c:112
+msgid "Add the archive extension to the filename"
+msgstr "Amestar la estensión del ficheru comprimíu al nome del ficheru"
+
+#: ../src/new_dialog.c:159
+#, c-format
+msgid "\"%s\" is already open!"
+msgstr "¡\"%s\" yá ta abiertu!"
+
+#: ../src/new_dialog.c:160
+msgid "Can't create a new archive:"
+msgstr "Nun puede criase un ficheru nuevu:"
+
+#: ../src/new_dialog.c:175
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "¡El ficheru \"%s\" yá esiste!"
+
+#: ../src/new_dialog.c:181
+msgid "Do you want to overwrite it?"
+msgstr "¿Quies sobroescribilu?"
+
+#: ../src/pref_dialog.c:41
+msgid "Preferences"
+msgstr "Preferencies"
+
+#: ../src/pref_dialog.c:61
+msgid "Archive"
+msgstr "Ficheru"
+
+#: ../src/pref_dialog.c:67
+msgid "Window"
+msgstr "Ventana"
+
+#: ../src/pref_dialog.c:72
+msgid "Advanced"
+msgstr "Avanzáu"
+
+#: ../src/pref_dialog.c:97
+msgid "Preferred archive format"
+msgstr "Formatu de ficheru preferíu"
+
+#: ../src/pref_dialog.c:115
+msgid "Confirm deletion of files"
+msgstr "Confirmar l'esborráu de ficheros"
+
+#: ../src/pref_dialog.c:119
+msgid "Sort archive by filename"
+msgstr "Axeitar ficheru comprimíu por nome"
+
+#: ../src/pref_dialog.c:122
+msgid "The filename column is sorted after loading the archive"
+msgstr "La columna de nome axéitase dempués de cargar el ficheru comprimíu"
+
+#: ../src/pref_dialog.c:124
+msgid "Store archiver output"
+msgstr "Atroxar la salida del programa de compresión"
+
+#: ../src/pref_dialog.c:127
+msgid "This option takes more memory with large archives"
+msgstr "Esta opción requier más memoria con ficheros grandes"
+
+#: ../src/pref_dialog.c:138
+msgid "Icons size (requires restart)"
+msgstr "Tamañu d'iconu (requier reaniciu)"
+
+#: ../src/pref_dialog.c:144
+msgid "large"
+msgstr "grande"
+
+#: ../src/pref_dialog.c:145
+msgid "small"
+msgstr "pequeñu"
+
+#: ../src/pref_dialog.c:150
+msgid "Show archive comment"
+msgstr "Amosar comentariu de ficheru"
+
+#: ../src/pref_dialog.c:151
+msgid "If checked the archive comment is shown after the archive is loaded"
+msgstr ""
+"Si ta activáu, el comentariu de ficheru amuésase dempués de que se cargue'l "
+"ficheru"
+
+#: ../src/pref_dialog.c:157
+msgid "Show archive tree sidebar"
+msgstr "Amosar la barra llateral del árbol de ficheru"
+
+#: ../src/pref_dialog.c:163
+msgid "Show archive location bar"
+msgstr "Amosar barra de llugares del ficheru"
+
+#: ../src/pref_dialog.c:185
+msgid "Web browser to use:"
+msgstr "Restolador web a usar:"
+
+#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
+#: ../src/pref_dialog.c:231
+msgid "choose..."
+msgstr "escoyer..."
+
+#: ../src/pref_dialog.c:198
+msgid "Open text files with:"
+msgstr "Abrir ficheros de testu con:"
+
+#: ../src/pref_dialog.c:211
+msgid "Open image files with:"
+msgstr "Abrir imáxenes con:"
+
+#: ../src/pref_dialog.c:224
+msgid "Preferred temp directory:"
+msgstr "Directoriu temporal preferíu:"
+
+#: ../src/pref_dialog.c:230
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/pref_dialog.c:237
+msgid "Save window geometry"
+msgstr "Guardar xeometría de la ventana"
+
+#: ../src/pref_dialog.c:242
+msgid "Allow subdirs with drag and drop"
+msgstr "Permitir subdireutorios con arrastrar y soltar"
+
+#: ../src/pref_dialog.c:246
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+"Esta opción incluí los subdireutorios cuando amiestes ficheros con arrastrar "
+"y soltar"
+
+#: ../src/pref_dialog.c:251
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"<span color='rede' style='italic'>Por favor, instala'l paquete xdg-utils pa "
+"que\n"
+"Xarchiver pueda reconocer más tribes de ficheros.</span>"
+
+#: ../src/pref_dialog.c:553
+msgid "Choose the temp directory to use"
+msgstr "Escoyer el direutoriu temporal a usar"
+
+#: ../src/pref_dialog.c:553
+msgid "Choose the application to use"
+msgstr "Escoyer l'aplicación a usar"
+
+#: ../src/rar.c:63
+msgid "CRC"
+msgstr "CRC"
+
+#: ../src/rar.c:63 ../src/zip.c:49
+msgid "Method"
+msgstr "Métodu"
+
+#: ../src/rar.c:63 ../src/zip.c:49
+msgid "Version"
+msgstr "Versión"
+
+#: ../src/rpm.c:39
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "Nun puede abrise'l ficheru RPM %s:"
+
+#: ../src/rpm.c:52
+msgid "Permission"
+msgstr "Permisu"
+
+#: ../src/rpm.c:52
+msgid "Hard Link"
+msgstr "Enllaz duru"
+
+#: ../src/rpm.c:52
+msgid "Owner"
+msgstr "Propietariu"
+
+#: ../src/rpm.c:52
+msgid "Group"
+msgstr "Grupu"
+
+#: ../src/rpm.c:62
+msgid "Can't fseek to position 104:"
+msgstr "Nun puede facese fseek a la posición 104:"
+
+#: ../src/rpm.c:68 ../src/rpm.c:84
+msgid "Can't read data from file:"
+msgstr "Nun pueden lleese datos del ficheru:"
+
+#: ../src/rpm.c:78
+msgid "Can't fseek in file:"
+msgstr "Nun puede facese fseek nel ficheru:"
+
+#: ../src/zip.c:49
+msgid "OS"
+msgstr "SO"
+
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr "Un xestor de ficheros comprimíos basáu namái en GTK+2"
+
+#: ../xarchiver.desktop.in.h:2
+msgid "Archive manager"
+msgstr "Xestor de ficheros comprimíos"
