@@ -301,7 +301,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	menuitem4_menu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem4),menuitem4_menu);
 
-	help1 = gtk_image_menu_item_new_with_mnemonic ("_Contents");
+	help1 = gtk_image_menu_item_new_with_mnemonic (_("Contents"));
 	gtk_widget_show (help1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),help1);
 	gtk_widget_add_accelerator (help1,"activate",accel_group,GDK_F1,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
@@ -310,7 +310,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1),tmp_image);
 
-	donate = gtk_image_menu_item_new_with_mnemonic (_("_Donate"));
+	donate = gtk_image_menu_item_new_with_mnemonic (_("Donate"));
 	gtk_widget_show (donate);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),donate);
 
