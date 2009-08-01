@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-07-27 01:31+0900\n"
+"POT-Creation-Date: 2009-08-01 22:44+0200\n"
 "PO-Revision-Date: 2009-07-23 16:23+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -191,8 +191,9 @@ msgstr "ファイルをアーカイブに追加しています、お待ちくだ
 msgid "Can't run the archiver executable:"
 msgstr "アーカイブツールを実行できません:"
 
-#: ../src/archive.c:372
-msgid "Can't create temporary directory in /tmp:"
+#: ../src/archive.c:373
+#, fuzzy
+msgid "Can't create temporary directory:"
 msgstr "/tmp に一時作業フォルダを作成できません:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63

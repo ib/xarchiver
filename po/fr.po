@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-04-18 21:08+0200\n"
+"POT-Creation-Date: 2009-08-01 22:44+0200\n"
 "PO-Revision-Date: 2009-03-13 23:28+0100\n"
 "Last-Translator: Maximilian Schleiss <maximilian@xfce.org>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:116 ../src/rar.c:63
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
 msgstr "Original"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:116 ../src/gzip.c:78
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
 #: ../src/rar.c:63 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Compressé"
@@ -31,13 +31,13 @@ msgstr "Compressé"
 msgid "Attr"
 msgstr "Attr."
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/gzip.c:61 ../src/rar.c:63
-#: ../src/tar.c:55 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Time"
 msgstr "Temps"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/gzip.c:61 ../src/rar.c:63
-#: ../src/rpm.c:52 ../src/tar.c:55 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
 msgid "Date"
 msgstr "Date"
 
@@ -172,12 +172,13 @@ msgstr "Veuillez le compléter !"
 msgid "Adding files to archive, please wait..."
 msgstr "Ajouts de fichiers à l'archive, veuillez patienter..."
 
-#: ../src/archive.c:89
+#: ../src/archive.c:87
 msgid "Can't run the archiver executable:"
 msgstr "Échec à l'exécution d'archiver :"
 
-#: ../src/archive.c:374
-msgid "Can't create temporary directory in /tmp:"
+#: ../src/archive.c:373
+#, fuzzy
+msgid "Can't create temporary directory:"
 msgstr "Échec à la création du répertoire temporaire dans /tmp :"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
@@ -187,6 +188,26 @@ msgstr "Taux"
 #: ../src/arj.c:48
 msgid "Attributes"
 msgstr "Attributs"
+
+#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/tar.c:54
+msgid "Points to"
+msgstr "Pointe vers"
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+msgid "Permissions"
+msgstr "Permissions"
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+msgid "Owner/Group"
+msgstr "Propriétaire/Groupe"
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:395
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/tar.c:54
+msgid "Size"
+msgstr "Taille"
 
 #: ../src/window.c:60
 msgid "An error occurred!"
@@ -242,12 +263,12 @@ msgstr "Imprimer le contenu de l'archive au format HTML"
 msgid "Print the archive content as text"
 msgstr "Imprimer le contenu de l'archive au format texte"
 
-#: ../src/window.c:473
+#: ../src/window.c:475
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Contenu de l'archive :\n"
 
-#: ../src/window.c:477
+#: ../src/window.c:479
 #, c-format
 msgid ""
 "\n"
@@ -256,137 +277,137 @@ msgstr ""
 "\n"
 "Nom :"
 
-#: ../src/window.c:486
+#: ../src/window.c:488
 #, c-format
 msgid "Compressed   size: "
 msgstr "Taille compressé :"
 
-#: ../src/window.c:493
+#: ../src/window.c:495
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Taille décompressé :"
 
-#: ../src/window.c:501
+#: ../src/window.c:503
 #, c-format
 msgid "Number of files: "
 msgstr "Nombre de fichiers :"
 
-#: ../src/window.c:509
+#: ../src/window.c:511
 #, c-format
 msgid "Comment:\n"
 msgstr "Commentaire :\n"
 
-#: ../src/window.c:522
+#: ../src/window.c:524
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Fichiers : %*s%s"
 
-#: ../src/window.c:522
+#: ../src/window.c:524
 msgid "|Compressed\n"
 msgstr "|Compressé\n"
 
-#: ../src/window.c:528
+#: ../src/window.c:530
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Fichiers :</th>"
 
-#: ../src/window.c:529
+#: ../src/window.c:531
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Compressé :</th>"
 
-#: ../src/window.c:720
+#: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Êtes-vous certain de vouloir faire ceci ?"
 
-#: ../src/window.c:813 ../src/window.c:913
+#: ../src/window.c:815 ../src/window.c:915
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Échec à la conversion de l'archive en auto-extractible :"
 
-#: ../src/window.c:824 ../src/window.c:924
+#: ../src/window.c:826 ../src/window.c:926
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Échec à l'écriture du module unzipsfx à l'archive :"
 
-#: ../src/window.c:884
+#: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Veuillez sélectionner le module 7zCon.sfx"
 
-#: ../src/window.c:981
+#: ../src/window.c:983
 msgid "translator-credits"
 msgstr ""
 "Maximilian Schleiss <maximilian@xfce.org>\n"
 "Gérald Barré <g.barre@free.fr>"
 
-#: ../src/window.c:1011
+#: ../src/window.c:1013
 msgid "Save the self-extracting archive as"
 msgstr "Enregistrer l'archive auto-extractible en tant que"
 
-#: ../src/window.c:1040 ../src/interface.c:340
+#: ../src/window.c:1042 ../src/interface.c:340
 msgid "Open an archive"
 msgstr "Ouvrir une archive"
 
-#: ../src/window.c:1053 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../src/window.c:1058 ../src/new_dialog.c:67
+#: ../src/window.c:1060 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "Seulement les archives"
 
-#: ../src/window.c:1272
+#: ../src/window.c:1274
 msgid "Filename"
 msgstr "Nom de fichier"
 
-#: ../src/window.c:1329
+#: ../src/window.c:1331
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Cette action risque de corrompre l'archive !"
 
-#: ../src/window.c:1329
+#: ../src/window.c:1331
 msgid "Do you really want to cancel?"
 msgstr "Voulez-vous vraiment annuler ?"
 
-#: ../src/window.c:1392 ../src/window.c:1407
+#: ../src/window.c:1394 ../src/window.c:1409
 msgid "Yes"
 msgstr "Oui"
 
-#: ../src/window.c:1394 ../src/window.c:1409
+#: ../src/window.c:1396 ../src/window.c:1411
 msgid "No"
 msgstr "Non"
 
-#: ../src/window.c:1612
+#: ../src/window.c:1614
 msgid "selected"
 msgstr "sélectionné(s)"
 
-#: ../src/window.c:1617
+#: ../src/window.c:1619
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "fichier %d et dossier %d %s (%s)"
 msgstr[1] "fichiers %d et dossiers %d %s (%s)"
 
-#: ../src/window.c:1619
+#: ../src/window.c:1621
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "dossier %d %s (%s)"
 msgstr[1] "dossiers %d %s (%s)"
 
-#: ../src/window.c:1622
+#: ../src/window.c:1624
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "fichier %d %s (%s)"
 msgstr[1] "fichiers %d %s (%s)"
 
-#: ../src/window.c:1678
+#: ../src/window.c:1680
 msgid "Can't perform another extraction:"
 msgstr "Impossible de faire une autre extraction :"
 
-#: ../src/window.c:1678
+#: ../src/window.c:1680
 msgid "Please wait until the completion of the current one!"
 msgstr "Attendez que celle en cours soit finie !"
 
-#: ../src/window.c:1717 ../src/extract_dialog.c:340
+#: ../src/window.c:1713 ../src/extract_dialog.c:341
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
@@ -395,94 +416,80 @@ msgstr ""
 "Vous n'avez pas les permissions nécessaires à l'extraction des fichiers dans "
 "le dossier \"%s\"."
 
-#: ../src/window.c:1718 ../src/extract_dialog.c:341
+#: ../src/window.c:1714 ../src/extract_dialog.c:342
 msgid "Can't perform extraction!"
 msgstr "Échec à l'extraction !"
 
-#: ../src/window.c:1759 ../src/extract_dialog.c:649 ../src/interface.c:1392
+#: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
 msgid "Sorry,I could not perform the operation!"
 msgstr "Échec à l'exécution de l'opération !"
 
-#: ../src/window.c:1793 ../src/window.c:1805 ../src/interface.c:1385
+#: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
 msgid "Can't perform this action:"
 msgstr "Échec à l'exécution de cette action !"
 
-#: ../src/window.c:1793
+#: ../src/window.c:1789
 msgid "You have to install rar package!"
 msgstr "Vous devez installer le paquet rar !"
 
-#: ../src/window.c:1800 ../src/interface.c:1382
+#: ../src/window.c:1796 ../src/interface.c:1382
 msgid "You can't add content to deb packages!"
 msgstr "Vous ne pouvez pas ajouter des données aux paquets deb !"
 
-#: ../src/window.c:1802 ../src/interface.c:1384
+#: ../src/window.c:1798 ../src/interface.c:1384
 msgid "You can't add content to rpm packages!"
 msgstr "Vous ne pouvez pas ajouter des données aux paquets rpm !"
 
-#: ../src/window.c:1804
+#: ../src/window.c:1800
 msgid "The archiver doesn't support this feature!"
 msgstr "L'archive ne permet pas cette fonctionnalité !"
 
-#: ../src/window.c:1885
+#: ../src/window.c:1881
 msgid "You didn't set which browser to use!"
 msgstr "Vous n'avez pas défini le navigateur à utiliser !"
 
-#: ../src/window.c:1885 ../src/window.c:1926
+#: ../src/window.c:1881 ../src/window.c:1922
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Veuillez le définir dans Préférences->Avancé."
 
-#: ../src/window.c:1917
+#: ../src/window.c:1913
 msgid "This file type is not supported!"
 msgstr "Ce format d'archive n'est pas reconnu !"
 
-#: ../src/window.c:1917
+#: ../src/window.c:1913
 msgid "Please install xdg-utils package."
 msgstr "Veuillez installer le paquet xdg-utils."
 
-#: ../src/window.c:1926
+#: ../src/window.c:1922
 msgid "You didn't set which program to use for opening this file!"
 msgstr "Vous n'avez défini aucune application pour l'ouverture du fichier !"
 
-#: ../src/window.c:1953
+#: ../src/window.c:1948
 msgid "Failed to launch the application!"
 msgstr "Échec à l'exécution de l'application !"
 
-#: ../src/window.c:2006
+#: ../src/window.c:2000
 msgid "Comment"
 msgstr "Commentaire"
 
-#: ../src/window.c:2036
+#: ../src/window.c:2030
 msgid "From File"
 msgstr "Du fichier"
 
-#: ../src/window.c:2141
+#: ../src/window.c:2135
 msgid "Open a text file"
 msgstr "Ouvrir un fichier texte"
 
-#: ../src/window.c:2159
+#: ../src/window.c:2153
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Échec à l'ouverture du fichier %s :"
-
-#: ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51 ../src/rar.c:63
-#: ../src/tar.c:55 ../src/zip.c:49
-msgid "Permissions"
-msgstr "Permissions"
-
-#: ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
-msgid "Owner/Group"
-msgstr "Propriétaire/Groupe"
-
-#: ../src/deb.c:45 ../src/extract_dialog.c:394 ../src/gzip.c:61
-#: ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52 ../src/tar.c:55
-msgid "Size"
-msgstr "Taille"
 
 #: ../src/deb.c:45
 msgid "Date modified"
 msgstr "Date de modificarion"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:467
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
 msgid "Extract to:"
 msgstr "Extraire vers :"
 
@@ -498,7 +505,7 @@ msgstr "Fichiers :"
 msgid "Files "
 msgstr "Fichiers"
 
-#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:494
+#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
 msgid "Overwrite existing files"
 msgstr "Écraser les fichiers existants"
 
@@ -553,7 +560,7 @@ msgstr ""
 msgid "Options "
 msgstr "Options"
 
-#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:510
+#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Extraire"
@@ -566,86 +573,82 @@ msgstr "Décompresser le fichier"
 msgid "Extract files"
 msgstr "Extraire les fichiers"
 
-#: ../src/extract_dialog.c:316 ../src/extract_dialog.c:722
+#: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
 msgstr "Chemin d'extraction manquant !"
 
-#: ../src/extract_dialog.c:316
+#: ../src/extract_dialog.c:317
 msgid "Please enter the extraction path."
 msgstr "Compléter le chemin d'extraction des fichiers."
 
-#: ../src/extract_dialog.c:330
+#: ../src/extract_dialog.c:331
 msgid "This archive is encrypted!"
 msgstr "Cette archive est cryptée !"
 
-#: ../src/extract_dialog.c:330
+#: ../src/extract_dialog.c:331
 msgid "Please enter the password."
 msgstr "Entrez le mot de passe."
 
-#: ../src/extract_dialog.c:377
+#: ../src/extract_dialog.c:378
 msgid "Extracting files from archive,please wait..."
 msgstr "Extraction des fichiers de l'archive, veuillez patienter..."
 
-#: ../src/extract_dialog.c:394
+#: ../src/extract_dialog.c:395
 msgid "Archive Name"
 msgstr "Nom de l'archive"
 
-#: ../src/extract_dialog.c:394
+#: ../src/extract_dialog.c:395
 msgid "Path"
 msgstr "Chemin"
 
-#: ../src/extract_dialog.c:406
+#: ../src/extract_dialog.c:407
 msgid "Multi-Extract"
 msgstr "Extraction multiple"
 
-#: ../src/extract_dialog.c:477
+#: ../src/extract_dialog.c:478
 msgid "Extract to dir \"Archive Name\""
 msgstr "Extraire les fichiers dans \"Nom de l'archive\""
 
-#: ../src/extract_dialog.c:478
+#: ../src/extract_dialog.c:479
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "Extraire l'archive dans un dossier portant le nom de l'archive"
 
-#: ../src/extract_dialog.c:482
+#: ../src/extract_dialog.c:483
 msgid "Destination dirs:"
 msgstr "Dossier de destination :"
 
-#: ../src/extract_dialog.c:496
+#: ../src/extract_dialog.c:497
 msgid "Extract pathnames"
 msgstr "Extraire les chemins d'accès"
 
-#: ../src/extract_dialog.c:498
+#: ../src/extract_dialog.c:499
 msgid "Options:"
 msgstr "Options :"
 
-#: ../src/extract_dialog.c:530
+#: ../src/extract_dialog.c:531
 msgid "Please select the archives you want to extract"
 msgstr "Sélectionnez les archives à extraire"
 
-#: ../src/extract_dialog.c:671
+#: ../src/extract_dialog.c:672
 msgid "Please select the destination directory"
 msgstr "Sélectionnez le dossier de destination"
 
-#: ../src/extract_dialog.c:714
+#: ../src/extract_dialog.c:715
 msgid "Can't multi-extract archives:"
 msgstr "Échec à l'extraction multiple d'archives :"
 
-#: ../src/extract_dialog.c:714
+#: ../src/extract_dialog.c:715
 msgid "You haven't added any of them!"
 msgstr "Aucune archive ajoutée !"
 
-#: ../src/extract_dialog.c:722
+#: ../src/extract_dialog.c:723
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Veuillez compléter le champ \"Extraire vers\" !"
 
-#: ../src/extract_dialog.c:753
+#: ../src/extract_dialog.c:754
 msgid "Some errors occurred:"
 msgstr "Quelques erreurs se sont produites :"
-
-#: ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52 ../src/tar.c:55
-msgid "Points to"
-msgstr "Pointe vers"
 
 #: ../src/lha.c:51
 msgid "UID/GID"
@@ -733,7 +736,7 @@ msgstr "_Aide"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "_Contents"
+msgid "Contents"
 msgstr "Taille du contenu :"
 
 #: ../src/interface.c:313
@@ -1100,7 +1103,7 @@ msgid "Web browser to use:"
 msgstr "Navigateur à utiliser :"
 
 #: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
-#: ../src/pref_dialog.c:231
+#: ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
 msgid "choose..."
 msgstr "choisir..."
 
@@ -1116,24 +1119,29 @@ msgstr "Ouvrir les fichiers image avec :"
 msgid "Preferred temp directory:"
 msgstr "Répertoires temp préféré :"
 
-#: ../src/pref_dialog.c:230
+#: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
 msgid "/tmp"
 msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
+#, fuzzy
+msgid "Preferred extract directory:"
+msgstr "Répertoires temp préféré :"
+
+#: ../src/pref_dialog.c:250
 msgid "Save window geometry"
 msgstr "Enregistrer la position de la fenêtre"
 
-#: ../src/pref_dialog.c:242
+#: ../src/pref_dialog.c:255
 msgid "Allow subdirs with drag and drop"
 msgstr "Autoriser les sous-dossiers avec le glisser déposer"
 
-#: ../src/pref_dialog.c:246
+#: ../src/pref_dialog.c:259
 msgid ""
 "This option includes the subdirectories when you add files with drag and drop"
 msgstr "Ajoute des sous-dossiers à l'ajout de fichiers par glisser et déposer"
 
-#: ../src/pref_dialog.c:251
+#: ../src/pref_dialog.c:264
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
@@ -1142,11 +1150,12 @@ msgstr ""
 "permettre à Xarchiver\n"
 " de reconnaître plus de fichiers.</span>"
 
-#: ../src/pref_dialog.c:553
-msgid "Choose the temp directory to use"
+#: ../src/pref_dialog.c:581
+#, fuzzy
+msgid "Choose the directory to use"
 msgstr "Choisissez le dossier temporaire"
 
-#: ../src/pref_dialog.c:553
+#: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
 msgstr "Choisissez l'application"
 

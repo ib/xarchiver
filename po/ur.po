@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-04-18 21:08+0200\n"
+"POT-Creation-Date: 2009-08-01 22:44+0200\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -20,20 +20,13 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:116
-#: ../src/rar.c:63
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
 msgstr "اصل"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:116
-#: ../src/gzip.c:78
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Compressed"
 msgstr "دبی ہوئی"
 
@@ -41,27 +34,17 @@ msgstr "دبی ہوئی"
 msgid "Attr"
 msgstr "صفت"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/gzip.c:61
-#: ../src/rar.c:63
-#: ../src/tar.c:55
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Time"
 msgstr "وقت"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/gzip.c:61
-#: ../src/rar.c:63
-#: ../src/rpm.c:52
-#: ../src/tar.c:55
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
 msgid "Date"
 msgstr "تاریخ"
 
-#: ../src/add_dialog.c:36
-#: ../src/interface.c:388
+#: ../src/add_dialog.c:36 ../src/interface.c:388
 msgid "Add files"
 msgstr "فائلیں شامل کریں"
 
@@ -90,16 +73,25 @@ msgid "Update and add"
 msgstr "اپڈیٹ اور شامل کریں"
 
 #: ../src/add_dialog.c:105
-msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified"
-msgstr "آخری بار محفوظہ بننے/مدون ہونے سے لے کر یہ آپشن فائلیں شامل اور تازہ کردے گا."
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr ""
+"آخری بار محفوظہ بننے/مدون ہونے سے لے کر یہ آپشن فائلیں شامل اور تازہ کردے گا."
 
 #: ../src/add_dialog.c:108
 msgid "Freshen and replace"
 msgstr "تازہ کاری اور تبدیلی"
 
 #: ../src/add_dialog.c:111
-msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"
-msgstr "یہ آپشن صرف محفوظہ پر اثر انداز ہوتا ہے اگر یہ عنقریب مدون کی گئی ہو تازہ کاری کے آپشن کے برعکس یہ ایسی فائلیں محفوظہ میں شامل نہیں کرتا جو محفوظہ میں پہلے سے نہ ہوں."
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+"یہ آپشن صرف محفوظہ پر اثر انداز ہوتا ہے اگر یہ عنقریب مدون کی گئی ہو تازہ "
+"کاری کے آپشن کے برعکس یہ ایسی فائلیں محفوظہ میں شامل نہیں کرتا جو محفوظہ میں "
+"پہلے سے نہ ہوں."
 
 #: ../src/add_dialog.c:115
 msgid "Include subdirectories"
@@ -110,8 +102,12 @@ msgid "Create a solid archive"
 msgstr "سخت محفوظہ بنائیں"
 
 #: ../src/add_dialog.c:121
-msgid "In a solid archive the files are grouped together featuring a better compression ratio"
-msgstr "سخت محفوظہ میں فائلیں ایک ساتھ گروپ کردی جاتی ہیں جس سے بہترین دباؤ حاصل ہوتا ہے"
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr ""
+"سخت محفوظہ میں فائلیں ایک ساتھ گروپ کردی جاتی ہیں جس سے بہترین دباؤ حاصل "
+"ہوتا ہے"
 
 #: ../src/add_dialog.c:124
 msgid "Delete files after adding"
@@ -125,8 +121,7 @@ msgstr "حرکات:"
 msgid "Compression: "
 msgstr "دباؤ:"
 
-#: ../src/add_dialog.c:157
-#: ../src/extract_dialog.c:152
+#: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
 msgid "Password:"
 msgstr "پاس ورڈ:"
 
@@ -158,8 +153,7 @@ msgstr "0 = کوئی دباؤ نہیں، 1 طے شدہ ہے، 4 = تیز تر م
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = طے شدہ دباؤ، 7 = زیادہ سے زیادہ دباؤ"
 
-#: ../src/add_dialog.c:371
-#: ../src/main.c:228
+#: ../src/add_dialog.c:371 ../src/main.c:228
 msgid "Can't add files to the archive:"
 msgstr "محفوظہ میں فائیں شامل نہیں کی جاسکتیں:"
 
@@ -167,13 +161,11 @@ msgstr "محفوظہ میں فائیں شامل نہیں کی جاسکتیں:"
 msgid "You haven't selected any files to add!"
 msgstr "آپ نے شامل کرنے کے لیے کوئی فائل منتخب نہیں کی!"
 
-#: ../src/add_dialog.c:379
-#: ../src/interface.c:808
+#: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "You missed the password!"
 msgstr "آپ پاس ورڈ بھول گئے!"
 
-#: ../src/add_dialog.c:379
-#: ../src/interface.c:808
+#: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "Please enter it!"
 msgstr "برائے مہربانی اسے لکھیں!"
 
@@ -181,18 +173,16 @@ msgstr "برائے مہربانی اسے لکھیں!"
 msgid "Adding files to archive, please wait..."
 msgstr "محفوظہ میں فائلیں شامل کی جارہی ہیں، انتظار فرمائیں..."
 
-#: ../src/archive.c:89
+#: ../src/archive.c:87
 msgid "Can't run the archiver executable:"
 msgstr "محفوظہ اطلاقی نہیں چلایا جاسکا:"
 
-#: ../src/archive.c:374
-msgid "Can't create temporary directory in /tmp:"
+#: ../src/archive.c:373
+#, fuzzy
+msgid "Can't create temporary directory:"
 msgstr "وقتی ڈائریکٹری /tmp میں نہیں بنائی جاسکتی:"
 
-#: ../src/arj.c:48
-#: ../src/gzip.c:78
-#: ../src/lha.c:51
-#: ../src/rar.c:63
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
 msgstr "ریشو"
 
@@ -200,13 +190,34 @@ msgstr "ریشو"
 msgid "Attributes"
 msgstr "صفتیں"
 
+#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/tar.c:54
+msgid "Points to"
+msgstr "پوائنٹ تا:"
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+msgid "Permissions"
+msgstr "اجازے"
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+msgid "Owner/Group"
+msgstr "مالک/گروپ"
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:395
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/tar.c:54
+msgid "Size"
+msgstr "حجم"
+
 #: ../src/window.c:60
 msgid "An error occurred!"
 msgstr "کوئی غلطی ہوئی ہے!"
 
 #: ../src/window.c:60
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr "براہ مہربانی اسے دیکھنے کے لی 'محفوظہ کا ماخارج محفوظ رکھیں' پر چیک لگائیں."
+msgstr ""
+"براہ مہربانی اسے دیکھنے کے لی 'محفوظہ کا ماخارج محفوظ رکھیں' پر چیک لگائیں."
 
 #: ../src/window.c:147
 msgid "Archiver output"
@@ -253,12 +264,12 @@ msgstr "محفوظہ کے مواد کی بطور ایچ ٹی ایم ایل طب�
 msgid "Print the archive content as text"
 msgstr "محفوظہ کے مواد کی بطور متن طباعت کریں"
 
-#: ../src/window.c:473
+#: ../src/window.c:475
 #, c-format
 msgid "Archive contents:\n"
 msgstr "محفوظہ کا مواد:\n"
 
-#: ../src/window.c:477
+#: ../src/window.c:479
 #, c-format
 msgid ""
 "\n"
@@ -267,64 +278,62 @@ msgstr ""
 "\n"
 "نام: "
 
-#: ../src/window.c:486
+#: ../src/window.c:488
 #, c-format
 msgid "Compressed   size: "
 msgstr "دباؤ کا   حجم: "
 
-#: ../src/window.c:493
+#: ../src/window.c:495
 #, c-format
 msgid "Uncompressed size: "
 msgstr "بغیر دباؤ کا حجم:"
 
-#: ../src/window.c:501
+#: ../src/window.c:503
 #, c-format
 msgid "Number of files: "
 msgstr "فائلوں کی تعداد:"
 
-#: ../src/window.c:509
+#: ../src/window.c:511
 #, c-format
 msgid "Comment:\n"
 msgstr "تبصرہ:\n"
 
-#: ../src/window.c:522
+#: ../src/window.c:524
 #, c-format
 msgid "Files:%*s%s"
 msgstr "فائلیں:%*s%s"
 
-#: ../src/window.c:522
+#: ../src/window.c:524
 msgid "|Compressed\n"
 msgstr "|دبی ہوئی\n"
 
-#: ../src/window.c:528
+#: ../src/window.c:530
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>فائلیں:</th>"
 
-#: ../src/window.c:529
+#: ../src/window.c:531
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>دبی ہوئی:</th>"
 
-#: ../src/window.c:720
+#: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "کیا آپ واقعی ایسا کرنا چاہتے ہیں؟"
 
-#: ../src/window.c:813
-#: ../src/window.c:913
+#: ../src/window.c:815 ../src/window.c:915
 msgid "Can't convert the archive to self-extracting:"
 msgstr "محفوظہ کو self-extracting میں نہیں بدلا جاسکتا:"
 
-#: ../src/window.c:824
-#: ../src/window.c:924
+#: ../src/window.c:826 ../src/window.c:926
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "unzipsfx ماڈیول محفوظہ پر نہیں لکھا جاسکتا:"
 
-#: ../src/window.c:884
+#: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "برائے مہربانی 7zCon.sfx ماڈیول منتخب کریں"
 
-#: ../src/window.c:981
+#: ../src/window.c:983
 msgid "translator-credits"
 msgstr ""
 "محمد علی مکی\n"
@@ -334,195 +343,158 @@ msgstr ""
 "مکی کا بلاگ\n"
 "http://makki.urducoder.com"
 
-#: ../src/window.c:1011
+#: ../src/window.c:1013
 msgid "Save the self-extracting archive as"
 msgstr "محفوظ کریں self-extracting محفوظہ کو بطور"
 
-#: ../src/window.c:1040
-#: ../src/interface.c:340
+#: ../src/window.c:1042 ../src/interface.c:340
 msgid "Open an archive"
 msgstr "محفوظہ کھولیں"
 
-#: ../src/window.c:1053
-#: ../src/extract_dialog.c:90
-#: ../src/new_dialog.c:62
+#: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "تمام فائلیں"
 
-#: ../src/window.c:1058
-#: ../src/new_dialog.c:67
+#: ../src/window.c:1060 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "صرف محفوظہ جات"
 
-#: ../src/window.c:1272
+#: ../src/window.c:1274
 msgid "Filename"
 msgstr "فائل کا نام"
 
-#: ../src/window.c:1329
+#: ../src/window.c:1331
 msgid "Doing so will probably corrupt your archive!"
 msgstr "ایسا کرنے سے ممکنہ طور پر محفوظہ خراب ہوسکتی ہے!"
 
-#: ../src/window.c:1329
+#: ../src/window.c:1331
 msgid "Do you really want to cancel?"
 msgstr "کیا آپ واقعی مسترد کرنا چاہتے ہیں؟"
 
-#: ../src/window.c:1392
-#: ../src/window.c:1407
+#: ../src/window.c:1394 ../src/window.c:1409
 msgid "Yes"
 msgstr "ہاں"
 
-#: ../src/window.c:1394
-#: ../src/window.c:1409
+#: ../src/window.c:1396 ../src/window.c:1411
 msgid "No"
 msgstr "نہیں"
 
-#: ../src/window.c:1612
+#: ../src/window.c:1614
 msgid "selected"
 msgstr "منتخب کردہ"
 
-#: ../src/window.c:1617
+#: ../src/window.c:1619
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d فائل اور %d ڈائریکٹری %s (%s)"
 msgstr[1] "%d فائلیں اور %d ڈائریکٹریاں %s (%s)"
 
-#: ../src/window.c:1619
+#: ../src/window.c:1621
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d ڈائریکٹری %s (%s)"
 msgstr[1] "%d ڈائریکٹریاں %s (%s)"
 
-#: ../src/window.c:1622
+#: ../src/window.c:1624
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d فائل %s (%s)"
 msgstr[1] "%d فائلیں %s (%s)"
 
-#: ../src/window.c:1678
+#: ../src/window.c:1680
 msgid "Can't perform another extraction:"
 msgstr "دوسرا کھولنے کا عمل ادا نہیں کیا جاسکتا:"
 
-#: ../src/window.c:1678
+#: ../src/window.c:1680
 msgid "Please wait until the completion of the current one!"
 msgstr "حالیہ کی تکمیل تک انتظار فرمائیں!"
 
-#: ../src/window.c:1717
-#: ../src/extract_dialog.c:340
+#: ../src/window.c:1713 ../src/extract_dialog.c:341
 #, c-format
-msgid "You don't have the right permissions to extract the files to the directory \"%s\"."
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
 msgstr "آپ کے پاس فائلوں کو فولڈر \"%s\" میں نکالنے کا درست اجازہ نہیں ہے."
 
-#: ../src/window.c:1718
-#: ../src/extract_dialog.c:341
+#: ../src/window.c:1714 ../src/extract_dialog.c:342
 msgid "Can't perform extraction!"
 msgstr "کھولنے کا عمل ادا نہیں کیا جاسکتا!"
 
-#: ../src/window.c:1759
-#: ../src/extract_dialog.c:649
-#: ../src/interface.c:1392
+#: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
 msgid "Sorry,I could not perform the operation!"
 msgstr "معاف کیجیے، میں یہ عمل نہیں کرسکتا!"
 
-#: ../src/window.c:1793
-#: ../src/window.c:1805
-#: ../src/interface.c:1385
+#: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
 msgid "Can't perform this action:"
 msgstr "یہ عمل ادا نہیں کیا جاسکتا:"
 
-#: ../src/window.c:1793
+#: ../src/window.c:1789
 msgid "You have to install rar package!"
 msgstr "آپ کو رار rar پیکج نصب کرنے کی ضرورت ہے!"
 
-#: ../src/window.c:1800
-#: ../src/interface.c:1382
+#: ../src/window.c:1796 ../src/interface.c:1382
 msgid "You can't add content to deb packages!"
 msgstr "آپ deb پیکج میں مواد شامل نہیں کرسکتے!"
 
-#: ../src/window.c:1802
-#: ../src/interface.c:1384
+#: ../src/window.c:1798 ../src/interface.c:1384
 msgid "You can't add content to rpm packages!"
 msgstr "آپ rpm پیکج میں مواد شامل نہیں کرسکتے!"
 
-#: ../src/window.c:1804
+#: ../src/window.c:1800
 msgid "The archiver doesn't support this feature!"
 msgstr "محفوظہ اس خاصیت کی معاونت نہیں رکھتا!"
 
-#: ../src/window.c:1885
+#: ../src/window.c:1881
 msgid "You didn't set which browser to use!"
 msgstr "کون سا براؤزر استعمال کیا جائے گا یہ آپ نے مرتب ہی نہیں کیا!"
 
-#: ../src/window.c:1885
-#: ../src/window.c:1926
+#: ../src/window.c:1881 ../src/window.c:1922
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "براہ مہربانی ترجیحات->اعلی میں جاکر اسے مرتب کریں."
 
-#: ../src/window.c:1917
+#: ../src/window.c:1913
 msgid "This file type is not supported!"
 msgstr "فائل کی اس نوعیت کی معاونت نہیں ہے!"
 
-#: ../src/window.c:1917
+#: ../src/window.c:1913
 msgid "Please install xdg-utils package."
 msgstr "براہ مہربانی xdg-utils پیکج نصب کریں."
 
-#: ../src/window.c:1926
+#: ../src/window.c:1922
 msgid "You didn't set which program to use for opening this file!"
-msgstr "اس فائل کو کھولنے کے لیے کون سا پروگرام استعمال کیا جائے گا یہ آپ نے مرتب ہی نہیں کیا!"
+msgstr ""
+"اس فائل کو کھولنے کے لیے کون سا پروگرام استعمال کیا جائے گا یہ آپ نے مرتب ہی "
+"نہیں کیا!"
 
-#: ../src/window.c:1953
+#: ../src/window.c:1948
 msgid "Failed to launch the application!"
 msgstr "اطلاقیہ چلانے میں ناکامی!"
 
-#: ../src/window.c:2006
+#: ../src/window.c:2000
 msgid "Comment"
 msgstr "تبصرہ"
 
-#: ../src/window.c:2036
+#: ../src/window.c:2030
 msgid "From File"
 msgstr "از فائل"
 
-#: ../src/window.c:2141
+#: ../src/window.c:2135
 msgid "Open a text file"
 msgstr "متن فائل کھولیں"
 
-#: ../src/window.c:2159
+#: ../src/window.c:2153
 #, c-format
 msgid "Can't open file %s:"
 msgstr "فائل %s نہیں کھولی جاسکتی:"
 
 #: ../src/deb.c:45
-#: ../src/gzip.c:61
-#: ../src/lha.c:51
-#: ../src/rar.c:63
-#: ../src/tar.c:55
-#: ../src/zip.c:49
-msgid "Permissions"
-msgstr "اجازے"
-
-#: ../src/deb.c:45
-#: ../src/gzip.c:61
-#: ../src/tar.c:55
-msgid "Owner/Group"
-msgstr "مالک/گروپ"
-
-#: ../src/deb.c:45
-#: ../src/extract_dialog.c:394
-#: ../src/gzip.c:61
-#: ../src/gzip.c:78
-#: ../src/lha.c:51
-#: ../src/rpm.c:52
-#: ../src/tar.c:55
-msgid "Size"
-msgstr "حجم"
-
-#: ../src/deb.c:45
 msgid "Date modified"
 msgstr "تاریخ تبدیلی"
 
-#: ../src/extract_dialog.c:64
-#: ../src/extract_dialog.c:467
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
 msgid "Extract to:"
 msgstr "نکالیں تا:"
 
@@ -538,8 +510,7 @@ msgstr "فائلیں:"
 msgid "Files "
 msgstr "فائلیں"
 
-#: ../src/extract_dialog.c:125
-#: ../src/extract_dialog.c:494
+#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
 msgid "Overwrite existing files"
 msgstr "سابقہ فائلوں پر لکھیں"
 
@@ -548,39 +519,58 @@ msgid "Extract files with full path"
 msgstr "مکمل پاتھ کے ساتھ فائلیں نکالیں"
 
 #: ../src/extract_dialog.c:129
-msgid "The archive's directory structure is recreated in the extraction directory"
-msgstr "محفوظہ کا ڈائریکٹری ڈھانچہ کھلی ہوئی ڈائریکٹری میں پھر سے بنادیا گیا ہے."
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr ""
+"محفوظہ کا ڈائریکٹری ڈھانچہ کھلی ہوئی ڈائریکٹری میں پھر سے بنادیا گیا ہے."
 
 #: ../src/extract_dialog.c:132
 msgid "Touch files"
 msgstr "فائلیں چھوئیں"
 
 #: ../src/extract_dialog.c:133
-msgid "When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"
-msgstr "جب یہ آپشن استعمال کیا جاتا ہے تو tar فائل کی ڈیٹا تبدیلی اوقات کو نظر انداز کردیتا ہے، یہ کھولتا ہے بطور وقت جب فائلیں کھولی گئیں تھیں بجائے اس وقت کی ترتیبات کے جو محفوظہ میں ریکارڈ کی گئی تھی.جب یہ اختیار استعمال کیا جاتا ہے تو ٹار فائلوں کی ڈیٹا تبدیلی کے وقت کو بطور فائلوں کے نکالنے کے وقت کے طور پر استعمال کرتا ہے برعکس ان اوقات کے جو محفوظہ میں ریکارڈ تھے"
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr ""
+"جب یہ آپشن استعمال کیا جاتا ہے تو tar فائل کی ڈیٹا تبدیلی اوقات کو نظر انداز "
+"کردیتا ہے، یہ کھولتا ہے بطور وقت جب فائلیں کھولی گئیں تھیں بجائے اس وقت کی "
+"ترتیبات کے جو محفوظہ میں ریکارڈ کی گئی تھی.جب یہ اختیار استعمال کیا جاتا ہے "
+"تو ٹار فائلوں کی ڈیٹا تبدیلی کے وقت کو بطور فائلوں کے نکالنے کے وقت کے طور "
+"پر استعمال کرتا ہے برعکس ان اوقات کے جو محفوظہ میں ریکارڈ تھے"
 
 #: ../src/extract_dialog.c:136
 msgid "Freshen existing files"
 msgstr "سابقہ فائلیں تازہ کریں"
 
 #: ../src/extract_dialog.c:137
-msgid "Extract only those files that already exist on disk and that are newer than the disk copies"
-msgstr "وہ فائلیں نکالین جو ڈسک پر پہلے ہی موجود ہیں اور جو ڈسک پر موجود فائلوں سے نئی ہیں."
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+"وہ فائلیں نکالین جو ڈسک پر پہلے ہی موجود ہیں اور جو ڈسک پر موجود فائلوں سے "
+"نئی ہیں."
 
 #: ../src/extract_dialog.c:141
 msgid "Update existing files"
 msgstr "سابقہ فائیں تازہ کریں"
 
 #: ../src/extract_dialog.c:142
-msgid "This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"
-msgstr "یہ آپشن تازہ کاری کے آپشن کی طرح ہی کام کرتا ہے، وہ فائلیں کھولتا ہے جو ایک ہی نام کی ڈسک پر موجود فائلوں سے نئی ہوتی ہیں، اضافی طور پر وہ فائلیں بھی کھول دیتا ہے جو ڈسک پر موجود نہیں ہوتیں."
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+"یہ آپشن تازہ کاری کے آپشن کی طرح ہی کام کرتا ہے، وہ فائلیں کھولتا ہے جو ایک "
+"ہی نام کی ڈسک پر موجود فائلوں سے نئی ہوتی ہیں، اضافی طور پر وہ فائلیں بھی "
+"کھول دیتا ہے جو ڈسک پر موجود نہیں ہوتیں."
 
 #: ../src/extract_dialog.c:146
 msgid "Options "
 msgstr "اختیارات"
 
-#: ../src/extract_dialog.c:169
-#: ../src/extract_dialog.c:510
+#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_نکالیں"
@@ -589,94 +579,88 @@ msgstr "_نکالیں"
 msgid "Decompress file"
 msgstr "فائل نکالیں"
 
-#: ../src/extract_dialog.c:225
-#: ../src/interface.c:396
+#: ../src/extract_dialog.c:225 ../src/interface.c:396
 msgid "Extract files"
 msgstr "فائلیں نکالیں"
 
-#: ../src/extract_dialog.c:316
-#: ../src/extract_dialog.c:722
+#: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
 msgstr "آپ یہ بتانا بھول گئے کہ فائلیں کہاں نکالنی ہیں!"
 
-#: ../src/extract_dialog.c:316
+#: ../src/extract_dialog.c:317
 msgid "Please enter the extraction path."
 msgstr "کھولنے کا پاتھ لکھیں."
 
-#: ../src/extract_dialog.c:330
+#: ../src/extract_dialog.c:331
 msgid "This archive is encrypted!"
 msgstr "یہ محفوظہ رمز شدہ ہے!"
 
-#: ../src/extract_dialog.c:330
+#: ../src/extract_dialog.c:331
 msgid "Please enter the password."
 msgstr "برائے مہربانی پاس ورڈ لکھیں."
 
-#: ../src/extract_dialog.c:377
+#: ../src/extract_dialog.c:378
 msgid "Extracting files from archive,please wait..."
 msgstr "محفوظہ سے فائلیں نکالی جارہی ہیں، انتظار فرمائیں..."
 
-#: ../src/extract_dialog.c:394
+#: ../src/extract_dialog.c:395
 msgid "Archive Name"
 msgstr "محفوظہ کا نام"
 
-#: ../src/extract_dialog.c:394
+#: ../src/extract_dialog.c:395
 msgid "Path"
 msgstr "پاتھ"
 
-#: ../src/extract_dialog.c:406
+#: ../src/extract_dialog.c:407
 msgid "Multi-Extract"
 msgstr "ملٹی-ایکسٹریکٹ"
 
-#: ../src/extract_dialog.c:477
+#: ../src/extract_dialog.c:478
 msgid "Extract to dir \"Archive Name\""
 msgstr "نکالیں تا ڈائریکٹری \"محفوظہ کا نام\""
 
-#: ../src/extract_dialog.c:478
-msgid "This option extracts archives in directories named with the archive names"
-msgstr "یہ اختیار محفوظہ ان ڈائریکٹریوں میں نکالے گا جن کا نام محفوظہ کے نام سے ملتا  ہے"
+#: ../src/extract_dialog.c:479
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr ""
+"یہ اختیار محفوظہ ان ڈائریکٹریوں میں نکالے گا جن کا نام محفوظہ کے نام سے "
+"ملتا  ہے"
 
-#: ../src/extract_dialog.c:482
+#: ../src/extract_dialog.c:483
 msgid "Destination dirs:"
 msgstr "سمت ڈائریکٹری:"
 
-#: ../src/extract_dialog.c:496
+#: ../src/extract_dialog.c:497
 msgid "Extract pathnames"
 msgstr "پاتھ کے نام نکالیں"
 
-#: ../src/extract_dialog.c:498
+#: ../src/extract_dialog.c:499
 msgid "Options:"
 msgstr "اختیارات"
 
-#: ../src/extract_dialog.c:530
+#: ../src/extract_dialog.c:531
 msgid "Please select the archives you want to extract"
 msgstr "براہ مہربانی وہ محفوظہ منتخب کریں جسے  آپ کھولنا چاہتے ہیں"
 
-#: ../src/extract_dialog.c:671
+#: ../src/extract_dialog.c:672
 msgid "Please select the destination directory"
 msgstr "براہ مہربانی سمت ڈائریکٹری منتخب کریں"
 
-#: ../src/extract_dialog.c:714
+#: ../src/extract_dialog.c:715
 msgid "Can't multi-extract archives:"
 msgstr "ملٹی-ایکسٹریکٹ محفوظہ نہیں:"
 
-#: ../src/extract_dialog.c:714
+#: ../src/extract_dialog.c:715
 msgid "You haven't added any of them!"
 msgstr "آپ نے ان میں سے کچھ شامل نہیں کیا!"
 
-#: ../src/extract_dialog.c:722
+#: ../src/extract_dialog.c:723
 msgid "Please fill the \"Extract to\" field!"
 msgstr "براہ مہربانی پہلے \"نکالیں تا\" کا خانہ بھریں!"
 
-#: ../src/extract_dialog.c:753
+#: ../src/extract_dialog.c:754
 msgid "Some errors occurred:"
 msgstr "کچھ غلطیاں ہوئی ہیں:"
-
-#: ../src/gzip.c:61
-#: ../src/lha.c:51
-#: ../src/rpm.c:52
-#: ../src/tar.c:55
-msgid "Points to"
-msgstr "پوائنٹ تا:"
 
 #: ../src/lha.c:51
 msgid "UID/GID"
@@ -718,8 +702,7 @@ msgstr "_حرکت"
 msgid "A_dd"
 msgstr "_شامل کریں"
 
-#: ../src/interface.c:194
-#: ../src/interface.c:905
+#: ../src/interface.c:194 ../src/interface.c:905
 msgid "Rename"
 msgstr "نام بدلیں"
 
@@ -764,15 +747,15 @@ msgid "_Help"
 msgstr "_ہدایات"
 
 #: ../src/interface.c:304
-msgid "_Contents"
+#, fuzzy
+msgid "Contents"
 msgstr "_مواد"
 
 #: ../src/interface.c:313
 msgid "Donate"
 msgstr "عطیہ دیں"
 
-#: ../src/interface.c:333
-#: ../src/new_dialog.c:50
+#: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "نئی محفوظہ بنائیں"
 
@@ -806,7 +789,9 @@ msgstr "محفوظہ شجرہ"
 
 #: ../src/interface.c:508
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr "یہ ایکس ارکائیور کی ایل ای ڈی حالت ہے. جب یہ جل بجھ رہی ہو تو اس کا مطلب ہے کہ ایکس ارکائیور مصروف ہے"
+msgstr ""
+"یہ ایکس ارکائیور کی ایل ای ڈی حالت ہے. جب یہ جل بجھ رہی ہو تو اس کا مطلب ہے "
+"کہ ایکس ارکائیور مصروف ہے"
 
 #: ../src/interface.c:677
 msgid "Close archive"
@@ -824,8 +809,7 @@ msgstr "<span weight='bold' size='larger'>پاس ورڈ لکھیں برائے:</
 msgid "_Password:"
 msgstr "_پاس ورڈ:"
 
-#: ../src/interface.c:837
-#: ../src/open-with-dlg.c:52
+#: ../src/interface.c:837 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "کھولیں بذریعہ"
 
@@ -913,8 +897,7 @@ msgstr "فائلوں کی تعداد:"
 msgid "Compression ratio:"
 msgstr "دباؤ کا ریشو:"
 
-#: ../src/interface.c:1499
-#: ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
@@ -942,8 +925,7 @@ msgstr "سمت محفوظہ"
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "نکالنے کی ڈائریکٹری کا پوچھ کر برخاست کریں"
 
-#: ../src/main.c:63
-#: ../src/main.c:75
+#: ../src/main.c:63 ../src/main.c:75
 msgid "archive"
 msgstr "محفوظہ"
 
@@ -989,14 +971,11 @@ msgstr ""
 msgid "Please report bugs to <%s>."
 msgstr "براہ مہربانی غلطیوں سے <%s> پر مطلع کریں."
 
-#: ../src/main.c:146
-#: ../src/main.c:169
+#: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
 msgstr "محفوظہ سے فائلیں نہیں نکالی جاسکتیں:"
 
-#: ../src/main.c:146
-#: ../src/main.c:169
-#: ../src/main.c:228
+#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "آپ محفوظہ کا نام بھول گئے!\n"
 
@@ -1121,7 +1100,8 @@ msgstr "محفوظہ کا تبصرہ دکھائیں"
 
 #: ../src/pref_dialog.c:151
 msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr "اگر منتخب کیا گیا تو محفوظہ کا تبصرہ محفوظہ لوڈ کرنے کے بعد دکھایا جائے گا"
+msgstr ""
+"اگر منتخب کیا گیا تو محفوظہ کا تبصرہ محفوظہ لوڈ کرنے کے بعد دکھایا جائے گا"
 
 #: ../src/pref_dialog.c:157
 msgid "Show archive tree sidebar"
@@ -1135,10 +1115,8 @@ msgstr "محفوظہ کی مقام پٹی دکھائیں"
 msgid "Web browser to use:"
 msgstr "استعمال کے لیے ویب براؤزر:"
 
-#: ../src/pref_dialog.c:192
-#: ../src/pref_dialog.c:205
-#: ../src/pref_dialog.c:218
-#: ../src/pref_dialog.c:231
+#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
+#: ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
 msgid "choose..."
 msgstr "منتخب کریں..."
 
@@ -1154,23 +1132,31 @@ msgstr "تصویر فائل کھولیں بذریعہ:"
 msgid "Preferred temp directory:"
 msgstr "مجوزہ وقتی ڈائریکٹری:"
 
-#: ../src/pref_dialog.c:230
+#: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
 msgid "/tmp"
 msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
+#, fuzzy
+msgid "Preferred extract directory:"
+msgstr "مجوزہ وقتی ڈائریکٹری:"
+
+#: ../src/pref_dialog.c:250
 msgid "Save window geometry"
 msgstr "ونڈو کی جیومیٹری محفوظ کریں"
 
-#: ../src/pref_dialog.c:242
+#: ../src/pref_dialog.c:255
 msgid "Allow subdirs with drag and drop"
 msgstr "ذیلی ڈائریکٹریاں بمع پکڑیں اور چھوڑیں کی اجازت دیں"
 
-#: ../src/pref_dialog.c:246
-msgid "This option includes the subdirectories when you add files with drag and drop"
-msgstr "جب آپ گھسیٹ کر چھوڑنے سے فائلیں شامل کریں گے یہ اختیار ذیلی ڈائریکٹریاں بھی شامل کردے گا"
+#: ../src/pref_dialog.c:259
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+"جب آپ گھسیٹ کر چھوڑنے سے فائلیں شامل کریں گے یہ اختیار ذیلی ڈائریکٹریاں بھی "
+"شامل کردے گا"
 
-#: ../src/pref_dialog.c:251
+#: ../src/pref_dialog.c:264
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
@@ -1178,11 +1164,12 @@ msgstr ""
 "<span color='red' style='italic'>براہ مہربانی xdg-utils نصب کریں اس سے\n"
 "ایکس آرکائیور فائلوں کی مزید انواع پہچان سکے گا.</span>"
 
-#: ../src/pref_dialog.c:553
-msgid "Choose the temp directory to use"
+#: ../src/pref_dialog.c:581
+#, fuzzy
+msgid "Choose the directory to use"
 msgstr "استعمال کے لیے وقتی ڈائیریکٹری منتخب کریں"
 
-#: ../src/pref_dialog.c:553
+#: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
 msgstr "استعمال کے لیے اطلاقیہ منتخب کریں"
 
@@ -1190,13 +1177,11 @@ msgstr "استعمال کے لیے اطلاقیہ منتخب کریں"
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Method"
 msgstr "میتھڈ"
 
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Version"
 msgstr "ورژن"
 
@@ -1225,8 +1210,7 @@ msgstr "گروپ"
 msgid "Can't fseek to position 104:"
 msgstr "مقام 104 تک fseek نہیں کیا جاسکتا:"
 
-#: ../src/rpm.c:68
-#: ../src/rpm.c:84
+#: ../src/rpm.c:68 ../src/rpm.c:84
 msgid "Can't read data from file:"
 msgstr "فائل سے مواد نہیں پڑھا جاسکتا:"
 
@@ -1248,206 +1232,300 @@ msgstr "محفوظہ منیجر"
 
 #~ msgid "Directories"
 #~ msgstr "ڈائریکٹریاں"
+
 #~ msgid "<b>Files and directories to add </b>"
 #~ msgstr "<b>شامل کرنے کے لیے فائلیں یا ڈائریکٹریاں </b>"
+
 #~ msgid ""
 #~ "Include everything in the directory recursively \tstarting from the "
 #~ "current directory."
 #~ msgstr ""
 #~ "حالیہ ڈائریکٹری سے شروع کرتے ہوئے ڈائریکٹری\tمیں موجود سب کچھ شامل کریں."
+
 #~ msgid "Do not add file paths"
 #~ msgstr "فائلوں کا پاتھ شامل مت کریں"
+
 #~ msgid "The files path doesn't include the user home directory."
 #~ msgstr "صارف کی ہوم ڈائریکٹری فائلوں کے پاتھ میں شامل نہیں ہوگی."
+
 #~ msgid "Store just the name of a file without its directory names."
 #~ msgstr "صرف فائل کا نام سٹور کریں بغیر اس کی ڈائریکٹری کے ناموں کے."
+
 #~ msgid "Freshen an existing entry in the archive"
 #~ msgstr "محفوظہ میں سابقہ انٹری کو تازہ کریں"
+
 #~ msgid "Update an existing entry in the archive"
 #~ msgstr "محفوظہ میں سابقہ انٹری کو تازہ کریں"
+
 #~ msgid "Please select the directories you want to add"
 #~ msgstr "شامل کرنے کے لیے ڈائریکٹریاں منتخب کریں"
+
 #~ msgid "GUA"
 #~ msgstr "GUA"
+
 #~ msgid "BPMGS"
 #~ msgstr "BPMGS"
+
 #~ msgid "Symbolic Link"
 #~ msgstr "رمزی ربط"
+
 #~ msgid "Extracting gzip file to %s"
 #~ msgstr "کھولیں gzip فائل تا %s"
+
 #~ msgid "Extracting bzip2 file to %s"
 #~ msgstr "کھولیں bzip2 فائل تا %s"
+
 #~ msgid "Operation canceled."
 #~ msgstr "عمل ملتوی کردیا گیا."
+
 #~ msgid "Decompressing tar file with %s, please wait..."
 #~ msgstr "tar فائل %s سے کھولی جارہی ہے، انتظار فرمائیں..."
+
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "tar فائل %s سے پھر دبائی جارہی ہے، انتظار فرمائیں..."
+
 #~ msgid ""
 #~ "Please check \"%s\" since some files could have been already extracted."
 #~ msgstr ""
 #~ "برائے مہربانی \"%s\" کو چیک کریں، ہوسکتا ہے کچھ فائلیں پہلے ہی نکالی "
 #~ "جاچکی ہوں."
+
 #~ msgid "Do you want to view the command line output?"
 #~ msgstr "کیا آپ کمانڈ لائن آؤٹ پٹ دیکھنا چاہتے ہیں؟"
+
 #~ msgid "The sfx archive was saved as:"
 #~ msgstr "sfx محفوظہ محفوظ کردیا گیا بطور:"
+
 #~ msgid "Operation completed."
 #~ msgstr "عمل مکمل ہوگیا."
+
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr "محفوظہ کے مواد کی تازہ کاری مکمل ہونے تک انتظار فرمائیں..."
+
 #~ msgid "Choose Add to begin creating the archive."
 #~ msgstr "محفوظہ بنانا شروع کرنے کے لیے شامل کریں منتخب کریں."
+
 #~ msgid "Archive format is not recognized!"
 #~ msgstr "محفوظہ کا فارمیٹ معترف بہ نہیں ہے!"
+
 #~ msgid "Please wait while the content of the ISO image is being read..."
 #~ msgstr "ISO امیج کا مواد پڑھے جانے تک انتظار فرمائیں..."
+
 #~ msgid "Please wait while the content of the archive is being read..."
 #~ msgstr "محفوظہ کا مواد پڑھے جانے تک انتظار فرمائیں..."
+
 #~ msgid "Ready."
 #~ msgstr "تیار."
+
 #~ msgid "You are about to delete %d file(s) from the archive."
 #~ msgstr "آپ محفوظہ سے %d فائل/فائلیں حذف کرنے جارہے ہیں."
+
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "محفوظہ کو self-extracting میں بدلا جارہا ہے، انتظار فرمائیں..."
+
 #~ msgid "Can't open archive \"%s\":"
 #~ msgstr "محفوظہ \"%s\" نہیں کھولا جاسکتا:"
+
 #~ msgid "Command line output"
 #~ msgstr "کمانڈ لائن ما حاصل"
+
 #~ msgid "Waiting for the process to abort..."
 #~ msgstr "رکنے کے لیے عمل کا انتظار..."
+
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "عمل کو ختم کرنے کی کوشش میں غلطی ہوئی ہے:"
+
 #~ msgid "An error occurred while extracting the file to be viewed:"
 #~ msgstr "دکھانے کے لیے فائل کھولنے میں ناکامی:"
+
 #~ msgid ""
 #~ "An error occurred while converting the file content to the UTF8 encoding:"
 #~ msgstr "فائل کے مواد کی انکوڈنگ UTF8 میں تبدیل کرتے وقت غلطی:"
+
 #~ msgid " bytes"
 #~ msgstr "بائٹس"
+
 #~ msgid "Failed to open link."
 #~ msgstr "ربط کھولنے میں ناکامی."
+
 #~ msgid "The password has been reset."
 #~ msgstr "پاس ورڈ صاف کردیا گیا."
+
 #~ msgid "Please enter the password first!"
 #~ msgstr "برائے مہربانی پہلے پاس ورڈ دیں!"
+
 #~ msgid "Choose a folder where to extract files"
 #~ msgstr "فولڈر منتخب کریں جس میں فائلیں نکالی جائیں گی"
+
 #~ msgid "All"
 #~ msgstr "تمام"
+
 #~ msgid "<b>Files to extract </b>"
 #~ msgstr "<b>نکالنے کے لیے فائلیں </b>"
+
 #~ msgid "Can't create directory \"%s\""
 #~ msgstr "ڈائریکٹری \"%s\" نہیں بنائی جاسکتی"
+
 #~ msgid "Choose the destination folder where to extract the current archive"
 #~ msgstr "فولڈر منتخب کریں جہاں حالیہ محفوظہ کھولا جائے گا"
+
 #~ msgid "_File"
 #~ msgstr "_فائل"
+
 #~ msgid "_View"
 #~ msgstr "_منظر"
+
 #~ msgid "Show ISO in_fo"
 #~ msgstr "ISO م_علومات دیکھیں"
+
 #~ msgid "New"
 #~ msgstr "نیا"
+
 #~ msgid "Add files and directories to the current archive"
 #~ msgstr "حالیہ محفوظہ میں فائلیں اور ڈائریکٹریاں شامل کریں"
+
 #~ msgid ""
 #~ "Extract files from the current archive; use the mouse to select files "
 #~ "individually"
 #~ msgstr ""
 #~ "حالیہ محفوظہ سے فائلیں نکالیں، مخصوص فائلیں منتخب کرنے کے لیے ماؤس کا "
 #~ "استعمال کریں"
+
 #~ msgid "Delete files from the current archive"
 #~ msgstr "حالیہ محفوظہ سے فائلیں حذف کریں"
+
 #~ msgid "View file content in the current archive"
 #~ msgstr "حالیہ محفوظہ میں فائل کا مواد دیکھیں"
+
 #~ msgid "SFX"
 #~ msgstr "SFX"
+
 #~ msgid "Make the current archive self-extracting"
 #~ msgstr "حالیہ محفوظہ کو self-extracting بنائیں (خودکار کھلنے والی محفوظہ)"
+
 #~ msgid "Stop"
 #~ msgstr "روکیں"
+
 #~ msgid "This archive contains password protected files"
 #~ msgstr "اس محفوظہ میں فائلیں پاس ورڈ سے محفوظ کی گئی ہیں"
+
 #~ msgid "Enter Archive Password"
 #~ msgstr "محفوظہ کا پاس ورڈ لکھیں"
+
 #~ msgid "Archive size:"
 #~ msgstr "محفوظہ کا حجم:"
+
 #~ msgid "Number of dirs:"
 #~ msgstr "ڈائریکٹریوں کی تعداد:"
+
 #~ msgid "Can't create directory:"
 #~ msgstr "ڈائریکٹری نہیں بنائی جاسکی"
+
 #~ msgid "Can't write file \"%s\":"
 #~ msgstr "فائل \"%s\" نہیں لکھی جاسکی:"
+
 #~ msgid "Offset"
 #~ msgstr "تبدیلی"
+
 #~ msgid "Rock Ridge version %d"
 #~ msgstr "Rock Ridge ورژن %d"
+
 #~ msgid "Rock Ridge - unknown version"
 #~ msgstr "Rock Ridge نا معلوم ورژن"
+
 #~ msgid "Apple version %d"
 #~ msgstr "Apple ورژن %d"
+
 #~ msgid "Standard ISO without extension"
 #~ msgstr "معیاری ISO بغیر لاحقے کے"
+
 #~ msgid "Joliet Level %d"
 #~ msgstr "Joliet لیول %d"
+
 #~ msgid "ISO Information Window"
 #~ msgstr "ISO معلومات ونڈو"
+
 #~ msgid "Filename:"
 #~ msgstr "فائل نام:"
+
 #~ msgid "Size:"
 #~ msgstr "حجم:"
+
 #~ msgid "Extension:"
 #~ msgstr "ورژن:"
+
 #~ msgid "System ID:"
 #~ msgstr "نظام آئی ڈی:"
+
 #~ msgid "Volume ID:"
 #~ msgstr "والیم آئی ڈی:"
+
 #~ msgid "Publisher:"
 #~ msgstr "پبلشر:"
+
 #~ msgid "Preparer:"
 #~ msgstr "تیار کار:"
+
 #~ msgid "Creation date:"
 #~ msgstr "تاریخ بناوٹ:"
+
 #~ msgid "Modified date:"
 #~ msgstr "تاریخ تدوین:"
+
 #~ msgid "Expiration date:"
 #~ msgstr "تاریخ انتہا:"
+
 #~ msgid "Effective date:"
 #~ msgstr "فعال تاریخ:"
+
 #~ msgid ""
 #~ "Extract archive to the directory specified by destination_path and quits."
 #~ msgstr "محفوظہ سمت _پاتھ سے متعین کردہ ڈائریکٹری میں کھول کر برخاست کریں."
+
 #~ msgid "Can't spawn the command:"
 #~ msgstr "کمانڈ spawn نہیں کی جاسکتی:"
+
 #~ msgid "Behaviour"
 #~ msgstr "سلوک"
+
 #~ msgid "Preferred format for new archives:"
 #~ msgstr "نئی محفوظہ کا مجوزہ فارمیٹ:"
+
 #~ msgid "Save settings for add dialog"
 #~ msgstr "شامل ڈائیلاگ کے لیے ترتیبات محفوظ کریں"
+
 #~ msgid "Save settings for extract dialog"
 #~ msgstr "کھولنے کے ڈائیلاگ کے لیے ترتیبات محفوظ کریں"
+
 #~ msgid "list"
 #~ msgstr "فہرست"
+
 #~ msgid "icon"
 #~ msgstr "آئکن"
+
 #~ msgid "Show comment in archive after loading it"
 #~ msgstr "محفوظہ لوڈ ہونے کے بعد تبصرہ دکھائیں"
+
 #~ msgid "Show ISO info after loading the archive"
 #~ msgstr "محفوظہ لوڈ کرنے کے بعد ISO معلومات دکھائیں"
+
 #~ msgid "xfce default"
 #~ msgstr "xfce طے شدہ"
+
 #~ msgid "konqueror"
 #~ msgstr "کنکرر"
+
 #~ msgid "internal"
 #~ msgstr "داخلی"
+
 #~ msgid "Checksum"
 #~ msgstr "Checksum"
+
 #~ msgid "Error while extracting the cpio archive from the rpm one."
 #~ msgstr "rpm والی محفوظہ cpio محفوظہ کھولنے کے دوران غلطی."
+
 #~ msgid "An error occurred while decompressing the cpio archive."
 #~ msgstr "cpio محفوظہ کو کھولنے کے دوران غلطی"
+
 #~ msgid "Can't write to /tmp:"
 #~ msgstr "/tmp میں نہیں لکھا جاسکتا:"
-

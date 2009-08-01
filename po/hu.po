@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-07-24 02:55+0200\n"
+"POT-Creation-Date: 2009-08-01 22:44+0200\n"
 "PO-Revision-Date: 2009-07-24 02:55+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at gnome dot hu>\n"
@@ -183,8 +183,9 @@ msgstr "Fájlok archívumhoz adása, kis türelmet…"
 msgid "Can't run the archiver executable:"
 msgstr "Az archiváló végrehajtható fájlja nem futtatható:"
 
-#: ../src/archive.c:372
-msgid "Can't create temporary directory in /tmp:"
+#: ../src/archive.c:373
+#, fuzzy
+msgid "Can't create temporary directory:"
 msgstr "Nem hozható létre átmeneti könyvtár a /tmp alatt:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
@@ -417,7 +418,8 @@ msgstr "Várjon, amíg az aktuális befejeződik"
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
-msgstr "Nincsenek megfelelő jogosultságai a fájlok kibontására a könyvtárba („%s”)."
+msgstr ""
+"Nincsenek megfelelő jogosultságai a fájlok kibontására a könyvtárba („%s”)."
 
 #: ../src/window.c:1714 ../src/extract_dialog.c:342
 msgid "Can't perform extraction!"
@@ -517,7 +519,8 @@ msgid "Extract files with full path"
 msgstr "Fájlok kibontása teljes útvonallal"
 
 #: ../src/extract_dialog.c:129
-msgid "The archive's directory structure is recreated in the extraction directory"
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
 msgstr "Az archívum könyvtárszerkezetének előállítása a kibontási könyvtárban"
 
 #: ../src/extract_dialog.c:132
@@ -612,7 +615,8 @@ msgid "Extract to dir \"Archive Name\""
 msgstr "Kibontás az „archívum neve” könyvtárba"
 
 #: ../src/extract_dialog.c:479
-msgid "This option extracts archives in directories named with the archive names"
+msgid ""
+"This option extracts archives in directories named with the archive names"
 msgstr "Az archívumok kibontása az archívum nevét viselő könyvtárakba"
 
 #: ../src/extract_dialog.c:483
@@ -925,7 +929,8 @@ msgstr "fájlnevek"
 
 #: ../src/main.c:70
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr "A megadott fájlok hozzáadása az archívum nevének bekérésével és kilépés"
+msgstr ""
+"A megadott fájlok hozzáadása az archívum nevének bekérésével és kilépés"
 
 #: ../src/main.c:71
 msgid "file1 file2 file3 ... fileN"
@@ -1135,8 +1140,10 @@ msgid "Allow subdirs with drag and drop"
 msgstr "Alkönyvtárak engedélyezése fogd és vidd használatakor"
 
 #: ../src/pref_dialog.c:259
-msgid "This option includes the subdirectories when you add files with drag and drop"
-msgstr "Felveszi az alkönyvtárakat fájlok hozzáadásakor fogd és vidd módszerrel"
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+"Felveszi az alkönyvtárakat fájlok hozzáadásakor fogd és vidd módszerrel"
 
 #: ../src/pref_dialog.c:264
 msgid ""
@@ -1211,4 +1218,3 @@ msgstr "GTK+ archívumkezelő"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Archívumkezelő"
-

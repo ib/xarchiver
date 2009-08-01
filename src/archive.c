@@ -535,7 +535,7 @@ XEntry *xa_find_child_entry(XEntry *entry, gchar *string)
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items)
 {
 	XEntry *new_entry= NULL;
-	XEntry *last_entry = archive->root_entry;
+	XEntry *last_entry = archive->root_entry, *entry;
 	gchar **components = NULL;
 	unsigned short int x = 0;
 
@@ -551,8 +551,12 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 			new_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,new_entry,items);
 			if (components[x+1] != NULL)
 				new_entry->is_dir = TRUE;
-			new_entry->next = last_entry->child;
-			last_entry->child = new_entry;
+			if ((entry = last_entry->child))
+			{
+				while (entry->next) entry = entry->next;
+				entry->next = new_entry;
+			}
+			else last_entry->child = new_entry;
 			new_entry->prev = last_entry;
 		}
 		last_entry = new_entry;
