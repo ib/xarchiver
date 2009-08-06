@@ -363,13 +363,14 @@ gboolean xa_create_temp_directory (XArchive *archive)
 
 	value = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_temp_dir));
 	tmp_dir = g_strconcat(value,"/xa-XXXXXX",NULL);
+	g_free(value);
 
 	if (mkdtemp (tmp_dir) == 0)
 	{
 		g_free(tmp_dir);
 		tmp_dir = NULL;
 
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory in /tmp:"),g_strerror(errno));
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory:"),g_strerror(errno));
 		return FALSE;
 	}
 
