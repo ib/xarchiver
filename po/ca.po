@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2009-08-01 22:44+0200\n"
-"PO-Revision-Date: 2009-02-01 11:17+0100\n"
+"PO-Revision-Date: 2009-08-08 12:32+0200\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -743,14 +743,12 @@ msgid "_Help"
 msgstr "A_juda"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "Contents"
-msgstr "Mida dels continguts:"
+msgstr "_Continguts"
 
 #: ../src/interface.c:313
-#, fuzzy
 msgid "Donate"
-msgstr "Data"
+msgstr "Fes una donació"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
