@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-10 11:10+0200\n"
 "PO-Revision-Date: 2009-08-10 11:30+0200\n"
 "Last-Translator: Ingo Brueckl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -91,8 +91,8 @@ msgid ""
 "not add files that are not already in the archive"
 msgstr ""
 "Diese Option ersetzt nur Dateien, die neuer sind als solche im Archiv. Im "
-"Gegensatz zu der »Aktualisieren«-Option werden keine Dateien hinzugefügt, die "
-"nicht bereits im Archiv enthalten sind."
+"Gegensatz zu der »Aktualisieren«-Option werden keine Dateien hinzugefügt, "
+"die nicht bereits im Archiv enthalten sind."
 
 #: ../src/add_dialog.c:115
 msgid "Include subdirectories"
@@ -273,12 +273,10 @@ msgid "Print the archive content as text"
 msgstr "Archiv-Inhalt als Text ausgeben"
 
 #: ../src/window.c:475
-#, c-format
 msgid "Archive contents:\n"
 msgstr "Archiv-Inhalt:\n"
 
 #: ../src/window.c:479
-#, c-format
 msgid ""
 "\n"
 "Name: "
@@ -287,22 +285,18 @@ msgstr ""
 "Name: "
 
 #: ../src/window.c:488
-#, c-format
 msgid "Compressed   size: "
 msgstr "Komprimierte Größe: "
 
 #: ../src/window.c:495
-#, c-format
 msgid "Uncompressed size: "
 msgstr "Unkomprimierte Größe: "
 
 #: ../src/window.c:503
-#, c-format
 msgid "Number of files: "
 msgstr "Anzahl der Dateien: "
 
 #: ../src/window.c:511
-#, c-format
 msgid "Comment:\n"
 msgstr "Kommentar:\n"
 
@@ -316,12 +310,10 @@ msgid "|Compressed\n"
 msgstr "|Komprimiert\n"
 
 #: ../src/window.c:530
-#, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Dateien:</th>"
 
 #: ../src/window.c:531
-#, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Komprimiert:</th>"
 
@@ -544,9 +536,9 @@ msgid ""
 "it extracts as the times when the files were extracted,instead of setting it "
 "to the times recorded in the archive"
 msgstr ""
-"Mit dieser Option werden die Änderungszeiten der entpackten Dateien von »tar« "
-"nicht auf die im Archiv gespeicherten Zeiten, sondern auf den Zeitpunkt des "
-"Entpackens gesetzt."
+"Mit dieser Option werden die Änderungszeiten der entpackten Dateien von "
+"»tar« nicht auf die im Archiv gespeicherten Zeiten, sondern auf den "
+"Zeitpunkt des Entpackens gesetzt."
 
 #: ../src/extract_dialog.c:136
 msgid "Freshen existing files"
