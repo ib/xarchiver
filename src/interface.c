@@ -89,7 +89,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (open1);
 	gtk_container_add (GTK_CONTAINER (menuitem1_menu),open1);
 
-	listing = gtk_image_menu_item_new_with_mnemonic(_("List as"));
+	listing = gtk_image_menu_item_new_with_mnemonic(_("_List as"));
 	gtk_widget_show (listing);
 	gtk_container_add (GTK_CONTAINER (menuitem1_menu),listing);
 	tmp_image = gtk_image_new_from_stock ("gtk-copy",GTK_ICON_SIZE_MENU);
@@ -100,14 +100,14 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_sensitive(listing,FALSE);
 	gtk_widget_show (listing_submenu);
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (listing),listing_submenu);
-	listing_text = gtk_image_menu_item_new_with_mnemonic (_("Text file"));
+	listing_text = gtk_image_menu_item_new_with_mnemonic (_("_Text file"));
 	gtk_widget_show (listing_text);
 	gtk_container_add (GTK_CONTAINER (listing_submenu),listing_text);
 	tmp_image = gtk_image_new_from_stock ("gtk-edit",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (listing_text),tmp_image);
 	
-	listing_html = gtk_image_menu_item_new_with_mnemonic (_("HTML file"));
+	listing_html = gtk_image_menu_item_new_with_mnemonic (_("_HTML file"));
 	gtk_widget_show (listing_html);
 	gtk_container_add (GTK_CONTAINER (listing_submenu),listing_html);
 	tmp_image =  xa_main_window_find_image ("xarchiver-html.png",GTK_ICON_SIZE_MENU);
@@ -191,7 +191,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
 	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
 
-	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Rename"));
+	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Re_name"));
 	gtk_widget_set_sensitive (rename_menu,FALSE);
 	gtk_widget_show (rename_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),rename_menu);
@@ -220,7 +220,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),multi_extract_menu);
 	gtk_widget_add_accelerator (multi_extract_menu,"activate",accel_group,GDK_m,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
 
-	comment_menu = gtk_image_menu_item_new_with_mnemonic (_("Archive comment"));
+	comment_menu = gtk_image_menu_item_new_with_mnemonic (_("Archive _comment"));
 	gtk_widget_set_sensitive (comment_menu,FALSE);
 	gtk_widget_show (comment_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),comment_menu);
@@ -301,7 +301,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	menuitem4_menu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem4),menuitem4_menu);
 
-	help1 = gtk_image_menu_item_new_with_mnemonic (_("Contents"));
+	help1 = gtk_image_menu_item_new_with_mnemonic (_("_Contents"));
 	gtk_widget_show (help1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),help1);
 	gtk_widget_add_accelerator (help1,"activate",accel_group,GDK_F1,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
@@ -310,7 +310,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1),tmp_image);
 
-	donate = gtk_image_menu_item_new_with_mnemonic (_("Donate"));
+	donate = gtk_image_menu_item_new_with_mnemonic (_("_Donate"));
 	gtk_widget_show (donate);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),donate);
 

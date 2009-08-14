@@ -312,7 +312,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		utf8_path = g_filename_to_utf8 (path,-1,NULL,NULL,NULL);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"),utf8_path);
 		if (type == 0)
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,("Archive format is not recognized!"));
+			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,_("Archive format is not recognized!"));
 		else
 			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno));
 	
@@ -350,7 +350,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	archive[current_page] = xa_init_archive_structure(type);
 	if (archive[current_page] == NULL)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),"Operation aborted!");
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),_("Operation aborted!"));
 		g_free (path);
 		return;
 	}
@@ -614,7 +614,7 @@ void xa_close_archive (GtkMenuItem *menuitem,gpointer user_data)
 		xa_set_window_title (xa_main_window,NULL);
 		gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
-		gtk_label_set_text(GTK_LABEL(total_label),"Select \"New\" to create or \"Open\" to open an archive");
+		gtk_label_set_text(GTK_LABEL(total_label),_("Select \"New\" to create or \"Open\" to open an archive"));
 		gtk_widget_hide(selected_frame);
 	}
 	else if ( current_page == 1)
@@ -719,7 +719,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	}
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->confirm_deletion)))
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,"You are about to delete entries from the archive.",_( "Are you sure you want to do this?"));
+		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("You are about to delete entries from the archive."),_( "Are you sure you want to do this?"));
 		if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 			return;
 	}
@@ -977,7 +977,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 			"name", "xarchiver",
 			"version",PACKAGE_VERSION,
 			"copyright","Copyright \xC2\xA9 2005-2008 Giuseppe Torelli",
-			"comments","A GTK+2 only lightweight archive manager",
+			"comments",_("A GTK+2 only lightweight archive manager"),
 			"authors",authors,
 			"documenters",documenters,
 			"translator_credits",_("translator-credits"),
