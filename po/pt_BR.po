@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2009-08-14 12:01+0200\n"
-"PO-Revision-Date: 2009-06-23 08:39-0400\n"
+"PO-Revision-Date: 2009-08-15 18:45-0400\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -183,9 +183,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Não foi possível executar o xarchiver:"
 
 #: ../src/archive.c:373
-#, fuzzy
 msgid "Can't create temporary directory:"
-msgstr "Não foi possível criar um diretório temporário em /tmp:"
+msgstr "Não foi possível criar um diretório temporário:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
@@ -747,14 +746,12 @@ msgid "_Help"
 msgstr "Aj_uda"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "Contents"
-msgstr "Tamanho do conteúdo:"
+msgstr "Conteúdo"
 
 #: ../src/interface.c:313
-#, fuzzy
 msgid "Donate"
-msgstr "_Doação"
+msgstr "Doação"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
@@ -1138,9 +1135,8 @@ msgid "/tmp"
 msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
-#, fuzzy
 msgid "Preferred extract directory:"
-msgstr "Diretório temporário preferido:"
+msgstr "Diretório de extração preferido:"
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
@@ -1167,9 +1163,8 @@ msgstr ""
 "Xarchiver possa reconhecer mais tipos de arquivos.</span>"
 
 #: ../src/pref_dialog.c:581
-#, fuzzy
 msgid "Choose the directory to use"
-msgstr "Escolha o diretório temporário a ser usado"
+msgstr "Escolha o diretório a ser usado"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
