@@ -1,6 +1,6 @@
 # Inspired by Makefile.am from the Thunar file-manager
 
-pixmapsdir = $(datadir)/pixmaps/xarchiver
+pixmapsdir = $(XA_PIXMAPSDIR)
 
 pixmaps_DATA = 	xarchiver-add.png \
 		xarchiver-extract.png \

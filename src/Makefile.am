@@ -34,7 +34,8 @@ xarchiver_CFLAGS = \
 	@GLIB_CFLAGS@ \
 	-DDATADIR=\"$(datadir)\" \
 	-DSRCDIR=\"$(top_srcdir)\" \
-	-DLOCALEDIR=\"$(localedir)\"
+	-DLOCALEDIR=\"$(localedir)\" \
+	-DPIXMAPSDIR=\"$(XA_PIXMAPSDIR)\"
 
 xarchiver_LDADD = \
 	$(top_builddir)/src/xdgmime/libxdgmime.la \

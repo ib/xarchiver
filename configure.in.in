@@ -89,6 +89,31 @@ dnl *** Check for debugging support ***
 dnl ***********************************
 XDT_FEATURE_DEBUG()
 
+dnl ***************
+dnl *** Options ***
+dnl ***************
+AC_ARG_ENABLE(doc, AS_HELP_STRING([--disable-doc], [don't build Xarchiver's documentation]))
+DOC=doc
+AS_IF([test "x$enable_doc" = "xno"], [DOC=])
+AC_SUBST([DOC])
+
+AC_ARG_ENABLE(icons, AS_HELP_STRING([--disable-icons], [don't install Xarchiver's icons]))
+ICONS=icons
+AS_IF([test "x$enable_icons" = "xno"], [ICONS=])
+AC_SUBST([ICONS])
+
+AC_ARG_ENABLE(plugin, AS_HELP_STRING([--disable-plugin], [don't install Xarchiver's Thunar plugin]))
+WRAPPERDIR='$(libexecdir)/thunar-archive-plugin/'
+WRAPPERSCRIPTS=xarchiver.tap
+AS_IF([test "x$enable_plugin" = "xno"], [WRAPPERDIR=; WRAPPERSCRIPTS=])
+AC_SUBST([WRAPPERDIR])
+AC_SUBST([WRAPPERSCRIPTS])
+
+AC_ARG_WITH(xarchiver-pixmaps, AS_HELP_STRING([--with-xarchiver-pixmaps=DIR], [use directory DIR rather than DATADIR/pixmaps/xarchiver for Xarchiver's internal pixmaps]))
+XA_PIXMAPSDIR='$(datadir)/pixmaps/xarchiver'
+AS_IF([test "x$with_xarchiver_pixmaps" != "x"], [XA_PIXMAPSDIR="$with_xarchiver_pixmaps"])
+AC_SUBST([XA_PIXMAPSDIR])
+
 AC_OUTPUT([
 Makefile
 po/Makefile.in
