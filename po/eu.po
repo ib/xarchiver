@@ -1,24 +1,24 @@
-# translation of eu.po to Euskara
+# translation of xarchiver.master.po to Euskara
 # translation of eu.po to
 # translation of xfce4-xarchiver-eu.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Piarres Beobide <pi@beobide.net>, 2006, 2007, 2008.
+# Piarres Beobide <pi@beobide.net>, 2006, 2007, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
+"Project-Id-Version: xarchiver.master\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2009-08-14 12:01+0200\n"
-"PO-Revision-Date: 2008-11-30 08:52+0200\n"
+"PO-Revision-Date: 2009-08-18 08:55+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
-"Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
+"Language-Team: Euskara <debian-l10n-eu@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 1.2.0\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
@@ -136,23 +136,19 @@ msgstr "_Gehitu"
 
 #: ../src/add_dialog.c:247
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = konpresiorik ez, 5 lehenetsia, 9 = konpresio hoberen baina geldoena"
+msgstr "0 = konpresiorik ez, 5 lehenetsia, 9 = konpresio hoberen baina geldoena"
 
 #: ../src/add_dialog.c:253
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = konpresiorik ez, 6 lehenetsia, 9 = konpresio hoberen baina geldoena"
+msgstr "0 = konpresiorik ez, 6 lehenetsia, 9 = konpresio hoberen baina geldoena"
 
 #: ../src/add_dialog.c:259
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = konpresiorik ez, 3 lehenetsia, 5 = konpresio hoberen baina geldoena"
+msgstr "0 = konpresiorik ez, 3 lehenetsia, 5 = konpresio hoberen baina geldoena"
 
 #: ../src/add_dialog.c:265
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-"0 = konpresiorik ez, 1 lehenetsia, 4 = azkarren baina konpresio gutxiena"
+msgstr "0 = konpresiorik ez, 1 lehenetsia, 4 = azkarren baina konpresio gutxiena"
 
 #: ../src/add_dialog.c:271
 msgid "5 = default compression, 7 = max compression"
@@ -183,9 +179,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Ezin da xarchiver exekutagarriak abiarazi:"
 
 #: ../src/archive.c:373
-#, fuzzy
 msgid "Can't create temporary directory:"
-msgstr "Ezin da /tmp-en aldiroko direktorioa sortu:"
+msgstr "Ezin da aldiroko direktorioa sortu:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
@@ -515,10 +510,8 @@ msgid "Extract files with full path"
 msgstr "Fitxategia bide osoarekin atera"
 
 #: ../src/extract_dialog.c:129
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr ""
-"Artxiboaren direktorio egitura birsortua izango da ateratze direktorioan."
+msgid "The archive's directory structure is recreated in the extraction directory"
+msgstr "Artxiboaren direktorio egitura birsortua izango da ateratze direktorioan."
 
 #: ../src/extract_dialog.c:132
 msgid "Touch files"
@@ -612,8 +605,7 @@ msgid "Extract to dir \"Archive Name\""
 msgstr "Fitxategiak \"artxibo izena\" direktoriora atera"
 
 #: ../src/extract_dialog.c:479
-msgid ""
-"This option extracts archives in directories named with the archive names"
+msgid "This option extracts archives in directories named with the archive names"
 msgstr ""
 "Aukera honek artxibo izenarekin izendaturiko direktorioetako artxiboak "
 "ateratzen ditu"
@@ -739,14 +731,12 @@ msgid "_Help"
 msgstr "_Laguntza"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "Contents"
-msgstr "Iruzkina:"
+msgstr "Edukiak"
 
 #: ../src/interface.c:313
-#, fuzzy
 msgid "Donate"
-msgstr "Data"
+msgstr "Dohanintza egin"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
@@ -782,8 +772,7 @@ msgstr "Artxibo zuhaitza"
 
 #: ../src/interface.c:508
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr ""
-"Hau Xarchiver argi egoera da. Dir-dir egitean Xarchiver lanpeturik dago."
+msgstr "Hau Xarchiver argi egoera da. Dir-dir egitean Xarchiver lanpeturik dago."
 
 #: ../src/interface.c:677
 msgid "Close archive"
@@ -791,8 +780,7 @@ msgstr "Itxi artxiboa"
 
 #: ../src/interface.c:762
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr ""
-"<span weight='bold' size='larger'>Pasahitza beharrezkoa honentzat:</span>"
+msgstr "<span weight='bold' size='larger'>Pasahitza beharrezkoa honentzat:</span>"
 
 #: ../src/interface.c:764
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
@@ -1130,9 +1118,8 @@ msgid "/tmp"
 msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
-#, fuzzy
 msgid "Preferred extract directory:"
-msgstr "Hobetsiriko aldiroko direktorioa"
+msgstr "Hobetsiriko ateratze direktorioa"
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
@@ -1143,10 +1130,8 @@ msgid "Allow subdirs with drag and drop"
 msgstr "Onartu azpidirektorioak arratstratu eta jaregitea"
 
 #: ../src/pref_dialog.c:259
-msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
-msgstr ""
-"Aukera honek azpidirektorioak ere hartzen ditu zuk arratratu eta jaregitean"
+msgid "This option includes the subdirectories when you add files with drag and drop"
+msgstr "Aukera honek azpidirektorioak ere hartzen ditu zuk arratratu eta jaregitean"
 
 #: ../src/pref_dialog.c:264
 msgid ""
@@ -1158,9 +1143,8 @@ msgstr ""
 "fitxategi mota gehiago ezagutzeko gai izateko.</span>"
 
 #: ../src/pref_dialog.c:581
-#, fuzzy
 msgid "Choose the directory to use"
-msgstr "Hautatu erabiliko den aldiroko direktorioa"
+msgstr "Hautatu erabiliko den direktorioa"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
@@ -1223,23 +1207,3 @@ msgstr "GTK+2-rako bakarrik artxibo kudeatzailea"
 msgid "Archive manager"
 msgstr "Pakete kudeatzailea"
 
-#~ msgid "_Thanks to"
-#~ msgstr "E_skerrak honi"
-
-#~ msgid "New"
-#~ msgstr "Berria"
-
-#~ msgid "Open"
-#~ msgstr "Ireki"
-
-#~ msgid "Home"
-#~ msgstr "Etxea"
-
-#~ msgid "Add"
-#~ msgstr "Gehitu"
-
-#~ msgid "Stop"
-#~ msgstr "Gelditu"
-
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Artxibo honen formatua ez da ezagutzen!"
