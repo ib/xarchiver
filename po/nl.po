@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2008-10-24 17:19+0100\n"
 "Last-Translator: Vincent Tunru <projects@vinnl.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -236,6 +236,10 @@ msgstr "Opslaan als"
 msgid "Can't open file \"%s\":"
 msgstr "Kan bestand \"%s\" niet openen:"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "Archiefformaat wordt niet herkend."
+
 #: ../src/window.c:339
 #, fuzzy
 msgid "Sorry,this archive format is not supported:"
@@ -248,6 +252,11 @@ msgstr "Het juiste archiefprogramma is niet geïnstalleerd."
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Kan geen geheugen vrijmaken voor de structuur van het archief:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "Mislukt"
 
 #: ../src/window.c:378
 #, fuzzy
@@ -320,6 +329,17 @@ msgstr "<th>Bestanden:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Gecomprimeerd:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+"Selecteer \"Nieuw\" om een nieuw archiefbestand te maken of \"Open\" om een "
+"bestaand archiefbestand te openeen"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "Je staat op het punt om %d bestand(en) te verwijderen."
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Weet u zeker dat u dit wilt doen?"
@@ -335,6 +355,11 @@ msgstr "Kan de unzipsfx-module niet toevoegen aan het archief:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Selecteer de 7zCon.sfx module"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Een GTK+2 archief-beheerder"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -672,15 +697,18 @@ msgid "_Archive"
 msgstr "_Archief"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Weergeven als"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Tekstbestand"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "HTML-bestand"
 
 #: ../src/interface.c:127
@@ -700,8 +728,9 @@ msgstr "A_ctie"
 msgid "A_dd"
 msgstr "_Toevoegen"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Naam wijzigen"
 
 #: ../src/interface.c:208
@@ -713,7 +742,8 @@ msgid "_Multi-Extract"
 msgstr "_Meerdere uitpakken"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Commentaar"
 
 #: ../src/interface.c:237
@@ -749,12 +779,12 @@ msgstr "_Help"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "Inhoud grootte:"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "Datum"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -838,6 +868,10 @@ msgstr "Plakken"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Verwijderen"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Naam wijzigen"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -985,12 +1019,6 @@ msgstr "Kan bestanden niet uitpakken van archief:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Archiefnaam vergeten.\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
-"Selecteer \"Nieuw\" om een nieuw archiefbestand te maken of \"Open\" om een "
-"bestaand archiefbestand te openeen"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1264,9 +1292,6 @@ msgstr "Archief-beheerder"
 #~ msgid "Stop"
 #~ msgstr "Stoppen"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Archiefformaat wordt niet herkend."
-
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Kan commando niet uitvoeren:"
 
@@ -1303,10 +1328,6 @@ msgstr "Archief-beheerder"
 
 #~ msgid "Operation completed."
 #~ msgstr "Klaar."
-
-#, fuzzy
-#~ msgid "Operation failed!"
-#~ msgstr "Mislukt"
 
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr "Wachten aub terwijl de inhoud van het archief wordt ge-update..."
@@ -1412,9 +1433,6 @@ msgstr "Archief-beheerder"
 
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "Tar bestand recomprimeren met %s, wachten aub..."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "Je staat op het punt om %d bestand(en) te verwijderen."
 
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "Het sluiten van het proces ging fout:"

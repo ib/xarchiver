@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2008-10-25 12:56+0200\n"
 "Last-Translator: Adrian Dimitrov <Enzo_01@abv.bg>\n"
 "Language-Team: BULGARIAN <Enzo_01@abv.bg>\n"
@@ -235,6 +235,10 @@ msgstr "Запази архива като"
 msgid "Can't open file \"%s\":"
 msgstr "Немога да отворя файла \"%s\":"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "Непознат формат!"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Съжалявам, но този формат не се поддържа!"
@@ -246,6 +250,10 @@ msgstr "не е инсталиран подходящ архиватор"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Немога да определя памет за структурата на архива:"
+
+#: ../src/window.c:353
+msgid "Operation aborted!"
+msgstr ""
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -316,6 +324,15 @@ msgstr "<th>Файлове:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Некомпресиран:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Избери \"Нов\" за създаване или \"Отвори\" за отваряне на архив"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "Немога да извлека файловете от архива:"
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Сигурни ли сте, че желаете да продължите?"
@@ -331,6 +348,11 @@ msgstr "Немога да запиша unzipsfx модула към архива
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Моля изберете 7zCon.sfx модула"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "GTK+2 архивен управител"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -663,15 +685,18 @@ msgid "_Archive"
 msgstr "_Архив"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Покажи като"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Текстов файл"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "HTML fajl"
 
 #: ../src/interface.c:127
@@ -690,8 +715,9 @@ msgstr "Дей_ствие"
 msgid "A_dd"
 msgstr "_Добави"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Преименувай"
 
 #: ../src/interface.c:208
@@ -703,7 +729,8 @@ msgid "_Multi-Extract"
 msgstr "_Множествено извличане"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Коментар на архива"
 
 #: ../src/interface.c:237
@@ -736,12 +763,12 @@ msgstr "_Помощ"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "Коментар"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "Дата"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -823,6 +850,10 @@ msgstr "Постави"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Изтрий"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Преименувай"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -965,10 +996,6 @@ msgstr "Немога да извлека файловете от архива:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Пропуснали сте името на архива!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Избери \"Нов\" за създаване или \"Отвори\" за отваряне на архив"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1236,6 +1263,3 @@ msgstr "Архивен управител"
 
 #~ msgid "Stop"
 #~ msgstr "Спри"
-
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Непознат формат!"

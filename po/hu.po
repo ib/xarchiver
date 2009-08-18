@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-07-24 02:55+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at gnome dot hu>\n"
@@ -243,6 +243,11 @@ msgstr "Az archívum mentése másként"
 msgid "Can't open file \"%s\":"
 msgstr "Nem nyitható meg a fájl („%s”):"
 
+#: ../src/window.c:315
+#, fuzzy
+msgid "Archive format is not recognized!"
+msgstr "Ez az archívumformátum nem támogatott:"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Ez az archívumformátum nem támogatott:"
@@ -254,6 +259,10 @@ msgstr "Nincs telepítve a megfelelő archiváló"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Nem foglalható memória az archívumstruktúra számára:"
+
+#: ../src/window.c:353
+msgid "Operation aborted!"
+msgstr ""
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -324,6 +333,15 @@ msgstr "<th>Fájlok:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Tömörítve:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Válassza az „Új” vagy a „Megnyitás” menüpontot archívum megnyitásához"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "Nem bonthatók ki fájlok az archívumból:"
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Biztos, hogy ezt akarja tenni?"
@@ -339,6 +357,11 @@ msgstr "Az unzipsfx modul nem írható az archívumba:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Válassza ki a 7zCon.sfx modult"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "GTK+ archívumkezelő"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -668,15 +691,18 @@ msgid "_Archive"
 msgstr "_Archívum"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Listázás mint"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Szövegfájl"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "HTML fájl"
 
 #: ../src/interface.c:127
@@ -695,8 +721,9 @@ msgstr "_Művelet"
 msgid "A_dd"
 msgstr "Hozzá_adás"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Átnevezés"
 
 #: ../src/interface.c:208
@@ -708,7 +735,8 @@ msgid "_Multi-Extract"
 msgstr "_Több kibontása"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Archívum megjegyzése"
 
 #: ../src/interface.c:237
@@ -740,11 +768,13 @@ msgid "_Help"
 msgstr "_Súgó"
 
 #: ../src/interface.c:304
-msgid "Contents"
+#, fuzzy
+msgid "_Contents"
 msgstr "Tartalom"
 
 #: ../src/interface.c:313
-msgid "Donate"
+#, fuzzy
+msgid "_Donate"
 msgstr "Támogatás"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -826,6 +856,10 @@ msgstr "Beillesztés"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Törlés"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Átnevezés"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -970,10 +1004,6 @@ msgstr "Nem bonthatók ki fájlok az archívumból:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Elrontotta az archívumnevet\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Válassza az „Új” vagy a „Megnyitás” menüpontot archívum megnyitásához"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"

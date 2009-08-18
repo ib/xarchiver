@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2008-10-07 22:35+0000\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -238,6 +238,10 @@ msgstr ""
 "Arşîva %s nayê vekirin:\n"
 "%s"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr ""
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr ""
@@ -248,6 +252,10 @@ msgstr ""
 
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
+msgstr ""
+
+#: ../src/window.c:353
+msgid "Operation aborted!"
 msgstr ""
 
 #: ../src/window.c:378
@@ -317,6 +325,14 @@ msgstr ""
 msgid "<th>Compressed:</th>"
 msgstr ""
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+
+#: ../src/window.c:722
+msgid "You are about to delete entries from the archive."
+msgstr ""
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr ""
@@ -331,6 +347,10 @@ msgstr ""
 
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
+msgstr ""
+
+#: ../src/window.c:980
+msgid "A GTK+2 only lightweight archive manager"
 msgstr ""
 
 #: ../src/window.c:983
@@ -668,15 +688,16 @@ msgid "_Archive"
 msgstr "_Arşîv"
 
 #: ../src/interface.c:92
-msgid "List as"
+msgid "_List as"
 msgstr ""
 
 #: ../src/interface.c:103
-msgid "Text file"
-msgstr ""
+#, fuzzy
+msgid "_Text file"
+msgstr "HEMÛ pelan derxe"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+msgid "_HTML file"
 msgstr ""
 
 #: ../src/interface.c:127
@@ -696,9 +717,9 @@ msgstr "Çala_kî"
 msgid "A_dd"
 msgstr ""
 
-#: ../src/interface.c:194 ../src/interface.c:905
+#: ../src/interface.c:194
 #, fuzzy
-msgid "Rename"
+msgid "Re_name"
 msgstr "Navê pelî"
 
 #: ../src/interface.c:208
@@ -712,7 +733,7 @@ msgstr "Derxistin"
 
 #: ../src/interface.c:223
 #, fuzzy
-msgid "Archive comment"
+msgid "Archive _comment"
 msgstr "Cureyê arşîvê:"
 
 #: ../src/interface.c:237
@@ -744,12 +765,12 @@ msgid "_Help"
 msgstr ""
 
 #: ../src/interface.c:304
-msgid "Contents"
+msgid "_Contents"
 msgstr ""
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "Roj"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -837,6 +858,11 @@ msgstr "Roj"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Jêbirin"
+
+#: ../src/interface.c:905
+#, fuzzy
+msgid "Rename"
+msgstr "Navê pelî"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -984,10 +1010,6 @@ msgstr ""
 
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
-msgstr ""
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 
 #: ../src/main.c:534

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -236,6 +236,10 @@ msgstr "محفوظہ محفوظ کریں بنام"
 msgid "Can't open file \"%s\":"
 msgstr "فائل \"%s\" نہیں کھولی جاسکتی:"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "محفوظہ کا فارمیٹ معترف بہ نہیں ہے!"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "معاف کیجیے، محفوظہ کے اس فارمیٹ کی معاونت نہیں ہے:"
@@ -247,6 +251,11 @@ msgstr "درست محفوظہ نصب نہیں ہے!"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "محفوظہ کے ڈھنچہ لیے مختص یاداشت نہیں مل رہی:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "عمل مکمل ہوگیا."
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -317,6 +326,15 @@ msgstr "<th>فائلیں:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>دبی ہوئی:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "محفوظہ بنانے کے لیے \"نیا\" اور کھولنے کے لیے \"کھولیں\" منتخب کریں"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "آپ محفوظہ سے %d فائل/فائلیں حذف کرنے جارہے ہیں."
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "کیا آپ واقعی ایسا کرنا چاہتے ہیں؟"
@@ -332,6 +350,11 @@ msgstr "unzipsfx ماڈیول محفوظہ پر نہیں لکھا جاسکتا:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "برائے مہربانی 7zCon.sfx ماڈیول منتخب کریں"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "صرف GTK+2 محفوظہ منیجر"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -675,15 +698,18 @@ msgid "_Archive"
 msgstr "_محفوظہ"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "فہرست بطور"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "متن فائل"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "HTML فائل"
 
 #: ../src/interface.c:127
@@ -702,8 +728,9 @@ msgstr "_حرکت"
 msgid "A_dd"
 msgstr "_شامل کریں"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "نام بدلیں"
 
 #: ../src/interface.c:208
@@ -715,7 +742,8 @@ msgid "_Multi-Extract"
 msgstr "مل_ٹی-ایکسٹریکٹ"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "محفوظہ کا تبصرہ"
 
 #: ../src/interface.c:237
@@ -748,11 +776,12 @@ msgstr "_ہدایات"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "_مواد"
 
 #: ../src/interface.c:313
-msgid "Donate"
+#, fuzzy
+msgid "_Donate"
 msgstr "عطیہ دیں"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -836,6 +865,10 @@ msgstr "پیسٹ"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "حذف"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "نام بدلیں"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -978,10 +1011,6 @@ msgstr "محفوظہ سے فائلیں نہیں نکالی جاسکتیں:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "آپ محفوظہ کا نام بھول گئے!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "محفوظہ بنانے کے لیے \"نیا\" اور کھولنے کے لیے \"کھولیں\" منتخب کریں"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1296,17 +1325,11 @@ msgstr "محفوظہ منیجر"
 #~ msgid "The sfx archive was saved as:"
 #~ msgstr "sfx محفوظہ محفوظ کردیا گیا بطور:"
 
-#~ msgid "Operation completed."
-#~ msgstr "عمل مکمل ہوگیا."
-
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr "محفوظہ کے مواد کی تازہ کاری مکمل ہونے تک انتظار فرمائیں..."
 
 #~ msgid "Choose Add to begin creating the archive."
 #~ msgstr "محفوظہ بنانا شروع کرنے کے لیے شامل کریں منتخب کریں."
-
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "محفوظہ کا فارمیٹ معترف بہ نہیں ہے!"
 
 #~ msgid "Please wait while the content of the ISO image is being read..."
 #~ msgstr "ISO امیج کا مواد پڑھے جانے تک انتظار فرمائیں..."
@@ -1316,9 +1339,6 @@ msgstr "محفوظہ منیجر"
 
 #~ msgid "Ready."
 #~ msgstr "تیار."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "آپ محفوظہ سے %d فائل/فائلیں حذف کرنے جارہے ہیں."
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "محفوظہ کو self-extracting میں بدلا جارہا ہے، انتظار فرمائیں..."

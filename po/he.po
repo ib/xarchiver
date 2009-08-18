@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2007-01-19 14:24+0200\n"
 "Last-Translator: Yuval Tanny <tanai@int.gov.il>\n"
 "Language-Team: Hebrew\n"
@@ -251,6 +251,10 @@ msgstr "שומר את ארכיון החילוץ-עצמי בשם"
 msgid "Can't open file \"%s\":"
 msgstr "אין אפשרות לפתוח את הקובץ \"%s\":"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "לא זוהה סוג הארכיון."
+
 #: ../src/window.c:339
 #, fuzzy
 msgid "Sorry,this archive format is not supported:"
@@ -263,6 +267,11 @@ msgstr "תכנתי הכיווץ הדרושה לא מותקנת."
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "אין אפשרות להקצות זיכרון למבנה הארכיון:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "הפעולה נכשלה."
 
 #: ../src/window.c:378
 #, fuzzy
@@ -336,6 +345,15 @@ msgstr ""
 msgid "<th>Compressed:</th>"
 msgstr "מכווץ"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "אתה עומד למחוק %d קבצים מהארכיון."
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "האם אתה בטוח כי ברצונך למחוק את קבצים אלה מהארכיון?"
@@ -351,6 +369,11 @@ msgstr "אין אפשרות לכתוב את מודול ה- unzipsfx לארכיו
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "אנא בחר את מודול ה- 7zCon.sfx."
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "מנהל ארכיונים ב GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -711,17 +734,17 @@ msgid "_Archive"
 msgstr "archive"
 
 #: ../src/interface.c:92
-msgid "List as"
+msgid "_List as"
 msgstr ""
 
 #: ../src/interface.c:103
 #, fuzzy
-msgid "Text file"
+msgid "_Text file"
 msgstr "מחלץ קבצים אל %s"
 
 #: ../src/interface.c:110
 #, fuzzy
-msgid "HTML file"
+msgid "_HTML file"
 msgstr "גע בקבצים"
 
 #: ../src/interface.c:127
@@ -742,9 +765,9 @@ msgstr "_פעולה"
 msgid "A_dd"
 msgstr "הוסף"
 
-#: ../src/interface.c:194 ../src/interface.c:905
+#: ../src/interface.c:194
 #, fuzzy
-msgid "Rename"
+msgid "Re_name"
 msgstr "שם הקובץ"
 
 #: ../src/interface.c:208
@@ -758,7 +781,7 @@ msgstr "_חלץ"
 
 #: ../src/interface.c:223
 #, fuzzy
-msgid "Archive comment"
+msgid "Archive _comment"
 msgstr "חלון הערות הארכיון"
 
 #: ../src/interface.c:237
@@ -795,12 +818,12 @@ msgstr "_עזרה"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "גודל תוכן הארכיון:"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "תאריך"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -887,6 +910,11 @@ msgstr "תאריך"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "מחק"
+
+#: ../src/interface.c:905
+#, fuzzy
+msgid "Rename"
+msgstr "שם הקובץ"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -1042,10 +1070,6 @@ msgstr "אין אפשרות לחלץ קבצים מהארכיון:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "עליך לציין את שם הארכיון.\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1314,9 +1338,6 @@ msgstr "מנהל ארכיונים"
 #~ msgid "Stop"
 #~ msgstr "עצור"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "לא זוהה סוג הארכיון."
-
 #~ msgid "Can't spawn the command:"
 #~ msgstr "אין אפשרות להפעיל את הפקודה:"
 
@@ -1346,10 +1367,6 @@ msgstr "מנהל ארכיונים"
 
 #~ msgid "Operation completed."
 #~ msgstr "הפעולה הושלמה."
-
-#, fuzzy
-#~ msgid "Operation failed!"
-#~ msgstr "הפעולה נכשלה."
 
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr "אנא המתן בזמן שתוכן הארכיון מתעדכן..."
@@ -1455,9 +1472,6 @@ msgstr "מנהל ארכיונים"
 
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "מכוון קובץ tar עם %s, אנא המתן..."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "אתה עומד למחוק %d קבצים מהארכיון."
 
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "ארעה שגיאה בזמן הניסיון להרוג את התהליך:"

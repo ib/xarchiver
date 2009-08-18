@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-07-06 18:43+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -237,6 +237,11 @@ msgstr "Guardar el ficheru como"
 msgid "Can't open file \"%s\":"
 msgstr "Nun puede abrise'l ficheru \"%s\":"
 
+#: ../src/window.c:315
+#, fuzzy
+msgid "Archive format is not recognized!"
+msgstr "Siéntolo, esti formatu de ficheru nun ta sofitáu:"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Siéntolo, esti formatu de ficheru nun ta sofitáu:"
@@ -248,6 +253,10 @@ msgstr "¡El programa de compresión afayaízu nun ta instaláu!"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Nun puede reservase memoria pa la estructura del ficheru:"
+
+#: ../src/window.c:353
+msgid "Operation aborted!"
+msgstr ""
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -318,6 +327,15 @@ msgstr "<th>Ficheros:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Comprimíu:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Seleiciona \"Nuevu\" pa criar o \"Abrir\" p'abrir un ficheru"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "Nun pueden estrayese ficheros del ficheru comprimíu:"
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "¿De xuru que quies facer esto?"
@@ -333,6 +351,11 @@ msgstr "Nun puede escribise'l módulu unzipsfx nel ficheru:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Por favor, seleiciona'l módulu 7zCon.sfx"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Un xestor de ficheros comprimíos basáu namái en GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -669,15 +692,18 @@ msgid "_Archive"
 msgstr "_Ficheru"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Llistar como"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Ficheru de testu"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "Ficheru HTML"
 
 #: ../src/interface.c:127
@@ -696,8 +722,9 @@ msgstr "Ai_ción"
 msgid "A_dd"
 msgstr "Ames_tar"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Renomar"
 
 #: ../src/interface.c:208
@@ -709,7 +736,8 @@ msgid "_Multi-Extract"
 msgstr "_Multi-estrayer"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Comentariu de ficheru"
 
 #: ../src/interface.c:237
@@ -742,11 +770,12 @@ msgstr "Ai_da"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "_Conteníos"
 
 #: ../src/interface.c:313
-msgid "Donate"
+#, fuzzy
+msgid "_Donate"
 msgstr "Donar"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -830,6 +859,10 @@ msgstr "Apegar"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Desaniciar"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Renomar"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -974,10 +1007,6 @@ msgstr "Nun pueden estrayese ficheros del ficheru comprimíu:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "¡Escaeciste'l nome del ficheru!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Seleiciona \"Nuevu\" pa criar o \"Abrir\" p'abrir un ficheru"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"

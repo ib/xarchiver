@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.6\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-06-14 19:32+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Simplified Chinese <xfce-i18n@xfce.org>\n"
@@ -230,6 +230,10 @@ msgstr "另存归档文件为"
 msgid "Can't open file \"%s\":"
 msgstr "无法打开文件“%s”:"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "无法识别归档文件格式！"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "对不起，不支持此归档文件格式:"
@@ -241,6 +245,11 @@ msgstr "相应的归档程序没有安装！"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "无法为归档文件分配内存:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "操作失败。"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -311,6 +320,15 @@ msgstr "<th>文件：</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>压缩后：</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "选择“新建”来创建，或者“打开”来打开归档文件"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "你正要从归档文件中删除 %d。"
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "您确定要这样做吗？"
@@ -326,6 +344,11 @@ msgstr "无法将 unzipsfx 模块添加到归档文件:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "请选择 7zCon.sfx 模块"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "一个只使用 GTK+2 的归档文件管理器"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -656,15 +679,18 @@ msgid "_Archive"
 msgstr "归档文件(_A)"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "列表为"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "文本文件"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "HTML 文件"
 
 #: ../src/interface.c:127
@@ -683,8 +709,9 @@ msgstr "动作(_C)"
 msgid "A_dd"
 msgstr "添加(_D)"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "重命名"
 
 #: ../src/interface.c:208
@@ -696,7 +723,8 @@ msgid "_Multi-Extract"
 msgstr "多重解压(_M)"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "归档文件备注"
 
 #: ../src/interface.c:237
@@ -729,12 +757,12 @@ msgstr "帮助(_H)"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "内容大小:"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "日期"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -816,6 +844,10 @@ msgstr "粘贴"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "删除"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "重命名"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -958,10 +990,6 @@ msgstr "无法从归档文件中解压:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "请输入归档文件名称！\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "选择“新建”来创建，或者“打开”来打开归档文件"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1225,9 +1253,6 @@ msgstr "归档文件管理器"
 #~ msgid "Stop"
 #~ msgstr "停止"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "无法识别归档文件格式！"
-
 #~ msgid "Can't spawn the command:"
 #~ msgstr "无法启动命令:"
 
@@ -1255,9 +1280,6 @@ msgstr "归档文件管理器"
 
 #~ msgid "Operation completed."
 #~ msgstr "操作已完成。"
-
-#~ msgid "Operation failed!"
-#~ msgstr "操作失败。"
 
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr "正在更新归档文件内容，请稍候..."
@@ -1359,9 +1381,6 @@ msgstr "归档文件管理器"
 
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "正在使用 %s 压缩 tar 文件，请稍候."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "你正要从归档文件中删除 %d。"
 
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "终止该程序时发生错误:"

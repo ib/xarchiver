@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-01-14 16:01+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -242,6 +242,10 @@ msgstr "Uložit archiv jako"
 msgid "Can't open file \"%s\":"
 msgstr "Nelze otevřít soubor \"%s\":"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "Formát archivu nebyl rozpoznán."
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Omlouváme se, ale tento formát není podporován:"
@@ -253,6 +257,11 @@ msgstr "není nainstalován odpovídající archivátor!"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Nelze přidělit paměť pro strukturu archivu:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "Operace byla přerušena."
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -323,6 +332,15 @@ msgstr "<th>Soubory:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Komprimovaný:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Vyberte \"Nový\" pro vytvoření nebo \"Otevřít\" pro otevření archivu"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "Touto akcí smažete %d soubor(ů) z archivu."
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Opravdu chcete provést tuto akci?"
@@ -338,6 +356,11 @@ msgstr "Modulem unzipsfx nelze zapisovat do archivu:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Vyberte modul 7zCon.sfx"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Správce archivů pouze pro GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -671,15 +694,18 @@ msgid "_Archive"
 msgstr "_Archiv"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Vypsat jako"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Textový soubor"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "Soubor HTML"
 
 #: ../src/interface.c:127
@@ -698,8 +724,9 @@ msgstr "A_kce"
 msgid "A_dd"
 msgstr "_Přidat"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Přejmenovat"
 
 #: ../src/interface.c:208
@@ -711,7 +738,8 @@ msgid "_Multi-Extract"
 msgstr "_Vícenásobné rozbalení"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Komentář archivu"
 
 #: ../src/interface.c:237
@@ -744,12 +772,12 @@ msgstr "_Nápověda"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "Velikost obsahu:"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "Datum"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -833,6 +861,10 @@ msgstr "Vložit"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Smazat"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Přejmenovat"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -976,10 +1008,6 @@ msgstr "Nelze rozbalit soubory z archivu:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Zapomněli jste zadat název archivu!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Vyberte \"Nový\" pro vytvoření nebo \"Otevřít\" pro otevření archivu"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1246,9 +1274,6 @@ msgstr "Správce archivů"
 #~ msgid "Stop"
 #~ msgstr "Zastavit"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Formát archivu nebyl rozpoznán."
-
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Nelze vytvořit příkaz:"
 
@@ -1403,9 +1428,6 @@ msgstr "Správce archivů"
 
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "Znovu komprimuji soubor tar pomocí %s, prosím čekejte..."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "Touto akcí smažete %d soubor(ů) z archivu."
 
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "Při pokusu o ukončení procesu došlo k chybě:"
@@ -1601,9 +1623,6 @@ msgstr "Správce archivů"
 
 #~ msgid "This option can't be used with password protected archives!\n"
 #~ msgstr "Tuto volbu nelze použít pro archivy chráněné heslem!\n"
-
-#~ msgid "Operation aborted."
-#~ msgstr "Operace byla přerušena."
 
 #~ msgid "Choose Add File to create the compressed file."
 #~ msgstr "Zvolte Přidat soubor pro vytvoření komprimovaného souboru."

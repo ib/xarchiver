@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-04-29 15:24+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <xfce-it-translators@googlegroups.com>\n"
@@ -244,6 +244,10 @@ msgstr "Salva l'archivio come"
 msgid "Can't open file \"%s\":"
 msgstr "Impossibile aprire il file «%s»:"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "Il formato di questo archivio non è riconosciuto!"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Spiacente, questo formato di archivio non è supportato:"
@@ -255,6 +259,11 @@ msgstr "l'archiviatore necessario non è installato!"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "impossibile allocare memoria per la struttura dell'archivio:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "Operazione fallita."
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -325,6 +334,15 @@ msgstr "<th>File:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Compresso:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Selezionare «Nuovo» per creare o «Apri» per aprire un archivio"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "Stai per cancellare %d file dall'archivio."
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Si è sicuri di volerlo fare?"
@@ -340,6 +358,11 @@ msgstr "Non è possibile scrivere il modulo 'unzipsfx' nell'archivio:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Selezionare il modulo 7zCon.sfx"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Un gestore di archivi che richiede solo GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -677,15 +700,18 @@ msgid "_Archive"
 msgstr "_Archivia"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Elenca come"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "File di testo"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "File HTML"
 
 #: ../src/interface.c:127
@@ -704,8 +730,9 @@ msgstr "A_zione"
 msgid "A_dd"
 msgstr "A_ggiungi"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Rinomina"
 
 #: ../src/interface.c:208
@@ -717,7 +744,8 @@ msgid "_Multi-Extract"
 msgstr "Estrazione _multipla"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Commento dell'archivio"
 
 #: ../src/interface.c:237
@@ -750,12 +778,12 @@ msgstr "Ai_uto"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "Dimensione contenuto:"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "Data"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -839,6 +867,10 @@ msgstr "Incolla"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Cancella"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Rinomina"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -982,10 +1014,6 @@ msgstr "Impossibile estrarre i file dall'archivio:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Manca il nome dell'archivio\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Selezionare «Nuovo» per creare o «Apri» per aprire un archivio"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1253,9 +1281,6 @@ msgstr "Gestore di archivi"
 #~ msgid "Stop"
 #~ msgstr "Ferma"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Il formato di questo archivio non è riconosciuto!"
-
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Non posso mandare in esecuzione il comando:"
 
@@ -1287,10 +1312,6 @@ msgstr "Gestore di archivi"
 
 #~ msgid "Operation completed."
 #~ msgstr "Operazione completata."
-
-#, fuzzy
-#~ msgid "Operation failed!"
-#~ msgstr "Operazione fallita."
 
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr ""
@@ -1391,9 +1412,6 @@ msgstr "Gestore di archivi"
 
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "Sto ricomprimendo il file %s di tipo tar, attendere prego..."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "Stai per cancellare %d file dall'archivio."
 
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "Si è verificato un errore mentre cercavo di terminare il processo:"

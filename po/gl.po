@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-07-13 18:48+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -237,6 +237,10 @@ msgstr "Gardar o arquivo coma"
 msgid "Can't open file \"%s\":"
 msgstr "Non se puido abrir o ficheiro \"%s\":"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "Non se recoñece o formato do arquivo!"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Sentímolo, este formato de arquivo non está soportado:"
@@ -248,6 +252,11 @@ msgstr "Non está instalado o arquivador axeitado!"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Non se puido asignar a memoria para a estructura do arquivo:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "Non se puido executa-la operación"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -318,6 +327,15 @@ msgstr "<th>Ficheiros:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Comprimido:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Seleccione  \"Novo\" para crear ou \"Abrir\" para abrir un arquivo"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "Non se poden extraer ficheiros do arquivo:"
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Está seguro de que desexa facer isto?"
@@ -333,6 +351,11 @@ msgstr "Non se puido escribir o módulo unzipsfx no arquivo:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Seleccione o módulo 7zCon.sfx"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Un xestor de arquivos só en GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -664,15 +687,18 @@ msgid "_Archive"
 msgstr "_Arquivo"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Mostrar como"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Ficheiro de texto"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "Ficheiro HTML"
 
 #: ../src/interface.c:127
@@ -691,8 +717,9 @@ msgstr "A_cción"
 msgid "A_dd"
 msgstr "Enga_dir"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Renomear"
 
 #: ../src/interface.c:208
@@ -705,7 +732,8 @@ msgid "_Multi-Extract"
 msgstr "Extraer aquí"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Comentario do arquivo"
 
 #: ../src/interface.c:237
@@ -738,11 +766,12 @@ msgstr "A_xuda"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "_Contido"
 
 #: ../src/interface.c:313
-msgid "Donate"
+#, fuzzy
+msgid "_Donate"
 msgstr "Doar"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -826,6 +855,10 @@ msgstr "Pegar"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Eliminar"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Renomear"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -972,10 +1005,6 @@ msgstr "Non se poden extraer ficheiros do arquivo:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Esqueceu o nome do arquivo!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Seleccione  \"Novo\" para crear ou \"Abrir\" para abrir un arquivo"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1245,9 +1274,6 @@ msgstr "Xestor de arquivos"
 #~ msgid "Stop"
 #~ msgstr "Deter"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Non se recoñece o formato do arquivo!"
-
 #, fuzzy
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Introducir comando de usuario"
@@ -1275,10 +1301,6 @@ msgstr "Xestor de arquivos"
 
 #~ msgid "Operation completed."
 #~ msgstr "Operación completada."
-
-#, fuzzy
-#~ msgid "Operation failed!"
-#~ msgstr "Non se puido executa-la operación"
 
 #~ msgid "Operation canceled."
 #~ msgstr "Operación cancelada."

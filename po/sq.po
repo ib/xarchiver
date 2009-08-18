@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2008-11-11 00:15+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -242,6 +242,11 @@ msgstr "Ruaje arkivin si"
 msgid "Can't open file \"%s\":"
 msgstr "S'hap dot kartelën \"%s\":"
 
+#: ../src/window.c:315
+#, fuzzy
+msgid "Archive format is not recognized!"
+msgstr "Na ndjeni, ky format arkivi nuk mbulohet:"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Na ndjeni, ky format arkivi nuk mbulohet:"
@@ -253,6 +258,11 @@ msgstr "nuk është instaluar arkivuesi i duhur!"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "S'siguron dot kujtesë për strukturën e arkivit:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "Hap kartelë tekst"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -323,6 +333,16 @@ msgstr "<th>Kartela:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Ngjeshur:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+"Përzgjidhni \"Të re\" për të krijuar ose \"HapOpen\" për të hapur një arkivë"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "S'mund të përftohet kartela prej arkivit:"
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Jeni i sigurt se doni të bëhet kjo?"
@@ -338,6 +358,11 @@ msgstr "S'shkruan dot modulin unzipsfx te arkivi:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Ju lutem përzgjidhni modul 7zCon.sfx"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Përgjegjës arkivash vetëm për GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -671,15 +696,18 @@ msgid "_Archive"
 msgstr "_Arkivë"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Radhite si"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Kartelë tekst"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "Kartelë HTML"
 
 #: ../src/interface.c:127
@@ -698,8 +726,9 @@ msgstr "_Veprim"
 msgid "A_dd"
 msgstr "_Shto"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Riemërtoje"
 
 #: ../src/interface.c:208
@@ -711,7 +740,8 @@ msgid "_Multi-Extract"
 msgstr "_Shumë-Përftim"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Koment arkivi"
 
 #: ../src/interface.c:237
@@ -744,12 +774,12 @@ msgstr "_Ndihmë"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "Koment"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "Datë"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -833,6 +863,10 @@ msgstr "Ngjite"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Fshij"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Riemërtoje"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -976,11 +1010,6 @@ msgstr "S'mund të përftohet kartela prej arkivit:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Nuk dhatë emrin e arkivit!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
-"Përzgjidhni \"Të re\" për të krijuar ose \"HapOpen\" për të hapur një arkivë"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1279,10 +1308,6 @@ msgstr "Përgjegjës arkivash"
 #~ msgstr "S'shkruaj dot te /tmp:"
 
 #, fuzzy
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Na ndjeni, ky format arkivi nuk mbulohet:"
-
-#, fuzzy
 #~ msgid ""
 #~ "In a solid archive the files are grouped together featuring a better "
 #~ "compression ratio."
@@ -1331,10 +1356,6 @@ msgstr "Përgjegjës arkivash"
 #, fuzzy
 #~ msgid "Please select the directories you want to add"
 #~ msgstr "Ju lutem përzgjidhni kartelat që doni të përfothen"
-
-#, fuzzy
-#~ msgid "Operation failed."
-#~ msgstr "Hap kartelë tekst"
 
 #, fuzzy
 #~ msgid "Decompressing tar file with %s, please wait..."

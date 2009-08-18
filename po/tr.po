@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -237,6 +237,10 @@ msgstr "Arşivi farklı kaydet"
 msgid "Can't open file \"%s\":"
 msgstr "\"%s\" dosyası açılamıyor:"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "Arşiv biçimi tanınamadı!"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Üzgünüm, bu arşiv biçimi desteklenmiyor:"
@@ -248,6 +252,11 @@ msgstr "Uygun arşivleyici yüklü değil!"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Arşiv yapısı için bellek ayrılamıyor:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "İşlem başarısız oldu."
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -318,6 +327,15 @@ msgstr "<th>Dosyalar.</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Sıkıştırılmış:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Bir arşiv oluşturmak için \"Yeni\"yi, açmak için \"Aç\"ı seçin"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "%d dosyayı arşivden silmek üzeresiniz."
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Bunu yapmak istediğinize emin misiniz?"
@@ -333,6 +351,11 @@ msgstr "unzipsfx birimi arşive yazılamıyor:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Lütfen 7zCon.sfx birimini seçin"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "GTK+2 ile tasarlanmış arşiv yöneticisi"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -664,15 +687,18 @@ msgid "_Archive"
 msgstr "_Arşiv"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Farklı Listele"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Metin dosyası"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "HTML dosyası"
 
 #: ../src/interface.c:127
@@ -691,8 +717,9 @@ msgstr "İşl_em"
 msgid "A_dd"
 msgstr "E_kle"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Yeniden İsimlendir"
 
 #: ../src/interface.c:208
@@ -704,7 +731,8 @@ msgid "_Multi-Extract"
 msgstr "_Çoklu-Aç"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Arşiv yorumu"
 
 #: ../src/interface.c:237
@@ -737,12 +765,12 @@ msgstr "_Yardım"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "İçerik boyutu:"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "Tarih"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -826,6 +854,10 @@ msgstr "Yapıştır"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Sil"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Yeniden İsimlendir"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -969,10 +1001,6 @@ msgstr "Dosyalar arşivden açılamıyor:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Arşiv ismini atladınız!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Bir arşiv oluşturmak için \"Yeni\"yi, açmak için \"Aç\"ı seçin"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1239,9 +1267,6 @@ msgstr "Arşiv yöneticisi"
 #~ msgid "Stop"
 #~ msgstr "Dur"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Arşiv biçimi tanınamadı!"
-
 #~ msgid "Directories"
 #~ msgstr "Dizinler"
 
@@ -1272,9 +1297,6 @@ msgstr "Arşiv yöneticisi"
 
 #~ msgid "Please select the directories you want to add"
 #~ msgstr "Lütfen eklemek istediğiniz dizinleri seçin"
-
-#~ msgid "Operation failed."
-#~ msgstr "İşlem başarısız oldu."
 
 #~ msgid "Extracting gzip file to %s"
 #~ msgstr "gzip dosyası açılıyor: %s "
@@ -1315,9 +1337,6 @@ msgstr "Arşiv yöneticisi"
 
 #~ msgid "Ready."
 #~ msgstr "Hazır."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "%d dosyayı arşivden silmek üzeresiniz."
 
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "Arşivi kendi kendine açılan arşive dönüştürüyor, lütfen bekleyin..."

@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -252,6 +252,11 @@ msgstr "アーカイブに名前を付けて保存する"
 msgid "Can't open file \"%s\":"
 msgstr "ファイル \"%s\" を開けません:"
 
+#: ../src/window.c:315
+#, fuzzy
+msgid "Archive format is not recognized!"
+msgstr "申し訳ありません、このアーカイブ形式はサポートされていません:"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "申し訳ありません、このアーカイブ形式はサポートされていません:"
@@ -263,6 +268,10 @@ msgstr "適切なアーカイブツールがインストールされていませ
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "アーカイブ構造にメモリを割り当てることができません:"
+
+#: ../src/window.c:353
+msgid "Operation aborted!"
+msgstr ""
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -334,6 +343,16 @@ msgstr "<th>ファイル:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>圧縮済:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+"\"新規\" の選択でアーカイブを作成、\"開く\" の選択でアーカイブを開きます"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "アーカイブからファイルを展開できません:"
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "よろしいですか?"
@@ -349,6 +368,11 @@ msgstr "アーカイブに unzipsfx モジュールを書き込めません:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "7zCon.sfx モジュールを選択してください"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Xfce 4 アーカイブマネージャ"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -684,15 +708,18 @@ msgid "_Archive"
 msgstr "アーカイブ(_A)"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "リスト出力"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "テキストファイル"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "HTML ファイル"
 
 #: ../src/interface.c:127
@@ -711,8 +738,9 @@ msgstr "アクション(_C)"
 msgid "A_dd"
 msgstr "追加(_D)"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "名前の変更"
 
 #: ../src/interface.c:208
@@ -724,7 +752,8 @@ msgid "_Multi-Extract"
 msgstr "複数展開(_M)"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "アーカイブコメント"
 
 #: ../src/interface.c:237
@@ -756,11 +785,13 @@ msgid "_Help"
 msgstr "ヘルプ(_H)"
 
 #: ../src/interface.c:304
-msgid "Contents"
+#, fuzzy
+msgid "_Contents"
 msgstr "目次"
 
 #: ../src/interface.c:313
-msgid "Donate"
+#, fuzzy
+msgid "_Donate"
 msgstr "寄付"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -842,6 +873,10 @@ msgstr "貼り付け"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "削除"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "名前の変更"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -985,11 +1020,6 @@ msgstr "アーカイブからファイルを展開できません:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "アーカイブ名を入力してください!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
-"\"新規\" の選択でアーカイブを作成、\"開く\" の選択でアーカイブを開きます"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"

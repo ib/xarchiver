@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2006-11-23 12:28+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -252,6 +252,10 @@ msgstr "ཡིག་མཛོད་ཚུ་ %s ལུ་ཕྱིར་འད�
 msgid "Can't open file \"%s\":"
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མི་བཏུབ \"%s\":"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "ཡིག་མཛོད་རྩ་སྒྲིག་འདི་ངོས་འཛིན་མ་འབད་བས!"
+
 #: ../src/window.c:339
 #, fuzzy
 msgid "Sorry,this archive format is not supported:"
@@ -264,6 +268,11 @@ msgstr "ཡིག་མཛོད་ཚུལ་ལྡན་འབད་མི་
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "ཡིག་མཛོད་གཞི་བཀོད་དོན་ལུ་  དྲན་ཚད་སྤྲོད་མི་བཏུབ:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "བཀོལ་སྤྱོད་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
 
 #: ../src/window.c:378
 #, fuzzy
@@ -336,6 +345,15 @@ msgstr ""
 msgid "<th>Compressed:</th>"
 msgstr "ཨེབ་བཙུགས་འབད་ཡོདཔ།"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "%dཡིག་སྣོད་(ཚུ་)ཡིག་མཛོད་ལས་  ཁྱོད་ཀྱིས་  བཏོན་གཏང་ནི་འབད་དོ།"
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "ཁྱོད་ཀྱིས་འདི་འབད་ནི་ངེས་ཏིག་ཨིན་ན?"
@@ -351,6 +369,11 @@ msgstr "ཨན་ཛིཔ་ཨེསི་ཨེཕ་ཨེགསི་ ཚ�
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "7zCon.sfx ཚད་གཞི་འདི་སེལ་འཐུ་འབད་གནང་།"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "ཇི་ཊི་ཀེ་+༢་ ཀྱིས་རྐྱངམ་ཅིག་ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -713,17 +736,17 @@ msgid "_Archive"
 msgstr "ཡིག་མཛོད།"
 
 #: ../src/interface.c:92
-msgid "List as"
+msgid "_List as"
 msgstr ""
 
 #: ../src/interface.c:103
 #, fuzzy
-msgid "Text file"
+msgid "_Text file"
 msgstr "ཡིག་སྣོད་ཚུ་  %s ལུ་ཕྱིར་འདོན་འབད་དོ།"
 
 #: ../src/interface.c:110
 #, fuzzy
-msgid "HTML file"
+msgid "_HTML file"
 msgstr "ཡིག་སྣོད་ཚུ་འབྲེལ་བ་བཞག"
 
 #: ../src/interface.c:127
@@ -744,9 +767,9 @@ msgstr "བྱ་བ།(_A)"
 msgid "A_dd"
 msgstr "ཁ་སྐོང་འབད།"
 
-#: ../src/interface.c:194 ../src/interface.c:905
+#: ../src/interface.c:194
 #, fuzzy
-msgid "Rename"
+msgid "Re_name"
 msgstr "ཡིག་སྣོད་མིང་།"
 
 #: ../src/interface.c:208
@@ -760,7 +783,7 @@ msgstr "ཕྱིར་འདོན་འབད།(_E)"
 
 #: ../src/interface.c:223
 #, fuzzy
-msgid "Archive comment"
+msgid "Archive _comment"
 msgstr "ཡིག་མཛོད་བསམ་བཀོད་སྒོ་སྒྲིག་"
 
 #: ../src/interface.c:237
@@ -798,12 +821,12 @@ msgstr "གྲོགས་རམ།(_H)"
 
 #: ../src/interface.c:304
 #, fuzzy
-msgid "Contents"
+msgid "_Contents"
 msgstr "ནང་དོན་ཚད:"
 
 #: ../src/interface.c:313
 #, fuzzy
-msgid "Donate"
+msgid "_Donate"
 msgstr "ཚེས།"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -891,6 +914,11 @@ msgstr "ཚེས།"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "བཏོན་གཏང་།"
+
+#: ../src/interface.c:905
+#, fuzzy
+msgid "Rename"
+msgstr "ཡིག་སྣོད་མིང་།"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -1048,10 +1076,6 @@ msgstr "ཡིག་མཛོད་ལས་ཡིག་སྣོད་ཚུ་
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "ཁྱོད་ཀྱིས་ཡིག་མཛོད་མིང་འདི་བྱིག་སོང་ནུག!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1317,9 +1341,6 @@ msgstr "ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
 #~ msgid "Stop"
 #~ msgstr "བཀག"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "ཡིག་མཛོད་རྩ་སྒྲིག་འདི་ངོས་འཛིན་མ་འབད་བས!"
-
 #~ msgid "Can't spawn the command:"
 #~ msgstr "བརྡ་བཀོད་འདི་དར་ཁྱབ་འབྱུང་མི་བཏུབ:"
 
@@ -1350,10 +1371,6 @@ msgstr "ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
 
 #~ msgid "Operation completed."
 #~ msgstr "བཀོལ་སྤྱོད་མཇུག་བསྡུས་ཡོདཔ།"
-
-#, fuzzy
-#~ msgid "Operation failed!"
-#~ msgstr "བཀོལ་སྤྱོད་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
 
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr "ཡིག་མཛོད་ཀྱི་ནང་དོན་འདི་དུས་མཐུན་བཟོཝ་ད་ བསྒུག་གནང་..."
@@ -1452,9 +1469,6 @@ msgstr "ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
 
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "%sདང་བཅས་  ཊར་ཡིག་སྣོད་འདི་སླར་གཡེབ་བཙུགས་འབད་དོ་,བསྒུག་གནང་..."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "%dཡིག་སྣོད་(ཚུ་)ཡིག་མཛོད་ལས་  ཁྱོད་ཀྱིས་  བཏོན་གཏང་ནི་འབད་དོ།"
 
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "ལས་སྦྱོར་འདི་གསད་ནི་འབདཝ་ད་  འཛོལ་བ་འབྱུང་ནུག:"
