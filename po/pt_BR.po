@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-14 12:01+0200\n"
+"POT-Creation-Date: 2009-08-20 15:20+0200\n"
 "PO-Revision-Date: 2009-08-15 18:45-0400\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -239,6 +239,10 @@ msgstr "Salvar o pacote como"
 msgid "Can't open file \"%s\":"
 msgstr "Erro abrindo o arquivo \"%s\":"
 
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr "Formato do arquivo não reconhecido!"
+
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
 msgstr "Desculpe, não há suporte para este formato de pacote:"
@@ -250,6 +254,11 @@ msgstr "o programa para trabalhar com esse pacote não está instalado!"
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Não foi possível alocar memória para a estrutura do pacote:"
+
+#: ../src/window.c:353
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "Operação falhou!"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -320,6 +329,15 @@ msgstr "<th>Arquivos:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Comprimido:</th>"
 
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Selecione \"Novo\" para criar ou \"Abrir\" para abrir um pacote"
+
+#: ../src/window.c:722
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "Você está prestes a apagar %d arquivo(s) do pacote."
+
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Você tem certeza que deseja fazer isso?"
@@ -335,6 +353,11 @@ msgstr "Não foi possível escrever o módulo unzipsfx para o pacote:"
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
 msgstr "Por favor selecione o módulo 7zCon.sfx"
+
+#: ../src/window.c:980
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Um gerenciador de pacotes baseado no GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -674,15 +697,18 @@ msgid "_Archive"
 msgstr "P_acote"
 
 #: ../src/interface.c:92
-msgid "List as"
+#, fuzzy
+msgid "_List as"
 msgstr "Listar como"
 
 #: ../src/interface.c:103
-msgid "Text file"
+#, fuzzy
+msgid "_Text file"
 msgstr "Arquivo texto"
 
 #: ../src/interface.c:110
-msgid "HTML file"
+#, fuzzy
+msgid "_HTML file"
 msgstr "Arquivo HTML"
 
 #: ../src/interface.c:127
@@ -701,8 +727,9 @@ msgstr "Açã_o"
 msgid "A_dd"
 msgstr "A_dicionar"
 
-#: ../src/interface.c:194 ../src/interface.c:905
-msgid "Rename"
+#: ../src/interface.c:194
+#, fuzzy
+msgid "Re_name"
 msgstr "Renomear"
 
 #: ../src/interface.c:208
@@ -714,7 +741,8 @@ msgid "_Multi-Extract"
 msgstr "_Multi-extração"
 
 #: ../src/interface.c:223
-msgid "Archive comment"
+#, fuzzy
+msgid "Archive _comment"
 msgstr "Comentário do pacote"
 
 #: ../src/interface.c:237
@@ -746,11 +774,13 @@ msgid "_Help"
 msgstr "Aj_uda"
 
 #: ../src/interface.c:304
-msgid "Contents"
+#, fuzzy
+msgid "_Contents"
 msgstr "Conteúdo"
 
 #: ../src/interface.c:313
-msgid "Donate"
+#, fuzzy
+msgid "_Donate"
 msgstr "Doação"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
@@ -833,6 +863,10 @@ msgstr "Colar"
 #: ../src/interface.c:896
 msgid "Delete"
 msgstr "Remover"
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr "Renomear"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
@@ -975,10 +1009,6 @@ msgstr "Não é possível extrair arquivos do pacote:"
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Você esqueceu o nome do pacote!\n"
-
-#: ../src/main.c:276
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Selecione \"Novo\" para criar ou \"Abrir\" para abrir um pacote"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1245,9 +1275,6 @@ msgstr "Gerenciador de pacotes"
 #~ msgid "Stop"
 #~ msgstr "Parar"
 
-#~ msgid "Archive format is not recognized!"
-#~ msgstr "Formato do arquivo não reconhecido!"
-
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Não é possível executar o comando:"
 
@@ -1289,9 +1316,6 @@ msgstr "Gerenciador de pacotes"
 
 #~ msgid "Operation completed."
 #~ msgstr "Operação completada."
-
-#~ msgid "Operation failed!"
-#~ msgstr "Operação falhou!"
 
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr ""
@@ -1405,9 +1429,6 @@ msgstr "Gerenciador de pacotes"
 
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "Recompactando arquivo tar com %s, aguarde por favor..."
-
-#~ msgid "You are about to delete %d file(s) from the archive."
-#~ msgstr "Você está prestes a apagar %d arquivo(s) do pacote."
 
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "Ocorreu um erro enquanto o processo era terminado:"
