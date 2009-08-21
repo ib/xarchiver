@@ -3,22 +3,21 @@
 # translation of xfce4-xarchiver-eu.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Piarres Beobide <pi@beobide.net>, 2006, 2007, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver.master\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
-"PO-Revision-Date: 2009-08-18 08:55+0200\n"
+"PO-Revision-Date: 2009-08-21 10:50+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
-"Language-Team: Euskara <debian-l10n-eu@lists.debian.org>\n"
+"Language-Team: Euskara\n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Virtaal 0.4.0\n"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
@@ -240,9 +239,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Ezin da \"%s\" fitxategia ireki:"
 
 #: ../src/window.c:315
-#, fuzzy
 msgid "Archive format is not recognized!"
-msgstr "Barkatu, artxibo formatu hau ez da onartzen:"
+msgstr "uuArtxibo formatu hau ez da ezagutzen!"
 
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
@@ -334,9 +332,8 @@ msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "\"Berria\" hautatu sortzeko edo \"Ireki\" artxibo bat irekitzeko"
 
 #: ../src/window.c:722
-#, fuzzy
 msgid "You are about to delete entries from the archive."
-msgstr "Ezin dira artxibotik fitxategiak atera:"
+msgstr "Artxibotik sarrerak ezabatzera zoaz."
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
@@ -355,9 +352,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Mesedez hautatu 7zCon.sfx modulua"
 
 #: ../src/window.c:980
-#, fuzzy
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "GTK+2-rako bakarrik artxibo kudeatzailea"
+msgstr "GTK+2-rako bakarrik artxibo kudeatzaile arina"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -689,19 +685,16 @@ msgid "_Archive"
 msgstr "_Artxiboa"
 
 #: ../src/interface.c:92
-#, fuzzy
 msgid "_List as"
-msgstr "Honela zerrendatu"
+msgstr "_Zerrendatu honela"
 
 #: ../src/interface.c:103
-#, fuzzy
 msgid "_Text file"
-msgstr "Testu fitxategia"
+msgstr "_Testu fitxategia"
 
 #: ../src/interface.c:110
-#, fuzzy
 msgid "_HTML file"
-msgstr "HTML fitxategia"
+msgstr "_HTML fitxategia"
 
 #: ../src/interface.c:127
 msgid "_Test"
@@ -720,9 +713,8 @@ msgid "A_dd"
 msgstr "Ge_hitu"
 
 #: ../src/interface.c:194
-#, fuzzy
 msgid "Re_name"
-msgstr "Berizendatu"
+msgstr "Be_rrizendatu"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
@@ -733,9 +725,8 @@ msgid "_Multi-Extract"
 msgstr "_Ateratze-anitz"
 
 #: ../src/interface.c:223
-#, fuzzy
 msgid "Archive _comment"
-msgstr "Artxibo iruzkina"
+msgstr "Artxibo _iruzkina"
 
 #: ../src/interface.c:237
 msgid "Select _all"
@@ -766,14 +757,12 @@ msgid "_Help"
 msgstr "_Laguntza"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "_Contents"
-msgstr "Edukiak"
+msgstr "_Edukiak"
 
 #: ../src/interface.c:313
-#, fuzzy
 msgid "_Donate"
-msgstr "Dohanintza egin"
+msgstr "_Dohanintza egin"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
