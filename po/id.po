@@ -1,20 +1,20 @@
 # Indonesian translation of the xarchiver package.
 # Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xarchiver package.
-# Andhika Padmawan <andhika.padmawan@gmail.com>, 2008.
+# Andhika Padmawan <andhika.padmawan@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-18 09:15+0200\n"
-"PO-Revision-Date: 2009-01-27 22:06+0700\n"
+"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
-"Language-Team: Indonesian <id@li.org>\n"
+"Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
@@ -120,7 +120,7 @@ msgstr "Kompresi: "
 
 #: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
 msgid "Password:"
-msgstr "Sandi lewat:"
+msgstr "Sandi:"
 
 #: ../src/add_dialog.c:167
 msgid "Encryption: "
@@ -164,7 +164,7 @@ msgstr "Anda belum memilih berkas untuk ditambah!"
 
 #: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "You missed the password!"
-msgstr "Anda salah sandi lewat!"
+msgstr "Anda salah sandi!"
 
 #: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "Please enter it!"
@@ -179,9 +179,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Tak dapat menjalankan pengarsip yang dapat dieksekusi:"
 
 #: ../src/archive.c:373
-#, fuzzy
 msgid "Can't create temporary directory:"
-msgstr "Tak dapat membuat direktori sementara di /tmp:"
+msgstr "Tak dapat membuat direktori temporer:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
@@ -253,9 +252,8 @@ msgid "Can't allocate memory for the archive structure:"
 msgstr "Tak dapat mengalokasi memori untuk struktur arsip:"
 
 #: ../src/window.c:353
-#, fuzzy
 msgid "Operation aborted!"
-msgstr "Operasi gagal!"
+msgstr "Operasi dibatalkan!"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -331,9 +329,8 @@ msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Pilih \"Baru\" untuk membuat atau \"Open\" untuk membuka arsip"
 
 #: ../src/window.c:722
-#, fuzzy
 msgid "You are about to delete entries from the archive."
-msgstr "Anda akan menghapus %d berkas dari arsip."
+msgstr "Anda akan menghapus lema dari arsip."
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
@@ -352,9 +349,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Silakan pilih modul 7zCon.sfx"
 
 #: ../src/window.c:980
-#, fuzzy
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "Manajer arsip khusus GTK+2"
+msgstr "Sebuah manajer arsip ringan khusus GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -408,21 +404,18 @@ msgstr "terpilih"
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d berkas dan %d direktori %s (%s)"
-msgstr[1] "%d berkas dan %d direktori %s (%s)"
 
 #: ../src/window.c:1621
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d direktori %s (%s)"
-msgstr[1] "%d direktori %s (%s)"
 
 #: ../src/window.c:1624
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d berkas %s (%s)"
-msgstr[1] "%d berkas %s (%s)"
 
 #: ../src/window.c:1680
 msgid "Can't perform another extraction:"
@@ -614,7 +607,7 @@ msgstr "Arsip ini terenkripsi!"
 
 #: ../src/extract_dialog.c:331
 msgid "Please enter the password."
-msgstr "Silakan masukkan sandi lewat."
+msgstr "Silakan masukkan sandi."
 
 #: ../src/extract_dialog.c:378
 msgid "Extracting files from archive,please wait..."
@@ -690,19 +683,16 @@ msgid "_Archive"
 msgstr "_Arsip"
 
 #: ../src/interface.c:92
-#, fuzzy
 msgid "_List as"
-msgstr "Senarai sebagai"
+msgstr "_Senarai sebagai"
 
 #: ../src/interface.c:103
-#, fuzzy
 msgid "_Text file"
-msgstr "Berkas teks"
+msgstr "_Berkas teks"
 
 #: ../src/interface.c:110
-#, fuzzy
 msgid "_HTML file"
-msgstr "Berkas HTML"
+msgstr "Berkas _HTML"
 
 #: ../src/interface.c:127
 msgid "_Test"
@@ -721,9 +711,8 @@ msgid "A_dd"
 msgstr "T_ambah"
 
 #: ../src/interface.c:194
-#, fuzzy
 msgid "Re_name"
-msgstr "Ganti nama"
+msgstr "Ganti _nama"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
@@ -734,9 +723,8 @@ msgid "_Multi-Extract"
 msgstr "_Multi-Ekstrak"
 
 #: ../src/interface.c:223
-#, fuzzy
 msgid "Archive _comment"
-msgstr "Komentar arsip"
+msgstr "Komentar _arsip"
 
 #: ../src/interface.c:237
 msgid "Select _all"
@@ -767,14 +755,12 @@ msgid "_Help"
 msgstr "Ba_ntuan"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "_Contents"
-msgstr "Ukuran isi:"
+msgstr "_Isi"
 
 #: ../src/interface.c:313
-#, fuzzy
 msgid "_Donate"
-msgstr "Tanggal"
+msgstr "_Donasi"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
@@ -821,15 +807,15 @@ msgstr "Tutup arsip"
 
 #: ../src/interface.c:762
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr "<span weight='bold' size='larger'>Sandi lewat diperlukan untuk:</span>"
+msgstr "<span weight='bold' size='larger'>Sandi diperlukan untuk:</span>"
 
 #: ../src/interface.c:764
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
-msgstr "<span weight='bold' size='larger'>Masukkan sandi lewat untuk:</span>"
+msgstr "<span weight='bold' size='larger'>Masukkan sandi untuk:</span>"
 
 #: ../src/interface.c:782
 msgid "_Password:"
-msgstr "_Sandi lewat:"
+msgstr "_Sandi:"
 
 #: ../src/interface.c:837 ../src/open-with-dlg.c:52
 msgid "Open With"
@@ -1160,9 +1146,8 @@ msgid "/tmp"
 msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
-#, fuzzy
 msgid "Preferred extract directory:"
-msgstr "Direktori sementara kesukaan:"
+msgstr "Direktori ekstrak kesukaan:"
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
@@ -1188,9 +1173,8 @@ msgstr ""
 "Xarchiver dapat mengenali lebih banyak tipe berkas.</span>"
 
 #: ../src/pref_dialog.c:581
-#, fuzzy
 msgid "Choose the directory to use"
-msgstr "Pilih direktori sementara yang akan digunakan"
+msgstr "Pilih direktori yang akan digunakan"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
