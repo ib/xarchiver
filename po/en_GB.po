@@ -2,15 +2,14 @@
 # Copyright (C) 2007 THE xarchiverxa'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xarchiverxa package.
 # Jeff Bailes <thepizzaking@gmail.com>, 2007.
-# , fuzzy
 #
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiverxa 0.4.6\n"
 "Report-Msgid-Bugs-To: colossus73@gmail.com\n"
-"POT-Creation-Date: 2009-08-20 10:45+0200\n"
-"PO-Revision-Date: 2009-08-18 10:05+1000\n"
+"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"PO-Revision-Date: 2009-08-30 19:27+1000\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "MIME-Version: 1.0\n"
@@ -250,9 +249,8 @@ msgid "Can't allocate memory for the archive structure:"
 msgstr "Can't allocate memory for the archive structure:"
 
 #: ../src/window.c:353
-#, fuzzy
 msgid "Operation aborted!"
-msgstr "Operation failed."
+msgstr "Operation aborted!"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -328,9 +326,8 @@ msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Select \"New\" to create or \"Open\" to open an archive"
 
 #: ../src/window.c:722
-#, fuzzy
 msgid "You are about to delete entries from the archive."
-msgstr "You are about to delete %d file(s) from the archive."
+msgstr "You are about to delete entries from the archive."
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
@@ -349,9 +346,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Please select the 7zCon.sfx module"
 
 #: ../src/window.c:980
-#, fuzzy
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "A GTK+2 only archive manager"
+msgstr "A GTK+2 only lightweight archive manager"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -686,19 +682,16 @@ msgid "_Archive"
 msgstr "_Archive"
 
 #: ../src/interface.c:92
-#, fuzzy
 msgid "_List as"
-msgstr "List as"
+msgstr "_List as"
 
 #: ../src/interface.c:103
-#, fuzzy
 msgid "_Text file"
-msgstr "Text file"
+msgstr "_Text file"
 
 #: ../src/interface.c:110
-#, fuzzy
 msgid "_HTML file"
-msgstr "HTML file"
+msgstr "_HTML file"
 
 #: ../src/interface.c:127
 msgid "_Test"
@@ -717,9 +710,8 @@ msgid "A_dd"
 msgstr "A_dd"
 
 #: ../src/interface.c:194
-#, fuzzy
 msgid "Re_name"
-msgstr "Rename"
+msgstr "Re_name"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
@@ -730,9 +722,8 @@ msgid "_Multi-Extract"
 msgstr "_Multi-Extract"
 
 #: ../src/interface.c:223
-#, fuzzy
 msgid "Archive _comment"
-msgstr "Archive comment"
+msgstr "Archive _comment"
 
 #: ../src/interface.c:237
 msgid "Select _all"
@@ -763,14 +754,12 @@ msgid "_Help"
 msgstr "_Help"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "_Contents"
-msgstr "Contents"
+msgstr "_Contents"
 
 #: ../src/interface.c:313
-#, fuzzy
 msgid "_Donate"
-msgstr "Donate"
+msgstr "_Donate"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
