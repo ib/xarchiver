@@ -1,0 +1,38 @@
+# autogen.sh
+INSTALL
+Makefile.in
+aclocal.m4
+config.guess
+config.h.in
+config.sub
+configure
+configure.in
+depcomp
+install-sh
+intltool-extract.in
+intltool-merge.in
+intltool-update.in
+ltmain.sh
+missing
+mkinstalldirs
+po/Makefile.in.in
+
+# configure
+.deps/
+Makefile
+config.h
+config.log
+config.status
+libtool
+po/POTFILES
+po/stamp-it
+stamp-h1
+
+# make
+.libs/
+po/.intltool-merge-cache
+po/*.gmo
+src/xarchiver
+src/*.o
+src/xdgmime/*.l[ao]
+xarchiver.desktop
