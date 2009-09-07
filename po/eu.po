@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver.master\n"
-"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
+"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
 "PO-Revision-Date: 2009-08-21 10:51+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"

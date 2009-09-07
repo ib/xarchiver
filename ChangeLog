@@ -1,5 +1,21 @@
 Xarchiver changelog:
 
+12/11/08 - 0.5.2:
+		- Allow bzip2/lzop/gzip/lzma compressed files to be created through drag and drop
+		- Fixed seg-fault when drag and drop to the sidebar
+		- Fixed double entries display when adding to tar only archives
+		- Changed suffix for tar.lzop to tar.lzo
+		- Changed lzop suffix to lzo
+		- Made the Options tab in the add dialog to be grayed out when using file compressors like bzip2 and gzip
+		- Fixed fixed size of the iconview in the pref dialog
+		- Fixed reset of the temp directory to use back to /tmp
+		- Fixed bug when adding to rar archives with password
+		- Made the password field to work when extracting with the -e switch a password protected archive
+		- Fixed bug when adding with the thunar archive plugin
+		- Fixed missed deletion of files with tar.lzop compressed archives
+		- Enabled password field in the extract dialog when using the -e switch
+		- Fixed disabled buttons after creating a new archive
+
 07/11/08 - 0.5.1:
 		- Added support to lzop thanks to Kevin Day.
 		- Fixed bug when adding with tar.

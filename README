@@ -19,13 +19,17 @@ in the next releases.
 
 How to compile:
 ===============
-./configure --prefix=/usr
+./autogen.sh     # only if using repository source and 'configure' is missing
+./configure      # type './configure --help' for options
 make
 
-become root with command su
+as root:
 make install
 
-Please report bugs to: http://bugzilla.xfce.org , registration is needed.
-Suggestions and criticism please email me at <colossus73@gmail.com>
+Contact
+=======
+Author of Xarchiver is Giuseppe Torelli <colossus73@gmail.com>,
+author of this continuation of the Xfce master branch of Xarchiver
+is Ingo Brueckl <ib@wupperonline.de>.
 
-Giuseppe Torelli
+Please report bugs to: http://github.com/ib/xarchiver/issues
