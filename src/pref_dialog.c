@@ -426,12 +426,12 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
 		g_mkdir_with_parents(config_dir,0600);
 					
-	xarchiver_config_dir = g_strconcat (config_dir,"/xarchiver",NULL);
+	xarchiver_config_dir = g_strconcat(config_dir, "/", PACKAGE, NULL);
 	g_free (config_dir);
 	if (g_file_test(xarchiver_config_dir, G_FILE_TEST_EXISTS) == FALSE)
 		g_mkdir_with_parents(xarchiver_config_dir,0700);
 
-	config_file = g_strconcat (xarchiver_config_dir,"/xarchiverrc",NULL);
+	config_file = g_strconcat(xarchiver_config_dir, "/", PACKAGE, "rc", NULL);
 	g_free (xarchiver_config_dir);
 		
 	if ( ! g_key_file_load_from_file(xa_key_file,config_file,G_KEY_FILE_KEEP_COMMENTS,NULL) )

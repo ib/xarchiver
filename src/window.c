@@ -146,7 +146,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 	if (xa_main_window)
 		title = _("Archiver output");
 	else
-		title = ("Xarchiver " VERSION);
+		title = PACKAGE_NAME " " VERSION;
 	dialog = gtk_dialog_new_with_buttons (title,
 					      GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_OK);
@@ -467,7 +467,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		g_free(filename);
 		if (bp)
 		{
-			g_fprintf (stream,"<html><head><meta name=GENERATOR content=\"Xarchiver " VERSION "\"><title>%s</title>\n",archive[idx]->escaped_path);
+			g_fprintf(stream, "<html><head><meta name=GENERATOR content=\"" PACKAGE_NAME " " VERSION "\"><title>%s</title>\n", archive[idx]->escaped_path);                        
 			g_fprintf (stream,"<style>\ntd     { font: normal .7em ; }\nth     { font: bold 0.7em ; color: #FFFFFF; text-align: left; background: #42578A}\n.row1  { background-color: #DDDDDD; }\n.row2  { background-color: #EEEEEE; }\n</style>\n");
 			g_fprintf (stream,"<body bgcolor=#FFFFFF>\n");
 			g_fprintf (stream,"<b><u>");
@@ -963,7 +963,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 {
     static GtkWidget *about = NULL;
     const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nThis version:\nIngo Brückl <ib@wupperonline.de>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n\nLZOP support:\nKevin Day\n",NULL};    
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and Xarchiver Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n",NULL};
+    const char *documenters[] = { "\nSpecial thanks to Bjoern Martensen for\nbugs hunting and " PACKAGE_NAME " Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n", NULL };
 
 	if (about == NULL)
 	{
@@ -974,7 +974,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 		gtk_window_set_transient_for (GTK_WINDOW (about),GTK_WINDOW (xa_main_window));
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (about),TRUE);
 		g_object_set (about,
-			"name", "xarchiver",
+			"program-name", PACKAGE_NAME,
 			"version",PACKAGE_VERSION,
 			"copyright","Copyright \xC2\xA9 2005-2008 Giuseppe Torelli",
 			"comments",_("A GTK+2 only lightweight archive manager"),

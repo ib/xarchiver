@@ -727,7 +727,7 @@ gchar *xa_create_password_dialog(XArchive *archive)
 	gboolean done = FALSE;
 	int response;
 
-  	password_dialog = gtk_dialog_new_with_buttons ("Xarchiver " VERSION,
+  	password_dialog = gtk_dialog_new_with_buttons(PACKAGE_NAME " " VERSION,
 									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 
@@ -1496,7 +1496,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 		
 	pb = g_new0(Progress_bar_data,1);
 	pb->progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title (GTK_WINDOW (pb->progress_window),_("Xarchiver"));
+	gtk_window_set_title(GTK_WINDOW(pb->progress_window), PACKAGE_NAME);
 	gtk_window_set_position (GTK_WINDOW (pb->progress_window),GTK_WIN_POS_CENTER_ALWAYS);
 	gtk_widget_set_size_request(pb->progress_window,400,-1);
 	gtk_window_set_resizable(GTK_WINDOW (pb->progress_window),FALSE);

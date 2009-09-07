@@ -187,9 +187,9 @@ void xa_set_window_title (GtkWidget *window,gchar *title)
 		slash = title;
 
 	if (title == NULL)
-		x = g_strconcat ("Xarchiver ",VERSION,NULL);
+		x = g_strconcat(PACKAGE_NAME, " ", VERSION, NULL);
 	else
-		x = g_strconcat (slash, " - Xarchiver ",VERSION,NULL);
+		x = g_strconcat(slash, " - ", PACKAGE_NAME, " ", VERSION, NULL);
 	gtk_window_set_title (GTK_WINDOW (window),x);
 	g_free (x);
 }

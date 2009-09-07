@@ -1,6 +1,6 @@
-# German translations for xarchiver package.
+# German translations for Xarchiver package.
 # Copyright (C) 2005-2006 Giuseppe Torelli.
-# This file is distributed under the same license as the xarchiver package.
+# This file is distributed under the same license as the Xarchiver package.
 # Enrico Troeger <enrico.troeger@uvena.de>, 2006.
 # Fabian Nowak <timystery@arcor.de>, 2006, 2007, 2008.
 # Nico Schümann <nico@prog.nico22.de>
@@ -8,7 +8,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.4.2rc2\n"
+"Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2009-08-18 09:15+0200\n"
 "PO-Revision-Date: 2009-08-13 13:00+0200\n"
