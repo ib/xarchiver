@@ -48,7 +48,7 @@ GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuite
 *name_label, *type_label, *compression_data, *encrypted_data, *encrypted_label,*number_of_files_data, *content_data, *comment_data, *size_data, *modified_data, *path_data, *type_data,
 *name_data, *separatormenuitem1, *separatormenuitem2, *separatormenuitem3, *separatormenuitem4, *separatormenuitem5, *separatormenuitem6, *quit1,
 *close1, *check_menu, *properties, *menuitem2, *menuitem2_menu, *addfile, *extract_menu, *delete_menu, *comment_menu, *multi_extract_menu,*view_shell_output1,
-*prefs_menu,*password_entry_menu, *image1, *image2, *menuitem4, *donate,*select_all,*deselect_all,*select_pattern, *exe_menu, *menuitem4_menu,
+*prefs_menu,*password_entry_menu, *image1, *image2, *menuitem4, *select_all,*deselect_all,*select_pattern, *exe_menu, *menuitem4_menu,
 *about1, *help1,*toolbar1, *toolbar2, *hbox1, *tmp_image, *pad_image, *New_button, *Open_button, *back_button, *home_button, *forward_button,
 *up_button,*separatortoolitem1,*separatortoolitem2,*separatortoolitem3,*AddFile_button,*Extract_button,*Stop_button,*toolitem1,*location_label,
 *location_entry,*hpaned1,*archive_dir_treeview,*scrolledwindow2,*ddelete,*rename_menu,*rrename,*cut,*copy,*paste,*view,*open_popupmenu;
@@ -57,7 +57,6 @@ gchar *xa_create_password_dialog(XArchive *);
 void set_label (GtkWidget *label,gchar *);
 gboolean xa_flash_led_indicator (XArchive *);
 gboolean xa_pulse_progress_bar_window (Progress_bar_data *);
-void xa_show_donate_page_on_the_web(GtkMenuItem *,gpointer );
 void xa_create_popup_menu();
 void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean);
 GtkWidget *xa_create_archive_properties_window();

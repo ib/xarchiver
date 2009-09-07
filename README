@@ -11,12 +11,6 @@ How to use it:
 =============
 Please read the documentation accessible from the Help menu.
 
-Donations:
-=========
-Donations will help me to improve Xarchiver always more. Also as a courtesy
-toward contributors I will add their name and website within Xarchiver
-in the next releases.
-
 How to compile:
 ===============
 ./autogen.sh     # only if using repository source and 'configure' is missing

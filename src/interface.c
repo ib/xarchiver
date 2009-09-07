@@ -310,10 +310,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1),tmp_image);
 
-	donate = gtk_image_menu_item_new_with_mnemonic (_("_Donate"));
-	gtk_widget_show (donate);
-	gtk_container_add (GTK_CONTAINER (menuitem4_menu),donate);
-
 	about1 = gtk_image_menu_item_new_from_stock ("gtk-about",accel_group);
 	gtk_widget_show (about1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),about1);
@@ -535,7 +531,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) multi_extract_menu,"activate",G_CALLBACK (xa_show_multi_extract_dialog),NULL);
 	g_signal_connect ((gpointer) help1,"activate",G_CALLBACK (xa_show_help),NULL);
 	g_signal_connect ((gpointer) about1,"activate",G_CALLBACK (xa_about),NULL);
-	g_signal_connect ((gpointer) donate,"activate",G_CALLBACK (xa_show_donate_page_on_the_web),NULL);
 
 	g_signal_connect ((gpointer) New_button,	"clicked",G_CALLBACK (xa_new_archive),NULL);
 	g_signal_connect ((gpointer) Open_button,	"clicked",G_CALLBACK (xa_open_archive),NULL);
@@ -814,11 +809,6 @@ gchar *xa_create_password_dialog(XArchive *archive)
 	}
 	gtk_widget_destroy (password_dialog);
 	return password;
-}
-
-void xa_show_donate_page_on_the_web(GtkMenuItem *item,gpointer data)
-{
-	xa_activate_link (NULL,"http://xarchiver.xfce.org/contribute.html",NULL);
 }
 
 void xa_create_popup_menu()
