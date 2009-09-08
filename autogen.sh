@@ -5,7 +5,8 @@
 # Copyright (c) 2002-2006
 #         The Xfce development team. All rights reserved.
 #
-# Written for Xfce by Benedikt Meurer <benny@xfce.org>.
+# Written for Xfce by Benedikt Meurer <benny@xfce.org>,
+# changed by Ingo Brueckl.
 #
 
 (type xdt-autogen) >/dev/null 2>&1 || {
@@ -34,6 +35,9 @@ sed -e "s/@LINGUAS@/${linguas}/g" \
     -e "s/@REVISION@/${revision}/g" \
     < "configure.in.in" > "configure.in"
 
-exec xdt-autogen $@
+touch AUTHORS NEWS
+xdt-autogen "$@"
+rm AUTHORS NEWS
+rm -r autom4te.cache
 
 # vi:set ts=2 sw=2 et ai:
