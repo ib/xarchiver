@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
-"PO-Revision-Date: 2009-08-30 17:47+0200\n"
+"PO-Revision-Date: 2009-09-08 20:07+0200\n"
 "Last-Translator: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
@@ -386,6 +386,7 @@ msgstr "Ένας ελαφρύς GTK+2 διαχειριστής συμπιεσμ�
 #: ../src/window.c:983
 msgid "translator-credits"
 msgstr ""
+"Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
 "Stavros Giannouris <stavrosg@hellug.gr>\n"
 "Stathis Kamperis <ekamperi@auth.gr>"
 
@@ -507,7 +508,7 @@ msgstr "Το πρόγραμμα συμπίεσης δεν υποστηρίζει
 
 #: ../src/window.c:1881
 msgid "You didn't set which browser to use!"
-msgstr "Δεν έχετε ρυθμίσει τον περιηγητή που θέλετε να χρησιμοποιήτε."
+msgstr "Δεν έχετε ρυθμίσει τον περιηγητή που θέλετε να χρησιμοποιείτε."
 
 #: ../src/window.c:1881
 #: ../src/window.c:1922
@@ -524,7 +525,7 @@ msgstr "Παρακαλώ εγκαταστήστε το πακέτο xdg-utils."
 
 #: ../src/window.c:1922
 msgid "You didn't set which program to use for opening this file!"
-msgstr "Δεν έχετε ορίσει με ποιό πρόγραμμα θα ανοίγει αυτό το αρχείο"
+msgstr "Δεν έχετε ορίσει με πιο πρόγραμμα θα ανοίγει αυτό το αρχείο"
 
 #: ../src/window.c:1948
 msgid "Failed to launch the application!"
@@ -643,7 +644,7 @@ msgstr "Παρακαλώ εισάγετε τον κωδικό πρόσβασης
 
 #: ../src/extract_dialog.c:378
 msgid "Extracting files from archive,please wait..."
-msgstr "Εξαγωηή αρχείων από το συμπιεσμένο αρχείο..."
+msgstr "Εξαγωγή αρχείων από το συμπιεσμένο αρχείο..."
 
 #: ../src/extract_dialog.c:395
 msgid "Archive Name"
@@ -824,7 +825,7 @@ msgstr "Τοποθεσία:"
 
 #: ../src/interface.c:460
 msgid "Archive tree"
-msgstr "Δεντρο συμπιεσμένου αρχείου"
+msgstr "Δέντρο συμπιεσμένου αρχείου"
 
 #: ../src/interface.c:508
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
@@ -1070,7 +1071,7 @@ msgstr "Προσθήκη επέκτασης συμπιεσμένου αρχεί�
 #: ../src/new_dialog.c:159
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr "Το \"%s\" ρίναι ήδη ανοιχτό"
+msgstr "Το \"%s\" είναι ήδη ανοιχτό"
 
 #: ../src/new_dialog.c:160
 msgid "Can't create a new archive:"
@@ -1204,7 +1205,7 @@ msgid ""
 "Xarchiver can recognize more file types.</span>"
 msgstr ""
 "<span color='red' style='italic'>Παρακαλώ εγκαταστήσετε το πακέτο xdg-utils\n"
-"ωστε το Xarchiver να μπορεί να αναγνωρίσει περισσότερα αρχεία.</span>"
+"ώστε το Xarchiver να μπορεί να αναγνωρίσει περισσότερα αρχεία.</span>"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the directory to use"
@@ -1239,7 +1240,7 @@ msgstr "Δικαιώματα"
 
 #: ../src/rpm.c:52
 msgid "Hard Link"
-msgstr "Σκληρός δεσμός"
+msgstr "Σύνδεσμος"
 
 #: ../src/rpm.c:52
 msgid "Owner"
@@ -1251,7 +1252,7 @@ msgstr "Ομάδα"
 
 #: ../src/rpm.c:62
 msgid "Can't fseek to position 104:"
-msgstr "Can't fseek to position 104:"
+msgstr "Δεν μπορεί να μεταβεί στο αρχείο στην θέση 104:"
 
 #: ../src/rpm.c:68
 #: ../src/rpm.c:84
@@ -1260,7 +1261,7 @@ msgstr "Δεν είναι δυνατή η ανάγνωση από το αρχε�
 
 #: ../src/rpm.c:78
 msgid "Can't fseek in file:"
-msgstr "Can't fseek in file:"
+msgstr "Δεν μπορεί να μεταβεί μέσα στο αρχείο:"
 
 #: ../src/zip.c:49
 msgid "OS"
