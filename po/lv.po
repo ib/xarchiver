@@ -1,23 +1,25 @@
 # Latvian translation for xarchiver package.
 # opyright (C) 2005-2007 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
-# Rihards Prieditis <rprieditis@inbox.lv>, 2007.
 #
+# Rihards Prieditis <rprieditis@inbox.lv>, 2007.
+# Rihards Prieditis <rprieditis@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2009-08-18 09:15+0200\n"
-"PO-Revision-Date: 2009-05-01 20:08+0300\n"
-"Last-Translator: Rihards Priedītis <rprieditis@gmail.com>\n"
-"Language-Team: Latvian <rprieditis@gmail.com>\n"
+"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"PO-Revision-Date: 2009-10-16 15:03+0100\n"
+"Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
+"Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 "X-Poedit-Language: Latvian\n"
 "X-Poedit-Country: Latvia\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
@@ -53,7 +55,7 @@ msgstr "Atlase"
 
 #: ../src/add_dialog.c:66
 msgid "File Paths: "
-msgstr "Faila ceļi:"
+msgstr "Faila ceļi: "
 
 #: ../src/add_dialog.c:72
 msgid "Store full paths"
@@ -115,11 +117,11 @@ msgstr "Dzēst failus pēc pievienošanas"
 
 #: ../src/add_dialog.c:128
 msgid "Actions: "
-msgstr "Darbības:"
+msgstr "Darbības: "
 
 #: ../src/add_dialog.c:143
 msgid "Compression: "
-msgstr "Saspiešana:"
+msgstr "Saspiešana: "
 
 #: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
 msgid "Password:"
@@ -127,7 +129,7 @@ msgstr "Parole:"
 
 #: ../src/add_dialog.c:167
 msgid "Encryption: "
-msgstr "Šifrēšana:"
+msgstr "Šifrēšana: "
 
 #: ../src/add_dialog.c:180
 msgid "_Add"
@@ -182,9 +184,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Nevar palaist arhivātora izpildāmo failu:"
 
 #: ../src/archive.c:373
-#, fuzzy
 msgid "Can't create temporary directory:"
-msgstr "Nevar izveidot pagaidu mapi iekš /tmp:"
+msgstr "Nevar izveidot pagaidu mapi:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
@@ -256,17 +257,16 @@ msgid "Can't allocate memory for the archive structure:"
 msgstr "Nevar iedalīt atmiņu arhīva struktūrai:"
 
 #: ../src/window.c:353
-#, fuzzy
 msgid "Operation aborted!"
-msgstr "Operācija neizdevās."
+msgstr "Operācija atcelta!"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
-msgstr "Atveru arhīvu, lūdzu pagaidiet..."
+msgstr "Arhīva atvēršana, lūdzu pagaidiet..."
 
 #: ../src/window.c:402
 msgid "Testing archive,please wait..."
-msgstr "Pārbaudu arhīvu, lūdzu pagaidiet..."
+msgstr "Arhīva pārbaude, lūdzu pagaidiet..."
 
 #: ../src/window.c:422
 msgid "Print the archive content as HTML"
@@ -288,22 +288,22 @@ msgid ""
 "Name: "
 msgstr ""
 "\n"
-"Nosaukums:"
+"Nosaukums: "
 
 #: ../src/window.c:488
 #, c-format
 msgid "Compressed   size: "
-msgstr "Saspiestais izmērs:"
+msgstr "Saspiestais izmērs: "
 
 #: ../src/window.c:495
 #, c-format
 msgid "Uncompressed size: "
-msgstr "Nesaspiestais izmērs:"
+msgstr "Nesaspiestais izmērs: "
 
 #: ../src/window.c:503
 #, c-format
 msgid "Number of files: "
-msgstr "Failu skaits:"
+msgstr "Failu skaits: "
 
 #: ../src/window.c:511
 #, c-format
@@ -334,9 +334,8 @@ msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Atlasiet \"Jauns\", lai izveidotu vai \"Atvērt\". lai atvērtu arhīvu"
 
 #: ../src/window.c:722
-#, fuzzy
 msgid "You are about to delete entries from the archive."
-msgstr "Jūs gatavojaties dzēst %d failu(-s) no arhīva."
+msgstr "Jūs gatavojaties dzēst ierakstus no arhīva."
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
@@ -355,13 +354,12 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Lūdzu norādiet 7zCon.sfx moduli"
 
 #: ../src/window.c:980
-#, fuzzy
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "GTK+2 arhīvu pārvaldnieks"
+msgstr "GTK+2 vienīgais viegla smaguma arhīvu pārvaldnieks"
 
 #: ../src/window.c:983
 msgid "translator-credits"
-msgstr "Tulkotāji"
+msgstr "Rihards Priedītis"
 
 #: ../src/window.c:1013
 msgid "Save the self-extracting archive as"
@@ -448,7 +446,7 @@ msgstr "Nevar izpildīt atspiešanu!"
 
 #: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
 msgid "Sorry,I could not perform the operation!"
-msgstr "Piedodiet, nevarēju veikt operāciju!"
+msgstr "Piedodiet, nevarēja veikt operāciju!"
 
 #: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
 msgid "Can't perform this action:"
@@ -525,11 +523,11 @@ msgstr "At_lasīt failus"
 
 #: ../src/extract_dialog.c:101
 msgid "Files: "
-msgstr "Faili:"
+msgstr "Faili: "
 
 #: ../src/extract_dialog.c:111
 msgid "Files "
-msgstr "Faili"
+msgstr "Faili "
 
 #: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
 msgid "Overwrite existing files"
@@ -586,7 +584,7 @@ msgstr ""
 
 #: ../src/extract_dialog.c:146
 msgid "Options "
-msgstr "Uzstādījumi"
+msgstr "Uzstādījumi "
 
 #: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
 #: ../src/interface.c:178
@@ -684,26 +682,23 @@ msgstr "UID/GID"
 
 #: ../src/lha.c:51
 msgid "Timestamp"
-msgstr "Laikaspiedogs  "
+msgstr "Laikaspiedogs"
 
 #: ../src/interface.c:77
 msgid "_Archive"
 msgstr "_Arhīvs"
 
 #: ../src/interface.c:92
-#, fuzzy
 msgid "_List as"
-msgstr "Rindot kā"
+msgstr "_Rindot kā"
 
 #: ../src/interface.c:103
-#, fuzzy
 msgid "_Text file"
-msgstr "Teksta fails"
+msgstr "_Teksta fails"
 
 #: ../src/interface.c:110
-#, fuzzy
 msgid "_HTML file"
-msgstr "HTML fails"
+msgstr "_HTML fails"
 
 #: ../src/interface.c:127
 msgid "_Test"
@@ -722,9 +717,8 @@ msgid "A_dd"
 msgstr "_Pievienot"
 
 #: ../src/interface.c:194
-#, fuzzy
 msgid "Re_name"
-msgstr "Pārdēvēt"
+msgstr "_Pārdēvēt"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
@@ -735,9 +729,8 @@ msgid "_Multi-Extract"
 msgstr "_Multi-atspiešana"
 
 #: ../src/interface.c:223
-#, fuzzy
 msgid "Archive _comment"
-msgstr "Arhīva komentārs"
+msgstr "Arhīva _komentārs"
 
 #: ../src/interface.c:237
 msgid "Select _all"
@@ -768,14 +761,12 @@ msgid "_Help"
 msgstr "_Palīdzība"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "_Contents"
-msgstr "Satura izmērs:"
+msgstr "_Satura rādītājs"
 
 #: ../src/interface.c:313
-#, fuzzy
 msgid "_Donate"
-msgstr "Datums"
+msgstr "_Ziedot"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
@@ -880,7 +871,7 @@ msgstr "At_lasīt"
 
 #: ../src/interface.c:1051
 msgid "Archive Properties"
-msgstr "Arhīva Rekvizīti"
+msgstr "Arhīva rekvizīti"
 
 #: ../src/interface.c:1072
 msgid "Name:"
@@ -928,11 +919,11 @@ msgstr "Xarhivātors"
 
 #: ../src/interface.c:1526
 msgid "Extracting from archive:"
-msgstr "Atspiežu no arhīva:"
+msgstr "Atspiežšana no arhīva:"
 
 #: ../src/interface.c:1528
 msgid "Adding to archive:"
-msgstr "Pievienoju arhīvam:"
+msgstr "Pievienošana arhīvam:"
 
 #: ../src/interface.c:1548
 msgid "Total Progress:"
@@ -976,7 +967,7 @@ msgstr "Pievieno failus arhīvam, pajautājot par faila nosaukumiem un iziet."
 
 #: ../src/main.c:78
 msgid "Show version and exit"
-msgstr ""
+msgstr "Parādīt versiju un iziet"
 
 #: ../src/main.c:105
 msgid "[archive name]"
@@ -994,7 +985,7 @@ msgstr ""
 #: ../src/main.c:119
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr ""
+msgstr "Lūdzu ziņojiet par kļūdām uz <%s>."
 
 #: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
@@ -1157,9 +1148,8 @@ msgid "/tmp"
 msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
-#, fuzzy
 msgid "Preferred extract directory:"
-msgstr "Vēlamā pagaidu direktorija:"
+msgstr "Vēlamā atspiešanas direktorija:"
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
@@ -1185,9 +1175,8 @@ msgstr ""
 "Xarchiver var atpazīt vairāk failu tipus.</span>"
 
 #: ../src/pref_dialog.c:581
-#, fuzzy
 msgid "Choose the directory to use"
-msgstr "Izvēlaties izmantojamo pagaidu mapi"
+msgstr "Izvēlaties izmantojamo mapi"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
@@ -1244,7 +1233,7 @@ msgstr "OS"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr "GTK+2 arhīvu pārvaldnieks"
+msgstr "GTK+2 vienīgais arhīvu pārvaldnieks"
 
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
