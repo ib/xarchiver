@@ -1,7 +1,7 @@
 # Ukrainian translation of xarchiver.
 # Copyright (C) 2008 Dmitry Nikitin
 # This file is distributed under the same license as the xarchiver package.
-#
+# 
 # Dmitry Nikitin <luckas_fb@mail.ru>, 2008.
 msgid ""
 msgstr ""
@@ -16,20 +16,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:104
-#: ../src/rar.c:63
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
 msgstr "Оригінал"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:104
-#: ../src/gzip.c:78
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Стиснутий"
 
@@ -37,29 +30,17 @@ msgstr "Стиснутий"
 msgid "Attr"
 msgstr "Атрибути"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:187
-#: ../src/gzip.c:61
-#: ../src/rar.c:63
-#: ../src/tar.c:54
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Time"
 msgstr "Час"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:187
-#: ../src/gzip.c:61
-#: ../src/rar.c:63
-#: ../src/rpm.c:52
-#: ../src/tar.c:54
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
 msgid "Date"
 msgstr "Дата"
 
-#: ../src/add_dialog.c:36
-#: ../src/interface.c:388
+#: ../src/add_dialog.c:36 ../src/interface.c:388
 msgid "Add files"
 msgstr "Додати файли"
 
@@ -123,8 +104,7 @@ msgstr "Дії: "
 msgid "Compression: "
 msgstr "Стиснення: "
 
-#: ../src/add_dialog.c:157
-#: ../src/extract_dialog.c:152
+#: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
 msgid "Password:"
 msgstr "Пароль:"
 
@@ -156,8 +136,7 @@ msgstr "0 = без стиснення, 1 типово, 4 = швидше але �
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = типове стиснення, 7 = максимальне стиснення"
 
-#: ../src/add_dialog.c:371
-#: ../src/main.c:228
+#: ../src/add_dialog.c:371 ../src/main.c:228
 msgid "Can't add files to the archive:"
 msgstr "Неможливо додати файли до архіву:"
 
@@ -165,13 +144,11 @@ msgstr "Неможливо додати файли до архіву:"
 msgid "You haven't selected any files to add!"
 msgstr "Ви не вибрали жодного файлу для додавання в архів!"
 
-#: ../src/add_dialog.c:379
-#: ../src/interface.c:808
+#: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "You missed the password!"
 msgstr "Ви не вказали пароль!"
 
-#: ../src/add_dialog.c:379
-#: ../src/interface.c:808
+#: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "Please enter it!"
 msgstr "Будь ласка, введіть його!"
 
@@ -184,14 +161,10 @@ msgid "Can't run the archiver executable:"
 msgstr "Неможливо запустити виконуваний архів:"
 
 #: ../src/archive.c:373
-#, fuzzy
 msgid "Can't create temporary directory:"
-msgstr "Неможливо створити тимчасову теку в /tmp:"
+msgstr "Неможливо створити тимчасову теку :"
 
-#: ../src/arj.c:48
-#: ../src/gzip.c:78
-#: ../src/lha.c:51
-#: ../src/rar.c:63
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
 msgstr "Коефіцієнт"
 
@@ -199,38 +172,22 @@ msgstr "Коефіцієнт"
 msgid "Attributes"
 msgstr "Атрибути"
 
-#: ../src/bzip2.c:187
-#: ../src/gzip.c:61
-#: ../src/lha.c:51
-#: ../src/rpm.c:52
+#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Points to"
 msgstr "Одиниці в"
 
-#: ../src/bzip2.c:187
-#: ../src/deb.c:45
-#: ../src/gzip.c:61
-#: ../src/lha.c:51
-#: ../src/rar.c:63
-#: ../src/tar.c:54
-#: ../src/zip.c:49
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
 msgid "Permissions"
 msgstr "Права доступу"
 
-#: ../src/bzip2.c:187
-#: ../src/deb.c:45
-#: ../src/gzip.c:61
-#: ../src/tar.c:54
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
 msgid "Owner/Group"
 msgstr "Власник/Група"
 
-#: ../src/bzip2.c:187
-#: ../src/deb.c:45
-#: ../src/extract_dialog.c:395
-#: ../src/gzip.c:61
-#: ../src/gzip.c:78
-#: ../src/lha.c:51
-#: ../src/rpm.c:52
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:395
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Size"
 msgstr "Розмір"
@@ -261,9 +218,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Неможливо відкрити файл \"%s\":"
 
 #: ../src/window.c:315
-#, fuzzy
 msgid "Archive format is not recognized!"
-msgstr "Вибачте, цей формат архіву не підтримується:"
+msgstr "Формат архіву не розпізнаний!"
 
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
@@ -350,27 +306,23 @@ msgstr "<th>Файли:</th>"
 msgid "<th>Compressed:</th>"
 msgstr "<th>Стиснутий:</th>"
 
-#: ../src/window.c:617
-#: ../src/main.c:276
+#: ../src/window.c:617 ../src/main.c:276
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Виберіть \"Створити\" для створення або \"Відкрити\" щоб відкрити архів"
 
 #: ../src/window.c:722
-#, fuzzy
 msgid "You are about to delete entries from the archive."
-msgstr "Неможливо розпакувати файли з архіву:"
+msgstr "Ви намагаєтесь видалити файли з архіву."
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
 msgstr "Ви впевнені, що хочете це зробити?"
 
-#: ../src/window.c:815
-#: ../src/window.c:915
+#: ../src/window.c:815 ../src/window.c:915
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Неможливо перетворити архів на само-розпаковуваний:"
 
-#: ../src/window.c:826
-#: ../src/window.c:926
+#: ../src/window.c:826 ../src/window.c:926
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Неможливо дописати unzipsfx-модуль до архіву:"
 
@@ -390,19 +342,15 @@ msgstr "Дмитро Нікітін <luckas_fb@mail.ru>"
 msgid "Save the self-extracting archive as"
 msgstr "Зберегти само-розпаковуваний архів як"
 
-#: ../src/window.c:1042
-#: ../src/interface.c:340
+#: ../src/window.c:1042 ../src/interface.c:340
 msgid "Open an archive"
 msgstr "Відкрити архів"
 
-#: ../src/window.c:1055
-#: ../src/extract_dialog.c:90
-#: ../src/new_dialog.c:62
+#: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
 msgstr "Всі файли"
 
-#: ../src/window.c:1060
-#: ../src/new_dialog.c:67
+#: ../src/window.c:1060 ../src/new_dialog.c:67
 msgid "Only archives"
 msgstr "Тільки архіви"
 
@@ -418,13 +366,11 @@ msgstr "Якщо ви продовжите, ви можете пошкодити
 msgid "Do you really want to cancel?"
 msgstr "Ви дійсно хочете скасувати?"
 
-#: ../src/window.c:1394
-#: ../src/window.c:1409
+#: ../src/window.c:1394 ../src/window.c:1409
 msgid "Yes"
 msgstr "Так"
 
-#: ../src/window.c:1396
-#: ../src/window.c:1411
+#: ../src/window.c:1396 ../src/window.c:1411
 msgid "No"
 msgstr "Ні"
 
@@ -464,26 +410,20 @@ msgstr "Неможливо здійснити інше розпакування:
 msgid "Please wait until the completion of the current one!"
 msgstr "Зачекайте до завершення поточної дії!"
 
-#: ../src/window.c:1713
-#: ../src/extract_dialog.c:341
+#: ../src/window.c:1713 ../src/extract_dialog.c:341
 #, c-format
 msgid "You don't have the right permissions to extract the files to the directory \"%s\"."
 msgstr "Ви не маєте достатніх прав для розпаковування файлів у вибрану теку        \"%s\"."
 
-#: ../src/window.c:1714
-#: ../src/extract_dialog.c:342
+#: ../src/window.c:1714 ../src/extract_dialog.c:342
 msgid "Can't perform extraction!"
 msgstr "Неможливо розпакувати!"
 
-#: ../src/window.c:1755
-#: ../src/extract_dialog.c:650
-#: ../src/interface.c:1392
+#: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
 msgid "Sorry,I could not perform the operation!"
 msgstr "Вибачте, неможливо виконати операцію!"
 
-#: ../src/window.c:1789
-#: ../src/window.c:1801
-#: ../src/interface.c:1385
+#: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
 msgid "Can't perform this action:"
 msgstr "Неможливо виконати дію:"
 
@@ -491,13 +431,11 @@ msgstr "Неможливо виконати дію:"
 msgid "You have to install rar package!"
 msgstr "Вам потрібно встановити пакет rar архіватора!"
 
-#: ../src/window.c:1796
-#: ../src/interface.c:1382
+#: ../src/window.c:1796 ../src/interface.c:1382
 msgid "You can't add content to deb packages!"
 msgstr "Ви не можете додати об'єкти до пакетів DEB!"
 
-#: ../src/window.c:1798
-#: ../src/interface.c:1384
+#: ../src/window.c:1798 ../src/interface.c:1384
 msgid "You can't add content to rpm packages!"
 msgstr "Ви не можете додати об'єкти до пакетів RPM!"
 
@@ -509,8 +447,7 @@ msgstr "Архіватор не підтримує таку можливість
 msgid "You didn't set which browser to use!"
 msgstr "Ви не встановили яким переглядачем користуватись!"
 
-#: ../src/window.c:1881
-#: ../src/window.c:1922
+#: ../src/window.c:1881 ../src/window.c:1922
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Перейдіть до Параметри->Додаткові і встановіть це."
 
@@ -551,8 +488,7 @@ msgstr "Неможливо відкрити файл %s:"
 msgid "Date modified"
 msgstr "Дата зміни"
 
-#: ../src/extract_dialog.c:64
-#: ../src/extract_dialog.c:468
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
 msgid "Extract to:"
 msgstr "Розпакувати в:"
 
@@ -568,8 +504,7 @@ msgstr "Файли: "
 msgid "Files "
 msgstr "Файли "
 
-#: ../src/extract_dialog.c:125
-#: ../src/extract_dialog.c:495
+#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
 msgid "Overwrite existing files"
 msgstr "Перезаписати існуючі файли"
 
@@ -609,8 +544,7 @@ msgstr "Параметр застосовує ту саму функцію як 
 msgid "Options "
 msgstr "Параметри "
 
-#: ../src/extract_dialog.c:169
-#: ../src/extract_dialog.c:511
+#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Розпакувати"
@@ -619,13 +553,11 @@ msgstr "_Розпакувати"
 msgid "Decompress file"
 msgstr "Розпакувати файл"
 
-#: ../src/extract_dialog.c:225
-#: ../src/interface.c:396
+#: ../src/extract_dialog.c:225 ../src/interface.c:396
 msgid "Extract files"
 msgstr "Розпакувати файли"
 
-#: ../src/extract_dialog.c:317
-#: ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
 msgstr "Ви не вибрали куди розпакувати файли!"
 
@@ -714,19 +646,16 @@ msgid "_Archive"
 msgstr "_Архів"
 
 #: ../src/interface.c:92
-#, fuzzy
 msgid "_List as"
-msgstr "Показати як"
+msgstr "_Показати як"
 
 #: ../src/interface.c:103
-#, fuzzy
 msgid "_Text file"
-msgstr "Текстовий файл"
+msgstr "Те_кстовий файл"
 
 #: ../src/interface.c:110
-#, fuzzy
 msgid "_HTML file"
-msgstr "Файл HTML"
+msgstr "_Файл HTML"
 
 #: ../src/interface.c:127
 msgid "_Test"
@@ -745,9 +674,8 @@ msgid "A_dd"
 msgstr "Д_одати"
 
 #: ../src/interface.c:194
-#, fuzzy
 msgid "Re_name"
-msgstr "Перейменувати"
+msgstr "Перей_менувати"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
@@ -758,9 +686,8 @@ msgid "_Multi-Extract"
 msgstr "_Мульти-розпакування"
 
 #: ../src/interface.c:223
-#, fuzzy
 msgid "Archive _comment"
-msgstr "Коментар архіву"
+msgstr "_Коментар архіву"
 
 #: ../src/interface.c:237
 msgid "Select _all"
@@ -798,8 +725,7 @@ msgstr "Зміст"
 msgid "_Donate"
 msgstr "Пожертва"
 
-#: ../src/interface.c:333
-#: ../src/new_dialog.c:50
+#: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
 msgstr "Створити новий архів"
 
@@ -851,8 +777,7 @@ msgstr "<span weight='bold' size='larger'>Введіть пароль для:</s
 msgid "_Password:"
 msgstr "_Пароль:"
 
-#: ../src/interface.c:837
-#: ../src/open-with-dlg.c:52
+#: ../src/interface.c:837 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "Відкрити з"
 
@@ -944,8 +869,7 @@ msgstr "Кількість файлів:"
 msgid "Compression ratio:"
 msgstr "Коефіцієнт стиснення:"
 
-#: ../src/interface.c:1499
-#: ../xarchiver.desktop.in.h:3
+#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
 msgstr "Xarchiver"
 
@@ -973,8 +897,7 @@ msgstr "визначений архів"
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "Розпакувати архів запитуючи теки для розпакування і вийти."
 
-#: ../src/main.c:63
-#: ../src/main.c:75
+#: ../src/main.c:63 ../src/main.c:75
 msgid "archive"
 msgstr "архів"
 
@@ -1020,14 +943,11 @@ msgstr ""
 msgid "Please report bugs to <%s>."
 msgstr "Звіти про помилки для <%s>."
 
-#: ../src/main.c:146
-#: ../src/main.c:169
+#: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
 msgstr "Неможливо розпакувати файли з архіву:"
 
-#: ../src/main.c:146
-#: ../src/main.c:169
-#: ../src/main.c:228
+#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
 msgstr "Ви забули дати назву архіву!\n"
 
@@ -1162,11 +1082,8 @@ msgstr "Показати панель розташування архіву"
 msgid "Web browser to use:"
 msgstr "Переглядач Web для використання:"
 
-#: ../src/pref_dialog.c:192
-#: ../src/pref_dialog.c:205
-#: ../src/pref_dialog.c:218
-#: ../src/pref_dialog.c:231
-#: ../src/pref_dialog.c:244
+#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
+#: ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
 msgid "choose..."
 msgstr "вибрати..."
 
@@ -1182,8 +1099,7 @@ msgstr "Відкривати файли зображень з:"
 msgid "Preferred temp directory:"
 msgstr "Типова тека для тимчасових файлів:"
 
-#: ../src/pref_dialog.c:230
-#: ../src/pref_dialog.c:243
+#: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
 msgid "/tmp"
 msgstr "/tmp"
 
@@ -1212,9 +1128,8 @@ msgstr ""
 "Xarchiver міг працювати з більшою кількістю типів файлів.</span>"
 
 #: ../src/pref_dialog.c:581
-#, fuzzy
 msgid "Choose the directory to use"
-msgstr "Вибрати теку для тимчасових файлів"
+msgstr "Вибрати теку для використання"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
@@ -1224,13 +1139,11 @@ msgstr "Вибрати програму для використання"
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Method"
 msgstr "Метод"
 
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/rar.c:63 ../src/zip.c:49
 msgid "Version"
 msgstr "Версія"
 
@@ -1259,8 +1172,7 @@ msgstr "Група"
 msgid "Can't fseek to position 104:"
 msgstr "Неможливо fseek до позиції 104:"
 
-#: ../src/rpm.c:68
-#: ../src/rpm.c:84
+#: ../src/rpm.c:68 ../src/rpm.c:84
 msgid "Can't read data from file:"
 msgstr "Неможливо прочитати дані з файлу:"
 
@@ -1282,4 +1194,3 @@ msgstr "Менеджер архівів"
 
 #~ msgid "_Thanks to"
 #~ msgstr "П_одяки для"
-
