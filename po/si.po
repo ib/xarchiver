@@ -1,0 +1,1205 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Danishka Navin <danishka@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
+"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"PO-Revision-Date: 2010-03-10 09:21+0530\n"
+"Last-Translator: Danishka Navin\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.0\n"
+
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
+#: ../src/zip.c:49
+msgid "Original"
+msgstr ""
+
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
+#: ../src/rar.c:63 ../src/zip.c:49
+msgid "Compressed"
+msgstr ""
+
+#: ../src/7zip.c:57
+msgid "Attr"
+msgstr ""
+
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+msgid "Time"
+msgstr ""
+
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
+#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
+msgid "Date"
+msgstr "දිනය"
+
+#: ../src/add_dialog.c:36 ../src/interface.c:388
+msgid "Add files"
+msgstr ""
+
+#: ../src/add_dialog.c:52
+msgid "Selection"
+msgstr ""
+
+#: ../src/add_dialog.c:66
+msgid "File Paths: "
+msgstr ""
+
+#: ../src/add_dialog.c:72
+msgid "Store full paths"
+msgstr ""
+
+#: ../src/add_dialog.c:76
+msgid "Do not store paths"
+msgstr ""
+
+#: ../src/add_dialog.c:85
+msgid "Options"
+msgstr ""
+
+#: ../src/add_dialog.c:103
+msgid "Update and add"
+msgstr ""
+
+#: ../src/add_dialog.c:105
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr ""
+
+#: ../src/add_dialog.c:108
+msgid "Freshen and replace"
+msgstr ""
+
+#: ../src/add_dialog.c:111
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+
+#: ../src/add_dialog.c:115
+msgid "Include subdirectories"
+msgstr ""
+
+#: ../src/add_dialog.c:119
+msgid "Create a solid archive"
+msgstr ""
+
+#: ../src/add_dialog.c:121
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr ""
+
+#: ../src/add_dialog.c:124
+msgid "Delete files after adding"
+msgstr ""
+
+#: ../src/add_dialog.c:128
+msgid "Actions: "
+msgstr ""
+
+#: ../src/add_dialog.c:143
+msgid "Compression: "
+msgstr ""
+
+#: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
+msgid "Password:"
+msgstr ""
+
+#: ../src/add_dialog.c:167
+msgid "Encryption: "
+msgstr ""
+
+#: ../src/add_dialog.c:180
+msgid "_Add"
+msgstr ""
+
+#: ../src/add_dialog.c:247
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c:253
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c:259
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c:265
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr ""
+
+#: ../src/add_dialog.c:271
+msgid "5 = default compression, 7 = max compression"
+msgstr ""
+
+#: ../src/add_dialog.c:371 ../src/main.c:228
+msgid "Can't add files to the archive:"
+msgstr ""
+
+#: ../src/add_dialog.c:371
+msgid "You haven't selected any files to add!"
+msgstr ""
+
+#: ../src/add_dialog.c:379 ../src/interface.c:808
+msgid "You missed the password!"
+msgstr ""
+
+#: ../src/add_dialog.c:379 ../src/interface.c:808
+msgid "Please enter it!"
+msgstr ""
+
+#: ../src/add_dialog.c:449
+msgid "Adding files to archive, please wait..."
+msgstr ""
+
+#: ../src/archive.c:87
+msgid "Can't run the archiver executable:"
+msgstr ""
+
+#: ../src/archive.c:373
+msgid "Can't create temporary directory:"
+msgstr ""
+
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
+msgid "Ratio"
+msgstr ""
+
+#: ../src/arj.c:48
+msgid "Attributes"
+msgstr ""
+
+#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/tar.c:54
+msgid "Points to"
+msgstr ""
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+msgid "Permissions"
+msgstr ""
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+msgid "Owner/Group"
+msgstr ""
+
+#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:395
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
+#: ../src/tar.c:54
+msgid "Size"
+msgstr ""
+
+#: ../src/window.c:60
+msgid "An error occurred!"
+msgstr ""
+
+#: ../src/window.c:60
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr ""
+
+#: ../src/window.c:147
+msgid "Archiver output"
+msgstr ""
+
+#: ../src/window.c:182
+msgid "An error occurred while accessing the archive:"
+msgstr ""
+
+#: ../src/window.c:254
+msgid "Save the archive as"
+msgstr ""
+
+#: ../src/window.c:313
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr ""
+
+#: ../src/window.c:315
+msgid "Archive format is not recognized!"
+msgstr ""
+
+#: ../src/window.c:339
+msgid "Sorry,this archive format is not supported:"
+msgstr ""
+
+#: ../src/window.c:339
+msgid "the proper archiver is not installed!"
+msgstr ""
+
+#: ../src/window.c:353
+msgid "Can't allocate memory for the archive structure:"
+msgstr ""
+
+#: ../src/window.c:353
+msgid "Operation aborted!"
+msgstr ""
+
+#: ../src/window.c:378
+msgid "Opening archive,please wait..."
+msgstr ""
+
+#: ../src/window.c:402
+msgid "Testing archive,please wait..."
+msgstr ""
+
+#: ../src/window.c:422
+msgid "Print the archive content as HTML"
+msgstr ""
+
+#: ../src/window.c:424
+msgid "Print the archive content as text"
+msgstr ""
+
+#: ../src/window.c:475
+#, c-format
+msgid "Archive contents:\n"
+msgstr ""
+
+#: ../src/window.c:479
+#, c-format
+msgid ""
+"\n"
+"Name: "
+msgstr ""
+
+#: ../src/window.c:488
+#, c-format
+msgid "Compressed   size: "
+msgstr ""
+
+#: ../src/window.c:495
+#, c-format
+msgid "Uncompressed size: "
+msgstr ""
+
+#: ../src/window.c:503
+#, c-format
+msgid "Number of files: "
+msgstr ""
+
+#: ../src/window.c:511
+#, c-format
+msgid "Comment:\n"
+msgstr ""
+
+#: ../src/window.c:524
+#, c-format
+msgid "Files:%*s%s"
+msgstr ""
+
+#: ../src/window.c:524
+msgid "|Compressed\n"
+msgstr ""
+
+#: ../src/window.c:530
+#, c-format
+msgid "<th>Files:</th>"
+msgstr ""
+
+#: ../src/window.c:531
+#, c-format
+msgid "<th>Compressed:</th>"
+msgstr ""
+
+#: ../src/window.c:617 ../src/main.c:276
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+
+#: ../src/window.c:722
+msgid "You are about to delete entries from the archive."
+msgstr ""
+
+#: ../src/window.c:722
+msgid "Are you sure you want to do this?"
+msgstr ""
+
+#: ../src/window.c:815 ../src/window.c:915
+msgid "Can't convert the archive to self-extracting:"
+msgstr ""
+
+#: ../src/window.c:826 ../src/window.c:926
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr ""
+
+#: ../src/window.c:886
+msgid "Please select the 7zCon.sfx module"
+msgstr ""
+
+#: ../src/window.c:980
+msgid "A GTK+2 only lightweight archive manager"
+msgstr ""
+
+#: ../src/window.c:983
+msgid "translator-credits"
+msgstr ""
+
+#: ../src/window.c:1013
+msgid "Save the self-extracting archive as"
+msgstr ""
+
+#: ../src/window.c:1042 ../src/interface.c:340
+msgid "Open an archive"
+msgstr ""
+
+#: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+msgid "All files"
+msgstr ""
+
+#: ../src/window.c:1060 ../src/new_dialog.c:67
+msgid "Only archives"
+msgstr ""
+
+#: ../src/window.c:1274
+msgid "Filename"
+msgstr ""
+
+#: ../src/window.c:1331
+msgid "Doing so will probably corrupt your archive!"
+msgstr ""
+
+#: ../src/window.c:1331
+msgid "Do you really want to cancel?"
+msgstr ""
+
+#: ../src/window.c:1394 ../src/window.c:1409
+msgid "Yes"
+msgstr ""
+
+#: ../src/window.c:1396 ../src/window.c:1411
+msgid "No"
+msgstr ""
+
+#: ../src/window.c:1614
+msgid "selected"
+msgstr ""
+
+#: ../src/window.c:1619
+#, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/window.c:1621
+#, c-format
+msgid "%d dir %s (%s)"
+msgid_plural "%d dirs %s (%s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/window.c:1624
+#, c-format
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/window.c:1680
+msgid "Can't perform another extraction:"
+msgstr ""
+
+#: ../src/window.c:1680
+msgid "Please wait until the completion of the current one!"
+msgstr ""
+
+#: ../src/window.c:1713 ../src/extract_dialog.c:341
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr ""
+
+#: ../src/window.c:1714 ../src/extract_dialog.c:342
+msgid "Can't perform extraction!"
+msgstr ""
+
+#: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
+msgid "Sorry,I could not perform the operation!"
+msgstr ""
+
+#: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
+msgid "Can't perform this action:"
+msgstr ""
+
+#: ../src/window.c:1789
+msgid "You have to install rar package!"
+msgstr ""
+
+#: ../src/window.c:1796 ../src/interface.c:1382
+msgid "You can't add content to deb packages!"
+msgstr ""
+
+#: ../src/window.c:1798 ../src/interface.c:1384
+msgid "You can't add content to rpm packages!"
+msgstr ""
+
+#: ../src/window.c:1800
+msgid "The archiver doesn't support this feature!"
+msgstr ""
+
+#: ../src/window.c:1881
+msgid "You didn't set which browser to use!"
+msgstr ""
+
+#: ../src/window.c:1881 ../src/window.c:1922
+msgid "Please go to Preferences->Advanced and set it."
+msgstr ""
+
+#: ../src/window.c:1913
+msgid "This file type is not supported!"
+msgstr ""
+
+#: ../src/window.c:1913
+msgid "Please install xdg-utils package."
+msgstr ""
+
+#: ../src/window.c:1922
+msgid "You didn't set which program to use for opening this file!"
+msgstr ""
+
+#: ../src/window.c:1948
+msgid "Failed to launch the application!"
+msgstr ""
+
+#: ../src/window.c:2000
+msgid "Comment"
+msgstr ""
+
+#: ../src/window.c:2030
+msgid "From File"
+msgstr ""
+
+#: ../src/window.c:2135
+msgid "Open a text file"
+msgstr ""
+
+#: ../src/window.c:2153
+#, c-format
+msgid "Can't open file %s:"
+msgstr ""
+
+#: ../src/deb.c:45
+msgid "Date modified"
+msgstr ""
+
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
+msgid "Extract to:"
+msgstr ""
+
+#: ../src/extract_dialog.c:94
+msgid "Selected files"
+msgstr ""
+
+#: ../src/extract_dialog.c:101
+msgid "Files: "
+msgstr ""
+
+#: ../src/extract_dialog.c:111
+msgid "Files "
+msgstr ""
+
+#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
+msgid "Overwrite existing files"
+msgstr ""
+
+#: ../src/extract_dialog.c:128
+msgid "Extract files with full path"
+msgstr ""
+
+#: ../src/extract_dialog.c:129
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr ""
+
+#: ../src/extract_dialog.c:132
+msgid "Touch files"
+msgstr ""
+
+#: ../src/extract_dialog.c:133
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr ""
+
+#: ../src/extract_dialog.c:136
+msgid "Freshen existing files"
+msgstr ""
+
+#: ../src/extract_dialog.c:137
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+
+#: ../src/extract_dialog.c:141
+msgid "Update existing files"
+msgstr ""
+
+#: ../src/extract_dialog.c:142
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+
+#: ../src/extract_dialog.c:146
+msgid "Options "
+msgstr ""
+
+#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
+#: ../src/interface.c:178
+msgid "_Extract"
+msgstr ""
+
+#: ../src/extract_dialog.c:223
+msgid "Decompress file"
+msgstr ""
+
+#: ../src/extract_dialog.c:225 ../src/interface.c:396
+msgid "Extract files"
+msgstr ""
+
+#: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
+msgid "You missed where to extract the files!"
+msgstr ""
+
+#: ../src/extract_dialog.c:317
+msgid "Please enter the extraction path."
+msgstr ""
+
+#: ../src/extract_dialog.c:331
+msgid "This archive is encrypted!"
+msgstr ""
+
+#: ../src/extract_dialog.c:331
+msgid "Please enter the password."
+msgstr ""
+
+#: ../src/extract_dialog.c:378
+msgid "Extracting files from archive,please wait..."
+msgstr ""
+
+#: ../src/extract_dialog.c:395
+msgid "Archive Name"
+msgstr ""
+
+#: ../src/extract_dialog.c:395
+msgid "Path"
+msgstr ""
+
+#: ../src/extract_dialog.c:407
+msgid "Multi-Extract"
+msgstr ""
+
+#: ../src/extract_dialog.c:478
+msgid "Extract to dir \"Archive Name\""
+msgstr ""
+
+#: ../src/extract_dialog.c:479
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr ""
+
+#: ../src/extract_dialog.c:483
+msgid "Destination dirs:"
+msgstr ""
+
+#: ../src/extract_dialog.c:497
+msgid "Extract pathnames"
+msgstr ""
+
+#: ../src/extract_dialog.c:499
+msgid "Options:"
+msgstr ""
+
+#: ../src/extract_dialog.c:531
+msgid "Please select the archives you want to extract"
+msgstr ""
+
+#: ../src/extract_dialog.c:672
+msgid "Please select the destination directory"
+msgstr ""
+
+#: ../src/extract_dialog.c:715
+msgid "Can't multi-extract archives:"
+msgstr ""
+
+#: ../src/extract_dialog.c:715
+msgid "You haven't added any of them!"
+msgstr ""
+
+#: ../src/extract_dialog.c:723
+msgid "Please fill the \"Extract to\" field!"
+msgstr ""
+
+#: ../src/extract_dialog.c:754
+msgid "Some errors occurred:"
+msgstr ""
+
+#: ../src/lha.c:51
+msgid "UID/GID"
+msgstr ""
+
+#: ../src/lha.c:51
+msgid "Timestamp"
+msgstr ""
+
+#: ../src/interface.c:77
+msgid "_Archive"
+msgstr ""
+
+#: ../src/interface.c:92
+msgid "_List as"
+msgstr ""
+
+#: ../src/interface.c:103
+msgid "_Text file"
+msgstr ""
+
+#: ../src/interface.c:110
+msgid "_HTML file"
+msgstr ""
+
+#: ../src/interface.c:127
+msgid "_Test"
+msgstr ""
+
+#: ../src/interface.c:137
+msgid "_Properties"
+msgstr ""
+
+#: ../src/interface.c:161
+msgid "A_ction"
+msgstr ""
+
+#: ../src/interface.c:168
+msgid "A_dd"
+msgstr ""
+
+#: ../src/interface.c:194
+msgid "Re_name"
+msgstr ""
+
+#: ../src/interface.c:208
+msgid "Make SF_X"
+msgstr ""
+
+#: ../src/interface.c:218
+msgid "_Multi-Extract"
+msgstr ""
+
+#: ../src/interface.c:223
+msgid "Archive _comment"
+msgstr ""
+
+#: ../src/interface.c:237
+msgid "Select _all"
+msgstr ""
+
+#: ../src/interface.c:247
+msgid "Dese_lect all"
+msgstr ""
+
+#: ../src/interface.c:253
+msgid "Select _by pattern"
+msgstr ""
+
+#: ../src/interface.c:264
+msgid "Cmd-line outp_ut"
+msgstr ""
+
+#: ../src/interface.c:277
+msgid "Enter passwo_rd"
+msgstr ""
+
+#: ../src/interface.c:288
+msgid "_Preferences"
+msgstr ""
+
+#: ../src/interface.c:297
+msgid "_Help"
+msgstr ""
+
+#: ../src/interface.c:304
+msgid "_Contents"
+msgstr ""
+
+#: ../src/interface.c:313
+msgid "_Donate"
+msgstr ""
+
+#: ../src/interface.c:333 ../src/new_dialog.c:50
+msgid "Create a new archive"
+msgstr ""
+
+#: ../src/interface.c:352
+msgid "Back"
+msgstr ""
+
+#: ../src/interface.c:360
+msgid "Up"
+msgstr ""
+
+#: ../src/interface.c:368
+msgid "Forward"
+msgstr ""
+
+#: ../src/interface.c:376
+msgid "Root"
+msgstr ""
+
+#: ../src/interface.c:408
+msgid "Cancel current operation"
+msgstr ""
+
+#: ../src/interface.c:421
+msgid "Location:"
+msgstr ""
+
+#: ../src/interface.c:460
+msgid "Archive tree"
+msgstr ""
+
+#: ../src/interface.c:508
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr ""
+
+#: ../src/interface.c:677
+msgid "Close archive"
+msgstr ""
+
+#: ../src/interface.c:762
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr ""
+
+#: ../src/interface.c:764
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr ""
+
+#: ../src/interface.c:782
+msgid "_Password:"
+msgstr ""
+
+#: ../src/interface.c:837 ../src/open-with-dlg.c:52
+msgid "Open With"
+msgstr ""
+
+#: ../src/interface.c:845
+msgid "Extract"
+msgstr ""
+
+#: ../src/interface.c:853
+msgid "View"
+msgstr ""
+
+#: ../src/interface.c:866
+msgid "Cut"
+msgstr ""
+
+#: ../src/interface.c:874
+msgid "Copy"
+msgstr "පිටපත් කරන්"
+
+#: ../src/interface.c:882
+msgid "Paste"
+msgstr ""
+
+#: ../src/interface.c:896
+msgid "Delete"
+msgstr ""
+
+#: ../src/interface.c:905
+msgid "Rename"
+msgstr ""
+
+#: ../src/interface.c:944
+msgid "Select by Pattern"
+msgstr ""
+
+#: ../src/interface.c:957
+msgid "Pattern:"
+msgstr ""
+
+#: ../src/interface.c:962
+msgid "example: *.txt; ac*"
+msgstr ""
+
+#: ../src/interface.c:979
+msgid "_Select"
+msgstr ""
+
+#: ../src/interface.c:1051
+msgid "Archive Properties"
+msgstr ""
+
+#: ../src/interface.c:1072
+msgid "Name:"
+msgstr ""
+
+#: ../src/interface.c:1079
+msgid "Path:"
+msgstr ""
+
+#: ../src/interface.c:1086
+msgid "Type:"
+msgstr ""
+
+#: ../src/interface.c:1093
+msgid "Encrypted:"
+msgstr ""
+
+#: ../src/interface.c:1100
+msgid "Modified on:"
+msgstr ""
+
+#: ../src/interface.c:1107
+msgid "Compressed size:"
+msgstr ""
+
+#: ../src/interface.c:1114
+msgid "Uncompressed size:"
+msgstr ""
+
+#: ../src/interface.c:1121
+msgid "Comment:"
+msgstr ""
+
+#: ../src/interface.c:1128
+msgid "Number of files:"
+msgstr ""
+
+#: ../src/interface.c:1135
+msgid "Compression ratio:"
+msgstr ""
+
+#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
+msgid "Xarchiver"
+msgstr ""
+
+#: ../src/interface.c:1526
+msgid "Extracting from archive:"
+msgstr ""
+
+#: ../src/interface.c:1528
+msgid "Adding to archive:"
+msgstr ""
+
+#: ../src/interface.c:1548
+msgid "Total Progress:"
+msgstr ""
+
+#: ../src/main.c:58
+msgid "Extract archive to the destination directory and quits."
+msgstr ""
+
+#: ../src/main.c:59
+msgid "destination archive"
+msgstr ""
+
+#: ../src/main.c:62
+msgid "Extract archive by asking the extraction directory and quits."
+msgstr ""
+
+#: ../src/main.c:63 ../src/main.c:75
+msgid "archive"
+msgstr ""
+
+#: ../src/main.c:66
+msgid "Multi-extract archives"
+msgstr ""
+
+#: ../src/main.c:67
+msgid "filenames"
+msgstr ""
+
+#: ../src/main.c:70
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr ""
+
+#: ../src/main.c:71
+msgid "file1 file2 file3 ... fileN"
+msgstr ""
+
+#: ../src/main.c:74
+msgid "Add files to archive by asking their filenames and quits."
+msgstr ""
+
+#: ../src/main.c:78
+msgid "Show version and exit"
+msgstr ""
+
+#: ../src/main.c:105
+msgid "[archive name]"
+msgstr ""
+
+#: ../src/main.c:109
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+
+#: ../src/main.c:119
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr ""
+
+#: ../src/main.c:146 ../src/main.c:169
+msgid "Can't extract files from the archive:"
+msgstr ""
+
+#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
+msgid "You missed the archive name!\n"
+msgstr ""
+
+#: ../src/main.c:534
+msgid "Can't allocate memory for the archive structure!"
+msgstr ""
+
+#: ../src/open-with-dlg.c:54
+msgid "Open the selected files with"
+msgstr ""
+
+#: ../src/open-with-dlg.c:83
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr ""
+
+#: ../src/open-with-dlg.c:118
+msgid "Use a custom command:"
+msgstr ""
+
+#: ../src/open-with-dlg.c:126
+msgid "Browse"
+msgstr ""
+
+#: ../src/open-with-dlg.c:311
+msgid "Select an application"
+msgstr ""
+
+#: ../src/new_dialog.c:55
+msgid "Cr_eate"
+msgstr ""
+
+#: ../src/new_dialog.c:92
+msgid "Archive type:"
+msgstr ""
+
+#: ../src/new_dialog.c:97
+msgid "Choose the archive type to create"
+msgstr ""
+
+#: ../src/new_dialog.c:112
+msgid "Add the archive extension to the filename"
+msgstr ""
+
+#: ../src/new_dialog.c:159
+#, c-format
+msgid "\"%s\" is already open!"
+msgstr ""
+
+#: ../src/new_dialog.c:160
+msgid "Can't create a new archive:"
+msgstr ""
+
+#: ../src/new_dialog.c:175
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr ""
+
+#: ../src/new_dialog.c:181
+msgid "Do you want to overwrite it?"
+msgstr ""
+
+#: ../src/pref_dialog.c:41
+msgid "Preferences"
+msgstr ""
+
+#: ../src/pref_dialog.c:61
+msgid "Archive"
+msgstr ""
+
+#: ../src/pref_dialog.c:67
+msgid "Window"
+msgstr ""
+
+#: ../src/pref_dialog.c:72
+msgid "Advanced"
+msgstr ""
+
+#: ../src/pref_dialog.c:97
+msgid "Preferred archive format"
+msgstr ""
+
+#: ../src/pref_dialog.c:115
+msgid "Confirm deletion of files"
+msgstr ""
+
+#: ../src/pref_dialog.c:119
+msgid "Sort archive by filename"
+msgstr ""
+
+#: ../src/pref_dialog.c:122
+msgid "The filename column is sorted after loading the archive"
+msgstr ""
+
+#: ../src/pref_dialog.c:124
+msgid "Store archiver output"
+msgstr ""
+
+#: ../src/pref_dialog.c:127
+msgid "This option takes more memory with large archives"
+msgstr ""
+
+#: ../src/pref_dialog.c:138
+msgid "Icons size (requires restart)"
+msgstr ""
+
+#: ../src/pref_dialog.c:144
+msgid "large"
+msgstr ""
+
+#: ../src/pref_dialog.c:145
+msgid "small"
+msgstr ""
+
+#: ../src/pref_dialog.c:150
+msgid "Show archive comment"
+msgstr ""
+
+#: ../src/pref_dialog.c:151
+msgid "If checked the archive comment is shown after the archive is loaded"
+msgstr ""
+
+#: ../src/pref_dialog.c:157
+msgid "Show archive tree sidebar"
+msgstr ""
+
+#: ../src/pref_dialog.c:163
+msgid "Show archive location bar"
+msgstr ""
+
+#: ../src/pref_dialog.c:185
+msgid "Web browser to use:"
+msgstr ""
+
+#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
+#: ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
+msgid "choose..."
+msgstr ""
+
+#: ../src/pref_dialog.c:198
+msgid "Open text files with:"
+msgstr ""
+
+#: ../src/pref_dialog.c:211
+msgid "Open image files with:"
+msgstr ""
+
+#: ../src/pref_dialog.c:224
+msgid "Preferred temp directory:"
+msgstr ""
+
+#: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
+msgid "/tmp"
+msgstr ""
+
+#: ../src/pref_dialog.c:237
+msgid "Preferred extract directory:"
+msgstr ""
+
+#: ../src/pref_dialog.c:250
+msgid "Save window geometry"
+msgstr ""
+
+#: ../src/pref_dialog.c:255
+msgid "Allow subdirs with drag and drop"
+msgstr ""
+
+#: ../src/pref_dialog.c:259
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+
+#: ../src/pref_dialog.c:264
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+
+#: ../src/pref_dialog.c:581
+msgid "Choose the directory to use"
+msgstr ""
+
+#: ../src/pref_dialog.c:581
+msgid "Choose the application to use"
+msgstr ""
+
+#: ../src/rar.c:63
+msgid "CRC"
+msgstr ""
+
+#: ../src/rar.c:63 ../src/zip.c:49
+msgid "Method"
+msgstr ""
+
+#: ../src/rar.c:63 ../src/zip.c:49
+msgid "Version"
+msgstr ""
+
+#: ../src/rpm.c:39
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr ""
+
+#: ../src/rpm.c:52
+msgid "Permission"
+msgstr ""
+
+#: ../src/rpm.c:52
+msgid "Hard Link"
+msgstr ""
+
+#: ../src/rpm.c:52
+msgid "Owner"
+msgstr ""
+
+#: ../src/rpm.c:52
+msgid "Group"
+msgstr ""
+
+#: ../src/rpm.c:62
+msgid "Can't fseek to position 104:"
+msgstr ""
+
+#: ../src/rpm.c:68 ../src/rpm.c:84
+msgid "Can't read data from file:"
+msgstr ""
+
+#: ../src/rpm.c:78
+msgid "Can't fseek in file:"
+msgstr ""
+
+#: ../src/zip.c:49
+msgid "OS"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h:1
+msgid "A GTK+2 only archive manager"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h:2
+msgid "Archive manager"
+msgstr ""
+
