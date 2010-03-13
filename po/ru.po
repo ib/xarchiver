@@ -168,9 +168,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Невозможно запустить программу-архиватор:"
 
 #: ../src/archive.c:373
-#, fuzzy
 msgid "Can't create temporary directory:"
-msgstr "Не удаётся создать временную папку в /tmp:"
+msgstr "Не удалось создать временную папку:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
@@ -319,9 +318,8 @@ msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Выберите «Новый» чтобы создать или «Открыть» чтобы открыть существующий архив."
 
 #: ../src/window.c:722
-#, fuzzy
 msgid "You are about to delete entries from the archive."
-msgstr "Не удалось извлечь файлы из архива:"
+msgstr "Вы собираетесь удалить файлы из архива."
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
@@ -340,9 +338,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Выберите модуль 7zCon.sfx"
 
 #: ../src/window.c:980
-#, fuzzy
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "Менеджер архивов только для GTK+2"
+msgstr "Быстрый и легкий менеджер архивов для GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -656,19 +653,16 @@ msgid "_Archive"
 msgstr "Архив"
 
 #: ../src/interface.c:92
-#, fuzzy
 msgid "_List as"
-msgstr "Вывести как"
+msgstr "_Вывести как"
 
 #: ../src/interface.c:103
-#, fuzzy
 msgid "_Text file"
-msgstr "Текстовый файл"
+msgstr "_Текстовый файл"
 
 #: ../src/interface.c:110
-#, fuzzy
 msgid "_HTML file"
-msgstr "HTML файл"
+msgstr "_HTML файл"
 
 #: ../src/interface.c:127
 msgid "_Test"
@@ -687,7 +681,6 @@ msgid "A_dd"
 msgstr "Добавить"
 
 #: ../src/interface.c:194
-#, fuzzy
 msgid "Re_name"
 msgstr "Переименовать"
 
@@ -700,7 +693,6 @@ msgid "_Multi-Extract"
 msgstr "_Извлечь несколько архивов"
 
 #: ../src/interface.c:223
-#, fuzzy
 msgid "Archive _comment"
 msgstr "Комментарий к архиву"
 
@@ -733,7 +725,6 @@ msgid "_Help"
 msgstr "_Справка"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "_Contents"
 msgstr "Содержание"
 
@@ -1120,9 +1111,8 @@ msgid "/tmp"
 msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
-#, fuzzy
 msgid "Preferred extract directory:"
-msgstr "Каталог временных файлов по умолчанию:"
+msgstr "Каталог файлов по умолчанию:"
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
@@ -1145,9 +1135,8 @@ msgstr ""
 "Xarchiver мог распознавать большее количество файлов.</span>"
 
 #: ../src/pref_dialog.c:581
-#, fuzzy
 msgid "Choose the directory to use"
-msgstr "Укажите каталог временных файлов"
+msgstr "Укажите каталог файлов"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
