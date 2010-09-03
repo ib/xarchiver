@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
-"PO-Revision-Date: 2010-03-12 10:42+0600\n"
+"PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+"X-Poedit-Language: Kazakh\n"
+"X-Poedit-Country: KAZAKHSTAN\n"
 
 #: ../src/7zip.c:57
 #: ../src/arj.c:48
@@ -22,7 +24,7 @@ msgstr ""
 #: ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
-msgstr ""
+msgstr "Бастапқы"
 
 #: ../src/7zip.c:57
 #: ../src/arj.c:48
@@ -31,11 +33,11 @@ msgstr ""
 #: ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Compressed"
-msgstr ""
+msgstr "Сығылған"
 
 #: ../src/7zip.c:57
 msgid "Attr"
-msgstr ""
+msgstr "Аттр"
 
 #: ../src/7zip.c:57
 #: ../src/arj.c:48
@@ -65,19 +67,19 @@ msgstr "Файлдарды қосу"
 
 #: ../src/add_dialog.c:52
 msgid "Selection"
-msgstr ""
+msgstr "Ерешелеу"
 
 #: ../src/add_dialog.c:66
 msgid "File Paths: "
-msgstr ""
+msgstr "Файл жолдары:"
 
 #: ../src/add_dialog.c:72
 msgid "Store full paths"
-msgstr ""
+msgstr "Толық жолдарымен сақтау"
 
 #: ../src/add_dialog.c:76
 msgid "Do not store paths"
-msgstr ""
+msgstr "Жолдарын сақтамау"
 
 #: ../src/add_dialog.c:85
 msgid "Options"
@@ -85,7 +87,7 @@ msgstr "Опциялар"
 
 #: ../src/add_dialog.c:103
 msgid "Update and add"
-msgstr ""
+msgstr "Жаңарту және қосу"
 
 #: ../src/add_dialog.c:105
 msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified"
@@ -101,11 +103,11 @@ msgstr ""
 
 #: ../src/add_dialog.c:115
 msgid "Include subdirectories"
-msgstr ""
+msgstr "Ішкі бумаларын қоса"
 
 #: ../src/add_dialog.c:119
 msgid "Create a solid archive"
-msgstr ""
+msgstr "Бүтін архивті жасау"
 
 #: ../src/add_dialog.c:121
 msgid "In a solid archive the files are grouped together featuring a better compression ratio"
@@ -113,7 +115,7 @@ msgstr ""
 
 #: ../src/add_dialog.c:124
 msgid "Delete files after adding"
-msgstr ""
+msgstr "Қосқаннан кейін файлдарды өшіру"
 
 #: ../src/add_dialog.c:128
 msgid "Actions: "
@@ -121,7 +123,7 @@ msgstr "Әрекеттер:"
 
 #: ../src/add_dialog.c:143
 msgid "Compression: "
-msgstr ""
+msgstr "Сығу деңгейі:"
 
 #: ../src/add_dialog.c:157
 #: ../src/extract_dialog.c:152
@@ -159,29 +161,29 @@ msgstr ""
 #: ../src/add_dialog.c:371
 #: ../src/main.c:228
 msgid "Can't add files to the archive:"
-msgstr ""
+msgstr "Файлдарды архивке қосу мүмкін емес:"
 
 #: ../src/add_dialog.c:371
 msgid "You haven't selected any files to add!"
-msgstr ""
+msgstr "Қосу үшін файлдарды көрсеткен жоқсыз!"
 
 #: ../src/add_dialog.c:379
 #: ../src/interface.c:808
 msgid "You missed the password!"
-msgstr ""
+msgstr "Парольді көрсеткен жоқсыз!"
 
 #: ../src/add_dialog.c:379
 #: ../src/interface.c:808
 msgid "Please enter it!"
-msgstr ""
+msgstr "Оны енгізіңіз!"
 
 #: ../src/add_dialog.c:449
 msgid "Adding files to archive, please wait..."
-msgstr ""
+msgstr "Архивке файлдарды қосу, күте тұрыңыз..."
 
 #: ../src/archive.c:87
 msgid "Can't run the archiver executable:"
-msgstr ""
+msgstr "Архиватор орындалатын файлын жөнелту мүмкін емес:"
 
 #: ../src/archive.c:373
 msgid "Can't create temporary directory:"
@@ -196,7 +198,7 @@ msgstr "Деңгейі"
 
 #: ../src/arj.c:48
 msgid "Attributes"
-msgstr ""
+msgstr "Атрибуттары"
 
 #: ../src/bzip2.c:187
 #: ../src/gzip.c:61
@@ -204,7 +206,7 @@ msgstr ""
 #: ../src/rpm.c:52
 #: ../src/tar.c:54
 msgid "Points to"
-msgstr ""
+msgstr "Сілтеп тұрған орны:"
 
 #: ../src/bzip2.c:187
 #: ../src/deb.c:45
@@ -221,7 +223,7 @@ msgstr "Рұқсаттар"
 #: ../src/gzip.c:61
 #: ../src/tar.c:54
 msgid "Owner/Group"
-msgstr ""
+msgstr "Иесі/тобы"
 
 #: ../src/bzip2.c:187
 #: ../src/deb.c:45
@@ -240,11 +242,11 @@ msgstr "Қате орын алды!"
 
 #: ../src/window.c:60
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr ""
+msgstr "Оны көру үшін \"Архиватор шығысын сақтау\" опциясын белгілеңіз."
 
 #: ../src/window.c:147
 msgid "Archiver output"
-msgstr ""
+msgstr "Архиватор шығысы"
 
 #: ../src/window.c:182
 msgid "An error occurred while accessing the archive:"
@@ -257,11 +259,11 @@ msgstr ""
 #: ../src/window.c:313
 #, c-format
 msgid "Can't open file \"%s\":"
-msgstr ""
+msgstr "\"%s\" файлын ашу мүмкін емес:"
 
 #: ../src/window.c:315
 msgid "Archive format is not recognized!"
-msgstr ""
+msgstr "Архив пішімі таңылмады!"
 
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
@@ -273,32 +275,32 @@ msgstr ""
 
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
-msgstr ""
+msgstr "Архив құрамасы үшін жадыны бөлу мүмкін емес:"
 
 #: ../src/window.c:353
 msgid "Operation aborted!"
-msgstr ""
+msgstr "Әрекет үзілді!"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
-msgstr ""
+msgstr "Архивті ашу, күте тұрыңыз..."
 
 #: ../src/window.c:402
 msgid "Testing archive,please wait..."
-msgstr ""
+msgstr "Архивті сынау, күте тұрыңыз..."
 
 #: ../src/window.c:422
 msgid "Print the archive content as HTML"
-msgstr ""
+msgstr "Архив құрамасын HTML ретінде шығару"
 
 #: ../src/window.c:424
 msgid "Print the archive content as text"
-msgstr ""
+msgstr "Архив құрамасын мәтін ретінде шығару"
 
 #: ../src/window.c:475
 #, c-format
 msgid "Archive contents:\n"
-msgstr ""
+msgstr "Архив құрамасы:\n"
 
 #: ../src/window.c:479
 #, c-format
@@ -306,16 +308,18 @@ msgid ""
 "\n"
 "Name: "
 msgstr ""
+"\n"
+"Аты: "
 
 #: ../src/window.c:488
 #, c-format
 msgid "Compressed   size: "
-msgstr ""
+msgstr "Сығылған өлшемі:"
 
 #: ../src/window.c:495
 #, c-format
 msgid "Uncompressed size: "
-msgstr ""
+msgstr "Сығылмаған өлшемі:"
 
 #: ../src/window.c:503
 #, c-format
@@ -334,30 +338,30 @@ msgstr "Файлдар:%*s%s"
 
 #: ../src/window.c:524
 msgid "|Compressed\n"
-msgstr ""
+msgstr "|Сығылған\n"
 
 #: ../src/window.c:530
 #, c-format
 msgid "<th>Files:</th>"
-msgstr ""
+msgstr "<th>Файлдар:</th>"
 
 #: ../src/window.c:531
 #, c-format
 msgid "<th>Compressed:</th>"
-msgstr ""
+msgstr "<th>Сығылған:</th>"
 
 #: ../src/window.c:617
 #: ../src/main.c:276
 msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
+msgstr "Архивті жасау үшін \"Жаңа\", не ашу үшін \"Ашу\" таңдаңыз"
 
 #: ../src/window.c:722
 msgid "You are about to delete entries from the archive."
-msgstr ""
+msgstr "Сіз архивтен нәрселерді өшіруге дайынсыз."
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
-msgstr ""
+msgstr "Осыны істеуді шынымен қалайсыз ба?"
 
 #: ../src/window.c:815
 #: ../src/window.c:915
@@ -375,7 +379,7 @@ msgstr ""
 
 #: ../src/window.c:980
 msgid "A GTK+2 only lightweight archive manager"
-msgstr ""
+msgstr "Тек GTK+2 талап ететін жеңіл архивтерді басқарушысы"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -399,7 +403,7 @@ msgstr "Барлық файлдар"
 #: ../src/window.c:1060
 #: ../src/new_dialog.c:67
 msgid "Only archives"
-msgstr ""
+msgstr "Тек архивтер"
 
 #: ../src/window.c:1274
 msgid "Filename"
@@ -411,7 +415,7 @@ msgstr ""
 
 #: ../src/window.c:1331
 msgid "Do you really want to cancel?"
-msgstr ""
+msgstr "Бас тартуды шынымен қалайсыз ба?"
 
 #: ../src/window.c:1394
 #: ../src/window.c:1409
@@ -425,7 +429,7 @@ msgstr "Жоқ"
 
 #: ../src/window.c:1614
 msgid "selected"
-msgstr ""
+msgstr "таңдалған"
 
 #: ../src/window.c:1619
 #, c-format
@@ -445,7 +449,7 @@ msgstr[1] ""
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
-msgstr[0] ""
+msgstr[0] "%d файл %s (%s)"
 
 #: ../src/window.c:1680
 msgid "Can't perform another extraction:"
@@ -511,15 +515,15 @@ msgstr ""
 
 #: ../src/window.c:1913
 msgid "Please install xdg-utils package."
-msgstr ""
+msgstr "xdg-utils дестесін орнатыңыз."
 
 #: ../src/window.c:1922
 msgid "You didn't set which program to use for opening this file!"
-msgstr ""
+msgstr "Бұл файлды ашу қай бағдарламамен іске асыруды көрсеткен жоқсыз!"
 
 #: ../src/window.c:1948
 msgid "Failed to launch the application!"
-msgstr ""
+msgstr "Қолданбаны жөнелту сәтсіз аяқталды!"
 
 #: ../src/window.c:2000
 msgid "Comment"
@@ -527,7 +531,7 @@ msgstr "Түсіндірме"
 
 #: ../src/window.c:2030
 msgid "From File"
-msgstr ""
+msgstr "Файлдан"
 
 #: ../src/window.c:2135
 msgid "Open a text file"
@@ -536,7 +540,7 @@ msgstr "Мәтіндік файлын ашу"
 #: ../src/window.c:2153
 #, c-format
 msgid "Can't open file %s:"
-msgstr ""
+msgstr "%s файлын ашу мүмкін емес:"
 
 #: ../src/deb.c:45
 msgid "Date modified"
@@ -562,11 +566,11 @@ msgstr "Файлдар"
 #: ../src/extract_dialog.c:125
 #: ../src/extract_dialog.c:495
 msgid "Overwrite existing files"
-msgstr ""
+msgstr "Бар файлдарды үстінен жазу"
 
 #: ../src/extract_dialog.c:128
 msgid "Extract files with full path"
-msgstr ""
+msgstr "Файлдарды толық жолмен тарқату"
 
 #: ../src/extract_dialog.c:129
 msgid "The archive's directory structure is recreated in the extraction directory"
@@ -618,11 +622,11 @@ msgstr "Файлдарды тарқату"
 #: ../src/extract_dialog.c:317
 #: ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
-msgstr ""
+msgstr "Файлдарды тарқату орнын көрсетпедіңіз!"
 
 #: ../src/extract_dialog.c:317
 msgid "Please enter the extraction path."
-msgstr ""
+msgstr "Файлдарды тарқату орнын көрсетіңіз."
 
 #: ../src/extract_dialog.c:331
 msgid "This archive is encrypted!"
@@ -630,7 +634,7 @@ msgstr ""
 
 #: ../src/extract_dialog.c:331
 msgid "Please enter the password."
-msgstr ""
+msgstr "Парольді енгізіңіз."
 
 #: ../src/extract_dialog.c:378
 msgid "Extracting files from archive,please wait..."
@@ -646,7 +650,7 @@ msgstr "Жолы:"
 
 #: ../src/extract_dialog.c:407
 msgid "Multi-Extract"
-msgstr ""
+msgstr "Топтап тарқату"
 
 #: ../src/extract_dialog.c:478
 msgid "Extract to dir \"Archive Name\""
@@ -690,27 +694,27 @@ msgstr ""
 
 #: ../src/extract_dialog.c:754
 msgid "Some errors occurred:"
-msgstr ""
+msgstr "Бірнеше қате орын алды:"
 
 #: ../src/lha.c:51
 msgid "UID/GID"
-msgstr ""
+msgstr "UID/GID"
 
 #: ../src/lha.c:51
 msgid "Timestamp"
-msgstr ""
+msgstr "Уақыты"
 
 #: ../src/interface.c:77
 msgid "_Archive"
-msgstr "_Архив:"
+msgstr "_Архив"
 
 #: ../src/interface.c:92
 msgid "_List as"
-msgstr ""
+msgstr "Тізі_мін сақтау"
 
 #: ../src/interface.c:103
 msgid "_Text file"
-msgstr ""
+msgstr "_Мәтін файлы"
 
 #: ../src/interface.c:110
 msgid "_HTML file"
@@ -726,11 +730,11 @@ msgstr "Қас_иеттері..."
 
 #: ../src/interface.c:161
 msgid "A_ction"
-msgstr ""
+msgstr "Әр_екет"
 
 #: ../src/interface.c:168
 msgid "A_dd"
-msgstr ""
+msgstr "Қ_осу"
 
 #: ../src/interface.c:194
 msgid "Re_name"
@@ -738,15 +742,15 @@ msgstr "Аты_н ауыстыру"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
-msgstr ""
+msgstr "SFX _жасау"
 
 #: ../src/interface.c:218
 msgid "_Multi-Extract"
-msgstr ""
+msgstr "Т_оптап тарқату"
 
 #: ../src/interface.c:223
 msgid "Archive _comment"
-msgstr ""
+msgstr "Архивке қосылған _пікір"
 
 #: ../src/interface.c:237
 msgid "Select _all"
@@ -766,7 +770,7 @@ msgstr ""
 
 #: ../src/interface.c:277
 msgid "Enter passwo_rd"
-msgstr ""
+msgstr "_Парольді енгізіңіз"
 
 #: ../src/interface.c:288
 msgid "_Preferences"
@@ -782,7 +786,7 @@ msgstr "Құрама_сы"
 
 #: ../src/interface.c:313
 msgid "_Donate"
-msgstr ""
+msgstr "Ақ_шалай көмектесу"
 
 #: ../src/interface.c:333
 #: ../src/new_dialog.c:50
@@ -803,11 +807,11 @@ msgstr "Алға"
 
 #: ../src/interface.c:376
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: ../src/interface.c:408
 msgid "Cancel current operation"
-msgstr ""
+msgstr "Ағымдағы әрекетті тоқтату"
 
 #: ../src/interface.c:421
 msgid "Location:"
@@ -815,15 +819,15 @@ msgstr "Орналасуы:"
 
 #: ../src/interface.c:460
 msgid "Archive tree"
-msgstr ""
+msgstr "Архив ағашы"
 
 #: ../src/interface.c:508
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr ""
+msgstr "Бұл Xarchiver-дің қалып күйі. Жыпылқтайтын болса, Xarchiver бос емес"
 
 #: ../src/interface.c:677
 msgid "Close archive"
-msgstr ""
+msgstr "Архивті жабу"
 
 #: ../src/interface.c:762
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
@@ -852,7 +856,7 @@ msgstr "Түрі"
 
 #: ../src/interface.c:866
 msgid "Cut"
-msgstr ""
+msgstr "Қиып алу"
 
 #: ../src/interface.c:874
 msgid "Copy"
@@ -880,7 +884,7 @@ msgstr "_Шаблон:"
 
 #: ../src/interface.c:962
 msgid "example: *.txt; ac*"
-msgstr ""
+msgstr "мысалы: *.txt; ac*"
 
 #: ../src/interface.c:979
 msgid "_Select"
@@ -888,7 +892,7 @@ msgstr "Таң_дау"
 
 #: ../src/interface.c:1051
 msgid "Archive Properties"
-msgstr ""
+msgstr "Архив қасиеттері"
 
 #: ../src/interface.c:1072
 msgid "Name:"
@@ -904,7 +908,7 @@ msgstr "Түрі:"
 
 #: ../src/interface.c:1093
 msgid "Encrypted:"
-msgstr ""
+msgstr "Шифрленген:"
 
 #: ../src/interface.c:1100
 msgid "Modified on:"
@@ -912,11 +916,11 @@ msgstr "Өзгертілген:"
 
 #: ../src/interface.c:1107
 msgid "Compressed size:"
-msgstr ""
+msgstr "Сығылған өлшемі:"
 
 #: ../src/interface.c:1114
 msgid "Uncompressed size:"
-msgstr ""
+msgstr "Сығылмаған өлшемі:"
 
 #: ../src/interface.c:1121
 msgid "Comment:"
@@ -933,19 +937,19 @@ msgstr "Сығу деңгейі:"
 #: ../src/interface.c:1499
 #: ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
-msgstr ""
+msgstr "Xarchiver"
 
 #: ../src/interface.c:1526
 msgid "Extracting from archive:"
-msgstr ""
+msgstr "Архивтен тарқату:"
 
 #: ../src/interface.c:1528
 msgid "Adding to archive:"
-msgstr ""
+msgstr "Архивке қосу:"
 
 #: ../src/interface.c:1548
 msgid "Total Progress:"
-msgstr ""
+msgstr "Жалпы үрдісі:"
 
 #: ../src/main.c:58
 msgid "Extract archive to the destination directory and quits."
@@ -953,7 +957,7 @@ msgstr ""
 
 #: ../src/main.c:59
 msgid "destination archive"
-msgstr ""
+msgstr "мақсат архиві"
 
 #: ../src/main.c:62
 msgid "Extract archive by asking the extraction directory and quits."
@@ -966,27 +970,27 @@ msgstr "Архив:"
 
 #: ../src/main.c:66
 msgid "Multi-extract archives"
-msgstr ""
+msgstr "Архивтерді топтап тарқату"
 
 #: ../src/main.c:67
 msgid "filenames"
-msgstr ""
+msgstr "файл_аттары"
 
 #: ../src/main.c:70
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr ""
+msgstr "Көрсетілген файлдарды архив атын сұрап, архивке қосу мен шығу."
 
 #: ../src/main.c:71
 msgid "file1 file2 file3 ... fileN"
-msgstr ""
+msgstr "file1 file2 file3 ... fileN"
 
 #: ../src/main.c:74
 msgid "Add files to archive by asking their filenames and quits."
-msgstr ""
+msgstr "Архивке файлдарды олардың аттарын сұрап, қосу мен шығу."
 
 #: ../src/main.c:78
 msgid "Show version and exit"
-msgstr ""
+msgstr "Нұсқасын көрсетін мен шығу"
 
 #: ../src/main.c:105
 msgid "[archive name]"
@@ -998,6 +1002,8 @@ msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
+"xarchiver: %s\n"
+"Командалық жолда қолжетерлік барлық опцияларды қарап шығу үшін xarchiver --help енгізіңіз.\n"
 
 #: ../src/main.c:119
 #, c-format
@@ -1007,21 +1013,21 @@ msgstr "Ақаулықтар жөнінде хабарласыңыз: <%s>."
 #: ../src/main.c:146
 #: ../src/main.c:169
 msgid "Can't extract files from the archive:"
-msgstr ""
+msgstr "Архивтен файлдарды тарқату мүмкін емес:"
 
 #: ../src/main.c:146
 #: ../src/main.c:169
 #: ../src/main.c:228
 msgid "You missed the archive name!\n"
-msgstr ""
+msgstr "Архив атын көрсеткен жоқсыз!\n"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
-msgstr ""
+msgstr "Архив құрамасы үшін жадыны бөлу мүмкін емес!"
 
 #: ../src/open-with-dlg.c:54
 msgid "Open the selected files with"
-msgstr ""
+msgstr "Таңдалған файлдарды көмегімен ашу"
 
 #: ../src/open-with-dlg.c:83
 #, c-format
@@ -1042,7 +1048,7 @@ msgstr "Қолданбаны таңдаңыз"
 
 #: ../src/new_dialog.c:55
 msgid "Cr_eate"
-msgstr ""
+msgstr "Ж_асау"
 
 #: ../src/new_dialog.c:92
 msgid "Archive type:"
@@ -1050,25 +1056,25 @@ msgstr "Архив түрі:"
 
 #: ../src/new_dialog.c:97
 msgid "Choose the archive type to create"
-msgstr ""
+msgstr "Жасалатын архив түрін таңдаңыз"
 
 #: ../src/new_dialog.c:112
 msgid "Add the archive extension to the filename"
-msgstr ""
+msgstr "Файл атына архив кеңейтуін қосу"
 
 #: ../src/new_dialog.c:159
 #, c-format
 msgid "\"%s\" is already open!"
-msgstr ""
+msgstr "\"%s\" ашулы тұр!"
 
 #: ../src/new_dialog.c:160
 msgid "Can't create a new archive:"
-msgstr ""
+msgstr "Жаңа архивті жасау мүмкін емес:"
 
 #: ../src/new_dialog.c:175
 #, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr ""
+msgstr "\"%s\" бар болып тұр!"
 
 #: ../src/new_dialog.c:181
 msgid "Do you want to overwrite it?"
@@ -1084,7 +1090,7 @@ msgstr "Архив"
 
 #: ../src/pref_dialog.c:67
 msgid "Window"
-msgstr ""
+msgstr "Терезе"
 
 #: ../src/pref_dialog.c:72
 msgid "Advanced"
@@ -1092,15 +1098,15 @@ msgstr "Кеңейтілген"
 
 #: ../src/pref_dialog.c:97
 msgid "Preferred archive format"
-msgstr ""
+msgstr "Таңдамалы архив пішімі"
 
 #: ../src/pref_dialog.c:115
 msgid "Confirm deletion of files"
-msgstr ""
+msgstr "Файлдарды өшіруді растау"
 
 #: ../src/pref_dialog.c:119
 msgid "Sort archive by filename"
-msgstr ""
+msgstr "Архивті файлдар аттары бойынша сұрыптау"
 
 #: ../src/pref_dialog.c:122
 msgid "The filename column is sorted after loading the archive"
@@ -1108,7 +1114,7 @@ msgstr ""
 
 #: ../src/pref_dialog.c:124
 msgid "Store archiver output"
-msgstr ""
+msgstr "Архиватор шығысын сақтау"
 
 #: ../src/pref_dialog.c:127
 msgid "This option takes more memory with large archives"
@@ -1144,7 +1150,7 @@ msgstr ""
 
 #: ../src/pref_dialog.c:185
 msgid "Web browser to use:"
-msgstr ""
+msgstr "Қолдану үшін веб браузер:"
 
 #: ../src/pref_dialog.c:192
 #: ../src/pref_dialog.c:205
@@ -1156,15 +1162,15 @@ msgstr "таңдау..."
 
 #: ../src/pref_dialog.c:198
 msgid "Open text files with:"
-msgstr ""
+msgstr "Мәтіндік файлдарын немен ашу:"
 
 #: ../src/pref_dialog.c:211
 msgid "Open image files with:"
-msgstr ""
+msgstr "Сурет файлдарын немен ашу:"
 
 #: ../src/pref_dialog.c:224
 msgid "Preferred temp directory:"
-msgstr ""
+msgstr "Таңдаулы уақытша бумасы:"
 
 #: ../src/pref_dialog.c:230
 #: ../src/pref_dialog.c:243
@@ -1173,19 +1179,19 @@ msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
 msgid "Preferred extract directory:"
-msgstr ""
+msgstr "Таңдаулы тарқату бумасы:"
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
-msgstr ""
+msgstr "Терезе өлшемдерін сақтау"
 
 #: ../src/pref_dialog.c:255
 msgid "Allow subdirs with drag and drop"
-msgstr ""
+msgstr "Ішкі бумаларды ұстап әкелгенде ескеру"
 
 #: ../src/pref_dialog.c:259
 msgid "This option includes the subdirectories when you add files with drag and drop"
-msgstr ""
+msgstr "Файлдарды ұстап тартып әкелгенде ішкі бумалар да есепке алынады"
 
 #: ../src/pref_dialog.c:264
 msgid ""
@@ -1195,20 +1201,20 @@ msgstr ""
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the directory to use"
-msgstr ""
+msgstr "Қолдану үшін буманы таңдау"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
-msgstr ""
+msgstr "Қолдану үшін қолданбаны таңдау"
 
 #: ../src/rar.c:63
 msgid "CRC"
-msgstr ""
+msgstr "CRC"
 
 #: ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Method"
-msgstr ""
+msgstr "Тәсілі"
 
 #: ../src/rar.c:63
 #: ../src/zip.c:49
@@ -1218,15 +1224,15 @@ msgstr "Нұсқасы"
 #: ../src/rpm.c:39
 #, c-format
 msgid "Can't open RPM file %s:"
-msgstr ""
+msgstr "%s RPM файлын ашу мүмкін емес:"
 
 #: ../src/rpm.c:52
 msgid "Permission"
-msgstr ""
+msgstr "Рұқсат"
 
 #: ../src/rpm.c:52
 msgid "Hard Link"
-msgstr ""
+msgstr "Қатаң сілтеме"
 
 #: ../src/rpm.c:52
 msgid "Owner"
@@ -1251,11 +1257,11 @@ msgstr ""
 
 #: ../src/zip.c:49
 msgid "OS"
-msgstr ""
+msgstr "ОЖ"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr ""
+msgstr "Тек GTK+2 талап ететін архивтер басқарушысы"
 
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
