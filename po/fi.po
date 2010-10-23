@@ -1,16 +1,16 @@
 # Finnish translation of xarchiver.
 # Copyright (C) 2005-2008 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
-# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2007-2009.
+# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2007-2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.4.2rc2\n"
+"Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2009-08-18 09:15+0200\n"
-"PO-Revision-Date: 2009-01-25 10:07+0200\n"
+"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"PO-Revision-Date: 2010-10-23 14:01+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
-"Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
+"Language-Team: Finnish <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -175,9 +175,8 @@ msgid "Can't run the archiver executable:"
 msgstr "Pakkausohjelmaa ei voi suorittaa:"
 
 #: ../src/archive.c:373
-#, fuzzy
 msgid "Can't create temporary directory:"
-msgstr "Ei voi luoda väliaikaiskansiota kohteeseen /tmp:"
+msgstr "Väliaikaiskansiota ei voi luoda:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
@@ -233,9 +232,8 @@ msgid "Can't open file \"%s\":"
 msgstr "Tiedostoa \"%s\" ei voi avata:"
 
 #: ../src/window.c:315
-#, fuzzy
 msgid "Archive format is not recognized!"
-msgstr "Arkistotyyppiä ei valitettavasti tueta:"
+msgstr "Tuntematon arkistotyyppi."
 
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
@@ -251,7 +249,7 @@ msgstr "Arkistorakenteelle ei voi varata muistia:"
 
 #: ../src/window.c:353
 msgid "Operation aborted!"
-msgstr ""
+msgstr "Tehtävä keskeytetty!"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
@@ -327,9 +325,8 @@ msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Valitse \"Uusi\" luodaksesi tai \"Avaa\" avataksesi arkiston"
 
 #: ../src/window.c:722
-#, fuzzy
 msgid "You are about to delete entries from the archive."
-msgstr "Ei voi purkaa tiedostoja arkistosta:"
+msgstr "Olet poistamassa tiedostoja arkistosta."
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
@@ -348,9 +345,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Valitse 7zCon.sfx-moduuli"
 
 #: ../src/window.c:980
-#, fuzzy
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "GTK+2 -pakkaussovellus"
+msgstr "Kevyt GTK+2 -pakkaussovellus"
 
 #: ../src/window.c:983
 msgid "translator-credits"
@@ -681,23 +677,20 @@ msgid "_Archive"
 msgstr "_Arkisto"
 
 #: ../src/interface.c:92
-#, fuzzy
 msgid "_List as"
-msgstr "Listaa"
+msgstr "Li_staa"
 
 #: ../src/interface.c:103
-#, fuzzy
 msgid "_Text file"
-msgstr "Tekstitiedostoon"
+msgstr "_Tekstitiedostoon"
 
 #: ../src/interface.c:110
-#, fuzzy
 msgid "_HTML file"
-msgstr "HTML-tiedostoon"
+msgstr "_HTML-tiedostoon"
 
 #: ../src/interface.c:127
 msgid "_Test"
-msgstr "_Tarkista"
+msgstr "Ta_rkista"
 
 #: ../src/interface.c:137
 msgid "_Properties"
@@ -712,22 +705,20 @@ msgid "A_dd"
 msgstr "_Lisää"
 
 #: ../src/interface.c:194
-#, fuzzy
 msgid "Re_name"
-msgstr "Nimeä uudelleen"
+msgstr "_Nimeä uudelleen"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
-msgstr "_Tee itsepurkautuva"
+msgstr "T_ee itsepurkautuva"
 
 #: ../src/interface.c:218
 msgid "_Multi-Extract"
-msgstr "Pur_a useita"
+msgstr "Pura _useita"
 
 #: ../src/interface.c:223
-#, fuzzy
 msgid "Archive _comment"
-msgstr "Arkiston kommentti"
+msgstr "Arki_ston kommentti"
 
 #: ../src/interface.c:237
 msgid "Select _all"
@@ -758,14 +749,12 @@ msgid "_Help"
 msgstr "_Ohje"
 
 #: ../src/interface.c:304
-#, fuzzy
 msgid "_Contents"
-msgstr "Kommentti"
+msgstr "_Sisältö"
 
 #: ../src/interface.c:313
-#, fuzzy
 msgid "_Donate"
-msgstr "Pvm"
+msgstr "_Lahjoita"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
@@ -1152,9 +1141,8 @@ msgid "/tmp"
 msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
-#, fuzzy
 msgid "Preferred extract directory:"
-msgstr "Väliaikaiskansio:"
+msgstr "Oletuspurkukansio:"
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
@@ -1178,9 +1166,8 @@ msgstr ""
 "Xarchiver tunnistaisi enemmän tiedostotyyppejä.</span>"
 
 #: ../src/pref_dialog.c:581
-#, fuzzy
 msgid "Choose the directory to use"
-msgstr "Valitse käytettävä väliaikaiskansio"
+msgstr "Valitse käytettävä kansio"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the application to use"
