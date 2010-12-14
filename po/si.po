@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
+"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"

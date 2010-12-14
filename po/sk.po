@@ -1,11 +1,11 @@
 # Slovak translations for xarchiver package.
 # Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xarchiver package.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
-"Report-Msgid-Bugs-To: colossus73@gmail.com\n"
+"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
 "PO-Revision-Date: 2010-09-15 23:11+0100\n"
 "Last-Translator: Robert Hartl <hartl.robert@gmail.com>\n"
