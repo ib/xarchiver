@@ -3,30 +3,32 @@
 # This file is distributed under the same license as the xarchiver package.
 # Szymon Kałasz <szymon_maestro@gazeta.pl>, 2006-2008.
 # Ireneusz Gierlach <irek.gierlach@gmail.com>, 2011.
+# Piotr Sokół <psokol@jabster.pl>, 2011.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.5.0rc1\n"
+"Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
-"PO-Revision-Date: 2011-01-13 09:04-0500\n"
-"Last-Translator: Ireneusz Gierlach <irek.gierlach@gmail.com>\n"
-"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2011-01-22 11:38+0100\n"
+"Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
+"Language-Team: Polish <>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && "
-"(n%100<10 || n%100>=20)) ? 1 : 2));\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
+"%100<10 || n%100>=20)) ? 1 : 2));\n"
 "X-Generator: Lokalize 1.1\n"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
 msgid "Original"
-msgstr "Oryginał"
+msgstr "Pierwotny rozmiar"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
 #: ../src/rar.c:63 ../src/zip.c:49
 msgid "Compressed"
-msgstr "Skompresowane"
+msgstr "Rozmiar po skompresowaniu"
 
 #: ../src/7zip.c:57
 msgid "Attr"
@@ -52,15 +54,15 @@ msgstr "Zaznaczanie"
 
 #: ../src/add_dialog.c:66
 msgid "File Paths: "
-msgstr "Ścieżki Plików: "
+msgstr "Pliki:"
 
 #: ../src/add_dialog.c:72
 msgid "Store full paths"
-msgstr "Przechowuj pełne ścieżki"
+msgstr "Przechowywanie pełnych ścieżek"
 
 #: ../src/add_dialog.c:76
 msgid "Do not store paths"
-msgstr "Nie przechowuj ścieżek"
+msgstr "Pomijanie przechowywania ścieżek"
 
 #: ../src/add_dialog.c:85
 msgid "Options"
@@ -68,7 +70,7 @@ msgstr "Opcje"
 
 #: ../src/add_dialog.c:103
 msgid "Update and add"
-msgstr "Zaktualizuj i dodaj"
+msgstr "Zaktualizowanie i dodanie zawartości"
 
 #: ../src/add_dialog.c:105
 msgid ""
@@ -80,7 +82,7 @@ msgstr ""
 
 #: ../src/add_dialog.c:108
 msgid "Freshen and replace"
-msgstr "Odśwież i zastąp"
+msgstr "Odświeżenie zawartości"
 
 #: ../src/add_dialog.c:111
 msgid ""
@@ -88,38 +90,36 @@ msgid ""
 "than the version already in the archive; unlike the update option it will "
 "not add files that are not already in the archive"
 msgstr ""
-"Gdy ta opcja jest zaznaczona, zawartość archiwum jest zmieniana tylko wtedy, "
-"gdy dodawany plik został zmodyfikowany później, niż jego odpowiednik "
-"istniejący już w archiwum. W przeciwieństwie do opcji \"Aktualizuj\" nie "
-"doda ona plikow, które nie istnieją w archiwum."
+"Modyfikuje zawartość archiwum tylko wtedy, gdy dodawany plik został "
+"zmodyfikowany później, niż jego odpowiednik istniejący już w archiwum. W "
+"przeciwieństwie do opcji \"Zaktualizowanie i dodanie zawartości\" nie dodaje "
+"plików, które nie istnieją w archiwum."
 
 #: ../src/add_dialog.c:115
 msgid "Include subdirectories"
-msgstr "Dołącz podkatalogi"
+msgstr "Uwzględnianie podkatalogów"
 
 #: ../src/add_dialog.c:119
 msgid "Create a solid archive"
-msgstr "Wygeneruj jednolite archiwum"
+msgstr "Jednolite archiwum"
 
 #: ../src/add_dialog.c:121
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio"
-msgstr ""
-"W jednolitym archiwum pliki są grupowane, uzyskując dzięki temu lepszy "
-"współczynnik kompresji"
+msgstr "Grupuje pliki uzyskując dzięki temu lepszy współczynnik kompresji"
 
 #: ../src/add_dialog.c:124
 msgid "Delete files after adding"
-msgstr "Usuń pliki po dodaniu"
+msgstr "Usunięcie plików po dodaniu"
 
 #: ../src/add_dialog.c:128
 msgid "Actions: "
-msgstr "Akcje: "
+msgstr "Czynności"
 
 #: ../src/add_dialog.c:143
 msgid "Compression: "
-msgstr "Kompresja: "
+msgstr "Kompresja"
 
 #: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
 msgid "Password:"
@@ -127,7 +127,7 @@ msgstr "Hasło:"
 
 #: ../src/add_dialog.c:167
 msgid "Encryption: "
-msgstr "Szyfrowanie: "
+msgstr "Szyfrowanie"
 
 #: ../src/add_dialog.c:180
 msgid "_Add"
@@ -187,7 +187,7 @@ msgstr "Nie można utworzyć katalogu tymczasowego:"
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
-msgstr "Ratio"
+msgstr "Współczynnik kompresji"
 
 #: ../src/arj.c:48
 msgid "Attributes"
@@ -268,16 +268,16 @@ msgstr "Testowanie spójności archiwum, proszę czekać..."
 
 #: ../src/window.c:422
 msgid "Print the archive content as HTML"
-msgstr "Wyświetl zawartość archiwum jako HTML"
+msgstr "Wybór pliku"
 
 #: ../src/window.c:424
 msgid "Print the archive content as text"
-msgstr "Wyświetl zawartość archiwum jako tekst"
+msgstr "Wybór pliku"
 
 #: ../src/window.c:475
 #, c-format
 msgid "Archive contents:\n"
-msgstr "Zawartość archiwum:\n"
+msgstr "Zawartość:\n"
 
 #: ../src/window.c:479
 #, c-format
@@ -353,11 +353,14 @@ msgstr "Proszę wybrać moduł 7zCon.sfx"
 
 #: ../src/window.c:980
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "GTK+2 szybki menedżer archiwów"
+msgstr "Lekki menedżer archiwów GTK+2"
 
 #: ../src/window.c:983
 msgid "translator-credits"
-msgstr "Szymon Kałasz <szymon_maestro@gazeta.pl>"
+msgstr ""
+"Szymon Kałasz <szymon_maestro@gazeta.pl>, 2006-2008.\n"
+"Ireneusz Gierlach <irek.gierlach@gmail.com>, 2011.\n"
+"Piotr Sokół <psokol@jabster.pl>, 2011."
 
 #: ../src/window.c:1013
 msgid "Save the self-extracting archive as"
@@ -365,7 +368,7 @@ msgstr "Zachowaj samorozpakowywujące się archiwum jako %s"
 
 #: ../src/window.c:1042 ../src/interface.c:340
 msgid "Open an archive"
-msgstr "Otwórz archiwum"
+msgstr "Otwiera archiwum"
 
 #: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
@@ -373,7 +376,7 @@ msgstr "Wszystkie pliki"
 
 #: ../src/window.c:1060 ../src/new_dialog.c:67
 msgid "Only archives"
-msgstr "Tylko archiwa"
+msgstr "Pliki archiwów"
 
 #: ../src/window.c:1274
 msgid "Filename"
@@ -381,11 +384,12 @@ msgstr "Nazwa pliku"
 
 #: ../src/window.c:1331
 msgid "Doing so will probably corrupt your archive!"
-msgstr "Ta operacja prawdopodobnie zniszczy twoje archiwum!"
+msgstr ""
+"Wykonanie tej czynności prawdopodobnie doprowadzi do uszkodzenia archiwum!"
 
 #: ../src/window.c:1331
 msgid "Do you really want to cancel?"
-msgstr "Czy na pewno chcesz anulować?"
+msgstr "Anulować?"
 
 #: ../src/window.c:1394 ../src/window.c:1409
 msgid "Yes"
@@ -403,17 +407,17 @@ msgstr "zaznaczone"
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d plik and %d folder %s (%s)"
-msgstr[1] "%d pliki and %d foldery %s (%s)"
-msgstr[2] "%d plików and %d folderów %s (%s)"
+msgstr[0] "%d plik i %d katalog %s (%s)"
+msgstr[1] "%d pliki i %d katalog %s (%s)"
+msgstr[2] "%d plików i %d katalogów %s (%s)"
 
 #: ../src/window.c:1621
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
-msgstr[0] "%d folder %s (%s)"
-msgstr[1] "%d foldery %s (%s)"
-msgstr[2] "%d folderów %s (%s)"
+msgstr[0] "%d katalog %s (%s)"
+msgstr[1] "%d katalogi %s (%s)"
+msgstr[2] "%d katalogów %s (%s)"
 
 #: ../src/window.c:1624
 #, c-format
@@ -445,15 +449,15 @@ msgstr "Nie mogę wykonać ekstrakcji!"
 
 #: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
 msgid "Sorry,I could not perform the operation!"
-msgstr "Przykro mi, nie mogę wykonać tej operacji!"
+msgstr "Nie można wykonać tej operacji!"
 
 #: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
 msgid "Can't perform this action:"
-msgstr "Nie mogę wykonać tej operacji:"
+msgstr "Nie można wykonać tej czynności:"
 
 #: ../src/window.c:1789
 msgid "You have to install rar package!"
-msgstr "Musisz zainstalować pakiet rar!"
+msgstr "Należy zainstalować pakiet rar!"
 
 #: ../src/window.c:1796 ../src/interface.c:1382
 msgid "You can't add content to deb packages!"
@@ -489,7 +493,7 @@ msgstr "Nie określiłeś programu do otwierania tego pliku!"
 
 #: ../src/window.c:1948
 msgid "Failed to launch the application!"
-msgstr "Nie udało się uruchomić aplikacji!"
+msgstr "Nie udało się uruchomić programu."
 
 #: ../src/window.c:2000
 msgid "Comment"
@@ -510,19 +514,19 @@ msgstr "Nie można otworzyć pliku %s:"
 
 #: ../src/deb.c:45
 msgid "Date modified"
-msgstr "Ostatnia zmiana"
+msgstr "Data modyfikacji"
 
 #: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
 msgid "Extract to:"
-msgstr "Rozpakuj do:"
+msgstr "Położenie docelowe:"
 
 #: ../src/extract_dialog.c:94
 msgid "Selected files"
-msgstr "Zaznaczone pliki"
+msgstr "Zaznaczone"
 
 #: ../src/extract_dialog.c:101
 msgid "Files: "
-msgstr "Pliki: "
+msgstr "Wybrane: "
 
 #: ../src/extract_dialog.c:111
 msgid "Files "
@@ -530,11 +534,11 @@ msgstr "Pliki "
 
 #: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
 msgid "Overwrite existing files"
-msgstr "Nadpisz istniejące pliki"
+msgstr "Zastąpienie istniejących plików"
 
 #: ../src/extract_dialog.c:128
 msgid "Extract files with full path"
-msgstr "Rozpakuj pliki uwzględniając pełną ścieżkę"
+msgstr "Uwzględnianie pełnej ścieżki"
 
 #: ../src/extract_dialog.c:129
 msgid ""
@@ -588,7 +592,7 @@ msgstr "Opcje "
 #: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
 #: ../src/interface.c:178
 msgid "_Extract"
-msgstr "Ro_zpakuj"
+msgstr "_Rozpakuj"
 
 #: ../src/extract_dialog.c:223
 msgid "Decompress file"
@@ -690,7 +694,7 @@ msgstr "_Archiwum"
 
 #: ../src/interface.c:92
 msgid "_List as"
-msgstr "_Wylistuj pliki jako"
+msgstr "_Wyeksportuj listę plików"
 
 #: ../src/interface.c:103
 msgid "_Text file"
@@ -698,11 +702,11 @@ msgstr "_Plik tekstowy"
 
 #: ../src/interface.c:110
 msgid "_HTML file"
-msgstr "_plik HTML"
+msgstr "_Plik HTML"
 
 #: ../src/interface.c:127
 msgid "_Test"
-msgstr "_Test"
+msgstr "_Sprawdź spójność"
 
 #: ../src/interface.c:137
 msgid "_Properties"
@@ -710,7 +714,7 @@ msgstr "_Właściwości"
 
 #: ../src/interface.c:161
 msgid "A_ction"
-msgstr "A_kcja"
+msgstr "_Czynność"
 
 #: ../src/interface.c:168
 msgid "A_dd"
@@ -718,7 +722,7 @@ msgstr "_Dodaj"
 
 #: ../src/interface.c:194
 msgid "Re_name"
-msgstr "Zm_ień nazwę"
+msgstr "Zmień _nazwę"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
@@ -726,27 +730,27 @@ msgstr "Utwórz SF_X"
 
 #: ../src/interface.c:218
 msgid "_Multi-Extract"
-msgstr "Rozpakuj wię_cej archiwów"
+msgstr "Rozpakuj wie_le archiwów"
 
 #: ../src/interface.c:223
 msgid "Archive _comment"
-msgstr "_Komentarz archiwum"
+msgstr "Edytuj _komentarz"
 
 #: ../src/interface.c:237
 msgid "Select _all"
-msgstr "Z_aznacz wszystko"
+msgstr "_Zaznacz wszystkie"
 
 #: ../src/interface.c:247
 msgid "Dese_lect all"
-msgstr "Odznacz wszys_tkie"
+msgstr "_Odznacz wszystkie"
 
 #: ../src/interface.c:253
 msgid "Select _by pattern"
-msgstr "Zaznacz według wz_orca"
+msgstr "Zaznacz według _wzoru"
 
 #: ../src/interface.c:264
 msgid "Cmd-line outp_ut"
-msgstr "Wyjście _linii poleceń"
+msgstr "Wyjście w_iersza poleceń"
 
 #: ../src/interface.c:277
 msgid "Enter passwo_rd"
@@ -762,35 +766,35 @@ msgstr "Pomo_c"
 
 #: ../src/interface.c:304
 msgid "_Contents"
-msgstr "_Zawartość"
+msgstr "_Spis treści"
 
 #: ../src/interface.c:313
 msgid "_Donate"
-msgstr "_Przekaż pieniądze"
+msgstr "_Wspomóż"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
-msgstr "Utwórz nowe archiwum"
+msgstr "Tworzy nowe archiwum"
 
 #: ../src/interface.c:352
 msgid "Back"
-msgstr "Wstecz"
+msgstr "Przechodzi wstecz"
 
 #: ../src/interface.c:360
 msgid "Up"
-msgstr "Góra"
+msgstr "Przechodzi do katalogu nadrzędnego"
 
 #: ../src/interface.c:368
 msgid "Forward"
-msgstr "Dalej"
+msgstr "Przechodzi naprzód"
 
 #: ../src/interface.c:376
 msgid "Root"
-msgstr "Główny katalog"
+msgstr "Przechodzi do katalogu głównego"
 
 #: ../src/interface.c:408
 msgid "Cancel current operation"
-msgstr "Anuluj bieżącą operację"
+msgstr "Anuluje bieżącą operację"
 
 #: ../src/interface.c:421
 msgid "Location:"
@@ -802,7 +806,9 @@ msgstr "Drzewo archiwum"
 
 #: ../src/interface.c:508
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr "Status aktywności Xarchivera. Miganie oznacza pracę programu."
+msgstr ""
+"Wyświetla stan aktywności programu. Miganie ikony oznacza, że program w "
+"trakcie pracy."
 
 #: ../src/interface.c:677
 msgid "Close archive"
@@ -818,7 +824,7 @@ msgstr "<span weight='bold' size='larger'>Wprowadź hasło do:</span>"
 
 #: ../src/interface.c:782
 msgid "_Password:"
-msgstr "_Hasło"
+msgstr "_Hasło:"
 
 #: ../src/interface.c:837 ../src/open-with-dlg.c:52
 msgid "Open With"
@@ -838,7 +844,7 @@ msgstr "Wytnij"
 
 #: ../src/interface.c:874
 msgid "Copy"
-msgstr "Kopiuj"
+msgstr "Skopiuj"
 
 #: ../src/interface.c:882
 msgid "Paste"
@@ -854,11 +860,11 @@ msgstr "Zmień nazwę"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
-msgstr "Zaznacz według wzorca"
+msgstr "Wprowadzanie wzoru"
 
 #: ../src/interface.c:957
 msgid "Pattern:"
-msgstr "Wzorzec:"
+msgstr "Wzór:"
 
 #: ../src/interface.c:962
 msgid "example: *.txt; ac*"
@@ -886,19 +892,19 @@ msgstr "Typ:"
 
 #: ../src/interface.c:1093
 msgid "Encrypted:"
-msgstr "Szyfrowane:"
+msgstr "Szyfrowanie:"
 
 #: ../src/interface.c:1100
 msgid "Modified on:"
-msgstr "Zmodyfikowany:"
+msgstr "Czas modyfikacji:"
 
 #: ../src/interface.c:1107
 msgid "Compressed size:"
-msgstr "Rozmiar archiwum:"
+msgstr "Rozmiar po skompresowaniu:"
 
 #: ../src/interface.c:1114
 msgid "Uncompressed size:"
-msgstr "Rozmiar danych:"
+msgstr "Pierwotny rozmiar danych:"
 
 #: ../src/interface.c:1121
 msgid "Comment:"
@@ -914,7 +920,7 @@ msgstr "Współczynnik kompresji:"
 
 #: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
-msgstr "Xarchiver"
+msgstr "Menedżer archiwów Xarchiver"
 
 #: ../src/interface.c:1526
 msgid "Extracting from archive:"
@@ -958,7 +964,7 @@ msgstr "Dodaje pliki, pytając o nazwę archiwum i wychodzi."
 
 #: ../src/main.c:71
 msgid "file1 file2 file3 ... fileN"
-msgstr "plik1 plik2 plik3 ... plikN"
+msgstr "PLIK..."
 
 #: ../src/main.c:74
 msgid "Add files to archive by asking their filenames and quits."
@@ -966,7 +972,7 @@ msgstr "Dodaje pliki do podanego archiwum, pytając o ich nazwy i wychodzi."
 
 #: ../src/main.c:78
 msgid "Show version and exit"
-msgstr "Pokaż wersję i wyjdź"
+msgstr "Wypisuje informacje o wersji i kończy"
 
 #: ../src/main.c:105
 msgid "[archive name]"
@@ -979,13 +985,12 @@ msgid ""
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Spróbuj xarchiver --help, aby zobaczyć pełną listę dostępnych opcji linii "
-"poleceń.\n"
+"Proszę wprowadzić xarchiver --help, aby wypisać komunikat pomocy.\n"
 
 #: ../src/main.c:119
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr "Proszę zgłaszać błędy do <%s>."
+msgstr "Proszę zgłaszać błędy na adres <%s>."
 
 #: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
@@ -993,7 +998,7 @@ msgstr "Nie można rozpakować plików z archiwum:"
 
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
-msgstr "Nie podano nazwy archiwum!\n"
+msgstr "Nie okeślono nazwy archiwum!\n"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
@@ -1052,7 +1057,7 @@ msgstr "Archiwum \"%s\" już istnieje!"
 
 #: ../src/new_dialog.c:181
 msgid "Do you want to overwrite it?"
-msgstr "Czy chcesz je nadpisać?"
+msgstr "Zastąpić je?"
 
 #: ../src/pref_dialog.c:41
 msgid "Preferences"
@@ -1072,7 +1077,7 @@ msgstr "Zaawansowane"
 
 #: ../src/pref_dialog.c:97
 msgid "Preferred archive format"
-msgstr "Preferowany typ archiwum"
+msgstr "Domyślny typ:"
 
 #: ../src/pref_dialog.c:115
 msgid "Confirm deletion of files"
@@ -1100,15 +1105,15 @@ msgstr "Rozmiar ikon (wymaga ponownego uruchomienia)"
 
 #: ../src/pref_dialog.c:144
 msgid "large"
-msgstr "duże"
+msgstr "Duży"
 
 #: ../src/pref_dialog.c:145
 msgid "small"
-msgstr "małe"
+msgstr "Mały"
 
 #: ../src/pref_dialog.c:150
 msgid "Show archive comment"
-msgstr "Pokaż komentarz archiwum"
+msgstr "Komentarz archiwum"
 
 #: ../src/pref_dialog.c:151
 msgid "If checked the archive comment is shown after the archive is loaded"
@@ -1116,11 +1121,11 @@ msgstr "Po załadowaniu archiwum wyświetla dołączony komentarz"
 
 #: ../src/pref_dialog.c:157
 msgid "Show archive tree sidebar"
-msgstr "Pokaż panel drzewa archiwum"
+msgstr "Drzewo archiwum"
 
 #: ../src/pref_dialog.c:163
 msgid "Show archive location bar"
-msgstr "Pokaż pasek położenia"
+msgstr "Pasek położenia"
 
 #: ../src/pref_dialog.c:185
 msgid "Web browser to use:"
@@ -1141,7 +1146,7 @@ msgstr "Otwieraj pliki graficzne za pomocą:"
 
 #: ../src/pref_dialog.c:224
 msgid "Preferred temp directory:"
-msgstr "Preferowany katalog tymczasowy:"
+msgstr "Katalog tymczasowy:"
 
 #: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
 msgid "/tmp"
@@ -1149,15 +1154,15 @@ msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
 msgid "Preferred extract directory:"
-msgstr "Preferowany katalog wypakowania:"
+msgstr "Domyślny katalog docelowy:"
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
-msgstr "Zapamiętaj wymiary okna przy wyjściu"
+msgstr "Zapamiętywanie wymiarów okna programu"
 
 #: ../src/pref_dialog.c:255
 msgid "Allow subdirs with drag and drop"
-msgstr "Dopuść podkatalogi podczas metody \"przeciągnij i upuść\""
+msgstr "Uwzględnianie katalogów podrzędnych podczas przeciągania"
 
 #: ../src/pref_dialog.c:259
 msgid ""
@@ -1172,7 +1177,7 @@ msgid ""
 "Xarchiver can recognize more file types.</span>"
 msgstr ""
 "<span color='red' style='italic'>Proszę zainstalować pakiet xdg-utils w \n"
-"celu dodania wsparcia dla większej ilości typów plików.</span>"
+"celu dodania obsługi większej ilości typów plików.</span>"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the directory to use"
@@ -1237,7 +1242,7 @@ msgstr "Program zarządzający archiwami oparty wyłącznie o GTK+2"
 
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
-msgstr "Zarządca archiwów"
+msgstr "Menedżer archiwów"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Podziękowania dla"
