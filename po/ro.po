@@ -11,12 +11,11 @@ msgstr ""
 "PO-Revision-Date: 2010-12-13 13:59+0200\n"
 "Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2);;\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);;\n"
 "X-Generator: Virtaal 0.6.1\n"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
@@ -72,28 +71,16 @@ msgid "Update and add"
 msgstr "Actualizează și adaugă"
 
 #: ../src/add_dialog.c:105
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
-msgstr ""
-"Această opțiune va adăuga orice fișier nou la arhivă și va actualiza "
-"fișierele care s-au schimbat de când arhiva a fost creată ori modificată "
-"ultima dată."
+msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified"
+msgstr "Această opțiune va adăuga orice fișier nou la arhivă și va actualiza fișierele care s-au schimbat de când arhiva a fost creată ori modificată ultima dată."
 
 #: ../src/add_dialog.c:108
 msgid "Freshen and replace"
 msgstr "Împrospătează și înlocuiește"
 
 #: ../src/add_dialog.c:111
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
-msgstr ""
-"Această opțiune actualizează arhiva doar dacă unul sau mai multe fișiere au "
-"fost modificate mai recent decât echivalentul lor existent deja în arhivă. "
-"Spre deosebire de opțiunea de actualizare, această opțiune nu va adăuga "
-"fișiere care nu au în arhivă o versiune mai veche."
+msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"
+msgstr "Această opțiune actualizează arhiva doar dacă unul sau mai multe fișiere au fost modificate mai recent decât echivalentul lor existent deja în arhivă. Spre deosebire de opțiunea de actualizare, această opțiune nu va adăuga fișiere care nu au în arhivă o versiune mai veche."
 
 #: ../src/add_dialog.c:115
 msgid "Include subdirectories"
@@ -104,12 +91,8 @@ msgid "Create a solid archive"
 msgstr "Creează o arhivă compactă"
 
 #: ../src/add_dialog.c:121
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio"
-msgstr ""
-"Într-o arhivă compactă, fișierele sunt arhivate grupat, pentru o mai bună "
-"rată de comprimare"
+msgid "In a solid archive the files are grouped together featuring a better compression ratio"
+msgstr "Într-o arhivă compactă, fișierele sunt arhivate grupat, pentru o mai bună rată de comprimare"
 
 #: ../src/add_dialog.c:124
 msgid "Delete files after adding"
@@ -217,8 +200,7 @@ msgstr "A apărut o eroare!"
 
 #: ../src/window.c:60
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr ""
-"Încercați opțiunea „Păstrează outputul arhivatorului” pentru vizualizare."
+msgstr "Încercați opțiunea „Păstrează outputul arhivatorului” pentru vizualizare."
 
 #: ../src/window.c:147
 msgid "Archiver output"
@@ -370,7 +352,7 @@ msgstr "Deschide o arhivă"
 
 #: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
-msgstr "Orice fișier"
+msgstr "Toate fișierele"
 
 #: ../src/window.c:1060 ../src/new_dialog.c:67
 msgid "Only archives"
@@ -434,12 +416,8 @@ msgstr "Așteptați să se termine dezarhivarea curentă!"
 
 #: ../src/window.c:1713 ../src/extract_dialog.c:341
 #, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr ""
-"Nu aveți drepturile necesare pentru a dezarhiva fișierele în directorul „%"
-"s”."
+msgid "You don't have the right permissions to extract the files to the directory \"%s\"."
+msgstr "Nu aveți drepturile necesare pentru a dezarhiva fișierele în directorul „%s”."
 
 #: ../src/window.c:1714 ../src/extract_dialog.c:342
 msgid "Can't perform extraction!"
@@ -487,9 +465,7 @@ msgstr "Trebuie instalat pachetul xdg-utils."
 
 #: ../src/window.c:1922
 msgid "You didn't set which program to use for opening this file!"
-msgstr ""
-"Nu ați configurat ce program să se folosească pentru deschiderea acestui "
-"fișier!"
+msgstr "Nu ați configurat ce program să se folosească pentru deschiderea acestui fișier!"
 
 #: ../src/window.c:1948
 msgid "Failed to launch the application!"
@@ -541,51 +517,32 @@ msgid "Extract files with full path"
 msgstr "Dezarhivează fișierele cu calea completă"
 
 #: ../src/extract_dialog.c:129
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr ""
-"Structura de directoare a arhivei este recreată în directorul de destinație"
+msgid "The archive's directory structure is recreated in the extraction directory"
+msgstr "Structura de directoare a arhivei este recreată în directorul de destinație"
 
 #: ../src/extract_dialog.c:132
 msgid "Touch files"
 msgstr "Schimbă datele fișierelor"
 
 #: ../src/extract_dialog.c:133
-msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
-msgstr ""
-"Când această opțiune este folosită, «tar» lasă data ultimei modificări "
-"pentru fișierele pe care le dezarhivează ca data la care fișierele au fost "
-"dezarhivate, în loc de a folosi data originală a fișierelor din arhivă"
+msgid "When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"
+msgstr "Când această opțiune este folosită, «tar» lasă data ultimei modificări pentru fișierele pe care le dezarhivează ca data la care fișierele au fost dezarhivate, în loc de a folosi data originală a fișierelor din arhivă"
 
 #: ../src/extract_dialog.c:136
 msgid "Freshen existing files"
 msgstr "Împrospătează fișierele existente"
 
 #: ../src/extract_dialog.c:137
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr ""
-"Dezarhivează doar fișierele care deja există pe disc și care sunt mai noi "
-"decât copiile de pe disc"
+msgid "Extract only those files that already exist on disk and that are newer than the disk copies"
+msgstr "Dezarhivează doar fișierele care deja există pe disc și care sunt mai noi decât copiile de pe disc"
 
 #: ../src/extract_dialog.c:141
 msgid "Update existing files"
 msgstr "Actualizează fișierele existente"
 
 #: ../src/extract_dialog.c:142
-msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
-"extracts those files that do not already exist on disk"
-msgstr ""
-"Această opțiune îndeplinește aceeași funcție ca funcția de împrospătare, "
-"adică dezarhivarea fișierelor care sunt mai noi decât cele cu același nume "
-"de pe disc, dar în plus dezarhivează și acele fișiere care nu există deja pe "
-"disc."
+msgid "This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"
+msgstr "Această opțiune îndeplinește aceeași funcție ca funcția de împrospătare, adică dezarhivarea fișierelor care sunt mai noi decât cele cu același nume de pe disc, dar în plus dezarhivează și acele fișiere care nu există deja pe disc."
 
 #: ../src/extract_dialog.c:146
 msgid "Options "
@@ -641,11 +598,8 @@ msgid "Extract to dir \"Archive Name\""
 msgstr "Dezarhivare într-un director cu numele arhivei"
 
 #: ../src/extract_dialog.c:479
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-"Această opțiune permite dezarhivarea în directoare denumite după numele "
-"arhivelor"
+msgid "This option extracts archives in directories named with the archive names"
+msgstr "Această opțiune permite dezarhivarea în directoare denumite după numele arhivelor"
 
 #: ../src/extract_dialog.c:483
 msgid "Destination dirs:"
@@ -809,9 +763,7 @@ msgstr "Arborele arhivei"
 
 #: ../src/interface.c:508
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr ""
-"Acesta este ledul de stare al aplicației Xarchiver. Când se aprinde "
-"intermitent, Xarchiver lucrează."
+msgstr "Acesta este ledul de stare al aplicației Xarchiver. Când se aprinde intermitent, Xarchiver lucrează."
 
 #: ../src/interface.c:677
 msgid "Close archive"
@@ -988,8 +940,7 @@ msgid ""
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Încercați „xarchiver --help” pentru a vedea lista completă a opțiunilor "
-"disponibile în linia de comandă.\n"
+"Încercați „xarchiver --help” pentru a vedea lista completă a opțiunilor disponibile în linia de comandă.\n"
 
 #: ../src/main.c:119
 #, c-format
@@ -1169,11 +1120,8 @@ msgid "Allow subdirs with drag and drop"
 msgstr "Include subdirectoarele la drag&drop"
 
 #: ../src/pref_dialog.c:259
-msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
-msgstr ""
-"Când adăugați fișiere cu drag&drop, această opțiune permite includerea "
-"subdirectoarelor"
+msgid "This option includes the subdirectories when you add files with drag and drop"
+msgstr "Când adăugați fișiere cu drag&drop, această opțiune permite includerea subdirectoarelor"
 
 #: ../src/pref_dialog.c:264
 msgid ""
