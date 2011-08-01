@@ -47,7 +47,7 @@ msgstr "Attr."
 #: ../src/tar.c:54
 #: ../src/zip.c:49
 msgid "Time"
-msgstr "Temps"
+msgstr "Heure"
 
 #: ../src/7zip.c:57
 #: ../src/arj.c:48
