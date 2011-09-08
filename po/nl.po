@@ -1,4 +1,4 @@
-# Dutch translation for the xarchiver package.
+# Dutch translation of the xarchiver package.
 # Copyright (C) The Xfce development team.
 # This file is distributed under the same license as the xarchiver package.
 # Stephan Arts <stephan@localhost.localdomain>, 2006.
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
-"PO-Revision-Date: 2011-07-20 12:19+0200\n"
+"PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
 "MIME-Version: 1.0\n"
@@ -469,7 +469,7 @@ msgstr "U hebt geen webbrowser ingesteld."
 
 #: ../src/window.c:1881 ../src/window.c:1922
 msgid "Please go to Preferences->Advanced and set it."
-msgstr "Gelieve naar Voorkeuren->Geavanceerd te gaan en het in te stellen."
+msgstr "Gelieve naar voorkeuren->geavanceerd te gaan en het in te stellen."
 
 #: ../src/window.c:1913
 msgid "This file type is not supported!"
@@ -654,7 +654,7 @@ msgstr "Selecteer de archiefbestanden die u wil uitpakken"
 
 #: ../src/extract_dialog.c:672
 msgid "Please select the destination directory"
-msgstr "Selecteer de bestemmingmap"
+msgstr "Selecteer de bestemmingsmap"
 
 #: ../src/extract_dialog.c:715
 msgid "Can't multi-extract archives:"
@@ -851,7 +851,7 @@ msgstr "Naam wijzigen"
 
 #: ../src/interface.c:944
 msgid "Select by Pattern"
-msgstr "Selecteer op Patroon"
+msgstr "Selecteer op patroon"
 
 #: ../src/interface.c:957
 msgid "Pattern:"
@@ -867,7 +867,7 @@ msgstr "_Selecteren"
 
 #: ../src/interface.c:1051
 msgid "Archive Properties"
-msgstr "Eigenschappen van Archief"
+msgstr "Eigenschappen van archief"
 
 #: ../src/interface.c:1072
 msgid "Name:"
@@ -923,7 +923,7 @@ msgstr "Aan het toevoegen aan archief:"
 
 #: ../src/interface.c:1548
 msgid "Total Progress:"
-msgstr "Totale Voortgang:"
+msgstr "Totale voortgang:"
 
 #: ../src/main.c:58
 msgid "Extract archive to the destination directory and quits."
@@ -931,7 +931,7 @@ msgstr "Archiefbestand uitpakken naar de bestemmingsmap en sluiten."
 
 #: ../src/main.c:59
 msgid "destination archive"
-msgstr "bestemmingarchief"
+msgstr "bestemmingsarchief"
 
 #: ../src/main.c:62
 msgid "Extract archive by asking the extraction directory and quits."
@@ -1206,7 +1206,7 @@ msgstr "Recht"
 
 #: ../src/rpm.c:52
 msgid "Hard Link"
-msgstr "Harde Koppeling"
+msgstr "Harde koppeling"
 
 #: ../src/rpm.c:52
 msgid "Owner"
@@ -1302,7 +1302,7 @@ msgstr "Archiefbeheerder"
 #~ msgstr "Bewerking geannuleerd."
 
 #~ msgid "Choose Add to begin creating the archive."
-#~ msgstr "Kies Toevoegen om te beginnen met het maken van het archief."
+#~ msgstr "Kies toevoegen om te beginnen met het maken van het archief."
 
 #~ msgid "Please wait while the content of the archive is being read..."
 #~ msgstr "Gelieve even te wachten terwijl de inhoud van het archief wordt gelezen..."
@@ -1338,7 +1338,7 @@ msgstr "Archiefbeheerder"
 #~ msgstr "_Toon commentaar"
 
 #~ msgid "Enter Archive Password"
-#~ msgstr "Voer Archiefwachtwoord in"
+#~ msgstr "Voer archiefwachtwoord in"
 
 #~ msgid "Extract..."
 #~ msgstr "Uitpakken..."
@@ -1462,7 +1462,7 @@ msgstr "Archiefbeheerder"
 #~ msgstr "BPMGS"
 
 #~ msgid "Symbolic Link"
-#~ msgstr "Symbolische Koppeling"
+#~ msgstr "Symbolische koppeling"
 
 #~ msgid "Please wait while the content of the ISO image is being read..."
 #~ msgstr "Even wachten a.u.b., de inhoud van het ISO-beeldbestand wordt gelezen..."
