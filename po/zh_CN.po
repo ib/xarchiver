@@ -5,15 +5,16 @@
 # Chris K. Zhang <plutino@gmail.com>, 2009.
 # Aron Xu <aronmalache@163.com>, 2009.
 # Hunt Xu <huntxu@live.cn>, 2009.
-#
+# Chipong Luo <chipong_l@yahoo.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiver 0.4.6\n"
+"Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2009-08-20 15:20+0200\n"
 "PO-Revision-Date: 2009-10-21 13:57+0800\n"
-"Last-Translator: Hunt Xu <huntxu@live.cn>\n"
-"Language-Team: Simplified Chinese <xfce-i18n@xfce.org>\n"
+"Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
+"Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -53,15 +54,15 @@ msgstr "选择"
 
 #: ../src/add_dialog.c:66
 msgid "File Paths: "
-msgstr "文件路径:"
+msgstr "文件路径："
 
 #: ../src/add_dialog.c:72
 msgid "Store full paths"
-msgstr "保存完整路径"
+msgstr "储存完整路径"
 
 #: ../src/add_dialog.c:76
 msgid "Do not store paths"
-msgstr "不保存路径"
+msgstr "不储存路径"
 
 #: ../src/add_dialog.c:85
 msgid "Options"
@@ -75,7 +76,8 @@ msgstr "更新并添加"
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified"
-msgstr "选中此选项将添加全部新文件，并将归档文件中已有的文件替换为它的更新版本"
+msgstr ""
+"此项将添加并更新自从归档上次创建/修改后的任何新文件"
 
 #: ../src/add_dialog.c:108
 msgid "Freshen and replace"
@@ -87,30 +89,30 @@ msgid ""
 "than the version already in the archive; unlike the update option it will "
 "not add files that are not already in the archive"
 msgstr ""
-"选择此选项只将归档文件中已有的文件替换为它的更新版本。和“更新”选项的差别在于"
-"不添加新文件"
+"此项只影响修改后版本比归档文件中已存在版本新的归档文件；不像更新选项"
+"它不在归档文件中添加不存在的文件"
 
 #: ../src/add_dialog.c:115
 msgid "Include subdirectories"
-msgstr "包含子目录"
+msgstr "包括子目录"
 
 #: ../src/add_dialog.c:119
 msgid "Create a solid archive"
-msgstr "新建固实归档文件"
+msgstr "创建一体化归档文件"
 
 #: ../src/add_dialog.c:121
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio"
-msgstr "固实归档文件中文件重新编组，因而有更高的压缩率。"
+msgstr "在一体化归档文件中文件集结在一起得到更高的压缩率。"
 
 #: ../src/add_dialog.c:124
 msgid "Delete files after adding"
-msgstr "添加后删除原文件"
+msgstr "添加后删除文件"
 
 #: ../src/add_dialog.c:128
 msgid "Actions: "
-msgstr "动作"
+msgstr "动作："
 
 #: ../src/add_dialog.c:143
 msgid "Compression: "
@@ -122,7 +124,7 @@ msgstr "密码："
 
 #: ../src/add_dialog.c:167
 msgid "Encryption: "
-msgstr "加密方式："
+msgstr "加密："
 
 #: ../src/add_dialog.c:180
 msgid "_Add"
@@ -130,27 +132,27 @@ msgstr "添加(_A)"
 
 #: ../src/add_dialog.c:247
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = 不压缩；5 = 默认压缩率；9 = 最高压缩率但压缩最慢 "
+msgstr "0 为不压缩；5 为默认压缩率；9 为最高压缩率但最慢"
 
 #: ../src/add_dialog.c:253
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = 不压缩；6 = 默认压缩率；9 = 最高压缩率但压缩最慢 "
+msgstr "0 为不压缩；6 为默认压缩率；9 为最高压缩率但最慢"
 
 #: ../src/add_dialog.c:259
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = 不压缩；3 = 默认压缩率；5 = 最高压缩率但压缩最慢 "
+msgstr "0 为不压缩；3 为默认压缩率；5 为最高压缩率但最慢"
 
 #: ../src/add_dialog.c:265
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr "0 = 不压缩；1 = 默认压缩率；4 = 最快速压缩但压缩率最低 "
+msgstr "0 为不压缩；1 为默认压缩率；4 为最快但压缩率最低"
 
 #: ../src/add_dialog.c:271
 msgid "5 = default compression, 7 = max compression"
-msgstr "5 = 默认压缩率, 7 = 最高压缩率"
+msgstr "5 为默认压缩率，7 为最高压缩率"
 
 #: ../src/add_dialog.c:371 ../src/main.c:228
 msgid "Can't add files to the archive:"
-msgstr "无法添加文件到归档文件:"
+msgstr "无法在归档文件中添加文件："
 
 #: ../src/add_dialog.c:371
 msgid "You haven't selected any files to add!"
@@ -158,7 +160,7 @@ msgstr "您还没有选择要添加的文件！"
 
 #: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "You missed the password!"
-msgstr "您没有输入密码！"
+msgstr "您忘了输入密码！"
 
 #: ../src/add_dialog.c:379 ../src/interface.c:808
 msgid "Please enter it!"
@@ -166,15 +168,15 @@ msgstr "请输入！"
 
 #: ../src/add_dialog.c:449
 msgid "Adding files to archive, please wait..."
-msgstr "正在添加文件到归档文件中，请稍候..."
+msgstr "正在向归档文件中添加文件，请等待..."
 
 #: ../src/archive.c:87
 msgid "Can't run the archiver executable:"
-msgstr "无法运行压缩程序："
+msgstr "未能运行可执行的归档文件管理器："
 
 #: ../src/archive.c:373
 msgid "Can't create temporary directory:"
-msgstr "无法创建临时目录:"
+msgstr "未能创建临时目录："
 
 #: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
 msgid "Ratio"
@@ -210,24 +212,24 @@ msgstr "发生错误！"
 
 #: ../src/window.c:60
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr "选了“保存压缩程序输出”选项才能看到"
+msgstr "请检查 ‘储存归档文件管理器输出’ 选项看看。"
 
 #: ../src/window.c:147
 msgid "Archiver output"
-msgstr "压缩程序输出"
+msgstr "归档文件管理器输出"
 
 #: ../src/window.c:182
 msgid "An error occurred while accessing the archive:"
-msgstr "访问归档文件时发生一个错误:"
+msgstr "访问归档文件时出错："
 
 #: ../src/window.c:254
 msgid "Save the archive as"
-msgstr "另存归档文件为"
+msgstr "归档文件另存为"
 
 #: ../src/window.c:313
 #, c-format
 msgid "Can't open file \"%s\":"
-msgstr "无法打开文件“%s”:"
+msgstr "未能打开文件 “%s”："
 
 #: ../src/window.c:315
 msgid "Archive format is not recognized!"
@@ -235,27 +237,27 @@ msgstr "无法识别归档文件格式！"
 
 #: ../src/window.c:339
 msgid "Sorry,this archive format is not supported:"
-msgstr "对不起，不支持此归档文件格式:"
+msgstr "对不起，不支持此归档文件格式："
 
 #: ../src/window.c:339
 msgid "the proper archiver is not installed!"
-msgstr "相应的归档程序没有安装！"
+msgstr "未安装合适的归档文件管理器！"
 
 #: ../src/window.c:353
 msgid "Can't allocate memory for the archive structure:"
-msgstr "无法为归档文件分配内存:"
+msgstr "未能为归档文件结构分配内存："
 
 #: ../src/window.c:353
 msgid "Operation aborted!"
-msgstr "操作被中止！"
+msgstr "操作已中止！"
 
 #: ../src/window.c:378
 msgid "Opening archive,please wait..."
-msgstr "正在打开归档文件，请稍候..."
+msgstr "正在打开归档文件，请等待..."
 
 #: ../src/window.c:402
 msgid "Testing archive,please wait..."
-msgstr "正在测试归档文件，请稍候..."
+msgstr "正在测试归档文件，请等待..."
 
 #: ../src/window.c:422
 msgid "Print the archive content as HTML"
@@ -268,7 +270,7 @@ msgstr "以文本方式查看归档文件内容"
 #: ../src/window.c:475
 #, c-format
 msgid "Archive contents:\n"
-msgstr "归档文件内容:\n"
+msgstr "归档文件内容：\n"
 
 #: ../src/window.c:479
 #, c-format
@@ -277,7 +279,7 @@ msgid ""
 "Name: "
 msgstr ""
 "\n"
-"名称: "
+"名称："
 
 #: ../src/window.c:488
 #, c-format
@@ -320,11 +322,11 @@ msgstr "<th>压缩后：</th>"
 
 #: ../src/window.c:617 ../src/main.c:276
 msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "选择“新建”来创建，或者“打开”来打开归档文件"
+msgstr "选择 “新建” 创建或 “打开” 打开归档文件"
 
 #: ../src/window.c:722
 msgid "You are about to delete entries from the archive."
-msgstr "你正要从归档文件中删除项目。"
+msgstr "你即将从归档文件中删除条目。"
 
 #: ../src/window.c:722
 msgid "Are you sure you want to do this?"
@@ -332,11 +334,11 @@ msgstr "您确定要这样做吗？"
 
 #: ../src/window.c:815 ../src/window.c:915
 msgid "Can't convert the archive to self-extracting:"
-msgstr "无法转换归档文件为自解压文件："
+msgstr "未能将归档文件转换为自解压文件："
 
 #: ../src/window.c:826 ../src/window.c:926
 msgid "Can't write the unzipsfx module to the archive:"
-msgstr "无法将 unzipsfx 模块添加到归档文件:"
+msgstr "未能在归档文件中写入 unzipsfx 模块："
 
 #: ../src/window.c:886
 msgid "Please select the 7zCon.sfx module"
@@ -344,23 +346,24 @@ msgstr "请选择 7zCon.sfx 模块"
 
 #: ../src/window.c:980
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "一个使用 GTK+2 的轻量级归档文件管理器"
+msgstr "仅使用 GTK+2 的轻量级归档文件管理器"
 
 #: ../src/window.c:983
 msgid "translator-credits"
 msgstr ""
-"wuli <wurisky@gmail.com>, 2007\n"
-"Chris K. Zhang <plutino@gmail.com>, 2009\n"
-"Aron Xu <aronmalache@163.com>, 2009\n"
-"Hunt Xu <huntxu@live.cn>, 2009"
+"wuli <wurisky@gmail.com>, 2007.\n"
+"Chris K. Zhang <plutino@gmail.com>, 2009.\n"
+"Aron Xu <aronmalache@163.com>, 2009.\n"
+"Hunt Xu <huntxu@live.cn>, 2009.\n"
+"Chipong Luo <chipong_l@yahoo.com>, 2011."
 
 #: ../src/window.c:1013
 msgid "Save the self-extracting archive as"
-msgstr "保存自解压文件到"
+msgstr "自解压归档文件另存为"
 
 #: ../src/window.c:1042 ../src/interface.c:340
 msgid "Open an archive"
-msgstr "打开归档文件"
+msgstr "打开归档文件文件"
 
 #: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
 msgid "All files"
@@ -368,11 +371,11 @@ msgstr "所有文件"
 
 #: ../src/window.c:1060 ../src/new_dialog.c:67
 msgid "Only archives"
-msgstr "只显示归档文件"
+msgstr "仅归档文件"
 
 #: ../src/window.c:1274
 msgid "Filename"
-msgstr "文件名称"
+msgstr "文件名"
 
 #: ../src/window.c:1331
 msgid "Doing so will probably corrupt your archive!"
@@ -392,32 +395,32 @@ msgstr "否"
 
 #: ../src/window.c:1614
 msgid "selected"
-msgstr "已选的"
+msgstr "选中的"
 
 #: ../src/window.c:1619
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d 个文件和 %d 个目录 %s（%s）"
-msgstr[1] "%d 个文件和 %d 个目录 %s（%s）"
+msgstr[0] "%d 个文件和 %d 个目录 %s (%s)"
+msgstr[1] "%d 个文件和 %d 个目录 %s (%s)"
 
 #: ../src/window.c:1621
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
-msgstr[0] "%d 个目录 %s（%s）"
-msgstr[1] "%d 个目录 %s（%s）"
+msgstr[0] "%d 个目录 %s (%s)"
+msgstr[1] "%d 个目录 %s (%s)"
 
 #: ../src/window.c:1624
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
-msgstr[0] "%d 个文件 %s（%s）"
-msgstr[1] "%d 个文件 %s（%s）"
+msgstr[0] "%d 个文件 %s (%s)"
+msgstr[1] "%d 个文件 %s (%s)"
 
 #: ../src/window.c:1680
 msgid "Can't perform another extraction:"
-msgstr "无法进行另一个解压操作:"
+msgstr "未能执行另一个解压："
 
 #: ../src/window.c:1680
 msgid "Please wait until the completion of the current one!"
@@ -428,39 +431,39 @@ msgstr "请等到当前操作完成！"
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
-msgstr "您没有权限解压文件到目录“%s”。"
+msgstr "您没有合适的权限将文件解压至此目录 “%s”。"
 
 #: ../src/window.c:1714 ../src/extract_dialog.c:342
 msgid "Can't perform extraction!"
-msgstr "无法执行解压操作！"
+msgstr "未能执行解压！"
 
 #: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
 msgid "Sorry,I could not perform the operation!"
-msgstr "对不起，无法执行此项操作！"
+msgstr "对不起，我不能执行此操作！"
 
 #: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
 msgid "Can't perform this action:"
-msgstr "无法进行这个动作："
+msgstr "未能执行此动作："
 
 #: ../src/window.c:1789
 msgid "You have to install rar package!"
-msgstr "需要安装 rar 程序包"
+msgstr "您必须安装 rar 软件包！"
 
 #: ../src/window.c:1796 ../src/interface.c:1382
 msgid "You can't add content to deb packages!"
-msgstr "您不能添加内容到 deb 包！"
+msgstr "您不能在 deb 软件包中添加内容！"
 
 #: ../src/window.c:1798 ../src/interface.c:1384
 msgid "You can't add content to rpm packages!"
-msgstr "您不能添加内容到 rpm 包！"
+msgstr "您不能在 rpm 软件包中添加内容！"
 
 #: ../src/window.c:1800
 msgid "The archiver doesn't support this feature!"
-msgstr "归档程序不支持此项功能！"
+msgstr "归档管理器不支持此功能！"
 
 #: ../src/window.c:1881
 msgid "You didn't set which browser to use!"
-msgstr "您没有设置网络浏览器"
+msgstr "您没有设置要使用哪个浏览器！"
 
 #: ../src/window.c:1881 ../src/window.c:1922
 msgid "Please go to Preferences->Advanced and set it."
@@ -468,23 +471,23 @@ msgstr "请到首选设置->高级进行设置。"
 
 #: ../src/window.c:1913
 msgid "This file type is not supported!"
-msgstr "此文件类型不被支持！"
+msgstr "不支持此文件类型！"
 
 #: ../src/window.c:1913
 msgid "Please install xdg-utils package."
-msgstr "请安装 xdg-util 程序包。"
+msgstr "请安装 xdg-util 软件包。"
 
 #: ../src/window.c:1922
 msgid "You didn't set which program to use for opening this file!"
-msgstr "您没有设置用于打开本文件的程序！"
+msgstr "您没有设置用哪个程序打开此文件！"
 
 #: ../src/window.c:1948
 msgid "Failed to launch the application!"
-msgstr "无法启动程序！"
+msgstr "无法启动此应用程序！"
 
 #: ../src/window.c:2000
 msgid "Comment"
-msgstr "备注"
+msgstr "注释"
 
 #: ../src/window.c:2030
 msgid "From File"
@@ -497,7 +500,7 @@ msgstr "打开文本文件"
 #: ../src/window.c:2153
 #, c-format
 msgid "Can't open file %s:"
-msgstr "无法打开文件“%s”:"
+msgstr "未能打开文件 %s："
 
 #: ../src/deb.c:45
 msgid "Date modified"
@@ -505,11 +508,11 @@ msgstr "日期已修改"
 
 #: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
 msgid "Extract to:"
-msgstr "解压到:"
+msgstr "解压到："
 
 #: ../src/extract_dialog.c:94
 msgid "Selected files"
-msgstr "所选文件"
+msgstr "选中的文件"
 
 #: ../src/extract_dialog.c:101
 msgid "Files: "
@@ -521,7 +524,7 @@ msgstr "文件 "
 
 #: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
 msgid "Overwrite existing files"
-msgstr "覆盖已存在文件"
+msgstr "覆盖已存在的文件"
 
 #: ../src/extract_dialog.c:128
 msgid "Extract files with full path"
@@ -530,7 +533,7 @@ msgstr "以完整路径解压文件"
 #: ../src/extract_dialog.c:129
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
-msgstr "在解压目录中重建归档文件的目录结构"
+msgstr "在解压目录中重新创建归档文件的目录结构"
 
 #: ../src/extract_dialog.c:132
 msgid "Touch files"
@@ -542,22 +545,22 @@ msgid ""
 "it extracts as the times when the files were extracted,instead of setting it "
 "to the times recorded in the archive"
 msgstr ""
-"使用此选项后，tar 会将所解压的文件的修改时间设为解压时的时间，\n"
-"而不是该文件原本记录的时间。"
+"使用此项后，tar 会将所解压的文件的修改时间设为解压时的时间，"
+"而不是设为在归档中记录的时间。"
 
 #: ../src/extract_dialog.c:136
 msgid "Freshen existing files"
-msgstr "刷新已存在文件"
+msgstr "刷新已存在的文件"
 
 #: ../src/extract_dialog.c:137
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
-msgstr "只解压硬盘已存在的且比其更新的文件"
+msgstr "只解压硬盘上已存在的且比其硬盘复更新的那些文件"
 
 #: ../src/extract_dialog.c:141
 msgid "Update existing files"
-msgstr "更新已存在文件"
+msgstr "更新已存在的文件"
 
 #: ../src/extract_dialog.c:142
 msgid ""
@@ -565,8 +568,8 @@ msgid ""
 "that are newer than those with the same name on disk,and in addition it "
 "extracts those files that do not already exist on disk"
 msgstr ""
-"和“刷新”一样，这个选项会解压更新的文件，除此之外，还会将硬盘上原来没有的文件"
-"解压出来。"
+"此项和刷新选项执行相同的功能，解压那些比在硬盘上的相同名称文件新的文件，"
+"另外它还解压那些在硬盘上不存在的文件"
 
 #: ../src/extract_dialog.c:146
 msgid "Options "
@@ -583,19 +586,19 @@ msgstr "解压文件"
 
 #: ../src/extract_dialog.c:225 ../src/interface.c:396
 msgid "Extract files"
-msgstr "解压文件到"
+msgstr "解压文件"
 
 #: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
-msgstr "请选择要存放文件的地方！"
+msgstr "您忘了在何处解压文件！"
 
 #: ../src/extract_dialog.c:317
 msgid "Please enter the extraction path."
-msgstr "请输入要存放文件的路径。"
+msgstr "请输入解压路径。"
 
 #: ../src/extract_dialog.c:331
 msgid "This archive is encrypted!"
-msgstr "此归档文件已被加密！"
+msgstr "此归档文件已加密！"
 
 #: ../src/extract_dialog.c:331
 msgid "Please enter the password."
@@ -603,11 +606,11 @@ msgstr "请输入密码。"
 
 #: ../src/extract_dialog.c:378
 msgid "Extracting files from archive,please wait..."
-msgstr "正在从归档文件中释放文件，请稍候..."
+msgstr "正在从归档文件中解压文件，请等待..."
 
 #: ../src/extract_dialog.c:395
 msgid "Archive Name"
-msgstr "归档文件名称"
+msgstr "归档文件名"
 
 #: ../src/extract_dialog.c:395
 msgid "Path"
@@ -619,24 +622,24 @@ msgstr "多重解压"
 
 #: ../src/extract_dialog.c:478
 msgid "Extract to dir \"Archive Name\""
-msgstr "解压到目录“归档文件名”"
+msgstr "在目录 “归档文件名” 中解压"
 
 #: ../src/extract_dialog.c:479
 msgid ""
 "This option extracts archives in directories named with the archive names"
-msgstr "解压文件到以归档文件名命名的目录"
+msgstr "此项在以归档文件名命名的目录中解压文件"
 
 #: ../src/extract_dialog.c:483
 msgid "Destination dirs:"
-msgstr "目标路径:"
+msgstr "目标目录："
 
 #: ../src/extract_dialog.c:497
 msgid "Extract pathnames"
-msgstr "解压路径"
+msgstr "解压路径名"
 
 #: ../src/extract_dialog.c:499
 msgid "Options:"
-msgstr "选项:"
+msgstr "选项："
 
 #: ../src/extract_dialog.c:531
 msgid "Please select the archives you want to extract"
@@ -648,19 +651,19 @@ msgstr "请选择目标目录"
 
 #: ../src/extract_dialog.c:715
 msgid "Can't multi-extract archives:"
-msgstr "无法多重解压："
+msgstr "未能多重解压归档文件："
 
 #: ../src/extract_dialog.c:715
 msgid "You haven't added any of them!"
-msgstr "您还没有添加任何文件！"
+msgstr "您还没有添加它们中的任一个！"
 
 #: ../src/extract_dialog.c:723
 msgid "Please fill the \"Extract to\" field!"
-msgstr "请填写“解压到”一项！"
+msgstr "请填写 “解压至” 一栏！"
 
 #: ../src/extract_dialog.c:754
 msgid "Some errors occurred:"
-msgstr "发生错误:"
+msgstr "出了些错："
 
 #: ../src/lha.c:51
 msgid "UID/GID"
@@ -704,7 +707,7 @@ msgstr "添加(_D)"
 
 #: ../src/interface.c:194
 msgid "Re_name"
-msgstr "重命名(_R)"
+msgstr "重命名(_N)"
 
 #: ../src/interface.c:208
 msgid "Make SF_X"
@@ -716,19 +719,19 @@ msgstr "多重解压(_M)"
 
 #: ../src/interface.c:223
 msgid "Archive _comment"
-msgstr "归档文件备注(_C)"
+msgstr "归档文件注释(_C)"
 
 #: ../src/interface.c:237
 msgid "Select _all"
-msgstr "选择所有(_A)"
+msgstr "全选(_A)"
 
 #: ../src/interface.c:247
 msgid "Dese_lect all"
-msgstr "取消全部选择(_L)"
+msgstr "取消全选(_L)"
 
 #: ../src/interface.c:253
 msgid "Select _by pattern"
-msgstr "按规则选(_B)"
+msgstr "按匹配规则选择(_B)"
 
 #: ../src/interface.c:264
 msgid "Cmd-line outp_ut"
@@ -756,7 +759,7 @@ msgstr "捐赠"
 
 #: ../src/interface.c:333 ../src/new_dialog.c:50
 msgid "Create a new archive"
-msgstr "新建归档文件"
+msgstr "创建新归档文件"
 
 #: ../src/interface.c:352
 msgid "Back"
@@ -780,15 +783,15 @@ msgstr "取消当前操作"
 
 #: ../src/interface.c:421
 msgid "Location:"
-msgstr "位置:"
+msgstr "位置："
 
 #: ../src/interface.c:460
 msgid "Archive tree"
-msgstr "归档文件列表:"
+msgstr "归档文件树："
 
 #: ../src/interface.c:508
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr "Xarchiver 状态显示灯，闪烁时说明 Xarchiver 忙"
+msgstr "此为 Xarchiver 状态灯，闪烁时 Xarchiver 忙"
 
 #: ../src/interface.c:677
 msgid "Close archive"
@@ -796,11 +799,11 @@ msgstr "关闭归档文件"
 
 #: ../src/interface.c:762
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr "<span weight='bold' size='larger'>需要密码:</span>"
+msgstr "<span weight='bold' size='larger'>需要密码：</span>"
 
 #: ../src/interface.c:764
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
-msgstr "<span weight='bold' size='larger'>输入密码:</span>"
+msgstr "<span weight='bold' size='larger'>输入密码：</span>"
 
 #: ../src/interface.c:782
 msgid "_Password:"
@@ -808,7 +811,7 @@ msgstr "密码(_P)："
 
 #: ../src/interface.c:837 ../src/open-with-dlg.c:52
 msgid "Open With"
-msgstr "用...打开"
+msgstr "打开方式"
 
 #: ../src/interface.c:845
 msgid "Extract"
@@ -816,7 +819,7 @@ msgstr "解压"
 
 #: ../src/interface.c:853
 msgid "View"
-msgstr "查看"
+msgstr "视图"
 
 #: ../src/interface.c:866
 msgid "Cut"
@@ -844,11 +847,11 @@ msgstr "按匹配规则选择"
 
 #: ../src/interface.c:957
 msgid "Pattern:"
-msgstr "匹配规则:"
+msgstr "匹配规则："
 
 #: ../src/interface.c:962
 msgid "example: *.txt; ac*"
-msgstr "例如: *.txt; ac*"
+msgstr "例如：*.txt；ac*"
 
 #: ../src/interface.c:979
 msgid "_Select"
@@ -860,63 +863,63 @@ msgstr "归档文件属性"
 
 #: ../src/interface.c:1072
 msgid "Name:"
-msgstr "名称:"
+msgstr "名称："
 
 #: ../src/interface.c:1079
 msgid "Path:"
-msgstr "路径:"
+msgstr "路径："
 
 #: ../src/interface.c:1086
 msgid "Type:"
-msgstr "类型:"
+msgstr "类型："
 
 #: ../src/interface.c:1093
 msgid "Encrypted:"
-msgstr "是否加密:"
+msgstr "已加密："
 
 #: ../src/interface.c:1100
 msgid "Modified on:"
-msgstr "修改时间:"
+msgstr "修改时间："
 
 #: ../src/interface.c:1107
 msgid "Compressed size:"
-msgstr "压缩后大小:"
+msgstr "压缩后大小："
 
 #: ../src/interface.c:1114
 msgid "Uncompressed size:"
-msgstr "解压后大小:"
+msgstr "解压后大小："
 
 #: ../src/interface.c:1121
 msgid "Comment:"
-msgstr "备注:"
+msgstr "注释："
 
 #: ../src/interface.c:1128
 msgid "Number of files:"
-msgstr "文件数:"
+msgstr "文件数："
 
 #: ../src/interface.c:1135
 msgid "Compression ratio:"
-msgstr "压缩率:"
+msgstr "压缩率："
 
 #: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
 msgid "Xarchiver"
-msgstr "Xarchiver"
+msgstr "Xarchiver 归档文件管理器"
 
 #: ../src/interface.c:1526
 msgid "Extracting from archive:"
-msgstr "正在从归档文件中解压:"
+msgstr "正在从归档文件中解压："
 
 #: ../src/interface.c:1528
 msgid "Adding to archive:"
-msgstr "正在添加文件到归档文件中:"
+msgstr "正在归档文件中添加："
 
 #: ../src/interface.c:1548
 msgid "Total Progress:"
-msgstr "总进度:"
+msgstr "总进度："
 
 #: ../src/main.c:58
 msgid "Extract archive to the destination directory and quits."
-msgstr "解压到目标目录然后退出。"
+msgstr "在此目标目录中解压归档文件后退出。"
 
 #: ../src/main.c:59
 msgid "destination archive"
@@ -924,7 +927,7 @@ msgstr "目标归档文件"
 
 #: ../src/main.c:62
 msgid "Extract archive by asking the extraction directory and quits."
-msgstr "解压时询问目标目录然后退出。"
+msgstr "询问目标目录解压后退出。"
 
 #: ../src/main.c:63 ../src/main.c:75
 msgid "archive"
@@ -936,27 +939,27 @@ msgstr "多重解压归档文件"
 
 #: ../src/main.c:67
 msgid "filenames"
-msgstr "文件名称"
+msgstr "文件名"
 
 #: ../src/main.c:70
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr "添加文件时询问归档文件名称然后退出。"
+msgstr "询问归档文件名添加给定的文件后退出。"
 
 #: ../src/main.c:71
 msgid "file1 file2 file3 ... fileN"
-msgstr "文件1 文件2 文件3 ...文件N"
+msgstr "文件 1 文件 2 文件 3... 文件 N"
 
 #: ../src/main.c:74
 msgid "Add files to archive by asking their filenames and quits."
-msgstr "添加文件到归档文件时询问文件名称然后退出。"
+msgstr "询问文件名在归档文件中添加文件后退出。"
 
 #: ../src/main.c:78
 msgid "Show version and exit"
-msgstr "显示版本信息并退出"
+msgstr "显示版本并退出"
 
 #: ../src/main.c:105
 msgid "[archive name]"
-msgstr "[归档文件名称]"
+msgstr "[归档文件名]"
 
 #: ../src/main.c:109
 #, c-format
@@ -964,38 +967,38 @@ msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
-"xarchiver: %s\n"
-"请用 xarchiver --help 查看所有可用命令行选项及参数。\n"
+"xarchiver：%s\n"
+"试试 xarchiver --help 查看可用命令行选项的完整列表。\n"
 
 #: ../src/main.c:119
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr "请报告 Bug 至 <%s>。"
+msgstr "请向 <%s> 报告缺陷。"
 
 #: ../src/main.c:146 ../src/main.c:169
 msgid "Can't extract files from the archive:"
-msgstr "无法从归档文件中解压:"
+msgstr "未能从归档文件中解压文件："
 
 #: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
 msgid "You missed the archive name!\n"
-msgstr "请输入归档文件名称！\n"
+msgstr "您忘了输入归档文件名！\n"
 
 #: ../src/main.c:534
 msgid "Can't allocate memory for the archive structure!"
-msgstr "无法为归档文件分配内存！"
+msgstr "未能为归档文件结构分配内存！"
 
 #: ../src/open-with-dlg.c:54
 msgid "Open the selected files with"
-msgstr "使用下列程序打开所选文件:"
+msgstr "选中的文件的打开方式"
 
 #: ../src/open-with-dlg.c:83
 #, c-format
 msgid "Open <i>%s</i> with:"
-msgstr "使用下列程序打开 <i>%s</i>:"
+msgstr "打开 <i>%s</i> 用："
 
 #: ../src/open-with-dlg.c:118
 msgid "Use a custom command:"
-msgstr "使用自定义命令:"
+msgstr "使用自定义命令："
 
 #: ../src/open-with-dlg.c:126
 msgid "Browse"
@@ -1003,7 +1006,7 @@ msgstr "浏览"
 
 #: ../src/open-with-dlg.c:311
 msgid "Select an application"
-msgstr "选择应用程序:"
+msgstr "选择应用程序："
 
 #: ../src/new_dialog.c:55
 msgid "Cr_eate"
@@ -1011,7 +1014,7 @@ msgstr "创建(_E)"
 
 #: ../src/new_dialog.c:92
 msgid "Archive type:"
-msgstr "归档文件类型:"
+msgstr "归档文件类型："
 
 #: ../src/new_dialog.c:97
 msgid "Choose the archive type to create"
@@ -1019,7 +1022,7 @@ msgstr "选择要创建的归档文件类型"
 
 #: ../src/new_dialog.c:112
 msgid "Add the archive extension to the filename"
-msgstr "添加归档文件扩展名到文件名称"
+msgstr "在文件名中添加归档文件扩展名"
 
 #: ../src/new_dialog.c:159
 #, c-format
@@ -1028,16 +1031,16 @@ msgstr "“%s” 已经打开！"
 
 #: ../src/new_dialog.c:160
 msgid "Can't create a new archive:"
-msgstr "无法创建新归档文件:"
+msgstr "未能创建新归档文件："
 
 #: ../src/new_dialog.c:175
 #, c-format
 msgid "The archive \"%s\" already exists!"
-msgstr "归档文件“%s”已存在！"
+msgstr "归档文件 “%s” 已存在！"
 
 #: ../src/new_dialog.c:181
 msgid "Do you want to overwrite it?"
-msgstr "您想要覆盖它吗？"
+msgstr "您要覆盖它吗？"
 
 #: ../src/pref_dialog.c:41
 msgid "Preferences"
@@ -1057,31 +1060,31 @@ msgstr "高级"
 
 #: ../src/pref_dialog.c:97
 msgid "Preferred archive format"
-msgstr "首选归档格式"
+msgstr "首选的归档文件格式"
 
 #: ../src/pref_dialog.c:115
 msgid "Confirm deletion of files"
-msgstr "确认删除文件"
+msgstr "文件删除确认"
 
 #: ../src/pref_dialog.c:119
 msgid "Sort archive by filename"
-msgstr "按文件名排序"
+msgstr "按文件名排列归档文件"
 
 #: ../src/pref_dialog.c:122
 msgid "The filename column is sorted after loading the archive"
-msgstr "加载归档文件后文件名重新排序"
+msgstr "载入归档文件后排列文件名栏"
 
 #: ../src/pref_dialog.c:124
 msgid "Store archiver output"
-msgstr "保存压缩程序输出"
+msgstr "储存归档文件输出"
 
 #: ../src/pref_dialog.c:127
 msgid "This option takes more memory with large archives"
-msgstr "对于大的归档文件这项功能需要很多内存"
+msgstr "此项对于大的归档文件占用更多内存"
 
 #: ../src/pref_dialog.c:138
 msgid "Icons size (requires restart)"
-msgstr "图标尺寸(需要重启 Xarchiver)"
+msgstr "图标大小(需要重启)"
 
 #: ../src/pref_dialog.c:144
 msgid "large"
@@ -1093,23 +1096,23 @@ msgstr "小"
 
 #: ../src/pref_dialog.c:150
 msgid "Show archive comment"
-msgstr "显示归档文件备注"
+msgstr "显示归档文件注释"
 
 #: ../src/pref_dialog.c:151
 msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr "选中此项后，加载一个归档文件时会显示其备注"
+msgstr "选中此项后载入归档文件时会显示归档文件注释"
 
 #: ../src/pref_dialog.c:157
 msgid "Show archive tree sidebar"
-msgstr "显示归档文件列表侧边工具栏"
+msgstr "显示归档文件归档文件树侧边栏"
 
 #: ../src/pref_dialog.c:163
 msgid "Show archive location bar"
-msgstr "显示归档文件地址栏"
+msgstr "显示归档文件位置栏"
 
 #: ../src/pref_dialog.c:185
 msgid "Web browser to use:"
-msgstr "要使用的网络浏览器:"
+msgstr "要使用的网络浏览器："
 
 #: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
 #: ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
@@ -1118,15 +1121,15 @@ msgstr "选择..."
 
 #: ../src/pref_dialog.c:198
 msgid "Open text files with:"
-msgstr "使用下列程序打开文本文件:"
+msgstr "文本文件打开方式："
 
 #: ../src/pref_dialog.c:211
 msgid "Open image files with:"
-msgstr "使用下列程序打开图像文件:"
+msgstr "图片文件打开方式："
 
 #: ../src/pref_dialog.c:224
 msgid "Preferred temp directory:"
-msgstr "首选临时目录:"
+msgstr "首选临时目录："
 
 #: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
 msgid "/tmp"
@@ -1134,28 +1137,28 @@ msgstr "/tmp"
 
 #: ../src/pref_dialog.c:237
 msgid "Preferred extract directory:"
-msgstr "首选解压目录:"
+msgstr "首选解压目录："
 
 #: ../src/pref_dialog.c:250
 msgid "Save window geometry"
-msgstr "退出时保存窗口尺寸和位置"
+msgstr "保存窗口几何形状"
 
 #: ../src/pref_dialog.c:255
 msgid "Allow subdirs with drag and drop"
-msgstr "鼠标拖放包含子目录"
+msgstr "拖放包括子目录"
 
 #: ../src/pref_dialog.c:259
 msgid ""
 "This option includes the subdirectories when you add files with drag and drop"
-msgstr "用鼠标拖放来添加文件时包括子目录"
+msgstr "此项在用拖放来添加文件时包括子目录"
 
 #: ../src/pref_dialog.c:264
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
 msgstr ""
-"<span color='red' style='italic'>请安装 xdg-utils 以使 Xarchiver 识别\n"
-"更多文件类型。</span>"
+"<span color='red' style='italic'>请安装 xdg-utils 软件包以便 \n"
+"Xarchiver 能识别更多文件类型。</span>"
 
 #: ../src/pref_dialog.c:581
 msgid "Choose the directory to use"
@@ -1171,7 +1174,7 @@ msgstr "CRC"
 
 #: ../src/rar.c:63 ../src/zip.c:49
 msgid "Method"
-msgstr "方式"
+msgstr "模式"
 
 #: ../src/rar.c:63 ../src/zip.c:49
 msgid "Version"
@@ -1180,7 +1183,7 @@ msgstr "版本"
 #: ../src/rpm.c:39
 #, c-format
 msgid "Can't open RPM file %s:"
-msgstr "无法打开 RPM 文件 %s："
+msgstr "未能打开 RPM 文件 %s："
 
 #: ../src/rpm.c:52
 msgid "Permission"
@@ -1196,19 +1199,19 @@ msgstr "所有者"
 
 #: ../src/rpm.c:52
 msgid "Group"
-msgstr "用户组"
+msgstr "组别"
 
 #: ../src/rpm.c:62
 msgid "Can't fseek to position 104:"
-msgstr "无法 fseek 到位置 104:"
+msgstr "未能在位置 104 定位文件："
 
 #: ../src/rpm.c:68 ../src/rpm.c:84
 msgid "Can't read data from file:"
-msgstr "无法从文件中读取数据:"
+msgstr "未能从文件中读取数据："
 
 #: ../src/rpm.c:78
 msgid "Can't fseek in file:"
-msgstr "无法在文件中进行 fseek 操作:"
+msgstr "未能在文件中定位文件："
 
 #: ../src/zip.c:49
 msgid "OS"
@@ -1216,318 +1219,8 @@ msgstr "OS"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr "一个只使用 GTK+2 的归档文件管理器"
+msgstr "只使用 GTK+2 的归档文件管理器"
 
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "归档文件管理器"
-
-#~ msgid "_Thanks to"
-#~ msgstr "感谢(_T)"
-
-#~ msgid "New"
-#~ msgstr "新建"
-
-#~ msgid "Open"
-#~ msgstr "打开"
-
-#~ msgid "Home"
-#~ msgstr "家目录"
-
-#~ msgid "Add"
-#~ msgstr "添加"
-
-#~ msgid "Stop"
-#~ msgstr "停止"
-
-#~ msgid "Can't spawn the command:"
-#~ msgstr "无法启动命令:"
-
-#~ msgid ""
-#~ "Please check \"%s\" since some files could have been already extracted."
-#~ msgstr "请检查 \"%s\" 因为某些文件可能已被解压了。"
-
-#~ msgid "Sorry, I could not perform the operation!"
-#~ msgstr "对不起，无法执行此项操作"
-
-#~ msgid "The sfx archive was saved as:"
-#~ msgstr "自解压文件保存为："
-
-#~ msgid "Directories Tree:"
-#~ msgstr "目录树:"
-
-#~ msgid "Create New Dir"
-#~ msgstr "创建新目录"
-
-#~ msgid "Can't create directory \"%s\""
-#~ msgstr "无法创建目录“%s”"
-
-#~ msgid "Do you want to view the command line output?"
-#~ msgstr "您想要查看命令行输出吗？"
-
-#~ msgid "Operation completed."
-#~ msgstr "操作已完成。"
-
-#~ msgid "Please wait while the content of the archive is being updated..."
-#~ msgstr "正在更新归档文件内容，请稍候..."
-
-#~ msgid "Operation canceled."
-#~ msgstr "操作被取消"
-
-#~ msgid "Choose Add to begin creating the archive."
-#~ msgstr "选择添加来创建归档文件"
-
-#~ msgid "Please wait while the content of the archive is being read..."
-#~ msgstr "正在读取归档文件内容，请稍候..."
-
-#~ msgid "Ready."
-#~ msgstr "就绪。"
-
-#~ msgid "Converting archive to self-extracting, please wait..."
-#~ msgstr "转换归档文件为自解压文件，请稍候..."
-
-#~ msgid "Can't open archive \"%s\":"
-#~ msgstr "无法打开归档文件“%s”:"
-
-#~ msgid "Command line output"
-#~ msgstr "命令行输出"
-
-#~ msgid "Waiting for the process to abort..."
-#~ msgstr "等待使用者中止..."
-
-#~ msgid "The password has been reset."
-#~ msgstr "密码已被重置。"
-
-#~ msgid "Please enter the password first!"
-#~ msgstr "请输入密码！"
-
-#~ msgid "Extracting files to %s"
-#~ msgstr "解压文件到 %s"
-
-#~ msgid "_View"
-#~ msgstr "查看(_V)"
-
-#~ msgid "_Show comment"
-#~ msgstr "显示注释(_S)"
-
-#~ msgid "Enter Archive Password"
-#~ msgstr "输入归档文件密码"
-
-#~ msgid "Extract..."
-#~ msgstr "解压..."
-
-#~ msgid "Archive size:"
-#~ msgstr "归档文件大小:"
-
-#~ msgid "Number of dirs:"
-#~ msgstr "目录数:"
-
-#~ msgid "Show archive comment after loading it"
-#~ msgstr "加载后显示归档文件注释"
-
-#~ msgid "An error occurred while decompressing the cpio archive."
-#~ msgstr "解压 cpio 包时发生错误。"
-
-#~ msgid "Can't write to /tmp:"
-#~ msgstr "无法写到 /tmp"
-
-#~ msgid "<b>Files and directories to add </b>"
-#~ msgstr "<b>要添加的文件和目录</b>"
-
-#~ msgid ""
-#~ "Include everything in the directory recursively \tstarting from the "
-#~ "current directory."
-#~ msgstr "包含当前目录下所有目录"
-
-#~ msgid "Do not add file paths"
-#~ msgstr "不要加入文件路径"
-
-#~ msgid "The files path doesn't include the user home directory."
-#~ msgstr "文件路径不包含用户家目录。"
-
-#~ msgid "Store just the name of a file without its directory names."
-#~ msgstr "只保存文件名，不包含文件所在目录名。"
-
-#~ msgid "Freshen an existing entry"
-#~ msgstr "刷新归档文件中己存在的项目"
-
-#~ msgid "Update an existing entry"
-#~ msgstr "更新一个归档文件中已存在的项目"
-
-#~ msgid "Please select the directories you want to add"
-#~ msgstr "请选择您要添加的目录"
-
-#~ msgid "Extracting gzip file to %s"
-#~ msgstr "解压 gzip 文件到 %s"
-
-#~ msgid "Extracting bzip2 file to %s"
-#~ msgstr "解压 bzip2 文件到 %s"
-
-#~ msgid "Decompressing tar file with %s, please wait..."
-#~ msgstr "正在使用 %s 压缩 tar 文件，请稍候..."
-
-#~ msgid "Recompressing tar file with %s, please wait..."
-#~ msgstr "正在使用 %s 压缩 tar 文件，请稍候."
-
-#~ msgid "An error occurred while trying to kill the process:"
-#~ msgstr "终止该程序时发生错误:"
-
-#~ msgid "An error occurred while extracting the file to be viewed:"
-#~ msgstr "解压文件以预览时发生错误:"
-
-#~ msgid ""
-#~ "An error occurred while converting the file content to the UTF8 encoding:"
-#~ msgstr "转换文件内容编码为 UTF8 时发生错误:"
-
-#~ msgid "Failed to open link."
-#~ msgstr "打开链接失败。"
-
-#~ msgid "Choose a folder where to extract files"
-#~ msgstr "选择存放解压文件的文件夹"
-
-#~ msgid "All"
-#~ msgstr "所有"
-
-#~ msgid "<b>Files to extract </b>"
-#~ msgstr "<b>文件解压</b>"
-
-#~ msgid "Choose the destination folder where to extract the current archive"
-#~ msgstr "选择目标文件夹解压此归档文件"
-
-#~ msgid "_File"
-#~ msgstr "文件(_F)"
-
-#~ msgid "Add files and directories to the current archive"
-#~ msgstr "添加文件和目录到此归档文件"
-
-#~ msgid "Extract files from the current archive"
-#~ msgstr "从当前归档文件中解压文件"
-
-#~ msgid "View file content in the current archive"
-#~ msgstr "查看当前归档文件中的内容"
-
-#~ msgid ""
-#~ "Extract archive to the directory specified by destination_path and quits."
-#~ msgstr "解压到指定目标路径然后退出。"
-
-#~ msgid "Behaviour"
-#~ msgstr "特性"
-
-#~ msgid "Save settings for add dialog"
-#~ msgstr "为添加对话框保存设置"
-
-#~ msgid "Save settings for extract dialog"
-#~ msgstr "为解压对话框保存设置"
-
-#~ msgid "list"
-#~ msgstr "列表"
-
-#~ msgid "icon"
-#~ msgstr "图标"
-
-#~ msgid "GUA"
-#~ msgstr "GUA"
-
-#~ msgid "BPMGS"
-#~ msgstr "BPMGS"
-
-#~ msgid "Symbolic Link"
-#~ msgstr "符号链接"
-
-#~ msgid "Please wait while the content of the ISO image is being read..."
-#~ msgstr "正在读取ISO镜像内容，请稍候..."
-
-#~ msgid " bytes"
-#~ msgstr " 字节"
-
-#~ msgid "Show ISO in_fo"
-#~ msgstr "显示 ISO 信息(_F)"
-
-#~ msgid ""
-#~ "Extract files from the current archive; use the mouse to select files "
-#~ "individually"
-#~ msgstr "从当前归档文件中解压；用鼠标选择要解压的文件"
-
-#~ msgid "SFX"
-#~ msgstr "自解压格式"
-
-#~ msgid "Make the current archive self-extracting"
-#~ msgstr "将当前归档文件转为自解压格式文件"
-
-#~ msgid "This archive contains password protected files"
-#~ msgstr "此归档文件包含受密码保护的文件"
-
-#~ msgid "Can't create directory:"
-#~ msgstr "无法创建目录:"
-
-#~ msgid "Can't write file \"%s\":"
-#~ msgstr "无法写入文件“%s”:"
-
-#~ msgid "Offset"
-#~ msgstr "偏移量"
-
-#~ msgid "Rock Ridge version %d"
-#~ msgstr "Rock Ridge 版本 %d"
-
-#~ msgid "Rock Ridge - unknown version"
-#~ msgstr "Rock Ridge - 未知版本"
-
-#~ msgid "Apple version %d"
-#~ msgstr "Apple 版本 %d"
-
-#~ msgid "Standard ISO without extension"
-#~ msgstr "标准 ISO 格式"
-
-#~ msgid "ISO Information Window"
-#~ msgstr "ISO 信息窗口"
-
-#~ msgid "Filename:"
-#~ msgstr "文件名称:"
-
-#~ msgid "Size:"
-#~ msgstr "大小:"
-
-#~ msgid "Extension:"
-#~ msgstr "格式:"
-
-#~ msgid "System ID:"
-#~ msgstr "系统 ID:"
-
-#~ msgid "Volume ID:"
-#~ msgstr "卷 ID:"
-
-#~ msgid "Publisher:"
-#~ msgstr "发布者:"
-
-#~ msgid "Preparer:"
-#~ msgstr "制作者:"
-
-#~ msgid "Creation date:"
-#~ msgstr "创建时间:"
-
-#~ msgid "Modified date:"
-#~ msgstr "修改时间:"
-
-#~ msgid "Expiration date:"
-#~ msgstr "过期时间:"
-
-#~ msgid "Effective date:"
-#~ msgstr "有效时间:"
-
-#~ msgid "Preferred format for new archives:"
-#~ msgstr "新建归档文件首选格式:"
-
-#~ msgid "Show ISO info after loading the archive"
-#~ msgstr "加载归档文件后显示 ISO 信息"
-
-#~ msgid "xfce default"
-#~ msgstr "xfce 默认"
-
-#~ msgid "internal"
-#~ msgstr "内部"
-
-#~ msgid "Checksum"
-#~ msgstr "校验值"
-
-#~ msgid "Error while extracting the cpio archive from the rpm one."
-#~ msgstr "从 rpm 包解压 cpio 包时发生错误。"
