@@ -1,6 +1,6 @@
 # This file is distributed under the same license as the xarchiver package.
 # Ivica Kolić <ikoli@yahoo.com>, 2011.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
@@ -13,8 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: Croatian\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
 #: ../src/zip.c:49
@@ -119,7 +118,7 @@ msgstr "Lozinka:"
 
 #: ../src/add_dialog.c:167
 msgid "Encryption: "
-msgstr ""
+msgstr "Kodiranje:"
 
 #: ../src/add_dialog.c:180
 msgid "_Add"
@@ -589,7 +588,7 @@ msgstr "Unesite putanju raspakiranja."
 
 #: ../src/extract_dialog.c:331
 msgid "This archive is encrypted!"
-msgstr ""
+msgstr "Ova arhiva je kodirana!"
 
 #: ../src/extract_dialog.c:331
 msgid "Please enter the password."
@@ -866,7 +865,7 @@ msgstr "Tip:"
 
 #: ../src/interface.c:1093
 msgid "Encrypted:"
-msgstr ""
+msgstr "Kodiranoi:"
 
 #: ../src/interface.c:1100
 msgid "Modified on:"
@@ -934,7 +933,7 @@ msgstr "imena datoteka"
 
 #: ../src/main.c:70
 msgid "Add the given files by asking the name of the archive and quits."
-msgstr ""
+msgstr "Dodaj dane datoteke tražeći ime arhive i zatvori."
 
 #: ../src/main.c:71
 msgid "file1 file2 file3 ... fileN"
@@ -942,7 +941,7 @@ msgstr "datoteka1 datoteka2 datoteka3 ... datotekaN"
 
 #: ../src/main.c:74
 msgid "Add files to archive by asking their filenames and quits."
-msgstr ""
+msgstr "Dodaj datoteke u arhivu tražeči njihovo datotečno ime i zatvori."
 
 #: ../src/main.c:78
 msgid "Show version and exit"
@@ -1014,7 +1013,7 @@ msgstr "Izaberi tip arhive za napraviti"
 
 #: ../src/new_dialog.c:112
 msgid "Add the archive extension to the filename"
-msgstr ""
+msgstr "Dodaj proširenje arhive datoteci"
 
 #: ../src/new_dialog.c:159
 #, c-format
@@ -1212,7 +1211,7 @@ msgstr "OS"
 
 #: ../xarchiver.desktop.in.h:1
 msgid "A GTK+2 only archive manager"
-msgstr ""
+msgstr "Upravitelj arhivama samo za GTK+2"
 
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
