@@ -49,8 +49,8 @@ static gulong selchghid;
 
 extern gboolean unarj,unrar,batch_mode;
 
-static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid pid);
-static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid pid);
+static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid *pid);
+static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid *pid);
 
 void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gboolean show_output_menu_item,gboolean show_sidebar,gboolean show_toolbar)
 {
@@ -1600,8 +1600,8 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 		cancel_button = gtk_button_new_from_stock ("gtk-cancel");
 		gtk_box_pack_end (GTK_BOX (action_area),cancel_button,TRUE,TRUE,12);
 
-		g_signal_connect (G_OBJECT (cancel_button),		 "clicked",		G_CALLBACK (xa_progress_dialog_stop_action), GINT_TO_POINTER (archive->child_pid));
-		g_signal_connect (G_OBJECT (pb->progress_window),"delete_event",G_CALLBACK (xa_progress_dialog_delete_event),GINT_TO_POINTER (archive->child_pid));
+		g_signal_connect (G_OBJECT (cancel_button),		 "clicked",		G_CALLBACK (xa_progress_dialog_stop_action), &archive->child_pid);
+		g_signal_connect (G_OBJECT (pb->progress_window),"delete_event",G_CALLBACK (xa_progress_dialog_delete_event),&archive->child_pid);
 	}
 	gtk_widget_show_all(pb->progress_window);
 	return pb;
@@ -1639,15 +1639,17 @@ void xa_icon_theme_changed (GtkIconTheme *icon_theme,gpointer data)
  	 * time as the filenames currently displayed. What of the other tabs then?
 }*/
 
-static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid pid)
+static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid *pid)
 {
-	kill (pid,SIGINT);
+	if(pid != NULL && *pid != 0)
+		kill (*pid,SIGINT);
 	return TRUE;
 }
 
-static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid pid)
+static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid *pid)
 {
-	kill (pid,SIGINT);
+	if(pid != NULL && *pid != 0)
+		kill (*pid,SIGINT);
 }
 
 gboolean xa_pulse_progress_bar_window (Progress_bar_data *pb)
