@@ -149,7 +149,9 @@ gboolean isTar (FILE *ptr)
 		return FALSE;
     if ( fread ( magic, 1, 7, ptr ) == 0 )
 		return FALSE;
-    if ( memcmp ( magic,"\x75\x73\x74\x61\x72\x00\x30",7 ) == 0 || memcmp (magic,"\x75\x73\x74\x61\x72\x20\x20",7 ) == 0)
+    if ( memcmp ( magic,"\x75\x73\x74\x61\x72\x00\x30",7 ) == 0 ||
+	 memcmp ( magic,"\x75\x73\x74\x61\x72\x20\x20",7 ) == 0 ||
+ 	 memcmp ( magic,"\x0\x0\x0\x0\x0\x0\x0",7) == 0)
 		return TRUE;
     else
 		return FALSE;

@@ -1,5 +1,10 @@
 Xarchiver changelog:
 
+28/09/14 - 0.5.4:
+		- Applied path #4 and from #19 on. This made
+		  possible to close a lot of bugs, I can't
+		  recall them all, too much time has passed :)
+
 09/02/14 - 0.5.3:
 		- Full RAR5 support
 		- Full XZ, TAR.XZ support

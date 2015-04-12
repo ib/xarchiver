@@ -213,13 +213,13 @@ int main (int argc, char **argv)
 				g_free(_current_dir);
 				GSList *files = NULL;
 				_current_dir = g_path_get_basename(add_files);
-				files = g_slist_append(files,xa_escape_filename(_current_dir,"$'`\"\\!?* ()[]&|:;<>#"));
+				files = g_slist_append(files,g_strdup(_current_dir));
 				g_free(_current_dir);
 				g_free(add_files);
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
-					files = g_slist_append(files,xa_escape_filename(_current_dir,"$'`\"\\!?* ()[]&|:;<>#"));
+					files = g_slist_append(files,g_strdup(_current_dir));
 					g_free (_current_dir);
 				}
 				xa_execute_add_commands(archive,files,NULL);
@@ -284,7 +284,12 @@ done:	g_list_free (ArchiveSuffix);
 		/* This to open the archive from the command line */
 		if ( argc == 2 )
 		{
-			gchar *dummy = g_strdup(argv[1]);
+			gchar *dummy;
+			if (g_str_has_prefix(argv[1], "file://") == TRUE)
+				dummy = g_strdup(argv[1]+6);
+			else
+				dummy = g_strdup(argv[1]);
+
 			current_open_directory = g_path_get_dirname (dummy);
 			if (strcmp(current_open_directory,"..") == 0)
 			{
@@ -328,16 +333,12 @@ void xa_set_available_archivers()
 	delete[XARCHIVETYPE_7ZIP]  = &xa_7zip_delete;
 	delete[XARCHIVETYPE_ARJ]  = &xa_arj_delete;
 	delete[XARCHIVETYPE_DEB]  = 0;
-	delete[XARCHIVETYPE_BZIP2]  = 0;
-	delete[XARCHIVETYPE_GZIP]  = 0;
-	delete[XARCHIVETYPE_LZMA]  = 0;
-	delete[XARCHIVETYPE_XZ]  = 0;
-	delete[XARCHIVETYPE_RAR]  = delete[XARCHIVETYPE_RAR5]  = &xa_rar_delete;
+	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
+	delete[XARCHIVETYPE_RAR]  = delete[XARCHIVETYPE_RAR5] = &xa_rar_delete;
 	delete[XARCHIVETYPE_RPM]  = 0;
 	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_XZ] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
 	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
-	delete[XARCHIVETYPE_LZOP] = 0;
 	
 	
 	add[0]  = 0;

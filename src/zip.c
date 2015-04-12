@@ -62,7 +62,7 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 	gboolean encrypted,dir;
 
 	encrypted = dir = FALSE;
-	if ((line[0] != 'd') && (line[0] != '-'))
+	if ((line[0] != 'd') && (line[0] != '-') && (line[0] != '?'))
 		return;
 
 	archive->nr_of_files++;

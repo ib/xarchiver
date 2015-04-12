@@ -233,9 +233,9 @@ int xa_show_message_dialog (GtkWindow *window,int mode,int type,int button,const
 {
 	int response;
 
-	dialog = gtk_message_dialog_new (window,mode,type,button,message1);
+	dialog = gtk_message_dialog_new (window,mode,type,button,"%s",message1);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_NO);
-	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),message2);
+	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),"%s",message2);
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 	return response;
@@ -515,7 +515,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 			g_fprintf (stream,_("Comment:\n"));
 			if (bp)
 				g_fprintf(stream,"</b><pre>");
-			g_fprintf (stream,archive[idx]->comment->str);
+			g_fprintf (stream,"%s",archive[idx]->comment->str);
 			if (bp)
 				g_fprintf(stream,"</pre>");
 			g_fprintf (stream,"\n");
@@ -967,8 +967,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"Main developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nThis version:\nIngo Brückl <ib@wupperonline.de>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n\nLZOP support:\nKevin Day\n\nRAR5, XZ, TAR.XZ support:\nFrederick GUERIN <fguerin01@gmail.com>\n",NULL};
-    const char *documenters[] = {"Special thanks to Bjoern Martensen for\nbugs hunting and " PACKAGE_NAME " Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n",NULL};
+    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nThis version:\nIngo Brückl <ib@wupperonline.de>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n\nLZOP support:\nKevin Day\n\nRAR5, XZ, TAR.XZ support:\nFrederick GUERIN <fguerin01@gmail.com>\n",NULL};
+    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and " PACKAGE_NAME " Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n",NULL};
 
 	if (about == NULL)
 	{
@@ -1143,12 +1143,12 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 		xx = XARCHIVETYPE_RPM;
 	else if (memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6) == 0)
 		xx = XARCHIVETYPE_7ZIP;
-	else if (isTar ( dummy_ptr))
-		xx = XARCHIVETYPE_TAR;
 	else if (isLha ( dummy_ptr))
 		xx = XARCHIVETYPE_LHA;
 	else if (memcmp ( magic,"!<arch>\ndebian",14) == 0)
 		xx = XARCHIVETYPE_DEB;
+	else if (isTar ( dummy_ptr))
+		xx = XARCHIVETYPE_TAR;
 	fclose (dummy_ptr);
 	return xx;
 }

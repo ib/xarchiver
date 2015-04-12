@@ -345,7 +345,7 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	unsigned short int i = 0;
 	unsigned int linesize,n,a;
 	gboolean dir = FALSE;
-	static gchar *filename;
+	static gchar *filename, *end;
 
 	if (last_line)
 		return;
@@ -388,7 +388,6 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 		last_line = TRUE;
 		return;
 	}
-
 	archive->nr_of_files++;
 
 	/* Permissions */
@@ -453,15 +452,15 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	for(; n < linesize && line[n] != ' '; n++);
 	line[n] = '\0';
 	item[i] = line + a;
-	i++;
-	n++;
-	
-	/* fileName */
-	for(n=64; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' ' && line[n] != '\n'; n++);
-	line[n]='\0';
-	filename = g_strdup(line + a);
+
+	/* FileName */
+	line[linesize - 1] = '\0';
+	filename = g_strdup(line+64);
+  
+	/* Strip trailing whitespace */
+	end = filename + strlen(filename) - 1;
+	while(end >= filename && *end == ' ') end--;
+	*(end + 1) = '\0';
 	
 	/* Work around for rar which doesn't
 	 * output / with directories */

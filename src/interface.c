@@ -1559,7 +1559,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	pb->file_label = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (pb->file_label),0,0.5);
 	gtk_box_pack_start (GTK_BOX (vbox2),pb->file_label,FALSE,FALSE,12);
-	if (flag)
+	if (flag == TRUE)
 	{
 		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(pb->progressbar1),0.033);
 		
