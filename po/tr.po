@@ -1,18 +1,19 @@
 # Turkish translation of xarchiver.
 # Copyright (C) 2006 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
-# 
+#
 # Nimet Senem Özkızıklı <nimetsenem@gmail.com>, 2008.
 # Gökmen Görgen <gkmngrgn@gmail.com>, 2008.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"POT-Creation-Date: 2015-04-12 18:17+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,13 +21,13 @@ msgstr ""
 "X-Poedit-Language: Turkish\n"
 "X-Poedit-Country: TURKEY\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/rar.c:31
+#: ../src/rar.c:33 ../src/zip.c:49
 msgid "Original"
 msgstr "Özgün"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/gzip.c:78
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Sıkıştırılmış"
 
@@ -34,129 +35,143 @@ msgstr "Sıkıştırılmış"
 msgid "Attr"
 msgstr "Öznitelik"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Time"
 msgstr "Zaman"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/rpm.c:49 ../src/tar.c:55
+#: ../src/zip.c:49
 msgid "Date"
 msgstr "Tarih"
 
-#: ../src/add_dialog.c:36 ../src/interface.c:388
+#: ../src/add_dialog.c:37 ../src/interface.c:391
 msgid "Add files"
 msgstr "Dosyaları ekle"
 
-#: ../src/add_dialog.c:52
+#: ../src/add_dialog.c:53
 msgid "Selection"
 msgstr "Seçim"
 
-#: ../src/add_dialog.c:66
+#: ../src/add_dialog.c:67
 msgid "File Paths: "
 msgstr "Dosya Yolları:"
 
-#: ../src/add_dialog.c:72
+#: ../src/add_dialog.c:73
 msgid "Store full paths"
 msgstr "Tüm yolları depola"
 
-#: ../src/add_dialog.c:76
+#: ../src/add_dialog.c:79
 msgid "Do not store paths"
 msgstr "Yolları depolama"
 
-#: ../src/add_dialog.c:85
+#: ../src/add_dialog.c:90
 msgid "Options"
 msgstr "Seçenekler"
 
-#: ../src/add_dialog.c:103
+#: ../src/add_dialog.c:108
 msgid "Update and add"
 msgstr "Güncelle ve ekle"
 
-#: ../src/add_dialog.c:105
-msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified"
-msgstr "Bu seçenek, arşivin son değiştirme tarihinden sonra alınan dosyaları ekleyecek ve arşivi tekrar oluşturacak"
+#: ../src/add_dialog.c:110
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr ""
+"Bu seçenek, arşivin son değiştirme tarihinden sonra alınan dosyaları "
+"ekleyecek ve arşivi tekrar oluşturacak"
 
-#: ../src/add_dialog.c:108
+#: ../src/add_dialog.c:113
 msgid "Freshen and replace"
 msgstr "Yenisiyle değiştir"
 
-#: ../src/add_dialog.c:111
-msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"
-msgstr "Bu seçenek, arşivi sadece arşivdeki mevcut sürümden daha yakın bir zamanda güncellendiyse etkiler; güncelleme seçeneğinin aksine, arşivde bulunmayan dosyaları eklemeyecek"
+#: ../src/add_dialog.c:116
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+"Bu seçenek, arşivi sadece arşivdeki mevcut sürümden daha yakın bir zamanda "
+"güncellendiyse etkiler; güncelleme seçeneğinin aksine, arşivde bulunmayan "
+"dosyaları eklemeyecek"
 
-#: ../src/add_dialog.c:115
+#: ../src/add_dialog.c:120
 msgid "Include subdirectories"
 msgstr "Altdizinleri içine al"
 
-#: ../src/add_dialog.c:119
+#: ../src/add_dialog.c:124
 msgid "Create a solid archive"
 msgstr "Kesiksiz arşiv oluştur"
 
-#: ../src/add_dialog.c:121
-msgid "In a solid archive the files are grouped together featuring a better compression ratio"
-msgstr "Kesiksiz arşivde dosyalar daha iyi bir sıkıştırılma oranında sınıflandırılır"
+#: ../src/add_dialog.c:126
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr ""
+"Kesiksiz arşivde dosyalar daha iyi bir sıkıştırılma oranında sınıflandırılır"
 
-#: ../src/add_dialog.c:124
+#: ../src/add_dialog.c:129
 msgid "Delete files after adding"
 msgstr "Eklemeden sonra dosyaları sil"
 
-#: ../src/add_dialog.c:128
+#: ../src/add_dialog.c:133
 msgid "Actions: "
 msgstr "İşlemler:"
 
-#: ../src/add_dialog.c:143
+#: ../src/add_dialog.c:148
 msgid "Compression: "
 msgstr "Sıkıştırma:"
 
-#: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
 msgid "Password:"
 msgstr "Parola:"
 
-#: ../src/add_dialog.c:167
+#: ../src/add_dialog.c:172
 msgid "Encryption: "
 msgstr "Şifreleme:"
 
-#: ../src/add_dialog.c:180
+#: ../src/add_dialog.c:185
 msgid "_Add"
 msgstr "_Ekle"
 
-#: ../src/add_dialog.c:247
+#: ../src/add_dialog.c:252 ../src/add_dialog.c:288
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr "0 = sıkıştırma yok, 5 öntanımlı, 9 = en iyi sıkıştırma; ama en yavaş"
 
-#: ../src/add_dialog.c:253
+#: ../src/add_dialog.c:258
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr "0 = sıkıştırma yok, 6 öntanımlı, 9 = en iyi sıkıştırma; ama en yavaş"
 
-#: ../src/add_dialog.c:259
+#: ../src/add_dialog.c:264 ../src/add_dialog.c:270
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr "0 = sıkıştırma yok, 3 öntanımlı, 5 = en iyi sıkıştırma; ama en yavaş"
 
-#: ../src/add_dialog.c:265
+#: ../src/add_dialog.c:276
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr "0 = sıkıştırma yok, 1 öntanımlı, 4 = en hızlı; ama en az sıkıştırma"
 
-#: ../src/add_dialog.c:271
+#: ../src/add_dialog.c:282
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = öntanımlı sıkıştırma, 7 = en yüksek sıkıştırma"
 
-#: ../src/add_dialog.c:371 ../src/main.c:228
+#: ../src/add_dialog.c:388 ../src/main.c:233
 msgid "Can't add files to the archive:"
 msgstr "Dosyalar arşive eklenemiyor:"
 
-#: ../src/add_dialog.c:371
+#: ../src/add_dialog.c:388
 msgid "You haven't selected any files to add!"
 msgstr "Eklenecek herhangi bir dosya seçmediniz!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "You missed the password!"
 msgstr "Parola yanlış!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "Please enter it!"
 msgstr "Lütfen giriş yapın!"
 
-#: ../src/add_dialog.c:449
+#: ../src/add_dialog.c:466
 msgid "Adding files to archive, please wait..."
 msgstr "Dosyalar arşive ekleniyor, lütfen bekleyin..."
 
@@ -168,7 +183,8 @@ msgstr "Arşivleyici çalıştırılamadı:"
 msgid "Can't create temporary directory:"
 msgstr "Geçici dizin oluşturulamıyor:"
 
-#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:31
+#: ../src/rar.c:33
 msgid "Ratio"
 msgstr "Oran"
 
@@ -176,93 +192,95 @@ msgstr "Oran"
 msgid "Attributes"
 msgstr "Öznitelikler"
 
-#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Points to"
 msgstr "Eklentiler"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Permissions"
 msgstr "İzinler"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
 msgid "Owner/Group"
 msgstr "Kullanıcı/Grup"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:395
-#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/extract_dialog.c:391
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Size"
 msgstr "Boyut"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "An error occurred!"
 msgstr "Bir hata oluştu!"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr "Lütfen çıktıyı görmek için, 'Arşivleyici çıktısını depola' seçeneğini gözden geçirin."
+msgstr ""
+"Lütfen çıktıyı görmek için, 'Arşivleyici çıktısını depola' seçeneğini gözden "
+"geçirin."
 
-#: ../src/window.c:147
+#: ../src/window.c:148
 msgid "Archiver output"
 msgstr "Arşivleyici çıktısı"
 
-#: ../src/window.c:182
+#: ../src/window.c:183
 msgid "An error occurred while accessing the archive:"
 msgstr "Arşive erişilirken bir hata oluştu:"
 
-#: ../src/window.c:254
+#: ../src/window.c:256
 msgid "Save the archive as"
 msgstr "Arşivi farklı kaydet"
 
-#: ../src/window.c:313
+#: ../src/window.c:315
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "\"%s\" dosyası açılamıyor:"
 
-#: ../src/window.c:315
+#: ../src/window.c:317
 msgid "Archive format is not recognized!"
 msgstr "Arşiv biçimi tanınamadı!"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "Sorry,this archive format is not supported:"
 msgstr "Üzgünüm, bu arşiv biçimi desteklenmiyor:"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "the proper archiver is not installed!"
 msgstr "Uygun arşivleyici yüklü değil!"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Arşiv yapısı için bellek ayrılamıyor:"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Operation aborted!"
 msgstr "İşlem durduruldu!"
 
-#: ../src/window.c:378
+#: ../src/window.c:382
 msgid "Opening archive,please wait..."
 msgstr "Arşiv açılıyor, lütfen bekleyin..."
 
-#: ../src/window.c:402
+#: ../src/window.c:406
 msgid "Testing archive,please wait..."
 msgstr "Arşiv test ediliyor, lütfen bekleyin..."
 
-#: ../src/window.c:422
+#: ../src/window.c:426
 msgid "Print the archive content as HTML"
 msgstr "Arşiv içeriğini HTML olarak yazdır"
 
-#: ../src/window.c:424
+#: ../src/window.c:428
 msgid "Print the archive content as text"
 msgstr "Arşiv içeriğini metin dosyası olarak yazdır"
 
-#: ../src/window.c:475
+#: ../src/window.c:479
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Arşiv içerikleri:\n"
 
-#: ../src/window.c:479
+#: ../src/window.c:483
 #, c-format
 msgid ""
 "\n"
@@ -271,216 +289,218 @@ msgstr ""
 "\n"
 "İsim:"
 
-#: ../src/window.c:488
+#: ../src/window.c:492
 #, c-format
 msgid "Compressed   size: "
 msgstr "Sıkıştırılmış boyut:"
 
-#: ../src/window.c:495
+#: ../src/window.c:499
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Sıkıştırılmamış boyut:"
 
-#: ../src/window.c:503
+#: ../src/window.c:507
 #, c-format
 msgid "Number of files: "
 msgstr "Dosyaların sayısı:"
 
-#: ../src/window.c:511
+#: ../src/window.c:515
 #, c-format
 msgid "Comment:\n"
 msgstr "Yorum:\n"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Dosyalar:%*s%s"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 msgid "|Compressed\n"
 msgstr "|Sıkıştırılmış\n"
 
-#: ../src/window.c:530
+#: ../src/window.c:534
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Dosyalar.</th>"
 
-#: ../src/window.c:531
+#: ../src/window.c:535
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Sıkıştırılmış:</th>"
 
-#: ../src/window.c:617 ../src/main.c:276
+#: ../src/window.c:621 ../src/main.c:281
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Bir arşiv oluşturmak için \"Yeni\"yi, açmak için \"Aç\"ı seçin"
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "You are about to delete entries from the archive."
 msgstr "Arşivden dosya silmek üzeresiniz."
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "Are you sure you want to do this?"
 msgstr "Bunu yapmak istediğinize emin misiniz?"
 
-#: ../src/window.c:815 ../src/window.c:915
+#: ../src/window.c:820 ../src/window.c:920
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Arşiv kendi kendine açılacak biçimde ayarlanamıyor:"
 
-#: ../src/window.c:826 ../src/window.c:926
+#: ../src/window.c:831 ../src/window.c:931
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "unzipsfx birimi arşive yazılamıyor:"
 
-#: ../src/window.c:886
+#: ../src/window.c:891
 msgid "Please select the 7zCon.sfx module"
 msgstr "Lütfen 7zCon.sfx birimini seçin"
 
-#: ../src/window.c:980
+#: ../src/window.c:985
 msgid "A GTK+2 only lightweight archive manager"
 msgstr "GTK+2 ile tasarlanmış hafif arşiv yöneticisi"
 
-#: ../src/window.c:983
+#: ../src/window.c:988
 msgid "translator-credits"
 msgstr ""
 "Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Nimet Senem Özkızıklı <nimetsenem@gmail.com>\n"
 "Osman Karagöz <osmank3@gmail.com>"
 
-#: ../src/window.c:1013
+#: ../src/window.c:1018
 msgid "Save the self-extracting archive as"
 msgstr "Kendi kendine açılan arşivi farklı kaydet"
 
-#: ../src/window.c:1042 ../src/interface.c:340
+#: ../src/window.c:1047 ../src/interface.c:338
 msgid "Open an archive"
 msgstr "Bir arşiv aç"
 
-#: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1060 ../src/extract_dialog.c:90 ../src/new_dialog.c:64
 msgid "All files"
 msgstr "Bütün dosyalar"
 
-#: ../src/window.c:1060 ../src/new_dialog.c:67
+#: ../src/window.c:1065 ../src/new_dialog.c:69
 msgid "Only archives"
 msgstr "Sadece arşivler"
 
-#: ../src/window.c:1274
+#: ../src/window.c:1283
 msgid "Filename"
 msgstr "Dosya ismi"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Bu işlem arşivinizi bozabilir!"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Do you really want to cancel?"
 msgstr "Gerçekten iptal etmek istiyor musunuz?"
 
-#: ../src/window.c:1394 ../src/window.c:1409
+#: ../src/window.c:1405 ../src/window.c:1420
 msgid "Yes"
 msgstr "Evet"
 
-#: ../src/window.c:1396 ../src/window.c:1411
+#: ../src/window.c:1407 ../src/window.c:1422
 msgid "No"
 msgstr "Hayır"
 
-#: ../src/window.c:1614
+#: ../src/window.c:1631
 msgid "selected"
 msgstr "seçilmiş"
 
-#: ../src/window.c:1619
+#: ../src/window.c:1636
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d dosya ve %d dizin %s (%s)"
 
-#: ../src/window.c:1621
+#: ../src/window.c:1638
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d dizin %s (%s)"
 
-#: ../src/window.c:1624
+#: ../src/window.c:1641
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d dosya %s (%s)"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Can't perform another extraction:"
 msgstr "Başka bir açma işlemi gerçekleştirilemiyor:"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Please wait until the completion of the current one!"
 msgstr "Lütfen şimdiki işlem tamamlanana kadar bekleyin!"
 
-#: ../src/window.c:1713 ../src/extract_dialog.c:341
+#: ../src/window.c:1730 ../src/extract_dialog.c:337
 #, c-format
-msgid "You don't have the right permissions to extract the files to the directory \"%s\"."
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
 msgstr "Dosyaları \"%s\" dizinine açmak için gerekli izniniz yok."
 
-#: ../src/window.c:1714 ../src/extract_dialog.c:342
+#: ../src/window.c:1731 ../src/extract_dialog.c:338
 msgid "Can't perform extraction!"
 msgstr "Açılma işlemi gerçekleştirilemiyor!"
 
-#: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
+#: ../src/window.c:1775 ../src/extract_dialog.c:650 ../src/interface.c:1397
 msgid "Sorry,I could not perform the operation!"
 msgstr "Üzgünüm, işlemi gerçekleştiremedim!"
 
-#: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
+#: ../src/window.c:1809 ../src/window.c:1821 ../src/interface.c:1390
 msgid "Can't perform this action:"
 msgstr "Bu eylem gerçekleştirilemiyor:"
 
-#: ../src/window.c:1789
+#: ../src/window.c:1809
 msgid "You have to install rar package!"
 msgstr "Rar paketi yüklemelisiniz!"
 
-#: ../src/window.c:1796 ../src/interface.c:1382
+#: ../src/window.c:1816 ../src/interface.c:1387
 msgid "You can't add content to deb packages!"
 msgstr "deb paketlerine içerik ekleyemezsiniz!"
 
-#: ../src/window.c:1798 ../src/interface.c:1384
+#: ../src/window.c:1818 ../src/interface.c:1389
 msgid "You can't add content to rpm packages!"
 msgstr "rpm paketlerine içerik ekleyemezsiniz!"
 
-#: ../src/window.c:1800
+#: ../src/window.c:1820
 msgid "The archiver doesn't support this feature!"
 msgstr "Arşivleyici bu özelliği desteklemiyor!"
 
-#: ../src/window.c:1881
+#: ../src/window.c:1901
 msgid "You didn't set which browser to use!"
 msgstr "Kullanılacak tarayıcıyı belirtmedin!"
 
-#: ../src/window.c:1881 ../src/window.c:1922
+#: ../src/window.c:1901 ../src/window.c:1942
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Lütfen Tercihler->Gelişmiş sekmesinden onu belirtin."
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "This file type is not supported!"
 msgstr "Üzgünüm, bu arşiv biçimi desteklenmiyor!"
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "Please install xdg-utils package."
 msgstr "Lütfen xdg-utils paketini yükleyin."
 
-#: ../src/window.c:1922
+#: ../src/window.c:1942
 msgid "You didn't set which program to use for opening this file!"
 msgstr "Bu dosyanın hangi uygulama ile açılacağını belirtmediniz!"
 
-#: ../src/window.c:1948
+#: ../src/window.c:1968
 msgid "Failed to launch the application!"
 msgstr "Uygulama başlatılamadı!"
 
-#: ../src/window.c:2000
+#: ../src/window.c:2020
 msgid "Comment"
 msgstr "Yorum"
 
-#: ../src/window.c:2030
+#: ../src/window.c:2050
 msgid "From File"
 msgstr "Dosyadan"
 
-#: ../src/window.c:2135
+#: ../src/window.c:2156
 msgid "Open a text file"
 msgstr "Bir metin dosyası aç"
 
-#: ../src/window.c:2153
+#: ../src/window.c:2174
 #, c-format
 msgid "Can't open file %s:"
 msgstr "%s dosyası açılamıyor:"
@@ -489,128 +509,148 @@ msgstr "%s dosyası açılamıyor:"
 msgid "Date modified"
 msgstr "Değiştirme tarihi"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:464
 msgid "Extract to:"
 msgstr "Şuraya aç:"
 
-#: ../src/extract_dialog.c:94
+#: ../src/extract_dialog.c:95
 msgid "Selected files"
 msgstr "Seçili dosyalar"
 
-#: ../src/extract_dialog.c:101
+#: ../src/extract_dialog.c:103
 msgid "Files: "
 msgstr "Dosyalar:"
 
-#: ../src/extract_dialog.c:111
+#: ../src/extract_dialog.c:114
 msgid "Files "
 msgstr "Dosyalar"
 
-#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
+#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:491
 msgid "Overwrite existing files"
 msgstr "Mevcut dosyaların üzerine yaz"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:131
 msgid "Extract files with full path"
 msgstr "Dosyaları tam yolla aç"
 
-#: ../src/extract_dialog.c:129
-msgid "The archive's directory structure is recreated in the extraction directory"
+#: ../src/extract_dialog.c:132
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
 msgstr "Arşivin dizin yapısı, açılan dizinde yeniden oluşturuldu"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:135
 msgid "Touch files"
 msgstr "Dosyalara eriş"
 
-#: ../src/extract_dialog.c:133
-msgid "When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"
-msgstr "Bu seçenek kullanıldığında tar, dosyaların veri değiştirme zamanlarını arşive kayıt edilme zamanlarına dönüştürmek yerine, dosyaların açıldıkları zamanlarda bırakır."
-
 #: ../src/extract_dialog.c:136
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr ""
+"Bu seçenek kullanıldığında tar, dosyaların veri değiştirme zamanlarını "
+"arşive kayıt edilme zamanlarına dönüştürmek yerine, dosyaların açıldıkları "
+"zamanlarda bırakır."
+
+#: ../src/extract_dialog.c:139
 msgid "Freshen existing files"
 msgstr "Açılan dosyaları yenile"
 
-#: ../src/extract_dialog.c:137
-msgid "Extract only those files that already exist on disk and that are newer than the disk copies"
-msgstr "Sadece diskte zaten mevcut olan ve disk kopyalarından daha yeni olan dosyaları aç"
+#: ../src/extract_dialog.c:140
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+"Sadece diskte zaten mevcut olan ve disk kopyalarından daha yeni olan "
+"dosyaları aç"
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:144
 msgid "Update existing files"
 msgstr "Mevcut dosyaları yükle"
 
-#: ../src/extract_dialog.c:142
-msgid "This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"
-msgstr "Bu seçenek, diskte eski kalmış dosya varsa elimizdeki yeni dosyayı o eski dosyanın yerine koymasını sağlar; eğer elimizdeki dosya diskte yoksa, diske kopyalar"
+#: ../src/extract_dialog.c:145
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+"Bu seçenek, diskte eski kalmış dosya varsa elimizdeki yeni dosyayı o eski "
+"dosyanın yerine koymasını sağlar; eğer elimizdeki dosya diskte yoksa, diske "
+"kopyalar"
 
-#: ../src/extract_dialog.c:146
+#: ../src/extract_dialog.c:149
 msgid "Options "
 msgstr "Seçenekler"
 
-#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
+#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:508
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Aç"
 
-#: ../src/extract_dialog.c:223
+#: ../src/extract_dialog.c:226
 msgid "Decompress file"
 msgstr "Sıkıştırılmış dosyayı çöz"
 
-#: ../src/extract_dialog.c:225 ../src/interface.c:396
+#: ../src/extract_dialog.c:228 ../src/interface.c:400
 msgid "Extract files"
 msgstr "Dosyaları aç"
 
-#: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
 msgstr "Dosyaların açılacağı yeri atladınız!"
 
-#: ../src/extract_dialog.c:317
+#: ../src/extract_dialog.c:313
 msgid "Please enter the extraction path."
 msgstr "Lütfen dosyaların açılacağı yolu girin."
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "This archive is encrypted!"
 msgstr "Bu arşiv şifrelenmiş!"
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "Please enter the password."
 msgstr "Lütfen parola girin."
 
-#: ../src/extract_dialog.c:378
+#: ../src/extract_dialog.c:374
 msgid "Extracting files from archive,please wait..."
 msgstr "Dosyalar arşivden açılıyor, lütfen bekleyin..."
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Archive Name"
 msgstr "Arşiv İsmi"
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Path"
 msgstr "Yol"
 
-#: ../src/extract_dialog.c:407
+#: ../src/extract_dialog.c:403
 msgid "Multi-Extract"
 msgstr "Çoklu-Aç"
 
-#: ../src/extract_dialog.c:478
+#: ../src/extract_dialog.c:474
 msgid "Extract to dir \"Archive Name\""
 msgstr "\"Arşiv İsmi\" dizinine aç"
 
-#: ../src/extract_dialog.c:479
-msgid "This option extracts archives in directories named with the archive names"
-msgstr "Bu seçenek, arşivlerin, kendi isimleriyle oluşturulmuş dizinlerde açılmasını sağlar"
+#: ../src/extract_dialog.c:475
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr ""
+"Bu seçenek, arşivlerin, kendi isimleriyle oluşturulmuş dizinlerde açılmasını "
+"sağlar"
 
-#: ../src/extract_dialog.c:483
+#: ../src/extract_dialog.c:479
 msgid "Destination dirs:"
 msgstr "Hedef dizinler:"
 
-#: ../src/extract_dialog.c:497
+#: ../src/extract_dialog.c:493
 msgid "Extract pathnames"
 msgstr "Yol isimlerini aç"
 
-#: ../src/extract_dialog.c:499
+#: ../src/extract_dialog.c:496
 msgid "Options:"
 msgstr "Seçenekler:"
 
-#: ../src/extract_dialog.c:531
+#: ../src/extract_dialog.c:528
 msgid "Please select the archives you want to extract"
 msgstr "Lütfen açmak istediğiniz arşivleri seçin"
 
@@ -630,7 +670,7 @@ msgstr "Eklenecek herhangi bir dosya seçmediniz!"
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Lütfen \"Şuraya aç\" satırını doldurun!"
 
-#: ../src/extract_dialog.c:754
+#: ../src/extract_dialog.c:760
 msgid "Some errors occurred:"
 msgstr "Birkaç hata oluştu:"
 
@@ -722,237 +762,257 @@ msgstr "_Yardım"
 msgid "_Contents"
 msgstr "İçerik"
 
-#: ../src/interface.c:313
-msgid "_Donate"
-msgstr "Bağış"
+#: ../src/interface.c:326
+msgid "New"
+msgstr "Yeni"
 
-#: ../src/interface.c:333 ../src/new_dialog.c:50
+#: ../src/interface.c:330 ../src/new_dialog.c:52
 msgid "Create a new archive"
 msgstr "Yeni bir arşiv oluştur"
 
-#: ../src/interface.c:352
+#: ../src/interface.c:334
+msgid "Open"
+msgstr "Aç"
+
+#: ../src/interface.c:346 ../src/interface.c:351
 msgid "Back"
 msgstr "Geri"
 
-#: ../src/interface.c:360
+#: ../src/interface.c:355 ../src/interface.c:360
 msgid "Up"
 msgstr "Yukarı"
 
-#: ../src/interface.c:368
+#: ../src/interface.c:364 ../src/interface.c:369
 msgid "Forward"
 msgstr "İleri"
 
-#: ../src/interface.c:376
+#: ../src/interface.c:373
+msgid "Home"
+msgstr "Ev"
+
+#: ../src/interface.c:378
 msgid "Root"
 msgstr "Kök"
 
-#: ../src/interface.c:408
-msgid "Cancel current operation"
-msgstr "Geçerli işlemi sonlandır"
+#: ../src/interface.c:386
+msgid "Add"
+msgstr "Ekle"
 
-#: ../src/interface.c:421
-msgid "Location:"
-msgstr "Yer:"
-
-#: ../src/interface.c:460
-msgid "Archive tree"
-msgstr "Arşiv ağacı"
-
-#: ../src/interface.c:508
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr "Bu, Xarchiver'in durumunu gösterir. Eğer yanıp sönüyorsa, Xarchiver işlem yapıyor demektir."
-
-#: ../src/interface.c:677
-msgid "Close archive"
-msgstr "Arşivi kapat"
-
-#: ../src/interface.c:762
-msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr "<span weight='bold' size='larger'>Parola gerekli:</span>"
-
-#: ../src/interface.c:764
-msgid "<span weight='bold' size='larger'>Enter password for:</span>"
-msgstr "<span weight='bold' size='larger'>Parola gir:</span>"
-
-#: ../src/interface.c:782
-msgid "_Password:"
-msgstr "_Parola:"
-
-#: ../src/interface.c:837 ../src/open-with-dlg.c:52
-msgid "Open With"
-msgstr "Şununla Aç"
-
-#: ../src/interface.c:845
+#: ../src/interface.c:395 ../src/interface.c:850
 msgid "Extract"
 msgstr "Aç"
 
-#: ../src/interface.c:853
+#: ../src/interface.c:408
+msgid "Stop"
+msgstr "Dur"
+
+#: ../src/interface.c:413
+msgid "Cancel current operation"
+msgstr "Geçerli işlemi sonlandır"
+
+#: ../src/interface.c:426
+msgid "Location:"
+msgstr "Yer:"
+
+#: ../src/interface.c:465
+msgid "Archive tree"
+msgstr "Arşiv ağacı"
+
+#: ../src/interface.c:513
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr ""
+"Bu, Xarchiver'in durumunu gösterir. Eğer yanıp sönüyorsa, Xarchiver işlem "
+"yapıyor demektir."
+
+#: ../src/interface.c:687
+msgid "Close archive"
+msgstr "Arşivi kapat"
+
+#: ../src/interface.c:772
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight='bold' size='larger'>Parola gerekli:</span>"
+
+#: ../src/interface.c:774
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight='bold' size='larger'>Parola gir:</span>"
+
+#: ../src/interface.c:792
+msgid "_Password:"
+msgstr "_Parola:"
+
+#: ../src/interface.c:842 ../src/open-with-dlg.c:52
+msgid "Open With"
+msgstr "Şununla Aç"
+
+#: ../src/interface.c:858
 msgid "View"
 msgstr "Görüntüle"
 
-#: ../src/interface.c:866
+#: ../src/interface.c:871
 msgid "Cut"
 msgstr "Kes"
 
-#: ../src/interface.c:874
+#: ../src/interface.c:879
 msgid "Copy"
 msgstr "Kopyala"
 
-#: ../src/interface.c:882
+#: ../src/interface.c:887
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: ../src/interface.c:896
+#: ../src/interface.c:901
 msgid "Delete"
 msgstr "Sil"
 
-#: ../src/interface.c:905
+#: ../src/interface.c:910
 msgid "Rename"
 msgstr "Yeniden İsimlendir"
 
-#: ../src/interface.c:944
+#: ../src/interface.c:949
 msgid "Select by Pattern"
 msgstr "Desen olarak Seç"
 
-#: ../src/interface.c:957
+#: ../src/interface.c:962
 msgid "Pattern:"
 msgstr "Desen:"
 
-#: ../src/interface.c:962
+#: ../src/interface.c:967
 msgid "example: *.txt; ac*"
 msgstr "örnek: *.txt; ac*"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:984
 msgid "_Select"
 msgstr "_Seç"
 
-#: ../src/interface.c:1051
+#: ../src/interface.c:1056
 msgid "Archive Properties"
 msgstr "Arşiv Tercihleri"
 
-#: ../src/interface.c:1072
+#: ../src/interface.c:1077
 msgid "Name:"
 msgstr "İsim:"
 
-#: ../src/interface.c:1079
+#: ../src/interface.c:1084
 msgid "Path:"
 msgstr "Yol:"
 
-#: ../src/interface.c:1086
+#: ../src/interface.c:1091
 msgid "Type:"
 msgstr "Tür:"
 
-#: ../src/interface.c:1093
+#: ../src/interface.c:1098
 msgid "Encrypted:"
 msgstr "Sıkıştırılmış:"
 
-#: ../src/interface.c:1100
+#: ../src/interface.c:1105
 msgid "Modified on:"
 msgstr "Değiştirildi:"
 
-#: ../src/interface.c:1107
+#: ../src/interface.c:1112
 msgid "Compressed size:"
 msgstr "Sıkıştırılmış boyut:"
 
-#: ../src/interface.c:1114
+#: ../src/interface.c:1119
 msgid "Uncompressed size:"
 msgstr "Sıkıştırılmamış boyut:"
 
-#: ../src/interface.c:1121
+#: ../src/interface.c:1126
 msgid "Comment:"
 msgstr "Yorum:"
 
-#: ../src/interface.c:1128
+#: ../src/interface.c:1133
 msgid "Number of files:"
 msgstr "Dosya sayısı:"
 
-#: ../src/interface.c:1135
+#: ../src/interface.c:1140
 msgid "Compression ratio:"
 msgstr "Sıkıştırma oranı:"
 
-#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
-msgid "Xarchiver"
-msgstr "Xarchiver"
-
-#: ../src/interface.c:1526
+#: ../src/interface.c:1531
 msgid "Extracting from archive:"
 msgstr "Dosyaları arşivden aç:"
 
-#: ../src/interface.c:1528
+#: ../src/interface.c:1533
 msgid "Adding to archive:"
 msgstr "Dosyaları arşive ekle:"
 
-#: ../src/interface.c:1548
+#: ../src/interface.c:1553
 msgid "Total Progress:"
 msgstr "Toplam İlerleme:"
 
-#: ../src/main.c:58
+#: ../src/main.c:59
 msgid "Extract archive to the destination directory and quits."
 msgstr "Arşivi hedef dizine aç ve kapat."
 
-#: ../src/main.c:59
+#: ../src/main.c:60
 msgid "destination archive"
 msgstr "hedef arşiv"
 
-#: ../src/main.c:62
+#: ../src/main.c:63
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "Arşivi hedef dizini sorarak aç ve kapat."
 
-#: ../src/main.c:63 ../src/main.c:75
+#: ../src/main.c:64 ../src/main.c:76
 msgid "archive"
 msgstr "arşiv"
 
-#: ../src/main.c:66
+#: ../src/main.c:67
 msgid "Multi-extract archives"
 msgstr "Çoklu-açma arşivleri"
 
-#: ../src/main.c:67
+#: ../src/main.c:68
 msgid "filenames"
 msgstr "dosya isimleri"
 
-#: ../src/main.c:70
+#: ../src/main.c:71
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Verilen dosyaları arşiv adını sorarak ekle ve kapat."
 
-#: ../src/main.c:71
+#: ../src/main.c:72
 msgid "file1 file2 file3 ... fileN"
 msgstr "dosya1 dosya2 dosya3 ... dosyaN"
 
-#: ../src/main.c:74
+#: ../src/main.c:75
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Dosyaları, isimlerini sorarak arşive ekle ve kapat."
 
-#: ../src/main.c:78
+#: ../src/main.c:79
 msgid "Show version and exit"
 msgstr "Sürümü göster ve çık"
 
-#: ../src/main.c:105
+#: ../src/main.c:106
 msgid "[archive name]"
 msgstr "[arşiv ismi]"
 
-#: ../src/main.c:109
+#: ../src/main.c:110
 #, c-format
 msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Uygun komut satırı seçeneklerinin tam listesini görmek için, xarchiver --help komutunu deneyin.\n"
+"Uygun komut satırı seçeneklerinin tam listesini görmek için, xarchiver --"
+"help komutunu deneyin.\n"
 
-#: ../src/main.c:119
+#: ../src/main.c:120
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/main.c:122
 #, c-format
 msgid "Please report bugs to <%s>."
 msgstr "Hataları lütfen <%s> adresine bildirin."
 
-#: ../src/main.c:146 ../src/main.c:169
+#: ../src/main.c:149 ../src/main.c:172
 msgid "Can't extract files from the archive:"
 msgstr "Dosyalar arşivden açılamıyor:"
 
-#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
+#: ../src/main.c:149 ../src/main.c:172 ../src/main.c:233
 msgid "You missed the archive name!\n"
 msgstr "Arşiv ismini atladınız!\n"
 
-#: ../src/main.c:534
+#: ../src/main.c:566
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Arşivleme için bellek ayrılamıyor!"
 
@@ -977,37 +1037,37 @@ msgstr "Tara"
 msgid "Select an application"
 msgstr "Bir uygulama seçin"
 
-#: ../src/new_dialog.c:55
+#: ../src/new_dialog.c:57
 msgid "Cr_eate"
 msgstr "Oluştu_r"
 
-#: ../src/new_dialog.c:92
+#: ../src/new_dialog.c:94
 msgid "Archive type:"
 msgstr "Arşiv türü:"
 
-#: ../src/new_dialog.c:97
+#: ../src/new_dialog.c:99
 msgid "Choose the archive type to create"
 msgstr "Oluşturulacak arşiv türünü seçin"
 
-#: ../src/new_dialog.c:112
+#: ../src/new_dialog.c:115
 msgid "Add the archive extension to the filename"
 msgstr "Arşiv uzantısını dosya ismine ekle"
 
-#: ../src/new_dialog.c:159
+#: ../src/new_dialog.c:162
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" zaten açık!"
 
-#: ../src/new_dialog.c:160
+#: ../src/new_dialog.c:163
 msgid "Can't create a new archive:"
 msgstr "Yeni bir arşiv oluşturulamıyor:"
 
-#: ../src/new_dialog.c:175
+#: ../src/new_dialog.c:178
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "\"%s\" arşivi zaten var!"
 
-#: ../src/new_dialog.c:181
+#: ../src/new_dialog.c:184
 msgid "Do you want to overwrite it?"
 msgstr "Üzerine yazmak istiyor musunuz?"
 
@@ -1049,7 +1109,8 @@ msgstr "Arşivleyici çıktısını depola"
 
 #: ../src/pref_dialog.c:127
 msgid "This option takes more memory with large archives"
-msgstr "Bu seçenek, büyük arşivler yapılan işlemlerde daha fazla bellek kullanır"
+msgstr ""
+"Bu seçenek, büyük arşivler yapılan işlemlerde daha fazla bellek kullanır"
 
 #: ../src/pref_dialog.c:138
 msgid "Icons size (requires restart)"
@@ -1117,8 +1178,11 @@ msgid "Allow subdirs with drag and drop"
 msgstr "Alt dizinlerin sürüklenip bırakılmasına izin ver"
 
 #: ../src/pref_dialog.c:259
-msgid "This option includes the subdirectories when you add files with drag and drop"
-msgstr "Bu seçenek, dosyaları sürükle - bırak yöntemiyle eklediğin alt dizinleri içerir"
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+"Bu seçenek, dosyaları sürükle - bırak yöntemiyle eklediğin alt dizinleri "
+"içerir"
 
 #: ../src/pref_dialog.c:264
 msgid ""
@@ -1136,50 +1200,38 @@ msgstr "Kullanacağınız dizini seçin"
 msgid "Choose the application to use"
 msgstr "Kullanacağınız uygulamayı seçin"
 
-#: ../src/rar.c:63
+#: ../src/rar.c:31 ../src/rar.c:33
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Method"
 msgstr "Yöntem"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Version"
 msgstr "Sürüm"
 
-#: ../src/rpm.c:39
+#: ../src/rpm.c:36
 #, c-format
 msgid "Can't open RPM file %s:"
 msgstr "%s RPM dosyası açılamıyor:"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Permission"
 msgstr "İzin"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Hard Link"
 msgstr "Bağlantı"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Owner"
 msgstr "Kullanıcı"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Group"
 msgstr "Grup"
-
-#: ../src/rpm.c:62
-msgid "Can't fseek to position 104:"
-msgstr "104 konumu aranamıyor:"
-
-#: ../src/rpm.c:68 ../src/rpm.c:84
-msgid "Can't read data from file:"
-msgstr "Dosyadan veri okunamıyor:"
-
-#: ../src/rpm.c:78
-msgid "Can't fseek in file:"
-msgstr "Dosyada aranamıyor:"
 
 #: ../src/zip.c:49
 msgid "OS"
@@ -1193,23 +1245,23 @@ msgstr "GTK+2 ile tasarlanmış arşiv yöneticisi"
 msgid "Archive manager"
 msgstr "Arşiv yöneticisi"
 
+#~ msgid "_Donate"
+#~ msgstr "Bağış"
+
+#~ msgid "Xarchiver"
+#~ msgstr "Xarchiver"
+
+#~ msgid "Can't fseek to position 104:"
+#~ msgstr "104 konumu aranamıyor:"
+
+#~ msgid "Can't read data from file:"
+#~ msgstr "Dosyadan veri okunamıyor:"
+
+#~ msgid "Can't fseek in file:"
+#~ msgstr "Dosyada aranamıyor:"
+
 #~ msgid "_Thanks to"
 #~ msgstr "_Teşekkürler"
-
-#~ msgid "New"
-#~ msgstr "Yeni"
-
-#~ msgid "Open"
-#~ msgstr "Aç"
-
-#~ msgid "Home"
-#~ msgstr "Ev"
-
-#~ msgid "Add"
-#~ msgstr "Ekle"
-
-#~ msgid "Stop"
-#~ msgstr "Dur"
 
 #~ msgid "Directories"
 #~ msgstr "Dizinler"
@@ -1217,8 +1269,12 @@ msgstr "Arşiv yöneticisi"
 #~ msgid "<b>Files and directories to add </b>"
 #~ msgstr "<b>Eklenecek dosya ve dizinler </b>"
 
-#~ msgid "Include everything in the directory recursively \tstarting from the current directory."
-#~ msgstr "Geçerli dizinden başlayarak dizinin tüm içeriğini, özyinelemeli olarak ekle"
+#~ msgid ""
+#~ "Include everything in the directory recursively \tstarting from the "
+#~ "current directory."
+#~ msgstr ""
+#~ "Geçerli dizinden başlayarak dizinin tüm içeriğini, özyinelemeli olarak "
+#~ "ekle"
 
 #~ msgid "Do not add file paths"
 #~ msgstr "Dosya yollarını ekleme"
@@ -1253,7 +1309,8 @@ msgstr "Arşiv yöneticisi"
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "tar dosyası %s ile yeniden sıkıştırılıyor, lütfen bekleyin..."
 
-#~ msgid "Please check \"%s\" since some files could have been already extracted."
+#~ msgid ""
+#~ "Please check \"%s\" since some files could have been already extracted."
 #~ msgstr "Lütfen \"%s\"'yi kontrol edin; çünkü bazı dosyalar zaten açıldı."
 
 #~ msgid "Do you want to view the command line output?"
@@ -1295,7 +1352,8 @@ msgstr "Arşiv yöneticisi"
 #~ msgid "An error occurred while extracting the file to be viewed:"
 #~ msgstr "Dosyayı görüntüleme sırasında bir hata oluştu:"
 
-#~ msgid "An error occurred while converting the file content to the UTF8 encoding:"
+#~ msgid ""
+#~ "An error occurred while converting the file content to the UTF8 encoding:"
 #~ msgstr "Dosya içeriği UTF8 kodlamasına dönüştürülürken bir hata oluştu:"
 
 #~ msgid "Failed to open link."
@@ -1346,7 +1404,8 @@ msgstr "Arşiv yöneticisi"
 #~ msgid "Number of dirs:"
 #~ msgstr "Dizin sayısı:"
 
-#~ msgid "Extract archive to the directory specified by destination_path and quits."
+#~ msgid ""
+#~ "Extract archive to the directory specified by destination_path and quits."
 #~ msgstr "Arşivi hedef _yol ile belirtilmiş dizine aç ve kapan."
 
 #~ msgid "Can't spawn the command:"

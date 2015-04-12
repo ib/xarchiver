@@ -7,24 +7,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2015-04-12 18:17+0200\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
+"Language: nl (Dutch)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl (Dutch)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/rar.c:31
+#: ../src/rar.c:33 ../src/zip.c:49
 msgid "Original"
 msgstr "Origineel"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/gzip.c:78
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Gecomprimeerd"
 
@@ -32,143 +32,147 @@ msgstr "Gecomprimeerd"
 msgid "Attr"
 msgstr "Attr"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Time"
 msgstr "Tijd"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/rpm.c:49 ../src/tar.c:55
+#: ../src/zip.c:49
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/add_dialog.c:36 ../src/interface.c:388
+#: ../src/add_dialog.c:37 ../src/interface.c:391
 msgid "Add files"
 msgstr "Bestanden toevoegen"
 
-#: ../src/add_dialog.c:52
+#: ../src/add_dialog.c:53
 msgid "Selection"
 msgstr "Selectie"
 
-#: ../src/add_dialog.c:66
+#: ../src/add_dialog.c:67
 msgid "File Paths: "
 msgstr "Bestandpaden:"
 
-#: ../src/add_dialog.c:72
+#: ../src/add_dialog.c:73
 msgid "Store full paths"
 msgstr "Volledige bestandpaden opslaan"
 
-#: ../src/add_dialog.c:76
+#: ../src/add_dialog.c:79
 msgid "Do not store paths"
 msgstr "Paden niet opslaan"
 
-#: ../src/add_dialog.c:85
+#: ../src/add_dialog.c:90
 msgid "Options"
 msgstr "Opties"
 
-#: ../src/add_dialog.c:103
+#: ../src/add_dialog.c:108
 msgid "Update and add"
 msgstr "Bijwerken en toevoegen"
 
-#: ../src/add_dialog.c:105
+#: ../src/add_dialog.c:110
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified"
 msgstr ""
-"Deze optie zal alle nieuwe bestanden toevoegen en alle bestanden bijwerken die "
-"veranderd zijn sinds het archief het laatst werd gemaakt/veranderd"
+"Deze optie zal alle nieuwe bestanden toevoegen en alle bestanden bijwerken "
+"die veranderd zijn sinds het archief het laatst werd gemaakt/veranderd"
 
-#: ../src/add_dialog.c:108
+#: ../src/add_dialog.c:113
 msgid "Freshen and replace"
 msgstr "Verversen en vervangen"
 
-#: ../src/add_dialog.c:111
+#: ../src/add_dialog.c:116
 msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
 "not add files that are not already in the archive"
 msgstr ""
 "Deze optie beïnvloedt het archief alleen als het bestand later is veranderd "
-"dan de versie die al in het archief aanwezig is; in tegenstelling tot "
-"de optie Bijwerken, zal hij alleen bestanden toevoegen die al in het "
-"archief aanwezig zijn."
+"dan de versie die al in het archief aanwezig is; in tegenstelling tot de "
+"optie Bijwerken, zal hij alleen bestanden toevoegen die al in het archief "
+"aanwezig zijn."
 
-#: ../src/add_dialog.c:115
+#: ../src/add_dialog.c:120
 msgid "Include subdirectories"
 msgstr "Onderliggende mappen opnemen"
 
-#: ../src/add_dialog.c:119
+#: ../src/add_dialog.c:124
 msgid "Create a solid archive"
 msgstr "Maak een compact archief"
 
-#: ../src/add_dialog.c:121
+#: ../src/add_dialog.c:126
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio"
 msgstr ""
 "In een compact archief worden de bestanden gegroepeerd voor betere compressie"
 
-#: ../src/add_dialog.c:124
+#: ../src/add_dialog.c:129
 msgid "Delete files after adding"
 msgstr "Bestanden verwijderen na toevoegen"
 
-#: ../src/add_dialog.c:128
+#: ../src/add_dialog.c:133
 msgid "Actions: "
 msgstr "Acties:"
 
-#: ../src/add_dialog.c:143
+#: ../src/add_dialog.c:148
 msgid "Compression: "
 msgstr "Compressie: "
 
-#: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
 msgid "Password:"
 msgstr "Wachtwoord:"
 
-#: ../src/add_dialog.c:167
+#: ../src/add_dialog.c:172
 msgid "Encryption: "
 msgstr "Encryptie: "
 
-#: ../src/add_dialog.c:180
+#: ../src/add_dialog.c:185
 msgid "_Add"
 msgstr "_Toevoegen"
 
-#: ../src/add_dialog.c:247
+#: ../src/add_dialog.c:252 ../src/add_dialog.c:288
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = geen compressie, 5 is standaard, 9 = beste compressie (langzaamste)"
+msgstr ""
+"0 = geen compressie, 5 is standaard, 9 = beste compressie (langzaamste)"
 
-#: ../src/add_dialog.c:253
+#: ../src/add_dialog.c:258
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = geen compressie, 6 is standaard, 9 = beste compressie (langzaamste)"
+msgstr ""
+"0 = geen compressie, 6 is standaard, 9 = beste compressie (langzaamste)"
 
-#: ../src/add_dialog.c:259
+#: ../src/add_dialog.c:264 ../src/add_dialog.c:270
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = geen compressie, 3 is standaard, 5 = beste compressie (langzaamste)"
+msgstr ""
+"0 = geen compressie, 3 is standaard, 5 = beste compressie (langzaamste)"
 
-#: ../src/add_dialog.c:265
+#: ../src/add_dialog.c:276
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr "0 = geen compressie, 1 is standaard, 4 = minste compressie (snelste)"
 
-#: ../src/add_dialog.c:271
+#: ../src/add_dialog.c:282
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = standaard-compressie, 7 = maximale compressie"
 
-#: ../src/add_dialog.c:371 ../src/main.c:228
+#: ../src/add_dialog.c:388 ../src/main.c:233
 msgid "Can't add files to the archive:"
 msgstr "Kan bestanden niet toevoegen aan archief:"
 
-#: ../src/add_dialog.c:371
+#: ../src/add_dialog.c:388
 msgid "You haven't selected any files to add!"
 msgstr "U hebt geen bestanden geselecteerd om toe te voegen!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "You missed the password!"
 msgstr "U hebt het wachtwoord niet ingevuld."
 
-#: ../src/add_dialog.c:379 ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "Please enter it!"
 msgstr "Gelieve het nu in te voeren."
 
-#: ../src/add_dialog.c:449
+#: ../src/add_dialog.c:466
 msgid "Adding files to archive, please wait..."
 msgstr "Bezig met toevoegen van bestanden aan archief..."
 
@@ -180,7 +184,8 @@ msgstr "Kan archiefprogramma niet uitvoeren:"
 msgid "Can't create temporary directory:"
 msgstr "Kan tijdelijke map niet maken:"
 
-#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:31
+#: ../src/rar.c:33
 msgid "Ratio"
 msgstr "Verhouding"
 
@@ -188,93 +193,93 @@ msgstr "Verhouding"
 msgid "Attributes"
 msgstr "Attributen"
 
-#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Points to"
 msgstr "Verwijst naar"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Permissions"
 msgstr "Rechten"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
 msgid "Owner/Group"
 msgstr "Eigenaar/Groep"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:395
-#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/extract_dialog.c:391
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Size"
 msgstr "Grootte"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "An error occurred!"
 msgstr "Er is een fout opgetreden."
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr "Vink de optie \"Uitvoer van archiveerder opslaan\" aan om hem te zien."
 
-#: ../src/window.c:147
+#: ../src/window.c:148
 msgid "Archiver output"
 msgstr "Uitvoer van archiveerder"
 
-#: ../src/window.c:182
+#: ../src/window.c:183
 msgid "An error occurred while accessing the archive:"
 msgstr "Fout bij het lezen van het archiefbestand:"
 
-#: ../src/window.c:254
+#: ../src/window.c:256
 msgid "Save the archive as"
 msgstr "Archief opslaan als"
 
-#: ../src/window.c:313
+#: ../src/window.c:315
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Kan bestand \"%s\" niet openen:"
 
-#: ../src/window.c:315
+#: ../src/window.c:317
 msgid "Archive format is not recognized!"
 msgstr "Archief-opmaak wordt niet herkend."
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "Sorry,this archive format is not supported:"
 msgstr "Excuus, deze archief-opmaak wordt niet ondersteund:"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "the proper archiver is not installed!"
 msgstr "de juiste archiveerder is niet geïnstalleerd."
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Kan geen geheugen vrijmaken voor de structuur van het archief:"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Operation aborted!"
 msgstr "Operatie afgebroken."
 
-#: ../src/window.c:378
+#: ../src/window.c:382
 msgid "Opening archive,please wait..."
 msgstr "Archief aan het openen..."
 
-#: ../src/window.c:402
+#: ../src/window.c:406
 msgid "Testing archive,please wait..."
 msgstr "Archief aan het uitproberen..."
 
-#: ../src/window.c:422
+#: ../src/window.c:426
 msgid "Print the archive content as HTML"
 msgstr "Druk de archiefinhoud af als HTML"
 
-#: ../src/window.c:424
+#: ../src/window.c:428
 msgid "Print the archive content as text"
 msgstr "Druk de archiefinhoud af als tekst"
 
-#: ../src/window.c:475
+#: ../src/window.c:479
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Archiefinhoud:\n"
 
-#: ../src/window.c:479
+#: ../src/window.c:483
 #, c-format
 msgid ""
 "\n"
@@ -283,223 +288,225 @@ msgstr ""
 "\n"
 "Naam:"
 
-#: ../src/window.c:488
+#: ../src/window.c:492
 #, c-format
 msgid "Compressed   size: "
 msgstr "Grootte na compressie: "
 
-#: ../src/window.c:495
+#: ../src/window.c:499
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Groote zonder compressie: "
 
-#: ../src/window.c:503
+#: ../src/window.c:507
 #, c-format
 msgid "Number of files: "
 msgstr "Aantal bestanden: "
 
-#: ../src/window.c:511
+#: ../src/window.c:515
 #, c-format
 msgid "Comment:\n"
 msgstr "Commentaar:\n"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Bestanden:%*s%s"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 msgid "|Compressed\n"
 msgstr "|Gecomprimeerd\n"
 
-#: ../src/window.c:530
+#: ../src/window.c:534
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Bestanden:</th>"
 
-#: ../src/window.c:531
+#: ../src/window.c:535
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Gecomprimeerd:</th>"
 
-#: ../src/window.c:617 ../src/main.c:276
+#: ../src/window.c:621 ../src/main.c:281
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 "Selecteer \"Nieuw\" om een nieuw archief te maken of \"Open\" om een "
 "bestaand archief te openen"
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "You are about to delete entries from the archive."
 msgstr "U staat op het punt om archiefonderdelen te verwijderen."
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "Are you sure you want to do this?"
 msgstr "Weet u zeker dat u dit wil doen?"
 
-#: ../src/window.c:815 ../src/window.c:915
+#: ../src/window.c:820 ../src/window.c:920
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Kan archief niet zelf-uitpakkend maken:"
 
-#: ../src/window.c:826 ../src/window.c:926
+#: ../src/window.c:831 ../src/window.c:931
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Kan de unzipsfx-module niet toevoegen aan het archief:"
 
-#: ../src/window.c:886
+#: ../src/window.c:891
 msgid "Please select the 7zCon.sfx module"
 msgstr "Selecteer a.u.b. de 7zCon.sfx-module"
 
-#: ../src/window.c:980
+#: ../src/window.c:985
 msgid "A GTK+2 only lightweight archive manager"
 msgstr "Een GTK+2 lichtgewicht archiefbeheerder"
 
-#: ../src/window.c:983
+#: ../src/window.c:988
 msgid "translator-credits"
-msgstr "Stephan Arts <stephan@xfce.org>\n"
+msgstr ""
+"Stephan Arts <stephan@xfce.org>\n"
 "Vincent Tunru <projects@vinnl.nl>\n"
 "Pjotr"
 
-#: ../src/window.c:1013
+#: ../src/window.c:1018
 msgid "Save the self-extracting archive as"
 msgstr "Zelf-uitpakkend archief opslaan als"
 
-#: ../src/window.c:1042 ../src/interface.c:340
+#: ../src/window.c:1047 ../src/interface.c:338
 msgid "Open an archive"
 msgstr "Open een archief"
 
-#: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1060 ../src/extract_dialog.c:90 ../src/new_dialog.c:64
 msgid "All files"
 msgstr "Alle bestanden"
 
-#: ../src/window.c:1060 ../src/new_dialog.c:67
+#: ../src/window.c:1065 ../src/new_dialog.c:69
 msgid "Only archives"
 msgstr "Alleen archieven"
 
-#: ../src/window.c:1274
+#: ../src/window.c:1283
 msgid "Filename"
 msgstr "Bestandnaam"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Dit zal waarschijnlijk uw archief corrumperen."
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Do you really want to cancel?"
 msgstr "Wilt u echt annuleren?"
 
-#: ../src/window.c:1394 ../src/window.c:1409
+#: ../src/window.c:1405 ../src/window.c:1420
 msgid "Yes"
 msgstr "Ja"
 
-#: ../src/window.c:1396 ../src/window.c:1411
+#: ../src/window.c:1407 ../src/window.c:1422
 msgid "No"
 msgstr "Nee"
 
-#: ../src/window.c:1614
+#: ../src/window.c:1631
 msgid "selected"
 msgstr "geselecteerd"
 
-#: ../src/window.c:1619
+#: ../src/window.c:1636
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d bestand en %d map %s (%s)"
 msgstr[1] "%d bestanden en %d mappen %s (%s)"
 
-#: ../src/window.c:1621
+#: ../src/window.c:1638
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d map %s (%s)"
 msgstr[1] "%d mappen %s (%s)"
 
-#: ../src/window.c:1624
+#: ../src/window.c:1641
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d bestand %s (%s)"
 msgstr[1] "%d bestanden %s (%s)"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Can't perform another extraction:"
 msgstr "Kan niet nog een keer uitpakken:"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Please wait until the completion of the current one!"
 msgstr "Wacht a.u.b. tot de huidige actie voltooid is."
 
-#: ../src/window.c:1713 ../src/extract_dialog.c:341
+#: ../src/window.c:1730 ../src/extract_dialog.c:337
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr ""
-"U hebt niet de juiste rechten om de bestanden uit te pakken naar de map \"%s\"."
+"U hebt niet de juiste rechten om de bestanden uit te pakken naar de map \"%s"
+"\"."
 
-#: ../src/window.c:1714 ../src/extract_dialog.c:342
+#: ../src/window.c:1731 ../src/extract_dialog.c:338
 msgid "Can't perform extraction!"
 msgstr "Kan niet uitpakken."
 
-#: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
+#: ../src/window.c:1775 ../src/extract_dialog.c:650 ../src/interface.c:1397
 msgid "Sorry,I could not perform the operation!"
 msgstr "Excuus, ik kon de actie niet uitvoeren."
 
-#: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
+#: ../src/window.c:1809 ../src/window.c:1821 ../src/interface.c:1390
 msgid "Can't perform this action:"
 msgstr "Kan deze actie niet uitvoeren:"
 
-#: ../src/window.c:1789
+#: ../src/window.c:1809
 msgid "You have to install rar package!"
 msgstr "Installeer eerst het rar-pakket."
 
-#: ../src/window.c:1796 ../src/interface.c:1382
+#: ../src/window.c:1816 ../src/interface.c:1387
 msgid "You can't add content to deb packages!"
 msgstr "Aan deb-pakketten kunt u geen inhoud toevoegen."
 
-#: ../src/window.c:1798 ../src/interface.c:1384
+#: ../src/window.c:1818 ../src/interface.c:1389
 msgid "You can't add content to rpm packages!"
 msgstr "Aan rpm-pakketten kunt u geen inhoud toevoegen."
 
-#: ../src/window.c:1800
+#: ../src/window.c:1820
 msgid "The archiver doesn't support this feature!"
 msgstr "De archiveerder ondersteunt deze functie niet."
 
-#: ../src/window.c:1881
+#: ../src/window.c:1901
 msgid "You didn't set which browser to use!"
 msgstr "U hebt geen webbrowser ingesteld."
 
-#: ../src/window.c:1881 ../src/window.c:1922
+#: ../src/window.c:1901 ../src/window.c:1942
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Gelieve naar voorkeuren->geavanceerd te gaan en het in te stellen."
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "This file type is not supported!"
 msgstr "Dit bestandtype wordt niet ondersteund."
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "Please install xdg-utils package."
 msgstr "Installeer het pakket xdg-utils."
 
-#: ../src/window.c:1922
+#: ../src/window.c:1942
 msgid "You didn't set which program to use for opening this file!"
 msgstr "U hebt geen programma ingesteld om dit bestand mee te openen."
 
-#: ../src/window.c:1948
+#: ../src/window.c:1968
 msgid "Failed to launch the application!"
 msgstr "Kon toepassing niet starten."
 
-#: ../src/window.c:2000
+#: ../src/window.c:2020
 msgid "Comment"
 msgstr "Commentaar"
 
-#: ../src/window.c:2030
+#: ../src/window.c:2050
 msgid "From File"
 msgstr "Vanuit bestand"
 
-#: ../src/window.c:2135
+#: ../src/window.c:2156
 msgid "Open a text file"
 msgstr "Een tekstbestand openen"
 
-#: ../src/window.c:2153
+#: ../src/window.c:2174
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Kan bestand %s niet openen:"
@@ -508,66 +515,67 @@ msgstr "Kan bestand %s niet openen:"
 msgid "Date modified"
 msgstr "Datum bewerkt"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:464
 msgid "Extract to:"
 msgstr "Uitpakken naar:"
 
-#: ../src/extract_dialog.c:94
+#: ../src/extract_dialog.c:95
 msgid "Selected files"
 msgstr "Geselecteerde bestanden"
 
-#: ../src/extract_dialog.c:101
+#: ../src/extract_dialog.c:103
 msgid "Files: "
 msgstr "Bestanden: "
 
-#: ../src/extract_dialog.c:111
+#: ../src/extract_dialog.c:114
 msgid "Files "
 msgstr "Bestanden "
 
-#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
+#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:491
 msgid "Overwrite existing files"
 msgstr "Bestaande bestanden overschrijven"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:131
 msgid "Extract files with full path"
 msgstr "Archief uitpakken met volledig pad"
 
-#: ../src/extract_dialog.c:129
+#: ../src/extract_dialog.c:132
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 "De bestandstructuur in het archief zal worden herschapen in de uitpakmap"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:135
 msgid "Touch files"
 msgstr "Bestanden aanraken"
 
-#: ../src/extract_dialog.c:133
+#: ../src/extract_dialog.c:136
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
 "to the times recorded in the archive"
 msgstr ""
 "Met deze optie zal tar de aanpassingstijdstippen van de uitgepakte bestanden "
-"instellen op het moment dat de bestanden zijn uitgepakt, niet op de tijdstippen "
-"die in het archief zijn opgenomen."
+"instellen op het moment dat de bestanden zijn uitgepakt, niet op de "
+"tijdstippen die in het archief zijn opgenomen."
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:139
 msgid "Freshen existing files"
 msgstr "Bestaande bestanden verversen"
 
-#: ../src/extract_dialog.c:137
+#: ../src/extract_dialog.c:140
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
-msgstr "Alleen die bestanden uitpakken die al op de schijf staan en die nieuwer "
-"zijn dan de exemplaren op de schijf"
+msgstr ""
+"Alleen die bestanden uitpakken die al op de schijf staan en die nieuwer zijn "
+"dan de exemplaren op de schijf"
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:144
 msgid "Update existing files"
 msgstr "Bestaande bestanden bijwerken"
 
-#: ../src/extract_dialog.c:142
+#: ../src/extract_dialog.c:145
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -577,78 +585,78 @@ msgstr ""
 "zijn dan die met dezelfde naam op de schijf. Daarnaast pakt hij ook de "
 "bestanden uit die nog niet op de schijf aanwezig zijn."
 
-#: ../src/extract_dialog.c:146
+#: ../src/extract_dialog.c:149
 msgid "Options "
 msgstr "Opties"
 
-#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
+#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:508
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Uitpakken"
 
-#: ../src/extract_dialog.c:223
+#: ../src/extract_dialog.c:226
 msgid "Decompress file"
 msgstr "Bestand decomprimeren"
 
-#: ../src/extract_dialog.c:225 ../src/interface.c:396
+#: ../src/extract_dialog.c:228 ../src/interface.c:400
 msgid "Extract files"
 msgstr "Bestanden uitpakken"
 
-#: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
 msgstr "U hebt niet ingevoerd waar de bestanden moeten worden uitgepakt."
 
-#: ../src/extract_dialog.c:317
+#: ../src/extract_dialog.c:313
 msgid "Please enter the extraction path."
 msgstr "Voer a.u.b. het uitpakpad in."
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "This archive is encrypted!"
 msgstr "Dit archief werd versleuteld."
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "Please enter the password."
 msgstr "Voer a.u.b. het wachtwoord in."
 
-#: ../src/extract_dialog.c:378
+#: ../src/extract_dialog.c:374
 msgid "Extracting files from archive,please wait..."
 msgstr "Bestanden aan het uitpakken vanuit archief..."
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Archive Name"
 msgstr "Naam van archief"
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Path"
 msgstr "Pad"
 
-#: ../src/extract_dialog.c:407
+#: ../src/extract_dialog.c:403
 msgid "Multi-Extract"
 msgstr "Meerdere uitpakken"
 
-#: ../src/extract_dialog.c:478
+#: ../src/extract_dialog.c:474
 msgid "Extract to dir \"Archive Name\""
 msgstr "Uitpakken naar map \"Archief Naam\""
 
-#: ../src/extract_dialog.c:479
+#: ../src/extract_dialog.c:475
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr ""
 "Deze optie pakt archieven uit in mappen met dezelfde namen als de archieven"
 
-#: ../src/extract_dialog.c:483
+#: ../src/extract_dialog.c:479
 msgid "Destination dirs:"
 msgstr "Bestemmingmappen:"
 
-#: ../src/extract_dialog.c:497
+#: ../src/extract_dialog.c:493
 msgid "Extract pathnames"
 msgstr "Padnamen uitpakken"
 
-#: ../src/extract_dialog.c:499
+#: ../src/extract_dialog.c:496
 msgid "Options:"
 msgstr "Opties:"
 
-#: ../src/extract_dialog.c:531
+#: ../src/extract_dialog.c:528
 msgid "Please select the archives you want to extract"
 msgstr "Selecteer de archiefbestanden die u wil uitpakken"
 
@@ -668,7 +676,7 @@ msgstr "U hebt er geeneen toegevoegd."
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Gelieve het \"Pak uit naar\" veld in te vullen."
 
-#: ../src/extract_dialog.c:754
+#: ../src/extract_dialog.c:760
 msgid "Some errors occurred:"
 msgstr "Er hebben enkele fouten plaatsgevonden:"
 
@@ -760,240 +768,259 @@ msgstr "_Hulp"
 msgid "_Contents"
 msgstr "_Inhoud"
 
-#: ../src/interface.c:313
-msgid "_Donate"
-msgstr "_Doneer"
+#: ../src/interface.c:326
+msgid "New"
+msgstr "Nieuw"
 
-#: ../src/interface.c:333 ../src/new_dialog.c:50
+#: ../src/interface.c:330 ../src/new_dialog.c:52
 msgid "Create a new archive"
 msgstr "Nieuw archief maken"
 
-#: ../src/interface.c:352
+#: ../src/interface.c:334
+msgid "Open"
+msgstr "Openen"
+
+#: ../src/interface.c:346 ../src/interface.c:351
 msgid "Back"
 msgstr "Vorige"
 
-#: ../src/interface.c:360
+#: ../src/interface.c:355 ../src/interface.c:360
 msgid "Up"
 msgstr "Omhoog"
 
-#: ../src/interface.c:368
+#: ../src/interface.c:364 ../src/interface.c:369
 msgid "Forward"
 msgstr "Volgende"
 
-#: ../src/interface.c:376
+#: ../src/interface.c:373
+msgid "Home"
+msgstr "Thuis"
+
+#: ../src/interface.c:378
 msgid "Root"
 msgstr "Root"
 
+#: ../src/interface.c:386
+msgid "Add"
+msgstr "Toevoegen"
+
+#: ../src/interface.c:395 ../src/interface.c:850
+msgid "Extract"
+msgstr "Uitpakken"
+
 #: ../src/interface.c:408
+msgid "Stop"
+msgstr "Stoppen"
+
+#: ../src/interface.c:413
 msgid "Cancel current operation"
 msgstr "Huidige bewerking annuleren"
 
-#: ../src/interface.c:421
+#: ../src/interface.c:426
 msgid "Location:"
 msgstr "Locatie:"
 
-#: ../src/interface.c:460
+#: ../src/interface.c:465
 msgid "Archive tree"
 msgstr "Boomstructuur van archief"
 
-#: ../src/interface.c:508
+#: ../src/interface.c:513
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr ""
 "Dit is Xarchiver's LED-status; knipperen betekent dat Xarchiver bezig is"
 
-#: ../src/interface.c:677
+#: ../src/interface.c:687
 msgid "Close archive"
 msgstr "Archief sluiten"
 
-#: ../src/interface.c:762
+#: ../src/interface.c:772
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>Wachtwoord vereist voor:</span>"
 
-#: ../src/interface.c:764
+#: ../src/interface.c:774
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>Wachtwoord invoeren voor:</span>"
 
-#: ../src/interface.c:782
+#: ../src/interface.c:792
 msgid "_Password:"
 msgstr "_Wachtwoord:"
 
-#: ../src/interface.c:837 ../src/open-with-dlg.c:52
+#: ../src/interface.c:842 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "Openen met"
 
-#: ../src/interface.c:845
-msgid "Extract"
-msgstr "Uitpakken"
-
-#: ../src/interface.c:853
+#: ../src/interface.c:858
 msgid "View"
 msgstr "Weergeven"
 
-#: ../src/interface.c:866
+#: ../src/interface.c:871
 msgid "Cut"
 msgstr "Knippen"
 
-#: ../src/interface.c:874
+#: ../src/interface.c:879
 msgid "Copy"
 msgstr "Kopiëren"
 
-#: ../src/interface.c:882
+#: ../src/interface.c:887
 msgid "Paste"
 msgstr "Plakken"
 
-#: ../src/interface.c:896
+#: ../src/interface.c:901
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: ../src/interface.c:905
+#: ../src/interface.c:910
 msgid "Rename"
 msgstr "Naam wijzigen"
 
-#: ../src/interface.c:944
+#: ../src/interface.c:949
 msgid "Select by Pattern"
 msgstr "Selecteer op patroon"
 
-#: ../src/interface.c:957
+#: ../src/interface.c:962
 msgid "Pattern:"
 msgstr "Patroon:"
 
-#: ../src/interface.c:962
+#: ../src/interface.c:967
 msgid "example: *.txt; ac*"
 msgstr "voorbeeld: *.txt; ac*"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:984
 msgid "_Select"
 msgstr "_Selecteren"
 
-#: ../src/interface.c:1051
+#: ../src/interface.c:1056
 msgid "Archive Properties"
 msgstr "Eigenschappen van archief"
 
-#: ../src/interface.c:1072
+#: ../src/interface.c:1077
 msgid "Name:"
 msgstr "Naam:"
 
-#: ../src/interface.c:1079
+#: ../src/interface.c:1084
 msgid "Path:"
 msgstr "Pad:"
 
-#: ../src/interface.c:1086
+#: ../src/interface.c:1091
 msgid "Type:"
 msgstr "Type:"
 
-#: ../src/interface.c:1093
+#: ../src/interface.c:1098
 msgid "Encrypted:"
 msgstr "Versleuteld:"
 
-#: ../src/interface.c:1100
+#: ../src/interface.c:1105
 msgid "Modified on:"
 msgstr "Aangepast op:"
 
-#: ../src/interface.c:1107
+#: ../src/interface.c:1112
 msgid "Compressed size:"
 msgstr "Gecomprimeerde grootte"
 
-#: ../src/interface.c:1114
+#: ../src/interface.c:1119
 msgid "Uncompressed size:"
 msgstr "Ongecomprimeerde grootte:"
 
-#: ../src/interface.c:1121
+#: ../src/interface.c:1126
 msgid "Comment:"
 msgstr "Commentaar:"
 
-#: ../src/interface.c:1128
+#: ../src/interface.c:1133
 msgid "Number of files:"
 msgstr "Aantal bestanden:"
 
-#: ../src/interface.c:1135
+#: ../src/interface.c:1140
 msgid "Compression ratio:"
 msgstr "Compressieniveau:"
 
-#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
-msgid "Xarchiver"
-msgstr "Xarchiver"
-
-#: ../src/interface.c:1526
+#: ../src/interface.c:1531
 msgid "Extracting from archive:"
 msgstr "Aan het uitpakken vanuit archief:"
 
-#: ../src/interface.c:1528
+#: ../src/interface.c:1533
 msgid "Adding to archive:"
 msgstr "Aan het toevoegen aan archief:"
 
-#: ../src/interface.c:1548
+#: ../src/interface.c:1553
 msgid "Total Progress:"
 msgstr "Totale voortgang:"
 
-#: ../src/main.c:58
+#: ../src/main.c:59
 msgid "Extract archive to the destination directory and quits."
 msgstr "Archiefbestand uitpakken naar de bestemmingsmap en sluiten."
 
-#: ../src/main.c:59
+#: ../src/main.c:60
 msgid "destination archive"
 msgstr "bestemmingsarchief"
 
-#: ../src/main.c:62
+#: ../src/main.c:63
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "Archief uitpakken door te vragen om een bestemmingsmap en sluiten."
 
-#: ../src/main.c:63 ../src/main.c:75
+#: ../src/main.c:64 ../src/main.c:76
 msgid "archive"
 msgstr "archief"
 
-#: ../src/main.c:66
+#: ../src/main.c:67
 msgid "Multi-extract archives"
 msgstr "Meerdere archieven uitpakken"
 
-#: ../src/main.c:67
+#: ../src/main.c:68
 msgid "filenames"
 msgstr "bestandnamen"
 
-#: ../src/main.c:70
+#: ../src/main.c:71
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr ""
 "Bestanden toevoegen door te vragen om de naam van het archiefbestand en "
 "sluiten."
 
-#: ../src/main.c:71
+#: ../src/main.c:72
 msgid "file1 file2 file3 ... fileN"
 msgstr "bestand1 bestand2 ... bestandN"
 
-#: ../src/main.c:74
+#: ../src/main.c:75
 msgid "Add files to archive by asking their filenames and quits."
-msgstr "Bestanden toevoegen aan archief door hun bestandnamen te vragen en sluiten."
+msgstr ""
+"Bestanden toevoegen aan archief door hun bestandnamen te vragen en sluiten."
 
-#: ../src/main.c:78
+#: ../src/main.c:79
 msgid "Show version and exit"
 msgstr "Toon versie en sluit af"
 
-#: ../src/main.c:105
+#: ../src/main.c:106
 msgid "[archive name]"
 msgstr "[archiefnaam]"
 
-#: ../src/main.c:109
+#: ../src/main.c:110
 #, c-format
 msgid ""
 "xarchiver: %s\n"
 "Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
 "xarchiver: %s\n"
-"Probeer xarchiver --help voor een lijst met beschikbare opties voor de opdrachtregel.\n"
+"Probeer xarchiver --help voor een lijst met beschikbare opties voor de "
+"opdrachtregel.\n"
 
-#: ../src/main.c:119
+#: ../src/main.c:120
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/main.c:122
 #, c-format
 msgid "Please report bugs to <%s>."
 msgstr "Gelieve fouten te melden aan <%s>."
 
-#: ../src/main.c:146 ../src/main.c:169
+#: ../src/main.c:149 ../src/main.c:172
 msgid "Can't extract files from the archive:"
 msgstr "Kan bestanden niet uitpakken vanuit het archief:"
 
-#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
+#: ../src/main.c:149 ../src/main.c:172 ../src/main.c:233
 msgid "You missed the archive name!\n"
 msgstr "U bent de archiefnaam vergeten.\n"
 
-#: ../src/main.c:534
+#: ../src/main.c:566
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Kan geen geheugen vrijmaken voor de structuur van het archief."
 
@@ -1018,37 +1045,37 @@ msgstr "Bladeren"
 msgid "Select an application"
 msgstr "Kies een toepassing"
 
-#: ../src/new_dialog.c:55
+#: ../src/new_dialog.c:57
 msgid "Cr_eate"
 msgstr "Mak_en"
 
-#: ../src/new_dialog.c:92
+#: ../src/new_dialog.c:94
 msgid "Archive type:"
 msgstr "Archieftype:"
 
-#: ../src/new_dialog.c:97
+#: ../src/new_dialog.c:99
 msgid "Choose the archive type to create"
 msgstr "Kies het type voor het te maken archief"
 
-#: ../src/new_dialog.c:112
+#: ../src/new_dialog.c:115
 msgid "Add the archive extension to the filename"
 msgstr "Voeg de archief-extensie toe aan de bestandnaam"
 
-#: ../src/new_dialog.c:159
+#: ../src/new_dialog.c:162
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" is al open."
 
-#: ../src/new_dialog.c:160
+#: ../src/new_dialog.c:163
 msgid "Can't create a new archive:"
 msgstr "Kan geen nieuw archief maken:"
 
-#: ../src/new_dialog.c:175
+#: ../src/new_dialog.c:178
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "Het archief \"%s\" bestaat al."
 
-#: ../src/new_dialog.c:181
+#: ../src/new_dialog.c:184
 msgid "Do you want to overwrite it?"
 msgstr "Wilt u het overschrijven?"
 
@@ -1082,9 +1109,7 @@ msgstr "Sorteer archief op bestandnaam"
 
 #: ../src/pref_dialog.c:122
 msgid "The filename column is sorted after loading the archive"
-msgstr ""
-"De bestandnaam-kolom wordt gesorteerd na het laden van het "
-"archief"
+msgstr "De bestandnaam-kolom wordt gesorteerd na het laden van het archief"
 
 #: ../src/pref_dialog.c:124
 msgid "Store archiver output"
@@ -1113,7 +1138,8 @@ msgstr "Archiefcommentaar weergeven"
 #: ../src/pref_dialog.c:151
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr ""
-"Indien aangevinkt, zal het archiefcommentaar worden getoond wanneer het archief is geladen"
+"Indien aangevinkt, zal het archiefcommentaar worden getoond wanneer het "
+"archief is geladen"
 
 #: ../src/pref_dialog.c:157
 msgid "Show archive tree sidebar"
@@ -1183,50 +1209,38 @@ msgstr "Kies de te gebruiken map"
 msgid "Choose the application to use"
 msgstr "Kies de te gebruiken toepassing"
 
-#: ../src/rar.c:63
+#: ../src/rar.c:31 ../src/rar.c:33
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Method"
 msgstr "Methode"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Version"
 msgstr "Versie"
 
-#: ../src/rpm.c:39
+#: ../src/rpm.c:36
 #, c-format
 msgid "Can't open RPM file %s:"
 msgstr "Kan RPM-bestand %s niet openen:"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Permission"
 msgstr "Recht"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Hard Link"
 msgstr "Harde koppeling"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Owner"
 msgstr "Eigenaar"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Group"
 msgstr "Groep"
-
-#: ../src/rpm.c:62
-msgid "Can't fseek to position 104:"
-msgstr "Kan niet fseek uitvoeren naar positie 104:"
-
-#: ../src/rpm.c:68 ../src/rpm.c:84
-msgid "Can't read data from file:"
-msgstr "Kan geen gegevens uit bestand lezen:"
-
-#: ../src/rpm.c:78
-msgid "Can't fseek in file:"
-msgstr "Kan fseek niet uitvoeren in bestand:"
 
 #: ../src/zip.c:49
 msgid "OS"
@@ -1240,23 +1254,23 @@ msgstr "Een GTK+2 archiefbeheerder"
 msgid "Archive manager"
 msgstr "Archiefbeheerder"
 
+#~ msgid "_Donate"
+#~ msgstr "_Doneer"
+
+#~ msgid "Xarchiver"
+#~ msgstr "Xarchiver"
+
+#~ msgid "Can't fseek to position 104:"
+#~ msgstr "Kan niet fseek uitvoeren naar positie 104:"
+
+#~ msgid "Can't read data from file:"
+#~ msgstr "Kan geen gegevens uit bestand lezen:"
+
+#~ msgid "Can't fseek in file:"
+#~ msgstr "Kan fseek niet uitvoeren in bestand:"
+
 #~ msgid "_Thanks to"
 #~ msgstr "Met _dank aan"
-
-#~ msgid "New"
-#~ msgstr "Nieuw"
-
-#~ msgid "Open"
-#~ msgstr "Openen"
-
-#~ msgid "Home"
-#~ msgstr "Thuis"
-
-#~ msgid "Add"
-#~ msgstr "Toevoegen"
-
-#~ msgid "Stop"
-#~ msgstr "Stoppen"
 
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Kan de opdracht niet voortbrengen:"
@@ -1296,7 +1310,8 @@ msgstr "Archiefbeheerder"
 #~ msgstr "Bewerking voltooid."
 
 #~ msgid "Please wait while the content of the archive is being updated..."
-#~ msgstr "Gelieve te wachten terwijl de inhoud van het archief wordt bijgewerkt..."
+#~ msgstr ""
+#~ "Gelieve te wachten terwijl de inhoud van het archief wordt bijgewerkt..."
 
 #~ msgid "Operation canceled."
 #~ msgstr "Bewerking geannuleerd."
@@ -1305,7 +1320,8 @@ msgstr "Archiefbeheerder"
 #~ msgstr "Kies toevoegen om te beginnen met het maken van het archief."
 
 #~ msgid "Please wait while the content of the archive is being read..."
-#~ msgstr "Gelieve even te wachten terwijl de inhoud van het archief wordt gelezen..."
+#~ msgstr ""
+#~ "Gelieve even te wachten terwijl de inhoud van het archief wordt gelezen..."
 
 #~ msgid "Ready."
 #~ msgstr "Klaar."
@@ -1353,7 +1369,8 @@ msgstr "Archiefbeheerder"
 #~ msgstr "Archiefcommentaar tonen na inladen"
 
 #~ msgid "An error occurred while decompressing the cpio archive."
-#~ msgstr "Er is een fout opgetreden bij het decomprimeren van het CPIO-archief."
+#~ msgstr ""
+#~ "Er is een fout opgetreden bij het decomprimeren van het CPIO-archief."
 
 #~ msgid "Can't write to /tmp:"
 #~ msgstr "Kan niet schrijven naar /tmp:"
@@ -1364,8 +1381,9 @@ msgstr "Archiefbeheerder"
 #~ msgid ""
 #~ "Include everything in the directory recursively \tstarting from the "
 #~ "current directory."
-#~ msgstr "Voeg alles in de map recursief toe aan het archief, beginnend "
-#~ "met de huidige map."
+#~ msgstr ""
+#~ "Voeg alles in de map recursief toe aan het archief, beginnend met de "
+#~ "huidige map."
 
 #~ msgid "Do not add file paths"
 #~ msgstr "Voeg geen bestandpaden toe"
@@ -1402,12 +1420,14 @@ msgstr "Archiefbeheerder"
 
 #~ msgid "An error occurred while extracting the file to be viewed:"
 #~ msgstr ""
-#~ "Er is een fout opgetreden bij het uitpakken van het bestand dat moet worden weergegeven:"
+#~ "Er is een fout opgetreden bij het uitpakken van het bestand dat moet "
+#~ "worden weergegeven:"
 
 #~ msgid ""
 #~ "An error occurred while converting the file content to the UTF8 encoding:"
 #~ msgstr ""
-#~ "Er is een fout opgetreden bij het converteren van de bestandinhoud naar de UTF8-codering:"
+#~ "Er is een fout opgetreden bij het converteren van de bestandinhoud naar "
+#~ "de UTF8-codering:"
 
 #~ msgid "Failed to open link."
 #~ msgstr "Kon koppeling niet openen."
@@ -1465,7 +1485,8 @@ msgstr "Archiefbeheerder"
 #~ msgstr "Symbolische koppeling"
 
 #~ msgid "Please wait while the content of the ISO image is being read..."
-#~ msgstr "Even wachten a.u.b., de inhoud van het ISO-beeldbestand wordt gelezen..."
+#~ msgstr ""
+#~ "Even wachten a.u.b., de inhoud van het ISO-beeldbestand wordt gelezen..."
 
 #~ msgid " bytes"
 #~ msgstr " bytes"

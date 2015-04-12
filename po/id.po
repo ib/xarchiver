@@ -7,22 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"POT-Creation-Date: 2015-04-12 18:17+0200\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/rar.c:31
+#: ../src/rar.c:33 ../src/zip.c:49
 msgid "Original"
 msgstr "Asli"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/gzip.c:78
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Terkompresi"
 
@@ -30,45 +31,46 @@ msgstr "Terkompresi"
 msgid "Attr"
 msgstr "Atribut"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Time"
 msgstr "Waktu"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/rpm.c:49 ../src/tar.c:55
+#: ../src/zip.c:49
 msgid "Date"
 msgstr "Tanggal"
 
-#: ../src/add_dialog.c:36 ../src/interface.c:388
+#: ../src/add_dialog.c:37 ../src/interface.c:391
 msgid "Add files"
 msgstr "Tambah berkas"
 
-#: ../src/add_dialog.c:52
+#: ../src/add_dialog.c:53
 msgid "Selection"
 msgstr "Pilihan"
 
-#: ../src/add_dialog.c:66
+#: ../src/add_dialog.c:67
 msgid "File Paths: "
 msgstr "Alamat Berkas: "
 
-#: ../src/add_dialog.c:72
+#: ../src/add_dialog.c:73
 msgid "Store full paths"
 msgstr "Simpan alamat penuh"
 
-#: ../src/add_dialog.c:76
+#: ../src/add_dialog.c:79
 msgid "Do not store paths"
 msgstr "Jangan menyimpan alamat"
 
-#: ../src/add_dialog.c:85
+#: ../src/add_dialog.c:90
 msgid "Options"
 msgstr "Opsi"
 
-#: ../src/add_dialog.c:103
+#: ../src/add_dialog.c:108
 msgid "Update and add"
 msgstr "Mutakhirkan dan tambah"
 
-#: ../src/add_dialog.c:105
+#: ../src/add_dialog.c:110
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified"
@@ -76,11 +78,11 @@ msgstr ""
 "Opsi ini akan menambah berkas baru dan memutakhirkan berkas apapun yang "
 "telah dimodifikasi sejak arsip terakhir kali dibuat/dimodifikasi"
 
-#: ../src/add_dialog.c:108
+#: ../src/add_dialog.c:113
 msgid "Freshen and replace"
 msgstr "Segarkan dan ganti"
 
-#: ../src/add_dialog.c:111
+#: ../src/add_dialog.c:116
 msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
@@ -90,15 +92,15 @@ msgstr ""
 "daripada versi yang ada di arsip; tidak seperti opsi mutakhirkan, opsi ini "
 "tidak menambah berkas yang tidak ada di arsip"
 
-#: ../src/add_dialog.c:115
+#: ../src/add_dialog.c:120
 msgid "Include subdirectories"
 msgstr "Termasuk subdirektori"
 
-#: ../src/add_dialog.c:119
+#: ../src/add_dialog.c:124
 msgid "Create a solid archive"
 msgstr "Buat arsip solid"
 
-#: ../src/add_dialog.c:121
+#: ../src/add_dialog.c:126
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio"
@@ -106,71 +108,71 @@ msgstr ""
 "Dalam arsip solid, berkas dikelompokkan bersama sehingga menghasilkan rasio "
 "kompresi yang lebih baik"
 
-#: ../src/add_dialog.c:124
+#: ../src/add_dialog.c:129
 msgid "Delete files after adding"
 msgstr "Hapus berkas setelah menambahkan"
 
-#: ../src/add_dialog.c:128
+#: ../src/add_dialog.c:133
 msgid "Actions: "
 msgstr "Aksi: "
 
-#: ../src/add_dialog.c:143
+#: ../src/add_dialog.c:148
 msgid "Compression: "
 msgstr "Kompresi: "
 
-#: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
 msgid "Password:"
 msgstr "Sandi:"
 
-#: ../src/add_dialog.c:167
+#: ../src/add_dialog.c:172
 msgid "Encryption: "
 msgstr "Enkripsi: "
 
-#: ../src/add_dialog.c:180
+#: ../src/add_dialog.c:185
 msgid "_Add"
 msgstr "_Tambah"
 
-#: ../src/add_dialog.c:247
+#: ../src/add_dialog.c:252 ../src/add_dialog.c:288
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = tak ada kompresi, 5 standarnya, 9 = kompresi terbaik tapi paling lambat"
 
-#: ../src/add_dialog.c:253
+#: ../src/add_dialog.c:258
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = tak ada kompresi, 6 standarnya, 9 = kompresi terbaik tapi paling lambat"
 
-#: ../src/add_dialog.c:259
+#: ../src/add_dialog.c:264 ../src/add_dialog.c:270
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr ""
 "0 = tak ada kompresi, 3 standarnya, 5 = kompresi terbaik tapi paling lambat"
 
-#: ../src/add_dialog.c:265
+#: ../src/add_dialog.c:276
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = tak ada kompresi, 1 standarnya, 4 = tercepat tapi kompresi terburuk"
 
-#: ../src/add_dialog.c:271
+#: ../src/add_dialog.c:282
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = kompresi standar, 7 = kompresi maksimum"
 
-#: ../src/add_dialog.c:371 ../src/main.c:228
+#: ../src/add_dialog.c:388 ../src/main.c:233
 msgid "Can't add files to the archive:"
 msgstr "Tak dapat tambah berkas ke arsip:"
 
-#: ../src/add_dialog.c:371
+#: ../src/add_dialog.c:388
 msgid "You haven't selected any files to add!"
 msgstr "Anda belum memilih berkas untuk ditambah!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "You missed the password!"
 msgstr "Anda salah sandi!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "Please enter it!"
 msgstr "Silakan masukkan!"
 
-#: ../src/add_dialog.c:449
+#: ../src/add_dialog.c:466
 msgid "Adding files to archive, please wait..."
 msgstr "Menambah berkas ke arsip, silakan tunggu..."
 
@@ -182,7 +184,8 @@ msgstr "Tak dapat menjalankan pengarsip yang dapat dieksekusi:"
 msgid "Can't create temporary directory:"
 msgstr "Tak dapat membuat direktori temporer:"
 
-#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:31
+#: ../src/rar.c:33
 msgid "Ratio"
 msgstr "Rasio"
 
@@ -190,93 +193,93 @@ msgstr "Rasio"
 msgid "Attributes"
 msgstr "Atribut"
 
-#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Points to"
 msgstr "Menunjuk ke"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Permissions"
 msgstr "Hak Akses"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
 msgid "Owner/Group"
 msgstr "Pemilik/Kelompok"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:395
-#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/extract_dialog.c:391
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Size"
 msgstr "Ukuran"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "An error occurred!"
 msgstr "Galat terjadi!"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr "Silakan cek opsi 'Simpan keluaran pengarsip' untuk melihatnya."
 
-#: ../src/window.c:147
+#: ../src/window.c:148
 msgid "Archiver output"
 msgstr "Keluaran pengarsip"
 
-#: ../src/window.c:182
+#: ../src/window.c:183
 msgid "An error occurred while accessing the archive:"
 msgstr "Galat terjadi ketika mengakses arsip:"
 
-#: ../src/window.c:254
+#: ../src/window.c:256
 msgid "Save the archive as"
 msgstr "Simpan arsip sebagai"
 
-#: ../src/window.c:313
+#: ../src/window.c:315
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Tak dapat membuka berkas \"%s\":"
 
-#: ../src/window.c:315
+#: ../src/window.c:317
 msgid "Archive format is not recognized!"
 msgstr "Format arsip tidak dikenal!"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "Sorry,this archive format is not supported:"
 msgstr "Maaf,format arsip ini tidak didukung:"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "the proper archiver is not installed!"
 msgstr "Pengarsip yang sesuai tidak terinstal!"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Tak dapat mengalokasi memori untuk struktur arsip:"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Operation aborted!"
 msgstr "Operasi dibatalkan!"
 
-#: ../src/window.c:378
+#: ../src/window.c:382
 msgid "Opening archive,please wait..."
 msgstr "Membuka arsip,silakan tunggu..."
 
-#: ../src/window.c:402
+#: ../src/window.c:406
 msgid "Testing archive,please wait..."
 msgstr "Mengetes arsip,silakan tunggu..."
 
-#: ../src/window.c:422
+#: ../src/window.c:426
 msgid "Print the archive content as HTML"
 msgstr "Menampilkan isi arsip sebagai HTML"
 
-#: ../src/window.c:424
+#: ../src/window.c:428
 msgid "Print the archive content as text"
 msgstr "Tampilkan isi arsip sebagai teks"
 
-#: ../src/window.c:475
+#: ../src/window.c:479
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Isi arsip:\n"
 
-#: ../src/window.c:479
+#: ../src/window.c:483
 #, c-format
 msgid ""
 "\n"
@@ -285,147 +288,147 @@ msgstr ""
 "\n"
 "Nama: "
 
-#: ../src/window.c:488
+#: ../src/window.c:492
 #, c-format
 msgid "Compressed   size: "
 msgstr "Terkompresi   ukuran: "
 
-#: ../src/window.c:495
+#: ../src/window.c:499
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Ukuran tak terkompresi: "
 
-#: ../src/window.c:503
+#: ../src/window.c:507
 #, c-format
 msgid "Number of files: "
 msgstr "Jumlah berkas: "
 
-#: ../src/window.c:511
+#: ../src/window.c:515
 #, c-format
 msgid "Comment:\n"
 msgstr "Komentar:\n"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Berkas:%*s%s"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 msgid "|Compressed\n"
 msgstr "|Terkompresi\n"
 
-#: ../src/window.c:530
+#: ../src/window.c:534
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Berkas:</th>"
 
-#: ../src/window.c:531
+#: ../src/window.c:535
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Terkompresi:</th>"
 
-#: ../src/window.c:617 ../src/main.c:276
+#: ../src/window.c:621 ../src/main.c:281
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Pilih \"Baru\" untuk membuat atau \"Open\" untuk membuka arsip"
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "You are about to delete entries from the archive."
 msgstr "Anda akan menghapus lema dari arsip."
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "Are you sure you want to do this?"
 msgstr "Anda yakin ingin melakukan ini?"
 
-#: ../src/window.c:815 ../src/window.c:915
+#: ../src/window.c:820 ../src/window.c:920
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Tak dapat mengonversi arsip ke ekstrak-sendiri:"
 
-#: ../src/window.c:826 ../src/window.c:926
+#: ../src/window.c:831 ../src/window.c:931
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Tak dapat menulis modul unzipfx ke arsip:"
 
-#: ../src/window.c:886
+#: ../src/window.c:891
 msgid "Please select the 7zCon.sfx module"
 msgstr "Silakan pilih modul 7zCon.sfx"
 
-#: ../src/window.c:980
+#: ../src/window.c:985
 msgid "A GTK+2 only lightweight archive manager"
 msgstr "Sebuah manajer arsip ringan khusus GTK+2"
 
-#: ../src/window.c:983
+#: ../src/window.c:988
 msgid "translator-credits"
 msgstr ""
 "Ahmad Riza H Nst <rizahnst@gnome.org>\n"
 "http://id.gnome.org/\n"
 "Andhika Padmawan <andhika.padmawan@gmail.com>, 2008."
 
-#: ../src/window.c:1013
+#: ../src/window.c:1018
 msgid "Save the self-extracting archive as"
 msgstr "Simpan arsip ekstrak-sendiri sebagai"
 
-#: ../src/window.c:1042 ../src/interface.c:340
+#: ../src/window.c:1047 ../src/interface.c:338
 msgid "Open an archive"
 msgstr "Buka arsip"
 
-#: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1060 ../src/extract_dialog.c:90 ../src/new_dialog.c:64
 msgid "All files"
 msgstr "Semua berkas"
 
-#: ../src/window.c:1060 ../src/new_dialog.c:67
+#: ../src/window.c:1065 ../src/new_dialog.c:69
 msgid "Only archives"
 msgstr "Hanya arsip"
 
-#: ../src/window.c:1274
+#: ../src/window.c:1283
 msgid "Filename"
 msgstr "Nama berkas"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Melakukan ini mungkin dapat mengorupsi arsip anda!"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Do you really want to cancel?"
 msgstr "Anda yakin ingin membatalkan?"
 
-#: ../src/window.c:1394 ../src/window.c:1409
+#: ../src/window.c:1405 ../src/window.c:1420
 msgid "Yes"
 msgstr "Ya"
 
-#: ../src/window.c:1396 ../src/window.c:1411
+#: ../src/window.c:1407 ../src/window.c:1422
 msgid "No"
 msgstr "Tidak"
 
-#: ../src/window.c:1614
+#: ../src/window.c:1631
 msgid "selected"
 msgstr "terpilih"
 
-#: ../src/window.c:1619
+#: ../src/window.c:1636
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d berkas dan %d direktori %s (%s)"
 
-#: ../src/window.c:1621
+#: ../src/window.c:1638
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d direktori %s (%s)"
 
-#: ../src/window.c:1624
+#: ../src/window.c:1641
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d berkas %s (%s)"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Can't perform another extraction:"
 msgstr "Tak dapat melakukan ekstraksi lain:"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Please wait until the completion of the current one!"
 msgstr "Silakan tunggu sampai penyelesaian tahap ini!"
 
-#: ../src/window.c:1713 ../src/extract_dialog.c:341
+#: ../src/window.c:1730 ../src/extract_dialog.c:337
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
@@ -434,71 +437,71 @@ msgstr ""
 "Anda tak memiliki hak akses yang cukup untuk mengekstrak berkas ke direktori "
 "\"%s\"."
 
-#: ../src/window.c:1714 ../src/extract_dialog.c:342
+#: ../src/window.c:1731 ../src/extract_dialog.c:338
 msgid "Can't perform extraction!"
 msgstr "Tak dapat melakukan ekstrak!"
 
-#: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
+#: ../src/window.c:1775 ../src/extract_dialog.c:650 ../src/interface.c:1397
 msgid "Sorry,I could not perform the operation!"
 msgstr "Maaf,saya tidak dapat melakukan operasi!"
 
-#: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
+#: ../src/window.c:1809 ../src/window.c:1821 ../src/interface.c:1390
 msgid "Can't perform this action:"
 msgstr "Tak dapat melakukan aksi ini:"
 
-#: ../src/window.c:1789
+#: ../src/window.c:1809
 msgid "You have to install rar package!"
 msgstr "Anda harus menginstal paket rar!"
 
-#: ../src/window.c:1796 ../src/interface.c:1382
+#: ../src/window.c:1816 ../src/interface.c:1387
 msgid "You can't add content to deb packages!"
 msgstr "Anda tak dapat menambah isi ke paket deb!"
 
-#: ../src/window.c:1798 ../src/interface.c:1384
+#: ../src/window.c:1818 ../src/interface.c:1389
 msgid "You can't add content to rpm packages!"
 msgstr "Anda tak dapat menambah isi ke paket rpm!"
 
-#: ../src/window.c:1800
+#: ../src/window.c:1820
 msgid "The archiver doesn't support this feature!"
 msgstr "Pengarsip tidak mendukung fitur ini!"
 
-#: ../src/window.c:1881
+#: ../src/window.c:1901
 msgid "You didn't set which browser to use!"
 msgstr "Anda belum memilih peramban yang akan digunakan!"
 
-#: ../src/window.c:1881 ../src/window.c:1922
+#: ../src/window.c:1901 ../src/window.c:1942
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Silakan pergi ke Pengaturan->Mahir lalu atur itu."
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "This file type is not supported!"
 msgstr "Tipe berkas ini tidak didukung!"
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "Please install xdg-utils package."
 msgstr "Silakan instal paket xdg-utils."
 
-#: ../src/window.c:1922
+#: ../src/window.c:1942
 msgid "You didn't set which program to use for opening this file!"
 msgstr "Anda belum memilih program yang digunakan untuk membuka berkas ini!"
 
-#: ../src/window.c:1948
+#: ../src/window.c:1968
 msgid "Failed to launch the application!"
 msgstr "Gagal menjalankan aplikasi"
 
-#: ../src/window.c:2000
+#: ../src/window.c:2020
 msgid "Comment"
 msgstr "Komentar"
 
-#: ../src/window.c:2030
+#: ../src/window.c:2050
 msgid "From File"
 msgstr "Dari Berkas"
 
-#: ../src/window.c:2135
+#: ../src/window.c:2156
 msgid "Open a text file"
 msgstr "Buka berkas teks"
 
-#: ../src/window.c:2153
+#: ../src/window.c:2174
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Tak dapat membuka berkas %s:"
@@ -507,40 +510,40 @@ msgstr "Tak dapat membuka berkas %s:"
 msgid "Date modified"
 msgstr "Tanggal dimodifikasi"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:464
 msgid "Extract to:"
 msgstr "Ekstrak ke:"
 
-#: ../src/extract_dialog.c:94
+#: ../src/extract_dialog.c:95
 msgid "Selected files"
 msgstr "Berkas terpilih"
 
-#: ../src/extract_dialog.c:101
+#: ../src/extract_dialog.c:103
 msgid "Files: "
 msgstr "Berkas: "
 
-#: ../src/extract_dialog.c:111
+#: ../src/extract_dialog.c:114
 msgid "Files "
 msgstr "Berkas "
 
-#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
+#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:491
 msgid "Overwrite existing files"
 msgstr "Timpa berkas yang ada"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:131
 msgid "Extract files with full path"
 msgstr "Ekstrak berkas dengan alamat penuh"
 
-#: ../src/extract_dialog.c:129
+#: ../src/extract_dialog.c:132
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Struktur direktori arsip dibuat ulang ketika mengekstrak direktori"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:135
 msgid "Touch files"
 msgstr "Sentuh berkas"
 
-#: ../src/extract_dialog.c:133
+#: ../src/extract_dialog.c:136
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -550,11 +553,11 @@ msgstr ""
 "yang diekstrak sebagai waktu ketika berkas diekstrak,ketimbang mengaturnya "
 "ke waktu tersimpan di arsip"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:139
 msgid "Freshen existing files"
 msgstr "Segarkan berkas yang ada"
 
-#: ../src/extract_dialog.c:137
+#: ../src/extract_dialog.c:140
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
@@ -562,11 +565,11 @@ msgstr ""
 "Hanya ekstrak berkas yang telah ada di cakram dan yang lebih baru daripada "
 "salinan cakram"
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:144
 msgid "Update existing files"
 msgstr "Mutakhirkan berkas yang ada"
 
-#: ../src/extract_dialog.c:142
+#: ../src/extract_dialog.c:145
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -576,77 +579,77 @@ msgstr ""
 "yang lebih baru daripada berkas dengan nama yang sama di cakram,dan sebagai "
 "tambahan juga mengekstrak berkas yang belum ada di cakram"
 
-#: ../src/extract_dialog.c:146
+#: ../src/extract_dialog.c:149
 msgid "Options "
 msgstr "Opsi "
 
-#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
+#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:508
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Ekstrak"
 
-#: ../src/extract_dialog.c:223
+#: ../src/extract_dialog.c:226
 msgid "Decompress file"
 msgstr "Dekompres berkas"
 
-#: ../src/extract_dialog.c:225 ../src/interface.c:396
+#: ../src/extract_dialog.c:228 ../src/interface.c:400
 msgid "Extract files"
 msgstr "Ekstrak berkas"
 
-#: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
 msgstr "Anda melewatkan tempat untuk mengekstrak berkas!"
 
-#: ../src/extract_dialog.c:317
+#: ../src/extract_dialog.c:313
 msgid "Please enter the extraction path."
 msgstr "Silakan masukkan alamat ekstrak."
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "This archive is encrypted!"
 msgstr "Arsip ini terenkripsi!"
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "Please enter the password."
 msgstr "Silakan masukkan sandi."
 
-#: ../src/extract_dialog.c:378
+#: ../src/extract_dialog.c:374
 msgid "Extracting files from archive,please wait..."
 msgstr "Mengekstrak berkas dari arsip,silakan tunggu..."
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Archive Name"
 msgstr "Nama Arsip"
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Path"
 msgstr "Alamat"
 
-#: ../src/extract_dialog.c:407
+#: ../src/extract_dialog.c:403
 msgid "Multi-Extract"
 msgstr "Multi-Ekstrak"
 
-#: ../src/extract_dialog.c:478
+#: ../src/extract_dialog.c:474
 msgid "Extract to dir \"Archive Name\""
 msgstr "Ekstrak berkas ke direktori \"Nama Arsip\""
 
-#: ../src/extract_dialog.c:479
+#: ../src/extract_dialog.c:475
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "Opsi ini mengekstrak arsip di direktori yang dinamai dengan nama arsip"
 
-#: ../src/extract_dialog.c:483
+#: ../src/extract_dialog.c:479
 msgid "Destination dirs:"
 msgstr "Direktori tujuan:"
 
-#: ../src/extract_dialog.c:497
+#: ../src/extract_dialog.c:493
 msgid "Extract pathnames"
 msgstr "Ekstrak nama alamat"
 
-#: ../src/extract_dialog.c:499
+#: ../src/extract_dialog.c:496
 msgid "Options:"
 msgstr "Opsi:"
 
-#: ../src/extract_dialog.c:531
+#: ../src/extract_dialog.c:528
 msgid "Please select the archives you want to extract"
 msgstr "Silakan pilih arsip yang ingin anda ekstrak"
 
@@ -666,7 +669,7 @@ msgstr "Anda belum memilih satu pun!"
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Silakan isi medan \"Ekstrak ke\"!"
 
-#: ../src/extract_dialog.c:754
+#: ../src/extract_dialog.c:760
 msgid "Some errors occurred:"
 msgstr "Beberapa galat terjadi:"
 
@@ -758,219 +761,231 @@ msgstr "Ba_ntuan"
 msgid "_Contents"
 msgstr "_Isi"
 
-#: ../src/interface.c:313
-msgid "_Donate"
-msgstr "_Donasi"
+#: ../src/interface.c:326
+msgid "New"
+msgstr "Baru"
 
-#: ../src/interface.c:333 ../src/new_dialog.c:50
+#: ../src/interface.c:330 ../src/new_dialog.c:52
 msgid "Create a new archive"
 msgstr "Buat arsip baru"
 
-#: ../src/interface.c:352
+#: ../src/interface.c:334
+msgid "Open"
+msgstr "Buka"
+
+#: ../src/interface.c:346 ../src/interface.c:351
 msgid "Back"
 msgstr "Kembali"
 
-#: ../src/interface.c:360
+#: ../src/interface.c:355 ../src/interface.c:360
 msgid "Up"
 msgstr "Atas"
 
-#: ../src/interface.c:368
+#: ../src/interface.c:364 ../src/interface.c:369
 msgid "Forward"
 msgstr "Maju"
 
-#: ../src/interface.c:376
+#: ../src/interface.c:373
+msgid "Home"
+msgstr "Rumah"
+
+#: ../src/interface.c:378
 msgid "Root"
 msgstr "Root"
 
+#: ../src/interface.c:386
+msgid "Add"
+msgstr "Tambah"
+
+#: ../src/interface.c:395 ../src/interface.c:850
+msgid "Extract"
+msgstr "Ekstrak"
+
 #: ../src/interface.c:408
+msgid "Stop"
+msgstr "Stop"
+
+#: ../src/interface.c:413
 msgid "Cancel current operation"
 msgstr "Batalkan operasi saat ini"
 
-#: ../src/interface.c:421
+#: ../src/interface.c:426
 msgid "Location:"
 msgstr "Lokasi:"
 
-#: ../src/interface.c:460
+#: ../src/interface.c:465
 msgid "Archive tree"
 msgstr "Pohon arsip"
 
-#: ../src/interface.c:508
+#: ../src/interface.c:513
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr ""
 "Ini adalah status led Xarchiver. Jika berkedip maka Xarchiver sedang "
 "sibukIni adalah status led Xarchiver. Jika berkedip maka Xarchiver sedang "
 "sibuk"
 
-#: ../src/interface.c:677
+#: ../src/interface.c:687
 msgid "Close archive"
 msgstr "Tutup arsip"
 
-#: ../src/interface.c:762
+#: ../src/interface.c:772
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>Sandi diperlukan untuk:</span>"
 
-#: ../src/interface.c:764
+#: ../src/interface.c:774
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>Masukkan sandi untuk:</span>"
 
-#: ../src/interface.c:782
+#: ../src/interface.c:792
 msgid "_Password:"
 msgstr "_Sandi:"
 
-#: ../src/interface.c:837 ../src/open-with-dlg.c:52
+#: ../src/interface.c:842 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "Buka Dengan"
 
-#: ../src/interface.c:845
-msgid "Extract"
-msgstr "Ekstrak"
-
-#: ../src/interface.c:853
+#: ../src/interface.c:858
 msgid "View"
 msgstr "Tampilan"
 
-#: ../src/interface.c:866
+#: ../src/interface.c:871
 msgid "Cut"
 msgstr "Potong"
 
-#: ../src/interface.c:874
+#: ../src/interface.c:879
 msgid "Copy"
 msgstr "Salin"
 
-#: ../src/interface.c:882
+#: ../src/interface.c:887
 msgid "Paste"
 msgstr "Rekat"
 
-#: ../src/interface.c:896
+#: ../src/interface.c:901
 msgid "Delete"
 msgstr "Hapus"
 
-#: ../src/interface.c:905
+#: ../src/interface.c:910
 msgid "Rename"
 msgstr "Ganti nama"
 
-#: ../src/interface.c:944
+#: ../src/interface.c:949
 msgid "Select by Pattern"
 msgstr "Pilih Sesuai Pola"
 
-#: ../src/interface.c:957
+#: ../src/interface.c:962
 msgid "Pattern:"
 msgstr "Pola:"
 
-#: ../src/interface.c:962
+#: ../src/interface.c:967
 msgid "example: *.txt; ac*"
 msgstr "misalnya: *.txt; ac*"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:984
 msgid "_Select"
 msgstr "_Pilih"
 
-#: ../src/interface.c:1051
+#: ../src/interface.c:1056
 msgid "Archive Properties"
 msgstr "Properti Arsip"
 
-#: ../src/interface.c:1072
+#: ../src/interface.c:1077
 msgid "Name:"
 msgstr "Nama:"
 
-#: ../src/interface.c:1079
+#: ../src/interface.c:1084
 msgid "Path:"
 msgstr "Alamat:"
 
-#: ../src/interface.c:1086
+#: ../src/interface.c:1091
 msgid "Type:"
 msgstr "Tipe:"
 
-#: ../src/interface.c:1093
+#: ../src/interface.c:1098
 msgid "Encrypted:"
 msgstr "Terenkripsi:"
 
-#: ../src/interface.c:1100
+#: ../src/interface.c:1105
 msgid "Modified on:"
 msgstr "Dimodifikasi pada:"
 
-#: ../src/interface.c:1107
+#: ../src/interface.c:1112
 msgid "Compressed size:"
 msgstr "Ukuran terkompresi:"
 
-#: ../src/interface.c:1114
+#: ../src/interface.c:1119
 msgid "Uncompressed size:"
 msgstr "Ukuran tak terkompres:"
 
-#: ../src/interface.c:1121
+#: ../src/interface.c:1126
 msgid "Comment:"
 msgstr "Komentar:"
 
-#: ../src/interface.c:1128
+#: ../src/interface.c:1133
 msgid "Number of files:"
 msgstr "Jumlah berkas:"
 
-#: ../src/interface.c:1135
+#: ../src/interface.c:1140
 msgid "Compression ratio:"
 msgstr "Rasio kompresi:"
 
-#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
-msgid "Xarchiver"
-msgstr "Xarchiver"
-
-#: ../src/interface.c:1526
+#: ../src/interface.c:1531
 msgid "Extracting from archive:"
 msgstr "Mengekstrak dari arsip:"
 
-#: ../src/interface.c:1528
+#: ../src/interface.c:1533
 msgid "Adding to archive:"
 msgstr "Menambah ke arsip:"
 
-#: ../src/interface.c:1548
+#: ../src/interface.c:1553
 msgid "Total Progress:"
 msgstr "Total Proses:"
 
-#: ../src/main.c:58
+#: ../src/main.c:59
 msgid "Extract archive to the destination directory and quits."
 msgstr "Ekstrak arsip ke direktori tujuan lalu keluar."
 
-#: ../src/main.c:59
+#: ../src/main.c:60
 msgid "destination archive"
 msgstr "arsip tujuan"
 
-#: ../src/main.c:62
+#: ../src/main.c:63
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr ""
 "Ekstrak arsip dengan menanyakan direktori tempat ekstraksi lalu keluar."
 
-#: ../src/main.c:63 ../src/main.c:75
+#: ../src/main.c:64 ../src/main.c:76
 msgid "archive"
 msgstr "arsip"
 
-#: ../src/main.c:66
+#: ../src/main.c:67
 msgid "Multi-extract archives"
 msgstr "Multi-ekstrak arsip"
 
-#: ../src/main.c:67
+#: ../src/main.c:68
 msgid "filenames"
 msgstr "nama berkas"
 
-#: ../src/main.c:70
+#: ../src/main.c:71
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Tambah berkas yang diberikan dengan menanyakan nama arsip lalu keluar."
 
-#: ../src/main.c:71
+#: ../src/main.c:72
 msgid "file1 file2 file3 ... fileN"
 msgstr "berkas1 berkas2 berkas3 ... berkasN"
 
-#: ../src/main.c:74
+#: ../src/main.c:75
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Tambah berkas ke arsip dengan menanyakan nama berkas lalu keluar."
 
-#: ../src/main.c:78
+#: ../src/main.c:79
 msgid "Show version and exit"
 msgstr "Tampilkan versi lalu keluar"
 
-#: ../src/main.c:105
+#: ../src/main.c:106
 msgid "[archive name]"
 msgstr "[nama arsip]"
 
-#: ../src/main.c:109
+#: ../src/main.c:110
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -980,20 +995,25 @@ msgstr ""
 "Coba xarchiver --help untuk melihat senarai lengkap opsi baris perintah yang "
 "tersedia.\n"
 
-#: ../src/main.c:119
+#: ../src/main.c:120
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/main.c:122
 #, c-format
 msgid "Please report bugs to <%s>."
 msgstr "Silakan laporkan kutu ke <%s>."
 
-#: ../src/main.c:146 ../src/main.c:169
+#: ../src/main.c:149 ../src/main.c:172
 msgid "Can't extract files from the archive:"
 msgstr "Tak dapat mengekstrak berkas dari arsip:"
 
-#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
+#: ../src/main.c:149 ../src/main.c:172 ../src/main.c:233
 msgid "You missed the archive name!\n"
 msgstr "Anda melewatkan nama arsip!\n"
 
-#: ../src/main.c:534
+#: ../src/main.c:566
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Tak dapat mengalokasi memori untuk struktur arsip!"
 
@@ -1018,37 +1038,37 @@ msgstr "Ramban"
 msgid "Select an application"
 msgstr "Pilih sebuah aplikasi"
 
-#: ../src/new_dialog.c:55
+#: ../src/new_dialog.c:57
 msgid "Cr_eate"
 msgstr "B_uat"
 
-#: ../src/new_dialog.c:92
+#: ../src/new_dialog.c:94
 msgid "Archive type:"
 msgstr "Tipe arsip:"
 
-#: ../src/new_dialog.c:97
+#: ../src/new_dialog.c:99
 msgid "Choose the archive type to create"
 msgstr "Pilih tipe arsip untuk dibuat"
 
-#: ../src/new_dialog.c:112
+#: ../src/new_dialog.c:115
 msgid "Add the archive extension to the filename"
 msgstr "Tambah ekstensi arsip ke nama berkas"
 
-#: ../src/new_dialog.c:159
+#: ../src/new_dialog.c:162
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" telah terbuka!"
 
-#: ../src/new_dialog.c:160
+#: ../src/new_dialog.c:163
 msgid "Can't create a new archive:"
 msgstr "Tak dapat membuat arsip baru:"
 
-#: ../src/new_dialog.c:175
+#: ../src/new_dialog.c:178
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "Arsip \"%s\" telah ada!"
 
-#: ../src/new_dialog.c:181
+#: ../src/new_dialog.c:184
 msgid "Do you want to overwrite it?"
 msgstr "Anda ingin menimpanya?"
 
@@ -1180,50 +1200,38 @@ msgstr "Pilih direktori yang akan digunakan"
 msgid "Choose the application to use"
 msgstr "Pilih aplikasi yang akan digunakan"
 
-#: ../src/rar.c:63
+#: ../src/rar.c:31 ../src/rar.c:33
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Method"
 msgstr "Metode"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Version"
 msgstr "Versi"
 
-#: ../src/rpm.c:39
+#: ../src/rpm.c:36
 #, c-format
 msgid "Can't open RPM file %s:"
 msgstr "Tak dapat membuka berkas RPM %s:"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Permission"
 msgstr "Hak Akses"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Hard Link"
 msgstr "Taut Keras"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Owner"
 msgstr "Pemilik"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Group"
 msgstr "Kelompok"
-
-#: ../src/rpm.c:62
-msgid "Can't fseek to position 104:"
-msgstr "Tak dapat fseek ke posisi 104:"
-
-#: ../src/rpm.c:68 ../src/rpm.c:84
-msgid "Can't read data from file:"
-msgstr "Tak dapat membaca data dari berkas:"
-
-#: ../src/rpm.c:78
-msgid "Can't fseek in file:"
-msgstr "Tak dapat fseek di berkas:"
 
 #: ../src/zip.c:49
 msgid "OS"
@@ -1237,23 +1245,23 @@ msgstr "Manajer arsip khusus GTK+2"
 msgid "Archive manager"
 msgstr "Manajer arsip"
 
+#~ msgid "_Donate"
+#~ msgstr "_Donasi"
+
+#~ msgid "Xarchiver"
+#~ msgstr "Xarchiver"
+
+#~ msgid "Can't fseek to position 104:"
+#~ msgstr "Tak dapat fseek ke posisi 104:"
+
+#~ msgid "Can't read data from file:"
+#~ msgstr "Tak dapat membaca data dari berkas:"
+
+#~ msgid "Can't fseek in file:"
+#~ msgstr "Tak dapat fseek di berkas:"
+
 #~ msgid "_Thanks to"
 #~ msgstr "_Terima kasih untuk"
-
-#~ msgid "New"
-#~ msgstr "Baru"
-
-#~ msgid "Open"
-#~ msgstr "Buka"
-
-#~ msgid "Home"
-#~ msgstr "Rumah"
-
-#~ msgid "Add"
-#~ msgstr "Tambah"
-
-#~ msgid "Stop"
-#~ msgstr "Stop"
 
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Tak dapat mengeksekusi perintah:"

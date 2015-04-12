@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"POT-Creation-Date: 2015-04-12 18:17+0200\n"
 "PO-Revision-Date: 2011-08-26 12:33+0200\n"
 "Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,13 +21,13 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: SLOVAKIA\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/rar.c:31
+#: ../src/rar.c:33 ../src/zip.c:49
 msgid "Original"
 msgstr "Pôvodný"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:104 ../src/gzip.c:78
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/gzip.c:78
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Komprimovaný"
 
@@ -34,45 +35,46 @@ msgstr "Komprimovaný"
 msgid "Attr"
 msgstr "Atrib"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Time"
 msgstr "Čas"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:187 ../src/gzip.c:61
-#: ../src/rar.c:63 ../src/rpm.c:52 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/rpm.c:49 ../src/tar.c:55
+#: ../src/zip.c:49
 msgid "Date"
 msgstr "Dátum"
 
-#: ../src/add_dialog.c:36 ../src/interface.c:388
+#: ../src/add_dialog.c:37 ../src/interface.c:391
 msgid "Add files"
 msgstr "Pridať súbory"
 
-#: ../src/add_dialog.c:52
+#: ../src/add_dialog.c:53
 msgid "Selection"
 msgstr "Výber"
 
-#: ../src/add_dialog.c:66
+#: ../src/add_dialog.c:67
 msgid "File Paths: "
 msgstr "Cesty k súborom: "
 
-#: ../src/add_dialog.c:72
+#: ../src/add_dialog.c:73
 msgid "Store full paths"
 msgstr "Ukladať úplné cesty"
 
-#: ../src/add_dialog.c:76
+#: ../src/add_dialog.c:79
 msgid "Do not store paths"
 msgstr "Neukladať úplné cesty"
 
-#: ../src/add_dialog.c:85
+#: ../src/add_dialog.c:90
 msgid "Options"
 msgstr "Možnosti"
 
-#: ../src/add_dialog.c:103
+#: ../src/add_dialog.c:108
 msgid "Update and add"
 msgstr "Aktualizovať a pridať"
 
-#: ../src/add_dialog.c:105
+#: ../src/add_dialog.c:110
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified"
@@ -80,11 +82,11 @@ msgstr ""
 "Táto možnosť pridá nové súbory a aktualizuje všetky súbory, ktoré boli "
 "zmenené od posledného vytvorenia alebo zmeny archívu"
 
-#: ../src/add_dialog.c:108
+#: ../src/add_dialog.c:113
 msgid "Freshen and replace"
 msgstr "Aktualizovať a nahradiť"
 
-#: ../src/add_dialog.c:111
+#: ../src/add_dialog.c:116
 msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
@@ -95,15 +97,15 @@ msgstr ""
 "Aktualizovať a pridať táto akcia nepridá do archívu súbor, ktorý v ňom "
 "doteraz nie je obsiahnutý."
 
-#: ../src/add_dialog.c:115
+#: ../src/add_dialog.c:120
 msgid "Include subdirectories"
 msgstr "Vrátane podpriečinkov"
 
-#: ../src/add_dialog.c:119
+#: ../src/add_dialog.c:124
 msgid "Create a solid archive"
 msgstr "Vytvoriť archív typu solid"
 
-#: ../src/add_dialog.c:121
+#: ../src/add_dialog.c:126
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio"
@@ -111,75 +113,75 @@ msgstr ""
 "V archíve typu solid sú všetky súbory spojené do jedného, čo zlepšuje "
 "kompresný pomer"
 
-#: ../src/add_dialog.c:124
+#: ../src/add_dialog.c:129
 msgid "Delete files after adding"
 msgstr "Po pridaní zmazať súbory"
 
-#: ../src/add_dialog.c:128
+#: ../src/add_dialog.c:133
 msgid "Actions: "
 msgstr "Akcie:"
 
-#: ../src/add_dialog.c:143
+#: ../src/add_dialog.c:148
 msgid "Compression: "
 msgstr "Kompresia:"
 
-#: ../src/add_dialog.c:157 ../src/extract_dialog.c:152
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ../src/add_dialog.c:167
+#: ../src/add_dialog.c:172
 msgid "Encryption: "
 msgstr "Šifrovanie:"
 
-#: ../src/add_dialog.c:180
+#: ../src/add_dialog.c:185
 msgid "_Add"
 msgstr "_Pridať"
 
-#: ../src/add_dialog.c:247
+#: ../src/add_dialog.c:252 ../src/add_dialog.c:288
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = bez kompresie, 5 = štandardná úroveň kompresie, 9 = najlepšia kompresia, "
 "najpomalšia"
 
-#: ../src/add_dialog.c:253
+#: ../src/add_dialog.c:258
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = bez kompresie, 6 = štandardná úroveň kompresie, 9 = najlepšia kompresia, "
 "najpomalšia"
 
-#: ../src/add_dialog.c:259
+#: ../src/add_dialog.c:264 ../src/add_dialog.c:270
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr ""
 "0 = bez kompresie, 3 = štandardná úroveň kompresie, 5 = najlepšia kompresia, "
 "najpomalšia"
 
-#: ../src/add_dialog.c:265
+#: ../src/add_dialog.c:276
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = bez kompresie, 1 = štandardná úroveň kompresie, 4 = najrýchlejšia "
 "kompresia s nízkym pomerom kompresie"
 
-#: ../src/add_dialog.c:271
+#: ../src/add_dialog.c:282
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = štandardná úroveň kompresie, 7 = najlepšia úroveň kompresie"
 
-#: ../src/add_dialog.c:371 ../src/main.c:228
+#: ../src/add_dialog.c:388 ../src/main.c:233
 msgid "Can't add files to the archive:"
 msgstr "Nie je možné pridať súbory do archívu:"
 
-#: ../src/add_dialog.c:371
+#: ../src/add_dialog.c:388
 msgid "You haven't selected any files to add!"
 msgstr "Nevybrali ste žiadne súbory pre pridanie!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "You missed the password!"
 msgstr "Neuviedli ste heslo!"
 
-#: ../src/add_dialog.c:379 ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "Please enter it!"
 msgstr "Prosím zadajte ho!"
 
-#: ../src/add_dialog.c:449
+#: ../src/add_dialog.c:466
 msgid "Adding files to archive, please wait..."
 msgstr "Pridávajú sa súbory do archívu, prosím čakajte..."
 
@@ -191,7 +193,8 @@ msgstr "Nemožno spustiť program archivátora:"
 msgid "Can't create temporary directory:"
 msgstr "Nie je možné vytvoriť dočasný adresár:"
 
-#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:63
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:31
+#: ../src/rar.c:33
 msgid "Ratio"
 msgstr "Pomer"
 
@@ -199,93 +202,93 @@ msgstr "Pomer"
 msgid "Attributes"
 msgstr "Atribúty"
 
-#: ../src/bzip2.c:187 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Points to"
 msgstr "Ukazuje na"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
-#: ../src/rar.c:63 ../src/tar.c:54 ../src/zip.c:49
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Permissions"
 msgstr "Oprávnenia"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
 msgid "Owner/Group"
 msgstr "Vlastník/skupina"
 
-#: ../src/bzip2.c:187 ../src/deb.c:45 ../src/extract_dialog.c:395
-#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/extract_dialog.c:391
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "An error occurred!"
 msgstr "Došlo k chybe!"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr "Pre zobrazenie skontrolujte možnosť 'Store archiver output'."
 
-#: ../src/window.c:147
+#: ../src/window.c:148
 msgid "Archiver output"
 msgstr "Výstup archivátora"
 
-#: ../src/window.c:182
+#: ../src/window.c:183
 msgid "An error occurred while accessing the archive:"
 msgstr "Pri prístupe k archívu došlo k chybe:"
 
-#: ../src/window.c:254
+#: ../src/window.c:256
 msgid "Save the archive as"
 msgstr "Uložiť archív ako"
 
-#: ../src/window.c:313
+#: ../src/window.c:315
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "Nie je možné otvoriť súbor \"%s\":"
 
-#: ../src/window.c:315
+#: ../src/window.c:317
 msgid "Archive format is not recognized!"
 msgstr "Formát archívu nebol rozpoznaný!"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "Sorry,this archive format is not supported:"
 msgstr "Prepáčte, tento formát archívu nie je podporovaný:"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "the proper archiver is not installed!"
 msgstr "nie je nainštalovaný odpovedajúci archivátor!"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Can't allocate memory for the archive structure:"
 msgstr "Nie je možné prideliť pamäť pre štruktúru archívu:"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Operation aborted!"
 msgstr "Operácia bola prerušená!"
 
-#: ../src/window.c:378
+#: ../src/window.c:382
 msgid "Opening archive,please wait..."
 msgstr "Otváranie archívu, prosím čakajte..."
 
-#: ../src/window.c:402
+#: ../src/window.c:406
 msgid "Testing archive,please wait..."
 msgstr "Testovanie archívu, prosím čakajte..."
 
-#: ../src/window.c:422
+#: ../src/window.c:426
 msgid "Print the archive content as HTML"
 msgstr "Zobraziť obsah archívu ako HTML"
 
-#: ../src/window.c:424
+#: ../src/window.c:428
 msgid "Print the archive content as text"
 msgstr "Zobraziť obsah archívu ako text"
 
-#: ../src/window.c:475
+#: ../src/window.c:479
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Obsah archívu:\n"
 
-#: ../src/window.c:479
+#: ../src/window.c:483
 #, c-format
 msgid ""
 "\n"
@@ -294,121 +297,121 @@ msgstr ""
 "\n"
 "Názov: "
 
-#: ../src/window.c:488
+#: ../src/window.c:492
 #, c-format
 msgid "Compressed   size: "
 msgstr "Veľkosť komprimovaného:"
 
-#: ../src/window.c:495
+#: ../src/window.c:499
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Veľkosť po rozbalení:"
 
-#: ../src/window.c:503
+#: ../src/window.c:507
 #, c-format
 msgid "Number of files: "
 msgstr "Počet súborov:"
 
-#: ../src/window.c:511
+#: ../src/window.c:515
 #, c-format
 msgid "Comment:\n"
 msgstr "Komentár:\n"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Súbory:%*s%s"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 msgid "|Compressed\n"
 msgstr "|Komprimovaný\n"
 
-#: ../src/window.c:530
+#: ../src/window.c:534
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Súbory:</th>"
 
-#: ../src/window.c:531
+#: ../src/window.c:535
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Komprimovaný:</th>"
 
-#: ../src/window.c:617 ../src/main.c:276
+#: ../src/window.c:621 ../src/main.c:281
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr ""
 "Vyberte \"Nový\" pre vytvorenie alebo \"Otvoriť\" pre otvorenie archívu"
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "You are about to delete entries from the archive."
 msgstr "Chystáte sa zmazať položky z archívu."
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "Are you sure you want to do this?"
 msgstr "Ste si istí, že to chcete urobiť?"
 
-#: ../src/window.c:815 ../src/window.c:915
+#: ../src/window.c:820 ../src/window.c:920
 msgid "Can't convert the archive to self-extracting:"
 msgstr "Nie je možné konvertovať archív na samorozbaliteľný:"
 
-#: ../src/window.c:826 ../src/window.c:926
+#: ../src/window.c:831 ../src/window.c:931
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "Modulom unzipsfx nie je možné zapisovať do archívu:"
 
-#: ../src/window.c:886
+#: ../src/window.c:891
 msgid "Please select the 7zCon.sfx module"
 msgstr "Prosím vyberte modul 7zCon.sfx"
 
-#: ../src/window.c:980
+#: ../src/window.c:985
 msgid "A GTK+2 only lightweight archive manager"
 msgstr "Odľahčený správca archívov len pre GTK+2"
 
-#: ../src/window.c:983
+#: ../src/window.c:988
 msgid "translator-credits"
 msgstr ""
 "Robert Hartl <hartl.robert@gmail.com>\n"
 "Tomáš Vadina <kyberdev@gmail.com>"
 
-#: ../src/window.c:1013
+#: ../src/window.c:1018
 msgid "Save the self-extracting archive as"
 msgstr "Uložiť samorozbaliteľný archív ako"
 
-#: ../src/window.c:1042 ../src/interface.c:340
+#: ../src/window.c:1047 ../src/interface.c:338
 msgid "Open an archive"
 msgstr "Otvoriť archív"
 
-#: ../src/window.c:1055 ../src/extract_dialog.c:90 ../src/new_dialog.c:62
+#: ../src/window.c:1060 ../src/extract_dialog.c:90 ../src/new_dialog.c:64
 msgid "All files"
 msgstr "Všetky súbory"
 
-#: ../src/window.c:1060 ../src/new_dialog.c:67
+#: ../src/window.c:1065 ../src/new_dialog.c:69
 msgid "Only archives"
 msgstr "Iba archívy"
 
-#: ../src/window.c:1274
+#: ../src/window.c:1283
 msgid "Filename"
 msgstr "Názov súboru"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Touto akciou môžete poškodiť archív!"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Do you really want to cancel?"
 msgstr "Naozaj chcete zrušiť akciu?"
 
-#: ../src/window.c:1394 ../src/window.c:1409
+#: ../src/window.c:1405 ../src/window.c:1420
 msgid "Yes"
 msgstr "Áno"
 
-#: ../src/window.c:1396 ../src/window.c:1411
+#: ../src/window.c:1407 ../src/window.c:1422
 msgid "No"
 msgstr "Nie"
 
-#: ../src/window.c:1614
+#: ../src/window.c:1631
 msgid "selected"
 msgstr "vybrané"
 
-#: ../src/window.c:1619
+#: ../src/window.c:1636
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
@@ -416,7 +419,7 @@ msgstr[0] "%d súborov a %d priečinkov %s (%s)"
 msgstr[1] "%d súbor a %d priečinok %s (%s)"
 msgstr[2] "%d súbory a %d priečinky %s (%s)"
 
-#: ../src/window.c:1621
+#: ../src/window.c:1638
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
@@ -424,7 +427,7 @@ msgstr[0] "%d priečinkov %s (%s)"
 msgstr[1] "%d priečinok %s (%s)"
 msgstr[2] "%d priečinky %s (%s)"
 
-#: ../src/window.c:1624
+#: ../src/window.c:1641
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
@@ -432,86 +435,86 @@ msgstr[0] "%d súborov %s (%s)"
 msgstr[1] "%d súbor %s (%s)"
 msgstr[2] "%d súbory %s (%s)"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Can't perform another extraction:"
 msgstr "Nie je možné vykonať ďalšie rozbalenie:"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Please wait until the completion of the current one!"
 msgstr "Počkajte prosím, kým sa dokončí predošlá operácia!"
 
-#: ../src/window.c:1713 ../src/extract_dialog.c:341
+#: ../src/window.c:1730 ../src/extract_dialog.c:337
 #, c-format
 msgid ""
 "You don't have the right permissions to extract the files to the directory "
 "\"%s\"."
 msgstr "Nemáte oprávnenia potrebné k rozbaleniu súboru do priečinku \"%s\"."
 
-#: ../src/window.c:1714 ../src/extract_dialog.c:342
+#: ../src/window.c:1731 ../src/extract_dialog.c:338
 msgid "Can't perform extraction!"
 msgstr "Nie je možné rozbaliť archív!"
 
-#: ../src/window.c:1755 ../src/extract_dialog.c:650 ../src/interface.c:1392
+#: ../src/window.c:1775 ../src/extract_dialog.c:650 ../src/interface.c:1397
 msgid "Sorry,I could not perform the operation!"
 msgstr "Prepáčte, ale operáciu nie je možné vykonať!"
 
-#: ../src/window.c:1789 ../src/window.c:1801 ../src/interface.c:1385
+#: ../src/window.c:1809 ../src/window.c:1821 ../src/interface.c:1390
 msgid "Can't perform this action:"
 msgstr "Akciu nie je možné vykonať!"
 
-#: ../src/window.c:1789
+#: ../src/window.c:1809
 msgid "You have to install rar package!"
 msgstr "Je nutné nainštalovať balíček rar!"
 
-#: ../src/window.c:1796 ../src/interface.c:1382
+#: ../src/window.c:1816 ../src/interface.c:1387
 msgid "You can't add content to deb packages!"
 msgstr "Do balíčkov deb nemôžete pridávať ďalší obsah!"
 
-#: ../src/window.c:1798 ../src/interface.c:1384
+#: ../src/window.c:1818 ../src/interface.c:1389
 msgid "You can't add content to rpm packages!"
 msgstr "Do balíčkov rpm nemôžete pridávať ďalší obsah!"
 
-#: ../src/window.c:1800
+#: ../src/window.c:1820
 msgid "The archiver doesn't support this feature!"
 msgstr "Archivátor túto funkciu nepodporuje!"
 
-#: ../src/window.c:1881
+#: ../src/window.c:1901
 msgid "You didn't set which browser to use!"
 msgstr "Nenastavili ste žiadny prehliadač!"
 
-#: ../src/window.c:1881 ../src/window.c:1922
+#: ../src/window.c:1901 ../src/window.c:1942
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Pre nastavenie použite ponuku Predvoľby->Pokročilé."
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "This file type is not supported!"
 msgstr "Tento typ súboru nie je podporovaný!"
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "Please install xdg-utils package."
 msgstr "Nainštalujte balíček xdg-utils ."
 
-#: ../src/window.c:1922
+#: ../src/window.c:1942
 msgid "You didn't set which program to use for opening this file!"
 msgstr "Nenastavili ste aplikáciu pre otváranie tohoto súboru!"
 
-#: ../src/window.c:1948
+#: ../src/window.c:1968
 msgid "Failed to launch the application!"
 msgstr "Nepodarilo sa spustiť aplikáciu!"
 
-#: ../src/window.c:2000
+#: ../src/window.c:2020
 msgid "Comment"
 msgstr "Komentár"
 
-#: ../src/window.c:2030
+#: ../src/window.c:2050
 msgid "From File"
 msgstr "Zo súboru"
 
-#: ../src/window.c:2135
+#: ../src/window.c:2156
 msgid "Open a text file"
 msgstr "Otvoriť textový súbor"
 
-#: ../src/window.c:2153
+#: ../src/window.c:2174
 #, c-format
 msgid "Can't open file %s:"
 msgstr "Nie je možné otvoriť súbor %s:"
@@ -520,42 +523,42 @@ msgstr "Nie je možné otvoriť súbor %s:"
 msgid "Date modified"
 msgstr "Dátum zmeny"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:468
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:464
 msgid "Extract to:"
 msgstr "Rozbaliť do:"
 
-#: ../src/extract_dialog.c:94
+#: ../src/extract_dialog.c:95
 msgid "Selected files"
 msgstr "Vybrané súbory"
 
-#: ../src/extract_dialog.c:101
+#: ../src/extract_dialog.c:103
 msgid "Files: "
 msgstr "Súbory:"
 
-#: ../src/extract_dialog.c:111
+#: ../src/extract_dialog.c:114
 msgid "Files "
 msgstr "Súbory"
 
-#: ../src/extract_dialog.c:125 ../src/extract_dialog.c:495
+#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:491
 msgid "Overwrite existing files"
 msgstr "Prepísať existujúce súbory"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:131
 msgid "Extract files with full path"
 msgstr "Rozbaliť súbory s úplnou cestou"
 
-#: ../src/extract_dialog.c:129
+#: ../src/extract_dialog.c:132
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 "Adresárová štruktúra archívu bude opätovne vytvorená do adresára určeného "
 "pre rozbalenie"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c:135
 msgid "Touch files"
 msgstr "Dotknúť sa súborov"
 
-#: ../src/extract_dialog.c:133
+#: ../src/extract_dialog.c:136
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -565,21 +568,21 @@ msgstr ""
 "rozbalení aktuálne časy rozbalenia namiesto pôvodného času uloženého v "
 "archíve"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c:139
 msgid "Freshen existing files"
 msgstr "Aktualizovať existujúce súbory"
 
-#: ../src/extract_dialog.c:137
+#: ../src/extract_dialog.c:140
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
 msgstr "Rozbaliť len tie súbory, ktorých staršie kópie už na disku existujú"
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:144
 msgid "Update existing files"
 msgstr "Aktualizovať existujúce súbory"
 
-#: ../src/extract_dialog.c:142
+#: ../src/extract_dialog.c:145
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -589,78 +592,78 @@ msgstr ""
 "súbory, ktorých staršie kópie sa vyskytujú na disku a naviac rozbalí aj také "
 "súbory, ktoré na disku neexistujú."
 
-#: ../src/extract_dialog.c:146
+#: ../src/extract_dialog.c:149
 msgid "Options "
 msgstr "Možnosti"
 
-#: ../src/extract_dialog.c:169 ../src/extract_dialog.c:511
+#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:508
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Rozbaliť"
 
-#: ../src/extract_dialog.c:223
+#: ../src/extract_dialog.c:226
 msgid "Decompress file"
 msgstr "Rozbaliť súbor"
 
-#: ../src/extract_dialog.c:225 ../src/interface.c:396
+#: ../src/extract_dialog.c:228 ../src/interface.c:400
 msgid "Extract files"
 msgstr "Rozbaliť súbory"
 
-#: ../src/extract_dialog.c:317 ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
 msgstr "Neuviedli ste kam majú byť súbory rozbalené!"
 
-#: ../src/extract_dialog.c:317
+#: ../src/extract_dialog.c:313
 msgid "Please enter the extraction path."
 msgstr "Zadajte cestu pre rozbalenie."
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "This archive is encrypted!"
 msgstr "Tento archív je šifrovaný!"
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "Please enter the password."
 msgstr "Zadajte heslo."
 
-#: ../src/extract_dialog.c:378
+#: ../src/extract_dialog.c:374
 msgid "Extracting files from archive,please wait..."
 msgstr "Rozbaľovanie súborov z archívu, prosím čakajte..."
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Archive Name"
 msgstr "Názov archívu"
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Path"
 msgstr "Cesta"
 
-#: ../src/extract_dialog.c:407
+#: ../src/extract_dialog.c:403
 msgid "Multi-Extract"
 msgstr "Viacnásobné rozbalenie"
 
-#: ../src/extract_dialog.c:478
+#: ../src/extract_dialog.c:474
 msgid "Extract to dir \"Archive Name\""
 msgstr "Rozbaliť do priečinka \"Názov archívu\""
 
-#: ../src/extract_dialog.c:479
+#: ../src/extract_dialog.c:475
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr ""
 "Táto možnosť rozbaľuje archívy do priečinkov pomenovaných podľa ich názvu"
 
-#: ../src/extract_dialog.c:483
+#: ../src/extract_dialog.c:479
 msgid "Destination dirs:"
 msgstr "Cieľové priečinky:"
 
-#: ../src/extract_dialog.c:497
+#: ../src/extract_dialog.c:493
 msgid "Extract pathnames"
 msgstr "Rozbaliť cesty súborov:"
 
-#: ../src/extract_dialog.c:499
+#: ../src/extract_dialog.c:496
 msgid "Options:"
 msgstr "Možnosti:"
 
-#: ../src/extract_dialog.c:531
+#: ../src/extract_dialog.c:528
 msgid "Please select the archives you want to extract"
 msgstr "Prosím vyberte archívy, ktoré chcete rozbaliť"
 
@@ -680,7 +683,7 @@ msgstr "Nepridali ste žiadny z nich!"
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Vyplňte pole \"Rozbaliť do\"!"
 
-#: ../src/extract_dialog.c:754
+#: ../src/extract_dialog.c:760
 msgid "Some errors occurred:"
 msgstr "Došlo k niekoľkým chybám:"
 
@@ -772,217 +775,231 @@ msgstr "_Pomocník"
 msgid "_Contents"
 msgstr "_Obsah"
 
-#: ../src/interface.c:313
-msgid "_Donate"
-msgstr "_Prispejte"
+#: ../src/interface.c:326
+msgid "New"
+msgstr ""
 
-#: ../src/interface.c:333 ../src/new_dialog.c:50
+#: ../src/interface.c:330 ../src/new_dialog.c:52
 msgid "Create a new archive"
 msgstr "Vytvoriť nový archív"
 
-#: ../src/interface.c:352
+#: ../src/interface.c:334
+#, fuzzy
+msgid "Open"
+msgstr "Otvoriť pomocou"
+
+#: ../src/interface.c:346 ../src/interface.c:351
 msgid "Back"
 msgstr "Späť"
 
-#: ../src/interface.c:360
+#: ../src/interface.c:355 ../src/interface.c:360
 msgid "Up"
 msgstr "Hore"
 
-#: ../src/interface.c:368
+#: ../src/interface.c:364 ../src/interface.c:369
 msgid "Forward"
 msgstr "Dopredu"
 
-#: ../src/interface.c:376
+#: ../src/interface.c:373
+msgid "Home"
+msgstr ""
+
+#: ../src/interface.c:378
 msgid "Root"
 msgstr "Koreňový adresár"
 
+#: ../src/interface.c:386
+#, fuzzy
+msgid "Add"
+msgstr "_Pridať"
+
+#: ../src/interface.c:395 ../src/interface.c:850
+msgid "Extract"
+msgstr "Rozbaliť"
+
 #: ../src/interface.c:408
+msgid "Stop"
+msgstr ""
+
+#: ../src/interface.c:413
 msgid "Cancel current operation"
 msgstr "Zrušiť aktuálnu operáciu"
 
-#: ../src/interface.c:421
+#: ../src/interface.c:426
 msgid "Location:"
 msgstr "Umiestnenie:"
 
-#: ../src/interface.c:460
+#: ../src/interface.c:465
 msgid "Archive tree"
 msgstr "Strom archívu"
 
-#: ../src/interface.c:508
+#: ../src/interface.c:513
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr ""
 "Indikácia stavu aplikácie Xarchiver. Pokiaľ indikátor bliká, je aplikácia "
 "Xarchiver zaneprázdnená."
 
-#: ../src/interface.c:677
+#: ../src/interface.c:687
 msgid "Close archive"
 msgstr "Zatvoriť archív"
 
-#: ../src/interface.c:762
+#: ../src/interface.c:772
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>Heslo potrebné pre:</span>"
 
-#: ../src/interface.c:764
+#: ../src/interface.c:774
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>Zadajte heslo pre:</span>"
 
-#: ../src/interface.c:782
+#: ../src/interface.c:792
 msgid "_Password:"
 msgstr "_Heslo:"
 
-#: ../src/interface.c:837 ../src/open-with-dlg.c:52
+#: ../src/interface.c:842 ../src/open-with-dlg.c:52
 msgid "Open With"
 msgstr "Otvoriť pomocou"
 
-#: ../src/interface.c:845
-msgid "Extract"
-msgstr "Rozbaliť"
-
-#: ../src/interface.c:853
+#: ../src/interface.c:858
 msgid "View"
 msgstr "Zobraziť"
 
-#: ../src/interface.c:866
+#: ../src/interface.c:871
 msgid "Cut"
 msgstr "Vystrihnúť"
 
-#: ../src/interface.c:874
+#: ../src/interface.c:879
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: ../src/interface.c:882
+#: ../src/interface.c:887
 msgid "Paste"
 msgstr "Prilepiť"
 
-#: ../src/interface.c:896
+#: ../src/interface.c:901
 msgid "Delete"
 msgstr "Zmazať"
 
-#: ../src/interface.c:905
+#: ../src/interface.c:910
 msgid "Rename"
 msgstr "Premenovať"
 
-#: ../src/interface.c:944
+#: ../src/interface.c:949
 msgid "Select by Pattern"
 msgstr "Vybrať podľa vzoru"
 
-#: ../src/interface.c:957
+#: ../src/interface.c:962
 msgid "Pattern:"
 msgstr "Vzor:"
 
-#: ../src/interface.c:962
+#: ../src/interface.c:967
 msgid "example: *.txt; ac*"
 msgstr "napríklad: *.txt; ac*"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:984
 msgid "_Select"
 msgstr "_Vybrať"
 
-#: ../src/interface.c:1051
+#: ../src/interface.c:1056
 msgid "Archive Properties"
 msgstr "Vlastnosti archívu"
 
-#: ../src/interface.c:1072
+#: ../src/interface.c:1077
 msgid "Name:"
 msgstr "Názov:"
 
-#: ../src/interface.c:1079
+#: ../src/interface.c:1084
 msgid "Path:"
 msgstr "Cesta:"
 
-#: ../src/interface.c:1086
+#: ../src/interface.c:1091
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../src/interface.c:1093
+#: ../src/interface.c:1098
 msgid "Encrypted:"
 msgstr "Šifrovanie:"
 
-#: ../src/interface.c:1100
+#: ../src/interface.c:1105
 msgid "Modified on:"
 msgstr "Zmenené:"
 
-#: ../src/interface.c:1107
+#: ../src/interface.c:1112
 msgid "Compressed size:"
 msgstr "Veľkosť komprimovaného súboru:"
 
-#: ../src/interface.c:1114
+#: ../src/interface.c:1119
 msgid "Uncompressed size:"
 msgstr "Veľkosť rozbaleného súboru:"
 
-#: ../src/interface.c:1121
+#: ../src/interface.c:1126
 msgid "Comment:"
 msgstr "Komentár:"
 
-#: ../src/interface.c:1128
+#: ../src/interface.c:1133
 msgid "Number of files:"
 msgstr "Počet súborov:"
 
-#: ../src/interface.c:1135
+#: ../src/interface.c:1140
 msgid "Compression ratio:"
 msgstr "Kompresný pomer:"
 
-#: ../src/interface.c:1499 ../xarchiver.desktop.in.h:3
-msgid "Xarchiver"
-msgstr "Xarchiver"
-
-#: ../src/interface.c:1526
+#: ../src/interface.c:1531
 msgid "Extracting from archive:"
 msgstr "Rozbaľovanie z archívu:"
 
-#: ../src/interface.c:1528
+#: ../src/interface.c:1533
 msgid "Adding to archive:"
 msgstr "Pridávanie do archívu:"
 
-#: ../src/interface.c:1548
+#: ../src/interface.c:1553
 msgid "Total Progress:"
 msgstr "Celkový priebeh:"
 
-#: ../src/main.c:58
+#: ../src/main.c:59
 msgid "Extract archive to the destination directory and quits."
 msgstr "Rozbalí archív do cieľového priečinka a ukončí sa."
 
-#: ../src/main.c:59
+#: ../src/main.c:60
 msgid "destination archive"
 msgstr "cieľový archív"
 
-#: ../src/main.c:62
+#: ../src/main.c:63
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "Rozbalí archív otázkou na cieľový priečinok a ukončí sa."
 
-#: ../src/main.c:63 ../src/main.c:75
+#: ../src/main.c:64 ../src/main.c:76
 msgid "archive"
 msgstr "archív"
 
-#: ../src/main.c:66
+#: ../src/main.c:67
 msgid "Multi-extract archives"
 msgstr "Viacnásobné rozbaľovanie archívov"
 
-#: ../src/main.c:67
+#: ../src/main.c:68
 msgid "filenames"
 msgstr "názvy súborov"
 
-#: ../src/main.c:70
+#: ../src/main.c:71
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Opýta sa na názov archívu, pridá do neho súbory a ukončí sa."
 
-#: ../src/main.c:71
+#: ../src/main.c:72
 msgid "file1 file2 file3 ... fileN"
 msgstr "súbor1 súbor2 súbor3 ... súborN"
 
-#: ../src/main.c:74
+#: ../src/main.c:75
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Pridá súbory do určeného archívu otázkou na ich názvy a ukončí sa."
 
-#: ../src/main.c:78
+#: ../src/main.c:79
 msgid "Show version and exit"
 msgstr "Zobrazí informácie o verzii a ukončí sa"
 
-#: ../src/main.c:105
+#: ../src/main.c:106
 msgid "[archive name]"
 msgstr "[názov archívu]"
 
-#: ../src/main.c:109
+#: ../src/main.c:110
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -992,20 +1009,25 @@ msgstr ""
 "Úplný zoznam dostupných volieb príkazového riadku získate príkazom xarchiver "
 "--help.\n"
 
-#: ../src/main.c:119
+#: ../src/main.c:120
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/main.c:122
 #, c-format
 msgid "Please report bugs to <%s>."
 msgstr "Prosíme, nahláste chyby na adresu <%s>."
 
-#: ../src/main.c:146 ../src/main.c:169
+#: ../src/main.c:149 ../src/main.c:172
 msgid "Can't extract files from the archive:"
 msgstr "Nie je možné rozbaliť súbory z archvu:"
 
-#: ../src/main.c:146 ../src/main.c:169 ../src/main.c:228
+#: ../src/main.c:149 ../src/main.c:172 ../src/main.c:233
 msgid "You missed the archive name!\n"
 msgstr "Zabudli ste zadať názov archívu!\n"
 
-#: ../src/main.c:534
+#: ../src/main.c:566
 msgid "Can't allocate memory for the archive structure!"
 msgstr "Nie je možné prideliť pamäť pre štruktúru archívu!"
 
@@ -1030,37 +1052,37 @@ msgstr "Prehľadávať"
 msgid "Select an application"
 msgstr "Vybrať aplikáciu"
 
-#: ../src/new_dialog.c:55
+#: ../src/new_dialog.c:57
 msgid "Cr_eate"
 msgstr "_Vytvoriť"
 
-#: ../src/new_dialog.c:92
+#: ../src/new_dialog.c:94
 msgid "Archive type:"
 msgstr "Typ archívu:"
 
-#: ../src/new_dialog.c:97
+#: ../src/new_dialog.c:99
 msgid "Choose the archive type to create"
 msgstr "Vyberte typ archívu pre vytvorenie"
 
-#: ../src/new_dialog.c:112
+#: ../src/new_dialog.c:115
 msgid "Add the archive extension to the filename"
 msgstr "Pripojiť príponu za názov súboru"
 
-#: ../src/new_dialog.c:159
+#: ../src/new_dialog.c:162
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" už je otvorený!"
 
-#: ../src/new_dialog.c:160
+#: ../src/new_dialog.c:163
 msgid "Can't create a new archive:"
 msgstr "Nie je možné vytvoriť nový archív:"
 
-#: ../src/new_dialog.c:175
+#: ../src/new_dialog.c:178
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "Archív \"%s\" už existuje!"
 
-#: ../src/new_dialog.c:181
+#: ../src/new_dialog.c:184
 msgid "Do you want to overwrite it?"
 msgstr "Chcete ho prepísať?"
 
@@ -1193,50 +1215,38 @@ msgstr "Vyberte priečinok pre použitie"
 msgid "Choose the application to use"
 msgstr "Vyberte aplikáciu pre použitie"
 
-#: ../src/rar.c:63
+#: ../src/rar.c:31 ../src/rar.c:33
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Method"
 msgstr "Metóda"
 
-#: ../src/rar.c:63 ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Version"
 msgstr "Verzia"
 
-#: ../src/rpm.c:39
+#: ../src/rpm.c:36
 #, c-format
 msgid "Can't open RPM file %s:"
 msgstr "Nie je možné otvoriť súbor RPM %s:"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Permission"
 msgstr "Oprávnenia"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Hard Link"
 msgstr "Pevný odkaz"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Owner"
 msgstr "Vlastník"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Group"
 msgstr "Skupina"
-
-#: ../src/rpm.c:62
-msgid "Can't fseek to position 104:"
-msgstr "Nedá sa presunúť na pozíciu funkcie fseek 104:"
-
-#: ../src/rpm.c:68 ../src/rpm.c:84
-msgid "Can't read data from file:"
-msgstr "Nie je možné čítať dáta zo súboru:"
-
-#: ../src/rpm.c:78
-msgid "Can't fseek in file:"
-msgstr "Nie je možné použiť funkciu fseek pre presun v súbore:"
 
 #: ../src/zip.c:49
 msgid "OS"
@@ -1249,3 +1259,18 @@ msgstr "Správca archívov len pre GTK+2"
 #: ../xarchiver.desktop.in.h:2
 msgid "Archive manager"
 msgstr "Správca archívov"
+
+#~ msgid "_Donate"
+#~ msgstr "_Prispejte"
+
+#~ msgid "Xarchiver"
+#~ msgstr "Xarchiver"
+
+#~ msgid "Can't fseek to position 104:"
+#~ msgstr "Nedá sa presunúť na pozíciu funkcie fseek 104:"
+
+#~ msgid "Can't read data from file:"
+#~ msgstr "Nie je možné čítať dáta zo súboru:"
+
+#~ msgid "Can't fseek in file:"
+#~ msgstr "Nie je možné použiť funkciu fseek pre presun v súbore:"

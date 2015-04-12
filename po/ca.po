@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2009-08-20 15:20+0200\n"
+"POT-Creation-Date: 2015-04-12 18:17+0200\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,20 +21,13 @@ msgstr ""
 "X-Poedit-Language: Catalan\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:104
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/rar.c:31
+#: ../src/rar.c:33 ../src/zip.c:49
 msgid "Original"
 msgstr "Original"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:104
-#: ../src/gzip.c:78
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/gzip.c:78
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/zip.c:49
 msgid "Compressed"
 msgstr "Comprimit"
 
@@ -41,145 +35,148 @@ msgstr "Comprimit"
 msgid "Attr"
 msgstr "Atributs"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:187
-#: ../src/gzip.c:61
-#: ../src/rar.c:63
-#: ../src/tar.c:54
-#: ../src/zip.c:49
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Time"
 msgstr "Hora"
 
-#: ../src/7zip.c:57
-#: ../src/arj.c:48
-#: ../src/bzip2.c:187
-#: ../src/gzip.c:61
-#: ../src/rar.c:63
-#: ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/rpm.c:49 ../src/tar.c:55
 #: ../src/zip.c:49
 msgid "Date"
 msgstr "Data"
 
-#: ../src/add_dialog.c:36
-#: ../src/interface.c:388
+#: ../src/add_dialog.c:37 ../src/interface.c:391
 msgid "Add files"
 msgstr "Afegeix fitxers"
 
-#: ../src/add_dialog.c:52
+#: ../src/add_dialog.c:53
 msgid "Selection"
 msgstr "Selecció"
 
-#: ../src/add_dialog.c:66
+#: ../src/add_dialog.c:67
 msgid "File Paths: "
 msgstr "Camins de fitxer: "
 
-#: ../src/add_dialog.c:72
+#: ../src/add_dialog.c:73
 msgid "Store full paths"
 msgstr "Desa tots els camins"
 
-#: ../src/add_dialog.c:76
+#: ../src/add_dialog.c:79
 msgid "Do not store paths"
 msgstr "No desis els camins"
 
-#: ../src/add_dialog.c:85
+#: ../src/add_dialog.c:90
 msgid "Options"
 msgstr "Opcions"
 
-#: ../src/add_dialog.c:103
+#: ../src/add_dialog.c:108
 msgid "Update and add"
 msgstr "Actualitza i afegeix"
 
-#: ../src/add_dialog.c:105
-msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified"
-msgstr "Aquesta opció afegirà qualsevol fitxer nous i actualitzarà els que s'hagin modificat des de que es va crear o modificar l'arxiu"
+#: ../src/add_dialog.c:110
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr ""
+"Aquesta opció afegirà qualsevol fitxer nous i actualitzarà els que s'hagin "
+"modificat des de que es va crear o modificar l'arxiu"
 
-#: ../src/add_dialog.c:108
+#: ../src/add_dialog.c:113
 msgid "Freshen and replace"
 msgstr "Congela i substitueix"
 
-#: ../src/add_dialog.c:111
-msgid "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"
-msgstr "Aquesta opció tant sols afecta l'arxiu si s'ha modificat més recentment que la versió de l'arxiu; al contrari que al cas de l'opció d'actualització, no afegirà fitxers que no estiguin ja a l'arxiu"
+#: ../src/add_dialog.c:116
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+"Aquesta opció tant sols afecta l'arxiu si s'ha modificat més recentment que "
+"la versió de l'arxiu; al contrari que al cas de l'opció d'actualització, no "
+"afegirà fitxers que no estiguin ja a l'arxiu"
 
-#: ../src/add_dialog.c:115
+#: ../src/add_dialog.c:120
 msgid "Include subdirectories"
 msgstr "Inclou els subdirectoris"
 
-#: ../src/add_dialog.c:119
+#: ../src/add_dialog.c:124
 msgid "Create a solid archive"
 msgstr "Crea un arxiu sòlid"
 
-#: ../src/add_dialog.c:121
-msgid "In a solid archive the files are grouped together featuring a better compression ratio"
-msgstr "En un arxiu sòlid els fitxers s’agrupen per proporcionar una ràtio de compressió millor."
+#: ../src/add_dialog.c:126
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr ""
+"En un arxiu sòlid els fitxers s’agrupen per proporcionar una ràtio de "
+"compressió millor."
 
-#: ../src/add_dialog.c:124
+#: ../src/add_dialog.c:129
 msgid "Delete files after adding"
 msgstr "Suprimeix els fitxers després d'afegir-los"
 
-#: ../src/add_dialog.c:128
+#: ../src/add_dialog.c:133
 msgid "Actions: "
 msgstr "Accions: "
 
-#: ../src/add_dialog.c:143
+#: ../src/add_dialog.c:148
 msgid "Compression: "
 msgstr "Compressió: "
 
-#: ../src/add_dialog.c:157
-#: ../src/extract_dialog.c:152
+#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
 msgid "Password:"
 msgstr "Contrasenya:"
 
-#: ../src/add_dialog.c:167
+#: ../src/add_dialog.c:172
 msgid "Encryption: "
 msgstr "Xifratge: "
 
-#: ../src/add_dialog.c:180
+#: ../src/add_dialog.c:185
 msgid "_Add"
 msgstr "_Afegeix"
 
-#: ../src/add_dialog.c:247
+#: ../src/add_dialog.c:252 ../src/add_dialog.c:288
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = sense compressió, 5 per defecte, 9 = millor compressió però més lent"
+msgstr ""
+"0 = sense compressió, 5 per defecte, 9 = millor compressió però més lent"
 
-#: ../src/add_dialog.c:253
+#: ../src/add_dialog.c:258
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = sense compressió, 6 per defecte, 9 = millor compressió però més lent"
+msgstr ""
+"0 = sense compressió, 6 per defecte, 9 = millor compressió però més lent"
 
-#: ../src/add_dialog.c:259
+#: ../src/add_dialog.c:264 ../src/add_dialog.c:270
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = sense compressió, 3 per defecte, 5 = millor compressió però més lent"
+msgstr ""
+"0 = sense compressió, 3 per defecte, 5 = millor compressió però més lent"
 
-#: ../src/add_dialog.c:265
+#: ../src/add_dialog.c:276
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr "0 = sense compressió, 1 per defecte, 4 = més ràpida però amb menor compressió"
+msgstr ""
+"0 = sense compressió, 1 per defecte, 4 = més ràpida però amb menor compressió"
 
-#: ../src/add_dialog.c:271
+#: ../src/add_dialog.c:282
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = compressió per defecte, 7 = compressió màxima"
 
-#: ../src/add_dialog.c:371
-#: ../src/main.c:228
+#: ../src/add_dialog.c:388 ../src/main.c:233
 msgid "Can't add files to the archive:"
 msgstr "No s’han pogut afegir els fitxers a l’arxiu:"
 
-#: ../src/add_dialog.c:371
+#: ../src/add_dialog.c:388
 msgid "You haven't selected any files to add!"
 msgstr "No heu seleccionat cap fitxer per afegir"
 
-#: ../src/add_dialog.c:379
-#: ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "You missed the password!"
 msgstr "No s’ha introduit la contrasenya correctament"
 
-#: ../src/add_dialog.c:379
-#: ../src/interface.c:808
+#: ../src/add_dialog.c:396 ../src/interface.c:818
 msgid "Please enter it!"
 msgstr "Si us plau, introduiu la contresenya"
 
-#: ../src/add_dialog.c:449
+#: ../src/add_dialog.c:466
 msgid "Adding files to archive, please wait..."
 msgstr "Afegint fitxers a l'arxiu, espereu…"
 
@@ -191,10 +188,8 @@ msgstr "No s’ha pogut executar el compresor:"
 msgid "Can't create temporary directory:"
 msgstr "No s’ha pogut crear un directori temporal:"
 
-#: ../src/arj.c:48
-#: ../src/gzip.c:78
-#: ../src/lha.c:51
-#: ../src/rar.c:63
+#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:31
+#: ../src/rar.c:33
 msgid "Ratio"
 msgstr "Rati"
 
@@ -202,109 +197,93 @@ msgstr "Rati"
 msgid "Attributes"
 msgstr "Atributs"
 
-#: ../src/bzip2.c:187
-#: ../src/gzip.c:61
-#: ../src/lha.c:51
-#: ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Points to"
 msgstr "Apunta a"
 
-#: ../src/bzip2.c:187
-#: ../src/deb.c:45
-#: ../src/gzip.c:61
-#: ../src/lha.c:51
-#: ../src/rar.c:63
-#: ../src/tar.c:54
-#: ../src/zip.c:49
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
+#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
 msgid "Permissions"
 msgstr "Permisos"
 
-#: ../src/bzip2.c:187
-#: ../src/deb.c:45
-#: ../src/gzip.c:61
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
 msgid "Owner/Group"
 msgstr "Propietari/Grup"
 
-#: ../src/bzip2.c:187
-#: ../src/deb.c:45
-#: ../src/extract_dialog.c:395
-#: ../src/gzip.c:61
-#: ../src/gzip.c:78
-#: ../src/lha.c:51
-#: ../src/rpm.c:52
-#: ../src/tar.c:54
+#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/extract_dialog.c:391
+#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:49
+#: ../src/tar.c:55
 msgid "Size"
 msgstr "Mida"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "An error occurred!"
 msgstr "S’ha produït un error"
 
-#: ../src/window.c:60
+#: ../src/window.c:61
 msgid "Please check the 'Store archiver output' option to see it."
 msgstr "Comproveu l'opció «Desa la sortida del fitxer» per veure-la."
 
-#: ../src/window.c:147
+#: ../src/window.c:148
 msgid "Archiver output"
 msgstr "Sortida de l'arxiver "
 
-#: ../src/window.c:182
+#: ../src/window.c:183
 msgid "An error occurred while accessing the archive:"
 msgstr "S’ha produït un error al accedir al fitxer:"
 
-#: ../src/window.c:254
+#: ../src/window.c:256
 msgid "Save the archive as"
 msgstr "Desa l'arxiu com"
 
-#: ../src/window.c:313
+#: ../src/window.c:315
 #, c-format
 msgid "Can't open file \"%s\":"
 msgstr "No s’ha pogut obrir el fitxer «%s»:"
 
-#: ../src/window.c:315
+#: ../src/window.c:317
 msgid "Archive format is not recognized!"
 msgstr "No s’ha pogut reconeixer el format del fitxer"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "Sorry,this archive format is not supported:"
 msgstr "Aquest format de fitxer no està admès:"
 
-#: ../src/window.c:339
+#: ../src/window.c:343
 msgid "the proper archiver is not installed!"
 msgstr "l’arxivador corresponent no està instaŀlat"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Can't allocate memory for the archive structure:"
 msgstr "No s’ha pogut assignar memòria per l’estructura de l’arxiu:"
 
-#: ../src/window.c:353
+#: ../src/window.c:357
 msgid "Operation aborted!"
 msgstr "Operació interrompuda"
 
-#: ../src/window.c:378
+#: ../src/window.c:382
 msgid "Opening archive,please wait..."
 msgstr "S'està obrint l'arxiu, espereu…"
 
-#: ../src/window.c:402
+#: ../src/window.c:406
 msgid "Testing archive,please wait..."
 msgstr "S’està comprovant l'arxiu, espereu…"
 
-#: ../src/window.c:422
+#: ../src/window.c:426
 msgid "Print the archive content as HTML"
 msgstr "Mostra el contingut de l'arxiu com HTML"
 
-#: ../src/window.c:424
+#: ../src/window.c:428
 msgid "Print the archive content as text"
 msgstr "Mostra el contingut de l'arxiu com text"
 
-#: ../src/window.c:475
+#: ../src/window.c:479
 #, c-format
 msgid "Archive contents:\n"
 msgstr "Contingut de l'arxiu:\n"
 
-#: ../src/window.c:479
+#: ../src/window.c:483
 #, c-format
 msgid ""
 "\n"
@@ -313,236 +292,221 @@ msgstr ""
 "\n"
 "Nom: "
 
-#: ../src/window.c:488
+#: ../src/window.c:492
 #, c-format
 msgid "Compressed   size: "
 msgstr "Mida    comprimit: "
 
-#: ../src/window.c:495
+#: ../src/window.c:499
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Mida descomprimit: "
 
-#: ../src/window.c:503
+#: ../src/window.c:507
 #, c-format
 msgid "Number of files: "
 msgstr "Nombre de fitxers: "
 
-#: ../src/window.c:511
+#: ../src/window.c:515
 #, c-format
 msgid "Comment:\n"
 msgstr "Comentari:\n"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 #, c-format
 msgid "Files:%*s%s"
 msgstr "Fitxers:%*s%s"
 
-#: ../src/window.c:524
+#: ../src/window.c:528
 msgid "|Compressed\n"
 msgstr "|Comprimit\n"
 
-#: ../src/window.c:530
+#: ../src/window.c:534
 #, c-format
 msgid "<th>Files:</th>"
 msgstr "<th>Fitxers:</th>"
 
-#: ../src/window.c:531
+#: ../src/window.c:535
 #, c-format
 msgid "<th>Compressed:</th>"
 msgstr "<th>Comprimit:</th>"
 
-#: ../src/window.c:617
-#: ../src/main.c:276
+#: ../src/window.c:621 ../src/main.c:281
 msgid "Select \"New\" to create or \"Open\" to open an archive"
 msgstr "Seleccioneu «Nou» per crear un arxiu o «Obre» per obrir-lo"
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "You are about to delete entries from the archive."
 msgstr "Esteu apunt de suprimir elements de l’arxiu."
 
-#: ../src/window.c:722
+#: ../src/window.c:726
 msgid "Are you sure you want to do this?"
 msgstr "Esteu segurs que voleu dur a terme aquesta acció?"
 
-#: ../src/window.c:815
-#: ../src/window.c:915
+#: ../src/window.c:820 ../src/window.c:920
 msgid "Can't convert the archive to self-extracting:"
 msgstr "No s’ha pogut convertir l’arxiu en un auto-extraible"
 
-#: ../src/window.c:826
-#: ../src/window.c:926
+#: ../src/window.c:831 ../src/window.c:931
 msgid "Can't write the unzipsfx module to the archive:"
 msgstr "No s’ha pogut escriure el mòdul unzipsfx per l’arxiu:"
 
-#: ../src/window.c:886
+#: ../src/window.c:891
 msgid "Please select the 7zCon.sfx module"
 msgstr "Si us plau seleccioneu el mòdul 7zCon.sfx"
 
-#: ../src/window.c:980
+#: ../src/window.c:985
 msgid "A GTK+2 only lightweight archive manager"
 msgstr "Un gestor d'arxius lleuger només GTK+2"
 
-#: ../src/window.c:983
+#: ../src/window.c:988
 msgid "translator-credits"
 msgstr ""
 "Pau Ruŀlan Ferragut <paurullan@bulma.net>\n"
 "Carles Muñoz Gorriz <carlesmu@internautas.org>"
 
-#: ../src/window.c:1013
+#: ../src/window.c:1018
 msgid "Save the self-extracting archive as"
 msgstr "Desa l’arxiu autodescomprimible com"
 
-#: ../src/window.c:1042
-#: ../src/interface.c:340
+#: ../src/window.c:1047 ../src/interface.c:338
 msgid "Open an archive"
 msgstr "Obre un arxiu"
 
-#: ../src/window.c:1055
-#: ../src/extract_dialog.c:90
-#: ../src/new_dialog.c:62
+#: ../src/window.c:1060 ../src/extract_dialog.c:90 ../src/new_dialog.c:64
 msgid "All files"
 msgstr "Tots els fitxers"
 
-#: ../src/window.c:1060
-#: ../src/new_dialog.c:67
+#: ../src/window.c:1065 ../src/new_dialog.c:69
 msgid "Only archives"
 msgstr "Sols arxius"
 
-#: ../src/window.c:1274
+#: ../src/window.c:1283
 msgid "Filename"
 msgstr "Nom de fitxer"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Doing so will probably corrupt your archive!"
 msgstr "Dur a terme aquesta acció probablement corromprà l’arxiu"
 
-#: ../src/window.c:1331
+#: ../src/window.c:1340
 msgid "Do you really want to cancel?"
 msgstr "Esteu segurs que voleu canceŀlar-ho?"
 
-#: ../src/window.c:1394
-#: ../src/window.c:1409
+#: ../src/window.c:1405 ../src/window.c:1420
 msgid "Yes"
 msgstr "Sí"
 
-#: ../src/window.c:1396
-#: ../src/window.c:1411
+#: ../src/window.c:1407 ../src/window.c:1422
 msgid "No"
 msgstr "No"
 
-#: ../src/window.c:1614
+#: ../src/window.c:1631
 msgid "selected"
 msgstr "seleccionat"
 
-#: ../src/window.c:1619
+#: ../src/window.c:1636
 #, c-format
 msgid "%d file and %d dir %s (%s)"
 msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d fitxer i %d directori %s (%s)"
 msgstr[1] "%d fitxers i %d directoris %s (%s)"
 
-#: ../src/window.c:1621
+#: ../src/window.c:1638
 #, c-format
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d directori %s (%s)"
 msgstr[1] "%d directoris %s (%s)"
 
-#: ../src/window.c:1624
+#: ../src/window.c:1641
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d fitxer %s (%s)"
 msgstr[1] "%d fitxers %s (%s)"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Can't perform another extraction:"
 msgstr "No s’ha pogut dur a terme cap altre extracció:"
 
-#: ../src/window.c:1680
+#: ../src/window.c:1697
 msgid "Please wait until the completion of the current one!"
 msgstr "S’està duent a terme una alter operació"
 
-#: ../src/window.c:1713
-#: ../src/extract_dialog.c:341
+#: ../src/window.c:1730 ../src/extract_dialog.c:337
 #, c-format
-msgid "You don't have the right permissions to extract the files to the directory \"%s\"."
-msgstr "No teniu els permisos correctes per extreure els fitxers al directori «%s»."
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr ""
+"No teniu els permisos correctes per extreure els fitxers al directori «%s»."
 
-#: ../src/window.c:1714
-#: ../src/extract_dialog.c:342
+#: ../src/window.c:1731 ../src/extract_dialog.c:338
 msgid "Can't perform extraction!"
 msgstr "No s’ha pogut extreure"
 
-#: ../src/window.c:1755
-#: ../src/extract_dialog.c:650
-#: ../src/interface.c:1392
+#: ../src/window.c:1775 ../src/extract_dialog.c:650 ../src/interface.c:1397
 msgid "Sorry,I could not perform the operation!"
 msgstr "No s’ha pogut dur a terme l’operació"
 
-#: ../src/window.c:1789
-#: ../src/window.c:1801
-#: ../src/interface.c:1385
+#: ../src/window.c:1809 ../src/window.c:1821 ../src/interface.c:1390
 msgid "Can't perform this action:"
 msgstr "No s’ha pogut dur a terme:"
 
-#: ../src/window.c:1789
+#: ../src/window.c:1809
 msgid "You have to install rar package!"
 msgstr "Heu d'instaŀlar un paquet «rar»."
 
-#: ../src/window.c:1796
-#: ../src/interface.c:1382
+#: ../src/window.c:1816 ../src/interface.c:1387
 msgid "You can't add content to deb packages!"
 msgstr "No podeu afegir contingut als paquets deb"
 
-#: ../src/window.c:1798
-#: ../src/interface.c:1384
+#: ../src/window.c:1818 ../src/interface.c:1389
 msgid "You can't add content to rpm packages!"
 msgstr "No podeu afegir contingut als paquets rpm"
 
-#: ../src/window.c:1800
+#: ../src/window.c:1820
 msgid "The archiver doesn't support this feature!"
 msgstr "Aquesta funcionalitat no està admesa."
 
-#: ../src/window.c:1881
+#: ../src/window.c:1901
 msgid "You didn't set which browser to use!"
 msgstr "No heu triat el navegador a emprar."
 
-#: ../src/window.c:1881
-#: ../src/window.c:1922
+#: ../src/window.c:1901 ../src/window.c:1942
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Aneu a Preferències->Avançat per seleccionar-lo."
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "This file type is not supported!"
 msgstr "Aquest format de fitxer no està admès."
 
-#: ../src/window.c:1913
+#: ../src/window.c:1933
 msgid "Please install xdg-utils package."
 msgstr "Instaŀleu el paquet «xdg-utils»."
 
-#: ../src/window.c:1922
+#: ../src/window.c:1942
 msgid "You didn't set which program to use for opening this file!"
 msgstr "No heu triat el programa que obre aquest fitxer"
 
-#: ../src/window.c:1948
+#: ../src/window.c:1968
 msgid "Failed to launch the application!"
 msgstr "No s'ha pogut executar l'aplicació"
 
-#: ../src/window.c:2000
+#: ../src/window.c:2020
 msgid "Comment"
 msgstr "Comentari"
 
-#: ../src/window.c:2030
+#: ../src/window.c:2050
 msgid "From File"
 msgstr "Des del fitxer"
 
-#: ../src/window.c:2135
+#: ../src/window.c:2156
 msgid "Open a text file"
 msgstr "Obre un fitxer de text"
 
-#: ../src/window.c:2153
+#: ../src/window.c:2174
 #, c-format
 msgid "Can't open file %s:"
 msgstr "No es pot obrir el fitxer «%s»:"
@@ -551,133 +515,148 @@ msgstr "No es pot obrir el fitxer «%s»:"
 msgid "Date modified"
 msgstr "Data modificada"
 
-#: ../src/extract_dialog.c:64
-#: ../src/extract_dialog.c:468
+#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:464
 msgid "Extract to:"
 msgstr "Extreu a:"
 
-#: ../src/extract_dialog.c:94
+#: ../src/extract_dialog.c:95
 msgid "Selected files"
 msgstr "Fitxers seleccionats"
 
-#: ../src/extract_dialog.c:101
+#: ../src/extract_dialog.c:103
 msgid "Files: "
 msgstr "Fitxers: "
 
-#: ../src/extract_dialog.c:111
+#: ../src/extract_dialog.c:114
 msgid "Files "
 msgstr "Fitxers "
 
-#: ../src/extract_dialog.c:125
-#: ../src/extract_dialog.c:495
+#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:491
 msgid "Overwrite existing files"
 msgstr "Sobreescriu els fitxers existents"
 
-#: ../src/extract_dialog.c:128
+#: ../src/extract_dialog.c:131
 msgid "Extract files with full path"
 msgstr "Extreu els fitxers amb la ruta completa"
 
-#: ../src/extract_dialog.c:129
-msgid "The archive's directory structure is recreated in the extraction directory"
-msgstr "L’estructura de directoris de l'arxiu es recrea en el directori de destí"
-
 #: ../src/extract_dialog.c:132
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr ""
+"L’estructura de directoris de l'arxiu es recrea en el directori de destí"
+
+#: ../src/extract_dialog.c:135
 msgid "Touch files"
 msgstr "Executa «touch» sobre els fitxers"
 
-#: ../src/extract_dialog.c:133
-msgid "When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"
-msgstr "En activar aquesta opció, tar deixa les dates de modificació dels fitxers que extreu amb la data i hora del moment d'extracció, en lloc de la data i hora del moment de desar-los"
-
 #: ../src/extract_dialog.c:136
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr ""
+"En activar aquesta opció, tar deixa les dates de modificació dels fitxers "
+"que extreu amb la data i hora del moment d'extracció, en lloc de la data i "
+"hora del moment de desar-los"
+
+#: ../src/extract_dialog.c:139
 msgid "Freshen existing files"
 msgstr "Refresca els arxius existents"
 
-#: ../src/extract_dialog.c:137
-msgid "Extract only those files that already exist on disk and that are newer than the disk copies"
-msgstr "Extreu tant sols els fitxers que ja existeixin al disc i que siguin nous que les seves còpies al disc."
+#: ../src/extract_dialog.c:140
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+"Extreu tant sols els fitxers que ja existeixin al disc i que siguin nous que "
+"les seves còpies al disc."
 
-#: ../src/extract_dialog.c:141
+#: ../src/extract_dialog.c:144
 msgid "Update existing files"
 msgstr "Actualitza els fitxers existents"
 
-#: ../src/extract_dialog.c:142
-msgid "This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"
-msgstr "Aquesta opció fa la mateixa funció que la de refresc, extraient els fitxers que siguin més nous que els del mateix nom al disc, i a més a més extraurà els fitxers que no existien ja al disc"
+#: ../src/extract_dialog.c:145
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+"Aquesta opció fa la mateixa funció que la de refresc, extraient els fitxers "
+"que siguin més nous que els del mateix nom al disc, i a més a més extraurà "
+"els fitxers que no existien ja al disc"
 
-#: ../src/extract_dialog.c:146
+#: ../src/extract_dialog.c:149
 msgid "Options "
 msgstr "Opcions "
 
-#: ../src/extract_dialog.c:169
-#: ../src/extract_dialog.c:511
+#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:508
 #: ../src/interface.c:178
 msgid "_Extract"
 msgstr "_Extreu"
 
-#: ../src/extract_dialog.c:223
+#: ../src/extract_dialog.c:226
 msgid "Decompress file"
 msgstr "Descomprimeix el fitxer"
 
-#: ../src/extract_dialog.c:225
-#: ../src/interface.c:396
+#: ../src/extract_dialog.c:228 ../src/interface.c:400
 msgid "Extract files"
 msgstr "Extreu fitxers"
 
-#: ../src/extract_dialog.c:317
-#: ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:723
 msgid "You missed where to extract the files!"
 msgstr "No heu seleccionat un directori per extreure els fitxers"
 
-#: ../src/extract_dialog.c:317
+#: ../src/extract_dialog.c:313
 msgid "Please enter the extraction path."
 msgstr "Si us plau introduïu el camí per extreure."
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "This archive is encrypted!"
 msgstr "L’arxiu està xifrat"
 
-#: ../src/extract_dialog.c:331
+#: ../src/extract_dialog.c:327
 msgid "Please enter the password."
 msgstr "Si us plau introduiu la contrasenya"
 
-#: ../src/extract_dialog.c:378
+#: ../src/extract_dialog.c:374
 msgid "Extracting files from archive,please wait..."
 msgstr "S'estan extraient fitxers de l'arxiu, espereu…"
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Archive Name"
 msgstr "Nom d'arxiu"
 
-#: ../src/extract_dialog.c:395
+#: ../src/extract_dialog.c:391
 msgid "Path"
 msgstr "Camí"
 
-#: ../src/extract_dialog.c:407
+#: ../src/extract_dialog.c:403
 msgid "Multi-Extract"
 msgstr "Extracció múltiple"
 
-#: ../src/extract_dialog.c:478
+#: ../src/extract_dialog.c:474
 msgid "Extract to dir \"Archive Name\""
 msgstr "Extreu al directori «Nom d'arxiu»"
 
-#: ../src/extract_dialog.c:479
-msgid "This option extracts archives in directories named with the archive names"
-msgstr "Aquesta opció fa que s'extregui els arxius a directoris amb el nom de l'arxiu"
+#: ../src/extract_dialog.c:475
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr ""
+"Aquesta opció fa que s'extregui els arxius a directoris amb el nom de l'arxiu"
 
-#: ../src/extract_dialog.c:483
+#: ../src/extract_dialog.c:479
 msgid "Destination dirs:"
 msgstr "Directoris de destí:"
 
-#: ../src/extract_dialog.c:497
+#: ../src/extract_dialog.c:493
 msgid "Extract pathnames"
 msgstr "Extreu les rutes dels fitxers:"
 
-#: ../src/extract_dialog.c:499
+#: ../src/extract_dialog.c:496
 msgid "Options:"
 msgstr "Opcions:"
 
-#: ../src/extract_dialog.c:531
+#: ../src/extract_dialog.c:528
 msgid "Please select the archives you want to extract"
 msgstr "Seleccioneu els fitxers que voleu extreure"
 
@@ -697,7 +676,7 @@ msgstr "No heu afegit cap d'ells."
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Empleneu el camp «Extreu a»."
 
-#: ../src/extract_dialog.c:754
+#: ../src/extract_dialog.c:760
 msgid "Some errors occurred:"
 msgstr "S’ha produït algun error:"
 
@@ -789,219 +768,229 @@ msgstr "A_juda"
 msgid "_Contents"
 msgstr "_Contingut"
 
-#: ../src/interface.c:313
-msgid "_Donate"
-msgstr "Fe una _donació"
+#: ../src/interface.c:326
+msgid "New"
+msgstr "Nou"
 
-#: ../src/interface.c:333
-#: ../src/new_dialog.c:50
+#: ../src/interface.c:330 ../src/new_dialog.c:52
 msgid "Create a new archive"
 msgstr "Crea un arxiu nou"
 
-#: ../src/interface.c:352
+#: ../src/interface.c:334
+msgid "Open"
+msgstr "Obre"
+
+#: ../src/interface.c:346 ../src/interface.c:351
 msgid "Back"
 msgstr "Endarrere"
 
-#: ../src/interface.c:360
+#: ../src/interface.c:355 ../src/interface.c:360
 msgid "Up"
 msgstr "Amunt"
 
-#: ../src/interface.c:368
+#: ../src/interface.c:364 ../src/interface.c:369
 msgid "Forward"
 msgstr "Endavant"
 
-#: ../src/interface.c:376
+#: ../src/interface.c:373
+msgid "Home"
+msgstr "Inici"
+
+#: ../src/interface.c:378
 msgid "Root"
 msgstr "Arrel"
 
-#: ../src/interface.c:408
-msgid "Cancel current operation"
-msgstr "Cancela l’operació actual"
+#: ../src/interface.c:386
+msgid "Add"
+msgstr "Afegeix"
 
-#: ../src/interface.c:421
-msgid "Location:"
-msgstr "Localització:"
-
-#: ../src/interface.c:460
-msgid "Archive tree"
-msgstr "Arbre de l'arxiu"
-
-#: ../src/interface.c:508
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr "Això són els leds del Xarchiver. Quan fan pampallugues el Xarxiver està ocupat"
-
-#: ../src/interface.c:677
-msgid "Close archive"
-msgstr "Tanca arxiu"
-
-#: ../src/interface.c:762
-msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr "<span weight='bold' size='larger'>Cal la contrasenya de:</span>"
-
-#: ../src/interface.c:764
-msgid "<span weight='bold' size='larger'>Enter password for:</span>"
-msgstr "<span weight='bold' size='larger'>Introduïu la contrasenya de:</span>"
-
-#: ../src/interface.c:782
-msgid "_Password:"
-msgstr "_Contrasenya:"
-
-#: ../src/interface.c:837
-#: ../src/open-with-dlg.c:52
-msgid "Open With"
-msgstr "Obre amb"
-
-#: ../src/interface.c:845
+#: ../src/interface.c:395 ../src/interface.c:850
 msgid "Extract"
 msgstr "Extreu"
 
-#: ../src/interface.c:853
+#: ../src/interface.c:408
+msgid "Stop"
+msgstr "Atura"
+
+#: ../src/interface.c:413
+msgid "Cancel current operation"
+msgstr "Cancela l’operació actual"
+
+#: ../src/interface.c:426
+msgid "Location:"
+msgstr "Localització:"
+
+#: ../src/interface.c:465
+msgid "Archive tree"
+msgstr "Arbre de l'arxiu"
+
+#: ../src/interface.c:513
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr ""
+"Això són els leds del Xarchiver. Quan fan pampallugues el Xarxiver està "
+"ocupat"
+
+#: ../src/interface.c:687
+msgid "Close archive"
+msgstr "Tanca arxiu"
+
+#: ../src/interface.c:772
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight='bold' size='larger'>Cal la contrasenya de:</span>"
+
+#: ../src/interface.c:774
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight='bold' size='larger'>Introduïu la contrasenya de:</span>"
+
+#: ../src/interface.c:792
+msgid "_Password:"
+msgstr "_Contrasenya:"
+
+#: ../src/interface.c:842 ../src/open-with-dlg.c:52
+msgid "Open With"
+msgstr "Obre amb"
+
+#: ../src/interface.c:858
 msgid "View"
 msgstr "Visualitza"
 
-#: ../src/interface.c:866
+#: ../src/interface.c:871
 msgid "Cut"
 msgstr "Talla"
 
-#: ../src/interface.c:874
+#: ../src/interface.c:879
 msgid "Copy"
 msgstr "Copia"
 
-#: ../src/interface.c:882
+#: ../src/interface.c:887
 msgid "Paste"
 msgstr "Enganxa"
 
-#: ../src/interface.c:896
+#: ../src/interface.c:901
 msgid "Delete"
 msgstr "Suprimeix"
 
-#: ../src/interface.c:905
+#: ../src/interface.c:910
 msgid "Rename"
 msgstr "Reanomena"
 
-#: ../src/interface.c:944
+#: ../src/interface.c:949
 msgid "Select by Pattern"
 msgstr "Selecciona per patró"
 
-#: ../src/interface.c:957
+#: ../src/interface.c:962
 msgid "Pattern:"
 msgstr "Patró:"
 
-#: ../src/interface.c:962
+#: ../src/interface.c:967
 msgid "example: *.txt; ac*"
 msgstr "exemple: *.txt; ac*"
 
-#: ../src/interface.c:979
+#: ../src/interface.c:984
 msgid "_Select"
 msgstr "_Selecciona"
 
-#: ../src/interface.c:1051
+#: ../src/interface.c:1056
 msgid "Archive Properties"
 msgstr "Propietats de l'arxiu"
 
-#: ../src/interface.c:1072
+#: ../src/interface.c:1077
 msgid "Name:"
 msgstr "Nom:"
 
-#: ../src/interface.c:1079
+#: ../src/interface.c:1084
 msgid "Path:"
 msgstr "Camí:"
 
-#: ../src/interface.c:1086
+#: ../src/interface.c:1091
 msgid "Type:"
 msgstr "Tipus:"
 
-#: ../src/interface.c:1093
+#: ../src/interface.c:1098
 msgid "Encrypted:"
 msgstr "Xifrat"
 
-#: ../src/interface.c:1100
+#: ../src/interface.c:1105
 msgid "Modified on:"
 msgstr "Modificat el:"
 
-#: ../src/interface.c:1107
+#: ../src/interface.c:1112
 msgid "Compressed size:"
 msgstr "Mida comprimit:"
 
-#: ../src/interface.c:1114
+#: ../src/interface.c:1119
 msgid "Uncompressed size:"
 msgstr "Mida descomprimit:"
 
-#: ../src/interface.c:1121
+#: ../src/interface.c:1126
 msgid "Comment:"
 msgstr "Comentari:"
 
-#: ../src/interface.c:1128
+#: ../src/interface.c:1133
 msgid "Number of files:"
 msgstr "Nombre de fitxers:"
 
-#: ../src/interface.c:1135
+#: ../src/interface.c:1140
 msgid "Compression ratio:"
 msgstr "Nivell de compressió:"
 
-#: ../src/interface.c:1499
-#: ../xarchiver.desktop.in.h:3
-msgid "Xarchiver"
-msgstr "Xarchiver"
-
-#: ../src/interface.c:1526
+#: ../src/interface.c:1531
 msgid "Extracting from archive:"
 msgstr "S’està extraient de l’arxiu:"
 
-#: ../src/interface.c:1528
+#: ../src/interface.c:1533
 msgid "Adding to archive:"
 msgstr "S'està afegeix a l'arxiu:"
 
-#: ../src/interface.c:1548
+#: ../src/interface.c:1553
 msgid "Total Progress:"
 msgstr "Progrés total: "
 
-#: ../src/main.c:58
+#: ../src/main.c:59
 msgid "Extract archive to the destination directory and quits."
 msgstr "Extreu l’arxiu al directori de destí i tanca."
 
-#: ../src/main.c:59
+#: ../src/main.c:60
 msgid "destination archive"
 msgstr "Arxiu de destí"
 
-#: ../src/main.c:62
+#: ../src/main.c:63
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "Extreu l’arxiu demanant el directori de destí i tanca."
 
-#: ../src/main.c:63
-#: ../src/main.c:75
+#: ../src/main.c:64 ../src/main.c:76
 msgid "archive"
 msgstr "arxiu"
 
-#: ../src/main.c:66
+#: ../src/main.c:67
 msgid "Multi-extract archives"
 msgstr "Extracció múltiple d'arxius"
 
-#: ../src/main.c:67
+#: ../src/main.c:68
 msgid "filenames"
 msgstr "Noms de fitxers"
 
-#: ../src/main.c:70
+#: ../src/main.c:71
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Afegeix els fitxers segons el nom de l’arxiu i tanca."
 
-#: ../src/main.c:71
+#: ../src/main.c:72
 msgid "file1 file2 file3 ... fileN"
 msgstr "fitxer1 fitxer2 fitxer3 … fitxerN"
 
-#: ../src/main.c:74
+#: ../src/main.c:75
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Afegeix fitxers a l’arxiu demanant el seu nom i surt."
 
-#: ../src/main.c:78
+#: ../src/main.c:79
 msgid "Show version and exit"
 msgstr "Mostra la versió i surt"
 
-#: ../src/main.c:105
+#: ../src/main.c:106
 msgid "[archive name]"
 msgstr "[nom de l’arxiu]"
 
-#: ../src/main.c:109
+#: ../src/main.c:110
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -1010,23 +999,25 @@ msgstr ""
 "xarchiver: %s\n"
 "Proveu xarchiver --help per veure un llistat complet de les opcions.\n"
 
-#: ../src/main.c:119
+#: ../src/main.c:120
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/main.c:122
 #, c-format
 msgid "Please report bugs to <%s>."
 msgstr "Envieu els errors a <%s>."
 
-#: ../src/main.c:146
-#: ../src/main.c:169
+#: ../src/main.c:149 ../src/main.c:172
 msgid "Can't extract files from the archive:"
 msgstr "No s’ha pogut extreure els fitxers de l’arxiu:"
 
-#: ../src/main.c:146
-#: ../src/main.c:169
-#: ../src/main.c:228
+#: ../src/main.c:149 ../src/main.c:172 ../src/main.c:233
 msgid "You missed the archive name!\n"
 msgstr "No heu introduit el nom per l’arxiu\n"
 
-#: ../src/main.c:534
+#: ../src/main.c:566
 msgid "Can't allocate memory for the archive structure!"
 msgstr "No es pot assignar memòria per l’estructura d’arxiu"
 
@@ -1051,37 +1042,37 @@ msgstr "Navega"
 msgid "Select an application"
 msgstr "Seleccioneu una aplicació"
 
-#: ../src/new_dialog.c:55
+#: ../src/new_dialog.c:57
 msgid "Cr_eate"
 msgstr "Cr_ea"
 
-#: ../src/new_dialog.c:92
+#: ../src/new_dialog.c:94
 msgid "Archive type:"
 msgstr "Tipus d'arxiu:"
 
-#: ../src/new_dialog.c:97
+#: ../src/new_dialog.c:99
 msgid "Choose the archive type to create"
 msgstr "Trieu el tipus d'arxiu a crear"
 
-#: ../src/new_dialog.c:112
+#: ../src/new_dialog.c:115
 msgid "Add the archive extension to the filename"
 msgstr "Afegeix l'extensió de l'arxiu al nom de fitxer."
 
-#: ../src/new_dialog.c:159
+#: ../src/new_dialog.c:162
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "«%s» ja està obert"
 
-#: ../src/new_dialog.c:160
+#: ../src/new_dialog.c:163
 msgid "Can't create a new archive:"
 msgstr "No s’ha pogut crear un arxiu nou:"
 
-#: ../src/new_dialog.c:175
+#: ../src/new_dialog.c:178
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "Ja existeix l'arxiu «%s»."
 
-#: ../src/new_dialog.c:181
+#: ../src/new_dialog.c:184
 msgid "Do you want to overwrite it?"
 msgstr "Voleu sobreescriure'l?"
 
@@ -1143,7 +1134,8 @@ msgstr "Mostra comentaris d'arxiu"
 
 #: ../src/pref_dialog.c:151
 msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr "Si està seleccionat el comentari de l'arxiu es mostra al carregar-se l'arxiu"
+msgstr ""
+"Si està seleccionat el comentari de l'arxiu es mostra al carregar-se l'arxiu"
 
 #: ../src/pref_dialog.c:157
 msgid "Show archive tree sidebar"
@@ -1157,11 +1149,8 @@ msgstr "Mostra la barra de localització d'arxiu"
 msgid "Web browser to use:"
 msgstr "Navegador web a emprar:"
 
-#: ../src/pref_dialog.c:192
-#: ../src/pref_dialog.c:205
-#: ../src/pref_dialog.c:218
-#: ../src/pref_dialog.c:231
-#: ../src/pref_dialog.c:244
+#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
+#: ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
 msgid "choose..."
 msgstr "escull…"
 
@@ -1177,8 +1166,7 @@ msgstr "Obre els fitxers d'imatges amb:"
 msgid "Preferred temp directory:"
 msgstr "Directori temporal preferit:"
 
-#: ../src/pref_dialog.c:230
-#: ../src/pref_dialog.c:243
+#: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
 msgid "/tmp"
 msgstr "/tmp"
 
@@ -1195,8 +1183,11 @@ msgid "Allow subdirs with drag and drop"
 msgstr "Permet subdirectoris arrossegant i deixant anar"
 
 #: ../src/pref_dialog.c:259
-msgid "This option includes the subdirectories when you add files with drag and drop"
-msgstr "Aquesta opció inclou els subdirectoris quan s'afegeixen fitxers al arrossegar i deixar anar"
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+"Aquesta opció inclou els subdirectoris quan s'afegeixen fitxers al "
+"arrossegar i deixar anar"
 
 #: ../src/pref_dialog.c:264
 msgid ""
@@ -1214,53 +1205,38 @@ msgstr "Trieu el directori a emprar"
 msgid "Choose the application to use"
 msgstr "Trieu l'aplicació a emprar"
 
-#: ../src/rar.c:63
+#: ../src/rar.c:31 ../src/rar.c:33
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Method"
 msgstr "Mètode"
 
-#: ../src/rar.c:63
-#: ../src/zip.c:49
+#: ../src/rar.c:31 ../src/zip.c:49
 msgid "Version"
 msgstr "Versió"
 
-#: ../src/rpm.c:39
+#: ../src/rpm.c:36
 #, c-format
 msgid "Can't open RPM file %s:"
 msgstr "No s'ha pogut obrir el fitxer RPM %s"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Permission"
 msgstr "Permís"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Hard Link"
 msgstr "Enllaç dur"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Owner"
 msgstr "Propietari"
 
-#: ../src/rpm.c:52
+#: ../src/rpm.c:49
 msgid "Group"
 msgstr "Grup"
-
-#: ../src/rpm.c:62
-msgid "Can't fseek to position 104:"
-msgstr "No s’ha pogut consultar a la posició 104:"
-
-#: ../src/rpm.c:68
-#: ../src/rpm.c:84
-msgid "Can't read data from file:"
-msgstr "No s’han pogut llegir les dades del fitxer:"
-
-#: ../src/rpm.c:78
-msgid "Can't fseek in file:"
-msgstr "No s’ha pogut consultar al fitxer:"
 
 #: ../src/zip.c:49
 msgid "OS"
@@ -1274,25 +1250,34 @@ msgstr "Un gestor d'arxius només GTK+2"
 msgid "Archive manager"
 msgstr "Gestor d'arxius"
 
+#~ msgid "_Donate"
+#~ msgstr "Fe una _donació"
+
+#~ msgid "Xarchiver"
+#~ msgstr "Xarchiver"
+
+#~ msgid "Can't fseek to position 104:"
+#~ msgstr "No s’ha pogut consultar a la posició 104:"
+
+#~ msgid "Can't read data from file:"
+#~ msgstr "No s’han pogut llegir les dades del fitxer:"
+
+#~ msgid "Can't fseek in file:"
+#~ msgstr "No s’ha pogut consultar al fitxer:"
+
 #~ msgid "_Thanks to"
 #~ msgstr "_Agraïments"
-#~ msgid "New"
-#~ msgstr "Nou"
-#~ msgid "Open"
-#~ msgstr "Obre"
-#~ msgid "Home"
-#~ msgstr "Inici"
-#~ msgid "Add"
-#~ msgstr "Afegeix"
-#~ msgid "Stop"
-#~ msgstr "Atura"
+
 #~ msgid "Can't spawn the command:"
 #~ msgstr "No s’ha pogut engendrar l’ordre:"
+
 #~ msgid ""
 #~ "Please check \"%s\" since some files could have been already extracted."
 #~ msgstr "Comproveu «%s» perquè alguns fitxers podrien ja haver-se extret."
+
 #~ msgid "Sorry, I could not perform the operation!"
 #~ msgstr "No s’ha pogut dur a terme l’operació"
+
 #~ msgid "The sfx archive was saved as:"
 #~ msgstr "L’arxiu sfx s’ha desat com:"
 
@@ -1303,134 +1288,192 @@ msgstr "Gestor d'arxius"
 #, fuzzy
 #~ msgid "Create New Dir"
 #~ msgstr "Crea un nou arxiu"
+
 #~ msgid "Can't create directory \"%s\""
 #~ msgstr "No s’ha pogut crear el directori «%s»"
+
 #~ msgid "Operation failed."
 #~ msgstr "L’operació ha fallat"
+
 #~ msgid "Do you want to view the command line output?"
 #~ msgstr "Voleu veure la sortida de la línea d’ordres?"
+
 #~ msgid "Operation completed."
 #~ msgstr "Operació completada."
+
 #~ msgid "Please wait while the content of the archive is being updated..."
 #~ msgstr "S’està actualitzant el contingut de l’arxiu"
+
 #~ msgid "Operation canceled."
 #~ msgstr "S’ha canceŀlat l’operació"
+
 #~ msgid "Choose Add to begin creating the archive."
 #~ msgstr "Seleccioneu «Afegir» per començar a crear l’arxiu."
+
 #~ msgid "Please wait while the content of the archive is being read..."
 #~ msgstr "S’està llegint el contingut de l’arxiu"
+
 #~ msgid "Ready."
 #~ msgstr "Preparat."
+
 #~ msgid "Converting archive to self-extracting, please wait..."
 #~ msgstr "S’està convertint el fitxer a un auto-extraible"
+
 #~ msgid "Can't open archive \"%s\":"
 #~ msgstr "No s’ha pogut obrir l’arxiu «%s»:"
+
 #~ msgid "Command line output"
 #~ msgstr "Sortida de la línea d’ordres"
+
 #~ msgid "Waiting for the process to abort..."
 #~ msgstr "S’està abortant el procés"
+
 #~ msgid "The password has been reset."
 #~ msgstr "S’ha reiniciat la contrassenya."
+
 #~ msgid "Please enter the password first!"
 #~ msgstr "Si us plau introduiu primer la contrasenya"
+
 #~ msgid "Extracting files to %s"
 #~ msgstr "S’estan extraguent els fitxers a «%s»"
+
 #~ msgid "_View"
 #~ msgstr "_Visualitza"
+
 #~ msgid "_Show comment"
 #~ msgstr "Mo_stra comentari"
+
 #~ msgid "Enter Archive Password"
 #~ msgstr "Introduiu la contrassenya de l’arxiu"
 
 #, fuzzy
 #~ msgid "Extract..."
 #~ msgstr "Extreu"
+
 #~ msgid "Archive size:"
 #~ msgstr "Mida de l'arxiu:"
+
 #~ msgid "Number of dirs:"
 #~ msgstr "Nombre de directoris:"
+
 #~ msgid "Size of the mimetype icons"
 #~ msgstr "Mida de les icones de tipus"
+
 #~ msgid "Show archive comment after loading it"
 #~ msgstr "Mostra el comentari després de carregar l’arxiu"
+
 #~ msgid "An error occurred while decompressing the cpio archive."
 #~ msgstr "S’ha produït un error en descomprimir l’arxiu cpio."
+
 #~ msgid "Can't write to /tmp:"
 #~ msgstr "No s’ha pogut escriure a /tmp:"
+
 #~ msgid "<b>Files and directories to add </b>"
 #~ msgstr "<b>Fitxers i directoris a afegir</b>"
+
 #~ msgid ""
 #~ "Include everything in the directory recursively \tstarting from the "
 #~ "current directory."
 #~ msgstr ""
 #~ "Inclou tot el contingut del directori de manera recur\\tsiva des de "
 #~ "l’actual començant del directori actual."
+
 #~ msgid "Do not add file paths"
 #~ msgstr "No afegexis els camins dels fitxers"
+
 #~ msgid "The files path doesn't include the user home directory."
 #~ msgstr "El fitxer de rutes no inclou el directori de l’usuari."
+
 #~ msgid "Store just the name of a file without its directory names."
 #~ msgstr ""
 #~ "Enmaguetzema sols el nom del fitxer sense el nom del directori pare."
+
 #~ msgid "Freshen an existing entry"
 #~ msgstr "Refresca una entrada existent"
+
 #~ msgid "Update an existing entry"
 #~ msgstr "Actualitza una entrada existent"
+
 #~ msgid "Please select the directories you want to add"
 #~ msgstr "Seleccioneu els directoris a afegir"
+
 #~ msgid "Extracting gzip file to %s"
 #~ msgstr "S’està extraguent el fitxer gzip a %s"
+
 #~ msgid "Extracting bzip2 file to %s"
 #~ msgstr "S’està extraguent el fitxer bzip2 a %s"
+
 #~ msgid "Decompressing tar file with %s, please wait..."
 #~ msgstr "S’està descomprimint el fitxer tar «%s»"
+
 #~ msgid "Recompressing tar file with %s, please wait..."
 #~ msgstr "S’està recomprimint el fitxer tar «%s»"
+
 #~ msgid "An error occurred while trying to kill the process:"
 #~ msgstr "S’ha produit un error mentre es matava el procés:"
+
 #~ msgid "An error occurred while extracting the file to be viewed:"
 #~ msgstr ""
 #~ "S’ha produit un error mentre s’estava extraguent el fitxer per mostrar-lo:"
+
 #~ msgid ""
 #~ "An error occurred while converting the file content to the UTF8 encoding:"
 #~ msgstr ""
 #~ "S’ha produit un error mentre s’estava convertint el contingut a UTF-8:"
+
 #~ msgid "Failed to open link."
 #~ msgstr "No s’ha pogut obrir l’enllaç."
+
 #~ msgid "Choose a folder where to extract files"
 #~ msgstr "Esculliu un directori on extreure els fitxers"
+
 #~ msgid "All"
 #~ msgstr "Totes"
+
 #~ msgid "<b>Files to extract </b>"
 #~ msgstr "<b>Fitxers a extreure</b>"
+
 #~ msgid "Choose the destination folder where to extract the current archive"
 #~ msgstr "Seleccioneu un directori destí on descomprimir l’arxiu actual"
+
 #~ msgid "_File"
 #~ msgstr "_Fitxers"
+
 #~ msgid "Add files and directories to the current archive"
 #~ msgstr "Afegeix fitxers i directoris a l’arxiu actual"
+
 #~ msgid "Extract files from the current archive"
 #~ msgstr "Suprimeix fitxers de l’arxiu actual"
+
 #~ msgid "View file content in the current archive"
 #~ msgstr "Visualitza el contingut de l’arxiu actual"
+
 #~ msgid ""
 #~ "Extract archive to the directory specified by destination_path and quits."
 #~ msgstr ""
 #~ "Extreu l’arxiu al directori especificat per la _ruta de destí i tanca."
+
 #~ msgid "Behaviour"
 #~ msgstr "Comportament"
+
 #~ msgid "Save settings for add dialog"
 #~ msgstr "Desa els ajustaments pel diàleg d’afegir"
+
 #~ msgid "Save settings for extract dialog"
 #~ msgstr "Desa els ajustaments pel diàleg d’extreure"
+
 #~ msgid "list"
 #~ msgstr "llista"
+
 #~ msgid "icon"
 #~ msgstr "iconca"
+
 #~ msgid "View HTML help with:"
 #~ msgstr "Visualitza l’ajuda HTML amb:"
+
 #~ msgid "Firefox"
 #~ msgstr "Firefox"
+
 #~ msgid ""
 #~ "\n"
 #~ "\n"
@@ -1439,4 +1482,3 @@ msgstr "Gestor d'arxius"
 #~ "\n"
 #~ "\n"
 #~ "** La sortida s'ha escurçat; massa errors."
-
