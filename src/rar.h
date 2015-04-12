@@ -33,3 +33,22 @@ void xa_rar_test (XArchive *);
 void xa_get_rar_line_content (gchar *line, gpointer data);
 void xa_open_rar ( XArchive *archive );
 #endif
+
+#ifndef RAR5_H
+#define RAR5_H
+
+#include <gtk/gtk.h>
+#include <string.h>
+#include <stdlib.h>
+#include "string_utils.h"
+#include "support.h"
+#include "archive.h"
+gboolean jump_header,jump_comment,read_filename, last_line, encrypted;
+void xa_rar5_delete (XArchive *,GSList *);
+void xa_rar5_add (XArchive *,GString *,gchar *);
+gboolean xa_rar5_extract(XArchive *,GSList *);
+void xa_rar5_test (XArchive *);
+void xa_get_rar5_line_content (gchar *line, gpointer data);
+void xa_open_rar5 (XArchive *);
+int xa_rar_checkversion (gchar *);
+#endif

@@ -27,10 +27,11 @@
 #include "archive.h"
 #include "gzip.h"
 
-void xa_open_tar ( XArchive * );
+void xa_open_tar (XArchive *);
 void xa_tar_delete (XArchive *,GSList *);
 void xa_tar_add (XArchive *,GString *,gchar *);
 gboolean xa_tar_extract(XArchive *,GSList *);
+void xa_tar_test(XArchive *);
 void xa_get_tar_line_content (gchar *, gpointer );
 gboolean isTar (FILE *);
 gboolean is_tar_compressed (gint );

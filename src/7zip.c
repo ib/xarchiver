@@ -41,7 +41,7 @@ void xa_open_7zip (XArchive *archive)
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
-	archive->format ="7-ZIP";
+	archive->format ="7ZIP";
 	archive->nc = 6;
 	archive->parse_output = xa_get_7zip_line_content;
 	xa_spawn_async_process (archive,command);
@@ -64,15 +64,14 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	XEntry *entry;
 	gchar *filename;
 	gpointer item[5];
-	gint linesize = 0,n = 0,a = 0;
-	gboolean dir = FALSE;
+	gint linesize = 0,a = 0;
 
 	if (last_line)
 		return;
 
 	if (jump_header == FALSE)
 	{
-		if (line[0] == '-')
+		if ((line[0] == '-') && (line[3] != NULL)) 
 		{
 			jump_header = TRUE;
 			return;
@@ -93,71 +92,40 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	item[4] = line;
 
 	/* Time */
-	for(n=13; n < linesize; ++n)
-		if(line[n] == ' ')
-			break;
-	line[n] = '\0';
+	line[19] = '\0';
 	item[3] = line + 11;
-	a = ++n;
 	
 	/* Permissions */
-	for(; n < linesize; n++)
-		if(line[n] == ' ')
-			break;
-	line[n] = '\0';
-	if ((line+a)[0] == 'D')
-		dir = TRUE;
-	item[2] = line + a;
+	line[25] = '\0';
+	item[2] = line + 20;
 	
 	/* Size */
-	for(++n; n < linesize; ++n)
-		if(line[n] >= '0' && line[n] <= '9')
-			break;
-	a = n;
-
-	for(; n < linesize; ++n)
-		if(line[n] == ' ')
+	for(a=26; a < linesize; ++a)
+		if(line[a] >= '0' && line[a] <= '9')
 			break;
 
-	line[n] = '\0';
+	line[38] = '\0';
 	item[0] = line + a;
 	archive->dummy_size += g_ascii_strtoull(item[0],NULL,0);
 
 	/* Compressed */
-	for(++n; n < linesize; ++n)
-		if(line[n] >= '0' && line[n] <= '9')
-			break;
-	a = n;
-
-	for(; n < linesize; ++n)
-		if(line[n] == ' ')
-			break;
-
-	line[n] = '\0';
-
-	if (line[50] != ' ')
+	/* Is this item solid? */
+	if (line[50] == ' ')
 	{
-		n+=2;
-		item[1] = line + a;
 		line[linesize-1] = '\0';
-		filename = g_strdup(line + n);
+		item[1] = "0";
 	}
-	/* Is this a solid archive? */
 	else
 	{
-		item[1] = "0";
-		line[n-1] = '\0';
-		filename = g_strdup(line + 53);
+		for(a=39; a < linesize; ++a)
+			if(line[a] >= '0' && line[a] <= '9')
+				break;
+		line[51] = '\0';
+		item[1] = line + a;
+		line[linesize-1] = '\0';
 	}
 
-	/* Work around for 7za which doesn't
-	* output / with directories */
-	if (dir)
-	{
-		gchar *filename_with_slash = g_strconcat (filename,"/",NULL);
-		g_free (filename);
-		filename = filename_with_slash;
-	}
+	filename = g_strdup(line + 53);
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
 }

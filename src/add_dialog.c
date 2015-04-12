@@ -209,7 +209,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	else
 		gtk_widget_set_size_request (add_dialog->dialog1,530,420);
 
-	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP)
+	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),FALSE);
 	else
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
@@ -240,11 +240,11 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
 
-	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_7ZIP)
+	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_RAR5 || archive->type == XARCHIVETYPE_7ZIP)
 		flag = TRUE;
 	gtk_widget_set_sensitive(add_dialog->solid_archive,flag);
 	
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_LZOP)
+	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_XZ && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_LZOP)
 	{
 		flag = TRUE;
 		if (archive->type == XARCHIVETYPE_7ZIP)
@@ -265,6 +265,12 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 			default_value = 3;
 			max_value = 5;
 		}
+		else if (archive->type == XARCHIVETYPE_RAR5)
+		{
+			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
+			default_value = 3;
+			max_value = 5;
+		}
 		else if (archive->type == XARCHIVETYPE_ARJ)
 		{
 			compression_msg = _("0 = no compression, 1 is default, 4 = fastest but least compression");
@@ -276,6 +282,12 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 			compression_msg = _("5 = default compression, 7 = max compression");
 			default_value = 5;
 			max_value = 7;
+		}
+		if (archive->type == XARCHIVETYPE_XZ)
+		{
+			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
+			default_value = 5;
+			max_value = 9;
 		}
 	}
 	else
@@ -306,7 +318,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
 	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->compression_scale, compression_msg, NULL );
 
-	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_LZOP)
+	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_XZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_LZOP)
 		flag = FALSE;
 	else
 		flag = TRUE;

@@ -24,11 +24,10 @@
 #include "string_utils.h"
 #include "support.h"
 
-extern gboolean unrar,batch_mode;
+extern gboolean batch_mode;
 extern Prefs_dialog_data *prefs_window;
 extern Progress_bar_data *pb;
 extern extract_func extract	[XARCHIVETYPE_COUNT];
-gchar *rar;
 
 static gchar *xa_multi_extract_archive(Multi_extract_data *,gchar *,gboolean,gboolean,gchar *);
 static void xa_select_where_to_extract(SexyIconEntry *,SexyIconEntryPosition ,int ,Multi_extract_data *);
@@ -223,7 +222,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_widget_set_size_request (dialog_data->dialog1,-1,370);
 
-	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP)
+	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Decompress file"));
 	else
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Extract files"));
@@ -244,21 +243,20 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
 
-	if ( (xa_main_window == NULL && is_tar_compressed(archive->type)) || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_LZOP)
+	if ( (xa_main_window == NULL && is_tar_compressed(archive->type)) || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
 		flag = FALSE;
 	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
 
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB && archive->type != XARCHIVETYPE_TAR_LZOP)
+	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB && archive->type != XARCHIVETYPE_TAR_LZOP || archive->type == XARCHIVETYPE_XZ)
 		flag = FALSE;
 	else
 		flag = TRUE;
 	gtk_widget_set_sensitive (dialog_data->touch,flag);
 
-	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
+	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_RAR5 || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
 		flag = TRUE;
 	else
 		flag = FALSE;
-
 	gtk_widget_set_sensitive(dialog_data->fresh,flag);
 	gtk_widget_set_sensitive(dialog_data->update,flag);
 	
@@ -292,11 +290,6 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 	GtkTreeModel *model;
 	int response;
 
-	if (unrar)
-		rar = "unrar";
-	else
-		rar = "rar";
-
     while (! done)
 	{
 		switch (gtk_dialog_run(GTK_DIALOG(dialog_data->dialog1)))
@@ -304,10 +297,9 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
-			if (xa_main_window && (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_LZOP))
+			if (xa_main_window)
 			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
-				xa_set_button_state (1,1,GTK_WIDGET_IS_SENSITIVE(save1),GTK_WIDGET_IS_SENSITIVE(close1),0,0,0,0,0,0,0);
 				archive->status = XA_ARCHIVESTATUS_IDLE;
 			}
 			break;
@@ -500,6 +492,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->overwrite,FALSE,FALSE,0);
 	dialog_data->full_path = gtk_check_button_new_with_mnemonic (_("Extract pathnames"));
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->full_path,FALSE,FALSE,0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->full_path), TRUE);
 	label2 = gtk_label_new (_("Options:"));
 	gtk_frame_set_label_widget(GTK_FRAME(frame2),label2);
 
@@ -615,7 +608,10 @@ void xa_remove_files_liststore (GtkWidget *widget,Multi_extract_data *multi_extr
 		if (path)
 		{
 			if ( gtk_tree_model_get_iter(GTK_TREE_MODEL(model),&iter,path))
+			{
 				gtk_list_store_remove(multi_extract_data->files_liststore,&iter);
+				multi_extract_data->nr--;
+			}
 			gtk_tree_path_free(path);
 		}
 	}
@@ -732,7 +728,13 @@ run:
 
 	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	double fraction = 1.0 / dialog->nr;
-	pb = xa_create_progress_bar(FALSE,NULL);
+	
+	if (pb != NULL)
+		gtk_widget_show_all(pb->progress_window);
+	else
+		pb = xa_create_progress_bar(FALSE,NULL);
+	
+	percent=fraction;
 	do
 	{
 		gtk_tree_model_get (GTK_TREE_MODEL(dialog->files_liststore),&iter,0,&file,2,&path,3,&type,-1);
@@ -761,6 +763,7 @@ run:
 	if (dest_path != NULL)
 		g_free(dest_path);
 
+	dialog->nr=0;
 	gtk_list_store_clear(dialog->files_liststore);
 }
 
@@ -774,7 +777,7 @@ static gchar *xa_multi_extract_archive(Multi_extract_data *dialog,gchar *filenam
 
 	if (dest_path == NULL)
 	{
-		_filename = strstr(filename,".");
+		_filename = g_strrstr(filename, ".");
 		if (_filename)
 			_filename = g_strndup(filename,(_filename-filename));
 		else
@@ -797,7 +800,7 @@ static gchar *xa_multi_extract_archive(Multi_extract_data *dialog,gchar *filenam
 	archive->overwrite = overwrite;
 	archive->full_path = full_path;
 	archive->escaped_path = xa_escape_bad_chars (filename,"$\'`\"\\!?* ()&|@#:;");
-	archive->extraction_path = g_strdup(dest_path);
+	archive->extraction_path = xa_escape_bad_chars (dest_path,"$\'`\"\\!?* ()&|@#:;");
 	if (g_str_has_suffix (archive->escaped_path,".tar.gz")|| g_str_has_suffix (archive->escaped_path,".tgz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_GZ;
@@ -813,6 +816,11 @@ static gchar *xa_multi_extract_archive(Multi_extract_data *dialog,gchar *filenam
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_LZMA];
+	}
+	else if (g_str_has_suffix(archive->escaped_path,".tar.xz")|| g_str_has_suffix (archive->escaped_path,".txz"))
+	{
+		archive->type = XARCHIVETYPE_TAR_XZ;
+		archive->extract = 	extract[XARCHIVETYPE_TAR_XZ];
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzop") ||
 			g_str_has_suffix (archive->escaped_path,".tzo") ||

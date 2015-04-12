@@ -593,7 +593,7 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 	if (selection != NULL)
 		xa_row_selected(selection,archive[id]);
 
-	if (archive[id]->type == XARCHIVETYPE_7ZIP || archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_ARJ)
+	if (archive[id]->type == XARCHIVETYPE_7ZIP || archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_RAR5 || archive[id]->type == XARCHIVETYPE_ARJ)
 		gtk_widget_set_sensitive (comment_menu,TRUE);
 	else
 		gtk_widget_set_sensitive (comment_menu,FALSE);
@@ -616,12 +616,17 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 		{
 			gtk_widget_show(selected_frame);
 			gtk_widget_set_sensitive(deselect_all,TRUE);
-			if (archive[id]->type == XARCHIVETYPE_RAR && unrar)
+			if ((archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_RAR5) && unrar)
 			{
 				gtk_widget_set_sensitive (delete_menu,FALSE);
 				gtk_widget_set_sensitive (rename_menu,FALSE);
 			}
-			else if ( archive[id]->type != XARCHIVETYPE_RPM && archive[id]->type != XARCHIVETYPE_DEB)
+			else if (archive[id]->type == XARCHIVETYPE_BZIP2 || archive[id]->type == XARCHIVETYPE_GZIP || archive[id]->type == XARCHIVETYPE_DEB || archive[id]->type == XARCHIVETYPE_RPM || archive[id]->type == XARCHIVETYPE_LZMA || archive[id]->type == XARCHIVETYPE_XZ || archive[id]->type == XARCHIVETYPE_LZOP)
+			{
+				gtk_widget_set_sensitive (delete_menu,FALSE);
+				gtk_widget_set_sensitive (rename_menu,FALSE);
+			}
+			else 
 			{
 				gtk_widget_set_sensitive (delete_menu,TRUE);
 				gtk_widget_set_sensitive (rename_menu,TRUE);
@@ -637,6 +642,7 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 			gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
 		xa_fill_dir_sidebar(archive[id],TRUE);
 	}
+	xa_set_button_state (1,1,1,1,archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties,1,1);
 }
 
 void xa_add_page (XArchive *archive)

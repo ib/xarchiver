@@ -23,6 +23,7 @@
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 extern gchar *tar;
+extern gboolean multi_extract;
 
 static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list);
 
@@ -32,8 +33,8 @@ void xa_open_tar (XArchive *archive)
 	unsigned short int i;
 
 	command = g_strconcat (tar, " tfv " , archive->escaped_path, NULL);
-	archive->has_properties = archive->can_add = archive->can_extract = TRUE;
-	archive->has_test = archive->has_sfx = FALSE;
+	archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
+	archive->has_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 7;
@@ -242,6 +243,17 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 									files->str , NULL );
 		break;
 		
+		case XARCHIVETYPE_TAR_XZ:
+		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
+			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
+		else
+			command = g_strconcat (tar, " ",
+									archive->add_recurse ? "" : "--no-recursion ",
+									archive->remove_files ? "--remove-files " : "",
+									"--use-compress-program=xz -cvvf ",archive->escaped_path,
+									files->str , NULL );
+		break;
+		
 		case XARCHIVETYPE_TAR_LZOP:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
@@ -268,7 +280,13 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		case XARCHIVETYPE_LZOP:
 			command = g_strconcat("sh -c \"lzop -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
 		break;
-
+		
+		case XARCHIVETYPE_XZ:
+			if (compression_string == NULL)
+				compression_string = "5";
+			command = g_strconcat("sh -c \"xz"," -",compression_string," -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
+		break;
+		
 		default:
 		command = NULL;
 	}
@@ -303,7 +321,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_TAR:
-		if (archive->full_path)
+		if (archive->full_path || multi_extract)
 		{
 			command = g_strconcat (tar, " -xvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -322,7 +340,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		if (archive->full_path)
+		if (archive->full_path || multi_extract)
 		{
 			command = g_strconcat (tar, " -xjvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -341,7 +359,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-		if (archive->full_path == 1)
+		if (archive->full_path || multi_extract)
 		{
 			command = g_strconcat (tar, " -xzvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -360,7 +378,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_LZMA:
-		if (archive->full_path == 1)
+		if (archive->full_path || multi_extract)
 		{
 			command = g_strconcat (tar, " --use-compress-program=lzma -xvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -379,7 +397,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_LZOP:
-		if (archive->full_path == 1)
+		if (archive->full_path || multi_extract)
 		{
 			command = g_strconcat (tar, " --use-compress-program=lzop -xvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -396,18 +414,30 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 			command = NULL;
 		}
 		break;
-
+		
+		case XARCHIVETYPE_TAR_XZ:
+		if (archive->full_path || multi_extract)
+		{
+			command = g_strconcat (tar, " --use-compress-program=xz -xvf " , archive->escaped_path,
+						#ifdef __FreeBSD__
+								archive->overwrite ? " " : " -k",
+						#else
+								archive->overwrite ? " --overwrite" : " --keep-old-files",
+						#endif
+								archive->tar_touch ? " --touch" : "",
+								" -C ",archive->extraction_path," ",names->str,NULL);
+		}
+		else
+		{
+			result = xa_extract_tar_without_directories ( "tar --use-compress-program=xz -xvf ",archive,names->str);
+			command = NULL;
+		}
+		break;
+		
 		case XARCHIVETYPE_LZMA:
-		result = lzma_bzip2_extract(archive,NULL);
-		command = NULL;
-		break;
-
 		case XARCHIVETYPE_LZOP:
-		result = lzma_bzip2_extract(archive,NULL);
-		command = NULL;
-		break;
-
 		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_XZ:
 		result = lzma_bzip2_extract(archive,NULL);
 		command = NULL;
 		break;
@@ -448,6 +478,10 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 		case XARCHIVETYPE_TAR_LZMA:
 			executable = "lzma -f ";
 			filename = "dummy.lzma";
+		break;
+		case XARCHIVETYPE_TAR_XZ:
+			executable = "xz -f ";
+			filename = "dummy.xz";
 		break;
 		case XARCHIVETYPE_TAR_LZOP:
 			executable = "lzop -f ";
@@ -493,7 +527,7 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 
 gboolean is_tar_compressed (gint type)
 {
-	return (type == XARCHIVETYPE_TAR_BZ2 || type == XARCHIVETYPE_TAR_GZ || type == XARCHIVETYPE_TAR_LZMA || type == XARCHIVETYPE_TAR_LZOP);
+	return (type == XARCHIVETYPE_TAR_BZ2 || type == XARCHIVETYPE_TAR_GZ || type == XARCHIVETYPE_TAR_LZMA || type == XARCHIVETYPE_TAR_LZOP || type == XARCHIVETYPE_TAR_XZ);
 }
 
 gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)
@@ -558,4 +592,57 @@ static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTr
 	else
 		xa_fill_list_with_recursed_entries(entry->child,list);
 	return FALSE;
+}
+
+void xa_tar_test(XArchive *archive)
+{
+	gchar *command,*e_filename = NULL;
+	GSList *list = NULL,*_files = NULL;
+	GString *names = g_string_new("");
+	gboolean result = FALSE;
+
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_TAR:
+			command = g_strconcat (tar, " -tvf ",archive->path, NULL);
+		break;
+
+		case XARCHIVETYPE_TAR_BZ2:
+			command = g_strconcat (tar, " -tjvf ",archive->path, NULL);
+		break;
+
+		case XARCHIVETYPE_TAR_GZ:
+			command = g_strconcat (tar, " -tzvf ",archive->path, NULL);
+		break;
+
+		case XARCHIVETYPE_TAR_LZMA:
+			command = g_strconcat (tar, " --use-compress-program=lzma -tvf ",archive->path, NULL);
+		break;
+
+		case XARCHIVETYPE_TAR_LZOP:
+			command = g_strconcat (tar, " --use-compress-program=lzop -tvf ",archive->path, NULL);
+		break;
+		
+		case XARCHIVETYPE_TAR_XZ:
+			command = g_strconcat (tar, " --use-compress-program=xz -tvf ",archive->path, NULL);
+		break;
+
+		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_LZOP:
+		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_XZ:
+			xa_lzma_bzip2_test(archive);
+			command = NULL;
+		break;
+
+		default:
+			command = NULL;
+	}
+	if (command != NULL)
+	{
+		g_string_free(names,TRUE);
+		list = g_slist_append(list,command);
+		xa_run_command (archive,list);
+	}
 }

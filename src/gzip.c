@@ -40,8 +40,8 @@ void xa_open_gzip (XArchive *archive)
 		archive->extract = 	extract[archive->type];
 
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
-		archive->has_properties = archive->can_add = archive->can_extract = TRUE;
-		archive->has_test = archive->has_sfx = FALSE;
+		archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;	
+		archive->has_sfx = FALSE;
 		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
 		archive->format ="TAR.GZIP";
@@ -63,8 +63,8 @@ void xa_open_gzip (XArchive *archive)
 	}
 	else
 	{
-		archive->can_add = archive->has_test = archive->has_sfx = FALSE;
-		archive->has_properties = archive->can_extract = TRUE;
+		archive->can_add = archive->has_sfx = FALSE;
+		archive->has_properties = archive->can_extract = archive->has_test = TRUE;
 		archive->nc = 4;
 		archive->parse_output = xa_get_gzip_line_content;
 		archive->nr_of_files = 1;

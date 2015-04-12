@@ -32,6 +32,7 @@ extern Prefs_dialog_data	*prefs_window;
 extern Extract_dialog_data	*extract_window;
 extern Add_dialog_data		*add_window;
 extern Multi_extract_data	*multi_extract_window;
+extern Progress_bar_data *pb;
 
 extern gchar *config_file;
 extern void xa_free_icon_cache();
@@ -217,7 +218,8 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 		return;
 
 	xa_add_page (archive[current_page]);
-	xa_set_button_state (0,0,0,1,1,0,0,0,0,1,0);
+	//xa_set_button_state (0,0,0,1,1,0,0,0,0,1,0);
+	xa_set_button_state (1,1,1,1,archive[current_page]->can_add,archive[current_page]->can_extract,archive[current_page]->has_sfx,archive[current_page]->has_test,archive[current_page]->has_properties,1,1);
     xa_disable_delete_buttons(FALSE);
 
     archive[current_page]->passwd = NULL;
@@ -326,6 +328,8 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	gchar *ext = NULL;
 	if (type == XARCHIVETYPE_RAR)
 		ext = "rar";
+	else if (type == XARCHIVETYPE_RAR5)
+		ext = "rar5";		
 	else if (type == XARCHIVETYPE_7ZIP)
 		ext = "7z";
 	else if (type == XARCHIVETYPE_ARJ)
@@ -780,12 +784,13 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
     switch ( archive[idx]->type)
 	{
 		case XARCHIVETYPE_RAR:
+		case XARCHIVETYPE_RAR5:
 			command = g_strconcat ("rar s -o+ ",archive[idx]->escaped_path,NULL);
 			list = g_slist_append(list,command);
         	xa_run_command (archive[idx],list);
 		break;
 
-        case XARCHIVETYPE_ZIP:
+	    case XARCHIVETYPE_ZIP:
 		{
 			gchar *archive_name = NULL;
         	gchar *archive_name_escaped = NULL;
@@ -962,8 +967,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nThis version:\nIngo Brückl <ib@wupperonline.de>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n\nLZOP support:\nKevin Day\n",NULL};    
-    const char *documenters[] = { "\nSpecial thanks to Bjoern Martensen for\nbugs hunting and " PACKAGE_NAME " Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n", NULL };
+    const char *authors[] = {"Main developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nThis version:\nIngo Brückl <ib@wupperonline.de>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n\nLZOP support:\nKevin Day\n\nRAR5, XZ, TAR.XZ support:\nFrederick GUERIN <fguerin01@gmail.com>\n",NULL};
+    const char *documenters[] = {"Special thanks to Bjoern Martensen for\nbugs hunting and " PACKAGE_NAME " Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n",NULL};
 
 	if (about == NULL)
 	{
@@ -976,7 +981,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 		g_object_set (about,
 			"program-name", PACKAGE_NAME,
 			"version",PACKAGE_VERSION,
-			"copyright","Copyright \xC2\xA9 2005-2008 Giuseppe Torelli",
+			"copyright","Copyright \xC2\xA9 2005-2014 Giuseppe Torelli",
 			"comments",_("A GTK+2 only lightweight archive manager"),
 			"authors",authors,
 			"documenters",documenters,
@@ -1120,14 +1125,18 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 		xx = XARCHIVETYPE_ZIP;
 	else if (memcmp (magic,"\x60\xea",2) == 0)
 		xx = XARCHIVETYPE_ARJ;
-	else if (memcmp ( magic,"\x52\x61\x72\x21",4) == 0)
+	else if (memcmp ( magic,"\x52\x61\x72\x21\x1a\x07\x00",7) == 0)
 		xx = XARCHIVETYPE_RAR;
+	else if (memcmp ( magic,"\x52\x61\x72\x21\x1a\x07\x01",7) == 0)
+		xx = XARCHIVETYPE_RAR5;
 	else if (memcmp ( magic,"\x42\x5a\x68",3) == 0)
 		xx = XARCHIVETYPE_BZIP2;
 	else if (memcmp ( magic,"\x1f\x8b",2) == 0 || memcmp ( magic,"\x1f\x9d",2) == 0)
 		xx = XARCHIVETYPE_GZIP;
 	else if (memcmp ( magic,"\x5d\x00\x00\x80",4) == 0)
 		xx = XARCHIVETYPE_LZMA;
+	else if (memcmp ( magic,"\xfd\x37\x7a\x58\x5a",5) == 0)
+		xx = XARCHIVETYPE_XZ;
 	else if (memcmp ( magic,"\211LZO",4) == 0)
 		xx = XARCHIVETYPE_LZOP;
 	else if (memcmp ( magic,"\xed\xab\xee\xdb",4) == 0)
@@ -1358,8 +1367,10 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 
     current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
-    stat (archive[idx]->path ,&my_stat);
-    file_size = my_stat.st_size;
+    if (stat (archive[idx]->path ,&my_stat) == 0)
+		file_size = my_stat.st_size;
+	else
+		file_size = 0;
     archive_properties_window = xa_create_archive_properties_window();
     utf8_string = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
 	gtk_label_set_text(GTK_LABEL(name_data),utf8_string);
@@ -1465,12 +1476,14 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		case XARCHIVETYPE_GZIP:
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_XZ:
 		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_RPM:
 		pos = 3;
 		break;
 
 		case XARCHIVETYPE_RAR:
+		case XARCHIVETYPE_RAR5:
 		case XARCHIVETYPE_ARJ:
 		case XARCHIVETYPE_7ZIP:
 		pos = 2;
@@ -1484,6 +1497,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZMA:
+		case XARCHIVETYPE_TAR_XZ:
 		case XARCHIVETYPE_TAR_LZOP:
 		case XARCHIVETYPE_TAR:
 		case XARCHIVETYPE_ZIP:
@@ -1528,12 +1542,14 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		case XARCHIVETYPE_GZIP:
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_XZ:
 		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_RPM:
 		pos = 3;
 		break;
 
 		case XARCHIVETYPE_RAR:
+		case XARCHIVETYPE_RAR5:
 		case XARCHIVETYPE_ARJ:
 		case XARCHIVETYPE_7ZIP:
 		pos = 2;
@@ -1547,6 +1563,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZMA:
+		case XARCHIVETYPE_TAR_XZ:
 		case XARCHIVETYPE_TAR_LZOP:
 		case XARCHIVETYPE_TAR:
 		case XARCHIVETYPE_ZIP:
@@ -1570,7 +1587,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		gtk_widget_show(selected_frame);
 		gtk_widget_set_sensitive(deselect_all,TRUE);
 	}
-	if ( (archive->type == XARCHIVETYPE_RAR && unrar) || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP)
+	if ( (archive->type == XARCHIVETYPE_RAR && unrar) || (archive->type == XARCHIVETYPE_RAR5 && unrar) || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
 	{
 		gtk_widget_set_sensitive (delete_menu,FALSE);
 		gtk_widget_set_sensitive (rename_menu,FALSE);
@@ -1721,6 +1738,9 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
 			archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->extract_full));
 			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->overwrite_check));
+			gchar *unescaped_extraction_path = archive->extraction_path;
+			archive->extraction_path = xa_escape_filename(unescaped_extraction_path, "$'`\"\\!?* ()[]&|:;<>#");
+			g_free(unescaped_extraction_path);
 			(*archive->extract) (archive,names);
 
 			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
@@ -1784,7 +1804,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	else
 		idx = xa_find_archive_index (current_page);
 
-	if (archive[idx]->type == XARCHIVETYPE_RAR && unrar)
+	if ((archive[idx]->type == XARCHIVETYPE_RAR || archive[idx]->type == XARCHIVETYPE_RAR5) && unrar)
 	{
 		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install rar package!"));
 		return;
@@ -2095,6 +2115,7 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 		break;
 			
 		case XARCHIVETYPE_RAR:
+		case XARCHIVETYPE_RAR5:
 		command = g_strconcat ("rar c ",archive[idx]->escaped_path," -z",tmp,NULL);
 		break;
 			
@@ -2284,7 +2305,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			else
 				value = TRUE;
 		}
-		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_RPM)
+		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
 		{
 			gtk_widget_set_sensitive(ddelete,FALSE);
 			gtk_widget_set_sensitive(rrename,FALSE);
@@ -2759,6 +2780,11 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	/* The selected entry it's not a dir so extract it to the tmp dir and send it to xa_determine_program_to_run() */
 	else
 	{
+		if (entry->is_encrypted)
+		{
+		  if (archive->passwd == NULL)
+		     return;
+		}
 	   	if (archive->extraction_path)
 	   	{
 	   		dummy = g_strdup(archive->extraction_path);
@@ -2898,4 +2924,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 void xa_show_multi_extract_dialog (GtkMenuItem *menu_item,gpointer data)
 {
 	xa_parse_multi_extract_archive(multi_extract_window);
+	if (pb != NULL)
+		gtk_widget_hide(pb->progress_window);
+	//xa_close_archive (NULL,data);
 }

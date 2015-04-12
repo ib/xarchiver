@@ -1,5 +1,21 @@
 Xarchiver changelog:
 
+09/02/14 - 0.5.3:
+		- Full RAR5 support
+		- Full XZ, TAR.XZ support
+		- Full Test/Verify support
+		- check-for-password-protected-files-on-double-click
+		- default-archive-format
+		- drag-n-drop_escaped_path
+		- fix_7z_support
+		- fix-segfault-non-existent-archive-cmdl-switch-x
+		- rpm2cpio
+		- segfault-open-with
+		- mimetype
+		- fix-icon-update
+		- fix-multiextract
+		- fix-unrar-can-add
+
 12/11/08 - 0.5.2:
 		- Allow bzip2/lzop/gzip/lzma compressed files to be created through drag and drop
 		- Fixed seg-fault when drag and drop to the sidebar

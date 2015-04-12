@@ -39,6 +39,7 @@ static gboolean show_version = FALSE;
 int response;
 extern gchar *current_open_directory;
 extern int status;
+extern int rar_version;
 
 extern Progress_bar_data *pb;
 Prefs_dialog_data   *prefs_window   = NULL;
@@ -84,11 +85,11 @@ int main (int argc, char **argv)
 	XArchive *archive = NULL;
 	gboolean no_bzip2_gzip;
 	unsigned short int x;
-	#ifdef ENABLE_NLS
+#ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
-	#endif
+#endif
 
 #ifdef HAVE_SOCKET
 	socket_info.lock_socket = -1;
@@ -143,7 +144,7 @@ int main (int argc, char **argv)
 		/* Switch -x */
 		if (extract_path != NULL)
 		{
-			if (argv[1] == NULL)
+			if (argv[1] == NULL || archive == NULL)
 			{
 				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
@@ -185,7 +186,9 @@ int main (int argc, char **argv)
 			Multi_extract_data *multi_extract = NULL;
 			multi_extract = xa_create_multi_extract_dialog();
 			for (x = 1; x< argc; x++)
-				xa_add_files_liststore(argv[x],multi_extract);
+				if (! g_file_test(argv[x], G_FILE_TEST_IS_DIR))
+					xa_add_files_liststore(argv[x],multi_extract);
+					
 			xa_parse_multi_extract_archive(multi_extract);
 			gtk_widget_destroy (multi_extract->multi_extract);
 			g_free(multi_extract);
@@ -313,9 +316,10 @@ void xa_set_available_archivers()
 	open_archive[XARCHIVETYPE_BZIP2]  = &xa_open_bzip2_lzma;
 	open_archive[XARCHIVETYPE_GZIP]  = &xa_open_gzip;
 	open_archive[XARCHIVETYPE_LZMA]  = &xa_open_bzip2_lzma;
-	open_archive[XARCHIVETYPE_RAR]  = &xa_open_rar;
+	open_archive[XARCHIVETYPE_XZ]  = &xa_open_bzip2_lzma;
+	open_archive[XARCHIVETYPE_RAR]  = open_archive[XARCHIVETYPE_RAR5] = &xa_open_rar;
 	open_archive[XARCHIVETYPE_RPM]  = &xa_open_rpm;
-	open_archive[XARCHIVETYPE_TAR]  = open_archive[XARCHIVETYPE_TAR_BZ2] = open_archive[XARCHIVETYPE_TAR_GZ] = open_archive[XARCHIVETYPE_TAR_LZMA] = open_archive[XARCHIVETYPE_TAR_LZOP] = &xa_open_tar;
+	open_archive[XARCHIVETYPE_TAR]  = open_archive[XARCHIVETYPE_TAR_BZ2] = open_archive[XARCHIVETYPE_TAR_GZ] = open_archive[XARCHIVETYPE_TAR_LZMA] = open_archive[XARCHIVETYPE_TAR_XZ] = open_archive[XARCHIVETYPE_TAR_LZOP] = &xa_open_tar;
 	open_archive[XARCHIVETYPE_ZIP] = &xa_open_zip;
 	open_archive[XARCHIVETYPE_LHA] = &xa_open_lha;
 	open_archive[XARCHIVETYPE_LZOP] = &xa_open_bzip2_lzma;
@@ -327,9 +331,10 @@ void xa_set_available_archivers()
 	delete[XARCHIVETYPE_BZIP2]  = 0;
 	delete[XARCHIVETYPE_GZIP]  = 0;
 	delete[XARCHIVETYPE_LZMA]  = 0;
-	delete[XARCHIVETYPE_RAR]  = &xa_rar_delete;
+	delete[XARCHIVETYPE_XZ]  = 0;
+	delete[XARCHIVETYPE_RAR]  = delete[XARCHIVETYPE_RAR5]  = &xa_rar_delete;
 	delete[XARCHIVETYPE_RPM]  = 0;
-	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
+	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_XZ] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
 	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
 	delete[XARCHIVETYPE_LZOP] = 0;
@@ -339,36 +344,33 @@ void xa_set_available_archivers()
 	add[XARCHIVETYPE_7ZIP]  = &xa_7zip_add;
 	add[XARCHIVETYPE_ARJ]  = &xa_arj_add;
 	add[XARCHIVETYPE_DEB]  = 0;
-	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = &xa_tar_add;
-	add[XARCHIVETYPE_RAR]  = &xa_rar_add;
+	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = add[XARCHIVETYPE_XZ] = add[XARCHIVETYPE_LZOP] = &xa_tar_add;
+	add[XARCHIVETYPE_RAR]  = add[XARCHIVETYPE_RAR5]  = &xa_rar_add;
 	add[XARCHIVETYPE_RPM]  = 0;
-	add[XARCHIVETYPE_TAR]  = add[XARCHIVETYPE_TAR_BZ2] = add[XARCHIVETYPE_TAR_GZ] = add[XARCHIVETYPE_TAR_LZMA] = add[XARCHIVETYPE_TAR_LZOP] = &xa_tar_add;
+	add[XARCHIVETYPE_TAR]  = add[XARCHIVETYPE_TAR_BZ2] = add[XARCHIVETYPE_TAR_GZ] = add[XARCHIVETYPE_TAR_LZMA] = add[XARCHIVETYPE_TAR_XZ] = add[XARCHIVETYPE_TAR_LZOP] = &xa_tar_add;
 	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
 	add[XARCHIVETYPE_LHA] = &xa_lha_add;
-	add[XARCHIVETYPE_LZOP] = &xa_tar_add;
 	
 	extract[0]  = 0;
 	extract[XARCHIVETYPE_7ZIP]  = &xa_7zip_extract;
 	extract[XARCHIVETYPE_ARJ]  = &xa_arj_extract;
 	extract[XARCHIVETYPE_DEB]  = &xa_deb_extract;;
-	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = &xa_tar_extract;
-	extract[XARCHIVETYPE_RAR]  = &xa_rar_extract;
+	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = extract[XARCHIVETYPE_XZ] = extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
+	extract[XARCHIVETYPE_RAR]  = extract[XARCHIVETYPE_RAR5]  = &xa_rar_extract;
 	extract[XARCHIVETYPE_RPM]  = &xa_rpm_extract;
-	extract[XARCHIVETYPE_TAR]  = extract[XARCHIVETYPE_TAR_BZ2] = extract[XARCHIVETYPE_TAR_GZ] = extract[XARCHIVETYPE_TAR_LZMA] = extract[XARCHIVETYPE_TAR_LZOP] = &xa_tar_extract;
+	extract[XARCHIVETYPE_TAR]  = extract[XARCHIVETYPE_TAR_BZ2] = extract[XARCHIVETYPE_TAR_GZ] = extract[XARCHIVETYPE_TAR_LZMA] = extract[XARCHIVETYPE_TAR_XZ] = extract[XARCHIVETYPE_TAR_LZOP] = &xa_tar_extract;
 	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
 	extract[XARCHIVETYPE_LHA] = &xa_lha_extract;
-	extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
 	
 	test[0]  = 0;
 	test[XARCHIVETYPE_7ZIP]  = &xa_7zip_test;
 	test[XARCHIVETYPE_ARJ]  = &xa_arj_test;
-	test[XARCHIVETYPE_DEB]  = test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = 0;
-	test[XARCHIVETYPE_RAR]  = &xa_rar_test;
+	test[XARCHIVETYPE_DEB]  = test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
+	test[XARCHIVETYPE_RAR]  = test[XARCHIVETYPE_RAR5]  = &xa_rar_test;
 	test[XARCHIVETYPE_RPM]  = 0;
-	test[XARCHIVETYPE_TAR]  = test[XARCHIVETYPE_TAR_BZ2] = test[XARCHIVETYPE_TAR_GZ] = test[XARCHIVETYPE_TAR_LZMA] = test[XARCHIVETYPE_TAR_LZOP] = 0;
+	test[XARCHIVETYPE_TAR]  = test[XARCHIVETYPE_TAR_BZ2] = test[XARCHIVETYPE_TAR_GZ] = test[XARCHIVETYPE_TAR_LZMA] = test[XARCHIVETYPE_TAR_XZ] = test[XARCHIVETYPE_TAR_LZOP] =  &xa_tar_test;
 	test[XARCHIVETYPE_ZIP] = &xa_zip_test;
 	test[XARCHIVETYPE_LHA] = &xa_lha_test;
-	test[XARCHIVETYPE_LZOP] = 0;
 
 	absolute_path = g_find_program_in_path("arj");
 	if ( absolute_path )
@@ -409,6 +411,14 @@ void xa_set_available_archivers()
 		g_free (absolute_path);
 	}
 
+	absolute_path = g_find_program_in_path("xz");
+	if ( absolute_path )
+	{
+		ArchiveType = g_list_append(ArchiveType, "xz");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.xz");
+		g_free (absolute_path);
+	}
+
 	absolute_path = g_find_program_in_path("lzop");
 	if ( absolute_path )
 	{
@@ -432,6 +442,13 @@ void xa_set_available_archivers()
 	{
 		ArchiveType = g_list_append(ArchiveType, "rar");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
+		// Is RAR v5 ?
+		xa_rar_checkversion (absolute_path);
+		if (rar_version == 5)
+		{
+			ArchiveType = g_list_append(ArchiveType, "rar5");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar5");	
+		}
 		g_free (absolute_path);
 	}
 	else
@@ -442,6 +459,13 @@ void xa_set_available_archivers()
 			unrar = TRUE;
 			ArchiveType = g_list_append(ArchiveType, "rar");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
+			// Is RAR v5 ?
+			xa_rar_checkversion (absolute_path);
+			if (rar_version == 5)
+			{
+				ArchiveType = g_list_append(ArchiveType, "rar5");
+				ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar5");	
+			}
 			g_free (absolute_path);
 		}
 	}
@@ -476,6 +500,11 @@ void xa_set_available_archivers()
 		{
 			ArchiveType = g_list_append(ArchiveType, "tar.lzma");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
+		}
+		if ( g_list_find ( ArchiveType , "xz") )
+		{
+			ArchiveType = g_list_append(ArchiveType, "tar.xz");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.txz");
 		}
 		if ( g_list_find ( ArchiveType , "lzo") )
 		{
@@ -545,10 +574,13 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 		archive->type = XARCHIVETYPE_TAR_GZ;
 	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive->escaped_path , ".tlz") )
 		archive->type = XARCHIVETYPE_TAR_LZMA;
+	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.xz") || g_str_has_suffix ( archive->escaped_path , ".txz") )
+		archive->type = XARCHIVETYPE_TAR_XZ;
 	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzo") ||
 		g_str_has_suffix ( archive->escaped_path , ".tzo") ||
 		g_str_has_suffix ( archive->escaped_path , ".tar.lzop"))
 		archive->type = XARCHIVETYPE_TAR_LZOP;
+	archive->extract = 	extract[archive->type];
 	return (archive);
 }
 
