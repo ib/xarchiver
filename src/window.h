@@ -76,7 +76,7 @@ void xa_test_archive (GtkMenuItem *, gpointer);
 void xa_list_archive (GtkMenuItem *, gpointer);
 void xa_print_entry_in_file(XEntry *,gint,unsigned long long int, FILE *,int);
 void xa_close_archive (GtkMenuItem *, gpointer);
-gboolean xa_quit_application (GtkWidget *, GdkEvent *, gpointer);
+void xa_quit_application (GtkWidget *, GdkEvent *, gpointer);
 void xa_delete_archive (GtkMenuItem *, gpointer);
 void xa_determine_program_to_run(gchar *);
 void xa_show_help (GtkMenuItem *, gpointer);

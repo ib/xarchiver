@@ -44,6 +44,7 @@ static const GtkTargetEntry drop_targets[] =
 
 Extract_dialog_data *xa_create_extract_dialog()
 {
+	GSList *radiobutton1_group = NULL;
 	Extract_dialog_data *dialog_data;
 
 	dialog_data = g_new0 (Extract_dialog_data,1);
@@ -89,18 +90,21 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	dialog_data->all_files_radio = gtk_radio_button_new_with_mnemonic (NULL,_("All files"));
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->all_files_radio,FALSE,FALSE,0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->all_files_radio), TRUE);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->all_files_radio),radiobutton1_group);
+	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->all_files_radio));
 
-	dialog_data->selected_radio = gtk_radio_button_new_with_mnemonic_from_widget (GTK_RADIO_BUTTON (dialog_data->all_files_radio),_("Selected files"));
+	dialog_data->selected_radio = gtk_radio_button_new_with_mnemonic (NULL,_("Selected files"));
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->selected_radio,FALSE,FALSE,0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_radio), TRUE);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->selected_radio),radiobutton1_group);
+	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->selected_radio));
 
 	hbox2 = gtk_hbox_new (FALSE,0);
 	gtk_box_pack_start (GTK_BOX (vbox3),hbox2,FALSE,FALSE,0);
 
-	dialog_data->files_radio = gtk_radio_button_new_with_mnemonic_from_widget (GTK_RADIO_BUTTON (dialog_data->all_files_radio),_("Files: "));
+	dialog_data->files_radio = gtk_radio_button_new_with_mnemonic (NULL,_("Files: "));
 	gtk_box_pack_start (GTK_BOX (hbox2),dialog_data->files_radio,FALSE,FALSE,0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->files_radio), TRUE);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->files_radio),radiobutton1_group);
+	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->files_radio));
 
 	dialog_data->entry2 = gtk_entry_new ();
 	gtk_box_pack_start (GTK_BOX (hbox2),dialog_data->entry2,TRUE,TRUE,0);

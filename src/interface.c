@@ -323,15 +323,17 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	tmp_image = gtk_image_new_from_stock ("gtk-new",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	New_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	New_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("New"));
 	gtk_widget_show (New_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (New_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),New_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (New_button),tooltips,_("Create a new archive"),NULL);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-open",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	Open_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	Open_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Open"));
 	gtk_widget_show (Open_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Open_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),Open_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Open_button),tooltips,_("Open an archive"),NULL);
 
@@ -341,33 +343,37 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	tmp_image = gtk_image_new_from_stock ("gtk-go-back",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	back_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	back_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Back"));
 	gtk_widget_set_sensitive(back_button,FALSE);
 	gtk_widget_show (back_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (back_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),back_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (back_button),tooltips,_("Back"),NULL);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-go-up",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	up_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	up_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Up"));
 	gtk_widget_set_sensitive(up_button,FALSE);
 	gtk_widget_show (up_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (up_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),up_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (up_button),tooltips,_("Up"),NULL);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-go-forward",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	forward_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	forward_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Forward"));
 	gtk_widget_set_sensitive(forward_button,FALSE);
 	gtk_widget_show (forward_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (forward_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),forward_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (forward_button),tooltips,_("Forward"),NULL);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-home",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	home_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	home_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Home"));
 	gtk_widget_set_sensitive(home_button,FALSE);
 	gtk_widget_show (home_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (home_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),home_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (home_button),tooltips,_("Root"),NULL);
 
@@ -377,17 +383,19 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	tmp_image = xa_main_window_find_image("xarchiver-add.png",GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show (tmp_image);
-	AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	AddFile_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Add"));
 	gtk_widget_set_sensitive (AddFile_button,FALSE);
 	gtk_widget_show (AddFile_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (AddFile_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),AddFile_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (AddFile_button),tooltips,_("Add files"),NULL);
 
 	tmp_image = xa_main_window_find_image("xarchiver-extract.png",GTK_ICON_SIZE_LARGE_TOOLBAR);
 	gtk_widget_show (tmp_image);
-	Extract_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	Extract_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Extract"));
 	gtk_widget_set_sensitive (Extract_button,FALSE);
 	gtk_widget_show (Extract_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (Extract_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),Extract_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Extract_button),tooltips,_("Extract files"),NULL);
 
@@ -397,9 +405,10 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	tmp_image = gtk_image_new_from_stock ("gtk-stop",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	Stop_button = (GtkWidget*) gtk_tool_button_new (tmp_image,"");
+	Stop_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Stop"));
 	gtk_widget_set_sensitive (Stop_button,FALSE);
 	gtk_widget_show (Stop_button);
+	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM ( Stop_button),FALSE);
 	gtk_container_add (GTK_CONTAINER (toolbar1),Stop_button);
 	gtk_tool_item_set_tooltip (GTK_TOOL_ITEM (Stop_button),tooltips,_("Cancel current operation"),NULL);
 

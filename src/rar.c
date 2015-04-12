@@ -94,9 +94,11 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 			}
 			jump_comment = FALSE;
 		}
-		if (strncmp(line, "-------------------------------------------------------------------------------",78) == 0)
+		if (line[0] == '-')
+		{
 			jump_header = TRUE;
-
+			return;
+		}
 		return;
 	}
 
