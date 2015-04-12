@@ -609,7 +609,7 @@ XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
 
 gchar *xa_build_full_path_name_from_entry(XEntry *entry, XArchive *archive)
 {
-	gchar *fullpathname = NULL;
+	gchar *fullpathname = NULL, *fullpathname_locale;
 	GString *dummy = g_string_new("");
 	gint n = 0;
 
@@ -632,7 +632,9 @@ there:
 		fullpathname = g_strdup(dummy->str);
 
 	g_string_free(dummy,TRUE);
-	return fullpathname;
+	fullpathname_locale = g_filename_from_utf8(fullpathname, -1, NULL, NULL, NULL);
+	g_free(fullpathname);
+	return fullpathname_locale;
 }
 
 void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
