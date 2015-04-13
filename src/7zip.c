@@ -71,7 +71,7 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 
 	if (jump_header == FALSE)
 	{
-		if ((line[0] == '-') && (line[3] != NULL)) 
+		if ((line[0] == '-') && line[3])
 		{
 			jump_header = TRUE;
 			return;
