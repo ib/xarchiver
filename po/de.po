@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2015-04-12 18:17+0200\n"
-"PO-Revision-Date: 2015-04-12 18:25+0200\n"
+"PO-Revision-Date: 2015-04-13 10:28+0200\n"
 "Last-Translator: Ingo Brueckl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -365,7 +365,7 @@ msgstr "Bitte wählen Sie das 7zCon.sfx-Modul"
 
 #: ../src/window.c:985
 msgid "A GTK+2 only lightweight archive manager"
-msgstr "Ein nur auf GTK+2 basierender Archivmanager"
+msgstr "ein nur auf GTK+2 basierender schlanker Archivmanager"
 
 #: ../src/window.c:988
 msgid "translator-credits"
