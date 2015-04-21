@@ -1508,6 +1508,10 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	gtk_container_set_border_width (GTK_CONTAINER (pb->progress_window),6);
 	gtk_window_set_transient_for (GTK_WINDOW (pb->progress_window),GTK_WINDOW (xa_main_window));	
 
+	pixbuf = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
+	gtk_window_set_icon (GTK_WINDOW (pb->progress_window),pixbuf);
+	g_object_unref(pixbuf);
+
 	vbox1 = gtk_vbox_new (FALSE,12);
   	gtk_container_add (GTK_CONTAINER (pb->progress_window),vbox1);
   	gtk_container_set_border_width (GTK_CONTAINER (vbox1),6);
