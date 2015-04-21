@@ -1516,6 +1516,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,TRUE,TRUE,0);
 
 	pixbuf = gtk_icon_theme_load_icon(icon_theme,"gnome-mime-application-zip",40,0,NULL);
+	if (!pixbuf) pixbuf = gtk_icon_theme_load_icon(icon_theme,"package-x-generic",40,GTK_ICON_LOOKUP_FORCE_SIZE,NULL);
 	icon_pixbuf = gtk_image_new_from_pixbuf(pixbuf);
 	g_object_unref(pixbuf);
 
