@@ -76,7 +76,7 @@ GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename,gint size)
 	if (strcmp(filename,"folder") == 0)
 		icon_name = filename;
 	else if (strcmp(filename,"lock") == 0)
-		icon_name = "gtk-dialog-authentication";
+		icon_name = "dialog-password";
 	else
 		icon_name = xa_get_stock_mime_icon(filename);
 
