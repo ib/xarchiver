@@ -222,6 +222,8 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_widget_set_size_request (dialog_data->dialog1,-1,370);
 
+	prefs_window->size_changed[0] = TRUE;
+
 	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Decompress file"));
 	else

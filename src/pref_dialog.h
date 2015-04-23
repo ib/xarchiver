@@ -32,6 +32,7 @@ typedef struct
 	gint geometry[5];
 	gint extract_dialog[2];
 	gint add_coords[2];
+	gboolean size_changed[2];
 } Prefs_dialog_data;
 
 Prefs_dialog_data *xa_create_prefs_dialog ();

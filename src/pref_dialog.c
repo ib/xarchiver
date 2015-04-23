@@ -385,10 +385,10 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 		prefs_data->geometry[4] = gtk_paned_get_position(GTK_PANED(hpaned1));
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "mainwindow", prefs_data->geometry,5);
 		/* Extract dialog coords */
-		gtk_window_get_size (GTK_WINDOW(extract_window->dialog1),&prefs_data->extract_dialog[0],&prefs_data->extract_dialog[1]);
+		if (prefs_data->size_changed[0]) gtk_window_get_size (GTK_WINDOW(extract_window->dialog1),&prefs_data->extract_dialog[0],&prefs_data->extract_dialog[1]);
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "extract", prefs_data->extract_dialog,2);
 		/* Add dialog coords */
-		gtk_window_get_size (GTK_WINDOW(add_window->dialog1),&prefs_data->add_coords[0],&prefs_data->add_coords[1]);
+		if (prefs_data->size_changed[1]) gtk_window_get_size (GTK_WINDOW(add_window->dialog1),&prefs_data->add_coords[0],&prefs_data->add_coords[1]);
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "add", prefs_data->add_coords,2);
 	}
 	/* Save the options in the extract dialog */
