@@ -47,7 +47,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 	else if (strcmp(mime,"application/zip") == 0 || strcmp(mime,"application/x-rar") == 0 || strcmp(mime,"application/x-tar") == 0
 		|| strcmp(mime,"application/x-7z-compressed") == 0 || strcmp(mime,"application/x-bzip-compressed-tar") == 0
 		|| strcmp (mime,"application/x-compressed-tar") == 0 || strcmp (mime,"application/x-xz-compressed-tar") == 0 || strcmp (mime,"application/x-lha") == 0
-		|| strcmp (mime,"application/x-rpm") == 0 || strcmp (mime,"application/x-deb") == 0
+		|| strcmp (mime,"application/x-rpm") == 0 || strcmp (mime,"application/x-deb") == 0  || strcmp (mime,"application/vnd.debian.binary-package") == 0
 		|| strcmp (mime,"application/x-bzip") == 0  || strcmp (mime,"application/x-gzip") == 0 || strcmp (mime,"application/gzip") == 0
 		|| strcmp (mime,"application/x-xz") == 0)
 		icon_name = "package-x-generic";
