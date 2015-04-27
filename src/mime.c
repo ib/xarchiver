@@ -56,7 +56,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 		icon_name = "media-optical";
 	else if (strcmp(mime,"application/x-php") == 0 || strcmp(mime,"application/x-perl") == 0 || strcmp (mime,"application/x-csh") == 0 || strcmp (mime,"application/x-shellscript") == 0)
 		icon_name = "text-x-script";
-	else if (strcmp(mime,"application/x-font-ttf") == 0)
+	else if (strncmp(mime,"application/x-font",18) == 0)
 		icon_name = "font-x-generic";
 	return icon_name;		
 }
