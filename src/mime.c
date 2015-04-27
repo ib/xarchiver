@@ -27,7 +27,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 	const char *icon_name = "application-x-executable";
 
 	mime = xdg_mime_get_mime_type_from_file_name(filename);
-	if (strstr(filename,".ogg") || strstr(filename,".flac") )
+	if (strncmp(mime,"audio/",6) == 0)
 		icon_name = "audio-x-generic";
 	else if (strncmp(mime,"image/",6) == 0)
 		icon_name = "image-x-generic";
@@ -38,8 +38,6 @@ const char *xa_get_stock_mime_icon(char *filename)
 	else if (strcmp(mime,"application/rtf") == 0 || strcmp(mime,"application/pdf") == 0 || strcmp(mime,"application/msword") == 0
 		|| strcmp (mime,"application/vnd.oasis.opendocument.text") == 0)
 		icon_name = "x-office-document";
-	else if (strcmp(mime,"audio/mpeg") == 0 || strcmp(mime,"audio/midi") == 0 || strcmp (mime,"audio/mp2") == 0)
-		icon_name = "audio-x-generic";
 	else if (strcmp(mime,"application/vnd.ms-excel") == 0 || strcmp(mime,"application/vnd.oasis.opendocument.spreadsheet") == 0)
 		icon_name = "x-office-spreadsheet";
 	else if (strcmp(mime,"application/vnd.ms-powerpoint") == 0 || strcmp (mime,"application/vnd.oasis.opendocument.presentation") == 0)
