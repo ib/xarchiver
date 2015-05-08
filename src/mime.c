@@ -43,6 +43,9 @@ const char *xa_get_stock_mime_icon(char *filename)
 		return "audio-x-generic";
 	else if (strncmp(mime,"image/",6) == 0)
 		return "image-x-generic";
+	else if (strncmp(mime,"video/",6) == 0 ||
+		       strcmp(mime,"application/x-shockwave-flash") == 0 || strcmp(mime,"application/vnd.adobe.flash.movie") == 0  || strcmp(mime,"application/x-flash-video") == 0)
+		return "video-x-generic";
 	else if (strcmp(mime,"application/rtf") == 0 || strcmp(mime,"application/pdf") == 0 || strcmp(mime,"application/msword") == 0
 		|| strcmp (mime,"application/vnd.oasis.opendocument.text") == 0)
 		return "x-office-document";
@@ -57,9 +60,6 @@ const char *xa_get_stock_mime_icon(char *filename)
 		|| strcmp (mime,"application/x-bzip") == 0  || strcmp (mime,"application/x-gzip") == 0 || strcmp (mime,"application/gzip") == 0
 		|| strcmp (mime,"application/x-xz") == 0)
 		return "package-x-generic";
-	else if (strcmp(mime,"application/x-shockwave-flash") == 0 || strcmp(mime,"application/vnd.adobe.flash.movie") == 0  || strcmp(mime,"application/x-flash-video") == 0
-		|| strncmp(mime,"video/",6) == 0)
-		return "video-x-generic";
 	else if (strcmp(mime,"application/x-cd-image") == 0)
 		return "media-optical";
 	else if (strcmp(mime,"application/x-php") == 0 || strcmp(mime,"application/x-perl") == 0 || strcmp (mime,"application/x-csh") == 0 || strcmp (mime,"application/x-shellscript") == 0)
