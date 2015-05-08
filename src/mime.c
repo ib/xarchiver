@@ -24,40 +24,49 @@ extern GtkIconTheme *icon_theme;
 const char *xa_get_stock_mime_icon(char *filename)
 {
 	const char *mime;
-	const char *icon_name = "application-x-executable";
+	static char icon_name[80];
+	char *p;
 
 	mime = xdg_mime_get_mime_type_from_file_name(filename);
-	if (strncmp(mime,"audio/",6) == 0)
-		icon_name = "audio-x-generic";
-	else if (strncmp(mime,"image/",6) == 0)
-		icon_name = "image-x-generic";
-	else if (strcmp(mime,"text/html") == 0)
-		icon_name = "text-html";
+
+	strncpy(icon_name,mime,sizeof(icon_name));
+	icon_name[sizeof(icon_name)-1] = 0;
+
+	p = strchr(icon_name,'/');
+	if (p) *p = '-';
+
+	if (strcmp(mime,"text/html") == 0)
+		return icon_name;
 	else if (strncmp(mime,"text/",5) == 0)
-		icon_name = "text-x-generic";
+		return "text-x-generic";
+	else if (strncmp(mime,"audio/",6) == 0)
+		return "audio-x-generic";
+	else if (strncmp(mime,"image/",6) == 0)
+		return "image-x-generic";
 	else if (strcmp(mime,"application/rtf") == 0 || strcmp(mime,"application/pdf") == 0 || strcmp(mime,"application/msword") == 0
 		|| strcmp (mime,"application/vnd.oasis.opendocument.text") == 0)
-		icon_name = "x-office-document";
+		return "x-office-document";
 	else if (strcmp(mime,"application/vnd.ms-excel") == 0 || strcmp(mime,"application/vnd.oasis.opendocument.spreadsheet") == 0)
-		icon_name = "x-office-spreadsheet";
+		return "x-office-spreadsheet";
 	else if (strcmp(mime,"application/vnd.ms-powerpoint") == 0 || strcmp (mime,"application/vnd.oasis.opendocument.presentation") == 0)
-		icon_name = "x-office-presentation";
+		return "x-office-presentation";
 	else if (strcmp(mime,"application/zip") == 0 || strcmp(mime,"application/x-rar") == 0 || strcmp(mime,"application/x-tar") == 0
 		|| strcmp(mime,"application/x-7z-compressed") == 0 || strcmp(mime,"application/x-bzip-compressed-tar") == 0
 		|| strcmp (mime,"application/x-compressed-tar") == 0 || strcmp (mime,"application/x-xz-compressed-tar") == 0 || strcmp (mime,"application/x-lha") == 0
 		|| strcmp (mime,"application/x-rpm") == 0 || strcmp (mime,"application/x-deb") == 0  || strcmp (mime,"application/vnd.debian.binary-package") == 0
 		|| strcmp (mime,"application/x-bzip") == 0  || strcmp (mime,"application/x-gzip") == 0 || strcmp (mime,"application/gzip") == 0
 		|| strcmp (mime,"application/x-xz") == 0)
-		icon_name = "package-x-generic";
+		return "package-x-generic";
 	else if (strcmp(mime,"application/x-shockwave-flash") == 0 || strcmp(mime,"application/vnd.adobe.flash.movie") == 0  || strcmp(mime,"application/x-flash-video") == 0
 		|| strncmp(mime,"video/",6) == 0)
-		icon_name = "video-x-generic";
+		return "video-x-generic";
 	else if (strcmp(mime,"application/x-cd-image") == 0)
-		icon_name = "media-optical";
+		return "media-optical";
 	else if (strcmp(mime,"application/x-php") == 0 || strcmp(mime,"application/x-perl") == 0 || strcmp (mime,"application/x-csh") == 0 || strcmp (mime,"application/x-shellscript") == 0)
-		icon_name = "text-x-script";
+		return "text-x-script";
 	else if (strncmp(mime,"application/x-font",18) == 0)
-		icon_name = "font-x-generic";
+		return "font-x-generic";
+
 	return icon_name;		
 }
 
