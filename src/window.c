@@ -1703,6 +1703,14 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 						0,4096,FALSE,NULL,NULL,NULL,&_destination );
 	if (_destination)
 	{
+		destination = g_filename_from_uri((gchar*)_destination,NULL,NULL);
+		g_free(_destination);
+
+		if (!destination) return;
+
+		archive->extraction_path = xa_remove_level_from_path (destination);
+		g_free(destination);
+
 		if (archive->has_passwd)
 		{
 			if (archive->passwd == NULL)
@@ -1715,13 +1723,6 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 				}
 			}
 		}
-		destination = g_filename_from_uri((gchar*)_destination,NULL,NULL);
-		g_free(_destination);
-
-		if (!destination) return;
-
-		archive->extraction_path = xa_remove_level_from_path (destination);
-		g_free(destination);
 
 		if (access (archive->extraction_path,R_OK | W_OK | X_OK))
 		{
