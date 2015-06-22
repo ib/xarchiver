@@ -1715,7 +1715,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		{
 			if (archive->passwd == NULL)
 			{
-				archive->passwd = xa_create_password_dialog(NULL);
+				archive->passwd = xa_create_password_dialog(archive);
 				if ( archive->passwd == NULL)
 				{
 					gtk_drag_finish (dc,FALSE,FALSE,t);
