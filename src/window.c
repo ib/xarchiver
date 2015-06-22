@@ -1718,6 +1718,8 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		destination = g_filename_from_uri((gchar*)_destination,NULL,NULL);
 		g_free(_destination);
 
+		if (!destination) return;
+
 		archive->extraction_path = xa_remove_level_from_path (destination);
 		g_free(destination);
 
