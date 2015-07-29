@@ -35,7 +35,7 @@ void xa_open_rar (XArchive *archive)
 	unsigned short int i;
 	gchar *command = NULL;
 	gchar *rar = NULL;
-	jump_header = read_filename = last_line = encrypted = FALSE;
+	jump_header = jump_comment = read_filename = last_line = encrypted = FALSE;
 
 	if (unrar)
 	{
@@ -48,7 +48,7 @@ void xa_open_rar (XArchive *archive)
 		archive->can_add = archive->has_sfx = TRUE;
 	}
 
-	command = g_strconcat ( rar," v " , archive->escaped_path, NULL );
+	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
 	archive->has_sfx = archive->has_properties = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
@@ -104,20 +104,37 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 
 	if (jump_header == FALSE)
 	{
-		if (strncmp(line,"Comment:",8) == 0)
+		if (jump_comment == FALSE)
 		{
-			jump_comment = archive->has_comment = TRUE;
-			archive->comment = g_string_new("");
-			archive->comment = g_string_append(archive->comment,&line[9]);
-			return;
-		}
-		if (jump_comment == TRUE)
-		{
-			if (strncmp(line,"Pathname/Comment",16) != 0)
-			{	archive->comment = g_string_append(archive->comment,line);
-				return;
+			if ((strncmp(line, "Solid ", 6) == 0 || strncmp(line, "SFX ", 4) == 0 ||
+			     strncmp(line, "Volume ", 7) == 0 || strncmp(line, "Archive ", 8) == 0)
+			     && strstr(line, archive->path))
+			{
+				jump_comment = TRUE;
+
+				if (archive->comment)
+				{
+					if (archive->comment->len > 2)
+					{
+						archive->has_comment = TRUE;
+						archive->comment = g_string_truncate(archive->comment, archive->comment->len - 2);
+						archive->comment = g_string_erase(archive->comment, 0, 1);
+					}
+					else
+					{
+						g_string_free(archive->comment, TRUE);
+						archive->comment = NULL;
+					}
+				}
 			}
-			jump_comment = FALSE;
+			else
+			{
+				if (!archive->comment)
+					archive->comment = g_string_new("");
+
+				archive->comment = g_string_append(archive->comment, line);
+			}
+			return;
 		}
 		if (line[0] == '-')
 		{
@@ -352,20 +369,35 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 
 	if (jump_header == FALSE)
 	{
-		if (strncmp(line,"Comment:",8) == 0)
+		if (jump_comment == FALSE)
 		{
-			jump_comment = archive->has_comment = TRUE;
-			archive->comment = g_string_new("");
-			archive->comment = g_string_append(archive->comment,&line[9]);
-			return;
-		}
-		if (jump_comment == TRUE)
-		{
-			if (strncmp(line,"Name",4) != 0)
-			{	archive->comment = g_string_append(archive->comment,line);
-				return;
+			if ((strncmp(line, "Archive: ", 9) == 0) && strstr(line, archive->path))
+			{
+				jump_comment = TRUE;
+
+				if (archive->comment)
+				{
+					if (archive->comment->len > 2)
+					{
+						archive->has_comment = TRUE;
+						archive->comment = g_string_truncate(archive->comment, archive->comment->len - 2);
+						archive->comment = g_string_erase(archive->comment, 0, 1);
+					}
+					else
+					{
+						g_string_free(archive->comment, TRUE);
+						archive->comment = NULL;
+					}
+				}
 			}
-			jump_comment = FALSE;
+			else
+			{
+				if (!archive->comment)
+					archive->comment = g_string_new("");
+
+				archive->comment = g_string_append(archive->comment, line);
+			}
+			return;
 		}
 		if (line[0] == '-')
 		{
