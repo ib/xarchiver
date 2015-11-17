@@ -50,7 +50,7 @@ extern gboolean unrar,batch_mode;
 static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid pid);
 static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid pid);
 
-void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gboolean show_output_menu_item,gboolean show_sidebar)
+void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gboolean show_output_menu_item,gboolean show_sidebar,gboolean show_toolbar)
 {
 	GdkPixbuf *icon;
 
@@ -316,7 +316,8 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	/* Create the toolbar */
 	toolbar1 = gtk_toolbar_new ();
-	gtk_widget_show (toolbar1);
+	if (show_toolbar)
+		gtk_widget_show(toolbar1);
 	gtk_box_pack_start (GTK_BOX (vbox1),toolbar1,FALSE,FALSE,0);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1),GTK_TOOLBAR_ICONS);
 	tmp_toolbar_icon_size = gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar1));

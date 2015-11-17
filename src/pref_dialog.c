@@ -131,7 +131,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 0), label1);
 
 	/* Window page*/
-	table1 = gtk_table_new (4, 2,FALSE);
+	table1 = gtk_table_new (5, 2,FALSE);
 	gtk_container_add (GTK_CONTAINER (prefs_data->prefs_notebook), table1);
 	gtk_table_set_row_spacings (GTK_TABLE (table1), 2);
 	gtk_table_set_col_spacings (GTK_TABLE (table1), 4);
@@ -166,6 +166,12 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_location_bar), FALSE);
+
+	prefs_data->show_toolbar = gtk_check_button_new_with_mnemonic (_("Show toolbar"));
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_toolbar, 0, 2, 4, 5,
+					(GtkAttachOptions) (GTK_FILL),
+					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_toolbar), FALSE);
 
 	label2 = gtk_label_new ("");
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 1), label2);
@@ -307,6 +313,7 @@ void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),FALSE);
 
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_toolbar),TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar),TRUE);
 
@@ -342,6 +349,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_archive_comment",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_show_comment)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_sidebar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_location_bar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_toolbar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_toolbar)));
 
 	if (!xdg_open)
 	{
@@ -452,6 +460,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column),g_key_file_get_boolean(xa_key_file,PACKAGE,"sort_filename_content",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_sidebar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_sidebar",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_location_bar",NULL));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_toolbar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_toolbar",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_sub_dir),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_sub_dir",NULL));
 		if ( ! xdg_open)
 		{
@@ -597,6 +606,11 @@ gchar *xa_prefs_choose_program(gboolean flag)
 void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 {
 	gint i,idx;
+
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(prefs_data->show_toolbar)))
+		gtk_widget_show (toolbar1);
+	else
+		gtk_widget_hide (toolbar1);
 
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar)))
 		gtk_widget_show_all (toolbar2);
