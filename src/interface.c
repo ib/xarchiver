@@ -318,11 +318,9 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	toolbar1 = gtk_toolbar_new ();
 	if (show_toolbar)
 		gtk_widget_show(toolbar1);
-	// gtk_widget_show (toolbar1);
 	gtk_box_pack_start (GTK_BOX (vbox1),toolbar1,FALSE,FALSE,0);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar1),GTK_TOOLBAR_ICONS);
 	tmp_toolbar_icon_size = gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar1));
-	// gtk_widget_add_accelerator (toolbar1,"activate",accel_group,GDK_f,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-new",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
