@@ -360,7 +360,7 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	XEntry *entry;
 	gpointer item[7];
 	unsigned short int i = 0;
-	unsigned int linesize,n,a;
+	unsigned int linesize,n,a,offset;
 	gboolean dir = FALSE;
 	static gchar *filename, *end;
 
@@ -487,7 +487,8 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 
 	/* FileName */
 	line[linesize - 1] = '\0';
-	filename = g_strdup(line+64);
+	offset = (strlen(item[3]) == 10 ? 66 : 64);  // date is YYYY-MM-DD since v5.30
+	filename = g_strdup(line+offset);            // and was just DD-MM-YY before
   
 	/* Strip trailing whitespace */
 	end = filename + strlen(filename) - 1;
