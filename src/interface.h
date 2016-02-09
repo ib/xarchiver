@@ -58,7 +58,7 @@ void set_label (GtkWidget *label,gchar *);
 gboolean xa_flash_led_indicator (XArchive *);
 gboolean xa_pulse_progress_bar_window (Progress_bar_data *);
 void xa_create_popup_menu();
-void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean);
+void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean,gboolean);
 GtkWidget *xa_create_archive_properties_window();
 gboolean select_matched_rows(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
 void xa_select_by_pattern_dialog(GtkMenuItem *, gpointer );
