@@ -7,8 +7,10 @@
 # Eugene Ostapets <eostapets@altlinux.ru>, 2005.
 # Andrey Fedoseev <andrey.fedoseev@gmail.com>, 2006.
 # Fedoseev Sergey <fedoseev.sergey@gmail.com>, 2006.
+# Maxim Zenin <webmechanics@gmail.com>, 2006.
 # Andrey Cherepanov <sibskull@mail.ru>, 2008.
 # Nikita Belobrov <qvzqvz@gmail.com>, 2008.
+# Erdal Ronahi, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"

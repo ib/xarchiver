@@ -4,6 +4,8 @@
 #
 # Nimet Senem Özkızıklı <nimetsenem@gmail.com>, 2008.
 # Gökmen Görgen <gkmngrgn@gmail.com>, 2008.
+# Özgür Kuru, 2008.
+# Samed Beyribey, 2008.
 #
 msgid ""
 msgstr ""

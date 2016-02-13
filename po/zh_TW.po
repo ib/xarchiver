@@ -4,6 +4,8 @@
 # This file is distributed under the same license as the xarchiver package.
 #
 # Traditional Chinese (zh_TW) translations for xarchiver
+# Cosmo Chene <cosmolax@gmail.com>, 2006.
+# Hydonsingore Cia <hydonsingore@educities.edu.tw>, 2006.
 # Robert Lee <robert@lee.org.tw>, 2009.
 # Wayne Su <mstarmstar@gmail.com>, 2009.
 #

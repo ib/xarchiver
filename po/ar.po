@@ -1,4 +1,4 @@
-#
+# Mohamed Magdy <mohamed.m.k@gmail.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"

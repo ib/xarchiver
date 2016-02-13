@@ -1,6 +1,7 @@
 # Danish translation of xarchiver
 # Copyright (C) 2006 The Xfce development team. All rights reserved.
 # This file is distributed under the same license as the xarchiver package.
+# Lars Nielsen <lars@mit-web.dk>, 2008.
 # Per Kongstad <p_kongstad@op.pl>, 2008, 09.
 #
 msgid ""

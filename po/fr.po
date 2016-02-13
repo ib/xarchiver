@@ -1,6 +1,7 @@
 # French translation for the xarchiver package.
 # Copyright (C) 2006-2009 Giuseppe Torelli <colossus73@gmail.com>
 # This file is distributed under the same license as the xarchiver package.
+# Pierrick Le Brun <akuna@free.fr>, 2006.
 # Maximilian Schleiss <maximilian@xfce.org>, 2006-2009.
 # Gérald Barré <g.barre@free.fr>, 2006.
 # Douart Patrick <patrick.2@laposte.net>, 2009.
