@@ -71,7 +71,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	/* Permissions */
 	line[10] = '\0';
 	item[1] = line;
-	
+
 	/* Owner */
 	for(n=13; n < linesize; ++n)
 		if(line[n] == ' ')
@@ -79,7 +79,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	line[n] = '\0';
 	item[2] = line+11;
 
-	/* Size */	
+	/* Size */
 	for(++n; n < linesize; ++n)
 		if(line[n] >= '0' && line[n] <= '9')
 			break;
@@ -94,7 +94,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	archive->dummy_size += g_ascii_strtoull(item[3],NULL,0);
 	a = ++n;
 
-	/* Date */	
+	/* Date */
 	for(; n < linesize; n++)
 		if(line[n] == ' ')
 			break;
@@ -114,10 +114,10 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	line[linesize-1] = '\0';
 
 	filename = line + n;
-	
+
 	/* Symbolic link */
-	gchar *temp = g_strrstr (filename,"->"); 
-	if (temp) 
+	gchar *temp = g_strrstr (filename,"->");
+	if (temp)
 	{
 		gint len = strlen(filename) - strlen(temp);
 		item[0] = (filename +=3) + len;
@@ -131,9 +131,9 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 		dir = TRUE;
 		/* Work around for gtar, which does not output / with directories */
 		if(line[linesize-2] != '/')
-			filename = g_strconcat(line + n, "/", NULL); 
+			filename = g_strconcat(line + n, "/", NULL);
 		else
-			filename = g_strdup(line + n); 
+			filename = g_strdup(line + n);
 	}
 	else
 		filename = g_strdup(line + n);
@@ -233,7 +233,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 									"-cvvzf ",archive->escaped_path,
 									files->str , NULL );
 		break;
-		
+
 		case XARCHIVETYPE_TAR_LZMA:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
@@ -244,7 +244,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 									"--use-compress-program=lzma -cvvf ",archive->escaped_path,
 									files->str , NULL );
 		break;
-		
+
 		case XARCHIVETYPE_TAR_XZ:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
@@ -255,7 +255,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 									"--use-compress-program=xz -cvvf ",archive->escaped_path,
 									files->str , NULL );
 		break;
-		
+
 		case XARCHIVETYPE_TAR_LZOP:
 		if ( g_file_test ( archive->escaped_path , G_FILE_TEST_EXISTS ) )
 			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
@@ -282,13 +282,13 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		case XARCHIVETYPE_LZOP:
 			command = g_strconcat("sh -c \"lzop -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
 		break;
-		
+
 		case XARCHIVETYPE_XZ:
 			if (compression_string == NULL)
 				compression_string = "5";
 			command = g_strconcat("sh -c \"xz"," -",compression_string," -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
 		break;
-		
+
 		default:
 		command = NULL;
 	}
@@ -416,7 +416,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 			command = NULL;
 		}
 		break;
-		
+
 		case XARCHIVETYPE_TAR_XZ:
 		if (archive->full_path || multi_extract)
 		{
@@ -435,7 +435,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 			command = NULL;
 		}
 		break;
-		
+
 		case XARCHIVETYPE_LZMA:
 		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_BZIP2:
@@ -466,7 +466,7 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 	gchar *command,*executable = NULL,*filename = NULL;
 	gboolean result;
 	GSList *list = NULL;
-	
+
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_TAR_BZ2:
@@ -489,7 +489,7 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 			executable = "lzop -f ";
 			filename = "dummy.lzo";
 		break;
-		
+
 		default:
 		break;
 	}
@@ -559,7 +559,7 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 		g_slist_free(files);
 		files_to_extract = names->str;
 	}
-	
+
 	command = g_strconcat (string, archive->escaped_path,
 										#ifdef __FreeBSD__
 											archive->overwrite ? " " : " -k",
@@ -624,7 +624,7 @@ void xa_tar_test(XArchive *archive)
 		case XARCHIVETYPE_TAR_LZOP:
 			command = g_strconcat (tar, " --use-compress-program=lzop -tvf ",archive->path, NULL);
 		break;
-		
+
 		case XARCHIVETYPE_TAR_XZ:
 			command = g_strconcat (tar, " --use-compress-program=xz -tvf ",archive->path, NULL);
 		break;

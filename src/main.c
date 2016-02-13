@@ -188,7 +188,7 @@ int main (int argc, char **argv)
 			for (x = 1; x< argc; x++)
 				if (! g_file_test(argv[x], G_FILE_TEST_IS_DIR))
 					xa_add_files_liststore(argv[x],multi_extract);
-					
+
 			xa_parse_multi_extract_archive(multi_extract);
 			gtk_widget_destroy (multi_extract->multi_extract);
 			g_free(multi_extract);
@@ -328,7 +328,7 @@ void xa_set_available_archivers()
 	open_archive[XARCHIVETYPE_ZIP] = &xa_open_zip;
 	open_archive[XARCHIVETYPE_LHA] = &xa_open_lha;
 	open_archive[XARCHIVETYPE_LZOP] = &xa_open_bzip2_lzma;
-	
+
 	delete[0]  = 0;
 	delete[XARCHIVETYPE_7ZIP]  = &xa_7zip_delete;
 	delete[XARCHIVETYPE_ARJ]  = &xa_arj_delete;
@@ -339,8 +339,8 @@ void xa_set_available_archivers()
 	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_XZ] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
 	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
-	
-	
+
+
 	add[0]  = 0;
 	add[XARCHIVETYPE_7ZIP]  = &xa_7zip_add;
 	add[XARCHIVETYPE_ARJ]  = &xa_arj_add;
@@ -351,7 +351,7 @@ void xa_set_available_archivers()
 	add[XARCHIVETYPE_TAR]  = add[XARCHIVETYPE_TAR_BZ2] = add[XARCHIVETYPE_TAR_GZ] = add[XARCHIVETYPE_TAR_LZMA] = add[XARCHIVETYPE_TAR_XZ] = add[XARCHIVETYPE_TAR_LZOP] = &xa_tar_add;
 	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
 	add[XARCHIVETYPE_LHA] = &xa_lha_add;
-	
+
 	extract[0]  = 0;
 	extract[XARCHIVETYPE_7ZIP]  = &xa_7zip_extract;
 	extract[XARCHIVETYPE_ARJ]  = &xa_arj_extract;
@@ -362,7 +362,7 @@ void xa_set_available_archivers()
 	extract[XARCHIVETYPE_TAR]  = extract[XARCHIVETYPE_TAR_BZ2] = extract[XARCHIVETYPE_TAR_GZ] = extract[XARCHIVETYPE_TAR_LZMA] = extract[XARCHIVETYPE_TAR_XZ] = extract[XARCHIVETYPE_TAR_LZOP] = &xa_tar_extract;
 	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
 	extract[XARCHIVETYPE_LHA] = &xa_lha_extract;
-	
+
 	test[0]  = 0;
 	test[XARCHIVETYPE_7ZIP]  = &xa_7zip_test;
 	test[XARCHIVETYPE_ARJ]  = &xa_arj_test;
@@ -448,7 +448,7 @@ void xa_set_available_archivers()
 		if (rar_version == 5)
 		{
 			ArchiveType = g_list_append(ArchiveType, "rar5");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar5");	
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar5");
 		}
 		g_free (absolute_path);
 	}
@@ -465,7 +465,7 @@ void xa_set_available_archivers()
 			if (rar_version == 5)
 			{
 				ArchiveType = g_list_append(ArchiveType, "rar5");
-				ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar5");	
+				ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar5");
 			}
 			g_free (absolute_path);
 		}
@@ -479,7 +479,7 @@ void xa_set_available_archivers()
 	}
 
 	absolute_path = g_find_program_in_path("gtar");
-	
+
 	if (absolute_path == NULL)
 	{
 		tar = "tar";
@@ -584,4 +584,3 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive->extract = 	extract[archive->type];
 	return (archive);
 }
-

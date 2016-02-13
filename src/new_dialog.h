@@ -22,4 +22,3 @@
 #include "archive.h"
 XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean flag);
 #endif
-

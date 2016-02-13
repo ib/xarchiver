@@ -63,7 +63,7 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 	/* Permissions */
 	line[9] = '\0';
 	item[0] = line;
-	
+
 	/* Owner */
 	for(n=12; n < linesize; ++n)
 		if(line[n] == ' ')
@@ -71,7 +71,7 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 	line[n] = '\0';
 	item[1] = line+10;
 
-	/* Size */	
+	/* Size */
 	for(++n; n < linesize; ++n)
 		if(line[n] >= '0' && line[n] <= '9')
 			break;
@@ -86,7 +86,7 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 	archive->dummy_size += g_ascii_strtoull(item[2],NULL,0);
 	a = ++n;
 
-	/* Date Modified */	
+	/* Date Modified */
 	for(; n < linesize; ++n)
 	{
 		if(n == 38)

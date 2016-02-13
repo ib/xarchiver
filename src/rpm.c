@@ -117,7 +117,7 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 	item[6] = line + a;
 	n++;
 
-	/* Size */	
+	/* Size */
 	for(; n < linesize && line[n] == ' '; ++n);
 	a = n;
 
@@ -126,7 +126,7 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 	item[1] = line + a;
 	archive->dummy_size += g_ascii_strtoull(item[1],NULL,0);
 	n++;
-	
+
 	/* Date */
 	line[54] = '\0';
 	item[3] = line + n;
@@ -136,8 +136,8 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 	filename = line + n;
 
 	/* Symbolic link */
-	gchar *temp = g_strrstr (filename,"->"); 
-	if (temp) 
+	gchar *temp = g_strrstr (filename,"->");
+	if (temp)
 	{
 		a = 3;
 		gint len = strlen(filename) - strlen(temp);
@@ -154,13 +154,13 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 		 * not output / with directories */
 
 		if(line[linesize-2] != '/')
-			filename = g_strconcat(line + n, "/", NULL); 
+			filename = g_strconcat(line + n, "/", NULL);
 		else
-			filename = g_strdup(line + n); 
+			filename = g_strdup(line + n);
 	}
 	else
-		filename = g_strdup(line + n); 
-	
+		filename = g_strdup(line + n);
+
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free (filename);
 }
@@ -182,7 +182,7 @@ gboolean xa_rpm_extract(XArchive *archive,GSList *files)
 	}
 	g_slist_foreach(files,(GFunc)g_free,NULL);
 	g_slist_free(files);
-	
+
 	chdir (archive->extraction_path);
 	command = g_strconcat ( "sh -c \"cpio -id" , names->str," < ",archive->tmp,"/file.cpio\"",NULL);
 

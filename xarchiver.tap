@@ -45,4 +45,3 @@ extract-to)
 	echo "Unsupported action '$action'" >&2
 	exit 1
 esac
-

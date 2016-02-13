@@ -95,7 +95,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	tmp_image = gtk_image_new_from_stock ("gtk-copy",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (listing),tmp_image);
-	
+
 	listing_submenu = gtk_menu_new();
 	gtk_widget_set_sensitive(listing,FALSE);
 	gtk_widget_show (listing_submenu);
@@ -106,14 +106,14 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	tmp_image = gtk_image_new_from_stock ("gtk-edit",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (listing_text),tmp_image);
-	
+
 	listing_html = gtk_image_menu_item_new_with_mnemonic (_("_HTML file"));
 	gtk_widget_show (listing_html);
 	gtk_container_add (GTK_CONTAINER (listing_submenu),listing_html);
 	tmp_image =  xa_main_window_find_image ("xarchiver-html.png",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (listing_html),tmp_image);
-	
+
 	save1 = gtk_image_menu_item_new_from_stock ("gtk-save-as",accel_group);
 	gtk_widget_set_sensitive(save1,FALSE);
 	gtk_widget_show (save1);
@@ -495,7 +495,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_misc_set_alignment (GTK_MISC(total_label),0.0,0.5);
 	gtk_widget_show (total_label);
 	gtk_container_add (GTK_CONTAINER (total_frame),total_label);
-	
+
 	selected_frame = gtk_frame_new (NULL);
 	gtk_box_pack_start (GTK_BOX (hbox_sb),selected_frame,TRUE,TRUE,0);
 	gtk_frame_set_label_align (GTK_FRAME (selected_frame),0,0);
@@ -505,7 +505,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_misc_set_alignment (GTK_MISC(selected_label),0.0,0.5);
 	gtk_widget_show (selected_label);
 	gtk_container_add (GTK_CONTAINER (selected_frame),selected_label);
-	
+
 	green_led = gtk_image_new_from_icon_name ("gtk-yes",GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show (green_led);
 	gtk_box_pack_start (GTK_BOX (hbox_sb),green_led,FALSE,FALSE,0);
@@ -626,7 +626,7 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 				gtk_widget_set_sensitive (delete_menu,FALSE);
 				gtk_widget_set_sensitive (rename_menu,FALSE);
 			}
-			else 
+			else
 			{
 				gtk_widget_set_sensitive (delete_menu,TRUE);
 				gtk_widget_set_sensitive (rename_menu,TRUE);
@@ -771,7 +771,7 @@ gchar *xa_create_password_dialog(XArchive *archive)
   	if (batch_mode)
   		label_pwd_required = gtk_label_new (_("<span weight='bold' size='larger'>Password required for:</span>"));
   	else
-		label_pwd_required = gtk_label_new (_("<span weight='bold' size='larger'>Enter password for:</span>"));  	
+		label_pwd_required = gtk_label_new (_("<span weight='bold' size='larger'>Enter password for:</span>"));
 
   	gtk_widget_show (label_pwd_required);
   	gtk_box_pack_start (GTK_BOX (vbox2),label_pwd_required,FALSE,FALSE,0);
@@ -784,7 +784,7 @@ gchar *xa_create_password_dialog(XArchive *archive)
   	gtk_widget_show (label_filename);
   	gtk_box_pack_start (GTK_BOX (vbox2),label_filename,FALSE,FALSE,12);
   	gtk_misc_set_alignment (GTK_MISC (label_filename),0,0.5);
-	
+
   	hbox1 = gtk_hbox_new (FALSE,5);
   	gtk_widget_show (hbox1);
   	gtk_box_pack_start (GTK_BOX (vbox2),hbox1,TRUE,TRUE,0);
@@ -1135,14 +1135,14 @@ GtkWidget *xa_create_archive_properties_window()
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0),0,0);
 	gtk_misc_set_alignment (GTK_MISC (number_of_files_label),0.99,0.5);
-	
+
 	compression_label = gtk_label_new ("");
 	set_label ( compression_label,_("Compression ratio:"));
 	gtk_table_attach (GTK_TABLE (table1),compression_label,0,1,9,10,
                     (GtkAttachOptions) (GTK_FILL),
                     (GtkAttachOptions) (0),0,0);
 	gtk_misc_set_alignment (GTK_MISC (compression_label),0.99,0.5);
-	
+
 /* */
 	compression_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (compression_data),0,0.5);
@@ -1444,7 +1444,7 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	archive[idx]->has_passwd = dummy_password;
 	archive[idx]->full_path = full_path;
 	archive[idx]->add_recurse = add_recurse;
-	
+
 	g_string_free(full_pathname,TRUE);
 	if (list != NULL)
 	{
@@ -1474,7 +1474,7 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 {
 	GtkTreeModel *model;
 	GtkTreePath *path;
-	
+
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);
 	if (path)
@@ -1498,7 +1498,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 
 	if (pb)
 		return pb;
-		
+
 	pb = g_new0(Progress_bar_data,1);
 	pb->progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(pb->progress_window), PACKAGE_NAME);
@@ -1506,7 +1506,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	gtk_widget_set_size_request(pb->progress_window,400,-1);
 	gtk_window_set_resizable(GTK_WINDOW (pb->progress_window),FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (pb->progress_window),6);
-	gtk_window_set_transient_for (GTK_WINDOW (pb->progress_window),GTK_WINDOW (xa_main_window));	
+	gtk_window_set_transient_for (GTK_WINDOW (pb->progress_window),GTK_WINDOW (xa_main_window));
 
 	pixbuf = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
 	gtk_window_set_icon (GTK_WINDOW (pb->progress_window),pixbuf);
@@ -1567,15 +1567,15 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	if (flag == TRUE)
 	{
 		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(pb->progressbar1),0.033);
-		
+
 		italic_attr = pango_attr_list_new ();
 		pango_attr_list_insert (italic_attr, pango_attr_style_new (PANGO_STYLE_ITALIC));
 		gtk_label_set_attributes (GTK_LABEL (pb->file_label),italic_attr);
 		pango_attr_list_unref (italic_attr);
 		gtk_label_set_ellipsize(GTK_LABEL(pb->file_label),PANGO_ELLIPSIZE_END);
-		
+
 		action_area = gtk_hbutton_box_new ();
-		gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area),GTK_BUTTONBOX_END);  
+		gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area),GTK_BUTTONBOX_END);
   		gtk_box_pack_end (GTK_BOX (vbox2),action_area,FALSE, TRUE, 0);
 
 		cancel_button = gtk_button_new_from_stock ("gtk-cancel");
@@ -1598,7 +1598,7 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *filename,double perce
 		message = g_strdup_printf("%.0f%%",(percent*100));
 		gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
 		g_free(message);
-		
+
 		basename = g_path_get_basename(filename);
 		markup = g_markup_printf_escaped("<b>%s</b>", basename);
 		g_free(basename);

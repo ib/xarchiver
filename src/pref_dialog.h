@@ -44,4 +44,3 @@ void xa_prefs_combo_changed (GtkComboBox *,gpointer );
 void xa_apply_prefs_option(Prefs_dialog_data *);
 gchar *xa_prefs_choose_program(gboolean );
 #endif
-

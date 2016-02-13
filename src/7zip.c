@@ -83,7 +83,7 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 		last_line = TRUE;
 		return;
 	}
-	
+
 	linesize = strlen(line);
 	archive->nr_of_files++;
 
@@ -94,11 +94,11 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	/* Time */
 	line[19] = '\0';
 	item[3] = line + 11;
-	
+
 	/* Permissions */
 	line[25] = '\0';
 	item[2] = line + 20;
-	
+
 	/* Size */
 	for(a=26; a < linesize; ++a)
 		if(line[a] >= '0' && line[a] <= '9')
@@ -247,4 +247,3 @@ void xa_7zip_test (XArchive *archive)
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
 }
-

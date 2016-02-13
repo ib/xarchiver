@@ -103,7 +103,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 			executable = "lzop ";
 			len = 4;
 		} /* else fail? */
-		
+
 
 		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_POINTER};
 		archive->column_types = g_malloc0(sizeof(types));

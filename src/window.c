@@ -52,13 +52,13 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 		{
 			if (xa_main_window == NULL)
 				goto error;
-			if ((WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP) || 
+			if ((WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP) ||
 				(WEXITSTATUS (status) == 6 && archive->type == XARCHIVETYPE_ARJ) ||
 				(WEXITSTATUS (status) == 1 && is_tar_compressed(archive->type)))
 				goto there;
 			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 			{
-				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it."));	
+				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it."));
 				return;
 			}
 			if (xa_main_window)
@@ -134,7 +134,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
 	gint current_page,idx = -1;
-	
+
 	if (_archive == NULL)
 	{
 		current_page = gtk_notebook_get_current_page(notebook);
@@ -173,7 +173,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 
 	vbox = gtk_vbox_new (FALSE,6);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox),5);
-	
+
 	if (_archive->create_image)
 	{
 		_archive->create_image = FALSE;
@@ -317,7 +317,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,_("Archive format is not recognized!"));
 		else
 			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno));
-	
+
 		g_free (utf8_path);
 		g_free (msg);
 		g_free (path);
@@ -329,7 +329,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	if (type == XARCHIVETYPE_RAR)
 		ext = "rar";
 	else if (type == XARCHIVETYPE_RAR5)
-		ext = "rar5";		
+		ext = "rar5";
 	else if (type == XARCHIVETYPE_7ZIP)
 		ext = "7z";
 	else if (type == XARCHIVETYPE_ARJ)
@@ -460,7 +460,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		g_free (current_open_directory);
 
 	current_open_directory = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(save));
-	
+
 	if (response == GTK_RESPONSE_ACCEPT)
 		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(save));
 	gtk_widget_destroy (save);
@@ -471,7 +471,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		g_free(filename);
 		if (bp)
 		{
-			g_fprintf(stream, "<html><head><meta name=GENERATOR content=\"" PACKAGE_NAME " " VERSION "\"><title>%s</title>\n", archive[idx]->escaped_path);                        
+			g_fprintf(stream, "<html><head><meta name=GENERATOR content=\"" PACKAGE_NAME " " VERSION "\"><title>%s</title>\n", archive[idx]->escaped_path);
 			g_fprintf (stream,"<style>\ntd     { font: normal .7em ; }\nth     { font: bold 0.7em ; color: #FFFFFF; text-align: left; background: #42578A}\n.row1  { background-color: #DDDDDD; }\n.row2  { background-color: #EEEEEE; }\n</style>\n");
 			g_fprintf (stream,"<body bgcolor=#FFFFFF>\n");
 			g_fprintf (stream,"<b><u>");
@@ -534,7 +534,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 			g_fprintf(stream,_("<th>Files:</th>"));
 			g_fprintf(stream,_("<th>Compressed:</th>"));
 			g_fprintf(stream,"</th></tr>");
-			
+
 		}
 		xa_print_entry_in_file(archive[idx]->root_entry,idx,0,stream,bp);
 		if (bp)
@@ -639,7 +639,7 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer data)
 	idx = xa_find_archive_index (i);
 	if (idx > -1 && archive[idx]->child_pid)
 		return;
-	
+
 	g_list_free ( Suffix);
 	g_list_free ( Name);
 
@@ -659,10 +659,10 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer data)
 	xa_prefs_save_options (prefs_window,config_file);
 	gtk_widget_destroy(prefs_window->dialog1);
 	g_free(prefs_window);
-	
+
 	gtk_widget_destroy (extract_window->dialog1);
 	g_free(extract_window);
-	
+
 	gtk_widget_destroy (add_window->dialog1);
 	g_free(add_window);
 
@@ -707,7 +707,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 				if (archive[id]->type == XARCHIVETYPE_TAR || is_tar_compressed(archive[id]->type))
 					goto one_file;
 				else
-				{	
+				{
 					list = g_slist_prepend (list,xa_build_full_path_name_from_entry(entry,archive[id]));
 					xa_fill_list_with_recursed_entries(entry->child,&list);
 				}
@@ -1415,7 +1415,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     t = g_strdup_printf ( "%d",archive[idx]->nr_of_files);
     gtk_label_set_text(GTK_LABEL(number_of_files_data),t);
     g_free (t);
-    
+
     if (archive[idx]->has_passwd)
     	gtk_label_set_text(GTK_LABEL(encrypted_data),_("Yes"));
 	else
@@ -1650,7 +1650,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
     GtkTreeIter       iter;
     GList            *row_list;
 	XEntry *entry;
-	
+
 	gtk_drag_source_set_icon_name (archive->treeview,"xarchiver");
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 
@@ -1854,7 +1854,7 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
-	
+
 	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
 	if (entry->is_dir)
 		xa_fill_list_with_recursed_entries(entry->child,data);
@@ -2097,7 +2097,7 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 	result = xa_create_temp_directory(archive[idx]);
 	tmp = g_strconcat(archive[idx]->tmp,"/xa_tmp_file",NULL);
 	gtk_widget_destroy(comment_dialog);
-	
+
 	if (archive[idx]->comment == NULL)
 	{
 		archive[idx]->comment = g_string_new("");
@@ -2116,16 +2116,16 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 		case XARCHIVETYPE_ARJ:
 		command = g_strconcat ("arj c ",archive[idx]->escaped_path," -z",tmp,NULL);
 		break;
-			
+
 		case XARCHIVETYPE_RAR:
 		case XARCHIVETYPE_RAR5:
 		command = g_strconcat ("rar c ",archive[idx]->escaped_path," -z",tmp,NULL);
 		break;
-			
+
 		case XARCHIVETYPE_ZIP:
 		command = g_strconcat ("sh -c \"zip ",archive[idx]->escaped_path," -z <",tmp,"\"",NULL);
 		break;
-			
+
 		default:
 		command = NULL;
 		break;
@@ -2295,7 +2295,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 				gtk_widget_set_sensitive(view,TRUE);
 			}
 			gtk_widget_set_sensitive(rrename,TRUE);
-			
+
 		}
 		clipboard = gtk_clipboard_get(XA_CLIPBOARD);
 		clipboard_selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
@@ -2331,14 +2331,14 @@ XAClipboard *xa_clipboard_data_new()
 	XAClipboard *data = NULL;
 
 	data = g_new0(XAClipboard,1);
-	
+
 	return data;
 }
 
 void xa_clipboard_cut(GtkMenuItem* item,gpointer data)
 {
 	gint idx,current_page;
-	
+
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
@@ -2396,7 +2396,7 @@ void xa_clipboard_cut_copy_operation(XArchive *archive,XAClipboardMode mode)
 	gboolean result = FALSE;
 	gboolean overwrite;
 	GtkTreeSelection *selection;
-	GtkTargetEntry targets[] = 
+	GtkTargetEntry targets[] =
 	{
 		{ "application/xarchiver-info-list",0,1 }
 	};
@@ -2688,7 +2688,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	while (list_of_files);
 	xa_create_open_with_dialog(entry->filename,names->str,nr);
 	g_slist_foreach(list_of_files,(GFunc)g_free,NULL);
-	g_slist_free(list_of_files);	
+	g_slist_free(list_of_files);
 }
 
 void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)

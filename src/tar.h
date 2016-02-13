@@ -38,4 +38,3 @@ gboolean is_tar_compressed (gint );
 void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *,XArchive *,gboolean );
 gboolean xa_extract_tar_without_directories ( gchar *, XArchive *,gchar *);
 #endif
-

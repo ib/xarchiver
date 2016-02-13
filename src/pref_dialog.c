@@ -74,14 +74,14 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	g_object_unref (icon_pixbuf);
 
 	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
-	g_object_unref (prefs_data->prefs_liststore);	
+	g_object_unref (prefs_data->prefs_liststore);
 
 	gtk_icon_view_set_orientation (GTK_ICON_VIEW (prefs_iconview), GTK_ORIENTATION_VERTICAL);
 	gtk_icon_view_set_columns (GTK_ICON_VIEW (prefs_iconview),1);
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (prefs_iconview), 0);
 	gtk_icon_view_set_text_column(GTK_ICON_VIEW (prefs_iconview),1);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1), prefs_iconview);
-	
+
 	prefs_data->prefs_notebook = gtk_notebook_new ();
 	g_object_set (G_OBJECT (prefs_data->prefs_notebook),"show-border", FALSE,"show-tabs", FALSE,"enable-popup",FALSE,NULL);
 	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->prefs_notebook,TRUE,TRUE,0);
@@ -116,7 +116,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->confirm_deletion), FALSE);
-	
+
 	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic(_("Sort archive by filename"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_sort_filename_column, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
@@ -147,7 +147,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->combo_icon_size, 1, 2, 0, 1,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
-	
+
 	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show archive comment"));
 	gtk_tooltips_set_tip(tooltips, prefs_data->check_show_comment, _("If checked the archive comment is shown after the archive is loaded"), NULL);
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_show_comment, 0, 2, 1, 2,
@@ -208,7 +208,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 		gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_editor, 1, 2, 1, 2,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
-                    
+
 		label8 = gtk_label_new (_("Open image files with:"));
 		gtk_table_attach (GTK_TABLE (table2), label8, 0, 1, 2, 3,
 					(GtkAttachOptions) (GTK_FILL),
@@ -252,7 +252,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_attach (GTK_TABLE (table2), prefs_data->check_save_geometry, 0, 2, 5, 6,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_FILL), 0, 0);
-	
+
 	prefs_data->allow_sub_dir = gtk_check_button_new_with_mnemonic (_("Allow subdirs with drag and drop"));
 	gtk_table_attach (GTK_TABLE (table2), prefs_data->allow_sub_dir, 0, 2, 6, 7,
 					(GtkAttachOptions) (GTK_FILL),
@@ -305,7 +305,7 @@ void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),FALSE);
-	
+
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar),TRUE);
@@ -332,7 +332,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	gchar *value= NULL;
 	gsize len;
 	GKeyFile *xa_key_file = g_key_file_new();
-	
+
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"confirm_deletion",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"sort_filename_content",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_sort_filename_column)));
@@ -342,7 +342,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_archive_comment",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_show_comment)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_sidebar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_location_bar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar)));
-	
+
 	if (!xdg_open)
 	{
 		value = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser));
@@ -426,7 +426,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	config_dir = g_strconcat (g_get_home_dir(),"/.config",NULL);
 	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
 		g_mkdir_with_parents(config_dir,0600);
-					
+
 	xarchiver_config_dir = g_strconcat(config_dir, "/", PACKAGE, NULL);
 	g_free (config_dir);
 	if (g_file_test(xarchiver_config_dir, G_FILE_TEST_EXISTS) == FALSE)
@@ -434,7 +434,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 
 	config_file = g_strconcat(xarchiver_config_dir, "/", PACKAGE, "rc", NULL);
 	g_free (xarchiver_config_dir);
-		
+
 	if ( ! g_key_file_load_from_file(xa_key_file,config_file,G_KEY_FILE_KEEP_COMMENTS,NULL) )
 	{
 		/* Write the config file with the default options */
@@ -504,8 +504,8 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			error = NULL;
 		}
 		else
-		{	
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);	
+		{
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);
 			prefs_data->geometry[0] = coords[0];
 			prefs_data->geometry[1] = coords[1];
 			prefs_data->geometry[2] = coords[2];
@@ -520,8 +520,8 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			error = NULL;
 		}
 		else
-		{	
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);	
+		{
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);
 			prefs_data->extract_dialog[0] = extract_coords[0];
 			prefs_data->extract_dialog[1] = extract_coords[1];
 		}
@@ -533,8 +533,8 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			error = NULL;
 		}
 		else
-		{	
-			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);	
+		{
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),TRUE);
 			prefs_data->add_coords[0] = add_coords[0];
 			prefs_data->add_coords[1] = add_coords[1];
 		}
@@ -590,7 +590,7 @@ gchar *xa_prefs_choose_program(gboolean flag)
 		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
 
 	gtk_widget_destroy (dialog);
-	
+
 	return filename;
 }
 
@@ -602,7 +602,7 @@ void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 		gtk_widget_show_all (toolbar2);
 	else
 		gtk_widget_hide (toolbar2);
-		
+
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(prefs_data->show_sidebar)))
 		gtk_widget_show(scrolledwindow2);
 	else
@@ -620,5 +620,5 @@ void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 			g_object_set(G_OBJECT(archive[idx]->renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_data->combo_icon_size))), NULL);
 		gtk_widget_queue_draw(GTK_WIDGET(archive[idx]->treeview));
 	}
-	
+
 }

@@ -52,7 +52,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	label1 = gtk_label_new (_("Selection"));
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (add_dialog->notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (add_dialog->notebook1), 0), label1);
-	
+
 	add_dialog->filechooserwidget1 = gtk_file_chooser_widget_new (GTK_FILE_CHOOSER_ACTION_OPEN);
 	gtk_box_pack_start (GTK_BOX (vbox1), add_dialog->filechooserwidget1, TRUE, TRUE,2);
 
@@ -75,7 +75,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->store_path), add_dialog->path_group);
 	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->store_path));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->store_path), FALSE);
-	
+
 	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic (NULL, _("Do not store paths"));
 	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->no_store_path, FALSE, FALSE, 0);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->no_store_path), add_dialog->path_group);
@@ -89,7 +89,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	label2 = gtk_label_new (_("Options"));
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (add_dialog->notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (add_dialog->notebook1), 1), label2);
-	
+
 	hbox2 = gtk_hbox_new (TRUE, 10);
 	gtk_box_pack_start (GTK_BOX (add_dialog->option_notebook_vbox), hbox2, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox2), 5);
@@ -132,7 +132,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	label7 = gtk_label_new (_("Actions: "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame4), label7);
-	
+
 	hbox3 = gtk_hbox_new (TRUE, 10);
 	gtk_box_pack_start (GTK_BOX (add_dialog->option_notebook_vbox), hbox3, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox3), 5);
@@ -171,7 +171,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	label5 = gtk_label_new (_("Encryption: "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame3), label5);
-  
+
 	dialog_action_area1 = GTK_DIALOG (add_dialog->dialog1)->action_area;
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
 
@@ -235,7 +235,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(label3,flag);
 	gtk_widget_set_sensitive(add_dialog->store_path,flag);
 	gtk_widget_set_sensitive(add_dialog->no_store_path,flag);
- 		
+
 	if (archive->type != XARCHIVETYPE_7ZIP)
 		g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 
@@ -245,7 +245,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_RAR5 || archive->type == XARCHIVETYPE_7ZIP)
 		flag = TRUE;
 	gtk_widget_set_sensitive(add_dialog->solid_archive,flag);
-	
+
 	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_XZ && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_LZOP)
 	{
 		flag = TRUE;

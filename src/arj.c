@@ -67,7 +67,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	}
 	if (arj_line == 4)
 	{
-		arj_line = 1;	
+		arj_line = 1;
 		return;
 	}
 
@@ -265,5 +265,4 @@ void xa_arj_test (XArchive *archive)
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
- }
-
+}

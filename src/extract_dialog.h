@@ -45,7 +45,7 @@ GtkWidget *hbox1,*hbox2,*hbox3,*vbox1,*vbox2,*vbox3,*vbox5;
 GtkWidget *frame1,*frame2,*alignment1,*alignment2,*alignment3;
 GtkWidget *dialog_action_area1,*cancel_button,*okbutton1,*extract_button,*extract_image,*extract_hbox,*extract_label;
 GtkTooltips *option_tooltip;
-	
+
 Extract_dialog_data *xa_create_extract_dialog();
 void xa_activate_entry(GtkToggleButton *,gpointer );
 void fresh_update_toggled_cb (GtkToggleButton *, Extract_dialog_data *);
@@ -57,4 +57,3 @@ void xa_activate_remove_button (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, Gt
 void xa_add_files_liststore (gchar *, Multi_extract_data *);
 void xa_parse_multi_extract_archive(Multi_extract_data *);
 #endif
-

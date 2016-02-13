@@ -67,7 +67,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 	else if (strncmp(mime,"application/x-font",18) == 0)
 		return "font-x-generic";
 
-	return icon_name;		
+	return icon_name;
 }
 
 GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename,gint size)

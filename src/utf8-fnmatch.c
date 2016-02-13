@@ -140,7 +140,7 @@ g_utf8_rangematch (const char  *pattern,
 			if (c2 == EOS)
 				return (RANGE_ERROR);
 
-			if (flags & FNM_CASEFOLD) 
+			if (flags & FNM_CASEFOLD)
 				c2 = g_unichar_tolower (c2);
 
 			if (c <= test && test <= c2)
@@ -153,7 +153,7 @@ g_utf8_rangematch (const char  *pattern,
 		pattern = g_utf8_next_char (pattern);
 
 	} while (c != ']');
-		
+
 	*new_pattern = (char *) pattern;
 
 	return (ok == negate ? RANGE_NOMATCH : RANGE_MATCH);
@@ -161,8 +161,8 @@ g_utf8_rangematch (const char  *pattern,
 
 
 int
-g_utf8_fnmatch (const char *pattern, 
-		const char *string, 
+g_utf8_fnmatch (const char *pattern,
+		const char *string,
 		int         flags)
 {
 	const char *stringstart;
@@ -178,7 +178,7 @@ g_utf8_fnmatch (const char *pattern,
 
 		switch (c) {
 		case EOS:
-			if ((flags & FNM_LEADING_DIR) && g_utf8_get_char (string) == '/') 
+			if ((flags & FNM_LEADING_DIR) && g_utf8_get_char (string) == '/')
 				return 0;
 			return (g_utf8_get_char (string) == EOS ? 0 : FNM_NOMATCH);
 
@@ -190,8 +190,8 @@ g_utf8_fnmatch (const char *pattern,
 				return FNM_NOMATCH;
 
 			string_1 = g_utf8_prev_char (string);
-			if ((g_utf8_get_char (string) == '.') 
-			    && (flags & FNM_PERIOD) 
+			if ((g_utf8_get_char (string) == '.')
+			    && (flags & FNM_PERIOD)
 			    && (string == stringstart ||
 				((flags & FNM_PATHNAME) && g_utf8_get_char (string_1) == '/')))
 				return FNM_NOMATCH;
@@ -207,8 +207,8 @@ g_utf8_fnmatch (const char *pattern,
 			}
 
 			string_1 = g_utf8_prev_char (string);
-			if ((g_utf8_get_char (string) == '.') 
-			    && (flags & FNM_PERIOD) 
+			if ((g_utf8_get_char (string) == '.')
+			    && (flags & FNM_PERIOD)
 			    && (string == stringstart ||
 				((flags & FNM_PATHNAME) && g_utf8_get_char (string_1) == '/')))
 				return FNM_NOMATCH;
@@ -216,7 +216,7 @@ g_utf8_fnmatch (const char *pattern,
 			/* Optimize for pattern with * at end or before /. */
 			if (c == EOS) {
 				if (flags & FNM_PATHNAME)
-					return ((flags & FNM_LEADING_DIR) 
+					return ((flags & FNM_LEADING_DIR)
 						|| (g_utf8_strchr (string, -1, '/') == NULL) ? 0 : FNM_NOMATCH);
 				else
 					return 0;
@@ -245,8 +245,8 @@ g_utf8_fnmatch (const char *pattern,
 				return FNM_NOMATCH;
 
 			string_1 = g_utf8_prev_char (string);
-			if ((g_utf8_get_char (string) == '.') 
-			    && (flags & FNM_PERIOD) 
+			if ((g_utf8_get_char (string) == '.')
+			    && (flags & FNM_PERIOD)
 			    && (string == stringstart ||
 				((flags & FNM_PATHNAME) && g_utf8_get_char (string_1) == '/')))
 				return FNM_NOMATCH;
@@ -306,11 +306,11 @@ verbose (const gchar *format, ...)
 {
 	gchar *msg;
 	va_list args;
-	
+
 	va_start (args, format);
 	msg = g_strdup_vprintf (format, args);
 	va_end (args);
-	
+
 	if (noisy)
 		g_print (msg);
 	g_free (msg);
@@ -323,15 +323,15 @@ test_match (gchar *pattern,
             gboolean match)
 {
 	verbose ("matching \"%s\" against \"%s\" \t", string, pattern);
-	
+
 	if ((g_utf8_fnmatch (pattern, string, FNM_CASEFOLD) == 0) != match)
 		{
 			g_print ("failed \t(unexpected %s)\n", (match ? "mismatch" : "match"));
 			return FALSE;
 		}
-	
+
 	verbose ("passed (%s)\n", match ? "match" : "nomatch");
-	
+
 	return TRUE;
 }
 
@@ -350,11 +350,11 @@ int main (int argc, gchar **argv) {
 	gint passed = 0;
 	gint failed = 0;
 	gint i;
-	
+
 	for (i = 1; i < argc; i++)
 		if (strcmp ("--noisy", argv[i]) == 0)
 			noisy = TRUE;
-	
+
 	TEST_MATCH("*x", "x", TRUE);
 	TEST_MATCH("*x", "xx", TRUE);
 	TEST_MATCH("*x", "yyyx", TRUE);
@@ -389,9 +389,8 @@ int main (int argc, gchar **argv) {
 	TEST_MATCH("A*.o", "B.o", FALSE);
 
 	verbose ("\n%u tests passed, %u failed\n", passed, failed);
-        
+
 	return failed;
 }
 
 #endif
-

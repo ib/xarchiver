@@ -35,4 +35,3 @@ int rar_version;
 
 XArchive *xa_init_structure_from_cmd_line (char *filename);
 #endif /* MAIN_H */
-

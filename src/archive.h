@@ -142,7 +142,7 @@ struct _XArchive
 	open_func open_archive;
 };
 
-#define XA_CLIPBOARD (gdk_atom_intern_static_string ("XARCHIVER_OWN_CLIPBOARD")) 
+#define XA_CLIPBOARD (gdk_atom_intern_static_string ("XARCHIVER_OWN_CLIPBOARD"))
 #define XA_INFO_LIST (gdk_atom_intern_static_string ("application/xarchiver-info-list"))
 
 typedef enum

@@ -62,4 +62,3 @@ void xa_select_files_to_add ( GtkButton* ,gpointer );
 void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_string);
 void fix_adjustment_value (GtkAdjustment *,gpointer );
 #endif
-

@@ -106,7 +106,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	ioc = g_io_channel_unix_new (archive->output_fd);
 	g_io_channel_set_encoding (ioc,NULL,NULL);
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
-	
+
 	if (xa_main_window)
 		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output,archive);
 	else
@@ -122,7 +122,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 }
 
 /*	TODO: workaround for bug #3235
- * 
+ *
  * gchar *xa_split_command_line(XArchive *archive,GSList *list)
 {
 	gchar *command = NULL;
@@ -223,7 +223,7 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 			xa_update_window_with_archive_entries (archive,NULL);
 			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
 			g_object_unref (archive->model);
-			
+
 			if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_RAR5 || archive->type == XARCHIVETYPE_ARJ)
 				gtk_widget_set_sensitive (comment_menu,TRUE);
 			else
@@ -295,7 +295,7 @@ void xa_clean_archive_structure (XArchive *archive)
 
 	entry = archive->root_entry;
 	xa_free_entry (archive,entry);
-	
+
 	if (archive->column_types != NULL)
 		g_free(archive->column_types);
 
@@ -305,7 +305,7 @@ void xa_clean_archive_structure (XArchive *archive)
 		g_slist_free (archive->error_output);
 		archive->error_output = NULL;
 	}
-	
+
 	if (archive->path != NULL)
 		g_free(archive->path);
 
@@ -320,7 +320,7 @@ void xa_clean_archive_structure (XArchive *archive)
 
 	if (archive->passwd != NULL)
 		g_free (archive->passwd);
-	
+
 	if (archive->working_dir != NULL)
 		g_free (archive->working_dir);
 
@@ -617,7 +617,7 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry, XArchive *archive)
 	{
 		if (entry->is_dir)
 			dummy = g_string_prepend_c(dummy,'/');
-		
+
 		dummy = g_string_prepend(dummy,entry->filename);
 		entry = entry->prev;
 	}
@@ -668,7 +668,7 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 
 	file = fopen (archive->path,"r");
 	fread (magic,1,4,file);
-	
+
 	fseek (file,6,SEEK_SET);
 	if (archive->type == XARCHIVETYPE_ZIP)
 	{

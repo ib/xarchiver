@@ -45,8 +45,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gchar *basepath = NULL;
 	gchar *current_dir = NULL;
 	gint current_page, response, type = 0;
-	gchar *format; 
-	
+	gchar *format;
+
 	unsigned short int x;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
@@ -292,7 +292,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		archive->type = type;
 		archive->format = format;
 		archive->can_add = archive->has_properties = TRUE;
-	
+
 		gtk_widget_destroy (xa_file_chooser);
 		archive->path = g_strdup (my_path);
 		archive->escaped_path = xa_escape_bad_chars (archive->path , "$\'`\"\\!?* ()&|@#:;");

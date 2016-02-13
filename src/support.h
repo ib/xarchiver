@@ -52,4 +52,3 @@
 GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size);
 
 #endif
-

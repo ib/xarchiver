@@ -1,4 +1,4 @@
-# Albanian translation of xarchiver package. 
+# Albanian translation of xarchiver package.
 # Copyright (C) 2006 THE xarchiver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the xarchiver package.
 # Besnik Bleta <besnik@programeshqip.org>, 2007.

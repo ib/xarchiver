@@ -181,7 +181,7 @@ void xa_zip_delete (XArchive *archive,GSList *names)
 	gchar *command = NULL;
 	GSList *list = NULL;
 	GString *files = g_string_new("");
-	
+
 	xa_zip_prepend_backslash(names,files);
 	command = g_strconcat ("zip -d ",archive->escaped_path," ",files->str,NULL);
 	g_string_free(files,TRUE);
@@ -268,12 +268,12 @@ void xa_zip_test (XArchive *archive)
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
  }
- 
+
  void xa_zip_prepend_backslash(GSList *names,GString *files)
  {
  	gchar *e_filename,*e_filename2 = NULL;
  	GSList *_names;
- 	
+
  	_names = names;
  	while (_names)
 	{

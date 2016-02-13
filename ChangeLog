@@ -76,7 +76,7 @@ Xarchiver changelog:
 		- Extracting files in encrypted archives with DnD no more fails since the password it's now asked.
 		- Better behaviour of the GUI while archive operations are in progress.
 		- Fixed unsuccessful open of rpm archives when the cpio archive was compressed with bzip2.c.
-		- Changed View Window title as the filename of the ASCII file whose content the user wants to see. 
+		- Changed View Window title as the filename of the ASCII file whose content the user wants to see.
 		- Added ability to convert archives to self-extracting.
 		- The archive properties dialog and the ISO info window can be closed by hitting ESC.
 		- Fixed bug preventing to add files by drag and drop when no archive has been created.
@@ -115,7 +115,7 @@ Xarchiver changelog:
 		- Fixed some memory leaks but surely someone is left :)
 		- Fixed bug causing filenames with spaces inside the archive not being viewed.
 		- Fixed bug causing filenames with spaces in arj archives appear truncated in Xarchiver window.
-		- Fixed a bug preventing the file dialog to select more than one file when adding to arj archives. 
+		- Fixed a bug preventing the file dialog to select more than one file when adding to arj archives.
 		- Fixed progress bar not appearing when adding only one big file to an archive.
 		- Fixed a bug causing Xarchiver to hang when opening empty zip archives.
 		- Fixed a bug causing Xarchiver to exit when opening a not supported archive directly from the command line.
@@ -137,7 +137,7 @@ Xarchiver changelog:
 		- The size columns are treated as uint instead as string so that sorting by size is possible now.
 		- The bottom window is now used for reporting messages to the user.
 		- Added a progress bar that shows the archive's operation progress.
-		- Greatly improved the zip password detection; if an archive contains 10 files and only the last one is password 
+		- Greatly improved the zip password detection; if an archive contains 10 files and only the last one is password
 		  protected Xarchiver will detect it (the same is true for arj).
 		- When you open or create a password protected archive a small padlock is shown in the window bottom right.
 		- Fixed an occasional crash when opening zip archives.

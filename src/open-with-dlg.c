@@ -29,7 +29,7 @@ static void xa_open_with_dialog_row_selected(GtkTreeView *,GtkTreePath *,GtkTree
 static void xa_destroy_open_with_dialog(GtkWidget *,Open_with_data *);
 static void xa_open_with_dialog_execute_command(GtkWidget *,Open_with_data *);
 static void xa_open_with_dialog_custom_entry_activated(GtkEditable *,Open_with_data *);
-		       
+
 void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 {
 	Open_with_data *data = NULL;
@@ -41,7 +41,7 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 	GdkPixbuf *pixbuf;
 	gchar *text = NULL;
 	gchar *title;
-	const gchar *icon_name = NULL;	
+	const gchar *icon_name = NULL;
 	const gchar* const *desktop_dirs;
 	gint x = 0;
 
@@ -77,7 +77,7 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 		g_object_unref(pixbuf);
 		gtk_box_pack_start (GTK_BOX (hbox1),mime_icon,FALSE,TRUE,0);
 		gtk_misc_set_alignment (GTK_MISC (mime_icon),0,0);
-	
+
 		open_text = gtk_label_new("");
 		gtk_box_pack_start (GTK_BOX (hbox1),open_text,FALSE,FALSE,10);
 		text = g_strdup_printf(_("Open <i>%s</i> with:"),filename);
@@ -164,7 +164,7 @@ static void xa_destroy_open_with_dialog(GtkWidget *widget,Open_with_data *data)
 {
 	g_free(data);
 }
-		       
+
 static void xa_read_desktop_directories(GtkListStore *liststore,const gchar *dirname)
 {
 	DIR *dir;
@@ -335,7 +335,7 @@ static void xa_open_with_dialog_row_selected(GtkTreeView *tree_view,GtkTreePath 
 
 static void xa_open_with_dialog_execute_command(GtkWidget *widget, Open_with_data *data)
 {
-	const char *application;	
+	const char *application;
 
 	application = gtk_entry_get_text(GTK_ENTRY(data->custom_command_entry));
 	xa_launch_external_program((gchar*)application,data->file_list);

@@ -47,7 +47,7 @@ void xa_open_lha (XArchive *archive)
 	archive->column_types = g_malloc0(sizeof(types));
 	for (i = 0; i < 8; i++)
 		archive->column_types[i] = types[i];
-		
+
 	char *names[]= {(_("Points to")),(_("Permissions")),(_("UID/GID")),(_("Size")),(_("Ratio")),(_("Timestamp"))};
 	xa_create_liststore (archive,names);
 }
@@ -117,8 +117,8 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 	filename = line + 51;
 
 	/* Symbolic link */
-	gchar *temp = g_strrstr (filename,"->"); 
-	if (temp) 
+	gchar *temp = g_strrstr (filename,"->");
+	if (temp)
 	{
 		gint len = strlen(filename) - strlen(temp);
 		item[0] = (filename +=3) + len;

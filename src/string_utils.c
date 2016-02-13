@@ -330,7 +330,7 @@ void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse,gint 
 			*list = g_slist_prepend(*list,basename);
 			return;
 		}
-	}	
+	}
 
 	while ((dirlist = readdir(dir)))
 	{

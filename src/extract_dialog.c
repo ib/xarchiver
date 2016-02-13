@@ -261,7 +261,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		flag = FALSE;
 	gtk_widget_set_sensitive(dialog_data->fresh,flag);
 	gtk_widget_set_sensitive(dialog_data->update,flag);
-	
+
 	if (archive->extraction_path == NULL)
 	{
 		archive_dir = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_extract_dir));
@@ -433,7 +433,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 
 	gtk_drag_dest_set (dialog_data->files_treeview,GTK_DEST_DEFAULT_ALL,drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
 	g_signal_connect (G_OBJECT (dialog_data->files_treeview),"drag-data-received",G_CALLBACK (xa_multi_extract_dialog_drag_data_received),dialog_data);
-	
+
 	hbox2 = gtk_hbox_new (TRUE,5);
 	gtk_box_pack_start (GTK_BOX (vbox1),hbox2,FALSE,TRUE,0);
 
@@ -503,7 +503,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->multi_extract),cancelbutton1,GTK_RESPONSE_CANCEL);
 	GTK_WIDGET_SET_FLAGS (cancelbutton1,GTK_CAN_DEFAULT);
-	
+
 	extract_button = gtk_button_new();
 	extract_image = xa_main_window_find_image("xarchiver-extract.png",GTK_ICON_SIZE_SMALL_TOOLBAR);
 	extract_hbox = gtk_hbox_new(FALSE,4);
@@ -578,7 +578,7 @@ void xa_add_files_liststore (gchar *file_path,Multi_extract_data *dialog)
 		return;
 
 	stat (file_path,&my_stat);
-	file_size = my_stat.st_size;	
+	file_size = my_stat.st_size;
 	file_utf8 = g_filename_display_name (file_path);
 	path = xa_remove_level_from_path(file_utf8);
 	_file_utf8 = xa_remove_path_from_archive_name(file_utf8);
@@ -682,7 +682,7 @@ void xa_select_where_to_extract(SexyIconEntry *entry, SexyIconEntryPosition icon
 
 	current_path = gtk_entry_get_text(GTK_ENTRY(entry));
 	if (strlen(current_path) > 0)
-		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (file_selector),current_path);	
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (file_selector),current_path);
 
 	response = gtk_dialog_run (GTK_DIALOG(file_selector));
 	if (response == GTK_RESPONSE_ACCEPT)
@@ -730,12 +730,12 @@ run:
 
 	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	double fraction = 1.0 / dialog->nr;
-	
+
 	if (pb != NULL)
 		gtk_widget_show_all(pb->progress_window);
 	else
 		pb = xa_create_progress_bar(FALSE,NULL);
-	
+
 	percent=fraction;
 	do
 	{

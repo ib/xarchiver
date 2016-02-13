@@ -52,13 +52,13 @@ void xa_open_rar (XArchive *archive)
 	archive->has_sfx = archive->has_properties = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
-    
+
     if (archive->type == XARCHIVETYPE_RAR5)
 		archive->format = "RAR5";
 	else
 		archive->format = "RAR";
 
-		
+
 	if (rar_version == 5)
 	{
 		archive->nc = 8;
@@ -70,7 +70,7 @@ void xa_open_rar (XArchive *archive)
 		archive->column_types = g_malloc0(sizeof(types5));
 		for (i = 0; i < archive->nc+2; i++)
 			archive->column_types[i] = types5[i];
-			
+
 		xa_create_liststore (archive, names5);
 	}
 	else
@@ -84,7 +84,7 @@ void xa_open_rar (XArchive *archive)
 		archive->column_types = g_malloc0(sizeof(types4));
 		for (i = 0; i < archive->nc+2; i++)
 			archive->column_types[i] = types4[i];
-			
+
 		xa_create_liststore (archive, names4);
 	}
 }
@@ -174,7 +174,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		archive->dummy_size += g_ascii_strtoull(item[i],NULL,0);
 		i++;
 		n++;
-		
+
 		/* Compressed */
 		for(; n < linesize && line[n] == ' '; n++);
 		a = n;
@@ -280,7 +280,7 @@ void xa_rar_delete (XArchive *archive,GSList *names)
 	}
 	g_slist_foreach(names,(GFunc)g_free,NULL);
 	g_slist_free(names);
-	
+
 	command = g_strconcat ("rar d ",archive->escaped_path," ",files->str,NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
@@ -312,7 +312,7 @@ gboolean xa_rar_extract(XArchive *archive,GSList *files)
 	}
 	g_slist_foreach(_files,(GFunc)g_free,NULL);
 	g_slist_free(_files);
-	
+
 	if (archive->passwd != NULL)
 		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
@@ -441,7 +441,7 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	archive->dummy_size += g_ascii_strtoull(item[i],NULL,0);
 	i++;
 	n++;
-	
+
 	/* Compressed */
 	for(; n < linesize && line[n] == ' '; n++);
 	a = n;
@@ -477,7 +477,7 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	item[i] = line + a;
 	i+=2;
 	n++;
-	
+
 	/* CRC */
 	for(; n < linesize && line[n] == ' '; n++);
 	a = n;
@@ -489,12 +489,12 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	line[linesize - 1] = '\0';
 	offset = (strlen(item[3]) == 10 ? 66 : 64);  // date is YYYY-MM-DD since v5.30
 	filename = g_strdup(line+offset);            // and was just DD-MM-YY before
-  
+
 	/* Strip trailing whitespace */
 	end = filename + strlen(filename) - 1;
 	while(end >= filename && *end == ' ') end--;
 	*(end + 1) = '\0';
-	
+
 	/* Work around for rar which doesn't
 	 * output / with directories */
 	if (dir)
@@ -515,11 +515,11 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
 	gchar *command, *rar_version = NULL;
-	
+
 
 	if (archive->location_entry_path != NULL)
 		archive->working_dir = g_strdup(archive->tmp);
-	
+
 	if (archive->type == XARCHIVETYPE_RAR5)
 		rar_version = "5";
 	else
@@ -527,7 +527,7 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 
 	if (compression_string == NULL)
 		compression_string = "3";
-		
+
 	if (archive->passwd != NULL)
 		command = g_strconcat ( "rar a -ma", rar_version, " ",
 									archive->update ? "-u " : "",
@@ -563,13 +563,13 @@ int xa_rar_checkversion (gchar *absolute_path)
 	gchar *output = NULL;
 
 	rar_version = 4;  // Default version
-	
+
 	//command = g_strconcat (absolute_path, "" , NULL);
 	g_spawn_command_line_sync (absolute_path, &output, NULL, NULL, NULL);
-	
+
 	if (g_ascii_strncasecmp ("\nRAR 5", output, 6) == 0 || g_ascii_strncasecmp ("\nUNRAR 5", output, 8) == 0)
 			rar_version = 5;
-	
+
 	g_free(output);
 	//g_free(command);
 	return rar_version;

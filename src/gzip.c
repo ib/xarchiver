@@ -40,7 +40,7 @@ void xa_open_gzip (XArchive *archive)
 		archive->extract = 	extract[archive->type];
 
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
-		archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;	
+		archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 		archive->has_sfx = FALSE;
 		archive->dummy_size = 0;
 		archive->nr_of_files = 0;
@@ -77,7 +77,7 @@ void xa_open_gzip (XArchive *archive)
 
 		char *names[]= {(_("Compressed")),(_("Size")),(_("Ratio"))};
 		xa_create_liststore (archive,names);
-		
+
 		command = g_strconcat ("gzip -l ",archive->escaped_path,NULL);
 		xa_spawn_async_process (archive,command);
 		g_free (command);
@@ -124,10 +124,10 @@ void xa_get_gzip_line_content (gchar *line, gpointer data)
 	line[n] = '\0';
 	item[2] = line + a;
 	n++;
-	
+
 	line[linesize-1] = '\0';
 	filename = line+n;
-	
+
 	basename = g_path_get_basename(filename);
 	if (basename == NULL)
 		basename = g_strdup(filename);
