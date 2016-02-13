@@ -1,24 +1,21 @@
-# List of source files containing translatable strings.
-
 src/7zip.c
 src/add_dialog.c
 src/archive.c
 src/arj.c
 src/bzip2.c
-src/window.c
 src/deb.c
 src/extract_dialog.c
 src/gzip.c
-src/lha.c
 src/interface.c
+src/lha.c
 src/main.c
-src/open-with-dlg.c
 src/new_dialog.c
+src/open-with-dlg.c
 src/pref_dialog.c
 src/rar.c
 src/rpm.c
 src/tar.c
+src/window.c
 src/zip.c
 
-# files added by intltool-prepare.
 xarchiver.desktop.in
