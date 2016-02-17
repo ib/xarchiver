@@ -2,10 +2,9 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
         "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
 <!ENTITY app "Xarchiver">
-<!ENTITY app_small "xarchiver">
-<!ENTITY appversion "0.5">
-<!ENTITY appurl "http://wiki.github.com/ib/xarchiver">
-<!ENTITY author_mail "colossus73@gmail.com">
+<!ENTITY applower "xarchiver">
+<!ENTITY appversion "0.5.4">
+<!ENTITY appurl "https://github.com/ib/xarchiver/releases">
 <!ENTITY date "September 29, 2006">
 ]>
 
@@ -14,10 +13,10 @@
 		<author>
 			<firstname>Giuseppe</firstname>
 			<surname>Torelli</surname>
-			<address><email>&author_mail;</email></address>
+			<address><email>colossus73@gmail.com</email></address>
 		</author>
 		<copyright>
-			<year>2005-2008</year>
+			<year>2005&ndash;2008</year>
 		</copyright>
 		<legalnotice id="legalnotice">
 			<para>
@@ -37,30 +36,30 @@
 			Introduction
 		</title>
 		<section id="intro_about">
-			<title>About Xarchiver</title>
+			<title>About &app;</title>
 			<para>
-				<application>&app;</application> is a small and lightweight archive manager.
+				&app; is a small and lightweight archive manager.
 				I developed it to manage archives without depending from a special Desktop Environment
-				like KDE or GNOME, so <application>&app;</application> requires only the GTK+2 toolkit
+				like KDE or GNOME, so &app; requires only the GTK+2 toolkit
 				to work. The package <emphasis>xdg-utils</emphasis> is optional.
 			</para>
 			<para>
-				<application>&app;</application> presents the following characteristic:
+				&app; presents the following characteristic:
 				<itemizedlist>
 					<listitem>Archive directories can be browsed just like a file manager</listitem>
 					<listitem>Mime icon for each of the archive entries</listitem>
-					<listitem>The most used archiver cmd-line options are supported in the Add and Extract dialogs</listitem>
+					<listitem>The most used archiver's command line options are supported in the Add and Extract dialogs</listitem>
 					<listitem>Tabs Firefox style support</listitem>
 					<listitem>Multi-extract facility</listitem>
 					<listitem>Dump of the whole archive content as HTML or text file</listitem>
 					<listitem>Context menu on each of the archive entries with cut/copy/paste/rename abilities</listitem>
 					<listitem>Archives are detected by their magic header and not by the extension except for .tar.bz2 and .tar.gz</listitem>
 					<listitem>Drag and drop from and to &app; window</listitem>
-					<listitem>Progress window when using &app; from the cmd-line or from a file-manager</listitem>
+					<listitem>Progress window when using &app; from the command line or from a file-manager</listitem>
 					<listitem>ARJ, RAR and ZIP archive comment are supported</listitem>
 					<listitem>Ability to convert the archive to self-extracting for those archive types which support it</listitem>
 					<listitem>Smart detection of arj, zip and rar password encrypted archives</listitem>
-					<listitem>All the the output of the cmd-line archiver is displayed in the &app; window</listitem>
+					<listitem>All the the output of the command line archiver is displayed in the &app; window</listitem>
 					<listitem>All common formats are supported: arj, bzip2, gzip, lha, lzma, 7z, rar, tar, tar.bz2, tar.gz, tar.lzma, tar.lzop, zip, deb and rpm packages (open and extract only)</listitem>
 					<listitem>Deb and Rpm packages are handled internally, their package managers are NOT required.</listitem>
 					<listitem>Zip, rar, arj and 7z password encrypted archives are fully supported (7z automatic password detection is not supported)</listitem>
@@ -70,14 +69,14 @@
 		<section id="intro_where">
 			<title>Where to get it</title>
 			<para>
-				You can obtain <application>&app;</application> from <ulink url="&appurl;">&appurl;</ulink>
+				You can obtain &app; from <ulink url="&appurl;">&appurl;</ulink>
 				or perhaps from your distributor.
 			</para>
 		</section>
 		<section id="intro_license">
 			<title>License</title>
 			<para>
-				<application>&app;</application> is distributed under the terms of the GNU General Public License as published
+				&app; is distributed under the terms of the GNU General Public License as published
 				by the Free	Software Foundation; either version 2 of the License, or (at your option) any later version.
 				A copy of this license can be found in the file COPYING included with the source code of this
 				program.
@@ -92,7 +91,7 @@
 		<section id="inst_requirements">
 			<title>Requirements</title>
 			<para>
-				For compiling <application>&app;</application> yourself, you will need the GTK (>= 2.10.0)
+				For compiling &app; yourself, you will need the GTK (>= 2.10.0)
 				libraries and header files. You will also need the Pango, Glib and ATK libraries and header files.
 				All these files are available at <ulink url="http://www.gtk.org">http://www.gtk.org</ulink>.
 			</para>
@@ -100,16 +99,16 @@
 		<section id="inst_source_compilation">
 			<title>Source compilation</title>
 			<para>
-				Compiling <application>&app;</application> is quite easy. The following should do it:
+				Compiling &app; is quite easy. The following should do it:
 				<screen>
-					<prompt>%</prompt> <userinput><command>./configure --prefix=/usr</command></userinput>
-					<prompt>%</prompt> <userinput><command>make</command></userinput>
-					<prompt>%</prompt> <userinput><command>make</command> install</userinput></screen>
+					<prompt>$</prompt> <userinput><command>./configure</command> [--prefix=/usr]</userinput>
+					<prompt>$</prompt> <userinput><command>make</command></userinput>
+					<prompt>#</prompt> <userinput><command>make</command> install</userinput></screen>
 			</para>
 			<para>
-				The configure script supports several common options, for a detailed list, type
+				The configure script supports several common options, for a detailed list, type:
 				<screen>
-					<prompt>%</prompt> <userinput><command>./configure</command> --help</userinput></screen>
+					<userinput><command>./configure</command> --help</userinput></screen>
 			</para>
 		</section>
 	</chapter>
@@ -118,7 +117,7 @@
 		<section id="usage_getting_started">
 			<title>Getting started</title>
 			<para>
-				You can start <application>&app;</application> in the following ways:
+				You can start &app; in the following ways:
 				<itemizedlist>
 						<listitem>
 						<para>
@@ -137,11 +136,10 @@
 							From the command line
 						</para>
 						<para>
-							To start <application>&app;</application> from a command line, type the following
-							and press <keycap>Return</keycap>:
+							To start &app; from a command line, type the following
+							and press <keycap>Enter/Return</keycap>:
 							<screen>
-								<userinput><command>&app_small;</command></userinput>
-							</screen>
+								<userinput><command>&applower;</command></userinput></screen>
 						</para>
 					</listitem>
 				</itemizedlist>
@@ -151,7 +149,7 @@
 			<title>Command line options</title>
 			<para>
 				<table id="table_options" frame="all">
-					<title>Command line Options</title>
+					<title>Command line options</title>
 					<tgroup cols="3">
 						<?dbhtml cellpadding="4" ?>
 						<?dbhtml cellspacing="0" ?>
@@ -211,13 +209,13 @@
 			<section id="general_startup">
 				<title>Startup</title>
 				<para>
-					At startup, &app; detects the available installed archivers (tar,rar,zip etc) and the script <emphasis>xdg-open</emphasis> for handling different file types. Since &app; is a frontend (a graphic user interface to the cmd-line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, &app; can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
+					At startup, &app; detects the available installed archivers (tar,rar,zip etc) and the script <emphasis>xdg-open</emphasis> for handling different file types. Since &app; is a frontend (a graphic user interface to the command line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, &app; can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
 				</para>
 			</section>
 			<section id="how_it_works">
 				<title>How it works</title>
 				<para>
-					&app; will run in the background the cmd-line executable of the archiver with the archiver's proper switches to perform the selected operation. If something goes wrong &app; reports the full output of the archiver executable in the command line output window. From the release 0.5 the files in the archive can be opened within &app;. The script <emphasis>xdg-open</emphasis> will detect the file type and run the proper application to handle it. If you don't have such script installed in your system (it's found in the xdg-utils package) &app; will recognize HTML, txt and images files only. The Preferences dialog will notify this to you when you click the Advanced section inside it.
+					&app; will run in the background the command line executable of the archiver with the archiver's proper switches to perform the selected operation. If something goes wrong &app; reports the full output of the archiver executable in the command line output window. Starting with release 0.5 the files in the archive can be opened within &app;. The script <emphasis>xdg-open</emphasis> will detect the file type and run the proper application to handle it. If you don't have such script installed in your system (it's found in the xdg-utils package) &app; will recognize HTML, txt and images files only. The Preferences dialog will notify this to you when you click the Advanced section inside it.
 				</para>
 			</section>
 			<section id="dnd">
@@ -228,7 +226,7 @@
 			</section>
 		</section>
 		<section id="usage_menu">
-			<title>Xarchiver menu</title>
+			<title>&app; menu</title>
 			<section id="file_menu">
 				<title>File menu</title>
 				<section id="new">
@@ -249,9 +247,7 @@
 					<title>Open</title>
 						<para>
 							Opens a new archive. If you force &app; to open an unsupported archive
-							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also. The password detection doesn't work for 7zip archives because of the complexity of 7zip format. Please see <ulink url="http://sourceforge.net/forum/forum.php?thread_id=1378003&amp;forum_id=383044">
-				<citetitle>this thread on sf.net</citetitle>
-				</ulink>for more information.
+							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also. The password detection doesn't work for 7zip archives because of the complexity of 7zip format.
 						</para>
 				</section>
 				<section id="list_as">
@@ -303,7 +299,7 @@
 				<section id="add">
 					<title>Add</title>
 						<para>
-							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is disabled when the archive doesn't support encryption.
+							Shows the add dialog featuring the most used archiver command line options. The password entry is disabled when the archive doesn't support encryption.
 						</para>
 						<para>
 							<figure id="add_dialog">
@@ -315,7 +311,7 @@
 				<section id="extract">
 					<title>Extract</title>
 						<para>
-							Shows the extract dialog featuring the most used archiver cmd-line options. The password entry is disabled when the current archive is not encrypted; instead if the archive is encrypted and you don't fill this field, &app; will request you the password to extract the archive.
+							Shows the extract dialog featuring the most used archiver command line options. The password entry is disabled when the current archive is not encrypted; instead if the archive is encrypted and you don't fill this field, &app; will request you the password to extract the archive.
 						</para>
 						<para>
 							<figure id="extract_dialog">
@@ -385,7 +381,7 @@
 						</para>
 				</section>
 				<section id="cmd_line_output">
-					<title>Cmd-line output</title>
+					<title>Command line output</title>
 						<para>
 							Opens a window containing the last archiver output.
 						</para>
@@ -405,7 +401,7 @@
 				<section id="preferences">
 						<title>Preferences</title>
 							<para>
-							Open the preferences dialog where you can set several options. All the options are saved to ~/.config/xarchiver/xarchiverrc when pressing the Ok button.
+							Open the preferences dialog where you can set several options. All the options are saved to ~/.config/&applower;/&applower;rc when pressing the Ok button.
 							</para>
 							<para>
 							<figure id="preferences_dialog">
@@ -429,12 +425,12 @@
 					</section>
 			</section>
 		</section>
-	</chapter> <!-- It closes the opening one at line 117 -->
+	</chapter>
 	<chapter id="faq">
 		<title>FAQ</title>
 		<section id="faq_1">
 			<title>Why are ace archives not supported?</title>
-			<para>Because on some strange reasons there is no support on Linux for creating archives, only extraction with unace. When they will develop full support for ace archives I will add it to Xarchiver.
+			<para>Because on some strange reasons there is no support on Linux for creating archives, only extraction with unace. When they will develop full support for ace archives I will add it to &app;.
 			</para>
 		</section>
 		<section id="faq_2">
@@ -444,8 +440,8 @@ enter your password. From now on all the files you add to the archive will be pa
 			</para>
 		</section>
 		<section id="faq_3">
-			<title>Why does Xarchiver emit this error message when handling tar archives?</title>
-			<para>Xarchiver is only a frontend which runs the archiver and reports ITS error messages. Most probably you are opening an archive produced with older versions of tar than the one you are currently using or the archive is corrupted.
+			<title>Why does &app; emit this error message when handling tar archives?</title>
+			<para>&app; is only a frontend which runs the archiver and reports ITS error messages. Most probably you are opening an archive produced with older versions of tar than the one you are currently using or the archive is corrupted.
 			</para>
 		</section>
 		<section id="faq_4">
@@ -454,12 +450,12 @@ enter your password. From now on all the files you add to the archive will be pa
 			</para>
 		</section>
 		<section id="faq_5">
-			<title>Why does Xarchiver sometimes report errors but the Error messages window is empty?</title>
-			<para>Please remember, that Xarchiver is only a frontend. It correctly reads any output from STDOUT or STDERR. Most probably the archiver didn't write anything to those channels even though it exists with an error code.
+			<title>Why does &app; sometimes report errors but the Error messages window is empty?</title>
+			<para>Please remember, that &app; is only a frontend. It correctly reads any output from STDOUT or STDERR. Most probably the archiver didn't write anything to those channels even though it exists with an error code.
 			</para>
 		</section>
 		<section id="faq_6">
-			<title>Why Xarchiver doesn't allow me to choose the archive self-extracting path as it happens with zip and 7z?</title>
+			<title>Why &app; doesn't allow me to choose the archive self-extracting path as it happens with zip and 7z?</title>
 			<para>Because rar and arj executable do not allow to do so. Zip and 7z convertion to self-extracting is made by appending an sfx module to the archive so it's possible to choose a different path.
 			</para>
 		</section>
