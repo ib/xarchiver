@@ -1,16 +1,3 @@
-body address
-{
-  line-height: 1.3;
-  margin: .6em 0;
-}
-
-body blockquote
-{
-  margin-top: .75em;
-  line-height: 1.5;
-  margin-bottom: .75em;
-}
-
 html body
 {
   margin: 1em 2% 1em 2%;
@@ -26,9 +13,20 @@ body pre
   font-weight: bold;
 }
 
+pre .prompt
+{
+  color: gray;
+  font-family: monospaced;
+}
+
 body div
 {
   margin: 0;
+}
+
+h1
+{
+  font-size: 1.5em;
 }
 
 dl
@@ -42,25 +40,9 @@ dl
   font-size: small;
 }
 
-h1,h2,h3,h4,h5,h6,
-div.example p b,
-.question,
-div.table p b,
-div.procedure p b
+h1, h2, h3, h4, h5, h6
 {
   color: #990000;
-}
-
-.option
-{
-  color: #0000ca;
-  font-weight: bold;
-}
-
-.parameter
-{
-  color: #007a00;
-  font-weight: bold;
 }
 
 a
@@ -86,7 +68,7 @@ li
   list-style-type: square;
 }
 
-.programlisting, .screen
+.screen
 {
   background-color: #F8F9FD;
   border-color: #907777;
