@@ -9,7 +9,7 @@
 <!ENTITY date "September 29, 2006">
 ]>
 
-<book lang="en">
+<book lang="en" id="xarchiver">
 	<bookinfo>
 		<author>
 			<firstname>Giuseppe</firstname>
@@ -17,9 +17,9 @@
 			<address><email>&author_mail;</email></address>
 		</author>
 		<copyright>
-			<year>2006</year>
+			<year>2005-2008</year>
 		</copyright>
-		<legalnotice>
+		<legalnotice id="legalnotice">
 			<para>
 				This document is distributed under the terms of the GNU General Public License as published by the Free
 				Software Foundation; either version 2 of the License, or (at your option) any later version.
@@ -36,39 +36,45 @@
 		<title>
 			Introduction
 		</title>
-		<section>
+		<section id="intro_about">
 			<title>About Xarchiver</title>
 			<para>
 				<application>&app;</application> is a small and lightweight archive manager.
 				I developed it to manage archives without depending from a special Desktop Environment
 				like KDE or GNOME, so <application>&app;</application> requires only the GTK+2 toolkit
-				to work.
+				to work. The package <emphasis>xdg-utils</emphasis> is optional.
 			</para>
 			<para>
-				<application>&app;</application> has these features:
+				<application>&app;</application> presents the following characteristic:
 				<itemizedlist>
-					<listitem><para>The most used archiver cmd-line options are supported in the Add and Extract dialog</para></listitem>
-					<listitem><para>Archives are detected by their magic header and not by the extension except for .tar.bz2 and .tar.gz</para></listitem>
-					<listitem><para>Drag and drop from and to Xarchiver window is supported with XDS protocol</para></listitem>
-					<listitem><para>ZIP and ARJ archive comment are supported. RAR comment is not yet supported because it's compressed inside the archive itself</para></listitem>
-					<listitem><para>Tabs Firefox style support</para></listitem>
-					<listitem><para>Ability to convert the archive to self-extracting for those archive types which support it</para></listitem>
-					<listitem><para>Smart detection of arj, zip and rar password encrypted archives</para></listitem>
-					<listitem><para>All the the output of the cmd-line archiver is displayed in the Xarchiver window</para></listitem>
-					<listitem><para>All common formats are supported: arj, bzip2, lha, gzip, 7z, rar, tar, tar.bz2, tar.gz, zip, DEB and RPM (only open,view and extract)</para></listitem>
-					<listitem><para>Support of RPM files without RPM executable. This is useful on not RPM-based distributions like Slackware and Arch Linux</para></listitem>
-					<listitem><para>Zip, rar, arj and 7z password encrypted archives are fully supported (7z automatic password detection is not supported)</para></listitem>
+					<listitem>Archive directories can be browsed just like a file manager</listitem>
+					<listitem>Mime icon for each of the archive entries</listitem>
+					<listitem>The most used archiver cmd-line options are supported in the Add and Extract dialogs</listitem>
+					<listitem>Tabs Firefox style support</listitem>
+					<listitem>Multi-extract facility</listitem>
+					<listitem>Dump of the whole archive content as HTML or text file</listitem>
+					<listitem>Context menu on each of the archive entries with cut/copy/paste/rename abilities</listitem>
+					<listitem>Archives are detected by their magic header and not by the extension except for .tar.bz2 and .tar.gz</listitem>
+					<listitem>Drag and drop from and to &app; window</listitem>
+					<listitem>Progress window when using &app; from the cmd-line or from a file-manager</listitem>
+					<listitem>ARJ, RAR and ZIP archive comment are supported</listitem>
+					<listitem>Ability to convert the archive to self-extracting for those archive types which support it</listitem>
+					<listitem>Smart detection of arj, zip and rar password encrypted archives</listitem>
+					<listitem>All the the output of the cmd-line archiver is displayed in the &app; window</listitem>
+					<listitem>All common formats are supported: arj, bzip2, gzip, lha, lzma, 7z, rar, tar, tar.bz2, tar.gz, tar.lzma, tar.lzop, zip, deb and rpm packages (open and extract only)</listitem>
+					<listitem>Deb and Rpm packages are handled internally, their package managers are NOT required.</listitem>
+					<listitem>Zip, rar, arj and 7z password encrypted archives are fully supported (7z automatic password detection is not supported)</listitem>
 				</itemizedlist>
 			</para>
 		</section>
-		<section>
+		<section id="intro_where">
 			<title>Where to get it</title>
 			<para>
 				You can obtain <application>&app;</application> from <ulink url="&appurl;">&appurl;</ulink>
 				or perhaps from your distributor.
 			</para>
 		</section>
-		<section>
+		<section id="intro_license">
 			<title>License</title>
 			<para>
 				<application>&app;</application> is distributed under the terms of the GNU General Public License as published
@@ -83,15 +89,15 @@
 		<title>
 			Installation
 		</title>
-		<section>
+		<section id="inst_requirements">
 			<title>Requirements</title>
 			<para>
-				For compiling <application>&app;</application> yourself, you will need the GTK (>= 2.6.0)
+				For compiling <application>&app;</application> yourself, you will need the GTK (>= 2.10.0)
 				libraries and header files. You will also need the Pango, Glib and ATK libraries and header files.
 				All these files are available at <ulink url="http://www.gtk.org">http://www.gtk.org</ulink>.
 			</para>
 		</section>
-		<section id="source_compilation">
+		<section id="inst_source_compilation">
 			<title>Source compilation</title>
 			<para>
 				Compiling <application>&app;</application> is quite easy. The following should do it:
@@ -105,15 +111,11 @@
 				<screen>
 					<prompt>%</prompt> <userinput><command>./configure</command> --help</userinput></screen>
 			</para>
-			<para>
-				If there are any errors during compilation, check your build environment and try to find the error,
-				otherwise contact the author at <email>&author_mail;</email>.
-			</para>
 		</section>
 	</chapter>
 	<chapter id="usage">
 		<title>Usage</title>
-		<section id="getting_started">
+		<section id="usage_getting_started">
 			<title>Getting started</title>
 			<para>
 				You can start <application>&app;</application> in the following ways:
@@ -145,10 +147,10 @@
 				</itemizedlist>
 			</para>
 		</section>
-		<section id="clo">
+		<section id="usage_options">
 			<title>Command line options</title>
 			<para>
-				<table frame="all">
+				<table id="table_options" frame="all">
 					<title>Command line Options</title>
 					<tgroup cols="3">
 						<?dbhtml cellpadding="4" ?>
@@ -177,6 +179,11 @@
 								</entry>
 							</row>
 							<row>
+								<entry>-m file1 file2 file3 ... fileN</entry>
+								<entry>--multi-extract=file1 file2 file3 ... fileN</entry>
+								<entry>Open the Multi-Extract dialog to extract the given files. Shell wildcards such as * are allowed.</entry>
+							</row>
+							<row>
 								<entry>-d file1 file2 file3 ... fileN</entry>
 								<entry>--add-to=file1 file2 file3 ... fileN</entry>
 								<entry>Add the given files by asking the name of the archive and quits. If archive doesn't exist it is created. The filenames must be separated by spaces.
@@ -196,33 +203,31 @@
 						</tbody>
 					</tgroup>
 				</table>
-				&app; supports all generic GTK options, a list is available on the help screen.
+				&app; supports also all generic GTK options, a list is available on the help screen.
 			</para>
 		</section>
-		<section id="general">
+		<section id="usage_general">
 			<title>General</title>
 			<section id="general_startup">
 				<title>Startup</title>
 				<para>
-					At startup, &app; detects the available installed archivers (tar,rar,zip etc). Since Xarchiver is a frontend (a graphic user interface to the cmd-line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, Xarchiver can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
+					At startup, &app; detects the available installed archivers (tar,rar,zip etc) and the script <emphasis>xdg-open</emphasis> for handling different file types. Since &app; is a frontend (a graphic user interface to the cmd-line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, &app; can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
 				</para>
 			</section>
 			<section id="how_it_works">
 				<title>How it works</title>
 				<para>
-					Xarchiver will run in the background the cmd-line executable of the archiver with the archiver's proper switches to perform the selected operation. If something goes wrong Xarchiver reports the full output of the archiver executable in the command line output window.
+					&app; will run in the background the cmd-line executable of the archiver with the archiver's proper switches to perform the selected operation. If something goes wrong &app; reports the full output of the archiver executable in the command line output window. From the release 0.5 the files in the archive can be opened within &app;. The script <emphasis>xdg-open</emphasis> will detect the file type and run the proper application to handle it. If you don't have such script installed in your system (it's found in the xdg-utils package) &app; will recognize HTML, txt and images files only. The Preferences dialog will notify this to you when you click the Advanced section inside it.
 				</para>
 			</section>
 			<section id="dnd">
 				<title>Drag and Drop</title>
 				<para>
-					Xarchiver supports drag and drop through the <ulink url="http://freedesktop.org/wiki/Standards_2fdirect_2dsave">
-				<citetitle>XDS protocol</citetitle></ulink>. Currently only <ulink url="http://thunar.xfce.org/index.html">
-				<citetitle>Thunar</citetitle></ulink> file manager supports it. Files and directories can dragged from Thunar window to Xarchiver and vice versa. If its window is empty (no archives open) Xarchiver will prompt the user with the <xref linkend="new_dialog"/> asking for the filename and the archive type to be created; after which the dragged files will be added. If the dragged file is a supported archive Xarchiver will open it instead of prompting the new dialog.
+					&app; supports drag and drop through the <ulink url="http://freedesktop.org/wiki/Specifications/XDS?action=show&amp;redirect=Standards%2FXDS"><citetitle>XDS protocol</citetitle></ulink>. As far as I know only Thunar and Nautilus file managers supports it. Files and directories can be dragged from such file manager's windows to &app; and vice versa. If its window is empty (no archives open) &app; will prompt the user with the <xref linkend="new_dialog"/> asking for the filename and the archive type to be created; after which the dragged files will be added. If the dragged file is a supported archive, &app; will open it instead of prompting the new dialog.
 				</para>
 			</section>
 		</section>
-		<section id="menu">
+		<section id="usage_menu">
 			<title>Xarchiver menu</title>
 			<section id="file_menu">
 				<title>File menu</title>
@@ -244,9 +249,21 @@
 					<title>Open</title>
 						<para>
 							Opens a new archive. If you force &app; to open an unsupported archive
-							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also. The password detection is done by looking for the password flag inside the archive structure except for rar ones since encrypted files in rar archives have an asterisk right before their filename. 7zip encrypted archives are not detected due to the complexity of 7zip format. Please see <ulink url="http://sourceforge.net/forum/forum.php?thread_id=1378003&amp;forum_id=383044">
+							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also. The password detection doesn't work for 7zip archives because of the complexity of 7zip format. Please see <ulink url="http://sourceforge.net/forum/forum.php?thread_id=1378003&amp;forum_id=383044">
 				<citetitle>this thread on sf.net</citetitle>
 				</ulink>for more information.
+						</para>
+				</section>
+				<section id="list_as">
+					<title>List as</title>
+						<para>
+							This facility allow you to dump the content of the whole archive as .txt or .html format.
+						</para>
+				</section>
+				<section id="save_as">
+					<title>Save as</title>
+						<para>
+							Save the current archive in a different location. This is useful when you open an archive from the Web browser and you want to save it to a different location from /tmp.
 						</para>
 				</section>
 				<section id="test">
@@ -262,7 +279,7 @@
 							Shows an archive dialog with useful info about the archive.
 						</para>
 						<para>
-							<figure>
+							<figure id="archive_properties_dialog">
 								<title>Archive properties dialog</title>
 									<graphic fileref="images/archive_properties.png"></graphic>
 							</figure>
@@ -286,10 +303,10 @@
 				<section id="add">
 					<title>Add</title>
 						<para>
-							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is disabled when the archive doesn't support encryption. Files and directories can be also added by dragging and dropping them from any file managers.
+							Shows the add dialog featuring the most used archiver cmd-line options. The password entry is disabled when the archive doesn't support encryption.
 						</para>
 						<para>
-							<figure>
+							<figure id="add_dialog">
 								<title>Add dialog</title>
 									<graphic fileref="images/add_dialog.png"></graphic>
 							</figure>
@@ -301,7 +318,7 @@
 							Shows the extract dialog featuring the most used archiver cmd-line options. The password entry is disabled when the current archive is not encrypted; instead if the archive is encrypted and you don't fill this field, &app; will request you the password to extract the archive.
 						</para>
 						<para>
-							<figure>
+							<figure id="extract_dialog">
 								<title>Extract dialog</title>
 									<graphic fileref="images/extract_dialog.png"></graphic>
 							</figure>
@@ -313,56 +330,85 @@
 							Delete the selected files from the archive. A warning dialog will be shown.
 						</para>
 				</section>
-				<section id="view">
-					<title>View</title>
+				<section id="rename">
+					<title>Rename</title>
 						<para>
-							Opens a window containing the ASCII dump of the selected ASCII file. If a file in the archive is encoded with a different enconding than in use by the system you will get an error message. See the <xref linkend="sixth"/> for a possible solution.
+							Allows to rename the current selected file. Renaming directories is not allowed.
 						</para>
 				</section>
-				<section id="sfx">
+				<section id="make_sfx">
 					<title>Make SFX</title>
 						<para>
 							Convert the current archive to self-extracting. This option is disabled when the current archive doesn't support this feature (e.g. tar archives). After converting an archive to self-extracting this option will be disabled.
-
 						</para>
 				</section>
-				<section id="comment">
-					<title>Show Comment</title>
+				<section id="multi_extract">
+					<title>Multi-Extract</title>
 						<para>
-							If the current archive contains a comment this menu entry opens a window showing it.
+							Open the Multi-Extract dialog allowing you to extract archives in one shot by loading them in the window. You can choose to extract them in a specific directory or to extract each of them in a directory named with the archive name itself.
+						</para>
+						<para>
+							<figure id="multi_extract_dialog">
+								<title>Multi-Extract dialog</title>
+									<graphic fileref="images/multi_extract_dialog.png"></graphic>
+							</figure>
 						</para>
 				</section>
-				<section id="select">
+				<section id="archive_comment">
+					<title>Archive comment</title>
+						<para>
+							Opens the Archive comment dialog. Here you can modify, load from a file or delete the archive comment.
+						</para>
+						<para>
+							<figure id="archive_comment_dialog">
+								<title>Archive comment dialog</title>
+									<graphic fileref="images/archive_comment_dialog.png"></graphic>
+							</figure>
+						</para>
+				</section>
+				<section id="select_all">
 					<title>Select all</title>
 						<para>
-							Select all the files in the window.
+							Select all the entries in the window.
 						</para>
 				</section>
-				<section id="deselect">
+				<section id="deselect_all">
 					<title>Deselect all</title>
 						<para>
-							Deselect all the files in the window.
+							Deselect all the entries in the window.
 						</para>
 				</section>
-				<section id="output_window">
-					<title>Command line output</title>
+				<section id="select_by_pattern">
+					<title>Select by pattern</title>
+						<para>
+							Pops up the Select by Pattern dialog. Shell wildcards like * and ? are supported.
+						</para>
+				</section>
+				<section id="cmd_line_output">
+					<title>Cmd-line output</title>
 						<para>
 							Opens a window containing the last archiver output.
 						</para>
 				</section>
-				<section id="reset_password">
-						<title>Reset password</title>
-							<para>
-							Clears the current password. The result of the operation is shown in the status bar. This option is useful when extracting files using Drag and Drop, allowing the user to choose another password if he entered it incorrectly.
-							</para>
+				<section id="enter_password">
+					<title>Enter password</title>
+						<para>
+							Pops up the Password dialog. This facility was introduced because of 7zip archives. If you notice that &app; freezes while extracting from such archives you can try to enter the password by means of this dialog before extracting them.
+						</para>
+						<para>
+							<figure id="password_dialog">
+								<title>Password dialog</title>
+									<graphic fileref="images/password_dialog.png"></graphic>
+							</figure>
+						</para>
 				</section>
-				<section id="prefs">
+				<section id="preferences">
 						<title>Preferences</title>
 							<para>
-							Open the preferences dialog where you can set several options. All the options are automatically saved to ~/.config/xarchiver/xarchiverrc when pressing the Ok button.
+							Open the preferences dialog where you can set several options. All the options are saved to ~/.config/xarchiver/xarchiverrc when pressing the Ok button.
 							</para>
 							<para>
-							<figure id="pref_dialog">
+							<figure id="preferences_dialog">
 								<title>Preferences dialog</title>
 									<graphic fileref="images/pref_dialog.png"></graphic>
 							</figure>
@@ -374,11 +420,10 @@
 					<section id="help">
 						<title>Help</title>
 							<para>
-								Show this documentation in system installed browser.
-								Currently firefox, opera and mozilla are supported.
+								Show this documentation in system installed Web browser.
 							</para>
 					</section>
-					<section id="about">
+					<section id="about_menu">
 						<title>About</title>
 							<para>Shows the credit dialog with the contributors to &app;</para>
 					</section>
@@ -387,45 +432,33 @@
 	</chapter> <!-- It closes the opening one at line 117 -->
 	<chapter id="faq">
 		<title>FAQ</title>
-		<section id="first">
+		<section id="faq_1">
 			<title>Why are ace archives not supported?</title>
 			<para>Because on some strange reasons there is no support on Linux for creating archives, only extraction with unace. When they will develop full support for ace archives I will add it to Xarchiver.
 			</para>
 		</section>
-		<section id="second">
+		<section id="faq_2">
 			<title>How can I create an archive with some files password protected and others not?</title>
 			<para>First of all choose 'New' and select one of arj, 7zip, rar or zip archive formats and choose 'Add' from the Action menu. Do NOT check "Password" in the Add dialog. Add your files and then reopen the Add dialog again but this time check "Password" and
 enter your password. From now on all the files you add to the archive will be password protected.
 			</para>
 		</section>
-		<section id="third">
+		<section id="faq_3">
 			<title>Why does Xarchiver emit this error message when handling tar archives?</title>
 			<para>Xarchiver is only a frontend which runs the archiver and reports ITS error messages. Most probably you are opening an archive produced with older versions of tar than the one you are currently using or the archive is corrupted.
 			</para>
 		</section>
-		<section id="fourth">
+		<section id="faq_4">
 			<title>Why is the option "Extract with full path" disabled when using the -e switch with tar archives?</title>
 			<para>Because GNU tar does not provide a full way to extract files without the directories in which they are contained as the other archivers do. Extraction without path when using the GUI is perfomed with a trick which is not available when using the -e switch from the command line.
 			</para>
 		</section>
-		<section id="fifth">
+		<section id="faq_5">
 			<title>Why does Xarchiver sometimes report errors but the Error messages window is empty?</title>
 			<para>Please remember, that Xarchiver is only a frontend. It correctly reads any output from STDOUT or STDERR. Most probably the archiver didn't write anything to those channels even though it exists with an error code.
 			</para>
 		</section>
-		<section id="sixth">
-			<title>What is the meaning of this error message?</title>
-			<para>
-				<screen><userinput><command>Invalid byte sequence in conversion input</command></userinput></screen>
-				The file you are trying to display is encoded with a different encoding than the locale one and the conversion to <ulink url="http://en.wikipedia.org/wiki/UTF8">
-				<citetitle>UTF8</citetitle>
-				</ulink>, the default encoding with GTK, fails.
-				 I could set the encoding to <ulink url="http://en.wikipedia.org/wiki/ISO8859-1">
-				<citetitle>ISO8859-1</citetitle>
-				</ulink> because doing this fixes the problem, but it creates another one with german umlauts in ASCII files for example; they would be incorrectly showed. So if you get this error please extract the file and then see it with your favourite text editor.
-			</para>
-		</section>
-		<section id="seventh">
+		<section id="faq_6">
 			<title>Why Xarchiver doesn't allow me to choose the archive self-extracting path as it happens with zip and 7z?</title>
 			<para>Because rar and arj executable do not allow to do so. Zip and 7z convertion to self-extracting is made by appending an sfx module to the archive so it's possible to choose a different path.
 			</para>
