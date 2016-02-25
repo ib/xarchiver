@@ -1980,9 +1980,7 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 
 void xa_show_help (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gchar *uri = g_strconcat ("file://",DATADIR,"/doc/",PACKAGE,"/html/index.html",NULL);
-	xa_activate_link (NULL,uri,NULL);
-	g_free (uri);
+	xa_activate_link (NULL,"file://" HTMLDIR "/index.html",NULL);
 }
 
 void xa_enter_password (GtkMenuItem *menuitem ,gpointer user_data)

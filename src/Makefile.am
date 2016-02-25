@@ -60,7 +60,7 @@ xarchiver_CFLAGS = \
 	-Wno-unused-parameter \
 	@GLIB_CFLAGS@ \
 	@GTK_CFLAGS@ \
-	-DDATADIR=\"$(datadir)\" \
+	-DHTMLDIR=\"$(htmldir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\"
 
