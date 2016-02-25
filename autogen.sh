@@ -1,43 +1,22 @@
 #!/bin/sh
-#
-# $Id$
-#
-# Copyright (c) 2002-2006
-#         The Xfce development team. All rights reserved.
-#
-# Written for Xfce by Benedikt Meurer <benny@xfce.org>,
-# changed by Ingo Brueckl.
-#
 
-(type xdt-autogen) >/dev/null 2>&1 || {
-  cat >&2 <<EOF
-autogen.sh: You don't seem to have the Xfce development tools installed on
-            your system, which are required to build this software.
-            Please install the xfce4-dev-tools package first, it is available
-            from http://www.xfce.org/.
-EOF
-  exit 1
-}
+set -o pipefail
 
-# verify that po/LINGUAS is present
-(test -f po/LINGUAS) >/dev/null 2>&1 || {
-  cat >&2 <<EOF
-autogen.sh: The file po/LINGUAS could not be found. Please check your snapshot
-            or try to checkout again.
-EOF
-  exit 1
-}
+> AUTHORS
+> NEWS
 
-# substitute revision and linguas
-linguas=`sed -e '/^#/d' po/LINGUAS`
-revision=`LC_ALL=C svn info $0 | awk '/^Revision: / {printf "%05d\n", $2}'`
-sed -e "s/@LINGUAS@/${linguas}/g" \
-    -e "s/@REVISION@/${revision}/g" \
-    < "configure.in.in" > "configure.in"
+echo -n "Creating the build system... "
 
-touch AUTHORS NEWS
-xdt-autogen "$@"
-rm AUTHORS NEWS
-rm -r autom4te.cache
+intltoolize --copy --force --automake || exit
+libtoolize --copy --force --quiet || exit
+aclocal || exit
+autoheader || exit
+automake --copy --force-missing --add-missing --gnu |& sed "/installing/d" || exit
+autoconf || exit
 
-# vi:set ts=2 sw=2 et ai:
+echo "done."
+
+# clean up in order to keep repository small
+# (will be needed if 'make dist' is used though)
+rm AUTHORS NEWS INSTALL aclocal.m4 compile intltool-extract.in intltool-merge.in intltool-update.in
+rm -r autom4te.cache m4
