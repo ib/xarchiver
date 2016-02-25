@@ -152,3 +152,55 @@ _xdg_get_base_name (const char *file_name)
   else
     return base_name + 1;
 }
+
+xdg_unichar_t *
+_xdg_convert_to_ucs4 (const char *source, int *len)
+{
+  xdg_unichar_t *out;
+  int i;
+  const char *p;
+
+  out = malloc (sizeof (xdg_unichar_t) * (strlen (source) + 1));
+
+  p = source;
+  i = 0;
+  while (*p) 
+    {
+      out[i++] = _xdg_utf8_to_ucs4 (p);
+      p = _xdg_utf8_next_char (p); 
+    }
+  out[i] = 0;
+  *len = i;
+ 
+  return out;
+}
+
+void
+_xdg_reverse_ucs4 (xdg_unichar_t *source, int len)
+{
+  xdg_unichar_t c;
+  int i;
+
+  for (i = 0; i < len - i - 1; i++) 
+    {
+      c = source[i]; 
+      source[i] = source[len - i - 1];
+      source[len - i - 1] = c;
+    }
+}
+
+const char *
+_xdg_binary_or_text_fallback(const void *data, size_t len)
+{
+  unsigned char *chardata;
+  int i;
+
+  chardata = (unsigned char *) data;
+  for (i = 0; i < 32 && i < len; ++i)
+    {
+       if (chardata[i] < 32 && chardata[i] != 9 && chardata[i] != 10 && chardata[i] != 13)
+         return XDG_MIME_TYPE_UNKNOWN; /* binary data */
+    }
+
+  return XDG_MIME_TYPE_TEXTPLAIN;
+}

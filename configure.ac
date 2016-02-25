@@ -62,7 +62,7 @@ AC_HEADER_STDC
 dnl ************************************
 dnl *** Check for standard functions ***
 dnl ************************************
-AC_CHECK_FUNCS([strcasestr mkdtemp socket])
+AC_CHECK_FUNCS([strcasestr mkdtemp socket getc_unlocked mmap])
 
 dnl ********************
 dnl *** i18n support ***
