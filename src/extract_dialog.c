@@ -249,7 +249,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		flag = FALSE;
 	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
 
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB && archive->type != XARCHIVETYPE_TAR_LZOP || archive->type == XARCHIVETYPE_XZ)
+	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB && archive->type != XARCHIVETYPE_TAR_LZOP && archive->type != XARCHIVETYPE_TAR_XZ)
 		flag = FALSE;
 	else
 		flag = TRUE;
