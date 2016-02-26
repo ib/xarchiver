@@ -243,7 +243,7 @@ gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 	result = xa_run_command (archive,list);
 	return result;
 }
-gboolean xa_lzma_bzip2_test (XArchive *archive)
+void xa_lzma_bzip2_test (XArchive *archive)
 {
 	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
 	gint len = 0;
@@ -290,4 +290,4 @@ gboolean xa_lzma_bzip2_test (XArchive *archive)
 	g_free(filename_noext);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
- }
+}
