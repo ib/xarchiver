@@ -90,7 +90,6 @@ void xa_open_gzip (XArchive *archive)
 void xa_get_gzip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	XEntry *entry;
 	gchar *filename;
 	gchar *basename;
 	gpointer item[3];
@@ -132,7 +131,7 @@ void xa_get_gzip_line_content (gchar *line, gpointer data)
 	if (basename == NULL)
 		basename = g_strdup(filename);
 
-	entry = xa_set_archive_entries_for_each_row (archive,basename,item);
+	xa_set_archive_entries_for_each_row (archive,basename,item);
 	g_free(basename);
 }
 

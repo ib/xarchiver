@@ -61,7 +61,6 @@ void xa_open_7zip (XArchive *archive)
 void xa_get_7zip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	XEntry *entry;
 	gchar *filename;
 	gpointer item[5];
 	gint linesize = 0,a = 0;
@@ -126,7 +125,7 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	}
 
 	filename = g_strdup(line + 53);
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
 }
 

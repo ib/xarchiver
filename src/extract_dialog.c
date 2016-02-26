@@ -290,7 +290,6 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 	gboolean done = FALSE;
 	GSList *names = NULL;
 	GtkTreeModel *model;
-	int response;
 
     while (! done)
 	{
@@ -312,7 +311,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			if (strlen(archive->extraction_path)== 0)
 			{
-				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("You missed where to extract the files!"),_("Please enter the extraction path."));
+				xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("You missed where to extract the files!"),_("Please enter the extraction path."));
 				break;
 			}
 			if (archive->extraction_path[0] != '/')
@@ -326,7 +325,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			if (archive->has_passwd && strlen(archive->passwd)== 0 )
 			{
-				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This archive is encrypted!"),_("Please enter the password."));
+				xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This archive is encrypted!"),_("Please enter the password."));
 				break;
 			}
 
@@ -337,7 +336,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
                 utf8_path = g_filename_to_utf8 (destination_path,-1,NULL,NULL,NULL);
                 msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),utf8_path);
-				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
+                xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
                 g_free (utf8_path);
 				g_free (msg);
 				g_free (destination_path);
@@ -643,9 +642,8 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget,GdkDra
 	gchar **array = NULL;
 	gchar *filename;
 	unsigned int len = 0;
-	GtkTreeModel *model;
 
-	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
+	gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	array = gtk_selection_data_get_uris (data);
 	if (array == NULL)
 	{

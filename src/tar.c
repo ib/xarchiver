@@ -59,11 +59,9 @@ void xa_open_tar (XArchive *archive)
 void xa_get_tar_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	XEntry *entry;
 	gchar *filename;
 	gpointer item[6];
 	gint n = 0, a = 0 ,linesize = 0;
-	gboolean dir = FALSE;
 
 	linesize = strlen(line);
 	archive->nr_of_files++;
@@ -128,7 +126,6 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 
 	if(line[0] == 'd')
 	{
-		dir = TRUE;
 		/* Work around for gtar, which does not output / with directories */
 		if(line[linesize-2] != '/')
 			filename = g_strconcat(line + n, "/", NULL);
@@ -137,7 +134,7 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 	}
 	else
 		filename = g_strdup(line + n);
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
 }
 

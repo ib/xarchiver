@@ -55,10 +55,8 @@ void xa_open_lha (XArchive *archive)
 void xa_get_lha_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	XEntry *entry = NULL;
 	gpointer item[6];
 	unsigned int linesize,n,a;
-	gboolean dir = FALSE;
 	gchar *filename;
 
 	if (last_line)
@@ -83,8 +81,7 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 	/* Permission */
 	line[10] = '\0';
 	item[1] = line;
-	if(line[0] == 'd')
-		dir = TRUE;
+	// if(line[0] == 'd') ?
 
 	/* UID/GID */
 	line[22] = '\0';
@@ -128,7 +125,7 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 	else
 		item[0] = NULL;
 
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	xa_set_archive_entries_for_each_row (archive,filename,item);
 }
 
 gboolean isLha ( FILE *ptr )

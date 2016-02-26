@@ -43,8 +43,6 @@ GList *Suffix,*Name;
 
 void xa_watch_child (GPid pid,gint status,XArchive *archive)
 {
-	int response;
-
 	archive->child_pid = archive->pb_source = 0;
 	if (WIFEXITED (status))
 	{
@@ -58,7 +56,7 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 				goto there;
 			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 			{
-				response = xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it."));
+				xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it."));
 				return;
 			}
 			if (xa_main_window)
@@ -283,7 +281,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	gchar *path = NULL;
 	gchar *utf8_path,*msg;
 	gint current_page;
-	gint x,response;
+	gint x;
 	XArchiveType type;
 
 	path = (gchar *)data;
@@ -314,9 +312,9 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		utf8_path = g_filename_to_utf8 (path,-1,NULL,NULL,NULL);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"),utf8_path);
 		if (type == 0)
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,_("Archive format is not recognized!"));
+			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,_("Archive format is not recognized!"));
 		else
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno));
+			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno));
 
 		g_free (utf8_path);
 		g_free (msg);
@@ -340,7 +338,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	{
 		if (!g_list_find (ArchiveType,ext))
 		{
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,this archive format is not supported:"),_("the proper archiver is not installed!"));
+			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,this archive format is not supported:"),_("the proper archiver is not installed!"));
 			g_free (path);
 			return;
 		}
@@ -354,7 +352,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	archive[current_page] = xa_init_archive_structure(type);
 	if (archive[current_page] == NULL)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),_("Operation aborted!"));
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),_("Operation aborted!"));
 		g_free (path);
 		return;
 	}
@@ -801,7 +799,6 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
             GError *error = NULL;
 			gchar *unzipsfx_path = NULL;
 			gchar buffer[1024];
-			int response;
 
 			archive_name = xa_open_sfx_file_selector();
 			if (archive_name == NULL)
@@ -817,7 +814,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				result = g_file_get_contents (unzipsfx_path,&content,&length,&error);
 				if ( ! result)
 				{
-					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
+					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't convert the archive to self-extracting:"),error->message);
 					g_error_free (error);
 					g_free (unzipsfx_path);
 					return;
@@ -828,7 +825,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				sfx_archive = fopen ( archive_name ,"w");
 				if (sfx_archive == NULL)
 				{
-					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
+					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
 				archive_not_sfx = fopen ( archive[idx]->path ,"r");
@@ -1684,7 +1681,6 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 	GSList *names = NULL;
 	guchar *_destination;
 	gchar *destination,*to_send;
-	int response;
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	row_list = gtk_tree_selection_get_selected_rows (selection,NULL);
@@ -1694,7 +1690,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 	if (archive->child_pid!= 0)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!"));
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!"));
 		return;
 	}
 	gdk_property_get (	dc->source_window,
@@ -1731,7 +1727,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 			utf8_path = g_filename_to_utf8 (archive->extraction_path,-1,NULL,NULL,NULL);
 			msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),utf8_path);
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
+			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
 			g_free (utf8_path);
 			g_free (msg);
 			to_send = "E";
@@ -1767,7 +1763,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	GSList *list = NULL;
 	gboolean one_file;
 	unsigned int len = 0;
-	gint current_page,idx,response;
+	gint current_page,idx;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
@@ -1775,7 +1771,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 
 	if (array == NULL)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,I could not perform the operation!"),"");
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,I could not perform the operation!"),"");
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
@@ -1809,7 +1805,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 
 	if ((archive[idx]->type == XARCHIVETYPE_RAR || archive[idx]->type == XARCHIVETYPE_RAR5) && unrar)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install rar package!"));
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install rar package!"));
 		return;
 	}
 	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM)
@@ -1821,7 +1817,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 			msg = _("You can't add content to rpm packages!");
 		else
 			msg = _("The archiver doesn't support this feature!");
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),msg);
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),msg);
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
@@ -1892,20 +1888,17 @@ void xa_deselect_all (GtkMenuItem *menuitem,gpointer user_data)
 
 void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data)
 {
-	gboolean result;
-	int response;
-
 	if ( !xdg_open)
 	{
 		gchar *browser_path = NULL;
 		browser_path = gtk_combo_box_get_active_text(GTK_COMBO_BOX(prefs_window->combo_prefered_web_browser));
 		if (strlen(browser_path) == 0)
 		{
-			response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));
+			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));
 			g_free (browser_path);
 			return;
 		}
-		result = xa_launch_external_program(browser_path,(gchar *)link);
+		xa_launch_external_program(browser_path,(gchar *)link);
 		if (browser_path != NULL)
 			g_free (browser_path);
 	}
@@ -2081,7 +2074,6 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 	GtkTextIter start,end;
 	FILE *stream;
 	gint current_page,idx;
-	gboolean result;
 	gchar *command = NULL,*content,*tmp = NULL;
 	GSList *list = NULL;
 
@@ -2092,7 +2084,7 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 	gtk_text_buffer_get_end_iter(buf,&end);
 	content = gtk_text_buffer_get_text(buf,&start,&end,FALSE);
 
-	result = xa_create_temp_directory(archive[idx]);
+	xa_create_temp_directory(archive[idx]);
 	tmp = g_strconcat(archive[idx]->tmp,"/xa_tmp_file",NULL);
 	gtk_widget_destroy(comment_dialog);
 
@@ -2391,7 +2383,6 @@ void xa_clipboard_cut_copy_operation(XArchive *archive,XAClipboardMode mode)
 	XAClipboard *clipboard_data = NULL;
 	GSList *files = NULL;
 	gchar *dummy_ex_path = NULL;
-	gboolean result = FALSE;
 	gboolean overwrite;
 	GtkTreeSelection *selection;
 	GtkTargetEntry targets[] =
@@ -2429,7 +2420,7 @@ void xa_clipboard_cut_copy_operation(XArchive *archive,XAClipboardMode mode)
 	overwrite = archive->overwrite;
 	archive->overwrite = TRUE;
 
-	result = (*archive->extract) (archive,files);
+	(*archive->extract) (archive,files);
 	archive->overwrite = overwrite;
 	g_free(archive->extraction_path);
 

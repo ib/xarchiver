@@ -24,7 +24,6 @@ extern gboolean batch_mode;
 void xa_open_rpm (XArchive *archive)
 {
 	unsigned short int i;
-    int response;
 	GSList *list = NULL;
 	FILE *stream;
 	gboolean result;
@@ -34,7 +33,7 @@ void xa_open_rpm (XArchive *archive)
 	if (stream == NULL)
     {
         gchar *msg = g_strdup_printf (_("Can't open RPM file %s:") , archive->path);
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg,g_strerror(errno));
 		g_free (msg);
 		return;
@@ -81,11 +80,9 @@ void xa_open_rpm (XArchive *archive)
 void xa_get_cpio_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	XEntry *entry;
 	gchar *filename;
 	gpointer item[7];
 	gint n = 0, a = 0 ,linesize = 0;
-	gboolean dir = FALSE;
 
 	linesize = strlen(line);
 	archive->nr_of_files++;
@@ -149,7 +146,6 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 
 	if(line[0] == 'd')
 	{
-		dir = TRUE;
 		/* Work around for cpio, which does
 		 * not output / with directories */
 
@@ -161,7 +157,7 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 	else
 		filename = g_strdup(line + n);
 
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free (filename);
 }
 

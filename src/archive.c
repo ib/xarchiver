@@ -67,7 +67,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 {
 	GIOChannel *ioc,*err_ioc;
 	gchar **argv;
-	gint argcp, response;
+	gint argcp;
 	GError *error = NULL;
 
 	g_shell_parse_argv (command,&argcp,&argv,NULL);
@@ -84,7 +84,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		&archive->error_fd,
 		&error))
 	{
-		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
+		xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev (argv);
 		archive->child_pid = 0;
@@ -356,7 +356,6 @@ gboolean xa_create_temp_directory (XArchive *archive)
 {
 	gchar *tmp_dir;
 	gchar *value;
-	int response;
 
 	if (archive->tmp != NULL)
 		return TRUE;
@@ -370,7 +369,7 @@ gboolean xa_create_temp_directory (XArchive *archive)
 		g_free(tmp_dir);
 		tmp_dir = NULL;
 
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory:"),g_strerror(errno));
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create temporary directory:"),g_strerror(errno));
 		return FALSE;
 	}
 

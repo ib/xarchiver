@@ -53,7 +53,6 @@ void xa_open_deb (XArchive *archive)
 void xa_get_ar_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
-	XEntry *entry;
 	gchar *filename;
 	gpointer item[4];
 	gint n = 0, a = 0 ,linesize = 0;
@@ -108,7 +107,7 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 
 	archive->nr_of_files++;
 	filename = g_strdup(line + n);
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
 }
 

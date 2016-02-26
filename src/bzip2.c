@@ -28,7 +28,6 @@ short int l;
 
 void xa_open_bzip2_lzma (XArchive *archive)
 {
-	XEntry *entry = NULL;
 	gchar *filename = NULL;;
 	gchar *_filename;
 	gpointer item[2];
@@ -152,7 +151,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->dummy_size = my_stat.st_size;
 		item[0] = size;
 
-		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+		xa_set_archive_entries_for_each_row (archive,filename,item);
 		g_free(compressed);
 		g_free(size);
 		g_free(filename);
@@ -204,28 +203,15 @@ gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 	GSList *list = NULL;
 	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
 	gboolean result = FALSE;
-	gint len = 0;
 
 	if (archive->type == XARCHIVETYPE_BZIP2)
-	{
 		executable = "bzip2 ";
-		len = 4;
-	}
 	else if (archive->type == XARCHIVETYPE_LZMA)
-	{
 		executable = "lzma ";
-		len = 5;
-	}
 	else if (archive->type == XARCHIVETYPE_XZ)
-	{
 		executable = "xz ";
-		len = 5;
-	}
 	else if (archive->type == XARCHIVETYPE_LZOP)
-	{
 		executable = "lzop ";
-		len = 5;
-	}
 	/* else fail? */
 	filename = xa_remove_path_from_archive_name(archive->escaped_path);
 	dot = strrchr(filename,'.');
@@ -246,34 +232,18 @@ gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 void xa_lzma_bzip2_test (XArchive *archive)
 {
 	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
-	gint len = 0;
 	GSList *list = NULL;
 
 	if (archive->type == XARCHIVETYPE_GZIP)
-	{
 		executable = "gzip ";
-		len = 5;
-	}
 	if (archive->type == XARCHIVETYPE_BZIP2)
-	{
 		executable = "bzip2 ";
-		len = 5;
-	}
 	else if (archive->type == XARCHIVETYPE_LZMA)
-	{
 		executable = "lzma ";
-		len = 5;
-	}
 	else if (archive->type == XARCHIVETYPE_XZ)
-	{
 		executable = "xz ";
-		len = 5;
-	}
 	else if (archive->type == XARCHIVETYPE_LZOP)
-	{
 		executable = "lzop ";
-		len = 5;
-	}
 	/* else fail? */
 	filename = xa_remove_path_from_archive_name(archive->escaped_path);
 	dot = strrchr(filename,'.');

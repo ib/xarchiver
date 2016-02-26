@@ -735,7 +735,6 @@ gchar *xa_create_password_dialog(XArchive *archive)
 	gchar *password = NULL;
 	gchar *name;
 	gboolean done = FALSE;
-	int response;
 
   	password_dialog = gtk_dialog_new_with_buttons(PACKAGE_NAME " " VERSION,
 									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -815,7 +814,7 @@ gchar *xa_create_password_dialog(XArchive *archive)
 			password = g_strdup (gtk_entry_get_text(GTK_ENTRY(pw_password_entry)));
 			if (strlen(password) == 0)
 			{
-				response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("You missed the password!"),_("Please enter it!"));
+				xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("You missed the password!"),_("Please enter it!"));
 				break;
 			}
 			done = TRUE;
@@ -1370,7 +1369,6 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 	GtkTreeIter parent;
 	GString *full_pathname = g_string_new("");
 	gboolean full_path,add_recurse,dummy_password;
-	int response;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	current_page = gtk_notebook_get_current_page(notebook);
@@ -1387,14 +1385,14 @@ void xa_sidepane_drag_data_received (GtkWidget *widget,GdkDragContext *context,i
 			msg = _("You can't add content to deb packages!");
 		else
 			msg = _("You can't add content to rpm packages!");
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),msg);
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),msg);
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
 	array = gtk_selection_data_get_uris(data);
 	if (array == NULL || archive[idx]->child_pid)
 	{
-		response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,I could not perform the operation!"),"");
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,I could not perform the operation!"),"");
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
@@ -1472,10 +1470,9 @@ gboolean xa_sidepane_drag_motion_expand_timeout (gpointer data)
 
 gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint x,gint y,guint time,gpointer user_data)
 {
-	GtkTreeModel *model;
 	GtkTreePath *path;
 
-	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
+	gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);
 	if (path)
 	{
