@@ -536,14 +536,14 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 			g_fprintf(stream,"</th></tr>");
 
 		}
-		xa_print_entry_in_file(archive[idx]->root_entry,idx,0,stream,bp);
+		xa_print_entry_in_file(archive[idx]->root_entry,idx,stream,bp);
 		if (bp)
 			g_fprintf (stream,"</table></body></html>");
 		fclose (stream);
 	}
 }
 
-void xa_print_entry_in_file(XEntry *entry,gint idx,unsigned long long int size,FILE *stream,int bp)
+void xa_print_entry_in_file(XEntry *entry,gint idx,FILE *stream,int bp)
 {
 	gchar *path;
 	static int x = 1;
@@ -591,8 +591,8 @@ void xa_print_entry_in_file(XEntry *entry,gint idx,unsigned long long int size,F
 		g_free(path);
 	}
 here:
-	xa_print_entry_in_file(entry->child,idx,file_size,stream,bp);
-	xa_print_entry_in_file(entry->next,idx,file_size,stream,bp);
+	xa_print_entry_in_file(entry->child,idx,stream,bp);
+	xa_print_entry_in_file(entry->next,idx,stream,bp);
 }
 
 void xa_close_archive (GtkMenuItem *menuitem,gpointer user_data)
