@@ -516,86 +516,86 @@ _xdg_mime_magic_parse_magic_line (FILE              *magic_file,
   return XDG_MIME_MAGIC_ERROR;
 }
 
-static int
-_xdg_mime_magic_matchlet_compare_to_data (XdgMimeMagicMatchlet *matchlet,
-					  const void           *data,
-					  size_t                len)
-{
-  int i, j;
-  for (i = matchlet->offset; i < matchlet->offset + matchlet->range_length; i++)
-    {
-      int valid_matchlet = TRUE;
+//static int
+//_xdg_mime_magic_matchlet_compare_to_data (XdgMimeMagicMatchlet *matchlet,
+//					  const void           *data,
+//					  size_t                len)
+//{
+//  int i, j;
+//  for (i = matchlet->offset; i < matchlet->offset + matchlet->range_length; i++)
+//    {
+//      int valid_matchlet = TRUE;
+//
+//      if (i + matchlet->value_length > len)
+//	return FALSE;
+//
+//      if (matchlet->mask)
+//	{
+//	  for (j = 0; j < matchlet->value_length; j++)
+//	    {
+//	      if ((matchlet->value[j] & matchlet->mask[j]) !=
+//		  ((((unsigned char *) data)[j + i]) & matchlet->mask[j]))
+//		{
+//		  valid_matchlet = FALSE;
+//		  break;
+//		}
+//	    }
+//	}
+//      else
+//	{
+//	  for (j = 0; j <  matchlet->value_length; j++)
+//	    {
+//	      if (matchlet->value[j] != ((unsigned char *) data)[j + i])
+//		{
+//		  valid_matchlet = FALSE;
+//		  break;
+//		}
+//	    }
+//	}
+//      if (valid_matchlet)
+//	return TRUE;
+//    }
+//  return FALSE;
+//}
 
-      if (i + matchlet->value_length > len)
-	return FALSE;
+//static int
+//_xdg_mime_magic_matchlet_compare_level (XdgMimeMagicMatchlet *matchlet,
+//					const void           *data,
+//					size_t                len,
+//					int                   indent)
+//{
+//  while ((matchlet != NULL) && (matchlet->indent == indent))
+//    {
+//      if (_xdg_mime_magic_matchlet_compare_to_data (matchlet, data, len))
+//	{
+//	  if ((matchlet->next == NULL) ||
+//	      (matchlet->next->indent <= indent))
+//	    return TRUE;
+//
+//	  if (_xdg_mime_magic_matchlet_compare_level (matchlet->next,
+//						      data,
+//						      len,
+//						      indent + 1))
+//	    return TRUE;
+//	}
+//
+//      do
+//	{
+//	  matchlet = matchlet->next;
+//	}
+//      while (matchlet && matchlet->indent > indent);
+//    }
+//
+//  return FALSE;
+//}
 
-      if (matchlet->mask)
-	{
-	  for (j = 0; j < matchlet->value_length; j++)
-	    {
-	      if ((matchlet->value[j] & matchlet->mask[j]) !=
-		  ((((unsigned char *) data)[j + i]) & matchlet->mask[j]))
-		{
-		  valid_matchlet = FALSE;
-		  break;
-		}
-	    }
-	}
-      else
-	{
-	  for (j = 0; j <  matchlet->value_length; j++)
-	    {
-	      if (matchlet->value[j] != ((unsigned char *) data)[j + i])
-		{
-		  valid_matchlet = FALSE;
-		  break;
-		}
-	    }
-	}
-      if (valid_matchlet)
-	return TRUE;
-    }
-  return FALSE;
-}
-
-static int
-_xdg_mime_magic_matchlet_compare_level (XdgMimeMagicMatchlet *matchlet,
-					const void           *data,
-					size_t                len,
-					int                   indent)
-{
-  while ((matchlet != NULL) && (matchlet->indent == indent))
-    {
-      if (_xdg_mime_magic_matchlet_compare_to_data (matchlet, data, len))
-	{
-	  if ((matchlet->next == NULL) ||
-	      (matchlet->next->indent <= indent))
-	    return TRUE;
-
-	  if (_xdg_mime_magic_matchlet_compare_level (matchlet->next,
-						      data,
-						      len,
-						      indent + 1))
-	    return TRUE;
-	}
-
-      do
-	{
-	  matchlet = matchlet->next;
-	}
-      while (matchlet && matchlet->indent > indent);
-    }
-
-  return FALSE;
-}
-
-static int
-_xdg_mime_magic_match_compare_to_data (XdgMimeMagicMatch *match,
-				       const void        *data,
-				       size_t             len)
-{
-  return _xdg_mime_magic_matchlet_compare_level (match->matchlet, data, len, 0);
-}
+//static int
+//_xdg_mime_magic_match_compare_to_data (XdgMimeMagicMatch *match,
+//				       const void        *data,
+//				       size_t             len)
+//{
+//  return _xdg_mime_magic_matchlet_compare_level (match->matchlet, data, len, 0);
+//}
 
 static void
 _xdg_mime_magic_insert_match (XdgMimeMagic      *mime_magic,
@@ -646,60 +646,60 @@ _xdg_mime_magic_free (XdgMimeMagic *mime_magic)
   }
 }
 
-int
-_xdg_mime_magic_get_buffer_extents (XdgMimeMagic *mime_magic)
-{
-  return mime_magic->max_extent;
-}
+//int
+//_xdg_mime_magic_get_buffer_extents (XdgMimeMagic *mime_magic)
+//{
+//  return mime_magic->max_extent;
+//}
 
-const char *
-_xdg_mime_magic_lookup_data (XdgMimeMagic *mime_magic,
-			     const void   *data,
-			     size_t        len,
-			     int           *result_prio,
-                             const char   *mime_types[],
-                             int           n_mime_types)
-{
-  XdgMimeMagicMatch *match;
-  const char *mime_type;
-  int n;
-  int prio;
-
-  prio = 0;
-  mime_type = NULL;
-  for (match = mime_magic->match_list; match; match = match->next)
-    {
-      if (_xdg_mime_magic_match_compare_to_data (match, data, len))
-	{
-	  prio = match->priority;
-	  mime_type = match->mime_type;
-	  break;
-	}
-      else 
-	{
-	  for (n = 0; n < n_mime_types; n++)
-	    {
-	      if (mime_types[n] && 
-		  _xdg_mime_mime_type_equal (mime_types[n], match->mime_type))
-		mime_types[n] = NULL;
-	    }
-	}
-    }
-
-  if (mime_type == NULL)
-    {
-      for (n = 0; n < n_mime_types; n++)
-	{
-	  if (mime_types[n])
-	    mime_type = mime_types[n];
-	}
-    }
-  
-  if (result_prio)
-    *result_prio = prio;
-
-  return mime_type;
-}
+//const char *
+//_xdg_mime_magic_lookup_data (XdgMimeMagic *mime_magic,
+//			     const void   *data,
+//			     size_t        len,
+//			     int           *result_prio,
+//                             const char   *mime_types[],
+//                             int           n_mime_types)
+//{
+//  XdgMimeMagicMatch *match;
+//  const char *mime_type;
+//  int n;
+//  int prio;
+//
+//  prio = 0;
+//  mime_type = NULL;
+//  for (match = mime_magic->match_list; match; match = match->next)
+//    {
+//      if (_xdg_mime_magic_match_compare_to_data (match, data, len))
+//	{
+//	  prio = match->priority;
+//	  mime_type = match->mime_type;
+//	  break;
+//	}
+//      else 
+//	{
+//	  for (n = 0; n < n_mime_types; n++)
+//	    {
+//	      if (mime_types[n] && 
+//		  _xdg_mime_mime_type_equal (mime_types[n], match->mime_type))
+//		mime_types[n] = NULL;
+//	    }
+//	}
+//    }
+//
+//  if (mime_type == NULL)
+//    {
+//      for (n = 0; n < n_mime_types; n++)
+//	{
+//	  if (mime_types[n])
+//	    mime_type = mime_types[n];
+//	}
+//    }
+//  
+//  if (result_prio)
+//    *result_prio = prio;
+//
+//  return mime_type;
+//}
 
 static void
 _xdg_mime_update_mime_magic_extents (XdgMimeMagic *mime_magic)

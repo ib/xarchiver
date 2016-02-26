@@ -44,8 +44,8 @@ void          _xdg_mime_parent_read_from_file (XdgParentList *list,
 					       const char    *file_name);
 XdgParentList *_xdg_mime_parent_list_new       (void);
 void           _xdg_mime_parent_list_free      (XdgParentList *list);
-const char   **_xdg_mime_parent_list_lookup    (XdgParentList *list,
-						const char    *mime);
-void           _xdg_mime_parent_list_dump      (XdgParentList *list);
+//const char   **_xdg_mime_parent_list_lookup    (XdgParentList *list,
+//						const char    *mime);
+//void           _xdg_mime_parent_list_dump      (XdgParentList *list);
 
 #endif /* __XDG_MIME_PARENT_H__ */

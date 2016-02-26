@@ -95,26 +95,26 @@ alias_entry_cmp (const void *v1, const void *v2)
   return strcmp (((XdgAlias *)v1)->alias, ((XdgAlias *)v2)->alias);
 }
 
-const char  *
-_xdg_mime_alias_list_lookup (XdgAliasList *list,
-			     const char   *alias)
-{
-  XdgAlias *entry;
-  XdgAlias key;
-
-  if (list->n_aliases > 0)
-    {
-      key.alias = (char *)alias;
-      key.mime_type = NULL;
-
-      entry = bsearch (&key, list->aliases, list->n_aliases,
-		       sizeof (XdgAlias), alias_entry_cmp);
-      if (entry)
-        return entry->mime_type;
-    }
-
-  return NULL;
-}
+//const char  *
+//_xdg_mime_alias_list_lookup (XdgAliasList *list,
+//			     const char   *alias)
+//{
+//  XdgAlias *entry;
+//  XdgAlias key;
+//
+//  if (list->n_aliases > 0)
+//    {
+//      key.alias = (char *)alias;
+//      key.mime_type = NULL;
+//
+//      entry = bsearch (&key, list->aliases, list->n_aliases,
+//		       sizeof (XdgAlias), alias_entry_cmp);
+//      if (entry)
+//        return entry->mime_type;
+//    }
+//
+//  return NULL;
+//}
 
 void
 _xdg_mime_alias_read_from_file (XdgAliasList *list,
@@ -165,20 +165,20 @@ _xdg_mime_alias_read_from_file (XdgAliasList *list,
 }
 
 
-void
-_xdg_mime_alias_list_dump (XdgAliasList *list)
-{
-  int i;
-
-  if (list->aliases)
-    {
-      for (i = 0; i < list->n_aliases; i++)
-	{
-	  printf ("%s %s\n", 
-		  list->aliases[i].alias,
-		  list->aliases[i].mime_type);
-	}
-    }
-}
+//void
+//_xdg_mime_alias_list_dump (XdgAliasList *list)
+//{
+//  int i;
+//
+//  if (list->aliases)
+//    {
+//      for (i = 0; i < list->n_aliases; i++)
+//	{
+//	  printf ("%s %s\n", 
+//		  list->aliases[i].alias,
+//		  list->aliases[i].mime_type);
+//	}
+//    }
+//}
 
 

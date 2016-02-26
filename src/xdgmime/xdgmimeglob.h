@@ -65,6 +65,6 @@ void         _xdg_glob_hash_append_glob      (XdgGlobHash *glob_hash,
 					      int          weight,
 					      int          case_sensitive);
 XdgGlobType  _xdg_glob_determine_type        (const char  *glob);
-void         _xdg_glob_hash_dump             (XdgGlobHash *glob_hash);
+//void         _xdg_glob_hash_dump             (XdgGlobHash *glob_hash);
 
 #endif /* __XDG_MIME_GLOB_H__ */

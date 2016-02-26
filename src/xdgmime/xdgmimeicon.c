@@ -94,26 +94,26 @@ icon_entry_cmp (const void *v1, const void *v2)
   return strcmp (((XdgIcon *)v1)->mime_type, ((XdgIcon *)v2)->mime_type);
 }
 
-const char  *
-_xdg_mime_icon_list_lookup (XdgIconList *list,
-			    const char  *mime_type)
-{
-  XdgIcon *entry;
-  XdgIcon key;
-
-  if (list->n_icons > 0)
-    {
-      key.mime_type = (char *)mime_type;
-      key.icon_name = NULL;
-
-      entry = bsearch (&key, list->icons, list->n_icons,
-		       sizeof (XdgIcon), icon_entry_cmp);
-      if (entry)
-        return entry->icon_name;
-    }
-
-  return NULL;
-}
+//const char  *
+//_xdg_mime_icon_list_lookup (XdgIconList *list,
+//			    const char  *mime_type)
+//{
+//  XdgIcon *entry;
+//  XdgIcon key;
+//
+//  if (list->n_icons > 0)
+//    {
+//      key.mime_type = (char *)mime_type;
+//      key.icon_name = NULL;
+//
+//      entry = bsearch (&key, list->icons, list->n_icons,
+//		       sizeof (XdgIcon), icon_entry_cmp);
+//      if (entry)
+//        return entry->icon_name;
+//    }
+//
+//  return NULL;
+//}
 
 void
 _xdg_mime_icon_read_from_file (XdgIconList *list,
@@ -164,20 +164,20 @@ _xdg_mime_icon_read_from_file (XdgIconList *list,
 }
 
 
-void
-_xdg_mime_icon_list_dump (XdgIconList *list)
-{
-  int i;
-
-  if (list->icons)
-    {
-      for (i = 0; i < list->n_icons; i++)
-	{
-	  printf ("%s %s\n", 
-		  list->icons[i].mime_type,
-		  list->icons[i].icon_name);
-	}
-    }
-}
+//void
+//_xdg_mime_icon_list_dump (XdgIconList *list)
+//{
+//  int i;
+//
+//  if (list->icons)
+//    {
+//      for (i = 0; i < list->n_icons; i++)
+//	{
+//	  printf ("%s %s\n", 
+//		  list->icons[i].mime_type,
+//		  list->icons[i].icon_name);
+//	}
+//    }
+//}
 
 

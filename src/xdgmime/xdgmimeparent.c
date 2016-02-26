@@ -100,26 +100,26 @@ parent_entry_cmp (const void *v1, const void *v2)
   return strcmp (((XdgMimeParents *)v1)->mime, ((XdgMimeParents *)v2)->mime);
 }
 
-const char **
-_xdg_mime_parent_list_lookup (XdgParentList *list,
-			      const char    *mime)
-{
-  XdgMimeParents *entry;
-  XdgMimeParents key;
-
-  if (list->n_mimes > 0)
-    {
-      key.mime = (char *)mime;
-      key.parents = NULL;
-
-      entry = bsearch (&key, list->parents, list->n_mimes,
-		       sizeof (XdgMimeParents), &parent_entry_cmp);
-      if (entry)
-        return (const char **)entry->parents;
-    }
-
-  return NULL;
-}
+//const char **
+//_xdg_mime_parent_list_lookup (XdgParentList *list,
+//			      const char    *mime)
+//{
+//  XdgMimeParents *entry;
+//  XdgMimeParents key;
+//
+//  if (list->n_mimes > 0)
+//    {
+//      key.mime = (char *)mime;
+//      key.parents = NULL;
+//
+//      entry = bsearch (&key, list->parents, list->n_mimes,
+//		       sizeof (XdgMimeParents), &parent_entry_cmp);
+//      if (entry)
+//        return (const char **)entry->parents;
+//    }
+//
+//  return NULL;
+//}
 
 void
 _xdg_mime_parent_read_from_file (XdgParentList *list,
@@ -200,20 +200,20 @@ _xdg_mime_parent_read_from_file (XdgParentList *list,
 }
 
 
-void         
-_xdg_mime_parent_list_dump (XdgParentList *list)
-{
-  int i;
-  char **p;
-
-  if (list->parents)
-    {
-      for (i = 0; i < list->n_mimes; i++)
-	{
-	  for (p = list->parents[i].parents; *p; p++)
-	    printf ("%s %s\n", list->parents[i].mime, *p);
-	}
-    }
-}
+//void         
+//_xdg_mime_parent_list_dump (XdgParentList *list)
+//{
+//  int i;
+//  char **p;
+//
+//  if (list->parents)
+//    {
+//      for (i = 0; i < list->n_mimes; i++)
+//	{
+//	  for (p = list->parents[i].parents; *p; p++)
+//	    printf ("%s %s\n", list->parents[i].mime, *p);
+//	}
+//    }
+//}
 
 

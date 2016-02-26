@@ -158,24 +158,24 @@ _xdg_glob_hash_node_new (void)
   return glob_hash_node;
 }
 
-static void
-_xdg_glob_hash_node_dump (XdgGlobHashNode *glob_hash_node,
-			  int depth)
-{
-  int i;
-  for (i = 0; i < depth; i++)
-    printf (" ");
-
-  printf ("%c", (char)glob_hash_node->character);
-  if (glob_hash_node->mime_type)
-    printf (" - %s %d\n", glob_hash_node->mime_type, glob_hash_node->weight);
-  else
-    printf ("\n");
-  if (glob_hash_node->child)
-    _xdg_glob_hash_node_dump (glob_hash_node->child, depth + 1);
-  if (glob_hash_node->next)
-    _xdg_glob_hash_node_dump (glob_hash_node->next, depth);
-}
+//static void
+//_xdg_glob_hash_node_dump (XdgGlobHashNode *glob_hash_node,
+//			  int depth)
+//{
+//  int i;
+//  for (i = 0; i < depth; i++)
+//    printf (" ");
+//
+//  printf ("%c", (char)glob_hash_node->character);
+//  if (glob_hash_node->mime_type)
+//    printf (" - %s %d\n", glob_hash_node->mime_type, glob_hash_node->weight);
+//  else
+//    printf ("\n");
+//  if (glob_hash_node->child)
+//    _xdg_glob_hash_node_dump (glob_hash_node->child, depth + 1);
+//  if (glob_hash_node->next)
+//    _xdg_glob_hash_node_dump (glob_hash_node->next, depth);
+//}
 
 static XdgGlobHashNode *
 _xdg_glob_hash_insert_ucs4 (XdgGlobHashNode *glob_hash_node,
@@ -569,41 +569,41 @@ _xdg_glob_hash_append_glob (XdgGlobHash *glob_hash,
     }
 }
 
-void
-_xdg_glob_hash_dump (XdgGlobHash *glob_hash)
-{
-  XdgGlobList *list;
-  printf ("LITERAL STRINGS\n");
-  if (!glob_hash || glob_hash->literal_list == NULL)
-    {
-      printf ("    None\n");
-    }
-  else
-    {
-      for (list = glob_hash->literal_list; list; list = list->next)
-	printf ("    %s - %s %d\n", (char *)list->data, list->mime_type, list->weight);
-    }
-  printf ("\nSIMPLE GLOBS\n");
-  if (!glob_hash || glob_hash->simple_node == NULL)
-    {
-      printf ("    None\n");
-    }
-  else
-    {
-      _xdg_glob_hash_node_dump (glob_hash->simple_node, 4);
-    }
-
-  printf ("\nFULL GLOBS\n");
-  if (!glob_hash || glob_hash->full_list == NULL)
-    {
-      printf ("    None\n");
-    }
-  else
-    {
-      for (list = glob_hash->full_list; list; list = list->next)
-	printf ("    %s - %s %d\n", (char *)list->data, list->mime_type, list->weight);
-    }
-}
+//void
+//_xdg_glob_hash_dump (XdgGlobHash *glob_hash)
+//{
+//  XdgGlobList *list;
+//  printf ("LITERAL STRINGS\n");
+//  if (!glob_hash || glob_hash->literal_list == NULL)
+//    {
+//      printf ("    None\n");
+//    }
+//  else
+//    {
+//      for (list = glob_hash->literal_list; list; list = list->next)
+//	printf ("    %s - %s %d\n", (char *)list->data, list->mime_type, list->weight);
+//    }
+//  printf ("\nSIMPLE GLOBS\n");
+//  if (!glob_hash || glob_hash->simple_node == NULL)
+//    {
+//      printf ("    None\n");
+//    }
+//  else
+//    {
+//      _xdg_glob_hash_node_dump (glob_hash->simple_node, 4);
+//    }
+//
+//  printf ("\nFULL GLOBS\n");
+//  if (!glob_hash || glob_hash->full_list == NULL)
+//    {
+//      printf ("    None\n");
+//    }
+//  else
+//    {
+//      for (list = glob_hash->full_list; list; list = list->next)
+//	printf ("    %s - %s %d\n", (char *)list->data, list->mime_type, list->weight);
+//    }
+//}
 
 
 void

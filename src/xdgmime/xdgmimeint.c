@@ -118,40 +118,40 @@ _xdg_utf8_to_ucs4(const char *source)
 }
 
 
-/* hullo.  this is great code.  don't rewrite it */
+///* hullo.  this is great code.  don't rewrite it */
+//
+//xdg_unichar_t
+//_xdg_ucs4_to_lower (xdg_unichar_t source)
+//{
+//  /* FIXME: Do a real to_upper sometime */
+//  /* CaseFolding-3.2.0.txt has a table of rules. */
+//  if ((source & 0xFF) == source)
+//    return (xdg_unichar_t) tolower ((unsigned char) source);
+//  return source;
+//}
 
-xdg_unichar_t
-_xdg_ucs4_to_lower (xdg_unichar_t source)
-{
-  /* FIXME: Do a real to_upper sometime */
-  /* CaseFolding-3.2.0.txt has a table of rules. */
-  if ((source & 0xFF) == source)
-    return (xdg_unichar_t) tolower ((unsigned char) source);
-  return source;
-}
+//int
+//_xdg_utf8_validate (const char *source)
+//{
+//  /* FIXME: actually write */
+//  return TRUE;
+//}
 
-int
-_xdg_utf8_validate (const char *source)
-{
-  /* FIXME: actually write */
-  return TRUE;
-}
-
-const char *
-_xdg_get_base_name (const char *file_name)
-{
-  const char *base_name;
-
-  if (file_name == NULL)
-    return NULL;
-
-  base_name = strrchr (file_name, '/');
-
-  if (base_name == NULL)
-    return file_name;
-  else
-    return base_name + 1;
-}
+//const char *
+//_xdg_get_base_name (const char *file_name)
+//{
+//  const char *base_name;
+//
+//  if (file_name == NULL)
+//    return NULL;
+//
+//  base_name = strrchr (file_name, '/');
+//
+//  if (base_name == NULL)
+//    return file_name;
+//  else
+//    return base_name + 1;
+//}
 
 xdg_unichar_t *
 _xdg_convert_to_ucs4 (const char *source, int *len)
@@ -189,18 +189,18 @@ _xdg_reverse_ucs4 (xdg_unichar_t *source, int len)
     }
 }
 
-const char *
-_xdg_binary_or_text_fallback(const void *data, size_t len)
-{
-  unsigned char *chardata;
-  int i;
-
-  chardata = (unsigned char *) data;
-  for (i = 0; i < 32 && i < len; ++i)
-    {
-       if (chardata[i] < 32 && chardata[i] != 9 && chardata[i] != 10 && chardata[i] != 13)
-         return XDG_MIME_TYPE_UNKNOWN; /* binary data */
-    }
-
-  return XDG_MIME_TYPE_TEXTPLAIN;
-}
+//const char *
+//_xdg_binary_or_text_fallback(const void *data, size_t len)
+//{
+//  unsigned char *chardata;
+//  int i;
+//
+//  chardata = (unsigned char *) data;
+//  for (i = 0; i < 32 && i < len; ++i)
+//    {
+//       if (chardata[i] < 32 && chardata[i] != 9 && chardata[i] != 10 && chardata[i] != 13)
+//         return XDG_MIME_TYPE_UNKNOWN; /* binary data */
+//    }
+//
+//  return XDG_MIME_TYPE_TEXTPLAIN;
+//}

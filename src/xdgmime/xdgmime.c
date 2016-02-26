@@ -64,8 +64,8 @@ XdgMimeCache **_caches = NULL;
 static int n_caches = 0;
 
 const char xdg_mime_type_unknown[] = "application/octet-stream";
-const char xdg_mime_type_empty[] = "application/x-zerosize";
-const char xdg_mime_type_textplain[] = "text/plain";
+//const char xdg_mime_type_empty[] = "application/x-zerosize";
+//const char xdg_mime_type_textplain[] = "text/plain";
 
 
 enum
@@ -462,110 +462,110 @@ xdg_mime_init (void)
     }
 }
 
-const char *
-xdg_mime_get_mime_type_for_data (const void *data,
-				 size_t      len,
-				 int        *result_prio)
-{
-  const char *mime_type;
+//const char *
+//xdg_mime_get_mime_type_for_data (const void *data,
+//				 size_t      len,
+//				 int        *result_prio)
+//{
+//  const char *mime_type;
+//
+//  if (len == 0)
+//    {
+//      *result_prio = 100;
+//      return XDG_MIME_TYPE_EMPTY;
+//    }
+//
+//  xdg_mime_init ();
+//
+//  if (_caches)
+//    mime_type = _xdg_mime_cache_get_mime_type_for_data (data, len, result_prio);
+//  else
+//    mime_type = _xdg_mime_magic_lookup_data (global_magic, data, len, result_prio, NULL, 0);
+//
+//  if (mime_type)
+//    return mime_type;
+//
+//  return _xdg_binary_or_text_fallback(data, len);
+//}
 
-  if (len == 0)
-    {
-      *result_prio = 100;
-      return XDG_MIME_TYPE_EMPTY;
-    }
-
-  xdg_mime_init ();
-
-  if (_caches)
-    mime_type = _xdg_mime_cache_get_mime_type_for_data (data, len, result_prio);
-  else
-    mime_type = _xdg_mime_magic_lookup_data (global_magic, data, len, result_prio, NULL, 0);
-
-  if (mime_type)
-    return mime_type;
-
-  return _xdg_binary_or_text_fallback(data, len);
-}
-
-const char *
-xdg_mime_get_mime_type_for_file (const char  *file_name,
-                                 struct stat *statbuf)
-{
-  const char *mime_type;
-  /* currently, only a few globs occur twice, and none
-   * more often, so 5 seems plenty.
-   */
-  const char *mime_types[5];
-  FILE *file;
-  unsigned char *data;
-  int max_extent;
-  int bytes_read;
-  struct stat buf;
-  const char *base_name;
-  int n;
-
-  if (file_name == NULL)
-    return NULL;
-  if (! _xdg_utf8_validate (file_name))
-    return NULL;
-
-  xdg_mime_init ();
-
-  if (_caches)
-    return _xdg_mime_cache_get_mime_type_for_file (file_name, statbuf);
-
-  base_name = _xdg_get_base_name (file_name);
-  n = _xdg_glob_hash_lookup_file_name (global_hash, base_name, mime_types, 5);
-
-  if (n == 1)
-    return mime_types[0];
-
-  if (!statbuf)
-    {
-      if (stat (file_name, &buf) != 0)
-	return XDG_MIME_TYPE_UNKNOWN;
-
-      statbuf = &buf;
-    }
-
-  if (!S_ISREG (statbuf->st_mode))
-    return XDG_MIME_TYPE_UNKNOWN;
-
-  /* FIXME: Need to make sure that max_extent isn't totally broken.  This could
-   * be large and need getting from a stream instead of just reading it all
-   * in. */
-  max_extent = _xdg_mime_magic_get_buffer_extents (global_magic);
-  data = malloc (max_extent);
-  if (data == NULL)
-    return XDG_MIME_TYPE_UNKNOWN;
-        
-  file = fopen (file_name, "r");
-  if (file == NULL)
-    {
-      free (data);
-      return XDG_MIME_TYPE_UNKNOWN;
-    }
-
-  bytes_read = fread (data, 1, max_extent, file);
-  if (ferror (file))
-    {
-      free (data);
-      fclose (file);
-      return XDG_MIME_TYPE_UNKNOWN;
-    }
-
-  mime_type = _xdg_mime_magic_lookup_data (global_magic, data, bytes_read, NULL,
-					   mime_types, n);
-
-  free (data);
-  fclose (file);
-
-  if (mime_type)
-    return mime_type;
-
-  return _xdg_binary_or_text_fallback(data, bytes_read);
-}
+//const char *
+//xdg_mime_get_mime_type_for_file (const char  *file_name,
+//                                 struct stat *statbuf)
+//{
+//  const char *mime_type;
+//  /* currently, only a few globs occur twice, and none
+//   * more often, so 5 seems plenty.
+//   */
+//  const char *mime_types[5];
+//  FILE *file;
+//  unsigned char *data;
+//  int max_extent;
+//  int bytes_read;
+//  struct stat buf;
+//  const char *base_name;
+//  int n;
+//
+//  if (file_name == NULL)
+//    return NULL;
+//  if (! _xdg_utf8_validate (file_name))
+//    return NULL;
+//
+//  xdg_mime_init ();
+//
+//  if (_caches)
+//    return _xdg_mime_cache_get_mime_type_for_file (file_name, statbuf);
+//
+//  base_name = _xdg_get_base_name (file_name);
+//  n = _xdg_glob_hash_lookup_file_name (global_hash, base_name, mime_types, 5);
+//
+//  if (n == 1)
+//    return mime_types[0];
+//
+//  if (!statbuf)
+//    {
+//      if (stat (file_name, &buf) != 0)
+//	return XDG_MIME_TYPE_UNKNOWN;
+//
+//      statbuf = &buf;
+//    }
+//
+//  if (!S_ISREG (statbuf->st_mode))
+//    return XDG_MIME_TYPE_UNKNOWN;
+//
+//  /* FIXME: Need to make sure that max_extent isn't totally broken.  This could
+//   * be large and need getting from a stream instead of just reading it all
+//   * in. */
+//  max_extent = _xdg_mime_magic_get_buffer_extents (global_magic);
+//  data = malloc (max_extent);
+//  if (data == NULL)
+//    return XDG_MIME_TYPE_UNKNOWN;
+//        
+//  file = fopen (file_name, "r");
+//  if (file == NULL)
+//    {
+//      free (data);
+//      return XDG_MIME_TYPE_UNKNOWN;
+//    }
+//
+//  bytes_read = fread (data, 1, max_extent, file);
+//  if (ferror (file))
+//    {
+//      free (data);
+//      fclose (file);
+//      return XDG_MIME_TYPE_UNKNOWN;
+//    }
+//
+//  mime_type = _xdg_mime_magic_lookup_data (global_magic, data, bytes_read, NULL,
+//					   mime_types, n);
+//
+//  free (data);
+//  fclose (file);
+//
+//  if (mime_type)
+//    return mime_type;
+//
+//  return _xdg_binary_or_text_fallback(data, bytes_read);
+//}
 
 const char *
 xdg_mime_get_mime_type_from_file_name (const char *file_name)
@@ -583,26 +583,26 @@ xdg_mime_get_mime_type_from_file_name (const char *file_name)
     return XDG_MIME_TYPE_UNKNOWN;
 }
 
-int
-xdg_mime_get_mime_types_from_file_name (const char *file_name,
-					const char  *mime_types[],
-					int          n_mime_types)
-{
-  xdg_mime_init ();
-  
-  if (_caches)
-    return _xdg_mime_cache_get_mime_types_from_file_name (file_name, mime_types, n_mime_types);
-  
-  return _xdg_glob_hash_lookup_file_name (global_hash, file_name, mime_types, n_mime_types);
-}
+//int
+//xdg_mime_get_mime_types_from_file_name (const char *file_name,
+//					const char  *mime_types[],
+//					int          n_mime_types)
+//{
+//  xdg_mime_init ();
+//  
+//  if (_caches)
+//    return _xdg_mime_cache_get_mime_types_from_file_name (file_name, mime_types, n_mime_types);
+//  
+//  return _xdg_glob_hash_lookup_file_name (global_hash, file_name, mime_types, n_mime_types);
+//}
 
-int
-xdg_mime_is_valid_mime_type (const char *mime_type)
-{
-  /* FIXME: We should make this a better test
-   */
-  return _xdg_utf8_validate (mime_type);
-}
+//int
+//xdg_mime_is_valid_mime_type (const char *mime_type)
+//{
+//  /* FIXME: We should make this a better test
+//   */
+//  return _xdg_utf8_validate (mime_type);
+//}
 
 void
 xdg_mime_shutdown (void)
@@ -668,267 +668,267 @@ xdg_mime_shutdown (void)
   need_reread = TRUE;
 }
 
-int
-xdg_mime_get_max_buffer_extents (void)
-{
-  xdg_mime_init ();
-  
-  if (_caches)
-    return _xdg_mime_cache_get_max_buffer_extents ();
+//int
+//xdg_mime_get_max_buffer_extents (void)
+//{
+//  xdg_mime_init ();
+//  
+//  if (_caches)
+//    return _xdg_mime_cache_get_max_buffer_extents ();
+//
+//  return _xdg_mime_magic_get_buffer_extents (global_magic);
+//}
 
-  return _xdg_mime_magic_get_buffer_extents (global_magic);
-}
+//const char *
+//_xdg_mime_unalias_mime_type (const char *mime_type)
+//{
+//  const char *lookup;
+//
+//  if (_caches)
+//    return _xdg_mime_cache_unalias_mime_type (mime_type);
+//
+//  if ((lookup = _xdg_mime_alias_list_lookup (alias_list, mime_type)) != NULL)
+//    return lookup;
+//
+//  return mime_type;
+//}
 
-const char *
-_xdg_mime_unalias_mime_type (const char *mime_type)
-{
-  const char *lookup;
+//const char *
+//xdg_mime_unalias_mime_type (const char *mime_type)
+//{
+//  xdg_mime_init ();
+//
+//  return _xdg_mime_unalias_mime_type (mime_type);
+//}
 
-  if (_caches)
-    return _xdg_mime_cache_unalias_mime_type (mime_type);
+//int
+//_xdg_mime_mime_type_equal (const char *mime_a,
+//			   const char *mime_b)
+//{
+//  const char *unalias_a, *unalias_b;
+//
+//  unalias_a = _xdg_mime_unalias_mime_type (mime_a);
+//  unalias_b = _xdg_mime_unalias_mime_type (mime_b);
+//
+//  if (strcmp (unalias_a, unalias_b) == 0)
+//    return 1;
+//
+//  return 0;
+//}
 
-  if ((lookup = _xdg_mime_alias_list_lookup (alias_list, mime_type)) != NULL)
-    return lookup;
+//int
+//xdg_mime_mime_type_equal (const char *mime_a,
+//			  const char *mime_b)
+//{
+//  xdg_mime_init ();
+//
+//  return _xdg_mime_mime_type_equal (mime_a, mime_b);
+//}
 
-  return mime_type;
-}
+//int
+//xdg_mime_media_type_equal (const char *mime_a,
+//			   const char *mime_b)
+//{
+//  char *sep;
+//
+//  sep = strchr (mime_a, '/');
+//  
+//  if (sep && strncmp (mime_a, mime_b, sep - mime_a + 1) == 0)
+//    return 1;
+//
+//  return 0;
+//}
 
-const char *
-xdg_mime_unalias_mime_type (const char *mime_type)
-{
-  xdg_mime_init ();
+//#if 1
+//static int
+//xdg_mime_is_super_type (const char *mime)
+//{
+//  int length;
+//  const char *type;
+//
+//  length = strlen (mime);
+//  type = &(mime[length - 2]);
+//
+//  if (strcmp (type, "/*") == 0)
+//    return 1;
+//
+//  return 0;
+//}
+//#endif
 
-  return _xdg_mime_unalias_mime_type (mime_type);
-}
+//int
+//_xdg_mime_mime_type_subclass (const char *mime,
+//			      const char *base)
+//{
+//  const char *umime, *ubase;
+//  const char **parents;
+//
+//  if (_caches)
+//    return _xdg_mime_cache_mime_type_subclass (mime, base);
+//
+//  umime = _xdg_mime_unalias_mime_type (mime);
+//  ubase = _xdg_mime_unalias_mime_type (base);
+//
+//  if (strcmp (umime, ubase) == 0)
+//    return 1;
+//
+//#if 1  
+//  /* Handle supertypes */
+//  if (xdg_mime_is_super_type (ubase) &&
+//      xdg_mime_media_type_equal (umime, ubase))
+//    return 1;
+//#endif
+//
+//  /*  Handle special cases text/plain and application/octet-stream */
+//  if (strcmp (ubase, "text/plain") == 0 && 
+//      strncmp (umime, "text/", 5) == 0)
+//    return 1;
+//
+//  if (strcmp (ubase, "application/octet-stream") == 0)
+//    return 1;
+//  
+//  parents = _xdg_mime_parent_list_lookup (parent_list, umime);
+//  for (; parents && *parents; parents++)
+//    {
+//      if (_xdg_mime_mime_type_subclass (*parents, ubase))
+//	return 1;
+//    }
+//
+//  return 0;
+//}
 
-int
-_xdg_mime_mime_type_equal (const char *mime_a,
-			   const char *mime_b)
-{
-  const char *unalias_a, *unalias_b;
+//int
+//xdg_mime_mime_type_subclass (const char *mime,
+//			     const char *base)
+//{
+//  xdg_mime_init ();
+//
+//  return _xdg_mime_mime_type_subclass (mime, base);
+//}
 
-  unalias_a = _xdg_mime_unalias_mime_type (mime_a);
-  unalias_b = _xdg_mime_unalias_mime_type (mime_b);
+//char **
+//xdg_mime_list_mime_parents (const char *mime)
+//{
+//  const char **parents;
+//  char **result;
+//  int i, n;
+//
+//  if (_caches)
+//    return _xdg_mime_cache_list_mime_parents (mime);
+//
+//  parents = xdg_mime_get_mime_parents (mime);
+//
+//  if (!parents)
+//    return NULL;
+//
+//  for (i = 0; parents[i]; i++) ;
+//  
+//  n = (i + 1) * sizeof (char *);
+//  result = (char **) malloc (n);
+//  memcpy (result, parents, n);
+//
+//  return result;
+//}
 
-  if (strcmp (unalias_a, unalias_b) == 0)
-    return 1;
+//const char **
+//xdg_mime_get_mime_parents (const char *mime)
+//{
+//  const char *umime;
+//
+//  xdg_mime_init ();
+//
+//  umime = _xdg_mime_unalias_mime_type (mime);
+//
+//  return _xdg_mime_parent_list_lookup (parent_list, umime);
+//}
 
-  return 0;
-}
-
-int
-xdg_mime_mime_type_equal (const char *mime_a,
-			  const char *mime_b)
-{
-  xdg_mime_init ();
-
-  return _xdg_mime_mime_type_equal (mime_a, mime_b);
-}
-
-int
-xdg_mime_media_type_equal (const char *mime_a,
-			   const char *mime_b)
-{
-  char *sep;
-
-  sep = strchr (mime_a, '/');
-  
-  if (sep && strncmp (mime_a, mime_b, sep - mime_a + 1) == 0)
-    return 1;
-
-  return 0;
-}
-
-#if 1
-static int
-xdg_mime_is_super_type (const char *mime)
-{
-  int length;
-  const char *type;
-
-  length = strlen (mime);
-  type = &(mime[length - 2]);
-
-  if (strcmp (type, "/*") == 0)
-    return 1;
-
-  return 0;
-}
-#endif
-
-int
-_xdg_mime_mime_type_subclass (const char *mime,
-			      const char *base)
-{
-  const char *umime, *ubase;
-  const char **parents;
-
-  if (_caches)
-    return _xdg_mime_cache_mime_type_subclass (mime, base);
-
-  umime = _xdg_mime_unalias_mime_type (mime);
-  ubase = _xdg_mime_unalias_mime_type (base);
-
-  if (strcmp (umime, ubase) == 0)
-    return 1;
-
-#if 1  
-  /* Handle supertypes */
-  if (xdg_mime_is_super_type (ubase) &&
-      xdg_mime_media_type_equal (umime, ubase))
-    return 1;
-#endif
-
-  /*  Handle special cases text/plain and application/octet-stream */
-  if (strcmp (ubase, "text/plain") == 0 && 
-      strncmp (umime, "text/", 5) == 0)
-    return 1;
-
-  if (strcmp (ubase, "application/octet-stream") == 0)
-    return 1;
-  
-  parents = _xdg_mime_parent_list_lookup (parent_list, umime);
-  for (; parents && *parents; parents++)
-    {
-      if (_xdg_mime_mime_type_subclass (*parents, ubase))
-	return 1;
-    }
-
-  return 0;
-}
-
-int
-xdg_mime_mime_type_subclass (const char *mime,
-			     const char *base)
-{
-  xdg_mime_init ();
-
-  return _xdg_mime_mime_type_subclass (mime, base);
-}
-
-char **
-xdg_mime_list_mime_parents (const char *mime)
-{
-  const char **parents;
-  char **result;
-  int i, n;
-
-  if (_caches)
-    return _xdg_mime_cache_list_mime_parents (mime);
-
-  parents = xdg_mime_get_mime_parents (mime);
-
-  if (!parents)
-    return NULL;
-
-  for (i = 0; parents[i]; i++) ;
-  
-  n = (i + 1) * sizeof (char *);
-  result = (char **) malloc (n);
-  memcpy (result, parents, n);
-
-  return result;
-}
-
-const char **
-xdg_mime_get_mime_parents (const char *mime)
-{
-  const char *umime;
-
-  xdg_mime_init ();
-
-  umime = _xdg_mime_unalias_mime_type (mime);
-
-  return _xdg_mime_parent_list_lookup (parent_list, umime);
-}
-
-void 
-xdg_mime_dump (void)
-{
-  xdg_mime_init();
-
-  printf ("*** ALIASES ***\n\n");
-  _xdg_mime_alias_list_dump (alias_list);
-  printf ("\n*** PARENTS ***\n\n");
-  _xdg_mime_parent_list_dump (parent_list);
-  printf ("\n*** CACHE ***\n\n");
-  _xdg_glob_hash_dump (global_hash);
-  printf ("\n*** GLOBS ***\n\n");
-  _xdg_glob_hash_dump (global_hash);
-  printf ("\n*** GLOBS REVERSE TREE ***\n\n");
-  _xdg_mime_cache_glob_dump ();
-}
+//void 
+//xdg_mime_dump (void)
+//{
+//  xdg_mime_init();
+//
+//  printf ("*** ALIASES ***\n\n");
+//  _xdg_mime_alias_list_dump (alias_list);
+//  printf ("\n*** PARENTS ***\n\n");
+//  _xdg_mime_parent_list_dump (parent_list);
+//  printf ("\n*** CACHE ***\n\n");
+//  _xdg_glob_hash_dump (global_hash);
+//  printf ("\n*** GLOBS ***\n\n");
+//  _xdg_glob_hash_dump (global_hash);
+//  printf ("\n*** GLOBS REVERSE TREE ***\n\n");
+//  _xdg_mime_cache_glob_dump ();
+//}
 
 
-/* Registers a function to be called every time the mime database reloads its files
- */
-int
-xdg_mime_register_reload_callback (XdgMimeCallback  callback,
-				   void            *data,
-				   XdgMimeDestroy   destroy)
-{
-  XdgCallbackList *list_el;
-  static int callback_id = 1;
+///* Registers a function to be called every time the mime database reloads its files
+// */
+//int
+//xdg_mime_register_reload_callback (XdgMimeCallback  callback,
+//				   void            *data,
+//				   XdgMimeDestroy   destroy)
+//{
+//  XdgCallbackList *list_el;
+//  static int callback_id = 1;
+//
+//  /* Make a new list element */
+//  list_el = calloc (1, sizeof (XdgCallbackList));
+//  list_el->callback_id = callback_id;
+//  list_el->callback = callback;
+//  list_el->data = data;
+//  list_el->destroy = destroy;
+//  list_el->next = callback_list;
+//  if (list_el->next)
+//    list_el->next->prev = list_el;
+//
+//  callback_list = list_el;
+//  callback_id ++;
+//
+//  return callback_id - 1;
+//}
 
-  /* Make a new list element */
-  list_el = calloc (1, sizeof (XdgCallbackList));
-  list_el->callback_id = callback_id;
-  list_el->callback = callback;
-  list_el->data = data;
-  list_el->destroy = destroy;
-  list_el->next = callback_list;
-  if (list_el->next)
-    list_el->next->prev = list_el;
+//void
+//xdg_mime_remove_callback (int callback_id)
+//{
+//  XdgCallbackList *list;
+//
+//  for (list = callback_list; list; list = list->next)
+//    {
+//      if (list->callback_id == callback_id)
+//	{
+//	  if (list->next)
+//	    list->next = list->prev;
+//
+//	  if (list->prev)
+//	    list->prev->next = list->next;
+//	  else
+//	    callback_list = list->next;
+//
+//	  /* invoke the destroy handler */
+//	  (list->destroy) (list->data);
+//	  free (list);
+//	  return;
+//	}
+//    }
+//}
 
-  callback_list = list_el;
-  callback_id ++;
+//const char *
+//xdg_mime_get_icon (const char *mime)
+//{
+//  xdg_mime_init ();
+//  
+//  if (_caches)
+//    return _xdg_mime_cache_get_icon (mime);
+//
+//  return _xdg_mime_icon_list_lookup (icon_list, mime);
+//}
 
-  return callback_id - 1;
-}
-
-void
-xdg_mime_remove_callback (int callback_id)
-{
-  XdgCallbackList *list;
-
-  for (list = callback_list; list; list = list->next)
-    {
-      if (list->callback_id == callback_id)
-	{
-	  if (list->next)
-	    list->next = list->prev;
-
-	  if (list->prev)
-	    list->prev->next = list->next;
-	  else
-	    callback_list = list->next;
-
-	  /* invoke the destroy handler */
-	  (list->destroy) (list->data);
-	  free (list);
-	  return;
-	}
-    }
-}
-
-const char *
-xdg_mime_get_icon (const char *mime)
-{
-  xdg_mime_init ();
-  
-  if (_caches)
-    return _xdg_mime_cache_get_icon (mime);
-
-  return _xdg_mime_icon_list_lookup (icon_list, mime);
-}
-
-const char *
-xdg_mime_get_generic_icon (const char *mime)
-{
-  xdg_mime_init ();
-  
-  if (_caches)
-    return _xdg_mime_cache_get_generic_icon (mime);
-
-  return _xdg_mime_icon_list_lookup (generic_icon_list, mime);
-}
+//const char *
+//xdg_mime_get_generic_icon (const char *mime)
+//{
+//  xdg_mime_init ();
+//  
+//  if (_caches)
+//    return _xdg_mime_cache_get_generic_icon (mime);
+//
+//  return _xdg_mime_icon_list_lookup (generic_icon_list, mime);
+//}

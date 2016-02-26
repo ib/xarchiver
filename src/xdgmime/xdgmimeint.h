@@ -41,7 +41,7 @@
 
 /* FIXME: Needs to be configure check */
 typedef unsigned int   xdg_unichar_t;
-typedef unsigned char  xdg_uchar8_t;
+//typedef unsigned char  xdg_uchar8_t;
 typedef unsigned short xdg_uint16_t;
 typedef unsigned int   xdg_uint32_t;
 
@@ -65,14 +65,14 @@ typedef unsigned int   xdg_uint32_t;
  */
 extern const char *const _xdg_utf8_skip;
 #define _xdg_utf8_next_char(p) (char *)((p) + _xdg_utf8_skip[*(unsigned char *)(p)])
-#define _xdg_utf8_char_size(p) (int) (_xdg_utf8_skip[*(unsigned char *)(p)])
+//#define _xdg_utf8_char_size(p) (int) (_xdg_utf8_skip[*(unsigned char *)(p)])
 
 xdg_unichar_t  _xdg_utf8_to_ucs4  (const char    *source);
-xdg_unichar_t  _xdg_ucs4_to_lower (xdg_unichar_t  source);
-int            _xdg_utf8_validate (const char    *source);
+//xdg_unichar_t  _xdg_ucs4_to_lower (xdg_unichar_t  source);
+//int            _xdg_utf8_validate (const char    *source);
 xdg_unichar_t *_xdg_convert_to_ucs4 (const char *source, int *len);
 void           _xdg_reverse_ucs4 (xdg_unichar_t *source, int len);
-const char    *_xdg_get_base_name (const char    *file_name);
-const char    *_xdg_binary_or_text_fallback(const void *data, size_t len);
+//const char    *_xdg_get_base_name (const char    *file_name);
+//const char    *_xdg_binary_or_text_fallback(const void *data, size_t len);
 
 #endif /* __XDG_MIME_INT_H__ */
