@@ -45,7 +45,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gchar *basepath = NULL;
 	gchar *current_dir = NULL;
 	gint current_page, response, type = 0;
-	gchar *format;
+	gchar *format = "";
 
 	unsigned short int x;
 
