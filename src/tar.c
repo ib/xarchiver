@@ -598,10 +598,9 @@ static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTr
 
 void xa_tar_test(XArchive *archive)
 {
-	gchar *command,*e_filename = NULL;
-	GSList *list = NULL,*_files = NULL;
+	gchar *command;
+	GSList *list = NULL;
 	GString *names = g_string_new("");
-	gboolean result = FALSE;
 
 	switch (archive->type)
 	{
