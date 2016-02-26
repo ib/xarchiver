@@ -1,3 +1,6 @@
+# intltool-update
+po/xarchiver.pot
+
 # autogen.sh
 INSTALL
 Makefile.in
