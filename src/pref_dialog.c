@@ -162,7 +162,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_sidebar), FALSE);
 
 	prefs_data->show_location_bar = gtk_check_button_new_with_mnemonic (_("Show archive location bar"));
-	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_location_bar, 0, 2, 4, 5,
+	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_location_bar, 0, 2, 3, 4,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_location_bar), FALSE);
