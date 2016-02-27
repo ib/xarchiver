@@ -430,6 +430,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	gchar *xarchiver_config_dir = NULL;
 	GKeyFile *xa_key_file = g_key_file_new();
 	GError *error = NULL;
+	gboolean toolbar;
 
 	config_dir = g_strconcat (g_get_home_dir(),"/.config",NULL);
 	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
@@ -460,7 +461,17 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column),g_key_file_get_boolean(xa_key_file,PACKAGE,"sort_filename_content",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_sidebar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_sidebar",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_location_bar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_location_bar",NULL));
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_toolbar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_toolbar",NULL));
+		toolbar = g_key_file_get_boolean(xa_key_file,PACKAGE,"show_toolbar",&error);
+		if (error)
+		{
+			if (error->code == G_KEY_FILE_ERROR_KEY_NOT_FOUND)
+				/* Preserve toolbar with old config files */
+				toolbar = TRUE;
+
+			g_error_free(error);
+			error = NULL;
+		}
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_toolbar),toolbar);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_sub_dir),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_sub_dir",NULL));
 		if ( ! xdg_open)
 		{
