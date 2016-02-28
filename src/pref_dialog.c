@@ -103,9 +103,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	archive_type = g_list_first (ArchiveType);
 	while ( archive_type != NULL )
 	{
-		if (strcmp(archive_type->data, "tgz") == 0 ||
-			strcmp(archive_type->data, "rpm") == 0 ||
-			(strncmp(archive_type->data, "rar", 3) == 0 && unrar) )
+		if (strncmp(archive_type->data, "rar", 3) == 0 && unrar)
 			goto next;
 		else
 			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_format),archive_type->data );
