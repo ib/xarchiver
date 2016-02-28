@@ -103,12 +103,9 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	archive_type = g_list_first (ArchiveType);
 	while ( archive_type != NULL )
 	{
-		if (strncmp(archive_type->data, "rar", 3) == 0 && unrar)
-			goto next;
-		else
+		if (!(strncmp(archive_type->data, "rar", 3) == 0 && unrar))
 			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_format),archive_type->data );
-		next:
-			archive_type = g_list_next (archive_type);
+		archive_type = g_list_next (archive_type);
 	}
 
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
