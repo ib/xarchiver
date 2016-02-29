@@ -44,9 +44,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 	else if (strncmp(mime,"image/",6) == 0)
 		return "image-x-generic";
 	else if (strncmp(mime,"video/",6) == 0 ||
-	         strcmp(mime,"application/vnd.adobe.flash.movie") == 0 ||
-	         strcmp(mime,"application/x-flash-video") == 0 ||
-	         strcmp(mime,"application/x-shockwave-flash") == 0)
+	         strcmp(mime,"application/vnd.adobe.flash.movie") == 0)
 		return "video-x-generic";
 	else if (strcmp(mime,"application/msword") == 0 ||
 	         strcmp(mime,"application/pdf") == 0 ||
@@ -62,15 +60,20 @@ const char *xa_get_stock_mime_icon(char *filename)
 	else if (strcmp(mime,"application/gzip") == 0 ||
 	         strcmp(mime,"application/vnd.debian.binary-package") == 0 ||
 	         strcmp(mime,"application/x-7z-compressed") == 0 ||
+	         strcmp(mime,"application/x-arj") == 0 ||
 	         strcmp(mime,"application/x-bzip") == 0 ||
 	         strcmp(mime,"application/x-bzip-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-compressed-tar") == 0 ||
-	         strcmp(mime,"application/x-deb") == 0 ||
-	         strcmp(mime,"application/x-gzip") == 0 ||
+	         strcmp(mime,"application/x-java-archive") == 0 ||
 	         strcmp(mime,"application/x-lha") == 0 ||
+	         strcmp(mime,"application/x-lzma") == 0 ||
+	         strcmp(mime,"application/x-lzma-compressed-tar") == 0 ||
+	         strcmp(mime,"application/x-lzop") == 0 ||
 	         strcmp(mime,"application/x-rar") == 0 ||
 	         strcmp(mime,"application/x-rpm") == 0 ||
+	         strcmp(mime,"application/x-source-rpm") == 0 ||
 	         strcmp(mime,"application/x-tar") == 0 ||
+	         strcmp(mime,"application/x-tzo") == 0 ||
 	         strcmp(mime,"application/x-xz") == 0 ||
 	         strcmp(mime,"application/x-xz-compressed-tar") == 0 ||
 	         strcmp(mime,"application/zip") == 0)
