@@ -594,7 +594,7 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 	if (selection != NULL)
 		xa_row_selected(selection,archive[id]);
 
-	if (archive[id]->type == XARCHIVETYPE_7ZIP || archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_RAR5 || archive[id]->type == XARCHIVETYPE_ARJ)
+	if (archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_RAR5 || archive[id]->type == XARCHIVETYPE_ARJ)
 		gtk_widget_set_sensitive (comment_menu,TRUE);
 	else
 		gtk_widget_set_sensitive (comment_menu,FALSE);
