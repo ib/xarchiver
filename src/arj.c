@@ -104,7 +104,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	{
 		linesize = strlen(line);
 		/* Size */
-		for(n=0; n < linesize && line[n] == ' '; n++);
+		for(n=12; n < linesize && line[n] == ' '; n++);
 		a = n;
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n]='\0';
