@@ -20,6 +20,7 @@
 #include "arj.h"
 #include <unistd.h>
 
+extern gboolean unarj;
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
 
@@ -28,8 +29,9 @@ void xa_open_arj (XArchive *archive)
 	unsigned short int i;
     jump_header = encrypted = last_line = FALSE;
 	arj_line = 0;
-	gchar *command = g_strconcat ("arj v ",archive->escaped_path, NULL);
-	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
+	gchar *command = g_strconcat (unarj ? "unarj " : "arj v ", archive->escaped_path, NULL);
+	archive->has_properties = archive->can_extract = archive->has_test = TRUE;
+	archive->has_sfx = archive->can_add = !unarj;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;
@@ -56,6 +58,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	gpointer item[7];
 	unsigned int linesize,n,a;
 	static gchar *filename;
+	gboolean lfn = TRUE;
 
 	if (last_line || strstr(line,"HardLink"))
 		return;
@@ -95,12 +98,19 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 			return;
 		}
 		line[linesize - 1] = '\0';
-		filename = g_strdup(line+5);
+		if (unarj)
+			/* simple column separator check */
+			lfn = (linesize < 76 || line[34] != ' ' || line[40] != ' ' || line[49] != ' ' || line[58] != ' ' || line[67] != ' ');
+		if (lfn)
+			filename = g_strdup(line + (unarj ? 0 : 5));
+		else
+			filename = g_strndup(line, 12);
 		archive->nr_of_files++;
 		arj_line++;
-		return;
+		if (lfn)
+			return;
 	}
-	else if (arj_line == 2)
+	if (arj_line == 2)
 	{
 		linesize = strlen(line);
 		/* Size */
@@ -133,21 +143,27 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		item[4] = line + 50;
 
 		/* Permissions */
-		line[69] = '\0';
-		item[5] = line + 59;
+		line[unarj ? 72 : 69] = '\0';
+		item[5] = line + (unarj ? 68 : 59);
 
 		/* GUA */
 		line[73] = '\0';
-		item[6] = line + 70;
+		item[6] = (unarj ? "" : line + 70);
 
 		/* BPMGS */
 		line[78] = '\0';
-		encrypted = (line[77] == '1');
+		if (unarj)
+			encrypted = (line[76] == 'G');
+		else
+			encrypted = (line[77] == '1');
 		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 		if (entry != NULL)
 			entry->is_encrypted	= encrypted;
 		g_free(filename);
-		arj_line++;
+		if (unarj)
+			arj_line = 1;
+		else
+			arj_line++;
 	}
 }
 
@@ -239,12 +255,19 @@ gboolean xa_arj_extract(XArchive *archive,GSList *files)
 								"-y ",
 								archive->escaped_path , " ",archive->extraction_path,names->str,NULL);
 	else
-		command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
+	{
+		if (unarj)
+			command = g_strconcat ( "sh -c \"cd ", archive->extraction_path,
+								" && unarj ", archive->full_path ? "x" : "e", " ",
+								archive->escaped_path, "\"", NULL );
+		else
+			command = g_strconcat ( "arj ",archive->full_path ? "x" : "e",
 								archive->overwrite ? "" : " -n" ,
 								" -i " , archive->freshen ? "-f " : "",
 								archive->update ? "-u " : " ",
 								"-y ",
 								archive->escaped_path , " ",archive->extraction_path,names->str,NULL);
+	}
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 
@@ -261,7 +284,7 @@ void xa_arj_test (XArchive *archive)
 	if (archive->passwd != NULL)
 		command = g_strconcat ("arj t -g" , archive->passwd , " -i " , archive->escaped_path, NULL);
 	else
-		command = g_strconcat ("arj t -i -y - " , archive->escaped_path, NULL);
+		command = g_strconcat (unarj ? "unarj t " : "arj t -i -y - ", archive->escaped_path, NULL);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);

@@ -23,7 +23,7 @@
 #include "main.h"
 #include "support.h"
 
-extern gboolean unrar;
+extern gboolean unarj, unrar;
 extern gboolean xdg_open;
 extern Extract_dialog_data *extract_window;
 extern Add_dialog_data *add_window;
@@ -103,7 +103,8 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	archive_type = g_list_first (ArchiveType);
 	while ( archive_type != NULL )
 	{
-		if (!(strncmp(archive_type->data, "rar", 3) == 0 && unrar))
+		if (!((strncmp(archive_type->data, "arj", 3) == 0 && unarj) ||
+		      (strncmp(archive_type->data, "rar", 3) == 0 && unrar)))
 			gtk_combo_box_append_text (GTK_COMBO_BOX (prefs_data->combo_prefered_format),archive_type->data );
 		archive_type = g_list_next (archive_type);
 	}

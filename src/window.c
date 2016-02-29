@@ -26,7 +26,7 @@
 
 extern GList *ArchiveType;
 extern GList *ArchiveSuffix;
-extern gboolean unrar;
+extern gboolean unarj, unrar;
 extern gboolean xdg_open;
 extern Prefs_dialog_data	*prefs_window;
 extern Extract_dialog_data	*extract_window;
@@ -1584,7 +1584,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		gtk_widget_show(selected_frame);
 		gtk_widget_set_sensitive(deselect_all,TRUE);
 	}
-	if ( (archive->type == XARCHIVETYPE_RAR && unrar) || (archive->type == XARCHIVETYPE_RAR5 && unrar) || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
+	if ( (archive->type == XARCHIVETYPE_ARJ && unarj) || (archive->type == XARCHIVETYPE_RAR && unrar) || (archive->type == XARCHIVETYPE_RAR5 && unrar) || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
 	{
 		gtk_widget_set_sensitive (delete_menu,FALSE);
 		gtk_widget_set_sensitive (rename_menu,FALSE);
@@ -1803,6 +1803,11 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	else
 		idx = xa_find_archive_index (current_page);
 
+	if (archive[idx]->type == XARCHIVETYPE_ARJ && unarj)
+	{
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install arj package!"));
+		return;
+	}
 	if ((archive[idx]->type == XARCHIVETYPE_RAR || archive[idx]->type == XARCHIVETYPE_RAR5) && unrar)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install rar package!"));

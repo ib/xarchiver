@@ -45,7 +45,7 @@ static const GtkTargetEntry drop_targets[] =
   { "text/uri-list",0,0 },
 };
 
-extern gboolean unrar,batch_mode;
+extern gboolean unarj,unrar,batch_mode;
 
 static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid pid);
 static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid pid);
@@ -618,6 +618,11 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 			gtk_widget_show(selected_frame);
 			gtk_widget_set_sensitive(deselect_all,TRUE);
 			if ((archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_RAR5) && unrar)
+			{
+				gtk_widget_set_sensitive (delete_menu,FALSE);
+				gtk_widget_set_sensitive (rename_menu,FALSE);
+			}
+			else if (archive[id]->type == XARCHIVETYPE_ARJ && unarj)
 			{
 				gtk_widget_set_sensitive (delete_menu,FALSE);
 				gtk_widget_set_sensitive (rename_menu,FALSE);

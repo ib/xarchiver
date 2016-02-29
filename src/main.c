@@ -33,6 +33,7 @@ GError *cli_error = NULL;
 gchar *add_files;
 gboolean error_output, file_to_open, ask_and_extract, ask_and_add, multi_extract;
 gboolean batch_mode = FALSE;
+gboolean unarj = FALSE;
 gboolean unrar = FALSE;
 gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
 static gboolean show_version = FALSE;
@@ -380,6 +381,17 @@ void xa_set_available_archivers()
 		ArchiveType = g_list_append(ArchiveType, "arj");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.arj");
 		g_free (absolute_path);
+	}
+	else
+	{
+		absolute_path = g_find_program_in_path("unarj");
+		if ( absolute_path )
+		{
+			unarj = TRUE;
+			ArchiveType = g_list_append(ArchiveType, "arj");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.arj");
+			g_free (absolute_path);
+		}
 	}
 
 	absolute_path = g_find_program_in_path("bzip2");

@@ -24,7 +24,7 @@
 #include "string_utils.h"
 #include "support.h"
 
-extern gboolean batch_mode;
+extern gboolean unarj, batch_mode;
 extern Prefs_dialog_data *prefs_window;
 extern Progress_bar_data *pb;
 extern extract_func extract	[XARCHIVETYPE_COUNT];
@@ -229,7 +229,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Extract files"));
 
-	if (archive->type != XARCHIVETYPE_RPM)
+	if (!(archive->type == XARCHIVETYPE_RPM || (archive->type == XARCHIVETYPE_ARJ && unarj)))
 	{
 		if (selected)
 		{

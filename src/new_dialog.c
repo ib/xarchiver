@@ -24,7 +24,7 @@
 #include "string_utils.h"
 #include "main.h"
 
-extern gboolean unrar;
+extern gboolean unarj, unrar;
 extern Prefs_dialog_data *prefs_window;
 gchar *current_new_directory = NULL;
 gint  new_combo_box = -1;
@@ -101,7 +101,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 	while (Name)
 	{
-		if (!(strncmp(Name->data, "rar", 3) == 0 && unrar))
+		if (!((strncmp(Name->data, "arj", 3) == 0 && unarj) ||
+		      (strncmp(Name->data, "rar", 3) == 0 && unrar)))
 			gtk_combo_box_append_text(GTK_COMBO_BOX(combo_box),Name->data);
 		Name = g_list_next (Name);
 	}
