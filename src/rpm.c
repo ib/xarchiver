@@ -62,7 +62,7 @@ void xa_open_rpm (XArchive *archive)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek to position 104:"),g_strerror(errno));
 		return;
 	}
-	if ( fread ( bytes, 1, 8, stream ) == 0 )
+	if ( fread ( bytes, 1, 8, stream ) != 8 )
 	{
 		fclose ( stream );
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
@@ -78,7 +78,7 @@ void xa_open_rpm (XArchive *archive)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek in file:"),g_strerror(errno));
 		return;
 	}
-	if ( fread ( bytes, 1, 8, stream ) == 0 )
+	if ( fread ( bytes, 1, 8, stream ) != 8 )
 	{
 		fclose ( stream );
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
