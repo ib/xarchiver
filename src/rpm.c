@@ -35,7 +35,7 @@ void xa_open_rpm (XArchive *archive)
 {
 	unsigned char bytes[HDRSIG_ENTRY_INFO_LEN];
 	unsigned short int i;
-	int datalen, entries, sigsize;
+	int datalen, entries;
 	long offset;
 	gchar *ibs,*executable;
 	gchar *gzip_tmp = NULL;
@@ -83,8 +83,8 @@ void xa_open_rpm (XArchive *archive)
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
-	sigsize = 8 + 16 * entries + datalen;
-	offset = 104 + sigsize + ( 8 - ( sigsize % 8 ) ) % 8 + 8;
+	offset = 8 + 16 * entries + datalen;
+	offset = 104 + offset + ( 8 - ( offset % 8 ) ) % 8 + 8;
 	if (fseek ( stream, offset  , SEEK_SET ) )
 	{
 		fclose (stream);
@@ -99,8 +99,7 @@ void xa_open_rpm (XArchive *archive)
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
-	sigsize = 8 + 16 * entries + datalen;
-	offset = offset + sigsize;
+	offset += 8 + 16 * entries + datalen;
 	fclose (stream);
 
 	/* Create a unique temp dir in /tmp */
