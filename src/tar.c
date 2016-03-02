@@ -20,6 +20,8 @@
 #include <string.h>
 #include "tar.h"
 
+#define TMPFILE "xa-tmp.tar"
+
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 extern gchar *tar;
@@ -468,23 +470,23 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 	{
 		case XARCHIVETYPE_TAR_BZ2:
 			executable = "bzip2 -f ";
-			filename = "dummy.bz2";
+			filename = TMPFILE ".bz2";
 		break;
 		case XARCHIVETYPE_TAR_GZ:
 			executable = "gzip -f ";
-			filename = "dummy.gz";
+			filename = TMPFILE ".gz";
 		break;
 		case XARCHIVETYPE_TAR_LZMA:
 			executable = "lzma -f ";
-			filename = "dummy.lzma";
+			filename = TMPFILE ".lzma";
 		break;
 		case XARCHIVETYPE_TAR_XZ:
 			executable = "xz -f ";
-			filename = "dummy.xz";
+			filename = TMPFILE ".xz";
 		break;
 		case XARCHIVETYPE_TAR_LZOP:
 			executable = "lzop -f ";
-			filename = "dummy.lzo";
+			filename = TMPFILE ".lzo";
 		break;
 
 		default:
@@ -507,13 +509,13 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 							archive->add_recurse ? "" : "--no-recursion ",
 							archive->remove_files ? "--remove-files " : "",
 							archive->update ? "-uvvf " : "-rvvf ",
-							archive->tmp,"/dummy",
+							archive->tmp,"/" TMPFILE,
 							files->str , NULL );
 	else
-		command = g_strconcat (tar," --no-wildcards --delete -f ",archive->tmp,"/dummy ",files->str,NULL);
+		command = g_strconcat (tar," --no-wildcards --delete -f ",archive->tmp,"/" TMPFILE " ",files->str,NULL);
 	list = g_slist_append(list,command);
 
-	command = g_strconcat (executable,archive->tmp,"/dummy",NULL);
+	command = g_strconcat (executable,archive->tmp,"/" TMPFILE,NULL);
 	list = g_slist_append(list,command);
 
 	/* Let's move the modified archive from /tmp to the original archive location */

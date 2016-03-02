@@ -110,7 +110,7 @@ void xa_open_rpm (XArchive *archive)
 	if (!result)
 		return;
 
-	gzip_tmp = g_strconcat (archive->tmp,"/file.gz_bz",NULL);
+	gzip_tmp = g_strconcat (archive->tmp,"/xa-tmp.cpio_z",NULL);
 	ibs = g_strdup_printf("%lu", offset);
 
 	/* Run dd to have the payload (compressed cpio archive) in /tmp */
@@ -131,7 +131,7 @@ void xa_open_rpm (XArchive *archive)
 	else
 		executable = "xz -dc ";
 
-	command = g_strconcat("sh -c \"",executable,gzip_tmp," > ",archive->tmp,"/file.cpio\"",NULL);
+	command = g_strconcat("sh -c \"",executable,gzip_tmp," > ",archive->tmp,"/xa-tmp.cpio\"",NULL);
 	g_free(gzip_tmp);
 	list = NULL;
 	list = g_slist_append(list,command);
@@ -144,7 +144,7 @@ void xa_open_rpm (XArchive *archive)
 		return;
 	}
 	/* And finally cpio to receive the content */
-	command = g_strconcat ("sh -c \"cpio -tv < ",archive->tmp,"/file.cpio\"",NULL);
+	command = g_strconcat ("sh -c \"cpio -tv < ",archive->tmp,"/xa-tmp.cpio\"",NULL);
 	archive->parse_output = xa_get_cpio_line_content;
 	xa_spawn_async_process (archive,command);
 	g_free(command);
@@ -253,7 +253,7 @@ gboolean xa_rpm_extract(XArchive *archive,GSList *files)
 	g_slist_free(files);
 
 	chdir (archive->extraction_path);
-	command = g_strconcat ( "sh -c \"cpio -id" , names->str," < ",archive->tmp,"/file.cpio\"",NULL);
+	command = g_strconcat ( "sh -c \"cpio -id" , names->str," < ",archive->tmp,"/xa-tmp.cpio\"",NULL);
 
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);

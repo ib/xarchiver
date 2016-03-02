@@ -2090,7 +2090,7 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 	content = gtk_text_buffer_get_text(buf,&start,&end,FALSE);
 
 	xa_create_temp_directory(archive[idx]);
-	tmp = g_strconcat(archive[idx]->tmp,"/xa_tmp_file",NULL);
+	tmp = g_strconcat(archive[idx]->tmp,"/xa-tmp.comment",NULL);
 	gtk_widget_destroy(comment_dialog);
 
 	if (archive[idx]->comment == NULL)
