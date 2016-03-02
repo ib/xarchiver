@@ -83,9 +83,11 @@ void xa_open_rpm (XArchive *archive)
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
-	offset = 8 + 16 * entries + datalen;
-	offset = 104 + offset + ( 8 - ( offset % 8 ) ) % 8 + 8;
-	if (fseek ( stream, offset  , SEEK_SET ) )
+	datalen += (16 - (datalen % 16)) % 16;  // header section is aligned
+	offset = HDRSIG_ENTRY_INDEX_LEN * entries + datalen;
+
+	/* Header section */
+	if (fseek(stream, offset, SEEK_CUR))
 	{
 		fclose (stream);
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek in file:"),g_strerror(errno));
@@ -99,7 +101,8 @@ void xa_open_rpm (XArchive *archive)
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
-	offset += 8 + 16 * entries + datalen;
+	offset = HDRSIG_ENTRY_INDEX_LEN * entries + datalen;
+	offset += ftell(stream);  // offset from top
 	fclose (stream);
 
 	/* Create a unique temp dir in /tmp */
