@@ -19,11 +19,21 @@
 #include "config.h"
 #include "rpm.h"
 #include "string_utils.h"
+
+#define LEAD_LEN 96
+#define HDRSIG_MAGIC_LEN 3
+#define HDRSIG_VERSION_LEN 1
+#define HDRSIG_RESERVED_LEN 4
+#define HDRSIG_LEAD_IN_LEN (HDRSIG_MAGIC_LEN + HDRSIG_VERSION_LEN + HDRSIG_RESERVED_LEN)
+#define SIGNATURE_START (LEAD_LEN + HDRSIG_LEAD_IN_LEN)
+#define HDRSIG_ENTRY_INFO_LEN 8
+#define HDRSIG_ENTRY_INDEX_LEN 16
+
 extern gboolean batch_mode;
 
 void xa_open_rpm (XArchive *archive)
 {
-	unsigned char bytes[8];
+	unsigned char bytes[HDRSIG_ENTRY_INFO_LEN];
 	unsigned short int i;
 	int datalen, entries, sigsize;
 	long offset;
@@ -57,13 +67,15 @@ void xa_open_rpm (XArchive *archive)
 		archive->column_types[i] = types[i];
 
 	xa_create_liststore (archive,names);
-	if (fseek ( stream, 104 , SEEK_CUR ) == -1)
+
+	/* Signature section */
+	if (fseek(stream, SIGNATURE_START, SEEK_CUR) == -1)
 	{
 		fclose (stream);
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek to position 104:"),g_strerror(errno));
 		return;
 	}
-	if ( fread ( bytes, 1, 8, stream ) != 8 )
+	if (fread(bytes, 1, HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
 	{
 		fclose ( stream );
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
@@ -79,7 +91,7 @@ void xa_open_rpm (XArchive *archive)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek in file:"),g_strerror(errno));
 		return;
 	}
-	if ( fread ( bytes, 1, 8, stream ) != 8 )
+	if (fread(bytes, 1, HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
 	{
 		fclose ( stream );
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
