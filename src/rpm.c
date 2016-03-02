@@ -56,7 +56,7 @@ void xa_open_rpm (XArchive *archive)
 		archive->column_types[i] = types[i];
 
 	xa_create_liststore (archive,names);
-	if (fseek ( stream, 104 , SEEK_CUR ) )
+	if (fseek ( stream, 104 , SEEK_CUR ) == -1)
 	{
 		fclose (stream);
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek to position 104:"),g_strerror(errno));
