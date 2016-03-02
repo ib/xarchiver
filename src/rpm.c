@@ -25,7 +25,7 @@ void xa_open_rpm (XArchive *archive)
 {
 	unsigned char bytes[8];
 	unsigned short int i;
-	int dl,il,sigsize;
+	int datalen, entries, sigsize;
 	long offset;
 	gchar *ibs,*executable;
 	gchar *gzip_tmp = NULL;
@@ -69,9 +69,9 @@ void xa_open_rpm (XArchive *archive)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
 		return;
 	}
-	il = 256 * ( 256 * ( 256 * bytes[0] + bytes[1]) + bytes[2] ) + bytes[3];
-	dl = 256 * ( 256 * ( 256 * bytes[4] + bytes[5]) + bytes[6] ) + bytes[7];
-	sigsize = 8 + 16 * il + dl;
+	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
+	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
+	sigsize = 8 + 16 * entries + datalen;
 	offset = 104 + sigsize + ( 8 - ( sigsize % 8 ) ) % 8 + 8;
 	if (fseek ( stream, offset  , SEEK_SET ) )
 	{
@@ -85,9 +85,9 @@ void xa_open_rpm (XArchive *archive)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
 		return;
 	}
-	il = 256 * ( 256 * ( 256 * bytes[0] + bytes[1]) + bytes[2] ) + bytes[3];
-	dl = 256 * ( 256 * ( 256 * bytes[4] + bytes[5]) + bytes[6] ) + bytes[7];
-	sigsize = 8 + 16 * il + dl;
+	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
+	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
+	sigsize = 8 + 16 * entries + datalen;
 	offset = offset + sigsize;
 	fclose (stream);
 
