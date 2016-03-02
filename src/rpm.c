@@ -25,7 +25,8 @@ void xa_open_rpm (XArchive *archive)
 {
 	unsigned char bytes[8];
 	unsigned short int i;
-	int dl,il,sigsize,offset;
+	int dl,il,sigsize;
+	long offset;
 	gchar *ibs,*executable;
 	gchar *gzip_tmp = NULL;
 	GSList *list = NULL;
@@ -96,7 +97,7 @@ void xa_open_rpm (XArchive *archive)
 		return;
 
 	gzip_tmp = g_strconcat (archive->tmp,"/file.gz_bz",NULL);
-	ibs = g_strdup_printf ( "%u" , offset );
+	ibs = g_strdup_printf("%lu", offset);
 
 	/* Now I run dd to have the bzip2 / gzip compressed cpio archive in /tmp */
 	gchar *command = g_strconcat ( "dd if=",archive->escaped_path," ibs=",ibs," skip=1 of=",gzip_tmp,NULL);
