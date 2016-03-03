@@ -2815,6 +2815,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 
 void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 {
+	gboolean reload = FALSE;
 	GdkPixbuf *pixbuf = NULL;
 	GtkTreeIter iter;
 	unsigned short int i;
@@ -2834,7 +2835,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	{
 		entry = archive->root_entry->child;
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
-		gtk_tree_selection_unselect_all(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)));
+		reload = TRUE;
 		if (archive->location_entry_path != NULL)
 		{
 			g_free(archive->location_entry_path);
@@ -2914,7 +2915,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		}
 		entry = entry->next;
 	}
-	xa_fill_dir_sidebar(archive,FALSE);
+	xa_fill_dir_sidebar(archive, reload);
 	xa_set_statusbar_message_for_displayed_rows(archive);
 }
 
