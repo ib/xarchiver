@@ -200,6 +200,10 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename_menu),tmp_image);
 
+	unsort_menu = gtk_menu_item_new_with_mnemonic(_("Uns_ort"));
+	gtk_widget_show(unsort_menu);
+	gtk_container_add(GTK_CONTAINER(menuitem2_menu), unsort_menu);
+
 	separatormenuitem3 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem3);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),separatormenuitem3);
@@ -541,6 +545,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) multi_extract_menu,"activate",G_CALLBACK (xa_show_multi_extract_dialog),NULL);
 	g_signal_connect ((gpointer) help1,"activate",G_CALLBACK (xa_show_help),NULL);
 	g_signal_connect ((gpointer) about1,"activate",G_CALLBACK (xa_about),NULL);
+	g_signal_connect ((gpointer) unsort_menu,"activate",G_CALLBACK (xa_unsort),NULL);
 
 	g_signal_connect ((gpointer) New_button,	"clicked",G_CALLBACK (xa_new_archive),NULL);
 	g_signal_connect ((gpointer) Open_button,	"clicked",G_CALLBACK (xa_open_archive),NULL);

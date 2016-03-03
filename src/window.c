@@ -2925,3 +2925,21 @@ void xa_show_multi_extract_dialog (GtkMenuItem *menu_item,gpointer data)
 		gtk_widget_hide(pb->progress_window);
 	//xa_close_archive (NULL,data);
 }
+
+void xa_unsort (GtkMenuItem *menu_item, gpointer data)
+{
+	gint idx;
+
+	idx = gtk_notebook_get_current_page(notebook);
+
+	if (idx == -1)
+		return;
+
+	idx = xa_find_archive_index(idx);
+
+	if (idx == -1)
+		return;
+
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive[idx]->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
+	xa_update_window_with_archive_entries(archive[idx], NULL);
+}

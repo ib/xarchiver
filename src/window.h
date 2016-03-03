@@ -124,6 +124,7 @@ void xa_clipboard_get (GtkClipboard *,GtkSelectionData *,guint ,gpointer );
 void xa_clipboard_clear (GtkClipboard *,gpointer );
 void xa_treeview_row_activated(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,XArchive *);
 void xa_update_window_with_archive_entries(XArchive *,XEntry *);
+void xa_unsort(GtkMenuItem *, gpointer);
 
 int xa_show_message_dialog (GtkWindow *, int,int ,int , const gchar *,const gchar *);
 XArchiveType xa_detect_archive_type (gchar *);

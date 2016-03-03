@@ -51,7 +51,7 @@ GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuite
 *prefs_menu,*password_entry_menu, *image1, *image2, *menuitem4, *select_all,*deselect_all,*select_pattern, *exe_menu, *menuitem4_menu,
 *about1, *help1,*toolbar1, *toolbar2, *hbox1, *tmp_image, *pad_image, *New_button, *Open_button, *back_button, *home_button, *forward_button,
 *up_button,*separatortoolitem1,*separatortoolitem2,*separatortoolitem3,*AddFile_button,*Extract_button,*Stop_button,*toolitem1,*location_label,
-*location_entry,*hpaned1,*archive_dir_treeview,*scrolledwindow2,*ddelete,*rename_menu,*rrename,*cut,*copy,*paste,*view,*open_popupmenu;
+*location_entry,*hpaned1,*archive_dir_treeview,*scrolledwindow2,*ddelete,*rename_menu,*rrename,*cut,*copy,*paste,*view,*open_popupmenu,*unsort_menu;
 
 gchar *xa_create_password_dialog(XArchive *);
 void set_label (GtkWidget *label,gchar *);
