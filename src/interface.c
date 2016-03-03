@@ -45,6 +45,8 @@ static const GtkTargetEntry drop_targets[] =
   { "text/uri-list",0,0 },
 };
 
+static gulong selchghid;
+
 extern gboolean unarj,unrar,batch_mode;
 
 static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid pid);
@@ -461,7 +463,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect (G_OBJECT (archive_dir_treeview),"drag-data-received",G_CALLBACK (xa_sidepane_drag_data_received),NULL);
 	g_signal_connect (G_OBJECT (archive_dir_treeview),"drag-motion",G_CALLBACK (xa_sidepane_drag_motion),NULL);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
-	g_signal_connect (sel,"changed",G_CALLBACK (xa_sidepane_row_selected),NULL);
+	selchghid = g_signal_connect(G_OBJECT(sel), "changed", G_CALLBACK(xa_sidepane_row_selected), NULL);
 
 	column = gtk_tree_view_column_new();
 	archive_dir_renderer = gtk_cell_renderer_pixbuf_new();
@@ -651,7 +653,16 @@ void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page
 
 		if (GTK_IS_TREE_VIEW(archive[id]->treeview))
 			gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
+
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview));
+		g_signal_handler_block(selection, selchghid);
+
 		xa_fill_dir_sidebar(archive[id],TRUE);
+
+		if (archive[id]->location_entry_path)
+			xa_sidepane_select_row(xa_find_entry_from_path(archive[id]->root_entry, archive[id]->location_entry_path));
+
+		g_signal_handler_unblock(selection, selchghid);
 	}
 	xa_set_button_state (1,1,1,1,archive[id]->can_add,archive[id]->can_extract,archive[id]->has_sfx,archive[id]->has_test,archive[id]->has_properties,1,1);
 }
