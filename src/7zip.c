@@ -29,7 +29,7 @@ extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 void xa_open_7zip (XArchive *archive)
 {
 	gchar *exe;
-	jump_header = last_line = FALSE;
+	jump_header = encrypted = last_line = FALSE;
 	unsigned short int i = 0;
 
 	if (sevenzr)
@@ -61,6 +61,7 @@ void xa_open_7zip (XArchive *archive)
 void xa_get_7zip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
+	XEntry *entry;
 	gchar *filename;
 	gpointer item[5];
 	gint linesize = 0,a = 0;
@@ -70,6 +71,9 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 
 	if (jump_header == FALSE)
 	{
+		if (strncmp(line, "Method = ", 9) == 0 && strstr(line, "7zAES"))
+			encrypted = TRUE;
+
 		if ((line[0] == '-') && line[3])
 		{
 			jump_header = TRUE;
@@ -125,7 +129,11 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 	}
 
 	filename = g_strdup(line + 53);
-	xa_set_archive_entries_for_each_row (archive,filename,item);
+	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+
+	if (entry != NULL)
+		entry->is_encrypted = encrypted;
+
 	g_free(filename);
 }
 
