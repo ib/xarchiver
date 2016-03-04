@@ -1195,7 +1195,10 @@ gboolean xa_detect_archive_comment (int type,gchar *filename,XArchive *archive)
 		fseek (stream,eocds_position,SEEK_SET);
 		fread (&len,1,2,stream);
 		if (len == 0)
+		{
+			fclose(stream);
 			return FALSE;
+		}
 		else
 		{
 			archive->comment = g_string_new("");
@@ -1205,6 +1208,7 @@ gboolean xa_detect_archive_comment (int type,gchar *filename,XArchive *archive)
 				g_string_append_c (archive->comment,sig);
 				cmt_len++;
 			}
+			fclose(stream);
 			return TRUE;
 		}
 	}
@@ -1229,13 +1233,16 @@ gboolean xa_detect_archive_comment (int type,gchar *filename,XArchive *archive)
 			{
 				g_string_free (archive->comment,FALSE);
 				archive->comment = NULL;
+				fclose(stream);
 				return FALSE;
 			}
 			else
 				g_string_append_c (archive->comment,sig);
 		}
+		fclose(stream);
 		return TRUE;
 	}
+	fclose(stream);
 	return FALSE;
 }
 
