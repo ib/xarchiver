@@ -405,6 +405,7 @@ void xa_set_available_archivers()
 	absolute_path = g_find_program_in_path("ar");
     if ( absolute_path )
 	{
+	    ArchiveType = g_list_append(ArchiveType, "");
 	    ArchiveSuffix = g_list_append (ArchiveSuffix, "*.deb");
 		g_free (absolute_path);
 	}
@@ -487,6 +488,7 @@ void xa_set_available_archivers()
 	absolute_path = g_find_program_in_path("cpio");
     if ( absolute_path )
 	{
+	    ArchiveType = g_list_append(ArchiveType, "");
 	    ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rpm");
 		g_free (absolute_path);
 	}
@@ -502,8 +504,7 @@ void xa_set_available_archivers()
 		if ( g_list_find ( ArchiveType , "bz2") )
 		{
 			ArchiveType = g_list_append(ArchiveType, "tar.bz2");
-			/* The following to avoid double filter when opening */
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.bz2");
 		}
 		if ( g_list_find ( ArchiveType , "gz") )
 		{
