@@ -1071,13 +1071,11 @@ gchar *xa_open_file_dialog ()
 		Suffix = g_list_first ( ArchiveSuffix);
 		while ( Suffix != NULL)
 		{
-			if ( strcmp(Suffix->data,"") != 0)	/* To avoid double filtering when opening the archive */
-			{
-				filter = gtk_file_filter_new ();
-				gtk_file_filter_set_name (filter,Suffix->data);
-				gtk_file_filter_add_pattern (filter,Suffix->data);
-				gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector),filter);
-			}
+			filter = gtk_file_filter_new();
+			gtk_file_filter_set_name(filter, Suffix->data);
+			gtk_file_filter_add_pattern(filter, Suffix->data);
+			gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(File_Selector), filter);
+
 			Suffix = g_list_next ( Suffix);
 		}
 		gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);

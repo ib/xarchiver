@@ -140,13 +140,11 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 	while ( Suffix != NULL )
 	{
-		if ( strcmp(Suffix->data, "") != 0 )	/* To avoid double filtering when opening the archive */
-		{
-			xa_new_archive_dialog_filter = gtk_file_filter_new ();
-			gtk_file_filter_set_name (xa_new_archive_dialog_filter, Suffix->data );
-			gtk_file_filter_add_pattern (xa_new_archive_dialog_filter, Suffix->data );
-			gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (xa_file_chooser), xa_new_archive_dialog_filter);
-		}
+		xa_new_archive_dialog_filter = gtk_file_filter_new();
+		gtk_file_filter_set_name(xa_new_archive_dialog_filter, Suffix->data);
+		gtk_file_filter_add_pattern(xa_new_archive_dialog_filter, Suffix->data);
+		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(xa_file_chooser), xa_new_archive_dialog_filter);
+
 		Suffix = g_list_next ( Suffix );
 	}
 	hbox = gtk_hbox_new (FALSE, 6);
