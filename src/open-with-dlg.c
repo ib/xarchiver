@@ -236,7 +236,7 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 			}
 			if (g_str_has_prefix(line,"Exec="))
 			{
-				app_exe = strstr(line," ");
+				app_exe = strstr(line," %");
 				if (app_exe)
 					app_exe = g_strndup(line + 5,app_exe - (line+5));
 				else
