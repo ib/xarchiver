@@ -509,22 +509,22 @@ void xa_set_available_archivers()
 		if ( g_list_find ( ArchiveType , "gz") )
 		{
 			ArchiveType = g_list_append(ArchiveType, "tar.gz");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tgz");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.gz");
 		}
 		if ( g_list_find ( ArchiveType , "lzma") )
 		{
 			ArchiveType = g_list_append(ArchiveType, "tar.lzma");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.lzma");
 		}
 		if ( g_list_find ( ArchiveType , "xz") )
 		{
 			ArchiveType = g_list_append(ArchiveType, "tar.xz");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.txz");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.xz");
 		}
 		if ( g_list_find ( ArchiveType , "lzo") )
 		{
 			ArchiveType = g_list_append(ArchiveType, "tar.lzo");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tzo");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.lzo");
 		}
 	}
 	else
@@ -557,6 +557,12 @@ void xa_set_available_archivers()
 	    ArchiveSuffix = g_list_append(ArchiveSuffix, "*.7z");
 		g_free (absolute_path);
     }
+	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tbz2");
+	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tgz");
+	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
+	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.txz");
+	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tzo");
+
     absolute_path = g_find_program_in_path("xdg-open");
     if (absolute_path != NULL)
     {
