@@ -329,11 +329,6 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			type = XARCHIVETYPE_ZIP;
 			format = "ZIP";
 		}
-		else if (strcmp (ComboArchiveType,"rpm") == 0)
-		{
-			type = XARCHIVETYPE_RPM;
-			format = "RPM";
-		}
 		else if (strcmp (ComboArchiveType,"7z") == 0)
 		{
 			type = XARCHIVETYPE_7ZIP;
