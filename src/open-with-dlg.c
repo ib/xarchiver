@@ -211,11 +211,12 @@ static void xa_read_desktop_directories(GtkListStore *liststore,const gchar *dir
 
 static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,GSList **app_icon_list,gchar *path,gchar *name)
 {
-	gchar *filename,*line;
+	gchar *filename, *line, *key;
 	gchar *app_name = NULL, *app_exe = NULL, *app_icon = NULL;
 	GIOStatus status;
 	GIOChannel *file;
 	gboolean has_mimetype = FALSE;
+	const gchar * const *langs, * const *l;
 	gint size;
 
 	filename = g_strconcat(path,"/",name,NULL);
@@ -223,13 +224,34 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 	g_free(filename);
 	if (file == NULL)
 		return;
+	langs = g_get_language_names();
 	g_io_channel_set_encoding(file,NULL,NULL);
 	do
 	{
 		status = g_io_channel_read_line (file, &line, NULL, NULL, NULL);
 		if (line != NULL)
 		{
-			if (g_str_has_prefix(line,"Name="))
+			if (g_str_has_prefix(line, "Name["))
+			{
+				l = langs;
+
+				while (*l)
+				{
+					key = g_strconcat("Name[", *l, "]=", NULL);
+
+					if (g_str_has_prefix(line, key))
+					{
+						g_free(app_name);
+						app_name = g_strndup(line + strlen(key), strlen(line) - strlen(key) - 1);
+						g_free(key);
+						break;
+					}
+
+					g_free(key);
+					l++;
+				}
+			}
+			if (!app_name && g_str_has_prefix(line, "Name="))
 			{
 				app_name = g_strndup(line + 5,(strlen(line)-6));
 				continue;
