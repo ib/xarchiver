@@ -242,7 +242,7 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 			}
 			if (g_str_has_prefix(line,"Icon="))
 			{
-				app_icon = strstr(line,".");
+				app_icon = strrchr(line, '.');
 				if (app_icon)
 					app_icon = g_strndup(line + 5,app_icon - (line+5));
 				else
