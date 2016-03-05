@@ -21,6 +21,8 @@
 #include "mime.h"
 #include "support.h"
 
+extern Prefs_dialog_data *prefs_window;
+
 static void xa_read_desktop_directories(GtkListStore *,const gchar *);
 static void xa_parse_desktop_files(GSList **,GSList **,GSList **,gchar *,gchar *);
 static void xa_open_with_dialog_selection_changed (GtkTreeSelection *,Open_with_data *);
@@ -214,6 +216,7 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 	GIOStatus status;
 	GIOChannel *file;
 	gboolean has_mimetype = FALSE;
+	gint size;
 
 	filename = g_strconcat(path,"/",name,NULL);
 	file = g_io_channel_new_file(filename,"r",NULL);
@@ -261,7 +264,11 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 		*app_exe_list	= g_slist_prepend(*app_exe_list ,app_exe);
 		if (app_icon == NULL)
 			app_icon = "";
-		*app_icon_list = g_slist_prepend(*app_icon_list,gtk_icon_theme_load_icon(icon_theme,app_icon,40,0,NULL));
+		if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
+			size = 40;
+		else
+			size = 24;
+		*app_icon_list = g_slist_prepend(*app_icon_list, gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL));
 		g_io_channel_shutdown (file, TRUE, NULL);
 		return;
 	}
