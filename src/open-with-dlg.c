@@ -76,7 +76,8 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 		icon_name = xa_get_stock_mime_icon(filename);
 		pixbuf = gtk_icon_theme_load_icon(icon_theme,icon_name,40,0,NULL);
 		mime_icon = gtk_image_new_from_pixbuf(pixbuf);
-		g_object_unref(pixbuf);
+		if (pixbuf)
+			g_object_unref(pixbuf);
 		gtk_box_pack_start (GTK_BOX (hbox1),mime_icon,FALSE,TRUE,0);
 		gtk_misc_set_alignment (GTK_MISC (mime_icon),0,0);
 
