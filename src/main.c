@@ -37,7 +37,7 @@ gboolean unarj = FALSE;
 gboolean unrar = FALSE;
 gboolean xdg_open = FALSE;
 const gchar *sevenz = NULL;
-static gboolean zip;
+static gboolean tbz2, tgz, tlz, txz, tzo, zip;
 static gboolean show_version = FALSE;
 int response;
 extern gchar *current_open_directory;
@@ -512,6 +512,29 @@ void xa_set_available_archivers()
 		g_free (absolute_path);
 	}
 
+	absolute_path = g_find_program_in_path("gtar");
+	if (absolute_path)
+	{
+		tar = "gtar";
+		g_free (absolute_path);
+	}
+	else
+	{
+		absolute_path = g_find_program_in_path("tar");
+		if (absolute_path)
+		{
+			tar = "tar";
+			g_free (absolute_path);
+		}
+		else
+			tar = NULL;
+	}
+	if (tar)
+	{
+		ArchiveType = g_list_append(ArchiveType, "tar");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar");
+	}
+
 	absolute_path = g_find_program_in_path("xz");
 	if (absolute_path)
 	{
@@ -526,48 +549,50 @@ void xa_set_available_archivers()
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.zip");
 	}
 
-	absolute_path = g_find_program_in_path("gtar");
-
-	if (absolute_path == NULL)
+	if (tar)
 	{
-		tar = "tar";
-		ArchiveType = g_list_append(ArchiveType, "tar");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar");
-		g_free (absolute_path);
 		if ( g_list_find ( ArchiveType , "bz2") )
 		{
+			tbz2 = TRUE;
 			ArchiveType = g_list_append(ArchiveType, "tar.bz2");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.bz2");
 		}
 		if ( g_list_find ( ArchiveType , "gz") )
 		{
+			tgz = TRUE;
 			ArchiveType = g_list_append(ArchiveType, "tar.gz");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.gz");
 		}
 		if ( g_list_find ( ArchiveType , "lzma") )
 		{
+			tlz = TRUE;
 			ArchiveType = g_list_append(ArchiveType, "tar.lzma");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.lzma");
 		}
 		if ( g_list_find ( ArchiveType , "lzo") )
 		{
+			tzo = TRUE;
 			ArchiveType = g_list_append(ArchiveType, "tar.lzo");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.lzo");
 		}
 		if (g_list_find(ArchiveType, "xz"))
 		{
+			txz = TRUE;
 			ArchiveType = g_list_append(ArchiveType, "tar.xz");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.xz");
 		}
 	}
-	else
-		tar = "gtar";
 
-	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tbz2");
-	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tgz");
-	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
-	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.txz");
-	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tzo");
+	if (tbz2)
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tbz2");
+	if (tgz)
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tgz");
+	if (tlz)
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
+	if (txz)
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.txz");
+	if (tzo)
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tzo");
 
     absolute_path = g_find_program_in_path("xdg-open");
     if (absolute_path != NULL)
