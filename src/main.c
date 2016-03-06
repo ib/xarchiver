@@ -35,7 +35,8 @@ gboolean error_output, file_to_open, ask_and_extract, ask_and_add, multi_extract
 gboolean batch_mode = FALSE;
 gboolean unarj = FALSE;
 gboolean unrar = FALSE;
-gboolean sevenzr = FALSE, sevenza = FALSE, xdg_open = FALSE;
+gboolean xdg_open = FALSE;
+const gchar *sevenz = NULL;
 static gboolean show_version = FALSE;
 int response;
 extern gchar *current_open_directory;
@@ -536,18 +537,29 @@ void xa_set_available_archivers()
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.zip");
 		}
 	}
-	absolute_path = g_find_program_in_path("7za");
-    if (absolute_path != NULL)
-    	sevenza = TRUE;
-    else
-    	absolute_path = g_find_program_in_path("7zr");
-    if (absolute_path != NULL)
-    {
-    	sevenzr = TRUE;
-        ArchiveType = g_list_append(ArchiveType, "7z");
-	    ArchiveSuffix = g_list_append(ArchiveSuffix, "*.7z");
+
+	absolute_path = g_find_program_in_path("7z");
+	if (absolute_path)
+		sevenz = "7z";
+	else
+	{
+		absolute_path = g_find_program_in_path("7za");
+		if (absolute_path)
+			sevenz = "7za";
+		else
+		{
+			absolute_path = g_find_program_in_path("7zr");
+			if (absolute_path)
+				sevenz = "7zr";
+		}
+	}
+	if (sevenz)
+	{
+		ArchiveType = g_list_append(ArchiveType, "7z");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.7z");
 		g_free (absolute_path);
-    }
+	}
+
 	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tbz2");
 	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tgz");
 	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");

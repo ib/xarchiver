@@ -21,23 +21,16 @@
 #include <unistd.h>
 #include "7zip.h"
 
-extern gboolean sevenzr;
-extern gboolean sevenza;
+extern const gchar *sevenz;
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 
 void xa_open_7zip (XArchive *archive)
 {
-	gchar *exe;
 	jump_header = encrypted = last_line = FALSE;
 	unsigned short int i = 0;
 
-	if (sevenzr)
-		exe = "7zr ";
-	if (sevenza)
-		exe = "7za ";
-
-	gchar *command = g_strconcat ( exe,"l " , archive->escaped_path, NULL );
+	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
 	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
@@ -139,14 +132,9 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 
 void xa_7zip_delete (XArchive *archive,GSList *names)
 {
-	gchar *command,*exe,*e_filename = NULL;
+	gchar *command, *e_filename = NULL;
 	GSList *list = NULL,*_names;
 	GString *files = g_string_new("");
-
-	if (sevenzr)
-		exe = "7zr d ";
-	if (sevenza)
-		exe = "7za d ";
 
  	_names = names;
  	while (_names)
@@ -158,7 +146,7 @@ void xa_7zip_delete (XArchive *archive,GSList *names)
 	}
 	g_slist_foreach(names,(GFunc)g_free,NULL);
 	g_slist_free(names);
-	command = g_strconcat (exe,archive->escaped_path," ",files->str,NULL);
+	command = g_strconcat(sevenz, " d ", archive->escaped_path, " ", files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
@@ -170,12 +158,7 @@ void xa_7zip_delete (XArchive *archive,GSList *names)
 void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
-	gchar *command,*exe = NULL;
-
-	if (sevenzr)
-		exe = "7zr ";
-	if (sevenza)
-		exe = "7za ";
+	gchar *command;
 
 	if (archive->location_entry_path != NULL)
 		archive->working_dir = g_strdup(archive->tmp);
@@ -183,16 +166,16 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	if (compression_string == NULL)
 		compression_string = "5";
 	if (archive->passwd != NULL)
-		command = g_strconcat ( exe,
-								archive->update ? "u " : "a ",
+		command = g_strconcat (sevenz,
+								archive->update ? " u " : " a ",
 								archive->solid_archive ? "-ms=on " : "-ms=off ",
 								"-p" , archive->passwd, " ",
 								archive->escaped_path," ",
 								"-mx=",compression_string,"",
 								files->str,NULL);
 	else
-		command = g_strconcat ( exe,
-								archive->update ? "u " : "a ",
+		command = g_strconcat (sevenz,
+								archive->update ? " u " : " a ",
 								archive->solid_archive ? "-ms=on " : "-ms=off ",
 								archive->escaped_path," ",
 								"-mx=",compression_string,"",
@@ -223,13 +206,13 @@ gboolean xa_7zip_extract(XArchive *archive,GSList *files)
 	g_slist_free(_files);
 
 	if (archive->passwd != NULL)
-		command = g_strconcat ("7za " , archive->full_path ? "x" : "e",
+		command = g_strconcat (sevenz, archive->full_path ? " x" : " e",
 								" -p",archive->passwd,
 								archive->overwrite ? " -aoa" : " -aos",
 								" -bd ",
 								archive->escaped_path,names->str , " -o",archive->extraction_path,NULL);
 	else
-		command = g_strconcat ( "7za " , archive->full_path ? "x" : "e",
+		command = g_strconcat (sevenz, archive->full_path ? " x" : " e",
 								archive->overwrite ? " -aoa" : " -aos",
 								" -bd ",
 								archive->escaped_path,names->str , " -o",archive->extraction_path,NULL);
@@ -247,9 +230,9 @@ void xa_7zip_test (XArchive *archive)
 
 	archive->status = XA_ARCHIVESTATUS_TEST;
 	if (archive->passwd != NULL)
-		command = g_strconcat ( "7za t -p" , archive->passwd , " " , archive->escaped_path, NULL);
+		command = g_strconcat(sevenz, " t -p", archive->passwd, " ", archive->escaped_path, NULL);
 	else
-		command = g_strconcat ("7za t " , archive->escaped_path, NULL);
+		command = g_strconcat(sevenz, " t ", archive->escaped_path, NULL);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
