@@ -23,7 +23,7 @@
 extern gboolean unrar;
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
-extern int rar_version;
+static int rar_version;
 
 void xa_open_rar (XArchive *archive)
 {
@@ -52,10 +52,6 @@ void xa_open_rar (XArchive *archive)
 	archive->has_sfx = archive->has_properties = archive->can_extract = archive->has_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
-
-    if (archive->type == XARCHIVETYPE_RAR5)
-		archive->format = "RAR5";
-	else
 		archive->format = "RAR";
 
 
@@ -399,6 +395,8 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 			}
 			return;
 		}
+		if (strncmp(line, "Details: RAR 5", 14) == 0)
+			archive->format = "RAR5";
 		if (line[0] == '-')
 		{
 			jump_header = TRUE;
@@ -514,22 +512,27 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
-	gchar *command, *rar_version = NULL;
+	gchar *command, *version_switch;
 
 
 	if (archive->location_entry_path != NULL)
 		archive->working_dir = g_strdup(archive->tmp);
 
-	if (archive->type == XARCHIVETYPE_RAR5)
-		rar_version = "5";
+	if (rar_version == 5)
+	{
+		if (strcmp(archive->format, "RAR5") == 0)
+			version_switch = g_strdup("-ma5 ");
+		else
+			version_switch = g_strdup("-ma4 ");
+	}
 	else
-		rar_version = "4";
+		version_switch = g_strdup("");
 
 	if (compression_string == NULL)
 		compression_string = "3";
 
 	if (archive->passwd != NULL)
-		command = g_strconcat ( "rar a -ma", rar_version, " ",
+		command = g_strconcat("rar a ", version_switch,
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
 									archive->solid_archive ? "-s " : "",
@@ -540,7 +543,7 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 									archive->escaped_path,
 									files->str,NULL);
 	else
-		command = g_strconcat ( "rar a -ma", rar_version, " ",
+		command = g_strconcat("rar a ", version_switch,
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
 									archive->solid_archive ? "-s " : " ",
@@ -550,6 +553,7 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 									archive->escaped_path,
 									files->str,NULL);
 
+	g_free(version_switch);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 

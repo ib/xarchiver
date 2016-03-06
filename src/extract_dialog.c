@@ -258,7 +258,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		flag = TRUE;
 	gtk_widget_set_sensitive (dialog_data->touch,flag);
 
-	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_RAR5 || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
+	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_ARJ)
 		flag = TRUE;
 	else
 		flag = FALSE;

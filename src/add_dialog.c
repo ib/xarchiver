@@ -242,7 +242,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
 
-	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_RAR5 || archive->type == XARCHIVETYPE_7ZIP)
+	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_7ZIP)
 		flag = TRUE;
 	gtk_widget_set_sensitive(add_dialog->solid_archive,flag);
 
@@ -262,12 +262,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 			max_value = 9;
 		}
 		else if (archive->type == XARCHIVETYPE_RAR)
-		{
-			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
-			default_value = 3;
-			max_value = 5;
-		}
-		else if (archive->type == XARCHIVETYPE_RAR5)
 		{
 			compression_msg = _("0 = no compression, 3 is default, 5 = best compression but slowest");
 			default_value = 3;

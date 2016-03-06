@@ -291,7 +291,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		}
 		else if (strcmp (ComboArchiveType,"rar5") == 0)
 		{
-			type = XARCHIVETYPE_RAR5;
+			type = XARCHIVETYPE_RAR;
 			format = "RAR5";
 		}
 		else if (strcmp (ComboArchiveType,"tar") == 0)

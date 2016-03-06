@@ -40,7 +40,6 @@ static gboolean show_version = FALSE;
 int response;
 extern gchar *current_open_directory;
 extern int status;
-extern int rar_version;
 
 extern Progress_bar_data *pb;
 Prefs_dialog_data   *prefs_window   = NULL;
@@ -324,7 +323,7 @@ void xa_set_available_archivers()
 	open_archive[XARCHIVETYPE_GZIP]  = &xa_open_gzip;
 	open_archive[XARCHIVETYPE_LZMA]  = &xa_open_bzip2_lzma;
 	open_archive[XARCHIVETYPE_XZ]  = &xa_open_bzip2_lzma;
-	open_archive[XARCHIVETYPE_RAR]  = open_archive[XARCHIVETYPE_RAR5] = &xa_open_rar;
+	open_archive[XARCHIVETYPE_RAR]  = &xa_open_rar;
 	open_archive[XARCHIVETYPE_RPM]  = &xa_open_rpm;
 	open_archive[XARCHIVETYPE_TAR]  = open_archive[XARCHIVETYPE_TAR_BZ2] = open_archive[XARCHIVETYPE_TAR_GZ] = open_archive[XARCHIVETYPE_TAR_LZMA] = open_archive[XARCHIVETYPE_TAR_XZ] = open_archive[XARCHIVETYPE_TAR_LZOP] = &xa_open_tar;
 	open_archive[XARCHIVETYPE_ZIP] = &xa_open_zip;
@@ -336,7 +335,7 @@ void xa_set_available_archivers()
 	delete[XARCHIVETYPE_ARJ]  = &xa_arj_delete;
 	delete[XARCHIVETYPE_DEB]  = 0;
 	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
-	delete[XARCHIVETYPE_RAR]  = delete[XARCHIVETYPE_RAR5] = &xa_rar_delete;
+	delete[XARCHIVETYPE_RAR]  = &xa_rar_delete;
 	delete[XARCHIVETYPE_RPM]  = 0;
 	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_XZ] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
@@ -348,7 +347,7 @@ void xa_set_available_archivers()
 	add[XARCHIVETYPE_ARJ]  = &xa_arj_add;
 	add[XARCHIVETYPE_DEB]  = 0;
 	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = add[XARCHIVETYPE_XZ] = add[XARCHIVETYPE_LZOP] = &xa_tar_add;
-	add[XARCHIVETYPE_RAR]  = add[XARCHIVETYPE_RAR5]  = &xa_rar_add;
+	add[XARCHIVETYPE_RAR]  = &xa_rar_add;
 	add[XARCHIVETYPE_RPM]  = 0;
 	add[XARCHIVETYPE_TAR]  = add[XARCHIVETYPE_TAR_BZ2] = add[XARCHIVETYPE_TAR_GZ] = add[XARCHIVETYPE_TAR_LZMA] = add[XARCHIVETYPE_TAR_XZ] = add[XARCHIVETYPE_TAR_LZOP] = &xa_tar_add;
 	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
@@ -359,7 +358,7 @@ void xa_set_available_archivers()
 	extract[XARCHIVETYPE_ARJ]  = &xa_arj_extract;
 	extract[XARCHIVETYPE_DEB]  = &xa_deb_extract;;
 	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = extract[XARCHIVETYPE_XZ] = extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
-	extract[XARCHIVETYPE_RAR]  = extract[XARCHIVETYPE_RAR5]  = &xa_rar_extract;
+	extract[XARCHIVETYPE_RAR]  = &xa_rar_extract;
 	extract[XARCHIVETYPE_RPM]  = &xa_rpm_extract;
 	extract[XARCHIVETYPE_TAR]  = extract[XARCHIVETYPE_TAR_BZ2] = extract[XARCHIVETYPE_TAR_GZ] = extract[XARCHIVETYPE_TAR_LZMA] = extract[XARCHIVETYPE_TAR_XZ] = extract[XARCHIVETYPE_TAR_LZOP] = &xa_tar_extract;
 	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
@@ -369,7 +368,7 @@ void xa_set_available_archivers()
 	test[XARCHIVETYPE_7ZIP]  = &xa_7zip_test;
 	test[XARCHIVETYPE_ARJ]  = &xa_arj_test;
 	test[XARCHIVETYPE_DEB]  = test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
-	test[XARCHIVETYPE_RAR]  = test[XARCHIVETYPE_RAR5]  = &xa_rar_test;
+	test[XARCHIVETYPE_RAR]  = &xa_rar_test;
 	test[XARCHIVETYPE_RPM]  = 0;
 	test[XARCHIVETYPE_TAR]  = test[XARCHIVETYPE_TAR_BZ2] = test[XARCHIVETYPE_TAR_GZ] = test[XARCHIVETYPE_TAR_LZMA] = test[XARCHIVETYPE_TAR_XZ] = test[XARCHIVETYPE_TAR_LZOP] =  &xa_tar_test;
 	test[XARCHIVETYPE_ZIP] = &xa_zip_test;
@@ -457,12 +456,10 @@ void xa_set_available_archivers()
 	{
 		ArchiveType = g_list_append(ArchiveType, "rar");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
-		// Is RAR v5 ?
-		xa_rar_checkversion (absolute_path);
-		if (rar_version == 5)
+		if (xa_rar_checkversion(absolute_path) == 5)
 		{
 			ArchiveType = g_list_append(ArchiveType, "rar5");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar5");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
 		}
 		g_free (absolute_path);
 	}
@@ -472,15 +469,9 @@ void xa_set_available_archivers()
 		if ( absolute_path )
 		{
 			unrar = TRUE;
+			xa_rar_checkversion(absolute_path);
 			ArchiveType = g_list_append(ArchiveType, "rar");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
-			// Is RAR v5 ?
-			xa_rar_checkversion (absolute_path);
-			if (rar_version == 5)
-			{
-				ArchiveType = g_list_append(ArchiveType, "rar5");
-				ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar5");
-			}
 			g_free (absolute_path);
 		}
 	}
