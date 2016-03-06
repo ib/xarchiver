@@ -458,7 +458,7 @@ void xa_set_available_archivers()
 	absolute_path = g_find_program_in_path("lha");
 	if (absolute_path)
 	{
-		ArchiveType = g_list_append(ArchiveType, "lzh");
+		ArchiveType = g_list_append(ArchiveType, "lha");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzh");
 		g_free (absolute_path);
 	}
@@ -477,8 +477,6 @@ void xa_set_available_archivers()
 		ArchiveType = g_list_append(ArchiveType, "lzo");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzo");
 		g_free (absolute_path);
-		//ArchiveType = g_list_append(ArchiveType, ".lha");
-		//ArchiveSuffix = g_list_append(ArchiveSuffix, "");
 	}
 
 	absolute_path = g_find_program_in_path ("rar");

@@ -334,7 +334,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			type = XARCHIVETYPE_7ZIP;
 			format = "7ZIP";
 		}
-		else if (strcmp (ComboArchiveType,"lzh") == 0)
+		else if (strcmp (ComboArchiveType,"lha") == 0)
 		{
 			type = XARCHIVETYPE_LHA;
 			format = "LHA";
