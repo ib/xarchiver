@@ -37,6 +37,7 @@ gboolean unarj = FALSE;
 gboolean unrar = FALSE;
 gboolean xdg_open = FALSE;
 const gchar *sevenz = NULL;
+static gboolean zip;
 static gboolean show_version = FALSE;
 int response;
 extern gchar *current_open_directory;
@@ -375,6 +376,28 @@ void xa_set_available_archivers()
 	test[XARCHIVETYPE_ZIP] = &xa_zip_test;
 	test[XARCHIVETYPE_LHA] = &xa_lha_test;
 
+	absolute_path = g_find_program_in_path("7z");
+	if (absolute_path)
+		sevenz = "7z";
+	else
+	{
+		absolute_path = g_find_program_in_path("7za");
+		if (absolute_path)
+			sevenz = "7za";
+		else
+		{
+			absolute_path = g_find_program_in_path("7zr");
+			if (absolute_path)
+				sevenz = "7zr";
+		}
+	}
+	if (sevenz)
+	{
+		ArchiveType = g_list_append(ArchiveType, "7z");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.7z");
+		g_free (absolute_path);
+	}
+
 	absolute_path = g_find_program_in_path("arj");
 	if ( absolute_path )
 	{
@@ -418,6 +441,28 @@ void xa_set_available_archivers()
 		g_free (absolute_path);
 	}
 
+	absolute_path = g_find_program_in_path("zip");
+	if (absolute_path)
+	{
+		g_free (absolute_path);
+		absolute_path = g_find_program_in_path("zipinfo");
+		if (absolute_path)
+		{
+			zip = TRUE;
+			ArchiveType = g_list_append(ArchiveType, "jar");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.jar");
+			g_free(absolute_path);
+		}
+	}
+
+	absolute_path = g_find_program_in_path("lha");
+	if (absolute_path)
+	{
+		ArchiveType = g_list_append(ArchiveType, "lzh");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzh");
+		g_free (absolute_path);
+	}
+
 	absolute_path = g_find_program_in_path("lzma");
 	if ( absolute_path )
 	{
@@ -426,27 +471,11 @@ void xa_set_available_archivers()
 		g_free (absolute_path);
 	}
 
-	absolute_path = g_find_program_in_path("xz");
-	if ( absolute_path )
-	{
-		ArchiveType = g_list_append(ArchiveType, "xz");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.xz");
-		g_free (absolute_path);
-	}
-
 	absolute_path = g_find_program_in_path("lzop");
-	if ( absolute_path )
+	if (absolute_path)
 	{
 		ArchiveType = g_list_append(ArchiveType, "lzo");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzo");
-		g_free (absolute_path);
-	}
-
-	absolute_path = g_find_program_in_path("lha");
-	if (absolute_path)
-	{
-		ArchiveType = g_list_append(ArchiveType, "lzh");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzh");
 		g_free (absolute_path);
 		//ArchiveType = g_list_append(ArchiveType, ".lha");
 		//ArchiveSuffix = g_list_append(ArchiveSuffix, "");
@@ -485,6 +514,20 @@ void xa_set_available_archivers()
 		g_free (absolute_path);
 	}
 
+	absolute_path = g_find_program_in_path("xz");
+	if (absolute_path)
+	{
+		ArchiveType = g_list_append(ArchiveType, "xz");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.xz");
+		g_free(absolute_path);
+	}
+
+	if (zip)
+	{
+		ArchiveType = g_list_append(ArchiveType, "zip");
+		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.zip");
+	}
+
 	absolute_path = g_find_program_in_path("gtar");
 
 	if (absolute_path == NULL)
@@ -508,57 +551,19 @@ void xa_set_available_archivers()
 			ArchiveType = g_list_append(ArchiveType, "tar.lzma");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.lzma");
 		}
-		if ( g_list_find ( ArchiveType , "xz") )
-		{
-			ArchiveType = g_list_append(ArchiveType, "tar.xz");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.xz");
-		}
 		if ( g_list_find ( ArchiveType , "lzo") )
 		{
 			ArchiveType = g_list_append(ArchiveType, "tar.lzo");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.lzo");
 		}
+		if (g_list_find(ArchiveType, "xz"))
+		{
+			ArchiveType = g_list_append(ArchiveType, "tar.xz");
+			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.xz");
+		}
 	}
 	else
 		tar = "gtar";
-
-	absolute_path = g_find_program_in_path ("zip");
-    if (absolute_path)
-	{
-		g_free (absolute_path);
-		absolute_path = g_find_program_in_path ("zipinfo");
-    	if (absolute_path)
-		{
-			g_free (absolute_path);
-			ArchiveType = g_list_append(ArchiveType, "jar");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.jar");
-
-			ArchiveType = g_list_append(ArchiveType, "zip");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.zip");
-		}
-	}
-
-	absolute_path = g_find_program_in_path("7z");
-	if (absolute_path)
-		sevenz = "7z";
-	else
-	{
-		absolute_path = g_find_program_in_path("7za");
-		if (absolute_path)
-			sevenz = "7za";
-		else
-		{
-			absolute_path = g_find_program_in_path("7zr");
-			if (absolute_path)
-				sevenz = "7zr";
-		}
-	}
-	if (sevenz)
-	{
-		ArchiveType = g_list_append(ArchiveType, "7z");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.7z");
-		g_free (absolute_path);
-	}
 
 	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tbz2");
 	ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tgz");
