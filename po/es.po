@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta2\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-08-21 03:10-0300\n"
 "Last-Translator: elega <elega@elega.com.ar>\n"
 "Language-Team: Spanish/ES <xfce-i18n@xfce.org>\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -442,6 +442,10 @@ msgid "Re_name"
 msgstr "Re_nombrar"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Hacer archivo autoe_xtraíble"
 
@@ -784,10 +788,6 @@ msgid "Choose the archive type to create"
 msgstr "Elegir el tipo de archivo a crear"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Añadir la extensión del archivo comprimido al nombre del archivo"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "¡\"%s\" ya está abierto!"
@@ -897,6 +897,10 @@ msgid "Show archive location bar"
 msgstr "Mostrar barra de lugares del archivo"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Navegador web a usar:"
 
@@ -988,6 +992,18 @@ msgstr "Propietario"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupo"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "No se puede realizar fseek a la posición 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "No se pueden leer datos del archivo:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "No se puede realizar fseek en el archivo:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1193,6 +1209,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "¡Por favor, espere hasta que se haya completado la actual!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "¡Necesita instalar el paquete arj!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "¡Necesita instalar el paquete rar!"
 
@@ -1253,20 +1273,14 @@ msgstr "Gestor de archivos comprimidos"
 msgid "A GTK+2 only archive manager"
 msgstr "Un gestor de archivos comprimidos basado solo en GTK+2"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Añadir la extensión del archivo comprimido al nombre del archivo"
+
 #~ msgid "_Donate"
 #~ msgstr "_Donar"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "No se puede realizar fseek a la posición 104:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "No se pueden leer datos del archivo:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "No se puede realizar fseek en el archivo:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Gracias a"

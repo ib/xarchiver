@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2008-10-07 22:35+0000\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -434,6 +434,10 @@ msgid "Re_name"
 msgstr "Navê pelî"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr ""
 
@@ -788,10 +792,6 @@ msgid "Choose the archive type to create"
 msgstr ""
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr ""
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr ""
@@ -901,6 +901,10 @@ msgid "Show archive location bar"
 msgstr ""
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr ""
 
@@ -991,6 +995,22 @@ msgstr "Xwedî"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Kom"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr ""
+
+#: ../src/rpm.c
+#, fuzzy
+msgid "Can't read data from file:"
+msgstr "Arşîveke nû biafirîne"
+
+#: ../src/rpm.c
+#, fuzzy
+msgid "Can't fseek in file:"
+msgstr ""
+"Arşîva %s nayê vekirin:\n"
+"%s"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1192,6 +1212,10 @@ msgstr ""
 
 #: ../src/window.c
 msgid "Please wait until the completion of the current one!"
+msgstr ""
+
+#: ../src/window.c
+msgid "You have to install arj package!"
 msgstr ""
 
 #: ../src/window.c

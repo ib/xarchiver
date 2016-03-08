@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
-"Language: \n"
+"Language: si\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -421,6 +421,10 @@ msgid "Re_name"
 msgstr "නැවත නම් කරන්න (_n)"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "SF_X සාදන්න"
 
@@ -762,10 +766,6 @@ msgid "Choose the archive type to create"
 msgstr "තැනීමට සංරක්ෂණ වර්ගය තෝරන්න"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "ගොනු නාමයට සංරක්ෂණ දිගුව එක් කරන්න"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" දැනටමත් විවෘතව පවතී!"
@@ -873,6 +873,10 @@ msgid "Show archive location bar"
 msgstr "සංරක්ෂණ පිහිටීම් තීරුව පෙන්නන්න"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "භාවිතා කිරීමට වෙබ් ගවේශකය:"
 
@@ -961,6 +965,18 @@ msgstr "අයිතිකරු"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "සමූහය"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "104 පිහිටීමට fseek කිරීමට නොහැක:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "ගොනුවෙන් දත්ත කියවිය නොහැක:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "ගොනුවේ fsee කිරීමට නොහැක:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1162,6 +1178,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "කරුණාකර වත්මන් එක සමාප්ත වෙනකම් රැදී සිටින්න!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "ඔබට arj පැකේජය ස්ථාපනය කිරීමට සිදුවේ!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "ඔබට rar පැකේජය ස්ථාපනය කිරීමට සිදුවේ!"
 
@@ -1222,17 +1242,11 @@ msgstr "සංරක්ෂණ කළමනාකරු"
 msgid "A GTK+2 only archive manager"
 msgstr "GTK+2 පමණක් සංරක්ෂණ කළමනාකරුවෙක්"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "ගොනු නාමයට සංරක්ෂණ දිගුව එක් කරන්න"
+
 #~ msgid "_Donate"
 #~ msgstr "පරිත්‍යාග කරන්න (_D)"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "104 පිහිටීමට fseek කිරීමට නොහැක:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "ගොනුවෙන් දත්ත කියවිය නොහැක:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "ගොනුවේ fsee කිරීමට නොහැක:"

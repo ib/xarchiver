@@ -2,12 +2,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2011-08-09 03:59-0000\n"
 "Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
-"Language: \n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -419,6 +419,10 @@ msgid "Re_name"
 msgstr "إعادة تسمية"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "إنشاء SF_X"
 
@@ -760,10 +764,6 @@ msgid "Choose the archive type to create"
 msgstr "اختيار نوع لإنشاء أرشيف"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "إضافة ملحق إلى اسم ملف أرشيف"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" مفتوح بالفعل!"
@@ -871,6 +871,10 @@ msgid "Show archive location bar"
 msgstr "عرض شريط أرشيف الموقع"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "متصفح ويب المستخدم :"
 
@@ -959,6 +963,18 @@ msgstr "مالك"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "مجموعة"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "لا يمكن للموقع fseek 104 :"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "لا يمكن قراءة البيانات من الملف :"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "لا يمكن fseek في الملف :"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1163,6 +1179,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "الرجاء الإنتظار حتى الإنتهاء من الحالي!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "يجب تثبيت حزمة arj"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "يجب تثبيت حزمة rar"
 
@@ -1223,17 +1243,11 @@ msgstr "مدير الأرشيف"
 msgid "A GTK+2 only archive manager"
 msgstr "جتك+2 مدير الأرشيف فقط"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "إضافة ملحق إلى اسم ملف أرشيف"
+
 #~ msgid "_Donate"
 #~ msgstr "تبرع"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "لا يمكن للموقع fseek 104 :"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "لا يمكن قراءة البيانات من الملف :"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "لا يمكن fseek في الملف :"

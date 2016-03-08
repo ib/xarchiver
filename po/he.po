@@ -8,12 +8,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
-"Language: \n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -427,6 +427,10 @@ msgid "Re_name"
 msgstr "שינוי _שם"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "י_צירת SFX"
 
@@ -766,10 +770,6 @@ msgid "Choose the archive type to create"
 msgstr "יש לבחור את סוג הארכיון שיווצר."
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "הוספת סיומת הארכיון לשם הקובץ"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" כבר פתוח!"
@@ -877,6 +877,10 @@ msgid "Show archive location bar"
 msgstr "הצגת סרגל מיקומי הארכיון"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "דפדפן האינטרנט לשימוש:"
 
@@ -965,6 +969,18 @@ msgstr "בעלים"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "קבוצה"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "אין אפשרות לבצע fseek למיקום 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "אין אפשרות לקרוא מידע מהקובץ:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "אין אפשרות לבצע fseek בקובץ:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1168,6 +1184,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "נא להמתין עד להשלמת החילוץ הנוכחי!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "יש להתקין את החבילה arj!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "יש להתקין את החבילה rar!"
 
@@ -1228,20 +1248,14 @@ msgstr "מנהל ארכיונים"
 msgid "A GTK+2 only archive manager"
 msgstr "מנהל ארכיונים ב־GTK+2 בלבד"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "הוספת סיומת הארכיון לשם הקובץ"
+
 #~ msgid "_Donate"
 #~ msgstr "ת_רומה"
 
 #~ msgid "Xarchiver"
 #~ msgstr "מנהל הארכיונים Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "אין אפשרות לבצע fseek למיקום 104:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "אין אפשרות לקרוא מידע מהקובץ:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "אין אפשרות לבצע fseek בקובץ:"
 
 #~ msgid "Can't spawn the command:"
 #~ msgstr "אין אפשרות להפעיל את הפקודה:"

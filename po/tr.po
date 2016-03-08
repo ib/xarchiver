@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -433,6 +433,10 @@ msgid "Re_name"
 msgstr "Yeniden _İsimlendir"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "SF_X Yap"
 
@@ -775,10 +779,6 @@ msgid "Choose the archive type to create"
 msgstr "Oluşturulacak arşiv türünü seçin"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Arşiv uzantısını dosya ismine ekle"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" zaten açık!"
@@ -887,6 +887,10 @@ msgid "Show archive location bar"
 msgstr "Arşiv konum çubuğunu göster"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Kullanılacak internet tarayıcı:"
 
@@ -977,6 +981,18 @@ msgstr "Kullanıcı"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grup"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "104 konumu aranamıyor:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Dosyadan veri okunamıyor:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Dosyada aranamıyor:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1180,6 +1196,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Lütfen şimdiki işlem tamamlanana kadar bekleyin!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Arj paketi yüklemelisiniz!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Rar paketi yüklemelisiniz!"
 
@@ -1240,20 +1260,14 @@ msgstr "Arşiv yöneticisi"
 msgid "A GTK+2 only archive manager"
 msgstr "GTK+2 ile tasarlanmış arşiv yöneticisi"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Arşiv uzantısını dosya ismine ekle"
+
 #~ msgid "_Donate"
 #~ msgstr "Bağış"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "104 konumu aranamıyor:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Dosyadan veri okunamıyor:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Dosyada aranamıyor:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Teşekkürler"

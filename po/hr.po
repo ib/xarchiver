@@ -4,12 +4,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2011-05-19 22:12+0200\n"
 "Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian\n"
-"Language: Croatian\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -414,6 +414,10 @@ msgid "Re_name"
 msgstr "Pre_imenuj"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr ""
 
@@ -756,10 +760,6 @@ msgid "Choose the archive type to create"
 msgstr "Izaberi tip arhive za napraviti"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Dodaj proširenje arhive datoteci"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" je već otvoren!"
@@ -867,6 +867,10 @@ msgid "Show archive location bar"
 msgstr "Pokaži lokacijsku traku arhive"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Preglednik za uporabu:"
 
@@ -956,6 +960,20 @@ msgstr "Vlasnik"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupa"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Ne mogu čitati podatke sa datoteke"
+
+#: ../src/rpm.c
+#, fuzzy
+#| msgid "Can't open file %s:"
+msgid "Can't fseek in file:"
+msgstr "Ne mogu otvoriti datoteku %s:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1160,6 +1178,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Pričekajte do završetka trenutnog!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Trebate instalirati arj paket!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Trebate instalirati rar paket!"
 
@@ -1220,11 +1242,11 @@ msgstr "Upravitelj arhivama"
 msgid "A GTK+2 only archive manager"
 msgstr "Upravitelj arhivama samo za GTK+2"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Dodaj proširenje arhive datoteci"
+
 #~ msgid "_Donate"
 #~ msgstr "_Donirajte"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Ne mogu čitati podatke sa datoteke"

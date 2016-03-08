@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-10-16 19:47+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -436,6 +436,10 @@ msgid "Re_name"
 msgstr "Přej_menovat"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Vy_tvořit samorozbalitelný archiv"
 
@@ -778,10 +782,6 @@ msgid "Choose the archive type to create"
 msgstr "Vyberte typ archivu pro vytvoření"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Připojit příponu za název souboru"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" je již otevřen!"
@@ -890,6 +890,10 @@ msgid "Show archive location bar"
 msgstr "Zobrazovat panel umístění v archivu"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Webový prohlížeč:"
 
@@ -980,6 +984,18 @@ msgstr "Vlastník"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Skupina"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Nelze se přesunout na pozici funkcí fseek 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Nelze číst data ze souboru:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Nelze použít funkci fseek pro přesun v souboru:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1184,6 +1200,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Počkejte prosím, než se dokončí předchozí operace!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Je nutné nainstalovat balíček arj."
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Je nutné nainstalovat balíček rar."
 
@@ -1244,20 +1264,14 @@ msgstr "Správce archivů"
 msgid "A GTK+2 only archive manager"
 msgstr "Správce archivů pouze pro GTK+2"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Připojit příponu za název souboru"
+
 #~ msgid "_Donate"
 #~ msgstr "_Přispějte"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Nelze se přesunout na pozici funkcí fseek 104:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Nelze číst data ze souboru:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Nelze použít funkci fseek pro přesun v souboru:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Poděkování"

@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
-"Language: nl (Dutch)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -434,6 +434,10 @@ msgid "Re_name"
 msgstr "_Naam wijzigen"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Maak SF_X"
 
@@ -780,10 +784,6 @@ msgid "Choose the archive type to create"
 msgstr "Kies het type voor het te maken archief"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Voeg de archief-extensie toe aan de bestandnaam"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" is al open."
@@ -893,6 +893,10 @@ msgid "Show archive location bar"
 msgstr "Toon locatiebalk voor archieven"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Webbrowser om te gebruiken:"
 
@@ -983,6 +987,18 @@ msgstr "Eigenaar"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Groep"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Kan niet fseek uitvoeren naar positie 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Kan geen gegevens uit bestand lezen:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Kan fseek niet uitvoeren in bestand:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1187,6 +1203,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Wacht a.u.b. tot de huidige actie voltooid is."
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Installeer eerst het arj-pakket."
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Installeer eerst het rar-pakket."
 
@@ -1247,20 +1267,14 @@ msgstr "Archiefbeheerder"
 msgid "A GTK+2 only archive manager"
 msgstr "Een GTK+2 archiefbeheerder"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Voeg de archief-extensie toe aan de bestandnaam"
+
 #~ msgid "_Donate"
 #~ msgstr "_Doneer"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Kan niet fseek uitvoeren naar positie 104:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Kan geen gegevens uit bestand lezen:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Kan fseek niet uitvoeren in bestand:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "Met _dank aan"

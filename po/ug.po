@@ -2,16 +2,16 @@
 # Copyright (C) 2005-2007 Giuseppe Torelli.
 # This file is distributed under the same license as the xarchiver package.
 # Gheyret T.Kenji <gheyret@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Gheyret T.Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
-"Language: \n"
+"Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -423,6 +423,10 @@ msgid "Re_name"
 msgstr "ئاتىنى ئۆزگەرت(_N)"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr ""
 
@@ -766,10 +770,6 @@ msgid "Choose the archive type to create"
 msgstr "قۇرماقچى بولغان ئارخىپنىڭ تىپىنى تاللا"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "ئارخىپ كېڭەيتمە نامىنى ھۆججەت نامىغا قوش"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" ئوچۇق ئىكەن!"
@@ -877,6 +877,10 @@ msgid "Show archive location bar"
 msgstr "ئارخىپ ئورۇن بالدىقىنى كۆرسەت"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "ئىشلىتىدىغان توركۆرگۈ:"
 
@@ -965,6 +969,18 @@ msgstr "ئىگىسى"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "گۇرۇپپا"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "104 دېگەن ئورۇنغا fseek قىلالمىدى:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "ھۆججەتنى سانلىق ئاساسلارنى ئوقۇيالمىدى:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "ھۆججەت ئىچىدە fseek قىلالمىدى:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1168,6 +1184,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "ھازىرقىسى تاماملانغۇچە ساقلاڭ!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "arj بولىقىنى ئورنىتىشىڭىز كېرەك!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "rar بولىقىنى ئورنىتىشىڭىز كېرەك!"
 
@@ -1228,17 +1248,11 @@ msgstr "ئارخىپ باشقۇرغۇ"
 msgid "A GTK+2 only archive manager"
 msgstr "GTK+2 دىلا ئىشلەتكىلى بولىدىغان ئارخىپ باشقۇرغۇ"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "ئارخىپ كېڭەيتمە نامىنى ھۆججەت نامىغا قوش"
+
 #~ msgid "_Donate"
 #~ msgstr "ئىئانە(_D)"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "104 دېگەن ئورۇنغا fseek قىلالمىدى:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "ھۆججەتنى سانلىق ئاساسلارنى ئوقۇيالمىدى:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "ھۆججەت ئىچىدە fseek قىلالمىدى:"

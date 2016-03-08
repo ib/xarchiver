@@ -12,12 +12,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -422,6 +422,10 @@ msgid "Re_name"
 msgstr "重新命名(_N)"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "轉成自解檔(_X)"
 
@@ -761,10 +765,6 @@ msgid "Choose the archive type to create"
 msgstr "選擇封存檔類型以建立"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "封存檔加入附檔名"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "「%s」已開啟！"
@@ -872,6 +872,10 @@ msgid "Show archive location bar"
 msgstr "顯示封存檔位置列"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "使用的網路瀏覽器："
 
@@ -960,6 +964,18 @@ msgstr "擁有者"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "群組"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "無法移動檔案指標到位置 104："
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "無法從檔案讀取資料："
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "無法在檔案移動指標："
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1160,6 +1176,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "請先等目前執行中的作業完成！"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "請安裝 ARJ 套件！"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "請安裝 RAR 套件！"
 
@@ -1220,20 +1240,14 @@ msgstr "封存管理程式"
 msgid "A GTK+2 only archive manager"
 msgstr "GTK+2 介面的封存檔管理程式"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "封存檔加入附檔名"
+
 #~ msgid "_Donate"
 #~ msgstr "捐贈(_D)"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "無法移動檔案指標到位置 104："
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "無法從檔案讀取資料："
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "無法在檔案移動指標："
 
 #~ msgid "_Thanks to"
 #~ msgstr "感謝 (_T)"

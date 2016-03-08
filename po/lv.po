@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -435,6 +435,10 @@ msgid "Re_name"
 msgstr "_Pārdēvēt"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Veidot SF_X"
 
@@ -775,10 +779,6 @@ msgid "Choose the archive type to create"
 msgstr "Norādiet veidojamā arhīva tipu"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Pievienot arhīva paplašinājums failam"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" jau ir atvērts!"
@@ -886,6 +886,10 @@ msgid "Show archive location bar"
 msgstr "Rādīt arhīva vietas joslu"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Izmantojamais Tīmekļa pārlūks:"
 
@@ -976,6 +980,18 @@ msgstr "Īpašnieks"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupa"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Nevar fseek no 104 pozīcijas:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Nevar nolasīt datus no faila:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Nevar fseek failu:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1180,6 +1196,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Lūdzu pagaidiet, kamēr esošā būs pabeigta!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Jums ir jāinstalē arj paciņa"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Jums ir jāinstalē rar paciņa"
 
@@ -1240,20 +1260,14 @@ msgstr "Arhīvu pārvaldnieks"
 msgid "A GTK+2 only archive manager"
 msgstr "GTK+2 vienīgais arhīvu pārvaldnieks"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Pievienot arhīva paplašinājums failam"
+
 #~ msgid "_Donate"
 #~ msgstr "_Ziedot"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarhivātors"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Nevar fseek no 104 pozīcijas:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Nevar nolasīt datus no faila:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Nevar fseek failu:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Paldies"

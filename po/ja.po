@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -445,6 +445,10 @@ msgid "Re_name"
 msgstr "名前の変更(_N)"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "SFX アーカイブを作成(_X)"
 
@@ -788,10 +792,6 @@ msgid "Choose the archive type to create"
 msgstr "作成するアーカイブの種類を選択してください。"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "ファイル名にアーカイブ拡張子を追加する"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" はすでに開かれています!"
@@ -903,6 +903,10 @@ msgid "Show archive location bar"
 msgstr "アーカイブロケーションバーを表示する"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "使用するウェブブラウザ:"
 
@@ -993,6 +997,18 @@ msgstr "所有者"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "所属グループ"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "位置 104 への fseek ができません:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "ファイルからデータを読み取れません:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "ファイル内を fseek できません:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1202,6 +1218,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "現在の処理が完了するまでお待ちください!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "ARJ パッケージをインストールする必要があります!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "RAR パッケージをインストールする必要があります!"
 
@@ -1262,20 +1282,14 @@ msgstr "アーカイブマネージャ"
 msgid "A GTK+2 only archive manager"
 msgstr "Xfce 4 アーカイブマネージャ"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "ファイル名にアーカイブ拡張子を追加する"
+
 #~ msgid "_Donate"
 #~ msgstr "寄付(_D)"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "位置 104 への fseek ができません:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "ファイルからデータを読み取れません:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "ファイル内を fseek できません:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "謝辞(_T)"

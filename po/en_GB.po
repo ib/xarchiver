@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiverxa 0.4.6\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-08-30 19:27+1000\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
-"Language: \n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -431,6 +431,10 @@ msgid "Re_name"
 msgstr "Re_name"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Make SF_X"
 
@@ -770,10 +774,6 @@ msgid "Choose the archive type to create"
 msgstr "Choose the archive type to create"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Add the archive extension to the filename"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" is already open!"
@@ -881,6 +881,10 @@ msgid "Show archive location bar"
 msgstr "Show archive location bar"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Web browser to use:"
 
@@ -970,6 +974,18 @@ msgstr "Owner"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Group"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Can't fseek to position 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Can't read data from file:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Can't fseek in file:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1171,6 +1187,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Please wait until the completion of the current one!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "You have to install arj package!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "You have to install rar package!"
 
@@ -1231,20 +1251,14 @@ msgstr "Archive manager"
 msgid "A GTK+2 only archive manager"
 msgstr "A GTK+2 only archive manager"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Add the archive extension to the filename"
+
 #~ msgid "_Donate"
 #~ msgstr "_Donate"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Can't fseek to position 104:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Can't read data from file:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Can't fseek in file:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Thanks to"

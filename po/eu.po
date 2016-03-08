@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver.master\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-08-21 10:51+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara\n"
@@ -433,6 +433,10 @@ msgid "Re_name"
 msgstr "Be_rrizendatu"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "SF_X egin"
 
@@ -777,10 +781,6 @@ msgid "Choose the archive type to create"
 msgstr "Hautatu sortu behar den artxiboaren mota"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Artxibo luzapena gehitu fitxategi izenera"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" dagoeneko irekirik dago!"
@@ -888,6 +888,10 @@ msgid "Show archive location bar"
 msgstr "Artxibo kokapen-barra ikusi"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Erabiliko den web nabigatzailea:"
 
@@ -978,6 +982,18 @@ msgstr "Jabea"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Taldea"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Ezin da 104 kokapenean fseek egin:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Ezin da fitxategiko data irakurri"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Ezin da fitxategian fseek egin:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1179,6 +1195,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Mesedez itxoin martxan dagoen  osatzen den bitartean!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Arj paketea instalatu behar duzu!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Rar paketea instalatu behar duzu!"
 
@@ -1239,17 +1259,11 @@ msgstr "Pakete kudeatzailea"
 msgid "A GTK+2 only archive manager"
 msgstr "GTK+2-rako bakarrik artxibo kudeatzailea"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Artxibo luzapena gehitu fitxategi izenera"
+
 #~ msgid "_Donate"
 #~ msgstr "_Dohanintza egin"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Ezin da 104 kokapenean fseek egin:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Ezin da fitxategiko data irakurri"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Ezin da fitxategian fseek egin:"

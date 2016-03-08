@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2011-01-22 11:38+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
@@ -436,6 +436,10 @@ msgid "Re_name"
 msgstr "Zmień _nazwę"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Utwórz SF_X"
 
@@ -777,10 +781,6 @@ msgid "Choose the archive type to create"
 msgstr "Wybierz typ tworzonego archiwum"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Dodaj rozszerzenie archiwum do nazwy pliku"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" jest już otwarty!"
@@ -888,6 +888,10 @@ msgid "Show archive location bar"
 msgstr "Pasek położenia"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Przeglądarka internetowa:"
 
@@ -978,6 +982,18 @@ msgstr "Właścicel"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupa"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Nie mogę fseek-ować do pozycji 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Nie mogę odczytać danych z pliku:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Nie mogę wykonać fseek w pliku:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1186,6 +1202,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Proszę czekać, dopóki bieżąca operacja nie jest ukończona!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Należy zainstalować pakiet arj!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Należy zainstalować pakiet rar!"
 
@@ -1246,20 +1266,14 @@ msgstr "Menedżer archiwów"
 msgid "A GTK+2 only archive manager"
 msgstr "Program zarządzający archiwami oparty wyłącznie o GTK+2"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Dodaj rozszerzenie archiwum do nazwy pliku"
+
 #~ msgid "_Donate"
 #~ msgstr "_Wspomóż"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Menedżer archiwów Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Nie mogę fseek-ować do pozycji 104:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Nie mogę odczytać danych z pliku:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Nie mogę wykonać fseek w pliku:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Podziękowania dla"

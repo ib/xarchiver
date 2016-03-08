@@ -9,12 +9,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-10-21 13:57+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
-"Language: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -420,6 +420,10 @@ msgid "Re_name"
 msgstr "重命名(_N)"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "制作自解压文件(_X)"
 
@@ -761,10 +765,6 @@ msgid "Choose the archive type to create"
 msgstr "选择要创建的归档文件类型"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "在文件名中添加归档文件扩展名"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "“%s” 已经打开！"
@@ -872,6 +872,10 @@ msgid "Show archive location bar"
 msgstr "显示归档文件位置栏"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "要使用的网络浏览器："
 
@@ -960,6 +964,18 @@ msgstr "所有者"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "组别"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "未能在位置 104 定位文件："
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "未能从文件中读取数据："
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "未能在文件中定位文件："
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1166,6 +1182,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "请等到当前操作完成！"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "您必须安装 arj 软件包！"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "您必须安装 rar 软件包！"
 
@@ -1226,17 +1246,11 @@ msgstr "归档文件管理器"
 msgid "A GTK+2 only archive manager"
 msgstr "只使用 GTK+2 的归档文件管理器"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "在文件名中添加归档文件扩展名"
+
 #~ msgid "_Donate"
 #~ msgstr "捐赠"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver 归档文件管理器"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "未能在位置 104 定位文件："
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "未能从文件中读取数据："
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "未能在文件中定位文件："

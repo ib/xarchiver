@@ -6,12 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2008-10-25 12:56+0200\n"
 "Last-Translator: Adrian Dimitrov <Enzo_01@abv.bg>\n"
 "Language-Team: BULGARIAN <Enzo_01@abv.bg>\n"
-"Language: \n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -435,6 +435,10 @@ msgid "Re_name"
 msgstr "Преименувай"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Направи SF_X"
 
@@ -776,10 +780,6 @@ msgid "Choose the archive type to create"
 msgstr "Изберете тип на архива."
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Добави разширението на архива към името на файла"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" вече е отворен!"
@@ -889,6 +889,10 @@ msgid "Show archive location bar"
 msgstr "Покажи бара с адреса"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Уеб броузър:"
 
@@ -982,6 +986,18 @@ msgstr "Притежател"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Група"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Немога да позиционирам до позиция 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Немога да прочета информация от файла:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Немога да позиционирам във файла:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1185,6 +1201,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Моля изчакайте докато несвърши предишното!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Нужно е да инсталирате arj пакет!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Нужно е да инсталирате rar пакет!"
 
@@ -1246,18 +1266,12 @@ msgstr "Архивен управител"
 msgid "A GTK+2 only archive manager"
 msgstr "GTK+2 архивен управител"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Добави разширението на архива към името на файла"
+
 #, fuzzy
 #~ msgid "_Donate"
 #~ msgstr "Дата"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Немога да позиционирам до позиция 104:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Немога да прочета информация от файла:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Немога да позиционирам във файла:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "Благодарности на"

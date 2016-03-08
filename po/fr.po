@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-11-15 18:08+0100\n"
 "Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -430,6 +430,10 @@ msgid "Re_name"
 msgstr "Re_nommer"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Créer SF_X"
 
@@ -770,10 +774,6 @@ msgid "Choose the archive type to create"
 msgstr "Choisir le type d'archive à créer"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Ajouter l'extension de l'archive au nom de fichier"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" est déjà ouvert !"
@@ -881,6 +881,10 @@ msgid "Show archive location bar"
 msgstr "Afficher la barre de chemin"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Navigateur à utiliser :"
 
@@ -970,6 +974,18 @@ msgstr "Propriétaire"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Groupe"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Échec à l'exécution de la commande fseek à la position 104 :"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Échec à la lecture des données du fichier :"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Impossible d'exécuter fseek dans le fichier :"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1174,6 +1190,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Attendez que celle en cours soit finie !"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Vous devez installer le paquet arj !"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Vous devez installer le paquet rar !"
 
@@ -1234,20 +1254,14 @@ msgstr "Gestionnaire d'archives"
 msgid "A GTK+2 only archive manager"
 msgstr "Un gestionnaire d'archive pour GTK+2 seulement"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Ajouter l'extension de l'archive au nom de fichier"
+
 #~ msgid "_Donate"
 #~ msgstr "_Faire un don"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Échec à l'exécution de la commande fseek à la position 104 :"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Échec à la lecture des données du fichier :"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Impossible d'exécuter fseek dans le fichier :"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Remerciements"

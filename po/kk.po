@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -413,6 +413,10 @@ msgid "Re_name"
 msgstr "Аты_н ауыстыру"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "SFX _жасау"
 
@@ -755,10 +759,6 @@ msgid "Choose the archive type to create"
 msgstr "Жасалатын архив түрін таңдаңыз"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Файл атына архив кеңейтуін қосу"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" ашулы тұр!"
@@ -866,6 +866,10 @@ msgid "Show archive location bar"
 msgstr ""
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Қолдану үшін веб браузер:"
 
@@ -952,6 +956,22 @@ msgstr "Иесі"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Тобы"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr ""
+
+#: ../src/rpm.c
+#, fuzzy
+#| msgid "Can't create a new archive:"
+msgid "Can't read data from file:"
+msgstr "Жаңа архивті жасау мүмкін емес:"
+
+#: ../src/rpm.c
+#, fuzzy
+#| msgid "Can't open file %s:"
+msgid "Can't fseek in file:"
+msgstr "%s файлын ашу мүмкін емес:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1152,6 +1172,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr ""
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr ""
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr ""
 
@@ -1211,6 +1235,9 @@ msgstr "Архивтерді басқарушысы"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+2 only archive manager"
 msgstr "Тек GTK+2 талап ететін архивтер басқарушысы"
+
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Файл атына архив кеңейтуін қосу"
 
 #~ msgid "_Donate"
 #~ msgstr "Ақ_шалай көмектесу"

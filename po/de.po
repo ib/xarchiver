@@ -5,13 +5,13 @@
 # Fabian Nowak <timystery@arcor.de>, 2006, 2007, 2008.
 # Nico Schümann <nico@prog.nico22.de>
 # Simon Schneider <simon@schneiderimtal.de>, 2009
-# Ingo Brückl <ib@wupperonline.de>, 2009, 2015
+# Ingo Brückl <ib@wupperonline.de>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.4\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2015-04-27 11:34+0200\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -444,6 +444,10 @@ msgid "Re_name"
 msgstr "_Umbenennen"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr "S_ortierung aufheben"
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "_Selbstentpackendes Archiv erstellen"
 
@@ -790,10 +794,6 @@ msgid "Choose the archive type to create"
 msgstr "Wählen Sie den zu erzeugenden Archivtyp"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Archivtypische Erweiterung an den Dateinamen anhängen"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "»%s« ist bereits geöffnet!"
@@ -903,6 +903,10 @@ msgid "Show archive location bar"
 msgstr "Pfadleiste anzeigen"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr "Werkzeugleiste anzeigen"
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Zu verwendender Webbrowser:"
 
@@ -994,6 +998,18 @@ msgstr "Eigentümer"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Gruppe"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Vorspulen auf Position 104 nicht möglich:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Daten aus der Datei können nicht gelesen werden:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Spulen in Datei nicht möglich:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1201,6 +1217,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Bitte warten Sie, bis der laufende beendet ist!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Das ARJ-Paket muss installiert sein!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Das RAR-Paket muss installiert sein!"
 
@@ -1263,20 +1283,14 @@ msgstr "Archivmanager"
 msgid "A GTK+2 only archive manager"
 msgstr "Ein nur auf GTK+2 basierender Archivmanager"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Archivtypische Erweiterung an den Dateinamen anhängen"
+
 #~ msgid "_Donate"
 #~ msgstr "_Spenden"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Vorspulen auf Position 104 nicht möglich:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Daten aus der Datei können nicht gelesen werden:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Spulen in Datei nicht möglich:"
 
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Kann Befehl nicht ausführen:"

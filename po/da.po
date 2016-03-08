@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
-"Report-Msgid-Bugs-To: http://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2015-04-12 18:17+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
+"POT-Creation-Date: 2016-03-05 17:20+0100\n"
 "PO-Revision-Date: 2009-08-22 15:53+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
-"Language: \n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -443,6 +443,10 @@ msgid "Re_name"
 msgstr "Om_døb"
 
 #: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Opret SF_X"
 
@@ -785,10 +789,6 @@ msgid "Choose the archive type to create"
 msgstr "Vælg arkivtype for oprettelse"
 
 #: ../src/new_dialog.c
-msgid "Add the archive extension to the filename"
-msgstr "Tilføj arkivudvidelse til filnavnet"
-
-#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" er allerede åben!"
@@ -897,6 +897,10 @@ msgid "Show archive location bar"
 msgstr "Vis arkivstedbjælke"
 
 #: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Brug webbrowser:"
 
@@ -987,6 +991,18 @@ msgstr "Ejer"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Gruppe"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Kan ikke flytte filindikator til position 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Kan ikke læse data fra fil:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Kan ikke anvende filindikator i fil:"
 
 #: ../src/window.c
 msgid "An error occurred!"
@@ -1192,6 +1208,10 @@ msgid "Please wait until the completion of the current one!"
 msgstr "Vent venligst til afslutning af igangværende arkivering!"
 
 #: ../src/window.c
+msgid "You have to install arj package!"
+msgstr "Du er nødt til at installere arj-pakken!"
+
+#: ../src/window.c
 msgid "You have to install rar package!"
 msgstr "Du er nødt til at installere rar-pakken!"
 
@@ -1252,20 +1272,14 @@ msgstr "Arkivhåndtering"
 msgid "A GTK+2 only archive manager"
 msgstr "En arkivhåndtering baseret udelukkende på GTK+2"
 
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Tilføj arkivudvidelse til filnavnet"
+
 #~ msgid "_Donate"
 #~ msgstr "_Donér"
 
 #~ msgid "Xarchiver"
 #~ msgstr "Xarchiver"
-
-#~ msgid "Can't fseek to position 104:"
-#~ msgstr "Kan ikke flytte filindikator til position 104:"
-
-#~ msgid "Can't read data from file:"
-#~ msgstr "Kan ikke læse data fra fil:"
-
-#~ msgid "Can't fseek in file:"
-#~ msgstr "Kan ikke anvende filindikator i fil:"
 
 #~ msgid "_Thanks to"
 #~ msgstr "_Tak til"
