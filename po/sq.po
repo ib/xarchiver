@@ -16,60 +16,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/rar.c:31
-#: ../src/rar.c:33 ../src/zip.c:49
+#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/rar.c ../src/zip.c
 msgid "Original"
 msgstr "Origjinal"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/gzip.c:78
-#: ../src/rar.c:31 ../src/rar.c:33 ../src/zip.c:49
+#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
+#: ../src/zip.c
 msgid "Compressed"
 msgstr "E ngjeshur"
 
-#: ../src/7zip.c:57
+#: ../src/7zip.c
 msgid "Attr"
 msgstr "Atr"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
-#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
+#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
+#: ../src/tar.c ../src/zip.c
 msgid "Time"
 msgstr "Kohë"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
-#: ../src/rar.c:31 ../src/rar.c:33 ../src/rpm.c:49 ../src/tar.c:55
-#: ../src/zip.c:49
+#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
+#: ../src/rpm.c ../src/tar.c ../src/zip.c
 msgid "Date"
 msgstr "Datë"
 
-#: ../src/add_dialog.c:37 ../src/interface.c:391
+#: ../src/add_dialog.c ../src/interface.c
 msgid "Add files"
 msgstr "Shto kartela"
 
-#: ../src/add_dialog.c:53
+#: ../src/add_dialog.c
 msgid "Selection"
 msgstr "Përzgjedhje"
 
-#: ../src/add_dialog.c:67
+#: ../src/add_dialog.c
 msgid "File Paths: "
 msgstr "Shtigje Kartelash:"
 
-#: ../src/add_dialog.c:73
+#: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Depozito shtigje të plotë"
 
-#: ../src/add_dialog.c:79
+#: ../src/add_dialog.c
 msgid "Do not store paths"
 msgstr "Mos depozito shtigje"
 
-#: ../src/add_dialog.c:90
+#: ../src/add_dialog.c
 msgid "Options"
 msgstr "Mundësi"
 
-#: ../src/add_dialog.c:108
+#: ../src/add_dialog.c
 msgid "Update and add"
 msgstr "Përditëso dhe shto"
 
-#: ../src/add_dialog.c:110
+#: ../src/add_dialog.c
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified"
@@ -77,11 +75,11 @@ msgstr ""
 "Kjo mundësi do të shtojë çfarëdo kartele të re dhe përditësojë çfarëdo "
 "kartele që është ndryshuar qëkur u krijua/ndryshua arkivi së fundmi."
 
-#: ../src/add_dialog.c:113
+#: ../src/add_dialog.c
 msgid "Freshen and replace"
 msgstr "Freskoje dhe zëvendësoje"
 
-#: ../src/add_dialog.c:116
+#: ../src/add_dialog.c
 msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
@@ -91,15 +89,15 @@ msgstr ""
 "versioni tashmë në arkiv; ndryshe nga mundësia e përditësimit, ky nuk do të "
 "shtojë kartela që nuk janë që mëparë në arkiv."
 
-#: ../src/add_dialog.c:120
+#: ../src/add_dialog.c
 msgid "Include subdirectories"
 msgstr "Kalo edhe nëndrejtoritë"
 
-#: ../src/add_dialog.c:124
+#: ../src/add_dialog.c
 msgid "Create a solid archive"
 msgstr "Prodho një arkivë të qëndrueshme"
 
-#: ../src/add_dialog.c:126
+#: ../src/add_dialog.c
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio"
@@ -107,454 +105,155 @@ msgstr ""
 "Në një arkiv të qëndrueshëm kartelat grupohen bashkë duke bërë të mundur një "
 "përpjestim më të mirë ngjeshjeje."
 
-#: ../src/add_dialog.c:129
+#: ../src/add_dialog.c
 msgid "Delete files after adding"
 msgstr "Hiqi kartelat pas shtimit"
 
-#: ../src/add_dialog.c:133
+#: ../src/add_dialog.c
 msgid "Actions: "
 msgstr "Veprime:"
 
-#: ../src/add_dialog.c:148
+#: ../src/add_dialog.c
 msgid "Compression: "
 msgstr "Ngjeshje:"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Password:"
 msgstr "Fjalëkalim:"
 
-#: ../src/add_dialog.c:172
+#: ../src/add_dialog.c
 msgid "Encryption: "
 msgstr "Kodim:"
 
-#: ../src/add_dialog.c:185
+#: ../src/add_dialog.c
 msgid "_Add"
 msgstr "_Shto"
 
-#: ../src/add_dialog.c:252 ../src/add_dialog.c:288
+#: ../src/add_dialog.c
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = pa ngjeshje, 5 është parazgjedhje, 9 = ngjeshja më e mirë por më e "
 "ngadalta"
 
-#: ../src/add_dialog.c:258
+#: ../src/add_dialog.c
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr ""
 "0 = pa ngjeshje, 6 është parazgjedhje, 9 = ngjeshja më e mirë por më e "
 "ngadalta"
 
-#: ../src/add_dialog.c:264 ../src/add_dialog.c:270
+#: ../src/add_dialog.c
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr ""
 "0 = pa ngjeshje, 3 është parazgjedhje, 5 = ngjeshja më e mirë por më e "
 "ngadalta"
 
-#: ../src/add_dialog.c:276
+#: ../src/add_dialog.c
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr ""
 "0 = pa ngjeshje, 1 është parazgjedhje, 4 = ngjeshja më e mirë por më e "
 "ngadalta"
 
-#: ../src/add_dialog.c:282
+#: ../src/add_dialog.c
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = ngjeshje parazgjedhje, 7 = ngjeshja më e madhe"
 
-#: ../src/add_dialog.c:388 ../src/main.c:233
+#: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
 msgstr "S'shton dot kartela te arkiva:"
 
-#: ../src/add_dialog.c:388
+#: ../src/add_dialog.c
 msgid "You haven't selected any files to add!"
 msgstr "S'përzgjodhët ndonjë kartelë për shtim!"
 
-#: ../src/add_dialog.c:396 ../src/interface.c:818
+#: ../src/add_dialog.c ../src/interface.c
 msgid "You missed the password!"
 msgstr "Dolët huq me fjalëkalimin!"
 
-#: ../src/add_dialog.c:396 ../src/interface.c:818
+#: ../src/add_dialog.c ../src/interface.c
 msgid "Please enter it!"
 msgstr "Ju lutem jepeni!"
 
-#: ../src/add_dialog.c:466
+#: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
 msgstr "Po shtohen kartela te arkiva, ju lutem prisni..."
 
-#: ../src/archive.c:87
+#: ../src/archive.c
 msgid "Can't run the archiver executable:"
 msgstr "S'xhiron dot të ekzekutueshmin e arkivuesit:"
 
-#: ../src/archive.c:373
+#: ../src/archive.c
 #, fuzzy
 msgid "Can't create temporary directory:"
 msgstr "S'krijon dot drejtori të përkohshme në /tmp:"
 
-#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:31
-#: ../src/rar.c:33
+#: ../src/arj.c ../src/gzip.c ../src/lha.c ../src/rar.c
 msgid "Ratio"
 msgstr "Përpjestim"
 
-#: ../src/arj.c:48
+#: ../src/arj.c
 msgid "Attributes"
 msgstr "Veti"
 
-#: ../src/bzip2.c:198 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:49
-#: ../src/tar.c:55
+#: ../src/bzip2.c ../src/gzip.c ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Points to"
 msgstr "Shpie tek"
 
-#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
-#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
+#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/lha.c ../src/rar.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Leje"
 
-#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
+#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "Pronar/Grup"
 
-#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/extract_dialog.c:391
-#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:49
-#: ../src/tar.c:55
+#: ../src/bzip2.c ../src/deb.c ../src/extract_dialog.c ../src/gzip.c
+#: ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Size"
 msgstr "Madhësi"
 
-#: ../src/window.c:61
-msgid "An error occurred!"
-msgstr "Ndodhi një gabim!"
-
-#: ../src/window.c:61
-#, fuzzy
-msgid "Please check the 'Store archiver output' option to see it."
-msgstr ""
-"Ju lutem, për ta parë, i vini shenjë mundësisë 'Përgjigje nga arkivues "
-"depoje'."
-
-#: ../src/window.c:148
-msgid "Archiver output"
-msgstr "Përfundim arkivuesi"
-
-#: ../src/window.c:183
-msgid "An error occurred while accessing the archive:"
-msgstr "Ndodhi një gabim gjatë hyrjes në arkivë:"
-
-#: ../src/window.c:256
-msgid "Save the archive as"
-msgstr "Ruaje arkivin si"
-
-#: ../src/window.c:315
-#, c-format
-msgid "Can't open file \"%s\":"
-msgstr "S'hap dot kartelën \"%s\":"
-
-#: ../src/window.c:317
-#, fuzzy
-msgid "Archive format is not recognized!"
-msgstr "Na ndjeni, ky format arkivi nuk mbulohet:"
-
-#: ../src/window.c:343
-msgid "Sorry,this archive format is not supported:"
-msgstr "Na ndjeni, ky format arkivi nuk mbulohet:"
-
-#: ../src/window.c:343
-msgid "the proper archiver is not installed!"
-msgstr "nuk është instaluar arkivuesi i duhur!"
-
-#: ../src/window.c:357
-msgid "Can't allocate memory for the archive structure:"
-msgstr "S'siguron dot kujtesë për strukturën e arkivit:"
-
-#: ../src/window.c:357
-#, fuzzy
-msgid "Operation aborted!"
-msgstr "Hap kartelë tekst"
-
-#: ../src/window.c:382
-msgid "Opening archive,please wait..."
-msgstr "Po hapet arkiva, ju lutem prisni..."
-
-#: ../src/window.c:406
-msgid "Testing archive,please wait..."
-msgstr "Po provohet arkiva, ju lutem prisni..."
-
-#: ../src/window.c:426
-msgid "Print the archive content as HTML"
-msgstr "Shtype lëndën e arkivës si HTML"
-
-#: ../src/window.c:428
-msgid "Print the archive content as text"
-msgstr "Shtype lëndën e arkivës si tekst"
-
-#: ../src/window.c:479
-#, c-format
-msgid "Archive contents:\n"
-msgstr "Përmbajtje arkive:\n"
-
-#: ../src/window.c:483
-#, c-format
-msgid ""
-"\n"
-"Name: "
-msgstr ""
-"\n"
-"Emër:"
-
-#: ../src/window.c:492
-#, c-format
-msgid "Compressed   size: "
-msgstr "Madhësi e ngjeshur:"
-
-#: ../src/window.c:499
-#, c-format
-msgid "Uncompressed size: "
-msgstr "Madhësi e pangjeshur:"
-
-#: ../src/window.c:507
-#, c-format
-msgid "Number of files: "
-msgstr "Numër kartelash:"
-
-#: ../src/window.c:515
-#, c-format
-msgid "Comment:\n"
-msgstr "Koment:\n"
-
-#: ../src/window.c:528
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Kartela:%*s%s"
-
-#: ../src/window.c:528
-msgid "|Compressed\n"
-msgstr "|<th>E ngjeshur:</th>\n"
-
-#: ../src/window.c:534
-#, c-format
-msgid "<th>Files:</th>"
-msgstr "<th>Kartela:</th>"
-
-#: ../src/window.c:535
-#, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Ngjeshur:</th>"
-
-#: ../src/window.c:621 ../src/main.c:281
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
-"Përzgjidhni \"Të re\" për të krijuar ose \"HapOpen\" për të hapur një arkivë"
-
-#: ../src/window.c:726
-#, fuzzy
-msgid "You are about to delete entries from the archive."
-msgstr "S'mund të përftohet kartela prej arkivit:"
-
-#: ../src/window.c:726
-msgid "Are you sure you want to do this?"
-msgstr "Jeni i sigurt se doni të bëhet kjo?"
-
-#: ../src/window.c:820 ../src/window.c:920
-msgid "Can't convert the archive to self-extracting:"
-msgstr "S'e shndërron dot arkivin në vetëpërftues:"
-
-#: ../src/window.c:831 ../src/window.c:931
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "S'shkruan dot modulin unzipsfx te arkivi:"
-
-#: ../src/window.c:891
-msgid "Please select the 7zCon.sfx module"
-msgstr "Ju lutem përzgjidhni modul 7zCon.sfx"
-
-#: ../src/window.c:985
-#, fuzzy
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "Përgjegjës arkivash vetëm për GTK+2"
-
-#: ../src/window.c:988
-msgid "translator-credits"
-msgstr "kredite përkthyesish"
-
-#: ../src/window.c:1018
-msgid "Save the self-extracting archive as"
-msgstr "Ruaj arkivin vetëpërftues si"
-
-#: ../src/window.c:1047 ../src/interface.c:338
-msgid "Open an archive"
-msgstr "Hap një arkivë"
-
-#: ../src/window.c:1060 ../src/extract_dialog.c:90 ../src/new_dialog.c:64
-msgid "All files"
-msgstr "Tërë kartelat "
-
-#: ../src/window.c:1065 ../src/new_dialog.c:69
-msgid "Only archives"
-msgstr "Vetëm arkiva"
-
-#: ../src/window.c:1283
-msgid "Filename"
-msgstr "Emër kartele"
-
-#: ../src/window.c:1340
-msgid "Doing so will probably corrupt your archive!"
-msgstr "Të bërët kështu ka gjasa të dëmtojë arkivën tuaj!"
-
-#: ../src/window.c:1340
-msgid "Do you really want to cancel?"
-msgstr "Doni vërtet të anulohet?"
-
-#: ../src/window.c:1405 ../src/window.c:1420
-msgid "Yes"
-msgstr "Po"
-
-#: ../src/window.c:1407 ../src/window.c:1422
-msgid "No"
-msgstr "Jo"
-
-#: ../src/window.c:1631
-msgid "selected"
-msgstr "përzgjedhur"
-
-#: ../src/window.c:1636
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d kartelë dhe %d drejtori %s (%s)"
-msgstr[1] "%d kartela dhe %d drejtori %s (%s)"
-
-#: ../src/window.c:1638
-#, c-format
-msgid "%d dir %s (%s)"
-msgid_plural "%d dirs %s (%s)"
-msgstr[0] "%d drejtori %s (%s)"
-msgstr[1] "%d drejtori %s (%s)"
-
-#: ../src/window.c:1641
-#, c-format
-msgid "%d file %s (%s)"
-msgid_plural "%d files %s (%s)"
-msgstr[0] "%d kartelë %s (%s)"
-msgstr[1] "%d kartela %s (%s)"
-
-#: ../src/window.c:1697
-msgid "Can't perform another extraction:"
-msgstr "S'kryen dot një përftim tjetër:"
-
-#: ../src/window.c:1697
-msgid "Please wait until the completion of the current one!"
-msgstr "Ju lutem prisni deri në plotësimin e atij të çastit!"
-
-#: ../src/window.c:1730 ../src/extract_dialog.c:337
-#, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr ""
-"Nuk keni lejet e nevojshme për të përftuar kartela brenda dosjes \"%s\"."
-
-#: ../src/window.c:1731 ../src/extract_dialog.c:338
-msgid "Can't perform extraction!"
-msgstr "S'kryen dot përftimin!"
-
-#: ../src/window.c:1775 ../src/extract_dialog.c:650 ../src/interface.c:1397
-msgid "Sorry,I could not perform the operation!"
-msgstr "Më ndjeni, nuk e kreva dot veprimin!"
-
-#: ../src/window.c:1809 ../src/window.c:1821 ../src/interface.c:1390
-msgid "Can't perform this action:"
-msgstr "S'e bën dot këtë veprim:"
-
-#: ../src/window.c:1809
-msgid "You have to install rar package!"
-msgstr "Duhet të instaloni paketën rar!"
-
-#: ../src/window.c:1816 ../src/interface.c:1387
-msgid "You can't add content to deb packages!"
-msgstr "S'mund të shtoni t add content to deb packages!"
-
-#: ../src/window.c:1818 ../src/interface.c:1389
-msgid "You can't add content to rpm packages!"
-msgstr "S'mund të shtoni përmbajtje te paketa rpm!"
-
-#: ../src/window.c:1820
-msgid "The archiver doesn't support this feature!"
-msgstr "Arkivuesi nuk e mbulon këtë karakteristikë!"
-
-#: ../src/window.c:1901
-msgid "You didn't set which browser to use!"
-msgstr "S'përcaktuat cili shfletues të përdoret!"
-
-#: ../src/window.c:1901 ../src/window.c:1942
-msgid "Please go to Preferences->Advanced and set it."
-msgstr "Ju lutem shkoni te Parapëlqimet->Të mëtejshme dhe caktojeni."
-
-#: ../src/window.c:1933
-msgid "This file type is not supported!"
-msgstr "Ky lloj kartele nuk mbulohet!"
-
-#: ../src/window.c:1933
-msgid "Please install xdg-utils package."
-msgstr "Ju lutem instaloni paketën xdg-utils."
-
-#: ../src/window.c:1942
-msgid "You didn't set which program to use for opening this file!"
-msgstr "S'përcaktuat cili program të përdoret për hapjen e kësaj kartele!"
-
-#: ../src/window.c:1968
-msgid "Failed to launch the application!"
-msgstr "Dështoi nisja e zbatimit!"
-
-#: ../src/window.c:2020
-msgid "Comment"
-msgstr "Koment"
-
-#: ../src/window.c:2050
-msgid "From File"
-msgstr "Nga Kartelë"
-
-#: ../src/window.c:2156
-msgid "Open a text file"
-msgstr "Hap kartelë tekst"
-
-#: ../src/window.c:2174
-#, c-format
-msgid "Can't open file %s:"
-msgstr "S'hapet dot kartela %s:"
-
-#: ../src/deb.c:45
+#: ../src/deb.c
 msgid "Date modified"
 msgstr "Datë ndryshimi"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:464
+#: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "Përfto te:"
 
-#: ../src/extract_dialog.c:95
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "Tërë kartelat "
+
+#: ../src/extract_dialog.c
 msgid "Selected files"
 msgstr "Kartela të përzgjedhura"
 
-#: ../src/extract_dialog.c:103
+#: ../src/extract_dialog.c
 msgid "Files: "
 msgstr "Kartela:"
 
-#: ../src/extract_dialog.c:114
+#: ../src/extract_dialog.c
 msgid "Files "
 msgstr "Kartela"
 
-#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:491
+#: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Mbishkruaj kartela ekzistuese"
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c
 msgid "Extract files with full path"
 msgstr "Përftoji kartelat me shteg të plotë"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Struktura e drejtorive të arkivit rikrijohet te drejtoria e përftimit."
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c
 msgid "Touch files"
 msgstr "Prek kartela"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -564,11 +263,11 @@ msgstr ""
 "arkiv, tar-i lë si kohë ndryshimi të kartelave që përfton kohën kur u "
 "përftuan kartelat."
 
-#: ../src/extract_dialog.c:139
+#: ../src/extract_dialog.c
 msgid "Freshen existing files"
 msgstr "Fresko kartela ekzistuese"
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
@@ -576,11 +275,11 @@ msgstr ""
 "Përfto vetëm ato kartela që gjenden tashmë në disk dhe që janë më të reja se "
 "kopjet në disk."
 
-#: ../src/extract_dialog.c:144
+#: ../src/extract_dialog.c
 msgid "Update existing files"
 msgstr "Përditëso kartela ekzistuese"
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -590,419 +289,450 @@ msgstr ""
 "kartela që janë më të reja se sa ato me të njëjtin emër në disk, e si "
 "shtesë, përfton edhe ato kartela që nuk gjenden në disk."
 
-#: ../src/extract_dialog.c:149
+#: ../src/extract_dialog.c
 msgid "Options "
 msgstr "Mundësi"
 
-#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:508
-#: ../src/interface.c:178
+#: ../src/extract_dialog.c ../src/interface.c
 msgid "_Extract"
 msgstr "_Përfto"
 
-#: ../src/extract_dialog.c:226
+#: ../src/extract_dialog.c
 msgid "Decompress file"
 msgstr "Çngjesh kartelë"
 
-#: ../src/extract_dialog.c:228 ../src/interface.c:400
+#: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
 msgstr "Përfto kartela"
 
-#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c
 msgid "You missed where to extract the files!"
 msgstr "Nuk treguat ku të përftohen kartelat!"
 
-#: ../src/extract_dialog.c:313
+#: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
 msgstr "Ju lutem jepni shteg përftimi."
 
-#: ../src/extract_dialog.c:327
+#: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Kjo arkivë është e koduar!"
 
-#: ../src/extract_dialog.c:327
+#: ../src/extract_dialog.c
 msgid "Please enter the password."
 msgstr "Ju lutem jepni fjalëkalimin."
 
-#: ../src/extract_dialog.c:374
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr ""
+"Nuk keni lejet e nevojshme për të përftuar kartela brenda dosjes \"%s\"."
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr "S'kryen dot përftimin!"
+
+#: ../src/extract_dialog.c
 msgid "Extracting files from archive,please wait..."
 msgstr "Po përfothen kartela prej arkivit, ju lutem prisni..."
 
-#: ../src/extract_dialog.c:391
+#: ../src/extract_dialog.c
 msgid "Archive Name"
 msgstr "Emër Arkive"
 
-#: ../src/extract_dialog.c:391
+#: ../src/extract_dialog.c
 msgid "Path"
 msgstr "Shteg"
 
-#: ../src/extract_dialog.c:403
+#: ../src/extract_dialog.c
 msgid "Multi-Extract"
 msgstr "Shumë-Përftim"
 
-#: ../src/extract_dialog.c:474
+#: ../src/extract_dialog.c
 msgid "Extract to dir \"Archive Name\""
 msgstr "Përftoje te drejtoria \"Emër Arkivi\""
 
-#: ../src/extract_dialog.c:475
+#: ../src/extract_dialog.c
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr ""
 "Kjo mundësi bën që arkivat të përftohen në drejtori të emërtuara sipas "
 "emrave të arkivave"
 
-#: ../src/extract_dialog.c:479
+#: ../src/extract_dialog.c
 msgid "Destination dirs:"
 msgstr "Drejtori vendmbërritje:"
 
-#: ../src/extract_dialog.c:493
+#: ../src/extract_dialog.c
 msgid "Extract pathnames"
 msgstr "Përfto emra shtigjesh"
 
-#: ../src/extract_dialog.c:496
+#: ../src/extract_dialog.c
 msgid "Options:"
 msgstr "Mundësi:"
 
-#: ../src/extract_dialog.c:528
+#: ../src/extract_dialog.c
 msgid "Please select the archives you want to extract"
 msgstr "Ju lutem përzgjidhni kartelat që doni të përfothen"
 
-#: ../src/extract_dialog.c:672
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+msgid "Sorry,I could not perform the operation!"
+msgstr "Më ndjeni, nuk e kreva dot veprimin!"
+
+#: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Ju lutem përzgjidhni drejtorinë vendmbërritje"
 
-#: ../src/extract_dialog.c:715
+#: ../src/extract_dialog.c
 msgid "Can't multi-extract archives:"
 msgstr "S'mund të përftohen kartela shumëpërftimesh:"
 
-#: ../src/extract_dialog.c:715
+#: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
 msgstr "S'keni shtuar ndonjë prej tyre!"
 
-#: ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c
 msgid "Please fill the \"Extract to\" field!"
 msgstr "Ju lutem plotësoni fushën \"Përftoje te\"!"
 
-#: ../src/extract_dialog.c:760
+#: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "Ndodhën ca gabime:"
 
-#: ../src/lha.c:51
-msgid "UID/GID"
-msgstr "UID/GID"
-
-#: ../src/lha.c:51
-msgid "Timestamp"
-msgstr "Vulë kohore"
-
-#: ../src/interface.c:77
+#: ../src/interface.c
 msgid "_Archive"
 msgstr "_Arkivë"
 
-#: ../src/interface.c:92
+#: ../src/interface.c
 #, fuzzy
 msgid "_List as"
 msgstr "Radhite si"
 
-#: ../src/interface.c:103
+#: ../src/interface.c
 #, fuzzy
 msgid "_Text file"
 msgstr "Kartelë tekst"
 
-#: ../src/interface.c:110
+#: ../src/interface.c
 #, fuzzy
 msgid "_HTML file"
 msgstr "Kartelë HTML"
 
-#: ../src/interface.c:127
+#: ../src/interface.c
 msgid "_Test"
 msgstr "Provo"
 
-#: ../src/interface.c:137
+#: ../src/interface.c
 msgid "_Properties"
 msgstr "_Veti"
 
-#: ../src/interface.c:161
+#: ../src/interface.c
 msgid "A_ction"
 msgstr "_Veprim"
 
-#: ../src/interface.c:168
+#: ../src/interface.c
 msgid "A_dd"
 msgstr "_Shto"
 
-#: ../src/interface.c:194
+#: ../src/interface.c
 #, fuzzy
 msgid "Re_name"
 msgstr "Riemërtoje"
 
-#: ../src/interface.c:208
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "Krijo SF _X"
 
-#: ../src/interface.c:218
+#: ../src/interface.c
 msgid "_Multi-Extract"
 msgstr "_Shumë-Përftim"
 
-#: ../src/interface.c:223
+#: ../src/interface.c
 #, fuzzy
 msgid "Archive _comment"
 msgstr "Koment arkivi"
 
-#: ../src/interface.c:237
+#: ../src/interface.c
 msgid "Select _all"
 msgstr "Përzgjidhi të _tëra"
 
-#: ../src/interface.c:247
+#: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "Ç_përzgjidhi të tëra"
 
-#: ../src/interface.c:253
+#: ../src/interface.c
 msgid "Select _by pattern"
 msgstr "Përzgjidhni _sipas mostrash"
 
-#: ../src/interface.c:264
+#: ../src/interface.c
 msgid "Cmd-line outp_ut"
 msgstr "Për_fundim rreshti urdhri"
 
-#: ../src/interface.c:277
+#: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Jepni _fjalëkalimin"
 
-#: ../src/interface.c:288
+#: ../src/interface.c
 msgid "_Preferences"
 msgstr "_Parapëlqime"
 
-#: ../src/interface.c:297
+#: ../src/interface.c
 msgid "_Help"
 msgstr "_Ndihmë"
 
-#: ../src/interface.c:304
+#: ../src/interface.c
 #, fuzzy
 msgid "_Contents"
 msgstr "Koment"
 
-#: ../src/interface.c:326
+#: ../src/interface.c
 msgid "New"
 msgstr "e Re"
 
-#: ../src/interface.c:330 ../src/new_dialog.c:52
+#: ../src/interface.c ../src/new_dialog.c
 msgid "Create a new archive"
 msgstr "Krijo arkiv të ri"
 
-#: ../src/interface.c:334
+#: ../src/interface.c
 msgid "Open"
 msgstr "Hap"
 
-#: ../src/interface.c:346 ../src/interface.c:351
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "Hap një arkivë"
+
+#: ../src/interface.c
 msgid "Back"
 msgstr "Mbrapsht"
 
-#: ../src/interface.c:355 ../src/interface.c:360
+#: ../src/interface.c
 msgid "Up"
 msgstr "Sipër"
 
-#: ../src/interface.c:364 ../src/interface.c:369
+#: ../src/interface.c
 msgid "Forward"
 msgstr "Përpara"
 
-#: ../src/interface.c:373
+#: ../src/interface.c
 msgid "Home"
 msgstr "Shtëpi"
 
-#: ../src/interface.c:378
+#: ../src/interface.c
 msgid "Root"
 msgstr "Rrënjë"
 
-#: ../src/interface.c:386
+#: ../src/interface.c
 msgid "Add"
 msgstr "Shto"
 
-#: ../src/interface.c:395 ../src/interface.c:850
+#: ../src/interface.c
 msgid "Extract"
 msgstr "Përfto"
 
-#: ../src/interface.c:408
+#: ../src/interface.c
 msgid "Stop"
 msgstr "Ndal"
 
-#: ../src/interface.c:413
+#: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Anulo veprimin e çastit"
 
-#: ../src/interface.c:426
+#: ../src/interface.c
 msgid "Location:"
 msgstr "Vend:"
 
-#: ../src/interface.c:465
+#: ../src/interface.c
 msgid "Archive tree"
 msgstr "Pemë arkivi"
 
-#: ../src/interface.c:513
+#: ../src/interface.c
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr ""
 "Kjo është drita për gjendjen e Xarchiver-it. Kur xixëllon Xarchiver-i është "
 "i zën"
 
-#: ../src/interface.c:687
+#: ../src/interface.c
 msgid "Close archive"
 msgstr "Mbyll arkivën"
 
-#: ../src/interface.c:772
+#: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>Fjalëkalim i domosdoshëm për:</span>"
 
-#: ../src/interface.c:774
+#: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>Jepni fjalëkalimin për:</span>"
 
-#: ../src/interface.c:792
+#: ../src/interface.c
 msgid "_Password:"
 msgstr "_Fjalëkalim:"
 
-#: ../src/interface.c:842 ../src/open-with-dlg.c:52
+#: ../src/interface.c ../src/open-with-dlg.c
 msgid "Open With"
 msgstr "Hape Me"
 
-#: ../src/interface.c:858
+#: ../src/interface.c
 msgid "View"
 msgstr "Shihni"
 
-#: ../src/interface.c:871
+#: ../src/interface.c
 msgid "Cut"
 msgstr "Prije"
 
-#: ../src/interface.c:879
+#: ../src/interface.c
 msgid "Copy"
 msgstr "Kopjoje"
 
-#: ../src/interface.c:887
+#: ../src/interface.c
 msgid "Paste"
 msgstr "Ngjite"
 
-#: ../src/interface.c:901
+#: ../src/interface.c
 msgid "Delete"
 msgstr "Fshij"
 
-#: ../src/interface.c:910
+#: ../src/interface.c
 msgid "Rename"
 msgstr "Riemërtoje"
 
-#: ../src/interface.c:949
+#: ../src/interface.c
 msgid "Select by Pattern"
 msgstr "Përzgjidhni sipas Mostrash"
 
-#: ../src/interface.c:962
+#: ../src/interface.c
 msgid "Pattern:"
 msgstr "Mostër:"
 
-#: ../src/interface.c:967
+#: ../src/interface.c
 msgid "example: *.txt; ac*"
 msgstr "shembull: *.txt; ac*"
 
-#: ../src/interface.c:984
+#: ../src/interface.c
 msgid "_Select"
 msgstr "_Përzgjidhni"
 
-#: ../src/interface.c:1056
+#: ../src/interface.c
 msgid "Archive Properties"
 msgstr "Veti Arkive "
 
-#: ../src/interface.c:1077
+#: ../src/interface.c
 msgid "Name:"
 msgstr "Emër:"
 
-#: ../src/interface.c:1084
+#: ../src/interface.c
 msgid "Path:"
 msgstr "Shteg:"
 
-#: ../src/interface.c:1091
+#: ../src/interface.c
 msgid "Type:"
 msgstr "Tip:"
 
-#: ../src/interface.c:1098
+#: ../src/interface.c
 msgid "Encrypted:"
 msgstr "Koduar:"
 
-#: ../src/interface.c:1105
+#: ../src/interface.c
 msgid "Modified on:"
 msgstr "Ndryshuar më:"
 
-#: ../src/interface.c:1112
+#: ../src/interface.c
 msgid "Compressed size:"
 msgstr "Madhësi e ngjeshur:"
 
-#: ../src/interface.c:1119
+#: ../src/interface.c
 msgid "Uncompressed size:"
 msgstr "Madhësi e pangjeshur:"
 
-#: ../src/interface.c:1126
+#: ../src/interface.c
 msgid "Comment:"
 msgstr "Koment:"
 
-#: ../src/interface.c:1133
+#: ../src/interface.c
 msgid "Number of files:"
 msgstr "Numër kartelash:"
 
-#: ../src/interface.c:1140
+#: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Përpjestim ngjeshjeje:"
 
-#: ../src/interface.c:1531
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to deb packages!"
+msgstr "S'mund të shtoni t add content to deb packages!"
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to rpm packages!"
+msgstr "S'mund të shtoni përmbajtje te paketa rpm!"
+
+#: ../src/interface.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr "S'e bën dot këtë veprim:"
+
+#: ../src/interface.c
 msgid "Extracting from archive:"
 msgstr "Po përftohet prej arkive:"
 
-#: ../src/interface.c:1533
+#: ../src/interface.c
 msgid "Adding to archive:"
 msgstr "Po shtohet te arkiva:"
 
-#: ../src/interface.c:1553
+#: ../src/interface.c
 msgid "Total Progress:"
 msgstr "Përparim Gjithsej:"
 
-#: ../src/main.c:59
+#: ../src/lha.c
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/lha.c
+msgid "Timestamp"
+msgstr "Vulë kohore"
+
+#: ../src/main.c
 msgid "Extract archive to the destination directory and quits."
 msgstr "Përfton arkivën te drejtori vendmbërritje dhe del."
 
-#: ../src/main.c:60
+#: ../src/main.c
 msgid "destination archive"
 msgstr "arkivë vendmbërritje"
 
-#: ../src/main.c:63
+#: ../src/main.c
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "Përfton arkivën duke pyetur për drejtori vendmbërritje dhe del."
 
-#: ../src/main.c:64 ../src/main.c:76
+#: ../src/main.c
 msgid "archive"
 msgstr "arkivë"
 
-#: ../src/main.c:67
+#: ../src/main.c
 msgid "Multi-extract archives"
 msgstr "Arkiva shumë-përftim"
 
-#: ../src/main.c:68
+#: ../src/main.c
 msgid "filenames"
 msgstr "emra kartelash"
 
-#: ../src/main.c:71
+#: ../src/main.c
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "Shto kartelat e dhëna duke pyetur për emrin e arkivit dhe dil."
 
-#: ../src/main.c:72
+#: ../src/main.c
 msgid "file1 file2 file3 ... fileN"
 msgstr "kartelë1 kartelë2 kartelë3 ... kartelëN"
 
-#: ../src/main.c:75
+#: ../src/main.c
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "Shto kartela te arkivi duke pyetur për emra kartelash për to dhe dil."
 
-#: ../src/main.c:79
+#: ../src/main.c
 msgid "Show version and exit"
 msgstr ""
 
-#: ../src/main.c:106
+#: ../src/main.c
 msgid "[archive name]"
 msgstr "[emër arkive]"
 
-#: ../src/main.c:110
+#: ../src/main.c
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -1012,197 +742,205 @@ msgstr ""
 "Provoni xarchiver --help për të parë një listë të plotë për mundësi rreshti "
 "urdhrash që mund të kihen.\n"
 
-#: ../src/main.c:120
+#: ../src/main.c
 #, c-format
 msgid "Maintained by "
 msgstr ""
 
-#: ../src/main.c:122
+#: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
 msgstr ""
 
-#: ../src/main.c:149 ../src/main.c:172
+#: ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "S'mund të përftohet kartela prej arkivit:"
 
-#: ../src/main.c:149 ../src/main.c:172 ../src/main.c:233
+#: ../src/main.c
 msgid "You missed the archive name!\n"
 msgstr "Nuk dhatë emrin e arkivit!\n"
 
-#: ../src/main.c:566
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+"Përzgjidhni \"Të re\" për të krijuar ose \"HapOpen\" për të hapur një arkivë"
+
+#: ../src/main.c
 msgid "Can't allocate memory for the archive structure!"
 msgstr "S'siguron dot kujtesë për strukturën e arkivës!"
 
-#: ../src/open-with-dlg.c:54
-msgid "Open the selected files with"
-msgstr "Hapi kartelat e përzgjedhura me"
-
-#: ../src/open-with-dlg.c:83
-#, c-format
-msgid "Open <i>%s</i> with:"
-msgstr "Hape <i>%s</i> me:"
-
-#: ../src/open-with-dlg.c:118
-msgid "Use a custom command:"
-msgstr "Përdor urdhër vetjak:"
-
-#: ../src/open-with-dlg.c:126
-msgid "Browse"
-msgstr "Shfletoni"
-
-#: ../src/open-with-dlg.c:311
-msgid "Select an application"
-msgstr "Përzgjidhni zbatim"
-
-#: ../src/new_dialog.c:57
+#: ../src/new_dialog.c
 msgid "Cr_eate"
 msgstr "Kr_ijo"
 
-#: ../src/new_dialog.c:94
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "Vetëm arkiva"
+
+#: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "Tip arkive:"
 
-#: ../src/new_dialog.c:99
+#: ../src/new_dialog.c
 msgid "Choose the archive type to create"
 msgstr "Zgjidhni tip për arkivën që do të krijohet"
 
-#: ../src/new_dialog.c:115
+#: ../src/new_dialog.c
 msgid "Add the archive extension to the filename"
 msgstr "Shto te emri i kartelës zgjatim arkive"
 
-#: ../src/new_dialog.c:162
+#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" është hapur tashmë!"
 
-#: ../src/new_dialog.c:163
+#: ../src/new_dialog.c
 msgid "Can't create a new archive:"
 msgstr "S'krijon dot arkivë të re:"
 
-#: ../src/new_dialog.c:178
+#: ../src/new_dialog.c
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "Ka tashmë një arkivë \"%s\"!"
 
-#: ../src/new_dialog.c:184
+#: ../src/new_dialog.c
 msgid "Do you want to overwrite it?"
 msgstr "Doni ta mbishkruani?"
 
-#: ../src/pref_dialog.c:41
+#: ../src/open-with-dlg.c
+msgid "Open the selected files with"
+msgstr "Hapi kartelat e përzgjedhura me"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "Hape <i>%s</i> me:"
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr "Përdor urdhër vetjak:"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr "Shfletoni"
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr "Përzgjidhni zbatim"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Parapëlqime"
 
-#: ../src/pref_dialog.c:61
+#: ../src/pref_dialog.c
 msgid "Archive"
 msgstr "Arkivë"
 
-#: ../src/pref_dialog.c:67
+#: ../src/pref_dialog.c
 msgid "Window"
 msgstr "Dritare"
 
-#: ../src/pref_dialog.c:72
+#: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "Të mëtejshme"
 
-#: ../src/pref_dialog.c:97
+#: ../src/pref_dialog.c
 msgid "Preferred archive format"
 msgstr "Format i parapëlqyer arkivash:"
 
-#: ../src/pref_dialog.c:115
+#: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr "Ripohoni fshirje kartelash"
 
-#: ../src/pref_dialog.c:119
+#: ../src/pref_dialog.c
 msgid "Sort archive by filename"
 msgstr "Rendit përmbajtje sipas emrash kartelash"
 
-#: ../src/pref_dialog.c:122
+#: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Shtylla me emrat e kartelave renditet pasi të jetë ngarkuar arkivi"
 
-#: ../src/pref_dialog.c:124
+#: ../src/pref_dialog.c
 #, fuzzy
 msgid "Store archiver output"
 msgstr "Përgjigje nga arkivues depoje"
 
-#: ../src/pref_dialog.c:127
+#: ../src/pref_dialog.c
 msgid "This option takes more memory with large archives"
 msgstr "Kjo mundësi zë më shumë shumë kujtesë me arkiva të mëdha"
 
-#: ../src/pref_dialog.c:138
+#: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
 msgstr "Madhësi ikonash për tipe kartelash "
 
-#: ../src/pref_dialog.c:144
+#: ../src/pref_dialog.c
 msgid "large"
 msgstr "të mëdha"
 
-#: ../src/pref_dialog.c:145
+#: ../src/pref_dialog.c
 msgid "small"
 msgstr "të vogla"
 
-#: ../src/pref_dialog.c:150
+#: ../src/pref_dialog.c
 msgid "Show archive comment"
 msgstr "Dritare komenti mbi arkivin"
 
-#: ../src/pref_dialog.c:151
+#: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Shfaq shtyllë vendesh"
 
-#: ../src/pref_dialog.c:157
+#: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Shfaqe ndihmën HTML me:"
 
-#: ../src/pref_dialog.c:163
+#: ../src/pref_dialog.c
 msgid "Show archive location bar"
 msgstr "Shfaq shtyllë vendi arkivash"
 
-#: ../src/pref_dialog.c:185
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "Firefox"
 
-#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
-#: ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
+#: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "zgjidhni..."
 
-#: ../src/pref_dialog.c:198
+#: ../src/pref_dialog.c
 msgid "Open text files with:"
 msgstr "Kartelat tekst hapi me:"
 
-#: ../src/pref_dialog.c:211
+#: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "Hap kartela pamjesh me:"
 
-#: ../src/pref_dialog.c:224
+#: ../src/pref_dialog.c
 msgid "Preferred temp directory:"
 msgstr "Drejtori e përkohshme e parapëlqyer:"
 
-#: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
+#: ../src/pref_dialog.c
 msgid "/tmp"
 msgstr "/tmp"
 
-#: ../src/pref_dialog.c:237
+#: ../src/pref_dialog.c
 #, fuzzy
 msgid "Preferred extract directory:"
 msgstr "Drejtori e përkohshme e parapëlqyer:"
 
-#: ../src/pref_dialog.c:250
+#: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Ruaj gjeometrinë e dritares"
 
-#: ../src/pref_dialog.c:255
+#: ../src/pref_dialog.c
 msgid "Allow subdirs with drag and drop"
 msgstr "Lejo nëndrejtori përmes merr-dhe-vër"
 
-#: ../src/pref_dialog.c:259
+#: ../src/pref_dialog.c
 msgid ""
 "This option includes the subdirectories when you add files with drag and drop"
 msgstr ""
 "Kjo mundësi përfshin nëndrejtoritë kur shtoni kartela me \"merr dhe vër\""
 
-#: ../src/pref_dialog.c:264
+#: ../src/pref_dialog.c
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
@@ -1211,59 +949,314 @@ msgstr ""
 "kështu\n"
 "Xarchiver-i të mund të njohë më tepër lloje kartelash.</span>"
 
-#: ../src/pref_dialog.c:581
+#: ../src/pref_dialog.c
 #, fuzzy
 msgid "Choose the directory to use"
 msgstr "Zgjidhni drejtori të përkohshme për t'u përdorur"
 
-#: ../src/pref_dialog.c:581
+#: ../src/pref_dialog.c
 msgid "Choose the application to use"
 msgstr "Zgjidhni zbatim për t'u përdorur"
 
-#: ../src/rar.c:31 ../src/rar.c:33
+#: ../src/rar.c
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:31 ../src/zip.c:49
+#: ../src/rar.c ../src/zip.c
 msgid "Method"
 msgstr "Metodë"
 
-#: ../src/rar.c:31 ../src/zip.c:49
+#: ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Version"
 
-#: ../src/rpm.c:36
+#: ../src/rpm.c
 #, c-format
 msgid "Can't open RPM file %s:"
 msgstr "S'hap dot kartelë RPM %s:"
 
-#: ../src/rpm.c:49
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Leje"
 
-#: ../src/rpm.c:49
+#: ../src/rpm.c
 msgid "Hard Link"
 msgstr "Lidhje Hard"
 
-#: ../src/rpm.c:49
+#: ../src/rpm.c
 msgid "Owner"
 msgstr "Pronar"
 
-#: ../src/rpm.c:49
+#: ../src/rpm.c
 msgid "Group"
 msgstr "Grup"
 
-#: ../src/zip.c:49
+#: ../src/window.c
+msgid "An error occurred!"
+msgstr "Ndodhi një gabim!"
+
+#: ../src/window.c
+#, fuzzy
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr ""
+"Ju lutem, për ta parë, i vini shenjë mundësisë 'Përgjigje nga arkivues "
+"depoje'."
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "Përfundim arkivuesi"
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr "Ndodhi një gabim gjatë hyrjes në arkivë:"
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "Ruaje arkivin si"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "S'hap dot kartelën \"%s\":"
+
+#: ../src/window.c
+#, fuzzy
+msgid "Archive format is not recognized!"
+msgstr "Na ndjeni, ky format arkivi nuk mbulohet:"
+
+#: ../src/window.c
+msgid "Sorry,this archive format is not supported:"
+msgstr "Na ndjeni, ky format arkivi nuk mbulohet:"
+
+#: ../src/window.c
+msgid "the proper archiver is not installed!"
+msgstr "nuk është instaluar arkivuesi i duhur!"
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr "S'siguron dot kujtesë për strukturën e arkivit:"
+
+#: ../src/window.c
+#, fuzzy
+msgid "Operation aborted!"
+msgstr "Hap kartelë tekst"
+
+#: ../src/window.c
+msgid "Opening archive,please wait..."
+msgstr "Po hapet arkiva, ju lutem prisni..."
+
+#: ../src/window.c
+msgid "Testing archive,please wait..."
+msgstr "Po provohet arkiva, ju lutem prisni..."
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr "Shtype lëndën e arkivës si HTML"
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr "Shtype lëndën e arkivës si tekst"
+
+#: ../src/window.c
+#, c-format
+msgid "Archive contents:\n"
+msgstr "Përmbajtje arkive:\n"
+
+#: ../src/window.c
+#, c-format
+msgid ""
+"\n"
+"Name: "
+msgstr ""
+"\n"
+"Emër:"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed   size: "
+msgstr "Madhësi e ngjeshur:"
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "Madhësi e pangjeshur:"
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "Numër kartelash:"
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "Koment:\n"
+
+#: ../src/window.c
+#, c-format
+msgid "Files:%*s%s"
+msgstr "Kartela:%*s%s"
+
+#: ../src/window.c
+msgid "|Compressed\n"
+msgstr "|<th>E ngjeshur:</th>\n"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>Kartela:</th>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Compressed:</th>"
+msgstr "<th>Ngjeshur:</th>"
+
+#: ../src/window.c
+#, fuzzy
+msgid "You are about to delete entries from the archive."
+msgstr "S'mund të përftohet kartela prej arkivit:"
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr "Jeni i sigurt se doni të bëhet kjo?"
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr "S'e shndërron dot arkivin në vetëpërftues:"
+
+#: ../src/window.c
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "S'shkruan dot modulin unzipsfx te arkivi:"
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr "Ju lutem përzgjidhni modul 7zCon.sfx"
+
+#: ../src/window.c
+#, fuzzy
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "Përgjegjës arkivash vetëm për GTK+2"
+
+#: ../src/window.c
+msgid "translator-credits"
+msgstr "kredite përkthyesish"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr "Ruaj arkivin vetëpërftues si"
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "Emër kartele"
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr "Të bërët kështu ka gjasa të dëmtojë arkivën tuaj!"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr "Doni vërtet të anulohet?"
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "Po"
+
+#: ../src/window.c
+msgid "No"
+msgstr "Jo"
+
+#: ../src/window.c
+msgid "selected"
+msgstr "përzgjedhur"
+
+#: ../src/window.c
+#, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] "%d kartelë dhe %d drejtori %s (%s)"
+msgstr[1] "%d kartela dhe %d drejtori %s (%s)"
+
+#: ../src/window.c
+#, c-format
+msgid "%d dir %s (%s)"
+msgid_plural "%d dirs %s (%s)"
+msgstr[0] "%d drejtori %s (%s)"
+msgstr[1] "%d drejtori %s (%s)"
+
+#: ../src/window.c
+#, c-format
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
+msgstr[0] "%d kartelë %s (%s)"
+msgstr[1] "%d kartela %s (%s)"
+
+#: ../src/window.c
+msgid "Can't perform another extraction:"
+msgstr "S'kryen dot një përftim tjetër:"
+
+#: ../src/window.c
+msgid "Please wait until the completion of the current one!"
+msgstr "Ju lutem prisni deri në plotësimin e atij të çastit!"
+
+#: ../src/window.c
+msgid "You have to install rar package!"
+msgstr "Duhet të instaloni paketën rar!"
+
+#: ../src/window.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Arkivuesi nuk e mbulon këtë karakteristikë!"
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr "S'përcaktuat cili shfletues të përdoret!"
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "Ju lutem shkoni te Parapëlqimet->Të mëtejshme dhe caktojeni."
+
+#: ../src/window.c
+msgid "This file type is not supported!"
+msgstr "Ky lloj kartele nuk mbulohet!"
+
+#: ../src/window.c
+msgid "Please install xdg-utils package."
+msgstr "Ju lutem instaloni paketën xdg-utils."
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr "S'përcaktuat cili program të përdoret për hapjen e kësaj kartele!"
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr "Dështoi nisja e zbatimit!"
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "Koment"
+
+#: ../src/window.c
+msgid "From File"
+msgstr "Nga Kartelë"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "Hap kartelë tekst"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file %s:"
+msgstr "S'hapet dot kartela %s:"
+
+#: ../src/zip.c
 msgid "OS"
 msgstr "OS"
 
-#: ../xarchiver.desktop.in.h:1
-msgid "A GTK+2 only archive manager"
-msgstr "Përgjegjës arkivash vetëm për GTK+2"
-
-#: ../xarchiver.desktop.in.h:2
+#: ../xarchiver.desktop.in.h
 msgid "Archive manager"
 msgstr "Përgjegjës arkivash"
+
+#: ../xarchiver.desktop.in.h
+msgid "A GTK+2 only archive manager"
+msgstr "Përgjegjës arkivash vetëm për GTK+2"
 
 #, fuzzy
 #~ msgid "_Donate"

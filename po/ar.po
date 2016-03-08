@@ -16,60 +16,58 @@ msgstr ""
 "X-Poedit-Country: MOROCCO\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n==1 \n"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/rar.c:31
-#: ../src/rar.c:33 ../src/zip.c:49
+#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/rar.c ../src/zip.c
 msgid "Original"
 msgstr "أصلي"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:113 ../src/gzip.c:78
-#: ../src/rar.c:31 ../src/rar.c:33 ../src/zip.c:49
+#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
+#: ../src/zip.c
 msgid "Compressed"
 msgstr "مضغوط"
 
-#: ../src/7zip.c:57
+#: ../src/7zip.c
 msgid "Attr"
 msgstr "سمات"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
-#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
+#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
+#: ../src/tar.c ../src/zip.c
 msgid "Time"
 msgstr "وقت"
 
-#: ../src/7zip.c:57 ../src/arj.c:48 ../src/bzip2.c:198 ../src/gzip.c:61
-#: ../src/rar.c:31 ../src/rar.c:33 ../src/rpm.c:49 ../src/tar.c:55
-#: ../src/zip.c:49
+#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
+#: ../src/rpm.c ../src/tar.c ../src/zip.c
 msgid "Date"
 msgstr "تاريخ"
 
-#: ../src/add_dialog.c:37 ../src/interface.c:391
+#: ../src/add_dialog.c ../src/interface.c
 msgid "Add files"
 msgstr "أضف ملفات"
 
-#: ../src/add_dialog.c:53
+#: ../src/add_dialog.c
 msgid "Selection"
 msgstr "إختيار"
 
-#: ../src/add_dialog.c:67
+#: ../src/add_dialog.c
 msgid "File Paths: "
 msgstr "ملف مسارات :"
 
-#: ../src/add_dialog.c:73
+#: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "مسارات مخزن كامل"
 
-#: ../src/add_dialog.c:79
+#: ../src/add_dialog.c
 msgid "Do not store paths"
 msgstr "عدم تخزبن المسارات"
 
-#: ../src/add_dialog.c:90
+#: ../src/add_dialog.c
 msgid "Options"
 msgstr "خيارات"
 
-#: ../src/add_dialog.c:108
+#: ../src/add_dialog.c
 msgid "Update and add"
 msgstr "تحديث و إضافة"
 
-#: ../src/add_dialog.c:110
+#: ../src/add_dialog.c
 msgid ""
 "This option will add any new files and update any files which have been "
 "modified since the archive was last created/modified"
@@ -77,11 +75,11 @@ msgstr ""
 "هذا الخيار سيقوم بإضافة أي ملفات جديدة وتحديث أي الملفات التي تم تعديلها منذ "
 "إنشاء الأرشيف"
 
-#: ../src/add_dialog.c:113
+#: ../src/add_dialog.c
 msgid "Freshen and replace"
 msgstr "تنشيط و إستبدال"
 
-#: ../src/add_dialog.c:116
+#: ../src/add_dialog.c
 msgid ""
 "This option affects the archive only if it has been modified more recently "
 "than the version already in the archive; unlike the update option it will "
@@ -90,453 +88,160 @@ msgstr ""
 "هذا الخيار يؤثر في الأرشيف الذي تم تعديله مؤخراً فقط، على عكس خيار التحديث "
 "فإنه لن يضيف الملفات التي لم يتم تحديثها في الأرشيف"
 
-#: ../src/add_dialog.c:120
+#: ../src/add_dialog.c
 msgid "Include subdirectories"
 msgstr "تتضمن الدلائل"
 
-#: ../src/add_dialog.c:124
+#: ../src/add_dialog.c
 msgid "Create a solid archive"
 msgstr "أنشئ أرشيف صلب"
 
-#: ../src/add_dialog.c:126
+#: ../src/add_dialog.c
 msgid ""
 "In a solid archive the files are grouped together featuring a better "
 "compression ratio"
 msgstr "في الأرشيف الثابت يتم تجميع الملفات معا يتميز بوجود نسبة ضغط أفضل"
 
-#: ../src/add_dialog.c:129
+#: ../src/add_dialog.c
 msgid "Delete files after adding"
 msgstr "حذف الملفات بعد إضافتها"
 
-#: ../src/add_dialog.c:133
+#: ../src/add_dialog.c
 msgid "Actions: "
 msgstr "الإجراءات :"
 
-#: ../src/add_dialog.c:148
+#: ../src/add_dialog.c
 msgid "Compression: "
 msgstr "الضغط :"
 
-#: ../src/add_dialog.c:162 ../src/extract_dialog.c:155
+#: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Password:"
 msgstr "كلمة السر :"
 
-#: ../src/add_dialog.c:172
+#: ../src/add_dialog.c
 msgid "Encryption: "
 msgstr "التشفير :"
 
-#: ../src/add_dialog.c:185
+#: ../src/add_dialog.c
 msgid "_Add"
 msgstr "_أضف"
 
-#: ../src/add_dialog.c:252 ../src/add_dialog.c:288
+#: ../src/add_dialog.c
 msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
 msgstr "0 = بدون الضغط, 5 = إفتراضي, 9 = ضغط جبدا لكن ببطء"
 
-#: ../src/add_dialog.c:258
+#: ../src/add_dialog.c
 msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
 msgstr "0 = بدون الضغط, 6 = إفتراضي, 9 = ضغط جبدا لكن ببطء"
 
-#: ../src/add_dialog.c:264 ../src/add_dialog.c:270
+#: ../src/add_dialog.c
 msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
 msgstr "0 = بدون الضغط, 3 = إفتراضي, 5 = ضغط جبدا لكن ببطء"
 
-#: ../src/add_dialog.c:276
+#: ../src/add_dialog.c
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
 msgstr "0 = بدون الضغط, 1 = إفتراضي, 4 = أسرع لكن ضغط عادي"
 
-#: ../src/add_dialog.c:282
+#: ../src/add_dialog.c
 msgid "5 = default compression, 7 = max compression"
 msgstr "5 = الضغط الإفتراضي, 7 = أوج الضغط"
 
-#: ../src/add_dialog.c:388 ../src/main.c:233
+#: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
 msgstr "لا يمكن إضافة الملفات إلى الأرشيف :"
 
-#: ../src/add_dialog.c:388
+#: ../src/add_dialog.c
 msgid "You haven't selected any files to add!"
 msgstr "لم تقم بتحديد أية ملفات لإضافة!"
 
-#: ../src/add_dialog.c:396 ../src/interface.c:818
+#: ../src/add_dialog.c ../src/interface.c
 msgid "You missed the password!"
 msgstr "هل نسيت كلمة السر؛"
 
-#: ../src/add_dialog.c:396 ../src/interface.c:818
+#: ../src/add_dialog.c ../src/interface.c
 msgid "Please enter it!"
 msgstr "من فضلك أدخلها؛"
 
-#: ../src/add_dialog.c:466
+#: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
 msgstr "إضافة الملفات إلى الأرشيف ، يرجى الانتظار..."
 
-#: ../src/archive.c:87
+#: ../src/archive.c
 msgid "Can't run the archiver executable:"
 msgstr "لا يمكن تشغيل أرشيف القابل للتنفيذ :"
 
-#: ../src/archive.c:373
+#: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "لا يمكن إنشاء الدليل المؤقت :"
 
-#: ../src/arj.c:48 ../src/gzip.c:78 ../src/lha.c:51 ../src/rar.c:31
-#: ../src/rar.c:33
+#: ../src/arj.c ../src/gzip.c ../src/lha.c ../src/rar.c
 msgid "Ratio"
 msgstr "نسبة"
 
-#: ../src/arj.c:48
+#: ../src/arj.c
 msgid "Attributes"
 msgstr "سمات"
 
-#: ../src/bzip2.c:198 ../src/gzip.c:61 ../src/lha.c:51 ../src/rpm.c:49
-#: ../src/tar.c:55
+#: ../src/bzip2.c ../src/gzip.c ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Points to"
 msgstr "يشير إلى"
 
-#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/lha.c:51
-#: ../src/rar.c:31 ../src/rar.c:33 ../src/tar.c:55 ../src/zip.c:49
+#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/lha.c ../src/rar.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "صلاحيات"
 
-#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/gzip.c:61 ../src/tar.c:55
+#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "المالك / المجموعة"
 
-#: ../src/bzip2.c:198 ../src/deb.c:45 ../src/extract_dialog.c:391
-#: ../src/gzip.c:61 ../src/gzip.c:78 ../src/lha.c:51 ../src/rpm.c:49
-#: ../src/tar.c:55
+#: ../src/bzip2.c ../src/deb.c ../src/extract_dialog.c ../src/gzip.c
+#: ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Size"
 msgstr "حجم"
 
-#: ../src/window.c:61
-msgid "An error occurred!"
-msgstr "حدث خطأ؛"
-
-#: ../src/window.c:61
-msgid "Please check the 'Store archiver output' option to see it."
-msgstr "يرجى التحقق من الخيار 'إخراج أرشيف مخزن' لرؤيتها."
-
-#: ../src/window.c:148
-msgid "Archiver output"
-msgstr "أرشيف الإخراج"
-
-#: ../src/window.c:183
-msgid "An error occurred while accessing the archive:"
-msgstr "حدث خطأ أثناء الوصول إلى الأرشيف :"
-
-#: ../src/window.c:256
-msgid "Save the archive as"
-msgstr "حفظ الأرشيف في"
-
-#: ../src/window.c:315
-#, c-format
-msgid "Can't open file \"%s\":"
-msgstr "لا يمكن فتح الملف \"%s\":"
-
-#: ../src/window.c:317
-msgid "Archive format is not recognized!"
-msgstr "لم يتم التعرف على تنسيق الأرشيف!"
-
-#: ../src/window.c:343
-msgid "Sorry,this archive format is not supported:"
-msgstr "عفوا , صيغة هذا الأرشبف غير مدعومة:"
-
-#: ../src/window.c:343
-msgid "the proper archiver is not installed!"
-msgstr "لم يتم تثبيت الأرشبف المناسب؛"
-
-#: ../src/window.c:357
-msgid "Can't allocate memory for the archive structure:"
-msgstr "لا يمكن تخصيص ذاكرة لبنية الأرشيف :"
-
-#: ../src/window.c:357
-msgid "Operation aborted!"
-msgstr "إحباط عملية؛"
-
-#: ../src/window.c:382
-msgid "Opening archive,please wait..."
-msgstr "فتح الأرشيف , يرجو الإنتظار..."
-
-#: ../src/window.c:406
-msgid "Testing archive,please wait..."
-msgstr "اختبار الأرشيف ، يرجى الانتظار..."
-
-#: ../src/window.c:426
-msgid "Print the archive content as HTML"
-msgstr "HTML طباعة محتويات الأرشيف في "
-
-#: ../src/window.c:428
-msgid "Print the archive content as text"
-msgstr "طباعة محتويات الأرشيف كنص"
-
-#: ../src/window.c:479
-#, c-format
-msgid "Archive contents:\n"
-msgstr "محتوبات الأرشيف:\n"
-
-#: ../src/window.c:483
-#, c-format
-msgid ""
-"\n"
-"Name: "
-msgstr ""
-"\n"
-"إسم: "
-
-#: ../src/window.c:492
-#, c-format
-msgid "Compressed   size: "
-msgstr "حجم مضغوط: "
-
-#: ../src/window.c:499
-#, c-format
-msgid "Uncompressed size: "
-msgstr "حجم غير مظغوط:"
-
-#: ../src/window.c:507
-#, c-format
-msgid "Number of files: "
-msgstr "عدد الملفات :"
-
-#: ../src/window.c:515
-#, c-format
-msgid "Comment:\n"
-msgstr "تعلبق:\n"
-
-#: ../src/window.c:528
-#, c-format
-msgid "Files:%*s%s"
-msgstr "ملفات:%*s%s"
-
-#: ../src/window.c:528
-msgid "|Compressed\n"
-msgstr "|مضغوط\n"
-
-#: ../src/window.c:534
-#, c-format
-msgid "<th>Files:</th>"
-msgstr "<th>ملفات:</th>"
-
-#: ../src/window.c:535
-#, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>مضغوط:</th>"
-
-#: ../src/window.c:621 ../src/main.c:281
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "اختر \"جديد\" لإنشاء أو  \"فتح\" لفتح الارشيف"
-
-#: ../src/window.c:726
-msgid "You are about to delete entries from the archive."
-msgstr "أنت على وشك حذف الإدخالات من الأرشيف."
-
-#: ../src/window.c:726
-msgid "Are you sure you want to do this?"
-msgstr "هل أنت متأكد أنك تريد أن تفعل هذا؟"
-
-#: ../src/window.c:820 ../src/window.c:920
-msgid "Can't convert the archive to self-extracting:"
-msgstr "لا يمكن تحويل الأرشيف إلى استخراج المصير :"
-
-#: ../src/window.c:831 ../src/window.c:931
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "لا يمكن الكتابة وحدة unzipsfx إلى الأرشيف :"
-
-#: ../src/window.c:891
-msgid "Please select the 7zCon.sfx module"
-msgstr "الرجاء تحديد وحدة 7zCon.sfx"
-
-#: ../src/window.c:985
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "جتك+2 مدير الأرشيف خفيف فقط"
-
-#: ../src/window.c:988
-msgid "translator-credits"
-msgstr ""
-"Arabic Xfce Translation Team (فريق تعريب إكسفس)\n"
-"   Karim Oulad Chalha (كريم اولاد الشلحة)   <herr.linux88@gmail.com>\n"
-"   Mohamed Al Hargan(محمد الحرقان)  <malham1@gmail.com>"
-
-#: ../src/window.c:1018
-msgid "Save the self-extracting archive as"
-msgstr "حفظ أرشيف استخراج ذاتي في"
-
-#: ../src/window.c:1047 ../src/interface.c:338
-msgid "Open an archive"
-msgstr "فتح الأرشيف"
-
-#: ../src/window.c:1060 ../src/extract_dialog.c:90 ../src/new_dialog.c:64
-msgid "All files"
-msgstr "جميع الملفات"
-
-#: ../src/window.c:1065 ../src/new_dialog.c:69
-msgid "Only archives"
-msgstr "الأرشيفات فقط"
-
-#: ../src/window.c:1283
-msgid "Filename"
-msgstr "اسم الملف"
-
-#: ../src/window.c:1340
-msgid "Doing so will probably corrupt your archive!"
-msgstr "القيام بذلك على الأرجح سوف يفسد الأرشيف الخاص بك!"
-
-#: ../src/window.c:1340
-msgid "Do you really want to cancel?"
-msgstr "هل حقا تريد إلغاء الأمر؟"
-
-#: ../src/window.c:1405 ../src/window.c:1420
-msgid "Yes"
-msgstr "نعم"
-
-#: ../src/window.c:1407 ../src/window.c:1422
-msgid "No"
-msgstr "لا"
-
-#: ../src/window.c:1631
-msgid "selected"
-msgstr "محددة"
-
-#: ../src/window.c:1636
-#, fuzzy, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d ملف %s (%s)"
-msgstr[1] "%d ملفات %s (%s)"
-
-#: ../src/window.c:1638
-#, c-format
-msgid "%d dir %s (%s)"
-msgid_plural "%d dirs %s (%s)"
-msgstr[0] "%d مجلد %s (%s)"
-msgstr[1] "%d مجلدات %s (%s)"
-
-#: ../src/window.c:1641
-#, c-format
-msgid "%d file %s (%s)"
-msgid_plural "%d files %s (%s)"
-msgstr[0] "%d ملف %s (%s)"
-msgstr[1] "%d ملفات %s (%s)"
-
-#: ../src/window.c:1697
-msgid "Can't perform another extraction:"
-msgstr "لا يمكن تنفيد إستخراج أخر:"
-
-#: ../src/window.c:1697
-msgid "Please wait until the completion of the current one!"
-msgstr "الرجاء الإنتظار حتى الإنتهاء من الحالي!"
-
-#: ../src/window.c:1730 ../src/extract_dialog.c:337
-#, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr "ليس لديك الصلاحيات الكافية لإستخراج الملفات إلى الدليل \"%s\"."
-
-#: ../src/window.c:1731 ../src/extract_dialog.c:338
-msgid "Can't perform extraction!"
-msgstr "لا يمكن تنفيذ إستخراج!"
-
-#: ../src/window.c:1775 ../src/extract_dialog.c:650 ../src/interface.c:1397
-msgid "Sorry,I could not perform the operation!"
-msgstr "آسف ، لم أتمكن من تنفيذ العملية!"
-
-#: ../src/window.c:1809 ../src/window.c:1821 ../src/interface.c:1390
-msgid "Can't perform this action:"
-msgstr "لا يمكن تنفيذ هذا الإجراء :"
-
-#: ../src/window.c:1809
-msgid "You have to install rar package!"
-msgstr "يجب تثبيت حزمة rar"
-
-#: ../src/window.c:1816 ../src/interface.c:1387
-msgid "You can't add content to deb packages!"
-msgstr "لا يمكنك إضافة محتوى لحزم دبيان!"
-
-#: ../src/window.c:1818 ../src/interface.c:1389
-msgid "You can't add content to rpm packages!"
-msgstr "لا يمكنك إضافة محتوى لحزم ردهات؛"
-
-#: ../src/window.c:1820
-msgid "The archiver doesn't support this feature!"
-msgstr "الأرشيف لا يدعم هذه الميزة؛"
-
-#: ../src/window.c:1901
-msgid "You didn't set which browser to use!"
-msgstr "لم تقم بإختيار المتصفح الذي سوف تستعمله؛"
-
-#: ../src/window.c:1901 ../src/window.c:1942
-msgid "Please go to Preferences->Advanced and set it."
-msgstr "يرجى الذهاب إلى التفضبلات->متقدم وإختياره."
-
-#: ../src/window.c:1933
-msgid "This file type is not supported!"
-msgstr "هذا النوع من الملفات غير مدعوم؛"
-
-#: ../src/window.c:1933
-msgid "Please install xdg-utils package."
-msgstr "الرجاء تثبيت حزمة xdg-utils ."
-
-#: ../src/window.c:1942
-msgid "You didn't set which program to use for opening this file!"
-msgstr "لم تقم بإختيار البرنامج الذي سوف تستعمله لفتح هذا الملف؛"
-
-#: ../src/window.c:1968
-msgid "Failed to launch the application!"
-msgstr "فشل إطلاق التطبيق؛"
-
-#: ../src/window.c:2020
-msgid "Comment"
-msgstr "تعليق"
-
-#: ../src/window.c:2050
-msgid "From File"
-msgstr "من الملف"
-
-#: ../src/window.c:2156
-msgid "Open a text file"
-msgstr "إفتح ملف نصي"
-
-#: ../src/window.c:2174
-#, c-format
-msgid "Can't open file %s:"
-msgstr "لا بمكن فتح الملف %s:"
-
-#: ../src/deb.c:45
+#: ../src/deb.c
 msgid "Date modified"
 msgstr "تاريخ محرر"
 
-#: ../src/extract_dialog.c:64 ../src/extract_dialog.c:464
+#: ../src/extract_dialog.c
 msgid "Extract to:"
 msgstr "إستخرج إلى:"
 
-#: ../src/extract_dialog.c:95
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "جميع الملفات"
+
+#: ../src/extract_dialog.c
 msgid "Selected files"
 msgstr "ملفات المحددة"
 
-#: ../src/extract_dialog.c:103
+#: ../src/extract_dialog.c
 msgid "Files: "
 msgstr "ملفات:"
 
-#: ../src/extract_dialog.c:114
+#: ../src/extract_dialog.c
 msgid "Files "
 msgstr "ملفات"
 
-#: ../src/extract_dialog.c:128 ../src/extract_dialog.c:491
+#: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "الكتابة فوق الملفات الموجودة"
 
-#: ../src/extract_dialog.c:131
+#: ../src/extract_dialog.c
 msgid "Extract files with full path"
 msgstr "استخراج الملفات مع المسار الكامل"
 
-#: ../src/extract_dialog.c:132
+#: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "يتم إعادة هيكلة المحفوظات والدليل في الدليل الاستخراج"
 
-#: ../src/extract_dialog.c:135
+#: ../src/extract_dialog.c
 msgid "Touch files"
 msgstr "لمسة الملفات"
 
-#: ../src/extract_dialog.c:136
+#: ../src/extract_dialog.c
 msgid ""
 "When this option is used,tar leaves the data modification times of the files "
 "it extracts as the times when the files were extracted,instead of setting it "
@@ -545,21 +250,21 @@ msgstr ""
 "عند استخدام هذا الخيار، tar يترك تاريخ تعديل بيانات الملفات المستخرجة بتاريخ "
 "استخراج الملفات ، بدلا من تعيينها إلى الأوقات المسجلة في أرشيف"
 
-#: ../src/extract_dialog.c:139
+#: ../src/extract_dialog.c
 msgid "Freshen existing files"
 msgstr "إنعاش الملفات الموجودة"
 
-#: ../src/extract_dialog.c:140
+#: ../src/extract_dialog.c
 msgid ""
 "Extract only those files that already exist on disk and that are newer than "
 "the disk copies"
 msgstr "استخراج فقط الملفات الموجودة بالفعل على القرص والأحدث من نسخ القرص"
 
-#: ../src/extract_dialog.c:144
+#: ../src/extract_dialog.c
 msgid "Update existing files"
 msgstr "تحديث الملفات المستخرجة"
 
-#: ../src/extract_dialog.c:145
+#: ../src/extract_dialog.c
 msgid ""
 "This option performs the same function as the freshen one,extracting files "
 "that are newer than those with the same name on disk,and in addition it "
@@ -569,411 +274,441 @@ msgstr ""
 "الاسم نفسه على القرص ، بالإضافة إلى ذلك فإنه سستخرج الملفات التي لم تكن "
 "موجودة بالفعل على القرص."
 
-#: ../src/extract_dialog.c:149
+#: ../src/extract_dialog.c
 msgid "Options "
 msgstr "خيارات"
 
-#: ../src/extract_dialog.c:172 ../src/extract_dialog.c:508
-#: ../src/interface.c:178
+#: ../src/extract_dialog.c ../src/interface.c
 msgid "_Extract"
 msgstr "_إستخرج"
 
-#: ../src/extract_dialog.c:226
+#: ../src/extract_dialog.c
 msgid "Decompress file"
 msgstr "فك ضغط الملف"
 
-#: ../src/extract_dialog.c:228 ../src/interface.c:400
+#: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
 msgstr "إستخراج الملفات"
 
-#: ../src/extract_dialog.c:313 ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c
 msgid "You missed where to extract the files!"
 msgstr "لم تحدد مكان استخراج الملفات!"
 
-#: ../src/extract_dialog.c:313
+#: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
 msgstr "الرجاء أدخل مسار الاستخراج."
 
-#: ../src/extract_dialog.c:327
+#: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "هذا الأرشيف مشفرة!"
 
-#: ../src/extract_dialog.c:327
+#: ../src/extract_dialog.c
 msgid "Please enter the password."
 msgstr "الرجاء إدخال كلمة المرور."
 
-#: ../src/extract_dialog.c:374
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr "ليس لديك الصلاحيات الكافية لإستخراج الملفات إلى الدليل \"%s\"."
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr "لا يمكن تنفيذ إستخراج!"
+
+#: ../src/extract_dialog.c
 msgid "Extracting files from archive,please wait..."
 msgstr "استخراج الملفات من الأرشيف ، يرجى الانتظار..."
 
-#: ../src/extract_dialog.c:391
+#: ../src/extract_dialog.c
 msgid "Archive Name"
 msgstr "إسم الأرشيف"
 
-#: ../src/extract_dialog.c:391
+#: ../src/extract_dialog.c
 msgid "Path"
 msgstr "مسار"
 
-#: ../src/extract_dialog.c:403
+#: ../src/extract_dialog.c
 msgid "Multi-Extract"
 msgstr "استخراج متعددة"
 
-#: ../src/extract_dialog.c:474
+#: ../src/extract_dialog.c
 msgid "Extract to dir \"Archive Name\""
 msgstr "استخراج إلى دليل \"Archive Name\""
 
-#: ../src/extract_dialog.c:475
+#: ../src/extract_dialog.c
 msgid ""
 "This option extracts archives in directories named with the archive names"
 msgstr "هذا الخيار يستخرج الأرشيف إلى مجلد اسمه اسم الارشف"
 
-#: ../src/extract_dialog.c:479
+#: ../src/extract_dialog.c
 msgid "Destination dirs:"
 msgstr "مجلد الوجهة :"
 
-#: ../src/extract_dialog.c:493
+#: ../src/extract_dialog.c
 msgid "Extract pathnames"
 msgstr "مسار الاستخراج"
 
-#: ../src/extract_dialog.c:496
+#: ../src/extract_dialog.c
 msgid "Options:"
 msgstr "خيارات:"
 
-#: ../src/extract_dialog.c:528
+#: ../src/extract_dialog.c
 msgid "Please select the archives you want to extract"
 msgstr "الرجاء اختيار الارشيف الذي تريد استخراج"
 
-#: ../src/extract_dialog.c:672
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+msgid "Sorry,I could not perform the operation!"
+msgstr "آسف ، لم أتمكن من تنفيذ العملية!"
+
+#: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "الرجاء اختيار دليل الوجهة"
 
-#: ../src/extract_dialog.c:715
+#: ../src/extract_dialog.c
 msgid "Can't multi-extract archives:"
 msgstr "لا يمكن استخراج محفوظات متعددة:"
 
-#: ../src/extract_dialog.c:715
+#: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
 msgstr "لم تقم بإضافة أي واحد منهم!"
 
-#: ../src/extract_dialog.c:723
+#: ../src/extract_dialog.c
 msgid "Please fill the \"Extract to\" field!"
 msgstr "الرجاء ملئ خانة \"Extract to\"!"
 
-#: ../src/extract_dialog.c:760
+#: ../src/extract_dialog.c
 msgid "Some errors occurred:"
 msgstr "حدثت بعض الأخطاء :"
 
-#: ../src/lha.c:51
-msgid "UID/GID"
-msgstr "UID/GID"
-
-#: ../src/lha.c:51
-msgid "Timestamp"
-msgstr "الطابع الزمني"
-
-#: ../src/interface.c:77
+#: ../src/interface.c
 msgid "_Archive"
 msgstr "_أرشيف"
 
-#: ../src/interface.c:92
+#: ../src/interface.c
 msgid "_List as"
 msgstr "سرد كـ"
 
-#: ../src/interface.c:103
+#: ../src/interface.c
 msgid "_Text file"
 msgstr "ملف نصي"
 
-#: ../src/interface.c:110
+#: ../src/interface.c
 msgid "_HTML file"
 msgstr "ملف _HTML"
 
-#: ../src/interface.c:127
+#: ../src/interface.c
 msgid "_Test"
 msgstr "اختبار"
 
-#: ../src/interface.c:137
+#: ../src/interface.c
 msgid "_Properties"
 msgstr "خصائص"
 
-#: ../src/interface.c:161
+#: ../src/interface.c
 msgid "A_ction"
 msgstr "أحداث"
 
-#: ../src/interface.c:168
+#: ../src/interface.c
 msgid "A_dd"
 msgstr "إضافة"
 
-#: ../src/interface.c:194
+#: ../src/interface.c
 msgid "Re_name"
 msgstr "إعادة تسمية"
 
-#: ../src/interface.c:208
+#: ../src/interface.c
 msgid "Make SF_X"
 msgstr "إنشاء SF_X"
 
-#: ../src/interface.c:218
+#: ../src/interface.c
 msgid "_Multi-Extract"
 msgstr "استخراج متعددة"
 
-#: ../src/interface.c:223
+#: ../src/interface.c
 msgid "Archive _comment"
 msgstr "تعليق الأرشيف"
 
-#: ../src/interface.c:237
+#: ../src/interface.c
 msgid "Select _all"
 msgstr "اختيار الكل"
 
-#: ../src/interface.c:247
+#: ../src/interface.c
 msgid "Dese_lect all"
 msgstr "عدم اختيار الكل"
 
-#: ../src/interface.c:253
+#: ../src/interface.c
 msgid "Select _by pattern"
 msgstr "اختيار حسب نمط"
 
-#: ../src/interface.c:264
+#: ../src/interface.c
 msgid "Cmd-line outp_ut"
 msgstr "مخرجات سطر الأوامر"
 
-#: ../src/interface.c:277
+#: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "ادخل الرقم السري"
 
-#: ../src/interface.c:288
+#: ../src/interface.c
 msgid "_Preferences"
 msgstr "_تفضيلات"
 
-#: ../src/interface.c:297
+#: ../src/interface.c
 msgid "_Help"
 msgstr "_مساعدة"
 
-#: ../src/interface.c:304
+#: ../src/interface.c
 msgid "_Contents"
 msgstr "الم_حتويات"
 
-#: ../src/interface.c:326
+#: ../src/interface.c
 msgid "New"
 msgstr ""
 
-#: ../src/interface.c:330 ../src/new_dialog.c:52
+#: ../src/interface.c ../src/new_dialog.c
 msgid "Create a new archive"
 msgstr "إنشاء أرشيف جديد"
 
-#: ../src/interface.c:334
+#: ../src/interface.c
 #, fuzzy
 msgid "Open"
 msgstr "إفتح بـ"
 
-#: ../src/interface.c:346 ../src/interface.c:351
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "فتح الأرشيف"
+
+#: ../src/interface.c
 msgid "Back"
 msgstr "رجوع"
 
-#: ../src/interface.c:355 ../src/interface.c:360
+#: ../src/interface.c
 msgid "Up"
 msgstr "فوق"
 
-#: ../src/interface.c:364 ../src/interface.c:369
+#: ../src/interface.c
 msgid "Forward"
 msgstr "أمام"
 
-#: ../src/interface.c:373
+#: ../src/interface.c
 msgid "Home"
 msgstr ""
 
-#: ../src/interface.c:378
+#: ../src/interface.c
 msgid "Root"
 msgstr "جذز"
 
-#: ../src/interface.c:386
+#: ../src/interface.c
 #, fuzzy
 msgid "Add"
 msgstr "_أضف"
 
-#: ../src/interface.c:395 ../src/interface.c:850
+#: ../src/interface.c
 msgid "Extract"
 msgstr "إستخرج"
 
-#: ../src/interface.c:408
+#: ../src/interface.c
 msgid "Stop"
 msgstr ""
 
-#: ../src/interface.c:413
+#: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "إلغاء العملية الحالية"
 
-#: ../src/interface.c:426
+#: ../src/interface.c
 msgid "Location:"
 msgstr "المكان:"
 
-#: ../src/interface.c:465
+#: ../src/interface.c
 msgid "Archive tree"
 msgstr "شجرة الأرشفة"
 
-#: ../src/interface.c:513
+#: ../src/interface.c
 msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgstr "هذا هو وضع Xarchiver عندما يومض يكون Xarchiver مشغولاً"
 
-#: ../src/interface.c:687
+#: ../src/interface.c
 msgid "Close archive"
 msgstr "إغلاق الأرشيف"
 
-#: ../src/interface.c:772
+#: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Password required for:</span>"
 msgstr "<span weight='bold' size='larger'>كلمة المرور مطلوبة:</span>"
 
-#: ../src/interface.c:774
+#: ../src/interface.c
 msgid "<span weight='bold' size='larger'>Enter password for:</span>"
 msgstr "<span weight='bold' size='larger'>ادخل كلمة المرور ل:</span>"
 
-#: ../src/interface.c:792
+#: ../src/interface.c
 msgid "_Password:"
 msgstr "_كلمة السر:"
 
-#: ../src/interface.c:842 ../src/open-with-dlg.c:52
+#: ../src/interface.c ../src/open-with-dlg.c
 msgid "Open With"
 msgstr "إفتح بـ"
 
-#: ../src/interface.c:858
+#: ../src/interface.c
 msgid "View"
 msgstr "عرض"
 
-#: ../src/interface.c:871
+#: ../src/interface.c
 msgid "Cut"
 msgstr "قص"
 
-#: ../src/interface.c:879
+#: ../src/interface.c
 msgid "Copy"
 msgstr "انسخ"
 
-#: ../src/interface.c:887
+#: ../src/interface.c
 msgid "Paste"
 msgstr "ألصق"
 
-#: ../src/interface.c:901
+#: ../src/interface.c
 msgid "Delete"
 msgstr "احذف"
 
-#: ../src/interface.c:910
+#: ../src/interface.c
 msgid "Rename"
 msgstr "أعد التسمية"
 
-#: ../src/interface.c:949
+#: ../src/interface.c
 msgid "Select by Pattern"
 msgstr "حدد بواسطة نمط"
 
-#: ../src/interface.c:962
+#: ../src/interface.c
 msgid "Pattern:"
 msgstr "نمط :"
 
-#: ../src/interface.c:967
+#: ../src/interface.c
 msgid "example: *.txt; ac*"
 msgstr "مثلاً: *.txt; ac*"
 
-#: ../src/interface.c:984
+#: ../src/interface.c
 msgid "_Select"
 msgstr "اختار"
 
-#: ../src/interface.c:1056
+#: ../src/interface.c
 msgid "Archive Properties"
 msgstr "خصائص الأرشيف"
 
-#: ../src/interface.c:1077
+#: ../src/interface.c
 msgid "Name:"
 msgstr "إسم:"
 
-#: ../src/interface.c:1084
+#: ../src/interface.c
 msgid "Path:"
 msgstr "مسار:"
 
-#: ../src/interface.c:1091
+#: ../src/interface.c
 msgid "Type:"
 msgstr "النوع:"
 
-#: ../src/interface.c:1098
+#: ../src/interface.c
 msgid "Encrypted:"
 msgstr "المشفرة :"
 
-#: ../src/interface.c:1105
+#: ../src/interface.c
 msgid "Modified on:"
 msgstr "تعديل في :"
 
-#: ../src/interface.c:1112
+#: ../src/interface.c
 msgid "Compressed size:"
 msgstr "حجم الضغط:"
 
-#: ../src/interface.c:1119
+#: ../src/interface.c
 msgid "Uncompressed size:"
 msgstr "الحجم غير المضغوط:"
 
-#: ../src/interface.c:1126
+#: ../src/interface.c
 msgid "Comment:"
 msgstr "تعليق:"
 
-#: ../src/interface.c:1133
+#: ../src/interface.c
 msgid "Number of files:"
 msgstr "عدد الملفات :"
 
-#: ../src/interface.c:1140
+#: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "نسبة الضغط:"
 
-#: ../src/interface.c:1531
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to deb packages!"
+msgstr "لا يمكنك إضافة محتوى لحزم دبيان!"
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to rpm packages!"
+msgstr "لا يمكنك إضافة محتوى لحزم ردهات؛"
+
+#: ../src/interface.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr "لا يمكن تنفيذ هذا الإجراء :"
+
+#: ../src/interface.c
 msgid "Extracting from archive:"
 msgstr "استخراج من الأرشيف :"
 
-#: ../src/interface.c:1533
+#: ../src/interface.c
 msgid "Adding to archive:"
 msgstr "إضافة إلى الأرشيف :"
 
-#: ../src/interface.c:1553
+#: ../src/interface.c
 msgid "Total Progress:"
 msgstr "إجمالي التقدم :"
 
-#: ../src/main.c:59
+#: ../src/lha.c
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/lha.c
+msgid "Timestamp"
+msgstr "الطابع الزمني"
+
+#: ../src/main.c
 msgid "Extract archive to the destination directory and quits."
 msgstr "الخروج بعد استخراج الأرشيف إلى الدليل الوجهة"
 
-#: ../src/main.c:60
+#: ../src/main.c
 msgid "destination archive"
 msgstr "وجهة الأرشيف"
 
-#: ../src/main.c:63
+#: ../src/main.c
 msgid "Extract archive by asking the extraction directory and quits."
 msgstr "السؤال عن دليل استخراج الارشيف ثم الخروج"
 
-#: ../src/main.c:64 ../src/main.c:76
+#: ../src/main.c
 msgid "archive"
 msgstr "أرشيف"
 
-#: ../src/main.c:67
+#: ../src/main.c
 msgid "Multi-extract archives"
 msgstr "استخراج أرشيف متعددة"
 
-#: ../src/main.c:68
+#: ../src/main.c
 msgid "filenames"
 msgstr "اسم الملف"
 
-#: ../src/main.c:71
+#: ../src/main.c
 msgid "Add the given files by asking the name of the archive and quits."
 msgstr "إضافة الملفات المحدد بالسؤال عن اسم الارشيف ثم الخروج."
 
-#: ../src/main.c:72
+#: ../src/main.c
 msgid "file1 file2 file3 ... fileN"
 msgstr "ملف1 ملف2 ملف3 ... ملفN"
 
-#: ../src/main.c:75
+#: ../src/main.c
 msgid "Add files to archive by asking their filenames and quits."
 msgstr "إضافة الملفات للأرشيف بالسؤال عن أسمها ثم الخروج."
 
-#: ../src/main.c:79
+#: ../src/main.c
 msgid "Show version and exit"
 msgstr "عرض الإصدار  ثم الخروج"
 
-#: ../src/main.c:106
+#: ../src/main.c
 msgid "[archive name]"
 msgstr "[اسم الأرشيف]"
 
-#: ../src/main.c:110
+#: ../src/main.c
 #, c-format
 msgid ""
 "xarchiver: %s\n"
@@ -982,194 +717,201 @@ msgstr ""
 "xarchiver: %s\n"
 "جرب xarchiver --مساعدة لعرض قائمة بخيارات سطر الأوامر المتاحة.\n"
 
-#: ../src/main.c:120
+#: ../src/main.c
 #, c-format
 msgid "Maintained by "
 msgstr ""
 
-#: ../src/main.c:122
+#: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
 msgstr "يرجى تقرير العلل إلى <%s>."
 
-#: ../src/main.c:149 ../src/main.c:172
+#: ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "لا يمكن استخراج الملفات من الأرشيف :"
 
-#: ../src/main.c:149 ../src/main.c:172 ../src/main.c:233
+#: ../src/main.c
 msgid "You missed the archive name!\n"
 msgstr "لم تدخل اسم المحفوظات!\n"
 
-#: ../src/main.c:566
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "اختر \"جديد\" لإنشاء أو  \"فتح\" لفتح الارشيف"
+
+#: ../src/main.c
 msgid "Can't allocate memory for the archive structure!"
 msgstr "لا يمكن تخصيص ذاكرة لهيكلة الأرشيف!"
 
-#: ../src/open-with-dlg.c:54
-msgid "Open the selected files with"
-msgstr "فتح الملفات المحددة مع"
-
-#: ../src/open-with-dlg.c:83
-#, c-format
-msgid "Open <i>%s</i> with:"
-msgstr "افتح <i>%s</i> باستخدام:"
-
-#: ../src/open-with-dlg.c:118
-msgid "Use a custom command:"
-msgstr "استخدام أمر مخصص :"
-
-#: ../src/open-with-dlg.c:126
-msgid "Browse"
-msgstr "تصفح"
-
-#: ../src/open-with-dlg.c:311
-msgid "Select an application"
-msgstr "حدد تطبيق"
-
-#: ../src/new_dialog.c:57
+#: ../src/new_dialog.c
 msgid "Cr_eate"
 msgstr "إنشاء"
 
-#: ../src/new_dialog.c:94
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "الأرشيفات فقط"
+
+#: ../src/new_dialog.c
 msgid "Archive type:"
 msgstr "نوع الأرشيف:"
 
-#: ../src/new_dialog.c:99
+#: ../src/new_dialog.c
 msgid "Choose the archive type to create"
 msgstr "اختيار نوع لإنشاء أرشيف"
 
-#: ../src/new_dialog.c:115
+#: ../src/new_dialog.c
 msgid "Add the archive extension to the filename"
 msgstr "إضافة ملحق إلى اسم ملف أرشيف"
 
-#: ../src/new_dialog.c:162
+#: ../src/new_dialog.c
 #, c-format
 msgid "\"%s\" is already open!"
 msgstr "\"%s\" مفتوح بالفعل!"
 
-#: ../src/new_dialog.c:163
+#: ../src/new_dialog.c
 msgid "Can't create a new archive:"
 msgstr "لا يمكن إنشاء أرشيف جديد :"
 
-#: ../src/new_dialog.c:178
+#: ../src/new_dialog.c
 #, c-format
 msgid "The archive \"%s\" already exists!"
 msgstr "الأرشيف \"%s\" منشأ مسبقاً!"
 
-#: ../src/new_dialog.c:184
+#: ../src/new_dialog.c
 msgid "Do you want to overwrite it?"
 msgstr "هل تريد الكتابة فوقه؟"
 
-#: ../src/pref_dialog.c:41
+#: ../src/open-with-dlg.c
+msgid "Open the selected files with"
+msgstr "فتح الملفات المحددة مع"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "افتح <i>%s</i> باستخدام:"
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr "استخدام أمر مخصص :"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr "تصفح"
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr "حدد تطبيق"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "تفضيلات"
 
-#: ../src/pref_dialog.c:61
+#: ../src/pref_dialog.c
 msgid "Archive"
 msgstr "أرشيف"
 
-#: ../src/pref_dialog.c:67
+#: ../src/pref_dialog.c
 msgid "Window"
 msgstr "نافذة"
 
-#: ../src/pref_dialog.c:72
+#: ../src/pref_dialog.c
 msgid "Advanced"
 msgstr "متقدم"
 
-#: ../src/pref_dialog.c:97
+#: ../src/pref_dialog.c
 msgid "Preferred archive format"
 msgstr "تنسيق الأرشيف المفضل"
 
-#: ../src/pref_dialog.c:115
+#: ../src/pref_dialog.c
 msgid "Confirm deletion of files"
 msgstr "تأكيد حذف الملفات"
 
-#: ../src/pref_dialog.c:119
+#: ../src/pref_dialog.c
 msgid "Sort archive by filename"
 msgstr "فرز حسب اسم ملفات الأرشيف"
 
-#: ../src/pref_dialog.c:122
+#: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "فرز عمود اسم الملف بعد تحميل الأرشيف"
 
-#: ../src/pref_dialog.c:124
+#: ../src/pref_dialog.c
 msgid "Store archiver output"
 msgstr "تخزين ناتج الأرشيف"
 
-#: ../src/pref_dialog.c:127
+#: ../src/pref_dialog.c
 msgid "This option takes more memory with large archives"
 msgstr "هذا الخيار يستهلك ذاكرة أكثر مع الأرشيف الكبير"
 
-#: ../src/pref_dialog.c:138
+#: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
 msgstr "حجم الأيقونة (يتطلب إعادة التشغيل)"
 
-#: ../src/pref_dialog.c:144
+#: ../src/pref_dialog.c
 msgid "large"
 msgstr "كبير"
 
-#: ../src/pref_dialog.c:145
+#: ../src/pref_dialog.c
 msgid "small"
 msgstr "صغير"
 
-#: ../src/pref_dialog.c:150
+#: ../src/pref_dialog.c
 msgid "Show archive comment"
 msgstr "عرض تعليق الأرشيف"
 
-#: ../src/pref_dialog.c:151
+#: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "إذا حددت يظهر تعليق بعد تحميل أرشيفة الأرشيف"
 
-#: ../src/pref_dialog.c:157
+#: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "عرض شجرة الأرشيف  الجانبية"
 
-#: ../src/pref_dialog.c:163
+#: ../src/pref_dialog.c
 msgid "Show archive location bar"
 msgstr "عرض شريط أرشيف الموقع"
 
-#: ../src/pref_dialog.c:185
+#: ../src/pref_dialog.c
 msgid "Web browser to use:"
 msgstr "متصفح ويب المستخدم :"
 
-#: ../src/pref_dialog.c:192 ../src/pref_dialog.c:205 ../src/pref_dialog.c:218
-#: ../src/pref_dialog.c:231 ../src/pref_dialog.c:244
+#: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "إختر..."
 
-#: ../src/pref_dialog.c:198
+#: ../src/pref_dialog.c
 msgid "Open text files with:"
 msgstr "فتح الملفات النصية باستخدام:"
 
-#: ../src/pref_dialog.c:211
+#: ../src/pref_dialog.c
 msgid "Open image files with:"
 msgstr "فتح الصور باستخدام:"
 
-#: ../src/pref_dialog.c:224
+#: ../src/pref_dialog.c
 msgid "Preferred temp directory:"
 msgstr "الدليل مؤقت المفضل:"
 
-#: ../src/pref_dialog.c:230 ../src/pref_dialog.c:243
+#: ../src/pref_dialog.c
 msgid "/tmp"
 msgstr "/tmp"
 
-#: ../src/pref_dialog.c:237
+#: ../src/pref_dialog.c
 msgid "Preferred extract directory:"
 msgstr "دليل الأرشيف المفضل:"
 
-#: ../src/pref_dialog.c:250
+#: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "حفظ موقع النافذة"
 
-#: ../src/pref_dialog.c:255
+#: ../src/pref_dialog.c
 msgid "Allow subdirs with drag and drop"
 msgstr "تسمح سحب وإسقاط للدليل فرعي"
 
-#: ../src/pref_dialog.c:259
+#: ../src/pref_dialog.c
 msgid ""
 "This option includes the subdirectories when you add files with drag and drop"
 msgstr "هذا الخيار يتضمن الأدلة الفرعية عند إضافة الملفات بالسحب الإسقاط"
 
-#: ../src/pref_dialog.c:264
+#: ../src/pref_dialog.c
 msgid ""
 "<span color='red' style='italic'>Please install xdg-utils package so that\n"
 "Xarchiver can recognize more file types.</span>"
@@ -1177,58 +919,309 @@ msgstr ""
 "<span color='red' style='italic'>الرجاء تثبيت الحزمة xdg-utils ليتمكن\n"
 "Xarchiver من دعم صيغ ملفات اكثر.</span>"
 
-#: ../src/pref_dialog.c:581
+#: ../src/pref_dialog.c
 msgid "Choose the directory to use"
 msgstr "اختر دليل للاستخدام"
 
-#: ../src/pref_dialog.c:581
+#: ../src/pref_dialog.c
 msgid "Choose the application to use"
 msgstr "اختر التطبيق لاستخدام"
 
-#: ../src/rar.c:31 ../src/rar.c:33
+#: ../src/rar.c
 msgid "CRC"
 msgstr "CRC"
 
-#: ../src/rar.c:31 ../src/zip.c:49
+#: ../src/rar.c ../src/zip.c
 msgid "Method"
 msgstr "طريقة"
 
-#: ../src/rar.c:31 ../src/zip.c:49
+#: ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "إصدار"
 
-#: ../src/rpm.c:36
+#: ../src/rpm.c
 #, c-format
 msgid "Can't open RPM file %s:"
 msgstr "لا يمكن فتح ملف RPM %s:"
 
-#: ../src/rpm.c:49
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "إذن"
 
-#: ../src/rpm.c:49
+#: ../src/rpm.c
 msgid "Hard Link"
 msgstr "الارتباط الثابت"
 
-#: ../src/rpm.c:49
+#: ../src/rpm.c
 msgid "Owner"
 msgstr "مالك"
 
-#: ../src/rpm.c:49
+#: ../src/rpm.c
 msgid "Group"
 msgstr "مجموعة"
 
-#: ../src/zip.c:49
+#: ../src/window.c
+msgid "An error occurred!"
+msgstr "حدث خطأ؛"
+
+#: ../src/window.c
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr "يرجى التحقق من الخيار 'إخراج أرشيف مخزن' لرؤيتها."
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "أرشيف الإخراج"
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr "حدث خطأ أثناء الوصول إلى الأرشيف :"
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "حفظ الأرشيف في"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "لا يمكن فتح الملف \"%s\":"
+
+#: ../src/window.c
+msgid "Archive format is not recognized!"
+msgstr "لم يتم التعرف على تنسيق الأرشيف!"
+
+#: ../src/window.c
+msgid "Sorry,this archive format is not supported:"
+msgstr "عفوا , صيغة هذا الأرشبف غير مدعومة:"
+
+#: ../src/window.c
+msgid "the proper archiver is not installed!"
+msgstr "لم يتم تثبيت الأرشبف المناسب؛"
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr "لا يمكن تخصيص ذاكرة لبنية الأرشيف :"
+
+#: ../src/window.c
+msgid "Operation aborted!"
+msgstr "إحباط عملية؛"
+
+#: ../src/window.c
+msgid "Opening archive,please wait..."
+msgstr "فتح الأرشيف , يرجو الإنتظار..."
+
+#: ../src/window.c
+msgid "Testing archive,please wait..."
+msgstr "اختبار الأرشيف ، يرجى الانتظار..."
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr "HTML طباعة محتويات الأرشيف في "
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr "طباعة محتويات الأرشيف كنص"
+
+#: ../src/window.c
+#, c-format
+msgid "Archive contents:\n"
+msgstr "محتوبات الأرشيف:\n"
+
+#: ../src/window.c
+#, c-format
+msgid ""
+"\n"
+"Name: "
+msgstr ""
+"\n"
+"إسم: "
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed   size: "
+msgstr "حجم مضغوط: "
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "حجم غير مظغوط:"
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "عدد الملفات :"
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "تعلبق:\n"
+
+#: ../src/window.c
+#, c-format
+msgid "Files:%*s%s"
+msgstr "ملفات:%*s%s"
+
+#: ../src/window.c
+msgid "|Compressed\n"
+msgstr "|مضغوط\n"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>ملفات:</th>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Compressed:</th>"
+msgstr "<th>مضغوط:</th>"
+
+#: ../src/window.c
+msgid "You are about to delete entries from the archive."
+msgstr "أنت على وشك حذف الإدخالات من الأرشيف."
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr "هل أنت متأكد أنك تريد أن تفعل هذا؟"
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr "لا يمكن تحويل الأرشيف إلى استخراج المصير :"
+
+#: ../src/window.c
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "لا يمكن الكتابة وحدة unzipsfx إلى الأرشيف :"
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr "الرجاء تحديد وحدة 7zCon.sfx"
+
+#: ../src/window.c
+msgid "A GTK+2 only lightweight archive manager"
+msgstr "جتك+2 مدير الأرشيف خفيف فقط"
+
+#: ../src/window.c
+msgid "translator-credits"
+msgstr ""
+"Arabic Xfce Translation Team (فريق تعريب إكسفس)\n"
+"   Karim Oulad Chalha (كريم اولاد الشلحة)   <herr.linux88@gmail.com>\n"
+"   Mohamed Al Hargan(محمد الحرقان)  <malham1@gmail.com>"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr "حفظ أرشيف استخراج ذاتي في"
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "اسم الملف"
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr "القيام بذلك على الأرجح سوف يفسد الأرشيف الخاص بك!"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr "هل حقا تريد إلغاء الأمر؟"
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "نعم"
+
+#: ../src/window.c
+msgid "No"
+msgstr "لا"
+
+#: ../src/window.c
+msgid "selected"
+msgstr "محددة"
+
+#: ../src/window.c
+#, fuzzy, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] "%d ملف %s (%s)"
+msgstr[1] "%d ملفات %s (%s)"
+
+#: ../src/window.c
+#, c-format
+msgid "%d dir %s (%s)"
+msgid_plural "%d dirs %s (%s)"
+msgstr[0] "%d مجلد %s (%s)"
+msgstr[1] "%d مجلدات %s (%s)"
+
+#: ../src/window.c
+#, c-format
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
+msgstr[0] "%d ملف %s (%s)"
+msgstr[1] "%d ملفات %s (%s)"
+
+#: ../src/window.c
+msgid "Can't perform another extraction:"
+msgstr "لا يمكن تنفيد إستخراج أخر:"
+
+#: ../src/window.c
+msgid "Please wait until the completion of the current one!"
+msgstr "الرجاء الإنتظار حتى الإنتهاء من الحالي!"
+
+#: ../src/window.c
+msgid "You have to install rar package!"
+msgstr "يجب تثبيت حزمة rar"
+
+#: ../src/window.c
+msgid "The archiver doesn't support this feature!"
+msgstr "الأرشيف لا يدعم هذه الميزة؛"
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr "لم تقم بإختيار المتصفح الذي سوف تستعمله؛"
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "يرجى الذهاب إلى التفضبلات->متقدم وإختياره."
+
+#: ../src/window.c
+msgid "This file type is not supported!"
+msgstr "هذا النوع من الملفات غير مدعوم؛"
+
+#: ../src/window.c
+msgid "Please install xdg-utils package."
+msgstr "الرجاء تثبيت حزمة xdg-utils ."
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr "لم تقم بإختيار البرنامج الذي سوف تستعمله لفتح هذا الملف؛"
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr "فشل إطلاق التطبيق؛"
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "تعليق"
+
+#: ../src/window.c
+msgid "From File"
+msgstr "من الملف"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "إفتح ملف نصي"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file %s:"
+msgstr "لا بمكن فتح الملف %s:"
+
+#: ../src/zip.c
 msgid "OS"
 msgstr "نظام التشغيل"
 
-#: ../xarchiver.desktop.in.h:1
-msgid "A GTK+2 only archive manager"
-msgstr "جتك+2 مدير الأرشيف فقط"
-
-#: ../xarchiver.desktop.in.h:2
+#: ../xarchiver.desktop.in.h
 msgid "Archive manager"
 msgstr "مدير الأرشيف"
+
+#: ../xarchiver.desktop.in.h
+msgid "A GTK+2 only archive manager"
+msgstr "جتك+2 مدير الأرشيف فقط"
 
 #~ msgid "_Donate"
 #~ msgstr "تبرع"
