@@ -3,9 +3,10 @@ What is it?
 Xarchiver is the ultimate solution for handling archives on Linux and FreeBSD.
 It's a Desktop Environment independent archiver frontend. All common archive
 types are supported. RPM and DEB packages are handled without their package
-managers. To run it you only need GTK+2 libraries and obviously the various
-rar, arj and 7z for these archive types. The package xdg-utils is optional but
-installing it will enable Xarchiver to support more file types.
+managers being installed. Xarchiver only depends on the GTK+2 libraries and
+utilizes various (un)compressor/(un)archiver command line programs at runtime.
+Installation of xdg-utils is optional but installing it will allow Xarchiver
+the support to open more file types directly from inside an archive.
 
 How to use it:
 =============
@@ -13,18 +14,18 @@ Please read the documentation accessible from the Help menu.
 
 How to compile:
 ===============
-./autogen.sh     # only if using repository source and 'configure' is missing
-./configure      # type './configure --help' for options
+./configure                      # (run './configure --help' for more details)
 make
 
-as root:
+How to install (as root):
+=========================
 make install
 
 Contact
 =======
 Author of Xarchiver is Giuseppe Torelli <colossus73@gmail.com>,
 author of this continuation of the Xfce master branch of Xarchiver
-is Ingo Brueckl <ib@wupperonline.de>.
+is Ingo Brückl <ib@wupperonline.de>.
 
 Bug reports
 ===========
