@@ -157,7 +157,7 @@ void xa_open_rpm (XArchive *archive)
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 		return;
 	}
-	/* And finally cpio to receive the content */
+	/* list the content */
 	command = g_strconcat ("sh -c \"cpio -tv < ",archive->tmp,"/xa-tmp.cpio\"",NULL);
 	archive->parse_output = xa_get_cpio_line_content;
 	xa_spawn_async_process (archive,command);
