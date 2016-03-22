@@ -87,14 +87,14 @@ static int xa_rpm2cpio (XArchive *archive)
 	offset += ftell(stream);  // offset from top
 	fclose (stream);
 
-	/* Create a unique temp dir in /tmp */
+	/* create a unique temp dir in /tmp */
 	if (!xa_create_temp_directory(archive))
 		return -1;
 
 	gzip_tmp = g_strconcat (archive->tmp,"/xa-tmp.cpio_z",NULL);
 	ibs = g_strdup_printf("%lu", offset);
 
-	/* Run dd to have the payload (compressed cpio archive) in /tmp */
+	/* run dd to have the payload (compressed cpio archive) in /tmp */
 	gchar *command = g_strconcat ( "dd if=",archive->escaped_path," ibs=",ibs," skip=1 of=",gzip_tmp,NULL);
 	g_free (ibs);
 	list = g_slist_append(list,command);
