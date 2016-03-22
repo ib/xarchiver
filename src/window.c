@@ -1923,7 +1923,7 @@ void xa_determine_program_to_run(gchar *file)
 		{
 			program = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_editor));
 		}
-		else if (strstr(file,".png") || strstr(file,".gif") || strstr(file,".jpg") || strstr(file,".bmp") ||
+		else if (strstr(file,".png") || strstr(file,".gif") || strstr(file,".jpg") || strstr(file,".jpeg") || strstr(file,".bmp") ||
 				 strstr(file,".tif") || strstr(file,".tiff")|| strstr(file,".svg") ||
 				 strstr(file,".tga"))
 			program = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_viewer));
