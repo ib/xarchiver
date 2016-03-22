@@ -40,16 +40,16 @@ static int xa_rpm2cpio (XArchive *archive)
 	FILE *stream;
 	gboolean result;
 
-    signal (SIGPIPE, SIG_IGN);
-    stream = fopen ( archive->path , "r" );
+	signal(SIGPIPE, SIG_IGN);
+	stream = fopen(archive->path, "r");
+
 	if (stream == NULL)
-    {
-        gchar *msg = g_strdup_printf (_("Can't open RPM file %s:") , archive->path);
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
-		msg,g_strerror(errno));
-		g_free (msg);
+	{
+		gchar *msg = g_strdup_printf(_("Can't open RPM file %s:"), archive->path);
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, msg, g_strerror(errno));
+		g_free(msg);
 		return -1;
-    }
+	}
 
 	/* Signature section */
 	if (fseek(stream, SIGNATURE_START, SEEK_CUR) == -1)
