@@ -34,8 +34,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	unsigned char bytes[HDRSIG_ENTRY_INFO_LEN];
 	int datalen, entries;
 	long offset;
-	gchar *ibs,*executable;
-	gchar *gzip_tmp = NULL;
+	gchar *cpio_z, *ibs, *executable;
 	GSList *list = NULL;
 	FILE *stream;
 
@@ -91,27 +90,27 @@ static int xa_rpm2cpio (XArchive *archive)
 	if (!xa_create_temp_directory(archive))
 		return -1;
 
-	gzip_tmp = g_strconcat (archive->tmp,"/xa-tmp.cpio_z",NULL);
+	cpio_z = g_strconcat(archive->tmp, "/xa-tmp.cpio_z", NULL);
 	ibs = g_strdup_printf("%lu", offset);
 
 	/* run dd to have the payload (compressed cpio archive) in /tmp */
-	gchar *command = g_strconcat ( "dd if=",archive->escaped_path," ibs=",ibs," skip=1 of=",gzip_tmp,NULL);
+	gchar *command = g_strconcat("dd if=", archive->escaped_path, " ibs=", ibs, " skip=1 of=", cpio_z, NULL);
 	g_free (ibs);
 	list = g_slist_append(list,command);
 	if (!xa_run_command(archive, list))
 	{
-		g_free (gzip_tmp);
+		g_free(cpio_z);
 		return -1;
 	}
-	if (xa_detect_archive_type (gzip_tmp) == XARCHIVETYPE_GZIP)
+	if (xa_detect_archive_type (cpio_z) == XARCHIVETYPE_GZIP)
 		executable = "gzip -dc ";
-	else if (xa_detect_archive_type (gzip_tmp) == XARCHIVETYPE_BZIP2)
+	else if (xa_detect_archive_type (cpio_z) == XARCHIVETYPE_BZIP2)
 		executable = "bzip2 -dc ";
 	else
 		executable = "xz -dc ";
 
-	command = g_strconcat("sh -c \"",executable,gzip_tmp," > ",archive->tmp,"/xa-tmp.cpio\"",NULL);
-	g_free(gzip_tmp);
+	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->tmp, "/xa-tmp.cpio\"", NULL);
+	g_free(cpio_z);
 	list = NULL;
 	list = g_slist_append(list,command);
 	if (!xa_run_command(archive, list))
