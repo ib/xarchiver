@@ -39,7 +39,6 @@ gboolean xdg_open = FALSE;
 const gchar *sevenz = NULL;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
 static gboolean show_version = FALSE;
-int response;
 extern gchar *current_open_directory;
 extern int status;
 
@@ -148,7 +147,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL || archive == NULL)
 			{
-				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
 			if (xa_detect_encrypted_archive(archive))
@@ -171,7 +170,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
 			if (xa_detect_encrypted_archive(archive))
@@ -232,7 +231,7 @@ int main (int argc, char **argv)
 		{
 			if (argv[1] == NULL)
 			{
-				response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
+				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
 			if (archive != NULL)
@@ -614,7 +613,7 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 	archive = xa_init_archive_structure (type);
 	if (archive == NULL)
 	{
-		response = xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
+		xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
 		return NULL;
 	}
 	archive->path = g_strdup (filename);
