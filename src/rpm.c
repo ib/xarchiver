@@ -34,7 +34,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	unsigned char bytes[HDRSIG_ENTRY_INFO_LEN];
 	int datalen, entries;
 	long offset;
-	gchar *cpio_z, *ibs, *executable;
+	gchar *cpio_z, *ibs, *command, *executable;
 	GSList *list = NULL;
 	FILE *stream;
 
@@ -94,7 +94,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	ibs = g_strdup_printf("%lu", offset);
 
 	/* run dd to have the payload (compressed cpio archive) in /tmp */
-	gchar *command = g_strconcat("dd if=", archive->escaped_path, " ibs=", ibs, " skip=1 of=", cpio_z, NULL);
+	command = g_strconcat("dd if=", archive->escaped_path, " ibs=", ibs, " skip=1 of=", cpio_z, NULL);
 	g_free (ibs);
 	list = g_slist_append(list,command);
 	if (!xa_run_command(archive, list))
