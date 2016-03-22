@@ -255,6 +255,10 @@ gboolean xa_rpm_extract(XArchive *archive,GSList *files)
 	GString *names = g_string_new("");
 	gboolean result = FALSE;
 
+	if (archive->tmp == NULL)
+		if (xa_rpm2cpio(archive) <= 0)
+			return FALSE;
+
 	_files = files;
 	while (_files)
 	{
