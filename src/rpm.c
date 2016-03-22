@@ -84,7 +84,8 @@ static int xa_rpm2cpio (XArchive *archive)
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
 	offset = HDRSIG_ENTRY_INDEX_LEN * entries + datalen;
 	offset += ftell(stream);  // offset from top
-	fclose (stream);
+
+	fclose(stream);
 
 	/* create a unique temp dir in /tmp */
 	if (!xa_create_temp_directory(archive))
@@ -97,11 +98,13 @@ static int xa_rpm2cpio (XArchive *archive)
 	command = g_strconcat("dd if=", archive->escaped_path, " ibs=", ibs, " skip=1 of=", cpio_z, NULL);
 	g_free (ibs);
 	list = g_slist_append(list,command);
+
 	if (!xa_run_command(archive, list))
 	{
 		g_free(cpio_z);
 		return -1;
 	}
+
 	if (xa_detect_archive_type (cpio_z) == XARCHIVETYPE_GZIP)
 		executable = "gzip -dc ";
 	else if (xa_detect_archive_type (cpio_z) == XARCHIVETYPE_BZIP2)
@@ -113,6 +116,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	g_free(cpio_z);
 	list = NULL;
 	list = g_slist_append(list,command);
+
 	if (!xa_run_command(archive, list))
 		return 0;
 
