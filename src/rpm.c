@@ -29,10 +29,9 @@
 #define HDRSIG_ENTRY_INFO_LEN 8
 #define HDRSIG_ENTRY_INDEX_LEN 16
 
-void xa_open_rpm (XArchive *archive)
+static int xa_rpm2cpio (XArchive *archive)
 {
 	unsigned char bytes[HDRSIG_ENTRY_INFO_LEN];
-	unsigned short int i;
 	int datalen, entries;
 	long offset;
 	gchar *ibs,*executable;
@@ -49,35 +48,21 @@ void xa_open_rpm (XArchive *archive)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window) , GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 		msg,g_strerror(errno));
 		g_free (msg);
-		return;
+		return -1;
     }
-    archive->can_extract = archive->has_properties = TRUE;
-    archive->can_add = archive->has_sfx = archive->has_test = FALSE;
-    archive->dummy_size = 0;
-    archive->nr_of_files = 0;
-    archive->nc = 8;
-	archive->format ="RPM";
-
-	char *names[]= {(_("Points to")),(_("Size")),(_("Permission")),(_("Date")),(_("Hard Link")),(_("Owner")),(_("Group")),NULL};
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 10; i++)
-		archive->column_types[i] = types[i];
-
-	xa_create_liststore (archive,names);
 
 	/* Signature section */
 	if (fseek(stream, SIGNATURE_START, SEEK_CUR) == -1)
 	{
 		fclose (stream);
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek to position 104:"),g_strerror(errno));
-		return;
+		return -1;
 	}
 	if (fread(bytes, 1, HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
 	{
 		fclose ( stream );
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
-		return;
+		return -1;
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
@@ -89,13 +74,13 @@ void xa_open_rpm (XArchive *archive)
 	{
 		fclose (stream);
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek in file:"),g_strerror(errno));
-		return;
+		return -1;
 	}
 	if (fread(bytes, 1, HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
 	{
 		fclose ( stream );
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
-		return;
+		return -1;
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
@@ -106,7 +91,7 @@ void xa_open_rpm (XArchive *archive)
 	/* Create a unique temp dir in /tmp */
 	result = xa_create_temp_directory (archive);
 	if (!result)
-		return;
+		return -1;
 
 	gzip_tmp = g_strconcat (archive->tmp,"/xa-tmp.cpio_z",NULL);
 	ibs = g_strdup_printf("%lu", offset);
@@ -119,7 +104,7 @@ void xa_open_rpm (XArchive *archive)
 	if (result == FALSE)
 	{
 		g_free (gzip_tmp);
-		return;
+		return -1;
 	}
 	if (xa_detect_archive_type (gzip_tmp) == XARCHIVETYPE_GZIP)
 		executable = "gzip -dc ";
@@ -134,6 +119,38 @@ void xa_open_rpm (XArchive *archive)
 	list = g_slist_append(list,command);
 	result = xa_run_command (archive,list);
 	if (result == FALSE)
+		return 0;
+
+	return 1;
+}
+
+void xa_open_rpm (XArchive *archive)
+{
+	int result, i;
+	gchar *command;
+
+	char *names[]= {(_("Points to")),(_("Size")),(_("Permission")),(_("Date")),(_("Hard Link")),(_("Owner")),(_("Group")),NULL};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+
+	result = xa_rpm2cpio(archive);
+
+	if (result < 0)
+		return;
+
+	archive->can_extract = archive->has_properties = TRUE;
+	archive->can_add = archive->has_sfx = archive->has_test = FALSE;
+	archive->dummy_size = 0;
+	archive->nr_of_files = 0;
+	archive->nc = 8;
+	archive->format ="RPM";
+
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 10; i++)
+		archive->column_types[i] = types[i];
+
+	xa_create_liststore(archive, names);
+
+	if (result == 0)
 	{
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->has_test,archive->has_properties,archive->has_passwd,0);
