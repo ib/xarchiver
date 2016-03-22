@@ -29,8 +29,6 @@
 #define HDRSIG_ENTRY_INFO_LEN 8
 #define HDRSIG_ENTRY_INDEX_LEN 16
 
-extern gboolean batch_mode;
-
 void xa_open_rpm (XArchive *archive)
 {
 	unsigned char bytes[HDRSIG_ENTRY_INFO_LEN];
@@ -117,7 +115,6 @@ void xa_open_rpm (XArchive *archive)
 	gchar *command = g_strconcat ( "dd if=",archive->escaped_path," ibs=",ibs," skip=1 of=",gzip_tmp,NULL);
 	g_free (ibs);
 	list = g_slist_append(list,command);
-	batch_mode = TRUE;
 	result = xa_run_command (archive,list);
 	if (result == FALSE)
 	{

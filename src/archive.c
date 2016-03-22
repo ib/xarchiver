@@ -36,7 +36,6 @@ extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func extract	[XARCHIVETYPE_COUNT];
 extern test_func	test	[XARCHIVETYPE_COUNT];
 extern Prefs_dialog_data *prefs_window;
-extern gboolean batch_mode;
 
 Progress_bar_data *pb = NULL;
 

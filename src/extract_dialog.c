@@ -24,7 +24,7 @@
 #include "string_utils.h"
 #include "support.h"
 
-extern gboolean unarj, batch_mode;
+extern gboolean unarj;
 extern Prefs_dialog_data *prefs_window;
 extern Progress_bar_data *pb;
 extern extract_func extract	[XARCHIVETYPE_COUNT];
