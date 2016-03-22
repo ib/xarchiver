@@ -35,7 +35,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	int datalen, entries;
 	long offset;
 	gchar *cpio_z, *ibs, *command, *executable;
-	GSList *list = NULL;
+	GSList *list;
 	FILE *stream;
 
 	signal(SIGPIPE, SIG_IGN);
@@ -97,7 +97,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	/* run dd to have the payload (compressed cpio archive) in /tmp */
 	command = g_strconcat("dd if=", archive->escaped_path, " ibs=", ibs, " skip=1 of=", cpio_z, NULL);
 	g_free (ibs);
-	list = g_slist_append(list,command);
+	list = g_slist_append(NULL, command);
 
 	if (!xa_run_command(archive, list))
 	{
@@ -114,8 +114,7 @@ static int xa_rpm2cpio (XArchive *archive)
 
 	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->tmp, "/xa-tmp.cpio\"", NULL);
 	g_free(cpio_z);
-	list = NULL;
-	list = g_slist_append(list,command);
+	list = g_slist_append(NULL, command);
 
 	if (!xa_run_command(archive, list))
 		return 0;
