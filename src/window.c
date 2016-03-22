@@ -1952,6 +1952,7 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 	gchar *command_line = NULL;
 	gchar **argv;
 	GdkScreen *screen;
+	gboolean success = TRUE;
 
 	command_line = g_strconcat(program," ",arg,NULL);
 	g_shell_parse_argv(command_line,NULL,&argv,NULL);
@@ -1969,9 +1970,10 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 		gtk_dialog_run (GTK_DIALOG (message));
 		gtk_widget_destroy (message);
 		g_error_free (error);
-		return FALSE;
+		success = FALSE;
 	}
-	return TRUE;
+	g_strfreev(argv);
+	return success;
 }
 
 void xa_show_help (GtkMenuItem *menuitem,gpointer user_data)
