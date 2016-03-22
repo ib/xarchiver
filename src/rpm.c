@@ -105,12 +105,20 @@ static int xa_rpm2cpio (XArchive *archive)
 		return -1;
 	}
 
-	if (xa_detect_archive_type (cpio_z) == XARCHIVETYPE_GZIP)
-		executable = "gzip -dc ";
-	else if (xa_detect_archive_type (cpio_z) == XARCHIVETYPE_BZIP2)
-		executable = "bzip2 -dc ";
-	else
-		executable = "xz -dc ";
+	switch (xa_detect_archive_type(cpio_z))
+	{
+		case XARCHIVETYPE_GZIP:
+			executable = "gzip -dc ";
+			break;
+
+		case XARCHIVETYPE_BZIP2:
+			executable = "bzip2 -dc ";
+			break;
+
+		default:
+			executable = "xz -dc ";
+			break;
+	}
 
 	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->tmp, "/xa-tmp.cpio\"", NULL);
 	g_free(cpio_z);
