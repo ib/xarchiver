@@ -38,7 +38,6 @@ static int xa_rpm2cpio (XArchive *archive)
 	gchar *gzip_tmp = NULL;
 	GSList *list = NULL;
 	FILE *stream;
-	gboolean result;
 
 	signal(SIGPIPE, SIG_IGN);
 	stream = fopen(archive->path, "r");
@@ -89,8 +88,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	fclose (stream);
 
 	/* Create a unique temp dir in /tmp */
-	result = xa_create_temp_directory (archive);
-	if (!result)
+	if (!xa_create_temp_directory(archive))
 		return -1;
 
 	gzip_tmp = g_strconcat (archive->tmp,"/xa-tmp.cpio_z",NULL);
@@ -100,8 +98,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	gchar *command = g_strconcat ( "dd if=",archive->escaped_path," ibs=",ibs," skip=1 of=",gzip_tmp,NULL);
 	g_free (ibs);
 	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-	if (result == FALSE)
+	if (!xa_run_command(archive, list))
 	{
 		g_free (gzip_tmp);
 		return -1;
@@ -117,8 +114,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	g_free(gzip_tmp);
 	list = NULL;
 	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-	if (result == FALSE)
+	if (!xa_run_command(archive, list))
 		return 0;
 
 	return 1;
