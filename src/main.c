@@ -236,6 +236,11 @@ int main (int argc, char **argv)
 			}
 			if (archive != NULL)
 			{
+				if (!archive->add)
+				{
+					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), argv[1]);
+					return -1;
+				}
 				xa_set_add_dialog_options(add_window,archive);
 				xa_parse_add_dialog_options (archive,add_window);
 				gtk_widget_destroy (add_window->dialog1);
