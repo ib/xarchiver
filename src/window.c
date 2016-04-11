@@ -150,10 +150,9 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 					      GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_OK);
 
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog),FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog),6);
-	gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),6);
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox),8);
+	gtk_container_set_border_width (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),6);
+	gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),8);
 	gtk_widget_set_size_request (dialog,400,-1);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL,NULL);
@@ -186,7 +185,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 	}
 	gtk_container_add (GTK_CONTAINER (scrolledwindow),textview);
 	gtk_box_pack_start (GTK_BOX (vbox),scrolledwindow,TRUE,TRUE,0);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),vbox,TRUE,TRUE,0);
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog))),vbox,TRUE,TRUE,0);
 
 	output = _archive->error_output;
 	while (output)
@@ -446,7 +445,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	g_free(filename_plus);
 	filename = NULL;
 
-	pref_path = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_extract_dir));
+	pref_path = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
 	if (current_open_directory != NULL || pref_path != NULL)
 		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (save), pref_path ? pref_path : current_open_directory);
 	g_free (pref_path);
@@ -961,14 +960,32 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nThis version:\nIngo Brückl <ib@wupperonline.de>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n\nLZOP support:\nKevin Day\n\nRARv5, XZ, TAR.XZ support:\nFrederick GUERIN <fguerin01@gmail.com>\n",NULL};
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and " PACKAGE_NAME " Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n",NULL};
+    const char *authors[] = {
+	"Main developer:\nGiuseppe Torelli <colossus73@gmail.com>\n",
+	"This version:\nIngo Brückl <ib@wupperonline.de>\n",
+	"Archive navigation code:\nJohn Berthels\n",
+	"Code fixing:\nEnrico Tröger\n",
+	"LHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n",
+	"LZMA support:\nThomas Dy <dysprosium66@gmail.com>\n",
+	"LZOP support:\nKevin Day\n",
+	"RARv5, XZ, TAR.XZ support:\nFrederick GUERIN <fguerin01@gmail.com>\n",
+	"GTK+ 3 port:\nBalló György <ballogyor@gmail.com>\n",
+	NULL
+    };
+
+    const char *documenters[] = {
+	"Special thanks to Bjoern Martensen for\nbugs hunting and " PACKAGE_NAME " Tango logo.\n",
+	"Thanks to:",
+	"Benedikt Meurer",
+	"Stephan Arts",
+	"Bruno Jesus <00cpxxx@gmail.com>",
+	"Uracile for the stunning logo\n",
+	NULL
+    };
 
 	if (about == NULL)
 	{
 		about = gtk_about_dialog_new ();
-		gtk_about_dialog_set_email_hook (xa_activate_link,NULL,NULL);
-		gtk_about_dialog_set_url_hook (xa_activate_link,NULL,NULL);
 		gtk_window_set_position (GTK_WINDOW (about),GTK_WIN_POS_CENTER_ON_PARENT);
 		gtk_window_set_transient_for (GTK_WINDOW (about),GTK_WINDOW (xa_main_window));
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (about),TRUE);
@@ -976,7 +993,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 			"program-name", PACKAGE_NAME,
 			"version",PACKAGE_VERSION,
 			"copyright","Copyright \xC2\xA9 2005-2014 Giuseppe Torelli",
-			"comments",_("A GTK+2 only lightweight archive manager"),
+			"comments",_("A GTK+ only lightweight archive manager"),
 			"authors",authors,
 			"documenters",documenters,
 			"translator_credits",_("translator-credits"),
@@ -1325,7 +1342,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 	gtk_widget_set_sensitive(Stop_button,FALSE);
-	if (GTK_WIDGET_VISIBLE(multi_extract_window->multi_extract))
+	if (gtk_widget_get_visible(GTK_WIDGET(multi_extract_window->multi_extract)))
 	{
 		multi_extract_window->stop_pressed = TRUE;
 		kill (multi_extract_window->archive->child_pid,SIGINT);
@@ -1656,7 +1673,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 	gtk_tree_model_get_iter(archive->model,&iter,(GtkTreePath*) (row_list->data));
 	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry,-1);
 
-	gdk_property_change (context->source_window,
+	gdk_property_change (gdk_drag_context_get_source_window(context),
 					gdk_atom_intern ("XdndDirectSave0",FALSE),
 					gdk_atom_intern ("text/plain",FALSE),
 					8,GDK_PROP_MODE_REPLACE,
@@ -1691,7 +1708,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!"));
 		return;
 	}
-	gdk_property_get (	dc->source_window,
+	gdk_property_get (	gdk_drag_context_get_source_window(dc),
 						gdk_atom_intern ("XdndDirectSave0",FALSE),
 						gdk_atom_intern ("text/plain",FALSE),
 						0,4096,FALSE,NULL,NULL,NULL,&_destination );
@@ -1749,7 +1766,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			g_free (archive->extraction_path);
 			archive->extraction_path = NULL;
 		}
-		gtk_selection_data_set (selection_data,selection_data->target,8,(guchar*)to_send,1);
+		gtk_selection_data_set (selection_data,gtk_selection_data_get_target(selection_data),8,(guchar*)to_send,1);
 	}
 }
 
@@ -1894,7 +1911,7 @@ void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data)
 	if ( !xdg_open)
 	{
 		gchar *browser_path = NULL;
-		browser_path = gtk_combo_box_get_active_text(GTK_COMBO_BOX(prefs_window->combo_prefered_web_browser));
+		browser_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
 		if (strlen(browser_path) == 0)
 		{
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));
@@ -1917,16 +1934,16 @@ void xa_determine_program_to_run(gchar *file)
 	{
 		if (strstr(file,".html"))
 		{
-			program = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_web_browser));
+			program = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
 		}
 		else if (strstr(file,".txt"))
 		{
-			program = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_editor));
+			program = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
 		}
 		else if (strstr(file,".png") || strstr(file,".gif") || strstr(file,".jpg") || strstr(file,".jpeg") || strstr(file,".bmp") ||
 				 strstr(file,".tif") || strstr(file,".tiff")|| strstr(file,".svg") ||
 				 strstr(file,".tga"))
-			program = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_viewer));
+			program = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
 		else
 		{
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This file type is not supported!"),_("Please install xdg-utils package."));
@@ -1945,6 +1962,11 @@ void xa_determine_program_to_run(gchar *file)
 	g_free(program);
 }
 
+void setup_display_cb (gpointer data)
+{
+        g_setenv ("DISPLAY", (char *) data, TRUE);
+}
+
 gboolean xa_launch_external_program(gchar *program,gchar *arg)
 {
 	GtkWidget *message;
@@ -1952,6 +1974,7 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 	gchar *command_line = NULL;
 	gchar **argv;
 	GdkScreen *screen;
+	char *display;
 	gboolean success = TRUE;
 
 	command_line = g_strconcat(program," ",arg,NULL);
@@ -1959,7 +1982,14 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 	g_free(command_line);
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (xa_main_window));
-	if (!gdk_spawn_on_screen (screen,NULL,argv,NULL,G_SPAWN_SEARCH_PATH,NULL,NULL,NULL,&error))
+
+	if (screen != NULL)
+		display = gdk_screen_make_display_name (screen);
+	else
+		display = NULL;
+
+	display = gdk_screen_make_display_name (screen);
+	if (!g_spawn_async (NULL,argv,NULL,G_SPAWN_SEARCH_PATH,setup_display_cb,display,NULL,&error))
 	{
 		message = gtk_message_dialog_new (GTK_WINDOW (xa_main_window),
 										GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -2019,8 +2049,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	comment_dialog = gtk_dialog_new_with_buttons (_("Comment"),GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,NULL);
 	gtk_window_set_position (GTK_WINDOW (comment_dialog),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (comment_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_dialog_set_has_separator (GTK_DIALOG (comment_dialog),FALSE);
-	dialog_vbox1 = GTK_DIALOG (comment_dialog)->vbox;
+	dialog_vbox1 = gtk_dialog_get_content_area (GTK_DIALOG (comment_dialog));
 	gtk_widget_set_size_request(comment_dialog,500,330);
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL,NULL);
@@ -2036,7 +2065,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	g_object_unref (textbuffer);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),textview);
 
-	dialog_action_area1 = GTK_DIALOG (comment_dialog)->action_area;
+	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG (comment_dialog));
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
 	clear = gtk_button_new_from_stock ("gtk-clear");
@@ -2295,7 +2324,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 		clipboard_selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
 		if (clipboard_selection != NULL)
 		{
-			paste_data = xa_get_paste_data_from_clipboard_selection((char*)clipboard_selection->data);
+			paste_data = xa_get_paste_data_from_clipboard_selection((char*)gtk_selection_data_get_data (clipboard_selection));
 			gtk_selection_data_free (clipboard_selection);
 			if (strcmp(archive->escaped_path,paste_data->cut_copy_archive->escaped_path) == 0)
 				value = FALSE;
@@ -2363,7 +2392,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
 	if (selection == NULL)
 		return;
-	paste_data = xa_get_paste_data_from_clipboard_selection((char*)selection->data);
+	paste_data = xa_get_paste_data_from_clipboard_selection((char*)gtk_selection_data_get_data(selection));
 	gtk_selection_data_free (selection);
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
@@ -2464,7 +2493,7 @@ void xa_clipboard_get (GtkClipboard *clipboard,GtkSelectionData *selection_data,
 	XArchive *archive = user_data;
 	GSList *_files = archive->clipboard_data->files;
 	GString *params = g_string_new("");
-	if (selection_data->target != XA_INFO_LIST)
+	if (gtk_selection_data_get_target (selection_data) != XA_INFO_LIST)
 		return;
 
 	g_string_append (params,g_strdup(archive->escaped_path));
@@ -2480,7 +2509,7 @@ void xa_clipboard_get (GtkClipboard *clipboard,GtkSelectionData *selection_data,
 		g_string_append (params,"\r\n");
 		_files = _files->next;
 	}
-	gtk_selection_data_set (selection_data,selection_data->target,8,(guchar *) params->str,strlen(params->str));
+	gtk_selection_data_set (selection_data,gtk_selection_data_get_target(selection_data),8,(guchar *) params->str,strlen(params->str));
 	g_string_free (params,TRUE);
 }
 
@@ -2517,7 +2546,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&model);
 
 	g_object_set(archive[idx]->renderer_text,"editable",TRUE,NULL);
-	gtk_accel_group_disconnect_key(accel_group,GDK_Delete,GDK_MODE_DISABLED);
+	gtk_accel_group_disconnect_key(accel_group,GDK_KEY_Delete,GDK_MODE_DISABLED);
 	column = gtk_tree_view_get_column(GTK_TREE_VIEW (archive[idx]->treeview),0);
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(archive[idx]->treeview),row_list->data,column,TRUE);
 	gtk_tree_path_free (row_list->data);
@@ -2527,7 +2556,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 void xa_rename_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
 {
 	g_object_set(renderer,"editable",FALSE,NULL);
-	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_KEY_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
 }
 
 void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_name,XArchive *archive)
@@ -2606,7 +2635,7 @@ void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,c
 		chdir (archive->tmp);
 		xa_execute_add_commands(archive,list,NULL);
 	}
-	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_KEY_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
 	g_object_set(cell,"editable",FALSE,NULL);
 }
 

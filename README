@@ -3,7 +3,7 @@ What is it?
 Xarchiver is the ultimate solution for handling archives on Linux and FreeBSD.
 It's a Desktop Environment independent archiver frontend. All common archive
 types are supported. RPM and DEB packages are handled without their package
-managers being installed. Xarchiver only depends on the GTK+2 libraries and
+managers being installed. Xarchiver only depends on the GTK+ libraries and
 utilizes various (un)compressor/(un)archiver command line programs at runtime.
 Installation of xdg-utils is optional but installing it will allow Xarchiver
 the support to open more file types directly from inside an archive.

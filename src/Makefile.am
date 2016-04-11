@@ -37,8 +37,6 @@ xarchiver_SOURCES = \
 	rar.h \
 	rpm.c \
 	rpm.h \
-	sexy-icon-entry.c \
-	sexy-icon-entry.h \
 	socket.c \
 	socket.h \
 	string_utils.c \
