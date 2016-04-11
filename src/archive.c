@@ -366,7 +366,7 @@ gboolean xa_create_temp_directory (XArchive *archive)
 	if (archive->tmp != NULL)
 		return TRUE;
 
-	value = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_temp_dir));
+	value = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_temp_dir));
 	tmp_dir = g_strconcat(value,"/xa-XXXXXX",NULL);
 	g_free(value);
 

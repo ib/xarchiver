@@ -270,7 +270,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 
 	if (archive->extraction_path == NULL)
 	{
-		archive_dir = gtk_combo_box_get_active_text (GTK_COMBO_BOX(prefs_window->combo_prefered_extract_dir));
+		archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
 		if (archive_dir == NULL) archive_dir = xa_remove_level_from_path (archive->path);
 		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
 	}
