@@ -93,12 +93,12 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 
 XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean flag)
 {
+	GTK_COMPAT_TOOLTIPS
 	XArchive *archive = NULL;
 	GtkWidget *xa_file_chooser;
 	GtkWidget *hbox = NULL;
 	GtkWidget *combo_box = NULL;
 	GtkFileFilter *xa_new_archive_dialog_filter;
-	GtkTooltips *filter_tooltip;
 	GList *Suffix,*Name;
 	gchar *my_path = NULL;
 	gchar *basepath, *filename;
@@ -153,8 +153,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 	combo_box = gtk_combo_box_new_text ();
 
-	filter_tooltip = gtk_tooltips_new();
-	gtk_tooltips_set_tip (filter_tooltip,combo_box, _("Choose the archive type to create") , NULL);
+	gtk_widget_set_tooltip_text(combo_box, _("Choose the archive type to create"));
 	Name = g_list_first (ArchiveType);
 
 	while (Name)

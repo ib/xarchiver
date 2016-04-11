@@ -28,13 +28,13 @@ extern Prefs_dialog_data *prefs_window;
 
 Add_dialog_data *xa_create_add_dialog()
 {
+	GTK_COMPAT_TOOLTIPS
 	GtkWidget *label1,*label2,*label3,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
 	GtkWidget *dialog_action_area1,*alignment1,*alignment2,*alignment3,*vbox3,*frame2,*frame3,*frame4,*alignment4;
 	Add_dialog_data *add_dialog;
 
 	add_dialog = g_new0 (Add_dialog_data, 1);
 	add_dialog->path_group = NULL;
-	add_dialog->option_tooltip = gtk_tooltips_new ();
 
 	add_dialog->dialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (add_dialog->dialog1), _("Add files"));
@@ -108,13 +108,13 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update and add"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified"), NULL );
+	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
 
 	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen and replace"));
 
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"), NULL );
+	gtk_widget_set_tooltip_text(add_dialog->freshen, _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->freshen, FALSE, FALSE, 0);
 	g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
 
@@ -124,7 +124,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Create a solid archive"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->solid_archive), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio"), NULL);
+	gtk_widget_set_tooltip_text(add_dialog->solid_archive, _("In a solid archive the files are grouped together featuring a better compression ratio"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->solid_archive, FALSE, FALSE, 0);
 
 	add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Delete files after adding"));
@@ -200,6 +200,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 {
+	GTK_COMPAT_TOOLTIPS
 	gboolean flag = FALSE;
 	gchar *compression_msg = NULL;
 	unsigned short int default_value, max_value;
@@ -313,7 +314,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
 	else if (archive->type == XARCHIVETYPE_7ZIP)
 		g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->compression_scale, compression_msg, NULL );
+	gtk_widget_set_tooltip_text(add_dialog->compression_scale, compression_msg);
 
 	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_XZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_LZOP)
 		flag = FALSE;

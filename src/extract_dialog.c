@@ -49,6 +49,7 @@ static const GtkTargetEntry drop_targets[] =
 
 Extract_dialog_data *xa_create_extract_dialog()
 {
+	GTK_COMPAT_TOOLTIPS
 	GSList *radiobutton1_group = NULL;
 	Extract_dialog_data *dialog_data;
 
@@ -59,7 +60,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_destroy_with_parent(GTK_WINDOW (dialog_data->dialog1),TRUE);
 
-	option_tooltip = gtk_tooltips_new ();
 	dialog_data->dialog_vbox1 = GTK_DIALOG (dialog_data->dialog1)->vbox;
 
 	vbox1 = gtk_vbox_new (FALSE,2);
@@ -133,20 +133,20 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->overwrite_check,FALSE,FALSE,0);
 
 	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
-	gtk_tooltips_set_tip(option_tooltip,dialog_data->extract_full,_("The archive's directory structure is recreated in the extraction directory"),NULL );
+	gtk_widget_set_tooltip_text(dialog_data->extract_full, _("The archive's directory structure is recreated in the extraction directory"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->extract_full,FALSE,FALSE,0);
 
 	dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
-	gtk_tooltips_set_tip (option_tooltip,dialog_data->touch,_("When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"),NULL );
+	gtk_widget_set_tooltip_text(dialog_data->touch, _("When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->touch,FALSE,FALSE,0);
 
 	dialog_data->fresh = gtk_check_button_new_with_mnemonic (_("Freshen existing files"));
-	gtk_tooltips_set_tip (option_tooltip,dialog_data->fresh,_("Extract only those files that already exist on disk and that are newer than the disk copies"),NULL );
+	gtk_widget_set_tooltip_text(dialog_data->fresh, _("Extract only those files that already exist on disk and that are newer than the disk copies"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->fresh,FALSE,FALSE,0);
 	g_signal_connect (G_OBJECT (dialog_data->fresh),"toggled",G_CALLBACK (fresh_update_toggled_cb),dialog_data);
 
 	dialog_data->update = gtk_check_button_new_with_mnemonic (_("Update existing files"));
-	gtk_tooltips_set_tip (option_tooltip,dialog_data->update,_("This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"),NULL );
+	gtk_widget_set_tooltip_text(dialog_data->update, _("This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->update,FALSE,FALSE,0);
 	g_signal_connect (G_OBJECT (dialog_data->update),"toggled",G_CALLBACK (update_fresh_toggled_cb),dialog_data);
 
@@ -389,17 +389,16 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 Multi_extract_data *xa_create_multi_extract_dialog()
 {
+	GTK_COMPAT_TOOLTIPS
 	Multi_extract_data *dialog_data;
 	GtkWidget	*dialog_vbox1,*vbox1,*scrolledwindow1,*hbox1,*frame1,*alignment1,*vbox2,*hbox3,*remove_button,*add_button,*cancelbutton1;
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
 	GSList *radiobutton1_group = NULL;
-	GtkTooltips *multi_tooltip;
 	char *column_names[]= {(_("Archive Name")),(_("Size")),(_("Path")),NULL};
 	int x;
 
-	multi_tooltip = gtk_tooltips_new ();
 	dialog_data = g_new0 (Multi_extract_data,1);
 	dialog_data->multi_extract = gtk_dialog_new();
 
@@ -478,7 +477,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->entry1,TRUE,TRUE,0);
 
 	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic (NULL,_("Extract to dir \"Archive Name\""));
-	gtk_tooltips_set_tip (multi_tooltip,dialog_data->extract_to_archive_name,_("This option extracts archives in directories named with the archive names"),NULL);
+	gtk_widget_set_tooltip_text(dialog_data->extract_to_archive_name, _("This option extracts archives in directories named with the archive names"));
 	gtk_box_pack_start (GTK_BOX (vbox2),dialog_data->extract_to_archive_name,FALSE,FALSE,0);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->extract_to_archive_name),radiobutton1_group);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->extract_to_archive_name));

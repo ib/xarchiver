@@ -31,6 +31,7 @@ extern Add_dialog_data *add_window;
 
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
+	GTK_COMPAT_TOOLTIPS
 	GtkWidget *vbox1, *vbox3,*vbox4, *hbox1, *scrolledwindow1, *prefs_iconview;
 	GtkWidget *label1, *label2, *label3, *label4, *label5,*label6, *label7, *label8, *label9, *label10, *table1, *table2;
 	GtkTreeIter iter;
@@ -42,7 +43,6 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->dialog1 = gtk_dialog_new_with_buttons (_("Preferences"),
 									GTK_WINDOW (xa_main_window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK, NULL);
-	tooltips = gtk_tooltips_new();
 	icon_theme = gtk_icon_theme_get_default();
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
 	gtk_window_set_position (GTK_WINDOW(prefs_data->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
@@ -117,12 +117,12 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->check_sort_filename_column = gtk_check_button_new_with_mnemonic(_("Sort archive by filename"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->check_sort_filename_column, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_sort_filename_column), FALSE);
-	gtk_tooltips_set_tip(tooltips, prefs_data->check_sort_filename_column, _("The filename column is sorted after loading the archive"), NULL);
+	gtk_widget_set_tooltip_text(prefs_data->check_sort_filename_column, _("The filename column is sorted after loading the archive"));
 
 	prefs_data->store_output = gtk_check_button_new_with_mnemonic (_("Store archiver output"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->store_output, FALSE, FALSE, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->store_output), FALSE);
-	gtk_tooltips_set_tip(tooltips, prefs_data->store_output, _("This option takes more memory with large archives"), NULL);
+	gtk_widget_set_tooltip_text(prefs_data->store_output, _("This option takes more memory with large archives"));
 
 	label1 = gtk_label_new ("");
 	gtk_notebook_set_tab_label (GTK_NOTEBOOK (prefs_data->prefs_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (prefs_data->prefs_notebook), 0), label1);
@@ -146,7 +146,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
 
 	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show archive comment"));
-	gtk_tooltips_set_tip(tooltips, prefs_data->check_show_comment, _("If checked the archive comment is shown after the archive is loaded"), NULL);
+	gtk_widget_set_tooltip_text(prefs_data->check_show_comment, _("If checked the archive comment is shown after the archive is loaded"));
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_show_comment, 0, 2, 1, 2,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
@@ -260,7 +260,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_attach (GTK_TABLE (table2), prefs_data->allow_sub_dir, 0, 2, 6, 7,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (0), 0, 0);
-	gtk_tooltips_set_tip(tooltips, prefs_data->allow_sub_dir, _("This option includes the subdirectories when you add files with drag and drop"), NULL);
+	gtk_widget_set_tooltip_text(prefs_data->allow_sub_dir, _("This option includes the subdirectories when you add files with drag and drop"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_geometry), FALSE);
 
 	if (xdg_open == FALSE)
