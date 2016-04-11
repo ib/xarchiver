@@ -40,6 +40,7 @@ static gulong selchghid;
 
 extern gboolean unarj,unrar,batch_mode;
 
+void xa_page_has_changed(GtkNotebook *, GTK_COMPAT_SWITCH_PAGE_TYPE, guint, gpointer);
 static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid *pid);
 static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid *pid);
 
@@ -576,7 +577,7 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 	return TRUE;
 }
 
-void xa_page_has_changed (GtkNotebook *notebook,GtkNotebookPage *page,guint page_num,gpointer user_data)
+void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE page, guint page_num, gpointer user_data)
 {
 	gint id,selected = 0;
 	GtkTreeSelection *selection = NULL;

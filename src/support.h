@@ -89,4 +89,10 @@ static inline void gtk_widget_set_can_default (GtkWidget *widget, gboolean can_d
 }
 #endif
 
+#if !GTK_CHECK_VERSION(2,22,0)
+#define GTK_COMPAT_SWITCH_PAGE_TYPE GtkNotebookPage *
+#else
+#define GTK_COMPAT_SWITCH_PAGE_TYPE gpointer
+#endif
+
 #endif
