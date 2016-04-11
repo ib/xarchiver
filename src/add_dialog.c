@@ -178,7 +178,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->cancel_button = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->cancel_button, GTK_RESPONSE_CANCEL);
-	GTK_WIDGET_SET_FLAGS (add_dialog->cancel_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(add_dialog->cancel_button, TRUE);
 
 	add_dialog->add_button = gtk_button_new();
 	add_dialog->add_image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
@@ -193,7 +193,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_container_add(GTK_CONTAINER(add_dialog->add_button), alignment2);
 
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->add_button, GTK_RESPONSE_OK);
-	GTK_WIDGET_SET_FLAGS (add_dialog->add_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(add_dialog->add_button, TRUE);
 	gtk_dialog_set_default_response (GTK_DIALOG (add_dialog->dialog1), GTK_RESPONSE_OK);
 	return add_dialog;
 }
@@ -416,13 +416,13 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (add_dialog->remove_files != NULL)
 				archive->remove_files = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->remove_files));
 
-			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->freshen))
+			if (gtk_widget_is_sensitive(add_dialog->freshen))
 				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->freshen));
 
-			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->solid_archive))
+			if (gtk_widget_is_sensitive(add_dialog->solid_archive))
 				archive->solid_archive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->solid_archive));
 
-			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->compression_scale))
+			if (gtk_widget_is_sensitive(add_dialog->compression_scale))
 			{
 				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT (add_dialog->compression_value));
 				compression_string = g_strdup_printf("%d",archive->compression_level);

@@ -79,4 +79,14 @@ static inline void GTK_COMPAT_ENTRY_ICON (GtkWidget *entry, gpointer callback, g
 }
 #endif
 
+#if !GTK_CHECK_VERSION(2,18,0)
+#define gtk_widget_get_visible(widget) GTK_WIDGET_VISIBLE(widget)
+#define gtk_widget_is_sensitive(widget) GTK_WIDGET_IS_SENSITIVE(widget)
+static inline void gtk_widget_set_can_default (GtkWidget *widget, gboolean can_default)
+{
+	if (can_default) GTK_WIDGET_SET_FLAGS(widget, GTK_CAN_DEFAULT);
+	else GTK_WIDGET_UNSET_FLAGS(widget, GTK_CAN_DEFAULT);
+}
+#endif
+
 #endif

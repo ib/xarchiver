@@ -141,14 +141,14 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_widget_show (cancelbutton1);
 	gtk_dialog_add_action_widget (GTK_DIALOG (data->dialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
-	GTK_WIDGET_SET_FLAGS (cancelbutton1, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(cancelbutton1, TRUE);
 	g_signal_connect_swapped (G_OBJECT (cancelbutton1),"clicked",G_CALLBACK (gtk_widget_destroy),G_OBJECT(data->dialog1));
 
 	okbutton1 = gtk_button_new_from_stock ("gtk-open");
 	gtk_widget_show (okbutton1);
 	gtk_dialog_add_action_widget (GTK_DIALOG (data->dialog1),okbutton1,GTK_RESPONSE_OK);
 	g_signal_connect (G_OBJECT (okbutton1),"clicked",G_CALLBACK (xa_open_with_dialog_execute_command),data);
-	GTK_WIDGET_SET_FLAGS (okbutton1, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(okbutton1, TRUE);
 	gtk_widget_show_all(data->dialog1);
 
 	/* Let's parse the desktop files in all the system data dirs */

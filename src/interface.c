@@ -563,7 +563,7 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 		archive->pb_source = 0;
 		return FALSE;
 	}
-	if (GTK_WIDGET_VISIBLE(green_led))
+	if (gtk_widget_get_visible(green_led))
 	{
 		gtk_widget_hide(green_led);
 		gtk_widget_show(red_led);
@@ -987,7 +987,7 @@ void xa_select_by_pattern_dialog(GtkMenuItem *menuitem,gpointer user_data)
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_widget_show (cancelbutton1);
 	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
-	GTK_WIDGET_SET_FLAGS (cancelbutton1,GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(cancelbutton1, TRUE);
 
 	okbutton1 = gtk_button_new();
 	tmp_image = gtk_image_new_from_stock ("gtk-ok",GTK_ICON_SIZE_BUTTON);
@@ -1002,7 +1002,7 @@ void xa_select_by_pattern_dialog(GtkMenuItem *menuitem,gpointer user_data)
 	gtk_container_add(GTK_CONTAINER(okbutton1),alignment2);
 	gtk_widget_show_all (okbutton1);
 	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1),okbutton1,GTK_RESPONSE_OK);
-	GTK_WIDGET_SET_FLAGS (okbutton1,GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(okbutton1, TRUE);
 	gtk_dialog_set_default_response (GTK_DIALOG (ddialog1),GTK_RESPONSE_OK);
 
 	while (! done)
@@ -1643,7 +1643,7 @@ static void xa_progress_dialog_stop_action (GtkWidget *widget,GPid *pid)
 
 gboolean xa_pulse_progress_bar_window (Progress_bar_data *pb)
 {
-	if (GTK_WIDGET_VISIBLE(pb->progress_window))
+	if (gtk_widget_get_visible(pb->progress_window))
 	{
 		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
 		return TRUE;

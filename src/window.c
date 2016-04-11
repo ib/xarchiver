@@ -1381,7 +1381,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 	gtk_widget_set_sensitive(Stop_button,FALSE);
-	if (GTK_WIDGET_VISIBLE(multi_extract_window->multi_extract))
+	if (gtk_widget_get_visible(multi_extract_window->multi_extract))
 	{
 		multi_extract_window->stop_pressed = TRUE;
 		kill (multi_extract_window->archive->child_pid,SIGINT);
