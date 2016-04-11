@@ -1149,8 +1149,8 @@ msgstr "Ju lutem përzgjidhni modul 7zCon.sfx"
 
 #: ../src/window.c
 #, fuzzy
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "Përgjegjës arkivash vetëm për GTK+2"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "Përgjegjës arkivash vetëm për GTK+"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1275,8 +1275,8 @@ msgid "Archive manager"
 msgstr "Përgjegjës arkivash"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "Përgjegjës arkivash vetëm për GTK+2"
+msgid "A GTK+ only archive manager"
+msgstr "Përgjegjës arkivash vetëm për GTK+"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Shto te emri i kartelës zgjatim arkive"

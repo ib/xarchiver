@@ -1003,6 +1003,9 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
         "RARv5, XZ, TAR.XZ support:",
         "Frederick GUERIN <fguerin01@gmail.com>",
         "",
+        "GTK+ 3 port:",
+        "Balló György <ballogyor@gmail.com>",
+        "",
         NULL
     };
     const char *documenters[] =
@@ -1031,7 +1034,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 			"program-name", PACKAGE_NAME,
 			"version",PACKAGE_VERSION,
 			"copyright","Copyright \xC2\xA9 2005-2014 Giuseppe Torelli",
-			"comments",_("A GTK+2 only lightweight archive manager"),
+			"comments",_("A GTK+ only lightweight archive manager"),
 			"authors",authors,
 			"documenters",documenters,
 			"translator_credits",_("translator-credits"),

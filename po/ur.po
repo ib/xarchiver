@@ -1144,8 +1144,8 @@ msgstr "برائے مہربانی 7zCon.sfx ماڈیول منتخب کریں"
 
 #: ../src/window.c
 #, fuzzy
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "صرف GTK+2 محفوظہ منیجر"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "صرف GTK+ محفوظہ منیجر"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1278,8 +1278,8 @@ msgid "Archive manager"
 msgstr "محفوظہ منیجر"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "صرف GTK+2 محفوظہ منیجر"
+msgid "A GTK+ only archive manager"
+msgstr "صرف GTK+ محفوظہ منیجر"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "فائل کے نام میں محفوظہ کا لاحقہ شامل کریں"

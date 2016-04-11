@@ -1128,8 +1128,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Lūdzu norādiet 7zCon.sfx moduli"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "GTK+2 vienīgais viegla smaguma arhīvu pārvaldnieks"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "GTK+ vienīgais viegla smaguma arhīvu pārvaldnieks"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1257,8 +1257,8 @@ msgid "Archive manager"
 msgstr "Arhīvu pārvaldnieks"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "GTK+2 vienīgais arhīvu pārvaldnieks"
+msgid "A GTK+ only archive manager"
+msgstr "GTK+ vienīgais arhīvu pārvaldnieks"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Pievienot arhīva paplašinājums failam"

@@ -1132,8 +1132,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Si us plau seleccioneu el mòdul 7zCon.sfx"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "Un gestor d'arxius lleuger només GTK+2"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "Un gestor d'arxius lleuger només GTK+"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1260,8 +1260,8 @@ msgid "Archive manager"
 msgstr "Gestor d'arxius"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "Un gestor d'arxius només GTK+2"
+msgid "A GTK+ only archive manager"
+msgstr "Un gestor d'arxius només GTK+"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Afegeix l'extensió de l'arxiu al nom de fitxer."

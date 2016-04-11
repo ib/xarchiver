@@ -26,6 +26,8 @@
 
 extern Prefs_dialog_data *prefs_window;
 
+static GTK_COMPAT_ADJUSTMENT_TYPE compression_value;
+
 Add_dialog_data *xa_create_add_dialog()
 {
 	GTK_COMPAT_TOOLTIPS
@@ -292,13 +294,13 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		flag = FALSE;
 
 	if (archive->type == XARCHIVETYPE_7ZIP)
-		add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 2, 2, 0);
+		compression_value = gtk_adjustment_new(default_value, 0, max_value, 2, 2, 0);
 	else if (archive->type == XARCHIVETYPE_LHA)
-		add_dialog->compression_value = gtk_adjustment_new (default_value, 5, max_value, 7, 7, 0);
+		compression_value = gtk_adjustment_new(default_value, 5, max_value, 7, 7, 0);
 	else
-		add_dialog->compression_value = gtk_adjustment_new (default_value, 0, max_value, 0, 0, 0);
+		compression_value = gtk_adjustment_new(default_value, 0, max_value, 0, 0, 0);
 
-	add_dialog->compression_scale = gtk_hscale_new (GTK_ADJUSTMENT(add_dialog->compression_value));
+	add_dialog->compression_scale = gtk_hscale_new(GTK_ADJUSTMENT(compression_value));
 	if (gtk_bin_get_child(GTK_BIN(add_dialog->alignment2)) == NULL)
 		gtk_container_add (GTK_CONTAINER (add_dialog->alignment2), add_dialog->compression_scale);
 	gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_TOP);
@@ -308,12 +310,12 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		archive->compression_level = default_value;
 
 	gtk_widget_set_sensitive(add_dialog->compression_scale,flag);
-	gtk_adjustment_set_value (GTK_ADJUSTMENT(add_dialog->compression_value), archive->compression_level);
+	gtk_adjustment_set_value(GTK_ADJUSTMENT(compression_value), archive->compression_level);
 
 	if (archive->type == XARCHIVETYPE_ARJ)
 		gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
 	else if (archive->type == XARCHIVETYPE_7ZIP)
-		g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
+		g_signal_connect(G_OBJECT(compression_value), "value-changed", G_CALLBACK(fix_adjustment_value), NULL);
 	gtk_widget_set_tooltip_text(add_dialog->compression_scale, compression_msg);
 
 	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_XZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_LZOP)
@@ -424,7 +426,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 
 			if (gtk_widget_is_sensitive(add_dialog->compression_scale))
 			{
-				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT (add_dialog->compression_value));
+				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT(compression_value));
 				compression_string = g_strdup_printf("%d",archive->compression_level);
 			}
 			gtk_widget_hide(add_dialog->dialog1);

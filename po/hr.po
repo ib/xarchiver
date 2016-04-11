@@ -1110,8 +1110,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Molim odaberite 7zCon.sfx modul"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "GTK+2 lagani upravitelj arhivama"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "GTK+ lagani upravitelj arhivama"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1239,8 +1239,8 @@ msgid "Archive manager"
 msgstr "Upravitelj arhivama"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "Upravitelj arhivama samo za GTK+2"
+msgid "A GTK+ only archive manager"
+msgstr "Upravitelj arhivama samo za GTK+"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Dodaj proširenje arhive datoteci"

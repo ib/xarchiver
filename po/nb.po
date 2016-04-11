@@ -1121,8 +1121,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Vennligst velg '7zCon.sfx' modul"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "En GTK+2 basert arkivbehandler"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "En GTK+ basert arkivbehandler"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1247,8 +1247,8 @@ msgid "Archive manager"
 msgstr "Arkivbehandler"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "En GTK+2 basert arkivbehandler"
+msgid "A GTK+ only archive manager"
+msgstr "En GTK+ basert arkivbehandler"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Legg til arkiv filetternavn til filnavnet"

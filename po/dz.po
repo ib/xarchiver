@@ -1214,7 +1214,7 @@ msgstr "7zCon.sfx ཚད་གཞི་འདི་སེལ་འཐུ་འ�
 
 #: ../src/window.c
 #, fuzzy
-msgid "A GTK+2 only lightweight archive manager"
+msgid "A GTK+ only lightweight archive manager"
 msgstr "ཇི་ཊི་ཀེ་+༢་ ཀྱིས་རྐྱངམ་ཅིག་ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
 
 #: ../src/window.c
@@ -1346,7 +1346,7 @@ msgid "Archive manager"
 msgstr "ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
+msgid "A GTK+ only archive manager"
 msgstr "ཇི་ཊི་ཀེ་+༢་ ཀྱིས་རྐྱངམ་ཅིག་ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
 
 #~ msgid "Add the archive extension to the filename"

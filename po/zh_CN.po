@@ -1112,8 +1112,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "请选择 7zCon.sfx 模块"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "仅使用 GTK+2 的轻量级归档文件管理器"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "仅使用 GTK+ 的轻量级归档文件管理器"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1243,8 +1243,8 @@ msgid "Archive manager"
 msgstr "归档文件管理器"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "只使用 GTK+2 的归档文件管理器"
+msgid "A GTK+ only archive manager"
+msgstr "只使用 GTK+ 的归档文件管理器"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "在文件名中添加归档文件扩展名"

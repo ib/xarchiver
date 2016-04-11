@@ -707,6 +707,8 @@ PLUGINSCRIPT
 PLUGINDIR
 ICONS
 DOC
+GTK_V3_0_FALSE
+GTK_V3_0_TRUE
 GTK_V2_16_FALSE
 GTK_V2_16_TRUE
 GTK_LIBS
@@ -894,6 +896,7 @@ with_sysroot
 enable_libtool_lock
 enable_largefile
 enable_nls
+enable_gtk2
 enable_debug
 enable_doc
 enable_icons
@@ -1549,6 +1552,7 @@ Optional Features:
   --disable-libtool-lock  avoid locking (might break parallel builds)
   --disable-largefile     omit support for large files
   --disable-nls           do not use Native Language Support
+  --enable-gtk2           compile xarchiver against GTK+ 2
   --enable-debug=yes|no|full
                           build with debugging support
   --disable-debug         no debugging support [default]
@@ -14538,6 +14542,12 @@ $as_echo "$LINGUAS" >&6; }
 	< $srcdir/po/POTFILES.in > po/POTFILES
 
 
+# Check whether --enable-gtk2 was given.
+if test "${enable_gtk2+set}" = set; then :
+  enableval=$enable_gtk2;
+fi
+
+GTK_API_VERSION=2.0
 
 
 
@@ -14658,6 +14668,19 @@ $as_echo "no" >&6; }
 		PKG_CONFIG=""
 	fi
 fi
+if test x"$enable_gtk2" != x"yes"; then :
+  if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-3.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-3.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  GTK_API_VERSION=3.0
+else
+  test x"$enable_gtk2" = x"no" && GTK_API_VERSION=3.0
+fi
+fi
+
 
 pkg_failed=no
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for GTK" >&5
@@ -14667,12 +14690,12 @@ if test -n "$GTK_CFLAGS"; then
     pkg_cv_GTK_CFLAGS="$GTK_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.10.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.10.0") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-\$GTK_API_VERSION >= 2.10.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-$GTK_API_VERSION >= 2.10.0") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK_CFLAGS=`$PKG_CONFIG --cflags "gtk+-2.0 >= 2.10.0" 2>/dev/null`
+  pkg_cv_GTK_CFLAGS=`$PKG_CONFIG --cflags "gtk+-$GTK_API_VERSION >= 2.10.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -14684,12 +14707,12 @@ if test -n "$GTK_LIBS"; then
     pkg_cv_GTK_LIBS="$GTK_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.10.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.10.0") 2>&5
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-\$GTK_API_VERSION >= 2.10.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "gtk+-$GTK_API_VERSION >= 2.10.0") 2>&5
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_GTK_LIBS=`$PKG_CONFIG --libs "gtk+-2.0 >= 2.10.0" 2>/dev/null`
+  pkg_cv_GTK_LIBS=`$PKG_CONFIG --libs "gtk+-$GTK_API_VERSION >= 2.10.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -14710,14 +14733,14 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        GTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "gtk+-2.0 >= 2.10.0" 2>&1`
+	        GTK_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "gtk+-$GTK_API_VERSION >= 2.10.0" 2>&1`
         else
-	        GTK_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "gtk+-2.0 >= 2.10.0" 2>&1`
+	        GTK_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "gtk+-$GTK_API_VERSION >= 2.10.0" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$GTK_PKG_ERRORS" >&5
 
-	as_fn_error $? "Package requirements (gtk+-2.0 >= 2.10.0) were not met:
+	as_fn_error $? "Package requirements (gtk+-$GTK_API_VERSION >= 2.10.0) were not met:
 
 $GTK_PKG_ERRORS
 
@@ -14749,7 +14772,8 @@ else
 $as_echo "yes" >&6; }
 
 fi
-GTK_VERSION_FOUND=`$PKG_CONFIG --modversion gtk+-2.0`
+GTK_VERSION_FOUND=`$PKG_CONFIG --modversion gtk+-$GTK_API_VERSION`
+
 as_arg_v1=$GTK_VERSION_FOUND
 as_arg_v2=2.16.0
 awk "$as_awk_strverscmp" v1="$as_arg_v1" v2="$as_arg_v2" /dev/null
@@ -14769,6 +14793,28 @@ esac
 else
   GTK_V2_16_TRUE='#'
   GTK_V2_16_FALSE=
+fi
+
+
+as_arg_v1=$GTK_VERSION_FOUND
+as_arg_v2=3.0.0
+awk "$as_awk_strverscmp" v1="$as_arg_v1" v2="$as_arg_v2" /dev/null
+case $? in #(
+  1) :
+     ;; #(
+  0) :
+    GTK_V3_0=yes ;; #(
+  2) :
+    GTK_V3_0=yes ;; #(
+  *) :
+     ;;
+esac
+ if test x"$GTK_V3_0" = x"yes"; then
+  GTK_V3_0_TRUE=
+  GTK_V3_0_FALSE='#'
+else
+  GTK_V3_0_TRUE='#'
+  GTK_V3_0_FALSE=
 fi
 
 
@@ -15007,6 +15053,10 @@ fi
 
 if test -z "${GTK_V2_16_TRUE}" && test -z "${GTK_V2_16_FALSE}"; then
   as_fn_error $? "conditional \"GTK_V2_16\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${GTK_V3_0_TRUE}" && test -z "${GTK_V3_0_FALSE}"; then
+  as_fn_error $? "conditional \"GTK_V3_0\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

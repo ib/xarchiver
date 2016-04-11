@@ -1120,8 +1120,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "7zCon.sfx module نى تاللاڭ"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "GTK+2 دىلا ئىشلەيدىغان يېنىك ئارخىپ باشقۇرغۇ"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "GTK+ دىلا ئىشلەيدىغان يېنىك ئارخىپ باشقۇرغۇ"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1245,8 +1245,8 @@ msgid "Archive manager"
 msgstr "ئارخىپ باشقۇرغۇ"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "GTK+2 دىلا ئىشلەتكىلى بولىدىغان ئارخىپ باشقۇرغۇ"
+msgid "A GTK+ only archive manager"
+msgstr "GTK+ دىلا ئىشلەتكىلى بولىدىغان ئارخىپ باشقۇرغۇ"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "ئارخىپ كېڭەيتمە نامىنى ھۆججەت نامىغا قوش"

@@ -1132,8 +1132,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Válassza ki a 7zCon.sfx modult"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "Könnyűsúlyú GTK+2 archívumkezelő"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "Könnyűsúlyú GTK+ archívumkezelő"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1258,7 +1258,7 @@ msgid "Archive manager"
 msgstr "Archívumkezelő"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
+msgid "A GTK+ only archive manager"
 msgstr "GTK+ archívumkezelő"
 
 #~ msgid "Add the archive extension to the filename"

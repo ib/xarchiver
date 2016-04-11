@@ -148,4 +148,12 @@ static inline void gtk_combo_box_text_remove (GtkWidget *combo_box, gint positio
 #define GTK_COMPAT_ABOUT_DIALOG_URI(about, func) g_signal_connect(about, "activate-link", G_CALLBACK(func), NULL)
 #endif
 
+#if GTK_CHECK_VERSION(3,0,0)
+#define GTK_COMPAT_ADJUSTMENT_TYPE GtkAdjustment *
+#undef GTK_COMPAT_SWITCH_PAGE_TYPE
+#define GTK_COMPAT_SWITCH_PAGE_TYPE GtkWidget *
+#else
+#define GTK_COMPAT_ADJUSTMENT_TYPE GtkObject *
+#endif
+
 #endif

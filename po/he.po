@@ -1117,8 +1117,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "נא לבחור את מודול ה־7zCon.sfx."
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "מנהל ארכיונים קליל הפועל ב־GTK+2 בלבד"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "מנהל ארכיונים קליל הפועל ב־GTK+ בלבד"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1245,8 +1245,8 @@ msgid "Archive manager"
 msgstr "מנהל ארכיונים"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "מנהל ארכיונים ב־GTK+2 בלבד"
+msgid "A GTK+ only archive manager"
+msgstr "מנהל ארכיונים ב־GTK+ בלבד"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "הוספת סיומת הארכיון לשם הקובץ"

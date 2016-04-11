@@ -90,6 +90,7 @@ build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = xarchiver$(EXEEXT)
 @GTK_V2_16_FALSE@am__append_1 = sexy-icon-entry.c sexy-icon-entry.h
+@GTK_V3_0_TRUE@am__append_2 = -Wno-deprecated-declarations
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -406,15 +407,9 @@ xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h archive.c \
 	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
 	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
 	$(am__append_1)
-xarchiver_CFLAGS = \
-	-Wall \
-	-Wextra \
-	-Wno-unused-parameter \
-	@GTK_CFLAGS@ \
-	-DHTMLDIR=\"$(htmldir)\" \
-	-DLOCALEDIR=\"$(localedir)\" \
-	-DPIXMAPSDIR=\"$(PIXMAPDIR)\"
-
+xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
+	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
+	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" $(am__append_2)
 xarchiver_LDADD = \
 	xdgmime/libxdgmime.la \
 	@GTK_LIBS@

@@ -1130,8 +1130,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "Mesedez hautatu 7zCon.sfx modulua"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "GTK+2-rako bakarrik artxibo kudeatzaile arina"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "GTK+-rako bakarrik artxibo kudeatzaile arina"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1256,8 +1256,8 @@ msgid "Archive manager"
 msgstr "Pakete kudeatzailea"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "GTK+2-rako bakarrik artxibo kudeatzailea"
+msgid "A GTK+ only archive manager"
+msgstr "GTK+-rako bakarrik artxibo kudeatzailea"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Artxibo luzapena gehitu fitxategi izenera"

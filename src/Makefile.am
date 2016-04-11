@@ -65,6 +65,10 @@ xarchiver_CFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\"
 
+if GTK_V3_0
+xarchiver_CFLAGS += -Wno-deprecated-declarations
+endif
+
 xarchiver_LDADD = \
 	xdgmime/libxdgmime.la \
 	@GTK_LIBS@

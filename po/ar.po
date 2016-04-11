@@ -1111,8 +1111,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "الرجاء تحديد وحدة 7zCon.sfx"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "جتك+2 مدير الأرشيف خفيف فقط"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "جتك+ مدير الأرشيف خفيف فقط"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1240,8 +1240,8 @@ msgid "Archive manager"
 msgstr "مدير الأرشيف"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "جتك+2 مدير الأرشيف فقط"
+msgid "A GTK+ only archive manager"
+msgstr "جتك+ مدير الأرشيف فقط"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "إضافة ملحق إلى اسم ملف أرشيف"

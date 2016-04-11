@@ -76,10 +76,18 @@ AM_GLIB_GNU_GETTEXT
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.10.0])
-GTK_VERSION_FOUND=`$PKG_CONFIG --modversion gtk+-2.0`
+AC_ARG_ENABLE([gtk2], AS_HELP_STRING([--enable-gtk2], [compile xarchiver against GTK+ 2]))
+GTK_API_VERSION=2.0
+AS_IF([test x"$enable_gtk2" != x"yes"], [PKG_CHECK_EXISTS([gtk+-3.0], [GTK_API_VERSION=3.0], [test x"$enable_gtk2" = x"no" && GTK_API_VERSION=3.0])])
+
+PKG_CHECK_MODULES([GTK], [gtk+-$GTK_API_VERSION >= 2.10.0])
+GTK_VERSION_FOUND=`$PKG_CONFIG --modversion gtk+-$GTK_API_VERSION`
+
 AS_VERSION_COMPARE([$GTK_VERSION_FOUND], [2.16.0], [], [GTK_V2_16=yes], [GTK_V2_16=yes])
 AM_CONDITIONAL([GTK_V2_16], [test x"$GTK_V2_16" = x"yes"])
+
+AS_VERSION_COMPARE([$GTK_VERSION_FOUND], [3.0.0], [], [GTK_V3_0=yes], [GTK_V3_0=yes])
+AM_CONDITIONAL([GTK_V3_0], [test x"$GTK_V3_0" = x"yes"])
 
 dnl ***********************************
 dnl *** Check for debugging support ***

@@ -40,7 +40,7 @@
 			<para>
 				&app; is a small and lightweight archive manager.
 				I developed it to manage archives without depending from a special Desktop Environment
-				like KDE or GNOME, so &app; requires only the GTK+2 toolkit
+				like KDE or GNOME, so &app; requires only the GTK+ toolkit
 				to work. The package <emphasis>xdg-utils</emphasis> is optional.
 			</para>
 			<para>

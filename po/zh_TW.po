@@ -1112,8 +1112,8 @@ msgid "Please select the 7zCon.sfx module"
 msgstr "請選擇 7zCon.sfx 模組"
 
 #: ../src/window.c
-msgid "A GTK+2 only lightweight archive manager"
-msgstr "僅採用 GTK+2 的輕量封存檔管理程式"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "僅採用 GTK+ 的輕量封存檔管理程式"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1237,8 +1237,8 @@ msgid "Archive manager"
 msgstr "封存管理程式"
 
 #: ../xarchiver.desktop.in.h
-msgid "A GTK+2 only archive manager"
-msgstr "GTK+2 介面的封存檔管理程式"
+msgid "A GTK+ only archive manager"
+msgstr "GTK+ 介面的封存檔管理程式"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "封存檔加入附檔名"
