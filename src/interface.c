@@ -122,7 +122,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (check_menu);
 	gtk_widget_set_sensitive (check_menu,FALSE);
 	gtk_container_add (GTK_CONTAINER (menuitem1_menu),check_menu);
-	gtk_widget_add_accelerator (check_menu,"activate",accel_group,GDK_t,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(check_menu, "activate", accel_group, GDK_KEY_t, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-index",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
@@ -132,7 +132,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (properties);
 	gtk_widget_set_sensitive ( properties,FALSE);
 	gtk_container_add (GTK_CONTAINER (menuitem1_menu),properties);
-	gtk_widget_add_accelerator (properties,"activate",accel_group,GDK_p,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(properties, "activate", accel_group, GDK_KEY_p, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-properties",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
@@ -163,7 +163,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_sensitive (addfile,FALSE);
 	gtk_widget_show (addfile);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),addfile);
-	gtk_widget_add_accelerator (addfile,"activate",accel_group,GDK_d,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(addfile, "activate", accel_group, GDK_KEY_d, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	image2 = xa_main_window_find_image ("xarchiver-add.png",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image2);
@@ -173,7 +173,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_sensitive (extract_menu,FALSE);
 	gtk_widget_show (extract_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),extract_menu);
-	gtk_widget_add_accelerator (extract_menu,"activate",accel_group,GDK_e,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(extract_menu, "activate", accel_group, GDK_KEY_e, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	image2 =  xa_main_window_find_image ("xarchiver-extract.png",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image2);
@@ -183,7 +183,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_sensitive (delete_menu,FALSE);
 	gtk_widget_show (delete_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
-	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
 
 	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Re_name"));
 	gtk_widget_set_sensitive (rename_menu,FALSE);
@@ -207,7 +207,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_set_sensitive (exe_menu,FALSE);
 	gtk_widget_show (exe_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),exe_menu);
-	gtk_widget_add_accelerator (exe_menu,"activate",accel_group,GDK_x,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(exe_menu, "activate", accel_group, GDK_KEY_x, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	image2 = gtk_image_new_from_stock ("gtk-execute",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image2);
@@ -216,13 +216,13 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	multi_extract_menu = gtk_menu_item_new_with_mnemonic (_("_Multi-Extract"));
 	gtk_widget_show (multi_extract_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),multi_extract_menu);
-	gtk_widget_add_accelerator (multi_extract_menu,"activate",accel_group,GDK_m,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(multi_extract_menu, "activate", accel_group, GDK_KEY_m, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	comment_menu = gtk_image_menu_item_new_with_mnemonic (_("Archive _comment"));
 	gtk_widget_set_sensitive (comment_menu,FALSE);
 	gtk_widget_show (comment_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),comment_menu);
-	gtk_widget_add_accelerator (comment_menu,"activate",accel_group,GDK_s,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(comment_menu, "activate", accel_group, GDK_KEY_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-justify-fill",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
@@ -236,7 +236,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (select_all);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),select_all);
 	gtk_widget_set_sensitive (select_all,FALSE);
-	gtk_widget_add_accelerator (select_all,"activate",accel_group,GDK_a,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(select_all, "activate", accel_group, GDK_KEY_a, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-select-all",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
@@ -246,13 +246,13 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (deselect_all);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),deselect_all);
 	gtk_widget_set_sensitive (deselect_all,FALSE);
-	gtk_widget_add_accelerator (deselect_all,"activate",accel_group,GDK_l,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(deselect_all, "activate", accel_group, GDK_KEY_l, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	select_pattern = gtk_menu_item_new_with_mnemonic (_("Select _by pattern"));
 	gtk_widget_show (select_pattern);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),select_pattern);
 	gtk_widget_set_sensitive (select_pattern,FALSE);
-	gtk_widget_add_accelerator (select_pattern,"activate",accel_group,GDK_b,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(select_pattern, "activate", accel_group, GDK_KEY_b, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	separatormenuitem5 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem5);
@@ -261,7 +261,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("Cmd-line outp_ut"));
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),view_shell_output1);
-	gtk_widget_add_accelerator (view_shell_output1,"activate",accel_group,GDK_u,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(view_shell_output1, "activate", accel_group, GDK_KEY_u, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 	if (show_output_menu_item)
 		gtk_widget_set_sensitive(view_shell_output1,TRUE);
 	else
@@ -276,7 +276,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (password_entry_menu);
 	gtk_widget_set_sensitive (password_entry_menu,FALSE);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),password_entry_menu);
-	gtk_widget_add_accelerator (password_entry_menu,"activate",accel_group,GDK_r,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(password_entry_menu, "activate", accel_group, GDK_KEY_r, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	separatormenuitem6 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem6);
@@ -286,7 +286,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	prefs_menu = gtk_image_menu_item_new_with_mnemonic (_("_Preferences"));
 	gtk_widget_show (prefs_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),prefs_menu);
-	gtk_widget_add_accelerator (prefs_menu,"activate",accel_group,GDK_f,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(prefs_menu, "activate", accel_group, GDK_KEY_f, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-preferences",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
@@ -302,7 +302,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	help1 = gtk_image_menu_item_new_with_mnemonic (_("_Contents"));
 	gtk_widget_show (help1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),help1);
-	gtk_widget_add_accelerator (help1,"activate",accel_group,GDK_F1,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(help1, "activate", accel_group, GDK_KEY_F1, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-help",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);

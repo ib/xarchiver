@@ -2576,7 +2576,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&model);
 
 	g_object_set(archive[idx]->renderer_text,"editable",TRUE,NULL);
-	gtk_accel_group_disconnect_key(accel_group,GDK_Delete,GDK_MODE_DISABLED);
+	gtk_accel_group_disconnect_key(accel_group, GDK_KEY_Delete, GDK_MODE_DISABLED);
 	column = gtk_tree_view_get_column(GTK_TREE_VIEW (archive[idx]->treeview),0);
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(archive[idx]->treeview),row_list->data,column,TRUE);
 	gtk_tree_path_free (row_list->data);
@@ -2586,7 +2586,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 void xa_rename_cell_edited_canceled(GtkCellRenderer *renderer,gpointer data)
 {
 	g_object_set(renderer,"editable",FALSE,NULL);
-	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
 }
 
 void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,const gchar *new_name,XArchive *archive)
@@ -2665,7 +2665,7 @@ void xa_rename_cell_edited (GtkCellRendererText *cell,const gchar *path_string,c
 		chdir (archive->tmp);
 		xa_execute_add_commands(archive,list,NULL);
 	}
-	gtk_widget_add_accelerator (delete_menu,"activate",accel_group,GDK_Delete,GDK_MODE_DISABLED,GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
 	g_object_set(cell,"editable",FALSE,NULL);
 }
 

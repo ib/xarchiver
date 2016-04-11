@@ -90,6 +90,21 @@ static inline void gtk_widget_set_can_default (GtkWidget *widget, gboolean can_d
 #endif
 
 #if !GTK_CHECK_VERSION(2,22,0)
+#define GDK_KEY_a GDK_a
+#define GDK_KEY_b GDK_b
+#define GDK_KEY_d GDK_d
+#define GDK_KEY_e GDK_e
+#define GDK_KEY_f GDK_f
+#define GDK_KEY_l GDK_l
+#define GDK_KEY_m GDK_m
+#define GDK_KEY_p GDK_p
+#define GDK_KEY_r GDK_r
+#define GDK_KEY_s GDK_s
+#define GDK_KEY_t GDK_t
+#define GDK_KEY_u GDK_u
+#define GDK_KEY_x GDK_x
+#define GDK_KEY_Delete GDK_Delete
+#define GDK_KEY_F1 GDK_F1
 #define GTK_COMPAT_SWITCH_PAGE_TYPE GtkNotebookPage *
 #define gdk_drag_context_get_source_window(context) context->source_window
 #define gdk_drag_context_get_suggested_action(context) context->suggested_action
