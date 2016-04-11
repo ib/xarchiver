@@ -46,7 +46,6 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	icon_theme = gtk_icon_theme_get_default();
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
 	gtk_window_set_position (GTK_WINDOW(prefs_data->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
-	gtk_dialog_set_has_separator(GTK_DIALOG(prefs_data->dialog1),FALSE);
 
 	vbox1 = GTK_DIALOG (prefs_data->dialog1)->vbox;
 	hbox1 = gtk_hbox_new (FALSE, 6);

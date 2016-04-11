@@ -757,7 +757,6 @@ gchar *xa_create_password_dialog(XArchive *archive)
   	gtk_window_set_position (GTK_WINDOW (password_dialog),GTK_WIN_POS_CENTER_ON_PARENT);
   	gtk_window_set_resizable (GTK_WINDOW (password_dialog),FALSE);
   	gtk_window_set_type_hint (GTK_WINDOW (password_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
-  	gtk_dialog_set_has_separator (GTK_DIALOG (password_dialog),FALSE);
 
   	dialog_vbox1 = GTK_DIALOG (password_dialog)->vbox;
   	gtk_widget_show (dialog_vbox1);
@@ -1077,7 +1076,6 @@ GtkWidget *xa_create_archive_properties_window()
 	gtk_window_set_type_hint (GTK_WINDOW (archive_properties_window),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_resizable (GTK_WINDOW (archive_properties_window),FALSE);
 	gtk_window_set_modal (GTK_WINDOW (archive_properties_window),TRUE);
-	gtk_dialog_set_has_separator(GTK_DIALOG(archive_properties_window),FALSE);
 
 	table1 = gtk_table_new (10,2,FALSE);
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(archive_properties_window)->vbox),table1,TRUE,TRUE,0);

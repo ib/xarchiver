@@ -57,7 +57,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	gtk_window_set_position (GTK_WINDOW (dialog_data->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->dialog1),GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_dialog_set_has_separator (GTK_DIALOG(dialog_data->dialog1),FALSE);
 	gtk_window_set_destroy_with_parent(GTK_WINDOW (dialog_data->dialog1),TRUE);
 
 	option_tooltip = gtk_tooltips_new ();
@@ -408,7 +407,6 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_window_set_type_hint (GTK_WINDOW (dialog_data->multi_extract),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog_data->multi_extract),TRUE);
 	gtk_widget_set_size_request(dialog_data->multi_extract,-1,300);
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog_data->multi_extract),FALSE);
 	gtk_window_set_title (GTK_WINDOW (dialog_data->multi_extract),_("Multi-Extract"));
 
 	dialog_vbox1 = GTK_DIALOG (dialog_data->multi_extract)->vbox;

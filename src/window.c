@@ -166,7 +166,6 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 					      GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_OK);
 
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog),FALSE);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog),6);
 	gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),6);
 	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox),8);
@@ -2076,7 +2075,6 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	comment_dialog = gtk_dialog_new_with_buttons (_("Comment"),GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,NULL,NULL);
 	gtk_window_set_position (GTK_WINDOW (comment_dialog),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (comment_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_dialog_set_has_separator (GTK_DIALOG (comment_dialog),FALSE);
 	dialog_vbox1 = GTK_DIALOG (comment_dialog)->vbox;
 	gtk_widget_set_size_request(comment_dialog,500,330);
 
