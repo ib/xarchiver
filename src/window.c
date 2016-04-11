@@ -1712,7 +1712,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 	gtk_tree_model_get_iter(archive->model,&iter,(GtkTreePath*) (row_list->data));
 	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry,-1);
 
-	gdk_property_change (context->source_window,
+	gdk_property_change(gdk_drag_context_get_source_window(context),
 					gdk_atom_intern ("XdndDirectSave0",FALSE),
 					gdk_atom_intern ("text/plain",FALSE),
 					8,GDK_PROP_MODE_REPLACE,
@@ -1747,7 +1747,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!"));
 		return;
 	}
-	gdk_property_get (	dc->source_window,
+	gdk_property_get(gdk_drag_context_get_source_window(dc),
 						gdk_atom_intern ("XdndDirectSave0",FALSE),
 						gdk_atom_intern ("text/plain",FALSE),
 						0,4096,FALSE,NULL,NULL,NULL,&_destination );

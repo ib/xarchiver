@@ -91,6 +91,12 @@ static inline void gtk_widget_set_can_default (GtkWidget *widget, gboolean can_d
 
 #if !GTK_CHECK_VERSION(2,22,0)
 #define GTK_COMPAT_SWITCH_PAGE_TYPE GtkNotebookPage *
+#define gdk_drag_context_get_source_window(context) context->source_window
+#define gdk_drag_context_get_suggested_action(context) context->suggested_action
+static inline void gtk_icon_view_set_item_orientation (GtkIconView *icon_view, GtkOrientation orientation)
+{
+	gtk_icon_view_set_orientation(icon_view, orientation);
+}
 #else
 #define GTK_COMPAT_SWITCH_PAGE_TYPE gpointer
 #endif

@@ -1493,7 +1493,7 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 	}
 	/* This to set the focus on the dropped row */
 	gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
-	gdk_drag_status (context,context->suggested_action,time);
+	gdk_drag_status(context, gdk_drag_context_get_suggested_action(context), time);
 	return TRUE;
 }
 
