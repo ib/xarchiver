@@ -2001,6 +2001,11 @@ void xa_determine_program_to_run(gchar *file)
 	g_free(program);
 }
 
+void xa_set_environment (gpointer user_data)
+{
+	g_setenv("DISPLAY", (const gchar *) user_data, TRUE);
+}
+
 gboolean xa_launch_external_program(gchar *program,gchar *arg)
 {
 	GtkWidget *message;
@@ -2015,7 +2020,7 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 	g_free(command_line);
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (xa_main_window));
-	if (!gdk_spawn_on_screen (screen,NULL,argv,NULL,G_SPAWN_SEARCH_PATH,NULL,NULL,NULL,&error))
+	if (!GDK_COMPAT_SPAWN(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, xa_set_environment, gdk_screen_make_display_name(screen), NULL, &error))
 	{
 		message = gtk_message_dialog_new (GTK_WINDOW (xa_main_window),
 										GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,

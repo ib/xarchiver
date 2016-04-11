@@ -102,6 +102,7 @@ static inline void gtk_icon_view_set_item_orientation (GtkIconView *icon_view, G
 #endif
 
 #if !GTK_CHECK_VERSION(2,24,0)
+#define GDK_COMPAT_SPAWN(p1, p2, p3, p4, p5, p6, p7, p8) gdk_spawn_on_screen(screen, p1, p2, p3, p4, NULL, NULL, p7, p8)
 #define GTK_COMBO_BOX_TEXT
 #define gtk_combo_box_text_new gtk_combo_box_new_text
 static inline void gtk_combo_box_text_append_text (GtkWidget *combo_box, const gchar *text)
@@ -124,6 +125,8 @@ static inline void gtk_combo_box_text_remove (GtkWidget *combo_box, gint positio
 {
 	gtk_combo_box_remove_text(GTK_COMBO_BOX(combo_box), position);
 }
+#else
+#define GDK_COMPAT_SPAWN(p1, p2, p3, p4, p5, p6, p7, p8) g_spawn_async(p1, p2, p3, p4, p5, p6, p7, p8)
 #endif
 
 #endif
