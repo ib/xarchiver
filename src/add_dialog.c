@@ -41,7 +41,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_window_set_position (GTK_WINDOW (add_dialog->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-	add_dialog->dialog_vbox1 = GTK_DIALOG (add_dialog->dialog1)->vbox;
+	add_dialog->dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(add_dialog->dialog1));
 
 	add_dialog->notebook1 = gtk_notebook_new ();
 	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1),add_dialog->notebook1, TRUE, TRUE,0);
@@ -173,7 +173,7 @@ Add_dialog_data *xa_create_add_dialog()
 	label5 = gtk_label_new (_("Encryption: "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame3), label5);
 
-	dialog_action_area1 = GTK_DIALOG (add_dialog->dialog1)->action_area;
+	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(add_dialog->dialog1));
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
 
 	add_dialog->cancel_button = gtk_button_new_from_stock ("gtk-cancel");

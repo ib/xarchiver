@@ -167,8 +167,8 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_OK);
 
 	gtk_container_set_border_width (GTK_CONTAINER (dialog),6);
-	gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox),6);
-	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox),8);
+	gtk_container_set_border_width(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), 6);
+	gtk_box_set_spacing(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), 8);
 	gtk_widget_set_size_request (dialog,400,-1);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL,NULL);
@@ -201,7 +201,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 	}
 	gtk_container_add (GTK_CONTAINER (scrolledwindow),textview);
 	gtk_box_pack_start (GTK_BOX (vbox),scrolledwindow,TRUE,TRUE,0);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox),vbox,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), vbox, TRUE, TRUE, 0);
 
 	output = _archive->error_output;
 	while (output)
@@ -1805,7 +1805,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			g_free (archive->extraction_path);
 			archive->extraction_path = NULL;
 		}
-		gtk_selection_data_set (selection_data,selection_data->target,8,(guchar*)to_send,1);
+		gtk_selection_data_set(selection_data, gtk_selection_data_get_target(selection_data), 8, (guchar *) to_send, 1);
 	}
 }
 
@@ -2075,7 +2075,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	comment_dialog = gtk_dialog_new_with_buttons (_("Comment"),GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,NULL,NULL);
 	gtk_window_set_position (GTK_WINDOW (comment_dialog),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (comment_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
-	dialog_vbox1 = GTK_DIALOG (comment_dialog)->vbox;
+	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(comment_dialog));
 	gtk_widget_set_size_request(comment_dialog,500,330);
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL,NULL);
@@ -2091,7 +2091,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	g_object_unref (textbuffer);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),textview);
 
-	dialog_action_area1 = GTK_DIALOG (comment_dialog)->action_area;
+	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(comment_dialog));
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
 	clear = gtk_button_new_from_stock ("gtk-clear");
@@ -2350,7 +2350,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 		clipboard_selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
 		if (clipboard_selection != NULL)
 		{
-			paste_data = xa_get_paste_data_from_clipboard_selection((char*)clipboard_selection->data);
+			paste_data = xa_get_paste_data_from_clipboard_selection((char *) gtk_selection_data_get_data(clipboard_selection));
 			gtk_selection_data_free (clipboard_selection);
 			if (strcmp(archive->escaped_path,paste_data->cut_copy_archive->escaped_path) == 0)
 				value = FALSE;
@@ -2418,7 +2418,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
 	if (selection == NULL)
 		return;
-	paste_data = xa_get_paste_data_from_clipboard_selection((char*)selection->data);
+	paste_data = xa_get_paste_data_from_clipboard_selection((char *) gtk_selection_data_get_data(selection));
 	gtk_selection_data_free (selection);
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
@@ -2519,7 +2519,7 @@ void xa_clipboard_get (GtkClipboard *clipboard,GtkSelectionData *selection_data,
 	XArchive *archive = user_data;
 	GSList *_files = archive->clipboard_data->files;
 	GString *params = g_string_new("");
-	if (selection_data->target != XA_INFO_LIST)
+	if (gtk_selection_data_get_target(selection_data) != XA_INFO_LIST)
 		return;
 
 	g_string_append (params,g_strdup(archive->escaped_path));
@@ -2535,7 +2535,7 @@ void xa_clipboard_get (GtkClipboard *clipboard,GtkSelectionData *selection_data,
 		g_string_append (params,"\r\n");
 		_files = _files->next;
 	}
-	gtk_selection_data_set (selection_data,selection_data->target,8,(guchar *) params->str,strlen(params->str));
+	gtk_selection_data_set(selection_data, gtk_selection_data_get_target(selection_data), 8, (guchar *) params->str, strlen(params->str));
 	g_string_free (params,TRUE);
 }
 

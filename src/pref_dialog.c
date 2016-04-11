@@ -47,7 +47,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
 	gtk_window_set_position (GTK_WINDOW(prefs_data->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 
-	vbox1 = GTK_DIALOG (prefs_data->dialog1)->vbox;
+	vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(prefs_data->dialog1));
 	hbox1 = gtk_hbox_new (FALSE, 6);
 	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,TRUE,TRUE,10);
 

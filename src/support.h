@@ -49,6 +49,16 @@
 
 #if !GTK_CHECK_VERSION(2,14,0)
 #define GTK_ICON_LOOKUP_FORCE_SIZE 0
+static inline GtkWidget *gtk_dialog_get_action_area (GtkDialog *dialog)
+{
+	return dialog->action_area;
+}
+static inline GtkWidget *gtk_dialog_get_content_area (GtkDialog *dialog)
+{
+	return dialog->vbox;
+}
+#define gtk_selection_data_get_data(selection_data) selection_data->data
+#define gtk_selection_data_get_target(selection_data) selection_data->target
 #endif
 
 #endif

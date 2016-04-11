@@ -65,7 +65,7 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 	gtk_window_set_transient_for(GTK_WINDOW(data->dialog1),GTK_WINDOW(xa_main_window));
 	gtk_container_set_border_width (GTK_CONTAINER (data->dialog1),5);
 	gtk_widget_set_size_request(data->dialog1,380,380);
-	dialog_vbox1 = GTK_DIALOG (data->dialog1)->vbox;
+	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(data->dialog1));
 
 	vbox1 = gtk_vbox_new (FALSE, 5);
 	gtk_box_pack_start (GTK_BOX (dialog_vbox1),vbox1,TRUE,TRUE,0);
@@ -135,7 +135,7 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 	gtk_box_pack_start (GTK_BOX (hbox_expander),browse,FALSE,TRUE,0);
 	gtk_container_add(GTK_CONTAINER(custom_command_expander),hbox_expander);
 
-	dialog_action_area1 = GTK_DIALOG (data->dialog1)->action_area;
+	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(data->dialog1));
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");

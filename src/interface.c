@@ -758,7 +758,7 @@ gchar *xa_create_password_dialog(XArchive *archive)
   	gtk_window_set_resizable (GTK_WINDOW (password_dialog),FALSE);
   	gtk_window_set_type_hint (GTK_WINDOW (password_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
 
-  	dialog_vbox1 = GTK_DIALOG (password_dialog)->vbox;
+  	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(password_dialog));
   	gtk_widget_show (dialog_vbox1);
 
   	vbox1 = gtk_vbox_new (FALSE,12);
@@ -962,7 +962,7 @@ void xa_select_by_pattern_dialog(GtkMenuItem *menuitem,gpointer user_data)
 	gtk_window_set_type_hint (GTK_WINDOW (ddialog1),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_widget_set_size_request(ddialog1,286,93);
 	gtk_window_set_transient_for (GTK_WINDOW (ddialog1),GTK_WINDOW (xa_main_window));
-	ddialog_vbox1 = GTK_DIALOG (ddialog1)->vbox;
+	ddialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(ddialog1));
 	gtk_widget_show (ddialog_vbox1);
 
 	dhbox1 = gtk_hbox_new (FALSE,10);
@@ -980,7 +980,7 @@ void xa_select_by_pattern_dialog(GtkMenuItem *menuitem,gpointer user_data)
 	gtk_box_pack_start (GTK_BOX (dhbox1),pattern_entry,TRUE,TRUE,0);
 	gtk_entry_set_activates_default(GTK_ENTRY(pattern_entry),TRUE);
 
-	dialog_action_area1 = GTK_DIALOG (ddialog1)->action_area;
+	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(ddialog1));
 	gtk_widget_show (dialog_action_area1);
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
@@ -1078,7 +1078,7 @@ GtkWidget *xa_create_archive_properties_window()
 	gtk_window_set_modal (GTK_WINDOW (archive_properties_window),TRUE);
 
 	table1 = gtk_table_new (10,2,FALSE);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(archive_properties_window)->vbox),table1,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(archive_properties_window))), table1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (table1),6);
 	gtk_table_set_row_spacings (GTK_TABLE (table1),6);
 	gtk_table_set_col_spacings (GTK_TABLE (table1),12);
