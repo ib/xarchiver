@@ -31,16 +31,13 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog = g_new0 (Add_dialog_data, 1);
 	add_dialog->path_group = NULL;
-	add_dialog->option_tooltip = gtk_tooltips_new ();
 
 	add_dialog->dialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (add_dialog->dialog1), _("Add files"));
 	gtk_window_set_position (GTK_WINDOW (add_dialog->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
-	gtk_dialog_set_has_separator (GTK_DIALOG (add_dialog->dialog1),FALSE);
 
-	add_dialog->add_option_tooltip = gtk_tooltips_new ();
-	add_dialog->dialog_vbox1 = GTK_DIALOG (add_dialog->dialog1)->vbox;
+	add_dialog->dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG (add_dialog->dialog1));
 
 	add_dialog->notebook1 = gtk_notebook_new ();
 	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1),add_dialog->notebook1, TRUE, TRUE,0);
@@ -107,13 +104,13 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update and add"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified"), NULL );
+	gtk_widget_set_tooltip_text (add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
 
 	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen and replace"));
 
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->freshen , _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"), NULL );
+	gtk_widget_set_tooltip_text (add_dialog->freshen , _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->freshen, FALSE, FALSE, 0);
 	g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
 
@@ -123,7 +120,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Create a solid archive"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->solid_archive), FALSE);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio"), NULL);
+	gtk_widget_set_tooltip_text (add_dialog->solid_archive , _("In a solid archive the files are grouped together featuring a better compression ratio"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->solid_archive, FALSE, FALSE, 0);
 
 	add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Delete files after adding"));
@@ -172,12 +169,12 @@ Add_dialog_data *xa_create_add_dialog()
 	label5 = gtk_label_new (_("Encryption: "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame3), label5);
 
-	dialog_action_area1 = GTK_DIALOG (add_dialog->dialog1)->action_area;
+	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG (add_dialog->dialog1));
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
 
 	add_dialog->cancel_button = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->cancel_button, GTK_RESPONSE_CANCEL);
-	GTK_WIDGET_SET_FLAGS (add_dialog->cancel_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (add_dialog->cancel_button, TRUE);
 
 	add_dialog->add_button = gtk_button_new();
 	add_dialog->add_image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_SMALL_TOOLBAR);
@@ -192,7 +189,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_container_add(GTK_CONTAINER(add_dialog->add_button), alignment2);
 
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->add_button, GTK_RESPONSE_OK);
-	GTK_WIDGET_SET_FLAGS (add_dialog->add_button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default (add_dialog->add_button, TRUE);
 	gtk_dialog_set_default_response (GTK_DIALOG (add_dialog->dialog1), GTK_RESPONSE_OK);
 	return add_dialog;
 }
@@ -312,7 +309,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
 	else if (archive->type == XARCHIVETYPE_7ZIP)
 		g_signal_connect (G_OBJECT (add_dialog->compression_value),"value-changed",G_CALLBACK (fix_adjustment_value), NULL);
-	gtk_tooltips_set_tip (add_dialog->option_tooltip,add_dialog->compression_scale, compression_msg, NULL );
+	gtk_widget_set_tooltip_text (add_dialog->compression_scale, compression_msg);
 
 	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_XZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_LZOP)
 		flag = FALSE;
@@ -414,13 +411,13 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (add_dialog->remove_files != NULL)
 				archive->remove_files = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->remove_files));
 
-			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->freshen))
+			if (gtk_widget_is_sensitive(GTK_WIDGET(add_dialog->freshen)))
 				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->freshen));
 
-			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->solid_archive))
+			if (gtk_widget_is_sensitive(GTK_WIDGET(add_dialog->solid_archive)))
 				archive->solid_archive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->solid_archive));
 
-			if (GTK_WIDGET_IS_SENSITIVE(add_dialog->compression_scale))
+			if (gtk_widget_is_sensitive(GTK_WIDGET(add_dialog->compression_scale)))
 			{
 				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT (add_dialog->compression_value));
 				compression_string = g_strdup_printf("%d",archive->compression_level);

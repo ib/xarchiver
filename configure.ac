@@ -76,8 +76,21 @@ AM_GLIB_GNU_GETTEXT
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
+AC_ARG_ENABLE([gtk3],
+    [AC_HELP_STRING([--enable-gtk3],
+        [compile xarchiver against gtk+ 3.0 (default: yes)])],
+    [enable_gtk3="${enableval}"],
+    [enable_gtk3="yes"]
+)
+
+if test x"$enable_gtk3" = x"yes"; then
+    GTK_API_VERSION="3.0"
+else
+    GTK_API_VERSION="2.0"
+fi
+
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.10.0])
-PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.10.0])
+PKG_CHECK_MODULES([GTK], [gtk+-$GTK_API_VERSION >= 2.10.0])
 
 dnl ***********************************
 dnl *** Check for debugging support ***

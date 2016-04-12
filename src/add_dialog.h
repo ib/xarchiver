@@ -46,10 +46,8 @@ typedef struct
 	GtkWidget *add_label;
 	GtkWidget *cancel_button;
 	GtkWidget *add_button;
-	GtkTooltips *add_option_tooltip;
 	GtkWidget *add_option_label;
-	GtkTooltips *option_tooltip;
-	GtkObject *compression_value;
+	GtkAdjustment *compression_value;
 } Add_dialog_data;
 
 Add_dialog_data *xa_create_add_dialog();

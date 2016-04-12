@@ -51,7 +51,7 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 	gchar *file, *stem, *newfile;
 
 	g_free(ComboArchiveType);
-	ComboArchiveType = gtk_combo_box_get_active_text(combo_box);
+	ComboArchiveType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_box));
 	newsuff = xa_get_suffix(g_list_first(ArchiveType), ComboArchiveType);
 
 	Name = g_list_last(ArchiveType);
@@ -97,7 +97,6 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	GtkWidget *hbox = NULL;
 	GtkWidget *combo_box = NULL;
 	GtkFileFilter *xa_new_archive_dialog_filter;
-	GtkTooltips *filter_tooltip;
 	GList *Suffix,*Name;
 	gchar *my_path = NULL;
 	gchar *basepath, *filename;
@@ -150,10 +149,9 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	hbox = gtk_hbox_new (FALSE, 6);
 	gtk_box_pack_start (GTK_BOX (hbox),gtk_label_new (_("Archive type:")),FALSE,FALSE,0);
 
-	combo_box = gtk_combo_box_new_text ();
+	combo_box = gtk_combo_box_text_new ();
 
-	filter_tooltip = gtk_tooltips_new();
-	gtk_tooltips_set_tip (filter_tooltip,combo_box, _("Choose the archive type to create") , NULL);
+	gtk_widget_set_tooltip_text (combo_box, _("Choose the archive type to create"));
 	Name = g_list_first (ArchiveType);
 
 	while (Name)
@@ -161,7 +159,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		if (!(*(char *) Name->data == 0 ||
 		      (strncmp(Name->data, "arj", 3) == 0 && unarj) ||
 		      (strncmp(Name->data, "rar", 3) == 0 && unrar)))
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combo_box),Name->data);
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_box),Name->data);
 		Name = g_list_next (Name);
 	}
 	if (new_combo_box == -1)
@@ -173,7 +171,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 	gtk_widget_show_all (hbox);
 	gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (xa_file_chooser), hbox);
-	ComboArchiveType = gtk_combo_box_get_active_text(GTK_COMBO_BOX(combo_box));
+	ComboArchiveType = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT(combo_box));
 	suffix = xa_get_suffix(g_list_first(ArchiveType), ComboArchiveType);
 	g_signal_connect(G_OBJECT(combo_box), "changed", G_CALLBACK(xa_change_archive_extension), xa_file_chooser);
 

@@ -39,7 +39,6 @@ GtkTreeStore *archive_dir_model;
 GtkTreeViewColumn *column;
 GtkCellRenderer *archive_dir_renderer;
 GtkAccelGroup *accel_group;
-GtkTooltips *tooltips;
 GtkIconTheme *icon_theme;
 
 GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuitem1, *menuitem1_menu, *new1, *open1, *listing, *listing_submenu,
@@ -64,7 +63,7 @@ gboolean select_matched_rows(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer
 void xa_select_by_pattern_dialog(GtkMenuItem *, gpointer );
 void xa_handle_navigation_buttons (GtkMenuItem *, gpointer );
 void xa_add_page (XArchive *);
-void xa_page_has_changed (GtkNotebook *, GtkNotebookPage *, guint ,gpointer );
+void xa_page_has_changed (GtkNotebook *, GtkWidget *, guint ,gpointer );
 void xa_close_page ( GtkWidget*, gpointer );
 void xa_set_button_state (gboolean,gboolean,gboolean,gboolean,gboolean,gboolean, gboolean, gboolean,gboolean,gboolean,gboolean);
 void xa_restore_navigation(int idx);
