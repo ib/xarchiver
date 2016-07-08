@@ -261,8 +261,6 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
-GLIB_CFLAGS = @GLIB_CFLAGS@
-GLIB_LIBS = @GLIB_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
@@ -443,7 +441,6 @@ xarchiver_CFLAGS = \
 	-Wall \
 	-Wextra \
 	-Wno-unused-parameter \
-	@GLIB_CFLAGS@ \
 	@GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
@@ -451,7 +448,6 @@ xarchiver_CFLAGS = \
 
 xarchiver_LDADD = \
 	xdgmime/libxdgmime.la \
-	@GLIB_LIBS@ \
 	@GTK_LIBS@
 
 all: all-recursive

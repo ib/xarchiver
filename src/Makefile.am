@@ -57,7 +57,6 @@ xarchiver_CFLAGS = \
 	-Wall \
 	-Wextra \
 	-Wno-unused-parameter \
-	@GLIB_CFLAGS@ \
 	@GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
@@ -65,5 +64,4 @@ xarchiver_CFLAGS = \
 
 xarchiver_LDADD = \
 	xdgmime/libxdgmime.la \
-	@GLIB_LIBS@ \
 	@GTK_LIBS@

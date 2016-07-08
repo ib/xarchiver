@@ -76,7 +76,6 @@ AM_GLIB_GNU_GETTEXT
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.10.0])
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.10.0])
 
 dnl ***********************************
