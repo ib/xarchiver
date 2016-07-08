@@ -4,10 +4,10 @@ gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
 update-icon-cache:
 	@-if test -z "$(DESTDIR)"; then \
-	  echo "Updating GTK icon cache."; \
+	  echo "Updating GTK+ icon cache."; \
 	  $(gtk_update_icon_cache); \
 	else \
-	  echo "*** GTK icon cache not updated. Remember to run:"; \
+	  echo "*** GTK+ icon cache not updated. Remember to run:"; \
 	  echo "***"; \
 	  echo "***   $(gtk_update_icon_cache)"; \
 	  echo "***"; \

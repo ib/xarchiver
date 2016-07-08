@@ -159,8 +159,9 @@
 		<section id="inst_requirements">
 			<title>Requirements</title>
 			<para>
-				For compiling &app; yourself, you will need the GTK (>= 2.10.0)
-				libraries and header files. You will also need the Pango, Glib and ATK libraries and header files.
+				For compiling &app; yourself, you will need the GTK+ (>= 2.10.0)
+				libraries and header files. (You will also need the GLib, Pango and ATK libraries and header files
+				as well as libraries and header files needed by these).
 				All these files are available at <ulink url="http://www.gtk.org">http://www.gtk.org</ulink>.
 			</para>
 		</section>
@@ -269,7 +270,7 @@
 						</tbody>
 					</tgroup>
 				</table>
-				&app; supports also all generic GTK options, a list is available on the help screen.
+				&app; supports also all generic GTK+ options, a list is available on the help screen.
 			</para>
 		</section>
 		<section id="usage_general">
