@@ -37,5 +37,10 @@
 #define Q_(String) g_strip_context((String), (String))
 #endif
 
+/* GTK+ compatibility */
+
+#if !GTK_CHECK_VERSION(2,14,0)
+#define GTK_ICON_LOOKUP_FORCE_SIZE 0
+#endif
 
 #endif
