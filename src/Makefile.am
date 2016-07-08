@@ -43,7 +43,6 @@ xarchiver_SOURCES = \
 	socket.h \
 	string_utils.c \
 	string_utils.h \
-	support.c \
 	support.h \
 	tar.c \
 	tar.h \

@@ -2973,3 +2973,24 @@ void xa_unsort (GtkMenuItem *menu_item, gpointer data)
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive[idx]->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
 	xa_update_window_with_archive_entries(archive[idx], NULL);
 }
+
+GtkWidget *xa_main_window_find_image (gchar *filename, GtkIconSize size)
+{
+  gchar *path;
+  GdkPixbuf *file_pixbuf;
+  GtkWidget *file_image;
+
+  path = g_strconcat(PIXMAPSDIR, "/", filename, NULL);
+  file_pixbuf = gdk_pixbuf_new_from_file(path, NULL);
+  g_free(path);
+
+  if (file_pixbuf == NULL)
+    file_image = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, size);
+  else
+  {
+    file_image = gtk_image_new_from_pixbuf(file_pixbuf);
+    g_object_unref(file_pixbuf);
+  }
+
+  return file_image;
+}

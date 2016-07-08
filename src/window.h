@@ -101,4 +101,7 @@ gboolean treeview_select_search (GtkTreeModel *,gint ,const gchar *,GtkTreeIter 
 
 XAClipboard *xa_clipboard_data_new();
 XAClipboard *xa_get_paste_data_from_clipboard_selection(const char *);
+
+GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size);
+
 #endif
