@@ -19,10 +19,7 @@
 #ifndef STRING_UTILS_H
 #define STRING_UTILS_H
 
-#ifdef HAVE_CONFIG_H
 #include "config.h"
-#endif
-
 #include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>

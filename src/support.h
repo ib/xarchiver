@@ -19,10 +19,7 @@
 #ifndef __XARCHIVER_SUPPORT_H
 #define __XARCHIVER_SUPPORT_H
 
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
-
+#include "config.h"
 #include <gtk/gtk.h>
 
 /*
