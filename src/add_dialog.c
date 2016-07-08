@@ -16,10 +16,13 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include <gtk/gtk.h>
 #include "add_dialog.h"
-#include "window.h"
+#include "extract_dialog.h"
+#include "interface.h"
+#include "pref_dialog.h"
+#include "string_utils.h"
 #include "support.h"
+#include "window.h"
 
 extern Prefs_dialog_data *prefs_window;
 

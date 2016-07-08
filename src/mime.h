@@ -20,8 +20,6 @@
 #ifndef __XARCHIVER_MIME_H__
 #define __XARCHIVER_MIME_H__
 
-#include "xdgmime/xdgmime.h"
-#include "support.h"
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <string.h>

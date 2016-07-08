@@ -19,13 +19,9 @@
 #ifndef TAR_H
 #define TAR_H
 
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "string_utils.h"
-#include "support.h"
+#include <glib.h>
+#include <stdio.h>
 #include "archive.h"
-#include "gzip.h"
 
 void xa_open_tar (XArchive *);
 void xa_tar_delete (XArchive *,GSList *);

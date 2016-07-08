@@ -16,9 +16,13 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include "config.h"
+#include <errno.h>
+#include <string.h>
 #include "rpm.h"
+#include "interface.h"
 #include "string_utils.h"
+#include "support.h"
+#include "window.h"
 
 #define LEAD_LEN 96
 #define HDRSIG_MAGIC_LEN 3

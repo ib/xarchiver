@@ -17,6 +17,8 @@
  */
 
 #include "string_utils.h"
+#include "tar.h"
+#include "utf8-fnmatch.h"
 
 #ifndef HAVE_MKDTEMP
 char *mkdtemp (gchar *tmpl)

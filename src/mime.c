@@ -18,6 +18,7 @@
  */
 
 #include "mime.h"
+#include "xdgmime/xdgmime.h"
 
 GSList *icon_cache = NULL;
 extern GtkIconTheme *icon_theme;

@@ -19,12 +19,9 @@
 #ifndef ARJ_H
 #define ARJ_H
 
-#include <gtk/gtk.h>
-#include <string.h>
-#include <stdlib.h>
-#include "string_utils.h"
-#include "support.h"
+#include <glib.h>
 #include "archive.h"
+
 gboolean jump_header, encrypted, last_line;
 unsigned short int arj_line;
 void xa_arj_delete (XArchive *,GSList *);

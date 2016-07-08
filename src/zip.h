@@ -19,10 +19,7 @@
 #ifndef ZIP_H
 #define ZIP_H
 
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include "string_utils.h"
-#include "support.h"
+#include <glib.h>
 #include "archive.h"
 
 void xa_zip_delete (XArchive *,GSList *);

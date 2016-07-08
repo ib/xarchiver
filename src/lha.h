@@ -20,11 +20,8 @@
 #ifndef LHA_H
 #define LHA_H
 
-#include <gtk/gtk.h>
-#include <string.h>
-#include <stdlib.h>
-#include "support.h"
-#include "string_utils.h"
+#include <glib.h>
+#include <stdio.h>
 #include "archive.h"
 
 void xa_lha_delete (XArchive *,GSList *);

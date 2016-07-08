@@ -19,10 +19,7 @@
 #ifndef SEVENZIP_H
 #define SEVENZIP_H
 
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include "string_utils.h"
-#include "support.h"
+#include <glib.h>
 #include "archive.h"
 
 gboolean jump_header, encrypted, last_line;

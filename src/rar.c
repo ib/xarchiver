@@ -16,9 +16,10 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include "config.h"
+#include <string.h>
 #include "rar.h"
-#include <unistd.h>
+#include "string_utils.h"
+#include "support.h"
 
 extern gboolean unrar;
 extern void xa_reload_archive_content(XArchive *archive);

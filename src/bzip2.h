@@ -19,9 +19,7 @@
 #ifndef BZIP2_H
 #define BZIP2_H
 
-#include <gtk/gtk.h>
-#include "support.h"
-#include "main.h"
+#include <glib.h>
 #include "archive.h"
 
 void xa_open_bzip2_lzma (XArchive *);

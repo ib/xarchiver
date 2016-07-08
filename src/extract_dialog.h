@@ -19,9 +19,8 @@
 #ifndef __EXTRACT_DIALOG_H
 #define __EXTRACT_DIALOG_H
 
+#include <gtk/gtk.h>
 #include "archive.h"
-#include <sys/types.h>
-#include <dirent.h>
 
 typedef struct
 {

@@ -19,9 +19,7 @@
 #ifndef RPM_H
 #define RPM_H
 
-#include <gtk/gtk.h>
-#include "window.h"
-#include "interface.h"
+#include <glib.h>
 #include "archive.h"
 
 void xa_open_rpm ( XArchive *);

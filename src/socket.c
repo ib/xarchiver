@@ -18,14 +18,17 @@
 
 #include "config.h"
 
-#include <gtk/gtk.h>
-
 #ifdef HAVE_SOCKET
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <netinet/in.h>
-#include <unistd.h>
+
 #include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <gtk/gtk.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/un.h>
 #include "socket.h"
 #include "window.h"
 

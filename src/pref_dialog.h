@@ -18,8 +18,8 @@
 
 #ifndef __PREF_DIALOG_H
 #define __PREF_DIALOG_H
-#include "extract_dialog.h"
-#include "add_dialog.h"
+
+#include <gtk/gtk.h>
 
 typedef struct
 {

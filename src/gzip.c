@@ -16,9 +16,13 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include "config.h"
+#include <string.h>
 #include "gzip.h"
-#include "bzip2.h"
+#include "main.h"
+#include "string_utils.h"
+#include "support.h"
+#include "tar.h"
+#include "window.h"
 
 extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];

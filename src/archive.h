@@ -18,6 +18,8 @@
 #ifndef __XARCHIVER_ARCHIVE_H__
 #define __XARCHIVER_ARCHIVE_H__
 
+#include <gtk/gtk.h>
+
 int status;
 
 typedef enum

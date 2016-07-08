@@ -19,6 +19,7 @@
 #ifndef __ADD_DIALOG_H
 #define __ADD_DIALOG_H
 
+#include <gtk/gtk.h>
 #include "archive.h"
 
 typedef struct

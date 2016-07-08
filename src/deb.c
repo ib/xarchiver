@@ -17,9 +17,9 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include "config.h"
-#include "deb.h"
 #include <string.h>
+#include "deb.h"
+#include "support.h"
 
 extern void xa_create_liststore (XArchive *archive,gchar *columns_names[]);
 

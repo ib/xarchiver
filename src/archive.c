@@ -16,12 +16,19 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <glib.h>
-#include <gtk/gtk.h>
-#include <sys/param.h>
 #include "config.h"
+#include <errno.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include "archive.h"
+#include "interface.h"
+#include "main.h"
+#include "pref_dialog.h"
 #include "support.h"
+#include "tar.h"
 #include "window.h"
 
 #ifndef NCARGS

@@ -20,6 +20,8 @@
 #ifndef XARCHIVER_SOCKET_H
 #define XARCHIVER_SOCKET_H
 
+#include <glib.h>
+
 struct
 {
 	gboolean	 ignore_socket;

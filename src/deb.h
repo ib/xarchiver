@@ -20,12 +20,7 @@
 #ifndef DEB_H
 #define DEB_H
 
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "tar.h"
-#include "string_utils.h"
-#include "support.h"
+#include <glib.h>
 #include "archive.h"
 
 void xa_open_deb (XArchive *);

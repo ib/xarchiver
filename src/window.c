@@ -20,7 +20,26 @@
 #include "config.h"
 #endif
 
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
+#include <gdk/gdkkeysyms.h>
+#include <glib/gprintf.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include "window.h"
+#include "extract_dialog.h"
+#include "interface.h"
+#include "lha.h"
+#include "mime.h"
+#include "new_dialog.h"
+#include "open-with-dlg.h"
+#include "pref_dialog.h"
+#include "socket.h"
+#include "string_utils.h"
+#include "support.h"
+#include "tar.h"
 
 #define	XDS_FILENAME "xds.txt"
 

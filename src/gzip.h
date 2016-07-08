@@ -19,9 +19,7 @@
 #ifndef GZIP_H
 #define GZIP_H
 
-#include <gtk/gtk.h>
-#include "support.h"
-#include "main.h"
+#include <glib.h>
 #include "archive.h"
 
 void xa_open_gzip (XArchive *);

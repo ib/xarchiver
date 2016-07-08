@@ -16,10 +16,11 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include <glib.h>
-#include <gtk/gtk.h>
-#include "config.h"
+#include <string.h>
 #include "pref_dialog.h"
+#include "add_dialog.h"
+#include "extract_dialog.h"
+#include "interface.h"
 #include "main.h"
 #include "support.h"
 

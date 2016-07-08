@@ -16,9 +16,13 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include "config.h"
 #include <string.h>
 #include "tar.h"
+#include "bzip2.h"
+#include "gzip.h"
+#include "interface.h"
+#include "string_utils.h"
+#include "support.h"
 
 #define TMPFILE "xa-tmp.tar"
 

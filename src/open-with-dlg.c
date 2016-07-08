@@ -16,10 +16,13 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
 #include "open-with-dlg.h"
-#include "window.h"
+#include "interface.h"
 #include "mime.h"
+#include "pref_dialog.h"
 #include "support.h"
+#include "window.h"
 
 extern Prefs_dialog_data *prefs_window;
 

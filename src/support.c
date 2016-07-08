@@ -17,12 +17,6 @@
  *
  */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdio.h>
-#include <gtk/gtk.h>
 #include "support.h"
 
 GtkWidget *xa_main_window_find_image(gchar *filename, GtkIconSize size)

@@ -23,15 +23,10 @@
 #include "config.h"
 #endif
 
-#include <gtk/gtk.h>
-#include <glib.h>
+#include <stdlib.h>
 #include <string.h>
-#include <dirent.h>
-#include "string_utils.h"
-#include "utf8-fnmatch.h"
-#include "errno.h"
+#include <gtk/gtk.h>
 #include "archive.h"
-#include "tar.h"
 
 #ifndef HAVE_STRCASESTR
 const char *strcasestr(const char *haystack, const char *needle);

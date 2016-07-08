@@ -19,8 +19,9 @@
 
 #ifndef __XARCHIVER_INTERFACE_H__
 #define __XARCHIVER_INTERFACE_H__
+
+#include <gtk/gtk.h>
 #include "archive.h"
-#include "pref_dialog.h"
 
 typedef struct _Progress_bar_data Progress_bar_data;
 

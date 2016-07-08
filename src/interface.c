@@ -17,23 +17,14 @@
  *
  */
 
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 #include <string.h>
-#include <stdio.h>
-
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
-
-#include "string_utils.h"
-#include "window.h"
 #include "interface.h"
+#include "extract_dialog.h"
+#include "string_utils.h"
 #include "support.h"
+#include "tar.h"
+#include "window.h"
 
 static const GtkTargetEntry drag_targets[] =
 {

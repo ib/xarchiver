@@ -23,41 +23,10 @@
 # define _GNU_SOURCE 1
 #endif
 
-#include <string.h>
-
+#include <stdio.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
-#include <glib/gstdio.h>
-#include <errno.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <time.h>
-#include <signal.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#include "arj.h"
-#include "deb.h"
-#include "lha.h"
-#include "zip.h"
-#include "rar.h"
-#include "tar.h"
-#include "7zip.h"
-#include "bzip2.h"
-#include "rpm.h"
-#include "gzip.h"
-#include "archive.h"
-#include "new_dialog.h"
-#include "extract_dialog.h"
 #include "add_dialog.h"
-#include "pref_dialog.h"
-#include "open-with-dlg.h"
-#include "mime.h"
-#include "string_utils.h"
-#include "interface.h"
-#include "support.h"
-#include "main.h"
-#include "socket.h"
+#include "archive.h"
 
 unsigned long long int file_offset;
 Add_dialog_data *add_window;

@@ -19,12 +19,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <gtk/gtk.h>
 #include <glib.h>
-#include "interface.h"
-#include "new_dialog.h"
 #include "archive.h"
-#include "window.h"
 
 GList *ArchiveSuffix;
 GList *ArchiveType;
