@@ -31,6 +31,7 @@
 #define N_(String) gettext_noop(String)
 #define Q_(String) g_strip_context((String), gettext(String))
 #else
+#define ngettext(Singular, Plural, Quantity) (Plural)
 #define _(String) (String)
 #define N_(String) (String)
 #define Q_(String) g_strip_context((String), (String))
