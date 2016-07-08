@@ -156,6 +156,6 @@ Makefile
 
 echo "
 
-${PACKAGE} ${PACKAGE_VERSION} configured for ${prefix}
+${PACKAGE} ${PACKAGE_VERSION} configured for ${prefix} using GTK+ `$PKG_CONFIG --modversion gtk+-2.0`
 
 "
