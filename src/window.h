@@ -19,10 +19,6 @@
 #ifndef __XARCHIVER_WINDOW_H
 #define __XARCHIVER_WINDOW_H
 
-#ifndef _GNU_SOURCE
-# define _GNU_SOURCE 1
-#endif
-
 #include <stdio.h>
 #include <gtk/gtk.h>
 #include "add_dialog.h"
