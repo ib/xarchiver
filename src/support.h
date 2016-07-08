@@ -22,19 +22,18 @@
 #include "config.h"
 #include <gtk/gtk.h>
 
-/*
- * Standard gettext macros.
- */
+/* Internationalization */
+
 #ifdef ENABLE_NLS
-#  include <libintl.h>
-#  define gettext_noop(String) String
-#  define _(String) dgettext (PACKAGE, String)
-#    define N_(String) gettext_noop (String)
-#  define Q_(String) g_strip_context ((String), gettext (String))
+#include <libintl.h>
+#define gettext_noop(String) String
+#define _(String) dgettext(PACKAGE, String)
+#define N_(String) gettext_noop(String)
+#define Q_(String) g_strip_context((String), gettext(String))
 #else
-#  define _(String) (String)
-#  define N_(String) (String)
-#  define Q_(String) g_strip_context ((String), (String))
+#define _(String) (String)
+#define N_(String) (String)
+#define Q_(String) g_strip_context((String), (String))
 #endif
 
 
