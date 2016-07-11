@@ -94,7 +94,9 @@ GtkImage *sexy_icon_entry_get_icon(const SexyIconEntry *entry,
 
 gboolean sexy_icon_entry_get_icon_highlight(const SexyIconEntry *entry,
 											SexyIconEntryPosition position);
-void sexy_icon_entry_add_clear_button(SexyIconEntry *icon_entry,gpointer, gpointer);
+void sexy_icon_entry_add_clear_button(SexyIconEntry *icon_entry,
+									  gpointer data,
+									  gpointer function);
 
 G_END_DECLS
 

@@ -18,9 +18,9 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
+#include "sexy-icon-entry.h"
 #include <string.h>
 #include <gtk/gtk.h>
-#include "sexy-icon-entry.h"
 
 #define ICON_MARGIN 2
 #define MAX_ICONS 2
@@ -89,12 +89,14 @@ sexy_icon_entry_class_init(SexyIconEntryClass *klass)
 	GObjectClass *gobject_class;
 	GtkObjectClass *object_class;
 	GtkWidgetClass *widget_class;
+	GtkEntryClass *entry_class;
 
 	parent_class = g_type_class_peek_parent(klass);
 
 	gobject_class = G_OBJECT_CLASS(klass);
 	object_class  = GTK_OBJECT_CLASS(klass);
 	widget_class  = GTK_WIDGET_CLASS(klass);
+	entry_class   = GTK_ENTRY_CLASS(klass);
 
 	gobject_class->finalize = sexy_icon_entry_finalize;
 
@@ -153,7 +155,7 @@ sexy_icon_entry_class_init(SexyIconEntryClass *klass)
 }
 
 static void
-sexy_icon_entry_editable_init(GtkEditableClass *iface G_GNUC_UNUSED )
+sexy_icon_entry_editable_init(GtkEditableClass *iface)
 {
 };
 
@@ -297,7 +299,7 @@ get_text_area_size(SexyIconEntry *entry, GtkAllocation *alloc)
 static void
 get_icon_allocation(SexyIconEntry *icon_entry,
 					gboolean left,
-					GtkAllocation *widget_alloc G_GNUC_UNUSED,
+					GtkAllocation *widget_alloc,
 					GtkAllocation *text_area_alloc,
 					GtkAllocation *allocation,
 					SexyIconEntryPosition *icon_pos)
@@ -387,10 +389,12 @@ sexy_icon_entry_unrealize(GtkWidget *widget)
 static void
 sexy_icon_entry_size_request(GtkWidget *widget, GtkRequisition *requisition)
 {
+	GtkEntry *gtkentry;
 	SexyIconEntry *entry;
 	gint icon_widths = 0;
 	int i;
 
+	gtkentry = GTK_ENTRY(widget);
 	entry    = SEXY_ICON_ENTRY(widget);
 
 	for (i = 0; i < MAX_ICONS; i++)
@@ -566,7 +570,8 @@ draw_icon(GtkWidget *widget, SexyIconEntryPosition icon_pos)
 
 		scale = height - (2 * ICON_MARGIN);
 
-		temp_pixbuf = gdk_pixbuf_scale_simple(pixbuf, scale, scale, GDK_INTERP_BILINEAR);
+		temp_pixbuf = gdk_pixbuf_scale_simple(pixbuf, scale, scale,
+											  GDK_INTERP_BILINEAR);
 
 		g_object_unref(pixbuf);
 
@@ -642,7 +647,7 @@ sexy_icon_entry_expose(GtkWidget *widget, GdkEventExpose *event)
 }
 
 static void
-update_icon(GObject *obj G_GNUC_UNUSED, GParamSpec *param, SexyIconEntry *entry)
+update_icon(GObject *obj, GParamSpec *param, SexyIconEntry *entry)
 {
 	if (param != NULL)
 	{
@@ -917,6 +922,17 @@ sexy_icon_entry_get_icon_highlight(const SexyIconEntry *entry,
 	return entry->priv->icons[icon_pos].highlight;
 }
 
+static void
+clear_button_clicked_cb(SexyIconEntry *icon_entry,
+						SexyIconEntryPosition icon_pos,
+						int button)
+{
+	if (icon_pos != SEXY_ICON_ENTRY_SECONDARY || button != 1)
+		return;
+
+	gtk_entry_set_text(GTK_ENTRY(icon_entry), "");
+}
+
 /**
  * sexy_icon_entry_add_clear_button
  * @icon_entry: A #SexyIconEntry.
@@ -925,7 +941,9 @@ sexy_icon_entry_get_icon_highlight(const SexyIconEntry *entry,
  * This is useful for search boxes.
  */
 void
-sexy_icon_entry_add_clear_button(SexyIconEntry *icon_entry,gpointer data, gpointer function)
+sexy_icon_entry_add_clear_button(SexyIconEntry *icon_entry,
+								 gpointer data,
+								 gpointer function)
 {
 	GtkWidget *icon;
 
@@ -946,5 +964,7 @@ sexy_icon_entry_add_clear_button(SexyIconEntry *icon_entry,gpointer data, gpoint
 									icon_entry->priv->icon_released_id);
 	}
 
-	icon_entry->priv->icon_released_id = g_signal_connect(G_OBJECT(icon_entry), "icon_released",G_CALLBACK(function), data);
+	icon_entry->priv->icon_released_id =
+		g_signal_connect(G_OBJECT(icon_entry), "icon_released",
+						 G_CALLBACK(function), data);
 }
