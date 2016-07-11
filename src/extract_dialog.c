@@ -73,7 +73,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	dialog_data->destination_path_entry = sexy_icon_entry_new();
 	sexy_icon_entry_add_clear_button( SEXY_ICON_ENTRY(dialog_data->destination_path_entry),dialog_data,xa_select_where_to_extract);
-    sexy_icon_entry_set_icon_highlight( SEXY_ICON_ENTRY(dialog_data->destination_path_entry),SEXY_ICON_ENTRY_PRIMARY,TRUE );
 	gtk_box_pack_start (GTK_BOX (vbox1),dialog_data->destination_path_entry,FALSE,FALSE,0);
 
 	hbox1 = gtk_hbox_new (TRUE,10);
@@ -478,7 +477,6 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 
 	dialog_data->entry1 = sexy_icon_entry_new();
     sexy_icon_entry_add_clear_button( SEXY_ICON_ENTRY(dialog_data->entry1),dialog_data,xa_select_where_to_extract);
-    sexy_icon_entry_set_icon_highlight( SEXY_ICON_ENTRY(dialog_data->entry1),SEXY_ICON_ENTRY_PRIMARY,TRUE );
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->entry1,TRUE,TRUE,0);
 
 	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic (NULL,_("Extract to dir \"Archive Name\""));
