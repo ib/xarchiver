@@ -977,8 +977,49 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 {
     static GtkWidget *about = NULL;
-    const char *authors[] = {"\nMain developer:\nGiuseppe Torelli <colossus73@gmail.com>\n\nThis version:\nIngo Brückl <ib@wupperonline.de>\n\nArchive navigation code:\nJohn Berthels\n\nCode fixing:\nEnrico Tröger\n\nLHA and DEB support:\nŁukasz Zemczak <sil2100@vexillium.org>\n\nLZMA support:\nThomas Dy <dysprosium66@gmail.com>\n\nLZOP support:\nKevin Day\n\nRARv5, XZ, TAR.XZ support:\nFrederick GUERIN <fguerin01@gmail.com>\n",NULL};
-    const char *documenters[] = {"\nSpecial thanks to Bjoern Martensen for\nbugs hunting and " PACKAGE_NAME " Tango logo.\n\nThanks to:\nBenedikt Meurer\nStephan Arts\nBruno Jesus <00cpxxx@gmail.com>\nUracile for the stunning logo\n",NULL};
+    const char *authors[] =
+    {
+        "",
+        "Main developer:",
+        "Giuseppe Torelli <colossus73@gmail.com>",
+        "",
+        "This version:",
+        "Ingo Brückl <ib@wupperonline.de>",
+        "",
+        "Archive navigation code:",
+        "John Berthels",
+        "",
+        "Code fixing:",
+        "Enrico Tröger",
+        "",
+        "LHA and DEB support:",
+        "Łukasz Zemczak <sil2100@vexillium.org>",
+        "",
+        "LZMA support:",
+        "Thomas Dy <dysprosium66@gmail.com>",
+        "",
+        "LZOP support:",
+        "Kevin Day",
+        "",
+        "RARv5, XZ, TAR.XZ support:",
+        "Frederick GUERIN <fguerin01@gmail.com>",
+        "",
+        NULL
+    };
+    const char *documenters[] =
+    {
+        "",
+        "Special thanks to Bjoern Martensen for",
+        "bugs hunting and " PACKAGE_NAME "'s Tango logo.",
+        "",
+        "Thanks to:",
+        "Benedikt Meurer",
+        "Stephan Arts",
+        "Bruno Jesus <00cpxxx@gmail.com>",
+        "Uracile for the stunning logo",
+        "",
+        NULL
+    };
 
 	if (about == NULL)
 	{
