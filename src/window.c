@@ -2073,7 +2073,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
-	comment_dialog = gtk_dialog_new_with_buttons (_("Comment"),GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,NULL);
+	comment_dialog = gtk_dialog_new_with_buttons (_("Comment"),GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,NULL,NULL);
 	gtk_window_set_position (GTK_WINDOW (comment_dialog),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (comment_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_dialog_set_has_separator (GTK_DIALOG (comment_dialog),FALSE);
