@@ -41,7 +41,6 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_window_set_position (GTK_WINDOW (add_dialog->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-	add_dialog->add_option_tooltip = gtk_tooltips_new ();
 	add_dialog->dialog_vbox1 = GTK_DIALOG (add_dialog->dialog1)->vbox;
 
 	add_dialog->notebook1 = gtk_notebook_new ();
