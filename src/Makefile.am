@@ -37,8 +37,6 @@ xarchiver_SOURCES = \
 	rar.h \
 	rpm.c \
 	rpm.h \
-	sexy-icon-entry.c \
-	sexy-icon-entry.h \
 	socket.c \
 	socket.h \
 	string_utils.c \
@@ -52,6 +50,11 @@ xarchiver_SOURCES = \
 	window.h \
 	zip.c \
 	zip.h
+
+if GTK_V2_16
+else
+xarchiver_SOURCES += sexy-icon-entry.c sexy-icon-entry.h
+endif
 
 xarchiver_CFLAGS = \
 	-Wall \

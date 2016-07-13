@@ -77,6 +77,9 @@ dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= 2.10.0])
+GTK_VERSION_FOUND=`$PKG_CONFIG --modversion gtk+-2.0`
+AS_VERSION_COMPARE([$GTK_VERSION_FOUND], [2.16.0], [], [GTK_V2_16=yes], [GTK_V2_16=yes])
+AM_CONDITIONAL([GTK_V2_16], [test x"$GTK_V2_16" = x"yes"])
 
 dnl ***********************************
 dnl *** Check for debugging support ***
@@ -156,6 +159,6 @@ Makefile
 
 echo "
 
-${PACKAGE} ${PACKAGE_VERSION} configured for ${prefix} using GTK+ `$PKG_CONFIG --modversion gtk+-2.0`
+${PACKAGE} ${PACKAGE_VERSION} configured for ${prefix} using GTK+ $GTK_VERSION_FOUND
 
 "

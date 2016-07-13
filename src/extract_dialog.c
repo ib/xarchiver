@@ -22,7 +22,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "extract_dialog.h"
-#include "sexy-icon-entry.h"
 #include "interface.h"
 #include "pref_dialog.h"
 #include "string_utils.h"
@@ -36,7 +35,7 @@ extern Progress_bar_data *pb;
 extern extract_func extract	[XARCHIVETYPE_COUNT];
 
 static gchar *xa_multi_extract_archive(Multi_extract_data *,gchar *,gboolean,gboolean,gchar *);
-static void xa_select_where_to_extract(SexyIconEntry *,SexyIconEntryPosition ,int ,Multi_extract_data *);
+static void xa_select_where_to_extract(GtkEntry *, gint, GTK_COMPAT_ENTRY_ICON_TYPE, gpointer);
 static void xa_remove_files_liststore (GtkWidget *,Multi_extract_data *);
 static void xa_multi_extract_dialog_select_files_to_add (GtkButton*,Multi_extract_data *);
 static void xa_multi_extract_dialog_selection_changed(GtkTreeSelection *selection,Multi_extract_data *);
@@ -70,8 +69,8 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox1),label1,FALSE,FALSE,0);
 	gtk_misc_set_alignment (GTK_MISC (label1),0,0.5);
 
-	dialog_data->destination_path_entry = sexy_icon_entry_new();
-	sexy_icon_entry_add_clear_button( SEXY_ICON_ENTRY(dialog_data->destination_path_entry),dialog_data,xa_select_where_to_extract);
+	dialog_data->destination_path_entry = GTK_COMPAT_ENTRY_ICON_NEW();
+	GTK_COMPAT_ENTRY_ICON(dialog_data->destination_path_entry, xa_select_where_to_extract, dialog_data);
 	gtk_box_pack_start (GTK_BOX (vbox1),dialog_data->destination_path_entry,FALSE,FALSE,0);
 
 	hbox1 = gtk_hbox_new (TRUE,10);
@@ -472,8 +471,8 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->extract_to),radiobutton1_group);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->extract_to));
 
-	dialog_data->entry1 = sexy_icon_entry_new();
-    sexy_icon_entry_add_clear_button( SEXY_ICON_ENTRY(dialog_data->entry1),dialog_data,xa_select_where_to_extract);
+	dialog_data->entry1 = GTK_COMPAT_ENTRY_ICON_NEW();
+	GTK_COMPAT_ENTRY_ICON(dialog_data->entry1, xa_select_where_to_extract, dialog_data);
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->entry1,TRUE,TRUE,0);
 
 	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic (NULL,_("Extract to dir \"Archive Name\""));
@@ -666,7 +665,7 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget,GdkDra
 	g_strfreev (array);
 }
 
-void xa_select_where_to_extract(SexyIconEntry *entry, SexyIconEntryPosition icon_pos,int button,Multi_extract_data *dialog_data)
+void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMPAT_ENTRY_ICON_TYPE button_release, gpointer user_data)
 {
 	GtkWidget *file_selector;
 	gchar *dest_dir;

@@ -61,4 +61,22 @@ static inline GtkWidget *gtk_dialog_get_content_area (GtkDialog *dialog)
 #define gtk_selection_data_get_target(selection_data) selection_data->target
 #endif
 
+#if !GTK_CHECK_VERSION(2,16,0)
+#include "sexy-icon-entry.h"
+#define GTK_COMPAT_ENTRY_ICON_TYPE gint
+#define GTK_COMPAT_ENTRY_ICON_NEW sexy_icon_entry_new
+static inline void GTK_COMPAT_ENTRY_ICON (GtkWidget *entry, gpointer callback, gpointer user_data)
+{
+	sexy_icon_entry_add_clear_button(SEXY_ICON_ENTRY(entry), user_data, callback);
+}
+#else
+#define GTK_COMPAT_ENTRY_ICON_TYPE GdkEvent *
+#define GTK_COMPAT_ENTRY_ICON_NEW gtk_entry_new
+static inline void GTK_COMPAT_ENTRY_ICON (GtkWidget *entry, gpointer callback, gpointer user_data)
+{
+	gtk_entry_set_icon_from_stock(GTK_ENTRY(entry), GTK_ENTRY_ICON_SECONDARY, GTK_STOCK_OPEN);
+	g_signal_connect(entry, "icon-release", G_CALLBACK(callback), user_data);
+}
+#endif
+
 #endif

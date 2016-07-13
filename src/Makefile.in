@@ -89,6 +89,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = xarchiver$(EXEEXT)
+@GTK_V2_16_FALSE@am__append_1 = sexy-icon-entry.c sexy-icon-entry.h
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -104,6 +105,16 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
+am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
+	archive.c archive.h arj.c arj.h bzip2.c bzip2.h deb.c deb.h \
+	extract_dialog.c extract_dialog.h gzip.c gzip.h interface.c \
+	interface.h lha.c lha.h main.c main.h mime.c mime.h \
+	new_dialog.c new_dialog.h open-with-dlg.c open-with-dlg.h \
+	pref_dialog.c pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c \
+	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
+	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
+	sexy-icon-entry.c sexy-icon-entry.h
+@GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-add_dialog.$(OBJEXT) xarchiver-archive.$(OBJEXT) \
 	xarchiver-arj.$(OBJEXT) xarchiver-bzip2.$(OBJEXT) \
@@ -113,10 +124,10 @@ am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-mime.$(OBJEXT) xarchiver-new_dialog.$(OBJEXT) \
 	xarchiver-open-with-dlg.$(OBJEXT) \
 	xarchiver-pref_dialog.$(OBJEXT) xarchiver-rar.$(OBJEXT) \
-	xarchiver-rpm.$(OBJEXT) xarchiver-sexy-icon-entry.$(OBJEXT) \
-	xarchiver-socket.$(OBJEXT) xarchiver-string_utils.$(OBJEXT) \
-	xarchiver-tar.$(OBJEXT) xarchiver-utf8-fnmatch.$(OBJEXT) \
-	xarchiver-window.$(OBJEXT) xarchiver-zip.$(OBJEXT)
+	xarchiver-rpm.$(OBJEXT) xarchiver-socket.$(OBJEXT) \
+	xarchiver-string_utils.$(OBJEXT) xarchiver-tar.$(OBJEXT) \
+	xarchiver-utf8-fnmatch.$(OBJEXT) xarchiver-window.$(OBJEXT) \
+	xarchiver-zip.$(OBJEXT) $(am__objects_1)
 xarchiver_OBJECTS = $(am_xarchiver_OBJECTS)
 xarchiver_DEPENDENCIES = xdgmime/libxdgmime.la
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -161,7 +172,7 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(xarchiver_SOURCES)
-DIST_SOURCES = $(xarchiver_SOURCES)
+DIST_SOURCES = $(am__xarchiver_SOURCES_DIST)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -386,57 +397,15 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = xdgmime
-xarchiver_SOURCES = \
-	7zip.c \
-	7zip.h \
-	add_dialog.c \
-	add_dialog.h \
-	archive.c \
-	archive.h \
-	arj.c \
-	arj.h \
-	bzip2.c \
-	bzip2.h \
-	deb.c \
-	deb.h \
-	extract_dialog.c \
-	extract_dialog.h \
-	gzip.c \
-	gzip.h \
-	interface.c \
-	interface.h \
-	lha.c \
-	lha.h \
-	main.c \
-	main.h \
-	mime.c \
-	mime.h \
-	new_dialog.c \
-	new_dialog.h \
-	open-with-dlg.c \
-	open-with-dlg.h \
-	pref_dialog.c \
-	pref_dialog.h \
-	rar.c \
-	rar.h \
-	rpm.c \
-	rpm.h \
-	sexy-icon-entry.c \
-	sexy-icon-entry.h \
-	socket.c \
-	socket.h \
-	string_utils.c \
-	string_utils.h \
-	support.h \
-	tar.c \
-	tar.h \
-	utf8-fnmatch.c \
-	utf8-fnmatch.h \
-	window.c \
-	window.h \
-	zip.c \
-	zip.h
-
+xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h archive.c \
+	archive.h arj.c arj.h bzip2.c bzip2.h deb.c deb.h \
+	extract_dialog.c extract_dialog.h gzip.c gzip.h interface.c \
+	interface.h lha.c lha.h main.c main.h mime.c mime.h \
+	new_dialog.c new_dialog.h open-with-dlg.c open-with-dlg.h \
+	pref_dialog.c pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c \
+	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
+	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
+	$(am__append_1)
 xarchiver_CFLAGS = \
 	-Wall \
 	-Wextra \
@@ -827,20 +796,6 @@ xarchiver-rpm.obj: rpm.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-rpm.obj `if test -f 'rpm.c'; then $(CYGPATH_W) 'rpm.c'; else $(CYGPATH_W) '$(srcdir)/rpm.c'; fi`
 
-xarchiver-sexy-icon-entry.o: sexy-icon-entry.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-sexy-icon-entry.o -MD -MP -MF $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo -c -o xarchiver-sexy-icon-entry.o `test -f 'sexy-icon-entry.c' || echo '$(srcdir)/'`sexy-icon-entry.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo $(DEPDIR)/xarchiver-sexy-icon-entry.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sexy-icon-entry.c' object='xarchiver-sexy-icon-entry.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-sexy-icon-entry.o `test -f 'sexy-icon-entry.c' || echo '$(srcdir)/'`sexy-icon-entry.c
-
-xarchiver-sexy-icon-entry.obj: sexy-icon-entry.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-sexy-icon-entry.obj -MD -MP -MF $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo -c -o xarchiver-sexy-icon-entry.obj `if test -f 'sexy-icon-entry.c'; then $(CYGPATH_W) 'sexy-icon-entry.c'; else $(CYGPATH_W) '$(srcdir)/sexy-icon-entry.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo $(DEPDIR)/xarchiver-sexy-icon-entry.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sexy-icon-entry.c' object='xarchiver-sexy-icon-entry.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-sexy-icon-entry.obj `if test -f 'sexy-icon-entry.c'; then $(CYGPATH_W) 'sexy-icon-entry.c'; else $(CYGPATH_W) '$(srcdir)/sexy-icon-entry.c'; fi`
-
 xarchiver-socket.o: socket.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-socket.o -MD -MP -MF $(DEPDIR)/xarchiver-socket.Tpo -c -o xarchiver-socket.o `test -f 'socket.c' || echo '$(srcdir)/'`socket.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-socket.Tpo $(DEPDIR)/xarchiver-socket.Po
@@ -924,6 +879,20 @@ xarchiver-zip.obj: zip.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='zip.c' object='xarchiver-zip.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-zip.obj `if test -f 'zip.c'; then $(CYGPATH_W) 'zip.c'; else $(CYGPATH_W) '$(srcdir)/zip.c'; fi`
+
+xarchiver-sexy-icon-entry.o: sexy-icon-entry.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-sexy-icon-entry.o -MD -MP -MF $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo -c -o xarchiver-sexy-icon-entry.o `test -f 'sexy-icon-entry.c' || echo '$(srcdir)/'`sexy-icon-entry.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo $(DEPDIR)/xarchiver-sexy-icon-entry.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sexy-icon-entry.c' object='xarchiver-sexy-icon-entry.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-sexy-icon-entry.o `test -f 'sexy-icon-entry.c' || echo '$(srcdir)/'`sexy-icon-entry.c
+
+xarchiver-sexy-icon-entry.obj: sexy-icon-entry.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-sexy-icon-entry.obj -MD -MP -MF $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo -c -o xarchiver-sexy-icon-entry.obj `if test -f 'sexy-icon-entry.c'; then $(CYGPATH_W) 'sexy-icon-entry.c'; else $(CYGPATH_W) '$(srcdir)/sexy-icon-entry.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-sexy-icon-entry.Tpo $(DEPDIR)/xarchiver-sexy-icon-entry.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sexy-icon-entry.c' object='xarchiver-sexy-icon-entry.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-sexy-icon-entry.obj `if test -f 'sexy-icon-entry.c'; then $(CYGPATH_W) 'sexy-icon-entry.c'; else $(CYGPATH_W) '$(srcdir)/sexy-icon-entry.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
