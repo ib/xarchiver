@@ -1023,8 +1023,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 	if (about == NULL)
 	{
 		about = gtk_about_dialog_new ();
-		gtk_about_dialog_set_email_hook (xa_activate_link,NULL,NULL);
-		gtk_about_dialog_set_url_hook (xa_activate_link,NULL,NULL);
+		GTK_COMPAT_ABOUT_DIALOG_URI(about, xa_activate_link);
 		gtk_window_set_position (GTK_WINDOW (about),GTK_WIN_POS_CENTER_ON_PARENT);
 		gtk_window_set_transient_for (GTK_WINDOW (about),GTK_WINDOW (xa_main_window));
 		gtk_window_set_destroy_with_parent (GTK_WINDOW (about),TRUE);
