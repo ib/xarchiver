@@ -49,7 +49,7 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 	gpointer newsuff, oldsuff;
 	GList *Name;
 	gint i;
-	gchar *file, *stem, *newfile;
+	gchar *fname, *file = NULL, *stem, *newfile;
 
 	g_free(ComboArchiveType);
 	ComboArchiveType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(GTK_WIDGET(combo_box)));
@@ -58,7 +58,13 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 	Name = g_list_last(ArchiveType);
 	i = g_list_position(ArchiveType, Name);
 
-	file = g_path_get_basename(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(xa_file_chooser)));
+	fname = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(xa_file_chooser));
+
+	if (fname)
+	{
+		file = g_path_get_basename(fname);
+		g_free(fname);
+	}
 
 	if (!file)
 		file = g_strdup("");
