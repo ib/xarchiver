@@ -35,7 +35,9 @@ static gpointer xa_get_suffix (GList *types, const gchar *type)
 {
 	gint i = 0;
 
-	while (types && strcmp(type, types->data) != 0)
+	if (!types || !type) return "";
+
+	while (strcmp(type, types->data) != 0)
 	{
 		i++;
 		types = g_list_next(types);
@@ -209,7 +211,9 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	response = gtk_dialog_run (GTK_DIALOG (xa_file_chooser));
 	current_new_directory = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (xa_file_chooser));
 
-	if (response == GTK_RESPONSE_ACCEPT)
+	if (!ComboArchiveType || (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT))
+		gtk_widget_destroy(xa_file_chooser);
+	else if (response == GTK_RESPONSE_ACCEPT)
 	{
 		my_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
 
@@ -357,8 +361,6 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		g_free (my_path);
 		return archive;
 	}
-	else if ( (response == GTK_RESPONSE_CANCEL) || (response == GTK_RESPONSE_DELETE_EVENT) )
-		gtk_widget_destroy (xa_file_chooser);
 
 	return NULL;
 }
