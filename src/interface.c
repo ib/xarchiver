@@ -367,9 +367,9 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (toolbar1),forward_button);
 	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(forward_button), _("Forward"));
 
-	tmp_image = gtk_image_new_from_stock ("gtk-home",tmp_toolbar_icon_size);
+	tmp_image = gtk_image_new_from_stock ("gtk-goto-top",tmp_toolbar_icon_size);
 	gtk_widget_show (tmp_image);
-	home_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Home"));
+	home_button = (GtkWidget*) gtk_tool_button_new (tmp_image,_("Root"));
 	gtk_widget_set_sensitive(home_button,FALSE);
 	gtk_widget_show (home_button);
 	gtk_tool_item_set_homogeneous (GTK_TOOL_ITEM (home_button),FALSE);
