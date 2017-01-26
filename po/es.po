@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-08-21 03:10-0300\n"
 "Last-Translator: elega <elega@elega.com.ar>\n"
 "Language-Team: Spanish/ES <xfce-i18n@xfce.org>\n"
@@ -516,10 +516,6 @@ msgstr "Arriba"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Adelante"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Directorio personal"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1272,6 +1268,9 @@ msgstr "Gestor de archivos comprimidos"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Un gestor de archivos comprimidos basado solo en GTK+"
+
+#~ msgid "Home"
+#~ msgstr "Directorio personal"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Añadir la extensión del archivo comprimido al nombre del archivo"

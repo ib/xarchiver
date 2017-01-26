@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-11-15 18:08+0100\n"
 "Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -504,10 +504,6 @@ msgstr "Haut"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Suivant"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Dossier personnel"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1253,6 +1249,9 @@ msgstr "Gestionnaire d'archives"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Un gestionnaire d'archive pour GTK+ seulement"
+
+#~ msgid "Home"
+#~ msgstr "Dossier personnel"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Ajouter l'extension de l'archive au nom de fichier"

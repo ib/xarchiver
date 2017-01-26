@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-11-09 15:47+0300\n"
 "Last-Translator: Andriy Matkovsky <sidius.ua@gmail.com>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -505,10 +505,6 @@ msgstr "Вверх"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Вперед"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr ""
 
 #: ../src/interface.c
 msgid "Root"

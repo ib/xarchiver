@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-12-16 18:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -507,10 +507,6 @@ msgstr "Uppåt"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Framåt"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Hem"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1265,6 +1261,9 @@ msgstr "Arkivhanterare"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "En arkivhanterare som använder GTK+"
+
+#~ msgid "Home"
+#~ msgstr "Hem"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Lägg till arkivändelsen till filnamnet"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2008-10-25 12:56+0200\n"
 "Last-Translator: Adrian Dimitrov <Enzo_01@abv.bg>\n"
 "Language-Team: BULGARIAN <Enzo_01@abv.bg>\n"
@@ -511,10 +511,6 @@ msgstr "Нагоре"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Напред"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Домашна"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1265,6 +1261,9 @@ msgstr "Архивен управител"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ архивен управител"
+
+#~ msgid "Home"
+#~ msgstr "Домашна"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Добави разширението на архива към името на файла"

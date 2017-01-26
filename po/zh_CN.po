@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-10-21 13:57+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -495,10 +495,6 @@ msgstr "上一级"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "前进"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr ""
 
 #: ../src/interface.c
 msgid "Root"

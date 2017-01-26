@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -488,10 +488,6 @@ msgstr "Жоғары"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Алға"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr ""
 
 #: ../src/interface.c
 msgid "Root"

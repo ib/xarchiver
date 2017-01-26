@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -508,10 +508,6 @@ msgstr "Omhoog"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Volgende"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Thuis"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1266,6 +1262,9 @@ msgstr "Archiefbeheerder"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Een GTK+ archiefbeheerder"
+
+#~ msgid "Home"
+#~ msgstr "Thuis"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Voeg de archief-extensie toe aan de bestandnaam"

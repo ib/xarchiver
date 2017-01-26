@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-08-22 15:53+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
@@ -518,10 +518,6 @@ msgstr "Op"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Fremad"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr ""
 
 #: ../src/interface.c
 msgid "Root"

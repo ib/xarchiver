@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2011-08-26 12:33+0200\n"
 "Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -515,10 +515,6 @@ msgstr "Hore"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Dopredu"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr ""
 
 #: ../src/interface.c
 msgid "Root"

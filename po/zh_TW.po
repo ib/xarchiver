@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -496,10 +496,6 @@ msgstr "上層目錄"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "下一頁"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "個人目錄"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1239,6 +1235,9 @@ msgstr "封存管理程式"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ 介面的封存檔管理程式"
+
+#~ msgid "Home"
+#~ msgstr "個人目錄"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "封存檔加入附檔名"

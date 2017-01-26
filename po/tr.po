@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -507,10 +507,6 @@ msgstr "Yukarı"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "İleri"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Ev"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1259,6 +1255,9 @@ msgstr "Arşiv yöneticisi"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ ile tasarlanmış arşiv yöneticisi"
+
+#~ msgid "Home"
+#~ msgstr "Ev"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Arşiv uzantısını dosya ismine ekle"

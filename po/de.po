@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
-"PO-Revision-Date: 2015-04-27 11:34+0200\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"PO-Revision-Date: 2017-01-26 12:20+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -518,10 +518,6 @@ msgstr "Aufwärts"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Vorwärts"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Basisverzeichnis"
 
 #: ../src/interface.c
 msgid "Root"

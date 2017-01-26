@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-10-16 19:47+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -510,10 +510,6 @@ msgstr "Nahoru"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Vpřed"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Domů"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1263,6 +1259,9 @@ msgstr "Správce archivů"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Správce archivů pouze pro GTK+"
+
+#~ msgid "Home"
+#~ msgstr "Domů"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Připojit příponu za název souboru"

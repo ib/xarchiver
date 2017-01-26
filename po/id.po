@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -506,10 +506,6 @@ msgstr "Atas"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Maju"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Rumah"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1257,6 +1253,9 @@ msgstr "Manajer arsip"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Manajer arsip khusus GTK+"
+
+#~ msgid "Home"
+#~ msgstr "Rumah"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Tambah ekstensi arsip ke nama berkas"

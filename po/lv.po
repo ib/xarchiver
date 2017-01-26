@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -509,10 +509,6 @@ msgstr "Uz augšu"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Uz priekšu"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Mājas"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1259,6 +1255,9 @@ msgstr "Arhīvu pārvaldnieks"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ vienīgais arhīvu pārvaldnieks"
+
+#~ msgid "Home"
+#~ msgstr "Mājas"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Pievienot arhīva paplašinājums failam"

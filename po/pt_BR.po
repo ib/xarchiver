@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2009-08-20 09:45-0400\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -511,10 +511,6 @@ msgstr "Subir"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Avançar"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Início"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1267,6 +1263,9 @@ msgstr "Gerenciador de pacotes"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Um gerenciador de pacotes baseado no GTK+"
+
+#~ msgid "Home"
+#~ msgstr "Início"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Adicionar a extensão do pacote ao nome do arquivo"

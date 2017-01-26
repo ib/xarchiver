@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:12+0100\n"
+"POT-Creation-Date: 2017-01-26 12:20+0100\n"
 "PO-Revision-Date: 2010-01-23 14:59+0300\n"
 "Last-Translator: dima <info@cnc-parts.info>\n"
 "Language-Team: ru_RU <ru@li.org>\n"
@@ -507,10 +507,6 @@ msgstr "Вверх"
 #: ../src/interface.c
 msgid "Forward"
 msgstr "Вперед"
-
-#: ../src/interface.c
-msgid "Home"
-msgstr "Домой"
 
 #: ../src/interface.c
 msgid "Root"
@@ -1263,6 +1259,9 @@ msgstr "Менеджер архивов"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Менеджер архивов только для GTK+"
+
+#~ msgid "Home"
+#~ msgstr "Домой"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Добавить расширение архива к имени файла"
