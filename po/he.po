@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -955,6 +955,18 @@ msgid "Can't open RPM file %s:"
 msgstr "אין אפשרות לפתוח את קובץ ה־RPM‏ %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "אין אפשרות לבצע fseek למיקום 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "אין אפשרות לקרוא מידע מהקובץ:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "אין אפשרות לבצע fseek בקובץ:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "הרשאה"
 
@@ -969,18 +981,6 @@ msgstr "בעלים"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "קבוצה"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "אין אפשרות לבצע fseek למיקום 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "אין אפשרות לקרוא מידע מהקובץ:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "אין אפשרות לבצע fseek בקובץ:"
 
 #: ../src/window.c
 msgid "An error occurred!"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2010-01-23 14:59+0300\n"
 "Last-Translator: dima <info@cnc-parts.info>\n"
 "Language-Team: ru_RU <ru@li.org>\n"
@@ -969,6 +969,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Не удалось открыть файл RPM %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Не удалось перейти к данным файла:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Не удалось прочитать данные из файла:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Не удаётся выполнить fseek в файле:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Права"
 
@@ -983,18 +995,6 @@ msgstr "Владелец"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Группа"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Не удалось перейти к данным файла:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Не удалось прочитать данные из файла:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Не удаётся выполнить fseek в файле:"
 
 #: ../src/window.c
 msgid "An error occurred!"

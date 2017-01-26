@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -950,6 +950,18 @@ msgid "Can't open RPM file %s:"
 msgstr "無法開啟 RPM 檔 %s："
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "無法移動檔案指標到位置 104："
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "無法從檔案讀取資料："
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "無法在檔案移動指標："
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "權限"
 
@@ -964,18 +976,6 @@ msgstr "擁有者"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "群組"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "無法移動檔案指標到位置 104："
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "無法從檔案讀取資料："
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "無法在檔案移動指標："
 
 #: ../src/window.c
 msgid "An error occurred!"

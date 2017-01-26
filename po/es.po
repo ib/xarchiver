@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-08-21 03:10-0300\n"
 "Last-Translator: elega <elega@elega.com.ar>\n"
 "Language-Team: Spanish/ES <xfce-i18n@xfce.org>\n"
@@ -978,6 +978,18 @@ msgid "Can't open RPM file %s:"
 msgstr "No se pueden abrir el archivo RPM %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "No se puede realizar fseek a la posición 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "No se pueden leer datos del archivo:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "No se puede realizar fseek en el archivo:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Permiso"
 
@@ -992,18 +1004,6 @@ msgstr "Propietario"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupo"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "No se puede realizar fseek a la posición 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "No se pueden leer datos del archivo:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "No se puede realizar fseek en el archivo:"
 
 #: ../src/window.c
 msgid "An error occurred!"

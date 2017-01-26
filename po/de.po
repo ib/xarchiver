@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2015-04-27 11:34+0200\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -984,6 +984,18 @@ msgid "Can't open RPM file %s:"
 msgstr "RPM-Datei %s kann nicht geöffnet werden:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Vorspulen auf Position 104 nicht möglich:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Daten aus der Datei können nicht gelesen werden:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Spulen in Datei nicht möglich:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Berechtigung"
 
@@ -998,18 +1010,6 @@ msgstr "Eigentümer"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Gruppe"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Vorspulen auf Position 104 nicht möglich:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Daten aus der Datei können nicht gelesen werden:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Spulen in Datei nicht möglich:"
 
 #: ../src/window.c
 msgid "An error occurred!"

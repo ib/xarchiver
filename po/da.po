@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-08-22 15:53+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
@@ -977,6 +977,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Kan ikke åbne RPM fil %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Kan ikke flytte filindikator til position 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Kan ikke læse data fra fil:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Kan ikke anvende filindikator i fil:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Rettighed"
 
@@ -991,18 +1003,6 @@ msgstr "Ejer"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Gruppe"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Kan ikke flytte filindikator til position 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Kan ikke læse data fra fil:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Kan ikke anvende filindikator i fil:"
 
 #: ../src/window.c
 msgid "An error occurred!"

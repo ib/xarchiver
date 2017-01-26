@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2008-11-11 00:15+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -980,6 +980,18 @@ msgid "Can't open RPM file %s:"
 msgstr "S'hap dot kartelë RPM %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "S'përmbush dot fseek te pozicioni:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "S'lexon dot të dhëna prej kartele:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "S'përmbush dot fseek në kartelë:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Leje"
 
@@ -994,18 +1006,6 @@ msgstr "Pronar"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grup"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "S'përmbush dot fseek te pozicioni:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "S'lexon dot të dhëna prej kartele:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "S'përmbush dot fseek në kartelë:"
 
 #: ../src/window.c
 msgid "An error occurred!"

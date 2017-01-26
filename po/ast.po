@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-09-02 13:03+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -974,6 +974,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Nun puede abrise'l ficheru RPM %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Nun puede facese fseek a la posición 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Nun pueden lleese datos del ficheru:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Nun puede facese fseek nel ficheru:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Permisu"
 
@@ -988,18 +1000,6 @@ msgstr "Propietariu"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupu"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Nun puede facese fseek a la posición 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Nun pueden lleese datos del ficheru:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Nun puede facese fseek nel ficheru:"
 
 #: ../src/window.c
 msgid "An error occurred!"

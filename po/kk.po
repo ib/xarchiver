@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -942,22 +942,6 @@ msgid "Can't open RPM file %s:"
 msgstr "%s RPM файлын ашу мүмкін емес:"
 
 #: ../src/rpm.c
-msgid "Permission"
-msgstr "Рұқсат"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Қатаң сілтеме"
-
-#: ../src/rpm.c
-msgid "Owner"
-msgstr "Иесі"
-
-#: ../src/rpm.c
-msgid "Group"
-msgstr "Тобы"
-
-#: ../src/rpm.c
 msgid "Can't fseek to position 104:"
 msgstr ""
 
@@ -972,6 +956,22 @@ msgstr "Жаңа архивті жасау мүмкін емес:"
 #| msgid "Can't open file %s:"
 msgid "Can't fseek in file:"
 msgstr "%s файлын ашу мүмкін емес:"
+
+#: ../src/rpm.c
+msgid "Permission"
+msgstr "Рұқсат"
+
+#: ../src/rpm.c
+msgid "Hard Link"
+msgstr "Қатаң сілтеме"
+
+#: ../src/rpm.c
+msgid "Owner"
+msgstr "Иесі"
+
+#: ../src/rpm.c
+msgid "Group"
+msgstr "Тобы"
 
 #: ../src/window.c
 msgid "An error occurred!"

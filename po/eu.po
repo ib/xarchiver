@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver.master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-08-21 10:51+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara\n"
@@ -968,6 +968,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Ezin da %s RPM fitxategia ireki:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Ezin da 104 kokapenean fseek egin:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Ezin da fitxategiko data irakurri"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Ezin da fitxategian fseek egin:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Baimenak"
 
@@ -982,18 +994,6 @@ msgstr "Jabea"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Taldea"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Ezin da 104 kokapenean fseek egin:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Ezin da fitxategiko data irakurri"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Ezin da fitxategian fseek egin:"
 
 #: ../src/window.c
 msgid "An error occurred!"

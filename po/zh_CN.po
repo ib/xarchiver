@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-10-21 13:57+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -950,6 +950,18 @@ msgid "Can't open RPM file %s:"
 msgstr "未能打开 RPM 文件 %s："
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "未能在位置 104 定位文件："
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "未能从文件中读取数据："
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "未能在文件中定位文件："
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "权限"
 
@@ -964,18 +976,6 @@ msgstr "所有者"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "组别"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "未能在位置 104 定位文件："
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "未能从文件中读取数据："
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "未能在文件中定位文件："
 
 #: ../src/window.c
 msgid "An error occurred!"

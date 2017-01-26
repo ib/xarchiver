@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2011-08-26 12:33+0200\n"
 "Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -977,6 +977,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Nie je možné otvoriť súbor RPM %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Nedá sa presunúť na pozíciu funkcie fseek 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Nie je možné čítať dáta zo súboru:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Nie je možné použiť funkciu fseek pre presun v súbore:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Oprávnenia"
 
@@ -991,18 +1003,6 @@ msgstr "Vlastník"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Skupina"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Nedá sa presunúť na pozíciu funkcie fseek 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Nie je možné čítať dáta zo súboru:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Nie je možné použiť funkciu fseek pre presun v súbore:"
 
 #: ../src/window.c
 msgid "An error occurred!"

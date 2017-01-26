@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2008-10-25 12:56+0200\n"
 "Last-Translator: Adrian Dimitrov <Enzo_01@abv.bg>\n"
 "Language-Team: BULGARIAN <Enzo_01@abv.bg>\n"
@@ -972,6 +972,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Немога да отворе RPM файла %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Немога да позиционирам до позиция 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Немога да прочета информация от файла:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Немога да позиционирам във файла:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Права"
 
@@ -986,18 +998,6 @@ msgstr "Притежател"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Група"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Немога да позиционирам до позиция 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Немога да прочета информация от файла:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Немога да позиционирам във файла:"
 
 #: ../src/window.c
 msgid "An error occurred!"

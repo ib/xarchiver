@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -937,6 +937,18 @@ msgid "Can't open RPM file %s:"
 msgstr ""
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr ""
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "అనుమతి"
 
@@ -951,18 +963,6 @@ msgstr "యజమాని"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "గుంపు"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr ""
 
 #: ../src/window.c
 msgid "An error occurred!"

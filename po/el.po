@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-09-08 20:07+0200\n"
 "Last-Translator: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -983,6 +983,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου RPM %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Δεν μπορεί να μεταβεί στο αρχείο στην θέση 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Δεν είναι δυνατή η ανάγνωση από το αρχείο:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Δεν μπορεί να μεταβεί μέσα στο αρχείο:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Δικαιώματα"
 
@@ -997,18 +1009,6 @@ msgstr "Ιδιοκτήτης"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Ομάδα"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Δεν μπορεί να μεταβεί στο αρχείο στην θέση 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Δεν είναι δυνατή η ανάγνωση από το αρχείο:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Δεν μπορεί να μεταβεί μέσα στο αρχείο:"
 
 #: ../src/window.c
 msgid "An error occurred!"

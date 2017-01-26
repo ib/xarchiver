@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -966,6 +966,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Nevar atvērt RMP failu %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Nevar fseek no 104 pozīcijas:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Nevar nolasīt datus no faila:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Nevar fseek failu:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Atļaujas"
 
@@ -980,18 +992,6 @@ msgstr "Īpašnieks"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupa"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Nevar fseek no 104 pozīcijas:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Nevar nolasīt datus no faila:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Nevar fseek failu:"
 
 #: ../src/window.c
 msgid "An error occurred!"

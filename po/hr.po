@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2011-05-19 22:12+0200\n"
 "Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian\n"
@@ -946,6 +946,20 @@ msgid "Can't open RPM file %s:"
 msgstr "Ne mogu otvoriti RPM datoteku %s: "
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Ne mogu čitati podatke sa datoteke"
+
+#: ../src/rpm.c
+#, fuzzy
+#| msgid "Can't open file %s:"
+msgid "Can't fseek in file:"
+msgstr "Ne mogu otvoriti datoteku %s:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Dozvola"
 
@@ -960,20 +974,6 @@ msgstr "Vlasnik"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupa"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Ne mogu čitati podatke sa datoteke"
-
-#: ../src/rpm.c
-#, fuzzy
-#| msgid "Can't open file %s:"
-msgid "Can't fseek in file:"
-msgstr "Ne mogu otvoriti datoteku %s:"
 
 #: ../src/window.c
 msgid "An error occurred!"

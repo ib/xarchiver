@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -951,6 +951,18 @@ msgid "Can't open RPM file %s:"
 msgstr "%s RPM ගොනුව විවෘත කල නොහැක:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "104 පිහිටීමට fseek කිරීමට නොහැක:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "ගොනුවෙන් දත්ත කියවිය නොහැක:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "ගොනුවේ fsee කිරීමට නොහැක:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "අවසරය"
 
@@ -965,18 +977,6 @@ msgstr "අයිතිකරු"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "සමූහය"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "104 පිහිටීමට fseek කිරීමට නොහැක:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "ගොනුවෙන් දත්ත කියවිය නොහැක:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "ගොනුවේ fsee කිරීමට නොහැක:"
 
 #: ../src/window.c
 msgid "An error occurred!"

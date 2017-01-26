@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Gheyret T.Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -955,6 +955,18 @@ msgid "Can't open RPM file %s:"
 msgstr "RPM ھۆججىتى %s نى ئاچقىلى بولمىدى:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "104 دېگەن ئورۇنغا fseek قىلالمىدى:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "ھۆججەتنى سانلىق ئاساسلارنى ئوقۇيالمىدى:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "ھۆججەت ئىچىدە fseek قىلالمىدى:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "ھوقۇقلار"
 
@@ -969,18 +981,6 @@ msgstr "ئىگىسى"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "گۇرۇپپا"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "104 دېگەن ئورۇنغا fseek قىلالمىدى:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "ھۆججەتنى سانلىق ئاساسلارنى ئوقۇيالمىدى:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "ھۆججەت ئىچىدە fseek قىلالمىدى:"
 
 #: ../src/window.c
 msgid "An error occurred!"

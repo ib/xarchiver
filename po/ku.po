@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2008-10-07 22:35+0000\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -981,22 +981,6 @@ msgstr ""
 "%s"
 
 #: ../src/rpm.c
-msgid "Permission"
-msgstr "Destûr"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Owner"
-msgstr "Xwedî"
-
-#: ../src/rpm.c
-msgid "Group"
-msgstr "Kom"
-
-#: ../src/rpm.c
 msgid "Can't fseek to position 104:"
 msgstr ""
 
@@ -1011,6 +995,22 @@ msgid "Can't fseek in file:"
 msgstr ""
 "Arşîva %s nayê vekirin:\n"
 "%s"
+
+#: ../src/rpm.c
+msgid "Permission"
+msgstr "Destûr"
+
+#: ../src/rpm.c
+msgid "Hard Link"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Owner"
+msgstr "Xwedî"
+
+#: ../src/rpm.c
+msgid "Group"
+msgstr "Kom"
 
 #: ../src/window.c
 msgid "An error occurred!"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2009-12-16 18:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -970,6 +970,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Kan inte öppna RPM-filen %s:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Kan inte söka till position 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Kan inte läsa data från filen:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Kan inte söka i filen:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Rättighet"
 
@@ -984,18 +996,6 @@ msgstr "Ägare"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupp"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Kan inte söka till position 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Kan inte läsa data från filen:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Kan inte söka i filen:"
 
 #: ../src/window.c
 msgid "An error occurred!"

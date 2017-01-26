@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2016-03-05 17:20+0100\n"
+"POT-Creation-Date: 2017-01-26 12:12+0100\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -973,6 +973,18 @@ msgid "Can't open RPM file %s:"
 msgstr "Kan RPM-bestand %s niet openen:"
 
 #: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Kan niet fseek uitvoeren naar positie 104:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Kan geen gegevens uit bestand lezen:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Kan fseek niet uitvoeren in bestand:"
+
+#: ../src/rpm.c
 msgid "Permission"
 msgstr "Recht"
 
@@ -987,18 +999,6 @@ msgstr "Eigenaar"
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Groep"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Kan niet fseek uitvoeren naar positie 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Kan geen gegevens uit bestand lezen:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Kan fseek niet uitvoeren in bestand:"
 
 #: ../src/window.c
 msgid "An error occurred!"
