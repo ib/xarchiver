@@ -749,6 +749,14 @@ void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model,gchar *path, GtkT
 	if (entry->is_dir)
 	{
 		gtk_tree_store_append(model,&child_iter,containing_iter);
+
+		if (!g_utf8_validate(entry->filename, -1, NULL))
+		{
+			gchar *entry_utf8 = g_filename_display_name(entry->filename);
+			g_free(entry->filename);
+			entry->filename = entry_utf8;
+		}
+
 		gtk_tree_store_set(model,&child_iter,0,"gtk-directory",1,entry->filename,2,entry,-1);
 	}
 	xa_browse_dir_sidebar(entry->child,model,NULL,&child_iter);
