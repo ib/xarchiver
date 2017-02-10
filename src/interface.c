@@ -667,7 +667,7 @@ void xa_add_page (XArchive *archive)
 {
 	GTK_COMPAT_TOOLTIPS
 	GtkWidget	*page_hbox,*label,*tab_label,*close_button,*image,*align;
-	gchar *filename_only;
+	gchar *filename_only, *label_utf8;
 	GtkRcStyle *rcstyle;
 	GtkRequisition size;
 
@@ -686,14 +686,17 @@ void xa_add_page (XArchive *archive)
 	if (filename_only != NULL)
 	{
 		filename_only++;
-		label = gtk_label_new (filename_only);
-		tab_label = gtk_label_new (filename_only);
+		label_utf8 = g_filename_display_name(filename_only);
+		label = gtk_label_new(label_utf8);
+		tab_label = gtk_label_new(label_utf8);
 	}
 	else
 	{
-		label = gtk_label_new (archive->path);
-		tab_label = gtk_label_new (archive->path);
+		label_utf8 = g_filename_display_name(archive->path);
+		label = gtk_label_new(label_utf8);
+		tab_label = gtk_label_new(label_utf8);
 	}
+	g_free(label_utf8);
 
 	gtk_label_set_max_width_chars(GTK_LABEL(label),50);
 	gtk_label_set_ellipsize(GTK_LABEL(label),PANGO_ELLIPSIZE_START);
