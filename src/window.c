@@ -2268,7 +2268,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	XEntry *prev_entry = NULL;
 	XEntry *new_entry  = NULL;
 	gint current_page,idx;
-	gchar* location_entry_locale;
+	gchar* pathname_local;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
@@ -2283,9 +2283,9 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 		return;
 	}
 
-	location_entry_locale = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(location_entry)), -1, NULL, NULL, NULL);
-	new_entry = xa_find_entry_from_path(archive[idx]->root_entry, location_entry_locale);
-	g_free(location_entry_locale);
+	pathname_local = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(location_entry)), -1, NULL, NULL, NULL);
+	new_entry = xa_find_entry_from_path(archive[idx]->root_entry, pathname_local);
+	g_free(pathname_local);
 	if (new_entry == NULL)
 	{
 		if (archive[idx]->location_entry_path != NULL)
