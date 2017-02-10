@@ -530,10 +530,23 @@ void xa_free_entry (XArchive *archive,XEntry *entry)
 
 XEntry *xa_find_child_entry(XEntry *entry, gchar *string)
 {
+	gchar *filename;
+
 	if (entry == NULL)
 		return NULL;
-	if (entry->is_dir && strcmp(entry->filename, string) == 0)
+
+	if (g_utf8_validate(entry->filename, -1, NULL))
+		filename = g_filename_display_name(string);
+	else
+		filename = g_strdup(string);
+
+	if (entry->is_dir && strcmp(entry->filename, filename) == 0)
+	{
+		g_free(filename);
 		return entry;
+	}
+
+	g_free(filename);
 
   return xa_find_child_entry(entry->next, string);
 }
