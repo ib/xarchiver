@@ -141,9 +141,6 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 {
 	GSList *output = NULL;
 	gchar *title = NULL;
-	gchar *line = NULL;
-	gchar *utf8_line;
-	gsize bytes_written;
 	GtkWidget *dialog,*label,*image,*hbox,*vbox,*textview,*scrolledwindow;
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
@@ -206,10 +203,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 	output = _archive->error_output;
 	while (output)
 	{
-		line = output->data;
-		utf8_line = g_locale_to_utf8 (line,-1,NULL,&bytes_written,NULL);
-		gtk_text_buffer_insert_with_tags_by_name (textbuffer,&iter,utf8_line,bytes_written,"font",NULL);
-		g_free (utf8_line);
+		gtk_text_buffer_insert_with_tags_by_name(textbuffer, &iter, output->data, -1, "font", NULL);
 		output = output->next;
 	}
 	gtk_widget_show_all (vbox);
