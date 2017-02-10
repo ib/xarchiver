@@ -292,7 +292,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 
 void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dialog_data,GtkTreeSelection *selection)
 {
-	gchar *destination_path = NULL,*string;
+	gchar *destination_path, *string;
 	gboolean done = FALSE;
 	GSList *names = NULL;
 	GtkTreeModel *model;
@@ -312,7 +312,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			break;
 
 			case GTK_RESPONSE_OK:
-			destination_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog_data->destination_path_entry)));
+			destination_path = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)), -1, NULL, NULL, NULL);
 			archive->extraction_path = xa_escape_bad_chars (destination_path,"$\'`\"\\!?* ()&|@#:;");
 
 			if (strlen(archive->extraction_path)== 0)
