@@ -2946,12 +2946,9 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		gtk_list_store_prepend(archive->liststore, &iter);
 		if(!g_utf8_validate(entry->filename,-1,NULL))
 		{
-			gchar *dummy = g_convert(entry->filename,-1,"UTF-8","WINDOWS-1252",NULL,NULL,NULL);
-			if (dummy != NULL)
-			{
-				g_free (entry->filename);
-				entry->filename = dummy;
-			}
+			gchar *entry_utf8 = g_filename_display_name(entry->filename);
+			g_free(entry->filename);
+			entry->filename = entry_utf8;
 		}
 		if (entry->is_dir)
 			filename = "folder";
