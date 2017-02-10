@@ -51,7 +51,7 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 	gpointer newsuff, oldsuff;
 	GList *Name;
 	gint i;
-	gchar *fname, *file = NULL, *stem, *newfile;
+	gchar *fname, *file = NULL, *stem, *newfile, *newfile_utf8;
 
 	g_free(ComboArchiveType);
 	ComboArchiveType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(GTK_WIDGET(combo_box)));
@@ -79,10 +79,12 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 		{
 			stem = g_strndup(file, strlen(file) - strlen(oldsuff));
 			newfile = g_strconcat(stem, newsuff, NULL);
+			newfile_utf8 = g_filename_display_name(newfile);
 
 			/* replace the valid extension present in the filename with the one just selected */
-			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(xa_file_chooser), newfile);
+			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(xa_file_chooser), newfile_utf8);
 
+			g_free(newfile_utf8);
 			g_free(newfile);
 			g_free(stem);
 			g_free(file);
@@ -94,7 +96,9 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 	}
 
 	newfile = g_strconcat(file, newsuff, NULL);
-	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(xa_file_chooser), newfile);
+	newfile_utf8 = g_filename_display_name(newfile);
+	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(xa_file_chooser), newfile_utf8);
+	g_free(newfile_utf8);
 	g_free(newfile);
 	g_free(file);
 }
