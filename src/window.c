@@ -2268,6 +2268,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	XEntry *prev_entry = NULL;
 	XEntry *new_entry  = NULL;
 	gint current_page,idx;
+	gchar* location_entry_locale;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
@@ -2282,11 +2283,17 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 		return;
 	}
 
-	new_entry  = xa_find_entry_from_path(archive[idx]->root_entry,gtk_entry_get_text(GTK_ENTRY(location_entry)));
+	location_entry_locale = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(location_entry)), -1, NULL, NULL, NULL);
+	new_entry = xa_find_entry_from_path(archive[idx]->root_entry, location_entry_locale);
+	g_free(location_entry_locale);
 	if (new_entry == NULL)
 	{
 		if (archive[idx]->location_entry_path != NULL)
-			gtk_entry_set_text(GTK_ENTRY(location_entry),archive[idx]->location_entry_path);
+		{
+			gchar *entry_utf8 = g_filename_display_name(archive[idx]->location_entry_path);
+			gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
+			g_free(entry_utf8);
+		}
 		return;
 	}
 
@@ -2897,6 +2904,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gpointer current_column;
 	gchar *filename;
 	gint size;
+	gchar *entry_utf8;
 
 	if ( (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE) && archive->location_entry_path != NULL)
 	{
@@ -2935,7 +2943,9 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
 		archive->location_entry_path = xa_build_full_path_name_from_entry(entry,archive);
-		gtk_entry_set_text(GTK_ENTRY(location_entry),archive->location_entry_path);
+		entry_utf8 = g_filename_display_name(archive->location_entry_path);
+		gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
+		g_free(entry_utf8);
 		entry = entry->child;
 	}
 	gtk_list_store_clear(archive->liststore);

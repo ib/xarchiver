@@ -639,7 +639,11 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 		}
 		/* Let's set the location bar */
 		if (archive[id]->location_entry_path != NULL)
-			gtk_entry_set_text(GTK_ENTRY(location_entry),archive[id]->location_entry_path);
+		{
+			gchar *entry_utf8 = g_filename_display_name(archive[id]->location_entry_path);
+			gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
+			g_free(entry_utf8);
+		}
 		else
 			gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
 
