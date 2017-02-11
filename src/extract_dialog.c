@@ -668,7 +668,7 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget,GdkDra
 void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMPAT_ENTRY_ICON_TYPE button_release, gpointer user_data)
 {
 	GtkWidget *file_selector;
-	gchar *dest_dir;
+	gchar *dest_dir, *dest_dir_utf8;
 	const char *current_path;
 	gint response;
 
@@ -689,7 +689,9 @@ void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMPAT_ENTR
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		dest_dir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (file_selector));
-		gtk_entry_set_text(GTK_ENTRY(entry),dest_dir);
+		dest_dir_utf8 = g_filename_display_name(dest_dir);
+		gtk_entry_set_text(GTK_ENTRY(entry), dest_dir_utf8);
+		g_free(dest_dir_utf8);
 		g_free(dest_dir);
 	}
 	gtk_widget_destroy(file_selector);
