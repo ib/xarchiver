@@ -720,7 +720,7 @@ run:
 	}
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->extract_to)))
 	{
-		dest_path = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog->entry1)));
+		dest_path = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(dialog->entry1)), -1, NULL, NULL, NULL);
 		if (strlen(dest_path)== 0)
 		{
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("You missed where to extract the files!"),_("Please fill the \"Extract to\" field!"));
