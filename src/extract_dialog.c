@@ -705,7 +705,7 @@ void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMPAT_ENTR
 void xa_parse_multi_extract_archive(Multi_extract_data *dialog)
 {
 	GtkTreeIter iter;
-	gchar *filename = NULL,*file,*path,*message = NULL,*name,*dest_path = NULL;
+	gchar *filename, *filename_local, *file, *path, *message, *name, *dest_path = NULL;
 	GString *output = g_string_new("");
 	gboolean overwrite,full_path;
 	gint response,type;
@@ -753,7 +753,9 @@ run:
 		xa_increase_progress_bar(pb,filename,percent);
 		g_free(file);
 		g_free(path);
-		message = xa_multi_extract_archive(dialog,filename,overwrite,full_path,dest_path);
+		filename_local = g_filename_from_utf8(filename, -1, NULL, NULL, NULL);
+		message = xa_multi_extract_archive(dialog, filename_local, overwrite, full_path, dest_path);
+		g_free(filename_local);
 		if (message != NULL)
 		{
 			name = g_strconcat(filename,": ",message,"\n",NULL);
