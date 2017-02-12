@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2017-01-26 12:20+0100\n"
-"PO-Revision-Date: 2017-01-26 12:20+0100\n"
+"PO-Revision-Date: 2017-02-12 20:41+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -1072,7 +1072,7 @@ msgstr "Archiv-Inhalt als Text ausgeben"
 #: ../src/window.c
 #, c-format
 msgid "Archive contents:\n"
-msgstr "Archiv-Inhalt:\n"
+msgstr "Archiv-Inhalt\n"
 
 #: ../src/window.c
 #, c-format
@@ -1106,7 +1106,7 @@ msgstr "Kommentar:\n"
 #: ../src/window.c
 #, c-format
 msgid "Files:%*s%s"
-msgstr "Dateien: %*s%s"
+msgstr "Datei%*s%s"
 
 #: ../src/window.c
 msgid "|Compressed\n"
@@ -1115,7 +1115,7 @@ msgstr "|Komprimiert\n"
 #: ../src/window.c
 #, c-format
 msgid "<th>Files:</th>"
-msgstr "<th>Dateien:</th>"
+msgstr "<th>Datei</th>"
 
 #: ../src/window.c
 #, c-format
