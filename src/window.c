@@ -571,6 +571,12 @@ void xa_print_entry_in_file(XEntry *entry,gint idx,FILE *stream,int bp)
     {
     	current_column = entry->columns;
 		/* Let's retrieve the sizes of the entry from its column */
+		if (!g_utf8_validate(entry->filename, -1, NULL))
+		{
+			gchar *entry_utf8 = g_filename_display_name(entry->filename);
+			g_free(entry->filename);
+			entry->filename = entry_utf8;
+		}
 		path = xa_build_full_path_name_from_entry(entry,NULL);
 		path_utf8 = g_filename_display_name(path);
 		g_free(path);
