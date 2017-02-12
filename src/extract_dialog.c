@@ -574,8 +574,7 @@ void xa_multi_extract_dialog_selection_changed(GtkTreeSelection *selection,Multi
 void xa_add_files_liststore (gchar *file_path,Multi_extract_data *dialog)
 {
 	GtkTreeIter iter;
-	gchar *file_utf8,*_file_utf8;
-	gchar *path;
+	gchar *path, *path_utf8, *file, *file_utf8;
 	gint type;
 	struct stat my_stat;
 	unsigned long long int file_size;
@@ -586,16 +585,17 @@ void xa_add_files_liststore (gchar *file_path,Multi_extract_data *dialog)
 
 	stat (file_path,&my_stat);
 	file_size = my_stat.st_size;
-	file_utf8 = g_filename_display_name (file_path);
-	path = xa_remove_level_from_path(file_utf8);
-	_file_utf8 = xa_remove_path_from_archive_name(file_utf8);
-	g_free (file_utf8);
-	file_utf8 = _file_utf8;
+	path = xa_remove_level_from_path(file_path);
+	path_utf8 = g_filename_display_name(path);
+	file = xa_remove_path_from_archive_name(file_path);
+	file_utf8 = g_filename_display_name(file);
 	gtk_list_store_append(dialog->files_liststore,&iter);
-	gtk_list_store_set (dialog->files_liststore,&iter,0,file_utf8,1,file_size,2,path,3,type,-1);
+	gtk_list_store_set(dialog->files_liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, type, -1);
 	dialog->nr++;
-	g_free (file_utf8);
-	g_free (path);
+	g_free(file_utf8);
+	g_free(file);
+	g_free(path_utf8);
+	g_free(path);
 }
 
 void xa_remove_files_liststore (GtkWidget *widget,Multi_extract_data *multi_extract_data)

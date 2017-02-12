@@ -253,7 +253,7 @@ void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
 	gint current_page;
 	gint idx;
 	GtkWidget *save = NULL;
-	gchar *path = NULL,*command,*filename;
+	gchar *path = NULL, *command, *filename, *filename_utf8;
 	int response;
 	GSList *list = NULL;
 
@@ -269,8 +269,10 @@ void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
 						GTK_RESPONSE_ACCEPT,
 						NULL);
 	filename = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
-	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (save),filename);
+	filename_utf8 = g_filename_display_name(filename);
+	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(save), filename_utf8);
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (save),TRUE);
+	g_free(filename_utf8);
 	g_free(filename);
 	response = gtk_dialog_run (GTK_DIALOG(save));
 	if (response == GTK_RESPONSE_ACCEPT)
@@ -419,7 +421,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	gint idx;
 	FILE *stream;
 	GtkWidget *save = NULL;
-	gchar *t,*_filename,*filename,*filename_plus = NULL, *pref_path;
+	gchar *t, *_filename, *filename, *filename_plus, *filename_plus_utf8, *pref_path;
 	int response;
 	struct stat my_stat;
 	unsigned long long int file_size;
@@ -449,10 +451,12 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		_filename = filename;
 
 	filename_plus = g_strconcat (_filename,bp ? ".html" : ".txt",NULL);
-	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (save),filename_plus);
+	filename_plus_utf8 = g_filename_display_name(filename_plus);
+	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(save), filename_plus_utf8);
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (save),TRUE);
 	g_free(filename);
 	g_free(filename_plus);
+	g_free(filename_plus_utf8);
 	filename = NULL;
 
 	pref_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
@@ -474,9 +478,10 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	{
 		stream = fopen (filename,"w");
 		g_free(filename);
+		filename = g_filename_display_name(archive[idx]->escaped_path);
 		if (bp)
 		{
-			g_fprintf(stream, "<html><head><meta name=GENERATOR content=\"" PACKAGE_NAME " " VERSION "\"><title>%s</title>\n", archive[idx]->escaped_path);
+			g_fprintf(stream, "<html><head><meta charset=\"UTF-8\"><meta name=GENERATOR content=\"" PACKAGE_NAME " " VERSION "\"><title>%s</title>\n", filename);
 			g_fprintf (stream,"<style>\ntd     { font: normal .7em ; }\nth     { font: bold 0.7em ; color: #FFFFFF; text-align: left; background: #42578A}\n.row1  { background-color: #DDDDDD; }\n.row2  { background-color: #EEEEEE; }\n</style>\n");
 			g_fprintf(stream,"</head>");
 			g_fprintf (stream,"<body bgcolor=#FFFFFF>\n");
@@ -488,8 +493,8 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 			g_fprintf(stream, "</u></b><br><br><b>");
 		g_fprintf (stream,_("\nName: "));
 		if (bp)
-			g_fprintf (stream,"</b><a href=\"file://%s\">",archive[idx]->escaped_path);
-		g_fprintf (stream,"%s\n",archive[idx]->escaped_path);
+			g_fprintf(stream, "</b><a href=\"file://%s\">", filename);
+		g_fprintf(stream, "%s\n", filename);
 		if (bp)
 			g_fprintf(stream,"</a><br><br><b>");
 		stat (archive[idx]->path ,&my_stat);
@@ -545,13 +550,15 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		xa_print_entry_in_file(archive[idx]->root_entry,idx,stream,bp);
 		if (bp)
 			g_fprintf (stream,"</table></body></html>");
+
+		g_free(filename);
 		fclose (stream);
 	}
 }
 
 void xa_print_entry_in_file(XEntry *entry,gint idx,FILE *stream,int bp)
 {
-	gchar *path;
+	gchar *path, *path_utf8;
 	static int x = 1;
 	gint i;
 	gpointer current_column;
@@ -565,7 +572,9 @@ void xa_print_entry_in_file(XEntry *entry,gint idx,FILE *stream,int bp)
     	current_column = entry->columns;
 		/* Let's retrieve the sizes of the entry from its column */
 		path = xa_build_full_path_name_from_entry(entry,NULL);
-		if (strlen(path) == 0)
+		path_utf8 = g_filename_display_name(path);
+		g_free(path);
+		if (strlen(path_utf8) == 0)
 			goto here;
 		for (i = 0; i < archive[idx]->nc; i++)
 		{
@@ -584,16 +593,16 @@ void xa_print_entry_in_file(XEntry *entry,gint idx,FILE *stream,int bp)
 		if (bp)
 		{
 			g_fprintf(stream,"<tr class=\"row%d\">",x);
-			g_fprintf(stream,"<td>%s</td><td>%lld</td></tr>",path,file_size);
+			g_fprintf(stream, "<td>%s</td><td>%lld</td></tr>", path_utf8, file_size);
 			if (x == 2)
 				x = 1;
 			else
 				x = 2;
 		}
 		else
-			g_fprintf(stream,"%-90s %lld\n",path,file_size);
+			g_fprintf(stream, "%-90s %lld\n", path_utf8, file_size);
 
-		g_free(path);
+		g_free(path_utf8);
 	}
 here:
 	xa_print_entry_in_file(entry->child,idx,stream,bp);
@@ -1421,9 +1430,11 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	else
 		file_size = 0;
     archive_properties_window = xa_create_archive_properties_window();
-    utf8_string = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
+    dummy_string = xa_remove_path_from_archive_name(archive[idx]->escaped_path);
+    utf8_string = g_filename_display_name(dummy_string);
 	gtk_label_set_text(GTK_LABEL(name_data),utf8_string);
 	g_free (utf8_string);
+    g_free(dummy_string);
     /* Path */
     dummy_string = xa_remove_level_from_path (archive[idx]->path);
     if (strlen(dummy_string) == 0 || strcmp(dummy_string,"..") == 0 || strcmp(dummy_string,".") == 0)

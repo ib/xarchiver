@@ -217,20 +217,16 @@ gboolean match_patterns (char **patterns,const char *string,int flags)
 	return (result == 0);
 }
 
-gchar *xa_remove_path_from_archive_name(gchar *name)
+gchar *xa_remove_path_from_archive_name (gchar *name)
 {
-	gchar *utf8_string,*text;
+	gchar *text;
 
-	text = g_strrstr (name,"/");
-	if (text != NULL)
-	{
-		text++;
-		utf8_string = g_filename_display_name (text);
-	}
+	text = g_strrstr(name, "/");
+
+	if (text)
+		return g_strdup(text + 1);
 	else
-		utf8_string = g_filename_display_name (name);
-
-	return utf8_string;
+		return g_strdup(name);
 }
 
 gchar *xa_escape_filename (gchar *filename,gchar *meta_chars)

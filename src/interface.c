@@ -754,7 +754,7 @@ gchar *xa_create_password_dialog(XArchive *archive)
 {
 	GtkWidget *password_dialog,*dialog_vbox1,*vbox1,*hbox2,*image2,*vbox2,*label_pwd_required,*label_filename,*hbox1,*label34,*pw_password_entry;
 	gchar *password = NULL;
-	gchar *name;
+	gchar *name, *name_utf8;
 	gboolean done = FALSE;
 
   	password_dialog = gtk_dialog_new_with_buttons(PACKAGE_NAME " " VERSION,
@@ -798,8 +798,10 @@ gchar *xa_create_password_dialog(XArchive *archive)
   	gtk_misc_set_alignment (GTK_MISC (label_pwd_required),0,0.5);
 
   	name = xa_remove_path_from_archive_name(archive->path);
-  	label_filename = gtk_label_new (name);
-	g_free (name);
+  	name_utf8 = g_filename_display_name(name);
+  	label_filename = gtk_label_new(name_utf8);
+  	g_free(name_utf8);
+  	g_free(name);
   	gtk_widget_show (label_filename);
   	gtk_box_pack_start (GTK_BOX (vbox2),label_filename,FALSE,FALSE,12);
   	gtk_misc_set_alignment (GTK_MISC (label_filename),0,0.5);
