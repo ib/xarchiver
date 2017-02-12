@@ -536,14 +536,14 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		if ( ! bp)
 		{
 			g_fprintf (stream,"-------------------------------------------------------------------------------------------------------------\n");
-			g_fprintf (stream,_("Files:%*s%s"),80," ",_("|Compressed\n"));
+			g_fprintf(stream, _("Files:%*s%s"), 80, " ", _("|Size\n"));
 			g_fprintf (stream,"-------------------------------------------------------------------------------------------------------------\n");
 		}
 		else
 		{
 			g_fprintf(stream,"<br><table border=0 cellpadding=6 cellspacing=1><tr>");
 			g_fprintf(stream,_("<th>Files:</th>"));
-			g_fprintf(stream,_("<th>Compressed:</th>"));
+			g_fprintf(stream, _("<th>Size:</th>"));
 			g_fprintf(stream, "</tr>");
 
 		}
