@@ -271,7 +271,12 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	if (archive->extraction_path == NULL)
 	{
 		archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
-		if (archive_dir == NULL) archive_dir = xa_remove_level_from_path (archive->path);
+		if (archive_dir == NULL)
+		{
+			gchar *archive_dir_utf8 = g_filename_display_name(archive->path);
+			archive_dir = xa_remove_level_from_path(archive_dir_utf8);
+			g_free(archive_dir_utf8);
+		}
 		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
 	}
 	g_free(archive_dir);
