@@ -478,13 +478,14 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		{
 			g_fprintf(stream, "<html><head><meta name=GENERATOR content=\"" PACKAGE_NAME " " VERSION "\"><title>%s</title>\n", archive[idx]->escaped_path);
 			g_fprintf (stream,"<style>\ntd     { font: normal .7em ; }\nth     { font: bold 0.7em ; color: #FFFFFF; text-align: left; background: #42578A}\n.row1  { background-color: #DDDDDD; }\n.row2  { background-color: #EEEEEE; }\n</style>\n");
+			g_fprintf(stream,"</head>");
 			g_fprintf (stream,"<body bgcolor=#FFFFFF>\n");
 			g_fprintf (stream,"<b><u>");
 		}
 		g_fprintf (stream,_("Archive contents:\n"));
 
 		if (bp)
-			g_fprintf (stream,"</b></u><br><br><b>");
+			g_fprintf(stream, "</u></b><br><br><b>");
 		g_fprintf (stream,_("\nName: "));
 		if (bp)
 			g_fprintf (stream,"</b><a href=\"file://%s\">",archive[idx]->escaped_path);
@@ -538,7 +539,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 			g_fprintf(stream,"<br><table border=0 cellpadding=6 cellspacing=1><tr>");
 			g_fprintf(stream,_("<th>Files:</th>"));
 			g_fprintf(stream,_("<th>Compressed:</th>"));
-			g_fprintf(stream,"</th></tr>");
+			g_fprintf(stream, "</tr>");
 
 		}
 		xa_print_entry_in_file(archive[idx]->root_entry,idx,stream,bp);
@@ -584,7 +585,6 @@ void xa_print_entry_in_file(XEntry *entry,gint idx,FILE *stream,int bp)
 		{
 			g_fprintf(stream,"<tr class=\"row%d\">",x);
 			g_fprintf(stream,"<td>%s</td><td>%lld</td></tr>",path,file_size);
-			g_fprintf(stream,"</td></tr>");
 			if (x == 2)
 				x = 1;
 			else
