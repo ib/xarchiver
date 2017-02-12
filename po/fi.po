@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2010-10-23 14:01+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <None>\n"
@@ -1086,8 +1086,8 @@ msgid "Files:%*s%s"
 msgstr "Tiedostot:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Pakattu:\n"
+msgid "|Size\n"
+msgstr "|Koko\n"
 
 #: ../src/window.c
 #, c-format
@@ -1096,8 +1096,8 @@ msgstr "<th>Tiedostot:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Pakattu:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Koko:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1248,6 +1248,12 @@ msgstr "Pakkausohjelma"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ -pakkaussovellus"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Pakattu:\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Pakattu:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Lisää arkiston pääte tiedostonimeen"

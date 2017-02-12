@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -1075,8 +1075,8 @@ msgid "Files:%*s%s"
 msgstr "ගොනු:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|සම්පීඩිත\n"
+msgid "|Size\n"
+msgstr "|ප්‍රමාණය\n"
 
 #: ../src/window.c
 #, c-format
@@ -1085,8 +1085,8 @@ msgstr "<th>ගොනු:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>සම්පීඩිත:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>ප්‍රමාණය:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1237,6 +1237,12 @@ msgstr "සංරක්ෂණ කළමනාකරු"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ පමණක් සංරක්ෂණ කළමනාකරුවෙක්"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|සම්පීඩිත\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>සම්පීඩිත:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "ගොනු නාමයට සංරක්ෂණ දිගුව එක් කරන්න"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -1079,8 +1079,8 @@ msgid "Files:%*s%s"
 msgstr "קבצים:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|מכווץ\n"
+msgid "|Size\n"
+msgstr "|גודל\n"
 
 #: ../src/window.c
 #, c-format
@@ -1089,8 +1089,8 @@ msgstr "<th>קבצים:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>מכווץ:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>גודל:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1243,6 +1243,12 @@ msgstr "מנהל ארכיונים"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "מנהל ארכיונים ב־GTK+ בלבד"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|מכווץ\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>מכווץ:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "הוספת סיומת הארכיון לשם הקובץ"

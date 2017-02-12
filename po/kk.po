@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -1070,8 +1070,8 @@ msgid "Files:%*s%s"
 msgstr "Файлдар:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Сығылған\n"
+msgid "|Size\n"
+msgstr "|Өлшемі\n"
 
 #: ../src/window.c
 #, c-format
@@ -1080,8 +1080,8 @@ msgstr "<th>Файлдар:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Сығылған:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Өлшемі:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1231,6 +1231,12 @@ msgstr "Архивтерді басқарушысы"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Тек GTK+ талап ететін архивтер басқарушысы"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Сығылған\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Сығылған:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Файл атына архив кеңейтуін қосу"

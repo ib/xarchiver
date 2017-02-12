@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-09-02 13:03+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -1100,8 +1100,8 @@ msgid "Files:%*s%s"
 msgstr "Ficheru: %*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Comprimíu\n"
+msgid "|Size\n"
+msgstr "|Tamañu\n"
 
 #: ../src/window.c
 #, c-format
@@ -1110,8 +1110,8 @@ msgstr "<th>Ficheros:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Comprimíu:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Tamañu:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1262,6 +1262,12 @@ msgstr "Xestor de ficheros comprimíos"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Un xestor de ficheros comprimíos basáu namái en GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Comprimíu\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Comprimíu:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Amestar la estensión del ficheru comprimíu al nome del ficheru"

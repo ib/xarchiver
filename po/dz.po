@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2006-11-23 12:28+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -1173,9 +1173,8 @@ msgid "Files:%*s%s"
 msgstr "ཡིག་སྣོད་ཚུ།"
 
 #: ../src/window.c
-#, fuzzy
-msgid "|Compressed\n"
-msgstr "ཨེབ་བཙུགས་འབད་ཡོདཔ།"
+msgid "|Size\n"
+msgstr "|ཚད།\n"
 
 #: ../src/window.c
 #, c-format
@@ -1184,8 +1183,8 @@ msgstr ""
 
 #: ../src/window.c
 #, fuzzy, c-format
-msgid "<th>Compressed:</th>"
-msgstr "ཨེབ་བཙུགས་འབད་ཡོདཔ།"
+msgid "<th>Size:</th>"
+msgstr "<th>ཚད།:</th>"
 
 #: ../src/window.c
 #, fuzzy
@@ -1344,6 +1343,10 @@ msgstr "ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "ཇི་ཊི་ཀེ་+༢་ ཀྱིས་རྐྱངམ་ཅིག་ཡིག་མཛོད་འཛིན་སྐྱོང་པ།"
+
+#, fuzzy
+#~ msgid "|Compressed\n"
+#~ msgstr "ཨེབ་བཙུགས་འབད་ཡོདཔ།"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "ཡིག་སྣོད་མིང་ལུ་ ཡིག་མཛོད་རྒྱ་བསྐྱེད་ཁ་སྐོང་བརྐྱབ་"

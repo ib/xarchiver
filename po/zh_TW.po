@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -1074,8 +1074,8 @@ msgid "Files:%*s%s"
 msgstr "檔案：%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|壓縮後大小\n"
+msgid "|Size\n"
+msgstr "|大小\n"
 
 #: ../src/window.c
 #, c-format
@@ -1084,8 +1084,8 @@ msgstr "<th>檔案：</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>壓縮後大小：</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>大小：</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1235,6 +1235,12 @@ msgstr "封存管理程式"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ 介面的封存檔管理程式"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|壓縮後大小\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>壓縮後大小：</th>"
 
 #~ msgid "Home"
 #~ msgstr "個人目錄"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -1097,8 +1097,8 @@ msgid "Files:%*s%s"
 msgstr "Bestanden:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Gecomprimeerd\n"
+msgid "|Size\n"
+msgstr "|Grootte\n"
 
 #: ../src/window.c
 #, c-format
@@ -1107,8 +1107,8 @@ msgstr "<th>Bestanden:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Gecomprimeerd:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Grootte:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1262,6 +1262,12 @@ msgstr "Archiefbeheerder"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Een GTK+ archiefbeheerder"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Gecomprimeerd\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Gecomprimeerd:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Thuis"

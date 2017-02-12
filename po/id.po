@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -1091,8 +1091,8 @@ msgid "Files:%*s%s"
 msgstr "Berkas:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Terkompresi\n"
+msgid "|Size\n"
+msgstr "|Ukuran\n"
 
 #: ../src/window.c
 #, c-format
@@ -1101,8 +1101,8 @@ msgstr "<th>Berkas:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Terkompresi:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Ukuran:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1253,6 +1253,12 @@ msgstr "Manajer arsip"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Manajer arsip khusus GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Terkompresi\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Terkompresi:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Rumah"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -1061,8 +1061,8 @@ msgid "Files:%*s%s"
 msgstr "ఫైళ్లు:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr ""
+msgid "|Size\n"
+msgstr "|పరిమాణం\n"
 
 #: ../src/window.c
 #, c-format
@@ -1071,8 +1071,8 @@ msgstr "<th>ఫైళ్ళు:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr ""
+msgid "<th>Size:</th>"
+msgstr "<th>పరిమాణం:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."

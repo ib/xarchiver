@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-12-16 18:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -1094,8 +1094,8 @@ msgid "Files:%*s%s"
 msgstr "Filer:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "Komprimerad\n"
+msgid "|Size\n"
+msgstr "|Storlek\n"
 
 #: ../src/window.c
 #, c-format
@@ -1104,8 +1104,8 @@ msgstr "<th>Filer:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Komprimerad:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Storlek:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1261,6 +1261,12 @@ msgstr "Arkivhanterare"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "En arkivhanterare som använder GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "Komprimerad\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Komprimerad:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Hem"

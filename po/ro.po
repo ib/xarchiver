@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2010-12-13 13:59+0200\n"
 "Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -1097,8 +1097,8 @@ msgid "Files:%*s%s"
 msgstr "Fișiere:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Comprimat\n"
+msgid "|Size\n"
+msgstr "|Mărime\n"
 
 #: ../src/window.c
 #, c-format
@@ -1107,8 +1107,8 @@ msgstr "<th>Fișiere:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Comprimat:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Mărime:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1266,6 +1266,12 @@ msgstr "Manager de arhive"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Manager GTK+ de arhive"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Comprimat\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Comprimat:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Adaugă extensia arhivei la numele fișierului"

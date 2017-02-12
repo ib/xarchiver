@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2010-01-23 14:59+0300\n"
 "Last-Translator: dima <info@cnc-parts.info>\n"
 "Language-Team: ru_RU <ru@li.org>\n"
@@ -1093,8 +1093,8 @@ msgid "Files:%*s%s"
 msgstr "Файлы:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Сжатый\n"
+msgid "|Size\n"
+msgstr "|Размер\n"
 
 #: ../src/window.c
 #, c-format
@@ -1103,8 +1103,8 @@ msgstr "<th>Files:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Сжатый:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Размер:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1259,6 +1259,12 @@ msgstr "Менеджер архивов"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Менеджер архивов только для GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Сжатый\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Сжатый:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Домой"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
-"PO-Revision-Date: 2017-02-12 20:41+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
+"PO-Revision-Date: 2017-02-12 21:13+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -1109,8 +1109,8 @@ msgid "Files:%*s%s"
 msgstr "Datei%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Komprimiert\n"
+msgid "|Size\n"
+msgstr "|Größe\n"
 
 #: ../src/window.c
 #, c-format
@@ -1119,8 +1119,8 @@ msgstr "<th>Datei</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Komprimiert:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Größe</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1278,6 +1278,12 @@ msgstr "Archivmanager"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Ein nur auf GTK+ basierender Archivmanager"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Komprimiert\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Komprimiert:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Archivtypische Erweiterung an den Dateinamen anhängen"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -1093,8 +1093,8 @@ msgid "Files:%*s%s"
 msgstr "Dosyalar:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Sıkıştırılmış\n"
+msgid "|Size\n"
+msgstr "|Boyut\n"
 
 #: ../src/window.c
 #, c-format
@@ -1103,8 +1103,8 @@ msgstr "<th>Dosyalar.</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Sıkıştırılmış:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Boyut.</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1255,6 +1255,12 @@ msgstr "Arşiv yöneticisi"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ ile tasarlanmış arşiv yöneticisi"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Sıkıştırılmış\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Sıkıştırılmış:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Ev"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2017-01-23 23:58+0100\n"
 "Last-Translator: Páder Rezső <rezso@rezso.net>\n"
 "Language-Team: Hungarian\n"
@@ -1091,8 +1091,8 @@ msgid "Files:%*s%s"
 msgstr "Fájlok: %*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr " Tömörítve\n"
+msgid "|Size\n"
+msgstr "|Méret\n"
 
 #: ../src/window.c
 #, c-format
@@ -1101,8 +1101,8 @@ msgstr "<th>Fájlok:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Tömörítve:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Méret:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1255,6 +1255,12 @@ msgstr "Archívumkezelő"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ archívumkezelő"
+
+#~ msgid "|Compressed\n"
+#~ msgstr " Tömörítve\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Tömörítve:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Home"

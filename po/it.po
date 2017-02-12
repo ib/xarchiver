@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-12-18 23:03+0100\n"
 "Last-Translator: Gianluca Foddis <gianluca.foddis@gmail.com>\n"
 "Language-Team: Italian <xfce-it-translators@googlegroups.com>\n"
@@ -1102,8 +1102,8 @@ msgid "Files:%*s%s"
 msgstr "File: %*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Compresso\n"
+msgid "|Size\n"
+msgstr "|Dimensione\n"
 
 #: ../src/window.c
 #, c-format
@@ -1112,8 +1112,8 @@ msgstr "<th>File:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Compresso:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Dimensione:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1267,6 +1267,12 @@ msgstr "Gestore di archivi"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Un gestore di archivi basato solo GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Compresso\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Compresso:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Casa"

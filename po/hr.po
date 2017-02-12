@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2011-05-19 22:12+0200\n"
 "Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian\n"
@@ -1072,8 +1072,8 @@ msgid "Files:%*s%s"
 msgstr "Datoteke:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Zbijeno\n"
+msgid "|Size\n"
+msgstr "|Veličina\n"
 
 #: ../src/window.c
 #, c-format
@@ -1082,8 +1082,8 @@ msgstr "<th>Datoteke:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Zbijeno:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Veličina:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1237,6 +1237,12 @@ msgstr "Upravitelj arhivama"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Upravitelj arhivama samo za GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Zbijeno\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Zbijeno:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Dodaj proširenje arhive datoteci"

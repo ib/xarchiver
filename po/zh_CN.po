@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-10-21 13:57+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -1074,8 +1074,8 @@ msgid "Files:%*s%s"
 msgstr "文件：%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "已压缩\n"
+msgid "|Size\n"
+msgstr "|大小\n"
 
 #: ../src/window.c
 #, c-format
@@ -1084,8 +1084,8 @@ msgstr "<th>文件：</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>压缩后：</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>大小：</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1241,6 +1241,12 @@ msgstr "归档文件管理器"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "只使用 GTK+ 的归档文件管理器"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "已压缩\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>压缩后：</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "在文件名中添加归档文件扩展名"

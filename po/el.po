@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-09-08 20:07+0200\n"
 "Last-Translator: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -1108,8 +1108,8 @@ msgid "Files:%*s%s"
 msgstr "Αρχεία:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Συμπιεσμένο\n"
+msgid "|Size\n"
+msgstr "|Μέγεθος\n"
 
 #: ../src/window.c
 #, c-format
@@ -1118,8 +1118,8 @@ msgstr "<th>Αρχεία:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Συμπιεσμένο:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Μέγεθος:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1274,6 +1274,12 @@ msgstr "Διαχειριστής συμπιεσμένων αρχείων"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Ένας διαχειριστής συμπιεσμένων αρχείων σε GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Συμπιεσμένο\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Συμπιεσμένο:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Προσθήκη επέκτασης συμπιεσμένου αρχείου στο όνομα αρχείου"

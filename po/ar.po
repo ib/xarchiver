@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2011-08-09 03:59-0000\n"
 "Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
@@ -1073,8 +1073,8 @@ msgid "Files:%*s%s"
 msgstr "ملفات:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|مضغوط\n"
+msgid "|Size\n"
+msgstr "|حجم\n"
 
 #: ../src/window.c
 #, c-format
@@ -1083,8 +1083,8 @@ msgstr "<th>ملفات:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>مضغوط:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>حجم:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1238,6 +1238,12 @@ msgstr "مدير الأرشيف"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "جتك+ مدير الأرشيف فقط"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|مضغوط\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>مضغوط:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "إضافة ملحق إلى اسم ملف أرشيف"

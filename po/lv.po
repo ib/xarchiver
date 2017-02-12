@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -1090,8 +1090,8 @@ msgid "Files:%*s%s"
 msgstr "Faili:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Saspiests\n"
+msgid "|Size\n"
+msgstr "|Izmērs\n"
 
 #: ../src/window.c
 #, c-format
@@ -1100,8 +1100,8 @@ msgstr "<th>Faili:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Saspiestais:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Izmērs:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1255,6 +1255,12 @@ msgstr "Arhīvu pārvaldnieks"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+ vienīgais arhīvu pārvaldnieks"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Saspiests\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Saspiestais:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Mājas"

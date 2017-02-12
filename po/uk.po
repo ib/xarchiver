@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-11-09 15:47+0300\n"
 "Last-Translator: Andriy Matkovsky <sidius.ua@gmail.com>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -1086,8 +1086,8 @@ msgid "Files:%*s%s"
 msgstr "Файли:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Стиснутий\n"
+msgid "|Size\n"
+msgstr "|Розмір\n"
 
 #: ../src/window.c
 #, c-format
@@ -1096,8 +1096,8 @@ msgstr "<th>Файли:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Стиснутий:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Розмір:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1251,6 +1251,12 @@ msgstr "Менеджер архівів"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Менеджер архівів, що використовує лише GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Стиснутий\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Стиснутий:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Додати розширення архіву до назви файлу"

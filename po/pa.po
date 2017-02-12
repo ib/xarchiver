@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2010-04-04 10:58+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -1061,8 +1061,8 @@ msgid "Files:%*s%s"
 msgstr "ਫਾਇਲਾਂ:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|ਕੰਪਰੈੱਸ ਕੀਤਾ\n"
+msgid "|Size\n"
+msgstr "|ਸਾਈਜ਼\n"
 
 #: ../src/window.c
 #, c-format
@@ -1071,8 +1071,8 @@ msgstr "<th>ਫਾਇਲਾਂ:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr ""
+msgid "<th>Size:</th>"
+msgstr "<th>ਸਾਈਜ਼:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1226,6 +1226,9 @@ msgstr ""
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr ""
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|ਕੰਪਰੈੱਸ ਕੀਤਾ\n"
 
 #~ msgid "_Donate"
 #~ msgstr "ਦਾਨ ਦਿਓ(_D)"

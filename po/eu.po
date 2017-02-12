@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver.master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-08-21 10:51+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara\n"
@@ -1092,8 +1092,8 @@ msgid "Files:%*s%s"
 msgstr "Fitxategiak:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "Konprimiturik\n"
+msgid "|Size\n"
+msgstr "|Tamaina\n"
 
 #: ../src/window.c
 #, c-format
@@ -1102,8 +1102,8 @@ msgstr "<th>Fitxategiak:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Konprimiturik:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Tamaina:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1254,6 +1254,12 @@ msgstr "Pakete kudeatzailea"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "GTK+-rako bakarrik artxibo kudeatzailea"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "Konprimiturik\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Konprimiturik:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Artxibo luzapena gehitu fitxategi izenera"

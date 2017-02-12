@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-08-20 09:45-0400\n"
 "Last-Translator: Og Maciel <ogmaciel@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -1095,8 +1095,8 @@ msgid "Files:%*s%s"
 msgstr "Arquivos:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Comprimido\n"
+msgid "|Size\n"
+msgstr "|Tamanho\n"
 
 #: ../src/window.c
 #, c-format
@@ -1105,8 +1105,8 @@ msgstr "<th>Arquivos:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Comprimido:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Tamanho:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1263,6 +1263,12 @@ msgstr "Gerenciador de pacotes"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Um gerenciador de pacotes baseado no GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Comprimido\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Comprimido:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Início"

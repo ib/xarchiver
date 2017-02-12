@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -1094,8 +1094,8 @@ msgid "Files:%*s%s"
 msgstr "Fitxers:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|Comprimit\n"
+msgid "|Size\n"
+msgstr "|Mida\n"
 
 #: ../src/window.c
 #, c-format
@@ -1104,8 +1104,8 @@ msgstr "<th>Fitxers:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>Comprimit:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Mida:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
@@ -1258,6 +1258,12 @@ msgstr "Gestor d'arxius"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "Un gestor d'arxius només GTK+"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Comprimit\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Comprimit:</th>"
 
 #~ msgid "Home"
 #~ msgstr "Inici"

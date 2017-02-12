@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:13+0100\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -1104,8 +1104,8 @@ msgid "Files:%*s%s"
 msgstr "فائلیں:%*s%s"
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr "|دبی ہوئی\n"
+msgid "|Size\n"
+msgstr "|حجم\n"
 
 #: ../src/window.c
 #, c-format
@@ -1114,8 +1114,8 @@ msgstr "<th>فائلیں:</th>"
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr "<th>دبی ہوئی:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>حجم:</th>"
 
 #: ../src/window.c
 #, fuzzy
@@ -1276,6 +1276,12 @@ msgstr "محفوظہ منیجر"
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
 msgstr "صرف GTK+ محفوظہ منیجر"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|دبی ہوئی\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>دبی ہوئی:</th>"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "فائل کے نام میں محفوظہ کا لاحقہ شامل کریں"

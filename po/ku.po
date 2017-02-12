@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-01-26 12:20+0100\n"
+"POT-Creation-Date: 2017-02-12 21:09+0100\n"
 "PO-Revision-Date: 2008-10-07 22:35+0000\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -1111,8 +1111,8 @@ msgid "Files:%*s%s"
 msgstr ""
 
 #: ../src/window.c
-msgid "|Compressed\n"
-msgstr ""
+msgid "|Size\n"
+msgstr "|Mezinahî\n"
 
 #: ../src/window.c
 #, c-format
@@ -1121,8 +1121,8 @@ msgstr ""
 
 #: ../src/window.c
 #, c-format
-msgid "<th>Compressed:</th>"
-msgstr ""
+msgid "<th>Size:</th>"
+msgstr "<th>Mezinahî:</th>"
 
 #: ../src/window.c
 msgid "You are about to delete entries from the archive."
