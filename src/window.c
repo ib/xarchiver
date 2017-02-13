@@ -2023,14 +2023,26 @@ gboolean xa_launch_external_program(gchar *program,gchar *arg)
 {
 	GtkWidget *message;
 	GError *error = NULL;
-	gchar *command_line = NULL;
+	gchar *program_local, *arg_local, *command_line;
 	gchar **argv;
 	GdkScreen *screen;
 	gboolean success = TRUE;
 
-	command_line = g_strconcat(program," ",arg,NULL);
+	if (g_utf8_validate(program, -1, NULL))
+		program_local = g_filename_from_utf8(program, -1, NULL, NULL, NULL);
+	else
+		program_local = g_strdup(program);
+
+	if (g_utf8_validate(arg, -1, NULL))
+		arg_local = g_filename_from_utf8(arg, -1, NULL, NULL, NULL);
+	else
+		arg_local = g_strdup(arg);
+
+	command_line = g_strconcat(program_local, " ", arg_local, NULL);
 	g_shell_parse_argv(command_line,NULL,&argv,NULL);
 	g_free(command_line);
+	g_free(program_local);
+	g_free(arg_local);
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (xa_main_window));
 	if (!GDK_COMPAT_SPAWN(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, xa_set_environment, gdk_screen_make_display_name(screen), NULL, &error))
