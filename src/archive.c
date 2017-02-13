@@ -361,16 +361,18 @@ void xa_delete_temp_directory (XArchive *archive)
 gboolean xa_create_temp_directory (XArchive *archive)
 {
 	gchar *tmp_dir;
-	gchar *value;
+	gchar *value, *value_local;
 
 	if (archive->tmp != NULL)
 		return TRUE;
 
 	value = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_temp_dir));
-	tmp_dir = g_strconcat(value,"/xa-XXXXXX",NULL);
+	value_local = g_filename_from_utf8(value, -1, NULL, NULL, NULL);
+	tmp_dir = g_strconcat(value_local, "/xa-XXXXXX", NULL);
+	g_free(value_local);
 	g_free(value);
 
-	if (mkdtemp (tmp_dir) == 0)
+	if (!g_mkdtemp(tmp_dir))
 	{
 		g_free(tmp_dir);
 		tmp_dir = NULL;
