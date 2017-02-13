@@ -1047,7 +1047,6 @@ destroy_delete_dialog:
 gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data)
 {
 	gchar *string = data;
-	gchar *utf8_name = NULL;
 	char **patterns;
 	XEntry *entry = NULL;
 	gint current_page;
@@ -1058,13 +1057,11 @@ gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *
 	patterns = g_strsplit(string,";",-1);
 
 	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
-	utf8_name = g_filename_to_utf8 (entry->filename,-1,NULL,NULL,NULL);
 
-	if (match_patterns (patterns,utf8_name,0))
+	if (match_patterns(patterns, entry->filename, 0))
 		gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview)),iter);
 	else
 		gtk_tree_selection_unselect_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview)),iter);
-	g_free (utf8_name);
 
 	if (patterns != NULL)
 		g_strfreev (patterns);
