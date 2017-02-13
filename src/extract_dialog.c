@@ -234,11 +234,17 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 
 	if (archive->type == XARCHIVETYPE_ARJ && unarj)
 	{
+		gtk_widget_set_sensitive(dialog_data->files_radio, FALSE);
 		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (dialog_data->all_files_radio),TRUE);
 	}
 	else
 	{
+		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
+			gtk_widget_set_sensitive(dialog_data->files_radio, FALSE);
+		else
+			gtk_widget_set_sensitive(dialog_data->files_radio, TRUE);
+
 		if (selected)
 		{
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog_data->selected_radio),TRUE);
