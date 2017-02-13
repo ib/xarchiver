@@ -337,7 +337,7 @@ static void xa_open_with_dialog_custom_entry_activated(GtkEditable *entry,Open_w
 static void xa_open_with_dialog_browse_custom_command(GtkButton *button,Open_with_data *data)
 {
 	GtkWidget *file_selector;
-	gchar *dest_dir;
+	gchar *dest_dir, *dest_dir_utf8;
 	gint response;
 
 	file_selector = gtk_file_chooser_dialog_new (_("Select an application"),
@@ -354,7 +354,9 @@ static void xa_open_with_dialog_browse_custom_command(GtkButton *button,Open_wit
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		dest_dir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (file_selector));
-		gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry),dest_dir);
+		dest_dir_utf8 = g_filename_display_name(dest_dir);
+		gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry), dest_dir_utf8);
+		g_free(dest_dir_utf8);
 		g_free(dest_dir);
 	}
 	gtk_widget_destroy(file_selector);
