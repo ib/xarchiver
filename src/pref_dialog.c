@@ -574,7 +574,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 
 void xa_prefs_combo_changed (GtkComboBox *widget,gpointer user_data)
 {
-	gchar *filename = NULL;
+	gchar *filename, *filename_utf8;
 	unsigned short int flag = GPOINTER_TO_UINT(user_data);
 
 	if (gtk_combo_box_get_active(GTK_COMBO_BOX (widget)) == 1)
@@ -582,8 +582,10 @@ void xa_prefs_combo_changed (GtkComboBox *widget,gpointer user_data)
 		filename = xa_prefs_choose_program(flag);
 		if (filename != NULL)
 		{
+			filename_utf8 = g_filename_display_name(filename);
 			gtk_combo_box_text_remove(GTK_COMBO_BOX_TEXT(GTK_WIDGET(widget)), 0);
-			gtk_combo_box_text_insert_text(GTK_COMBO_BOX_TEXT(GTK_WIDGET(widget)), 0, filename);
+			gtk_combo_box_text_insert_text(GTK_COMBO_BOX_TEXT(GTK_WIDGET(widget)), 0, filename_utf8);
+			g_free(filename_utf8);
 			g_free(filename);
 		}
 		gtk_combo_box_set_active (GTK_COMBO_BOX (widget),0);
