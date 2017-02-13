@@ -2781,7 +2781,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	gboolean full_path  = FALSE;
 	gboolean overwrite  = FALSE;
 	gint current_index,idx;
-	gchar *dummy = NULL,*filename = NULL,*e_filename = NULL;
+	gchar *dummy = NULL, *entry_local, *filename, *e_filename;
 	XEntry *entry;
 
 	current_index = gtk_notebook_get_current_page(notebook);
@@ -2806,7 +2806,9 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 				return;
 		}
 	}
-	filename = g_strconcat(archive[idx]->tmp,"/",entry->filename,NULL);
+	entry_local = g_filename_from_utf8(entry->filename, -1, NULL, NULL, NULL);
+	filename = g_strconcat(archive[idx]->tmp, "/", entry_local, NULL);
+	g_free(entry_local);
 	if (g_file_test(filename,G_FILE_TEST_EXISTS))
 		goto here;
 	if (archive[idx]->extraction_path)
@@ -2845,7 +2847,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 {
 	XEntry *entry;
 	GtkTreeIter iter;
-	gchar *dummy = NULL,*item,*file = NULL,*e_filename = NULL;
+	gchar *dummy = NULL, *item, *entry_local, *file, *e_filename;
 	GSList *names = NULL;
 	gboolean result = FALSE;
 	gboolean overwrite = FALSE;
@@ -2898,7 +2900,9 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		}
 		if (result == FALSE)
 			return;
-		file = g_strconcat(archive->tmp,"/",entry->filename,NULL);
+		entry_local = g_filename_from_utf8(entry->filename, -1, NULL, NULL, NULL);
+		file = g_strconcat(archive->tmp, "/", entry_local, NULL);
+		g_free(entry_local);
 		e_filename = xa_escape_filename(file,"$'`\"\\!?* ()[]&|:;<>#");
 		g_free(file);
 		xa_determine_program_to_run(e_filename);
