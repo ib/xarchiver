@@ -101,6 +101,8 @@ int main (int argc, char **argv)
 	XArchive *archive = NULL;
 	gboolean no_bzip2_gzip;
 	unsigned short int x;
+	gchar *path;
+
 #ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -143,6 +145,14 @@ int main (int argc, char **argv)
 
 	if (multi_extract || add_files || ask_and_extract || ask_and_add || extract_path != NULL)
 		batch_mode = TRUE;
+
+	path = g_find_program_in_path("xdg-open");
+
+	if (path)
+	{
+		xdg_open = TRUE;
+		g_free(path);
+	}
 
 	xa_set_available_archivers();
 	prefs_window   = xa_create_prefs_dialog();
@@ -612,13 +622,6 @@ void xa_set_available_archivers()
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.txz");
 	if (tzo)
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tzo");
-
-    absolute_path = g_find_program_in_path("xdg-open");
-    if (absolute_path != NULL)
-    {
-    	xdg_open = TRUE;
-    	g_free (absolute_path);
-    }
 }
 
 XArchive *xa_init_structure_from_cmd_line (char *filename)
