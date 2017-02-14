@@ -109,7 +109,7 @@ struct _XArchive
 	GtkWidget *scrollwindow;
 	gboolean has_passwd;
 	gboolean has_comment;
-	gboolean has_test;
+	gboolean can_test;
 	gboolean has_sfx;
 	gboolean can_add;
 	gboolean can_extract;

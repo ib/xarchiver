@@ -50,7 +50,7 @@ void xa_open_rar (XArchive *archive)
 	}
 
 	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
-	archive->has_sfx = archive->has_properties = archive->can_extract = archive->has_test = TRUE;
+	archive->has_sfx = archive->has_properties = archive->can_extract = archive->can_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
 		archive->format = "RAR";
