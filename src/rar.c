@@ -41,16 +41,16 @@ void xa_open_rar (XArchive *archive)
 	if (unrar)
 	{
 		rar = "unrar";
-		archive->can_add = archive->has_sfx = FALSE;
+		archive->can_add = archive->can_sfx = FALSE;
 	}
 	else
 	{
 		rar = "rar";
-		archive->can_add = archive->has_sfx = TRUE;
+		archive->can_add = archive->can_sfx = TRUE;
 	}
 
 	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
-	archive->has_sfx = archive->has_properties = archive->can_extract = archive->can_test = TRUE;
+	archive->can_sfx = archive->has_properties = archive->can_extract = archive->can_test = TRUE;
 	archive->dummy_size = 0;
     archive->nr_of_files = 0;
 		archive->format = "RAR";

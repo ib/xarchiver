@@ -32,7 +32,7 @@ void xa_open_arj (XArchive *archive)
 	arj_line = 0;
 	gchar *command = g_strconcat (unarj ? "unarj " : "arj v ", archive->escaped_path, NULL);
 	archive->has_properties = archive->can_extract = archive->can_test = TRUE;
-	archive->has_sfx = archive->can_add = !unarj;
+	archive->can_sfx = archive->can_add = !unarj;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;

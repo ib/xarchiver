@@ -31,7 +31,7 @@ void xa_open_7zip (XArchive *archive)
 	unsigned short int i = 0;
 
 	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
-	archive->has_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->can_test = TRUE;
+	archive->can_sfx = archive->has_properties = archive->can_add = archive->can_extract = archive->can_test = TRUE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
 	archive->format ="7ZIP";

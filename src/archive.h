@@ -110,7 +110,7 @@ struct _XArchive
 	gboolean has_passwd;
 	gboolean has_comment;
 	gboolean can_test;
-	gboolean has_sfx;
+	gboolean can_sfx;
 	gboolean can_add;
 	gboolean can_extract;
 	gboolean has_properties;
