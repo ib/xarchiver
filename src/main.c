@@ -301,8 +301,8 @@ done:	g_list_free (ArchiveSuffix);
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
 		{
 			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
-			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), prefs_window->geometry[XARCHIVETYPE_7ZIP], prefs_window->geometry[XARCHIVETYPE_ARJ]);
-			gtk_paned_set_position (GTK_PANED (hpaned1),prefs_window->geometry[XARCHIVETYPE_DEB]);
+			gtk_window_set_default_size(GTK_WINDOW(xa_main_window), prefs_window->geometry[2], prefs_window->geometry[3]);
+			gtk_paned_set_position(GTK_PANED(hpaned1), prefs_window->geometry[4]);
 		}
 		else
 		{
