@@ -405,6 +405,8 @@ void xa_set_available_archivers()
 	test[XARCHIVETYPE_ZIP] = &xa_zip_test;
 	test[XARCHIVETYPE_LHA] = &xa_lha_test;
 
+	/* 7-zip */
+
 	absolute_path = g_find_program_in_path("7z");
 	if (absolute_path)
 		sevenz = "7z";
@@ -427,6 +429,8 @@ void xa_set_available_archivers()
 		g_free (absolute_path);
 	}
 
+	/* ARJ */
+
 	absolute_path = g_find_program_in_path("arj");
 	if ( absolute_path )
 	{
@@ -446,6 +450,8 @@ void xa_set_available_archivers()
 		}
 	}
 
+	/* bzip2 */
+
 	absolute_path = g_find_program_in_path("bzip2");
     if ( absolute_path )
 	{
@@ -453,6 +459,8 @@ void xa_set_available_archivers()
 		ArchiveSuffix = g_list_append (ArchiveSuffix, "*.bz2");
 		g_free (absolute_path);
 	}
+
+	/* debian package */
 
 	absolute_path = g_find_program_in_path("ar");
     if ( absolute_path )
@@ -462,6 +470,8 @@ void xa_set_available_archivers()
 		g_free (absolute_path);
 	}
 
+	/* GNU zip */
+
 	absolute_path = g_find_program_in_path("gzip");
 	if ( absolute_path )
 	{
@@ -469,6 +479,8 @@ void xa_set_available_archivers()
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.gz");
 		g_free (absolute_path);
 	}
+
+	/* java archive */
 
 	absolute_path = g_find_program_in_path("zip");
 	if (absolute_path)
@@ -484,6 +496,8 @@ void xa_set_available_archivers()
 		}
 	}
 
+	/* LHA */
+
 	absolute_path = g_find_program_in_path("lha");
 	if (absolute_path)
 	{
@@ -491,6 +505,8 @@ void xa_set_available_archivers()
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzh");
 		g_free (absolute_path);
 	}
+
+	/* lzma */
 
 	absolute_path = g_find_program_in_path("lzma");
 	if ( absolute_path )
@@ -500,6 +516,8 @@ void xa_set_available_archivers()
 		g_free (absolute_path);
 	}
 
+	/* lzop */
+
 	absolute_path = g_find_program_in_path("lzop");
 	if (absolute_path)
 	{
@@ -507,6 +525,8 @@ void xa_set_available_archivers()
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzo");
 		g_free (absolute_path);
 	}
+
+	/* RAR */
 
 	absolute_path = g_find_program_in_path ("rar");
     if ( absolute_path )
@@ -533,6 +553,8 @@ void xa_set_available_archivers()
 		}
 	}
 
+	/* RPM package */
+
 	absolute_path = g_find_program_in_path("cpio");
     if ( absolute_path )
 	{
@@ -540,6 +562,8 @@ void xa_set_available_archivers()
 	    ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rpm");
 		g_free (absolute_path);
 	}
+
+	/* tape archive */
 
 	absolute_path = g_find_program_in_path("gtar");
 	if (absolute_path)
@@ -564,6 +588,8 @@ void xa_set_available_archivers()
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar");
 	}
 
+	/* xz */
+
 	absolute_path = g_find_program_in_path("xz");
 	if (absolute_path)
 	{
@@ -572,11 +598,15 @@ void xa_set_available_archivers()
 		g_free(absolute_path);
 	}
 
+	/* zip */
+
 	if (zip)
 	{
 		ArchiveType = g_list_append(ArchiveType, "zip");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.zip");
 	}
+
+	/* compressed tar */
 
 	if (tar)
 	{
