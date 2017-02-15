@@ -204,14 +204,14 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		if ( g_file_test (archive->escaped_path,G_FILE_TEST_EXISTS))
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
-									archive->remove_files ? "--remove-files " : "",
+									archive->add_move ? "--remove-files " : "",
 									archive->update ? "-uvvf " : "-rvvf ",
 									archive->escaped_path,
 									files->str , NULL );
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
-									archive->remove_files ? "--remove-files " : "",
+									archive->add_move ? "--remove-files " : "",
 									"-cvvf ",archive->escaped_path,
 									files->str , NULL );
 		break;
@@ -222,7 +222,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
-									archive->remove_files ? "--remove-files " : "",
+									archive->add_move ? "--remove-files " : "",
 									"-cvvjf ",archive->escaped_path,
 									files->str , NULL );
 		break;
@@ -233,7 +233,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
-									archive->remove_files ? "--remove-files " : "",
+									archive->add_move ? "--remove-files " : "",
 									"-cvvzf ",archive->escaped_path,
 									files->str , NULL );
 		break;
@@ -244,7 +244,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
-									archive->remove_files ? "--remove-files " : "",
+									archive->add_move ? "--remove-files " : "",
 									"--use-compress-program=lzma -cvvf ",archive->escaped_path,
 									files->str , NULL );
 		break;
@@ -255,7 +255,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
-									archive->remove_files ? "--remove-files " : "",
+									archive->add_move ? "--remove-files " : "",
 									"--use-compress-program=xz -cvvf ",archive->escaped_path,
 									files->str , NULL );
 		break;
@@ -266,7 +266,7 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		else
 			command = g_strconcat (tar, " ",
 									archive->add_recurse ? "" : "--no-recursion ",
-									archive->remove_files ? "--remove-files " : "",
+									archive->add_move ? "--remove-files " : "",
 									"--use-compress-program=lzop -cvvf ",archive->escaped_path,
 									files->str , NULL );
 		break;
@@ -512,7 +512,7 @@ void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *arch
 	if (add)
 		command = g_strconcat (tar, " ",
 							archive->add_recurse ? "" : "--no-recursion ",
-							archive->remove_files ? "--remove-files " : "",
+							archive->add_move ? "--remove-files " : "",
 							archive->update ? "-uvvf " : "-rvvf ",
 							archive->tmp,"/" TMPFILE,
 							files->str , NULL );

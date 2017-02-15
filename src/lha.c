@@ -181,7 +181,7 @@ void xa_lha_add (XArchive *archive,GString *files,gchar *compression_string)
 	if (compression_string == NULL)
 		compression_string = "5";
 	command = g_strconcat( "lha ",
-							archive->remove_files ? "m" : "a",
+							archive->add_move ? "m" : "a",
 							archive->update ? "u" : "",
 							"o",compression_string,
 							" ",

@@ -206,7 +206,7 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 		command = g_strconcat ( "zip ",
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
-									archive->remove_files ? "-m " : "",
+									archive->add_move ? "-m " : "",
 									"-P ", archive->passwd," ",
 									"-",compression_string," ",
 									archive->escaped_path,
@@ -215,7 +215,7 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 		command = g_strconcat ( "zip ",
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
-									archive->remove_files ? "-m " : "",
+									archive->add_move ? "-m " : "",
 									"-",compression_string," ",
 									archive->escaped_path,
 									files->str,NULL);

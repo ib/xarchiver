@@ -209,7 +209,7 @@ void xa_arj_add (XArchive *archive,GString *files,gchar *compression_string)
 		command = g_strconcat ( "arj a ",
 								archive->update ? "-u " : "",
 								archive->freshen ? "-f " : "",
-								archive->remove_files ? "-d1 " : "",
+								archive->add_move ? "-d1 " : "",
 								"-g" , archive->passwd , " -i ",
 								"-m",compression_string," ",
 								archive->escaped_path,files->str,NULL);
@@ -217,7 +217,7 @@ void xa_arj_add (XArchive *archive,GString *files,gchar *compression_string)
 		command = g_strconcat ( "arj a ",
 								archive->update ? "-u " : "",
 								archive->freshen ? "-f " : "",
-								archive->remove_files ? "-d1 " : "",
+								archive->add_move ? "-d1 " : "",
 								" -i ",
 								"-m",compression_string," ",
 								archive->escaped_path,files->str,NULL);

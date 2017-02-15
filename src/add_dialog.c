@@ -414,7 +414,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
 
 			if (add_dialog->remove_files != NULL)
-				archive->remove_files = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->remove_files));
+				archive->add_move = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->remove_files));
 
 			if (gtk_widget_is_sensitive(add_dialog->freshen))
 				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->freshen));

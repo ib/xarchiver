@@ -127,7 +127,7 @@ struct _XArchive
 	gboolean update;
 	gboolean touch;
 	gboolean add_solid;
-	gboolean remove_files;
+	gboolean add_move;
 	unsigned short int compression_level;
 	unsigned short int nc;
 	gint nr_of_files;
