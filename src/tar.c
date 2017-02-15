@@ -50,7 +50,6 @@ void xa_open_tar (XArchive *archive)
 	archive->nr_of_files = 0;
 	archive->nc = 7;
 	archive->parse_output = xa_get_tar_line_content;
-	archive->format ="TAR";
 	xa_spawn_async_process (archive,command);
 
 	g_free (command);

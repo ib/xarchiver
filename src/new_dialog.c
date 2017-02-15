@@ -116,7 +116,6 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gchar *basepath, *filename;
 	gchar *current_dir = NULL;
 	gint current_page, response, type = 0;
-	gchar *format = "";
 	gpointer suffix;
 
 	unsigned short int x;
@@ -269,94 +268,42 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		new_combo_box = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 
 		if (strcmp ( ComboArchiveType,"arj") == 0)
-		{
 			type = XARCHIVETYPE_ARJ;
-			format = "ARJ";
-		}
 		else if (strcmp (ComboArchiveType,"bz2") == 0)
-		{
 			type = XARCHIVETYPE_BZIP2;
-			format = "BZIP2";
-		}
 		else if (strcmp (ComboArchiveType,"gz") == 0)
-		{
 			type = XARCHIVETYPE_GZIP;
-			format = "GZIP";
-		}
 		else if (strcmp (ComboArchiveType,"lzma") == 0)
-		{
 			type = XARCHIVETYPE_LZMA;
-			format = "LZMA";
-		}
 		else if (strcmp (ComboArchiveType,"xz") == 0)
-		{
 			type = XARCHIVETYPE_XZ;
-			format = "XZ";
-		}
 		else if (strcmp (ComboArchiveType,"lzo") == 0)
-		{
 			type = XARCHIVETYPE_LZOP;
-			format = "LZOP";
-		}
 		else if (strcmp (ComboArchiveType,"rar") == 0)
-		{
 			type = XARCHIVETYPE_RAR;
-			format = "RAR";
-		}
 		else if (strcmp (ComboArchiveType,"rar5") == 0)
-		{
 			type = XARCHIVETYPE_RAR;
-			format = "RAR5";
-		}
 		else if (strcmp (ComboArchiveType,"tar") == 0)
-		{
 			type = XARCHIVETYPE_TAR;
-			format = "TAR";
-		}
 		else if (strcmp (ComboArchiveType,"tar.bz2") == 0)
-		{
 			type = XARCHIVETYPE_TAR_BZ2;
-			format = "TAR.BZIP2";
-		}
 		else if (strcmp (ComboArchiveType,"tar.gz") == 0)
-		{
 			type = XARCHIVETYPE_TAR_GZ;
-			format = "TAR.GZIP";
-		}
 		else if (strcmp (ComboArchiveType,"tar.lzma") == 0)
-		{
 			type = XARCHIVETYPE_TAR_LZMA;
-			format = "TAR.LZMA";
-		}
 		else if (strcmp (ComboArchiveType,"tar.xz") == 0)
-		{
 			type = XARCHIVETYPE_TAR_XZ;
-			format = "TAR.XZ";
-		}
 		else if (strcmp (ComboArchiveType,"tar.lzo") == 0)
-		{
 			type = XARCHIVETYPE_TAR_LZOP;
-			format = "TAR.LZOP";
-		}
 		else if (strcmp (ComboArchiveType,"jar") == 0 || strcmp (ComboArchiveType,"zip") == 0 )
-		{
 			type = XARCHIVETYPE_ZIP;
-			format = "ZIP";
-		}
 		else if (strcmp (ComboArchiveType,"7z") == 0)
-		{
 			type = XARCHIVETYPE_7ZIP;
-			format = "7ZIP";
-		}
 		else if (strcmp (ComboArchiveType,"lha") == 0)
-		{
 			type = XARCHIVETYPE_LHA;
-			format = "LHA";
-		}
 
 		archive = xa_init_archive_structure (type);
 		archive->type = type;
-		archive->format = format;
 		archive->can_add = TRUE;
 
 		gtk_widget_destroy (xa_file_chooser);

@@ -151,7 +151,6 @@ void xa_open_rpm (XArchive *archive)
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;
-	archive->format ="RPM";
 
 	archive->column_types = g_malloc0(sizeof(types));
 	for (i = 0; i < 10; i++)

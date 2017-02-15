@@ -40,7 +40,6 @@ void xa_open_zip (XArchive *archive)
     archive->nr_of_files = 0;
     archive->nc = 9;
 	archive->parse_output = xa_get_zip_line_content;
-	archive->format ="ZIP";
 	xa_spawn_async_process (archive,command);
 	g_free ( command );
 

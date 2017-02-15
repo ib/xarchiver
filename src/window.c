@@ -1454,7 +1454,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     gtk_label_set_text(GTK_LABEL(path_data),utf8_string);
     g_free ( utf8_string);
 	/* Type */
-	gtk_label_set_text(GTK_LABEL(type_data),archive[idx]->format);
+	gtk_label_set_text(GTK_LABEL(type_data), xa_get_archive_format(archive[idx]));
     /* Modified Date */
     strftime (date,64,"%c",localtime (&my_stat.st_mtime));
     t = g_locale_to_utf8 (date,-1,0,0,0);

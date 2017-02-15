@@ -96,7 +96,6 @@ struct _XArchive
 	gchar *path;
 	gchar *escaped_path;
 	gchar *tmp;
-	gchar *format;
 	gchar *extraction_path;
 	gchar *passwd;
 	gchar *location_entry_path;
@@ -171,6 +170,7 @@ struct _XAClipboard
 void xa_spawn_async_process (XArchive *, gchar *);
 //gchar *xa_split_command_line(XArchive *archive,GSList *list);
 XArchive *xa_init_archive_structure(gint);
+const gchar *xa_get_archive_format(XArchive *);
 void xa_clean_archive_structure (XArchive *);
 gboolean xa_dump_child_error_messages (GIOChannel *, GIOCondition , gpointer );
 gboolean xa_create_temp_directory(XArchive *);

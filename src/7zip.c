@@ -39,7 +39,6 @@ void xa_open_7zip (XArchive *archive)
 	archive->can_update = TRUE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
-	archive->format ="7ZIP";
 	archive->nc = 6;
 	archive->parse_output = xa_get_7zip_line_content;
 	xa_spawn_async_process (archive,command);

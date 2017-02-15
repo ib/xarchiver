@@ -34,7 +34,6 @@ void xa_open_deb (XArchive *archive)
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 5;
-	archive->format = "DEB";
 	archive->parse_output = xa_get_ar_line_content;
 	xa_spawn_async_process (archive,command);
 	g_free (command);

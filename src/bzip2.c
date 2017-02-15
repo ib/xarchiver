@@ -48,7 +48,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
     	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
 	{
 		archive->type = XARCHIVETYPE_TAR_BZ2;
-		archive->format = "TAR.BZIP2";
 		archive->can_touch = TRUE;
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
@@ -60,7 +59,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
-		archive->format = "TAR.LZMA";
 		archive->can_touch = TRUE;
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
@@ -72,7 +70,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
 	else if (g_str_has_suffix(archive->escaped_path,".tar.xz") || g_str_has_suffix (archive->escaped_path,".txz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_XZ;
-		archive->format = "TAR.XZ";
 		archive->can_touch = TRUE;
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
@@ -86,7 +83,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		g_str_has_suffix(archive->escaped_path,".tar.lzo"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZOP;
-		archive->format = "TAR.LZOP";
 		archive->can_touch = TRUE;
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
@@ -109,25 +105,21 @@ void xa_open_bzip2_lzma (XArchive *archive)
 
 		if (archive->type == XARCHIVETYPE_BZIP2)
 		{
-			archive->format = "BZIP2";
 			executable = "bzip2 ";
 			len = 4;
 		}
 		else if (archive->type == XARCHIVETYPE_LZMA)
 		{
-			archive->format = "LZMA";
 			executable = "lzma ";
 			len = 5;
 		}
 		else if (archive->type == XARCHIVETYPE_XZ)
 		{
-			archive->format = "XZ";
 			executable = "xz ";
 			len = 3;
 		}
 		else if (archive->type == XARCHIVETYPE_LZOP)
 		{
-			archive->format = "LZOP";
 			executable = "lzop ";
 			len = 4;
 		} /* else fail? */

@@ -42,7 +42,6 @@ void xa_open_arj (XArchive *archive)
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;
-	archive->format ="ARJ";
 	archive->parse_output = xa_get_arj_line_content;
 	xa_spawn_async_process (archive,command);
 	g_free (command);

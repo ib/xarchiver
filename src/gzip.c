@@ -53,7 +53,6 @@ void xa_open_gzip (XArchive *archive)
 		archive->can_recurse = TRUE;
 		archive->files_size = 0;
 		archive->nr_of_files = 0;
-		archive->format ="TAR.GZIP";
 		archive->nc = 7;
 		archive->parse_output = xa_get_tar_line_content;
 		xa_spawn_async_process (archive,command);
@@ -76,7 +75,6 @@ void xa_open_gzip (XArchive *archive)
 		archive->nc = 4;
 		archive->parse_output = xa_get_gzip_line_content;
 		archive->nr_of_files = 1;
-		archive->format = "GZIP";
 
 		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
 		archive->column_types = g_malloc0(sizeof(types));
