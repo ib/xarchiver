@@ -30,7 +30,6 @@ void xa_open_deb (XArchive *archive)
 
 	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
 	archive->can_extract = TRUE;
-	archive->can_add = archive->can_test = archive->can_sfx = FALSE;
 	archive->can_touch = TRUE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;

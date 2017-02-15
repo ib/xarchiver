@@ -45,7 +45,6 @@ void xa_open_gzip (XArchive *archive)
 
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
 		archive->can_add = archive->can_extract = archive->can_test = TRUE;
-		archive->can_sfx = FALSE;
 		archive->can_touch = TRUE;
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
@@ -73,7 +72,6 @@ void xa_open_gzip (XArchive *archive)
 	}
 	else
 	{
-		archive->can_add = archive->can_sfx = FALSE;
 		archive->can_extract = archive->can_test = TRUE;
 		archive->nc = 4;
 		archive->parse_output = xa_get_gzip_line_content;

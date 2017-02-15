@@ -103,7 +103,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		unsigned short int i;
 		GSList *list = NULL;
 
-		archive->can_add = archive->can_sfx = FALSE;
 		archive->can_extract = archive->can_test = TRUE;
 		archive->nc = 3;
 		archive->nr_of_files = 1;
@@ -208,7 +207,6 @@ void xa_open_tar_compressed_file(XArchive *archive)
 	/* else fail? */
 
 	archive->can_add = archive->can_extract = archive->can_test = TRUE;
-	archive->can_sfx = FALSE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 7;

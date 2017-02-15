@@ -148,7 +148,6 @@ void xa_open_rpm (XArchive *archive)
 		return;
 
 	archive->can_extract = TRUE;
-	archive->can_add = archive->can_sfx = archive->can_test = FALSE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;

@@ -39,10 +39,7 @@ void xa_open_rar (XArchive *archive)
 	jump_header = jump_comment = read_filename = last_line = encrypted = FALSE;
 
 	if (unrar)
-	{
 		rar = "unrar";
-		archive->can_add = archive->can_sfx = FALSE;
-	}
 	else
 	{
 		rar = "rar";

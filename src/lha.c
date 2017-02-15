@@ -32,7 +32,6 @@ void xa_open_lha (XArchive *archive)
 	unsigned short int i;
 	command = g_strconcat ("lha l " , archive->escaped_path, NULL);
 	archive->can_extract = archive->can_add = archive->can_test = TRUE;
-	archive->can_sfx = FALSE;
 	archive->can_move = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
