@@ -30,7 +30,7 @@ void xa_open_zip (XArchive *archive)
 
 	gchar *command = g_strconcat ("zipinfo -t -l ",archive->escaped_path, NULL);
 	archive->can_sfx = archive->can_add = archive->can_extract = archive->can_test = TRUE;
-	archive->dummy_size  = 0;
+	archive->files_size  = 0;
     archive->nr_of_files = 0;
     archive->nc = 9;
 	archive->parse_output = xa_get_zip_line_content;
@@ -107,7 +107,7 @@ void xa_get_zip_line_content (gchar *line, gpointer data)
 
 	line[n]='\0';
 	item[i] = line + a;
-	archive->dummy_size += g_ascii_strtoull(item[i],NULL,0);
+	archive->files_size += g_ascii_strtoull(item[i],NULL,0);
 	i++;
 	n++;
 

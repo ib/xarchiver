@@ -33,7 +33,7 @@ void xa_open_arj (XArchive *archive)
 	gchar *command = g_strconcat (unarj ? "unarj " : "arj v ", archive->escaped_path, NULL);
 	archive->can_extract = archive->can_test = TRUE;
 	archive->can_sfx = archive->can_add = !unarj;
-	archive->dummy_size = 0;
+	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;
 	archive->format ="ARJ";
@@ -120,7 +120,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n]='\0';
 		item[0] = line + a;
-		archive->dummy_size += g_ascii_strtoull(item[0],NULL,0);
+		archive->files_size += g_ascii_strtoull(item[0],NULL,0);
 		n++;
 
 		/* Compressed */

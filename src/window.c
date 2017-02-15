@@ -230,7 +230,7 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
     xa_disable_delete_buttons(FALSE);
 
     archive[current_page]->passwd = NULL;
-    archive[current_page]->dummy_size = 0;
+    archive[current_page]->files_size = 0;
     archive[current_page]->nr_of_files = 0;
 	xa_set_window_title (xa_main_window ,archive[current_page]->path);
 	gtk_label_set_text(GTK_LABEL(total_label),"");
@@ -510,7 +510,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
     	if (bp)
 			g_fprintf(stream,"<br><br><b>");
     	g_fprintf (stream,_("Uncompressed size: "));
-    	t = xa_set_size_string(archive[idx]->dummy_size);
+    	t = xa_set_size_string(archive[idx]->files_size);
     	if (bp)
     		g_fprintf (stream,"</b>");
     	g_fprintf (stream,"%s\n",t);
@@ -1465,7 +1465,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     gtk_label_set_text(GTK_LABEL(size_data),t);
     g_free (t);
     /* content_size */
-    t = xa_set_size_string(archive[idx]->dummy_size);
+    t = xa_set_size_string(archive[idx]->files_size);
     gtk_label_set_text(GTK_LABEL(content_data),t);
     g_free (t);
     /* Has Comment */
@@ -1475,7 +1475,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 		gtk_label_set_text(GTK_LABEL(comment_data),_("No"));
 
     /* Compression_ratio */
-    content_size = (double)archive[idx]->dummy_size / file_size;
+    content_size = (double)archive[idx]->files_size / file_size;
     t = g_strdup_printf ( "%.2f",content_size);
     gtk_label_set_text(GTK_LABEL(compression_data),t);
     g_free (t);

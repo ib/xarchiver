@@ -149,7 +149,7 @@ void xa_open_rpm (XArchive *archive)
 
 	archive->can_extract = TRUE;
 	archive->can_add = archive->can_sfx = archive->can_test = FALSE;
-	archive->dummy_size = 0;
+	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;
 	archive->format ="RPM";
@@ -218,7 +218,7 @@ void xa_get_cpio_line_content (gchar *line, gpointer data)
 	for(; n < linesize && line[n] != ' '; ++n);
 	line[n] = '\0';
 	item[1] = line + a;
-	archive->dummy_size += g_ascii_strtoull(item[1],NULL,0);
+	archive->files_size += g_ascii_strtoull(item[1],NULL,0);
 	n++;
 
 	/* Date */

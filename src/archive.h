@@ -133,7 +133,7 @@ struct _XArchive
 	gint error_fd;
 	guint pb_source;
 	GPid child_pid;
-	unsigned long long int dummy_size;
+	unsigned long long int files_size;
 	parse_output_func parse_output;
 	delete_func delete;
 	add_func add;

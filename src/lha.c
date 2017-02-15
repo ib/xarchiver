@@ -33,7 +33,7 @@ void xa_open_lha (XArchive *archive)
 	command = g_strconcat ("lha l " , archive->escaped_path, NULL);
 	archive->can_extract = archive->can_add = archive->can_test = TRUE;
 	archive->can_sfx = FALSE;
-	archive->dummy_size = 0;
+	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->format ="LHA";
 	archive->nc = 6;
@@ -101,7 +101,7 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 
 	line[a+(n-a)] = '\0';
 	item[3] = line + a;
-	archive->dummy_size += g_ascii_strtoull(item[3],NULL,0);
+	archive->files_size += g_ascii_strtoull(item[3],NULL,0);
 
     /* Ratio */
     line[37] = '\0';

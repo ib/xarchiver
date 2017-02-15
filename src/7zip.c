@@ -32,7 +32,7 @@ void xa_open_7zip (XArchive *archive)
 
 	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
 	archive->can_sfx = archive->can_add = archive->can_extract = archive->can_test = TRUE;
-	archive->dummy_size = 0;
+	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->format ="7ZIP";
 	archive->nc = 6;
@@ -102,7 +102,7 @@ void xa_get_7zip_line_content (gchar *line, gpointer data)
 
 	line[38] = '\0';
 	item[0] = line + a;
-	archive->dummy_size += g_ascii_strtoull(item[0],NULL,0);
+	archive->files_size += g_ascii_strtoull(item[0],NULL,0);
 
 	/* Compressed */
 	/* Is this item solid? */

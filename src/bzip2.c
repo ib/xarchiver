@@ -154,7 +154,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		stat (command,&my_stat);
 		g_free(command);
 		size = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
-		archive->dummy_size = my_stat.st_size;
+		archive->files_size = my_stat.st_size;
 		item[0] = size;
 
 		xa_set_archive_entries_for_each_row (archive,filename,item);
@@ -185,7 +185,7 @@ void xa_open_tar_compressed_file(XArchive *archive)
 
 	archive->can_add = archive->can_extract = archive->can_test = TRUE;
 	archive->can_sfx = FALSE;
-	archive->dummy_size = 0;
+	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 7;
 	archive->parse_output = xa_get_tar_line_content;

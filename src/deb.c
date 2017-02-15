@@ -31,7 +31,7 @@ void xa_open_deb (XArchive *archive)
 	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
 	archive->can_extract = TRUE;
 	archive->can_add = archive->can_test = archive->can_sfx = FALSE;
-	archive->dummy_size = 0;
+	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 5;
 	archive->format = "DEB";
@@ -82,7 +82,7 @@ void xa_get_ar_line_content (gchar *line, gpointer data)
 
 	line[n] = '\0';
 	item[2] = line + a;
-	archive->dummy_size += g_ascii_strtoull(item[2],NULL,0);
+	archive->files_size += g_ascii_strtoull(item[2],NULL,0);
 	a = ++n;
 
 	/* Date Modified */

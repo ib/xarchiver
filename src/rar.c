@@ -51,7 +51,7 @@ void xa_open_rar (XArchive *archive)
 
 	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
 	archive->can_sfx = archive->can_extract = archive->can_test = TRUE;
-	archive->dummy_size = 0;
+	archive->files_size = 0;
     archive->nr_of_files = 0;
 		archive->format = "RAR";
 
@@ -168,7 +168,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n]='\0';
 		item[i] = line + a;
-		archive->dummy_size += g_ascii_strtoull(item[i],NULL,0);
+		archive->files_size += g_ascii_strtoull(item[i],NULL,0);
 		i++;
 		n++;
 
@@ -437,7 +437,7 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	for(; n < linesize && line[n] != ' '; n++);
 	line[n]='\0';
 	item[i] = line + a;
-	archive->dummy_size += g_ascii_strtoull(item[i],NULL,0);
+	archive->files_size += g_ascii_strtoull(item[i],NULL,0);
 	i++;
 	n++;
 
