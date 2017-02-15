@@ -152,7 +152,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	label3 = gtk_label_new (_("Options "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame2),label3);
 
-	hbox3 = gtk_hbox_new (FALSE,0);
+	hbox3 = gtk_hbox_new(FALSE, 4);
 	gtk_box_pack_start (GTK_BOX (vbox5),hbox3,TRUE,TRUE,0);
 
 	label_password = gtk_label_new (_("Password:"));
