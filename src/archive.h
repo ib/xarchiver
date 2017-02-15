@@ -111,6 +111,7 @@ struct _XArchive
 	gboolean has_comment;
 	gboolean can_test;
 	gboolean can_sfx;
+	gboolean can_touch;
 	gboolean can_add;
 	gboolean can_extract;
 	gboolean cut_copy_string;

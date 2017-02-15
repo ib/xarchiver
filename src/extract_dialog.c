@@ -261,11 +261,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		flag = FALSE;
 	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
 
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_DEB && archive->type != XARCHIVETYPE_TAR_LZOP && archive->type != XARCHIVETYPE_TAR_XZ)
-		flag = FALSE;
-	else
-		flag = TRUE;
-	gtk_widget_set_sensitive (dialog_data->touch,flag);
+	gtk_widget_set_sensitive(dialog_data->touch, archive->can_touch);
 
 	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || (archive->type == XARCHIVETYPE_ARJ && !unarj))
 		flag = TRUE;
@@ -363,7 +359,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			g_free (destination_path);
 
 			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
-			archive->touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
+			if (gtk_widget_is_sensitive(dialog_data->touch))
+				archive->touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
 			if (xa_main_window)
 				archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
 			else
