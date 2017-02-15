@@ -38,6 +38,7 @@ void xa_open_arj (XArchive *archive)
 	archive->can_overwrite = !unarj;
 	archive->can_full_path = TRUE;
 	archive->can_freshen = !unarj;
+	archive->can_update = !unarj;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;

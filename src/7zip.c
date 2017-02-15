@@ -36,6 +36,7 @@ void xa_open_7zip (XArchive *archive)
 	archive->can_passwd = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
+	archive->can_update = TRUE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->format ="7ZIP";

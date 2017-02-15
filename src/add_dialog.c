@@ -240,9 +240,9 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->store_path,flag);
 	gtk_widget_set_sensitive(add_dialog->no_store_path,flag);
 
-	if (archive->type != XARCHIVETYPE_7ZIP)
-		g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
+	g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 
+	gtk_widget_set_sensitive(add_dialog->update, archive->can_update);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen);
 	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
@@ -406,7 +406,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (gtk_widget_is_sensitive(add_dialog->recurse))
 				archive->add_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->recurse));
 
-			if (add_dialog->update != NULL)
+			if (gtk_widget_is_sensitive(add_dialog->update))
 				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
 
 			if (gtk_widget_is_sensitive(add_dialog->remove_files))

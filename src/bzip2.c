@@ -53,6 +53,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
 		archive->can_full_path = TRUE;
+		archive->can_update = TRUE;
 		archive->can_recurse = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
@@ -64,6 +65,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
 		archive->can_full_path = TRUE;
+		archive->can_update = TRUE;
 		archive->can_recurse = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
@@ -75,6 +77,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
 		archive->can_full_path = TRUE;
+		archive->can_update = TRUE;
 		archive->can_recurse = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
@@ -88,6 +91,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
 		archive->can_full_path = TRUE;
+		archive->can_update = TRUE;
 		archive->can_recurse = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}

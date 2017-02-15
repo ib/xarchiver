@@ -116,6 +116,7 @@ struct _XArchive
 	gboolean can_full_path;
 	gboolean can_touch;
 	gboolean can_freshen;
+	gboolean can_update;
 	gboolean can_recurse;
 	gboolean can_solid;
 	gboolean can_move;

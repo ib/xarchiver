@@ -218,7 +218,6 @@ void update_fresh_toggled_cb (GtkToggleButton *button,Extract_dialog_data *data)
 void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selected,XArchive *archive)
 {
 	gchar *archive_dir = NULL;
-	gboolean flag = TRUE;
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry))&& prefs_window->extract_dialog[0] != -1)
 		gtk_window_set_default_size (GTK_WINDOW(dialog_data->dialog1),prefs_window->extract_dialog[0],prefs_window->extract_dialog[1]);
@@ -261,13 +260,8 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	gtk_widget_set_sensitive(dialog_data->extract_full, archive->can_full_path);
 	gtk_widget_set_sensitive(dialog_data->touch, archive->can_touch);
 
-	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || (archive->type == XARCHIVETYPE_ARJ && !unarj))
-		flag = TRUE;
-	else
-		flag = FALSE;
-
 	gtk_widget_set_sensitive(dialog_data->fresh, archive->can_freshen);
-	gtk_widget_set_sensitive(dialog_data->update,flag);
+	gtk_widget_set_sensitive(dialog_data->update, archive->can_update);
 
 	if (archive->extraction_path == NULL)
 	{
@@ -368,7 +362,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			if (gtk_widget_is_sensitive(dialog_data->fresh))
 				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
-			archive->update    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
+			if (gtk_widget_is_sensitive(dialog_data->update))
+				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
 
 			gtk_widget_hide (dialog_data->dialog1);
 			archive->status = XA_ARCHIVESTATUS_EXTRACT;
