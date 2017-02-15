@@ -243,9 +243,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	if (archive->type != XARCHIVETYPE_7ZIP)
 		g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 
-	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
-		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
-
+	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen);
 	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);

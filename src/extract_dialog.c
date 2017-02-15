@@ -265,7 +265,8 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		flag = TRUE;
 	else
 		flag = FALSE;
-	gtk_widget_set_sensitive(dialog_data->fresh,flag);
+
+	gtk_widget_set_sensitive(dialog_data->fresh, archive->can_freshen);
 	gtk_widget_set_sensitive(dialog_data->update,flag);
 
 	if (archive->extraction_path == NULL)
@@ -364,7 +365,9 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
 			else
 				archive->full_path = archive->can_full_path;
-			archive->freshen   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
+
+			if (gtk_widget_is_sensitive(dialog_data->fresh))
+				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
 			archive->update    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
 
 			gtk_widget_hide (dialog_data->dialog1);
