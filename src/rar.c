@@ -402,8 +402,8 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 			}
 			return;
 		}
-		/*if (strncmp(line, "Details: RAR 5", 14) == 0)
-			archive->format = "RAR5";*/
+		if (strncmp(line, "Details: RAR 5", 14) == 0)
+			archive->version = 5;
 		if (line[0] == '-')
 		{
 			jump_header = TRUE;
@@ -527,9 +527,9 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 
 	if (rar_version == 5)
 	{
-		/*if (strcmp(archive->format, "RAR5") == 0)
+		if (archive->version == 5)
 			version_switch = g_strdup("-ma5 ");
-		else*/
+		else
 			version_switch = g_strdup("-ma4 ");
 	}
 	else

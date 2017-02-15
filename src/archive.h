@@ -87,6 +87,7 @@ typedef void (*open_func)			(XArchive *);
 struct _XArchive
 {
 	XArchiveType type;
+	int version;
 	XArchiveStatus status;
 	XEntry *root_entry;
 	XEntry *current_entry;

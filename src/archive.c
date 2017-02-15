@@ -98,7 +98,7 @@ const gchar *xa_get_archive_format (XArchive *archive)
       return "LZOP";
 
 	  case XARCHIVETYPE_RAR:
-      return "RAR";
+      return archive->version == 5 ? "RAR5" : "RAR";
 
 	  case XARCHIVETYPE_RPM:
       return "RPM";
