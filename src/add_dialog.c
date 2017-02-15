@@ -422,7 +422,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->freshen));
 
 			if (gtk_widget_is_sensitive(add_dialog->solid_archive))
-				archive->solid_archive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->solid_archive));
+				archive->add_solid = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->solid_archive));
 
 			if (gtk_widget_is_sensitive(add_dialog->compression_scale))
 			{

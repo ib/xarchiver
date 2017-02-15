@@ -168,7 +168,7 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	if (archive->passwd != NULL)
 		command = g_strconcat (sevenz,
 								archive->update ? " u " : " a ",
-								archive->solid_archive ? "-ms=on " : "-ms=off ",
+								archive->add_solid ? "-ms=on " : "-ms=off ",
 								"-p" , archive->passwd, " ",
 								archive->escaped_path," ",
 								"-mx=",compression_string,"",
@@ -176,7 +176,7 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	else
 		command = g_strconcat (sevenz,
 								archive->update ? " u " : " a ",
-								archive->solid_archive ? "-ms=on " : "-ms=off ",
+								archive->add_solid ? "-ms=on " : "-ms=off ",
 								archive->escaped_path," ",
 								"-mx=",compression_string,"",
 								files->str,NULL);
