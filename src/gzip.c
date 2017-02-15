@@ -47,6 +47,7 @@ void xa_open_gzip (XArchive *archive)
 		archive->can_add = archive->can_extract = archive->can_test = TRUE;
 		archive->can_sfx = FALSE;
 		archive->can_touch = TRUE;
+		archive->can_move = TRUE;
 		archive->files_size = 0;
 		archive->nr_of_files = 0;
 		archive->format ="TAR.GZIP";

@@ -50,6 +50,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 		archive->format = "TAR.BZIP2";
 		archive->can_touch = TRUE;
+		archive->can_move = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
@@ -57,6 +58,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->type = XARCHIVETYPE_TAR_LZMA;
 		archive->format = "TAR.LZMA";
 		archive->can_touch = TRUE;
+		archive->can_move = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.xz") || g_str_has_suffix (archive->escaped_path,".txz"))
@@ -64,6 +66,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->type = XARCHIVETYPE_TAR_XZ;
 		archive->format = "TAR.XZ";
 		archive->can_touch = TRUE;
+		archive->can_move = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzop") ||
@@ -73,6 +76,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		archive->format = "TAR.LZOP";
 		archive->can_touch = TRUE;
+		archive->can_move = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
 	else

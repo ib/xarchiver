@@ -247,6 +247,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
 
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
+	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 
 	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_XZ && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_LZOP)
 	{
@@ -413,7 +414,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (add_dialog->update != NULL)
 				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
 
-			if (add_dialog->remove_files != NULL)
+			if (gtk_widget_is_sensitive(add_dialog->remove_files))
 				archive->add_move = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->remove_files));
 
 			if (gtk_widget_is_sensitive(add_dialog->freshen))
