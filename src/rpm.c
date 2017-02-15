@@ -147,7 +147,7 @@ void xa_open_rpm (XArchive *archive)
 	if (result < 0)
 		return;
 
-	archive->can_extract = archive->has_properties = TRUE;
+	archive->can_extract = TRUE;
 	archive->can_add = archive->can_sfx = archive->can_test = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;
@@ -163,7 +163,7 @@ void xa_open_rpm (XArchive *archive)
 	if (result == 0)
 	{
 		gtk_widget_set_sensitive(Stop_button,FALSE);
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_properties,archive->has_passwd,0);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,0);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 		return;
 	}

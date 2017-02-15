@@ -660,7 +660,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
-	xa_set_button_state (1,1,1,1,archive[id]->can_add,archive[id]->can_extract,archive[id]->can_sfx,archive[id]->can_test,archive[id]->has_properties,1,1);
+	xa_set_button_state (1,1,1,1,archive[id]->can_add,archive[id]->can_extract,archive[id]->can_sfx,archive[id]->can_test,1,1);
 }
 
 void xa_add_page (XArchive *archive)
@@ -1230,7 +1230,7 @@ void set_label (GtkWidget *label,gchar *text)
     g_free (tmp_markup);
 }
 
-void xa_set_button_state (gboolean New,gboolean Open,gboolean save,gboolean Close,gboolean add,gboolean extract,gboolean sfx,gboolean test,gboolean info,gboolean has_password,gboolean can_list)
+void xa_set_button_state (gboolean New,gboolean Open,gboolean save,gboolean Close,gboolean add,gboolean extract,gboolean sfx,gboolean test,gboolean has_password,gboolean can_list)
 {
 	gtk_widget_set_sensitive (New_button,New);
     gtk_widget_set_sensitive (new1,New);
@@ -1244,7 +1244,7 @@ void xa_set_button_state (gboolean New,gboolean Open,gboolean save,gboolean Clos
 	gtk_widget_set_sensitive (extract_menu,extract);
 	gtk_widget_set_sensitive (exe_menu,sfx);
 	gtk_widget_set_sensitive (check_menu,test);
-	gtk_widget_set_sensitive (properties,info);
+	gtk_widget_set_sensitive(properties, TRUE);
 	gtk_widget_set_sensitive (select_all,Close);
 	gtk_widget_set_sensitive (select_pattern,Close);
 	gtk_widget_set_sensitive (password_entry_menu,has_password);

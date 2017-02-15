@@ -79,7 +79,7 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 			{
 				archive->status = XA_ARCHIVESTATUS_ERROR;
 				gtk_widget_set_sensitive(Stop_button,FALSE);
-				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_properties,archive->has_passwd,1);
+				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
 		error:
 				archive->create_image = TRUE;
 				xa_show_cmd_line_output (NULL,archive);
@@ -96,7 +96,7 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 there:
 	if (xa_main_window)
 	{
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_properties,archive->has_passwd,1);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
 		archive->child_pid = archive->pb_source = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
@@ -226,7 +226,7 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 
 	xa_add_page (archive[current_page]);
 	//xa_set_button_state (0,0,0,1,1,0,0,0,0,1,0);
-	xa_set_button_state (1,1,1,1,archive[current_page]->can_add,archive[current_page]->can_extract,archive[current_page]->can_sfx,archive[current_page]->can_test,archive[current_page]->has_properties,1,1);
+	xa_set_button_state (1,1,1,1,archive[current_page]->can_add,archive[current_page]->can_extract,archive[current_page]->can_sfx,archive[current_page]->can_test,1,1);
     xa_disable_delete_buttons(FALSE);
 
     archive[current_page]->passwd = NULL;
@@ -385,7 +385,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 
 	gtk_widget_set_sensitive (Stop_button,TRUE);
 	gtk_widget_set_sensitive (listing,FALSE);
-	xa_set_button_state (0,0,0,0,0,0,0,0,0,0,0);
+	xa_set_button_state (0,0,0,0,0,0,0,0,0,0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
 	(*archive[current_page]->open_archive) (archive[current_page]);
 
@@ -636,7 +636,7 @@ void xa_close_archive (GtkMenuItem *menuitem,gpointer user_data)
 		gtk_widget_set_sensitive (deselect_all,FALSE);
 		gtk_widget_set_sensitive (comment_menu,FALSE);
 		xa_disable_delete_buttons (FALSE);
-		xa_set_button_state (1,1,0,0,0,0,0,0,0,0,0);
+		xa_set_button_state (1,1,0,0,0,0,0,0,0,0);
 		xa_set_window_title (xa_main_window,NULL);
 		gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");

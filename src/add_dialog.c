@@ -497,7 +497,7 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
 			xa_run_command (archive,cmd_list);
 		}
 		archive->status = XA_ARCHIVESTATUS_ADD;
-		xa_set_button_state (0,0,0,0,0,0,0,0,0,0,0);
+		xa_set_button_state (0,0,0,0,0,0,0,0,0,0);
 	}
 
 	while (list)

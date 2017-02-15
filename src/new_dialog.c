@@ -357,7 +357,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		archive = xa_init_archive_structure (type);
 		archive->type = type;
 		archive->format = format;
-		archive->can_add = archive->has_properties = TRUE;
+		archive->can_add = TRUE;
 
 		gtk_widget_destroy (xa_file_chooser);
 		archive->path = g_strdup (my_path);

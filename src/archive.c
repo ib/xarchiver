@@ -94,7 +94,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_error_free (error);
 		g_strfreev (argv);
 		archive->child_pid = 0;
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_properties,archive->has_passwd,1);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
 		return;
 	}
 	g_strfreev (argv);
@@ -253,7 +253,7 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 				xa_show_cmd_line_output (NULL,archive);
 			}
 			if (archive->status == XA_ARCHIVESTATUS_OPEN)
-				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_properties,archive->has_passwd,1);
+				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
 		}
 		return FALSE;
 	}
@@ -434,7 +434,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	}
 	xa_watch_child (archive->child_pid, status, archive);
 	if (xa_main_window)
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_properties,1,1);
+		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,1,1);
 
 	g_slist_foreach (commands,(GFunc) g_free,NULL);
 	g_slist_free(commands);

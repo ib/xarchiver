@@ -29,7 +29,7 @@ void xa_open_deb (XArchive *archive)
 	unsigned short int i;
 
 	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
-	archive->has_properties = archive->can_extract = TRUE;
+	archive->can_extract = TRUE;
 	archive->can_add = archive->can_test = archive->can_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;

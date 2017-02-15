@@ -80,7 +80,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		GSList *list = NULL;
 
 		archive->can_add = archive->can_sfx = FALSE;
-		archive->has_properties = archive->can_extract = archive->can_test = TRUE;
+		archive->can_extract = archive->can_test = TRUE;
 		archive->nc = 3;
 		archive->nr_of_files = 1;
 
@@ -183,7 +183,7 @@ void xa_open_tar_compressed_file(XArchive *archive)
 		command = g_strconcat(tar," tv --use-compress-program=lzop -f ",archive->escaped_path,NULL);
 	/* else fail? */
 
-	archive->has_properties = archive->can_add = archive->can_extract = archive->can_test = TRUE;
+	archive->can_add = archive->can_extract = archive->can_test = TRUE;
 	archive->can_sfx = FALSE;
 	archive->dummy_size = 0;
 	archive->nr_of_files = 0;

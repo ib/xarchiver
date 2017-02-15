@@ -65,7 +65,7 @@ void xa_select_by_pattern_dialog(GtkMenuItem *, gpointer );
 void xa_handle_navigation_buttons (GtkMenuItem *, gpointer );
 void xa_add_page (XArchive *);
 void xa_close_page ( GtkWidget*, gpointer );
-void xa_set_button_state (gboolean,gboolean,gboolean,gboolean,gboolean,gboolean, gboolean, gboolean,gboolean,gboolean,gboolean);
+void xa_set_button_state(gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean);
 void xa_restore_navigation(int idx);
 void xa_disable_delete_buttons (gboolean);
 void xa_sidepane_row_expanded(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer );
