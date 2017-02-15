@@ -246,9 +246,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
 
-	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_7ZIP)
-		flag = TRUE;
-	gtk_widget_set_sensitive(add_dialog->solid_archive,flag);
+	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 
 	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_XZ && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_LZOP)
 	{
