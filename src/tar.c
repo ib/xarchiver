@@ -334,7 +334,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
-								archive->tar_touch ? " --touch" : "",
+								archive->touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
 		else
@@ -353,7 +353,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
-								archive->tar_touch ? " --touch" : "",
+								archive->touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
 		else
@@ -372,7 +372,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
-								archive->tar_touch ? " --touch" : "",
+								archive->touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
 		else
@@ -391,7 +391,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
-								archive->tar_touch ? " --touch" : "",
+								archive->touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
 		else
@@ -410,7 +410,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
-								archive->tar_touch ? " --touch" : "",
+								archive->touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
 		else
@@ -429,7 +429,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 						#else
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
-								archive->tar_touch ? " --touch" : "",
+								archive->touch ? " --touch" : "",
 								" -C ",archive->extraction_path," ",names->str,NULL);
 		}
 		else
@@ -570,7 +570,7 @@ gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gch
 											archive->overwrite ? " --overwrite" : " --keep-old-files",
 											" --no-wildcards ",
 										#endif
-										archive->tar_touch ? " --touch" : "",
+										archive->touch ? " --touch" : "",
 										" -C ",archive->tmp," ",files_to_extract,NULL);
 	list = g_slist_append(list,command);
 	if (strstr(files_to_extract,"/") || strcmp(archive->tmp,archive->extraction_path) != 0)

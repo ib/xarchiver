@@ -363,7 +363,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			g_free (destination_path);
 
 			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
-			archive->tar_touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
+			archive->touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
 			if (xa_main_window)
 				archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
 			else

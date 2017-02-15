@@ -123,7 +123,7 @@ struct _XArchive
 	gboolean full_path;
 	gboolean freshen;
 	gboolean update;
-	gboolean tar_touch;
+	gboolean touch;
 	gboolean solid_archive;
 	gboolean remove_files;
 	unsigned short int compression_level;
