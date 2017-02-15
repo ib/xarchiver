@@ -53,6 +53,8 @@ void xa_open_rar (XArchive *archive)
 		archive->can_overwrite = TRUE;
 	}
 
+	archive->can_full_path = TRUE;
+
 	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
 	archive->can_sfx = archive->can_extract = archive->can_test = TRUE;
 	archive->files_size = 0;

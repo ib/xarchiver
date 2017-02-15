@@ -183,7 +183,7 @@ int main (int argc, char **argv)
 					goto done;
 			}
 			GSList *string = NULL;
-			archive->full_path = 1;
+			archive->full_path = archive->can_full_path;
 			archive->overwrite = archive->can_overwrite;
 			gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
 			archive->extraction_path = escaped_path;

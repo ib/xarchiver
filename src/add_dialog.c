@@ -226,14 +226,14 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->store_path),FALSE);
 	}
 	else
-		gtk_widget_set_sensitive(add_dialog->store_path,TRUE);
+		gtk_widget_set_sensitive(add_dialog->store_path, archive->can_full_path);
 	/* 7z doesn't appear to let the user chooses if storing full paths */
 	if (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
  	{
  		flag = FALSE;
 	}
 	else
-		flag = TRUE;
+		flag = archive->can_full_path;
 
 	gtk_widget_set_sensitive(add_dialog->option_notebook_vbox,flag);
 	gtk_widget_set_sensitive(label3,flag);
@@ -400,7 +400,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			}
 
 			done = TRUE;
-			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->store_path)))
+			if (gtk_widget_is_sensitive(add_dialog->store_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->store_path)))
 				archive->full_path = TRUE;
 			else
 				archive->full_path = FALSE;

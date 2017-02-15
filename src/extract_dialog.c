@@ -257,11 +257,8 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		}
 	}
 
-	if ( (xa_main_window == NULL && is_tar_compressed(archive->type)) || (archive->type == XARCHIVETYPE_ARJ && unarj) || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
-		flag = FALSE;
-	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
-
 	gtk_widget_set_sensitive(dialog_data->overwrite_check, archive->can_overwrite);
+	gtk_widget_set_sensitive(dialog_data->extract_full, archive->can_full_path);
 	gtk_widget_set_sensitive(dialog_data->touch, archive->can_touch);
 
 	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || (archive->type == XARCHIVETYPE_ARJ && !unarj))
@@ -363,10 +360,10 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
 			if (gtk_widget_is_sensitive(dialog_data->touch))
 				archive->touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
-			if (xa_main_window)
+			if (xa_main_window && gtk_widget_is_sensitive(dialog_data->extract_full))
 				archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
 			else
-				archive->full_path = TRUE;
+				archive->full_path = archive->can_full_path;
 			archive->freshen   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
 			archive->update    = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
 
@@ -566,6 +563,7 @@ void xa_multi_extract_dialog_selection_changed(GtkTreeSelection *selection,Multi
 	GtkTreeModel *model;
 	gint type;
 
+	// !!! this is nonsense, the archive tells if can_full_path
 	if (gtk_tree_selection_get_selected (selection,&model,&iter))
 	{
 		gtk_tree_model_get(model,&iter,3,&type,-1);

@@ -33,6 +33,7 @@ void xa_open_zip (XArchive *archive)
 	archive->can_move = TRUE;
 	archive->can_passwd = TRUE;
 	archive->can_overwrite = TRUE;
+	archive->can_full_path = TRUE;
 	archive->files_size  = 0;
     archive->nr_of_files = 0;
     archive->nc = 9;

@@ -113,6 +113,7 @@ struct _XArchive
 	gboolean can_sfx;
 	gboolean can_passwd;
 	gboolean can_overwrite;
+	gboolean can_full_path;
 	gboolean can_touch;
 	gboolean can_solid;
 	gboolean can_move;
