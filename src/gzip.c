@@ -50,6 +50,7 @@ void xa_open_gzip (XArchive *archive)
 		archive->can_move = TRUE;
 		archive->can_overwrite = TRUE;
 		archive->can_full_path = TRUE;
+		archive->can_recurse = TRUE;
 		archive->files_size = 0;
 		archive->nr_of_files = 0;
 		archive->format ="TAR.GZIP";

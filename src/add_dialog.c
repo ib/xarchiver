@@ -246,6 +246,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	if (archive->type != XARCHIVETYPE_7ZIP && archive->type != XARCHIVETYPE_LHA)
 		gtk_widget_set_sensitive(add_dialog->freshen,TRUE);
 
+	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 
@@ -404,7 +405,8 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				archive->full_path = TRUE;
 			else
 				archive->full_path = FALSE;
-			archive->add_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->recurse));
+			if (gtk_widget_is_sensitive(add_dialog->recurse))
+				archive->add_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->recurse));
 
 			if (add_dialog->update != NULL)
 				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
