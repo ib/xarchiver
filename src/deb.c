@@ -31,6 +31,7 @@ void xa_open_deb (XArchive *archive)
 	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
 	archive->can_extract = TRUE;
 	archive->can_add = archive->can_test = archive->can_sfx = FALSE;
+	archive->can_touch = TRUE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 5;
@@ -129,7 +130,7 @@ gboolean xa_deb_extract(XArchive *archive,GSList *files)
 	g_slist_free(files);
 
 	chdir (archive->extraction_path);
-	command = g_strconcat ("ar x ",archive->escaped_path," ",names->str,NULL);
+	command = g_strconcat("ar x", archive->touch ? " " : "o ", archive->escaped_path, " ", names->str, NULL);
 	if (command != NULL)
 	{
 		g_string_free(names,FALSE);
