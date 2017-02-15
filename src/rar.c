@@ -38,24 +38,26 @@ void xa_open_rar (XArchive *archive)
 	gchar *rar = NULL;
 	jump_header = jump_comment = read_filename = last_line = encrypted = FALSE;
 
+	archive->can_test = TRUE;
+	archive->can_extract = TRUE;
+	archive->can_full_path = TRUE;
+
 	if (unrar)
 		rar = "unrar";
 	else
 	{
 		rar = "rar";
-		archive->can_add = archive->can_sfx = TRUE;
-		archive->can_solid = TRUE;
-		archive->can_move = TRUE;
+		archive->can_add = TRUE;
+		archive->can_sfx = TRUE;
 		archive->can_passwd = TRUE;
 		archive->can_overwrite = TRUE;
 		archive->can_freshen = TRUE;
 		archive->can_update = TRUE;
+		archive->can_solid = TRUE;
+		archive->can_move = TRUE;
 	}
 
-	archive->can_full_path = TRUE;
-
 	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
-	archive->can_sfx = archive->can_extract = archive->can_test = TRUE;
 	archive->files_size = 0;
     archive->nr_of_files = 0;
 		archive->format = "RAR";
