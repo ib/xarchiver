@@ -317,12 +317,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		g_signal_connect(G_OBJECT(compression_value), "value-changed", G_CALLBACK(fix_adjustment_value), NULL);
 	gtk_widget_set_tooltip_text(add_dialog->compression_scale, compression_msg);
 
-	if (archive->type == XARCHIVETYPE_TAR || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_XZ || archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_LZOP)
-		flag = FALSE;
-	else
-		flag = TRUE;
-
-	gtk_widget_set_sensitive(add_dialog->add_password,flag);
+	gtk_widget_set_sensitive(add_dialog->add_password, archive->can_passwd);
 	gtk_widget_show_all (add_dialog->dialog_vbox1);
 }
 
@@ -386,7 +381,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"), _("You haven't selected any files to add!") );
 				break;
 			}
-			if ( add_dialog->add_password != NULL && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
+			if (gtk_widget_is_sensitive(add_dialog->add_password) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->add_password)))
 			{
 				temp_password  = g_strdup (gtk_entry_get_text ( GTK_ENTRY (add_dialog->add_password_entry) ));
 				if (strlen(temp_password) == 0)

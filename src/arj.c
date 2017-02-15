@@ -34,6 +34,7 @@ void xa_open_arj (XArchive *archive)
 	archive->can_extract = archive->can_test = TRUE;
 	archive->can_sfx = archive->can_add = !unarj;
 	archive->can_move = !unarj;
+	archive->can_passwd = !unarj;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;
