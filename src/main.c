@@ -184,7 +184,7 @@ int main (int argc, char **argv)
 			}
 			GSList *string = NULL;
 			archive->full_path = 1;
-			archive->overwrite = 1;
+			archive->overwrite = archive->can_overwrite;
 			gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
 			archive->extraction_path = escaped_path;
 			archive->status = XA_ARCHIVESTATUS_EXTRACT;

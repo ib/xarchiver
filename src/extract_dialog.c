@@ -261,6 +261,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		flag = FALSE;
 	gtk_widget_set_sensitive (dialog_data->extract_full,flag);
 
+	gtk_widget_set_sensitive(dialog_data->overwrite_check, archive->can_overwrite);
 	gtk_widget_set_sensitive(dialog_data->touch, archive->can_touch);
 
 	if (archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ZIP || (archive->type == XARCHIVETYPE_ARJ && !unarj))
@@ -358,7 +359,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			done = TRUE;
 			g_free (destination_path);
 
-			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
+			if (gtk_widget_is_sensitive(dialog_data->overwrite_check))
+				archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
 			if (gtk_widget_is_sensitive(dialog_data->touch))
 				archive->touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
 			if (xa_main_window)
@@ -710,7 +712,7 @@ void xa_parse_multi_extract_archive(Multi_extract_data *dialog)
 	GtkTreeIter iter;
 	gchar *filename, *filename_local, *file, *path, *message, *name, *dest_path = NULL;
 	GString *output = g_string_new("");
-	gboolean overwrite,full_path;
+	gboolean overwrite = FALSE, full_path;
 	gint response,type;
 	double percent = 0.0;
 
@@ -739,7 +741,8 @@ run:
 	}
 	gtk_widget_hide(dialog->multi_extract);
 
-	overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
+	if (gtk_widget_is_sensitive(dialog->overwrite))
+		overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	double fraction = 1.0 / dialog->nr;
 
 	if (pb != NULL)

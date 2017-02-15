@@ -50,6 +50,7 @@ void xa_open_rar (XArchive *archive)
 		archive->can_solid = TRUE;
 		archive->can_move = TRUE;
 		archive->can_passwd = TRUE;
+		archive->can_overwrite = TRUE;
 	}
 
 	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
