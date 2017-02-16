@@ -2114,7 +2114,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	gtk_window_set_position (GTK_WINDOW (comment_dialog),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (comment_dialog),GDK_WINDOW_TYPE_HINT_DIALOG);
 	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(comment_dialog));
-	gtk_widget_set_size_request(comment_dialog,500,330);
+	gtk_widget_set_size_request(comment_dialog, 672, 420);
 
 	scrolledwindow1 = gtk_scrolled_window_new (NULL,NULL);
 	gtk_widget_show (scrolledwindow1);
