@@ -2350,7 +2350,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 	GtkClipboard *clipboard;
 	GtkSelectionData *clipboard_selection;
 	XAClipboard *paste_data;
-	gboolean value = FALSE;
+	gboolean pasteable = FALSE;
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	selected = gtk_tree_selection_count_selected_rows(selection);
@@ -2397,10 +2397,8 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 		{
 			paste_data = xa_get_paste_data_from_clipboard_selection((char *) gtk_selection_data_get_data(clipboard_selection));
 			gtk_selection_data_free (clipboard_selection);
-			if (strcmp(archive->escaped_path,paste_data->cut_copy_archive->escaped_path) == 0)
-				value = FALSE;
-			else
-				value = TRUE;
+			if (strcmp(archive->escaped_path, paste_data->cut_copy_archive->escaped_path) != 0)
+				pasteable = TRUE;
 		}
 		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
 		{
@@ -2408,12 +2406,12 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			gtk_widget_set_sensitive(rrename,FALSE);
 			gtk_widget_set_sensitive(cut  ,FALSE);
 			gtk_widget_set_sensitive(copy ,FALSE);
-			value = FALSE;
+			pasteable = FALSE;
 		}
 		else
 			gtk_widget_set_sensitive(ddelete,TRUE);
 
-		gtk_widget_set_sensitive(paste,value);
+		gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
 		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,xa_main_window,event->button,event->time);
 		return TRUE;
 	}
