@@ -602,11 +602,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 		xa_row_selected(selection,archive[id]);
 
 	gtk_widget_set_sensitive(comment_menu, archive[id]->has_comment);
-
-	if (archive[id]->type == XARCHIVETYPE_TAR || is_tar_compressed(archive[id]->type))
-			gtk_widget_set_sensitive (password_entry_menu,FALSE);
-		else
-			gtk_widget_set_sensitive (password_entry_menu,TRUE);
+	gtk_widget_set_sensitive(password_entry_menu, archive[id]->has_passwd);
 
 	if (archive[id]->treeview != NULL)
 	{

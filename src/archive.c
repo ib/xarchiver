@@ -294,12 +294,7 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 			g_object_unref (archive->model);
 
 			gtk_widget_set_sensitive(comment_menu, archive->has_comment);
-
-			if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
-				gtk_widget_set_sensitive (password_entry_menu,FALSE);
-			else
-				gtk_widget_set_sensitive (password_entry_menu,TRUE);
-
+			gtk_widget_set_sensitive(password_entry_menu, archive->has_passwd);
 			gtk_widget_set_sensitive(listing,TRUE);
 
 			if (GTK_IS_TREE_VIEW(archive->treeview))
