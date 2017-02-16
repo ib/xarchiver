@@ -194,9 +194,13 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename_menu),tmp_image);
 
-	unsort_menu = gtk_menu_item_new_with_mnemonic(_("Uns_ort"));
+	unsort_menu = gtk_image_menu_item_new_with_mnemonic(_("Uns_ort"));
 	gtk_widget_show(unsort_menu);
 	gtk_container_add(GTK_CONTAINER(menuitem2_menu), unsort_menu);
+
+	tmp_image = gtk_image_new_from_stock("gtk-undo", GTK_ICON_SIZE_MENU);
+	gtk_widget_show(tmp_image);
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(unsort_menu), tmp_image);
 
 	separatormenuitem3 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem3);
@@ -272,11 +276,15 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (image2);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (view_shell_output1),image2);
 
-	password_entry_menu = gtk_menu_item_new_with_mnemonic (_("Enter passwo_rd"));
+	password_entry_menu = gtk_image_menu_item_new_with_mnemonic(_("Enter passwo_rd"));
 	gtk_widget_show (password_entry_menu);
 	gtk_widget_set_sensitive (password_entry_menu,FALSE);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),password_entry_menu);
 	gtk_widget_add_accelerator(password_entry_menu, "activate", accel_group, GDK_KEY_r, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+
+	tmp_image = gtk_image_new_from_stock("gtk-dialog-authentication", GTK_ICON_SIZE_MENU);
+	gtk_widget_show(tmp_image);
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(password_entry_menu), tmp_image);
 
 	separatormenuitem6 = gtk_separator_menu_item_new ();
 	gtk_widget_show (separatormenuitem6);
