@@ -30,6 +30,7 @@ typedef struct
 	GtkWidget *notebook1;
 	GtkWidget *filechooserwidget1;
 	GtkWidget *frame1;
+	GtkWidget *label;
 	GSList *path_group;
 	GtkWidget *store_path;
 	GtkWidget *no_store_path;

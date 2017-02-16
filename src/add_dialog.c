@@ -31,7 +31,7 @@ static GTK_COMPAT_ADJUSTMENT_TYPE compression_value;
 Add_dialog_data *xa_create_add_dialog()
 {
 	GTK_COMPAT_TOOLTIPS
-	GtkWidget *label1,*label2,*label3,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
+	GtkWidget *label1,*label2,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
 	GtkWidget *dialog_action_area1,*alignment1,*alignment2,*alignment3,*vbox3,*frame2,*frame3,*frame4,*alignment4;
 	Add_dialog_data *add_dialog;
 
@@ -67,8 +67,8 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_container_add (GTK_CONTAINER (add_dialog->frame1), alignment1);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment1), 0, 0, 20, 20);
 
-	label3 = gtk_label_new (_("File Paths: "));
-	gtk_frame_set_label_widget (GTK_FRAME (add_dialog->frame1), label3);
+	add_dialog->label = gtk_label_new(_("File Paths: "));
+	gtk_frame_set_label_widget(GTK_FRAME(add_dialog->frame1), add_dialog->label);
 
 	hbox1 = gtk_hbox_new (TRUE, 0);
 	gtk_container_add (GTK_CONTAINER (alignment1), hbox1);
@@ -236,7 +236,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		flag = archive->can_full_path;
 
 	gtk_widget_set_sensitive(add_dialog->option_notebook_vbox,flag);
-	gtk_widget_set_sensitive(label3,flag);
+	gtk_widget_set_sensitive(add_dialog->label, flag);
 	gtk_widget_set_sensitive(add_dialog->store_path,flag);
 	gtk_widget_set_sensitive(add_dialog->no_store_path,flag);
 
