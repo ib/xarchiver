@@ -33,6 +33,26 @@ extern gboolean multi_extract;
 
 static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list);
 
+gboolean isTar (FILE *file)
+{
+	unsigned char magic[7];
+
+	fseek(file, 0, SEEK_SET);
+
+	if (fseek(file, 257, SEEK_CUR) != 0 ||
+	    fread(magic, 1, sizeof(magic), file) != sizeof(magic))
+	{
+		fseek(file, 0, SEEK_SET);
+		return FALSE;
+	}
+
+	fseek(file, 0, SEEK_SET);
+
+	return (memcmp(magic, "\x75\x73\x74\x61\x72\x00\x30", sizeof(magic)) == 0 ||
+	        memcmp(magic, "\x75\x73\x74\x61\x72\x20\x20", sizeof(magic)) == 0 ||
+	        memcmp(magic, "\x0\x0\x0\x0\x0\x0\x0", sizeof(magic)) == 0);
+}
+
 void xa_open_tar (XArchive *archive)
 {
 	gchar *command;
@@ -146,22 +166,6 @@ void xa_get_tar_line_content (gchar *line, gpointer data)
 		filename = g_strdup(line + n);
 	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
-}
-
-gboolean isTar (FILE *ptr)
-{
-	unsigned char magic[7];
-	fseek ( ptr, 0 , SEEK_SET );
-    if ( fseek ( ptr , 257 , SEEK_CUR) < 0 )
-		return FALSE;
-    if ( fread ( magic, 1, 7, ptr ) == 0 )
-		return FALSE;
-    if ( memcmp ( magic,"\x75\x73\x74\x61\x72\x00\x30",7 ) == 0 ||
-	 memcmp ( magic,"\x75\x73\x74\x61\x72\x20\x20",7 ) == 0 ||
- 	 memcmp ( magic,"\x0\x0\x0\x0\x0\x0\x0",7) == 0)
-		return TRUE;
-    else
-		return FALSE;
 }
 
 void xa_tar_delete (XArchive *archive,GSList *files)
