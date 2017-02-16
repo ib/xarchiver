@@ -32,6 +32,7 @@ void xa_open_7zip (XArchive *archive)
 
 	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
 	archive->can_sfx = archive->can_add = archive->can_extract = archive->can_test = TRUE;
+	archive->can_delete = TRUE;
 	archive->can_solid = TRUE;
 	archive->can_passwd = TRUE;
 	archive->can_overwrite = TRUE;

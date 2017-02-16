@@ -60,6 +60,7 @@ void xa_open_tar (XArchive *archive)
 
 	command = g_strconcat (tar, " tfv " , archive->escaped_path, NULL);
 	archive->can_add = archive->can_extract = archive->can_test = TRUE;
+	archive->can_delete = TRUE;
 	archive->can_touch = TRUE;
 	archive->can_move = TRUE;
 	archive->can_overwrite = TRUE;

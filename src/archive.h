@@ -121,6 +121,7 @@ struct _XArchive
 	gboolean can_solid;
 	gboolean can_move;
 	gboolean can_add;
+	gboolean can_delete;
 	gboolean can_extract;
 	gboolean cut_copy_string;
 	gboolean create_image;

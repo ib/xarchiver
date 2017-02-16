@@ -1659,14 +1659,15 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		gtk_widget_show(selected_frame);
 		gtk_widget_set_sensitive(deselect_all,TRUE);
 	}
+
+	gtk_widget_set_sensitive(delete_menu, archive->can_delete);
+
 	if ((archive->type == XARCHIVETYPE_ARJ && unarj) || (archive->type == XARCHIVETYPE_RAR && unrar) || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
 	{
-		gtk_widget_set_sensitive (delete_menu,FALSE);
 		gtk_widget_set_sensitive (rename_menu,FALSE);
 	}
 	else if (archive->type != XARCHIVETYPE_RPM && archive->type != XARCHIVETYPE_DEB)
 	{
-		gtk_widget_set_sensitive (delete_menu,TRUE);
 		gtk_widget_set_sensitive (rename_menu,TRUE);
 	}
 	if (selected > 1)
@@ -2402,16 +2403,14 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 		}
 		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
 		{
-			gtk_widget_set_sensitive(ddelete,FALSE);
 			gtk_widget_set_sensitive(rrename,FALSE);
 			gtk_widget_set_sensitive(cut  ,FALSE);
 			gtk_widget_set_sensitive(copy ,FALSE);
 			pasteable = FALSE;
 		}
-		else
-			gtk_widget_set_sensitive(ddelete,TRUE);
 
 		gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
+		gtk_widget_set_sensitive(ddelete, archive->can_delete);
 		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,xa_main_window,event->button,event->time);
 		return TRUE;
 	}

@@ -33,6 +33,7 @@ void xa_open_arj (XArchive *archive)
 	gchar *command = g_strconcat (unarj ? "unarj " : "arj v ", archive->escaped_path, NULL);
 	archive->can_extract = archive->can_test = TRUE;
 	archive->can_sfx = archive->can_add = !unarj;
+	archive->can_delete = !unarj;
 	archive->can_move = !unarj;
 	archive->can_passwd = !unarj;
 	archive->can_overwrite = !unarj;

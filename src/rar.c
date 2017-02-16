@@ -52,6 +52,7 @@ void xa_open_rar (XArchive *archive)
 	{
 		rar = "rar";
 		archive->can_add = TRUE;
+		archive->can_delete = TRUE;
 		archive->can_sfx = TRUE;
 		archive->can_passwd = TRUE;
 		archive->can_solid = TRUE;
