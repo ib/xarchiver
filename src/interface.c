@@ -601,10 +601,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 	if (selection != NULL)
 		xa_row_selected(selection,archive[id]);
 
-	if (archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_ARJ)
-		gtk_widget_set_sensitive (comment_menu,TRUE);
-	else
-		gtk_widget_set_sensitive (comment_menu,FALSE);
+	gtk_widget_set_sensitive(comment_menu, archive[id]->has_comment);
 
 	if (archive[id]->type == XARCHIVETYPE_TAR || is_tar_compressed(archive[id]->type))
 			gtk_widget_set_sensitive (password_entry_menu,FALSE);

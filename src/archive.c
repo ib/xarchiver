@@ -293,10 +293,7 @@ static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer da
 			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
 			g_object_unref (archive->model);
 
-			if (archive->type == XARCHIVETYPE_ZIP || archive->type == XARCHIVETYPE_RAR || archive->type == XARCHIVETYPE_ARJ)
-				gtk_widget_set_sensitive (comment_menu,TRUE);
-			else
-				gtk_widget_set_sensitive (comment_menu,FALSE);
+			gtk_widget_set_sensitive(comment_menu, archive->has_comment);
 
 			if (archive->type == XARCHIVETYPE_TAR || is_tar_compressed(archive->type))
 				gtk_widget_set_sensitive (password_entry_menu,FALSE);
