@@ -1171,44 +1171,51 @@ gchar *xa_open_file_dialog ()
 
 XArchiveType xa_detect_archive_type (gchar *filename)
 {
-	FILE *dummy_ptr = NULL;
-    int xx = XARCHIVETYPE_UNKNOWN;
-	unsigned char magic[14]={0,0,0,0,0,0,0,0,0,0,0,0,0,0}; /* avoid problems with garbage */
+	FILE *file;
+	unsigned char magic[14];
+	int type = XARCHIVETYPE_UNKNOWN;
 
-	dummy_ptr = fopen (filename,"r");
+	file = fopen(filename, "r");
 
-	if (dummy_ptr == NULL)
+	if (!file)
 		return XARCHIVETYPE_NOT_FOUND;
 
-	fread (magic,1,14,dummy_ptr);
-	if (memcmp (magic,"\x50\x4b",2) == 0)
-		xx = XARCHIVETYPE_ZIP;
-	else if (memcmp (magic,"\x60\xea",2) == 0)
-		xx = XARCHIVETYPE_ARJ;
-	else if (memcmp ( magic,"\x52\x61\x72\x21\x1a\x07\x00",7) == 0 || memcmp ( magic,"\x52\x61\x72\x21\x1a\x07\x01",7) == 0)
-		xx = XARCHIVETYPE_RAR;
-	else if (memcmp ( magic,"\x42\x5a\x68",3) == 0)
-		xx = XARCHIVETYPE_BZIP2;
-	else if (memcmp ( magic,"\x1f\x8b",2) == 0 || memcmp ( magic,"\x1f\x9d",2) == 0)
-		xx = XARCHIVETYPE_GZIP;
-	else if (memcmp ( magic,"\x5d\x00\x00\x80",4) == 0)
-		xx = XARCHIVETYPE_LZMA;
-	else if (memcmp ( magic,"\xfd\x37\x7a\x58\x5a",5) == 0)
-		xx = XARCHIVETYPE_XZ;
-	else if (memcmp ( magic,"\211LZO",4) == 0)
-		xx = XARCHIVETYPE_LZOP;
-	else if (memcmp ( magic,"\xed\xab\xee\xdb",4) == 0)
-		xx = XARCHIVETYPE_RPM;
-	else if (memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6) == 0)
-		xx = XARCHIVETYPE_7ZIP;
-	else if ((memcmp(magic + 2, "-lh", 2) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') || (memcmp(magic + 2, "-lz", 2) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
-		xx = XARCHIVETYPE_LHA;
-	else if (memcmp ( magic,"!<arch>\ndebian",14) == 0)
-		xx = XARCHIVETYPE_DEB;
-	else if (isTar ( dummy_ptr))
-		xx = XARCHIVETYPE_TAR;
-	fclose (dummy_ptr);
-	return xx;
+	memset(magic, 0, sizeof(magic));
+	fread(magic, 1, sizeof(magic), file);
+
+	if (memcmp(magic, "\x37\x7a\xbc\xaf\x27\x1c", 6) == 0)
+		type = XARCHIVETYPE_7ZIP;
+	else if (memcmp(magic, "\x60\xea", 2) == 0)
+		type = XARCHIVETYPE_ARJ;
+	else if (memcmp(magic, "\x42\x5a\x68", 3) == 0)
+		type = XARCHIVETYPE_BZIP2;
+	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
+		type = XARCHIVETYPE_DEB;
+	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||
+	         memcmp(magic, "\x1f\x9d", 2) == 0)
+		type = XARCHIVETYPE_GZIP;
+	else if ((memcmp(magic + 2, "-lh", 2) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') ||
+	         (memcmp(magic + 2, "-lz", 2) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
+		type = XARCHIVETYPE_LHA;
+	else if (memcmp(magic, "\x5d\x00\x00\x80", 4) == 0)
+		type = XARCHIVETYPE_LZMA;
+	else if (memcmp(magic, "\211LZO", 4) == 0)
+		type = XARCHIVETYPE_LZOP;
+	else if (memcmp(magic, "\x52\x61\x72\x21\x1a\x07\x00", 7) == 0 ||
+	         memcmp(magic, "\x52\x61\x72\x21\x1a\x07\x01", 7) == 0)
+		type = XARCHIVETYPE_RAR;
+	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
+		type = XARCHIVETYPE_RPM;
+	else if (isTar(file))
+		type = XARCHIVETYPE_TAR;
+	else if (memcmp(magic, "\xfd\x37\x7a\x58\x5a", 5) == 0)
+		type = XARCHIVETYPE_XZ;
+	else if (memcmp(magic, "\x50\x4b", 2) == 0)
+		type = XARCHIVETYPE_ZIP;
+
+	fclose(file);
+
+	return type;
 }
 
 gboolean xa_detect_archive_comment (int type,gchar *filename,XArchive *archive)
