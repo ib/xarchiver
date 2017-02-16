@@ -42,6 +42,7 @@ void xa_open_rar (XArchive *archive)
 	archive->can_extract = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
+	archive->can_touch = TRUE;
 	archive->can_freshen = TRUE;
 	archive->can_update = TRUE;
 
@@ -318,6 +319,7 @@ gboolean xa_rar_extract(XArchive *archive,GSList *files)
 
 	if (archive->passwd != NULL)
 		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
+										archive->touch ? "-tsm- " : "" ,
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 										" -p",archive->passwd,
 										archive->overwrite ? " -o+" : " -o-",
@@ -325,6 +327,7 @@ gboolean xa_rar_extract(XArchive *archive,GSList *files)
 										archive->escaped_path,names->str," ",archive->extraction_path , NULL );
 	else
 		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
+										archive->touch ? "-tsm- " : "" ,
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 										archive->overwrite ? "-o+" : "-o-",
 										" -idp ",
