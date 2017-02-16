@@ -97,7 +97,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	listing_text = gtk_image_menu_item_new_with_mnemonic (_("_Text file"));
 	gtk_widget_show (listing_text);
 	gtk_container_add (GTK_CONTAINER (listing_submenu),listing_text);
-	tmp_image = gtk_image_new_from_stock ("gtk-edit",GTK_ICON_SIZE_MENU);
+	tmp_image = gtk_image_new_from_stock ("gtk-justify-fill",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (listing_text),tmp_image);
 
@@ -190,7 +190,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (rename_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),rename_menu);
 
-	tmp_image = gtk_image_new_from_stock ("gtk-refresh",GTK_ICON_SIZE_MENU);
+	tmp_image = gtk_image_new_from_stock("gtk-edit", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename_menu),tmp_image);
 
@@ -224,7 +224,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),comment_menu);
 	gtk_widget_add_accelerator(comment_menu, "activate", accel_group, GDK_KEY_s, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
 
-	tmp_image = gtk_image_new_from_stock ("gtk-justify-fill",GTK_ICON_SIZE_MENU);
+	tmp_image = gtk_image_new_from_stock ("gtk-justify-left",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (comment_menu),tmp_image);
 	separatormenuitem4 = gtk_separator_menu_item_new ();
@@ -932,7 +932,7 @@ void xa_create_popup_menu()
 	gtk_widget_show (rrename);
 	gtk_container_add (GTK_CONTAINER (xa_popup_menu),rrename);
 
-	image11 = gtk_image_new_from_stock ("gtk-refresh",GTK_ICON_SIZE_MENU);
+	image11 = gtk_image_new_from_stock("gtk-edit", GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image11);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rrename),image11);
 
