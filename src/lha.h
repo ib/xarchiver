@@ -31,5 +31,4 @@ void xa_lha_test (XArchive *);
 void xa_get_lha_line_content (gchar *line, gpointer data);
 void xa_open_lha (XArchive *archive);
 gboolean jump_header, last_line;
-gboolean isLha (FILE *ptr);
 #endif

@@ -28,7 +28,6 @@
 #include "window.h"
 #include "extract_dialog.h"
 #include "interface.h"
-#include "lha.h"
 #include "mime.h"
 #include "new_dialog.h"
 #include "open-with-dlg.h"
@@ -1202,7 +1201,7 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 		xx = XARCHIVETYPE_RPM;
 	else if (memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6) == 0)
 		xx = XARCHIVETYPE_7ZIP;
-	else if (isLha ( dummy_ptr))
+	else if ((memcmp(magic + 2, "-lh", 2) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') || (memcmp(magic + 2, "-lz", 2) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
 		xx = XARCHIVETYPE_LHA;
 	else if (memcmp ( magic,"!<arch>\ndebian",14) == 0)
 		xx = XARCHIVETYPE_DEB;

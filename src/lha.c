@@ -131,21 +131,6 @@ void xa_get_lha_line_content (gchar *line, gpointer data)
 	xa_set_archive_entries_for_each_row (archive,filename,item);
 }
 
-gboolean isLha ( FILE *ptr )
-{
-	unsigned char magic[2];
-	fseek(ptr, 0, SEEK_SET);
-	if(fseek(ptr, 19, SEEK_CUR) < 0)
-		return FALSE;
-	if(fread(magic, 1, 2, ptr) == 0)
-		return FALSE;
-
-	if(magic[0] == 0x20 && magic[1] <= 0x03)
-		return TRUE;
-	else
-		return FALSE;
-}
-
 void xa_lha_delete (XArchive *archive,GSList *names)
 {
 	gchar *command,*e_filename = NULL;
