@@ -165,7 +165,7 @@ void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
 	gtk_container_set_border_width (GTK_CONTAINER (dialog),6);
 	gtk_container_set_border_width(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), 6);
 	gtk_box_set_spacing(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), 8);
-	gtk_widget_set_size_request (dialog,400,-1);
+	gtk_widget_set_size_request(dialog, 672, 420);
 
 	scrolledwindow = gtk_scrolled_window_new (NULL,NULL);
 	g_object_set (G_OBJECT (scrolledwindow),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"shadow-type",GTK_SHADOW_IN,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
