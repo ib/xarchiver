@@ -115,7 +115,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gchar *my_path = NULL;
 	gchar *basepath, *filename;
 	gchar *current_dir = NULL;
-	gint current_page, response, type = 0;
+	gint current_page, response, type = XARCHIVETYPE_UNKNOWN;
 	gpointer suffix;
 
 	unsigned short int x;

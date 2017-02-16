@@ -562,10 +562,14 @@ void xa_multi_extract_dialog_selection_changed(GtkTreeSelection *selection,Multi
 	gint type;
 
 	// !!! this is nonsense, the archive tells if can_full_path
+	// !!! for the time being use at least symbolic constants
 	if (gtk_tree_selection_get_selected (selection,&model,&iter))
 	{
 		gtk_tree_model_get(model,&iter,3,&type,-1);
-		if (type == 4 || type == 5 || type == 6 || type == 9)
+		if (type == XARCHIVETYPE_BZIP2 || type == XARCHIVETYPE_DEB ||
+		    type == XARCHIVETYPE_GZIP || type == XARCHIVETYPE_LZMA ||
+		    type == XARCHIVETYPE_LZOP || type == XARCHIVETYPE_RPM ||
+		    type == XARCHIVETYPE_XZ)
 			gtk_widget_set_sensitive(dialog_data->full_path,FALSE);
 		else
 			gtk_widget_set_sensitive(dialog_data->full_path,TRUE);

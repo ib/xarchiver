@@ -317,11 +317,11 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	}
 	type = xa_detect_archive_type (path);
 
-	if (type == 0 || type == 1)
+	if (type == XARCHIVETYPE_UNKNOWN || type == XARCHIVETYPE_NOT_FOUND)
 	{
 		utf8_path = g_filename_to_utf8 (path,-1,NULL,NULL,NULL);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"),utf8_path);
-		if (type == 0)
+		if (type == XARCHIVETYPE_UNKNOWN)
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,_("Archive format is not recognized!"));
 		else
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno));
