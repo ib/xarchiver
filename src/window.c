@@ -2397,10 +2397,10 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_RPM || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
 		{
 			gtk_widget_set_sensitive(cut  ,FALSE);
-			gtk_widget_set_sensitive(copy ,FALSE);
 			pasteable = FALSE;
 		}
 
+		gtk_widget_set_sensitive(copy, archive->can_extract);
 		gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
 		gtk_widget_set_sensitive(ddelete, archive->can_delete);
 		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,xa_main_window,event->button,event->time);
