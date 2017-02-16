@@ -622,22 +622,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 			gtk_widget_show(selected_frame);
 			gtk_widget_set_sensitive(deselect_all,TRUE);
 			gtk_widget_set_sensitive(delete_menu, archive[id]->can_delete);
-			if (archive[id]->type == XARCHIVETYPE_RAR && unrar)
-			{
-				gtk_widget_set_sensitive (rename_menu,FALSE);
-			}
-			else if (archive[id]->type == XARCHIVETYPE_ARJ && unarj)
-			{
-				gtk_widget_set_sensitive (rename_menu,FALSE);
-			}
-			else if (archive[id]->type == XARCHIVETYPE_BZIP2 || archive[id]->type == XARCHIVETYPE_GZIP || archive[id]->type == XARCHIVETYPE_DEB || archive[id]->type == XARCHIVETYPE_RPM || archive[id]->type == XARCHIVETYPE_LZMA || archive[id]->type == XARCHIVETYPE_XZ || archive[id]->type == XARCHIVETYPE_LZOP)
-			{
-				gtk_widget_set_sensitive (rename_menu,FALSE);
-			}
-			else
-			{
-				gtk_widget_set_sensitive (rename_menu,TRUE);
-			}
+			gtk_widget_set_sensitive(rename_menu, can_rename(archive[id]));
 		}
 		/* Let's set the location bar */
 		if (archive[id]->location_entry_path != NULL)

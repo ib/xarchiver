@@ -152,6 +152,8 @@ struct _XArchive
 	open_func open_archive;
 };
 
+#define can_rename(archive) ((archive)->can_extract && (archive)->can_delete && (archive)->can_add)
+
 #define XA_CLIPBOARD (gdk_atom_intern_static_string ("XARCHIVER_OWN_CLIPBOARD"))
 #define XA_INFO_LIST (gdk_atom_intern_static_string ("application/xarchiver-info-list"))
 
