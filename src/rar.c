@@ -40,7 +40,10 @@ void xa_open_rar (XArchive *archive)
 
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
+	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
+	archive->can_freshen = TRUE;
+	archive->can_update = TRUE;
 
 	if (unrar)
 		rar = "unrar";
@@ -50,9 +53,6 @@ void xa_open_rar (XArchive *archive)
 		archive->can_add = TRUE;
 		archive->can_sfx = TRUE;
 		archive->can_passwd = TRUE;
-		archive->can_overwrite = TRUE;
-		archive->can_freshen = TRUE;
-		archive->can_update = TRUE;
 		archive->can_solid = TRUE;
 		archive->can_move = TRUE;
 	}
