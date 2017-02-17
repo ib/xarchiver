@@ -30,7 +30,7 @@ void xa_open_arj (XArchive *archive)
 	unsigned short int i;
     jump_header = encrypted = last_line = FALSE;
 	arj_line = 0;
-	gchar *command = g_strconcat (unarj ? "unarj " : "arj v ", archive->escaped_path, NULL);
+	gchar *command = g_strconcat(unarj ? "unarj" : "arj", " l ", archive->escaped_path, NULL);
 	archive->can_extract = archive->can_test = TRUE;
 	archive->can_sfx = archive->can_add = !unarj;
 	archive->can_delete = !unarj;
@@ -67,20 +67,6 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	static gchar *filename;
 	gboolean lfn = TRUE;
 
-	if (last_line || strstr(line,"HardLink"))
-		return;
-
-	if (arj_line == 3)
-	{
-		arj_line++;
-		return;
-	}
-	if (arj_line == 4)
-	{
-		arj_line = 1;
-		return;
-	}
-
 	if (jump_header == FALSE)
 	{
 		if (line[0] == '-')
@@ -94,24 +80,18 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	if (arj_line == 1)
 	{
 		linesize = strlen(line);
-		if(line[0] == '*')
-		{
-			archive->has_passwd = TRUE;
-			encrypted = TRUE;
-		}
-		else if (line[0] == '-')
+		if (line[0] == '-')
 		{
 			last_line = TRUE;
 			return;
 		}
 		line[linesize - 1] = '\0';
-		if (unarj)
-			/* simple column separator check */
-			lfn = (linesize < 76 || line[34] != ' ' || line[40] != ' ' || line[49] != ' ' || line[58] != ' ' || line[67] != ' ');
+		/* simple column separator check */
+		lfn = (linesize < 76 || line[34] != ' ' || line[40] != ' ' || line[49] != ' ' || line[58] != ' ' || line[unarj ? 67 : 73] != ' ');
 		if (lfn)
-			filename = g_strdup(line + (unarj ? 0 : 5));
+			filename = g_strdup(line);
 		else
-			filename = g_strndup(line, 12);
+			filename = g_strchomp(g_strndup(line, 12));
 		archive->nr_of_files++;
 		arj_line++;
 		if (lfn)
@@ -158,19 +138,17 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 		item[6] = (unarj ? "" : line + 70);
 
 		/* BPMGS */
-		line[78] = '\0';
 		if (unarj)
 			encrypted = (line[76] == 'G');
 		else
 			encrypted = (line[77] == '1');
+		if (encrypted)
+			archive->has_passwd = TRUE;
 		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 		if (entry != NULL)
 			entry->is_encrypted	= encrypted;
 		g_free(filename);
-		if (unarj)
-			arj_line = 1;
-		else
-			arj_line++;
+		arj_line = 1;
 	}
 }
 
