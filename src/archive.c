@@ -489,7 +489,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	}
 	xa_watch_child (archive->child_pid, status, archive);
 	if (xa_main_window)
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,1,1);
+		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_passwd, 1);
 
 	g_slist_foreach (commands,(GFunc) g_free,NULL);
 	g_slist_free(commands);

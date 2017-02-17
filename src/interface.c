@@ -643,7 +643,7 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
-	xa_set_button_state (1,1,1,1,archive[id]->can_add,archive[id]->can_extract,archive[id]->can_sfx,archive[id]->can_test,1,1);
+	xa_set_button_state(1, 1, 1, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->can_sfx, archive[id]->can_test, archive[id]->has_passwd, 1);
 }
 
 void xa_add_page (XArchive *archive)

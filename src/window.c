@@ -225,7 +225,7 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 
 	xa_add_page (archive[current_page]);
 	//xa_set_button_state (0,0,0,1,1,0,0,0,0,1,0);
-	xa_set_button_state (1,1,1,1,archive[current_page]->can_add,archive[current_page]->can_extract,archive[current_page]->can_sfx,archive[current_page]->can_test,1,1);
+	xa_set_button_state(1, 1, 1, 1, archive[current_page]->can_add, archive[current_page]->can_extract, archive[current_page]->can_sfx, archive[current_page]->can_test, archive[current_page]->has_passwd, 1);
     xa_disable_delete_buttons(FALSE);
 
     archive[current_page]->passwd = NULL;
