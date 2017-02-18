@@ -517,8 +517,8 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	g_signal_connect ((gpointer) new1,"activate",G_CALLBACK (xa_new_archive),NULL);
 	g_signal_connect ((gpointer) open1,"activate",G_CALLBACK (xa_open_archive),NULL);
-	g_signal_connect ((gpointer) listing_text,"activate",G_CALLBACK (xa_list_archive),(gpointer) 0);
-	g_signal_connect ((gpointer) listing_html,"activate",G_CALLBACK (xa_list_archive),(gpointer) 1);
+	g_signal_connect ((gpointer) listing_text,"activate",G_CALLBACK (xa_list_archive),GUINT_TO_POINTER(0));
+	g_signal_connect ((gpointer) listing_html,"activate",G_CALLBACK (xa_list_archive),GUINT_TO_POINTER(1));
 	g_signal_connect ((gpointer) save1,"activate",G_CALLBACK (xa_save_archive),NULL);
 	g_signal_connect ((gpointer) check_menu,"activate",G_CALLBACK (xa_test_archive),NULL);
 	g_signal_connect ((gpointer) properties,"activate",G_CALLBACK (xa_archive_properties),NULL);
@@ -544,13 +544,13 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) New_button,	"clicked",G_CALLBACK (xa_new_archive),NULL);
 	g_signal_connect ((gpointer) Open_button,	"clicked",G_CALLBACK (xa_open_archive),NULL);
 
-	g_signal_connect ((gpointer) back_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 1);
-	g_signal_connect ((gpointer) up_button,		"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 2);
-	g_signal_connect ((gpointer) forward_button,"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 3);
-	g_signal_connect ((gpointer) home_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 0);
+	g_signal_connect ((gpointer) back_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(1));
+	g_signal_connect ((gpointer) up_button,		"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(2));
+	g_signal_connect ((gpointer) forward_button,"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(3));
+	g_signal_connect ((gpointer) home_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(0));
 
 	g_signal_connect ((gpointer) AddFile_button,"clicked",G_CALLBACK (xa_add_files_archive),NULL);
-    g_signal_connect ((gpointer) Extract_button,"clicked",G_CALLBACK (xa_extract_archive),	NULL);
+	g_signal_connect ((gpointer) Extract_button,"clicked",G_CALLBACK (xa_extract_archive),	NULL);
 	g_signal_connect ((gpointer) Stop_button,	"clicked",G_CALLBACK (xa_cancel_archive),	NULL);
 	gtk_window_add_accel_group (GTK_WINDOW (xa_main_window),accel_group);
 }
