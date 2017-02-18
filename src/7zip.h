@@ -22,7 +22,6 @@
 #include <glib.h>
 #include "archive.h"
 
-gboolean jump_header, encrypted, last_line;
 void xa_7zip_ask(XArchive *);
 void xa_7zip_delete (XArchive *,GSList *);
 void xa_7zip_add (XArchive *,GString *,gchar *);

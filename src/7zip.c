@@ -25,6 +25,8 @@ extern const gchar *sevenz;
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 
+static gboolean last_line, jump_header, encrypted;
+
 void xa_7zip_ask (XArchive *archive)
 {
 	archive->can_sfx = archive->can_add = archive->can_extract = archive->can_test = TRUE;
@@ -38,9 +40,11 @@ void xa_7zip_ask (XArchive *archive)
 
 void xa_open_7zip (XArchive *archive)
 {
-	jump_header = encrypted = last_line = FALSE;
 	unsigned short int i = 0;
 
+	last_line = FALSE;
+	jump_header = FALSE;
+	encrypted = FALSE;
 	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
