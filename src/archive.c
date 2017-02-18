@@ -38,7 +38,7 @@
 #define MAX_CMD_LEN (NCARGS * 2 / 3)
 
 extern ask_func	ask[XARCHIVETYPE_COUNT];
-extern open_func	open_archive[XARCHIVETYPE_COUNT];
+extern open_func	open[XARCHIVETYPE_COUNT];
 extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func extract	[XARCHIVETYPE_COUNT];
@@ -63,7 +63,7 @@ XArchive *xa_init_archive_structure(gint type)
 	entry->filename = "";
 	archive->root_entry = entry;
 	archive->ask =		ask[type];
-	archive->open_archive =	open_archive[type];
+	archive->open =		open[type];
 	archive->delete =	delete[type];
 	archive->add =		add[type];
 	archive->extract = 	extract[type];

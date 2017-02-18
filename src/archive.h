@@ -149,7 +149,7 @@ struct _XArchive
 	add_func add;
 	extract_func extract;
 	test_func test;
-	open_func open_archive;
+	open_func open;
 };
 
 extern XArchive *archive[];

@@ -130,7 +130,7 @@ void xa_reload_archive_content(XArchive *_archive)
 	entry->filename = "";
 	_archive->root_entry = entry;
 
-	(*_archive->open_archive) (_archive);
+	(*_archive->open)(_archive);
 
 	if (strcmp(_archive->path,archive[idx]->path) == 0)
 		xa_fill_dir_sidebar(_archive,TRUE);
@@ -386,7 +386,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	gtk_widget_set_sensitive (listing,FALSE);
 	xa_set_button_state (0,0,0,0,0,0,0,0,0,0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
-	(*archive[current_page]->open_archive) (archive[current_page]);
+	(*archive[current_page]->open)(archive[current_page]);
 
 	archive[current_page]->passwd = NULL;
 	xa_fill_dir_sidebar(archive[current_page],TRUE);

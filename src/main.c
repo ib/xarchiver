@@ -68,7 +68,7 @@ delete_func		delete[XARCHIVETYPE_COUNT]	= {NULL};
 add_func		add[XARCHIVETYPE_COUNT]		= {NULL};
 extract_func	extract[XARCHIVETYPE_COUNT]	= {NULL};
 test_func		test[XARCHIVETYPE_COUNT]	= {NULL};
-open_func		open_archive[XARCHIVETYPE_COUNT]	= {NULL};
+open_func		open[XARCHIVETYPE_COUNT]	= {NULL};
 ask_func		ask[XARCHIVETYPE_COUNT]	= {NULL};
 
 static GOptionEntry entries[] =
@@ -363,20 +363,20 @@ void xa_set_available_archivers()
 	ask[XARCHIVETYPE_LHA] = &xa_lha_ask;
 	ask[XARCHIVETYPE_LZOP] = &xa_bzip2_lzma_ask;
 
-	open_archive[0]  = 0;
-	open_archive[XARCHIVETYPE_7ZIP]  = &xa_open_7zip;
-	open_archive[XARCHIVETYPE_ARJ]  = &xa_open_arj;
-	open_archive[XARCHIVETYPE_DEB]  = &xa_open_deb;
-	open_archive[XARCHIVETYPE_BZIP2]  = &xa_open_bzip2_lzma;
-	open_archive[XARCHIVETYPE_GZIP]  = &xa_open_gzip;
-	open_archive[XARCHIVETYPE_LZMA]  = &xa_open_bzip2_lzma;
-	open_archive[XARCHIVETYPE_XZ]  = &xa_open_bzip2_lzma;
-	open_archive[XARCHIVETYPE_RAR]  = &xa_open_rar;
-	open_archive[XARCHIVETYPE_RPM]  = &xa_open_rpm;
-	open_archive[XARCHIVETYPE_TAR]  = open_archive[XARCHIVETYPE_TAR_BZ2] = open_archive[XARCHIVETYPE_TAR_GZ] = open_archive[XARCHIVETYPE_TAR_LZMA] = open_archive[XARCHIVETYPE_TAR_XZ] = open_archive[XARCHIVETYPE_TAR_LZOP] = &xa_open_tar;
-	open_archive[XARCHIVETYPE_ZIP] = &xa_open_zip;
-	open_archive[XARCHIVETYPE_LHA] = &xa_open_lha;
-	open_archive[XARCHIVETYPE_LZOP] = &xa_open_bzip2_lzma;
+	open[0]  = 0;
+	open[XARCHIVETYPE_7ZIP]  = &xa_open_7zip;
+	open[XARCHIVETYPE_ARJ]  = &xa_open_arj;
+	open[XARCHIVETYPE_DEB]  = &xa_open_deb;
+	open[XARCHIVETYPE_BZIP2]  = &xa_open_bzip2_lzma;
+	open[XARCHIVETYPE_GZIP]  = &xa_open_gzip;
+	open[XARCHIVETYPE_LZMA]  = &xa_open_bzip2_lzma;
+	open[XARCHIVETYPE_XZ]  = &xa_open_bzip2_lzma;
+	open[XARCHIVETYPE_RAR]  = &xa_open_rar;
+	open[XARCHIVETYPE_RPM]  = &xa_open_rpm;
+	open[XARCHIVETYPE_TAR]  = open[XARCHIVETYPE_TAR_BZ2] = open[XARCHIVETYPE_TAR_GZ] = open[XARCHIVETYPE_TAR_LZMA] = open[XARCHIVETYPE_TAR_XZ] = open[XARCHIVETYPE_TAR_LZOP] = &xa_open_tar;
+	open[XARCHIVETYPE_ZIP] = &xa_open_zip;
+	open[XARCHIVETYPE_LHA] = &xa_open_lha;
+	open[XARCHIVETYPE_LZOP] = &xa_open_bzip2_lzma;
 
 	delete[0]  = 0;
 	delete[XARCHIVETYPE_7ZIP]  = &xa_7zip_delete;
