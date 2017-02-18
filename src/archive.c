@@ -841,8 +841,11 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 		gtk_entry_set_text(GTK_ENTRY(location_entry),string->str);
 		g_string_free(string,TRUE);
 
-		xa_update_window_with_archive_entries(archive[idx],entry);
-		xa_set_statusbar_message_for_displayed_rows(archive[idx]);
+		if (idx >= 0)
+		{
+			xa_update_window_with_archive_entries(archive[idx],entry);
+			xa_set_statusbar_message_for_displayed_rows(archive[idx]);
+		}
 	}
 }
 
