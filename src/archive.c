@@ -567,6 +567,11 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 		if (new_entry == NULL)
 		{
 			new_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
+			if (new_entry == NULL)
+			{
+				return NULL;
+			}
+
 			new_entry->filename = g_strdup(components[x]);
 			new_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,new_entry,items);
 			if (components[x+1] != NULL)
