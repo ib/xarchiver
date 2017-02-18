@@ -23,11 +23,10 @@
 #include "interface.h"
 #include "string_utils.h"
 #include "support.h"
+#include "window.h"
 
 #define TMPFILE "xa-tmp.tar"
 
-extern void xa_reload_archive_content(XArchive *archive);
-extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 extern gchar *tar;
 extern gboolean multi_extract;
 

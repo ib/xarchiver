@@ -20,10 +20,9 @@
 #include "rar.h"
 #include "string_utils.h"
 #include "support.h"
+#include "window.h"
 
 extern gboolean unrar;
-extern void xa_reload_archive_content(XArchive *archive);
-extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 
 static gboolean last_line, jump_header, jump_comment, read_filename;
 static int rar_version;

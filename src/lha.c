@@ -21,9 +21,7 @@
 #include "lha.h"
 #include "string_utils.h"
 #include "support.h"
-
-extern void xa_reload_archive_content(XArchive *archive);
-extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
+#include "window.h"
 
 static gboolean last_line, jump_header;
 

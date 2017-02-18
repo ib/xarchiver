@@ -20,8 +20,7 @@
 #include <string.h>
 #include "deb.h"
 #include "support.h"
-
-extern void xa_create_liststore (XArchive *archive,gchar *columns_names[]);
+#include "window.h"
 
 void xa_deb_ask (XArchive *archive)
 {
