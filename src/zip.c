@@ -22,6 +22,7 @@
 #include "support.h"
 #include "window.h"
 
+static void xa_get_zip_line_content(gchar *, gpointer);
 static void xa_zip_prepend_backslash(GSList *, GString *);
 
 void xa_zip_ask (XArchive *archive)
@@ -60,7 +61,7 @@ void xa_open_zip (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void xa_get_zip_line_content (gchar *line, gpointer data)
+static void xa_get_zip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry = NULL;

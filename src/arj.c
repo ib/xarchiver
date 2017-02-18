@@ -27,6 +27,8 @@ extern gboolean unarj;
 static gboolean jump_header;
 static int arj_line;
 
+static void xa_get_arj_line_content(gchar *, gpointer);
+
 void xa_arj_ask (XArchive *archive)
 {
 	archive->can_extract = archive->can_test = TRUE;
@@ -65,7 +67,7 @@ void xa_open_arj (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void xa_get_arj_line_content (gchar *line, gpointer data)
+static void xa_get_arj_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;

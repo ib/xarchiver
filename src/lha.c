@@ -25,6 +25,8 @@
 
 static gboolean last_line, jump_header;
 
+static void xa_get_lha_line_content(gchar *, gpointer);
+
 void xa_lha_ask (XArchive *archive)
 {
 	archive->can_extract = archive->can_add = archive->can_test = TRUE;
@@ -62,7 +64,7 @@ void xa_open_lha (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void xa_get_lha_line_content (gchar *line, gpointer data)
+static void xa_get_lha_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gpointer item[6];

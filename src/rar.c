@@ -27,6 +27,9 @@ extern gboolean unrar;
 static int rar_version;
 static gboolean last_line, jump_header, jump_comment, read_filename;
 
+static void xa_get_rar_line_content(gchar *, gpointer);
+static void xa_get_rar5_line_content(gchar *, gpointer);
+
 int xa_rar_check_version (gchar *path)
 {
 	gchar *output;
@@ -117,7 +120,7 @@ void xa_open_rar (XArchive *archive)
 	}
 }
 
-void xa_get_rar_line_content (gchar *line, gpointer data)
+static void xa_get_rar_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;
@@ -383,7 +386,7 @@ void xa_rar_test (XArchive *archive)
 	xa_run_command (archive,list);
  }
 
-void xa_get_rar5_line_content (gchar *line, gpointer data)
+static void xa_get_rar5_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;

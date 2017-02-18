@@ -33,6 +33,8 @@
 #define HDRSIG_ENTRY_INFO_LEN 8
 #define HDRSIG_ENTRY_INDEX_LEN 16
 
+static void xa_get_cpio_line_content(gchar *, gpointer);
+
 static int xa_rpm2cpio (XArchive *archive)
 {
 	unsigned char bytes[HDRSIG_ENTRY_INFO_LEN];
@@ -176,7 +178,7 @@ void xa_open_rpm (XArchive *archive)
 	g_free(command);
 }
 
-void xa_get_cpio_line_content (gchar *line, gpointer data)
+static void xa_get_cpio_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gchar *filename;

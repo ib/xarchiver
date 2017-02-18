@@ -25,6 +25,5 @@
 
 void xa_deb_ask(XArchive *);
 void xa_open_deb (XArchive *);
-void xa_get_ar_line_content (gchar *, gpointer );
 gboolean xa_deb_extract(XArchive *,GSList *);
 #endif

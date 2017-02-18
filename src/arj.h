@@ -27,6 +27,5 @@ void xa_arj_delete (XArchive *,GSList *);
 void xa_arj_add (XArchive *,GString *,gchar *);
 gboolean xa_arj_extract(XArchive *,GSList *);
 void xa_arj_test (XArchive *);
-void xa_get_arj_line_content (gchar *line, gpointer data);
 void xa_open_arj (XArchive *archive);
 #endif

@@ -30,6 +30,8 @@ extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func	extract	[XARCHIVETYPE_COUNT];
 
+static void xa_get_gzip_line_content(gchar *, gpointer);
+
 void xa_gzip_ask (XArchive *archive)
 {
 	switch (archive->type)
@@ -113,7 +115,7 @@ void xa_open_gzip (XArchive *archive)
 	}
 }
 
-void xa_get_gzip_line_content (gchar *line, gpointer data)
+static void xa_get_gzip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gchar *filename;

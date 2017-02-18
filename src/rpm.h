@@ -25,5 +25,4 @@
 void xa_rpm_ask(XArchive *);
 void xa_open_rpm ( XArchive *);
 gboolean xa_rpm_extract(XArchive *,GSList *);
-void xa_get_cpio_line_content (gchar *, gpointer );
 #endif

@@ -26,6 +26,8 @@ extern const gchar *sevenz;
 
 static gboolean last_line, jump_header, encrypted;
 
+static void xa_get_7zip_line_content(gchar *, gpointer);
+
 void xa_7zip_ask (XArchive *archive)
 {
 	archive->can_sfx = archive->can_add = archive->can_extract = archive->can_test = TRUE;
@@ -63,7 +65,7 @@ void xa_open_7zip (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void xa_get_7zip_line_content (gchar *line, gpointer data)
+static void xa_get_7zip_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;

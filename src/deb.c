@@ -22,6 +22,8 @@
 #include "support.h"
 #include "window.h"
 
+static void xa_get_ar_line_content(gchar *, gpointer);
+
 void xa_deb_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
@@ -52,7 +54,7 @@ void xa_open_deb (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void xa_get_ar_line_content (gchar *line, gpointer data)
+static void xa_get_ar_line_content (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gchar *filename;

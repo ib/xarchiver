@@ -28,5 +28,4 @@ void xa_7zip_add (XArchive *,GString *,gchar *);
 gboolean xa_7zip_extract(XArchive *,GSList *);
 void xa_7zip_test (XArchive *);
 void xa_open_7zip (XArchive *);
-void xa_get_7zip_line_content (gchar *, gpointer );
 #endif
