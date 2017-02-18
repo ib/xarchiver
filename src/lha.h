@@ -21,7 +21,6 @@
 #define LHA_H
 
 #include <glib.h>
-#include <stdio.h>
 #include "archive.h"
 
 void xa_lha_ask(XArchive *);
@@ -31,5 +30,4 @@ gboolean xa_lha_extract(XArchive *,GSList *);
 void xa_lha_test (XArchive *);
 void xa_get_lha_line_content (gchar *line, gpointer data);
 void xa_open_lha (XArchive *archive);
-gboolean jump_header, last_line;
 #endif
