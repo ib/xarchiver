@@ -388,7 +388,6 @@ gboolean xa_create_temp_directory (XArchive *archive)
 gboolean xa_run_command (XArchive *archive,GSList *commands)
 {
 	int ps;
-	gboolean waiting = TRUE;
 	gboolean result = TRUE;
 	GSList *_commands = commands;
 
@@ -414,7 +413,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			result = FALSE;
 			break;
 		}
-		while (waiting)
+		while (TRUE) /* waiting */
 		{
 			ps = waitpid (archive->child_pid, &status, WNOHANG);
 			if (ps < 0)
