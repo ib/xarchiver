@@ -22,6 +22,8 @@
 #include "support.h"
 #include "window.h"
 
+static void xa_zip_prepend_backslash(GSList *, GString *);
+
 void xa_zip_ask (XArchive *archive)
 {
 	archive->can_sfx = archive->can_add = archive->can_extract = archive->can_test = TRUE;
