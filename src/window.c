@@ -1966,15 +1966,14 @@ void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data)
 	{
 		gchar *browser_path = NULL;
 		browser_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
-		if (strlen(browser_path) == 0)
+		if ((browser_path == NULL) || (strlen(browser_path) == 0))
 		{
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));
 			g_free (browser_path);
 			return;
 		}
 		xa_launch_external_program(browser_path,(gchar *)link);
-		if (browser_path != NULL)
-			g_free (browser_path);
+		g_free (browser_path);
 	}
 	else
 		xa_launch_external_program("xdg-open",(gchar*)link);
