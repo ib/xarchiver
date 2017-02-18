@@ -865,6 +865,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				if (archive_not_sfx == NULL)
 				{
 					/* TODO Handle NULL pointer properly */
+					fclose (sfx_archive);
 					return;
 				}
 
@@ -971,6 +972,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				if (archive_not_sfx == NULL)
 				{
 					/* TODO Handle NULL pointer properly */
+					fclose (sfx_archive);
 					return;
 				}
 
