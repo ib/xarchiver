@@ -22,10 +22,11 @@
 #include <glib.h>
 #include "archive.h"
 
+void xa_arj_add(XArchive *, GString *, gchar *);
 void xa_arj_ask(XArchive *);
-void xa_arj_delete (XArchive *,GSList *);
-void xa_arj_add (XArchive *,GString *,gchar *);
-gboolean xa_arj_extract(XArchive *,GSList *);
-void xa_arj_test (XArchive *);
-void xa_open_arj (XArchive *archive);
+void xa_arj_delete(XArchive *, GSList *);
+gboolean xa_arj_extract(XArchive *, GSList *);
+void xa_arj_open(XArchive *);
+void xa_arj_test(XArchive *);
+
 #endif
