@@ -480,6 +480,13 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	{
 		stream = fopen (filename,"w");
 		g_free(filename);
+
+		if (stream == NULL)
+		{
+			/* TODO Handle NULL pointer properly */
+			return;
+		}
+
 		filename = g_filename_display_name(archive[idx]->escaped_path);
 		if (bp)
 		{
@@ -500,27 +507,27 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		if (bp)
 			g_fprintf(stream,"</a><br><br><b>");
 		stat (archive[idx]->path ,&my_stat);
-    	file_size = my_stat.st_size;
-    	t = xa_set_size_string(file_size);
+		file_size = my_stat.st_size;
+		t = xa_set_size_string(file_size);
 		g_fprintf (stream,_("Compressed   size: "));
-    	if (bp)
-    		g_fprintf (stream,"</b>");
-    	g_fprintf (stream,"%s\n",t);
-    	g_free(t);
-    	if (bp)
+		if (bp)
+			g_fprintf (stream,"</b>");
+		g_fprintf (stream,"%s\n",t);
+		g_free(t);
+		if (bp)
 			g_fprintf(stream,"<br><br><b>");
-    	g_fprintf (stream,_("Uncompressed size: "));
-    	t = xa_set_size_string(archive[idx]->dummy_size);
-    	if (bp)
-    		g_fprintf (stream,"</b>");
-    	g_fprintf (stream,"%s\n",t);
-    	g_free(t);
-    	if (bp)
+		g_fprintf (stream,_("Uncompressed size: "));
+		t = xa_set_size_string(archive[idx]->dummy_size);
+		if (bp)
+			g_fprintf (stream,"</b>");
+		g_fprintf (stream,"%s\n",t);
+		g_free(t);
+		if (bp)
 			g_fprintf(stream,"<br><br><b>");
-    	g_fprintf (stream,_("Number of files: "));
-    	if (bp)
+		g_fprintf (stream,_("Number of files: "));
+		if (bp)
 			g_fprintf(stream,"</b>");
-    	 g_fprintf (stream,"%d\n",archive[idx]->nr_of_files);
+		g_fprintf (stream,"%d\n",archive[idx]->nr_of_files);
 		if (bp)
 			g_fprintf(stream,"<br><br><b>");
 		if (archive[idx]->has_comment)
@@ -802,8 +809,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index ( current_page);
 
-    archive[idx]->status = XA_ARCHIVESTATUS_SFX;
-    switch ( archive[idx]->type)
+	archive[idx]->status = XA_ARCHIVESTATUS_SFX;
+	switch ( archive[idx]->type)
 	{
 		case XARCHIVETYPE_RAR:
 			command = g_strconcat ("rar s -o+ ",archive[idx]->escaped_path,NULL);
@@ -814,12 +821,12 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 	    case XARCHIVETYPE_ZIP:
 		{
 			gchar *archive_name = NULL;
-        	gchar *archive_name_escaped = NULL;
+			gchar *archive_name_escaped = NULL;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
-            gsize length;
-            GError *error = NULL;
+			gsize length;
+			GError *error = NULL;
 			gchar *unzipsfx_path = NULL;
 			gchar buffer[1024];
 
@@ -851,9 +858,15 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
-				archive_not_sfx = fopen ( archive[idx]->path ,"r");
 				fwrite (content,1,length,sfx_archive);
 				g_free (content);
+
+				archive_not_sfx = fopen ( archive[idx]->path ,"r");
+				if (archive_not_sfx == NULL)
+				{
+					/* TODO Handle NULL pointer properly */
+					return;
+				}
 
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
@@ -877,20 +890,20 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 
         case XARCHIVETYPE_7ZIP:
         {
-        	gchar *archive_name = NULL;
-        	gchar *archive_name_escaped = NULL;
+			gchar *archive_name = NULL;
+			gchar *archive_name_escaped = NULL;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
-            gsize length;
-            GError *error = NULL;
+			gsize length;
+			GError *error = NULL;
 			gchar *sfx_path = NULL;
 			gchar buffer[1024];
 			int response;
 			GtkWidget *locate_7zcon = NULL;
 			GtkFileFilter *sfx_filter;
 
-        	archive_name = xa_open_sfx_file_selector ();
+			archive_name = xa_open_sfx_file_selector ();
 
 			if (archive_name == NULL)
 				return;
@@ -951,9 +964,15 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
-				archive_not_sfx = fopen ( archive[idx]->path,"r");
 				fwrite (content,1,length,sfx_archive);
 				g_free (content);
+
+				archive_not_sfx = fopen ( archive[idx]->path,"r");
+				if (archive_not_sfx == NULL)
+				{
+					/* TODO Handle NULL pointer properly */
+					return;
+				}
 
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
@@ -2189,8 +2208,12 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 		return;
 
 	stream = fopen (tmp,"w");
-	fwrite (content,1,strlen(content),stream);
-	fclose (stream);
+	if (stream != NULL)
+	{
+		fwrite (content,1,strlen(content),stream);
+		fclose (stream);
+	}
+	/* TODO Handle NULL pointer properly */
 
 	switch (archive[idx]->type)
 	{

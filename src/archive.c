@@ -674,12 +674,12 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
 gboolean xa_detect_encrypted_archive (XArchive *archive)
 {
 	FILE *file;
-    unsigned int fseek_offset;
-    unsigned short int password_flag;
-    unsigned int compressed_size;
-    unsigned int uncompressed_size;
-    unsigned short int file_length;
-    unsigned short int extra_length;
+	unsigned int fseek_offset;
+	unsigned short int password_flag;
+	unsigned int compressed_size;
+	unsigned int uncompressed_size;
+	unsigned short int file_length;
+	unsigned short int extra_length;
 
 	unsigned char sig[2];
 	unsigned short int basic_header_size;
@@ -691,6 +691,12 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 	gboolean flag = FALSE;
 
 	file = fopen (archive->path,"r");
+	if (file == NULL)
+	{
+		/* TODO Handle NULL pointer properly */
+		return flag;
+	}
+
 	fread (magic,1,4,file);
 
 	fseek (file,6,SEEK_SET);
