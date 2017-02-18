@@ -25,7 +25,7 @@
 GList *ArchiveSuffix;
 GList *ArchiveType;
 const gchar *locale;
-gchar *config_file,*tar;
+gchar *config_file;
 void xa_set_available_archivers();
 
 XArchive *xa_init_structure_from_cmd_line (char *filename);

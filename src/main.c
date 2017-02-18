@@ -52,6 +52,7 @@ gboolean unarj = FALSE;
 gboolean unrar = FALSE;
 gboolean xdg_open = FALSE;
 const gchar *sevenz = NULL;
+const gchar *tar = NULL;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
 static gboolean show_version = FALSE;
 extern gchar *current_open_directory;

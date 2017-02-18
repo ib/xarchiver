@@ -24,6 +24,8 @@
 #include "tar.h"
 #include "window.h"
 
+extern const gchar *tar;
+
 extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func	extract	[XARCHIVETYPE_COUNT];
