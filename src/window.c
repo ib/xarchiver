@@ -1986,17 +1986,17 @@ void xa_determine_program_to_run(gchar *file)
 
 	if ( !xdg_open)
 	{
-		if (strstr(file,".html"))
+		if (g_str_has_suffix(file,".html"))
 		{
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
 		}
-		else if (strstr(file,".txt"))
+		else if (g_str_has_suffix(file,".txt"))
 		{
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_editor));
 		}
-		else if (strstr(file,".png") || strstr(file,".gif") || strstr(file,".jpg") || strstr(file,".jpeg") || strstr(file,".bmp") ||
-				 strstr(file,".tif") || strstr(file,".tiff")|| strstr(file,".svg") ||
-				 strstr(file,".tga"))
+		else if (g_str_has_suffix(file,".png") || g_str_has_suffix(file,".gif") || g_str_has_suffix(file,".jpg") ||
+				g_str_has_suffix(file,".jpeg") || g_str_has_suffix(file,".bmp") || g_str_has_suffix(file,".tif") ||
+				g_str_has_suffix(file,".tiff") || g_str_has_suffix(file,".svg") || g_str_has_suffix(file,".tga"))
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
 		else
 		{
