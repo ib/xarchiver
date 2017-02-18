@@ -24,6 +24,8 @@
 extern gboolean unrar;
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
+
+static gboolean last_line, jump_header, jump_comment, read_filename;
 static int rar_version;
 
 void xa_rar_ask (XArchive *archive)
@@ -53,7 +55,11 @@ void xa_open_rar (XArchive *archive)
 	unsigned short int i;
 	gchar *command = NULL;
 	gchar *rar = NULL;
-	jump_header = jump_comment = read_filename = last_line = encrypted = FALSE;
+
+	last_line = FALSE;
+	jump_header = FALSE;
+	jump_comment = FALSE;
+	read_filename = FALSE;
 
 	if (unrar)
 		rar = "unrar";
@@ -102,7 +108,7 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 	gpointer item[9];
 	unsigned short int i = 0;
 	unsigned int linesize,n,a;
-	gboolean dir = FALSE;
+	gboolean encrypted = FALSE, dir = FALSE;
 	static gchar *filename;
 
 	if (last_line)
@@ -266,7 +272,6 @@ void xa_get_rar_line_content (gchar *line, gpointer data)
 			entry->is_encrypted = encrypted;
 		g_free(filename);
 		read_filename = FALSE;
-		encrypted = FALSE;
 	}
 }
 
@@ -369,7 +374,7 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	gpointer item[7];
 	unsigned short int i = 0;
 	unsigned int linesize,n,a,offset;
-	gboolean dir = FALSE;
+	gboolean encrypted = FALSE, dir = FALSE;
 	static gchar *filename, *end;
 
 	if (last_line)
@@ -518,7 +523,6 @@ void xa_get_rar5_line_content (gchar *line, gpointer data)
 	if (entry != NULL)
 		entry->is_encrypted = encrypted;
 	g_free(filename);
-	encrypted = FALSE;
 }
 
 void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
