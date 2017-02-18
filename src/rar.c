@@ -24,8 +24,25 @@
 
 extern gboolean unrar;
 
-static gboolean last_line, jump_header, jump_comment, read_filename;
 static int rar_version;
+static gboolean last_line, jump_header, jump_comment, read_filename;
+
+int xa_rar_check_version (gchar *path)
+{
+	gchar *output;
+
+	rar_version = 4;  // default version
+
+	g_spawn_command_line_sync(path, &output, NULL, NULL, NULL);
+
+	if (g_ascii_strncasecmp("\nRAR 5", output, 6) == 0 ||
+	    g_ascii_strncasecmp("\nUNRAR 5", output, 8) == 0)
+		rar_version = 5;
+
+	g_free(output);
+
+	return rar_version;
+}
 
 void xa_rar_ask (XArchive *archive)
 {
@@ -574,22 +591,4 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 
 	xa_run_command (archive,list);
 	xa_reload_archive_content(archive);
-}
-
-int xa_rar_checkversion (gchar *absolute_path)
-{
-	//gchar *command;
-	gchar *output = NULL;
-
-	rar_version = 4;  // Default version
-
-	//command = g_strconcat (absolute_path, "" , NULL);
-	g_spawn_command_line_sync (absolute_path, &output, NULL, NULL, NULL);
-
-	if (g_ascii_strncasecmp ("\nRAR 5", output, 6) == 0 || g_ascii_strncasecmp ("\nUNRAR 5", output, 8) == 0)
-			rar_version = 5;
-
-	g_free(output);
-	//g_free(command);
-	return rar_version;
 }

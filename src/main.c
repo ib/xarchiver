@@ -550,7 +550,7 @@ void xa_set_available_archivers()
 	{
 		ArchiveType = g_list_append(ArchiveType, "rar");
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
-		if (xa_rar_checkversion(absolute_path) == 5)
+		if (xa_rar_check_version(absolute_path) == 5)
 		{
 			ArchiveType = g_list_append(ArchiveType, "rar5");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
@@ -563,7 +563,7 @@ void xa_set_available_archivers()
 		if ( absolute_path )
 		{
 			unrar = TRUE;
-			xa_rar_checkversion(absolute_path);
+			xa_rar_check_version(absolute_path);
 			ArchiveType = g_list_append(ArchiveType, "rar");
 			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
 			g_free (absolute_path);

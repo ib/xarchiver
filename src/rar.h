@@ -30,5 +30,5 @@ void xa_rar_test (XArchive *);
 void xa_get_rar_line_content (gchar *line, gpointer data);
 void xa_open_rar ( XArchive *archive );
 void xa_get_rar5_line_content (gchar *line, gpointer data);
-int xa_rar_checkversion (gchar *);
+int xa_rar_check_version(gchar *);
 #endif
