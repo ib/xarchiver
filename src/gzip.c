@@ -28,6 +28,32 @@ extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func	extract	[XARCHIVETYPE_COUNT];
 
+void xa_gzip_ask (XArchive *archive)
+{
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_GZIP:
+			archive->can_test = TRUE;
+			archive->can_extract = TRUE;
+			break;
+
+		case XARCHIVETYPE_TAR_GZ:
+			archive->can_test = TRUE;
+			archive->can_extract = TRUE;
+			archive->can_add = TRUE;
+			archive->can_overwrite = TRUE;
+			archive->can_full_path = TRUE;
+			archive->can_touch = TRUE;
+			archive->can_update = TRUE;
+			archive->can_recurse = TRUE;
+			archive->can_move = TRUE;
+			break;
+
+		default:
+			break;
+	}
+}
+
 /* GString here is used only to respect the prototype of the
  * extract function so to make life easier to the coder :)*/
 
@@ -44,13 +70,6 @@ void xa_open_gzip (XArchive *archive)
 		archive->extract = 	extract[archive->type];
 
 		command = g_strconcat (tar, " tzvf " , archive->escaped_path, NULL );
-		archive->can_add = archive->can_extract = archive->can_test = TRUE;
-		archive->can_touch = TRUE;
-		archive->can_move = TRUE;
-		archive->can_overwrite = TRUE;
-		archive->can_full_path = TRUE;
-		archive->can_update = TRUE;
-		archive->can_recurse = TRUE;
 		archive->files_size = 0;
 		archive->nr_of_files = 0;
 		archive->nc = 7;
@@ -71,7 +90,6 @@ void xa_open_gzip (XArchive *archive)
 	}
 	else
 	{
-		archive->can_extract = archive->can_test = TRUE;
 		archive->nc = 4;
 		archive->parse_output = xa_get_gzip_line_content;
 		archive->nr_of_files = 1;

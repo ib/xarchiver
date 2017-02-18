@@ -23,6 +23,7 @@
 #include "archive.h"
 
 gboolean jump_header,jump_comment,read_filename, last_line, encrypted;
+void xa_rar_ask(XArchive *);
 void xa_rar_delete (XArchive *,GSList *);
 void xa_rar_add (XArchive *,GString *,gchar *);
 gboolean xa_rar_extract(XArchive *,GSList *);

@@ -32,6 +32,35 @@ extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func	extract	[XARCHIVETYPE_COUNT];
 short int l;
 
+void xa_bzip2_lzma_ask (XArchive *archive)
+{
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_BZIP2:
+			archive->can_test = TRUE;
+			archive->can_extract = TRUE;
+			break;
+
+		case XARCHIVETYPE_TAR_BZ2:
+		case XARCHIVETYPE_TAR_LZMA:
+		case XARCHIVETYPE_TAR_LZOP:
+		case XARCHIVETYPE_TAR_XZ:
+			archive->can_test = TRUE;
+			archive->can_extract = TRUE;
+			archive->can_add = TRUE;
+			archive->can_overwrite = TRUE;
+			archive->can_full_path = TRUE;
+			archive->can_touch = TRUE;
+			archive->can_update = TRUE;
+			archive->can_recurse = TRUE;
+			archive->can_move = TRUE;
+			break;
+
+		default:
+			break;
+	}
+}
+
 void xa_open_bzip2_lzma (XArchive *archive)
 {
 	gchar *filename = NULL;;
@@ -48,34 +77,16 @@ void xa_open_bzip2_lzma (XArchive *archive)
     	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
 	{
 		archive->type = XARCHIVETYPE_TAR_BZ2;
-		archive->can_touch = TRUE;
-		archive->can_move = TRUE;
-		archive->can_overwrite = TRUE;
-		archive->can_full_path = TRUE;
-		archive->can_update = TRUE;
-		archive->can_recurse = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
-		archive->can_touch = TRUE;
-		archive->can_move = TRUE;
-		archive->can_overwrite = TRUE;
-		archive->can_full_path = TRUE;
-		archive->can_update = TRUE;
-		archive->can_recurse = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.xz") || g_str_has_suffix (archive->escaped_path,".txz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_XZ;
-		archive->can_touch = TRUE;
-		archive->can_move = TRUE;
-		archive->can_overwrite = TRUE;
-		archive->can_full_path = TRUE;
-		archive->can_update = TRUE;
-		archive->can_recurse = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzop") ||
@@ -83,12 +94,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		g_str_has_suffix(archive->escaped_path,".tar.lzo"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZOP;
-		archive->can_touch = TRUE;
-		archive->can_move = TRUE;
-		archive->can_overwrite = TRUE;
-		archive->can_full_path = TRUE;
-		archive->can_update = TRUE;
-		archive->can_recurse = TRUE;
 		xa_open_tar_compressed_file(archive);
 	}
 	else
@@ -99,7 +104,6 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		unsigned short int i;
 		GSList *list = NULL;
 
-		archive->can_extract = archive->can_test = TRUE;
 		archive->nc = 3;
 		archive->nr_of_files = 1;
 
@@ -198,7 +202,6 @@ void xa_open_tar_compressed_file(XArchive *archive)
 		command = g_strconcat(tar," tv --use-compress-program=lzop -f ",archive->escaped_path,NULL);
 	/* else fail? */
 
-	archive->can_add = archive->can_extract = archive->can_test = TRUE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 7;

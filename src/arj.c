@@ -25,12 +25,8 @@ extern gboolean unarj;
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
 
-void xa_open_arj (XArchive *archive)
+void xa_arj_ask (XArchive *archive)
 {
-	unsigned short int i;
-    jump_header = encrypted = last_line = FALSE;
-	arj_line = 0;
-	gchar *command = g_strconcat(unarj ? "unarj" : "arj", " l ", archive->escaped_path, NULL);
 	archive->can_extract = archive->can_test = TRUE;
 	archive->can_sfx = archive->can_add = !unarj;
 	archive->can_delete = !unarj;
@@ -40,6 +36,14 @@ void xa_open_arj (XArchive *archive)
 	archive->can_full_path = TRUE;
 	archive->can_freshen = !unarj;
 	archive->can_update = !unarj;
+}
+
+void xa_open_arj (XArchive *archive)
+{
+	unsigned short int i;
+    jump_header = encrypted = last_line = FALSE;
+	arj_line = 0;
+	gchar *command = g_strconcat(unarj ? "unarj" : "arj", " l ", archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;

@@ -53,12 +53,8 @@ gboolean isTar (FILE *file)
 	        memcmp(magic, "\x0\x0\x0\x0\x0\x0\x0", sizeof(magic)) == 0);
 }
 
-void xa_open_tar (XArchive *archive)
+void xa_tar_ask (XArchive *archive)
 {
-	gchar *command;
-	unsigned short int i;
-
-	command = g_strconcat (tar, " tfv " , archive->escaped_path, NULL);
 	archive->can_add = archive->can_extract = archive->can_test = TRUE;
 	archive->can_delete = TRUE;
 	archive->can_touch = TRUE;
@@ -67,6 +63,14 @@ void xa_open_tar (XArchive *archive)
 	archive->can_full_path = TRUE;
 	archive->can_update = TRUE;
 	archive->can_recurse = TRUE;
+}
+
+void xa_open_tar (XArchive *archive)
+{
+	gchar *command;
+	unsigned short int i;
+
+	command = g_strconcat (tar, " tfv " , archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 7;

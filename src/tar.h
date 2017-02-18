@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include "archive.h"
 
+void xa_tar_ask(XArchive *);
 void xa_open_tar (XArchive *);
 void xa_tar_delete (XArchive *,GSList *);
 void xa_tar_add (XArchive *,GString *,gchar *);

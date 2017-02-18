@@ -134,6 +134,11 @@ static int xa_rpm2cpio (XArchive *archive)
 	return 1;
 }
 
+void xa_rpm_ask (XArchive *archive)
+{
+	archive->can_extract = TRUE;
+}
+
 void xa_open_rpm (XArchive *archive)
 {
 	int result, i;
@@ -147,7 +152,6 @@ void xa_open_rpm (XArchive *archive)
 	if (result < 0)
 		return;
 
-	archive->can_extract = TRUE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;

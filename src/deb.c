@@ -23,14 +23,18 @@
 
 extern void xa_create_liststore (XArchive *archive,gchar *columns_names[]);
 
+void xa_deb_ask (XArchive *archive)
+{
+	archive->can_extract = TRUE;
+	archive->can_touch = TRUE;
+}
+
 void xa_open_deb (XArchive *archive)
 {
 	gchar *command = NULL;
 	unsigned short int i;
 
 	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
-	archive->can_extract = TRUE;
-	archive->can_touch = TRUE;
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 5;

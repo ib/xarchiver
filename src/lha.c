@@ -25,18 +25,22 @@
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 
-void xa_open_lha (XArchive *archive)
+void xa_lha_ask (XArchive *archive)
 {
-	gchar *command;
-	jump_header = last_line = FALSE;
-	unsigned short int i;
-	command = g_strconcat ("lha l " , archive->escaped_path, NULL);
 	archive->can_extract = archive->can_add = archive->can_test = TRUE;
 	archive->can_delete = TRUE;
 	archive->can_move = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_update = TRUE;
+}
+
+void xa_open_lha (XArchive *archive)
+{
+	gchar *command;
+	jump_header = last_line = FALSE;
+	unsigned short int i;
+	command = g_strconcat ("lha l " , archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 6;

@@ -26,6 +26,23 @@ extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 static int rar_version;
 
+void xa_rar_ask (XArchive *archive)
+{
+	archive->can_test = TRUE;
+	archive->can_extract = TRUE;
+	archive->can_add = !unrar;
+	archive->can_delete = !unrar;
+	archive->can_sfx = !unrar;
+	archive->can_passwd = !unrar;
+	archive->can_overwrite = TRUE;
+	archive->can_full_path = TRUE;
+	archive->can_touch = TRUE;
+	archive->can_freshen = TRUE;
+	archive->can_update = TRUE;
+	archive->can_solid = !unrar;
+	archive->can_move = !unrar;
+}
+
 void xa_open_rar (XArchive *archive)
 {
 	GType types4[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
@@ -38,26 +55,10 @@ void xa_open_rar (XArchive *archive)
 	gchar *rar = NULL;
 	jump_header = jump_comment = read_filename = last_line = encrypted = FALSE;
 
-	archive->can_test = TRUE;
-	archive->can_extract = TRUE;
-	archive->can_overwrite = TRUE;
-	archive->can_full_path = TRUE;
-	archive->can_touch = TRUE;
-	archive->can_freshen = TRUE;
-	archive->can_update = TRUE;
-
 	if (unrar)
 		rar = "unrar";
 	else
-	{
 		rar = "rar";
-		archive->can_add = TRUE;
-		archive->can_delete = TRUE;
-		archive->can_sfx = TRUE;
-		archive->can_passwd = TRUE;
-		archive->can_solid = TRUE;
-		archive->can_move = TRUE;
-	}
 
 	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
 	archive->files_size = 0;

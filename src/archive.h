@@ -77,6 +77,7 @@ struct _XEntry
 typedef struct _XArchive XArchive;
 typedef struct _XAClipboard XAClipboard;
 
+typedef void (*ask_func)(XArchive *);
 typedef void (*parse_output_func)	(gchar *line, gpointer);
 typedef void (*delete_func)			(XArchive *,GSList *);
 typedef void (*add_func)			(XArchive *,GString *,gchar *);
@@ -144,6 +145,7 @@ struct _XArchive
 	guint pb_source;
 	GPid child_pid;
 	unsigned long long int files_size;
+	ask_func ask;
 	parse_output_func parse_output;
 	delete_func delete;
 	add_func add;

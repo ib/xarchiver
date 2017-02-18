@@ -68,6 +68,7 @@ add_func		add[XARCHIVETYPE_COUNT]		= {NULL};
 extract_func	extract[XARCHIVETYPE_COUNT]	= {NULL};
 test_func		test[XARCHIVETYPE_COUNT]	= {NULL};
 open_func		open_archive[XARCHIVETYPE_COUNT]	= {NULL};
+ask_func		ask[XARCHIVETYPE_COUNT]	= {NULL};
 
 static GOptionEntry entries[] =
 {
@@ -346,6 +347,21 @@ done:	g_list_free (ArchiveSuffix);
 
 void xa_set_available_archivers()
 {
+	ask[0]  = 0;
+	ask[XARCHIVETYPE_7ZIP]  = &xa_7zip_ask;
+	ask[XARCHIVETYPE_ARJ]  = &xa_arj_ask;
+	ask[XARCHIVETYPE_DEB]  = &xa_deb_ask;
+	ask[XARCHIVETYPE_BZIP2]  = &xa_bzip2_lzma_ask;
+	ask[XARCHIVETYPE_GZIP]  = &xa_gzip_ask;
+	ask[XARCHIVETYPE_LZMA]  = &xa_bzip2_lzma_ask;
+	ask[XARCHIVETYPE_XZ]  = &xa_bzip2_lzma_ask;
+	ask[XARCHIVETYPE_RAR]  = &xa_rar_ask;
+	ask[XARCHIVETYPE_RPM]  = &xa_rpm_ask;
+	ask[XARCHIVETYPE_TAR]  = ask[XARCHIVETYPE_TAR_BZ2] = ask[XARCHIVETYPE_TAR_GZ] = ask[XARCHIVETYPE_TAR_LZMA] = ask[XARCHIVETYPE_TAR_XZ] = ask[XARCHIVETYPE_TAR_LZOP] = &xa_tar_ask;
+	ask[XARCHIVETYPE_ZIP] = &xa_zip_ask;
+	ask[XARCHIVETYPE_LHA] = &xa_lha_ask;
+	ask[XARCHIVETYPE_LZOP] = &xa_bzip2_lzma_ask;
+
 	open_archive[0]  = 0;
 	open_archive[XARCHIVETYPE_7ZIP]  = &xa_open_7zip;
 	open_archive[XARCHIVETYPE_ARJ]  = &xa_open_arj;

@@ -24,11 +24,8 @@
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore ( XArchive *archive, gchar *columns_names[]);
 
-void xa_open_zip (XArchive *archive)
+void xa_zip_ask (XArchive *archive)
 {
-	unsigned short int i;
-
-	gchar *command = g_strconcat ("zipinfo -t -l ",archive->escaped_path, NULL);
 	archive->can_sfx = archive->can_add = archive->can_extract = archive->can_test = TRUE;
 	archive->can_delete = TRUE;
 	archive->can_move = TRUE;
@@ -37,6 +34,13 @@ void xa_open_zip (XArchive *archive)
 	archive->can_full_path = TRUE;
 	archive->can_freshen = TRUE;
 	archive->can_update = TRUE;
+}
+
+void xa_open_zip (XArchive *archive)
+{
+	unsigned short int i;
+
+	gchar *command = g_strconcat ("zipinfo -t -l ",archive->escaped_path, NULL);
 	archive->files_size  = 0;
     archive->nr_of_files = 0;
     archive->nc = 9;

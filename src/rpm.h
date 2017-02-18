@@ -22,6 +22,7 @@
 #include <glib.h>
 #include "archive.h"
 
+void xa_rpm_ask(XArchive *);
 void xa_open_rpm ( XArchive *);
 void xa_open_temp_file (gchar *,gchar *);
 gboolean xa_rpm_extract(XArchive *,GSList *);

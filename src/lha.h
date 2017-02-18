@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include "archive.h"
 
+void xa_lha_ask(XArchive *);
 void xa_lha_delete (XArchive *,GSList *);
 void xa_lha_add (XArchive *,GString *,gchar *);
 gboolean xa_lha_extract(XArchive *,GSList *);
