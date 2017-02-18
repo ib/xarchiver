@@ -359,8 +359,7 @@ static void xa_restore_navigation (int idx)
 
 static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE page, guint page_num, gpointer user_data)
 {
-	gint id,selected = 0;
-	GtkTreeSelection *selection = NULL;
+	gint id;
 
 	id = xa_find_archive_index (page_num);
 	if (id == -1)
@@ -372,6 +371,9 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 	if (archive[id]->treeview != NULL)
 	{
+		GtkTreeSelection *selection;
+		gint selected;
+
 		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
 		selected = gtk_tree_selection_count_selected_rows (selection);
 		if (selected == 0)
