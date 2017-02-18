@@ -26,7 +26,7 @@ extern const gchar *sevenz;
 
 static gboolean last_line, jump_header, encrypted;
 
-static void xa_get_7zip_line_content(gchar *, gpointer);
+static void xa_7zip_parse_output(gchar *, gpointer);
 
 void xa_7zip_ask (XArchive *archive)
 {
@@ -39,7 +39,7 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_update = TRUE;
 }
 
-void xa_open_7zip (XArchive *archive)
+void xa_7zip_open (XArchive *archive)
 {
 	unsigned short int i = 0;
 
@@ -50,7 +50,7 @@ void xa_open_7zip (XArchive *archive)
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 6;
-	archive->parse_output = xa_get_7zip_line_content;
+	archive->parse_output = xa_7zip_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free ( command );
 	if ( archive->child_pid == 0 )
@@ -65,7 +65,7 @@ void xa_open_7zip (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-static void xa_get_7zip_line_content (gchar *line, gpointer data)
+static void xa_7zip_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;

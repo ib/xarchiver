@@ -364,7 +364,7 @@ void xa_set_available_archivers()
 	ask[XARCHIVETYPE_LZOP] = &xa_bzip2_lzma_ask;
 
 	open[0]  = 0;
-	open[XARCHIVETYPE_7ZIP]  = &xa_open_7zip;
+	open[XARCHIVETYPE_7ZIP]  = &xa_7zip_open;
 	open[XARCHIVETYPE_ARJ]  = &xa_open_arj;
 	open[XARCHIVETYPE_DEB]  = &xa_open_deb;
 	open[XARCHIVETYPE_BZIP2]  = &xa_open_bzip2_lzma;
