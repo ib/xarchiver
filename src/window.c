@@ -596,6 +596,13 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer dat
 		return;
 
 	stream = fopen (tmp,"w");
+
+	if (stream == NULL)
+	{
+		g_free(tmp);
+		return;
+	}
+
 	fwrite (content,1,strlen(content),stream);
 	fclose (stream);
 
@@ -1148,6 +1155,10 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	{
 		stream = fopen (filename,"w");
 		g_free(filename);
+
+		if (stream == NULL)
+			return;
+
 		filename = g_filename_display_name(archive[idx]->path[1]);
 		if (bp)
 		{
@@ -1446,9 +1457,16 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
-				archive_not_sfx = fopen ( archive[idx]->path[0] ,"r");
 				fwrite (content,1,length,sfx_archive);
 				g_free (content);
+
+				archive_not_sfx = fopen(archive[idx]->path[0], "r");
+
+				if (archive_not_sfx == NULL)
+				{
+					fclose(sfx_archive);
+					return;
+				}
 
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
@@ -1545,9 +1563,16 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
-				archive_not_sfx = fopen ( archive[idx]->path[0],"r");
 				fwrite (content,1,length,sfx_archive);
 				g_free (content);
+
+				archive_not_sfx = fopen(archive[idx]->path[0], "r");
+
+				if (archive_not_sfx == NULL)
+				{
+					fclose(sfx_archive);
+					return;
+				}
 
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
