@@ -579,8 +579,7 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 
 void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE page, guint page_num, gpointer user_data)
 {
-	gint id,selected = 0;
-	GtkTreeSelection *selection = NULL;
+	gint id;
 
 	id = xa_find_archive_index (page_num);
 	if (id == -1)
@@ -589,9 +588,6 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 	xa_set_window_title (xa_main_window,archive[id]->path);
 	xa_restore_navigation(id);
 	xa_set_statusbar_message_for_displayed_rows(archive[id]);
-
-	if (selection != NULL)
-		xa_row_selected(selection,archive[id]);
 
 	if (archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_ARJ)
 		gtk_widget_set_sensitive (comment_menu,TRUE);
@@ -605,6 +601,9 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 
 	if (archive[id]->treeview != NULL)
 	{
+		gint selected;
+		GtkTreeSelection *selection;
+
 		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
 		selected = gtk_tree_selection_count_selected_rows (selection);
 		if (selected == 0)
