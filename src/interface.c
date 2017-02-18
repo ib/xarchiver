@@ -370,9 +370,6 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 	xa_restore_navigation(id);
 	xa_set_statusbar_message_for_displayed_rows(archive[id]);
 
-	if (selection != NULL)
-		xa_row_selected(selection,archive[id]);
-
 	if (archive[id]->treeview != NULL)
 	{
 		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
