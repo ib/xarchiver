@@ -34,6 +34,8 @@ extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func	extract	[XARCHIVETYPE_COUNT];
 short int l;
 
+static void xa_open_tar_compressed_file(XArchive *);
+
 void xa_bzip2_lzma_ask (XArchive *archive)
 {
 	switch (archive->type)
@@ -189,7 +191,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 	}
 }
 
-void xa_open_tar_compressed_file(XArchive *archive)
+static void xa_open_tar_compressed_file (XArchive *archive)
 {
 	gchar *command = NULL;
 	unsigned short int i;

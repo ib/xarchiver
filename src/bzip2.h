@@ -25,6 +25,5 @@
 void xa_bzip2_lzma_ask(XArchive *);
 void xa_open_bzip2_lzma (XArchive *);
 gboolean lzma_bzip2_extract (XArchive *,GSList*);
-void xa_open_tar_compressed_file(XArchive *);
 void xa_lzma_bzip2_test (XArchive *);
 #endif
