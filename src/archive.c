@@ -45,6 +45,7 @@ extern extract_func extract	[XARCHIVETYPE_COUNT];
 extern test_func	test	[XARCHIVETYPE_COUNT];
 extern Prefs_dialog_data *prefs_window;
 
+XArchive *archive[100];
 Progress_bar_data *pb = NULL;
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
@@ -445,7 +446,7 @@ gboolean xa_create_temp_directory (XArchive *archive)
 
 gboolean xa_run_command (XArchive *archive,GSList *commands)
 {
-	int ps;
+	int ps, status;
 	gboolean waiting = TRUE;
 	gboolean result = TRUE;
 	GSList *_commands = commands;

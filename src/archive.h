@@ -20,8 +20,6 @@
 
 #include <gtk/gtk.h>
 
-int status;
-
 typedef enum
 {
 	XARCHIVETYPE_UNKNOWN = 0,
@@ -154,6 +152,8 @@ struct _XArchive
 	open_func open_archive;
 };
 
+extern XArchive *archive[];
+
 #define can_rename(archive) ((archive)->can_extract && (archive)->can_delete && (archive)->can_add)
 
 #define XA_CLIPBOARD (gdk_atom_intern_static_string ("XARCHIVER_OWN_CLIPBOARD"))
@@ -199,5 +199,4 @@ void xa_sidepane_row_selected(GtkTreeSelection *, gpointer );
 void xa_sidepane_select_row(XEntry *);
 gboolean _xa_sidepane_select_row(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
 gint xa_sort_dirs_before_files(GtkTreeModel *,GtkTreeIter *,GtkTreeIter *,gpointer );
-XArchive *archive[100];
 #endif
