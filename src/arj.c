@@ -25,6 +25,9 @@ extern gboolean unarj;
 extern void xa_reload_archive_content(XArchive *archive);
 extern void xa_create_liststore (XArchive *archive, gchar *columns_names[]);
 
+static gboolean jump_header;
+static int arj_line;
+
 void xa_arj_ask (XArchive *archive)
 {
 	archive->can_extract = archive->can_test = TRUE;
@@ -41,7 +44,8 @@ void xa_arj_ask (XArchive *archive)
 void xa_open_arj (XArchive *archive)
 {
 	unsigned short int i;
-    jump_header = encrypted = last_line = FALSE;
+
+	jump_header = FALSE;
 	arj_line = 0;
 	gchar *command = g_strconcat(unarj ? "unarj" : "arj", " l ", archive->escaped_path, NULL);
 	archive->files_size = 0;
@@ -69,7 +73,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	gpointer item[7];
 	unsigned int linesize,n,a;
 	static gchar *filename;
-	gboolean lfn = TRUE;
+	gboolean lfn, encrypted;
 
 	if (jump_header == FALSE)
 	{
@@ -85,10 +89,7 @@ void xa_get_arj_line_content (gchar *line, gpointer data)
 	{
 		linesize = strlen(line);
 		if (line[0] == '-')
-		{
-			last_line = TRUE;
 			return;
-		}
 		line[linesize - 1] = '\0';
 		/* simple column separator check */
 		lfn = (linesize < 76 || line[34] != ' ' || line[40] != ' ' || line[49] != ' ' || line[58] != ' ' || line[unarj ? 67 : 73] != ' ');
