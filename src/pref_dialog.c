@@ -232,7 +232,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->combo_prefered_temp_dir = gtk_combo_box_text_new();
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_temp_dir), _("/tmp"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_temp_dir), _("choose..."));
-	g_signal_connect (prefs_data->combo_prefered_temp_dir,"changed",G_CALLBACK (xa_prefs_combo_changed),(gpointer) 1);
+	g_signal_connect (prefs_data->combo_prefered_temp_dir,"changed",G_CALLBACK (xa_prefs_combo_changed),GUINT_TO_POINTER(1));
 	gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_temp_dir, 1, 2, 3, 4,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
@@ -245,7 +245,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	prefs_data->combo_prefered_extract_dir = gtk_combo_box_text_new();
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_extract_dir), _("/tmp"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_extract_dir), _("choose..."));
-	g_signal_connect (prefs_data->combo_prefered_extract_dir,"changed",G_CALLBACK (xa_prefs_combo_changed),(gpointer) 1);
+	g_signal_connect (prefs_data->combo_prefered_extract_dir,"changed",G_CALLBACK (xa_prefs_combo_changed),GUINT_TO_POINTER(1));
 	gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_extract_dir, 1, 2, 4, 5,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);

@@ -480,6 +480,13 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	{
 		stream = fopen (filename,"w");
 		g_free(filename);
+
+		if (stream == NULL)
+		{
+			/* TODO Handle NULL pointer properly */
+			return;
+		}
+
 		filename = g_filename_display_name(archive[idx]->escaped_path);
 		if (bp)
 		{
@@ -500,27 +507,27 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 		if (bp)
 			g_fprintf(stream,"</a><br><br><b>");
 		stat (archive[idx]->path ,&my_stat);
-    	file_size = my_stat.st_size;
-    	t = xa_set_size_string(file_size);
+		file_size = my_stat.st_size;
+		t = xa_set_size_string(file_size);
 		g_fprintf (stream,_("Compressed   size: "));
-    	if (bp)
-    		g_fprintf (stream,"</b>");
-    	g_fprintf (stream,"%s\n",t);
-    	g_free(t);
-    	if (bp)
+		if (bp)
+			g_fprintf (stream,"</b>");
+		g_fprintf (stream,"%s\n",t);
+		g_free(t);
+		if (bp)
 			g_fprintf(stream,"<br><br><b>");
-    	g_fprintf (stream,_("Uncompressed size: "));
-    	t = xa_set_size_string(archive[idx]->dummy_size);
-    	if (bp)
-    		g_fprintf (stream,"</b>");
-    	g_fprintf (stream,"%s\n",t);
-    	g_free(t);
-    	if (bp)
+		g_fprintf (stream,_("Uncompressed size: "));
+		t = xa_set_size_string(archive[idx]->dummy_size);
+		if (bp)
+			g_fprintf (stream,"</b>");
+		g_fprintf (stream,"%s\n",t);
+		g_free(t);
+		if (bp)
 			g_fprintf(stream,"<br><br><b>");
-    	g_fprintf (stream,_("Number of files: "));
-    	if (bp)
+		g_fprintf (stream,_("Number of files: "));
+		if (bp)
 			g_fprintf(stream,"</b>");
-    	 g_fprintf (stream,"%d\n",archive[idx]->nr_of_files);
+		g_fprintf (stream,"%d\n",archive[idx]->nr_of_files);
 		if (bp)
 			g_fprintf(stream,"<br><br><b>");
 		if (archive[idx]->has_comment)
@@ -802,8 +809,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index ( current_page);
 
-    archive[idx]->status = XA_ARCHIVESTATUS_SFX;
-    switch ( archive[idx]->type)
+	archive[idx]->status = XA_ARCHIVESTATUS_SFX;
+	switch ( archive[idx]->type)
 	{
 		case XARCHIVETYPE_RAR:
 			command = g_strconcat ("rar s -o+ ",archive[idx]->escaped_path,NULL);
@@ -814,12 +821,12 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 	    case XARCHIVETYPE_ZIP:
 		{
 			gchar *archive_name = NULL;
-        	gchar *archive_name_escaped = NULL;
+			gchar *archive_name_escaped = NULL;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
-            gsize length;
-            GError *error = NULL;
+			gsize length;
+			GError *error = NULL;
 			gchar *unzipsfx_path = NULL;
 			gchar buffer[1024];
 
@@ -851,9 +858,16 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
-				archive_not_sfx = fopen ( archive[idx]->path ,"r");
 				fwrite (content,1,length,sfx_archive);
 				g_free (content);
+
+				archive_not_sfx = fopen ( archive[idx]->path ,"r");
+				if (archive_not_sfx == NULL)
+				{
+					/* TODO Handle NULL pointer properly */
+					fclose (sfx_archive);
+					return;
+				}
 
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
@@ -877,20 +891,20 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 
         case XARCHIVETYPE_7ZIP:
         {
-        	gchar *archive_name = NULL;
-        	gchar *archive_name_escaped = NULL;
+			gchar *archive_name = NULL;
+			gchar *archive_name_escaped = NULL;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
-            gsize length;
-            GError *error = NULL;
+			gsize length;
+			GError *error = NULL;
 			gchar *sfx_path = NULL;
 			gchar buffer[1024];
 			int response;
 			GtkWidget *locate_7zcon = NULL;
 			GtkFileFilter *sfx_filter;
 
-        	archive_name = xa_open_sfx_file_selector ();
+			archive_name = xa_open_sfx_file_selector ();
 
 			if (archive_name == NULL)
 				return;
@@ -951,9 +965,16 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
-				archive_not_sfx = fopen ( archive[idx]->path,"r");
 				fwrite (content,1,length,sfx_archive);
 				g_free (content);
+
+				archive_not_sfx = fopen ( archive[idx]->path,"r");
+				if (archive_not_sfx == NULL)
+				{
+					/* TODO Handle NULL pointer properly */
+					fclose (sfx_archive);
+					return;
+				}
 
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
@@ -1966,15 +1987,14 @@ void xa_activate_link (GtkAboutDialog *about,const gchar *link,gpointer data)
 	{
 		gchar *browser_path = NULL;
 		browser_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
-		if (strlen(browser_path) == 0)
+		if ((browser_path == NULL) || (strlen(browser_path) == 0))
 		{
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which browser to use!"),_("Please go to Preferences->Advanced and set it."));
 			g_free (browser_path);
 			return;
 		}
 		xa_launch_external_program(browser_path,(gchar *)link);
-		if (browser_path != NULL)
-			g_free (browser_path);
+		g_free (browser_path);
 	}
 	else
 		xa_launch_external_program("xdg-open",(gchar*)link);
@@ -1986,17 +2006,17 @@ void xa_determine_program_to_run(gchar *file)
 
 	if ( !xdg_open)
 	{
-		if (strstr(file,".html"))
+		if (g_str_has_suffix(file,".html"))
 		{
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
 		}
-		else if (strstr(file,".txt"))
+		else if (g_str_has_suffix(file,".txt"))
 		{
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_editor));
 		}
-		else if (strstr(file,".png") || strstr(file,".gif") || strstr(file,".jpg") || strstr(file,".jpeg") || strstr(file,".bmp") ||
-				 strstr(file,".tif") || strstr(file,".tiff")|| strstr(file,".svg") ||
-				 strstr(file,".tga"))
+		else if (g_str_has_suffix(file,".png") || g_str_has_suffix(file,".gif") || g_str_has_suffix(file,".jpg") ||
+				g_str_has_suffix(file,".jpeg") || g_str_has_suffix(file,".bmp") || g_str_has_suffix(file,".tif") ||
+				g_str_has_suffix(file,".tiff") || g_str_has_suffix(file,".svg") || g_str_has_suffix(file,".tga"))
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
 		else
 		{
@@ -2190,8 +2210,12 @@ void xa_comment_window_insert_in_archive(GtkButton *button,gpointer data)
 		return;
 
 	stream = fopen (tmp,"w");
-	fwrite (content,1,strlen(content),stream);
-	fclose (stream);
+	if (stream != NULL)
+	{
+		fwrite (content,1,strlen(content),stream);
+		fclose (stream);
+	}
+	/* TODO Handle NULL pointer properly */
 
 	switch (archive[idx]->type)
 	{

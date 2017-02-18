@@ -517,8 +517,8 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 	g_signal_connect ((gpointer) new1,"activate",G_CALLBACK (xa_new_archive),NULL);
 	g_signal_connect ((gpointer) open1,"activate",G_CALLBACK (xa_open_archive),NULL);
-	g_signal_connect ((gpointer) listing_text,"activate",G_CALLBACK (xa_list_archive),(gpointer) 0);
-	g_signal_connect ((gpointer) listing_html,"activate",G_CALLBACK (xa_list_archive),(gpointer) 1);
+	g_signal_connect ((gpointer) listing_text,"activate",G_CALLBACK (xa_list_archive),GUINT_TO_POINTER(0));
+	g_signal_connect ((gpointer) listing_html,"activate",G_CALLBACK (xa_list_archive),GUINT_TO_POINTER(1));
 	g_signal_connect ((gpointer) save1,"activate",G_CALLBACK (xa_save_archive),NULL);
 	g_signal_connect ((gpointer) check_menu,"activate",G_CALLBACK (xa_test_archive),NULL);
 	g_signal_connect ((gpointer) properties,"activate",G_CALLBACK (xa_archive_properties),NULL);
@@ -544,13 +544,13 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) New_button,	"clicked",G_CALLBACK (xa_new_archive),NULL);
 	g_signal_connect ((gpointer) Open_button,	"clicked",G_CALLBACK (xa_open_archive),NULL);
 
-	g_signal_connect ((gpointer) back_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 1);
-	g_signal_connect ((gpointer) up_button,		"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 2);
-	g_signal_connect ((gpointer) forward_button,"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 3);
-	g_signal_connect ((gpointer) home_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),(gpointer) 0);
+	g_signal_connect ((gpointer) back_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(1));
+	g_signal_connect ((gpointer) up_button,		"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(2));
+	g_signal_connect ((gpointer) forward_button,"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(3));
+	g_signal_connect ((gpointer) home_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(0));
 
 	g_signal_connect ((gpointer) AddFile_button,"clicked",G_CALLBACK (xa_add_files_archive),NULL);
-    g_signal_connect ((gpointer) Extract_button,"clicked",G_CALLBACK (xa_extract_archive),	NULL);
+	g_signal_connect ((gpointer) Extract_button,"clicked",G_CALLBACK (xa_extract_archive),	NULL);
 	g_signal_connect ((gpointer) Stop_button,	"clicked",G_CALLBACK (xa_cancel_archive),	NULL);
 	gtk_window_add_accel_group (GTK_WINDOW (xa_main_window),accel_group);
 }
@@ -579,8 +579,7 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 
 void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE page, guint page_num, gpointer user_data)
 {
-	gint id,selected = 0;
-	GtkTreeSelection *selection = NULL;
+	gint id;
 
 	id = xa_find_archive_index (page_num);
 	if (id == -1)
@@ -589,9 +588,6 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 	xa_set_window_title (xa_main_window,archive[id]->path);
 	xa_restore_navigation(id);
 	xa_set_statusbar_message_for_displayed_rows(archive[id]);
-
-	if (selection != NULL)
-		xa_row_selected(selection,archive[id]);
 
 	if (archive[id]->type == XARCHIVETYPE_ZIP || archive[id]->type == XARCHIVETYPE_RAR || archive[id]->type == XARCHIVETYPE_ARJ)
 		gtk_widget_set_sensitive (comment_menu,TRUE);
@@ -605,6 +601,9 @@ void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_TYPE pag
 
 	if (archive[id]->treeview != NULL)
 	{
+		gint selected;
+		GtkTreeSelection *selection;
+
 		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
 		selected = gtk_tree_selection_count_selected_rows (selection);
 		if (selected == 0)

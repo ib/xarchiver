@@ -35,7 +35,6 @@ short int l;
 void xa_open_bzip2_lzma (XArchive *archive)
 {
 	gchar *filename = NULL;;
-	gchar *_filename;
 	gpointer item[2];
 	gboolean result;
 	gint len = 0;
@@ -75,7 +74,8 @@ void xa_open_bzip2_lzma (XArchive *archive)
 	{
 		struct stat my_stat;
 		gchar *compressed = NULL;
-		gchar *size = NULL,*command = NULL,*executable = NULL,*dot = NULL;
+		gchar *_filename;
+		gchar *size = NULL,*command = NULL,*executable = NULL;
 		unsigned short int i;
 		GSList *list = NULL;
 
@@ -131,7 +131,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 
 		/* Let's extract it */
 		_filename = g_path_get_basename(archive->escaped_path);
-		if (_filename[0] == '.')
+		if (_filename && (_filename[0] == '.'))
 			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",archive->escaped_path,NULL);
 		else
 			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",_filename,NULL);
@@ -140,8 +140,7 @@ void xa_open_bzip2_lzma (XArchive *archive)
 		xa_run_command (archive,list);
 
 		/* and let's get its uncompressed file size */
-		dot = strrchr(_filename,'.');
-		if (_filename || G_LIKELY(dot))
+		if (_filename)
 		{
 			filename = g_strndup(_filename,strlen(_filename) - len);
 			command = g_strconcat(archive->tmp,"/",filename,NULL);

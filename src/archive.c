@@ -388,7 +388,6 @@ gboolean xa_create_temp_directory (XArchive *archive)
 gboolean xa_run_command (XArchive *archive,GSList *commands)
 {
 	int ps;
-	gboolean waiting = TRUE;
 	gboolean result = TRUE;
 	GSList *_commands = commands;
 
@@ -414,7 +413,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			result = FALSE;
 			break;
 		}
-		while (waiting)
+		while (TRUE) /* waiting */
 		{
 			ps = waitpid (archive->child_pid, &status, WNOHANG);
 			if (ps < 0)
@@ -568,6 +567,11 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 		if (new_entry == NULL)
 		{
 			new_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
+			if (new_entry == NULL)
+			{
+				return NULL;
+			}
+
 			new_entry->filename = g_strdup(components[x]);
 			new_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,new_entry,items);
 			if (components[x+1] != NULL)
@@ -670,12 +674,12 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
 gboolean xa_detect_encrypted_archive (XArchive *archive)
 {
 	FILE *file;
-    unsigned int fseek_offset;
-    unsigned short int password_flag;
-    unsigned int compressed_size;
-    unsigned int uncompressed_size;
-    unsigned short int file_length;
-    unsigned short int extra_length;
+	unsigned int fseek_offset;
+	unsigned short int password_flag;
+	unsigned int compressed_size;
+	unsigned int uncompressed_size;
+	unsigned short int file_length;
+	unsigned short int extra_length;
 
 	unsigned char sig[2];
 	unsigned short int basic_header_size;
@@ -687,6 +691,12 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 	gboolean flag = FALSE;
 
 	file = fopen (archive->path,"r");
+	if (file == NULL)
+	{
+		/* TODO Handle NULL pointer properly */
+		return flag;
+	}
+
 	fread (magic,1,4,file);
 
 	fseek (file,6,SEEK_SET);
@@ -837,8 +847,11 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 		gtk_entry_set_text(GTK_ENTRY(location_entry),string->str);
 		g_string_free(string,TRUE);
 
-		xa_update_window_with_archive_entries(archive[idx],entry);
-		xa_set_statusbar_message_for_displayed_rows(archive[idx]);
+		if (idx >= 0)
+		{
+			xa_update_window_with_archive_entries(archive[idx],entry);
+			xa_set_statusbar_message_for_displayed_rows(archive[idx]);
+		}
 	}
 }
 
