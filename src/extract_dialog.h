@@ -16,8 +16,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __EXTRACT_DIALOG_H
-#define __EXTRACT_DIALOG_H
+#ifndef XARCHIVER_EXTRACT_DIALOG_H
+#define XARCHIVER_EXTRACT_DIALOG_H
 
 #include <gtk/gtk.h>
 #include "archive.h"
@@ -54,4 +54,5 @@ Multi_extract_data *xa_create_multi_extract_dialog();
 void xa_activate_remove_button (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GtkWidget *);
 void xa_add_files_liststore (gchar *, Multi_extract_data *);
 void xa_parse_multi_extract_archive(Multi_extract_data *);
+
 #endif

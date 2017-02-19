@@ -16,12 +16,10 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __XARCHIVER_WINDOW_H
-#define __XARCHIVER_WINDOW_H
+#ifndef XARCHIVER_WINDOW_H
+#define XARCHIVER_WINDOW_H
 
-#include <stdio.h>
 #include <gtk/gtk.h>
-#include "add_dialog.h"
 #include "archive.h"
 
 unsigned long long int file_offset;

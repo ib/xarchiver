@@ -16,8 +16,9 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __DLG_OPEN_H
-#define __DLG_OPEN_H
+#ifndef XARCHIVER_OPEN_WITH_DLG_H
+#define XARCHIVER_OPEN_WITH_DLG_H
+
 #include <gtk/gtk.h>
 
 typedef struct _open_with_data Open_with_data;
@@ -31,4 +32,5 @@ struct _open_with_data
 };
 
 void xa_create_open_with_dialog(gchar *,gchar *,int);
+
 #endif

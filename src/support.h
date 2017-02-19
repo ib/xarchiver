@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2005 Giuseppe Torelli - <colossus73@gmail.com>
+ *  Copyright (C) Ingo Brückl
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,8 +17,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __XARCHIVER_SUPPORT_H
-#define __XARCHIVER_SUPPORT_H
+#ifndef XARCHIVER_SUPPORT_H
+#define XARCHIVER_SUPPORT_H
 
 #include "config.h"
 #include <gtk/gtk.h>

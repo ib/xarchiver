@@ -16,8 +16,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __PREF_DIALOG_H
-#define __PREF_DIALOG_H
+#ifndef XARCHIVER_PREF_DIALOG_H
+#define XARCHIVER_PREF_DIALOG_H
 
 #include <gtk/gtk.h>
 
@@ -45,4 +45,5 @@ void xa_prefs_load_options(Prefs_dialog_data *);
 void xa_prefs_combo_changed (GtkComboBox *,gpointer );
 void xa_apply_prefs_option(Prefs_dialog_data *);
 gchar *xa_prefs_choose_program(gboolean );
+
 #endif

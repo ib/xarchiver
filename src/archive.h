@@ -15,8 +15,8 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __XARCHIVER_ARCHIVE_H__
-#define __XARCHIVER_ARCHIVE_H__
+#ifndef XARCHIVER_ARCHIVE_H
+#define XARCHIVER_ARCHIVE_H
 
 #include <gtk/gtk.h>
 
@@ -199,4 +199,5 @@ void xa_sidepane_row_selected(GtkTreeSelection *, gpointer );
 void xa_sidepane_select_row(XEntry *);
 gboolean _xa_sidepane_select_row(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
 gint xa_sort_dirs_before_files(GtkTreeModel *,GtkTreeIter *,GtkTreeIter *,gpointer );
+
 #endif

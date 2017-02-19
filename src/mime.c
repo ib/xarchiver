@@ -17,6 +17,7 @@
  *
  */
 
+#include <string.h>
 #include "mime.h"
 #include "pref_dialog.h"
 #include "xdgmime/xdgmime.h"

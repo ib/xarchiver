@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef __XARCHIVER_INTERFACE_H__
-#define __XARCHIVER_INTERFACE_H__
+#ifndef XARCHIVER_INTERFACE_H
+#define XARCHIVER_INTERFACE_H
 
 #include <gtk/gtk.h>
 #include "archive.h"
@@ -74,4 +74,5 @@ gboolean xa_sidepane_drag_motion ( GtkWidget*,GdkDragContext *,gint x,gint y,gui
 Progress_bar_data *xa_create_progress_bar(gboolean,XArchive *);
 void xa_increase_progress_bar(Progress_bar_data *,gchar *,double);
 //void xa_icon_theme_changed (GtkIconTheme *,gpointer );
+
 #endif

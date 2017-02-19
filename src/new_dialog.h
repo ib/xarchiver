@@ -16,9 +16,12 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __NEW_DIALOG_H
-#define __NEW_DIALOG_H
+#ifndef XARCHIVER_NEW_DIALOG_H
+#define XARCHIVER_NEW_DIALOG_H
 
+#include <glib.h>
 #include "archive.h"
+
 XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean flag);
+
 #endif

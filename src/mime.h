@@ -17,12 +17,11 @@
  *
  */
 
-#ifndef __XARCHIVER_MIME_H__
-#define __XARCHIVER_MIME_H__
+#ifndef XARCHIVER_MIME_H
+#define XARCHIVER_MIME_H
 
-#include <gtk/gtk.h>
+#include <glib.h>
 #include <gdk/gdk.h>
-#include <string.h>
 
 typedef struct _pixbuf_cache pixbuf_cache;
 
@@ -36,4 +35,5 @@ const char *xa_get_stock_mime_icon(char *);
 GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *,gint);
 gint xa_icon_name_compare_func(pixbuf_cache *, pixbuf_cache *);
 void xa_free_icon_cache();
+
 #endif

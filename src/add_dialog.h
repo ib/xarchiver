@@ -16,8 +16,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ADD_DIALOG_H
-#define __ADD_DIALOG_H
+#ifndef XARCHIVER_ADD_DIALOG_H
+#define XARCHIVER_ADD_DIALOG_H
 
 #include <gtk/gtk.h>
 #include "archive.h"
@@ -60,4 +60,5 @@ void xa_parse_add_dialog_options ( XArchive *, Add_dialog_data *);
 void xa_select_files_to_add ( GtkButton* ,gpointer );
 void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_string);
 void fix_adjustment_value (GtkAdjustment *,gpointer );
+
 #endif

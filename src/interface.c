@@ -20,6 +20,7 @@
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 #include "interface.h"
+#include "add_dialog.h"
 #include "extract_dialog.h"
 #include "pref_dialog.h"
 #include "string_utils.h"

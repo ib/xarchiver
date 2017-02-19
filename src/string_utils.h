@@ -16,8 +16,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef STRING_UTILS_H
-#define STRING_UTILS_H
+#ifndef XARCHIVER_STRING_UTILS_H
+#define XARCHIVER_STRING_UTILS_H
 
 #include "config.h"
 #include <stdlib.h>
@@ -43,4 +43,5 @@ gchar *xa_escape_filename (gchar *filename,gchar *meta_chars);
 GSList *xa_slist_copy(GSList *);
 void xa_recurse_local_directory(gchar *,GSList **,gboolean,gint);
 gchar *xa_strip_current_working_dir_from_path(gchar *,gchar *);
+
 #endif
