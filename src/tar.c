@@ -30,7 +30,9 @@
 extern gchar *tar;
 extern gboolean multi_extract;
 
+static void xa_add_delete_bzip2_gzip_lzma_compressed_tar(GString *, XArchive *, gboolean);
 static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list);
+static gboolean xa_extract_tar_without_directories(gchar *, XArchive *, gchar *);
 
 gboolean isTar (FILE *file)
 {
@@ -476,7 +478,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 	return result;
 }
 
-void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files,XArchive *archive,gboolean add)
+static void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files, XArchive *archive, gboolean add)
 {
 	gchar *command,*executable = NULL,*filename = NULL;
 	gboolean result;
@@ -547,7 +549,7 @@ gboolean is_tar_compressed (gint type)
 	return (type == XARCHIVETYPE_TAR_BZ2 || type == XARCHIVETYPE_TAR_GZ || type == XARCHIVETYPE_TAR_LZMA || type == XARCHIVETYPE_TAR_LZOP || type == XARCHIVETYPE_TAR_XZ);
 }
 
-gboolean xa_extract_tar_without_directories (gchar *string,XArchive *archive,gchar *files_to_extract)
+static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, gchar *files_to_extract)
 {
 	gchar *command = NULL, *e_filename = NULL;
 	GSList *list = NULL;
