@@ -23,16 +23,16 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
-typedef struct _Progress_bar_data Progress_bar_data;
-
-struct _Progress_bar_data
+typedef struct
 {
 	GtkWidget *progress_window;
 	GtkWidget *progressbar1;
 	GtkWidget *archive_label;
 	GtkWidget *file_label;
 	gboolean multi_extract;
-};
+} Progress_bar_data;
+
+extern Progress_bar_data *pb;
 
 GtkNotebook *notebook;
 GtkIconSize tmp_toolbar_icon_size;

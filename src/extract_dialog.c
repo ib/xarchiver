@@ -31,7 +31,6 @@
 #include "window.h"
 
 extern gboolean unarj;
-extern Progress_bar_data *pb;
 
 static gchar *xa_multi_extract_archive(Multi_extract_data *,gchar *,gboolean,gboolean,gchar *);
 static void xa_select_where_to_extract(GtkEntry *, gint, GTK_COMPAT_ENTRY_ICON_TYPE, gpointer);

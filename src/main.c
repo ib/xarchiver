@@ -69,7 +69,6 @@ static gboolean show_version = FALSE;
 extern gchar *current_open_directory;
 extern int status;
 
-extern Progress_bar_data *pb;
 Prefs_dialog_data   *prefs_window   = NULL;
 Extract_dialog_data *extract_window = NULL;
 Add_dialog_data     *add_window		= NULL;

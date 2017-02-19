@@ -43,7 +43,6 @@
 
 extern gboolean unarj, unrar;
 extern gboolean xdg_open;
-extern Progress_bar_data *pb;
 
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;

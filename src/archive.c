@@ -38,7 +38,6 @@
 #define MAX_CMD_LEN (NCARGS * 2 / 3)
 
 XArchive *archive[100];
-Progress_bar_data *pb = NULL;
 
 static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
 static gboolean xa_process_output_from_command_line (GIOChannel *ioc,GIOCondition cond,gpointer data);

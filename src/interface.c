@@ -28,6 +28,8 @@
 #include "tar.h"
 #include "window.h"
 
+Progress_bar_data *pb;
+
 static const GtkTargetEntry drag_targets[] =
 {
   { "XdndDirectSave0",0,0 },
