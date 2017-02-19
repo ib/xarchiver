@@ -53,19 +53,19 @@ GList *ArchiveType;
 const gchar *locale;
 const gchar *sevenz;
 const gchar *tar;
+gboolean opt_multi_extract;
 
 gchar *absolute_path = NULL;
 gchar *_current_dir = NULL;
-gchar *extract_path = NULL;
+static gchar *opt_extract_path, *opt_add_files;
+static gboolean opt_extract, opt_add, opt_version;
 GError *cli_error = NULL;
-gchar *add_files;
-gboolean error_output, file_to_open, ask_and_extract, ask_and_add, multi_extract;
+gboolean error_output, file_to_open;
 gboolean batch_mode = FALSE;
 gboolean unarj = FALSE;
 gboolean unrar = FALSE;
 gboolean xdg_open = FALSE;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
-static gboolean show_version = FALSE;
 extern gchar *current_open_directory;
 extern int status;
 
@@ -76,27 +76,27 @@ Multi_extract_data	*multi_extract_window	= NULL;
 
 static GOptionEntry entries[] =
 {
-	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &extract_path,
+	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &opt_extract_path,
 		N_("Extract archive to the destination directory and quits."),
 		N_("destination archive")
 	},
-	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_extract,
+	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_extract,
 		N_("Extract archive by asking the extraction directory and quits."),
 		N_("archive")
 	},
-	{	"multi-extract", 'm', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &multi_extract,
+	{	"multi-extract", 'm', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_multi_extract,
 		N_("Multi-extract archives"),
 		N_("filenames")
 	},
-	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_STRING, &add_files,
+	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_STRING, &opt_add_files,
 		N_("Add the given files by asking the name of the archive and quits."),
 		N_("file1 file2 file3 ... fileN")
 	},
-	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &ask_and_add,
+	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_add,
 		N_("Add files to archive by asking their filenames and quits."),
 		N_("archive")
 	},
-	{	"version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &show_version,
+	{	"version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version,
 		N_("Show version and exit"), NULL },
 	{ NULL }
 };
@@ -494,7 +494,7 @@ int main (int argc, char **argv)
 		return 0;
 	}
     /* print version information */
-    if (show_version)
+    if (opt_version)
     {
         g_print("%s %s \n\n", PACKAGE_NAME, PACKAGE_VERSION);
         g_print ("%s\n", "Copyright (c) 2005-2008");
@@ -507,7 +507,7 @@ int main (int argc, char **argv)
         return EXIT_SUCCESS;
     }
 
-	if (multi_extract || add_files || ask_and_extract || ask_and_add || extract_path != NULL)
+	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_add_files)
 		batch_mode = TRUE;
 
 	path = g_find_program_in_path("xdg-open");
@@ -532,7 +532,7 @@ int main (int argc, char **argv)
 		g_print(PACKAGE_NAME " " VERSION " (\xC2\xA9)2005-2008 Giuseppe Torelli\n");
 
 		/* Switch -x */
-		if (extract_path != NULL)
+		if (opt_extract_path)
 		{
 			if (argv[1] == NULL || archive == NULL)
 			{
@@ -549,13 +549,13 @@ int main (int argc, char **argv)
 			GSList *string = NULL;
 			archive->full_path = archive->can_full_path;
 			archive->overwrite = archive->can_overwrite;
-			gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
+			gchar *escaped_path = xa_escape_bad_chars(opt_extract_path, "$\'`\"\\!?* ()[]&|@#:;");
 			archive->extraction_path = escaped_path;
 			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			(*archive->extract) (archive,string);
 		}
 		/* Switch -e */
-		else if (ask_and_extract && archive != NULL)
+		else if (opt_extract && archive)
 		{
 			if (argv[1] == NULL)
 			{
@@ -571,7 +571,7 @@ int main (int argc, char **argv)
 			g_free (extract_window);
 		}
 		/* Switch -m */
-		else if (multi_extract)
+		else if (opt_multi_extract)
 		{
 			Multi_extract_data *multi_extract = NULL;
 			multi_extract = xa_create_multi_extract_dialog();
@@ -584,13 +584,13 @@ int main (int argc, char **argv)
 			g_free(multi_extract);
 		}
 		/* Switch -d */
-		else if (add_files)
+		else if (opt_add_files)
 		{
 			if (argc > 1 || g_file_test (argv[1],G_FILE_TEST_IS_DIR))
 				no_bzip2_gzip = TRUE;
 			else
 				no_bzip2_gzip = FALSE;
-			archive = xa_new_archive_dialog (add_files,NULL,no_bzip2_gzip);
+			archive = xa_new_archive_dialog(opt_add_files, NULL, no_bzip2_gzip);
 			if (archive == NULL)
 				return -1;
 
@@ -598,14 +598,14 @@ int main (int argc, char **argv)
 			{
 				xa_create_temp_directory(archive);
 				archive->add_recurse = archive->can_recurse;
-				_current_dir = g_path_get_dirname(add_files);
+				_current_dir = g_path_get_dirname(opt_add_files);
 				chdir (_current_dir);
 				g_free(_current_dir);
 				GSList *files = NULL;
-				_current_dir = g_path_get_basename(add_files);
+				_current_dir = g_path_get_basename(opt_add_files);
 				files = g_slist_append(files,g_strdup(_current_dir));
 				g_free(_current_dir);
-				g_free(add_files);
+				g_free(opt_add_files);
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
@@ -616,7 +616,7 @@ int main (int argc, char **argv)
 			}
 		}
 		/* Switch -a */
-		else if (ask_and_add)
+		else if (opt_add)
 		{
 			if (argv[1] == NULL)
 			{

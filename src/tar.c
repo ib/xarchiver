@@ -28,7 +28,7 @@
 
 #define TMPFILE "xa-tmp.tar"
 
-extern gboolean multi_extract;
+extern gboolean opt_multi_extract;
 
 static void xa_add_delete_bzip2_gzip_lzma_compressed_tar(GString *, XArchive *, gboolean);
 static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list);
@@ -340,7 +340,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_TAR:
-		if (archive->full_path || multi_extract)
+		if (archive->full_path || opt_multi_extract)
 		{
 			command = g_strconcat (tar, " -xvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -359,7 +359,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		if (archive->full_path || multi_extract)
+		if (archive->full_path || opt_multi_extract)
 		{
 			command = g_strconcat (tar, " -xjvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -378,7 +378,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-		if (archive->full_path || multi_extract)
+		if (archive->full_path || opt_multi_extract)
 		{
 			command = g_strconcat (tar, " -xzvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -397,7 +397,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_LZMA:
-		if (archive->full_path || multi_extract)
+		if (archive->full_path || opt_multi_extract)
 		{
 			command = g_strconcat (tar, " --use-compress-program=lzma -xvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -416,7 +416,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_LZOP:
-		if (archive->full_path || multi_extract)
+		if (archive->full_path || opt_multi_extract)
 		{
 			command = g_strconcat (tar, " --use-compress-program=lzop -xvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
@@ -435,7 +435,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_TAR_XZ:
-		if (archive->full_path || multi_extract)
+		if (archive->full_path || opt_multi_extract)
 		{
 			command = g_strconcat (tar, " --use-compress-program=xz -xvf " , archive->escaped_path,
 						#ifdef __FreeBSD__
