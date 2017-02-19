@@ -48,8 +48,6 @@ extern Add_dialog_data		*add_window;
 extern Multi_extract_data	*multi_extract_window;
 extern Progress_bar_data *pb;
 
-extern void xa_free_icon_cache();
-
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix,*Name;
