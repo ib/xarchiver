@@ -41,7 +41,7 @@
 
 #define	XDS_FILENAME "xds.txt"
 
-extern gboolean unarj, unrar;
+extern gboolean unarj;
 
 gchar *current_open_directory;
 

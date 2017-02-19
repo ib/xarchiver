@@ -18,11 +18,10 @@
 
 #include <string.h>
 #include "rar.h"
+#include "main.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
-
-extern gboolean unrar;
 
 static int rar_version;
 static gboolean last_line, jump_header, jump_comment, read_filename;

@@ -28,6 +28,7 @@ extern const gchar *locale;
 extern const gchar *sevenz;
 extern const gchar *tar;
 extern gboolean batch_mode;
+extern gboolean unrar;
 extern gboolean xdg_open;
 extern gboolean opt_multi_extract;
 

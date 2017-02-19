@@ -43,7 +43,7 @@ static const GtkTargetEntry drop_targets[] =
 
 static gulong selchghid;
 
-extern gboolean unarj,unrar;
+extern gboolean unarj;
 
 void xa_page_has_changed(GtkNotebook *, GTK_COMPAT_SWITCH_PAGE_TYPE, guint, gpointer);
 static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid *pid);
