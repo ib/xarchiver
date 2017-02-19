@@ -28,6 +28,7 @@
 #include "window.h"
 #include "extract_dialog.h"
 #include "interface.h"
+#include "main.h"
 #include "mime.h"
 #include "new_dialog.h"
 #include "open-with-dlg.h"
@@ -39,8 +40,6 @@
 
 #define	XDS_FILENAME "xds.txt"
 
-extern GList *ArchiveType;
-extern GList *ArchiveSuffix;
 extern gboolean unarj, unrar;
 extern gboolean xdg_open;
 extern Prefs_dialog_data	*prefs_window;

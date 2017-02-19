@@ -41,6 +41,10 @@
 #include "socket.h"
 #endif
 
+GList *ArchiveSuffix;
+GList *ArchiveType;
+const gchar *locale;
+
 gchar *absolute_path = NULL;
 gchar *_current_dir = NULL;
 gchar *extract_path = NULL;

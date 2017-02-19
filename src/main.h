@@ -22,10 +22,10 @@
 #include <glib.h>
 #include "archive.h"
 
-GList *ArchiveSuffix;
-GList *ArchiveType;
-const gchar *locale;
 void xa_set_available_archivers();
+extern GList *ArchiveSuffix;
+extern GList *ArchiveType;
+extern const gchar *locale;
 
 XArchive *xa_init_structure_from_cmd_line (char *filename);
 #endif /* MAIN_H */
