@@ -29,6 +29,8 @@ extern gboolean xdg_open;
 extern Extract_dialog_data *extract_window;
 extern Add_dialog_data *add_window;
 
+gchar *config_file;
+
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
 	GTK_COMPAT_TOOLTIPS

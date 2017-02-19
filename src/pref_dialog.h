@@ -21,6 +21,8 @@
 
 #include <gtk/gtk.h>
 
+extern gchar *config_file;
+
 typedef struct
 {
 	GtkWidget *dialog1,*dialog_vbox1,*combo_prefered_format;
