@@ -23,8 +23,7 @@
 #include "support.h"
 #include "window.h"
 
-static gboolean data_line;
-static int arj_line;
+static gboolean data_line, fname_line;
 
 static void xa_arj_parse_output(gchar *, gpointer);
 
@@ -46,7 +45,7 @@ void xa_arj_open (XArchive *archive)
 	unsigned short int i;
 
 	data_line = FALSE;
-	arj_line = 0;
+	fname_line = FALSE;
 	gchar *command = g_strconcat(unarj ? "unarj" : "arj", " l ", archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
@@ -80,12 +79,12 @@ static void xa_arj_parse_output (gchar *line, gpointer data)
 		if (line[0] == '-')
 		{
 			data_line = TRUE;
-			arj_line = 1;
 			return;
 		}
 		return;
 	}
-	if (arj_line == 1)
+
+	if (!fname_line)
 	{
 		linesize = strlen(line);
 		if (line[0] == '-')
@@ -98,11 +97,12 @@ static void xa_arj_parse_output (gchar *line, gpointer data)
 		else
 			filename = g_strchomp(g_strndup(line, 12));
 		archive->nr_of_files++;
-		arj_line++;
+		fname_line = TRUE;
 		if (lfn)
 			return;
 	}
-	if (arj_line == 2)
+
+	if (fname_line)
 	{
 		linesize = strlen(line);
 		/* Size */
@@ -153,7 +153,7 @@ static void xa_arj_parse_output (gchar *line, gpointer data)
 		if (entry != NULL)
 			entry->is_encrypted	= encrypted;
 		g_free(filename);
-		arj_line = 1;
+		fname_line = FALSE;
 	}
 }
 
