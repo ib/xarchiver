@@ -22,7 +22,7 @@
 #include "support.h"
 #include "window.h"
 
-static void xa_get_ar_line_content(gchar *, gpointer);
+static void xa_ar_parse_output(gchar *, gpointer);
 
 void xa_deb_ask (XArchive *archive)
 {
@@ -30,7 +30,7 @@ void xa_deb_ask (XArchive *archive)
 	archive->can_touch = TRUE;
 }
 
-void xa_open_deb (XArchive *archive)
+void xa_deb_open (XArchive *archive)
 {
 	gchar *command = NULL;
 	unsigned short int i;
@@ -39,7 +39,7 @@ void xa_open_deb (XArchive *archive)
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 5;
-	archive->parse_output = xa_get_ar_line_content;
+	archive->parse_output = xa_ar_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
@@ -54,7 +54,7 @@ void xa_open_deb (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-static void xa_get_ar_line_content (gchar *line, gpointer data)
+static void xa_ar_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gchar *filename;

@@ -24,6 +24,7 @@
 #include "archive.h"
 
 void xa_deb_ask(XArchive *);
-void xa_open_deb (XArchive *);
-gboolean xa_deb_extract(XArchive *,GSList *);
+gboolean xa_deb_extract(XArchive *, GSList *);
+void xa_deb_open(XArchive *);
+
 #endif
