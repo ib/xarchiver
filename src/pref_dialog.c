@@ -24,8 +24,6 @@
 #include "main.h"
 #include "support.h"
 
-extern gboolean unarj;
-
 gchar *config_file;
 GtkIconTheme *icon_theme;
 

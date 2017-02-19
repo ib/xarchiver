@@ -41,8 +41,6 @@
 
 #define	XDS_FILENAME "xds.txt"
 
-extern gboolean unarj;
-
 gchar *current_open_directory;
 
 GtkFileFilter *open_file_filter = NULL;

@@ -18,11 +18,10 @@
 
 #include <string.h>
 #include "arj.h"
+#include "main.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
-
-extern gboolean unarj;
 
 static gboolean jump_header;
 static int arj_line;

@@ -54,6 +54,7 @@ const gchar *locale;
 const gchar *sevenz;
 const gchar *tar;
 gboolean batch_mode;
+gboolean unarj;
 gboolean unrar;
 gboolean xdg_open;
 gboolean opt_multi_extract;
@@ -64,7 +65,6 @@ static gchar *opt_extract_path, *opt_add_files;
 static gboolean opt_extract, opt_add, opt_version;
 GError *cli_error = NULL;
 gboolean error_output, file_to_open;
-gboolean unarj = FALSE;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
 
 Prefs_dialog_data   *prefs_window   = NULL;

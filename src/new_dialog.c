@@ -25,7 +25,6 @@
 #include "support.h"
 #include "window.h"
 
-extern gboolean unarj;
 gchar *current_new_directory = NULL;
 gint  new_combo_box = -1;
 gchar *ComboArchiveType;
