@@ -24,7 +24,7 @@
 #include "window.h"
 
 static int rar_version;
-static gboolean data_line, last_line, jump_comment, read_filename;
+static gboolean header_line, data_line, last_line, read_filename;
 
 static void xa_rar_parse_output(gchar *, gpointer);
 static void xa_rar5_parse_output(gchar *, gpointer);
@@ -74,9 +74,9 @@ void xa_rar_open (XArchive *archive)
 	gchar *command = NULL;
 	gchar *rar = NULL;
 
+	header_line = FALSE;
 	data_line = FALSE;
 	last_line = FALSE;
-	jump_comment = FALSE;
 	read_filename = FALSE;
 
 	if (unrar)
@@ -134,13 +134,13 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 
 	if (!data_line)
 	{
-		if (jump_comment == FALSE)
+		if (!header_line)
 		{
 			if ((strncmp(line, "Solid ", 6) == 0 || strncmp(line, "SFX ", 4) == 0 ||
 			     strncmp(line, "Volume ", 7) == 0 || strncmp(line, "Archive ", 8) == 0)
 			     && strstr(line, archive->path))
 			{
-				jump_comment = TRUE;
+				header_line = TRUE;
 
 				if (archive->comment)
 				{
@@ -400,11 +400,11 @@ static void xa_rar5_parse_output (gchar *line, gpointer data)
 
 	if (!data_line)
 	{
-		if (jump_comment == FALSE)
+		if (!header_line)
 		{
 			if ((strncmp(line, "Archive: ", 9) == 0) && strstr(line, archive->path))
 			{
-				jump_comment = TRUE;
+				header_line = TRUE;
 
 				if (archive->comment)
 				{
