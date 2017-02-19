@@ -83,7 +83,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							Archives are detected by their magic header and not by the extension except for .tar.bz2 and .tar.gz
+							Archives are detected by their magic header and not by the extension (except for compressed tar)
 						</para>
 					</listitem>
 					<listitem>
@@ -118,7 +118,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							All common formats are supported: arj, bzip2, gzip, lha, lzma, 7z, rar, tar, tar.bz2, tar.gz, tar.lzma, tar.lzop, zip, deb and rpm packages (open and extract only)
+							All common formats are supported: 7z, arj, bzip2, gzip, lha, lzma, lzop, rar, tar, xz, zip, tar.bz2, tar.gz, tar.lzma, tar.lzop, tar.xz, deb and rpm packages (open and extract only)
 						</para>
 					</listitem>
 					<listitem>
