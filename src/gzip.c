@@ -30,7 +30,7 @@ extern delete_func	delete	[XARCHIVETYPE_COUNT];
 extern add_func		add	[XARCHIVETYPE_COUNT];
 extern extract_func	extract	[XARCHIVETYPE_COUNT];
 
-static void xa_get_gzip_line_content(gchar *, gpointer);
+static void xa_gzip_parse_output(gchar *, gpointer);
 
 void xa_gzip_ask (XArchive *archive)
 {
@@ -58,10 +58,7 @@ void xa_gzip_ask (XArchive *archive)
 	}
 }
 
-/* GString here is used only to respect the prototype of the
- * extract function so to make life easier to the coder :)*/
-
-void xa_open_gzip (XArchive *archive)
+void xa_gzip_open (XArchive *archive)
 {
 	gchar *command;
 	unsigned short int i;
@@ -95,7 +92,7 @@ void xa_open_gzip (XArchive *archive)
 	else
 	{
 		archive->nc = 4;
-		archive->parse_output = xa_get_gzip_line_content;
+		archive->parse_output = xa_gzip_parse_output;
 		archive->nr_of_files = 1;
 
 		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
@@ -115,7 +112,7 @@ void xa_open_gzip (XArchive *archive)
 	}
 }
 
-static void xa_get_gzip_line_content (gchar *line, gpointer data)
+static void xa_gzip_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gchar *filename;
