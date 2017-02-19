@@ -24,7 +24,7 @@
 #include "window.h"
 
 static int rar_version;
-static gboolean header_line, data_line, last_line, read_filename;
+static gboolean header_line, data_line, fname_line, last_line;
 
 static void xa_rar_parse_output(gchar *, gpointer);
 static void xa_rar5_parse_output(gchar *, gpointer);
@@ -76,8 +76,8 @@ void xa_rar_open (XArchive *archive)
 
 	header_line = FALSE;
 	data_line = FALSE;
+	fname_line = FALSE;
 	last_line = FALSE;
-	read_filename = FALSE;
 
 	if (unrar)
 		rar = "unrar";
@@ -174,7 +174,7 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 		return;
 	}
 
-	if (read_filename == FALSE)
+	if (!fname_line)
 	{
 		linesize = strlen(line);
 		if(line[0] == '*')
@@ -189,7 +189,7 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 		}
 		line[linesize - 1] = '\0';
 		filename = g_strdup(line+1);
-		read_filename = TRUE;
+		fname_line = TRUE;
 	}
 	else
 	{
@@ -289,7 +289,7 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 		if (entry != NULL)
 			entry->is_encrypted = encrypted;
 		g_free(filename);
-		read_filename = FALSE;
+		fname_line = FALSE;
 	}
 }
 
