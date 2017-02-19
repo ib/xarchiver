@@ -29,7 +29,7 @@ typedef struct Extract_dialog_data
 	gchar *string;
 } Extract_dialog_data;
 
-typedef struct
+typedef struct Multi_extract_data
 {
 	GtkWidget *multi_extract,*files_treeview,*hbox2,*extract_to,*entry1,*extract_to_archive_name,*label1,*frame2,*alignment2,*vbox3,*overwrite,*full_path,*label2,*dialog_action_area1,
 	*extract_button,*extract_image,*extract_hbox,*extract_label,*image1;
