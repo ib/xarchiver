@@ -40,7 +40,6 @@ GtkTreeStore *archive_dir_model;
 GtkTreeViewColumn *column;
 GtkCellRenderer *archive_dir_renderer;
 GtkAccelGroup *accel_group;
-GtkIconTheme *icon_theme;
 
 GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuitem1, *menuitem1_menu, *new1, *open1, *listing, *listing_submenu,
 *listing_text, *listing_html, *save1, *entry1, *green_led, *red_led, *progressbar, *total_label,*selected_label, *total_frame,*selected_frame,

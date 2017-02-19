@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 
 extern gchar *config_file;
+extern GtkIconTheme *icon_theme;
 
 typedef struct
 {

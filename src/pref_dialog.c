@@ -30,6 +30,7 @@ extern Extract_dialog_data *extract_window;
 extern Add_dialog_data *add_window;
 
 gchar *config_file;
+GtkIconTheme *icon_theme;
 
 Prefs_dialog_data *xa_create_prefs_dialog()
 {

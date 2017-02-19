@@ -18,10 +18,11 @@
  */
 
 #include "mime.h"
+#include "pref_dialog.h"
 #include "xdgmime/xdgmime.h"
 
 GSList *icon_cache = NULL;
-extern GtkIconTheme *icon_theme;
+
 const char *xa_get_stock_mime_icon(char *filename)
 {
 	const char *mime;

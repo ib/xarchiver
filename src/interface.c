@@ -21,6 +21,7 @@
 #include <gdk/gdkkeysyms.h>
 #include "interface.h"
 #include "extract_dialog.h"
+#include "pref_dialog.h"
 #include "string_utils.h"
 #include "support.h"
 #include "tar.h"
@@ -53,7 +54,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	accel_group = gtk_accel_group_new ();
 	xa_set_window_title (xa_main_window,NULL);
 
-	/* icon_theme is initialized in pref_dialog.c:45 */
 	//g_signal_connect (G_OBJECT (icon_theme),"changed",G_CALLBACK (xa_icon_theme_changed),NULL);
 	icon = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
 	gtk_window_set_icon (GTK_WINDOW(xa_main_window),icon);
