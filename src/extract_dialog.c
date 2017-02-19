@@ -23,6 +23,7 @@
 #include <sys/types.h>
 #include "extract_dialog.h"
 #include "interface.h"
+#include "main.h"
 #include "pref_dialog.h"
 #include "string_utils.h"
 #include "support.h"
@@ -32,7 +33,6 @@
 extern gboolean unarj;
 extern Prefs_dialog_data *prefs_window;
 extern Progress_bar_data *pb;
-extern extract_func extract	[XARCHIVETYPE_COUNT];
 
 static gchar *xa_multi_extract_archive(Multi_extract_data *,gchar *,gboolean,gboolean,gchar *);
 static void xa_select_where_to_extract(GtkEntry *, gint, GTK_COMPAT_ENTRY_ICON_TYPE, gpointer);

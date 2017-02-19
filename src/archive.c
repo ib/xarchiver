@@ -37,12 +37,6 @@
 
 #define MAX_CMD_LEN (NCARGS * 2 / 3)
 
-extern ask_func	ask[XARCHIVETYPE_COUNT];
-extern open_func	open[XARCHIVETYPE_COUNT];
-extern delete_func	delete	[XARCHIVETYPE_COUNT];
-extern add_func		add	[XARCHIVETYPE_COUNT];
-extern extract_func extract	[XARCHIVETYPE_COUNT];
-extern test_func	test	[XARCHIVETYPE_COUNT];
 extern Prefs_dialog_data *prefs_window;
 
 XArchive *archive[100];

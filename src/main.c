@@ -41,6 +41,13 @@
 #include "socket.h"
 #endif
 
+ask_func ask[XARCHIVETYPE_COUNT];
+open_func open[XARCHIVETYPE_COUNT];
+test_func test[XARCHIVETYPE_COUNT];
+extract_func extract[XARCHIVETYPE_COUNT];
+add_func add[XARCHIVETYPE_COUNT];
+delete_func delete[XARCHIVETYPE_COUNT];
+
 GList *ArchiveSuffix;
 GList *ArchiveType;
 const gchar *locale;
@@ -67,13 +74,6 @@ Prefs_dialog_data   *prefs_window   = NULL;
 Extract_dialog_data *extract_window = NULL;
 Add_dialog_data     *add_window		= NULL;
 Multi_extract_data	*multi_extract_window	= NULL;
-
-delete_func		delete[XARCHIVETYPE_COUNT]	= {NULL};
-add_func		add[XARCHIVETYPE_COUNT]		= {NULL};
-extract_func	extract[XARCHIVETYPE_COUNT]	= {NULL};
-test_func		test[XARCHIVETYPE_COUNT]	= {NULL};
-open_func		open[XARCHIVETYPE_COUNT]	= {NULL};
-ask_func		ask[XARCHIVETYPE_COUNT]	= {NULL};
 
 static GOptionEntry entries[] =
 {

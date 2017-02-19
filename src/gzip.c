@@ -24,10 +24,6 @@
 #include "tar.h"
 #include "window.h"
 
-extern delete_func	delete	[XARCHIVETYPE_COUNT];
-extern add_func		add	[XARCHIVETYPE_COUNT];
-extern extract_func	extract	[XARCHIVETYPE_COUNT];
-
 static void xa_gzip_parse_output(gchar *, gpointer);
 
 void xa_gzip_ask (XArchive *archive)

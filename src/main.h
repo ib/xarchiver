@@ -29,5 +29,11 @@ extern const gchar *locale;
 extern const gchar *sevenz;
 extern const gchar *tar;
 
+extern add_func add[];
+extern ask_func ask[];
+extern delete_func delete[];
+extern extract_func extract[];
+extern open_func open[];
+extern test_func test[];
 XArchive *xa_init_structure_from_cmd_line (char *filename);
 #endif /* MAIN_H */

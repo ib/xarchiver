@@ -27,9 +27,6 @@
 #include "tar.h"
 #include "window.h"
 
-extern delete_func	delete	[XARCHIVETYPE_COUNT];
-extern add_func		add	[XARCHIVETYPE_COUNT];
-extern extract_func	extract	[XARCHIVETYPE_COUNT];
 short int l;
 
 static void xa_open_tar_compressed_file(XArchive *);
