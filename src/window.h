@@ -25,7 +25,6 @@
 #include "archive.h"
 
 unsigned long long int file_offset;
-Add_dialog_data *add_window;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win,*comment_dialog;
 
 gchar *xa_set_size_string (unsigned long long int );

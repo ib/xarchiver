@@ -35,4 +35,6 @@ extern extract_func extract[];
 extern open_func open[];
 extern test_func test[];
 
+extern struct Add_dialog_data *add_window;
+
 #endif

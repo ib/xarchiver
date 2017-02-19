@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
-typedef struct
+typedef struct Add_dialog_data
 {
 	GtkWidget *dialog1;
 	GtkWidget *dialog_vbox1;

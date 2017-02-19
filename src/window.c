@@ -26,6 +26,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include "window.h"
+#include "add_dialog.h"
 #include "extract_dialog.h"
 #include "interface.h"
 #include "main.h"
@@ -44,7 +45,6 @@ extern gboolean unarj, unrar;
 extern gboolean xdg_open;
 extern Prefs_dialog_data	*prefs_window;
 extern Extract_dialog_data	*extract_window;
-extern Add_dialog_data		*add_window;
 extern Multi_extract_data	*multi_extract_window;
 extern Progress_bar_data *pb;
 
