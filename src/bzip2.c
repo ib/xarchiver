@@ -65,7 +65,7 @@ void xa_bzip2_lzma_ask (XArchive *archive)
 	}
 }
 
-void xa_open_bzip2_lzma (XArchive *archive)
+void xa_bzip2_lzma_open (XArchive *archive)
 {
 	gchar *filename = NULL;;
 	gchar *_filename;

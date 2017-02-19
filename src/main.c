@@ -367,16 +367,16 @@ void xa_set_available_archivers()
 	open[XARCHIVETYPE_7ZIP]  = &xa_7zip_open;
 	open[XARCHIVETYPE_ARJ]  = &xa_arj_open;
 	open[XARCHIVETYPE_DEB]  = &xa_open_deb;
-	open[XARCHIVETYPE_BZIP2]  = &xa_open_bzip2_lzma;
+	open[XARCHIVETYPE_BZIP2]  = &xa_bzip2_lzma_open;
 	open[XARCHIVETYPE_GZIP]  = &xa_open_gzip;
-	open[XARCHIVETYPE_LZMA]  = &xa_open_bzip2_lzma;
-	open[XARCHIVETYPE_XZ]  = &xa_open_bzip2_lzma;
+	open[XARCHIVETYPE_LZMA]  = &xa_bzip2_lzma_open;
+	open[XARCHIVETYPE_XZ]  = &xa_bzip2_lzma_open;
 	open[XARCHIVETYPE_RAR]  = &xa_open_rar;
 	open[XARCHIVETYPE_RPM]  = &xa_open_rpm;
 	open[XARCHIVETYPE_TAR]  = open[XARCHIVETYPE_TAR_BZ2] = open[XARCHIVETYPE_TAR_GZ] = open[XARCHIVETYPE_TAR_LZMA] = open[XARCHIVETYPE_TAR_XZ] = open[XARCHIVETYPE_TAR_LZOP] = &xa_open_tar;
 	open[XARCHIVETYPE_ZIP] = &xa_open_zip;
 	open[XARCHIVETYPE_LHA] = &xa_open_lha;
-	open[XARCHIVETYPE_LZOP] = &xa_open_bzip2_lzma;
+	open[XARCHIVETYPE_LZOP] = &xa_bzip2_lzma_open;
 
 	delete[0]  = 0;
 	delete[XARCHIVETYPE_7ZIP]  = &xa_7zip_delete;
