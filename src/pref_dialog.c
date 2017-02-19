@@ -25,7 +25,6 @@
 #include "support.h"
 
 extern gboolean unarj, unrar;
-extern gboolean xdg_open;
 
 gchar *config_file;
 GtkIconTheme *icon_theme;

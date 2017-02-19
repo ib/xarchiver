@@ -53,6 +53,7 @@ GList *ArchiveType;
 const gchar *locale;
 const gchar *sevenz;
 const gchar *tar;
+gboolean xdg_open;
 gboolean opt_multi_extract;
 
 gchar *absolute_path = NULL;
@@ -64,7 +65,6 @@ gboolean error_output, file_to_open;
 gboolean batch_mode = FALSE;
 gboolean unarj = FALSE;
 gboolean unrar = FALSE;
-gboolean xdg_open = FALSE;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
 extern gchar *current_open_directory;
 extern int status;

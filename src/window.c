@@ -42,7 +42,6 @@
 #define	XDS_FILENAME "xds.txt"
 
 extern gboolean unarj, unrar;
-extern gboolean xdg_open;
 
 gchar *current_open_directory = NULL;
 GtkFileFilter *open_file_filter = NULL;
