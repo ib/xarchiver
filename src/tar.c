@@ -64,7 +64,7 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_recurse = TRUE;
 }
 
-void xa_open_tar (XArchive *archive)
+void xa_tar_open (XArchive *archive)
 {
 	gchar *command;
 	unsigned short int i;
@@ -73,7 +73,7 @@ void xa_open_tar (XArchive *archive)
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 7;
-	archive->parse_output = xa_get_tar_line_content;
+	archive->parse_output = xa_tar_parse_output;
 	xa_spawn_async_process (archive,command);
 
 	g_free (command);
@@ -90,7 +90,7 @@ void xa_open_tar (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void xa_get_tar_line_content (gchar *line, gpointer data)
+void xa_tar_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gchar *filename;

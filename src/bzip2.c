@@ -209,7 +209,7 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 7;
-	archive->parse_output = xa_get_tar_line_content;
+	archive->parse_output = xa_tar_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
