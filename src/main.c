@@ -53,6 +53,7 @@ GList *ArchiveType;
 const gchar *locale;
 const gchar *sevenz;
 const gchar *tar;
+gboolean batch_mode;
 gboolean xdg_open;
 gboolean opt_multi_extract;
 
@@ -62,7 +63,6 @@ static gchar *opt_extract_path, *opt_add_files;
 static gboolean opt_extract, opt_add, opt_version;
 GError *cli_error = NULL;
 gboolean error_output, file_to_open;
-gboolean batch_mode = FALSE;
 gboolean unarj = FALSE;
 gboolean unrar = FALSE;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
@@ -523,7 +523,7 @@ int main (int argc, char **argv)
 	multi_extract_window = xa_create_multi_extract_dialog();
 	xa_prefs_load_options(prefs_window);
 
-	if (batch_mode == TRUE)
+	if (batch_mode)
 	{
 		xa_main_window = NULL;
 		archive = xa_init_structure_from_cmd_line (argv[1]);

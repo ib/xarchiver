@@ -22,6 +22,7 @@
 #include "interface.h"
 #include "add_dialog.h"
 #include "extract_dialog.h"
+#include "main.h"
 #include "pref_dialog.h"
 #include "string_utils.h"
 #include "support.h"
@@ -42,7 +43,7 @@ static const GtkTargetEntry drop_targets[] =
 
 static gulong selchghid;
 
-extern gboolean unarj,unrar,batch_mode;
+extern gboolean unarj,unrar;
 
 void xa_page_has_changed(GtkNotebook *, GTK_COMPAT_SWITCH_PAGE_TYPE, guint, gpointer);
 static gboolean xa_progress_dialog_delete_event (GtkWidget *caller,GdkEvent *event,GPid *pid);
