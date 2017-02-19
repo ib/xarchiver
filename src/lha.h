@@ -23,10 +23,11 @@
 #include <glib.h>
 #include "archive.h"
 
+void xa_lha_add(XArchive *, GString *, gchar *);
 void xa_lha_ask(XArchive *);
-void xa_lha_delete (XArchive *,GSList *);
-void xa_lha_add (XArchive *,GString *,gchar *);
-gboolean xa_lha_extract(XArchive *,GSList *);
-void xa_lha_test (XArchive *);
-void xa_open_lha (XArchive *archive);
+void xa_lha_delete(XArchive *, GSList *);
+gboolean xa_lha_extract(XArchive *, GSList *);
+void xa_lha_open(XArchive *);
+void xa_lha_test(XArchive *);
+
 #endif

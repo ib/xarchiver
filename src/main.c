@@ -375,7 +375,7 @@ void xa_set_available_archivers()
 	open[XARCHIVETYPE_RPM]  = &xa_open_rpm;
 	open[XARCHIVETYPE_TAR]  = open[XARCHIVETYPE_TAR_BZ2] = open[XARCHIVETYPE_TAR_GZ] = open[XARCHIVETYPE_TAR_LZMA] = open[XARCHIVETYPE_TAR_XZ] = open[XARCHIVETYPE_TAR_LZOP] = &xa_open_tar;
 	open[XARCHIVETYPE_ZIP] = &xa_open_zip;
-	open[XARCHIVETYPE_LHA] = &xa_open_lha;
+	open[XARCHIVETYPE_LHA] = &xa_lha_open;
 	open[XARCHIVETYPE_LZOP] = &xa_bzip2_lzma_open;
 
 	delete[0]  = 0;

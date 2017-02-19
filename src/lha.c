@@ -25,7 +25,7 @@
 
 static gboolean last_line, jump_header;
 
-static void xa_get_lha_line_content(gchar *, gpointer);
+static void xa_lha_parse_output(gchar *, gpointer);
 
 void xa_lha_ask (XArchive *archive)
 {
@@ -37,7 +37,7 @@ void xa_lha_ask (XArchive *archive)
 	archive->can_update = TRUE;
 }
 
-void xa_open_lha (XArchive *archive)
+void xa_lha_open (XArchive *archive)
 {
 	gchar *command;
 	unsigned short int i;
@@ -48,7 +48,7 @@ void xa_open_lha (XArchive *archive)
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 6;
-	archive->parse_output = xa_get_lha_line_content;
+	archive->parse_output = xa_lha_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
@@ -64,7 +64,7 @@ void xa_open_lha (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-static void xa_get_lha_line_content (gchar *line, gpointer data)
+static void xa_lha_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gpointer item[6];
