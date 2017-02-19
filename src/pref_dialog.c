@@ -26,7 +26,6 @@
 
 extern gboolean unarj, unrar;
 extern gboolean xdg_open;
-extern Extract_dialog_data *extract_window;
 
 gchar *config_file;
 GtkIconTheme *icon_theme;

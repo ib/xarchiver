@@ -43,7 +43,6 @@
 
 extern gboolean unarj, unrar;
 extern gboolean xdg_open;
-extern Extract_dialog_data	*extract_window;
 extern Multi_extract_data	*multi_extract_window;
 extern Progress_bar_data *pb;
 
