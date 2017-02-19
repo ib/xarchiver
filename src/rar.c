@@ -187,6 +187,8 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 			last_line = TRUE;
 			return;
 		}
+		else if (line[0] != ' ')
+			return;
 		line[linesize - 1] = '\0';
 		filename = g_strdup(line+1);
 		fname_line = TRUE;
