@@ -22,6 +22,8 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
+extern gchar *current_open_directory;
+
 unsigned long long int file_offset;
 GtkWidget *dialog, *scrollwin, *view_window, *_properties_win,*comment_dialog;
 

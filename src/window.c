@@ -43,7 +43,8 @@
 
 extern gboolean unarj, unrar;
 
-gchar *current_open_directory = NULL;
+gchar *current_open_directory;
+
 GtkFileFilter *open_file_filter = NULL;
 GList *Suffix,*Name;
 
