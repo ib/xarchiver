@@ -23,7 +23,7 @@
 #include "support.h"
 #include "window.h"
 
-static gboolean last_line, jump_header, encrypted;
+static gboolean data_line, encrypted, last_line;
 
 static void xa_7zip_parse_output(gchar *, gpointer);
 
@@ -42,8 +42,8 @@ void xa_7zip_open (XArchive *archive)
 {
 	unsigned short int i = 0;
 
+	data_line = FALSE;
 	last_line = FALSE;
-	jump_header = FALSE;
 	encrypted = FALSE;
 	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
 	archive->files_size = 0;
@@ -75,14 +75,14 @@ static void xa_7zip_parse_output (gchar *line, gpointer data)
 	if (last_line)
 		return;
 
-	if (jump_header == FALSE)
+	if (!data_line)
 	{
 		if (strncmp(line, "Method = ", 9) == 0 && strstr(line, "7zAES"))
 			encrypted = TRUE;
 
 		if ((line[0] == '-') && line[3])
 		{
-			jump_header = TRUE;
+			data_line = TRUE;
 			return;
 		}
 		return;

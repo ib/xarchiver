@@ -24,7 +24,7 @@
 #include "window.h"
 
 static int rar_version;
-static gboolean last_line, jump_header, jump_comment, read_filename;
+static gboolean data_line, last_line, jump_comment, read_filename;
 
 static void xa_rar_parse_output(gchar *, gpointer);
 static void xa_rar5_parse_output(gchar *, gpointer);
@@ -74,8 +74,8 @@ void xa_rar_open (XArchive *archive)
 	gchar *command = NULL;
 	gchar *rar = NULL;
 
+	data_line = FALSE;
 	last_line = FALSE;
-	jump_header = FALSE;
 	jump_comment = FALSE;
 	read_filename = FALSE;
 
@@ -132,7 +132,7 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 	if (last_line)
 		return;
 
-	if (jump_header == FALSE)
+	if (!data_line)
 	{
 		if (jump_comment == FALSE)
 		{
@@ -168,7 +168,7 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 		}
 		if (line[0] == '-')
 		{
-			jump_header = TRUE;
+			data_line = TRUE;
 			return;
 		}
 		return;
@@ -398,7 +398,7 @@ static void xa_rar5_parse_output (gchar *line, gpointer data)
 	if (last_line)
 		return;
 
-	if (jump_header == FALSE)
+	if (!data_line)
 	{
 		if (jump_comment == FALSE)
 		{
@@ -434,7 +434,7 @@ static void xa_rar5_parse_output (gchar *line, gpointer data)
 			archive->version = 5;
 		if (line[0] == '-')
 		{
-			jump_header = TRUE;
+			data_line = TRUE;
 			return;
 		}
 		return;

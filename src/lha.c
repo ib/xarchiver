@@ -23,7 +23,7 @@
 #include "support.h"
 #include "window.h"
 
-static gboolean last_line, jump_header;
+static gboolean data_line, last_line;
 
 static void xa_lha_parse_output(gchar *, gpointer);
 
@@ -42,8 +42,8 @@ void xa_lha_open (XArchive *archive)
 	gchar *command;
 	unsigned short int i;
 
+	data_line = FALSE;
 	last_line = FALSE;
-	jump_header = FALSE;
 	command = g_strconcat ("lha l " , archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
@@ -73,11 +73,11 @@ static void xa_lha_parse_output (gchar *line, gpointer data)
 
 	if (last_line)
 		return;
-	if (jump_header == FALSE)
+	if (!data_line)
 	{
 		if (line[0] == '-')
 		{
-			jump_header = TRUE;
+			data_line = TRUE;
 			return;
 		}
 		return;

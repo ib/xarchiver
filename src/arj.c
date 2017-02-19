@@ -23,7 +23,7 @@
 #include "support.h"
 #include "window.h"
 
-static gboolean jump_header;
+static gboolean data_line;
 static int arj_line;
 
 static void xa_arj_parse_output(gchar *, gpointer);
@@ -45,7 +45,7 @@ void xa_arj_open (XArchive *archive)
 {
 	unsigned short int i;
 
-	jump_header = FALSE;
+	data_line = FALSE;
 	arj_line = 0;
 	gchar *command = g_strconcat(unarj ? "unarj" : "arj", " l ", archive->escaped_path, NULL);
 	archive->files_size = 0;
@@ -75,11 +75,11 @@ static void xa_arj_parse_output (gchar *line, gpointer data)
 	static gchar *filename;
 	gboolean lfn, encrypted;
 
-	if (jump_header == FALSE)
+	if (!data_line)
 	{
 		if (line[0] == '-')
 		{
-			jump_header = TRUE;
+			data_line = TRUE;
 			arj_line = 1;
 			return;
 		}
