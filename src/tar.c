@@ -28,8 +28,6 @@
 
 #define TMPFILE "xa-tmp.tar"
 
-extern gboolean opt_multi_extract;
-
 static void xa_add_delete_bzip2_gzip_lzma_compressed_tar(GString *, XArchive *, gboolean);
 static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list);
 static gboolean xa_extract_tar_without_directories(gchar *, XArchive *, gchar *);

@@ -27,6 +27,7 @@ extern GList *ArchiveType;
 extern const gchar *locale;
 extern const gchar *sevenz;
 extern const gchar *tar;
+extern gboolean opt_multi_extract;
 
 extern add_func add[];
 extern ask_func ask[];
