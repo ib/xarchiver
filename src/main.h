@@ -16,13 +16,12 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef XARCHIVER_MAIN_H
+#define XARCHIVER_MAIN_H
 
 #include <glib.h>
 #include "archive.h"
 
-void xa_set_available_archivers();
 extern GList *ArchiveSuffix;
 extern GList *ArchiveType;
 extern const gchar *locale;
@@ -35,5 +34,5 @@ extern delete_func delete[];
 extern extract_func extract[];
 extern open_func open[];
 extern test_func test[];
-XArchive *xa_init_structure_from_cmd_line (char *filename);
-#endif /* MAIN_H */
+
+#endif

@@ -102,255 +102,7 @@ static GOptionEntry entries[] =
 	{ NULL }
 };
 
-int main (int argc, char **argv)
-{
-	XArchive *archive = NULL;
-	gboolean no_bzip2_gzip;
-	unsigned short int x;
-	gchar *path;
-
-#ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-	textdomain (GETTEXT_PACKAGE);
-#endif
-
-#ifdef HAVE_SOCKET
-	socket_info.lock_socket = -1;
-	socket_info.lock_socket_tag = 0;
-	socket_info.lock_socket = socket_init(argc, argv);
-
-	if (socket_info.lock_socket < 0)
-	{
-		/* Socket exists; filenames were sent to first instance, so quit */
-		if (argc > 1)
-			return 0;
-	}
-#endif
-	gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
-	g_get_charset (&locale);
-	if ( cli_error != NULL )
-	{
-		g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cli_error->message);
-		g_error_free (cli_error);
-		return 0;
-	}
-    /* print version information */
-    if (show_version)
-    {
-        g_print("%s %s \n\n", PACKAGE_NAME, PACKAGE_VERSION);
-        g_print ("%s\n", "Copyright (c) 2005-2008");
-        g_print ("\t%s\n\n", "Giuseppe Torelli - Colossus <colossus73@gmail.com>");
-        g_print (_("Maintained by "));
-        g_print ("Ingo Brückl.\n");
-        g_print (_("Please report bugs to <%s>."), PACKAGE_BUGREPORT);
-        g_print ("\n");
-
-        return EXIT_SUCCESS;
-    }
-
-	if (multi_extract || add_files || ask_and_extract || ask_and_add || extract_path != NULL)
-		batch_mode = TRUE;
-
-	path = g_find_program_in_path("xdg-open");
-
-	if (path)
-	{
-		xdg_open = TRUE;
-		g_free(path);
-	}
-
-	xa_set_available_archivers();
-	prefs_window   = xa_create_prefs_dialog();
-	extract_window = xa_create_extract_dialog();
-	add_window     = xa_create_add_dialog();
-	multi_extract_window = xa_create_multi_extract_dialog();
-	xa_prefs_load_options(prefs_window);
-
-	if (batch_mode == TRUE)
-	{
-		xa_main_window = NULL;
-		archive = xa_init_structure_from_cmd_line (argv[1]);
-		g_print(PACKAGE_NAME " " VERSION " (\xC2\xA9)2005-2008 Giuseppe Torelli\n");
-
-		/* Switch -x */
-		if (extract_path != NULL)
-		{
-			if (argv[1] == NULL || archive == NULL)
-			{
-				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
-				return -1;
-			}
-			if (xa_detect_encrypted_archive(archive))
-			{
-				archive->has_passwd = TRUE;
-				archive->passwd = xa_create_password_dialog(archive);
-				if (archive->passwd == NULL)
-					goto done;
-			}
-			GSList *string = NULL;
-			archive->full_path = archive->can_full_path;
-			archive->overwrite = archive->can_overwrite;
-			gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
-			archive->extraction_path = escaped_path;
-			archive->status = XA_ARCHIVESTATUS_EXTRACT;
-			(*archive->extract) (archive,string);
-		}
-		/* Switch -e */
-		else if (ask_and_extract && archive != NULL)
-		{
-			if (argv[1] == NULL)
-			{
-				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
-				return -1;
-			}
-			if (xa_detect_encrypted_archive(archive))
-				archive->has_passwd = TRUE;
-
-			xa_set_extract_dialog_options(extract_window,0,archive);
-			xa_parse_extract_dialog_options (archive,extract_window,NULL);
-			gtk_widget_destroy (extract_window->dialog1);
-			g_free (extract_window);
-		}
-		/* Switch -m */
-		else if (multi_extract)
-		{
-			Multi_extract_data *multi_extract = NULL;
-			multi_extract = xa_create_multi_extract_dialog();
-			for (x = 1; x< argc; x++)
-				if (! g_file_test(argv[x], G_FILE_TEST_IS_DIR))
-					xa_add_files_liststore(argv[x],multi_extract);
-
-			xa_parse_multi_extract_archive(multi_extract);
-			gtk_widget_destroy (multi_extract->multi_extract);
-			g_free(multi_extract);
-		}
-		/* Switch -d */
-		else if (add_files)
-		{
-			if (argc > 1 || g_file_test (argv[1],G_FILE_TEST_IS_DIR))
-				no_bzip2_gzip = TRUE;
-			else
-				no_bzip2_gzip = FALSE;
-			archive = xa_new_archive_dialog (add_files,NULL,no_bzip2_gzip);
-			if (archive == NULL)
-				return -1;
-
-			if (archive->path != NULL)
-			{
-				xa_create_temp_directory(archive);
-				archive->add_recurse = archive->can_recurse;
-				_current_dir = g_path_get_dirname(add_files);
-				chdir (_current_dir);
-				g_free(_current_dir);
-				GSList *files = NULL;
-				_current_dir = g_path_get_basename(add_files);
-				files = g_slist_append(files,g_strdup(_current_dir));
-				g_free(_current_dir);
-				g_free(add_files);
-				for (x = 1; x< argc; x++)
-				{
-					_current_dir = g_path_get_basename(argv[x]);
-					files = g_slist_append(files,g_strdup(_current_dir));
-					g_free (_current_dir);
-				}
-				xa_execute_add_commands(archive,files,NULL);
-			}
-		}
-		/* Switch -a */
-		else if (ask_and_add)
-		{
-			if (argv[1] == NULL)
-			{
-				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
-				return -1;
-			}
-			if (archive != NULL)
-			{
-				if (!archive->add)
-				{
-					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), argv[1]);
-					return -1;
-				}
-				xa_set_add_dialog_options(add_window,archive);
-				xa_parse_add_dialog_options (archive,add_window);
-				gtk_widget_destroy (add_window->dialog1);
-				g_free (add_window);
-			}
-		}
-done:	g_list_free (ArchiveSuffix);
-		g_list_free (ArchiveType);
-
-		if (pb != NULL)
-		{
-			gtk_widget_destroy(pb->progress_window);
-			g_free(pb);
-		}
-		if (archive != NULL)
-			xa_clean_archive_structure (archive);
-		#ifdef HAVE_SOCKET
-			socket_finalize();
-		#endif
-	}
-	else
-	{
-		xa_main_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-		xa_create_main_window (xa_main_window,	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_location_bar)),
-												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->store_output)),
-												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_sidebar)),
-												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_toolbar)));
-
-		gtk_window_set_transient_for (GTK_WINDOW (extract_window->dialog1),GTK_WINDOW (xa_main_window));
-		gtk_window_set_transient_for (GTK_WINDOW (add_window->dialog1),GTK_WINDOW (xa_main_window));
-		gtk_window_set_transient_for (GTK_WINDOW (prefs_window->dialog1),GTK_WINDOW (xa_main_window));
-		gtk_window_set_transient_for (GTK_WINDOW (multi_extract_window->multi_extract),GTK_WINDOW (xa_main_window));
-		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
-		{
-			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
-			gtk_window_set_default_size(GTK_WINDOW(xa_main_window), prefs_window->geometry[2], prefs_window->geometry[3]);
-			gtk_paned_set_position(GTK_PANED(hpaned1), prefs_window->geometry[4]);
-		}
-		else
-		{
-			gtk_window_set_position (GTK_WINDOW(xa_main_window),GTK_WIN_POS_CENTER);
-			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), 600, 400);
-			gtk_paned_set_position (GTK_PANED (hpaned1),200);
-		}
-		gtk_label_set_text(GTK_LABEL(total_label),_("Select \"New\" to create or \"Open\" to open an archive"));
-		gtk_widget_show (xa_main_window);
-
-		/* This to open the archive from the command line */
-		if ( argc == 2 )
-		{
-			gchar *dummy;
-			if (g_str_has_prefix(argv[1], "file://") == TRUE)
-				dummy = g_strdup(argv[1]+6);
-			else
-				dummy = g_strdup(argv[1]);
-
-			current_open_directory = g_path_get_dirname (dummy);
-			if (strcmp(current_open_directory,"..") == 0)
-			{
-				g_free (current_open_directory);
-				current_open_directory = g_get_current_dir();
-			}
-			xa_open_archive (NULL,dummy);
-		}
-		#ifdef HAVE_SOCKET
-		if (! socket_info.ignore_socket && socket_info.lock_socket > 0)
-		{
-			socket_info.read_ioc = g_io_channel_unix_new(socket_info.lock_socket);
-			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc,	G_IO_IN|G_IO_PRI|G_IO_ERR, socket_lock_input_cb, xa_main_window);
-		}
-		#endif
-		gtk_main ();
-		g_list_free (ArchiveSuffix);
-		g_list_free (ArchiveType);
-	}
-	return 0;
-}
-
-void xa_set_available_archivers()
+static void xa_set_available_archivers ()
 {
 	ask[0]  = 0;
 	ask[XARCHIVETYPE_7ZIP]  = &xa_7zip_ask;
@@ -675,7 +427,7 @@ void xa_set_available_archivers()
 		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tzo");
 }
 
-XArchive *xa_init_structure_from_cmd_line (char *filename)
+static XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
 	XArchive *archive;
 	XArchiveType type;
@@ -707,4 +459,252 @@ XArchive *xa_init_structure_from_cmd_line (char *filename)
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 	archive->extract = 	extract[archive->type];
 	return (archive);
+}
+
+int main (int argc, char **argv)
+{
+	XArchive *archive = NULL;
+	gboolean no_bzip2_gzip;
+	unsigned short int x;
+	gchar *path;
+
+#ifdef ENABLE_NLS
+	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+	textdomain (GETTEXT_PACKAGE);
+#endif
+
+#ifdef HAVE_SOCKET
+	socket_info.lock_socket = -1;
+	socket_info.lock_socket_tag = 0;
+	socket_info.lock_socket = socket_init(argc, argv);
+
+	if (socket_info.lock_socket < 0)
+	{
+		/* Socket exists; filenames were sent to first instance, so quit */
+		if (argc > 1)
+			return 0;
+	}
+#endif
+	gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
+	g_get_charset (&locale);
+	if ( cli_error != NULL )
+	{
+		g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cli_error->message);
+		g_error_free (cli_error);
+		return 0;
+	}
+    /* print version information */
+    if (show_version)
+    {
+        g_print("%s %s \n\n", PACKAGE_NAME, PACKAGE_VERSION);
+        g_print ("%s\n", "Copyright (c) 2005-2008");
+        g_print ("\t%s\n\n", "Giuseppe Torelli - Colossus <colossus73@gmail.com>");
+        g_print (_("Maintained by "));
+        g_print ("Ingo Brückl.\n");
+        g_print (_("Please report bugs to <%s>."), PACKAGE_BUGREPORT);
+        g_print ("\n");
+
+        return EXIT_SUCCESS;
+    }
+
+	if (multi_extract || add_files || ask_and_extract || ask_and_add || extract_path != NULL)
+		batch_mode = TRUE;
+
+	path = g_find_program_in_path("xdg-open");
+
+	if (path)
+	{
+		xdg_open = TRUE;
+		g_free(path);
+	}
+
+	xa_set_available_archivers();
+	prefs_window   = xa_create_prefs_dialog();
+	extract_window = xa_create_extract_dialog();
+	add_window     = xa_create_add_dialog();
+	multi_extract_window = xa_create_multi_extract_dialog();
+	xa_prefs_load_options(prefs_window);
+
+	if (batch_mode == TRUE)
+	{
+		xa_main_window = NULL;
+		archive = xa_init_structure_from_cmd_line (argv[1]);
+		g_print(PACKAGE_NAME " " VERSION " (\xC2\xA9)2005-2008 Giuseppe Torelli\n");
+
+		/* Switch -x */
+		if (extract_path != NULL)
+		{
+			if (argv[1] == NULL || archive == NULL)
+			{
+				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				return -1;
+			}
+			if (xa_detect_encrypted_archive(archive))
+			{
+				archive->has_passwd = TRUE;
+				archive->passwd = xa_create_password_dialog(archive);
+				if (archive->passwd == NULL)
+					goto done;
+			}
+			GSList *string = NULL;
+			archive->full_path = archive->can_full_path;
+			archive->overwrite = archive->can_overwrite;
+			gchar *escaped_path = xa_escape_bad_chars (extract_path,"$\'`\"\\!?* ()[]&|@#:;");
+			archive->extraction_path = escaped_path;
+			archive->status = XA_ARCHIVESTATUS_EXTRACT;
+			(*archive->extract) (archive,string);
+		}
+		/* Switch -e */
+		else if (ask_and_extract && archive != NULL)
+		{
+			if (argv[1] == NULL)
+			{
+				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				return -1;
+			}
+			if (xa_detect_encrypted_archive(archive))
+				archive->has_passwd = TRUE;
+
+			xa_set_extract_dialog_options(extract_window,0,archive);
+			xa_parse_extract_dialog_options (archive,extract_window,NULL);
+			gtk_widget_destroy (extract_window->dialog1);
+			g_free (extract_window);
+		}
+		/* Switch -m */
+		else if (multi_extract)
+		{
+			Multi_extract_data *multi_extract = NULL;
+			multi_extract = xa_create_multi_extract_dialog();
+			for (x = 1; x< argc; x++)
+				if (! g_file_test(argv[x], G_FILE_TEST_IS_DIR))
+					xa_add_files_liststore(argv[x],multi_extract);
+
+			xa_parse_multi_extract_archive(multi_extract);
+			gtk_widget_destroy (multi_extract->multi_extract);
+			g_free(multi_extract);
+		}
+		/* Switch -d */
+		else if (add_files)
+		{
+			if (argc > 1 || g_file_test (argv[1],G_FILE_TEST_IS_DIR))
+				no_bzip2_gzip = TRUE;
+			else
+				no_bzip2_gzip = FALSE;
+			archive = xa_new_archive_dialog (add_files,NULL,no_bzip2_gzip);
+			if (archive == NULL)
+				return -1;
+
+			if (archive->path != NULL)
+			{
+				xa_create_temp_directory(archive);
+				archive->add_recurse = archive->can_recurse;
+				_current_dir = g_path_get_dirname(add_files);
+				chdir (_current_dir);
+				g_free(_current_dir);
+				GSList *files = NULL;
+				_current_dir = g_path_get_basename(add_files);
+				files = g_slist_append(files,g_strdup(_current_dir));
+				g_free(_current_dir);
+				g_free(add_files);
+				for (x = 1; x< argc; x++)
+				{
+					_current_dir = g_path_get_basename(argv[x]);
+					files = g_slist_append(files,g_strdup(_current_dir));
+					g_free (_current_dir);
+				}
+				xa_execute_add_commands(archive,files,NULL);
+			}
+		}
+		/* Switch -a */
+		else if (ask_and_add)
+		{
+			if (argv[1] == NULL)
+			{
+				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
+				return -1;
+			}
+			if (archive != NULL)
+			{
+				if (!archive->add)
+				{
+					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), argv[1]);
+					return -1;
+				}
+				xa_set_add_dialog_options(add_window,archive);
+				xa_parse_add_dialog_options (archive,add_window);
+				gtk_widget_destroy (add_window->dialog1);
+				g_free (add_window);
+			}
+		}
+done:	g_list_free (ArchiveSuffix);
+		g_list_free (ArchiveType);
+
+		if (pb != NULL)
+		{
+			gtk_widget_destroy(pb->progress_window);
+			g_free(pb);
+		}
+		if (archive != NULL)
+			xa_clean_archive_structure (archive);
+		#ifdef HAVE_SOCKET
+			socket_finalize();
+		#endif
+	}
+	else
+	{
+		xa_main_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+		xa_create_main_window (xa_main_window,	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_location_bar)),
+												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->store_output)),
+												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_sidebar)),
+												gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_window->show_toolbar)));
+
+		gtk_window_set_transient_for (GTK_WINDOW (extract_window->dialog1),GTK_WINDOW (xa_main_window));
+		gtk_window_set_transient_for (GTK_WINDOW (add_window->dialog1),GTK_WINDOW (xa_main_window));
+		gtk_window_set_transient_for (GTK_WINDOW (prefs_window->dialog1),GTK_WINDOW (xa_main_window));
+		gtk_window_set_transient_for (GTK_WINDOW (multi_extract_window->multi_extract),GTK_WINDOW (xa_main_window));
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->geometry[0] != -1)
+		{
+			gtk_window_move (GTK_WINDOW(xa_main_window), prefs_window->geometry[0], prefs_window->geometry[1]);
+			gtk_window_set_default_size(GTK_WINDOW(xa_main_window), prefs_window->geometry[2], prefs_window->geometry[3]);
+			gtk_paned_set_position(GTK_PANED(hpaned1), prefs_window->geometry[4]);
+		}
+		else
+		{
+			gtk_window_set_position (GTK_WINDOW(xa_main_window),GTK_WIN_POS_CENTER);
+			gtk_window_set_default_size (GTK_WINDOW(xa_main_window), 600, 400);
+			gtk_paned_set_position (GTK_PANED (hpaned1),200);
+		}
+		gtk_label_set_text(GTK_LABEL(total_label),_("Select \"New\" to create or \"Open\" to open an archive"));
+		gtk_widget_show (xa_main_window);
+
+		/* This to open the archive from the command line */
+		if ( argc == 2 )
+		{
+			gchar *dummy;
+			if (g_str_has_prefix(argv[1], "file://") == TRUE)
+				dummy = g_strdup(argv[1]+6);
+			else
+				dummy = g_strdup(argv[1]);
+
+			current_open_directory = g_path_get_dirname (dummy);
+			if (strcmp(current_open_directory,"..") == 0)
+			{
+				g_free (current_open_directory);
+				current_open_directory = g_get_current_dir();
+			}
+			xa_open_archive (NULL,dummy);
+		}
+		#ifdef HAVE_SOCKET
+		if (! socket_info.ignore_socket && socket_info.lock_socket > 0)
+		{
+			socket_info.read_ioc = g_io_channel_unix_new(socket_info.lock_socket);
+			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc,	G_IO_IN|G_IO_PRI|G_IO_ERR, socket_lock_input_cb, xa_main_window);
+		}
+		#endif
+		gtk_main ();
+		g_list_free (ArchiveSuffix);
+		g_list_free (ArchiveType);
+	}
+	return 0;
 }
