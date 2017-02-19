@@ -37,8 +37,6 @@
 
 #define MAX_CMD_LEN (NCARGS * 2 / 3)
 
-extern Prefs_dialog_data *prefs_window;
-
 XArchive *archive[100];
 Progress_bar_data *pb = NULL;
 

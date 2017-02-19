@@ -24,7 +24,7 @@
 extern gchar *config_file;
 extern GtkIconTheme *icon_theme;
 
-typedef struct
+typedef struct Prefs_dialog_data
 {
 	GtkWidget *dialog1,*dialog_vbox1,*combo_prefered_format;
 	GtkWidget *confirm_deletion, *store_output,*combo_archive_view,*combo_icon_size;

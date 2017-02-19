@@ -19,12 +19,11 @@
 #include <string.h>
 #include "open-with-dlg.h"
 #include "interface.h"
+#include "main.h"
 #include "mime.h"
 #include "pref_dialog.h"
 #include "support.h"
 #include "window.h"
-
-extern Prefs_dialog_data *prefs_window;
 
 static void xa_read_desktop_directories(GtkListStore *,const gchar *);
 static void xa_parse_desktop_files(GSList **,GSList **,GSList **,gchar *,gchar *);

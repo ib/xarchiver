@@ -36,5 +36,6 @@ extern open_func open[];
 extern test_func test[];
 
 extern struct Add_dialog_data *add_window;
+extern struct Prefs_dialog_data *prefs_window;
 
 #endif

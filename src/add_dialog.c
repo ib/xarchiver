@@ -19,12 +19,11 @@
 #include "add_dialog.h"
 #include "extract_dialog.h"
 #include "interface.h"
+#include "main.h"
 #include "pref_dialog.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
-
-extern Prefs_dialog_data *prefs_window;
 
 static GTK_COMPAT_ADJUSTMENT_TYPE compression_value;
 

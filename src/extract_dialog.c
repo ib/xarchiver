@@ -31,7 +31,6 @@
 #include "window.h"
 
 extern gboolean unarj;
-extern Prefs_dialog_data *prefs_window;
 extern Progress_bar_data *pb;
 
 static gchar *xa_multi_extract_archive(Multi_extract_data *,gchar *,gboolean,gboolean,gchar *);
