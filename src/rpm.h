@@ -23,6 +23,7 @@
 #include "archive.h"
 
 void xa_rpm_ask(XArchive *);
-void xa_open_rpm ( XArchive *);
-gboolean xa_rpm_extract(XArchive *,GSList *);
+gboolean xa_rpm_extract(XArchive *, GSList *);
+void xa_rpm_open(XArchive *);
+
 #endif

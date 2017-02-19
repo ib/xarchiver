@@ -33,7 +33,7 @@
 #define HDRSIG_ENTRY_INFO_LEN 8
 #define HDRSIG_ENTRY_INDEX_LEN 16
 
-static void xa_get_cpio_line_content(gchar *, gpointer);
+static void xa_cpio_parse_output(gchar *, gpointer);
 
 static int xa_rpm2cpio (XArchive *archive)
 {
@@ -141,7 +141,7 @@ void xa_rpm_ask (XArchive *archive)
 	archive->can_extract = TRUE;
 }
 
-void xa_open_rpm (XArchive *archive)
+void xa_rpm_open (XArchive *archive)
 {
 	int result, i;
 	gchar *command;
@@ -173,12 +173,12 @@ void xa_open_rpm (XArchive *archive)
 	}
 	/* list the content */
 	command = g_strconcat ("sh -c \"cpio -tv < ",archive->tmp,"/xa-tmp.cpio\"",NULL);
-	archive->parse_output = xa_get_cpio_line_content;
+	archive->parse_output = xa_cpio_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free(command);
 }
 
-static void xa_get_cpio_line_content (gchar *line, gpointer data)
+static void xa_cpio_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	gchar *filename;
