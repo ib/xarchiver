@@ -22,11 +22,12 @@
 #include <glib.h>
 #include "archive.h"
 
+void xa_rar_add(XArchive *, GString *, gchar *);
 void xa_rar_ask(XArchive *);
-void xa_rar_delete (XArchive *,GSList *);
-void xa_rar_add (XArchive *,GString *,gchar *);
-gboolean xa_rar_extract(XArchive *,GSList *);
-void xa_rar_test (XArchive *);
-void xa_open_rar ( XArchive *archive );
 int xa_rar_check_version(gchar *);
+void xa_rar_delete(XArchive *, GSList *);
+gboolean xa_rar_extract(XArchive *, GSList *);
+void xa_rar_open(XArchive *);
+void xa_rar_test(XArchive *);
+
 #endif

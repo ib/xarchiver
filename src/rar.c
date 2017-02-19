@@ -27,8 +27,8 @@ extern gboolean unrar;
 static int rar_version;
 static gboolean last_line, jump_header, jump_comment, read_filename;
 
-static void xa_get_rar_line_content(gchar *, gpointer);
-static void xa_get_rar5_line_content(gchar *, gpointer);
+static void xa_rar_parse_output(gchar *, gpointer);
+static void xa_rar5_parse_output(gchar *, gpointer);
 
 int xa_rar_check_version (gchar *path)
 {
@@ -64,7 +64,7 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_move = !unrar;
 }
 
-void xa_open_rar (XArchive *archive)
+void xa_rar_open (XArchive *archive)
 {
 	GType types4[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 	char *names4[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version")),NULL};
@@ -93,7 +93,7 @@ void xa_open_rar (XArchive *archive)
 	if (rar_version == 5)
 	{
 		archive->nc = 8;
-		archive->parse_output = xa_get_rar5_line_content;
+		archive->parse_output = xa_rar5_parse_output;
 		xa_spawn_async_process (archive,command);
 		g_free ( command );
 		if ( archive->child_pid == 0 )
@@ -107,7 +107,7 @@ void xa_open_rar (XArchive *archive)
 	else
 	{
 		archive->nc = 10;
-		archive->parse_output = xa_get_rar_line_content;
+		archive->parse_output = xa_rar_parse_output;
 		xa_spawn_async_process (archive,command);
 		g_free ( command );
 		if ( archive->child_pid == 0 )
@@ -120,7 +120,7 @@ void xa_open_rar (XArchive *archive)
 	}
 }
 
-static void xa_get_rar_line_content (gchar *line, gpointer data)
+static void xa_rar_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;
@@ -386,7 +386,7 @@ void xa_rar_test (XArchive *archive)
 	xa_run_command (archive,list);
  }
 
-static void xa_get_rar5_line_content (gchar *line, gpointer data)
+static void xa_rar5_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
 	XEntry *entry;
