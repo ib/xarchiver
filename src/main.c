@@ -67,7 +67,6 @@ gboolean unarj = FALSE;
 gboolean unrar = FALSE;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
 extern gchar *current_open_directory;
-extern int status;
 
 Prefs_dialog_data   *prefs_window   = NULL;
 Extract_dialog_data *extract_window = NULL;
