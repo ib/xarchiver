@@ -26,6 +26,8 @@ void xa_set_available_archivers();
 extern GList *ArchiveSuffix;
 extern GList *ArchiveType;
 extern const gchar *locale;
+extern const gchar *sevenz;
+extern const gchar *tar;
 
 XArchive *xa_init_structure_from_cmd_line (char *filename);
 #endif /* MAIN_H */

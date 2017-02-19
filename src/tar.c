@@ -21,13 +21,13 @@
 #include "bzip2.h"
 #include "gzip.h"
 #include "interface.h"
+#include "main.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
 
 #define TMPFILE "xa-tmp.tar"
 
-extern gchar *tar;
 extern gboolean multi_extract;
 
 static void xa_add_delete_bzip2_gzip_lzma_compressed_tar(GString *, XArchive *, gboolean);

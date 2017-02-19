@@ -18,11 +18,10 @@
 
 #include <string.h>
 #include "7zip.h"
+#include "main.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
-
-extern const gchar *sevenz;
 
 static gboolean last_line, jump_header, encrypted;
 
