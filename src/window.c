@@ -2356,7 +2356,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			if (entry->is_dir)
 				gtk_widget_set_sensitive(open_popupmenu,FALSE);
 			else
-				gtk_widget_set_sensitive(open_popupmenu,TRUE);
+				gtk_widget_set_sensitive(open_popupmenu, archive->can_extract);
 			gtk_widget_set_sensitive(rrename,FALSE);
 			gtk_widget_set_sensitive(view,FALSE);
 		}
@@ -2369,8 +2369,8 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			}
 			else
 			{
-				gtk_widget_set_sensitive(open_popupmenu,TRUE);
-				gtk_widget_set_sensitive(view,TRUE);
+				gtk_widget_set_sensitive(open_popupmenu, archive->can_extract);
+				gtk_widget_set_sensitive(view, archive->can_extract);
 			}
 
 			gtk_widget_set_sensitive(rrename, can_rename(archive));
