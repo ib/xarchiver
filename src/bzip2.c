@@ -27,8 +27,6 @@
 #include "tar.h"
 #include "window.h"
 
-short int l;
-
 static void xa_open_tar_compressed_file(XArchive *);
 
 void xa_bzip2_lzma_ask (XArchive *archive)

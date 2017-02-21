@@ -22,7 +22,7 @@
 #include "pref_dialog.h"
 #include "xdgmime/xdgmime.h"
 
-GSList *icon_cache = NULL;
+static GSList *icon_cache;
 
 const char *xa_get_stock_mime_icon(char *filename)
 {

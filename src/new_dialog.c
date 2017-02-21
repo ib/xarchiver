@@ -25,9 +25,9 @@
 #include "support.h"
 #include "window.h"
 
-gchar *current_new_directory = NULL;
-gint  new_combo_box = -1;
-gchar *ComboArchiveType;
+static gint new_combo_box = -1;
+static gchar *ComboArchiveType;
+static gchar *current_new_directory;
 
 static gpointer xa_get_suffix (GList *types, const gchar *type)
 {

@@ -59,12 +59,8 @@ gboolean unrar;
 gboolean xdg_open;
 gboolean opt_multi_extract;
 
-gchar *absolute_path = NULL;
-gchar *_current_dir = NULL;
 static gchar *opt_extract_path, *opt_add_files;
 static gboolean opt_extract, opt_add, opt_version;
-GError *cli_error = NULL;
-gboolean error_output, file_to_open;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
 
 Prefs_dialog_data   *prefs_window   = NULL;
@@ -101,6 +97,8 @@ static GOptionEntry entries[] =
 
 static void xa_set_available_archivers ()
 {
+	gchar *absolute_path;
+
 	ask[0]  = 0;
 	ask[XARCHIVETYPE_7ZIP]  = &xa_7zip_ask;
 	ask[XARCHIVETYPE_ARJ]  = &xa_arj_ask;
@@ -460,10 +458,11 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 
 int main (int argc, char **argv)
 {
+	GError *cli_error = NULL;
 	XArchive *archive = NULL;
 	gboolean no_bzip2_gzip;
 	unsigned short int x;
-	gchar *path;
+	gchar *path, *_current_dir;
 
 #ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);

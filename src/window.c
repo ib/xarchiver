@@ -43,9 +43,6 @@
 
 gchar *current_open_directory;
 
-GtkFileFilter *open_file_filter = NULL;
-GList *Suffix,*Name;
-
 void xa_watch_child (GPid pid,gint status,XArchive *archive)
 {
 	archive->child_pid = archive->pb_source = 0;
@@ -651,9 +648,6 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer data)
 	if (idx > -1 && archive[idx]->child_pid)
 		return;
 
-	g_list_free ( Suffix);
-	g_list_free ( Name);
-
 	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
 	{
 		idx = xa_find_archive_index (i);
@@ -1090,7 +1084,9 @@ gchar *xa_open_sfx_file_selector ()
 gchar *xa_open_file_dialog ()
 {
 	static GtkWidget *File_Selector = NULL;
+	static GtkFileFilter *open_file_filter;
 	GtkFileFilter *filter;
+	GList *Suffix;
 	gchar *path = NULL;
 	int response;
 
