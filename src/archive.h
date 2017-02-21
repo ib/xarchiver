@@ -76,12 +76,12 @@ typedef struct _XArchive XArchive;
 typedef struct _XAClipboard XAClipboard;
 
 typedef void (*ask_func)(XArchive *);
-typedef void (*parse_output_func)	(gchar *line, gpointer);
-typedef void (*delete_func)			(XArchive *,GSList *);
-typedef void (*add_func)			(XArchive *,GString *,gchar *);
-typedef gboolean (*extract_func)	(XArchive *,GSList *);
-typedef void (*test_func)			(XArchive *);
-typedef void (*open_func)			(XArchive *);
+typedef void (*open_func)(XArchive *);
+typedef void (*parse_output_func)(gchar *, gpointer);
+typedef void (*test_func)(XArchive *);
+typedef gboolean (*extract_func)(XArchive *, GSList *);
+typedef void (*add_func)(XArchive *, GString *, gchar *);
+typedef void (*delete_func)(XArchive *, GSList *);
 
 struct _XArchive
 {
