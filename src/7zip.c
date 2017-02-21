@@ -25,43 +25,18 @@
 
 static gboolean data_line, encrypted, last_line;
 
-static void xa_7zip_parse_output(gchar *, gpointer);
-
 void xa_7zip_ask (XArchive *archive)
 {
-	archive->can_sfx = archive->can_add = archive->can_extract = archive->can_test = TRUE;
+	archive->can_test = TRUE;
+	archive->can_extract = TRUE;
+	archive->can_add = TRUE;
 	archive->can_delete = TRUE;
-	archive->can_solid = TRUE;
+	archive->can_sfx = TRUE;
 	archive->can_passwd = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_update = TRUE;
-}
-
-void xa_7zip_open (XArchive *archive)
-{
-	unsigned short int i = 0;
-
-	data_line = FALSE;
-	last_line = FALSE;
-	encrypted = FALSE;
-	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
-	archive->files_size = 0;
-	archive->nr_of_files = 0;
-	archive->nc = 6;
-	archive->parse_output = xa_7zip_parse_output;
-	xa_spawn_async_process (archive,command);
-	g_free ( command );
-	if ( archive->child_pid == 0 )
-		return;
-
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 8; i++)
-		archive->column_types[i] = types[i];
-
-	char *names[]= {(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date")),NULL};
-	xa_create_liststore (archive,names);
+	archive->can_solid = TRUE;
 }
 
 static void xa_7zip_parse_output (gchar *line, gpointer data)
@@ -143,61 +118,45 @@ static void xa_7zip_parse_output (gchar *line, gpointer data)
 	g_free(filename);
 }
 
-void xa_7zip_delete (XArchive *archive,GSList *names)
+void xa_7zip_open (XArchive *archive)
 {
-	gchar *command, *e_filename = NULL;
-	GSList *list = NULL,*_names;
-	GString *files = g_string_new("");
+	unsigned short int i = 0;
 
- 	_names = names;
- 	while (_names)
-	{
-		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (files,e_filename);
-		g_string_prepend_c (files,' ');
-		_names = _names->next;
-	}
-	g_slist_foreach(names,(GFunc)g_free,NULL);
-	g_slist_free(names);
-	command = g_strconcat(sevenz, " d ", archive->escaped_path, " ", files->str, NULL);
-	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
+	data_line = FALSE;
+	last_line = FALSE;
+	encrypted = FALSE;
+	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
+	archive->files_size = 0;
+	archive->nr_of_files = 0;
+	archive->nc = 6;
+	archive->parse_output = xa_7zip_parse_output;
+	xa_spawn_async_process (archive,command);
+	g_free ( command );
+	if ( archive->child_pid == 0 )
+		return;
 
-	xa_run_command (archive,list);
-	if (archive->status == XA_ARCHIVESTATUS_DELETE)
-		xa_reload_archive_content(archive);
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 8; i++)
+		archive->column_types[i] = types[i];
+
+	char *names[]= {(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date")),NULL};
+	xa_create_liststore (archive,names);
 }
 
-void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_7zip_test (XArchive *archive)
 {
+	gchar *command = NULL;
 	GSList *list = NULL;
-	gchar *command;
 
-	if (archive->location_entry_path != NULL)
-		archive->working_dir = g_strdup(archive->tmp);
-
-	if (compression_string == NULL)
-		compression_string = "5";
+	archive->status = XA_ARCHIVESTATUS_TEST;
 	if (archive->passwd != NULL)
-		command = g_strconcat (sevenz,
-								archive->update ? " u " : " a ",
-								archive->add_solid ? "-ms=on " : "-ms=off ",
-								"-p" , archive->passwd, " ",
-								archive->escaped_path," ",
-								"-mx=",compression_string,"",
-								files->str,NULL);
+		command = g_strconcat(sevenz, " t -p", archive->passwd, " ", archive->escaped_path, NULL);
 	else
-		command = g_strconcat (sevenz,
-								archive->update ? " u " : " a ",
-								archive->add_solid ? "-ms=on " : "-ms=off ",
-								archive->escaped_path," ",
-								"-mx=",compression_string,"",
-								files->str,NULL);
-	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
+		command = g_strconcat(sevenz, " t ", archive->escaped_path, NULL);
 
+	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
-	xa_reload_archive_content(archive);
 }
 
 gboolean xa_7zip_extract(XArchive *archive,GSList *files)
@@ -236,17 +195,59 @@ gboolean xa_7zip_extract(XArchive *archive,GSList *files)
 	return result;
 }
 
-void xa_7zip_test (XArchive *archive)
+void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 {
-	gchar *command = NULL;
 	GSList *list = NULL;
+	gchar *command;
 
-	archive->status = XA_ARCHIVESTATUS_TEST;
+	if (archive->location_entry_path != NULL)
+		archive->working_dir = g_strdup(archive->tmp);
+
+	if (compression_string == NULL)
+		compression_string = "5";
 	if (archive->passwd != NULL)
-		command = g_strconcat(sevenz, " t -p", archive->passwd, " ", archive->escaped_path, NULL);
+		command = g_strconcat (sevenz,
+								archive->update ? " u " : " a ",
+								archive->add_solid ? "-ms=on " : "-ms=off ",
+								"-p" , archive->passwd, " ",
+								archive->escaped_path," ",
+								"-mx=",compression_string,"",
+								files->str,NULL);
 	else
-		command = g_strconcat(sevenz, " t ", archive->escaped_path, NULL);
-
+		command = g_strconcat (sevenz,
+								archive->update ? " u " : " a ",
+								archive->add_solid ? "-ms=on " : "-ms=off ",
+								archive->escaped_path," ",
+								"-mx=",compression_string,"",
+								files->str,NULL);
+	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
+
 	xa_run_command (archive,list);
+	xa_reload_archive_content(archive);
+}
+
+void xa_7zip_delete (XArchive *archive,GSList *names)
+{
+	gchar *command, *e_filename = NULL;
+	GSList *list = NULL,*_names;
+	GString *files = g_string_new("");
+
+	_names = names;
+	while (_names)
+	{
+		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
+		_names = _names->next;
+	}
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
+	command = g_strconcat(sevenz, " d ", archive->escaped_path, " ", files->str, NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+	if (archive->status == XA_ARCHIVESTATUS_DELETE)
+		xa_reload_archive_content(archive);
 }
