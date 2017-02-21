@@ -59,14 +59,14 @@ gboolean unrar;
 gboolean xdg_open;
 gboolean opt_multi_extract;
 
+Add_dialog_data *add_window;
+Extract_dialog_data *extract_window;
+Multi_extract_data *multi_extract_window;
+Prefs_dialog_data *prefs_window;
+
 static gchar *opt_extract_path, *opt_add_files;
 static gboolean opt_extract, opt_add, opt_version;
 static gboolean tbz2, tgz, tlz, txz, tzo, zip;
-
-Prefs_dialog_data   *prefs_window   = NULL;
-Extract_dialog_data *extract_window = NULL;
-Add_dialog_data     *add_window		= NULL;
-Multi_extract_data	*multi_extract_window	= NULL;
 
 static GOptionEntry entries[] =
 {
