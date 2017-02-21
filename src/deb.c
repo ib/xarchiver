@@ -22,36 +22,10 @@
 #include "support.h"
 #include "window.h"
 
-static void xa_ar_parse_output(gchar *, gpointer);
-
 void xa_deb_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
 	archive->can_touch = TRUE;
-}
-
-void xa_deb_open (XArchive *archive)
-{
-	gchar *command = NULL;
-	unsigned short int i;
-
-	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
-	archive->files_size = 0;
-	archive->nr_of_files = 0;
-	archive->nc = 5;
-	archive->parse_output = xa_ar_parse_output;
-	xa_spawn_async_process (archive,command);
-	g_free (command);
-
-	if (archive->child_pid == 0)
-		return;
-
-	char *names[]= {(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date modified")),NULL};
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
-	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 7; i++)
-		archive->column_types[i] = types[i];
-	xa_create_liststore (archive,names);
 }
 
 static void xa_ar_parse_output (gchar *line, gpointer data)
@@ -113,6 +87,30 @@ static void xa_ar_parse_output (gchar *line, gpointer data)
 	filename = g_strdup(line + n);
 	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
+}
+
+void xa_deb_open (XArchive *archive)
+{
+	gchar *command = NULL;
+	unsigned short int i;
+
+	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
+	archive->files_size = 0;
+	archive->nr_of_files = 0;
+	archive->nc = 5;
+	archive->parse_output = xa_ar_parse_output;
+	xa_spawn_async_process (archive,command);
+	g_free (command);
+
+	if (archive->child_pid == 0)
+		return;
+
+	char *names[]= {(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date modified")),NULL};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 7; i++)
+		archive->column_types[i] = types[i];
+	xa_create_liststore (archive,names);
 }
 
 gboolean xa_deb_extract(XArchive *archive,GSList *files)
