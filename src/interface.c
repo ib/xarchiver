@@ -29,6 +29,7 @@
 #include "tar.h"
 #include "window.h"
 
+GtkWidget *eextract;
 Progress_bar_data *pb;
 
 static const GtkTargetEntry drag_targets[] =
@@ -839,7 +840,6 @@ void xa_create_popup_menu()
 	GtkWidget *image8;
 	GtkWidget *image1;
 	GtkWidget *separator;
-	GtkWidget *extract;
 	GtkWidget *image9;
 	GtkWidget *image10;
 	GtkWidget *image11;
@@ -853,13 +853,13 @@ void xa_create_popup_menu()
 	gtk_widget_show (image9);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (open_popupmenu),image9);
 
-	extract = gtk_image_menu_item_new_with_mnemonic (_("Extract"));
-	gtk_widget_show (extract);
-	gtk_container_add (GTK_CONTAINER (xa_popup_menu),extract);
+	eextract = gtk_image_menu_item_new_with_mnemonic(_("Extract"));
+	gtk_widget_show(eextract);
+	gtk_container_add(GTK_CONTAINER(xa_popup_menu), eextract);
 
 	image9 =  xa_main_window_find_image ("xarchiver-extract.png",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (image9);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (extract),image9);
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(eextract), image9);
 
 	view = gtk_image_menu_item_new_with_mnemonic (_("View"));
 	gtk_widget_show (view);
@@ -926,7 +926,7 @@ void xa_create_popup_menu()
 	g_signal_connect ((gpointer) cut,	"activate",	G_CALLBACK(xa_clipboard_cut),NULL);
 	g_signal_connect ((gpointer) copy,	"activate",	G_CALLBACK(xa_clipboard_copy),NULL);
 	g_signal_connect ((gpointer) paste,	"activate",	G_CALLBACK(xa_clipboard_paste),NULL);
-	g_signal_connect ((gpointer) extract,"activate",G_CALLBACK(xa_extract_archive),NULL);
+	g_signal_connect((gpointer) eextract, "activate", G_CALLBACK(xa_extract_archive), NULL);
 	g_signal_connect ((gpointer) ddelete,"activate",G_CALLBACK(xa_delete_archive),NULL);
 	g_signal_connect ((gpointer) rrename,"activate",G_CALLBACK(xa_rename_archive),NULL);
 }

@@ -32,6 +32,7 @@ typedef struct
 	gboolean multi_extract;
 } Progress_bar_data;
 
+extern GtkWidget *eextract;
 extern Progress_bar_data *pb;
 
 GtkNotebook *notebook;

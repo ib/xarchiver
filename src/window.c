@@ -2385,6 +2385,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 				pasteable = TRUE;
 		}
 
+		gtk_widget_set_sensitive(eextract, archive->can_extract);
 		gtk_widget_set_sensitive(cut, archive->can_extract && archive->can_delete);
 		gtk_widget_set_sensitive(copy, archive->can_extract);
 		gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
