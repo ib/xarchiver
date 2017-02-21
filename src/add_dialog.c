@@ -16,8 +16,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
 #include "add_dialog.h"
-#include "extract_dialog.h"
 #include "interface.h"
 #include "main.h"
 #include "pref_dialog.h"
@@ -26,6 +26,43 @@
 #include "window.h"
 
 static GTK_COMPAT_ADJUSTMENT_TYPE compression_value;
+
+static void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)
+{
+	gboolean active = gtk_toggle_button_get_active (button);
+	if (active)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
+}
+
+static void password_toggled_cb (GtkButton *button, gpointer user_data)
+{
+	Add_dialog_data *add_dialog = user_data;
+	if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
+	{
+		gtk_widget_set_sensitive (add_dialog->add_password_entry, TRUE);
+		gtk_widget_grab_focus (add_dialog->add_password_entry);
+	}
+	else
+		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
+}
+
+static void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)
+{
+	if (data->freshen == NULL)
+		return;
+	gboolean active = gtk_toggle_button_get_active (button);
+	if (active)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->freshen), FALSE);
+}
+
+static void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
+{
+	unsigned short int digit = gtk_adjustment_get_value (adjustment);
+	if (digit & 1)
+		return;
+	else
+		gtk_adjustment_set_value (adjustment, digit-1);
+}
 
 Add_dialog_data *xa_create_add_dialog()
 {
@@ -317,43 +354,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	gtk_widget_set_sensitive(add_dialog->add_password, archive->can_passwd);
 	gtk_widget_show_all (add_dialog->dialog_vbox1);
-}
-
-void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)
-{
-	gboolean active = gtk_toggle_button_get_active (button);
-	if (active)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
-}
-
-void add_update_fresh_toggled_cb (GtkToggleButton *button, Add_dialog_data *data)
-{
-	if (data->freshen == NULL)
-		return;
-	gboolean active = gtk_toggle_button_get_active (button);
-	if (active)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->freshen), FALSE);
-}
-
-void password_toggled_cb ( GtkButton* button , gpointer _add_dialog )
-{
-	Add_dialog_data *add_dialog = _add_dialog;
-	if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
-	{
-		gtk_widget_set_sensitive (add_dialog->add_password_entry, TRUE);
-		gtk_widget_grab_focus (add_dialog->add_password_entry);
-	}
-	else
-		gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
-}
-
-void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
-{
-	unsigned short int digit = gtk_adjustment_get_value (adjustment);
-	if (digit & 1)
-		return;
-	else
-		gtk_adjustment_set_value (adjustment, digit-1);
 }
 
 void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)

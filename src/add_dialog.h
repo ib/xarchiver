@@ -52,13 +52,8 @@ typedef struct Add_dialog_data
 } Add_dialog_data;
 
 Add_dialog_data *xa_create_add_dialog();
-void xa_set_add_dialog_options(Add_dialog_data *,XArchive *);
-void add_fresh_update_toggled_cb (GtkToggleButton *, Add_dialog_data *);
-void add_update_fresh_toggled_cb (GtkToggleButton *, Add_dialog_data *);
-void password_toggled_cb ( GtkButton* ,gpointer);
-void xa_parse_add_dialog_options ( XArchive *, Add_dialog_data *);
-void xa_select_files_to_add ( GtkButton* ,gpointer );
-void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_string);
-void fix_adjustment_value (GtkAdjustment *,gpointer );
+void xa_execute_add_commands(XArchive *, GSList *, gchar *);
+void xa_parse_add_dialog_options(XArchive *, Add_dialog_data *);
+void xa_set_add_dialog_options(Add_dialog_data *, XArchive *);
 
 #endif
