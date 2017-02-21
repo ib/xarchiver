@@ -39,20 +39,13 @@ typedef struct Multi_extract_data
 	XArchive *archive;
 } Multi_extract_data;
 
-GtkWidget *label1,*label2,*label3,*label_password;
-GtkWidget *hbox1,*hbox2,*hbox3,*vbox1,*vbox2,*vbox3,*vbox5;
-GtkWidget *frame1,*frame2,*alignment1,*alignment2,*alignment3;
-GtkWidget *dialog_action_area1,*cancel_button,*okbutton1,*extract_button,*extract_image,*extract_hbox,*extract_label;
-
+void fresh_update_toggled_cb(GtkToggleButton *, Extract_dialog_data *);
+void update_fresh_toggled_cb(GtkToggleButton *, Extract_dialog_data *);
+void xa_add_files_liststore(gchar *, Multi_extract_data *);
 Extract_dialog_data *xa_create_extract_dialog();
-void xa_activate_entry(GtkToggleButton *,gpointer );
-void fresh_update_toggled_cb (GtkToggleButton *, Extract_dialog_data *);
-void update_fresh_toggled_cb (GtkToggleButton *, Extract_dialog_data *);
-void xa_set_extract_dialog_options(Extract_dialog_data *,gint ,XArchive *);
-void xa_parse_extract_dialog_options (XArchive * , Extract_dialog_data *, GtkTreeSelection *);
 Multi_extract_data *xa_create_multi_extract_dialog();
-void xa_activate_remove_button (GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GtkWidget *);
-void xa_add_files_liststore (gchar *, Multi_extract_data *);
+void xa_parse_extract_dialog_options(XArchive * , Extract_dialog_data *, GtkTreeSelection *);
 void xa_parse_multi_extract_archive(Multi_extract_data *);
+void xa_set_extract_dialog_options(Extract_dialog_data *, gint, XArchive *);
 
 #endif

@@ -2084,6 +2084,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	GtkWidget *scrolledwindow1;
 	GtkWidget *dialog_action_area1;
 	GtkWidget *tmp_image,*file,*clear,*close,*cancel,*file_hbox,*file_label;
+	GtkWidget *alignment2;
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
 

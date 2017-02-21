@@ -943,6 +943,7 @@ void xa_select_by_pattern_dialog(GtkMenuItem *menuitem,gpointer user_data)
 	GtkWidget *cancelbutton1;
 	GtkWidget *okbutton1;
 	GtkWidget *tmp_image,*select_hbox,*select_label;
+	GtkWidget *alignment2;
 	gchar *string;
   	gboolean done = FALSE;
 	gint current_page;
@@ -1490,7 +1491,7 @@ gboolean xa_sidepane_drag_motion (GtkWidget *widget,GdkDragContext *context,gint
 
 Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 {
-	GtkWidget *vbox1,*vbox2,*message = NULL,*hbox1,*icon_pixbuf,*total_label,*action_area;
+	GtkWidget *vbox1, *vbox2, *message, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
 	GdkPixbuf *pixbuf;
 	PangoAttrList *italic_attr;
 	static Progress_bar_data *pb = NULL;
