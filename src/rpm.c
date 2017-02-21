@@ -121,9 +121,14 @@ static int xa_rpm2cpio (XArchive *archive)
 			executable = "bzip2 -dc ";
 			break;
 
-		default:
+		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_XZ:
 			executable = "xz -dc ";
 			break;
+
+		default:
+			g_free(cpio_z);
+			return -1;
 	}
 
 	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->tmp, "/xa-tmp.cpio\"", NULL);
