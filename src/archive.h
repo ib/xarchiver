@@ -173,31 +173,23 @@ struct _XAClipboard
 	GSList *files;
 };
 
-void xa_spawn_async_process (XArchive *, gchar *);
-//gchar *xa_split_command_line(XArchive *archive,GSList *list);
-XArchive *xa_init_archive_structure(gint);
-const gchar *xa_get_archive_format(XArchive *);
-void xa_clean_archive_structure (XArchive *);
-gboolean xa_dump_child_error_messages (GIOChannel *, GIOCondition , gpointer );
-gboolean xa_create_temp_directory(XArchive *);
-void xa_delete_temp_directory(XArchive *);
-gboolean xa_run_command (XArchive *,GSList *);
-gint xa_find_archive_index (gint );
-gint xa_get_new_archive_idx();
-XEntry *xa_alloc_memory_for_each_row ( guint ,GType column_types[]);
-void xa_free_entry(XArchive *archive,XEntry *);
-XEntry *xa_find_child_entry(XEntry *, gchar *);
-XEntry *xa_set_archive_entries_for_each_row(XArchive *,gchar *,gpointer *);
-gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *,XEntry *,gpointer *);
-XEntry* xa_find_entry_from_path(XEntry *root_entry,const gchar *);
 gchar *xa_build_full_path_name_from_entry(XEntry *, XArchive *);
-void xa_fill_list_with_recursed_entries(XEntry *,GSList **);
-gboolean xa_detect_encrypted_archive (XArchive *);
-void xa_browse_dir_sidebar (XEntry *, GtkTreeStore *,gchar *,GtkTreeIter *);
-void xa_fill_dir_sidebar(XArchive *,gboolean);
-void xa_sidepane_row_selected(GtkTreeSelection *, gpointer );
+void xa_clean_archive_structure(XArchive *);
+gboolean xa_create_temp_directory(XArchive *);
+gboolean xa_detect_encrypted_archive(XArchive *);
+void xa_fill_dir_sidebar(XArchive *, gboolean);
+void xa_fill_list_with_recursed_entries(XEntry *, GSList **);
+gint xa_find_archive_index(gint);
+XEntry *xa_find_entry_from_path(XEntry *, const gchar *);
+void xa_free_entry(XArchive *, XEntry *);
+const gchar *xa_get_archive_format(XArchive *);
+gint xa_get_new_archive_idx();
+XArchive *xa_init_archive_structure(gint);
+gboolean xa_run_command(XArchive *, GSList *);
+XEntry *xa_set_archive_entries_for_each_row(XArchive *, gchar *, gpointer *);
+void xa_sidepane_row_selected(GtkTreeSelection *, gpointer);
 void xa_sidepane_select_row(XEntry *);
-gboolean _xa_sidepane_select_row(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
-gint xa_sort_dirs_before_files(GtkTreeModel *,GtkTreeIter *,GtkTreeIter *,gpointer );
+gint xa_sort_dirs_before_files(GtkTreeModel *, GtkTreeIter *, GtkTreeIter *, gpointer);
+void xa_spawn_async_process(XArchive *, gchar *);
 
 #endif

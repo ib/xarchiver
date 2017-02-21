@@ -28,7 +28,6 @@
 #include "main.h"
 #include "pref_dialog.h"
 #include "support.h"
-#include "tar.h"
 #include "window.h"
 
 #ifndef NCARGS
@@ -39,8 +38,281 @@
 
 XArchive *archive[100];
 
-static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data);
-static gboolean xa_process_output_from_command_line (GIOChannel *ioc,GIOCondition cond,gpointer data);
+static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XArchive *archive = data;
+	GIOStatus status;
+	gchar *line = NULL;
+
+	if (cond & (G_IO_IN | G_IO_PRI))
+	{
+		do
+		{
+			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
+			if (line != NULL)
+			{
+				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
+
+				if (archive->parse_output)
+					(*archive->parse_output) (line,archive);
+				g_free(line);
+			}
+			while (gtk_events_pending())
+				gtk_main_iteration();
+		}
+		while (status == G_IO_STATUS_NORMAL);
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
+	{
+	done:
+		if (archive->error_output != NULL)
+			archive->error_output = g_slist_reverse (archive->error_output);
+		g_io_channel_shutdown (ioc,TRUE,NULL);
+		g_io_channel_unref (ioc);
+
+		if (archive->parse_output)
+		{
+			if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+				xa_show_archive_comment (NULL,NULL);
+
+			xa_update_window_with_archive_entries (archive,NULL);
+			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
+			g_object_unref (archive->model);
+
+			gtk_widget_set_sensitive(comment_menu, archive->has_comment);
+			gtk_widget_set_sensitive(password_entry_menu, archive->has_passwd);
+			gtk_widget_set_sensitive(listing,TRUE);
+
+			if (GTK_IS_TREE_VIEW(archive->treeview))
+				gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
+
+			xa_set_statusbar_message_for_displayed_rows(archive);
+
+			if (archive->status == XA_ARCHIVESTATUS_TEST)
+			{
+				archive->create_image = FALSE;
+				xa_show_cmd_line_output (NULL,archive);
+			}
+			if (archive->status == XA_ARCHIVESTATUS_OPEN)
+				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
+		}
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static gboolean xa_process_output_from_command_line (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XArchive *archive = data;
+	GIOStatus status;
+	gchar *line = NULL;
+
+	if (cond & (G_IO_IN | G_IO_PRI))
+	{
+		do
+		{
+			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
+			if (line != NULL)
+			{
+				if (pb->multi_extract == FALSE)
+					xa_increase_progress_bar(pb,line,0.0);
+				g_free(line);
+			}
+		}
+		while (status == G_IO_STATUS_NORMAL);
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
+	{
+	done:
+		if (archive->error_output != NULL)
+			archive->error_output = g_slist_reverse (archive->error_output);
+		g_io_channel_shutdown (ioc,TRUE,NULL);
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data)
+{
+	XArchive *archive = data;
+	GIOStatus status;
+	gchar *line = NULL;
+
+	if (cond & (G_IO_IN | G_IO_PRI))
+	{
+		do
+		{
+			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
+			if (line != NULL)
+			{
+				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
+				g_free(line);
+			}
+		}
+		while (status == G_IO_STATUS_NORMAL);
+		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
+			goto done;
+	}
+	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
+	{
+	done:
+		g_io_channel_shutdown (ioc, TRUE, NULL);
+		g_io_channel_unref (ioc);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static void xa_delete_temp_directory (XArchive *archive)
+{
+	if (xa_main_window)
+		xa_launch_external_program("rm -rf",archive->tmp);
+	else
+	{
+		char *argv[4];
+		argv[0] = "rm";
+		argv[1] = "-rf";
+		argv[2] = archive->tmp;
+		argv[3] = NULL;
+		g_spawn_sync (NULL, argv, NULL,G_SPAWN_SEARCH_PATH,NULL, NULL,NULL,NULL, NULL,NULL);
+	}
+}
+
+static XEntry *xa_alloc_memory_for_each_row (guint nc, GType column_types[])
+{
+	XEntry *entry = NULL;
+	unsigned short int i;
+	gint size = 0;
+
+	entry = g_new0(XEntry,1);
+	if (entry == NULL)
+		return NULL;
+
+	for (i = 0; i < nc+2; i++)
+	{
+		switch(column_types[i])
+		{
+			case G_TYPE_STRING:
+				size += sizeof(gchar *);
+			break;
+
+			case G_TYPE_UINT64:
+				size += sizeof(guint64);
+			break;
+		}
+	}
+	entry->columns = g_malloc0 (size);
+	return entry;
+}
+
+static XEntry *xa_find_child_entry (XEntry *entry, gchar *string)
+{
+	gchar *filename;
+
+	if (entry == NULL)
+		return NULL;
+
+	if (g_utf8_validate(entry->filename, -1, NULL))
+		filename = g_filename_display_name(string);
+	else
+		filename = g_strdup(string);
+
+	if (entry->is_dir && strcmp(entry->filename, filename) == 0)
+	{
+		g_free(filename);
+		return entry;
+	}
+
+	g_free(filename);
+
+  return xa_find_child_entry(entry->next, string);
+}
+
+static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, XEntry *entry, gpointer *items)
+{
+	unsigned int i;
+	gpointer current_column;
+
+	current_column = entry->columns;
+
+	for (i = 0; i < archive->nc; i++)
+	{
+		switch(archive->column_types[i+2])
+		{
+			case G_TYPE_STRING:
+				(*((gchar **)current_column)) = g_strdup((gchar*)items[i]);
+				//g_message ("%d - %s",i,(*((gchar **)current_column)));
+				current_column += sizeof(gchar *);
+			break;
+
+			case G_TYPE_UINT64:
+				(*((guint64 *)current_column)) = atol(items[i]);
+				//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
+				current_column += sizeof(guint64);
+			break;
+		}
+	}
+	return entry->columns;
+}
+
+static void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *path, GtkTreeIter *containing_iter)
+{
+	GtkTreeIter child_iter;
+
+	if (!entry)
+		return;
+
+	if (strlen(entry->filename) == 0)
+		return xa_browse_dir_sidebar(entry->child, model, path, containing_iter);
+
+	if (entry->is_dir)
+	{
+		gtk_tree_store_append(model,&child_iter,containing_iter);
+
+		if (!g_utf8_validate(entry->filename, -1, NULL))
+		{
+			gchar *entry_utf8 = g_filename_display_name(entry->filename);
+			g_free(entry->filename);
+			entry->filename = entry_utf8;
+		}
+
+		gtk_tree_store_set(model,&child_iter,0,"gtk-directory",1,entry->filename,2,entry,-1);
+	}
+	xa_browse_dir_sidebar(entry->child,model,NULL,&child_iter);
+	xa_browse_dir_sidebar(entry->next, model,NULL,containing_iter);
+
+}
+
+static gboolean _xa_sidepane_select_row (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
+{
+	XEntry *entry = data;
+	XEntry *entry2;
+	GtkTreeIter parent;
+	gboolean value;
+
+	gtk_tree_model_get (model,iter,2,&entry2,-1);
+	if (entry == entry2)
+	{
+		gtk_tree_model_iter_parent(model,&parent,iter);
+		if ( ! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),path))
+			gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),path);
+
+		gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)),iter);
+		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW(archive_dir_treeview),path,NULL,FALSE,0,0);
+		value = TRUE;
+	}
+	else
+		value = FALSE;
+
+	return value;
+}
 
 XArchive *xa_init_archive_structure(gint type)
 {
@@ -210,138 +482,6 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 }
 */
 
-static gboolean xa_process_output_from_command_line (GIOChannel *ioc,GIOCondition cond,gpointer data)
-{
-	XArchive *archive = data;
-	GIOStatus status;
-	gchar *line = NULL;
-
-	if (cond & (G_IO_IN | G_IO_PRI))
-	{
-		do
-		{
-			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
-			if (line != NULL)
-			{
-				if (pb->multi_extract == FALSE)
-					xa_increase_progress_bar(pb,line,0.0);
-				g_free(line);
-			}
-		}
-		while (status == G_IO_STATUS_NORMAL);
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
-	{
-	done:
-		if (archive->error_output != NULL)
-			archive->error_output = g_slist_reverse (archive->error_output);
-		g_io_channel_shutdown (ioc,TRUE,NULL);
-		g_io_channel_unref (ioc);
-		return FALSE;
-	}
-	return TRUE;
-}
-
-static gboolean xa_process_output (GIOChannel *ioc,GIOCondition cond,gpointer data)
-{
-	XArchive *archive = data;
-	GIOStatus status;
-	gchar *line = NULL;
-
-	if (cond & (G_IO_IN | G_IO_PRI))
-	{
-		do
-		{
-			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
-			if (line != NULL)
-			{
-				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
-					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
-
-				if (archive->parse_output)
-					(*archive->parse_output) (line,archive);
-				g_free(line);
-			}
-			while (gtk_events_pending())
-				gtk_main_iteration();
-		}
-		while (status == G_IO_STATUS_NORMAL);
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
-	{
-	done:
-		if (archive->error_output != NULL)
-			archive->error_output = g_slist_reverse (archive->error_output);
-		g_io_channel_shutdown (ioc,TRUE,NULL);
-		g_io_channel_unref (ioc);
-
-		if (archive->parse_output)
-		{
-			if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-				xa_show_archive_comment (NULL,NULL);
-
-			xa_update_window_with_archive_entries (archive,NULL);
-			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
-			g_object_unref (archive->model);
-
-			gtk_widget_set_sensitive(comment_menu, archive->has_comment);
-			gtk_widget_set_sensitive(password_entry_menu, archive->has_passwd);
-			gtk_widget_set_sensitive(listing,TRUE);
-
-			if (GTK_IS_TREE_VIEW(archive->treeview))
-				gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
-
-			xa_set_statusbar_message_for_displayed_rows(archive);
-
-			if (archive->status == XA_ARCHIVESTATUS_TEST)
-			{
-				archive->create_image = FALSE;
-				xa_show_cmd_line_output (NULL,archive);
-			}
-			if (archive->status == XA_ARCHIVESTATUS_OPEN)
-				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
-		}
-		return FALSE;
-	}
-	return TRUE;
-}
-
-gboolean xa_dump_child_error_messages (GIOChannel *ioc,GIOCondition cond,gpointer data)
-{
-	XArchive *archive = data;
-	GIOStatus status;
-	gchar *line = NULL;
-
-	if (cond & (G_IO_IN | G_IO_PRI))
-	{
-		do
-		{
-			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
-			if (line != NULL)
-			{
-				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
-					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
-				g_free(line);
-			}
-		}
-		while (status == G_IO_STATUS_NORMAL);
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
-	{
-	done:
-		g_io_channel_shutdown (ioc, TRUE, NULL);
-		g_io_channel_unref (ioc);
-		return FALSE;
-	}
-	return TRUE;
-}
-
 void xa_clean_archive_structure (XArchive *archive)
 {
 	XEntry *entry;
@@ -391,21 +531,6 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->clipboard_data)
 		xa_clipboard_clear(NULL,archive);
 	g_free (archive);
-}
-
-void xa_delete_temp_directory (XArchive *archive)
-{
-	if (xa_main_window)
-		xa_launch_external_program("rm -rf",archive->tmp);
-	else
-	{
-		char *argv[4];
-		argv[0] = "rm";
-		argv[1] = "-rf";
-		argv[2] = archive->tmp;
-		argv[3] = NULL;
-		g_spawn_sync (NULL, argv, NULL,G_SPAWN_SEARCH_PATH,NULL, NULL,NULL,NULL, NULL,NULL);
-	}
 }
 
 gboolean xa_create_temp_directory (XArchive *archive)
@@ -517,34 +642,6 @@ gint xa_get_new_archive_idx()
 	return -1;
 }
 
-/* This switch is taken from Squeeze source code */
-XEntry *xa_alloc_memory_for_each_row (guint nc,GType column_types[])
-{
-	XEntry *entry = NULL;
-	unsigned short int i;
-	gint size = 0;
-
-	entry = g_new0(XEntry,1);
-	if (entry == NULL)
-		return NULL;
-
-	for (i = 0; i < nc+2; i++)
-	{
-		switch(column_types[i])
-		{
-			case G_TYPE_STRING:
-				size += sizeof(gchar *);
-			break;
-
-			case G_TYPE_UINT64:
-				size += sizeof(guint64);
-			break;
-		}
-	}
-	entry->columns = g_malloc0 (size);
-	return entry;
-}
-
 void xa_free_entry (XArchive *archive,XEntry *entry)
 {
 	gpointer current_column;
@@ -580,29 +677,6 @@ void xa_free_entry (XArchive *archive,XEntry *entry)
 	g_free(entry);
 }
 
-XEntry *xa_find_child_entry(XEntry *entry, gchar *string)
-{
-	gchar *filename;
-
-	if (entry == NULL)
-		return NULL;
-
-	if (g_utf8_validate(entry->filename, -1, NULL))
-		filename = g_filename_display_name(string);
-	else
-		filename = g_strdup(string);
-
-	if (entry->is_dir && strcmp(entry->filename, filename) == 0)
-	{
-		g_free(filename);
-		return entry;
-	}
-
-	g_free(filename);
-
-  return xa_find_child_entry(entry->next, string);
-}
-
 XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items)
 {
 	XEntry *new_entry= NULL;
@@ -631,33 +705,6 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 	}
 	g_strfreev(components);
 	return new_entry;
-}
-
-gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive,XEntry *entry,gpointer *items)
-{
-	unsigned int i;
-	gpointer current_column;
-
-	current_column = entry->columns;
-
-	for (i = 0; i < archive->nc; i++)
-	{
-		switch(archive->column_types[i+2])
-		{
-			case G_TYPE_STRING:
-				(*((gchar **)current_column)) = g_strdup((gchar*)items[i]);
-				//g_message ("%d - %s",i,(*((gchar **)current_column)));
-				current_column += sizeof(gchar *);
-			break;
-
-			case G_TYPE_UINT64:
-				(*((guint64 *)current_column)) = atol(items[i]);
-				//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
-				current_column += sizeof(guint64);
-			break;
-		}
-	}
-	return entry->columns;
 }
 
 XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
@@ -801,34 +848,6 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 	return flag;
 }
 
-void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model,gchar *path, GtkTreeIter *containing_iter)
-{
-	GtkTreeIter child_iter;
-
-	if (!entry)
-		return;
-
-	if (strlen(entry->filename) == 0)
-		return xa_browse_dir_sidebar(entry->child, model, path, containing_iter);
-
-	if (entry->is_dir)
-	{
-		gtk_tree_store_append(model,&child_iter,containing_iter);
-
-		if (!g_utf8_validate(entry->filename, -1, NULL))
-		{
-			gchar *entry_utf8 = g_filename_display_name(entry->filename);
-			g_free(entry->filename);
-			entry->filename = entry_utf8;
-		}
-
-		gtk_tree_store_set(model,&child_iter,0,"gtk-directory",1,entry->filename,2,entry,-1);
-	}
-	xa_browse_dir_sidebar(entry->child,model,NULL,&child_iter);
-	xa_browse_dir_sidebar(entry->next, model,NULL,containing_iter);
-
-}
-
 void xa_fill_dir_sidebar(XArchive *archive,gboolean force_reload)
 {
 	GtkTreeIter iter;
@@ -895,30 +914,6 @@ void xa_sidepane_row_selected(GtkTreeSelection *selection, gpointer data)
 void xa_sidepane_select_row(XEntry *entry)
 {
 	gtk_tree_model_foreach(GTK_TREE_MODEL(archive_dir_model),(GtkTreeModelForeachFunc)_xa_sidepane_select_row,entry);
-}
-
-gboolean _xa_sidepane_select_row(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data)
-{
-	XEntry *entry = data;
-	XEntry *entry2;
-	GtkTreeIter parent;
-	gboolean value;
-
-	gtk_tree_model_get (model,iter,2,&entry2,-1);
-	if (entry == entry2)
-	{
-		gtk_tree_model_iter_parent(model,&parent,iter);
-		if ( ! gtk_tree_view_row_expanded(GTK_TREE_VIEW(archive_dir_treeview),path))
-			gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview),path);
-
-		gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview)),iter);
-		gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW(archive_dir_treeview),path,NULL,FALSE,0,0);
-		value = TRUE;
-	}
-	else
-		value = FALSE;
-
-	return value;
 }
 
 gint xa_sort_dirs_before_files(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer data)
