@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-02-12 21:13+0100\n"
+"POT-Creation-Date: 2017-02-22 18:34+0100\n"
 "PO-Revision-Date: 2010-04-04 10:58+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -17,1015 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 1.0\n"
 
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/rar.c ../src/zip.c
-msgid "Original"
-msgstr "ਅਸਲੀ"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/zip.c
-msgid "Compressed"
-msgstr "ਕੰਪਰੈੱਸ ਕੀਤਾ"
-
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Attr"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/tar.c ../src/zip.c
-msgid "Time"
-msgstr "ਸਮਾਂ"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/rpm.c ../src/tar.c ../src/zip.c
-msgid "Date"
-msgstr "ਮਿਤੀ"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "Add files"
-msgstr "ਫਾਇਲਾਂ ਜੋੜ੍ਹੋ"
-
-#: ../src/add_dialog.c
-msgid "Selection"
-msgstr "ਚੋਣ"
-
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "ਫਾਇਲ ਪਾਥ: "
-
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "ਪੂਰਾ ਪਾਥ ਸਟੋਰ ਕਰੋ"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "ਪਾਥ ਸਟੋਰ ਨਾ ਕਰੋ"
-
-#: ../src/add_dialog.c
-msgid "Options"
-msgstr "ਚੋਣਾਂ"
-
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "ਅੱਪਡੇਟ ਅਤੇ ਜੋੜ੍ਹੋ"
-
-#: ../src/add_dialog.c
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "Include subdirectories"
-msgstr "ਸਬ-ਡਾਇਰੈਕਟਰੀਆਂ ਸਮੇਤ"
-
-#: ../src/add_dialog.c
-msgid "Create a solid archive"
-msgstr "ਸਾਲਡ ਅਕਾਇਵ ਬਣਾਓ"
-
-#: ../src/add_dialog.c
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "Delete files after adding"
-msgstr "ਜੋੜ੍ਹਨ ਬਾਅਦ ਫਾਇਲਾਂ ਹਟਾਓ"
-
-#: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "ਐਕਸ਼ਨ: "
-
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "ਕੰਪਰੈਸ਼ਨ: "
-
-#: ../src/add_dialog.c ../src/extract_dialog.c
-msgid "Password:"
-msgstr "ਪਾਸਵਰਡ:"
-
-#: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "ਇੰਕ੍ਰਿਪਸ਼ਨ: "
-
-#: ../src/add_dialog.c
-msgid "_Add"
-msgstr "ਜੋੜ੍ਹੋ(_A)"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr ""
-
-#: ../src/add_dialog.c ../src/main.c
-msgid "Can't add files to the archive:"
-msgstr ""
-
-#: ../src/add_dialog.c
-msgid "You haven't selected any files to add!"
-msgstr ""
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "You missed the password!"
-msgstr "ਤੁਸੀਂ ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ!"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "Please enter it!"
-msgstr "ਇੱਥੇ ਦਿਓ ਜੀ!"
-
-#: ../src/add_dialog.c
-msgid "Adding files to archive, please wait..."
-msgstr ""
-
-#: ../src/archive.c
-msgid "Can't run the archiver executable:"
-msgstr ""
-
-#: ../src/archive.c
-msgid "Can't create temporary directory:"
-msgstr ""
-
-#: ../src/arj.c ../src/gzip.c ../src/lha.c ../src/rar.c
-msgid "Ratio"
-msgstr "ਰੇਸ਼ੋ"
-
-#: ../src/arj.c
-msgid "Attributes"
-msgstr "ਐਟਰੀਬਿਊਟ"
-
-#: ../src/bzip2.c ../src/gzip.c ../src/lha.c ../src/rpm.c ../src/tar.c
-msgid "Points to"
-msgstr ""
-
-#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/lha.c ../src/rar.c
-#: ../src/tar.c ../src/zip.c
-msgid "Permissions"
-msgstr "ਅਧਿਕਾਰ"
-
-#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/tar.c
-msgid "Owner/Group"
-msgstr "ਓਨਰ/ਗਰੁੱਪ"
-
-#: ../src/bzip2.c ../src/deb.c ../src/extract_dialog.c ../src/gzip.c
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
-msgid "Size"
-msgstr "ਸਾਈਜ਼"
-
-#: ../src/deb.c
-msgid "Date modified"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Extract to:"
-msgstr ""
-
-#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
-msgid "All files"
-msgstr "ਸਭ ਫਾਇਲਾਂ"
-
-#: ../src/extract_dialog.c
-msgid "Selected files"
-msgstr "ਚੁਣੀਆਂ ਫਾਇਲਾਂ"
-
-#: ../src/extract_dialog.c
-msgid "Files: "
-msgstr "ਫਾਇਲਾਂ: "
-
-#: ../src/extract_dialog.c
-msgid "Files "
-msgstr "ਫਾਇਲਾਂ "
-
-#: ../src/extract_dialog.c
-msgid "Overwrite existing files"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Touch files"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Update existing files"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
-"extracts those files that do not already exist on disk"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "ਚੋਣਾਂ "
-
-#: ../src/extract_dialog.c ../src/interface.c
-msgid "_Extract"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Decompress file"
-msgstr "ਫਾਇਲ ਡੀਕੰਪਰੈੱਸ ਕਰੋ"
-
-#: ../src/extract_dialog.c ../src/interface.c
-msgid "Extract files"
-msgstr "ਫਾਇਲਾਂ ਐਕਸਟਰੈਕਟ"
-
-#: ../src/extract_dialog.c
-msgid "You missed where to extract the files!"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Please enter the extraction path."
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "This archive is encrypted!"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Please enter the password."
-msgstr "ਪਾਸਵਰਡ ਦਿਓ ਜੀ।"
-
-#: ../src/extract_dialog.c ../src/window.c
-#, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr ""
-
-#: ../src/extract_dialog.c ../src/window.c
-msgid "Can't perform extraction!"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Extracting files from archive,please wait..."
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "ਅਕਾਇਵ ਨਾਂ"
-
-#: ../src/extract_dialog.c
-msgid "Path"
-msgstr "ਪਾਥ"
-
-#: ../src/extract_dialog.c
-msgid "Multi-Extract"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "ਚੋਣਾਂ:"
-
-#: ../src/extract_dialog.c
-msgid "Please select the archives you want to extract"
-msgstr ""
-
-#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
-msgid "Sorry,I could not perform the operation!"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Please select the destination directory"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Can't multi-extract archives:"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "You haven't added any of them!"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Please fill the \"Extract to\" field!"
-msgstr ""
-
-#: ../src/extract_dialog.c
-msgid "Some errors occurred:"
-msgstr ""
-
-#: ../src/interface.c
-msgid "_Archive"
-msgstr "ਅਕਾਇਵ(_A)"
-
-#: ../src/interface.c
-msgid "_List as"
-msgstr ""
-
-#: ../src/interface.c
-msgid "_Text file"
-msgstr "ਟੈਕਸਟ ਫਾਇਲ(_T)"
-
-#: ../src/interface.c
-msgid "_HTML file"
-msgstr "_HTML ਫਾਇਲ"
-
-#: ../src/interface.c
-msgid "_Test"
-msgstr "ਟੈਸਟ(_T)"
-
-#: ../src/interface.c
-msgid "_Properties"
-msgstr "ਪ੍ਰਾਪਟੀ(_P)"
-
-#: ../src/interface.c
-msgid "A_ction"
-msgstr "ਐਕਸ਼ਨ(_c)"
-
-#: ../src/interface.c
-msgid "A_dd"
-msgstr "ਜੋੜ੍ਹੋ(_d)"
-
-#: ../src/interface.c
-msgid "Re_name"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Uns_ort"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Make SF_X"
-msgstr ""
-
-#: ../src/interface.c
-msgid "_Multi-Extract"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Archive _comment"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Select _all"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Dese_lect all"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Select _by pattern"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Cmd-line outp_ut"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Enter passwo_rd"
-msgstr ""
-
-#: ../src/interface.c
-msgid "_Preferences"
-msgstr "ਮੇਰੀ ਪਸੰਦ(_P)"
-
-#: ../src/interface.c
-msgid "_Help"
-msgstr "ਮੱਦਦ(_H)"
-
-#: ../src/interface.c
-msgid "_Contents"
-msgstr "ਸਮੱਗਰੀ(_C)"
-
-#: ../src/interface.c
-msgid "New"
-msgstr ""
-
-#: ../src/interface.c ../src/new_dialog.c
-msgid "Create a new archive"
-msgstr ""
-
-#: ../src/interface.c
-#, fuzzy
-msgid "Open"
-msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
-
-#: ../src/interface.c ../src/window.c
-msgid "Open an archive"
-msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
-
-#: ../src/interface.c
-msgid "Back"
-msgstr "ਪਿੱਛੇ"
-
-#: ../src/interface.c
-msgid "Up"
-msgstr "ਉੱਤੇ"
-
-#: ../src/interface.c
-msgid "Forward"
-msgstr "ਅੱਗੇ"
-
-#: ../src/interface.c
-msgid "Root"
-msgstr "ਰੂਟ"
-
-#: ../src/interface.c
-#, fuzzy
-msgid "Add"
-msgstr "ਜੋੜ੍ਹੋ(_A)"
-
-#: ../src/interface.c
-msgid "Extract"
-msgstr "ਐਕਸਟਰੈਕਟ"
-
-#: ../src/interface.c
-msgid "Stop"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Cancel current operation"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Location:"
-msgstr "ਟਿਕਾਣਾ:"
-
-#: ../src/interface.c
-msgid "Archive tree"
-msgstr ""
-
-#: ../src/interface.c
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Close archive"
-msgstr ""
-
-#: ../src/interface.c
-msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr ""
-
-#: ../src/interface.c
-msgid "<span weight='bold' size='larger'>Enter password for:</span>"
-msgstr ""
-
-#: ../src/interface.c
-msgid "_Password:"
-msgstr ""
-
-#: ../src/interface.c ../src/open-with-dlg.c
-msgid "Open With"
-msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
-
-#: ../src/interface.c
-msgid "View"
-msgstr "ਵੇਖੋ"
-
-#: ../src/interface.c
-msgid "Cut"
-msgstr "ਕੱਟੋ"
-
-#: ../src/interface.c
-msgid "Copy"
-msgstr "ਕਾਪੀ"
-
-#: ../src/interface.c
-msgid "Paste"
-msgstr "ਚੇਪੋ"
-
-#: ../src/interface.c
-msgid "Delete"
-msgstr "ਹਟਾਓ"
-
-#: ../src/interface.c
-msgid "Rename"
-msgstr "ਨਾਂ ਬਦਲੋ"
-
-#: ../src/interface.c
-msgid "Select by Pattern"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Pattern:"
-msgstr "ਪੈਟਰਨ:"
-
-#: ../src/interface.c
-msgid "example: *.txt; ac*"
-msgstr "ਜਿਵੇਂ: *.txt; ac*"
-
-#: ../src/interface.c
-msgid "_Select"
-msgstr "ਚੁਣੋ(_S)"
-
-#: ../src/interface.c
-msgid "Archive Properties"
-msgstr "ਅਕਾਇਵ ਪ੍ਰਾਪਟੀ"
-
-#: ../src/interface.c
-msgid "Name:"
-msgstr "ਨਾਂ:"
-
-#: ../src/interface.c
-msgid "Path:"
-msgstr "ਪਾਥ:"
-
-#: ../src/interface.c
-msgid "Type:"
-msgstr "ਟਾਈਪ:"
-
-#: ../src/interface.c
-msgid "Encrypted:"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Modified on:"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Compressed size:"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Uncompressed size:"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Comment:"
-msgstr "ਟਿੱਪਣੀ:"
-
-#: ../src/interface.c
-msgid "Number of files:"
-msgstr "ਫਾਇਲਾਂ ਦੀ ਗਿਣਤੀ:"
-
-#: ../src/interface.c
-msgid "Compression ratio:"
-msgstr ""
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to deb packages!"
-msgstr ""
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to rpm packages!"
-msgstr ""
-
-#: ../src/interface.c ../src/window.c
-msgid "Can't perform this action:"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Extracting from archive:"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Adding to archive:"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Total Progress:"
-msgstr ""
-
-#: ../src/lha.c
-msgid "UID/GID"
-msgstr "UID/GID"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "ਟਾਈਮ-ਸਟੈਂਪ"
-
-#: ../src/main.c
-msgid "Extract archive to the destination directory and quits."
-msgstr ""
-
-#: ../src/main.c
-msgid "destination archive"
-msgstr ""
-
-#: ../src/main.c
-msgid "Extract archive by asking the extraction directory and quits."
-msgstr ""
-
-#: ../src/main.c
-msgid "archive"
-msgstr ""
-
-#: ../src/main.c
-msgid "Multi-extract archives"
-msgstr ""
-
-#: ../src/main.c
-msgid "filenames"
-msgstr ""
-
-#: ../src/main.c
-msgid "Add the given files by asking the name of the archive and quits."
-msgstr ""
-
-#: ../src/main.c
-msgid "file1 file2 file3 ... fileN"
-msgstr ""
-
-#: ../src/main.c
-msgid "Add files to archive by asking their filenames and quits."
-msgstr ""
-
-#: ../src/main.c
-msgid "Show version and exit"
-msgstr ""
-
-#: ../src/main.c
-msgid "[archive name]"
-msgstr ""
-
-#: ../src/main.c
-#, c-format
-msgid ""
-"xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
-msgstr ""
-
-#: ../src/main.c
-#, c-format
-msgid "Maintained by "
-msgstr ""
-
-#: ../src/main.c
-#, c-format
-msgid "Please report bugs to <%s>."
-msgstr ""
-
-#: ../src/main.c
-msgid "Can't extract files from the archive:"
-msgstr ""
-
-#: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr ""
-
-#: ../src/main.c ../src/window.c
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr ""
-
-#: ../src/main.c
-msgid "Can't allocate memory for the archive structure!"
-msgstr ""
-
-#: ../src/new_dialog.c
-msgid "Cr_eate"
-msgstr ""
-
-#: ../src/new_dialog.c ../src/window.c
-msgid "Only archives"
-msgstr "ਕੇਵਲ ਅਕਾਇਵ"
-
-#: ../src/new_dialog.c
-msgid "Archive type:"
-msgstr ""
-
-#: ../src/new_dialog.c
-msgid "Choose the archive type to create"
-msgstr ""
-
-#: ../src/new_dialog.c
-#, c-format
-msgid "\"%s\" is already open!"
-msgstr ""
-
-#: ../src/new_dialog.c
-msgid "Can't create a new archive:"
-msgstr ""
-
-#: ../src/new_dialog.c
-#, c-format
-msgid "The archive \"%s\" already exists!"
-msgstr ""
-
-#: ../src/new_dialog.c
-msgid "Do you want to overwrite it?"
-msgstr ""
-
-#: ../src/open-with-dlg.c
-msgid "Open the selected files with"
-msgstr ""
-
-#: ../src/open-with-dlg.c
-#, c-format
-msgid "Open <i>%s</i> with:"
-msgstr ""
-
-#: ../src/open-with-dlg.c
-msgid "Use a custom command:"
-msgstr ""
-
-#: ../src/open-with-dlg.c
-msgid "Browse"
-msgstr ""
-
-#: ../src/open-with-dlg.c
-msgid "Select an application"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Preferences"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Archive"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Window"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Advanced"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Confirm deletion of files"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Sort archive by filename"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Store archiver output"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "This option takes more memory with large archives"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "large"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "small"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Show archive comment"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Show archive tree sidebar"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Show archive location bar"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Show toolbar"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Web browser to use:"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "choose..."
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Open text files with:"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Open image files with:"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Preferred temp directory:"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "/tmp"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Preferred extract directory:"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Save window geometry"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Choose the directory to use"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Choose the application to use"
-msgstr ""
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr ""
-
-#: ../src/rar.c ../src/zip.c
-msgid "Method"
-msgstr ""
-
-#: ../src/rar.c ../src/zip.c
-msgid "Version"
-msgstr ""
-
-#: ../src/rpm.c
-#, c-format
-msgid "Can't open RPM file %s:"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Permission"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Owner"
-msgstr ""
-
-#: ../src/rpm.c
-msgid "Group"
-msgstr ""
-
-#: ../src/window.c
-msgid "An error occurred!"
-msgstr "ਗਲਤੀ ਆਈ!"
-
-#: ../src/window.c
-msgid "Please check the 'Store archiver output' option to see it."
-msgstr ""
-
-#: ../src/window.c
-msgid "Archiver output"
-msgstr "ਅਕਾਇਵਰ ਆਉਟਪੁੱਟ"
-
-#: ../src/window.c
-msgid "An error occurred while accessing the archive:"
-msgstr ""
-
-#: ../src/window.c
-msgid "Save the archive as"
-msgstr "ਅਕਾਇਵ ਇੰਝ ਸੰਭਾਲੋ"
-
-#: ../src/window.c
-#, c-format
-msgid "Can't open file \"%s\":"
-msgstr ""
-
-#: ../src/window.c
-msgid "Archive format is not recognized!"
-msgstr ""
-
-#: ../src/window.c
-msgid "Sorry,this archive format is not supported:"
-msgstr ""
-
-#: ../src/window.c
-msgid "the proper archiver is not installed!"
-msgstr ""
-
-#: ../src/window.c
-msgid "Can't allocate memory for the archive structure:"
-msgstr ""
-
-#: ../src/window.c
-msgid "Operation aborted!"
-msgstr ""
-
-#: ../src/window.c
-msgid "Opening archive,please wait..."
-msgstr ""
-
-#: ../src/window.c
-msgid "Testing archive,please wait..."
-msgstr ""
-
-#: ../src/window.c
-msgid "Print the archive content as HTML"
-msgstr ""
-
-#: ../src/window.c
-msgid "Print the archive content as text"
-msgstr ""
-
-#: ../src/window.c
-#, c-format
-msgid "Archive contents:\n"
-msgstr ""
-
 #: ../src/window.c
 #, c-format
 msgid ""
@@ -1035,110 +26,10 @@ msgstr ""
 "\n"
 "ਨਾਂ: "
 
-#: ../src/window.c
+#: ../src/new_dialog.c
 #, c-format
-msgid "Compressed   size: "
-msgstr "ਕੰਪਰੈੱਸ ਹੋਇਆ ਸਾਈਜ਼: "
-
-#: ../src/window.c
-#, c-format
-msgid "Uncompressed size: "
-msgstr "ਅਣ-ਕੰਪਰੈੱਸ ਸਾਈਜ਼: "
-
-#: ../src/window.c
-#, c-format
-msgid "Number of files: "
-msgstr "ਫਾਇਲਾਂ ਦੀ ਗਿਣਤੀ: "
-
-#: ../src/window.c
-#, c-format
-msgid "Comment:\n"
-msgstr "ਟਿੱਪਣੀ:\n"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "ਫਾਇਲਾਂ:%*s%s"
-
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|ਸਾਈਜ਼\n"
-
-#: ../src/window.c
-#, c-format
-msgid "<th>Files:</th>"
-msgstr "<th>ਫਾਇਲਾਂ:</th>"
-
-#: ../src/window.c
-#, c-format
-msgid "<th>Size:</th>"
-msgstr "<th>ਸਾਈਜ਼:</th>"
-
-#: ../src/window.c
-msgid "You are about to delete entries from the archive."
+msgid "\"%s\" is already open!"
 msgstr ""
-
-#: ../src/window.c
-msgid "Are you sure you want to do this?"
-msgstr ""
-
-#: ../src/window.c
-msgid "Can't convert the archive to self-extracting:"
-msgstr ""
-
-#: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr ""
-
-#: ../src/window.c
-msgid "Please select the 7zCon.sfx module"
-msgstr ""
-
-#: ../src/window.c
-msgid "A GTK+ only lightweight archive manager"
-msgstr ""
-
-#: ../src/window.c
-msgid "translator-credits"
-msgstr ""
-"ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ\n"
-"ਪੰਜਾਬੀ ਓਪਨਸੋਰਸ ਟੀਮ (POST)\n"
-"http://www.satuj.com"
-
-#: ../src/window.c
-msgid "Save the self-extracting archive as"
-msgstr ""
-
-#: ../src/window.c
-msgid "Filename"
-msgstr "ਫਾਇਲ-ਨਾਂ"
-
-#: ../src/window.c
-msgid "Doing so will probably corrupt your archive!"
-msgstr ""
-
-#: ../src/window.c
-msgid "Do you really want to cancel?"
-msgstr ""
-
-#: ../src/window.c
-msgid "Yes"
-msgstr "ਹਾਂ"
-
-#: ../src/window.c
-msgid "No"
-msgstr "ਨਹੀਂ"
-
-#: ../src/window.c
-msgid "selected"
-msgstr ""
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] ""
-msgstr[1] ""
 
 #: ../src/window.c
 #, c-format
@@ -1155,11 +46,1038 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/window.c
+#, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/pref_dialog.c
+msgid "/tmp"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "5 = default compression, 7 = max compression"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr ""
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr ""
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>ਫਾਇਲਾਂ:</th>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Size:</th>"
+msgstr "<th>ਸਾਈਜ਼:</th>"
+
+#: ../xarchiver.desktop.in.h
+msgid "A GTK+ only archive manager"
+msgstr ""
+
+#: ../src/window.c
+msgid "A GTK+ only lightweight archive manager"
+msgstr ""
+
+#: ../src/interface.c
+msgid "A_ction"
+msgstr "ਐਕਸ਼ਨ(_c)"
+
+#: ../src/interface.c
+msgid "A_dd"
+msgstr "ਜੋੜ੍ਹੋ(_d)"
+
+#: ../src/add_dialog.c
+msgid "Actions: "
+msgstr "ਐਕਸ਼ਨ: "
+
+#: ../src/interface.c
+#, fuzzy
+msgid "Add"
+msgstr "ਜੋੜ੍ਹੋ(_A)"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Add files"
+msgstr "ਫਾਇਲਾਂ ਜੋੜ੍ਹੋ"
+
+#: ../src/main.c
+msgid "Add files to archive by asking their filenames and quits."
+msgstr ""
+
+#: ../src/main.c
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Adding files to archive, please wait..."
+msgstr ""
+
+#: ../src/interface.c
+msgid "Adding to archive:"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Advanced"
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "ਸਭ ਫਾਇਲਾਂ"
+
+#: ../src/pref_dialog.c
+msgid "Allow subdirs with drag and drop"
+msgstr ""
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr ""
+
+#: ../src/window.c
+msgid "An error occurred!"
+msgstr "ਗਲਤੀ ਆਈ!"
+
+#: ../src/pref_dialog.c
+msgid "Archive"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Archive Name"
+msgstr "ਅਕਾਇਵ ਨਾਂ"
+
+#: ../src/interface.c
+msgid "Archive Properties"
+msgstr "ਅਕਾਇਵ ਪ੍ਰਾਪਟੀ"
+
+#: ../src/interface.c
+msgid "Archive _comment"
+msgstr ""
+
+#: ../src/window.c
+#, c-format
+msgid "Archive contents:\n"
+msgstr ""
+
+#: ../src/window.c
+msgid "Archive format is not recognized!"
+msgstr ""
+
+#: ../xarchiver.desktop.in.h
+msgid "Archive manager"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Archive tree"
+msgstr ""
+
+#: ../src/new_dialog.c
+msgid "Archive type:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "ਅਕਾਇਵਰ ਆਉਟਪੁੱਟ"
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Attr"
+msgstr "Attr"
+
+#: ../src/arj.c
+msgid "Attributes"
+msgstr "ਐਟਰੀਬਿਊਟ"
+
+#: ../src/interface.c
+msgid "Back"
+msgstr "ਪਿੱਛੇ"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr ""
+
+#: ../src/rar.c
+msgid "CRC"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/main.c
+msgid "Can't add files to the archive:"
+msgstr ""
+
+#: ../src/main.c
+msgid "Can't allocate memory for the archive structure!"
+msgstr ""
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr ""
+
+#: ../src/new_dialog.c
+msgid "Can't create a new archive:"
+msgstr ""
+
+#: ../src/archive.c
+msgid "Can't create temporary directory:"
+msgstr ""
+
+#: ../src/main.c
+msgid "Can't extract files from the archive:"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Can't multi-extract archives:"
+msgstr ""
+
+#: ../src/rpm.c
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr ""
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr ""
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file %s:"
+msgstr ""
+
+#: ../src/window.c
 msgid "Can't perform another extraction:"
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr ""
+
+#: ../src/interface.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr ""
+
+#: ../src/archive.c
+msgid "Can't run the archiver executable:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Cancel current operation"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Choose the application to use"
+msgstr ""
+
+#: ../src/new_dialog.c
+msgid "Choose the archive type to create"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Choose the directory to use"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Close archive"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Cmd-line outp_ut"
+msgstr ""
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "ਟਿੱਪਣੀ"
+
+#: ../src/interface.c
+msgid "Comment:"
+msgstr "ਟਿੱਪਣੀ:"
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "ਟਿੱਪਣੀ:\n"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Compressed"
+msgstr "ਕੰਪਰੈੱਸ ਕੀਤਾ"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed   size: "
+msgstr "ਕੰਪਰੈੱਸ ਹੋਇਆ ਸਾਈਜ਼: "
+
+#: ../src/interface.c
+msgid "Compressed size:"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Compression ratio:"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Compression: "
+msgstr "ਕੰਪਰੈਸ਼ਨ: "
+
+#: ../src/pref_dialog.c
+msgid "Confirm deletion of files"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Copy"
+msgstr "ਕਾਪੀ"
+
+#: ../src/new_dialog.c
+msgid "Cr_eate"
+msgstr ""
+
+#: ../src/interface.c ../src/new_dialog.c
+msgid "Create a new archive"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Create a solid archive"
+msgstr "ਸਾਲਡ ਅਕਾਇਵ ਬਣਾਓ"
+
+#: ../src/interface.c
+msgid "Cut"
+msgstr "ਕੱਟੋ"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
+msgid "Date"
+msgstr "ਮਿਤੀ"
+
+#: ../src/deb.c
+msgid "Date modified"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Decompress file"
+msgstr "ਫਾਇਲ ਡੀਕੰਪਰੈੱਸ ਕਰੋ"
+
+#: ../src/interface.c
+msgid "Delete"
+msgstr "ਹਟਾਓ"
+
+#: ../src/add_dialog.c
+msgid "Delete files after adding"
+msgstr "ਜੋੜ੍ਹਨ ਬਾਅਦ ਫਾਇਲਾਂ ਹਟਾਓ"
+
+#: ../src/interface.c
+msgid "Dese_lect all"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Destination dirs:"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Do not store paths"
+msgstr "ਪਾਥ ਸਟੋਰ ਨਾ ਕਰੋ"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr ""
+
+#: ../src/new_dialog.c
+msgid "Do you want to overwrite it?"
+msgstr ""
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Encrypted:"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Encryption: "
+msgstr "ਇੰਕ੍ਰਿਪਸ਼ਨ: "
+
+#: ../src/interface.c
+msgid "Enter passwo_rd"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Extract"
+msgstr "ਐਕਸਟਰੈਕਟ"
+
+#: ../src/main.c
+msgid "Extract archive by asking the extraction directory and quits."
+msgstr ""
+
+#: ../src/main.c
+msgid "Extract archive to the destination directory and quits."
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "Extract files"
+msgstr "ਫਾਇਲਾਂ ਐਕਸਟਰੈਕਟ"
+
+#: ../src/extract_dialog.c
+msgid "Extract files with full path"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Extract pathnames"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Extract to dir \"Archive Name\""
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Extract to:"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Extracting files from archive,please wait..."
+msgstr ""
+
+#: ../src/interface.c
+msgid "Extracting from archive:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "File Paths: "
+msgstr "ਫਾਇਲ ਪਾਥ: "
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "ਫਾਇਲ-ਨਾਂ"
+
+#: ../src/extract_dialog.c
+msgid "Files "
+msgstr "ਫਾਇਲਾਂ "
+
+#: ../src/extract_dialog.c
+msgid "Files: "
+msgstr "ਫਾਇਲਾਂ: "
+
+#: ../src/window.c
+#, c-format
+msgid "Files:%*s%s"
+msgstr "ਫਾਇਲਾਂ:%*s%s"
+
+#: ../src/interface.c
+msgid "Forward"
+msgstr "ਅੱਗੇ"
+
+#: ../src/add_dialog.c
+msgid "Freshen and replace"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Freshen existing files"
+msgstr ""
+
+#: ../src/window.c
+msgid "From File"
+msgstr "ਫਾਇਲ ਤੋਂ"
+
+#: ../src/rpm.c
+msgid "Group"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Hard Link"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Icons size (requires restart)"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "If checked the archive comment is shown after the archive is loaded"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Include subdirectories"
+msgstr "ਸਬ-ਡਾਇਰੈਕਟਰੀਆਂ ਸਮੇਤ"
+
+#: ../src/interface.c
+msgid "Location:"
+msgstr "ਟਿਕਾਣਾ:"
+
+#: ../src/main.c
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/interface.c
+msgid "Make SF_X"
+msgstr ""
+
+#: ../src/rar.c ../src/zip.c
+msgid "Method"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Modified on:"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Multi-Extract"
+msgstr ""
+
+#: ../src/main.c
+msgid "Multi-extract archives"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Name:"
+msgstr "ਨਾਂ:"
+
+#: ../src/interface.c
+msgid "New"
+msgstr ""
+
+#: ../src/window.c
+msgid "No"
+msgstr "ਨਹੀਂ"
+
+#: ../src/interface.c
+msgid "Number of files:"
+msgstr "ਫਾਇਲਾਂ ਦੀ ਗਿਣਤੀ:"
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "ਫਾਇਲਾਂ ਦੀ ਗਿਣਤੀ: "
+
+#: ../src/zip.c
+msgid "OS"
+msgstr ""
+
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "ਕੇਵਲ ਅਕਾਇਵ"
+
+#: ../src/interface.c
+#, fuzzy
+msgid "Open"
+msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr ""
+
+#: ../src/interface.c ../src/open-with-dlg.c
+msgid "Open With"
+msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "ਟੈਕਸਟ ਫਾਇਲ ਖੋਲ੍ਹੋ"
+
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "ਅਕਾਇਵ ਖੋਲ੍ਹੋ"
+
+#: ../src/pref_dialog.c
+msgid "Open image files with:"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Open text files with:"
+msgstr ""
+
+#: ../src/open-with-dlg.c
+msgid "Open the selected files with"
+msgstr ""
+
+#: ../src/window.c
+msgid "Opening archive,please wait..."
+msgstr ""
+
+#: ../src/window.c
+msgid "Operation aborted!"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Options"
+msgstr "ਚੋਣਾਂ"
+
+#: ../src/extract_dialog.c
+msgid "Options "
+msgstr "ਚੋਣਾਂ "
+
+#: ../src/extract_dialog.c
+msgid "Options:"
+msgstr "ਚੋਣਾਂ:"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Original"
+msgstr "ਅਸਲੀ"
+
+#: ../src/extract_dialog.c
+msgid "Overwrite existing files"
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Owner"
+msgstr ""
+
+#: ../src/deb.c ../src/gzip_et_al.c ../src/tar.c
+msgid "Owner/Group"
+msgstr "ਓਨਰ/ਗਰੁੱਪ"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Password:"
+msgstr "ਪਾਸਵਰਡ:"
+
+#: ../src/interface.c
+msgid "Paste"
+msgstr "ਚੇਪੋ"
+
+#: ../src/extract_dialog.c
+msgid "Path"
+msgstr "ਪਾਥ"
+
+#: ../src/interface.c
+msgid "Path:"
+msgstr "ਪਾਥ:"
+
+#: ../src/interface.c
+msgid "Pattern:"
+msgstr "ਪੈਟਰਨ:"
+
+#: ../src/rpm.c
+msgid "Permission"
+msgstr ""
+
+#: ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/tar.c
+#: ../src/zip.c
+msgid "Permissions"
+msgstr "ਅਧਿਕਾਰ"
+
+#: ../src/window.c
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr ""
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Please enter it!"
+msgstr "ਇੱਥੇ ਦਿਓ ਜੀ!"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the extraction path."
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Please enter the password."
+msgstr "ਪਾਸਵਰਡ ਦਿਓ ਜੀ।"
+
+#: ../src/extract_dialog.c
+msgid "Please fill the \"Extract to\" field!"
+msgstr ""
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr ""
+
+#: ../src/window.c
+msgid "Please install xdg-utils package."
+msgstr ""
+
+#: ../src/main.c
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr ""
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Please select the archives you want to extract"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Please select the destination directory"
 msgstr ""
 
 #: ../src/window.c
 msgid "Please wait until the completion of the current one!"
+msgstr ""
+
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rpm.c ../src/tar.c
+msgid "Points to"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Preferences"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Preferred archive format"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Preferred extract directory:"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Preferred temp directory:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr ""
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr ""
+
+#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Ratio"
+msgstr "ਰੇਸ਼ੋ"
+
+#: ../src/interface.c
+msgid "Re_name"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Rename"
+msgstr "ਨਾਂ ਬਦਲੋ"
+
+#: ../src/interface.c
+msgid "Root"
+msgstr "ਰੂਟ"
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "ਅਕਾਇਵ ਇੰਝ ਸੰਭਾਲੋ"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Save window geometry"
+msgstr ""
+
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Select _all"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Select _by pattern"
+msgstr ""
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Select by Pattern"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Selected files"
+msgstr "ਚੁਣੀਆਂ ਫਾਇਲਾਂ"
+
+#: ../src/add_dialog.c
+msgid "Selection"
+msgstr "ਚੋਣ"
+
+#: ../src/pref_dialog.c
+msgid "Show archive comment"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Show archive location bar"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Show archive tree sidebar"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/main.c
+msgid "Show version and exit"
+msgstr ""
+
+#: ../src/deb.c ../src/extract_dialog.c ../src/gzip_et_al.c ../src/lha.c
+#: ../src/rpm.c ../src/tar.c
+msgid "Size"
+msgstr "ਸਾਈਜ਼"
+
+#: ../src/extract_dialog.c
+msgid "Some errors occurred:"
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+msgid "Sorry,I could not perform the operation!"
+msgstr ""
+
+#: ../src/window.c
+msgid "Sorry,this archive format is not supported:"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Sort archive by filename"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Stop"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Store archiver output"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Store full paths"
+msgstr "ਪੂਰਾ ਪਾਥ ਸਟੋਰ ਕਰੋ"
+
+#: ../src/window.c
+msgid "Testing archive,please wait..."
+msgstr ""
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr ""
+
+#: ../src/window.c
+msgid "The archiver doesn't support this feature!"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "The filename column is sorted after loading the archive"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "This archive is encrypted!"
+msgstr ""
+
+#: ../src/window.c
+msgid "This file type is not supported!"
+msgstr ""
+
+#: ../src/interface.c
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "This option takes more memory with large archives"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr ""
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/zip.c
+msgid "Time"
+msgstr "ਸਮਾਂ"
+
+#: ../src/lha.c
+msgid "Timestamp"
+msgstr "ਟਾਈਮ-ਸਟੈਂਪ"
+
+#: ../src/interface.c
+msgid "Total Progress:"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Touch files"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Type:"
+msgstr "ਟਾਈਪ:"
+
+#: ../src/lha.c
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/interface.c
+msgid "Uncompressed size:"
+msgstr ""
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "ਅਣ-ਕੰਪਰੈੱਸ ਸਾਈਜ਼: "
+
+#: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Up"
+msgstr "ਉੱਤੇ"
+
+#: ../src/add_dialog.c
+msgid "Update and add"
+msgstr "ਅੱਪਡੇਟ ਅਤੇ ਜੋੜ੍ਹੋ"
+
+#: ../src/extract_dialog.c
+msgid "Update existing files"
+msgstr ""
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr ""
+
+#: ../src/rar.c ../src/zip.c
+msgid "Version"
+msgstr ""
+
+#: ../src/interface.c
+msgid "View"
+msgstr "ਵੇਖੋ"
+
+#: ../src/pref_dialog.c
+msgid "Web browser to use:"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Window"
+msgstr ""
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "ਹਾਂ"
+
+#: ../src/window.c
+msgid "You are about to delete entries from the archive."
+msgstr ""
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to deb packages!"
+msgstr ""
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to rpm packages!"
+msgstr ""
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr ""
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
 msgstr ""
 
 #: ../src/window.c
@@ -1170,62 +1088,143 @@ msgstr ""
 msgid "You have to install rar package!"
 msgstr ""
 
-#: ../src/window.c
-msgid "The archiver doesn't support this feature!"
+#: ../src/extract_dialog.c
+msgid "You haven't added any of them!"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "You haven't selected any files to add!"
+msgstr ""
+
+#: ../src/main.c
+msgid "You missed the archive name!\n"
+msgstr ""
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "You missed the password!"
+msgstr "ਤੁਸੀਂ ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ!"
+
+#: ../src/extract_dialog.c
+msgid "You missed where to extract the files!"
+msgstr ""
+
+#: ../src/main.c
+msgid "[archive name]"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "_Add"
+msgstr "ਜੋੜ੍ਹੋ(_A)"
+
+#: ../src/interface.c
+msgid "_Archive"
+msgstr "ਅਕਾਇਵ(_A)"
+
+#: ../src/interface.c
+msgid "_Contents"
+msgstr "ਸਮੱਗਰੀ(_C)"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "_Extract"
+msgstr ""
+
+#: ../src/interface.c
+msgid "_HTML file"
+msgstr "_HTML ਫਾਇਲ"
+
+#: ../src/interface.c
+msgid "_Help"
+msgstr "ਮੱਦਦ(_H)"
+
+#: ../src/interface.c
+msgid "_List as"
+msgstr ""
+
+#: ../src/interface.c
+msgid "_Multi-Extract"
+msgstr ""
+
+#: ../src/interface.c
+msgid "_Password:"
+msgstr ""
+
+#: ../src/interface.c
+msgid "_Preferences"
+msgstr "ਮੇਰੀ ਪਸੰਦ(_P)"
+
+#: ../src/interface.c
+msgid "_Properties"
+msgstr "ਪ੍ਰਾਪਟੀ(_P)"
+
+#: ../src/interface.c
+msgid "_Select"
+msgstr "ਚੁਣੋ(_S)"
+
+#: ../src/interface.c
+msgid "_Test"
+msgstr "ਟੈਸਟ(_T)"
+
+#: ../src/interface.c
+msgid "_Text file"
+msgstr "ਟੈਕਸਟ ਫਾਇਲ(_T)"
+
+#: ../src/main.c
+msgid "archive"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "choose..."
+msgstr ""
+
+#: ../src/main.c
+msgid "destination archive"
+msgstr ""
+
+#: ../src/interface.c
+msgid "example: *.txt; ac*"
+msgstr "ਜਿਵੇਂ: *.txt; ac*"
+
+#: ../src/main.c
+msgid "file1 file2 file3 ... fileN"
+msgstr ""
+
+#: ../src/main.c
+msgid "filenames"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "large"
 msgstr ""
 
 #: ../src/window.c
-msgid "You didn't set which browser to use!"
+msgid "selected"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "small"
 msgstr ""
 
 #: ../src/window.c
-msgid "Please go to Preferences->Advanced and set it."
+msgid "the proper archiver is not installed!"
 msgstr ""
 
 #: ../src/window.c
-msgid "This file type is not supported!"
+msgid "translator-credits"
 msgstr ""
+"ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ\n"
+"ਪੰਜਾਬੀ ਓਪਨਸੋਰਸ ਟੀਮ (POST)\n"
+"http://www.satuj.com"
 
-#: ../src/window.c
-msgid "Please install xdg-utils package."
-msgstr ""
-
-#: ../src/window.c
-msgid "You didn't set which program to use for opening this file!"
-msgstr ""
-
-#: ../src/window.c
-msgid "Failed to launch the application!"
-msgstr ""
-
-#: ../src/window.c
-msgid "Comment"
-msgstr "ਟਿੱਪਣੀ"
-
-#: ../src/window.c
-msgid "From File"
-msgstr "ਫਾਇਲ ਤੋਂ"
-
-#: ../src/window.c
-msgid "Open a text file"
-msgstr "ਟੈਕਸਟ ਫਾਇਲ ਖੋਲ੍ਹੋ"
-
-#: ../src/window.c
+#: ../src/main.c
 #, c-format
-msgid "Can't open file %s:"
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
 msgstr ""
 
-#: ../src/zip.c
-msgid "OS"
-msgstr ""
-
-#: ../xarchiver.desktop.in.h
-msgid "Archive manager"
-msgstr ""
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr ""
+#: ../src/window.c
+msgid "|Size\n"
+msgstr "|ਸਾਈਜ਼\n"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|ਕੰਪਰੈੱਸ ਕੀਤਾ\n"

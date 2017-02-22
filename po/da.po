@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-02-12 21:13+0100\n"
+"POT-Creation-Date: 2017-02-22 18:34+0100\n"
 "PO-Revision-Date: 2009-08-22 15:53+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
@@ -21,1051 +21,6 @@ msgstr ""
 "X-Poedit-Country: DENMARK\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/rar.c ../src/zip.c
-msgid "Original"
-msgstr "Original"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/zip.c
-msgid "Compressed"
-msgstr "Komprimeret"
-
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Attribut"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/tar.c ../src/zip.c
-msgid "Time"
-msgstr "Tid"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/rpm.c ../src/tar.c ../src/zip.c
-msgid "Date"
-msgstr "Dato"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "Add files"
-msgstr "Tilføj filer"
-
-#: ../src/add_dialog.c
-msgid "Selection"
-msgstr "Markering"
-
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "Filstier: "
-
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "Gem fulde stinavne"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "Gem ikke stinavne"
-
-#: ../src/add_dialog.c
-msgid "Options"
-msgstr "Indstillinger"
-
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "Opdatér og tilføj"
-
-#: ../src/add_dialog.c
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
-msgstr ""
-"Denne indstilling vil tilføje nye filer og opdatere filer, som er blevet "
-"ændret, siden arkivet blev oprettet/ændret"
-
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr "Opdatér og erstat"
-
-#: ../src/add_dialog.c
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
-msgstr ""
-"Denne indstilling påvirker kun arkivet, hvis filen er blevet modificeret "
-"senere, end den version som allerede er i arkivet; modsat opdatér-"
-"indstillingen vil denne ikke tilføje filer, som ikke allerede findes i "
-"arkivet"
-
-#: ../src/add_dialog.c
-msgid "Include subdirectories"
-msgstr "Medtag undermapper"
-
-#: ../src/add_dialog.c
-msgid "Create a solid archive"
-msgstr "Opret et ensartet arkiv"
-
-#: ../src/add_dialog.c
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio"
-msgstr ""
-"I et ensartet arkiv er filerne samlet sammen, og dette giver bedre "
-"komprimeringforhold"
-
-#: ../src/add_dialog.c
-msgid "Delete files after adding"
-msgstr "Slet filer efter tilføjelse"
-
-#: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "Handlinger: "
-
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "Komprimering: "
-
-#: ../src/add_dialog.c ../src/extract_dialog.c
-msgid "Password:"
-msgstr "Adgangskode:"
-
-#: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "Kryptering: "
-
-#: ../src/add_dialog.c
-msgid "_Add"
-msgstr "_Tilføj"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = ingen komprimering, 5 er standardværdi. 9 = bedste komprimering men "
-"langsomst"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = ingen komprimering, 6 er standardværdi. 9 = bedste komprimering men "
-"langsomst"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = ingen komprimering, 3 er standardværdi. 5 = bedste komprimering men "
-"langsomst"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-"0 = ingen komprimering, 1 er standardværdi, 4 = hurtigste med laveste "
-"komprimering"
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = standardværdi komprimering, 7 = maksimum komprimering"
-
-#: ../src/add_dialog.c ../src/main.c
-msgid "Can't add files to the archive:"
-msgstr "Kan ikke tilføje filer til arkivet:"
-
-#: ../src/add_dialog.c
-msgid "You haven't selected any files to add!"
-msgstr "Du har ikke valgt filer for tilføjning!"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "You missed the password!"
-msgstr "Du glemte at angive adgangskode!"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "Please enter it!"
-msgstr "Vær venlig at angive adgangskode!"
-
-#: ../src/add_dialog.c
-msgid "Adding files to archive, please wait..."
-msgstr "Tilføjer filer til arkiv, vent venligst..."
-
-#: ../src/archive.c
-msgid "Can't run the archiver executable:"
-msgstr "Kan ikke køre arkivprogram:"
-
-#: ../src/archive.c
-msgid "Can't create temporary directory:"
-msgstr "Kan ikke oprette midlertidig mappe:"
-
-#: ../src/arj.c ../src/gzip.c ../src/lha.c ../src/rar.c
-msgid "Ratio"
-msgstr "Forhold"
-
-#: ../src/arj.c
-msgid "Attributes"
-msgstr "Attributter"
-
-#: ../src/bzip2.c ../src/gzip.c ../src/lha.c ../src/rpm.c ../src/tar.c
-msgid "Points to"
-msgstr "Peger på"
-
-#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/lha.c ../src/rar.c
-#: ../src/tar.c ../src/zip.c
-msgid "Permissions"
-msgstr "Rettigheder"
-
-#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/tar.c
-msgid "Owner/Group"
-msgstr "Ejer/Gruppe"
-
-#: ../src/bzip2.c ../src/deb.c ../src/extract_dialog.c ../src/gzip.c
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
-msgid "Size"
-msgstr "Størrelse"
-
-#: ../src/deb.c
-msgid "Date modified"
-msgstr "Ændringsdato"
-
-#: ../src/extract_dialog.c
-msgid "Extract to:"
-msgstr "Udpak til:"
-
-#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
-msgid "All files"
-msgstr "Alle filer"
-
-#: ../src/extract_dialog.c
-msgid "Selected files"
-msgstr "Valgte filer"
-
-#: ../src/extract_dialog.c
-msgid "Files: "
-msgstr "Filer: "
-
-#: ../src/extract_dialog.c
-msgid "Files "
-msgstr "Filer "
-
-#: ../src/extract_dialog.c
-msgid "Overwrite existing files"
-msgstr "Overskriv eksisterende filer"
-
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr "Udpak filer med fulde stinavne"
-
-#: ../src/extract_dialog.c
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr "Arkivets katalogstruktur er genoprettet i udpakningskataloget"
-
-#: ../src/extract_dialog.c
-msgid "Touch files"
-msgstr "Rør filer"
-
-#: ../src/extract_dialog.c
-msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
-msgstr ""
-"Når denne indstilling er i brug, lader tar ændringsdato/tid  på filer, som "
-"bliver udpakket, være lig med, hvornår filer blev udpakket i stedet for dato/"
-"tid i arkivet"
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
-msgstr "Genopfrisk eksisterende filer"
-
-#: ../src/extract_dialog.c
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr ""
-"Udpak kun filer som allerede findes på disken, og som er nyere end dem på "
-"disken"
-
-#: ../src/extract_dialog.c
-msgid "Update existing files"
-msgstr "Opdatér eksisterende filer"
-
-#: ../src/extract_dialog.c
-msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
-"extracts those files that do not already exist on disk"
-msgstr ""
-"Denne indstilling udfører samme funktion som genopfriskningsfunktionen, "
-"nemlig at udpakke filer, som er nyere end dem på disken med samme navn, og "
-"derudover vil denne indstilling også pakke filer ud, som ikke allerede "
-"findes på disken"
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "Indstillinger "
-
-#: ../src/extract_dialog.c ../src/interface.c
-msgid "_Extract"
-msgstr "_Udpak"
-
-#: ../src/extract_dialog.c
-msgid "Decompress file"
-msgstr "Dekomprimér fil"
-
-#: ../src/extract_dialog.c ../src/interface.c
-msgid "Extract files"
-msgstr "Udpak filer"
-
-#: ../src/extract_dialog.c
-msgid "You missed where to extract the files!"
-msgstr "Du glemte, hvor du ville udpakke filerne!"
-
-#: ../src/extract_dialog.c
-msgid "Please enter the extraction path."
-msgstr "Angiv venligst en udpakkesti."
-
-#: ../src/extract_dialog.c
-msgid "This archive is encrypted!"
-msgstr "Dette arkiv er krypteret!"
-
-#: ../src/extract_dialog.c
-msgid "Please enter the password."
-msgstr "Angiv venligst adgangskode."
-
-#: ../src/extract_dialog.c ../src/window.c
-#, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr ""
-"Du har ikke de korrekte adgangsrettigheder til at udpakke filerne til "
-"kataloget \"%s\"."
-
-#: ../src/extract_dialog.c ../src/window.c
-msgid "Can't perform extraction!"
-msgstr "Kan ikke udføre udpakning!"
-
-#: ../src/extract_dialog.c
-msgid "Extracting files from archive,please wait..."
-msgstr "Udpakker filer fra arkiv, vent venligst..."
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "Arkivnavn"
-
-#: ../src/extract_dialog.c
-msgid "Path"
-msgstr "Sti"
-
-#: ../src/extract_dialog.c
-msgid "Multi-Extract"
-msgstr "Multi-udpakning"
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
-msgstr "Udpak til kataloget \"Arkivnavn\""
-
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr ""
-"Denne indstilling udpakker arkiver i kataloger navngivet med arkivernes navne"
-
-#: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr "Målkataloger:"
-
-#: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr "Udpak stinavne"
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "Indstillinger:"
-
-#: ../src/extract_dialog.c
-msgid "Please select the archives you want to extract"
-msgstr "Markér arkiverne du ønsker at udpakke"
-
-#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
-msgid "Sorry,I could not perform the operation!"
-msgstr "Beklager, handlingen kunne ikke udføres!"
-
-#: ../src/extract_dialog.c
-msgid "Please select the destination directory"
-msgstr "Vælg venligst målkataloget"
-
-#: ../src/extract_dialog.c
-msgid "Can't multi-extract archives:"
-msgstr "Kan ikke multi-udpakke arkiverne:"
-
-#: ../src/extract_dialog.c
-msgid "You haven't added any of them!"
-msgstr "Du har ikke tilføjet nogen af dem!"
-
-#: ../src/extract_dialog.c
-msgid "Please fill the \"Extract to\" field!"
-msgstr "Udfyld venligst \"Udpak til\" feltet!"
-
-#: ../src/extract_dialog.c
-msgid "Some errors occurred:"
-msgstr "Der opstod fejl:"
-
-#: ../src/interface.c
-msgid "_Archive"
-msgstr "_Arkivér"
-
-#: ../src/interface.c
-msgid "_List as"
-msgstr "_Vis som"
-
-#: ../src/interface.c
-msgid "_Text file"
-msgstr "_Tekstfil"
-
-#: ../src/interface.c
-msgid "_HTML file"
-msgstr "_HTML-fil"
-
-#: ../src/interface.c
-msgid "_Test"
-msgstr "_Test"
-
-#: ../src/interface.c
-msgid "_Properties"
-msgstr "_Egenskaber"
-
-#: ../src/interface.c
-msgid "A_ction"
-msgstr "H_andling"
-
-#: ../src/interface.c
-msgid "A_dd"
-msgstr "_Tilføj"
-
-#: ../src/interface.c
-msgid "Re_name"
-msgstr "Om_døb"
-
-#: ../src/interface.c
-msgid "Uns_ort"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Make SF_X"
-msgstr "Opret SF_X"
-
-#: ../src/interface.c
-msgid "_Multi-Extract"
-msgstr "_Multi-udpak"
-
-#: ../src/interface.c
-msgid "Archive _comment"
-msgstr "Arki_vkommentar"
-
-#: ../src/interface.c
-msgid "Select _all"
-msgstr "Markér _alle"
-
-#: ../src/interface.c
-msgid "Dese_lect all"
-msgstr "Afmar_kér alle"
-
-#: ../src/interface.c
-msgid "Select _by pattern"
-msgstr "Markér e_fter mønster"
-
-#: ../src/interface.c
-msgid "Cmd-line outp_ut"
-msgstr "Cmd-linjeu_ddata"
-
-#: ../src/interface.c
-msgid "Enter passwo_rd"
-msgstr "Angiv _adgangskode"
-
-#: ../src/interface.c
-msgid "_Preferences"
-msgstr "_Indstillinger"
-
-#: ../src/interface.c
-msgid "_Help"
-msgstr "_Hjælp"
-
-#: ../src/interface.c
-msgid "_Contents"
-msgstr "_Indhold"
-
-#: ../src/interface.c
-msgid "New"
-msgstr ""
-
-#: ../src/interface.c ../src/new_dialog.c
-msgid "Create a new archive"
-msgstr "Opret et nyt arkiv"
-
-#: ../src/interface.c
-#, fuzzy
-msgid "Open"
-msgstr "Åbn med"
-
-#: ../src/interface.c ../src/window.c
-msgid "Open an archive"
-msgstr "Åbn et arkiv"
-
-#: ../src/interface.c
-msgid "Back"
-msgstr "Tilbage"
-
-#: ../src/interface.c
-msgid "Up"
-msgstr "Op"
-
-#: ../src/interface.c
-msgid "Forward"
-msgstr "Fremad"
-
-#: ../src/interface.c
-msgid "Root"
-msgstr "Rod"
-
-#: ../src/interface.c
-#, fuzzy
-msgid "Add"
-msgstr "_Tilføj"
-
-#: ../src/interface.c
-msgid "Extract"
-msgstr "Udpak"
-
-#: ../src/interface.c
-msgid "Stop"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Cancel current operation"
-msgstr "Afbryd igangværende handling"
-
-#: ../src/interface.c
-msgid "Location:"
-msgstr "Placering:"
-
-#: ../src/interface.c
-msgid "Archive tree"
-msgstr "Arkivtræ"
-
-#: ../src/interface.c
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr "Dette er Xarchivers led status. Ved blink er Xarchiver optaget"
-
-#: ../src/interface.c
-msgid "Close archive"
-msgstr "Luk arkiv"
-
-#: ../src/interface.c
-msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr "<span weight='bold' size='larger'>Adgangskode påkrævet for:</span>"
-
-#: ../src/interface.c
-msgid "<span weight='bold' size='larger'>Enter password for:</span>"
-msgstr "<span weight='bold' size='larger'>Angiv adgangskode for:</span>"
-
-#: ../src/interface.c
-msgid "_Password:"
-msgstr "_Adgangskode:"
-
-#: ../src/interface.c ../src/open-with-dlg.c
-msgid "Open With"
-msgstr "Åbn med"
-
-#: ../src/interface.c
-msgid "View"
-msgstr "Vis"
-
-#: ../src/interface.c
-msgid "Cut"
-msgstr "Klip"
-
-#: ../src/interface.c
-msgid "Copy"
-msgstr "Kopiér"
-
-#: ../src/interface.c
-msgid "Paste"
-msgstr "Indsæt"
-
-#: ../src/interface.c
-msgid "Delete"
-msgstr "Slet"
-
-#: ../src/interface.c
-msgid "Rename"
-msgstr "Omdøb"
-
-#: ../src/interface.c
-msgid "Select by Pattern"
-msgstr "Markér efter mønstre"
-
-#: ../src/interface.c
-msgid "Pattern:"
-msgstr "Mønster:"
-
-#: ../src/interface.c
-msgid "example: *.txt; ac*"
-msgstr "eksempel: *.txt; ac*"
-
-#: ../src/interface.c
-msgid "_Select"
-msgstr "_Markér"
-
-#: ../src/interface.c
-msgid "Archive Properties"
-msgstr "Arkivegenskaber"
-
-#: ../src/interface.c
-msgid "Name:"
-msgstr "Navn:"
-
-#: ../src/interface.c
-msgid "Path:"
-msgstr "Sti:"
-
-#: ../src/interface.c
-msgid "Type:"
-msgstr "Type:"
-
-#: ../src/interface.c
-msgid "Encrypted:"
-msgstr "Krypteret:"
-
-#: ../src/interface.c
-msgid "Modified on:"
-msgstr "Ændring sket:"
-
-#: ../src/interface.c
-msgid "Compressed size:"
-msgstr "Komprimeret størrelse:"
-
-#: ../src/interface.c
-msgid "Uncompressed size:"
-msgstr "Ukomprimeret størrelse:"
-
-#: ../src/interface.c
-msgid "Comment:"
-msgstr "Kommentar:"
-
-#: ../src/interface.c
-msgid "Number of files:"
-msgstr "Antal filer:"
-
-#: ../src/interface.c
-msgid "Compression ratio:"
-msgstr "Komprimeringsforhold:"
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to deb packages!"
-msgstr "Du kan ikke tilføje indhold til deb-pakker!"
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to rpm packages!"
-msgstr "Du kan ikke tilføje indhold til rpm-pakker!"
-
-#: ../src/interface.c ../src/window.c
-msgid "Can't perform this action:"
-msgstr "Kan ikke udføre denne handling:"
-
-#: ../src/interface.c
-msgid "Extracting from archive:"
-msgstr "Udpakker fra arkiv:"
-
-#: ../src/interface.c
-msgid "Adding to archive:"
-msgstr "Tilføjer til arkiv:"
-
-#: ../src/interface.c
-msgid "Total Progress:"
-msgstr "Fremgang i alt:"
-
-#: ../src/lha.c
-msgid "UID/GID"
-msgstr "UID/GID"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Tidstempel"
-
-#: ../src/main.c
-msgid "Extract archive to the destination directory and quits."
-msgstr "Udpak arkiv til målkatalog og afslut."
-
-#: ../src/main.c
-msgid "destination archive"
-msgstr "målarkiv"
-
-#: ../src/main.c
-msgid "Extract archive by asking the extraction directory and quits."
-msgstr "Udpak arkiv ved at spørge om målkatalog og afslut."
-
-#: ../src/main.c
-msgid "archive"
-msgstr "arkiv"
-
-#: ../src/main.c
-msgid "Multi-extract archives"
-msgstr "Multi-udpak arkiver"
-
-#: ../src/main.c
-msgid "filenames"
-msgstr "filnavne"
-
-#: ../src/main.c
-msgid "Add the given files by asking the name of the archive and quits."
-msgstr "Tilføj filer ved at spørge om navn på arkiv og afslut."
-
-#: ../src/main.c
-msgid "file1 file2 file3 ... fileN"
-msgstr "fil1 fil2 fil3 ... filN"
-
-#: ../src/main.c
-msgid "Add files to archive by asking their filenames and quits."
-msgstr "Tilføj filer til arkiv ved at spørge om filnavne og afslut."
-
-#: ../src/main.c
-msgid "Show version and exit"
-msgstr "Vis version og afslut"
-
-#: ../src/main.c
-msgid "[archive name]"
-msgstr "[arkivnavn]"
-
-#: ../src/main.c
-#, c-format
-msgid ""
-"xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
-msgstr ""
-"xarchiver: %s\n"
-"Prøv xarchiver --help for at se hele listen over tilgængelige "
-"kommandolinjeparametre.\n"
-
-#: ../src/main.c
-#, c-format
-msgid "Maintained by "
-msgstr ""
-
-#: ../src/main.c
-#, c-format
-msgid "Please report bugs to <%s>."
-msgstr "Rapportér venligst fejl til <%s>."
-
-#: ../src/main.c
-msgid "Can't extract files from the archive:"
-msgstr "Kan ikke udpakke filer fra arkivet:"
-
-#: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Du glemte arkivnavnet!\n"
-
-#: ../src/main.c ../src/window.c
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Vælg \"ny\" for at oprette eller \"åbn\" for at åbne et arkiv"
-
-#: ../src/main.c
-msgid "Can't allocate memory for the archive structure!"
-msgstr "Kan ikke reservere hukommelse til arkivstrukturen!"
-
-#: ../src/new_dialog.c
-msgid "Cr_eate"
-msgstr "Op_ret"
-
-#: ../src/new_dialog.c ../src/window.c
-msgid "Only archives"
-msgstr "Kun arkiver"
-
-#: ../src/new_dialog.c
-msgid "Archive type:"
-msgstr "Arkivtype:"
-
-#: ../src/new_dialog.c
-msgid "Choose the archive type to create"
-msgstr "Vælg arkivtype for oprettelse"
-
-#: ../src/new_dialog.c
-#, c-format
-msgid "\"%s\" is already open!"
-msgstr "\"%s\" er allerede åben!"
-
-#: ../src/new_dialog.c
-msgid "Can't create a new archive:"
-msgstr "Kan ikke oprette nyt arkiv:"
-
-#: ../src/new_dialog.c
-#, c-format
-msgid "The archive \"%s\" already exists!"
-msgstr "Arkivet \"%s\" findes allerede!"
-
-#: ../src/new_dialog.c
-msgid "Do you want to overwrite it?"
-msgstr "Vil du overskrive det?"
-
-#: ../src/open-with-dlg.c
-msgid "Open the selected files with"
-msgstr "Åbn markerede filer med"
-
-#: ../src/open-with-dlg.c
-#, c-format
-msgid "Open <i>%s</i> with:"
-msgstr "Åbn <i>%s</i> med:"
-
-#: ../src/open-with-dlg.c
-msgid "Use a custom command:"
-msgstr "Brug en tilpasset kommando:"
-
-#: ../src/open-with-dlg.c
-msgid "Browse"
-msgstr "Navigér"
-
-#: ../src/open-with-dlg.c
-msgid "Select an application"
-msgstr "Vælg et program"
-
-#: ../src/pref_dialog.c
-msgid "Preferences"
-msgstr "Indstillinger"
-
-#: ../src/pref_dialog.c
-msgid "Archive"
-msgstr "Arkiv"
-
-#: ../src/pref_dialog.c
-msgid "Window"
-msgstr "Vindue"
-
-#: ../src/pref_dialog.c
-msgid "Advanced"
-msgstr "Avanceret"
-
-#: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Foretrukne arkivformat"
-
-#: ../src/pref_dialog.c
-msgid "Confirm deletion of files"
-msgstr "Bekræft sletning af filer"
-
-#: ../src/pref_dialog.c
-msgid "Sort archive by filename"
-msgstr "Sortér arkiv efter filnavn"
-
-#: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "Filnavnkolonnen er sorteret efter indlæsning af arkivet"
-
-#: ../src/pref_dialog.c
-msgid "Store archiver output"
-msgstr "Gem arkivuddata"
-
-#: ../src/pref_dialog.c
-msgid "This option takes more memory with large archives"
-msgstr "Denne indstilling bruger mere hukommelse med store arkiver"
-
-#: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Ikonstørrelse (kræver genstart)"
-
-#: ../src/pref_dialog.c
-msgid "large"
-msgstr "stort"
-
-#: ../src/pref_dialog.c
-msgid "small"
-msgstr "lille"
-
-#: ../src/pref_dialog.c
-msgid "Show archive comment"
-msgstr "Vis arkivkommentar"
-
-#: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr ""
-"Hvis markeret vil arkivkommentarer blive vist efter indlæsning af arkivet"
-
-#: ../src/pref_dialog.c
-msgid "Show archive tree sidebar"
-msgstr "Vis sidepanel for arkivtræ"
-
-#: ../src/pref_dialog.c
-msgid "Show archive location bar"
-msgstr "Vis arkivstedbjælke"
-
-#: ../src/pref_dialog.c
-msgid "Show toolbar"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Web browser to use:"
-msgstr "Brug webbrowser:"
-
-#: ../src/pref_dialog.c
-msgid "choose..."
-msgstr "vælg..."
-
-#: ../src/pref_dialog.c
-msgid "Open text files with:"
-msgstr "Åbn tekstfiler med:"
-
-#: ../src/pref_dialog.c
-msgid "Open image files with:"
-msgstr "Åbn billedfiler med:"
-
-#: ../src/pref_dialog.c
-msgid "Preferred temp directory:"
-msgstr "Midlertidig katalogpræference:"
-
-#: ../src/pref_dialog.c
-msgid "/tmp"
-msgstr "/tmp"
-
-#: ../src/pref_dialog.c
-msgid "Preferred extract directory:"
-msgstr "Foretrukket udpakningsmappe:"
-
-#: ../src/pref_dialog.c
-msgid "Save window geometry"
-msgstr "Gem vinduesgeometri"
-
-#: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
-msgstr "Tillad underkataloger med træk og slip"
-
-#: ../src/pref_dialog.c
-msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
-msgstr ""
-"Denne indstilling medtager underkataloger, når du tilføjer filer med træk og "
-"slip"
-
-#: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"<span color='red' style='italic'>Installér venligst xdg-utilspakke så\n"
-"Xarchiver kan genkende flere filtyper.</span>"
-
-#: ../src/pref_dialog.c
-msgid "Choose the directory to use"
-msgstr "Vælg mappen som skal bruges"
-
-#: ../src/pref_dialog.c
-msgid "Choose the application to use"
-msgstr "Vælg program for brug"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
-
-#: ../src/rar.c ../src/zip.c
-msgid "Method"
-msgstr "Metode"
-
-#: ../src/rar.c ../src/zip.c
-msgid "Version"
-msgstr "Version"
-
-#: ../src/rpm.c
-#, c-format
-msgid "Can't open RPM file %s:"
-msgstr "Kan ikke åbne RPM fil %s:"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Kan ikke flytte filindikator til position 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Kan ikke læse data fra fil:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Kan ikke anvende filindikator i fil:"
-
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Rettighed"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Fasthenvisning"
-
-#: ../src/rpm.c
-msgid "Owner"
-msgstr "Ejer"
-
-#: ../src/rpm.c
-msgid "Group"
-msgstr "Gruppe"
-
-#: ../src/window.c
-msgid "An error occurred!"
-msgstr "En fejl opstod!"
-
-#: ../src/window.c
-msgid "Please check the 'Store archiver output' option to see it."
-msgstr "Afkryds venligst 'Gem arkivuddata' indstilling for at se denne."
-
-#: ../src/window.c
-msgid "Archiver output"
-msgstr "Arkivuddata"
-
-#: ../src/window.c
-msgid "An error occurred while accessing the archive:"
-msgstr "En fejl opstod under tilgang til arkivet:"
-
-#: ../src/window.c
-msgid "Save the archive as"
-msgstr "Gem arkivet som"
-
-#: ../src/window.c
-#, c-format
-msgid "Can't open file \"%s\":"
-msgstr "Kan ikke åbne fil \"%s\":"
-
-#: ../src/window.c
-msgid "Archive format is not recognized!"
-msgstr "Arkivformat er ikke genkendt!"
-
-#: ../src/window.c
-msgid "Sorry,this archive format is not supported:"
-msgstr "Beklager, dette arkivformat er ikke understøttet:"
-
-#: ../src/window.c
-msgid "the proper archiver is not installed!"
-msgstr "det korrekte arkivprogram er ikke installeret!"
-
-#: ../src/window.c
-msgid "Can't allocate memory for the archive structure:"
-msgstr "Kan ikke reservere hukommelse til arkivstrukturen:"
-
-#: ../src/window.c
-msgid "Operation aborted!"
-msgstr "Operation afbrudt!"
-
-#: ../src/window.c
-msgid "Opening archive,please wait..."
-msgstr "Åbner arkiv, vent venligst..."
-
-#: ../src/window.c
-msgid "Testing archive,please wait..."
-msgstr "Tester arkiv, vent venligst..."
-
-#: ../src/window.c
-msgid "Print the archive content as HTML"
-msgstr "Skriv arkivindholdet som HTML"
-
-#: ../src/window.c
-msgid "Print the archive content as text"
-msgstr "Skriv arkivindholdet som tekst"
-
-#: ../src/window.c
-#, c-format
-msgid "Archive contents:\n"
-msgstr "Arkivindhold:\n"
-
 #: ../src/window.c
 #, c-format
 msgid ""
@@ -1075,111 +30,10 @@ msgstr ""
 "\n"
 "Navn: "
 
-#: ../src/window.c
+#: ../src/new_dialog.c
 #, c-format
-msgid "Compressed   size: "
-msgstr "Komprimeret størrelse: "
-
-#: ../src/window.c
-#, c-format
-msgid "Uncompressed size: "
-msgstr "Ukomprimeret størrelse: "
-
-#: ../src/window.c
-#, c-format
-msgid "Number of files: "
-msgstr "Antal filer: "
-
-#: ../src/window.c
-#, c-format
-msgid "Comment:\n"
-msgstr "Kommentar:\n"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Filer:%*s%s"
-
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Størrelse\n"
-
-#: ../src/window.c
-#, c-format
-msgid "<th>Files:</th>"
-msgstr "<th>Filer:</th>"
-
-#: ../src/window.c
-#, c-format
-msgid "<th>Size:</th>"
-msgstr "<th>Størrelse:</th>"
-
-#: ../src/window.c
-msgid "You are about to delete entries from the archive."
-msgstr "Du er ved at slette poster fra arkivet."
-
-#: ../src/window.c
-msgid "Are you sure you want to do this?"
-msgstr "Er du sikker på, at du vil gøre dette?"
-
-#: ../src/window.c
-msgid "Can't convert the archive to self-extracting:"
-msgstr "Kan ikke konvertere arkivet til selvudpakning:"
-
-#: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Kan ikke skrive unzipsfx-modulet til arkiv:"
-
-#: ../src/window.c
-msgid "Please select the 7zCon.sfx module"
-msgstr "Markér venligst 7zCon.sfx-modulet"
-
-#: ../src/window.c
-msgid "A GTK+ only lightweight archive manager"
-msgstr "En letvægtig arkivhåndtering baseret udelukkende på GTK+"
-
-#: ../src/window.c
-msgid "translator-credits"
-msgstr ""
-"Per Kongstad\n"
-"\n"
-"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
-"Mere info: http://www.dansk-gruppen.dk"
-
-#: ../src/window.c
-msgid "Save the self-extracting archive as"
-msgstr "Gem det selvudpakkende arkiv som"
-
-#: ../src/window.c
-msgid "Filename"
-msgstr "Filnavn"
-
-#: ../src/window.c
-msgid "Doing so will probably corrupt your archive!"
-msgstr "At gøre dette vil sansynligvis ødelægge dit arkiv!"
-
-#: ../src/window.c
-msgid "Do you really want to cancel?"
-msgstr "Ønsker du virkelig at afbryde?"
-
-#: ../src/window.c
-msgid "Yes"
-msgstr "Ja"
-
-#: ../src/window.c
-msgid "No"
-msgstr "Nej"
-
-#: ../src/window.c
-msgid "selected"
-msgstr "markeret"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d fil og %d katalog %s (%s)"
-msgstr[1] "%d filer og %d kataloger %s (%s)"
+msgid "\"%s\" is already open!"
+msgstr "\"%s\" er allerede åben!"
 
 #: ../src/window.c
 #, c-format
@@ -1196,12 +50,1072 @@ msgstr[0] "%d fil %s (%s)"
 msgstr[1] "%d filer %s (%s)"
 
 #: ../src/window.c
+#, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] "%d fil og %d katalog %s (%s)"
+msgstr[1] "%d filer og %d kataloger %s (%s)"
+
+#: ../src/pref_dialog.c
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr ""
+"0 = ingen komprimering, 1 er standardværdi, 4 = hurtigste med laveste "
+"komprimering"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+"0 = ingen komprimering, 3 er standardværdi. 5 = bedste komprimering men "
+"langsomst"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr ""
+"0 = ingen komprimering, 5 er standardværdi. 9 = bedste komprimering men "
+"langsomst"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr ""
+"0 = ingen komprimering, 6 er standardværdi. 9 = bedste komprimering men "
+"langsomst"
+
+#: ../src/add_dialog.c
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = standardværdi komprimering, 7 = maksimum komprimering"
+
+#: ../src/pref_dialog.c
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"<span color='red' style='italic'>Installér venligst xdg-utilspakke så\n"
+"Xarchiver kan genkende flere filtyper.</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight='bold' size='larger'>Angiv adgangskode for:</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight='bold' size='larger'>Adgangskode påkrævet for:</span>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>Filer:</th>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Size:</th>"
+msgstr "<th>Størrelse:</th>"
+
+#: ../xarchiver.desktop.in.h
+msgid "A GTK+ only archive manager"
+msgstr "En arkivhåndtering baseret udelukkende på GTK+"
+
+#: ../src/window.c
+msgid "A GTK+ only lightweight archive manager"
+msgstr "En letvægtig arkivhåndtering baseret udelukkende på GTK+"
+
+#: ../src/interface.c
+msgid "A_ction"
+msgstr "H_andling"
+
+#: ../src/interface.c
+msgid "A_dd"
+msgstr "_Tilføj"
+
+#: ../src/add_dialog.c
+msgid "Actions: "
+msgstr "Handlinger: "
+
+#: ../src/interface.c
+#, fuzzy
+msgid "Add"
+msgstr "_Tilføj"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Add files"
+msgstr "Tilføj filer"
+
+#: ../src/main.c
+msgid "Add files to archive by asking their filenames and quits."
+msgstr "Tilføj filer til arkiv ved at spørge om filnavne og afslut."
+
+#: ../src/main.c
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "Tilføj filer ved at spørge om navn på arkiv og afslut."
+
+#: ../src/add_dialog.c
+msgid "Adding files to archive, please wait..."
+msgstr "Tilføjer filer til arkiv, vent venligst..."
+
+#: ../src/interface.c
+msgid "Adding to archive:"
+msgstr "Tilføjer til arkiv:"
+
+#: ../src/pref_dialog.c
+msgid "Advanced"
+msgstr "Avanceret"
+
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "Alle filer"
+
+#: ../src/pref_dialog.c
+msgid "Allow subdirs with drag and drop"
+msgstr "Tillad underkataloger med træk og slip"
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr "En fejl opstod under tilgang til arkivet:"
+
+#: ../src/window.c
+msgid "An error occurred!"
+msgstr "En fejl opstod!"
+
+#: ../src/pref_dialog.c
+msgid "Archive"
+msgstr "Arkiv"
+
+#: ../src/extract_dialog.c
+msgid "Archive Name"
+msgstr "Arkivnavn"
+
+#: ../src/interface.c
+msgid "Archive Properties"
+msgstr "Arkivegenskaber"
+
+#: ../src/interface.c
+msgid "Archive _comment"
+msgstr "Arki_vkommentar"
+
+#: ../src/window.c
+#, c-format
+msgid "Archive contents:\n"
+msgstr "Arkivindhold:\n"
+
+#: ../src/window.c
+msgid "Archive format is not recognized!"
+msgstr "Arkivformat er ikke genkendt!"
+
+#: ../xarchiver.desktop.in.h
+msgid "Archive manager"
+msgstr "Arkivhåndtering"
+
+#: ../src/interface.c
+msgid "Archive tree"
+msgstr "Arkivtræ"
+
+#: ../src/new_dialog.c
+msgid "Archive type:"
+msgstr "Arkivtype:"
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "Arkivuddata"
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr "Er du sikker på, at du vil gøre dette?"
+
+#: ../src/7zip.c
+msgid "Attr"
+msgstr "Attribut"
+
+#: ../src/arj.c
+msgid "Attributes"
+msgstr "Attributter"
+
+#: ../src/interface.c
+msgid "Back"
+msgstr "Tilbage"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr "Navigér"
+
+#: ../src/rar.c
+msgid "CRC"
+msgstr "CRC"
+
+#: ../src/add_dialog.c ../src/main.c
+msgid "Can't add files to the archive:"
+msgstr "Kan ikke tilføje filer til arkivet:"
+
+#: ../src/main.c
+msgid "Can't allocate memory for the archive structure!"
+msgstr "Kan ikke reservere hukommelse til arkivstrukturen!"
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr "Kan ikke reservere hukommelse til arkivstrukturen:"
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr "Kan ikke konvertere arkivet til selvudpakning:"
+
+#: ../src/new_dialog.c
+msgid "Can't create a new archive:"
+msgstr "Kan ikke oprette nyt arkiv:"
+
+#: ../src/archive.c
+msgid "Can't create temporary directory:"
+msgstr "Kan ikke oprette midlertidig mappe:"
+
+#: ../src/main.c
+msgid "Can't extract files from the archive:"
+msgstr "Kan ikke udpakke filer fra arkivet:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Kan ikke anvende filindikator i fil:"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Kan ikke flytte filindikator til position 104:"
+
+#: ../src/extract_dialog.c
+msgid "Can't multi-extract archives:"
+msgstr "Kan ikke multi-udpakke arkiverne:"
+
+#: ../src/rpm.c
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "Kan ikke åbne RPM fil %s:"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "Kan ikke åbne fil \"%s\":"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file %s:"
+msgstr "Kan ikke åbne fil %s:"
+
+#: ../src/window.c
 msgid "Can't perform another extraction:"
 msgstr "Kan ikke udføre en anden udpakning:"
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr "Kan ikke udføre udpakning!"
+
+#: ../src/interface.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr "Kan ikke udføre denne handling:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Kan ikke læse data fra fil:"
+
+#: ../src/archive.c
+msgid "Can't run the archiver executable:"
+msgstr "Kan ikke køre arkivprogram:"
+
+#: ../src/window.c
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "Kan ikke skrive unzipsfx-modulet til arkiv:"
+
+#: ../src/interface.c
+msgid "Cancel current operation"
+msgstr "Afbryd igangværende handling"
+
+#: ../src/pref_dialog.c
+msgid "Choose the application to use"
+msgstr "Vælg program for brug"
+
+#: ../src/new_dialog.c
+msgid "Choose the archive type to create"
+msgstr "Vælg arkivtype for oprettelse"
+
+#: ../src/pref_dialog.c
+msgid "Choose the directory to use"
+msgstr "Vælg mappen som skal bruges"
+
+#: ../src/interface.c
+msgid "Close archive"
+msgstr "Luk arkiv"
+
+#: ../src/interface.c
+msgid "Cmd-line outp_ut"
+msgstr "Cmd-linjeu_ddata"
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "Kommentar"
+
+#: ../src/interface.c
+msgid "Comment:"
+msgstr "Kommentar:"
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "Kommentar:\n"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Compressed"
+msgstr "Komprimeret"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed   size: "
+msgstr "Komprimeret størrelse: "
+
+#: ../src/interface.c
+msgid "Compressed size:"
+msgstr "Komprimeret størrelse:"
+
+#: ../src/interface.c
+msgid "Compression ratio:"
+msgstr "Komprimeringsforhold:"
+
+#: ../src/add_dialog.c
+msgid "Compression: "
+msgstr "Komprimering: "
+
+#: ../src/pref_dialog.c
+msgid "Confirm deletion of files"
+msgstr "Bekræft sletning af filer"
+
+#: ../src/interface.c
+msgid "Copy"
+msgstr "Kopiér"
+
+#: ../src/new_dialog.c
+msgid "Cr_eate"
+msgstr "Op_ret"
+
+#: ../src/interface.c ../src/new_dialog.c
+msgid "Create a new archive"
+msgstr "Opret et nyt arkiv"
+
+#: ../src/add_dialog.c
+msgid "Create a solid archive"
+msgstr "Opret et ensartet arkiv"
+
+#: ../src/interface.c
+msgid "Cut"
+msgstr "Klip"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
+msgid "Date"
+msgstr "Dato"
+
+#: ../src/deb.c
+msgid "Date modified"
+msgstr "Ændringsdato"
+
+#: ../src/extract_dialog.c
+msgid "Decompress file"
+msgstr "Dekomprimér fil"
+
+#: ../src/interface.c
+msgid "Delete"
+msgstr "Slet"
+
+#: ../src/add_dialog.c
+msgid "Delete files after adding"
+msgstr "Slet filer efter tilføjelse"
+
+#: ../src/interface.c
+msgid "Dese_lect all"
+msgstr "Afmar_kér alle"
+
+#: ../src/extract_dialog.c
+msgid "Destination dirs:"
+msgstr "Målkataloger:"
+
+#: ../src/add_dialog.c
+msgid "Do not store paths"
+msgstr "Gem ikke stinavne"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr "Ønsker du virkelig at afbryde?"
+
+#: ../src/new_dialog.c
+msgid "Do you want to overwrite it?"
+msgstr "Vil du overskrive det?"
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr "At gøre dette vil sansynligvis ødelægge dit arkiv!"
+
+#: ../src/interface.c
+msgid "Encrypted:"
+msgstr "Krypteret:"
+
+#: ../src/add_dialog.c
+msgid "Encryption: "
+msgstr "Kryptering: "
+
+#: ../src/interface.c
+msgid "Enter passwo_rd"
+msgstr "Angiv _adgangskode"
+
+#: ../src/interface.c
+msgid "Extract"
+msgstr "Udpak"
+
+#: ../src/main.c
+msgid "Extract archive by asking the extraction directory and quits."
+msgstr "Udpak arkiv ved at spørge om målkatalog og afslut."
+
+#: ../src/main.c
+msgid "Extract archive to the destination directory and quits."
+msgstr "Udpak arkiv til målkatalog og afslut."
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "Extract files"
+msgstr "Udpak filer"
+
+#: ../src/extract_dialog.c
+msgid "Extract files with full path"
+msgstr "Udpak filer med fulde stinavne"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+"Udpak kun filer som allerede findes på disken, og som er nyere end dem på "
+"disken"
+
+#: ../src/extract_dialog.c
+msgid "Extract pathnames"
+msgstr "Udpak stinavne"
+
+#: ../src/extract_dialog.c
+msgid "Extract to dir \"Archive Name\""
+msgstr "Udpak til kataloget \"Arkivnavn\""
+
+#: ../src/extract_dialog.c
+msgid "Extract to:"
+msgstr "Udpak til:"
+
+#: ../src/extract_dialog.c
+msgid "Extracting files from archive,please wait..."
+msgstr "Udpakker filer fra arkiv, vent venligst..."
+
+#: ../src/interface.c
+msgid "Extracting from archive:"
+msgstr "Udpakker fra arkiv:"
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr "Kunne ikke starte programmet!"
+
+#: ../src/add_dialog.c
+msgid "File Paths: "
+msgstr "Filstier: "
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "Filnavn"
+
+#: ../src/extract_dialog.c
+msgid "Files "
+msgstr "Filer "
+
+#: ../src/extract_dialog.c
+msgid "Files: "
+msgstr "Filer: "
+
+#: ../src/window.c
+#, c-format
+msgid "Files:%*s%s"
+msgstr "Filer:%*s%s"
+
+#: ../src/interface.c
+msgid "Forward"
+msgstr "Fremad"
+
+#: ../src/add_dialog.c
+msgid "Freshen and replace"
+msgstr "Opdatér og erstat"
+
+#: ../src/extract_dialog.c
+msgid "Freshen existing files"
+msgstr "Genopfrisk eksisterende filer"
+
+#: ../src/window.c
+msgid "From File"
+msgstr "Fra fil"
+
+#: ../src/rpm.c
+msgid "Group"
+msgstr "Gruppe"
+
+#: ../src/rpm.c
+msgid "Hard Link"
+msgstr "Fasthenvisning"
+
+#: ../src/pref_dialog.c
+msgid "Icons size (requires restart)"
+msgstr "Ikonstørrelse (kræver genstart)"
+
+#: ../src/pref_dialog.c
+msgid "If checked the archive comment is shown after the archive is loaded"
+msgstr ""
+"Hvis markeret vil arkivkommentarer blive vist efter indlæsning af arkivet"
+
+#: ../src/add_dialog.c
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr ""
+"I et ensartet arkiv er filerne samlet sammen, og dette giver bedre "
+"komprimeringforhold"
+
+#: ../src/add_dialog.c
+msgid "Include subdirectories"
+msgstr "Medtag undermapper"
+
+#: ../src/interface.c
+msgid "Location:"
+msgstr "Placering:"
+
+#: ../src/main.c
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/interface.c
+msgid "Make SF_X"
+msgstr "Opret SF_X"
+
+#: ../src/rar.c ../src/zip.c
+msgid "Method"
+msgstr "Metode"
+
+#: ../src/interface.c
+msgid "Modified on:"
+msgstr "Ændring sket:"
+
+#: ../src/extract_dialog.c
+msgid "Multi-Extract"
+msgstr "Multi-udpakning"
+
+#: ../src/main.c
+msgid "Multi-extract archives"
+msgstr "Multi-udpak arkiver"
+
+#: ../src/interface.c
+msgid "Name:"
+msgstr "Navn:"
+
+#: ../src/interface.c
+msgid "New"
+msgstr ""
+
+#: ../src/window.c
+msgid "No"
+msgstr "Nej"
+
+#: ../src/interface.c
+msgid "Number of files:"
+msgstr "Antal filer:"
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "Antal filer: "
+
+#: ../src/zip.c
+msgid "OS"
+msgstr "OS"
+
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "Kun arkiver"
+
+#: ../src/interface.c
+#, fuzzy
+msgid "Open"
+msgstr "Åbn med"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "Åbn <i>%s</i> med:"
+
+#: ../src/interface.c ../src/open-with-dlg.c
+msgid "Open With"
+msgstr "Åbn med"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "Åben en tekstfil"
+
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "Åbn et arkiv"
+
+#: ../src/pref_dialog.c
+msgid "Open image files with:"
+msgstr "Åbn billedfiler med:"
+
+#: ../src/pref_dialog.c
+msgid "Open text files with:"
+msgstr "Åbn tekstfiler med:"
+
+#: ../src/open-with-dlg.c
+msgid "Open the selected files with"
+msgstr "Åbn markerede filer med"
+
+#: ../src/window.c
+msgid "Opening archive,please wait..."
+msgstr "Åbner arkiv, vent venligst..."
+
+#: ../src/window.c
+msgid "Operation aborted!"
+msgstr "Operation afbrudt!"
+
+#: ../src/add_dialog.c
+msgid "Options"
+msgstr "Indstillinger"
+
+#: ../src/extract_dialog.c
+msgid "Options "
+msgstr "Indstillinger "
+
+#: ../src/extract_dialog.c
+msgid "Options:"
+msgstr "Indstillinger:"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Original"
+msgstr "Original"
+
+#: ../src/extract_dialog.c
+msgid "Overwrite existing files"
+msgstr "Overskriv eksisterende filer"
+
+#: ../src/rpm.c
+msgid "Owner"
+msgstr "Ejer"
+
+#: ../src/deb.c ../src/gzip_et_al.c ../src/tar.c
+msgid "Owner/Group"
+msgstr "Ejer/Gruppe"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Password:"
+msgstr "Adgangskode:"
+
+#: ../src/interface.c
+msgid "Paste"
+msgstr "Indsæt"
+
+#: ../src/extract_dialog.c
+msgid "Path"
+msgstr "Sti"
+
+#: ../src/interface.c
+msgid "Path:"
+msgstr "Sti:"
+
+#: ../src/interface.c
+msgid "Pattern:"
+msgstr "Mønster:"
+
+#: ../src/rpm.c
+msgid "Permission"
+msgstr "Rettighed"
+
+#: ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/tar.c
+#: ../src/zip.c
+msgid "Permissions"
+msgstr "Rettigheder"
+
+#: ../src/window.c
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr "Afkryds venligst 'Gem arkivuddata' indstilling for at se denne."
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Please enter it!"
+msgstr "Vær venlig at angive adgangskode!"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the extraction path."
+msgstr "Angiv venligst en udpakkesti."
+
+#: ../src/extract_dialog.c
+msgid "Please enter the password."
+msgstr "Angiv venligst adgangskode."
+
+#: ../src/extract_dialog.c
+msgid "Please fill the \"Extract to\" field!"
+msgstr "Udfyld venligst \"Udpak til\" feltet!"
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "Gå venligst til Indstillinger->Avanceret og indstil den."
+
+#: ../src/window.c
+msgid "Please install xdg-utils package."
+msgstr "Installér venligst xdg-utils-pakken."
+
+#: ../src/main.c
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr "Rapportér venligst fejl til <%s>."
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr "Markér venligst 7zCon.sfx-modulet"
+
+#: ../src/extract_dialog.c
+msgid "Please select the archives you want to extract"
+msgstr "Markér arkiverne du ønsker at udpakke"
+
+#: ../src/extract_dialog.c
+msgid "Please select the destination directory"
+msgstr "Vælg venligst målkataloget"
 
 #: ../src/window.c
 msgid "Please wait until the completion of the current one!"
 msgstr "Vent venligst til afslutning af igangværende arkivering!"
+
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rpm.c ../src/tar.c
+msgid "Points to"
+msgstr "Peger på"
+
+#: ../src/pref_dialog.c
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: ../src/pref_dialog.c
+msgid "Preferred archive format"
+msgstr "Foretrukne arkivformat"
+
+#: ../src/pref_dialog.c
+msgid "Preferred extract directory:"
+msgstr "Foretrukket udpakningsmappe:"
+
+#: ../src/pref_dialog.c
+msgid "Preferred temp directory:"
+msgstr "Midlertidig katalogpræference:"
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr "Skriv arkivindholdet som HTML"
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr "Skriv arkivindholdet som tekst"
+
+#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Ratio"
+msgstr "Forhold"
+
+#: ../src/interface.c
+msgid "Re_name"
+msgstr "Om_døb"
+
+#: ../src/interface.c
+msgid "Rename"
+msgstr "Omdøb"
+
+#: ../src/interface.c
+msgid "Root"
+msgstr "Rod"
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "Gem arkivet som"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr "Gem det selvudpakkende arkiv som"
+
+#: ../src/pref_dialog.c
+msgid "Save window geometry"
+msgstr "Gem vinduesgeometri"
+
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Vælg \"ny\" for at oprette eller \"åbn\" for at åbne et arkiv"
+
+#: ../src/interface.c
+msgid "Select _all"
+msgstr "Markér _alle"
+
+#: ../src/interface.c
+msgid "Select _by pattern"
+msgstr "Markér e_fter mønster"
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr "Vælg et program"
+
+#: ../src/interface.c
+msgid "Select by Pattern"
+msgstr "Markér efter mønstre"
+
+#: ../src/extract_dialog.c
+msgid "Selected files"
+msgstr "Valgte filer"
+
+#: ../src/add_dialog.c
+msgid "Selection"
+msgstr "Markering"
+
+#: ../src/pref_dialog.c
+msgid "Show archive comment"
+msgstr "Vis arkivkommentar"
+
+#: ../src/pref_dialog.c
+msgid "Show archive location bar"
+msgstr "Vis arkivstedbjælke"
+
+#: ../src/pref_dialog.c
+msgid "Show archive tree sidebar"
+msgstr "Vis sidepanel for arkivtræ"
+
+#: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/main.c
+msgid "Show version and exit"
+msgstr "Vis version og afslut"
+
+#: ../src/deb.c ../src/extract_dialog.c ../src/gzip_et_al.c ../src/lha.c
+#: ../src/rpm.c ../src/tar.c
+msgid "Size"
+msgstr "Størrelse"
+
+#: ../src/extract_dialog.c
+msgid "Some errors occurred:"
+msgstr "Der opstod fejl:"
+
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+msgid "Sorry,I could not perform the operation!"
+msgstr "Beklager, handlingen kunne ikke udføres!"
+
+#: ../src/window.c
+msgid "Sorry,this archive format is not supported:"
+msgstr "Beklager, dette arkivformat er ikke understøttet:"
+
+#: ../src/pref_dialog.c
+msgid "Sort archive by filename"
+msgstr "Sortér arkiv efter filnavn"
+
+#: ../src/interface.c
+msgid "Stop"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Store archiver output"
+msgstr "Gem arkivuddata"
+
+#: ../src/add_dialog.c
+msgid "Store full paths"
+msgstr "Gem fulde stinavne"
+
+#: ../src/window.c
+msgid "Testing archive,please wait..."
+msgstr "Tester arkiv, vent venligst..."
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "Arkivet \"%s\" findes allerede!"
+
+#: ../src/extract_dialog.c
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr "Arkivets katalogstruktur er genoprettet i udpakningskataloget"
+
+#: ../src/window.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Arkivprogrammet understøtter ikke denne egenskab!"
+
+#: ../src/pref_dialog.c
+msgid "The filename column is sorted after loading the archive"
+msgstr "Filnavnkolonnen er sorteret efter indlæsning af arkivet"
+
+#: ../src/extract_dialog.c
+msgid "This archive is encrypted!"
+msgstr "Dette arkiv er krypteret!"
+
+#: ../src/window.c
+msgid "This file type is not supported!"
+msgstr "Denne filtype er ikke understøttet!"
+
+#: ../src/interface.c
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr "Dette er Xarchivers led status. Ved blink er Xarchiver optaget"
+
+#: ../src/add_dialog.c
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+"Denne indstilling påvirker kun arkivet, hvis filen er blevet modificeret "
+"senere, end den version som allerede er i arkivet; modsat opdatér-"
+"indstillingen vil denne ikke tilføje filer, som ikke allerede findes i "
+"arkivet"
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr ""
+"Denne indstilling udpakker arkiver i kataloger navngivet med arkivernes navne"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+"Denne indstilling medtager underkataloger, når du tilføjer filer med træk og "
+"slip"
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+"Denne indstilling udfører samme funktion som genopfriskningsfunktionen, "
+"nemlig at udpakke filer, som er nyere end dem på disken med samme navn, og "
+"derudover vil denne indstilling også pakke filer ud, som ikke allerede "
+"findes på disken"
+
+#: ../src/pref_dialog.c
+msgid "This option takes more memory with large archives"
+msgstr "Denne indstilling bruger mere hukommelse med store arkiver"
+
+#: ../src/add_dialog.c
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr ""
+"Denne indstilling vil tilføje nye filer og opdatere filer, som er blevet "
+"ændret, siden arkivet blev oprettet/ændret"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/zip.c
+msgid "Time"
+msgstr "Tid"
+
+#: ../src/lha.c
+msgid "Timestamp"
+msgstr "Tidstempel"
+
+#: ../src/interface.c
+msgid "Total Progress:"
+msgstr "Fremgang i alt:"
+
+#: ../src/extract_dialog.c
+msgid "Touch files"
+msgstr "Rør filer"
+
+#: ../src/interface.c
+msgid "Type:"
+msgstr "Type:"
+
+#: ../src/lha.c
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/interface.c
+msgid "Uncompressed size:"
+msgstr "Ukomprimeret størrelse:"
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "Ukomprimeret størrelse: "
+
+#: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Up"
+msgstr "Op"
+
+#: ../src/add_dialog.c
+msgid "Update and add"
+msgstr "Opdatér og tilføj"
+
+#: ../src/extract_dialog.c
+msgid "Update existing files"
+msgstr "Opdatér eksisterende filer"
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr "Brug en tilpasset kommando:"
+
+#: ../src/rar.c ../src/zip.c
+msgid "Version"
+msgstr "Version"
+
+#: ../src/interface.c
+msgid "View"
+msgstr "Vis"
+
+#: ../src/pref_dialog.c
+msgid "Web browser to use:"
+msgstr "Brug webbrowser:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr ""
+"Når denne indstilling er i brug, lader tar ændringsdato/tid  på filer, som "
+"bliver udpakket, være lig med, hvornår filer blev udpakket i stedet for dato/"
+"tid i arkivet"
+
+#: ../src/pref_dialog.c
+msgid "Window"
+msgstr "Vindue"
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "Ja"
+
+#: ../src/window.c
+msgid "You are about to delete entries from the archive."
+msgstr "Du er ved at slette poster fra arkivet."
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to deb packages!"
+msgstr "Du kan ikke tilføje indhold til deb-pakker!"
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to rpm packages!"
+msgstr "Du kan ikke tilføje indhold til rpm-pakker!"
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr "Du har ikke indstillet hvilken browser der skal bruges!"
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr "Du har ikke indstillet et program for åbning af denne filtype!"
+
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr ""
+"Du har ikke de korrekte adgangsrettigheder til at udpakke filerne til "
+"kataloget \"%s\"."
 
 #: ../src/window.c
 msgid "You have to install arj package!"
@@ -1211,62 +1125,147 @@ msgstr "Du er nødt til at installere arj-pakken!"
 msgid "You have to install rar package!"
 msgstr "Du er nødt til at installere rar-pakken!"
 
-#: ../src/window.c
-msgid "The archiver doesn't support this feature!"
-msgstr "Arkivprogrammet understøtter ikke denne egenskab!"
+#: ../src/extract_dialog.c
+msgid "You haven't added any of them!"
+msgstr "Du har ikke tilføjet nogen af dem!"
+
+#: ../src/add_dialog.c
+msgid "You haven't selected any files to add!"
+msgstr "Du har ikke valgt filer for tilføjning!"
+
+#: ../src/main.c
+msgid "You missed the archive name!\n"
+msgstr "Du glemte arkivnavnet!\n"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "You missed the password!"
+msgstr "Du glemte at angive adgangskode!"
+
+#: ../src/extract_dialog.c
+msgid "You missed where to extract the files!"
+msgstr "Du glemte, hvor du ville udpakke filerne!"
+
+#: ../src/main.c
+msgid "[archive name]"
+msgstr "[arkivnavn]"
+
+#: ../src/add_dialog.c
+msgid "_Add"
+msgstr "_Tilføj"
+
+#: ../src/interface.c
+msgid "_Archive"
+msgstr "_Arkivér"
+
+#: ../src/interface.c
+msgid "_Contents"
+msgstr "_Indhold"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "_Extract"
+msgstr "_Udpak"
+
+#: ../src/interface.c
+msgid "_HTML file"
+msgstr "_HTML-fil"
+
+#: ../src/interface.c
+msgid "_Help"
+msgstr "_Hjælp"
+
+#: ../src/interface.c
+msgid "_List as"
+msgstr "_Vis som"
+
+#: ../src/interface.c
+msgid "_Multi-Extract"
+msgstr "_Multi-udpak"
+
+#: ../src/interface.c
+msgid "_Password:"
+msgstr "_Adgangskode:"
+
+#: ../src/interface.c
+msgid "_Preferences"
+msgstr "_Indstillinger"
+
+#: ../src/interface.c
+msgid "_Properties"
+msgstr "_Egenskaber"
+
+#: ../src/interface.c
+msgid "_Select"
+msgstr "_Markér"
+
+#: ../src/interface.c
+msgid "_Test"
+msgstr "_Test"
+
+#: ../src/interface.c
+msgid "_Text file"
+msgstr "_Tekstfil"
+
+#: ../src/main.c
+msgid "archive"
+msgstr "arkiv"
+
+#: ../src/pref_dialog.c
+msgid "choose..."
+msgstr "vælg..."
+
+#: ../src/main.c
+msgid "destination archive"
+msgstr "målarkiv"
+
+#: ../src/interface.c
+msgid "example: *.txt; ac*"
+msgstr "eksempel: *.txt; ac*"
+
+#: ../src/main.c
+msgid "file1 file2 file3 ... fileN"
+msgstr "fil1 fil2 fil3 ... filN"
+
+#: ../src/main.c
+msgid "filenames"
+msgstr "filnavne"
+
+#: ../src/pref_dialog.c
+msgid "large"
+msgstr "stort"
 
 #: ../src/window.c
-msgid "You didn't set which browser to use!"
-msgstr "Du har ikke indstillet hvilken browser der skal bruges!"
+msgid "selected"
+msgstr "markeret"
+
+#: ../src/pref_dialog.c
+msgid "small"
+msgstr "lille"
 
 #: ../src/window.c
-msgid "Please go to Preferences->Advanced and set it."
-msgstr "Gå venligst til Indstillinger->Avanceret og indstil den."
+msgid "the proper archiver is not installed!"
+msgstr "det korrekte arkivprogram er ikke installeret!"
 
 #: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Denne filtype er ikke understøttet!"
+msgid "translator-credits"
+msgstr ""
+"Per Kongstad\n"
+"\n"
+"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
+"Mere info: http://www.dansk-gruppen.dk"
 
-#: ../src/window.c
-msgid "Please install xdg-utils package."
-msgstr "Installér venligst xdg-utils-pakken."
-
-#: ../src/window.c
-msgid "You didn't set which program to use for opening this file!"
-msgstr "Du har ikke indstillet et program for åbning af denne filtype!"
-
-#: ../src/window.c
-msgid "Failed to launch the application!"
-msgstr "Kunne ikke starte programmet!"
-
-#: ../src/window.c
-msgid "Comment"
-msgstr "Kommentar"
-
-#: ../src/window.c
-msgid "From File"
-msgstr "Fra fil"
-
-#: ../src/window.c
-msgid "Open a text file"
-msgstr "Åben en tekstfil"
-
-#: ../src/window.c
+#: ../src/main.c
 #, c-format
-msgid "Can't open file %s:"
-msgstr "Kan ikke åbne fil %s:"
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"Prøv xarchiver --help for at se hele listen over tilgængelige "
+"kommandolinjeparametre.\n"
 
-#: ../src/zip.c
-msgid "OS"
-msgstr "OS"
-
-#: ../xarchiver.desktop.in.h
-msgid "Archive manager"
-msgstr "Arkivhåndtering"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "En arkivhåndtering baseret udelukkende på GTK+"
+#: ../src/window.c
+msgid "|Size\n"
+msgstr "|Størrelse\n"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "Komprimeret\n"

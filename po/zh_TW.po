@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-02-12 21:13+0100\n"
+"POT-Creation-Date: 2017-02-22 18:34+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -26,1019 +26,6 @@ msgstr ""
 "X-Poedit-Country: TAIWAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/rar.c ../src/zip.c
-msgid "Original"
-msgstr "原始大小"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/zip.c
-msgid "Compressed"
-msgstr "壓縮後大小"
-
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "屬性"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/tar.c ../src/zip.c
-msgid "Time"
-msgstr "時間"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/rpm.c ../src/tar.c ../src/zip.c
-msgid "Date"
-msgstr "日期"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "Add files"
-msgstr "加入檔案"
-
-#: ../src/add_dialog.c
-msgid "Selection"
-msgstr "選取"
-
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "檔案路徑："
-
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "儲存完整路徑"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "不儲存路徑"
-
-#: ../src/add_dialog.c
-msgid "Options"
-msgstr "選項"
-
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "更新並加入"
-
-#: ../src/add_dialog.c
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
-msgstr "使用此選項將根據封存檔上次建立或修改過後的情況，加入新檔案並更新檔案"
-
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr "更新並置換"
-
-#: ../src/add_dialog.c
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
-msgstr ""
-"使用此選項只會更新封存檔中較舊的檔案，不像「「更新並加入」選項還會加入封存檔"
-"中沒有的檔案"
-
-#: ../src/add_dialog.c
-msgid "Include subdirectories"
-msgstr "包含子目錄"
-
-#: ../src/add_dialog.c
-msgid "Create a solid archive"
-msgstr "建立實體封存檔"
-
-#: ../src/add_dialog.c
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio"
-msgstr "實體封存檔會把檔案結合處理以得到較佳壓縮率，但若損壞時損失會較嚴重"
-
-#: ../src/add_dialog.c
-msgid "Delete files after adding"
-msgstr "加入後刪除檔案"
-
-#: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "動作："
-
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "壓縮設定："
-
-#: ../src/add_dialog.c ../src/extract_dialog.c
-msgid "Password:"
-msgstr "密碼："
-
-#: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "加密："
-
-#: ../src/add_dialog.c
-msgid "_Add"
-msgstr "加入(_A)"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr "0 = 不壓縮，5 = 預設壓縮率，9 = 最高壓縮率但最慢"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr "0 = 不壓縮，6 = 預設壓縮率，9 = 最高壓縮率但最慢"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr "0 = 不壓縮，3 = 預設壓縮率，5 = 最高壓縮率但最慢"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr "0 = 不壓縮，1 = 預設壓縮率，4 = 最快速但高壓縮率最低"
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = 預設壓縮率，7 = 最高壓縮率"
-
-#: ../src/add_dialog.c ../src/main.c
-msgid "Can't add files to the archive:"
-msgstr "無法將檔案加入封存檔："
-
-#: ../src/add_dialog.c
-msgid "You haven't selected any files to add!"
-msgstr "尚未選取要加入的檔案！"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "You missed the password!"
-msgstr "密碼輸入錯誤！"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "Please enter it!"
-msgstr "請輸入！"
-
-#: ../src/add_dialog.c
-msgid "Adding files to archive, please wait..."
-msgstr "將檔案加入封存檔中，請稍候..."
-
-#: ../src/archive.c
-msgid "Can't run the archiver executable:"
-msgstr "無法執行封存程式："
-
-#: ../src/archive.c
-msgid "Can't create temporary directory:"
-msgstr "無法建立暫存目錄："
-
-#: ../src/arj.c ../src/gzip.c ../src/lha.c ../src/rar.c
-msgid "Ratio"
-msgstr "壓縮率"
-
-#: ../src/arj.c
-msgid "Attributes"
-msgstr "屬性"
-
-#: ../src/bzip2.c ../src/gzip.c ../src/lha.c ../src/rpm.c ../src/tar.c
-msgid "Points to"
-msgstr "標記"
-
-#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/lha.c ../src/rar.c
-#: ../src/tar.c ../src/zip.c
-msgid "Permissions"
-msgstr "權限"
-
-#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/tar.c
-msgid "Owner/Group"
-msgstr "擁有者/群組"
-
-#: ../src/bzip2.c ../src/deb.c ../src/extract_dialog.c ../src/gzip.c
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
-msgid "Size"
-msgstr "大小"
-
-#: ../src/deb.c
-msgid "Date modified"
-msgstr "更動日期"
-
-#: ../src/extract_dialog.c
-msgid "Extract to:"
-msgstr "抽出至："
-
-#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
-msgid "All files"
-msgstr "所有檔案"
-
-#: ../src/extract_dialog.c
-msgid "Selected files"
-msgstr "已選取檔案"
-
-#: ../src/extract_dialog.c
-msgid "Files: "
-msgstr "檔案："
-
-#: ../src/extract_dialog.c
-msgid "Files "
-msgstr "檔案"
-
-#: ../src/extract_dialog.c
-msgid "Overwrite existing files"
-msgstr "覆蓋已存在的檔案"
-
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr "解開檔案的完整路徑"
-
-#: ../src/extract_dialog.c
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr "已在目標目錄重新建立封存檔內的完整目錄結構"
-
-#: ../src/extract_dialog.c
-msgid "Touch files"
-msgstr "更改檔案日期"
-
-#: ../src/extract_dialog.c
-msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
-msgstr "使用此選項後，檔案的更動時間會以解壓時的時間取代原紀錄在封存檔內的時間"
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
-msgstr "只更新已存在的檔案"
-
-#: ../src/extract_dialog.c
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr "只解開並取代已存在磁碟中且比較舊的檔案"
-
-#: ../src/extract_dialog.c
-msgid "Update existing files"
-msgstr "更新已存在的檔案"
-
-#: ../src/extract_dialog.c
-msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
-"extracts those files that do not already exist on disk"
-msgstr "使用此選項除了解開並取代磁碟中比較舊的檔案，還會解開磁碟中沒有的檔案"
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "選項"
-
-#: ../src/extract_dialog.c ../src/interface.c
-msgid "_Extract"
-msgstr "抽出(_E)"
-
-#: ../src/extract_dialog.c
-msgid "Decompress file"
-msgstr "解壓縮封存檔"
-
-#: ../src/extract_dialog.c ../src/interface.c
-msgid "Extract files"
-msgstr "解開檔案"
-
-#: ../src/extract_dialog.c
-msgid "You missed where to extract the files!"
-msgstr "您未設定要抽出到哪裏！"
-
-#: ../src/extract_dialog.c
-msgid "Please enter the extraction path."
-msgstr "請輸入抽出目標路徑。"
-
-#: ../src/extract_dialog.c
-msgid "This archive is encrypted!"
-msgstr "封存檔已被加密！"
-
-#: ../src/extract_dialog.c
-msgid "Please enter the password."
-msgstr "請輸入密碼。"
-
-#: ../src/extract_dialog.c ../src/window.c
-#, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr "您沒有在目錄 %s 寫入檔案的權限。"
-
-#: ../src/extract_dialog.c ../src/window.c
-msgid "Can't perform extraction!"
-msgstr "無法執行抽出動作！"
-
-#: ../src/extract_dialog.c
-msgid "Extracting files from archive,please wait..."
-msgstr "正從封存檔抽出檔案，請稍候..."
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "封存檔名"
-
-#: ../src/extract_dialog.c
-msgid "Path"
-msgstr "路徑"
-
-#: ../src/extract_dialog.c
-msgid "Multi-Extract"
-msgstr "解開多個封存檔"
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
-msgstr "解開到與封存檔同名的目錄"
-
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr "使用此選項會把封存檔解開到與封存檔同名的目錄中，目錄不存在時會先建立"
-
-#: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr "目標目錄："
-
-#: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr "抽出路徑名稱"
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "選項："
-
-#: ../src/extract_dialog.c
-msgid "Please select the archives you want to extract"
-msgstr "請選取要解開的封存檔"
-
-#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
-msgid "Sorry,I could not perform the operation!"
-msgstr "抱歉，無法執行此操作！"
-
-#: ../src/extract_dialog.c
-msgid "Please select the destination directory"
-msgstr "請選取目標目錄"
-
-#: ../src/extract_dialog.c
-msgid "Can't multi-extract archives:"
-msgstr "無法解開封存檔："
-
-#: ../src/extract_dialog.c
-msgid "You haven't added any of them!"
-msgstr "請至少要加入一個！"
-
-#: ../src/extract_dialog.c
-msgid "Please fill the \"Extract to\" field!"
-msgstr "尚未設定「抽出至」欄位！"
-
-#: ../src/extract_dialog.c
-msgid "Some errors occurred:"
-msgstr "有錯誤發生："
-
-#: ../src/interface.c
-msgid "_Archive"
-msgstr "封存檔(_A)"
-
-#: ../src/interface.c
-msgid "_List as"
-msgstr "列出為(_L)"
-
-#: ../src/interface.c
-msgid "_Text file"
-msgstr "文字檔(_T)"
-
-#: ../src/interface.c
-msgid "_HTML file"
-msgstr "_HTML 檔"
-
-#: ../src/interface.c
-msgid "_Test"
-msgstr "測試(_T)"
-
-#: ../src/interface.c
-msgid "_Properties"
-msgstr "屬性(_P)"
-
-#: ../src/interface.c
-msgid "A_ction"
-msgstr "動作(_C)"
-
-#: ../src/interface.c
-msgid "A_dd"
-msgstr "加入(_D)"
-
-#: ../src/interface.c
-msgid "Re_name"
-msgstr "重新命名(_N)"
-
-#: ../src/interface.c
-msgid "Uns_ort"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Make SF_X"
-msgstr "轉成自解檔(_X)"
-
-#: ../src/interface.c
-msgid "_Multi-Extract"
-msgstr "抽出多個檔案(_M)"
-
-#: ../src/interface.c
-msgid "Archive _comment"
-msgstr "封存檔註解(_C)"
-
-#: ../src/interface.c
-msgid "Select _all"
-msgstr "全選(_A)"
-
-#: ../src/interface.c
-msgid "Dese_lect all"
-msgstr "全不選(_L)"
-
-#: ../src/interface.c
-msgid "Select _by pattern"
-msgstr "按規則選取(_B)"
-
-#: ../src/interface.c
-msgid "Cmd-line outp_ut"
-msgstr "命令列輸出訊息(_U)"
-
-#: ../src/interface.c
-msgid "Enter passwo_rd"
-msgstr "輸入密碼(_R)"
-
-#: ../src/interface.c
-msgid "_Preferences"
-msgstr "偏好設定(_P)"
-
-#: ../src/interface.c
-msgid "_Help"
-msgstr "幫助(_H)"
-
-#: ../src/interface.c
-msgid "_Contents"
-msgstr "内容(_C)"
-
-#: ../src/interface.c
-msgid "New"
-msgstr "新建"
-
-#: ../src/interface.c ../src/new_dialog.c
-msgid "Create a new archive"
-msgstr "建立新的封存檔"
-
-#: ../src/interface.c
-msgid "Open"
-msgstr "開啟"
-
-#: ../src/interface.c ../src/window.c
-msgid "Open an archive"
-msgstr "開啟封存檔"
-
-#: ../src/interface.c
-msgid "Back"
-msgstr "上一頁"
-
-#: ../src/interface.c
-msgid "Up"
-msgstr "上層目錄"
-
-#: ../src/interface.c
-msgid "Forward"
-msgstr "下一頁"
-
-#: ../src/interface.c
-msgid "Root"
-msgstr "最上層"
-
-#: ../src/interface.c
-msgid "Add"
-msgstr "加入"
-
-#: ../src/interface.c
-msgid "Extract"
-msgstr "展開"
-
-#: ../src/interface.c
-msgid "Stop"
-msgstr "停止"
-
-#: ../src/interface.c
-msgid "Cancel current operation"
-msgstr "取消目前操作"
-
-#: ../src/interface.c
-msgid "Location:"
-msgstr "位置："
-
-#: ../src/interface.c
-msgid "Archive tree"
-msgstr "封存檔樹狀圖"
-
-#: ../src/interface.c
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr "這是 Xarchiver 狀態燈號，閃爍時表示程式忙碌中"
-
-#: ../src/interface.c
-msgid "Close archive"
-msgstr "關閉封存檔"
-
-#: ../src/interface.c
-msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr "<span weight='bold' size='larger'>需要密碼：</span>"
-
-#: ../src/interface.c
-msgid "<span weight='bold' size='larger'>Enter password for:</span>"
-msgstr "<span weight='bold' size='larger'>輸入密碼：</span>"
-
-#: ../src/interface.c
-msgid "_Password:"
-msgstr "密碼(_P)："
-
-#: ../src/interface.c ../src/open-with-dlg.c
-msgid "Open With"
-msgstr "以...開啟"
-
-#: ../src/interface.c
-msgid "View"
-msgstr "檢視"
-
-#: ../src/interface.c
-msgid "Cut"
-msgstr "剪下"
-
-#: ../src/interface.c
-msgid "Copy"
-msgstr "複製"
-
-#: ../src/interface.c
-msgid "Paste"
-msgstr "貼上"
-
-#: ../src/interface.c
-msgid "Delete"
-msgstr "刪除"
-
-#: ../src/interface.c
-msgid "Rename"
-msgstr "重新命名"
-
-#: ../src/interface.c
-msgid "Select by Pattern"
-msgstr "按規則選取"
-
-#: ../src/interface.c
-msgid "Pattern:"
-msgstr "規則："
-
-#: ../src/interface.c
-msgid "example: *.txt; ac*"
-msgstr "例如：*.txt; ac*"
-
-#: ../src/interface.c
-msgid "_Select"
-msgstr "選取(_S)"
-
-#: ../src/interface.c
-msgid "Archive Properties"
-msgstr "封存檔屬性"
-
-#: ../src/interface.c
-msgid "Name:"
-msgstr "檔名："
-
-#: ../src/interface.c
-msgid "Path:"
-msgstr "路徑："
-
-#: ../src/interface.c
-msgid "Type:"
-msgstr "類型："
-
-#: ../src/interface.c
-msgid "Encrypted:"
-msgstr "加密："
-
-#: ../src/interface.c
-msgid "Modified on:"
-msgstr "更動時間："
-
-#: ../src/interface.c
-msgid "Compressed size:"
-msgstr "壓縮後大小:"
-
-#: ../src/interface.c
-msgid "Uncompressed size:"
-msgstr "解壓縮後大小："
-
-#: ../src/interface.c
-msgid "Comment:"
-msgstr "註解："
-
-#: ../src/interface.c
-msgid "Number of files:"
-msgstr "檔案數："
-
-#: ../src/interface.c
-msgid "Compression ratio:"
-msgstr "壓縮率："
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to deb packages!"
-msgstr "不可再加入內容到 deb 套件檔中！"
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to rpm packages!"
-msgstr "不可再加入內容到 rpm 套件檔中！"
-
-#: ../src/interface.c ../src/window.c
-msgid "Can't perform this action:"
-msgstr "無法執行此操作："
-
-#: ../src/interface.c
-msgid "Extracting from archive:"
-msgstr "解開封存檔中："
-
-#: ../src/interface.c
-msgid "Adding to archive:"
-msgstr "加入封存檔中："
-
-#: ../src/interface.c
-msgid "Total Progress:"
-msgstr "總進度："
-
-#: ../src/lha.c
-msgid "UID/GID"
-msgstr "UID/GID"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "時間戳"
-
-#: ../src/main.c
-msgid "Extract archive to the destination directory and quits."
-msgstr "將封存檔解開到目標目錄，然後離開。"
-
-#: ../src/main.c
-msgid "destination archive"
-msgstr "目的封存檔"
-
-#: ../src/main.c
-msgid "Extract archive by asking the extraction directory and quits."
-msgstr "詢問目標目錄、抽出封存檔, 然後離開。"
-
-#: ../src/main.c
-msgid "archive"
-msgstr "封存檔"
-
-#: ../src/main.c
-msgid "Multi-extract archives"
-msgstr "解開多個封存檔"
-
-#: ../src/main.c
-msgid "filenames"
-msgstr "檔名"
-
-#: ../src/main.c
-msgid "Add the given files by asking the name of the archive and quits."
-msgstr "詢問封存檔檔名、加入檔案，然後離開。"
-
-#: ../src/main.c
-msgid "file1 file2 file3 ... fileN"
-msgstr "檔案1 檔案2 檔案3 ... 檔案N"
-
-#: ../src/main.c
-msgid "Add files to archive by asking their filenames and quits."
-msgstr "詢問封存檔檔名、加入檔案，然後離開。"
-
-#: ../src/main.c
-msgid "Show version and exit"
-msgstr "顯示版本並離開"
-
-#: ../src/main.c
-msgid "[archive name]"
-msgstr "[封存檔名]"
-
-#: ../src/main.c
-#, c-format
-msgid ""
-"xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
-msgstr ""
-"xarchiver: %s\n"
-"以指令 xarchiver --help 列出所有命令列選項與參數。\n"
-
-#: ../src/main.c
-#, c-format
-msgid "Maintained by "
-msgstr ""
-
-#: ../src/main.c
-#, c-format
-msgid "Please report bugs to <%s>."
-msgstr "請回報臭蟲至 <%s>。"
-
-#: ../src/main.c
-msgid "Can't extract files from the archive:"
-msgstr "無法解開封存檔："
-
-#: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "封存檔檔名錯誤！\n"
-
-#: ../src/main.c ../src/window.c
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "選「新建」建立新的封存檔、選「開啟」打開已有的封存檔"
-
-#: ../src/main.c
-msgid "Can't allocate memory for the archive structure!"
-msgstr "記憶體不足，無法配置封存檔檔案結構！"
-
-#: ../src/new_dialog.c
-msgid "Cr_eate"
-msgstr "建立(_E)"
-
-#: ../src/new_dialog.c ../src/window.c
-msgid "Only archives"
-msgstr "僅封存檔"
-
-#: ../src/new_dialog.c
-msgid "Archive type:"
-msgstr "封存檔類型："
-
-#: ../src/new_dialog.c
-msgid "Choose the archive type to create"
-msgstr "選擇封存檔類型以建立"
-
-#: ../src/new_dialog.c
-#, c-format
-msgid "\"%s\" is already open!"
-msgstr "「%s」已開啟！"
-
-#: ../src/new_dialog.c
-msgid "Can't create a new archive:"
-msgstr "無法建立新封存檔："
-
-#: ../src/new_dialog.c
-#, c-format
-msgid "The archive \"%s\" already exists!"
-msgstr "封存檔「%s」已存在！"
-
-#: ../src/new_dialog.c
-msgid "Do you want to overwrite it?"
-msgstr "要覆蓋它嗎？"
-
-#: ../src/open-with-dlg.c
-msgid "Open the selected files with"
-msgstr "以...開啟選取的檔案"
-
-#: ../src/open-with-dlg.c
-#, c-format
-msgid "Open <i>%s</i> with:"
-msgstr "以...開啟 <i>%s</i>："
-
-#: ../src/open-with-dlg.c
-msgid "Use a custom command:"
-msgstr "使用自訂指令："
-
-#: ../src/open-with-dlg.c
-msgid "Browse"
-msgstr "瀏覽"
-
-#: ../src/open-with-dlg.c
-msgid "Select an application"
-msgstr "選取應用程式"
-
-#: ../src/pref_dialog.c
-msgid "Preferences"
-msgstr "偏好設定"
-
-#: ../src/pref_dialog.c
-msgid "Archive"
-msgstr "封存檔"
-
-#: ../src/pref_dialog.c
-msgid "Window"
-msgstr "視窗"
-
-#: ../src/pref_dialog.c
-msgid "Advanced"
-msgstr "進階"
-
-#: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "偏好的封存格式"
-
-#: ../src/pref_dialog.c
-msgid "Confirm deletion of files"
-msgstr "確認刪除檔案"
-
-#: ../src/pref_dialog.c
-msgid "Sort archive by filename"
-msgstr "按檔名排序"
-
-#: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "載入封存檔後按檔名排序"
-
-#: ../src/pref_dialog.c
-msgid "Store archiver output"
-msgstr "儲存封存程式的輸出訊息"
-
-#: ../src/pref_dialog.c
-msgid "This option takes more memory with large archives"
-msgstr "此選項用於大型封存檔時會耗較多記憶體"
-
-#: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "圖示大小 (須重新啟動程式)"
-
-#: ../src/pref_dialog.c
-msgid "large"
-msgstr "大"
-
-#: ../src/pref_dialog.c
-msgid "small"
-msgstr "小"
-
-#: ../src/pref_dialog.c
-msgid "Show archive comment"
-msgstr "顯示封存檔註解"
-
-#: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr "使用此功能，載入封存檔後會顯示註解"
-
-#: ../src/pref_dialog.c
-msgid "Show archive tree sidebar"
-msgstr "顯示封存檔樹狀圖側邊視窗"
-
-#: ../src/pref_dialog.c
-msgid "Show archive location bar"
-msgstr "顯示封存檔位置列"
-
-#: ../src/pref_dialog.c
-msgid "Show toolbar"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Web browser to use:"
-msgstr "使用的網路瀏覽器："
-
-#: ../src/pref_dialog.c
-msgid "choose..."
-msgstr "選擇..."
-
-#: ../src/pref_dialog.c
-msgid "Open text files with:"
-msgstr "以...開啟文字檔："
-
-#: ../src/pref_dialog.c
-msgid "Open image files with:"
-msgstr "以...開啟圖片檔："
-
-#: ../src/pref_dialog.c
-msgid "Preferred temp directory:"
-msgstr "偏好的暫存目錄："
-
-#: ../src/pref_dialog.c
-msgid "/tmp"
-msgstr "/tmp"
-
-#: ../src/pref_dialog.c
-msgid "Preferred extract directory:"
-msgstr "偏好的抽出目錄："
-
-#: ../src/pref_dialog.c
-msgid "Save window geometry"
-msgstr "儲存視窗狀態"
-
-#: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
-msgstr "允許用拖放功能加入子目錄"
-
-#: ../src/pref_dialog.c
-msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
-msgstr "此選項使您可用滑鼠拖放功能 (drog and drop) 來加入子目錄"
-
-#: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"<span color='red' style='italic'>請安裝 xdg-utils 套件\n"
-"使 Xarchiver 支援更多檔案類型。</span>"
-
-#: ../src/pref_dialog.c
-msgid "Choose the directory to use"
-msgstr "選擇要使用的目錄"
-
-#: ../src/pref_dialog.c
-msgid "Choose the application to use"
-msgstr "選擇要使用的應用程式"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
-
-#: ../src/rar.c ../src/zip.c
-msgid "Method"
-msgstr "方法"
-
-#: ../src/rar.c ../src/zip.c
-msgid "Version"
-msgstr "版本"
-
-#: ../src/rpm.c
-#, c-format
-msgid "Can't open RPM file %s:"
-msgstr "無法開啟 RPM 檔 %s："
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "無法移動檔案指標到位置 104："
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "無法從檔案讀取資料："
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "無法在檔案移動指標："
-
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "權限"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "硬性連結"
-
-#: ../src/rpm.c
-msgid "Owner"
-msgstr "擁有者"
-
-#: ../src/rpm.c
-msgid "Group"
-msgstr "群組"
-
-#: ../src/window.c
-msgid "An error occurred!"
-msgstr "發生錯誤！"
-
-#: ../src/window.c
-msgid "Please check the 'Store archiver output' option to see it."
-msgstr "請使用「儲存封存程式的輸出訊息」選項即可查看相關訊息。"
-
-#: ../src/window.c
-msgid "Archiver output"
-msgstr "封存程式的輸出訊息"
-
-#: ../src/window.c
-msgid "An error occurred while accessing the archive:"
-msgstr "存取封存檔時發生錯誤："
-
-#: ../src/window.c
-msgid "Save the archive as"
-msgstr "儲存封存檔為"
-
-#: ../src/window.c
-#, c-format
-msgid "Can't open file \"%s\":"
-msgstr "無法開啟檔案 %s："
-
-#: ../src/window.c
-msgid "Archive format is not recognized!"
-msgstr "封存檔格式無法識別！"
-
-#: ../src/window.c
-msgid "Sorry,this archive format is not supported:"
-msgstr "抱歉，不支援此封存格式："
-
-#: ../src/window.c
-msgid "the proper archiver is not installed!"
-msgstr "尚未安裝適合的封存程式！"
-
-#: ../src/window.c
-msgid "Can't allocate memory for the archive structure:"
-msgstr "記憶體不足，無法放置封存結構："
-
-#: ../src/window.c
-msgid "Operation aborted!"
-msgstr "操作已中止！"
-
-#: ../src/window.c
-msgid "Opening archive,please wait..."
-msgstr "開啟封存檔中，請稍候..."
-
-#: ../src/window.c
-msgid "Testing archive,please wait..."
-msgstr "測試封存檔中，請稍候..."
-
-#: ../src/window.c
-msgid "Print the archive content as HTML"
-msgstr "以 HTML 格式印出封存檔內容"
-
-#: ../src/window.c
-msgid "Print the archive content as text"
-msgstr "以文字格式印出封存檔內容"
-
-#: ../src/window.c
-#, c-format
-msgid "Archive contents:\n"
-msgstr "封存檔內容：\n"
-
 #: ../src/window.c
 #, c-format
 msgid ""
@@ -1048,108 +35,10 @@ msgstr ""
 "\n"
 "檔名："
 
-#: ../src/window.c
+#: ../src/new_dialog.c
 #, c-format
-msgid "Compressed   size: "
-msgstr "壓縮縮後大小："
-
-#: ../src/window.c
-#, c-format
-msgid "Uncompressed size: "
-msgstr "解壓縮後大小："
-
-#: ../src/window.c
-#, c-format
-msgid "Number of files: "
-msgstr "檔案數："
-
-#: ../src/window.c
-#, c-format
-msgid "Comment:\n"
-msgstr "註解：\n"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "檔案：%*s%s"
-
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|大小\n"
-
-#: ../src/window.c
-#, c-format
-msgid "<th>Files:</th>"
-msgstr "<th>檔案：</th>"
-
-#: ../src/window.c
-#, c-format
-msgid "<th>Size:</th>"
-msgstr "<th>大小：</th>"
-
-#: ../src/window.c
-msgid "You are about to delete entries from the archive."
-msgstr "你正要從封存檔中刪除條目 。"
-
-#: ../src/window.c
-msgid "Are you sure you want to do this?"
-msgstr "您確定要這麼做？"
-
-#: ../src/window.c
-msgid "Can't convert the archive to self-extracting:"
-msgstr "無法轉換成自解封存檔："
-
-#: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "無法將 unzipsfx 模組寫入此封存檔："
-
-#: ../src/window.c
-msgid "Please select the 7zCon.sfx module"
-msgstr "請選擇 7zCon.sfx 模組"
-
-#: ../src/window.c
-msgid "A GTK+ only lightweight archive manager"
-msgstr "僅採用 GTK+ 的輕量封存檔管理程式"
-
-#: ../src/window.c
-msgid "translator-credits"
-msgstr ""
-"Robert Lee <robert@lee.org.tw>\n"
-"Wayne Su <mstarmstar@gmail.com>"
-
-#: ../src/window.c
-msgid "Save the self-extracting archive as"
-msgstr "儲存此自解封存檔為"
-
-#: ../src/window.c
-msgid "Filename"
-msgstr "檔名"
-
-#: ../src/window.c
-msgid "Doing so will probably corrupt your archive!"
-msgstr "這麼做可能損害您的封存檔！"
-
-#: ../src/window.c
-msgid "Do you really want to cancel?"
-msgstr "您確定要取消嗎？"
-
-#: ../src/window.c
-msgid "Yes"
-msgstr "是"
-
-#: ../src/window.c
-msgid "No"
-msgstr "否"
-
-#: ../src/window.c
-msgid "selected"
-msgstr "已選取"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d 個檔案 %d 個目錄 %s (%s)"
+msgid "\"%s\" is already open!"
+msgstr "「%s」已開啟！"
 
 #: ../src/window.c
 #, c-format
@@ -1164,12 +53,1040 @@ msgid_plural "%d files %s (%s)"
 msgstr[0] "%d 個檔案 %s (%s)"
 
 #: ../src/window.c
+#, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] "%d 個檔案 %d 個目錄 %s (%s)"
+
+#: ../src/pref_dialog.c
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr "0 = 不壓縮，1 = 預設壓縮率，4 = 最快速但高壓縮率最低"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr "0 = 不壓縮，3 = 預設壓縮率，5 = 最高壓縮率但最慢"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "0 = 不壓縮，5 = 預設壓縮率，9 = 最高壓縮率但最慢"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "0 = 不壓縮，6 = 預設壓縮率，9 = 最高壓縮率但最慢"
+
+#: ../src/add_dialog.c
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = 預設壓縮率，7 = 最高壓縮率"
+
+#: ../src/pref_dialog.c
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"<span color='red' style='italic'>請安裝 xdg-utils 套件\n"
+"使 Xarchiver 支援更多檔案類型。</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight='bold' size='larger'>輸入密碼：</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight='bold' size='larger'>需要密碼：</span>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>檔案：</th>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Size:</th>"
+msgstr "<th>大小：</th>"
+
+#: ../xarchiver.desktop.in.h
+msgid "A GTK+ only archive manager"
+msgstr "GTK+ 介面的封存檔管理程式"
+
+#: ../src/window.c
+msgid "A GTK+ only lightweight archive manager"
+msgstr "僅採用 GTK+ 的輕量封存檔管理程式"
+
+#: ../src/interface.c
+msgid "A_ction"
+msgstr "動作(_C)"
+
+#: ../src/interface.c
+msgid "A_dd"
+msgstr "加入(_D)"
+
+#: ../src/add_dialog.c
+msgid "Actions: "
+msgstr "動作："
+
+#: ../src/interface.c
+msgid "Add"
+msgstr "加入"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Add files"
+msgstr "加入檔案"
+
+#: ../src/main.c
+msgid "Add files to archive by asking their filenames and quits."
+msgstr "詢問封存檔檔名、加入檔案，然後離開。"
+
+#: ../src/main.c
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "詢問封存檔檔名、加入檔案，然後離開。"
+
+#: ../src/add_dialog.c
+msgid "Adding files to archive, please wait..."
+msgstr "將檔案加入封存檔中，請稍候..."
+
+#: ../src/interface.c
+msgid "Adding to archive:"
+msgstr "加入封存檔中："
+
+#: ../src/pref_dialog.c
+msgid "Advanced"
+msgstr "進階"
+
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "所有檔案"
+
+#: ../src/pref_dialog.c
+msgid "Allow subdirs with drag and drop"
+msgstr "允許用拖放功能加入子目錄"
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr "存取封存檔時發生錯誤："
+
+#: ../src/window.c
+msgid "An error occurred!"
+msgstr "發生錯誤！"
+
+#: ../src/pref_dialog.c
+msgid "Archive"
+msgstr "封存檔"
+
+#: ../src/extract_dialog.c
+msgid "Archive Name"
+msgstr "封存檔名"
+
+#: ../src/interface.c
+msgid "Archive Properties"
+msgstr "封存檔屬性"
+
+#: ../src/interface.c
+msgid "Archive _comment"
+msgstr "封存檔註解(_C)"
+
+#: ../src/window.c
+#, c-format
+msgid "Archive contents:\n"
+msgstr "封存檔內容：\n"
+
+#: ../src/window.c
+msgid "Archive format is not recognized!"
+msgstr "封存檔格式無法識別！"
+
+#: ../xarchiver.desktop.in.h
+msgid "Archive manager"
+msgstr "封存管理程式"
+
+#: ../src/interface.c
+msgid "Archive tree"
+msgstr "封存檔樹狀圖"
+
+#: ../src/new_dialog.c
+msgid "Archive type:"
+msgstr "封存檔類型："
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "封存程式的輸出訊息"
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr "您確定要這麼做？"
+
+#: ../src/7zip.c
+msgid "Attr"
+msgstr "屬性"
+
+#: ../src/arj.c
+msgid "Attributes"
+msgstr "屬性"
+
+#: ../src/interface.c
+msgid "Back"
+msgstr "上一頁"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr "瀏覽"
+
+#: ../src/rar.c
+msgid "CRC"
+msgstr "CRC"
+
+#: ../src/add_dialog.c ../src/main.c
+msgid "Can't add files to the archive:"
+msgstr "無法將檔案加入封存檔："
+
+#: ../src/main.c
+msgid "Can't allocate memory for the archive structure!"
+msgstr "記憶體不足，無法配置封存檔檔案結構！"
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr "記憶體不足，無法放置封存結構："
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr "無法轉換成自解封存檔："
+
+#: ../src/new_dialog.c
+msgid "Can't create a new archive:"
+msgstr "無法建立新封存檔："
+
+#: ../src/archive.c
+msgid "Can't create temporary directory:"
+msgstr "無法建立暫存目錄："
+
+#: ../src/main.c
+msgid "Can't extract files from the archive:"
+msgstr "無法解開封存檔："
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "無法在檔案移動指標："
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "無法移動檔案指標到位置 104："
+
+#: ../src/extract_dialog.c
+msgid "Can't multi-extract archives:"
+msgstr "無法解開封存檔："
+
+#: ../src/rpm.c
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "無法開啟 RPM 檔 %s："
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "無法開啟檔案 %s："
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file %s:"
+msgstr "無法開啟檔案 %s："
+
+#: ../src/window.c
 msgid "Can't perform another extraction:"
 msgstr "無法進行另一個抽出作業："
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr "無法執行抽出動作！"
+
+#: ../src/interface.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr "無法執行此操作："
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "無法從檔案讀取資料："
+
+#: ../src/archive.c
+msgid "Can't run the archiver executable:"
+msgstr "無法執行封存程式："
+
+#: ../src/window.c
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "無法將 unzipsfx 模組寫入此封存檔："
+
+#: ../src/interface.c
+msgid "Cancel current operation"
+msgstr "取消目前操作"
+
+#: ../src/pref_dialog.c
+msgid "Choose the application to use"
+msgstr "選擇要使用的應用程式"
+
+#: ../src/new_dialog.c
+msgid "Choose the archive type to create"
+msgstr "選擇封存檔類型以建立"
+
+#: ../src/pref_dialog.c
+msgid "Choose the directory to use"
+msgstr "選擇要使用的目錄"
+
+#: ../src/interface.c
+msgid "Close archive"
+msgstr "關閉封存檔"
+
+#: ../src/interface.c
+msgid "Cmd-line outp_ut"
+msgstr "命令列輸出訊息(_U)"
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "註解"
+
+#: ../src/interface.c
+msgid "Comment:"
+msgstr "註解："
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "註解：\n"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Compressed"
+msgstr "壓縮後大小"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed   size: "
+msgstr "壓縮縮後大小："
+
+#: ../src/interface.c
+msgid "Compressed size:"
+msgstr "壓縮後大小:"
+
+#: ../src/interface.c
+msgid "Compression ratio:"
+msgstr "壓縮率："
+
+#: ../src/add_dialog.c
+msgid "Compression: "
+msgstr "壓縮設定："
+
+#: ../src/pref_dialog.c
+msgid "Confirm deletion of files"
+msgstr "確認刪除檔案"
+
+#: ../src/interface.c
+msgid "Copy"
+msgstr "複製"
+
+#: ../src/new_dialog.c
+msgid "Cr_eate"
+msgstr "建立(_E)"
+
+#: ../src/interface.c ../src/new_dialog.c
+msgid "Create a new archive"
+msgstr "建立新的封存檔"
+
+#: ../src/add_dialog.c
+msgid "Create a solid archive"
+msgstr "建立實體封存檔"
+
+#: ../src/interface.c
+msgid "Cut"
+msgstr "剪下"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
+msgid "Date"
+msgstr "日期"
+
+#: ../src/deb.c
+msgid "Date modified"
+msgstr "更動日期"
+
+#: ../src/extract_dialog.c
+msgid "Decompress file"
+msgstr "解壓縮封存檔"
+
+#: ../src/interface.c
+msgid "Delete"
+msgstr "刪除"
+
+#: ../src/add_dialog.c
+msgid "Delete files after adding"
+msgstr "加入後刪除檔案"
+
+#: ../src/interface.c
+msgid "Dese_lect all"
+msgstr "全不選(_L)"
+
+#: ../src/extract_dialog.c
+msgid "Destination dirs:"
+msgstr "目標目錄："
+
+#: ../src/add_dialog.c
+msgid "Do not store paths"
+msgstr "不儲存路徑"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr "您確定要取消嗎？"
+
+#: ../src/new_dialog.c
+msgid "Do you want to overwrite it?"
+msgstr "要覆蓋它嗎？"
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr "這麼做可能損害您的封存檔！"
+
+#: ../src/interface.c
+msgid "Encrypted:"
+msgstr "加密："
+
+#: ../src/add_dialog.c
+msgid "Encryption: "
+msgstr "加密："
+
+#: ../src/interface.c
+msgid "Enter passwo_rd"
+msgstr "輸入密碼(_R)"
+
+#: ../src/interface.c
+msgid "Extract"
+msgstr "展開"
+
+#: ../src/main.c
+msgid "Extract archive by asking the extraction directory and quits."
+msgstr "詢問目標目錄、抽出封存檔, 然後離開。"
+
+#: ../src/main.c
+msgid "Extract archive to the destination directory and quits."
+msgstr "將封存檔解開到目標目錄，然後離開。"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "Extract files"
+msgstr "解開檔案"
+
+#: ../src/extract_dialog.c
+msgid "Extract files with full path"
+msgstr "解開檔案的完整路徑"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr "只解開並取代已存在磁碟中且比較舊的檔案"
+
+#: ../src/extract_dialog.c
+msgid "Extract pathnames"
+msgstr "抽出路徑名稱"
+
+#: ../src/extract_dialog.c
+msgid "Extract to dir \"Archive Name\""
+msgstr "解開到與封存檔同名的目錄"
+
+#: ../src/extract_dialog.c
+msgid "Extract to:"
+msgstr "抽出至："
+
+#: ../src/extract_dialog.c
+msgid "Extracting files from archive,please wait..."
+msgstr "正從封存檔抽出檔案，請稍候..."
+
+#: ../src/interface.c
+msgid "Extracting from archive:"
+msgstr "解開封存檔中："
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr "無法開啟應用程式！"
+
+#: ../src/add_dialog.c
+msgid "File Paths: "
+msgstr "檔案路徑："
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "檔名"
+
+#: ../src/extract_dialog.c
+msgid "Files "
+msgstr "檔案"
+
+#: ../src/extract_dialog.c
+msgid "Files: "
+msgstr "檔案："
+
+#: ../src/window.c
+#, c-format
+msgid "Files:%*s%s"
+msgstr "檔案：%*s%s"
+
+#: ../src/interface.c
+msgid "Forward"
+msgstr "下一頁"
+
+#: ../src/add_dialog.c
+msgid "Freshen and replace"
+msgstr "更新並置換"
+
+#: ../src/extract_dialog.c
+msgid "Freshen existing files"
+msgstr "只更新已存在的檔案"
+
+#: ../src/window.c
+msgid "From File"
+msgstr "從檔案"
+
+#: ../src/rpm.c
+msgid "Group"
+msgstr "群組"
+
+#: ../src/rpm.c
+msgid "Hard Link"
+msgstr "硬性連結"
+
+#: ../src/pref_dialog.c
+msgid "Icons size (requires restart)"
+msgstr "圖示大小 (須重新啟動程式)"
+
+#: ../src/pref_dialog.c
+msgid "If checked the archive comment is shown after the archive is loaded"
+msgstr "使用此功能，載入封存檔後會顯示註解"
+
+#: ../src/add_dialog.c
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr "實體封存檔會把檔案結合處理以得到較佳壓縮率，但若損壞時損失會較嚴重"
+
+#: ../src/add_dialog.c
+msgid "Include subdirectories"
+msgstr "包含子目錄"
+
+#: ../src/interface.c
+msgid "Location:"
+msgstr "位置："
+
+#: ../src/main.c
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/interface.c
+msgid "Make SF_X"
+msgstr "轉成自解檔(_X)"
+
+#: ../src/rar.c ../src/zip.c
+msgid "Method"
+msgstr "方法"
+
+#: ../src/interface.c
+msgid "Modified on:"
+msgstr "更動時間："
+
+#: ../src/extract_dialog.c
+msgid "Multi-Extract"
+msgstr "解開多個封存檔"
+
+#: ../src/main.c
+msgid "Multi-extract archives"
+msgstr "解開多個封存檔"
+
+#: ../src/interface.c
+msgid "Name:"
+msgstr "檔名："
+
+#: ../src/interface.c
+msgid "New"
+msgstr "新建"
+
+#: ../src/window.c
+msgid "No"
+msgstr "否"
+
+#: ../src/interface.c
+msgid "Number of files:"
+msgstr "檔案數："
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "檔案數："
+
+#: ../src/zip.c
+msgid "OS"
+msgstr "OS"
+
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "僅封存檔"
+
+#: ../src/interface.c
+msgid "Open"
+msgstr "開啟"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "以...開啟 <i>%s</i>："
+
+#: ../src/interface.c ../src/open-with-dlg.c
+msgid "Open With"
+msgstr "以...開啟"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "開啟文字檔"
+
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "開啟封存檔"
+
+#: ../src/pref_dialog.c
+msgid "Open image files with:"
+msgstr "以...開啟圖片檔："
+
+#: ../src/pref_dialog.c
+msgid "Open text files with:"
+msgstr "以...開啟文字檔："
+
+#: ../src/open-with-dlg.c
+msgid "Open the selected files with"
+msgstr "以...開啟選取的檔案"
+
+#: ../src/window.c
+msgid "Opening archive,please wait..."
+msgstr "開啟封存檔中，請稍候..."
+
+#: ../src/window.c
+msgid "Operation aborted!"
+msgstr "操作已中止！"
+
+#: ../src/add_dialog.c
+msgid "Options"
+msgstr "選項"
+
+#: ../src/extract_dialog.c
+msgid "Options "
+msgstr "選項"
+
+#: ../src/extract_dialog.c
+msgid "Options:"
+msgstr "選項："
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Original"
+msgstr "原始大小"
+
+#: ../src/extract_dialog.c
+msgid "Overwrite existing files"
+msgstr "覆蓋已存在的檔案"
+
+#: ../src/rpm.c
+msgid "Owner"
+msgstr "擁有者"
+
+#: ../src/deb.c ../src/gzip_et_al.c ../src/tar.c
+msgid "Owner/Group"
+msgstr "擁有者/群組"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Password:"
+msgstr "密碼："
+
+#: ../src/interface.c
+msgid "Paste"
+msgstr "貼上"
+
+#: ../src/extract_dialog.c
+msgid "Path"
+msgstr "路徑"
+
+#: ../src/interface.c
+msgid "Path:"
+msgstr "路徑："
+
+#: ../src/interface.c
+msgid "Pattern:"
+msgstr "規則："
+
+#: ../src/rpm.c
+msgid "Permission"
+msgstr "權限"
+
+#: ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/tar.c
+#: ../src/zip.c
+msgid "Permissions"
+msgstr "權限"
+
+#: ../src/window.c
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr "請使用「儲存封存程式的輸出訊息」選項即可查看相關訊息。"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Please enter it!"
+msgstr "請輸入！"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the extraction path."
+msgstr "請輸入抽出目標路徑。"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the password."
+msgstr "請輸入密碼。"
+
+#: ../src/extract_dialog.c
+msgid "Please fill the \"Extract to\" field!"
+msgstr "尚未設定「抽出至」欄位！"
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "請在 '偏好設定 -> 進階' 中設定。"
+
+#: ../src/window.c
+msgid "Please install xdg-utils package."
+msgstr "請安裝 xdg-utils 套件。"
+
+#: ../src/main.c
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr "請回報臭蟲至 <%s>。"
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr "請選擇 7zCon.sfx 模組"
+
+#: ../src/extract_dialog.c
+msgid "Please select the archives you want to extract"
+msgstr "請選取要解開的封存檔"
+
+#: ../src/extract_dialog.c
+msgid "Please select the destination directory"
+msgstr "請選取目標目錄"
 
 #: ../src/window.c
 msgid "Please wait until the completion of the current one!"
 msgstr "請先等目前執行中的作業完成！"
+
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rpm.c ../src/tar.c
+msgid "Points to"
+msgstr "標記"
+
+#: ../src/pref_dialog.c
+msgid "Preferences"
+msgstr "偏好設定"
+
+#: ../src/pref_dialog.c
+msgid "Preferred archive format"
+msgstr "偏好的封存格式"
+
+#: ../src/pref_dialog.c
+msgid "Preferred extract directory:"
+msgstr "偏好的抽出目錄："
+
+#: ../src/pref_dialog.c
+msgid "Preferred temp directory:"
+msgstr "偏好的暫存目錄："
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr "以 HTML 格式印出封存檔內容"
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr "以文字格式印出封存檔內容"
+
+#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Ratio"
+msgstr "壓縮率"
+
+#: ../src/interface.c
+msgid "Re_name"
+msgstr "重新命名(_N)"
+
+#: ../src/interface.c
+msgid "Rename"
+msgstr "重新命名"
+
+#: ../src/interface.c
+msgid "Root"
+msgstr "最上層"
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "儲存封存檔為"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr "儲存此自解封存檔為"
+
+#: ../src/pref_dialog.c
+msgid "Save window geometry"
+msgstr "儲存視窗狀態"
+
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "選「新建」建立新的封存檔、選「開啟」打開已有的封存檔"
+
+#: ../src/interface.c
+msgid "Select _all"
+msgstr "全選(_A)"
+
+#: ../src/interface.c
+msgid "Select _by pattern"
+msgstr "按規則選取(_B)"
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr "選取應用程式"
+
+#: ../src/interface.c
+msgid "Select by Pattern"
+msgstr "按規則選取"
+
+#: ../src/extract_dialog.c
+msgid "Selected files"
+msgstr "已選取檔案"
+
+#: ../src/add_dialog.c
+msgid "Selection"
+msgstr "選取"
+
+#: ../src/pref_dialog.c
+msgid "Show archive comment"
+msgstr "顯示封存檔註解"
+
+#: ../src/pref_dialog.c
+msgid "Show archive location bar"
+msgstr "顯示封存檔位置列"
+
+#: ../src/pref_dialog.c
+msgid "Show archive tree sidebar"
+msgstr "顯示封存檔樹狀圖側邊視窗"
+
+#: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/main.c
+msgid "Show version and exit"
+msgstr "顯示版本並離開"
+
+#: ../src/deb.c ../src/extract_dialog.c ../src/gzip_et_al.c ../src/lha.c
+#: ../src/rpm.c ../src/tar.c
+msgid "Size"
+msgstr "大小"
+
+#: ../src/extract_dialog.c
+msgid "Some errors occurred:"
+msgstr "有錯誤發生："
+
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+msgid "Sorry,I could not perform the operation!"
+msgstr "抱歉，無法執行此操作！"
+
+#: ../src/window.c
+msgid "Sorry,this archive format is not supported:"
+msgstr "抱歉，不支援此封存格式："
+
+#: ../src/pref_dialog.c
+msgid "Sort archive by filename"
+msgstr "按檔名排序"
+
+#: ../src/interface.c
+msgid "Stop"
+msgstr "停止"
+
+#: ../src/pref_dialog.c
+msgid "Store archiver output"
+msgstr "儲存封存程式的輸出訊息"
+
+#: ../src/add_dialog.c
+msgid "Store full paths"
+msgstr "儲存完整路徑"
+
+#: ../src/window.c
+msgid "Testing archive,please wait..."
+msgstr "測試封存檔中，請稍候..."
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "封存檔「%s」已存在！"
+
+#: ../src/extract_dialog.c
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr "已在目標目錄重新建立封存檔內的完整目錄結構"
+
+#: ../src/window.c
+msgid "The archiver doesn't support this feature!"
+msgstr "封存程式不支援此功能！"
+
+#: ../src/pref_dialog.c
+msgid "The filename column is sorted after loading the archive"
+msgstr "載入封存檔後按檔名排序"
+
+#: ../src/extract_dialog.c
+msgid "This archive is encrypted!"
+msgstr "封存檔已被加密！"
+
+#: ../src/window.c
+msgid "This file type is not supported!"
+msgstr "不支援此檔案類型！"
+
+#: ../src/interface.c
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr "這是 Xarchiver 狀態燈號，閃爍時表示程式忙碌中"
+
+#: ../src/add_dialog.c
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+"使用此選項只會更新封存檔中較舊的檔案，不像「「更新並加入」選項還會加入封存檔"
+"中沒有的檔案"
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr "使用此選項會把封存檔解開到與封存檔同名的目錄中，目錄不存在時會先建立"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr "此選項使您可用滑鼠拖放功能 (drog and drop) 來加入子目錄"
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr "使用此選項除了解開並取代磁碟中比較舊的檔案，還會解開磁碟中沒有的檔案"
+
+#: ../src/pref_dialog.c
+msgid "This option takes more memory with large archives"
+msgstr "此選項用於大型封存檔時會耗較多記憶體"
+
+#: ../src/add_dialog.c
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr "使用此選項將根據封存檔上次建立或修改過後的情況，加入新檔案並更新檔案"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/zip.c
+msgid "Time"
+msgstr "時間"
+
+#: ../src/lha.c
+msgid "Timestamp"
+msgstr "時間戳"
+
+#: ../src/interface.c
+msgid "Total Progress:"
+msgstr "總進度："
+
+#: ../src/extract_dialog.c
+msgid "Touch files"
+msgstr "更改檔案日期"
+
+#: ../src/interface.c
+msgid "Type:"
+msgstr "類型："
+
+#: ../src/lha.c
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/interface.c
+msgid "Uncompressed size:"
+msgstr "解壓縮後大小："
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "解壓縮後大小："
+
+#: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Up"
+msgstr "上層目錄"
+
+#: ../src/add_dialog.c
+msgid "Update and add"
+msgstr "更新並加入"
+
+#: ../src/extract_dialog.c
+msgid "Update existing files"
+msgstr "更新已存在的檔案"
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr "使用自訂指令："
+
+#: ../src/rar.c ../src/zip.c
+msgid "Version"
+msgstr "版本"
+
+#: ../src/interface.c
+msgid "View"
+msgstr "檢視"
+
+#: ../src/pref_dialog.c
+msgid "Web browser to use:"
+msgstr "使用的網路瀏覽器："
+
+#: ../src/extract_dialog.c
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr "使用此選項後，檔案的更動時間會以解壓時的時間取代原紀錄在封存檔內的時間"
+
+#: ../src/pref_dialog.c
+msgid "Window"
+msgstr "視窗"
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "是"
+
+#: ../src/window.c
+msgid "You are about to delete entries from the archive."
+msgstr "你正要從封存檔中刪除條目 。"
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to deb packages!"
+msgstr "不可再加入內容到 deb 套件檔中！"
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to rpm packages!"
+msgstr "不可再加入內容到 rpm 套件檔中！"
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr "尚未設定瀏覽器！"
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr "您尚未設定用來開啟此檔案的程式！"
+
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr "您沒有在目錄 %s 寫入檔案的權限。"
 
 #: ../src/window.c
 msgid "You have to install arj package!"
@@ -1179,62 +1096,144 @@ msgstr "請安裝 ARJ 套件！"
 msgid "You have to install rar package!"
 msgstr "請安裝 RAR 套件！"
 
-#: ../src/window.c
-msgid "The archiver doesn't support this feature!"
-msgstr "封存程式不支援此功能！"
+#: ../src/extract_dialog.c
+msgid "You haven't added any of them!"
+msgstr "請至少要加入一個！"
+
+#: ../src/add_dialog.c
+msgid "You haven't selected any files to add!"
+msgstr "尚未選取要加入的檔案！"
+
+#: ../src/main.c
+msgid "You missed the archive name!\n"
+msgstr "封存檔檔名錯誤！\n"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "You missed the password!"
+msgstr "密碼輸入錯誤！"
+
+#: ../src/extract_dialog.c
+msgid "You missed where to extract the files!"
+msgstr "您未設定要抽出到哪裏！"
+
+#: ../src/main.c
+msgid "[archive name]"
+msgstr "[封存檔名]"
+
+#: ../src/add_dialog.c
+msgid "_Add"
+msgstr "加入(_A)"
+
+#: ../src/interface.c
+msgid "_Archive"
+msgstr "封存檔(_A)"
+
+#: ../src/interface.c
+msgid "_Contents"
+msgstr "内容(_C)"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "_Extract"
+msgstr "抽出(_E)"
+
+#: ../src/interface.c
+msgid "_HTML file"
+msgstr "_HTML 檔"
+
+#: ../src/interface.c
+msgid "_Help"
+msgstr "幫助(_H)"
+
+#: ../src/interface.c
+msgid "_List as"
+msgstr "列出為(_L)"
+
+#: ../src/interface.c
+msgid "_Multi-Extract"
+msgstr "抽出多個檔案(_M)"
+
+#: ../src/interface.c
+msgid "_Password:"
+msgstr "密碼(_P)："
+
+#: ../src/interface.c
+msgid "_Preferences"
+msgstr "偏好設定(_P)"
+
+#: ../src/interface.c
+msgid "_Properties"
+msgstr "屬性(_P)"
+
+#: ../src/interface.c
+msgid "_Select"
+msgstr "選取(_S)"
+
+#: ../src/interface.c
+msgid "_Test"
+msgstr "測試(_T)"
+
+#: ../src/interface.c
+msgid "_Text file"
+msgstr "文字檔(_T)"
+
+#: ../src/main.c
+msgid "archive"
+msgstr "封存檔"
+
+#: ../src/pref_dialog.c
+msgid "choose..."
+msgstr "選擇..."
+
+#: ../src/main.c
+msgid "destination archive"
+msgstr "目的封存檔"
+
+#: ../src/interface.c
+msgid "example: *.txt; ac*"
+msgstr "例如：*.txt; ac*"
+
+#: ../src/main.c
+msgid "file1 file2 file3 ... fileN"
+msgstr "檔案1 檔案2 檔案3 ... 檔案N"
+
+#: ../src/main.c
+msgid "filenames"
+msgstr "檔名"
+
+#: ../src/pref_dialog.c
+msgid "large"
+msgstr "大"
 
 #: ../src/window.c
-msgid "You didn't set which browser to use!"
-msgstr "尚未設定瀏覽器！"
+msgid "selected"
+msgstr "已選取"
+
+#: ../src/pref_dialog.c
+msgid "small"
+msgstr "小"
 
 #: ../src/window.c
-msgid "Please go to Preferences->Advanced and set it."
-msgstr "請在 '偏好設定 -> 進階' 中設定。"
+msgid "the proper archiver is not installed!"
+msgstr "尚未安裝適合的封存程式！"
 
 #: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "不支援此檔案類型！"
+msgid "translator-credits"
+msgstr ""
+"Robert Lee <robert@lee.org.tw>\n"
+"Wayne Su <mstarmstar@gmail.com>"
 
-#: ../src/window.c
-msgid "Please install xdg-utils package."
-msgstr "請安裝 xdg-utils 套件。"
-
-#: ../src/window.c
-msgid "You didn't set which program to use for opening this file!"
-msgstr "您尚未設定用來開啟此檔案的程式！"
-
-#: ../src/window.c
-msgid "Failed to launch the application!"
-msgstr "無法開啟應用程式！"
-
-#: ../src/window.c
-msgid "Comment"
-msgstr "註解"
-
-#: ../src/window.c
-msgid "From File"
-msgstr "從檔案"
-
-#: ../src/window.c
-msgid "Open a text file"
-msgstr "開啟文字檔"
-
-#: ../src/window.c
+#: ../src/main.c
 #, c-format
-msgid "Can't open file %s:"
-msgstr "無法開啟檔案 %s："
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"以指令 xarchiver --help 列出所有命令列選項與參數。\n"
 
-#: ../src/zip.c
-msgid "OS"
-msgstr "OS"
-
-#: ../xarchiver.desktop.in.h
-msgid "Archive manager"
-msgstr "封存管理程式"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "GTK+ 介面的封存檔管理程式"
+#: ../src/window.c
+msgid "|Size\n"
+msgstr "|大小\n"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|壓縮後大小\n"

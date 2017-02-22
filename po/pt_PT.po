@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-02-12 21:13+0100\n"
+"POT-Creation-Date: 2017-02-22 18:34+0100\n"
 "PO-Revision-Date: 2009-08-27 19:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,1047 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/rar.c ../src/zip.c
-msgid "Original"
-msgstr "Original"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/zip.c
-msgid "Compressed"
-msgstr "Comprimido"
-
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Atrib"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/tar.c ../src/zip.c
-msgid "Time"
-msgstr "Hora"
-
-#: ../src/7zip.c ../src/arj.c ../src/bzip2.c ../src/gzip.c ../src/rar.c
-#: ../src/rpm.c ../src/tar.c ../src/zip.c
-msgid "Date"
-msgstr "Data"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "Add files"
-msgstr "Adicionar ficheiros"
-
-#: ../src/add_dialog.c
-msgid "Selection"
-msgstr "Selecção"
-
-#: ../src/add_dialog.c
-msgid "File Paths: "
-msgstr "Caminhos de ficheiros: "
-
-#: ../src/add_dialog.c
-msgid "Store full paths"
-msgstr "Armazenar caminhos completos"
-
-#: ../src/add_dialog.c
-msgid "Do not store paths"
-msgstr "Não armazenar caminhos"
-
-#: ../src/add_dialog.c
-msgid "Options"
-msgstr "Opções"
-
-#: ../src/add_dialog.c
-msgid "Update and add"
-msgstr "Actualizar e adicionar"
-
-#: ../src/add_dialog.c
-msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
-msgstr ""
-"Esta opção irá adicionar quaisquer novos ficheiros e actualizar quaisquer "
-"ficheiros que foram modificados desde a última vez que o arquivo foi criado/"
-"modificado"
-
-#: ../src/add_dialog.c
-msgid "Freshen and replace"
-msgstr "Refrescar e substituir"
-
-#: ../src/add_dialog.c
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
-msgstr ""
-"Esta opção apenas afecta o arquivo caso este tenha sido modificado mais "
-"recentemente que a versão existente no arquivo; ao invés da opção "
-"actualizar, não irá adicionar ficheiros que não estejam no arquivo"
-
-#: ../src/add_dialog.c
-msgid "Include subdirectories"
-msgstr "Incluir sub directórios"
-
-#: ../src/add_dialog.c
-msgid "Create a solid archive"
-msgstr "Criar um arquivo sólido"
-
-#: ../src/add_dialog.c
-msgid ""
-"In a solid archive the files are grouped together featuring a better "
-"compression ratio"
-msgstr ""
-"Num arquivo sólido os ficheiros são agrupados em conjunto para uma melhor "
-"compressão"
-
-#: ../src/add_dialog.c
-msgid "Delete files after adding"
-msgstr "Apagar ficheiros depois de adicionados"
-
-#: ../src/add_dialog.c
-msgid "Actions: "
-msgstr "Acções: "
-
-#: ../src/add_dialog.c
-msgid "Compression: "
-msgstr "Compressão: "
-
-#: ../src/add_dialog.c ../src/extract_dialog.c
-msgid "Password:"
-msgstr "Senha:"
-
-#: ../src/add_dialog.c
-msgid "Encryption: "
-msgstr "Encriptação: "
-
-#: ../src/add_dialog.c
-msgid "_Add"
-msgstr "_Adicionar"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = sem compressão, 5 é a pré-definição, 9 = melhor compressão, mas mais "
-"lenta"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
-msgstr ""
-"0 = sem compressão, 6 é a pré-definição, 9 = melhor compressão, mas mais "
-"lenta"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
-msgstr ""
-"0 = sem compressão, 3 é a pré-definição, 5 = melhor compressão, mas mais "
-"lenta"
-
-#: ../src/add_dialog.c
-msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
-msgstr ""
-"0 = sem compressão, 1 é a pré-definição, 4 = mais rápido, mas menor "
-"compressão"
-
-#: ../src/add_dialog.c
-msgid "5 = default compression, 7 = max compression"
-msgstr "5 = compressão pré-definida, 7 = compressão máxima"
-
-#: ../src/add_dialog.c ../src/main.c
-msgid "Can't add files to the archive:"
-msgstr "Incapaz de adicionar ficheiros ao arquivo:"
-
-#: ../src/add_dialog.c
-msgid "You haven't selected any files to add!"
-msgstr "Não seleccionou nenhum ficheiro para adicionar!"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "You missed the password!"
-msgstr "Enganou-se na senha!"
-
-#: ../src/add_dialog.c ../src/interface.c
-msgid "Please enter it!"
-msgstr "Por favor, indique-a!"
-
-#: ../src/add_dialog.c
-msgid "Adding files to archive, please wait..."
-msgstr "Adicionando ficheiros ao arquivo, aguarde por favor..."
-
-#: ../src/archive.c
-msgid "Can't run the archiver executable:"
-msgstr "Incapaz de lançar o executável do arquivador:"
-
-#: ../src/archive.c
-msgid "Can't create temporary directory:"
-msgstr "Incapaz de criar directório temporário:"
-
-#: ../src/arj.c ../src/gzip.c ../src/lha.c ../src/rar.c
-msgid "Ratio"
-msgstr "Relação"
-
-#: ../src/arj.c
-msgid "Attributes"
-msgstr "Atributos"
-
-#: ../src/bzip2.c ../src/gzip.c ../src/lha.c ../src/rpm.c ../src/tar.c
-msgid "Points to"
-msgstr "Aponta para"
-
-#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/lha.c ../src/rar.c
-#: ../src/tar.c ../src/zip.c
-msgid "Permissions"
-msgstr "Permissões"
-
-#: ../src/bzip2.c ../src/deb.c ../src/gzip.c ../src/tar.c
-msgid "Owner/Group"
-msgstr "Dono/grupo"
-
-#: ../src/bzip2.c ../src/deb.c ../src/extract_dialog.c ../src/gzip.c
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
-msgid "Size"
-msgstr "Tamanho"
-
-#: ../src/deb.c
-msgid "Date modified"
-msgstr "Data de modificação"
-
-#: ../src/extract_dialog.c
-msgid "Extract to:"
-msgstr "Extrair para:"
-
-#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
-msgid "All files"
-msgstr "Todos os ficheiros"
-
-#: ../src/extract_dialog.c
-msgid "Selected files"
-msgstr "Ficheiros seleccionados"
-
-#: ../src/extract_dialog.c
-msgid "Files: "
-msgstr "Ficheiros: "
-
-#: ../src/extract_dialog.c
-msgid "Files "
-msgstr "Ficheiros "
-
-#: ../src/extract_dialog.c
-msgid "Overwrite existing files"
-msgstr "Sobrescrever ficheiros existentes"
-
-#: ../src/extract_dialog.c
-msgid "Extract files with full path"
-msgstr "Extrair ficheiros com caminhos completos"
-
-#: ../src/extract_dialog.c
-msgid ""
-"The archive's directory structure is recreated in the extraction directory"
-msgstr ""
-"A estrutura de directórios do arquivo é recriada no directório de extracção"
-
-#: ../src/extract_dialog.c
-msgid "Touch files"
-msgstr "Criar ficheiros vazios"
-
-#: ../src/extract_dialog.c
-msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
-msgstr ""
-"Quando esta opção é usada, tar actualiza as datas de modificação dos "
-"ficheiros para o momento da extracção ao invés de usar as datas contidas no "
-"arquivo compactado"
-
-#: ../src/extract_dialog.c
-msgid "Freshen existing files"
-msgstr "Actualizar ficheiros existentes"
-
-#: ../src/extract_dialog.c
-msgid ""
-"Extract only those files that already exist on disk and that are newer than "
-"the disk copies"
-msgstr ""
-"Extrair apenas aqueles ficheiros que já existem no disco e que são mais "
-"recentes que as cópias no disco"
-
-#: ../src/extract_dialog.c
-msgid "Update existing files"
-msgstr "Actualizar ficheiros existentes"
-
-#: ../src/extract_dialog.c
-msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
-"extracts those files that do not already exist on disk"
-msgstr ""
-"Esta opção faz a mesma função que actualizar, extraindo os ficheiros que são "
-"mais novos que aqueles com o mesmo nome no disco e em adição extrai os "
-"ficheiros que ainda não existem no disco."
-
-#: ../src/extract_dialog.c
-msgid "Options "
-msgstr "Opções"
-
-#: ../src/extract_dialog.c ../src/interface.c
-msgid "_Extract"
-msgstr "_Extrair"
-
-#: ../src/extract_dialog.c
-msgid "Decompress file"
-msgstr "Descomprimir ficheiro"
-
-#: ../src/extract_dialog.c ../src/interface.c
-msgid "Extract files"
-msgstr "Extrair ficheiros"
-
-#: ../src/extract_dialog.c
-msgid "You missed where to extract the files!"
-msgstr "Esqueceu-se do local para a extracção dos ficheiros!"
-
-#: ../src/extract_dialog.c
-msgid "Please enter the extraction path."
-msgstr "Por favor, introduza o caminho da extracção."
-
-#: ../src/extract_dialog.c
-msgid "This archive is encrypted!"
-msgstr "Este arquivo está encriptado!"
-
-#: ../src/extract_dialog.c
-msgid "Please enter the password."
-msgstr "Por favor, indique a senha."
-
-#: ../src/extract_dialog.c ../src/window.c
-#, c-format
-msgid ""
-"You don't have the right permissions to extract the files to the directory "
-"\"%s\"."
-msgstr "Não tem permissões para extrair os ficheiros para o directório \"%s\"."
-
-#: ../src/extract_dialog.c ../src/window.c
-msgid "Can't perform extraction!"
-msgstr "Incapaz de realizar a extracção!"
-
-#: ../src/extract_dialog.c
-msgid "Extracting files from archive,please wait..."
-msgstr "Extraindo ficheiros do arquivo, aguarde por favor..."
-
-#: ../src/extract_dialog.c
-msgid "Archive Name"
-msgstr "Nome do arquivo"
-
-#: ../src/extract_dialog.c
-msgid "Path"
-msgstr "Caminho"
-
-#: ../src/extract_dialog.c
-msgid "Multi-Extract"
-msgstr "Extracção múltipla"
-
-#: ../src/extract_dialog.c
-msgid "Extract to dir \"Archive Name\""
-msgstr "Extrair para o directório \"Nome do arquivo\""
-
-#: ../src/extract_dialog.c
-msgid ""
-"This option extracts archives in directories named with the archive names"
-msgstr "Esta opção extrai os arquivos para directórios com os nomes do arquivo"
-
-#: ../src/extract_dialog.c
-msgid "Destination dirs:"
-msgstr "Directórios de destino:"
-
-#: ../src/extract_dialog.c
-msgid "Extract pathnames"
-msgstr "Extrair nomes de caminho"
-
-#: ../src/extract_dialog.c
-msgid "Options:"
-msgstr "Opções:"
-
-#: ../src/extract_dialog.c
-msgid "Please select the archives you want to extract"
-msgstr "Por favor, seleccione os arquivos que deseja extrair"
-
-#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
-msgid "Sorry,I could not perform the operation!"
-msgstr "Desculpe, não foi possível realizar a operação!"
-
-#: ../src/extract_dialog.c
-msgid "Please select the destination directory"
-msgstr "Por favor, seleccione o directório de destino"
-
-#: ../src/extract_dialog.c
-msgid "Can't multi-extract archives:"
-msgstr "Incapaz de extrair arquivos múltiplos:"
-
-#: ../src/extract_dialog.c
-msgid "You haven't added any of them!"
-msgstr "Não adicionou nenhum deles!"
-
-#: ../src/extract_dialog.c
-msgid "Please fill the \"Extract to\" field!"
-msgstr "Por favor, preencha o campo \"Extrair para\""
-
-#: ../src/extract_dialog.c
-msgid "Some errors occurred:"
-msgstr "Ocorreram alguns erros:"
-
-#: ../src/interface.c
-msgid "_Archive"
-msgstr "_Arquivo"
-
-#: ../src/interface.c
-msgid "_List as"
-msgstr "_Listar como"
-
-#: ../src/interface.c
-msgid "_Text file"
-msgstr "Ficheiro de _texto"
-
-#: ../src/interface.c
-msgid "_HTML file"
-msgstr "Ficheiro _HTML"
-
-#: ../src/interface.c
-msgid "_Test"
-msgstr "_Testar"
-
-#: ../src/interface.c
-msgid "_Properties"
-msgstr "_Propriedades"
-
-#: ../src/interface.c
-msgid "A_ction"
-msgstr "A_cção"
-
-#: ../src/interface.c
-msgid "A_dd"
-msgstr "A_dicionar"
-
-#: ../src/interface.c
-msgid "Re_name"
-msgstr "Re_nomear"
-
-#: ../src/interface.c
-msgid "Uns_ort"
-msgstr ""
-
-#: ../src/interface.c
-msgid "Make SF_X"
-msgstr "Criar SF_X"
-
-#: ../src/interface.c
-msgid "_Multi-Extract"
-msgstr "Extracção _múltipla"
-
-#: ../src/interface.c
-msgid "Archive _comment"
-msgstr "_Comentário do arquivo"
-
-#: ../src/interface.c
-msgid "Select _all"
-msgstr "Seleccionar _tudo"
-
-#: ../src/interface.c
-msgid "Dese_lect all"
-msgstr "Desse_leccionar tudo"
-
-#: ../src/interface.c
-msgid "Select _by pattern"
-msgstr "Seleccionar por _padrão"
-
-#: ../src/interface.c
-msgid "Cmd-line outp_ut"
-msgstr "Saída da linha de co_mandos"
-
-#: ../src/interface.c
-msgid "Enter passwo_rd"
-msgstr "Introduzir _senha"
-
-#: ../src/interface.c
-msgid "_Preferences"
-msgstr "_Preferências"
-
-#: ../src/interface.c
-msgid "_Help"
-msgstr "_Ajuda"
-
-#: ../src/interface.c
-msgid "_Contents"
-msgstr "_Conteúdo"
-
-#: ../src/interface.c
-msgid "New"
-msgstr "Novo"
-
-#: ../src/interface.c ../src/new_dialog.c
-msgid "Create a new archive"
-msgstr "Criar um novo arquivo"
-
-#: ../src/interface.c
-msgid "Open"
-msgstr "Abrir"
-
-#: ../src/interface.c ../src/window.c
-msgid "Open an archive"
-msgstr "Abrir um arquivo"
-
-#: ../src/interface.c
-msgid "Back"
-msgstr "Recuar"
-
-#: ../src/interface.c
-msgid "Up"
-msgstr "Acima"
-
-#: ../src/interface.c
-msgid "Forward"
-msgstr "Avançar"
-
-#: ../src/interface.c
-msgid "Root"
-msgstr "\"Root\""
-
-#: ../src/interface.c
-msgid "Add"
-msgstr "Adicionar"
-
-#: ../src/interface.c
-msgid "Extract"
-msgstr "Extrair"
-
-#: ../src/interface.c
-msgid "Stop"
-msgstr "Parar"
-
-#: ../src/interface.c
-msgid "Cancel current operation"
-msgstr "Cancelar operação actual"
-
-#: ../src/interface.c
-msgid "Location:"
-msgstr "Localização:"
-
-#: ../src/interface.c
-msgid "Archive tree"
-msgstr "Árvore do arquivo"
-
-#: ../src/interface.c
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
-msgstr ""
-"Este é o luz de estado do Xarchiver. Se piscar o Xarchiver está ocupado"
-
-#: ../src/interface.c
-msgid "Close archive"
-msgstr "Fechar arquivo"
-
-#: ../src/interface.c
-msgid "<span weight='bold' size='larger'>Password required for:</span>"
-msgstr "<span weight='bold' size='larger'>Senha necessária para:</span>"
-
-#: ../src/interface.c
-msgid "<span weight='bold' size='larger'>Enter password for:</span>"
-msgstr "<span weight='bold' size='larger'>Introduza senha para:</span>"
-
-#: ../src/interface.c
-msgid "_Password:"
-msgstr "_Senha:"
-
-#: ../src/interface.c ../src/open-with-dlg.c
-msgid "Open With"
-msgstr "Abrir com"
-
-#: ../src/interface.c
-msgid "View"
-msgstr "Ver"
-
-#: ../src/interface.c
-msgid "Cut"
-msgstr "Cortar"
-
-#: ../src/interface.c
-msgid "Copy"
-msgstr "Copiar"
-
-#: ../src/interface.c
-msgid "Paste"
-msgstr "Colar"
-
-#: ../src/interface.c
-msgid "Delete"
-msgstr "Apagar"
-
-#: ../src/interface.c
-msgid "Rename"
-msgstr "Renomear"
-
-#: ../src/interface.c
-msgid "Select by Pattern"
-msgstr "Seleccionar por padrão"
-
-#: ../src/interface.c
-msgid "Pattern:"
-msgstr "Padrão:"
-
-#: ../src/interface.c
-msgid "example: *.txt; ac*"
-msgstr "exemplo: *.txt; ac*"
-
-#: ../src/interface.c
-msgid "_Select"
-msgstr "_Seleccionar"
-
-#: ../src/interface.c
-msgid "Archive Properties"
-msgstr "Propriedades do arquivo"
-
-#: ../src/interface.c
-msgid "Name:"
-msgstr "Nome:"
-
-#: ../src/interface.c
-msgid "Path:"
-msgstr "Caminho:"
-
-#: ../src/interface.c
-msgid "Type:"
-msgstr "Tipo:"
-
-#: ../src/interface.c
-msgid "Encrypted:"
-msgstr "Encriptado:"
-
-#: ../src/interface.c
-msgid "Modified on:"
-msgstr "Modificado em:"
-
-#: ../src/interface.c
-msgid "Compressed size:"
-msgstr "Tamanho comprimido: "
-
-#: ../src/interface.c
-msgid "Uncompressed size:"
-msgstr "Tamanho descomprimido: "
-
-#: ../src/interface.c
-msgid "Comment:"
-msgstr "Comentário:"
-
-#: ../src/interface.c
-msgid "Number of files:"
-msgstr "Número de ficheiros:"
-
-#: ../src/interface.c
-msgid "Compression ratio:"
-msgstr "Taxa de compressão:"
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to deb packages!"
-msgstr "Não pode adicionar conteúdo aos pacotes deb!"
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to rpm packages!"
-msgstr "Não pode adicionar conteúdo aos pacotes rpm!"
-
-#: ../src/interface.c ../src/window.c
-msgid "Can't perform this action:"
-msgstr "Incapaz de executar esta acção:"
-
-#: ../src/interface.c
-msgid "Extracting from archive:"
-msgstr "Extraindo do arquivo:"
-
-#: ../src/interface.c
-msgid "Adding to archive:"
-msgstr "Adicionando ao arquivo:"
-
-#: ../src/interface.c
-msgid "Total Progress:"
-msgstr "Evolução:"
-
-#: ../src/lha.c
-msgid "UID/GID"
-msgstr "UID/GID"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Data"
-
-#: ../src/main.c
-msgid "Extract archive to the destination directory and quits."
-msgstr "Extrair arquivo para o directório de destino e sair"
-
-#: ../src/main.c
-msgid "destination archive"
-msgstr "arquivo de destino"
-
-#: ../src/main.c
-msgid "Extract archive by asking the extraction directory and quits."
-msgstr "Extrair arquivo solicitando o directório de extracção e sai."
-
-#: ../src/main.c
-msgid "archive"
-msgstr "arquivo"
-
-#: ../src/main.c
-msgid "Multi-extract archives"
-msgstr "Extracção múltipla de arquivos"
-
-#: ../src/main.c
-msgid "filenames"
-msgstr "nomes dos ficheiros"
-
-#: ../src/main.c
-msgid "Add the given files by asking the name of the archive and quits."
-msgstr "Adiciona os ficheiros solicitando o nome do arquivo e sai."
-
-#: ../src/main.c
-msgid "file1 file2 file3 ... fileN"
-msgstr "ficheiro1 ficheiro2 ficheiro3 ... ficheiroN"
-
-#: ../src/main.c
-msgid "Add files to archive by asking their filenames and quits."
-msgstr "Adiciona ficheiros ao arquivo solicitando os nomes e sai."
-
-#: ../src/main.c
-msgid "Show version and exit"
-msgstr "Mostrar versão e sair"
-
-#: ../src/main.c
-msgid "[archive name]"
-msgstr "[nome do arquivo]"
-
-#: ../src/main.c
-#, c-format
-msgid ""
-"xarchiver: %s\n"
-"Try xarchiver --help to see a full list of available command line options.\n"
-msgstr ""
-"xarchiver: %s\n"
-"Tente xarchiver --help para ver uma lista completa de possíveis comandos.\n"
-
-#: ../src/main.c
-#, c-format
-msgid "Maintained by "
-msgstr ""
-
-#: ../src/main.c
-#, c-format
-msgid "Please report bugs to <%s>."
-msgstr "Por favor, reporte erros em <%s>."
-
-#: ../src/main.c
-msgid "Can't extract files from the archive:"
-msgstr "Incapaz de extrair os ficheiros do arquivo:"
-
-#: ../src/main.c
-msgid "You missed the archive name!\n"
-msgstr "Esqueceu-se do nome do arquivo!\n"
-
-#: ../src/main.c ../src/window.c
-msgid "Select \"New\" to create or \"Open\" to open an archive"
-msgstr "Seleccione \"Novo\" para criar ou \"Abrir\" para abrir um arquivo"
-
-#: ../src/main.c
-msgid "Can't allocate memory for the archive structure!"
-msgstr "Incapaz de alocar memória para a estrutura do arquivo!"
-
-#: ../src/new_dialog.c
-msgid "Cr_eate"
-msgstr "C_riar"
-
-#: ../src/new_dialog.c ../src/window.c
-msgid "Only archives"
-msgstr "Apenas arquivos"
-
-#: ../src/new_dialog.c
-msgid "Archive type:"
-msgstr "Tipo do arquivo:"
-
-#: ../src/new_dialog.c
-msgid "Choose the archive type to create"
-msgstr "Escolha o tipo de arquivo a criar"
-
-#: ../src/new_dialog.c
-#, c-format
-msgid "\"%s\" is already open!"
-msgstr "\"%s\" já está aberto!"
-
-#: ../src/new_dialog.c
-msgid "Can't create a new archive:"
-msgstr "Incapaz de criar um novo arquivo:"
-
-#: ../src/new_dialog.c
-#, c-format
-msgid "The archive \"%s\" already exists!"
-msgstr "O arquivo \"%s\" já existe!"
-
-#: ../src/new_dialog.c
-msgid "Do you want to overwrite it?"
-msgstr "Deseja sobrescrevê-lo?"
-
-#: ../src/open-with-dlg.c
-msgid "Open the selected files with"
-msgstr "Abrir os ficheiros seleccionados com"
-
-#: ../src/open-with-dlg.c
-#, c-format
-msgid "Open <i>%s</i> with:"
-msgstr "Abrir<i>%s</i> com:"
-
-#: ../src/open-with-dlg.c
-msgid "Use a custom command:"
-msgstr "Utilizar um comando personalizado:"
-
-#: ../src/open-with-dlg.c
-msgid "Browse"
-msgstr "Explorar"
-
-#: ../src/open-with-dlg.c
-msgid "Select an application"
-msgstr "Seleccione uma aplicação"
-
-#: ../src/pref_dialog.c
-msgid "Preferences"
-msgstr "Preferências"
-
-#: ../src/pref_dialog.c
-msgid "Archive"
-msgstr "Arquivo"
-
-#: ../src/pref_dialog.c
-msgid "Window"
-msgstr "Janela"
-
-#: ../src/pref_dialog.c
-msgid "Advanced"
-msgstr "Avançado"
-
-#: ../src/pref_dialog.c
-msgid "Preferred archive format"
-msgstr "Formato de arquivo preferido"
-
-#: ../src/pref_dialog.c
-msgid "Confirm deletion of files"
-msgstr "Confirmar remoção de ficheiros"
-
-#: ../src/pref_dialog.c
-msgid "Sort archive by filename"
-msgstr "Ordenar arquivo por nome de ficheiro"
-
-#: ../src/pref_dialog.c
-msgid "The filename column is sorted after loading the archive"
-msgstr "A coluna do nome de ficheiro é ordenada após carregar o arquivo"
-
-#: ../src/pref_dialog.c
-msgid "Store archiver output"
-msgstr "Armazenar saída do arquivador"
-
-#: ../src/pref_dialog.c
-msgid "This option takes more memory with large archives"
-msgstr "Esta opção requer mais memória com arquivos grandes"
-
-#: ../src/pref_dialog.c
-msgid "Icons size (requires restart)"
-msgstr "Tamanho de ícone (requer reinício)"
-
-#: ../src/pref_dialog.c
-msgid "large"
-msgstr "grande"
-
-#: ../src/pref_dialog.c
-msgid "small"
-msgstr "pequeno"
-
-#: ../src/pref_dialog.c
-msgid "Show archive comment"
-msgstr "Mostrar comentário de arquivo"
-
-#: ../src/pref_dialog.c
-msgid "If checked the archive comment is shown after the archive is loaded"
-msgstr ""
-"Se escolhida, o comentário de arquivo é exibido após carregar o arquivo"
-
-#: ../src/pref_dialog.c
-msgid "Show archive tree sidebar"
-msgstr "Mostrar painel lateral de árvore do arquivo"
-
-#: ../src/pref_dialog.c
-msgid "Show archive location bar"
-msgstr "Mostrar barra de localização de arquivo"
-
-#: ../src/pref_dialog.c
-msgid "Show toolbar"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "Web browser to use:"
-msgstr "Navegador web a usar:"
-
-#: ../src/pref_dialog.c
-msgid "choose..."
-msgstr "escolha..."
-
-#: ../src/pref_dialog.c
-msgid "Open text files with:"
-msgstr "Abrir ficheiros de texto com:"
-
-#: ../src/pref_dialog.c
-msgid "Open image files with:"
-msgstr "Abrir imagens com:"
-
-#: ../src/pref_dialog.c
-msgid "Preferred temp directory:"
-msgstr "Pasta temporária preferida:"
-
-#: ../src/pref_dialog.c
-msgid "/tmp"
-msgstr "/tmp"
-
-#: ../src/pref_dialog.c
-msgid "Preferred extract directory:"
-msgstr "Directório de extracção preferido:"
-
-#: ../src/pref_dialog.c
-msgid "Save window geometry"
-msgstr "Gravar geometria da janela"
-
-#: ../src/pref_dialog.c
-msgid "Allow subdirs with drag and drop"
-msgstr "Permitir sub-directórios com arrastar e largar"
-
-#: ../src/pref_dialog.c
-msgid ""
-"This option includes the subdirectories when you add files with drag and drop"
-msgstr ""
-"Esta opção inclui os sub-directórios ao adicionar ficheiros com arrastar e "
-"largar"
-
-#: ../src/pref_dialog.c
-msgid ""
-"<span color='red' style='italic'>Please install xdg-utils package so that\n"
-"Xarchiver can recognize more file types.</span>"
-msgstr ""
-"<span color='red' style='italic'>Por favor, instale o pacote xdg-utils para\n"
-"que o Xarchiver possa reconhecer mais tipos de ficheiro.</span>"
-
-#: ../src/pref_dialog.c
-msgid "Choose the directory to use"
-msgstr "Escolha o directório a usar"
-
-#: ../src/pref_dialog.c
-msgid "Choose the application to use"
-msgstr "Escolha a aplicação a usar"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
-
-#: ../src/rar.c ../src/zip.c
-msgid "Method"
-msgstr "Método"
-
-#: ../src/rar.c ../src/zip.c
-msgid "Version"
-msgstr "Versão"
-
-#: ../src/rpm.c
-#, c-format
-msgid "Can't open RPM file %s:"
-msgstr "Incapaz de abrir o ficheiro RPM %s:"
-
-#: ../src/rpm.c
-msgid "Can't fseek to position 104:"
-msgstr "Incapaz de executar fseek para posição 104:"
-
-#: ../src/rpm.c
-msgid "Can't read data from file:"
-msgstr "Incapaz de ler dados do ficheiro:"
-
-#: ../src/rpm.c
-msgid "Can't fseek in file:"
-msgstr "Incapaz de executar fseek no ficheiro:"
-
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Permissão"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Ligação resistente"
-
-#: ../src/rpm.c
-msgid "Owner"
-msgstr "Dono"
-
-#: ../src/rpm.c
-msgid "Group"
-msgstr "Grupo"
-
-#: ../src/window.c
-msgid "An error occurred!"
-msgstr "Ocorreu um erro!"
-
-#: ../src/window.c
-msgid "Please check the 'Store archiver output' option to see it."
-msgstr ""
-"Por favor, verifique a opção \"Armazenar saída do arquivador\" para a ver."
-
-#: ../src/window.c
-msgid "Archiver output"
-msgstr "Saída do arquivador"
-
-#: ../src/window.c
-msgid "An error occurred while accessing the archive:"
-msgstr "Ocorreu um erro ao aceder ao arquivo:"
-
-#: ../src/window.c
-msgid "Save the archive as"
-msgstr "Gravar arquivo como"
-
-#: ../src/window.c
-#, c-format
-msgid "Can't open file \"%s\":"
-msgstr "Incapaz de abrir o ficheiro \"%s\":"
-
-#: ../src/window.c
-msgid "Archive format is not recognized!"
-msgstr "O formato do arquivo não é reconhecido!"
-
-#: ../src/window.c
-msgid "Sorry,this archive format is not supported:"
-msgstr "Desculpe, mas este formato de arquivo não é suportado:"
-
-#: ../src/window.c
-msgid "the proper archiver is not installed!"
-msgstr "o arquivador correcto não está instalado!"
-
-#: ../src/window.c
-msgid "Can't allocate memory for the archive structure:"
-msgstr "Incapaz de alocar memória para a estrutura do arquivo:"
-
-#: ../src/window.c
-msgid "Operation aborted!"
-msgstr "Operação abortada!"
-
-#: ../src/window.c
-msgid "Opening archive,please wait..."
-msgstr "Abrindo o arquivo, aguarde por favor..."
-
-#: ../src/window.c
-msgid "Testing archive,please wait..."
-msgstr "Testando o arquivo, aguarde por favor..."
-
-#: ../src/window.c
-msgid "Print the archive content as HTML"
-msgstr "Ver conteúdo do arquivo em HTML"
-
-#: ../src/window.c
-msgid "Print the archive content as text"
-msgstr "Ver conteúdo do arquivo como texto"
-
-#: ../src/window.c
-#, c-format
-msgid "Archive contents:\n"
-msgstr "Conteúdo do arquivo:\n"
 
 #: ../src/window.c
 #, c-format
@@ -1068,107 +27,10 @@ msgstr ""
 "\n"
 "Nome:"
 
-#: ../src/window.c
+#: ../src/new_dialog.c
 #, c-format
-msgid "Compressed   size: "
-msgstr "Tamanho comprimido: "
-
-#: ../src/window.c
-#, c-format
-msgid "Uncompressed size: "
-msgstr "Tamanho descomprimido: "
-
-#: ../src/window.c
-#, c-format
-msgid "Number of files: "
-msgstr "Número de ficheiros: "
-
-#: ../src/window.c
-#, c-format
-msgid "Comment:\n"
-msgstr "Comentário:\n"
-
-#: ../src/window.c
-#, c-format
-msgid "Files:%*s%s"
-msgstr "Ficheiros:%*s%s"
-
-#: ../src/window.c
-msgid "|Size\n"
-msgstr "|Tamanho\n"
-
-#: ../src/window.c
-#, c-format
-msgid "<th>Files:</th>"
-msgstr "<th>Ficheiros:</th>"
-
-#: ../src/window.c
-#, c-format
-msgid "<th>Size:</th>"
-msgstr "<th>Tamanho:</th>"
-
-#: ../src/window.c
-msgid "You are about to delete entries from the archive."
-msgstr "Está perto de apagar entradas do arquivo."
-
-#: ../src/window.c
-msgid "Are you sure you want to do this?"
-msgstr "Tem certeza que quer fazer isto?"
-
-#: ../src/window.c
-msgid "Can't convert the archive to self-extracting:"
-msgstr "Incapaz de converter o arquivo para extracção automática:"
-
-#: ../src/window.c
-msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Incapaz de escrever o módulo unzipsfx para o arquivo:"
-
-#: ../src/window.c
-msgid "Please select the 7zCon.sfx module"
-msgstr "Por favor, seleccione o módulo 7zCon.sfx"
-
-#: ../src/window.c
-msgid "A GTK+ only lightweight archive manager"
-msgstr "Um gestor de arquivos baseado em GTK+"
-
-#: ../src/window.c
-msgid "translator-credits"
-msgstr "Nuno Miguel <nunis@netcabo.pt>"
-
-#: ../src/window.c
-msgid "Save the self-extracting archive as"
-msgstr "Gravar o arquivo de extracção automática como"
-
-#: ../src/window.c
-msgid "Filename"
-msgstr "Nome de ficheiro"
-
-#: ../src/window.c
-msgid "Doing so will probably corrupt your archive!"
-msgstr "Se o fizer é provável que danifique o arquivo!"
-
-#: ../src/window.c
-msgid "Do you really want to cancel?"
-msgstr "Deseja realmente cancelar?"
-
-#: ../src/window.c
-msgid "Yes"
-msgstr "Sim"
-
-#: ../src/window.c
-msgid "No"
-msgstr "Não"
-
-#: ../src/window.c
-msgid "selected"
-msgstr "seleccionado"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d ficheiro e %d dir %s (%s)"
-msgstr[1] "%d ficheiros e %d dirs %s (%s)"
+msgid "\"%s\" is already open!"
+msgstr "\"%s\" já está aberto!"
 
 #: ../src/window.c
 #, c-format
@@ -1185,12 +47,1069 @@ msgstr[0] "%d ficheiro %s (%s)"
 msgstr[1] "%d ficheiros %s (%s)"
 
 #: ../src/window.c
+#, c-format
+msgid "%d file and %d dir %s (%s)"
+msgid_plural "%d files and %d dirs %s (%s)"
+msgstr[0] "%d ficheiro e %d dir %s (%s)"
+msgstr[1] "%d ficheiros e %d dirs %s (%s)"
+
+#: ../src/pref_dialog.c
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr ""
+"0 = sem compressão, 1 é a pré-definição, 4 = mais rápido, mas menor "
+"compressão"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+"0 = sem compressão, 3 é a pré-definição, 5 = melhor compressão, mas mais "
+"lenta"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr ""
+"0 = sem compressão, 5 é a pré-definição, 9 = melhor compressão, mas mais "
+"lenta"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr ""
+"0 = sem compressão, 6 é a pré-definição, 9 = melhor compressão, mas mais "
+"lenta"
+
+#: ../src/add_dialog.c
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = compressão pré-definida, 7 = compressão máxima"
+
+#: ../src/pref_dialog.c
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"<span color='red' style='italic'>Por favor, instale o pacote xdg-utils para\n"
+"que o Xarchiver possa reconhecer mais tipos de ficheiro.</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight='bold' size='larger'>Introduza senha para:</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight='bold' size='larger'>Senha necessária para:</span>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>Ficheiros:</th>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Size:</th>"
+msgstr "<th>Tamanho:</th>"
+
+#: ../xarchiver.desktop.in.h
+msgid "A GTK+ only archive manager"
+msgstr "Um gestor de arquivos baseado em GTK+"
+
+#: ../src/window.c
+msgid "A GTK+ only lightweight archive manager"
+msgstr "Um gestor de arquivos baseado em GTK+"
+
+#: ../src/interface.c
+msgid "A_ction"
+msgstr "A_cção"
+
+#: ../src/interface.c
+msgid "A_dd"
+msgstr "A_dicionar"
+
+#: ../src/add_dialog.c
+msgid "Actions: "
+msgstr "Acções: "
+
+#: ../src/interface.c
+msgid "Add"
+msgstr "Adicionar"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Add files"
+msgstr "Adicionar ficheiros"
+
+#: ../src/main.c
+msgid "Add files to archive by asking their filenames and quits."
+msgstr "Adiciona ficheiros ao arquivo solicitando os nomes e sai."
+
+#: ../src/main.c
+msgid "Add the given files by asking the name of the archive and quits."
+msgstr "Adiciona os ficheiros solicitando o nome do arquivo e sai."
+
+#: ../src/add_dialog.c
+msgid "Adding files to archive, please wait..."
+msgstr "Adicionando ficheiros ao arquivo, aguarde por favor..."
+
+#: ../src/interface.c
+msgid "Adding to archive:"
+msgstr "Adicionando ao arquivo:"
+
+#: ../src/pref_dialog.c
+msgid "Advanced"
+msgstr "Avançado"
+
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "Todos os ficheiros"
+
+#: ../src/pref_dialog.c
+msgid "Allow subdirs with drag and drop"
+msgstr "Permitir sub-directórios com arrastar e largar"
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr "Ocorreu um erro ao aceder ao arquivo:"
+
+#: ../src/window.c
+msgid "An error occurred!"
+msgstr "Ocorreu um erro!"
+
+#: ../src/pref_dialog.c
+msgid "Archive"
+msgstr "Arquivo"
+
+#: ../src/extract_dialog.c
+msgid "Archive Name"
+msgstr "Nome do arquivo"
+
+#: ../src/interface.c
+msgid "Archive Properties"
+msgstr "Propriedades do arquivo"
+
+#: ../src/interface.c
+msgid "Archive _comment"
+msgstr "_Comentário do arquivo"
+
+#: ../src/window.c
+#, c-format
+msgid "Archive contents:\n"
+msgstr "Conteúdo do arquivo:\n"
+
+#: ../src/window.c
+msgid "Archive format is not recognized!"
+msgstr "O formato do arquivo não é reconhecido!"
+
+#: ../xarchiver.desktop.in.h
+msgid "Archive manager"
+msgstr "Gestor de arquivos"
+
+#: ../src/interface.c
+msgid "Archive tree"
+msgstr "Árvore do arquivo"
+
+#: ../src/new_dialog.c
+msgid "Archive type:"
+msgstr "Tipo do arquivo:"
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "Saída do arquivador"
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr "Tem certeza que quer fazer isto?"
+
+#: ../src/7zip.c
+msgid "Attr"
+msgstr "Atrib"
+
+#: ../src/arj.c
+msgid "Attributes"
+msgstr "Atributos"
+
+#: ../src/interface.c
+msgid "Back"
+msgstr "Recuar"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr "Explorar"
+
+#: ../src/rar.c
+msgid "CRC"
+msgstr "CRC"
+
+#: ../src/add_dialog.c ../src/main.c
+msgid "Can't add files to the archive:"
+msgstr "Incapaz de adicionar ficheiros ao arquivo:"
+
+#: ../src/main.c
+msgid "Can't allocate memory for the archive structure!"
+msgstr "Incapaz de alocar memória para a estrutura do arquivo!"
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr "Incapaz de alocar memória para a estrutura do arquivo:"
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr "Incapaz de converter o arquivo para extracção automática:"
+
+#: ../src/new_dialog.c
+msgid "Can't create a new archive:"
+msgstr "Incapaz de criar um novo arquivo:"
+
+#: ../src/archive.c
+msgid "Can't create temporary directory:"
+msgstr "Incapaz de criar directório temporário:"
+
+#: ../src/main.c
+msgid "Can't extract files from the archive:"
+msgstr "Incapaz de extrair os ficheiros do arquivo:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Incapaz de executar fseek no ficheiro:"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Incapaz de executar fseek para posição 104:"
+
+#: ../src/extract_dialog.c
+msgid "Can't multi-extract archives:"
+msgstr "Incapaz de extrair arquivos múltiplos:"
+
+#: ../src/rpm.c
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "Incapaz de abrir o ficheiro RPM %s:"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "Incapaz de abrir o ficheiro \"%s\":"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file %s:"
+msgstr "Incapaz de abrir o ficheiro %s:"
+
+#: ../src/window.c
 msgid "Can't perform another extraction:"
 msgstr "Incapaz de executar outra extracção:"
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr "Incapaz de realizar a extracção!"
+
+#: ../src/interface.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr "Incapaz de executar esta acção:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Incapaz de ler dados do ficheiro:"
+
+#: ../src/archive.c
+msgid "Can't run the archiver executable:"
+msgstr "Incapaz de lançar o executável do arquivador:"
+
+#: ../src/window.c
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "Incapaz de escrever o módulo unzipsfx para o arquivo:"
+
+#: ../src/interface.c
+msgid "Cancel current operation"
+msgstr "Cancelar operação actual"
+
+#: ../src/pref_dialog.c
+msgid "Choose the application to use"
+msgstr "Escolha a aplicação a usar"
+
+#: ../src/new_dialog.c
+msgid "Choose the archive type to create"
+msgstr "Escolha o tipo de arquivo a criar"
+
+#: ../src/pref_dialog.c
+msgid "Choose the directory to use"
+msgstr "Escolha o directório a usar"
+
+#: ../src/interface.c
+msgid "Close archive"
+msgstr "Fechar arquivo"
+
+#: ../src/interface.c
+msgid "Cmd-line outp_ut"
+msgstr "Saída da linha de co_mandos"
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "Comentário"
+
+#: ../src/interface.c
+msgid "Comment:"
+msgstr "Comentário:"
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "Comentário:\n"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Compressed"
+msgstr "Comprimido"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed   size: "
+msgstr "Tamanho comprimido: "
+
+#: ../src/interface.c
+msgid "Compressed size:"
+msgstr "Tamanho comprimido: "
+
+#: ../src/interface.c
+msgid "Compression ratio:"
+msgstr "Taxa de compressão:"
+
+#: ../src/add_dialog.c
+msgid "Compression: "
+msgstr "Compressão: "
+
+#: ../src/pref_dialog.c
+msgid "Confirm deletion of files"
+msgstr "Confirmar remoção de ficheiros"
+
+#: ../src/interface.c
+msgid "Copy"
+msgstr "Copiar"
+
+#: ../src/new_dialog.c
+msgid "Cr_eate"
+msgstr "C_riar"
+
+#: ../src/interface.c ../src/new_dialog.c
+msgid "Create a new archive"
+msgstr "Criar um novo arquivo"
+
+#: ../src/add_dialog.c
+msgid "Create a solid archive"
+msgstr "Criar um arquivo sólido"
+
+#: ../src/interface.c
+msgid "Cut"
+msgstr "Cortar"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
+msgid "Date"
+msgstr "Data"
+
+#: ../src/deb.c
+msgid "Date modified"
+msgstr "Data de modificação"
+
+#: ../src/extract_dialog.c
+msgid "Decompress file"
+msgstr "Descomprimir ficheiro"
+
+#: ../src/interface.c
+msgid "Delete"
+msgstr "Apagar"
+
+#: ../src/add_dialog.c
+msgid "Delete files after adding"
+msgstr "Apagar ficheiros depois de adicionados"
+
+#: ../src/interface.c
+msgid "Dese_lect all"
+msgstr "Desse_leccionar tudo"
+
+#: ../src/extract_dialog.c
+msgid "Destination dirs:"
+msgstr "Directórios de destino:"
+
+#: ../src/add_dialog.c
+msgid "Do not store paths"
+msgstr "Não armazenar caminhos"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr "Deseja realmente cancelar?"
+
+#: ../src/new_dialog.c
+msgid "Do you want to overwrite it?"
+msgstr "Deseja sobrescrevê-lo?"
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr "Se o fizer é provável que danifique o arquivo!"
+
+#: ../src/interface.c
+msgid "Encrypted:"
+msgstr "Encriptado:"
+
+#: ../src/add_dialog.c
+msgid "Encryption: "
+msgstr "Encriptação: "
+
+#: ../src/interface.c
+msgid "Enter passwo_rd"
+msgstr "Introduzir _senha"
+
+#: ../src/interface.c
+msgid "Extract"
+msgstr "Extrair"
+
+#: ../src/main.c
+msgid "Extract archive by asking the extraction directory and quits."
+msgstr "Extrair arquivo solicitando o directório de extracção e sai."
+
+#: ../src/main.c
+msgid "Extract archive to the destination directory and quits."
+msgstr "Extrair arquivo para o directório de destino e sair"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "Extract files"
+msgstr "Extrair ficheiros"
+
+#: ../src/extract_dialog.c
+msgid "Extract files with full path"
+msgstr "Extrair ficheiros com caminhos completos"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+"Extrair apenas aqueles ficheiros que já existem no disco e que são mais "
+"recentes que as cópias no disco"
+
+#: ../src/extract_dialog.c
+msgid "Extract pathnames"
+msgstr "Extrair nomes de caminho"
+
+#: ../src/extract_dialog.c
+msgid "Extract to dir \"Archive Name\""
+msgstr "Extrair para o directório \"Nome do arquivo\""
+
+#: ../src/extract_dialog.c
+msgid "Extract to:"
+msgstr "Extrair para:"
+
+#: ../src/extract_dialog.c
+msgid "Extracting files from archive,please wait..."
+msgstr "Extraindo ficheiros do arquivo, aguarde por favor..."
+
+#: ../src/interface.c
+msgid "Extracting from archive:"
+msgstr "Extraindo do arquivo:"
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr "Falha ao lançar a aplicação!"
+
+#: ../src/add_dialog.c
+msgid "File Paths: "
+msgstr "Caminhos de ficheiros: "
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "Nome de ficheiro"
+
+#: ../src/extract_dialog.c
+msgid "Files "
+msgstr "Ficheiros "
+
+#: ../src/extract_dialog.c
+msgid "Files: "
+msgstr "Ficheiros: "
+
+#: ../src/window.c
+#, c-format
+msgid "Files:%*s%s"
+msgstr "Ficheiros:%*s%s"
+
+#: ../src/interface.c
+msgid "Forward"
+msgstr "Avançar"
+
+#: ../src/add_dialog.c
+msgid "Freshen and replace"
+msgstr "Refrescar e substituir"
+
+#: ../src/extract_dialog.c
+msgid "Freshen existing files"
+msgstr "Actualizar ficheiros existentes"
+
+#: ../src/window.c
+msgid "From File"
+msgstr "Do ficheiro"
+
+#: ../src/rpm.c
+msgid "Group"
+msgstr "Grupo"
+
+#: ../src/rpm.c
+msgid "Hard Link"
+msgstr "Ligação resistente"
+
+#: ../src/pref_dialog.c
+msgid "Icons size (requires restart)"
+msgstr "Tamanho de ícone (requer reinício)"
+
+#: ../src/pref_dialog.c
+msgid "If checked the archive comment is shown after the archive is loaded"
+msgstr ""
+"Se escolhida, o comentário de arquivo é exibido após carregar o arquivo"
+
+#: ../src/add_dialog.c
+msgid ""
+"In a solid archive the files are grouped together featuring a better "
+"compression ratio"
+msgstr ""
+"Num arquivo sólido os ficheiros são agrupados em conjunto para uma melhor "
+"compressão"
+
+#: ../src/add_dialog.c
+msgid "Include subdirectories"
+msgstr "Incluir sub directórios"
+
+#: ../src/interface.c
+msgid "Location:"
+msgstr "Localização:"
+
+#: ../src/main.c
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/interface.c
+msgid "Make SF_X"
+msgstr "Criar SF_X"
+
+#: ../src/rar.c ../src/zip.c
+msgid "Method"
+msgstr "Método"
+
+#: ../src/interface.c
+msgid "Modified on:"
+msgstr "Modificado em:"
+
+#: ../src/extract_dialog.c
+msgid "Multi-Extract"
+msgstr "Extracção múltipla"
+
+#: ../src/main.c
+msgid "Multi-extract archives"
+msgstr "Extracção múltipla de arquivos"
+
+#: ../src/interface.c
+msgid "Name:"
+msgstr "Nome:"
+
+#: ../src/interface.c
+msgid "New"
+msgstr "Novo"
+
+#: ../src/window.c
+msgid "No"
+msgstr "Não"
+
+#: ../src/interface.c
+msgid "Number of files:"
+msgstr "Número de ficheiros:"
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "Número de ficheiros: "
+
+#: ../src/zip.c
+msgid "OS"
+msgstr "SO"
+
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "Apenas arquivos"
+
+#: ../src/interface.c
+msgid "Open"
+msgstr "Abrir"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "Abrir<i>%s</i> com:"
+
+#: ../src/interface.c ../src/open-with-dlg.c
+msgid "Open With"
+msgstr "Abrir com"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "Abrir um ficheiro de texto"
+
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "Abrir um arquivo"
+
+#: ../src/pref_dialog.c
+msgid "Open image files with:"
+msgstr "Abrir imagens com:"
+
+#: ../src/pref_dialog.c
+msgid "Open text files with:"
+msgstr "Abrir ficheiros de texto com:"
+
+#: ../src/open-with-dlg.c
+msgid "Open the selected files with"
+msgstr "Abrir os ficheiros seleccionados com"
+
+#: ../src/window.c
+msgid "Opening archive,please wait..."
+msgstr "Abrindo o arquivo, aguarde por favor..."
+
+#: ../src/window.c
+msgid "Operation aborted!"
+msgstr "Operação abortada!"
+
+#: ../src/add_dialog.c
+msgid "Options"
+msgstr "Opções"
+
+#: ../src/extract_dialog.c
+msgid "Options "
+msgstr "Opções"
+
+#: ../src/extract_dialog.c
+msgid "Options:"
+msgstr "Opções:"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Original"
+msgstr "Original"
+
+#: ../src/extract_dialog.c
+msgid "Overwrite existing files"
+msgstr "Sobrescrever ficheiros existentes"
+
+#: ../src/rpm.c
+msgid "Owner"
+msgstr "Dono"
+
+#: ../src/deb.c ../src/gzip_et_al.c ../src/tar.c
+msgid "Owner/Group"
+msgstr "Dono/grupo"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Password:"
+msgstr "Senha:"
+
+#: ../src/interface.c
+msgid "Paste"
+msgstr "Colar"
+
+#: ../src/extract_dialog.c
+msgid "Path"
+msgstr "Caminho"
+
+#: ../src/interface.c
+msgid "Path:"
+msgstr "Caminho:"
+
+#: ../src/interface.c
+msgid "Pattern:"
+msgstr "Padrão:"
+
+#: ../src/rpm.c
+msgid "Permission"
+msgstr "Permissão"
+
+#: ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/tar.c
+#: ../src/zip.c
+msgid "Permissions"
+msgstr "Permissões"
+
+#: ../src/window.c
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr ""
+"Por favor, verifique a opção \"Armazenar saída do arquivador\" para a ver."
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Please enter it!"
+msgstr "Por favor, indique-a!"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the extraction path."
+msgstr "Por favor, introduza o caminho da extracção."
+
+#: ../src/extract_dialog.c
+msgid "Please enter the password."
+msgstr "Por favor, indique a senha."
+
+#: ../src/extract_dialog.c
+msgid "Please fill the \"Extract to\" field!"
+msgstr "Por favor, preencha o campo \"Extrair para\""
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "Por favor, vá a Preferências->Avançado e defina-o."
+
+#: ../src/window.c
+msgid "Please install xdg-utils package."
+msgstr "Por favor, instale o pacote xdg-utils."
+
+#: ../src/main.c
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr "Por favor, reporte erros em <%s>."
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr "Por favor, seleccione o módulo 7zCon.sfx"
+
+#: ../src/extract_dialog.c
+msgid "Please select the archives you want to extract"
+msgstr "Por favor, seleccione os arquivos que deseja extrair"
+
+#: ../src/extract_dialog.c
+msgid "Please select the destination directory"
+msgstr "Por favor, seleccione o directório de destino"
 
 #: ../src/window.c
 msgid "Please wait until the completion of the current one!"
 msgstr "Por favor, aguarde que a acção actual termine!"
+
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rpm.c ../src/tar.c
+msgid "Points to"
+msgstr "Aponta para"
+
+#: ../src/pref_dialog.c
+msgid "Preferences"
+msgstr "Preferências"
+
+#: ../src/pref_dialog.c
+msgid "Preferred archive format"
+msgstr "Formato de arquivo preferido"
+
+#: ../src/pref_dialog.c
+msgid "Preferred extract directory:"
+msgstr "Directório de extracção preferido:"
+
+#: ../src/pref_dialog.c
+msgid "Preferred temp directory:"
+msgstr "Pasta temporária preferida:"
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr "Ver conteúdo do arquivo em HTML"
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr "Ver conteúdo do arquivo como texto"
+
+#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Ratio"
+msgstr "Relação"
+
+#: ../src/interface.c
+msgid "Re_name"
+msgstr "Re_nomear"
+
+#: ../src/interface.c
+msgid "Rename"
+msgstr "Renomear"
+
+#: ../src/interface.c
+msgid "Root"
+msgstr "\"Root\""
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "Gravar arquivo como"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr "Gravar o arquivo de extracção automática como"
+
+#: ../src/pref_dialog.c
+msgid "Save window geometry"
+msgstr "Gravar geometria da janela"
+
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Seleccione \"Novo\" para criar ou \"Abrir\" para abrir um arquivo"
+
+#: ../src/interface.c
+msgid "Select _all"
+msgstr "Seleccionar _tudo"
+
+#: ../src/interface.c
+msgid "Select _by pattern"
+msgstr "Seleccionar por _padrão"
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr "Seleccione uma aplicação"
+
+#: ../src/interface.c
+msgid "Select by Pattern"
+msgstr "Seleccionar por padrão"
+
+#: ../src/extract_dialog.c
+msgid "Selected files"
+msgstr "Ficheiros seleccionados"
+
+#: ../src/add_dialog.c
+msgid "Selection"
+msgstr "Selecção"
+
+#: ../src/pref_dialog.c
+msgid "Show archive comment"
+msgstr "Mostrar comentário de arquivo"
+
+#: ../src/pref_dialog.c
+msgid "Show archive location bar"
+msgstr "Mostrar barra de localização de arquivo"
+
+#: ../src/pref_dialog.c
+msgid "Show archive tree sidebar"
+msgstr "Mostrar painel lateral de árvore do arquivo"
+
+#: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/main.c
+msgid "Show version and exit"
+msgstr "Mostrar versão e sair"
+
+#: ../src/deb.c ../src/extract_dialog.c ../src/gzip_et_al.c ../src/lha.c
+#: ../src/rpm.c ../src/tar.c
+msgid "Size"
+msgstr "Tamanho"
+
+#: ../src/extract_dialog.c
+msgid "Some errors occurred:"
+msgstr "Ocorreram alguns erros:"
+
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+msgid "Sorry,I could not perform the operation!"
+msgstr "Desculpe, não foi possível realizar a operação!"
+
+#: ../src/window.c
+msgid "Sorry,this archive format is not supported:"
+msgstr "Desculpe, mas este formato de arquivo não é suportado:"
+
+#: ../src/pref_dialog.c
+msgid "Sort archive by filename"
+msgstr "Ordenar arquivo por nome de ficheiro"
+
+#: ../src/interface.c
+msgid "Stop"
+msgstr "Parar"
+
+#: ../src/pref_dialog.c
+msgid "Store archiver output"
+msgstr "Armazenar saída do arquivador"
+
+#: ../src/add_dialog.c
+msgid "Store full paths"
+msgstr "Armazenar caminhos completos"
+
+#: ../src/window.c
+msgid "Testing archive,please wait..."
+msgstr "Testando o arquivo, aguarde por favor..."
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "O arquivo \"%s\" já existe!"
+
+#: ../src/extract_dialog.c
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr ""
+"A estrutura de directórios do arquivo é recriada no directório de extracção"
+
+#: ../src/window.c
+msgid "The archiver doesn't support this feature!"
+msgstr "O arquivador não suporta esta funcionalidade!"
+
+#: ../src/pref_dialog.c
+msgid "The filename column is sorted after loading the archive"
+msgstr "A coluna do nome de ficheiro é ordenada após carregar o arquivo"
+
+#: ../src/extract_dialog.c
+msgid "This archive is encrypted!"
+msgstr "Este arquivo está encriptado!"
+
+#: ../src/window.c
+msgid "This file type is not supported!"
+msgstr "Este tipo de ficheiro não é suportado!"
+
+#: ../src/interface.c
+msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgstr ""
+"Este é o luz de estado do Xarchiver. Se piscar o Xarchiver está ocupado"
+
+#: ../src/add_dialog.c
+msgid ""
+"This option affects the archive only if it has been modified more recently "
+"than the version already in the archive; unlike the update option it will "
+"not add files that are not already in the archive"
+msgstr ""
+"Esta opção apenas afecta o arquivo caso este tenha sido modificado mais "
+"recentemente que a versão existente no arquivo; ao invés da opção "
+"actualizar, não irá adicionar ficheiros que não estejam no arquivo"
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr "Esta opção extrai os arquivos para directórios com os nomes do arquivo"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+"Esta opção inclui os sub-directórios ao adicionar ficheiros com arrastar e "
+"largar"
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option performs the same function as the freshen one,extracting files "
+"that are newer than those with the same name on disk,and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+"Esta opção faz a mesma função que actualizar, extraindo os ficheiros que são "
+"mais novos que aqueles com o mesmo nome no disco e em adição extrai os "
+"ficheiros que ainda não existem no disco."
+
+#: ../src/pref_dialog.c
+msgid "This option takes more memory with large archives"
+msgstr "Esta opção requer mais memória com arquivos grandes"
+
+#: ../src/add_dialog.c
+msgid ""
+"This option will add any new files and update any files which have been "
+"modified since the archive was last created/modified"
+msgstr ""
+"Esta opção irá adicionar quaisquer novos ficheiros e actualizar quaisquer "
+"ficheiros que foram modificados desde a última vez que o arquivo foi criado/"
+"modificado"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/zip.c
+msgid "Time"
+msgstr "Hora"
+
+#: ../src/lha.c
+msgid "Timestamp"
+msgstr "Data"
+
+#: ../src/interface.c
+msgid "Total Progress:"
+msgstr "Evolução:"
+
+#: ../src/extract_dialog.c
+msgid "Touch files"
+msgstr "Criar ficheiros vazios"
+
+#: ../src/interface.c
+msgid "Type:"
+msgstr "Tipo:"
+
+#: ../src/lha.c
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/interface.c
+msgid "Uncompressed size:"
+msgstr "Tamanho descomprimido: "
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "Tamanho descomprimido: "
+
+#: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Up"
+msgstr "Acima"
+
+#: ../src/add_dialog.c
+msgid "Update and add"
+msgstr "Actualizar e adicionar"
+
+#: ../src/extract_dialog.c
+msgid "Update existing files"
+msgstr "Actualizar ficheiros existentes"
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr "Utilizar um comando personalizado:"
+
+#: ../src/rar.c ../src/zip.c
+msgid "Version"
+msgstr "Versão"
+
+#: ../src/interface.c
+msgid "View"
+msgstr "Ver"
+
+#: ../src/pref_dialog.c
+msgid "Web browser to use:"
+msgstr "Navegador web a usar:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"When this option is used,tar leaves the data modification times of the files "
+"it extracts as the times when the files were extracted,instead of setting it "
+"to the times recorded in the archive"
+msgstr ""
+"Quando esta opção é usada, tar actualiza as datas de modificação dos "
+"ficheiros para o momento da extracção ao invés de usar as datas contidas no "
+"arquivo compactado"
+
+#: ../src/pref_dialog.c
+msgid "Window"
+msgstr "Janela"
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "Sim"
+
+#: ../src/window.c
+msgid "You are about to delete entries from the archive."
+msgstr "Está perto de apagar entradas do arquivo."
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to deb packages!"
+msgstr "Não pode adicionar conteúdo aos pacotes deb!"
+
+#: ../src/interface.c ../src/window.c
+msgid "You can't add content to rpm packages!"
+msgstr "Não pode adicionar conteúdo aos pacotes rpm!"
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr "Não indicou o navegador a utilizar!"
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr "Não definiu o programa para abrir este ficheiro!"
+
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr "Não tem permissões para extrair os ficheiros para o directório \"%s\"."
 
 #: ../src/window.c
 msgid "You have to install arj package!"
@@ -1200,62 +1119,142 @@ msgstr "Tem de instalar o pacote arj!"
 msgid "You have to install rar package!"
 msgstr "Tem de instalar o pacote rar!"
 
-#: ../src/window.c
-msgid "The archiver doesn't support this feature!"
-msgstr "O arquivador não suporta esta funcionalidade!"
+#: ../src/extract_dialog.c
+msgid "You haven't added any of them!"
+msgstr "Não adicionou nenhum deles!"
+
+#: ../src/add_dialog.c
+msgid "You haven't selected any files to add!"
+msgstr "Não seleccionou nenhum ficheiro para adicionar!"
+
+#: ../src/main.c
+msgid "You missed the archive name!\n"
+msgstr "Esqueceu-se do nome do arquivo!\n"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "You missed the password!"
+msgstr "Enganou-se na senha!"
+
+#: ../src/extract_dialog.c
+msgid "You missed where to extract the files!"
+msgstr "Esqueceu-se do local para a extracção dos ficheiros!"
+
+#: ../src/main.c
+msgid "[archive name]"
+msgstr "[nome do arquivo]"
+
+#: ../src/add_dialog.c
+msgid "_Add"
+msgstr "_Adicionar"
+
+#: ../src/interface.c
+msgid "_Archive"
+msgstr "_Arquivo"
+
+#: ../src/interface.c
+msgid "_Contents"
+msgstr "_Conteúdo"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "_Extract"
+msgstr "_Extrair"
+
+#: ../src/interface.c
+msgid "_HTML file"
+msgstr "Ficheiro _HTML"
+
+#: ../src/interface.c
+msgid "_Help"
+msgstr "_Ajuda"
+
+#: ../src/interface.c
+msgid "_List as"
+msgstr "_Listar como"
+
+#: ../src/interface.c
+msgid "_Multi-Extract"
+msgstr "Extracção _múltipla"
+
+#: ../src/interface.c
+msgid "_Password:"
+msgstr "_Senha:"
+
+#: ../src/interface.c
+msgid "_Preferences"
+msgstr "_Preferências"
+
+#: ../src/interface.c
+msgid "_Properties"
+msgstr "_Propriedades"
+
+#: ../src/interface.c
+msgid "_Select"
+msgstr "_Seleccionar"
+
+#: ../src/interface.c
+msgid "_Test"
+msgstr "_Testar"
+
+#: ../src/interface.c
+msgid "_Text file"
+msgstr "Ficheiro de _texto"
+
+#: ../src/main.c
+msgid "archive"
+msgstr "arquivo"
+
+#: ../src/pref_dialog.c
+msgid "choose..."
+msgstr "escolha..."
+
+#: ../src/main.c
+msgid "destination archive"
+msgstr "arquivo de destino"
+
+#: ../src/interface.c
+msgid "example: *.txt; ac*"
+msgstr "exemplo: *.txt; ac*"
+
+#: ../src/main.c
+msgid "file1 file2 file3 ... fileN"
+msgstr "ficheiro1 ficheiro2 ficheiro3 ... ficheiroN"
+
+#: ../src/main.c
+msgid "filenames"
+msgstr "nomes dos ficheiros"
+
+#: ../src/pref_dialog.c
+msgid "large"
+msgstr "grande"
 
 #: ../src/window.c
-msgid "You didn't set which browser to use!"
-msgstr "Não indicou o navegador a utilizar!"
+msgid "selected"
+msgstr "seleccionado"
+
+#: ../src/pref_dialog.c
+msgid "small"
+msgstr "pequeno"
 
 #: ../src/window.c
-msgid "Please go to Preferences->Advanced and set it."
-msgstr "Por favor, vá a Preferências->Avançado e defina-o."
+msgid "the proper archiver is not installed!"
+msgstr "o arquivador correcto não está instalado!"
 
 #: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Este tipo de ficheiro não é suportado!"
+msgid "translator-credits"
+msgstr "Nuno Miguel <nunis@netcabo.pt>"
 
-#: ../src/window.c
-msgid "Please install xdg-utils package."
-msgstr "Por favor, instale o pacote xdg-utils."
-
-#: ../src/window.c
-msgid "You didn't set which program to use for opening this file!"
-msgstr "Não definiu o programa para abrir este ficheiro!"
-
-#: ../src/window.c
-msgid "Failed to launch the application!"
-msgstr "Falha ao lançar a aplicação!"
-
-#: ../src/window.c
-msgid "Comment"
-msgstr "Comentário"
-
-#: ../src/window.c
-msgid "From File"
-msgstr "Do ficheiro"
-
-#: ../src/window.c
-msgid "Open a text file"
-msgstr "Abrir um ficheiro de texto"
-
-#: ../src/window.c
+#: ../src/main.c
 #, c-format
-msgid "Can't open file %s:"
-msgstr "Incapaz de abrir o ficheiro %s:"
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"Tente xarchiver --help para ver uma lista completa de possíveis comandos.\n"
 
-#: ../src/zip.c
-msgid "OS"
-msgstr "SO"
-
-#: ../xarchiver.desktop.in.h
-msgid "Archive manager"
-msgstr "Gestor de arquivos"
-
-#: ../xarchiver.desktop.in.h
-msgid "A GTK+ only archive manager"
-msgstr "Um gestor de arquivos baseado em GTK+"
+#: ../src/window.c
+msgid "|Size\n"
+msgstr "|Tamanho\n"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "Comprimido\n"
