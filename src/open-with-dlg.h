@@ -19,17 +19,7 @@
 #ifndef XARCHIVER_OPEN_WITH_DLG_H
 #define XARCHIVER_OPEN_WITH_DLG_H
 
-#include <gtk/gtk.h>
-
-typedef struct _open_with_data Open_with_data;
-
-struct _open_with_data
-{
-	GtkWidget *dialog1;
-	GtkWidget *custom_command_entry;
-	GtkListStore *apps_liststore;
-	gchar *file_list;
-};
+#include <glib.h>
 
 void xa_create_open_with_dialog(gchar *, gchar *, int);
 

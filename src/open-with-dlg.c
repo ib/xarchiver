@@ -17,6 +17,7 @@
  */
 
 #include <string.h>
+#include <gtk/gtk.h>
 #include "open-with-dlg.h"
 #include "interface.h"
 #include "main.h"
@@ -24,6 +25,14 @@
 #include "pref_dialog.h"
 #include "support.h"
 #include "window.h"
+
+typedef struct
+{
+	GtkWidget *dialog1;
+	GtkWidget *custom_command_entry;
+	GtkListStore *apps_liststore;
+	gchar *file_list;
+} Open_with_data;
 
 static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection, Open_with_data *data)
 {
