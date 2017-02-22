@@ -460,7 +460,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		break;
 
 		case XARCHIVETYPE_GZIP:
-		result = gzip_extract(archive,NULL);
+		result = xa_gzip_et_al_extract(archive,NULL);
 		command = NULL;
 		break;
 

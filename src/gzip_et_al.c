@@ -338,6 +338,8 @@ gboolean xa_gzip_et_al_extract (XArchive *archive,GSList *dummy)
 
 	if (archive->type == XARCHIVETYPE_BZIP2)
 		executable = "bzip2 ";
+	else if (archive->type == XARCHIVETYPE_GZIP)
+		executable = "gzip ";
 	else if (archive->type == XARCHIVETYPE_LZMA)
 		executable = "lzma ";
 	else if (archive->type == XARCHIVETYPE_XZ)

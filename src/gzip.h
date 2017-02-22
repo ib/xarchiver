@@ -22,6 +22,4 @@
 #include <glib.h>
 #include "archive.h"
 
-gboolean gzip_extract(XArchive *, GSList *);
-
 #endif
