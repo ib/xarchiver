@@ -25,12 +25,14 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
+#ifndef HAVE_MKDTEMP
+gchar *mkdtemp(gchar *);
+#endif
+
 #ifndef HAVE_STRCASESTR
 const char *strcasestr(const char *haystack, const char *needle);
 #endif
-#ifndef HAVE_MKDTEMP
-char *mkdtemp (gchar *tmpl);
-#endif
+
 gchar *xa_escape_bad_chars ( gchar *string , gchar *pattern);
 char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
 gchar *xa_remove_level_from_path (const gchar *path);

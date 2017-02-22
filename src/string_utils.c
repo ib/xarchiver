@@ -21,7 +21,7 @@
 #include "utf8-fnmatch.h"
 
 #ifndef HAVE_MKDTEMP
-char *mkdtemp (gchar *tmpl)
+gchar *mkdtemp (gchar *tmpl)
 {
 	static const gchar LETTERS[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	static guint64     value = 0;

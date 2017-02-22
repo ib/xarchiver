@@ -21,6 +21,7 @@
 #define XARCHIVER_SUPPORT_H
 
 #include "config.h"
+#include <glib.h>
 #include <gtk/gtk.h>
 
 /* Internationalization */
@@ -36,6 +37,13 @@
 #define _(String) (String)
 #define N_(String) (String)
 #define Q_(String) g_strip_context((String), (String))
+#endif
+
+/* GLib compatibility */
+
+#if !GLIB_CHECK_VERSION(2,30,0)
+#include "string_utils.h"
+#define g_mkdtemp(tmpl) mkdtemp(tmpl)
 #endif
 
 /* GTK+ compatibility */
