@@ -31,9 +31,8 @@ struct _pixbuf_cache
 	GdkPixbuf *pixbuf;
 };
 
-const char *xa_get_stock_mime_icon(char *);
-GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *,gint);
-gint xa_icon_name_compare_func(pixbuf_cache *, pixbuf_cache *);
 void xa_free_icon_cache();
+GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *, gint);
+const char *xa_get_stock_mime_icon(char *);
 
 #endif

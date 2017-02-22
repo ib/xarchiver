@@ -24,6 +24,11 @@
 
 static GSList *icon_cache;
 
+static gint xa_icon_name_compare_func (pixbuf_cache *a, pixbuf_cache *b)
+{
+	return strcmp(a->icon_name, b->icon_name);
+}
+
 const char *xa_get_stock_mime_icon(char *filename)
 {
 	const char *mime;
@@ -130,11 +135,6 @@ GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename,gint size)
 		}
 	}
 	return pixbuf;
-}
-
-gint xa_icon_name_compare_func(pixbuf_cache *a, pixbuf_cache *b)
-{
-	return strcmp(a->icon_name, b->icon_name);
 }
 
 void xa_free_icon_cache()
