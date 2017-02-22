@@ -26,9 +26,6 @@
 static int rar_version;
 static gboolean header_line, data_line, fname_line, last_line;
 
-static void xa_rar_parse_output(gchar *, gpointer);
-static void xa_rar5_parse_output(gchar *, gpointer);
-
 int xa_rar_check_version (gchar *path)
 {
 	gchar *output;
@@ -61,62 +58,6 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_update = TRUE;
 	archive->can_solid = !unrar;
 	archive->can_move = !unrar;
-}
-
-void xa_rar_open (XArchive *archive)
-{
-	GType types4[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-	char *names4[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version")),NULL};
-	GType types5[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-	char *names5[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),NULL};
-
-	unsigned short int i;
-	gchar *command = NULL;
-	gchar *rar = NULL;
-
-	header_line = FALSE;
-	data_line = FALSE;
-	fname_line = FALSE;
-	last_line = FALSE;
-
-	if (unrar)
-		rar = "unrar";
-	else
-		rar = "rar";
-
-	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
-	archive->files_size = 0;
-    archive->nr_of_files = 0;
-
-
-	if (rar_version == 5)
-	{
-		archive->nc = 8;
-		archive->parse_output = xa_rar5_parse_output;
-		xa_spawn_async_process (archive,command);
-		g_free ( command );
-		if ( archive->child_pid == 0 )
-			return;
-		archive->column_types = g_malloc0(sizeof(types5));
-		for (i = 0; i < archive->nc+2; i++)
-			archive->column_types[i] = types5[i];
-
-		xa_create_liststore (archive, names5);
-	}
-	else
-	{
-		archive->nc = 10;
-		archive->parse_output = xa_rar_parse_output;
-		xa_spawn_async_process (archive,command);
-		g_free ( command );
-		if ( archive->child_pid == 0 )
-			return;
-		archive->column_types = g_malloc0(sizeof(types4));
-		for (i = 0; i < archive->nc+2; i++)
-			archive->column_types[i] = types4[i];
-
-		xa_create_liststore (archive, names4);
-	}
 }
 
 static void xa_rar_parse_output (gchar *line, gpointer data)
@@ -295,98 +236,6 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 	}
 }
 
-void xa_rar_delete (XArchive *archive,GSList *names)
-{
-	gchar *command,*e_filename = NULL;
-	GSList *list = NULL,*_names;
-	GString *files = g_string_new("");
-
- 	_names = names;
- 	while (_names)
-	{
-		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (files,e_filename);
-		g_string_prepend_c (files,' ');
-		_names = _names->next;
-	}
-	g_slist_foreach(names,(GFunc)g_free,NULL);
-	g_slist_free(names);
-
-	command = g_strconcat ("rar d ",archive->escaped_path," ",files->str,NULL);
-	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
-
-	xa_run_command (archive,list);
-	if (archive->status == XA_ARCHIVESTATUS_DELETE)
-		xa_reload_archive_content(archive);
-}
-
-gboolean xa_rar_extract(XArchive *archive,GSList *files)
-{
-	gchar *rar, *command, *e_filename = NULL;
-	GSList *list = NULL,*_files = NULL;
-	GString *names = g_string_new("");
-	gboolean result = FALSE;
-
-	_files = files;
-	if (unrar)
-		rar = "unrar";
-	else
-		rar = "rar";
-
-	while (_files)
-	{
-		e_filename = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (names,e_filename);
-		g_string_prepend_c (names,' ');
-		_files = _files->next;
-	}
-	g_slist_foreach(_files,(GFunc)g_free,NULL);
-	g_slist_free(_files);
-
-	if (archive->passwd != NULL)
-		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
-										archive->touch ? "-tsm- " : "" ,
-										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-										" -p",archive->passwd,
-										archive->overwrite ? " -o+" : " -o-",
-										" -idp ",
-										archive->escaped_path,names->str," ",archive->extraction_path , NULL );
-	else
-		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
-										archive->touch ? "-tsm- " : "" ,
-										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
-										archive->overwrite ? "-o+" : "-o-",
-										" -idp ",
-										archive->escaped_path,names->str," ",archive->extraction_path , NULL );
-	g_string_free(names,TRUE);
-	list = g_slist_append(list,command);
-
-	result = xa_run_command (archive,list);
-	return result;
-}
-
-void xa_rar_test (XArchive *archive)
-{
-	gchar *rar = NULL;
-	gchar *command = NULL;
-	GSList *list = NULL;
-
-	if (unrar)
-		rar = "unrar";
-	else
-		rar = "rar";
-
-	archive->status = XA_ARCHIVESTATUS_TEST;
-	if (archive->passwd != NULL)
-		command = g_strconcat (rar," t -idp -p" , archive->passwd ," " , archive->escaped_path, NULL);
-	else
-		command = g_strconcat (rar," t -idp " , archive->escaped_path, NULL);
-
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
- }
-
 static void xa_rar5_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
@@ -545,6 +394,128 @@ static void xa_rar5_parse_output (gchar *line, gpointer data)
 	g_free(filename);
 }
 
+void xa_rar_open (XArchive *archive)
+{
+	GType types4[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	char *names4[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version")),NULL};
+	GType types5[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	char *names5[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),NULL};
+
+	unsigned short int i;
+	gchar *command = NULL;
+	gchar *rar = NULL;
+
+	header_line = FALSE;
+	data_line = FALSE;
+	fname_line = FALSE;
+	last_line = FALSE;
+
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
+
+	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
+	archive->files_size = 0;
+    archive->nr_of_files = 0;
+
+
+	if (rar_version == 5)
+	{
+		archive->nc = 8;
+		archive->parse_output = xa_rar5_parse_output;
+		xa_spawn_async_process (archive,command);
+		g_free ( command );
+		if ( archive->child_pid == 0 )
+			return;
+		archive->column_types = g_malloc0(sizeof(types5));
+		for (i = 0; i < archive->nc+2; i++)
+			archive->column_types[i] = types5[i];
+
+		xa_create_liststore (archive, names5);
+	}
+	else
+	{
+		archive->nc = 10;
+		archive->parse_output = xa_rar_parse_output;
+		xa_spawn_async_process (archive,command);
+		g_free ( command );
+		if ( archive->child_pid == 0 )
+			return;
+		archive->column_types = g_malloc0(sizeof(types4));
+		for (i = 0; i < archive->nc+2; i++)
+			archive->column_types[i] = types4[i];
+
+		xa_create_liststore (archive, names4);
+	}
+}
+
+void xa_rar_test (XArchive *archive)
+{
+	gchar *rar = NULL;
+	gchar *command = NULL;
+	GSList *list = NULL;
+
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
+
+	archive->status = XA_ARCHIVESTATUS_TEST;
+	if (archive->passwd != NULL)
+		command = g_strconcat (rar," t -idp -p" , archive->passwd ," " , archive->escaped_path, NULL);
+	else
+		command = g_strconcat (rar," t -idp " , archive->escaped_path, NULL);
+
+	list = g_slist_append(list,command);
+	xa_run_command (archive,list);
+}
+
+gboolean xa_rar_extract(XArchive *archive,GSList *files)
+{
+	gchar *rar, *command, *e_filename = NULL;
+	GSList *list = NULL,*_files = NULL;
+	GString *names = g_string_new("");
+	gboolean result = FALSE;
+
+	_files = files;
+	if (unrar)
+		rar = "unrar";
+	else
+		rar = "rar";
+
+	while (_files)
+	{
+		e_filename = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (names,e_filename);
+		g_string_prepend_c (names,' ');
+		_files = _files->next;
+	}
+	g_slist_foreach(_files,(GFunc)g_free,NULL);
+	g_slist_free(_files);
+
+	if (archive->passwd != NULL)
+		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
+										archive->touch ? "-tsm- " : "" ,
+										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+										" -p",archive->passwd,
+										archive->overwrite ? " -o+" : " -o-",
+										" -idp ",
+										archive->escaped_path,names->str," ",archive->extraction_path , NULL );
+	else
+		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
+										archive->touch ? "-tsm- " : "" ,
+										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
+										archive->overwrite ? "-o+" : "-o-",
+										" -idp ",
+										archive->escaped_path,names->str," ",archive->extraction_path , NULL );
+	g_string_free(names,TRUE);
+	list = g_slist_append(list,command);
+
+	result = xa_run_command (archive,list);
+	return result;
+}
+
 void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 {
 	GSList *list = NULL;
@@ -595,4 +566,30 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 
 	xa_run_command (archive,list);
 	xa_reload_archive_content(archive);
+}
+
+void xa_rar_delete (XArchive *archive,GSList *names)
+{
+	gchar *command,*e_filename = NULL;
+	GSList *list = NULL,*_names;
+	GString *files = g_string_new("");
+
+	_names = names;
+	while (_names)
+	{
+		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
+		_names = _names->next;
+	}
+	g_slist_foreach(names,(GFunc)g_free,NULL);
+	g_slist_free(names);
+
+	command = g_strconcat ("rar d ",archive->escaped_path," ",files->str,NULL);
+	g_string_free(files,TRUE);
+	list = g_slist_append(list,command);
+
+	xa_run_command (archive,list);
+	if (archive->status == XA_ARCHIVESTATUS_DELETE)
+		xa_reload_archive_content(archive);
 }
