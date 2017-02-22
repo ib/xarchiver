@@ -69,6 +69,7 @@ Add_dialog_data *xa_create_add_dialog()
 	GTK_COMPAT_TOOLTIPS
 	GtkWidget *label1,*label2,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
 	GtkWidget *dialog_action_area1,*alignment1,*alignment2,*alignment3,*vbox3,*frame2,*frame3,*frame4,*alignment4;
+	GtkWidget *vbox1;
 	Add_dialog_data *add_dialog;
 
 	add_dialog = g_new0 (Add_dialog_data, 1);

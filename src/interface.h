@@ -32,48 +32,62 @@ typedef struct
 	gboolean multi_extract;
 } Progress_bar_data;
 
+extern GtkWidget *archive_dir_treeview;
+extern GtkWidget *back_button;
+extern GtkWidget *comment_data;
+extern GtkWidget *comment_menu;
+extern GtkWidget *compression_data;
+extern GtkWidget *content_data;
+extern GtkWidget *copy;
+extern GtkWidget *cut;
+extern GtkWidget *ddelete;
+extern GtkWidget *delete_menu;
+extern GtkWidget *deselect_all;
 extern GtkWidget *eextract;
+extern GtkWidget *encrypted_data;
+extern GtkWidget *home_button;
+extern GtkWidget *hpaned1;
+extern GtkWidget *listing;
+extern GtkWidget *location_entry;
+extern GtkWidget *modified_data;
+extern GtkWidget *name_data;
+extern GtkWidget *number_of_files_data;
+extern GtkWidget *open_popupmenu;
+extern GtkWidget *password_entry_menu;
+extern GtkWidget *paste;
+extern GtkWidget *path_data;
+extern GtkWidget *rename_menu;
+extern GtkWidget *rrename;
+extern GtkWidget *scrolledwindow2;
+extern GtkWidget *selected_frame;
+extern GtkWidget *selected_label;
+extern GtkWidget *select_all;
+extern GtkWidget *size_data;
+extern GtkWidget *Stop_button;
+extern GtkWidget *toolbar1;
+extern GtkWidget *toolbar2;
+extern GtkWidget *total_label;
+extern GtkWidget *type_data;
+extern GtkWidget *up_button;
+extern GtkWidget *view;
+extern GtkWidget *view_shell_output1;
+extern GtkWidget *xa_main_window;
+extern GtkWidget *xa_popup_menu;
+extern GtkAccelGroup *accel_group;
+extern GtkNotebook *notebook;
+extern GtkTreeStore *archive_dir_model;
 extern Progress_bar_data *pb;
 
-GtkNotebook *notebook;
-GtkIconSize tmp_toolbar_icon_size;
-GtkTreeStore *archive_dir_model;
-GtkTreeViewColumn *column;
-GtkCellRenderer *archive_dir_renderer;
-GtkAccelGroup *accel_group;
-
-GtkWidget *xa_popup_menu, *xa_main_window, *vbox1, *hbox_sb, *menubar1, *menuitem1, *menuitem1_menu, *new1, *open1, *listing, *listing_submenu,
-*listing_text, *listing_html, *save1, *entry1, *green_led, *red_led, *progressbar, *total_label,*selected_label, *total_frame,*selected_frame,
-*archive_properties_window, *table1, *path_label, *modified_label, *size_label, *content_label, *comment_label, *compression_label, *number_of_files_label,
-*name_label, *type_label, *compression_data, *encrypted_data, *encrypted_label,*number_of_files_data, *content_data, *comment_data, *size_data, *modified_data, *path_data, *type_data,
-*name_data, *separatormenuitem1, *separatormenuitem2, *separatormenuitem3, *separatormenuitem4, *separatormenuitem5, *separatormenuitem6, *quit1,
-*close1, *check_menu, *properties, *menuitem2, *menuitem2_menu, *addfile, *extract_menu, *delete_menu, *comment_menu, *multi_extract_menu,*view_shell_output1,
-*prefs_menu,*password_entry_menu, *image1, *image2, *menuitem4, *select_all,*deselect_all,*select_pattern, *exe_menu, *menuitem4_menu,
-*about1, *help1,*toolbar1, *toolbar2, *hbox1, *tmp_image, *pad_image, *New_button, *Open_button, *back_button, *home_button, *forward_button,
-*up_button,*separatortoolitem1,*separatortoolitem2,*separatortoolitem3,*AddFile_button,*Extract_button,*Stop_button,*toolitem1,*location_label,
-*location_entry,*hpaned1,*archive_dir_treeview,*scrolledwindow2,*ddelete,*rename_menu,*rrename,*cut,*copy,*paste,*view,*open_popupmenu,*unsort_menu;
-
-gchar *xa_create_password_dialog(XArchive *);
-void set_label (GtkWidget *label,gchar *);
-gboolean xa_flash_led_indicator (XArchive *);
-gboolean xa_pulse_progress_bar_window (Progress_bar_data *);
-void xa_create_popup_menu();
-void xa_create_main_window (GtkWidget *,gboolean,gboolean,gboolean,gboolean);
+gboolean select_matched_rows(GtkTreeModel *, GtkTreePath *, GtkTreeIter *, gpointer);
+void xa_add_page(XArchive *);
 GtkWidget *xa_create_archive_properties_window();
-gboolean select_matched_rows(GtkTreeModel *,GtkTreePath *,GtkTreeIter *,gpointer );
-void xa_select_by_pattern_dialog(GtkMenuItem *, gpointer );
-void xa_handle_navigation_buttons (GtkMenuItem *, gpointer );
-void xa_add_page (XArchive *);
-void xa_close_page ( GtkWidget*, gpointer );
+void xa_create_main_window(GtkWidget *, gboolean, gboolean, gboolean, gboolean);
+gchar *xa_create_password_dialog(XArchive *);
+Progress_bar_data *xa_create_progress_bar(gboolean, XArchive *);
+void xa_disable_delete_buttons(gboolean);
+gboolean xa_flash_led_indicator(XArchive *);
+void xa_increase_progress_bar(Progress_bar_data *, gchar *, double);
+gboolean xa_pulse_progress_bar_window(Progress_bar_data *);
 void xa_set_button_state(gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean);
-void xa_restore_navigation(int idx);
-void xa_disable_delete_buttons (gboolean);
-void xa_sidepane_row_expanded(GtkTreeView *,GtkTreeIter *,GtkTreePath *,gpointer );
-void xa_sidepane_drag_data_received ( GtkWidget*,GdkDragContext *, int x, int y, GtkSelectionData *, unsigned int, unsigned int, gpointer );
-gboolean xa_sidepane_drag_motion_expand_timeout (gpointer );
-gboolean xa_sidepane_drag_motion ( GtkWidget*,GdkDragContext *,gint x,gint y,guint ,gpointer );
-Progress_bar_data *xa_create_progress_bar(gboolean,XArchive *);
-void xa_increase_progress_bar(Progress_bar_data *,gchar *,double);
-//void xa_icon_theme_changed (GtkIconTheme *,gpointer );
 
 #endif

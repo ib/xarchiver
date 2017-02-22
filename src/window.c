@@ -1415,6 +1415,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 
 void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 {
+	GtkWidget *archive_properties_window;
 	struct stat my_stat;
     gchar *utf8_string ,*dummy_string,*t;
     char date[64];
