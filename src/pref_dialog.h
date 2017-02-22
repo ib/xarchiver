@@ -37,13 +37,9 @@ typedef struct Prefs_dialog_data
 	gboolean size_changed[2];
 } Prefs_dialog_data;
 
-Prefs_dialog_data *xa_create_prefs_dialog ();
-void xa_prefs_iconview_changed (GtkIconView *, gpointer );
-void xa_prefs_dialog_set_default_options (Prefs_dialog_data *);
-void xa_prefs_save_options (Prefs_dialog_data *,const char *);
-void xa_prefs_load_options(Prefs_dialog_data *);
-void xa_prefs_combo_changed (GtkComboBox *,gpointer );
 void xa_apply_prefs_option(Prefs_dialog_data *);
-gchar *xa_prefs_choose_program(gboolean );
+Prefs_dialog_data *xa_create_prefs_dialog();
+void xa_prefs_load_options(Prefs_dialog_data *);
+void xa_prefs_save_options(Prefs_dialog_data *, const char *);
 
 #endif

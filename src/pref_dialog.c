@@ -27,6 +27,102 @@
 gchar *config_file;
 GtkIconTheme *icon_theme;
 
+static void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
+{
+	Prefs_dialog_data *prefs = data;
+	GList *list;
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	guint column = 0;
+
+	list = gtk_icon_view_get_selected_items (iconview);
+	if (list == NULL)
+		return;
+
+	list = g_list_first (list);
+	path = (GtkTreePath*)list->data;
+
+	gtk_tree_model_get_iter (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,path);
+	gtk_tree_model_get (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,2,&column,-1);
+
+	gtk_tree_path_free(path);
+	g_list_free (list);
+
+	if (column == 0)
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),0);
+	else if (column == 1)
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),1);
+	else if (column == 2)
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),2);
+}
+
+static gchar *xa_prefs_choose_program (gboolean flag)
+{
+	gchar *filename = NULL;
+	GtkWidget *dialog;
+
+	dialog = gtk_file_chooser_dialog_new (flag ? _("Choose the directory to use") : _("Choose the application to use"),
+				      GTK_WINDOW(xa_main_window),
+				      flag ? GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER : GTK_FILE_CHOOSER_ACTION_OPEN,
+				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				      NULL);
+
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+
+	gtk_widget_destroy (dialog);
+
+	return filename;
+}
+
+static void xa_prefs_combo_changed (GtkComboBox *widget, gpointer user_data)
+{
+	gchar *filename, *filename_utf8;
+	unsigned short int flag = GPOINTER_TO_UINT(user_data);
+
+	if (gtk_combo_box_get_active(GTK_COMBO_BOX (widget)) == 1)
+	{
+		filename = xa_prefs_choose_program(flag);
+		if (filename != NULL)
+		{
+			filename_utf8 = g_filename_display_name(filename);
+			gtk_combo_box_text_remove(GTK_COMBO_BOX_TEXT(GTK_WIDGET(widget)), 0);
+			gtk_combo_box_text_insert_text(GTK_COMBO_BOX_TEXT(GTK_WIDGET(widget)), 0, filename_utf8);
+			g_free(filename_utf8);
+			g_free(filename);
+		}
+		gtk_combo_box_set_active (GTK_COMBO_BOX (widget),0);
+	}
+}
+
+static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
+{
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),FALSE);
+
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_toolbar),TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar),TRUE);
+
+	if (! xdg_open)
+	{
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),0);
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor),0);
+		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_viewer),0);
+	}
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0);
+	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_extract_dir),0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),FALSE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_sub_dir),FALSE);
+	/* Set the default options in the extract dialog */
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (extract_window->extract_full),TRUE);
+	/* Set the default options in the add dialog */
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_window->recurse),TRUE);
+}
+
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
 	GTK_COMPAT_TOOLTIPS
@@ -271,62 +367,6 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	return prefs_data;
 }
 
-void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
-{
-	Prefs_dialog_data *prefs = data;
-	GList *list;
-	GtkTreePath *path;
-	GtkTreeIter iter;
-	guint column = 0;
-
-	list = gtk_icon_view_get_selected_items (iconview);
-	if (list == NULL)
-		return;
-
-	list = g_list_first (list);
-	path = (GtkTreePath*)list->data;
-
-	gtk_tree_model_get_iter (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,path);
-	gtk_tree_model_get (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,2,&column,-1);
-
-	gtk_tree_path_free(path);
-	g_list_free (list);
-
-	if (column == 0)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),0);
-	else if (column == 1)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),1);
-	else if (column == 2)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),2);
-}
-
-void xa_prefs_dialog_set_default_options(Prefs_dialog_data *prefs_data)
-{
-	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),TRUE);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),FALSE);
-
-	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_toolbar),TRUE);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar),TRUE);
-
-	if (! xdg_open)
-	{
-		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),0);
-		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor),0);
-		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_viewer),0);
-	}
-	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_temp_dir),0);
-	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_extract_dir),0);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),FALSE);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_sub_dir),FALSE);
-	/* Set the default options in the extract dialog */
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (extract_window->extract_full),TRUE);
-	/* Set the default options in the add dialog */
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_window->recurse),TRUE);
-}
-
 void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 {
 	gchar *conf;
@@ -568,46 +608,6 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	}
 	g_key_file_free (xa_key_file);
 	/* config_file is freed in window.c xa_quit_application */
-}
-
-void xa_prefs_combo_changed (GtkComboBox *widget,gpointer user_data)
-{
-	gchar *filename, *filename_utf8;
-	unsigned short int flag = GPOINTER_TO_UINT(user_data);
-
-	if (gtk_combo_box_get_active(GTK_COMBO_BOX (widget)) == 1)
-	{
-		filename = xa_prefs_choose_program(flag);
-		if (filename != NULL)
-		{
-			filename_utf8 = g_filename_display_name(filename);
-			gtk_combo_box_text_remove(GTK_COMBO_BOX_TEXT(GTK_WIDGET(widget)), 0);
-			gtk_combo_box_text_insert_text(GTK_COMBO_BOX_TEXT(GTK_WIDGET(widget)), 0, filename_utf8);
-			g_free(filename_utf8);
-			g_free(filename);
-		}
-		gtk_combo_box_set_active (GTK_COMBO_BOX (widget),0);
-	}
-}
-
-gchar *xa_prefs_choose_program(gboolean flag)
-{
-	gchar *filename = NULL;
-	GtkWidget *dialog;
-
-	dialog = gtk_file_chooser_dialog_new (flag ? _("Choose the directory to use") : _("Choose the application to use"),
-				      GTK_WINDOW(xa_main_window),
-				      flag ? GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER : GTK_FILE_CHOOSER_ACTION_OPEN,
-				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				      NULL);
-
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
-		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-
-	gtk_widget_destroy (dialog);
-
-	return filename;
 }
 
 void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
