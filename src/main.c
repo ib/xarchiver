@@ -106,7 +106,7 @@ static void xa_set_available_archivers ()
 	ask[XARCHIVETYPE_ARJ]  = &xa_arj_ask;
 	ask[XARCHIVETYPE_DEB]  = &xa_deb_ask;
 	ask[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_ask;
-	ask[XARCHIVETYPE_GZIP]  = &xa_gzip_ask;
+	ask[XARCHIVETYPE_GZIP]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_XZ]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_RAR]  = &xa_rar_ask;

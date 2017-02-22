@@ -32,11 +32,13 @@ void xa_gzip_et_al_ask (XArchive *archive)
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_GZIP:
 			archive->can_test = TRUE;
 			archive->can_extract = TRUE;
 			break;
 
 		case XARCHIVETYPE_TAR_BZ2:
+		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_LZMA:
 		case XARCHIVETYPE_TAR_LZOP:
 		case XARCHIVETYPE_TAR_XZ:
