@@ -16,8 +16,9 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+#include <string.h>
 #include "string_utils.h"
-#include "tar.h"
 #include "utf8-fnmatch.h"
 
 #ifndef HAVE_MKDTEMP
@@ -57,6 +58,82 @@ gchar *mkdtemp (gchar *tmpl)
 #endif
 
 #ifndef HAVE_STRCASESTR
+#include <ctype.h>
+#endif
+
+/* This function is from File-Roller code */
+static int count_chars_to_escape (const char *str, const char *meta_chars)
+{
+	int meta_chars_n = strlen (meta_chars);
+	const char *s;
+	int n = 0;
+
+	for (s = str; *s != 0; s++)
+	{
+		int i;
+		for (i = 0; i < meta_chars_n; i++)
+			if (*s == meta_chars[i])
+			{
+				n++;
+				break;
+			}
+		}
+	return n;
+}
+/* End code from File-Roller */
+
+static char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char postfix)
+{
+  int         meta_chars_n = strlen (meta_chars);
+  char       *escaped;
+  int         i, new_l, extra_chars = 0;
+  const char *s;
+  char       *t;
+
+  if (str == NULL)
+          return NULL;
+
+  if (prefix)
+          extra_chars++;
+  if (postfix)
+          extra_chars++;
+
+  new_l = strlen (str) + (count_chars_to_escape (str, meta_chars) * extra_chars);
+  escaped = g_malloc0 (new_l + 1);
+
+  s = str;
+  t = escaped;
+  while (*s) {
+          gboolean is_bad = FALSE;
+          for (i = 0; (i < meta_chars_n) && !is_bad; i++)
+                  is_bad = (*s == meta_chars[i]);
+          if (is_bad && prefix)
+                  *t++ = prefix;
+          *t++ = *s++;
+          if (is_bad && postfix)
+                  *t++ = postfix;
+  }
+  *t = 0;
+
+  return escaped;
+}
+
+static gchar *xa_strip_current_working_dir_from_path (gchar *working_dir, gchar *filename)
+{
+	gchar *slash;
+	int len = 0;
+
+	if (working_dir == NULL)
+		return filename;
+	len = strlen(working_dir)+1;
+	slash = g_strrstr(filename,"/");
+	if (slash == NULL || ! g_path_is_absolute(filename))
+		return filename;
+
+	return filename+len;
+}
+
+#ifndef HAVE_STRCASESTR
 /*
  * case-insensitive version of strstr()
  */
@@ -89,62 +166,6 @@ gchar *xa_escape_bad_chars ( gchar *string , gchar *pattern)
 	return xa_escape_common_chars (string, pattern, '\\', 0);
 }
 
-/* These functions are from File-Roller code */
-
-static int count_chars_to_escape (const char *str, const char *meta_chars)
-{
-	int meta_chars_n = strlen (meta_chars);
-	const char *s;
-	int n = 0;
-
-	for (s = str; *s != 0; s++)
-	{
-		int i;
-		for (i = 0; i < meta_chars_n; i++)
-			if (*s == meta_chars[i])
-			{
-        		n++;
-            	break;
-			}
-		}
-	return n;
-}
-char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char postfix)
-{
-        int         meta_chars_n = strlen (meta_chars);
-        char       *escaped;
-        int         i, new_l, extra_chars = 0;
-        const char *s;
-        char       *t;
-
-        if (str == NULL)
-                return NULL;
-
-        if (prefix)
-                extra_chars++;
-        if (postfix)
-                extra_chars++;
-
-        new_l = strlen (str) + (count_chars_to_escape (str, meta_chars) * extra_chars);
-        escaped = g_malloc0 (new_l + 1);
-
-        s = str;
-        t = escaped;
-        while (*s) {
-                gboolean is_bad = FALSE;
-                for (i = 0; (i < meta_chars_n) && !is_bad; i++)
-                        is_bad = (*s == meta_chars[i]);
-                if (is_bad && prefix)
-                        *t++ = prefix;
-                *t++ = *s++;
-                if (is_bad && postfix)
-                        *t++ = postfix;
-        }
-        *t = 0;
-
-        return escaped;
-}
-
 gchar *xa_remove_level_from_path (const gchar *path)
 {
 	gchar *local_path;
@@ -160,19 +181,6 @@ gchar *xa_remove_level_from_path (const gchar *path)
     	local_path = g_path_get_dirname (path);
     return local_path;
 }
-
-gboolean file_extension_is (const char *filename, const char *ext)
-{
-	int filename_l, ext_l;
-
-	filename_l = strlen (filename);
-	ext_l = strlen (ext);
-
-    if (filename_l < ext_l)
-		return FALSE;
-    return strcasecmp (filename + filename_l - ext_l, ext) == 0;
-}
-/* End code from File-Roller */
 
 void xa_set_window_title (GtkWidget *window,gchar *title)
 {
@@ -232,21 +240,6 @@ gchar *xa_remove_path_from_archive_name (gchar *name)
 gchar *xa_escape_filename (gchar *filename,gchar *meta_chars)
 {
 	return xa_escape_common_chars (filename,meta_chars,'\\',0);
-}
-
-gchar *xa_strip_current_working_dir_from_path(gchar *working_dir,gchar *filename)
-{
-	gchar *slash;
-	int len = 0;
-
-	if (working_dir == NULL)
-		return filename;
-	len = strlen(working_dir)+1;
-	slash = g_strrstr(filename,"/");
-	if (slash == NULL || ! g_path_is_absolute(filename))
-		return filename;
-
-	return filename+len;
 }
 
 void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)

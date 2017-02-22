@@ -20,8 +20,6 @@
 #define XARCHIVER_STRING_UTILS_H
 
 #include "config.h"
-#include <stdlib.h>
-#include <string.h>
 #include <gtk/gtk.h>
 #include "archive.h"
 
@@ -33,17 +31,14 @@ gchar *mkdtemp(gchar *);
 const char *strcasestr(const char *haystack, const char *needle);
 #endif
 
-gchar *xa_escape_bad_chars ( gchar *string , gchar *pattern);
-char *xa_escape_common_chars (const char *str, const char *meta_chars, const char  prefix, const char  postfix);
-gchar *xa_remove_level_from_path (const gchar *path);
-gboolean file_extension_is (const char *filename, const char *ext);
-void xa_set_window_title ( GtkWidget *window , gchar *title);
-gboolean match_patterns (char **patterns,const char *string,int flags);
-gchar *xa_remove_path_from_archive_name(gchar *name);
-void xa_cat_filenames (XArchive *,GSList *,GString *);
-gchar *xa_escape_filename (gchar *filename,gchar *meta_chars);
+gboolean match_patterns(char **, const char *, int);
+void xa_cat_filenames(XArchive *, GSList *, GString *);
+gchar *xa_escape_bad_chars(gchar *, gchar *);
+gchar *xa_escape_filename(gchar *, gchar *);
+void xa_recurse_local_directory(gchar *, GSList **, gboolean, gint);
+gchar *xa_remove_level_from_path(const gchar *);
+gchar *xa_remove_path_from_archive_name(gchar *);
+void xa_set_window_title(GtkWidget *, gchar *);
 GSList *xa_slist_copy(GSList *);
-void xa_recurse_local_directory(gchar *,GSList **,gboolean,gint);
-gchar *xa_strip_current_working_dir_from_path(gchar *,gchar *);
 
 #endif
