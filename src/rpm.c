@@ -33,7 +33,10 @@
 #define HDRSIG_ENTRY_INFO_LEN 8
 #define HDRSIG_ENTRY_INDEX_LEN 16
 
-static void xa_cpio_parse_output(gchar *, gpointer);
+void xa_rpm_ask (XArchive *archive)
+{
+	archive->can_extract = TRUE;
+}
 
 static int xa_rpm2cpio (XArchive *archive)
 {
@@ -141,48 +144,6 @@ static int xa_rpm2cpio (XArchive *archive)
 	return 1;
 }
 
-void xa_rpm_ask (XArchive *archive)
-{
-	archive->can_extract = TRUE;
-}
-
-void xa_rpm_open (XArchive *archive)
-{
-	int result, i;
-	gchar *command;
-
-	char *names[]= {(_("Points to")),(_("Size")),(_("Permission")),(_("Date")),(_("Hard Link")),(_("Owner")),(_("Group")),NULL};
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-
-	result = xa_rpm2cpio(archive);
-
-	if (result < 0)
-		return;
-
-	archive->files_size = 0;
-	archive->nr_of_files = 0;
-	archive->nc = 8;
-
-	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 10; i++)
-		archive->column_types[i] = types[i];
-
-	xa_create_liststore(archive, names);
-
-	if (result == 0)
-	{
-		gtk_widget_set_sensitive(Stop_button,FALSE);
-		xa_set_button_state(1, 1, 0, 1, 0, 0, 0, 0, 0, 0);
-		gtk_label_set_text(GTK_LABEL(total_label),"");
-		return;
-	}
-	/* list the content */
-	command = g_strconcat ("sh -c \"cpio -tv < ",archive->tmp,"/xa-tmp.cpio\"",NULL);
-	archive->parse_output = xa_cpio_parse_output;
-	xa_spawn_async_process (archive,command);
-	g_free(command);
-}
-
 static void xa_cpio_parse_output (gchar *line, gpointer data)
 {
 	XArchive *archive = data;
@@ -265,6 +226,43 @@ static void xa_cpio_parse_output (gchar *line, gpointer data)
 
 	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free (filename);
+}
+
+void xa_rpm_open (XArchive *archive)
+{
+	int result, i;
+	gchar *command;
+
+	char *names[]= {(_("Points to")),(_("Size")),(_("Permission")),(_("Date")),(_("Hard Link")),(_("Owner")),(_("Group")),NULL};
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+
+	result = xa_rpm2cpio(archive);
+
+	if (result < 0)
+		return;
+
+	archive->files_size = 0;
+	archive->nr_of_files = 0;
+	archive->nc = 8;
+
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 10; i++)
+		archive->column_types[i] = types[i];
+
+	xa_create_liststore(archive, names);
+
+	if (result == 0)
+	{
+		gtk_widget_set_sensitive(Stop_button,FALSE);
+		xa_set_button_state(1, 1, 0, 1, 0, 0, 0, 0, 0, 0);
+		gtk_label_set_text(GTK_LABEL(total_label),"");
+		return;
+	}
+	/* list the content */
+	command = g_strconcat ("sh -c \"cpio -tv < ",archive->tmp,"/xa-tmp.cpio\"",NULL);
+	archive->parse_output = xa_cpio_parse_output;
+	xa_spawn_async_process (archive,command);
+	g_free(command);
 }
 
 gboolean xa_rpm_extract(XArchive *archive,GSList *files)
