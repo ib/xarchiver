@@ -107,20 +107,20 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
-	archive.c archive.h arj.c arj.h bzip2.c bzip2.h deb.c deb.h \
-	extract_dialog.c extract_dialog.h gzip.c gzip.h interface.c \
-	interface.h lha.c lha.h main.c main.h mime.c mime.h \
-	new_dialog.c new_dialog.h open-with-dlg.c open-with-dlg.h \
-	pref_dialog.c pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c \
-	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
-	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
-	sexy-icon-entry.c sexy-icon-entry.h
+	archive.c archive.h arj.c arj.h deb.c deb.h extract_dialog.c \
+	extract_dialog.h gzip.c gzip.h gzip_et_al.c gzip_et_al.h \
+	interface.c interface.h lha.c lha.h main.c main.h mime.c \
+	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
+	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
+	rpm.h socket.c socket.h string_utils.c string_utils.h \
+	support.h tar.c tar.h utf8-fnmatch.c utf8-fnmatch.h window.c \
+	window.h zip.c zip.h sexy-icon-entry.c sexy-icon-entry.h
 @GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-add_dialog.$(OBJEXT) xarchiver-archive.$(OBJEXT) \
-	xarchiver-arj.$(OBJEXT) xarchiver-bzip2.$(OBJEXT) \
-	xarchiver-deb.$(OBJEXT) xarchiver-extract_dialog.$(OBJEXT) \
-	xarchiver-gzip.$(OBJEXT) xarchiver-interface.$(OBJEXT) \
+	xarchiver-arj.$(OBJEXT) xarchiver-deb.$(OBJEXT) \
+	xarchiver-extract_dialog.$(OBJEXT) xarchiver-gzip.$(OBJEXT) \
+	xarchiver-gzip_et_al.$(OBJEXT) xarchiver-interface.$(OBJEXT) \
 	xarchiver-lha.$(OBJEXT) xarchiver-main.$(OBJEXT) \
 	xarchiver-mime.$(OBJEXT) xarchiver-new_dialog.$(OBJEXT) \
 	xarchiver-open-with-dlg.$(OBJEXT) \
@@ -399,14 +399,14 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = xdgmime
 xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h archive.c \
-	archive.h arj.c arj.h bzip2.c bzip2.h deb.c deb.h \
-	extract_dialog.c extract_dialog.h gzip.c gzip.h interface.c \
-	interface.h lha.c lha.h main.c main.h mime.c mime.h \
-	new_dialog.c new_dialog.h open-with-dlg.c open-with-dlg.h \
-	pref_dialog.c pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c \
-	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
-	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
-	$(am__append_1)
+	archive.h arj.c arj.h deb.c deb.h extract_dialog.c \
+	extract_dialog.h gzip.c gzip.h gzip_et_al.c gzip_et_al.h \
+	interface.c interface.h lha.c lha.h main.c main.h mime.c \
+	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
+	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
+	rpm.h socket.c socket.h string_utils.c string_utils.h \
+	support.h tar.c tar.h utf8-fnmatch.c utf8-fnmatch.h window.c \
+	window.h zip.c zip.h $(am__append_1)
 xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" $(am__append_2)
@@ -511,10 +511,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-add_dialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-archive.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-arj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-bzip2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-deb.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-extract_dialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-gzip.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-gzip_et_al.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-lha.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-main.Po@am__quote@
@@ -609,20 +609,6 @@ xarchiver-arj.obj: arj.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-arj.obj `if test -f 'arj.c'; then $(CYGPATH_W) 'arj.c'; else $(CYGPATH_W) '$(srcdir)/arj.c'; fi`
 
-xarchiver-bzip2.o: bzip2.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-bzip2.o -MD -MP -MF $(DEPDIR)/xarchiver-bzip2.Tpo -c -o xarchiver-bzip2.o `test -f 'bzip2.c' || echo '$(srcdir)/'`bzip2.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-bzip2.Tpo $(DEPDIR)/xarchiver-bzip2.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bzip2.c' object='xarchiver-bzip2.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-bzip2.o `test -f 'bzip2.c' || echo '$(srcdir)/'`bzip2.c
-
-xarchiver-bzip2.obj: bzip2.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-bzip2.obj -MD -MP -MF $(DEPDIR)/xarchiver-bzip2.Tpo -c -o xarchiver-bzip2.obj `if test -f 'bzip2.c'; then $(CYGPATH_W) 'bzip2.c'; else $(CYGPATH_W) '$(srcdir)/bzip2.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-bzip2.Tpo $(DEPDIR)/xarchiver-bzip2.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bzip2.c' object='xarchiver-bzip2.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-bzip2.obj `if test -f 'bzip2.c'; then $(CYGPATH_W) 'bzip2.c'; else $(CYGPATH_W) '$(srcdir)/bzip2.c'; fi`
-
 xarchiver-deb.o: deb.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-deb.o -MD -MP -MF $(DEPDIR)/xarchiver-deb.Tpo -c -o xarchiver-deb.o `test -f 'deb.c' || echo '$(srcdir)/'`deb.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-deb.Tpo $(DEPDIR)/xarchiver-deb.Po
@@ -664,6 +650,20 @@ xarchiver-gzip.obj: gzip.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gzip.c' object='xarchiver-gzip.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-gzip.obj `if test -f 'gzip.c'; then $(CYGPATH_W) 'gzip.c'; else $(CYGPATH_W) '$(srcdir)/gzip.c'; fi`
+
+xarchiver-gzip_et_al.o: gzip_et_al.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-gzip_et_al.o -MD -MP -MF $(DEPDIR)/xarchiver-gzip_et_al.Tpo -c -o xarchiver-gzip_et_al.o `test -f 'gzip_et_al.c' || echo '$(srcdir)/'`gzip_et_al.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-gzip_et_al.Tpo $(DEPDIR)/xarchiver-gzip_et_al.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gzip_et_al.c' object='xarchiver-gzip_et_al.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-gzip_et_al.o `test -f 'gzip_et_al.c' || echo '$(srcdir)/'`gzip_et_al.c
+
+xarchiver-gzip_et_al.obj: gzip_et_al.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-gzip_et_al.obj -MD -MP -MF $(DEPDIR)/xarchiver-gzip_et_al.Tpo -c -o xarchiver-gzip_et_al.obj `if test -f 'gzip_et_al.c'; then $(CYGPATH_W) 'gzip_et_al.c'; else $(CYGPATH_W) '$(srcdir)/gzip_et_al.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-gzip_et_al.Tpo $(DEPDIR)/xarchiver-gzip_et_al.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='gzip_et_al.c' object='xarchiver-gzip_et_al.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-gzip_et_al.obj `if test -f 'gzip_et_al.c'; then $(CYGPATH_W) 'gzip_et_al.c'; else $(CYGPATH_W) '$(srcdir)/gzip_et_al.c'; fi`
 
 xarchiver-interface.o: interface.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-interface.o -MD -MP -MF $(DEPDIR)/xarchiver-interface.Tpo -c -o xarchiver-interface.o `test -f 'interface.c' || echo '$(srcdir)/'`interface.c

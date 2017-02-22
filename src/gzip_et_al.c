@@ -20,7 +20,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include "bzip2.h"
+#include "gzip_et_al.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"

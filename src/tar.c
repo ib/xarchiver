@@ -18,8 +18,8 @@
 
 #include <string.h>
 #include "tar.h"
-#include "bzip2.h"
 #include "gzip.h"
+#include "gzip_et_al.h"
 #include "interface.h"
 #include "main.h"
 #include "string_utils.h"

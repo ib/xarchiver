@@ -11,14 +11,14 @@ xarchiver_SOURCES = \
 	archive.h \
 	arj.c \
 	arj.h \
-	bzip2.c \
-	bzip2.h \
 	deb.c \
 	deb.h \
 	extract_dialog.c \
 	extract_dialog.h \
 	gzip.c \
 	gzip.h \
+	gzip_et_al.c \
+	gzip_et_al.h \
 	interface.c \
 	interface.h \
 	lha.c \

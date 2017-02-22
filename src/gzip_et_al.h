@@ -16,8 +16,8 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef BZIP2_H
-#define BZIP2_H
+#ifndef GZIP_ET_AL_H
+#define GZIP_ET_AL_H
 
 #include <glib.h>
 #include "archive.h"
