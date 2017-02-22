@@ -17,6 +17,7 @@
  */
 
 #include "config.h"
+#include <stdlib.h>
 #include "main.h"
 #include "7zip.h"
 #include "add_dialog.h"
