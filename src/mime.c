@@ -22,6 +22,12 @@
 #include "pref_dialog.h"
 #include "xdgmime/xdgmime.h"
 
+typedef struct
+{
+	gchar *icon_name;
+	GdkPixbuf *pixbuf;
+} pixbuf_cache;
+
 static GSList *icon_cache;
 
 static gint xa_icon_name_compare_func (pixbuf_cache *a, pixbuf_cache *b)

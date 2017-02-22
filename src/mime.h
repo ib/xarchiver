@@ -23,14 +23,6 @@
 #include <glib.h>
 #include <gdk/gdk.h>
 
-typedef struct _pixbuf_cache pixbuf_cache;
-
-struct _pixbuf_cache
-{
-	gchar *icon_name;
-	GdkPixbuf *pixbuf;
-};
-
 void xa_free_icon_cache();
 GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *, gint);
 const char *xa_get_stock_mime_icon(char *);
