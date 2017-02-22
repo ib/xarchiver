@@ -23,6 +23,5 @@
 #include "archive.h"
 
 gboolean gzip_extract(XArchive *, GSList *);
-void xa_gzip_open(XArchive *);
 
 #endif

@@ -65,6 +65,8 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 
 	if (archive->type == XARCHIVETYPE_TAR_BZ2)
 		command = g_strconcat(tar," tfjv ",archive->escaped_path,NULL);
+	else if (archive->type == XARCHIVETYPE_TAR_GZ)
+		command = g_strconcat(tar, " tvzf ", archive->escaped_path, NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_LZMA)
 		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->escaped_path,NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_XZ)
@@ -92,6 +94,54 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
+static void xa_gzip_parse_output (gchar *line, gpointer data)
+{
+	XArchive *archive = data;
+	gchar *filename;
+	gchar *basename;
+	gpointer item[3];
+	gint n = 0, a = 0 ,linesize = 0;
+
+	linesize = strlen(line);
+	if (line[9] == 'c')
+		return;
+
+	/* Size */
+	for(n=0; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+	line[n]='\0';
+	item[0] = line + a;
+	n++;
+
+	/* Compressed */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+	line[n]='\0';
+	item[1] = line + a;
+	archive->files_size += g_ascii_strtoull(item[1],NULL,0);
+	n++;
+
+	/* Ratio */
+	for(; n < linesize && line[n] == ' '; n++);
+	a = n;
+	for(; n < linesize && line[n] != ' '; n++);
+	line[n] = '\0';
+	item[2] = line + a;
+	n++;
+
+	line[linesize-1] = '\0';
+	filename = line+n;
+
+	basename = g_path_get_basename(filename);
+	if (basename == NULL)
+		basename = g_strdup(filename);
+
+	xa_set_archive_entries_for_each_row (archive,basename,item);
+	g_free(basename);
+}
+
 void xa_gzip_et_al_open (XArchive *archive)
 {
 	gchar *filename = NULL;;
@@ -110,6 +160,11 @@ void xa_gzip_et_al_open (XArchive *archive)
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 		xa_open_tar_compressed_file(archive);
 	}
+	else if (g_str_has_suffix(archive->escaped_path,".tar.gz") || g_str_has_suffix (archive->escaped_path,".tgz"))
+	{
+		archive->type = XARCHIVETYPE_TAR_GZ;
+		xa_open_tar_compressed_file(archive);
+	}
 	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
@@ -126,6 +181,30 @@ void xa_gzip_et_al_open (XArchive *archive)
 	{
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		xa_open_tar_compressed_file(archive);
+	}
+	else if (archive->type == XARCHIVETYPE_GZIP)
+	{
+		gchar *command;
+		unsigned short int i;
+
+		archive->nc = 4;
+		archive->parse_output = xa_gzip_parse_output;
+		archive->nr_of_files = 1;
+
+		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
+		archive->column_types = g_malloc0(sizeof(types));
+		for (i = 0; i < 6; i++)
+			archive->column_types[i] = types[i];
+
+		char *names[]= {(_("Compressed")),(_("Size")),(_("Ratio"))};
+		xa_create_liststore (archive,names);
+
+		command = g_strconcat ("gzip -l ",archive->escaped_path,NULL);
+		xa_spawn_async_process (archive,command);
+		g_free (command);
+
+		if (archive->child_pid == 0)
+			return;
 	}
 	else
 	{
