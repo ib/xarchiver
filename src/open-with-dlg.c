@@ -25,14 +25,216 @@
 #include "support.h"
 #include "window.h"
 
-static void xa_read_desktop_directories(GtkListStore *,const gchar *);
-static void xa_parse_desktop_files(GSList **,GSList **,GSList **,gchar *,gchar *);
-static void xa_open_with_dialog_selection_changed (GtkTreeSelection *,Open_with_data *);
-static void xa_open_with_dialog_browse_custom_command(GtkButton *,Open_with_data *);
-static void xa_open_with_dialog_row_selected(GtkTreeView *,GtkTreePath *,GtkTreeViewColumn *,Open_with_data *);
-static void xa_destroy_open_with_dialog(GtkWidget *,Open_with_data *);
-static void xa_open_with_dialog_execute_command(GtkWidget *,Open_with_data *);
-static void xa_open_with_dialog_custom_entry_activated(GtkEditable *,Open_with_data *);
+static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection, Open_with_data *data)
+{
+	gchar *exec;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+
+	if (gtk_tree_selection_get_selected(selection,&model,&iter))
+	{
+		gtk_tree_model_get(model,&iter,2,&exec,-1);
+		gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry),exec);
+		g_free(exec);
+	}
+}
+
+static void xa_open_with_dialog_execute_command (GtkWidget *widget, Open_with_data *data)
+{
+	const char *application;
+
+	application = gtk_entry_get_text(GTK_ENTRY(data->custom_command_entry));
+	xa_launch_external_program((gchar*)application,data->file_list);
+	gtk_widget_destroy(data->dialog1);
+}
+
+static void xa_open_with_dialog_custom_entry_activated (GtkEditable *entry, Open_with_data *data)
+{
+	xa_open_with_dialog_execute_command(NULL, data);
+}
+
+static void xa_open_with_dialog_browse_custom_command (GtkButton *button, Open_with_data *data)
+{
+	GtkWidget *file_selector;
+	gchar *dest_dir, *dest_dir_utf8;
+	gint response;
+
+	file_selector = gtk_file_chooser_dialog_new (_("Select an application"),
+							GTK_WINDOW (xa_main_window),
+							GTK_FILE_CHOOSER_ACTION_OPEN,
+							GTK_STOCK_CANCEL,
+							GTK_RESPONSE_CANCEL,
+							GTK_STOCK_OPEN,
+							GTK_RESPONSE_ACCEPT,
+							NULL);
+
+	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (file_selector),"/usr/bin");
+	response = gtk_dialog_run (GTK_DIALOG(file_selector));
+	if (response == GTK_RESPONSE_ACCEPT)
+	{
+		dest_dir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (file_selector));
+		dest_dir_utf8 = g_filename_display_name(dest_dir);
+		gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry), dest_dir_utf8);
+		g_free(dest_dir_utf8);
+		g_free(dest_dir);
+	}
+	gtk_widget_destroy(file_selector);
+}
+
+static void xa_parse_desktop_files (GSList **app_name_list, GSList **app_exe_list, GSList **app_icon_list, gchar *path, gchar *name)
+{
+	gchar *filename, *line, *key;
+	gchar *app_name = NULL, *app_exe = NULL, *app_icon = NULL;
+	GIOStatus status;
+	GIOChannel *file;
+	gboolean has_mimetype = FALSE;
+	const gchar * const *langs, * const *l;
+	gint size;
+
+	filename = g_strconcat(path,"/",name,NULL);
+	file = g_io_channel_new_file(filename,"r",NULL);
+	g_free(filename);
+	if (file == NULL)
+		return;
+	langs = g_get_language_names();
+	g_io_channel_set_encoding(file,NULL,NULL);
+	do
+	{
+		status = g_io_channel_read_line (file, &line, NULL, NULL, NULL);
+		if (line != NULL)
+		{
+			if (g_str_has_prefix(line, "Name["))
+			{
+				l = langs;
+
+				while (*l)
+				{
+					key = g_strconcat("Name[", *l, "]=", NULL);
+
+					if (g_str_has_prefix(line, key))
+					{
+						g_free(app_name);
+						app_name = g_strndup(line + strlen(key), strlen(line) - strlen(key) - 1);
+						g_free(key);
+						break;
+					}
+
+					g_free(key);
+					l++;
+				}
+			}
+			if (!app_name && g_str_has_prefix(line, "Name="))
+			{
+				app_name = g_strndup(line + 5,(strlen(line)-6));
+				continue;
+			}
+			if (g_str_has_prefix(line,"Exec="))
+			{
+				app_exe = strstr(line," %");
+				if (app_exe)
+					app_exe = g_strndup(line + 5,app_exe - (line+5));
+				else
+					app_exe = g_strndup(line + 5,(strlen(line)-6));
+				continue;
+			}
+			if (g_str_has_prefix(line,"Icon="))
+			{
+				app_icon = strrchr(line, '.');
+				if (app_icon)
+					app_icon = g_strndup(line + 5,app_icon - (line+5));
+				else
+					app_icon = g_strndup(line + 5,(strlen(line)-6));
+				continue;
+			}
+			if (g_str_has_prefix(line,"MimeType="))
+				has_mimetype = TRUE;
+			g_free(line);
+		}
+	}
+	while (status != G_IO_STATUS_EOF);
+	if (has_mimetype)
+	{
+		*app_name_list	= g_slist_prepend(*app_name_list,app_name);
+		*app_exe_list	= g_slist_prepend(*app_exe_list ,app_exe);
+		if (app_icon == NULL)
+			app_icon = "";
+		if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
+			size = 40;
+		else
+			size = 24;
+		*app_icon_list = g_slist_prepend(*app_icon_list, gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL));
+		g_io_channel_shutdown (file, TRUE, NULL);
+		return;
+	}
+	if (app_name != NULL)
+	{
+		g_free(app_name);
+		app_name = NULL;
+	}
+	if (app_exe != NULL)
+	{
+		g_free(app_exe);
+		app_exe = NULL;
+	}
+	if (app_icon != NULL)
+	{
+		g_free(app_icon);
+		app_icon = NULL;
+	}
+	g_io_channel_shutdown (file, TRUE, NULL);
+}
+
+static void xa_read_desktop_directories (GtkListStore *liststore, const gchar *dirname)
+{
+	DIR *dir;
+	gchar *filename = NULL;
+	struct dirent *dirlist;
+	GSList *app_icon = NULL;
+	GSList *app_name  = NULL;
+	GSList *app_exe = NULL;
+	GtkTreeIter iter;
+
+	filename = g_build_filename(dirname,"applications",NULL);
+	dir = opendir(filename);
+
+	if (dir == NULL)
+	{
+		g_free(filename);
+		return;
+	}
+	while ((dirlist = readdir(dir)))
+	{
+		if (g_str_has_suffix(dirlist->d_name,".desktop"))
+			xa_parse_desktop_files(&app_name,&app_exe,&app_icon,filename,dirlist->d_name);
+	}
+	while (app_name)
+	{
+		gtk_list_store_append(liststore,&iter);
+		gtk_list_store_set(liststore,&iter,0,app_icon->data,1,app_name->data,2,app_exe->data,-1);
+		if (app_icon->data != NULL)
+			g_object_unref(app_icon->data);
+		app_name = app_name->next;
+		app_icon = app_icon->next;
+		app_exe  = app_exe->next;
+	}
+	g_free(filename);
+	closedir(dir);
+
+	g_slist_foreach(app_name,(GFunc)g_free,NULL);
+	g_slist_foreach(app_exe,(GFunc)g_free,NULL);
+	g_slist_free(app_name);
+	g_slist_free(app_exe);
+}
+
+static void xa_open_with_dialog_row_selected (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, Open_with_data *data)
+{
+	xa_open_with_dialog_execute_command(NULL, data);
+}
+
+static void xa_destroy_open_with_dialog (GtkWidget *widget, Open_with_data *data)
+{
+	g_free(data);
+}
 
 void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 {
@@ -162,215 +364,4 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 
 	g_signal_connect (G_OBJECT (apps_treeview),	"row-activated",G_CALLBACK(xa_open_with_dialog_row_selected),data);
 	g_signal_connect (G_OBJECT (data->dialog1),	"destroy",		G_CALLBACK(xa_destroy_open_with_dialog),data);
-}
-
-static void xa_destroy_open_with_dialog(GtkWidget *widget,Open_with_data *data)
-{
-	g_free(data);
-}
-
-static void xa_read_desktop_directories(GtkListStore *liststore,const gchar *dirname)
-{
-	DIR *dir;
-	gchar *filename = NULL;
-	struct dirent *dirlist;
-	GSList *app_icon = NULL;
-	GSList *app_name  = NULL;
-	GSList *app_exe = NULL;
-	GtkTreeIter iter;
-
-	filename = g_build_filename(dirname,"applications",NULL);
-	dir = opendir(filename);
-
-	if (dir == NULL)
-	{
-		g_free(filename);
-		return;
-	}
-	while ((dirlist = readdir(dir)))
-	{
-		if (g_str_has_suffix(dirlist->d_name,".desktop"))
-			xa_parse_desktop_files(&app_name,&app_exe,&app_icon,filename,dirlist->d_name);
-	}
-	while (app_name)
-	{
-		gtk_list_store_append(liststore,&iter);
-		gtk_list_store_set(liststore,&iter,0,app_icon->data,1,app_name->data,2,app_exe->data,-1);
-		if (app_icon->data != NULL)
-			g_object_unref(app_icon->data);
-		app_name = app_name->next;
-		app_icon = app_icon->next;
-		app_exe  = app_exe->next;
-	}
-	g_free(filename);
-	closedir(dir);
-
-	g_slist_foreach(app_name,(GFunc)g_free,NULL);
-	g_slist_foreach(app_exe,(GFunc)g_free,NULL);
-	g_slist_free(app_name);
-	g_slist_free(app_exe);
-}
-
-static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,GSList **app_icon_list,gchar *path,gchar *name)
-{
-	gchar *filename, *line, *key;
-	gchar *app_name = NULL, *app_exe = NULL, *app_icon = NULL;
-	GIOStatus status;
-	GIOChannel *file;
-	gboolean has_mimetype = FALSE;
-	const gchar * const *langs, * const *l;
-	gint size;
-
-	filename = g_strconcat(path,"/",name,NULL);
-	file = g_io_channel_new_file(filename,"r",NULL);
-	g_free(filename);
-	if (file == NULL)
-		return;
-	langs = g_get_language_names();
-	g_io_channel_set_encoding(file,NULL,NULL);
-	do
-	{
-		status = g_io_channel_read_line (file, &line, NULL, NULL, NULL);
-		if (line != NULL)
-		{
-			if (g_str_has_prefix(line, "Name["))
-			{
-				l = langs;
-
-				while (*l)
-				{
-					key = g_strconcat("Name[", *l, "]=", NULL);
-
-					if (g_str_has_prefix(line, key))
-					{
-						g_free(app_name);
-						app_name = g_strndup(line + strlen(key), strlen(line) - strlen(key) - 1);
-						g_free(key);
-						break;
-					}
-
-					g_free(key);
-					l++;
-				}
-			}
-			if (!app_name && g_str_has_prefix(line, "Name="))
-			{
-				app_name = g_strndup(line + 5,(strlen(line)-6));
-				continue;
-			}
-			if (g_str_has_prefix(line,"Exec="))
-			{
-				app_exe = strstr(line," %");
-				if (app_exe)
-					app_exe = g_strndup(line + 5,app_exe - (line+5));
-				else
-					app_exe = g_strndup(line + 5,(strlen(line)-6));
-				continue;
-			}
-			if (g_str_has_prefix(line,"Icon="))
-			{
-				app_icon = strrchr(line, '.');
-				if (app_icon)
-					app_icon = g_strndup(line + 5,app_icon - (line+5));
-				else
-					app_icon = g_strndup(line + 5,(strlen(line)-6));
-				continue;
-			}
-			if (g_str_has_prefix(line,"MimeType="))
-				has_mimetype = TRUE;
-			g_free(line);
-		}
-	}
-	while (status != G_IO_STATUS_EOF);
-	if (has_mimetype)
-	{
-		*app_name_list	= g_slist_prepend(*app_name_list,app_name);
-		*app_exe_list	= g_slist_prepend(*app_exe_list ,app_exe);
-		if (app_icon == NULL)
-			app_icon = "";
-		if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
-			size = 40;
-		else
-			size = 24;
-		*app_icon_list = g_slist_prepend(*app_icon_list, gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL));
-		g_io_channel_shutdown (file, TRUE, NULL);
-		return;
-	}
-	if (app_name != NULL)
-	{
-		g_free(app_name);
-		app_name = NULL;
-	}
-	if (app_exe != NULL)
-	{
-		g_free(app_exe);
-		app_exe = NULL;
-	}
-	if (app_icon != NULL)
-	{
-		g_free(app_icon);
-		app_icon = NULL;
-	}
-	g_io_channel_shutdown (file, TRUE, NULL);
-}
-
-static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection,Open_with_data *data)
-{
-	gchar *exec;
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-
-	if (gtk_tree_selection_get_selected(selection,&model,&iter))
-	{
-		gtk_tree_model_get(model,&iter,2,&exec,-1);
-		gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry),exec);
-		g_free(exec);
-	}
-}
-
-static void xa_open_with_dialog_custom_entry_activated(GtkEditable *entry,Open_with_data *data)
-{
-	xa_open_with_dialog_execute_command(NULL,data);
-}
-
-static void xa_open_with_dialog_browse_custom_command(GtkButton *button,Open_with_data *data)
-{
-	GtkWidget *file_selector;
-	gchar *dest_dir, *dest_dir_utf8;
-	gint response;
-
-	file_selector = gtk_file_chooser_dialog_new (_("Select an application"),
-							GTK_WINDOW (xa_main_window),
-							GTK_FILE_CHOOSER_ACTION_OPEN,
-							GTK_STOCK_CANCEL,
-							GTK_RESPONSE_CANCEL,
-							GTK_STOCK_OPEN,
-							GTK_RESPONSE_ACCEPT,
-							NULL);
-
-	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER (file_selector),"/usr/bin");
-	response = gtk_dialog_run (GTK_DIALOG(file_selector));
-	if (response == GTK_RESPONSE_ACCEPT)
-	{
-		dest_dir = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (file_selector));
-		dest_dir_utf8 = g_filename_display_name(dest_dir);
-		gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry), dest_dir_utf8);
-		g_free(dest_dir_utf8);
-		g_free(dest_dir);
-	}
-	gtk_widget_destroy(file_selector);
-}
-
-static void xa_open_with_dialog_row_selected(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,Open_with_data *data)
-{
-	xa_open_with_dialog_execute_command(NULL,data);
-}
-
-static void xa_open_with_dialog_execute_command(GtkWidget *widget, Open_with_data *data)
-{
-	const char *application;
-
-	application = gtk_entry_get_text(GTK_ENTRY(data->custom_command_entry));
-	xa_launch_external_program((gchar*)application,data->file_list);
-	gtk_widget_destroy(data->dialog1);
 }

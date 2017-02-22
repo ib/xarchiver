@@ -31,6 +31,6 @@ struct _open_with_data
 	gchar *file_list;
 };
 
-void xa_create_open_with_dialog(gchar *,gchar *,int);
+void xa_create_open_with_dialog(gchar *, gchar *, int);
 
 #endif
