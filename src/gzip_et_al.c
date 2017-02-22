@@ -27,8 +27,6 @@
 #include "tar.h"
 #include "window.h"
 
-static void xa_open_tar_compressed_file(XArchive *);
-
 void xa_gzip_et_al_ask (XArchive *archive)
 {
 	switch (archive->type)
@@ -56,6 +54,40 @@ void xa_gzip_et_al_ask (XArchive *archive)
 		default:
 			break;
 	}
+}
+
+static void xa_open_tar_compressed_file (XArchive *archive)
+{
+	gchar *command = NULL;
+	unsigned short int i;
+
+	if (archive->type == XARCHIVETYPE_TAR_BZ2)
+		command = g_strconcat(tar," tfjv ",archive->escaped_path,NULL);
+	else if (archive->type == XARCHIVETYPE_TAR_LZMA)
+		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->escaped_path,NULL);
+	else if (archive->type == XARCHIVETYPE_TAR_XZ)
+		command = g_strconcat(tar," tv --use-compress-program=xz -f ",archive->escaped_path,NULL);
+	else if (archive->type == XARCHIVETYPE_TAR_LZOP)
+		command = g_strconcat(tar," tv --use-compress-program=lzop -f ",archive->escaped_path,NULL);
+	/* else fail? */
+
+	archive->files_size = 0;
+	archive->nr_of_files = 0;
+	archive->nc = 7;
+	archive->parse_output = xa_tar_parse_output;
+	xa_spawn_async_process (archive,command);
+	g_free (command);
+
+	if (archive->child_pid == 0)
+		return;
+
+	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->column_types = g_malloc0(sizeof(types));
+	for (i = 0; i < 9; i++)
+		archive->column_types[i] = types[i];
+
+	char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time")),NULL};
+	xa_create_liststore (archive,names);
 }
 
 void xa_gzip_et_al_open (XArchive *archive)
@@ -184,38 +216,37 @@ void xa_gzip_et_al_open (XArchive *archive)
 	}
 }
 
-static void xa_open_tar_compressed_file (XArchive *archive)
+void xa_gzip_et_al_test (XArchive *archive)
 {
-	gchar *command = NULL;
-	unsigned short int i;
+	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
+	GSList *list = NULL;
 
-	if (archive->type == XARCHIVETYPE_TAR_BZ2)
-		command = g_strconcat(tar," tfjv ",archive->escaped_path,NULL);
-	else if (archive->type == XARCHIVETYPE_TAR_LZMA)
-		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->escaped_path,NULL);
-	else if (archive->type == XARCHIVETYPE_TAR_XZ)
-		command = g_strconcat(tar," tv --use-compress-program=xz -f ",archive->escaped_path,NULL);
-	else if (archive->type == XARCHIVETYPE_TAR_LZOP)
-		command = g_strconcat(tar," tv --use-compress-program=lzop -f ",archive->escaped_path,NULL);
+	if (archive->type == XARCHIVETYPE_GZIP)
+		executable = "gzip ";
+	if (archive->type == XARCHIVETYPE_BZIP2)
+		executable = "bzip2 ";
+	else if (archive->type == XARCHIVETYPE_LZMA)
+		executable = "lzma ";
+	else if (archive->type == XARCHIVETYPE_XZ)
+		executable = "xz ";
+	else if (archive->type == XARCHIVETYPE_LZOP)
+		executable = "lzop ";
 	/* else fail? */
+	filename = xa_remove_path_from_archive_name(archive->escaped_path);
+	dot = strrchr(filename,'.');
+	if (G_LIKELY(dot))
+	{
+		filename_noext = g_strndup(filename,(dot - filename));
+		g_free(filename);
+	}
+	else
+		filename_noext = filename;
 
-	archive->files_size = 0;
-	archive->nr_of_files = 0;
-	archive->nc = 7;
-	archive->parse_output = xa_tar_parse_output;
-	xa_spawn_async_process (archive,command);
-	g_free (command);
-
-	if (archive->child_pid == 0)
-		return;
-
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 9; i++)
-		archive->column_types[i] = types[i];
-
-	char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time")),NULL};
-	xa_create_liststore (archive,names);
+	archive->status = XA_ARCHIVESTATUS_TEST;
+	command = g_strconcat("sh -c \"",executable, " ",archive->escaped_path," -tv ","\"",NULL);
+	g_free(filename_noext);
+	list = g_slist_append(list,command);
+	xa_run_command (archive,list);
 }
 
 gboolean xa_gzip_et_al_extract (XArchive *archive,GSList *dummy)
@@ -248,36 +279,4 @@ gboolean xa_gzip_et_al_extract (XArchive *archive,GSList *dummy)
 	list = g_slist_append(list,command);
 	result = xa_run_command (archive,list);
 	return result;
-}
-void xa_gzip_et_al_test (XArchive *archive)
-{
-	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
-	GSList *list = NULL;
-
-	if (archive->type == XARCHIVETYPE_GZIP)
-		executable = "gzip ";
-	if (archive->type == XARCHIVETYPE_BZIP2)
-		executable = "bzip2 ";
-	else if (archive->type == XARCHIVETYPE_LZMA)
-		executable = "lzma ";
-	else if (archive->type == XARCHIVETYPE_XZ)
-		executable = "xz ";
-	else if (archive->type == XARCHIVETYPE_LZOP)
-		executable = "lzop ";
-	/* else fail? */
-	filename = xa_remove_path_from_archive_name(archive->escaped_path);
-	dot = strrchr(filename,'.');
-	if (G_LIKELY(dot))
-	{
-		filename_noext = g_strndup(filename,(dot - filename));
-		g_free(filename);
-	}
-	else
-		filename_noext = filename;
-
-	archive->status = XA_ARCHIVESTATUS_TEST;
-	command = g_strconcat("sh -c \"",executable, " ",archive->escaped_path," -tv ","\"",NULL);
-	g_free(filename_noext);
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
 }
