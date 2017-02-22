@@ -15,8 +15,6 @@ xarchiver_SOURCES = \
 	deb.h \
 	extract_dialog.c \
 	extract_dialog.h \
-	gzip.c \
-	gzip.h \
 	gzip_et_al.c \
 	gzip_et_al.h \
 	interface.c \

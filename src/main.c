@@ -25,7 +25,6 @@
 #include "arj.h"
 #include "deb.h"
 #include "extract_dialog.h"
-#include "gzip.h"
 #include "gzip_et_al.h"
 #include "interface.h"
 #include "lha.h"

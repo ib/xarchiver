@@ -18,7 +18,6 @@
 
 #include <string.h>
 #include "tar.h"
-#include "gzip.h"
 #include "gzip_et_al.h"
 #include "interface.h"
 #include "main.h"
