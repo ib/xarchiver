@@ -29,7 +29,7 @@
 
 static void xa_open_tar_compressed_file(XArchive *);
 
-void xa_bzip2_lzma_ask (XArchive *archive)
+void xa_gzip_et_al_ask (XArchive *archive)
 {
 	switch (archive->type)
 	{
@@ -58,7 +58,7 @@ void xa_bzip2_lzma_ask (XArchive *archive)
 	}
 }
 
-void xa_bzip2_lzma_open (XArchive *archive)
+void xa_gzip_et_al_open (XArchive *archive)
 {
 	gchar *filename = NULL;;
 	gchar *_filename;
@@ -218,7 +218,7 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
+gboolean xa_gzip_et_al_extract (XArchive *archive,GSList *dummy)
 {
 	GSList *list = NULL;
 	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
@@ -249,7 +249,7 @@ gboolean lzma_bzip2_extract (XArchive *archive,GSList *dummy)
 	result = xa_run_command (archive,list);
 	return result;
 }
-void xa_lzma_bzip2_test (XArchive *archive)
+void xa_gzip_et_al_test (XArchive *archive)
 {
 	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
 	GSList *list = NULL;

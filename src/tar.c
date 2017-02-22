@@ -455,7 +455,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_XZ:
-		result = lzma_bzip2_extract(archive,NULL);
+		result = xa_gzip_et_al_extract(archive,NULL);
 		command = NULL;
 		break;
 
@@ -648,7 +648,7 @@ void xa_tar_test(XArchive *archive)
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_GZIP:
 		case XARCHIVETYPE_XZ:
-			xa_lzma_bzip2_test(archive);
+			xa_gzip_et_al_test(archive);
 			command = NULL;
 		break;
 

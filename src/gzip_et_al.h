@@ -22,9 +22,9 @@
 #include <glib.h>
 #include "archive.h"
 
-gboolean lzma_bzip2_extract(XArchive *, GSList *);
-void xa_bzip2_lzma_ask(XArchive *);
-void xa_bzip2_lzma_open(XArchive *);
-void xa_lzma_bzip2_test(XArchive *);
+void xa_gzip_et_al_ask(XArchive *);
+gboolean xa_gzip_et_al_extract(XArchive *, GSList *);
+void xa_gzip_et_al_open(XArchive *);
+void xa_gzip_et_al_test(XArchive *);
 
 #endif
