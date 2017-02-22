@@ -22,17 +22,19 @@
 
 #include <glib.h>
 
-struct
+typedef struct
 {
 	gboolean	 ignore_socket;
 	gchar		*file_name;
 	GIOChannel	*read_ioc;
 	gint 		 lock_socket;
 	gint 		 lock_socket_tag;
-} socket_info;
+} socket_info_t;
 
-gint socket_init (gint argc, gchar **argv);
-gboolean socket_lock_input_cb(GIOChannel *source, GIOCondition condition, gpointer data);
+extern socket_info_t socket_info;
+
 gint socket_finalize();
+gint socket_init(gint, gchar **);
+gboolean socket_lock_input_cb(GIOChannel *, GIOCondition, gpointer);
 
 #endif

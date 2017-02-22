@@ -32,17 +32,183 @@
 #include "socket.h"
 #include "window.h"
 
-static gint socket_fd_connect_unix	(const gchar *path);
-static gint socket_fd_open_unix		(const gchar *path);
-static gint socket_fd_write			(gint sock, const gchar *buf, gint len);
-static gint socket_fd_write_all		(gint sock, const gchar *buf, gint len);
-static gint socket_fd_gets			(gint sock, gchar *buf, gint len);
-static gint socket_fd_check_io		(gint fd, GIOCondition cond);
-static gint socket_fd_read			(gint sock, gchar *buf, gint len);
-static gint socket_fd_recv			(gint fd, gchar *buf, gint len, gint flags);
-static gint socket_fd_close			(gint sock);
+socket_info_t socket_info;
 
 /* (Unix domain) socket support; taken from Geany */
+
+static gint socket_fd_close (gint fd)
+{
+	return close(fd);
+}
+
+static gint socket_fd_connect_unix (const gchar *path)
+{
+	gint sock;
+	struct sockaddr_un addr;
+
+	sock = socket(PF_UNIX, SOCK_STREAM, 0);
+	if (sock < 0)
+	{
+		perror("fd_connect_unix(): socket");
+		return -1;
+	}
+
+	memset(&addr, 0, sizeof(addr));
+	addr.sun_family = AF_UNIX;
+	strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1);
+
+	if (connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+	{
+		socket_fd_close(sock);
+		return -1;
+	}
+	return sock;
+}
+
+static gint socket_fd_open_unix (const gchar *path)
+{
+	gint sock;
+	struct sockaddr_un addr;
+	gint val;
+
+	sock = socket(PF_UNIX, SOCK_STREAM, 0);
+
+	if (sock < 0)
+	{
+		perror("sock_open_unix(): socket");
+		return -1;
+	}
+
+	val = 1;
+	if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) < 0)
+	{
+		perror("setsockopt");
+		socket_fd_close(sock);
+		return -1;
+	}
+
+	memset(&addr, 0, sizeof(addr));
+	addr.sun_family = AF_UNIX;
+	strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1);
+
+	if (bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+	{
+		perror("bind");
+		socket_fd_close(sock);
+		return -1;
+	}
+
+	if (listen(sock, 1) < 0)
+	{
+		perror("listen");
+		socket_fd_close(sock);
+		return -1;
+	}
+
+	return sock;
+}
+
+static gint socket_fd_check_io (gint fd, GIOCondition cond)
+{
+	struct timeval timeout;
+	fd_set fds;
+	gint flags;
+	timeout.tv_sec  = 60;
+	timeout.tv_usec = 0;
+
+	// checking for non-blocking mode
+	flags = fcntl(fd, F_GETFL, 0);
+	if (flags < 0)
+	{
+		perror("fcntl");
+		return 0;
+	}
+
+	if ((flags & O_NONBLOCK) != 0)
+		return 0;
+
+	FD_ZERO(&fds);
+	FD_SET(fd, &fds);
+
+	if (cond == G_IO_IN)
+	{
+		select(fd + 1, &fds, NULL, NULL, &timeout);
+	}
+	else
+	{
+		select(fd + 1, NULL, &fds, NULL, &timeout);
+	}
+
+	if (FD_ISSET(fd, &fds))
+	{
+		return 0;
+	}
+	else
+		return -1;
+}
+
+static gint socket_fd_write (gint fd, const gchar *buf, gint len)
+{
+	if (socket_fd_check_io(fd, G_IO_OUT) < 0)
+		return -1;
+	return write(fd, buf, len);
+}
+
+static gint socket_fd_write_all (gint fd, const gchar *buf, gint len)
+{
+	gint n, wrlen = 0;
+
+	while (len)
+	{
+		n = socket_fd_write(fd, buf, len);
+		if (n <= 0)
+			return -1;
+		len -= n;
+		wrlen += n;
+		buf += n;
+	}
+
+	return wrlen;
+}
+
+static gint socket_fd_recv (gint fd, gchar *buf, gint len, gint flags)
+{
+	if (socket_fd_check_io(fd, G_IO_IN) < 0)
+		return -1;
+
+	return recv(fd, buf, len, flags);
+}
+
+static gint socket_fd_read (gint fd, gchar *buf, gint len)
+{
+	if (socket_fd_check_io(fd, G_IO_IN) < 0)
+		return -1;
+	return read(fd, buf, len);
+}
+
+static gint socket_fd_gets (gint fd, gchar *buf, gint len)
+{
+	gchar *newline, *bp = buf;
+	gint n;
+
+	if (--len < 1)
+		return -1;
+	do
+	{
+		if ((n = socket_fd_recv(fd, bp, len, MSG_PEEK)) <= 0)
+			return -1;
+		if ((newline = memchr(bp, '\n', n)) != NULL)
+			n = newline - bp + 1;
+		if ((n = socket_fd_read(fd, bp, n)) < 0)
+			return -1;
+		bp += n;
+		len -= n;
+	} while (! newline && len);
+
+	*bp = '\0';
+	return bp - buf;
+}
+
 gint socket_init(gint argc, gchar **argv)
 {
 	gint sock;
@@ -98,78 +264,6 @@ gint socket_finalize(void)
 	return 0;
 }
 
-static gint socket_fd_connect_unix(const gchar *path)
-{
-	gint sock;
-	struct sockaddr_un addr;
-
-	sock = socket(PF_UNIX, SOCK_STREAM, 0);
-	if (sock < 0)
-	{
-		perror("fd_connect_unix(): socket");
-		return -1;
-	}
-
-	memset(&addr, 0, sizeof(addr));
-	addr.sun_family = AF_UNIX;
-	strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1);
-
-	if (connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
-	{
-		socket_fd_close(sock);
-		return -1;
-	}
-	return sock;
-}
-
-static gint socket_fd_open_unix(const gchar *path)
-{
-	gint sock;
-	struct sockaddr_un addr;
-	gint val;
-
-	sock = socket(PF_UNIX, SOCK_STREAM, 0);
-
-	if (sock < 0)
-	{
-		perror("sock_open_unix(): socket");
-		return -1;
-	}
-
-	val = 1;
-	if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) < 0)
-	{
-		perror("setsockopt");
-		socket_fd_close(sock);
-		return -1;
-	}
-
-	memset(&addr, 0, sizeof(addr));
-	addr.sun_family = AF_UNIX;
-	strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1);
-
-	if (bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
-	{
-		perror("bind");
-		socket_fd_close(sock);
-		return -1;
-	}
-
-	if (listen(sock, 1) < 0)
-	{
-		perror("listen");
-		socket_fd_close(sock);
-		return -1;
-	}
-
-	return sock;
-}
-
-static gint socket_fd_close(gint fd)
-{
-	return close(fd);
-}
-
 gboolean socket_lock_input_cb(GIOChannel *source, GIOCondition condition, gpointer data)
 {
 	gint fd, sock;
@@ -196,108 +290,6 @@ gboolean socket_lock_input_cb(GIOChannel *source, GIOCondition condition, gpoint
 	}
 	socket_fd_close(sock);
 	return TRUE;
-}
-
-static gint socket_fd_gets(gint fd, gchar *buf, gint len)
-{
-	gchar *newline, *bp = buf;
-	gint n;
-
-	if (--len < 1)
-		return -1;
-	do
-	{
-		if ((n = socket_fd_recv(fd, bp, len, MSG_PEEK)) <= 0)
-			return -1;
-		if ((newline = memchr(bp, '\n', n)) != NULL)
-			n = newline - bp + 1;
-		if ((n = socket_fd_read(fd, bp, n)) < 0)
-			return -1;
-		bp += n;
-		len -= n;
-	} while (! newline && len);
-
-	*bp = '\0';
-	return bp - buf;
-}
-
-static gint socket_fd_recv(gint fd, gchar *buf, gint len, gint flags)
-{
-	if (socket_fd_check_io(fd, G_IO_IN) < 0)
-		return -1;
-
-	return recv(fd, buf, len, flags);
-}
-
-
-static gint socket_fd_read(gint fd, gchar *buf, gint len)
-{
-	if (socket_fd_check_io(fd, G_IO_IN) < 0)
-		return -1;
-	return read(fd, buf, len);
-}
-
-static gint socket_fd_check_io(gint fd, GIOCondition cond)
-{
-	struct timeval timeout;
-	fd_set fds;
-	gint flags;
-	timeout.tv_sec  = 60;
-	timeout.tv_usec = 0;
-
-	// checking for non-blocking mode
-	flags = fcntl(fd, F_GETFL, 0);
-	if (flags < 0)
-	{
-		perror("fcntl");
-		return 0;
-	}
-
-	if ((flags & O_NONBLOCK) != 0)
-		return 0;
-
-	FD_ZERO(&fds);
-	FD_SET(fd, &fds);
-
-	if (cond == G_IO_IN)
-	{
-		select(fd + 1, &fds, NULL, NULL, &timeout);
-	}
-	else
-	{
-		select(fd + 1, NULL, &fds, NULL, &timeout);
-	}
-
-	if (FD_ISSET(fd, &fds))
-	{
-		return 0;
-	}
-	else
-		return -1;
-}
-
-static gint socket_fd_write_all(gint fd, const gchar *buf, gint len)
-{
-	gint n, wrlen = 0;
-
-	while (len)
-	{
-		n = socket_fd_write(fd, buf, len);
-		if (n <= 0)
-			return -1;
-		len -= n;
-		wrlen += n;
-		buf += n;
-	}
-
-	return wrlen;
-}
-
-gint socket_fd_write(gint fd, const gchar *buf, gint len)
-{
-	if (socket_fd_check_io(fd, G_IO_OUT) < 0)
-		return -1;
-	return write(fd, buf, len);
 }
 
 #endif
