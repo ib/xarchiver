@@ -42,12 +42,12 @@
 #include "socket.h"
 #endif
 
-ask_func ask[XARCHIVETYPE_COUNT];
-open_func open[XARCHIVETYPE_COUNT];
-test_func test[XARCHIVETYPE_COUNT];
-extract_func extract[XARCHIVETYPE_COUNT];
-add_func add[XARCHIVETYPE_COUNT];
-delete_func delete[XARCHIVETYPE_COUNT];
+ask_func ask[XARCHIVETYPE_TYPES];
+open_func open[XARCHIVETYPE_TYPES];
+test_func test[XARCHIVETYPE_TYPES];
+extract_func extract[XARCHIVETYPE_TYPES];
+add_func add[XARCHIVETYPE_TYPES];
+delete_func delete[XARCHIVETYPE_TYPES];
 
 GList *ArchiveSuffix;
 GList *ArchiveType;
