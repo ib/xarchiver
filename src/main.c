@@ -100,7 +100,6 @@ static void xa_set_available_archivers ()
 {
 	gchar *absolute_path;
 
-	ask[0]  = 0;
 	ask[XARCHIVETYPE_7ZIP]  = &xa_7zip_ask;
 	ask[XARCHIVETYPE_ARJ]  = &xa_arj_ask;
 	ask[XARCHIVETYPE_DEB]  = &xa_deb_ask;
@@ -115,7 +114,6 @@ static void xa_set_available_archivers ()
 	ask[XARCHIVETYPE_LHA] = &xa_lha_ask;
 	ask[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_ask;
 
-	open[0]  = 0;
 	open[XARCHIVETYPE_7ZIP]  = &xa_7zip_open;
 	open[XARCHIVETYPE_ARJ]  = &xa_arj_open;
 	open[XARCHIVETYPE_DEB]  = &xa_deb_open;
@@ -130,7 +128,6 @@ static void xa_set_available_archivers ()
 	open[XARCHIVETYPE_LHA] = &xa_lha_open;
 	open[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_open;
 
-	delete[0]  = 0;
 	delete[XARCHIVETYPE_7ZIP]  = &xa_7zip_delete;
 	delete[XARCHIVETYPE_ARJ]  = &xa_arj_delete;
 	delete[XARCHIVETYPE_DEB]  = 0;
@@ -142,7 +139,6 @@ static void xa_set_available_archivers ()
 	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
 
 
-	add[0]  = 0;
 	add[XARCHIVETYPE_7ZIP]  = &xa_7zip_add;
 	add[XARCHIVETYPE_ARJ]  = &xa_arj_add;
 	add[XARCHIVETYPE_DEB]  = 0;
@@ -153,7 +149,6 @@ static void xa_set_available_archivers ()
 	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
 	add[XARCHIVETYPE_LHA] = &xa_lha_add;
 
-	extract[0]  = 0;
 	extract[XARCHIVETYPE_7ZIP]  = &xa_7zip_extract;
 	extract[XARCHIVETYPE_ARJ]  = &xa_arj_extract;
 	extract[XARCHIVETYPE_DEB]  = &xa_deb_extract;;
@@ -164,7 +159,6 @@ static void xa_set_available_archivers ()
 	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
 	extract[XARCHIVETYPE_LHA] = &xa_lha_extract;
 
-	test[0]  = 0;
 	test[XARCHIVETYPE_7ZIP]  = &xa_7zip_test;
 	test[XARCHIVETYPE_ARJ]  = &xa_arj_test;
 	test[XARCHIVETYPE_DEB]  = test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
