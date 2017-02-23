@@ -117,8 +117,6 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gint current_page, response, type = XARCHIVETYPE_UNKNOWN;
 	gpointer suffix;
 
-	unsigned short int x;
-
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
 							GTK_WINDOW (xa_main_window),
 							GTK_FILE_CHOOSER_ACTION_SAVE,
@@ -221,6 +219,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 		if (xa_main_window)
 		{
+			int x;
+
 			for (x = 0; x < gtk_notebook_get_n_pages (notebook) ; x++)
 			{
 				current_page = xa_find_archive_index (x);
