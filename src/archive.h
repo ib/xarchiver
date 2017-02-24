@@ -59,6 +59,12 @@ typedef enum
 	XA_ARCHIVESTATUS_ERROR
 } XArchiveStatus;
 
+typedef struct
+{
+	gchar *program[2];
+	gboolean is_compressor;
+} XArchiver;
+
 typedef struct _XEntry XEntry;
 
 struct _XEntry

@@ -24,6 +24,7 @@
 
 extern GList *ArchiveSuffix;
 extern GList *ArchiveType;
+extern XArchiver archiver[];
 extern const gchar *locale;
 extern const gchar *sevenz;
 extern const gchar *tar;

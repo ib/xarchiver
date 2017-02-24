@@ -42,6 +42,8 @@
 #include "socket.h"
 #endif
 
+XArchiver archiver[XARCHIVETYPE_TYPES];
+
 ask_func ask[XARCHIVETYPE_TYPES];
 open_func open[XARCHIVETYPE_TYPES];
 test_func test[XARCHIVETYPE_TYPES];
@@ -628,8 +630,12 @@ int main (int argc, char **argv)
 				g_free (add_window);
 			}
 		}
-done:	g_list_free (ArchiveSuffix);
-		g_list_free (ArchiveType);
+done:
+		for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
+		{
+			g_free(archiver[x].program[0]);
+			g_free(archiver[x].program[1]);
+		}
 
 		if (pb != NULL)
 		{
@@ -694,8 +700,12 @@ done:	g_list_free (ArchiveSuffix);
 		}
 		#endif
 		gtk_main ();
-		g_list_free (ArchiveSuffix);
-		g_list_free (ArchiveType);
+
+		for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
+		{
+			g_free(archiver[x].program[0]);
+			g_free(archiver[x].program[1]);
+		}
 	}
 	return 0;
 }
