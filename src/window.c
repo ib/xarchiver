@@ -448,6 +448,16 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 	g_object_set(cell,"editable",FALSE,NULL);
 }
 
+static const gchar *xa_get_archive_format (XArchive *archive)
+{
+	GSList *list = archiver[archive->type].type;
+
+	if (archive->type == XARCHIVETYPE_RAR && archive->version == 5)
+		list = list->next;
+
+	return list->data;
+}
+
 static gchar *xa_get_statusbar_message (unsigned long int total_size, gint n_elem, gint dirs, gboolean selection)
 {
 	gchar *measure = NULL,*info = NULL;

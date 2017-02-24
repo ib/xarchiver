@@ -336,69 +336,6 @@ XArchive *xa_init_archive_structure(gint type)
 	return archive;
 }
 
-const gchar *xa_get_archive_format (XArchive *archive)
-{
-  switch (archive->type)
-  {
-	  case XARCHIVETYPE_7ZIP:
-      return "7ZIP";
-
-	  case XARCHIVETYPE_ARJ:
-      return "ARJ";
-
-	  case XARCHIVETYPE_BZIP2:
-      return "BZIP2";
-
-	  case XARCHIVETYPE_DEB:
-      return "DEB";
-
-	  case XARCHIVETYPE_GZIP:
-      return "GZIP";
-
-	  case XARCHIVETYPE_LHA:
-      return "LHA";
-
-	  case XARCHIVETYPE_LZMA:
-      return "LZMA";
-
-	  case XARCHIVETYPE_LZOP:
-      return "LZOP";
-
-	  case XARCHIVETYPE_RAR:
-      return archive->version == 5 ? "RAR5" : "RAR";
-
-	  case XARCHIVETYPE_RPM:
-      return "RPM";
-
-	  case XARCHIVETYPE_TAR:
-      return "TAR";
-
-	  case XARCHIVETYPE_TAR_BZ2:
-      return "TAR.BZIP2";
-
-	  case XARCHIVETYPE_TAR_GZ:
-      return "TAR.GZIP";
-
-	  case XARCHIVETYPE_TAR_LZMA:
-      return "TAR.LZMA";
-
-	  case XARCHIVETYPE_TAR_LZOP:
-      return "TAR.LZOP";
-
-	  case XARCHIVETYPE_TAR_XZ:
-      return "TAR.XZ";
-
-	  case XARCHIVETYPE_XZ:
-      return "XZ";
-
-	  case XARCHIVETYPE_ZIP:
-      return "ZIP";
-
-    default:
-      return "?";
-  }
-}
-
 void xa_spawn_async_process (XArchive *archive, gchar *command)
 {
 	GIOChannel *ioc,*err_ioc;
