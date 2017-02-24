@@ -129,7 +129,6 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	GtkWidget *vbox1, *vbox3,*vbox4, *hbox1, *scrolledwindow1, *prefs_iconview;
 	GtkWidget *label1, *label2, *label3, *label4, *label5,*label6, *label7, *label8, *label9, *label10, *table1, *table2;
 	GtkTreeIter iter;
-	GList *archive_type;
 	GdkPixbuf *icon_pixbuf;
 	Prefs_dialog_data *prefs_data;
 
@@ -193,15 +192,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	prefs_data->combo_prefered_format = gtk_combo_box_text_new();
 	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->combo_prefered_format,FALSE,TRUE,0);
-	archive_type = g_list_first (ArchiveType);
-	while ( archive_type != NULL )
-	{
-		if (!(*(char *) archive_type->data == 0 ||
-		      (strncmp(archive_type->data, "arj", 3) == 0 && unarj) ||
-		      (strncmp(archive_type->data, "rar", 3) == 0 && unrar)))
-			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_format), archive_type->data);
-		archive_type = g_list_next (archive_type);
-	}
+	xa_combo_box_text_append_compressor_types(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_format));
 
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);

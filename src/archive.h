@@ -63,6 +63,8 @@ typedef struct
 {
 	gchar *program[2];
 	gboolean is_compressor;
+	GSList *type;
+	GSList *glob;
 } XArchiver;
 
 typedef struct _XEntry XEntry;

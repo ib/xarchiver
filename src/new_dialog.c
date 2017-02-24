@@ -30,34 +30,40 @@ static gint new_combo_box = -1;
 static gchar *ComboArchiveType;
 static gchar *current_new_directory;
 
-static gpointer xa_get_suffix (GList *types, const gchar *type)
+static gpointer xa_get_suffix (const gchar *type)
 {
-	gint i = 0;
+	int i;
 
-	if (!types || !type) return "";
+	if (!type) return "";
 
-	while (strcmp(type, types->data) != 0)
+	for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
 	{
-		i++;
-		types = g_list_next(types);
+		GSList *list = archiver[i].type;
+		GSList *glob = archiver[i].glob;
+
+		while (list && glob)
+		{
+			if (g_strcmp0(type, list->data) == 0)
+				return glob->data + 1;
+
+			list = list->next;
+			glob = glob->next;
+		}
 	}
 
-	return g_list_nth_data(ArchiveSuffix, i) + 1;
+	return "";
 }
 
 static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_file_chooser)
 {
-	gpointer newsuff, oldsuff;
-	GList *Name;
-	gint i;
-	gchar *fname, *file = NULL, *stem, *newfile, *newfile_utf8;
+	gpointer suffix;
+	gchar *fname, *file = NULL, *file_suffix = NULL, *stem, *newfile, *newfile_utf8;
+	size_t longest = 0;
+	int i;
 
 	g_free(ComboArchiveType);
 	ComboArchiveType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(GTK_WIDGET(combo_box)));
-	newsuff = xa_get_suffix(g_list_first(ArchiveType), ComboArchiveType);
-
-	Name = g_list_last(ArchiveType);
-	i = g_list_position(ArchiveType, Name);
+	suffix = xa_get_suffix(ComboArchiveType);
 
 	fname = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(xa_file_chooser));
 
@@ -70,35 +76,45 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 	if (!file)
 		file = g_strdup("");
 
-	while (Name)
+	for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
 	{
-		oldsuff = g_list_nth_data(ArchiveSuffix, i) + 1;
+		GSList *list = archiver[i].glob;
 
-		if (g_str_has_suffix(file, oldsuff))
+		while (list)
 		{
-			stem = g_strndup(file, strlen(file) - strlen(oldsuff));
-			newfile = g_strconcat(stem, newsuff, NULL);
-			newfile_utf8 = g_filename_display_name(newfile);
+			if (*(char *) list->data == '*')
+			{
+				if (g_str_has_suffix(file, list->data + 1))
+				{
+					size_t l = strlen(list->data + 1);
 
-			/* replace the valid extension present in the filename with the one just selected */
-			gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(xa_file_chooser), newfile_utf8);
+					if (l > longest)
+					{
+						longest = l;
+						g_free(file_suffix);
+						file_suffix = g_strdup(list->data + 1);
+					}
+				}
+			}
 
-			g_free(newfile_utf8);
-			g_free(newfile);
-			g_free(stem);
-			g_free(file);
-			return;
+			list = list->next;
 		}
-
-		i--;
-		Name = g_list_previous(Name);
 	}
 
-	newfile = g_strconcat(file, newsuff, NULL);
+	if (file_suffix)
+		stem = g_strndup(file, strlen(file) - longest);
+	else
+		stem = g_strdup(file);
+
+	newfile = g_strconcat(stem, suffix, NULL);
 	newfile_utf8 = g_filename_display_name(newfile);
+
 	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(xa_file_chooser), newfile_utf8);
+
 	g_free(newfile_utf8);
 	g_free(newfile);
+	g_free(stem);
+	g_free(file_suffix);
 	g_free(file);
 }
 
@@ -110,7 +126,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	GtkWidget *hbox = NULL;
 	GtkWidget *combo_box = NULL;
 	GtkFileFilter *xa_new_archive_dialog_filter;
-	GList *Suffix,*Name;
+	GSList *sorted;
 	gchar *my_path = NULL;
 	gchar *basepath, *filename;
 	gchar *current_dir = NULL;
@@ -135,43 +151,29 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 	xa_new_archive_dialog_filter = gtk_file_filter_new ();
 	gtk_file_filter_set_name ( xa_new_archive_dialog_filter , _("Only archives") );
-
-	Suffix = g_list_first ( ArchiveSuffix );
-
-	while ( Suffix != NULL )
-	{
-		gtk_file_filter_add_pattern (xa_new_archive_dialog_filter, Suffix->data);
-		Suffix = g_list_next ( Suffix );
-	}
 	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (xa_file_chooser), xa_new_archive_dialog_filter);
 
-	Suffix = g_list_first ( ArchiveSuffix );
+	sorted = xa_file_filter_add_archiver_pattern_sort(xa_new_archive_dialog_filter);
 
-	while ( Suffix != NULL )
+	while (sorted)
 	{
 		xa_new_archive_dialog_filter = gtk_file_filter_new();
-		gtk_file_filter_set_name(xa_new_archive_dialog_filter, Suffix->data);
-		gtk_file_filter_add_pattern(xa_new_archive_dialog_filter, Suffix->data);
+		gtk_file_filter_set_name(xa_new_archive_dialog_filter, sorted->data);
+		gtk_file_filter_add_pattern(xa_new_archive_dialog_filter, sorted->data);
 		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(xa_file_chooser), xa_new_archive_dialog_filter);
-
-		Suffix = g_list_next ( Suffix );
+		sorted = sorted->next;
 	}
+
+	g_slist_free(sorted);
+
 	hbox = gtk_hbox_new (FALSE, 6);
 	gtk_box_pack_start (GTK_BOX (hbox),gtk_label_new (_("Archive type:")),FALSE,FALSE,0);
 
 	combo_box = gtk_combo_box_text_new();
 
 	gtk_widget_set_tooltip_text(combo_box, _("Choose the archive type to create"));
-	Name = g_list_first (ArchiveType);
+	xa_combo_box_text_append_compressor_types(GTK_COMBO_BOX_TEXT(combo_box));
 
-	while (Name)
-	{
-		if (!(*(char *) Name->data == 0 ||
-		      (strncmp(Name->data, "arj", 3) == 0 && unarj) ||
-		      (strncmp(Name->data, "rar", 3) == 0 && unrar)))
-			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combo_box), Name->data);
-		Name = g_list_next (Name);
-	}
 	if (new_combo_box == -1)
 		gtk_combo_box_set_active(GTK_COMBO_BOX(combo_box),gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_prefered_format)));
 	else
@@ -182,7 +184,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gtk_widget_show_all (hbox);
 	gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (xa_file_chooser), hbox);
 	ComboArchiveType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_box));
-	suffix = xa_get_suffix(g_list_first(ArchiveType), ComboArchiveType);
+	suffix = xa_get_suffix(ComboArchiveType);
 	g_signal_connect(G_OBJECT(combo_box), "changed", G_CALLBACK(xa_change_archive_extension), xa_file_chooser);
 
 	if (path != NULL)

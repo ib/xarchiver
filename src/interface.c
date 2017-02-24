@@ -631,6 +631,11 @@ static gboolean xa_progress_dialog_delete_event (GtkWidget *caller, GdkEvent *ev
 	return TRUE;
 }
 
+static gint xa_slist_strcmp (gconstpointer a, gconstpointer b)
+{
+	return strcmp((const char *) a, (const char *) b);
+}
+
 /* TODO:
 static void xa_icon_theme_changed (GtkIconTheme *icon_theme, gpointer data)
 {
@@ -1712,4 +1717,60 @@ gboolean xa_pulse_progress_bar_window (Progress_bar_data *pb)
 	}
 	else
 		return FALSE;
+}
+
+void xa_combo_box_text_append_compressor_types (GtkComboBoxText *combo_box_text)
+{
+	int i;
+	GSList *sorted = NULL;
+
+	for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
+	{
+		if (archiver[i].is_compressor)
+		{
+			GSList *list = archiver[i].type;
+
+			while (list)
+			{
+				if (list->data)
+					sorted = g_slist_append(sorted, list->data);
+
+				list = list->next;
+			}
+		}
+	}
+
+	sorted = g_slist_sort(sorted, xa_slist_strcmp);
+
+	while (sorted)
+	{
+		gtk_combo_box_text_append_text(combo_box_text, sorted->data);
+		sorted = sorted->next;
+	}
+
+	g_slist_free(sorted);
+}
+
+GSList *xa_file_filter_add_archiver_pattern_sort (GtkFileFilter *filter)
+{
+	int i;
+	GSList *sorted = NULL;
+
+	for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
+	{
+		GSList *list = archiver[i].glob;
+
+		while (list)
+		{
+			if (*(char *) list->data == '*')
+			{
+				sorted = g_slist_insert_sorted(sorted, list->data, xa_slist_strcmp);
+				gtk_file_filter_add_pattern(filter, list->data);
+			}
+
+			list = list->next;
+		}
+	}
+
+	return sorted;
 }

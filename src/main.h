@@ -22,8 +22,6 @@
 #include <glib.h>
 #include "archive.h"
 
-extern GList *ArchiveSuffix;
-extern GList *ArchiveType;
 extern XArchiver archiver[];
 extern const gchar *locale;
 extern const gchar *sevenz;

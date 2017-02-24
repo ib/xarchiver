@@ -64,7 +64,7 @@ static gchar *xa_open_file_dialog ()
 	static GtkWidget *File_Selector = NULL;
 	static GtkFileFilter *open_file_filter;
 	GtkFileFilter *filter;
-	GList *Suffix;
+	GSList *sorted;
 	gchar *path = NULL;
 	int response;
 
@@ -89,24 +89,21 @@ static gchar *xa_open_file_dialog ()
 
 		filter = gtk_file_filter_new ();
 		gtk_file_filter_set_name ( filter ,_("Only archives"));
-		Suffix = g_list_first ( ArchiveSuffix);
-		while ( Suffix != NULL)
-		{
-			gtk_file_filter_add_pattern (filter,Suffix->data);
-			Suffix = g_list_next ( Suffix);
-		}
 		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (File_Selector),filter);
 
-		Suffix = g_list_first ( ArchiveSuffix);
-		while ( Suffix != NULL)
+		sorted = xa_file_filter_add_archiver_pattern_sort(filter);
+
+		while (sorted)
 		{
 			filter = gtk_file_filter_new();
-			gtk_file_filter_set_name(filter, Suffix->data);
-			gtk_file_filter_add_pattern(filter, Suffix->data);
+			gtk_file_filter_set_name(filter, sorted->data);
+			gtk_file_filter_add_pattern(filter, sorted->data);
 			gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(File_Selector), filter);
-
-			Suffix = g_list_next ( Suffix);
+			sorted = sorted->next;
 		}
+
+		g_slist_free(sorted);
+
 		gtk_window_set_modal (GTK_WINDOW (File_Selector),TRUE);
 	}
 	if (open_file_filter != NULL)
@@ -1039,7 +1036,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		ext = "lzh";
 	if (ext != NULL)
 	{
-		if (!g_list_find (ArchiveType,ext))
+		if (!archiver[type].glob)
 		{
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,this archive format is not supported:"),_("the proper archiver is not installed!"));
 			g_free (path);

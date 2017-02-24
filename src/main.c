@@ -51,8 +51,6 @@ extract_func extract[XARCHIVETYPE_TYPES];
 add_func add[XARCHIVETYPE_TYPES];
 delete_func delete[XARCHIVETYPE_TYPES];
 
-GList *ArchiveSuffix;
-GList *ArchiveType;
 const gchar *locale;
 const gchar *sevenz;
 const gchar *tar;
@@ -69,7 +67,7 @@ Prefs_dialog_data *prefs_window;
 
 static gchar *opt_extract_path, *opt_add_files;
 static gboolean opt_extract, opt_add, opt_version;
-static gboolean tbz2, tgz, tlz, txz, tzo, zip;
+static gboolean zip;
 
 static GOptionEntry entries[] =
 {
@@ -100,6 +98,7 @@ static GOptionEntry entries[] =
 
 static void xa_check_available_archivers ()
 {
+	XArchiveType type;
 	gchar *path;
 
 	ask[XARCHIVETYPE_7ZIP]  = &xa_7zip_ask;
@@ -172,6 +171,8 @@ static void xa_check_available_archivers ()
 
 	/* 7-zip */
 
+	type = XARCHIVETYPE_7ZIP;
+
 	path = g_find_program_in_path("7z");
 	if (path)
 		sevenz = "7z";
@@ -189,18 +190,20 @@ static void xa_check_available_archivers ()
 	}
 	if (sevenz)
 	{
-		ArchiveType = g_list_append(ArchiveType, "7z");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.7z");
+		archiver[type].type = g_slist_append(archiver[type].type, "7zip");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.7z");
 		g_free (path);
 	}
 
 	/* ARJ */
 
+	type = XARCHIVETYPE_ARJ;
+
 	path = g_find_program_in_path("arj");
 	if ( path )
 	{
-		ArchiveType = g_list_append(ArchiveType, "arj");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.arj");
+		archiver[type].type = g_slist_append(archiver[type].type, "arj");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.arj");
 		g_free (path);
 	}
 	else
@@ -209,39 +212,45 @@ static void xa_check_available_archivers ()
 		if ( path )
 		{
 			unarj = TRUE;
-			ArchiveType = g_list_append(ArchiveType, "arj");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.arj");
+			archiver[type].type = g_slist_append(archiver[type].type, "arj");
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.arj");
 			g_free (path);
 		}
 	}
 
 	/* bzip2 */
 
+	type = XARCHIVETYPE_BZIP2;
+
 	path = g_find_program_in_path("bzip2");
     if ( path )
 	{
-		ArchiveType = g_list_append (ArchiveType, "bz2");
-		ArchiveSuffix = g_list_append (ArchiveSuffix, "*.bz2");
+		archiver[type].type = g_slist_append(archiver[type].type, "bzip2");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.bz2");
 		g_free (path);
 	}
 
 	/* debian package */
 
+	type = XARCHIVETYPE_DEB;
+
 	path = g_find_program_in_path("ar");
     if ( path )
 	{
-	    ArchiveType = g_list_append(ArchiveType, "");
-	    ArchiveSuffix = g_list_append (ArchiveSuffix, "*.deb");
+	    archiver[type].type = g_slist_append(archiver[type].type, "deb");
+	    archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
 		g_free (path);
 	}
 
 	/* GNU zip */
 
+	type = XARCHIVETYPE_GZIP;
+
 	path = g_find_program_in_path("gzip");
 	if ( path )
 	{
-		ArchiveType = g_list_append(ArchiveType, "gz");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.gz");
+		archiver[type].type = g_slist_append(archiver[type].type, "gzip");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.gz");
 		g_free (path);
 	}
 
@@ -255,53 +264,61 @@ static void xa_check_available_archivers ()
 		if (path)
 		{
 			zip = TRUE;
-			ArchiveType = g_list_append(ArchiveType, "jar");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.jar");
+			archiver[type].type = g_slist_append(archiver[type].type, "jar");
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
 			g_free(path);
 		}
 	}
 
 	/* LHA */
 
+	type = XARCHIVETYPE_LHA;
+
 	path = g_find_program_in_path("lha");
 	if (path)
 	{
-		ArchiveType = g_list_append(ArchiveType, "lha");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzh");
+		archiver[type].type = g_slist_append(archiver[type].type, "lha");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzh");
 		g_free (path);
 	}
 
 	/* lzma */
 
+	type = XARCHIVETYPE_LZMA;
+
 	path = g_find_program_in_path("lzma");
 	if ( path )
 	{
-		ArchiveType = g_list_append(ArchiveType, "lzma");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzma");
+		archiver[type].type = g_slist_append(archiver[type].type, "lzma");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzma");
 		g_free (path);
 	}
 
 	/* lzop */
 
+	type = XARCHIVETYPE_LZOP;
+
 	path = g_find_program_in_path("lzop");
 	if (path)
 	{
-		ArchiveType = g_list_append(ArchiveType, "lzo");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.lzo");
+		archiver[type].type = g_slist_append(archiver[type].type, "lzop");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzo");
 		g_free (path);
 	}
 
 	/* RAR */
 
+	type = XARCHIVETYPE_RAR;
+
 	path = g_find_program_in_path ("rar");
     if ( path )
 	{
-		ArchiveType = g_list_append(ArchiveType, "rar");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
+		archiver[type].type = g_slist_append(archiver[type].type, "rar");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rar");
 		if (xa_rar_check_version(path) == 5)
 		{
-			ArchiveType = g_list_append(ArchiveType, "rar5");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
+			archiver[type].type = g_slist_append(archiver[type].type, "rar5");
+			archiver[type].glob = g_slist_append(archiver[type].glob, " .rar");
 		}
 		g_free (path);
 	}
@@ -312,23 +329,27 @@ static void xa_check_available_archivers ()
 		{
 			unrar = TRUE;
 			xa_rar_check_version(path);
-			ArchiveType = g_list_append(ArchiveType, "rar");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rar");
+			archiver[type].type = g_slist_append(archiver[type].type, "rar");
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.rar");
 			g_free (path);
 		}
 	}
 
 	/* RPM package */
 
+	type = XARCHIVETYPE_RPM;
+
 	path = g_find_program_in_path("cpio");
     if ( path )
 	{
-	    ArchiveType = g_list_append(ArchiveType, "");
-	    ArchiveSuffix = g_list_append(ArchiveSuffix, "*.rpm");
+	    archiver[type].type = g_slist_append(archiver[type].type, "rpm");
+	    archiver[type].glob = g_slist_append(archiver[type].glob, "*.rpm");
 		g_free (path);
 	}
 
 	/* tape archive */
+
+	type = XARCHIVETYPE_TAR;
 
 	path = g_find_program_in_path("gtar");
 	if (path)
@@ -349,74 +370,77 @@ static void xa_check_available_archivers ()
 	}
 	if (tar)
 	{
-		ArchiveType = g_list_append(ArchiveType, "tar");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar");
+		archiver[type].type = g_slist_append(archiver[type].type, "tar");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar");
 	}
 
 	/* xz */
 
+	type = XARCHIVETYPE_XZ;
+
 	path = g_find_program_in_path("xz");
 	if (path)
 	{
-		ArchiveType = g_list_append(ArchiveType, "xz");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.xz");
+		archiver[type].type = g_slist_append(archiver[type].type, "xz");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xz");
 		g_free(path);
 	}
 
 	/* zip */
 
+	type = XARCHIVETYPE_ZIP;
+
 	if (zip)
 	{
-		ArchiveType = g_list_append(ArchiveType, "zip");
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.zip");
+		archiver[type].type = g_slist_append(archiver[type].type, "zip");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.zip");
 	}
 
 	/* compressed tar */
 
 	if (tar)
 	{
-		if ( g_list_find ( ArchiveType , "bz2") )
+		if (archiver[XARCHIVETYPE_BZIP2].type)
 		{
-			tbz2 = TRUE;
-			ArchiveType = g_list_append(ArchiveType, "tar.bz2");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.bz2");
+			type = XARCHIVETYPE_TAR_BZ2;
+			archiver[type].type = g_slist_append(archiver[type].type, "tar.bzip2");
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.bz2");
+			archiver[type].type = g_slist_append(archiver[type].type, NULL);
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tbz2");
 		}
-		if ( g_list_find ( ArchiveType , "gz") )
+		if (archiver[XARCHIVETYPE_GZIP].type)
 		{
-			tgz = TRUE;
-			ArchiveType = g_list_append(ArchiveType, "tar.gz");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.gz");
+			type = XARCHIVETYPE_TAR_GZ;
+			archiver[type].type = g_slist_append(archiver[type].type, "tar.gzip");
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.gz");
+			archiver[type].type = g_slist_append(archiver[type].type, NULL);
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tgz");
 		}
-		if ( g_list_find ( ArchiveType , "lzma") )
+		if (archiver[XARCHIVETYPE_LZMA].type)
 		{
-			tlz = TRUE;
-			ArchiveType = g_list_append(ArchiveType, "tar.lzma");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.lzma");
+			type = XARCHIVETYPE_TAR_LZMA;
+			archiver[type].type = g_slist_append(archiver[type].type, "tar.lzma");
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.lzma");
+			archiver[type].type = g_slist_append(archiver[type].type, NULL);
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tlz");
 		}
-		if ( g_list_find ( ArchiveType , "lzo") )
+		if (archiver[XARCHIVETYPE_LZOP].type)
 		{
-			tzo = TRUE;
-			ArchiveType = g_list_append(ArchiveType, "tar.lzo");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.lzo");
+			type = XARCHIVETYPE_TAR_LZOP;
+			archiver[type].type = g_slist_append(archiver[type].type, "tar.lzop");
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.lzo");
+			archiver[type].type = g_slist_append(archiver[type].type, NULL);
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tzo");
 		}
-		if (g_list_find(ArchiveType, "xz"))
+		if (archiver[XARCHIVETYPE_XZ].type)
 		{
-			txz = TRUE;
-			ArchiveType = g_list_append(ArchiveType, "tar.xz");
-			ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tar.xz");
+			type = XARCHIVETYPE_TAR_XZ;
+			archiver[type].type = g_slist_append(archiver[type].type, "tar.xz");
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.xz");
+			archiver[type].type = g_slist_append(archiver[type].type, NULL);
+			archiver[type].glob = g_slist_append(archiver[type].glob, "*.txz");
 		}
 	}
-
-	if (tbz2)
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tbz2");
-	if (tgz)
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tgz");
-	if (tlz)
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tlz");
-	if (txz)
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.txz");
-	if (tzo)
-		ArchiveSuffix = g_list_append(ArchiveSuffix, "*.tzo");
 }
 
 static XArchive *xa_init_structure_from_cmd_line (char *filename)
@@ -635,6 +659,8 @@ done:
 		{
 			g_free(archiver[x].program[0]);
 			g_free(archiver[x].program[1]);
+			g_slist_free(archiver[x].type);
+			g_slist_free(archiver[x].glob);
 		}
 
 		if (pb != NULL)
@@ -705,6 +731,8 @@ done:
 		{
 			g_free(archiver[x].program[0]);
 			g_free(archiver[x].program[1]);
+			g_slist_free(archiver[x].type);
+			g_slist_free(archiver[x].glob);
 		}
 	}
 	return 0;
