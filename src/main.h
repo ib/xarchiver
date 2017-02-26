@@ -24,7 +24,6 @@
 
 extern XArchiver archiver[];
 extern const gchar *locale;
-extern const gchar *sevenz;
 extern const gchar *tar;
 extern gboolean batch_mode;
 extern gboolean unarj;

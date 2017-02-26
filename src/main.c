@@ -52,7 +52,6 @@ add_func add[XARCHIVETYPE_TYPES];
 delete_func delete[XARCHIVETYPE_TYPES];
 
 const gchar *locale;
-const gchar *sevenz;
 const gchar *tar;
 gboolean batch_mode;
 gboolean unarj;
@@ -101,7 +100,6 @@ static void xa_check_available_archivers ()
 	XArchiveType type;
 	gchar *path;
 
-	ask[XARCHIVETYPE_7ZIP]  = &xa_7zip_ask;
 	ask[XARCHIVETYPE_ARJ]  = &xa_arj_ask;
 	ask[XARCHIVETYPE_DEB]  = &xa_deb_ask;
 	ask[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_ask;
@@ -115,7 +113,6 @@ static void xa_check_available_archivers ()
 	ask[XARCHIVETYPE_LHA] = &xa_lha_ask;
 	ask[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_ask;
 
-	open[XARCHIVETYPE_7ZIP]  = &xa_7zip_open;
 	open[XARCHIVETYPE_ARJ]  = &xa_arj_open;
 	open[XARCHIVETYPE_DEB]  = &xa_deb_open;
 	open[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_open;
@@ -129,7 +126,6 @@ static void xa_check_available_archivers ()
 	open[XARCHIVETYPE_LHA] = &xa_lha_open;
 	open[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_open;
 
-	delete[XARCHIVETYPE_7ZIP]  = &xa_7zip_delete;
 	delete[XARCHIVETYPE_ARJ]  = &xa_arj_delete;
 	delete[XARCHIVETYPE_DEB]  = 0;
 	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
@@ -140,7 +136,6 @@ static void xa_check_available_archivers ()
 	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
 
 
-	add[XARCHIVETYPE_7ZIP]  = &xa_7zip_add;
 	add[XARCHIVETYPE_ARJ]  = &xa_arj_add;
 	add[XARCHIVETYPE_DEB]  = 0;
 	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = add[XARCHIVETYPE_XZ] = add[XARCHIVETYPE_LZOP] = &xa_tar_add;
@@ -150,7 +145,6 @@ static void xa_check_available_archivers ()
 	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
 	add[XARCHIVETYPE_LHA] = &xa_lha_add;
 
-	extract[XARCHIVETYPE_7ZIP]  = &xa_7zip_extract;
 	extract[XARCHIVETYPE_ARJ]  = &xa_arj_extract;
 	extract[XARCHIVETYPE_DEB]  = &xa_deb_extract;;
 	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = extract[XARCHIVETYPE_XZ] = extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
@@ -160,7 +154,6 @@ static void xa_check_available_archivers ()
 	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
 	extract[XARCHIVETYPE_LHA] = &xa_lha_extract;
 
-	test[XARCHIVETYPE_7ZIP]  = &xa_7zip_test;
 	test[XARCHIVETYPE_ARJ]  = &xa_arj_test;
 	test[XARCHIVETYPE_DEB]  = test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
 	test[XARCHIVETYPE_RAR]  = &xa_rar_test;
@@ -172,27 +165,27 @@ static void xa_check_available_archivers ()
 	/* 7-zip */
 
 	type = XARCHIVETYPE_7ZIP;
-
 	path = g_find_program_in_path("7z");
-	if (path)
-		sevenz = "7z";
-	else
-	{
+
+	if (!path)
 		path = g_find_program_in_path("7za");
-		if (path)
-			sevenz = "7za";
-		else
-		{
-			path = g_find_program_in_path("7zr");
-			if (path)
-				sevenz = "7zr";
-		}
-	}
-	if (sevenz)
+
+	if (!path)
+		path = g_find_program_in_path("7zr");
+
+	if (path)
 	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
 		archiver[type].type = g_slist_append(archiver[type].type, "7zip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.7z");
-		g_free (path);
+
+		ask[type] = xa_7zip_ask;
+		open[type] = xa_7zip_open;
+		test[type] = xa_7zip_test;
+		extract[type] = xa_7zip_extract;
+		add[type] = xa_7zip_add;
+		delete[type] = xa_7zip_delete;
 	}
 
 	/* ARJ */

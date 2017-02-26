@@ -124,7 +124,7 @@ void xa_7zip_open (XArchive *archive)
 	data_line = FALSE;
 	last_line = FALSE;
 	encrypted = FALSE;
-	gchar *command = g_strconcat(sevenz, " l ", archive->escaped_path, NULL);
+	gchar *command = g_strconcat(archiver[archive->type].program[0], " l ", archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 6;
@@ -150,9 +150,9 @@ void xa_7zip_test (XArchive *archive)
 
 	archive->status = XA_ARCHIVESTATUS_TEST;
 	if (archive->passwd != NULL)
-		command = g_strconcat(sevenz, " t -p", archive->passwd, " ", archive->escaped_path, NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " t -p", archive->passwd, " ", archive->escaped_path, NULL);
 	else
-		command = g_strconcat(sevenz, " t ", archive->escaped_path, NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " t ", archive->escaped_path, NULL);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
@@ -177,13 +177,13 @@ gboolean xa_7zip_extract(XArchive *archive,GSList *files)
 	g_slist_free(_files);
 
 	if (archive->passwd != NULL)
-		command = g_strconcat (sevenz, archive->full_path ? " x" : " e",
+		command = g_strconcat(archiver[archive->type].program[0], archive->full_path ? " x" : " e",
 								" -p",archive->passwd,
 								archive->overwrite ? " -aoa" : " -aos",
 								" -bd ",
 								archive->escaped_path,names->str , " -o",archive->extraction_path,NULL);
 	else
-		command = g_strconcat (sevenz, archive->full_path ? " x" : " e",
+		command = g_strconcat(archiver[archive->type].program[0], archive->full_path ? " x" : " e",
 								archive->overwrite ? " -aoa" : " -aos",
 								" -bd ",
 								archive->escaped_path,names->str , " -o",archive->extraction_path,NULL);
@@ -205,7 +205,7 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	if (compression_string == NULL)
 		compression_string = "5";
 	if (archive->passwd != NULL)
-		command = g_strconcat (sevenz,
+		command = g_strconcat(archiver[archive->type].program[0],
 								archive->update ? " u " : " a ",
 								archive->add_solid ? "-ms=on " : "-ms=off ",
 								"-p" , archive->passwd, " ",
@@ -213,7 +213,7 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 								"-mx=",compression_string,"",
 								files->str,NULL);
 	else
-		command = g_strconcat (sevenz,
+		command = g_strconcat(archiver[archive->type].program[0],
 								archive->update ? " u " : " a ",
 								archive->add_solid ? "-ms=on " : "-ms=off ",
 								archive->escaped_path," ",
@@ -242,7 +242,7 @@ void xa_7zip_delete (XArchive *archive,GSList *names)
 	}
 	g_slist_foreach(names,(GFunc)g_free,NULL);
 	g_slist_free(names);
-	command = g_strconcat(sevenz, " d ", archive->escaped_path, " ", files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->escaped_path, " ", files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
