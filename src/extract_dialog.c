@@ -444,7 +444,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	else
 		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Extract files"));
 
-	if (archive->type == XARCHIVETYPE_ARJ && unarj)
+	if (archive->type == XARCHIVETYPE_ARJ && !archiver[archive->type].is_compressor)
 	{
 		gtk_widget_set_sensitive(dialog_data->files_radio, FALSE);
 		gtk_widget_set_sensitive (dialog_data->selected_radio,FALSE);

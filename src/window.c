@@ -2254,7 +2254,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	else
 		idx = xa_find_archive_index (current_page);
 
-	if (archive[idx]->type == XARCHIVETYPE_ARJ && unarj)
+	if (archive[idx]->type == XARCHIVETYPE_ARJ && !archiver[archive[idx]->type].is_compressor)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install arj package!"));
 		return;
