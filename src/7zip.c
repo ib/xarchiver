@@ -209,16 +209,14 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 								archive->update ? " u " : " a ",
 								archive->add_solid ? "-ms=on " : "-ms=off ",
 								"-p" , archive->passwd, " ",
-								archive->escaped_path," ",
-								"-mx=",compression_string,"",
-								files->str,NULL);
+								"-mx=", compression_string, " ",
+								archive->escaped_path, files->str, NULL);
 	else
 		command = g_strconcat(archiver[archive->type].program[0],
 								archive->update ? " u " : " a ",
 								archive->add_solid ? "-ms=on " : "-ms=off ",
-								archive->escaped_path," ",
-								"-mx=",compression_string,"",
-								files->str,NULL);
+								"-mx=", compression_string, " ",
+								archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
