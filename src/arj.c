@@ -272,7 +272,7 @@ void xa_arj_delete (XArchive *archive,GSList *names)
 	g_slist_foreach(names,(GFunc)g_free,NULL);
 	g_slist_free(names);
 
-	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->escaped_path, " ", files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 

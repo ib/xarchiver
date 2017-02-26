@@ -191,7 +191,7 @@ void xa_tar_delete (XArchive *archive,GSList *files)
 		xa_add_delete_bzip2_gzip_lzma_compressed_tar(names,archive,0);
 	else
 	{
-		command = g_strconcat (tar, " --delete -vf ",archive->escaped_path," ",names->str,NULL);
+		command = g_strconcat(tar, " --delete -vf ", archive->escaped_path, names->str, NULL);
 		list = g_slist_append(list,command);
 		xa_run_command (archive,list);
 		if (archive->status == XA_ARCHIVESTATUS_DELETE)
@@ -345,7 +345,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ",archive->extraction_path," ",names->str,NULL);
+								" -C ", archive->extraction_path, names->str, NULL);
 		}
 		else
 		{
@@ -364,7 +364,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ",archive->extraction_path," ",names->str,NULL);
+								" -C ", archive->extraction_path, names->str, NULL);
 		}
 		else
 		{
@@ -383,7 +383,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ",archive->extraction_path," ",names->str,NULL);
+								" -C ", archive->extraction_path, names->str, NULL);
 		}
 		else
 		{
@@ -402,7 +402,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ",archive->extraction_path," ",names->str,NULL);
+								" -C ", archive->extraction_path, names->str, NULL);
 		}
 		else
 		{
@@ -421,7 +421,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ",archive->extraction_path," ",names->str,NULL);
+								" -C ", archive->extraction_path, names->str, NULL);
 		}
 		else
 		{
@@ -440,7 +440,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ",archive->extraction_path," ",names->str,NULL);
+								" -C ", archive->extraction_path, names->str, NULL);
 		}
 		else
 		{
@@ -526,7 +526,7 @@ static void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files, XArchi
 							archive->tmp,"/" TMPFILE,
 							files->str , NULL );
 	else
-		command = g_strconcat (tar," --no-wildcards --delete -f ",archive->tmp,"/" TMPFILE " ",files->str,NULL);
+		command = g_strconcat(tar, " --no-wildcards --delete -f ", archive->tmp, "/" TMPFILE, files->str, NULL);
 	list = g_slist_append(list,command);
 
 	command = g_strconcat (executable,archive->tmp,"/" TMPFILE,NULL);
@@ -581,7 +581,7 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 											" --no-wildcards ",
 										#endif
 										archive->touch ? " --touch" : "",
-										" -C ",archive->tmp," ",files_to_extract,NULL);
+										" -C ", archive->tmp, files_to_extract, NULL);
 	list = g_slist_append(list,command);
 	if (strstr(files_to_extract,"/") || strcmp(archive->tmp,archive->extraction_path) != 0)
 	{

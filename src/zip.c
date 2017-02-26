@@ -290,7 +290,7 @@ void xa_zip_delete (XArchive *archive,GSList *names)
 	GString *files = g_string_new("");
 
 	xa_zip_prepend_backslash(names,files);
-	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->escaped_path, " ", files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
