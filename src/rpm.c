@@ -20,6 +20,7 @@
 #include <string.h>
 #include "rpm.h"
 #include "interface.h"
+#include "main.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -258,7 +259,7 @@ void xa_rpm_open (XArchive *archive)
 		return;
 	}
 	/* list the content */
-	command = g_strconcat ("sh -c \"cpio -tv < ",archive->tmp,"/xa-tmp.cpio\"",NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -tv < ", archive->tmp, "/xa-tmp.cpio\"", NULL);
 	archive->parse_output = xa_cpio_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free(command);
@@ -287,7 +288,7 @@ gboolean xa_rpm_extract(XArchive *archive,GSList *files)
 	g_slist_free(files);
 
 	chdir (archive->extraction_path);
-	command = g_strconcat ( "sh -c \"cpio -id" , names->str," < ",archive->tmp,"/xa-tmp.cpio\"",NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", names->str, " < ", archive->tmp, "/xa-tmp.cpio\"", NULL);
 
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
