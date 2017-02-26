@@ -94,9 +94,8 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-static void xa_gzip_parse_output (gchar *line, gpointer data)
+static void xa_gzip_parse_output (gchar *line, XArchive *archive)
 {
-	XArchive *archive = data;
 	gchar *filename;
 	gchar *basename;
 	gpointer item[3];

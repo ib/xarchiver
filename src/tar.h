@@ -30,7 +30,7 @@ void xa_tar_ask(XArchive *);
 void xa_tar_delete(XArchive *, GSList *);
 gboolean xa_tar_extract(XArchive *, GSList *);
 void xa_tar_open(XArchive *);
-void xa_tar_parse_output(gchar *, gpointer);
+void xa_tar_parse_output(gchar *, XArchive *);
 void xa_tar_test(XArchive *);
 
 #endif

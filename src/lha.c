@@ -37,9 +37,8 @@ void xa_lha_ask (XArchive *archive)
 	archive->can_move = TRUE;
 }
 
-static void xa_lha_parse_output (gchar *line, gpointer data)
+static void xa_lha_parse_output (gchar *line, XArchive *archive)
 {
-	XArchive *archive = data;
 	gpointer item[6];
 	unsigned int linesize,n,a;
 	gchar *filename;

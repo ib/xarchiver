@@ -89,9 +89,8 @@ void xa_tar_open (XArchive *archive)
 	xa_create_liststore (archive,names);
 }
 
-void xa_tar_parse_output (gchar *line, gpointer data)
+void xa_tar_parse_output (gchar *line, XArchive *archive)
 {
-	XArchive *archive = data;
 	gchar *filename;
 	gpointer item[6];
 	gint n = 0, a = 0 ,linesize = 0;

@@ -60,9 +60,8 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_move = !unrar;
 }
 
-static void xa_rar_parse_output (gchar *line, gpointer data)
+static void xa_rar_parse_output (gchar *line, XArchive *archive)
 {
-	XArchive *archive = data;
 	XEntry *entry;
 	gpointer item[9];
 	unsigned short int i = 0;
@@ -236,9 +235,8 @@ static void xa_rar_parse_output (gchar *line, gpointer data)
 	}
 }
 
-static void xa_rar5_parse_output (gchar *line, gpointer data)
+static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 {
-	XArchive *archive = data;
 	XEntry *entry;
 	gpointer item[7];
 	unsigned short int i = 0;

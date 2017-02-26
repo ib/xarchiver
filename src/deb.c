@@ -28,9 +28,8 @@ void xa_deb_ask (XArchive *archive)
 	archive->can_touch = TRUE;
 }
 
-static void xa_ar_parse_output (gchar *line, gpointer data)
+static void xa_ar_parse_output (gchar *line, XArchive *archive)
 {
-	XArchive *archive = data;
 	gchar *filename;
 	gpointer item[4];
 	gint n = 0, a = 0 ,linesize = 0;

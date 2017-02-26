@@ -40,9 +40,8 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_move = !unarj;
 }
 
-static void xa_arj_parse_output (gchar *line, gpointer data)
+static void xa_arj_parse_output (gchar *line, XArchive *archive)
 {
-	XArchive *archive = data;
 	XEntry *entry;
 	gpointer item[7];
 	unsigned int linesize,n,a;

@@ -39,9 +39,8 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_solid = TRUE;
 }
 
-static void xa_7zip_parse_output (gchar *line, gpointer data)
+static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 {
-	XArchive *archive = data;
 	XEntry *entry;
 	gchar *filename;
 	gpointer item[5];
