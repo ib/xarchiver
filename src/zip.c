@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include "zip.h"
+#include "main.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
@@ -26,15 +27,15 @@ void xa_zip_ask (XArchive *archive)
 {
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = TRUE;
-	archive->can_delete = TRUE;
-	archive->can_sfx = TRUE;
+	archive->can_add = archiver[archive->type].is_compressor;
+	archive->can_delete = archiver[archive->type].is_compressor;
+	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_passwd = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_freshen = TRUE;
 	archive->can_update = TRUE;
-	archive->can_move = TRUE;
+	archive->can_move = archiver[archive->type].is_compressor;
 }
 
 static void xa_zip_parse_output (gchar *line, XArchive *archive)
@@ -166,7 +167,7 @@ void xa_zip_open (XArchive *archive)
 {
 	unsigned short int i;
 
-	gchar *command = g_strconcat ("zipinfo -t -l ",archive->escaped_path, NULL);
+	gchar *command = g_strconcat(archiver[archive->type].program[0], " -Z -t -l ", archive->escaped_path, NULL);
 	archive->files_size  = 0;
     archive->nr_of_files = 0;
     archive->nc = 9;
@@ -193,9 +194,9 @@ void xa_zip_test (XArchive *archive)
 
 	archive->status = XA_ARCHIVESTATUS_TEST;
 	if (archive->passwd != NULL)
-		command = g_strconcat ("unzip -P ", archive->passwd, " -t " , archive->escaped_path, NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " -P ", archive->passwd, " -t ", archive->escaped_path, NULL);
 	else
-		command = g_strconcat ("unzip -t " , archive->escaped_path, NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " -t ", archive->escaped_path, NULL);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
@@ -230,14 +231,14 @@ gboolean xa_zip_extract(XArchive *archive,GSList *files)
 	xa_zip_prepend_backslash(files,names);
 
 	if ( archive->passwd != NULL )
-		command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
+		command = g_strconcat(archiver[archive->type].program[0], archive->freshen ? " -f " : " ",
 												archive->update ? "-u " : "" ,
 												archive->overwrite ? "-o" : "-n",
 												" -P " , archive->passwd,
 												archive->full_path ? " " : " -j ",
 												archive->escaped_path , " -d ", archive->extraction_path,names->str,NULL);
 	else
-		command = g_strconcat ( "unzip ", archive->freshen ? "-f " : "",
+		command = g_strconcat(archiver[archive->type].program[0], archive->freshen ? " -f " : " ",
 												archive->update ? "-u " : "",
 												archive->overwrite ? "-o " : "-n ",
 												archive->full_path ? "" : " -j ",
@@ -259,7 +260,7 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	if (compression_string == NULL)
 		compression_string = "6";
 	if (archive->passwd != NULL)
-		command = g_strconcat ( "zip ",
+		command = g_strconcat(archiver[archive->type].program[1], " ",
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
 									archive->add_move ? "-m " : "",
@@ -268,7 +269,7 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 									archive->escaped_path,
 									files->str,NULL);
 	else
-		command = g_strconcat ( "zip ",
+		command = g_strconcat(archiver[archive->type].program[1], " ",
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
 									archive->add_move ? "-m " : "",
@@ -289,7 +290,7 @@ void xa_zip_delete (XArchive *archive,GSList *names)
 	GString *files = g_string_new("");
 
 	xa_zip_prepend_backslash(names,files);
-	command = g_strconcat ("zip -d ",archive->escaped_path," ",files->str,NULL);
+	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->escaped_path, " ", files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);

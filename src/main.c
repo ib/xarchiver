@@ -64,7 +64,6 @@ Prefs_dialog_data *prefs_window;
 
 static gchar *opt_extract_path, *opt_add_files;
 static gboolean opt_extract, opt_add, opt_version;
-static gboolean zip;
 
 static GOptionEntry entries[] =
 {
@@ -103,7 +102,6 @@ static void xa_check_available_archivers ()
 	ask[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_XZ]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_TAR]  = ask[XARCHIVETYPE_TAR_BZ2] = ask[XARCHIVETYPE_TAR_GZ] = ask[XARCHIVETYPE_TAR_LZMA] = ask[XARCHIVETYPE_TAR_XZ] = ask[XARCHIVETYPE_TAR_LZOP] = &xa_tar_ask;
-	ask[XARCHIVETYPE_ZIP] = &xa_zip_ask;
 	ask[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_ask;
 
 	open[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_open;
@@ -111,25 +109,20 @@ static void xa_check_available_archivers ()
 	open[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_open;
 	open[XARCHIVETYPE_XZ]  = &xa_gzip_et_al_open;
 	open[XARCHIVETYPE_TAR]  = open[XARCHIVETYPE_TAR_BZ2] = open[XARCHIVETYPE_TAR_GZ] = open[XARCHIVETYPE_TAR_LZMA] = open[XARCHIVETYPE_TAR_XZ] = open[XARCHIVETYPE_TAR_LZOP] = &xa_tar_open;
-	open[XARCHIVETYPE_ZIP] = &xa_zip_open;
 	open[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_open;
 
 	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_XZ] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
-	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
 
 
 	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = add[XARCHIVETYPE_XZ] = add[XARCHIVETYPE_LZOP] = &xa_tar_add;
 	add[XARCHIVETYPE_TAR]  = add[XARCHIVETYPE_TAR_BZ2] = add[XARCHIVETYPE_TAR_GZ] = add[XARCHIVETYPE_TAR_LZMA] = add[XARCHIVETYPE_TAR_XZ] = add[XARCHIVETYPE_TAR_LZOP] = &xa_tar_add;
-	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
 
 	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = extract[XARCHIVETYPE_XZ] = extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
 	extract[XARCHIVETYPE_TAR]  = extract[XARCHIVETYPE_TAR_BZ2] = extract[XARCHIVETYPE_TAR_GZ] = extract[XARCHIVETYPE_TAR_LZMA] = extract[XARCHIVETYPE_TAR_XZ] = extract[XARCHIVETYPE_TAR_LZOP] = &xa_tar_extract;
-	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
 
 	test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
 	test[XARCHIVETYPE_TAR]  = test[XARCHIVETYPE_TAR_BZ2] = test[XARCHIVETYPE_TAR_GZ] = test[XARCHIVETYPE_TAR_LZMA] = test[XARCHIVETYPE_TAR_XZ] = test[XARCHIVETYPE_TAR_LZOP] =  &xa_tar_test;
-	test[XARCHIVETYPE_ZIP] = &xa_zip_test;
 
 	/* 7-zip */
 
@@ -219,22 +212,6 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "gzip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.gz");
 		g_free (path);
-	}
-
-	/* java archive */
-
-	path = g_find_program_in_path("zip");
-	if (path)
-	{
-		g_free (path);
-		path = g_find_program_in_path("zipinfo");
-		if (path)
-		{
-			zip = TRUE;
-			archiver[type].type = g_slist_append(archiver[type].type, "jar");
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
-			g_free(path);
-		}
 	}
 
 	/* LHA */
@@ -369,11 +346,31 @@ static void xa_check_available_archivers ()
 	/* zip */
 
 	type = XARCHIVETYPE_ZIP;
+	path = g_find_program_in_path("unzip");
 
-	if (zip)
+	if (path)
 	{
+		gchar *zip = g_find_program_in_path("zip");
+
+		if (zip)
+		{
+			archiver[type].program[1] = zip;
+			archiver[type].is_compressor = TRUE;
+		}
+
+		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "zip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.zip");
+		/* java archive */
+		archiver[type].type = g_slist_append(archiver[type].type, "jar");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
+
+		ask[type] = xa_zip_ask;
+		open[type] = xa_zip_open;
+		test[type] = xa_zip_test;
+		extract[type] = xa_zip_extract;
+		add[type] = xa_zip_add;
+		delete[type] = xa_zip_delete;
 	}
 
 	/* compressed tar */
