@@ -19,6 +19,7 @@
 
 #include <string.h>
 #include "deb.h"
+#include "main.h"
 #include "support.h"
 #include "window.h"
 
@@ -93,7 +94,7 @@ void xa_deb_open (XArchive *archive)
 	gchar *command = NULL;
 	unsigned short int i;
 
-	command = g_strconcat ("ar tv ",archive->escaped_path,NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " tv ", archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 5;
@@ -130,7 +131,7 @@ gboolean xa_deb_extract(XArchive *archive,GSList *files)
 	g_slist_free(files);
 
 	chdir (archive->extraction_path);
-	command = g_strconcat("ar x", archive->touch ? " " : "o ", archive->escaped_path, " ", names->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " x", archive->touch ? " " : "o ", archive->escaped_path, " ", names->str, NULL);
 	if (command != NULL)
 	{
 		g_string_free(names,FALSE);

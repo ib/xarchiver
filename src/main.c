@@ -99,7 +99,6 @@ static void xa_check_available_archivers ()
 	XArchiveType type;
 	gchar *path;
 
-	ask[XARCHIVETYPE_DEB]  = &xa_deb_ask;
 	ask[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_GZIP]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_ask;
@@ -111,7 +110,6 @@ static void xa_check_available_archivers ()
 	ask[XARCHIVETYPE_LHA] = &xa_lha_ask;
 	ask[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_ask;
 
-	open[XARCHIVETYPE_DEB]  = &xa_deb_open;
 	open[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_open;
 	open[XARCHIVETYPE_GZIP]  = &xa_gzip_et_al_open;
 	open[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_open;
@@ -123,7 +121,6 @@ static void xa_check_available_archivers ()
 	open[XARCHIVETYPE_LHA] = &xa_lha_open;
 	open[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_open;
 
-	delete[XARCHIVETYPE_DEB]  = 0;
 	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_RAR]  = &xa_rar_delete;
 	delete[XARCHIVETYPE_RPM]  = 0;
@@ -132,7 +129,6 @@ static void xa_check_available_archivers ()
 	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
 
 
-	add[XARCHIVETYPE_DEB]  = 0;
 	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = add[XARCHIVETYPE_XZ] = add[XARCHIVETYPE_LZOP] = &xa_tar_add;
 	add[XARCHIVETYPE_RAR]  = &xa_rar_add;
 	add[XARCHIVETYPE_RPM]  = 0;
@@ -140,7 +136,6 @@ static void xa_check_available_archivers ()
 	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
 	add[XARCHIVETYPE_LHA] = &xa_lha_add;
 
-	extract[XARCHIVETYPE_DEB]  = &xa_deb_extract;;
 	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = extract[XARCHIVETYPE_XZ] = extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
 	extract[XARCHIVETYPE_RAR]  = &xa_rar_extract;
 	extract[XARCHIVETYPE_RPM]  = &xa_rpm_extract;
@@ -148,7 +143,7 @@ static void xa_check_available_archivers ()
 	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
 	extract[XARCHIVETYPE_LHA] = &xa_lha_extract;
 
-	test[XARCHIVETYPE_DEB]  = test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
+	test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
 	test[XARCHIVETYPE_RAR]  = &xa_rar_test;
 	test[XARCHIVETYPE_RPM]  = 0;
 	test[XARCHIVETYPE_TAR]  = test[XARCHIVETYPE_TAR_BZ2] = test[XARCHIVETYPE_TAR_GZ] = test[XARCHIVETYPE_TAR_LZMA] = test[XARCHIVETYPE_TAR_XZ] = test[XARCHIVETYPE_TAR_LZOP] =  &xa_tar_test;
@@ -220,13 +215,17 @@ static void xa_check_available_archivers ()
 	/* debian package */
 
 	type = XARCHIVETYPE_DEB;
-
 	path = g_find_program_in_path("ar");
-    if ( path )
+
+	if (path)
 	{
-	    archiver[type].type = g_slist_append(archiver[type].type, "deb");
-	    archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
-		g_free (path);
+		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "deb");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
+
+		ask[type] = xa_deb_ask;
+		open[type] = xa_deb_open;
+		extract[type]  = xa_deb_extract;
 	}
 
 	/* GNU zip */
