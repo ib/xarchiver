@@ -107,7 +107,6 @@ static void xa_check_available_archivers ()
 	ask[XARCHIVETYPE_RPM]  = &xa_rpm_ask;
 	ask[XARCHIVETYPE_TAR]  = ask[XARCHIVETYPE_TAR_BZ2] = ask[XARCHIVETYPE_TAR_GZ] = ask[XARCHIVETYPE_TAR_LZMA] = ask[XARCHIVETYPE_TAR_XZ] = ask[XARCHIVETYPE_TAR_LZOP] = &xa_tar_ask;
 	ask[XARCHIVETYPE_ZIP] = &xa_zip_ask;
-	ask[XARCHIVETYPE_LHA] = &xa_lha_ask;
 	ask[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_ask;
 
 	open[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_open;
@@ -118,7 +117,6 @@ static void xa_check_available_archivers ()
 	open[XARCHIVETYPE_RPM]  = &xa_rpm_open;
 	open[XARCHIVETYPE_TAR]  = open[XARCHIVETYPE_TAR_BZ2] = open[XARCHIVETYPE_TAR_GZ] = open[XARCHIVETYPE_TAR_LZMA] = open[XARCHIVETYPE_TAR_XZ] = open[XARCHIVETYPE_TAR_LZOP] = &xa_tar_open;
 	open[XARCHIVETYPE_ZIP] = &xa_zip_open;
-	open[XARCHIVETYPE_LHA] = &xa_lha_open;
 	open[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_open;
 
 	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
@@ -126,7 +124,6 @@ static void xa_check_available_archivers ()
 	delete[XARCHIVETYPE_RPM]  = 0;
 	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_XZ] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
-	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
 
 
 	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = add[XARCHIVETYPE_XZ] = add[XARCHIVETYPE_LZOP] = &xa_tar_add;
@@ -134,21 +131,18 @@ static void xa_check_available_archivers ()
 	add[XARCHIVETYPE_RPM]  = 0;
 	add[XARCHIVETYPE_TAR]  = add[XARCHIVETYPE_TAR_BZ2] = add[XARCHIVETYPE_TAR_GZ] = add[XARCHIVETYPE_TAR_LZMA] = add[XARCHIVETYPE_TAR_XZ] = add[XARCHIVETYPE_TAR_LZOP] = &xa_tar_add;
 	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
-	add[XARCHIVETYPE_LHA] = &xa_lha_add;
 
 	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = extract[XARCHIVETYPE_XZ] = extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
 	extract[XARCHIVETYPE_RAR]  = &xa_rar_extract;
 	extract[XARCHIVETYPE_RPM]  = &xa_rpm_extract;
 	extract[XARCHIVETYPE_TAR]  = extract[XARCHIVETYPE_TAR_BZ2] = extract[XARCHIVETYPE_TAR_GZ] = extract[XARCHIVETYPE_TAR_LZMA] = extract[XARCHIVETYPE_TAR_XZ] = extract[XARCHIVETYPE_TAR_LZOP] = &xa_tar_extract;
 	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
-	extract[XARCHIVETYPE_LHA] = &xa_lha_extract;
 
 	test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
 	test[XARCHIVETYPE_RAR]  = &xa_rar_test;
 	test[XARCHIVETYPE_RPM]  = 0;
 	test[XARCHIVETYPE_TAR]  = test[XARCHIVETYPE_TAR_BZ2] = test[XARCHIVETYPE_TAR_GZ] = test[XARCHIVETYPE_TAR_LZMA] = test[XARCHIVETYPE_TAR_XZ] = test[XARCHIVETYPE_TAR_LZOP] =  &xa_tar_test;
 	test[XARCHIVETYPE_ZIP] = &xa_zip_test;
-	test[XARCHIVETYPE_LHA] = &xa_lha_test;
 
 	/* 7-zip */
 
@@ -259,13 +253,21 @@ static void xa_check_available_archivers ()
 	/* LHA */
 
 	type = XARCHIVETYPE_LHA;
-
 	path = g_find_program_in_path("lha");
+
 	if (path)
 	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
 		archiver[type].type = g_slist_append(archiver[type].type, "lha");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzh");
-		g_free (path);
+
+		ask[type] = xa_lha_ask;
+		open[type] = xa_lha_open;
+		test[type] = xa_lha_test;
+		extract[type] = xa_lha_extract;
+		add[type] = xa_lha_add;
+		delete[type] = xa_lha_delete;
 	}
 
 	/* lzma */
