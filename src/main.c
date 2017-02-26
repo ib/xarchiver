@@ -54,7 +54,6 @@ delete_func delete[XARCHIVETYPE_TYPES];
 const gchar *locale;
 const gchar *tar;
 gboolean batch_mode;
-gboolean unrar;
 gboolean xdg_open;
 gboolean opt_multi_extract;
 
@@ -103,7 +102,6 @@ static void xa_check_available_archivers ()
 	ask[XARCHIVETYPE_GZIP]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_ask;
 	ask[XARCHIVETYPE_XZ]  = &xa_gzip_et_al_ask;
-	ask[XARCHIVETYPE_RAR]  = &xa_rar_ask;
 	ask[XARCHIVETYPE_RPM]  = &xa_rpm_ask;
 	ask[XARCHIVETYPE_TAR]  = ask[XARCHIVETYPE_TAR_BZ2] = ask[XARCHIVETYPE_TAR_GZ] = ask[XARCHIVETYPE_TAR_LZMA] = ask[XARCHIVETYPE_TAR_XZ] = ask[XARCHIVETYPE_TAR_LZOP] = &xa_tar_ask;
 	ask[XARCHIVETYPE_ZIP] = &xa_zip_ask;
@@ -113,33 +111,28 @@ static void xa_check_available_archivers ()
 	open[XARCHIVETYPE_GZIP]  = &xa_gzip_et_al_open;
 	open[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_open;
 	open[XARCHIVETYPE_XZ]  = &xa_gzip_et_al_open;
-	open[XARCHIVETYPE_RAR]  = &xa_rar_open;
 	open[XARCHIVETYPE_RPM]  = &xa_rpm_open;
 	open[XARCHIVETYPE_TAR]  = open[XARCHIVETYPE_TAR_BZ2] = open[XARCHIVETYPE_TAR_GZ] = open[XARCHIVETYPE_TAR_LZMA] = open[XARCHIVETYPE_TAR_XZ] = open[XARCHIVETYPE_TAR_LZOP] = &xa_tar_open;
 	open[XARCHIVETYPE_ZIP] = &xa_zip_open;
 	open[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_open;
 
 	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
-	delete[XARCHIVETYPE_RAR]  = &xa_rar_delete;
 	delete[XARCHIVETYPE_RPM]  = 0;
 	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_XZ] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
 
 
 	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = add[XARCHIVETYPE_XZ] = add[XARCHIVETYPE_LZOP] = &xa_tar_add;
-	add[XARCHIVETYPE_RAR]  = &xa_rar_add;
 	add[XARCHIVETYPE_RPM]  = 0;
 	add[XARCHIVETYPE_TAR]  = add[XARCHIVETYPE_TAR_BZ2] = add[XARCHIVETYPE_TAR_GZ] = add[XARCHIVETYPE_TAR_LZMA] = add[XARCHIVETYPE_TAR_XZ] = add[XARCHIVETYPE_TAR_LZOP] = &xa_tar_add;
 	add[XARCHIVETYPE_ZIP] = &xa_zip_add;
 
 	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = extract[XARCHIVETYPE_XZ] = extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
-	extract[XARCHIVETYPE_RAR]  = &xa_rar_extract;
 	extract[XARCHIVETYPE_RPM]  = &xa_rpm_extract;
 	extract[XARCHIVETYPE_TAR]  = extract[XARCHIVETYPE_TAR_BZ2] = extract[XARCHIVETYPE_TAR_GZ] = extract[XARCHIVETYPE_TAR_LZMA] = extract[XARCHIVETYPE_TAR_XZ] = extract[XARCHIVETYPE_TAR_LZOP] = &xa_tar_extract;
 	extract[XARCHIVETYPE_ZIP] = &xa_zip_extract;
 
 	test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_tar_test;
-	test[XARCHIVETYPE_RAR]  = &xa_rar_test;
 	test[XARCHIVETYPE_RPM]  = 0;
 	test[XARCHIVETYPE_TAR]  = test[XARCHIVETYPE_TAR_BZ2] = test[XARCHIVETYPE_TAR_GZ] = test[XARCHIVETYPE_TAR_LZMA] = test[XARCHIVETYPE_TAR_XZ] = test[XARCHIVETYPE_TAR_LZOP] =  &xa_tar_test;
 	test[XARCHIVETYPE_ZIP] = &xa_zip_test;
@@ -297,30 +290,31 @@ static void xa_check_available_archivers ()
 	/* RAR */
 
 	type = XARCHIVETYPE_RAR;
+	path = g_find_program_in_path("rar");
 
-	path = g_find_program_in_path ("rar");
-    if ( path )
+	if (path)
+		archiver[type].is_compressor = TRUE;
+	else
+		path = g_find_program_in_path("unrar");
+
+	if (path)
 	{
+		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "rar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rar");
+
 		if (xa_rar_check_version(path) == 5)
 		{
 			archiver[type].type = g_slist_append(archiver[type].type, "rar5");
 			archiver[type].glob = g_slist_append(archiver[type].glob, " .rar");
 		}
-		g_free (path);
-	}
-	else
-	{
-		path = g_find_program_in_path("unrar");
-		if ( path )
-		{
-			unrar = TRUE;
-			xa_rar_check_version(path);
-			archiver[type].type = g_slist_append(archiver[type].type, "rar");
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.rar");
-			g_free (path);
-		}
+
+		ask[type] = xa_rar_ask;
+		open[type] = xa_rar_open;
+		test[type] = xa_rar_test;
+		extract[type] = xa_rar_extract;
+		add[type] = xa_rar_add;
+		delete[type] = xa_rar_delete;
 	}
 
 	/* RPM package */

@@ -2259,7 +2259,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install arj package!"));
 		return;
 	}
-	if (archive[idx]->type == XARCHIVETYPE_RAR && unrar)
+	if (archive[idx]->type == XARCHIVETYPE_RAR && !archiver[archive[idx]->type].is_compressor)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install rar package!"));
 		return;

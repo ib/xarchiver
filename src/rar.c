@@ -47,17 +47,17 @@ void xa_rar_ask (XArchive *archive)
 {
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = !unrar;
-	archive->can_delete = !unrar;
-	archive->can_sfx = !unrar;
-	archive->can_passwd = !unrar;
+	archive->can_add = archiver[archive->type].is_compressor;
+	archive->can_delete = archiver[archive->type].is_compressor;
+	archive->can_sfx = archiver[archive->type].is_compressor;
+	archive->can_passwd = archiver[archive->type].is_compressor;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_touch = TRUE;
 	archive->can_freshen = TRUE;
 	archive->can_update = TRUE;
-	archive->can_solid = !unrar;
-	archive->can_move = !unrar;
+	archive->can_solid = archiver[archive->type].is_compressor;
+	archive->can_move = archiver[archive->type].is_compressor;
 }
 
 static void xa_rar_parse_output (gchar *line, XArchive *archive)
@@ -401,19 +401,13 @@ void xa_rar_open (XArchive *archive)
 
 	unsigned short int i;
 	gchar *command = NULL;
-	gchar *rar = NULL;
 
 	header_line = FALSE;
 	data_line = FALSE;
 	fname_line = FALSE;
 	last_line = FALSE;
 
-	if (unrar)
-		rar = "unrar";
-	else
-		rar = "rar";
-
-	command = g_strconcat ( rar," v -idc " , archive->escaped_path, NULL );
+	command = g_strconcat(archiver[archive->type].program[0], " v -idc ", archive->escaped_path, NULL);
 	archive->files_size = 0;
     archive->nr_of_files = 0;
 
@@ -450,20 +444,14 @@ void xa_rar_open (XArchive *archive)
 
 void xa_rar_test (XArchive *archive)
 {
-	gchar *rar = NULL;
 	gchar *command = NULL;
 	GSList *list = NULL;
 
-	if (unrar)
-		rar = "unrar";
-	else
-		rar = "rar";
-
 	archive->status = XA_ARCHIVESTATUS_TEST;
 	if (archive->passwd != NULL)
-		command = g_strconcat (rar," t -idp -p" , archive->passwd ," " , archive->escaped_path, NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " t -idp -p", archive->passwd, " ", archive->escaped_path, NULL);
 	else
-		command = g_strconcat (rar," t -idp " , archive->escaped_path, NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " t -idp ", archive->escaped_path, NULL);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
@@ -471,16 +459,12 @@ void xa_rar_test (XArchive *archive)
 
 gboolean xa_rar_extract(XArchive *archive,GSList *files)
 {
-	gchar *rar, *command, *e_filename = NULL;
+	gchar *command, *e_filename = NULL;
 	GSList *list = NULL,*_files = NULL;
 	GString *names = g_string_new("");
 	gboolean result = FALSE;
 
 	_files = files;
-	if (unrar)
-		rar = "unrar";
-	else
-		rar = "rar";
 
 	while (_files)
 	{
@@ -493,7 +477,7 @@ gboolean xa_rar_extract(XArchive *archive,GSList *files)
 	g_slist_free(_files);
 
 	if (archive->passwd != NULL)
-		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
+		command = g_strconcat(archiver[archive->type].program[0], " ", archive->full_path ? "x " : "e ",
 										archive->touch ? "-tsm- " : "" ,
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 										" -p",archive->passwd,
@@ -501,7 +485,7 @@ gboolean xa_rar_extract(XArchive *archive,GSList *files)
 										" -idp ",
 										archive->escaped_path,names->str," ",archive->extraction_path , NULL );
 	else
-		command = g_strconcat (rar," ",archive->full_path ? "x " : "e ",
+		command = g_strconcat(archiver[archive->type].program[0], " ", archive->full_path ? "x " : "e ",
 										archive->touch ? "-tsm- " : "" ,
 										archive->freshen ? "-f " : "" , archive->update ? "-u " : "",
 										archive->overwrite ? "-o+" : "-o-",
@@ -537,7 +521,7 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 		compression_string = "3";
 
 	if (archive->passwd != NULL)
-		command = g_strconcat("rar a ", version_switch,
+		command = g_strconcat(archiver[archive->type].program[0], " a ", version_switch,
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
 									archive->add_solid ? "-s " : "",
@@ -548,7 +532,7 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 									archive->escaped_path,
 									files->str,NULL);
 	else
-		command = g_strconcat("rar a ", version_switch,
+		command = g_strconcat(archiver[archive->type].program[0], " a ", version_switch,
 									archive->update ? "-u " : "",
 									archive->freshen ? "-f " : "",
 									archive->add_solid ? "-s " : " ",
@@ -583,7 +567,7 @@ void xa_rar_delete (XArchive *archive,GSList *names)
 	g_slist_foreach(names,(GFunc)g_free,NULL);
 	g_slist_free(names);
 
-	command = g_strconcat ("rar d ",archive->escaped_path," ",files->str,NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->escaped_path, " ", files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
