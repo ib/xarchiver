@@ -222,7 +222,7 @@ static void xa_check_available_archivers ()
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = TRUE;
+		archiver[type].is_compressor = xa_lha_check_program(path);
 		archiver[type].type = g_slist_append(archiver[type].type, "lha");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzh");
 

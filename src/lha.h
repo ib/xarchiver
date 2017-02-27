@@ -25,6 +25,7 @@
 
 void xa_lha_add(XArchive *, GString *, gchar *);
 void xa_lha_ask(XArchive *);
+gboolean xa_lha_check_program(gchar *);
 void xa_lha_delete(XArchive *, GSList *);
 gboolean xa_lha_extract(XArchive *, GSList *);
 void xa_lha_open(XArchive *);

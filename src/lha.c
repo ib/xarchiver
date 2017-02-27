@@ -26,16 +26,29 @@
 
 static gboolean data_line, last_line;
 
+gboolean xa_lha_check_program (gchar *path)
+{
+	gchar *stdout, *stderr;
+	gboolean full_lha;
+
+	g_spawn_command_line_sync(path, &stdout, &stderr, NULL, NULL);
+	full_lha = (g_ascii_strncasecmp("Lhasa ", stdout, 6) != 0);
+	g_free(stderr);
+	g_free(stdout);
+
+	return full_lha;
+}
+
 void xa_lha_ask (XArchive *archive)
 {
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = TRUE;
-	archive->can_delete = TRUE;
+	archive->can_add = archiver[archive->type].is_compressor;
+	archive->can_delete = archiver[archive->type].is_compressor;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
-	archive->can_update = TRUE;
-	archive->can_move = TRUE;
+	archive->can_update = archiver[archive->type].is_compressor;
+	archive->can_move = archiver[archive->type].is_compressor;
 }
 
 static void xa_lha_parse_output (gchar *line, XArchive *archive)
@@ -170,9 +183,11 @@ gboolean xa_lha_extract(XArchive *archive,GSList *files)
 	g_slist_foreach(_files,(GFunc)g_free,NULL);
 	g_slist_free(_files);
 
-	command = g_strconcat(archiver[archive->type].program[0], " ", archive->full_path ? "x" : "xi",
-									archive->overwrite ? "f" : "", "w=",
-									archive->extraction_path," ",archive->escaped_path,names->str,NULL);
+	command = g_strconcat(archiver[archive->type].program[0],
+	                      archive->full_path ? " x" : " xi",
+	                      archive->overwrite ? "f" : "",
+	                      "w=", archive->extraction_path, " ",
+	                      archive->escaped_path, names->str, NULL);
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 
@@ -190,13 +205,12 @@ void xa_lha_add (XArchive *archive,GString *files,gchar *compression_string)
 
 	if (compression_string == NULL)
 		compression_string = "5";
+
 	command = g_strconcat(archiver[archive->type].program[0],
-							archive->add_move ? " m" : " a",
-							archive->update ? "u" : "",
-							"o",compression_string,
-							" ",
-							archive->escaped_path,
-							files->str,NULL);
+	                      archive->update ? " u" : " a",
+	                      archive->add_move ? "d" : "",
+	                      "o", compression_string, " ",
+	                      archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
