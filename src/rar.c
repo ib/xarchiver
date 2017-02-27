@@ -510,12 +510,12 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 	if (rar_version == 5)
 	{
 		if (archive->version == 5)
-			version_switch = g_strdup("-ma5 ");
+			version_switch = "-ma5 ";
 		else
-			version_switch = g_strdup("-ma4 ");
+			version_switch = "-ma4 ";
 	}
 	else
-		version_switch = g_strdup("");
+		version_switch = "";
 
 	if (compression_string == NULL)
 		compression_string = "3";
@@ -542,7 +542,6 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 									archive->escaped_path,
 									files->str,NULL);
 
-	g_free(version_switch);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
