@@ -40,6 +40,14 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_move = archiver[archive->type].is_compressor;
 }
 
+static gchar *xa_arj_passwd_str (XArchive *archive)
+{
+	if (archive->passwd && archiver[archive->type].is_compressor)
+		return g_strconcat(" -g", archive->passwd, NULL);
+	else
+		return g_strdup("");
+}
+
 static void xa_arj_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
@@ -160,14 +168,13 @@ void xa_arj_open (XArchive *archive)
 
 void xa_arj_test (XArchive *archive)
 {
-	gchar *command = NULL;
+	gchar *passwd_str, *command;
 	GSList *list = NULL;
 
 	archive->status = XA_ARCHIVESTATUS_TEST;
-	if (archive->passwd != NULL)
-		command = g_strconcat(archiver[archive->type].program[0], " t -g", archive->passwd, " -i ", archive->escaped_path, NULL);
-	else
-		command = g_strconcat(archiver[archive->type].program[0], archiver[archive->type].is_compressor ? " t -i -y - " : " t ", archive->escaped_path, NULL);
+	passwd_str = xa_arj_passwd_str(archive);
+	command = g_strconcat(archiver[archive->type].program[0], " t", passwd_str, archiver[archive->type].is_compressor ?  " -i -y " : " ", archive->escaped_path, NULL);
+	g_free(passwd_str);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
@@ -191,29 +198,25 @@ gboolean xa_arj_extract(XArchive *archive,GSList *files)
 	g_slist_foreach(_files,(GFunc)g_free,NULL);
 	g_slist_free(_files);
 
-	if (archive->passwd != NULL)
-		command = g_strconcat(archiver[archive->type].program[0], " ", archive->full_path ? "x" : "e",
-								" -g",archive->passwd,
-								archive->overwrite ? "" : " -n" ,
-								" -i " ,
-								archive->freshen ? "-f " : "" ,
-								archive->update ? "-u " : " ",
-								"-y ",
-								archive->escaped_path , " ",archive->extraction_path,names->str,NULL);
-	else
+	if (archiver[archive->type].is_compressor)
 	{
-		if (archiver[archive->type].is_compressor)
-			command = g_strconcat(archiver[archive->type].program[0], archive->full_path ? "x" : "e",
-								archive->overwrite ? "" : " -n" ,
-								" -i " , archive->freshen ? "-f " : "",
-								archive->update ? "-u " : " ",
-								"-y ",
-								archive->escaped_path , " ",archive->extraction_path,names->str,NULL);
-		else
-			command = g_strconcat("sh -c \"cd ", archive->extraction_path,
-								" && ", archiver[archive->type].program[0], " ", archive->full_path ? "x" : "e",
-								" ", archive->escaped_path, "\"", NULL);
+		gchar *passwd_str = xa_arj_passwd_str(archive);
+		command = g_strconcat(archiver[archive->type].program[0],
+		                      archive->full_path ? " x" : " e",
+		                      archive->overwrite ? "" : " -n",
+		                      archive->freshen ? " -f" : "",
+		                      archive->update ? " -u" : "",
+		                      passwd_str, " -i -y ",
+		                      archive->escaped_path, " ",
+		                      archive->extraction_path, names->str, NULL);
+		g_free(passwd_str);
 	}
+	else
+		command = g_strconcat("sh -c \"cd ", archive->extraction_path, " && ",
+		                      archiver[archive->type].program[0],
+		                      archive->full_path ? " x " : " e ",
+		                      archive->escaped_path, "\"", NULL);
+
 	g_string_free(names,TRUE);
 	list = g_slist_append(list,command);
 
@@ -223,30 +226,24 @@ gboolean xa_arj_extract(XArchive *archive,GSList *files)
 
 void xa_arj_add (XArchive *archive,GString *files,gchar *compression_string)
 {
+	gchar *passwd_str, *command;
 	GSList *list = NULL;
-	gchar *command = NULL;
 
 	if (archive->location_entry_path != NULL)
 		archive->working_dir = g_strdup(archive->tmp);
 
 	if (compression_string == NULL)
 		compression_string = "1";
-	if (archive->passwd != NULL)
-		command = g_strconcat(archiver[archive->type].program[0], " a ",
-								archive->update ? "-u " : "",
-								archive->freshen ? "-f " : "",
-								archive->add_move ? "-d1 " : "",
-								"-g" , archive->passwd , " -i ",
-								"-m",compression_string," ",
-								archive->escaped_path,files->str,NULL);
-	else
-		command = g_strconcat(archiver[archive->type].program[0], " a ",
-								archive->update ? "-u " : "",
-								archive->freshen ? "-f " : "",
-								archive->add_move ? "-d1 " : "",
-								" -i ",
-								"-m",compression_string," ",
-								archive->escaped_path,files->str,NULL);
+
+	passwd_str = xa_arj_passwd_str(archive);
+	command = g_strconcat(archiver[archive->type].program[0],
+	                      archive->update ? " u" : " a",
+	                      archive->freshen ? " -f" : "",
+	                      archive->add_move ? " -d1" : "",
+	                      " -m", compression_string,
+	                      passwd_str, " -i -y ",
+	                      archive->escaped_path, files->str, NULL);
+	g_free(passwd_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
@@ -272,7 +269,7 @@ void xa_arj_delete (XArchive *archive,GSList *names)
 	g_slist_foreach(names,(GFunc)g_free,NULL);
 	g_slist_free(names);
 
-	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->escaped_path, files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d -i -y ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
