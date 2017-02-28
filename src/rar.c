@@ -501,7 +501,7 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_rar_add (XArchive *archive,GString *files,gchar *compression)
 {
 	gchar *passwd_str, *command, *version_switch;
 	GSList *list = NULL;
@@ -520,8 +520,8 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 	else
 		version_switch = "";
 
-	if (compression_string == NULL)
-		compression_string = "3";
+	if (!compression)
+		compression = "3";
 
 	passwd_str = xa_rar_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
@@ -529,7 +529,7 @@ void xa_rar_add (XArchive *archive,GString *files,gchar *compression_string)
 	                      archive->freshen ? " -f" : "",
 	                      archive->add_solid ? " -s" : "",
 	                      archive->add_move ? " -df" : "",
-	                      " -m", compression_string,
+	                      " -m", compression,
 	                      passwd_str, " -idp -y ",
 	                      archive->escaped_path, files->str, NULL);
 	g_free(passwd_str);

@@ -199,7 +199,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 	}
 }
 
-void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_tar_add (XArchive *archive,GString *files,gchar *compression)
 {
 	GSList *list = NULL;
 	gchar *command = NULL;
@@ -297,9 +297,9 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 		break;
 
 		case XARCHIVETYPE_XZ:
-			if (compression_string == NULL)
-				compression_string = "5";
-			command = g_strconcat("sh -c \"xz"," -",compression_string," -c ",files->str,"> ",archive->escaped_path,"\"",NULL);
+			if (!compression)
+				compression = "5";
+			command = g_strconcat("sh -c \"xz", " -", compression, " -c ", files->str, "> ", archive->escaped_path, "\"", NULL);
 		break;
 
 		default:

@@ -253,7 +253,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_zip_add (XArchive *archive,GString *files,gchar *compression)
 {
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
@@ -261,15 +261,15 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	if (archive->location_entry_path != NULL)
 		archive->working_dir = g_strdup(archive->tmp);
 
-	if (compression_string == NULL)
-		compression_string = "6";
+	if (!compression)
+		compression = "6";
 
 	passwd_str = xa_zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[1],
 	                      archive->freshen ? " -f" : "",
 	                      archive->update ? " -u" : "",
 	                      archive->add_move ? " -m" : "",
-	                      " -", compression_string,
+	                      " -", compression,
 	                      passwd_str, " ",
 	                      archive->escaped_path, files->str, NULL);
 	g_free(passwd_str);

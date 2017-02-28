@@ -224,7 +224,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_arj_add (XArchive *archive,GString *files,gchar *compression_string)
+void xa_arj_add (XArchive *archive,GString *files,gchar *compression)
 {
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
@@ -232,15 +232,15 @@ void xa_arj_add (XArchive *archive,GString *files,gchar *compression_string)
 	if (archive->location_entry_path != NULL)
 		archive->working_dir = g_strdup(archive->tmp);
 
-	if (compression_string == NULL)
-		compression_string = "1";
+	if (!compression)
+		compression = "1";
 
 	passwd_str = xa_arj_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->update ? " u" : " a",
 	                      archive->freshen ? " -f" : "",
 	                      archive->add_move ? " -d1" : "",
-	                      " -m", compression_string,
+	                      " -m", compression,
 	                      passwd_str, " -i -y ",
 	                      archive->escaped_path, files->str, NULL);
 	g_free(passwd_str);

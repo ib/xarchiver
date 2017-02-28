@@ -360,7 +360,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 {
 	gchar *temp_password = NULL;
-	gchar *compression_string = NULL;
+	gchar *compression = NULL;
 	gboolean done = FALSE;
 	GSList *list = NULL;
 
@@ -421,7 +421,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (gtk_widget_is_sensitive(add_dialog->compression_scale))
 			{
 				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT(compression_value));
-				compression_string = g_strdup_printf("%d",archive->compression_level);
+				compression = g_strdup_printf("%d", archive->compression_level);
 			}
 			gtk_widget_hide(add_dialog->dialog1);
 
@@ -434,15 +434,14 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				}
 				archive->working_dir = g_path_get_dirname(list->data);
 			}
-			xa_execute_add_commands (archive,list,compression_string);
-			if (compression_string != NULL)
-				g_free (compression_string);
+			xa_execute_add_commands(archive, list, compression);
+			g_free(compression);
 		}
 	}
 	gtk_widget_hide (add_dialog->dialog1);
 }
 
-void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_string)
+void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compression)
 {
 	gchar *new_path = NULL;
 	gchar *esc,*esc2,*basedir;
@@ -502,5 +501,5 @@ void xa_execute_add_commands (XArchive *archive,GSList *list,gchar *compression_
  	xa_cat_filenames(archive,dirlist,files);
 	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
 	g_slist_free(dirlist);
-	(*archive->add) (archive,files,compression_string);
+	(*archive->add)(archive, files, compression);
 }
