@@ -242,51 +242,42 @@ gchar *xa_escape_filename (gchar *filename,gchar *meta_chars)
 	return xa_escape_common_chars (filename,meta_chars,'\\',0);
 }
 
-void xa_cat_filenames (XArchive *archive,GSList *list,GString *data)
+GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 {
-	gchar *basename, *name, *e_filename;
-	GSList *slist = list;
+	GSList *list = in, *out = NULL;
+	gchar *basename, *name;
 
-	while (slist)
+	while (list)
 	{
-		if (archive->location_entry_path != NULL)
+		if (archive->location_entry_path)
 		{
-			if (archive->full_path == 0)
+			if (archive->full_path)
 			{
-				basename = xa_strip_current_working_dir_from_path(archive->working_dir ? archive->working_dir : archive->tmp,slist->data);
-				name = g_strconcat(archive->location_entry_path,basename,NULL);
-				e_filename = xa_escape_filename(name,"$'`\"\\!?* ()[]&|:;<>#");
-				g_string_prepend (data,e_filename);
-				g_string_prepend_c (data,' ');
-				g_free(name);
+				name = g_strconcat(archive->location_entry_path, list->data, NULL);
+				out = g_slist_append(out, name);
 			}
 			else
 			{
-				name = g_strconcat(archive->location_entry_path,slist->data,NULL);
-				e_filename = xa_escape_filename(name,"$'`\"\\!?* ()[]&|:;<>#");
-				g_string_prepend (data,e_filename);
-				g_string_prepend_c (data,' ');
-				g_free(name);
+				basename = xa_strip_current_working_dir_from_path(archive->working_dir ? archive->working_dir : archive->tmp, list->data);
+				name = g_strconcat(archive->location_entry_path, basename, NULL);
+				out = g_slist_append(out, name);
 			}
 		}
 		else
 		{
-			if (archive->full_path == 0)
-			{
-				basename = xa_strip_current_working_dir_from_path(archive->working_dir ? archive->working_dir : archive->tmp,slist->data);
-				e_filename = xa_escape_filename(basename,"$'`\"\\!?* ()[]&|:;<>#");
-				g_string_prepend (data,e_filename);
-				g_string_prepend_c (data,' ');
-			}
+			if (archive->full_path)
+				out = g_slist_append(out, g_strdup(list->data));
 			else
 			{
-				e_filename = xa_escape_filename(slist->data,"$'`\"\\!?* ()[]&|:;<>#");
-				g_string_prepend (data,e_filename);
-				g_string_prepend_c (data,' ');
+				basename = xa_strip_current_working_dir_from_path(archive->working_dir ? archive->working_dir : archive->tmp, list->data);
+				out = g_slist_append(out, g_strdup(basename));
 			}
 		}
-		slist = slist->next;
+
+		list = list->next;
 	}
+
+	return out;
 }
 
 GSList *xa_slist_copy(GSList *list)

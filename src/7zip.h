@@ -22,7 +22,7 @@
 #include <glib.h>
 #include "archive.h"
 
-void xa_7zip_add(XArchive *, GString *, gchar *);
+void xa_7zip_add(XArchive *, GSList *, gchar *);
 void xa_7zip_ask(XArchive *);
 void xa_7zip_delete(XArchive *, GSList *);
 gboolean xa_7zip_extract(XArchive *, GSList *);

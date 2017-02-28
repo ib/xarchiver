@@ -22,7 +22,7 @@
 #include <glib.h>
 #include "archive.h"
 
-void xa_rar_add(XArchive *, GString *, gchar *);
+void xa_rar_add(XArchive *, GSList *, gchar *);
 void xa_rar_ask(XArchive *);
 int xa_rar_check_version(gchar *);
 void xa_rar_delete(XArchive *, GSList *);

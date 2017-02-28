@@ -451,7 +451,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 	GSList *slist = NULL;
 	GSList *cmd_list = NULL;
 	GSList *dirlist = NULL;
-	GString *files = g_string_new("");
+	GSList *files;
 
 	if (xa_main_window)
 	{
@@ -498,7 +498,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse,archive->type);
 		list = list->next;
 	}
- 	xa_cat_filenames(archive,dirlist,files);
+	files = xa_collect_filenames(archive, dirlist);
 	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
 	g_slist_free(dirlist);
 	(*archive->add)(archive, files, compression);

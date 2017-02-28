@@ -224,8 +224,9 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_arj_add (XArchive *archive,GString *files,gchar *compression)
+void xa_arj_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
+	GString *files;
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
 
@@ -235,6 +236,7 @@ void xa_arj_add (XArchive *archive,GString *files,gchar *compression)
 	if (!compression)
 		compression = "1";
 
+	files = xa_quote_filenames(file_list, "*?[]");
 	passwd_str = xa_arj_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->update ? " u" : " a",

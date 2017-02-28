@@ -198,8 +198,9 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	return result;
 }
 
-void xa_7zip_add (XArchive *archive,GString *files,gchar *compression)
+void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
+	GString *files;
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
 
@@ -209,6 +210,7 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression)
 	if (!compression)
 		compression = "5";
 
+	files = xa_quote_filenames(file_list, NULL);
 	passwd_str = xa_7zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->update ? " u" : " a",

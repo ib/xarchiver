@@ -25,7 +25,7 @@
 
 gboolean isTar(FILE *);
 gboolean is_tar_compressed(gint);
-void xa_tar_add(XArchive *, GString *, gchar *);
+void xa_tar_add(XArchive *, GSList *, gchar *);
 void xa_tar_ask(XArchive *);
 void xa_tar_delete(XArchive *, GSList *);
 gboolean xa_tar_extract(XArchive *, GSList *);

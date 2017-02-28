@@ -23,7 +23,7 @@
 #include <glib.h>
 #include "archive.h"
 
-void xa_lha_add(XArchive *, GString *, gchar *);
+void xa_lha_add(XArchive *, GSList *, gchar *);
 void xa_lha_ask(XArchive *);
 gboolean xa_lha_check_program(gchar *);
 void xa_lha_delete(XArchive *, GSList *);

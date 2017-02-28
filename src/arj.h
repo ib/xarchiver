@@ -22,7 +22,7 @@
 #include <glib.h>
 #include "archive.h"
 
-void xa_arj_add(XArchive *, GString *, gchar *);
+void xa_arj_add(XArchive *, GSList *, gchar *);
 void xa_arj_ask(XArchive *);
 void xa_arj_delete(XArchive *, GSList *);
 gboolean xa_arj_extract(XArchive *, GSList *);

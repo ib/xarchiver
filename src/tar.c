@@ -199,13 +199,16 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 	}
 }
 
-void xa_tar_add (XArchive *archive,GString *files,gchar *compression)
+void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
+	GString *files;
 	GSList *list = NULL;
 	gchar *command = NULL;
 
 	if (archive->location_entry_path != NULL)
 		archive->working_dir = g_strdup(archive->tmp);
+
+	files = xa_quote_filenames(file_list, NULL);
 
 	switch (archive->type)
 	{

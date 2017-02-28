@@ -89,7 +89,7 @@ typedef void (*open_func)(XArchive *);
 typedef void (*parse_output_func)(gchar *, XArchive *);
 typedef void (*test_func)(XArchive *);
 typedef gboolean (*extract_func)(XArchive *, GSList *);
-typedef void (*add_func)(XArchive *, GString *, gchar *);
+typedef void (*add_func)(XArchive *, GSList *, gchar *);
 typedef void (*delete_func)(XArchive *, GSList *);
 
 struct _XArchive
