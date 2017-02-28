@@ -165,29 +165,29 @@ void xa_7zip_test (XArchive *archive)
 	xa_run_command (archive,list);
 }
 
+/*
+ * Note: 7zip's wildcard handling (even with switch -spd) seems buggy.
+ * Everything is okay as long as no file name in the working directory
+ * matches. If there is a wildcard match, it asks "would you like to replace
+ * the existing file" and fails, i.e. extraction of files named '?' or '*'
+ * always fails (even in an empty directory) and extraction of a file named
+ * 't*' fails if there is already a file name 'test', for example, in the
+ * extraction path (while extraction would succeed otherwise).
+ */
+
 gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 {
-	gchar *passwd_str, *command,*e_filename = NULL;
-	GSList *list = NULL,*_files = NULL;
-	GString *files = g_string_new("");
+	GString *files;
+	gchar *passwd_str, *command;
+	GSList *list = NULL;
 	gboolean result = FALSE;
 
-	_files = file_list;
-	while (_files)
-	{
-		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (files,e_filename);
-		g_string_prepend_c (files,' ');
-		_files = _files->next;
-	}
-	g_slist_foreach(_files,(GFunc)g_free,NULL);
-	g_slist_free(_files);
-
+	files = xa_quote_filenames(file_list, NULL);
 	passwd_str = xa_7zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->full_path ? " x" : " e",
 	                      archive->overwrite ? " -aoa" : " -aos",
-	                      passwd_str, " -bd -y ",
+	                      passwd_str, " -bd -spd -y ",
 	                      archive->escaped_path, files->str,
 	                      " -o", archive->extraction_path, NULL);
 	g_free(passwd_str);
@@ -216,7 +216,7 @@ void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->update ? " u" : " a",
 	                      " -ms=", archive->add_solid ? "on" : "off",
 	                      " -mx=", compression,
-	                      passwd_str, " -bd -y ",
+	                      passwd_str, " -bd -spd -y ",
 	                      archive->escaped_path, files->str, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
@@ -228,22 +228,13 @@ void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 void xa_7zip_delete (XArchive *archive, GSList *file_list)
 {
-	gchar *passwd_str, *command, *e_filename = NULL;
-	GSList *list = NULL,*_names;
-	GString *files = g_string_new("");
+	GString *files;
+	gchar *passwd_str, *command;
+	GSList *list = NULL;
 
-	_names = file_list;
-	while (_names)
-	{
-		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (files,e_filename);
-		g_string_prepend_c (files,' ');
-		_names = _names->next;
-	}
-	g_slist_foreach(file_list,(GFunc)g_free,NULL);
-	g_slist_free(file_list);
+	files = xa_quote_filenames(file_list, NULL);
 	passwd_str = xa_7zip_passwd_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " d", passwd_str, " -bd -y ", archive->escaped_path, files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d", passwd_str, " -bd -spd -y ", archive->escaped_path, files->str, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
