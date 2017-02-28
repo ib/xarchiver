@@ -336,3 +336,40 @@ void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse,gint 
 	}
 	closedir(dir);
 }
+
+GString *xa_quote_filenames (GSList *file_list, const gchar *escape)
+{
+	GString *files;
+	GSList *list;
+
+	files = g_string_new("");
+	list= file_list;
+
+	while (list)
+	{
+		gchar *shellname, *escaped = NULL;
+
+		if (escape)
+			escaped = xa_escape_bad_chars(list->data, "\\");
+
+		shellname = g_shell_quote(escaped ? escaped : list->data);
+
+		g_free(escaped);
+
+		if (escape)
+			escaped = xa_escape_bad_chars(shellname, escape);
+
+		g_string_prepend(files, escaped ? escaped : shellname);
+		g_string_prepend_c(files, ' ');
+
+		g_free(escaped);
+		g_free(shellname);
+
+		list = list->next;
+	}
+
+	g_slist_foreach(file_list, (GFunc) g_free, NULL);
+	g_slist_free(file_list);
+
+	return files;
+}
