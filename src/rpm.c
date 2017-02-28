@@ -265,32 +265,32 @@ void xa_rpm_open (XArchive *archive)
 	g_free(command);
 }
 
-gboolean xa_rpm_extract(XArchive *archive,GSList *files)
+gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 {
 	gchar *command = NULL,*e_filename = NULL;
 	GSList *list = NULL,*_files = NULL;
-	GString *names = g_string_new("");
+	GString *files = g_string_new("");
 	gboolean result = FALSE;
 
 	if (archive->tmp == NULL)
 		if (xa_rpm2cpio(archive) <= 0)
 			return FALSE;
 
-	_files = files;
+	_files = file_list;
 	while (_files)
 	{
 		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (names,e_filename);
-		g_string_prepend_c (names,' ');
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
 		_files = _files->next;
 	}
-	g_slist_foreach(files,(GFunc)g_free,NULL);
-	g_slist_free(files);
+	g_slist_foreach(file_list,(GFunc)g_free,NULL);
+	g_slist_free(file_list);
 
 	chdir (archive->extraction_path);
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", names->str, " < ", archive->tmp, "/xa-tmp.cpio\"", NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", files->str, " < ", archive->tmp, "/xa-tmp.cpio\"", NULL);
 
-	g_string_free(names,TRUE);
+	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 	result = xa_run_command (archive,list);
 	return result;

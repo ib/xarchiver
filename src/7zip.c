@@ -165,19 +165,19 @@ void xa_7zip_test (XArchive *archive)
 	xa_run_command (archive,list);
 }
 
-gboolean xa_7zip_extract(XArchive *archive,GSList *files)
+gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 {
 	gchar *passwd_str, *command,*e_filename = NULL;
 	GSList *list = NULL,*_files = NULL;
-	GString *names = g_string_new("");
+	GString *files = g_string_new("");
 	gboolean result = FALSE;
 
-	_files = files;
+	_files = file_list;
 	while (_files)
 	{
 		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (names,e_filename);
-		g_string_prepend_c (names,' ');
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
 		_files = _files->next;
 	}
 	g_slist_foreach(_files,(GFunc)g_free,NULL);
@@ -188,10 +188,10 @@ gboolean xa_7zip_extract(XArchive *archive,GSList *files)
 	                      archive->full_path ? " x" : " e",
 	                      archive->overwrite ? " -aoa" : " -aos",
 	                      passwd_str, " -bd -y ",
-	                      archive->escaped_path, names->str,
+	                      archive->escaped_path, files->str,
 	                      " -o", archive->extraction_path, NULL);
 	g_free(passwd_str);
-	g_string_free(names,TRUE);
+	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
 	result = xa_run_command (archive,list);
@@ -224,13 +224,13 @@ void xa_7zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_reload_archive_content(archive);
 }
 
-void xa_7zip_delete (XArchive *archive,GSList *names)
+void xa_7zip_delete (XArchive *archive, GSList *file_list)
 {
 	gchar *passwd_str, *command, *e_filename = NULL;
 	GSList *list = NULL,*_names;
 	GString *files = g_string_new("");
 
-	_names = names;
+	_names = file_list;
 	while (_names)
 	{
 		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
@@ -238,8 +238,8 @@ void xa_7zip_delete (XArchive *archive,GSList *names)
 		g_string_prepend_c (files,' ');
 		_names = _names->next;
 	}
-	g_slist_foreach(names,(GFunc)g_free,NULL);
-	g_slist_free(names);
+	g_slist_foreach(file_list,(GFunc)g_free,NULL);
+	g_slist_free(file_list);
 	passwd_str = xa_7zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0], " d", passwd_str, " -bd -y ", archive->escaped_path, files->str, NULL);
 	g_free(passwd_str);

@@ -228,14 +228,14 @@ static void xa_zip_prepend_backslash (GSList *names, GString *files)
 	g_slist_free(names);
 }
 
-gboolean xa_zip_extract(XArchive *archive,GSList *files)
+gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 {
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
-	GString *names = g_string_new("");
+	GString *files = g_string_new("");
 	gboolean result = FALSE;
 
-	xa_zip_prepend_backslash(files,names);
+	xa_zip_prepend_backslash(file_list,files);
 
 	passwd_str = xa_zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
@@ -244,10 +244,10 @@ gboolean xa_zip_extract(XArchive *archive,GSList *files)
 	                      archive->freshen ? " -f" : "",
 	                      archive->update ? " -u" : "",
 	                      passwd_str, " ",
-	                      archive->escaped_path, names->str,
+	                      archive->escaped_path, files->str,
 	                      " -d ", archive->extraction_path, NULL);
 	g_free(passwd_str);
-	g_string_free(names,TRUE);
+	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 	result = xa_run_command (archive,list);
 	return result;
@@ -280,13 +280,13 @@ void xa_zip_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_reload_archive_content(archive);
 }
 
-void xa_zip_delete (XArchive *archive,GSList *names)
+void xa_zip_delete (XArchive *archive, GSList *file_list)
 {
 	gchar *command = NULL;
 	GSList *list = NULL;
 	GString *files = g_string_new("");
 
-	xa_zip_prepend_backslash(names,files);
+	xa_zip_prepend_backslash(file_list,files);
 	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);

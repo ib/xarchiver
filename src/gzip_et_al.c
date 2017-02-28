@@ -329,7 +329,7 @@ void xa_gzip_et_al_test (XArchive *archive)
 	xa_run_command (archive,list);
 }
 
-gboolean xa_gzip_et_al_extract (XArchive *archive,GSList *dummy)
+gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 {
 	GSList *list = NULL;
 	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;

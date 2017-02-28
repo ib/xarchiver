@@ -180,19 +180,19 @@ void xa_arj_test (XArchive *archive)
 	xa_run_command (archive,list);
 }
 
-gboolean xa_arj_extract(XArchive *archive,GSList *files)
+gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 {
 	gchar *command,*e_filename = NULL;
 	GSList *list	= NULL,*_files = NULL;
-	GString *names  = g_string_new("");
+	GString *files  = g_string_new("");
 	gboolean result = FALSE;
 
-	_files = files;
+	_files = file_list;
 	while (_files)
 	{
 		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (names,e_filename);
-		g_string_prepend_c (names,' ');
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
 		_files = _files->next;
 	}
 	g_slist_foreach(_files,(GFunc)g_free,NULL);
@@ -208,7 +208,7 @@ gboolean xa_arj_extract(XArchive *archive,GSList *files)
 		                      archive->update ? " -u" : "",
 		                      passwd_str, " -i -y ",
 		                      archive->escaped_path, " ",
-		                      archive->extraction_path, names->str, NULL);
+		                      archive->extraction_path, files->str, NULL);
 		g_free(passwd_str);
 	}
 	else
@@ -217,7 +217,7 @@ gboolean xa_arj_extract(XArchive *archive,GSList *files)
 		                      archive->full_path ? " x " : " e ",
 		                      archive->escaped_path, "\"", NULL);
 
-	g_string_free(names,TRUE);
+	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
 	result = xa_run_command (archive,list);
@@ -251,14 +251,14 @@ void xa_arj_add (XArchive *archive,GString *files,gchar *compression_string)
 	xa_reload_archive_content(archive);
 }
 
-void xa_arj_delete (XArchive *archive,GSList *names)
+void xa_arj_delete (XArchive *archive, GSList *file_list)
 {
 	gchar *command,*e_filename = NULL;
 	GSList *list = NULL;
 	GSList *_names;
 	GString *files = g_string_new("");
 
-	_names = names;
+	_names = file_list;
 	while (_names)
 	{
 		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
@@ -266,8 +266,8 @@ void xa_arj_delete (XArchive *archive,GSList *names)
 		g_string_prepend_c (files,' ');
 		_names = _names->next;
 	}
-	g_slist_foreach(names,(GFunc)g_free,NULL);
-	g_slist_free(names);
+	g_slist_foreach(file_list,(GFunc)g_free,NULL);
+	g_slist_free(file_list);
 
 	command = g_strconcat(archiver[archive->type].program[0], " d -i -y ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);

@@ -170,28 +170,28 @@ void xa_tar_parse_output (gchar *line, XArchive *archive)
 	g_free(filename);
 }
 
-void xa_tar_delete (XArchive *archive,GSList *files)
+void xa_tar_delete (XArchive *archive, GSList *file_list)
 {
 	gchar *e_filename,*command = NULL;
 	GSList *_files,*list = NULL;
-	GString *names = g_string_new("");
+	GString *files = g_string_new("");
 
-	_files = files;
+	_files = file_list;
 	while (_files)
 	{
 		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (names,e_filename);
-		g_string_prepend_c (names,' ');
+		g_string_prepend (files,e_filename);
+		g_string_prepend_c (files,' ');
 		_files = _files->next;
 	}
-	g_slist_foreach(files,(GFunc)g_free,NULL);
-	g_slist_free(files);
+	g_slist_foreach(file_list,(GFunc)g_free,NULL);
+	g_slist_free(file_list);
 
 	if (is_tar_compressed(archive->type))
-		xa_add_delete_bzip2_gzip_lzma_compressed_tar(names,archive,0);
+		xa_add_delete_bzip2_gzip_lzma_compressed_tar(files,archive,0);
 	else
 	{
-		command = g_strconcat(tar, " --delete -vf ", archive->escaped_path, names->str, NULL);
+		command = g_strconcat(tar, " --delete -vf ", archive->escaped_path, files->str, NULL);
 		list = g_slist_append(list,command);
 		xa_run_command (archive,list);
 		if (archive->status == XA_ARCHIVESTATUS_DELETE)
@@ -315,23 +315,23 @@ void xa_tar_add (XArchive *archive,GString *files,gchar *compression_string)
 	}
 }
 
-gboolean xa_tar_extract(XArchive *archive,GSList *files)
+gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 {
 	gchar *command,*e_filename = NULL;
 	GSList *list = NULL,*_files = NULL;
-	GString *names = g_string_new("");
+	GString *files = g_string_new("");
 	gboolean result = FALSE;
 
-	_files = files;
+	_files = file_list;
 	while (_files)
 	{
 		e_filename = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend_c (names,' ');
-		g_string_prepend (names,e_filename);
+		g_string_prepend_c (files,' ');
+		g_string_prepend (files,e_filename);
 		_files = _files->next;
 	}
-	g_slist_foreach(files,(GFunc)g_free,NULL);
-	g_slist_free(files);
+	g_slist_foreach(file_list,(GFunc)g_free,NULL);
+	g_slist_free(file_list);
 
 	switch (archive->type)
 	{
@@ -345,11 +345,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ", archive->extraction_path, names->str, NULL);
+								" -C ", archive->extraction_path, files->str, NULL);
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar -xvf ",archive,names->str);
+			result = xa_extract_tar_without_directories ( "tar -xvf ",archive,files->str);
 			command = NULL;
 		}
 		break;
@@ -364,11 +364,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ", archive->extraction_path, names->str, NULL);
+								" -C ", archive->extraction_path, files->str, NULL);
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar -xjvf ",archive,names->str);
+			result = xa_extract_tar_without_directories ( "tar -xjvf ",archive,files->str);
 			command = NULL;
 		}
 		break;
@@ -383,11 +383,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ", archive->extraction_path, names->str, NULL);
+								" -C ", archive->extraction_path, files->str, NULL);
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar -xzvf ",archive,names->str);
+			result = xa_extract_tar_without_directories ( "tar -xzvf ",archive,files->str);
 			command = NULL;
 		}
 		break;
@@ -402,11 +402,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ", archive->extraction_path, names->str, NULL);
+								" -C ", archive->extraction_path, files->str, NULL);
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,names->str);
+			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,files->str);
 			command = NULL;
 		}
 		break;
@@ -421,11 +421,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ", archive->extraction_path, names->str, NULL);
+								" -C ", archive->extraction_path, files->str, NULL);
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzop -xvf ",archive,names->str);
+			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzop -xvf ",archive,files->str);
 			command = NULL;
 		}
 		break;
@@ -440,11 +440,11 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 								archive->overwrite ? " --overwrite" : " --keep-old-files",
 						#endif
 								archive->touch ? " --touch" : "",
-								" -C ", archive->extraction_path, names->str, NULL);
+								" -C ", archive->extraction_path, files->str, NULL);
 		}
 		else
 		{
-			result = xa_extract_tar_without_directories ( "tar --use-compress-program=xz -xvf ",archive,names->str);
+			result = xa_extract_tar_without_directories ( "tar --use-compress-program=xz -xvf ",archive,files->str);
 			command = NULL;
 		}
 		break;
@@ -467,7 +467,7 @@ gboolean xa_tar_extract(XArchive *archive,GSList *files)
 	}
 	if (command != NULL)
 	{
-		g_string_free(names,TRUE);
+		g_string_free(files,TRUE);
 		list = g_slist_append(list,command);
 		result = xa_run_command (archive,list);
 	}
@@ -549,8 +549,8 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 {
 	gchar *command = NULL, *e_filename = NULL;
 	GSList *list = NULL;
-	GSList *files = NULL;
-	GString *names = g_string_new("");
+	GSList *file_list = NULL;
+	GString *files = g_string_new("");
 	gboolean result;
 
 	result = xa_create_temp_directory (archive);
@@ -559,18 +559,18 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 
 	if (strlen(files_to_extract) == 0)
 	{
-		gtk_tree_model_foreach(GTK_TREE_MODEL(archive->liststore),(GtkTreeModelForeachFunc) xa_concat_filenames,&files);
+		gtk_tree_model_foreach(GTK_TREE_MODEL(archive->liststore),(GtkTreeModelForeachFunc) xa_concat_filenames,&file_list);
 
-		while (files)
+		while (file_list)
 		{
-			e_filename = xa_escape_filename((gchar*)files->data,"$'`\"\\!?* ()[]&|:;<>#");
-			g_string_prepend_c (names,' ');
-			g_string_prepend (names,e_filename);
-			files = files->next;
+			e_filename = xa_escape_filename((gchar*)file_list->data,"$'`\"\\!?* ()[]&|:;<>#");
+			g_string_prepend_c (files,' ');
+			g_string_prepend (files,e_filename);
+			file_list = file_list->next;
 		}
-		g_slist_foreach(files,(GFunc)g_free,NULL);
-		g_slist_free(files);
-		files_to_extract = names->str;
+		g_slist_foreach(file_list,(GFunc)g_free,NULL);
+		g_slist_free(file_list);
+		files_to_extract = files->str;
 	}
 
 	command = g_strconcat (string, archive->escaped_path,
@@ -589,7 +589,7 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 		command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_path,NULL);
 		list = g_slist_append(list,command);
 	}
-	g_string_free(names,TRUE);
+	g_string_free(files,TRUE);
 	return xa_run_command (archive,list);
 }
 
