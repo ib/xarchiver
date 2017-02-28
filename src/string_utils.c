@@ -161,7 +161,7 @@ const char *strcasestr(const char *haystack, const char *needle)
 }
 #endif /* !HAVE_STRCASESTR */
 
-gchar *xa_escape_bad_chars ( gchar *string , gchar *pattern)
+gchar *xa_escape_bad_chars (const gchar *string, const gchar *pattern)
 {
 	return xa_escape_common_chars (string, pattern, '\\', 0);
 }

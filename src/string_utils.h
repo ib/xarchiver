@@ -33,7 +33,7 @@ const char *strcasestr(const char *haystack, const char *needle);
 
 gboolean match_patterns(char **, const char *, int);
 void xa_cat_filenames(XArchive *, GSList *, GString *);
-gchar *xa_escape_bad_chars(gchar *, gchar *);
+gchar *xa_escape_bad_chars(const gchar *, const gchar *);
 gchar *xa_escape_filename(gchar *, gchar *);
 void xa_recurse_local_directory(gchar *, GSList **, gboolean, gint);
 gchar *xa_remove_level_from_path(const gchar *);
