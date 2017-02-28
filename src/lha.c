@@ -165,24 +165,18 @@ void xa_lha_test (XArchive *archive)
 	xa_run_command (archive,list);
 }
 
+/*
+ * Note: lha does not seem to be able to handle wildcards in file names.
+ */
+
 gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 {
-	gchar *command,*e_filename = NULL;
-	GSList *list = NULL,*_files = NULL;
-	GString *files = g_string_new("");
+	GString *files;
+	gchar *command;
+	GSList *list = NULL;
 	gboolean result = FALSE;
 
-	_files = file_list;
-	while (_files)
-	{
-		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (files,e_filename);
-		g_string_prepend_c (files,' ');
-		_files = _files->next;
-	}
-	g_slist_foreach(_files,(GFunc)g_free,NULL);
-	g_slist_free(_files);
-
+	files = xa_quote_filenames(file_list, NULL);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->full_path ? " x" : " xi",
 	                      archive->overwrite ? "f" : "",
@@ -222,21 +216,11 @@ void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 void xa_lha_delete (XArchive *archive, GSList *file_list)
 {
-	gchar *command,*e_filename = NULL;
-	GSList *list = NULL,*_names;
-	GString *files = g_string_new("");
+	GString *files;
+	gchar *command;
+	GSList *list = NULL;
 
-	_names = file_list;
-	while (_names)
-	{
-		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (files,e_filename);
-		g_string_prepend_c (files,' ');
-		_names = _names->next;
-	}
-	g_slist_foreach(file_list,(GFunc)g_free,NULL);
-	g_slist_free(file_list);
-
+	files = xa_quote_filenames(file_list, NULL);
 	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
