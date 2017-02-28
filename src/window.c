@@ -1034,25 +1034,13 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		return;
 	}
 
-	/* Does the user open an archive from the command line whose archiver is not installed? */
-	gchar *ext = NULL;
-	if (type == XARCHIVETYPE_RAR)
-		ext = "rar";
-	else if (type == XARCHIVETYPE_7ZIP)
-		ext = "7z";
-	else if (type == XARCHIVETYPE_ARJ)
-		ext = "arj";
-	else if (type == XARCHIVETYPE_LHA)
-		ext = "lzh";
-	if (ext != NULL)
+	if (!open[type])
 	{
-		if (!archiver[type].glob)
-		{
-			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,this archive format is not supported:"),_("the proper archiver is not installed!"));
-			g_free (path);
-			return;
-		}
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry,this archive format is not supported:"), _("the proper archiver is not installed!"));
+		g_free(path);
+		return;
 	}
+
 	current_page = xa_get_new_archive_idx();
 	if (current_page == -1)
 	{
