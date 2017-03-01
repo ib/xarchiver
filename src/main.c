@@ -53,8 +53,8 @@ delete_func delete[XARCHIVETYPE_TYPES];
 
 const gchar *locale;
 const gchar *tar;
+gchar *xdg_open;
 gboolean batch_mode;
-gboolean xdg_open;
 gboolean opt_multi_extract;
 
 Add_dialog_data *add_window;
@@ -460,7 +460,7 @@ int main (int argc, char **argv)
 	XArchive *archive = NULL;
 	gboolean no_bzip2_gzip;
 	unsigned short int x;
-	gchar *path, *_current_dir;
+	gchar *_current_dir;
 
 #ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
@@ -505,13 +505,7 @@ int main (int argc, char **argv)
 	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_add_files)
 		batch_mode = TRUE;
 
-	path = g_find_program_in_path("xdg-open");
-
-	if (path)
-	{
-		xdg_open = TRUE;
-		g_free(path);
-	}
+	xdg_open = g_find_program_in_path("xdg-open");
 
 	xa_check_available_archivers();
 	prefs_window   = xa_create_prefs_dialog();
@@ -712,5 +706,8 @@ done:
 			g_slist_free(archiver[x].glob);
 		}
 	}
+
+	g_free(xdg_open);
+
 	return 0;
 }

@@ -107,7 +107,7 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar),TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar),TRUE);
 
-	if (! xdg_open)
+	if (!xdg_open)
 	{
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_web_browser),0);
 		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_editor),0);
@@ -268,7 +268,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_table_set_row_spacings (GTK_TABLE (table2), 1);
 	gtk_table_set_col_spacings (GTK_TABLE (table2), 4);
 
-	if (xdg_open == FALSE)
+	if (!xdg_open)
 	{
 		label6 = gtk_label_new (_("Web browser to use:"));
 		gtk_table_attach (GTK_TABLE (table2), label6, 0, 1, 0, 1,
@@ -347,7 +347,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_widget_set_tooltip_text(prefs_data->allow_sub_dir, _("This option includes the subdirectories when you add files with drag and drop"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_geometry), FALSE);
 
-	if (xdg_open == FALSE)
+	if (!xdg_open)
 	{
 		label5 = gtk_label_new(_("<span color='red' style='italic'>Please install xdg-utils package so that\nXarchiver can recognize more file types.</span>"));
 		gtk_label_set_use_markup (GTK_LABEL (label5), TRUE);
@@ -498,7 +498,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		}
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_toolbar),toolbar);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_sub_dir),g_key_file_get_boolean(xa_key_file,PACKAGE,"allow_sub_dir",NULL));
-		if ( ! xdg_open)
+		if (!xdg_open)
 		{
 			value = g_key_file_get_string(xa_key_file,PACKAGE,"preferred_web_browser",NULL);
 			if (value != NULL)

@@ -344,7 +344,7 @@ static gchar *xa_open_sfx_file_selector ()
 
 static void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
 {
-	if ( !xdg_open)
+	if (!xdg_open)
 	{
 		gchar *browser_path = NULL;
 		browser_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
@@ -359,7 +359,7 @@ static void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer
 			g_free (browser_path);
 	}
 	else
-		xa_launch_external_program("xdg-open",(gchar*)link);
+		xa_launch_external_program(xdg_open, (gchar*) link);
 }
 
 static void xa_rename_cell_edited_canceled (GtkCellRenderer *renderer, gpointer data)
@@ -485,7 +485,7 @@ static void xa_determine_program_to_run (gchar *file)
 {
 	gchar *program = NULL;
 
-	if ( !xdg_open)
+	if (!xdg_open)
 	{
 		if (strstr(file,".html"))
 		{
@@ -506,7 +506,7 @@ static void xa_determine_program_to_run (gchar *file)
 		}
 	}
 	else
-		program = g_strdup("xdg-open");
+		program = g_strdup(xdg_open);
 
 	if (program == NULL)
 	{
