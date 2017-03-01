@@ -626,14 +626,6 @@ int main (int argc, char **argv)
 			}
 		}
 done:
-		for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
-		{
-			g_free(archiver[x].program[0]);
-			g_free(archiver[x].program[1]);
-			g_slist_free(archiver[x].type);
-			g_slist_free(archiver[x].glob);
-		}
-
 		if (pb != NULL)
 		{
 			gtk_widget_destroy(pb->progress_window);
@@ -697,14 +689,14 @@ done:
 		}
 		#endif
 		gtk_main ();
+	}
 
-		for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
-		{
-			g_free(archiver[x].program[0]);
-			g_free(archiver[x].program[1]);
-			g_slist_free(archiver[x].type);
-			g_slist_free(archiver[x].glob);
-		}
+	for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
+	{
+		g_free(archiver[x].program[0]);
+		g_free(archiver[x].program[1]);
+		g_slist_free(archiver[x].type);
+		g_slist_free(archiver[x].glob);
 	}
 
 	g_free(xdg_open);
