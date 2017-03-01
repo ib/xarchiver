@@ -172,20 +172,11 @@ void xa_tar_parse_output (gchar *line, XArchive *archive)
 
 void xa_tar_delete (XArchive *archive, GSList *file_list)
 {
-	gchar *e_filename,*command = NULL;
-	GSList *_files,*list = NULL;
-	GString *files = g_string_new("");
+	GString *files;
+	gchar *command;
+	GSList *list = NULL;
 
-	_files = file_list;
-	while (_files)
-	{
-		e_filename  = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend (files,e_filename);
-		g_string_prepend_c (files,' ');
-		_files = _files->next;
-	}
-	g_slist_foreach(file_list,(GFunc)g_free,NULL);
-	g_slist_free(file_list);
+	files = xa_quote_filenames(file_list, NULL);
 
 	if (is_tar_compressed(archive->type))
 		xa_add_delete_bzip2_gzip_lzma_compressed_tar(files,archive,0);
@@ -318,23 +309,19 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	}
 }
 
+/*
+ * Note: tar lists '\' as '\\' while it extracts '\', i.e.
+ * file names containing this character can't be handled entirely.
+ */
+
 gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 {
-	gchar *command,*e_filename = NULL;
-	GSList *list = NULL,*_files = NULL;
-	GString *files = g_string_new("");
+	GString *files;
+	gchar *command;
+	GSList *list = NULL;
 	gboolean result = FALSE;
 
-	_files = file_list;
-	while (_files)
-	{
-		e_filename = xa_escape_filename((gchar*)_files->data,"$'`\"\\!?* ()[]&|:;<>#");
-		g_string_prepend_c (files,' ');
-		g_string_prepend (files,e_filename);
-		_files = _files->next;
-	}
-	g_slist_foreach(file_list,(GFunc)g_free,NULL);
-	g_slist_free(file_list);
+	files = xa_quote_filenames(file_list, NULL);
 
 	switch (archive->type)
 	{
@@ -468,12 +455,15 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 		default:
 		command = NULL;
 	}
+
 	if (command != NULL)
 	{
-		g_string_free(files,TRUE);
 		list = g_slist_append(list,command);
 		result = xa_run_command (archive,list);
 	}
+
+	g_string_free(files, TRUE);
+
 	return result;
 }
 
@@ -550,10 +540,10 @@ gboolean is_tar_compressed (gint type)
 
 static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, gchar *files_to_extract)
 {
-	gchar *command = NULL, *e_filename = NULL;
+	GString *files = NULL;
+	gchar *command;
 	GSList *list = NULL;
 	GSList *file_list = NULL;
-	GString *files = g_string_new("");
 	gboolean result;
 
 	result = xa_create_temp_directory (archive);
@@ -563,16 +553,7 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 	if (strlen(files_to_extract) == 0)
 	{
 		gtk_tree_model_foreach(GTK_TREE_MODEL(archive->liststore),(GtkTreeModelForeachFunc) xa_concat_filenames,&file_list);
-
-		while (file_list)
-		{
-			e_filename = xa_escape_filename((gchar*)file_list->data,"$'`\"\\!?* ()[]&|:;<>#");
-			g_string_prepend_c (files,' ');
-			g_string_prepend (files,e_filename);
-			file_list = file_list->next;
-		}
-		g_slist_foreach(file_list,(GFunc)g_free,NULL);
-		g_slist_free(file_list);
+		files = xa_quote_filenames(file_list, NULL);
 		files_to_extract = files->str;
 	}
 
@@ -592,7 +573,10 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 		command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_path,NULL);
 		list = g_slist_append(list,command);
 	}
-	g_string_free(files,TRUE);
+
+	if (files)
+		g_string_free(files, TRUE);
+
 	return xa_run_command (archive,list);
 }
 
