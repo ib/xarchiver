@@ -80,6 +80,13 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 			filename = g_strdup(line);
 		else
 			filename = g_strchomp(g_strndup(line, 12));
+
+		if (!*filename)
+		{
+			g_free(filename);
+			filename = g_strdup(" ");   // just a wild guess in order to have an entry
+		}
+
 		archive->nr_of_files++;
 		fname_line = TRUE;
 		if (lfn)
