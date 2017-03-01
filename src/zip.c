@@ -209,34 +209,14 @@ void xa_zip_test (XArchive *archive)
 	xa_run_command (archive,list);
 }
 
-static void xa_zip_prepend_backslash (GSList *names, GString *files)
-{
-	gchar *e_filename,*e_filename2 = NULL;
-	GSList *_names;
-
-	_names = names;
-	while (_names)
-	{
-		e_filename  = xa_escape_filename((gchar*)_names->data,"$'`\"\\!?* ()[]&|:;<>#");
-		e_filename2 = xa_escape_filename(e_filename,"*?[]");
-		g_free(e_filename);
-		g_string_prepend (files,e_filename2);
-		g_string_prepend_c (files,' ');
-		_names = _names->next;
-	}
-	g_slist_foreach(names,(GFunc)g_free,NULL);
-	g_slist_free(names);
-}
-
 gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 {
+	GString *files;
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
-	GString *files = g_string_new("");
 	gboolean result = FALSE;
 
-	xa_zip_prepend_backslash(file_list,files);
-
+	files = xa_quote_filenames(file_list, "*?[]");
 	passwd_str = xa_zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->overwrite ? " -o" : " -n",
@@ -265,7 +245,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	if (!compression)
 		compression = "6";
 
-	files = xa_quote_filenames(file_list, "*?[]");
+	files = xa_quote_filenames(file_list, NULL);   // no escaping for adding!
 	passwd_str = xa_zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[1],
 	                      archive->freshen ? " -f" : "",
@@ -284,11 +264,11 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 void xa_zip_delete (XArchive *archive, GSList *file_list)
 {
+	GString *files;
 	gchar *command = NULL;
 	GSList *list = NULL;
-	GString *files = g_string_new("");
 
-	xa_zip_prepend_backslash(file_list,files);
+	files = xa_quote_filenames(file_list, "*?[]");
 	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
