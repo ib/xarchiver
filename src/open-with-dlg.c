@@ -31,7 +31,7 @@ typedef struct
 	GtkWidget *dialog1;
 	GtkWidget *custom_command_entry;
 	GtkListStore *apps_liststore;
-	gchar *file_list;
+	gchar *files;
 } Open_with_data;
 
 static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection, Open_with_data *data)
@@ -53,7 +53,7 @@ static void xa_open_with_dialog_execute_command (GtkWidget *widget, Open_with_da
 	const char *application;
 
 	application = gtk_entry_get_text(GTK_ENTRY(data->custom_command_entry));
-	xa_launch_external_program((gchar*)application,data->file_list);
+	xa_launch_external_program((gchar*)application,data->files);
 	gtk_widget_destroy(data->dialog1);
 }
 
@@ -261,7 +261,7 @@ void xa_create_open_with_dialog(gchar *filename,gchar *filenames,int nr)
 	gint x = 0;
 
 	data = g_new0(Open_with_data,1);
-	data->file_list = filenames;
+	data->files = filenames;
 	data->dialog1 = gtk_dialog_new ();
 	if (nr == 1)
 		title = _("Open With");
