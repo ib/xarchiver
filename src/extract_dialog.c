@@ -435,10 +435,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 
 	prefs_window->size_changed[0] = TRUE;
 
-	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
-		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Decompress file"));
-	else
-		gtk_window_set_title (GTK_WINDOW (dialog_data->dialog1),_("Extract files"));
+	gtk_window_set_title(GTK_WINDOW(dialog_data->dialog1), _("Extract files"));
 
 	if (archive->type == XARCHIVETYPE_ARJ && !archiver[archive->type].is_compressor)
 	{
