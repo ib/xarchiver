@@ -1673,14 +1673,14 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 		g_object_set (about,
 			"program-name", PACKAGE_NAME,
 			"version",PACKAGE_VERSION,
-			"copyright","Copyright \xC2\xA9 2005-2014 Giuseppe Torelli",
+			"copyright","Copyright \xC2\xA9 " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER,
 			"comments",_("A GTK+ only lightweight archive manager"),
 			"authors",authors,
 			"documenters",documenters,
 			"translator_credits",_("translator-credits"),
 			"logo_icon_name","xarchiver",
 			"website","https://wiki.github.com/ib/xarchiver",
-			"license","Copyright \xC2\xA9 2005-2008 Giuseppe Torelli - Colossus <colossus73@gmail.com>\n\n"
+			"license","Copyright \xC2\xA9 " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER " - Colossus <colossus73@gmail.com>\n\n"
 					"This is free software; you can redistribute it and/or\n"
 					"modify it under the terms of the GNU Library General Public License as\n"
 					"published by the Free Software Foundation; either version 2 of the\n"

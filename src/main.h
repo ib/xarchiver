@@ -22,6 +22,9 @@
 #include <glib.h>
 #include "archive.h"
 
+#define COPYRIGHT_YEAR "2005-2014"
+#define COPYRIGHT_HOLDER "Giuseppe Torelli"
+
 extern XArchiver archiver[];
 extern const gchar *locale;
 extern const gchar *tar;
