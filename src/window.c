@@ -399,7 +399,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		xa_create_temp_directory(archive);
 		archive->extraction_path = g_strdup(archive->tmp);
 		old_name  = xa_build_full_path_name_from_entry(entry,archive);
-		_old_name = xa_escape_filename(old_name,"$'`\"\\!?* ()[]&|:;<>#");
+		_old_name = g_shell_quote(old_name);
 		names = g_slist_append(names,old_name);
 
 		full_path = archive->full_path;
@@ -422,7 +422,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			return;
 		}
 		/* Rename the file in the tmp dir as the new file entered by the user */
-		_new_name = xa_escape_filename((gchar*)new_name,"$'`\"\\!?* ()[]&|:;<>#");
+		_new_name = g_shell_quote(new_name);
 		dummy = g_strconcat("mv -f ",archive->tmp,"/",_old_name," ",archive->tmp,"/",_new_name,NULL);
 		g_free(_old_name);
 		list = g_slist_append(list,dummy);
@@ -1443,7 +1443,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 	    case XARCHIVETYPE_ZIP:
 		{
 			gchar *archive_name = NULL;
-        	gchar *archive_name_escaped = NULL;
+			gchar *archive_name_quoted;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
@@ -1458,7 +1458,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				gtk_widget_set_sensitive (Stop_button,FALSE);
 				return;
 			}
-			archive_name_escaped = xa_escape_bad_chars (archive_name ,"$\'`\"\\!?* ()[]&|@#:;");
+			archive_name_quoted = g_shell_quote(archive_name);
 			unzipsfx_path = g_find_program_in_path ("unzipsfx");
 			if (unzipsfx_path != NULL)
 			{
@@ -1493,21 +1493,21 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
 
-				command = g_strconcat ("chmod 755 ",archive_name_escaped,NULL);
+				command = g_strconcat ("chmod 755 ",archive_name_quoted,NULL);
 				list = g_slist_append(list,command);
-				command = g_strconcat ("zip -A ",archive_name_escaped,NULL);
+				command = g_strconcat ("zip -A ",archive_name_quoted,NULL);
 				list = g_slist_append(list,command);
 				xa_run_command (archive[idx],list);
 			}
 			g_free (archive_name);
-			g_free (archive_name_escaped);
+			g_free (archive_name_quoted);
 		}
         break;
 
         case XARCHIVETYPE_7ZIP:
         {
         	gchar *archive_name = NULL;
-        	gchar *archive_name_escaped = NULL;
+			gchar *archive_name_quoted;
 			FILE *sfx_archive;
 			FILE *archive_not_sfx;
 			gchar *content;
@@ -1523,7 +1523,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 
 			if (archive_name == NULL)
 				return;
-			archive_name_escaped = xa_escape_bad_chars (archive_name,"$\'`\"\\!?* ()[]&|@#:;");
+			archive_name_quoted = g_shell_quote(archive_name);
 
 			if (g_file_test ( "/usr/lib/p7zip/7zCon.sfx",G_FILE_TEST_EXISTS))
 				sfx_path = g_strdup("/usr/lib/p7zip/7zCon.sfx");
@@ -1593,12 +1593,12 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
 
-				command = g_strconcat ("chmod 755 ",archive_name_escaped,NULL);
+				command = g_strconcat ("chmod 755 ",archive_name_quoted,NULL);
 				list = g_slist_append(list,command);
 				xa_run_command (archive[idx],list);
 			}
 			g_free (archive_name);
-			g_free (archive_name_escaped);
+			g_free (archive_name_quoted);
 		}
 		break;
 
@@ -2756,7 +2756,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	do
 	{
 		dummy = g_path_get_basename(list_of_files->data);
-		e_filename = xa_escape_filename(dummy,"$'`\"\\!?* ()[]&|:;<>#");
+		e_filename = g_shell_quote(dummy);
 		g_free(dummy);
 		g_string_append (names,e_filename);
 		g_string_append_c (names,' ');

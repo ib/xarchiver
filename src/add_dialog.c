@@ -444,7 +444,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compression)
 {
 	gchar *new_path = NULL;
-	gchar *esc,*esc2,*basedir;
+	gchar *esc2, *basedir;
 	gboolean result = FALSE;
 	GString *items;
 	gchar *command = NULL;
@@ -475,11 +475,10 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 			basedir = g_path_get_dirname(slist->data);
 			while (slist)
 			{
-				esc  = xa_escape_bad_chars (slist->data,"\\");
-				esc2 = xa_escape_bad_chars (esc,"$'`\"\\!?* ()[]&|:;<>#");
-				g_free (esc);
+				esc2 = g_shell_quote(slist->data);
 				g_string_append(items,esc2);
 				g_string_append_c(items,' ');
+				g_free(esc2);
 				slist = slist->next;
 			}
 			g_free(basedir);
