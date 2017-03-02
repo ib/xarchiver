@@ -752,7 +752,8 @@ void xa_add_files_liststore (gchar *file_path,Multi_extract_data *dialog)
 	unsigned long long int file_size;
 
 	type = xa_detect_archive_type(file_path);
-	if (type < 0)
+
+	if (type == XARCHIVETYPE_UNKNOWN || type == XARCHIVETYPE_NOT_FOUND)
 		return;
 
 	stat (file_path,&my_stat);

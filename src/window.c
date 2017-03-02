@@ -2202,7 +2202,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	GSList *list = NULL;
 	gboolean one_file;
 	unsigned int len = 0;
-	gint current_page,idx;
+	gint current_page, idx, type;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
@@ -2220,9 +2220,11 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	if (one_file)
 	{
 		filename = g_filename_from_uri(array[0],NULL,NULL);
+		type = xa_detect_archive_type(filename);
+
 		if (filename == NULL)
 			return;
-		else if (xa_detect_archive_type(filename) > 0)
+		else if (type != XARCHIVETYPE_UNKNOWN && type != XARCHIVETYPE_NOT_FOUND)
 		{
 			xa_open_archive(NULL,filename);
 			g_strfreev(array);
