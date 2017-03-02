@@ -23,6 +23,8 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
+#define ESCAPES " \"'\\"
+
 #ifndef HAVE_MKDTEMP
 gchar *mkdtemp(gchar *);
 #endif
@@ -34,7 +36,6 @@ const char *strcasestr(const char *haystack, const char *needle);
 gboolean match_patterns(char **, const char *, int);
 gchar *xa_escape_bad_chars(const gchar *, const gchar *);
 GSList *xa_collect_filenames(XArchive *, GSList *);
-gchar *xa_escape_filename(gchar *, gchar *);
 GString *xa_quote_filenames(GSList *, const gchar *);
 void xa_recurse_local_directory(gchar *, GSList **, gboolean, gint);
 gchar *xa_remove_level_from_path(const gchar *);

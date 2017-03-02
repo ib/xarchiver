@@ -234,8 +234,8 @@ static gchar *xa_multi_extract_archive (Multi_extract_data *dialog, gchar *filen
 	dialog->archive = archive;
 	archive->overwrite = overwrite;
 	archive->full_path = full_path;
-	archive->escaped_path = xa_escape_bad_chars (filename,"$\'`\"\\!?* ()&|@#:;");
-	archive->extraction_path = xa_escape_bad_chars (dest_path,"$\'`\"\\!?* ()&|@#:;");
+	archive->escaped_path = xa_escape_bad_chars(filename, ESCAPES);
+	archive->extraction_path = xa_escape_bad_chars(dest_path, ESCAPES);
 	if (g_str_has_suffix (archive->escaped_path,".tar.gz")|| g_str_has_suffix (archive->escaped_path,".tgz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_GZ;
@@ -526,7 +526,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			case GTK_RESPONSE_OK:
 			destination_path = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)), -1, NULL, NULL, NULL);
-			archive->extraction_path = xa_escape_bad_chars (destination_path,"$\'`\"\\!?* ()&|@#:;");
+			archive->extraction_path = xa_escape_bad_chars(destination_path, ESCAPES);
 
 			if (strlen(archive->extraction_path)== 0)
 			{

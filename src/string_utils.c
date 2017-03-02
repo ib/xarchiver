@@ -237,11 +237,6 @@ gchar *xa_remove_path_from_archive_name (gchar *name)
 		return g_strdup(name);
 }
 
-gchar *xa_escape_filename (gchar *filename,gchar *meta_chars)
-{
-	return xa_escape_common_chars (filename,meta_chars,'\\',0);
-}
-
 GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 {
 	GSList *list = in, *out = NULL;

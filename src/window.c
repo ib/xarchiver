@@ -1067,7 +1067,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	else
 		archive[current_page]->path = g_strdup(path);
 
-	archive[current_page]->escaped_path = xa_escape_bad_chars (archive[current_page]->path,"$\'`\"\\!?* ()&|@#:;");
+	archive[current_page]->escaped_path = xa_escape_bad_chars(archive[current_page]->path, ESCAPES);
 	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	xa_add_page (archive[current_page]);
 
@@ -2178,9 +2178,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
 			archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->extract_full));
 			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->overwrite_check));
-			gchar *unescaped_extraction_path = archive->extraction_path;
-			archive->extraction_path = xa_escape_filename(unescaped_extraction_path, "$'`\"\\!?* ()[]&|:;<>#");
-			g_free(unescaped_extraction_path);
+			archive->extraction_path = xa_escape_bad_chars(archive->extraction_path, ESCAPES);
 			(*archive->extract) (archive,names);
 
 			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);

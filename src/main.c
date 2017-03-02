@@ -436,7 +436,7 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 		return NULL;
 	}
 	archive->path = g_strdup (filename);
-	archive->escaped_path = xa_escape_bad_chars(filename , "$\'`\"\\!?* ()&|@#:;");
+	archive->escaped_path = xa_escape_bad_chars(filename, ESCAPES);
 	archive->type = type;
 	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
 		archive->type = XARCHIVETYPE_TAR_BZ2;
@@ -538,8 +538,7 @@ int main (int argc, char **argv)
 			GSList *string = NULL;
 			archive->full_path = archive->can_full_path;
 			archive->overwrite = archive->can_overwrite;
-			gchar *escaped_path = xa_escape_bad_chars(opt_extract_path, "$\'`\"\\!?* ()[]&|@#:;");
-			archive->extraction_path = escaped_path;
+			archive->extraction_path = xa_escape_bad_chars(opt_extract_path, ESCAPES);
 			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			(*archive->extract) (archive,string);
 		}
