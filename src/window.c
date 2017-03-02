@@ -2244,26 +2244,9 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	else
 		idx = xa_find_archive_index (current_page);
 
-	if (archive[idx]->type == XARCHIVETYPE_ARJ && !archiver[archive[idx]->type].is_compressor)
+	if (!archive[idx]->can_add)
 	{
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install arj package!"));
-		return;
-	}
-	if (archive[idx]->type == XARCHIVETYPE_RAR && !archiver[archive[idx]->type].is_compressor)
-	{
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),_("You have to install rar package!"));
-		return;
-	}
-	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM)
-	{
-		gchar *msg;
-		if (archive[idx]->type == XARCHIVETYPE_DEB)
-			msg = _("You can't add content to deb packages!");
-		else if (archive[idx]->type == XARCHIVETYPE_RPM)
-			msg = _("You can't add content to rpm packages!");
-		else
-			msg = _("The archiver doesn't support this feature!");
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),msg);
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You can't add content to this archive type!"));
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}

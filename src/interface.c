@@ -234,14 +234,9 @@ static void xa_sidepane_drag_data_received (GtkWidget *widget, GdkDragContext *c
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
-	if (archive[idx]->type == XARCHIVETYPE_DEB || archive[idx]->type == XARCHIVETYPE_RPM)
+	if (!archive[idx]->can_add)
 	{
-		gchar *msg;
-		if (archive[idx]->type == XARCHIVETYPE_DEB)
-			msg = _("You can't add content to deb packages!");
-		else
-			msg = _("You can't add content to rpm packages!");
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform this action:"),msg);
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't perform this action:"), _("You can't add content to this archive type!"));
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
