@@ -492,10 +492,10 @@ int main (int argc, char **argv)
     if (opt_version)
     {
         g_print("%s %s \n\n", PACKAGE_NAME, PACKAGE_VERSION);
+        g_print (_("Maintained by "));
+        g_print (MAINTAINER ".\n\n");
         g_print ("%s\n", "Copyright (c) " COPYRIGHT_YEAR);
         g_print ("\t%s\n\n", COPYRIGHT_HOLDER " - Colossus <colossus73@gmail.com>");
-        g_print (_("Maintained by "));
-        g_print ("Ingo Brückl.\n");
         g_print (_("Please report bugs to <%s>."), PACKAGE_BUGREPORT);
         g_print ("\n");
 
@@ -518,7 +518,8 @@ int main (int argc, char **argv)
 	{
 		xa_main_window = NULL;
 		archive = xa_init_structure_from_cmd_line (argv[1]);
-		g_print(PACKAGE_NAME " " VERSION " (\xC2\xA9)" COPYRIGHT_YEAR " " COPYRIGHT_HOLDER "\n");
+		g_print(PACKAGE_NAME " 0.5.4 \xC2\xA9  " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER "\n");
+		g_print(PACKAGE_NAME " %-8s " MAINTAINER "\n", VERSION);
 
 		/* Switch -x */
 		if (opt_extract_path)

@@ -1623,7 +1623,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
         "Giuseppe Torelli <colossus73@gmail.com>",
         "",
         "This version:",
-        "Ingo Brückl <ib@wupperonline.de>",
+        MAINTAINER " <ib@wupperonline.de>",
         "",
         "Archive navigation code:",
         "John Berthels",
