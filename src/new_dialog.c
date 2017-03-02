@@ -132,6 +132,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gchar *current_dir = NULL;
 	gint current_page, response, type = XARCHIVETYPE_UNKNOWN;
 	gpointer suffix;
+	int i;
 
 	xa_file_chooser = gtk_file_chooser_dialog_new ( _("Create a new archive"),
 							GTK_WINDOW (xa_main_window),
@@ -268,40 +269,25 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 		new_combo_box = gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box));
 
-		if (strcmp ( ComboArchiveType,"arj") == 0)
-			type = XARCHIVETYPE_ARJ;
-		else if (strcmp (ComboArchiveType,"bz2") == 0)
-			type = XARCHIVETYPE_BZIP2;
-		else if (strcmp (ComboArchiveType,"gz") == 0)
-			type = XARCHIVETYPE_GZIP;
-		else if (strcmp (ComboArchiveType,"lzma") == 0)
-			type = XARCHIVETYPE_LZMA;
-		else if (strcmp (ComboArchiveType,"xz") == 0)
-			type = XARCHIVETYPE_XZ;
-		else if (strcmp (ComboArchiveType,"lzo") == 0)
-			type = XARCHIVETYPE_LZOP;
-		else if (strcmp (ComboArchiveType,"rar") == 0)
-			type = XARCHIVETYPE_RAR;
-		else if (strcmp (ComboArchiveType,"rar5") == 0)
-			type = XARCHIVETYPE_RAR;
-		else if (strcmp (ComboArchiveType,"tar") == 0)
-			type = XARCHIVETYPE_TAR;
-		else if (strcmp (ComboArchiveType,"tar.bz2") == 0)
-			type = XARCHIVETYPE_TAR_BZ2;
-		else if (strcmp (ComboArchiveType,"tar.gz") == 0)
-			type = XARCHIVETYPE_TAR_GZ;
-		else if (strcmp (ComboArchiveType,"tar.lzma") == 0)
-			type = XARCHIVETYPE_TAR_LZMA;
-		else if (strcmp (ComboArchiveType,"tar.xz") == 0)
-			type = XARCHIVETYPE_TAR_XZ;
-		else if (strcmp (ComboArchiveType,"tar.lzo") == 0)
-			type = XARCHIVETYPE_TAR_LZOP;
-		else if (strcmp (ComboArchiveType,"jar") == 0 || strcmp (ComboArchiveType,"zip") == 0 )
-			type = XARCHIVETYPE_ZIP;
-		else if (strcmp (ComboArchiveType,"7z") == 0)
-			type = XARCHIVETYPE_7ZIP;
-		else if (strcmp (ComboArchiveType,"lha") == 0)
-			type = XARCHIVETYPE_LHA;
+		for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
+		{
+			if (archiver[i].is_compressor)
+			{
+				GSList *list = archiver[i].type;
+
+				while (list)
+				{
+					if (strcmp(ComboArchiveType, list->data) == 0)
+					{
+						type = i;
+						i = XARCHIVETYPE_TYPES;
+						break;
+					}
+
+					list = list->next;
+				}
+			}
+		}
 
 		archive = xa_init_archive_structure (type);
 		archive->type = type;
