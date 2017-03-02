@@ -26,6 +26,7 @@
 #include "support.h"
 #include "window.h"
 
+static GtkWidget *create;
 static gint new_combo_box = -1;
 static gchar *ComboArchiveType;
 static gchar *current_new_directory;
@@ -64,6 +65,8 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 	g_free(ComboArchiveType);
 	ComboArchiveType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(GTK_WIDGET(combo_box)));
 	suffix = xa_get_suffix(ComboArchiveType);
+
+	gtk_widget_set_sensitive(create, *(char *) suffix != 0);
 
 	fname = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(xa_file_chooser));
 
@@ -139,9 +142,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 							GTK_FILE_CHOOSER_ACTION_SAVE,
 							GTK_STOCK_CANCEL,
 							GTK_RESPONSE_CANCEL,
-							_("Cr_eate"),
-							GTK_RESPONSE_ACCEPT,
 							NULL);
+	create = gtk_dialog_add_button(GTK_DIALOG(xa_file_chooser), _("Cr_eate"), GTK_RESPONSE_ACCEPT);
 
 	gtk_dialog_set_default_response (GTK_DIALOG (xa_file_chooser), GTK_RESPONSE_ACCEPT);
 
@@ -186,6 +188,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (xa_file_chooser), hbox);
 	ComboArchiveType = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combo_box));
 	suffix = xa_get_suffix(ComboArchiveType);
+	gtk_widget_set_sensitive(create, *(char *) suffix != 0);
 	g_signal_connect(G_OBJECT(combo_box), "changed", G_CALLBACK(xa_change_archive_extension), xa_file_chooser);
 
 	if (path != NULL)
