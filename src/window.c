@@ -482,7 +482,7 @@ static gchar *xa_get_statusbar_message (unsigned long int total_size, gint n_ele
 
 static void xa_determine_program_to_run (gchar *file)
 {
-	gchar *program = NULL;
+	gchar *program = NULL, *q_file;
 
 	if (!xdg_open)
 	{
@@ -512,7 +512,10 @@ static void xa_determine_program_to_run (gchar *file)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which program to use for opening this file!"),_("Please go to Preferences->Advanced and set it."));
 		return;
 	}
-	xa_launch_external_program(program,file);
+
+	q_file = g_shell_quote(file);
+	xa_launch_external_program(program, q_file);
+	g_free(q_file);
 	g_free(program);
 }
 
@@ -2775,7 +2778,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	gboolean full_path  = FALSE;
 	gboolean overwrite  = FALSE;
 	gint current_index,idx;
-	gchar *dummy = NULL, *entry_local, *filename, *e_filename;
+	gchar *dummy = NULL, *entry_local, *filename;
 	XEntry *entry;
 
 	current_index = gtk_notebook_get_current_page(notebook);
@@ -2830,18 +2833,15 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 		return;
 
 here:
-	e_filename = xa_escape_filename(filename,"$'`\"\\!?* ()[]&|:;<>#");
+	xa_determine_program_to_run(filename);
 	g_free(filename);
-
-	xa_determine_program_to_run(e_filename);
-	g_free(e_filename);
 }
 
 void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeViewColumn *column,XArchive *archive)
 {
 	XEntry *entry;
 	GtkTreeIter iter;
-	gchar *dummy = NULL, *item, *entry_local, *file, *e_filename;
+	gchar *dummy = NULL, *item, *entry_local, *file;
 	GSList *names = NULL;
 	gboolean result = FALSE;
 	gboolean overwrite = FALSE;
@@ -2897,10 +2897,8 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		entry_local = g_filename_from_utf8(entry->filename, -1, NULL, NULL, NULL);
 		file = g_strconcat(archive->tmp, "/", entry_local, NULL);
 		g_free(entry_local);
-		e_filename = xa_escape_filename(file,"$'`\"\\!?* ()[]&|:;<>#");
+		xa_determine_program_to_run(file);
 		g_free(file);
-		xa_determine_program_to_run(e_filename);
-		g_free(e_filename);
 	}
 }
 
