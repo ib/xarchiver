@@ -486,17 +486,17 @@ static void xa_determine_program_to_run (gchar *file)
 
 	if (!xdg_open)
 	{
-		if (strstr(file,".html"))
+		const char *type = xa_get_stock_mime_icon(file);
+
+		if (strcmp(type, "text-html") == 0)
 		{
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_web_browser));
 		}
-		else if (strstr(file,".txt"))
+		else if (strcmp(type, "text-x-generic") == 0)
 		{
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_editor));
 		}
-		else if (strstr(file,".png") || strstr(file,".gif") || strstr(file,".jpg") || strstr(file,".jpeg") || strstr(file,".bmp") ||
-				 strstr(file,".tif") || strstr(file,".tiff")|| strstr(file,".svg") ||
-				 strstr(file,".tga"))
+		else if (strcmp(type, "image-x-generic") == 0)
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
 		else
 		{
