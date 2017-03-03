@@ -158,7 +158,6 @@ void xa_lha_test (XArchive *archive)
 	gchar *command = NULL;
 	GSList *list = NULL;
 
-	archive->status = XA_ARCHIVESTATUS_TEST;
 	command = g_strconcat(archiver[archive->type].program[0], " t ", archive->escaped_path, NULL);
 
 	list = g_slist_append(list,command);

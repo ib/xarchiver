@@ -178,7 +178,6 @@ void xa_arj_test (XArchive *archive)
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
 
-	archive->status = XA_ARCHIVESTATUS_TEST;
 	passwd_str = xa_arj_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0], " t", passwd_str, archiver[archive->type].is_compressor ?  " -i -y " : " ", archive->escaped_path, NULL);
 	g_free(passwd_str);

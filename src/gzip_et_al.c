@@ -322,7 +322,6 @@ void xa_gzip_et_al_test (XArchive *archive)
 	else
 		filename_noext = filename;
 
-	archive->status = XA_ARCHIVESTATUS_TEST;
 	command = g_strconcat("sh -c \"",executable, " ",archive->escaped_path," -tv ","\"",NULL);
 	g_free(filename_noext);
 	list = g_slist_append(list,command);

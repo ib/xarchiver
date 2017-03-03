@@ -1102,6 +1102,8 @@ void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 		}
 	}
 	gtk_label_set_text(GTK_LABEL(total_label),_("Testing archive,please wait..."));
+
+	archive[id]->status = XA_ARCHIVESTATUS_TEST;
 	(*archive[id]->test) (archive[id]);
 }
 
