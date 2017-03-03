@@ -779,7 +779,6 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 			}
 			if (xa_main_window)
 			{
-				archive->status = XA_ARCHIVESTATUS_ERROR;
 				gtk_widget_set_sensitive(Stop_button,FALSE);
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
 		error:
@@ -791,6 +790,7 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 					g_free (archive->passwd);
 					archive->passwd = NULL;
 				}
+				archive->status = XA_ARCHIVESTATUS_ERROR;
 				return;
 			}
 		}
