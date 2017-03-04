@@ -19,7 +19,6 @@
 #include <string.h>
 #include <gtk/gtk.h>
 #include "open-with-dlg.h"
-#include "interface.h"
 #include "main.h"
 #include "mime.h"
 #include "pref_dialog.h"

@@ -42,6 +42,8 @@
 #include "socket.h"
 #endif
 
+GtkWidget *xa_main_window;
+
 XArchiver archiver[XARCHIVETYPE_TYPES];
 
 ask_func ask[XARCHIVETYPE_TYPES];

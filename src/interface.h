@@ -71,7 +71,6 @@ extern GtkWidget *type_data;
 extern GtkWidget *up_button;
 extern GtkWidget *view;
 extern GtkWidget *view_shell_output1;
-extern GtkWidget *xa_main_window;
 extern GtkWidget *xa_popup_menu;
 extern GtkAccelGroup *accel_group;
 extern GtkNotebook *notebook;

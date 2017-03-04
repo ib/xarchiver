@@ -26,6 +26,8 @@
 #define COPYRIGHT_HOLDER "Giuseppe Torelli"
 #define MAINTAINER "Ingo Brückl"
 
+extern GtkWidget *xa_main_window;
+
 extern XArchiver archiver[];
 extern const gchar *locale;
 extern const gchar *tar;

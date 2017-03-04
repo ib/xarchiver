@@ -66,7 +66,6 @@ GtkWidget *type_data;
 GtkWidget *up_button;
 GtkWidget *view;
 GtkWidget *view_shell_output1;
-GtkWidget *xa_main_window;
 GtkWidget *xa_popup_menu;
 GtkAccelGroup *accel_group;
 GtkNotebook *notebook;
