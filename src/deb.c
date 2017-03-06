@@ -132,11 +132,8 @@ gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
 
 	chdir (archive->extraction_path);
 	command = g_strconcat(archiver[archive->type].program[0], " x", archive->touch ? " " : "o ", archive->escaped_path, files->str, NULL);
-	if (command != NULL)
-	{
-		g_string_free(files,FALSE);
-		list = g_slist_append(list,command);
-		result = xa_run_command (archive,list);
-	}
+	g_string_free(files,FALSE);
+	list = g_slist_append(list,command);
+	result = xa_run_command (archive,list);
 	return result;
 }
