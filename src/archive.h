@@ -73,9 +73,9 @@ struct _XEntry
 {
 	gchar *filename;
 	gchar *mime_type;
-	gpointer columns;
 	gboolean is_dir;
 	gboolean is_encrypted;
+	gpointer columns;
 	XEntry *child;
 	XEntry *prev;
 	XEntry *next;
