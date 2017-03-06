@@ -434,7 +434,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		old_name = xa_build_full_path_name_from_entry(entry,archive);
 		list = g_slist_append(list,old_name);
 		archive->status = XA_ARCHIVESTATUS_RENAME;
-		(archive->delete) (archive,list);
+		(*archive->delete)(archive, list);
 		list = NULL;
 
 		/* Add the renamed file to the archive */
@@ -2624,7 +2624,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 		list = xa_slist_copy(paste_data->files);
 
 		paste_data->target->status = XA_ARCHIVESTATUS_DELETE;
-		(paste_data->target->delete)(paste_data->target, list);
+		(*paste_data->target->delete)(paste_data->target, list);
 	}
 }
 
