@@ -362,6 +362,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_strfreev (argv);
 		archive->child_pid = 0;
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
+		archive->status = XA_ARCHIVESTATUS_ERROR;
 		return;
 	}
 	g_strfreev (argv);

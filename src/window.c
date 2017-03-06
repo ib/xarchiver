@@ -799,6 +799,7 @@ there:
 		archive->child_pid = archive->pb_source = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
+		archive->status = XA_ARCHIVESTATUS_IDLE;
 	}
 }
 
