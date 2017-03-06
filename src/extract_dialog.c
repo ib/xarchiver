@@ -511,10 +511,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
 			if (xa_main_window)
-			{
 				gtk_widget_set_sensitive (Stop_button,FALSE);
-				archive->status = XA_ARCHIVESTATUS_IDLE;
-			}
 			break;
 
 			case GTK_RESPONSE_OK:
