@@ -332,7 +332,6 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 {
 	GSList *list = NULL;
 	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
-	gboolean result = FALSE;
 
 	if (archive->type == XARCHIVETYPE_BZIP2)
 		executable = "bzip2 ";
@@ -358,6 +357,6 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat("sh -c \"",executable, " ",archive->escaped_path," -dc > ",archive->extraction_path,"/",filename_noext,"\"",NULL);
 	g_free(filename_noext);
 	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-	return result;
+
+	return xa_run_command(archive, list);
 }

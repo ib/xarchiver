@@ -118,7 +118,6 @@ gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
 	gchar *command;
 	GSList *list = NULL,*_files = NULL;
 	GString *files = g_string_new("");
-	gboolean result = FALSE;
 
 	_files = file_list;
 	while (_files)
@@ -134,6 +133,6 @@ gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[archive->type].program[0], " x", archive->touch ? " " : "o ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,FALSE);
 	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-	return result;
+
+	return xa_run_command(archive, list);
 }

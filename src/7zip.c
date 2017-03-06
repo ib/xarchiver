@@ -179,7 +179,6 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
-	gboolean result = FALSE;
 
 	files = xa_quote_filenames(file_list, NULL);
 	passwd_str = xa_7zip_passwd_str(archive);
@@ -193,8 +192,7 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
-	result = xa_run_command (archive,list);
-	return result;
+	return xa_run_command(archive, list);
 }
 
 void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)

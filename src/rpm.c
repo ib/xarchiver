@@ -276,7 +276,6 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command = NULL;
 	GSList *list = NULL;
-	gboolean result = FALSE;
 
 	if (archive->tmp == NULL)
 		if (xa_rpm2cpio(archive) <= 0)
@@ -288,6 +287,6 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
-	result = xa_run_command (archive,list);
-	return result;
+
+	return xa_run_command(archive, list);
 }

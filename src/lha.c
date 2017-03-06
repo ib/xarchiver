@@ -173,7 +173,6 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 	GString *files;
 	gchar *command;
 	GSList *list = NULL;
-	gboolean result = FALSE;
 
 	files = xa_quote_filenames(file_list, NULL);
 	command = g_strconcat(archiver[archive->type].program[0],
@@ -184,8 +183,7 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
-	result = xa_run_command (archive,list);
-	return result;
+	return xa_run_command(archive, list);
 }
 
 void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
