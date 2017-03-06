@@ -664,10 +664,9 @@ static XAClipboard *xa_get_paste_data_from_clipboard_selection (const char *data
 
 	clipboard_data = xa_clipboard_data_new();
 	uris = g_strsplit (data,"\r\n",-1);
-	clipboard_data->filename = g_strdup (uris[0]);
-	clipboard_data->mode = (strcmp (uris[1],"copy") == 0) ? XA_CLIPBOARD_COPY : XA_CLIPBOARD_CUT;
-	sscanf(uris[2], "%p", &clipboard_data->target);
-	for (i = 3; uris[i] != NULL; i++)
+	clipboard_data->mode = (strcmp(uris[0], "copy") == 0 ? XA_CLIPBOARD_COPY : XA_CLIPBOARD_CUT);
+	sscanf(uris[1], "%p", &clipboard_data->target);
+	for (i = 2; uris[i]; i++)
 		if (uris[i][0] != '\0')
 			clipboard_data->files = g_slist_prepend (clipboard_data->files,g_strdup (uris[i]));
 	clipboard_data->files = g_slist_reverse (clipboard_data->files);
@@ -683,8 +682,6 @@ static void xa_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selecti
 	if (gtk_selection_data_get_target(selection_data) != XA_INFO_LIST)
 		return;
 
-	g_string_append (params,g_strdup(archive->escaped_path));
-	g_string_append (params,"\r\n");
 	g_string_append (params,(archive->clipboard_data->mode == XA_CLIPBOARD_COPY) ? "copy" : "cut");
 	g_string_append (params,"\r\n");
 	g_string_append_printf (params,"%p",archive);

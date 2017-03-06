@@ -178,7 +178,6 @@ struct _XAClipboard
 {
 	XAClipboardMode mode;
 	GSList *files;
-	gchar *filename;
 	XArchive *target;
 };
 
