@@ -179,7 +179,7 @@ struct _XAClipboard
 	XAClipboardMode mode;
 	GSList *files;
 	gchar *filename;
-	XArchive *cut_copy_archive;
+	XArchive *target;
 };
 
 gchar *xa_build_full_path_name_from_entry(XEntry *, XArchive *);
