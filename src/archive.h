@@ -176,10 +176,10 @@ typedef enum
 
 struct _XAClipboard
 {
-	gchar *filename;
 	XAClipboardMode mode;
-	XArchive *cut_copy_archive;
 	GSList *files;
+	gchar *filename;
+	XArchive *cut_copy_archive;
 };
 
 gchar *xa_build_full_path_name_from_entry(XEntry *, XArchive *);
