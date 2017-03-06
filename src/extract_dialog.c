@@ -569,7 +569,6 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
 
 			gtk_widget_hide (dialog_data->dialog1);
-			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			/* Is the radiobutton Files selected? */
 			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (dialog_data->files_radio)))
 			{
@@ -588,6 +587,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				gtk_widget_set_sensitive (Stop_button,TRUE);
 				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive,please wait..."));
 			}
+
+			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			(*archive->extract)(archive,names);
 		}
 	}

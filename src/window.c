@@ -1065,7 +1065,6 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		archive[current_page]->path = g_strdup(path);
 
 	archive[current_page]->escaped_path = xa_escape_bad_chars(archive[current_page]->path, ESCAPES);
-	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	xa_add_page (archive[current_page]);
 
 	xa_disable_delete_buttons (FALSE);
@@ -1075,6 +1074,8 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	gtk_widget_set_sensitive (listing,FALSE);
 	xa_set_button_state (0,0,0,0,0,0,0,0,0,0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
+
+	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
 	(*archive[current_page]->open)(archive[current_page]);
 
 	archive[current_page]->passwd = NULL;
@@ -2620,8 +2621,9 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 
 	if (paste_data->mode == XA_CLIPBOARD_CUT)
 	{
-		paste_data->target->status = XA_ARCHIVESTATUS_DELETE;
 		list = xa_slist_copy(paste_data->files);
+
+		paste_data->target->status = XA_ARCHIVESTATUS_DELETE;
 		(paste_data->target->delete)(paste_data->target, list);
 	}
 }

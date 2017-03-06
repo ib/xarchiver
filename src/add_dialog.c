@@ -488,7 +488,6 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 			cmd_list = g_slist_append(cmd_list,command);
 			xa_run_command (archive,cmd_list);
 		}
-		archive->status = XA_ARCHIVESTATUS_ADD;
 		xa_set_button_state (0,0,0,0,0,0,0,0,0,0);
 	}
 
@@ -500,5 +499,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 	files = xa_collect_filenames(archive, dirlist);
 	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
 	g_slist_free(dirlist);
+
+	archive->status = XA_ARCHIVESTATUS_ADD;
 	(*archive->add)(archive, files, compression);
 }
