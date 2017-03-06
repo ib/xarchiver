@@ -1842,12 +1842,9 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 			kill (archive[idx]->child_pid,SIGINT);
 			archive[idx]->child_pid = 0;
 		}
-		/* This in case the user cancels the opening of a password protected archive */
-		if (archive[idx]->status != XA_ARCHIVESTATUS_ADD)
-			if (archive[idx]->has_passwd)
-				archive[idx]->has_passwd = FALSE;
 
 		gtk_label_set_text(GTK_LABEL(total_label),"");
+		/* !!! setting total_label isn't enough cleanup to be done !!! */
 	}
 }
 
