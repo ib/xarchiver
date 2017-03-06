@@ -94,71 +94,80 @@ typedef void (*delete_func)(XArchive *, GSList *);
 
 struct _XArchive
 {
+	/* characteristics */
 	XArchiveType type;
 	int version;
 	XArchiveStatus status;
+	/* data */
 	XEntry *root_entry;
 	XEntry *current_entry;
-	XAClipboard *clipboard_data;
+	/* user interface */
+	GtkWidget *scrollwindow;
+	GtkWidget *treeview;
+	GtkTreeModel *model;
+	GtkListStore *liststore;
+	unsigned short int nc;
+	GType *column_types;
+	GtkCellRenderer *renderer;
+	GtkCellRenderer *renderer_text;
 	GSList *back;
 	GSList *forward;
+	XAClipboard *clipboard_data;
+	/* environment */
 	gchar *path;
 	gchar *escaped_path;
 	gchar *tmp;
 	gchar *extraction_path;
-	gchar *passwd;
 	gchar *location_entry_path;
-	gchar *working_dir;
-	GtkTreeModel *model;
-	GtkCellRenderer *renderer;
-	GtkCellRenderer *renderer_text;
-	GtkListStore *liststore;
-	GtkWidget *treeview;
-	GtkWidget *scrollwindow;
-	gboolean has_passwd;
-	gboolean has_comment;
-	gboolean can_test;
-	gboolean can_sfx;
-	gboolean can_passwd;
-	gboolean can_overwrite;
-	gboolean can_full_path;
-	gboolean can_touch;
-	gboolean can_freshen;
-	gboolean can_update;
-	gboolean can_recurse;
-	gboolean can_solid;
-	gboolean can_move;
-	gboolean can_add;
-	gboolean can_delete;
-	gboolean can_extract;
-	gboolean cut_copy_string;
+	guint pb_source;
 	gboolean create_image;
+	/* properties */
+	gint nr_of_files;
+	unsigned long long int files_size;
+	gboolean has_passwd;
+	gchar *passwd;
+	gboolean has_comment;
 	GString *comment;
-	GSList *error_output;
-	GType *column_types;
-	gboolean add_recurse;
+	unsigned short int compression_level;
+	/* capabilities */
+	gboolean can_test;        // can test an archive for integrity
+	gboolean can_extract;     // can extract files from an archive
+	gboolean can_add;         // can add files to an archive
+	gboolean can_delete;      // can delete files from an archive
+	//       can_rename          see macro below: can_extract AND can_delete AND can_add
+	gboolean can_sfx;         // can create a self-extracting archive
+	gboolean can_passwd;      // can password protect an archive
+	gboolean can_overwrite;   // can overwrite files on extraction
+	gboolean can_full_path;   // can extract with or without full path
+	gboolean can_touch;       // can modify timestamp of files on extraction
+	gboolean can_freshen;     // can limit activity to only changed files
+	gboolean can_update;      // can limit activity to only changed or new files
+	gboolean can_recurse;     // can recurse into directories on adding
+	gboolean can_solid;       // can create a solid archive
+	gboolean can_move;        // can delete files after adding
+	/* instructions */
 	gboolean overwrite;
 	gboolean full_path;
+	gboolean touch;
 	gboolean freshen;
 	gboolean update;
-	gboolean touch;
+	gboolean add_recurse;
 	gboolean add_solid;
 	gboolean add_move;
-	unsigned short int compression_level;
-	unsigned short int nc;
-	gint nr_of_files;
+	/* child process */
+	gchar *working_dir;
+	GPid child_pid;
 	gint output_fd;
 	gint error_fd;
-	guint pb_source;
-	GPid child_pid;
-	unsigned long long int files_size;
+	GSList *error_output;
+	/* (un)compressor interface */
 	ask_func ask;
-	parse_output_func parse_output;
-	delete_func delete;
-	add_func add;
-	extract_func extract;
-	test_func test;
 	open_func open;
+	parse_output_func parse_output;
+	test_func test;
+	extract_func extract;
+	add_func add;
+	delete_func delete;
 };
 
 extern XArchive *archive[];
