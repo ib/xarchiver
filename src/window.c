@@ -405,6 +405,8 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		full_path = archive->full_path;
 		overwrite = archive->overwrite;
 		archive->overwrite = archive->full_path = TRUE;
+
+		archive->status = XA_ARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
 
 		archive->overwrite = full_path;
@@ -744,6 +746,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	overwrite = archive->overwrite;
 	archive->overwrite = TRUE;
 
+	archive->status = XA_ARCHIVESTATUS_EXTRACT;
 	(*archive->extract) (archive,files);
 	archive->overwrite = overwrite;
 	g_free(archive->extraction_path);
@@ -2177,6 +2180,8 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->extract_full));
 			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->overwrite_check));
 			archive->extraction_path = xa_escape_bad_chars(archive->extraction_path, ESCAPES);
+
+			archive->status = XA_ARCHIVESTATUS_EXTRACT;
 			(*archive->extract) (archive,names);
 
 			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
@@ -2722,6 +2727,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	archive[idx]->overwrite = TRUE;
 	list_of_files = xa_slist_copy(list);
 
+	archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
 	archive[idx]->overwrite = overwrite;
 	g_free(archive[idx]->extraction_path);
@@ -2801,6 +2807,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	archive[idx]->full_path = FALSE;
 	archive[idx]->overwrite = TRUE;
 
+	archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
 	archive[idx]->full_path = full_path;
 	archive[idx]->overwrite = overwrite;
@@ -2864,6 +2871,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	names = g_slist_append(names,item);
 	   	overwrite = archive->overwrite;
 	   	archive->overwrite = TRUE;
+		archive->status = XA_ARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
 		archive->overwrite = overwrite;
 

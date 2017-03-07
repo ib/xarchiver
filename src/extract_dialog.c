@@ -260,6 +260,7 @@ static gchar *xa_multi_extract_archive (Multi_extract_data *dialog, gchar *filen
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_LZOP];
 	}
+	archive->status = XA_ARCHIVESTATUS_EXTRACT;
 	(*archive->extract)(archive,NULL);
 	xa_clean_archive_structure(archive);
 	return NULL;
