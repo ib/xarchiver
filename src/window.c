@@ -834,6 +834,8 @@ void xa_reload_archive_content(XArchive *_archive)
 	entry->filename = "";
 	_archive->root_entry = entry;
 
+	/* this reload will be called internally during adding and deleting */
+	_archive->status = XA_ARCHIVESTATUS_RELOAD;
 	(*_archive->open)(_archive);
 
 	if (strcmp(_archive->path,archive[idx]->path) == 0)
@@ -2903,11 +2905,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gint size;
 	gchar *entry_utf8;
 
-	if ( (archive->status == XA_ARCHIVESTATUS_ADD || archive->status == XA_ARCHIVESTATUS_DELETE) && archive->location_entry_path != NULL)
-	{
-		archive->status = XA_ARCHIVESTATUS_IDLE;
+	if (archive->status == XA_ARCHIVESTATUS_RELOAD && archive->location_entry_path != NULL)
 		entry = xa_find_entry_from_path(archive->root_entry,archive->location_entry_path);
-	}
 	else
 		archive->current_entry = entry;
 
