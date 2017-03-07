@@ -204,8 +204,8 @@ gint xa_get_new_archive_idx();
 XArchive *xa_init_archive_structure(gint);
 gboolean xa_run_command(XArchive *, GSList *);
 XEntry *xa_set_archive_entries_for_each_row(XArchive *, gchar *, gpointer *);
-void xa_sidepane_row_selected(GtkTreeSelection *, gpointer);
-void xa_sidepane_select_row(XEntry *);
+void xa_dir_sidebar_row_selected(GtkTreeSelection *, gpointer);
+void xa_dir_sidebar_select_row(XEntry *);
 gint xa_sort_dirs_before_files(GtkTreeModel *, GtkTreeIter *, GtkTreeIter *, gpointer);
 void xa_spawn_async_process(XArchive *, gchar *);
 

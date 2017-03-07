@@ -199,7 +199,7 @@ static void xa_create_popup_menu ()
 	g_signal_connect ((gpointer) rrename,"activate",G_CALLBACK(xa_rename_archive),NULL);
 }
 
-static void xa_sidepane_row_expanded (GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path, gpointer data)
+static void xa_dir_sidebar_row_expanded (GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path, gpointer data)
 {
 	GtkTreeModel *model = data;
 
@@ -209,7 +209,7 @@ static void xa_sidepane_row_expanded (GtkTreeView *tree_view, GtkTreeIter *iter,
 		gtk_tree_store_set(GTK_TREE_STORE(model),iter,0,"gtk-directory",-1);
 }
 
-static void xa_sidepane_drag_data_received (GtkWidget *widget, GdkDragContext *context, int x, int y, GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
+static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext *context, int x, int y, GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
 {
 	gchar **array = NULL;
 	gchar *filename = NULL;
@@ -303,7 +303,7 @@ static void xa_sidepane_drag_data_received (GtkWidget *widget, GdkDragContext *c
 	gtk_drag_finish (context,TRUE,FALSE,time);
 }
 
-static gboolean xa_sidepane_drag_motion_expand_timeout (gpointer data)
+static gboolean xa_dir_sidebar_drag_motion_expand_timeout (gpointer data)
 {
 	GtkTreePath *path;
 
@@ -318,7 +318,7 @@ static gboolean xa_sidepane_drag_motion_expand_timeout (gpointer data)
 		return TRUE;
 }
 
-static gboolean xa_sidepane_drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, gpointer user_data)
+static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, gpointer user_data)
 {
 	GtkTreePath *path;
 
@@ -326,7 +326,7 @@ static gboolean xa_sidepane_drag_motion (GtkWidget *widget, GdkDragContext *cont
 	gtk_tree_view_get_dest_row_at_pos (GTK_TREE_VIEW (widget),x,y,&path,NULL);
 	if (path)
 	{
-		g_timeout_add_full (G_PRIORITY_LOW, 1000,(GSourceFunc) xa_sidepane_drag_motion_expand_timeout,NULL,NULL);
+		g_timeout_add_full(G_PRIORITY_LOW, 1000, (GSourceFunc) xa_dir_sidebar_drag_motion_expand_timeout, NULL, NULL);
 		g_object_set_data(G_OBJECT(context),"current_path",path);
 	}
 	/* This to set the focus on the dropped row */
@@ -412,7 +412,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		xa_fill_dir_sidebar(archive[id],TRUE);
 
 		if (archive[id]->location_entry_path)
-			xa_sidepane_select_row(xa_find_entry_from_path(archive[id]->root_entry, archive[id]->location_entry_path));
+			xa_dir_sidebar_select_row(xa_find_entry_from_path(archive[id]->root_entry, archive[id]->location_entry_path));
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
@@ -540,7 +540,7 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 				g_free(archive[idx]->location_entry_path);
 				archive[idx]->location_entry_path = NULL;
 			}
-			/* Let's unselect the row in the sidepane */
+			/* Let's unselect the row in the dir_sidebar */
 			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
 			if (selection != NULL)
 			{
@@ -558,7 +558,7 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 					archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
 
 				xa_update_window_with_archive_entries(archive[idx],archive[idx]->back->data);
-				xa_sidepane_select_row(archive[idx]->back->data);
+				xa_dir_sidebar_select_row(archive[idx]->back->data);
 			}
 
 			archive[idx]->back = archive[idx]->back->next;
@@ -569,7 +569,7 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 			if (archive[idx]->back)
 				archive[idx]->forward = g_slist_prepend(archive[idx]->forward,archive[idx]->current_entry);
 
-			/* Let's unselect the row in the sidepane */
+			/* Let's unselect the row in the dir_sidebar */
 			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
 			if (selection != NULL)
 			{
@@ -578,7 +578,7 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 			}
 			new_entry = xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path);
 			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
-			xa_sidepane_select_row(new_entry->prev);
+			xa_dir_sidebar_select_row(new_entry->prev);
 
 			if (archive[idx]->back)
 				archive[idx]->back = archive[idx]->back->next;
@@ -592,7 +592,7 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 					archive[idx]->back = g_slist_prepend(archive[idx]->back,archive[idx]->current_entry);
 
 				xa_update_window_with_archive_entries(archive[idx],archive[idx]->forward->data);
-				xa_sidepane_select_row(archive[idx]->forward->data);
+				xa_dir_sidebar_select_row(archive[idx]->forward->data);
 				archive[idx]->forward = archive[idx]->forward->next;
 			}
 			xa_restore_navigation(idx);
@@ -1043,7 +1043,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	if (show_location)
 		gtk_widget_show_all(toolbar2);
 
-	/* Create the sidepane */
+	/* Create the dir_sidebar */
 	hpaned1 = gtk_hpaned_new ();
 	gtk_widget_show (hpaned1);
   	gtk_box_pack_start (GTK_BOX (vbox1),hpaned1,TRUE,TRUE,0);
@@ -1062,12 +1062,12 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show(archive_dir_treeview);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
 	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview),drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-collapsed",G_CALLBACK(xa_sidepane_row_expanded),archive_dir_model);
-	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-expanded",G_CALLBACK(xa_sidepane_row_expanded),archive_dir_model);
-	g_signal_connect (G_OBJECT (archive_dir_treeview),"drag-data-received",G_CALLBACK (xa_sidepane_drag_data_received),NULL);
-	g_signal_connect (G_OBJECT (archive_dir_treeview),"drag-motion",G_CALLBACK (xa_sidepane_drag_motion),NULL);
+	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-collapsed",G_CALLBACK(xa_dir_sidebar_row_expanded),archive_dir_model);
+	g_signal_connect(G_OBJECT(archive_dir_treeview), "row-expanded", G_CALLBACK(xa_dir_sidebar_row_expanded), archive_dir_model);
+	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-data-received", G_CALLBACK(xa_dir_sidebar_drag_data_received), NULL);
+	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-motion", G_CALLBACK(xa_dir_sidebar_drag_motion), NULL);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
-	selchghid = g_signal_connect(G_OBJECT(sel), "changed", G_CALLBACK(xa_sidepane_row_selected), NULL);
+	selchghid = g_signal_connect(G_OBJECT(sel), "changed", G_CALLBACK(xa_dir_sidebar_row_selected), NULL);
 
 	column = gtk_tree_view_column_new();
 	archive_dir_renderer = gtk_cell_renderer_pixbuf_new();

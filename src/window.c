@@ -2507,7 +2507,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	else
 		archive[idx]->back = g_slist_prepend(archive[idx]->back,NULL);
 
-	xa_sidepane_select_row(new_entry);
+	xa_dir_sidebar_select_row(new_entry);
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
 }
 
@@ -2848,7 +2848,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		/* Put NULL so to display the root entry */
 		else
 			archive->back = g_slist_prepend(archive->back,NULL);
-		xa_sidepane_select_row(entry);
+		xa_dir_sidebar_select_row(entry);
 	}
 	/* The selected entry it's not a dir so extract it to the tmp dir and send it to xa_determine_program_to_run() */
 	else
