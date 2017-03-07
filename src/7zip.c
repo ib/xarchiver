@@ -53,6 +53,7 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	gchar *filename;
 	gpointer item[5];
 	gint linesize = 0,a = 0;
+	gboolean dir;
 
 	if (last_line)
 		return;
@@ -90,6 +91,8 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	line[25] = '\0';
 	item[2] = line + 20;
 
+	dir = (*(char *) item[2] == 'D');
+
 	/* Size */
 	for(a=26; a < linesize; ++a)
 		if(line[a] >= '0' && line[a] <= '9')
@@ -120,7 +123,12 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 
 	if (entry != NULL)
+	{
+		if (dir)
+			entry->is_dir = TRUE;
+
 		entry->is_encrypted = encrypted;
+	}
 
 	g_free(filename);
 }
