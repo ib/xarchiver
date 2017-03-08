@@ -502,4 +502,5 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 
 	archive->status = XA_ARCHIVESTATUS_ADD;
 	(*archive->add)(archive, files, compression);
+	xa_reload_archive_content(archive);
 }

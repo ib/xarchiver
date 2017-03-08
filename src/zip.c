@@ -257,7 +257,6 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
-	xa_reload_archive_content(archive);
 }
 
 void xa_zip_delete (XArchive *archive, GSList *file_list)
@@ -271,7 +270,4 @@ void xa_zip_delete (XArchive *archive, GSList *file_list)
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
-
-	if (archive->status == XA_ARCHIVESTATUS_DELETE)
-		xa_reload_archive_content(archive);
 }

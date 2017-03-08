@@ -1385,6 +1385,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 			return;
 	}
 	(*archive[id]->delete) (archive[id],list);
+	xa_reload_archive_content(archive[id]);
 }
 
 void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
@@ -2633,6 +2634,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 
 		paste_data->target->status = XA_ARCHIVESTATUS_DELETE;
 		(*paste_data->target->delete)(paste_data->target, list);
+		xa_reload_archive_content(paste_data->target);
 	}
 }
 
