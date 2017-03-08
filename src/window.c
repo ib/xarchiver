@@ -23,8 +23,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <glib/gprintf.h>
 #include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 #include "window.h"
 #include "add_dialog.h"
 #include "extract_dialog.h"
@@ -758,19 +756,17 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	}
 }
 
-void xa_watch_child (GPid pid,gint status,XArchive *archive)
+void xa_watch_child (int process, gboolean success, XArchive *archive)
 {
-	archive->child_pid = archive->pb_source = 0;
-	if (WIFEXITED (status))
+	archive->child_ref--;
+
+	if (process == 0)
+		archive->child_pid = 0;
+
+	if (!success)
 	{
-		if (WEXITSTATUS (status))
-		{
 			if (xa_main_window == NULL)
 				goto error;
-			if ((WEXITSTATUS (status) == 1 && archive->type == XARCHIVETYPE_ZIP) ||
-				(WEXITSTATUS (status) == 6 && archive->type == XARCHIVETYPE_ARJ) ||
-				(WEXITSTATUS (status) == 1 && is_tar_compressed(archive->type)))
-				goto there;
 			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 			{
 				xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it."));
@@ -792,16 +788,45 @@ void xa_watch_child (GPid pid,gint status,XArchive *archive)
 				archive->status = XA_ARCHIVESTATUS_ERROR;
 				return;
 			}
-		}
 	}
-there:
 	if (xa_main_window)
 	{
+		if (archive->parse_output && process == 1)
+		{
+			archive->parse_output = NULL;
+
+			if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+				xa_show_archive_comment (NULL,NULL);
+
+			xa_update_window_with_archive_entries (archive,NULL);
+			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
+			g_object_unref (archive->model);
+
+			gtk_widget_set_sensitive(comment_menu, archive->has_comment);
+			gtk_widget_set_sensitive(password_entry_menu, archive->has_passwd);
+			gtk_widget_set_sensitive(listing,TRUE);
+
+			if (GTK_IS_TREE_VIEW(archive->treeview))
+				gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
+
+			xa_set_statusbar_message_for_displayed_rows(archive);
+
+			if (archive->status == XA_ARCHIVESTATUS_TEST)
+			{
+				archive->create_image = FALSE;
+				xa_show_cmd_line_output (NULL,archive);
+			}
+			if (archive->status == XA_ARCHIVESTATUS_OPEN)
+				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
+		}
+		if (archive->child_ref == 0)
+		{
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
-		archive->child_pid = archive->pb_source = 0;
+		archive->pb_source = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 		archive->status = XA_ARCHIVESTATUS_IDLE;
+		}
 	}
 }
 

@@ -79,32 +79,8 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 
-		if (archive->parse_output)
-		{
-			if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-				xa_show_archive_comment (NULL,NULL);
+		xa_watch_child(1, TRUE, archive);
 
-			xa_update_window_with_archive_entries (archive,NULL);
-			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
-			g_object_unref (archive->model);
-
-			gtk_widget_set_sensitive(comment_menu, archive->has_comment);
-			gtk_widget_set_sensitive(password_entry_menu, archive->has_passwd);
-			gtk_widget_set_sensitive(listing,TRUE);
-
-			if (GTK_IS_TREE_VIEW(archive->treeview))
-				gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
-
-			xa_set_statusbar_message_for_displayed_rows(archive);
-
-			if (archive->status == XA_ARCHIVESTATUS_TEST)
-			{
-				archive->create_image = FALSE;
-				xa_show_cmd_line_output (NULL,archive);
-			}
-			if (archive->status == XA_ARCHIVESTATUS_OPEN)
-				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
-		}
 		return FALSE;
 	}
 	return TRUE;
@@ -137,9 +113,30 @@ static gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond
 	done:
 		g_io_channel_shutdown (ioc, TRUE, NULL);
 		g_io_channel_unref (ioc);
+
+		xa_watch_child(2, TRUE, archive);
+
 		return FALSE;
 	}
 	return TRUE;
+}
+
+static void xa_process_exit (GPid pid, gint status, XArchive *archive)
+{
+	gboolean result;
+
+	if (WIFEXITED(status))
+	{
+		result = (WEXITSTATUS(status) == 0);
+
+		if ((WEXITSTATUS(status) == 1 && archive->type == XARCHIVETYPE_ZIP) ||
+		    (WEXITSTATUS(status) == 6 && archive->type == XARCHIVETYPE_ARJ) ||
+		    (WEXITSTATUS(status) == 1 && is_tar_compressed(archive->type)))
+			result = TRUE;
+
+		g_spawn_close_pid(pid);
+		xa_watch_child(0, result, archive);
+	}
 }
 
 static void xa_delete_temp_directory (XArchive *archive)
@@ -339,6 +336,8 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	}
 	g_strfreev (argv);
 
+	archive->child_ref = 3;
+
 	if (archive->status == XA_ARCHIVESTATUS_OPEN)
 		archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 
@@ -356,7 +355,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, xa_process_output, archive);
 
 	if (archive->parse_output)
-		g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
+		g_child_watch_add_full(G_PRIORITY_LOW, archive->child_pid, (GChildWatchFunc) xa_process_exit, archive, NULL);
 
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
@@ -474,7 +473,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	gboolean result = TRUE;
 	GSList *_commands = commands;
 
-	archive->parse_output = NULL;
 	if (xa_main_window)
 	{
 		gtk_widget_set_sensitive (Stop_button,TRUE);
@@ -512,9 +510,12 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 				break;
 			}
 		}
+
+		xa_watch_child(0, result, archive);
+
 		_commands = _commands->next;
 	}
-	xa_watch_child (archive->child_pid, status, archive);
+
 	if (xa_main_window)
 		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_passwd, 1);
 

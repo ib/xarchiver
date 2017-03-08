@@ -157,6 +157,7 @@ struct _XArchive
 	/* child process */
 	gchar *working_dir;
 	GPid child_pid;
+	guint child_ref;
 	gint output_fd;
 	gint error_fd;
 	GSList *error_output;
