@@ -85,9 +85,8 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 	return TRUE;
 }
 
-static gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond, gpointer data)
+static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive *archive)
 {
-	XArchive *archive = data;
 	GIOStatus status;
 	gchar *line = NULL;
 
@@ -359,7 +358,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
 	g_io_channel_set_flags (err_ioc,G_IO_FLAG_NONBLOCK,NULL);
-	g_io_add_watch (err_ioc,G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_dump_child_error_messages,archive);
+	g_io_add_watch(err_ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stderr, archive);
 }
 
 /*	TODO: workaround for bug #3235
