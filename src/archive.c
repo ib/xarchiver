@@ -51,11 +51,17 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
 			if (line != NULL)
 			{
-				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
-					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
+				if (xa_main_window)
+				{
+					if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+						archive->error_output = g_slist_prepend(archive->error_output, g_strdup(line));
 
-				if (archive->parse_output)
-					(*archive->parse_output) (line,archive);
+					if (archive->parse_output)
+						(*archive->parse_output)(line, archive);
+				}
+				else if (!pb->multi_extract)
+					xa_increase_progress_bar(pb, line, 0.0);
+
 				g_free(line);
 			}
 			while (gtk_events_pending())
@@ -99,40 +105,6 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 			if (archive->status == XA_ARCHIVESTATUS_OPEN)
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
 		}
-		return FALSE;
-	}
-	return TRUE;
-}
-
-static gboolean xa_process_output_from_command_line (GIOChannel *ioc, GIOCondition cond, gpointer data)
-{
-	XArchive *archive = data;
-	GIOStatus status;
-	gchar *line = NULL;
-
-	if (cond & (G_IO_IN | G_IO_PRI))
-	{
-		do
-		{
-			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
-			if (line != NULL)
-			{
-				if (pb->multi_extract == FALSE)
-					xa_increase_progress_bar(pb,line,0.0);
-				g_free(line);
-			}
-		}
-		while (status == G_IO_STATUS_NORMAL);
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
-	{
-	done:
-		if (archive->error_output != NULL)
-			archive->error_output = g_slist_reverse (archive->error_output);
-		g_io_channel_shutdown (ioc,TRUE,NULL);
-		g_io_channel_unref (ioc);
 		return FALSE;
 	}
 	return TRUE;
@@ -381,10 +353,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_channel_set_encoding (ioc,NULL,NULL);
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
 
-	if (xa_main_window)
-		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output,archive);
-	else
-		g_io_add_watch (ioc, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP|G_IO_NVAL,xa_process_output_from_command_line,archive);
+	g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, xa_process_output, archive);
 
 	if (archive->parse_output)
 		g_child_watch_add_full (G_PRIORITY_LOW,archive->child_pid, (GChildWatchFunc)xa_watch_child,archive,NULL);
