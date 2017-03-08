@@ -63,7 +63,7 @@ void xa_save_archive(GtkMenuItem *, gpointer);
 void xa_select_all(GtkMenuItem *, gpointer);
 void xa_set_statusbar_message_for_displayed_rows(XArchive *);
 void xa_show_archive_comment(GtkMenuItem *, gpointer);
-void xa_show_cmd_line_output(GtkMenuItem *, XArchive *);
+void xa_show_archive_output(GtkMenuItem *, XArchive *);
 void xa_show_help(GtkMenuItem *, gpointer);
 int xa_show_message_dialog(GtkWindow *, int, int, int, const gchar *, const gchar *);
 void xa_show_multi_extract_dialog(GtkMenuItem *, gpointer);

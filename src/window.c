@@ -778,7 +778,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
 		error:
 				archive->create_image = TRUE;
-				xa_show_cmd_line_output (NULL,archive);
+				xa_show_archive_output(NULL, archive);
 				/* In case the user supplies a wrong password we reset it so he can try again */
 				if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
 				{
@@ -814,7 +814,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 			if (archive->status == XA_ARCHIVESTATUS_TEST)
 			{
 				archive->create_image = FALSE;
-				xa_show_cmd_line_output (NULL,archive);
+				xa_show_archive_output(NULL, archive);
 			}
 			if (archive->status == XA_ARCHIVESTATUS_OPEN)
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
@@ -866,7 +866,7 @@ void xa_reload_archive_content(XArchive *_archive)
 		xa_fill_dir_sidebar(_archive,TRUE);
 }
 
-void xa_show_cmd_line_output(GtkMenuItem *menuitem,XArchive *_archive)
+void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *_archive)
 {
 	GSList *output = NULL;
 	gchar *title = NULL;

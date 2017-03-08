@@ -1137,7 +1137,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) extract_menu,"activate",G_CALLBACK (xa_extract_archive),NULL);
 	g_signal_connect ((gpointer) exe_menu,"activate",G_CALLBACK (xa_convert_sfx),NULL);
 	g_signal_connect ((gpointer) addfile,"activate",G_CALLBACK (xa_add_files_archive),NULL);
-	g_signal_connect ((gpointer) view_shell_output1,"activate",G_CALLBACK (xa_show_cmd_line_output),NULL);
+	g_signal_connect ((gpointer) view_shell_output1,"activate",G_CALLBACK (xa_show_archive_output),NULL);
 	g_signal_connect ((gpointer) select_all,"activate",G_CALLBACK (xa_select_all),NULL);
 	g_signal_connect ((gpointer) deselect_all,"activate",G_CALLBACK (xa_deselect_all),NULL);
 	g_signal_connect ((gpointer) select_pattern,"activate",G_CALLBACK (xa_select_by_pattern_dialog),NULL);
