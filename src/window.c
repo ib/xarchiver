@@ -435,7 +435,6 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		archive->status = XA_ARCHIVESTATUS_DELETE;
 		old_name = xa_build_full_path_name_from_entry(entry,archive);
 		list = g_slist_append(list,old_name);
-		archive->status = XA_ARCHIVESTATUS_RENAME;
 		(*archive->delete)(archive, list);
 		list = NULL;
 
