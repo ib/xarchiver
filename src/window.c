@@ -929,7 +929,7 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *_archive)
 	gtk_box_pack_start (GTK_BOX (vbox),scrolledwindow,TRUE,TRUE,0);
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), vbox, TRUE, TRUE, 0);
 
-	output = _archive->error_output;
+	output = _archive->output;
 	while (output)
 	{
 		gtk_text_buffer_insert_with_tags_by_name(textbuffer, &iter, output->data, -1, "font", NULL);

@@ -168,7 +168,7 @@ struct _XArchive
 	guint child_ref;
 	gint output_fd;
 	gint error_fd;
-	GSList *error_output;
+	GSList *output;
 	/* (un)compressor interface */
 	ask_func ask;
 	open_func open;

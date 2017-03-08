@@ -53,7 +53,7 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 				if (xa_main_window)
 				{
 					if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
-						archive->error_output = g_slist_prepend(archive->error_output, g_strdup(line));
+						archive->output = g_slist_prepend(archive->output, g_strdup(line));
 
 					if (archive->parse_output)
 						(*archive->parse_output)(line, archive);
@@ -73,8 +73,8 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
 	{
 	done:
-		if (archive->error_output != NULL)
-			archive->error_output = g_slist_reverse (archive->error_output);
+		if (archive->output != NULL)
+			archive->output = g_slist_reverse(archive->output);
 		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 
@@ -98,7 +98,7 @@ static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive 
 			if (line != NULL)
 			{
 				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
-					archive->error_output = g_slist_prepend (archive->error_output,g_strdup(line));
+					archive->output = g_slist_prepend(archive->output, g_strdup(line));
 				g_free(line);
 			}
 		}
@@ -339,11 +339,11 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	if (archive->status == XA_ARCHIVESTATUS_OPEN)
 		archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 
-	if (archive->error_output != NULL)
+	if (archive->output != NULL)
 	{
-		g_slist_foreach (archive->error_output,(GFunc)g_free,NULL);
-		g_slist_free (archive->error_output);
-		archive->error_output = NULL;
+		g_slist_foreach(archive->output, (GFunc) g_free, NULL);
+		g_slist_free(archive->output);
+		archive->output = NULL;
 	}
 
 	ioc = g_io_channel_unix_new (archive->output_fd);
@@ -399,11 +399,11 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->column_types != NULL)
 		g_free(archive->column_types);
 
-	if (archive->error_output != NULL)
+	if (archive->output != NULL)
 	{
-		g_slist_foreach (archive->error_output, (GFunc) g_free, NULL);
-		g_slist_free (archive->error_output);
-		archive->error_output = NULL;
+		g_slist_foreach(archive->output, (GFunc) g_free, NULL);
+		g_slist_free(archive->output);
+		archive->output = NULL;
 	}
 
 	if (archive->path != NULL)
