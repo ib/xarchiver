@@ -72,6 +72,6 @@ void xa_treeview_row_activated(GtkTreeView *, GtkTreePath *, GtkTreeViewColumn *
 void xa_unsort(GtkMenuItem *, gpointer);
 void xa_update_window_with_archive_entries(XArchive *, XEntry *);
 void xa_view_from_popupmenu(GtkMenuItem *, gpointer);
-void xa_watch_child(int, gboolean, XArchive *);
+void xa_watch_child(XAChildProcess, gboolean, XArchive *);
 
 #endif

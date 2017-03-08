@@ -79,7 +79,7 @@ static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer 
 		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 
-		xa_watch_child(1, TRUE, archive);
+		xa_watch_child(XA_CHILD_STDOUT, TRUE, archive);
 
 		return FALSE;
 	}
@@ -114,7 +114,7 @@ static gboolean xa_dump_child_error_messages (GIOChannel *ioc, GIOCondition cond
 		g_io_channel_shutdown (ioc, TRUE, NULL);
 		g_io_channel_unref (ioc);
 
-		xa_watch_child(2, TRUE, archive);
+		xa_watch_child(XA_CHILD_STDERR, TRUE, archive);
 
 		return FALSE;
 	}
@@ -135,7 +135,7 @@ static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 			result = TRUE;
 
 		g_spawn_close_pid(pid);
-		xa_watch_child(0, result, archive);
+		xa_watch_child(XA_CHILD_EXIT, result, archive);
 	}
 }
 
@@ -336,7 +336,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	}
 	g_strfreev (argv);
 
-	archive->child_ref = 3;
+	archive->child_ref = XA_CHILD_PROCS;
 
 	if (archive->status == XA_ARCHIVESTATUS_OPEN)
 		archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
@@ -511,7 +511,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			}
 		}
 
-		xa_watch_child(0, result, archive);
+		xa_watch_child(XA_CHILD_EXIT, result, archive);
 
 		_commands = _commands->next;
 	}

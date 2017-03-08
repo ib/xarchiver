@@ -59,6 +59,14 @@ typedef enum
 	XA_ARCHIVESTATUS_ERROR
 } XArchiveStatus;
 
+typedef enum
+{
+	XA_CHILD_EXIT,
+	XA_CHILD_STDOUT,
+	XA_CHILD_STDERR,
+	XA_CHILD_PROCS
+} XAChildProcess;
+
 typedef struct
 {
 	gchar *program[2];

@@ -756,11 +756,11 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	}
 }
 
-void xa_watch_child (int process, gboolean success, XArchive *archive)
+void xa_watch_child (XAChildProcess process, gboolean success, XArchive *archive)
 {
 	archive->child_ref--;
 
-	if (process == 0)
+	if (process == XA_CHILD_EXIT)
 		archive->child_pid = 0;
 
 	if (!success)
@@ -791,7 +791,7 @@ void xa_watch_child (int process, gboolean success, XArchive *archive)
 	}
 	if (xa_main_window)
 	{
-		if (archive->parse_output && process == 1)
+		if (archive->parse_output && process == XA_CHILD_STDOUT)
 		{
 			archive->parse_output = NULL;
 
