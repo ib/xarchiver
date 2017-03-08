@@ -38,9 +38,8 @@
 
 XArchive *archive[100];
 
-static gboolean xa_process_output (GIOChannel *ioc, GIOCondition cond, gpointer data)
+static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive *archive)
 {
-	XArchive *archive = data;
 	GIOStatus status;
 	gchar *line = NULL;
 
@@ -352,7 +351,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_channel_set_encoding (ioc,NULL,NULL);
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
 
-	g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, xa_process_output, archive);
+	g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stdout, archive);
 
 	if (archive->parse_output)
 		g_child_watch_add_full(G_PRIORITY_LOW, archive->child_pid, (GChildWatchFunc) xa_process_exit, archive, NULL);
