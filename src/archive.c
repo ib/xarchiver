@@ -78,7 +78,7 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 
-		xa_watch_child(XA_CHILD_STDOUT, TRUE, archive);
+		xa_child_processed(XA_CHILD_STDOUT, TRUE, archive);
 
 		return FALSE;
 	}
@@ -112,7 +112,7 @@ static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive 
 		g_io_channel_shutdown (ioc, TRUE, NULL);
 		g_io_channel_unref (ioc);
 
-		xa_watch_child(XA_CHILD_STDERR, TRUE, archive);
+		xa_child_processed(XA_CHILD_STDERR, TRUE, archive);
 
 		return FALSE;
 	}
@@ -133,7 +133,7 @@ static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 			result = TRUE;
 
 		g_spawn_close_pid(pid);
-		xa_watch_child(XA_CHILD_EXIT, result, archive);
+		xa_child_processed(XA_CHILD_EXIT, result, archive);
 	}
 }
 
@@ -509,7 +509,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 			}
 		}
 
-		xa_watch_child(XA_CHILD_EXIT, result, archive);
+		xa_child_processed(XA_CHILD_EXIT, result, archive);
 
 		_commands = _commands->next;
 	}

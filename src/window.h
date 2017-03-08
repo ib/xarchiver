@@ -33,6 +33,7 @@ void xa_about(GtkMenuItem *, gpointer);
 void xa_add_files_archive(GtkMenuItem *, gpointer);
 void xa_archive_properties(GtkMenuItem *, gpointer);
 void xa_cancel_archive(GtkMenuItem *, gpointer);
+void xa_child_processed(XAChildProcess, gboolean, XArchive *);
 void xa_clipboard_clear(GtkClipboard *, gpointer);
 void xa_clipboard_copy(GtkMenuItem *, gpointer);
 void xa_clipboard_cut(GtkMenuItem *, gpointer);
@@ -72,6 +73,5 @@ void xa_treeview_row_activated(GtkTreeView *, GtkTreePath *, GtkTreeViewColumn *
 void xa_unsort(GtkMenuItem *, gpointer);
 void xa_update_window_with_archive_entries(XArchive *, XEntry *);
 void xa_view_from_popupmenu(GtkMenuItem *, gpointer);
-void xa_watch_child(XAChildProcess, gboolean, XArchive *);
 
 #endif

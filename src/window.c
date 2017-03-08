@@ -756,7 +756,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	}
 }
 
-void xa_watch_child (XAChildProcess process, gboolean success, XArchive *archive)
+void xa_child_processed (XAChildProcess process, gboolean success, XArchive *archive)
 {
 	archive->child_ref--;
 
