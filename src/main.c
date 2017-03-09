@@ -687,7 +687,7 @@ done:
 		if (! socket_info.ignore_socket && socket_info.lock_socket > 0)
 		{
 			socket_info.read_ioc = g_io_channel_unix_new(socket_info.lock_socket);
-			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc,	G_IO_IN|G_IO_PRI|G_IO_ERR, socket_lock_input_cb, xa_main_window);
+			socket_info.lock_socket_tag = g_io_add_watch(socket_info.read_ioc, G_IO_IN | G_IO_ERR, socket_lock_input_cb, xa_main_window);
 		}
 		#endif
 		gtk_main ();

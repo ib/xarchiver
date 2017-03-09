@@ -43,7 +43,7 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 	GIOStatus status;
 	gchar *line = NULL;
 
-	if (cond & (G_IO_IN | G_IO_PRI))
+	if (cond & G_IO_IN)
 	{
 		do
 		{
@@ -90,7 +90,7 @@ static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive 
 	GIOStatus status;
 	gchar *line = NULL;
 
-	if (cond & (G_IO_IN | G_IO_PRI))
+	if (cond & G_IO_IN)
 	{
 		do
 		{
@@ -350,7 +350,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	g_io_channel_set_encoding (ioc,NULL,NULL);
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
 
-	g_io_add_watch(ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stdout, archive);
+	g_io_add_watch(ioc, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stdout, archive);
 
 	if (archive->parse_output)
 		g_child_watch_add_full(G_PRIORITY_LOW, archive->child_pid, (GChildWatchFunc) xa_process_exit, archive, NULL);
@@ -358,7 +358,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	err_ioc = g_io_channel_unix_new (archive->error_fd);
 	g_io_channel_set_encoding (err_ioc,locale,NULL);
 	g_io_channel_set_flags (err_ioc,G_IO_FLAG_NONBLOCK,NULL);
-	g_io_add_watch(err_ioc, G_IO_IN | G_IO_PRI | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stderr, archive);
+	g_io_add_watch(err_ioc, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stderr, archive);
 }
 
 /*	TODO: workaround for bug #3235
