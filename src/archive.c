@@ -125,13 +125,8 @@ static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 
 	if (WIFEXITED(status))
 	{
-		result = (WEXITSTATUS(status) == 0);
-
-		if ((WEXITSTATUS(status) == 1 && archive->type == XARCHIVETYPE_ZIP) ||
-		    (WEXITSTATUS(status) == 6 && archive->type == XARCHIVETYPE_ARJ) ||
-		    (WEXITSTATUS(status) == 1 && is_tar_compressed(archive->type)))
-			result = TRUE;
-
+		result = (WEXITSTATUS(status) == 0 || (archive->status == XARCHIVESTATUS_RELOAD &&
+		                                       !g_file_test(archive->path, G_FILE_TEST_EXISTS)));
 		g_spawn_close_pid(pid);
 		xa_child_processed(XA_CHILD_EXIT, result, archive);
 	}
