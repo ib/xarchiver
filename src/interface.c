@@ -1622,7 +1622,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 
 	if (archive)
 	{
-		if (archive->status == XA_ARCHIVESTATUS_EXTRACT)
+		if (archive->status == XARCHIVESTATUS_EXTRACT)
 			text = _("Extracting from archive:");
 		else
 			text = _("Adding to archive:");

@@ -329,14 +329,14 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_strfreev (argv);
 		archive->child_pid = 0;
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
-		archive->status = XA_ARCHIVESTATUS_ERROR;
+		archive->status = XARCHIVESTATUS_ERROR;
 		return;
 	}
 	g_strfreev (argv);
 
 	archive->child_ref = XA_CHILD_PROCS;
 
-	if (archive->status == XA_ARCHIVESTATUS_OPEN)
+	if (archive->status == XARCHIVESTATUS_OPEN)
 		archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 
 	if (archive->output != NULL)
@@ -648,7 +648,7 @@ gchar *xa_build_full_path_name_from_entry(XEntry *entry, XArchive *archive)
 		goto there;
 
 	n = strlen(dummy->str)-1;
-	if (archive->status == XA_ARCHIVESTATUS_DELETE && dummy->str[n] == '/' && archive->type != XARCHIVETYPE_ZIP)
+	if (archive->status == XARCHIVESTATUS_DELETE && dummy->str[n] == '/' && archive->type != XARCHIVETYPE_ZIP)
 		fullpathname = g_strndup(dummy->str,n);
 	else
 there:

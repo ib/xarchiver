@@ -404,7 +404,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		overwrite = archive->overwrite;
 		archive->overwrite = archive->full_path = TRUE;
 
-		archive->status = XA_ARCHIVESTATUS_EXTRACT;
+		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
 
 		archive->overwrite = full_path;
@@ -430,7 +430,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		list = NULL;
 
 		/* Delete the selected file from the archive */
-		archive->status = XA_ARCHIVESTATUS_DELETE;
+		archive->status = XARCHIVESTATUS_DELETE;
 		old_name = xa_build_full_path_name_from_entry(entry,archive);
 		list = g_slist_append(list,old_name);
 		(*archive->delete)(archive, list);
@@ -743,7 +743,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	overwrite = archive->overwrite;
 	archive->overwrite = TRUE;
 
-	archive->status = XA_ARCHIVESTATUS_EXTRACT;
+	archive->status = XARCHIVESTATUS_EXTRACT;
 	(*archive->extract) (archive,files);
 	archive->overwrite = overwrite;
 	g_free(archive->extraction_path);
@@ -780,12 +780,12 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				archive->create_image = TRUE;
 				xa_show_archive_output(NULL, archive);
 				/* In case the user supplies a wrong password we reset it so he can try again */
-				if ( (archive->status == XA_ARCHIVESTATUS_TEST || archive->status == XA_ARCHIVESTATUS_SFX) && archive->passwd != NULL)
+				if ( (archive->status == XARCHIVESTATUS_TEST || archive->status == XARCHIVESTATUS_SFX) && archive->passwd != NULL)
 				{
 					g_free (archive->passwd);
 					archive->passwd = NULL;
 				}
-				archive->status = XA_ARCHIVESTATUS_ERROR;
+				archive->status = XARCHIVESTATUS_ERROR;
 				return;
 			}
 	}
@@ -795,7 +795,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 		{
 			archive->parse_output = NULL;
 
-			if (archive->has_comment && archive->status == XA_ARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+			if (archive->has_comment && archive->status == XARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 				xa_show_archive_comment (NULL,NULL);
 
 			xa_update_window_with_archive_entries (archive,NULL);
@@ -811,12 +811,12 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 
 			xa_set_statusbar_message_for_displayed_rows(archive);
 
-			if (archive->status == XA_ARCHIVESTATUS_TEST)
+			if (archive->status == XARCHIVESTATUS_TEST)
 			{
 				archive->create_image = FALSE;
 				xa_show_archive_output(NULL, archive);
 			}
-			if (archive->status == XA_ARCHIVESTATUS_OPEN)
+			if (archive->status == XARCHIVESTATUS_OPEN)
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
 		}
 		if (archive->child_ref == 0)
@@ -825,7 +825,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 		archive->pb_source = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
-		archive->status = XA_ARCHIVESTATUS_IDLE;
+		archive->status = XARCHIVESTATUS_IDLE;
 		}
 	}
 }
@@ -859,7 +859,7 @@ void xa_reload_archive_content(XArchive *_archive)
 	_archive->root_entry = entry;
 
 	/* this reload will be called internally during adding and deleting */
-	_archive->status = XA_ARCHIVESTATUS_RELOAD;
+	_archive->status = XARCHIVESTATUS_RELOAD;
 	(*_archive->open)(_archive);
 
 	if (strcmp(_archive->path,archive[idx]->path) == 0)
@@ -1105,7 +1105,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	xa_set_button_state (0,0,0,0,0,0,0,0,0,0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
 
-	archive[current_page]->status = XA_ARCHIVESTATUS_OPEN;
+	archive[current_page]->status = XARCHIVESTATUS_OPEN;
 	(*archive[current_page]->open)(archive[current_page]);
 
 	archive[current_page]->passwd = NULL;
@@ -1131,7 +1131,7 @@ void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 	}
 	gtk_label_set_text(GTK_LABEL(total_label),_("Testing archive,please wait..."));
 
-	archive[id]->status = XA_ARCHIVESTATUS_TEST;
+	archive[id]->status = XARCHIVESTATUS_TEST;
 	(*archive[id]->test) (archive[id]);
 }
 
@@ -1377,7 +1377,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[id]->model);
 	if (row_list != NULL)
 	{
-		archive[id]->status = XA_ARCHIVESTATUS_DELETE;
+		archive[id]->status = XARCHIVESTATUS_DELETE;
 		while (row_list)
 		{
 			gtk_tree_model_get_iter(archive[id]->model,&iter,row_list->data);
@@ -1462,7 +1462,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index ( current_page);
 
-    archive[idx]->status = XA_ARCHIVESTATUS_SFX;
+    archive[idx]->status = XARCHIVESTATUS_SFX;
     switch ( archive[idx]->type)
 	{
 		case XARCHIVETYPE_RAR:
@@ -1863,7 +1863,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 	}
 	else
 	{
-		if (archive[idx]->status == XA_ARCHIVESTATUS_ADD || archive[idx]->status == XA_ARCHIVESTATUS_SFX)
+		if (archive[idx]->status == XARCHIVESTATUS_ADD || archive[idx]->status == XARCHIVESTATUS_SFX)
 		{
 			response = xa_show_message_dialog (GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_OK_CANCEL,_("Doing so will probably corrupt your archive!"),_("Do you really want to cancel?"));
 			if (response == GTK_RESPONSE_CANCEL)
@@ -2208,7 +2208,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->overwrite_check));
 			archive->extraction_path = xa_escape_bad_chars(archive->extraction_path, ESCAPES);
 
-			archive->status = XA_ARCHIVESTATUS_EXTRACT;
+			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->extract) (archive,names);
 
 			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
@@ -2649,14 +2649,14 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	list = xa_slist_copy(paste_data->files);
 	archive[idx]->working_dir = g_strdup(paste_data->target->tmp);
 	xa_execute_add_commands(archive[idx],list,NULL);
-	if (archive[idx]->status == XA_ARCHIVESTATUS_ERROR)
+	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
 
 	if (paste_data->mode == XA_CLIPBOARD_CUT)
 	{
 		list = xa_slist_copy(paste_data->files);
 
-		paste_data->target->status = XA_ARCHIVESTATUS_DELETE;
+		paste_data->target->status = XARCHIVESTATUS_DELETE;
 		(*paste_data->target->delete)(paste_data->target, list);
 		xa_reload_archive_content(paste_data->target);
 	}
@@ -2755,7 +2755,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	archive[idx]->overwrite = TRUE;
 	list_of_files = xa_slist_copy(list);
 
-	archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
+	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
 	archive[idx]->overwrite = overwrite;
 	g_free(archive[idx]->extraction_path);
@@ -2835,7 +2835,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	archive[idx]->full_path = FALSE;
 	archive[idx]->overwrite = TRUE;
 
-	archive[idx]->status = XA_ARCHIVESTATUS_EXTRACT;
+	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
 	archive[idx]->full_path = full_path;
 	archive[idx]->overwrite = overwrite;
@@ -2899,7 +2899,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	names = g_slist_append(names,item);
 	   	overwrite = archive->overwrite;
 	   	archive->overwrite = TRUE;
-		archive->status = XA_ARCHIVESTATUS_EXTRACT;
+		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
 		archive->overwrite = overwrite;
 
@@ -2931,7 +2931,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gint size;
 	gchar *entry_utf8;
 
-	if (archive->status == XA_ARCHIVESTATUS_RELOAD && archive->location_entry_path != NULL)
+	if (archive->status == XARCHIVESTATUS_RELOAD && archive->location_entry_path != NULL)
 		entry = xa_find_entry_from_path(archive->root_entry,archive->location_entry_path);
 	else
 		archive->current_entry = entry;

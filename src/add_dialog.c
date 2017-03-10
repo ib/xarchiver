@@ -500,7 +500,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 	g_slist_foreach(dirlist,(GFunc)g_free,NULL);
 	g_slist_free(dirlist);
 
-	archive->status = XA_ARCHIVESTATUS_ADD;
+	archive->status = XARCHIVESTATUS_ADD;
 	(*archive->add)(archive, files, compression);
 	xa_reload_archive_content(archive);
 }

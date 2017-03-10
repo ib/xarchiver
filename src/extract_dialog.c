@@ -260,7 +260,7 @@ static gchar *xa_multi_extract_archive (Multi_extract_data *dialog, gchar *filen
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_LZOP];
 	}
-	archive->status = XA_ARCHIVESTATUS_EXTRACT;
+	archive->status = XARCHIVESTATUS_EXTRACT;
 	(*archive->extract)(archive,NULL);
 	xa_clean_archive_structure(archive);
 	return NULL;
@@ -589,7 +589,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive,please wait..."));
 			}
 
-			archive->status = XA_ARCHIVESTATUS_EXTRACT;
+			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->extract)(archive,names);
 		}
 	}

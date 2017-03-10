@@ -542,7 +542,7 @@ int main (int argc, char **argv)
 			archive->full_path = archive->can_full_path;
 			archive->overwrite = archive->can_overwrite;
 			archive->extraction_path = xa_escape_bad_chars(opt_extract_path, ESCAPES);
-			archive->status = XA_ARCHIVESTATUS_EXTRACT;
+			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->extract) (archive,string);
 		}
 		/* Switch -e */
