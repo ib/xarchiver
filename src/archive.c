@@ -626,23 +626,26 @@ XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
 
 gchar *xa_build_full_path_name_from_entry (XEntry *entry)
 {
-	gchar *fullpathname_local;
-	GString *dummy = g_string_new("");
+	GString *path;
+	gchar *path_local;
+
+	path = g_string_new("");
 
 	while (entry)
 	{
 		if (entry->is_dir)
-			dummy = g_string_prepend_c(dummy,'/');
+			path = g_string_prepend_c(path, '/');
 
-		dummy = g_string_prepend(dummy,entry->filename);
+		path = g_string_prepend(path, entry->filename);
+
 		entry = entry->prev;
 	}
 
-	fullpathname_local = g_filename_from_utf8(dummy->str, -1, NULL, NULL, NULL);
+	path_local = g_filename_from_utf8(path->str, -1, NULL, NULL, NULL);
 
-	g_string_free(dummy,TRUE);
+	g_string_free(path, TRUE);
 
-	return fullpathname_local;
+	return path_local;
 }
 
 void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
