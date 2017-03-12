@@ -248,9 +248,25 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 		g_free(passwd_str);
 	}
 	else
-		command = g_strconcat("sh -c \"cd ", archive->extraction_path, " && ",
-		                      archiver[archive->type].program[0], " e ",
-		                      archive->escaped_path, "\"", NULL);
+	{
+		if (xa_create_temp_directory(archive))
+		{
+			gchar *move;
+
+			if (strcmp(archive->extraction_path, archive->tmp) == 0)
+				move = g_strdup("");
+			else
+				move = g_strconcat(" && mv", *files->str ? files->str : " *", " ",
+				                   archive->extraction_path, NULL);
+
+			command = g_strconcat("sh -c \"cd ", archive->tmp, " && rm -f * && ",
+			                      archiver[archive->type].program[0], " e ",
+			                      archive->escaped_path, move, "\"", NULL);
+			g_free(move);
+		}
+		else
+			command = g_strdup("sh -c \"\"");
+	}
 
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
