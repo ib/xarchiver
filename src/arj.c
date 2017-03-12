@@ -34,7 +34,7 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_passwd = archiver[archive->type].is_compressor;
 	archive->can_overwrite = archiver[archive->type].is_compressor;
-	archive->can_full_path = TRUE;
+	archive->can_full_path = archiver[archive->type].is_compressor;
 	archive->can_freshen = archiver[archive->type].is_compressor;
 	archive->can_update = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
@@ -249,8 +249,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	}
 	else
 		command = g_strconcat("sh -c \"cd ", archive->extraction_path, " && ",
-		                      archiver[archive->type].program[0],
-		                      archive->full_path ? " x " : " e ",
+		                      archiver[archive->type].program[0], " e ",
 		                      archive->escaped_path, "\"", NULL);
 
 	g_string_free(files,TRUE);
