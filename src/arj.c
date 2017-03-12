@@ -53,8 +53,9 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[7];
 	unsigned int linesize,n,a;
+	unsigned long long int file_size;
 	static gchar *filename;
-	gboolean unarj, lfn, encrypted;
+	gboolean unarj, lfn, dir, encrypted;
 
 	unarj = !archiver[archive->type].is_compressor;
 
@@ -71,20 +72,39 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 	if (!fname_line)
 	{
 		linesize = strlen(line);
-		if (line[0] == '-')
-			return;
 		line[linesize - 1] = '\0';
-		/* simple column separator check */
-		lfn = (linesize < 76 || line[34] != ' ' || line[40] != ' ' || line[49] != ' ' || line[58] != ' ' || line[unarj ? 67 : 73] != ' ');
-		if (lfn)
-			filename = g_strdup(line);
-		else
-			filename = g_strchomp(g_strndup(line, 12));
 
-		if (!*filename)
+		if (!unarj && (*line == ' '))
+			return;
+
+		if (line[0] == '-' && linesize == (unarj ? 59 : 41))
 		{
-			g_free(filename);
-			filename = g_strdup(" ");   // just a wild guess in order to have an entry
+			data_line = FALSE;
+			return;
+		}
+
+		if (unarj)
+		{
+			/* simple column separator check */
+			lfn = (linesize < 76 || line[34] != ' ' || line[40] != ' ' || line[49] != ' ' || line[58] != ' ' || line[67] != ' ');
+
+			if (lfn)
+				filename = g_strdup(line);
+			else
+			{
+				filename = g_strchomp(g_strndup(line, 12));
+
+				if (!*filename)
+				{
+					g_free(filename);
+					filename = g_strdup(" ");   // just a wild guess in order to have an entry
+				}
+			}
+		}
+		else
+		{
+			lfn = TRUE;
+			filename = g_strdup(line + 5);
 		}
 
 		archive->nr_of_files++;
@@ -102,7 +122,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n]='\0';
 		item[0] = line + a;
-		archive->files_size += g_ascii_strtoull(item[0],NULL,0);
+		file_size = g_ascii_strtoull(item[0], NULL, 0);
 		n++;
 
 		/* Compressed */
@@ -129,6 +149,8 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 		line[unarj ? 72 : 69] = '\0';
 		item[5] = line + (unarj ? 68 : 59);
 
+		dir = (line[73] == 'D');   // for unarj only
+
 		/* GUA */
 		line[73] = '\0';
 		item[6] = (unarj ? "" : line + 70);
@@ -140,9 +162,27 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 			encrypted = (line[77] == '1');
 		if (encrypted)
 			archive->has_passwd = TRUE;
-		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+
+		if (unarj && dir)
+		{
+			/* skip entry since unarj lacks directory structure information */
+			archive->nr_of_files--;
+			entry = NULL;
+		}
+		else
+		{
+			archive->files_size += file_size;
+			entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+		}
+
 		if (entry != NULL)
+		{
+			if (line[59] == 'd')      // for arj only
+				entry->is_dir = TRUE;
+
 			entry->is_encrypted	= encrypted;
+		}
+
 		g_free(filename);
 		fname_line = FALSE;
 	}
@@ -154,7 +194,7 @@ void xa_arj_open (XArchive *archive)
 
 	data_line = FALSE;
 	fname_line = FALSE;
-	gchar *command = g_strconcat(archiver[archive->type].program[0], " l ", archive->escaped_path, NULL);
+	gchar *command = g_strconcat(archiver[archive->type].program[0], archiver[archive->type].is_compressor ? " v " : " l ", archive->escaped_path, NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 8;
