@@ -430,9 +430,10 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		list = NULL;
 
 		/* Delete the selected file from the archive */
-		archive->status = XARCHIVESTATUS_DELETE;
 		old_name = xa_build_full_path_name_from_entry(entry);
 		list = g_slist_append(list,old_name);
+
+		archive->status = XARCHIVESTATUS_DELETE;
 		(*archive->delete)(archive, list);
 		list = NULL;
 
@@ -1377,7 +1378,6 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[id]->model);
 	if (row_list != NULL)
 	{
-		archive[id]->status = XARCHIVESTATUS_DELETE;
 		while (row_list)
 		{
 			gtk_tree_model_get_iter(archive[id]->model,&iter,row_list->data);
@@ -1408,6 +1408,8 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 		if (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT)
 			return;
 	}
+
+	archive[id]->status = XARCHIVESTATUS_DELETE;
 	(*archive[id]->delete) (archive[id],list);
 	xa_reload_archive_content(archive[id]);
 }
