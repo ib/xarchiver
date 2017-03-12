@@ -171,7 +171,7 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 	gchar *command;
 	GSList *list = NULL;
 
-	files = xa_quote_filenames(file_list, NULL);
+	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->full_path ? " x" : " xi",
 	                      archive->overwrite ? "f" : "",
@@ -195,7 +195,7 @@ void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
 	if (!compression)
 		compression = "5";
 
-	files = xa_quote_filenames(file_list, NULL);
+	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->update ? " u" : " a",
 	                      archive->add_move ? "d" : "",
@@ -213,7 +213,7 @@ void xa_lha_delete (XArchive *archive, GSList *file_list)
 	gchar *command;
 	GSList *list = NULL;
 
-	files = xa_quote_filenames(file_list, NULL);
+	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);

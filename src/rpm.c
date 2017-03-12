@@ -281,7 +281,7 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 		if (xa_rpm2cpio(archive) <= 0)
 			return FALSE;
 
-	files = xa_quote_filenames(file_list, "*?[]\"");
+	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
 	chdir (archive->extraction_path);
 	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", files->str, " < ", archive->tmp, "/xa-tmp.cpio\"", NULL);
 

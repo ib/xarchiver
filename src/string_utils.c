@@ -331,7 +331,7 @@ void xa_recurse_local_directory(gchar *path,GSList **list,gboolean recurse,gint 
 	closedir(dir);
 }
 
-GString *xa_quote_filenames (GSList *file_list, const gchar *escape)
+GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean slash)
 {
 	GString *files;
 	GSList *list;
@@ -342,6 +342,9 @@ GString *xa_quote_filenames (GSList *file_list, const gchar *escape)
 	while (list)
 	{
 		gchar *shellname, *escaped = NULL;
+
+		if (!slash)
+			xa_remove_slash_from_path(list->data);
 
 		if (escape)
 			escaped = xa_escape_bad_chars(list->data, "\\");

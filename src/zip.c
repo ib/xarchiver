@@ -211,7 +211,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
 
-	files = xa_quote_filenames(file_list, "*?[]");
+	files = xa_quote_filenames(file_list, "*?[]", TRUE);
 	passwd_str = xa_zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->overwrite ? " -o" : " -n",
@@ -240,7 +240,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	if (!compression)
 		compression = "6";
 
-	files = xa_quote_filenames(file_list, NULL);   // no escaping for adding!
+	files = xa_quote_filenames(file_list, NULL, TRUE);   // no escaping for adding!
 	passwd_str = xa_zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[1],
 	                      archive->freshen ? " -f" : "",
@@ -262,7 +262,7 @@ void xa_zip_delete (XArchive *archive, GSList *file_list)
 	gchar *command = NULL;
 	GSList *list = NULL;
 
-	files = xa_quote_filenames(file_list, "*?[]");
+	files = xa_quote_filenames(file_list, "*?[]", TRUE);
 	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);

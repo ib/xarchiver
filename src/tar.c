@@ -173,7 +173,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 	gchar *command;
 	GSList *list = NULL;
 
-	files = xa_quote_filenames(file_list, NULL);
+	files = xa_quote_filenames(file_list, NULL, TRUE);
 
 	if (is_tar_compressed(archive->type))
 		xa_add_delete_bzip2_gzip_lzma_compressed_tar(files,archive,0);
@@ -194,7 +194,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	if (archive->location_entry_path != NULL)
 		archive->working_dir = g_strdup(archive->tmp);
 
-	files = xa_quote_filenames(file_list, NULL);
+	files = xa_quote_filenames(file_list, NULL, TRUE);
 
 	switch (archive->type)
 	{
@@ -315,7 +315,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 	GSList *list = NULL;
 	gboolean result = FALSE;
 
-	files = xa_quote_filenames(file_list, NULL);
+	files = xa_quote_filenames(file_list, NULL, TRUE);
 
 	switch (archive->type)
 	{
@@ -545,7 +545,7 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 	if (strlen(files_to_extract) == 0)
 	{
 		gtk_tree_model_foreach(GTK_TREE_MODEL(archive->liststore),(GtkTreeModelForeachFunc) xa_concat_filenames,&file_list);
-		files = xa_quote_filenames(file_list, NULL);
+		files = xa_quote_filenames(file_list, NULL, TRUE);
 		files_to_extract = files->str;
 	}
 
