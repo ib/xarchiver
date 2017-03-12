@@ -199,7 +199,7 @@ struct _XAClipboard
 	XArchive *target;
 };
 
-gchar *xa_build_full_path_name_from_entry(XEntry *, XArchive *);
+gchar *xa_build_full_path_name_from_entry(XEntry *);
 void xa_clean_archive_structure(XArchive *);
 gboolean xa_create_temp_directory(XArchive *);
 gboolean xa_detect_encrypted_archive(XArchive *);
