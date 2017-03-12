@@ -183,9 +183,6 @@ void xa_zip_open (XArchive *archive)
 	xa_spawn_async_process (archive,command);
 	g_free ( command );
 
-	if (archive->child_pid == 0)
-		return;
-
 	GType types[] = {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 	archive->column_types = g_malloc0(sizeof(types));
 	for (i = 0; i < 11; i++)

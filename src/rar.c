@@ -426,8 +426,6 @@ void xa_rar_open (XArchive *archive)
 		archive->parse_output = xa_rar5_parse_output;
 		xa_spawn_async_process (archive,command);
 		g_free ( command );
-		if ( archive->child_pid == 0 )
-			return;
 		archive->column_types = g_malloc0(sizeof(types5));
 		for (i = 0; i < archive->nc+2; i++)
 			archive->column_types[i] = types5[i];
@@ -440,8 +438,6 @@ void xa_rar_open (XArchive *archive)
 		archive->parse_output = xa_rar_parse_output;
 		xa_spawn_async_process (archive,command);
 		g_free ( command );
-		if ( archive->child_pid == 0 )
-			return;
 		archive->column_types = g_malloc0(sizeof(types4));
 		for (i = 0; i < archive->nc+2; i++)
 			archive->column_types[i] = types4[i];
