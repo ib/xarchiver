@@ -133,6 +133,14 @@ static gchar *xa_strip_current_working_dir_from_path (gchar *working_dir, gchar 
 	return filename+len;
 }
 
+static void xa_remove_slash_from_path (gchar *path)
+{
+	size_t len = strlen(path);
+
+	if (len > 0 && path[len - 1] == '/')
+		path[len - 1] = 0;
+}
+
 #ifndef HAVE_STRCASESTR
 /*
  * case-insensitive version of strstr()
