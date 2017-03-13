@@ -196,7 +196,8 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 		a = n;
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n] = '\0';
-		if ((line+a)[0] == 'd')
+		/* archive may originate from Unix or Windows type OS */
+		if (*(line + a) == 'd' || *(line + a + 1) == 'D')
 			dir = TRUE;
 		item[i] = line + a;
 		i++;
@@ -227,17 +228,14 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 		line[n] = '\0';
 		item[i] = line + a;
 
-		/* Work around for rar which doesn't
-		 * output / with directories */
-		if (dir)
-		{
-			gchar *filename_with_slash = g_strconcat (filename,"/",NULL);
-			g_free (filename);
-			filename = filename_with_slash;
-		}
 		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 		if (entry != NULL)
+		{
+			if (dir)
+				entry->is_dir = TRUE;
+
 			entry->is_encrypted = encrypted;
+		}
 		g_free(filename);
 		fname_line = FALSE;
 	}
@@ -317,7 +315,8 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	a = n;
 	for(; n < linesize && line[n] != ' '; n++);
 	line[n] = '\0';
-	if ((line+a)[0] == 'd')
+	/* archive may originate from Unix or Windows type OS */
+	if (*(line + a) == 'd' || *(line + a + 3) == 'D')
 		dir = TRUE;
 	item[5] = line + a;
 	n++;
@@ -385,18 +384,14 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	while(end >= filename && *end == ' ') end--;
 	*(end + 1) = '\0';
 
-	/* Work around for rar which doesn't
-	 * output / with directories */
-	if (dir)
-	{
-		gchar *filename_with_slash = g_strconcat (filename,"/",NULL);
-		g_free (filename);
-		filename = filename_with_slash;
-	}
-
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
 	if (entry != NULL)
+	{
+		if (dir)
+			entry->is_dir = TRUE;
+
 		entry->is_encrypted = encrypted;
+	}
 	g_free(filename);
 }
 
