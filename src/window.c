@@ -2565,30 +2565,20 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			gtk_tree_selection_unselect_all (selection);
 			gtk_tree_selection_select_iter (selection,&iter);
 		}
-		if (selected > 1)
+
+		if (selected > 1 || entry->is_dir)
 		{
-			if (entry->is_dir)
-				gtk_widget_set_sensitive(open_popupmenu,FALSE);
-			else
-				gtk_widget_set_sensitive(open_popupmenu, archive->can_extract);
-			gtk_widget_set_sensitive(rrename,FALSE);
-			gtk_widget_set_sensitive(view,FALSE);
+			gtk_widget_set_sensitive(open_popupmenu, FALSE);
+			gtk_widget_set_sensitive(view, FALSE);
+			gtk_widget_set_sensitive(rrename, FALSE);
 		}
 		else
 		{
-			if (entry->is_dir)
-			{
-				gtk_widget_set_sensitive(view,FALSE);
-				gtk_widget_set_sensitive(open_popupmenu,FALSE);
-			}
-			else
-			{
-				gtk_widget_set_sensitive(open_popupmenu, archive->can_extract);
-				gtk_widget_set_sensitive(view, archive->can_extract);
-			}
-
+			gtk_widget_set_sensitive(open_popupmenu, archive->can_extract);
+			gtk_widget_set_sensitive(view, archive->can_extract);
 			gtk_widget_set_sensitive(rrename, can_rename(archive));
 		}
+
 		clipboard = gtk_clipboard_get(XA_CLIPBOARD);
 		clipboard_selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
 		if (clipboard_selection != NULL)
