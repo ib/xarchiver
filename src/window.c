@@ -407,8 +407,8 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
 
-		archive->overwrite = full_path;
-		archive->full_path = overwrite;
+		archive->overwrite = overwrite;
+		archive->full_path = full_path;
 		g_free(archive->extraction_path);
 		archive->extraction_path = NULL;
 		if (dummy)
