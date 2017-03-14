@@ -2315,8 +2315,7 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
 	if (entry->is_dir)
 		xa_fill_list_with_recursed_entries(entry->child,data);
-	else
-		filename = xa_build_full_path_name_from_entry(entry);
+	filename = xa_build_full_path_name_from_entry(entry);
 	*data = g_slist_prepend (*data,filename);
 }
 
