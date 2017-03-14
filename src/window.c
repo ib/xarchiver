@@ -400,15 +400,15 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		_old_name = g_shell_quote(old_name);
 		names = g_slist_append(names,old_name);
 
-		full_path = archive->full_path;
-		overwrite = archive->overwrite;
-		archive->overwrite = archive->full_path = TRUE;
+		full_path = archive->do_full_path;
+		overwrite = archive->do_overwrite;
+		archive->do_overwrite = archive->do_full_path = TRUE;
 
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
 
-		archive->overwrite = overwrite;
-		archive->full_path = full_path;
+		archive->do_overwrite = overwrite;
+		archive->do_full_path = full_path;
 		g_free(archive->extraction_path);
 		archive->extraction_path = NULL;
 		if (dummy)
@@ -741,12 +741,12 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	}
 	xa_create_temp_directory(archive);
 	archive->extraction_path = g_strdup(archive->tmp);
-	overwrite = archive->overwrite;
-	archive->overwrite = TRUE;
+	overwrite = archive->do_overwrite;
+	archive->do_overwrite = TRUE;
 
 	archive->status = XARCHIVESTATUS_EXTRACT;
 	(*archive->extract) (archive,files);
-	archive->overwrite = overwrite;
+	archive->do_overwrite = overwrite;
 	g_free(archive->extraction_path);
 
 	archive->extraction_path = NULL;
@@ -2206,8 +2206,8 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		else
 		{
 			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
-			archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->extract_full));
-			archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (extract_window->overwrite_check));
+			archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->extract_full));
+			archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->overwrite_check));
 			archive->extraction_path = xa_escape_bad_chars(archive->extraction_path, ESCAPES);
 
 			archive->status = XARCHIVESTATUS_EXTRACT;
@@ -2296,8 +2296,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		list = g_slist_append(list,filename);
 		len++;
 	}
-	archive[idx]->full_path 	= gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_window->store_path));
-	archive[idx]->add_recurse	= gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (prefs_window->allow_sub_dir));
+	archive[idx]->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_window->store_path));
+	archive[idx]->do_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
 	xa_execute_add_commands(archive[idx],list,NULL);
 	g_strfreev (array);
 }
@@ -2742,13 +2742,13 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	xa_create_temp_directory(archive[idx]);
 	archive[idx]->extraction_path = g_strdup(archive[idx]->tmp);
 
-	overwrite = archive[idx]->overwrite;
-	archive[idx]->overwrite = TRUE;
+	overwrite = archive[idx]->do_overwrite;
+	archive[idx]->do_overwrite = TRUE;
 	list_of_files = xa_slist_copy(list);
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
-	archive[idx]->overwrite = overwrite;
+	archive[idx]->do_overwrite = overwrite;
 	g_free(archive[idx]->extraction_path);
 	archive[idx]->extraction_path = NULL;
 	if (dummy)
@@ -2821,15 +2821,15 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 		g_free(archive[idx]->extraction_path);
 	}
 	archive[idx]->extraction_path = g_strdup(archive[idx]->tmp);
-	overwrite = archive[idx]->overwrite;
-	full_path = archive[idx]->full_path;
-	archive[idx]->full_path = FALSE;
-	archive[idx]->overwrite = TRUE;
+	overwrite = archive[idx]->do_overwrite;
+	full_path = archive[idx]->do_full_path;
+	archive[idx]->do_full_path = FALSE;
+	archive[idx]->do_overwrite = TRUE;
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
-	archive[idx]->full_path = full_path;
-	archive[idx]->overwrite = overwrite;
+	archive[idx]->do_full_path = full_path;
+	archive[idx]->do_overwrite = overwrite;
 	g_free(archive[idx]->extraction_path);
 	archive[idx]->extraction_path = NULL;
 	if (dummy)
@@ -2888,11 +2888,11 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	archive->extraction_path = g_strdup(archive->tmp);
 	   	item = xa_build_full_path_name_from_entry(entry);
 	   	names = g_slist_append(names,item);
-	   	overwrite = archive->overwrite;
-	   	archive->overwrite = TRUE;
+	   	overwrite = archive->do_overwrite;
+	   	archive->do_overwrite = TRUE;
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
-		archive->overwrite = overwrite;
+		archive->do_overwrite = overwrite;
 
 		g_free(archive->extraction_path);
 		archive->extraction_path = NULL;

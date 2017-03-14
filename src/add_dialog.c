@@ -400,23 +400,23 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 
 			done = TRUE;
 			if (gtk_widget_is_sensitive(add_dialog->store_path) && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->store_path)))
-				archive->full_path = TRUE;
+				archive->do_full_path = TRUE;
 			else
-				archive->full_path = FALSE;
+				archive->do_full_path = FALSE;
 			if (gtk_widget_is_sensitive(add_dialog->recurse))
-				archive->add_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->recurse));
+				archive->do_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->recurse));
 
 			if (gtk_widget_is_sensitive(add_dialog->update))
-				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
+				archive->do_update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
 
 			if (gtk_widget_is_sensitive(add_dialog->remove_files))
-				archive->add_move = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->remove_files));
+				archive->do_move = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->remove_files));
 
 			if (gtk_widget_is_sensitive(add_dialog->freshen))
-				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->freshen));
+				archive->do_freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->freshen));
 
 			if (gtk_widget_is_sensitive(add_dialog->solid_archive))
-				archive->add_solid = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->solid_archive));
+				archive->do_solid = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->solid_archive));
 
 			if (gtk_widget_is_sensitive(add_dialog->compression_scale))
 			{
@@ -425,7 +425,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			}
 			gtk_widget_hide(add_dialog->dialog1);
 
-			if (!archive->full_path)
+			if (!archive->do_full_path)
 			{
 				if (archive->working_dir != NULL)
 				{
@@ -493,7 +493,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 
 	while (list)
 	{
-		xa_recurse_local_directory((gchar*)list->data,&dirlist,archive->add_recurse,archive->type);
+		xa_recurse_local_directory((gchar*) list->data, &dirlist, archive->do_recurse, archive->type);
 		list = list->next;
 	}
 	files = xa_collect_filenames(archive, dirlist);

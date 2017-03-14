@@ -228,8 +228,8 @@ static gchar *xa_multi_extract_archive (Multi_extract_data *dialog, gchar *filen
 	type = xa_detect_archive_type(filename);
 	archive = xa_init_archive_structure(type);
 	dialog->archive = archive;
-	archive->overwrite = overwrite;
-	archive->full_path = full_path;
+	archive->do_overwrite = overwrite;
+	archive->do_full_path = full_path;
 	archive->escaped_path = xa_escape_bad_chars(filename, ESCAPES);
 	archive->extraction_path = xa_escape_bad_chars(dest_path, ESCAPES);
 	if (g_str_has_suffix (archive->escaped_path,".tar.gz")|| g_str_has_suffix (archive->escaped_path,".tgz"))
@@ -547,18 +547,18 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			g_free (destination_path);
 
 			if (gtk_widget_is_sensitive(dialog_data->overwrite_check))
-				archive->overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
+				archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->overwrite_check));
 			if (gtk_widget_is_sensitive(dialog_data->touch))
-				archive->touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
+				archive->do_touch = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->touch));
 			if (xa_main_window && gtk_widget_is_sensitive(dialog_data->extract_full))
-				archive->full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
+				archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full));
 			else
-				archive->full_path = archive->can_full_path;
+				archive->do_full_path = archive->can_full_path;
 
 			if (gtk_widget_is_sensitive(dialog_data->fresh))
-				archive->freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
+				archive->do_freshen = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->fresh));
 			if (gtk_widget_is_sensitive(dialog_data->update))
-				archive->update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
+				archive->do_update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->update));
 
 			gtk_widget_hide (dialog_data->dialog1);
 			/* Is the radiobutton Files selected? */

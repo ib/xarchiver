@@ -154,14 +154,14 @@ struct _XArchive
 	gboolean can_solid;       // can create a solid archive
 	gboolean can_move;        // can delete files after adding
 	/* instructions */
-	gboolean overwrite;
-	gboolean full_path;
-	gboolean touch;
-	gboolean freshen;
-	gboolean update;
-	gboolean add_recurse;
-	gboolean add_solid;
-	gboolean add_move;
+	gboolean do_overwrite;
+	gboolean do_full_path;
+	gboolean do_touch;
+	gboolean do_freshen;
+	gboolean do_update;
+	gboolean do_recurse;
+	gboolean do_solid;
+	gboolean do_move;
 	/* child process */
 	gchar *working_dir;
 	GPid child_pid;

@@ -173,8 +173,8 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->full_path ? " x" : " xi",
-	                      archive->overwrite ? "f" : "",
+	                      archive->do_full_path ? " x" : " xi",
+	                      archive->do_overwrite ? "f" : "",
 	                      "w=", archive->extraction_path, " ",
 	                      archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);
@@ -197,8 +197,8 @@ void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->update ? " u" : " a",
-	                      archive->add_move ? "d" : "",
+	                      archive->do_update ? " u" : " a",
+	                      archive->do_move ? "d" : "",
 	                      "o", compression, " ",
 	                      archive->escaped_path, files->str, NULL);
 	g_string_free(files,TRUE);

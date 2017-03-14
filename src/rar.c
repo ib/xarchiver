@@ -467,11 +467,11 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 	files = xa_quote_filenames(file_list, NULL, FALSE);
 	passwd_str = xa_rar_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->full_path ? " x" : " e",
-	                      archive->overwrite ? " -o+" : " -o-",
-	                      archive->touch ? " -tsm-" : "",
-	                      archive->freshen ? " -f" : "",
-	                      archive->update ? " -u" : "",
+	                      archive->do_full_path ? " x" : " e",
+	                      archive->do_overwrite ? " -o+" : " -o-",
+	                      archive->do_touch ? " -tsm-" : "",
+	                      archive->do_freshen ? " -f" : "",
+	                      archive->do_update ? " -u" : "",
 	                      passwd_str, " -idp -y ",
 	                      archive->escaped_path, files->str,
 	                      " ", archive->extraction_path, NULL);
@@ -508,10 +508,10 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	files = xa_quote_filenames(file_list, NULL, FALSE);
 	passwd_str = xa_rar_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->update ? " u" : " a", version_switch,
-	                      archive->freshen ? " -f" : "",
-	                      archive->add_solid ? " -s" : "",
-	                      archive->add_move ? " -df" : "",
+	                      archive->do_update ? " u" : " a", version_switch,
+	                      archive->do_freshen ? " -f" : "",
+	                      archive->do_solid ? " -s" : "",
+	                      archive->do_move ? " -df" : "",
 	                      " -m", compression,
 	                      passwd_str, " -idp -y ",
 	                      archive->escaped_path, files->str, NULL);

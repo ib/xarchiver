@@ -189,8 +189,8 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	passwd_str = xa_7zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->full_path ? " x" : " e",
-	                      archive->overwrite ? " -aoa" : " -aos",
+	                      archive->do_full_path ? " x" : " e",
+	                      archive->do_overwrite ? " -aoa" : " -aos",
 	                      passwd_str, " -bd -spd -y ",
 	                      archive->escaped_path, files->str,
 	                      " -o", archive->extraction_path, NULL);
@@ -216,8 +216,8 @@ void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	passwd_str = xa_7zip_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->update ? " u" : " a",
-	                      " -ms=", archive->add_solid ? "on" : "off",
+	                      archive->do_update ? " u" : " a",
+	                      " -ms=", archive->do_solid ? "on" : "off",
 	                      " -mx=", compression,
 	                      passwd_str, " -bd -spd -y ",
 	                      archive->escaped_path, files->str, NULL);

@@ -539,8 +539,8 @@ int main (int argc, char **argv)
 					goto done;
 			}
 			GSList *string = NULL;
-			archive->full_path = archive->can_full_path;
-			archive->overwrite = archive->can_overwrite;
+			archive->do_full_path = archive->can_full_path;
+			archive->do_overwrite = archive->can_overwrite;
 			archive->extraction_path = xa_escape_bad_chars(opt_extract_path, ESCAPES);
 			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->extract) (archive,string);
@@ -588,7 +588,7 @@ int main (int argc, char **argv)
 			if (archive->path != NULL)
 			{
 				xa_create_temp_directory(archive);
-				archive->add_recurse = archive->can_recurse;
+				archive->do_recurse = archive->can_recurse;
 				_current_dir = g_path_get_dirname(opt_add_files);
 				chdir (_current_dir);
 				g_free(_current_dir);

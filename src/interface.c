@@ -281,17 +281,17 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	/* This is to have the dragged files stored inside current archive location entry */
 	archive[idx]->location_entry_path = g_strdup(full_pathname->str);
 	dummy_password = archive[idx]->has_passwd;
-	full_path = archive[idx]->full_path;
-	add_recurse = archive[idx]->add_recurse;
+	full_path = archive[idx]->do_full_path;
+	add_recurse = archive[idx]->do_recurse;
 
 	archive[idx]->has_passwd = 0;
-	archive[idx]->full_path = 0;
-	archive[idx]->add_recurse = 1;
+	archive[idx]->do_full_path = FALSE;
+	archive[idx]->do_recurse = TRUE;
 	xa_execute_add_commands(archive[idx],list,NULL);
 
 	archive[idx]->has_passwd = dummy_password;
-	archive[idx]->full_path = full_path;
-	archive[idx]->add_recurse = add_recurse;
+	archive[idx]->do_full_path = full_path;
+	archive[idx]->do_recurse = add_recurse;
 
 	g_string_free(full_pathname,TRUE);
 	if (list != NULL)

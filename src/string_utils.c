@@ -254,7 +254,7 @@ GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 	{
 		if (archive->location_entry_path)
 		{
-			if (archive->full_path)
+			if (archive->do_full_path)
 			{
 				name = g_strconcat(archive->location_entry_path, list->data, NULL);
 				out = g_slist_append(out, name);
@@ -268,7 +268,7 @@ GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 		}
 		else
 		{
-			if (archive->full_path)
+			if (archive->do_full_path)
 				out = g_slist_append(out, g_strdup(list->data));
 			else
 			{

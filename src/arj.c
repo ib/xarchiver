@@ -236,10 +236,10 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	{
 		gchar *passwd_str = xa_arj_passwd_str(archive);
 		command = g_strconcat(archiver[archive->type].program[0],
-		                      archive->full_path ? " x" : " e",
-		                      archive->overwrite ? "" : " -n",
-		                      archive->freshen ? " -f" : "",
-		                      archive->update ? " -u" : "",
+		                      archive->do_full_path ? " x" : " e",
+		                      archive->do_overwrite ? "" : " -n",
+		                      archive->do_freshen ? " -f" : "",
+		                      archive->do_update ? " -u" : "",
 		                      passwd_str, " -i -y ",
 		                      archive->escaped_path, " ",
 		                      archive->extraction_path, files->str, NULL);
@@ -287,9 +287,9 @@ void xa_arj_add (XArchive *archive, GSList *file_list, gchar *compression)
 	files = xa_quote_filenames(file_list, "*?[]", FALSE);
 	passwd_str = xa_arj_passwd_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->update ? " u" : " a",
-	                      archive->freshen ? " -f" : "",
-	                      archive->add_move ? " -d1" : "",
+	                      archive->do_update ? " u" : " a",
+	                      archive->do_freshen ? " -f" : "",
+	                      archive->do_move ? " -d1" : "",
 	                      " -m", compression,
 	                      passwd_str, " -i -y ",
 	                      archive->escaped_path, files->str, NULL);
