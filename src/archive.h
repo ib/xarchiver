@@ -104,7 +104,7 @@ struct _XArchive
 {
 	/* characteristics */
 	XArchiveType type;
-	int version;
+	gushort version;
 	XArchiveStatus status;
 	/* data */
 	XEntry *root_entry;
