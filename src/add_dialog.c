@@ -242,7 +242,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	GTK_COMPAT_TOOLTIPS
 	gboolean flag = FALSE;
 	gchar *compression_msg = NULL;
-	unsigned short int default_value, max_value;
+	gushort default_value, max_value;
 	default_value = max_value = 0;
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_save_geometry)) && prefs_window->add_coords[0] != -1)
@@ -421,7 +421,7 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (gtk_widget_is_sensitive(add_dialog->compression_scale))
 			{
 				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT(compression_value));
-				compression = g_strdup_printf("%d", archive->compression_level);
+				compression = g_strdup_printf("%hu", archive->compression_level);
 			}
 			gtk_widget_hide(add_dialog->dialog1);
 

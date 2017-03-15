@@ -136,7 +136,7 @@ struct _XArchive
 	gchar *passwd;
 	gboolean has_comment;
 	GString *comment;
-	unsigned short int compression_level;
+	gushort compression_level;
 	/* capabilities */
 	gboolean can_test;        // can test an archive for integrity
 	gboolean can_extract;     // can extract files from an archive
