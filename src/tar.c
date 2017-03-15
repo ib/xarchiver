@@ -66,7 +66,7 @@ void xa_tar_ask (XArchive *archive)
 void xa_tar_open (XArchive *archive)
 {
 	gchar *command;
-	unsigned short int i;
+	guint i;
 
 	command = g_strconcat (tar, " tfv " , archive->escaped_path, NULL);
 	archive->files_size = 0;

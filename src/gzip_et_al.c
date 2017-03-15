@@ -61,7 +61,7 @@ void xa_gzip_et_al_ask (XArchive *archive)
 static void xa_open_tar_compressed_file (XArchive *archive)
 {
 	gchar *command = NULL;
-	unsigned short int i;
+	guint i;
 
 	if (archive->type == XARCHIVETYPE_TAR_BZ2)
 		command = g_strconcat(tar," tfjv ",archive->escaped_path,NULL);
@@ -181,7 +181,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 	else if (archive->type == XARCHIVETYPE_GZIP)
 	{
 		gchar *command;
-		unsigned short int i;
+		guint i;
 
 		archive->nc = 4;
 		archive->parse_output = xa_gzip_parse_output;
@@ -204,7 +204,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 		struct stat my_stat;
 		gchar *compressed = NULL;
 		gchar *size = NULL,*command = NULL,*executable = NULL,*dot = NULL;
-		unsigned short int i;
+		guint i;
 		GSList *list = NULL;
 
 		archive->nc = 3;

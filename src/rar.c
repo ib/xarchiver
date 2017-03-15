@@ -402,7 +402,7 @@ void xa_rar_open (XArchive *archive)
 	GType types5[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 	char *names5[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),NULL};
 
-	unsigned short int i;
+	guint i;
 	gchar *command = NULL;
 
 	header_line = FALSE;

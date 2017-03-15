@@ -173,7 +173,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 
 void xa_zip_open (XArchive *archive)
 {
-	unsigned short int i;
+	guint i;
 
 	gchar *command = g_strconcat(archiver[archive->type].program[0], " -Z -l ", archive->escaped_path, NULL);
 	archive->files_size  = 0;

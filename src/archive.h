@@ -114,7 +114,7 @@ struct _XArchive
 	GtkWidget *treeview;
 	GtkTreeModel *model;
 	GtkListStore *liststore;
-	unsigned short int nc;
+	guint nc;
 	GType *column_types;
 	GtkCellRenderer *renderer;
 	GtkCellRenderer *renderer_text;

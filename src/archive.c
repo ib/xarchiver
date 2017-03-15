@@ -150,7 +150,7 @@ static void xa_delete_temp_directory (XArchive *archive)
 static XEntry *xa_alloc_memory_for_each_row (guint nc, GType column_types[])
 {
 	XEntry *entry = NULL;
-	unsigned short int i;
+	guint i;
 	gint size = 0;
 
 	entry = g_new0(XEntry,1);
@@ -199,7 +199,7 @@ static XEntry *xa_find_child_entry (XEntry *entry, gchar *string)
 
 static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, XEntry *entry, gpointer *items)
 {
-	unsigned int i;
+	guint i;
 	gpointer current_column;
 
 	current_column = entry->columns;
@@ -545,7 +545,7 @@ gint xa_get_new_archive_idx()
 void xa_free_entry (XArchive *archive,XEntry *entry)
 {
 	gpointer current_column;
-	unsigned short int i;
+	guint i;
 
 	if (entry->child)
 		xa_free_entry(archive,entry->child);

@@ -129,7 +129,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 void xa_lha_open (XArchive *archive)
 {
 	gchar *command;
-	unsigned short int i;
+	guint i;
 
 	data_line = FALSE;
 	last_line = FALSE;

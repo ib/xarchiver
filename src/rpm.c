@@ -230,7 +230,8 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 
 void xa_rpm_open (XArchive *archive)
 {
-	int result, i;
+	int result;
+	guint i;
 	gchar *command;
 
 	char *names[]= {(_("Points to")),(_("Size")),(_("Permission")),(_("Date")),(_("Hard Link")),(_("Owner")),(_("Group")),NULL};

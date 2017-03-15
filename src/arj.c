@@ -190,7 +190,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 
 void xa_arj_open (XArchive *archive)
 {
-	unsigned short int i;
+	guint i;
 
 	data_line = FALSE;
 	fname_line = FALSE;

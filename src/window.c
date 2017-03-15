@@ -259,7 +259,7 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 {
 	gchar *path, *path_utf8;
 	static int x = 1;
-	gint i;
+	guint i;
 	gpointer current_column;
 	unsigned long long int file_size = 0;
 
@@ -1785,7 +1785,7 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 
 void xa_create_liststore (XArchive *archive,gchar *columns_names[])
 {
-	unsigned short int x;
+	guint x;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 
@@ -2916,7 +2916,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gboolean reload = FALSE;
 	GdkPixbuf *pixbuf = NULL;
 	GtkTreeIter iter;
-	unsigned short int i;
+	guint i;
 	gpointer current_column;
 	gchar *filename;
 	gint size;

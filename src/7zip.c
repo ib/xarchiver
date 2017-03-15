@@ -135,7 +135,7 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 
 void xa_7zip_open (XArchive *archive)
 {
-	unsigned short int i = 0;
+	guint i;
 
 	data_line = FALSE;
 	last_line = FALSE;

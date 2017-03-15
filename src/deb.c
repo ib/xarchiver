@@ -92,7 +92,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 void xa_deb_open (XArchive *archive)
 {
 	gchar *command = NULL;
-	unsigned short int i;
+	guint i;
 
 	command = g_strconcat(archiver[archive->type].program[0], " tv ", archive->escaped_path, NULL);
 	archive->files_size = 0;
