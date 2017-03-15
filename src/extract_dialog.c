@@ -732,7 +732,7 @@ void xa_add_files_liststore (gchar *file_path,Multi_extract_data *dialog)
 	gchar *path, *path_utf8, *file, *file_utf8;
 	gint type;
 	struct stat my_stat;
-	unsigned long long int file_size;
+	guint64 file_size;
 
 	type = xa_detect_archive_type(file_path);
 

@@ -131,7 +131,7 @@ struct _XArchive
 	gboolean create_image;
 	/* properties */
 	gint nr_of_files;
-	unsigned long long int files_size;
+	guint64 files_size;
 	gboolean has_passwd;
 	gchar *passwd;
 	gboolean has_comment;

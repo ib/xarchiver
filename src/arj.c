@@ -53,7 +53,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[7];
 	unsigned int linesize,n,a;
-	unsigned long long int file_size;
+	guint64 file_size;
 	static gchar *filename;
 	gboolean unarj, lfn, dir, encrypted;
 

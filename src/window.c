@@ -135,7 +135,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 	guint cmt_len = 0;
 	int byte;
 	unsigned char eocds[] = { 0x50,0x4b,0x05,0x06 };
-	unsigned long long int eocds_position = 0;
+	guint64 eocds_position = 0;
 
 	unsigned short int len = 0;
 	int eof;
@@ -224,7 +224,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 	return FALSE;
 }
 
-static gchar *xa_set_size_string (unsigned long long int file_size)
+static gchar *xa_set_size_string (guint64 file_size)
 {
 	gchar *message = NULL;
 	gchar *measure;
@@ -261,7 +261,7 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 	static int x = 1;
 	guint i;
 	gpointer current_column;
-	unsigned long long int file_size = 0;
+	guint64 file_size = 0;
 
 	if (!entry)
 		return;
@@ -298,14 +298,14 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 		if (bp)
 		{
 			g_fprintf(stream,"<tr class=\"row%d\">",x);
-			g_fprintf(stream, "<td>%s</td><td>%lld</td></tr>", path_utf8, file_size);
+			g_fprintf(stream, "<td>%s</td><td>%" G_GUINT64_FORMAT "</td></tr>", path_utf8, file_size);
 			if (x == 2)
 				x = 1;
 			else
 				x = 2;
 		}
 		else
-			g_fprintf(stream, "%-90s %lld\n", path_utf8, file_size);
+			g_fprintf(stream, "%-90s %" G_GUINT64_FORMAT "\n", path_utf8, file_size);
 
 		g_free(path_utf8);
 	}
@@ -457,7 +457,7 @@ static const gchar *xa_get_archive_format (XArchive *archive)
 	return list->data;
 }
 
-static gchar *xa_get_statusbar_message (unsigned long int total_size, gint n_elem, gint dirs, gboolean selection)
+static gchar *xa_get_statusbar_message (guint64 total_size, gint n_elem, gint dirs, gboolean selection)
 {
 	gchar *measure = NULL,*info = NULL;
 	gchar *text = "";
@@ -1146,7 +1146,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	gchar *t, *_filename, *filename, *filename_plus, *filename_plus_utf8, *pref_path, *pref_path_local;
 	int response;
 	struct stat my_stat;
-	unsigned long long int file_size;
+	guint64 file_size;
 
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
@@ -1890,7 +1890,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     char date[64];
     gint current_page;
 	gint idx;
-	unsigned long long int file_size;
+	guint64 file_size;
 	double content_size;
 
     current_page = gtk_notebook_get_current_page (notebook);
@@ -1959,7 +1959,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	GtkTreePath *path = NULL;
 	GtkTreeIter iter;
 	gint n_elem = 0,pos = 0,dirs = 0;
-	unsigned long int total_size = 0;
+	guint64 total_size = 0;
 	guint64 size = 0;
 	XEntry *entry = NULL;
 
@@ -2031,7 +2031,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	gint selected = 0,pos = 0,dirs = 0;
-	unsigned long int total_size = 0;
+	guint64 total_size = 0;
 	guint64 size = 0;
 	XEntry *entry;
 

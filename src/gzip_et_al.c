@@ -248,7 +248,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 		list = g_slist_append(list,command);
 		/* Let's get its compressed file size */
 		stat (archive->escaped_path,&my_stat);
-		compressed = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
+		compressed = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
 		item[1] = compressed;
 
 		/* Let's extract it */
@@ -275,7 +275,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 		}
 		stat (command,&my_stat);
 		g_free(command);
-		size = g_strdup_printf("%lld",(unsigned long long int)my_stat.st_size);
+		size = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
 		archive->files_size = my_stat.st_size;
 		item[0] = size;
 
