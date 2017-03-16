@@ -1173,7 +1173,7 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 	{
 		gtk_widget_show(green_led);
 		gtk_widget_hide(red_led);
-		archive->pb_source = 0;
+		archive->timer = 0;
 		return FALSE;
 	}
 	if (gtk_widget_get_visible(green_led))

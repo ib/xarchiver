@@ -333,7 +333,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	archive->child_ref = XA_CHILD_PROCS;
 
 	if (archive->status == XARCHIVESTATUS_OPEN)
-		archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
+		archive->timer = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 
 	if (archive->output != NULL)
 	{
@@ -470,14 +470,14 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	if (xa_main_window)
 	{
 		gtk_widget_set_sensitive (Stop_button,TRUE);
-		if (archive->pb_source == 0)
-			archive->pb_source = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
+		if (archive->timer == 0)
+			archive->timer = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 	}
 	else
 	{
 		pb = xa_create_progress_bar(TRUE,archive);
-		if (archive->pb_source == 0 && pb->multi_extract == FALSE)
-			archive->pb_source = g_timeout_add (100,(GSourceFunc)xa_pulse_progress_bar_window,pb);
+		if (archive->timer == 0 && pb->multi_extract == FALSE)
+			archive->timer = g_timeout_add (100,(GSourceFunc)xa_pulse_progress_bar_window,pb);
 	}
 
 	while (_commands)

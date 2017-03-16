@@ -126,7 +126,7 @@ struct _XArchive
 	gchar *working_dir;
 	gchar *extraction_dir;
 	gchar *location_path;
-	guint pb_source;
+	guint timer;
 	gboolean create_image;
 	/* properties */
 	gint nr_of_files;

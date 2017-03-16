@@ -823,7 +823,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 		if (archive->child_ref == 0)
 		{
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
-		archive->pb_source = 0;
+		archive->timer = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 		archive->status = XARCHIVESTATUS_IDLE;
