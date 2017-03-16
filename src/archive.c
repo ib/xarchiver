@@ -75,8 +75,6 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
 	{
 	done:
-		if (archive->output != NULL)
-			archive->output = g_slist_reverse(archive->output);
 		g_io_channel_shutdown (ioc,TRUE,NULL);
 		g_io_channel_unref (ioc);
 

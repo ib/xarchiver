@@ -778,6 +778,8 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				gtk_widget_set_sensitive(Stop_button,FALSE);
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
 		error:
+				if (archive->output)
+					archive->output = g_slist_reverse(archive->output);
 				xa_show_archive_output(NULL, archive);
 				/* In case the user supplies a wrong password we reset it so he can try again */
 				if ( (archive->status == XARCHIVESTATUS_TEST || archive->status == XARCHIVESTATUS_SFX) && archive->passwd != NULL)
@@ -819,6 +821,8 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 		}
 		if (archive->child_ref == 0)
 		{
+			if (archive->output)
+				archive->output = g_slist_reverse(archive->output);
 		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
 		archive->timer = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
