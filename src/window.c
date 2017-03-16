@@ -2516,17 +2516,17 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	g_free(pathname_local);
 	if (new_entry == NULL)
 	{
-		if (archive[idx]->location_entry_path != NULL)
+		if (archive[idx]->location_path)
 		{
-			gchar *entry_utf8 = g_filename_display_name(archive[idx]->location_entry_path);
+			gchar *entry_utf8 = g_filename_display_name(archive[idx]->location_path);
 			gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
 			g_free(entry_utf8);
 		}
 		return;
 	}
 
-	if (archive[idx]->location_entry_path != NULL)
-		prev_entry = xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path);
+	if (archive[idx]->location_path)
+		prev_entry = xa_find_entry_from_path(archive[idx]->root_entry, archive[idx]->location_path);
 
 	if (prev_entry != NULL)
 		archive[idx]->back = g_slist_prepend(archive[idx]->back,prev_entry);
@@ -2861,8 +2861,8 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry,-1);
 	if (entry->is_dir)
 	{
-		if (archive->location_entry_path != NULL)
-			archive->back = g_slist_prepend(archive->back,xa_find_entry_from_path(archive->root_entry,archive->location_entry_path));
+		if (archive->location_path)
+			archive->back = g_slist_prepend(archive->back, xa_find_entry_from_path(archive->root_entry, archive->location_path));
 		/* Put NULL so to display the root entry */
 		else
 			archive->back = g_slist_prepend(archive->back,NULL);
@@ -2923,8 +2923,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gint size;
 	gchar *entry_utf8;
 
-	if (archive->status == XARCHIVESTATUS_RELOAD && archive->location_entry_path != NULL)
-		entry = xa_find_entry_from_path(archive->root_entry,archive->location_entry_path);
+	if (archive->status == XARCHIVESTATUS_RELOAD && archive->location_path != NULL)
+		entry = xa_find_entry_from_path(archive->root_entry, archive->location_path);
 	else
 		archive->current_entry = entry;
 
@@ -2933,10 +2933,10 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		entry = archive->root_entry->child;
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
 		reload = TRUE;
-		if (archive->location_entry_path != NULL)
+		if (archive->location_path != NULL)
 		{
-			g_free(archive->location_entry_path);
-			archive->location_entry_path = NULL;
+			g_free(archive->location_path);
+			archive->location_path = NULL;
 		}
 		gtk_widget_set_sensitive(back_button,FALSE);
 		gtk_widget_set_sensitive(up_button,FALSE);
@@ -2944,10 +2944,10 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	}
 	else
 	{
-		if (archive->location_entry_path != NULL)
+		if (archive->location_path != NULL)
 		{
-			g_free(archive->location_entry_path);
-			archive->location_entry_path = NULL;
+			g_free(archive->location_path);
+			archive->location_path = NULL;
 		}
 		if (archive->back == NULL)
 			gtk_widget_set_sensitive(back_button,FALSE);
@@ -2956,8 +2956,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
-		archive->location_entry_path = xa_build_full_path_name_from_entry(entry);
-		entry_utf8 = g_filename_display_name(archive->location_entry_path);
+		archive->location_path = xa_build_full_path_name_from_entry(entry);
+		entry_utf8 = g_filename_display_name(archive->location_path);
 		gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
 		g_free(entry_utf8);
 		entry = entry->child;

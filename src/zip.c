@@ -234,7 +234,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	gchar *passwd_str, *command;
 	GSList *list = NULL;
 
-	if (archive->location_entry_path != NULL)
+	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
 
 	if (!compression)

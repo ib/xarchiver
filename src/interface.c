@@ -275,11 +275,11 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 		g_string_prepend(full_pathname,name);
 		iter = parent;
 	}
-	if (archive[idx]->location_entry_path != NULL)
-		g_free(archive[idx]->location_entry_path);
+	if (archive[idx]->location_path != NULL)
+		g_free(archive[idx]->location_path);
 
 	/* This is to have the dragged files stored inside current archive location entry */
-	archive[idx]->location_entry_path = g_strdup(full_pathname->str);
+	archive[idx]->location_path = g_strdup(full_pathname->str);
 	dummy_password = archive[idx]->has_passwd;
 	full_path = archive[idx]->do_full_path;
 	add_recurse = archive[idx]->do_recurse;
@@ -346,10 +346,10 @@ static void xa_restore_navigation (int idx)
 	if(archive[idx]->back !=NULL)
 		back = TRUE;
 
-	if(archive[idx]->location_entry_path!=NULL)
+	if (archive[idx]->location_path)
 	{
 		/* If there's a slash on the path,we should allow UP and HOME operations */
-		if(strstr(archive[idx]->location_entry_path,"/")!=NULL)
+		if (strstr(archive[idx]->location_path, "/"))
 			home = up = TRUE;
 	}
 	gtk_widget_set_sensitive(back_button,back);
@@ -394,9 +394,9 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 			gtk_widget_set_sensitive(rename_menu, can_rename(archive[id]));
 		}
 		/* Let's set the location bar */
-		if (archive[id]->location_entry_path != NULL)
+		if (archive[id]->location_path)
 		{
-			gchar *entry_utf8 = g_filename_display_name(archive[id]->location_entry_path);
+			gchar *entry_utf8 = g_filename_display_name(archive[id]->location_path);
 			gtk_entry_set_text(GTK_ENTRY(location_entry), entry_utf8);
 			g_free(entry_utf8);
 		}
@@ -411,8 +411,8 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 		xa_fill_dir_sidebar(archive[id],TRUE);
 
-		if (archive[id]->location_entry_path)
-			xa_dir_sidebar_select_row(xa_find_entry_from_path(archive[id]->root_entry, archive[id]->location_entry_path));
+		if (archive[id]->location_path)
+			xa_dir_sidebar_select_row(xa_find_entry_from_path(archive[id]->root_entry, archive[id]->location_path));
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
@@ -535,10 +535,10 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 	{
 		/* Root */
 		case 0:
-			if (archive[idx]->location_entry_path != NULL)
+			if (archive[idx]->location_path != NULL)
 			{
-				g_free(archive[idx]->location_entry_path);
-				archive[idx]->location_entry_path = NULL;
+				g_free(archive[idx]->location_path);
+				archive[idx]->location_path = NULL;
 			}
 			/* Let's unselect the row in the dir_sidebar */
 			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
@@ -576,7 +576,7 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 				gtk_tree_selection_get_selected (selection,&model,&iter);
 				gtk_tree_selection_unselect_iter(selection,&iter);
 			}
-			new_entry = xa_find_entry_from_path(archive[idx]->root_entry,archive[idx]->location_entry_path);
+			new_entry = xa_find_entry_from_path(archive[idx]->root_entry, archive[idx]->location_path);
 			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
 			xa_dir_sidebar_select_row(new_entry->prev);
 

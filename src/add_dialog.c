@@ -257,7 +257,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	else
 		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
 
-	if (archive->location_entry_path != NULL)
+	if (archive->location_path != NULL)
 	{
 		gtk_widget_set_sensitive(add_dialog->store_path,FALSE);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->store_path),FALSE);
@@ -457,14 +457,14 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 	{
 		gtk_label_set_text(GTK_LABEL(total_label),_("Adding files to archive, please wait..."));
 		/* This in case the user wants to add files in a directory in the archive tree */
-		if (archive->location_entry_path != NULL)
+		if (archive->location_path != NULL)
 		{
 			result = xa_create_working_directory(archive);
 			if (result == FALSE)
 				return;
 
 			items = g_string_new("");
-			new_path = g_strconcat(archive->working_dir, "/", archive->location_entry_path, NULL);
+			new_path = g_strconcat(archive->working_dir, "/", archive->location_path, NULL);
 			result = g_mkdir_with_parents(new_path,0700);
 			if (result < 0)
 			{

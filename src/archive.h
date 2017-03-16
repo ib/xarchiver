@@ -125,7 +125,7 @@ struct _XArchive
 	gchar *path[2];           // 0: original, 1: escaped
 	gchar *working_dir;
 	gchar *extraction_dir;
-	gchar *location_entry_path;
+	gchar *location_path;
 	guint pb_source;
 	gboolean create_image;
 	/* properties */

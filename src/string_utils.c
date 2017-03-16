@@ -252,17 +252,17 @@ GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 
 	while (list)
 	{
-		if (archive->location_entry_path)
+		if (archive->location_path)
 		{
 			if (archive->do_full_path)
 			{
-				name = g_strconcat(archive->location_entry_path, list->data, NULL);
+				name = g_strconcat(archive->location_path, list->data, NULL);
 				out = g_slist_append(out, name);
 			}
 			else
 			{
 				basename = xa_strip_current_working_dir_from_path(archive->child_dir ? archive->child_dir : archive->working_dir, list->data);
-				name = g_strconcat(archive->location_entry_path, basename, NULL);
+				name = g_strconcat(archive->location_path, basename, NULL);
 				out = g_slist_append(out, name);
 			}
 		}
