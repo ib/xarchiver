@@ -353,7 +353,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 		g_signal_connect(G_OBJECT(compression_value), "value-changed", G_CALLBACK(fix_adjustment_value), NULL);
 	gtk_widget_set_tooltip_text(add_dialog->compression_scale, compression_msg);
 
-	gtk_widget_set_sensitive(add_dialog->add_password, archive->can_passwd);
+	gtk_widget_set_sensitive(add_dialog->add_password, archive->can_password);
 	gtk_widget_show_all (add_dialog->dialog_vbox1);
 }
 
@@ -390,12 +390,12 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 					break;
 				}
 				else
-					archive->passwd = temp_password;
+					archive->password = temp_password;
 			}
-			else if (archive->passwd != NULL)
+			else if (archive->password != NULL)
 			{
-				g_free(archive->passwd);
-				archive->passwd = NULL;
+				g_free(archive->password);
+				archive->password = NULL;
 			}
 
 			done = TRUE;

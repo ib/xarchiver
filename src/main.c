@@ -533,9 +533,9 @@ int main (int argc, char **argv)
 			}
 			if (xa_detect_encrypted_archive(archive))
 			{
-				archive->has_passwd = TRUE;
-				archive->passwd = xa_create_password_dialog(archive);
-				if (archive->passwd == NULL)
+				archive->has_password = TRUE;
+				archive->password = xa_create_password_dialog(archive);
+				if (archive->password == NULL)
 					goto done;
 			}
 			GSList *string = NULL;
@@ -554,7 +554,7 @@ int main (int argc, char **argv)
 				return -1;
 			}
 			if (xa_detect_encrypted_archive(archive))
-				archive->has_passwd = TRUE;
+				archive->has_password = TRUE;
 
 			xa_set_extract_dialog_options(extract_window,0,archive);
 			xa_parse_extract_dialog_options (archive,extract_window,NULL);

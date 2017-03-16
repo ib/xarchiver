@@ -50,7 +50,7 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_add = archiver[archive->type].is_compressor;
 	archive->can_delete = archiver[archive->type].is_compressor;
 	archive->can_sfx = archiver[archive->type].is_compressor;
-	archive->can_passwd = archiver[archive->type].is_compressor;
+	archive->can_password = archiver[archive->type].is_compressor;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_touch = TRUE;
@@ -60,10 +60,10 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_move = archiver[archive->type].is_compressor;
 }
 
-static gchar *xa_rar_passwd_str (XArchive *archive)
+static gchar *xa_rar_password_str (XArchive *archive)
 {
-	if (archive->passwd)
-		return g_strconcat(" -p", archive->passwd, NULL);
+	if (archive->password)
+		return g_strconcat(" -p", archive->password, NULL);
 	else
 		return g_strdup("");
 }
@@ -127,7 +127,7 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 		linesize = strlen(line);
 		if(line[0] == '*')
 		{
-			archive->has_passwd = TRUE;
+			archive->has_password = TRUE;
 			encrypted = TRUE;
 		}
 		else if (line[0] == '-')
@@ -300,7 +300,7 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 
 	if(line[0] == '*')
 	{
-		archive->has_passwd = TRUE;
+		archive->has_password = TRUE;
 		encrypted = TRUE;
 	}
 	else if (line[0] == '-')
@@ -443,12 +443,12 @@ void xa_rar_open (XArchive *archive)
 
 void xa_rar_test (XArchive *archive)
 {
-	gchar *passwd_str, *command;
+	gchar *password_str, *command;
 	GSList *list = NULL;
 
-	passwd_str = xa_rar_passwd_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " t", passwd_str, " -idp -y ", archive->path[1], NULL);
-	g_free(passwd_str);
+	password_str = xa_rar_password_str(archive);
+	command = g_strconcat(archiver[archive->type].program[0], " t", password_str, " -idp -y ", archive->path[1], NULL);
+	g_free(password_str);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
@@ -461,21 +461,21 @@ void xa_rar_test (XArchive *archive)
 gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *passwd_str, *command;
+	gchar *password_str, *command;
 	GSList *list = NULL;
 
 	files = xa_quote_filenames(file_list, NULL, FALSE);
-	passwd_str = xa_rar_passwd_str(archive);
+	password_str = xa_rar_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? " x" : " e",
 	                      archive->do_overwrite ? " -o+" : " -o-",
 	                      archive->do_touch ? " -tsm-" : "",
 	                      archive->do_freshen ? " -f" : "",
 	                      archive->do_update ? " -u" : "",
-	                      passwd_str, " -idp -y ",
+	                      password_str, " -idp -y ",
 	                      archive->path[1], files->str,
 	                      " ", archive->extraction_dir, NULL);
-	g_free(passwd_str);
+	g_free(password_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
@@ -485,7 +485,7 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
-	gchar *passwd_str, *command, *version_switch;
+	gchar *password_str, *command, *version_switch;
 	GSList *list = NULL;
 
 
@@ -506,16 +506,16 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 		compression = "3";
 
 	files = xa_quote_filenames(file_list, NULL, FALSE);
-	passwd_str = xa_rar_passwd_str(archive);
+	password_str = xa_rar_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : " a", version_switch,
 	                      archive->do_freshen ? " -f" : "",
 	                      archive->do_solid ? " -s" : "",
 	                      archive->do_move ? " -df" : "",
 	                      " -m", compression,
-	                      passwd_str, " -idp -y ",
+	                      password_str, " -idp -y ",
 	                      archive->path[1], files->str, NULL);
-	g_free(passwd_str);
+	g_free(password_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 

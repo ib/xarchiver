@@ -473,12 +473,12 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		gtk_entry_set_text (GTK_ENTRY(dialog_data->destination_path_entry),archive_dir);
 	}
 	g_free(archive_dir);
-	if (archive->has_passwd || ! xa_main_window)
+	if (archive->has_password || ! xa_main_window)
     {
 		gtk_widget_set_sensitive (label_password,TRUE);
 		gtk_widget_set_sensitive (dialog_data->password_entry,TRUE);
-		if (archive->passwd != NULL)
-			gtk_entry_set_text (GTK_ENTRY(dialog_data->password_entry),archive->passwd);
+		if (archive->password != NULL)
+			gtk_entry_set_text(GTK_ENTRY(dialog_data->password_entry), archive->password);
     }
 	else
 	{
@@ -521,10 +521,10 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				archive->extraction_dir = g_strconcat(cur_dir, "/", archive->extraction_dir, NULL);
 				g_free (cur_dir);
 			}
-			if (archive->has_passwd || (xa_main_window == FALSE && strlen(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry))) > 0) )
-				archive->passwd  = g_strdup (gtk_entry_get_text (GTK_ENTRY(dialog_data->password_entry)));
+			if (archive->has_password || (xa_main_window == FALSE && strlen(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry))) > 0))
+				archive->password  = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry)));
 
-			if (archive->has_passwd && strlen(archive->passwd)== 0 )
+			if (archive->has_password && strlen(archive->password)== 0 )
 			{
 				xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This archive is encrypted!"),_("Please enter the password."));
 				break;

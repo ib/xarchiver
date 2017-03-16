@@ -280,16 +280,16 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 
 	/* This is to have the dragged files stored inside current archive location entry */
 	archive[idx]->location_path = g_strdup(full_pathname->str);
-	dummy_password = archive[idx]->has_passwd;
+	dummy_password = archive[idx]->has_password;
 	full_path = archive[idx]->do_full_path;
 	add_recurse = archive[idx]->do_recurse;
 
-	archive[idx]->has_passwd = 0;
+	archive[idx]->has_password = FALSE;
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_recurse = TRUE;
 	xa_execute_add_commands(archive[idx],list,NULL);
 
-	archive[idx]->has_passwd = dummy_password;
+	archive[idx]->has_password = dummy_password;
 	archive[idx]->do_full_path = full_path;
 	archive[idx]->do_recurse = add_recurse;
 
@@ -375,7 +375,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		xa_row_selected(selection,archive[id]);
 
 	gtk_widget_set_sensitive(comment_menu, archive[id]->has_comment);
-	gtk_widget_set_sensitive(password_entry_menu, archive[id]->has_passwd);
+	gtk_widget_set_sensitive(password_entry_menu, archive[id]->has_password);
 
 	if (archive[id]->treeview != NULL)
 	{
@@ -416,7 +416,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
-	xa_set_button_state(1, 1, 1, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->can_sfx, archive[id]->can_test, archive[id]->has_passwd, 1);
+	xa_set_button_state(1, 1, 1, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->can_sfx, archive[id]->can_test, archive[id]->has_password, 1);
 }
 
 static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_data)

@@ -32,7 +32,7 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_add = archiver[archive->type].is_compressor;
 	archive->can_delete = archiver[archive->type].is_compressor;
 	archive->can_sfx = archiver[archive->type].is_compressor;
-	archive->can_passwd = archiver[archive->type].is_compressor;
+	archive->can_password = archiver[archive->type].is_compressor;
 	archive->can_overwrite = archiver[archive->type].is_compressor;
 	archive->can_full_path = archiver[archive->type].is_compressor;
 	archive->can_freshen = archiver[archive->type].is_compressor;
@@ -40,10 +40,10 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_move = archiver[archive->type].is_compressor;
 }
 
-static gchar *xa_arj_passwd_str (XArchive *archive)
+static gchar *xa_arj_password_str (XArchive *archive)
 {
-	if (archive->passwd && archiver[archive->type].is_compressor)
-		return g_strconcat(" -g", archive->passwd, NULL);
+	if (archive->password && archiver[archive->type].is_compressor)
+		return g_strconcat(" -g", archive->password, NULL);
 	else
 		return g_strdup("");
 }
@@ -161,7 +161,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 		else
 			encrypted = (line[77] == '1');
 		if (encrypted)
-			archive->has_passwd = TRUE;
+			archive->has_password = TRUE;
 
 		if (unarj && dir)
 		{
@@ -213,12 +213,12 @@ void xa_arj_open (XArchive *archive)
 
 void xa_arj_test (XArchive *archive)
 {
-	gchar *passwd_str, *command;
+	gchar *password_str, *command;
 	GSList *list = NULL;
 
-	passwd_str = xa_arj_passwd_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " t", passwd_str, archiver[archive->type].is_compressor ?  " -i -y " : " ", archive->path[1], NULL);
-	g_free(passwd_str);
+	password_str = xa_arj_password_str(archive);
+	command = g_strconcat(archiver[archive->type].program[0], " t", password_str, archiver[archive->type].is_compressor ?  " -i -y " : " ", archive->path[1], NULL);
+	g_free(password_str);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
@@ -234,16 +234,16 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 
 	if (archiver[archive->type].is_compressor)
 	{
-		gchar *passwd_str = xa_arj_passwd_str(archive);
+		gchar *password_str = xa_arj_password_str(archive);
 		command = g_strconcat(archiver[archive->type].program[0],
 		                      archive->do_full_path ? " x" : " e",
 		                      archive->do_overwrite ? "" : " -n",
 		                      archive->do_freshen ? " -f" : "",
 		                      archive->do_update ? " -u" : "",
-		                      passwd_str, " -i -y ",
+		                      password_str, " -i -y ",
 		                      archive->path[1], " ",
 		                      archive->extraction_dir, files->str, NULL);
-		g_free(passwd_str);
+		g_free(password_str);
 	}
 	else
 	{
@@ -275,7 +275,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 void xa_arj_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
-	gchar *passwd_str, *command;
+	gchar *password_str, *command;
 	GSList *list = NULL;
 
 	if (archive->location_path != NULL)
@@ -285,15 +285,15 @@ void xa_arj_add (XArchive *archive, GSList *file_list, gchar *compression)
 		compression = "1";
 
 	files = xa_quote_filenames(file_list, "*?[]", FALSE);
-	passwd_str = xa_arj_passwd_str(archive);
+	password_str = xa_arj_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : " a",
 	                      archive->do_freshen ? " -f" : "",
 	                      archive->do_move ? " -d1" : "",
 	                      " -m", compression,
-	                      passwd_str, " -i -y ",
+	                      password_str, " -i -y ",
 	                      archive->path[1], files->str, NULL);
-	g_free(passwd_str);
+	g_free(password_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 

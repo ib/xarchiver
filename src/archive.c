@@ -322,7 +322,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev (argv);
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
+		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_password, 1);
 		archive->status = XARCHIVESTATUS_ERROR;
 		return;
 	}
@@ -412,8 +412,8 @@ void xa_clean_archive_structure (XArchive *archive)
 		g_free(archive->working_dir);
 	}
 
-	if (archive->passwd != NULL)
-		g_free (archive->passwd);
+	if (archive->password != NULL)
+		g_free(archive->password);
 
 	if (archive->child_dir != NULL)
 		g_free(archive->child_dir);
@@ -509,7 +509,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	}
 
 	if (xa_main_window)
-		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_passwd, 1);
+		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_password, 1);
 
 	g_slist_foreach (commands,(GFunc) g_free,NULL);
 	g_slist_free(commands);

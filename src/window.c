@@ -381,10 +381,10 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		gtk_tree_model_get(model,&iter,archive->nc+1,&entry,-1);
 		if (entry->is_encrypted)
 		{
-			if (archive->passwd == NULL)
+			if (archive->password == NULL)
 			{
-				archive->passwd = xa_create_password_dialog(archive);
-				if (archive->passwd == NULL)
+				archive->password = xa_create_password_dialog(archive);
+				if (archive->password == NULL)
 					return;
 			}
 		}
@@ -725,12 +725,12 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	gtk_widget_set_sensitive(paste,TRUE);
 
 	/* Let's extract the selected files to the archive tmp dir */
-	if (archive->has_passwd)
+	if (archive->has_password)
 	{
-		if (archive->passwd == NULL)
+		if (archive->password == NULL)
 		{
-			archive->passwd = xa_create_password_dialog(archive);
-			if (archive->passwd == NULL)
+			archive->password = xa_create_password_dialog(archive);
+			if (archive->password == NULL)
 				return;
 		}
 	}
@@ -776,16 +776,16 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 			if (xa_main_window)
 			{
 				gtk_widget_set_sensitive(Stop_button,FALSE);
-				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
+				xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, 0, archive->can_test, archive->has_password, 1);
 		error:
 				if (archive->output)
 					archive->output = g_slist_reverse(archive->output);
 				xa_show_archive_output(NULL, archive);
 				/* In case the user supplies a wrong password we reset it so he can try again */
-				if ( (archive->status == XARCHIVESTATUS_TEST || archive->status == XARCHIVESTATUS_SFX) && archive->passwd != NULL)
+				if ((archive->status == XARCHIVESTATUS_TEST || archive->status == XARCHIVESTATUS_SFX) && archive->password != NULL)
 				{
-					g_free (archive->passwd);
-					archive->passwd = NULL;
+					g_free(archive->password);
+					archive->password = NULL;
 				}
 				archive->status = XARCHIVESTATUS_ERROR;
 				return;
@@ -805,7 +805,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 			g_object_unref (archive->model);
 
 			gtk_widget_set_sensitive(comment_menu, archive->has_comment);
-			gtk_widget_set_sensitive(password_entry_menu, archive->has_passwd);
+			gtk_widget_set_sensitive(password_entry_menu, archive->has_password);
 			gtk_widget_set_sensitive(listing,TRUE);
 
 			if (GTK_IS_TREE_VIEW(archive->treeview))
@@ -817,13 +817,13 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				xa_show_archive_output(GUINT_TO_POINTER(TRUE), archive);
 
 			if (archive->status == XARCHIVESTATUS_OPEN)
-				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
+				xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_password, 1);
 		}
 		if (archive->child_ref == 0)
 		{
 			if (archive->output)
 				archive->output = g_slist_reverse(archive->output);
-		xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
+		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, 0, archive->can_test, archive->has_password, 1);
 		archive->timer = 0;
 		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
@@ -956,10 +956,10 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 
 	xa_add_page (archive[current_page]);
 	//xa_set_button_state (0,0,0,1,1,0,0,0,0,1,0);
-	xa_set_button_state(1, 1, 1, 1, archive[current_page]->can_add, archive[current_page]->can_extract, archive[current_page]->can_sfx, archive[current_page]->can_test, archive[current_page]->has_passwd, 1);
+	xa_set_button_state(1, 1, 1, 1, archive[current_page]->can_add, archive[current_page]->can_extract, archive[current_page]->can_sfx, archive[current_page]->can_test, archive[current_page]->has_password, 1);
     xa_disable_delete_buttons(FALSE);
 
-    archive[current_page]->passwd = NULL;
+    archive[current_page]->password = NULL;
     archive[current_page]->files_size = 0;
     archive[current_page]->nr_of_files = 0;
 	xa_set_window_title(xa_main_window, archive[current_page]->path[0]);
@@ -1109,7 +1109,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	archive[current_page]->status = XARCHIVESTATUS_OPEN;
 	(*archive[current_page]->open)(archive[current_page]);
 
-	archive[current_page]->passwd = NULL;
+	archive[current_page]->password = NULL;
 	xa_fill_dir_sidebar(archive[current_page],TRUE);
 }
 
@@ -1121,12 +1121,12 @@ void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	id = xa_find_archive_index (current_page);
 
-	if ( archive[id]->has_passwd)
+	if (archive[id]->has_password)
 	{
-		if ( archive[id]->passwd == NULL)
+		if (archive[id]->password == NULL)
 		{
-			archive[id]->passwd = xa_create_password_dialog (archive[id]);
-			if ( archive[id]->passwd == NULL)
+			archive[id]->password = xa_create_password_dialog(archive[id]);
+			if ( archive[id]->password == NULL)
 				return;
 		}
 	}
@@ -1946,7 +1946,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     gtk_label_set_text(GTK_LABEL(number_of_files_data),t);
     g_free (t);
 
-    if (archive[idx]->has_passwd)
+    if (archive[idx]->has_password)
     	gtk_label_set_text(GTK_LABEL(encrypted_data),_("Yes"));
 	else
 		gtk_label_set_text(GTK_LABEL(encrypted_data),_("No"));
@@ -2178,12 +2178,12 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		archive->extraction_dir = xa_remove_level_from_path(destination);
 		g_free(destination);
 
-		if (archive->has_passwd)
+		if (archive->has_password)
 		{
-			if (archive->passwd == NULL)
+			if (archive->password == NULL)
 			{
-				archive->passwd = xa_create_password_dialog(archive);
-				if ( archive->passwd == NULL)
+				archive->password = xa_create_password_dialog(archive);
+				if (archive->password == NULL)
 				{
 					gtk_drag_finish (dc,FALSE,FALSE,t);
 					return;
@@ -2411,10 +2411,10 @@ void xa_enter_password (GtkMenuItem *menuitem ,gpointer user_data)
 		return;
 	else
 	{
-		g_free (archive[idx]->passwd);
-		archive[idx]->passwd = NULL;
+		g_free(archive[idx]->password);
+		archive[idx]->password = NULL;
 	}
-	archive[idx]->passwd = xa_create_password_dialog (archive[idx]);
+	archive[idx]->password = xa_create_password_dialog(archive[idx]);
 }
 
 void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
@@ -2724,10 +2724,10 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 		gtk_tree_path_free(row_list->data);
 		if (entry->is_encrypted)
 		{
-			if (archive[idx]->passwd == NULL)
+			if (archive[idx]->password == NULL)
 			{
-				archive[idx]->passwd = xa_create_password_dialog(archive[idx]);
-				if (archive[idx]->passwd == NULL)
+				archive[idx]->password = xa_create_password_dialog(archive[idx]);
+				if (archive[idx]->password == NULL)
 					return;
 			}
 		}
@@ -2804,10 +2804,10 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 
 	if (entry->is_encrypted)
 	{
-		if (archive[idx]->passwd == NULL)
+		if (archive[idx]->password == NULL)
 		{
-			archive[idx]->passwd = xa_create_password_dialog(archive[idx]);
-			if (archive[idx]->passwd == NULL)
+			archive[idx]->password = xa_create_password_dialog(archive[idx]);
+			if (archive[idx]->password == NULL)
 				return;
 		}
 	}
@@ -2873,10 +2873,10 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	{
 		if (entry->is_encrypted)
 		{
-		  if (archive->passwd == NULL)
+		  if (archive->password == NULL)
 		  {
-		    archive->passwd = xa_create_password_dialog(archive);
-		    if (archive->passwd == NULL)
+		    archive->password = xa_create_password_dialog(archive);
+		    if (archive->password == NULL)
 		     return;
 		  }
 		}
@@ -2979,7 +2979,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		else if (entry->is_encrypted)
 		{
 			filename = "lock";
-			archive->has_passwd = TRUE;
+			archive->has_password = TRUE;
 		}
 		else
 			filename = entry->filename;

@@ -130,8 +130,8 @@ struct _XArchive
 	/* properties */
 	gint nr_of_files;
 	guint64 files_size;
-	gboolean has_passwd;
-	gchar *passwd;
+	gboolean has_password;
+	gchar *password;
 	gboolean has_comment;
 	GString *comment;
 	gushort compression_level;
@@ -142,7 +142,7 @@ struct _XArchive
 	gboolean can_delete;      // can delete files from an archive
 	//       can_rename          see macro below: can_extract AND can_delete AND can_add
 	gboolean can_sfx;         // can create a self-extracting archive
-	gboolean can_passwd;      // can password protect an archive
+	gboolean can_password;    // can password protect an archive
 	gboolean can_overwrite;   // can overwrite files on extraction
 	gboolean can_full_path;   // can extract with or without full path
 	gboolean can_touch;       // can modify timestamp of files on extraction
