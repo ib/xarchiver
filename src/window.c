@@ -1807,16 +1807,16 @@ void xa_create_liststore (XArchive *archive,gchar *columns_names[])
 	gtk_tree_view_column_pack_start(column, archive->pixbuf_renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, archive->pixbuf_renderer, "pixbuf", 0, NULL);
 
-	archive->renderer_text = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start(column,archive->renderer_text,TRUE);
-	gtk_tree_view_column_set_attributes( column,archive->renderer_text,"text",1,NULL);
+	archive->text_renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(column, archive->text_renderer, TRUE);
+	gtk_tree_view_column_set_attributes(column, archive->text_renderer, "text", 1, NULL);
 	gtk_tree_view_column_set_title(column,_("Filename"));
 	gtk_tree_view_column_set_resizable (column,TRUE);
 	gtk_tree_view_column_set_sort_column_id (column,1);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview),column);
 	gtk_tree_view_column_set_sizing (column,GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	g_signal_connect (archive->renderer_text,"editing-canceled",G_CALLBACK (xa_rename_cell_edited_canceled),archive);
-	g_signal_connect (archive->renderer_text,"edited",G_CALLBACK (xa_rename_cell_edited),archive);
+	g_signal_connect(archive->text_renderer, "editing-canceled", G_CALLBACK(xa_rename_cell_edited_canceled), archive);
+	g_signal_connect(archive->text_renderer, "edited", G_CALLBACK(xa_rename_cell_edited), archive);
 
 	/* All the others */
 	for (x = 0; x < archive->nc; x++)
@@ -2685,7 +2685,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW (archive[idx]->treeview));
 	row_list = gtk_tree_selection_get_selected_rows(selection,&model);
 
-	g_object_set(archive[idx]->renderer_text,"editable",TRUE,NULL);
+	g_object_set(archive[idx]->text_renderer, "editable", TRUE, NULL);
 	gtk_accel_group_disconnect_key(accel_group, GDK_KEY_Delete, GDK_MODE_DISABLED);
 	column = gtk_tree_view_get_column(GTK_TREE_VIEW (archive[idx]->treeview),0);
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(archive[idx]->treeview),row_list->data,column,TRUE);

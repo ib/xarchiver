@@ -117,7 +117,7 @@ struct _XArchive
 	guint nc;
 	GType *column_types;
 	GtkCellRenderer *pixbuf_renderer;
-	GtkCellRenderer *renderer_text;
+	GtkCellRenderer *text_renderer;
 	GSList *back;
 	GSList *forward;
 	XAClipboard *clipboard_data;
