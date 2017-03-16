@@ -232,7 +232,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 				current_page = xa_find_archive_index (x);
 				if (current_page == -1)
 					break;
-				if (strcmp (my_path,archive_open[current_page]->path) == 0)
+				if (strcmp(my_path, archive_open[current_page]->path[0]) == 0)
 				{
 					gchar *msg = g_strdup_printf(_("\"%s\" is already open!"),my_path);
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create a new archive:"),msg );
@@ -297,8 +297,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 		archive->can_add = TRUE;
 
 		gtk_widget_destroy (xa_file_chooser);
-		archive->path = g_strdup (my_path);
-		archive->escaped_path = xa_escape_bad_chars(archive->path, ESCAPES);
+		archive->path[0] = g_strdup(my_path);
+		archive->path[1] = xa_escape_bad_chars(archive->path[0], ESCAPES);
 		g_free (my_path);
 		return archive;
 	}

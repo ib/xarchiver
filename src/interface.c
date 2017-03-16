@@ -367,7 +367,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 	if (id == -1)
 		return;
 
-	xa_set_window_title (xa_main_window,archive[id]->path);
+	xa_set_window_title(xa_main_window,archive[id]->path[0]);
 	xa_restore_navigation(id);
 	xa_set_statusbar_message_for_displayed_rows(archive[id]);
 
@@ -1208,7 +1208,7 @@ void xa_add_page (XArchive *archive)
 
 	page_hbox = gtk_hbox_new(FALSE,0);
 
-	filename_only = g_strrstr ( archive->path,"/");
+	filename_only = g_strrstr(archive->path[0], "/");
 	if (filename_only != NULL)
 	{
 		filename_only++;
@@ -1218,7 +1218,7 @@ void xa_add_page (XArchive *archive)
 	}
 	else
 	{
-		label_utf8 = g_filename_display_name(archive->path);
+		label_utf8 = g_filename_display_name(archive->path[0]);
 		label = gtk_label_new(label_utf8);
 		tab_label = gtk_label_new(label_utf8);
 	}
@@ -1318,7 +1318,7 @@ gchar *xa_create_password_dialog(XArchive *archive)
   	gtk_label_set_use_markup (GTK_LABEL (label_pwd_required),TRUE);
   	gtk_misc_set_alignment (GTK_MISC (label_pwd_required),0,0.5);
 
-  	name = xa_remove_path_from_archive_name(archive->path);
+  	name = xa_remove_path_from_archive_name(archive->path[0]);
   	name_utf8 = g_filename_display_name(name);
   	label_filename = gtk_label_new(name_utf8);
   	g_free(name_utf8);
@@ -1640,7 +1640,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	gtk_misc_set_alignment (GTK_MISC (pb->archive_label),0,0.5);
 	gtk_box_pack_start (GTK_BOX (vbox2),pb->archive_label,FALSE,FALSE,12);
 	if (archive)
-		gtk_label_set_text(GTK_LABEL(pb->archive_label),archive->path);
+		gtk_label_set_text(GTK_LABEL(pb->archive_label), archive->path[0]);
 
 	if (flag == FALSE)
 	{

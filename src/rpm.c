@@ -49,11 +49,11 @@ static int xa_rpm2cpio (XArchive *archive)
 	FILE *stream;
 
 	signal(SIGPIPE, SIG_IGN);
-	stream = fopen(archive->path, "r");
+	stream = fopen(archive->path[0], "r");
 
 	if (stream == NULL)
 	{
-		gchar *msg = g_strdup_printf(_("Can't open RPM file %s:"), archive->path);
+		gchar *msg = g_strdup_printf(_("Can't open RPM file %s:"), archive->path[0]);
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, msg, g_strerror(errno));
 		g_free(msg);
 		return -1;
@@ -105,7 +105,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	ibs = g_strdup_printf("%lu", offset);
 
 	/* run dd to have the payload (compressed cpio archive) in /tmp */
-	command = g_strconcat("dd if=", archive->escaped_path, " ibs=", ibs, " skip=1 of=", cpio_z, NULL);
+	command = g_strconcat("dd if=", archive->path[1], " ibs=", ibs, " skip=1 of=", cpio_z, NULL);
 	list = g_slist_append(NULL, command);
 	g_free(ibs);
 

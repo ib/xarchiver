@@ -437,20 +437,20 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 		xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
 		return NULL;
 	}
-	archive->path = g_strdup (filename);
-	archive->escaped_path = xa_escape_bad_chars(filename, ESCAPES);
+	archive->path[0] = g_strdup(filename);
+	archive->path[1] = xa_escape_bad_chars(filename, ESCAPES);
 	archive->type = type;
-	if ( g_str_has_suffix ( archive->escaped_path , ".tar.bz2") || g_str_has_suffix ( archive->escaped_path , ".tar.bz") || g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix ( archive->escaped_path , ".tbz2" ) )
+	if ( g_str_has_suffix ( archive->path[1] , ".tar.bz2") || g_str_has_suffix ( archive->path[1] , ".tar.bz") || g_str_has_suffix ( archive->path[1] , ".tbz") || g_str_has_suffix ( archive->path[1] , ".tbz2" ) )
 		archive->type = XARCHIVETYPE_TAR_BZ2;
-	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.gz") || g_str_has_suffix ( archive->escaped_path , ".tgz") )
+	else if ( g_str_has_suffix ( archive->path[1] , ".tar.gz") || g_str_has_suffix ( archive->path[1] , ".tgz") )
 		archive->type = XARCHIVETYPE_TAR_GZ;
-	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzma") || g_str_has_suffix ( archive->escaped_path , ".tlz") )
+	else if ( g_str_has_suffix ( archive->path[1] , ".tar.lzma") || g_str_has_suffix ( archive->path[1] , ".tlz") )
 		archive->type = XARCHIVETYPE_TAR_LZMA;
-	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.xz") || g_str_has_suffix ( archive->escaped_path , ".txz") )
+	else if ( g_str_has_suffix ( archive->path[1] , ".tar.xz") || g_str_has_suffix ( archive->path[1] , ".txz") )
 		archive->type = XARCHIVETYPE_TAR_XZ;
-	else if ( g_str_has_suffix ( archive->escaped_path , ".tar.lzo") ||
-		g_str_has_suffix ( archive->escaped_path , ".tzo") ||
-		g_str_has_suffix ( archive->escaped_path , ".tar.lzop"))
+	else if ( g_str_has_suffix ( archive->path[1] , ".tar.lzo") ||
+		g_str_has_suffix ( archive->path[1] , ".tzo") ||
+		g_str_has_suffix ( archive->path[1] , ".tar.lzop"))
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 	archive->extract = 	extract[archive->type];
 	return (archive);
@@ -585,7 +585,7 @@ int main (int argc, char **argv)
 			if (archive == NULL)
 				return -1;
 
-			if (archive->path != NULL)
+			if (archive->path[0] != NULL)
 			{
 				xa_create_temp_directory(archive);
 				archive->do_recurse = archive->can_recurse;

@@ -86,7 +86,7 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 		{
 			if ((strncmp(line, "Solid ", 6) == 0 || strncmp(line, "SFX ", 4) == 0 ||
 			     strncmp(line, "Volume ", 7) == 0 || strncmp(line, "Archive ", 8) == 0)
-			     && strstr(line, archive->path))
+			     && strstr(line, archive->path[0]))
 			{
 				header_line = TRUE;
 
@@ -257,7 +257,7 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	{
 		if (!header_line)
 		{
-			if ((strncmp(line, "Archive: ", 9) == 0) && strstr(line, archive->path))
+			if ((strncmp(line, "Archive: ", 9) == 0) && strstr(line, archive->path[0]))
 			{
 				header_line = TRUE;
 
@@ -410,7 +410,7 @@ void xa_rar_open (XArchive *archive)
 	fname_line = FALSE;
 	last_line = FALSE;
 
-	command = g_strconcat(archiver[archive->type].program[0], " v -idc ", archive->escaped_path, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " v -idc ", archive->path[1], NULL);
 	archive->files_size = 0;
     archive->nr_of_files = 0;
 
@@ -447,7 +447,7 @@ void xa_rar_test (XArchive *archive)
 	GSList *list = NULL;
 
 	passwd_str = xa_rar_passwd_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " t", passwd_str, " -idp -y ", archive->escaped_path, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " t", passwd_str, " -idp -y ", archive->path[1], NULL);
 	g_free(passwd_str);
 
 	list = g_slist_append(list,command);
@@ -473,7 +473,7 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_freshen ? " -f" : "",
 	                      archive->do_update ? " -u" : "",
 	                      passwd_str, " -idp -y ",
-	                      archive->escaped_path, files->str,
+	                      archive->path[1], files->str,
 	                      " ", archive->extraction_path, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
@@ -514,7 +514,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->do_move ? " -df" : "",
 	                      " -m", compression,
 	                      passwd_str, " -idp -y ",
-	                      archive->escaped_path, files->str, NULL);
+	                      archive->path[1], files->str, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
@@ -529,7 +529,7 @@ void xa_rar_delete (XArchive *archive, GSList *file_list)
 	GSList *list = NULL;
 
 	files = xa_quote_filenames(file_list, NULL, FALSE);
-	command = g_strconcat(archiver[archive->type].program[0], " d -idp -y ", archive->escaped_path, files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d -idp -y ", archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 

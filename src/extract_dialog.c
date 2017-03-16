@@ -230,32 +230,32 @@ static gchar *xa_multi_extract_archive (Multi_extract_data *dialog, gchar *filen
 	dialog->archive = archive;
 	archive->do_overwrite = overwrite;
 	archive->do_full_path = full_path;
-	archive->escaped_path = xa_escape_bad_chars(filename, ESCAPES);
+	archive->path[1] = xa_escape_bad_chars(filename, ESCAPES);
 	archive->extraction_path = xa_escape_bad_chars(dest_path, ESCAPES);
-	if (g_str_has_suffix (archive->escaped_path,".tar.gz")|| g_str_has_suffix (archive->escaped_path,".tgz"))
+	if (g_str_has_suffix (archive->path[1],".tar.gz")|| g_str_has_suffix (archive->path[1],".tgz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_GZ;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_GZ];
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.bz2")|| g_str_has_suffix (archive->escaped_path,".tar.bz")
-	      || g_str_has_suffix ( archive->escaped_path,".tbz")|| g_str_has_suffix (archive->escaped_path,".tbz2"))
+	else if (g_str_has_suffix(archive->path[1],".tar.bz2")|| g_str_has_suffix (archive->path[1],".tar.bz")
+	      || g_str_has_suffix ( archive->path[1],".tbz")|| g_str_has_suffix (archive->path[1],".tbz2"))
 	{
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_BZ2];
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma")|| g_str_has_suffix (archive->escaped_path,".tlz"))
+	else if (g_str_has_suffix(archive->path[1],".tar.lzma")|| g_str_has_suffix (archive->path[1],".tlz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_LZMA];
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.xz")|| g_str_has_suffix (archive->escaped_path,".txz"))
+	else if (g_str_has_suffix(archive->path[1],".tar.xz")|| g_str_has_suffix (archive->path[1],".txz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_XZ;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_XZ];
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.lzop") ||
-			g_str_has_suffix (archive->escaped_path,".tzo") ||
-			g_str_has_suffix(archive->escaped_path,".tar.lzo"))
+	else if (g_str_has_suffix(archive->path[1],".tar.lzop") ||
+			g_str_has_suffix (archive->path[1],".tzo") ||
+			g_str_has_suffix(archive->path[1],".tar.lzo"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_LZOP];
@@ -466,7 +466,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 		archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
 		if (archive_dir == NULL)
 		{
-			gchar *archive_dir_utf8 = g_filename_display_name(archive->path);
+			gchar *archive_dir_utf8 = g_filename_display_name(archive->path[0]);
 			archive_dir = xa_remove_level_from_path(archive_dir_utf8);
 			g_free(archive_dir_utf8);
 		}

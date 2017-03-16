@@ -133,7 +133,7 @@ void xa_lha_open (XArchive *archive)
 
 	data_line = FALSE;
 	last_line = FALSE;
-	command = g_strconcat(archiver[archive->type].program[0], " l ", archive->escaped_path, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " l ", archive->path[1], NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 6;
@@ -155,7 +155,7 @@ void xa_lha_test (XArchive *archive)
 	gchar *command = NULL;
 	GSList *list = NULL;
 
-	command = g_strconcat(archiver[archive->type].program[0], " t ", archive->escaped_path, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " t ", archive->path[1], NULL);
 
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
@@ -176,7 +176,7 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_full_path ? " x" : " xi",
 	                      archive->do_overwrite ? "f" : "",
 	                      "w=", archive->extraction_path, " ",
-	                      archive->escaped_path, files->str, NULL);
+	                      archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
@@ -200,7 +200,7 @@ void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->do_update ? " u" : " a",
 	                      archive->do_move ? "d" : "",
 	                      "o", compression, " ",
-	                      archive->escaped_path, files->str, NULL);
+	                      archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 
@@ -214,7 +214,7 @@ void xa_lha_delete (XArchive *archive, GSList *file_list)
 	GSList *list = NULL;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
-	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->escaped_path, files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 

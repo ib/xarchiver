@@ -140,7 +140,7 @@ void xa_7zip_open (XArchive *archive)
 	data_line = FALSE;
 	last_line = FALSE;
 	encrypted = FALSE;
-	gchar *command = g_strconcat(archiver[archive->type].program[0], " l ", archive->escaped_path, NULL);
+	gchar *command = g_strconcat(archiver[archive->type].program[0], " l ", archive->path[1], NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 6;
@@ -163,7 +163,7 @@ void xa_7zip_test (XArchive *archive)
 	GSList *list = NULL;
 
 	passwd_str = xa_7zip_passwd_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " t", passwd_str, " -bd -y ", archive->escaped_path, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " t", passwd_str, " -bd -y ", archive->path[1], NULL);
 	g_free(passwd_str);
 
 	list = g_slist_append(list,command);
@@ -192,7 +192,7 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_full_path ? " x" : " e",
 	                      archive->do_overwrite ? " -aoa" : " -aos",
 	                      passwd_str, " -bd -spd -y ",
-	                      archive->escaped_path, files->str,
+	                      archive->path[1], files->str,
 	                      " -o", archive->extraction_path, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
@@ -220,7 +220,7 @@ void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      " -ms=", archive->do_solid ? "on" : "off",
 	                      " -mx=", compression,
 	                      passwd_str, " -bd -spd -y ",
-	                      archive->escaped_path, files->str, NULL);
+	                      archive->path[1], files->str, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
@@ -236,7 +236,7 @@ void xa_7zip_delete (XArchive *archive, GSList *file_list)
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	passwd_str = xa_7zip_passwd_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " d", passwd_str, " -bd -spd -y ", archive->escaped_path, files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " d", passwd_str, " -bd -spd -y ", archive->path[1], files->str, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);

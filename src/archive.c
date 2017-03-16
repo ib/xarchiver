@@ -128,7 +128,7 @@ static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 	if (WIFEXITED(status))
 	{
 		result = (WEXITSTATUS(status) == 0 || (archive->status == XARCHIVESTATUS_RELOAD &&
-		                                       !g_file_test(archive->path, G_FILE_TEST_EXISTS)));
+		                                       !g_file_test(archive->path[0], G_FILE_TEST_EXISTS)));
 		g_spawn_close_pid(pid);
 		xa_child_processed(XA_CHILD_EXIT, result, archive);
 	}
@@ -402,11 +402,11 @@ void xa_clean_archive_structure (XArchive *archive)
 		archive->output = NULL;
 	}
 
-	if (archive->path != NULL)
-		g_free(archive->path);
+	if (archive->path[0] != NULL)
+		g_free(archive->path[0]);
 
-	if (archive->escaped_path != NULL)
-		g_free(archive->escaped_path);
+	if (archive->path[1] != NULL)
+		g_free(archive->path[1]);
 
 	if (archive->tmp != NULL)
 	{
@@ -679,7 +679,7 @@ gboolean xa_detect_encrypted_archive (XArchive *archive)
 	unsigned char magic[4];
 	gboolean flag = FALSE;
 
-	file = fopen (archive->path,"r");
+	file = fopen (archive->path[0],"r");
 	fread (magic,1,4,file);
 
 	fseek (file,6,SEEK_SET);

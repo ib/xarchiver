@@ -64,15 +64,15 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 	guint i;
 
 	if (archive->type == XARCHIVETYPE_TAR_BZ2)
-		command = g_strconcat(tar," tfjv ",archive->escaped_path,NULL);
+		command = g_strconcat(tar," tfjv ",archive->path[1],NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_GZ)
-		command = g_strconcat(tar, " tvzf ", archive->escaped_path, NULL);
+		command = g_strconcat(tar, " tvzf ", archive->path[1], NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_LZMA)
-		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->escaped_path,NULL);
+		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->path[1],NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_XZ)
-		command = g_strconcat(tar," tv --use-compress-program=xz -f ",archive->escaped_path,NULL);
+		command = g_strconcat(tar," tv --use-compress-program=xz -f ",archive->path[1],NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_LZOP)
-		command = g_strconcat(tar," tv --use-compress-program=lzop -f ",archive->escaped_path,NULL);
+		command = g_strconcat(tar," tv --use-compress-program=lzop -f ",archive->path[1],NULL);
 	/* else fail? */
 
 	archive->files_size = 0;
@@ -150,30 +150,30 @@ void xa_gzip_et_al_open (XArchive *archive)
 	archive->add = 		add[archive->type];
 	archive->extract = 	extract[archive->type];
 
-	if (g_str_has_suffix(archive->escaped_path,".tar.bz2") || g_str_has_suffix (archive->escaped_path,".tar.bz")
-    	|| g_str_has_suffix ( archive->escaped_path , ".tbz") || g_str_has_suffix (archive->escaped_path,".tbz2") )
+	if (g_str_has_suffix(archive->path[1],".tar.bz2") || g_str_has_suffix (archive->path[1],".tar.bz")
+    	|| g_str_has_suffix ( archive->path[1] , ".tbz") || g_str_has_suffix (archive->path[1],".tbz2") )
 	{
 		archive->type = XARCHIVETYPE_TAR_BZ2;
 		xa_open_tar_compressed_file(archive);
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.gz") || g_str_has_suffix (archive->escaped_path,".tgz"))
+	else if (g_str_has_suffix(archive->path[1],".tar.gz") || g_str_has_suffix (archive->path[1],".tgz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_GZ;
 		xa_open_tar_compressed_file(archive);
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.lzma") || g_str_has_suffix (archive->escaped_path,".tlz"))
+	else if (g_str_has_suffix(archive->path[1],".tar.lzma") || g_str_has_suffix (archive->path[1],".tlz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZMA;
 		xa_open_tar_compressed_file(archive);
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.xz") || g_str_has_suffix (archive->escaped_path,".txz"))
+	else if (g_str_has_suffix(archive->path[1],".tar.xz") || g_str_has_suffix (archive->path[1],".txz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_XZ;
 		xa_open_tar_compressed_file(archive);
 	}
-	else if (g_str_has_suffix(archive->escaped_path,".tar.lzop") ||
-		g_str_has_suffix (archive->escaped_path,".tzo") ||
-		g_str_has_suffix(archive->escaped_path,".tar.lzo"))
+	else if (g_str_has_suffix(archive->path[1],".tar.lzop") ||
+		g_str_has_suffix (archive->path[1],".tzo") ||
+		g_str_has_suffix(archive->path[1],".tar.lzo"))
 	{
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		xa_open_tar_compressed_file(archive);
@@ -195,7 +195,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 		char *names[]= {(_("Compressed")),(_("Size")),(_("Ratio"))};
 		xa_create_liststore (archive,names);
 
-		command = g_strconcat ("gzip -l ",archive->escaped_path,NULL);
+		command = g_strconcat ("gzip -l ",archive->path[1],NULL);
 		xa_spawn_async_process (archive,command);
 		g_free (command);
 	}
@@ -244,17 +244,17 @@ void xa_gzip_et_al_open (XArchive *archive)
 			return;
 
 		/* Let's copy the bzip2 file in the tmp dir */
-		command = g_strconcat("cp -f ",archive->escaped_path," ",archive->tmp,NULL);
+		command = g_strconcat("cp -f ",archive->path[1]," ",archive->tmp,NULL);
 		list = g_slist_append(list,command);
 		/* Let's get its compressed file size */
-		stat (archive->escaped_path,&my_stat);
+		stat (archive->path[1],&my_stat);
 		compressed = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
 		item[1] = compressed;
 
 		/* Let's extract it */
-		_filename = g_path_get_basename(archive->escaped_path);
+		_filename = g_path_get_basename(archive->path[1]);
 		if (_filename[0] == '.')
-			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",archive->escaped_path,NULL);
+			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",archive->path[1],NULL);
 		else
 			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",_filename,NULL);
 
@@ -270,8 +270,8 @@ void xa_gzip_et_al_open (XArchive *archive)
 		}
 		else
 		{
-			command = g_strconcat(archive->tmp,"/",archive->escaped_path,NULL);
-			filename = g_strdup(archive->escaped_path);
+			command = g_strconcat(archive->tmp,"/",archive->path[1],NULL);
+			filename = g_strdup(archive->path[1]);
 		}
 		stat (command,&my_stat);
 		g_free(command);
@@ -306,7 +306,7 @@ void xa_gzip_et_al_test (XArchive *archive)
 	else if (archive->type == XARCHIVETYPE_LZOP)
 		executable = "lzop ";
 	/* else fail? */
-	filename = xa_remove_path_from_archive_name(archive->escaped_path);
+	filename = xa_remove_path_from_archive_name(archive->path[1]);
 	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
 	{
@@ -316,7 +316,7 @@ void xa_gzip_et_al_test (XArchive *archive)
 	else
 		filename_noext = filename;
 
-	command = g_strconcat("sh -c \"",executable, " ",archive->escaped_path," -tv ","\"",NULL);
+	command = g_strconcat("sh -c \"",executable, " ",archive->path[1]," -tv ","\"",NULL);
 	g_free(filename_noext);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
@@ -338,7 +338,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	else if (archive->type == XARCHIVETYPE_LZOP)
 		executable = "lzop ";
 	/* else fail? */
-	filename = xa_remove_path_from_archive_name(archive->escaped_path);
+	filename = xa_remove_path_from_archive_name(archive->path[1]);
 	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
 	{
@@ -348,7 +348,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	else
 		filename_noext = filename;
 
-	command = g_strconcat("sh -c \"",executable, " ",archive->escaped_path," -dc > ",archive->extraction_path,"/",filename_noext,"\"",NULL);
+	command = g_strconcat("sh -c \"",executable, " ",archive->path[1]," -dc > ",archive->extraction_path,"/",filename_noext,"\"",NULL);
 	g_free(filename_noext);
 	list = g_slist_append(list,command);
 

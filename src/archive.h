@@ -122,8 +122,7 @@ struct _XArchive
 	GSList *forward;
 	XAClipboard *clipboard;
 	/* environment */
-	gchar *path;
-	gchar *escaped_path;
+	gchar *path[2];           // 0: original, 1: escaped
 	gchar *tmp;
 	gchar *extraction_path;
 	gchar *location_entry_path;

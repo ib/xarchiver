@@ -175,7 +175,7 @@ void xa_zip_open (XArchive *archive)
 {
 	guint i;
 
-	gchar *command = g_strconcat(archiver[archive->type].program[0], " -Z -l ", archive->escaped_path, NULL);
+	gchar *command = g_strconcat(archiver[archive->type].program[0], " -Z -l ", archive->path[1], NULL);
 	archive->files_size  = 0;
     archive->nr_of_files = 0;
     archive->nc = 9;
@@ -198,7 +198,7 @@ void xa_zip_test (XArchive *archive)
 	GSList *list = NULL;
 
 	passwd_str = xa_zip_passwd_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " -t", passwd_str, " ", archive->escaped_path, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " -t", passwd_str, " ", archive->path[1], NULL);
 	g_free(passwd_str);
 
 	list = g_slist_append(list,command);
@@ -219,7 +219,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_freshen ? " -f" : "",
 	                      archive->do_update ? " -u" : "",
 	                      passwd_str, " ",
-	                      archive->escaped_path, files->str,
+	                      archive->path[1], files->str,
 	                      " -d ", archive->extraction_path, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
@@ -248,7 +248,7 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->do_move ? " -m" : "",
 	                      " -", compression,
 	                      passwd_str, " ",
-	                      archive->escaped_path, files->str, NULL);
+	                      archive->path[1], files->str, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
 
@@ -263,7 +263,7 @@ void xa_zip_delete (XArchive *archive, GSList *file_list)
 	GSList *list = NULL;
 
 	files = xa_quote_filenames(file_list, "*?[]", TRUE);
-	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->escaped_path, files->str, NULL);
+	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);

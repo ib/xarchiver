@@ -94,7 +94,7 @@ void xa_deb_open (XArchive *archive)
 	gchar *command = NULL;
 	guint i;
 
-	command = g_strconcat(archiver[archive->type].program[0], " tv ", archive->escaped_path, NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " tv ", archive->path[1], NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
 	archive->nc = 5;
@@ -129,7 +129,7 @@ gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
 	chdir (archive->extraction_path);
 	command = g_strconcat(archiver[archive->type].program[0], " x",
 	                      archive->do_touch ? " " : "o ",
-	                      archive->escaped_path, files->str, NULL);
+	                      archive->path[1], files->str, NULL);
 	g_string_free(files,FALSE);
 	list = g_slist_append(list,command);
 
