@@ -36,7 +36,9 @@
 
 #define MAX_CMD_LEN (NCARGS * 2 / 3)
 
-XArchive *archive[100];
+#define MAX_XARCHIVES 100
+
+XArchive *archive[MAX_XARCHIVES];
 
 static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive *archive)
 {
@@ -522,7 +524,7 @@ gint xa_find_archive_index (gint page_num)
 	gint i;
 
 	scrollwindow = gtk_notebook_get_nth_page(notebook, page_num);
-	for (i = 0; i < 99; i++)
+	for (i = 0; i < MAX_XARCHIVES; i++)
 	{
 		if (archive[i] != NULL && archive[i]->scrollwindow == scrollwindow)
 			return i;
@@ -534,7 +536,7 @@ gint xa_get_new_archive_idx()
 {
 	gint i;
 
-	for(i = 0; i < 99; i++)
+	for (i = 0; i < MAX_XARCHIVES; i++)
 	{
 		if (archive[i] == NULL)
 			return i;
