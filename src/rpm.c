@@ -101,7 +101,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	if (!xa_create_temp_directory(archive))
 		return -1;
 
-	cpio_z = g_strconcat(archive->tmp, "/xa-tmp.cpio_z", NULL);
+	cpio_z = g_strconcat(archive->working_dir, "/xa-tmp.cpio_z", NULL);
 	ibs = g_strdup_printf("%lu", offset);
 
 	/* run dd to have the payload (compressed cpio archive) in /tmp */
@@ -135,7 +135,7 @@ static int xa_rpm2cpio (XArchive *archive)
 			return -1;
 	}
 
-	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->tmp, "/xa-tmp.cpio\"", NULL);
+	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
 	list = g_slist_append(NULL, command);
 	g_free(cpio_z);
 
@@ -260,7 +260,7 @@ void xa_rpm_open (XArchive *archive)
 		return;
 	}
 	/* list the content */
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -tv < ", archive->tmp, "/xa-tmp.cpio\"", NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -tv < ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
 	archive->parse_output = xa_cpio_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free(command);
@@ -278,13 +278,13 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 	gchar *command = NULL;
 	GSList *list = NULL;
 
-	if (archive->tmp == NULL)
+	if (archive->working_dir == NULL)
 		if (xa_rpm2cpio(archive) <= 0)
 			return FALSE;
 
 	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
 	chdir (archive->extraction_path);
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", files->str, " < ", archive->tmp, "/xa-tmp.cpio\"", NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", files->str, " < ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
 
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);

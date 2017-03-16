@@ -464,7 +464,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 				return;
 
 			items = g_string_new("");
-			new_path = g_strconcat (archive->tmp,"/",archive->location_entry_path,NULL);
+			new_path = g_strconcat(archive->working_dir, "/", archive->location_entry_path, NULL);
 			result = g_mkdir_with_parents(new_path,0700);
 			if (result < 0)
 			{

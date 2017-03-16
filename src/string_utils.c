@@ -261,7 +261,7 @@ GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 			}
 			else
 			{
-				basename = xa_strip_current_working_dir_from_path(archive->child_dir ? archive->child_dir : archive->tmp, list->data);
+				basename = xa_strip_current_working_dir_from_path(archive->child_dir ? archive->child_dir : archive->working_dir, list->data);
 				name = g_strconcat(archive->location_entry_path, basename, NULL);
 				out = g_slist_append(out, name);
 			}
@@ -272,7 +272,7 @@ GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 				out = g_slist_append(out, g_strdup(list->data));
 			else
 			{
-				basename = xa_strip_current_working_dir_from_path(archive->child_dir ? archive->child_dir : archive->tmp, list->data);
+				basename = xa_strip_current_working_dir_from_path(archive->child_dir ? archive->child_dir : archive->working_dir, list->data);
 				out = g_slist_append(out, g_strdup(basename));
 			}
 		}

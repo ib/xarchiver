@@ -137,13 +137,13 @@ static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 static void xa_delete_temp_directory (XArchive *archive)
 {
 	if (xa_main_window)
-		xa_launch_external_program("rm -rf",archive->tmp);
+		xa_launch_external_program("rm -rf", archive->working_dir);
 	else
 	{
 		char *argv[4];
 		argv[0] = "rm";
 		argv[1] = "-rf";
-		argv[2] = archive->tmp;
+		argv[2] = archive->working_dir;
 		argv[3] = NULL;
 		g_spawn_sync (NULL, argv, NULL,G_SPAWN_SEARCH_PATH,NULL, NULL,NULL,NULL, NULL,NULL);
 	}
@@ -408,10 +408,10 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->path[1] != NULL)
 		g_free(archive->path[1]);
 
-	if (archive->tmp != NULL)
+	if (archive->working_dir != NULL)
 	{
 		xa_delete_temp_directory (archive);
-		g_free (archive->tmp);
+		g_free(archive->working_dir);
 	}
 
 	if (archive->passwd != NULL)
@@ -438,7 +438,7 @@ gboolean xa_create_temp_directory (XArchive *archive)
 	gchar *tmp_dir;
 	gchar *value, *value_local;
 
-	if (archive->tmp != NULL)
+	if (archive->working_dir != NULL)
 		return TRUE;
 
 	value = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_temp_dir));
@@ -456,7 +456,7 @@ gboolean xa_create_temp_directory (XArchive *archive)
 		return FALSE;
 	}
 
-	archive->tmp = tmp_dir;
+	archive->working_dir = tmp_dir;
 	return TRUE;
 }
 

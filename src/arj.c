@@ -251,13 +251,13 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 		{
 			gchar *move;
 
-			if (strcmp(archive->extraction_path, archive->tmp) == 0)
+			if (strcmp(archive->extraction_path, archive->working_dir) == 0)
 				move = g_strdup("");
 			else
 				move = g_strconcat(" && mv", *files->str ? files->str : " *", " ",
 				                   archive->extraction_path, NULL);
 
-			command = g_strconcat("sh -c \"cd ", archive->tmp, " && rm -f * && ",
+			command = g_strconcat("sh -c \"cd ", archive->working_dir, " && rm -f * && ",
 			                      archiver[archive->type].program[0], " e ",
 			                      archive->path[1], move, "\"", NULL);
 			g_free(move);
@@ -279,7 +279,7 @@ void xa_arj_add (XArchive *archive, GSList *file_list, gchar *compression)
 	GSList *list = NULL;
 
 	if (archive->location_entry_path != NULL)
-		archive->child_dir = g_strdup(archive->tmp);
+		archive->child_dir = g_strdup(archive->working_dir);
 
 	if (!compression)
 		compression = "1";

@@ -192,7 +192,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	gchar *command = NULL;
 
 	if (archive->location_entry_path != NULL)
-		archive->child_dir = g_strdup(archive->tmp);
+		archive->child_dir = g_strdup(archive->working_dir);
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
@@ -499,10 +499,10 @@ static void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files, XArchi
 		return;
 
 	/* Let's copy the archive to /tmp first */
-	command = g_strconcat ("cp -a ",archive->path[1]," ",archive->tmp,"/",filename,NULL);
+	command = g_strconcat ("cp -a ",archive->path[1]," ",archive->working_dir,"/",filename,NULL);
 	list = g_slist_append(list,command);
 
-	command = g_strconcat (executable,"-d ",archive->tmp,"/",filename,NULL);
+	command = g_strconcat (executable,"-d ",archive->working_dir,"/",filename,NULL);
 	list = g_slist_append(list,command);
 
 	if (add)
@@ -510,17 +510,17 @@ static void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files, XArchi
 							archive->do_recurse ? "" : "--no-recursion ",
 							archive->do_move ? "--remove-files " : "",
 							archive->do_update ? "-uvvf " : "-rvvf ",
-							archive->tmp,"/" TMPFILE,
+							archive->working_dir,"/" TMPFILE,
 							files->str , NULL );
 	else
-		command = g_strconcat(tar, " --no-wildcards --delete -f ", archive->tmp, "/" TMPFILE, files->str, NULL);
+		command = g_strconcat(tar, " --no-wildcards --delete -f ", archive->working_dir, "/" TMPFILE, files->str, NULL);
 	list = g_slist_append(list,command);
 
-	command = g_strconcat (executable,archive->tmp,"/" TMPFILE,NULL);
+	command = g_strconcat (executable,archive->working_dir,"/" TMPFILE,NULL);
 	list = g_slist_append(list,command);
 
 	/* Let's move the modified archive from /tmp to the original archive location */
-	command = g_strconcat ("mv ",archive->tmp,"/",filename," ",archive->path[1],NULL);
+	command = g_strconcat ("mv ",archive->working_dir,"/",filename," ",archive->path[1],NULL);
 	list = g_slist_append(list,command);
 	xa_run_command (archive,list);
 }
@@ -557,11 +557,11 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 											" --no-wildcards ",
 										#endif
 										archive->do_touch ? " --touch" : "",
-										" -C ", archive->tmp, files_to_extract, NULL);
+										" -C ", archive->working_dir, files_to_extract, NULL);
 	list = g_slist_append(list,command);
-	if (strstr(files_to_extract,"/") || strcmp(archive->tmp,archive->extraction_path) != 0)
+	if (strstr(files_to_extract,"/") || strcmp(archive->working_dir,archive->extraction_path) != 0)
 	{
-		archive->child_dir = g_strdup(archive->tmp);
+		archive->child_dir = g_strdup(archive->working_dir);
 		command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_path,NULL);
 		list = g_slist_append(list,command);
 	}

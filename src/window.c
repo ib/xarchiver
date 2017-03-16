@@ -395,7 +395,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			g_free(archive->extraction_path);
 		}
 		xa_create_temp_directory(archive);
-		archive->extraction_path = g_strdup(archive->tmp);
+		archive->extraction_path = g_strdup(archive->working_dir);
 		old_name = xa_build_full_path_name_from_entry(entry);
 		_old_name = g_shell_quote(old_name);
 		names = g_slist_append(names,old_name);
@@ -423,7 +423,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		}
 		/* Rename the file in the tmp dir as the new file entered by the user */
 		_new_name = g_shell_quote(new_name);
-		dummy = g_strconcat("mv -f ",archive->tmp,"/",_old_name," ",archive->tmp,"/",_new_name,NULL);
+		dummy = g_strconcat("mv -f ", archive->working_dir, "/", _old_name, " ", archive->working_dir, "/", _new_name, NULL);
 		g_free(_old_name);
 		list = g_slist_append(list,dummy);
 		xa_run_command(archive,list);
@@ -440,7 +440,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		/* Add the renamed file to the archive */
 		_new_name = g_strdup(new_name);
 		list = g_slist_append(list,_new_name);
-		chdir (archive->tmp);
+		chdir(archive->working_dir);
 		xa_execute_add_commands(archive,list,NULL);
 	}
 	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
@@ -600,7 +600,7 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer dat
 	content = gtk_text_buffer_get_text(buf,&start,&end,FALSE);
 
 	xa_create_temp_directory(archive[idx]);
-	tmp = g_strconcat(archive[idx]->tmp,"/xa-tmp.comment",NULL);
+	tmp = g_strconcat(archive[idx]->working_dir, "/xa-tmp.comment", NULL);
 	gtk_widget_destroy(comment_dialog);
 
 	if (archive[idx]->comment == NULL)
@@ -740,7 +740,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 		g_free(archive->extraction_path);
 	}
 	xa_create_temp_directory(archive);
-	archive->extraction_path = g_strdup(archive->tmp);
+	archive->extraction_path = g_strdup(archive->working_dir);
 	overwrite = archive->do_overwrite;
 	archive->do_overwrite = TRUE;
 
@@ -2638,7 +2638,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
 	list = xa_slist_copy(paste_data->files);
-	archive[idx]->child_dir = g_strdup(paste_data->target->tmp);
+	archive[idx]->child_dir = g_strdup(paste_data->target->working_dir);
 	xa_execute_add_commands(archive[idx],list,NULL);
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
@@ -2741,7 +2741,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 		g_free(archive[idx]->extraction_path);
 	}
 	xa_create_temp_directory(archive[idx]);
-	archive[idx]->extraction_path = g_strdup(archive[idx]->tmp);
+	archive[idx]->extraction_path = g_strdup(archive[idx]->working_dir);
 
 	overwrite = archive[idx]->do_overwrite;
 	archive[idx]->do_overwrite = TRUE;
@@ -2760,7 +2760,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	if (result == FALSE)
 		return;
 
-	chdir(archive[idx]->tmp);
+	chdir(archive[idx]->working_dir);
 	do
 	{
 		dummy = g_path_get_basename(list_of_files->data);
@@ -2812,7 +2812,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 		}
 	}
 	entry_local = g_filename_from_utf8(entry->filename, -1, NULL, NULL, NULL);
-	filename = g_strconcat(archive[idx]->tmp, "/", entry_local, NULL);
+	filename = g_strconcat(archive[idx]->working_dir, "/", entry_local, NULL);
 	g_free(entry_local);
 	if (g_file_test(filename,G_FILE_TEST_EXISTS))
 		goto here;
@@ -2821,7 +2821,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 		dummy = g_strdup(archive[idx]->extraction_path);
 		g_free(archive[idx]->extraction_path);
 	}
-	archive[idx]->extraction_path = g_strdup(archive[idx]->tmp);
+	archive[idx]->extraction_path = g_strdup(archive[idx]->working_dir);
 	overwrite = archive[idx]->do_overwrite;
 	full_path = archive[idx]->do_full_path;
 	archive[idx]->do_full_path = FALSE;
@@ -2886,7 +2886,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   		g_free(archive->extraction_path);
 	   	}
 	   	xa_create_temp_directory(archive);
-	   	archive->extraction_path = g_strdup(archive->tmp);
+	   	archive->extraction_path = g_strdup(archive->working_dir);
 	   	item = xa_build_full_path_name_from_entry(entry);
 	   	names = g_slist_append(names,item);
 	   	overwrite = archive->do_overwrite;
@@ -2905,7 +2905,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		if (result == FALSE)
 			return;
 		entry_local = g_filename_from_utf8(entry->filename, -1, NULL, NULL, NULL);
-		file = g_strconcat(archive->tmp, "/", entry_local, NULL);
+		file = g_strconcat(archive->working_dir, "/", entry_local, NULL);
 		g_free(entry_local);
 		xa_determine_program_to_run(file);
 		g_free(file);

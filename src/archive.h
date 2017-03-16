@@ -123,7 +123,7 @@ struct _XArchive
 	XAClipboard *clipboard;
 	/* environment */
 	gchar *path[2];           // 0: original, 1: escaped
-	gchar *tmp;
+	gchar *working_dir;
 	gchar *extraction_path;
 	gchar *location_entry_path;
 	guint pb_source;

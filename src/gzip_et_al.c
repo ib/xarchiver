@@ -244,7 +244,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 			return;
 
 		/* Let's copy the bzip2 file in the tmp dir */
-		command = g_strconcat("cp -f ",archive->path[1]," ",archive->tmp,NULL);
+		command = g_strconcat("cp -f ",archive->path[1]," ",archive->working_dir,NULL);
 		list = g_slist_append(list,command);
 		/* Let's get its compressed file size */
 		stat (archive->path[1],&my_stat);
@@ -254,9 +254,9 @@ void xa_gzip_et_al_open (XArchive *archive)
 		/* Let's extract it */
 		_filename = g_path_get_basename(archive->path[1]);
 		if (_filename[0] == '.')
-			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",archive->path[1],NULL);
+			command = g_strconcat(executable,"-f -d ",archive->working_dir,"/",archive->path[1],NULL);
 		else
-			command = g_strconcat(executable,"-f -d ",archive->tmp,"/",_filename,NULL);
+			command = g_strconcat(executable,"-f -d ",archive->working_dir,"/",_filename,NULL);
 
 		list = g_slist_append(list,command);
 		xa_run_command (archive,list);
@@ -266,11 +266,11 @@ void xa_gzip_et_al_open (XArchive *archive)
 		if (_filename || G_LIKELY(dot))
 		{
 			filename = g_strndup(_filename,strlen(_filename) - len);
-			command = g_strconcat(archive->tmp,"/",filename,NULL);
+			command = g_strconcat(archive->working_dir,"/",filename,NULL);
 		}
 		else
 		{
-			command = g_strconcat(archive->tmp,"/",archive->path[1],NULL);
+			command = g_strconcat(archive->working_dir,"/",archive->path[1],NULL);
 			filename = g_strdup(archive->path[1]);
 		}
 		stat (command,&my_stat);
