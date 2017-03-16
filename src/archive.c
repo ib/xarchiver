@@ -428,7 +428,7 @@ void xa_clean_archive_structure (XArchive *archive)
 		if (archive->comment != NULL)
 			g_string_free (archive->comment,TRUE);
 	}
-	if (archive->clipboard_data)
+	if (archive->clipboard)
 		xa_clipboard_clear(NULL,archive);
 	g_free (archive);
 }

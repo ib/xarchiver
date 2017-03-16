@@ -677,12 +677,12 @@ static XAClipboard *xa_get_paste_data_from_clipboard_selection (const char *data
 static void xa_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selection_data, guint info, gpointer user_data)
 {
 	XArchive *archive = user_data;
-	GSList *_files = archive->clipboard_data->files;
+	GSList *_files = archive->clipboard->files;
 	GString *params = g_string_new("");
 	if (gtk_selection_data_get_target(selection_data) != XA_INFO_LIST)
 		return;
 
-	g_string_append (params,(archive->clipboard_data->mode == XA_CLIPBOARD_COPY) ? "copy" : "cut");
+	g_string_append(params, archive->clipboard->mode == XA_CLIPBOARD_COPY ? "copy" : "cut");
 	g_string_append (params,"\r\n");
 	g_string_append_printf (params,"%p",archive);
 	g_string_append (params,"\r\n");
@@ -721,7 +721,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	clipboard_data->files = xa_slist_copy(files);
 	clipboard_data->mode  = mode;
 	gtk_clipboard_set_with_data (clipboard,targets,G_N_ELEMENTS (targets),xa_clipboard_get,xa_clipboard_clear,(gpointer)archive);
-	archive->clipboard_data = clipboard_data;
+	archive->clipboard = clipboard_data;
 	gtk_widget_set_sensitive(paste,TRUE);
 
 	/* Let's extract the selected files to the archive tmp dir */
@@ -2657,16 +2657,17 @@ void xa_clipboard_clear (GtkClipboard *clipboard,gpointer data)
 {
 	XArchive *archive = data;
 
-	if (archive->clipboard_data != NULL)
+	if (archive->clipboard != NULL)
 	{
-		if (archive->clipboard_data->files != NULL)
+		if (archive->clipboard->files != NULL)
 		{
-			g_slist_foreach (archive->clipboard_data->files,(GFunc) g_free,NULL);
-			g_slist_free (archive->clipboard_data->files);
-			archive->clipboard_data->files = NULL;
+			g_slist_foreach(archive->clipboard->files, (GFunc) g_free, NULL);
+			g_slist_free(archive->clipboard->files);
+			archive->clipboard->files = NULL;
 		}
-		g_free (archive->clipboard_data);
-		archive->clipboard_data = NULL;
+
+		g_free(archive->clipboard);
+		archive->clipboard = NULL;
 	}
 }
 

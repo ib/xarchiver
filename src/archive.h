@@ -120,7 +120,7 @@ struct _XArchive
 	GtkCellRenderer *text_renderer;
 	GSList *back;
 	GSList *forward;
-	XAClipboard *clipboard_data;
+	XAClipboard *clipboard;
 	/* environment */
 	gchar *path;
 	gchar *escaped_path;
