@@ -127,7 +127,6 @@ struct _XArchive
 	gchar *extraction_dir;
 	gchar *location_path;
 	guint timer;
-	gboolean create_image;
 	/* properties */
 	gint nr_of_files;
 	guint64 files_size;

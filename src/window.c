@@ -778,7 +778,6 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				gtk_widget_set_sensitive(Stop_button,FALSE);
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,0,archive->can_test,archive->has_passwd,1);
 		error:
-				archive->create_image = TRUE;
 				xa_show_archive_output(NULL, archive);
 				/* In case the user supplies a wrong password we reset it so he can try again */
 				if ( (archive->status == XARCHIVESTATUS_TEST || archive->status == XARCHIVESTATUS_SFX) && archive->passwd != NULL)
@@ -813,10 +812,8 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 			xa_set_statusbar_message_for_displayed_rows(archive);
 
 			if (archive->status == XARCHIVESTATUS_TEST)
-			{
-				archive->create_image = FALSE;
-				xa_show_archive_output(NULL, archive);
-			}
+				xa_show_archive_output(GUINT_TO_POINTER(TRUE), archive);
+
 			if (archive->status == XARCHIVESTATUS_OPEN)
 				xa_set_button_state (1,1,1,1,archive->can_add,archive->can_extract,archive->can_sfx,archive->can_test,archive->has_passwd,1);
 		}
@@ -914,9 +911,8 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *_archive)
 	vbox = gtk_vbox_new (FALSE,6);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox),5);
 
-	if (_archive->create_image)
+	if (!menuitem)
 	{
-		_archive->create_image = FALSE;
 		image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_ERROR,GTK_ICON_SIZE_DIALOG);
 		gtk_misc_set_alignment (GTK_MISC (image),0.5,0.0);
 
