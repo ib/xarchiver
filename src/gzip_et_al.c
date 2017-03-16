@@ -348,7 +348,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	else
 		filename_noext = filename;
 
-	command = g_strconcat("sh -c \"",executable, " ",archive->path[1]," -dc > ",archive->extraction_path,"/",filename_noext,"\"",NULL);
+	command = g_strconcat("sh -c \"",executable, " ",archive->path[1]," -dc > ",archive->extraction_dir,"/",filename_noext,"\"",NULL);
 	g_free(filename_noext);
 	list = g_slist_append(list,command);
 

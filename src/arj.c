@@ -242,7 +242,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 		                      archive->do_update ? " -u" : "",
 		                      passwd_str, " -i -y ",
 		                      archive->path[1], " ",
-		                      archive->extraction_path, files->str, NULL);
+		                      archive->extraction_dir, files->str, NULL);
 		g_free(passwd_str);
 	}
 	else
@@ -251,11 +251,11 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 		{
 			gchar *move;
 
-			if (strcmp(archive->extraction_path, archive->working_dir) == 0)
+			if (strcmp(archive->extraction_dir, archive->working_dir) == 0)
 				move = g_strdup("");
 			else
 				move = g_strconcat(" && mv", *files->str ? files->str : " *", " ",
-				                   archive->extraction_path, NULL);
+				                   archive->extraction_dir, NULL);
 
 			command = g_strconcat("sh -c \"cd ", archive->working_dir, " && rm -f * && ",
 			                      archiver[archive->type].program[0], " e ",

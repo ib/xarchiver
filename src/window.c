@@ -389,13 +389,13 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			}
 		}
 		/* Extract the file to the tmp dir */
-		if (archive->extraction_path)
+		if (archive->extraction_dir)
 		{
-			dummy = g_strdup(archive->extraction_path);
-			g_free(archive->extraction_path);
+			dummy = g_strdup(archive->extraction_dir);
+			g_free(archive->extraction_dir);
 		}
 		xa_create_working_directory(archive);
-		archive->extraction_path = g_strdup(archive->working_dir);
+		archive->extraction_dir = g_strdup(archive->working_dir);
 		old_name = xa_build_full_path_name_from_entry(entry);
 		_old_name = g_shell_quote(old_name);
 		names = g_slist_append(names,old_name);
@@ -409,11 +409,11 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 
 		archive->do_overwrite = overwrite;
 		archive->do_full_path = full_path;
-		g_free(archive->extraction_path);
-		archive->extraction_path = NULL;
+		g_free(archive->extraction_dir);
+		archive->extraction_dir = NULL;
 		if (dummy)
 		{
-			archive->extraction_path = g_strdup(dummy);
+			archive->extraction_dir = g_strdup(dummy);
 			g_free(dummy);
 		}
 		if (result == FALSE)
@@ -734,25 +734,25 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 				return;
 		}
 	}
-	if (archive->extraction_path)
+	if (archive->extraction_dir)
 	{
-		dummy_ex_path = g_strdup(archive->extraction_path);
-		g_free(archive->extraction_path);
+		dummy_ex_path = g_strdup(archive->extraction_dir);
+		g_free(archive->extraction_dir);
 	}
 	xa_create_working_directory(archive);
-	archive->extraction_path = g_strdup(archive->working_dir);
+	archive->extraction_dir = g_strdup(archive->working_dir);
 	overwrite = archive->do_overwrite;
 	archive->do_overwrite = TRUE;
 
 	archive->status = XARCHIVESTATUS_EXTRACT;
 	(*archive->extract) (archive,files);
 	archive->do_overwrite = overwrite;
-	g_free(archive->extraction_path);
+	g_free(archive->extraction_dir);
 
-	archive->extraction_path = NULL;
+	archive->extraction_dir = NULL;
 	if (dummy_ex_path)
 	{
-		archive->extraction_path = g_strdup(dummy_ex_path);
+		archive->extraction_dir = g_strdup(dummy_ex_path);
 		g_free(dummy_ex_path);
 	}
 }
@@ -2175,7 +2175,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 		if (!destination) return;
 
-		archive->extraction_path = xa_remove_level_from_path (destination);
+		archive->extraction_dir = xa_remove_level_from_path(destination);
 		g_free(destination);
 
 		if (archive->has_passwd)
@@ -2191,12 +2191,12 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			}
 		}
 
-		if (access (archive->extraction_path,R_OK | W_OK | X_OK))
+		if (access(archive->extraction_dir, R_OK | W_OK | X_OK))
 		{
 			gchar *utf8_path;
 			gchar  *msg;
 
-			utf8_path = g_filename_to_utf8 (archive->extraction_path,-1,NULL,NULL,NULL);
+			utf8_path = g_filename_to_utf8(archive->extraction_dir, -1, NULL, NULL, NULL);
 			msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),utf8_path);
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
 			g_free (utf8_path);
@@ -2208,7 +2208,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
 			archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->extract_full));
 			archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->overwrite_check));
-			archive->extraction_path = xa_escape_bad_chars(archive->extraction_path, ESCAPES);
+			archive->extraction_dir = xa_escape_bad_chars(archive->extraction_dir, ESCAPES);
 
 			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->extract) (archive,names);
@@ -2217,10 +2217,10 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			g_list_free (row_list);
 			to_send = "S";
 		}
-		if (archive->extraction_path != NULL)
+		if (archive->extraction_dir != NULL)
 		{
-			g_free (archive->extraction_path);
-			archive->extraction_path = NULL;
+			g_free(archive->extraction_dir);
+			archive->extraction_dir = NULL;
 		}
 		gtk_selection_data_set(selection_data, gtk_selection_data_get_target(selection_data), 8, (guchar *) to_send, 1);
 	}
@@ -2735,13 +2735,13 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 		row_list = row_list->next;
 	}
 	g_list_free (row_list);
-	if (archive[idx]->extraction_path)
+	if (archive[idx]->extraction_dir)
 	{
-		dummy = g_strdup(archive[idx]->extraction_path);
-		g_free(archive[idx]->extraction_path);
+		dummy = g_strdup(archive[idx]->extraction_dir);
+		g_free(archive[idx]->extraction_dir);
 	}
 	xa_create_working_directory(archive[idx]);
-	archive[idx]->extraction_path = g_strdup(archive[idx]->working_dir);
+	archive[idx]->extraction_dir = g_strdup(archive[idx]->working_dir);
 
 	overwrite = archive[idx]->do_overwrite;
 	archive[idx]->do_overwrite = TRUE;
@@ -2750,11 +2750,11 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
 	archive[idx]->do_overwrite = overwrite;
-	g_free(archive[idx]->extraction_path);
-	archive[idx]->extraction_path = NULL;
+	g_free(archive[idx]->extraction_dir);
+	archive[idx]->extraction_dir = NULL;
 	if (dummy)
 	{
-		archive[idx]->extraction_path = g_strdup(dummy);
+		archive[idx]->extraction_dir = g_strdup(dummy);
 		g_free(dummy);
 	}
 	if (result == FALSE)
@@ -2816,12 +2816,12 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	g_free(entry_local);
 	if (g_file_test(filename,G_FILE_TEST_EXISTS))
 		goto here;
-	if (archive[idx]->extraction_path)
+	if (archive[idx]->extraction_dir)
 	{
-		dummy = g_strdup(archive[idx]->extraction_path);
-		g_free(archive[idx]->extraction_path);
+		dummy = g_strdup(archive[idx]->extraction_dir);
+		g_free(archive[idx]->extraction_dir);
 	}
-	archive[idx]->extraction_path = g_strdup(archive[idx]->working_dir);
+	archive[idx]->extraction_dir = g_strdup(archive[idx]->working_dir);
 	overwrite = archive[idx]->do_overwrite;
 	full_path = archive[idx]->do_full_path;
 	archive[idx]->do_full_path = FALSE;
@@ -2831,11 +2831,11 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	result = (*archive[idx]->extract) (archive[idx],list);
 	archive[idx]->do_full_path = full_path;
 	archive[idx]->do_overwrite = overwrite;
-	g_free(archive[idx]->extraction_path);
-	archive[idx]->extraction_path = NULL;
+	g_free(archive[idx]->extraction_dir);
+	archive[idx]->extraction_dir = NULL;
 	if (dummy)
 	{
-		archive[idx]->extraction_path = g_strdup(dummy);
+		archive[idx]->extraction_dir = g_strdup(dummy);
 		g_free(dummy);
 	}
 	if (result == FALSE)
@@ -2880,13 +2880,13 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		     return;
 		  }
 		}
-	   	if (archive->extraction_path)
+	   	if (archive->extraction_dir)
 	   	{
-	   		dummy = g_strdup(archive->extraction_path);
-	   		g_free(archive->extraction_path);
+	   		dummy = g_strdup(archive->extraction_dir);
+	   		g_free(archive->extraction_dir);
 	   	}
 	   	xa_create_working_directory(archive);
-	   	archive->extraction_path = g_strdup(archive->working_dir);
+	   	archive->extraction_dir = g_strdup(archive->working_dir);
 	   	item = xa_build_full_path_name_from_entry(entry);
 	   	names = g_slist_append(names,item);
 	   	overwrite = archive->do_overwrite;
@@ -2895,11 +2895,11 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		result = (*archive->extract) (archive,names);
 		archive->do_overwrite = overwrite;
 
-		g_free(archive->extraction_path);
-		archive->extraction_path = NULL;
+		g_free(archive->extraction_dir);
+		archive->extraction_dir = NULL;
 		if (dummy)
 		{
-			archive->extraction_path = g_strdup(dummy);
+			archive->extraction_dir = g_strdup(dummy);
 			g_free(dummy);
 		}
 		if (result == FALSE)

@@ -231,7 +231,7 @@ static gchar *xa_multi_extract_archive (Multi_extract_data *dialog, gchar *filen
 	archive->do_overwrite = overwrite;
 	archive->do_full_path = full_path;
 	archive->path[1] = xa_escape_bad_chars(filename, ESCAPES);
-	archive->extraction_path = xa_escape_bad_chars(dest_path, ESCAPES);
+	archive->extraction_dir = xa_escape_bad_chars(dest_path, ESCAPES);
 	if (g_str_has_suffix (archive->path[1],".tar.gz")|| g_str_has_suffix (archive->path[1],".tgz"))
 	{
 		archive->type = XARCHIVETYPE_TAR_GZ;
@@ -461,7 +461,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	gtk_widget_set_sensitive(dialog_data->fresh, archive->can_freshen);
 	gtk_widget_set_sensitive(dialog_data->update, archive->can_update);
 
-	if (archive->extraction_path == NULL)
+	if (archive->extraction_dir == NULL)
 	{
 		archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
 		if (archive_dir == NULL)
@@ -508,17 +508,17 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			case GTK_RESPONSE_OK:
 			destination_path = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)), -1, NULL, NULL, NULL);
-			archive->extraction_path = xa_escape_bad_chars(destination_path, ESCAPES);
+			archive->extraction_dir = xa_escape_bad_chars(destination_path, ESCAPES);
 
-			if (strlen(archive->extraction_path)== 0)
+			if (strlen(archive->extraction_dir)== 0)
 			{
 				xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("You missed where to extract the files!"),_("Please enter the extraction path."));
 				break;
 			}
-			if (archive->extraction_path[0] != '/')
+			if (archive->extraction_dir[0] != '/')
 			{
 				gchar *cur_dir = g_get_current_dir();
-				archive->extraction_path = g_strconcat(cur_dir,"/",archive->extraction_path,NULL);
+				archive->extraction_dir = g_strconcat(cur_dir, "/", archive->extraction_dir, NULL);
 				g_free (cur_dir);
 			}
 			if (archive->has_passwd || (xa_main_window == FALSE && strlen(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry))) > 0) )

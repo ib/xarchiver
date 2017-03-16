@@ -220,7 +220,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_update ? " -u" : "",
 	                      passwd_str, " ",
 	                      archive->path[1], files->str,
-	                      " -d ", archive->extraction_path, NULL);
+	                      " -d ", archive->extraction_dir, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);

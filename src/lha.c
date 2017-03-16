@@ -175,7 +175,7 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? " x" : " xi",
 	                      archive->do_overwrite ? "f" : "",
-	                      "w=", archive->extraction_path, " ",
+	                      "w=", archive->extraction_dir, " ",
 	                      archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);

@@ -420,8 +420,8 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->child_dir != NULL)
 		g_free(archive->child_dir);
 
-	if (archive->extraction_path != NULL)
-		g_free (archive->extraction_path);
+	if (archive->extraction_dir != NULL)
+		g_free(archive->extraction_dir);
 
 	if (archive->has_comment)
 	{

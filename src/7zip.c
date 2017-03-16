@@ -193,7 +193,7 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_overwrite ? " -aoa" : " -aos",
 	                      passwd_str, " -bd -spd -y ",
 	                      archive->path[1], files->str,
-	                      " -o", archive->extraction_path, NULL);
+	                      " -o", archive->extraction_dir, NULL);
 	g_free(passwd_str);
 	g_string_free(files,TRUE);
 	list = g_slist_append(list,command);
