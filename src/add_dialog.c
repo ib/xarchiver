@@ -341,11 +341,11 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_scale_set_value_pos (GTK_SCALE (add_dialog->compression_scale), GTK_POS_TOP);
 	gtk_scale_set_digits (GTK_SCALE (add_dialog->compression_scale), 0);
 
-	if (archive->compression_level == 0)
-		archive->compression_level = default_value;
+	if (archive->compression == 0)
+		archive->compression = default_value;
 
 	gtk_widget_set_sensitive(add_dialog->compression_scale,flag);
-	gtk_adjustment_set_value(GTK_ADJUSTMENT(compression_value), archive->compression_level);
+	gtk_adjustment_set_value(GTK_ADJUSTMENT(compression_value), archive->compression);
 
 	if (archive->type == XARCHIVETYPE_ARJ)
 		gtk_range_set_inverted (GTK_RANGE (add_dialog->compression_scale), TRUE);
@@ -420,8 +420,8 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 
 			if (gtk_widget_is_sensitive(add_dialog->compression_scale))
 			{
-				archive->compression_level = gtk_adjustment_get_value(GTK_ADJUSTMENT(compression_value));
-				compression = g_strdup_printf("%hu", archive->compression_level);
+				archive->compression = gtk_adjustment_get_value(GTK_ADJUSTMENT(compression_value));
+				compression = g_strdup_printf("%hu", archive->compression);
 			}
 			gtk_widget_hide(add_dialog->dialog1);
 
