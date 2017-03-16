@@ -164,7 +164,7 @@ struct _XArchive
 	gchar *child_dir;
 	GPid child_pid;
 	guint child_ref;
-	gint output_fd;
+	gint child_fdout;
 	gint error_fd;
 	GSList *output;
 	/* (un)compressor interface */

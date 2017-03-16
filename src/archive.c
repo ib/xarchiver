@@ -315,7 +315,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		NULL,
 		&archive->child_pid,
 		NULL,
-		&archive->output_fd,
+		&archive->child_fdout,
 		&archive->error_fd,
 		&error))
 	{
@@ -340,7 +340,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		archive->output = NULL;
 	}
 
-	ioc = g_io_channel_unix_new (archive->output_fd);
+	ioc = g_io_channel_unix_new(archive->child_fdout);
 	g_io_channel_set_encoding (ioc,NULL,NULL);
 	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
 
