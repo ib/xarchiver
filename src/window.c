@@ -1802,10 +1802,10 @@ void xa_create_liststore (XArchive *archive,gchar *columns_names[])
 
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
-	archive->renderer = gtk_cell_renderer_pixbuf_new();
-	g_object_set(G_OBJECT(archive->renderer),"stock-size",(3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))),NULL);
-	gtk_tree_view_column_pack_start(column,archive->renderer,FALSE);
-	gtk_tree_view_column_set_attributes(column,archive->renderer,"pixbuf",0,NULL);
+	archive->pixbuf_renderer = gtk_cell_renderer_pixbuf_new();
+	g_object_set(G_OBJECT(archive->pixbuf_renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);
+	gtk_tree_view_column_pack_start(column, archive->pixbuf_renderer, FALSE);
+	gtk_tree_view_column_set_attributes(column, archive->pixbuf_renderer, "pixbuf", 0, NULL);
 
 	archive->renderer_text = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start(column,archive->renderer_text,TRUE);

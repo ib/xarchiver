@@ -116,7 +116,7 @@ struct _XArchive
 	GtkListStore *liststore;
 	guint nc;
 	GType *column_types;
-	GtkCellRenderer *renderer;
+	GtkCellRenderer *pixbuf_renderer;
 	GtkCellRenderer *renderer_text;
 	GSList *back;
 	GSList *forward;

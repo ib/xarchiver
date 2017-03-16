@@ -629,7 +629,7 @@ void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 	{
 		idx = xa_find_archive_index (i);
 		if (archive[idx] != NULL)
-			g_object_set(G_OBJECT(archive[idx]->renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_data->combo_icon_size))), NULL);
+			g_object_set(G_OBJECT(archive[idx]->pixbuf_renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_data->combo_icon_size))), NULL);
 		gtk_widget_queue_draw(GTK_WIDGET(archive[idx]->treeview));
 	}
 
