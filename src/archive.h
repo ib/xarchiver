@@ -165,7 +165,7 @@ struct _XArchive
 	GPid child_pid;
 	guint child_ref;
 	gint child_fdout;
-	gint error_fd;
+	gint child_fderr;
 	GSList *output;
 	/* (un)compressor interface */
 	ask_func ask;
