@@ -394,7 +394,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			dummy = g_strdup(archive->extraction_path);
 			g_free(archive->extraction_path);
 		}
-		xa_create_temp_directory(archive);
+		xa_create_working_directory(archive);
 		archive->extraction_path = g_strdup(archive->working_dir);
 		old_name = xa_build_full_path_name_from_entry(entry);
 		_old_name = g_shell_quote(old_name);
@@ -599,7 +599,7 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer dat
 	gtk_text_buffer_get_end_iter(buf,&end);
 	content = gtk_text_buffer_get_text(buf,&start,&end,FALSE);
 
-	xa_create_temp_directory(archive[idx]);
+	xa_create_working_directory(archive[idx]);
 	tmp = g_strconcat(archive[idx]->working_dir, "/xa-tmp.comment", NULL);
 	gtk_widget_destroy(comment_dialog);
 
@@ -739,7 +739,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 		dummy_ex_path = g_strdup(archive->extraction_path);
 		g_free(archive->extraction_path);
 	}
-	xa_create_temp_directory(archive);
+	xa_create_working_directory(archive);
 	archive->extraction_path = g_strdup(archive->working_dir);
 	overwrite = archive->do_overwrite;
 	archive->do_overwrite = TRUE;
@@ -2740,7 +2740,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 		dummy = g_strdup(archive[idx]->extraction_path);
 		g_free(archive[idx]->extraction_path);
 	}
-	xa_create_temp_directory(archive[idx]);
+	xa_create_working_directory(archive[idx]);
 	archive[idx]->extraction_path = g_strdup(archive[idx]->working_dir);
 
 	overwrite = archive[idx]->do_overwrite;
@@ -2792,7 +2792,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	current_index = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index(current_index);
 
-	xa_create_temp_directory(archive[idx]);
+	xa_create_working_directory(archive[idx]);
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
 	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[idx]->model);
@@ -2885,7 +2885,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   		dummy = g_strdup(archive->extraction_path);
 	   		g_free(archive->extraction_path);
 	   	}
-	   	xa_create_temp_directory(archive);
+	   	xa_create_working_directory(archive);
 	   	archive->extraction_path = g_strdup(archive->working_dir);
 	   	item = xa_build_full_path_name_from_entry(entry);
 	   	names = g_slist_append(names,item);

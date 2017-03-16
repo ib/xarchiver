@@ -494,7 +494,7 @@ static void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files, XArchi
 		break;
 	}
 	/* Let's copy the archive to /tmp first */
-	result = xa_create_temp_directory(archive);
+	result = xa_create_working_directory(archive);
 	if (!result)
 		return;
 
@@ -538,7 +538,7 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 	GSList *file_list = NULL;
 	gboolean result;
 
-	result = xa_create_temp_directory (archive);
+	result = xa_create_working_directory(archive);
 	if (!result)
 		return FALSE;
 

@@ -247,7 +247,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	}
 	else
 	{
-		if (xa_create_temp_directory(archive))
+		if (xa_create_working_directory(archive))
 		{
 			gchar *move;
 

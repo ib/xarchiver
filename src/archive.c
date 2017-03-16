@@ -134,7 +134,7 @@ static void xa_process_exit (GPid pid, gint status, XArchive *archive)
 	}
 }
 
-static void xa_delete_temp_directory (XArchive *archive)
+static void xa_delete_working_directory (XArchive *archive)
 {
 	if (xa_main_window)
 		xa_launch_external_program("rm -rf", archive->working_dir);
@@ -410,7 +410,7 @@ void xa_clean_archive_structure (XArchive *archive)
 
 	if (archive->working_dir != NULL)
 	{
-		xa_delete_temp_directory (archive);
+		xa_delete_working_directory(archive);
 		g_free(archive->working_dir);
 	}
 
@@ -433,7 +433,7 @@ void xa_clean_archive_structure (XArchive *archive)
 	g_free (archive);
 }
 
-gboolean xa_create_temp_directory (XArchive *archive)
+gboolean xa_create_working_directory (XArchive *archive)
 {
 	gchar *tmp_dir;
 	gchar *value, *value_local;

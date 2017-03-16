@@ -98,7 +98,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	fclose(stream);
 
 	/* create a unique temp dir in /tmp */
-	if (!xa_create_temp_directory(archive))
+	if (!xa_create_working_directory(archive))
 		return -1;
 
 	cpio_z = g_strconcat(archive->working_dir, "/xa-tmp.cpio_z", NULL);

@@ -587,7 +587,7 @@ int main (int argc, char **argv)
 
 			if (archive->path[0] != NULL)
 			{
-				xa_create_temp_directory(archive);
+				xa_create_working_directory(archive);
 				archive->do_recurse = archive->can_recurse;
 				_current_dir = g_path_get_dirname(opt_add_files);
 				chdir (_current_dir);

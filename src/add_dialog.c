@@ -459,7 +459,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 		/* This in case the user wants to add files in a directory in the archive tree */
 		if (archive->location_entry_path != NULL)
 		{
-			result = xa_create_temp_directory(archive);
+			result = xa_create_working_directory(archive);
 			if (result == FALSE)
 				return;
 

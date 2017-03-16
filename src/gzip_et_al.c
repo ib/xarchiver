@@ -239,7 +239,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 
 		char *names[]= {(_("Original")),(_("Compressed"))};
 		xa_create_liststore (archive,names);
-		result = xa_create_temp_directory (archive);
+		result = xa_create_working_directory(archive);
 		if (!result)
 			return;
 

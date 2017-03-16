@@ -200,7 +200,7 @@ struct _XAClipboard
 
 gchar *xa_build_full_path_name_from_entry(XEntry *);
 void xa_clean_archive_structure(XArchive *);
-gboolean xa_create_temp_directory(XArchive *);
+gboolean xa_create_working_directory(XArchive *);
 gboolean xa_detect_encrypted_archive(XArchive *);
 void xa_fill_dir_sidebar(XArchive *, gboolean);
 void xa_fill_list_with_recursed_entries(XEntry *, GSList **);
