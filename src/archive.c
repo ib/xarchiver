@@ -526,7 +526,7 @@ gint xa_find_archive_index (gint page_num)
 	scrollwindow = gtk_notebook_get_nth_page(notebook, page_num);
 	for (i = 0; i < MAX_XARCHIVES; i++)
 	{
-		if (archive[i] != NULL && archive[i]->scrollwindow == scrollwindow)
+		if (archive[i] != NULL && archive[i]->page == scrollwindow)
 			return i;
 	}
 	return -1;

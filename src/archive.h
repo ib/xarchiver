@@ -110,7 +110,7 @@ struct _XArchive
 	XEntry *root_entry;
 	XEntry *current_entry;
 	/* user interface */
-	GtkWidget *scrollwindow;
+	GtkWidget *page;
 	GtkWidget *treeview;
 	GtkTreeModel *model;
 	GtkListStore *liststore;

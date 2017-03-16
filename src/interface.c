@@ -1202,9 +1202,9 @@ void xa_add_page (XArchive *archive)
 	else
 		gtk_notebook_set_show_tabs (notebook,FALSE);
 
-	archive->scrollwindow = gtk_scrolled_window_new (NULL,NULL);
-	g_object_set (G_OBJECT (archive->scrollwindow),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
-	gtk_widget_show (archive->scrollwindow);
+	archive->page = gtk_scrolled_window_new(NULL, NULL);
+	g_object_set(G_OBJECT(archive->page), "hscrollbar-policy", GTK_POLICY_AUTOMATIC, "vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
+	gtk_widget_show(archive->page);
 
 	page_hbox = gtk_hbox_new(FALSE,0);
 
@@ -1232,7 +1232,7 @@ void xa_add_page (XArchive *archive)
 	gtk_button_set_focus_on_click(GTK_BUTTON(close_button),FALSE);
 	gtk_button_set_relief (GTK_BUTTON(close_button),GTK_RELIEF_NONE);
 	gtk_widget_set_tooltip_text(close_button, _("Close archive"));
-	g_signal_connect (G_OBJECT(close_button),"clicked",G_CALLBACK(xa_close_page),(gpointer) archive->scrollwindow);
+	g_signal_connect(G_OBJECT(close_button), "clicked", G_CALLBACK(xa_close_page), archive->page);
 
 	rcstyle = gtk_rc_style_new();
 	rcstyle->xthickness = rcstyle->ythickness = 0;
@@ -1249,12 +1249,12 @@ void xa_add_page (XArchive *archive)
 	gtk_widget_show_all(page_hbox);
 
 	gtk_misc_set_alignment(GTK_MISC(tab_label),0.0,0);
-	gtk_notebook_append_page_menu (notebook,archive->scrollwindow,page_hbox,tab_label);
+	gtk_notebook_append_page_menu(notebook, archive->page, page_hbox, tab_label);
 	gtk_notebook_set_current_page(notebook,-1);
-	gtk_notebook_set_tab_reorderable(notebook,archive->scrollwindow,TRUE);
+	gtk_notebook_set_tab_reorderable(notebook, archive->page, TRUE);
 
 	archive->treeview = gtk_tree_view_new ();
-	gtk_container_add (GTK_CONTAINER (archive->scrollwindow),archive->treeview);
+	gtk_container_add(GTK_CONTAINER(archive->page), archive->treeview);
 	gtk_widget_show (archive->treeview);
 	gtk_tree_view_set_rules_hint ( GTK_TREE_VIEW (archive->treeview),TRUE);
 	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (archive->treeview),(GtkTreeViewSearchEqualFunc) treeview_select_search,NULL,NULL);
