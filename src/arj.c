@@ -279,7 +279,7 @@ void xa_arj_add (XArchive *archive, GSList *file_list, gchar *compression)
 	GSList *list = NULL;
 
 	if (archive->location_entry_path != NULL)
-		archive->working_dir = g_strdup(archive->tmp);
+		archive->child_dir = g_strdup(archive->tmp);
 
 	if (!compression)
 		compression = "1";

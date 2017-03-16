@@ -192,7 +192,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	gchar *command = NULL;
 
 	if (archive->location_entry_path != NULL)
-		archive->working_dir = g_strdup(archive->tmp);
+		archive->child_dir = g_strdup(archive->tmp);
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
@@ -561,7 +561,7 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 	list = g_slist_append(list,command);
 	if (strstr(files_to_extract,"/") || strcmp(archive->tmp,archive->extraction_path) != 0)
 	{
-		archive->working_dir = g_strdup(archive->tmp);
+		archive->child_dir = g_strdup(archive->tmp);
 		command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_path,NULL);
 		list = g_slist_append(list,command);
 	}

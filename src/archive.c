@@ -309,7 +309,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 
 	g_shell_parse_argv (command,&argcp,&argv,NULL);
 	if ( ! g_spawn_async_with_pipes (
-		archive->working_dir,
+		archive->child_dir,
 		argv,
 		NULL,
 		(G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD),
@@ -417,8 +417,8 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->passwd != NULL)
 		g_free (archive->passwd);
 
-	if (archive->working_dir != NULL)
-		g_free (archive->working_dir);
+	if (archive->child_dir != NULL)
+		g_free(archive->child_dir);
 
 	if (archive->extraction_path != NULL)
 		g_free (archive->extraction_path);

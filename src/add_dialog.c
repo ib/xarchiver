@@ -427,12 +427,12 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 
 			if (!archive->do_full_path)
 			{
-				if (archive->working_dir != NULL)
+				if (archive->child_dir != NULL)
 				{
-					g_free(archive->working_dir);
-					archive->working_dir = NULL;
+					g_free(archive->child_dir);
+					archive->child_dir = NULL;
 				}
-				archive->working_dir = g_path_get_dirname(list->data);
+				archive->child_dir = g_path_get_dirname(list->data);
 			}
 			xa_execute_add_commands(archive, list, compression);
 			g_free(compression);

@@ -162,7 +162,7 @@ struct _XArchive
 	gboolean do_solid;
 	gboolean do_move;
 	/* child process */
-	gchar *working_dir;
+	gchar *child_dir;
 	GPid child_pid;
 	guint child_ref;
 	gint output_fd;

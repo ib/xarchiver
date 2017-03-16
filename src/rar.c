@@ -490,7 +490,7 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 
 	if (archive->location_entry_path != NULL)
-		archive->working_dir = g_strdup(archive->tmp);
+		archive->child_dir = g_strdup(archive->tmp);
 
 	if (rar_version == 5)
 	{

@@ -2283,12 +2283,12 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		return;
 	}
 	_current_dir = g_path_get_dirname(array[0]);
-	if (archive[idx]->working_dir != NULL)
+	if (archive[idx]->child_dir != NULL)
 	{
-		g_free(archive[idx]->working_dir);
-		archive[idx]->working_dir = NULL;
+		g_free(archive[idx]->child_dir);
+		archive[idx]->child_dir = NULL;
 	}
-	archive[idx]->working_dir = g_filename_from_uri (_current_dir,NULL,NULL);
+	archive[idx]->child_dir = g_filename_from_uri (_current_dir,NULL,NULL);
 	g_free(_current_dir);
 	while (array[len])
 	{
@@ -2638,7 +2638,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
 	list = xa_slist_copy(paste_data->files);
-	archive[idx]->working_dir = g_strdup(paste_data->target->tmp);
+	archive[idx]->child_dir = g_strdup(paste_data->target->tmp);
 	xa_execute_add_commands(archive[idx],list,NULL);
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
