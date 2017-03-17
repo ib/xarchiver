@@ -363,7 +363,7 @@ static void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer
 static void xa_rename_cell_edited_canceled (GtkCellRenderer *renderer, gpointer data)
 {
 	g_object_set(renderer,"editable",FALSE,NULL);
-	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
 }
 
 static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_string, const gchar *new_name, XArchive *archive)
@@ -443,7 +443,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		chdir(archive->working_dir);
 		xa_execute_add_commands(archive,list,NULL);
 	}
-	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, GDK_MODE_DISABLED, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
 	g_object_set(cell,"editable",FALSE,NULL);
 }
 
