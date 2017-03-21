@@ -133,6 +133,8 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 void xa_lha_open (XArchive *archive)
 {
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Permissions"), _("UID/GID"), _("Size"), _("Ratio"), _("Timestamp")};
 	gchar *command;
 	guint i;
 
@@ -141,18 +143,17 @@ void xa_lha_open (XArchive *archive)
 	command = g_strconcat(archiver[archive->type].program[0], " l ", archive->path[1], NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
-	archive->nc = 7;
 	archive->parse_output = xa_lha_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->columns = 9;
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 9; i++)
+
+	for (i = 0; i < archive->columns; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Points to")),(_("Permissions")),(_("UID/GID")),(_("Size")),(_("Ratio")),(_("Timestamp"))};
-	xa_create_liststore (archive,names);
+	xa_create_liststore(archive, titles);
 }
 
 void xa_lha_test (XArchive *archive)

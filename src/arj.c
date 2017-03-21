@@ -190,6 +190,8 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 
 void xa_arj_open (XArchive *archive)
 {
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Attributes"), _("GUA")};
 	guint i;
 
 	data_line = FALSE;
@@ -197,18 +199,17 @@ void xa_arj_open (XArchive *archive)
 	gchar *command = g_strconcat(archiver[archive->type].program[0], archiver[archive->type].is_compressor ? " v " : " l ", archive->path[1], NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
-	archive->nc = 8;
 	archive->parse_output = xa_arj_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->columns = 10;
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 10; i++)
+
+	for (i = 0; i < archive->columns; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Attributes")),("GUA"),NULL};
-	xa_create_liststore (archive,names);
+	xa_create_liststore(archive, titles);
 }
 
 void xa_arj_test (XArchive *archive)

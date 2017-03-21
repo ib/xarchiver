@@ -1783,7 +1783,7 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 	return type;
 }
 
-void xa_create_liststore (XArchive *archive,gchar *columns_names[])
+void xa_create_liststore (XArchive *archive, const gchar *titles[])
 {
 	guint x;
 	GtkCellRenderer *renderer;
@@ -1829,7 +1829,7 @@ void xa_create_liststore (XArchive *archive,gchar *columns_names[])
 		else
 		{
 			renderer = gtk_cell_renderer_text_new();
-			column = gtk_tree_view_column_new_with_attributes ( columns_names[x],renderer,"text",x+2,NULL);
+			column = gtk_tree_view_column_new_with_attributes(titles[x], renderer, "text", x+2, NULL);
 			gtk_tree_view_column_set_resizable (column,TRUE);
 			gtk_tree_view_column_set_sort_column_id (column,x+2);
 		}

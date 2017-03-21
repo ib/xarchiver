@@ -41,7 +41,7 @@ void xa_clipboard_paste(GtkMenuItem *, gpointer);
 void xa_close_archive(GtkMenuItem *, gpointer);
 void xa_concat_selected_filenames(GtkTreeModel *, GtkTreePath *, GtkTreeIter *, GSList **);
 void xa_convert_sfx(GtkMenuItem *, gpointer);
-void xa_create_liststore(XArchive *, gchar *[]);
+void xa_create_liststore(XArchive *, const gchar *[]);
 void xa_delete_archive(GtkMenuItem *, gpointer);
 void xa_deselect_all(GtkMenuItem *, gpointer);
 XArchiveType xa_detect_archive_type(gchar *);

@@ -135,6 +135,8 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 
 void xa_7zip_open (XArchive *archive)
 {
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original"), _("Compressed"), _("Attr"), _("Time"), _("Date")};
 	guint i;
 
 	data_line = FALSE;
@@ -143,18 +145,17 @@ void xa_7zip_open (XArchive *archive)
 	gchar *command = g_strconcat(archiver[archive->type].program[0], " l ", archive->path[1], NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
-	archive->nc = 6;
 	archive->parse_output = xa_7zip_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free ( command );
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->columns = 8;
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 8; i++)
+
+	for (i = 0; i < archive->columns; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Original")),(_("Compressed")),(_("Attr")),(_("Time")),(_("Date")),NULL};
-	xa_create_liststore (archive,names);
+	xa_create_liststore(archive, titles);
 }
 
 void xa_7zip_test (XArchive *archive)

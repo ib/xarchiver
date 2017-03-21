@@ -397,11 +397,6 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 
 void xa_rar_open (XArchive *archive)
 {
-	GType types4[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-	char *names4[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),(_("Method")),(_("Version")),NULL};
-	GType types5[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
-	char *names5[]= {(_("Original")),(_("Compressed")),(_("Ratio")),(_("Date")),(_("Time")),(_("Permissions")),(_("CRC")),NULL};
-
 	guint i;
 	gchar *command = NULL;
 
@@ -417,27 +412,37 @@ void xa_rar_open (XArchive *archive)
 
 	if (rar_version == 5)
 	{
-		archive->nc = 8;
+		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+		const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Permissions"), _("CRC")};
+
 		archive->parse_output = xa_rar5_parse_output;
 		xa_spawn_async_process (archive,command);
 		g_free ( command );
-		archive->column_types = g_malloc0(sizeof(types5));
-		for (i = 0; i < archive->nc+2; i++)
-			archive->column_types[i] = types5[i];
 
-		xa_create_liststore (archive, names5);
+		archive->columns = 10;
+		archive->column_types = g_malloc0(sizeof(types));
+
+		for (i = 0; i < archive->columns; i++)
+			archive->column_types[i] = types[i];
+
+		xa_create_liststore(archive, titles);
 	}
 	else
 	{
-		archive->nc = 10;
+		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+		const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Permissions"), _("CRC"), _("Method"), _("Version")};
+
 		archive->parse_output = xa_rar_parse_output;
 		xa_spawn_async_process (archive,command);
 		g_free ( command );
-		archive->column_types = g_malloc0(sizeof(types4));
-		for (i = 0; i < archive->nc+2; i++)
-			archive->column_types[i] = types4[i];
 
-		xa_create_liststore (archive, names4);
+		archive->columns = 12;
+		archive->column_types = g_malloc0(sizeof(types));
+
+		for (i = 0; i < archive->columns; i++)
+			archive->column_types[i] = types[i];
+
+		xa_create_liststore(archive, titles);
 	}
 }
 

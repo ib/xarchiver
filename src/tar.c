@@ -65,25 +65,26 @@ void xa_tar_ask (XArchive *archive)
 
 void xa_tar_open (XArchive *archive)
 {
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Permissions"), _("Owner/Group"), _("Size"), _("Date"), _("Time")};
 	gchar *command;
 	guint i;
 
 	command = g_strconcat (tar, " tfv " , archive->path[1], NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
-	archive->nc = 7;
 	archive->parse_output = xa_tar_parse_output;
 	xa_spawn_async_process (archive,command);
 
 	g_free (command);
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->columns = 9;
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 9; i++)
+
+	for (i = 0; i < archive->columns; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time")),NULL};
-	xa_create_liststore (archive,names);
+	xa_create_liststore(archive, titles);
 }
 
 void xa_tar_parse_output (gchar *line, XArchive *archive)
@@ -580,7 +581,7 @@ static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTr
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
-	gtk_tree_model_get(model,iter,archive[idx]->nc+1,&entry,-1);
+	gtk_tree_model_get(model, iter, archive[idx]->columns - 1, &entry, -1);
 	if (entry == NULL)
 		return TRUE;
 	else

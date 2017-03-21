@@ -60,6 +60,8 @@ void xa_gzip_et_al_ask (XArchive *archive)
 
 static void xa_open_tar_compressed_file (XArchive *archive)
 {
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Permissions"), _("Owner/Group"), _("Size"), _("Date"), _("Time")};
 	gchar *command = NULL;
 	guint i;
 
@@ -77,18 +79,17 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
-	archive->nc = 7;
 	archive->parse_output = xa_tar_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->columns = 9;
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 9; i++)
+
+	for (i = 0; i < archive->columns; i++)
 		archive->column_types[i] = types[i];
 
-	char *names[]= {(_("Points to")),(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date")),(_("Time")),NULL};
-	xa_create_liststore (archive,names);
+	xa_create_liststore(archive, titles);
 }
 
 static void xa_gzip_parse_output (gchar *line, XArchive *archive)
@@ -180,20 +181,22 @@ void xa_gzip_et_al_open (XArchive *archive)
 	}
 	else if (archive->type == XARCHIVETYPE_GZIP)
 	{
+		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
+		const gchar *titles[] = {_("Compressed"), _("Size"), _("Ratio")};
 		gchar *command;
 		guint i;
 
-		archive->nc = 4;
 		archive->parse_output = xa_gzip_parse_output;
 		archive->nr_of_files = 1;
 
-		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
+
+		archive->columns = 6;
 		archive->column_types = g_malloc0(sizeof(types));
-		for (i = 0; i < 6; i++)
+
+		for (i = 0; i < archive->columns; i++)
 			archive->column_types[i] = types[i];
 
-		char *names[]= {(_("Compressed")),(_("Size")),(_("Ratio"))};
-		xa_create_liststore (archive,names);
+		xa_create_liststore(archive, titles);
 
 		command = g_strconcat ("gzip -l ",archive->path[1],NULL);
 		xa_spawn_async_process (archive,command);
@@ -201,13 +204,14 @@ void xa_gzip_et_al_open (XArchive *archive)
 	}
 	else
 	{
+		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_POINTER};
+		const gchar *titles[] = {_("Original"), _("Compressed")};
 		struct stat my_stat;
 		gchar *compressed = NULL;
 		gchar *size = NULL,*command = NULL,*executable = NULL,*dot = NULL;
 		guint i;
 		GSList *list = NULL;
 
-		archive->nc = 3;
 		archive->nr_of_files = 1;
 
 		if (archive->type == XARCHIVETYPE_BZIP2)
@@ -232,13 +236,14 @@ void xa_gzip_et_al_open (XArchive *archive)
 		} /* else fail? */
 
 
-		GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_UINT64,G_TYPE_POINTER};
+		archive->columns = 5;
 		archive->column_types = g_malloc0(sizeof(types));
-		for (i = 0; i < 5; i++)
+
+		for (i = 0; i < archive->columns; i++)
 			archive->column_types[i] = types[i];
 
-		char *names[]= {(_("Original")),(_("Compressed"))};
-		xa_create_liststore (archive,names);
+		xa_create_liststore(archive, titles);
+
 		result = xa_create_working_directory(archive);
 		if (!result)
 			return;

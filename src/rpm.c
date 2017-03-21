@@ -230,12 +230,11 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 
 void xa_rpm_open (XArchive *archive)
 {
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Size"), _("Permission"), _("Date"), _("Hard Link"), _("Owner"), _("Group")};
 	int result;
 	guint i;
 	gchar *command;
-
-	char *names[]= {(_("Points to")),(_("Size")),(_("Permission")),(_("Date")),(_("Hard Link")),(_("Owner")),(_("Group")),NULL};
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER};
 
 	result = xa_rpm2cpio(archive);
 
@@ -244,13 +243,14 @@ void xa_rpm_open (XArchive *archive)
 
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
-	archive->nc = 8;
 
+	archive->columns = 10;
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 10; i++)
+
+	for (i = 0; i < archive->columns; i++)
 		archive->column_types[i] = types[i];
 
-	xa_create_liststore(archive, names);
+	xa_create_liststore(archive, titles);
 
 	if (result == 0)
 	{

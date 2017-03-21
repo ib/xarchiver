@@ -91,23 +91,25 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 
 void xa_deb_open (XArchive *archive)
 {
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Permissions"), _("Owner/Group"), _("Size"), _("Date modified")};
 	gchar *command = NULL;
 	guint i;
 
 	command = g_strconcat(archiver[archive->type].program[0], " tv ", archive->path[1], NULL);
 	archive->files_size = 0;
 	archive->nr_of_files = 0;
-	archive->nc = 5;
 	archive->parse_output = xa_ar_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
-	char *names[]= {(_("Permissions")),(_("Owner/Group")),(_("Size")),(_("Date modified")),NULL};
-	GType types[]= {GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_POINTER};
+	archive->columns = 7;
 	archive->column_types = g_malloc0(sizeof(types));
-	for (i = 0; i < 7; i++)
+
+	for (i = 0; i < archive->columns; i++)
 		archive->column_types[i] = types[i];
-	xa_create_liststore (archive,names);
+
+	xa_create_liststore(archive, titles);
 }
 
 gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
