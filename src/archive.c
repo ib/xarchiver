@@ -215,7 +215,7 @@ static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, 
 			break;
 
 			case G_TYPE_UINT64:
-				*(guint64 *) current_column = atol(items[i - 2]);
+				*(guint64 *) current_column = g_ascii_strtoull(items[i - 2], NULL, 0);
 				//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
 				current_column += sizeof(guint64);
 			break;
