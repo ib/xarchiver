@@ -55,7 +55,9 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 {
 	gpointer item[6];
 	unsigned int linesize,n,a;
+	gboolean dir;
 	gchar *filename;
+	XEntry *entry;
 
 	if (last_line)
 		return;
@@ -79,7 +81,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	/* Permission */
 	line[10] = '\0';
 	item[1] = line;
-	// if(line[0] == 'd') ?
+	dir = (line[0] == 'd');
 
 	/* UID/GID */
 	line[22] = '\0';
@@ -123,7 +125,10 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	else
 		item[0] = NULL;
 
-	xa_set_archive_entries_for_each_row (archive,filename,item);
+	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+
+	if (entry && dir)
+		entry->is_dir = TRUE;
 }
 
 void xa_lha_open (XArchive *archive)
