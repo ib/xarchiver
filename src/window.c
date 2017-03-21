@@ -281,9 +281,9 @@ static void xa_print_entry_in_file (XEntry *entry, gint idx, FILE *stream, int b
 		g_free(path);
 		if (strlen(path_utf8) == 0)
 			goto here;
-		for (i = 0; i < archive[idx]->nc; i++)
+		for (i = 2; i < archive[idx]->columns - 1; i++)
 		{
-			switch(archive[idx]->column_types[i+2])
+			switch(archive[idx]->column_types[i])
 			{
 				case G_TYPE_STRING:
 					current_column += sizeof(gchar *);
@@ -378,7 +378,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
 	if (gtk_tree_model_get_iter_from_string(model,&iter,path_string))
 	{
-		gtk_tree_model_get(model,&iter,archive->nc+1,&entry,-1);
+		gtk_tree_model_get(model, &iter, archive->columns - 1, &entry, -1);
 		if (entry->is_encrypted)
 		{
 			if (archive->password == NULL)
@@ -1381,7 +1381,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 		while (row_list)
 		{
 			gtk_tree_model_get_iter(archive[id]->model,&iter,row_list->data);
-			gtk_tree_model_get (archive[id]->model,&iter,archive[id]->nc+1,&entry,-1);
+			gtk_tree_model_get(archive[id]->model, &iter, archive[id]->columns - 1, &entry, -1);
 			gtk_tree_path_free (row_list->data);
 			if (entry->is_dir)
 			{
@@ -1785,11 +1785,11 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 
 void xa_create_liststore (XArchive *archive, const gchar *titles[])
 {
-	guint x;
+	guint i;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 
-	archive->liststore = gtk_list_store_newv ( archive->nc+2 ,archive->column_types);
+	archive->liststore = gtk_list_store_newv(archive->columns, archive->column_types);
 	gtk_tree_view_set_model ( GTK_TREE_VIEW (archive->treeview),GTK_TREE_MODEL (archive->liststore));
 
 	archive->model = GTK_TREE_MODEL(archive->liststore);
@@ -1800,7 +1800,7 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 	g_object_ref(archive->model);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview),NULL);
 
-	/* First column: icon + text */
+	/* icon and filename */
 	column = gtk_tree_view_column_new();
 	archive->pixbuf_renderer = gtk_cell_renderer_pixbuf_new();
 	g_object_set(G_OBJECT(archive->pixbuf_renderer), "stock-size", (3 - gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size))), NULL);
@@ -1818,23 +1818,20 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 	g_signal_connect(archive->text_renderer, "editing-canceled", G_CALLBACK(xa_rename_cell_edited_canceled), archive);
 	g_signal_connect(archive->text_renderer, "edited", G_CALLBACK(xa_rename_cell_edited), archive);
 
-	/* All the others */
-	for (x = 0; x < archive->nc; x++)
+	/* archive's individual items */
+	for (i = 0; i < archive->columns - 3; i++)
 	{
-		if (x+1 == archive->nc)
-		{
-			column = gtk_tree_view_column_new();
-			gtk_tree_view_column_set_visible(column,FALSE);
-		}
-		else
-		{
-			renderer = gtk_cell_renderer_text_new();
-			column = gtk_tree_view_column_new_with_attributes(titles[x], renderer, "text", x+2, NULL);
-			gtk_tree_view_column_set_resizable (column,TRUE);
-			gtk_tree_view_column_set_sort_column_id (column,x+2);
-		}
-		gtk_tree_view_append_column (GTK_TREE_VIEW (archive->treeview),column);
+		renderer = gtk_cell_renderer_text_new();
+		column = gtk_tree_view_column_new_with_attributes(titles[i], renderer, "text", i + 2, NULL);
+		gtk_tree_view_column_set_resizable(column, TRUE);
+		gtk_tree_view_column_set_sort_column_id(column, i + 2);
+		gtk_tree_view_append_column(GTK_TREE_VIEW(archive->treeview), column);
 	}
+
+	/* internally used pointer to XEntry (invisible) */
+	column = gtk_tree_view_column_new();
+	gtk_tree_view_column_set_visible(column, FALSE);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(archive->treeview), column);
 }
 
 gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data)
@@ -2009,7 +2006,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	do
 	{
 		gtk_tree_model_get (archive->model,&iter,pos,&size,-1);
-		gtk_tree_model_get (archive->model,&iter,archive->nc+1,&entry,-1);
+		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
 		if (entry == NULL)
 			return;
 		if (entry->is_dir)
@@ -2097,7 +2094,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	{
 		gtk_tree_model_get_iter(model,&iter,list->data);
 		gtk_tree_model_get (model,&iter,pos,&size,-1);
-		gtk_tree_model_get (archive->model,&iter,archive->nc+1,&entry,-1);
+		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
 		if (entry->is_dir)
 			dirs++;
 		else
@@ -2127,7 +2124,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 		return;
 
 	gtk_tree_model_get_iter(archive->model,&iter,(GtkTreePath*) (row_list->data));
-	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry,-1);
+	gtk_tree_model_get(GTK_TREE_MODEL(archive->liststore), &iter, archive->columns - 1, &entry, -1);
 
 	gdk_property_change(gdk_drag_context_get_source_window(context),
 					gdk_atom_intern ("XdndDirectSave0",FALSE),
@@ -2312,7 +2309,7 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
-	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
+	gtk_tree_model_get(model, iter, archive[idx]->columns - 1, &entry, -1);
 	if (entry->is_dir)
 		xa_fill_list_with_recursed_entries(entry->child,data);
 	filename = xa_build_full_path_name_from_entry(entry);
@@ -2558,7 +2555,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 	{
 		gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path);
 		gtk_tree_path_free (path);
-		gtk_tree_model_get(archive->model,&iter,archive->nc+1,&entry,-1);
+		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
 		if (! gtk_tree_selection_iter_is_selected (selection,&iter))
 		{
 			gtk_tree_selection_unselect_all (selection);
@@ -2720,7 +2717,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	while (row_list)
 	{
 		gtk_tree_model_get_iter(archive[idx]->model,&iter,row_list->data);
-		gtk_tree_model_get(archive[idx]->model,&iter,archive[idx]->nc+1,&entry,-1);
+		gtk_tree_model_get(archive[idx]->model, &iter, archive[idx]->columns - 1, &entry, -1);
 		gtk_tree_path_free(row_list->data);
 		if (entry->is_encrypted)
 		{
@@ -2797,7 +2794,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
 	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[idx]->model);
 	gtk_tree_model_get_iter(archive[idx]->model,&iter,row_list->data);
-	gtk_tree_model_get(archive[idx]->model,&iter,archive[idx]->nc+1,&entry,-1);
+	gtk_tree_model_get(archive[idx]->model, &iter, archive[idx]->columns - 1, &entry, -1);
 	gtk_tree_path_free(row_list->data);
 	list = g_slist_append(list, xa_build_full_path_name_from_entry(entry));
 	g_list_free(row_list);
@@ -2858,7 +2855,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	if (! gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path))
 		return;
 
-	gtk_tree_model_get (GTK_TREE_MODEL (archive->liststore),&iter,archive->nc+1,&entry,-1);
+	gtk_tree_model_get(GTK_TREE_MODEL(archive->liststore), &iter, archive->columns - 1, &entry, -1);
 	if (entry->is_dir)
 	{
 		if (archive->location_path)
@@ -2989,22 +2986,22 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		else
 			size = 20;
 		pixbuf = xa_get_pixbuf_icon_from_cache(filename,size);
-		gtk_list_store_set (archive->liststore,&iter,archive->nc+1,entry,-1);
+		gtk_list_store_set(archive->liststore, &iter, archive->columns - 1, entry, -1);
 		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
 
-		for (i = 0; i < archive->nc; i++)
+		for (i = 2; i < archive->columns - 1; i++)
 		{
-			switch(archive->column_types[i+2])
+			switch(archive->column_types[i])
 			{
 				case G_TYPE_STRING:
 					//g_message ("%d - %s",i,(*((gchar **)current_column)));
-					gtk_list_store_set (archive->liststore,&iter,i+2,(*((gchar **)current_column)),-1);
+					gtk_list_store_set(archive->liststore, &iter, i, *(gchar **) current_column, -1);
 					current_column += sizeof(gchar *);
 				break;
 
 				case G_TYPE_UINT64:
 					//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
-					gtk_list_store_set (archive->liststore,&iter,i+2,(*((guint64 *)current_column)),-1);
+					gtk_list_store_set(archive->liststore, &iter, i, *(guint64 *) current_column, -1);
 					current_column += sizeof(guint64);
 				break;
 			}

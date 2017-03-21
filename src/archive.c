@@ -147,7 +147,7 @@ static void xa_delete_working_directory (XArchive *archive)
 	}
 }
 
-static XEntry *xa_alloc_memory_for_each_row (guint nc, GType column_types[])
+static XEntry *xa_alloc_memory_for_each_row (guint columns, GType column_types[])
 {
 	XEntry *entry = NULL;
 	guint i;
@@ -157,7 +157,7 @@ static XEntry *xa_alloc_memory_for_each_row (guint nc, GType column_types[])
 	if (entry == NULL)
 		return NULL;
 
-	for (i = 0; i < nc+2; i++)
+	for (i = 2; i < columns - 1; i++)
 	{
 		switch(column_types[i])
 		{
@@ -204,18 +204,18 @@ static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, 
 
 	current_column = entry->columns;
 
-	for (i = 0; i < archive->nc; i++)
+	for (i = 2; i < archive->columns - 1; i++)
 	{
-		switch(archive->column_types[i+2])
+		switch(archive->column_types[i])
 		{
 			case G_TYPE_STRING:
-				(*((gchar **)current_column)) = g_strdup((gchar*)items[i]);
+				*(gchar **) current_column = g_strdup((gchar *) items[i - 2]);
 				//g_message ("%d - %s",i,(*((gchar **)current_column)));
 				current_column += sizeof(gchar *);
 			break;
 
 			case G_TYPE_UINT64:
-				(*((guint64 *)current_column)) = atol(items[i]);
+				*(guint64 *) current_column = atol(items[i - 2]);
 				//g_message ("*%d - %lu",i,(*((guint64 *)current_column)));
 				current_column += sizeof(guint64);
 			break;
@@ -557,9 +557,9 @@ void xa_free_entry (XArchive *archive,XEntry *entry)
 
 	if (strlen(entry->filename) > 0)
 	{
-		for (i = 0; i < archive->nc; i++)
+		for (i = 2; i < archive->columns - 1; i++)
 		{
-			switch(archive->column_types[i+2])
+			switch(archive->column_types[i])
 			{
 				case G_TYPE_STRING:
 					g_free (*((gchar **)current_column));
@@ -591,7 +591,7 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 		new_entry = xa_find_child_entry(last_entry->child,components[x]);
 		if (new_entry == NULL)
 		{
-			new_entry = xa_alloc_memory_for_each_row(archive->nc,archive->column_types);
+			new_entry = xa_alloc_memory_for_each_row(archive->columns, archive->column_types);
 			new_entry->filename = g_strdup(components[x]);
 			new_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,new_entry,items);
 			if (components[x+1] != NULL)
@@ -815,8 +815,8 @@ gint xa_sort_dirs_before_files(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b
 	XEntry *entry1, *entry2;
 	XArchive *archive = data;
 
-	gtk_tree_model_get(model,a,archive->nc+1,&entry1,-1);
-	gtk_tree_model_get(model,b,archive->nc+1,&entry2,-1);
+	gtk_tree_model_get(model, a, archive->columns - 1, &entry1, -1);
+	gtk_tree_model_get(model, b, archive->columns - 1, &entry2, -1);
 	if (entry1->is_dir != entry2->is_dir)
 	{
 		if (entry1->is_dir)

@@ -1380,7 +1380,7 @@ gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *
 	idx = xa_find_archive_index (current_page);
 	patterns = g_strsplit(string,";",-1);
 
-	gtk_tree_model_get (model,iter,archive[idx]->nc+1,&entry,-1);
+	gtk_tree_model_get(model, iter, archive[idx]->columns - 1, &entry, -1);
 
 	if (match_patterns(patterns, entry->filename, 0))
 		gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview)),iter);
