@@ -612,7 +612,7 @@ static void set_label (GtkWidget *label, gchar *text)
     g_free (tmp_markup);
 }
 
-static void xa_progress_dialog_stop_action (GtkWidget *widget, GPid *pid)
+static void xa_progress_dialog_stop_action (GtkButton *button, GPid *pid)
 {
 	if (pid != NULL && *pid != 0)
 		kill(*pid, SIGINT);
