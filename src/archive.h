@@ -80,7 +80,6 @@ typedef struct _XEntry XEntry;
 struct _XEntry
 {
 	gchar *filename;
-	gchar *mime_type;
 	gboolean is_dir;
 	gboolean is_encrypted;
 	gpointer columns;
