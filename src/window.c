@@ -1871,10 +1871,7 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 				return;
 		}
 		if (archive[idx]->child_pid)
-		{
 			kill (archive[idx]->child_pid,SIGINT);
-			archive[idx]->child_pid = 0;
-		}
 
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 		/* !!! setting total_label isn't enough cleanup to be done !!! */
