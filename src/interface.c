@@ -70,7 +70,7 @@ GtkWidget *xa_popup_menu;
 GtkAccelGroup *accel_group;
 GtkNotebook *notebook;
 GtkTreeStore *archive_dir_model;
-Progress_bar_data *pb;
+Progress *pb;
 
 static GtkWidget *addfile;
 static GtkWidget *AddFile_button;
@@ -1577,18 +1577,18 @@ void xa_disable_delete_buttons (gboolean value)
     gtk_widget_set_sensitive (rename_menu,value);
 }
 
-Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
+Progress *xa_create_progress_bar (gboolean flag, XArchive *archive)
 {
 	GtkWidget *vbox1, *vbox2, *message, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
 	GdkPixbuf *pixbuf;
 	PangoAttrList *italic_attr;
-	static Progress_bar_data *pb = NULL;
+	static Progress *pb = NULL;
 	gchar *text = NULL,*markup;
 
 	if (pb)
 		return pb;
 
-	pb = g_new0(Progress_bar_data,1);
+	pb = g_new0(Progress, 1);
 	pb->progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(pb->progress_window), PACKAGE_NAME);
 	gtk_window_set_position (GTK_WINDOW (pb->progress_window),GTK_WIN_POS_CENTER_ALWAYS);
@@ -1677,7 +1677,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	return pb;
 }
 
-void xa_increase_progress_bar(Progress_bar_data *pb,gchar *filename,double percent)
+void xa_increase_progress_bar (Progress *pb, gchar *filename, double percent)
 {
 	gchar *message = NULL, *basename, *markup;
 
@@ -1701,7 +1701,7 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *filename,double perce
 		gtk_main_iteration();
 }
 
-gboolean xa_pulse_progress_bar (Progress_bar_data *pb)
+gboolean xa_pulse_progress_bar (Progress *pb)
 {
 	if (gtk_widget_get_visible(pb->progress_window))
 	{

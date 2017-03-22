@@ -30,7 +30,7 @@ typedef struct
 	GtkWidget *archive_label;
 	GtkWidget *file_label;
 	gboolean multi_extract;
-} Progress_bar_data;
+} Progress;
 
 extern GtkWidget *archive_dir_treeview;
 extern GtkWidget *back_button;
@@ -75,7 +75,7 @@ extern GtkWidget *xa_popup_menu;
 extern GtkAccelGroup *accel_group;
 extern GtkNotebook *notebook;
 extern GtkTreeStore *archive_dir_model;
-extern Progress_bar_data *pb;
+extern Progress *pb;
 
 gboolean select_matched_rows(GtkTreeModel *, GtkTreePath *, GtkTreeIter *, gpointer);
 void xa_add_page(XArchive *);
@@ -83,12 +83,12 @@ void xa_combo_box_text_append_compressor_types(GtkComboBoxText *);
 GtkWidget *xa_create_archive_properties_window();
 void xa_create_main_window(GtkWidget *, gboolean, gboolean, gboolean, gboolean);
 gchar *xa_create_password_dialog(XArchive *);
-Progress_bar_data *xa_create_progress_bar(gboolean, XArchive *);
+Progress *xa_create_progress_bar(gboolean, XArchive *);
 void xa_disable_delete_buttons(gboolean);
 GSList *xa_file_filter_add_archiver_pattern_sort(GtkFileFilter *);
 gboolean xa_flash_led_indicator(XArchive *);
-void xa_increase_progress_bar(Progress_bar_data *, gchar *, double);
-gboolean xa_pulse_progress_bar(Progress_bar_data *);
+void xa_increase_progress_bar(Progress *, gchar *, double);
+gboolean xa_pulse_progress_bar(Progress *);
 void xa_set_button_state(gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean);
 
 #endif
