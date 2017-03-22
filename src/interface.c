@@ -1577,16 +1577,15 @@ void xa_disable_delete_buttons (gboolean value)
     gtk_widget_set_sensitive (rename_menu,value);
 }
 
-Progress *xa_create_progress_bar (gboolean flag, XArchive *archive)
+void xa_create_progress_bar (gboolean flag, XArchive *archive)
 {
 	GtkWidget *vbox1, *vbox2, *message, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
 	GdkPixbuf *pixbuf;
 	PangoAttrList *italic_attr;
-	static Progress *progress;
 	gchar *text = NULL,*markup;
 
 	if (progress)
-		return progress;
+		return;
 
 	progress = g_new0(Progress, 1);
 	progress->progress_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -1674,7 +1673,6 @@ Progress *xa_create_progress_bar (gboolean flag, XArchive *archive)
 		g_signal_connect(G_OBJECT(progress->progress_window), "delete_event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
 	}
 	gtk_widget_show_all(progress->progress_window);
-	return progress;
 }
 
 void xa_increase_progress_bar (Progress *progress, gchar *filename, double percent)

@@ -792,7 +792,7 @@ run:
 	if (progress)
 		gtk_widget_show_all(progress->progress_window);
 	else
-		progress = xa_create_progress_bar(FALSE, NULL);
+		xa_create_progress_bar(FALSE, NULL);
 
 	percent=fraction;
 	do
