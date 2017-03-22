@@ -72,7 +72,7 @@ void xa_tar_open (XArchive *archive)
 
 	command = g_strconcat (tar, " tfv " , archive->path[1], NULL);
 	archive->files_size = 0;
-	archive->nr_of_files = 0;
+	archive->files = 0;
 	archive->parse_output = xa_tar_parse_output;
 	xa_spawn_async_process (archive,command);
 
@@ -94,7 +94,7 @@ void xa_tar_parse_output (gchar *line, XArchive *archive)
 	gint n = 0, a = 0 ,linesize = 0;
 
 	linesize = strlen(line);
-	archive->nr_of_files++;
+	archive->files++;
 
 	/* Permissions */
 	line[10] = '\0';

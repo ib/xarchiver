@@ -152,7 +152,7 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	gint n = 0, a = 0 ,linesize = 0;
 
 	linesize = strlen(line);
-	archive->nr_of_files++;
+	archive->files++;
 
 	/* Permissions */
 	line[10] = '\0';
@@ -242,7 +242,7 @@ void xa_rpm_open (XArchive *archive)
 		return;
 
 	archive->files_size = 0;
-	archive->nr_of_files = 0;
+	archive->files = 0;
 
 	archive->columns = 10;
 	archive->column_types = g_malloc0(sizeof(types));

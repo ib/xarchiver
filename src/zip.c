@@ -60,7 +60,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	if ((line[0] != 'd') && (line[0] != '-') && (line[0] != '?'))
 		return;
 
-	archive->nr_of_files++;
+	archive->files++;
 	linesize = strlen(line);
 
 	/* permissions */
@@ -179,7 +179,7 @@ void xa_zip_open (XArchive *archive)
 
 	gchar *command = g_strconcat(archiver[archive->type].program[0], " -Z -l ", archive->path[1], NULL);
 	archive->files_size  = 0;
-    archive->nr_of_files = 0;
+	archive->files = 0;
 	archive->parse_output = xa_zip_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free ( command );

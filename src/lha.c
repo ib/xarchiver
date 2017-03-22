@@ -76,7 +76,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 		return;
 	}
 	linesize = strlen(line);
-	archive->nr_of_files++;
+	archive->files++;
 
 	/* Permission */
 	line[10] = '\0';
@@ -142,7 +142,7 @@ void xa_lha_open (XArchive *archive)
 	last_line = FALSE;
 	command = g_strconcat(archiver[archive->type].program[0], " l ", archive->path[1], NULL);
 	archive->files_size = 0;
-	archive->nr_of_files = 0;
+	archive->files = 0;
 	archive->parse_output = xa_lha_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);

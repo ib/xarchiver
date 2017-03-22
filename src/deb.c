@@ -83,7 +83,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	n++;
 	line[linesize-1] = '\0';
 
-	archive->nr_of_files++;
+	archive->files++;
 	filename = g_strdup(line + n);
 	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
@@ -98,7 +98,7 @@ void xa_deb_open (XArchive *archive)
 
 	command = g_strconcat(archiver[archive->type].program[0], " tv ", archive->path[1], NULL);
 	archive->files_size = 0;
-	archive->nr_of_files = 0;
+	archive->files = 0;
 	archive->parse_output = xa_ar_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);

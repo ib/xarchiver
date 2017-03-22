@@ -961,7 +961,7 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 
     archive[current_page]->password = NULL;
     archive[current_page]->files_size = 0;
-    archive[current_page]->nr_of_files = 0;
+    archive[current_page]->files = 0;
 	xa_set_window_title(xa_main_window, archive[current_page]->path[0]);
 	gtk_label_set_text(GTK_LABEL(total_label),"");
 }
@@ -1242,7 +1242,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
     	g_fprintf (stream,_("Number of files: "));
     	if (bp)
 			g_fprintf(stream,"</b>");
-    	 g_fprintf (stream,"%d\n",archive[idx]->nr_of_files);
+		g_fprintf(stream, "%u\n", archive[idx]->files);
 		if (bp)
 			g_fprintf(stream,"<br><br><b>");
 		if (archive[idx]->has_comment)
@@ -1939,7 +1939,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     gtk_label_set_text(GTK_LABEL(compression_data),t);
     g_free (t);
     /* Number of files */
-    t = g_strdup_printf ( "%d",archive[idx]->nr_of_files);
+    t = g_strdup_printf("%u", archive[idx]->files);
     gtk_label_set_text(GTK_LABEL(number_of_files_data),t);
     g_free (t);
 

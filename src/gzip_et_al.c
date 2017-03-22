@@ -78,7 +78,7 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 	/* else fail? */
 
 	archive->files_size = 0;
-	archive->nr_of_files = 0;
+	archive->files = 0;
 	archive->parse_output = xa_tar_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);
@@ -187,7 +187,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 		guint i;
 
 		archive->parse_output = xa_gzip_parse_output;
-		archive->nr_of_files = 1;
+		archive->files = 1;
 
 
 		archive->columns = 6;
@@ -212,7 +212,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 		guint i;
 		GSList *list = NULL;
 
-		archive->nr_of_files = 1;
+		archive->files = 1;
 
 		if (archive->type == XARCHIVETYPE_BZIP2)
 		{

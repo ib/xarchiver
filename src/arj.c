@@ -107,7 +107,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 			filename = g_strdup(line + 5);
 		}
 
-		archive->nr_of_files++;
+		archive->files++;
 		fname_line = TRUE;
 		if (lfn)
 			return;
@@ -166,7 +166,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 		if (unarj && dir)
 		{
 			/* skip entry since unarj lacks directory structure information */
-			archive->nr_of_files--;
+			archive->files--;
 			entry = NULL;
 		}
 		else
@@ -198,7 +198,7 @@ void xa_arj_open (XArchive *archive)
 	fname_line = FALSE;
 	gchar *command = g_strconcat(archiver[archive->type].program[0], archiver[archive->type].is_compressor ? " v " : " l ", archive->path[1], NULL);
 	archive->files_size = 0;
-	archive->nr_of_files = 0;
+	archive->files = 0;
 	archive->parse_output = xa_arj_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free (command);

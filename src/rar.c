@@ -144,7 +144,7 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 	else
 	{
 		linesize = strlen(line);
-		archive->nr_of_files++;
+		archive->files++;
 		/* Size */
 		for(n=0; n < linesize && line[n] == ' '; n++);
 		a = n;
@@ -308,7 +308,7 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 		last_line = TRUE;
 		return;
 	}
-	archive->nr_of_files++;
+	archive->files++;
 
 	/* Permissions */
 	for(n=0; n < linesize && line[n] == ' '; n++);
@@ -407,7 +407,7 @@ void xa_rar_open (XArchive *archive)
 
 	command = g_strconcat(archiver[archive->type].program[0], " v -idc ", archive->path[1], NULL);
 	archive->files_size = 0;
-    archive->nr_of_files = 0;
+	archive->files = 0;
 
 
 	if (rar_version == 5)

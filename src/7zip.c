@@ -77,7 +77,7 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	}
 
 	linesize = strlen(line);
-	archive->nr_of_files++;
+	archive->files++;
 
 	/* Date */
 	line[10] = '\0';
@@ -144,7 +144,7 @@ void xa_7zip_open (XArchive *archive)
 	encrypted = FALSE;
 	gchar *command = g_strconcat(archiver[archive->type].program[0], " l ", archive->path[1], NULL);
 	archive->files_size = 0;
-	archive->nr_of_files = 0;
+	archive->files = 0;
 	archive->parse_output = xa_7zip_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free ( command );

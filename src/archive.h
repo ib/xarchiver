@@ -128,7 +128,7 @@ struct _XArchive
 	gchar *location_path;
 	guint timer;
 	/* properties */
-	gint nr_of_files;
+	guint files;
 	guint64 files_size;
 	gboolean has_password;
 	gchar *password;
