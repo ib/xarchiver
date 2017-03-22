@@ -502,8 +502,6 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
-			if (xa_main_window)
-				gtk_widget_set_sensitive (Stop_button,FALSE);
 			break;
 
 			case GTK_RESPONSE_OK:
@@ -576,7 +574,6 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			if (xa_main_window)
 			{
 				xa_set_button_state (0,0,0,0,0,0,0,0,0,0);
-				gtk_widget_set_sensitive (Stop_button,TRUE);
 				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive,please wait..."));
 			}
 

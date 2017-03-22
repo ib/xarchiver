@@ -330,6 +330,8 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 
 	archive->child_ref = XA_CHILD_PROCS;
 
+	gtk_widget_set_sensitive(Stop_button, TRUE);
+
 	if (archive->status == XARCHIVESTATUS_OPEN)
 		archive->timer = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 
@@ -467,7 +469,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 
 	if (xa_main_window)
 	{
-		gtk_widget_set_sensitive (Stop_button,TRUE);
 		if (archive->timer == 0)
 			archive->timer = g_timeout_add (350,(GSourceFunc)xa_flash_led_indicator,archive);
 	}

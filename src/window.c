@@ -762,7 +762,14 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 	archive->child_ref--;
 
 	if (process == XA_CHILD_EXIT)
+	{
 		archive->child_pid = 0;
+
+		if (xa_main_window)
+		{
+			gtk_widget_set_sensitive(Stop_button, FALSE);
+		}
+	}
 
 	if (!success)
 	{
@@ -775,7 +782,6 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 			}
 			if (xa_main_window)
 			{
-				gtk_widget_set_sensitive(Stop_button,FALSE);
 				xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, 0, archive->can_test, archive->has_password, 1);
 		error:
 				if (archive->output)
@@ -825,7 +831,6 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				archive->output = g_slist_reverse(archive->output);
 		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, 0, archive->can_test, archive->has_password, 1);
 		archive->timer = 0;
-		gtk_widget_set_sensitive(Stop_button,FALSE);
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 		archive->status = XARCHIVESTATUS_IDLE;
 		}
@@ -1101,7 +1106,6 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	xa_disable_delete_buttons (FALSE);
 	g_free (path);
 
-	gtk_widget_set_sensitive (Stop_button,TRUE);
 	gtk_widget_set_sensitive (listing,FALSE);
 	xa_set_button_state (0,0,0,0,0,0,0,0,0,0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
@@ -1486,11 +1490,10 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 			gchar buffer[1024];
 
 			archive_name = xa_open_sfx_file_selector();
+
 			if (archive_name == NULL)
-			{
-				gtk_widget_set_sensitive (Stop_button,FALSE);
 				return;
-			}
+
 			archive_name_quoted = g_shell_quote(archive_name);
 			unzipsfx_path = g_find_program_in_path ("unzipsfx");
 			if (unzipsfx_path != NULL)
@@ -1854,7 +1857,6 @@ void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
-	gtk_widget_set_sensitive(Stop_button,FALSE);
 	if (gtk_widget_get_visible(multi_extract_window->multi_extract))
 	{
 		multi_extract_window->stop_pressed = TRUE;
