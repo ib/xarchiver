@@ -1169,11 +1169,10 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 
 gboolean xa_flash_led_indicator (XArchive *archive)
 {
-	if (archive->child_pid == 0)
+	if (archive->child_ref == 0)
 	{
 		gtk_widget_show(green_led);
 		gtk_widget_hide(red_led);
-		archive->timer = 0;
 		return FALSE;
 	}
 	if (gtk_widget_get_visible(green_led))

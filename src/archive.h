@@ -125,7 +125,6 @@ struct _XArchive
 	gchar *working_dir;
 	gchar *extraction_dir;
 	gchar *location_path;
-	guint timer;
 	/* properties */
 	guint files;
 	guint64 files_size;

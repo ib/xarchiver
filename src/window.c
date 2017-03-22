@@ -830,7 +830,6 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 			if (archive->output)
 				archive->output = g_slist_reverse(archive->output);
 		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, 0, archive->can_test, archive->has_password, 1);
-		archive->timer = 0;
 		gtk_label_set_text(GTK_LABEL(total_label),"");
 		archive->status = XARCHIVESTATUS_IDLE;
 		}
