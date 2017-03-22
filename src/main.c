@@ -628,10 +628,10 @@ int main (int argc, char **argv)
 			}
 		}
 done:
-		if (pb != NULL)
+		if (progress)
 		{
-			gtk_widget_destroy(pb->progress_window);
-			g_free(pb);
+			gtk_widget_destroy(progress->progress_window);
+			g_free(progress);
 		}
 		if (archive != NULL)
 			xa_clean_archive_structure (archive);

@@ -70,7 +70,7 @@ GtkWidget *xa_popup_menu;
 GtkAccelGroup *accel_group;
 GtkNotebook *notebook;
 GtkTreeStore *archive_dir_model;
-Progress *pb;
+Progress *progress;
 
 static GtkWidget *addfile;
 static GtkWidget *AddFile_button;
@@ -1582,27 +1582,27 @@ Progress *xa_create_progress_bar (gboolean flag, XArchive *archive)
 	GtkWidget *vbox1, *vbox2, *message, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
 	GdkPixbuf *pixbuf;
 	PangoAttrList *italic_attr;
-	static Progress *pb = NULL;
+	static Progress *progress;
 	gchar *text = NULL,*markup;
 
-	if (pb)
-		return pb;
+	if (progress)
+		return progress;
 
-	pb = g_new0(Progress, 1);
-	pb->progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title(GTK_WINDOW(pb->progress_window), PACKAGE_NAME);
-	gtk_window_set_position (GTK_WINDOW (pb->progress_window),GTK_WIN_POS_CENTER_ALWAYS);
-	gtk_widget_set_size_request(pb->progress_window,400,-1);
-	gtk_window_set_resizable(GTK_WINDOW (pb->progress_window),FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (pb->progress_window),6);
-	gtk_window_set_transient_for (GTK_WINDOW (pb->progress_window),GTK_WINDOW (xa_main_window));
+	progress = g_new0(Progress, 1);
+	progress->progress_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title(GTK_WINDOW(progress->progress_window), PACKAGE_NAME);
+	gtk_window_set_position(GTK_WINDOW(progress->progress_window), GTK_WIN_POS_CENTER_ALWAYS);
+	gtk_widget_set_size_request(progress->progress_window, 400, -1);
+	gtk_window_set_resizable(GTK_WINDOW(progress->progress_window), FALSE);
+	gtk_container_set_border_width(GTK_CONTAINER(progress->progress_window), 6);
+	gtk_window_set_transient_for(GTK_WINDOW(progress->progress_window), GTK_WINDOW(xa_main_window));
 
 	pixbuf = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
-	gtk_window_set_icon (GTK_WINDOW (pb->progress_window),pixbuf);
+	gtk_window_set_icon(GTK_WINDOW(progress->progress_window), pixbuf);
 	g_object_unref(pixbuf);
 
 	vbox1 = gtk_vbox_new (FALSE,12);
-  	gtk_container_add (GTK_CONTAINER (pb->progress_window),vbox1);
+  	gtk_container_add(GTK_CONTAINER(progress->progress_window), vbox1);
   	gtk_container_set_border_width (GTK_CONTAINER (vbox1),6);
 
 	hbox1 = gtk_hbox_new (FALSE,12);
@@ -1634,34 +1634,34 @@ Progress *xa_create_progress_bar (gboolean flag, XArchive *archive)
 		gtk_misc_set_alignment (GTK_MISC (message),0,0.5);
 	}
 
-	pb->archive_label = gtk_label_new("");
-	gtk_label_set_ellipsize(GTK_LABEL(pb->archive_label),PANGO_ELLIPSIZE_END);
-	gtk_misc_set_alignment (GTK_MISC (pb->archive_label),0,0.5);
-	gtk_box_pack_start (GTK_BOX (vbox2),pb->archive_label,FALSE,FALSE,12);
+	progress->archive_label = gtk_label_new("");
+	gtk_label_set_ellipsize(GTK_LABEL(progress->archive_label), PANGO_ELLIPSIZE_END);
+	gtk_misc_set_alignment(GTK_MISC(progress->archive_label), 0, 0.5);
+	gtk_box_pack_start(GTK_BOX(vbox2), progress->archive_label, FALSE, FALSE, 12);
 	if (archive)
-		gtk_label_set_text(GTK_LABEL(pb->archive_label), archive->path[0]);
+		gtk_label_set_text(GTK_LABEL(progress->archive_label), archive->path[0]);
 
 	if (flag == FALSE)
 	{
-		pb->multi_extract = TRUE;
+		progress->multi_extract = TRUE;
 		total_label = gtk_label_new (_("Total Progress:"));
 		gtk_box_pack_start (GTK_BOX (vbox2),total_label,FALSE,FALSE,0);
 		gtk_misc_set_alignment (GTK_MISC (total_label),0,0);
 	}
-	pb->progressbar1 = gtk_progress_bar_new ();
-	gtk_box_pack_start (GTK_BOX (vbox2),pb->progressbar1,FALSE,FALSE,0);
-	pb->file_label = gtk_label_new("");
-	gtk_misc_set_alignment (GTK_MISC (pb->file_label),0,0.5);
-	gtk_box_pack_start (GTK_BOX (vbox2),pb->file_label,FALSE,FALSE,12);
+	progress->progressbar1 = gtk_progress_bar_new();
+	gtk_box_pack_start(GTK_BOX(vbox2), progress->progressbar1, FALSE, FALSE, 0);
+	progress->file_label = gtk_label_new("");
+	gtk_misc_set_alignment(GTK_MISC(progress->file_label), 0, 0.5);
+	gtk_box_pack_start(GTK_BOX(vbox2), progress->file_label, FALSE, FALSE, 12);
 	if (flag == TRUE)
 	{
-		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(pb->progressbar1),0.033);
+		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progress->progressbar1), 0.033);
 
 		italic_attr = pango_attr_list_new ();
 		pango_attr_list_insert (italic_attr, pango_attr_style_new (PANGO_STYLE_ITALIC));
-		gtk_label_set_attributes (GTK_LABEL (pb->file_label),italic_attr);
+		gtk_label_set_attributes(GTK_LABEL(progress->file_label), italic_attr);
 		pango_attr_list_unref (italic_attr);
-		gtk_label_set_ellipsize(GTK_LABEL(pb->file_label),PANGO_ELLIPSIZE_END);
+		gtk_label_set_ellipsize(GTK_LABEL(progress->file_label), PANGO_ELLIPSIZE_END);
 
 		action_area = gtk_hbutton_box_new ();
 		gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area),GTK_BUTTONBOX_END);
@@ -1671,41 +1671,41 @@ Progress *xa_create_progress_bar (gboolean flag, XArchive *archive)
 		gtk_box_pack_end (GTK_BOX (action_area),cancel_button,TRUE,TRUE,12);
 
 		g_signal_connect(G_OBJECT(cancel_button), "clicked", G_CALLBACK(xa_cancel_progress_bar), &archive->child_pid);
-		g_signal_connect(G_OBJECT(pb->progress_window), "delete_event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
+		g_signal_connect(G_OBJECT(progress->progress_window), "delete_event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
 	}
-	gtk_widget_show_all(pb->progress_window);
-	return pb;
+	gtk_widget_show_all(progress->progress_window);
+	return progress;
 }
 
-void xa_increase_progress_bar (Progress *pb, gchar *filename, double percent)
+void xa_increase_progress_bar (Progress *progress, gchar *filename, double percent)
 {
 	gchar *message = NULL, *basename, *markup;
 
-	if (pb->multi_extract)
+	if (progress->multi_extract)
 	{
-		gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (pb->progressbar1),percent);
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress->progressbar1), percent);
 		message = g_strdup_printf("%.0f%%",(percent*100));
-		gtk_progress_bar_set_text (GTK_PROGRESS_BAR(pb->progressbar1),message);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progress->progressbar1), message);
 		g_free(message);
 
 		basename = g_path_get_basename(filename);
 		markup = g_markup_printf_escaped("<b>%s</b>", basename);
 		g_free(basename);
-		gtk_label_set_markup(GTK_LABEL(pb->archive_label),markup);
+		gtk_label_set_markup(GTK_LABEL(progress->archive_label), markup);
 		g_free (markup);
 	}
 	else
-		gtk_label_set_text(GTK_LABEL(pb->file_label),filename);
+		gtk_label_set_text(GTK_LABEL(progress->file_label), filename);
 
 	while (gtk_events_pending())
 		gtk_main_iteration();
 }
 
-gboolean xa_pulse_progress_bar (Progress *pb)
+gboolean xa_pulse_progress_bar (Progress *progress)
 {
-	if (gtk_widget_get_visible(pb->progress_window))
+	if (gtk_widget_get_visible(progress->progress_window))
 	{
-		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(pb->progressbar1));
+		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progress->progressbar1));
 		return TRUE;
 	}
 	else

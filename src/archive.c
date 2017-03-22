@@ -60,8 +60,8 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 					if (archive->parse_output)
 						(*archive->parse_output)(line, archive);
 				}
-				else if (!pb->multi_extract)
-					xa_increase_progress_bar(pb, line, 0.0);
+				else if (!progress->multi_extract)
+					xa_increase_progress_bar(progress, line, 0.0);
 
 				g_free(line);
 			}
@@ -469,9 +469,9 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 
 	if (!xa_main_window)
 	{
-		pb = xa_create_progress_bar(TRUE,archive);
-		if (/*archive->timer == 0 &&*/ pb->multi_extract == FALSE)
-			/*archive->timer =*/ g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, pb);
+		progress = xa_create_progress_bar(TRUE,archive);
+		if (/*archive->timer == 0 &&*/ progress->multi_extract == FALSE)
+			/*archive->timer =*/ g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, progress);
 	}
 
 	while (_commands)

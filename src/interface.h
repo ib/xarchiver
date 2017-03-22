@@ -75,7 +75,7 @@ extern GtkWidget *xa_popup_menu;
 extern GtkAccelGroup *accel_group;
 extern GtkNotebook *notebook;
 extern GtkTreeStore *archive_dir_model;
-extern Progress *pb;
+extern Progress *progress;
 
 gboolean select_matched_rows(GtkTreeModel *, GtkTreePath *, GtkTreeIter *, gpointer);
 void xa_add_page(XArchive *);

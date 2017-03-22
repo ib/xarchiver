@@ -789,10 +789,10 @@ run:
 		overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	double fraction = 1.0 / dialog->nr;
 
-	if (pb != NULL)
-		gtk_widget_show_all(pb->progress_window);
+	if (progress)
+		gtk_widget_show_all(progress->progress_window);
 	else
-		pb = xa_create_progress_bar(FALSE,NULL);
+		progress = xa_create_progress_bar(FALSE, NULL);
 
 	percent=fraction;
 	do
@@ -800,7 +800,7 @@ run:
 		gtk_tree_model_get (GTK_TREE_MODEL(dialog->files_liststore),&iter,0,&file,2,&path,3,&type,-1);
 		full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->full_path));
 		filename = g_strconcat (path,"/",file,NULL);
-		xa_increase_progress_bar(pb,filename,percent);
+		xa_increase_progress_bar(progress, filename, percent);
 		g_free(file);
 		g_free(path);
 		filename_local = g_filename_from_utf8(filename, -1, NULL, NULL, NULL);

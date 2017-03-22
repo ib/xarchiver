@@ -3013,8 +3013,8 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 void xa_show_multi_extract_dialog (GtkMenuItem *menu_item,gpointer data)
 {
 	xa_parse_multi_extract_archive(multi_extract_window);
-	if (pb != NULL)
-		gtk_widget_hide(pb->progress_window);
+	if (progress)
+		gtk_widget_hide(progress->progress_window);
 	//xa_close_archive (NULL,data);
 }
 
