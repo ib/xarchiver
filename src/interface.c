@@ -612,13 +612,13 @@ static void set_label (GtkWidget *label, gchar *text)
     g_free (tmp_markup);
 }
 
-static void xa_progress_dialog_stop_action (GtkButton *button, GPid *pid)
+static void xa_cancel_progress_bar (GtkButton *button, GPid *pid)
 {
 	if (pid != NULL && *pid != 0)
 		kill(*pid, SIGINT);
 }
 
-static gboolean xa_progress_dialog_delete_event (GtkWidget *caller, GdkEvent *event, GPid *pid)
+static gboolean xa_close_progress_bar (GtkWidget *caller, GdkEvent *event, GPid *pid)
 {
 	if (pid != NULL && *pid != 0)
 		kill(*pid, SIGINT);
@@ -1670,8 +1670,8 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 		cancel_button = gtk_button_new_from_stock ("gtk-cancel");
 		gtk_box_pack_end (GTK_BOX (action_area),cancel_button,TRUE,TRUE,12);
 
-		g_signal_connect (G_OBJECT (cancel_button),		 "clicked",		G_CALLBACK (xa_progress_dialog_stop_action), &archive->child_pid);
-		g_signal_connect (G_OBJECT (pb->progress_window),"delete_event",G_CALLBACK (xa_progress_dialog_delete_event),&archive->child_pid);
+		g_signal_connect(G_OBJECT(cancel_button), "clicked", G_CALLBACK(xa_cancel_progress_bar), &archive->child_pid);
+		g_signal_connect(G_OBJECT(pb->progress_window), "delete_event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
 	}
 	gtk_widget_show_all(pb->progress_window);
 	return pb;
@@ -1701,7 +1701,7 @@ void xa_increase_progress_bar(Progress_bar_data *pb,gchar *filename,double perce
 		gtk_main_iteration();
 }
 
-gboolean xa_pulse_progress_bar_window (Progress_bar_data *pb)
+gboolean xa_pulse_progress_bar (Progress_bar_data *pb)
 {
 	if (gtk_widget_get_visible(pb->progress_window))
 	{

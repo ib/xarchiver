@@ -471,7 +471,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	{
 		pb = xa_create_progress_bar(TRUE,archive);
 		if (/*archive->timer == 0 &&*/ pb->multi_extract == FALSE)
-			/*archive->timer =*/ g_timeout_add (100,(GSourceFunc)xa_pulse_progress_bar_window,pb);
+			/*archive->timer =*/ g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, pb);
 	}
 
 	while (_commands)
