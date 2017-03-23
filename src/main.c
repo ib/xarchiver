@@ -609,23 +609,20 @@ int main (int argc, char **argv)
 		/* Switch -a */
 		else if (opt_add)
 		{
-			if (argv[1] == NULL)
+			if (!archive)
 			{
 				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
-			if (archive != NULL)
+			if (!archive->can_add)
 			{
-				if (!archive->add)
-				{
-					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), argv[1]);
-					return -1;
-				}
-				xa_set_add_dialog_options(add_window,archive);
-				xa_parse_add_dialog_options (archive,add_window);
-				gtk_widget_destroy (add_window->dialog1);
-				g_free (add_window);
+				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), argv[1]);
+				return -1;
 			}
+			xa_set_add_dialog_options(add_window, archive);
+			xa_parse_add_dialog_options(archive, add_window);
+			gtk_widget_destroy(add_window->dialog1);
+			g_free(add_window);
 		}
 done:
 		if (progress)
