@@ -18,8 +18,8 @@
 
 #include <errno.h>
 #include <string.h>
+#include <glib/gprintf.h>
 #include "rpm.h"
-#include "interface.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -39,7 +39,7 @@ void xa_rpm_ask (XArchive *archive)
 	archive->can_extract = TRUE;
 }
 
-static int xa_rpm2cpio (XArchive *archive)
+static gchar *xa_rpm2cpio (XArchive *archive)
 {
 	unsigned char bytes[HDRSIG_ENTRY_INFO_LEN];
 	int datalen, entries;
@@ -53,24 +53,26 @@ static int xa_rpm2cpio (XArchive *archive)
 
 	if (stream == NULL)
 	{
-		gchar *msg = g_strdup_printf(_("Can't open RPM file %s:"), archive->path[0]);
-		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, msg, g_strerror(errno));
+		gchar *msg, *err;
+
+		msg = g_strdup_printf(_("Can't open RPM file %s:"), archive->path[0]);
+		err = g_strconcat(msg, " ", g_strerror(errno), NULL);
+
 		g_free(msg);
-		return -1;
+
+		return err;
 	}
 
 	/* Signature section */
 	if (fseek(stream, SIGNATURE_START, SEEK_CUR) == -1)
 	{
 		fclose (stream);
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek to position 104:"),g_strerror(errno));
-		return -1;
+		return g_strconcat(_("Can't fseek to position 104:"), " ", g_strerror(errno), NULL);
 	}
 	if (fread(bytes, 1, HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
 	{
 		fclose ( stream );
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
-		return -1;
+		return g_strconcat(_("Can't read data from file:"), " ", g_strerror(errno), NULL);
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
@@ -81,14 +83,12 @@ static int xa_rpm2cpio (XArchive *archive)
 	if (fseek(stream, offset, SEEK_CUR))
 	{
 		fclose (stream);
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't fseek in file:"),g_strerror(errno));
-		return -1;
+		return g_strconcat(_("Can't fseek in file:"), " ", g_strerror(errno), NULL);
 	}
 	if (fread(bytes, 1, HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
 	{
 		fclose ( stream );
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't read data from file:"),g_strerror(errno));
-		return -1;
+		return g_strconcat(_("Can't read data from file:"), " ", g_strerror(errno), NULL);
 	}
 	entries = 256 * (256 * (256 * bytes[0] + bytes[1]) + bytes[2]) + bytes[3];
 	datalen = 256 * (256 * (256 * bytes[4] + bytes[5]) + bytes[6]) + bytes[7];
@@ -99,7 +99,7 @@ static int xa_rpm2cpio (XArchive *archive)
 
 	/* create a unique temp dir in /tmp */
 	if (!xa_create_working_directory(archive))
-		return -1;
+		return g_strdup("");
 
 	cpio_z = g_strconcat(archive->working_dir, "/xa-tmp.cpio_z", NULL);
 	ibs = g_strdup_printf("%lu", offset);
@@ -112,7 +112,7 @@ static int xa_rpm2cpio (XArchive *archive)
 	if (!xa_run_command(archive, list))
 	{
 		g_free(cpio_z);
-		return -1;
+		return g_strdup("");
 	}
 
 	switch (xa_detect_archive_type(cpio_z))
@@ -132,7 +132,7 @@ static int xa_rpm2cpio (XArchive *archive)
 
 		default:
 			g_free(cpio_z);
-			return -1;
+			return g_strdup(_("Unknown compression type!"));
 	}
 
 	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
@@ -140,9 +140,9 @@ static int xa_rpm2cpio (XArchive *archive)
 	g_free(cpio_z);
 
 	if (!xa_run_command(archive, list))
-		return 0;
+		return g_strdup("");
 
-	return 1;
+	return NULL;
 }
 
 static void xa_cpio_parse_output (gchar *line, XArchive *archive)
@@ -232,14 +232,10 @@ void xa_rpm_open (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Points to"), _("Size"), _("Permission"), _("Date"), _("Hard Link"), _("Owner"), _("Group")};
-	int result;
+	gchar *result, *command;
 	guint i;
-	gchar *command;
 
 	result = xa_rpm2cpio(archive);
-
-	if (result < 0)
-		return;
 
 	archive->files_size = 0;
 	archive->files = 0;
@@ -252,15 +248,18 @@ void xa_rpm_open (XArchive *archive)
 
 	xa_create_liststore(archive, titles);
 
-	if (result == 0)
+	if (result != NULL)
 	{
-		gtk_widget_set_sensitive(Stop_button,FALSE);
-		xa_set_button_state(1, 1, 0, 1, 0, 0, 0, 0, 0, 0);
-		gtk_label_set_text(GTK_LABEL(total_label),"");
-		return;
+		if (*result)
+			command = g_strconcat("sh -c \"echo ", result, " >&2; exit 1\"", NULL);
+		else
+			command = g_strdup("sh -c \"\"");
+
+		g_free(result);
 	}
-	/* list the content */
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -tv < ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
+	else
+		command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -tv < ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
+
 	archive->parse_output = xa_cpio_parse_output;
 	xa_spawn_async_process (archive,command);
 	g_free(command);
@@ -278,9 +277,18 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 	gchar *command = NULL;
 	GSList *list = NULL;
 
+	/* batch mode */
 	if (archive->working_dir == NULL)
-		if (xa_rpm2cpio(archive) <= 0)
+	{
+		gchar *result = xa_rpm2cpio(archive);
+
+		if (result != NULL)
+		{
+			g_print("%s\n", result);
+			g_free(result);
 			return FALSE;
+		}
+	}
 
 	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
 	chdir(archive->extraction_dir);
