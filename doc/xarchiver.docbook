@@ -251,8 +251,8 @@
 								<entry>Open the Multi-Extract dialog to extract the given files. Shell wildcards such as * are allowed.</entry>
 							</row>
 							<row>
-								<entry>-d file1 file2 file3 ... fileN</entry>
-								<entry>--add-to=file1 file2 file3 ... fileN</entry>
+								<entry>-c file1 file2 file3 ... fileN</entry>
+								<entry>--compress=file1 file2 file3 ... fileN</entry>
 								<entry>Add the given files by asking the name of the archive and quits. If archive doesn't exist it is created. The filenames must be separated by spaces.
 								</entry>
 							</row>

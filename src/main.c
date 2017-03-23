@@ -64,7 +64,7 @@ Extract_dialog_data *extract_window;
 Multi_extract_data *multi_extract_window;
 Prefs_dialog_data *prefs_window;
 
-static gchar *opt_extract_path, *opt_add_files;
+static gchar *opt_extract_path, *opt_compress;
 static gboolean opt_extract, opt_add, opt_version;
 
 static GOptionEntry entries[] =
@@ -81,7 +81,7 @@ static GOptionEntry entries[] =
 		N_("Multi-extract archives"),
 		N_("filenames")
 	},
-	{	"add-to", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_STRING, &opt_add_files,
+	{	"compress", 'c', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_STRING, &opt_compress,
 		N_("Add the given files by asking the name of the archive and quits."),
 		N_("file1 file2 file3 ... fileN")
 	},
@@ -504,7 +504,7 @@ int main (int argc, char **argv)
         return EXIT_SUCCESS;
     }
 
-	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_add_files)
+	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_compress)
 		batch_mode = TRUE;
 
 	xdg_open = g_find_program_in_path("xdg-open");
@@ -574,14 +574,14 @@ int main (int argc, char **argv)
 			gtk_widget_destroy (multi_extract->multi_extract);
 			g_free(multi_extract);
 		}
-		/* Switch -d */
-		else if (opt_add_files)
+		/* Switch -c */
+		else if (opt_compress)
 		{
 			if (argc > 1 || g_file_test (argv[1],G_FILE_TEST_IS_DIR))
 				no_bzip2_gzip = TRUE;
 			else
 				no_bzip2_gzip = FALSE;
-			archive = xa_new_archive_dialog(opt_add_files, NULL, no_bzip2_gzip);
+			archive = xa_new_archive_dialog(opt_compress, NULL, no_bzip2_gzip);
 			if (archive == NULL)
 				return -1;
 
@@ -589,14 +589,14 @@ int main (int argc, char **argv)
 			{
 				xa_create_working_directory(archive);
 				archive->do_recurse = archive->can_recurse;
-				_current_dir = g_path_get_dirname(opt_add_files);
+				_current_dir = g_path_get_dirname(opt_compress);
 				chdir (_current_dir);
 				g_free(_current_dir);
 				GSList *files = NULL;
-				_current_dir = g_path_get_basename(opt_add_files);
+				_current_dir = g_path_get_basename(opt_compress);
 				files = g_slist_append(files,g_strdup(_current_dir));
 				g_free(_current_dir);
-				g_free(opt_add_files);
+				g_free(opt_compress);
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
