@@ -468,7 +468,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	GSList *_commands = commands;
 
 	if (!xa_main_window)
-		xa_create_progress_bar(archive);
+		xa_show_progress_bar(archive);
 
 	while (_commands)
 	{

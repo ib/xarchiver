@@ -82,12 +82,12 @@ void xa_combo_box_text_append_compressor_types(GtkComboBoxText *);
 GtkWidget *xa_create_archive_properties_window();
 void xa_create_main_window(GtkWidget *, gboolean, gboolean, gboolean, gboolean);
 gchar *xa_create_password_dialog(XArchive *);
-void xa_create_progress_bar(XArchive *);
 void xa_disable_delete_buttons(gboolean);
 GSList *xa_file_filter_add_archiver_pattern_sort(GtkFileFilter *);
 gboolean xa_flash_led_indicator(XArchive *);
 void xa_increase_progress_bar(Progress *, gchar *, double);
 gboolean xa_pulse_progress_bar(Progress *);
 void xa_set_button_state(gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean, gboolean);
+void xa_show_progress_bar(XArchive *);
 
 #endif

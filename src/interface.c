@@ -1577,14 +1577,17 @@ void xa_disable_delete_buttons (gboolean value)
     gtk_widget_set_sensitive (rename_menu,value);
 }
 
-void xa_create_progress_bar (XArchive *archive)
+void xa_show_progress_bar (XArchive *archive)
 {
 	GtkWidget *vbox1, *vbox2, *message, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
 	GdkPixbuf *pixbuf;
 	gchar *text = NULL,*markup;
 
 	if (progress)
+	{
+		gtk_widget_show(progress->window);
 		return;
+	}
 
 	progress = g_new0(Progress, 1);
 	progress->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
