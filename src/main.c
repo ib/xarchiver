@@ -70,24 +70,24 @@ static gboolean opt_extract, opt_add, opt_version;
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &opt_extract_path,
-		N_("Extract archive to the destination directory and quits."),
-		N_("destination archive")
+		N_("Extract archive to the destination directory and quit"),
+		N_("destination")
 	},
 	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_extract,
-		N_("Extract archive by asking the extraction directory and quits."),
-		N_("archive")
+		N_("Extract archive by asking the extraction directory and quit"),
+		NULL
 	},
 	{	"multi-extract", 'm', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_multi_extract,
-		N_("Multi-extract archives"),
-		N_("filenames")
+		N_("Extract multiple archives by asking the extraction directory and quit"),
+		NULL
 	},
 	{	"compress", 'c', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_STRING, &opt_compress,
-		N_("Add the given files by asking the name of the archive and quits."),
-		N_("file1 file2 file3 ... fileN")
+		N_("Add the given files by asking the name of the archive and quit"),
+		N_("file1 ... fileN")
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_add,
-		N_("Add files to archive by asking their filenames and quits."),
-		N_("archive")
+		N_("Add to archive by asking which files and quit"),
+		NULL
 	},
 	{	"version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version,
 		N_("Show version and exit"), NULL },
@@ -482,7 +482,7 @@ int main (int argc, char **argv)
 			return 0;
 	}
 #endif
-	gtk_init_with_args(&argc, &argv, _("[archive name]"), entries, PACKAGE, &cli_error);
+	gtk_init_with_args(&argc, &argv, _("[ARCHIVE]"), entries, PACKAGE, &cli_error);
 	g_get_charset (&locale);
 	if ( cli_error != NULL )
 	{

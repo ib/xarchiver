@@ -234,38 +234,38 @@
 						</thead>
 						<tbody>
 							<row>
-								<entry>-x destination_path archive</entry>
-								<entry>--extract-to=destination_path archive</entry>
-								<entry>Extract archive to the directory specified by destination_path and quits.
+								<entry>-x destination archive</entry>
+								<entry>--extract-to=destination archive</entry>
+								<entry>Extract archive to the destination directory and quit.
 								</entry>
 							</row>
 							<row>
 								<entry>-e archive</entry>
-								<entry>--extract=archive</entry>
-								<entry>Extract archive by asking the destination directory and quits.
+								<entry>--extract archive</entry>
+								<entry>Extract archive by asking the destination directory and quit.
 								</entry>
 							</row>
 							<row>
-								<entry>-m file1 file2 file3 ... fileN</entry>
-								<entry>--multi-extract=file1 file2 file3 ... fileN</entry>
-								<entry>Open the Multi-Extract dialog to extract the given files. Shell wildcards such as * are allowed.</entry>
+								<entry>-m [archive1 ... archiveN]</entry>
+								<entry>--multi-extract [archive1 ... archiveN]</entry>
+								<entry>Open the Multi-Extract dialog to extract the given archives. Shell wildcards such as * are allowed.</entry>
 							</row>
 							<row>
-								<entry>-c file1 file2 file3 ... fileN</entry>
-								<entry>--compress=file1 file2 file3 ... fileN</entry>
-								<entry>Add the given files by asking the name of the archive and quits. If archive doesn't exist it is created. The filenames must be separated by spaces.
+								<entry>-c file1 ... fileN</entry>
+								<entry>--compress=file1 ... fileN</entry>
+								<entry>Add the given files by asking the name of the archive and quit. If the archive doesn't exist it will be created. The filenames must be separated by spaces.
 								</entry>
 							</row>
 							<row>
 								<entry>-a archive</entry>
-								<entry>--add=archive</entry>
-								<entry>Add files to archive by asking their filenames and quits.
+								<entry>--add archive</entry>
+								<entry>Add to archive by asking which files and quit.
 								</entry>
 							</row>
 							<row>
 								<entry>-?</entry>
 								<entry>--help</entry>
-								<entry>Show help information and quits.</entry>
+								<entry>Show help information and quit.</entry>
 							</row>
 						</tbody>
 					</tgroup>
