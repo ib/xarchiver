@@ -1647,14 +1647,14 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 		gtk_box_pack_start (GTK_BOX (vbox2),total_label,FALSE,FALSE,0);
 		gtk_misc_set_alignment (GTK_MISC (total_label),0,0);
 	}
-	progress->progressbar1 = gtk_progress_bar_new();
-	gtk_box_pack_start(GTK_BOX(vbox2), progress->progressbar1, FALSE, FALSE, 0);
+	progress->bar = gtk_progress_bar_new();
+	gtk_box_pack_start(GTK_BOX(vbox2), progress->bar, FALSE, FALSE, 0);
 	progress->file_label = gtk_label_new("");
 	gtk_misc_set_alignment(GTK_MISC(progress->file_label), 0, 0.5);
 	gtk_box_pack_start(GTK_BOX(vbox2), progress->file_label, FALSE, FALSE, 12);
 	if (flag == TRUE)
 	{
-		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progress->progressbar1), 0.033);
+		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progress->bar), 0.033);
 
 		italic_attr = pango_attr_list_new ();
 		pango_attr_list_insert (italic_attr, pango_attr_style_new (PANGO_STYLE_ITALIC));
@@ -1681,9 +1681,9 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 
 	if (progress->multi_extract)
 	{
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress->progressbar1), percent);
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress->bar), percent);
 		message = g_strdup_printf("%.0f%%",(percent*100));
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progress->progressbar1), message);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progress->bar), message);
 		g_free(message);
 
 		basename = g_path_get_basename(filename);
@@ -1703,7 +1703,7 @@ gboolean xa_pulse_progress_bar (Progress *progress)
 {
 	if (gtk_widget_get_visible(progress->window))
 	{
-		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progress->progressbar1));
+		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progress->bar));
 		return TRUE;
 	}
 	else
