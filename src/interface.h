@@ -25,7 +25,7 @@
 
 typedef struct
 {
-	GtkWidget *progress_window;
+	GtkWidget *window;
 	GtkWidget *progressbar1;
 	GtkWidget *archive_label;
 	GtkWidget *file_label;

@@ -790,7 +790,7 @@ run:
 	double fraction = 1.0 / dialog->nr;
 
 	if (progress)
-		gtk_widget_show_all(progress->progress_window);
+		gtk_widget_show_all(progress->window);
 	else
 		xa_create_progress_bar(FALSE, NULL);
 

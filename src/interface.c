@@ -1588,20 +1588,20 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 		return;
 
 	progress = g_new0(Progress, 1);
-	progress->progress_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_title(GTK_WINDOW(progress->progress_window), PACKAGE_NAME);
-	gtk_window_set_position(GTK_WINDOW(progress->progress_window), GTK_WIN_POS_CENTER_ALWAYS);
-	gtk_widget_set_size_request(progress->progress_window, 400, -1);
-	gtk_window_set_resizable(GTK_WINDOW(progress->progress_window), FALSE);
-	gtk_container_set_border_width(GTK_CONTAINER(progress->progress_window), 6);
-	gtk_window_set_transient_for(GTK_WINDOW(progress->progress_window), GTK_WINDOW(xa_main_window));
+	progress->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title(GTK_WINDOW(progress->window), PACKAGE_NAME);
+	gtk_window_set_position(GTK_WINDOW(progress->window), GTK_WIN_POS_CENTER_ALWAYS);
+	gtk_widget_set_size_request(progress->window, 400, -1);
+	gtk_window_set_resizable(GTK_WINDOW(progress->window), FALSE);
+	gtk_container_set_border_width(GTK_CONTAINER(progress->window), 6);
+	gtk_window_set_transient_for(GTK_WINDOW(progress->window), GTK_WINDOW(xa_main_window));
 
 	pixbuf = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
-	gtk_window_set_icon(GTK_WINDOW(progress->progress_window), pixbuf);
+	gtk_window_set_icon(GTK_WINDOW(progress->window), pixbuf);
 	g_object_unref(pixbuf);
 
 	vbox1 = gtk_vbox_new (FALSE,12);
-  	gtk_container_add(GTK_CONTAINER(progress->progress_window), vbox1);
+  	gtk_container_add(GTK_CONTAINER(progress->window), vbox1);
   	gtk_container_set_border_width (GTK_CONTAINER (vbox1),6);
 
 	hbox1 = gtk_hbox_new (FALSE,12);
@@ -1670,9 +1670,9 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 		gtk_box_pack_end (GTK_BOX (action_area),cancel_button,TRUE,TRUE,12);
 
 		g_signal_connect(G_OBJECT(cancel_button), "clicked", G_CALLBACK(xa_cancel_progress_bar), &archive->child_pid);
-		g_signal_connect(G_OBJECT(progress->progress_window), "delete_event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
+		g_signal_connect(G_OBJECT(progress->window), "delete_event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
 	}
-	gtk_widget_show_all(progress->progress_window);
+	gtk_widget_show_all(progress->window);
 }
 
 void xa_increase_progress_bar (Progress *progress, gchar *filename, double percent)
@@ -1701,7 +1701,7 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 
 gboolean xa_pulse_progress_bar (Progress *progress)
 {
-	if (gtk_widget_get_visible(progress->progress_window))
+	if (gtk_widget_get_visible(progress->window))
 	{
 		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progress->progressbar1));
 		return TRUE;

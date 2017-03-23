@@ -3014,7 +3014,7 @@ void xa_show_multi_extract_dialog (GtkMenuItem *menu_item,gpointer data)
 {
 	xa_parse_multi_extract_archive(multi_extract_window);
 	if (progress)
-		gtk_widget_hide(progress->progress_window);
+		gtk_widget_hide(progress->window);
 	//xa_close_archive (NULL,data);
 }
 

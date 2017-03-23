@@ -627,7 +627,7 @@ int main (int argc, char **argv)
 done:
 		if (progress)
 		{
-			gtk_widget_destroy(progress->progress_window);
+			gtk_widget_destroy(progress->window);
 			g_free(progress);
 		}
 		if (archive != NULL)
