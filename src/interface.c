@@ -1643,7 +1643,7 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 	{
 		progress->multi_extract = TRUE;
 		total_label = gtk_label_new (_("Total Progress:"));
-		gtk_box_pack_start (GTK_BOX (vbox2),total_label,FALSE,FALSE,0);
+		gtk_box_pack_start(GTK_BOX(vbox2), total_label, FALSE, FALSE, 6);
 		gtk_misc_set_alignment (GTK_MISC (total_label),0,0);
 	}
 	progress->bar = gtk_progress_bar_new();
