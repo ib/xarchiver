@@ -1581,7 +1581,6 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 {
 	GtkWidget *vbox1, *vbox2, *message, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
 	GdkPixbuf *pixbuf;
-	PangoAttrList *italic_attr;
 	gchar *text = NULL,*markup;
 
 	if (progress)
@@ -1652,11 +1651,6 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 	if (flag == TRUE)
 	{
 		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progress->bar), 0.033);
-
-		italic_attr = pango_attr_list_new ();
-		pango_attr_list_insert (italic_attr, pango_attr_style_new (PANGO_STYLE_ITALIC));
-		gtk_label_set_attributes(GTK_LABEL(progress->label), italic_attr);
-		pango_attr_list_unref (italic_attr);
 
 		action_area = gtk_hbutton_box_new ();
 		gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area),GTK_BUTTONBOX_END);
