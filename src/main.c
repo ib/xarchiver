@@ -526,7 +526,7 @@ int main (int argc, char **argv)
 		/* Switch -x */
 		if (opt_extract_path)
 		{
-			if (argv[1] == NULL || archive == NULL)
+			if (!archive)
 			{
 				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
