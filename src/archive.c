@@ -332,6 +332,8 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 
 	if (xa_main_window)
 		g_timeout_add(350, (GSourceFunc) xa_flash_led_indicator, archive);
+	else if (!progress->multi_extract)
+		g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, progress);
 
 	if (archive->output != NULL)
 	{
@@ -466,11 +468,7 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	GSList *_commands = commands;
 
 	if (!xa_main_window)
-	{
 		xa_create_progress_bar(archive);
-		if (/*archive->timer == 0 &&*/ progress->multi_extract == FALSE)
-			/*archive->timer =*/ g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, progress);
-	}
 
 	while (_commands)
 	{
