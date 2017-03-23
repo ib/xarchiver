@@ -546,9 +546,9 @@ int main (int argc, char **argv)
 			(*archive->extract) (archive,string);
 		}
 		/* Switch -e */
-		else if (opt_extract && archive)
+		else if (opt_extract)
 		{
-			if (argv[1] == NULL)
+			if (!archive)
 			{
 				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
