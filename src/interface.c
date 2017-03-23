@@ -1633,12 +1633,12 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 		gtk_misc_set_alignment (GTK_MISC (message),0,0.5);
 	}
 
-	progress->archive_label = gtk_label_new("");
-	gtk_label_set_ellipsize(GTK_LABEL(progress->archive_label), PANGO_ELLIPSIZE_END);
-	gtk_misc_set_alignment(GTK_MISC(progress->archive_label), 0, 0.5);
-	gtk_box_pack_start(GTK_BOX(vbox2), progress->archive_label, FALSE, FALSE, 12);
+	progress->label = gtk_label_new("");
+	gtk_label_set_ellipsize(GTK_LABEL(progress->label), PANGO_ELLIPSIZE_END);
+	gtk_misc_set_alignment(GTK_MISC(progress->label), 0, 0.5);
+	gtk_box_pack_start(GTK_BOX(vbox2), progress->label, FALSE, FALSE, 12);
 	if (archive)
-		gtk_label_set_text(GTK_LABEL(progress->archive_label), archive->path[0]);
+		gtk_label_set_text(GTK_LABEL(progress->label), archive->path[0]);
 
 	if (flag == FALSE)
 	{
@@ -1649,18 +1649,14 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 	}
 	progress->bar = gtk_progress_bar_new();
 	gtk_box_pack_start(GTK_BOX(vbox2), progress->bar, FALSE, FALSE, 0);
-	progress->file_label = gtk_label_new("");
-	gtk_misc_set_alignment(GTK_MISC(progress->file_label), 0, 0.5);
-	gtk_box_pack_start(GTK_BOX(vbox2), progress->file_label, FALSE, FALSE, 12);
 	if (flag == TRUE)
 	{
 		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progress->bar), 0.033);
 
 		italic_attr = pango_attr_list_new ();
 		pango_attr_list_insert (italic_attr, pango_attr_style_new (PANGO_STYLE_ITALIC));
-		gtk_label_set_attributes(GTK_LABEL(progress->file_label), italic_attr);
+		gtk_label_set_attributes(GTK_LABEL(progress->label), italic_attr);
 		pango_attr_list_unref (italic_attr);
-		gtk_label_set_ellipsize(GTK_LABEL(progress->file_label), PANGO_ELLIPSIZE_END);
 
 		action_area = gtk_hbutton_box_new ();
 		gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area),GTK_BUTTONBOX_END);
@@ -1689,11 +1685,11 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 		basename = g_path_get_basename(filename);
 		markup = g_markup_printf_escaped("<b>%s</b>", basename);
 		g_free(basename);
-		gtk_label_set_markup(GTK_LABEL(progress->archive_label), markup);
+		gtk_label_set_markup(GTK_LABEL(progress->label), markup);
 		g_free (markup);
 	}
 	else
-		gtk_label_set_text(GTK_LABEL(progress->file_label), filename);
+		gtk_label_set_text(GTK_LABEL(progress->label), filename);
 
 	while (gtk_events_pending())
 		gtk_main_iteration();

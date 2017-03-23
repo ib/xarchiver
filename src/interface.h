@@ -26,9 +26,8 @@
 typedef struct
 {
 	GtkWidget *window;
+	GtkWidget *label;
 	GtkWidget *bar;
-	GtkWidget *archive_label;
-	GtkWidget *file_label;
 	gboolean multi_extract;
 } Progress;
 
