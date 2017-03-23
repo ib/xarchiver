@@ -846,9 +846,6 @@ void xa_reload_archive_content(XArchive *_archive)
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
-	if (xa_main_window == NULL)
-		return;
-
 	g_slist_free (_archive->forward);
 	_archive->forward = NULL;
 
