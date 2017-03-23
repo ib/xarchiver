@@ -60,8 +60,6 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 					if (archive->parse_output)
 						(*archive->parse_output)(line, archive);
 				}
-				else if (!progress->multi_extract)
-					xa_increase_progress_bar(progress, line, 0.0);
 
 				g_free(line);
 			}

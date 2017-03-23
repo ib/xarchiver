@@ -789,9 +789,6 @@ run:
 		overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->overwrite));
 	double fraction = 1.0 / dialog->nr;
 
-	if (progress)
-		gtk_widget_show_all(progress->window);
-	else
 		xa_create_progress_bar(NULL);
 
 	percent=fraction;

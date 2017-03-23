@@ -1681,8 +1681,6 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 		gtk_label_set_markup(GTK_LABEL(progress->label), markup);
 		g_free (markup);
 	}
-	else
-		gtk_label_set_text(GTK_LABEL(progress->label), filename);
 
 	while (gtk_events_pending())
 		gtk_main_iteration();
