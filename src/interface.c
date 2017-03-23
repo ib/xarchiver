@@ -1671,8 +1671,6 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 {
 	gchar *message = NULL, *basename, *markup;
 
-	if (progress->multi_extract)
-	{
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(progress->bar), percent);
 		message = g_strdup_printf("%.0f%%",(percent*100));
 		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(progress->bar), message);
@@ -1683,10 +1681,6 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 		g_free(basename);
 		gtk_label_set_markup(GTK_LABEL(progress->label), markup);
 		g_free (markup);
-	}
-
-	while (gtk_events_pending())
-		gtk_main_iteration();
 }
 
 gboolean xa_pulse_progress_bar (Progress *progress)
