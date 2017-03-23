@@ -1577,7 +1577,7 @@ void xa_disable_delete_buttons (gboolean value)
     gtk_widget_set_sensitive (rename_menu,value);
 }
 
-void xa_create_progress_bar (gboolean flag, XArchive *archive)
+void xa_create_progress_bar (XArchive *archive)
 {
 	GtkWidget *vbox1, *vbox2, *message, *hbox1, *icon_pixbuf, *total_label, *action_area, *cancel_button;
 	GdkPixbuf *pixbuf;
@@ -1639,7 +1639,7 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 	if (archive)
 		gtk_label_set_text(GTK_LABEL(progress->label), archive->path[0]);
 
-	if (flag == FALSE)
+	if (!archive)
 	{
 		progress->multi_extract = TRUE;
 		total_label = gtk_label_new (_("Total Progress:"));
@@ -1648,7 +1648,7 @@ void xa_create_progress_bar (gboolean flag, XArchive *archive)
 	}
 	progress->bar = gtk_progress_bar_new();
 	gtk_box_pack_start(GTK_BOX(vbox2), progress->bar, FALSE, FALSE, 0);
-	if (flag == TRUE)
+	if (archive)
 	{
 		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(progress->bar), 0.033);
 
