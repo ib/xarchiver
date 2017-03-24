@@ -334,7 +334,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_timeout_add(350, (GSourceFunc) xa_flash_led_indicator, archive);
 	}
 	else if (!progress->multi_extract)
-		g_timeout_add(100, (GSourceFunc) xa_pulse_progress_bar, progress);
+		g_timeout_add(100, xa_pulse_progress_bar, NULL);
 
 	if (archive->output != NULL)
 	{

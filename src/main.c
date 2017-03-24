@@ -629,6 +629,7 @@ done:
 		{
 			gtk_widget_destroy(progress->window);
 			g_free(progress);
+			progress = NULL;
 		}
 		if (archive != NULL)
 			xa_clean_archive_structure (archive);

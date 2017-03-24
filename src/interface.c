@@ -1683,9 +1683,9 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 		g_free (markup);
 }
 
-gboolean xa_pulse_progress_bar (Progress *progress)
+gboolean xa_pulse_progress_bar (gpointer data)
 {
-	if (gtk_widget_get_visible(progress->window))
+	if (progress && gtk_widget_get_visible(progress->window))
 	{
 		gtk_progress_bar_pulse(GTK_PROGRESS_BAR(progress->bar));
 		return TRUE;
