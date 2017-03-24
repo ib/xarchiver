@@ -1317,7 +1317,7 @@ gchar *xa_create_password_dialog(XArchive *archive)
   	gtk_label_set_use_markup (GTK_LABEL (label_pwd_required),TRUE);
   	gtk_misc_set_alignment (GTK_MISC (label_pwd_required),0,0.5);
 
-  	name = xa_remove_path_from_archive_name(archive->path[0]);
+  	name = g_path_get_basename(archive->path[0]);
   	name_utf8 = g_filename_display_name(name);
   	label_filename = gtk_label_new(name_utf8);
   	g_free(name_utf8);

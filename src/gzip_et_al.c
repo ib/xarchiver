@@ -311,7 +311,7 @@ void xa_gzip_et_al_test (XArchive *archive)
 	else if (archive->type == XARCHIVETYPE_LZOP)
 		executable = "lzop ";
 	/* else fail? */
-	filename = xa_remove_path_from_archive_name(archive->path[1]);
+	filename = g_path_get_basename(archive->path[1]);
 	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
 	{
@@ -343,7 +343,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	else if (archive->type == XARCHIVETYPE_LZOP)
 		executable = "lzop ";
 	/* else fail? */
-	filename = xa_remove_path_from_archive_name(archive->path[1]);
+	filename = g_path_get_basename(archive->path[1]);
 	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
 	{

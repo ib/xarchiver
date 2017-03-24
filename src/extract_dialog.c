@@ -214,7 +214,7 @@ static gchar *xa_multi_extract_archive (Multi_extract_data *dialog, gchar *filen
 		else
 			_filename = filename;
 		dest_path	= xa_remove_level_from_path(_filename);
-		dirname		= xa_remove_path_from_archive_name(_filename);
+		dirname = g_path_get_basename(_filename);
 		new_path	= g_strconcat(dest_path,"/",dirname,NULL);
 		g_free(dirname);
 		g_free(dest_path);
@@ -740,7 +740,7 @@ void xa_add_files_liststore (gchar *file_path,Multi_extract_data *dialog)
 	file_size = my_stat.st_size;
 	path = xa_remove_level_from_path(file_path);
 	path_utf8 = g_filename_display_name(path);
-	file = xa_remove_path_from_archive_name(file_path);
+	file = g_path_get_basename(file_path);
 	file_utf8 = g_filename_display_name(file);
 	gtk_list_store_append(dialog->files_liststore,&iter);
 	gtk_list_store_set(dialog->files_liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, type, -1);

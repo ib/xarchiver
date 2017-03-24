@@ -1000,7 +1000,7 @@ void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
 						"gtk-save",
 						GTK_RESPONSE_ACCEPT,
 						NULL);
-	filename = xa_remove_path_from_archive_name(archive[idx]->path[1]);
+	filename = g_path_get_basename(archive[idx]->path[1]);
 	filename_utf8 = g_filename_display_name(filename);
 	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(save), filename_utf8);
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (save),TRUE);
@@ -1165,7 +1165,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 						GTK_RESPONSE_ACCEPT,
 						NULL);
 
-	filename = xa_remove_path_from_archive_name(archive[idx]->path[1]);
+	filename = g_path_get_basename(archive[idx]->path[1]);
 	_filename = strstr(filename,".");
 	if (_filename)
 		_filename = g_strndup(filename,(_filename-filename));
@@ -1892,7 +1892,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	else
 		file_size = 0;
     archive_properties_window = xa_create_archive_properties_window();
-    dummy_string = xa_remove_path_from_archive_name(archive[idx]->path[1]);
+    dummy_string = g_path_get_basename(archive[idx]->path[1]);
     utf8_string = g_filename_display_name(dummy_string);
 	gtk_label_set_text(GTK_LABEL(name_data),utf8_string);
 	g_free (utf8_string);

@@ -233,18 +233,6 @@ gboolean match_patterns (char **patterns,const char *string,int flags)
 	return (result == 0);
 }
 
-gchar *xa_remove_path_from_archive_name (gchar *name)
-{
-	gchar *text;
-
-	text = g_strrstr(name, "/");
-
-	if (text)
-		return g_strdup(text + 1);
-	else
-		return g_strdup(name);
-}
-
 GSList *xa_collect_filenames (XArchive *archive, GSList *in)
 {
 	GSList *list = in, *out = NULL;
