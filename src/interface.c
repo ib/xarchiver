@@ -1277,6 +1277,9 @@ gchar *xa_create_password_dialog(XArchive *archive)
 	gchar *name, *name_utf8;
 	gboolean done = FALSE;
 
+	if (archive->password)
+		return archive->password;
+
   	password_dialog = gtk_dialog_new_with_buttons(PACKAGE_NAME " " VERSION,
 									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
