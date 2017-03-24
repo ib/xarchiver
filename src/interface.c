@@ -1270,15 +1270,14 @@ void xa_add_page (XArchive *archive)
 	g_signal_connect (G_OBJECT (archive->treeview),"button-press-event",G_CALLBACK (xa_mouse_button_event),archive);
 }
 
-gchar *xa_create_password_dialog(XArchive *archive)
+gboolean xa_check_password (XArchive *archive)
 {
 	GtkWidget *password_dialog,*dialog_vbox1,*vbox1,*hbox2,*image2,*vbox2,*label_pwd_required,*label_filename,*hbox1,*label34,*pw_password_entry;
-	gchar *password = NULL;
 	gchar *name, *name_utf8;
 	gboolean done = FALSE;
 
 	if (archive->password)
-		return archive->password;
+		return TRUE;
 
   	password_dialog = gtk_dialog_new_with_buttons(PACKAGE_NAME " " VERSION,
 									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -1352,14 +1351,15 @@ gchar *xa_create_password_dialog(XArchive *archive)
 			case GTK_RESPONSE_CANCEL:
 			case GTK_RESPONSE_DELETE_EVENT:
 			done = TRUE;
-			password = NULL;
 			break;
 
 			case GTK_RESPONSE_OK:
-			password = g_strdup (gtk_entry_get_text(GTK_ENTRY(pw_password_entry)));
-			if (strlen(password) == 0)
+			archive->password = g_strdup(gtk_entry_get_text(GTK_ENTRY(pw_password_entry)));
+			if (*archive->password == 0)
 			{
 				xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("You missed the password!"),_("Please enter it!"));
+				g_free(archive->password);
+				archive->password = NULL;
 				break;
 			}
 			done = TRUE;
@@ -1367,7 +1367,8 @@ gchar *xa_create_password_dialog(XArchive *archive)
 		}
 	}
 	gtk_widget_destroy (password_dialog);
-	return password;
+
+	return (archive->password != NULL);
 }
 
 gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data)

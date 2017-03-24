@@ -534,8 +534,7 @@ int main (int argc, char **argv)
 			if (xa_detect_encrypted_archive(archive))
 			{
 				archive->has_password = TRUE;
-				archive->password = xa_create_password_dialog(archive);
-				if (archive->password == NULL)
+				if (!xa_check_password(archive))
 					goto done;
 			}
 			GSList *string = NULL;
