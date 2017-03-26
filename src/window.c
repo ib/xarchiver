@@ -1101,7 +1101,6 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	archive[current_page]->status = XARCHIVESTATUS_OPEN;
 	(*archive[current_page]->open)(archive[current_page]);
 
-	archive[current_page]->password = NULL;
 	xa_fill_dir_sidebar(archive[current_page],TRUE);
 }
 
