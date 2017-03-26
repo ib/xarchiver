@@ -61,7 +61,10 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	if (!data_line)
 	{
 		if (strncmp(line, "Method = ", 9) == 0 && strstr(line, "7zAES"))
+		{
 			encrypted = TRUE;
+			archive->has_password = TRUE;
+		}
 
 		if ((line[0] == '-') && line[3])
 		{
