@@ -2941,10 +2941,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		if (entry->is_dir)
 			filename = "folder";
 		else if (entry->is_encrypted)
-		{
 			filename = "lock";
-			archive->has_password = TRUE;
-		}
 		else
 			filename = entry->filename;
 
