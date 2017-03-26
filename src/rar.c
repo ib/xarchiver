@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include "rar.h"
+#include "interface.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -397,15 +398,70 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 
 void xa_rar_open (XArchive *archive)
 {
+	GIOChannel *file;
+	gchar *password_str, *command;
 	guint i;
-	gchar *command = NULL;
+
+	file = g_io_channel_new_file(archive->path[0], "r", NULL);
+
+	if (file)
+	{
+		gchar byte[2];
+
+		g_io_channel_set_encoding(file, NULL, NULL);
+
+		/* skip RAR 4 and 5 common signature part */
+		g_io_channel_seek_position(file, 6, G_SEEK_SET, NULL);
+
+		g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
+
+		/* RAR 4 archive */
+		if (*byte == 0)
+		{
+			/* skip header CRC16 */
+			g_io_channel_seek_position(file, 2, G_SEEK_CUR, NULL);
+
+			/* block type */
+			g_io_channel_read_chars(file, &byte[0], sizeof(*byte), NULL, NULL);
+
+			/* block flag */
+			g_io_channel_read_chars(file, &byte[1], sizeof(*byte), NULL, NULL);
+
+			archive->has_password = (byte[0] == 0x73 && (guchar) byte[1] == 0x80);
+		}
+		/* RAR 5 archive */
+		else
+		{
+			/* skip last signature byte and header CRC32 */
+			g_io_channel_seek_position(file, 5, G_SEEK_CUR, NULL);
+
+			/* skip vint header size */
+			do
+				g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
+			while (*byte & 0x80);
+
+			/* header flag */
+			g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
+
+			archive->has_password = (*byte == 4);
+		}
+
+		g_io_channel_shutdown(file, FALSE, NULL);
+
+		if (archive->has_password)
+			if (!xa_check_password(archive))
+				return;
+	}
 
 	header_line = FALSE;
 	data_line = FALSE;
 	fname_line = FALSE;
 	last_line = FALSE;
 
-	command = g_strconcat(archiver[archive->type].program[0], " v -idc ", archive->path[1], NULL);
+	password_str = xa_rar_password_str(archive);
+	command = g_strconcat(archiver[archive->type].program[0], " v", password_str, " -idc ", archive->path[1], NULL);
+	g_free(password_str);
+
 	archive->files_size = 0;
 	archive->files = 0;
 
