@@ -56,7 +56,6 @@ delete_func delete[XARCHIVETYPE_TYPES];
 const gchar *locale;
 const gchar *tar;
 gchar *xdg_open;
-gboolean batch_mode;
 gboolean opt_multi_extract;
 
 Add_dialog_data *add_window;
@@ -504,9 +503,6 @@ int main (int argc, char **argv)
         return EXIT_SUCCESS;
     }
 
-	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_compress)
-		batch_mode = TRUE;
-
 	xdg_open = g_find_program_in_path("xdg-open");
 
 	xa_check_available_archivers();
@@ -516,7 +512,7 @@ int main (int argc, char **argv)
 	multi_extract_window = xa_create_multi_extract_dialog();
 	xa_prefs_load_options(prefs_window);
 
-	if (batch_mode)
+	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_compress)
 	{
 		xa_main_window = NULL;
 		archive = xa_init_structure_from_cmd_line (argv[1]);

@@ -32,7 +32,6 @@ extern XArchiver archiver[];
 extern const gchar *locale;
 extern const gchar *tar;
 extern gchar *xdg_open;
-extern gboolean batch_mode;
 extern gboolean opt_multi_extract;
 
 extern add_func add[];

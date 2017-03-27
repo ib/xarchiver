@@ -1309,10 +1309,10 @@ gboolean xa_check_password (XArchive *archive)
   	gtk_widget_show (vbox2);
   	gtk_box_pack_start (GTK_BOX (hbox2),vbox2,TRUE,TRUE,0);
 
-  	if (batch_mode)
-  		label_pwd_required = gtk_label_new (_("<span weight='bold' size='larger'>Password required for:</span>"));
-  	else
-		label_pwd_required = gtk_label_new (_("<span weight='bold' size='larger'>Enter password for:</span>"));
+	if (xa_main_window)
+		label_pwd_required = gtk_label_new(_("<span weight='bold' size='larger'>Enter password for:</span>"));
+	else
+		label_pwd_required = gtk_label_new(_("<span weight='bold' size='larger'>Password required for:</span>"));
 
   	gtk_widget_show (label_pwd_required);
   	gtk_box_pack_start (GTK_BOX (vbox2),label_pwd_required,FALSE,FALSE,0);
