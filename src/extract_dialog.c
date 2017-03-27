@@ -204,7 +204,9 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	gchar *dirname = NULL;
 	gchar *new_path = NULL;
 	gchar *_filename = NULL;
+	gchar *error = NULL;
 	gint type;
+	GtkWidget *main_window;
 
 	if (dest_path == NULL)
 	{
@@ -230,6 +232,7 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	dialog->archive = archive;
 	archive->do_overwrite = overwrite;
 	archive->do_full_path = full_path;
+	archive->path[0] = g_strdup(filename);
 	archive->path[1] = xa_escape_bad_chars(filename, ESCAPES);
 	archive->extraction_dir = xa_escape_bad_chars(dest_path, ESCAPES);
 	if (g_str_has_suffix (archive->path[1],".tar.gz")|| g_str_has_suffix (archive->path[1],".tgz"))
@@ -260,10 +263,31 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		archive->extract = 	extract[XARCHIVETYPE_TAR_LZOP];
 	}
-	archive->status = XARCHIVESTATUS_EXTRACT;
-	(*archive->extract)(archive,NULL);
+
+	/* temporarily enter batch mode */
+	main_window = xa_main_window;
+	xa_main_window = NULL;
+
+	xa_detect_encrypted_archive(archive);
+
+	if (archive->has_password)
+	{
+		if (!xa_check_password(archive))
+			error = _("You missed the password!");
+	}
+
+	if (!error)
+	{
+		archive->status = XARCHIVESTATUS_EXTRACT;
+		(*archive->extract)(archive,NULL);
+	}
+
+	/* return from batch mode */
+	xa_main_window = main_window;
+
 	xa_clean_archive_structure(archive);
-	return NULL;
+
+	return error;
 }
 
 Extract_dialog_data *xa_create_extract_dialog()
