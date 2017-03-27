@@ -534,6 +534,9 @@ int main (int argc, char **argv)
 
 			xa_detect_encrypted_archive(archive);
 
+			if (archive->status == XARCHIVESTATUS_ERROR)
+				goto done;
+
 			if (archive->has_password)
 			{
 				if (!xa_check_password(archive))
@@ -557,6 +560,9 @@ int main (int argc, char **argv)
 			}
 
 			xa_detect_encrypted_archive(archive);
+
+			if (archive->status == XARCHIVESTATUS_ERROR)
+				goto done;
 
 			xa_set_extract_dialog_options(extract_window,0,archive);
 			xa_parse_extract_dialog_options (archive,extract_window,NULL);
