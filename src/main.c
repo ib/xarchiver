@@ -531,12 +531,15 @@ int main (int argc, char **argv)
 				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
-			if (xa_detect_encrypted_archive(archive))
+
+			xa_detect_encrypted_archive(archive);
+
+			if (archive->has_password)
 			{
-				archive->has_password = TRUE;
 				if (!xa_check_password(archive))
 					goto done;
 			}
+
 			GSList *string = NULL;
 			archive->do_full_path = archive->can_full_path;
 			archive->do_overwrite = archive->can_overwrite;
@@ -552,8 +555,8 @@ int main (int argc, char **argv)
 				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
 				return -1;
 			}
-			if (xa_detect_encrypted_archive(archive))
-				archive->has_password = TRUE;
+
+			xa_detect_encrypted_archive(archive);
 
 			xa_set_extract_dialog_options(extract_window,0,archive);
 			xa_parse_extract_dialog_options (archive,extract_window,NULL);
