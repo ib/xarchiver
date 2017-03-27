@@ -166,7 +166,7 @@ static void remove_foreach_func (GtkTreeModel *model, GtkTreePath *path, GtkTree
 	*rowref_list = g_list_append(*rowref_list,rowref);
 }
 
-static void xa_remove_files_liststore (GtkWidget *widget, Multi_extract_data *multi_extract_data)
+static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extract_data *multi_extract_data)
 {
 	GtkTreeModel *model;
 	GtkTreeSelection *sel;
@@ -193,7 +193,7 @@ static void xa_remove_files_liststore (GtkWidget *widget, Multi_extract_data *mu
 		}
 	}
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model),&iter)== FALSE)
-		gtk_widget_set_sensitive (widget,FALSE);
+		gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
 	g_list_foreach(rr_list,(GFunc)gtk_tree_row_reference_free,NULL);
 	g_list_free(rr_list);
 }
@@ -649,7 +649,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_widget_set_sensitive (remove_button,FALSE);
 	gtk_box_pack_end (GTK_BOX (hbox2),remove_button,FALSE,FALSE,0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (remove_button),FALSE);
-	g_signal_connect ( (gpointer)remove_button,"clicked",G_CALLBACK (xa_remove_files_liststore),dialog_data);
+	g_signal_connect(G_OBJECT(remove_button), "clicked", G_CALLBACK(xa_multi_extract_dialog_remove_files), dialog_data);
 	g_signal_connect (G_OBJECT (dialog_data->files_liststore),"row-inserted",G_CALLBACK (xa_activate_remove_button),remove_button);
 
 	/* Destination dirs frame */
