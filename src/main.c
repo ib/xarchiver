@@ -578,7 +578,7 @@ int main (int argc, char **argv)
 				if (! g_file_test(argv[x], G_FILE_TEST_IS_DIR))
 					xa_multi_extract_dialog_add_file(argv[x], multi_extract);
 
-			xa_parse_multi_extract_archive(multi_extract);
+			xa_multi_extract_dialog(multi_extract);
 			gtk_widget_destroy (multi_extract->multi_extract);
 			g_free(multi_extract);
 		}

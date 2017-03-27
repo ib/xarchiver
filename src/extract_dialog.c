@@ -751,7 +751,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	g_free(path);
 }
 
-void xa_parse_multi_extract_archive(Multi_extract_data *dialog)
+void xa_multi_extract_dialog (Multi_extract_data *dialog)
 {
 	GtkTreeIter iter;
 	gchar *filename, *filename_local, *file, *path, *message, *name, *dest_path = NULL;
