@@ -56,10 +56,10 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 				{
 					if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
 						archive->output = g_slist_prepend(archive->output, g_strdup(line));
-
-					if (archive->parse_output)
-						(*archive->parse_output)(line, archive);
 				}
+
+				if (archive->parse_output)
+					(*archive->parse_output)(line, archive);
 
 				g_free(line);
 			}
@@ -320,7 +320,10 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
 		g_error_free (error);
 		g_strfreev (argv);
-		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_password, 1);
+
+		if (xa_main_window)
+			xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_password, 1);
+
 		archive->status = XARCHIVESTATUS_ERROR;
 		return;
 	}
@@ -333,7 +336,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		gtk_widget_set_sensitive(Stop_button, TRUE);
 		g_timeout_add(350, (GSourceFunc) xa_flash_led_indicator, archive);
 	}
-	else if (!progress->multi_extract)
+	else if (progress && !progress->multi_extract)
 		g_timeout_add(100, xa_pulse_progress_bar, NULL);
 
 	if (archive->output != NULL)
@@ -576,6 +579,10 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 	XEntry *last_entry = archive->root_entry;
 	gchar **components = NULL;
 	unsigned short int x = 0;
+
+	/* check for batch mode */
+	if (!xa_main_window)
+		return NULL;
 
 	components = g_strsplit(filename,"/",-1);
 

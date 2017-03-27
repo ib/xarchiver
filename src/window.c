@@ -1775,6 +1775,10 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 
+	/* check for batch mode */
+	if (!xa_main_window)
+		return;
+
 	archive->liststore = gtk_list_store_newv(archive->columns, archive->column_types);
 	gtk_tree_view_set_model ( GTK_TREE_VIEW (archive->treeview),GTK_TREE_MODEL (archive->liststore));
 
