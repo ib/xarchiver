@@ -504,9 +504,6 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 		_commands = _commands->next;
 	}
 
-	if (xa_main_window)
-		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_password, 1);
-
 	g_slist_foreach (commands,(GFunc) g_free,NULL);
 	g_slist_free(commands);
 	return result;
