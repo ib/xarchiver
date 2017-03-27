@@ -27,6 +27,8 @@
 #include "tar.h"
 #include "window.h"
 
+static gpointer item[2];
+
 void xa_gzip_et_al_ask (XArchive *archive)
 {
 	switch (archive->type)
@@ -139,11 +141,27 @@ static void xa_gzip_parse_output (gchar *line, XArchive *archive)
 	g_free(basename);
 }
 
+static void xa_et_al_parse_output (gchar *line, XArchive *archive)
+{
+	gchar *filename, *dot;
+
+	filename = g_path_get_basename(archive->path[0]);
+	dot = strrchr(filename, '.');
+
+	if (dot)
+		*dot = 0;
+
+	xa_set_archive_entries_for_each_row(archive, filename, item);
+
+	g_free(item[0]);
+	g_free(item[1]);
+	g_free(filename);
+}
+
 void xa_gzip_et_al_open (XArchive *archive)
 {
 	gchar *filename = NULL;;
 	gchar *_filename;
-	gpointer item[2];
 	gboolean result;
 	gint len = 0;
 
@@ -284,14 +302,13 @@ void xa_gzip_et_al_open (XArchive *archive)
 		archive->files_size = my_stat.st_size;
 		item[0] = size;
 
-		xa_set_archive_entries_for_each_row (archive,filename,item);
-		g_free(compressed);
-		g_free(size);
 		g_free(filename);
 
-		xa_update_window_with_archive_entries (archive,NULL);
-		gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview), archive->model);
-		g_object_unref (archive->model);
+		archive->parse_output = xa_et_al_parse_output;
+		/* trigger xa_et_al_parse_output once */
+		command = g_strdup("sh -c echo");
+		xa_spawn_async_process(archive, command);
+		g_free(command);
 	}
 }
 
