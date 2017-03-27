@@ -198,7 +198,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extra
 	g_list_free(rr_list);
 }
 
-static gchar *xa_multi_extract_archive (Multi_extract_data *dialog, gchar *filename, gboolean overwrite, gboolean full_path, gchar *dest_path)
+static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *filename, gboolean overwrite, gboolean full_path, gchar *dest_path)
 {
 	XArchive *archive = NULL;
 	gchar *dirname = NULL;
@@ -801,7 +801,7 @@ run:
 		g_free(file);
 		g_free(path);
 		filename_local = g_filename_from_utf8(filename, -1, NULL, NULL, NULL);
-		message = xa_multi_extract_archive(dialog, filename_local, overwrite, full_path, dest_path);
+		message = xa_multi_extract_one_archive(dialog, filename_local, overwrite, full_path, dest_path);
 		g_free(filename_local);
 		if (message != NULL)
 		{
