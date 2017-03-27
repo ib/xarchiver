@@ -41,9 +41,9 @@ typedef struct Multi_extract_data
 
 void fresh_update_toggled_cb(GtkToggleButton *, Extract_dialog_data *);
 void update_fresh_toggled_cb(GtkToggleButton *, Extract_dialog_data *);
-void xa_add_files_liststore(gchar *, Multi_extract_data *);
 Extract_dialog_data *xa_create_extract_dialog();
 Multi_extract_data *xa_create_multi_extract_dialog();
+void xa_multi_extract_dialog_add_file(gchar *, Multi_extract_data *);
 void xa_parse_extract_dialog_options(XArchive * , Extract_dialog_data *, GtkTreeSelection *);
 void xa_parse_multi_extract_archive(Multi_extract_data *);
 void xa_set_extract_dialog_options(Extract_dialog_data *, gint, XArchive *);

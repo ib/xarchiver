@@ -118,7 +118,7 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDr
 	while (array[len])
 	{
 		filename = g_filename_from_uri (array[len],NULL,NULL);
-		xa_add_files_liststore (filename,dialog_data);
+		xa_multi_extract_dialog_add_file(filename, dialog_data);
 		g_free (filename);
 		len++;
 	}
@@ -144,7 +144,7 @@ static void xa_multi_extract_dialog_select_files_to_add (GtkButton *button, Mult
 	if (response == GTK_RESPONSE_ACCEPT)
 	{
 		dummy = gtk_file_chooser_get_filenames (GTK_FILE_CHOOSER (file_selector));
-		g_slist_foreach( dummy,(GFunc)xa_add_files_liststore,dialog);
+		g_slist_foreach(dummy, (GFunc) xa_multi_extract_dialog_add_file, dialog);
 	}
 	if (dummy != NULL)
 		g_slist_free (dummy);
@@ -723,7 +723,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	return dialog_data;
 }
 
-void xa_add_files_liststore (gchar *file_path,Multi_extract_data *dialog)
+void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dialog)
 {
 	GtkTreeIter iter;
 	gchar *path, *path_utf8, *file, *file_utf8;
