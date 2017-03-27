@@ -751,79 +751,68 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 
 void xa_child_processed (XAChildProcess process, gboolean success, XArchive *archive)
 {
-	archive->child_ref--;
+	static gboolean okay[XA_CHILD_PROCS];
+
+	okay[process] = success;
 
 	if (process == XA_CHILD_EXIT)
 	{
 		archive->child_pid = 0;
 
 		if (xa_main_window)
-		{
 			gtk_widget_set_sensitive(Stop_button, FALSE);
-		}
 	}
 
-	if (!success)
+	if (--archive->child_ref == 0)
 	{
-			if (xa_main_window == NULL)
-				goto error;
-			if ( ! gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
-			{
-				xa_show_message_dialog(GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("An error occurred!"),_("Please check the 'Store archiver output' option to see it."));
-				return;
-			}
+		if (archive->output)
+			archive->output = g_slist_reverse(archive->output);
+
+		if (okay[XA_CHILD_EXIT] && okay[XA_CHILD_STDOUT] && okay[XA_CHILD_STDERR])
+		{
 			if (xa_main_window)
 			{
-				xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, 0, archive->can_test, archive->has_password, 1);
-		error:
-				if (archive->output)
-					archive->output = g_slist_reverse(archive->output);
-				xa_show_archive_output(NULL, archive);
-				/* In case the user supplies a wrong password we reset it so he can try again */
-				if ((archive->status == XARCHIVESTATUS_TEST || archive->status == XARCHIVESTATUS_SFX) && archive->password != NULL)
+				if (archive->status == XARCHIVESTATUS_OPEN && archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+					xa_show_archive_comment(NULL, NULL);
+
+				if (archive->status == XARCHIVESTATUS_TEST)
 				{
-					g_free(archive->password);
-					archive->password = NULL;
+					if (archive->output)
+						xa_show_archive_output(GUINT_TO_POINTER(TRUE), archive);
 				}
-				archive->status = XARCHIVESTATUS_ERROR;
-				return;
+
+				if (archive->parse_output)
+				{
+					xa_update_window_with_archive_entries(archive, NULL);
+					gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview), archive->model);
+					g_object_unref(archive->model);
+
+					gtk_widget_grab_focus(archive->treeview);
+				}
+
+				gtk_widget_set_sensitive(comment_menu, archive->has_comment);
+				xa_set_button_state(TRUE, TRUE, TRUE, TRUE, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_password, TRUE);
+				xa_set_statusbar_message_for_displayed_rows(archive);
 			}
-	}
-	if (xa_main_window)
-	{
-		if (archive->parse_output && process == XA_CHILD_STDOUT)
-		{
+
 			archive->parse_output = NULL;
-
-			if (archive->has_comment && archive->status == XARCHIVESTATUS_OPEN && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-				xa_show_archive_comment (NULL,NULL);
-
-			xa_update_window_with_archive_entries (archive,NULL);
-			gtk_tree_view_set_model (GTK_TREE_VIEW(archive->treeview),archive->model);
-			g_object_unref (archive->model);
-
-			gtk_widget_set_sensitive(comment_menu, archive->has_comment);
-			gtk_widget_set_sensitive(password_entry_menu, archive->has_password);
-			gtk_widget_set_sensitive(listing,TRUE);
-
-			if (GTK_IS_TREE_VIEW(archive->treeview))
-				gtk_widget_grab_focus (GTK_WIDGET(archive->treeview));
-
-			xa_set_statusbar_message_for_displayed_rows(archive);
-
-			if (archive->status == XARCHIVESTATUS_TEST)
-				xa_show_archive_output(GUINT_TO_POINTER(TRUE), archive);
-
-			if (archive->status == XARCHIVESTATUS_OPEN)
-				xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->can_test, archive->has_password, 1);
+			archive->status = XARCHIVESTATUS_IDLE;
 		}
-		if (archive->child_ref == 0)
+		else
 		{
-			if (archive->output)
-				archive->output = g_slist_reverse(archive->output);
-		xa_set_button_state(1, 1, 1, 1, archive->can_add, archive->can_extract, 0, archive->can_test, archive->has_password, 1);
-		gtk_label_set_text(GTK_LABEL(total_label),"");
-		archive->status = XARCHIVESTATUS_IDLE;
+			if (xa_main_window && !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+				xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("An error occurred!"), _("Please check the 'Store archiver output' option to see it."));
+			else
+				xa_show_archive_output(NULL, archive);
+
+			/* in case the user has supplied a wrong password, reset it so they can try again */
+			if (archive->password && (archive->status == XARCHIVESTATUS_TEST || archive->status == XARCHIVESTATUS_SFX))
+			{
+				g_free(archive->password);
+				archive->password = NULL;
+			}
+
+			archive->status = XARCHIVESTATUS_ERROR;
 		}
 	}
 }
