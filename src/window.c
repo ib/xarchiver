@@ -790,8 +790,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 					gtk_widget_grab_focus(archive->treeview);
 				}
 
-				gtk_widget_set_sensitive(comment_menu, archive->has_comment);
-				xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->output, archive->has_password);
+				xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
 				xa_set_statusbar_message_for_displayed_rows(archive);
 			}
 
@@ -937,7 +936,7 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 		return;
 
 	xa_add_page (archive[current_page]);
-	xa_set_button_state(1, 1, 1, 1, archive[current_page]->can_test, 1, archive[current_page]->can_add, archive[current_page]->can_extract, archive[current_page]->can_sfx, archive[current_page]->output, archive[current_page]->has_password);
+	xa_set_button_state(1, 1, 1, 1, archive[current_page]->can_test, 1, archive[current_page]->can_add, archive[current_page]->can_extract, archive[current_page]->can_sfx, archive[current_page]->has_comment, archive[current_page]->output, archive[current_page]->has_password);
     xa_disable_delete_buttons(FALSE);
 
     archive[current_page]->password = NULL;
@@ -1083,7 +1082,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	g_free (path);
 
 	gtk_widget_set_sensitive (listing,FALSE);
-	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
+	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
 
 	archive[current_page]->status = XARCHIVESTATUS_OPEN;
@@ -1271,9 +1270,8 @@ void xa_close_archive (GtkMenuItem *menuitem,gpointer user_data)
 		gtk_widget_set_sensitive (up_button,FALSE);
 		gtk_widget_set_sensitive (home_button,FALSE);
 		gtk_widget_set_sensitive (deselect_all,FALSE);
-		gtk_widget_set_sensitive (comment_menu,FALSE);
 		xa_disable_delete_buttons (FALSE);
-		xa_set_button_state(1, 1, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
+		xa_set_button_state(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 		xa_set_window_title (xa_main_window,NULL);
 		gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");

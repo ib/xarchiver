@@ -322,7 +322,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		g_strfreev (argv);
 
 		if (xa_main_window)
-			xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->output, archive->has_password);
+			xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
 
 		archive->status = XARCHIVESTATUS_ERROR;
 		return;
