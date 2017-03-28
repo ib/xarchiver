@@ -1563,7 +1563,7 @@ void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean s
 	gtk_widget_set_sensitive(listing, list);
 	gtk_widget_set_sensitive(save1, save);
 	gtk_widget_set_sensitive(check_menu, test);
-	gtk_widget_set_sensitive(properties, TRUE);
+	gtk_widget_set_sensitive(properties, close);
 	gtk_widget_set_sensitive(close1, close);
 	gtk_widget_set_sensitive(addfile, add);
 	gtk_widget_set_sensitive(AddFile_button, add);
