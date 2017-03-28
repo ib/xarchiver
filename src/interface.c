@@ -416,7 +416,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
-	xa_set_button_state(1, 1, 1, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->can_sfx, archive[id]->can_test, archive[id]->has_password, 1);
+	xa_set_button_state(1, 1, 1, 1, archive[id]->can_test, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->can_sfx, archive[id]->has_password);
 }
 
 static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_data)
@@ -1554,25 +1554,25 @@ GtkWidget *xa_create_archive_properties_window()
 	return archive_properties_window;
 }
 
-void xa_set_button_state (gboolean New,gboolean Open,gboolean save,gboolean Close,gboolean add,gboolean extract,gboolean sfx,gboolean test,gboolean has_password,gboolean can_list)
+void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sfx, gboolean password)
 {
-	gtk_widget_set_sensitive (New_button,New);
-    gtk_widget_set_sensitive (new1,New);
-	gtk_widget_set_sensitive (Open_button,Open);
-    gtk_widget_set_sensitive (open1,Open);
-    gtk_widget_set_sensitive (save1,save);
-    gtk_widget_set_sensitive (close1,Close);
-	gtk_widget_set_sensitive (AddFile_button,add);
-	gtk_widget_set_sensitive (addfile,add);
-	gtk_widget_set_sensitive (Extract_button,extract);
-	gtk_widget_set_sensitive (extract_menu,extract);
-	gtk_widget_set_sensitive (exe_menu,sfx);
-	gtk_widget_set_sensitive (check_menu,test);
+	gtk_widget_set_sensitive(new1, new);
+	gtk_widget_set_sensitive(New_button, new);
+	gtk_widget_set_sensitive(open1, open);
+	gtk_widget_set_sensitive(Open_button, open);
+	gtk_widget_set_sensitive(listing, list);
+	gtk_widget_set_sensitive(save1, save);
+	gtk_widget_set_sensitive(check_menu, test);
 	gtk_widget_set_sensitive(properties, TRUE);
-	gtk_widget_set_sensitive (select_all,Close);
-	gtk_widget_set_sensitive (select_pattern,Close);
-	gtk_widget_set_sensitive (password_entry_menu,has_password);
-	gtk_widget_set_sensitive (listing,can_list);
+	gtk_widget_set_sensitive(close1, close);
+	gtk_widget_set_sensitive(addfile, add);
+	gtk_widget_set_sensitive(AddFile_button, add);
+	gtk_widget_set_sensitive(extract_menu, extract);
+	gtk_widget_set_sensitive(Extract_button, extract);
+	gtk_widget_set_sensitive(exe_menu, sfx);
+	gtk_widget_set_sensitive(select_all, close);
+	gtk_widget_set_sensitive(select_pattern, close);
+	gtk_widget_set_sensitive(password_entry_menu, password);
 }
 
 void xa_disable_delete_buttons (gboolean value)
