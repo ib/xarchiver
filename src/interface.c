@@ -416,7 +416,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
-	xa_set_button_state(1, 1, 1, 1, archive[id]->can_test, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->can_sfx, archive[id]->has_password);
+	xa_set_button_state(1, 1, 1, 1, archive[id]->can_test, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->can_sfx, archive[id]->output, archive[id]->has_password);
 }
 
 static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_data)
@@ -638,7 +638,7 @@ static void xa_icon_theme_changed (GtkIconTheme *icon_theme, gpointer data)
  * time as the filenames currently displayed. What of the other tabs then?
 }*/
 
-void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gboolean show_output_menu_item,gboolean show_sidebar,gboolean show_toolbar)
+void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, gboolean show_sidebar, gboolean show_toolbar)
 {
 	GTK_COMPAT_TOOLTIPS
 	GdkPixbuf *icon;
@@ -870,10 +870,7 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	view_shell_output1 = gtk_image_menu_item_new_with_mnemonic (_("Cmd-line outp_ut"));
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),view_shell_output1);
 	gtk_widget_add_accelerator(view_shell_output1, "activate", accel_group, GDK_KEY_u, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-	if (show_output_menu_item)
-		gtk_widget_set_sensitive(view_shell_output1,TRUE);
-	else
-		gtk_widget_set_sensitive(view_shell_output1,FALSE);
+	gtk_widget_set_sensitive(view_shell_output1, FALSE);
 	gtk_widget_show (view_shell_output1);
 
 	image2 = gtk_image_new_from_stock ("gtk-find-and-replace",GTK_ICON_SIZE_MENU);
@@ -1554,7 +1551,7 @@ GtkWidget *xa_create_archive_properties_window()
 	return archive_properties_window;
 }
 
-void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sfx, gboolean password)
+void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sfx, GSList * output, gboolean password)
 {
 	gtk_widget_set_sensitive(new1, new);
 	gtk_widget_set_sensitive(New_button, new);
@@ -1572,6 +1569,7 @@ void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean s
 	gtk_widget_set_sensitive(exe_menu, sfx);
 	gtk_widget_set_sensitive(select_all, close);
 	gtk_widget_set_sensitive(select_pattern, close);
+	gtk_widget_set_sensitive(view_shell_output1, output != NULL);
 	gtk_widget_set_sensitive(password_entry_menu, password);
 }
 

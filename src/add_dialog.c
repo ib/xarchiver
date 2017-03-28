@@ -488,7 +488,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 			cmd_list = g_slist_append(cmd_list,command);
 			xa_run_command (archive,cmd_list);
 		}
-		xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	}
 
 	while (list)

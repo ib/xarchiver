@@ -620,11 +620,6 @@ void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 	else
 		gtk_widget_hide(scrolledwindow2);
 
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(prefs_data->store_output)))
-		gtk_widget_set_sensitive(view_shell_output1,TRUE);
-	else
-		gtk_widget_set_sensitive(view_shell_output1,FALSE);
-
 	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
 	{
 		idx = xa_find_archive_index (i);
