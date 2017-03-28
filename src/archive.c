@@ -535,38 +535,43 @@ gint xa_get_new_archive_idx()
 	return -1;
 }
 
-void xa_free_entry (XArchive *archive,XEntry *entry)
+void xa_free_entry (XArchive *archive, XEntry *entry)
 {
 	gpointer current_column;
 	guint i;
 
 	if (entry->child)
-		xa_free_entry(archive,entry->child);
+		xa_free_entry(archive, entry->child);
 
 	if (entry->next)
-		xa_free_entry(archive,entry->next);
+		xa_free_entry(archive, entry->next);
 
-	current_column = entry->columns;
-
-	if (strlen(entry->filename) > 0)
+	if (entry->columns)
 	{
-		for (i = 2; i < archive->columns - 1; i++)
-		{
-			switch(archive->column_types[i])
-			{
-				case G_TYPE_STRING:
-					g_free (*((gchar **)current_column));
-					current_column += sizeof(gchar *);
-				break;
+		current_column = entry->columns;
 
-				case G_TYPE_UINT64:
-					current_column += sizeof(guint64);
-				break;
+		if (*entry->filename)
+		{
+			for (i = 2; i < archive->columns - 1; i++)
+			{
+				switch (archive->column_types[i])
+				{
+					case G_TYPE_STRING:
+						g_free(*(gchar **) current_column);
+						current_column += sizeof(gchar *);
+						break;
+
+					case G_TYPE_UINT64:
+						current_column += sizeof(guint64);
+						break;
+				}
 			}
+
+			g_free(entry->columns);
+			g_free(entry->filename);
 		}
-		g_free(entry->columns);
-		g_free(entry->filename);
 	}
+
 	g_free(entry);
 }
 
