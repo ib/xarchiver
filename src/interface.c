@@ -376,7 +376,6 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		xa_row_selected(selection,archive[id]);
 
 	gtk_widget_set_sensitive(comment_menu, archive[id]->has_comment);
-	gtk_widget_set_sensitive(password_entry_menu, archive[id]->has_password);
 
 	if (archive[id]->treeview != NULL)
 	{
