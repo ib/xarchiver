@@ -63,6 +63,7 @@ GtkWidget *toolbar1;
 GtkWidget *toolbar2;
 GtkWidget *total_label;
 GtkWidget *type_data;
+GtkWidget *unsort_menu;
 GtkWidget *up_button;
 GtkWidget *view;
 GtkWidget *view_shell_output1;
@@ -652,7 +653,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	GtkWidget *quit1, *menuitem2, *menuitem2_menu, *multi_extract_menu;
 	GtkWidget *menuitem4, *menuitem4_menu, *about1, *help1, *prefs_menu;
 	GtkWidget *separatortoolitem1, *separatortoolitem2, *separatortoolitem3;
-	GtkWidget *image2, *tmp_image, *toolitem1, *location_label, *unsort_menu;
+	GtkWidget *image2, *tmp_image, *toolitem1, *location_label;
 
 	xa_create_popup_menu();
 	accel_group = gtk_accel_group_new ();
@@ -799,6 +800,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rename_menu),tmp_image);
 
 	unsort_menu = gtk_image_menu_item_new_with_mnemonic(_("Uns_ort"));
+	gtk_widget_set_sensitive(unsort_menu, FALSE);
 	gtk_widget_show(unsort_menu);
 	gtk_container_add(GTK_CONTAINER(menuitem2_menu), unsort_menu);
 
@@ -1566,6 +1568,7 @@ void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean s
 	gtk_widget_set_sensitive(AddFile_button, add);
 	gtk_widget_set_sensitive(extract_menu, extract);
 	gtk_widget_set_sensitive(Extract_button, extract);
+	gtk_widget_set_sensitive(unsort_menu, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_sort_filename_column)) && close);
 	gtk_widget_set_sensitive(exe_menu, sfx);
 	gtk_widget_set_sensitive(select_all, close);
 	gtk_widget_set_sensitive(select_pattern, close);

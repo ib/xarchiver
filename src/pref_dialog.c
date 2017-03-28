@@ -620,6 +620,8 @@ void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
 	else
 		gtk_widget_hide(scrolledwindow2);
 
+	gtk_widget_set_sensitive(unsort_menu, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column)));
+
 	for (i = 0; i < gtk_notebook_get_n_pages(notebook) ; i++)
 	{
 		idx = xa_find_archive_index (i);
