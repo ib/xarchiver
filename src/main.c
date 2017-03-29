@@ -514,7 +514,6 @@ int main (int argc, char **argv)
 
 	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_compress)
 	{
-		xa_main_window = NULL;
 		archive = xa_init_structure_from_cmd_line (argv[1]);
 		g_print(PACKAGE_NAME " 0.5.4 \xC2\xA9  " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER "\n");
 		g_print(PACKAGE_NAME " %-8s " MAINTAINER "\n", VERSION);
