@@ -211,10 +211,13 @@ static gint socket_fd_gets (gint fd, gchar *buf, gint len)
 
 gint socket_init(gint argc, gchar **argv)
 {
+	GdkDisplay *display;
 	gint sock;
 
+	display = gdk_display_get_default();
+
 	if (socket_info.file_name == NULL)
-		socket_info.file_name = g_strconcat("/tmp/", PACKAGE, "_", g_get_user_name(), "_socket", NULL);
+		socket_info.file_name = g_strconcat("/tmp/." PACKAGE "-socket", display ? gdk_display_get_name(display) : ":0", "-", g_get_user_name(), NULL);
 
 	sock = socket_fd_connect_unix(socket_info.file_name);
 	if (sock < 0)
