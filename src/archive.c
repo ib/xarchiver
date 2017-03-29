@@ -290,28 +290,29 @@ XArchive *xa_init_archive_structure(gint type)
 
 void xa_spawn_async_process (XArchive *archive, gchar *command)
 {
-	GIOChannel *ioc;
+	gint argc;
 	gchar **argv;
-	gint argcp;
 	GError *error = NULL;
+	GIOChannel *ioc;
 
-	g_shell_parse_argv (command,&argcp,&argv,NULL);
-	if ( ! g_spawn_async_with_pipes (
-		archive->child_dir,
-		argv,
-		NULL,
-		(G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD),
-		NULL,
-		NULL,
-		&archive->child_pid,
-		NULL,
-		&archive->child_fdout,
-		&archive->child_fderr,
-		&error))
+	g_shell_parse_argv(command, &argc, &argv, NULL);
+
+	if (!g_spawn_async_with_pipes(archive->child_dir,
+	                              argv,
+	                              NULL,
+	                              G_SPAWN_LEAVE_DESCRIPTORS_OPEN | G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH,
+	                              NULL,
+	                              NULL,
+	                              &archive->child_pid,
+	                              NULL,
+	                              &archive->child_fdout,
+	                              &archive->child_fderr,
+	                              &error))
 	{
-		xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, _("Can't run the archiver executable:"),error->message);
-		g_error_free (error);
-		g_strfreev (argv);
+		g_strfreev(argv);
+
+		xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't run the archiver executable:"), error->message);
+		g_error_free(error);
 
 		if (xa_main_window)
 			xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
@@ -319,7 +320,8 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 		archive->status = XARCHIVESTATUS_ERROR;
 		return;
 	}
-	g_strfreev (argv);
+
+	g_strfreev(argv);
 
 	archive->child_ref = XA_CHILD_PROCS;
 
@@ -331,7 +333,7 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	else if (progress && !progress->multi_extract)
 		g_timeout_add(100, xa_pulse_progress_bar, NULL);
 
-	if (archive->output != NULL)
+	if (archive->output)
 	{
 		g_slist_foreach(archive->output, (GFunc) g_free, NULL);
 		g_slist_free(archive->output);
@@ -339,18 +341,17 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 	}
 
 	ioc = g_io_channel_unix_new(archive->child_fdout);
-	g_io_channel_set_encoding (ioc,NULL,NULL);
-	g_io_channel_set_flags (ioc,G_IO_FLAG_NONBLOCK,NULL);
-
+	g_io_channel_set_encoding(ioc, NULL, NULL);
+	g_io_channel_set_flags(ioc, G_IO_FLAG_NONBLOCK, NULL);
 	g_io_add_watch(ioc, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stdout, archive);
-
-	if (archive->parse_output)
-		g_child_watch_add_full(G_PRIORITY_LOW, archive->child_pid, (GChildWatchFunc) xa_process_exit, archive, NULL);
 
 	ioc = g_io_channel_unix_new(archive->child_fderr);
 	g_io_channel_set_encoding(ioc, locale, NULL);
 	g_io_channel_set_flags(ioc, G_IO_FLAG_NONBLOCK, NULL);
 	g_io_add_watch(ioc, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stderr, archive);
+
+	if (archive->parse_output)
+		g_child_watch_add_full(G_PRIORITY_LOW, archive->child_pid, (GChildWatchFunc) xa_process_exit, archive, NULL);
 }
 
 /*	TODO: workaround for bug #3235
