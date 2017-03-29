@@ -381,53 +381,33 @@ void xa_spawn_async_process (XArchive *archive, gchar *command)
 
 void xa_clean_archive_structure (XArchive *archive)
 {
-	XEntry *entry;
+	xa_free_entry(archive, archive->root_entry);
 
-	if (archive == NULL)
-		return;
-
-	entry = archive->root_entry;
-	xa_free_entry (archive,entry);
-
-	if (archive->column_types != NULL)
-		g_free(archive->column_types);
-
-	if (archive->output != NULL)
-	{
-		g_slist_foreach(archive->output, (GFunc) g_free, NULL);
-		g_slist_free(archive->output);
-		archive->output = NULL;
-	}
-
-	if (archive->path[0] != NULL)
-		g_free(archive->path[0]);
-
-	if (archive->path[1] != NULL)
-		g_free(archive->path[1]);
-
-	if (archive->working_dir != NULL)
+	if (archive->working_dir)
 	{
 		xa_delete_working_directory(archive);
 		g_free(archive->working_dir);
 	}
 
-	if (archive->password != NULL)
-		g_free(archive->password);
+	if (archive->comment)
+		g_string_free(archive->comment, TRUE);
 
-	if (archive->child_dir != NULL)
-		g_free(archive->child_dir);
-
-	if (archive->extraction_dir != NULL)
-		g_free(archive->extraction_dir);
-
-	if (archive->has_comment)
+	if (archive->output)
 	{
-		if (archive->comment != NULL)
-			g_string_free (archive->comment,TRUE);
+		g_slist_foreach(archive->output, (GFunc) g_free, NULL);
+		g_slist_free(archive->output);
 	}
+
 	if (archive->clipboard)
-		xa_clipboard_clear(NULL,archive);
-	g_free (archive);
+		xa_clipboard_clear(NULL, archive);
+
+	g_free(archive->column_types);
+	g_free(archive->path[0]);
+	g_free(archive->path[1]);
+	g_free(archive->extraction_dir);
+	g_free(archive->password);
+	g_free(archive->child_dir);
+	g_free(archive);
 }
 
 gboolean xa_create_working_directory (XArchive *archive)
