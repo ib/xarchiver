@@ -82,34 +82,30 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive *archive)
 {
 	GIOStatus status;
-	gchar *line = NULL;
+	gchar *line;
 
 	if (cond & G_IO_IN)
 	{
-		do
-		{
-			status = g_io_channel_read_line (ioc, &line, NULL, NULL, NULL);
-			if (line != NULL)
-			{
-				if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
-					archive->output = g_slist_prepend(archive->output, g_strdup(line));
-				g_free(line);
-			}
-		}
-		while (status == G_IO_STATUS_NORMAL);
-		if (status == G_IO_STATUS_ERROR || status == G_IO_STATUS_EOF)
-			goto done;
-	}
-	else if (cond & (G_IO_ERR | G_IO_HUP | G_IO_NVAL))
-	{
-	done:
-		g_io_channel_shutdown (ioc, TRUE, NULL);
-		g_io_channel_unref (ioc);
+		status = g_io_channel_read_line(ioc, &line, NULL, NULL, NULL);
 
-		xa_child_processed(XA_CHILD_STDERR, TRUE, archive);
+		if (status == G_IO_STATUS_NORMAL)
+		{
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+				archive->output = g_slist_prepend(archive->output, g_strdup(line));
+
+			g_free(line);
+		}
+	}
+	else
+	{
+		g_io_channel_shutdown(ioc, FALSE, NULL);
+		g_io_channel_unref(ioc);
+
+		xa_child_processed(XA_CHILD_STDERR, cond == G_IO_HUP, archive);
 
 		return FALSE;
 	}
+
 	return TRUE;
 }
 
