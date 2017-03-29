@@ -471,7 +471,8 @@ gboolean xa_run_command (XArchive *archive,GSList *commands)
 	gboolean result = TRUE;
 	GSList *_commands = commands;
 
-	if (!xa_main_window)
+	/* batch mode and archive's open function has completed */
+	if (!xa_main_window && archive->column_types)
 		xa_show_progress_bar(archive);
 
 	while (_commands)
