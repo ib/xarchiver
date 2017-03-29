@@ -277,19 +277,6 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 	gchar *command = NULL;
 	GSList *list = NULL;
 
-	/* batch mode */
-	if (archive->working_dir == NULL)
-	{
-		gchar *result = xa_rpm2cpio(archive);
-
-		if (result != NULL)
-		{
-			g_print("%s\n", result);
-			g_free(result);
-			return FALSE;
-		}
-	}
-
 	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
 	chdir(archive->extraction_dir);
 	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", files->str, " < ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
