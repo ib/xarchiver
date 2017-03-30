@@ -20,6 +20,7 @@
 #include <string.h>
 #include "deb.h"
 #include "main.h"
+#include "string_utils.h"
 #include "support.h"
 #include "window.h"
 
@@ -114,26 +115,16 @@ void xa_deb_open (XArchive *archive)
 
 gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
 {
+	GString *files;
 	gchar *command;
-	GSList *_files = NULL;
-	GString *files = g_string_new("");
 	gboolean result;
 
-	_files = file_list;
-	while (_files)
-	{
-		g_string_prepend (files,(gchar*)_files->data);
-		g_string_prepend_c (files,' ');
-		_files = _files->next;
-	}
-	g_slist_foreach(file_list,(GFunc)g_free,NULL);
-	g_slist_free(file_list);
-
+	files = xa_quote_filenames(file_list, NULL, TRUE);
 	chdir(archive->extraction_dir);
 	command = g_strconcat(archiver[archive->type].program[0], " x",
 	                      archive->do_touch ? " " : "o ",
 	                      archive->path[1], files->str, NULL);
-	g_string_free(files,FALSE);
+	g_string_free(files, TRUE);
 
 	result = xa_run_command(archive, command);
 	g_free(command);
