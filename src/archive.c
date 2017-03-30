@@ -288,7 +288,7 @@ XArchive *xa_init_archive_structure(gint type)
 	return archive;
 }
 
-void xa_spawn_async_process (XArchive *archive, gchar *command)
+void xa_spawn_async_process (XArchive *archive, const gchar *command)
 {
 	gint argc;
 	gchar **argv;
