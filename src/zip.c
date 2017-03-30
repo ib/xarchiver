@@ -25,17 +25,23 @@
 
 void xa_zip_ask (XArchive *archive)
 {
+	gchar *sfx;
+
+	sfx = g_find_program_in_path("unzipsfx");
+
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
 	archive->can_add = archiver[archive->type].is_compressor;
 	archive->can_delete = archiver[archive->type].is_compressor;
-	archive->can_sfx = archiver[archive->type].is_compressor;
+	archive->can_sfx = (sfx && archiver[archive->type].is_compressor);
 	archive->can_password = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_freshen = TRUE;
 	archive->can_update = TRUE;
 	archive->can_move = archiver[archive->type].is_compressor;
+
+	g_free(sfx);
 }
 
 static gchar *xa_zip_password_str (XArchive *archive)
