@@ -372,7 +372,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 	GtkTreeModel *model;
 	XEntry *entry;
 	gchar *old_name,*_old_name,*_new_name,*dummy = NULL;
-	GSList *names = NULL,*list = NULL;
+	GSList *names = NULL, *list = NULL, *file_list;
 	gboolean result = FALSE,full_path,overwrite;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
@@ -427,17 +427,16 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 
 		/* Delete the selected file from the archive */
 		old_name = xa_build_full_path_name_from_entry(entry);
-		list = g_slist_append(list,old_name);
+		file_list = g_slist_append(NULL, old_name);
 
 		archive->status = XARCHIVESTATUS_DELETE;
-		(*archive->delete)(archive, list);
-		list = NULL;
+		(*archive->delete)(archive, file_list);
 
 		/* Add the renamed file to the archive */
 		_new_name = g_strdup(new_name);
-		list = g_slist_append(list,_new_name);
+		file_list = g_slist_append(NULL, _new_name);
 		chdir(archive->working_dir);
-		xa_execute_add_commands(archive,list,NULL);
+		xa_execute_add_commands(archive, file_list, NULL);
 	}
 	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
 	g_object_set(cell,"editable",FALSE,NULL);
