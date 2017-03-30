@@ -115,8 +115,9 @@ void xa_deb_open (XArchive *archive)
 gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
 {
 	gchar *command;
-	GSList *list = NULL,*_files = NULL;
+	GSList *_files = NULL;
 	GString *files = g_string_new("");
+	gboolean result;
 
 	_files = file_list;
 	while (_files)
@@ -133,7 +134,9 @@ gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_touch ? " " : "o ",
 	                      archive->path[1], files->str, NULL);
 	g_string_free(files,FALSE);
-	list = g_slist_append(list,command);
 
-	return xa_run_command(archive, list);
+	result = xa_run_command(archive, command);
+	g_free(command);
+
+	return result;
 }

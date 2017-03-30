@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gprintf.h>
+#include <glib/gstdio.h>
 #include <sys/stat.h>
 #include "window.h"
 #include "add_dialog.h"
@@ -372,7 +373,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 	GtkTreeModel *model;
 	XEntry *entry;
 	gchar *old_name,*_old_name,*_new_name,*dummy = NULL;
-	GSList *names = NULL, *list = NULL, *file_list;
+	GSList *names = NULL, *file_list;
 	gboolean result = FALSE,full_path,overwrite;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
@@ -421,9 +422,8 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		_new_name = g_shell_quote(new_name);
 		dummy = g_strconcat("mv -f ", archive->working_dir, "/", _old_name, " ", archive->working_dir, "/", _new_name, NULL);
 		g_free(_old_name);
-		list = g_slist_append(list,dummy);
-		xa_run_command(archive,list);
-		list = NULL;
+		xa_run_command(archive, dummy);
+		g_free(dummy);
 
 		/* Delete the selected file from the archive */
 		old_name = xa_build_full_path_name_from_entry(entry);
@@ -584,8 +584,7 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer dat
 	GtkTextIter start,end;
 	FILE *stream;
 	gint current_page,idx;
-	gchar *command = NULL,*content,*tmp = NULL;
-	GSList *list = NULL;
+	gchar *command, *content, *tmp = NULL;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
@@ -636,8 +635,8 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer dat
 
 	if (command != NULL)
 	{
-		list = g_slist_append(list,command);
-		xa_run_command(archive[idx],list);
+		xa_run_command(archive[idx], command);
+		g_free(command);
 	}
 	g_free(tmp);
 }
@@ -965,7 +964,6 @@ void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
 	GtkWidget *save = NULL;
 	gchar *path = NULL, *command, *filename, *filename_utf8;
 	int response;
-	GSList *list = NULL;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
@@ -992,8 +990,8 @@ void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
 	{
 		command = g_strconcat ("cp ",archive[idx]->path[1]," ",path,NULL);
 		g_free(path);
-		list = g_slist_append(list,command);
-		xa_run_command(archive[idx],list);
+		xa_run_command(archive[idx], command);
+		g_free(command);
 	}
 }
 
@@ -1426,8 +1424,7 @@ void xa_show_prefs_dialog (GtkMenuItem *menuitem,gpointer user_data)
 
 void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 {
-	gchar *command = NULL;
-	GSList *list = NULL;
+	gchar *command;
 	gboolean result;
 	gint current_page;
 	gint idx;
@@ -1440,8 +1437,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 	{
 		case XARCHIVETYPE_RAR:
 			command = g_strconcat ("rar s -o+ ",archive[idx]->path[1],NULL);
-			list = g_slist_append(list,command);
-        	xa_run_command (archive[idx],list);
+			xa_run_command(archive[idx], command);
+			g_free(command);
 		break;
 
 	    case XARCHIVETYPE_ZIP:
@@ -1496,11 +1493,10 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
 
-				command = g_strconcat ("chmod 755 ",archive_name_quoted,NULL);
-				list = g_slist_append(list,command);
+				g_chmod(archive_name, 0755);
 				command = g_strconcat ("zip -A ",archive_name_quoted,NULL);
-				list = g_slist_append(list,command);
-				xa_run_command (archive[idx],list);
+				xa_run_command(archive[idx], command);
+				g_free(command);
 			}
 			g_free (archive_name);
 			g_free (archive_name_quoted);
@@ -1597,8 +1593,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				fclose (sfx_archive);
 
 				command = g_strconcat ("chmod 755 ",archive_name_quoted,NULL);
-				list = g_slist_append(list,command);
-				xa_run_command (archive[idx],list);
+				xa_run_command(archive[idx], command);
+				g_free(command);
 			}
 			g_free (archive_name);
 			g_free (archive_name_quoted);
@@ -1607,8 +1603,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 
 		case XARCHIVETYPE_ARJ:
         	command = g_strconcat ("arj y -je1 " ,archive[idx]->path[1],NULL);
-        	list = g_slist_append(list,command);
-        	xa_run_command (archive[idx],list);
+        	xa_run_command(archive[idx], command);
+        	g_free(command);
 		break;
 
 		default:

@@ -449,7 +449,6 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 	GString *items;
 	gchar *command = NULL;
 	GSList *slist = NULL;
-	GSList *cmd_list = NULL;
 	GSList *dirlist = NULL;
 	GSList *files;
 
@@ -485,8 +484,8 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 			command = g_strconcat ("cp -rf ",items->str," ",new_path,NULL);
 			g_free(new_path);
 			g_string_free(items,TRUE);
-			cmd_list = g_slist_append(cmd_list,command);
-			xa_run_command (archive,cmd_list);
+			xa_run_command(archive, command);
+			g_free(command);
 		}
 		xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	}

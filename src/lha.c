@@ -158,13 +158,12 @@ void xa_lha_open (XArchive *archive)
 
 void xa_lha_test (XArchive *archive)
 {
-	gchar *command = NULL;
-	GSList *list = NULL;
+	gchar *command;
 
 	command = g_strconcat(archiver[archive->type].program[0], " t ", archive->path[1], NULL);
 
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+	xa_run_command(archive, command);
+	g_free(command);
 }
 
 /*
@@ -175,7 +174,7 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;
-	GSList *list = NULL;
+	gboolean result;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[archive->type].program[0],
@@ -184,16 +183,17 @@ gboolean xa_lha_extract (XArchive *archive, GSList *file_list)
 	                      "w=", archive->extraction_dir, " ",
 	                      archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
 
-	return xa_run_command(archive, list);
+	result = xa_run_command(archive, command);
+	g_free(command);
+
+	return result;
 }
 
 void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
-	GSList *list = NULL;
-	gchar *command = NULL;
+	gchar *command;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
@@ -208,21 +208,20 @@ void xa_lha_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      "o", compression, " ",
 	                      archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
 
-	xa_run_command (archive,list);
+	xa_run_command(archive, command);
+	g_free(command);
 }
 
 void xa_lha_delete (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;
-	GSList *list = NULL;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[archive->type].program[0], " d ", archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
 
-	xa_run_command (archive,list);
+	xa_run_command(archive, command);
+	g_free(command);
 }

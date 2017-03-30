@@ -226,9 +226,8 @@ void xa_gzip_et_al_open (XArchive *archive)
 		const gchar *titles[] = {_("Original"), _("Compressed")};
 		struct stat my_stat;
 		gchar *compressed = NULL;
-		gchar *size = NULL,*command = NULL,*executable = NULL,*dot = NULL, fullname;
+		gchar *size, *command[2], *executable = NULL, *dot, *fullname;
 		guint i;
-		GSList *list = NULL;
 
 		archive->files = 1;
 
@@ -267,8 +266,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 			return;
 
 		/* Let's copy the bzip2 file in the tmp dir */
-		command = g_strconcat("cp -f ",archive->path[1]," ",archive->working_dir,NULL);
-		list = g_slist_append(list,command);
+		command[0] = g_strconcat("cp -f ",archive->path[1]," ",archive->working_dir,NULL);
 		/* Let's get its compressed file size */
 		stat (archive->path[1],&my_stat);
 		compressed = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
@@ -277,12 +275,15 @@ void xa_gzip_et_al_open (XArchive *archive)
 		/* Let's extract it */
 		_filename = g_path_get_basename(archive->path[1]);
 		if (_filename[0] == '.')
-			command = g_strconcat(executable,"-f -d ",archive->working_dir,"/",archive->path[1],NULL);
+			command[1] = g_strconcat(executable,"-f -d ",archive->working_dir,"/",archive->path[1],NULL);
 		else
-			command = g_strconcat(executable,"-f -d ",archive->working_dir,"/",_filename,NULL);
+			command[1] = g_strconcat(executable,"-f -d ",archive->working_dir,"/",_filename,NULL);
 
-		list = g_slist_append(list,command);
-		xa_run_command (archive,list);
+		xa_run_command(archive, command[0]);
+		g_free(command[0]);
+
+		xa_run_command(archive, command[1]);
+		g_free(command[1]);
 
 		/* and let's get its uncompressed file size */
 		dot = strrchr(_filename,'.');
@@ -306,16 +307,15 @@ void xa_gzip_et_al_open (XArchive *archive)
 
 		archive->parse_output = xa_et_al_parse_output;
 		/* trigger xa_et_al_parse_output once */
-		command = g_strdup("sh -c echo");
-		xa_spawn_async_process(archive, command);
-		g_free(command);
+		command[0] = g_strdup("sh -c echo");
+		xa_spawn_async_process(archive, command[0]);
+		g_free(command[0]);
 	}
 }
 
 void xa_gzip_et_al_test (XArchive *archive)
 {
-	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
-	GSList *list = NULL;
+	gchar *command, *executable = NULL, *filename = NULL, *dot = NULL, *filename_noext = NULL;
 
 	if (archive->type == XARCHIVETYPE_GZIP)
 		executable = "gzip ";
@@ -340,14 +340,15 @@ void xa_gzip_et_al_test (XArchive *archive)
 
 	command = g_strconcat("sh -c \"",executable, " ",archive->path[1]," -tv ","\"",NULL);
 	g_free(filename_noext);
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+
+	xa_run_command(archive, command);
+	g_free(command);
 }
 
 gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 {
-	GSList *list = NULL;
-	gchar  *command = NULL,*executable = NULL,*filename = NULL, *dot = NULL, *filename_noext = NULL;
+	gchar *command, *executable = NULL, *filename = NULL, *dot = NULL, *filename_noext = NULL;
+	gboolean result;
 
 	if (archive->type == XARCHIVETYPE_BZIP2)
 		executable = "bzip2 ";
@@ -372,7 +373,9 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 
 	command = g_strconcat("sh -c \"",executable, " ",archive->path[1]," -dc > ",archive->extraction_dir,"/",filename_noext,"\"",NULL);
 	g_free(filename_noext);
-	list = g_slist_append(list,command);
 
-	return xa_run_command(archive, list);
+	result = xa_run_command(archive, command);
+	g_free(command);
+
+	return result;
 }

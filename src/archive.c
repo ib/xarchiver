@@ -437,7 +437,7 @@ gboolean xa_create_working_directory (XArchive *archive)
 	return TRUE;
 }
 
-gboolean xa_run_command (XArchive *archive, GSList *command)
+gboolean xa_run_command (XArchive *archive, const gchar *command)
 {
 	pid_t pid = 0;
 	int status;
@@ -447,7 +447,7 @@ gboolean xa_run_command (XArchive *archive, GSList *command)
 	if (!xa_main_window && archive->column_types)
 		xa_show_progress_bar(archive);
 
-	xa_spawn_async_process(archive, command->data);
+	xa_spawn_async_process(archive, command);
 
 	if (archive->child_pid == 0)
 		result = FALSE;

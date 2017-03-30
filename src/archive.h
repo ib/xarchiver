@@ -206,7 +206,7 @@ XEntry *xa_find_entry_from_path(XEntry *, const gchar *);
 void xa_free_entry(XArchive *, XEntry *);
 gint xa_get_new_archive_idx();
 XArchive *xa_init_archive_structure(gint);
-gboolean xa_run_command(XArchive *, GSList *);
+gboolean xa_run_command(XArchive *, const gchar *);
 XEntry *xa_set_archive_entries_for_each_row(XArchive *, gchar *, gpointer *);
 void xa_dir_sidebar_row_selected(GtkTreeSelection *, gpointer);
 void xa_dir_sidebar_select_row(XEntry *);

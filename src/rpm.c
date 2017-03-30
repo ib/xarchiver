@@ -45,8 +45,8 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	int datalen, entries;
 	long offset;
 	gchar *cpio_z, *ibs, *command, *executable;
-	GSList *list;
 	FILE *stream;
+	gboolean success;
 
 	signal(SIGPIPE, SIG_IGN);
 	stream = fopen(archive->path[0], "r");
@@ -106,10 +106,12 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 
 	/* run dd to have the payload (compressed cpio archive) in /tmp */
 	command = g_strconcat("dd if=", archive->path[1], " ibs=", ibs, " skip=1 of=", cpio_z, NULL);
-	list = g_slist_append(NULL, command);
 	g_free(ibs);
 
-	if (!xa_run_command(archive, list))
+	success = xa_run_command(archive, command);
+	g_free(command);
+
+	if (!success)
 	{
 		g_free(cpio_z);
 		return g_strdup("");
@@ -136,13 +138,12 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	}
 
 	command = g_strconcat("sh -c \"", executable, cpio_z, " > ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
-	list = g_slist_append(NULL, command);
 	g_free(cpio_z);
 
-	if (!xa_run_command(archive, list))
-		return g_strdup("");
+	success = xa_run_command(archive, command);
+	g_free(command);
 
-	return NULL;
+	return (success ? NULL : g_strdup(""));
 }
 
 static void xa_cpio_parse_output (gchar *line, XArchive *archive)
@@ -274,15 +275,17 @@ void xa_rpm_open (XArchive *archive)
 gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command = NULL;
-	GSList *list = NULL;
+	gchar *command;
+	gboolean result;
 
 	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
 	chdir(archive->extraction_dir);
 	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", files->str, " < ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
 
 	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
 
-	return xa_run_command(archive, list);
+	result = xa_run_command(archive, command);
+	g_free(command);
+
+	return result;
 }

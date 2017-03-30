@@ -172,7 +172,6 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;
-	GSList *list = NULL;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
@@ -181,15 +180,14 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 	else
 	{
 		command = g_strconcat(tar, " --delete -vf ", archive->path[1], files->str, NULL);
-		list = g_slist_append(list,command);
-		xa_run_command (archive,list);
+		xa_run_command(archive, command);
+		g_free(command);
 	}
 }
 
 void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
-	GSList *list = NULL;
 	gchar *command = NULL;
 
 	if (archive->location_path != NULL)
@@ -299,8 +297,8 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	if (command != NULL)
 	{
 		g_string_free(files,TRUE);
-		list = g_slist_append(list,command);
-		xa_run_command (archive,list);
+		xa_run_command(archive, command);
+		g_free(command);
 	}
 }
 
@@ -313,7 +311,6 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;
-	GSList *list = NULL;
 	gboolean result = FALSE;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
@@ -453,8 +450,8 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 
 	if (command != NULL)
 	{
-		list = g_slist_append(list,command);
-		result = xa_run_command (archive,list);
+		result = xa_run_command(archive, command);
+		g_free(command);
 	}
 
 	g_string_free(files, TRUE);
@@ -464,9 +461,8 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 
 static void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files, XArchive *archive, gboolean add)
 {
-	gchar *command,*executable = NULL,*filename = NULL;
+	gchar *command[5], *executable = NULL, *filename = NULL;
 	gboolean result;
-	GSList *list = NULL;
 
 	switch (archive->type)
 	{
@@ -500,30 +496,39 @@ static void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files, XArchi
 		return;
 
 	/* Let's copy the archive to /tmp first */
-	command = g_strconcat ("cp -a ",archive->path[1]," ",archive->working_dir,"/",filename,NULL);
-	list = g_slist_append(list,command);
+	command[0] = g_strconcat ("cp -a ",archive->path[1]," ",archive->working_dir,"/",filename,NULL);
 
-	command = g_strconcat (executable,"-d ",archive->working_dir,"/",filename,NULL);
-	list = g_slist_append(list,command);
+	command[1] = g_strconcat (executable,"-d ",archive->working_dir,"/",filename,NULL);
 
 	if (add)
-		command = g_strconcat (tar, " ",
+		command[2] = g_strconcat (tar, " ",
 							archive->do_recurse ? "" : "--no-recursion ",
 							archive->do_move ? "--remove-files " : "",
 							archive->do_update ? "-uvvf " : "-rvvf ",
 							archive->working_dir,"/" TMPFILE,
 							files->str , NULL );
 	else
-		command = g_strconcat(tar, " --no-wildcards --delete -f ", archive->working_dir, "/" TMPFILE, files->str, NULL);
-	list = g_slist_append(list,command);
+		command[2] = g_strconcat(tar, " --no-wildcards --delete -f ", archive->working_dir, "/" TMPFILE, files->str, NULL);
 
-	command = g_strconcat (executable,archive->working_dir,"/" TMPFILE,NULL);
-	list = g_slist_append(list,command);
+	command[3] = g_strconcat (executable,archive->working_dir,"/" TMPFILE,NULL);
 
 	/* Let's move the modified archive from /tmp to the original archive location */
-	command = g_strconcat ("mv ",archive->working_dir,"/",filename," ",archive->path[1],NULL);
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+	command[4] = g_strconcat ("mv ",archive->working_dir,"/",filename," ",archive->path[1],NULL);
+
+	xa_run_command(archive, command[0]);
+	g_free(command[0]);
+
+	xa_run_command(archive, command[1]);
+	g_free(command[1]);
+
+	xa_run_command(archive, command[2]);
+	g_free(command[2]);
+
+	xa_run_command(archive, command[3]);
+	g_free(command[3]);
+
+	xa_run_command(archive, command[4]);
+	g_free(command[4]);
 }
 
 gboolean is_tar_compressed (gint type)
@@ -534,8 +539,7 @@ gboolean is_tar_compressed (gint type)
 static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, gchar *files_to_extract)
 {
 	GString *files = NULL;
-	gchar *command;
-	GSList *list = NULL;
+	gchar *command[2];
 	GSList *file_list = NULL;
 	gboolean result;
 
@@ -550,7 +554,7 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 		files_to_extract = files->str;
 	}
 
-	command = g_strconcat (string, archive->path[1],
+	command[0] = g_strconcat (string, archive->path[1],
 										#ifdef __FreeBSD__
 											archive->do_overwrite ? " " : " -k",
 										#else
@@ -559,18 +563,28 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 										#endif
 										archive->do_touch ? " --touch" : "",
 										" -C ", archive->working_dir, files_to_extract, NULL);
-	list = g_slist_append(list,command);
+
 	if (strstr(files_to_extract,"/") || strcmp(archive->working_dir,archive->extraction_dir) != 0)
 	{
 		archive->child_dir = g_strdup(archive->working_dir);
-		command = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_dir,NULL);
-		list = g_slist_append(list,command);
+		command[1] = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_dir,NULL);
 	}
+	else
+		command[1] = NULL;
 
 	if (files)
 		g_string_free(files, TRUE);
 
-	return xa_run_command (archive,list);
+	result = xa_run_command(archive, command[0]);
+	g_free(command[0]);
+
+	if (result && command[1])
+	{
+		result = xa_run_command(archive, command[1]);
+		g_free(command[1]);
+	}
+
+	return result;
 }
 
 static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list)
@@ -592,7 +606,6 @@ static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTr
 void xa_tar_test(XArchive *archive)
 {
 	gchar *command;
-	GSList *list = NULL;
 	GString *names = g_string_new("");
 
 	switch (archive->type)
@@ -636,7 +649,7 @@ void xa_tar_test(XArchive *archive)
 	if (command != NULL)
 	{
 		g_string_free(names,TRUE);
-		list = g_slist_append(list,command);
-		xa_run_command (archive,list);
+		xa_run_command(archive, command);
+		g_free(command);
 	}
 }

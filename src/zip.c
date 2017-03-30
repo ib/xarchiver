@@ -202,21 +202,20 @@ void xa_zip_open (XArchive *archive)
 void xa_zip_test (XArchive *archive)
 {
 	gchar *password_str, *command;
-	GSList *list = NULL;
 
 	password_str = xa_zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0], " -t", password_str, " ", archive->path[1], NULL);
 	g_free(password_str);
 
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+	xa_run_command(archive, command);
+	g_free(command);
 }
 
 gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *password_str, *command;
-	GSList *list = NULL;
+	gboolean result;
 
 	files = xa_quote_filenames(file_list, "*?[]", TRUE);
 	password_str = xa_zip_password_str(archive);
@@ -230,16 +229,17 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	                      " -d ", archive->extraction_dir, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
 
-	return xa_run_command(archive, list);
+	result = xa_run_command(archive, command);
+	g_free(command);
+
+	return result;
 }
 
 void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
 	gchar *password_str, *command;
-	GSList *list = NULL;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
@@ -259,19 +259,19 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	g_free(password_str);
 	g_string_free(files,TRUE);
 
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+	xa_run_command(archive, command);
+	g_free(command);
 }
 
 void xa_zip_delete (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command = NULL;
-	GSList *list = NULL;
+	gchar *command;
 
 	files = xa_quote_filenames(file_list, "*?[]", TRUE);
 	command = g_strconcat(archiver[archive->type].program[1], " -d ", archive->path[1], files->str, NULL);
 	g_string_free(files,TRUE);
-	list = g_slist_append(list,command);
-	xa_run_command (archive,list);
+
+	xa_run_command(archive, command);
+	g_free(command);
 }
