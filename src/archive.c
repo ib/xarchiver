@@ -437,49 +437,35 @@ gboolean xa_create_working_directory (XArchive *archive)
 	return TRUE;
 }
 
-gboolean xa_run_command (XArchive *archive,GSList *commands)
+gboolean xa_run_command (XArchive *archive, GSList *command)
 {
-	int ps, status;
-	gboolean waiting = TRUE;
-	gboolean result = TRUE;
-	GSList *_commands = commands;
+	pid_t pid = 0;
+	int status;
+	gboolean result;
 
 	/* batch mode and archive's open function has completed */
 	if (!xa_main_window && archive->column_types)
 		xa_show_progress_bar(archive);
 
-	while (_commands)
+	xa_spawn_async_process(archive, command->data);
+
+	if (archive->child_pid == 0)
+		result = FALSE;
+	else
 	{
-		xa_spawn_async_process (archive,_commands->data);
-		if (archive->child_pid == 0)
+		while (pid != archive->child_pid && pid != -1)
 		{
-			result = FALSE;
-			break;
-		}
-		while (waiting)
-		{
-			ps = waitpid (archive->child_pid, &status, WNOHANG);
-			if (ps < 0)
-				break;
+			pid = waitpid(archive->child_pid, &status, WNOHANG);
+
 			while (gtk_events_pending())
 				gtk_main_iteration();
 		}
-		if (WIFEXITED (status))
-		{
-			if (WEXITSTATUS (status))
-			{
-				result = FALSE;
-				break;
-			}
-		}
 
-		xa_child_processed(XA_CHILD_EXIT, result, archive);
-
-		_commands = _commands->next;
+		result = (WIFEXITED(status) && (WEXITSTATUS(status) == 0));
 	}
 
-	g_slist_foreach (commands,(GFunc) g_free,NULL);
-	g_slist_free(commands);
+	xa_child_processed(XA_CHILD_EXIT, result, archive);
+
 	return result;
 }
 
