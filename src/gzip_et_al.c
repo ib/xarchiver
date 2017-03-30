@@ -226,7 +226,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 		const gchar *titles[] = {_("Original"), _("Compressed")};
 		struct stat my_stat;
 		gchar *compressed = NULL;
-		gchar *size = NULL,*command = NULL,*executable = NULL,*dot = NULL;
+		gchar *size = NULL,*command = NULL,*executable = NULL,*dot = NULL, fullname;
 		guint i;
 		GSList *list = NULL;
 
@@ -289,15 +289,15 @@ void xa_gzip_et_al_open (XArchive *archive)
 		if (_filename || G_LIKELY(dot))
 		{
 			filename = g_strndup(_filename,strlen(_filename) - len);
-			command = g_strconcat(archive->working_dir,"/",filename,NULL);
+			fullname = g_strconcat(archive->working_dir, "/", filename, NULL);
 		}
 		else
 		{
-			command = g_strconcat(archive->working_dir,"/",archive->path[1],NULL);
+			fullname = g_strconcat(archive->working_dir, "/", archive->path[1], NULL);
 			filename = g_strdup(archive->path[1]);
 		}
-		stat (command,&my_stat);
-		g_free(command);
+		stat(fullname, &my_stat);
+		g_free(fullname);
 		size = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
 		archive->files_size = my_stat.st_size;
 		item[0] = size;
