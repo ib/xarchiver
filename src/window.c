@@ -770,15 +770,6 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 		{
 			if (xa_main_window)
 			{
-				if (archive->status == XARCHIVESTATUS_OPEN && archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
-					xa_show_archive_comment(NULL, NULL);
-
-				if (archive->status == XARCHIVESTATUS_TEST)
-				{
-					if (archive->output)
-						xa_show_archive_output(GUINT_TO_POINTER(TRUE), archive);
-				}
-
 				if (archive->parse_output)
 				{
 					xa_update_window_with_archive_entries(archive, NULL);
@@ -790,6 +781,15 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 
 				xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
 				xa_set_statusbar_message_for_displayed_rows(archive);
+
+				if (archive->status == XARCHIVESTATUS_OPEN && archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+					xa_show_archive_comment(NULL, NULL);
+
+				if (archive->status == XARCHIVESTATUS_TEST)
+				{
+					if (archive->output)
+						xa_show_archive_output(GUINT_TO_POINTER(TRUE), archive);
+				}
 			}
 
 			archive->parse_output = NULL;
