@@ -1078,7 +1078,6 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	xa_disable_delete_buttons (FALSE);
 	g_free (path);
 
-	gtk_widget_set_sensitive (listing,FALSE);
 	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
 
