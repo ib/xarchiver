@@ -27,7 +27,7 @@
 #include "tar.h"
 #include "window.h"
 
-static gpointer item[2];
+static gpointer item[3];
 
 void xa_gzip_et_al_ask (XArchive *archive)
 {
@@ -98,7 +98,6 @@ static void xa_gzip_parse_output (gchar *line, XArchive *archive)
 {
 	gchar *filename;
 	gchar *basename;
-	gpointer item[3];
 	gint n = 0, a = 0 ,linesize = 0;
 
 	linesize = strlen(line);
@@ -155,6 +154,7 @@ static void xa_et_al_parse_output (gchar *line, XArchive *archive)
 
 	g_free(item[0]);
 	g_free(item[1]);
+	g_free(item[2]);
 	g_free(filename);
 }
 
