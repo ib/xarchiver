@@ -68,15 +68,15 @@ static void xa_open_tar_compressed_file (XArchive *archive)
 	guint i;
 
 	if (archive->type == XARCHIVETYPE_TAR_BZ2)
-		command = g_strconcat(tar," tfjv ",archive->path[1],NULL);
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0]," tfjv ",archive->path[1],NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_GZ)
-		command = g_strconcat(tar, " tvzf ", archive->path[1], NULL);
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " tvzf ", archive->path[1], NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_LZMA)
-		command = g_strconcat(tar," tv --use-compress-program=lzma -f ",archive->path[1],NULL);
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0]," tv --use-compress-program=lzma -f ",archive->path[1],NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_XZ)
-		command = g_strconcat(tar," tv --use-compress-program=xz -f ",archive->path[1],NULL);
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0]," tv --use-compress-program=xz -f ",archive->path[1],NULL);
 	else if (archive->type == XARCHIVETYPE_TAR_LZOP)
-		command = g_strconcat(tar," tv --use-compress-program=lzop -f ",archive->path[1],NULL);
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0]," tv --use-compress-program=lzop -f ",archive->path[1],NULL);
 	/* else fail? */
 
 	archive->files_size = 0;
