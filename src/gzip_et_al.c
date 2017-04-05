@@ -323,21 +323,38 @@ void xa_gzip_et_al_test (XArchive *archive)
 
 gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 {
-	gchar *command, *filename = NULL, *dot = NULL, *filename_noext = NULL;
+	GString *files;
+	gchar *command, *files_str, *archive_path, *extraction_dir;
 	gboolean result;
 
-	filename = g_path_get_basename(archive->path[1]);
-	dot = strrchr(filename,'.');
-	if (G_LIKELY(dot))
+	files = xa_quote_filenames(file_list, NULL, TRUE);
+
+	if (*files->str)
+		files_str = xa_quote_shell_command(files->str + 1, FALSE);
+	else
 	{
-		filename_noext = g_strndup(filename,(dot - filename));
+		gchar *filename;
+		char *dot;
+
+		filename = g_path_get_basename(archive->path[0]);
+		dot = strrchr(filename, '.');
+
+		if (dot)
+			*dot = 0;
+
+		files_str = xa_quote_shell_command(filename, TRUE);
 		g_free(filename);
 	}
-	else
-		filename_noext = filename;
 
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " ", archive->path[1], " -dc > ", archive->extraction_dir, "/", filename_noext, "\"", NULL);
-	g_free(filename_noext);
+	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
+	extraction_dir = xa_quote_shell_command(archive->extraction_dir, FALSE);
+
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -d ", archive_path, " -c > ", extraction_dir, "/", files_str, "\"", NULL);
+
+	g_free(extraction_dir);
+	g_free(archive_path);
+	g_free(files_str);
+	g_string_free(files, TRUE);
 
 	result = xa_run_command(archive, command);
 	g_free(command);
