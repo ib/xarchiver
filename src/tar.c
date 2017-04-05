@@ -53,7 +53,7 @@ gboolean isTar (FILE *file)
 
 void xa_tar_ask (XArchive *archive)
 {
-	archive->can_add = archive->can_extract = archive->can_test = TRUE;
+	archive->can_add = archive->can_extract = TRUE;
 	archive->can_delete = TRUE;
 	archive->can_touch = TRUE;
 	archive->can_move = TRUE;
@@ -601,55 +601,4 @@ static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTr
 	else
 		xa_fill_list_with_recursed_entries(entry->child,list);
 	return FALSE;
-}
-
-void xa_tar_test(XArchive *archive)
-{
-	gchar *command;
-	GString *names = g_string_new("");
-
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_TAR:
-			command = g_strconcat (tar, " -tvf ",archive->path[0], NULL);
-		break;
-
-		case XARCHIVETYPE_TAR_BZ2:
-			command = g_strconcat (tar, " -tjvf ",archive->path[0], NULL);
-		break;
-
-		case XARCHIVETYPE_TAR_GZ:
-			command = g_strconcat (tar, " -tzvf ",archive->path[0], NULL);
-		break;
-
-		case XARCHIVETYPE_TAR_LZMA:
-			command = g_strconcat (tar, " --use-compress-program=lzma -tvf ",archive->path[0], NULL);
-		break;
-
-		case XARCHIVETYPE_TAR_LZOP:
-			command = g_strconcat (tar, " --use-compress-program=lzop -tvf ",archive->path[0], NULL);
-		break;
-
-		case XARCHIVETYPE_TAR_XZ:
-			command = g_strconcat (tar, " --use-compress-program=xz -tvf ",archive->path[0], NULL);
-		break;
-
-		case XARCHIVETYPE_LZMA:
-		case XARCHIVETYPE_LZOP:
-		case XARCHIVETYPE_BZIP2:
-		case XARCHIVETYPE_GZIP:
-		case XARCHIVETYPE_XZ:
-			xa_gzip_et_al_test(archive);
-			command = NULL;
-		break;
-
-		default:
-			command = NULL;
-	}
-	if (command != NULL)
-	{
-		g_string_free(names,TRUE);
-		xa_run_command(archive, command);
-		g_free(command);
-	}
 }
