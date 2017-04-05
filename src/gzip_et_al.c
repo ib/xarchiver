@@ -216,7 +216,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 
 		xa_create_liststore(archive, titles);
 
-		command = g_strconcat ("gzip -l ",archive->path[1],NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " -l ", archive->path[1], NULL);
 		xa_spawn_async_process (archive,command);
 		g_free (command);
 	}
@@ -226,32 +226,19 @@ void xa_gzip_et_al_open (XArchive *archive)
 		const gchar *titles[] = {_("Original"), _("Compressed")};
 		struct stat my_stat;
 		gchar *compressed = NULL;
-		gchar *size, *command[2], *executable = NULL, *dot, *fullname;
+		gchar *size, *command[2], *dot, *fullname;
 		guint i;
 
 		archive->files = 1;
 
 		if (archive->type == XARCHIVETYPE_BZIP2)
-		{
-			executable = "bzip2 ";
 			len = 4;
-		}
 		else if (archive->type == XARCHIVETYPE_LZMA)
-		{
-			executable = "lzma ";
 			len = 5;
-		}
 		else if (archive->type == XARCHIVETYPE_XZ)
-		{
-			executable = "xz ";
 			len = 3;
-		}
 		else if (archive->type == XARCHIVETYPE_LZOP)
-		{
-			executable = "lzop ";
 			len = 4;
-		} /* else fail? */
-
 
 		archive->columns = 5;
 		archive->column_types = g_malloc0(sizeof(types));
@@ -275,9 +262,9 @@ void xa_gzip_et_al_open (XArchive *archive)
 		/* Let's extract it */
 		_filename = g_path_get_basename(archive->path[1]);
 		if (_filename[0] == '.')
-			command[1] = g_strconcat(executable,"-f -d ",archive->working_dir,"/",archive->path[1],NULL);
+			command[1] = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", archive->path[1], NULL);
 		else
-			command[1] = g_strconcat(executable,"-f -d ",archive->working_dir,"/",_filename,NULL);
+			command[1] = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", _filename, NULL);
 
 		xa_run_command(archive, command[0]);
 		g_free(command[0]);
@@ -315,19 +302,8 @@ void xa_gzip_et_al_open (XArchive *archive)
 
 void xa_gzip_et_al_test (XArchive *archive)
 {
-	gchar *command, *executable = NULL, *filename = NULL, *dot = NULL, *filename_noext = NULL;
+	gchar *command, *filename = NULL, *dot = NULL, *filename_noext = NULL;
 
-	if (archive->type == XARCHIVETYPE_GZIP)
-		executable = "gzip ";
-	if (archive->type == XARCHIVETYPE_BZIP2)
-		executable = "bzip2 ";
-	else if (archive->type == XARCHIVETYPE_LZMA)
-		executable = "lzma ";
-	else if (archive->type == XARCHIVETYPE_XZ)
-		executable = "xz ";
-	else if (archive->type == XARCHIVETYPE_LZOP)
-		executable = "lzop ";
-	/* else fail? */
 	filename = g_path_get_basename(archive->path[1]);
 	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
@@ -338,7 +314,7 @@ void xa_gzip_et_al_test (XArchive *archive)
 	else
 		filename_noext = filename;
 
-	command = g_strconcat("sh -c \"",executable, " ",archive->path[1]," -tv ","\"",NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " ", archive->path[1], " -tv ", "\"", NULL);
 	g_free(filename_noext);
 
 	xa_run_command(archive, command);
@@ -347,20 +323,9 @@ void xa_gzip_et_al_test (XArchive *archive)
 
 gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 {
-	gchar *command, *executable = NULL, *filename = NULL, *dot = NULL, *filename_noext = NULL;
+	gchar *command, *filename = NULL, *dot = NULL, *filename_noext = NULL;
 	gboolean result;
 
-	if (archive->type == XARCHIVETYPE_BZIP2)
-		executable = "bzip2 ";
-	else if (archive->type == XARCHIVETYPE_GZIP)
-		executable = "gzip ";
-	else if (archive->type == XARCHIVETYPE_LZMA)
-		executable = "lzma ";
-	else if (archive->type == XARCHIVETYPE_XZ)
-		executable = "xz ";
-	else if (archive->type == XARCHIVETYPE_LZOP)
-		executable = "lzop ";
-	/* else fail? */
 	filename = g_path_get_basename(archive->path[1]);
 	dot = strrchr(filename,'.');
 	if (G_LIKELY(dot))
@@ -371,7 +336,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	else
 		filename_noext = filename;
 
-	command = g_strconcat("sh -c \"",executable, " ",archive->path[1]," -dc > ",archive->extraction_dir,"/",filename_noext,"\"",NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " ", archive->path[1], " -dc > ", archive->extraction_dir, "/", filename_noext, "\"", NULL);
 	g_free(filename_noext);
 
 	result = xa_run_command(archive, command);

@@ -97,27 +97,6 @@ static void xa_check_available_archivers ()
 	XArchiveType type;
 	gchar *path;
 
-	ask[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_ask;
-	ask[XARCHIVETYPE_GZIP]  = &xa_gzip_et_al_ask;
-	ask[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_ask;
-	ask[XARCHIVETYPE_XZ]  = &xa_gzip_et_al_ask;
-	ask[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_ask;
-
-	open[XARCHIVETYPE_BZIP2]  = &xa_gzip_et_al_open;
-	open[XARCHIVETYPE_GZIP]  = &xa_gzip_et_al_open;
-	open[XARCHIVETYPE_LZMA]  = &xa_gzip_et_al_open;
-	open[XARCHIVETYPE_XZ]  = &xa_gzip_et_al_open;
-	open[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_open;
-
-	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
-
-
-	add[XARCHIVETYPE_BZIP2]  = add[XARCHIVETYPE_GZIP] = add[XARCHIVETYPE_LZMA] = add[XARCHIVETYPE_XZ] = add[XARCHIVETYPE_LZOP] = &xa_tar_add;
-
-	extract[XARCHIVETYPE_BZIP2]  = extract[XARCHIVETYPE_GZIP] = extract[XARCHIVETYPE_LZMA] = extract[XARCHIVETYPE_XZ] = extract[XARCHIVETYPE_LZOP] = &xa_tar_extract;
-
-	test[XARCHIVETYPE_BZIP2] = test[XARCHIVETYPE_GZIP] = test[XARCHIVETYPE_LZMA] = test[XARCHIVETYPE_XZ] = test[XARCHIVETYPE_LZOP] = &xa_gzip_et_al_test;
-
 	/* 7-zip */
 
 	type = XARCHIVETYPE_7ZIP;
@@ -171,13 +150,23 @@ static void xa_check_available_archivers ()
 	/* bzip2 */
 
 	type = XARCHIVETYPE_BZIP2;
-
 	path = g_find_program_in_path("bzip2");
-    if ( path )
+
+	if (path)
+		archiver[type].is_compressor = TRUE;
+	else
+		path = g_find_program_in_path("bunzip2");
+
+	if (path)
 	{
+		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "bzip2");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.bz2");
-		g_free (path);
+
+		ask[type] = xa_gzip_et_al_ask;
+		open[type] = xa_gzip_et_al_open;
+		test[type] = xa_gzip_et_al_test;
+		extract[type] = xa_gzip_et_al_extract;
 	}
 
 	/* debian package */
@@ -199,13 +188,23 @@ static void xa_check_available_archivers ()
 	/* GNU zip */
 
 	type = XARCHIVETYPE_GZIP;
-
 	path = g_find_program_in_path("gzip");
-	if ( path )
+
+	if (path)
+		archiver[type].is_compressor = TRUE;
+	else
+		path = g_find_program_in_path("gunzip");
+
+	if (path)
 	{
+		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "gzip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.gz");
-		g_free (path);
+
+		ask[type] = xa_gzip_et_al_ask;
+		open[type] = xa_gzip_et_al_open;
+		test[type] = xa_gzip_et_al_test;
+		extract[type] = xa_gzip_et_al_extract;
 	}
 
 	/* LHA */
@@ -231,25 +230,37 @@ static void xa_check_available_archivers ()
 	/* lzma */
 
 	type = XARCHIVETYPE_LZMA;
-
 	path = g_find_program_in_path("lzma");
-	if ( path )
+
+	if (path)
 	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
 		archiver[type].type = g_slist_append(archiver[type].type, "lzma");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzma");
-		g_free (path);
+
+		ask[type] = xa_gzip_et_al_ask;
+		open[type] = xa_gzip_et_al_open;
+		test[type] = xa_gzip_et_al_test;
+		extract[type] = xa_gzip_et_al_extract;
 	}
 
 	/* lzop */
 
 	type = XARCHIVETYPE_LZOP;
-
 	path = g_find_program_in_path("lzop");
+
 	if (path)
 	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
 		archiver[type].type = g_slist_append(archiver[type].type, "lzop");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzo");
-		g_free (path);
+
+		ask[type] = xa_gzip_et_al_ask;
+		open[type] = xa_gzip_et_al_open;
+		test[type] = xa_gzip_et_al_test;
+		extract[type] = xa_gzip_et_al_extract;
 	}
 
 	/* RAR */
@@ -323,13 +334,19 @@ static void xa_check_available_archivers ()
 	/* xz */
 
 	type = XARCHIVETYPE_XZ;
-
 	path = g_find_program_in_path("xz");
+
 	if (path)
 	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
 		archiver[type].type = g_slist_append(archiver[type].type, "xz");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xz");
-		g_free(path);
+
+		ask[type] = xa_gzip_et_al_ask;
+		open[type] = xa_gzip_et_al_open;
+		test[type] = xa_gzip_et_al_test;
+		extract[type] = xa_gzip_et_al_extract;
 	}
 
 	/* zip */
