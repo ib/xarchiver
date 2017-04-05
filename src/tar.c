@@ -63,31 +63,7 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_recurse = TRUE;
 }
 
-void xa_tar_open (XArchive *archive)
-{
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Points to"), _("Permissions"), _("Owner/Group"), _("Size"), _("Date"), _("Time")};
-	gchar *command;
-	guint i;
-
-	command = g_strconcat (tar, " tfv " , archive->path[1], NULL);
-	archive->files_size = 0;
-	archive->files = 0;
-	archive->parse_output = xa_tar_parse_output;
-	xa_spawn_async_process (archive,command);
-
-	g_free (command);
-
-	archive->columns = 9;
-	archive->column_types = g_malloc0(sizeof(types));
-
-	for (i = 0; i < archive->columns; i++)
-		archive->column_types[i] = types[i];
-
-	xa_create_liststore(archive, titles);
-}
-
-void xa_tar_parse_output (gchar *line, XArchive *archive)
+static void xa_tar_parse_output (gchar *line, XArchive *archive)
 {
 	gchar *filename;
 	gpointer item[6];
@@ -166,6 +142,30 @@ void xa_tar_parse_output (gchar *line, XArchive *archive)
 		filename = g_strdup(line + n);
 	xa_set_archive_entries_for_each_row (archive,filename,item);
 	g_free(filename);
+}
+
+void xa_tar_open (XArchive *archive)
+{
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Permissions"), _("Owner/Group"), _("Size"), _("Date"), _("Time")};
+	gchar *command;
+	guint i;
+
+	command = g_strconcat (tar, " tfv " , archive->path[1], NULL);
+	archive->files_size = 0;
+	archive->files = 0;
+	archive->parse_output = xa_tar_parse_output;
+	xa_spawn_async_process (archive,command);
+
+	g_free (command);
+
+	archive->columns = 9;
+	archive->column_types = g_malloc0(sizeof(types));
+
+	for (i = 0; i < archive->columns; i++)
+		archive->column_types[i] = types[i];
+
+	xa_create_liststore(archive, titles);
 }
 
 void xa_tar_delete (XArchive *archive, GSList *file_list)
