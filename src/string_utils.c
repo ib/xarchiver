@@ -358,3 +358,20 @@ GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean sl
 
 	return files;
 }
+
+gchar *xa_quote_shell_command (const gchar *string, gboolean unescaped)
+{
+	gchar *unquoted = NULL, *quoted, *escaped;
+
+	if (!unescaped)
+		unquoted = g_shell_unquote(string, NULL);
+
+	quoted = g_shell_quote(unquoted ? unquoted : string);
+
+	escaped = xa_escape_bad_chars(quoted, "\"");
+
+	g_free(quoted);
+	g_free(unquoted);
+
+	return escaped;
+}
