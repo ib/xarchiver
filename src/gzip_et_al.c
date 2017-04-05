@@ -142,7 +142,8 @@ static void xa_gzip_parse_output (gchar *line, XArchive *archive)
 
 static void xa_et_al_parse_output (gchar *line, XArchive *archive)
 {
-	gchar *filename, *dot;
+	gchar *filename;
+	char *dot;
 
 	filename = g_path_get_basename(archive->path[0]);
 	dot = strrchr(filename, '.');
