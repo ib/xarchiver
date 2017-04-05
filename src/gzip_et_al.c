@@ -302,20 +302,9 @@ void xa_gzip_et_al_open (XArchive *archive)
 
 void xa_gzip_et_al_test (XArchive *archive)
 {
-	gchar *command, *filename = NULL, *dot = NULL, *filename_noext = NULL;
+	gchar *command;
 
-	filename = g_path_get_basename(archive->path[1]);
-	dot = strrchr(filename,'.');
-	if (G_LIKELY(dot))
-	{
-		filename_noext = g_strndup(filename,(dot - filename));
-		g_free(filename);
-	}
-	else
-		filename_noext = filename;
-
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " ", archive->path[1], " -tv ", "\"", NULL);
-	g_free(filename_noext);
+	command = g_strconcat(archiver[archive->type].program[0], " -tv ", archive->path[1], NULL);
 
 	xa_run_command(archive, command);
 	g_free(command);
