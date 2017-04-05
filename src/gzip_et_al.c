@@ -140,7 +140,7 @@ static void xa_gzip_parse_output (gchar *line, XArchive *archive)
 	g_free(basename);
 }
 
-static void xa_et_al_parse_output (gchar *line, XArchive *archive)
+static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 {
 	gchar *filename;
 	char *dot;
@@ -293,8 +293,8 @@ void xa_gzip_et_al_open (XArchive *archive)
 
 		g_free(filename);
 
-		archive->parse_output = xa_et_al_parse_output;
-		/* trigger xa_et_al_parse_output once */
+		archive->parse_output = xa_gzip_et_al_globally_stored_entry;
+		/* trigger pseudo-parser once */
 		command[0] = g_strdup("sh -c echo");
 		xa_spawn_async_process(archive, command[0]);
 		g_free(command[0]);
