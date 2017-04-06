@@ -31,33 +31,8 @@ static gpointer item[3];
 
 void xa_gzip_et_al_ask (XArchive *archive)
 {
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_BZIP2:
-		case XARCHIVETYPE_GZIP:
-			archive->can_test = TRUE;
-			archive->can_extract = TRUE;
-			break;
-
-		case XARCHIVETYPE_TAR_BZ2:
-		case XARCHIVETYPE_TAR_GZ:
-		case XARCHIVETYPE_TAR_LZMA:
-		case XARCHIVETYPE_TAR_LZOP:
-		case XARCHIVETYPE_TAR_XZ:
-			archive->can_test = TRUE;
-			archive->can_extract = TRUE;
-			archive->can_add = TRUE;
-			archive->can_overwrite = TRUE;
-			archive->can_full_path = TRUE;
-			archive->can_touch = TRUE;
-			archive->can_update = TRUE;
-			archive->can_recurse = TRUE;
-			archive->can_move = TRUE;
-			break;
-
-		default:
-			break;
-	}
+	archive->can_test = TRUE;
+	archive->can_extract = TRUE;
 }
 
 static void xa_gzip_parse_output (gchar *line, XArchive *archive)
