@@ -1934,15 +1934,15 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 
 	switch (archive->type)
 	{
-		case XARCHIVETYPE_GZIP:
-		case XARCHIVETYPE_BZIP2:
-		case XARCHIVETYPE_LZMA:
-		case XARCHIVETYPE_XZ:
-		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_RPM:
 		pos = 3;
 		break;
 
+		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_LZOP:
+		case XARCHIVETYPE_XZ:
 		case XARCHIVETYPE_RAR:
 		case XARCHIVETYPE_ARJ:
 		case XARCHIVETYPE_7ZIP:
@@ -1950,10 +1950,10 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		break;
 
 		case XARCHIVETYPE_DEB:
-		case XARCHIVETYPE_LHA:
 		pos = 4;
 		break;
 
+		case XARCHIVETYPE_LHA:
 		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZMA:
@@ -1999,26 +1999,26 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 
 	switch (archive->type)
 	{
-		case XARCHIVETYPE_GZIP:
-		case XARCHIVETYPE_BZIP2:
-		case XARCHIVETYPE_LZMA:
-		case XARCHIVETYPE_XZ:
-		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_RPM:
 		pos = 3;
 		break;
 
+		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_LZMA:
+		case XARCHIVETYPE_LZOP:
+		case XARCHIVETYPE_XZ:
 		case XARCHIVETYPE_RAR:
 		case XARCHIVETYPE_ARJ:
 		case XARCHIVETYPE_7ZIP:
 		pos = 2;
 		break;
 
-		case XARCHIVETYPE_LHA:
 		case XARCHIVETYPE_DEB:
 		pos = 4;
 		break;
 
+		case XARCHIVETYPE_LHA:
 		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZMA:
