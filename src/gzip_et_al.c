@@ -152,29 +152,23 @@ void xa_gzip_et_al_open (XArchive *archive)
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_LZMA:
 		{
-			struct stat my_stat;
+			struct stat st;
 			off_t compressed;
-			gchar *dot, *fullname, *filename, *_filename;
-			gboolean result;
-			gint len = 0;
+			gchar *_filename;
+			char *dot;
 
-			if (archive->type == XARCHIVETYPE_BZIP2)
-				len = 4;
-			else if (archive->type == XARCHIVETYPE_LZMA)
-				len = 5;
-
-			result = xa_create_working_directory(archive);
-			if (!result)
+			if (!xa_create_working_directory(archive))
 				return;
 
 			/* Let's copy the bzip2 file in the tmp dir */
 			command = g_strconcat("cp -f ", archive->path[1], " ", archive->working_dir, NULL);
 			xa_run_command(archive, command);
 			g_free(command);
-			/* Let's get its compressed file size */
-			stat (archive->path[1],&my_stat);
-			compressed = my_stat.st_size;
-			item[1] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
+
+			/* compressed */
+			stat(archive->path[0], &st);
+			compressed = st.st_size;
+			item[1] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) compressed);
 
 			/* Let's extract it */
 			_filename = g_path_get_basename(archive->path[1]);
@@ -186,26 +180,18 @@ void xa_gzip_et_al_open (XArchive *archive)
 			xa_run_command(archive, command);
 			g_free(command);
 
-			/* and let's get its uncompressed file size */
-			dot = strrchr(_filename,'.');
-			if (_filename || G_LIKELY(dot))
-			{
-				filename = g_strndup(_filename,strlen(_filename) - len);
-				fullname = g_strconcat(archive->working_dir, "/", filename, NULL);
-			}
-			else
-			{
-				fullname = g_strconcat(archive->working_dir, "/", archive->path[1], NULL);
-				filename = g_strdup(archive->path[1]);
-			}
-			stat(fullname, &my_stat);
-			g_free(fullname);
-			archive->files_size = my_stat.st_size;
-			item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
+			dot = strrchr(_filename, '.');
 
-			item[2] = g_strdup_printf("%2.1f%%", 100.0 - 100.0 * compressed / my_stat.st_size);
+			if (dot)
+				*dot = 0;
 
-			g_free(filename);
+			/* uncompressed */
+			stat(_filename, &st);
+			archive->files_size = (guint64) st.st_size;
+			item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, archive->files_size);
+
+			/* ratio */
+			item[2] = g_strdup_printf("%2.1f%%", 100.0 - 100.0 * compressed / st.st_size);
 
 			/* trigger pseudo-parser once */
 			command = g_strdup("sh -c echo");
