@@ -22,6 +22,7 @@
 #include <sys/types.h>
 #include "gzip_et_al.h"
 #include "main.h"
+#include "parser.h"
 #include "string_utils.h"
 #include "support.h"
 #include "tar.h"
@@ -43,47 +44,27 @@ void xa_gzip_et_al_ask (XArchive *archive)
 static void xa_gzip_parse_output (gchar *line, XArchive *archive)
 {
 	gchar *filename;
-	gchar *basename;
-	gint n = 0, a = 0 ,linesize = 0;
 
-	linesize = strlen(line);
+	/* heading */
 	if (line[9] == 'c')
 		return;
 
-	/* Size */
-	for(n=0; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n]='\0';
-	item[0] = line + a;
-	n++;
+	/* compressed */
+	NEXT_ITEM(item[0]);
 
-	/* Compressed */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n]='\0';
-	item[1] = line + a;
-	archive->files_size += g_ascii_strtoull(item[1],NULL,0);
-	n++;
+	/* uncompressed */
+	NEXT_ITEM(item[1]);
+	archive->files_size = g_ascii_strtoull(item[0], NULL, 0);
 
-	/* Ratio */
-	for(; n < linesize && line[n] == ' '; n++);
-	a = n;
-	for(; n < linesize && line[n] != ' '; n++);
-	line[n] = '\0';
-	item[2] = line + a;
-	n++;
+	/* ratio */
+	NEXT_ITEM(item[2]);
 
-	line[linesize-1] = '\0';
-	filename = line+n;
+	/* uncompressed_name */
+	LAST_ITEM(filename);
+	filename = g_path_get_basename(filename);
 
-	basename = g_path_get_basename(filename);
-	if (basename == NULL)
-		basename = g_strdup(filename);
-
-	xa_set_archive_entries_for_each_row (archive,basename,item);
-	g_free(basename);
+	xa_set_archive_entries_for_each_row(archive, filename, item);
+	g_free(filename);
 }
 
 static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
