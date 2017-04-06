@@ -29,6 +29,7 @@
 #include "window.h"
 
 static gpointer item[3];
+static gchar *filename;
 
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
@@ -41,12 +42,52 @@ void xa_gzip_et_al_ask (XArchive *archive)
 	xa_gzip_et_al_can(archive, TRUE);
 }
 
-static void xa_gzip_parse_output (gchar *line, XArchive *archive)
+static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 {
-	gchar *filename;
+	if (archive->type == XARCHIVETYPE_GZIP)
+	{
+		/* heading? */
+		if (line[9] == 'c')
+			return;
+	}
+	else if (archive->type == XARCHIVETYPE_LZOP)
+	{
+		/* heading? */
+		if (line[12] == 'c')
+			return;
+		else
+			/* method */
+			SKIP_ITEM;
+	}
+	else if (archive->type == XARCHIVETYPE_XZ)
+	{
+		/* heading? */
+		if (*line == 't')
+			return;
+		else if (*line == 'n')
+		{
+			/* "name" */
+			SKIP_ITEM;
+			LAST_ITEM(filename);
 
-	/* heading */
-	if (line[9] == 'c')
+			if (g_str_has_suffix(filename, ".xz"))
+				*(line - 4) = 0;
+
+			filename = g_path_get_basename(filename);
+
+			return;
+		}
+		else
+		{
+			/* "file" */
+			SKIP_ITEM;
+			/* number of streams */
+			SKIP_ITEM;
+			/* number of blocks */
+			SKIP_ITEM;
+		}
+	}
+	else
 		return;
 
 	/* compressed */
@@ -59,9 +100,13 @@ static void xa_gzip_parse_output (gchar *line, XArchive *archive)
 	/* ratio */
 	NEXT_ITEM(item[2]);
 
-	/* uncompressed_name */
-	LAST_ITEM(filename);
-	filename = g_path_get_basename(filename);
+	if (archive->type != XARCHIVETYPE_XZ)
+	{
+		/* uncompressed_name */
+		LAST_ITEM(filename);
+
+		filename = g_path_get_basename(filename);
+	}
 
 	xa_set_archive_entries_for_each_row(archive, filename, item);
 	g_free(filename);
@@ -125,14 +170,14 @@ void xa_gzip_et_al_open (XArchive *archive)
 		archive->type = XARCHIVETYPE_TAR_LZOP;
 		xa_open_tar_compressed_file(archive);
 	}
-	else if (archive->type == XARCHIVETYPE_GZIP)
+	else if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
 	{
 		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
 		const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
 		gchar *command;
 		guint i;
 
-		archive->parse_output = xa_gzip_parse_output;
+		archive->parse_output = xa_gzip_et_al_parse_output;
 		archive->files = 1;
 
 
@@ -144,7 +189,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 
 		xa_create_liststore(archive, titles);
 
-		command = g_strconcat(archiver[archive->type].program[0], " -l ", archive->path[1], NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " -l", archive->type == XARCHIVETYPE_XZ ? " --robot " : " ", archive->path[1], NULL);
 		xa_spawn_async_process (archive,command);
 		g_free (command);
 	}
