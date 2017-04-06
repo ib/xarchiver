@@ -138,39 +138,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 	gboolean result;
 	gint len = 0;
 
-	archive->delete =	delete[archive->type];
-	archive->add = 		add[archive->type];
-	archive->extract = 	extract[archive->type];
-
-	if (g_str_has_suffix(archive->path[1],".tar.bz2") || g_str_has_suffix (archive->path[1],".tar.bz")
-    	|| g_str_has_suffix ( archive->path[1] , ".tbz") || g_str_has_suffix (archive->path[1],".tbz2") )
-	{
-		archive->type = XARCHIVETYPE_TAR_BZ2;
-		xa_open_tar_compressed_file(archive);
-	}
-	else if (g_str_has_suffix(archive->path[1],".tar.gz") || g_str_has_suffix (archive->path[1],".tgz"))
-	{
-		archive->type = XARCHIVETYPE_TAR_GZ;
-		xa_open_tar_compressed_file(archive);
-	}
-	else if (g_str_has_suffix(archive->path[1],".tar.lzma") || g_str_has_suffix (archive->path[1],".tlz"))
-	{
-		archive->type = XARCHIVETYPE_TAR_LZMA;
-		xa_open_tar_compressed_file(archive);
-	}
-	else if (g_str_has_suffix(archive->path[1],".tar.xz") || g_str_has_suffix (archive->path[1],".txz"))
-	{
-		archive->type = XARCHIVETYPE_TAR_XZ;
-		xa_open_tar_compressed_file(archive);
-	}
-	else if (g_str_has_suffix(archive->path[1],".tar.lzop") ||
-		g_str_has_suffix (archive->path[1],".tzo") ||
-		g_str_has_suffix(archive->path[1],".tar.lzo"))
-	{
-		archive->type = XARCHIVETYPE_TAR_LZOP;
-		xa_open_tar_compressed_file(archive);
-	}
-	else if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
+	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
 	{
 		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
 		const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
