@@ -29,10 +29,15 @@
 
 static gpointer item[3];
 
+static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
+{
+	archive->can_test = can;
+	archive->can_extract = can;
+}
+
 void xa_gzip_et_al_ask (XArchive *archive)
 {
-	archive->can_test = TRUE;
-	archive->can_extract = TRUE;
+	xa_gzip_et_al_can(archive, TRUE);
 }
 
 static void xa_gzip_parse_output (gchar *line, XArchive *archive)
