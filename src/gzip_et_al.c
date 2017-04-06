@@ -135,78 +135,87 @@ void xa_gzip_et_al_open (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
-	gchar *filename = NULL;;
-	gchar *_filename;
-	gboolean result;
-	gint len = 0;
 	gchar *command;
 	guint i;
 
 	archive->files = 1;
 
-	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
+	switch (archive->type)
 	{
-		command = g_strconcat(archiver[archive->type].program[0], " -l", archive->type == XARCHIVETYPE_XZ ? " --robot " : " ", archive->path[1], NULL);
-		archive->parse_output = xa_gzip_et_al_parse_output;
-	}
-	else
-	{
-		struct stat my_stat;
-		off_t compressed;
-		gchar *dot, *fullname;
+		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_LZOP:
+		case XARCHIVETYPE_XZ:
+			command = g_strconcat(archiver[archive->type].program[0], " -l", archive->type == XARCHIVETYPE_XZ ? " --robot " : " ", archive->path[1], NULL);
+			archive->parse_output = xa_gzip_et_al_parse_output;
+			break;
 
-		if (archive->type == XARCHIVETYPE_BZIP2)
-			len = 4;
-		else if (archive->type == XARCHIVETYPE_LZMA)
-			len = 5;
+		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_LZMA:
+		{
+			struct stat my_stat;
+			off_t compressed;
+			gchar *dot, *fullname, *filename, *_filename;
+			gboolean result;
+			gint len = 0;
 
-		result = xa_create_working_directory(archive);
-		if (!result)
+			if (archive->type == XARCHIVETYPE_BZIP2)
+				len = 4;
+			else if (archive->type == XARCHIVETYPE_LZMA)
+				len = 5;
+
+			result = xa_create_working_directory(archive);
+			if (!result)
+				return;
+
+			/* Let's copy the bzip2 file in the tmp dir */
+			command = g_strconcat("cp -f ", archive->path[1], " ", archive->working_dir, NULL);
+			xa_run_command(archive, command);
+			g_free(command);
+			/* Let's get its compressed file size */
+			stat (archive->path[1],&my_stat);
+			compressed = my_stat.st_size;
+			item[1] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
+
+			/* Let's extract it */
+			_filename = g_path_get_basename(archive->path[1]);
+			if (_filename[0] == '.')
+				command = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", archive->path[1], NULL);
+			else
+				command = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", _filename, NULL);
+
+			xa_run_command(archive, command);
+			g_free(command);
+
+			/* and let's get its uncompressed file size */
+			dot = strrchr(_filename,'.');
+			if (_filename || G_LIKELY(dot))
+			{
+				filename = g_strndup(_filename,strlen(_filename) - len);
+				fullname = g_strconcat(archive->working_dir, "/", filename, NULL);
+			}
+			else
+			{
+				fullname = g_strconcat(archive->working_dir, "/", archive->path[1], NULL);
+				filename = g_strdup(archive->path[1]);
+			}
+			stat(fullname, &my_stat);
+			g_free(fullname);
+			archive->files_size = my_stat.st_size;
+			item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
+
+			item[2] = g_strdup_printf("%2.1f%%", 100.0 - 100.0 * compressed / my_stat.st_size);
+
+			g_free(filename);
+
+			/* trigger pseudo-parser once */
+			command = g_strdup("sh -c echo");
+			archive->parse_output = xa_gzip_et_al_globally_stored_entry;
+
+			break;
+		}
+
+		default:
 			return;
-
-		/* Let's copy the bzip2 file in the tmp dir */
-		command = g_strconcat("cp -f ", archive->path[1], " ", archive->working_dir, NULL);
-		xa_run_command(archive, command);
-		g_free(command);
-		/* Let's get its compressed file size */
-		stat (archive->path[1],&my_stat);
-		compressed = my_stat.st_size;
-		item[1] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
-
-		/* Let's extract it */
-		_filename = g_path_get_basename(archive->path[1]);
-		if (_filename[0] == '.')
-			command = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", archive->path[1], NULL);
-		else
-			command = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", _filename, NULL);
-
-		xa_run_command(archive, command);
-		g_free(command);
-
-		/* and let's get its uncompressed file size */
-		dot = strrchr(_filename,'.');
-		if (_filename || G_LIKELY(dot))
-		{
-			filename = g_strndup(_filename,strlen(_filename) - len);
-			fullname = g_strconcat(archive->working_dir, "/", filename, NULL);
-		}
-		else
-		{
-			fullname = g_strconcat(archive->working_dir, "/", archive->path[1], NULL);
-			filename = g_strdup(archive->path[1]);
-		}
-		stat(fullname, &my_stat);
-		g_free(fullname);
-		archive->files_size = my_stat.st_size;
-		item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
-
-		item[2] = g_strdup_printf("%2.1f%%", 100.0 - 100.0 * compressed / my_stat.st_size);
-
-		g_free(filename);
-
-		/* trigger pseudo-parser once */
-		command = g_strdup("sh -c echo");
-		archive->parse_output = xa_gzip_et_al_globally_stored_entry;
 	}
 
 	xa_spawn_async_process(archive, command);
