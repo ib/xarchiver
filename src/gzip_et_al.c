@@ -50,10 +50,10 @@ static void xa_gzip_parse_output (gchar *line, XArchive *archive)
 		return;
 
 	/* compressed */
-	NEXT_ITEM(item[0]);
+	NEXT_ITEM(item[1]);
 
 	/* uncompressed */
-	NEXT_ITEM(item[1]);
+	NEXT_ITEM(item[0]);
 	archive->files_size = g_ascii_strtoull(item[0], NULL, 0);
 
 	/* ratio */
@@ -128,7 +128,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 	else if (archive->type == XARCHIVETYPE_GZIP)
 	{
 		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
-		const gchar *titles[] = {_("Compressed"), _("Size"), _("Ratio")};
+		const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
 		gchar *command;
 		guint i;
 
