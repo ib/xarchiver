@@ -133,85 +133,55 @@ static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 
 void xa_gzip_et_al_open (XArchive *archive)
 {
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
 	gchar *filename = NULL;;
 	gchar *_filename;
 	gboolean result;
 	gint len = 0;
+	gchar *command;
+	guint i;
+
+	archive->files = 1;
 
 	if (archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
 	{
-		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
-		const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
-		gchar *command;
-		guint i;
-
-		archive->parse_output = xa_gzip_et_al_parse_output;
-		archive->files = 1;
-
-
-		archive->columns = 6;
-		archive->column_types = g_malloc0(sizeof(types));
-
-		for (i = 0; i < archive->columns; i++)
-			archive->column_types[i] = types[i];
-
-		xa_create_liststore(archive, titles);
-
 		command = g_strconcat(archiver[archive->type].program[0], " -l", archive->type == XARCHIVETYPE_XZ ? " --robot " : " ", archive->path[1], NULL);
-		xa_spawn_async_process (archive,command);
-		g_free (command);
+		archive->parse_output = xa_gzip_et_al_parse_output;
 	}
 	else
 	{
-		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_POINTER};
-		const gchar *titles[] = {_("Original"), _("Compressed")};
 		struct stat my_stat;
-		gchar *compressed = NULL;
-		gchar *size, *command[2], *dot, *fullname;
-		guint i;
-
-		archive->files = 1;
+		off_t compressed;
+		gchar *dot, *fullname;
 
 		if (archive->type == XARCHIVETYPE_BZIP2)
 			len = 4;
 		else if (archive->type == XARCHIVETYPE_LZMA)
 			len = 5;
-		else if (archive->type == XARCHIVETYPE_XZ)
-			len = 3;
-		else if (archive->type == XARCHIVETYPE_LZOP)
-			len = 4;
-
-		archive->columns = 5;
-		archive->column_types = g_malloc0(sizeof(types));
-
-		for (i = 0; i < archive->columns; i++)
-			archive->column_types[i] = types[i];
-
-		xa_create_liststore(archive, titles);
 
 		result = xa_create_working_directory(archive);
 		if (!result)
 			return;
 
 		/* Let's copy the bzip2 file in the tmp dir */
-		command[0] = g_strconcat("cp -f ",archive->path[1]," ",archive->working_dir,NULL);
+		command = g_strconcat("cp -f ", archive->path[1], " ", archive->working_dir, NULL);
+		xa_run_command(archive, command);
+		g_free(command);
 		/* Let's get its compressed file size */
 		stat (archive->path[1],&my_stat);
-		compressed = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
-		item[1] = compressed;
+		compressed = my_stat.st_size;
+		item[1] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
 
 		/* Let's extract it */
 		_filename = g_path_get_basename(archive->path[1]);
 		if (_filename[0] == '.')
-			command[1] = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", archive->path[1], NULL);
+			command = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", archive->path[1], NULL);
 		else
-			command[1] = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", _filename, NULL);
+			command = g_strconcat(archiver[archive->type].program[0], " -f -d ", archive->working_dir, "/", _filename, NULL);
 
-		xa_run_command(archive, command[0]);
-		g_free(command[0]);
-
-		xa_run_command(archive, command[1]);
-		g_free(command[1]);
+		xa_run_command(archive, command);
+		g_free(command);
 
 		/* and let's get its uncompressed file size */
 		dot = strrchr(_filename,'.');
@@ -227,18 +197,28 @@ void xa_gzip_et_al_open (XArchive *archive)
 		}
 		stat(fullname, &my_stat);
 		g_free(fullname);
-		size = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
 		archive->files_size = my_stat.st_size;
-		item[0] = size;
+		item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) my_stat.st_size);
+
+		item[2] = g_strdup_printf("%2.1f%%", 100.0 - 100.0 * compressed / my_stat.st_size);
 
 		g_free(filename);
 
-		archive->parse_output = xa_gzip_et_al_globally_stored_entry;
 		/* trigger pseudo-parser once */
-		command[0] = g_strdup("sh -c echo");
-		xa_spawn_async_process(archive, command[0]);
-		g_free(command[0]);
+		command = g_strdup("sh -c echo");
+		archive->parse_output = xa_gzip_et_al_globally_stored_entry;
 	}
+
+	xa_spawn_async_process(archive, command);
+	g_free(command);
+
+	archive->columns = 6;
+	archive->column_types = g_malloc0(sizeof(types));
+
+	for (i = 0; i < archive->columns; i++)
+		archive->column_types[i] = types[i];
+
+	xa_create_liststore(archive, titles);
 }
 
 void xa_gzip_et_al_test (XArchive *archive)
