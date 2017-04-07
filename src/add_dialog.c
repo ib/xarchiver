@@ -252,10 +252,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	prefs_window->size_changed[1] = TRUE;
 
-	if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_XZ || archive->type == XARCHIVETYPE_LZOP)
-		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),FALSE);
-	else
-		gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1),TRUE);
+	gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(add_dialog->filechooserwidget1), !SINGLE_FILE_COMPRESSOR(archive));
 
 	if (archive->location_path != NULL)
 	{

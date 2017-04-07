@@ -21,6 +21,7 @@
 
 #include <glib.h>
 #include "archive.h"
+#include "gzip_et_al.h"
 
 #define COPYRIGHT_YEAR "2005-2014"
 #define COPYRIGHT_HOLDER "Giuseppe Torelli"
