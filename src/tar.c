@@ -584,7 +584,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 		xa_add_delete_bzip2_gzip_lzma_compressed_tar(files,archive,0);
 	else
 	{
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete -vf ", archive->path[1], files->str, NULL);
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion -vf ", archive->path[1], files->str, NULL);
 		xa_run_command(archive, command);
 		g_free(command);
 	}
