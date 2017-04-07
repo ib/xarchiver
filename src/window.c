@@ -2232,11 +2232,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		return;
 	}
 	_current_dir = g_path_get_dirname(array[0]);
-	if (archive[idx]->child_dir != NULL)
-	{
-		g_free(archive[idx]->child_dir);
-		archive[idx]->child_dir = NULL;
-	}
 	archive[idx]->child_dir = g_filename_from_uri (_current_dir,NULL,NULL);
 	g_free(_current_dir);
 	while (array[len])

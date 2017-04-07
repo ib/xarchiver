@@ -419,14 +419,8 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			gtk_widget_hide(add_dialog->dialog1);
 
 			if (!archive->do_full_path)
-			{
-				if (archive->child_dir != NULL)
-				{
-					g_free(archive->child_dir);
-					archive->child_dir = NULL;
-				}
 				archive->child_dir = g_path_get_dirname(list->data);
-			}
+
 			xa_execute_add_commands(archive, list, compression);
 			g_free(compression);
 		}
