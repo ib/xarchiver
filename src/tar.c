@@ -50,8 +50,34 @@ gboolean isTar (FILE *file)
 void xa_tar_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
-	archive->can_add = TRUE;
-	archive->can_delete = TRUE;
+
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_TAR_BZ2:
+			archive->can_add = archiver[XARCHIVETYPE_BZIP2].is_compressor;
+			break;
+
+		case XARCHIVETYPE_TAR_GZ:
+			archive->can_add = archiver[XARCHIVETYPE_GZIP].is_compressor;
+			break;
+
+		case XARCHIVETYPE_TAR_LZMA:
+			archive->can_add = archiver[XARCHIVETYPE_LZMA].is_compressor;
+			break;
+
+		case XARCHIVETYPE_TAR_LZOP:
+			archive->can_add = archiver[XARCHIVETYPE_LZOP].is_compressor;
+			break;
+
+		case XARCHIVETYPE_TAR_XZ:
+			archive->can_add = archiver[XARCHIVETYPE_XZ].is_compressor;
+			break;
+
+		default:
+			break;
+	}
+
+	archive->can_delete = archive->can_add;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_touch = TRUE;
