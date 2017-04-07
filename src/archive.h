@@ -89,7 +89,6 @@ struct _XEntry
 };
 
 typedef struct _XArchive XArchive;
-typedef struct _XAClipboard XAClipboard;
 
 typedef void (*ask_func)(XArchive *);
 typedef void (*open_func)(XArchive *);
@@ -98,6 +97,8 @@ typedef void (*test_func)(XArchive *);
 typedef gboolean (*extract_func)(XArchive *, GSList *);
 typedef void (*add_func)(XArchive *, GSList *, gchar *);
 typedef void (*delete_func)(XArchive *, GSList *);
+
+typedef struct _XAClipboard XAClipboard;
 
 struct _XArchive
 {
