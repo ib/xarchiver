@@ -495,6 +495,9 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 	archive->status = XARCHIVESTATUS_ADD;
 	(*archive->add)(archive, files, compression);
 
+	g_free(archive->child_dir);
+	archive->child_dir = NULL;
+
 	if (xa_main_window)
 		xa_reload_archive_content(archive);
 }
