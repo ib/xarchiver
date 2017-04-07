@@ -292,12 +292,15 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 			}
 		}
 
-		archive = xa_init_archive_structure (type);
+		gtk_widget_destroy(xa_file_chooser);
 
-		gtk_widget_destroy (xa_file_chooser);
+		archive = xa_init_archive_structure(type);
+
 		archive->path[0] = g_strdup(my_path);
 		archive->path[1] = xa_escape_bad_chars(archive->path[0], ESCAPES);
-		g_free (my_path);
+
+		g_free(my_path);
+
 		return archive;
 	}
 
