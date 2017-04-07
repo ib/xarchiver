@@ -167,6 +167,7 @@ static void xa_check_available_archivers ()
 		open[type] = xa_gzip_et_al_open;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
+		add[type] = xa_gzip_et_al_add;
 	}
 
 	/* debian package */
@@ -205,6 +206,7 @@ static void xa_check_available_archivers ()
 		open[type] = xa_gzip_et_al_open;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
+		add[type] = xa_gzip_et_al_add;
 	}
 
 	/* LHA */
@@ -243,6 +245,7 @@ static void xa_check_available_archivers ()
 		open[type] = xa_gzip_et_al_open;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
+		add[type] = xa_gzip_et_al_add;
 	}
 
 	/* lzop */
@@ -261,6 +264,7 @@ static void xa_check_available_archivers ()
 		open[type] = xa_gzip_et_al_open;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
+		add[type] = xa_gzip_et_al_add;
 	}
 
 	/* RAR */
@@ -347,6 +351,7 @@ static void xa_check_available_archivers ()
 		open[type] = xa_gzip_et_al_open;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
+		add[type] = xa_gzip_et_al_add;
 	}
 
 	/* zip */

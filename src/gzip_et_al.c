@@ -35,6 +35,9 @@ static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
 	archive->can_test = can;
 	archive->can_extract = can;
+
+	/* only if archive is new and empty */
+	archive->can_add = (can && archiver[archive->type].is_compressor);
 }
 
 void xa_gzip_et_al_ask (XArchive *archive)
@@ -230,6 +233,7 @@ void xa_gzip_et_al_open (XArchive *archive)
 	/* continue opening gzip et al. archive type */
 
 	archive->files = 1;
+	archive->can_add = FALSE;
 
 	switch (archive->type)
 	{
@@ -333,4 +337,55 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 	g_free(command);
 
 	return result;
+}
+
+void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression)
+{
+	GString *files;
+	gchar *files_str, *archive_path, *command;
+
+	if (archive->location_path != NULL)
+		archive->child_dir = g_strdup(archive->working_dir);
+
+	if (!compression)
+	{
+		switch (archive->type)
+		{
+			case XARCHIVETYPE_BZIP2:
+				compression = "9";
+				break;
+
+			case XARCHIVETYPE_GZIP:
+				compression = "6";
+				break;
+
+			case XARCHIVETYPE_LZMA:
+				compression = "7";
+				break;
+
+			case XARCHIVETYPE_LZOP:
+				compression = "3";
+				break;
+
+			case XARCHIVETYPE_XZ:
+				compression = "6";
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	files = xa_quote_filenames(file_list, NULL, TRUE);
+	files_str = xa_escape_bad_chars(files->str, "\"");
+	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
+
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -", compression, files_str, " -c > ", archive_path, "\"", NULL);
+
+	g_free(archive_path);
+	g_free(files_str);
+	g_string_free(files, TRUE);
+
+	xa_run_command(archive, command);
+	g_free(command);
 }
