@@ -47,11 +47,6 @@ gboolean isTar (FILE *file)
 	        memcmp(magic, "\x0\x0\x0\x0\x0\x0\x0", sizeof(magic)) == 0);
 }
 
-gboolean is_tar_compressed (gint type)
-{
-	return (type == XARCHIVETYPE_TAR_BZ2 || type == XARCHIVETYPE_TAR_GZ || type == XARCHIVETYPE_TAR_LZMA || type == XARCHIVETYPE_TAR_LZOP || type == XARCHIVETYPE_TAR_XZ);
-}
-
 void xa_tar_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
@@ -580,7 +575,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
-	if (is_tar_compressed(archive->type))
+	if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_LZOP || archive->type == XARCHIVETYPE_TAR_XZ)
 		xa_add_delete_bzip2_gzip_lzma_compressed_tar(files,archive,0);
 	else
 	{

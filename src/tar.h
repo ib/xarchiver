@@ -24,7 +24,6 @@
 #include "archive.h"
 
 gboolean isTar(FILE *);
-gboolean is_tar_compressed(gint);
 void xa_tar_add(XArchive *, GSList *, gchar *);
 void xa_tar_ask(XArchive *);
 void xa_tar_delete(XArchive *, GSList *);
