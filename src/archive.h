@@ -160,7 +160,7 @@ struct _XArchive
 	gboolean do_solid;
 	gboolean do_move;
 	/* child process */
-	gchar *child_dir;
+	gchar *child_dir;     // (free and set NULL after use)
 	GPid child_pid;
 	guint child_ref;
 	gint child_fdout;
