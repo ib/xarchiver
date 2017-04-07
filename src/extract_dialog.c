@@ -462,10 +462,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 
 	gtk_window_set_title(GTK_WINDOW(dialog_data->dialog1), _("Extract files"));
 
-		if (archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_XZ)
-			gtk_widget_set_sensitive(dialog_data->files_radio, FALSE);
-		else
-			gtk_widget_set_sensitive(dialog_data->files_radio, TRUE);
+	gtk_widget_set_sensitive(dialog_data->files_radio, archive->files > 1);
 
 		if (selected)
 		{
