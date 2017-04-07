@@ -285,9 +285,6 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 
-	if (archive->type != XARCHIVETYPE_TAR && archive->type != XARCHIVETYPE_TAR_GZ && archive->type != XARCHIVETYPE_TAR_LZMA && archive->type != XARCHIVETYPE_TAR_XZ && archive->type != XARCHIVETYPE_TAR_BZ2 && archive->type != XARCHIVETYPE_TAR_LZOP)
-	{
-		flag = TRUE;
 		if (archive->type == XARCHIVETYPE_7ZIP)
 		{
 			compression_msg = _("0 = no compression, 5 is default, 9 = best compression but slowest");
@@ -324,9 +321,8 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 			default_value = 5;
 			max_value = 9;
 		}
-	}
-	else
-		flag = FALSE;
+
+	flag = (compression_msg != NULL);
 
 	if (archive->type == XARCHIVETYPE_7ZIP)
 		compression_value = gtk_adjustment_new(default_value, 0, max_value, 2, 2, 0);
