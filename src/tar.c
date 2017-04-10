@@ -172,18 +172,10 @@ void xa_tar_open (XArchive *archive)
 	gchar *command;
 	guint i;
 
-	if (archive->type == XARCHIVETYPE_TAR_BZ2)
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0]," tfjv ",archive->path[1],NULL);
-	else if (archive->type == XARCHIVETYPE_TAR_GZ)
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " tvzf ", archive->path[1], NULL);
-	else if (archive->type == XARCHIVETYPE_TAR_LZMA)
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0]," tv --use-compress-program=lzma -f ",archive->path[1],NULL);
-	else if (archive->type == XARCHIVETYPE_TAR_XZ)
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0]," tv --use-compress-program=xz -f ",archive->path[1],NULL);
-	else if (archive->type == XARCHIVETYPE_TAR_LZOP)
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0]," tv --use-compress-program=lzop -f ",archive->path[1],NULL);
-	else
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " tfv ", archive->path[1], NULL);
+	if (!archive->path[2])
+		archive->path[2] = g_shell_quote(archive->path[0]);
+
+	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -tvf ", archive->path[2], NULL);
 
 	archive->files_size = 0;
 	archive->files = 0;
