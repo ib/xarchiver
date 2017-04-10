@@ -74,40 +74,14 @@ static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
 void xa_tar_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
-
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_TAR_BZ2:
-			archive->can_add = archiver[XARCHIVETYPE_BZIP2].is_compressor;
-			break;
-
-		case XARCHIVETYPE_TAR_GZ:
-			archive->can_add = archiver[XARCHIVETYPE_GZIP].is_compressor;
-			break;
-
-		case XARCHIVETYPE_TAR_LZMA:
-			archive->can_add = archiver[XARCHIVETYPE_LZMA].is_compressor;
-			break;
-
-		case XARCHIVETYPE_TAR_LZOP:
-			archive->can_add = archiver[XARCHIVETYPE_LZOP].is_compressor;
-			break;
-
-		case XARCHIVETYPE_TAR_XZ:
-			archive->can_add = archiver[XARCHIVETYPE_XZ].is_compressor;
-			break;
-
-		default:
-			break;
-	}
-
-	archive->can_delete = archive->can_add;
+	archive->can_add = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
+	archive->can_delete = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_touch = TRUE;
 	archive->can_update = TRUE;
-	archive->can_recurse = TRUE;
-	archive->can_move = TRUE;
+	archive->can_recurse = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
+	archive->can_move = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 }
 
 static void xa_tar_parse_output (gchar *line, XArchive *archive)
