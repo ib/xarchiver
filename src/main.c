@@ -54,7 +54,6 @@ delete_func delete[XARCHIVETYPE_TYPES];
 
 const gchar *locale;
 gchar *xdg_open;
-gboolean opt_multi_extract;
 
 Add_dialog_data *add_window;
 Extract_dialog_data *extract_window;
@@ -62,7 +61,7 @@ Multi_extract_data *multi_extract_window;
 Prefs_dialog_data *prefs_window;
 
 static gchar *opt_extract_path, *opt_compress;
-static gboolean opt_extract, opt_add, opt_version;
+static gboolean opt_extract, opt_multi_extract, opt_add, opt_version;
 
 static GOptionEntry entries[] =
 {

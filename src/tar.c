@@ -274,7 +274,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_TAR:
-		if (archive->do_full_path || opt_multi_extract)
+		if (archive->do_full_path)
 		{
 			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -xvf ", archive->path[1],
 						#ifdef __FreeBSD__
@@ -293,7 +293,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 		break;
 
 		case XARCHIVETYPE_TAR_BZ2:
-		if (archive->do_full_path || opt_multi_extract)
+		if (archive->do_full_path)
 		{
 			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -xjvf ", archive->path[1],
 						#ifdef __FreeBSD__
@@ -312,7 +312,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 		break;
 
 		case XARCHIVETYPE_TAR_GZ:
-		if (archive->do_full_path || opt_multi_extract)
+		if (archive->do_full_path)
 		{
 			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -xzvf ", archive->path[1],
 						#ifdef __FreeBSD__
@@ -331,7 +331,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 		break;
 
 		case XARCHIVETYPE_TAR_LZMA:
-		if (archive->do_full_path || opt_multi_extract)
+		if (archive->do_full_path)
 		{
 			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --use-compress-program=lzma -xvf ", archive->path[1],
 						#ifdef __FreeBSD__
@@ -350,7 +350,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 		break;
 
 		case XARCHIVETYPE_TAR_LZOP:
-		if (archive->do_full_path || opt_multi_extract)
+		if (archive->do_full_path)
 		{
 			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --use-compress-program=lzop -xvf ", archive->path[1],
 						#ifdef __FreeBSD__
@@ -369,7 +369,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 		break;
 
 		case XARCHIVETYPE_TAR_XZ:
-		if (archive->do_full_path || opt_multi_extract)
+		if (archive->do_full_path)
 		{
 			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --use-compress-program=xz -xvf ", archive->path[1],
 						#ifdef __FreeBSD__

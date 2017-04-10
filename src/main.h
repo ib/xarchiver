@@ -32,7 +32,6 @@ extern GtkWidget *xa_main_window;
 extern XArchiver archiver[];
 extern const gchar *locale;
 extern gchar *xdg_open;
-extern gboolean opt_multi_extract;
 
 extern add_func add[];
 extern ask_func ask[];
