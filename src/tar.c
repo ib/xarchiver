@@ -47,6 +47,30 @@ gboolean isTar (FILE *file)
 	        memcmp(magic, "\x0\x0\x0\x0\x0\x0\x0", sizeof(magic)) == 0);
 }
 
+static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
+{
+	switch (archive->type)
+	{
+		case XARCHIVETYPE_TAR_BZ2:
+			return XARCHIVETYPE_BZIP2;
+
+		case XARCHIVETYPE_TAR_GZ:
+			return XARCHIVETYPE_GZIP;
+
+		case XARCHIVETYPE_TAR_LZMA:
+			return XARCHIVETYPE_LZMA;
+
+		case XARCHIVETYPE_TAR_LZOP:
+			return XARCHIVETYPE_LZOP;
+
+		case XARCHIVETYPE_TAR_XZ:
+			return XARCHIVETYPE_XZ;
+
+		default:
+			return XARCHIVETYPE_TAR;
+	}
+}
+
 void xa_tar_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
