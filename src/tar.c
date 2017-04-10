@@ -18,7 +18,6 @@
 
 #include <string.h>
 #include "tar.h"
-#include "gzip_et_al.h"
 #include "interface.h"
 #include "main.h"
 #include "string_utils.h"
@@ -386,19 +385,6 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 			result = xa_extract_tar_without_directories ( "tar --use-compress-program=xz -xvf ",archive,files->str);
 			command = NULL;
 		}
-		break;
-
-		case XARCHIVETYPE_LZMA:
-		case XARCHIVETYPE_LZOP:
-		case XARCHIVETYPE_BZIP2:
-		case XARCHIVETYPE_XZ:
-		result = xa_gzip_et_al_extract(archive,NULL);
-		command = NULL;
-		break;
-
-		case XARCHIVETYPE_GZIP:
-		result = xa_gzip_et_al_extract(archive,NULL);
-		command = NULL;
 		break;
 
 		default:
