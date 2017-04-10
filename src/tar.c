@@ -267,137 +267,28 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;
-	gboolean result = FALSE;
+	gboolean result;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
-	switch (archive->type)
+	if (archive->do_full_path)
 	{
-		case XARCHIVETYPE_TAR:
-		if (archive->do_full_path)
-		{
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -xvf ", archive->path[1],
-						#ifdef __FreeBSD__
-								archive->do_overwrite ? " " : " -k",
-						#else
-								archive->do_overwrite ? " --overwrite" : " --keep-old-files",
-						#endif
-								archive->do_touch ? " --touch" : "",
-								" -C ", archive->extraction_dir, files->str, NULL);
-		}
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
+		                      " -xf ", archive->path[2],
+		                      archive->do_overwrite ? "" : " -k",
+		                      archive->do_touch ? " -m" : "",
+		                      " -C ", archive->extraction_dir, files->str, NULL);
+	}
 		else
 		{
 			result = xa_extract_tar_without_directories ( "tar -xvf ",archive,files->str);
 			command = NULL;
 		}
-		break;
-
-		case XARCHIVETYPE_TAR_BZ2:
-		if (archive->do_full_path)
-		{
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -xjvf ", archive->path[1],
-						#ifdef __FreeBSD__
-								archive->do_overwrite ? " " : " -k",
-						#else
-								archive->do_overwrite ? " --overwrite" : " --keep-old-files",
-						#endif
-								archive->do_touch ? " --touch" : "",
-								" -C ", archive->extraction_dir, files->str, NULL);
-		}
-		else
-		{
-			result = xa_extract_tar_without_directories ( "tar -xjvf ",archive,files->str);
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_TAR_GZ:
-		if (archive->do_full_path)
-		{
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -xzvf ", archive->path[1],
-						#ifdef __FreeBSD__
-								archive->do_overwrite ? " " : " -k",
-						#else
-								archive->do_overwrite ? " --overwrite" : " --keep-old-files",
-						#endif
-								archive->do_touch ? " --touch" : "",
-								" -C ", archive->extraction_dir, files->str, NULL);
-		}
-		else
-		{
-			result = xa_extract_tar_without_directories ( "tar -xzvf ",archive,files->str);
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_TAR_LZMA:
-		if (archive->do_full_path)
-		{
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --use-compress-program=lzma -xvf ", archive->path[1],
-						#ifdef __FreeBSD__
-								archive->do_overwrite ? " " : " -k",
-						#else
-								archive->do_overwrite ? " --overwrite" : " --keep-old-files",
-						#endif
-								archive->do_touch ? " --touch" : "",
-								" -C ", archive->extraction_dir, files->str, NULL);
-		}
-		else
-		{
-			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzma -xvf ",archive,files->str);
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_TAR_LZOP:
-		if (archive->do_full_path)
-		{
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --use-compress-program=lzop -xvf ", archive->path[1],
-						#ifdef __FreeBSD__
-								archive->do_overwrite ? " " : " -k",
-						#else
-								archive->do_overwrite ? " --overwrite" : " --keep-old-files",
-						#endif
-								archive->do_touch ? " --touch" : "",
-								" -C ", archive->extraction_dir, files->str, NULL);
-		}
-		else
-		{
-			result = xa_extract_tar_without_directories ( "tar --use-compress-program=lzop -xvf ",archive,files->str);
-			command = NULL;
-		}
-		break;
-
-		case XARCHIVETYPE_TAR_XZ:
-		if (archive->do_full_path)
-		{
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --use-compress-program=xz -xvf ", archive->path[1],
-						#ifdef __FreeBSD__
-								archive->do_overwrite ? " " : " -k",
-						#else
-								archive->do_overwrite ? " --overwrite" : " --keep-old-files",
-						#endif
-								archive->do_touch ? " --touch" : "",
-								" -C ", archive->extraction_dir, files->str, NULL);
-		}
-		else
-		{
-			result = xa_extract_tar_without_directories ( "tar --use-compress-program=xz -xvf ",archive,files->str);
-			command = NULL;
-		}
-		break;
-
-		default:
-		command = NULL;
-	}
-
-	if (command != NULL)
-	{
-		result = xa_run_command(archive, command);
-		g_free(command);
-	}
 
 	g_string_free(files, TRUE);
+
+	result = xa_run_command(archive, command);
+	g_free(command);
 
 	return result;
 }
