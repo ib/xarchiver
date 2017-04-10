@@ -18,7 +18,6 @@
 
 #include <string.h>
 #include "tar.h"
-#include "interface.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -191,73 +190,6 @@ void xa_tar_open (XArchive *archive)
 	xa_create_liststore(archive, titles);
 }
 
-static gboolean xa_concat_filenames (GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,GSList **list)
-{
-	XEntry *entry;
-	gint current_page,idx;
-
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
-
-	gtk_tree_model_get(model, iter, archive[idx]->columns - 1, &entry, -1);
-	if (entry == NULL)
-		return TRUE;
-	else
-		xa_fill_list_with_recursed_entries(entry->child,list);
-	return FALSE;
-}
-
-static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *archive, gchar *files_to_extract)
-{
-	GString *files = NULL;
-	gchar *command[2];
-	GSList *file_list = NULL;
-	gboolean result;
-
-	result = xa_create_working_directory(archive);
-	if (!result)
-		return FALSE;
-
-	if (strlen(files_to_extract) == 0)
-	{
-		gtk_tree_model_foreach(GTK_TREE_MODEL(archive->liststore),(GtkTreeModelForeachFunc) xa_concat_filenames,&file_list);
-		files = xa_quote_filenames(file_list, NULL, TRUE);
-		files_to_extract = files->str;
-	}
-
-	command[0] = g_strconcat (string, archive->path[1],
-										#ifdef __FreeBSD__
-											archive->do_overwrite ? " " : " -k",
-										#else
-											archive->do_overwrite ? " --overwrite" : " --keep-old-files",
-											" --no-wildcards ",
-										#endif
-										archive->do_touch ? " --touch" : "",
-										" -C ", archive->working_dir, files_to_extract, NULL);
-
-	if (strstr(files_to_extract,"/") || strcmp(archive->working_dir,archive->extraction_dir) != 0)
-	{
-		archive->child_dir = g_strdup(archive->working_dir);
-		command[1] = g_strconcat ("mv -f ",files_to_extract," ",archive->extraction_dir,NULL);
-	}
-	else
-		command[1] = NULL;
-
-	if (files)
-		g_string_free(files, TRUE);
-
-	result = xa_run_command(archive, command[0]);
-	g_free(command[0]);
-
-	if (result && command[1])
-	{
-		result = xa_run_command(archive, command[1]);
-		g_free(command[1]);
-	}
-
-	return result;
-}
-
 /*
  * Note: tar lists '\' as '\\' while it extracts '\', i.e.
  * file names containing this character can't be handled entirely.
@@ -266,29 +198,99 @@ static gboolean xa_extract_tar_without_directories (gchar *string, XArchive *arc
 gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command;
+	gchar *extract_to, *command;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, NULL, TRUE);
-
 	if (archive->do_full_path)
+		extract_to = g_strdup(archive->extraction_dir);
+	else
 	{
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
-		                      " -xf ", archive->path[2],
-		                      archive->do_overwrite ? "" : " -k",
-		                      archive->do_touch ? " -m" : "",
-		                      " -C ", archive->extraction_dir, files->str, NULL);
-	}
-		else
-		{
-			result = xa_extract_tar_without_directories ( "tar -xvf ",archive,files->str);
-			command = NULL;
-		}
+		if (!xa_create_working_directory(archive))
+			return FALSE;
 
-	g_string_free(files, TRUE);
+		extract_to = g_strconcat(archive->working_dir, "/xa-tmp.XXXXXX", NULL);
+
+		if (!g_mkdtemp(extract_to))
+		{
+			g_free(extract_to);
+			return FALSE;
+		}
+	}
+
+	files = xa_quote_filenames(file_list, NULL, TRUE);
+	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
+	                      " -x --no-recursion --no-wildcards",
+	                      " -f ", archive->path[2],
+	                      archive->do_overwrite ? "" : " -k",
+	                      archive->do_touch ? " -m" : "",
+	                      " -C ", extract_to, files->str, NULL);
 
 	result = xa_run_command(archive, command);
 	g_free(command);
+
+	/* collect all files that have been extracted to move them without full path */
+	if (result && !archive->do_full_path)
+	{
+		size_t offset;
+		GSList *stack;
+		GString *all_files = g_string_new("");
+
+		offset = strlen(extract_to) + 1;
+		stack = g_slist_append(NULL, g_strdup(extract_to));
+
+		while (stack)
+		{
+			gchar *file;
+
+			file = stack->data;
+			stack = g_slist_delete_link(stack, stack);
+
+			if (g_file_test(file, G_FILE_TEST_IS_DIR))
+			{
+				GDir *dir;
+				const gchar *name;
+
+				dir = g_dir_open(file, 0, NULL);
+
+				if (dir)
+				{
+					while ((name = g_dir_read_name(dir)))
+						stack = g_slist_prepend(stack, g_strconcat(file, "/", name, NULL));
+
+					g_dir_close(dir);
+				}
+			}
+			else
+			{
+				gchar *quoted = g_shell_quote(file + offset);
+
+				all_files = g_string_append_c(all_files, ' ');
+				all_files = g_string_append(all_files, quoted);
+
+				g_free(quoted);
+			}
+
+			g_free(file);
+		}
+
+		g_slist_free(stack);
+
+		archive->child_dir = g_strdup(extract_to);
+		command = g_strconcat("mv",
+		                      archive->do_overwrite ? " -f" : " -n",
+		                      archive->do_update ? " -fu" : "",
+		                      all_files->str, " ", archive->extraction_dir, NULL);
+		g_string_free(all_files, TRUE);
+
+		result = xa_run_command(archive, command);
+		g_free(command);
+
+		g_free(archive->child_dir);
+		archive->child_dir = NULL;
+	}
+
+	g_free(extract_to);
+	g_string_free(files, TRUE);
 
 	return result;
 }
