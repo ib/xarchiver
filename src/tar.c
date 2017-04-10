@@ -175,14 +175,13 @@ void xa_tar_open (XArchive *archive)
 	if (!archive->path[2])
 		archive->path[2] = g_shell_quote(archive->path[0]);
 
-	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -tvf ", archive->path[2], NULL);
-
-	archive->files_size = 0;
 	archive->files = 0;
-	archive->parse_output = xa_tar_parse_output;
-	xa_spawn_async_process (archive,command);
+	archive->files_size = 0;
 
-	g_free (command);
+	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " -tvf ", archive->path[2], NULL);
+	archive->parse_output = xa_tar_parse_output;
+	xa_spawn_async_process(archive, command);
+	g_free(command);
 
 	archive->columns = 9;
 	archive->column_types = g_malloc0(sizeof(types));
