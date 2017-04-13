@@ -353,16 +353,25 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 void xa_tar_delete (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command;
+	gchar *command, *workfile, *archive_path;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
+	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion --no-wildcards -f ", archive->path[2], files->str, NULL);
 
-	if (archive->type == XARCHIVETYPE_TAR_BZ2 || archive->type == XARCHIVETYPE_TAR_GZ || archive->type == XARCHIVETYPE_TAR_LZMA || archive->type == XARCHIVETYPE_TAR_LZOP || archive->type == XARCHIVETYPE_TAR_XZ)
-		xa_add_delete_bzip2_gzip_lzma_compressed_tar(files,archive,0);
-	else
+	if (archive->type != XARCHIVETYPE_TAR)
 	{
-		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion -vf ", archive->path[1], files->str, NULL);
 		xa_run_command(archive, command);
 		g_free(command);
+
+		workfile = xa_escape_bad_chars(archive->path[2], "\"");
+		archive_path = xa_quote_shell_command(archive->path[0], TRUE);
+		command = g_strconcat("sh -c \"", archiver[xa_tar_get_compressor_type(archive)].program[0], " ", workfile, " -c > ", archive_path, "\"", NULL);
+		g_free(archive_path);
+		g_free(workfile);
 	}
+
+	g_string_free(files, TRUE);
+
+	xa_run_command(archive, command);
+	g_free(command);
 }
