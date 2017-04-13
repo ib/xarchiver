@@ -161,14 +161,14 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->recurse), FALSE);
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->recurse, FALSE, FALSE, 0);
 
+	add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Delete files after adding"));
+	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->remove_files), FALSE);
+	gtk_box_pack_start (GTK_BOX (vbox3),add_dialog->remove_files, FALSE, FALSE, 0);
+
 	add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Create a solid archive"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->solid_archive), FALSE);
 	gtk_widget_set_tooltip_text(add_dialog->solid_archive, _("In a solid archive the files are grouped together featuring a better compression ratio"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->solid_archive, FALSE, FALSE, 0);
-
-	add_dialog->remove_files = gtk_check_button_new_with_mnemonic (_("Delete files after adding"));
-	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->remove_files), FALSE);
-	gtk_box_pack_start (GTK_BOX (vbox3),add_dialog->remove_files, FALSE, FALSE, 0);
 
 	label7 = gtk_label_new (_("Actions: "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame4), label7);
