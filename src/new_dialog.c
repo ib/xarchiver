@@ -44,7 +44,7 @@ static gpointer xa_get_suffix (const gchar *type)
 
 		while (list && glob)
 		{
-			if (g_strcmp0(type, list->data) == 0)
+			if (list->data && (strcmp(type, list->data) == 0))
 				return glob->data + 1;
 
 			list = list->next;
