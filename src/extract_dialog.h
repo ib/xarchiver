@@ -39,8 +39,6 @@ typedef struct Multi_extract_data
 	XArchive *archive;
 } Multi_extract_data;
 
-void fresh_update_toggled_cb(GtkToggleButton *, Extract_dialog_data *);
-void update_fresh_toggled_cb(GtkToggleButton *, Extract_dialog_data *);
 Extract_dialog_data *xa_create_extract_dialog();
 Multi_extract_data *xa_create_multi_extract_dialog();
 void xa_multi_extract_dialog(Multi_extract_data *);

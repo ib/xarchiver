@@ -262,6 +262,23 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	return error;
 }
 
+static void toggle_overwrite_update_freshen (GtkToggleButton *button, Extract_dialog_data *data)
+{
+	gboolean active = gtk_toggle_button_get_active(button);
+
+	if (active)
+	{
+		if (button != GTK_TOGGLE_BUTTON(data->overwrite_check))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->overwrite_check), FALSE);
+
+		if (button != GTK_TOGGLE_BUTTON(data->update))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->update), FALSE);
+
+		if (button != GTK_TOGGLE_BUTTON(data->fresh))
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(data->fresh), FALSE);
+	}
+}
+
 Extract_dialog_data *xa_create_extract_dialog()
 {
 	GTK_COMPAT_TOOLTIPS
@@ -349,6 +366,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	dialog_data->overwrite_check = gtk_check_button_new_with_mnemonic (_("Overwrite existing files"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->overwrite_check,FALSE,FALSE,0);
+	g_signal_connect(G_OBJECT(dialog_data->overwrite_check), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
 	dialog_data->extract_full = gtk_check_button_new_with_mnemonic (_("Extract files with full path"));
 	gtk_widget_set_tooltip_text(dialog_data->extract_full, _("The archive's directory structure is recreated in the extraction directory"));
@@ -361,12 +379,12 @@ Extract_dialog_data *xa_create_extract_dialog()
 	dialog_data->fresh = gtk_check_button_new_with_mnemonic (_("Freshen existing files"));
 	gtk_widget_set_tooltip_text(dialog_data->fresh, _("Extract only those files that already exist on disk and that are newer than the disk copies"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->fresh,FALSE,FALSE,0);
-	g_signal_connect (G_OBJECT (dialog_data->fresh),"toggled",G_CALLBACK (fresh_update_toggled_cb),dialog_data);
+	g_signal_connect(G_OBJECT(dialog_data->fresh), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
 	dialog_data->update = gtk_check_button_new_with_mnemonic (_("Update existing files"));
 	gtk_widget_set_tooltip_text(dialog_data->update, _("This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->update,FALSE,FALSE,0);
-	g_signal_connect (G_OBJECT (dialog_data->update),"toggled",G_CALLBACK (update_fresh_toggled_cb),dialog_data);
+	g_signal_connect(G_OBJECT(dialog_data->update), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
 	label3 = gtk_label_new (_("Options "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame2),label3);
@@ -403,22 +421,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_widget_set_can_default(extract_button, TRUE);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog_data->dialog1),GTK_RESPONSE_OK);
 	return dialog_data;
-}
-
-void fresh_update_toggled_cb (GtkToggleButton *button,Extract_dialog_data *data)
-{
-	gboolean active = gtk_toggle_button_get_active(button);
-	if (active)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update),FALSE);
-}
-
-void update_fresh_toggled_cb (GtkToggleButton *button,Extract_dialog_data *data)
-{
-	if (data->fresh == NULL)
-		return;
-	gboolean active = gtk_toggle_button_get_active (button);
-	if (active)
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->fresh),FALSE);
 }
 
 void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selected,XArchive *archive)
