@@ -446,7 +446,6 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 	}
 	archive->path[0] = g_strdup(filename);
 	archive->path[1] = xa_escape_bad_chars(filename, ESCAPES);
-	archive->type = type;
 	return (archive);
 }
 
