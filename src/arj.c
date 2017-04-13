@@ -33,10 +33,10 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_delete = archiver[archive->type].is_compressor;
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_password = archiver[archive->type].is_compressor;
-	archive->can_overwrite = archiver[archive->type].is_compressor;
+	archive->can_overwrite = TRUE;
 	archive->can_full_path = archiver[archive->type].is_compressor;
 	archive->can_freshen = archiver[archive->type].is_compressor;
-	archive->can_update = archiver[archive->type].is_compressor;
+	archive->can_update = TRUE;
 	archive->can_move = archiver[archive->type].is_compressor;
 }
 
@@ -254,7 +254,10 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 			if (strcmp(archive->extraction_dir, archive->working_dir) == 0)
 				move = g_strdup("");
 			else
-				move = g_strconcat(" && mv", *files->str ? files->str : " *", " ",
+				move = g_strconcat(" && mv",
+				                   archive->do_overwrite ? " -f" : " -n",
+				                   archive->do_update ? " -fu" : "",
+				                   *files->str ? files->str : " *", " ",
 				                   archive->extraction_dir, NULL);
 
 			command = g_strconcat("sh -c \"cd ", archive->working_dir, " && rm -f * && ",
