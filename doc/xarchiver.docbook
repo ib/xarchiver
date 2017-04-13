@@ -83,7 +83,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							Archives are detected by their magic header and not by the extension (except for compressed tar)
+							All archives are detected by their magic header and not by their extension
 						</para>
 					</listitem>
 					<listitem>
@@ -128,7 +128,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							Zip, rar, arj and 7z password encrypted archives are fully supported (7z automatic password detection is not supported)
+							Zip, rar, arj and 7z password encrypted archives are fully supported
 						</para>
 					</listitem>
 				</itemizedlist>
