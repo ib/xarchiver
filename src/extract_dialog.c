@@ -235,34 +235,6 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	archive->path[0] = g_strdup(filename);
 	archive->path[1] = xa_escape_bad_chars(filename, ESCAPES);
 	archive->extraction_dir = xa_escape_bad_chars(dest_path, ESCAPES);
-	if (g_str_has_suffix (archive->path[1],".tar.gz")|| g_str_has_suffix (archive->path[1],".tgz"))
-	{
-		archive->type = XARCHIVETYPE_TAR_GZ;
-		archive->extract = 	extract[XARCHIVETYPE_TAR_GZ];
-	}
-	else if (g_str_has_suffix(archive->path[1],".tar.bz2")|| g_str_has_suffix (archive->path[1],".tar.bz")
-	      || g_str_has_suffix ( archive->path[1],".tbz")|| g_str_has_suffix (archive->path[1],".tbz2"))
-	{
-		archive->type = XARCHIVETYPE_TAR_BZ2;
-		archive->extract = 	extract[XARCHIVETYPE_TAR_BZ2];
-	}
-	else if (g_str_has_suffix(archive->path[1],".tar.lzma")|| g_str_has_suffix (archive->path[1],".tlz"))
-	{
-		archive->type = XARCHIVETYPE_TAR_LZMA;
-		archive->extract = 	extract[XARCHIVETYPE_TAR_LZMA];
-	}
-	else if (g_str_has_suffix(archive->path[1],".tar.xz")|| g_str_has_suffix (archive->path[1],".txz"))
-	{
-		archive->type = XARCHIVETYPE_TAR_XZ;
-		archive->extract = 	extract[XARCHIVETYPE_TAR_XZ];
-	}
-	else if (g_str_has_suffix(archive->path[1],".tar.lzop") ||
-			g_str_has_suffix (archive->path[1],".tzo") ||
-			g_str_has_suffix(archive->path[1],".tar.lzo"))
-	{
-		archive->type = XARCHIVETYPE_TAR_LZOP;
-		archive->extract = 	extract[XARCHIVETYPE_TAR_LZOP];
-	}
 
 	/* temporarily enter batch mode */
 	main_window = xa_main_window;
