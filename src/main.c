@@ -547,6 +547,12 @@ int main (int argc, char **argv)
 			if (archive->status == XARCHIVESTATUS_ERROR)
 				goto done;
 
+			if (archive->has_password)
+			{
+				if (!xa_check_password(archive))
+					goto done;
+			}
+
 			xa_set_extract_dialog_options(extract_window,0,archive);
 			xa_parse_extract_dialog_options (archive,extract_window,NULL);
 			gtk_widget_destroy (extract_window->dialog1);
