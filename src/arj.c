@@ -260,7 +260,8 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 				                   *files->str ? files->str : " *", " ",
 				                   archive->extraction_dir, NULL);
 
-			command = g_strconcat("sh -c \"cd ", archive->working_dir, " && rm -f * && ",
+			archive->child_dir = g_strdup(archive->working_dir);
+			command = g_strconcat("sh -c \"rm -f * && ",
 			                      archiver[archive->type].program[0], " e ",
 			                      archive->path[1], move, "\"", NULL);
 			g_free(move);
@@ -273,6 +274,9 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 
 	result = xa_run_command(archive, command);
 	g_free(command);
+
+	g_free(archive->child_dir);
+	archive->child_dir = NULL;
 
 	return result;
 }
