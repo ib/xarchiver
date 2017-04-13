@@ -33,10 +33,10 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_delete = archiver[archive->type].is_compressor;
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_password = archiver[archive->type].is_compressor;
-	archive->can_overwrite = TRUE;
 	archive->can_full_path = archiver[archive->type].is_compressor;
-	archive->can_freshen = archiver[archive->type].is_compressor;
+	archive->can_overwrite = TRUE;
 	archive->can_update = TRUE;
+	archive->can_freshen = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 }
 
@@ -238,8 +238,8 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 		command = g_strconcat(archiver[archive->type].program[0],
 		                      archive->do_full_path ? " x" : " e",
 		                      archive->do_overwrite ? "" : " -n",
-		                      archive->do_freshen ? " -f" : "",
 		                      archive->do_update ? " -u" : "",
+		                      archive->do_freshen ? " -f" : "",
 		                      password_str, " -i -y ",
 		                      archive->path[1], " ",
 		                      archive->extraction_dir, files->str, NULL);

@@ -449,12 +449,11 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (dialog_data->all_files_radio),TRUE);
 		}
 
-	gtk_widget_set_sensitive(dialog_data->overwrite_check, archive->can_overwrite);
 	gtk_widget_set_sensitive(dialog_data->extract_full, archive->can_full_path);
 	gtk_widget_set_sensitive(dialog_data->touch, archive->can_touch);
-
-	gtk_widget_set_sensitive(dialog_data->fresh, archive->can_freshen);
+	gtk_widget_set_sensitive(dialog_data->overwrite_check, archive->can_overwrite);
 	gtk_widget_set_sensitive(dialog_data->update, archive->can_update);
+	gtk_widget_set_sensitive(dialog_data->fresh, archive->can_freshen);
 
 	if (archive->extraction_dir == NULL)
 	{

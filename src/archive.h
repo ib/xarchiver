@@ -142,23 +142,23 @@ struct _XArchive
 	//       can_rename          see macro below: can_extract AND can_delete AND can_add
 	gboolean can_sfx;         // can create a self-extracting archive
 	gboolean can_password;    // can password protect an archive
-	gboolean can_overwrite;   // can overwrite files on extraction
 	gboolean can_full_path;   // can extract with or without full path
 	gboolean can_touch;       // can modify timestamp of files on extraction
-	gboolean can_freshen;     // can limit activity to only changed files
+	gboolean can_overwrite;   // can overwrite files on extraction
 	gboolean can_update;      // can limit activity to only changed or new files
+	gboolean can_freshen;     // can limit activity to only changed files
 	gboolean can_recurse;     // can recurse into directories on adding
-	gboolean can_solid;       // can create a solid archive
 	gboolean can_move;        // can delete files after adding
+	gboolean can_solid;       // can create a solid archive
 	/* instructions */
-	gboolean do_overwrite;
 	gboolean do_full_path;
 	gboolean do_touch;
-	gboolean do_freshen;
+	gboolean do_overwrite;
 	gboolean do_update;
+	gboolean do_freshen;
 	gboolean do_recurse;
-	gboolean do_solid;
 	gboolean do_move;
+	gboolean do_solid;
 	/* child process */
 	gchar *child_dir;     // (free and set NULL after use)
 	GPid child_pid;

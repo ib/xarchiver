@@ -72,9 +72,9 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_extract = TRUE;
 	archive->can_add = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_delete = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
-	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_touch = TRUE;
+	archive->can_overwrite = TRUE;
 	archive->can_update = TRUE;
 	archive->can_recurse = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_move = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
@@ -219,8 +219,8 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
 	                      " -x --no-recursion --no-wildcards",
 	                      " -f ", archive->path[2],
-	                      archive->do_overwrite ? "" : " -k",
 	                      archive->do_touch ? " -m" : "",
+	                      archive->do_overwrite ? "" : " -k",
 	                      " -C ", extract_to, files->str, NULL);
 
 	result = xa_run_command(archive, command);

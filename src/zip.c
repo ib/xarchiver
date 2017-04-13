@@ -35,10 +35,10 @@ void xa_zip_ask (XArchive *archive)
 	archive->can_delete = archiver[archive->type].is_compressor;
 	archive->can_sfx = (sfx && archiver[archive->type].is_compressor);
 	archive->can_password = TRUE;
-	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
-	archive->can_freshen = TRUE;
+	archive->can_overwrite = TRUE;
 	archive->can_update = TRUE;
+	archive->can_freshen = TRUE;
 	archive->can_move = archiver[archive->type].is_compressor;
 
 	g_free(sfx);
@@ -220,10 +220,10 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	files = xa_quote_filenames(file_list, "*?[]", TRUE);
 	password_str = xa_zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
-	                      archive->do_overwrite ? " -o" : " -n",
 	                      archive->do_full_path ? "" : " -j",
-	                      archive->do_freshen ? " -f" : "",
+	                      archive->do_overwrite ? " -o" : " -n",
 	                      archive->do_update ? " -u" : "",
+	                      archive->do_freshen ? " -f" : "",
 	                      password_str, " ",
 	                      archive->path[1], files->str,
 	                      " -d ", archive->extraction_dir, NULL);
@@ -250,8 +250,8 @@ void xa_zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	files = xa_quote_filenames(file_list, NULL, TRUE);   // no escaping for adding!
 	password_str = xa_zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[1],
-	                      archive->do_freshen ? " -f" : "",
 	                      archive->do_update ? " -u" : "",
+	                      archive->do_freshen ? " -f" : "",
 	                      archive->do_move ? " -m" : "",
 	                      " -", compression,
 	                      password_str, " ",

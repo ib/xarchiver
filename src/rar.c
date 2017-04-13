@@ -52,13 +52,13 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_delete = archiver[archive->type].is_compressor;
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_password = archiver[archive->type].is_compressor;
-	archive->can_overwrite = TRUE;
 	archive->can_full_path = TRUE;
 	archive->can_touch = TRUE;
-	archive->can_freshen = TRUE;
+	archive->can_overwrite = TRUE;
 	archive->can_update = TRUE;
-	archive->can_solid = archiver[archive->type].is_compressor;
+	archive->can_freshen = TRUE;
 	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_solid = archiver[archive->type].is_compressor;
 }
 
 static gchar *xa_rar_password_str (XArchive *archive)
@@ -528,10 +528,10 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 	password_str = xa_rar_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? " x" : " e",
-	                      archive->do_overwrite ? " -o+" : " -o-",
 	                      archive->do_touch ? " -tsm-" : "",
-	                      archive->do_freshen ? " -f" : "",
+	                      archive->do_overwrite ? " -o+" : " -o-",
 	                      archive->do_update ? " -u" : "",
+	                      archive->do_freshen ? " -f" : "",
 	                      password_str, " -idp -y ",
 	                      archive->path[1], files->str,
 	                      " ", archive->extraction_dir, NULL);
@@ -571,8 +571,8 @@ void xa_rar_add (XArchive *archive, GSList *file_list, gchar *compression)
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : " a", version_switch,
 	                      archive->do_freshen ? " -f" : "",
-	                      archive->do_solid ? " -s" : "",
 	                      archive->do_move ? " -df" : "",
+	                      archive->do_solid ? " -s" : "",
 	                      " -m", compression,
 	                      password_str, " -idp -y ",
 	                      archive->path[1], files->str, NULL);
