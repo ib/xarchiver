@@ -280,7 +280,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 				while (list)
 				{
-					if (strcmp(ComboArchiveType, list->data) == 0)
+					if (list->data && (strcmp(ComboArchiveType, list->data) == 0))
 					{
 						type = i;
 						i = XARCHIVETYPE_TYPES;

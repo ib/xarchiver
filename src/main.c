@@ -386,45 +386,39 @@ static void xa_check_available_archivers ()
 
 	if (archiver[XARCHIVETYPE_TAR].type)
 	{
-		if (archiver[XARCHIVETYPE_BZIP2].type)
+		struct
 		{
-			type = XARCHIVETYPE_TAR_BZ2;
-			archiver[type].type = g_slist_append(archiver[type].type, "tar.bzip2");
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.bz2");
-			archiver[type].type = g_slist_append(archiver[type].type, NULL);
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tbz2");
-		}
-		if (archiver[XARCHIVETYPE_GZIP].type)
+			XArchiveType compressor;
+			XArchiveType tar_type;
+			gchar *type[2];
+			gchar *glob[2];
+		} compressed_tar_infos[] =
 		{
-			type = XARCHIVETYPE_TAR_GZ;
-			archiver[type].type = g_slist_append(archiver[type].type, "tar.gzip");
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.gz");
-			archiver[type].type = g_slist_append(archiver[type].type, NULL);
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tgz");
-		}
-		if (archiver[XARCHIVETYPE_LZMA].type)
+			{XARCHIVETYPE_BZIP2, XARCHIVETYPE_TAR_BZ2, {"tar.bzip2", NULL}, {"*.tar.bz2", "*.tbz2"}},
+			{XARCHIVETYPE_GZIP, XARCHIVETYPE_TAR_GZ, {"tar.gzip", NULL}, {"*.tar.gz", "*.tgz"}},
+			{XARCHIVETYPE_LZMA, XARCHIVETYPE_TAR_LZMA, {"tar.lzma", NULL}, {"*.tar.lzma", "*.tlz"}},
+			{XARCHIVETYPE_LZOP, XARCHIVETYPE_TAR_LZOP, {"tar.lzop", NULL}, {"*.tar.lzo", "*.tzo"}},
+			{XARCHIVETYPE_XZ, XARCHIVETYPE_TAR_XZ, {"tar.xz", NULL}, {"*.tar.xz", "*.txz"}},
+			{XARCHIVETYPE_UNKNOWN, XARCHIVETYPE_UNKNOWN, {NULL, NULL}, {NULL, NULL}}
+		}, *i;
+
+		for (i = compressed_tar_infos; i->compressor != XARCHIVETYPE_UNKNOWN; i++)
 		{
-			type = XARCHIVETYPE_TAR_LZMA;
-			archiver[type].type = g_slist_append(archiver[type].type, "tar.lzma");
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.lzma");
-			archiver[type].type = g_slist_append(archiver[type].type, NULL);
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tlz");
-		}
-		if (archiver[XARCHIVETYPE_LZOP].type)
-		{
-			type = XARCHIVETYPE_TAR_LZOP;
-			archiver[type].type = g_slist_append(archiver[type].type, "tar.lzop");
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.lzo");
-			archiver[type].type = g_slist_append(archiver[type].type, NULL);
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tzo");
-		}
-		if (archiver[XARCHIVETYPE_XZ].type)
-		{
-			type = XARCHIVETYPE_TAR_XZ;
-			archiver[type].type = g_slist_append(archiver[type].type, "tar.xz");
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar.xz");
-			archiver[type].type = g_slist_append(archiver[type].type, NULL);
-			archiver[type].glob = g_slist_append(archiver[type].glob, "*.txz");
+			if (archiver[i->compressor].type)
+			{
+				type = i->tar_type;
+				archiver[type].is_compressor = archiver[i->compressor].is_compressor;
+				archiver[type].type = g_slist_append(archiver[type].type, i->type[0]);
+				archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[0]);
+				archiver[type].type = g_slist_append(archiver[type].type, i->type[1]);
+				archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[1]);
+
+				ask[type] = xa_tar_ask;
+				open[type] = xa_tar_open;
+				extract[type] = xa_tar_extract;
+				add[type] = xa_tar_add;
+				delete[type] = xa_tar_delete;
+			}
 		}
 	}
 }
