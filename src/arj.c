@@ -249,7 +249,11 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 	{
 		if (xa_create_working_directory(archive))
 		{
-			gchar *move;
+			gchar *files_str, *extraction_dir, *archive_path, *move;
+
+			files_str = xa_escape_bad_chars(files->str, "\"");
+			extraction_dir = xa_quote_shell_command(archive->extraction_dir, FALSE);
+			archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 
 			if (strcmp(archive->extraction_dir, archive->working_dir) == 0)
 				move = g_strdup("");
@@ -257,14 +261,17 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 				move = g_strconcat(" && mv",
 				                   archive->do_overwrite ? " -f" : " -n",
 				                   archive->do_update ? " -fu" : "",
-				                   *files->str ? files->str : " *", " ",
-				                   archive->extraction_dir, NULL);
+				                   *files->str ? files_str : " *", " ",
+				                   extraction_dir, NULL);
 
 			archive->child_dir = g_strdup(archive->working_dir);
 			command = g_strconcat("sh -c \"rm -f * && ",
 			                      archiver[archive->type].program[0], " e ",
-			                      archive->path[1], move, "\"", NULL);
+			                      archive_path, move, "\"", NULL);
 			g_free(move);
+			g_free(archive_path);
+			g_free(extraction_dir);
+			g_free(files_str);
 		}
 		else
 			command = g_strdup("sh -c \"\"");
