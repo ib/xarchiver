@@ -296,96 +296,58 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
-	gchar *command = NULL;
+	gchar *command, *workfile, *archive_path;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
-	switch (archive->type)
+	if (!g_file_test(archive->path[0], G_FILE_TEST_EXISTS))
 	{
-		case XARCHIVETYPE_TAR:
-		if ( g_file_test (archive->path[1],G_FILE_TEST_EXISTS))
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " ",
-									archive->do_recurse ? "" : "--no-recursion ",
-									archive->do_move ? "--remove-files " : "",
-									archive->do_update ? "-uvvf " : "-rvvf ",
-									archive->path[1],
-									files->str , NULL );
+		if (archive->type == XARCHIVETYPE_TAR)
+			archive->path[2] = g_shell_quote(archive->path[0]);
 		else
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " ",
-									archive->do_recurse ? "" : "--no-recursion ",
-									archive->do_move ? "--remove-files " : "",
-									"-cvvf ",archive->path[1],
-									files->str , NULL );
-		break;
+		{
+			if (!xa_create_working_directory(archive))
+			{
+				g_string_free(files, TRUE);
+				return;
+			}
 
-		case XARCHIVETYPE_TAR_BZ2:
-		if ( g_file_test ( archive->path[1] , G_FILE_TEST_EXISTS ) )
-			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
-		else
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " ",
-									archive->do_recurse ? "" : "--no-recursion ",
-									archive->do_move ? "--remove-files " : "",
-									"-cvvjf ",archive->path[1],
-									files->str , NULL );
-		break;
+			workfile = g_strconcat(archive->working_dir, "/xa-tmp.tar", NULL);
+			archive->path[2] = g_shell_quote(workfile);
+			g_free(workfile);
+		}
 
-		case XARCHIVETYPE_TAR_GZ:
-		if ( g_file_test ( archive->path[1] , G_FILE_TEST_EXISTS ) )
-			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
-		else
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " ",
-									archive->do_recurse ? "" : "--no-recursion ",
-									archive->do_move ? "--remove-files " : "",
-									"-cvvzf ",archive->path[1],
-									files->str , NULL );
-		break;
-
-		case XARCHIVETYPE_TAR_LZMA:
-		if ( g_file_test ( archive->path[1] , G_FILE_TEST_EXISTS ) )
-			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
-		else
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " ",
-									archive->do_recurse ? "" : "--no-recursion ",
-									archive->do_move ? "--remove-files " : "",
-									"--use-compress-program=lzma -cvvf ",archive->path[1],
-									files->str , NULL );
-		break;
-
-		case XARCHIVETYPE_TAR_XZ:
-		if ( g_file_test ( archive->path[1] , G_FILE_TEST_EXISTS ) )
-			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
-		else
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " ",
-									archive->do_recurse ? "" : "--no-recursion ",
-									archive->do_move ? "--remove-files " : "",
-									"--use-compress-program=xz -cvvf ",archive->path[1],
-									files->str , NULL );
-		break;
-
-		case XARCHIVETYPE_TAR_LZOP:
-		if ( g_file_test ( archive->path[1] , G_FILE_TEST_EXISTS ) )
-			xa_add_delete_bzip2_gzip_lzma_compressed_tar (files,archive,1);
-		else
-			command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " ",
-									archive->do_recurse ? "" : "--no-recursion ",
-									archive->do_move ? "--remove-files " : "",
-									"--use-compress-program=lzop -cvvf ",archive->path[1],
-									files->str , NULL );
-		break;
-
-		default:
-		command = NULL;
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
+		                      " -c --no-recursion --no-wildcards",
+		                      archive->do_move ? " --remove-files" : "",
+		                      " -f ", archive->path[2], files->str, NULL);
 	}
+	else
+		command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0],
+		                      archive->do_update ? " -u" : " -r",
+		                      " --no-recursion --no-wildcards",
+		                      archive->do_move ? " --remove-files" : "",
+		                      " -f ", archive->path[2], files->str, NULL);
 
-	if (command != NULL)
+	if (archive->type != XARCHIVETYPE_TAR)
 	{
-		g_string_free(files,TRUE);
 		xa_run_command(archive, command);
 		g_free(command);
+
+		workfile = xa_escape_bad_chars(archive->path[2], "\"");
+		archive_path = xa_quote_shell_command(archive->path[0], TRUE);
+		command = g_strconcat("sh -c \"", archiver[xa_tar_get_compressor_type(archive)].program[0], " ", workfile, " -c > ", archive_path, "\"", NULL);
+		g_free(archive_path);
+		g_free(workfile);
 	}
+
+	g_string_free(files, TRUE);
+
+	xa_run_command(archive, command);
+	g_free(command);
 }
 
 void xa_tar_delete (XArchive *archive, GSList *file_list)
