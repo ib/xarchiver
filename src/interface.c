@@ -1643,7 +1643,11 @@ void xa_show_progress_bar (XArchive *archive)
 	gtk_misc_set_alignment(GTK_MISC(progress->label), 0, 0.5);
 	gtk_box_pack_start(GTK_BOX(vbox2), progress->label, FALSE, FALSE, 12);
 	if (archive)
-		gtk_label_set_text(GTK_LABEL(progress->label), archive->path[0]);
+	{
+		text = g_filename_display_name(archive->path[0]);
+		gtk_label_set_text(GTK_LABEL(progress->label), text);
+		g_free(text);
+	}
 	else
 	{
 		progress->multi_extract = TRUE;
