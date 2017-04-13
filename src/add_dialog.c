@@ -387,8 +387,11 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			}
 			else if (archive->password != NULL)
 			{
-				g_free(archive->password);
-				archive->password = NULL;
+				if (xa_main_window)
+				{
+					g_free(archive->password);
+					archive->password = NULL;
+				}
 			}
 
 			done = TRUE;

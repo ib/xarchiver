@@ -610,6 +610,18 @@ int main (int argc, char **argv)
 				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), argv[1]);
 				return -1;
 			}
+
+			xa_detect_encrypted_archive(archive);
+
+			if (archive->status == XARCHIVESTATUS_ERROR)
+				goto done;
+
+			if (archive->has_password)
+			{
+				if (!xa_check_password(archive))
+					goto done;
+			}
+
 			xa_set_add_dialog_options(add_window, archive);
 			xa_parse_add_dialog_options(archive, add_window);
 			gtk_widget_destroy(add_window->dialog1);
