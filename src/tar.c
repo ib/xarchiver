@@ -23,8 +23,6 @@
 #include "support.h"
 #include "window.h"
 
-#define TMPFILE "xa-tmp.tar"
-
 gboolean isTar (FILE *file)
 {
 	unsigned char magic[7];
@@ -293,78 +291,6 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 	g_string_free(files, TRUE);
 
 	return result;
-}
-
-static void xa_add_delete_bzip2_gzip_lzma_compressed_tar (GString *files, XArchive *archive, gboolean add)
-{
-	gchar *command[5], *executable = NULL, *filename = NULL;
-	gboolean result;
-
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_TAR_BZ2:
-			executable = "bzip2 -f ";
-			filename = TMPFILE ".bz2";
-		break;
-		case XARCHIVETYPE_TAR_GZ:
-			executable = "gzip -f ";
-			filename = TMPFILE ".gz";
-		break;
-		case XARCHIVETYPE_TAR_LZMA:
-			executable = "lzma -f ";
-			filename = TMPFILE ".lzma";
-		break;
-		case XARCHIVETYPE_TAR_XZ:
-			executable = "xz -f ";
-			filename = TMPFILE ".xz";
-		break;
-		case XARCHIVETYPE_TAR_LZOP:
-			executable = "lzop -f ";
-			filename = TMPFILE ".lzo";
-		break;
-
-		default:
-		break;
-	}
-	/* Let's copy the archive to /tmp first */
-	result = xa_create_working_directory(archive);
-	if (!result)
-		return;
-
-	/* Let's copy the archive to /tmp first */
-	command[0] = g_strconcat ("cp -a ",archive->path[1]," ",archive->working_dir,"/",filename,NULL);
-
-	command[1] = g_strconcat (executable,"-d ",archive->working_dir,"/",filename,NULL);
-
-	if (add)
-		command[2] = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " ",
-							archive->do_recurse ? "" : "--no-recursion ",
-							archive->do_move ? "--remove-files " : "",
-							archive->do_update ? "-uvvf " : "-rvvf ",
-							archive->working_dir,"/" TMPFILE,
-							files->str , NULL );
-	else
-		command[2] = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --no-wildcards --delete -f ", archive->working_dir, "/" TMPFILE, files->str, NULL);
-
-	command[3] = g_strconcat (executable,archive->working_dir,"/" TMPFILE,NULL);
-
-	/* Let's move the modified archive from /tmp to the original archive location */
-	command[4] = g_strconcat ("mv ",archive->working_dir,"/",filename," ",archive->path[1],NULL);
-
-	xa_run_command(archive, command[0]);
-	g_free(command[0]);
-
-	xa_run_command(archive, command[1]);
-	g_free(command[1]);
-
-	xa_run_command(archive, command[2]);
-	g_free(command[2]);
-
-	xa_run_command(archive, command[3]);
-	g_free(command[3]);
-
-	xa_run_command(archive, command[4]);
-	g_free(command[4]);
 }
 
 void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
