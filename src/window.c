@@ -2642,7 +2642,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 {
 	gboolean result		= FALSE;
-	gboolean overwrite  = FALSE;
+	gboolean full_path, overwrite;
 	gint current_index,idx,nr;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
@@ -2684,12 +2684,15 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	xa_create_working_directory(archive[idx]);
 	archive[idx]->extraction_dir = g_strdup(archive[idx]->working_dir);
 
+	full_path = archive[idx]->do_full_path;
 	overwrite = archive[idx]->do_overwrite;
+	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_overwrite = TRUE;
 	list_of_files = xa_slist_copy(list);
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
+	archive[idx]->do_full_path = full_path;
 	archive[idx]->do_overwrite = overwrite;
 	g_free(archive[idx]->extraction_dir);
 	archive[idx]->extraction_dir = NULL;
