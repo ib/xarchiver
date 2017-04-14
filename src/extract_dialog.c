@@ -282,7 +282,7 @@ static void toggle_overwrite_update_freshen (GtkToggleButton *button, Extract_di
 Extract_dialog_data *xa_create_extract_dialog()
 {
 	GTK_COMPAT_TOOLTIPS
-	GSList *radiobutton1_group = NULL;
+	GSList *radiobutton1_group;
 	Extract_dialog_data *dialog_data;
 	GtkWidget *hbox1, *hbox2, *hbox3, *vbox1, *vbox2, *vbox3, *vbox5, *alignment1, *alignment2, *alignment3, *label1, *label2, *label3;
 	GtkWidget *frame1, *frame2, *dialog_action_area1;
@@ -328,21 +328,17 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	dialog_data->all_files_radio = gtk_radio_button_new_with_mnemonic (NULL,_("All files"));
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->all_files_radio,FALSE,FALSE,0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->all_files_radio),radiobutton1_group);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->all_files_radio));
 
-	dialog_data->selected_radio = gtk_radio_button_new_with_mnemonic (NULL,_("Selected files"));
+	dialog_data->selected_radio = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Selected files"));
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->selected_radio,FALSE,FALSE,0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->selected_radio),radiobutton1_group);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->selected_radio));
 
 	hbox2 = gtk_hbox_new (FALSE,0);
 	gtk_box_pack_start (GTK_BOX (vbox3),hbox2,FALSE,FALSE,0);
 
-	dialog_data->files_radio = gtk_radio_button_new_with_mnemonic (NULL,_("Files: "));
+	dialog_data->files_radio = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Files: "));
 	gtk_box_pack_start (GTK_BOX (hbox2),dialog_data->files_radio,FALSE,FALSE,0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->files_radio),radiobutton1_group);
-	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->files_radio));
 
 	dialog_data->entry2 = gtk_entry_new ();
 	gtk_box_pack_start (GTK_BOX (hbox2),dialog_data->entry2,TRUE,TRUE,0);
@@ -583,7 +579,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
-	GSList *radiobutton1_group = NULL;
+	GSList *radiobutton1_group;
 	char *column_names[]= {(_("Archive Name")),(_("Size")),(_("Path")),NULL};
 	int x;
 
@@ -657,18 +653,15 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox2),hbox3,FALSE,FALSE,0);
 	dialog_data->extract_to = gtk_radio_button_new_with_mnemonic (NULL,_("Extract to:"));
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->extract_to,FALSE,FALSE,0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->extract_to),radiobutton1_group);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->extract_to));
 
 	dialog_data->entry1 = GTK_COMPAT_ENTRY_ICON_NEW();
 	GTK_COMPAT_ENTRY_ICON(dialog_data->entry1, xa_select_where_to_extract, dialog_data);
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->entry1,TRUE,TRUE,0);
 
-	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic (NULL,_("Extract to dir \"Archive Name\""));
+	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Extract to dir \"Archive Name\""));
 	gtk_widget_set_tooltip_text(dialog_data->extract_to_archive_name, _("This option extracts archives in directories named with the archive names"));
 	gtk_box_pack_start (GTK_BOX (vbox2),dialog_data->extract_to_archive_name,FALSE,FALSE,0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (dialog_data->extract_to_archive_name),radiobutton1_group);
-	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->extract_to_archive_name));
 	label1 = gtk_label_new (_("Destination dirs:"));
 	gtk_frame_set_label_widget (GTK_FRAME (frame1),label1);
 
