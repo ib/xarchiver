@@ -30,7 +30,6 @@ typedef struct Add_dialog_data
 	GtkWidget *filechooserwidget1;
 	GtkWidget *frame1;
 	GtkWidget *label;
-	GSList *path_group;
 	GtkWidget *store_path;
 	GtkWidget *no_store_path;
 	GtkWidget *option_notebook_vbox;

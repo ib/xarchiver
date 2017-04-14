@@ -71,9 +71,9 @@ Add_dialog_data *xa_create_add_dialog()
 	GtkWidget *dialog_action_area1,*alignment1,*alignment2,*alignment3,*vbox3,*frame2,*frame3,*frame4,*alignment4;
 	GtkWidget *vbox1;
 	Add_dialog_data *add_dialog;
+	GSList *group;
 
 	add_dialog = g_new0 (Add_dialog_data, 1);
-	add_dialog->path_group = NULL;
 
 	add_dialog->dialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (add_dialog->dialog1), _("Add files"));
@@ -112,14 +112,11 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->store_path = gtk_radio_button_new_with_mnemonic (NULL, _("Store full paths"));
 	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->store_path, FALSE, FALSE, 0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->store_path), add_dialog->path_group);
-	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->store_path));
+	group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(add_dialog->store_path));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->store_path), FALSE);
 
-	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic (NULL, _("Do not store paths"));
+	add_dialog->no_store_path = gtk_radio_button_new_with_mnemonic(group, _("Do not store paths"));
 	gtk_box_pack_start (GTK_BOX (hbox1), add_dialog->no_store_path, FALSE, FALSE, 0);
-	gtk_radio_button_set_group (GTK_RADIO_BUTTON (add_dialog->no_store_path), add_dialog->path_group);
-	add_dialog->path_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (add_dialog->no_store_path));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->no_store_path), FALSE);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->no_store_path),TRUE);
 
