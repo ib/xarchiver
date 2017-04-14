@@ -53,6 +53,7 @@ void xa_rar_ask (XArchive *archive)
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_password = archiver[archive->type].is_compressor;
 	archive->can_full_path[0] = TRUE;
+	archive->can_full_path[1] = archiver[archive->type].is_compressor;
 	archive->can_touch = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_update[0] = TRUE;
