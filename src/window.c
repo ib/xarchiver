@@ -383,7 +383,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		if (entry->is_encrypted)
 		{
 			if (!xa_check_password(archive))
-				return;
+				goto done;
 		}
 		/* Extract the file to the tmp dir */
 		if (archive->extraction_dir)
@@ -416,7 +416,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		if (result == FALSE)
 		{
 			g_free(_old_name);
-			return;
+			goto done;
 		}
 		/* Rename the file in the tmp dir as the new file entered by the user */
 		_new_name = g_shell_quote(new_name);
@@ -424,8 +424,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		{
 			g_free(_old_name);
 			g_free(_new_name);
-			xa_rename_cell_edited_canceled(GTK_CELL_RENDERER(cell), NULL);
-			return;
+			goto done;
 		}
 		dummy = g_strconcat("mv -f ", archive->working_dir, "/", _old_name, " ", archive->working_dir, "/", _new_name, NULL);
 		g_free(_old_name);
@@ -445,8 +444,8 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		chdir(archive->working_dir);
 		xa_execute_add_commands(archive, file_list, NULL);
 	}
-	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
-	g_object_set(cell,"editable",FALSE,NULL);
+done:
+	xa_rename_cell_edited_canceled(GTK_CELL_RENDERER(cell), NULL);
 }
 
 static const gchar *xa_get_archive_format (XArchive *archive)
