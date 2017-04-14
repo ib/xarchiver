@@ -420,6 +420,13 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		}
 		/* Rename the file in the tmp dir as the new file entered by the user */
 		_new_name = g_shell_quote(new_name);
+		if (strcmp(_new_name, _old_name) == 0)
+		{
+			g_free(_old_name);
+			g_free(_new_name);
+			xa_rename_cell_edited_canceled(GTK_CELL_RENDERER(cell), NULL);
+			return;
+		}
 		dummy = g_strconcat("mv -f ", archive->working_dir, "/", _old_name, " ", archive->working_dir, "/", _new_name, NULL);
 		g_free(_old_name);
 		xa_run_command(archive, dummy);
