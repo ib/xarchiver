@@ -428,7 +428,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"overwrite",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->overwrite_check)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"full_path",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->extract_full)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"touch",    gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->touch)));
-	g_key_file_set_boolean (xa_key_file,PACKAGE,"freshen",  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->fresh)));
+	g_key_file_set_boolean (xa_key_file,PACKAGE,"fresh",  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->fresh)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"update",   gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->update)));
 	/* Save the options in the add dialog */
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"store_path",	gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (add_window->store_path)));
