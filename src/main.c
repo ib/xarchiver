@@ -93,7 +93,11 @@ static GOptionEntry entries[] =
 static void xa_check_available_archivers ()
 {
 	XArchiveType type;
-	gchar *path;
+	gchar *path, *xz;
+
+	/* (un)compressors that can handle various types */
+
+	xz = g_find_program_in_path("xz");
 
 	/* 7-zip */
 
@@ -232,6 +236,10 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_LZMA;
 	path = g_find_program_in_path("lzma");
 
+	if (!path && xz)
+		/* alternative compressor */
+		path = g_strconcat(xz, " --format=lzma", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
@@ -336,7 +344,7 @@ static void xa_check_available_archivers ()
 	/* xz */
 
 	type = XARCHIVETYPE_XZ;
-	path = g_find_program_in_path("xz");
+	path = xz;
 
 	if (path)
 	{
