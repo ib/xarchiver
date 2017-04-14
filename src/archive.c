@@ -549,6 +549,16 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 
 	components = g_strsplit(filename,"/",-1);
 
+	if (*filename == '/')
+	{
+		gchar *slashdir;
+
+		x = 1;
+		slashdir = g_strconcat("/", components[x], NULL);
+		g_free(components[x]);
+		components[x] = slashdir;
+	}
+
 	while (components[x] && strlen(components[x]) > 0)
 	{
 		new_entry = xa_find_child_entry(last_entry->child,components[x]);
