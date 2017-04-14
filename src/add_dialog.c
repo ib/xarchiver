@@ -256,18 +256,11 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	if (archive->location_path != NULL)
 	{
-		gtk_widget_set_sensitive(add_dialog->store_path,FALSE);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_dialog->store_path),FALSE);
+		flag = FALSE;
 	}
 	else
-		gtk_widget_set_sensitive(add_dialog->store_path, archive->can_full_path);
-	/* 7z doesn't appear to let the user chooses if storing full paths */
-	if (archive->type == XARCHIVETYPE_7ZIP || archive->type == XARCHIVETYPE_LZOP || archive->type == XARCHIVETYPE_BZIP2 || archive->type == XARCHIVETYPE_GZIP || archive->type == XARCHIVETYPE_LZMA)
- 	{
- 		flag = FALSE;
-	}
-	else
-		flag = archive->can_full_path;
+		flag = archive->can_full_path[1];
 
 	gtk_widget_set_sensitive(add_dialog->option_notebook_vbox,flag);
 	gtk_widget_set_sensitive(add_dialog->label, flag);
@@ -276,8 +269,8 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	g_signal_connect (G_OBJECT (add_dialog->update),"toggled",G_CALLBACK (add_update_fresh_toggled_cb) , add_dialog);
 
-	gtk_widget_set_sensitive(add_dialog->update, archive->can_update);
-	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen);
+	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
+	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);
 	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse);
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);

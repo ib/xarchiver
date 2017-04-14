@@ -72,10 +72,10 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_extract = TRUE;
 	archive->can_add = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_delete = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
-	archive->can_full_path = TRUE;
+	archive->can_full_path[0] = TRUE;
 	archive->can_touch = TRUE;
 	archive->can_overwrite = TRUE;
-	archive->can_update = TRUE;
+	archive->can_update[1] = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_recurse = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_move = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 }

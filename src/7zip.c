@@ -34,9 +34,9 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_delete = TRUE;
 	archive->can_sfx = TRUE;
 	archive->can_password = TRUE;
-	archive->can_full_path = TRUE;
+	archive->can_full_path[0] = TRUE;
 	archive->can_overwrite = TRUE;
-	archive->can_update = TRUE;
+	archive->can_update[1] = TRUE;
 	archive->can_solid = TRUE;
 }
 

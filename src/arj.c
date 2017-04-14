@@ -33,10 +33,12 @@ void xa_arj_ask (XArchive *archive)
 	archive->can_delete = archiver[archive->type].is_compressor;
 	archive->can_sfx = archiver[archive->type].is_compressor;
 	archive->can_password = archiver[archive->type].is_compressor;
-	archive->can_full_path = archiver[archive->type].is_compressor;
+	archive->can_full_path[0] = archiver[archive->type].is_compressor;
 	archive->can_overwrite = TRUE;
-	archive->can_update = TRUE;
-	archive->can_freshen = archiver[archive->type].is_compressor;
+	archive->can_update[0] = TRUE;
+	archive->can_update[1] = archiver[archive->type].is_compressor;
+	archive->can_freshen[0] = archiver[archive->type].is_compressor;
+	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
 }
 

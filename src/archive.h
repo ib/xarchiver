@@ -134,22 +134,22 @@ struct _XArchive
 	gboolean has_comment;
 	GString *comment;
 	gushort compression;
-	/* capabilities */
-	gboolean can_test;        // can test an archive for integrity
-	gboolean can_extract;     // can extract files from an archive
-	gboolean can_add;         // can add files to an archive
-	gboolean can_delete;      // can delete files from an archive
-	//       can_rename          see macro below: can_extract AND can_delete AND can_add
-	gboolean can_sfx;         // can create a self-extracting archive
-	gboolean can_password;    // can password protect an archive
-	gboolean can_full_path;   // can extract with or without full path
-	gboolean can_touch;       // can modify timestamp of files on extraction
-	gboolean can_overwrite;   // can overwrite files on extraction
-	gboolean can_update;      // can limit activity to only changed or new files
-	gboolean can_freshen;     // can limit activity to only changed files
-	gboolean can_recurse;     // can recurse into directories on adding
-	gboolean can_move;        // can delete files after adding
-	gboolean can_solid;       // can create a solid archive
+	/* capabilities */           // 0: extract, 1: add
+	gboolean can_test;           // can test an archive for integrity
+	gboolean can_extract;        // can extract files from an archive
+	gboolean can_add;            // can add files to an archive
+	gboolean can_delete;         // can delete files from an archive
+	//       can_rename             see macro below: can_extract AND can_delete AND can_add
+	gboolean can_sfx;            // can create a self-extracting archive
+	gboolean can_password;       // can password protect an archive
+	gboolean can_full_path[2];   // can carry out activity with or without full path
+	gboolean can_touch;          // can modify timestamp of files on extraction
+	gboolean can_overwrite;      // can overwrite files on extraction
+	gboolean can_update[2];      // can limit activity to only changed or new files
+	gboolean can_freshen[2];     // can limit activity to only changed files
+	gboolean can_recurse;        // can recurse into directories on adding
+	gboolean can_move;           // can delete files after adding
+	gboolean can_solid;          // can create a solid archive
 	/* instructions */
 	gboolean do_full_path;
 	gboolean do_touch;

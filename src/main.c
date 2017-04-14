@@ -527,7 +527,7 @@ int main (int argc, char **argv)
 			}
 
 			GSList *string = NULL;
-			archive->do_full_path = archive->can_full_path;
+			archive->do_full_path = archive->can_full_path[0];
 			archive->do_overwrite = archive->can_overwrite;
 			archive->extraction_dir = xa_escape_bad_chars(opt_extract_path, ESCAPES);
 			archive->status = XARCHIVESTATUS_EXTRACT;
