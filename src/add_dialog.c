@@ -67,7 +67,7 @@ static void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
 Add_dialog_data *xa_create_add_dialog()
 {
 	GTK_COMPAT_TOOLTIPS
-	GtkWidget *label1,*label2,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
+	GtkWidget *dialog_vbox1,*label1,*label2,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
 	GtkWidget *dialog_action_area1,*alignment1,*alignment2,*alignment3,*vbox3,*frame2,*frame3,*frame4,*alignment4;
 	GtkWidget *vbox1;
 	Add_dialog_data *add_dialog;
@@ -80,10 +80,10 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_window_set_position (GTK_WINDOW (add_dialog->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_type_hint (GTK_WINDOW (add_dialog->dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-	add_dialog->dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(add_dialog->dialog1));
+	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(add_dialog->dialog1));
 
 	add_dialog->notebook1 = gtk_notebook_new ();
-	gtk_box_pack_start (GTK_BOX (add_dialog->dialog_vbox1),add_dialog->notebook1, TRUE, TRUE,0);
+	gtk_box_pack_start(GTK_BOX(dialog_vbox1), add_dialog->notebook1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->notebook1),4);
 
 	/* Selection page */
@@ -338,7 +338,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 	gtk_widget_set_tooltip_text(add_dialog->compression_scale, compression_msg);
 
 	gtk_widget_set_sensitive(add_dialog->add_password, archive->can_password);
-	gtk_widget_show_all (add_dialog->dialog_vbox1);
+	gtk_widget_show_all(add_dialog->dialog1);
 }
 
 void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)

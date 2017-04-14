@@ -25,7 +25,6 @@
 typedef struct Add_dialog_data
 {
 	GtkWidget *dialog1;
-	GtkWidget *dialog_vbox1;
 	GtkWidget *alignment2;
 	GtkWidget *notebook1;
 	GtkWidget *filechooserwidget1;
