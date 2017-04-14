@@ -36,6 +36,7 @@ void xa_zip_ask (XArchive *archive)
 	archive->can_sfx = (sfx && archiver[archive->type].is_compressor);
 	archive->can_password = TRUE;
 	archive->can_full_path[0] = TRUE;
+	archive->can_full_path[1] = archiver[archive->type].is_compressor;
 	archive->can_overwrite = TRUE;
 	archive->can_update[0] = TRUE;
 	archive->can_update[1] = archiver[archive->type].is_compressor;
