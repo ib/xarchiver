@@ -27,10 +27,14 @@
 
 #ifndef HAVE_MKDTEMP
 gchar *mkdtemp(gchar *);
+#else
+#include <stdlib.h>
 #endif
 
 #ifndef HAVE_STRCASESTR
 const char *strcasestr(const char *haystack, const char *needle);
+#else
+#include <string.h>
 #endif
 
 gboolean match_patterns(char **, const char *, int);

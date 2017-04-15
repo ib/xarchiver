@@ -22,6 +22,8 @@
 #include "utf8-fnmatch.h"
 
 #ifndef HAVE_MKDTEMP
+#include <errno.h>
+#include <glib/gstdio.h>
 gchar *mkdtemp (gchar *tmpl)
 {
 	static const gchar LETTERS[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
