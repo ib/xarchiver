@@ -707,6 +707,7 @@ PLUGINSCRIPT
 PLUGINDIR
 ICONS
 DOC
+XMLCATALOG
 XSLTPROC
 GTK_V3_0_FALSE
 GTK_V3_0_TRUE
@@ -14911,6 +14912,79 @@ fi
 
         if test -z "$XSLTPROC"; then :
   as_fn_error $? "xsltproc is required for rebuilding the pre-built documentation; consider --disable-doc" "$LINENO" 5
+fi
+
+        # Extract the first word of "xmlcatalog", so it can be a program name with args.
+set dummy xmlcatalog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_XMLCATALOG+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $XMLCATALOG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_XMLCATALOG="$XMLCATALOG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_XMLCATALOG="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac
+fi
+XMLCATALOG=$ac_cv_path_XMLCATALOG
+if test -n "$XMLCATALOG"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $XMLCATALOG" >&5
+$as_echo "$XMLCATALOG" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+        if test -z "$XML_CATALOG_FILES"; then :
+  XML_CATALOG_FILES="/etc/xml/catalog"
+fi
+        xa_cat_msg="consider adjusting environment variable XML_CATALOG_FILES for rebuilding the pre-built documentation or reconfigure with --disable-doc"
+
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for DocBook XML DTD" >&5
+$as_echo_n "checking for DocBook XML DTD... " >&6; }
+        xa_cat_ent="`grep -o '\-//OASIS//DTD DocBook XML[^"\]*' doc/xarchiver.docbook`"
+        if test "$XMLCATALOG"; then :
+  $XMLCATALOG --noout "$XML_CATALOG_FILES" "$xa_cat_ent" >&2
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: (skipped)" >&5
+$as_echo "(skipped)" >&6; }
+fi
+        if test $? -ne 0; then :
+  { $as_echo "$as_me:${as_lineno-$LINENO}: $xa_cat_msg" >&5
+$as_echo "$as_me: $xa_cat_msg" >&6;}
+fi
+
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for XSL Stylesheets" >&5
+$as_echo_n "checking for XSL Stylesheets... " >&6; }
+        xa_cat_ent="`grep -o 'http://docbook[^"\]*' doc/xarchiver.xsl`"
+        if test "$XMLCATALOG"; then :
+  $XMLCATALOG --noout "$XML_CATALOG_FILES" "$xa_cat_ent" >&2
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: (skipped)" >&5
+$as_echo "(skipped)" >&6; }
+fi
+        if test $? -ne 0; then :
+  { $as_echo "$as_me:${as_lineno-$LINENO}: $xa_cat_msg" >&5
+$as_echo "$as_me: $xa_cat_msg" >&6;}
 fi
 
 

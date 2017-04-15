@@ -132,6 +132,20 @@ AS_IF([test x"$enable_doc" = x"no"], [DOC=],
       [
         AC_PATH_PROG([XSLTPROC], [xsltproc])
         AS_IF([test -z "$XSLTPROC"], AC_MSG_ERROR([xsltproc is required for rebuilding the pre-built documentation; consider --disable-doc]))
+
+        AC_PATH_PROG([XMLCATALOG], [xmlcatalog])
+        AS_IF([test -z "$XML_CATALOG_FILES"], [XML_CATALOG_FILES="/etc/xml/catalog"])
+        xa_cat_msg="consider adjusting environment variable XML_CATALOG_FILES for rebuilding the pre-built documentation or reconfigure with --disable-doc"
+
+        AC_MSG_CHECKING([for DocBook XML DTD])
+        xa_cat_ent="`grep -o '\-//OASIS//DTD DocBook XML[[^"\]]*' doc/xarchiver.docbook`"
+        AS_IF([test "$XMLCATALOG"], [$XMLCATALOG --noout "$XML_CATALOG_FILES" "$xa_cat_ent" >&2], AC_MSG_RESULT([(skipped)]))
+        AS_IF([test $? -ne 0], AC_MSG_NOTICE([$xa_cat_msg]))
+
+        AC_MSG_CHECKING([for XSL Stylesheets])
+        xa_cat_ent="`grep -o 'http://docbook[[^"\]]*' doc/xarchiver.xsl`"
+        AS_IF([test "$XMLCATALOG"], [$XMLCATALOG --noout "$XML_CATALOG_FILES" "$xa_cat_ent" >&2], AC_MSG_RESULT([(skipped)]))
+        AS_IF([test $? -ne 0], AC_MSG_NOTICE([$xa_cat_msg]))
       ]
 )
 AC_SUBST([DOC])
