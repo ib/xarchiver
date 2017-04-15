@@ -24,6 +24,13 @@
 #ifndef HAVE_MKDTEMP
 #include <errno.h>
 #include <glib/gstdio.h>
+#endif
+
+#ifndef HAVE_STRCASESTR
+#include <ctype.h>
+#endif
+
+#ifndef HAVE_MKDTEMP
 gchar *mkdtemp (gchar *tmpl)
 {
 	static const gchar LETTERS[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -60,7 +67,31 @@ gchar *mkdtemp (gchar *tmpl)
 #endif
 
 #ifndef HAVE_STRCASESTR
-#include <ctype.h>
+/*
+ * case-insensitive version of strstr()
+ */
+const char *strcasestr(const char *haystack, const char *needle)
+{
+	const char *h;
+	const char *n;
+
+	h = haystack;
+	n = needle;
+	while (*haystack)
+	{
+		if (tolower((unsigned char) *h) == tolower((unsigned char) *n))
+		{
+			h++;
+			n++;
+			if (!*n)
+				return haystack;
+		} else {
+			h = ++haystack;
+			n = needle;
+		}
+	}
+	return NULL;
+}
 #endif
 
 /* This function is from File-Roller code */
@@ -142,34 +173,6 @@ static void xa_remove_slash_from_path (gchar *path)
 	if (len > 0 && path[len - 1] == '/')
 		path[len - 1] = 0;
 }
-
-#ifndef HAVE_STRCASESTR
-/*
- * case-insensitive version of strstr()
- */
-const char *strcasestr(const char *haystack, const char *needle)
-{
-	const char *h;
-	const char *n;
-
-	h = haystack;
-	n = needle;
-	while (*haystack)
-	{
-		if (tolower((unsigned char) *h) == tolower((unsigned char) *n))
-		{
-			h++;
-			n++;
-			if (!*n)
-				return haystack;
-		} else {
-			h = ++haystack;
-			n = needle;
-		}
-	}
-	return NULL;
-}
-#endif /* !HAVE_STRCASESTR */
 
 gchar *xa_escape_bad_chars (const gchar *string, const gchar *pattern)
 {
