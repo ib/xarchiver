@@ -42,7 +42,7 @@ gchar *xa_escape_bad_chars(const gchar *, const gchar *);
 GSList *xa_collect_filenames(XArchive *, GSList *);
 GString *xa_quote_filenames(GSList *, const gchar *, gboolean);
 gchar *xa_quote_shell_command(const gchar *, gboolean);
-void xa_recurse_local_directory(gchar *, GSList **, gboolean, gint);
+void xa_recurse_local_directory(gchar *, GSList **, gboolean);
 gchar *xa_remove_level_from_path(const gchar *);
 void xa_set_window_title(GtkWidget *, gchar *);
 GSList *xa_slist_copy(GSList *);
