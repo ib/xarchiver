@@ -128,7 +128,12 @@ dnl *** Options ***
 dnl ***************
 AC_ARG_ENABLE([doc], AS_HELP_STRING([--disable-doc], [don't install xarchiver's documentation]))
 DOC=doc
-AS_IF([test x"$enable_doc" = x"no"], [DOC=])
+AS_IF([test x"$enable_doc" = x"no"], [DOC=],
+      [
+        AC_PATH_PROG([XSLTPROC], [xsltproc])
+        AS_IF([test -z "$XSLTPROC"], AC_MSG_ERROR([xsltproc is required for rebuilding the pre-built documentation; consider --disable-doc]))
+      ]
+)
 AC_SUBST([DOC])
 
 AC_ARG_ENABLE([icons], AS_HELP_STRING([--disable-icons], [don't install xarchiver's icons]))

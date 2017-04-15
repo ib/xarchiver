@@ -51,7 +51,7 @@ doc-clean:
 
 $(html_DATA): xarchiver.docbook xarchiver.xsl
 	rm -f html/*.html
-	xmlto -m xarchiver.xsl -o html/ xhtml xarchiver.docbook
+	xsltproc -o html/ xarchiver.xsl xarchiver.docbook
 
 $(css_DATA): xarchiver.css
 	cp xarchiver.css html
