@@ -51,7 +51,7 @@ pdf:
 doc-clean:
 	rm -f html/*.html
 	rm -f $(css_DATA)
-	rm -f *.pdf
+	rm -f xarchiver-$(VERSION).pdf
 
 $(html_DATA): xarchiver.docbook xarchiver.xsl
 	rm -f html/*.html
@@ -67,7 +67,7 @@ install-data-local:
 	$(INSTALL_DATA) $(top_srcdir)/ChangeLog "$(DESTDIR)$(docdir)"
 	-$(INSTALL_DATA) $(top_srcdir)/NEWS "$(DESTDIR)$(docdir)"
 	$(INSTALL_DATA) $(top_srcdir)/README "$(DESTDIR)$(docdir)"
-	-$(INSTALL_DATA) *.pdf "$(DESTDIR)$(docdir)"
+	-$(INSTALL_DATA) xarchiver-$(VERSION).pdf "$(DESTDIR)$(docdir)"
 
 uninstall-local:
 	rm -f "$(DESTDIR)$(docdir)/*"
