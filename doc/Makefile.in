@@ -535,6 +535,8 @@ dvi: dvi-am
 
 dvi-am:
 
+html: html-am
+
 html-am:
 
 info: info-am
@@ -607,10 +609,6 @@ uninstall-am: uninstall-cssDATA uninstall-htmlDATA uninstall-imageDATA \
 .PRECIOUS: Makefile
 
 
-html:
-	xmlto -m xarchiver.xsl -o html/ xhtml xarchiver.docbook
-	$(MAKE) $(AM_MAKEFLAGS) $(css_DATA)
-
 pdf:
 	jw -b pdf xarchiver.docbook
 	mv xarchiver.pdf xarchiver-$(VERSION).pdf
@@ -622,7 +620,7 @@ doc-clean:
 
 $(html_DATA): xarchiver.docbook xarchiver.xsl
 	rm -f html/*.html
-	$(MAKE) $(AM_MAKEFLAGS) html
+	xmlto -m xarchiver.xsl -o html/ xhtml xarchiver.docbook
 
 $(css_DATA): xarchiver.css
 	cp xarchiver.css html
@@ -639,7 +637,8 @@ install-data-local:
 uninstall-local:
 	rm -f "$(DESTDIR)$(docdir)/*"
 
-.PHONY: doc-clean html pdf
+.NOTPARALLEL: $(html_DATA)
+.PHONY: doc-clean pdf
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

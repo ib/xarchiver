@@ -40,10 +40,6 @@ EXTRA_DIST = xarchiver.css xarchiver.docbook xarchiver.xsl \
 	$(css_DATA) \
 	$(image_DATA)
 
-html:
-	xmlto -m xarchiver.xsl -o html/ xhtml xarchiver.docbook
-	$(MAKE) $(AM_MAKEFLAGS) $(css_DATA)
-
 pdf:
 	jw -b pdf xarchiver.docbook
 	mv xarchiver.pdf xarchiver-$(VERSION).pdf
@@ -55,7 +51,7 @@ doc-clean:
 
 $(html_DATA): xarchiver.docbook xarchiver.xsl
 	rm -f html/*.html
-	$(MAKE) $(AM_MAKEFLAGS) html
+	xmlto -m xarchiver.xsl -o html/ xhtml xarchiver.docbook
 
 $(css_DATA): xarchiver.css
 	cp xarchiver.css html
@@ -72,4 +68,5 @@ install-data-local:
 uninstall-local:
 	rm -f "$(DESTDIR)$(docdir)/*"
 
-.PHONY: doc-clean html pdf
+.NOTPARALLEL: $(html_DATA)
+.PHONY: doc-clean pdf
