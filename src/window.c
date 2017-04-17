@@ -795,6 +795,8 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				{
 					if (archive->output)
 						xa_show_archive_output(GUINT_TO_POINTER(TRUE), archive);
+					else
+						xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Test result:"), _("The archive is okay."));
 				}
 			}
 
