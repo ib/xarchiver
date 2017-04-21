@@ -732,6 +732,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	}
 	xa_create_working_directory(archive);
 	archive->extraction_dir = g_strdup(archive->working_dir);
+	archive->do_full_path = TRUE;
 	archive->do_overwrite = TRUE;
 
 	archive->status = XARCHIVESTATUS_EXTRACT;
@@ -2583,6 +2584,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
 	list = xa_slist_copy(paste_data->files);
+	archive[idx]->do_full_path = FALSE;
 	archive[idx]->child_dir = g_strdup(paste_data->target->working_dir);
 	xa_execute_add_commands(archive[idx], list, FALSE, NULL);
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
@@ -2813,6 +2815,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	archive->extraction_dir = g_strdup(archive->working_dir);
 	   	item = xa_build_full_path_name_from_entry(entry);
 	   	names = g_slist_append(names,item);
+	   	archive->do_full_path = FALSE;
 	   	archive->do_overwrite = TRUE;
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
