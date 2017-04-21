@@ -451,7 +451,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	gtk_widget_set_sensitive(dialog_data->update, archive->can_update[0]);
 	gtk_widget_set_sensitive(dialog_data->fresh, archive->can_freshen[0]);
 
-	if (archive->extraction_dir == NULL)
+	if (!*gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)))
 	{
 		archive_dir = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
 		if (archive_dir == NULL)
