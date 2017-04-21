@@ -385,12 +385,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			if (!xa_check_password(archive))
 				goto done;
 		}
-		/* Extract the file to the tmp dir */
-		if (archive->extraction_dir)
-		{
-			dummy = g_strdup(archive->extraction_dir);
-			g_free(archive->extraction_dir);
-		}
+		g_free(archive->extraction_dir);
 		xa_create_working_directory(archive);
 		archive->extraction_dir = g_strdup(archive->working_dir);
 		old_name = xa_build_full_path_name_from_entry(entry);
@@ -402,13 +397,6 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
 
-		g_free(archive->extraction_dir);
-		archive->extraction_dir = NULL;
-		if (dummy)
-		{
-			archive->extraction_dir = g_strdup(dummy);
-			g_free(dummy);
-		}
 		if (result == FALSE)
 		{
 			g_free(_old_name);
@@ -698,7 +686,6 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	GtkClipboard *clipboard;
 	XAClipboard *clipboard_data = NULL;
 	GSList *files = NULL;
-	gchar *dummy_ex_path = NULL;
 	GtkTreeSelection *selection;
 	GtkTargetEntry targets[] =
 	{
@@ -725,11 +712,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 		if (!xa_check_password(archive))
 			return;
 	}
-	if (archive->extraction_dir)
-	{
-		dummy_ex_path = g_strdup(archive->extraction_dir);
-		g_free(archive->extraction_dir);
-	}
+	g_free(archive->extraction_dir);
 	xa_create_working_directory(archive);
 	archive->extraction_dir = g_strdup(archive->working_dir);
 	archive->do_full_path = TRUE;
@@ -737,14 +720,6 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 
 	archive->status = XARCHIVESTATUS_EXTRACT;
 	(*archive->extract) (archive,files);
-	g_free(archive->extraction_dir);
-
-	archive->extraction_dir = NULL;
-	if (dummy_ex_path)
-	{
-		archive->extraction_dir = g_strdup(dummy_ex_path);
-		g_free(dummy_ex_path);
-	}
 }
 
 void xa_child_processed (XAChildProcess process, gboolean success, XArchive *archive)
@@ -2130,6 +2105,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 		if (!destination) return;
 
+		g_free(archive->extraction_dir);
 		archive->extraction_dir = xa_remove_level_from_path(destination);
 		g_free(destination);
 
@@ -2167,11 +2143,6 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
 			g_list_free (row_list);
 			to_send = "S";
-		}
-		if (archive->extraction_dir != NULL)
-		{
-			g_free(archive->extraction_dir);
-			archive->extraction_dir = NULL;
 		}
 		gtk_selection_data_set(selection_data, gtk_selection_data_get_target(selection_data), 8, (guchar *) to_send, 1);
 	}
@@ -2677,11 +2648,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 		row_list = row_list->next;
 	}
 	g_list_free (row_list);
-	if (archive[idx]->extraction_dir)
-	{
-		dummy = g_strdup(archive[idx]->extraction_dir);
-		g_free(archive[idx]->extraction_dir);
-	}
+	g_free(archive[idx]->extraction_dir);
 	xa_create_working_directory(archive[idx]);
 	archive[idx]->extraction_dir = g_strdup(archive[idx]->working_dir);
 
@@ -2691,13 +2658,6 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
-	g_free(archive[idx]->extraction_dir);
-	archive[idx]->extraction_dir = NULL;
-	if (dummy)
-	{
-		archive[idx]->extraction_dir = g_strdup(dummy);
-		g_free(dummy);
-	}
 	if (result == FALSE)
 		return;
 
@@ -2725,7 +2685,7 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	GList *row_list = NULL;
 	gboolean result		= FALSE;
 	gint current_index,idx;
-	gchar *dummy = NULL, *entry_local, *filename;
+	gchar *entry_local, *filename;
 	XEntry *entry;
 
 	current_index = gtk_notebook_get_current_page(notebook);
@@ -2751,24 +2711,13 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 	g_free(entry_local);
 	if (g_file_test(filename,G_FILE_TEST_EXISTS))
 		goto here;
-	if (archive[idx]->extraction_dir)
-	{
-		dummy = g_strdup(archive[idx]->extraction_dir);
-		g_free(archive[idx]->extraction_dir);
-	}
+	g_free(archive[idx]->extraction_dir);
 	archive[idx]->extraction_dir = g_strdup(archive[idx]->working_dir);
 	archive[idx]->do_full_path = FALSE;
 	archive[idx]->do_overwrite = TRUE;
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
 	result = (*archive[idx]->extract) (archive[idx],list);
-	g_free(archive[idx]->extraction_dir);
-	archive[idx]->extraction_dir = NULL;
-	if (dummy)
-	{
-		archive[idx]->extraction_dir = g_strdup(dummy);
-		g_free(dummy);
-	}
 	if (result == FALSE)
 		return;
 
@@ -2781,7 +2730,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 {
 	XEntry *entry;
 	GtkTreeIter iter;
-	gchar *dummy = NULL, *item, *entry_local, *file;
+	gchar *item, *entry_local, *file;
 	GSList *names = NULL;
 	gboolean result = FALSE;
 
@@ -2806,11 +2755,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	    if (!xa_check_password(archive))
 	     return;
 		}
-	   	if (archive->extraction_dir)
-	   	{
-	   		dummy = g_strdup(archive->extraction_dir);
-	   		g_free(archive->extraction_dir);
-	   	}
+	   	g_free(archive->extraction_dir);
 	   	xa_create_working_directory(archive);
 	   	archive->extraction_dir = g_strdup(archive->working_dir);
 	   	item = xa_build_full_path_name_from_entry(entry);
@@ -2820,13 +2765,6 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 		archive->status = XARCHIVESTATUS_EXTRACT;
 		result = (*archive->extract) (archive,names);
 
-		g_free(archive->extraction_dir);
-		archive->extraction_dir = NULL;
-		if (dummy)
-		{
-			archive->extraction_dir = g_strdup(dummy);
-			g_free(dummy);
-		}
 		if (result == FALSE)
 			return;
 		entry_local = g_filename_from_utf8(entry->filename, -1, NULL, NULL, NULL);

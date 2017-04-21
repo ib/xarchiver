@@ -491,6 +491,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 			case GTK_RESPONSE_OK:
 			destination_path = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(dialog_data->destination_path_entry)), -1, NULL, NULL, NULL);
+			g_free(archive->extraction_dir);
 			archive->extraction_dir = xa_escape_bad_chars(destination_path, ESCAPES);
 
 			if (strlen(archive->extraction_dir)== 0)
