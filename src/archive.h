@@ -124,7 +124,7 @@ struct _XArchive
 	/* environment */
 	gchar *path[3];           // 0: original, 1: escaped, 2: working copy
 	gchar *working_dir;
-	gchar *extraction_dir;
+	gchar *extraction_dir;   // (free before use)
 	gchar *location_path;
 	/* properties */
 	guint files;
