@@ -147,7 +147,6 @@ struct _XArchive
 	gboolean can_overwrite;      // can overwrite files on extraction
 	gboolean can_update[2];      // can limit activity to only changed or new files
 	gboolean can_freshen[2];     // can limit activity to only changed files
-	gboolean can_recurse;        // can recurse into directories on adding
 	gboolean can_move;           // can delete files after adding
 	gboolean can_solid;          // can create a solid archive
 	/* instructions */

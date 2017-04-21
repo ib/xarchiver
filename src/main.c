@@ -593,7 +593,7 @@ int main (int argc, char **argv)
 			if (archive->path[0] != NULL)
 			{
 				xa_create_working_directory(archive);
-				archive->do_recurse = archive->can_recurse;
+				archive->do_recurse = TRUE;
 				_current_dir = g_path_get_dirname(opt_compress);
 				chdir (_current_dir);
 				g_free(_current_dir);

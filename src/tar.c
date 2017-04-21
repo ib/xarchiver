@@ -78,7 +78,6 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_overwrite = TRUE;
 	archive->can_update[0] = TRUE;
 	archive->can_update[1] = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
-	archive->can_recurse = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_move = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 }
 

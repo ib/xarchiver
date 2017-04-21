@@ -266,7 +266,7 @@ void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 
 	gtk_widget_set_sensitive(add_dialog->update, archive->can_update[1]);
 	gtk_widget_set_sensitive(add_dialog->freshen, archive->can_freshen[1]);
-	gtk_widget_set_sensitive(add_dialog->recurse, archive->can_recurse);
+	gtk_widget_set_sensitive(add_dialog->recurse, TRUE);
 	gtk_widget_set_sensitive(add_dialog->remove_files, archive->can_move);
 	gtk_widget_set_sensitive(add_dialog->solid_archive, archive->can_solid);
 
