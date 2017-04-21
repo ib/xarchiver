@@ -2081,7 +2081,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 	GList *row_list = NULL;
 	GSList *names = NULL;
 	guchar *_destination;
-	gchar *destination,*to_send;
+	gchar *destination, *to_send, *extraction_dir;
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	row_list = gtk_tree_selection_get_selected_rows (selection,NULL);
@@ -2105,8 +2105,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 		if (!destination) return;
 
-		g_free(archive->extraction_dir);
-		archive->extraction_dir = xa_remove_level_from_path(destination);
+		extraction_dir = xa_remove_level_from_path(destination);
 		g_free(destination);
 
 		if (archive->has_password)
@@ -2114,16 +2113,17 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			if (!xa_check_password(archive))
 			{
 				gtk_drag_finish(dc, FALSE, FALSE, t);
+				g_free(extraction_dir);
 				return;
 			}
 		}
 
-		if (access(archive->extraction_dir, R_OK | W_OK | X_OK))
+		if (access(extraction_dir, R_OK | W_OK | X_OK))
 		{
 			gchar *utf8_path;
 			gchar  *msg;
 
-			utf8_path = g_filename_to_utf8(archive->extraction_dir, -1, NULL, NULL, NULL);
+			utf8_path = g_filename_to_utf8(extraction_dir, -1, NULL, NULL, NULL);
 			msg = g_strdup_printf (_("You don't have the right permissions to extract the files to the directory \"%s\"."),utf8_path);
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform extraction!"),msg );
 			g_free (utf8_path);
@@ -2135,7 +2135,8 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			gtk_tree_selection_selected_foreach (selection,(GtkTreeSelectionForeachFunc) xa_concat_selected_filenames,&names);
 			archive->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->extract_full));
 			archive->do_overwrite = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->overwrite_check));
-			archive->extraction_dir = xa_escape_bad_chars(archive->extraction_dir, ESCAPES);
+			g_free(archive->extraction_dir);
+			archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
 
 			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->extract) (archive,names);
@@ -2144,6 +2145,9 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			g_list_free (row_list);
 			to_send = "S";
 		}
+
+		g_free(extraction_dir);
+
 		gtk_selection_data_set(selection_data, gtk_selection_data_get_target(selection_data), 8, (guchar *) to_send, 1);
 	}
 }
