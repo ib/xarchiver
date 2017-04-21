@@ -593,7 +593,6 @@ int main (int argc, char **argv)
 			if (archive->path[0] != NULL)
 			{
 				xa_create_working_directory(archive);
-				archive->do_recurse = TRUE;
 				_current_dir = g_path_get_dirname(opt_compress);
 				chdir (_current_dir);
 				g_free(_current_dir);
@@ -608,7 +607,7 @@ int main (int argc, char **argv)
 					files = g_slist_append(files,g_strdup(_current_dir));
 					g_free (_current_dir);
 				}
-				xa_execute_add_commands(archive,files,NULL);
+				xa_execute_add_commands(archive, files, TRUE, NULL);
 			}
 		}
 		/* Switch -a */

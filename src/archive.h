@@ -155,7 +155,6 @@ struct _XArchive
 	gboolean do_overwrite;
 	gboolean do_update;
 	gboolean do_freshen;
-	gboolean do_recurse;
 	gboolean do_move;
 	gboolean do_solid;
 	/* child process */

@@ -224,7 +224,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	GtkTreeIter iter;
 	GtkTreeIter parent;
 	GString *full_pathname = g_string_new("");
-	gboolean full_path,add_recurse,dummy_password;
+	gboolean full_path, dummy_password;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
 	current_page = gtk_notebook_get_current_page(notebook);
@@ -283,16 +283,14 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	archive[idx]->location_path = g_strdup(full_pathname->str);
 	dummy_password = archive[idx]->has_password;
 	full_path = archive[idx]->do_full_path;
-	add_recurse = archive[idx]->do_recurse;
 
 	archive[idx]->has_password = FALSE;
 	archive[idx]->do_full_path = FALSE;
-	archive[idx]->do_recurse = TRUE;
-	xa_execute_add_commands(archive[idx],list,NULL);
+
+	xa_execute_add_commands(archive[idx], list, TRUE, NULL);
 
 	archive[idx]->has_password = dummy_password;
 	archive[idx]->do_full_path = full_path;
-	archive[idx]->do_recurse = add_recurse;
 
 	g_string_free(full_pathname,TRUE);
 	if (list != NULL)

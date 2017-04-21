@@ -442,7 +442,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		_new_name = g_strdup(new_name);
 		file_list = g_slist_append(NULL, _new_name);
 		chdir(archive->working_dir);
-		xa_execute_add_commands(archive, file_list, NULL);
+		xa_execute_add_commands(archive, file_list, FALSE, NULL);
 	}
 done:
 	xa_rename_cell_edited_canceled(GTK_CELL_RENDERER(cell), NULL);
@@ -2249,8 +2249,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		len++;
 	}
 	archive[idx]->do_full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_window->store_path));
-	archive[idx]->do_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir));
-	xa_execute_add_commands(archive[idx],list,NULL);
+	xa_execute_add_commands(archive[idx], list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->allow_sub_dir)), NULL);
 	g_strfreev (array);
 }
 
@@ -2592,7 +2591,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
 	list = xa_slist_copy(paste_data->files);
 	archive[idx]->child_dir = g_strdup(paste_data->target->working_dir);
-	xa_execute_add_commands(archive[idx],list,NULL);
+	xa_execute_add_commands(archive[idx], list, FALSE, NULL);
 	if (archive[idx]->status == XARCHIVESTATUS_ERROR)
 		return;
 

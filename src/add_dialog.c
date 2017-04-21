@@ -387,8 +387,6 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 				archive->do_full_path = TRUE;
 			else
 				archive->do_full_path = FALSE;
-			if (gtk_widget_is_sensitive(add_dialog->recurse))
-				archive->do_recurse = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->recurse));
 
 			if (gtk_widget_is_sensitive(add_dialog->update))
 				archive->do_update = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON (add_dialog->update));
@@ -412,14 +410,14 @@ void xa_parse_add_dialog_options (XArchive *archive,Add_dialog_data *add_dialog)
 			if (!archive->do_full_path)
 				archive->child_dir = g_path_get_dirname(list->data);
 
-			xa_execute_add_commands(archive, list, compression);
+			xa_execute_add_commands(archive, list, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(add_dialog->recurse)), compression);
 			g_free(compression);
 		}
 	}
 	gtk_widget_hide (add_dialog->dialog1);
 }
 
-void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compression)
+void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse, gchar *compression)
 {
 	gchar *new_path = NULL;
 	gchar *esc2, *basedir;
@@ -470,7 +468,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gchar *compressio
 
 	while (list)
 	{
-		xa_recurse_local_directory((gchar*) list->data, &dirlist, archive->do_recurse);
+		xa_recurse_local_directory((gchar*) list->data, &dirlist, recurse);
 		list = list->next;
 	}
 	files = xa_collect_filenames(archive, dirlist);
