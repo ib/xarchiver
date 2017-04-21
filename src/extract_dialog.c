@@ -501,8 +501,13 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			}
 			if (archive->extraction_dir[0] != '/')
 			{
-				gchar *cur_dir = g_get_current_dir();
-				archive->extraction_dir = g_strconcat(cur_dir, "/", archive->extraction_dir, NULL);
+				gchar *cur_dir, *extraction_dir;
+
+				cur_dir = g_get_current_dir();
+				extraction_dir = g_strconcat(cur_dir, "/", destination_path, NULL);
+				g_free(archive->extraction_dir);
+				archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
+				g_free(extraction_dir);
 				g_free (cur_dir);
 			}
 			if (archive->has_password || (xa_main_window == FALSE && strlen(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry))) > 0))
