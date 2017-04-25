@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-02-22 18:34+0100\n"
+"POT-Creation-Date: 2017-04-25 16:34+0200\n"
 "PO-Revision-Date: 2011-05-19 22:12+0200\n"
 "Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian\n"
@@ -135,12 +135,20 @@ msgid "Add files"
 msgstr "Dodaj datoteke"
 
 #: ../src/main.c
-msgid "Add files to archive by asking their filenames and quits."
-msgstr "Dodaj datoteke u arhivu tražeči njihovo datotečno ime i zatvori."
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Add the given files by asking the name of\n"
+"                                     the archive and quit"
+msgstr "Dodaj dane datoteke tražeći ime arhive i zatvori."
 
 #: ../src/main.c
-msgid "Add the given files by asking the name of the archive and quits."
-msgstr "Dodaj dane datoteke tražeći ime arhive i zatvori."
+#, fuzzy
+#| msgid "Add files to archive by asking their filenames and quits."
+msgid ""
+"Add to archive by asking which files and\n"
+"                                     quit"
+msgstr "Dodaj datoteke u arhivu tražeči njihovo datotečno ime i zatvori."
 
 #: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
@@ -187,8 +195,9 @@ msgid "Archive _comment"
 msgstr ""
 
 #: ../src/window.c
-#, c-format
-msgid "Archive contents:\n"
+#, fuzzy, c-format
+#| msgid "Archive contents:\n"
+msgid "Archive content:\n"
 msgstr "Sadržaji arhive :\n"
 
 #: ../src/window.c
@@ -398,18 +407,14 @@ msgstr ""
 msgid "Cut"
 msgstr "Izreži"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/rpm.c
-#: ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Datum"
 
 #: ../src/deb.c
 msgid "Date modified"
 msgstr "Datum izmjene"
-
-#: ../src/extract_dialog.c
-msgid "Decompress file"
-msgstr "Dekomprimiraj datoteku"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -460,11 +465,19 @@ msgid "Extract"
 msgstr "Raspakiraj"
 
 #: ../src/main.c
-msgid "Extract archive by asking the extraction directory and quits."
-msgstr ""
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive by asking the extraction\n"
+"                                     directory and quit"
+msgstr "Raspakiraj arhivu u odredišni direktorij i prestani."
 
 #: ../src/main.c
-msgid "Extract archive to the destination directory and quits."
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to the destination\n"
+"                                     directory and quit"
 msgstr "Raspakiraj arhivu u odredišni direktorij i prestani."
 
 #: ../src/extract_dialog.c ../src/interface.c
@@ -474,6 +487,12 @@ msgstr "Raspakiraj datoteke"
 #: ../src/extract_dialog.c
 msgid "Extract files with full path"
 msgstr "Raspakiraj datoteke sa punom putanjom"
+
+#: ../src/main.c
+msgid ""
+"Extract multiple archives by asking the\n"
+"                                     extraction directory and quit"
+msgstr ""
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -496,7 +515,7 @@ msgid "Extract to:"
 msgstr "Raspakiraj u:"
 
 #: ../src/extract_dialog.c
-msgid "Extracting files from archive,please wait..."
+msgid "Extracting files from archive, please wait..."
 msgstr "Raspakiram datoteke iz arhiva,molim pričekajte"
 
 #: ../src/interface.c
@@ -544,6 +563,10 @@ msgstr "Osvježi postojeće datoteke"
 msgid "From File"
 msgstr "Iz datoteke"
 
+#: ../src/arj.c
+msgid "GUA"
+msgstr ""
+
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grupa"
@@ -562,7 +585,7 @@ msgstr ""
 
 #: ../src/add_dialog.c
 msgid ""
-"In a solid archive the files are grouped together featuring a better "
+"In a solid archive the files are grouped together resulting in a better "
 "compression ratio"
 msgstr ""
 
@@ -593,10 +616,6 @@ msgstr "Izmjenjeno u:"
 
 #: ../src/extract_dialog.c
 msgid "Multi-Extract"
-msgstr ""
-
-#: ../src/main.c
-msgid "Multi-extract archives"
 msgstr ""
 
 #: ../src/interface.c
@@ -663,7 +682,7 @@ msgid "Open the selected files with"
 msgstr "Otvori odabrane datoteke pomoću"
 
 #: ../src/window.c
-msgid "Opening archive,please wait..."
+msgid "Opening archive, please wait..."
 msgstr "Otvaram arhivu,molim pričekajte..."
 
 #: ../src/window.c
@@ -694,7 +713,7 @@ msgstr ""
 msgid "Owner"
 msgstr "Vlasnik"
 
-#: ../src/deb.c ../src/gzip_et_al.c ../src/tar.c
+#: ../src/deb.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "Vlasnik/grupa"
 
@@ -722,8 +741,7 @@ msgstr "Uzorak:"
 msgid "Permission"
 msgstr "Dozvola"
 
-#: ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Dozvole"
 
@@ -752,7 +770,9 @@ msgid "Please go to Preferences->Advanced and set it."
 msgstr "Molim odite u Osobitosti>Napredno i postavite ga."
 
 #: ../src/window.c
-msgid "Please install xdg-utils package."
+#, fuzzy
+#| msgid "Please install xdg-utils package."
+msgid "Please install xdg-utils."
 msgstr "Moloim,instalirajte xdg-utils paket."
 
 #: ../src/main.c
@@ -776,7 +796,7 @@ msgstr "Molim odredite odredišni direktorij"
 msgid "Please wait until the completion of the current one!"
 msgstr "Pričekajte do završetka trenutnog!"
 
-#: ../src/gzip_et_al.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Points to"
 msgstr "Usmjeren ka"
 
@@ -789,7 +809,9 @@ msgid "Preferred archive format"
 msgstr "Željeni format arhive"
 
 #: ../src/pref_dialog.c
-msgid "Preferred extract directory:"
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Preferred extraction directory:"
 msgstr "Poželjni direktorij raspakiranja:"
 
 #: ../src/pref_dialog.c
@@ -877,11 +899,12 @@ msgid "Show toolbar"
 msgstr ""
 
 #: ../src/main.c
-msgid "Show version and exit"
+#, fuzzy
+#| msgid "Show version and exit"
+msgid "Show version and exit\n"
 msgstr "Pokaži verziju i izađi"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/gzip_et_al.c ../src/lha.c
-#: ../src/rpm.c ../src/tar.c
+#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Size"
 msgstr "Veličina"
 
@@ -890,11 +913,11 @@ msgid "Some errors occurred:"
 msgstr "Došlo je do grešaka:"
 
 #: ../src/extract_dialog.c ../src/interface.c ../src/window.c
-msgid "Sorry,I could not perform the operation!"
+msgid "Sorry, I could not perform the operation!"
 msgstr "Oprostite,ne mogu izvršiti operaciju!"
 
 #: ../src/window.c
-msgid "Sorry,this archive format is not supported:"
+msgid "Sorry, this archive format is not supported:"
 msgstr "Oprostite,ovaj format arhive nije podržan:"
 
 #: ../src/pref_dialog.c
@@ -914,7 +937,11 @@ msgid "Store full paths"
 msgstr "Pohrani cijele putanje"
 
 #: ../src/window.c
-msgid "Testing archive,please wait..."
+msgid "Test result:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Testing archive, please wait..."
 msgstr "Testiram arhivu,molim pričekajte..."
 
 #: ../src/new_dialog.c
@@ -922,18 +949,26 @@ msgstr "Testiram arhivu,molim pričekajte..."
 msgid "The archive \"%s\" already exists!"
 msgstr "Arhiva \"%s\" već postoji! "
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
+msgid "The archive is okay."
+msgstr "Ova arhiva je kodirana!"
+
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 
-#: ../src/window.c
-msgid "The archiver doesn't support this feature!"
-msgstr "Arhiver ne podržava ovu značajku!"
-
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr ""
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "the proper archiver is not installed!"
+msgid "The proper archiver is not installed!"
+msgstr "odgovarajući arhiver nije instaliran!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
@@ -944,15 +979,14 @@ msgid "This file type is not supported!"
 msgstr "Ovaj tip datoteke nije podržan."
 
 #: ../src/interface.c
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 
-#: ../src/add_dialog.c
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
-msgstr ""
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "This option takes more memory with large archives"
+msgid "This option consumes more memory with large archives"
+msgstr "Ova opcija uzima više memorije sa velikim arhivama"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -966,25 +1000,30 @@ msgstr ""
 
 #: ../src/extract_dialog.c
 msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk"
 msgstr ""
 
-#: ../src/pref_dialog.c
-msgid "This option takes more memory with large archives"
-msgstr "Ova opcija uzima više memorije sa velikim arhivama"
-
 #: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option will add any new files and update any files which have been "
+#| "modified since the archive was last created/modified"
 msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
+"This option will add any new files and update any files which are already in "
+"the archive but older there"
 msgstr ""
 "Ova će opcija dodati nove datoteke i dopuniti sve datoteke koje su "
 "promjenjene otkada je arhiva napravljena/promjenjena"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/add_dialog.c
+msgid ""
+"This option will only add files which are already in the archive but older "
+"there; unlike the update option it will not add any new files"
+msgstr ""
+
+#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
 msgid "Time"
 msgstr "Vrijeme"
 
@@ -1016,6 +1055,10 @@ msgstr "Nezbijena veličina:"
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Nezbijena veličina:"
+
+#: ../src/rpm.c
+msgid "Unknown compression type!"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
@@ -1051,9 +1094,8 @@ msgstr "Preglednik za uporabu:"
 
 #: ../src/extract_dialog.c
 msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
+"When this option is used, the modification times of the files will be the "
+"times of extraction instead of the times recorded in the archive"
 msgstr ""
 
 #: ../src/pref_dialog.c
@@ -1069,12 +1111,10 @@ msgid "You are about to delete entries from the archive."
 msgstr "Izbrisati ćete unose iz arhive"
 
 #: ../src/interface.c ../src/window.c
-msgid "You can't add content to deb packages!"
+#, fuzzy
+#| msgid "You can't add content to deb packages!"
+msgid "You can't add content to this archive type!"
 msgstr "Ne možete dodati sadržaj deb paketima!"
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to rpm packages!"
-msgstr "Ne možete dodati sadržaj rpm paketima!"
 
 #: ../src/window.c
 msgid "You didn't set which browser to use!"
@@ -1091,14 +1131,6 @@ msgid ""
 "\"%s\"."
 msgstr "Nemate dozvole za raspakiranje datoteka u direktorij \"%s\"."
 
-#: ../src/window.c
-msgid "You have to install arj package!"
-msgstr "Trebate instalirati arj paket!"
-
-#: ../src/window.c
-msgid "You have to install rar package!"
-msgstr "Trebate instalirati rar paket!"
-
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
 msgstr "Niste dodali ni jedan od njih!"
@@ -1111,7 +1143,7 @@ msgstr "Niste izabrali datoteke za dodavanje!"
 msgid "You missed the archive name!\n"
 msgstr "Pogriješili ste ime arhive!\n"
 
-#: ../src/add_dialog.c ../src/interface.c
+#: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
 msgstr "Pogriješili ste lozinku!"
 
@@ -1120,8 +1152,8 @@ msgid "You missed where to extract the files!"
 msgstr "Pogriješili ste gdje raspakirati datoteke!"
 
 #: ../src/main.c
-msgid "[archive name]"
-msgstr "[ime arhive]"
+msgid "[ARCHIVE]"
+msgstr ""
 
 #: ../src/add_dialog.c
 msgid "_Add"
@@ -1179,16 +1211,14 @@ msgstr "_Test"
 msgid "_Text file"
 msgstr "_Tekst datoteka"
 
-#: ../src/main.c
-msgid "archive"
-msgstr "arhiva"
-
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "izaberi..."
 
 #: ../src/main.c
-msgid "destination archive"
+#, fuzzy
+#| msgid "destination archive"
+msgid "destination"
 msgstr "odredišna arhiva"
 
 #: ../src/interface.c
@@ -1196,12 +1226,10 @@ msgid "example: *.txt; ac*"
 msgstr "primjer: *.txt; ac*"
 
 #: ../src/main.c
-msgid "file1 file2 file3 ... fileN"
+#, fuzzy
+#| msgid "file1 file2 file3 ... fileN"
+msgid "file1 ... fileN"
 msgstr "datoteka1 datoteka2 datoteka3 ... datotekaN"
-
-#: ../src/main.c
-msgid "filenames"
-msgstr "imena datoteka"
 
 #: ../src/pref_dialog.c
 msgid "large"
@@ -1214,10 +1242,6 @@ msgstr "odabrano"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "male"
-
-#: ../src/window.c
-msgid "the proper archiver is not installed!"
-msgstr "odgovarajući arhiver nije instaliran!"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1236,6 +1260,30 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Veličina\n"
+
+#~ msgid "Decompress file"
+#~ msgstr "Dekomprimiraj datoteku"
+
+#~ msgid "The archiver doesn't support this feature!"
+#~ msgstr "Arhiver ne podržava ovu značajku!"
+
+#~ msgid "You can't add content to rpm packages!"
+#~ msgstr "Ne možete dodati sadržaj rpm paketima!"
+
+#~ msgid "You have to install arj package!"
+#~ msgstr "Trebate instalirati arj paket!"
+
+#~ msgid "You have to install rar package!"
+#~ msgstr "Trebate instalirati rar paket!"
+
+#~ msgid "[archive name]"
+#~ msgstr "[ime arhive]"
+
+#~ msgid "archive"
+#~ msgstr "arhiva"
+
+#~ msgid "filenames"
+#~ msgstr "imena datoteka"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Zbijeno\n"

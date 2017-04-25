@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-02-22 18:34+0100\n"
+"POT-Creation-Date: 2017-04-25 16:34+0200\n"
 "PO-Revision-Date: 2011-08-09 03:59-0000\n"
 "Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
@@ -131,12 +131,20 @@ msgid "Add files"
 msgstr "أضف ملفات"
 
 #: ../src/main.c
-msgid "Add files to archive by asking their filenames and quits."
-msgstr "إضافة الملفات للأرشيف بالسؤال عن أسمها ثم الخروج."
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Add the given files by asking the name of\n"
+"                                     the archive and quit"
+msgstr "إضافة الملفات المحدد بالسؤال عن اسم الارشيف ثم الخروج."
 
 #: ../src/main.c
-msgid "Add the given files by asking the name of the archive and quits."
-msgstr "إضافة الملفات المحدد بالسؤال عن اسم الارشيف ثم الخروج."
+#, fuzzy
+#| msgid "Add files to archive by asking their filenames and quits."
+msgid ""
+"Add to archive by asking which files and\n"
+"                                     quit"
+msgstr "إضافة الملفات للأرشيف بالسؤال عن أسمها ثم الخروج."
 
 #: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
@@ -183,8 +191,9 @@ msgid "Archive _comment"
 msgstr "تعليق الأرشيف"
 
 #: ../src/window.c
-#, c-format
-msgid "Archive contents:\n"
+#, fuzzy, c-format
+#| msgid "Archive contents:\n"
+msgid "Archive content:\n"
 msgstr "محتوبات الأرشيف:\n"
 
 #: ../src/window.c
@@ -392,18 +401,14 @@ msgstr "أنشئ أرشيف صلب"
 msgid "Cut"
 msgstr "قص"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/rpm.c
-#: ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "تاريخ"
 
 #: ../src/deb.c
 msgid "Date modified"
 msgstr "تاريخ محرر"
-
-#: ../src/extract_dialog.c
-msgid "Decompress file"
-msgstr "فك ضغط الملف"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -454,11 +459,19 @@ msgid "Extract"
 msgstr "إستخرج"
 
 #: ../src/main.c
-msgid "Extract archive by asking the extraction directory and quits."
+#, fuzzy
+#| msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract archive by asking the extraction\n"
+"                                     directory and quit"
 msgstr "السؤال عن دليل استخراج الارشيف ثم الخروج"
 
 #: ../src/main.c
-msgid "Extract archive to the destination directory and quits."
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to the destination\n"
+"                                     directory and quit"
 msgstr "الخروج بعد استخراج الأرشيف إلى الدليل الوجهة"
 
 #: ../src/extract_dialog.c ../src/interface.c
@@ -468,6 +481,14 @@ msgstr "إستخراج الملفات"
 #: ../src/extract_dialog.c
 msgid "Extract files with full path"
 msgstr "استخراج الملفات مع المسار الكامل"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract multiple archives by asking the\n"
+"                                     extraction directory and quit"
+msgstr "السؤال عن دليل استخراج الارشيف ثم الخروج"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -488,7 +509,7 @@ msgid "Extract to:"
 msgstr "إستخرج إلى:"
 
 #: ../src/extract_dialog.c
-msgid "Extracting files from archive,please wait..."
+msgid "Extracting files from archive, please wait..."
 msgstr "استخراج الملفات من الأرشيف ، يرجى الانتظار..."
 
 #: ../src/interface.c
@@ -536,6 +557,10 @@ msgstr "إنعاش الملفات الموجودة"
 msgid "From File"
 msgstr "من الملف"
 
+#: ../src/arj.c
+msgid "GUA"
+msgstr ""
+
 #: ../src/rpm.c
 msgid "Group"
 msgstr "مجموعة"
@@ -553,8 +578,12 @@ msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "إذا حددت يظهر تعليق بعد تحميل أرشيفة الأرشيف"
 
 #: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "In a solid archive the files are grouped together featuring a better "
+#| "compression ratio"
 msgid ""
-"In a solid archive the files are grouped together featuring a better "
+"In a solid archive the files are grouped together resulting in a better "
 "compression ratio"
 msgstr "في الأرشيف الثابت يتم تجميع الملفات معا يتميز بوجود نسبة ضغط أفضل"
 
@@ -586,10 +615,6 @@ msgstr "تعديل في :"
 #: ../src/extract_dialog.c
 msgid "Multi-Extract"
 msgstr "استخراج متعددة"
-
-#: ../src/main.c
-msgid "Multi-extract archives"
-msgstr "استخراج أرشيف متعددة"
 
 #: ../src/interface.c
 msgid "Name:"
@@ -655,7 +680,7 @@ msgid "Open the selected files with"
 msgstr "فتح الملفات المحددة مع"
 
 #: ../src/window.c
-msgid "Opening archive,please wait..."
+msgid "Opening archive, please wait..."
 msgstr "فتح الأرشيف , يرجو الإنتظار..."
 
 #: ../src/window.c
@@ -686,7 +711,7 @@ msgstr "الكتابة فوق الملفات الموجودة"
 msgid "Owner"
 msgstr "مالك"
 
-#: ../src/deb.c ../src/gzip_et_al.c ../src/tar.c
+#: ../src/deb.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "المالك / المجموعة"
 
@@ -714,8 +739,7 @@ msgstr "نمط :"
 msgid "Permission"
 msgstr "إذن"
 
-#: ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "صلاحيات"
 
@@ -744,7 +768,9 @@ msgid "Please go to Preferences->Advanced and set it."
 msgstr "يرجى الذهاب إلى التفضبلات->متقدم وإختياره."
 
 #: ../src/window.c
-msgid "Please install xdg-utils package."
+#, fuzzy
+#| msgid "Please install xdg-utils package."
+msgid "Please install xdg-utils."
 msgstr "الرجاء تثبيت حزمة xdg-utils ."
 
 #: ../src/main.c
@@ -768,7 +794,7 @@ msgstr "الرجاء اختيار دليل الوجهة"
 msgid "Please wait until the completion of the current one!"
 msgstr "الرجاء الإنتظار حتى الإنتهاء من الحالي!"
 
-#: ../src/gzip_et_al.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Points to"
 msgstr "يشير إلى"
 
@@ -781,7 +807,9 @@ msgid "Preferred archive format"
 msgstr "تنسيق الأرشيف المفضل"
 
 #: ../src/pref_dialog.c
-msgid "Preferred extract directory:"
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Preferred extraction directory:"
 msgstr "دليل الأرشيف المفضل:"
 
 #: ../src/pref_dialog.c
@@ -869,11 +897,12 @@ msgid "Show toolbar"
 msgstr ""
 
 #: ../src/main.c
-msgid "Show version and exit"
+#, fuzzy
+#| msgid "Show version and exit"
+msgid "Show version and exit\n"
 msgstr "عرض الإصدار  ثم الخروج"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/gzip_et_al.c ../src/lha.c
-#: ../src/rpm.c ../src/tar.c
+#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Size"
 msgstr "حجم"
 
@@ -882,11 +911,11 @@ msgid "Some errors occurred:"
 msgstr "حدثت بعض الأخطاء :"
 
 #: ../src/extract_dialog.c ../src/interface.c ../src/window.c
-msgid "Sorry,I could not perform the operation!"
+msgid "Sorry, I could not perform the operation!"
 msgstr "آسف ، لم أتمكن من تنفيذ العملية!"
 
 #: ../src/window.c
-msgid "Sorry,this archive format is not supported:"
+msgid "Sorry, this archive format is not supported:"
 msgstr "عفوا , صيغة هذا الأرشبف غير مدعومة:"
 
 #: ../src/pref_dialog.c
@@ -906,7 +935,11 @@ msgid "Store full paths"
 msgstr "مسارات مخزن كامل"
 
 #: ../src/window.c
-msgid "Testing archive,please wait..."
+msgid "Test result:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Testing archive, please wait..."
 msgstr "اختبار الأرشيف ، يرجى الانتظار..."
 
 #: ../src/new_dialog.c
@@ -914,18 +947,26 @@ msgstr "اختبار الأرشيف ، يرجى الانتظار..."
 msgid "The archive \"%s\" already exists!"
 msgstr "الأرشيف \"%s\" منشأ مسبقاً!"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
+msgid "The archive is okay."
+msgstr "هذا الأرشيف مشفرة!"
+
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "يتم إعادة هيكلة المحفوظات والدليل في الدليل الاستخراج"
 
-#: ../src/window.c
-msgid "The archiver doesn't support this feature!"
-msgstr "الأرشيف لا يدعم هذه الميزة؛"
-
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "فرز عمود اسم الملف بعد تحميل الأرشيف"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "the proper archiver is not installed!"
+msgid "The proper archiver is not installed!"
+msgstr "لم يتم تثبيت الأرشبف المناسب؛"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
@@ -936,17 +977,16 @@ msgid "This file type is not supported!"
 msgstr "هذا النوع من الملفات غير مدعوم؛"
 
 #: ../src/interface.c
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+#, fuzzy
+#| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr "هذا هو وضع Xarchiver عندما يومض يكون Xarchiver مشغولاً"
 
-#: ../src/add_dialog.c
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
-msgstr ""
-"هذا الخيار يؤثر في الأرشيف الذي تم تعديله مؤخراً فقط، على عكس خيار التحديث "
-"فإنه لن يضيف الملفات التي لم يتم تحديثها في الأرشيف"
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "This option takes more memory with large archives"
+msgid "This option consumes more memory with large archives"
+msgstr "هذا الخيار يستهلك ذاكرة أكثر مع الأرشيف الكبير"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -960,28 +1000,40 @@ msgstr "هذا الخيار يتضمن الأدلة الفرعية عند إضا
 
 #: ../src/extract_dialog.c
 msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk"
 msgstr ""
 "وظيفة هذا الخيار مثل وظيفة تجديد الملف، استخراج الملفات الأحدث من التي تحمل "
 "الاسم نفسه على القرص ، بالإضافة إلى ذلك فإنه سستخرج الملفات التي لم تكن "
 "موجودة بالفعل على القرص."
 
-#: ../src/pref_dialog.c
-msgid "This option takes more memory with large archives"
-msgstr "هذا الخيار يستهلك ذاكرة أكثر مع الأرشيف الكبير"
-
 #: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option will add any new files and update any files which have been "
+#| "modified since the archive was last created/modified"
 msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
+"This option will add any new files and update any files which are already in "
+"the archive but older there"
 msgstr ""
 "هذا الخيار سيقوم بإضافة أي ملفات جديدة وتحديث أي الملفات التي تم تعديلها منذ "
 "إنشاء الأرشيف"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option affects the archive only if it has been modified more "
+#| "recently than the version already in the archive; unlike the update "
+#| "option it will not add files that are not already in the archive"
+msgid ""
+"This option will only add files which are already in the archive but older "
+"there; unlike the update option it will not add any new files"
+msgstr ""
+"هذا الخيار يؤثر في الأرشيف الذي تم تعديله مؤخراً فقط، على عكس خيار التحديث "
+"فإنه لن يضيف الملفات التي لم يتم تحديثها في الأرشيف"
+
+#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
 msgid "Time"
 msgstr "وقت"
 
@@ -1013,6 +1065,10 @@ msgstr "الحجم غير المضغوط:"
 #, c-format
 msgid "Uncompressed size: "
 msgstr "حجم غير مظغوط:"
+
+#: ../src/rpm.c
+msgid "Unknown compression type!"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
@@ -1047,10 +1103,14 @@ msgid "Web browser to use:"
 msgstr "متصفح ويب المستخدم :"
 
 #: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "When this option is used,tar leaves the data modification times of the "
+#| "files it extracts as the times when the files were extracted,instead of "
+#| "setting it to the times recorded in the archive"
 msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
+"When this option is used, the modification times of the files will be the "
+"times of extraction instead of the times recorded in the archive"
 msgstr ""
 "عند استخدام هذا الخيار، tar يترك تاريخ تعديل بيانات الملفات المستخرجة بتاريخ "
 "استخراج الملفات ، بدلا من تعيينها إلى الأوقات المسجلة في أرشيف"
@@ -1068,12 +1128,10 @@ msgid "You are about to delete entries from the archive."
 msgstr "أنت على وشك حذف الإدخالات من الأرشيف."
 
 #: ../src/interface.c ../src/window.c
-msgid "You can't add content to deb packages!"
+#, fuzzy
+#| msgid "You can't add content to deb packages!"
+msgid "You can't add content to this archive type!"
 msgstr "لا يمكنك إضافة محتوى لحزم دبيان!"
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to rpm packages!"
-msgstr "لا يمكنك إضافة محتوى لحزم ردهات؛"
 
 #: ../src/window.c
 msgid "You didn't set which browser to use!"
@@ -1090,14 +1148,6 @@ msgid ""
 "\"%s\"."
 msgstr "ليس لديك الصلاحيات الكافية لإستخراج الملفات إلى الدليل \"%s\"."
 
-#: ../src/window.c
-msgid "You have to install arj package!"
-msgstr "يجب تثبيت حزمة arj"
-
-#: ../src/window.c
-msgid "You have to install rar package!"
-msgstr "يجب تثبيت حزمة rar"
-
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
 msgstr "لم تقم بإضافة أي واحد منهم!"
@@ -1110,7 +1160,7 @@ msgstr "لم تقم بتحديد أية ملفات لإضافة!"
 msgid "You missed the archive name!\n"
 msgstr "لم تدخل اسم المحفوظات!\n"
 
-#: ../src/add_dialog.c ../src/interface.c
+#: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
 msgstr "هل نسيت كلمة السر؛"
 
@@ -1119,8 +1169,8 @@ msgid "You missed where to extract the files!"
 msgstr "لم تحدد مكان استخراج الملفات!"
 
 #: ../src/main.c
-msgid "[archive name]"
-msgstr "[اسم الأرشيف]"
+msgid "[ARCHIVE]"
+msgstr ""
 
 #: ../src/add_dialog.c
 msgid "_Add"
@@ -1178,16 +1228,14 @@ msgstr "اختبار"
 msgid "_Text file"
 msgstr "ملف نصي"
 
-#: ../src/main.c
-msgid "archive"
-msgstr "أرشيف"
-
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "إختر..."
 
 #: ../src/main.c
-msgid "destination archive"
+#, fuzzy
+#| msgid "destination archive"
+msgid "destination"
 msgstr "وجهة الأرشيف"
 
 #: ../src/interface.c
@@ -1195,12 +1243,10 @@ msgid "example: *.txt; ac*"
 msgstr "مثلاً: *.txt; ac*"
 
 #: ../src/main.c
-msgid "file1 file2 file3 ... fileN"
+#, fuzzy
+#| msgid "file1 file2 file3 ... fileN"
+msgid "file1 ... fileN"
 msgstr "ملف1 ملف2 ملف3 ... ملفN"
-
-#: ../src/main.c
-msgid "filenames"
-msgstr "اسم الملف"
 
 #: ../src/pref_dialog.c
 msgid "large"
@@ -1213,10 +1259,6 @@ msgstr "محددة"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "صغير"
-
-#: ../src/window.c
-msgid "the proper archiver is not installed!"
-msgstr "لم يتم تثبيت الأرشبف المناسب؛"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1237,6 +1279,33 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|حجم\n"
+
+#~ msgid "Decompress file"
+#~ msgstr "فك ضغط الملف"
+
+#~ msgid "Multi-extract archives"
+#~ msgstr "استخراج أرشيف متعددة"
+
+#~ msgid "The archiver doesn't support this feature!"
+#~ msgstr "الأرشيف لا يدعم هذه الميزة؛"
+
+#~ msgid "You can't add content to rpm packages!"
+#~ msgstr "لا يمكنك إضافة محتوى لحزم ردهات؛"
+
+#~ msgid "You have to install arj package!"
+#~ msgstr "يجب تثبيت حزمة arj"
+
+#~ msgid "You have to install rar package!"
+#~ msgstr "يجب تثبيت حزمة rar"
+
+#~ msgid "[archive name]"
+#~ msgstr "[اسم الأرشيف]"
+
+#~ msgid "archive"
+#~ msgstr "أرشيف"
+
+#~ msgid "filenames"
+#~ msgstr "اسم الملف"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|مضغوط\n"

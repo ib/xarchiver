@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-02-22 18:34+0100\n"
+"POT-Creation-Date: 2017-04-25 16:34+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -134,12 +134,20 @@ msgid "Add files"
 msgstr "Dosyaları ekle"
 
 #: ../src/main.c
-msgid "Add files to archive by asking their filenames and quits."
-msgstr "Dosyaları, isimlerini sorarak arşive ekle ve kapat."
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Add the given files by asking the name of\n"
+"                                     the archive and quit"
+msgstr "Verilen dosyaları arşiv adını sorarak ekle ve kapat."
 
 #: ../src/main.c
-msgid "Add the given files by asking the name of the archive and quits."
-msgstr "Verilen dosyaları arşiv adını sorarak ekle ve kapat."
+#, fuzzy
+#| msgid "Add files to archive by asking their filenames and quits."
+msgid ""
+"Add to archive by asking which files and\n"
+"                                     quit"
+msgstr "Dosyaları, isimlerini sorarak arşive ekle ve kapat."
 
 #: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
@@ -186,8 +194,9 @@ msgid "Archive _comment"
 msgstr "Arşiv _yorumu"
 
 #: ../src/window.c
-#, c-format
-msgid "Archive contents:\n"
+#, fuzzy, c-format
+#| msgid "Archive contents:\n"
+msgid "Archive content:\n"
 msgstr "Arşiv içerikleri:\n"
 
 #: ../src/window.c
@@ -395,18 +404,14 @@ msgstr "Kesiksiz arşiv oluştur"
 msgid "Cut"
 msgstr "Kes"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/rpm.c
-#: ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Tarih"
 
 #: ../src/deb.c
 msgid "Date modified"
 msgstr "Değiştirme tarihi"
-
-#: ../src/extract_dialog.c
-msgid "Decompress file"
-msgstr "Sıkıştırılmış dosyayı çöz"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -457,11 +462,19 @@ msgid "Extract"
 msgstr "Aç"
 
 #: ../src/main.c
-msgid "Extract archive by asking the extraction directory and quits."
+#, fuzzy
+#| msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract archive by asking the extraction\n"
+"                                     directory and quit"
 msgstr "Arşivi hedef dizini sorarak aç ve kapat."
 
 #: ../src/main.c
-msgid "Extract archive to the destination directory and quits."
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to the destination\n"
+"                                     directory and quit"
 msgstr "Arşivi hedef dizine aç ve kapat."
 
 #: ../src/extract_dialog.c ../src/interface.c
@@ -471,6 +484,14 @@ msgstr "Dosyaları aç"
 #: ../src/extract_dialog.c
 msgid "Extract files with full path"
 msgstr "Dosyaları tam yolla aç"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract multiple archives by asking the\n"
+"                                     extraction directory and quit"
+msgstr "Arşivi hedef dizini sorarak aç ve kapat."
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -493,7 +514,7 @@ msgid "Extract to:"
 msgstr "Şuraya aç:"
 
 #: ../src/extract_dialog.c
-msgid "Extracting files from archive,please wait..."
+msgid "Extracting files from archive, please wait..."
 msgstr "Dosyalar arşivden açılıyor, lütfen bekleyin..."
 
 #: ../src/interface.c
@@ -541,6 +562,10 @@ msgstr "Açılan dosyaları yenile"
 msgid "From File"
 msgstr "Dosyadan"
 
+#: ../src/arj.c
+msgid "GUA"
+msgstr ""
+
 #: ../src/rpm.c
 msgid "Group"
 msgstr "Grup"
@@ -558,8 +583,12 @@ msgid "If checked the archive comment is shown after the archive is loaded"
 msgstr "Seçildiğinde, arşiv çağrıldıktan sonra arşiv yorumu gösterilecek"
 
 #: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "In a solid archive the files are grouped together featuring a better "
+#| "compression ratio"
 msgid ""
-"In a solid archive the files are grouped together featuring a better "
+"In a solid archive the files are grouped together resulting in a better "
 "compression ratio"
 msgstr ""
 "Kesiksiz arşivde dosyalar daha iyi bir sıkıştırılma oranında sınıflandırılır"
@@ -592,10 +621,6 @@ msgstr "Değiştirildi:"
 #: ../src/extract_dialog.c
 msgid "Multi-Extract"
 msgstr "Çoklu-Aç"
-
-#: ../src/main.c
-msgid "Multi-extract archives"
-msgstr "Çoklu-açma arşivleri"
 
 #: ../src/interface.c
 msgid "Name:"
@@ -660,7 +685,7 @@ msgid "Open the selected files with"
 msgstr "Seçili dosyaları şununla aç:"
 
 #: ../src/window.c
-msgid "Opening archive,please wait..."
+msgid "Opening archive, please wait..."
 msgstr "Arşiv açılıyor, lütfen bekleyin..."
 
 #: ../src/window.c
@@ -691,7 +716,7 @@ msgstr "Mevcut dosyaların üzerine yaz"
 msgid "Owner"
 msgstr "Kullanıcı"
 
-#: ../src/deb.c ../src/gzip_et_al.c ../src/tar.c
+#: ../src/deb.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "Kullanıcı/Grup"
 
@@ -719,8 +744,7 @@ msgstr "Desen:"
 msgid "Permission"
 msgstr "İzin"
 
-#: ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "İzinler"
 
@@ -751,7 +775,9 @@ msgid "Please go to Preferences->Advanced and set it."
 msgstr "Lütfen Tercihler->Gelişmiş sekmesinden onu belirtin."
 
 #: ../src/window.c
-msgid "Please install xdg-utils package."
+#, fuzzy
+#| msgid "Please install xdg-utils package."
+msgid "Please install xdg-utils."
 msgstr "Lütfen xdg-utils paketini yükleyin."
 
 #: ../src/main.c
@@ -775,7 +801,7 @@ msgstr "Lütfen hedef dizini seçin"
 msgid "Please wait until the completion of the current one!"
 msgstr "Lütfen şimdiki işlem tamamlanana kadar bekleyin!"
 
-#: ../src/gzip_et_al.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Points to"
 msgstr "Eklentiler"
 
@@ -788,7 +814,9 @@ msgid "Preferred archive format"
 msgstr "Tercih edilen arşiv biçimi"
 
 #: ../src/pref_dialog.c
-msgid "Preferred extract directory:"
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Preferred extraction directory:"
 msgstr "Tercih edilen ayıklama dizini:"
 
 #: ../src/pref_dialog.c
@@ -876,11 +904,12 @@ msgid "Show toolbar"
 msgstr ""
 
 #: ../src/main.c
-msgid "Show version and exit"
+#, fuzzy
+#| msgid "Show version and exit"
+msgid "Show version and exit\n"
 msgstr "Sürümü göster ve çık"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/gzip_et_al.c ../src/lha.c
-#: ../src/rpm.c ../src/tar.c
+#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Size"
 msgstr "Boyut"
 
@@ -889,11 +918,11 @@ msgid "Some errors occurred:"
 msgstr "Birkaç hata oluştu:"
 
 #: ../src/extract_dialog.c ../src/interface.c ../src/window.c
-msgid "Sorry,I could not perform the operation!"
+msgid "Sorry, I could not perform the operation!"
 msgstr "Üzgünüm, işlemi gerçekleştiremedim!"
 
 #: ../src/window.c
-msgid "Sorry,this archive format is not supported:"
+msgid "Sorry, this archive format is not supported:"
 msgstr "Üzgünüm, bu arşiv biçimi desteklenmiyor:"
 
 #: ../src/pref_dialog.c
@@ -913,7 +942,11 @@ msgid "Store full paths"
 msgstr "Tüm yolları depola"
 
 #: ../src/window.c
-msgid "Testing archive,please wait..."
+msgid "Test result:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Testing archive, please wait..."
 msgstr "Arşiv test ediliyor, lütfen bekleyin..."
 
 #: ../src/new_dialog.c
@@ -921,18 +954,26 @@ msgstr "Arşiv test ediliyor, lütfen bekleyin..."
 msgid "The archive \"%s\" already exists!"
 msgstr "\"%s\" arşivi zaten var!"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
+msgid "The archive is okay."
+msgstr "Bu arşiv şifrelenmiş!"
+
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Arşivin dizin yapısı, açılan dizinde yeniden oluşturuldu"
 
-#: ../src/window.c
-msgid "The archiver doesn't support this feature!"
-msgstr "Arşivleyici bu özelliği desteklemiyor!"
-
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Dosyalar arşiv yüklendikten sonra, dosya ismine göre sıralanır"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "the proper archiver is not installed!"
+msgid "The proper archiver is not installed!"
+msgstr "Uygun arşivleyici yüklü değil!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
@@ -943,20 +984,19 @@ msgid "This file type is not supported!"
 msgstr "Üzgünüm, bu arşiv biçimi desteklenmiyor!"
 
 #: ../src/interface.c
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+#, fuzzy
+#| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 "Bu, Xarchiver'in durumunu gösterir. Eğer yanıp sönüyorsa, Xarchiver işlem "
 "yapıyor demektir."
 
-#: ../src/add_dialog.c
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "This option takes more memory with large archives"
+msgid "This option consumes more memory with large archives"
 msgstr ""
-"Bu seçenek, arşivi sadece arşivdeki mevcut sürümden daha yakın bir zamanda "
-"güncellendiyse etkiler; güncelleme seçeneğinin aksine, arşivde bulunmayan "
-"dosyaları eklemeyecek"
+"Bu seçenek, büyük arşivler yapılan işlemlerde daha fazla bellek kullanır"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -974,29 +1014,41 @@ msgstr ""
 
 #: ../src/extract_dialog.c
 msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk"
 msgstr ""
 "Bu seçenek, diskte eski kalmış dosya varsa elimizdeki yeni dosyayı o eski "
 "dosyanın yerine koymasını sağlar; eğer elimizdeki dosya diskte yoksa, diske "
 "kopyalar"
 
-#: ../src/pref_dialog.c
-msgid "This option takes more memory with large archives"
-msgstr ""
-"Bu seçenek, büyük arşivler yapılan işlemlerde daha fazla bellek kullanır"
-
 #: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option will add any new files and update any files which have been "
+#| "modified since the archive was last created/modified"
 msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
+"This option will add any new files and update any files which are already in "
+"the archive but older there"
 msgstr ""
 "Bu seçenek, arşivin son değiştirme tarihinden sonra alınan dosyaları "
 "ekleyecek ve arşivi tekrar oluşturacak"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option affects the archive only if it has been modified more "
+#| "recently than the version already in the archive; unlike the update "
+#| "option it will not add files that are not already in the archive"
+msgid ""
+"This option will only add files which are already in the archive but older "
+"there; unlike the update option it will not add any new files"
+msgstr ""
+"Bu seçenek, arşivi sadece arşivdeki mevcut sürümden daha yakın bir zamanda "
+"güncellendiyse etkiler; güncelleme seçeneğinin aksine, arşivde bulunmayan "
+"dosyaları eklemeyecek"
+
+#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
 msgid "Time"
 msgstr "Zaman"
 
@@ -1028,6 +1080,10 @@ msgstr "Sıkıştırılmamış boyut:"
 #, c-format
 msgid "Uncompressed size: "
 msgstr "Sıkıştırılmamış boyut:"
+
+#: ../src/rpm.c
+msgid "Unknown compression type!"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
@@ -1062,10 +1118,14 @@ msgid "Web browser to use:"
 msgstr "Kullanılacak internet tarayıcı:"
 
 #: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "When this option is used,tar leaves the data modification times of the "
+#| "files it extracts as the times when the files were extracted,instead of "
+#| "setting it to the times recorded in the archive"
 msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
+"When this option is used, the modification times of the files will be the "
+"times of extraction instead of the times recorded in the archive"
 msgstr ""
 "Bu seçenek kullanıldığında tar, dosyaların veri değiştirme zamanlarını "
 "arşive kayıt edilme zamanlarına dönüştürmek yerine, dosyaların açıldıkları "
@@ -1084,12 +1144,10 @@ msgid "You are about to delete entries from the archive."
 msgstr "Arşivden dosya silmek üzeresiniz."
 
 #: ../src/interface.c ../src/window.c
-msgid "You can't add content to deb packages!"
+#, fuzzy
+#| msgid "You can't add content to deb packages!"
+msgid "You can't add content to this archive type!"
 msgstr "deb paketlerine içerik ekleyemezsiniz!"
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to rpm packages!"
-msgstr "rpm paketlerine içerik ekleyemezsiniz!"
 
 #: ../src/window.c
 msgid "You didn't set which browser to use!"
@@ -1106,14 +1164,6 @@ msgid ""
 "\"%s\"."
 msgstr "Dosyaları \"%s\" dizinine açmak için gerekli izniniz yok."
 
-#: ../src/window.c
-msgid "You have to install arj package!"
-msgstr "Arj paketi yüklemelisiniz!"
-
-#: ../src/window.c
-msgid "You have to install rar package!"
-msgstr "Rar paketi yüklemelisiniz!"
-
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
 msgstr "Eklenecek herhangi bir dosya seçmediniz!"
@@ -1126,7 +1176,7 @@ msgstr "Eklenecek herhangi bir dosya seçmediniz!"
 msgid "You missed the archive name!\n"
 msgstr "Arşiv ismini atladınız!\n"
 
-#: ../src/add_dialog.c ../src/interface.c
+#: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
 msgstr "Parola yanlış!"
 
@@ -1135,8 +1185,8 @@ msgid "You missed where to extract the files!"
 msgstr "Dosyaların açılacağı yeri atladınız!"
 
 #: ../src/main.c
-msgid "[archive name]"
-msgstr "[arşiv ismi]"
+msgid "[ARCHIVE]"
+msgstr ""
 
 #: ../src/add_dialog.c
 msgid "_Add"
@@ -1194,16 +1244,14 @@ msgstr "_Test"
 msgid "_Text file"
 msgstr "_Metin dosyası"
 
-#: ../src/main.c
-msgid "archive"
-msgstr "arşiv"
-
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "seç..."
 
 #: ../src/main.c
-msgid "destination archive"
+#, fuzzy
+#| msgid "destination archive"
+msgid "destination"
 msgstr "hedef arşiv"
 
 #: ../src/interface.c
@@ -1211,12 +1259,10 @@ msgid "example: *.txt; ac*"
 msgstr "örnek: *.txt; ac*"
 
 #: ../src/main.c
-msgid "file1 file2 file3 ... fileN"
+#, fuzzy
+#| msgid "file1 file2 file3 ... fileN"
+msgid "file1 ... fileN"
 msgstr "dosya1 dosya2 dosya3 ... dosyaN"
-
-#: ../src/main.c
-msgid "filenames"
-msgstr "dosya isimleri"
 
 #: ../src/pref_dialog.c
 msgid "large"
@@ -1229,10 +1275,6 @@ msgstr "seçilmiş"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "küçük"
-
-#: ../src/window.c
-msgid "the proper archiver is not installed!"
-msgstr "Uygun arşivleyici yüklü değil!"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1254,6 +1296,33 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Boyut\n"
+
+#~ msgid "Decompress file"
+#~ msgstr "Sıkıştırılmış dosyayı çöz"
+
+#~ msgid "Multi-extract archives"
+#~ msgstr "Çoklu-açma arşivleri"
+
+#~ msgid "The archiver doesn't support this feature!"
+#~ msgstr "Arşivleyici bu özelliği desteklemiyor!"
+
+#~ msgid "You can't add content to rpm packages!"
+#~ msgstr "rpm paketlerine içerik ekleyemezsiniz!"
+
+#~ msgid "You have to install arj package!"
+#~ msgstr "Arj paketi yüklemelisiniz!"
+
+#~ msgid "You have to install rar package!"
+#~ msgstr "Rar paketi yüklemelisiniz!"
+
+#~ msgid "[archive name]"
+#~ msgstr "[arşiv ismi]"
+
+#~ msgid "archive"
+#~ msgstr "arşiv"
+
+#~ msgid "filenames"
+#~ msgstr "dosya isimleri"
 
 #~ msgid "|Compressed\n"
 #~ msgstr "|Sıkıştırılmış\n"

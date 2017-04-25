@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-02-22 18:34+0100\n"
+"POT-Creation-Date: 2017-04-25 16:34+0200\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -130,11 +130,15 @@ msgid "Add files"
 msgstr "ఫైళ్ళను జతచేయి"
 
 #: ../src/main.c
-msgid "Add files to archive by asking their filenames and quits."
+msgid ""
+"Add the given files by asking the name of\n"
+"                                     the archive and quit"
 msgstr ""
 
 #: ../src/main.c
-msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Add to archive by asking which files and\n"
+"                                     quit"
 msgstr ""
 
 #: ../src/add_dialog.c
@@ -182,8 +186,9 @@ msgid "Archive _comment"
 msgstr "సంగ్రహం వ్యాఖ్య"
 
 #: ../src/window.c
-#, c-format
-msgid "Archive contents:\n"
+#, fuzzy, c-format
+#| msgid "Archive contents:\n"
+msgid "Archive content:\n"
 msgstr "సంగ్రహ అంశాలు:\n"
 
 #: ../src/window.c
@@ -391,18 +396,14 @@ msgstr ""
 msgid "Cut"
 msgstr "కత్తిరించు"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/rpm.c
-#: ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "తేదీ"
 
 #: ../src/deb.c
 msgid "Date modified"
 msgstr "సవరించిన తేదీ"
-
-#: ../src/extract_dialog.c
-msgid "Decompress file"
-msgstr ""
 
 #: ../src/interface.c
 msgid "Delete"
@@ -453,11 +454,15 @@ msgid "Extract"
 msgstr "పొందు"
 
 #: ../src/main.c
-msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract archive by asking the extraction\n"
+"                                     directory and quit"
 msgstr ""
 
 #: ../src/main.c
-msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to the destination\n"
+"                                     directory and quit"
 msgstr ""
 
 #: ../src/extract_dialog.c ../src/interface.c
@@ -466,6 +471,12 @@ msgstr "ఫైళ్ళను పొందు"
 
 #: ../src/extract_dialog.c
 msgid "Extract files with full path"
+msgstr ""
+
+#: ../src/main.c
+msgid ""
+"Extract multiple archives by asking the\n"
+"                                     extraction directory and quit"
 msgstr ""
 
 #: ../src/extract_dialog.c
@@ -487,7 +498,7 @@ msgid "Extract to:"
 msgstr "ఇచటకు పొందు:"
 
 #: ../src/extract_dialog.c
-msgid "Extracting files from archive,please wait..."
+msgid "Extracting files from archive, please wait..."
 msgstr "సంగ్రహం నుండి ఫైళ్ళను పొందుతున్నది, దయచేసి వేచివుండండి..."
 
 #: ../src/interface.c
@@ -535,6 +546,10 @@ msgstr ""
 msgid "From File"
 msgstr ""
 
+#: ../src/arj.c
+msgid "GUA"
+msgstr ""
+
 #: ../src/rpm.c
 msgid "Group"
 msgstr "గుంపు"
@@ -553,7 +568,7 @@ msgstr ""
 
 #: ../src/add_dialog.c
 msgid ""
-"In a solid archive the files are grouped together featuring a better "
+"In a solid archive the files are grouped together resulting in a better "
 "compression ratio"
 msgstr ""
 
@@ -584,10 +599,6 @@ msgstr "సవరించబడినది:"
 
 #: ../src/extract_dialog.c
 msgid "Multi-Extract"
-msgstr ""
-
-#: ../src/main.c
-msgid "Multi-extract archives"
 msgstr ""
 
 #: ../src/interface.c
@@ -654,7 +665,7 @@ msgid "Open the selected files with"
 msgstr "ఎంచుకున్న ఫైళ్ళను దీనితో తెరువు"
 
 #: ../src/window.c
-msgid "Opening archive,please wait..."
+msgid "Opening archive, please wait..."
 msgstr ""
 
 #: ../src/window.c
@@ -685,7 +696,7 @@ msgstr ""
 msgid "Owner"
 msgstr "యజమాని"
 
-#: ../src/deb.c ../src/gzip_et_al.c ../src/tar.c
+#: ../src/deb.c ../src/tar.c
 msgid "Owner/Group"
 msgstr "యజమాని/గుంపు"
 
@@ -713,8 +724,7 @@ msgstr ""
 msgid "Permission"
 msgstr "అనుమతి"
 
-#: ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "అనుమతులు"
 
@@ -743,7 +753,7 @@ msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
 #: ../src/window.c
-msgid "Please install xdg-utils package."
+msgid "Please install xdg-utils."
 msgstr ""
 
 #: ../src/main.c
@@ -767,7 +777,7 @@ msgstr ""
 msgid "Please wait until the completion of the current one!"
 msgstr ""
 
-#: ../src/gzip_et_al.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Points to"
 msgstr ""
 
@@ -780,7 +790,7 @@ msgid "Preferred archive format"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "Preferred extract directory:"
+msgid "Preferred extraction directory:"
 msgstr ""
 
 #: ../src/pref_dialog.c
@@ -868,11 +878,12 @@ msgid "Show toolbar"
 msgstr ""
 
 #: ../src/main.c
-msgid "Show version and exit"
+#, fuzzy
+#| msgid "Show version and exit"
+msgid "Show version and exit\n"
 msgstr "రూపాంతరం చూపించి నిష్క్రమించు"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/gzip_et_al.c ../src/lha.c
-#: ../src/rpm.c ../src/tar.c
+#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
 msgid "Size"
 msgstr "పరిమాణం"
 
@@ -881,11 +892,11 @@ msgid "Some errors occurred:"
 msgstr "కొన్ని దోషాలు సంభవించాయి:"
 
 #: ../src/extract_dialog.c ../src/interface.c ../src/window.c
-msgid "Sorry,I could not perform the operation!"
+msgid "Sorry, I could not perform the operation!"
 msgstr ""
 
 #: ../src/window.c
-msgid "Sorry,this archive format is not supported:"
+msgid "Sorry, this archive format is not supported:"
 msgstr ""
 
 #: ../src/pref_dialog.c
@@ -905,7 +916,11 @@ msgid "Store full paths"
 msgstr ""
 
 #: ../src/window.c
-msgid "Testing archive,please wait..."
+msgid "Test result:"
+msgstr ""
+
+#: ../src/window.c
+msgid "Testing archive, please wait..."
 msgstr ""
 
 #: ../src/new_dialog.c
@@ -913,17 +928,23 @@ msgstr ""
 msgid "The archive \"%s\" already exists!"
 msgstr ""
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
+msgid "The archive is okay."
+msgstr "ఈ సంగ్రహం ఎన్క్రిప్ట్ చేయబడింది!"
+
 #: ../src/extract_dialog.c
 msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 
-#: ../src/window.c
-msgid "The archiver doesn't support this feature!"
-msgstr ""
-
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
+msgstr ""
+
+#: ../src/window.c
+msgid "The proper archiver is not installed!"
 msgstr ""
 
 #: ../src/extract_dialog.c
@@ -935,14 +956,11 @@ msgid "This file type is not supported!"
 msgstr ""
 
 #: ../src/interface.c
-msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 
-#: ../src/add_dialog.c
-msgid ""
-"This option affects the archive only if it has been modified more recently "
-"than the version already in the archive; unlike the update option it will "
-"not add files that are not already in the archive"
+#: ../src/pref_dialog.c
+msgid "This option consumes more memory with large archives"
 msgstr ""
 
 #: ../src/extract_dialog.c
@@ -957,23 +975,24 @@ msgstr ""
 
 #: ../src/extract_dialog.c
 msgid ""
-"This option performs the same function as the freshen one,extracting files "
-"that are newer than those with the same name on disk,and in addition it "
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
 "extracts those files that do not already exist on disk"
-msgstr ""
-
-#: ../src/pref_dialog.c
-msgid "This option takes more memory with large archives"
 msgstr ""
 
 #: ../src/add_dialog.c
 msgid ""
-"This option will add any new files and update any files which have been "
-"modified since the archive was last created/modified"
+"This option will add any new files and update any files which are already in "
+"the archive but older there"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/add_dialog.c
+msgid ""
+"This option will only add files which are already in the archive but older "
+"there; unlike the update option it will not add any new files"
+msgstr ""
+
+#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
 msgid "Time"
 msgstr "సమయం"
 
@@ -1004,6 +1023,10 @@ msgstr ""
 #: ../src/window.c
 #, c-format
 msgid "Uncompressed size: "
+msgstr ""
+
+#: ../src/rpm.c
+msgid "Unknown compression type!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1040,9 +1063,8 @@ msgstr "వాడవలసిన జాల విహారకం:"
 
 #: ../src/extract_dialog.c
 msgid ""
-"When this option is used,tar leaves the data modification times of the files "
-"it extracts as the times when the files were extracted,instead of setting it "
-"to the times recorded in the archive"
+"When this option is used, the modification times of the files will be the "
+"times of extraction instead of the times recorded in the archive"
 msgstr ""
 
 #: ../src/pref_dialog.c
@@ -1058,11 +1080,7 @@ msgid "You are about to delete entries from the archive."
 msgstr ""
 
 #: ../src/interface.c ../src/window.c
-msgid "You can't add content to deb packages!"
-msgstr ""
-
-#: ../src/interface.c ../src/window.c
-msgid "You can't add content to rpm packages!"
+msgid "You can't add content to this archive type!"
 msgstr ""
 
 #: ../src/window.c
@@ -1080,14 +1098,6 @@ msgid ""
 "\"%s\"."
 msgstr ""
 
-#: ../src/window.c
-msgid "You have to install arj package!"
-msgstr ""
-
-#: ../src/window.c
-msgid "You have to install rar package!"
-msgstr ""
-
 #: ../src/extract_dialog.c
 msgid "You haven't added any of them!"
 msgstr ""
@@ -1100,7 +1110,7 @@ msgstr ""
 msgid "You missed the archive name!\n"
 msgstr ""
 
-#: ../src/add_dialog.c ../src/interface.c
+#: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
 msgid "You missed the password!"
 msgstr "మీరు సంకేతపదాన్ని మర్చిపోయారు!"
 
@@ -1109,7 +1119,7 @@ msgid "You missed where to extract the files!"
 msgstr ""
 
 #: ../src/main.c
-msgid "[archive name]"
+msgid "[ARCHIVE]"
 msgstr ""
 
 #: ../src/add_dialog.c
@@ -1168,16 +1178,12 @@ msgstr "పరీక్షించు (_T)"
 msgid "_Text file"
 msgstr "పాఠ్య ఫైల్ (_T)"
 
-#: ../src/main.c
-msgid "archive"
-msgstr "సంగ్రహం"
-
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "ఎన్నుకొను..."
 
 #: ../src/main.c
-msgid "destination archive"
+msgid "destination"
 msgstr ""
 
 #: ../src/interface.c
@@ -1185,12 +1191,8 @@ msgid "example: *.txt; ac*"
 msgstr "ఉదాహరణ: *.txt; ac*"
 
 #: ../src/main.c
-msgid "file1 file2 file3 ... fileN"
+msgid "file1 ... fileN"
 msgstr ""
-
-#: ../src/main.c
-msgid "filenames"
-msgstr "ఫైల్‌పేర్లు"
 
 #: ../src/pref_dialog.c
 msgid "large"
@@ -1202,10 +1204,6 @@ msgstr "ఎంచుకున్నవి"
 
 #: ../src/pref_dialog.c
 msgid "small"
-msgstr ""
-
-#: ../src/window.c
-msgid "the proper archiver is not installed!"
 msgstr ""
 
 #: ../src/window.c
@@ -1222,6 +1220,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|పరిమాణం\n"
+
+#~ msgid "archive"
+#~ msgstr "సంగ్రహం"
+
+#~ msgid "filenames"
+#~ msgstr "ఫైల్‌పేర్లు"
 
 #~ msgid "_Donate"
 #~ msgstr "విరాలమివ్వు (_D)"
