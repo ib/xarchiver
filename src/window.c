@@ -485,7 +485,7 @@ static void xa_determine_program_to_run (gchar *file)
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
 		else
 		{
-			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This file type is not supported!"),_("Please install xdg-utils package."));
+			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This file type is not supported!"),_("Please install xdg-utils."));
 			return;
 		}
 	}
@@ -1020,7 +1020,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 
 	if (!open[type])
 	{
-		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry,this archive format is not supported:"), _("the proper archiver is not installed!"));
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
 		g_free(path);
 		return;
 	}
@@ -1056,7 +1056,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	g_free (path);
 
 	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
-	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive,please wait..."));
+	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive, please wait..."));
 
 	archive[current_page]->status = XARCHIVESTATUS_OPEN;
 	(*archive[current_page]->open)(archive[current_page]);
@@ -1077,7 +1077,7 @@ void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 		if (!xa_check_password(archive[id]))
 			return;
 	}
-	gtk_label_set_text(GTK_LABEL(total_label),_("Testing archive,please wait..."));
+	gtk_label_set_text(GTK_LABEL(total_label),_("Testing archive, please wait..."));
 
 	archive[id]->status = XARCHIVESTATUS_TEST;
 	(*archive[id]->test) (archive[id]);
@@ -1158,7 +1158,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 			g_fprintf (stream,"<body bgcolor=#FFFFFF>\n");
 			g_fprintf (stream,"<b><u>");
 		}
-		g_fprintf (stream,_("Archive contents:\n"));
+		g_fprintf (stream,_("Archive content:\n"));
 
 		if (bp)
 			g_fprintf(stream, "</u></b><br><br><b>");
@@ -2168,7 +2168,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 
 	if (array == NULL)
 	{
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry,I could not perform the operation!"),"");
+		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Sorry, I could not perform the operation!"),"");
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}

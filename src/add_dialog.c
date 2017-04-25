@@ -144,13 +144,13 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->update = gtk_check_button_new_with_mnemonic (_("Update and add"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->update), FALSE);
-	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which have been modified since the archive was last created/modified"));
+	gtk_widget_set_tooltip_text(add_dialog->update, _("This option will add any new files and update any files which are already in the archive but older there"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->update, FALSE, FALSE, 0);
 
 	add_dialog->freshen = gtk_check_button_new_with_mnemonic (_("Freshen and replace"));
 
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->freshen), FALSE);
-	gtk_widget_set_tooltip_text(add_dialog->freshen, _("This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add files that are not already in the archive"));
+	gtk_widget_set_tooltip_text(add_dialog->freshen, _("This option will only add files which are already in the archive but older there; unlike the update option it will not add any new files"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->freshen, FALSE, FALSE, 0);
 	g_signal_connect (G_OBJECT (add_dialog->freshen),"toggled",G_CALLBACK (add_fresh_update_toggled_cb) , add_dialog);
 
@@ -164,7 +164,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->solid_archive = gtk_check_button_new_with_mnemonic (_("Create a solid archive"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_dialog->solid_archive), FALSE);
-	gtk_widget_set_tooltip_text(add_dialog->solid_archive, _("In a solid archive the files are grouped together featuring a better compression ratio"));
+	gtk_widget_set_tooltip_text(add_dialog->solid_archive, _("In a solid archive the files are grouped together resulting in a better compression ratio"));
 	gtk_box_pack_start (GTK_BOX (vbox3), add_dialog->solid_archive, FALSE, FALSE, 0);
 
 	label7 = gtk_label_new (_("Actions: "));

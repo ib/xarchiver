@@ -66,27 +66,27 @@ static gboolean opt_extract, opt_multi_extract, opt_add, opt_version;
 static GOptionEntry entries[] =
 {
 	{	"extract-to", 'x', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME, &opt_extract_path,
-		N_("Extract archive to the destination directory and quit"),
+		N_("Extract archive to the destination\n                                     directory and quit"),
 		N_("destination")
 	},
 	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_extract,
-		N_("Extract archive by asking the extraction directory and quit"),
+		N_("Extract archive by asking the extraction\n                                     directory and quit"),
 		NULL
 	},
 	{	"multi-extract", 'm', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_multi_extract,
-		N_("Extract multiple archives by asking the extraction directory and quit"),
+		N_("Extract multiple archives by asking the\n                                     extraction directory and quit"),
 		NULL
 	},
 	{	"compress", 'c', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_STRING, &opt_compress,
-		N_("Add the given files by asking the name of the archive and quit"),
+		N_("Add the given files by asking the name of\n                                     the archive and quit"),
 		N_("file1 ... fileN")
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_add,
-		N_("Add to archive by asking which files and quit"),
+		N_("Add to archive by asking which files and\n                                     quit"),
 		NULL
 	},
 	{	"version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version,
-		N_("Show version and exit"), NULL },
+		N_("Show version and exit\n"), NULL },
 	{ NULL }
 };
 

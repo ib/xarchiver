@@ -110,7 +110,7 @@ static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDr
 	array = gtk_selection_data_get_uris (data);
 	if (array == NULL)
 	{
-		xa_show_message_dialog(GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry,I could not perform the operation!"));
+		xa_show_message_dialog(GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,"",_("Sorry, I could not perform the operation!"));
 		gtk_drag_finish (context,FALSE,FALSE,time);
 		return;
 	}
@@ -365,7 +365,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->extract_full,FALSE,FALSE,0);
 
 	dialog_data->touch = gtk_check_button_new_with_mnemonic (_("Touch files"));
-	gtk_widget_set_tooltip_text(dialog_data->touch, _("When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to the times recorded in the archive"));
+	gtk_widget_set_tooltip_text(dialog_data->touch, _("When this option is used, the modification times of the files will be the times of extraction instead of the times recorded in the archive"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->touch,FALSE,FALSE,0);
 
 	dialog_data->overwrite_check = gtk_check_button_new_with_mnemonic (_("Overwrite existing files"));
@@ -373,7 +373,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	g_signal_connect(G_OBJECT(dialog_data->overwrite_check), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
 	dialog_data->update = gtk_check_button_new_with_mnemonic (_("Update existing files"));
-	gtk_widget_set_tooltip_text(dialog_data->update, _("This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts those files that do not already exist on disk"));
+	gtk_widget_set_tooltip_text(dialog_data->update, _("This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk"));
 	gtk_box_pack_start (GTK_BOX (vbox5),dialog_data->update,FALSE,FALSE,0);
 	g_signal_connect(G_OBJECT(dialog_data->update), "toggled", G_CALLBACK(toggle_overwrite_update_freshen), dialog_data);
 
@@ -565,7 +565,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			if (xa_main_window)
 			{
 				xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
-				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive,please wait..."));
+				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive, please wait..."));
 			}
 
 			archive->status = XARCHIVESTATUS_EXTRACT;
