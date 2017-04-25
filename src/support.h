@@ -29,7 +29,7 @@
 #ifdef ENABLE_NLS
 #include <libintl.h>
 #define gettext_noop(String) String
-#define _(String) dgettext(PACKAGE, String)
+#define _(String) dgettext(GETTEXT_PACKAGE, String)
 #define N_(String) gettext_noop(String)
 #define Q_(String) g_strip_context((String), gettext(String))
 #else

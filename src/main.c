@@ -477,7 +477,7 @@ int main (int argc, char **argv)
 			return 0;
 	}
 #endif
-	gtk_init_with_args(&argc, &argv, _("[ARCHIVE]"), entries, PACKAGE, &cli_error);
+	gtk_init_with_args(&argc, &argv, _("[ARCHIVE]"), entries, GETTEXT_PACKAGE, &cli_error);
 	g_get_charset (&locale);
 	if ( cli_error != NULL )
 	{
