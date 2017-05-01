@@ -491,15 +491,15 @@ static void xa_determine_program_to_run (gchar *file)
 	else
 		program = g_strdup(xdg_open);
 
-	if (program == NULL)
-	{
+	if (!program || !*program)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which program to use for opening this file!"),_("Please go to Preferences->Advanced and set it."));
-		return;
+	else
+	{
+		q_file = g_shell_quote(file);
+		xa_launch_external_program(program, q_file);
+		g_free(q_file);
 	}
 
-	q_file = g_shell_quote(file);
-	xa_launch_external_program(program, q_file);
-	g_free(q_file);
 	g_free(program);
 }
 
