@@ -20,10 +20,14 @@
 #define XARCHIVER_PARSER_H
 
 #define GRAB_ITEM(item, cond)                            \
+do                                                       \
+{                                                        \
 while (*line && (*line == ' ' || *line == '\t')) line++; \
 item = line;                                             \
 while (*line && (cond)) line++;                          \
-if (*line) *line++ = 0
+if (*line) *line++ = 0;                                  \
+}                                                        \
+while (0)
 
 #define NEXT_ITEM(item) GRAB_ITEM(item, *line != ' ' && *line != '\t' && *line != '\n')
 #define LAST_ITEM(item) GRAB_ITEM(item, *line != '\n')
