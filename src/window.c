@@ -1726,8 +1726,8 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||
 	         memcmp(magic, "\x1f\x9d", 2) == 0)
 		type = XARCHIVETYPE_GZIP;
-	else if ((memcmp(magic + 2, "-lh", 2) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') ||
-	         (memcmp(magic + 2, "-lz", 2) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
+	else if ((memcmp(magic + 2, "-lh", 3) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') ||
+	         (memcmp(magic + 2, "-lz", 3) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
 		type = XARCHIVETYPE_LHA;
 	else if (memcmp(magic, "\x5d\x00\x00\x80", 4) == 0)
 		type = XARCHIVETYPE_LZMA;
