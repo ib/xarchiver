@@ -466,7 +466,7 @@ static gchar *xa_get_statusbar_message (guint64 total_size, gint n_elem, gint di
 
 static void xa_determine_program_to_run (gchar *file)
 {
-	gchar *program = NULL, *q_file;
+	gchar *program;
 
 	if (!xdg_open)
 	{
@@ -495,7 +495,7 @@ static void xa_determine_program_to_run (gchar *file)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which program to use for opening this file!"),_("Please go to Preferences->Advanced and set it."));
 	else
 	{
-		q_file = g_shell_quote(file);
+		gchar *q_file = g_shell_quote(file);
 		xa_launch_external_program(program, q_file);
 		g_free(q_file);
 	}
