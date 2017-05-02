@@ -2202,11 +2202,13 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	if (one_file)
 	{
 		filename = g_filename_from_uri(array[0],NULL,NULL);
-		type = xa_detect_archive_type(filename);
 
 		if (filename == NULL)
 			return;
-		else if (type != XARCHIVETYPE_UNKNOWN && type != XARCHIVETYPE_NOT_FOUND)
+
+		type = xa_detect_archive_type(filename);
+
+		if (type != XARCHIVETYPE_UNKNOWN && type != XARCHIVETYPE_NOT_FOUND)
 		{
 			xa_open_archive(NULL,filename);
 			g_strfreev(array);
