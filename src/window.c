@@ -468,7 +468,9 @@ static void xa_determine_program_to_run (gchar *file)
 {
 	gchar *program;
 
-	if (!xdg_open)
+	if (xdg_open)
+		program = g_strdup(xdg_open);
+	else
 	{
 		const char *type = xa_get_stock_mime_icon(file);
 
@@ -488,8 +490,6 @@ static void xa_determine_program_to_run (gchar *file)
 			return;
 		}
 	}
-	else
-		program = g_strdup(xdg_open);
 
 	if (!program || !*program)
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which program to use for opening this file!"),_("Please go to Preferences->Advanced and set it."));
