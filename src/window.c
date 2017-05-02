@@ -491,7 +491,7 @@ static void xa_determine_program_to_run (gchar *file)
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
 		else
 		{
-			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("This file type is not supported!"),_("Please install xdg-utils."));
+			xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("This file type is not supported!"), _("Please install xdg-utils."));
 			return;
 		}
 	}
@@ -503,7 +503,7 @@ static void xa_determine_program_to_run (gchar *file)
 		g_free(q_file);
 	}
 	else
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,_("You didn't set which program to use for opening this file!"),_("Please go to Preferences->Advanced and set it."));
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("You didn't set which program to use for opening this file!"), _("Please go to Preferences->Advanced and set it."));
 
 	g_free(program);
 }
