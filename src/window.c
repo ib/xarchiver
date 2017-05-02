@@ -472,7 +472,12 @@ static void xa_determine_program_to_run (gchar *file)
 		program = g_strdup(xdg_open);
 	else
 	{
-		const char *type = xa_get_stock_mime_icon(file);
+		gchar *basename;
+		const char *type;
+
+		basename = g_path_get_basename(file);
+		type = xa_get_stock_mime_icon(basename);
+		g_free(basename);
 
 		if (strcmp(type, "text-html") == 0)
 		{
