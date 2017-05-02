@@ -59,8 +59,10 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 		if (line[12] == 'c')
 			return;
 		else
+		{
 			/* method */
 			SKIP_ITEM;
+		}
 	}
 	else if (archive->type == XARCHIVETYPE_XZ)
 	{
