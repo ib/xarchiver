@@ -176,7 +176,7 @@ void xa_7zip_open (XArchive *archive)
 		for (i = 0; i < 8; i++)
 		{
 			g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-			offset |= (guchar) byte << (8 * i);
+			offset |= (guint64) byte << (8 * i);
 		}
 
 		/* skip next header size and CRC32 */
