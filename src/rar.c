@@ -78,7 +78,8 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 	gpointer item[9];
 	unsigned short int i = 0;
 	unsigned int linesize,n,a;
-	gboolean encrypted = FALSE, dir = FALSE;
+	gboolean dir = FALSE;
+	static gboolean encrypted;
 	static gchar *filename;
 
 	if (last_line)
@@ -128,6 +129,7 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 
 	if (!fname_line)
 	{
+		encrypted = FALSE;
 		linesize = strlen(line);
 		if(line[0] == '*')
 		{
@@ -315,7 +317,7 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	archive->files++;
 
 	/* Permissions */
-	for(n=0; n < linesize && line[n] == ' '; n++);
+	for (n = encrypted ? 1 : 0; n < linesize && line[n] == ' '; n++);
 	a = n;
 	for(; n < linesize && line[n] != ' '; n++);
 	line[n] = '\0';
