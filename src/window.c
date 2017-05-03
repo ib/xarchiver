@@ -785,8 +785,13 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 		}
 		else
 		{
-			if (xa_main_window && !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
-				xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("An error occurred!"), _("Please check the 'Store archiver output' option to see it."));
+			if (xa_main_window)
+			{
+				if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+					xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("An error occurred!"), _("Please check the 'Store archiver output' option to see it."));
+
+				gtk_label_set_text(GTK_LABEL(total_label), _("An error occurred!"));
+			}
 			else
 				xa_show_archive_output(NULL, archive);
 
