@@ -281,7 +281,7 @@ static void toggle_overwrite_update_freshen (GtkToggleButton *button, Extract_di
 
 Extract_dialog_data *xa_create_extract_dialog()
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	GSList *radiobutton1_group;
 	Extract_dialog_data *dialog_data;
 	GtkWidget *hbox1, *hbox2, *hbox3, *vbox1, *vbox2, *vbox3, *vbox5, *alignment1, *alignment2, *alignment3, *label1, *label2, *label3;
@@ -577,7 +577,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 
 Multi_extract_data *xa_create_multi_extract_dialog()
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	Multi_extract_data *dialog_data;
 	GtkWidget	*dialog_vbox1,*vbox1,*scrolledwindow1,*hbox1,*frame1,*alignment1,*vbox2,*hbox3,*remove_button,*add_button,*cancelbutton1;
 	GtkWidget *hbox2, *vbox3, *alignment2, *alignment3, *label1, *label2, *frame2, *dialog_action_area1;

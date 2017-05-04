@@ -125,7 +125,7 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	GtkWidget *vbox1, *vbox3,*vbox4, *hbox1, *scrolledwindow1, *prefs_iconview;
 	GtkWidget *label1, *label2, *label3, *label4, *label5,*label6, *label7, *label8, *label9, *label10, *table1, *table2;
 	GtkTreeIter iter;

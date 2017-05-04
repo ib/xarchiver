@@ -66,7 +66,7 @@ static void fix_adjustment_value (GtkAdjustment *adjustment, gpointer user_data)
 
 Add_dialog_data *xa_create_add_dialog()
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	GtkWidget *dialog_vbox1,*label1,*label2,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
 	GtkWidget *dialog_action_area1,*alignment1,*alignment2,*alignment3,*vbox3,*frame2,*frame3,*frame4,*alignment4;
 	GtkWidget *vbox1;
@@ -236,7 +236,7 @@ Add_dialog_data *xa_create_add_dialog()
 
 void xa_set_add_dialog_options(Add_dialog_data *add_dialog,XArchive *archive)
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	gboolean flag = FALSE;
 	gchar *compression_msg = NULL;
 	gushort default_value, max_value;

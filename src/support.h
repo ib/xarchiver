@@ -49,11 +49,11 @@
 /* GTK+ compatibility */
 
 #if !GTK_CHECK_VERSION(2,12,0)
-#define GTK_COMPAT_TOOLTIPS GtkTooltips *tooltips = gtk_tooltips_new();
+#define GTK_COMPAT_TOOLTIPS GtkTooltips *tooltips = gtk_tooltips_new()
 #define gtk_tool_item_set_tooltip_text(tool_item, text) gtk_tool_item_set_tooltip(tool_item, tooltips, text, NULL)
 #define gtk_widget_set_tooltip_text(widget, text) gtk_tooltips_set_tip(tooltips, widget, text, NULL)
 #else
-#define GTK_COMPAT_TOOLTIPS
+#define GTK_COMPAT_TOOLTIPS (void) 0
 #endif
 
 #if !GTK_CHECK_VERSION(2,14,0)

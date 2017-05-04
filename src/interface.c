@@ -416,7 +416,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_data)
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	GtkWidget *ddialog1;
 	GtkWidget *ddialog_vbox1;
 	GtkWidget *dhbox1;
@@ -635,7 +635,7 @@ static void xa_icon_theme_changed (GtkIconTheme *icon_theme, gpointer data)
 
 void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, gboolean show_sidebar, gboolean show_toolbar)
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	GdkPixbuf *icon;
 	GtkIconSize tmp_toolbar_icon_size;
 	GtkTreeViewColumn *column;
@@ -1183,7 +1183,7 @@ gboolean xa_flash_led_indicator (XArchive *archive)
 
 void xa_add_page (XArchive *archive)
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	GtkWidget	*page_hbox,*label,*tab_label,*close_button,*image,*align;
 	gchar *filename_only, *label_utf8;
 	GtkRcStyle *rcstyle;

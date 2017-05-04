@@ -123,7 +123,7 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 
 XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean flag)
 {
-	GTK_COMPAT_TOOLTIPS
+	GTK_COMPAT_TOOLTIPS;
 	XArchive *archive = NULL;
 	GtkWidget *xa_file_chooser;
 	GtkWidget *hbox = NULL;
