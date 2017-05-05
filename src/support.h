@@ -28,6 +28,7 @@
 
 #ifdef ENABLE_NLS
 #include <libintl.h>
+#include <locale.h>
 #define gettext_noop(String) String
 #define _(String) dgettext(GETTEXT_PACKAGE, String)
 #define N_(String) gettext_noop(String)
