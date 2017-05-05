@@ -133,9 +133,11 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	Prefs_dialog_data *prefs_data;
 
 	prefs_data = g_new0 (Prefs_dialog_data,1);
-	prefs_data->dialog1 = gtk_dialog_new_with_buttons (_("Preferences"),
-									GTK_WINDOW (xa_main_window), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-									GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,GTK_STOCK_OK,GTK_RESPONSE_OK, NULL);
+	prefs_data->dialog1 = gtk_dialog_new_with_buttons(_("Preferences"),
+	                                                  NULL, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+	                                                  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+	                                                  GTK_STOCK_OK, GTK_RESPONSE_OK,
+	                                                  NULL);
 	icon_theme = gtk_icon_theme_get_default();
 	gtk_dialog_set_default_response (GTK_DIALOG (prefs_data->dialog1), GTK_RESPONSE_OK);
 	gtk_window_set_position (GTK_WINDOW(prefs_data->dialog1),GTK_WIN_POS_CENTER_ON_PARENT);
