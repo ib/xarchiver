@@ -108,10 +108,10 @@ if test x"$enable_debug" != x"no"; then
 
   if test x"$enable_debug" = x"full"; then
     AC_DEFINE([DEBUG_TRACE], [1], [Define for tracing support.])
-    test x"$GCC" = x"yes" && xa_cv_additional_CFLAGS="-Werror -g3"
+    test x"$GCC" = x"yes" && xa_cv_additional_CFLAGS="-Werror -g3 -O0"
     AC_MSG_RESULT([full])
   else
-    test x"$GCC" = x"yes" && xa_cv_additional_CFLAGS="-g"
+    test x"$GCC" = x"yes" && xa_cv_additional_CFLAGS="-g -Og"
     AC_MSG_RESULT([yes])
   fi
 

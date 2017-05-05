@@ -14842,11 +14842,11 @@ $as_echo "#define DEBUG 1" >>confdefs.h
 
 $as_echo "#define DEBUG_TRACE 1" >>confdefs.h
 
-    test x"$GCC" = x"yes" && xa_cv_additional_CFLAGS="-Werror -g3"
+    test x"$GCC" = x"yes" && xa_cv_additional_CFLAGS="-Werror -g3 -O0"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: full" >&5
 $as_echo "full" >&6; }
   else
-    test x"$GCC" = x"yes" && xa_cv_additional_CFLAGS="-g"
+    test x"$GCC" = x"yes" && xa_cv_additional_CFLAGS="-g -Og"
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
   fi
