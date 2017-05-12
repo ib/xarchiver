@@ -356,6 +356,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 				break;
 
 			case XARCHIVETYPE_GZIP:
+			case XARCHIVETYPE_XZ:
 				compression = "6";
 				break;
 
@@ -365,10 +366,6 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 
 			case XARCHIVETYPE_LZOP:
 				compression = "3";
-				break;
-
-			case XARCHIVETYPE_XZ:
-				compression = "6";
 				break;
 
 			default:
