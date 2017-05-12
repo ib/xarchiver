@@ -309,7 +309,7 @@ void xa_arj_add (XArchive *archive, GSList *file_list, gchar *compression)
 	                      archive->do_freshen ? " -f" : "",
 	                      archive->do_move ? " -d1" : "",
 	                      " -m", compression,
-	                      password_str, " -i -y ",
+	                      password_str, " -2d -i -y ",
 	                      archive->path[1], files->str, NULL);
 	g_free(password_str);
 	g_string_free(files,TRUE);
