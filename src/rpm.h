@@ -24,6 +24,6 @@
 
 void xa_rpm_ask(XArchive *);
 gboolean xa_rpm_extract(XArchive *, GSList *);
-void xa_rpm_open(XArchive *);
+void xa_rpm_list(XArchive *);
 
 #endif

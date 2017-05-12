@@ -132,7 +132,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 		entry->is_dir = TRUE;
 }
 
-void xa_lha_open (XArchive *archive)
+void xa_lha_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Points to"), _("Permissions"), _("UID/GID"), _("Size"), _("Ratio"), _("Timestamp")};

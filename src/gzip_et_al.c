@@ -134,7 +134,7 @@ static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 	g_free(filename);
 }
 
-void xa_gzip_et_al_open (XArchive *archive)
+void xa_gzip_et_al_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
@@ -217,20 +217,20 @@ void xa_gzip_et_al_open (XArchive *archive)
 			xa_gzip_et_al_can(archive, FALSE);
 
 			archive->ask = ask[XARCHIVETYPE_TAR];
-			archive->open = open[XARCHIVETYPE_TAR];
+			archive->list = list[XARCHIVETYPE_TAR];
 			archive->test = test[XARCHIVETYPE_TAR];
 			archive->extract = extract[XARCHIVETYPE_TAR];
 			archive->add = add[XARCHIVETYPE_TAR];
 			archive->delete = delete[XARCHIVETYPE_TAR];
 
 			(*archive->ask)(archive);
-			(*archive->open)(archive);
+			(*archive->list)(archive);
 
 			return;
 		}
 	}
 
-	/* continue opening gzip et al. archive type */
+	/* continue listing gzip et al. archive type */
 
 	archive->files = 1;
 	archive->can_add = FALSE;

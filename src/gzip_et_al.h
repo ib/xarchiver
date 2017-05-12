@@ -31,7 +31,7 @@
 void xa_gzip_et_al_add(XArchive *, GSList *, gchar *);
 void xa_gzip_et_al_ask(XArchive *);
 gboolean xa_gzip_et_al_extract(XArchive *, GSList *);
-void xa_gzip_et_al_open(XArchive *);
+void xa_gzip_et_al_list(XArchive *);
 void xa_gzip_et_al_test(XArchive *);
 
 #endif

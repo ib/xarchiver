@@ -278,7 +278,7 @@ XArchive *xa_init_archive_structure(gint type)
 	entry->filename = "";
 	archive->root_entry = entry;
 	archive->ask =		ask[type];
-	archive->open =		open[type];
+	archive->list =		list[type];
 	archive->delete =	delete[type];
 	archive->add =		add[type];
 	archive->extract = 	extract[type];
@@ -444,7 +444,7 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 	int status;
 	gboolean result;
 
-	/* batch mode and archive's open function has completed */
+	/* batch mode and archive's list function has completed */
 	if (!xa_main_window && archive->column_types)
 		xa_show_progress_bar(archive);
 
@@ -635,8 +635,8 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
 
 void xa_detect_encrypted_archive (XArchive *archive)
 {
-	archive->status = XARCHIVESTATUS_OPEN;
-	(*archive->open)(archive);
+	archive->status = XARCHIVESTATUS_LIST;
+	(*archive->list)(archive);
 
 	do
 	{

@@ -27,7 +27,7 @@ void xa_rar_ask(XArchive *);
 int xa_rar_check_version(gchar *);
 void xa_rar_delete(XArchive *, GSList *);
 gboolean xa_rar_extract(XArchive *, GSList *);
-void xa_rar_open(XArchive *);
+void xa_rar_list(XArchive *);
 void xa_rar_test(XArchive *);
 
 #endif

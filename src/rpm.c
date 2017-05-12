@@ -229,7 +229,7 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	g_free (filename);
 }
 
-void xa_rpm_open (XArchive *archive)
+void xa_rpm_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Points to"), _("Size"), _("Permission"), _("Date"), _("Hard Link"), _("Owner"), _("Group")};

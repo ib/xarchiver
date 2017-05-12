@@ -180,7 +180,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	}
 }
 
-void xa_zip_open (XArchive *archive)
+void xa_zip_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Permissions"), _("Version"), _("OS"), _("Original"), _("Compressed"), _("Method"), _("Date"), _("Time")};

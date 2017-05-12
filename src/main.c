@@ -46,7 +46,7 @@ GtkWidget *xa_main_window;
 XArchiver archiver[XARCHIVETYPE_TYPES];
 
 ask_func ask[XARCHIVETYPE_TYPES];
-open_func open[XARCHIVETYPE_TYPES];
+list_func list[XARCHIVETYPE_TYPES];
 test_func test[XARCHIVETYPE_TYPES];
 extract_func extract[XARCHIVETYPE_TYPES];
 add_func add[XARCHIVETYPE_TYPES];
@@ -118,7 +118,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.7z");
 
 		ask[type] = xa_7zip_ask;
-		open[type] = xa_7zip_open;
+		list[type] = xa_7zip_list;
 		test[type] = xa_7zip_test;
 		extract[type] = xa_7zip_extract;
 		add[type] = xa_7zip_add;
@@ -142,7 +142,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.arj");
 
 		ask[type] = xa_arj_ask;
-		open[type] = xa_arj_open;
+		list[type] = xa_arj_list;
 		test[type] = xa_arj_test;
 		extract[type] = xa_arj_extract;
 		add[type] = xa_arj_add;
@@ -166,7 +166,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.bz2");
 
 		ask[type] = xa_gzip_et_al_ask;
-		open[type] = xa_gzip_et_al_open;
+		list[type] = xa_gzip_et_al_list;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
 		add[type] = xa_gzip_et_al_add;
@@ -184,7 +184,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
 
 		ask[type] = xa_deb_ask;
-		open[type] = xa_deb_open;
+		list[type] = xa_deb_list;
 		extract[type]  = xa_deb_extract;
 	}
 
@@ -205,7 +205,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.gz");
 
 		ask[type] = xa_gzip_et_al_ask;
-		open[type] = xa_gzip_et_al_open;
+		list[type] = xa_gzip_et_al_list;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
 		add[type] = xa_gzip_et_al_add;
@@ -224,7 +224,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzh");
 
 		ask[type] = xa_lha_ask;
-		open[type] = xa_lha_open;
+		list[type] = xa_lha_list;
 		test[type] = xa_lha_test;
 		extract[type] = xa_lha_extract;
 		add[type] = xa_lha_add;
@@ -248,7 +248,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzma");
 
 		ask[type] = xa_gzip_et_al_ask;
-		open[type] = xa_gzip_et_al_open;
+		list[type] = xa_gzip_et_al_list;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
 		add[type] = xa_gzip_et_al_add;
@@ -267,7 +267,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzo");
 
 		ask[type] = xa_gzip_et_al_ask;
-		open[type] = xa_gzip_et_al_open;
+		list[type] = xa_gzip_et_al_list;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
 		add[type] = xa_gzip_et_al_add;
@@ -296,7 +296,7 @@ static void xa_check_available_archivers ()
 		}
 
 		ask[type] = xa_rar_ask;
-		open[type] = xa_rar_open;
+		list[type] = xa_rar_list;
 		test[type] = xa_rar_test;
 		extract[type] = xa_rar_extract;
 		add[type] = xa_rar_add;
@@ -315,7 +315,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rpm");
 
 		ask[type] = xa_rpm_ask;
-		open[type] = xa_rpm_open;
+		list[type] = xa_rpm_list;
 		extract[type] = xa_rpm_extract;
 	}
 
@@ -335,7 +335,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar");
 
 		ask[type] = xa_tar_ask;
-		open[type] = xa_tar_open;
+		list[type] = xa_tar_list;
 		extract[type] = xa_tar_extract;
 		add[type] = xa_tar_add;
 		delete[type] = xa_tar_delete;
@@ -354,7 +354,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xz");
 
 		ask[type] = xa_gzip_et_al_ask;
-		open[type] = xa_gzip_et_al_open;
+		list[type] = xa_gzip_et_al_list;
 		test[type] = xa_gzip_et_al_test;
 		extract[type] = xa_gzip_et_al_extract;
 		add[type] = xa_gzip_et_al_add;
@@ -383,7 +383,7 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
 
 		ask[type] = xa_zip_ask;
-		open[type] = xa_zip_open;
+		list[type] = xa_zip_list;
 		test[type] = xa_zip_test;
 		extract[type] = xa_zip_extract;
 		add[type] = xa_zip_add;
@@ -422,7 +422,7 @@ static void xa_check_available_archivers ()
 				archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[1]);
 
 				ask[type] = xa_tar_ask;
-				open[type] = xa_tar_open;
+				list[type] = xa_tar_list;
 				extract[type] = xa_tar_extract;
 				add[type] = xa_tar_add;
 				delete[type] = xa_tar_delete;

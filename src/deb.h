@@ -25,6 +25,6 @@
 
 void xa_deb_ask(XArchive *);
 gboolean xa_deb_extract(XArchive *, GSList *);
-void xa_deb_open(XArchive *);
+void xa_deb_list(XArchive *);
 
 #endif

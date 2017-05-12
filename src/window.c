@@ -768,7 +768,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
 				xa_set_statusbar_message_for_displayed_rows(archive);
 
-				if (archive->status == XARCHIVESTATUS_OPEN && archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
+				if (archive->status == XARCHIVESTATUS_LIST && archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
 					xa_show_archive_comment(NULL, NULL);
 
 				if (archive->status == XARCHIVESTATUS_TEST)
@@ -834,7 +834,7 @@ void xa_reload_archive_content(XArchive *_archive)
 
 	/* this reload will be called internally during adding and deleting */
 	_archive->status = XARCHIVESTATUS_RELOAD;
-	(*_archive->open)(_archive);
+	(*_archive->list)(_archive);
 
 	if (strcmp(_archive->path[0], archive[idx]->path[0]) == 0)
 		xa_fill_dir_sidebar(_archive,TRUE);
@@ -1034,7 +1034,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		return;
 	}
 
-	if (!open[type])
+	if (!list[type])
 	{
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
 		g_free(path);
@@ -1074,8 +1074,8 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive, please wait..."));
 
-	archive[current_page]->status = XARCHIVESTATUS_OPEN;
-	(*archive[current_page]->open)(archive[current_page]);
+	archive[current_page]->status = XARCHIVESTATUS_LIST;
+	(*archive[current_page]->list)(archive[current_page]);
 
 	xa_fill_dir_sidebar(archive[current_page],TRUE);
 }

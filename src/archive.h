@@ -49,7 +49,7 @@ typedef enum
 typedef enum
 {
 	XARCHIVESTATUS_IDLE,
-	XARCHIVESTATUS_OPEN,
+	XARCHIVESTATUS_LIST,
 	XARCHIVESTATUS_TEST,
 	XARCHIVESTATUS_EXTRACT,
 	XARCHIVESTATUS_ADD,
@@ -91,7 +91,7 @@ struct _XEntry
 typedef struct _XArchive XArchive;
 
 typedef void (*ask_func)(XArchive *);
-typedef void (*open_func)(XArchive *);
+typedef void (*list_func)(XArchive *);
 typedef void (*parse_output_func)(gchar *, XArchive *);
 typedef void (*test_func)(XArchive *);
 typedef gboolean (*extract_func)(XArchive *, GSList *);
@@ -166,7 +166,7 @@ struct _XArchive
 	GSList *output;
 	/* (un)compressor interface */
 	ask_func ask;
-	open_func open;
+	list_func list;
 	parse_output_func parse_output;
 	test_func test;
 	extract_func extract;

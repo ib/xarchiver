@@ -401,7 +401,7 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	g_free(filename);
 }
 
-void xa_rar_open (XArchive *archive)
+void xa_rar_list (XArchive *archive)
 {
 	GIOChannel *file;
 	gchar *password_str, *command;

@@ -28,6 +28,6 @@ void xa_tar_add(XArchive *, GSList *, gchar *);
 void xa_tar_ask(XArchive *);
 void xa_tar_delete(XArchive *, GSList *);
 gboolean xa_tar_extract(XArchive *, GSList *);
-void xa_tar_open(XArchive *);
+void xa_tar_list(XArchive *);
 
 #endif

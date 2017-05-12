@@ -26,7 +26,7 @@ void xa_7zip_add(XArchive *, GSList *, gchar *);
 void xa_7zip_ask(XArchive *);
 void xa_7zip_delete(XArchive *, GSList *);
 gboolean xa_7zip_extract(XArchive *, GSList *);
-void xa_7zip_open(XArchive *);
+void xa_7zip_list(XArchive *);
 void xa_7zip_test(XArchive *);
 
 #endif
