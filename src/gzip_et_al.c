@@ -154,43 +154,25 @@ void xa_gzip_et_al_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
-	gchar *command, *basename, *workfile;
-	const gchar *decompfile;
-	GDir *dir;
+	const gchar *decompfile = "xa-tmp.decompressed";
+	gchar *archive_path, *command, *workfile;
 	FILE *file;
 	guint i;
 
 	if (!xa_create_working_directory(archive))
 		return;
 
-	command = g_strconcat("cp ", archive->path[1], " ", archive->working_dir, NULL);
+	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
+
+	archive->child_dir = g_strdup(archive->working_dir);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -d ", archive_path, " -c > ", decompfile, "\"", NULL);
 	xa_run_command(archive, command);
 	g_free(command);
 
-	basename = g_path_get_basename(archive->path[1]);
+	g_free(archive->child_dir);
+	archive->child_dir = NULL;
 
-	if (archive->type == XARCHIVETYPE_LZ4)
-		workfile = g_strconcat(" ", archive->working_dir, "/xa-tmp", NULL);
-	else
-		workfile = NULL;
-
-	command = g_strconcat(archiver[archive->type].program[0], " -d", archive->type == XARCHIVETYPE_LZ4 ? " --rm " : " ", archive->working_dir, "/", basename, workfile, NULL);
-	xa_run_command(archive, command);
-	g_free(command);
-
-	g_free(workfile);
-	g_free(basename);
-
-	dir = g_dir_open(archive->working_dir, 0, NULL);
-
-	if (!dir)
-		return;
-
-	decompfile = g_dir_read_name(dir);
-	g_dir_close(dir);
-
-	if (!decompfile)
-		return;
+	g_free(archive_path);
 
 	workfile = g_strconcat(archive->working_dir, "/", decompfile, NULL);
 
