@@ -73,6 +73,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 		return "x-office-presentation";
 	else if (strcmp(mime,"application/gzip") == 0 ||
 	         strcmp(mime,"application/vnd.debian.binary-package") == 0 ||
+	         strcmp(mime,"application/vnd.rar") == 0 || /* legacy */ strcmp(mime,"application/x-rar") == 0 ||
 	         strcmp(mime,"application/x-7z-compressed") == 0 ||
 	         strcmp(mime,"application/x-arj") == 0 ||
 	         strcmp(mime,"application/x-bzip") == 0 ||
@@ -87,7 +88,6 @@ const char *xa_get_stock_mime_icon(char *filename)
 	         strcmp(mime,"application/x-lzma") == 0 ||
 	         strcmp(mime,"application/x-lzma-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-lzop") == 0 ||
-	         strcmp(mime,"application/x-rar") == 0 ||
 	         strcmp(mime,"application/x-rpm") == 0 ||
 	         strcmp(mime,"application/x-source-rpm") == 0 ||
 	         strcmp(mime,"application/x-tar") == 0 ||
