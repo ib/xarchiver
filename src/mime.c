@@ -80,6 +80,8 @@ const char *xa_get_stock_mime_icon(char *filename)
 	         strcmp(mime,"application/x-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-java-archive") == 0 ||
 	         strcmp(mime,"application/x-lha") == 0 ||
+	         strcmp(mime,"application/x-lz4") == 0 ||
+	         strcmp(mime,"application/x-lz4-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-lzip") == 0 ||
 	         strcmp(mime,"application/x-lzip-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-lzma") == 0 ||

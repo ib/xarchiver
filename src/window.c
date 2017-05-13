@@ -1729,6 +1729,10 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 	else if ((memcmp(magic + 2, "-lh", 3) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') ||
 	         (memcmp(magic + 2, "-lz", 3) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
 		type = XARCHIVETYPE_LHA;
+	else if (memcmp(magic, "\x04\x22\x4d\x18", 4) == 0 ||
+	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0 ||
+	         (memcmp(magic + 1, "\x2a\x4d\x18", 3) == 0 && (magic[0] & 0xf0) == 0x50))
+		type = XARCHIVETYPE_LZ4;
 	else if (memcmp(magic, "\x4c\x5a\x49\x50", 4) == 0)
 		type = XARCHIVETYPE_LZIP;
 	else if (memcmp(magic, "\x5d\x00\x00\x80", 4) == 0)
@@ -1944,6 +1948,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_LZ4:
 		case XARCHIVETYPE_LZIP:
 		case XARCHIVETYPE_LZMA:
 		case XARCHIVETYPE_LZOP:
@@ -1962,6 +1967,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZ:
+		case XARCHIVETYPE_TAR_LZ4:
 		case XARCHIVETYPE_TAR_LZMA:
 		case XARCHIVETYPE_TAR_XZ:
 		case XARCHIVETYPE_TAR_LZOP:
@@ -2011,6 +2017,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 
 		case XARCHIVETYPE_BZIP2:
 		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_LZ4:
 		case XARCHIVETYPE_LZIP:
 		case XARCHIVETYPE_LZMA:
 		case XARCHIVETYPE_LZOP:
@@ -2029,6 +2036,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		case XARCHIVETYPE_TAR_GZ:
 		case XARCHIVETYPE_TAR_BZ2:
 		case XARCHIVETYPE_TAR_LZ:
+		case XARCHIVETYPE_TAR_LZ4:
 		case XARCHIVETYPE_TAR_LZMA:
 		case XARCHIVETYPE_TAR_XZ:
 		case XARCHIVETYPE_TAR_LZOP:

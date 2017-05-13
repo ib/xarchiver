@@ -24,6 +24,7 @@
 
 #define SINGLE_FILE_COMPRESSOR(archive) (archive->type == XARCHIVETYPE_BZIP2 || \
                                          archive->type == XARCHIVETYPE_GZIP  || \
+                                         archive->type == XARCHIVETYPE_LZ4   || \
                                          archive->type == XARCHIVETYPE_LZIP  || \
                                          archive->type == XARCHIVETYPE_LZMA  || \
                                          archive->type == XARCHIVETYPE_LZOP  || \

@@ -169,10 +169,16 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 	basename = g_path_get_basename(archive->path[1]);
 
-	command = g_strconcat(archiver[archive->type].program[0], " -d ", archive->working_dir, "/", basename, NULL);
+	if (archive->type == XARCHIVETYPE_LZ4)
+		workfile = g_strconcat(" ", archive->working_dir, "/xa-tmp", NULL);
+	else
+		workfile = NULL;
+
+	command = g_strconcat(archiver[archive->type].program[0], " -d", archive->type == XARCHIVETYPE_LZ4 ? " --rm " : " ", archive->working_dir, "/", basename, workfile, NULL);
 	xa_run_command(archive, command);
 	g_free(command);
 
+	g_free(workfile);
 	g_free(basename);
 
 	dir = g_dir_open(archive->working_dir, 0, NULL);
@@ -209,6 +215,10 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 				case XARCHIVETYPE_GZIP:
 					archive->type = XARCHIVETYPE_TAR_GZ;
+					break;
+
+				case XARCHIVETYPE_LZ4:
+					archive->type = XARCHIVETYPE_TAR_LZ4;
 					break;
 
 				case XARCHIVETYPE_LZIP:
@@ -266,6 +276,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 			break;
 
 		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_LZ4:
 		case XARCHIVETYPE_LZMA:
 		{
 			struct stat st;
@@ -313,7 +324,7 @@ void xa_gzip_et_al_test (XArchive *archive)
 {
 	gchar *command;
 
-	command = g_strconcat(archiver[archive->type].program[0], " -tv ", archive->path[1], NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " -t", archive->type == XARCHIVETYPE_LZ4 ? " " : "v ", archive->path[1], NULL);
 
 	xa_run_command(archive, command);
 	g_free(command);
@@ -380,6 +391,10 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 			case XARCHIVETYPE_LZIP:
 			case XARCHIVETYPE_XZ:
 				compression = "6";
+				break;
+
+			case XARCHIVETYPE_LZ4:
+				compression = "1";
 				break;
 
 			case XARCHIVETYPE_LZMA:
