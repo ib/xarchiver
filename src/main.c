@@ -231,6 +231,25 @@ static void xa_check_available_archivers ()
 		delete[type] = xa_lha_delete;
 	}
 
+	/* lzip */
+
+	type = XARCHIVETYPE_LZIP;
+	path = g_find_program_in_path("lzip");
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
+		archiver[type].type = g_slist_append(archiver[type].type, "lzip");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lz");
+
+		ask[type] = xa_gzip_et_al_ask;
+		list[type] = xa_gzip_et_al_list;
+		test[type] = xa_gzip_et_al_test;
+		extract[type] = xa_gzip_et_al_extract;
+		add[type] = xa_gzip_et_al_add;
+	}
+
 	/* lzma */
 
 	type = XARCHIVETYPE_LZMA;
@@ -404,6 +423,7 @@ static void xa_check_available_archivers ()
 		{
 			{XARCHIVETYPE_BZIP2, XARCHIVETYPE_TAR_BZ2, {"tar.bzip2", NULL}, {"*.tar.bz2", "*.tbz2"}},
 			{XARCHIVETYPE_GZIP, XARCHIVETYPE_TAR_GZ, {"tar.gzip", NULL}, {"*.tar.gz", "*.tgz"}},
+			{XARCHIVETYPE_LZIP, XARCHIVETYPE_TAR_LZ, {"tar.lzip", NULL}, {"*.tar.lz", ""}},
 			{XARCHIVETYPE_LZMA, XARCHIVETYPE_TAR_LZMA, {"tar.lzma", NULL}, {"*.tar.lzma", "*.tlz"}},
 			{XARCHIVETYPE_LZOP, XARCHIVETYPE_TAR_LZOP, {"tar.lzop", NULL}, {"*.tar.lzo", "*.tzo"}},
 			{XARCHIVETYPE_XZ, XARCHIVETYPE_TAR_XZ, {"tar.xz", NULL}, {"*.tar.xz", "*.txz"}},

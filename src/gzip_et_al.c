@@ -47,11 +47,24 @@ void xa_gzip_et_al_ask (XArchive *archive)
 
 static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 {
+	guint idx0 = 0, idx1 = 1;
+
 	if (archive->type == XARCHIVETYPE_GZIP)
 	{
 		/* heading? */
 		if (line[9] == 'c')
 			return;
+	}
+	else if (archive->type == XARCHIVETYPE_LZIP)
+	{
+		/* heading? */
+		if (line[3] == 'u')
+			return;
+		else
+		{
+			idx0 = 1;
+			idx1 = 0;
+		}
 	}
 	else if (archive->type == XARCHIVETYPE_LZOP)
 	{
@@ -93,11 +106,11 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 	else
 		return;
 
-	/* compressed */
-	NEXT_ITEM(item[1]);
+	/* compressed (uncompressed for lzip) */
+	NEXT_ITEM(item[idx1]);
 
-	/* uncompressed */
-	NEXT_ITEM(item[0]);
+	/* uncompressed (compressed for lzip) */
+	NEXT_ITEM(item[idx0]);
 	archive->files_size = g_ascii_strtoull(item[0], NULL, 0);
 
 	/* ratio */
@@ -107,6 +120,9 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 	{
 		/* uncompressed_name */
 		LAST_ITEM(filename);
+
+		if ((archive->type == XARCHIVETYPE_LZIP) && g_str_has_suffix(filename, ".lz"))
+			*(line - 4) = 0;
 
 		filename = g_path_get_basename(filename);
 	}
@@ -195,6 +211,10 @@ void xa_gzip_et_al_list (XArchive *archive)
 					archive->type = XARCHIVETYPE_TAR_GZ;
 					break;
 
+				case XARCHIVETYPE_LZIP:
+					archive->type = XARCHIVETYPE_TAR_LZ;
+					break;
+
 				case XARCHIVETYPE_LZMA:
 					archive->type = XARCHIVETYPE_TAR_LZMA;
 					break;
@@ -238,6 +258,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_GZIP:
+		case XARCHIVETYPE_LZIP:
 		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_XZ:
 			command = g_strconcat(archiver[archive->type].program[0], " -l", archive->type == XARCHIVETYPE_XZ ? " --robot " : " ", archive->path[1], NULL);
@@ -356,6 +377,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 				break;
 
 			case XARCHIVETYPE_GZIP:
+			case XARCHIVETYPE_LZIP:
 			case XARCHIVETYPE_XZ:
 				compression = "6";
 				break;

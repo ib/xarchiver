@@ -53,6 +53,9 @@ static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
 		case XARCHIVETYPE_TAR_GZ:
 			return XARCHIVETYPE_GZIP;
 
+		case XARCHIVETYPE_TAR_LZ:
+			return XARCHIVETYPE_LZIP;
+
 		case XARCHIVETYPE_TAR_LZMA:
 			return XARCHIVETYPE_LZMA;
 
