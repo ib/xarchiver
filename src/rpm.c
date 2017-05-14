@@ -38,6 +38,7 @@ void xa_rpm_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
 	archive->can_touch = TRUE;
+	archive->can_overwrite = TRUE;
 }
 
 static gchar *xa_rpm2cpio (XArchive *archive)
@@ -283,6 +284,7 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 	chdir(archive->extraction_dir);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
+	                      archive->do_overwrite ? " -u" : "",
 	                      " -I ", archive->working_dir, "/xa-tmp.cpio", files->str, NULL);
 
 	g_string_free(files,TRUE);
