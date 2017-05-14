@@ -37,6 +37,7 @@ void xa_zip_ask (XArchive *archive)
 	archive->can_password = TRUE;
 	archive->can_full_path[0] = TRUE;
 	archive->can_full_path[1] = archiver[archive->type].is_compressor;
+	archive->can_touch = TRUE;
 	archive->can_overwrite = TRUE;
 	archive->can_update[0] = TRUE;
 	archive->can_update[1] = archiver[archive->type].is_compressor;
@@ -224,6 +225,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	password_str = xa_zip_password_str(archive);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? "" : " -j",
+	                      archive->do_touch ? " -DD" : "",
 	                      archive->do_overwrite ? " -o" : " -n",
 	                      archive->do_update ? " -u" : "",
 	                      archive->do_freshen ? " -f" : "",
