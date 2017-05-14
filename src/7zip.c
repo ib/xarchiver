@@ -38,6 +38,7 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_overwrite = TRUE;
 	archive->can_update[1] = TRUE;
 	archive->can_freshen[1] = TRUE;
+	archive->can_move = TRUE;
 	archive->can_solid = TRUE;
 }
 
@@ -350,6 +351,7 @@ void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : " a",
 	                      archive->do_freshen ? " -ur0w0x1z1" : "",
+	                      archive->do_move ? " -sdel" : "",
 	                      " -ms=", archive->do_solid ? "on" : "off",
 	                      " -mx=", compression,
 	                      password_str, " -bd -spd -y ",
