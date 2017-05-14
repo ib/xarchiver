@@ -259,7 +259,7 @@ void xa_rpm_list (XArchive *archive)
 		g_free(result);
 	}
 	else
-		command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -tv < ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
+		command = g_strconcat(archiver[archive->type].program[0], " -tv -I ", archive->working_dir, "/xa-tmp.cpio", NULL);
 
 	archive->parse_output = xa_cpio_parse_output;
 	xa_spawn_async_process (archive,command);
@@ -280,7 +280,7 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 
 	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
 	chdir(archive->extraction_dir);
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -id", files->str, " < ", archive->working_dir, "/xa-tmp.cpio\"", NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " -id -I ", archive->working_dir, "/xa-tmp.cpio", files->str, NULL);
 
 	g_string_free(files,TRUE);
 
