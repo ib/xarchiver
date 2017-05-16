@@ -17,6 +17,7 @@
  */
 
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -28,7 +29,7 @@
 #include "tar.h"
 #include "window.h"
 
-static gpointer item[3];
+static gpointer item[5];
 static gchar *filename;
 
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
@@ -128,6 +129,9 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 	}
 
 	xa_set_archive_entries_for_each_row(archive, filename, item);
+
+	g_free(item[3]);
+	g_free(item[4]);
 	g_free(filename);
 }
 
@@ -147,16 +151,19 @@ static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 	g_free(item[0]);
 	g_free(item[1]);
 	g_free(item[2]);
+	g_free(item[3]);
+	g_free(item[4]);
 	g_free(filename);
 }
 
 void xa_gzip_et_al_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio"), _("Date"), _("Time")};
 	const gchar *decompfile = "xa-tmp.decompressed";
-	gchar *archive_path, *command, *workfile;
+	gchar *archive_path, *command, *workfile, buffer[12];
 	FILE *file;
+	struct stat st;
 	guint i;
 
 	if (!xa_create_working_directory(archive))
@@ -247,6 +254,16 @@ void xa_gzip_et_al_list (XArchive *archive)
 	archive->files = 1;
 	archive->can_add = FALSE;
 
+	stat(archive->path[0], &st);
+
+	/* date */
+	strftime(buffer, sizeof(buffer), "%Y-%m-%d", localtime(&st.st_mtime));
+	item[3] = g_strdup(buffer);
+
+	/* time */
+	strftime(buffer, sizeof(buffer), "%H:%M:%S", localtime(&st.st_mtime));
+	item[4] = g_strdup(buffer);
+
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_GZIP:
@@ -261,11 +278,9 @@ void xa_gzip_et_al_list (XArchive *archive)
 		case XARCHIVETYPE_LZ4:
 		case XARCHIVETYPE_LZMA:
 		{
-			struct stat st;
 			off_t compressed;
 
 			/* compressed */
-			stat(archive->path[0], &st);
 			compressed = st.st_size;
 			item[1] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) compressed);
 
@@ -293,7 +308,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 	xa_spawn_async_process(archive, command);
 	g_free(command);
 
-	archive->columns = 6;
+	archive->columns = 8;
 	archive->column_types = g_malloc0(sizeof(types));
 
 	for (i = 0; i < archive->columns; i++)
