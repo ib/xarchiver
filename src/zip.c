@@ -184,7 +184,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 void xa_zip_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Permissions"), _("Version"), _("OS"), _("Original"), _("Compressed"), _("Method"), _("Date"), _("Time")};
+	const gchar *titles[] = {_("Permissions"), _("Version"), _("OS"), _("Original Size"), _("Compressed"), _("Method"), _("Date"), _("Time")};
 	guint i;
 
 	gchar *command = g_strconcat(archiver[archive->type].program[0], " -Z -l ", archive->path[1], NULL);

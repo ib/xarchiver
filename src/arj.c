@@ -194,7 +194,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 void xa_arj_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Original"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Attributes"), _("GUA")};
+	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Attributes"), _("GUA")};
 	guint i;
 
 	data_line = FALSE;

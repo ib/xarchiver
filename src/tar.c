@@ -171,7 +171,7 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 void xa_tar_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Points to"), _("Permissions"), _("Owner/Group"), _("Size"), _("Date"), _("Time")};
+	const gchar *titles[] = {_("Points to"), _("Permissions"), _("Owner/Group"), _("Original Size"), _("Date"), _("Time")};
 	gchar *command;
 	guint i;
 
