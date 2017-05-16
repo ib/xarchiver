@@ -93,7 +93,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 void xa_deb_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Permissions"), _("Owner/Group"), _("Original Size"), _("Date modified")};
+	const gchar *titles[] = {_("Permissions"), _("UID/GID"), _("Original Size"), _("Date and Time")};
 	gchar *command = NULL;
 	guint i;
 
