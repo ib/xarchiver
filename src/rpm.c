@@ -234,7 +234,7 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 void xa_rpm_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Permission"), _("Date"), _("Hard Link"), _("Owner"), _("Group")};
+	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Permissions"), _("Date and Time"), _("Hard Link"), _("Owner"), _("Group")};
 	gchar *result, *command;
 	guint i;
 
