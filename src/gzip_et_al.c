@@ -159,7 +159,7 @@ static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 void xa_gzip_et_al_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Ratio"), _("Date"), _("Time")};
+	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Saving"), _("Date"), _("Time")};
 	const gchar *decompfile = "xa-tmp.decompressed";
 	gchar *archive_path, *command, *workfile, buffer[12];
 	FILE *file;
@@ -270,8 +270,15 @@ void xa_gzip_et_al_list (XArchive *archive)
 		case XARCHIVETYPE_LZIP:
 		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_XZ:
+
+			if (archive->type == XARCHIVETYPE_LZOP)
+				titles[2] = _("Occupancy");
+			else if (archive->type == XARCHIVETYPE_XZ)
+				titles[2] = _("Ratio");
+
 			command = g_strconcat(archiver[archive->type].program[0], " -l", archive->type == XARCHIVETYPE_XZ ? " --robot " : " ", archive->path[1], NULL);
 			archive->parse_output = xa_gzip_et_al_parse_output;
+
 			break;
 
 		case XARCHIVETYPE_BZIP2:
@@ -289,7 +296,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 			archive->files_size = (guint64) st.st_size;
 			item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, archive->files_size);
 
-			/* ratio */
+			/* saving */
 			item[2] = g_strdup_printf("%2.1f%%", 100.0 - 100.0 * compressed / st.st_size);
 
 			/* trigger pseudo-parser once */
