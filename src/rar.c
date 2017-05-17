@@ -474,7 +474,7 @@ void xa_rar_list (XArchive *archive)
 	if (rar_version == 5)
 	{
 		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-		const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Attributes"), _("Checksum")};
+		const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Occupancy"), _("Date"), _("Time"), _("Attributes"), _("Checksum")};
 
 		archive->parse_output = xa_rar5_parse_output;
 		xa_spawn_async_process (archive,command);
@@ -491,7 +491,7 @@ void xa_rar_list (XArchive *archive)
 	else
 	{
 		const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-		const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Attributes"), _("Checksum"), _("Method"), _("Version")};
+		const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Occupancy"), _("Date"), _("Time"), _("Attributes"), _("Checksum"), _("Method"), _("Version")};
 
 		archive->parse_output = xa_rar_parse_output;
 		xa_spawn_async_process (archive,command);
