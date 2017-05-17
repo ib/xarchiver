@@ -481,6 +481,7 @@ void xa_rar_list (XArchive *archive)
 		g_free ( command );
 
 		archive->columns = 10;
+		archive->size_column = 2;
 		archive->column_types = g_malloc0(sizeof(types));
 
 		for (i = 0; i < archive->columns; i++)
@@ -498,6 +499,7 @@ void xa_rar_list (XArchive *archive)
 		g_free ( command );
 
 		archive->columns = 12;
+		archive->size_column = 2;
 		archive->column_types = g_malloc0(sizeof(types));
 
 		for (i = 0; i < archive->columns; i++)

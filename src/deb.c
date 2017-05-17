@@ -105,6 +105,7 @@ void xa_deb_list (XArchive *archive)
 	g_free (command);
 
 	archive->columns = 7;
+	archive->size_column = 4;
 	archive->column_types = g_malloc0(sizeof(types));
 
 	for (i = 0; i < archive->columns; i++)

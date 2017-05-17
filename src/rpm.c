@@ -244,6 +244,7 @@ void xa_rpm_list (XArchive *archive)
 	archive->files = 0;
 
 	archive->columns = 9;
+	archive->size_column = 3;
 	archive->column_types = g_malloc0(sizeof(types));
 
 	for (i = 0; i < archive->columns; i++)

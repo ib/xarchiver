@@ -316,6 +316,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 	g_free(command);
 
 	archive->columns = 8;
+	archive->size_column = 2;
 	archive->column_types = g_malloc0(sizeof(types));
 
 	for (i = 0; i < archive->columns; i++)

@@ -119,6 +119,7 @@ struct _XArchive
 	GtkTreeModel *model;
 	GtkListStore *liststore;
 	guint columns;
+	guint size_column;
 	GType *column_types;
 	GtkCellRenderer *pixbuf_renderer;
 	GtkCellRenderer *text_renderer;

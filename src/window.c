@@ -1928,7 +1928,7 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	gchar *info = NULL;
 	GtkTreePath *path = NULL;
 	GtkTreeIter iter;
-	gint n_elem = 0,pos = 0,dirs = 0;
+	gint n_elem = 0, dirs = 0;
 	guint64 total_size = 0;
 	guint64 size = 0;
 	XEntry *entry = NULL;
@@ -1940,49 +1940,10 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 		return;
 	}
 
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_RPM:
-		pos = 3;
-		break;
-
-		case XARCHIVETYPE_BZIP2:
-		case XARCHIVETYPE_GZIP:
-		case XARCHIVETYPE_LZ4:
-		case XARCHIVETYPE_LZIP:
-		case XARCHIVETYPE_LZMA:
-		case XARCHIVETYPE_LZOP:
-		case XARCHIVETYPE_XZ:
-		case XARCHIVETYPE_RAR:
-		case XARCHIVETYPE_ARJ:
-		case XARCHIVETYPE_7ZIP:
-		pos = 2;
-		break;
-
-		case XARCHIVETYPE_DEB:
-		pos = 4;
-		break;
-
-		case XARCHIVETYPE_LHA:
-		case XARCHIVETYPE_TAR_GZ:
-		case XARCHIVETYPE_TAR_BZ2:
-		case XARCHIVETYPE_TAR_LZ:
-		case XARCHIVETYPE_TAR_LZ4:
-		case XARCHIVETYPE_TAR_LZMA:
-		case XARCHIVETYPE_TAR_XZ:
-		case XARCHIVETYPE_TAR_LZOP:
-		case XARCHIVETYPE_TAR:
-		case XARCHIVETYPE_ZIP:
-		pos = 5;
-		break;
-
-		default:
-		break;
-	}
 	gtk_tree_path_free(path);
 	do
 	{
-		gtk_tree_model_get (archive->model,&iter,pos,&size,-1);
+		gtk_tree_model_get(archive->model, &iter, archive->size_column, &size, -1);
 		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
 		if (entry == NULL)
 			return;
@@ -2004,50 +1965,11 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	gchar *msg = NULL;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	gint selected = 0,pos = 0,dirs = 0;
+	gint selected = 0, dirs = 0;
 	guint64 total_size = 0;
 	guint64 size = 0;
 	XEntry *entry;
 
-	switch (archive->type)
-	{
-		case XARCHIVETYPE_RPM:
-		pos = 3;
-		break;
-
-		case XARCHIVETYPE_BZIP2:
-		case XARCHIVETYPE_GZIP:
-		case XARCHIVETYPE_LZ4:
-		case XARCHIVETYPE_LZIP:
-		case XARCHIVETYPE_LZMA:
-		case XARCHIVETYPE_LZOP:
-		case XARCHIVETYPE_XZ:
-		case XARCHIVETYPE_RAR:
-		case XARCHIVETYPE_ARJ:
-		case XARCHIVETYPE_7ZIP:
-		pos = 2;
-		break;
-
-		case XARCHIVETYPE_DEB:
-		pos = 4;
-		break;
-
-		case XARCHIVETYPE_LHA:
-		case XARCHIVETYPE_TAR_GZ:
-		case XARCHIVETYPE_TAR_BZ2:
-		case XARCHIVETYPE_TAR_LZ:
-		case XARCHIVETYPE_TAR_LZ4:
-		case XARCHIVETYPE_TAR_LZMA:
-		case XARCHIVETYPE_TAR_XZ:
-		case XARCHIVETYPE_TAR_LZOP:
-		case XARCHIVETYPE_TAR:
-		case XARCHIVETYPE_ZIP:
-		pos = 5;
-		break;
-
-		default:
-		break;
-	}
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
 	selected = gtk_tree_selection_count_selected_rows (selection);
 
@@ -2074,7 +1996,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	while (list)
 	{
 		gtk_tree_model_get_iter(model,&iter,list->data);
-		gtk_tree_model_get (model,&iter,pos,&size,-1);
+		gtk_tree_model_get(model, &iter, archive->size_column, &size, -1);
 		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
 		if (entry->is_dir)
 			dirs++;
