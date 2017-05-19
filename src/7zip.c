@@ -87,7 +87,7 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 
 	/* Date */
 	line[10] = '\0';
-	item[4] = line;
+	item[2] = line;
 
 	/* Time */
 	line[19] = '\0';
@@ -95,9 +95,9 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 
 	/* Permissions */
 	line[25] = '\0';
-	item[2] = line + 20;
+	item[4] = line + 20;
 
-	dir = (*(char *) item[2] == 'D');
+	dir = (*(char *) item[4] == 'D');
 
 	/* Size */
 	for(a=26; a < linesize; ++a)
@@ -157,7 +157,7 @@ static void xa_7zip_uint64_skip (GIOChannel *file)
 void xa_7zip_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Attributes"), _("Time"), _("Date")};
+	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Date"), _("Time"), _("Attributes")};
 	GIOChannel *file;
 	gchar *password_str, *command;
 	guint i;
