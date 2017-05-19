@@ -98,14 +98,14 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 
 	/* Permissions */
 	line[10] = '\0';
-	item[1] = line;
+	item[4] = line;
 
 	/* Owner */
 	for(n=13; n < linesize; ++n)
 		if(line[n] == ' ')
 			break;
 	line[n] = '\0';
-	item[2] = line+11;
+	item[5] = line+11;
 
 	/* Size */
 	for(++n; n < linesize; ++n)
@@ -118,8 +118,8 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 			break;
 
 	line[n] = '\0';
-	item[3] = line + a;
-	archive->files_size += g_ascii_strtoull(item[3],NULL,0);
+	item[1] = line + a;
+	archive->files_size += g_ascii_strtoull(item[1],NULL,0);
 	a = ++n;
 
 	/* Date */
@@ -128,7 +128,7 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 			break;
 
 	line[n] = '\0';
-	item[4] = line + a;
+	item[2] = line + a;
 
 	/* Time */
 	a = ++n;
@@ -137,7 +137,7 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 			break;
 
 	line[n] = '\0';
-	item[5] = line + a;
+	item[3] = line + a;
 	n++;
 	line[linesize-1] = '\0';
 
@@ -170,8 +170,8 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 
 void xa_tar_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Points to"), _("Permissions"), _("Owner/Group"), _("Original Size"), _("Date"), _("Time")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Date"), _("Time"), _("Permissions"), _("Owner/Group")};
 	gchar *command;
 	guint i;
 
@@ -187,7 +187,7 @@ void xa_tar_list (XArchive *archive)
 	g_free(command);
 
 	archive->columns = 9;
-	archive->size_column = 5;
+	archive->size_column = 3;
 	archive->column_types = g_malloc0(sizeof(types));
 
 	for (i = 0; i < archive->columns; i++)
