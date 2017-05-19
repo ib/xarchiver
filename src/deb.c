@@ -40,14 +40,14 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 
 	/* Permissions */
 	line[9] = '\0';
-	item[0] = line;
+	item[2] = line;
 
 	/* Owner */
 	for(n=12; n < linesize; ++n)
 		if(line[n] == ' ')
 			break;
 	line[n] = '\0';
-	item[1] = line+10;
+	item[3] = line+10;
 
 	/* Size */
 	for(++n; n < linesize; ++n)
@@ -60,8 +60,8 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 			break;
 
 	line[n] = '\0';
-	item[2] = line + a;
-	archive->files_size += g_ascii_strtoull(item[2],NULL,0);
+	item[0] = line + a;
+	archive->files_size += g_ascii_strtoull(item[0],NULL,0);
 	a = ++n;
 
 	/* Date Modified */
@@ -79,7 +79,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 		}
 	}
 	line[n] = '\0';
-	item[3] = line + a;
+	item[1] = line + a;
 
 	n++;
 	line[linesize-1] = '\0';
@@ -92,8 +92,8 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 
 void xa_deb_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Permissions"), _("UID/GID"), _("Original Size"), _("Date and Time")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original Size"), _("Date and Time"), _("Permissions"), _("UID/GID")};
 	gchar *command = NULL;
 	guint i;
 
@@ -105,7 +105,7 @@ void xa_deb_list (XArchive *archive)
 	g_free (command);
 
 	archive->columns = 7;
-	archive->size_column = 4;
+	archive->size_column = 2;
 	archive->column_types = g_malloc0(sizeof(types));
 
 	for (i = 0; i < archive->columns; i++)
