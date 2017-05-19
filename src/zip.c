@@ -62,7 +62,6 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 
 	gchar *filename;
 	gpointer item[8];
-	unsigned short int i = 0;
 	unsigned int linesize,n,a;
 	gboolean encrypted,dir;
 
@@ -79,10 +78,9 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	item[i] = line + a;
+	item[4] = line + a;
 	if ( (line+a)[0] == 'd')
 		dir = TRUE;
-	i++;
 	n++;
 
 	/* version */
@@ -91,8 +89,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n] = '\0';
-	item[i] = line + a;
-	i++;
+	item[7] = line + a;
 	n++;
 
 	/* OS */
@@ -101,8 +98,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	item[i] = line + a;
-	i++;
+	item[6] = line + a;
 	n++;
 
 	/* size */
@@ -111,9 +107,8 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	item[i] = line + a;
-	archive->files_size += g_ascii_strtoull(item[i],NULL,0);
-	i++;
+	item[0] = line + a;
+	archive->files_size += g_ascii_strtoull(item[0],NULL,0);
 	n++;
 
 	/* tx/bx */
@@ -135,8 +130,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	item[i] = line + a;
-	i++;
+	item[1] = line + a;
 	n++;
 
 	/* method */
@@ -145,8 +139,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	item[i] = line + a;
-	i++;
+	item[5] = line + a;
 	n++;
 
 	/* date */
@@ -155,8 +148,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	item[i] = line + a;
-	i++;
+	item[2] = line + a;
 	n++;
 
 	/* time */
@@ -165,7 +157,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	item[i] = line + a;
+	item[3] = line + a;
 	n++;
 
 	/* filename */
@@ -183,8 +175,8 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 
 void xa_zip_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Permissions"), _("Version"), _("OS"), _("Original Size"), _("Compressed"), _("Method"), _("Date"), _("Time")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Date"), _("Time"), _("Permissions"), _("Method"), _("OS"), _("Version")};
 	guint i;
 
 	gchar *command = g_strconcat(archiver[archive->type].program[0], " -Z -l ", archive->path[1], NULL);
@@ -195,7 +187,7 @@ void xa_zip_list (XArchive *archive)
 	g_free ( command );
 
 	archive->columns = 11;
-	archive->size_column = 5;
+	archive->size_column = 2;
 	archive->column_types = g_malloc0(sizeof(types));
 
 	for (i = 0; i < archive->columns; i++)
