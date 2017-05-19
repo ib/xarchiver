@@ -81,12 +81,12 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 	/* Permission */
 	line[10] = '\0';
-	item[1] = line;
+	item[4] = line;
 	dir = (line[0] == 'd');
 
 	/* UID/GID */
 	line[22] = '\0';
-	item[2] = line + 11;
+	item[5] = line + 11;
 
 	//TODO verify the len of the size column with a big archive
 	/* Size */
@@ -100,16 +100,16 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 		break;
 
 	line[a+(n-a)] = '\0';
-	item[3] = line + a;
-	archive->files_size += g_ascii_strtoull(item[3],NULL,0);
+	item[1] = line + a;
+	archive->files_size += g_ascii_strtoull(item[1],NULL,0);
 
     /* Ratio */
     line[37] = '\0';
-    item[4] = line + 31;
+    item[2] = line + 31;
 
     /* Timestamp */
     line[50] = '\0';
-    item[5] = line + 38;
+    item[3] = line + 38;
 
 	line[(linesize- 1)] = '\0';
 	filename = line + 51;
@@ -134,8 +134,8 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 void xa_lha_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Points to"), _("Permissions"), _("UID/GID"), _("Original Size"), _("Occupancy"), _("Date and Time")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Occupancy"), _("Date and Time"), _("Permissions"), _("UID/GID")};
 	gchar *command;
 	guint i;
 
@@ -149,7 +149,7 @@ void xa_lha_list (XArchive *archive)
 	g_free (command);
 
 	archive->columns = 9;
-	archive->size_column = 5;
+	archive->size_column = 3;
 	archive->column_types = g_malloc0(sizeof(types));
 
 	for (i = 0; i < archive->columns; i++)
