@@ -172,6 +172,25 @@ static void xa_check_available_archivers ()
 		add[type] = xa_gzip_et_al_add;
 	}
 
+	/* compress */
+
+	type = XARCHIVETYPE_COMPRESS;
+	path = g_find_program_in_path("compress");
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
+		archiver[type].type = g_slist_append(archiver[type].type, "compress");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.Z");
+
+		ask[type] = xa_gzip_et_al_ask;
+		list[type] = xa_gzip_et_al_list;
+		test[type] = xa_gzip_et_al_test;
+		extract[type] = xa_gzip_et_al_extract;
+		add[type] = xa_gzip_et_al_add;
+	}
+
 	/* debian package */
 
 	type = XARCHIVETYPE_DEB;
@@ -441,6 +460,7 @@ static void xa_check_available_archivers ()
 		} compressed_tar_infos[] =
 		{
 			{XARCHIVETYPE_BZIP2, XARCHIVETYPE_TAR_BZ2, {"tar.bzip2", NULL}, {"*.tar.bz2", "*.tbz2"}},
+			{XARCHIVETYPE_COMPRESS, XARCHIVETYPE_TAR_Z, {"tar.Z", NULL}, {"*.tar.Z", ""}},
 			{XARCHIVETYPE_GZIP, XARCHIVETYPE_TAR_GZ, {"tar.gzip", NULL}, {"*.tar.gz", "*.tgz"}},
 			{XARCHIVETYPE_LZ4, XARCHIVETYPE_TAR_LZ4, {"tar.lz4", NULL}, {"*.tar.lz4", ""}},
 			{XARCHIVETYPE_LZIP, XARCHIVETYPE_TAR_LZ, {"tar.lzip", NULL}, {"*.tar.lz", ""}},

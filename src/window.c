@@ -1721,6 +1721,8 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 		type = XARCHIVETYPE_ARJ;
 	else if (memcmp(magic, "\x42\x5a\x68", 3) == 0)
 		type = XARCHIVETYPE_BZIP2;
+	else if (memcmp(magic, "\x1f\x9d", 2) == 0)
+		type = XARCHIVETYPE_COMPRESS;
 	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
 		type = XARCHIVETYPE_DEB;
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||

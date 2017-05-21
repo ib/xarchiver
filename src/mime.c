@@ -78,6 +78,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 	         strcmp(mime,"application/x-arj") == 0 ||
 	         strcmp(mime,"application/x-bzip") == 0 ||
 	         strcmp(mime,"application/x-bzip-compressed-tar") == 0 ||
+	         strcmp(mime,"application/x-compress") == 0 ||
 	         strcmp(mime,"application/x-compressed-tar") == 0 ||
 	         strcmp(mime,"application/x-java-archive") == 0 ||
 	         strcmp(mime,"application/x-lha") == 0 ||
@@ -91,6 +92,7 @@ const char *xa_get_stock_mime_icon(char *filename)
 	         strcmp(mime,"application/x-rpm") == 0 ||
 	         strcmp(mime,"application/x-source-rpm") == 0 ||
 	         strcmp(mime,"application/x-tar") == 0 ||
+	         strcmp(mime,"application/x-tarz") == 0 ||
 	         strcmp(mime,"application/x-tzo") == 0 ||
 	         strcmp(mime,"application/x-xz") == 0 ||
 	         strcmp(mime,"application/x-xz-compressed-tar") == 0 ||

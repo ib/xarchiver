@@ -34,7 +34,7 @@ static gchar *filename;
 
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
-	archive->can_test = can;
+	archive->can_test = (can && (archive->type != XARCHIVETYPE_COMPRESS));
 	archive->can_extract = can;
 
 	/* only if archive is new and empty */
@@ -202,6 +202,10 @@ void xa_gzip_et_al_list (XArchive *archive)
 					archive->type = XARCHIVETYPE_TAR_BZ2;
 					break;
 
+				case XARCHIVETYPE_COMPRESS:
+					archive->type = XARCHIVETYPE_TAR_Z;
+					break;
+
 				case XARCHIVETYPE_GZIP:
 					archive->type = XARCHIVETYPE_TAR_GZ;
 					break;
@@ -282,6 +286,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 			break;
 
 		case XARCHIVETYPE_BZIP2:
+		case XARCHIVETYPE_COMPRESS:
 		case XARCHIVETYPE_LZ4:
 		case XARCHIVETYPE_LZMA:
 		{
@@ -392,6 +397,10 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 				compression = "9";
 				break;
 
+			case XARCHIVETYPE_COMPRESS:
+				compression = "16";
+				break;
+
 			case XARCHIVETYPE_GZIP:
 			case XARCHIVETYPE_LZIP:
 			case XARCHIVETYPE_XZ:
@@ -419,7 +428,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 	files_str = xa_escape_bad_chars(files->str, "\"");
 	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -", compression, files_str, " -c > ", archive_path, "\"", NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -", archive->type == XARCHIVETYPE_COMPRESS ? "f -b ": "", compression, files_str, " -c > ", archive_path, "\"", NULL);
 
 	g_free(archive_path);
 	g_free(files_str);
