@@ -622,7 +622,7 @@ static gboolean xa_close_progress_bar (GtkWidget *caller, GdkEvent *event, GPid 
 
 static gint xa_slist_strcmp (gconstpointer a, gconstpointer b)
 {
-	return strcmp((const char *) a, (const char *) b);
+	return strcasecmp((const char *) a, (const char *) b);
 }
 
 /* TODO:
