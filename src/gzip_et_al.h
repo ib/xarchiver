@@ -22,13 +22,13 @@
 #include <glib.h>
 #include "archive.h"
 
-#define SINGLE_FILE_COMPRESSOR(archive) (archive->type == XARCHIVETYPE_BZIP2 || \
+#define SINGLE_FILE_COMPRESSOR(archive) (archive->type == XARCHIVETYPE_BZIP2    || \
                                          archive->type == XARCHIVETYPE_COMPRESS || \
-                                         archive->type == XARCHIVETYPE_GZIP  || \
-                                         archive->type == XARCHIVETYPE_LZ4   || \
-                                         archive->type == XARCHIVETYPE_LZIP  || \
-                                         archive->type == XARCHIVETYPE_LZMA  || \
-                                         archive->type == XARCHIVETYPE_LZOP  || \
+                                         archive->type == XARCHIVETYPE_GZIP     || \
+                                         archive->type == XARCHIVETYPE_LZ4      || \
+                                         archive->type == XARCHIVETYPE_LZIP     || \
+                                         archive->type == XARCHIVETYPE_LZMA     || \
+                                         archive->type == XARCHIVETYPE_LZOP     || \
                                          archive->type == XARCHIVETYPE_XZ)
 
 void xa_gzip_et_al_add(XArchive *, GSList *, gchar *);
