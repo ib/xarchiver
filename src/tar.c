@@ -88,6 +88,13 @@ void xa_tar_ask (XArchive *archive)
 	archive->can_update[0] = TRUE;
 	archive->can_update[1] = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
 	archive->can_move = archiver[xa_tar_get_compressor_type(archive)].is_compressor;
+
+	/* this is solely for display with the archive properties */
+	if (!archiver[archive->type].program[0])
+	{
+		archiver[archive->type].program[0] = g_strdup(archiver[xa_tar_get_compressor_type(archive)].program[0]);
+		archiver[archive->type].program[1] = g_strdup(archiver[XARCHIVETYPE_TAR].program[0]);
+	}
 }
 
 static void xa_tar_parse_output (gchar *line, XArchive *archive)
