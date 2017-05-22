@@ -1910,7 +1910,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 
     /* Compression_ratio */
     content_size = (double)archive[idx]->files_size / file_size;
-    t = g_strdup_printf ( "%.2f",content_size);
+    t = g_strdup_printf("%.2f:1", content_size);
     gtk_label_set_text(GTK_LABEL(compression_data),t);
     g_free (t);
     /* Number of files */
