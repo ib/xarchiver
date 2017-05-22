@@ -28,6 +28,7 @@
 #include "window.h"
 
 GtkWidget *archive_dir_treeview;
+GtkWidget *archiver_data;
 GtkWidget *back_button;
 GtkWidget *comment_data;
 GtkWidget *comment_menu;
@@ -1394,6 +1395,7 @@ GtkWidget *xa_create_archive_properties_window()
 	GtkWidget *archive_properties_window, *table1, *path_label, *modified_label;
 	GtkWidget *size_label, *content_label, *comment_label, *compression_label;
 	GtkWidget *number_of_files_label, *name_label, *type_label, *encrypted_label;
+	GtkWidget *archiver_label;
 
 	archive_properties_window = gtk_dialog_new_with_buttons (_("Archive Properties"),
 									GTK_WINDOW (xa_main_window),GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -1408,7 +1410,7 @@ GtkWidget *xa_create_archive_properties_window()
 	gtk_window_set_resizable (GTK_WINDOW (archive_properties_window),FALSE);
 	gtk_window_set_modal (GTK_WINDOW (archive_properties_window),TRUE);
 
-	table1 = gtk_table_new (10,2,FALSE);
+	table1 = gtk_table_new(11, 2, FALSE);
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(archive_properties_window))), table1, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (table1),6);
 	gtk_table_set_row_spacings (GTK_TABLE (table1),6);
@@ -1484,7 +1486,17 @@ GtkWidget *xa_create_archive_properties_window()
                     (GtkAttachOptions) (0),0,0);
 	gtk_misc_set_alignment (GTK_MISC (compression_label),0.99,0.5);
 
+	archiver_label = gtk_label_new("");
+	set_label(archiver_label, _("Archiver executable:"));
+	gtk_table_attach(GTK_TABLE(table1), archiver_label, 0, 1, 10, 11, GTK_FILL, 0, 0, 0);
+	gtk_misc_set_alignment(GTK_MISC(archiver_label), 0.99, 0.5);
+
 /* */
+
+	archiver_data = gtk_label_new("");
+	gtk_misc_set_alignment(GTK_MISC(archiver_data), 0, 0.5);
+	gtk_table_attach(GTK_TABLE(table1), archiver_data, 1, 2, 10, 11, GTK_FILL, 0, 0, 0);
+
 	compression_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (compression_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),compression_data,1,2,9,10,

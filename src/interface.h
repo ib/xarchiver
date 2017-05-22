@@ -32,6 +32,7 @@ typedef struct
 } Progress;
 
 extern GtkWidget *archive_dir_treeview;
+extern GtkWidget *archiver_data;
 extern GtkWidget *back_button;
 extern GtkWidget *comment_data;
 extern GtkWidget *comment_menu;

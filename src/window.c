@@ -1889,6 +1889,12 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
     g_free ( utf8_string);
 	/* Type */
 	gtk_label_set_text(GTK_LABEL(type_data), xa_get_archive_format(archive[idx]));
+	/* archiver */
+	t = g_strconcat(archiver[archive[idx]->type].program[0], archiver[archive[idx]->type].program[1] ? "\n" : "", archiver[archive[idx]->type].program[1], NULL);
+	utf8_string = g_filename_display_name(t);
+	gtk_label_set_text(GTK_LABEL(archiver_data), utf8_string);
+	g_free(utf8_string);
+	g_free(t);
     /* Modified Date */
     strftime (date,64,"%c",localtime (&my_stat.st_mtime));
     t = g_locale_to_utf8 (date,-1,0,0,0);
