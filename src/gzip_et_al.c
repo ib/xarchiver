@@ -302,7 +302,10 @@ void xa_gzip_et_al_list (XArchive *archive)
 			item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, archive->files_size);
 
 			/* saving */
-			item[2] = g_strdup_printf("%.1f%%", 100.0 - 100.0 * compressed / st.st_size);
+			if (st.st_size)
+				item[2] = g_strdup_printf("%.1f%%", 100.0 - 100.0 * compressed / st.st_size);
+			else
+				item[2] = g_strdup("-");
 
 			/* trigger pseudo-parser once */
 			command = g_strdup("sh -c echo");
