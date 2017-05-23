@@ -94,7 +94,7 @@ static void xa_check_available_archivers ()
 {
 	XArchiveType type;
 	gchar *path, *sevenz, *xz;
-	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE;
+	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE, standard;
 
 	/* (un)compressors that can handle various types */
 
@@ -147,18 +147,24 @@ static void xa_check_available_archivers ()
 	else
 		path = g_find_program_in_path("unarj");
 
+	standard = (path != NULL);
+
+	if (!standard && is7z)
+		/* alternative uncompressor */
+		path = g_strconcat(sevenz, " -tarj", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "arj");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.arj");
 
-		ask[type] = xa_arj_ask;
-		list[type] = xa_arj_list;
-		test[type] = xa_arj_test;
-		extract[type] = xa_arj_extract;
-		add[type] = xa_arj_add;
-		delete[type] = xa_arj_delete;
+		ask[type] = (standard ? xa_arj_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_arj_list : xa_7zip_list);
+		test[type] = (standard ? xa_arj_test : xa_7zip_test);
+		extract[type] = (standard ? xa_arj_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_arj_add : NULL);
+		delete[type] = (standard ? xa_arj_delete : NULL);
 	}
 
 	/* bzip2 */

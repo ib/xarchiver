@@ -26,20 +26,21 @@
 
 static gboolean data_line, encrypted, last_line;
 
+/* it can handle other archive types as well */
 void xa_7zip_ask (XArchive *archive)
 {
 	archive->can_test = TRUE;
 	archive->can_extract = TRUE;
-	archive->can_add = TRUE;
-	archive->can_delete = TRUE;
-	archive->can_sfx = TRUE;
-	archive->can_password = TRUE;
+	archive->can_add = archiver[archive->type].is_compressor;
+	archive->can_delete = archiver[archive->type].is_compressor;
+	archive->can_sfx = (archive->type == XARCHIVETYPE_7ZIP);
+	archive->can_password = (archive->type == XARCHIVETYPE_7ZIP);
 	archive->can_full_path[0] = TRUE;
 	archive->can_overwrite = TRUE;
-	archive->can_update[1] = TRUE;
-	archive->can_freshen[1] = TRUE;
-	archive->can_move = TRUE;
-	archive->can_solid = TRUE;
+	archive->can_update[1] = archiver[archive->type].is_compressor;
+	archive->can_freshen[1] = archiver[archive->type].is_compressor;
+	archive->can_move = archiver[archive->type].is_compressor;
+	archive->can_solid = archiver[archive->type].is_compressor;
 }
 
 static gchar *xa_7zip_password_str (XArchive *archive)
