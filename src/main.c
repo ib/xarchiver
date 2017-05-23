@@ -177,17 +177,26 @@ static void xa_check_available_archivers ()
 	else
 		path = g_find_program_in_path("bunzip2");
 
+	standard = (path != NULL);
+
+	if (!standard && is7za)
+	{
+		/* alternative compressor */
+		path = g_strconcat(sevenz, " -tbzip2", NULL);
+		archiver[type].is_compressor = TRUE;
+	}
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "bzip2");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.bz2");
 
-		ask[type] = xa_gzip_et_al_ask;
-		list[type] = xa_gzip_et_al_list;
-		test[type] = xa_gzip_et_al_test;
-		extract[type] = xa_gzip_et_al_extract;
-		add[type] = xa_gzip_et_al_add;
+		ask[type] = (standard ? xa_gzip_et_al_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_gzip_et_al_list : xa_7zip_list);
+		test[type] = (standard ? xa_gzip_et_al_test : xa_7zip_test);
+		extract[type] = (standard ? xa_gzip_et_al_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_gzip_et_al_add : xa_7zip_add);
 	}
 
 	/* compress */
