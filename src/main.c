@@ -93,22 +93,34 @@ static GOptionEntry entries[] =
 static void xa_check_available_archivers ()
 {
 	XArchiveType type;
-	gchar *path, *xz;
+	gchar *path, *sevenz, *xz;
+	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE;
 
 	/* (un)compressors that can handle various types */
+
+	sevenz = g_find_program_in_path("7z");
+
+	if (!sevenz)
+	{
+		is7z = FALSE;
+		sevenz = g_find_program_in_path("7za");
+
+		if (!sevenz)
+		{
+			is7za = FALSE;
+			sevenz = g_find_program_in_path("7zr");
+
+			if (!sevenz)
+				is7zr = FALSE;
+		}
+	}
 
 	xz = g_find_program_in_path("xz");
 
 	/* 7-zip */
 
 	type = XARCHIVETYPE_7ZIP;
-	path = g_find_program_in_path("7z");
-
-	if (!path)
-		path = g_find_program_in_path("7za");
-
-	if (!path)
-		path = g_find_program_in_path("7zr");
+	path = sevenz;
 
 	if (path)
 	{
