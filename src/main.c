@@ -204,18 +204,24 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_COMPRESS;
 	path = g_find_program_in_path("compress");
 
+	standard = (path != NULL);
+
+	if (!standard && is7za)
+		/* alternative uncompressor */
+		path = g_strconcat(sevenz, " -tZ", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = TRUE;
+		archiver[type].is_compressor = standard;
 		archiver[type].type = g_slist_append(archiver[type].type, "compress");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.Z");
 
-		ask[type] = xa_gzip_et_al_ask;
-		list[type] = xa_gzip_et_al_list;
-		test[type] = xa_gzip_et_al_test;
-		extract[type] = xa_gzip_et_al_extract;
-		add[type] = xa_gzip_et_al_add;
+		ask[type] = (standard ? xa_gzip_et_al_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_gzip_et_al_list : xa_7zip_list);
+		test[type] = (standard ? xa_gzip_et_al_test : xa_7zip_test);
+		extract[type] = (standard ? xa_gzip_et_al_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_gzip_et_al_add : NULL);
 	}
 
 	/* debian package */
