@@ -40,7 +40,7 @@ void xa_7zip_ask (XArchive *archive)
 	archive->can_update[1] = archiver[archive->type].is_compressor;
 	archive->can_freshen[1] = archiver[archive->type].is_compressor;
 	archive->can_move = archiver[archive->type].is_compressor;
-	archive->can_solid = archiver[archive->type].is_compressor;
+	archive->can_solid = (archive->type == XARCHIVETYPE_7ZIP);
 }
 
 static gchar *xa_7zip_password_str (XArchive *archive)
@@ -340,7 +340,7 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
-	gchar *password_str, *command;
+	gchar *password_str, *solid, *command;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
@@ -350,14 +350,16 @@ void xa_7zip_add (XArchive *archive, GSList *file_list, gchar *compression)
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	password_str = xa_7zip_password_str(archive);
+	solid = g_strconcat(" -ms=", archive->do_solid ? "on" : "off", NULL);
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_update ? " u" : " a",
 	                      archive->do_freshen ? " -ur0w0x1z1" : "",
 	                      archive->do_move ? " -sdel" : "",
-	                      " -ms=", archive->do_solid ? "on" : "off",
+	                      archive->type == XARCHIVETYPE_7ZIP ? solid : "",
 	                      " -mx=", compression,
 	                      password_str, " -bd -spd -y ",
 	                      archive->path[1], files->str, NULL);
+	g_free(solid);
 	g_free(password_str);
 	g_string_free(files,TRUE);
 
