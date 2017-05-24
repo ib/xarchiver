@@ -229,15 +229,21 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_DEB;
 	path = g_find_program_in_path("ar");
 
+	standard = (path != NULL);
+
+	if (!standard && is7z)
+		/* alternative uncompressor */
+		path = g_strconcat(sevenz, " -tar", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "deb");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
 
-		ask[type] = xa_deb_ask;
-		list[type] = xa_deb_list;
-		extract[type]  = xa_deb_extract;
+		ask[type] = (standard ? xa_deb_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_deb_list : xa_7zip_list);
+		extract[type]  = (standard ? xa_deb_extract : xa_7zip_extract);
 	}
 
 	/* GNU zip */
