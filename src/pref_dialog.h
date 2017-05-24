@@ -21,9 +21,6 @@
 
 #include <gtk/gtk.h>
 
-extern gchar *config_file;
-extern GtkIconTheme *icon_theme;
-
 typedef struct Prefs_dialog_data
 {
 	GtkWidget *dialog1,*dialog_vbox1,*combo_prefered_format;
@@ -36,6 +33,9 @@ typedef struct Prefs_dialog_data
 	gint add_coords[2];
 	gboolean size_changed[2];
 } Prefs_dialog_data;
+
+extern gchar *config_file;
+extern GtkIconTheme *icon_theme;
 
 void xa_apply_prefs_option(Prefs_dialog_data *);
 Prefs_dialog_data *xa_create_prefs_dialog();
