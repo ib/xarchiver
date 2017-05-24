@@ -283,19 +283,25 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_LHA;
 	path = g_find_program_in_path("lha");
 
+	standard = (path != NULL);
+
+	if (!standard && is7z)
+		/* alternative uncompressor */
+		path = g_strconcat(sevenz, " -tlzh", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = xa_lha_check_program(path);
+		archiver[type].is_compressor = (standard && xa_lha_check_program(path));
 		archiver[type].type = g_slist_append(archiver[type].type, "lha");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzh");
 
-		ask[type] = xa_lha_ask;
-		list[type] = xa_lha_list;
-		test[type] = xa_lha_test;
-		extract[type] = xa_lha_extract;
-		add[type] = xa_lha_add;
-		delete[type] = xa_lha_delete;
+		ask[type] = (standard ? xa_lha_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_lha_list : xa_7zip_list);
+		test[type] = (standard ? xa_lha_test : xa_7zip_test);
+		extract[type] = (standard ? xa_lha_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_lha_add : NULL);
+		delete[type] = (standard ? xa_lha_delete : NULL);
 	}
 
 	/* lz4 */
