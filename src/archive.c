@@ -266,7 +266,7 @@ static gboolean _xa_dir_sidebar_select_row (GtkTreeModel *model, GtkTreePath *pa
 	return value;
 }
 
-XArchive *xa_init_archive_structure(gint type)
+XArchive *xa_init_archive_structure (ArchiveType xa)
 {
 	XEntry *entry = NULL;
 	XArchive *archive = NULL;
@@ -277,13 +277,14 @@ XArchive *xa_init_archive_structure(gint type)
 	entry = g_new0(XEntry,1);
 	entry->filename = "";
 	archive->root_entry = entry;
-	archive->ask =		ask[type];
-	archive->list =		list[type];
-	archive->delete =	delete[type];
-	archive->add =		add[type];
-	archive->extract = 	extract[type];
-	archive->test = 	test[type];
-	archive->type = type;
+	archive->ask = ask[xa.type];
+	archive->list = list[xa.type];
+	archive->delete = delete[xa.type];
+	archive->add = add[xa.type];
+	archive->extract = extract[xa.type];
+	archive->test = test[xa.type];
+	archive->type = xa.type;
+	archive->version = xa.version;
 	(*archive->ask)(archive);
 	return archive;
 }

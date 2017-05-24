@@ -994,7 +994,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 	gchar *utf8_path,*msg;
 	gint current_page;
 	gint x;
-	XArchiveType type;
+	ArchiveType xa;
 
 	path = (gchar *)data;
 	if (path == NULL)
@@ -1017,13 +1017,13 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 			return;
 		}
 	}
-	type = xa_detect_archive_type (path);
+	xa = xa_detect_archive_type(path);
 
-	if (type == XARCHIVETYPE_UNKNOWN || type == XARCHIVETYPE_NOT_FOUND)
+	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 	{
 		utf8_path = g_filename_to_utf8 (path,-1,NULL,NULL,NULL);
 		msg = g_strdup_printf (_("Can't open file \"%s\":"),utf8_path);
-		if (type == XARCHIVETYPE_UNKNOWN)
+		if (xa.type == XARCHIVETYPE_UNKNOWN)
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,_("Archive format is not recognized!"));
 		else
 			xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,msg,g_strerror(errno));
@@ -1034,7 +1034,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		return;
 	}
 
-	if (!list[type])
+	if (!list[xa.type])
 	{
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
 		g_free(path);
@@ -1047,7 +1047,7 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		g_free (path);
 		return;
 	}
-	archive[current_page] = xa_init_archive_structure(type);
+	archive[current_page] = xa_init_archive_structure(xa);
 	if (archive[current_page] == NULL)
 	{
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure:"),_("Operation aborted!"));
@@ -1055,9 +1055,9 @@ void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
 		return;
 	}
 	/* Detect archive comment,rar one is detected in rar.c */
-	if (type == XARCHIVETYPE_ZIP)
+	if (xa.type == XARCHIVETYPE_ZIP)
 		archive[current_page]->has_comment = xa_detect_archive_comment (XARCHIVETYPE_ZIP,path,archive[current_page]);
-	else if (type == XARCHIVETYPE_ARJ)
+	else if (xa.type == XARCHIVETYPE_ARJ)
 		archive[current_page]->has_comment = xa_detect_archive_comment (XARCHIVETYPE_ARJ,path,archive[current_page]);
 
 	if (g_path_is_absolute(path) == FALSE)
@@ -1701,61 +1701,77 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 	gtk_widget_hide (about);
 }
 
-XArchiveType xa_detect_archive_type (gchar *filename)
+ArchiveType xa_detect_archive_type (gchar *filename)
 {
 	FILE *file;
 	unsigned char magic[14];
-	int type = XARCHIVETYPE_UNKNOWN;
+	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
 
 	file = fopen(filename, "r");
 
 	if (!file)
-		return XARCHIVETYPE_NOT_FOUND;
+	{
+		xa.type = XARCHIVETYPE_NOT_FOUND;
+		return xa;
+	}
 
 	memset(magic, 0, sizeof(magic));
 	fread(magic, 1, sizeof(magic), file);
 
 	if (memcmp(magic, "\x37\x7a\xbc\xaf\x27\x1c", 6) == 0)
-		type = XARCHIVETYPE_7ZIP;
+		xa.type = XARCHIVETYPE_7ZIP;
 	else if (memcmp(magic, "\x60\xea", 2) == 0)
-		type = XARCHIVETYPE_ARJ;
+		xa.type = XARCHIVETYPE_ARJ;
 	else if (memcmp(magic, "\x42\x5a\x68", 3) == 0)
-		type = XARCHIVETYPE_BZIP2;
+		xa.type = XARCHIVETYPE_BZIP2;
 	else if (memcmp(magic, "\x1f\x9d", 2) == 0)
-		type = XARCHIVETYPE_COMPRESS;
+		xa.type = XARCHIVETYPE_COMPRESS;
 	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
-		type = XARCHIVETYPE_DEB;
+		xa.type = XARCHIVETYPE_DEB;
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||
 	         memcmp(magic, "\x1f\x9d", 2) == 0)
-		type = XARCHIVETYPE_GZIP;
+		xa.type = XARCHIVETYPE_GZIP;
 	else if ((memcmp(magic + 2, "-lh", 3) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') ||
 	         (memcmp(magic + 2, "-lz", 3) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
-		type = XARCHIVETYPE_LHA;
+		xa.type = XARCHIVETYPE_LHA;
 	else if (memcmp(magic, "\x04\x22\x4d\x18", 4) == 0 ||
 	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0 ||
 	         (memcmp(magic + 1, "\x2a\x4d\x18", 3) == 0 && (magic[0] & 0xf0) == 0x50))
-		type = XARCHIVETYPE_LZ4;
+		xa.type = XARCHIVETYPE_LZ4;
 	else if (memcmp(magic, "\x4c\x5a\x49\x50", 4) == 0)
-		type = XARCHIVETYPE_LZIP;
+		xa.type = XARCHIVETYPE_LZIP;
 	else if (memcmp(magic, "\x5d\x00\x00\x80", 4) == 0)
-		type = XARCHIVETYPE_LZMA;
+		xa.type = XARCHIVETYPE_LZMA;
 	else if (memcmp(magic, "\211LZO", 4) == 0)
-		type = XARCHIVETYPE_LZOP;
+		xa.type = XARCHIVETYPE_LZOP;
 	else if (memcmp(magic, "\x52\x61\x72\x21\x1a\x07\x00", 7) == 0 ||
 	         memcmp(magic, "\x52\x61\x72\x21\x1a\x07\x01", 7) == 0)
-		type = XARCHIVETYPE_RAR;
+	{
+		GSList *rar;
+
+		xa.type = XARCHIVETYPE_RAR;
+
+		if (magic[6] == 1)
+			xa.version = 5;
+
+		rar = archiver[xa.type].type;
+
+		/* if rar5 archive, check for a rar v5 executable */
+		if ((xa.version == 5) && !(rar && rar->next))
+			list[xa.type] = NULL;
+	}
 	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
-		type = XARCHIVETYPE_RPM;
+		xa.type = XARCHIVETYPE_RPM;
 	else if (isTar(file))
-		type = XARCHIVETYPE_TAR;
+		xa.type = XARCHIVETYPE_TAR;
 	else if (memcmp(magic, "\xfd\x37\x7a\x58\x5a", 5) == 0)
-		type = XARCHIVETYPE_XZ;
+		xa.type = XARCHIVETYPE_XZ;
 	else if (memcmp(magic, "\x50\x4b", 2) == 0)
-		type = XARCHIVETYPE_ZIP;
+		xa.type = XARCHIVETYPE_ZIP;
 
 	fclose(file);
 
-	return type;
+	return xa;
 }
 
 void xa_create_liststore (XArchive *archive, const gchar *titles[])
@@ -2143,7 +2159,8 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	GSList *list = NULL;
 	gboolean one_file;
 	unsigned int len = 0;
-	gint current_page, idx, type;
+	gint current_page, idx;
+	ArchiveType xa;
 
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
@@ -2165,9 +2182,9 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		if (filename == NULL)
 			return;
 
-		type = xa_detect_archive_type(filename);
+		xa = xa_detect_archive_type(filename);
 
-		if (type != XARCHIVETYPE_UNKNOWN && type != XARCHIVETYPE_NOT_FOUND)
+		if (xa.type != XARCHIVETYPE_UNKNOWN && xa.type != XARCHIVETYPE_NOT_FOUND)
 		{
 			xa_open_archive(NULL,filename);
 			g_strfreev(array);

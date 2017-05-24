@@ -554,13 +554,15 @@ static void xa_check_available_archivers ()
 static XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
 	XArchive *archive;
-	XArchiveType type;
+	ArchiveType xa;
 
-	type = xa_detect_archive_type (filename);
-	if (type == XARCHIVETYPE_UNKNOWN || type == XARCHIVETYPE_NOT_FOUND)
+	xa = xa_detect_archive_type(filename);
+
+	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 		return NULL;
 
-	archive = xa_init_archive_structure (type);
+	archive = xa_init_archive_structure(xa);
+
 	if (archive == NULL)
 	{
 		xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );

@@ -49,6 +49,7 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 	gchar *cpio_z, *ibs, *command, *executable;
 	FILE *stream;
 	gboolean success;
+	ArchiveType xa;
 
 	signal(SIGPIPE, SIG_IGN);
 	stream = fopen(archive->path[0], "r");
@@ -119,7 +120,9 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 		return g_strdup("");
 	}
 
-	switch (xa_detect_archive_type(cpio_z))
+	xa = xa_detect_archive_type(cpio_z);
+
+	switch (xa.type)
 	{
 		case XARCHIVETYPE_GZIP:
 			executable = "gzip -dc ";

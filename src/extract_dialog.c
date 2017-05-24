@@ -205,7 +205,7 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	gchar *new_path = NULL;
 	gchar *_filename = NULL;
 	gchar *error = NULL;
-	gint type;
+	ArchiveType xa;
 	GtkWidget *main_window;
 
 	if (dest_path == NULL)
@@ -227,8 +227,8 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 		}
 		dest_path = new_path;
 	}
-	type = xa_detect_archive_type(filename);
-	archive = xa_init_archive_structure(type);
+	xa = xa_detect_archive_type(filename);
+	archive = xa_init_archive_structure(xa);
 	dialog->archive = archive;
 	archive->do_overwrite = overwrite;
 	archive->do_full_path = full_path;
@@ -715,13 +715,13 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 {
 	GtkTreeIter iter;
 	gchar *path, *path_utf8, *file, *file_utf8;
-	gint type;
+	ArchiveType xa;
 	struct stat my_stat;
 	guint64 file_size;
 
-	type = xa_detect_archive_type(file_path);
+	xa = xa_detect_archive_type(file_path);
 
-	if (type == XARCHIVETYPE_UNKNOWN || type == XARCHIVETYPE_NOT_FOUND)
+	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 		return;
 
 	stat (file_path,&my_stat);
@@ -731,7 +731,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	file = g_path_get_basename(file_path);
 	file_utf8 = g_filename_display_name(file);
 	gtk_list_store_append(dialog->files_liststore,&iter);
-	gtk_list_store_set(dialog->files_liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, type, -1);
+	gtk_list_store_set(dialog->files_liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, -1);
 	dialog->nr++;
 	g_free(file_utf8);
 	g_free(file);

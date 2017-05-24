@@ -133,7 +133,8 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 	gchar *my_path = NULL;
 	gchar *basepath, *filename;
 	gchar *current_dir = NULL;
-	gint current_page, response, type = XARCHIVETYPE_UNKNOWN;
+	gint current_page, response;
+	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
 	gpointer suffix;
 	int i;
 
@@ -282,7 +283,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 				{
 					if (list->data && (strcmp(ComboArchiveType, list->data) == 0))
 					{
-						type = i;
+						xa.type = i;
 						i = XARCHIVETYPE_TYPES;
 						break;
 					}
@@ -294,7 +295,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 
 		gtk_widget_destroy(xa_file_chooser);
 
-		archive = xa_init_archive_structure(type);
+		archive = xa_init_archive_structure(xa);
 
 		archive->path[0] = g_strdup(my_path);
 		archive->path[1] = xa_escape_bad_chars(archive->path[0], ESCAPES);

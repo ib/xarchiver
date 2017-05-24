@@ -44,7 +44,7 @@ void xa_convert_sfx(GtkMenuItem *, gpointer);
 void xa_create_liststore(XArchive *, const gchar *[]);
 void xa_delete_archive(GtkMenuItem *, gpointer);
 void xa_deselect_all(GtkMenuItem *, gpointer);
-XArchiveType xa_detect_archive_type(gchar *);
+ArchiveType xa_detect_archive_type(gchar *);
 void xa_enter_password(GtkMenuItem *, gpointer);
 void xa_extract_archive(GtkMenuItem *, gpointer);
 gboolean xa_launch_external_program(gchar *, gchar *);

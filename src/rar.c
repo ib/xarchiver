@@ -291,8 +291,6 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 			}
 			return;
 		}
-		if (strncmp(line, "Details: RAR 5", 14) == 0)
-			archive->version = 5;
 		if (line[0] == '-')
 		{
 			data_line = TRUE;

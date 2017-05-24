@@ -81,6 +81,12 @@ typedef struct
 	GSList *glob;
 } XArchiver;
 
+typedef struct
+{
+	XArchiveType type;
+	gushort version;
+} ArchiveType;
+
 typedef struct _XEntry XEntry;
 
 struct _XEntry
@@ -211,7 +217,7 @@ gint xa_find_archive_index(gint);
 XEntry *xa_find_entry_from_path(XEntry *, const gchar *);
 void xa_free_entry(XArchive *, XEntry *);
 gint xa_get_new_archive_idx();
-XArchive *xa_init_archive_structure(gint);
+XArchive *xa_init_archive_structure(ArchiveType);
 gboolean xa_run_command(XArchive *, const gchar *);
 XEntry *xa_set_archive_entries_for_each_row(XArchive *, gchar *, gpointer *);
 void xa_dir_sidebar_row_selected(GtkTreeSelection *, gpointer);
