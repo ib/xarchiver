@@ -268,24 +268,37 @@ static gboolean _xa_dir_sidebar_select_row (GtkTreeModel *model, GtkTreePath *pa
 
 XArchive *xa_init_archive_structure (ArchiveType xa)
 {
-	XEntry *entry = NULL;
-	XArchive *archive = NULL;
+	XArchive *archive;
+	XEntry *entry;
 
-	archive = g_new0(XArchive,1);
-	if (archive == NULL)
+	archive = g_new0(XArchive, 1);
+
+	if (!archive)
 		return NULL;
-	entry = g_new0(XEntry,1);
-	entry->filename = "";
-	archive->root_entry = entry;
-	archive->ask = ask[xa.type];
-	archive->list = list[xa.type];
-	archive->delete = delete[xa.type];
-	archive->add = add[xa.type];
-	archive->extract = extract[xa.type];
-	archive->test = test[xa.type];
+
 	archive->type = xa.type;
 	archive->version = xa.version;
+
+	entry = g_new0(XEntry, 1);
+
+	if (!entry)
+	{
+		g_free(archive);
+		return NULL;
+	}
+
+	entry->filename = "";
+	archive->root_entry = entry;
+
+	archive->ask = ask[xa.type];
+	archive->list = list[xa.type];
+	archive->test = test[xa.type];
+	archive->extract = extract[xa.type];
+	archive->add = add[xa.type];
+	archive->delete = delete[xa.type];
+
 	(*archive->ask)(archive);
+
 	return archive;
 }
 
