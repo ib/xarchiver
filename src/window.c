@@ -1701,7 +1701,7 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
 	gtk_widget_hide (about);
 }
 
-ArchiveType xa_detect_archive_type (gchar *filename)
+ArchiveType xa_detect_archive_type (const gchar *filename)
 {
 	FILE *file;
 	unsigned char magic[14];
