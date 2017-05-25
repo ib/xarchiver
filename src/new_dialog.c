@@ -283,7 +283,14 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[], gboolean
 				{
 					if (list->data && (strcmp(ComboArchiveType, list->data) == 0))
 					{
+						gint pos;
+
 						xa.type = i;
+						pos = g_slist_index(archiver[xa.type].version, list->data);
+
+						if (pos > 0)
+							xa.version = (gushort) GPOINTER_TO_UINT(g_slist_nth_data(archiver[xa.type].version, pos - 1));
+
 						i = XARCHIVETYPE_TYPES;
 						break;
 					}
