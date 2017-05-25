@@ -835,6 +835,7 @@ done:
 		g_free(archiver[x].program[1]);
 		g_slist_free(archiver[x].type);
 		g_slist_free(archiver[x].glob);
+		g_slist_free(archiver[x].version);
 	}
 
 	g_free(xdg_open);

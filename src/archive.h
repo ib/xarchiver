@@ -79,6 +79,7 @@ typedef struct
 	gboolean is_compressor;
 	GSList *type;
 	GSList *glob;
+	GSList *version;
 } XArchiver;
 
 typedef struct

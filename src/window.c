@@ -433,12 +433,14 @@ done:
 
 static const gchar *xa_get_archive_format (XArchive *archive)
 {
-	GSList *list = archiver[archive->type].type;
+	gint pos;
 
-	if (archive->type == XARCHIVETYPE_RAR && archive->version == 5)
-		list = list->next;
+	pos = g_slist_index(archiver[archive->type].version, GUINT_TO_POINTER(archive->version));
 
-	return list->data;
+	if (pos >= 0)
+		return g_slist_nth_data(archiver[archive->type].version, pos + 1);
+	else
+		return archiver[archive->type].type->data;
 }
 
 static gchar *xa_get_statusbar_message (guint64 total_size, gint n_elem, gint dirs, gboolean selection)
