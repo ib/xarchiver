@@ -500,6 +500,8 @@ static void xa_check_available_archivers ()
 		/* java archive */
 		archiver[type].type = g_slist_append(archiver[type].type, "jar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
+		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('j'));
+		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 
 		ask[type] = xa_zip_ask;
 		list[type] = xa_zip_list;
