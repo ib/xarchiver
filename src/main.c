@@ -410,6 +410,8 @@ static void xa_check_available_archivers ()
 		{
 			archiver[type].type = g_slist_append(archiver[type].type, "rar5");
 			archiver[type].glob = g_slist_append(archiver[type].glob, " .rar");
+			archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER(5));
+			archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 		}
 
 		ask[type] = xa_rar_ask;

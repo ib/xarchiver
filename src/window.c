@@ -1749,17 +1749,13 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	else if (memcmp(magic, "\x52\x61\x72\x21\x1a\x07\x00", 7) == 0 ||
 	         memcmp(magic, "\x52\x61\x72\x21\x1a\x07\x01", 7) == 0)
 	{
-		GSList *rar;
-
 		xa.type = XARCHIVETYPE_RAR;
 
 		if (magic[6] == 1)
 			xa.version = 5;
 
-		rar = archiver[xa.type].type;
-
-		/* if rar5 archive, check for a rar v5 executable */
-		if ((xa.version == 5) && !(rar && rar->next))
+		/* a rar5 archive without rar v5 executable can't be opened */
+		if ((xa.version == 5) && !g_slist_find(archiver[xa.type].version, GUINT_TO_POINTER(xa.version)))
 			list[xa.type] = NULL;
 	}
 	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
