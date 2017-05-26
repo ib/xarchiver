@@ -400,13 +400,22 @@ static void xa_check_available_archivers ()
 	else
 		path = g_find_program_in_path("unrar");
 
+	standard = (path != NULL);
+
+	if (!standard && is7z)
+	{
+		/* alternative uncompressor */
+		path = g_strconcat(sevenz, " -trar", NULL);
+		archiver[type].program[1] = g_strconcat(sevenz, " -trar5", NULL);
+	}
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "rar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rar");
 
-		if (xa_rar_check_version(path) == 5)
+		if (!standard || (xa_rar_check_version(path) == 5))
 		{
 			archiver[type].type = g_slist_append(archiver[type].type, "rar5");
 			archiver[type].glob = g_slist_append(archiver[type].glob, " .rar");
@@ -414,12 +423,12 @@ static void xa_check_available_archivers ()
 			archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 		}
 
-		ask[type] = xa_rar_ask;
-		list[type] = xa_rar_list;
-		test[type] = xa_rar_test;
-		extract[type] = xa_rar_extract;
-		add[type] = xa_rar_add;
-		delete[type] = xa_rar_delete;
+		ask[type] = (standard ? xa_rar_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_rar_list : xa_7zip_list);
+		test[type] = (standard ? xa_rar_test : xa_7zip_test);
+		extract[type] = (standard ? xa_rar_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_rar_add : NULL);
+		delete[type] = (standard ? xa_rar_delete : NULL);
 	}
 
 	/* RPM package */

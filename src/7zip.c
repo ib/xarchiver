@@ -25,6 +25,8 @@
 #include "support.h"
 #include "window.h"
 
+#define INDEX (archive->type == XARCHIVETYPE_RAR ? (archive->version == 5 ? 1 : 0) : 0)
+
 static gboolean data_line, encrypted, last_line;
 
 /* it can handle other archive types as well */
@@ -277,7 +279,7 @@ void xa_7zip_list (XArchive *archive)
 	encrypted = FALSE;
 
 	password_str = xa_7zip_password_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " l", password_str, " ", archive->path[1], NULL);
+	command = g_strconcat(archiver[archive->type].program[INDEX], " l", password_str, " ", archive->path[1], NULL);
 	g_free(password_str);
 
 	archive->files_size = 0;
@@ -301,7 +303,7 @@ void xa_7zip_test (XArchive *archive)
 	gchar *password_str, *command;
 
 	password_str = xa_7zip_password_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0], " t", password_str, " -bd -y ", archive->path[1], NULL);
+	command = g_strconcat(archiver[archive->type].program[INDEX], " t", password_str, " -bd -y ", archive->path[1], NULL);
 	g_free(password_str);
 
 	xa_run_command(archive, command);
@@ -326,7 +328,7 @@ gboolean xa_7zip_extract (XArchive *archive, GSList *file_list)
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	password_str = xa_7zip_password_str(archive);
-	command = g_strconcat(archiver[archive->type].program[0],
+	command = g_strconcat(archiver[archive->type].program[INDEX],
 	                      archive->do_full_path ? " x" : " e",
 	                      archive->do_overwrite ? " -aoa" : " -aos",
 	                      password_str, " -bd -spd -y ",
