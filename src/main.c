@@ -488,6 +488,12 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_XZ;
 	path = xz;
 
+	standard = (path != NULL);
+
+	if (!standard && is7zr)
+		/* alternative compressor */
+		path = g_strconcat(sevenz, " -txz", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
@@ -495,11 +501,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "xz");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xz");
 
-		ask[type] = xa_gzip_et_al_ask;
-		list[type] = xa_gzip_et_al_list;
-		test[type] = xa_gzip_et_al_test;
-		extract[type] = xa_gzip_et_al_extract;
-		add[type] = xa_gzip_et_al_add;
+		ask[type] = (standard ? xa_gzip_et_al_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_gzip_et_al_list : xa_7zip_list);
+		test[type] = (standard ? xa_gzip_et_al_test : xa_7zip_test);
+		extract[type] = (standard ? xa_gzip_et_al_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_gzip_et_al_add : xa_7zip_add);
 	}
 
 	/* zip */
