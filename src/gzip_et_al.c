@@ -194,7 +194,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 		is_tar = isTar(file);
 		fclose(file);
 
-		if (is_tar && archiver[XARCHIVETYPE_TAR].program[0])
+		if (is_tar && (ask[XARCHIVETYPE_TAR] == xa_tar_ask))
 		{
 			switch (archive->type)
 			{
