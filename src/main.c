@@ -529,7 +529,7 @@ static void xa_check_available_archivers ()
 
 	/* compressed tar */
 
-	if (archiver[XARCHIVETYPE_TAR].type)
+	if (ask[XARCHIVETYPE_TAR] == xa_tar_ask)
 	{
 		struct
 		{
