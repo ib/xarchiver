@@ -522,7 +522,22 @@ static void xa_check_available_archivers ()
 			archiver[type].program[1] = zip;
 			archiver[type].is_compressor = TRUE;
 		}
+	}
 
+	standard = (path && archiver[type].is_compressor);
+
+	if (!standard && is7za)
+	{
+		g_free(path);
+		/* alternative compressor */
+		path = g_strconcat(sevenz, " -tzip", NULL);
+		archiver[type].is_compressor = TRUE;
+	}
+	else
+		standard = TRUE;
+
+	if (path)
+	{
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "zip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.zip");
@@ -532,12 +547,12 @@ static void xa_check_available_archivers ()
 		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('j'));
 		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 
-		ask[type] = xa_zip_ask;
-		list[type] = xa_zip_list;
-		test[type] = xa_zip_test;
-		extract[type] = xa_zip_extract;
-		add[type] = xa_zip_add;
-		delete[type] = xa_zip_delete;
+		ask[type] = (standard ? xa_zip_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_zip_list : xa_7zip_list);
+		test[type] = (standard ? xa_zip_test : xa_7zip_test);
+		extract[type] = (standard ? xa_zip_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_zip_add : xa_7zip_add);
+		delete[type] = (standard ? xa_zip_delete : xa_7zip_delete);
 	}
 
 	/* compressed tar */
