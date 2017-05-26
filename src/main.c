@@ -436,15 +436,22 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_RPM;
 	path = g_find_program_in_path("cpio");
 
+	standard = (path != NULL);
+
+	if (!standard && is7z)
+		/* alternative uncompressor */
+		path = g_strconcat(sevenz, " -trpm", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "rpm");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rpm");
 
-		ask[type] = xa_rpm_ask;
-		list[type] = xa_rpm_list;
-		extract[type] = xa_rpm_extract;
+		ask[type] = (standard ? xa_rpm_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_rpm_list : xa_7zip_list);
+		test[type] = (standard ? NULL : xa_7zip_test);
+		extract[type] = (standard ? xa_rpm_extract : xa_7zip_extract);
 	}
 
 	/* tape archive */
