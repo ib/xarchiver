@@ -462,6 +462,12 @@ static void xa_check_available_archivers ()
 	if (!path)
 		path = g_find_program_in_path("tar");
 
+	standard = (path != NULL);
+
+	if (!standard && is7za)
+		/* alternative compressor */
+		path = g_strconcat(sevenz, " -ttar", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
@@ -469,11 +475,12 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "tar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar");
 
-		ask[type] = xa_tar_ask;
-		list[type] = xa_tar_list;
-		extract[type] = xa_tar_extract;
-		add[type] = xa_tar_add;
-		delete[type] = xa_tar_delete;
+		ask[type] = (standard ? xa_tar_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_tar_list : xa_7zip_list);
+		test[type] = (standard ? NULL : xa_7zip_test);
+		extract[type] = (standard ? xa_tar_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_tar_add : xa_7zip_add);
+		delete[type] = (standard ? xa_tar_delete : xa_7zip_delete);
 	}
 
 	/* xz */
