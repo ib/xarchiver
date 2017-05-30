@@ -54,7 +54,7 @@ static gchar *xa_arj_password_str (XArchive *archive)
 static void xa_arj_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
-	gpointer item[7];
+	gpointer item[6];
 	unsigned int linesize,n,a;
 	guint64 file_size;
 	static gchar *filename;
@@ -152,15 +152,13 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 		line[unarj ? 72 : 69] = '\0';
 		item[5] = line + (unarj ? 68 : 59);
 
-		dir = (line[73] == 'D');   // for unarj only
-
-		/* GUA */
-		line[73] = '\0';
-		item[6] = (unarj ? "" : line + 70);
-
-		/* BPMGS */
+		/* BTPMGVX */
 		if (unarj)
+		{
+			dir = (line[73] == 'D');
 			encrypted = (line[76] == 'G');
+		}
+		/* BPMGS */
 		else
 			encrypted = (line[77] == '1');
 		if (encrypted)
@@ -193,8 +191,8 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 
 void xa_arj_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Attributes"), _("GUA")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), _("Attributes")};
 	guint i;
 
 	data_line = FALSE;
@@ -206,7 +204,7 @@ void xa_arj_list (XArchive *archive)
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
-	archive->columns = 10;
+	archive->columns = 9;
 	archive->size_column = 2;
 	archive->column_types = g_malloc0(sizeof(types));
 
