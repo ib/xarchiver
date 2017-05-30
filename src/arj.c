@@ -160,7 +160,11 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 		}
 		/* BPMGS */
 		else
+		{
+			dir = (line[59] == 'd');
 			encrypted = (line[77] == '1');
+		}
+
 		if (encrypted)
 			archive->has_password = TRUE;
 
@@ -178,7 +182,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 
 		if (entry != NULL)
 		{
-			if (line[59] == 'd')      // for arj only
+			if (dir)
 				entry->is_dir = TRUE;
 
 			entry->is_encrypted	= encrypted;
