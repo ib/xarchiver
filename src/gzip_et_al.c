@@ -31,7 +31,7 @@
 
 #define xz   (archive->type == XARCHIVETYPE_XZ)
 
-static gpointer item[5];
+static gpointer item[7];
 static gchar *filename;
 
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
@@ -51,6 +51,8 @@ void xa_gzip_et_al_ask (XArchive *archive)
 static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 {
 	guint idx0 = 0, idx1 = 1;
+	const gchar *streams = NULL, *blocks = NULL;
+
 
 	if (archive->type == XARCHIVETYPE_GZIP)
 	{
@@ -100,10 +102,12 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 		{
 			/* "file" */
 			SKIP_ITEM;
+
 			/* number of streams */
-			SKIP_ITEM;
+			NEXT_ITEM(streams);
+
 			/* number of blocks */
-			SKIP_ITEM;
+			NEXT_ITEM(blocks);
 		}
 	}
 	else
@@ -119,7 +123,19 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 	/* ratio */
 	NEXT_ITEM(item[2]);
 
-	if (archive->type != XARCHIVETYPE_XZ)
+	if (archive->type == XARCHIVETYPE_XZ)
+	{
+		const gchar *padding;
+
+		/* check type */
+		NEXT_ITEM(item[5]);
+
+		/* stream padding */
+		NEXT_ITEM(padding);
+
+		item[6] = g_strconcat(streams, "/", blocks, "/", padding, NULL);
+	}
+	else
 	{
 		/* uncompressed_name */
 		LAST_ITEM(filename);
@@ -134,6 +150,7 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 
 	g_free(item[3]);
 	g_free(item[4]);
+	g_free(item[6]);
 	g_free(filename);
 }
 
@@ -160,8 +177,8 @@ static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 
 void xa_gzip_et_al_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Saving"), _("Date"), _("Time")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, xz ? G_TYPE_STRING : G_TYPE_POINTER, xz ? G_TYPE_STRING : G_TYPE_POINTER, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Saving"), _("Date"), _("Time"), NULL, NULL};
 	const gchar *decompfile = "xa-tmp.decompressed";
 	gchar *archive_path, *command, *workfile, buffer[12];
 	FILE *file;
@@ -280,7 +297,11 @@ void xa_gzip_et_al_list (XArchive *archive)
 			if (archive->type == XARCHIVETYPE_LZOP)
 				titles[2] = _("Occupancy");
 			else if (archive->type == XARCHIVETYPE_XZ)
+			{
 				titles[2] = _("Ratio");
+				titles[5] = _("Check Type");
+				titles[6] = _("Streams/Blocks/Padding");
+			}
 
 			command = g_strconcat(archiver[archive->type].program[0], " -l", xz ? " --robot " : " ", archive->path[1], NULL);
 			archive->parse_output = xa_gzip_et_al_parse_output;
@@ -325,7 +346,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 	xa_spawn_async_process(archive, command);
 	g_free(command);
 
-	archive->columns = 8;
+	archive->columns = (xz ? 10 : 8);
 	archive->size_column = 2;
 	archive->column_types = g_malloc0(sizeof(types));
 
