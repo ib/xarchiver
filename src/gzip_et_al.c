@@ -29,6 +29,7 @@
 #include "tar.h"
 #include "window.h"
 
+#define lzop (archive->type == XARCHIVETYPE_LZOP)
 #define xz   (archive->type == XARCHIVETYPE_XZ)
 
 static gpointer item[7];
@@ -78,7 +79,7 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 			return;
 		else
 			/* method */
-			SKIP_ITEM;
+			NEXT_ITEM(item[5]);
 	}
 	else if (archive->type == XARCHIVETYPE_XZ)
 	{
@@ -177,7 +178,7 @@ static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 
 void xa_gzip_et_al_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, xz ? G_TYPE_STRING : G_TYPE_POINTER, xz ? G_TYPE_STRING : G_TYPE_POINTER, G_TYPE_POINTER};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, lzop || xz ? G_TYPE_STRING : G_TYPE_POINTER, xz ? G_TYPE_STRING : G_TYPE_POINTER, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Saving"), _("Date"), _("Time"), NULL, NULL};
 	const gchar *decompfile = "xa-tmp.decompressed";
 	gchar *archive_path, *command, *workfile, buffer[12];
@@ -295,7 +296,10 @@ void xa_gzip_et_al_list (XArchive *archive)
 		case XARCHIVETYPE_XZ:
 
 			if (archive->type == XARCHIVETYPE_LZOP)
+			{
 				titles[2] = _("Occupancy");
+				titles[5] = _("Method");
+			}
 			else if (archive->type == XARCHIVETYPE_XZ)
 			{
 				titles[2] = _("Ratio");
@@ -346,7 +350,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 	xa_spawn_async_process(archive, command);
 	g_free(command);
 
-	archive->columns = (xz ? 10 : 8);
+	archive->columns = (xz ? 10 : (lzop ? 9 : 8));
 	archive->size_column = 2;
 	archive->column_types = g_malloc0(sizeof(types));
 
