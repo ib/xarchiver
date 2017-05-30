@@ -113,7 +113,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	archive->files_size += size;
 	n++;
 
-	/* tx/bx */
+	/* text/binary */
 	for(; n < linesize && line[n] == ' '; n++);
 	a = n;
 	for(; n < linesize && line[n] != ' '; n++);
