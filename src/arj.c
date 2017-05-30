@@ -54,7 +54,7 @@ static gchar *xa_arj_password_str (XArchive *archive)
 static void xa_arj_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
-	gpointer item[6];
+	gpointer item[7];
 	unsigned int linesize,n,a;
 	guint64 file_size;
 	static gchar *filename;
@@ -148,6 +148,13 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 		line[58] = '\0';
 		item[4] = line + 50;
 
+		/* CRC */
+		if (unarj)
+		{
+			line[67] = '\0';
+			item[6] = line + 59;
+		}
+
 		/* Permissions */
 		line[unarj ? 72 : 69] = '\0';
 		item[5] = line + (unarj ? 68 : 59);
@@ -195,8 +202,8 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 
 void xa_arj_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), archiver[archive->type].is_compressor ? _("Permissions") : _("Attributes")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, archiver[archive->type].is_compressor ? G_TYPE_POINTER : G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Ratio"), _("Date"), _("Time"), archiver[archive->type].is_compressor ? _("Permissions") : _("Attributes"), archiver[archive->type].is_compressor ? NULL : _("Checksum")};
 	guint i;
 
 	data_line = FALSE;
@@ -208,7 +215,7 @@ void xa_arj_list (XArchive *archive)
 	xa_spawn_async_process (archive,command);
 	g_free (command);
 
-	archive->columns = 9;
+	archive->columns = (archiver[archive->type].is_compressor ? 9 : 10);
 	archive->size_column = 2;
 	archive->column_types = g_malloc0(sizeof(types));
 
