@@ -29,6 +29,8 @@
 #include "tar.h"
 #include "window.h"
 
+#define xz   (archive->type == XARCHIVETYPE_XZ)
+
 static gpointer item[5];
 static gchar *filename;
 
@@ -280,7 +282,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 			else if (archive->type == XARCHIVETYPE_XZ)
 				titles[2] = _("Ratio");
 
-			command = g_strconcat(archiver[archive->type].program[0], " -l", archive->type == XARCHIVETYPE_XZ ? " --robot " : " ", archive->path[1], NULL);
+			command = g_strconcat(archiver[archive->type].program[0], " -l", xz ? " --robot " : " ", archive->path[1], NULL);
 			archive->parse_output = xa_gzip_et_al_parse_output;
 
 			break;
