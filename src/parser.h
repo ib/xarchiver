@@ -30,7 +30,7 @@ do                                                         \
 while (0)
 
 #define NEXT_ITEM(item) GRAB_ITEM(item, *line != ' ' && *line != '\t' && *line != '\n')
-#define LAST_ITEM(item) GRAB_ITEM(item, *line != '\n')
+#define LAST_ITEM(item) GRAB_ITEM(item, *line != '\n')   // for filenames
 #define SKIP_ITEM NEXT_ITEM(line)
 
 #endif
