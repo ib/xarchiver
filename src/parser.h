@@ -20,20 +20,20 @@
 #define XARCHIVER_PARSER_H
 
 #define GRAB_ITEMS(parts, item, cond)                        \
-do                                                         \
-{                                                          \
+do                                                           \
+{                                                            \
   unsigned int part = 1;                                     \
                                                              \
   do                                                         \
   {                                                          \
-  while (*line && (*line == ' ' || *line == '\t')) line++; \
-  if (part == 1) item = line;                                \
-  while (*line && (cond)) line++;                          \
+    while (*line && (*line == ' ' || *line == '\t')) line++; \
+    if (part == 1) item = line;                              \
+    while (*line && (cond)) line++;                          \
   }                                                          \
   while (++part <= parts);                                   \
                                                              \
-  if (*line) *line++ = 0;                                  \
-}                                                          \
+  if (*line) *line++ = 0;                                    \
+}                                                            \
 while (0)
 
 #define NEXT_ITEMS(parts, item) GRAB_ITEMS(parts, item, *line != ' ' && *line != '\t' && *line != '\n')
