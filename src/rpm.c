@@ -284,7 +284,7 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 	gchar *command;
 	gboolean result;
 
-	files = xa_quote_filenames(file_list, "*?[]\"", TRUE);
+	files = xa_quote_filenames(file_list, "*?[]\"", FALSE);
 	chdir(archive->extraction_dir);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
