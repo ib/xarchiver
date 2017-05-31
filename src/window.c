@@ -42,6 +42,7 @@
 #endif
 
 #define	XDS_FILENAME "xds.txt"
+#define bswap(word) (((word << 8) & 0xff00) | ((word >> 8) & 0x00ff))
 
 gchar *current_open_directory;
 
@@ -1705,6 +1706,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 {
 	FILE *file;
 	unsigned char magic[14];
+	unsigned short *short_magic = (unsigned short *) magic;
 	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
 
 	file = fopen(filename, "r");
@@ -1726,6 +1728,12 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_BZIP2;
 	else if (memcmp(magic, "\x1f\x9d", 2) == 0)
 		xa.type = XARCHIVETYPE_COMPRESS;
+	else if (memcmp(magic, "070701", 6) == 0 ||
+	         memcmp(magic, "070702", 6) == 0 ||
+	         memcmp(magic, "070707", 6) == 0 ||
+	         *short_magic == 070707 ||
+	         *short_magic == bswap(070707))
+		xa.type = XARCHIVETYPE_CPIO;
 	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
 		xa.type = XARCHIVETYPE_DEB;
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||

@@ -23,6 +23,7 @@
 #include "7zip.h"
 #include "add_dialog.h"
 #include "arj.h"
+#include "cpio.h"
 #include "deb.h"
 #include "extract_dialog.h"
 #include "interface.h"
@@ -93,7 +94,7 @@ static GOptionEntry entries[] =
 static void xa_check_available_archivers ()
 {
 	XArchiveType type;
-	gchar *path, *sevenz, *xz;
+	gchar *path, *cpio, *sevenz, *xz;
 	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE, standard;
 
 	/* (un)compressors that can handle various types */
@@ -115,6 +116,7 @@ static void xa_check_available_archivers ()
 		}
 	}
 
+	cpio = g_find_program_in_path("cpio");
 	xz = g_find_program_in_path("xz");
 
 	/* 7-zip */
@@ -222,6 +224,24 @@ static void xa_check_available_archivers ()
 		test[type] = (standard ? xa_gzip_et_al_test : xa_7zip_test);
 		extract[type] = (standard ? xa_gzip_et_al_extract : xa_7zip_extract);
 		add[type] = (standard ? xa_gzip_et_al_add : NULL);
+	}
+
+	/* cpio */
+
+	type = XARCHIVETYPE_CPIO;
+	path = cpio;
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].is_compressor = TRUE;
+		archiver[type].type = g_slist_append(archiver[type].type, "cpio");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.cpio");
+
+		ask[type] = xa_cpio_ask;
+		list[type] = xa_cpio_list;
+		extract[type] = xa_cpio_extract;
+		add[type] = xa_cpio_add;
 	}
 
 	/* debian package */
@@ -434,7 +454,7 @@ static void xa_check_available_archivers ()
 	/* RPM package */
 
 	type = XARCHIVETYPE_RPM;
-	path = g_find_program_in_path("cpio");
+	path = g_strdup(cpio);
 
 	standard = (path != NULL);
 

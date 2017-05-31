@@ -107,19 +107,19 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
-	archive.c archive.h arj.c arj.h deb.c deb.h extract_dialog.c \
-	extract_dialog.h gzip_et_al.c gzip_et_al.h interface.c \
-	interface.h lha.c lha.h main.c main.h mime.c mime.h \
-	new_dialog.c new_dialog.h open-with-dlg.c open-with-dlg.h \
-	pref_dialog.c pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c \
-	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
-	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
-	sexy-icon-entry.c sexy-icon-entry.h
+	archive.c archive.h arj.c arj.h cpio.c cpio.h deb.c deb.h \
+	extract_dialog.c extract_dialog.h gzip_et_al.c gzip_et_al.h \
+	interface.c interface.h lha.c lha.h main.c main.h mime.c \
+	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
+	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
+	rpm.h socket.c socket.h string_utils.c string_utils.h \
+	support.h tar.c tar.h utf8-fnmatch.c utf8-fnmatch.h window.c \
+	window.h zip.c zip.h sexy-icon-entry.c sexy-icon-entry.h
 @GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-add_dialog.$(OBJEXT) xarchiver-archive.$(OBJEXT) \
-	xarchiver-arj.$(OBJEXT) xarchiver-deb.$(OBJEXT) \
-	xarchiver-extract_dialog.$(OBJEXT) \
+	xarchiver-arj.$(OBJEXT) xarchiver-cpio.$(OBJEXT) \
+	xarchiver-deb.$(OBJEXT) xarchiver-extract_dialog.$(OBJEXT) \
 	xarchiver-gzip_et_al.$(OBJEXT) xarchiver-interface.$(OBJEXT) \
 	xarchiver-lha.$(OBJEXT) xarchiver-main.$(OBJEXT) \
 	xarchiver-mime.$(OBJEXT) xarchiver-new_dialog.$(OBJEXT) \
@@ -401,14 +401,14 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = xdgmime
 xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h archive.c \
-	archive.h arj.c arj.h deb.c deb.h extract_dialog.c \
-	extract_dialog.h gzip_et_al.c gzip_et_al.h interface.c \
-	interface.h lha.c lha.h main.c main.h mime.c mime.h \
-	new_dialog.c new_dialog.h open-with-dlg.c open-with-dlg.h \
-	pref_dialog.c pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c \
-	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
-	utf8-fnmatch.c utf8-fnmatch.h window.c window.h zip.c zip.h \
-	$(am__append_1)
+	archive.h arj.c arj.h cpio.c cpio.h deb.c deb.h \
+	extract_dialog.c extract_dialog.h gzip_et_al.c gzip_et_al.h \
+	interface.c interface.h lha.c lha.h main.c main.h mime.c \
+	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
+	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
+	rpm.h socket.c socket.h string_utils.c string_utils.h \
+	support.h tar.c tar.h utf8-fnmatch.c utf8-fnmatch.h window.c \
+	window.h zip.c zip.h $(am__append_1)
 xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" $(am__append_2)
@@ -513,6 +513,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-add_dialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-archive.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-arj.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-cpio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-deb.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-extract_dialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-gzip_et_al.Po@am__quote@
@@ -609,6 +610,20 @@ xarchiver-arj.obj: arj.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='arj.c' object='xarchiver-arj.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-arj.obj `if test -f 'arj.c'; then $(CYGPATH_W) 'arj.c'; else $(CYGPATH_W) '$(srcdir)/arj.c'; fi`
+
+xarchiver-cpio.o: cpio.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-cpio.o -MD -MP -MF $(DEPDIR)/xarchiver-cpio.Tpo -c -o xarchiver-cpio.o `test -f 'cpio.c' || echo '$(srcdir)/'`cpio.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-cpio.Tpo $(DEPDIR)/xarchiver-cpio.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cpio.c' object='xarchiver-cpio.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-cpio.o `test -f 'cpio.c' || echo '$(srcdir)/'`cpio.c
+
+xarchiver-cpio.obj: cpio.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-cpio.obj -MD -MP -MF $(DEPDIR)/xarchiver-cpio.Tpo -c -o xarchiver-cpio.obj `if test -f 'cpio.c'; then $(CYGPATH_W) 'cpio.c'; else $(CYGPATH_W) '$(srcdir)/cpio.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-cpio.Tpo $(DEPDIR)/xarchiver-cpio.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cpio.c' object='xarchiver-cpio.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-cpio.obj `if test -f 'cpio.c'; then $(CYGPATH_W) 'cpio.c'; else $(CYGPATH_W) '$(srcdir)/cpio.c'; fi`
 
 xarchiver-deb.o: deb.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-deb.o -MD -MP -MF $(DEPDIR)/xarchiver-deb.Tpo -c -o xarchiver-deb.o `test -f 'deb.c' || echo '$(srcdir)/'`deb.c
