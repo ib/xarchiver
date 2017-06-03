@@ -1733,7 +1733,12 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	         memcmp(magic, "070707", 6) == 0 ||
 	         *short_magic == 070707 ||
 	         *short_magic == bswap(070707))
+	{
 		xa.type = XARCHIVETYPE_CPIO;
+
+		if (*short_magic == bswap(070707))
+			xa.version = 'E';
+	}
 	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
 		xa.type = XARCHIVETYPE_DEB;
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||

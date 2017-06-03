@@ -231,17 +231,24 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_CPIO;
 	path = cpio;
 
+	standard = (path != NULL);
+
+	if (!standard && is7z)
+		/* alternative uncompressor */
+		path = g_strconcat(sevenz, " -tcpio", NULL);
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = TRUE;
+		archiver[type].is_compressor = standard;
 		archiver[type].type = g_slist_append(archiver[type].type, "cpio");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.cpio");
 
-		ask[type] = xa_cpio_ask;
-		list[type] = xa_cpio_list;
-		extract[type] = xa_cpio_extract;
-		add[type] = xa_cpio_add;
+		ask[type] = (standard ? xa_cpio_ask : xa_7zip_ask);
+		list[type] = (standard ? xa_cpio_list : xa_7zip_list);
+		test[type] = (standard ? NULL : xa_7zip_test);
+		extract[type] = (standard ? xa_cpio_extract : xa_7zip_extract);
+		add[type] = (standard ? xa_cpio_add : NULL);
 	}
 
 	/* debian package */

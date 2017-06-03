@@ -279,7 +279,12 @@ void xa_7zip_list (XArchive *archive)
 	encrypted = FALSE;
 
 	password_str = xa_7zip_password_str(archive);
-	command = g_strconcat(archiver[archive->type].program[INDEX], " l", password_str, " ", archive->path[1], NULL);
+
+	if (archive->type == XARCHIVETYPE_CPIO && archive->version == 'E')
+		command = g_strconcat("sh -c \"echo ", _("Unsupported binary format!"), " >&2; exit 1\"", NULL);
+	else
+		command = g_strconcat(archiver[archive->type].program[INDEX], " l", password_str, " ", archive->path[1], NULL);
+
 	g_free(password_str);
 
 	archive->files_size = 0;
