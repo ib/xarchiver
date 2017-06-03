@@ -51,6 +51,7 @@ void xa_gzip_et_al_ask (XArchive *archive)
 
 static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 {
+	XEntry *entry;
 	guint idx0 = 0, idx1 = 1;
 	const gchar *streams = NULL, *blocks = NULL;
 
@@ -119,7 +120,6 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 
 	/* uncompressed (compressed for lzip) */
 	NEXT_ITEM(item[idx0]);
-	archive->files_size = g_ascii_strtoull(item[0], NULL, 0);
 
 	/* ratio */
 	NEXT_ITEM(item[2]);
@@ -147,7 +147,13 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 		filename = g_path_get_basename(filename);
 	}
 
-	xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+
+	if (entry)
+	{
+		archive->files = 1;
+		archive->files_size = g_ascii_strtoull(item[0], NULL, 0);
+	}
 
 	g_free(item[3]);
 	g_free(item[4]);
@@ -275,7 +281,6 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 	/* continue listing gzip et al. archive type */
 
-	archive->files = 1;
 	archive->can_add = FALSE;
 
 	stat(archive->path[0], &st);
