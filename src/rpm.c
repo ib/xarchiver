@@ -285,11 +285,11 @@ gboolean xa_rpm_extract (XArchive *archive, GSList *file_list)
 	gboolean result;
 
 	files = xa_quote_filenames(file_list, "*?[]\"", FALSE);
-	chdir(archive->extraction_dir);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
 	                      archive->do_overwrite ? " -u" : "",
-	                      " -I ", archive->working_dir, "/xa-tmp.cpio", files->str, NULL);
+	                      " -I ", archive->working_dir, "/xa-tmp.cpio",
+	                      " -D ", archive->extraction_dir, files->str, NULL);
 
 	g_string_free(files,TRUE);
 
