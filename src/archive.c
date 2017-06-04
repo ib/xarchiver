@@ -597,7 +597,6 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 				return NULL;
 
 			entry->filename = g_strdup(components[n]);
-			entry->columns = xa_fill_archive_entry_columns_for_each_row(archive, entry, items);
 
 			if (components[n + 1])
 				entry->is_dir = TRUE;
@@ -606,6 +605,9 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 			last->child = entry;
 			entry->prev = last;
 		}
+
+		if (components[n + 1] == NULL || *components[n + 1] == 0)
+			entry->columns = xa_fill_archive_entry_columns_for_each_row(archive, entry, items);
 
 		last = entry;
 		n++;
