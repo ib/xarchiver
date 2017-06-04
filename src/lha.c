@@ -54,11 +54,11 @@ void xa_lha_ask (XArchive *archive)
 
 static void xa_lha_parse_output (gchar *line, XArchive *archive)
 {
+	XEntry *entry;
 	gpointer item[6];
+	gchar *filename;
 	unsigned int linesize,n,a;
 	gboolean dir;
-	gchar *filename;
-	XEntry *entry;
 
 	if (last_line)
 		return;
