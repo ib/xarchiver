@@ -70,7 +70,6 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	if ((line[0] != 'd') && (line[0] != '-') && (line[0] != '?'))
 		return;
 
-	archive->files++;
 	linesize = strlen(line);
 
 	/* permissions */
@@ -110,7 +109,6 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	line[n]='\0';
 	item[0] = line + a;
 	size = g_ascii_strtoull(item[0], NULL, 0);
-	archive->files_size += size;
 	n++;
 
 	/* text/binary */
@@ -172,12 +170,19 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	else
 		item[2] = g_strdup("-");
 
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
-	if (entry != NULL)
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+
+	if (entry)
 	{
 		if (dir)
 			 entry->is_dir = TRUE;
+
 		entry->is_encrypted = encrypted;
+
+		if (!entry->is_dir)
+			archive->files++;
+
+		archive->files_size += size;
 	}
 
 	g_free(item[2]);
