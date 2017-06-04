@@ -553,7 +553,8 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer data)
 	gtk_widget_destroy (file);
 	if (path != NULL)
 	{
-		response = g_file_get_contents(path,&content,NULL,&error);
+		response = g_file_get_contents(path, &content, &bytes, &error);
+
 		if (response == FALSE)
 		{
 			gchar *msg = g_strdup_printf (_("Can't open file %s:"),path);
@@ -565,8 +566,15 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer data)
 			return;
 		}
 		g_free(path);
-		utf8_data = g_locale_to_utf8 (content,-1,NULL,&bytes,NULL);
-		g_free(content);
+
+		if (g_utf8_validate(content, -1, NULL))
+			utf8_data = content;
+		else
+		{
+			utf8_data = g_locale_to_utf8(content, -1, NULL, &bytes, NULL);
+			g_free(content);
+		}
+
 		textmark = gtk_text_buffer_get_insert(buf);
 		gtk_text_buffer_get_iter_at_mark(buf,&iter,textmark);
 		gtk_text_buffer_insert_with_tags_by_name (buf,&iter,utf8_data,bytes,"font",NULL);
@@ -2422,7 +2430,14 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 
 	if (archive[idx]->comment)
 	{
-		utf8_line = g_locale_to_utf8 (archive[idx]->comment->str,-1,NULL,&len,NULL);
+		if (g_utf8_validate(archive[idx]->comment->str, -1, NULL))
+		{
+			utf8_line = g_strdup(archive[idx]->comment->str);
+			len = -1;
+		}
+		else
+			utf8_line = g_locale_to_utf8(archive[idx]->comment->str, -1, NULL, &len, NULL);
+
 		gtk_text_buffer_insert_with_tags_by_name (textbuffer,&iter,utf8_line,len,"font",NULL);
 		g_free(utf8_line);
 	}
