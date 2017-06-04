@@ -91,7 +91,20 @@ static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive 
 		if (status == G_IO_STATUS_NORMAL)
 		{
 			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->store_output)))
+			{
+				if (!g_utf8_validate(line, -1, NULL))
+				{
+					gchar *utf8 = g_locale_to_utf8(line, -1, NULL, NULL, NULL);
+
+					if (utf8)
+					{
+						g_free(line);
+						line = utf8;
+					}
+				}
+
 				archive->output = g_slist_prepend(archive->output, g_strdup(line));
+			}
 
 			g_free(line);
 		}
@@ -360,7 +373,7 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 	g_io_add_watch(ioc, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stdout, archive);
 
 	ioc = g_io_channel_unix_new(archive->child_fderr);
-	g_io_channel_set_encoding(ioc, locale, NULL);
+	g_io_channel_set_encoding(ioc, NULL, NULL);
 	g_io_channel_set_flags(ioc, G_IO_FLAG_NONBLOCK, NULL);
 	g_io_add_watch(ioc, G_IO_IN | G_IO_ERR | G_IO_HUP | G_IO_NVAL, (GIOFunc) xa_process_stderr, archive);
 
