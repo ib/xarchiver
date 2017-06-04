@@ -456,7 +456,11 @@ static gchar *xa_get_statusbar_message (guint64 total_size, gint n_elem, gint di
 	if (dirs)
 	{
 		if (n_elem)
-			info = g_strdup_printf(ngettext ("%d file and %d dir %s (%s)","%d files and %d dirs %s (%s)",n_elem),n_elem,dirs,text,measure);
+		{
+			gchar *format = g_strconcat(ngettext("%d file", "%d files", n_elem), " ", _("and"), " ", ngettext("%d dir %s (%s)", "%d dirs %s (%s)", dirs), NULL);
+			info = g_strdup_printf(format, n_elem, dirs, text, measure);
+			g_free(format);
+		}
 		else
 			info = g_strdup_printf(ngettext ("%d dir %s (%s)","%d dirs %s (%s)",dirs),dirs,text,measure);
 	}
