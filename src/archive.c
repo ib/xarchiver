@@ -563,50 +563,57 @@ void xa_free_entry (XArchive *archive, XEntry *entry)
 	g_free(entry);
 }
 
-XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,gpointer *items)
+XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *filename, gpointer *items)
 {
-	XEntry *new_entry= NULL;
-	XEntry *last_entry = archive->root_entry;
-	gchar **components = NULL;
-	unsigned short int x = 0;
+	XEntry *entry = NULL, *last = archive->root_entry;
+	gchar **components;
+	guint n = 0;
 
 	/* check for batch mode */
 	if (!xa_main_window)
 		return NULL;
 
-	components = g_strsplit(filename,"/",-1);
+	components = g_strsplit(filename, "/", -1);
 
 	if (*filename == '/')
 	{
 		gchar *slashdir;
 
-		x = 1;
-		slashdir = g_strconcat("/", components[x], NULL);
-		g_free(components[x]);
-		components[x] = slashdir;
+		n = 1;
+		slashdir = g_strconcat("/", components[n], NULL);
+		g_free(components[n]);
+		components[n] = slashdir;
 	}
 
-	while (components[x] && strlen(components[x]) > 0)
+	while (components[n] && *components[n])
 	{
-		new_entry = xa_find_directory_entry(last_entry->child, components[x]);
-		if (new_entry == NULL)
+		entry = xa_find_directory_entry(last->child, components[n]);
+
+		if (entry == NULL)
 		{
-			new_entry = xa_alloc_memory_for_each_row(archive->columns, archive->column_types);
-			if (new_entry == NULL)
+			entry = xa_alloc_memory_for_each_row(archive->columns, archive->column_types);
+
+			if (entry == NULL)
 				return NULL;
-			new_entry->filename = g_strdup(components[x]);
-			new_entry->columns = xa_fill_archive_entry_columns_for_each_row(archive,new_entry,items);
-			if (components[x+1] != NULL)
-				new_entry->is_dir = TRUE;
-			new_entry->next = last_entry->child;
-			last_entry->child = new_entry;
-			new_entry->prev = last_entry;
+
+			entry->filename = g_strdup(components[n]);
+			entry->columns = xa_fill_archive_entry_columns_for_each_row(archive, entry, items);
+
+			if (components[n + 1])
+				entry->is_dir = TRUE;
+
+			entry->next = last->child;
+			last->child = entry;
+			entry->prev = last;
 		}
-		last_entry = new_entry;
-		x++;
+
+		last = entry;
+		n++;
 	}
+
 	g_strfreev(components);
-	return new_entry;
+
+	return entry;
 }
 
 XEntry* xa_find_entry_from_dirpath (XArchive *archive, const gchar *dirpath)
