@@ -931,9 +931,6 @@ void xa_new_archive (GtkMenuItem *menuitem,gpointer user_data)
 	xa_set_button_state(1, 1, 1, 1, archive[current_page]->can_test, 1, archive[current_page]->can_add, archive[current_page]->can_extract, archive[current_page]->can_sfx, archive[current_page]->has_comment, archive[current_page]->output, archive[current_page]->has_password);
     xa_disable_delete_buttons(FALSE);
 
-    archive[current_page]->password = NULL;
-    archive[current_page]->files_size = 0;
-    archive[current_page]->files = 0;
 	xa_set_window_title(xa_main_window, archive[current_page]->path[0]);
 	gtk_label_set_text(GTK_LABEL(total_label),"");
 }
