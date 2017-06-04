@@ -87,7 +87,6 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	}
 
 	linesize = strlen(line);
-	archive->files++;
 
 	/* Date */
 	line[10] = '\0';
@@ -110,7 +109,6 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 
 	line[38] = '\0';
 	item[0] = line + a;
-	archive->files_size += g_ascii_strtoull(item[0],NULL,0);
 
 	/* Compressed */
 	/* Is this item solid? */
@@ -130,14 +128,19 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	}
 
 	filename = g_strdup(line + 53);
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
-	if (entry != NULL)
+	if (entry)
 	{
 		if (dir)
 			entry->is_dir = TRUE;
 
 		entry->is_encrypted = encrypted;
+
+		if (!entry->is_dir)
+			archive->files++;
+
+		archive->files_size += g_ascii_strtoull(item[0], NULL, 0);
 	}
 
 	g_free(filename);
