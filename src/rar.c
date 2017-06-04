@@ -150,14 +150,12 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 	else
 	{
 		linesize = strlen(line);
-		archive->files++;
 		/* Size */
 		for(n=0; n < linesize && line[n] == ' '; n++);
 		a = n;
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n]='\0';
 		item[i] = line + a;
-		archive->files_size += g_ascii_strtoull(item[i],NULL,0);
 		i++;
 		n++;
 
@@ -234,14 +232,21 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 		line[n] = '\0';
 		item[i] = line + a;
 
-		entry = xa_set_archive_entries_for_each_row (archive,filename,item);
-		if (entry != NULL)
+		entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+
+		if (entry)
 		{
 			if (dir)
 				entry->is_dir = TRUE;
 
 			entry->is_encrypted = encrypted;
+
+			if (!entry->is_dir)
+				archive->files++;
+
+			archive->files_size += g_ascii_strtoull(item[0], NULL, 0);
 		}
+
 		g_free(filename);
 		fname_line = FALSE;
 	}
@@ -312,7 +317,6 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 		last_line = TRUE;
 		return;
 	}
-	archive->files++;
 
 	/* Permissions */
 	for (n = encrypted ? 1 : 0; n < linesize && line[n] == ' '; n++);
@@ -331,7 +335,6 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 	line[n]='\0';
 	item[i] = line + a;
-	archive->files_size += g_ascii_strtoull(item[i],NULL,0);
 	i++;
 	n++;
 
@@ -389,13 +392,20 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	*(end + 1) = '\0';
 
 	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
-	if (entry != NULL)
+
+	if (entry)
 	{
 		if (dir)
 			entry->is_dir = TRUE;
 
 		entry->is_encrypted = encrypted;
+
+		if (!entry->is_dir)
+			archive->files++;
+
+		archive->files_size += g_ascii_strtoull(item[0], NULL, 0);
 	}
+
 	g_free(filename);
 }
 
