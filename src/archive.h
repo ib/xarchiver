@@ -216,7 +216,7 @@ void xa_detect_encrypted_archive(XArchive *);
 void xa_fill_dir_sidebar(XArchive *, gboolean);
 void xa_fill_list_with_recursed_entries(XEntry *, GSList **);
 gint xa_find_archive_index(gint);
-XEntry *xa_find_entry_from_path(XEntry *, const gchar *);
+XEntry *xa_find_entry_from_dirpath(XArchive *, const gchar *);
 void xa_free_entry(XArchive *, XEntry *);
 gint xa_get_new_archive_idx();
 XArchive *xa_init_archive_structure(ArchiveType);

@@ -408,7 +408,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		xa_fill_dir_sidebar(archive[id],TRUE);
 
 		if (archive[id]->location_path)
-			xa_dir_sidebar_select_row(xa_find_entry_from_path(archive[id]->root_entry, archive[id]->location_path));
+			xa_dir_sidebar_select_row(xa_find_entry_from_dirpath(archive[id], archive[id]->location_path));
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
@@ -572,7 +572,7 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 				gtk_tree_selection_get_selected (selection,&model,&iter);
 				gtk_tree_selection_unselect_iter(selection,&iter);
 			}
-			new_entry = xa_find_entry_from_path(archive[idx]->root_entry, archive[idx]->location_path);
+			new_entry = xa_find_entry_from_dirpath(archive[idx], archive[idx]->location_path);
 			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
 			xa_dir_sidebar_select_row(new_entry->prev);
 

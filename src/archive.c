@@ -596,21 +596,24 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive,gchar *filename,g
 	return new_entry;
 }
 
-XEntry* xa_find_entry_from_path (XEntry *root_entry,const gchar *fullpathname)
+XEntry* xa_find_entry_from_dirpath (XArchive *archive, const gchar *dirpath)
 {
-	gchar **components = NULL;
-	unsigned short int x = 0;
-	XEntry *new_entry = NULL;
+	XEntry *root = archive->root_entry, *entry = NULL;
+	gchar **components;
+	guint n = 0;
 
-	components = g_strsplit(fullpathname,"/",-1);
-	while (components[x] && strlen(components[x]) > 0)
+	components = g_strsplit(dirpath, "/", -1);
+
+	while (components[n] && *components[n])
 	{
-		new_entry = xa_find_child_entry(root_entry->child,components[x]);
-		root_entry = new_entry;
-		x++;
+		entry = xa_find_child_entry(root->child, components[n]);
+		root = entry;
+		n++;
 	}
+
 	g_strfreev(components);
-	return new_entry;
+
+	return entry;
 }
 
 gchar *xa_build_full_path_name_from_entry (XEntry *entry)

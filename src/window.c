@@ -2446,7 +2446,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	}
 
 	pathname_local = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(location_entry)), -1, NULL, NULL, NULL);
-	new_entry = xa_find_entry_from_path(archive[idx]->root_entry, pathname_local);
+	new_entry = xa_find_entry_from_dirpath(archive[idx], pathname_local);
 	g_free(pathname_local);
 	if (new_entry == NULL)
 	{
@@ -2460,7 +2460,7 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	}
 
 	if (archive[idx]->location_path)
-		prev_entry = xa_find_entry_from_path(archive[idx]->root_entry, archive[idx]->location_path);
+		prev_entry = xa_find_entry_from_dirpath(archive[idx], archive[idx]->location_path);
 
 	if (prev_entry != NULL)
 		archive[idx]->back = g_slist_prepend(archive[idx]->back,prev_entry);
@@ -2758,7 +2758,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	if (entry->is_dir)
 	{
 		if (archive->location_path)
-			archive->back = g_slist_prepend(archive->back, xa_find_entry_from_path(archive->root_entry, archive->location_path));
+			archive->back = g_slist_prepend(archive->back, xa_find_entry_from_dirpath(archive, archive->location_path));
 		/* Put NULL so to display the root entry */
 		else
 			archive->back = g_slist_prepend(archive->back,NULL);
@@ -2804,7 +2804,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	gchar *entry_utf8;
 
 	if (archive->status == XARCHIVESTATUS_RELOAD && archive->location_path != NULL)
-		entry = xa_find_entry_from_path(archive->root_entry, archive->location_path);
+		entry = xa_find_entry_from_dirpath(archive, archive->location_path);
 	else
 		archive->current_entry = entry;
 
