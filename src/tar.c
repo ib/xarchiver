@@ -99,12 +99,12 @@ void xa_tar_ask (XArchive *archive)
 
 static void xa_tar_parse_output (gchar *line, XArchive *archive)
 {
+	XEntry *entry;
 	gchar *filename;
 	gpointer item[6];
 	gint n = 0, a = 0 ,linesize = 0;
 
 	linesize = strlen(line);
-	archive->files++;
 
 	/* Permissions */
 	line[10] = '\0';
@@ -129,7 +129,6 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 
 	line[n] = '\0';
 	item[1] = line + a;
-	archive->files_size += g_ascii_strtoull(item[1],NULL,0);
 	a = ++n;
 
 	/* Date */
@@ -174,7 +173,17 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 	}
 	else
 		filename = g_strdup(line + n);
-	xa_set_archive_entries_for_each_row (archive,filename,item);
+
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+
+	if (entry)
+	{
+		if (!entry->is_dir)
+			archive->files++;
+
+		archive->files_size += g_ascii_strtoull(item[1], NULL, 0);
+	}
+
 	g_free(filename);
 }
 
