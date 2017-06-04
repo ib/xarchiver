@@ -67,7 +67,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	guint64 size;
 
 	encrypted = dir = FALSE;
-	if ((line[0] != 'd') && (line[0] != '-') && (line[0] != '?'))
+	if ((line[0] != '-') && (line[0] != 'd') && (line[0] != 'l') && (line[0] != '?'))
 		return;
 
 	linesize = strlen(line);
