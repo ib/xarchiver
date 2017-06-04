@@ -53,7 +53,6 @@ extract_func extract[XARCHIVETYPE_TYPES];
 add_func add[XARCHIVETYPE_TYPES];
 delete_func delete[XARCHIVETYPE_TYPES];
 
-const gchar *locale;
 gchar *xdg_open;
 
 Add_dialog_data *add_window;
@@ -676,7 +675,7 @@ int main (int argc, char **argv)
 	}
 #endif
 	gtk_init_with_args(&argc, &argv, _("[ARCHIVE]"), entries, GETTEXT_PACKAGE, &cli_error);
-	g_get_charset (&locale);
+
 	if ( cli_error != NULL )
 	{
 		g_print (_("xarchiver: %s\nTry xarchiver --help to see a full list of available command line options.\n"),cli_error->message);

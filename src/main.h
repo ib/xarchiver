@@ -30,7 +30,6 @@
 extern GtkWidget *xa_main_window;
 
 extern XArchiver archiver[];
-extern const gchar *locale;
 extern gchar *xdg_open;
 
 extern add_func add[];
