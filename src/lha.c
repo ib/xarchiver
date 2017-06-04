@@ -77,7 +77,6 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 		return;
 	}
 	linesize = strlen(line);
-	archive->files++;
 
 	/* Permission */
 	line[10] = '\0';
@@ -101,7 +100,6 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 
 	line[a+(n-a)] = '\0';
 	item[1] = line + a;
-	archive->files_size += g_ascii_strtoull(item[1],NULL,0);
 
     /* Ratio */
     line[37] = '\0';
@@ -126,10 +124,18 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	else
 		item[0] = NULL;
 
-	entry = xa_set_archive_entries_for_each_row (archive,filename,item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
 
-	if (entry && dir)
-		entry->is_dir = TRUE;
+	if (entry)
+	{
+		if (dir)
+			entry->is_dir = TRUE;
+
+		if (!entry->is_dir)
+			archive->files++;
+
+		archive->files_size += g_ascii_strtoull(item[1], NULL, 0);
+	}
 }
 
 void xa_lha_list (XArchive *archive)
