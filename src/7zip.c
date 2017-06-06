@@ -29,6 +29,130 @@
 
 static gboolean data_line, encrypted, last_line;
 
+static void xa_7zip_uint64_skip (GIOChannel *file)
+{
+	gchar first, byte;
+	guchar mask = 0x80;
+
+	g_io_channel_read_chars(file, &first, sizeof(first), NULL, NULL);
+
+	/* 7z uint64 is specially encoded */
+	while ((mask > 1) && (first & mask))
+	{
+		g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+		mask >>= 1;
+	}
+}
+
+gboolean is7zip_mhe (const gchar *filename)
+{
+	GIOChannel *file;
+	guint i;
+	gchar byte;
+	guint64 offset = 0;
+	gboolean result = FALSE;
+
+	file = g_io_channel_new_file(filename, "r", NULL);
+
+	if (file)
+	{
+		g_io_channel_set_encoding(file, NULL, NULL);
+
+		/* skip signature, version and header CRC32 */
+		g_io_channel_seek_position(file, 12, G_SEEK_SET, NULL);
+
+		/* next header offset (uint64_t) */
+		for (i = 0; i < 8; i++)
+		{
+			g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+			offset |= (guint64) byte << (8 * i);
+		}
+
+		/* skip next header size and CRC32 */
+		g_io_channel_seek_position(file, 12 + offset, G_SEEK_CUR, NULL);
+
+		/* header info */
+		g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+		/* encoded header */
+		if (byte == 0x17)
+		{
+			/* streams info */
+			g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+			/* pack info */
+			if (byte == 0x06)
+			{
+				/* skip pack position */
+				xa_7zip_uint64_skip(file);
+				/* skip number of pack streams */
+				xa_7zip_uint64_skip(file);
+
+				g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+				/* size info */
+				if (byte == 0x09)
+				{
+					/* skip unpack sizes */
+					xa_7zip_uint64_skip(file);
+
+					g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+					/* pack info end */
+					if (byte == 0x00)
+					{
+						/* coders info */
+						g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+						/* unpack info */
+						if (byte == 0x07)
+						{
+							g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+							/* folder */
+							if (byte == 0x0b)
+							{
+								/* skip number of folders */
+								xa_7zip_uint64_skip(file);
+
+								g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+								/* coders info end */
+								if (byte == 0x00)
+								{
+									g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+									/* header or archive properties */
+									if (byte == 0x01 || byte == 0x02)
+									{
+										/* codec id size */
+										g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
+
+										if ((byte & 0x0f) == 4)
+										{
+											gchar id[4];
+
+											/* codec id */
+											g_io_channel_read_chars(file, id, sizeof(id), NULL, NULL);
+
+											/* check for id of 7zAES */
+											result = (memcmp(id, "\x06\xf1\x07\x01", 4) == 0);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		g_io_channel_shutdown(file, FALSE, NULL);
+	}
+
+	return result;
+}
+
 /* it can handle other archive types as well */
 void xa_7zip_ask (XArchive *archive)
 {
@@ -146,133 +270,19 @@ static void xa_7zip_parse_output (gchar *line, XArchive *archive)
 	g_free(filename);
 }
 
-static void xa_7zip_uint64_skip (GIOChannel *file)
-{
-	gchar first, byte;
-	guchar mask = 0x80;
-
-	g_io_channel_read_chars(file, &first, sizeof(first), NULL, NULL);
-
-	/* 7z uint64 is specially encoded */
-	while ((mask > 1) && (first & mask))
-	{
-		g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-		mask >>= 1;
-	}
-}
-
 void xa_7zip_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Date"), _("Time"), _("Attributes")};
-	GIOChannel *file;
 	gchar *password_str, *command;
 	guint i;
 
-	file = g_io_channel_new_file(archive->path[0], "r", NULL);
+	if (!archive->has_password)
+		archive->has_password = is7zip_mhe(archive->path[0]);
 
-	if (file)
-	{
-		gchar byte;
-		guint64 offset = 0;
-
-		g_io_channel_set_encoding(file, NULL, NULL);
-
-		/* skip signature, version and header CRC32 */
-		g_io_channel_seek_position(file, 12, G_SEEK_SET, NULL);
-
-		/* next header offset (uint64_t) */
-		for (i = 0; i < 8; i++)
-		{
-			g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-			offset |= (guint64) byte << (8 * i);
-		}
-
-		/* skip next header size and CRC32 */
-		g_io_channel_seek_position(file, 12 + offset, G_SEEK_CUR, NULL);
-
-		/* header info */
-		g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-		/* encoded header */
-		if (byte == 0x17)
-		{
-			/* streams info */
-			g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-			/* pack info */
-			if (byte == 0x06)
-			{
-				/* skip pack position */
-				xa_7zip_uint64_skip(file);
-				/* skip number of pack streams */
-				xa_7zip_uint64_skip(file);
-
-				g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-				/* size info */
-				if (byte == 0x09)
-				{
-					/* skip unpack sizes */
-					xa_7zip_uint64_skip(file);
-
-					g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-					/* pack info end */
-					if (byte == 0x00)
-					{
-						/* coders info */
-						g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-						/* unpack info */
-						if (byte == 0x07)
-						{
-							g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-							/* folder */
-							if (byte == 0x0b)
-							{
-								/* skip number of folders */
-								xa_7zip_uint64_skip(file);
-
-								g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-								/* coders info end */
-								if (byte == 0x00)
-								{
-									g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-									/* header or archive properties */
-									if (byte == 0x01 || byte == 0x02)
-									{
-										/* codec id size */
-										g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-
-										if ((byte & 0x0f) == 4)
-										{
-											gchar id[4];
-
-											/* codec id */
-											g_io_channel_read_chars(file, id, sizeof(id), NULL, NULL);
-
-											/* check for id of 7zAES */
-											archive->has_password = (memcmp(id, "\x06\xf1\x07\x01", 4) == 0);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		g_io_channel_shutdown(file, FALSE, NULL);
-
-		if (archive->has_password)
-			if (!xa_check_password(archive))
-				return;
-	}
+	if (archive->has_password)
+		if (!xa_check_password(archive))
+			return;
 
 	/* a single file compressor archive is no longer new and empty now */
 	archive->can_add = (archiver[archive->type].is_compressor && !SINGLE_FILE_COMPRESSOR(archive));
