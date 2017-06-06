@@ -65,7 +65,7 @@ gboolean is7zip_mhe (const gchar *filename)
 		for (i = 0; i < 8; i++)
 		{
 			g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
-			offset |= (guint64) byte << (8 * i);
+			offset |= (guint64) (guchar) byte << (8 * i);
 		}
 
 		/* skip next header size and CRC32 */
