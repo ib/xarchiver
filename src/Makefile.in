@@ -113,8 +113,9 @@ am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
 	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
 	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
 	rpm.h socket.c socket.h string_utils.c string_utils.h \
-	support.h tar.c tar.h utf8-fnmatch.c utf8-fnmatch.h window.c \
-	window.h zip.c zip.h sexy-icon-entry.c sexy-icon-entry.h
+	support.h tar.c tar.h unar.c unar.h utf8-fnmatch.c \
+	utf8-fnmatch.h window.c window.h zip.c zip.h sexy-icon-entry.c \
+	sexy-icon-entry.h
 @GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-add_dialog.$(OBJEXT) xarchiver-archive.$(OBJEXT) \
@@ -127,8 +128,9 @@ am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
 	xarchiver-pref_dialog.$(OBJEXT) xarchiver-rar.$(OBJEXT) \
 	xarchiver-rpm.$(OBJEXT) xarchiver-socket.$(OBJEXT) \
 	xarchiver-string_utils.$(OBJEXT) xarchiver-tar.$(OBJEXT) \
-	xarchiver-utf8-fnmatch.$(OBJEXT) xarchiver-window.$(OBJEXT) \
-	xarchiver-zip.$(OBJEXT) $(am__objects_1)
+	xarchiver-unar.$(OBJEXT) xarchiver-utf8-fnmatch.$(OBJEXT) \
+	xarchiver-window.$(OBJEXT) xarchiver-zip.$(OBJEXT) \
+	$(am__objects_1)
 xarchiver_OBJECTS = $(am_xarchiver_OBJECTS)
 xarchiver_DEPENDENCIES = xdgmime/libxdgmime.la
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -407,8 +409,8 @@ xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h archive.c \
 	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
 	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
 	rpm.h socket.c socket.h string_utils.c string_utils.h \
-	support.h tar.c tar.h utf8-fnmatch.c utf8-fnmatch.h window.c \
-	window.h zip.c zip.h $(am__append_1)
+	support.h tar.c tar.h unar.c unar.h utf8-fnmatch.c \
+	utf8-fnmatch.h window.c window.h zip.c zip.h $(am__append_1)
 xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" $(am__append_2)
@@ -530,6 +532,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-socket.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-string_utils.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-tar.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-unar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-utf8-fnmatch.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-window.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-zip.Po@am__quote@
@@ -834,6 +837,20 @@ xarchiver-tar.obj: tar.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='tar.c' object='xarchiver-tar.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-tar.obj `if test -f 'tar.c'; then $(CYGPATH_W) 'tar.c'; else $(CYGPATH_W) '$(srcdir)/tar.c'; fi`
+
+xarchiver-unar.o: unar.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-unar.o -MD -MP -MF $(DEPDIR)/xarchiver-unar.Tpo -c -o xarchiver-unar.o `test -f 'unar.c' || echo '$(srcdir)/'`unar.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-unar.Tpo $(DEPDIR)/xarchiver-unar.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='unar.c' object='xarchiver-unar.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-unar.o `test -f 'unar.c' || echo '$(srcdir)/'`unar.c
+
+xarchiver-unar.obj: unar.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-unar.obj -MD -MP -MF $(DEPDIR)/xarchiver-unar.Tpo -c -o xarchiver-unar.obj `if test -f 'unar.c'; then $(CYGPATH_W) 'unar.c'; else $(CYGPATH_W) '$(srcdir)/unar.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-unar.Tpo $(DEPDIR)/xarchiver-unar.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='unar.c' object='xarchiver-unar.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-unar.obj `if test -f 'unar.c'; then $(CYGPATH_W) 'unar.c'; else $(CYGPATH_W) '$(srcdir)/unar.c'; fi`
 
 xarchiver-utf8-fnmatch.o: utf8-fnmatch.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-utf8-fnmatch.o -MD -MP -MF $(DEPDIR)/xarchiver-utf8-fnmatch.Tpo -c -o xarchiver-utf8-fnmatch.o `test -f 'utf8-fnmatch.c' || echo '$(srcdir)/'`utf8-fnmatch.c

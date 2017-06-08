@@ -15,6 +15,7 @@ src/pref_dialog.c
 src/rar.c
 src/rpm.c
 src/tar.c
+src/unar.c
 src/window.c
 src/zip.c
 

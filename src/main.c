@@ -35,12 +35,15 @@
 #include "string_utils.h"
 #include "support.h"
 #include "tar.h"
+#include "unar.h"
 #include "window.h"
 #include "zip.h"
 
 #ifdef HAVE_SOCKET
 #include "socket.h"
 #endif
+
+#define FUNC(cond1, func1, cond2, func2, cond3, func3) (cond1 ? func1 : (cond2 ? func2 : (cond3 ? func3 : NULL)))
 
 GtkWidget *xa_main_window;
 
@@ -93,7 +96,7 @@ static GOptionEntry entries[] =
 static void xa_check_available_archivers ()
 {
 	XArchiveType type;
-	gchar *path, *cpio, *sevenz, *xz;
+	gchar *path, *cpio, *lsar, *sevenz, *unar, *xz;
 	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE, standard;
 
 	/* (un)compressors that can handle various types */
@@ -116,6 +119,8 @@ static void xa_check_available_archivers ()
 	}
 
 	cpio = g_find_program_in_path("cpio");
+	lsar = g_find_program_in_path("lsar");
+	unar = g_find_program_in_path("unar");
 	xz = g_find_program_in_path("xz");
 
 	/* 7-zip */
@@ -623,6 +628,9 @@ static void xa_check_available_archivers ()
 			}
 		}
 	}
+
+	g_free(lsar);
+	g_free(unar);
 }
 
 static XArchive *xa_init_structure_from_cmd_line (char *filename)

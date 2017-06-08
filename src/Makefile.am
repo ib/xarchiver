@@ -44,6 +44,8 @@ xarchiver_SOURCES = \
 	support.h \
 	tar.c \
 	tar.h \
+	unar.c \
+	unar.h \
 	utf8-fnmatch.c \
 	utf8-fnmatch.h \
 	window.c \
