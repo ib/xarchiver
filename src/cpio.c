@@ -40,6 +40,8 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	gchar *filename;
 	gboolean dir, link;
 
+	USE_PARSER;
+
 	/* permissions */
 	NEXT_ITEM(item[3]);
 

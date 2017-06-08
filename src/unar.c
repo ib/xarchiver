@@ -52,6 +52,8 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 	gboolean dir, encrypted, link;
 	guint shift;
 
+	USE_PARSER;
+
 	if (last_line)
 		return;
 

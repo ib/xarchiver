@@ -36,9 +36,21 @@ do                                                           \
 }                                                            \
 while (0)
 
+#define USE_PARSER static int _pos = -1; char *_start = line
 #define NEXT_ITEMS(parts, item) GRAB_ITEMS(parts, item, *line != ' ' && *line != '\t' && *line != '\n')
 #define NEXT_ITEM(item) NEXT_ITEMS(1, item)
-#define LAST_ITEM(item) GRAB_ITEMS(1, item, *line != '\n')   // for filenames
 #define SKIP_ITEM NEXT_ITEM(line)
+#define LAST_ITEM(item)   /* for filenames */ \
+do                                            \
+{                                             \
+  int pos;                                    \
+                                              \
+  GRAB_ITEMS(1, item, *line != '\n');         \
+  pos = item - _start;                        \
+                                              \
+  if (_pos < 0 || pos < _pos) _pos = pos;     \
+  else if (pos > _pos) item = _start + _pos;  \
+}                                             \
+while (0)
 
 #endif

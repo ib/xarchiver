@@ -55,6 +55,7 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 	guint idx0 = 0, idx1 = 1;
 	const gchar *streams = NULL, *blocks = NULL;
 
+	USE_PARSER;
 
 	if (archive->type == XARCHIVETYPE_GZIP)
 	{
