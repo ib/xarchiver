@@ -380,3 +380,52 @@ gchar *xa_quote_shell_command (const gchar *string, gboolean unescaped)
 
 	return escaped;
 }
+
+GString *xa_collect_files_in_dir (const gchar *directory)
+{
+	size_t offset;
+	GSList *stack;
+	GString *files = g_string_new("");
+
+	offset = strlen(directory) + 1;
+	stack = g_slist_append(NULL, g_strdup(directory));
+
+	while (stack)
+	{
+		gchar *file;
+
+		file = stack->data;
+		stack = g_slist_delete_link(stack, stack);
+
+		if (g_file_test(file, G_FILE_TEST_IS_DIR))
+		{
+			GDir *dir;
+			const gchar *name;
+
+			dir = g_dir_open(file, 0, NULL);
+
+			if (dir)
+			{
+				while ((name = g_dir_read_name(dir)))
+					stack = g_slist_prepend(stack, g_strconcat(file, "/", name, NULL));
+
+				g_dir_close(dir);
+			}
+		}
+		else
+		{
+			gchar *quoted = g_shell_quote(file + offset);
+
+			files = g_string_append_c(files, ' ');
+			files = g_string_append(files, quoted);
+
+			g_free(quoted);
+		}
+
+		g_free(file);
+	}
+
+	g_slist_free(stack);
+
+	return files;
+}

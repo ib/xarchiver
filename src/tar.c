@@ -257,49 +257,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 	/* collect all files that have been extracted to move them without full path */
 	if (result && !archive->do_full_path)
 	{
-		size_t offset;
-		GSList *stack;
-		GString *all_files = g_string_new("");
-
-		offset = strlen(extract_to) + 1;
-		stack = g_slist_append(NULL, g_strdup(extract_to));
-
-		while (stack)
-		{
-			gchar *file;
-
-			file = stack->data;
-			stack = g_slist_delete_link(stack, stack);
-
-			if (g_file_test(file, G_FILE_TEST_IS_DIR))
-			{
-				GDir *dir;
-				const gchar *name;
-
-				dir = g_dir_open(file, 0, NULL);
-
-				if (dir)
-				{
-					while ((name = g_dir_read_name(dir)))
-						stack = g_slist_prepend(stack, g_strconcat(file, "/", name, NULL));
-
-					g_dir_close(dir);
-				}
-			}
-			else
-			{
-				gchar *quoted = g_shell_quote(file + offset);
-
-				all_files = g_string_append_c(all_files, ' ');
-				all_files = g_string_append(all_files, quoted);
-
-				g_free(quoted);
-			}
-
-			g_free(file);
-		}
-
-		g_slist_free(stack);
+		GString *all_files = xa_collect_files_in_dir(extract_to);
 
 		archive->child_dir = g_strdup(extract_to);
 		command = g_strconcat("mv",
