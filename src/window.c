@@ -2031,10 +2031,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	gtk_widget_show(selected_frame);
 	gtk_widget_set_sensitive(deselect_all, TRUE);
 	gtk_widget_set_sensitive(delete_menu, archive->can_delete);
-	gtk_widget_set_sensitive(rename_menu, can_rename(archive));
-
-	if (selected > 1)
-		gtk_widget_set_sensitive (rename_menu,FALSE);
+	gtk_widget_set_sensitive(rename_menu, selected == 1 ? can_rename(archive) : FALSE);
 
 	selected = 0;
 	list = gtk_tree_selection_get_selected_rows(selection,NULL);
