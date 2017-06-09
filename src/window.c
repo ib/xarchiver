@@ -1997,8 +1997,6 @@ void xa_set_statusbar_message_for_displayed_rows(XArchive *archive)
 	{
 		gtk_tree_model_get(archive->model, &iter, archive->size_column, &size, -1);
 		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
-		if (entry == NULL)
-			return;
 		if (entry->is_dir)
 			dirs++;
 		else
