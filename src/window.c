@@ -2014,13 +2014,11 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	GList *list = NULL;
 	gchar *msg = NULL;
 	GtkTreeIter iter;
-	GtkTreeModel *model;
-	gint selected = 0, dirs = 0;
+	gint selected, dirs = 0;
 	guint64 total_size = 0;
 	guint64 size = 0;
 	XEntry *entry;
 
-	model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
 	selected = gtk_tree_selection_count_selected_rows (selection);
 
 	if (selected == 0)
@@ -2029,12 +2027,9 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 		gtk_widget_hide(selected_frame);
 		return;
 	}
-	else
-	{
-		gtk_widget_show(selected_frame);
-		gtk_widget_set_sensitive(deselect_all,TRUE);
-	}
 
+	gtk_widget_show(selected_frame);
+	gtk_widget_set_sensitive(deselect_all, TRUE);
 	gtk_widget_set_sensitive(delete_menu, archive->can_delete);
 	gtk_widget_set_sensitive(rename_menu, can_rename(archive));
 
@@ -2045,8 +2040,8 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	list = gtk_tree_selection_get_selected_rows(selection,NULL);
 	while (list)
 	{
-		gtk_tree_model_get_iter(model,&iter,list->data);
-		gtk_tree_model_get(model, &iter, archive->size_column, &size, -1);
+		gtk_tree_model_get_iter(archive->model, &iter, list->data);
+		gtk_tree_model_get(archive->model, &iter, archive->size_column, &size, -1);
 		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
 		if (entry->is_dir)
 			dirs++;
