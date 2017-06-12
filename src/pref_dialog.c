@@ -125,6 +125,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	GtkWidget *label1, *label2, *label3, *label4, *label5,*label6, *label7, *label8, *label9, *label10, *table1, *table2;
 	GtkTreeIter iter;
 	GdkPixbuf *icon_pixbuf;
+	GtkTreePath *top;
 	Prefs_dialog_data *prefs_data;
 
 	prefs_data = g_new0 (Prefs_dialog_data,1);
@@ -171,6 +172,10 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(prefs_data->iconview), 0);
 	gtk_icon_view_set_text_column(GTK_ICON_VIEW(prefs_data->iconview), 1);
 	gtk_container_add(GTK_CONTAINER(scrolledwindow1), prefs_data->iconview);
+
+	top = gtk_tree_path_new_from_string("0");
+	gtk_icon_view_select_path(GTK_ICON_VIEW(prefs_data->iconview), top);
+	gtk_tree_path_free(top);
 
 	prefs_data->prefs_notebook = gtk_notebook_new ();
 	g_object_set (G_OBJECT (prefs_data->prefs_notebook),"show-border", FALSE,"show-tabs", FALSE,"enable-popup",FALSE,NULL);

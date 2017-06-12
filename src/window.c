@@ -1412,6 +1412,7 @@ void xa_show_prefs_dialog (GtkMenuItem *menuitem,gpointer user_data)
 		prefs_window = xa_create_prefs_dialog();
 
 	gtk_widget_show_all (prefs_window->dialog1);
+	xa_prefs_iconview_changed(GTK_ICON_VIEW(prefs_window->iconview), prefs_window);
 	response = gtk_dialog_run (GTK_DIALOG(prefs_window->dialog1));
 	gtk_widget_hide (prefs_window->dialog1);
 
