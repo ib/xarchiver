@@ -28,6 +28,7 @@ typedef struct Prefs_dialog_data
 	GtkWidget *check_show_comment, *check_sort_filename_column,*show_location_bar,*show_sidebar,*show_toolbar,*combo_prefered_viewer;
 	GtkWidget *combo_prefered_web_browser, *combo_prefered_editor, *combo_prefered_temp_dir, *combo_prefered_extract_dir, *allow_sub_dir,*check_save_geometry,*prefs_notebook;
 	GtkListStore *prefs_liststore;
+	GtkWidget *iconview;
 	gint geometry[5];
 	gint extract_dialog[2];
 	gint add_coords[2];

@@ -121,7 +121,7 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
 Prefs_dialog_data *xa_create_prefs_dialog()
 {
 	GTK_COMPAT_TOOLTIPS;
-	GtkWidget *vbox1, *vbox3,*vbox4, *hbox1, *scrolledwindow1, *prefs_iconview;
+	GtkWidget *vbox1, *vbox3, *vbox4, *hbox1, *scrolledwindow1;
 	GtkWidget *label1, *label2, *label3, *label4, *label5,*label6, *label7, *label8, *label9, *label10, *table1, *table2;
 	GtkTreeIter iter;
 	GdkPixbuf *icon_pixbuf;
@@ -163,19 +163,19 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_list_store_set (prefs_data->prefs_liststore, &iter, 0, icon_pixbuf, 1, _("Advanced"),2,2,-1);
 	g_object_unref (icon_pixbuf);
 
-	prefs_iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
+	prefs_data->iconview = gtk_icon_view_new_with_model(GTK_TREE_MODEL(prefs_data->prefs_liststore));
 	g_object_unref (prefs_data->prefs_liststore);
 
-	gtk_icon_view_set_item_orientation(GTK_ICON_VIEW (prefs_iconview), GTK_ORIENTATION_VERTICAL);
-	gtk_icon_view_set_columns (GTK_ICON_VIEW (prefs_iconview),1);
-	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (prefs_iconview), 0);
-	gtk_icon_view_set_text_column(GTK_ICON_VIEW (prefs_iconview),1);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), prefs_iconview);
+	gtk_icon_view_set_item_orientation(GTK_ICON_VIEW(prefs_data->iconview), GTK_ORIENTATION_VERTICAL);
+	gtk_icon_view_set_columns(GTK_ICON_VIEW(prefs_data->iconview), 1);
+	gtk_icon_view_set_pixbuf_column(GTK_ICON_VIEW(prefs_data->iconview), 0);
+	gtk_icon_view_set_text_column(GTK_ICON_VIEW(prefs_data->iconview), 1);
+	gtk_container_add(GTK_CONTAINER(scrolledwindow1), prefs_data->iconview);
 
 	prefs_data->prefs_notebook = gtk_notebook_new ();
 	g_object_set (G_OBJECT (prefs_data->prefs_notebook),"show-border", FALSE,"show-tabs", FALSE,"enable-popup",FALSE,NULL);
 	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->prefs_notebook,TRUE,TRUE,0);
-	g_signal_connect (G_OBJECT (prefs_iconview),"selection-changed",G_CALLBACK (xa_prefs_iconview_changed),prefs_data);
+	g_signal_connect(G_OBJECT(prefs_data->iconview), "selection-changed", G_CALLBACK(xa_prefs_iconview_changed), prefs_data);
 
 	/* Archive page*/
 	vbox4 = gtk_vbox_new (FALSE, 2);
