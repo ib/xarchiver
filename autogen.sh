@@ -1,9 +1,9 @@
 #!/bin/sh
 
-set -o pipefail
+test "$BASH" && set -o pipefail
 
-> AUTHORS
-> NEWS
+echo > AUTHORS
+echo > NEWS
 
 echo -n "Creating the build system... "
 
@@ -11,7 +11,7 @@ intltoolize --copy --force --automake || exit
 libtoolize --copy --force --quiet || exit
 aclocal || exit
 autoheader || exit
-automake --copy --force-missing --add-missing --gnu |& sed "/installing/d" || exit
+automake --copy --force-missing --add-missing --gnu 2>&1 | sed "/installing/d" || exit
 autoconf || exit
 
 echo "done."
