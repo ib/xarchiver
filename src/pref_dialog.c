@@ -27,35 +27,6 @@
 gchar *config_file;
 GtkIconTheme *icon_theme;
 
-static void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
-{
-	Prefs_dialog_data *prefs = data;
-	GList *list;
-	GtkTreePath *path;
-	GtkTreeIter iter;
-	guint column = 0;
-
-	list = gtk_icon_view_get_selected_items (iconview);
-	if (list == NULL)
-		return;
-
-	list = g_list_first (list);
-	path = (GtkTreePath*)list->data;
-
-	gtk_tree_model_get_iter (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,path);
-	gtk_tree_model_get (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,2,&column,-1);
-
-	gtk_tree_path_free(path);
-	g_list_free (list);
-
-	if (column == 0)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),0);
-	else if (column == 1)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),1);
-	else if (column == 2)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),2);
-}
-
 static gchar *xa_prefs_choose_program (gboolean flag)
 {
 	gchar *filename = NULL;
@@ -121,6 +92,35 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (extract_window->extract_full),TRUE);
 	/* Set the default options in the add dialog */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_window->recurse),TRUE);
+}
+
+void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
+{
+	Prefs_dialog_data *prefs = data;
+	GList *list;
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	guint column = 0;
+
+	list = gtk_icon_view_get_selected_items (iconview);
+	if (list == NULL)
+		return;
+
+	list = g_list_first (list);
+	path = (GtkTreePath*)list->data;
+
+	gtk_tree_model_get_iter (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,path);
+	gtk_tree_model_get (GTK_TREE_MODEL(prefs->prefs_liststore),&iter,2,&column,-1);
+
+	gtk_tree_path_free(path);
+	g_list_free (list);
+
+	if (column == 0)
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),0);
+	else if (column == 1)
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),1);
+	else if (column == 2)
+		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),2);
 }
 
 Prefs_dialog_data *xa_create_prefs_dialog()

@@ -39,6 +39,7 @@ extern GtkIconTheme *icon_theme;
 
 void xa_apply_prefs_option(Prefs_dialog_data *);
 Prefs_dialog_data *xa_create_prefs_dialog();
+void xa_prefs_iconview_changed(GtkIconView *, gpointer);
 void xa_prefs_load_options(Prefs_dialog_data *);
 void xa_prefs_save_options(Prefs_dialog_data *, const char *);
 
