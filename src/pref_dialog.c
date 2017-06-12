@@ -115,12 +115,7 @@ void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
 	gtk_tree_path_free(path);
 	g_list_free (list);
 
-	if (column == 0)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),0);
-	else if (column == 1)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),1);
-	else if (column == 2)
-		gtk_notebook_set_current_page (GTK_NOTEBOOK(prefs->prefs_notebook),2);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(prefs->prefs_notebook), column);
 }
 
 Prefs_dialog_data *xa_create_prefs_dialog()
