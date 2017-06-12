@@ -39,6 +39,7 @@ static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
 	archive->can_test = (can && (archive->type != XARCHIVETYPE_COMPRESS));
 	archive->can_extract = can;
+	archive->can_overwrite = can;
 
 	/* only if archive is new and empty */
 	archive->can_add = (can && archiver[archive->type].is_compressor);
@@ -379,16 +380,18 @@ void xa_gzip_et_al_test (XArchive *archive)
 gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command, *files_str, *archive_path, *extraction_dir;
+	gchar *command, *filename, *files_str, *out_dir, *out_file, *archive_path, *extraction_dir;
 	gboolean result;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 
 	if (*files->str)
+	{
+		filename = g_shell_unquote(files->str + 1, NULL);
 		files_str = xa_quote_shell_command(files->str + 1, FALSE);
+	}
 	else
 	{
-		gchar *filename;
 		char *dot;
 
 		filename = g_path_get_basename(archive->path[0]);
@@ -398,16 +401,24 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 			*dot = 0;
 
 		files_str = xa_quote_shell_command(filename, TRUE);
-		g_free(filename);
 	}
+
+	out_dir = g_shell_unquote(archive->extraction_dir, NULL);
+	out_file = g_strconcat(out_dir, "/", filename, NULL);
 
 	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 	extraction_dir = xa_quote_shell_command(archive->extraction_dir, FALSE);
 
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -d ", archive_path, " -c > ", extraction_dir, "/", files_str, "\"", NULL);
+	if (archive->do_overwrite || !g_file_test(out_file, G_FILE_TEST_EXISTS))
+		command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -d ", archive_path, " -c > ", extraction_dir, "/", files_str, "\"", NULL);
+	else
+		command = g_strdup("sh -c \"\"");
 
 	g_free(extraction_dir);
 	g_free(archive_path);
+	g_free(out_file);
+	g_free(out_dir);
+	g_free(filename);
 	g_free(files_str);
 	g_string_free(files, TRUE);
 
