@@ -745,7 +745,7 @@ void xa_multi_extract_dialog (Multi_extract_data *dialog)
 	gchar *filename, *filename_local, *file, *path, *message, *name, *dest_path = NULL;
 	GString *output = g_string_new("");
 	gboolean overwrite = FALSE, full_path;
-	gint response,type;
+	gint response;
 	double percent = 0.0;
 
 	gtk_widget_show_all(dialog->multi_extract);
@@ -782,7 +782,7 @@ run:
 	percent=fraction;
 	do
 	{
-		gtk_tree_model_get (GTK_TREE_MODEL(dialog->files_liststore),&iter,0,&file,2,&path,3,&type,-1);
+		gtk_tree_model_get(GTK_TREE_MODEL(dialog->files_liststore), &iter, 0, &file, 2, &path, -1);
 		full_path = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->full_path));
 		filename = g_strconcat (path,"/",file,NULL);
 		xa_increase_progress_bar(progress, filename, percent);
