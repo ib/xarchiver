@@ -716,6 +716,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	GtkTreeIter iter;
 	gchar *path, *path_utf8, *file, *file_utf8;
 	ArchiveType xa;
+	XArchive archive = {0};
 	struct stat my_stat;
 	guint64 file_size;
 
@@ -723,6 +724,17 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 
 	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 		return;
+
+	archive.type = xa.type;
+	archive.version = xa.version;
+
+	(*ask[xa.type])(&archive);
+
+	if (!archive.can_extract)
+	{
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), _("The archiver doesn't support this feature!"));
+		return;
+	}
 
 	stat (file_path,&my_stat);
 	file_size = my_stat.st_size;
