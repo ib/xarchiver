@@ -86,12 +86,16 @@ static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selecti
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	gint type;
+	XArchiveType type;
+	guint version;
 	XArchive archive = {0};
 
 	if (gtk_tree_selection_get_selected (selection,&model,&iter))
 	{
-		gtk_tree_model_get(model,&iter,3,&type,-1);
+		gtk_tree_model_get(model, &iter, 3, &type, 4, &version, -1);
+
+		archive.type = type;
+		archive.version = version;
 
 		(*ask[type])(&archive);
 
