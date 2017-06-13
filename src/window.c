@@ -759,7 +759,10 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 		archive->child_pid = 0;
 
 		if (xa_main_window)
+		{
 			gtk_widget_set_sensitive(Stop_button, FALSE);
+			xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
+		}
 	}
 
 	if (--archive->child_ref == 0)
@@ -780,7 +783,6 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 					gtk_widget_grab_focus(archive->treeview);
 				}
 
-				xa_set_button_state(1, 1, 1, 1, archive->can_test, 1, archive->can_add, archive->can_extract, archive->can_sfx, archive->has_comment, archive->output, archive->has_password);
 				xa_set_statusbar_message_for_displayed_rows(archive);
 
 				if (archive->status == XARCHIVESTATUS_LIST && archive->has_comment && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_show_comment)))
