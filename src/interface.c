@@ -1559,7 +1559,7 @@ GtkWidget *xa_create_archive_properties_window()
 	return archive_properties_window;
 }
 
-void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sfx, gboolean comment, GSList * output, gboolean password)
+void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sfx, gboolean comment, GSList *output, gboolean password)
 {
 	gtk_widget_set_sensitive(new1, new);
 	gtk_widget_set_sensitive(New_button, new);
