@@ -606,7 +606,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1),GTK_SHADOW_IN);
 
-	dialog_data->files_liststore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_UINT64,G_TYPE_STRING,G_TYPE_INT);
+	dialog_data->files_liststore = gtk_list_store_new(5, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_INT, G_TYPE_UINT);
 	dialog_data->files_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(dialog_data->files_liststore));
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(dialog_data->files_treeview));
 	g_signal_connect (selection,"changed",G_CALLBACK (xa_multi_extract_dialog_selection_changed),dialog_data);
@@ -731,7 +731,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	file = g_path_get_basename(file_path);
 	file_utf8 = g_filename_display_name(file);
 	gtk_list_store_append(dialog->files_liststore,&iter);
-	gtk_list_store_set(dialog->files_liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, -1);
+	gtk_list_store_set(dialog->files_liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.version, -1);
 	dialog->nr++;
 	g_free(file_utf8);
 	g_free(file);
