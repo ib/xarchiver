@@ -30,7 +30,7 @@ static gboolean data_line, last_line;
 
 void xa_unar_ask (XArchive *archive)
 {
-	archive->can_test = TRUE;
+	archive->can_test = (archive->type != XARCHIVETYPE_TAR);
 	archive->can_extract = (archiver[archive->type].program[1] != NULL);
 	archive->can_full_path[0] = (archiver[archive->type].program[1] != NULL);
 	archive->can_overwrite = (archiver[archive->type].program[1] != NULL);
@@ -64,7 +64,20 @@ static void xa_unar_parse_output (gchar *line, XArchive *archive)
 	}
 
 	if (!data_line)
+	{
+		if (strstr(line, ": Tar in "))
+		{
+			XArchiveType type = archive->type;
+
+			xa_get_compressed_tar_type(&type);
+			archiver[type].program[0] = g_strdup(archiver[archive->type].program[0]);
+			archiver[type].program[1] = g_strdup(archiver[archive->type].program[1]);
+			archive->type = type;
+			archive->can_test = FALSE;
+		}
+
 		return;
+	}
 
 	if (*line == '(')
 	{

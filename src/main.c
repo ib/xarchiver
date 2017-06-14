@@ -495,23 +495,35 @@ static void xa_check_available_archivers ()
 
 	standard = (path != NULL);
 
-	if (!standard && is7za)
-		/* alternative compressor */
-		path = g_strconcat(sevenz, " -ttar", NULL);
+	if (!standard)
+	{
+		if (is7za)
+			/* alternative compressor */
+			path = g_strconcat(sevenz, " -ttar", NULL);
+		else
+		{
+			if (lsar)
+				/* alternative ... */
+				path = g_strdup(lsar);
+			if (unar)
+				/* ... uncompressor */
+				archiver[type].program[1] = g_strdup(unar);
+		}
+	}
 
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = TRUE;
+		archiver[type].is_compressor = (standard || is7za);
 		archiver[type].type = g_slist_append(archiver[type].type, "tar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar");
 
-		ask[type] = (standard ? xa_tar_ask : xa_7zip_ask);
-		list[type] = (standard ? xa_tar_list : xa_7zip_list);
-		test[type] = (standard ? NULL : xa_7zip_test);
-		extract[type] = (standard ? xa_tar_extract : xa_7zip_extract);
-		add[type] = (standard ? xa_tar_add : xa_7zip_add);
-		delete[type] = (standard ? xa_tar_delete : xa_7zip_delete);
+		ask[type] = FUNC(standard, xa_tar_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
+		list[type] = FUNC(standard, xa_tar_list, is7za, xa_7zip_list, lsar, xa_unar_list);
+		test[type] = FUNC(standard, NULL, is7za, xa_7zip_test, lsar, NULL);
+		extract[type] = FUNC(standard, xa_tar_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
+		add[type] = FUNC(standard, xa_tar_add, is7za, xa_7zip_add, lsar, NULL);
+		delete[type] = FUNC(standard, xa_tar_delete, is7za, xa_7zip_delete, lsar, NULL);
 	}
 
 	/* xz */
@@ -612,7 +624,7 @@ static void xa_check_available_archivers ()
 
 	/* compressed tar */
 
-	if (ask[XARCHIVETYPE_TAR] == xa_tar_ask)
+	if (ask[XARCHIVETYPE_TAR] == xa_tar_ask || ask[XARCHIVETYPE_TAR] == xa_unar_ask)
 	{
 		struct
 		{
@@ -641,17 +653,21 @@ static void xa_check_available_archivers ()
 				if (!xa_get_compressed_tar_type(&type))
 					continue;
 
-				archiver[type].is_compressor = archiver[i->compressor].is_compressor;
-				archiver[type].type = g_slist_append(archiver[type].type, i->type[0]);
-				archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[0]);
-				archiver[type].type = g_slist_append(archiver[type].type, i->type[1]);
-				archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[1]);
+				if ((ask[XARCHIVETYPE_TAR] == xa_tar_ask && ask[i->compressor] == xa_gzip_et_al_ask) ||
+				    (ask[XARCHIVETYPE_TAR] == xa_unar_ask && ask[i->compressor] == xa_unar_ask))
+				{
+					archiver[type].is_compressor = archiver[i->compressor].is_compressor;
+					archiver[type].type = g_slist_append(archiver[type].type, i->type[0]);
+					archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[0]);
+					archiver[type].type = g_slist_append(archiver[type].type, i->type[1]);
+					archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[1]);
 
-				ask[type] = xa_tar_ask;
-				list[type] = xa_tar_list;
-				extract[type] = xa_tar_extract;
-				add[type] = xa_tar_add;
-				delete[type] = xa_tar_delete;
+					ask[type] = ask[XARCHIVETYPE_TAR];
+					list[type] = list[XARCHIVETYPE_TAR];
+					extract[type] = extract[XARCHIVETYPE_TAR];
+					add[type] = add[XARCHIVETYPE_TAR];
+					delete[type] = delete[XARCHIVETYPE_TAR];
+				}
 			}
 		}
 	}
