@@ -617,27 +617,30 @@ static void xa_check_available_archivers ()
 		struct
 		{
 			XArchiveType compressor;
-			XArchiveType tar_type;
 			gchar *type[2];
 			gchar *glob[2];
 		} compressed_tar_infos[] =
 		{
-			{XARCHIVETYPE_BZIP2, XARCHIVETYPE_TAR_BZ2, {"tar.bzip2", NULL}, {"*.tar.bz2", "*.tbz2"}},
-			{XARCHIVETYPE_COMPRESS, XARCHIVETYPE_TAR_Z, {"tar.Z", NULL}, {"*.tar.Z", ""}},
-			{XARCHIVETYPE_GZIP, XARCHIVETYPE_TAR_GZ, {"tar.gzip", NULL}, {"*.tar.gz", "*.tgz"}},
-			{XARCHIVETYPE_LZ4, XARCHIVETYPE_TAR_LZ4, {"tar.lz4", NULL}, {"*.tar.lz4", ""}},
-			{XARCHIVETYPE_LZIP, XARCHIVETYPE_TAR_LZ, {"tar.lzip", NULL}, {"*.tar.lz", ""}},
-			{XARCHIVETYPE_LZMA, XARCHIVETYPE_TAR_LZMA, {"tar.lzma", NULL}, {"*.tar.lzma", "*.tlz"}},
-			{XARCHIVETYPE_LZOP, XARCHIVETYPE_TAR_LZOP, {"tar.lzop", NULL}, {"*.tar.lzo", "*.tzo"}},
-			{XARCHIVETYPE_XZ, XARCHIVETYPE_TAR_XZ, {"tar.xz", NULL}, {"*.tar.xz", "*.txz"}},
-			{XARCHIVETYPE_UNKNOWN, XARCHIVETYPE_UNKNOWN, {NULL, NULL}, {NULL, NULL}}
+			{XARCHIVETYPE_BZIP2, {"tar.bzip2", NULL}, {"*.tar.bz2", "*.tbz2"}},
+			{XARCHIVETYPE_COMPRESS, {"tar.Z", NULL}, {"*.tar.Z", ""}},
+			{XARCHIVETYPE_GZIP, {"tar.gzip", NULL}, {"*.tar.gz", "*.tgz"}},
+			{XARCHIVETYPE_LZ4, {"tar.lz4", NULL}, {"*.tar.lz4", ""}},
+			{XARCHIVETYPE_LZIP, {"tar.lzip", NULL}, {"*.tar.lz", ""}},
+			{XARCHIVETYPE_LZMA, {"tar.lzma", NULL}, {"*.tar.lzma", "*.tlz"}},
+			{XARCHIVETYPE_LZOP, {"tar.lzop", NULL}, {"*.tar.lzo", "*.tzo"}},
+			{XARCHIVETYPE_XZ, {"tar.xz", NULL}, {"*.tar.xz", "*.txz"}},
+			{XARCHIVETYPE_UNKNOWN, {NULL, NULL}, {NULL, NULL}}
 		}, *i;
 
 		for (i = compressed_tar_infos; i->compressor != XARCHIVETYPE_UNKNOWN; i++)
 		{
 			if (archiver[i->compressor].type)
 			{
-				type = i->tar_type;
+				type = i->compressor;
+
+				if (!xa_get_compressed_tar_type(&type))
+					continue;
+
 				archiver[type].is_compressor = archiver[i->compressor].is_compressor;
 				archiver[type].type = g_slist_append(archiver[type].type, i->type[0]);
 				archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[0]);

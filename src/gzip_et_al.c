@@ -224,43 +224,8 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 		if (is_tar && (ask[XARCHIVETYPE_TAR] == xa_tar_ask))
 		{
-			switch (archive->type)
-			{
-				case XARCHIVETYPE_BZIP2:
-					archive->type = XARCHIVETYPE_TAR_BZ2;
-					break;
-
-				case XARCHIVETYPE_COMPRESS:
-					archive->type = XARCHIVETYPE_TAR_Z;
-					break;
-
-				case XARCHIVETYPE_GZIP:
-					archive->type = XARCHIVETYPE_TAR_GZ;
-					break;
-
-				case XARCHIVETYPE_LZ4:
-					archive->type = XARCHIVETYPE_TAR_LZ4;
-					break;
-
-				case XARCHIVETYPE_LZIP:
-					archive->type = XARCHIVETYPE_TAR_LZ;
-					break;
-
-				case XARCHIVETYPE_LZMA:
-					archive->type = XARCHIVETYPE_TAR_LZMA;
-					break;
-
-				case XARCHIVETYPE_LZOP:
-					archive->type = XARCHIVETYPE_TAR_LZOP;
-					break;
-
-				case XARCHIVETYPE_XZ:
-					archive->type = XARCHIVETYPE_TAR_XZ;
-					break;
-
-				default:
-					return;
-			}
+			if (!xa_get_compressed_tar_type(&archive->type))
+				return;
 
 			archive->path[2] = g_shell_quote(workfile);
 			g_free(workfile);

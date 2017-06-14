@@ -279,6 +279,49 @@ static gboolean _xa_dir_sidebar_select_row (GtkTreeModel *model, GtkTreePath *pa
 	return value;
 }
 
+gboolean xa_get_compressed_tar_type (XArchiveType *type)
+{
+	switch (*type)
+	{
+		case XARCHIVETYPE_BZIP2:
+			*type = XARCHIVETYPE_TAR_BZ2;
+			break;
+
+		case XARCHIVETYPE_COMPRESS:
+			*type = XARCHIVETYPE_TAR_Z;
+			break;
+
+		case XARCHIVETYPE_GZIP:
+			*type = XARCHIVETYPE_TAR_GZ;
+			break;
+
+		case XARCHIVETYPE_LZ4:
+			*type = XARCHIVETYPE_TAR_LZ4;
+			break;
+
+		case XARCHIVETYPE_LZIP:
+			*type = XARCHIVETYPE_TAR_LZ;
+			break;
+
+		case XARCHIVETYPE_LZMA:
+			*type = XARCHIVETYPE_TAR_LZMA;
+			break;
+
+		case XARCHIVETYPE_LZOP:
+			*type = XARCHIVETYPE_TAR_LZOP;
+			break;
+
+		case XARCHIVETYPE_XZ:
+			*type = XARCHIVETYPE_TAR_XZ;
+			break;
+
+		default:
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
 XArchive *xa_init_archive_structure (ArchiveType xa)
 {
 	XArchive *archive;

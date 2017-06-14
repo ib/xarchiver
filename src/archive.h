@@ -218,6 +218,7 @@ void xa_fill_list_with_recursed_entries(XEntry *, GSList **);
 gint xa_find_archive_index(gint);
 XEntry *xa_find_entry_from_dirpath(XArchive *, const gchar *);
 void xa_free_entry(XArchive *, XEntry *);
+gboolean xa_get_compressed_tar_type(XArchiveType *);
 gint xa_get_new_archive_idx();
 XArchive *xa_init_archive_structure(ArchiveType);
 gboolean xa_run_command(XArchive *, const gchar *);
