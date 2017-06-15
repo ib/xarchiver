@@ -729,6 +729,12 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 		return;
 
+	if (!list[xa.type])
+	{
+		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
+		return;
+	}
+
 	archive.type = xa.type;
 	archive.version = xa.version;
 

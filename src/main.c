@@ -822,6 +822,12 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 		return NULL;
 
+	if (!list[xa.type])
+	{
+		xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
+		return NULL;
+	}
+
 	archive = xa_init_archive_structure(xa);
 
 	if (archive == NULL)
@@ -903,7 +909,15 @@ int main (int argc, char **argv)
 		{
 			if (!archive)
 			{
-				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				if (!argv[1])
+					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), _("You missed the archive name!\n"));
+
+				return -1;
+			}
+
+			if (!archive->can_extract)
+			{
+				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), argv[1]);
 				return -1;
 			}
 
@@ -930,7 +944,15 @@ int main (int argc, char **argv)
 		{
 			if (!archive)
 			{
-				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't extract files from the archive:"),_("You missed the archive name!\n"));
+				if (!argv[1])
+					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), _("You missed the archive name!\n"));
+
+				return -1;
+			}
+
+			if (!archive->can_extract)
+			{
+				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), argv[1]);
 				return -1;
 			}
 
@@ -999,7 +1021,9 @@ int main (int argc, char **argv)
 		{
 			if (!archive)
 			{
-				xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't add files to the archive:"),_("You missed the archive name!\n"));
+				if (!argv[1])
+					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), _("You missed the archive name!\n"));
+
 				return -1;
 			}
 			if (!archive->can_add)
