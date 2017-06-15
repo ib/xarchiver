@@ -262,9 +262,19 @@ static void xa_check_available_archivers ()
 
 	standard = (path != NULL);
 
-	if (!standard && is7z)
-		/* alternative uncompressor */
-		path = g_strconcat(sevenz, " -tar", NULL);
+	if (!standard)
+	{
+		if (lsar && unar)
+		{
+			/* alternative ... */
+			path = g_strdup(lsar);
+			/* ... uncompressor */
+			archiver[type].program[1] = g_strdup(unar);
+		}
+		else if (is7z)
+			/* alternative uncompressor */
+			path = g_strconcat(sevenz, " -tar", NULL);
+	}
 
 	if (path)
 	{
@@ -272,9 +282,9 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "deb");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
 
-		ask[type] = (standard ? xa_deb_ask : xa_7zip_ask);
-		list[type] = (standard ? xa_deb_list : xa_7zip_list);
-		extract[type]  = (standard ? xa_deb_extract : xa_7zip_extract);
+		ask[type] = FUNC(standard, xa_deb_ask, lsar && unar, xa_unar_ask, is7z, xa_7zip_ask);
+		list[type] = FUNC(standard, xa_deb_list, lsar && unar, xa_unar_list, is7z, xa_7zip_list);
+		extract[type]  = FUNC(standard, xa_deb_extract, lsar && unar, xa_unar_extract, is7z, xa_7zip_extract);
 	}
 
 	/* GNU zip */

@@ -30,7 +30,7 @@ static gboolean data_line, last_line;
 
 void xa_unar_ask (XArchive *archive)
 {
-	archive->can_test = !(archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_TAR);
+	archive->can_test = !(archive->type == XARCHIVETYPE_DEB || archive->type == XARCHIVETYPE_LZMA || archive->type == XARCHIVETYPE_TAR);
 	archive->can_extract = (archiver[archive->type].program[1] != NULL);
 	archive->can_full_path[0] = (archiver[archive->type].program[1] != NULL);
 	archive->can_overwrite = (archiver[archive->type].program[1] != NULL);
