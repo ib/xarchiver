@@ -384,9 +384,21 @@ static void xa_check_available_archivers ()
 
 	standard = (path != NULL);
 
-	if (!standard && is7zr)
-		/* alternative uncompressor */
-		path = g_strconcat(sevenz, " -tlzma", NULL);
+	if (!standard)
+	{
+		if (is7zr)
+			/* alternative uncompressor */
+			path = g_strconcat(sevenz, " -tlzma", NULL);
+		else
+		{
+			if (lsar)
+				/* alternative ... */
+				path = g_strdup(lsar);
+			if (unar)
+				/* ... uncompressor */
+				archiver[type].program[1] = g_strdup(unar);
+		}
+	}
 
 	if (path)
 	{
@@ -395,11 +407,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "lzma");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzma");
 
-		ask[type] = (standard ? xa_gzip_et_al_ask : xa_7zip_ask);
-		list[type] = (standard ? xa_gzip_et_al_list : xa_7zip_list);
-		test[type] = (standard ? xa_gzip_et_al_test : xa_7zip_test);
-		extract[type] = (standard ? xa_gzip_et_al_extract : xa_7zip_extract);
-		add[type] = (standard ? xa_gzip_et_al_add : NULL);
+		ask[type] = FUNC(standard, xa_gzip_et_al_ask, is7zr, xa_7zip_ask, lsar, xa_unar_ask);
+		list[type] = FUNC(standard, xa_gzip_et_al_list, is7zr, xa_7zip_list, lsar, xa_unar_list);
+		test[type] = FUNC(standard, xa_gzip_et_al_test, is7zr, xa_7zip_test, lsar, NULL);
+		extract[type] = FUNC(standard, xa_gzip_et_al_extract, is7zr, xa_7zip_extract, unar, xa_unar_extract);
+		add[type] = FUNC(standard, xa_gzip_et_al_add, is7zr, NULL, lsar, NULL);
 	}
 
 	/* lzop */
