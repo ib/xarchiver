@@ -64,7 +64,7 @@ Multi_extract_data *multi_extract_window;
 Prefs_dialog_data *prefs_window;
 
 static gchar *opt_extract_path, *opt_compress;
-static gboolean opt_extract, opt_multi_extract, opt_add, opt_version;
+static gboolean opt_extract, opt_multi_extract, opt_add, opt_info, opt_version;
 
 static GOptionEntry entries[] =
 {
@@ -86,6 +86,10 @@ static GOptionEntry entries[] =
 	},
 	{	"add", 'a', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_add,
 		N_("Add to archive by asking which files and\n                                     quit"),
+		NULL
+	},
+	{	"info", 'i', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_info,
+		N_("Show found command line programs to be\n                                     used and exit"),
 		NULL
 	},
 	{	"version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version,
@@ -898,7 +902,7 @@ int main (int argc, char **argv)
 	multi_extract_window = xa_create_multi_extract_dialog();
 	xa_prefs_load_options(prefs_window);
 
-	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_compress)
+	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_compress || opt_info)
 	{
 		archive = xa_init_structure_from_cmd_line (argv[1]);
 		g_print(PACKAGE_NAME " 0.5.4 \xC2\xA9  " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER "\n");
@@ -1047,6 +1051,39 @@ int main (int argc, char **argv)
 			xa_parse_add_dialog_options(archive, add_window);
 			gtk_widget_destroy(add_window->dialog1);
 			g_free(add_window);
+		}
+		/* Switch -i */
+		else if (opt_info)
+		{
+			GSList *list;
+
+			for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
+			{
+				list = archiver[x].type;
+
+				while (list)
+				{
+					if (list->data)
+					{
+						if (strncmp(list->data, "tar.", 4) == 0)
+							break;
+
+						g_print("%s", (char *) list->data);
+					}
+
+					list = list->next;
+
+					if (list && list->data)
+						g_print(", ");
+					else
+					{
+						g_print(":\n  %s\n", archiver[x].program[0]);
+
+						if (archiver[x].program[1])
+							g_print("  %s\n", archiver[x].program[1]);
+					}
+				}
+			}
 		}
 done:
 		if (progress)
