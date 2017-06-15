@@ -128,19 +128,31 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_7ZIP;
 	path = sevenz;
 
+	standard = (path != NULL);
+
+	if (!standard)
+	{
+		if (lsar)
+			/* alternative ... */
+			path = g_strdup(lsar);
+		if (unar)
+			/* ... uncompressor */
+			archiver[type].program[1] = g_strdup(unar);
+	}
+
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = TRUE;
+		archiver[type].is_compressor = standard;
 		archiver[type].type = g_slist_append(archiver[type].type, "7zip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.7z");
 
-		ask[type] = xa_7zip_ask;
-		list[type] = xa_7zip_list;
-		test[type] = xa_7zip_test;
-		extract[type] = xa_7zip_extract;
-		add[type] = xa_7zip_add;
-		delete[type] = xa_7zip_delete;
+		ask[type] = (standard ? xa_7zip_ask : xa_unar_ask);
+		list[type] = (standard ? xa_7zip_list : xa_unar_list);
+		test[type] = (standard ? xa_7zip_test : xa_unar_test);
+		extract[type] = (standard ? xa_7zip_extract : (unar ? xa_unar_extract : NULL));
+		add[type] = (standard ? xa_7zip_add : NULL);
+		delete[type] = (standard ? xa_7zip_delete : NULL);
 	}
 
 	/* ARJ */

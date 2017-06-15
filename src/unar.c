@@ -18,6 +18,8 @@
 
 #include <string.h>
 #include "unar.h"
+#include "7zip.h"
+#include "interface.h"
 #include "main.h"
 #include "parser.h"
 #include "string_utils.h"
@@ -162,6 +164,16 @@ void xa_unar_list (XArchive *archive)
 	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Saving"), _("Date"), _("Time"), _("Method")};
 	gchar *password_str, *command;
 	guint i;
+
+	if (archive->type == XARCHIVETYPE_7ZIP)
+	{
+		if (!archive->has_password)
+			archive->has_password = is7zip_mhe(archive->path[0]);
+
+		if (archive->has_password)
+			if (!xa_check_password(archive))
+				return;
+	}
 
 	data_line = FALSE;
 	last_line = FALSE;
