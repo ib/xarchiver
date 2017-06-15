@@ -92,7 +92,7 @@ static GOptionEntry entries[] =
 		N_("Show found command line programs to be\n                                     used and exit"),
 		NULL
 	},
-	{	"version", 'V', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version,
+	{	"version", 'v', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_version,
 		N_("Show version and exit\n"), NULL },
 	{ NULL }
 };
