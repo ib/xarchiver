@@ -433,11 +433,23 @@ static void xa_check_available_archivers ()
 
 	standard = (path != NULL);
 
-	if (!standard && is7z)
+	if (!standard)
 	{
-		/* alternative uncompressor */
-		path = g_strconcat(sevenz, " -trar", NULL);
-		archiver[type].program[1] = g_strconcat(sevenz, " -trar5", NULL);
+		if (is7z)
+		{
+			/* alternative uncompressor */
+			path = g_strconcat(sevenz, " -trar", NULL);
+			archiver[type].program[1] = g_strconcat(sevenz, " -trar5", NULL);
+		}
+		else
+		{
+			if (lsar)
+				/* alternative ... */
+				path = g_strdup(lsar);
+			if (unar)
+				/* ... uncompressor */
+				archiver[type].program[1] = g_strdup(unar);
+		}
 	}
 
 	if (path)
@@ -454,12 +466,12 @@ static void xa_check_available_archivers ()
 			archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 		}
 
-		ask[type] = (standard ? xa_rar_ask : xa_7zip_ask);
-		list[type] = (standard ? xa_rar_list : xa_7zip_list);
-		test[type] = (standard ? xa_rar_test : xa_7zip_test);
-		extract[type] = (standard ? xa_rar_extract : xa_7zip_extract);
-		add[type] = (standard ? xa_rar_add : NULL);
-		delete[type] = (standard ? xa_rar_delete : NULL);
+		ask[type] = FUNC(standard, xa_rar_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
+		list[type] = FUNC(standard, xa_rar_list, is7z, xa_7zip_list, lsar, xa_unar_list);
+		test[type] = FUNC(standard, xa_rar_test, is7z, xa_7zip_test, lsar, xa_unar_test);
+		extract[type] = FUNC(standard, xa_rar_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
+		add[type] = FUNC(standard, xa_rar_add, is7z, NULL, lsar, NULL);
+		delete[type] = FUNC(standard, xa_rar_delete, is7z, NULL, lsar, NULL);
 	}
 
 	/* RPM package */
