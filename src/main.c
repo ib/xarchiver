@@ -237,9 +237,21 @@ static void xa_check_available_archivers ()
 
 	standard = (path != NULL);
 
-	if (!standard && is7z)
-		/* alternative uncompressor */
-		path = g_strconcat(sevenz, " -tcpio", NULL);
+	if (!standard)
+	{
+		if (is7z)
+			/* alternative uncompressor */
+			path = g_strconcat(sevenz, " -tcpio", NULL);
+		else
+		{
+			if (lsar)
+				/* alternative ... */
+				path = g_strdup(lsar);
+			if (unar)
+				/* ... uncompressor */
+				archiver[type].program[1] = g_strdup(unar);
+		}
+	}
 
 	if (path)
 	{
@@ -248,11 +260,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "cpio");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.cpio");
 
-		ask[type] = (standard ? xa_cpio_ask : xa_7zip_ask);
-		list[type] = (standard ? xa_cpio_list : xa_7zip_list);
-		test[type] = (standard ? NULL : xa_7zip_test);
-		extract[type] = (standard ? xa_cpio_extract : xa_7zip_extract);
-		add[type] = (standard ? xa_cpio_add : NULL);
+		ask[type] = FUNC(standard, xa_cpio_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
+		list[type] = FUNC(standard, xa_cpio_list, is7z, xa_7zip_list, lsar, xa_unar_list);
+		test[type] = FUNC(standard, NULL, is7z, xa_7zip_test, lsar, NULL);
+		extract[type] = FUNC(standard, xa_cpio_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
+		add[type] = FUNC(standard, xa_cpio_add, is7z, NULL, lsar, NULL);
 	}
 
 	/* debian package */
