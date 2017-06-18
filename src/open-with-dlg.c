@@ -68,6 +68,7 @@ static void xa_open_with_dialog_custom_entry_activated (GtkEntry *entry, Open_wi
 
 static void xa_destroy_open_with_dialog (GtkObject *object, Open_with_data *data)
 {
+	g_free(data->files);
 	g_free(data);
 }
 
