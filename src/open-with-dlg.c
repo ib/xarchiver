@@ -29,7 +29,6 @@ typedef struct
 {
 	GtkWidget *dialog1;
 	GtkWidget *custom_command_entry;
-	GtkListStore *apps_liststore;
 	gchar *files;
 } Open_with_data;
 
@@ -248,6 +247,7 @@ static void xa_read_desktop_directories (GtkListStore *liststore, const gchar *d
 void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint nr)
 {
 	Open_with_data *data = NULL;
+	GtkListStore *apps_liststore;
 	GtkWidget	*dialog_vbox1,*vbox1,*hbox1,*mime_icon,*open_text,*scrolledwindow1,*apps_treeview,*dialog_action_area1,
 				*custom_command_expander,*hbox_expander,*browse,*cancelbutton1,*okbutton1;
 	GtkCellRenderer		*renderer;
@@ -304,8 +304,8 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gtk_box_pack_start (GTK_BOX (vbox1),scrolledwindow1,TRUE,TRUE,0);
 	g_object_set (G_OBJECT (scrolledwindow1),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"shadow-type",GTK_SHADOW_IN,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
 
-	data->apps_liststore = gtk_list_store_new (3,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_STRING);
-	apps_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(data->apps_liststore));
+	apps_liststore = gtk_list_store_new(3, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING);
+	apps_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(apps_liststore));
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),apps_treeview);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(apps_treeview),FALSE);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (apps_treeview));
@@ -321,7 +321,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gtk_tree_view_column_pack_start(column,renderer, TRUE);
 	gtk_tree_view_column_set_attributes( column,renderer,"text",1,NULL);
 	gtk_tree_view_column_set_resizable (column, TRUE);
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(data->apps_liststore),1,GTK_SORT_ASCENDING);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(apps_liststore), 1, GTK_SORT_ASCENDING);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (apps_treeview), column);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 
@@ -365,10 +365,10 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	desktop_dirs = g_get_system_data_dirs();
 	while (desktop_dirs[x])
 	{
-		xa_read_desktop_directories(data->apps_liststore,desktop_dirs[x]);
+		xa_read_desktop_directories(apps_liststore, desktop_dirs[x]);
 		x++;
 	}
-	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(data->apps_liststore),&iter);
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(apps_liststore), &iter);
 	gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (apps_treeview)),&iter);
 
 	g_signal_connect (G_OBJECT (apps_treeview),	"row-activated",G_CALLBACK(xa_open_with_dialog_row_selected),data);
