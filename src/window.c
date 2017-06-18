@@ -2702,6 +2702,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	}
 	while (list_of_files);
 	xa_create_open_with_dialog(entry->filename,names->str,nr);
+	g_string_free(names, FALSE);
 	g_slist_foreach(list_of_files,(GFunc)g_free,NULL);
 	g_slist_free(list_of_files);
 }
