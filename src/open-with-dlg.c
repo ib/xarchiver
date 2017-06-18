@@ -56,9 +56,19 @@ static void xa_open_with_dialog_execute_command (GtkButton *button, Open_with_da
 	gtk_widget_destroy(data->dialog1);
 }
 
+static void xa_open_with_dialog_row_selected (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, Open_with_data *data)
+{
+	xa_open_with_dialog_execute_command(NULL, data);
+}
+
 static void xa_open_with_dialog_custom_entry_activated (GtkEntry *entry, Open_with_data *data)
 {
 	xa_open_with_dialog_execute_command(NULL, data);
+}
+
+static void xa_destroy_open_with_dialog (GtkObject *object, Open_with_data *data)
+{
+	g_free(data);
 }
 
 static void xa_open_with_dialog_browse_custom_command (GtkButton *button, Open_with_data *data)
@@ -232,16 +242,6 @@ static void xa_read_desktop_directories (GtkListStore *liststore, const gchar *d
 	g_slist_foreach(app_exe,(GFunc)g_free,NULL);
 	g_slist_free(app_name);
 	g_slist_free(app_exe);
-}
-
-static void xa_open_with_dialog_row_selected (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, Open_with_data *data)
-{
-	xa_open_with_dialog_execute_command(NULL, data);
-}
-
-static void xa_destroy_open_with_dialog (GtkObject *object, Open_with_data *data)
-{
-	g_free(data);
 }
 
 void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint nr)
