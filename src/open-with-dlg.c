@@ -214,11 +214,16 @@ static void xa_read_desktop_directory (const gchar *dirname, GtkListStore *lists
 		g_free(filename);
 		return;
 	}
+
 	while ((dirlist = readdir(dir)))
 	{
 		if (g_str_has_suffix(dirlist->d_name,".desktop"))
 			xa_parse_desktop_file(&app_name, &app_exe, &app_icon, filename, dirlist->d_name);
 	}
+
+	closedir(dir);
+	g_free(filename);
+
 	while (app_name)
 	{
 		gtk_list_store_append(liststore,&iter);
@@ -229,8 +234,6 @@ static void xa_read_desktop_directory (const gchar *dirname, GtkListStore *lists
 		app_icon = app_icon->next;
 		app_exe  = app_exe->next;
 	}
-	g_free(filename);
-	closedir(dir);
 
 	g_slist_foreach(app_name,(GFunc)g_free,NULL);
 	g_slist_foreach(app_exe,(GFunc)g_free,NULL);
