@@ -99,7 +99,7 @@ static void xa_open_with_dialog_browse_custom_command (GtkButton *button, Open_w
 	gtk_widget_destroy(file_selector);
 }
 
-static void xa_parse_desktop_files (GSList **app_name_list, GSList **app_exe_list, GSList **app_icon_list, gchar *path, gchar *name)
+static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list, GSList **app_icon_list, gchar *path, gchar *name)
 {
 	gchar *filename, *line, *key;
 	gchar *app_name = NULL, *app_exe = NULL, *app_icon = NULL;
@@ -223,7 +223,7 @@ static void xa_read_desktop_directories (GtkListStore *liststore, const gchar *d
 	while ((dirlist = readdir(dir)))
 	{
 		if (g_str_has_suffix(dirlist->d_name,".desktop"))
-			xa_parse_desktop_files(&app_name,&app_exe,&app_icon,filename,dirlist->d_name);
+			xa_parse_desktop_file(&app_name, &app_exe, &app_icon, filename, dirlist->d_name);
 	}
 	while (app_name)
 	{
