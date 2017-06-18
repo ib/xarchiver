@@ -30,6 +30,9 @@ typedef struct
 	GtkWidget *dialog1;
 	GtkWidget *custom_command_entry;
 	gchar *files;
+	GSList *icons;
+	GSList *names;
+	GSList *execs;
 } Open_with_data;
 
 static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection, Open_with_data *data)
@@ -68,6 +71,12 @@ static void xa_open_with_dialog_custom_entry_activated (GtkEntry *entry, Open_wi
 static void xa_destroy_open_with_dialog (GtkObject *object, Open_with_data *data)
 {
 	g_free(data->files);
+	g_slist_foreach(data->icons, (GFunc) g_object_unref, NULL);
+	g_slist_free(data->icons);
+	g_slist_foreach(data->names, (GFunc) g_free, NULL);
+	g_slist_free(data->names);
+	g_slist_foreach(data->execs, (GFunc) g_free, NULL);
+	g_slist_free(data->execs);
 	g_free(data);
 }
 
@@ -99,7 +108,7 @@ static void xa_open_with_dialog_browse_custom_command (GtkButton *button, Open_w
 	gtk_widget_destroy(file_selector);
 }
 
-static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list, GSList **app_icon_list, const gchar *path, const gchar *name)
+static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_with_data *data)
 {
 	gchar *filename, *line, *key;
 	gchar *app_name = NULL, *app_exe = NULL, *app_icon = NULL;
@@ -173,8 +182,8 @@ static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list
 
 	if (has_mimetype)
 	{
-		*app_name_list	= g_slist_prepend(*app_name_list,app_name);
-		*app_exe_list	= g_slist_prepend(*app_exe_list ,app_exe);
+		data->names = g_slist_prepend(data->names, app_name);
+		data->execs = g_slist_prepend(data->execs, app_exe);
 
 		if (!app_icon)
 			app_icon = g_strdup("");
@@ -184,7 +193,7 @@ static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list
 		else
 			size = 24;
 
-		*app_icon_list = g_slist_prepend(*app_icon_list, gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL));
+		data->icons = g_slist_prepend(data->icons, gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL));
 	}
 	else
 	{
@@ -196,15 +205,11 @@ static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list
 	g_io_channel_shutdown(file, FALSE, NULL);
 }
 
-static void xa_read_desktop_directory (const gchar *dirname, GtkListStore *liststore)
+static void xa_read_desktop_directory (const gchar *dirname, GtkListStore *liststore, Open_with_data *data)
 {
 	DIR *dir;
 	gchar *filename = NULL;
 	struct dirent *dirlist;
-	GSList *app_icon = NULL;
-	GSList *app_name  = NULL;
-	GSList *app_exe = NULL;
-	GtkTreeIter iter;
 
 	filename = g_build_filename(dirname,"applications",NULL);
 	dir = opendir(filename);
@@ -218,27 +223,11 @@ static void xa_read_desktop_directory (const gchar *dirname, GtkListStore *lists
 	while ((dirlist = readdir(dir)))
 	{
 		if (g_str_has_suffix(dirlist->d_name,".desktop"))
-			xa_parse_desktop_file(&app_name, &app_exe, &app_icon, filename, dirlist->d_name);
+			xa_parse_desktop_file(filename, dirlist->d_name, data);
 	}
 
 	closedir(dir);
 	g_free(filename);
-
-	while (app_name)
-	{
-		gtk_list_store_append(liststore,&iter);
-		gtk_list_store_set(liststore,&iter,0,app_icon->data,1,app_name->data,2,app_exe->data,-1);
-		if (app_icon->data != NULL)
-			g_object_unref(app_icon->data);
-		app_name = app_name->next;
-		app_icon = app_icon->next;
-		app_exe  = app_exe->next;
-	}
-
-	g_slist_foreach(app_name,(GFunc)g_free,NULL);
-	g_slist_foreach(app_exe,(GFunc)g_free,NULL);
-	g_slist_free(app_name);
-	g_slist_free(app_exe);
 }
 
 void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint nr)
@@ -251,6 +240,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	GtkTreeViewColumn	*column;
 	GtkTreeIter iter;
 	GdkPixbuf *pixbuf;
+	GSList *icon, *name, *exec;
 	gchar *text = NULL;
 	gchar *title;
 	const gchar *icon_name = NULL;
@@ -358,13 +348,29 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gtk_widget_set_can_default(okbutton1, TRUE);
 	gtk_widget_show_all(data->dialog1);
 
-	/* Let's parse the desktop files in all the system data dirs */
+	/* let's parse the desktop files in all the system data dirs */
 	desktop_dirs = g_get_system_data_dirs();
+
 	while (desktop_dirs[x])
 	{
-		xa_read_desktop_directory(desktop_dirs[x], apps_liststore);
+		xa_read_desktop_directory(desktop_dirs[x], apps_liststore, data);
 		x++;
 	}
+
+	icon = data->icons;
+	name = data->names;
+	exec = data->execs;
+
+	while (exec)
+	{
+		gtk_list_store_append(apps_liststore, &iter);
+		gtk_list_store_set(apps_liststore, &iter, 0, icon->data, 1,name->data, 2, exec->data, -1);
+
+		icon = icon->next;
+		name = name->next;
+		exec = exec->next;
+	}
+
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(apps_liststore), &iter);
 	gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (apps_treeview)),&iter);
 
