@@ -295,6 +295,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gchar *text = NULL;
 	gchar *title;
 	const gchar *icon_name = NULL;
+	const gchar *desktop_dir;
 	const gchar* const *desktop_dirs;
 	gint x = 0;
 
@@ -398,6 +399,12 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	g_signal_connect (G_OBJECT (okbutton1),"clicked",G_CALLBACK (xa_open_with_dialog_execute_command),data);
 	gtk_widget_set_can_default(okbutton1, TRUE);
 	gtk_widget_show_all(data->dialog1);
+
+	/* let's parse the desktop files in the user data dir */
+	desktop_dir = g_get_user_data_dir();
+
+	if (desktop_dir)
+		xa_read_desktop_directory(desktop_dir, apps_liststore, data);
 
 	/* let's parse the desktop files in all the system data dirs */
 	desktop_dirs = g_get_system_data_dirs();
