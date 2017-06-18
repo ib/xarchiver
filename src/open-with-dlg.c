@@ -244,7 +244,7 @@ static void xa_destroy_open_with_dialog (GtkWidget *widget, Open_with_data *data
 	g_free(data);
 }
 
-void xa_create_open_with_dialog (gchar *filename, gchar *filenames, gint nr)
+void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint nr)
 {
 	Open_with_data *data = NULL;
 	GtkWidget	*dialog_vbox1,*vbox1,*hbox1,*mime_icon,*open_text,*scrolledwindow1,*apps_treeview,*dialog_action_area1,

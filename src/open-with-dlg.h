@@ -21,6 +21,6 @@
 
 #include <glib.h>
 
-void xa_create_open_with_dialog(gchar *, gchar *, gint);
+void xa_create_open_with_dialog(const gchar *, gchar *, gint);
 
 #endif
