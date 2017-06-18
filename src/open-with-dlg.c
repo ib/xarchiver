@@ -52,7 +52,7 @@ static void xa_open_with_dialog_execute_command (GtkWidget *widget, Open_with_da
 	const char *application;
 
 	application = gtk_entry_get_text(GTK_ENTRY(data->custom_command_entry));
-	xa_launch_external_program((gchar*)application,data->files);
+	xa_launch_external_program(application, data->files);
 	gtk_widget_destroy(data->dialog1);
 }
 

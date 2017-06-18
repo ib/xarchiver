@@ -354,11 +354,11 @@ static void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer
 			g_free (browser_path);
 			return;
 		}
-		xa_launch_external_program(browser_path,(gchar *)link);
+		xa_launch_external_program(browser_path, link);
 		g_free(browser_path);
 	}
 	else
-		xa_launch_external_program(xdg_open, (gchar*) link);
+		xa_launch_external_program(xdg_open, link);
 }
 
 static void xa_rename_cell_edited_canceled (GtkCellRenderer *renderer, gpointer data)
@@ -2289,7 +2289,7 @@ void xa_set_environment (gpointer user_data)
 	g_setenv("DISPLAY", (const gchar *) user_data, TRUE);
 }
 
-gboolean xa_launch_external_program(gchar *program,gchar *arg)
+gboolean xa_launch_external_program (const gchar *program, const gchar *arg)
 {
 	GtkWidget *message;
 	GError *error = NULL;

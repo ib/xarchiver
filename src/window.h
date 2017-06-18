@@ -47,7 +47,7 @@ void xa_deselect_all(GtkMenuItem *, gpointer);
 ArchiveType xa_detect_archive_type(const gchar *);
 void xa_enter_password(GtkMenuItem *, gpointer);
 void xa_extract_archive(GtkMenuItem *, gpointer);
-gboolean xa_launch_external_program(gchar *, gchar *);
+gboolean xa_launch_external_program(const gchar *, const gchar *);
 void xa_list_archive(GtkMenuItem *, gpointer);
 void xa_location_entry_activated(GtkEntry *, gpointer);
 GtkWidget *xa_main_window_find_image(gchar *, GtkIconSize);
