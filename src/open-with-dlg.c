@@ -27,13 +27,40 @@
 
 typedef struct
 {
+	gchar *name;
+	gchar *exec;
+	GdkPixbuf *icon;
+} App;
+
+typedef struct
+{
 	GtkWidget *dialog1;
 	GtkWidget *custom_command_entry;
 	gchar *files;
-	GSList *icons;
-	GSList *names;
-	GSList *execs;
+	GSList *apps;
 } Open_with_data;
+
+static gint xa_app_compare (const App *a, const App *b)
+{
+	if (strcmp(a->exec, b->exec) == 0)
+	{
+		if (a->name == b->name)
+			return 0;
+
+		if (a->name && b->name)
+			return strcmp(a->name, b->name);
+	}
+
+	return 1;
+}
+
+static void xa_app_free (App *app, gpointer user_data)
+{
+	g_free(app->name);
+	g_free(app->exec);
+	g_object_unref(app->icon);
+	g_free(app);
+}
 
 static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection, Open_with_data *data)
 {
@@ -71,12 +98,8 @@ static void xa_open_with_dialog_custom_entry_activated (GtkEntry *entry, Open_wi
 static void xa_destroy_open_with_dialog (GtkObject *object, Open_with_data *data)
 {
 	g_free(data->files);
-	g_slist_foreach(data->icons, (GFunc) g_object_unref, NULL);
-	g_slist_free(data->icons);
-	g_slist_foreach(data->names, (GFunc) g_free, NULL);
-	g_slist_free(data->names);
-	g_slist_foreach(data->execs, (GFunc) g_free, NULL);
-	g_slist_free(data->execs);
+	g_slist_foreach(data->apps, (GFunc) xa_app_free, NULL);
+	g_slist_free(data->apps);
 	g_free(data);
 }
 
@@ -180,12 +203,28 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 	}
 	while (status != G_IO_STATUS_EOF);
 
-	if (has_mimetype && app_exec)
+	g_io_channel_shutdown(file, FALSE, NULL);
+
+	if (app_exec && has_mimetype)
 	{
+		App app;
+		GSList *duplicate;
+
+		app.name = app_name;
+		app.exec = app_exec;
+		app.icon = NULL;
+
+		duplicate = g_slist_find_custom(data->apps, &app, (GCompareFunc) xa_app_compare);
+
+		if (!duplicate)
+		{
+			App *app;
 		GdkPixbuf *pixbuf = NULL;
 
-		data->names = g_slist_prepend(data->names, app_name);
-		data->execs = g_slist_prepend(data->execs, app_exec);
+			app = g_new0(App, 1);
+
+			app->name = app_name;
+			app->exec = app_exec;
 
 		if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
 			size = 40;
@@ -193,7 +232,10 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			size = 24;
 
 		if (app_icon)
+		{
 			pixbuf = gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+			g_free(app_icon);
+		}
 
 		if (!pixbuf)
 		{
@@ -201,16 +243,18 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			gdk_pixbuf_fill(pixbuf, 0x00000000);
 		}
 
-		data->icons = g_slist_prepend(data->icons, pixbuf);
-	}
-	else
-	{
-		g_free(app_name);
-		g_free(app_exec);
+			app->icon = pixbuf;
+
+			data->apps = g_slist_prepend(data->apps, app);
+
+			return;
+		}
 	}
 
+		g_free(app_name);
+		g_free(app_exec);
+
 	g_free(app_icon);
-	g_io_channel_shutdown(file, FALSE, NULL);
 }
 
 static void xa_read_desktop_directory (const gchar *dirname, GtkListStore *liststore, Open_with_data *data)
@@ -248,7 +292,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	GtkTreeViewColumn	*column;
 	GtkTreeIter iter;
 	GdkPixbuf *pixbuf;
-	GSList *icon, *name, *exec;
+	GSList *apps;
 	gchar *text = NULL;
 	gchar *title;
 	const gchar *icon_name = NULL;
@@ -365,18 +409,16 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 		x++;
 	}
 
-	icon = data->icons;
-	name = data->names;
-	exec = data->execs;
+	apps = data->apps;
 
-	while (exec)
+	while (apps)
 	{
-		gtk_list_store_append(apps_liststore, &iter);
-		gtk_list_store_set(apps_liststore, &iter, 0, icon->data, 1,name->data, 2, exec->data, -1);
+		App *app = apps->data;
 
-		icon = icon->next;
-		name = name->next;
-		exec = exec->next;
+		gtk_list_store_append(apps_liststore, &iter);
+		gtk_list_store_set(apps_liststore, &iter, 0, app->icon, 1, app->name, 2, app->exec, -1);
+
+		apps = apps->next;
 	}
 
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(apps_liststore), &iter);
