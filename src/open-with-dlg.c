@@ -99,7 +99,7 @@ static void xa_open_with_dialog_browse_custom_command (GtkButton *button, Open_w
 	gtk_widget_destroy(file_selector);
 }
 
-static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list, GSList **app_icon_list, gchar *path, gchar *name)
+static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list, GSList **app_icon_list, const gchar *path, const gchar *name)
 {
 	gchar *filename, *line, *key;
 	gchar *app_name = NULL, *app_exe = NULL, *app_icon = NULL;
