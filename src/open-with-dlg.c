@@ -202,7 +202,7 @@ static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list
 	g_io_channel_shutdown (file, TRUE, NULL);
 }
 
-static void xa_read_desktop_directories (GtkListStore *liststore, const gchar *dirname)
+static void xa_read_desktop_directory (const gchar *dirname, GtkListStore *liststore)
 {
 	DIR *dir;
 	gchar *filename = NULL;
@@ -365,7 +365,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	desktop_dirs = g_get_system_data_dirs();
 	while (desktop_dirs[x])
 	{
-		xa_read_desktop_directories(apps_liststore, desktop_dirs[x]);
+		xa_read_desktop_directory(desktop_dirs[x], apps_liststore);
 		x++;
 	}
 	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(apps_liststore), &iter);
