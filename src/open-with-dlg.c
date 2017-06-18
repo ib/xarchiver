@@ -181,7 +181,7 @@ static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list
 		else
 			size = 24;
 		*app_icon_list = g_slist_prepend(*app_icon_list, gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL));
-		g_io_channel_shutdown (file, TRUE, NULL);
+		g_io_channel_shutdown(file, FALSE, NULL);
 		return;
 	}
 	if (app_name != NULL)
@@ -199,7 +199,7 @@ static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list
 		g_free(app_icon);
 		app_icon = NULL;
 	}
-	g_io_channel_shutdown (file, TRUE, NULL);
+	g_io_channel_shutdown(file, FALSE, NULL);
 }
 
 static void xa_read_desktop_directory (const gchar *dirname, GtkListStore *liststore)
