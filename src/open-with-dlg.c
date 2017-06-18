@@ -56,7 +56,7 @@ static void xa_open_with_dialog_execute_command (GtkButton *button, Open_with_da
 	gtk_widget_destroy(data->dialog1);
 }
 
-static void xa_open_with_dialog_custom_entry_activated (GtkEditable *entry, Open_with_data *data)
+static void xa_open_with_dialog_custom_entry_activated (GtkEntry *entry, Open_with_data *data)
 {
 	xa_open_with_dialog_execute_command(NULL, data);
 }
