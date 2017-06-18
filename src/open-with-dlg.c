@@ -239,7 +239,7 @@ static void xa_open_with_dialog_row_selected (GtkTreeView *tree_view, GtkTreePat
 	xa_open_with_dialog_execute_command(NULL, data);
 }
 
-static void xa_destroy_open_with_dialog (GtkWidget *widget, Open_with_data *data)
+static void xa_destroy_open_with_dialog (GtkObject *object, Open_with_data *data)
 {
 	g_free(data);
 }
