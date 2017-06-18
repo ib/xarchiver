@@ -170,35 +170,29 @@ static void xa_parse_desktop_file (GSList **app_name_list, GSList **app_exe_list
 		}
 	}
 	while (status != G_IO_STATUS_EOF);
+
 	if (has_mimetype)
 	{
 		*app_name_list	= g_slist_prepend(*app_name_list,app_name);
 		*app_exe_list	= g_slist_prepend(*app_exe_list ,app_exe);
-		if (app_icon == NULL)
-			app_icon = "";
+
+		if (!app_icon)
+			app_icon = g_strdup("");
+
 		if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
 			size = 40;
 		else
 			size = 24;
+
 		*app_icon_list = g_slist_prepend(*app_icon_list, gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL));
-		g_io_channel_shutdown(file, FALSE, NULL);
-		return;
 	}
-	if (app_name != NULL)
+	else
 	{
 		g_free(app_name);
-		app_name = NULL;
-	}
-	if (app_exe != NULL)
-	{
 		g_free(app_exe);
-		app_exe = NULL;
 	}
-	if (app_icon != NULL)
-	{
-		g_free(app_icon);
-		app_icon = NULL;
-	}
+
+	g_free(app_icon);
 	g_io_channel_shutdown(file, FALSE, NULL);
 }
 
