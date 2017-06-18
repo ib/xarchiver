@@ -180,7 +180,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 	}
 	while (status != G_IO_STATUS_EOF);
 
-	if (has_mimetype)
+	if (has_mimetype && app_exec)
 	{
 		GdkPixbuf *pixbuf = NULL;
 
