@@ -219,29 +219,29 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 		if (!duplicate)
 		{
 			App *app;
-		GdkPixbuf *pixbuf = NULL;
+			GdkPixbuf *pixbuf = NULL;
 
 			app = g_new0(App, 1);
 
 			app->name = app_name;
 			app->exec = app_exec;
 
-		if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
-			size = 40;
-		else
-			size = 24;
+			if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
+				size = 40;
+			else
+				size = 24;
 
-		if (app_icon)
-		{
-			pixbuf = gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
-			g_free(app_icon);
-		}
+			if (app_icon)
+			{
+				pixbuf = gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+				g_free(app_icon);
+			}
 
-		if (!pixbuf)
-		{
-			pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, size, size);
-			gdk_pixbuf_fill(pixbuf, 0x00000000);
-		}
+			if (!pixbuf)
+			{
+				pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, size, size);
+				gdk_pixbuf_fill(pixbuf, 0x00000000);
+			}
 
 			app->icon = pixbuf;
 
@@ -251,9 +251,8 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 		}
 	}
 
-		g_free(app_name);
-		g_free(app_exec);
-
+	g_free(app_name);
+	g_free(app_exec);
 	g_free(app_icon);
 }
 
