@@ -111,7 +111,7 @@ static void xa_open_with_dialog_browse_custom_command (GtkButton *button, Open_w
 static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_with_data *data)
 {
 	gchar *filename, *line, *key;
-	gchar *app_name = NULL, *app_exe = NULL, *app_icon = NULL;
+	gchar *app_name = NULL, *app_exec = NULL, *app_icon = NULL;
 	GIOStatus status;
 	GIOChannel *file;
 	gboolean has_mimetype = FALSE;
@@ -157,11 +157,11 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			}
 			if (g_str_has_prefix(line,"Exec="))
 			{
-				app_exe = strstr(line," %");
-				if (app_exe)
-					app_exe = g_strndup(line + 5,app_exe - (line+5));
+				app_exec = strstr(line, " %");
+				if (app_exec)
+					app_exec = g_strndup(line + 5, app_exec - (line + 5));
 				else
-					app_exe = g_strndup(line + 5,(strlen(line)-6));
+					app_exec = g_strndup(line + 5, strlen(line) - 6);
 				continue;
 			}
 			if (g_str_has_prefix(line,"Icon="))
@@ -183,7 +183,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 	if (has_mimetype)
 	{
 		data->names = g_slist_prepend(data->names, app_name);
-		data->execs = g_slist_prepend(data->execs, app_exe);
+		data->execs = g_slist_prepend(data->execs, app_exec);
 
 		if (!app_icon)
 			app_icon = g_strdup("");
@@ -198,7 +198,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 	else
 	{
 		g_free(app_name);
-		g_free(app_exe);
+		g_free(app_exec);
 	}
 
 	g_free(app_icon);
