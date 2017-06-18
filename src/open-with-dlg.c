@@ -182,18 +182,26 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 
 	if (has_mimetype)
 	{
+		GdkPixbuf *pixbuf = NULL;
+
 		data->names = g_slist_prepend(data->names, app_name);
 		data->execs = g_slist_prepend(data->execs, app_exec);
-
-		if (!app_icon)
-			app_icon = g_strdup("");
 
 		if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
 			size = 40;
 		else
 			size = 24;
 
-		data->icons = g_slist_prepend(data->icons, gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL));
+		if (app_icon)
+			pixbuf = gtk_icon_theme_load_icon(icon_theme, app_icon, size, GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+
+		if (!pixbuf)
+		{
+			pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, size, size);
+			gdk_pixbuf_fill(pixbuf, 0x00000000);
+		}
+
+		data->icons = g_slist_prepend(data->icons, pixbuf);
 	}
 	else
 	{
