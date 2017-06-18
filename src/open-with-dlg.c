@@ -47,7 +47,7 @@ static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection, 
 	}
 }
 
-static void xa_open_with_dialog_execute_command (GtkWidget *widget, Open_with_data *data)
+static void xa_open_with_dialog_execute_command (GtkButton *button, Open_with_data *data)
 {
 	const char *application;
 
