@@ -484,7 +484,6 @@ static void xa_determine_program_to_run (gchar *file)
 
 		basename = g_path_get_basename(file);
 		type = xa_get_stock_mime_icon(basename);
-		g_free(basename);
 
 		if (strcmp(type, "text-html") == 0)
 		{
@@ -498,9 +497,14 @@ static void xa_determine_program_to_run (gchar *file)
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
 		else
 		{
-			xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("This file type is not supported!"), _("Please install xdg-utils."));
+			gchar *basename_utf8 = g_filename_display_name(basename);
+			xa_create_open_with_dialog(basename_utf8, g_shell_quote(file), 1);
+			g_free(basename_utf8);
+			g_free(basename);
 			return;
 		}
+
+		g_free(basename);
 	}
 
 	if (program && *program)
