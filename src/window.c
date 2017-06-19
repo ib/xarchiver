@@ -2513,6 +2513,7 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 		{
 			gtk_tree_selection_unselect_all (selection);
 			gtk_tree_selection_select_iter (selection,&iter);
+			selected = 1;
 		}
 
 		if (selected > 1 || entry->is_dir)
