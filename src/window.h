@@ -51,7 +51,7 @@ gboolean xa_launch_external_program(const gchar *, const gchar *);
 void xa_list_archive(GtkMenuItem *, gpointer);
 void xa_location_entry_activated(GtkEntry *, gpointer);
 GtkWidget *xa_main_window_find_image(gchar *, GtkIconSize);
-int xa_mouse_button_event(GtkWidget *, GdkEventButton *, XArchive *);
+gboolean xa_mouse_button_event(GtkWidget *, GdkEventButton *, XArchive *);
 void xa_new_archive(GtkMenuItem *, gpointer);
 void xa_open_archive(GtkMenuItem *, gpointer);
 void xa_open_with_from_popupmenu(GtkMenuItem *, gpointer);
