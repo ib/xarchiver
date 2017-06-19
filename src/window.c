@@ -2543,8 +2543,7 @@ gboolean xa_mouse_button_event (GtkWidget *widget, GdkEventButton *event, XArchi
 				paste_data = xa_get_paste_data_from_clipboard_selection((char *) gtk_selection_data_get_data(clipboard_selection));
 				gtk_selection_data_free(clipboard_selection);
 
-				if (strcmp(archive->path[1], paste_data->target->path[1]) != 0)
-					pasteable = TRUE;
+				pasteable = (strcmp(archive->path[1], paste_data->target->path[1]) != 0);
 			}
 
 			gtk_widget_set_sensitive(eextract, archive->can_extract);
