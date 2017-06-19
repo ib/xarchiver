@@ -95,6 +95,17 @@ static void xa_open_with_dialog_custom_entry_activated (GtkEntry *entry, Open_wi
 	xa_open_with_dialog_execute_command(NULL, data);
 }
 
+static gboolean xa_open_with_dialog_mouse_button_event (GtkWidget *widget, GdkEventButton *event, Open_with_data *data)
+{
+	if (event->type == GDK_BUTTON_RELEASE && event->button == 2)
+	{
+		xa_open_with_dialog_execute_command(NULL, data);
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 static void xa_destroy_open_with_dialog (GtkObject *object, Open_with_data *data)
 {
 	g_free(data->files);
@@ -431,5 +442,6 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (apps_treeview)),&iter);
 
 	g_signal_connect (G_OBJECT (apps_treeview),	"row-activated",G_CALLBACK(xa_open_with_dialog_row_selected),data);
+	g_signal_connect(G_OBJECT(apps_treeview), "button-release-event", G_CALLBACK(xa_open_with_dialog_mouse_button_event), data);
 	g_signal_connect (G_OBJECT (data->dialog1),	"destroy",		G_CALLBACK(xa_destroy_open_with_dialog),data);
 }
