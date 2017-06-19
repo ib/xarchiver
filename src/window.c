@@ -2487,11 +2487,11 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 	xa_update_window_with_archive_entries(archive[idx],new_entry);
 }
 
-int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *archive)
+int xa_mouse_button_event (GtkWidget *widget, GdkEventButton *event, XArchive *archive)
 {
 	XEntry *entry;
 	GtkTreePath *path;
-	GtkTreeIter  iter;
+	GtkTreeIter iter;
 	GtkTreeSelection *selection;
 	gint selected;
 	GtkClipboard *clipboard;
@@ -2499,19 +2499,22 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 	XAClipboard *paste_data;
 	gboolean pasteable = FALSE;
 
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 	selected = gtk_tree_selection_count_selected_rows(selection);
-	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (archive->treeview),event->x,event->y,&path,NULL,NULL,NULL);
+	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(archive->treeview), event->x, event->y, &path, NULL, NULL, NULL);
+
 	if (path == NULL)
 		return FALSE;
+
 	if (event->type == GDK_BUTTON_PRESS && (event->button == 2 || event->button == 3))
 	{
-		gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path);
+		gtk_tree_model_get_iter(GTK_TREE_MODEL(archive->liststore), &iter, path);
 		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
-		if (! gtk_tree_selection_iter_is_selected (selection,&iter))
+
+		if (!gtk_tree_selection_iter_is_selected(selection, &iter))
 		{
-			gtk_tree_selection_unselect_all (selection);
-			gtk_tree_selection_select_iter (selection,&iter);
+			gtk_tree_selection_unselect_all(selection);
+			gtk_tree_selection_select_iter(selection, &iter);
 			selected = 1;
 		}
 
@@ -2519,39 +2522,44 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			xa_treeview_row_activated(GTK_TREE_VIEW(archive->treeview), path, NULL, archive);
 		else if (event->button == 3)
 		{
-		if (selected > 1 || entry->is_dir)
-		{
-			gtk_widget_set_sensitive(open_popupmenu, FALSE);
-			gtk_widget_set_sensitive(view, FALSE);
-			gtk_widget_set_sensitive(rrename, FALSE);
-		}
-		else
-		{
-			gtk_widget_set_sensitive(open_popupmenu, archive->can_extract);
-			gtk_widget_set_sensitive(view, archive->can_extract);
-			gtk_widget_set_sensitive(rrename, can_rename(archive));
+			if (selected > 1 || entry->is_dir)
+			{
+				gtk_widget_set_sensitive(open_popupmenu, FALSE);
+				gtk_widget_set_sensitive(view, FALSE);
+				gtk_widget_set_sensitive(rrename, FALSE);
+			}
+			else
+			{
+				gtk_widget_set_sensitive(open_popupmenu, archive->can_extract);
+				gtk_widget_set_sensitive(view, archive->can_extract);
+				gtk_widget_set_sensitive(rrename, can_rename(archive));
+			}
+
+			clipboard = gtk_clipboard_get(XA_CLIPBOARD);
+			clipboard_selection = gtk_clipboard_wait_for_contents(clipboard, XA_INFO_LIST);
+
+			if (clipboard_selection != NULL)
+			{
+				paste_data = xa_get_paste_data_from_clipboard_selection((char *) gtk_selection_data_get_data(clipboard_selection));
+				gtk_selection_data_free(clipboard_selection);
+
+				if (strcmp(archive->path[1], paste_data->target->path[1]) != 0)
+					pasteable = TRUE;
+			}
+
+			gtk_widget_set_sensitive(eextract, archive->can_extract);
+			gtk_widget_set_sensitive(cut, archive->can_extract && archive->can_delete);
+			gtk_widget_set_sensitive(copy, archive->can_extract);
+			gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
+			gtk_widget_set_sensitive(ddelete, archive->can_delete);
+			gtk_menu_popup(GTK_MENU(xa_popup_menu), NULL, NULL, NULL, xa_main_window, event->button, event->time);
 		}
 
-		clipboard = gtk_clipboard_get(XA_CLIPBOARD);
-		clipboard_selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
-		if (clipboard_selection != NULL)
-		{
-			paste_data = xa_get_paste_data_from_clipboard_selection((char *) gtk_selection_data_get_data(clipboard_selection));
-			gtk_selection_data_free (clipboard_selection);
-			if (strcmp(archive->path[1], paste_data->target->path[1]) != 0)
-				pasteable = TRUE;
-		}
-
-		gtk_widget_set_sensitive(eextract, archive->can_extract);
-		gtk_widget_set_sensitive(cut, archive->can_extract && archive->can_delete);
-		gtk_widget_set_sensitive(copy, archive->can_extract);
-		gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
-		gtk_widget_set_sensitive(ddelete, archive->can_delete);
-		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,xa_main_window,event->button,event->time);
-		}
 		return TRUE;
 	}
-	gtk_tree_path_free (path);
+
+	gtk_tree_path_free(path);
+
 	return FALSE;
 }
 
