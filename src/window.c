@@ -670,14 +670,14 @@ static XAClipboard *xa_clipboard_data_new ()
 	return data;
 }
 
-static XAClipboard *xa_get_paste_data_from_clipboard_selection (const char *data)
+static XAClipboard *xa_get_paste_data_from_clipboard_selection (const guchar *data)
 {
 	gchar **uris;
 	gint i;
 	XAClipboard *clipboard_data;
 
 	clipboard_data = xa_clipboard_data_new();
-	uris = g_strsplit (data,"\r\n",-1);
+	uris = g_strsplit((const gchar *) data,"\r\n",-1);
 	clipboard_data->mode = (strcmp(uris[0], "copy") == 0 ? XA_CLIPBOARD_COPY : XA_CLIPBOARD_CUT);
 	sscanf(uris[1], "%p", &clipboard_data->target);
 	for (i = 2; uris[i]; i++)
@@ -2540,7 +2540,7 @@ gboolean xa_mouse_button_event (GtkWidget *widget, GdkEventButton *event, XArchi
 
 			if (clipboard_selection != NULL)
 			{
-				paste_data = xa_get_paste_data_from_clipboard_selection((char *) gtk_selection_data_get_data(clipboard_selection));
+				paste_data = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(clipboard_selection));
 				gtk_selection_data_free(clipboard_selection);
 
 				pasteable = (strcmp(archive->path[1], paste_data->target->path[1]) != 0);
@@ -2596,7 +2596,7 @@ void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
 	selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
 	if (selection == NULL)
 		return;
-	paste_data = xa_get_paste_data_from_clipboard_selection((char *) gtk_selection_data_get_data(selection));
+	paste_data = xa_get_paste_data_from_clipboard_selection(gtk_selection_data_get_data(selection));
 	gtk_selection_data_free (selection);
 
 	/* Let's add the already extracted files in the tmp dir to the current archive dir */
