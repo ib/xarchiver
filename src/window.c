@@ -2504,10 +2504,9 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (archive->treeview),event->x,event->y,&path,NULL,NULL,NULL);
 	if (path == NULL)
 		return FALSE;
-	if ((event->type == GDK_BUTTON_PRESS) && (event->button == 3))
+	if (event->type == GDK_BUTTON_PRESS && (event->button == 2 || event->button == 3))
 	{
 		gtk_tree_model_get_iter (GTK_TREE_MODEL (archive->liststore),&iter,path);
-		gtk_tree_path_free (path);
 		gtk_tree_model_get(archive->model, &iter, archive->columns - 1, &entry, -1);
 		if (! gtk_tree_selection_iter_is_selected (selection,&iter))
 		{
@@ -2516,6 +2515,10 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 			selected = 1;
 		}
 
+		if (event->button == 2 && selected <= 1)
+			xa_treeview_row_activated(GTK_TREE_VIEW(archive->treeview), path, NULL, archive);
+		else if (event->button == 3)
+		{
 		if (selected > 1 || entry->is_dir)
 		{
 			gtk_widget_set_sensitive(open_popupmenu, FALSE);
@@ -2545,8 +2548,10 @@ int xa_mouse_button_event(GtkWidget *widget,GdkEventButton *event,XArchive *arch
 		gtk_widget_set_sensitive(paste, pasteable && archive->can_add);
 		gtk_widget_set_sensitive(ddelete, archive->can_delete);
 		gtk_menu_popup (GTK_MENU (xa_popup_menu),NULL,NULL,NULL,xa_main_window,event->button,event->time);
+		}
 		return TRUE;
 	}
+	gtk_tree_path_free (path);
 	return FALSE;
 }
 
