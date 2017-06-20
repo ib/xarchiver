@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2008-10-07 22:35+0000\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -39,16 +39,16 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/window.c
-#, c-format
-msgid "%d file %s (%s)"
-msgid_plural "%d files %s (%s)"
-msgstr[0] ""
-msgstr[1] ""
+#, fuzzy, c-format
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Pelî lê Zêde bike"
+msgstr[1] "Pelî lê Zêde bike"
 
 #: ../src/window.c
 #, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -215,6 +215,12 @@ msgstr "Cureyê arşîvê:"
 msgid "Archive type:"
 msgstr "Cureyê arşîvê:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Archive type:"
+msgid "Archiver executable:"
+msgstr "Cureyê arşîvê:"
+
 #: ../src/window.c
 #, fuzzy
 msgid "Archiver output"
@@ -224,11 +230,7 @@ msgstr "Cureyê arşîvê:"
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr ""
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr ""
 
@@ -239,11 +241,6 @@ msgstr ""
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr ""
-
-#: ../src/rar.c
-#, fuzzy
-msgid "CRC"
-msgstr "CRC-32"
 
 #: ../src/add_dialog.c ../src/main.c
 #, fuzzy
@@ -274,7 +271,7 @@ msgstr "Arşîveke nû biafirîne"
 msgid "Can't create temporary directory:"
 msgstr "Arşîveke nû biafirîne"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr ""
 
@@ -344,6 +341,14 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Cancel current operation"
+msgstr ""
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
 msgstr ""
 
 #: ../src/pref_dialog.c
@@ -426,13 +431,17 @@ msgstr "Arşîveke nû biafirîne"
 msgid "Cut"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Roj"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+msgid "Date and Time"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Default custom command:"
 msgstr ""
 
 #: ../src/interface.c
@@ -579,17 +588,17 @@ msgstr ""
 msgid "From File"
 msgstr ""
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Kom"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -623,7 +632,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr ""
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr ""
 
@@ -661,6 +670,10 @@ msgstr ""
 msgid "OS"
 msgstr ""
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Tenê arşîv"
@@ -685,6 +698,12 @@ msgstr ""
 
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
+msgstr "Arşîvekê veke"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open an archive"
+msgid "Open archive files with:"
 msgstr "Arşîvekê veke"
 
 #: ../src/pref_dialog.c
@@ -719,19 +738,23 @@ msgstr ""
 msgid "Options:"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Orjînal"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Xwedî"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Xwedî/Kom"
 
@@ -756,11 +779,8 @@ msgstr ""
 msgid "Pattern:"
 msgstr ""
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Destûr"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Destûr"
 
@@ -788,10 +808,6 @@ msgstr ""
 msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
-#: ../src/window.c
-msgid "Please install xdg-utils."
-msgstr ""
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -813,7 +829,7 @@ msgstr ""
 msgid "Please wait until the completion of the current one!"
 msgstr ""
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr ""
 
@@ -841,7 +857,7 @@ msgstr ""
 msgid "Print the archive content as text"
 msgstr ""
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Rêje"
 
@@ -870,6 +886,10 @@ msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
+msgstr ""
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
 msgstr ""
 
 #: ../src/main.c ../src/window.c
@@ -914,6 +934,12 @@ msgstr ""
 msgid "Show archive tree sidebar"
 msgstr ""
 
+#: ../src/main.c
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -922,7 +948,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr ""
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Mezinahî"
 
@@ -934,7 +960,7 @@ msgstr ""
 msgid "Sorry, I could not perform the operation!"
 msgstr ""
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr ""
 
@@ -952,6 +978,10 @@ msgstr ""
 
 #: ../src/add_dialog.c
 msgid "Store full paths"
+msgstr ""
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
 msgstr ""
 
 #: ../src/window.c
@@ -977,20 +1007,20 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr ""
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "The proper archiver is not installed!"
 msgstr ""
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
-msgstr ""
-
-#: ../src/window.c
-msgid "This file type is not supported!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1030,13 +1060,9 @@ msgid ""
 "there; unlike the update option it will not add any new files"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
-msgstr "Dem"
-
-#: ../src/lha.c
-#, fuzzy
-msgid "Timestamp"
 msgstr "Dem"
 
 #: ../src/interface.c
@@ -1052,7 +1078,7 @@ msgstr "Hemû pel"
 msgid "Type:"
 msgstr ""
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr ""
 
@@ -1071,6 +1097,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1227,6 +1257,10 @@ msgstr ""
 msgid "_Text file"
 msgstr "HEMÛ pelan derxe"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr ""
@@ -1271,6 +1305,17 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Mezinahî\n"
+
+#, fuzzy
+#~ msgid "CRC"
+#~ msgstr "CRC-32"
+
+#~ msgid "Permission"
+#~ msgstr "Destûr"
+
+#, fuzzy
+#~ msgid "Timestamp"
+#~ msgstr "Dem"
 
 #, fuzzy
 #~ msgid "archive"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -39,18 +39,19 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "ఫైళ్ళను జతచేయి"
+msgstr[1] "ఫైళ్ళను జతచేయి"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d ఫైల్ %s (%s)"
 msgstr[1] "%d ఫైళ్ళు %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] ""
-msgstr[1] ""
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -207,6 +208,12 @@ msgstr ""
 msgid "Archive type:"
 msgstr "సంగ్రహ రకం:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Archive type:"
+msgid "Archiver executable:"
+msgstr "సంగ్రహ రకం:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr ""
@@ -215,11 +222,7 @@ msgstr ""
 msgid "Are you sure you want to do this?"
 msgstr ""
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr ""
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "ఆపాదనలు"
 
@@ -230,10 +233,6 @@ msgstr "వెనుకకు"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "విహరించు"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -259,7 +258,7 @@ msgstr ""
 msgid "Can't create temporary directory:"
 msgstr ""
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr ""
 
@@ -317,6 +316,14 @@ msgstr ""
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "ప్రస్తుత కార్యాన్ని రద్దుచేయి"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -396,14 +403,20 @@ msgstr ""
 msgid "Cut"
 msgstr "కత్తిరించు"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "తేదీ"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "సవరించిన తేదీ"
+
+#: ../src/pref_dialog.c
+msgid "Default custom command:"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Delete"
@@ -546,17 +559,17 @@ msgstr ""
 msgid "From File"
 msgstr ""
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "గుంపు"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -589,7 +602,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr ""
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "పద్ధతి"
 
@@ -626,6 +639,10 @@ msgstr "ఫైళ్ళ సంఖ్య: "
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "సంగ్రహములు మాత్రమే"
@@ -651,6 +668,12 @@ msgstr "ఒక పాఠ్య ఫైలును తెరువు"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "ఒక సంగ్రహమును తెరువు"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "బొమ్మ ఫైళ్లను దీనితో తెరువు:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -684,19 +707,23 @@ msgstr "ఐచ్ఛికాలు"
 msgid "Options:"
 msgstr "ఐచ్ఛికాలు:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "అసలు"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "యజమాని"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "యజమాని/గుంపు"
 
@@ -720,11 +747,8 @@ msgstr "పథం:"
 msgid "Pattern:"
 msgstr ""
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "అనుమతి"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "అనుమతులు"
 
@@ -752,10 +776,6 @@ msgstr ""
 msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
-#: ../src/window.c
-msgid "Please install xdg-utils."
-msgstr ""
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -777,7 +797,7 @@ msgstr ""
 msgid "Please wait until the completion of the current one!"
 msgstr ""
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr ""
 
@@ -805,7 +825,7 @@ msgstr ""
 msgid "Print the archive content as text"
 msgstr ""
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "నిష్పత్తి"
 
@@ -831,6 +851,10 @@ msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
+msgstr ""
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
 msgstr ""
 
 #: ../src/main.c ../src/window.c
@@ -873,6 +897,12 @@ msgstr ""
 msgid "Show archive tree sidebar"
 msgstr ""
 
+#: ../src/main.c
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -883,7 +913,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "రూపాంతరం చూపించి నిష్క్రమించు"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "పరిమాణం"
 
@@ -895,7 +925,7 @@ msgstr "కొన్ని దోషాలు సంభవించాయి:"
 msgid "Sorry, I could not perform the operation!"
 msgstr ""
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr ""
 
@@ -913,6 +943,10 @@ msgstr ""
 
 #: ../src/add_dialog.c
 msgid "Store full paths"
+msgstr ""
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
 msgstr ""
 
 #: ../src/window.c
@@ -939,21 +973,21 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr ""
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr ""
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "The proper archiver is not installed!"
 msgstr ""
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "ఈ సంగ్రహం ఎన్క్రిప్ట్ చేయబడింది!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr ""
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -992,13 +1026,10 @@ msgid ""
 "there; unlike the update option it will not add any new files"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "సమయం"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr ""
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1012,7 +1043,7 @@ msgstr ""
 msgid "Type:"
 msgstr "రకం:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1031,6 +1062,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1178,6 +1213,10 @@ msgstr "పరీక్షించు (_T)"
 msgid "_Text file"
 msgstr "పాఠ్య ఫైల్ (_T)"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "ఎన్నుకొను..."
@@ -1220,6 +1259,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|పరిమాణం\n"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Permission"
+#~ msgstr "అనుమతి"
 
 #~ msgid "archive"
 #~ msgstr "సంగ్రహం"

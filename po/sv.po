@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2009-12-16 18:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -39,18 +39,19 @@ msgstr[0] "%d katalog %s (%s)"
 msgstr[1] "%d kataloger %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Lägg till filer"
+msgstr[1] "Lägg till filer"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d fil %s (%s)"
 msgstr[1] "%d filer %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d fil och %d katalog %s (%s)"
-msgstr[1] "%d filer och %d kataloger %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -218,6 +219,12 @@ msgstr "Arkivträd"
 msgid "Archive type:"
 msgstr "Arkivtyp:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Kan inte köra arkiveraren:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Utdata från arkiverare"
@@ -226,11 +233,7 @@ msgstr "Utdata från arkiverare"
 msgid "Are you sure you want to do this?"
 msgstr "Är du säker på att du vill göra detta?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Attr"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Attribut"
 
@@ -241,10 +244,6 @@ msgstr "Bakåt"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Bläddra"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -270,7 +269,7 @@ msgstr "Kan inte skapa ett nytt arkiv:"
 msgid "Can't create temporary directory:"
 msgstr "Kan inte skapa temporärkatalog:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "Kan inte extrahera filer från arkivet:"
 
@@ -328,6 +327,14 @@ msgstr "Kan inte skriva unzipsfx-modulen till arkivet:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Avbryt aktuell åtgärd"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr "Kontrollsumma"
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -407,14 +414,22 @@ msgstr "Skapa ett solit arkiv"
 msgid "Cut"
 msgstr "Klipp ut"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Ändringsdatum"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Använd ett anpassat kommando:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -565,17 +580,17 @@ msgstr "Uppdatera befintliga filer"
 msgid "From File"
 msgstr "Från fil"
 
-#: ../src/arj.c
-msgid "GUA"
-msgstr "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
+msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Grupp"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Hård länk"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -615,7 +630,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "Skapa SF_X"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Metod"
 
@@ -652,6 +667,10 @@ msgstr "Antal filer: "
 msgid "OS"
 msgstr "Operativsystem"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Endast arkiv"
@@ -676,6 +695,12 @@ msgstr "Öppna en textfil"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Öppna ett arkiv"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Öppna bildfiler med:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -709,19 +734,23 @@ msgstr "Flaggor "
 msgid "Options:"
 msgstr "Alternativ:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Ursprunglig"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Skriv över befintliga filer"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Ägare"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Ägare/Grupp"
 
@@ -745,11 +774,8 @@ msgstr "Sökväg:"
 msgid "Pattern:"
 msgstr "Mönster:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Rättighet"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Rättigheter"
 
@@ -777,12 +803,6 @@ msgstr "Fyll i fältet \"Extrahera till\"!"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Gå till Inställningar->Avancerat och ställ in den."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Installera paketet xdg-utils."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -806,7 +826,7 @@ msgstr "Välj målkatalogen"
 msgid "Please wait until the completion of the current one!"
 msgstr "Vänta tills nuvarande är färdig!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Pekar till"
 
@@ -836,7 +856,7 @@ msgstr "Skriv ut arkivets innehåll som HTML"
 msgid "Print the archive content as text"
 msgstr "Skriv ut arkivets innehåll som text"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Förhållande"
 
@@ -863,6 +883,10 @@ msgstr "Spara självextraherande arkiv som"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Spara fönstergeometri"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -904,6 +928,15 @@ msgstr "Visa platsrad för arkiv"
 msgid "Show archive tree sidebar"
 msgstr "Visa sidopanel för arkivträd"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr ""
+"Lägg till angivna filer genom att fråga efter namnet på arkivet och avsluta."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -914,7 +947,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "Visa version och avsluta"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Storlek"
 
@@ -926,7 +959,7 @@ msgstr "Några fel inträffade:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "Tyvärr, jag kunde inte genomföra åtgärden!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Tyvärr, detta arkivformat stöds inte:"
 
@@ -945,6 +978,10 @@ msgstr "Lagra arkiverarens utdata"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Lagra fullständiga sökvägar"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -970,11 +1007,15 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Arkivets katalogstruktur återskapas i extraheringskatalogen"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Arkiveraren saknar stöd för denna funktion!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Filnamnskolumnen sorteras efter inläsning av arkivet"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -983,10 +1024,6 @@ msgstr "den lämpliga arkivhanteraren är inte installerad!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Detta arkiv är krypterat!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Denna filtyp stöds inte!"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1050,13 +1087,10 @@ msgstr ""
 "version som redan finns i arkivet; i motsats till uppdateringsalternativet "
 "kommer detta inte att lägga till filer som inte redan finns i arkivet"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "Tid"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Tidsstämpel"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1070,7 +1104,7 @@ msgstr "Rör filerna"
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1089,6 +1123,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1249,6 +1287,10 @@ msgstr "Te_sta"
 msgid "_Text file"
 msgstr "_Textfil"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "välj..."
@@ -1303,14 +1345,42 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Storlek\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d fil och %d katalog %s (%s)"
+#~ msgstr[1] "%d filer och %d kataloger %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Attr"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "GUA"
+#~ msgstr "GUA"
+
+#~ msgid "Hard Link"
+#~ msgstr "Hård länk"
+
+#~ msgid "Permission"
+#~ msgstr "Rättighet"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Installera paketet xdg-utils."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Denna filtyp stöds inte!"
+
+#~ msgid "Timestamp"
+#~ msgstr "Tidsstämpel"
+
 #~ msgid "Decompress file"
 #~ msgstr "Dekomprimera fil"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Multiextrahera arkiv"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "Arkiveraren saknar stöd för denna funktion!"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "Du kan inte lägga till något till rpm-paket!"
@@ -1619,9 +1689,6 @@ msgstr "|Storlek\n"
 #, fuzzy
 #~ msgid "Preferred format for new archives:"
 #~ msgstr "Skapa ett nytt arkiv"
-
-#~ msgid "Checksum"
-#~ msgstr "Kontrollsumma"
 
 #~ msgid "Error while extracting the cpio archive from the rpm one."
 #~ msgstr "Ett fel inträffade vid extrahering av cpio-arkivet från rpm-filen."

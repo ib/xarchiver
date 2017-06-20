@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2010-01-23 14:59+0300\n"
 "Last-Translator: dima <info@cnc-parts.info>\n"
 "Language-Team: ru_RU <ru@li.org>\n"
@@ -50,20 +50,21 @@ msgstr[1] "%d каталог %s (%s)"
 msgstr[2] "%d каталог %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Добавить файлы"
+msgstr[1] "Добавить файлы"
+msgstr[2] "Добавить файлы"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d файл %s (%s)"
 msgstr[1] "%d файл %s (%s)"
 msgstr[2] "%d файл %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d файл и %d каталог %s (%s)"
-msgstr[1] "%d файлов и %d каталогов %s (%s)"
-msgstr[2] "%d файлов и %d каталогов %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -226,6 +227,12 @@ msgstr "Дерево архива:"
 msgid "Archive type:"
 msgstr "Тип архива:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Невозможно запустить программу-архиватор:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Сообщения архиватора:"
@@ -234,11 +241,7 @@ msgstr "Сообщения архиватора:"
 msgid "Are you sure you want to do this?"
 msgstr "Вы уверены, что хотите сделать это?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Атрибуты"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Атрибуты"
 
@@ -249,10 +252,6 @@ msgstr "Назад"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Просмотреть"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -278,7 +277,7 @@ msgstr "Создать новый архив:"
 msgid "Can't create temporary directory:"
 msgstr "Не удалось создать временную папку:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "Не удалось извлечь файлы из архива:"
 
@@ -336,6 +335,14 @@ msgstr "Не удаётся вставить модуль unzipsfx в архив
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Отменить текущую операцию"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -415,14 +422,22 @@ msgstr "Создавать непрерывный архив"
 msgid "Cut"
 msgstr "Вырезать"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Дата"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Дата изменения"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Использовать указанную команду:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -574,17 +589,17 @@ msgstr "Обновить существующие файлы"
 msgid "From File"
 msgstr "Из файла"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Группа"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Жёсткая ссылка"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -624,7 +639,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "Сделать _SFX"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Метод"
 
@@ -661,6 +676,10 @@ msgstr "Количество файлов: "
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Только архивы"
@@ -685,6 +704,12 @@ msgstr "Открыть как текстовый файл"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Открыть архив"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Открывать изображения с помощью:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -718,19 +743,23 @@ msgstr "Параметры"
 msgid "Options:"
 msgstr "Параметры:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Исходный"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Перезаписать существующие файлы"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Владелец"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Владелец/Группа"
 
@@ -754,11 +783,8 @@ msgstr "Путь:"
 msgid "Pattern:"
 msgstr "Шаблон:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Права"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Права"
 
@@ -786,12 +812,6 @@ msgstr "Пожалуйста, укажите путь для извлечени�
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Перейдите в пункт меню Настройки->Дополнительно и установите его."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Установите xdg-utils"
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -813,7 +833,7 @@ msgstr "Укажите целевой каталог"
 msgid "Please wait until the completion of the current one!"
 msgstr "Дождитесь окончания текущей операции!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Указывает на"
 
@@ -843,7 +863,7 @@ msgstr "Напечатать содержимое архива в виде HTML"
 msgid "Print the archive content as text"
 msgstr "Напечатать содержимое архива как текст"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Коэффициент"
 
@@ -870,6 +890,10 @@ msgstr "Сохранить самораспаковывающийся архив
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Сохранять размеры окна"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -913,6 +937,15 @@ msgstr "Показывать местоположение архива"
 msgid "Show archive tree sidebar"
 msgstr "Показывать дерево архива"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr ""
+"Запросить имя архива, добавить в него выбранные файлы и завершить работу."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -923,7 +956,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "Показать информацию о версии и выйти"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Размер"
 
@@ -935,7 +968,7 @@ msgstr "Произошла ошибка:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "Не удалось выполнить операцию."
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Этот тип архива не поддерживается:"
 
@@ -954,6 +987,10 @@ msgstr "Сохранять сообщения архиватора"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Полный путь для сохранения"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -979,11 +1016,15 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "При извлечении будет воссоздана полная структура папок."
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Архиватор не поддерживает такую возможность."
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Колонка имен файлов отсортирована после загрузки архива."
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -992,10 +1033,6 @@ msgstr "не установлен соответствующий архиват�
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Этот архив зашифрован."
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Этот тип файлов не поддерживается."
 
 #: ../src/interface.c
 #, fuzzy
@@ -1056,12 +1093,9 @@ msgstr ""
 "свежую дату изменений, чем файлы с таким же именем в архиве. В отличие от "
 "обновления, новые файлы добавлены не будут."
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
-msgstr "Время"
-
-#: ../src/lha.c
-msgid "Timestamp"
 msgstr "Время"
 
 #: ../src/interface.c
@@ -1076,7 +1110,7 @@ msgstr "Установить время изменений файлов"
 msgid "Type:"
 msgstr "Тип:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1095,6 +1129,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1252,6 +1290,10 @@ msgstr "_Проверить"
 msgid "_Text file"
 msgstr "_Текстовый файл"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "выберите..."
@@ -1302,14 +1344,40 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Размер\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d файл и %d каталог %s (%s)"
+#~ msgstr[1] "%d файлов и %d каталогов %s (%s)"
+#~ msgstr[2] "%d файлов и %d каталогов %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Атрибуты"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "Жёсткая ссылка"
+
+#~ msgid "Permission"
+#~ msgstr "Права"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Установите xdg-utils"
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Этот тип файлов не поддерживается."
+
+#~ msgid "Timestamp"
+#~ msgstr "Время"
+
 #~ msgid "Decompress file"
 #~ msgstr "Извлечь файл"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Распаковка нескольких архивов"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "Архиватор не поддерживает такую возможность."
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "Вы не можете добавить файлы в пакет RPM!"

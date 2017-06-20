@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -43,18 +43,19 @@ msgstr[0] "%d directori %s (%s)"
 msgstr[1] "%d directoris %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Afegeix fitxers"
+msgstr[1] "Afegeix fitxers"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d fitxer %s (%s)"
 msgstr[1] "%d fitxers %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d fitxer i %d directori %s (%s)"
-msgstr[1] "%d fitxers i %d directoris %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -220,6 +221,12 @@ msgstr "Arbre de l'arxiu"
 msgid "Archive type:"
 msgstr "Tipus d'arxiu:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "No s’ha pogut executar el compresor:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Sortida de l'arxiver "
@@ -228,11 +235,7 @@ msgstr "Sortida de l'arxiver "
 msgid "Are you sure you want to do this?"
 msgstr "Esteu segurs que voleu dur a terme aquesta acció?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Atributs"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atributs"
 
@@ -243,10 +246,6 @@ msgstr "Endarrere"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Navega"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -272,7 +271,7 @@ msgstr "No s’ha pogut crear un arxiu nou:"
 msgid "Can't create temporary directory:"
 msgstr "No s’ha pogut crear un directori temporal:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "No s’ha pogut extreure els fitxers de l’arxiu:"
 
@@ -330,6 +329,14 @@ msgstr "No s’ha pogut escriure el mòdul unzipsfx per l’arxiu:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Cancela l’operació actual"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -409,14 +416,22 @@ msgstr "Crea un arxiu sòlid"
 msgid "Cut"
 msgstr "Talla"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Data"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Data modificada"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Empra una ordre personalitzada:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -567,17 +582,17 @@ msgstr "Refresca els arxius existents"
 msgid "From File"
 msgstr "Des del fitxer"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Grup"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Enllaç dur"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -617,7 +632,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "Crea SF_X"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Mètode"
 
@@ -654,6 +669,10 @@ msgstr "Nombre de fitxers: "
 msgid "OS"
 msgstr "SO"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Sols arxius"
@@ -678,6 +697,12 @@ msgstr "Obre un fitxer de text"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Obre un arxiu"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Obre els fitxers d'imatges amb:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -711,19 +736,23 @@ msgstr "Opcions "
 msgid "Options:"
 msgstr "Opcions:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Original"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Sobreescriu els fitxers existents"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Propietari"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Propietari/Grup"
 
@@ -747,11 +776,8 @@ msgstr "Camí:"
 msgid "Pattern:"
 msgstr "Patró:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Permís"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Permisos"
 
@@ -779,12 +805,6 @@ msgstr "Empleneu el camp «Extreu a»."
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Aneu a Preferències->Avançat per seleccionar-lo."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Instaŀleu el paquet «xdg-utils»."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -806,7 +826,7 @@ msgstr "Seleccioneu el directori de destí"
 msgid "Please wait until the completion of the current one!"
 msgstr "S’està duent a terme una alter operació"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Apunta a"
 
@@ -836,7 +856,7 @@ msgstr "Mostra el contingut de l'arxiu com HTML"
 msgid "Print the archive content as text"
 msgstr "Mostra el contingut de l'arxiu com text"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Rati"
 
@@ -863,6 +883,10 @@ msgstr "Desa l’arxiu autodescomprimible com"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Desa la geometria de la finestra"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -904,6 +928,14 @@ msgstr "Mostra la barra de localització d'arxiu"
 msgid "Show archive tree sidebar"
 msgstr "Mostra la barra lateral d'arbre d'arxiu"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "Afegeix els fitxers segons el nom de l’arxiu i tanca."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -914,7 +946,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "Mostra la versió i surt"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Mida"
 
@@ -926,7 +958,7 @@ msgstr "S’ha produït algun error:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "No s’ha pogut dur a terme l’operació"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Aquest format de fitxer no està admès:"
 
@@ -945,6 +977,10 @@ msgstr "Desa la sortida del fitxer"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Desa tots els camins"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -971,11 +1007,15 @@ msgid ""
 msgstr ""
 "L’estructura de directoris de l'arxiu es recrea en el directori de destí"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Aquesta funcionalitat no està admesa."
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "La columna de nom de fitxer s’ordena després d'haver carregat l'arxiu"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -984,10 +1024,6 @@ msgstr "l’arxivador corresponent no està instaŀlat"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "L’arxiu està xifrat"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Aquest format de fitxer no està admès."
 
 #: ../src/interface.c
 #, fuzzy
@@ -1052,13 +1088,10 @@ msgstr ""
 "la versió de l'arxiu; al contrari que al cas de l'opció d'actualització, no "
 "afegirà fitxers que no estiguin ja a l'arxiu"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "Hora"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Marca horària"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1072,7 +1105,7 @@ msgstr "Executa «touch» sobre els fitxers"
 msgid "Type:"
 msgstr "Tipus:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1091,6 +1124,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1249,6 +1286,10 @@ msgstr "P_rova"
 msgid "_Text file"
 msgstr "Fitxer de _text"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "escull…"
@@ -1300,14 +1341,39 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Mida\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d fitxer i %d directori %s (%s)"
+#~ msgstr[1] "%d fitxers i %d directoris %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Atributs"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "Enllaç dur"
+
+#~ msgid "Permission"
+#~ msgstr "Permís"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Instaŀleu el paquet «xdg-utils»."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Aquest format de fitxer no està admès."
+
+#~ msgid "Timestamp"
+#~ msgstr "Marca horària"
+
 #~ msgid "Decompress file"
 #~ msgstr "Descomprimeix el fitxer"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Extracció múltiple d'arxius"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "Aquesta funcionalitat no està admesa."
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "No podeu afegir contingut als paquets rpm"

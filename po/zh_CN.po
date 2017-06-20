@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2009-10-21 13:57+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -42,18 +42,19 @@ msgstr[0] "%d 个目录 %s (%s)"
 msgstr[1] "%d 个目录 %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "添加文件"
+msgstr[1] "添加文件"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d 个文件 %s (%s)"
 msgstr[1] "%d 个文件 %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d 个文件和 %d 个目录 %s (%s)"
-msgstr[1] "%d 个文件和 %d 个目录 %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -216,6 +217,12 @@ msgstr "归档文件树："
 msgid "Archive type:"
 msgstr "归档文件类型："
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "未能运行可执行的归档文件管理器："
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "归档文件管理器输出"
@@ -224,11 +231,7 @@ msgstr "归档文件管理器输出"
 msgid "Are you sure you want to do this?"
 msgstr "您确定要这样做吗？"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "属性"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "属性"
 
@@ -239,10 +242,6 @@ msgstr "后退"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "浏览"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -268,7 +267,7 @@ msgstr "未能创建新归档文件："
 msgid "Can't create temporary directory:"
 msgstr "未能创建临时目录："
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "未能从归档文件中解压文件："
 
@@ -326,6 +325,14 @@ msgstr "未能在归档文件中写入 unzipsfx 模块："
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "取消当前操作"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -405,14 +412,22 @@ msgstr "创建一体化归档文件"
 msgid "Cut"
 msgstr "剪切"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "日期"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "日期已修改"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "使用自定义命令："
 
 #: ../src/interface.c
 msgid "Delete"
@@ -561,17 +576,17 @@ msgstr "刷新已存在的文件"
 msgid "From File"
 msgstr "从文件"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "组别"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "硬链接"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -608,7 +623,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "制作自解压文件(_X)"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "模式"
 
@@ -645,6 +660,10 @@ msgstr "文件数目："
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "仅归档文件"
@@ -670,6 +689,12 @@ msgstr "打开文本文件"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "打开归档文件文件"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "图片文件打开方式："
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -703,19 +728,23 @@ msgstr "选项 "
 msgid "Options:"
 msgstr "选项："
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "压缩前"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "覆盖已存在的文件"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "所有者"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "所有者/组"
 
@@ -739,11 +768,8 @@ msgstr "路径："
 msgid "Pattern:"
 msgstr "匹配规则："
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "权限"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "权限"
 
@@ -771,12 +797,6 @@ msgstr "请填写 “解压至” 一栏！"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "请到首选设置->高级进行设置。"
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "请安装 xdg-util 软件包。"
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -798,7 +818,7 @@ msgstr "请选择目标目录"
 msgid "Please wait until the completion of the current one!"
 msgstr "请等到当前操作完成！"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "指向"
 
@@ -828,7 +848,7 @@ msgstr "以 HTML 方式查看归档文件内容"
 msgid "Print the archive content as text"
 msgstr "以文本方式查看归档文件内容"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "比率"
 
@@ -855,6 +875,10 @@ msgstr "自解压归档文件另存为"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "保存窗口几何形状"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -896,6 +920,14 @@ msgstr "显示归档文件位置栏"
 msgid "Show archive tree sidebar"
 msgstr "显示归档文件归档文件树侧边栏"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "询问归档文件名添加给定的文件后退出。"
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -906,7 +938,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "显示版本并退出"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "大小"
 
@@ -918,7 +950,7 @@ msgstr "出了些错："
 msgid "Sorry, I could not perform the operation!"
 msgstr "对不起，我不能执行此操作！"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "对不起，不支持此归档文件格式："
 
@@ -937,6 +969,10 @@ msgstr "储存归档文件输出"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "储存完整路径"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -962,11 +998,15 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "在解压目录中重新创建归档文件的目录结构"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "归档管理器不支持此功能！"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "载入归档文件后排列文件名栏"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -975,10 +1015,6 @@ msgstr "未安装合适的归档文件管理器！"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "此归档文件已加密！"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "不支持此文件类型！"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1034,13 +1070,10 @@ msgstr ""
 "此项只影响修改后版本比归档文件中已存在版本新的归档文件；不像更新选项它不在归"
 "档文件中添加不存在的文件"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "时间"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "时间戳"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1054,7 +1087,7 @@ msgstr "修改文件时间戳"
 msgid "Type:"
 msgstr "类型："
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1073,6 +1106,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1229,6 +1266,10 @@ msgstr "测试(_T)"
 msgid "_Text file"
 msgstr "文本文件(_T)"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "选择..."
@@ -1283,14 +1324,39 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|大小\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d 个文件和 %d 个目录 %s (%s)"
+#~ msgstr[1] "%d 个文件和 %d 个目录 %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "属性"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "硬链接"
+
+#~ msgid "Permission"
+#~ msgstr "权限"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "请安装 xdg-util 软件包。"
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "不支持此文件类型！"
+
+#~ msgid "Timestamp"
+#~ msgstr "时间戳"
+
 #~ msgid "Decompress file"
 #~ msgstr "解压文件"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "多重解压归档文件"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "归档管理器不支持此功能！"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "您不能在 rpm 软件包中添加内容！"

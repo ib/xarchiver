@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2010-12-13 13:59+0200\n"
 "Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -42,20 +42,21 @@ msgstr[1] "%d directoare %s (%s)"
 msgstr[2] "%d de directoare %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Adăugare fișiere"
+msgstr[1] "Adăugare fișiere"
+msgstr[2] "Adăugare fișiere"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d fișier %s (%s)"
 msgstr[1] "%d fișiere %s (%s)"
 msgstr[2] "%d de fișiere %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d fișier și %d director %s (%s)"
-msgstr[1] "%d fișiere și %d directoare %s (%s)"
-msgstr[2] "%d de fișiere și %d de directoare %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -219,6 +220,12 @@ msgstr "Arborele arhivei"
 msgid "Archive type:"
 msgstr "Tipul arhivei:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Nu se poate executa arhivatorul:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Output arhivator"
@@ -227,11 +234,7 @@ msgstr "Output arhivator"
 msgid "Are you sure you want to do this?"
 msgstr "Sigur asta doriți?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Atribut"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atribute"
 
@@ -242,10 +245,6 @@ msgstr "Înapoi"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Navigare"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -271,7 +270,7 @@ msgstr "Nu se poate crea o nouă arhivă:"
 msgid "Can't create temporary directory:"
 msgstr "Nu se poate crea directorul temporar:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "Nu se pot extrage fișierele din arhivă:"
 
@@ -329,6 +328,14 @@ msgstr "Nu se poate scrie în arhivă modulul «unzipsfx»:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Anulează operațiunea curentă"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -408,14 +415,22 @@ msgstr "Creează o arhivă compactă"
 msgid "Cut"
 msgstr "Taie"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Dată"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Dată modificată"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Utilizează o comandă personalizată:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -566,17 +581,17 @@ msgstr "Împrospătează fișierele existente"
 msgid "From File"
 msgstr "Din fișier"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Grup"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Legatură hard"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -615,7 +630,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "Creează o arhivă e_xecutabilă"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Metodă"
 
@@ -652,6 +667,10 @@ msgstr "Număr de fișiere: "
 msgid "OS"
 msgstr "SO"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Doar arhive"
@@ -677,6 +696,12 @@ msgstr "Deschide un fișier text"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Deschide o arhivă"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Deschide fișierele de tip imagine cu:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -710,19 +735,23 @@ msgstr "Opțiuni "
 msgid "Options:"
 msgstr "Opțiuni:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Original"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Suprascrie fișierele existente"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Deținător"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Deținător/Grup"
 
@@ -746,11 +775,8 @@ msgstr "Cale:"
 msgid "Pattern:"
 msgstr "Model:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Drepturi"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Drepturi"
 
@@ -779,12 +805,6 @@ msgstr "Completați câmpul „Dezarhivare în”!"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Precizați-vă opțiunea în secțiunea avansată a preferințelor."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Trebuie instalat pachetul xdg-utils."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -806,7 +826,7 @@ msgstr "Selectați directorul de destinație"
 msgid "Please wait until the completion of the current one!"
 msgstr "Așteptați să se termine dezarhivarea curentă!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Indică spre"
 
@@ -836,7 +856,7 @@ msgstr "Enumeră conținutul arhivei în format HTML"
 msgid "Print the archive content as text"
 msgstr "Enumeră conținutul arhivei în format text"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Rată"
 
@@ -863,6 +883,10 @@ msgstr "Salvează arhiva executabilă ca"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Salvează geometria ferestrei"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -905,6 +929,14 @@ msgstr "Arată bara cu calea arhivei"
 msgid "Show archive tree sidebar"
 msgstr "Arată arborele arhivei în bara laterală"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "Adaugă fișierele date cerând numele arhivei și apoi iese."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -915,7 +947,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "Arată versiunea și ieși"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Mărime"
 
@@ -927,7 +959,7 @@ msgstr "Au apărut unele erori:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "Scuze, dar nu se poate efectua această operațiune!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Din păcate acest tip de format nu este suportat:"
 
@@ -946,6 +978,10 @@ msgstr "Păstrează outputul arhivatorului"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Include căi complete"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -972,11 +1008,15 @@ msgid ""
 msgstr ""
 "Structura de directoare a arhivei este recreată în directorul de destinație"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Arhivatorul nu suportă această facilitate!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Coloana cu numele de fișiere e sortată după încărcarea arhivei"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -985,10 +1025,6 @@ msgstr "arhivatorul potrivit nu este instalat!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Această arhivă este criptată!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Acest tip de fișier nu este suportat!"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1057,13 +1093,10 @@ msgstr ""
 "Spre deosebire de opțiunea de actualizare, această opțiune nu va adăuga "
 "fișiere care nu au în arhivă o versiune mai veche."
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "Oră"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Dată"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1077,7 +1110,7 @@ msgstr "Schimbă datele fișierelor"
 msgid "Type:"
 msgstr "Tip:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1096,6 +1129,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1256,6 +1293,10 @@ msgstr "_Testează"
 msgid "_Text file"
 msgstr "Fișier _text"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "alegeți..."
@@ -1308,14 +1349,40 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Mărime\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d fișier și %d director %s (%s)"
+#~ msgstr[1] "%d fișiere și %d directoare %s (%s)"
+#~ msgstr[2] "%d de fișiere și %d de directoare %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Atribut"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "Legatură hard"
+
+#~ msgid "Permission"
+#~ msgstr "Drepturi"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Trebuie instalat pachetul xdg-utils."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Acest tip de fișier nu este suportat!"
+
+#~ msgid "Timestamp"
+#~ msgstr "Dată"
+
 #~ msgid "Decompress file"
 #~ msgstr "Desfă arhiva"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Dezarhivare multiplă"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "Arhivatorul nu suportă această facilitate!"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "Nu se poate adăuga conținut pachetelor «rpm»!"

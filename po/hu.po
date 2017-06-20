@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2017-01-23 23:58+0100\n"
 "Last-Translator: Páder Rezső <rezso@rezso.net>\n"
 "Language-Team: Hungarian\n"
@@ -39,18 +39,19 @@ msgstr[0] "%d könyvtár %s (%s)"
 msgstr[1] "%d könyvtár %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Fájlok hozzáadása"
+msgstr[1] "Fájlok hozzáadása"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d fájl %s (%s)"
 msgstr[1] "%d fájl %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d fájl és %d könyvtár %s (%s)"
-msgstr[1] "%d fájl és %d könyvtár %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -222,6 +223,12 @@ msgstr "Archívumfa"
 msgid "Archive type:"
 msgstr "Archívumtípus:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Az archiváló végrehajtható fájlja nem futtatható:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Archiváló kimenete"
@@ -230,11 +237,7 @@ msgstr "Archiváló kimenete"
 msgid "Are you sure you want to do this?"
 msgstr "Biztos, hogy ezt akarja tenni?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Attr"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Attribútumok"
 
@@ -245,10 +248,6 @@ msgstr "Vissza"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Tallózás"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -274,7 +273,7 @@ msgstr "Nem hozható létre új archívum:"
 msgid "Can't create temporary directory:"
 msgstr "Nem hozható létre átmeneti könyvtár:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "Nem bonthatók ki fájlok az archívumból:"
 
@@ -332,6 +331,14 @@ msgstr "Az unzipsfx modul nem írható az archívumba:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Aktuális művelet megszakítása"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -411,14 +418,22 @@ msgstr "Tömör archívum létrehozása"
 msgid "Cut"
 msgstr "Kivágás"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Dátum"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Módosítás dátuma"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Egyéni parancs használata:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -569,17 +584,17 @@ msgstr "Meglévő fájlok felfrissítése"
 msgid "From File"
 msgstr "Fájlból"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Csoport"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Hard link"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -618,7 +633,7 @@ msgstr "Jelenleg karbantartja "
 msgid "Make SF_X"
 msgstr "SF_X készítése"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Metódus"
 
@@ -655,6 +670,10 @@ msgstr "Fájlok száma: "
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Csak archívumok"
@@ -679,6 +698,12 @@ msgstr "Szövegfájl megnyitása"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Archívum megnyitása"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Képfájlok megnyitása ezzel:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -712,19 +737,23 @@ msgstr "Beállítások "
 msgid "Options:"
 msgstr "Beállítások:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Eredeti"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Meglévő fájlok felülírása"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Tulajdonos"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Tulajdonos/csoport"
 
@@ -748,11 +777,8 @@ msgstr "Útvonal:"
 msgid "Pattern:"
 msgstr "Minta:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Jogosultság"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Jogosultságok"
 
@@ -782,12 +808,6 @@ msgstr "Töltse ki a „Kibontás ide” mezőt"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "A Beállítások → Speciális alatt állítsa be."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Telepítse az xdg-utils csomagot"
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -809,7 +829,7 @@ msgstr "Válassza ki a célkönyvtárat"
 msgid "Please wait until the completion of the current one!"
 msgstr "Várjon, amíg az aktuális befejeződik"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Erre mutat:"
 
@@ -839,7 +859,7 @@ msgstr "Az archívum tartalmának kiírása HTML-ként"
 msgid "Print the archive content as text"
 msgstr "Az archívum tartalmának kiírása szövegként"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Arány"
 
@@ -866,6 +886,10 @@ msgstr "Az önkibontó archívum mentése másként"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Ablakgeometria mentése"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -907,6 +931,15 @@ msgstr "Archívum hely sávjának megjelenítése"
 msgid "Show archive tree sidebar"
 msgstr "Archívum fa oldalsávjának megjelenítése"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr ""
+"A megadott fájlok hozzáadása az archívum nevének bekérésével és kilépés"
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr "Eszköztár megjelenítése"
@@ -917,7 +950,7 @@ msgstr "Eszköztár megjelenítése"
 msgid "Show version and exit\n"
 msgstr "Verziószám kiírása és kilépés"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Méret"
 
@@ -929,7 +962,7 @@ msgstr "Hibák történtek:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "A művelet végrehajtása meghiúsult"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Ez az archívumformátum nem támogatott:"
 
@@ -948,6 +981,10 @@ msgstr "Archiváló kimenetének tárolása"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Teljes útvonalak tárolása"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -973,21 +1010,21 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Az archívum könyvtárszerkezetének előállítása a kibontási könyvtárban"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Az archiváló nem támogatja ezt a szolgáltatást"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "A fájlnév oszlop rendezése az archívum betöltése után"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "The proper archiver is not installed!"
 msgstr "Nincs telepítve a megfelelő archiváló"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Ez az archívum titkosított"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Ez a fájltípus nem támogatott"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1047,13 +1084,10 @@ msgstr ""
 "változatnál később frissítették, a frissítéssel szemben az archívumban meg "
 "nem található fájlokat nem adja hozzá."
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "Idő"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "időbélyeg"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1067,7 +1101,7 @@ msgstr "Fájlok időbélyegének frissítése"
 msgid "Type:"
 msgstr "Típus:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1086,6 +1120,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1243,6 +1281,10 @@ msgstr "_Teszt"
 msgid "_Text file"
 msgstr "S_zövegfájl"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "Válasszon…"
@@ -1295,14 +1337,39 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Méret\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d fájl és %d könyvtár %s (%s)"
+#~ msgstr[1] "%d fájl és %d könyvtár %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Attr"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "Hard link"
+
+#~ msgid "Permission"
+#~ msgstr "Jogosultság"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Telepítse az xdg-utils csomagot"
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Ez a fájltípus nem támogatott"
+
+#~ msgid "Timestamp"
+#~ msgstr "időbélyeg"
+
 #~ msgid "Decompress file"
 #~ msgstr "Fájl kibontása"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Több archívum kibontása"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "Az archiváló nem támogatja ezt a szolgáltatást"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "Nem adhat tartalmat rpm csomagokhoz"

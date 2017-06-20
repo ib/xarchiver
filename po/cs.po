@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2009-10-16 19:47+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -41,20 +41,21 @@ msgstr[1] "%d adresáře %s (%s)"
 msgstr[2] "%d adresářů %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Přidat soubory"
+msgstr[1] "Přidat soubory"
+msgstr[2] "Přidat soubory"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d soubor %s (%s)"
 msgstr[1] "%d soubory %s (%s)"
 msgstr[2] "%d souborů %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d soubor a %d adresář %s (%s)"
-msgstr[1] "%d soubory a %d adresáře %s (%s)"
-msgstr[2] "%d souborů a %d adresářů %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -224,6 +225,12 @@ msgstr "Strom archivu:"
 msgid "Archive type:"
 msgstr "Typ archivu:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Nelze spustit program archivátoru:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Výstup archivátoru"
@@ -232,11 +239,7 @@ msgstr "Výstup archivátoru"
 msgid "Are you sure you want to do this?"
 msgstr "Opravdu chcete provést tuto akci?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Atrib"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atributy"
 
@@ -247,10 +250,6 @@ msgstr "Zpět"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Procházet"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "Kontrolní součet CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -276,7 +275,7 @@ msgstr "Nelze vytvořit nový archiv:"
 msgid "Can't create temporary directory:"
 msgstr "Nelze vytvořit dočasný adresář:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "Nelze rozbalit soubory z archivu:"
 
@@ -334,6 +333,14 @@ msgstr "Modulem unzipsfx nelze zapisovat do archivu:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Zrušit aktuální operaci"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr "Kontrolní součet"
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -413,14 +420,22 @@ msgstr "Vytvořit archiv typu solid"
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Datum změny"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Použít vlastní příkaz:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -569,17 +584,17 @@ msgstr "Aktualizovat existující soubory"
 msgid "From File"
 msgstr "Ze souboru"
 
-#: ../src/arj.c
-msgid "GUA"
-msgstr "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
+msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Skupina"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Pevný odkaz"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -618,7 +633,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "Vy_tvořit samorozbalitelný archiv"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Metoda"
 
@@ -655,6 +670,10 @@ msgstr "Počet souborů:"
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Pouze archivy"
@@ -679,6 +698,12 @@ msgstr "Otevřít textový soubor"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Otevřít archiv"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Otevřít obrázky pomocí:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -712,19 +737,23 @@ msgstr "Volby"
 msgid "Options:"
 msgstr "Volby:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Původní"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Přepsat existující soubory"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Vlastník"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Vlastník/skupina"
 
@@ -748,11 +777,8 @@ msgstr "Cesta:"
 msgid "Pattern:"
 msgstr "Vzor:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Oprávnění"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Oprávnění"
 
@@ -780,12 +806,6 @@ msgstr "Vyplňte pole \"Rozbalit do\"."
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Pro nastavení použijte nabídku Předvolby->Pokročilé."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Nainstalujte balíček xdg-utils."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -807,7 +827,7 @@ msgstr "Vyberte cílový adresář"
 msgid "Please wait until the completion of the current one!"
 msgstr "Počkejte prosím, než se dokončí předchozí operace!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Ukazuje na"
 
@@ -837,7 +857,7 @@ msgstr "Zobrazit obsah archivu jako HTML"
 msgid "Print the archive content as text"
 msgstr "Zobrazit obsah archivu jako text"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Poměr"
 
@@ -864,6 +884,10 @@ msgstr "Uložit samorozbalitelný archiv jako"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Uložit rozměry okna"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -905,6 +929,14 @@ msgstr "Zobrazovat panel umístění v archivu"
 msgid "Show archive tree sidebar"
 msgstr "Zobrazovat postranní panel se stromem archivu"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "Zeptá se název archivu, přidá do něj soubory a ukončí se."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -915,7 +947,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "Zobrazí informace o verzi a ukončí se"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Velikost"
 
@@ -927,7 +959,7 @@ msgstr "Došlo k několika chybám:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "Omlouváme se za potíže, ale operaci nelze provést."
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Omlouváme se, ale tento formát není podporován:"
 
@@ -946,6 +978,10 @@ msgstr "Ukládat výstup archivátoru"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Ukládat úplné cesty"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -973,11 +1009,15 @@ msgstr ""
 "Adresářová struktura archivu bude opětovně vytvořena do adresáře určeného "
 "pro rozbalení."
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Archivátor tuto funkci nepodporuje."
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Sloupec s názvy souborů se po načtení archivu seřadí"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -986,10 +1026,6 @@ msgstr "není nainstalován odpovídající archivátor!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Tento archiv je šifrovaný!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Tento formát archivu není podporován."
 
 #: ../src/interface.c
 #, fuzzy
@@ -1056,13 +1092,10 @@ msgstr ""
 "Aktualizovat a přidat tato akce nepřidá do archivu soubor, který v něm dosud "
 "není obsažen."
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "Čas"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Časová známka"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1076,7 +1109,7 @@ msgstr "Dotknout se souborů"
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1095,6 +1128,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1251,6 +1288,10 @@ msgstr "_Otestovat"
 msgid "_Text file"
 msgstr "_Textový soubor"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "zvolit..."
@@ -1301,14 +1342,43 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Velikost\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d soubor a %d adresář %s (%s)"
+#~ msgstr[1] "%d soubory a %d adresáře %s (%s)"
+#~ msgstr[2] "%d souborů a %d adresářů %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Atrib"
+
+#~ msgid "CRC"
+#~ msgstr "Kontrolní součet CRC"
+
+#~ msgid "GUA"
+#~ msgstr "GUA"
+
+#~ msgid "Hard Link"
+#~ msgstr "Pevný odkaz"
+
+#~ msgid "Permission"
+#~ msgstr "Oprávnění"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Nainstalujte balíček xdg-utils."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Tento formát archivu není podporován."
+
+#~ msgid "Timestamp"
+#~ msgstr "Časová známka"
+
 #~ msgid "Decompress file"
 #~ msgstr "Rozbalit soubor"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Vícenásobné rozbalování archivů"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "Archivátor tuto funkci nepodporuje."
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "Do balíčků rpm nemůžete přidávat další obsah!"
@@ -1671,9 +1741,6 @@ msgstr "|Velikost\n"
 
 #~ msgid "internal"
 #~ msgstr "interní"
-
-#~ msgid "Checksum"
-#~ msgstr "Kontrolní součet"
 
 #~ msgid "Error while extracting the cpio archive from the rpm one."
 #~ msgstr "Při rozbalování archivu cpio z rpm."

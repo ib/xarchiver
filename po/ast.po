@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2009-09-02 13:03+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: Asturian <alministradores@softastur.org>\n"
@@ -34,18 +34,19 @@ msgstr[0] "%d direutoriu %s (%s)"
 msgstr[1] "%d direutorios %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Amestar ficheros"
+msgstr[1] "Amestar ficheros"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d ficheru %s (%s)"
 msgstr[1] "%d ficheros %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d ficheru y %d direutoriu %s (%s)"
-msgstr[1] "%d ficheros y %d direutorios %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -218,6 +219,12 @@ msgstr "Árbol de ficheros"
 msgid "Archive type:"
 msgstr "Triba de ficheru:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Nun puede executase l'executable del programa de compresión:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Salida del programa de compresión"
@@ -226,11 +233,7 @@ msgstr "Salida del programa de compresión"
 msgid "Are you sure you want to do this?"
 msgstr "¿De xuru que quies facer esto?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Atributu"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atributos"
 
@@ -241,10 +244,6 @@ msgstr "P'atrás"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Restolar"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -270,7 +269,7 @@ msgstr "Nun puede criase un ficheru nuevu:"
 msgid "Can't create temporary directory:"
 msgstr "Nun puede criase un direutoriu temporal:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "Nun pueden estrayese ficheros del ficheru comprimíu:"
 
@@ -328,6 +327,14 @@ msgstr "Nun puede escribise'l módulu unzipsfx nel ficheru:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Encaboxar operación actual"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -407,14 +414,22 @@ msgstr "Criar archivu sólidu"
 msgid "Cut"
 msgstr "Cortar"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Data"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Data camudada"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Usar un comandu personalizáu:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -565,17 +580,17 @@ msgstr "Refrescar ficheros esistentes"
 msgid "From File"
 msgstr "Dende ficheru"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Grupu"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Enllaz duru"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -616,7 +631,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "Facer ficheru autoe_strayíble"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Métodu"
 
@@ -653,6 +668,10 @@ msgstr "Númberu de ficheros:"
 msgid "OS"
 msgstr "SO"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Namái ficheros comprimíos"
@@ -678,6 +697,12 @@ msgstr "Abrir un ficheru de testu"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Abrir un ficheru comprimíu"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Abrir imáxenes con:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -711,19 +736,23 @@ msgstr "Opciones "
 msgid "Options:"
 msgstr "Opciones:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Orixinal"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Sobroescribir ficheros esistentes"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Propietariu"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Propietariu/Grupu"
 
@@ -747,11 +776,8 @@ msgstr "Camín:"
 msgid "Pattern:"
 msgstr "Patrón:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Permisu"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Permisos"
 
@@ -781,12 +807,6 @@ msgstr "¡Por favor, rellena'l campu \"Estrayer en\"!"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Por favor, vete a Preferencies->Avanzáu y configúralu."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Por favor, instala'l paquete xdg-utils."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -808,7 +828,7 @@ msgstr "Por favor, esbilla'l direutoriu de destín"
 msgid "Please wait until the completion of the current one!"
 msgstr "¡Por favor, espera fasta que complete l'actual!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Apunta a"
 
@@ -838,7 +858,7 @@ msgstr "Amosar el conteníu del ficheru como HTML"
 msgid "Print the archive content as text"
 msgstr "Amosar el conteníu del ficheru como testu"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Tasa"
 
@@ -865,6 +885,10 @@ msgstr "Guardar ficheru autoestrayíble como"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Guardar xeometría de la ventana"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -906,6 +930,14 @@ msgstr "Amosar barra de llugares del ficheru"
 msgid "Show archive tree sidebar"
 msgstr "Amosar la barra llateral del árbol de ficheru"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "Amiesta los ficheros pidiendo'l nome del ficheru comprimíu y cuela."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -916,7 +948,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "Amosar versión y colar"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Tamañu"
 
@@ -928,7 +960,7 @@ msgstr "Asocedieron dalgunos fallos:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "¡Siéntolo, nun pudo facese la operación!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Siéntolo, esti formatu de ficheru nun ta sofitáu:"
 
@@ -947,6 +979,10 @@ msgstr "Atroxar la salida del programa de compresión"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Atroxar caminos completos"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -974,21 +1010,21 @@ msgstr ""
 "La estructura de direutorios del ficheru comprimíu ye recriada nel "
 "direutoriu d'estraición"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "¡El programa de compresión nun sofita esta funcionalidá!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "La columna de nome axéitase dempués de cargar el ficheru comprimíu"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "The proper archiver is not installed!"
 msgstr "¡El programa de compresión afayaízu nun ta instaláu!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "¡Esti ficheru ta cifráu!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "¡Esta triba de ficheru nun ta sofitada!"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1054,13 +1090,10 @@ msgstr ""
 "versión ya esistente dientro d'él. Al contrario que la opción anovar, nun "
 "amestará ficheros que nun esistieren nel ficheru comprimíu"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "Hora"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Marca de tiempu"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1074,7 +1107,7 @@ msgstr "Anovar la data de los ficheros"
 msgid "Type:"
 msgstr "Triba:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1093,6 +1126,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1252,6 +1289,10 @@ msgstr "_Comprobar"
 msgid "_Text file"
 msgstr "Fic_heru de testu"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "escoyer..."
@@ -1302,14 +1343,39 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Tamañu\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d ficheru y %d direutoriu %s (%s)"
+#~ msgstr[1] "%d ficheros y %d direutorios %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Atributu"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "Enllaz duru"
+
+#~ msgid "Permission"
+#~ msgstr "Permisu"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Por favor, instala'l paquete xdg-utils."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "¡Esta triba de ficheru nun ta sofitada!"
+
+#~ msgid "Timestamp"
+#~ msgstr "Marca de tiempu"
+
 #~ msgid "Decompress file"
 #~ msgstr "Descomprimir ficheru"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Multi-estrayer ficheros"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "¡El programa de compresión nun sofita esta funcionalidá!"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "¡Nun pueden amestase conteníos a paquetes rpm!"

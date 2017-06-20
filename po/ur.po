@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -43,18 +43,19 @@ msgstr[0] "%d ڈائریکٹری %s (%s)"
 msgstr[1] "%d ڈائریکٹریاں %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "فائلیں شامل کریں"
+msgstr[1] "فائلیں شامل کریں"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d فائل %s (%s)"
 msgstr[1] "%d فائلیں %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d فائل اور %d ڈائریکٹری %s (%s)"
-msgstr[1] "%d فائلیں اور %d ڈائریکٹریاں %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -219,6 +220,12 @@ msgstr "محفوظہ شجرہ"
 msgid "Archive type:"
 msgstr "کی نوعیت:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "محفوظہ اطلاقی نہیں چلایا جاسکا:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "محفوظہ ماخارج:"
@@ -227,11 +234,7 @@ msgstr "محفوظہ ماخارج:"
 msgid "Are you sure you want to do this?"
 msgstr "کیا آپ واقعی ایسا کرنا چاہتے ہیں؟"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "صفت"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "صفتیں"
 
@@ -242,10 +245,6 @@ msgstr "پیچھے"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "انتخاب"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -272,7 +271,7 @@ msgstr "نئی محفوظہ نہیں بنائی جاسکتی:"
 msgid "Can't create temporary directory:"
 msgstr "وقتی ڈائریکٹری /tmp میں نہیں بنائی جاسکتی:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "محفوظہ سے فائلیں نہیں نکالی جاسکتیں:"
 
@@ -330,6 +329,14 @@ msgstr "unzipsfx ماڈیول محفوظہ پر نہیں لکھا جاسکتا:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "حالیہ عمل روکیں"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr "Checksum"
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -410,14 +417,22 @@ msgstr "سخت محفوظہ بنائیں"
 msgid "Cut"
 msgstr "کٹ"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "تاریخ"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "تاریخ تبدیلی"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "صوابدیدی کمانڈ استعمال کریں:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -568,17 +583,17 @@ msgstr "سابقہ فائلیں تازہ کریں"
 msgid "From File"
 msgstr "از فائل"
 
-#: ../src/arj.c
-msgid "GUA"
-msgstr "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
+msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "گروپ"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "سخت ربط"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -618,7 +633,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "SFX بنائ_یں"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "میتھڈ"
 
@@ -655,6 +670,10 @@ msgstr "فائلوں کی تعداد:"
 msgid "OS"
 msgstr "او ایس"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "صرف محفوظہ جات"
@@ -680,6 +699,12 @@ msgstr "متن فائل کھولیں"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "محفوظہ کھولیں"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "تصویر فائل کھولیں بذریعہ:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -714,19 +739,23 @@ msgstr "اختیارات"
 msgid "Options:"
 msgstr "اختیارات"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "اصل"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "سابقہ فائلوں پر لکھیں"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "مالک"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "مالک/گروپ"
 
@@ -750,11 +779,8 @@ msgstr "پاتھ:"
 msgid "Pattern:"
 msgstr "نقش:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "اجازہ"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "اجازے"
 
@@ -783,12 +809,6 @@ msgstr "براہ مہربانی پہلے \"نکالیں تا\" کا خانہ ب�
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "براہ مہربانی ترجیحات->اعلی میں جاکر اسے مرتب کریں."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "براہ مہربانی xdg-utils پیکج نصب کریں."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -810,7 +830,7 @@ msgstr "براہ مہربانی سمت ڈائریکٹری منتخب کریں"
 msgid "Please wait until the completion of the current one!"
 msgstr "حالیہ کی تکمیل تک انتظار فرمائیں!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "پوائنٹ تا:"
 
@@ -839,7 +859,7 @@ msgstr "محفوظہ کے مواد کی بطور ایچ ٹی ایم ایل طب�
 msgid "Print the archive content as text"
 msgstr "محفوظہ کے مواد کی بطور متن طباعت کریں"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "ریشو"
 
@@ -867,6 +887,10 @@ msgstr "محفوظ کریں self-extracting محفوظہ کو بطور"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "ونڈو کی جیومیٹری محفوظ کریں"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -908,6 +932,14 @@ msgstr "محفوظہ کی مقام پٹی دکھائیں"
 msgid "Show archive tree sidebar"
 msgstr "بغلی محفوظہ شجرہ پٹی ظاہر کریں"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "دی گئی فائلیں محفوظہ کا نام پوچھ کر برخاست کریں."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -918,7 +950,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "ورژن دکھا کر برخاست کریں"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "حجم"
 
@@ -930,7 +962,7 @@ msgstr "کچھ غلطیاں ہوئی ہیں:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "معاف کیجیے، میں یہ عمل نہیں کرسکتا!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "معاف کیجیے، محفوظہ کے اس فارمیٹ کی معاونت نہیں ہے:"
 
@@ -949,6 +981,10 @@ msgstr "محفوظہ کا ماخارج محفوظ رکھیں"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "پورا پاتھ محفوظ رکھیں"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -975,11 +1011,15 @@ msgid ""
 msgstr ""
 "محفوظہ کا ڈائریکٹری ڈھانچہ کھلی ہوئی ڈائریکٹری میں پھر سے بنادیا گیا ہے."
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "محفوظہ اس خاصیت کی معاونت نہیں رکھتا!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "فائلوں کے نام کا کالم محفوظہ لوڈ کرنے کے بعد مرتب کردیا گیا ہے"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -988,10 +1028,6 @@ msgstr "درست محفوظہ نصب نہیں ہے!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "یہ محفوظہ رمز شدہ ہے!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "فائل کی اس نوعیت کی معاونت نہیں ہے!"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1056,13 +1092,10 @@ msgstr ""
 "کاری کے آپشن کے برعکس یہ ایسی فائلیں محفوظہ میں شامل نہیں کرتا جو محفوظہ میں "
 "پہلے سے نہ ہوں."
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "وقت"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "وقت مہر"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1076,7 +1109,7 @@ msgstr "فائلیں چھوئیں"
 msgid "Type:"
 msgstr "قسم:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1095,6 +1128,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1261,6 +1298,10 @@ msgstr "_ٹیسٹ"
 msgid "_Text file"
 msgstr "متن فائل"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "منتخب کریں..."
@@ -1316,14 +1357,42 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|حجم\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d فائل اور %d ڈائریکٹری %s (%s)"
+#~ msgstr[1] "%d فائلیں اور %d ڈائریکٹریاں %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "صفت"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "GUA"
+#~ msgstr "GUA"
+
+#~ msgid "Hard Link"
+#~ msgstr "سخت ربط"
+
+#~ msgid "Permission"
+#~ msgstr "اجازہ"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "براہ مہربانی xdg-utils پیکج نصب کریں."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "فائل کی اس نوعیت کی معاونت نہیں ہے!"
+
+#~ msgid "Timestamp"
+#~ msgstr "وقت مہر"
+
 #~ msgid "Decompress file"
 #~ msgstr "فائل نکالیں"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "ملٹی-ایکسٹریکٹ محفوظہ"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "محفوظہ اس خاصیت کی معاونت نہیں رکھتا!"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "آپ rpm پیکج میں مواد شامل نہیں کرسکتے!"
@@ -1628,9 +1697,6 @@ msgstr "|حجم\n"
 
 #~ msgid "internal"
 #~ msgstr "داخلی"
-
-#~ msgid "Checksum"
-#~ msgstr "Checksum"
 
 #~ msgid "Error while extracting the cpio archive from the rpm one."
 #~ msgstr "rpm والی محفوظہ cpio محفوظہ کھولنے کے دوران غلطی."

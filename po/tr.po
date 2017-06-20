@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -44,16 +44,17 @@ msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d dizin %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Dosyaları ekle"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d dosya %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d dosya ve %d dizin %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -215,6 +216,12 @@ msgstr "Arşiv ağacı"
 msgid "Archive type:"
 msgstr "Arşiv türü:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Arşivleyici çalıştırılamadı:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Arşivleyici çıktısı"
@@ -223,11 +230,7 @@ msgstr "Arşivleyici çıktısı"
 msgid "Are you sure you want to do this?"
 msgstr "Bunu yapmak istediğinize emin misiniz?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Öznitelik"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Öznitelikler"
 
@@ -238,10 +241,6 @@ msgstr "Geri"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Tara"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -267,7 +266,7 @@ msgstr "Yeni bir arşiv oluşturulamıyor:"
 msgid "Can't create temporary directory:"
 msgstr "Geçici dizin oluşturulamıyor:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "Dosyalar arşivden açılamıyor:"
 
@@ -325,6 +324,14 @@ msgstr "unzipsfx birimi arşive yazılamıyor:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Geçerli işlemi sonlandır"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -404,14 +411,22 @@ msgstr "Kesiksiz arşiv oluştur"
 msgid "Cut"
 msgstr "Kes"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Tarih"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Değiştirme tarihi"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Özel bir komut kullan:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -562,17 +577,17 @@ msgstr "Açılan dosyaları yenile"
 msgid "From File"
 msgstr "Dosyadan"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Grup"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Bağlantı"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -610,7 +625,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "SF_X Yap"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Yöntem"
 
@@ -647,6 +662,10 @@ msgstr "Dosyaların sayısı:"
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Sadece arşivler"
@@ -671,6 +690,12 @@ msgstr "Bir metin dosyası aç"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Bir arşiv aç"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Resim dosyalarını şununla aç:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -704,19 +729,23 @@ msgstr "Seçenekler"
 msgid "Options:"
 msgstr "Seçenekler:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Özgün"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Mevcut dosyaların üzerine yaz"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Kullanıcı"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Kullanıcı/Grup"
 
@@ -740,11 +769,8 @@ msgstr "Yol:"
 msgid "Pattern:"
 msgstr "Desen:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "İzin"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "İzinler"
 
@@ -774,12 +800,6 @@ msgstr "Lütfen \"Şuraya aç\" satırını doldurun!"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Lütfen Tercihler->Gelişmiş sekmesinden onu belirtin."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Lütfen xdg-utils paketini yükleyin."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -801,7 +821,7 @@ msgstr "Lütfen hedef dizini seçin"
 msgid "Please wait until the completion of the current one!"
 msgstr "Lütfen şimdiki işlem tamamlanana kadar bekleyin!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Eklentiler"
 
@@ -831,7 +851,7 @@ msgstr "Arşiv içeriğini HTML olarak yazdır"
 msgid "Print the archive content as text"
 msgstr "Arşiv içeriğini metin dosyası olarak yazdır"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Oran"
 
@@ -858,6 +878,10 @@ msgstr "Kendi kendine açılan arşivi farklı kaydet"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Pencere boyutlandırmasını kaydet"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -899,6 +923,14 @@ msgstr "Arşiv konum çubuğunu göster"
 msgid "Show archive tree sidebar"
 msgstr "Arşiv ağacı kenar çubuğunu göster"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "Verilen dosyaları arşiv adını sorarak ekle ve kapat."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -909,7 +941,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "Sürümü göster ve çık"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Boyut"
 
@@ -921,7 +953,7 @@ msgstr "Birkaç hata oluştu:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "Üzgünüm, işlemi gerçekleştiremedim!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Üzgünüm, bu arşiv biçimi desteklenmiyor:"
 
@@ -940,6 +972,10 @@ msgstr "Arşivleyici çıktısını depola"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Tüm yolları depola"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -965,11 +1001,15 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Arşivin dizin yapısı, açılan dizinde yeniden oluşturuldu"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Arşivleyici bu özelliği desteklemiyor!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Dosyalar arşiv yüklendikten sonra, dosya ismine göre sıralanır"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -978,10 +1018,6 @@ msgstr "Uygun arşivleyici yüklü değil!"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Bu arşiv şifrelenmiş!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Üzgünüm, bu arşiv biçimi desteklenmiyor!"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1048,13 +1084,10 @@ msgstr ""
 "güncellendiyse etkiler; güncelleme seçeneğinin aksine, arşivde bulunmayan "
 "dosyaları eklemeyecek"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "Zaman"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Tarih bilgisi"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1068,7 +1101,7 @@ msgstr "Dosyalara eriş"
 msgid "Type:"
 msgstr "Tür:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1087,6 +1120,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1244,6 +1281,10 @@ msgstr "_Test"
 msgid "_Text file"
 msgstr "_Metin dosyası"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "seç..."
@@ -1297,14 +1338,38 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Boyut\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d dosya ve %d dizin %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Öznitelik"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "Bağlantı"
+
+#~ msgid "Permission"
+#~ msgstr "İzin"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Lütfen xdg-utils paketini yükleyin."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Üzgünüm, bu arşiv biçimi desteklenmiyor!"
+
+#~ msgid "Timestamp"
+#~ msgstr "Tarih bilgisi"
+
 #~ msgid "Decompress file"
 #~ msgstr "Sıkıştırılmış dosyayı çöz"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Çoklu-açma arşivleri"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "Arşivleyici bu özelliği desteklemiyor!"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "rpm paketlerine içerik ekleyemezsiniz!"

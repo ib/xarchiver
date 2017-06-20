@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -47,16 +47,17 @@ msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d 個目錄 %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "加入檔案"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d 個檔案 %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d 個檔案 %d 個目錄 %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -218,6 +219,12 @@ msgstr "封存檔樹狀圖"
 msgid "Archive type:"
 msgstr "封存檔類型："
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "無法執行封存程式："
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "封存程式的輸出訊息"
@@ -226,11 +233,7 @@ msgstr "封存程式的輸出訊息"
 msgid "Are you sure you want to do this?"
 msgstr "您確定要這麼做？"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "屬性"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "屬性"
 
@@ -241,10 +244,6 @@ msgstr "上一頁"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "瀏覽"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -270,7 +269,7 @@ msgstr "無法建立新封存檔："
 msgid "Can't create temporary directory:"
 msgstr "無法建立暫存目錄："
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "無法解開封存檔："
 
@@ -328,6 +327,14 @@ msgstr "無法將 unzipsfx 模組寫入此封存檔："
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "取消目前操作"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -407,14 +414,22 @@ msgstr "建立實體封存檔"
 msgid "Cut"
 msgstr "剪下"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "日期"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "更動日期"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "使用自訂指令："
 
 #: ../src/interface.c
 msgid "Delete"
@@ -563,17 +578,17 @@ msgstr "只更新已存在的檔案"
 msgid "From File"
 msgstr "從檔案"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "群組"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "硬性連結"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -610,7 +625,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "轉成自解檔(_X)"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "方法"
 
@@ -647,6 +662,10 @@ msgstr "檔案數："
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "僅封存檔"
@@ -671,6 +690,12 @@ msgstr "開啟文字檔"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "開啟封存檔"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "以...開啟圖片檔："
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -704,19 +729,23 @@ msgstr "選項"
 msgid "Options:"
 msgstr "選項："
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "原始大小"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "覆蓋已存在的檔案"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "擁有者"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "擁有者/群組"
 
@@ -740,11 +769,8 @@ msgstr "路徑："
 msgid "Pattern:"
 msgstr "規則："
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "權限"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "權限"
 
@@ -772,12 +798,6 @@ msgstr "尚未設定「抽出至」欄位！"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "請在 '偏好設定 -> 進階' 中設定。"
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "請安裝 xdg-utils 套件。"
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -799,7 +819,7 @@ msgstr "請選取目標目錄"
 msgid "Please wait until the completion of the current one!"
 msgstr "請先等目前執行中的作業完成！"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "標記"
 
@@ -829,7 +849,7 @@ msgstr "以 HTML 格式印出封存檔內容"
 msgid "Print the archive content as text"
 msgstr "以文字格式印出封存檔內容"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "壓縮率"
 
@@ -856,6 +876,10 @@ msgstr "儲存此自解封存檔為"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "儲存視窗狀態"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -897,6 +921,14 @@ msgstr "顯示封存檔位置列"
 msgid "Show archive tree sidebar"
 msgstr "顯示封存檔樹狀圖側邊視窗"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "詢問封存檔檔名、加入檔案，然後離開。"
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -907,7 +939,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "顯示版本並離開"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "大小"
 
@@ -919,7 +951,7 @@ msgstr "有錯誤發生："
 msgid "Sorry, I could not perform the operation!"
 msgstr "抱歉，無法執行此操作！"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "抱歉，不支援此封存格式："
 
@@ -938,6 +970,10 @@ msgstr "儲存封存程式的輸出訊息"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "儲存完整路徑"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -963,11 +999,15 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "已在目標目錄重新建立封存檔內的完整目錄結構"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "封存程式不支援此功能！"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "載入封存檔後按檔名排序"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -976,10 +1016,6 @@ msgstr "尚未安裝適合的封存程式！"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "封存檔已被加密！"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "不支援此檔案類型！"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1033,13 +1069,10 @@ msgstr ""
 "使用此選項只會更新封存檔中較舊的檔案，不像「「更新並加入」選項還會加入封存檔"
 "中沒有的檔案"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "時間"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "時間戳"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1053,7 +1086,7 @@ msgstr "更改檔案日期"
 msgid "Type:"
 msgstr "類型："
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1072,6 +1105,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1226,6 +1263,10 @@ msgstr "測試(_T)"
 msgid "_Text file"
 msgstr "文字檔(_T)"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "選擇..."
@@ -1277,14 +1318,38 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|大小\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d 個檔案 %d 個目錄 %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "屬性"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "硬性連結"
+
+#~ msgid "Permission"
+#~ msgstr "權限"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "請安裝 xdg-utils 套件。"
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "不支援此檔案類型！"
+
+#~ msgid "Timestamp"
+#~ msgstr "時間戳"
+
 #~ msgid "Decompress file"
 #~ msgstr "解壓縮封存檔"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "解開多個封存檔"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "封存程式不支援此功能！"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "不可再加入內容到 rpm 套件檔中！"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2006-11-23 12:28+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -40,16 +40,16 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/window.c
-#, c-format
-msgid "%d file %s (%s)"
-msgid_plural "%d files %s (%s)"
-msgstr[0] ""
-msgstr[1] ""
+#, fuzzy, c-format
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "ཡིག་སྣོད་ཚུ་ཆ་མཉམ།"
+msgstr[1] "ཡིག་སྣོད་ཚུ་ཆ་མཉམ།"
 
 #: ../src/window.c
 #, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -224,6 +224,12 @@ msgstr "ཡིག་མཛོད་ཡིག་དཔར་བརྐྱབ:"
 msgid "Archive type:"
 msgstr "ཡིག་མཛོད་ཡིག་དཔར་བརྐྱབ:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "ཡིག་མཛོད་ལག་ལེན་འཐབ་ནི་འདི་གཡོག་བཀལ་མི་བཏུབ་པས:"
+
 #: ../src/window.c
 #, fuzzy
 msgid "Archiver output"
@@ -233,11 +239,7 @@ msgstr "ཡིག་མཛོད་ཡིག་དཔར་བརྐྱབ:"
 msgid "Are you sure you want to do this?"
 msgstr "ཁྱོད་ཀྱིས་འདི་འབད་ནི་ངེས་ཏིག་ཨིན་ན?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "ཨེ་ཊི་ཊི་ཨར།"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "ཁྱད་ཆོས་ཚུ།"
 
@@ -247,10 +249,6 @@ msgstr ""
 
 #: ../src/open-with-dlg.c
 msgid "Browse"
-msgstr ""
-
-#: ../src/rar.c
-msgid "CRC"
 msgstr ""
 
 #: ../src/add_dialog.c ../src/main.c
@@ -279,7 +277,7 @@ msgstr "ཡིག་མཛོད་གསརཔ་ཅིག་གསར་བས
 msgid "Can't create temporary directory:"
 msgstr "/tmpནང་གནས་སྐབས་ཀྱི་སྣོད་ཐོ་གསར་བསྐྲུན་འབད་མི་བཏུབ:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "ཡིག་མཛོད་ལས་ཡིག་སྣོད་ཚུ་ཕྱིར་འདོན་འབད་མི་བཏུབ:"
 
@@ -338,6 +336,14 @@ msgstr "ཨན་ཛིཔ་ཨེསི་ཨེཕ་ཨེགསི་ ཚ�
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "ད་ལྟོའི་བཀོལ་སྤྱོད་ཆ་མེད་གཏང་།"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr "ཅེག་སམ།"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -427,13 +433,17 @@ msgstr "ཡིག་མཛོད་རག་པ་ཅིག་བཟོ་བཏ
 msgid "Cut"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "ཚེས།"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+msgid "Date and Time"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Default custom command:"
 msgstr ""
 
 #: ../src/interface.c
@@ -595,17 +605,17 @@ msgstr "གནས་ཏེ་ཡོད་པའི་ཡིག་སྣོད་
 msgid "From File"
 msgstr ""
 
-#: ../src/arj.c
-msgid "GUA"
-msgstr "ཇི་ཡུ་ཨེ།"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
+msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "སྡེ་ཚན།"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "འབྲེལ་མཐུད་རག་པ།"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -642,7 +652,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "ཨེསི་ཨེཕ་ཨེགསི་བཟོ།(_X)"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "ཐབས་ལམ།"
 
@@ -680,6 +690,10 @@ msgstr "ཡིག་སྣོད་ཚུ་གི་ཨང་གྲངས:"
 msgid "OS"
 msgstr ""
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "ཡིག་མཛོད་ཚུ་རྐྱངམ་ཅིག"
@@ -706,6 +720,11 @@ msgstr "བཀོལ་སྤྱོད་འཐུས་ཤོར་འབྱུ
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "ཡིག་མཛོད་ཅིག་ཁ་ཕྱེ།"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+msgid "Open archive files with:"
+msgstr "ཡིག་མཛོད་ཆིག་སྒྲིལ་བརྟག་ཞིབ་འབད་དོ་  བསྒུག་གནང་..."
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -745,19 +764,23 @@ msgstr "<b>གདམ་ཁ་ཚུ </b>"
 msgid "Options:"
 msgstr "<b>གདམ་ཁ་ཚུ </b>"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "ངོ་མ།"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "གནས་ཏེ་ཡོད་པའི་ཡིག་སྣོད་ཚུ་ཚབ་སྲུང་འབད།"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "བདག་པོ།"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "བདག་པོ/སྡེ་ཚན།"
 
@@ -784,11 +807,8 @@ msgstr "འགྲུལ་ལམ:"
 msgid "Pattern:"
 msgstr "འགྲུལ་ལམ:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "གནང་བ།"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "གནང་བ་ཚུ།"
 
@@ -817,10 +837,6 @@ msgstr "དང་པ་རང་བཀག་པའི་ཨེབ་རྟ་འ
 msgid "Please go to Preferences->Advanced and set it."
 msgstr ""
 
-#: ../src/window.c
-msgid "Please install xdg-utils."
-msgstr ""
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -844,7 +860,7 @@ msgstr "སྣོད་ཐོ་མེན་པ་ཡིག་སྣོད་ཅ
 msgid "Please wait until the completion of the current one!"
 msgstr "ད་ལྟོ་གི་ཡོངས་སྒྲུབ་མ་འབད་ཚུན་ཚོད་བསྒུག་གནང་!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr ""
 
@@ -875,7 +891,7 @@ msgstr ""
 msgid "Print the archive content as text"
 msgstr "གསར་བསྐྲུན་འབད་ནི་ལུ་  ཡིག་མཛོད་དབྱེ་བ་འདི་གདམ་ཁ་བརྐྱབ་"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "དཔྱ་ཚད།"
 
@@ -905,6 +921,10 @@ msgstr "ཡིག་མཛོད་ཚུ་ %s ལུ་ཕྱིར་འད�
 
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
+msgstr ""
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
 msgstr ""
 
 #: ../src/main.c ../src/window.c
@@ -953,6 +973,14 @@ msgstr "ཡིག་མཛོད་གསར་བསྐྲུན་འབད་
 msgid "Show archive tree sidebar"
 msgstr ""
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "ཡིག་མཛོད་དང་སྤང་ཚུ་གི་མིང་འདྲི་འདི་གིས་  བྱིན་ཡོད་པའི་ཡིག་སྣོད་ཚུ་ཁ་སྐོང་བརྐྱབ།"
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -961,7 +989,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr ""
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "ཚད།"
 
@@ -975,7 +1003,7 @@ msgstr "འཛོལ་བ་ཅིག་འབྱུང་ནུག:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "དགོངསམ་མ་ཁྲེལ་ ང་གིས་  བཀོལ་སྤྱོད་ལཱ་འགན་འགྲུབ་མ་ཚུགས!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 msgid "Sorry, this archive format is not supported:"
 msgstr "དགོངསམ་མ་ཁྲེལ་  ཡིག་མཛོད་རྩ་སྒྲིག་འདི་རྒྱབ་སྐྱོར་མ་འབད་བས:"
@@ -995,6 +1023,10 @@ msgstr ""
 
 #: ../src/add_dialog.c
 msgid "Store full paths"
+msgstr ""
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
 msgstr ""
 
 #: ../src/window.c
@@ -1023,11 +1055,16 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "ཡིག་མཛོད་ཀྱི་སྣོད་ཐོའི་གཞི་བཀོད་འདི་  ཕྱིར་འདོན་སྣོད་ཐོ་ནང་སླར་གསར་བསྐྲུན་འབད་ནུག"
 
+#: ../src/extract_dialog.c
+#, fuzzy
+msgid "The archiver doesn't support this feature!"
+msgstr "ཡུ་ཨེན་ཨར་ཨེ་ཨར་འདི་གིས་  ཡིག་མཛོད་གསར་བསྐྲུན་འབད་ནི་ལུ་རྒྱབ་སྐྱོར་མི་འབད!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr ""
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -1036,11 +1073,6 @@ msgstr "ཡིག་མཛོད་ཚུལ་ལྡན་འབད་མི་
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "ཡིག་མཛོད་འདི་གསང་བཟོས་འབད་ནུག!"
-
-#: ../src/window.c
-#, fuzzy
-msgid "This file type is not supported!"
-msgstr "དགོངསམ་མ་ཁྲེལ་  ཡིག་མཛོད་རྩ་སྒྲིག་འདི་རྒྱབ་སྐྱོར་མ་འབད་བས:"
 
 #: ../src/interface.c
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
@@ -1092,13 +1124,10 @@ msgstr ""
 "ཅིག་  གདམ་ཁ་འདི་གིས་ཡིག་མཛོད་ལུ་གནོདཔ་ཨིན་; དུས་མཐུན་གདམ་ཁ་མ་ཡིན་པ་གཞན་འབད་བ་ཅིན་  ཡིག་"
 "མཛོད་ནང་ཧེ་མ་ལས་ཡོད་པའི་ཡིག་སྣོད་ཚུ་ཁ་སྐོང་མི་བརྐྱབ།"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "དུས་ཚོད།"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "དུས་བཀོད་"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1112,7 +1141,7 @@ msgstr "ཡིག་སྣོད་ཚུ་འབྲེལ་བ་བཞག"
 msgid "Type:"
 msgstr "དབྱེ་བ:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "ཡུ་ཨའི་ཌི་/ཇི་ཨའི་ཌི་"
 
@@ -1132,6 +1161,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1295,6 +1328,10 @@ msgstr "བརྟག་ཞིབ།(_T)"
 msgid "_Text file"
 msgstr "ཡིག་སྣོད་ཚུ་  %s ལུ་ཕྱིར་འདོན་འབད་དོ།"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr ""
@@ -1345,16 +1382,31 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|ཚད།\n"
 
+#~ msgid "Attr"
+#~ msgstr "ཨེ་ཊི་ཊི་ཨར།"
+
+#~ msgid "GUA"
+#~ msgstr "ཇི་ཡུ་ཨེ།"
+
+#~ msgid "Hard Link"
+#~ msgstr "འབྲེལ་མཐུད་རག་པ།"
+
+#~ msgid "Permission"
+#~ msgstr "གནང་བ།"
+
+#, fuzzy
+#~ msgid "This file type is not supported!"
+#~ msgstr "དགོངསམ་མ་ཁྲེལ་  ཡིག་མཛོད་རྩ་སྒྲིག་འདི་རྒྱབ་སྐྱོར་མ་འབད་བས:"
+
+#~ msgid "Timestamp"
+#~ msgstr "དུས་བཀོད་"
+
 #~ msgid "Decompress file"
 #~ msgstr "ཡིག་སྣོད་འདི་ཨེབ་བཙུགས་བཤོལ།"
 
 #, fuzzy
 #~ msgid "Multi-extract archives"
 #~ msgstr "ཡིག་མཛོད་ཚུ་ %s ལུ་ཕྱིར་འདོན་འབད་དོ།"
-
-#, fuzzy
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "ཡུ་ཨེན་ཨར་ཨེ་ཨར་འདི་གིས་  ཡིག་མཛོད་གསར་བསྐྲུན་འབད་ནི་ལུ་རྒྱབ་སྐྱོར་མི་འབད!"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "ཨར་པི་ཨེམ་ཐུམ་སྒྲིལ་ལུ་  ཁྱོད་ཀྱིས་  ནང་དོན་ཁ་སྐོང་བརྐྱབ་མི་བཏུབ!"
@@ -1644,9 +1696,6 @@ msgstr "|ཚད།\n"
 #, fuzzy
 #~ msgid "Preferred format for new archives:"
 #~ msgstr "ཡིག་མཛོད་གསརཔ་ཅིག་གསར་བསྐྲུན་འབད།"
-
-#~ msgid "Checksum"
-#~ msgstr "ཅེག་སམ།"
 
 #~ msgid "Error while extracting the cpio archive from the rpm one."
 #~ msgstr "ཨར་པི་ཨེམ་གཅིག་ལས་ སི་པི་ཨའི་ཨོ་ཡིག་མཛོད་ཕྱིར་འདོན་འབདཝ་ད་  འཛོལ་བ།"

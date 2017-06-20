@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2011-08-09 03:59-0000\n"
 "Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
@@ -38,16 +38,17 @@ msgstr[0] "%d مجلد %s (%s)"
 msgstr[1] "%d مجلدات %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "أضف ملفات"
+msgstr[1] "أضف ملفات"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
-msgstr[0] "%d ملف %s (%s)"
-msgstr[1] "%d ملفات %s (%s)"
-
-#: ../src/window.c
-#, fuzzy, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
 msgstr[0] "%d ملف %s (%s)"
 msgstr[1] "%d ملفات %s (%s)"
 
@@ -212,6 +213,12 @@ msgstr "شجرة الأرشفة"
 msgid "Archive type:"
 msgstr "نوع الأرشيف:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "لا يمكن تشغيل أرشيف القابل للتنفيذ :"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "أرشيف الإخراج"
@@ -220,11 +227,7 @@ msgstr "أرشيف الإخراج"
 msgid "Are you sure you want to do this?"
 msgstr "هل أنت متأكد أنك تريد أن تفعل هذا؟"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "سمات"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "سمات"
 
@@ -235,10 +238,6 @@ msgstr "رجوع"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "تصفح"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -264,7 +263,7 @@ msgstr "لا يمكن إنشاء أرشيف جديد :"
 msgid "Can't create temporary directory:"
 msgstr "لا يمكن إنشاء الدليل المؤقت :"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "لا يمكن استخراج الملفات من الأرشيف :"
 
@@ -322,6 +321,14 @@ msgstr "لا يمكن الكتابة وحدة unzipsfx إلى الأرشيف :"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "إلغاء العملية الحالية"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -401,14 +408,22 @@ msgstr "أنشئ أرشيف صلب"
 msgid "Cut"
 msgstr "قص"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "تاريخ"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "تاريخ محرر"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "استخدام أمر مخصص :"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -557,17 +572,17 @@ msgstr "إنعاش الملفات الموجودة"
 msgid "From File"
 msgstr "من الملف"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "مجموعة"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "الارتباط الثابت"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -604,7 +619,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "إنشاء SF_X"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "طريقة"
 
@@ -641,6 +656,10 @@ msgstr "عدد الملفات :"
 msgid "OS"
 msgstr "نظام التشغيل"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "الأرشيفات فقط"
@@ -666,6 +685,12 @@ msgstr "إفتح ملف نصي"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "فتح الأرشيف"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "فتح الصور باستخدام:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -699,19 +724,23 @@ msgstr "خيارات"
 msgid "Options:"
 msgstr "خيارات:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "أصلي"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "الكتابة فوق الملفات الموجودة"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "مالك"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "المالك / المجموعة"
 
@@ -735,11 +764,8 @@ msgstr "مسار:"
 msgid "Pattern:"
 msgstr "نمط :"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "إذن"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "صلاحيات"
 
@@ -767,12 +793,6 @@ msgstr "الرجاء ملئ خانة \"Extract to\"!"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "يرجى الذهاب إلى التفضبلات->متقدم وإختياره."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "الرجاء تثبيت حزمة xdg-utils ."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -794,7 +814,7 @@ msgstr "الرجاء اختيار دليل الوجهة"
 msgid "Please wait until the completion of the current one!"
 msgstr "الرجاء الإنتظار حتى الإنتهاء من الحالي!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "يشير إلى"
 
@@ -824,7 +844,7 @@ msgstr "HTML طباعة محتويات الأرشيف في "
 msgid "Print the archive content as text"
 msgstr "طباعة محتويات الأرشيف كنص"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "نسبة"
 
@@ -851,6 +871,10 @@ msgstr "حفظ أرشيف استخراج ذاتي في"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "حفظ موقع النافذة"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -892,6 +916,14 @@ msgstr "عرض شريط أرشيف الموقع"
 msgid "Show archive tree sidebar"
 msgstr "عرض شجرة الأرشيف  الجانبية"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "إضافة الملفات المحدد بالسؤال عن اسم الارشيف ثم الخروج."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -902,7 +934,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "عرض الإصدار  ثم الخروج"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "حجم"
 
@@ -914,7 +946,7 @@ msgstr "حدثت بعض الأخطاء :"
 msgid "Sorry, I could not perform the operation!"
 msgstr "آسف ، لم أتمكن من تنفيذ العملية!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "عفوا , صيغة هذا الأرشبف غير مدعومة:"
 
@@ -933,6 +965,10 @@ msgstr "تخزين ناتج الأرشيف"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "مسارات مخزن كامل"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -958,11 +994,15 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "يتم إعادة هيكلة المحفوظات والدليل في الدليل الاستخراج"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "الأرشيف لا يدعم هذه الميزة؛"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "فرز عمود اسم الملف بعد تحميل الأرشيف"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -971,10 +1011,6 @@ msgstr "لم يتم تثبيت الأرشبف المناسب؛"
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "هذا الأرشيف مشفرة!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "هذا النوع من الملفات غير مدعوم؛"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1033,13 +1069,10 @@ msgstr ""
 "هذا الخيار يؤثر في الأرشيف الذي تم تعديله مؤخراً فقط، على عكس خيار التحديث "
 "فإنه لن يضيف الملفات التي لم يتم تحديثها في الأرشيف"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "وقت"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "الطابع الزمني"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1053,7 +1086,7 @@ msgstr "لمسة الملفات"
 msgid "Type:"
 msgstr "النوع:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1072,6 +1105,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1228,6 +1265,10 @@ msgstr "اختبار"
 msgid "_Text file"
 msgstr "ملف نصي"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "إختر..."
@@ -1280,14 +1321,40 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|حجم\n"
 
+#, fuzzy
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d ملف %s (%s)"
+#~ msgstr[1] "%d ملفات %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "سمات"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "الارتباط الثابت"
+
+#~ msgid "Permission"
+#~ msgstr "إذن"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "الرجاء تثبيت حزمة xdg-utils ."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "هذا النوع من الملفات غير مدعوم؛"
+
+#~ msgid "Timestamp"
+#~ msgstr "الطابع الزمني"
+
 #~ msgid "Decompress file"
 #~ msgstr "فك ضغط الملف"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "استخراج أرشيف متعددة"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "الأرشيف لا يدعم هذه الميزة؛"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "لا يمكنك إضافة محتوى لحزم ردهات؛"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -40,18 +40,19 @@ msgstr[0] "%d බහලුම %s (%s)"
 msgstr[1] "%d බහලුම් %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "ගොනු එක් කරන්න"
+msgstr[1] "ගොනු එක් කරන්න"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d ගොනුව %s (%s)"
 msgstr[1] "%d ගොනු %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d ගොනුව සහ %d බහලුම %s (%s)"
-msgstr[1] "%d ගොනු සහ %d බහලුම් %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -214,6 +215,12 @@ msgstr "සංරක්ෂණ වෘක්ෂය"
 msgid "Archive type:"
 msgstr "සංරක්ෂණ වර්ගය:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "සංරක්ෂණ ධාවනය කල හැක්ක ධාවනය කල නොහැක:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "සංරක්ෂණ ප්‍රතිදානය"
@@ -222,11 +229,7 @@ msgstr "සංරක්ෂණ ප්‍රතිදානය"
 msgid "Are you sure you want to do this?"
 msgstr "ඔබට මෙය කිරීමට අවශ්‍ය බව විශ්වාසද?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Attr"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "උපලක්ෂණ"
 
@@ -237,10 +240,6 @@ msgstr "ආපසු"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "ගවේශනය කරන්න"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -266,7 +265,7 @@ msgstr "නව සංරක්ෂණයක් තැනීමට නොහැක
 msgid "Can't create temporary directory:"
 msgstr "තාවකාලික බහලුමක් තැනීමට නොහැක:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "සංරක්ෂණයෙන් ගොනු විසුරවිය නොහැක:"
 
@@ -324,6 +323,14 @@ msgstr "unzipsfx ඒකකය සංරක්ෂණයට ලිවිය නො
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "වත්මන් මෙහෙයුම අවලංගු කරන්න"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -403,14 +410,22 @@ msgstr "ඝන සංරක්ෂණයක් තනන්න"
 msgid "Cut"
 msgstr "කපන්න"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "දිනය"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "විකරණය කළ දිනය"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "රිසි විධානයක් භාවිතා කරන්න:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -559,17 +574,17 @@ msgstr "දැනට පවතින ගොනු නැවුම් කරන�
 msgid "From File"
 msgstr "ගොනුවෙන්"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "සමූහය"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "තද සබැඳිය"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -606,7 +621,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "SF_X සාදන්න"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "ක්‍රමය"
 
@@ -643,6 +658,10 @@ msgstr "ගොනු ගණන: "
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "සංරක්ෂණ පමණයි"
@@ -668,6 +687,12 @@ msgstr "පෙළ ගොනුවක් විවෘත කරන්න"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "සංරක්ෂණයක් විවෘත කරන්න"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "පින්තූර ගොනු මේ සමඟ විවෘත කරන්න:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -701,19 +726,23 @@ msgstr "අභිරුචි"
 msgid "Options:"
 msgstr "අභිරුචි:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "මුල්"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "දැනට පවතින ගොනු උඩින් ලියන්න"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "අයිතිකරු"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "අයිතිකරු/සමූහය"
 
@@ -737,11 +766,8 @@ msgstr "පෙත:"
 msgid "Pattern:"
 msgstr "විලාසය:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "අවසරය"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "අවසර"
 
@@ -769,12 +795,6 @@ msgstr "කරුණාකර \"වෙත විසුරුවන්න\" ක�
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "කරුණාකර අභිප්‍රේත->උසස් වලට ගොස් එය පිහිටුවන්න."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "කරුණාකර xdg-utils පැකේජය ස්ථාපනය කරන්න."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -796,7 +816,7 @@ msgstr "කරුණාකර ගමනාන්ත බහලුම තෝරන
 msgid "Please wait until the completion of the current one!"
 msgstr "කරුණාකර වත්මන් එක සමාප්ත වෙනකම් රැදී සිටින්න!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "යොමු කරයි"
 
@@ -826,7 +846,7 @@ msgstr "සංරක්ෂණ අන්තර්ගතය HTML ලෙස මු�
 msgid "Print the archive content as text"
 msgstr "සංරක්ෂණ අන්තර්ගතය පෙළ ලෙස මුද්‍රණය කරන්න"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "අනුපාතය"
 
@@ -853,6 +873,10 @@ msgstr "ස්වයං විසුරුම් සංරක්ෂණය මෙ
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "කවුළු ජ්‍යාමිතිය සුරකින්න"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -894,6 +918,14 @@ msgstr "සංරක්ෂණ පිහිටීම් තීරුව පෙන
 msgid "Show archive tree sidebar"
 msgstr "සංරක්ෂණ වෘක්ෂ පැති තීරුව පෙන්නන්න"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "සංරක්ෂණයේ නම අසමින් දී ඇති ගොනු එක් කර ඉවත් වෙයි."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -904,7 +936,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "අනුවාදය පෙන්නා ඉවත් වෙන්න"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "ප්‍රමාණය"
 
@@ -916,7 +948,7 @@ msgstr "දෝෂ කීපයක් මතු විය:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "සමාවෙන්න, මට මෙහෙයුම සිදු කිරීමට නොහැකි විය!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "සමාවෙන්න, මෙම සංරක්ෂණ හැඩතලය සහය නොදක්වයි:"
 
@@ -935,6 +967,10 @@ msgstr "සංරක්ෂණ ප්‍රතිදානය ගබඩා කර
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "සම්පූර්ණ පෙත් ගබඩා කරන්න"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -960,11 +996,15 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "විසුරුම් බහලුමේ සංරක්ෂණයේ බහලුම් සැකිල්ල නැවත තනා ඇත"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "සංරක්ෂණය මෙම අංගයට සහය නොදක්වයි!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "සංරක්ෂණය ප්‍රවේශ වීමෙන් පසු ගොනු නාම තීරුව ගබඩා කරනු ලබයි"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
@@ -973,10 +1013,6 @@ msgstr "උචිත සංරක්ෂකය ස්ථාපනය කර න�
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "සංරක්ෂණය සංකේතාංකනය කර ඇත!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "ගොනු වර්ගය සහය දක්වන්නේ නැත!"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1035,13 +1071,10 @@ msgstr ""
 "සංරක්ෂණයට බලපායි; යාවත්කාල කරන්න අභිරුචිය මෙන් නොව එය දැනටමත් සංරක්ෂණයේ නොපවතින ගොනු එක් "
 "නොකරයි"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "වේලාව"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "කාලමුද්‍රාව"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1055,7 +1088,7 @@ msgstr "ගොනු අල්ලන්න"
 msgid "Type:"
 msgstr "වර්ගය:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1074,6 +1107,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1230,6 +1267,10 @@ msgstr "පරීක්ෂා කරන්න (_T)"
 msgid "_Text file"
 msgstr "පෙළ ගොනුව (_T)"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "තෝරන්න..."
@@ -1279,14 +1320,39 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|ප්‍රමාණය\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d ගොනුව සහ %d බහලුම %s (%s)"
+#~ msgstr[1] "%d ගොනු සහ %d බහලුම් %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Attr"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "තද සබැඳිය"
+
+#~ msgid "Permission"
+#~ msgstr "අවසරය"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "කරුණාකර xdg-utils පැකේජය ස්ථාපනය කරන්න."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "ගොනු වර්ගය සහය දක්වන්නේ නැත!"
+
+#~ msgid "Timestamp"
+#~ msgstr "කාලමුද්‍රාව"
+
 #~ msgid "Decompress file"
 #~ msgstr "ගොනුව අසම්පීඩනය කරන්න"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "බහු විසුරුම් සංරක්ෂණ"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "සංරක්ෂණය මෙම අංගයට සහය නොදක්වයි!"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "rpm පැකේජ වලට අන්තර්ගතය එක් කල නොහැක!"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-04-25 16:34+0200\n"
+"POT-Creation-Date: 2017-06-20 12:09+0200\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -38,16 +38,17 @@ msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d direktori %s (%s)"
 
 #: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Tambah berkas"
+
+#: ../src/window.c
 #, c-format
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d berkas %s (%s)"
-
-#: ../src/window.c
-#, c-format
-msgid "%d file and %d dir %s (%s)"
-msgid_plural "%d files and %d dirs %s (%s)"
-msgstr[0] "%d berkas dan %d direktori %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
@@ -213,6 +214,12 @@ msgstr "Pohon arsip"
 msgid "Archive type:"
 msgstr "Tipe arsip:"
 
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Tak dapat menjalankan pengarsip yang dapat dieksekusi:"
+
 #: ../src/window.c
 msgid "Archiver output"
 msgstr "Keluaran pengarsip"
@@ -221,11 +228,7 @@ msgstr "Keluaran pengarsip"
 msgid "Are you sure you want to do this?"
 msgstr "Anda yakin ingin melakukan ini?"
 
-#: ../src/7zip.c
-msgid "Attr"
-msgstr "Atribut"
-
-#: ../src/arj.c
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
 msgid "Attributes"
 msgstr "Atribut"
 
@@ -236,10 +239,6 @@ msgstr "Kembali"
 #: ../src/open-with-dlg.c
 msgid "Browse"
 msgstr "Ramban"
-
-#: ../src/rar.c
-msgid "CRC"
-msgstr "CRC"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
@@ -265,7 +264,7 @@ msgstr "Tak dapat membuat arsip baru:"
 msgid "Can't create temporary directory:"
 msgstr "Tak dapat membuat direktori temporer:"
 
-#: ../src/main.c
+#: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
 msgstr "Tak dapat mengekstrak berkas dari arsip:"
 
@@ -323,6 +322,14 @@ msgstr "Tak dapat menulis modul unzipfx ke arsip:"
 #: ../src/interface.c
 msgid "Cancel current operation"
 msgstr "Batalkan operasi saat ini"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -402,14 +409,22 @@ msgstr "Buat arsip solid"
 msgid "Cut"
 msgstr "Potong"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/rpm.c ../src/tar.c
-#: ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Date"
 msgstr "Tanggal"
 
-#: ../src/deb.c
-msgid "Date modified"
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
 msgstr "Tanggal dimodifikasi"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Gunakan perintah suai:"
 
 #: ../src/interface.c
 msgid "Delete"
@@ -562,17 +577,17 @@ msgstr "Segarkan berkas yang ada"
 msgid "From File"
 msgstr "Dari Berkas"
 
-#: ../src/arj.c
-msgid "GUA"
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
+"unrar;unzip;xz;zip;"
 msgstr ""
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Group"
 msgstr "Kelompok"
-
-#: ../src/rpm.c
-msgid "Hard Link"
-msgstr "Taut Keras"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
@@ -611,7 +626,7 @@ msgstr ""
 msgid "Make SF_X"
 msgstr "Buat SF_X"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
 msgid "Method"
 msgstr "Metode"
 
@@ -648,6 +663,10 @@ msgstr "Jumlah berkas: "
 msgid "OS"
 msgstr "OS"
 
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
 msgstr "Hanya arsip"
@@ -672,6 +691,12 @@ msgstr "Buka berkas teks"
 #: ../src/interface.c ../src/window.c
 msgid "Open an archive"
 msgstr "Buka arsip"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Buka berkas citra dengan:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -705,19 +730,23 @@ msgstr "Opsi "
 msgid "Options:"
 msgstr "Opsi:"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
-msgid "Original"
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
 msgstr "Asli"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
 msgstr "Timpa berkas yang ada"
 
-#: ../src/rpm.c
+#: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
 msgstr "Pemilik"
 
-#: ../src/deb.c ../src/tar.c
+#: ../src/tar.c
 msgid "Owner/Group"
 msgstr "Pemilik/Kelompok"
 
@@ -741,11 +770,8 @@ msgstr "Alamat:"
 msgid "Pattern:"
 msgstr "Pola:"
 
-#: ../src/rpm.c
-msgid "Permission"
-msgstr "Hak Akses"
-
-#: ../src/deb.c ../src/lha.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Hak Akses"
 
@@ -773,12 +799,6 @@ msgstr "Silakan isi medan \"Ekstrak ke\"!"
 msgid "Please go to Preferences->Advanced and set it."
 msgstr "Silakan pergi ke Pengaturan->Mahir lalu atur itu."
 
-#: ../src/window.c
-#, fuzzy
-#| msgid "Please install xdg-utils package."
-msgid "Please install xdg-utils."
-msgstr "Silakan instal paket xdg-utils."
-
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
@@ -800,7 +820,7 @@ msgstr "Silakan pilih direktori tujuan"
 msgid "Please wait until the completion of the current one!"
 msgstr "Silakan tunggu sampai penyelesaian tahap ini!"
 
-#: ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Menunjuk ke"
 
@@ -830,7 +850,7 @@ msgstr "Menampilkan isi arsip sebagai HTML"
 msgid "Print the archive content as text"
 msgstr "Tampilkan isi arsip sebagai teks"
 
-#: ../src/arj.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+#: ../src/arj.c ../src/gzip_et_al.c
 msgid "Ratio"
 msgstr "Rasio"
 
@@ -857,6 +877,10 @@ msgstr "Simpan arsip ekstrak-sendiri sebagai"
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
 msgstr "Simpan geometri jendela"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -898,6 +922,14 @@ msgstr "Tampilkan batang lokasi arsip"
 msgid "Show archive tree sidebar"
 msgstr "Tampilkan batang sisi pohon arsip"
 
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr "Tambah berkas yang diberikan dengan menanyakan nama arsip lalu keluar."
+
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr ""
@@ -908,7 +940,7 @@ msgstr ""
 msgid "Show version and exit\n"
 msgstr "Tampilkan versi lalu keluar"
 
-#: ../src/deb.c ../src/extract_dialog.c ../src/lha.c ../src/rpm.c ../src/tar.c
+#: ../src/extract_dialog.c
 msgid "Size"
 msgstr "Ukuran"
 
@@ -920,7 +952,7 @@ msgstr "Beberapa galat terjadi:"
 msgid "Sorry, I could not perform the operation!"
 msgstr "Maaf, saya tidak dapat melakukan operasi!"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
 msgstr "Maaf,format arsip ini tidak didukung:"
 
@@ -939,6 +971,10 @@ msgstr "Simpan keluaran pengarsip"
 #: ../src/add_dialog.c
 msgid "Store full paths"
 msgstr "Simpan alamat penuh"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
@@ -964,21 +1000,21 @@ msgid ""
 "The archive's directory structure is recreated in the extraction directory"
 msgstr "Struktur direktori arsip dibuat ulang ketika mengekstrak direktori"
 
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Pengarsip tidak mendukung fitur ini!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Kolom nama berkas akan diurutkan setelah memuat arsip"
 
-#: ../src/window.c
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "The proper archiver is not installed!"
 msgstr "Pengarsip yang sesuai tidak terinstal!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
 msgstr "Arsip ini terenkripsi!"
-
-#: ../src/window.c
-msgid "This file type is not supported!"
-msgstr "Tipe berkas ini tidak didukung!"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1043,13 +1079,10 @@ msgstr ""
 "daripada versi yang ada di arsip; tidak seperti opsi mutakhirkan, opsi ini "
 "tidak menambah berkas yang tidak ada di arsip"
 
-#: ../src/7zip.c ../src/arj.c ../src/rar.c ../src/tar.c ../src/zip.c
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
 msgid "Time"
 msgstr "Waktu"
-
-#: ../src/lha.c
-msgid "Timestamp"
-msgstr "Penanda waktu"
 
 #: ../src/interface.c
 msgid "Total Progress:"
@@ -1063,7 +1096,7 @@ msgstr "Sentuh berkas"
 msgid "Type:"
 msgstr "Tipe:"
 
-#: ../src/lha.c
+#: ../src/deb.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1082,6 +1115,10 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
 msgstr ""
 
 #: ../src/interface.c
@@ -1241,6 +1278,10 @@ msgstr "_Tes"
 msgid "_Text file"
 msgstr "_Berkas teks"
 
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "choose..."
 msgstr "pilih..."
@@ -1294,14 +1335,38 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Ukuran\n"
 
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d berkas dan %d direktori %s (%s)"
+
+#~ msgid "Attr"
+#~ msgstr "Atribut"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Hard Link"
+#~ msgstr "Taut Keras"
+
+#~ msgid "Permission"
+#~ msgstr "Hak Akses"
+
+#, fuzzy
+#~| msgid "Please install xdg-utils package."
+#~ msgid "Please install xdg-utils."
+#~ msgstr "Silakan instal paket xdg-utils."
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Tipe berkas ini tidak didukung!"
+
+#~ msgid "Timestamp"
+#~ msgstr "Penanda waktu"
+
 #~ msgid "Decompress file"
 #~ msgstr "Dekompres berkas"
 
 #~ msgid "Multi-extract archives"
 #~ msgstr "Multi-ekstrak arsip"
-
-#~ msgid "The archiver doesn't support this feature!"
-#~ msgstr "Pengarsip tidak mendukung fitur ini!"
 
 #~ msgid "You can't add content to rpm packages!"
 #~ msgstr "Anda tak dapat menambah isi ke paket rpm!"
