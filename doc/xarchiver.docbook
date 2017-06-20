@@ -109,7 +109,7 @@
 					</listitem>
 					<listitem>
 						<para>
-							Smart detection of arj, zip and rar password encrypted archives
+							Smart detection of 7zip, arj, rar and zip password encrypted archives
 						</para>
 					</listitem>
 					<listitem>
@@ -119,17 +119,17 @@
 					</listitem>
 					<listitem>
 						<para>
-							All common formats are supported: 7z, arj, bzip2, compress, cpio, gzip, lha, lz4, lzip, lzma, lzop, rar, tar, xz, zip, tar.bz2, tar.gz, tar.lz, tar.lz4, tar.lzma, tar.lzop, tar.xz, tar.Z, deb and rpm packages (open and extract only)
+							All common formats are supported: 7z, arj, bzip2, compress, cpio, gzip, lha, lz4, lzip, lzma, lzop, rar, tar, xz, zip, tar.bz2, tar.gz, tar.lz, tar.lz4, tar.lzma, tar.lzop, tar.xz, tar.Z, deb and rpm packages
 						</para>
 					</listitem>
 					<listitem>
 						<para>
-							Deb and Rpm packages are handled internally, their package managers are NOT required.
+							Debian and RPM packages are handled internally, their package managers are NOT required
 						</para>
 					</listitem>
 					<listitem>
 						<para>
-							Zip, rar, arj and 7z password encrypted archives are fully supported
+							Password encrypted archives are fully supported
 						</para>
 					</listitem>
 				</itemizedlist>
@@ -279,7 +279,7 @@
 			<section id="general_startup">
 				<title>Startup</title>
 				<para>
-					At startup, &app; detects the available installed archivers (tar,rar,zip etc) and the script <emphasis>xdg-open</emphasis> for handling different file types. Since &app; is a frontend (a graphic user interface to the command line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, &app; can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
+					At startup, &app; detects the available installed archivers (tar,rar,zip etc) and the script <emphasis>xdg-open</emphasis> for handling different file types. Since &app; is a front end (a graphic user interface to the command line executables) it can't create archives whose archiver is not available. For instance if you have the free edition of rar, unrar, &app; can't create rar archives since unrar allows rar archives to be opened, tested and extracted but not to be created.
 				</para>
 			</section>
 			<section id="how_it_works">
@@ -317,7 +317,7 @@
 					<title>Open</title>
 						<para>
 							Opens a new archive. If you force &app; to open an unsupported archive
-							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also. The password detection doesn't work for 7zip archives because of the complexity of 7zip format.
+							type an error message will be emitted. The archive type is detected by its magic header and not by the extension. Password protected archives are supported also.
 						</para>
 				</section>
 				<section id="list_as">
@@ -511,7 +511,7 @@ enter your password. From now on all the files you add to the archive will be pa
 		</section>
 		<section id="faq_3">
 			<title>Why does &app; emit this error message when handling tar archives?</title>
-			<para>&app; is only a frontend which runs the archiver and reports ITS error messages. Most probably you are opening an archive produced with older versions of tar than the one you are currently using or the archive is corrupted.
+			<para>&app; is only a front end which runs the archiver and reports ITS error messages. Most probably you are opening an archive produced with older versions of tar than the one you are currently using or the archive is corrupted.
 			</para>
 		</section>
 		<section id="faq_4">
@@ -521,7 +521,7 @@ enter your password. From now on all the files you add to the archive will be pa
 		</section>
 		<section id="faq_5">
 			<title>Why does &app; sometimes report errors but the Error messages window is empty?</title>
-			<para>Please remember, that &app; is only a frontend. It correctly reads any output from STDOUT or STDERR. Most probably the archiver didn't write anything to those channels even though it exists with an error code.
+			<para>Please remember, that &app; is only a front end. It correctly reads any output from STDOUT or STDERR. Most probably the archiver didn't write anything to those channels even though it exists with an error code.
 			</para>
 		</section>
 		<section id="faq_6">
