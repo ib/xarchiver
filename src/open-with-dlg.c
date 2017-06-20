@@ -62,6 +62,19 @@ static void xa_app_free (App *app, gpointer user_data)
 	g_free(app);
 }
 
+static void xa_open_with_dialog_expander_expanded (GObject *object, GParamSpec *param_spec, Open_with_data *data)
+{
+	gchar *cmd;
+
+	if (gtk_expander_get_expanded(GTK_EXPANDER(object)))
+	{
+		cmd = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_custom_cmd));
+
+		if (cmd && *cmd)
+			gtk_entry_set_text(GTK_ENTRY(data->custom_command_entry), cmd);
+	}
+}
+
 static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection, Open_with_data *data)
 {
 	gchar *exec;
@@ -381,6 +394,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gtk_tree_view_append_column (GTK_TREE_VIEW (apps_treeview), column);
 
 	custom_command_expander = gtk_expander_new_with_mnemonic(_("Use a custom command:"));
+	g_signal_connect(G_OBJECT(custom_command_expander), "notify::expanded", G_CALLBACK(xa_open_with_dialog_expander_expanded), data);
 	gtk_box_pack_start (GTK_BOX (vbox1),custom_command_expander,FALSE,FALSE,0);
 
 	hbox_expander = gtk_hbox_new(FALSE,5);
