@@ -25,7 +25,7 @@ typedef struct Prefs_dialog_data
 {
 	GtkWidget *dialog1,*dialog_vbox1,*combo_prefered_format;
 	GtkWidget *confirm_deletion, *store_output,*combo_archive_view,*combo_icon_size;
-	GtkWidget *check_show_comment, *check_sort_filename_column,*show_location_bar,*show_sidebar,*show_toolbar,*combo_prefered_viewer;
+	GtkWidget *check_show_comment, *check_sort_filename_column, *show_location_bar, *show_sidebar, *show_toolbar, *combo_prefered_viewer, *combo_prefered_archiver;
 	GtkWidget *combo_prefered_web_browser, *combo_prefered_editor, *combo_prefered_temp_dir, *combo_prefered_extract_dir, *allow_sub_dir,*check_save_geometry,*prefs_notebook;
 	GtkListStore *prefs_liststore;
 	GtkWidget *iconview;

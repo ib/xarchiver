@@ -495,6 +495,8 @@ static void xa_determine_program_to_run (gchar *file)
 		}
 		else if (strcmp(type, "image-x-generic") == 0)
 			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_viewer));
+		else if (strcmp(type, "package-x-generic") == 0)
+			program = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_archiver));
 		else
 		{
 			gchar *basename_utf8 = g_filename_display_name(basename);
