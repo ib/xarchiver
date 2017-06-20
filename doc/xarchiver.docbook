@@ -26,6 +26,14 @@
 				A copy of this license can be found in the file COPYING included with the source code of this
 				program.
 			</para>
+			<note>
+				<title>
+					Caution!
+				</title>
+				<para>
+					This documentation is a bit outdated. It may still be useful, though.
+				</para>
+			</note>
 		</legalnotice>
 		<title>
 			&app; &appversion;
