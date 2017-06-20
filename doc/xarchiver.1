@@ -1,0 +1,56 @@
+.TH XARCHIVER "1" "June 2017" "xarchiver" "User Commands"
+.SH NAME
+xarchiver \- GTK+ front end for managing archives
+.SH SYNOPSIS
+.B xarchiver
+[\fIOPTION\fR] [\fIarchive\fR]
+.SH DESCRIPTION
+Xarchiver is a lightweight desktop environment independent GTK+ front end for
+handling 7z, arj, bzip2, compress, cpio, gzip, lha, lz4, lzip, lzma, lzop,
+rar, tar, xz, zip, tar.bz2, tar.gz, tar.lz, tar.lz4, tar.lzma, tar.lzop,
+tar.xz, tar.Z and (without their package managers) deb and rpm files.
+It detects the file types by their magic header, not by their extension, and
+utilizes various (un)compressor/(un)archiver command line programs at
+runtime. It allows you to list, test and create archives and to add, extract
+and delete files from them. Password protected archives are supported and
+will be recognized.
+.SH OPTIONS
+.TP
+\fB\-a\fR, \fB\-\-add\fR
+add to archive by asking which files and quit
+.TP
+\fB\-c\fR, \fB\-\-compress\fR=\fIfile1 ... fileN\fR
+add the given files by asking the name of the archive and quit
+.TP
+\fB\-e\fR, \fB\-\-extract\fR
+extract archive by asking the extraction directory and quit
+.TP
+\fB\-m\fR, \fB\-\-multi\-extract\fR
+extract multiple archives by asking the extraction directory and quit
+.TP
+\fB\-x\fR, \fB\-\-extract\-to\fR=\fIdestination\fR
+extract archive to the destination directory and quit
+
+.TP
+\fB\-i\fR, \fB\-\-info\fR
+show found command line programs to be used and exit
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+show version and exit
+.TP
+\fB\-\-display\fR=\fIDISPLAY\fR
+X display to use
+
+.TP
+\fB\-?\fR, \fB\-h\fR, \fB\-\-help\fR
+show help options
+.TP
+\fB\-\-help\-gtk\fR
+show GTK+ options
+.TP
+\fB\-\-help\-all\fR
+show all help options
+.SH AUTHOR
+Written by Giuseppe Torelli and Ingo Br\[:u]ckl.
+.SH REPORTING BUGS
+<https://github.com/ib/xarchiver/issues>

@@ -40,6 +40,8 @@ EXTRA_DIST = xarchiver.css xarchiver.docbook xarchiver.xsl \
 	$(css_DATA) \
 	$(image_DATA)
 
+dist_man_MANS = xarchiver.1
+
 pdf:
 	jw -b pdf xarchiver.docbook
 	mv xarchiver.pdf xarchiver-$(VERSION).pdf

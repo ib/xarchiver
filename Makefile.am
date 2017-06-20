@@ -10,6 +10,8 @@ plugindir = $(PLUGINDIR)
 plugin_SCRIPTS = $(PLUGINSCRIPT)
 EXTRA_SCRIPTS =
 
+man1_MANS = doc/xarchiver.1
+
 EXTRA_DIST = \
 	autogen.sh \
 	intltool-extract.in \
