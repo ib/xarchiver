@@ -119,7 +119,7 @@ static gboolean xa_open_with_dialog_mouse_button_event (GtkWidget *widget, GdkEv
 	return FALSE;
 }
 
-static void xa_destroy_open_with_dialog (GtkObject *object, Open_with_data *data)
+static void xa_destroy_open_with_dialog (GTK_COMPAT_DESTROY_TYPE object, Open_with_data *data)
 {
 	g_free(data->files);
 	g_slist_foreach(data->apps, (GFunc) xa_app_free, NULL);

@@ -160,10 +160,12 @@ static inline void gtk_combo_box_text_remove (GtkWidget *combo_box, gint positio
 
 #if GTK_CHECK_VERSION(3,0,0)
 #define GTK_COMPAT_ADJUSTMENT_TYPE GtkAdjustment *
+#define GTK_COMPAT_DESTROY_TYPE GtkWidget *
 #undef GTK_COMPAT_SWITCH_PAGE_TYPE
 #define GTK_COMPAT_SWITCH_PAGE_TYPE GtkWidget *
 #else
 #define GTK_COMPAT_ADJUSTMENT_TYPE GtkObject *
+#define GTK_COMPAT_DESTROY_TYPE GtkObject *
 #endif
 
 #endif
