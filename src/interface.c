@@ -191,14 +191,14 @@ static void xa_create_popup_menu ()
 	gtk_widget_show (image11);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (rrename),image11);
 
-	g_signal_connect ((gpointer) open_popupmenu,"activate",	G_CALLBACK(xa_open_with_from_popupmenu),NULL);
-	g_signal_connect ((gpointer) view,	"activate",	G_CALLBACK(xa_view_from_popupmenu),NULL);
-	g_signal_connect ((gpointer) cut,	"activate",	G_CALLBACK(xa_clipboard_cut),NULL);
-	g_signal_connect ((gpointer) copy,	"activate",	G_CALLBACK(xa_clipboard_copy),NULL);
-	g_signal_connect ((gpointer) paste,	"activate",	G_CALLBACK(xa_clipboard_paste),NULL);
-	g_signal_connect((gpointer) eextract, "activate", G_CALLBACK(xa_extract_archive), NULL);
-	g_signal_connect ((gpointer) ddelete,"activate",G_CALLBACK(xa_delete_archive),NULL);
-	g_signal_connect ((gpointer) rrename,"activate",G_CALLBACK(xa_rename_archive),NULL);
+	g_signal_connect(open_popupmenu, "activate", G_CALLBACK(xa_open_with_from_popupmenu), NULL);
+	g_signal_connect(view, "activate", G_CALLBACK(xa_view_from_popupmenu), NULL);
+	g_signal_connect(cut, "activate", G_CALLBACK(xa_clipboard_cut), NULL);
+	g_signal_connect(copy, "activate", G_CALLBACK(xa_clipboard_copy), NULL);
+	g_signal_connect(paste, "activate", G_CALLBACK(xa_clipboard_paste), NULL);
+	g_signal_connect(eextract, "activate", G_CALLBACK(xa_extract_archive), NULL);
+	g_signal_connect(ddelete, "activate", G_CALLBACK(xa_delete_archive), NULL);
+	g_signal_connect(rrename, "activate", G_CALLBACK(xa_rename_archive), NULL);
 }
 
 static void xa_dir_sidebar_row_expanded (GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path, gpointer data)
@@ -1081,7 +1081,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_notebook_set_scrollable (notebook,TRUE);
 	gtk_notebook_popup_enable (notebook);
 	gtk_widget_show (GTK_WIDGET(notebook));
-	g_signal_connect ((gpointer) notebook,"switch-page",G_CALLBACK (xa_page_has_changed),NULL);
+	g_signal_connect(notebook, "switch-page", G_CALLBACK(xa_page_has_changed), NULL);
 
 	gtk_drag_dest_set (GTK_WIDGET(notebook),GTK_DEST_DEFAULT_ALL,drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
 	g_signal_connect (G_OBJECT (notebook),"drag-data-received",G_CALLBACK (on_drag_data_received),NULL);
@@ -1121,43 +1121,43 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_box_pack_start (GTK_BOX (hbox_sb),red_led,FALSE,FALSE,0);
 	gtk_misc_set_alignment (GTK_MISC (red_led),1,1);
 
-	g_signal_connect ((gpointer) new1,"activate",G_CALLBACK (xa_new_archive),NULL);
-	g_signal_connect ((gpointer) open1,"activate",G_CALLBACK (xa_open_archive),NULL);
-	g_signal_connect ((gpointer) listing_text,"activate",G_CALLBACK (xa_list_archive),GUINT_TO_POINTER(0));
-	g_signal_connect ((gpointer) listing_html,"activate",G_CALLBACK (xa_list_archive),GUINT_TO_POINTER(1));
-	g_signal_connect ((gpointer) save1,"activate",G_CALLBACK (xa_save_archive),NULL);
-	g_signal_connect ((gpointer) check_menu,"activate",G_CALLBACK (xa_test_archive),NULL);
-	g_signal_connect ((gpointer) properties,"activate",G_CALLBACK (xa_archive_properties),NULL);
-	g_signal_connect ((gpointer) extract_menu,"activate",G_CALLBACK (xa_extract_archive),NULL);
-	g_signal_connect ((gpointer) exe_menu,"activate",G_CALLBACK (xa_convert_sfx),NULL);
-	g_signal_connect ((gpointer) addfile,"activate",G_CALLBACK (xa_add_files_archive),NULL);
-	g_signal_connect ((gpointer) view_shell_output1,"activate",G_CALLBACK (xa_show_archive_output),NULL);
-	g_signal_connect ((gpointer) select_all,"activate",G_CALLBACK (xa_select_all),NULL);
-	g_signal_connect ((gpointer) deselect_all,"activate",G_CALLBACK (xa_deselect_all),NULL);
-	g_signal_connect ((gpointer) select_pattern,"activate",G_CALLBACK (xa_select_by_pattern_dialog),NULL);
-	g_signal_connect ((gpointer) password_entry_menu,"activate",G_CALLBACK (xa_enter_password),NULL);
-	g_signal_connect ((gpointer) prefs_menu,"activate",G_CALLBACK (xa_show_prefs_dialog),NULL);
-	g_signal_connect ((gpointer) close1,"activate",G_CALLBACK (xa_close_archive),NULL);
-	g_signal_connect ((gpointer) quit1,"activate",G_CALLBACK (xa_quit_application),NULL);
-	g_signal_connect ((gpointer) delete_menu,"activate",G_CALLBACK (xa_delete_archive),NULL);
-	g_signal_connect ((gpointer) rename_menu,"activate",G_CALLBACK (xa_rename_archive),NULL);
-	g_signal_connect ((gpointer) comment_menu,"activate",G_CALLBACK (xa_show_archive_comment),NULL);
-	g_signal_connect ((gpointer) multi_extract_menu,"activate",G_CALLBACK (xa_show_multi_extract_dialog),NULL);
-	g_signal_connect ((gpointer) help1,"activate",G_CALLBACK (xa_show_help),NULL);
-	g_signal_connect ((gpointer) about1,"activate",G_CALLBACK (xa_about),NULL);
-	g_signal_connect ((gpointer) unsort_menu,"activate",G_CALLBACK (xa_unsort),NULL);
+	g_signal_connect(new1, "activate", G_CALLBACK(xa_new_archive), NULL);
+	g_signal_connect(open1, "activate", G_CALLBACK(xa_open_archive), NULL);
+	g_signal_connect(listing_text, "activate", G_CALLBACK(xa_list_archive), GUINT_TO_POINTER(0));
+	g_signal_connect(listing_html, "activate", G_CALLBACK(xa_list_archive), GUINT_TO_POINTER(1));
+	g_signal_connect(save1, "activate", G_CALLBACK(xa_save_archive), NULL);
+	g_signal_connect(check_menu, "activate", G_CALLBACK(xa_test_archive), NULL);
+	g_signal_connect(properties, "activate", G_CALLBACK(xa_archive_properties), NULL);
+	g_signal_connect(extract_menu, "activate", G_CALLBACK(xa_extract_archive), NULL);
+	g_signal_connect(exe_menu, "activate", G_CALLBACK(xa_convert_sfx), NULL);
+	g_signal_connect(addfile, "activate", G_CALLBACK(xa_add_files_archive), NULL);
+	g_signal_connect(view_shell_output1, "activate", G_CALLBACK(xa_show_archive_output), NULL);
+	g_signal_connect(select_all, "activate", G_CALLBACK(xa_select_all), NULL);
+	g_signal_connect(deselect_all, "activate", G_CALLBACK(xa_deselect_all), NULL);
+	g_signal_connect(select_pattern, "activate", G_CALLBACK(xa_select_by_pattern_dialog), NULL);
+	g_signal_connect(password_entry_menu, "activate", G_CALLBACK(xa_enter_password), NULL);
+	g_signal_connect(prefs_menu, "activate", G_CALLBACK(xa_show_prefs_dialog), NULL);
+	g_signal_connect(close1, "activate", G_CALLBACK(xa_close_archive), NULL);
+	g_signal_connect(quit1, "activate", G_CALLBACK(xa_quit_application), NULL);
+	g_signal_connect(delete_menu, "activate", G_CALLBACK(xa_delete_archive), NULL);
+	g_signal_connect(rename_menu, "activate", G_CALLBACK(xa_rename_archive), NULL);
+	g_signal_connect(comment_menu, "activate", G_CALLBACK(xa_show_archive_comment), NULL);
+	g_signal_connect(multi_extract_menu, "activate", G_CALLBACK(xa_show_multi_extract_dialog), NULL);
+	g_signal_connect(help1, "activate", G_CALLBACK(xa_show_help), NULL);
+	g_signal_connect(about1, "activate", G_CALLBACK(xa_about), NULL);
+	g_signal_connect(unsort_menu, "activate", G_CALLBACK(xa_unsort), NULL);
 
-	g_signal_connect ((gpointer) New_button,	"clicked",G_CALLBACK (xa_new_archive),NULL);
-	g_signal_connect ((gpointer) Open_button,	"clicked",G_CALLBACK (xa_open_archive),NULL);
+	g_signal_connect(New_button, "clicked", G_CALLBACK(xa_new_archive), NULL);
+	g_signal_connect(Open_button, "clicked", G_CALLBACK(xa_open_archive), NULL);
 
-	g_signal_connect ((gpointer) back_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(1));
-	g_signal_connect ((gpointer) up_button,		"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(2));
-	g_signal_connect ((gpointer) forward_button,"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(3));
-	g_signal_connect ((gpointer) home_button,	"clicked",G_CALLBACK (xa_handle_navigation_buttons),GUINT_TO_POINTER(0));
+	g_signal_connect(back_button, "clicked", G_CALLBACK(xa_handle_navigation_buttons), GUINT_TO_POINTER(1));
+	g_signal_connect(up_button, "clicked", G_CALLBACK(xa_handle_navigation_buttons), GUINT_TO_POINTER(2));
+	g_signal_connect(forward_button, "clicked", G_CALLBACK(xa_handle_navigation_buttons), GUINT_TO_POINTER(3));
+	g_signal_connect(home_button, "clicked", G_CALLBACK(xa_handle_navigation_buttons), GUINT_TO_POINTER(0));
 
-	g_signal_connect ((gpointer) AddFile_button,"clicked",G_CALLBACK (xa_add_files_archive),NULL);
-    g_signal_connect ((gpointer) Extract_button,"clicked",G_CALLBACK (xa_extract_archive),	NULL);
-	g_signal_connect ((gpointer) Stop_button,	"clicked",G_CALLBACK (xa_cancel_archive),	NULL);
+	g_signal_connect(AddFile_button, "clicked", G_CALLBACK(xa_add_files_archive), NULL);
+	g_signal_connect(Extract_button, "clicked", G_CALLBACK(xa_extract_archive), NULL);
+	g_signal_connect(Stop_button, "clicked", G_CALLBACK(xa_cancel_archive), NULL);
 	gtk_window_add_accel_group (GTK_WINDOW (xa_main_window),accel_group);
 }
 
@@ -1256,7 +1256,7 @@ void xa_add_page (XArchive *archive)
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
 
 	gtk_drag_source_set (archive->treeview,GDK_BUTTON1_MASK,drag_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
-	g_signal_connect ((gpointer) sel,			   "changed",		G_CALLBACK (xa_row_selected),archive);
+	g_signal_connect(sel, "changed", G_CALLBACK(xa_row_selected), archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-begin",	G_CALLBACK (drag_begin),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-data-get", G_CALLBACK (drag_data_get),archive);
 	g_signal_connect (G_OBJECT (archive->treeview),"drag-end",		G_CALLBACK (drag_end),NULL);

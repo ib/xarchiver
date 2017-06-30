@@ -638,7 +638,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	add_button = gtk_button_new_from_stock ("gtk-add");
 	gtk_box_pack_end (GTK_BOX (hbox2),add_button,FALSE,FALSE,0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (add_button),FALSE);
-	g_signal_connect ( (gpointer)add_button,"clicked",G_CALLBACK (xa_multi_extract_dialog_select_files_to_add),dialog_data);
+	g_signal_connect(add_button, "clicked", G_CALLBACK(xa_multi_extract_dialog_select_files_to_add), dialog_data);
 
 	remove_button = gtk_button_new_from_stock ("gtk-remove");
 	gtk_widget_set_sensitive (remove_button,FALSE);

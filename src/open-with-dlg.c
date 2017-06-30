@@ -372,7 +372,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),apps_treeview);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(apps_treeview),FALSE);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (apps_treeview));
-	g_signal_connect ((gpointer) sel,"changed",G_CALLBACK (xa_open_with_dialog_selection_changed),data);
+	g_signal_connect(sel, "changed", G_CALLBACK(xa_open_with_dialog_selection_changed), data);
 
 	/* First column: icon + text */
 	column = gtk_tree_view_column_new();
