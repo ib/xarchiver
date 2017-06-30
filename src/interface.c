@@ -1678,7 +1678,7 @@ void xa_show_progress_bar (XArchive *archive)
 		gtk_box_pack_end (GTK_BOX (action_area),cancel_button,TRUE,TRUE,12);
 
 		g_signal_connect(G_OBJECT(cancel_button), "clicked", G_CALLBACK(xa_cancel_progress_bar), &archive->child_pid);
-		g_signal_connect(G_OBJECT(progress->window), "delete_event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
+		g_signal_connect(G_OBJECT(progress->window), "delete-event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
 	}
 	gtk_widget_show_all(progress->window);
 }
