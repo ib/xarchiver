@@ -749,7 +749,7 @@ void xa_fill_dir_sidebar(XArchive *archive,gboolean force_reload)
 	}
 }
 
-void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer data)
+void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_data)
 {
 	XEntry *entry;
 	GtkTreeIter iter;

@@ -303,7 +303,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	gtk_drag_finish (context,TRUE,FALSE,time);
 }
 
-static gboolean xa_dir_sidebar_drag_motion_expand_timeout (gpointer data)
+static gboolean xa_dir_sidebar_drag_motion_expand_timeout (gpointer user_data)
 {
 	GtkTreePath *path;
 
@@ -1699,7 +1699,7 @@ void xa_increase_progress_bar (Progress *progress, gchar *filename, double perce
 		g_free (markup);
 }
 
-gboolean xa_pulse_progress_bar (gpointer data)
+gboolean xa_pulse_progress_bar (gpointer user_data)
 {
 	if (progress && gtk_widget_get_visible(progress->window))
 	{

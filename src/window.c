@@ -342,7 +342,7 @@ static gchar *xa_open_sfx_file_selector ()
 	return sfx_name;
 }
 
-static void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer data)
+static void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer user_data)
 {
 	if (!xdg_open)
 	{
@@ -361,7 +361,7 @@ static void xa_activate_link (GtkAboutDialog *about, const gchar *link, gpointer
 		xa_launch_external_program(xdg_open, link);
 }
 
-static void xa_rename_cell_edited_canceled (GtkCellRenderer *renderer, gpointer data)
+static void xa_rename_cell_edited_canceled (GtkCellRenderer *renderer, gpointer user_data)
 {
 	g_object_set(renderer,"editable",FALSE,NULL);
 	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
@@ -968,7 +968,7 @@ int xa_show_message_dialog (GtkWindow *window,int mode,int type,int button,const
 	return response;
 }
 
-void xa_save_archive (GtkMenuItem *menuitem,gpointer data)
+void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gint current_page;
 	gint idx;
@@ -1298,7 +1298,7 @@ void xa_close_archive (GtkMenuItem *menuitem,gpointer user_data)
 	archive[idx] = NULL;
 }
 
-void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer data)
+void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
 	gint i;
 	gint idx;
@@ -1388,7 +1388,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	xa_reload_archive_content(archive[id]);
 }
 
-void xa_add_files_archive (GtkMenuItem *menuitem,gpointer data)
+void xa_add_files_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gint current_page,idx;
 
@@ -1861,7 +1861,7 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 	gtk_tree_view_append_column(GTK_TREE_VIEW(archive->treeview), column);
 }
 
-gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data)
+gboolean treeview_select_search (GtkTreeModel *model, gint column, const gchar *key, GtkTreeIter *iter, gpointer user_data)
 {
     char *filename;
     gboolean result;
@@ -1875,7 +1875,7 @@ gboolean treeview_select_search (GtkTreeModel *model,gint column,const gchar *ke
     return result;
 }
 
-void xa_cancel_archive (GtkMenuItem *menuitem,gpointer data)
+void xa_cancel_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
 	gint current_page,idx,response;
 
@@ -2091,7 +2091,7 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 	g_list_free (row_list);
 }
 
-void drag_end (GtkWidget *treeview1,GdkDragContext *context,gpointer data)
+void drag_end (GtkWidget *widget, GdkDragContext *context, gpointer user_data)
 {
 	/* Nothing to do */
 }
@@ -2564,7 +2564,7 @@ gboolean xa_mouse_button_event (GtkWidget *widget, GdkEventButton *event, XArchi
 	return FALSE;
 }
 
-void xa_clipboard_cut(GtkMenuItem* item,gpointer data)
+void xa_clipboard_cut (GtkMenuItem *item, gpointer user_data)
 {
 	gint idx,current_page;
 
@@ -2574,7 +2574,7 @@ void xa_clipboard_cut(GtkMenuItem* item,gpointer data)
 	xa_clipboard_cut_copy_operation(archive[idx],XA_CLIPBOARD_CUT);
 }
 
-void xa_clipboard_copy(GtkMenuItem* item,gpointer data)
+void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
 {
 	gint idx,current_page;
 
@@ -2583,7 +2583,7 @@ void xa_clipboard_copy(GtkMenuItem* item,gpointer data)
 	xa_clipboard_cut_copy_operation(archive[idx],XA_CLIPBOARD_COPY);
 }
 
-void xa_clipboard_paste(GtkMenuItem* item,gpointer data)
+void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 {
 	gint idx,current_page;
 	GtkClipboard *clipboard;
@@ -2637,7 +2637,7 @@ void xa_clipboard_clear (GtkClipboard *clipboard,gpointer data)
 	}
 }
 
-void xa_rename_archive(GtkMenuItem* item,gpointer data)
+void xa_rename_archive (GtkMenuItem *item, gpointer user_data)
 {
 	gint current_index,idx;
 	GtkTreeSelection *selection;
@@ -2660,7 +2660,7 @@ void xa_rename_archive(GtkMenuItem* item,gpointer data)
 	g_list_free(row_list);
 }
 
-void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
+void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 {
 	gboolean result		= FALSE;
 	gint current_index,idx,nr;
@@ -2726,7 +2726,7 @@ void xa_open_with_from_popupmenu(GtkMenuItem *item,gpointer data)
 	g_slist_free(list_of_files);
 }
 
-void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
+void xa_view_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 {
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
@@ -2924,7 +2924,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	xa_set_statusbar_message_for_displayed_rows(archive);
 }
 
-void xa_show_multi_extract_dialog (GtkMenuItem *menu_item,gpointer data)
+void xa_show_multi_extract_dialog (GtkMenuItem *menu_item, gpointer user_data)
 {
 	xa_multi_extract_dialog(multi_extract_window);
 	if (progress)
@@ -2932,7 +2932,7 @@ void xa_show_multi_extract_dialog (GtkMenuItem *menu_item,gpointer data)
 	//xa_close_archive (NULL,data);
 }
 
-void xa_unsort (GtkMenuItem *menu_item, gpointer data)
+void xa_unsort (GtkMenuItem *menu_item, gpointer user_data)
 {
 	gint idx;
 
