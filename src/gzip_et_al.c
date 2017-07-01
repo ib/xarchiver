@@ -30,8 +30,8 @@
 #include "window.h"
 
 #define compress (archive->type == XARCHIVETYPE_COMPRESS)
-#define lzop (archive->type == XARCHIVETYPE_LZOP)
-#define xz   (archive->type == XARCHIVETYPE_XZ)
+#define lzop     (archive->type == XARCHIVETYPE_LZOP)
+#define xz       (archive->type == XARCHIVETYPE_XZ)
 
 static gpointer item[7];
 static gchar *filename;
