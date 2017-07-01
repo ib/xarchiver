@@ -1793,7 +1793,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_TAR;
 	else if (memcmp(magic, "\xfd\x37\x7a\x58\x5a\x00", 6) == 0)
 		xa.type = XARCHIVETYPE_XZ;
-	else if (memcmp(magic, "\x50\x4b", 2) == 0)
+	else if (memcmp(magic, "\x50\x4b\x03\x04", 4) == 0)
 	{
 		xa.type = XARCHIVETYPE_ZIP;
 
