@@ -29,6 +29,7 @@
 #include "tar.h"
 #include "window.h"
 
+#define compress (archive->type == XARCHIVETYPE_COMPRESS)
 #define lzop (archive->type == XARCHIVETYPE_LZOP)
 #define xz   (archive->type == XARCHIVETYPE_XZ)
 
@@ -37,7 +38,7 @@ static gchar *filename;
 
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
-	archive->can_test = (can && (archive->type != XARCHIVETYPE_COMPRESS));
+	archive->can_test = (can && !compress);
 	archive->can_extract = can;
 	archive->can_overwrite = can;
 
@@ -440,7 +441,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 	files_str = xa_escape_bad_chars(files->str, "\"");
 	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -", archive->type == XARCHIVETYPE_COMPRESS ? "f -b ": "", compression, files_str, " -c > ", archive_path, "\"", NULL);
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -", compress ? "f -b " : "", compression, files_str, " -c > ", archive_path, "\"", NULL);
 
 	g_free(archive_path);
 	g_free(files_str);
