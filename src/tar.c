@@ -38,8 +38,8 @@ gboolean isTar (FILE *file)
 
 	fseek(file, 0, SEEK_SET);
 
-	return (memcmp(magic, "\x75\x73\x74\x61\x72\x00\x30\x30", sizeof(magic)) == 0 ||
-	        memcmp(magic, "\x75\x73\x74\x61\x72\x20\x20\x00", sizeof(magic)) == 0 ||
+	return (memcmp(magic, "ustar" "\x00" "00", sizeof(magic)) == 0 ||
+	        memcmp(magic, "ustar" "  " "\x00", sizeof(magic)) == 0 ||
 	        memcmp(magic, "\x00\x00\x00\x00\x00\x00\x00\x00", sizeof(magic)) == 0);
 }
 

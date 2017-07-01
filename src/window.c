@@ -1738,11 +1738,11 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	memset(magic, 0, sizeof(magic));
 	fread(magic, 1, sizeof(magic), file);
 
-	if (memcmp(magic, "\x37\x7a\xbc\xaf\x27\x1c", 6) == 0)
+	if (memcmp(magic, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
 		xa.type = XARCHIVETYPE_7ZIP;
 	else if (memcmp(magic, "\x60\xea", 2) == 0)
 		xa.type = XARCHIVETYPE_ARJ;
-	else if (memcmp(magic, "\x42\x5a\x68", 3) == 0)
+	else if (memcmp(magic, "BZh", 3) == 0)
 		xa.type = XARCHIVETYPE_BZIP2;
 	else if (memcmp(magic, "\x1f\x9d", 2) == 0)
 		xa.type = XARCHIVETYPE_COMPRESS;
@@ -1769,14 +1769,14 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0 ||
 	         (memcmp(magic + 1, "\x2a\x4d\x18", 3) == 0 && (magic[0] & 0xf0) == 0x50))
 		xa.type = XARCHIVETYPE_LZ4;
-	else if (memcmp(magic, "\x4c\x5a\x49\x50", 4) == 0)
+	else if (memcmp(magic, "LZIP", 4) == 0)
 		xa.type = XARCHIVETYPE_LZIP;
 	else if (memcmp(magic, "\x5d\x00\x00\x80", 4) == 0)
 		xa.type = XARCHIVETYPE_LZMA;
 	else if (memcmp(magic, "\211LZO", 4) == 0)
 		xa.type = XARCHIVETYPE_LZOP;
-	else if (memcmp(magic, "\x52\x61\x72\x21\x1a\x07\x00", 7) == 0 ||
-	         memcmp(magic, "\x52\x61\x72\x21\x1a\x07\x01", 7) == 0)
+	else if (memcmp(magic, "Rar!" "\x1a\x07\x00", 7) == 0 ||
+	         memcmp(magic, "Rar!" "\x1a\x07\x01", 7) == 0)
 	{
 		xa.type = XARCHIVETYPE_RAR;
 
@@ -1791,9 +1791,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_RPM;
 	else if (isTar(file))
 		xa.type = XARCHIVETYPE_TAR;
-	else if (memcmp(magic, "\xfd\x37\x7a\x58\x5a\x00", 6) == 0)
+	else if (memcmp(magic, "\xfd" "7zXZ" "\x00", 6) == 0)
 		xa.type = XARCHIVETYPE_XZ;
-	else if (memcmp(magic, "\x50\x4b\x03\x04", 4) == 0)
+	else if (memcmp(magic, "PK" "\x03\x04", 4) == 0)
 	{
 		xa.type = XARCHIVETYPE_ZIP;
 
