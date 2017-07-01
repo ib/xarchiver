@@ -1760,7 +1760,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
 		xa.type = XARCHIVETYPE_DEB;
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||
-	         memcmp(magic, "\x1f\x9d", 2) == 0)
+	         memcmp(magic, "\x1f\x9e", 2) == 0)
 		xa.type = XARCHIVETYPE_GZIP;
 	else if ((memcmp(magic + 2, "-lh", 3) == 0 && ((magic[5] >= '0' && magic[5] <= '7') || magic[5] == 'd') && magic[6] == '-') ||
 	         (memcmp(magic + 2, "-lz", 3) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
