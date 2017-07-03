@@ -512,9 +512,9 @@ destroy_delete_dialog:
 	gtk_widget_destroy (ddialog1);
 }
 
-static void xa_handle_navigation_buttons (GtkToolButton *button, gpointer user_data)
+static void xa_handle_navigation_buttons (GtkToolButton *button, gpointer data)
 {
-	unsigned short int bp = GPOINTER_TO_UINT(user_data);
+	unsigned short int bp = GPOINTER_TO_UINT(data);
 	gint current_page;
 	gint idx;
 	XEntry *new_entry = NULL;

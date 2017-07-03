@@ -47,10 +47,10 @@ static gchar *xa_prefs_choose_program (gboolean flag)
 	return filename;
 }
 
-static void xa_prefs_combo_changed (GtkComboBox *widget, gpointer user_data)
+static void xa_prefs_combo_changed (GtkComboBox *widget, gpointer data)
 {
 	gchar *filename, *filename_utf8;
-	unsigned short int flag = GPOINTER_TO_UINT(user_data);
+	unsigned short int flag = GPOINTER_TO_UINT(data);
 
 	if (gtk_combo_box_get_active(GTK_COMBO_BOX (widget)) == 1)
 	{

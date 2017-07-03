@@ -471,10 +471,10 @@ static gchar *xa_get_statusbar_message (guint64 total_size, gint n_elem, gint di
 	return info;
 }
 
-static void xa_set_environment (gpointer user_data)
+static void xa_set_environment (gpointer display)
 {
-	g_setenv("DISPLAY", user_data, TRUE);
-	g_free(user_data);
+	g_setenv("DISPLAY", display, TRUE);
+	g_free(display);
 }
 
 static void xa_determine_program_to_run (gchar *file)
