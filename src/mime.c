@@ -30,7 +30,7 @@ typedef struct
 
 static GSList *icon_cache;
 
-static gint xa_icon_name_compare_func (pixbuf_cache *a, pixbuf_cache *b)
+static gint xa_icon_name_compare_func (const pixbuf_cache *a, const pixbuf_cache *b)
 {
 	return strcmp(a->icon_name, b->icon_name);
 }
