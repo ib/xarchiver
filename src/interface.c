@@ -507,7 +507,7 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 			break;
 		}
 	}
-	gtk_tree_model_foreach(archive[id]->model,(GtkTreeModelForeachFunc)select_matched_rows,string);
+	gtk_tree_model_foreach(archive[id]->model, select_matched_rows, string);
 	g_free(string);
 
 destroy_delete_dialog:
@@ -1365,9 +1365,8 @@ gboolean xa_check_password (XArchive *archive)
 	return (archive->password != NULL);
 }
 
-gboolean select_matched_rows(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data)
+gboolean select_matched_rows (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer string)
 {
-	gchar *string = data;
 	char **patterns;
 	XEntry *entry = NULL;
 	gint current_page;

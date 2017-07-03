@@ -559,7 +559,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			{
 				model = gtk_tree_view_get_model(GTK_TREE_VIEW(archive->treeview));
 				string = g_strdup (gtk_entry_get_text(GTK_ENTRY(dialog_data->entry2)));
-				gtk_tree_model_foreach(model,(GtkTreeModelForeachFunc)select_matched_rows,string);
+				gtk_tree_model_foreach(model, select_matched_rows, string);
 				selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive->treeview));
 				gtk_tree_selection_selected_foreach(selection,(GtkTreeSelectionForeachFunc)xa_concat_selected_filenames,&names);
 				g_free(string);
