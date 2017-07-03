@@ -103,7 +103,7 @@ static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selecti
 	}
 }
 
-static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDragContext *context, int x, int y, GtkSelectionData *data, unsigned int info, unsigned int time, gpointer user_data)
+static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
 {
 	Multi_extract_data *dialog_data = user_data;
 	gchar **array = NULL;
