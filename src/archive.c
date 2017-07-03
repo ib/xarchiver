@@ -255,7 +255,7 @@ static void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *pa
 
 }
 
-static gboolean _xa_dir_sidebar_select_row (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer entry)
+static gboolean xa_dir_sidebar_find_row (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer entry)
 {
 	XEntry *entry2;
 	GtkTreeIter parent;
@@ -792,7 +792,7 @@ void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_dat
 
 void xa_dir_sidebar_select_row (XEntry *entry)
 {
-	gtk_tree_model_foreach(GTK_TREE_MODEL(archive_dir_model), _xa_dir_sidebar_select_row, entry);
+	gtk_tree_model_foreach(GTK_TREE_MODEL(archive_dir_model), xa_dir_sidebar_find_row, entry);
 }
 
 gint xa_sort_dirs_before_files (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, XArchive *archive)

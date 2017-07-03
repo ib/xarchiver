@@ -850,7 +850,7 @@ int main (int argc, char **argv)
 	XArchive *archive = NULL;
 	gboolean no_bzip2_gzip;
 	unsigned short int x;
-	gchar *_current_dir;
+	gchar *current_dir;
 
 #ifdef ENABLE_NLS
 	setlocale(LC_ALL, "");
@@ -1003,19 +1003,19 @@ int main (int argc, char **argv)
 			if (archive->path[0] != NULL)
 			{
 				xa_create_working_directory(archive);
-				_current_dir = g_path_get_dirname(opt_compress);
-				chdir (_current_dir);
-				g_free(_current_dir);
+				current_dir = g_path_get_dirname(opt_compress);
+				chdir(current_dir);
+				g_free(current_dir);
 				GSList *files = NULL;
-				_current_dir = g_path_get_basename(opt_compress);
-				files = g_slist_append(files,g_strdup(_current_dir));
-				g_free(_current_dir);
+				current_dir = g_path_get_basename(opt_compress);
+				files = g_slist_append(files, g_strdup(current_dir));
+				g_free(current_dir);
 				g_free(opt_compress);
 				for (x = 1; x< argc; x++)
 				{
-					_current_dir = g_path_get_basename(argv[x]);
-					files = g_slist_append(files,g_strdup(_current_dir));
-					g_free (_current_dir);
+					current_dir = g_path_get_basename(argv[x]);
+					files = g_slist_append(files, g_strdup(current_dir));
+					g_free(current_dir);
 				}
 				xa_execute_add_commands(archive, files, TRUE, NULL);
 			}

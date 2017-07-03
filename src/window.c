@@ -372,7 +372,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	XEntry *entry;
-	gchar *old_name,*_old_name,*_new_name,*dummy = NULL;
+	gchar *old_name, *q_old_name, *q_new_name, *dummy = NULL;
 	GSList *names = NULL, *file_list;
 	gboolean result = FALSE;
 
@@ -389,7 +389,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		xa_create_working_directory(archive);
 		archive->extraction_dir = g_strdup(archive->working_dir);
 		old_name = xa_build_full_path_name_from_entry(entry);
-		_old_name = g_shell_quote(old_name);
+		q_old_name = g_shell_quote(old_name);
 		names = g_slist_append(names,old_name);
 
 		archive->do_overwrite = archive->do_full_path = TRUE;
@@ -399,19 +399,19 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 
 		if (result == FALSE)
 		{
-			g_free(_old_name);
+			g_free(q_old_name);
 			goto done;
 		}
 		/* Rename the file in the tmp dir as the new file entered by the user */
-		_new_name = g_shell_quote(new_name);
-		if (strcmp(_new_name, _old_name) == 0)
+		q_new_name = g_shell_quote(new_name);
+		if (strcmp(q_new_name, q_old_name) == 0)
 		{
-			g_free(_old_name);
-			g_free(_new_name);
+			g_free(q_old_name);
+			g_free(q_new_name);
 			goto done;
 		}
-		dummy = g_strconcat("mv -f ", archive->working_dir, "/", _old_name, " ", archive->working_dir, "/", _new_name, NULL);
-		g_free(_old_name);
+		dummy = g_strconcat("mv -f ", archive->working_dir, "/", q_old_name, " ", archive->working_dir, "/", q_new_name, NULL);
+		g_free(q_old_name);
 		xa_run_command(archive, dummy);
 		g_free(dummy);
 
@@ -423,8 +423,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		(*archive->delete)(archive, file_list);
 
 		/* Add the renamed file to the archive */
-		_new_name = g_strdup(new_name);
-		file_list = g_slist_append(NULL, _new_name);
+		file_list = g_slist_append(NULL, g_strdup(new_name));
 		chdir(archive->working_dir);
 		xa_execute_add_commands(archive, file_list, FALSE, NULL);
 	}
@@ -690,7 +689,7 @@ static XAClipboard *xa_get_paste_data_from_clipboard_selection (const guchar *da
 
 static void xa_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selection_data, guint info, XArchive *archive)
 {
-	GSList *_files = archive->clipboard->files;
+	GSList *files = archive->clipboard->files;
 	GString *params = g_string_new("");
 	if (gtk_selection_data_get_target(selection_data) != XA_INFO_LIST)
 		return;
@@ -700,11 +699,11 @@ static void xa_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selecti
 	g_string_append_printf (params,"%p",archive);
 	g_string_append (params,"\r\n");
 
-	while (_files)
+	while (files)
 	{
-		g_string_append (params,_files->data);
+		g_string_append(params, files->data);
 		g_string_append (params,"\r\n");
-		_files = _files->next;
+		files = files->next;
 	}
 	gtk_selection_data_set(selection_data, gtk_selection_data_get_target(selection_data), 8, (guchar *) params->str, strlen(params->str));
 	g_string_free (params,TRUE);
@@ -2171,7 +2170,7 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 {
 	gchar **array = NULL;
 	gchar *filename = NULL;
-	gchar *_current_dir = NULL;
+	gchar *current_dir;
 	GSList *list = NULL;
 	gboolean one_file;
 	unsigned int len = 0;
@@ -2226,9 +2225,9 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 		gtk_drag_finish(context,FALSE,FALSE,time);
 		return;
 	}
-	_current_dir = g_path_get_dirname(array[0]);
-	archive[idx]->child_dir = g_filename_from_uri (_current_dir,NULL,NULL);
-	g_free(_current_dir);
+	current_dir = g_path_get_dirname(array[0]);
+	archive[idx]->child_dir = g_filename_from_uri(current_dir, NULL, NULL);
+	g_free(current_dir);
 	while (array[len])
 	{
 		filename = g_filename_from_uri (array[len],NULL,NULL);
