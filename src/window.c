@@ -372,7 +372,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	XEntry *entry;
-	gchar *old_name, *q_old_name, *q_new_name, *dummy = NULL;
+	gchar *old_name, *q_old_name, *q_new_name, *command;
 	GSList *names = NULL, *file_list;
 	gboolean result = FALSE;
 
@@ -410,10 +410,10 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			g_free(q_new_name);
 			goto done;
 		}
-		dummy = g_strconcat("mv -f ", archive->working_dir, "/", q_old_name, " ", archive->working_dir, "/", q_new_name, NULL);
+		command = g_strconcat("mv -f ", archive->working_dir, "/", q_old_name, " ", archive->working_dir, "/", q_new_name, NULL);
 		g_free(q_old_name);
-		xa_run_command(archive, dummy);
-		g_free(dummy);
+		xa_run_command(archive, command);
+		g_free(command);
 
 		/* Delete the selected file from the archive */
 		old_name = xa_build_full_path_name_from_entry(entry);
