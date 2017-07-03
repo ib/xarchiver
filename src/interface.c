@@ -594,9 +594,9 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 	}
 }
 
-static void xa_close_page (GtkButton *button, gpointer data)
+static void xa_close_page (GtkButton *button, gpointer page)
 {
-	xa_close_archive (NULL,data);
+	xa_close_archive(NULL, page);
 }
 
 static void set_label (GtkWidget *label, gchar *text)

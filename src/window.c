@@ -1259,12 +1259,12 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	}
 }
 
-void xa_close_archive (GtkMenuItem *menuitem, gpointer scrollwindow)
+void xa_close_archive (GtkMenuItem *menuitem, gpointer page)
 {
 	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_page_num(notebook,scrollwindow);
+	current_page = gtk_notebook_page_num(notebook, page);
 	idx = xa_find_archive_index (current_page);
 	gtk_notebook_remove_page ( notebook ,current_page);
 
