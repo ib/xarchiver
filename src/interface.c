@@ -1250,7 +1250,7 @@ void xa_add_page (XArchive *archive)
 	gtk_container_add(GTK_CONTAINER(archive->page), archive->treeview);
 	gtk_widget_show (archive->treeview);
 	gtk_tree_view_set_rules_hint ( GTK_TREE_VIEW (archive->treeview),TRUE);
-	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (archive->treeview),(GtkTreeViewSearchEqualFunc) treeview_select_search,NULL,NULL);
+	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(archive->treeview), treeview_select_search, NULL, NULL);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection( GTK_TREE_VIEW (archive->treeview));
 	gtk_tree_selection_set_mode(sel,GTK_SELECTION_MULTIPLE);
 	gtk_tree_view_set_rubber_banding(GTK_TREE_VIEW(archive->treeview),TRUE);
