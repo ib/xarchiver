@@ -267,14 +267,13 @@ gint socket_finalize(void)
 	return 0;
 }
 
-gboolean socket_lock_input_cb(GIOChannel *source, GIOCondition condition, gpointer data)
+gboolean socket_lock_input_cb (GIOChannel *source, GIOCondition condition, gpointer window)
 {
 	gint fd, sock;
 	gchar buf[4096];
 	gchar *buf_to_free;
 	struct sockaddr_in caddr;
 	guint caddr_len;
-	GtkWidget *window = data;
 	caddr_len = sizeof(caddr);
 
 	fd = g_io_channel_unix_get_fd(source);

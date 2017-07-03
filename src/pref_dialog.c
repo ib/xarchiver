@@ -96,9 +96,8 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_window->recurse),TRUE);
 }
 
-void xa_prefs_iconview_changed (GtkIconView *iconview, gpointer data)
+void xa_prefs_iconview_changed (GtkIconView *iconview, Prefs_dialog_data *prefs)
 {
-	Prefs_dialog_data *prefs = data;
 	GList *list;
 	GtkTreePath *path;
 	GtkTreeIter iter;

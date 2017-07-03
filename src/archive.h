@@ -225,7 +225,7 @@ gboolean xa_run_command(XArchive *, const gchar *);
 XEntry *xa_set_archive_entries_for_each_row(XArchive *, const gchar *, gpointer *);
 void xa_dir_sidebar_row_selected(GtkTreeSelection *, gpointer);
 void xa_dir_sidebar_select_row(XEntry *);
-gint xa_sort_dirs_before_files(GtkTreeModel *, GtkTreeIter *, GtkTreeIter *, gpointer);
+gint xa_sort_dirs_before_files(GtkTreeModel *, GtkTreeIter *, GtkTreeIter *, XArchive *);
 void xa_spawn_async_process(XArchive *, const gchar *);
 
 #endif

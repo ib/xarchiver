@@ -69,10 +69,8 @@ static void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMP
 	gtk_widget_destroy(file_selector);
 }
 
-static void xa_activate_entry (GtkToggleButton *button, gpointer data)
+static void xa_activate_entry (GtkToggleButton *button, Extract_dialog_data *dialog)
 {
-	Extract_dialog_data *dialog = data;
-
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(dialog->files_radio)))
 	{
 		gtk_widget_set_sensitive (dialog->entry2,TRUE);
@@ -103,9 +101,8 @@ static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selecti
 	}
 }
 
-static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer user_data)
+static void xa_multi_extract_dialog_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *data, guint info, guint time, gpointer dialog_data)
 {
-	Multi_extract_data *dialog_data = user_data;
 	gchar **array = NULL;
 	gchar *filename;
 	unsigned int len = 0;

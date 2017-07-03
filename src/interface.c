@@ -201,10 +201,8 @@ static void xa_create_popup_menu ()
 	g_signal_connect(rrename, "activate", G_CALLBACK(xa_rename_archive), NULL);
 }
 
-static void xa_dir_sidebar_row_expanded (GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path, gpointer data)
+static void xa_dir_sidebar_row_expanded (GtkTreeView *tree_view, GtkTreeIter *iter, GtkTreePath *path, gpointer model)
 {
-	GtkTreeModel *model = data;
-
 	if (gtk_tree_view_row_expanded(tree_view,path))
 		gtk_tree_store_set(GTK_TREE_STORE(model),iter,0,"gtk-open",-1);
 	else

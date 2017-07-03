@@ -521,9 +521,8 @@ static void xa_determine_program_to_run (gchar *file)
 	g_free(program);
 }
 
-static void xa_clear_comment_window (GtkButton *button, gpointer data)
+static void xa_clear_comment_window (GtkButton *button, gpointer buf)
 {
-	GtkTextBuffer *buf = data;
 	GtkTextIter start,end;
 
 	gtk_text_buffer_get_iter_at_offset(buf,&start,0);
@@ -531,9 +530,8 @@ static void xa_clear_comment_window (GtkButton *button, gpointer data)
 	gtk_text_buffer_delete(buf,&start,&end);
 }
 
-static void xa_load_comment_window_from_file (GtkButton *button, gpointer data)
+static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 {
-	GtkTextBuffer *buf = data;
 	GtkTextMark *textmark;
 	GtkTextIter iter;
 	GtkWidget *file;
@@ -593,9 +591,8 @@ static void xa_destroy_comment_window (GtkButton *button, gpointer data)
 	gtk_widget_destroy(GTK_WIDGET(data));
 }
 
-static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer data)
+static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf)
 {
-	GtkTextBuffer *buf = data;
 	GtkTextIter start,end;
 	FILE *stream;
 	gint current_page,idx;
@@ -690,9 +687,8 @@ static XAClipboard *xa_get_paste_data_from_clipboard_selection (const guchar *da
 	return clipboard_data;
 }
 
-static void xa_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selection_data, guint info, gpointer user_data)
+static void xa_clipboard_get (GtkClipboard *clipboard, GtkSelectionData *selection_data, guint info, XArchive *archive)
 {
-	XArchive *archive = user_data;
 	GSList *_files = archive->clipboard->files;
 	GString *params = g_string_new("");
 	if (gtk_selection_data_get_target(selection_data) != XA_INFO_LIST)
@@ -734,7 +730,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 
 	clipboard_data->files = xa_slist_copy(files);
 	clipboard_data->mode  = mode;
-	gtk_clipboard_set_with_data (clipboard,targets,G_N_ELEMENTS (targets),xa_clipboard_get,xa_clipboard_clear,(gpointer)archive);
+	gtk_clipboard_set_with_data(clipboard, targets, G_N_ELEMENTS(targets), (GtkClipboardGetFunc) xa_clipboard_get, (GtkClipboardClearFunc) xa_clipboard_clear, archive);
 	archive->clipboard = clipboard_data;
 	gtk_widget_set_sensitive(paste,TRUE);
 
@@ -1006,15 +1002,13 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 }
 
-void xa_open_archive (GtkWidget *widget, gpointer data)
+void xa_open_archive (GtkWidget *widget, gchar *path)
 {
-	gchar *path = NULL;
 	gchar *utf8_path,*msg;
 	gint current_page;
 	gint x;
 	ArchiveType xa;
 
-	path = (gchar *)data;
 	if (path == NULL)
     {
 		path = xa_open_file_dialog ();
@@ -1265,11 +1259,10 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	}
 }
 
-void xa_close_archive (GtkMenuItem *menuitem,gpointer user_data)
+void xa_close_archive (GtkMenuItem *menuitem, gpointer scrollwindow)
 {
 	gint current_page;
 	gint idx;
-	GtkWidget *scrollwindow = user_data;
 
 	current_page = gtk_notebook_page_num(notebook,scrollwindow);
 	idx = xa_find_archive_index (current_page);
@@ -1822,7 +1815,7 @@ void xa_create_liststore (XArchive *archive, const gchar *titles[])
 	archive->model = GTK_TREE_MODEL(archive->liststore);
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_sort_filename_column)))
 		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive->model),1,GTK_SORT_ASCENDING);
-	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(archive->liststore),1,xa_sort_dirs_before_files,archive,NULL);
+	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(archive->liststore), 1, (GtkTreeIterCompareFunc) xa_sort_dirs_before_files, archive, NULL);
 
 	g_object_ref(archive->model);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview),NULL);
@@ -2619,10 +2612,8 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 	}
 }
 
-void xa_clipboard_clear (GtkClipboard *clipboard,gpointer data)
+void xa_clipboard_clear (GtkClipboard *clipboard, XArchive *archive)
 {
-	XArchive *archive = data;
-
 	if (archive->clipboard != NULL)
 	{
 		if (archive->clipboard->files != NULL)

@@ -795,10 +795,9 @@ void xa_dir_sidebar_select_row (XEntry *entry)
 	gtk_tree_model_foreach(GTK_TREE_MODEL(archive_dir_model), _xa_dir_sidebar_select_row, entry);
 }
 
-gint xa_sort_dirs_before_files(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer data)
+gint xa_sort_dirs_before_files (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, XArchive *archive)
 {
 	XEntry *entry1, *entry2;
-	XArchive *archive = data;
 
 	gtk_tree_model_get(model, a, archive->columns - 1, &entry1, -1);
 	gtk_tree_model_get(model, b, archive->columns - 1, &entry2, -1);
