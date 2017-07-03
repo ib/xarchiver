@@ -471,6 +471,12 @@ static gchar *xa_get_statusbar_message (guint64 total_size, gint n_elem, gint di
 	return info;
 }
 
+static void xa_set_environment (gpointer user_data)
+{
+	g_setenv("DISPLAY", user_data, TRUE);
+	g_free(user_data);
+}
+
 static void xa_determine_program_to_run (gchar *file)
 {
 	gchar *program;
@@ -2276,11 +2282,6 @@ void xa_deselect_all (GtkMenuItem *menuitem,gpointer user_data)
 	gtk_tree_selection_unselect_all (gtk_tree_view_get_selection(GTK_TREE_VIEW(archive[idx]->treeview)));
 	gtk_widget_set_sensitive (select_all,TRUE);
 	gtk_widget_set_sensitive (deselect_all,FALSE);
-}
-
-void xa_set_environment (gpointer user_data)
-{
-	g_setenv("DISPLAY", (const gchar *) user_data, TRUE);
 }
 
 gboolean xa_launch_external_program (const gchar *program, const gchar *arg)
