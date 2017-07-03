@@ -594,11 +594,6 @@ static void xa_handle_navigation_buttons (GtkMenuItem *menuitem, gpointer user_d
 	}
 }
 
-static void xa_close_page (GtkButton *button, gpointer page)
-{
-	xa_close_archive(NULL, page);
-}
-
 static void set_label (GtkWidget *label, gchar *text)
 {
     gchar *tmp_markup = g_strdup_printf ("<b>%s</b>",text);
@@ -1223,7 +1218,7 @@ void xa_add_page (XArchive *archive)
 	gtk_button_set_focus_on_click(GTK_BUTTON(close_button),FALSE);
 	gtk_button_set_relief (GTK_BUTTON(close_button),GTK_RELIEF_NONE);
 	gtk_widget_set_tooltip_text(close_button, _("Close archive"));
-	g_signal_connect(G_OBJECT(close_button), "clicked", G_CALLBACK(xa_close_page), archive->page);
+	g_signal_connect(G_OBJECT(close_button), "clicked", G_CALLBACK(xa_close_archive), archive->page);
 
 	rcstyle = gtk_rc_style_new();
 	rcstyle->xthickness = rcstyle->ythickness = 0;

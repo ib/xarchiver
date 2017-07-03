@@ -1259,7 +1259,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	}
 }
 
-void xa_close_archive (GtkMenuItem *menuitem, gpointer page)
+void xa_close_archive (GtkWidget *widget, gpointer page)
 {
 	gint current_page;
 	gint idx;
