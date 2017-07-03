@@ -1006,7 +1006,7 @@ void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 	}
 }
 
-void xa_open_archive (GtkMenuItem *menuitem,gpointer data)
+void xa_open_archive (GtkWidget *widget, gpointer data)
 {
 	gchar *path = NULL;
 	gchar *utf8_path,*msg;
