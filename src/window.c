@@ -586,11 +586,6 @@ static void xa_load_comment_window_from_file (GtkButton *button, gpointer buf)
 	}
 }
 
-static void xa_destroy_comment_window (GtkButton *button, gpointer data)
-{
-	gtk_widget_destroy(GTK_WIDGET(data));
-}
-
 static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf)
 {
 	GtkTextIter start,end;
@@ -2414,7 +2409,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 
 	cancel = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (comment_dialog),cancel,GTK_RESPONSE_CANCEL);
-	g_signal_connect (G_OBJECT (cancel),"clicked",G_CALLBACK (xa_destroy_comment_window),comment_dialog);
+	g_signal_connect_swapped(G_OBJECT(cancel), "clicked", G_CALLBACK(gtk_widget_destroy), comment_dialog);
 
 	close = gtk_button_new_from_stock ("gtk-ok");
 	gtk_dialog_add_action_widget (GTK_DIALOG (comment_dialog),close,GTK_RESPONSE_OK);
