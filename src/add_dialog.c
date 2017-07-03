@@ -34,7 +34,7 @@ static void add_fresh_update_toggled_cb (GtkToggleButton *button, Add_dialog_dat
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->update), FALSE);
 }
 
-static void password_toggled_cb (GtkButton *button, gpointer user_data)
+static void password_toggled_cb (GtkToggleButton *button, gpointer user_data)
 {
 	Add_dialog_data *add_dialog = user_data;
 	if ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(add_dialog->add_password)) )
