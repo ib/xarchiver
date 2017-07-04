@@ -541,15 +541,17 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 
 gint xa_find_archive_index (gint page_num)
 {
-	GtkWidget *scrollwindow;
+	GtkWidget *page;
 	gint i;
 
-	scrollwindow = gtk_notebook_get_nth_page(notebook, page_num);
+	page = gtk_notebook_get_nth_page(notebook, page_num);
+
 	for (i = 0; i < MAX_XARCHIVES; i++)
 	{
-		if (archive[i] != NULL && archive[i]->page == scrollwindow)
+		if (archive[i] != NULL && archive[i]->page == page)
 			return i;
 	}
+
 	return -1;
 }
 
