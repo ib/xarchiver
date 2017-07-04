@@ -1091,19 +1091,19 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 
 void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gint id;
+	gint idx;
 
-	id = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	if (archive[id]->has_password)
+	if (archive[idx]->has_password)
 	{
-		if (!xa_check_password(archive[id]))
+		if (!xa_check_password(archive[idx]))
 			return;
 	}
 	gtk_label_set_text(GTK_LABEL(total_label),_("Testing archive, please wait..."));
 
-	archive[id]->status = XARCHIVESTATUS_TEST;
-	(*archive[id]->test) (archive[id]);
+	archive[idx]->status = XARCHIVESTATUS_TEST;
+	(*archive[idx]->test)(archive[idx]);
 }
 
 void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
@@ -1337,19 +1337,19 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	XEntry *entry = NULL;
 	GtkTreeIter iter;
 	GSList *list = NULL;
-	gint id, response;
+	gint idx, response;
 
-	id = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
+	GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive[idx]->treeview));
 
-	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[id]->model);
+	row_list = gtk_tree_selection_get_selected_rows(selection, &archive[idx]->model);
 	if (row_list != NULL)
 	{
 		while (row_list)
 		{
-			gtk_tree_model_get_iter(archive[id]->model,&iter,row_list->data);
-			gtk_tree_model_get(archive[id]->model, &iter, archive[id]->columns - 1, &entry, -1);
+			gtk_tree_model_get_iter(archive[idx]->model, &iter, row_list->data);
+			gtk_tree_model_get(archive[idx]->model, &iter, archive[idx]->columns - 1, &entry, -1);
 			gtk_tree_path_free (row_list->data);
 
 			list = g_slist_prepend(list, xa_build_full_path_name_from_entry(entry));
@@ -1368,9 +1368,9 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 			return;
 	}
 
-	archive[id]->status = XARCHIVESTATUS_DELETE;
-	(*archive[id]->delete) (archive[id],list);
-	xa_reload_archive_content(archive[id]);
+	archive[idx]->status = XARCHIVESTATUS_DELETE;
+	(*archive[idx]->delete)(archive[idx], list);
+	xa_reload_archive_content(archive[idx]);
 }
 
 void xa_add_files_archive (GtkMenuItem *menuitem, gpointer user_data)

@@ -428,9 +428,9 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	GtkWidget *alignment2;
 	gchar *string;
 	gboolean done = FALSE;
-	gint id;
+	gint idx;
 
-	id = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	ddialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (ddialog1),_("Select by Pattern"));
@@ -503,7 +503,7 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 			break;
 		}
 	}
-	gtk_tree_model_foreach(archive[id]->model, select_matched_rows, string);
+	gtk_tree_model_foreach(archive[idx]->model, select_matched_rows, string);
 	g_free(string);
 
 destroy_delete_dialog:
