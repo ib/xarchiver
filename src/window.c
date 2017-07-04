@@ -2162,7 +2162,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	ArchiveType xa;
 
 	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
 	array = gtk_selection_data_get_uris(data);
 
 	if (array == NULL)
