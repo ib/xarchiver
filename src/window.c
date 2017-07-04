@@ -825,7 +825,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 	}
 }
 
-void xa_reload_archive_content(XArchive *_archive)
+void xa_reload_archive_content (XArchive *this_archive)
 {
 	XEntry *entry;
 	gint current_page,idx = 0;
@@ -835,30 +835,30 @@ void xa_reload_archive_content(XArchive *_archive)
 	current_page = gtk_notebook_get_current_page(notebook);
 	idx = xa_find_archive_index (current_page);
 
-	g_slist_free (_archive->forward);
-	_archive->forward = NULL;
+	g_slist_free(this_archive->forward);
+	this_archive->forward = NULL;
 
-	g_slist_free (_archive->back);
-	_archive->back = NULL;
+	g_slist_free(this_archive->back);
+	this_archive->back = NULL;
 
-	xa_free_entry (_archive,_archive->root_entry);
-	if (_archive->column_types != NULL)
-		g_free(_archive->column_types);
-	xa_remove_columns(_archive);
+	xa_free_entry(this_archive, this_archive->root_entry);
+	if (this_archive->column_types != NULL)
+		g_free(this_archive->column_types);
+	xa_remove_columns(this_archive);
 
 	entry = g_new0(XEntry,1);
 	entry->filename = "";
-	_archive->root_entry = entry;
+	this_archive->root_entry = entry;
 
 	/* this reload will be called internally during adding and deleting */
-	_archive->status = XARCHIVESTATUS_RELOAD;
-	(*_archive->list)(_archive);
+	this_archive->status = XARCHIVESTATUS_RELOAD;
+	(*this_archive->list)(this_archive);
 
-	if (strcmp(_archive->path[0], archive[idx]->path[0]) == 0)
-		xa_fill_dir_sidebar(_archive,TRUE);
+	if (strcmp(this_archive->path[0], archive[idx]->path[0]) == 0)
+		xa_fill_dir_sidebar(this_archive, TRUE);
 }
 
-void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *_archive)
+void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 {
 	GSList *output = NULL;
 	gchar *title = NULL;
@@ -867,13 +867,13 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *_archive)
 	GtkTextIter iter;
 	gint current_page,idx = -1;
 
-	if (_archive == NULL)
+	if (this_archive == NULL)
 	{
 		current_page = gtk_notebook_get_current_page(notebook);
 		idx = xa_find_archive_index (current_page);
 		if (idx < 0)
 			return;
-		_archive = archive[idx];
+		this_archive = archive[idx];
 	}
 
 	if (xa_main_window)
@@ -920,7 +920,7 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *_archive)
 	gtk_box_pack_start (GTK_BOX (vbox),scrolledwindow,TRUE,TRUE,0);
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), vbox, TRUE, TRUE, 0);
 
-	output = _archive->output;
+	output = this_archive->output;
 	while (output)
 	{
 		gtk_text_buffer_insert_with_tags_by_name(textbuffer, &iter, output->data, -1, "font", NULL);
