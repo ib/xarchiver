@@ -215,7 +215,6 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	gchar *filename = NULL;
 	gchar *name = NULL;
 	unsigned int len = 0;
-	gint current_page;
 	gint idx;
 	GSList *list = NULL;
 	GtkTreeModel *model;
@@ -226,8 +225,9 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	gboolean full_path, dummy_password;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(widget));
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index(current_page);
+
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+
 	if (idx < 0)
 	{
 		gtk_drag_finish(context,FALSE,FALSE,time);
@@ -428,11 +428,9 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	GtkWidget *alignment2;
 	gchar *string;
 	gboolean done = FALSE;
-	gint current_page;
 	gint id;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	id = xa_find_archive_index (current_page);
+	id = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	ddialog1 = gtk_dialog_new ();
 	gtk_window_set_title (GTK_WINDOW (ddialog1),_("Select by Pattern"));
@@ -515,15 +513,13 @@ destroy_delete_dialog:
 static void xa_handle_navigation_buttons (GtkToolButton *button, gpointer data)
 {
 	unsigned short int bp = GPOINTER_TO_UINT(data);
-	gint current_page;
 	gint idx;
 	XEntry *new_entry = NULL;
 	GtkTreeIter iter;
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	switch (bp)
 	{
@@ -1362,11 +1358,9 @@ gboolean select_matched_rows (GtkTreeModel *model, GtkTreePath *path, GtkTreeIte
 {
 	char **patterns;
 	XEntry *entry = NULL;
-	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 	patterns = g_strsplit(string,";",-1);
 
 	gtk_tree_model_get(model, iter, archive[idx]->columns - 1, &entry, -1);

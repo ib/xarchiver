@@ -596,11 +596,10 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 {
 	GtkTextIter start,end;
 	FILE *stream;
-	gint current_page,idx;
+	gint idx;
 	gchar *command, *content, *tmp = NULL;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	gtk_text_buffer_get_iter_at_offset(buf,&start,0);
 	gtk_text_buffer_get_end_iter(buf,&end);
@@ -828,12 +827,11 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 void xa_reload_archive_content (XArchive *this_archive)
 {
 	XEntry *entry;
-	gint current_page,idx = 0;
+	gint idx = 0;
 
 	//TODO: have the status bar notyfing the reload
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	g_slist_free(this_archive->forward);
 	this_archive->forward = NULL;
@@ -865,12 +863,12 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 	GtkWidget *dialog,*label,*image,*hbox,*vbox,*textview,*scrolledwindow;
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
-	gint current_page,idx = -1;
+	gint idx = -1;
 
 	if (this_archive == NULL)
 	{
-		current_page = gtk_notebook_get_current_page(notebook);
-		idx = xa_find_archive_index (current_page);
+		idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+
 		if (idx < 0)
 			return;
 		this_archive = archive[idx];
@@ -967,14 +965,12 @@ int xa_show_message_dialog (GtkWindow *window,int mode,int type,int button,const
 
 void xa_save_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-	gint current_page;
 	gint idx;
 	GtkWidget *save = NULL;
 	gchar *path = NULL, *command, *filename, *filename_utf8;
 	int response;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	save = gtk_file_chooser_dialog_new (_("Save the archive as"),
 						GTK_WINDOW (xa_main_window),
@@ -1095,11 +1091,9 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 
 void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gint current_page;
 	gint id;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	id = xa_find_archive_index (current_page);
+	id = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	if (archive[id]->has_password)
 	{
@@ -1115,7 +1109,6 @@ void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 {
 	unsigned short int bp = GPOINTER_TO_UINT(data);
-	gint current_page;
 	gint idx;
 	FILE *stream;
 	GtkWidget *save = NULL;
@@ -1124,8 +1117,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	struct stat my_stat;
 	guint64 file_size;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	if (bp)
 		_filename = _("Print the archive content as HTML");
@@ -1297,8 +1289,8 @@ void xa_quit_application (GtkWidget *widget, GdkEvent *event, gpointer user_data
 	gint i;
 	gint idx;
 
-	i = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (i);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+
 	if (idx > -1 && archive[idx]->child_pid)
 		return;
 
@@ -1345,10 +1337,9 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	XEntry *entry = NULL;
 	GtkTreeIter iter;
 	GSList *list = NULL;
-	gint current_page,id,response;
+	gint id, response;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	id = xa_find_archive_index (current_page);
+	id = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[id]->treeview));
 
@@ -1384,10 +1375,9 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 
 void xa_add_files_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-	gint current_page,idx;
+	gint idx;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	xa_set_add_dialog_options(add_window,archive[idx]);
 	xa_parse_add_dialog_options (archive[idx],add_window);
@@ -1395,10 +1385,9 @@ void xa_add_files_archive (GtkMenuItem *menuitem, gpointer user_data)
 
 void xa_extract_archive (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gint current_page,idx,selected;
+	gint idx, selected;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(archive[idx]->treeview));
 	selected = gtk_tree_selection_count_selected_rows (selection);
@@ -1426,11 +1415,9 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 {
 	gchar *command;
 	gboolean result;
-	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index ( current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
     archive[idx]->status = XARCHIVESTATUS_SFX;
     switch ( archive[idx]->type)
@@ -1871,10 +1858,9 @@ gboolean treeview_select_search (GtkTreeModel *model, gint column, const gchar *
 
 void xa_cancel_archive (GtkMenuItem *menuitem, gpointer user_data)
 {
-	gint current_page,idx,response;
+	gint idx, response;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 	if (gtk_widget_get_visible(multi_extract_window->multi_extract))
 	{
 		multi_extract_window->stop_pressed = TRUE;
@@ -1902,13 +1888,11 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	struct stat my_stat;
     gchar *utf8_string ,*dummy_string,*t;
     char date[64];
-    gint current_page;
 	gint idx;
 	guint64 file_size;
 	double content_size;
 
-    current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
     if (stat(archive[idx]->path[0], &my_stat) == 0)
 		file_size = my_stat.st_size;
 	else
@@ -2244,11 +2228,9 @@ void xa_concat_selected_filenames (GtkTreeModel *model,GtkTreePath *treepath,Gtk
 {
 	XEntry *entry = NULL;
 	gchar *filename = NULL;
-	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	gtk_tree_model_get(model, iter, archive[idx]->columns - 1, &entry, -1);
 	if (entry->is_dir)
@@ -2272,11 +2254,9 @@ void xa_select_all(GtkMenuItem *menuitem,gpointer user_data)
 
 void xa_deselect_all (GtkMenuItem *menuitem,gpointer user_data)
 {
-	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	gtk_tree_selection_unselect_all (gtk_tree_view_get_selection(GTK_TREE_VIEW(archive[idx]->treeview)));
 	gtk_widget_set_sensitive (select_all,TRUE);
@@ -2333,11 +2313,9 @@ void xa_show_help (GtkMenuItem *menuitem,gpointer user_data)
 
 void xa_enter_password (GtkMenuItem *menuitem ,gpointer user_data)
 {
-	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index ( current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	if (archive[idx] == NULL)
 		return;
@@ -2354,7 +2332,6 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 {
 	gchar *utf8_line;
 	gsize len;
-	gint current_page;
 	gint idx;
 	GtkWidget *textview;
 	GtkWidget *dialog_vbox1;
@@ -2365,8 +2342,7 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	comment_dialog = gtk_dialog_new_with_buttons (_("Comment"),GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,NULL,NULL);
 	gtk_window_set_position (GTK_WINDOW (comment_dialog),GTK_WIN_POS_CENTER_ON_PARENT);
@@ -2435,11 +2411,10 @@ void xa_location_entry_activated (GtkEntry *entry,gpointer user_data)
 {
 	XEntry *prev_entry = NULL;
 	XEntry *new_entry  = NULL;
-	gint current_page,idx;
+	gint idx;
 	gchar* pathname_local;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	/* Avoid segfault if there's no file opened */
 	if(idx<0)
@@ -2554,33 +2529,30 @@ gboolean xa_mouse_button_event (GtkWidget *widget, GdkEventButton *event, XArchi
 
 void xa_clipboard_cut (GtkMenuItem *item, gpointer user_data)
 {
-	gint idx,current_page;
+	gint idx;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	xa_clipboard_cut_copy_operation(archive[idx],XA_CLIPBOARD_CUT);
 }
 
 void xa_clipboard_copy (GtkMenuItem *item, gpointer user_data)
 {
-	gint idx,current_page;
+	gint idx;
 
-	current_page = gtk_notebook_get_current_page (notebook);
-	idx = xa_find_archive_index (current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 	xa_clipboard_cut_copy_operation(archive[idx],XA_CLIPBOARD_COPY);
 }
 
 void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 {
-	gint idx,current_page;
+	gint idx;
 	GtkClipboard *clipboard;
 	GtkSelectionData *selection;
 	XAClipboard *paste_data;
 	GSList *list = NULL;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index(current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	clipboard = gtk_clipboard_get(XA_CLIPBOARD);
 	selection = gtk_clipboard_wait_for_contents(clipboard,XA_INFO_LIST);
@@ -2625,14 +2597,13 @@ void xa_clipboard_clear (GtkClipboard *clipboard, XArchive *archive)
 
 void xa_rename_archive (GtkMenuItem *item, gpointer user_data)
 {
-	gint current_index,idx;
+	gint idx;
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
 	GtkTreeModel *model;
 	GList *row_list = NULL;
 
-	current_index = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index(current_index);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW (archive[idx]->treeview));
@@ -2649,7 +2620,7 @@ void xa_rename_archive (GtkMenuItem *item, gpointer user_data)
 void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 {
 	gboolean result		= FALSE;
-	gint current_index,idx,nr;
+	gint idx, nr;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
 	GList *row_list = NULL;
@@ -2659,8 +2630,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	gchar *dummy = NULL,*e_filename = NULL;
 	XEntry *entry;
 
-	current_index = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index(current_index);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview));
 	row_list = gtk_tree_selection_get_selected_rows(selection,&archive[idx]->model);
@@ -2719,12 +2689,11 @@ void xa_view_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	GSList *list = NULL;
 	GList *row_list = NULL;
 	gboolean result		= FALSE;
-	gint current_index,idx;
+	gint idx;
 	gchar *entry_local, *filename;
 	XEntry *entry;
 
-	current_index = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index(current_index);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	xa_create_working_directory(archive[idx]);
 

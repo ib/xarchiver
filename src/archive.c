@@ -759,11 +759,9 @@ void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_dat
 	GtkTreeModel *model;
 	GString *string = g_string_new("");
 	gchar *dir;
-	gint current_page;
 	gint idx;
 
-	current_page = gtk_notebook_get_current_page(notebook);
-	idx = xa_find_archive_index(current_page);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	if ((idx >= 0) && gtk_tree_selection_get_selected(selection, &model, &iter))
 	{
