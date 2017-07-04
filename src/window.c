@@ -2922,14 +2922,9 @@ void xa_unsort (GtkMenuItem *menu_item, gpointer user_data)
 {
 	gint idx;
 
-	idx = gtk_notebook_get_current_page(notebook);
+	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
-	if (idx == -1)
-		return;
-
-	idx = xa_find_archive_index(idx);
-
-	if (idx == -1)
+	if (idx < 0)
 		return;
 
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive[idx]->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
