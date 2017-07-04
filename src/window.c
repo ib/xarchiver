@@ -2161,7 +2161,6 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 	gint current_page, idx;
 	ArchiveType xa;
 
-	current_page = gtk_notebook_get_current_page(notebook);
 	array = gtk_selection_data_get_uris(data);
 
 	if (array == NULL)
@@ -2189,6 +2188,9 @@ void on_drag_data_received (GtkWidget *widget,GdkDragContext *context,int x,int 
 			return;
 		}
     }
+
+	current_page = gtk_notebook_get_current_page(notebook);
+
 	if (current_page == -1)
 	{
 		idx = xa_get_new_archive_idx();
