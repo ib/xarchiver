@@ -863,11 +863,10 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 	GtkWidget *dialog,*label,*image,*hbox,*vbox,*textview,*scrolledwindow;
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
-	gint idx = -1;
 
 	if (this_archive == NULL)
 	{
-		idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
+		gint idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 		if (idx < 0)
 			return;
