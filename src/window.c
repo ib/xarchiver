@@ -827,7 +827,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 void xa_reload_archive_content (XArchive *this_archive)
 {
 	XEntry *entry;
-	gint idx = 0;
+	gint idx;
 
 	//TODO: have the status bar notyfing the reload
 
