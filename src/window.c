@@ -842,8 +842,8 @@ void xa_reload_archive_content (XArchive *this_archive)
 	this_archive->back = NULL;
 
 	xa_free_entry(this_archive, this_archive->root_entry);
-	if (this_archive->column_types != NULL)
-		g_free(this_archive->column_types);
+
+	g_free(this_archive->column_types);
 	xa_remove_columns(this_archive);
 
 	entry = g_new0(XEntry,1);
