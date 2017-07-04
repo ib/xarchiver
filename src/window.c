@@ -2265,7 +2265,6 @@ void xa_select_all(GtkMenuItem *menuitem,gpointer user_data)
 	current_page = gtk_notebook_get_current_page (notebook);
 	idx = xa_find_archive_index (current_page);
 
-	current_page = gtk_notebook_get_current_page (notebook);
 	gtk_tree_selection_select_all ( gtk_tree_view_get_selection (GTK_TREE_VIEW (archive[idx]->treeview)));
 	gtk_widget_set_sensitive (select_all,FALSE);
 	gtk_widget_set_sensitive (deselect_all,TRUE);
