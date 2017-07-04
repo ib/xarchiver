@@ -411,9 +411,10 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 			goto done;
 		}
 		command = g_strconcat("mv -f ", archive->working_dir, "/", q_old_name, " ", archive->working_dir, "/", q_new_name, NULL);
-		g_free(q_old_name);
 		xa_run_command(archive, command);
 		g_free(command);
+		g_free(q_old_name);
+		g_free(q_new_name);
 
 		/* Delete the selected file from the archive */
 		old_name = xa_build_full_path_name_from_entry(entry);
