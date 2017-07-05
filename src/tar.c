@@ -26,6 +26,7 @@
 gboolean isTar (FILE *file)
 {
 	unsigned char magic[8];
+	gboolean result;
 
 	fseek(file, 0, SEEK_SET);
 
@@ -36,11 +37,20 @@ gboolean isTar (FILE *file)
 		return FALSE;
 	}
 
+	result = (memcmp(magic, "ustar" "\x00" "00", sizeof(magic)) == 0 ||
+	          memcmp(magic, "ustar" "  " "\x00", sizeof(magic)) == 0);
+
+	if (!result &&
+	    memcmp(magic, "\x00\x00\x00\x00\x00\x00\x00\x00", sizeof(magic)) == 0)
+	{
+		/* next block */
+		if (fseek(file, 512, SEEK_SET) == 0 && fread(magic, 1, 1, file) == 1)
+			result = (*magic != 0);
+	}
+
 	fseek(file, 0, SEEK_SET);
 
-	return (memcmp(magic, "ustar" "\x00" "00", sizeof(magic)) == 0 ||
-	        memcmp(magic, "ustar" "  " "\x00", sizeof(magic)) == 0 ||
-	        memcmp(magic, "\x00\x00\x00\x00\x00\x00\x00\x00", sizeof(magic)) == 0);
+	return result;
 }
 
 static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
