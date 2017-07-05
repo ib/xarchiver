@@ -30,6 +30,7 @@
 #include "window.h"
 
 #define compress (archive->type == XARCHIVETYPE_COMPRESS)
+#define lz4      (archive->type == XARCHIVETYPE_LZ4)
 #define lzop     (archive->type == XARCHIVETYPE_LZOP)
 #define xz       (archive->type == XARCHIVETYPE_XZ)
 
@@ -337,7 +338,7 @@ void xa_gzip_et_al_test (XArchive *archive)
 {
 	gchar *command;
 
-	command = g_strconcat(archiver[archive->type].program[0], " -t", archive->type == XARCHIVETYPE_LZ4 ? " " : "v ", archive->path[1], NULL);
+	command = g_strconcat(archiver[archive->type].program[0], " -t", lz4 ? " " : "v ", archive->path[1], NULL);
 
 	xa_run_command(archive, command);
 	g_free(command);
