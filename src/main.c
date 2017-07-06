@@ -774,7 +774,7 @@ static void xa_check_available_archivers ()
 		} compressed_tar_infos[] =
 		{
 			{XARCHIVETYPE_BZIP2, {"tar.bzip2", NULL}, {"*.tar.bz2", "*.tbz2"}},
-			{XARCHIVETYPE_COMPRESS, {"tar.Z", NULL}, {"*.tar.Z", ""}},
+			{XARCHIVETYPE_COMPRESS, {"tar.compress", NULL}, {"*.tar.Z", ""}},
 			{XARCHIVETYPE_GZIP, {"tar.gzip", NULL}, {"*.tar.gz", "*.tgz"}},
 			{XARCHIVETYPE_LZ4, {"tar.lz4", NULL}, {"*.tar.lz4", ""}},
 			{XARCHIVETYPE_LZIP, {"tar.lzip", NULL}, {"*.tar.lz", ""}},
