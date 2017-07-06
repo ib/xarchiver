@@ -179,6 +179,7 @@ static void xa_gzip_et_al_parse_output (gchar *line, XArchive *archive)
 
 static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 {
+	XEntry *entry;
 	gchar *filename;
 	char *dot;
 
@@ -188,7 +189,10 @@ static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 	if (dot)
 		*dot = 0;
 
-	xa_set_archive_entries_for_each_row(archive, filename, item);
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+
+	if (entry)
+		archive->files = 1;
 
 	g_free(item[0]);
 	g_free(item[1]);
