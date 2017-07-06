@@ -201,7 +201,7 @@ static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 
 void xa_gzip_et_al_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, lzop || xz ? G_TYPE_STRING : G_TYPE_POINTER, xz ? G_TYPE_STRING : G_TYPE_POINTER, G_TYPE_POINTER};
+	GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original Size"), _("Compressed"), _("Saving"), _("Date"), _("Time"), NULL, NULL};
 	const gchar *decompfile = "xa-tmp.decompressed";
 	gchar *archive_path, *command, *workfile, buffer[12];
@@ -275,6 +275,8 @@ void xa_gzip_et_al_list (XArchive *archive)
 	strftime(buffer, sizeof(buffer), "%H:%M:%S", localtime(&st.st_mtime));
 	item[4] = g_strdup(buffer);
 
+	archive->columns = 8;
+
 	switch (archive->type)
 	{
 		case XARCHIVETYPE_GZIP:
@@ -284,14 +286,23 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 			if (archive->type == XARCHIVETYPE_LZOP)
 			{
+				types[7] = G_TYPE_STRING;
+
 				titles[2] = _("Occupancy");
 				titles[5] = _("Method");
+
+				archive->columns = 9;
 			}
 			else if (archive->type == XARCHIVETYPE_XZ)
 			{
+				types[7] = G_TYPE_STRING;
+				types[8] = G_TYPE_STRING;
+
 				titles[2] = _("Ratio");
 				titles[5] = _("Check Type");
 				titles[6] = _("Streams/Blocks/Padding");
+
+				archive->columns = 10;
 			}
 
 			command = g_strconcat(archiver[archive->type].program[0], " -l", xz ? " --robot " : " ", archive->path[1], NULL);
@@ -337,7 +348,6 @@ void xa_gzip_et_al_list (XArchive *archive)
 	xa_spawn_async_process(archive, command);
 	g_free(command);
 
-	archive->columns = (xz ? 10 : (lzop ? 9 : 8));
 	archive->size_column = 2;
 	archive->column_types = g_malloc0(sizeof(types));
 
