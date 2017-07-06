@@ -275,6 +275,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 	item[4] = g_strdup(buffer);
 
 	archive->columns = 8;
+	archive->parse_output = NULL;
 
 	switch (archive->type)
 	{
@@ -313,33 +314,34 @@ void xa_gzip_et_al_list (XArchive *archive)
 		case XARCHIVETYPE_COMPRESS:
 		case XARCHIVETYPE_LZ4:
 		case XARCHIVETYPE_LZMA:
-		{
-			off_t compressed;
-
-			/* compressed */
-			compressed = st.st_size;
-			item[1] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) compressed);
-
-			/* uncompressed */
-			stat(workfile, &st);
-			archive->files_size = (guint64) st.st_size;
-			item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, archive->files_size);
-
-			/* saving */
-			if (st.st_size)
-				item[2] = g_strdup_printf("%.1f%%", 100.0 - 100.0 * compressed / st.st_size);
-			else
-				item[2] = g_strdup("-");
-
-			/* trigger pseudo-parser once */
-			command = g_strdup("sh -c echo");
-			archive->parse_output = xa_gzip_et_al_globally_stored_entry;
-
 			break;
-		}
 
 		default:
 			return;
+	}
+
+	if (!archive->parse_output)
+	{
+		off_t compressed;
+
+		/* compressed */
+		compressed = st.st_size;
+		item[1] = g_strdup_printf("%" G_GUINT64_FORMAT, (guint64) compressed);
+
+		/* uncompressed */
+		stat(workfile, &st);
+		archive->files_size = (guint64) st.st_size;
+		item[0] = g_strdup_printf("%" G_GUINT64_FORMAT, archive->files_size);
+
+		/* saving */
+		if (st.st_size)
+			item[2] = g_strdup_printf("%.1f%%", 100.0 - 100.0 * compressed / st.st_size);
+		else
+			item[2] = g_strdup("-");
+
+		/* trigger pseudo-parser once */
+		command = g_strdup("sh -c echo");
+		archive->parse_output = xa_gzip_et_al_globally_stored_entry;
 	}
 
 	g_free(workfile);
