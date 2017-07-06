@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include "tar.h"
+#include "gzip_et_al.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -292,7 +293,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
-	gchar *command, *workfile, *archive_path;
+	gchar *command;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
@@ -305,6 +306,8 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 			archive->path[2] = g_shell_quote(archive->path[0]);
 		else
 		{
+			gchar *workfile;
+
 			if (!xa_create_working_directory(archive))
 			{
 				g_string_free(files, TRUE);
@@ -333,11 +336,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 		xa_run_command(archive, command);
 		g_free(command);
 
-		workfile = xa_escape_bad_chars(archive->path[2], "\"");
-		archive_path = xa_quote_shell_command(archive->path[0], TRUE);
-		command = g_strconcat("sh -c \"", archiver[xa_tar_get_compressor_type(archive)].program[0], " ", workfile, " -c > ", archive_path, "\"", NULL);
-		g_free(archive_path);
-		g_free(workfile);
+		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0]);
 	}
 
 	g_string_free(files, TRUE);
@@ -349,7 +348,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 void xa_tar_delete (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command, *workfile, *archive_path;
+	gchar *command;
 
 	files = xa_quote_filenames(file_list, NULL, TRUE);
 	command = g_strconcat(archiver[XARCHIVETYPE_TAR].program[0], " --delete --no-recursion --no-wildcards -f ", archive->path[2], files->str, NULL);
@@ -359,11 +358,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 		xa_run_command(archive, command);
 		g_free(command);
 
-		workfile = xa_escape_bad_chars(archive->path[2], "\"");
-		archive_path = xa_quote_shell_command(archive->path[0], TRUE);
-		command = g_strconcat("sh -c \"", archiver[xa_tar_get_compressor_type(archive)].program[0], " ", workfile, " -c > ", archive_path, "\"", NULL);
-		g_free(archive_path);
-		g_free(workfile);
+		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0]);
 	}
 
 	g_string_free(files, TRUE);

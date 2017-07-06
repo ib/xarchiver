@@ -34,6 +34,7 @@
 void xa_gzip_et_al_add(XArchive *, GSList *, gchar *);
 void xa_gzip_et_al_ask(XArchive *);
 gboolean xa_gzip_et_al_extract(XArchive *, GSList *);
+gchar *xa_gzip_et_al_get_command(const gchar *, gchar *, gchar *);
 void xa_gzip_et_al_list(XArchive *);
 void xa_gzip_et_al_test(XArchive *);
 

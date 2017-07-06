@@ -37,6 +37,19 @@
 static gpointer item[7];
 static gchar *filename;
 
+gchar *xa_gzip_et_al_get_command (const gchar *program, gchar *workfile, gchar *archive)
+{
+	gchar *command;
+
+	workfile = xa_escape_bad_chars(workfile, "\"");
+	archive = xa_quote_shell_command(archive, TRUE);
+	command = g_strconcat("sh -c \"", program, " ", workfile, " -c > ", archive, "\"", NULL);
+	g_free(archive);
+	g_free(workfile);
+
+	return command;
+}
+
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
 	archive->can_test = (can && !compress);
