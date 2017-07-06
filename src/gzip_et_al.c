@@ -31,7 +31,6 @@
 
 #define compress (archive->type == XARCHIVETYPE_COMPRESS)
 #define lz4      (archive->type == XARCHIVETYPE_LZ4)
-#define lzop     (archive->type == XARCHIVETYPE_LZOP)
 #define xz       (archive->type == XARCHIVETYPE_XZ)
 
 static gpointer item[7];
