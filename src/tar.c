@@ -32,7 +32,7 @@ gboolean isTar (FILE *file)
 	fseek(file, 0, SEEK_SET);
 
 	if (fseek(file, 257, SEEK_CUR) != 0 ||
-	    fread(magic, 1, sizeof(magic), file) != sizeof(magic))
+	    fread(magic, sizeof(magic), 1, file) != 1)
 	{
 		fseek(file, 0, SEEK_SET);
 		return FALSE;
@@ -45,7 +45,8 @@ gboolean isTar (FILE *file)
 	    memcmp(magic, "\x00\x00\x00\x00\x00\x00\x00\x00", sizeof(magic)) == 0)
 	{
 		/* next block */
-		if (fseek(file, 512, SEEK_SET) == 0 && fread(magic, 1, 1, file) == 1)
+		if (fseek(file, 512, SEEK_SET) == 0 &&
+		    fread(magic, sizeof(*magic), 1, file) == 1)
 			result = (*magic != 0);
 	}
 

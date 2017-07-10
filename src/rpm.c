@@ -72,7 +72,7 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 		fclose (stream);
 		return g_strconcat(_("Can't fseek to position 104:"), " ", g_strerror(errno), NULL);
 	}
-	if (fread(bytes, 1, HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
+	if (fread(bytes, sizeof(*bytes), HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
 	{
 		fclose ( stream );
 		return g_strconcat(_("Can't read data from file:"), " ", g_strerror(errno), NULL);
@@ -88,7 +88,7 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 		fclose (stream);
 		return g_strconcat(_("Can't fseek in file:"), " ", g_strerror(errno), NULL);
 	}
-	if (fread(bytes, 1, HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
+	if (fread(bytes, sizeof(*bytes), HDRSIG_ENTRY_INFO_LEN, stream) != HDRSIG_ENTRY_INFO_LEN)
 	{
 		fclose ( stream );
 		return g_strconcat(_("Can't read data from file:"), " ", g_strerror(errno), NULL);

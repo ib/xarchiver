@@ -173,7 +173,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 			}
 		}
 		fseek (stream,eocds_position,SEEK_SET);
-		fread (&len,1,2,stream);
+		fread(&len, sizeof(len), 1, stream);
 		if (len == 0)
 		{
 			fclose(stream);
@@ -184,7 +184,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 			archive->comment = g_string_new("");
 			while (cmt_len != len)
 			{
-				fread (&sig,1,1,stream);
+				fread(&sig, sizeof(sig), 1, stream);
 				g_string_append_c (archive->comment,sig);
 				cmt_len++;
 			}
@@ -198,7 +198,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 		fseek ( stream,39 ,SEEK_SET);
 		while (sig != 0)
 		{
-			fread (&sig,1,1,stream);
+			fread(&sig, sizeof(sig), 1, stream);
 			cmt_len++;
 		}
 		fseek ( stream,39 + cmt_len ,SEEK_SET);
@@ -207,7 +207,7 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 		archive->comment = g_string_new("");
 		while (sig != 0)
 		{
-			fread (&sig,1,1,stream);
+			fread(&sig, sizeof(sig), 1, stream);
 
 			if (sig == 0 && archive->comment->len == 0)
 			{
@@ -626,7 +626,7 @@ static void xa_comment_window_insert_in_archive (GtkButton *button, gpointer buf
 		return;
 	}
 
-	fwrite (content,1,strlen(content),stream);
+	fwrite(content, strlen(content), 1, stream);
 	fclose (stream);
 
 	switch (archive[idx]->type)
@@ -1466,7 +1466,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
-				fwrite (content,1,length,sfx_archive);
+				fwrite(content, length, 1, sfx_archive);
 				g_free (content);
 
 				archive_not_sfx = fopen(archive[idx]->path[0], "r");
@@ -1480,8 +1480,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
 				{
-					fread (&buffer ,1,1024,archive_not_sfx);
-					fwrite (&buffer,1,1024,sfx_archive);
+					fread(&buffer, sizeof(buffer), 1, archive_not_sfx);
+					fwrite(&buffer, sizeof(buffer), 1, sfx_archive);
 				}
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
@@ -1572,7 +1572,7 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't write the unzipsfx module to the archive:"),g_strerror(errno));
 					return;
 				}
-				fwrite (content,1,length,sfx_archive);
+				fwrite(content, length, 1, sfx_archive);
 				g_free (content);
 
 				archive_not_sfx = fopen(archive[idx]->path[0], "r");
@@ -1586,8 +1586,8 @@ void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)
 				/* Read archive data and write it after the sfx module in the new file */
 				while ( ! feof(archive_not_sfx))
 				{
-					fread (&buffer,1,1024,archive_not_sfx);
-					fwrite (&buffer,1,1024,sfx_archive);
+					fread(&buffer, sizeof(buffer), 1, archive_not_sfx);
+					fwrite(&buffer, sizeof(buffer), 1, sfx_archive);
 				}
 				fclose (archive_not_sfx);
 				fclose (sfx_archive);
@@ -1716,7 +1716,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	}
 
 	memset(magic, 0, sizeof(magic));
-	fread(magic, 1, sizeof(magic), file);
+	fread(magic, sizeof(magic), 1, file);
 
 	if (memcmp(magic, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
 		xa.type = XARCHIVETYPE_7ZIP;
