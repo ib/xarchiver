@@ -36,7 +36,21 @@ do                                                           \
 }                                                            \
 while (0)
 
-#define USE_PARSER static int _pos = -1; char *_start = line
+#define USE_PARSER         \
+static void *_archive;     \
+static int _pos;           \
+char *_start = line;       \
+                           \
+do                         \
+{                          \
+  if (_archive != archive) \
+  {                        \
+    _archive = archive;    \
+    _pos = -1;             \
+  }                        \
+}                          \
+while (0)
+
 #define NEXT_ITEMS(parts, item) GRAB_ITEMS(parts, item, *line != ' ' && *line != '\t' && *line != '\n')
 #define NEXT_ITEM(item) NEXT_ITEMS(1, item)
 #define SKIP_ITEM NEXT_ITEM(line)
