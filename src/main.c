@@ -753,6 +753,11 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
 		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('j'));
 		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
+		/* XPInstall */
+		archiver[type].type = g_slist_append(archiver[type].type, "xpi");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xpi");
+		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('x'));
+		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 
 		ask[type] = FUNC(standard, xa_zip_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
 		list[type] = FUNC(standard, xa_zip_list, is7za, xa_7zip_list, lsar, xa_unar_list);
