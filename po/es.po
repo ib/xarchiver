@@ -589,7 +589,7 @@ msgid ""
 "unrar;unzip;xz;zip;"
 msgstr ""
 "GTK;archivado;archivador;compresión;compresor;interfaz;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;lsar;"
 "lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
 "unrar;unzip;xpi;xz;zip;"
 
