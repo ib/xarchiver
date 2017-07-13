@@ -1777,7 +1777,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	{
 		xa.type = XARCHIVETYPE_ZIP;
 
-		if (g_str_has_suffix(filename, ".jar"))
+		if (g_str_has_suffix(filename, ".epub"))
+			xa.version = 'e';
+		else if (g_str_has_suffix(filename, ".jar"))
 			xa.version = 'j';
 		else if (g_str_has_suffix(filename, ".xpi"))
 			xa.version = 'x';

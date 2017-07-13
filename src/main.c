@@ -748,6 +748,11 @@ static void xa_check_available_archivers ()
 		archiver[type].program[0] = path;
 		archiver[type].type = g_slist_append(archiver[type].type, "zip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.zip");
+		/* electronic publication */
+		archiver[type].type = g_slist_append(archiver[type].type, "epub");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.epub");
+		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('e'));
+		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 		/* java archive */
 		archiver[type].type = g_slist_append(archiver[type].type, "jar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
