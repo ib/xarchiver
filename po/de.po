@@ -590,7 +590,7 @@ msgid ""
 msgstr ""
 "GTK;Archivierer;Archivierung;Kompression;Komprimierung;Front-End;Frontend;7-"
 "zip;7z;7za;7zip;7zr;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;"
-"gz;gzip;jar;lha;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;"
+"gz;gzip;jar;lha;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;"
 "unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;"
 
 #: ../src/cpio.c ../src/rpm.c
