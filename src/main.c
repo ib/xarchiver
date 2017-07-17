@@ -758,6 +758,11 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
 		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('j'));
 		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
+		/* OpenOffice.org extension */
+		archiver[type].type = g_slist_append(archiver[type].type, "oxt");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.oxt");
+		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('o'));
+		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 		/* XPInstall */
 		archiver[type].type = g_slist_append(archiver[type].type, "xpi");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xpi");

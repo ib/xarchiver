@@ -1781,6 +1781,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 			xa.version = 'e';
 		else if (g_str_has_suffix(filename, ".jar"))
 			xa.version = 'j';
+		else if (g_str_has_suffix(filename, ".oxt"))
+			xa.version = 'o';
 		else if (g_str_has_suffix(filename, ".xpi"))
 			xa.version = 'x';
 	}
