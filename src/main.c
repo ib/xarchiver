@@ -687,14 +687,23 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_XZ;
 	path = xz;
 
-	standard = (path != NULL);
+	if (path)
+		archiver[type].is_compressor = TRUE;
+	else
+		path = g_find_program_in_path("unxz");
+
+	standard = (path && archiver[type].is_compressor);
 
 	if (!standard)
 	{
 		if (is7zr)
+		{
+			g_free(path);
 			/* alternative compressor */
 			path = g_strconcat(sevenz, " -txz", NULL);
-		else
+			archiver[type].is_compressor = TRUE;
+		}
+		else if (!path)
 		{
 			if (lsar)
 				/* alternative ... */
@@ -703,12 +712,13 @@ static void xa_check_available_archivers ()
 				/* ... uncompressor */
 				archiver[type].program[1] = g_strdup(unar);
 		}
+		else
+			standard = TRUE;
 	}
 
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = (standard || is7zr);
 		archiver[type].type = g_slist_append(archiver[type].type, "xz");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xz");
 
