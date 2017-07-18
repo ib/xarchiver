@@ -494,6 +494,11 @@ static void xa_check_available_archivers ()
 		/* alternative compressor */
 		path = g_strconcat(xz, " --format=lzma", NULL);
 
+	if (path)
+		archiver[type].is_compressor = TRUE;
+	else
+		path = g_find_program_in_path("unlzma");
+
 	standard = (path != NULL);
 
 	if (!standard)
@@ -515,7 +520,6 @@ static void xa_check_available_archivers ()
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = standard;
 		archiver[type].type = g_slist_append(archiver[type].type, "lzma");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzma");
 
