@@ -449,9 +449,13 @@ static void xa_check_available_archivers ()
 	path = g_find_program_in_path("lz4");
 
 	if (path)
+		archiver[type].is_compressor = TRUE;
+	else
+		path = g_find_program_in_path("unlz4");
+
+	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = TRUE;
 		archiver[type].type = g_slist_append(archiver[type].type, "lz4");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lz4");
 
