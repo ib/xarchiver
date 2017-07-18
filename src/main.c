@@ -253,6 +253,11 @@ static void xa_check_available_archivers ()
 	type = XARCHIVETYPE_COMPRESS;
 	path = g_find_program_in_path("compress");
 
+	if (path)
+		archiver[type].is_compressor = TRUE;
+	else
+		path = g_find_program_in_path("uncompress");
+
 	standard = (path != NULL);
 
 	if (!standard)
@@ -274,7 +279,6 @@ static void xa_check_available_archivers ()
 	if (path)
 	{
 		archiver[type].program[0] = path;
-		archiver[type].is_compressor = standard;
 		archiver[type].type = g_slist_append(archiver[type].type, "compress");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.Z");
 
