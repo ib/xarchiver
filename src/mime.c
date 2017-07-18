@@ -108,7 +108,8 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/x-php") == 0 ||
 	         strcmp(mime,"application/x-shellscript") == 0)
 		return "text-x-script";
-	else if (strncmp(mime,"application/x-font",18) == 0)
+	else if (strncmp(mime,"font/",5) == 0 ||
+	         strncmp(mime,"application/x-font",18) == 0)
 		return "font-x-generic";
 
 	return icon_name;
