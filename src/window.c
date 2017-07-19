@@ -17,7 +17,9 @@
  */
 
 #include "config.h"
+#include <endian.h>
 #include <errno.h>
+#include <stdint.h>
 #include <string.h>
 #include <unistd.h>
 #include <gdk/gdkkeysyms.h>
@@ -1704,6 +1706,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 {
 	FILE *file;
 	unsigned char magic[14];
+	long bytes;
+	uint32_t *uint32_magic = (uint32_t *) magic;
 	unsigned short *short_magic = (unsigned short *) magic;
 	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
 
@@ -1716,7 +1720,26 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	}
 
 	memset(magic, 0, sizeof(magic));
-	fread(magic, sizeof(magic), 1, file);
+	bytes = fread(magic, 1, sizeof(magic), file);
+
+	/* lz4 skippable frame */
+	while (memcmp(magic + 1, "\x2a\x4d\x18", 3) == 0 && (magic[0] & 0xf0) == 0x50 && bytes >= 8)
+	{
+		uint32_t frame_size = le32toh(uint32_magic[1]);
+
+		fseek(file, -bytes + 8, SEEK_CUR);
+
+		if (frame_size > 0x7fffffff)
+		{
+			fseek(file, 0x7fffffff, SEEK_CUR);
+			frame_size -= 0x7fffffff;
+		}
+
+		fseek(file, frame_size, SEEK_CUR);
+
+		memset(magic, 0, sizeof(magic));
+		bytes = fread(magic, 1, sizeof(magic), file);
+	}
 
 	if (memcmp(magic, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
 		xa.type = XARCHIVETYPE_7ZIP;
@@ -1746,8 +1769,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	         (memcmp(magic + 2, "-lz", 3) == 0 && (magic[5] == '4' || magic[5] == '5' || magic[5] == 's') && magic[6] == '-'))
 		xa.type = XARCHIVETYPE_LHA;
 	else if (memcmp(magic, "\x04\x22\x4d\x18", 4) == 0 ||
-	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0 ||
-	         (memcmp(magic + 1, "\x2a\x4d\x18", 3) == 0 && (magic[0] & 0xf0) == 0x50))
+	         memcmp(magic, "\x02\x21\x4c\x18", 4) == 0)
 		xa.type = XARCHIVETYPE_LZ4;
 	else if (memcmp(magic, "LZIP", 4) == 0)
 		xa.type = XARCHIVETYPE_LZIP;
