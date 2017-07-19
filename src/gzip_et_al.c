@@ -54,6 +54,7 @@ static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 	archive->can_test = (can && !compress);
 	archive->can_extract = can;
 	archive->can_overwrite = can;
+	archive->can_move = can;
 
 	/* only if archive is new and empty */
 	archive->can_add = (can && archiver[archive->type].is_compressor);
@@ -428,7 +429,7 @@ gboolean xa_gzip_et_al_extract (XArchive *archive, GSList *file_list)
 void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression)
 {
 	GString *files;
-	gchar *files_str, *archive_path, *command;
+	gchar *move, *files_str, *archive_path, *command;
 
 	if (archive->location_path != NULL)
 		archive->child_dir = g_strdup(archive->working_dir);
@@ -472,8 +473,14 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 	files_str = xa_escape_bad_chars(files->str, "\"");
 	archive_path = xa_quote_shell_command(archive->path[0], TRUE);
 
-	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -", compress ? "b " : "", compression, files_str, " -c > ", archive_path, "\"", NULL);
+	if (archive->do_move)
+		move = g_strconcat(" && rm", files_str, NULL);
+	else
+		move = g_strdup("");
 
+	command = g_strconcat("sh -c \"", archiver[archive->type].program[0], " -", compress ? "b " : "", compression, files_str, " -c > ", archive_path, move, "\"", NULL);
+
+	g_free(move);
 	g_free(archive_path);
 	g_free(files_str);
 	g_string_free(files, TRUE);
