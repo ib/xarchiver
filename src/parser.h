@@ -39,7 +39,10 @@ while (0)
 #define USE_PARSER         \
 static void *_archive;     \
 static int _pos;           \
+unsigned int _len;         \
 char *_start = line;       \
+                           \
+(void) _len;               \
                            \
 do                         \
 {                          \
@@ -66,5 +69,8 @@ do                                            \
   else if (pos > _pos) item = _start + _pos;  \
 }                                             \
 while (0)
+
+#define IF_ITEM_LINE(string) if ((_len = strlen(string)) && (strncmp(line, string, _len) == 0) && (line += _len))
+#define DUPE_ITEM(item) item = g_strdup(g_strstrip(line))
 
 #endif
