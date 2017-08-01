@@ -90,7 +90,7 @@ typedef struct
 	gboolean is_compressor;
 	GSList *type;
 	GSList *glob;
-	GSList *version;
+	GSList *tags;
 	ask_func ask;
 	list_func list;
 	test_func test;
@@ -102,7 +102,7 @@ typedef struct
 typedef struct
 {
 	XArchiveType type;
-	gushort version;
+	gushort tag;
 } ArchiveType;
 
 typedef struct _XEntry XEntry;
@@ -124,7 +124,7 @@ struct _XArchive
 {
 	/* characteristics */
 	XArchiveType type;
-	gushort version;
+	gushort tag;
 	XArchiveStatus status;
 	/* data */
 	XEntry *root_entry;

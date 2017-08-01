@@ -587,8 +587,8 @@ static void xa_check_available_archivers ()
 		{
 			archiver[type].type = g_slist_append(archiver[type].type, "rar5");
 			archiver[type].glob = g_slist_append(archiver[type].glob, " .rar");
-			archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER(5));
-			archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
+			archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER(5));
+			archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		}
 
 		archiver[type].ask = FUNC(standard, xa_rar_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
@@ -777,23 +777,23 @@ static void xa_check_available_archivers ()
 		/* electronic publication */
 		archiver[type].type = g_slist_append(archiver[type].type, "epub");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.epub");
-		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('e'));
-		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('e'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* java archive */
 		archiver[type].type = g_slist_append(archiver[type].type, "jar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.jar");
-		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('j'));
-		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('j'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* OpenOffice.org extension */
 		archiver[type].type = g_slist_append(archiver[type].type, "oxt");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.oxt");
-		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('o'));
-		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('o'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* XPInstall */
 		archiver[type].type = g_slist_append(archiver[type].type, "xpi");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xpi");
-		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('x'));
-		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('x'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 
 		archiver[type].ask = FUNC(standard, xa_zip_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
 		archiver[type].list = FUNC(standard, xa_zip_list, is7za, xa_7zip_list, lsar, xa_unar_list);
@@ -1200,7 +1200,7 @@ done:
 		g_free(archiver[x].program[1]);
 		g_slist_free(archiver[x].type);
 		g_slist_free(archiver[x].glob);
-		g_slist_free(archiver[x].version);
+		g_slist_free(archiver[x].tags);
 	}
 
 	g_free(xdg_open);

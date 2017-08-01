@@ -85,15 +85,15 @@ static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selecti
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	XArchiveType type;
-	guint version;
+	guint tag;
 	XArchive archive = {0};
 
 	if (gtk_tree_selection_get_selected (selection,&model,&iter))
 	{
-		gtk_tree_model_get(model, &iter, 3, &type, 4, &version, -1);
+		gtk_tree_model_get(model, &iter, 3, &type, 4, &tag, -1);
 
 		archive.type = type;
-		archive.version = version;
+		archive.tag = tag;
 
 		(*archiver[type].ask)(&archive);
 
@@ -733,7 +733,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	}
 
 	archive.type = xa.type;
-	archive.version = xa.version;
+	archive.tag = xa.tag;
 
 	(*archiver[xa.type].ask)(&archive);
 
@@ -750,7 +750,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	file = g_path_get_basename(file_path);
 	file_utf8 = g_filename_display_name(file);
 	gtk_list_store_append(dialog->files_liststore,&iter);
-	gtk_list_store_set(dialog->files_liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.version, -1);
+	gtk_list_store_set(dialog->files_liststore, &iter, 0, file_utf8, 1, file_size, 2, path_utf8, 3, xa.type, 4, xa.tag, -1);
 	dialog->nr++;
 	g_free(file_utf8);
 	g_free(file);

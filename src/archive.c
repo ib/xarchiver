@@ -332,7 +332,7 @@ XArchive *xa_init_archive_structure (ArchiveType xa)
 		return NULL;
 
 	archive->type = xa.type;
-	archive->version = xa.version;
+	archive->tag = xa.tag;
 
 	entry = g_new0(XEntry, 1);
 

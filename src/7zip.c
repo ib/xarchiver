@@ -25,7 +25,7 @@
 #include "support.h"
 #include "window.h"
 
-#define INDEX (archive->type == XARCHIVETYPE_RAR ? (archive->version == 5 ? 1 : 0) : 0)
+#define INDEX (archive->type == XARCHIVETYPE_RAR ? (archive->tag == 5 ? 1 : 0) : 0)
 
 static gboolean data_line, encrypted, last_line;
 
@@ -293,7 +293,7 @@ void xa_7zip_list (XArchive *archive)
 
 	password_str = xa_7zip_password_str(archive);
 
-	if (archive->type == XARCHIVETYPE_CPIO && archive->version == 'E')
+	if (archive->type == XARCHIVETYPE_CPIO && archive->tag == 'E')
 		command = g_strconcat("sh -c \"echo ", _("Unsupported binary format!"), " >&2; exit 1\"", NULL);
 	else
 		command = g_strconcat(archiver[archive->type].program[INDEX], " l", password_str, " ", archive->path[1], NULL);

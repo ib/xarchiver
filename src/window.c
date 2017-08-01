@@ -438,10 +438,10 @@ static const gchar *xa_get_archive_format (XArchive *archive)
 {
 	gint pos;
 
-	pos = g_slist_index(archiver[archive->type].version, GUINT_TO_POINTER(archive->version));
+	pos = g_slist_index(archiver[archive->type].tags, GUINT_TO_POINTER(archive->tag));
 
 	if (pos >= 0)
-		return g_slist_nth_data(archiver[archive->type].version, pos + 1);
+		return g_slist_nth_data(archiver[archive->type].tags, pos + 1);
 	else
 		return archiver[archive->type].type->data;
 }
@@ -1759,7 +1759,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 
 		if (*short_magic == bswap(070707))
 			/* different endianness */
-			xa.version = 'E';
+			xa.tag = 'E';
 	}
 	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
 		xa.type = XARCHIVETYPE_DEB;
@@ -1784,10 +1784,10 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_RAR;
 
 		if (magic[6] == 1)
-			xa.version = 5;
+			xa.tag = 5;
 
 		/* a rar5 archive without rar v5 executable can't be opened */
-		if ((xa.version == 5) && !g_slist_find(archiver[xa.type].version, GUINT_TO_POINTER(xa.version)))
+		if ((xa.tag == 5) && !g_slist_find(archiver[xa.type].tags, GUINT_TO_POINTER(xa.tag)))
 			archiver[xa.type].list = NULL;
 	}
 	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
@@ -1801,13 +1801,13 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_ZIP;
 
 		if (g_str_has_suffix(filename, ".epub"))
-			xa.version = 'e';
+			xa.tag = 'e';
 		else if (g_str_has_suffix(filename, ".jar"))
-			xa.version = 'j';
+			xa.tag = 'j';
 		else if (g_str_has_suffix(filename, ".oxt"))
-			xa.version = 'o';
+			xa.tag = 'o';
 		else if (g_str_has_suffix(filename, ".xpi"))
-			xa.version = 'x';
+			xa.tag = 'x';
 	}
 
 	fclose(file);
