@@ -1409,7 +1409,7 @@ void xa_show_prefs_dialog (GtkMenuItem *menuitem,gpointer user_data)
 	gtk_widget_hide (prefs_window->dialog1);
 
 	if (response == GTK_RESPONSE_OK)
-		xa_apply_prefs_option(prefs_window);
+		xa_prefs_apply_options(prefs_window);
 }
 
 void xa_convert_sfx (GtkMenuItem *menuitem ,gpointer user_data)

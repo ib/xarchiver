@@ -673,7 +673,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	/* config_file is freed in window.c xa_quit_application */
 }
 
-void xa_apply_prefs_option(Prefs_dialog_data *prefs_data)
+void xa_prefs_apply_options (Prefs_dialog_data *prefs_data)
 {
 	gint i,idx;
 
