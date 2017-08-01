@@ -345,14 +345,9 @@ XArchive *xa_init_archive_structure (ArchiveType xa)
 	entry->filename = "";
 	archive->root_entry = entry;
 
-	archive->ask = archiver[xa.type].ask;
-	archive->list = archiver[xa.type].list;
-	archive->test = archiver[xa.type].test;
-	archive->extract = archiver[xa.type].extract;
-	archive->add = archiver[xa.type].add;
-	archive->delete = archiver[xa.type].delete;
+	archive->archiver = &archiver[xa.type];
 
-	(*archive->ask)(archive);
+	(*archive->archiver->ask)(archive);
 
 	return archive;
 }
@@ -719,7 +714,7 @@ void xa_fill_list_with_recursed_entries(XEntry *entry,GSList **p_file_list)
 void xa_detect_encrypted_archive (XArchive *archive)
 {
 	archive->status = XARCHIVESTATUS_LIST;
-	(*archive->list)(archive);
+	(*archive->archiver->list)(archive);
 
 	do
 	{

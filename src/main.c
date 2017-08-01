@@ -984,7 +984,7 @@ int main (int argc, char **argv)
 			archive->do_overwrite = TRUE;
 			archive->extraction_dir = xa_escape_bad_chars(opt_extract_path, ESCAPES);
 			archive->status = XARCHIVESTATUS_EXTRACT;
-			(*archive->extract) (archive,string);
+			(*archive->archiver->extract) (archive,string);
 		}
 		/* Switch -e */
 		else if (opt_extract)

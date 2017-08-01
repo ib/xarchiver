@@ -397,7 +397,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		archive->do_overwrite = archive->do_full_path = TRUE;
 
 		archive->status = XARCHIVESTATUS_EXTRACT;
-		result = (*archive->extract) (archive,names);
+		result = (*archive->archiver->extract) (archive,names);
 
 		if (result == FALSE)
 		{
@@ -423,7 +423,7 @@ static void xa_rename_cell_edited (GtkCellRendererText *cell, const gchar *path_
 		file_list = g_slist_append(NULL, old_name);
 
 		archive->status = XARCHIVESTATUS_DELETE;
-		(*archive->delete)(archive, file_list);
+		(*archive->archiver->delete)(archive, file_list);
 
 		/* Add the renamed file to the archive */
 		file_list = g_slist_append(NULL, g_strdup(new_name));
@@ -749,7 +749,7 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	archive->do_overwrite = TRUE;
 
 	archive->status = XARCHIVESTATUS_EXTRACT;
-	(*archive->extract) (archive,files);
+	(*archive->archiver->extract) (archive,files);
 }
 
 void xa_child_processed (XAChildProcess process, gboolean success, XArchive *archive)
@@ -852,7 +852,7 @@ void xa_reload_archive_content (XArchive *this_archive)
 
 	/* this reload will be called internally during adding and deleting */
 	this_archive->status = XARCHIVESTATUS_RELOAD;
-	(*this_archive->list)(this_archive);
+	(*this_archive->archiver->list)(this_archive);
 
 	if (strcmp(this_archive->path[0], archive[idx]->path[0]) == 0)
 		xa_fill_dir_sidebar(this_archive, TRUE);
@@ -1085,7 +1085,7 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 	gtk_label_set_text(GTK_LABEL(total_label),_("Opening archive, please wait..."));
 
 	archive[current_page]->status = XARCHIVESTATUS_LIST;
-	(*archive[current_page]->list)(archive[current_page]);
+	(*archive[current_page]->archiver->list)(archive[current_page]);
 
 	xa_fill_dir_sidebar(archive[current_page],TRUE);
 }
@@ -1104,7 +1104,7 @@ void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
 	gtk_label_set_text(GTK_LABEL(total_label),_("Testing archive, please wait..."));
 
 	archive[idx]->status = XARCHIVESTATUS_TEST;
-	(*archive[idx]->test)(archive[idx]);
+	(*archive[idx]->archiver->test)(archive[idx]);
 }
 
 void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
@@ -1370,7 +1370,7 @@ void xa_delete_archive (GtkMenuItem *menuitem,gpointer user_data)
 	}
 
 	archive[idx]->status = XARCHIVESTATUS_DELETE;
-	(*archive[idx]->delete)(archive[idx], list);
+	(*archive[idx]->archiver->delete)(archive[idx], list);
 	xa_reload_archive_content(archive[idx]);
 }
 
@@ -2166,7 +2166,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
 
 			archive->status = XARCHIVESTATUS_EXTRACT;
-			(*archive->extract) (archive,names);
+			(*archive->archiver->extract) (archive,names);
 
 			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
 			g_list_free (row_list);
@@ -2603,7 +2603,7 @@ void xa_clipboard_paste (GtkMenuItem *item, gpointer user_data)
 		list = xa_slist_copy(paste_data->files);
 
 		paste_data->target->status = XARCHIVESTATUS_DELETE;
-		(*paste_data->target->delete)(paste_data->target, list);
+		(*paste_data->target->archiver->delete)(paste_data->target, list);
 		xa_reload_archive_content(paste_data->target);
 	}
 }
@@ -2690,7 +2690,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	list_of_files = xa_slist_copy(list);
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
-	result = (*archive[idx]->extract) (archive[idx],list);
+	result = (*archive[idx]->archiver->extract) (archive[idx],list);
 	if (result == FALSE)
 		return;
 
@@ -2750,7 +2750,7 @@ void xa_view_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	archive[idx]->do_overwrite = TRUE;
 
 	archive[idx]->status = XARCHIVESTATUS_EXTRACT;
-	result = (*archive[idx]->extract) (archive[idx],list);
+	result = (*archive[idx]->archiver->extract) (archive[idx],list);
 	if (result == FALSE)
 		return;
 
@@ -2796,7 +2796,7 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	   	archive->do_full_path = FALSE;
 	   	archive->do_overwrite = TRUE;
 		archive->status = XARCHIVESTATUS_EXTRACT;
-		result = (*archive->extract) (archive,names);
+		result = (*archive->archiver->extract) (archive,names);
 
 		if (result == FALSE)
 			return;

@@ -475,7 +475,7 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse,
 	g_slist_free(dirlist);
 
 	archive->status = XARCHIVESTATUS_ADD;
-	(*archive->add)(archive, files, compression);
+	(*archive->archiver->add)(archive, files, compression);
 
 	g_free(archive->child_dir);
 	archive->child_dir = NULL;

@@ -253,15 +253,10 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 			xa_gzip_et_al_can(archive, FALSE);
 
-			archive->ask = archiver[XARCHIVETYPE_TAR].ask;
-			archive->list = archiver[XARCHIVETYPE_TAR].list;
-			archive->test = archiver[XARCHIVETYPE_TAR].test;
-			archive->extract = archiver[XARCHIVETYPE_TAR].extract;
-			archive->add = archiver[XARCHIVETYPE_TAR].add;
-			archive->delete = archiver[XARCHIVETYPE_TAR].delete;
+			archive->archiver = &archiver[XARCHIVETYPE_TAR];
 
-			(*archive->ask)(archive);
-			(*archive->list)(archive);
+			(*archive->archiver->ask)(archive);
+			(*archive->archiver->list)(archive);
 
 			return;
 		}

@@ -186,13 +186,8 @@ struct _XArchive
 	gint child_fderr;
 	GSList *output;
 	/* (un)compressor interface */
-	ask_func ask;
-	list_func list;
+	XArchiver *archiver;
 	parse_output_func parse_output;
-	test_func test;
-	extract_func extract;
-	add_func add;
-	delete_func delete;
 };
 
 extern XArchive *archive[];

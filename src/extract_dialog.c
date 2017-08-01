@@ -252,7 +252,7 @@ static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *f
 	if (!error)
 	{
 		archive->status = XARCHIVESTATUS_EXTRACT;
-		(*archive->extract)(archive,NULL);
+		(*archive->archiver->extract)(archive,NULL);
 	}
 
 	/* return from batch mode */
@@ -570,7 +570,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			}
 
 			archive->status = XARCHIVESTATUS_EXTRACT;
-			(*archive->extract)(archive,names);
+			(*archive->archiver->extract)(archive,names);
 		}
 	}
 	gtk_widget_hide (dialog_data->dialog1);
