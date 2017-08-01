@@ -95,7 +95,7 @@ static void xa_multi_extract_dialog_selection_changed (GtkTreeSelection *selecti
 		archive.type = type;
 		archive.version = version;
 
-		(*ask[type])(&archive);
+		(*archiver[type].ask)(&archive);
 
 		gtk_widget_set_sensitive(dialog_data->full_path, archive.can_full_path[0]);
 	}
@@ -726,7 +726,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 		return;
 
-	if (!list[xa.type])
+	if (!archiver[xa.type].list)
 	{
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
 		return;
@@ -735,7 +735,7 @@ void xa_multi_extract_dialog_add_file (gchar *file_path, Multi_extract_data *dia
 	archive.type = xa.type;
 	archive.version = xa.version;
 
-	(*ask[xa.type])(&archive);
+	(*archiver[xa.type].ask)(&archive);
 
 	if (!archive.can_extract)
 	{

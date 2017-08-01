@@ -32,13 +32,6 @@ extern GtkWidget *xa_main_window;
 extern XArchiver archiver[];
 extern gchar *xdg_open;
 
-extern add_func add[];
-extern ask_func ask[];
-extern delete_func delete[];
-extern extract_func extract[];
-extern list_func list[];
-extern test_func test[];
-
 extern struct Add_dialog_data *add_window;
 extern struct Extract_dialog_data *extract_window;
 extern struct Multi_extract_data *multi_extract_window;

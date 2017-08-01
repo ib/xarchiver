@@ -345,12 +345,12 @@ XArchive *xa_init_archive_structure (ArchiveType xa)
 	entry->filename = "";
 	archive->root_entry = entry;
 
-	archive->ask = ask[xa.type];
-	archive->list = list[xa.type];
-	archive->test = test[xa.type];
-	archive->extract = extract[xa.type];
-	archive->add = add[xa.type];
-	archive->delete = delete[xa.type];
+	archive->ask = archiver[xa.type].ask;
+	archive->list = archiver[xa.type].list;
+	archive->test = archiver[xa.type].test;
+	archive->extract = archiver[xa.type].extract;
+	archive->add = archiver[xa.type].add;
+	archive->delete = archiver[xa.type].delete;
 
 	(*archive->ask)(archive);
 

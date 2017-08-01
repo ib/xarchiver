@@ -243,7 +243,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 		is_tar = isTar(file);
 		fclose(file);
 
-		if (is_tar && (ask[XARCHIVETYPE_TAR] == xa_tar_ask))
+		if (is_tar && (archiver[XARCHIVETYPE_TAR].ask == xa_tar_ask))
 		{
 			if (!xa_get_compressed_tar_type(&archive->type))
 				return;
@@ -253,12 +253,12 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 			xa_gzip_et_al_can(archive, FALSE);
 
-			archive->ask = ask[XARCHIVETYPE_TAR];
-			archive->list = list[XARCHIVETYPE_TAR];
-			archive->test = test[XARCHIVETYPE_TAR];
-			archive->extract = extract[XARCHIVETYPE_TAR];
-			archive->add = add[XARCHIVETYPE_TAR];
-			archive->delete = delete[XARCHIVETYPE_TAR];
+			archive->ask = archiver[XARCHIVETYPE_TAR].ask;
+			archive->list = archiver[XARCHIVETYPE_TAR].list;
+			archive->test = archiver[XARCHIVETYPE_TAR].test;
+			archive->extract = archiver[XARCHIVETYPE_TAR].extract;
+			archive->add = archiver[XARCHIVETYPE_TAR].add;
+			archive->delete = archiver[XARCHIVETYPE_TAR].delete;
 
 			(*archive->ask)(archive);
 			(*archive->list)(archive);

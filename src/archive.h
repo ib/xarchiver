@@ -74,6 +74,16 @@ typedef enum
 	XA_CHILD_PROCS
 } XAChildProcess;
 
+typedef struct _XArchive XArchive;
+
+typedef void (*ask_func)(XArchive *);
+typedef void (*list_func)(XArchive *);
+typedef void (*parse_output_func)(gchar *, XArchive *);
+typedef void (*test_func)(XArchive *);
+typedef gboolean (*extract_func)(XArchive *, GSList *);
+typedef void (*add_func)(XArchive *, GSList *, gchar *);
+typedef void (*delete_func)(XArchive *, GSList *);
+
 typedef struct
 {
 	gchar *program[2];
@@ -81,6 +91,12 @@ typedef struct
 	GSList *type;
 	GSList *glob;
 	GSList *version;
+	ask_func ask;
+	list_func list;
+	test_func test;
+	extract_func extract;
+	add_func add;
+	delete_func delete;
 } XArchiver;
 
 typedef struct
@@ -101,16 +117,6 @@ struct _XEntry
 	XEntry *prev;
 	XEntry *next;
 };
-
-typedef struct _XArchive XArchive;
-
-typedef void (*ask_func)(XArchive *);
-typedef void (*list_func)(XArchive *);
-typedef void (*parse_output_func)(gchar *, XArchive *);
-typedef void (*test_func)(XArchive *);
-typedef gboolean (*extract_func)(XArchive *, GSList *);
-typedef void (*add_func)(XArchive *, GSList *, gchar *);
-typedef void (*delete_func)(XArchive *, GSList *);
 
 typedef struct _XAClipboard XAClipboard;
 

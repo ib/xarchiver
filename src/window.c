@@ -1044,7 +1044,7 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 		return;
 	}
 
-	if (!list[xa.type])
+	if (!archiver[xa.type].list)
 	{
 		xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
 		g_free(path);
@@ -1788,7 +1788,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 
 		/* a rar5 archive without rar v5 executable can't be opened */
 		if ((xa.version == 5) && !g_slist_find(archiver[xa.type].version, GUINT_TO_POINTER(xa.version)))
-			list[xa.type] = NULL;
+			archiver[xa.type].list = NULL;
 	}
 	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
 		xa.type = XARCHIVETYPE_RPM;

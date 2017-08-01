@@ -49,13 +49,6 @@ GtkWidget *xa_main_window;
 
 XArchiver archiver[XARCHIVETYPE_TYPES];
 
-ask_func ask[XARCHIVETYPE_TYPES];
-list_func list[XARCHIVETYPE_TYPES];
-test_func test[XARCHIVETYPE_TYPES];
-extract_func extract[XARCHIVETYPE_TYPES];
-add_func add[XARCHIVETYPE_TYPES];
-delete_func delete[XARCHIVETYPE_TYPES];
-
 gchar *xdg_open;
 
 Add_dialog_data *add_window;
@@ -151,12 +144,12 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "7zip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.7z");
 
-		ask[type] = (standard ? xa_7zip_ask : xa_unar_ask);
-		list[type] = (standard ? xa_7zip_list : xa_unar_list);
-		test[type] = (standard ? xa_7zip_test : xa_unar_test);
-		extract[type] = (standard ? xa_7zip_extract : (unar ? xa_unar_extract : NULL));
-		add[type] = (standard ? xa_7zip_add : NULL);
-		delete[type] = (standard ? xa_7zip_delete : NULL);
+		archiver[type].ask = (standard ? xa_7zip_ask : xa_unar_ask);
+		archiver[type].list = (standard ? xa_7zip_list : xa_unar_list);
+		archiver[type].test = (standard ? xa_7zip_test : xa_unar_test);
+		archiver[type].extract = (standard ? xa_7zip_extract : (unar ? xa_unar_extract : NULL));
+		archiver[type].add = (standard ? xa_7zip_add : NULL);
+		archiver[type].delete = (standard ? xa_7zip_delete : NULL);
 	}
 
 	/* ARJ */
@@ -193,12 +186,12 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "arj");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.arj");
 
-		ask[type] = FUNC(standard, xa_arj_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_arj_list, is7z, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_arj_test, is7z, xa_7zip_test, lsar, xa_unar_test);
-		extract[type] = FUNC(standard, xa_arj_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_arj_add, is7z, NULL, lsar, NULL);
-		delete[type] = FUNC(standard, xa_arj_delete, is7z, NULL, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_arj_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_arj_list, is7z, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_arj_test, is7z, xa_7zip_test, lsar, xa_unar_test);
+		archiver[type].extract = FUNC(standard, xa_arj_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_arj_add, is7z, NULL, lsar, NULL);
+		archiver[type].delete = FUNC(standard, xa_arj_delete, is7z, NULL, lsar, NULL);
 	}
 
 	/* bzip2 */
@@ -241,11 +234,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "bzip2");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.bz2");
 
-		ask[type] = FUNC(standard, xa_gzip_et_al_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_gzip_et_al_list, is7za, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_gzip_et_al_test, is7za, xa_7zip_test, lsar, xa_unar_test);
-		extract[type] = FUNC(standard, xa_gzip_et_al_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_gzip_et_al_add, is7za, xa_7zip_add, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_gzip_et_al_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_gzip_et_al_list, is7za, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_gzip_et_al_test, is7za, xa_7zip_test, lsar, xa_unar_test);
+		archiver[type].extract = FUNC(standard, xa_gzip_et_al_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_gzip_et_al_add, is7za, xa_7zip_add, lsar, NULL);
 	}
 
 	/* compress */
@@ -282,11 +275,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "compress");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.Z");
 
-		ask[type] = FUNC(standard, xa_gzip_et_al_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_gzip_et_al_list, is7za, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_gzip_et_al_test, is7za, xa_7zip_test, lsar, NULL);
-		extract[type] = FUNC(standard, xa_gzip_et_al_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_gzip_et_al_add, is7za, NULL, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_gzip_et_al_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_gzip_et_al_list, is7za, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_gzip_et_al_test, is7za, xa_7zip_test, lsar, NULL);
+		archiver[type].extract = FUNC(standard, xa_gzip_et_al_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_gzip_et_al_add, is7za, NULL, lsar, NULL);
 	}
 
 	/* cpio */
@@ -319,11 +312,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "cpio");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.cpio");
 
-		ask[type] = FUNC(standard, xa_cpio_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_cpio_list, is7z, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, NULL, is7z, xa_7zip_test, lsar, NULL);
-		extract[type] = FUNC(standard, xa_cpio_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_cpio_add, is7z, NULL, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_cpio_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_cpio_list, is7z, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, NULL, is7z, xa_7zip_test, lsar, NULL);
+		archiver[type].extract = FUNC(standard, xa_cpio_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_cpio_add, is7z, NULL, lsar, NULL);
 	}
 
 	/* debian package */
@@ -353,9 +346,9 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "deb");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
 
-		ask[type] = FUNC(standard, xa_deb_ask, lsar && unar, xa_unar_ask, is7z, xa_7zip_ask);
-		list[type] = FUNC(standard, xa_deb_list, lsar && unar, xa_unar_list, is7z, xa_7zip_list);
-		extract[type]  = FUNC(standard, xa_deb_extract, lsar && unar, xa_unar_extract, is7z, xa_7zip_extract);
+		archiver[type].ask = FUNC(standard, xa_deb_ask, lsar && unar, xa_unar_ask, is7z, xa_7zip_ask);
+		archiver[type].list = FUNC(standard, xa_deb_list, lsar && unar, xa_unar_list, is7z, xa_7zip_list);
+		archiver[type].extract  = FUNC(standard, xa_deb_extract, lsar && unar, xa_unar_extract, is7z, xa_7zip_extract);
 	}
 
 	/* GNU zip */
@@ -398,11 +391,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "gzip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.gz");
 
-		ask[type] = FUNC(standard, xa_gzip_et_al_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_gzip_et_al_list, is7za, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_gzip_et_al_test, is7za, xa_7zip_test, lsar, xa_unar_test);
-		extract[type] = FUNC(standard, xa_gzip_et_al_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_gzip_et_al_add, is7za, xa_7zip_add, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_gzip_et_al_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_gzip_et_al_list, is7za, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_gzip_et_al_test, is7za, xa_7zip_test, lsar, xa_unar_test);
+		archiver[type].extract = FUNC(standard, xa_gzip_et_al_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_gzip_et_al_add, is7za, xa_7zip_add, lsar, NULL);
 	}
 
 	/* LHA */
@@ -435,12 +428,12 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "lha");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzh");
 
-		ask[type] = FUNC(standard, xa_lha_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_lha_list, is7z, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_lha_test, is7z, xa_7zip_test, lsar, xa_unar_test);
-		extract[type] = FUNC(standard, xa_lha_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_lha_add, is7z, NULL, lsar, NULL);
-		delete[type] = FUNC(standard, xa_lha_delete, is7z, NULL, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_lha_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_lha_list, is7z, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_lha_test, is7z, xa_7zip_test, lsar, xa_unar_test);
+		archiver[type].extract = FUNC(standard, xa_lha_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_lha_add, is7z, NULL, lsar, NULL);
+		archiver[type].delete = FUNC(standard, xa_lha_delete, is7z, NULL, lsar, NULL);
 	}
 
 	/* lz4 */
@@ -459,11 +452,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "lz4");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lz4");
 
-		ask[type] = xa_gzip_et_al_ask;
-		list[type] = xa_gzip_et_al_list;
-		test[type] = xa_gzip_et_al_test;
-		extract[type] = xa_gzip_et_al_extract;
-		add[type] = xa_gzip_et_al_add;
+		archiver[type].ask = xa_gzip_et_al_ask;
+		archiver[type].list = xa_gzip_et_al_list;
+		archiver[type].test = xa_gzip_et_al_test;
+		archiver[type].extract = xa_gzip_et_al_extract;
+		archiver[type].add = xa_gzip_et_al_add;
 	}
 
 	/* lzip */
@@ -478,11 +471,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "lzip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lz");
 
-		ask[type] = xa_gzip_et_al_ask;
-		list[type] = xa_gzip_et_al_list;
-		test[type] = xa_gzip_et_al_test;
-		extract[type] = xa_gzip_et_al_extract;
-		add[type] = xa_gzip_et_al_add;
+		archiver[type].ask = xa_gzip_et_al_ask;
+		archiver[type].list = xa_gzip_et_al_list;
+		archiver[type].test = xa_gzip_et_al_test;
+		archiver[type].extract = xa_gzip_et_al_extract;
+		archiver[type].add = xa_gzip_et_al_add;
 	}
 
 	/* lzma */
@@ -523,11 +516,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "lzma");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzma");
 
-		ask[type] = FUNC(standard, xa_gzip_et_al_ask, is7zr, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_gzip_et_al_list, is7zr, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_gzip_et_al_test, is7zr, xa_7zip_test, lsar, NULL);
-		extract[type] = FUNC(standard, xa_gzip_et_al_extract, is7zr, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_gzip_et_al_add, is7zr, NULL, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_gzip_et_al_ask, is7zr, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_gzip_et_al_list, is7zr, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_gzip_et_al_test, is7zr, xa_7zip_test, lsar, NULL);
+		archiver[type].extract = FUNC(standard, xa_gzip_et_al_extract, is7zr, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_gzip_et_al_add, is7zr, NULL, lsar, NULL);
 	}
 
 	/* lzop */
@@ -546,11 +539,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "lzop");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.lzo");
 
-		ask[type] = xa_gzip_et_al_ask;
-		list[type] = xa_gzip_et_al_list;
-		test[type] = xa_gzip_et_al_test;
-		extract[type] = xa_gzip_et_al_extract;
-		add[type] = xa_gzip_et_al_add;
+		archiver[type].ask = xa_gzip_et_al_ask;
+		archiver[type].list = xa_gzip_et_al_list;
+		archiver[type].test = xa_gzip_et_al_test;
+		archiver[type].extract = xa_gzip_et_al_extract;
+		archiver[type].add = xa_gzip_et_al_add;
 	}
 
 	/* RAR */
@@ -598,12 +591,12 @@ static void xa_check_available_archivers ()
 			archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 		}
 
-		ask[type] = FUNC(standard, xa_rar_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_rar_list, is7z, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_rar_test, is7z, xa_7zip_test, lsar, xa_unar_test);
-		extract[type] = FUNC(standard, xa_rar_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_rar_add, is7z, NULL, lsar, NULL);
-		delete[type] = FUNC(standard, xa_rar_delete, is7z, NULL, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_rar_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_rar_list, is7z, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_rar_test, is7z, xa_7zip_test, lsar, xa_unar_test);
+		archiver[type].extract = FUNC(standard, xa_rar_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_rar_add, is7z, NULL, lsar, NULL);
+		archiver[type].delete = FUNC(standard, xa_rar_delete, is7z, NULL, lsar, NULL);
 	}
 
 	/* RPM package */
@@ -635,10 +628,10 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "rpm");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rpm");
 
-		ask[type] = FUNC(standard, xa_rpm_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_rpm_list, is7z, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, NULL, is7z, xa_7zip_test, lsar, xa_unar_test);
-		extract[type] = FUNC(standard, xa_rpm_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].ask = FUNC(standard, xa_rpm_ask, is7z, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_rpm_list, is7z, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, NULL, is7z, xa_7zip_test, lsar, xa_unar_test);
+		archiver[type].extract = FUNC(standard, xa_rpm_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
 	}
 
 	/* tape archive */
@@ -674,12 +667,12 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "tar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.tar");
 
-		ask[type] = FUNC(standard, xa_tar_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_tar_list, is7za, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, NULL, is7za, xa_7zip_test, lsar, NULL);
-		extract[type] = FUNC(standard, xa_tar_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_tar_add, is7za, xa_7zip_add, lsar, NULL);
-		delete[type] = FUNC(standard, xa_tar_delete, is7za, xa_7zip_delete, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_tar_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_tar_list, is7za, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, NULL, is7za, xa_7zip_test, lsar, NULL);
+		archiver[type].extract = FUNC(standard, xa_tar_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_tar_add, is7za, xa_7zip_add, lsar, NULL);
+		archiver[type].delete = FUNC(standard, xa_tar_delete, is7za, xa_7zip_delete, lsar, NULL);
 	}
 
 	/* xz */
@@ -722,11 +715,11 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "xz");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.xz");
 
-		ask[type] = FUNC(standard, xa_gzip_et_al_ask, is7zr, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_gzip_et_al_list, is7zr, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_gzip_et_al_test, is7zr, xa_7zip_test, lsar, xa_unar_test);
-		extract[type] = FUNC(standard, xa_gzip_et_al_extract, is7zr, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_gzip_et_al_add, is7zr, xa_7zip_add, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_gzip_et_al_ask, is7zr, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_gzip_et_al_list, is7zr, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_gzip_et_al_test, is7zr, xa_7zip_test, lsar, xa_unar_test);
+		archiver[type].extract = FUNC(standard, xa_gzip_et_al_extract, is7zr, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_gzip_et_al_add, is7zr, xa_7zip_add, lsar, NULL);
 	}
 
 	/* zip */
@@ -802,17 +795,17 @@ static void xa_check_available_archivers ()
 		archiver[type].version = g_slist_append(archiver[type].version, GUINT_TO_POINTER('x'));
 		archiver[type].version = g_slist_append(archiver[type].version, g_slist_last(archiver[type].type)->data);
 
-		ask[type] = FUNC(standard, xa_zip_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
-		list[type] = FUNC(standard, xa_zip_list, is7za, xa_7zip_list, lsar, xa_unar_list);
-		test[type] = FUNC(standard, xa_zip_test, is7za, xa_7zip_test, lsar, xa_unar_test);
-		extract[type] = FUNC(standard, xa_zip_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
-		add[type] = FUNC(standard, xa_zip_add, is7za, xa_7zip_add, lsar, NULL);
-		delete[type] = FUNC(standard, xa_zip_delete, is7za, xa_7zip_delete, lsar, NULL);
+		archiver[type].ask = FUNC(standard, xa_zip_ask, is7za, xa_7zip_ask, lsar, xa_unar_ask);
+		archiver[type].list = FUNC(standard, xa_zip_list, is7za, xa_7zip_list, lsar, xa_unar_list);
+		archiver[type].test = FUNC(standard, xa_zip_test, is7za, xa_7zip_test, lsar, xa_unar_test);
+		archiver[type].extract = FUNC(standard, xa_zip_extract, is7za, xa_7zip_extract, unar, xa_unar_extract);
+		archiver[type].add = FUNC(standard, xa_zip_add, is7za, xa_7zip_add, lsar, NULL);
+		archiver[type].delete = FUNC(standard, xa_zip_delete, is7za, xa_7zip_delete, lsar, NULL);
 	}
 
 	/* compressed tar */
 
-	if (ask[XARCHIVETYPE_TAR] == xa_tar_ask || ask[XARCHIVETYPE_TAR] == xa_unar_ask)
+	if (archiver[XARCHIVETYPE_TAR].ask == xa_tar_ask || archiver[XARCHIVETYPE_TAR].ask == xa_unar_ask)
 	{
 		struct
 		{
@@ -841,8 +834,8 @@ static void xa_check_available_archivers ()
 				if (!xa_get_compressed_tar_type(&type))
 					continue;
 
-				if ((ask[XARCHIVETYPE_TAR] == xa_tar_ask && ask[i->compressor] == xa_gzip_et_al_ask) ||
-				    (ask[XARCHIVETYPE_TAR] == xa_unar_ask && ask[i->compressor] == xa_unar_ask))
+				if ((archiver[XARCHIVETYPE_TAR].ask == xa_tar_ask && archiver[i->compressor].ask == xa_gzip_et_al_ask) ||
+				    (archiver[XARCHIVETYPE_TAR].ask == xa_unar_ask && archiver[i->compressor].ask == xa_unar_ask))
 				{
 					archiver[type].is_compressor = archiver[i->compressor].is_compressor;
 					archiver[type].type = g_slist_append(archiver[type].type, i->type[0]);
@@ -850,11 +843,11 @@ static void xa_check_available_archivers ()
 					archiver[type].type = g_slist_append(archiver[type].type, i->type[1]);
 					archiver[type].glob = g_slist_append(archiver[type].glob, i->glob[1]);
 
-					ask[type] = ask[XARCHIVETYPE_TAR];
-					list[type] = list[XARCHIVETYPE_TAR];
-					extract[type] = extract[XARCHIVETYPE_TAR];
-					add[type] = add[XARCHIVETYPE_TAR];
-					delete[type] = delete[XARCHIVETYPE_TAR];
+					archiver[type].ask = archiver[XARCHIVETYPE_TAR].ask;
+					archiver[type].list = archiver[XARCHIVETYPE_TAR].list;
+					archiver[type].extract = archiver[XARCHIVETYPE_TAR].extract;
+					archiver[type].add = archiver[XARCHIVETYPE_TAR].add;
+					archiver[type].delete = archiver[XARCHIVETYPE_TAR].delete;
 				}
 			}
 		}
@@ -874,7 +867,7 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 	if (xa.type == XARCHIVETYPE_UNKNOWN || xa.type == XARCHIVETYPE_NOT_FOUND)
 		return NULL;
 
-	if (!list[xa.type])
+	if (!archiver[xa.type].list)
 	{
 		xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Sorry, this archive format is not supported:"), _("The proper archiver is not installed!"));
 		return NULL;
