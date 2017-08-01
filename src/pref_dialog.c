@@ -28,6 +28,8 @@
 gchar *config_file;
 GtkIconTheme *icon_theme;
 
+static gint preferred_format;
+
 static gchar *xa_prefs_choose_program (gboolean flag)
 {
 	gchar *filename = NULL;
@@ -71,6 +73,7 @@ static void xa_prefs_combo_changed (GtkComboBox *widget, gpointer data)
 static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 {
 	gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),0);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->prefer_unzip), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),FALSE);
 
@@ -196,7 +199,10 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	prefs_data->combo_prefered_format = gtk_combo_box_text_new();
 	gtk_box_pack_start (GTK_BOX (hbox1), prefs_data->combo_prefered_format,FALSE,TRUE,0);
-	xa_combo_box_text_append_compressor_types(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_format));
+
+	prefs_data->prefer_unzip = gtk_check_button_new_with_mnemonic(_("Prefer unzip for zip files (requires restart)"));
+	gtk_box_pack_start(GTK_BOX(vbox4), prefs_data->prefer_unzip, FALSE, FALSE, 0);
+	gtk_button_set_focus_on_click(GTK_BUTTON(prefs_data->prefer_unzip), FALSE);
 
 	prefs_data->confirm_deletion = gtk_check_button_new_with_mnemonic (_("Confirm deletion of files"));
 	gtk_box_pack_start (GTK_BOX (vbox4), prefs_data->confirm_deletion, FALSE, FALSE, 0);
@@ -397,6 +403,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	GKeyFile *xa_key_file = g_key_file_new();
 
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
+	g_key_file_set_boolean(xa_key_file, PACKAGE, "prefer_unzip", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->prefer_unzip)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"confirm_deletion",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"sort_filename_content",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_sort_filename_column)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"store_output",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->store_output)));
@@ -503,7 +510,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	gchar *xarchiver_config_dir = NULL;
 	GKeyFile *xa_key_file = g_key_file_new();
 	GError *error = NULL;
-	gboolean toolbar;
+	gboolean unzip, toolbar;
 
 	config_dir = g_strconcat (g_get_home_dir(),"/.config",NULL);
 	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
@@ -525,7 +532,20 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	}
 	else
 	{
-		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format),g_key_file_get_integer(xa_key_file,PACKAGE,"preferred_format",NULL));
+		preferred_format = g_key_file_get_integer(xa_key_file, PACKAGE, "preferred_format", NULL);
+		unzip = g_key_file_get_boolean(xa_key_file, PACKAGE, "prefer_unzip", &error);
+
+		if (error)
+		{
+			if (error->code == G_KEY_FILE_ERROR_KEY_NOT_FOUND)
+				/* preserve default setting with existing, old config file */
+				unzip = TRUE;
+
+			g_error_free(error);
+			error = NULL;
+		}
+
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prefs_data->prefer_unzip), unzip);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),g_key_file_get_boolean(xa_key_file,PACKAGE,"confirm_deletion",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),g_key_file_get_boolean(xa_key_file,PACKAGE,"store_output",NULL));
 
@@ -671,6 +691,12 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	}
 	g_key_file_free (xa_key_file);
 	/* config_file is freed in window.c xa_quit_application */
+}
+
+void xa_prefs_adapt_options (Prefs_dialog_data *prefs_data)
+{
+	xa_combo_box_text_append_compressor_types(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_format));
+	gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_data->combo_prefered_format), preferred_format);
 }
 
 void xa_prefs_apply_options (Prefs_dialog_data *prefs_data)

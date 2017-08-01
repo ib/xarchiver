@@ -732,18 +732,25 @@ static void xa_check_available_archivers ()
 	/* zip */
 
 	type = XARCHIVETYPE_ZIP;
-	path = g_find_program_in_path("unzip");
 
-	if (path)
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->prefer_unzip)) ||
+	    (!is7za && !lsar))
 	{
-		gchar *zip = g_find_program_in_path("zip");
+		path = g_find_program_in_path("unzip");
 
-		if (zip)
+		if (path)
 		{
-			archiver[type].program[1] = zip;
-			archiver[type].is_compressor = TRUE;
+			gchar *zip = g_find_program_in_path("zip");
+
+			if (zip)
+			{
+				archiver[type].program[1] = zip;
+				archiver[type].is_compressor = TRUE;
+			}
 		}
 	}
+	else
+		path = NULL;
 
 	standard = (path && archiver[type].is_compressor);
 
@@ -936,12 +943,14 @@ int main (int argc, char **argv)
 
 	xdg_open = g_find_program_in_path("xdg-open");
 
-	xa_check_available_archivers();
 	prefs_window   = xa_create_prefs_dialog();
 	extract_window = xa_create_extract_dialog();
 	add_window     = xa_create_add_dialog();
 	multi_extract_window = xa_create_multi_extract_dialog();
+
 	xa_prefs_load_options(prefs_window);
+	xa_check_available_archivers();
+	xa_prefs_adapt_options(prefs_window);
 
 	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_compress || opt_info)
 	{
