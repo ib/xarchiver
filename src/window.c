@@ -1758,6 +1758,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		xa.type = XARCHIVETYPE_CPIO;
 
 		if (*short_magic == bswap(070707))
+			/* different endianness */
 			xa.version = 'E';
 	}
 	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
