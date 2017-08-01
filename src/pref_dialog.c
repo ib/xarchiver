@@ -19,6 +19,7 @@
 #include <string.h>
 #include "pref_dialog.h"
 #include "add_dialog.h"
+#include "archive.h"
 #include "extract_dialog.h"
 #include "interface.h"
 #include "main.h"
