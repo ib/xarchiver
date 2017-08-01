@@ -538,7 +538,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		if (error)
 		{
 			if (error->code == G_KEY_FILE_ERROR_KEY_NOT_FOUND)
-				/* Preserve toolbar with old config files */
+				/* preserve default setting with existing, old config file */
 				toolbar = TRUE;
 
 			g_error_free(error);
