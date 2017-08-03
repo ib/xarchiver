@@ -608,10 +608,6 @@ XEntry *xa_set_archive_entries_for_each_row (XArchive *archive, const gchar *fil
 	gchar **components;
 	guint n = 0;
 
-	/* check for batch mode */
-	if (!xa_main_window)
-		return NULL;
-
 	components = g_strsplit(filename, "/", -1);
 
 	if (*filename == '/')
