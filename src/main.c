@@ -56,7 +56,7 @@ Extract_dialog_data *extract_window;
 Multi_extract_data *multi_extract_window;
 Prefs_dialog_data *prefs_window;
 
-static gchar *opt_extract_path, *opt_compress;
+static gchar *opt_extract_path, *opt_ensure_dir, *opt_compress;
 static gboolean opt_extract, opt_multi_extract, opt_add, opt_info, opt_version;
 
 static GOptionEntry entries[] =
@@ -67,6 +67,10 @@ static GOptionEntry entries[] =
 	},
 	{	"extract", 'e', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_extract,
 		N_("Extract archive by asking the extraction\n                                     directory and quit"),
+		NULL
+	},
+	{	"ensure-directory", 'd', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_ensure_dir,
+		N_("Extract archive to a containing directory\n                                     and quit"),
 		NULL
 	},
 	{	"multi-extract", 'm', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &opt_multi_extract,
@@ -959,15 +963,17 @@ int main (int argc, char **argv)
 	xa_check_available_archivers();
 	xa_prefs_adapt_options(prefs_window);
 
-	if (opt_extract || opt_extract_path || opt_multi_extract || opt_add || opt_compress || opt_info)
+	if (opt_extract || opt_extract_path || opt_ensure_dir || opt_multi_extract || opt_add || opt_compress || opt_info)
 	{
 		archive = xa_init_structure_from_cmd_line (argv[1]);
 		g_print(PACKAGE_NAME " 0.5.4 \xC2\xA9  " COPYRIGHT_YEAR " " COPYRIGHT_HOLDER "\n");
 		g_print(PACKAGE_NAME " %-8s " MAINTAINER "\n", VERSION);
 
-		/* Switch -x */
-		if (opt_extract_path)
+		/* Switches -d and -x */
+		if (opt_ensure_dir || opt_extract_path)
 		{
+			gchar *extraction_dir = NULL;
+
 			if (!archive)
 			{
 				if (!argv[1])
@@ -993,10 +999,47 @@ int main (int argc, char **argv)
 					goto done;
 			}
 
+			if (opt_ensure_dir)
+			{
+				XEntry *entry;
+
+				current_dir = g_get_current_dir();
+				archive->extraction_dir = xa_escape_bad_chars(current_dir, ESCAPES);
+
+				x = 0;
+				entry = archive->root_entry->child;
+
+				while (entry)
+				{
+					if (++x > 1) break;
+
+					entry = entry->next;
+				}
+
+				if ((x != 1) || !archive->root_entry->child->is_dir)
+				{
+					extraction_dir = xa_create_containing_directory(archive, current_dir);
+
+					if (!extraction_dir)
+					{
+						xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create directory!"), "");
+						g_free(current_dir);
+						goto done;
+					}
+
+					g_free(archive->extraction_dir);
+					opt_extract_path = extraction_dir;
+				}
+
+				g_free(current_dir);
+			}
+
 			GSList *string = NULL;
 			archive->do_full_path = TRUE;
 			archive->do_overwrite = TRUE;
 			archive->extraction_dir = xa_escape_bad_chars(opt_extract_path, ESCAPES);
+			g_free(extraction_dir);
+
 			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->archiver->extract) (archive,string);
 		}
