@@ -95,6 +95,7 @@ static void xa_prefs_dialog_set_default_options (Prefs_dialog_data *prefs_data)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->check_save_geometry),FALSE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->allow_sub_dir),FALSE);
 	/* Set the default options in the extract dialog */
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), TRUE);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (extract_window->extract_full),TRUE);
 	/* Set the default options in the add dialog */
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (add_window->recurse),TRUE);
@@ -480,6 +481,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 		g_key_file_set_integer_list(xa_key_file, PACKAGE, "add", prefs_data->add_coords,2);
 	}
 	/* Save the options in the extract dialog */
+	g_key_file_set_boolean(xa_key_file, PACKAGE, "ensure_directory", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"overwrite",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->overwrite_check)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"full_path",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->extract_full)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"touch",    gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (extract_window->touch)));
@@ -676,6 +678,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 			prefs_data->add_coords[1] = add_coords[1];
 		}
 		/* Load the options in the extract dialog */
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(extract_window->ensure_directory), g_key_file_get_boolean(xa_key_file, PACKAGE, "ensure_directory", NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(extract_window->overwrite_check),g_key_file_get_boolean(xa_key_file,PACKAGE,"overwrite",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(extract_window->extract_full),g_key_file_get_boolean(xa_key_file,PACKAGE,"full_path",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(extract_window->touch),g_key_file_get_boolean(xa_key_file,PACKAGE,"touch",NULL));
