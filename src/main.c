@@ -861,6 +861,7 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 {
 	XArchive *archive;
 	ArchiveType xa;
+	gchar *path;
 
 	xa = xa_detect_archive_type(filename);
 
@@ -880,9 +881,22 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 		xa_show_message_dialog (NULL,GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't allocate memory for the archive structure!"),"" );
 		return NULL;
 	}
-	archive->path[0] = g_strdup(filename);
-	archive->path[1] = xa_escape_bad_chars(filename, ESCAPES);
-	return (archive);
+
+	if (*filename != '/')
+	{
+		gchar *cur_dir = g_get_current_dir();
+		path = g_strconcat(cur_dir, "/", filename, NULL);
+		g_free(cur_dir);
+	}
+	else
+		path = g_strdup(filename);
+
+	archive->path[0] = g_strdup(path);
+	archive->path[1] = xa_escape_bad_chars(path, ESCAPES);
+
+	g_free(path);
+
+	return archive;
 }
 
 int main (int argc, char **argv)
