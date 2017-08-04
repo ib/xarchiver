@@ -24,7 +24,7 @@
 
 typedef struct Extract_dialog_data
 {
-	GtkWidget *dialog1,*dialog_vbox1,*destination_path_entry,*overwrite_check,*extract_full,*touch,*fresh,*update,*all_files_radio,*files_radio,
+	GtkWidget *dialog1,*dialog_vbox1,*destination_path_entry,*ensure_directory,*overwrite_check,*extract_full,*touch,*fresh,*update,*all_files_radio,*files_radio,
 	 *selected_radio,*entry2,*password_entry;
 	gchar *string;
 } Extract_dialog_data;

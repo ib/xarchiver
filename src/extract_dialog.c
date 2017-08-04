@@ -69,6 +69,11 @@ static void xa_select_where_to_extract (GtkEntry *entry, gint icon_pos, GTK_COMP
 	gtk_widget_destroy(file_selector);
 }
 
+static void xa_toggle_all_files_radio (GtkToggleButton *button, Extract_dialog_data *dialog)
+{
+	gtk_widget_set_sensitive(dialog->ensure_directory, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->all_files_radio)));
+}
+
 static void xa_activate_entry (GtkToggleButton *button, Extract_dialog_data *dialog)
 {
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(dialog->files_radio)))
@@ -285,7 +290,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	GTK_COMPAT_TOOLTIPS;
 	GSList *radiobutton1_group;
 	Extract_dialog_data *dialog_data;
-	GtkWidget *hbox1, *hbox2, *hbox3, *vbox1, *vbox2, *vbox3, *vbox5, *alignment1, *alignment2, *alignment3, *label1, *label2, *label3;
+	GtkWidget *hbox1, *hbox2, *hbox3, *vbox1, *vbox2, *vbox3, *vbox5, *alignment, *alignment1, *alignment2, *alignment3, *label1, *label2, *label3;
 	GtkWidget *frame1, *frame2, *dialog_action_area1;
 	GtkWidget *cancel_button, *extract_button, *extract_image, *extract_hbox, *extract_label;
 
@@ -310,6 +315,14 @@ Extract_dialog_data *xa_create_extract_dialog()
 	GTK_COMPAT_ENTRY_ICON(dialog_data->destination_path_entry, xa_select_where_to_extract, dialog_data);
 	gtk_box_pack_start (GTK_BOX (vbox1),dialog_data->destination_path_entry,FALSE,FALSE,0);
 
+	alignment = gtk_alignment_new(0.5, 0.5, 1, 1);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 14, 0);
+
+	dialog_data->ensure_directory = gtk_check_button_new_with_mnemonic(_("Ensure a containing directory"));
+	gtk_widget_set_tooltip_text(dialog_data->ensure_directory, _("Ensure that the contents of the extracted archive is always in a containing directory"));
+	gtk_container_add(GTK_CONTAINER(alignment), dialog_data->ensure_directory);
+	gtk_box_pack_start(GTK_BOX(vbox1), alignment, FALSE, FALSE, 0);
+
 	hbox1 = gtk_hbox_new (TRUE,10);
 	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,TRUE,TRUE,0);
 
@@ -330,6 +343,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	dialog_data->all_files_radio = gtk_radio_button_new_with_mnemonic (NULL,_("All files"));
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->all_files_radio,FALSE,FALSE,0);
 	radiobutton1_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (dialog_data->all_files_radio));
+	g_signal_connect(dialog_data->all_files_radio, "toggled", G_CALLBACK(xa_toggle_all_files_radio), dialog_data);
 
 	dialog_data->selected_radio = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Selected files"));
 	gtk_box_pack_start (GTK_BOX (vbox3),dialog_data->selected_radio,FALSE,FALSE,0);
@@ -536,6 +550,43 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				break;
 			}
 			done = TRUE;
+
+			if (gtk_widget_is_sensitive(dialog_data->ensure_directory) &&
+			    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->ensure_directory)))
+			{
+				XEntry *entry;
+				guint i = 0;
+
+				entry = archive->root_entry->child;
+
+				while (entry)
+				{
+					if (++i > 1) break;
+
+					entry = entry->next;
+				}
+
+				if (!gtk_widget_is_sensitive(dialog_data->extract_full) ||
+				    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full)) ||
+				    (i != 1) || !archive->root_entry->child->is_dir)
+				{
+					gchar *extraction_dir;
+
+					extraction_dir = xa_create_containing_directory(archive, destination_path);
+
+					if (!extraction_dir)
+					{
+						xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create directory!"), "");
+						g_free(destination_path);
+						break;
+					}
+
+					g_free(archive->extraction_dir);
+					archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
+					g_free(extraction_dir);
+				}
+			}
+
 			g_free (destination_path);
 
 			if (gtk_widget_is_sensitive(dialog_data->overwrite_check))
