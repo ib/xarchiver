@@ -508,6 +508,8 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				extraction_dir = g_strconcat(cur_dir, "/", destination_path, NULL);
 				g_free(archive->extraction_dir);
 				archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
+				g_free(destination_path);
+				destination_path = g_strdup(extraction_dir);
 				g_free(extraction_dir);
 				g_free (cur_dir);
 			}
