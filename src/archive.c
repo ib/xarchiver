@@ -502,6 +502,50 @@ gboolean xa_create_working_directory (XArchive *archive)
 	return TRUE;
 }
 
+gchar *xa_create_containing_directory (XArchive *archive, const gchar *path)
+{
+	gchar *stem, *dir;
+	char *dot;
+	guint i;
+
+	stem = g_path_get_basename(archive->path[0]);
+	dot = strrchr(stem, '.');
+
+	if (dot)
+		*dot = 0;
+
+	if (g_str_has_suffix(stem, ".tar"))
+	{
+		dot = strrchr(stem, '.');
+		*dot = 0;
+	}
+
+	dir = g_strconcat(path, "/", stem, NULL);
+
+	for (i = 0; i < 100; i++)
+	{
+		if (i > 0)
+		{
+			g_free(dir);
+			dir = g_strdup_printf("%s/%s-(%d)", path, stem, i);
+		}
+
+		if (!g_file_test(dir, G_FILE_TEST_EXISTS))
+		{
+			if (g_mkdir_with_parents(dir, 0700) == 0)
+			{
+				g_free(stem);
+
+				return dir;
+			}
+		}
+	}
+
+	g_free(stem);
+
+	return NULL;
+}
+
 gboolean xa_run_command (XArchive *archive, const gchar *command)
 {
 	pid_t pid = 0;

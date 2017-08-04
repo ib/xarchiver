@@ -212,6 +212,7 @@ struct _XAClipboard
 
 gchar *xa_build_full_path_name_from_entry(XEntry *);
 void xa_clean_archive_structure(XArchive *);
+gchar *xa_create_containing_directory(XArchive *, const gchar *);
 gboolean xa_create_working_directory(XArchive *);
 void xa_detect_encrypted_archive(XArchive *);
 void xa_fill_dir_sidebar(XArchive *, gboolean);
