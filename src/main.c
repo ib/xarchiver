@@ -1034,14 +1034,13 @@ int main (int argc, char **argv)
 				g_free(current_dir);
 			}
 
-			GSList *string = NULL;
 			archive->do_full_path = TRUE;
 			archive->do_overwrite = TRUE;
 			archive->extraction_dir = xa_escape_bad_chars(opt_extract_path, ESCAPES);
 			g_free(extraction_dir);
 
 			archive->status = XARCHIVESTATUS_EXTRACT;
-			(*archive->archiver->extract) (archive,string);
+			(*archive->archiver->extract)(archive, NULL);
 		}
 		/* Switch -e */
 		else if (opt_extract)
