@@ -906,7 +906,7 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 int main (int argc, char **argv)
 {
 	GError *cli_error = NULL;
-	XArchive *archive = NULL;
+	XArchive *archive;
 	gboolean no_bzip2_gzip;
 	unsigned short int x;
 	gchar *current_dir;
