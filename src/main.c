@@ -910,6 +910,7 @@ int main (int argc, char **argv)
 	gboolean no_bzip2_gzip;
 	unsigned short int x;
 	gchar *current_dir;
+	int result = -1;
 
 #ifdef ENABLE_NLS
 	setlocale(LC_ALL, "");
@@ -979,13 +980,13 @@ int main (int argc, char **argv)
 				if (!argv[1])
 					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), _("You missed the archive name!\n"));
 
-				return -1;
+				goto leave;
 			}
 
 			if (!archive->can_extract)
 			{
 				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), argv[1]);
-				return -1;
+				goto leave;
 			}
 
 			xa_detect_encrypted_archive(archive);
@@ -1050,13 +1051,13 @@ int main (int argc, char **argv)
 				if (!argv[1])
 					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), _("You missed the archive name!\n"));
 
-				return -1;
+				goto leave;
 			}
 
 			if (!archive->can_extract)
 			{
 				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't extract files from the archive:"), argv[1]);
-				return -1;
+				goto leave;
 			}
 
 			xa_detect_encrypted_archive(archive);
@@ -1097,7 +1098,7 @@ int main (int argc, char **argv)
 				no_bzip2_gzip = FALSE;
 			archive = xa_new_archive_dialog(opt_compress, NULL, no_bzip2_gzip);
 			if (archive == NULL)
-				return -1;
+				goto leave;
 
 			if (archive->path[0] != NULL)
 			{
@@ -1127,12 +1128,12 @@ int main (int argc, char **argv)
 				if (!argv[1])
 					xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), _("You missed the archive name!\n"));
 
-				return -1;
+				goto leave;
 			}
 			if (!archive->can_add)
 			{
 				xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't add files to the archive:"), argv[1]);
-				return -1;
+				goto leave;
 			}
 
 			xa_detect_encrypted_archive(archive);
@@ -1184,7 +1185,11 @@ int main (int argc, char **argv)
 				}
 			}
 		}
+
+		result = EXIT_SUCCESS;
+
 leave:
+
 		if (progress)
 		{
 			gtk_widget_destroy(progress->window);
@@ -1248,6 +1253,8 @@ leave:
 		}
 		#endif
 		gtk_main ();
+
+		result = EXIT_SUCCESS;
 	}
 
 	for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
@@ -1261,5 +1268,5 @@ leave:
 
 	g_free(xdg_open);
 
-	return 0;
+	return result;
 }
