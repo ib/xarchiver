@@ -908,9 +908,8 @@ int main (int argc, char **argv)
 	GError *cli_error = NULL;
 	XArchive *archive;
 	gboolean no_bzip2_gzip;
-	unsigned short int x;
 	gchar *current_dir;
-	int result = -1;
+	int i, result = -1;
 
 #ifdef ENABLE_NLS
 	setlocale(LC_ALL, "");
@@ -1007,17 +1006,17 @@ int main (int argc, char **argv)
 				current_dir = g_get_current_dir();
 				archive->extraction_dir = xa_escape_bad_chars(current_dir, ESCAPES);
 
-				x = 0;
+				i = 0;
 				entry = archive->root_entry->child;
 
 				while (entry)
 				{
-					if (++x > 1) break;
+					if (++i > 1) break;
 
 					entry = entry->next;
 				}
 
-				if ((x != 1) || !archive->root_entry->child->is_dir)
+				if ((i != 1) || !archive->root_entry->child->is_dir)
 				{
 					extraction_dir = xa_create_containing_directory(archive, current_dir);
 
@@ -1081,9 +1080,9 @@ int main (int argc, char **argv)
 		{
 			Multi_extract_data *multi_extract = NULL;
 			multi_extract = xa_create_multi_extract_dialog();
-			for (x = 1; x< argc; x++)
-				if (! g_file_test(argv[x], G_FILE_TEST_IS_DIR))
-					xa_multi_extract_dialog_add_file(argv[x], multi_extract);
+			for (i = 1; i < argc; i++)
+				if (!g_file_test(argv[i], G_FILE_TEST_IS_DIR))
+					xa_multi_extract_dialog_add_file(argv[i], multi_extract);
 
 			xa_multi_extract_dialog(multi_extract);
 			gtk_widget_destroy (multi_extract->multi_extract);
@@ -1111,9 +1110,9 @@ int main (int argc, char **argv)
 				files = g_slist_append(files, g_strdup(current_dir));
 				g_free(current_dir);
 				g_free(opt_compress);
-				for (x = 1; x< argc; x++)
+				for (i = 1; i < argc; i++)
 				{
-					current_dir = g_path_get_basename(argv[x]);
+					current_dir = g_path_get_basename(argv[i]);
 					files = g_slist_append(files, g_strdup(current_dir));
 					g_free(current_dir);
 				}
@@ -1157,9 +1156,9 @@ int main (int argc, char **argv)
 		{
 			GSList *list;
 
-			for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
+			for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
 			{
-				list = archiver[x].type;
+				list = archiver[i].type;
 
 				while (list)
 				{
@@ -1177,10 +1176,10 @@ int main (int argc, char **argv)
 						g_print(", ");
 					else
 					{
-						g_print(":\n  %s\n", archiver[x].program[0]);
+						g_print(":\n  %s\n", archiver[i].program[0]);
 
-						if (archiver[x].program[1])
-							g_print("  %s\n", archiver[x].program[1]);
+						if (archiver[i].program[1])
+							g_print("  %s\n", archiver[i].program[1]);
 					}
 				}
 			}
@@ -1257,13 +1256,13 @@ leave:
 		result = EXIT_SUCCESS;
 	}
 
-	for (x = XARCHIVETYPE_FIRST; x < XARCHIVETYPE_TYPES; x++)
+	for (i = XARCHIVETYPE_FIRST; i < XARCHIVETYPE_TYPES; i++)
 	{
-		g_free(archiver[x].program[0]);
-		g_free(archiver[x].program[1]);
-		g_slist_free(archiver[x].type);
-		g_slist_free(archiver[x].glob);
-		g_slist_free(archiver[x].tags);
+		g_free(archiver[i].program[0]);
+		g_free(archiver[i].program[1]);
+		g_slist_free(archiver[i].type);
+		g_slist_free(archiver[i].glob);
+		g_slist_free(archiver[i].tags);
 	}
 
 	g_free(xdg_open);
