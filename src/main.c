@@ -991,12 +991,12 @@ int main (int argc, char **argv)
 			xa_detect_encrypted_archive(archive);
 
 			if (archive->status == XARCHIVESTATUS_ERROR)
-				goto done;
+				goto leave;
 
 			if (archive->has_password)
 			{
 				if (!xa_check_password(archive))
-					goto done;
+					goto leave;
 			}
 
 			if (opt_ensure_dir)
@@ -1024,7 +1024,7 @@ int main (int argc, char **argv)
 					{
 						xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create directory!"), "");
 						g_free(current_dir);
-						goto done;
+						goto leave;
 					}
 
 					g_free(archive->extraction_dir);
@@ -1062,12 +1062,12 @@ int main (int argc, char **argv)
 			xa_detect_encrypted_archive(archive);
 
 			if (archive->status == XARCHIVESTATUS_ERROR)
-				goto done;
+				goto leave;
 
 			if (archive->has_password)
 			{
 				if (!xa_check_password(archive))
-					goto done;
+					goto leave;
 			}
 
 			xa_set_extract_dialog_options(extract_window,0,archive);
@@ -1138,12 +1138,12 @@ int main (int argc, char **argv)
 			xa_detect_encrypted_archive(archive);
 
 			if (archive->status == XARCHIVESTATUS_ERROR)
-				goto done;
+				goto leave;
 
 			if (archive->has_password)
 			{
 				if (!xa_check_password(archive))
-					goto done;
+					goto leave;
 			}
 
 			xa_set_add_dialog_options(add_window, archive);
@@ -1184,7 +1184,7 @@ int main (int argc, char **argv)
 				}
 			}
 		}
-done:
+leave:
 		if (progress)
 		{
 			gtk_widget_destroy(progress->window);
