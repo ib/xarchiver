@@ -25,6 +25,7 @@
 #define SINGLE_FILE_COMPRESSOR(archive) (archive->type == XARCHIVETYPE_BZIP2    || \
                                          archive->type == XARCHIVETYPE_COMPRESS || \
                                          archive->type == XARCHIVETYPE_GZIP     || \
+                                         archive->type == XARCHIVETYPE_LRZIP    || \
                                          archive->type == XARCHIVETYPE_LZ4      || \
                                          archive->type == XARCHIVETYPE_LZIP     || \
                                          archive->type == XARCHIVETYPE_LZMA     || \
@@ -33,8 +34,9 @@
 
 void xa_gzip_et_al_add(XArchive *, GSList *, gchar *);
 void xa_gzip_et_al_ask(XArchive *);
+void xa_gzip_et_al_check_lrzip(const gchar *);
 gboolean xa_gzip_et_al_extract(XArchive *, GSList *);
-gchar *xa_gzip_et_al_get_command(const gchar *, gchar *, gchar *);
+gchar *xa_gzip_et_al_get_command(const gchar *, gchar *, gchar *, const gchar *, XArchiveType);
 void xa_gzip_et_al_list(XArchive *);
 void xa_gzip_et_al_test(XArchive *);
 

@@ -65,6 +65,9 @@ static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
 		case XARCHIVETYPE_TAR_GZ:
 			return XARCHIVETYPE_GZIP;
 
+		case XARCHIVETYPE_TAR_LRZ:
+			return XARCHIVETYPE_LRZIP;
+
 		case XARCHIVETYPE_TAR_LZ:
 			return XARCHIVETYPE_LZIP;
 
@@ -190,6 +193,8 @@ static void xa_tar_parse_output (gchar *line, XArchive *archive)
 
 	if (entry)
 	{
+		entry->is_encrypted = (archive->password != NULL);
+
 		if (!entry->is_dir)
 			archive->files++;
 
@@ -337,7 +342,7 @@ void xa_tar_add (XArchive *archive, GSList *file_list, gchar *compression)
 		xa_run_command(archive, command);
 		g_free(command);
 
-		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0]);
+		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0], archive->password, xa_tar_get_compressor_type(archive));
 	}
 
 	g_string_free(files, TRUE);
@@ -359,7 +364,7 @@ void xa_tar_delete (XArchive *archive, GSList *file_list)
 		xa_run_command(archive, command);
 		g_free(command);
 
-		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0]);
+		command = xa_gzip_et_al_get_command(archiver[xa_tar_get_compressor_type(archive)].program[0], archive->path[2], archive->path[0], archive->password, xa_tar_get_compressor_type(archive));
 	}
 
 	g_string_free(files, TRUE);
