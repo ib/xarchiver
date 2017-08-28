@@ -152,7 +152,8 @@ static gboolean xa_detect_archive_comment (int type, gchar *filename, XArchive *
 	if (type == XARCHIVETYPE_ZIP)
 	{
 		/* Let's position the file indicator to 64KB before the end of the archive */
-		fseek(stream,0L,SEEK_SET);
+		if (fseek(stream, -65535 - 22, SEEK_END) == -1)
+			fseek(stream, 0L, SEEK_SET);
 		/* Let's reach the end of central directory signature now */
 		while( ! feof(stream))
 		{
