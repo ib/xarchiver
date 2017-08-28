@@ -131,15 +131,19 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 	gboolean result;
 
 	files = xa_quote_filenames(file_list, "*?[]\"", FALSE);
+	archive->child_dir = g_strdup(archive->extraction_dir);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
 	                      archive->do_overwrite ? " -u" : "",
 	                      " -F ", archive->path[1],
-	                      " -D ", archive->extraction_dir, files->str, NULL);
+	                      files->str, NULL);
 	g_string_free(files, TRUE);
 
 	result = xa_run_command(archive, command);
 	g_free(command);
+
+	g_free(archive->child_dir);
+	archive->child_dir = NULL;
 
 	return result;
 }
