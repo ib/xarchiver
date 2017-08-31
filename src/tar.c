@@ -86,6 +86,9 @@ static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
 		case XARCHIVETYPE_TAR_Z:
 			return XARCHIVETYPE_COMPRESS;
 
+		case XARCHIVETYPE_TAR_ZSTD:
+			return XARCHIVETYPE_ZSTD;
+
 		default:
 			return XARCHIVETYPE_TAR;
 	}

@@ -1723,7 +1723,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	memset(magic, 0, sizeof(magic));
 	bytes = fread(magic, 1, sizeof(magic), file);
 
-	/* lz4 skippable frame */
+	/* lz4 and zstd skippable frame */
 	while (memcmp(magic + 1, "\x2a\x4d\x18", 3) == 0 && (magic[0] & 0xf0) == 0x50 && bytes >= 8)
 	{
 		uint32_t frame_size = le32toh(uint32_magic[1]);
@@ -1813,6 +1813,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		else if (g_str_has_suffix(filename, ".xpi"))
 			xa.tag = 'x';
 	}
+	else if (memcmp(magic + 1, "\xb5\x2f\xfd", 3) == 0 &&
+	         (*magic == '\x1e' || (*magic >= '\x22' && *magic <= '\x28')))
+		xa.type = XARCHIVETYPE_ZSTD;
 
 	fclose(file);
 

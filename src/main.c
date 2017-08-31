@@ -97,7 +97,7 @@ static GOptionEntry entries[] =
 static void xa_check_available_archivers ()
 {
 	XArchiveType type;
-	gchar *path, *cpio, *lsar, *sevenz, *unar, *xz;
+	gchar *path, *cpio, *lsar, *sevenz, *unar, *xz, *zstd;
 	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE, standard;
 
 	/* (un)compressors that can handle various types */
@@ -123,6 +123,7 @@ static void xa_check_available_archivers ()
 	lsar = g_find_program_in_path("lsar");
 	unar = g_find_program_in_path("unar");
 	xz = g_find_program_in_path("xz");
+	zstd = xa_gzip_et_al_check_zstd("zstd", "unzstd", &archiver[XARCHIVETYPE_ZSTD].is_compressor);
 
 	/* 7-zip */
 
@@ -832,6 +833,24 @@ static void xa_check_available_archivers ()
 		archiver[type].delete = FUNC(standard, xa_zip_delete, is7za, xa_7zip_delete, lsar, NULL);
 	}
 
+	/* Zstandard */
+
+	type = XARCHIVETYPE_ZSTD;
+	path = zstd;                // either zstd or unzstd
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "zstd");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.zst");
+
+		archiver[type].ask = xa_gzip_et_al_ask;
+		archiver[type].list = xa_gzip_et_al_list;
+		archiver[type].test = xa_gzip_et_al_test;
+		archiver[type].extract = xa_gzip_et_al_extract;
+		archiver[type].add = xa_gzip_et_al_add;
+	}
+
 	/* compressed tar */
 
 	if (archiver[XARCHIVETYPE_TAR].ask == xa_tar_ask || archiver[XARCHIVETYPE_TAR].ask == xa_unar_ask)
@@ -852,6 +871,7 @@ static void xa_check_available_archivers ()
 			{XARCHIVETYPE_LZMA, {"tar.lzma", NULL}, {"*.tar.lzma", "*.tlz"}},
 			{XARCHIVETYPE_LZOP, {"tar.lzop", NULL}, {"*.tar.lzo", "*.tzo"}},
 			{XARCHIVETYPE_XZ, {"tar.xz", NULL}, {"*.tar.xz", "*.txz"}},
+			{XARCHIVETYPE_ZSTD, {"tar.zstd", NULL}, {"*.tar.zst", ""}},
 			{XARCHIVETYPE_UNKNOWN, {NULL, NULL}, {NULL, NULL}}
 		}, *i;
 

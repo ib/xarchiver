@@ -318,6 +318,10 @@ gboolean xa_get_compressed_tar_type (XArchiveType *type)
 			*type = XARCHIVETYPE_TAR_XZ;
 			break;
 
+		case XARCHIVETYPE_ZSTD:
+			*type = XARCHIVETYPE_TAR_ZSTD;
+			break;
+
 		default:
 			return FALSE;
 	}

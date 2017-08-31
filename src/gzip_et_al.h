@@ -35,6 +35,7 @@
 void xa_gzip_et_al_add(XArchive *, GSList *, gchar *);
 void xa_gzip_et_al_ask(XArchive *);
 void xa_gzip_et_al_check_lrzip(const gchar *);
+gchar *xa_gzip_et_al_check_zstd(const gchar *, const gchar *, gboolean *);
 gboolean xa_gzip_et_al_extract(XArchive *, GSList *);
 gchar *xa_gzip_et_al_get_command(const gchar *, gchar *, gchar *, const gchar *, XArchiveType);
 void xa_gzip_et_al_list(XArchive *);

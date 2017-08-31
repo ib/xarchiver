@@ -34,11 +34,13 @@
 #define lrzip    (archive->type == XARCHIVETYPE_LRZIP)
 #define lz4      (archive->type == XARCHIVETYPE_LZ4)
 #define xz       (archive->type == XARCHIVETYPE_XZ)
+#define zstd     (archive->type == XARCHIVETYPE_ZSTD)
 
 static gpointer item[7];
 static gchar *filename;
 static gboolean data_line, last_line;
 static gboolean lrzip_can_password;
+static gboolean zstd_can_list, zstd_can_test;
 
 void xa_gzip_et_al_check_lrzip (const gchar *path)
 {
@@ -50,6 +52,45 @@ void xa_gzip_et_al_check_lrzip (const gchar *path)
 
 	lrzip_can_password = (strstr(output, "-e, --encrypt[=pass") != NULL);
 	g_free(output);
+}
+
+gchar *xa_gzip_et_al_check_zstd (const gchar *compressor, const gchar *decompressor, gboolean *is_compressor)
+{
+	gchar *path, *command, *output;
+	gboolean found_compressor = FALSE;
+
+	path = g_find_program_in_path(compressor);
+
+	if (path)
+		found_compressor = TRUE;
+	else
+		path = g_find_program_in_path(decompressor);
+
+	if (!path)
+		return NULL;
+
+	command = g_strconcat(path, " -h", NULL);
+	g_spawn_command_line_sync(command, &output, NULL, NULL, NULL);
+	g_free(command);
+
+	/* check whether decompression is available */
+	if (strstr(output, "\n -d "))
+	{
+		if (found_compressor)
+			*is_compressor = (strstr(output, "\n -# ") != NULL);
+
+		zstd_can_list = (strstr(output, "\n -l ") || strstr(output, "\n--list "));
+		zstd_can_test = (strstr(output, "\n -t ") || strstr(output, "\n--test "));
+	}
+	else   // useless
+	{
+		g_free(path);
+		path = NULL;
+	}
+
+	g_free(output);
+
+	return path;
 }
 
 static gchar *xa_gzip_et_al_password_str (const gchar *password, XArchiveType type)
@@ -78,7 +119,7 @@ gchar *xa_gzip_et_al_get_command (const gchar *program, gchar *workfile, gchar *
 
 static void xa_gzip_et_al_can (XArchive *archive, gboolean can)
 {
-	archive->can_test = (can && !compress);
+	archive->can_test = (can && !compress && (!zstd || zstd_can_test));
 	archive->can_extract = can;
 	archive->can_password = (can && lrzip && lrzip_can_password);
 	archive->can_overwrite = can;
@@ -273,6 +314,85 @@ static void xa_gzip_et_al_parse_lrzip (gchar *line, XArchive *archive)
 	g_free(filename);
 }
 
+static void xa_gzip_et_al_parse_zstd (gchar *line, XArchive *archive)
+{
+	static gchar *zstandard;
+	XEntry *entry;
+	char *pos;
+
+	USE_PARSER;
+
+	if (last_line)
+		return;
+
+	if (!data_line)
+	{
+		data_line = (strncmp(line, "Number of files listed:", 23) == 0);
+		return;
+	}
+
+	if ((pos = strstr(line, " (1/1):\n")))
+	{
+		*pos = 0;
+		LAST_ITEM(filename);
+
+		if (g_str_has_suffix(filename, ".zst"))
+			*(line - 4) = 0;
+
+		filename = g_path_get_basename(filename);
+	}
+	else IF_ITEM_LINE("# Zstandard Frames:")
+		DUPE_ITEM(zstandard);
+	else IF_ITEM_LINE("# Skippable Frames:")
+	{
+		NEXT_ITEM(item[6]);
+		item[6] = g_strconcat(zstandard, "/", item[6], NULL);
+		g_free(zstandard);
+	}
+	else IF_ITEM_LINE("Compressed Size:")
+	{
+		pos = strchr(line, '(');
+
+		item[1] = (pos ? g_strdup(pos + 1) : pos);
+	}
+	else IF_ITEM_LINE("Decompressed Size:")
+	{
+		pos = strchr(line, '(');
+
+		item[0] = (pos ? g_strdup(pos + 1) : pos);
+	}
+	else IF_ITEM_LINE("Ratio:")
+	{
+		NEXT_ITEM(item[2]);
+		item[2] = g_strconcat(item[2], ":1", NULL);
+	}
+	else IF_ITEM_LINE("Check:")
+	{
+		DUPE_ITEM(item[5]);
+		last_line = TRUE;
+	}
+
+	if (!last_line)
+		return;
+
+	entry = xa_set_archive_entries_for_each_row(archive, filename, item);
+
+	if (entry)
+	{
+		archive->files = 1;
+		archive->files_size = g_ascii_strtoull(item[0], NULL, 0);
+	}
+
+	g_free(item[0]);
+	g_free(item[1]);
+	g_free(item[2]);
+	g_free(item[3]);
+	g_free(item[4]);
+	g_free(item[5]);
+	g_free(item[6]);
+	g_free(filename);
+}
+
 static void xa_gzip_et_al_globally_stored_entry (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
@@ -414,6 +534,7 @@ void xa_gzip_et_al_list (XArchive *archive)
 		case XARCHIVETYPE_LZIP:
 		case XARCHIVETYPE_LZOP:
 		case XARCHIVETYPE_XZ:
+		case XARCHIVETYPE_ZSTD:
 
 			if (archive->type == XARCHIVETYPE_LRZIP)
 			{
@@ -453,9 +574,36 @@ void xa_gzip_et_al_list (XArchive *archive)
 
 				archive->columns = 10;
 			}
+			else if (archive->type == XARCHIVETYPE_ZSTD)
+			{
+				if (!zstd_can_list)
+					break;
 
-			command = g_strconcat(archiver[archive->type].program[0], lrzip ? " -i" : " -l", xz ? " --robot " : " ", archive->path[1], NULL);
-			archive->parse_output = (lrzip ? xa_gzip_et_al_parse_lrzip : xa_gzip_et_al_parse_output);
+				/* items potentially not listed */
+				item[0] = NULL;
+				item[2] = NULL;
+
+				data_line = FALSE;
+				last_line = FALSE;
+
+				types[7] = G_TYPE_STRING;
+				types[8] = G_TYPE_STRING;
+
+				titles[2] = _("Compression ratio");
+				titles[5] = _("Check Type");
+				titles[6] = _("Data Frames/Skippable Frames");
+
+				archive->columns = 10;
+			}
+
+			command = g_strconcat(archiver[archive->type].program[0], lrzip ? " -i" : " -l", xz ? " --robot " : (zstd ? "v " : " "), archive->path[1], NULL);
+
+			if (archive->type == XARCHIVETYPE_LRZIP)
+				archive->parse_output = xa_gzip_et_al_parse_lrzip;
+			else if (archive->type == XARCHIVETYPE_ZSTD)
+				archive->parse_output = xa_gzip_et_al_parse_zstd;
+			else
+				archive->parse_output = xa_gzip_et_al_parse_output;
 
 			break;
 
@@ -610,6 +758,7 @@ void xa_gzip_et_al_add (XArchive *archive, GSList *file_list, gchar *compression
 				break;
 
 			case XARCHIVETYPE_LZOP:
+			case XARCHIVETYPE_ZSTD:
 				compression = "3";
 				break;
 
