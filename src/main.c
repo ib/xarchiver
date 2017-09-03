@@ -958,7 +958,7 @@ int main (int argc, char **argv)
 	int i, result = -1;
 
 #ifdef ENABLE_NLS
-	setlocale(LC_ALL, "");
+	GTK_COMPAT_PARAMETER_STRING;
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);

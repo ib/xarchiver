@@ -28,7 +28,6 @@
 
 #ifdef ENABLE_NLS
 #include <libintl.h>
-#include <locale.h>
 #define gettext_noop(String) String
 #define _(String) dgettext(GETTEXT_PACKAGE, String)
 #define N_(String) gettext_noop(String)
@@ -156,6 +155,13 @@ static inline void gtk_combo_box_text_remove (GtkWidget *combo_box, gint positio
 #else
 #define GDK_COMPAT_SPAWN(p1, p2, p3, p4, p5, p6, p7, p8) g_spawn_async(p1, p2, p3, p4, p5, p6, p7, p8)
 #define GTK_COMPAT_ABOUT_DIALOG_URI(about, func) g_signal_connect(about, "activate-link", G_CALLBACK(func), NULL)
+#endif
+
+#if !GTK_CHECK_VERSION(2,24,32)
+#include <locale.h>
+#define GTK_COMPAT_PARAMETER_STRING setlocale(LC_ALL, "")
+#else
+#define GTK_COMPAT_PARAMETER_STRING (void) 0
 #endif
 
 #if GTK_CHECK_VERSION(3,0,0)
