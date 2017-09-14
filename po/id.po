@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -260,6 +260,12 @@ msgstr "Tak dapat mengonversi arsip ke ekstrak-sendiri:"
 msgid "Can't create a new archive:"
 msgstr "Tak dapat membuat arsip baru:"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create directory \"%s\""
+msgid "Can't create directory!"
+msgstr "Tak dapat membuat direktori \"%s\""
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "Tak dapat membuat direktori temporer:"
@@ -377,6 +383,10 @@ msgstr "Terkompresi   ukuran: "
 msgid "Compressed size:"
 msgstr "Ukuran terkompresi:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Rasio kompresi"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Rasio kompresi:"
@@ -408,6 +418,10 @@ msgstr "Buat arsip solid"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Potong"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -466,6 +480,18 @@ msgstr "Terenkripsi:"
 msgid "Encryption: "
 msgstr "Enkripsi: "
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "Direktori ekstrak kesukaan:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Masukkan san_di lewat"
@@ -482,6 +508,14 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Ekstrak arsip dengan menanyakan direktori tempat ekstraksi lalu keluar."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "Ekstrak arsip ke direktori tujuan lalu keluar."
 
 #: ../src/main.c
 #, fuzzy
@@ -580,9 +614,9 @@ msgstr "Dari Berkas"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -825,6 +859,12 @@ msgid "Points to"
 msgstr "Menunjuk ke"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Ukuran ikon (memerlukan start ulang)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Pengaturan"
 
@@ -1004,6 +1044,10 @@ msgstr "Struktur direktori arsip dibuat ulang ketika mengekstrak direktori"
 msgid "The archiver doesn't support this feature!"
 msgstr "Pengarsip tidak mendukung fitur ini!"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Kolom nama berkas akan diurutkan setelah memuat arsip"
@@ -1137,7 +1181,7 @@ msgstr "Mutakhirkan berkas yang ada"
 msgid "Use a custom command:"
 msgstr "Gunakan perintah suai:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Versi"
 
@@ -1431,9 +1475,6 @@ msgstr "|Ukuran\n"
 
 #~ msgid "Create New Dir"
 #~ msgstr "Buat Direktori Baru"
-
-#~ msgid "Can't create directory \"%s\""
-#~ msgstr "Tak dapat membuat direktori \"%s\""
 
 #~ msgid "Operation failed."
 #~ msgstr "Operasi gagal."

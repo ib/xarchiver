@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2008-11-11 00:15+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -270,6 +270,11 @@ msgstr "S'e shndërron dot arkivin në vetëpërftues:"
 msgid "Can't create a new archive:"
 msgstr "S'krijon dot arkivë të re:"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+msgid "Can't create directory!"
+msgstr "S'krijon dot drejtori të përkohshme në /tmp:"
+
 #: ../src/archive.c
 #, fuzzy
 msgid "Can't create temporary directory:"
@@ -389,6 +394,10 @@ msgstr "Madhësi e ngjeshur:"
 msgid "Compressed size:"
 msgstr "Madhësi e ngjeshur:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Përpjestim ngjeshjeje"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Përpjestim ngjeshjeje:"
@@ -420,6 +429,10 @@ msgstr "Prodho një arkivë të qëndrueshme"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Prije"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -478,6 +491,17 @@ msgstr "Koduar:"
 msgid "Encryption: "
 msgstr "Kodim:"
 
+#: ../src/extract_dialog.c
+#, fuzzy
+msgid "Ensure a containing directory"
+msgstr "Drejtori e përkohshme e parapëlqyer:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Jepni _fjalëkalimin"
@@ -493,6 +517,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "Përfton arkivën duke pyetur për drejtori vendmbërritje dhe del."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "Përfton arkivën te drejtori vendmbërritje dhe del."
 
 #: ../src/main.c
 #, fuzzy
@@ -590,9 +622,9 @@ msgstr "Nga Kartelë"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -839,6 +871,12 @@ msgid "Points to"
 msgstr "Shpie tek"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Madhësi ikonash për tipe kartelash "
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Parapëlqime"
 
@@ -1018,6 +1056,10 @@ msgstr "Struktura e drejtorive të arkivit rikrijohet te drejtoria e përftimit.
 msgid "The archiver doesn't support this feature!"
 msgstr "Arkivuesi nuk e mbulon këtë karakteristikë!"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Shtylla me emrat e kartelave renditet pasi të jetë ngarkuar arkivi"
@@ -1153,7 +1195,7 @@ msgstr "Përditëso kartela ekzistuese"
 msgid "Use a custom command:"
 msgstr "Përdor urdhër vetjak:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Version"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2009-10-21 13:57+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -263,6 +263,12 @@ msgstr "未能将归档文件转换为自解压文件："
 msgid "Can't create a new archive:"
 msgstr "未能创建新归档文件："
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create temporary directory:"
+msgid "Can't create directory!"
+msgstr "未能创建临时目录："
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "未能创建临时目录："
@@ -380,6 +386,10 @@ msgstr "压缩后大小："
 msgid "Compressed size:"
 msgstr "压缩后大小："
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "压缩率"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "压缩率："
@@ -411,6 +421,10 @@ msgstr "创建一体化归档文件"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "剪切"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -469,6 +483,18 @@ msgstr "已加密："
 msgid "Encryption: "
 msgstr "加密："
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "首选解压目录："
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "输入密码(_R)"
@@ -484,6 +510,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "询问目标目录解压后退出。"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "在此目标目录中解压归档文件后退出。"
 
 #: ../src/main.c
 #, fuzzy
@@ -579,9 +613,9 @@ msgstr "从文件"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -823,6 +857,12 @@ msgid "Points to"
 msgstr "指向"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "图标大小(需要重启)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "首选项"
 
@@ -1002,6 +1042,10 @@ msgstr "在解压目录中重新创建归档文件的目录结构"
 msgid "The archiver doesn't support this feature!"
 msgstr "归档管理器不支持此功能！"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "载入归档文件后排列文件名栏"
@@ -1128,7 +1172,7 @@ msgstr "更新已存在的文件"
 msgid "Use a custom command:"
 msgstr "使用自定义命令："
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "版本"
 

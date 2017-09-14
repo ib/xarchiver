@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2008-10-07 22:35+0000\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -266,6 +266,11 @@ msgstr ""
 msgid "Can't create a new archive:"
 msgstr "Arşîveke nû biafirîne"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+msgid "Can't create directory!"
+msgstr "Arşîveke nû biafirîne"
+
 #: ../src/archive.c
 #, fuzzy
 msgid "Can't create temporary directory:"
@@ -398,6 +403,10 @@ msgstr ""
 msgid "Compressed size:"
 msgstr ""
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr ""
@@ -429,6 +438,10 @@ msgstr "Arşîveke nû biafirîne"
 
 #: ../src/interface.c
 msgid "Cut"
+msgstr ""
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
 msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
@@ -484,6 +497,16 @@ msgstr ""
 msgid "Encryption: "
 msgstr ""
 
+#: ../src/extract_dialog.c
+msgid "Ensure a containing directory"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr ""
@@ -496,6 +519,12 @@ msgstr "Derxistin"
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
+msgstr ""
+
+#: ../src/main.c
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
 msgstr ""
 
 #: ../src/main.c
@@ -591,9 +620,9 @@ msgstr ""
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -834,6 +863,10 @@ msgid "Points to"
 msgstr ""
 
 #: ../src/pref_dialog.c
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr ""
 
@@ -1011,6 +1044,10 @@ msgstr ""
 msgid "The archiver doesn't support this feature!"
 msgstr ""
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr ""
@@ -1119,7 +1156,7 @@ msgstr ""
 msgid "Use a custom command:"
 msgstr ""
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 #, fuzzy
 msgid "Version"
 msgstr "Destûr"

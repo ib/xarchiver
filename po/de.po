@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
-"PO-Revision-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"PO-Revision-Date: 2017-09-14 11:50+0200\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -270,6 +270,10 @@ msgstr "Archiv kann nicht in ein selbstentpackendes umgewandelt werden:"
 msgid "Can't create a new archive:"
 msgstr "Ein neues Archiv kann nicht angelegt werden:"
 
+#: ../src/extract_dialog.c ../src/main.c
+msgid "Can't create directory!"
+msgstr "Verzeichnis kann nicht angelegt werden!"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "Temporäres Verzeichnis kann nicht angelegt werden:"
@@ -387,6 +391,10 @@ msgstr "Komprimierte Größe: "
 msgid "Compressed size:"
 msgstr "Komprimierte Größe:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Komprimierungsrate"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Komprimierungsrate:"
@@ -418,6 +426,10 @@ msgstr "Solides Archiv anlegen"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Ausschneiden"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr "Datenframes/Zusatzframes"
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -472,6 +484,18 @@ msgstr "Verschlüsselt:"
 msgid "Encryption: "
 msgstr "Verschlüsselung: "
 
+#: ../src/extract_dialog.c
+msgid "Ensure a containing directory"
+msgstr "Verzeichnis für den Inhalt sicherstellen"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+"Sicherstellen, dass sich der Inhalt eines entpackten Archivs stets in einem "
+"eigenen Verzeichnis befindet."
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "_Passwort eingeben"
@@ -487,6 +511,14 @@ msgid ""
 msgstr ""
 "Nach dem Zielverzeichnis fragen,\n"
 "                                       Archiv entpacken und beenden"
+
+#: ../src/main.c
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr ""
+"Inhalt des Archivs in ein eigenes\n"
+"                                       Verzeichnis entpacken und beenden"
 
 #: ../src/main.c
 msgid ""
@@ -584,14 +616,15 @@ msgstr "Aus Datei"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;Archivierer;Archivierung;Kompression;Komprimierung;Front-End;Frontend;7-"
-"zip;7z;7za;7zip;7zr;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;"
-"gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;"
-"rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"zip;7z;7za;7zip;7zr;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -599,7 +632,7 @@ msgstr "Gruppe"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
-msgstr "Symbolgröße (Programmneustart erforderlich):"
+msgstr "Symbolgröße (Neustart erforderlich):"
 
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
@@ -828,6 +861,10 @@ msgid "Points to"
 msgstr "Zeigt auf"
 
 #: ../src/pref_dialog.c
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Unzip für Zip-Dateien bevorzugen (Neustart erforderlich)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Einstellungen"
 
@@ -1005,6 +1042,12 @@ msgstr ""
 msgid "The archiver doesn't support this feature!"
 msgstr "Das Archivprogramm unterstützt diese Möglichkeit nicht!"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+"Dem Archivprogramm fehlt die notwendige Unterstützung für "
+"pass­wort­ge­schützte Entschlüsselung!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Nach dem Laden des Archivs wird nach dem Dateinamen sortiert."
@@ -1126,7 +1169,7 @@ msgstr "Vorhandene Dateien aktualisieren"
 msgid "Use a custom command:"
 msgstr "Einen benutzerdefinierten Befehl verwenden:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Version"
 
@@ -1637,12 +1680,6 @@ msgstr "|Größe\n"
 
 #~ msgid "Make the current archive self-extracting"
 #~ msgstr "Das aktuelle Archiv in ein selbst-extrahierendes Archiv umwandeln"
-
-#~ msgid "This archive contains password protected files"
-#~ msgstr "Dieses Archiv enthält passwort-geschützte Dateien"
-
-#~ msgid "Can't create directory:"
-#~ msgstr "Kann Verzeichnis nicht anlegen:"
 
 #~ msgid "Offset"
 #~ msgstr "Offset"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -267,6 +267,12 @@ msgstr "No s’ha pogut convertir l’arxiu en un auto-extraible"
 msgid "Can't create a new archive:"
 msgstr "No s’ha pogut crear un arxiu nou:"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create directory \"%s\""
+msgid "Can't create directory!"
+msgstr "No s’ha pogut crear el directori «%s»"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "No s’ha pogut crear un directori temporal:"
@@ -384,6 +390,10 @@ msgstr "Mida    comprimit: "
 msgid "Compressed size:"
 msgstr "Mida comprimit:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Nivell de compressió"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Nivell de compressió:"
@@ -415,6 +425,10 @@ msgstr "Crea un arxiu sòlid"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Talla"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -473,6 +487,18 @@ msgstr "Xifrat"
 msgid "Encryption: "
 msgstr "Xifratge: "
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "Directori d'extracció preferit:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Introduïu la cont_rasenya"
@@ -488,6 +514,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "Extreu l’arxiu demanant el directori de destí i tanca."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "Extreu l’arxiu al directori de destí i tanca."
 
 #: ../src/main.c
 #, fuzzy
@@ -585,9 +619,9 @@ msgstr "Des del fitxer"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -831,6 +865,12 @@ msgid "Points to"
 msgstr "Apunta a"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Mida de les icones (cal reiniciar)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Preferències"
 
@@ -1011,6 +1051,10 @@ msgstr ""
 msgid "The archiver doesn't support this feature!"
 msgstr "Aquesta funcionalitat no està admesa."
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "La columna de nom de fitxer s’ordena després d'haver carregat l'arxiu"
@@ -1146,7 +1190,7 @@ msgstr "Actualitza els fitxers existents"
 msgid "Use a custom command:"
 msgstr "Empra una ordre personalitzada:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Versió"
 
@@ -1431,9 +1475,6 @@ msgstr "|Mida\n"
 #, fuzzy
 #~ msgid "Create New Dir"
 #~ msgstr "Crea un nou arxiu"
-
-#~ msgid "Can't create directory \"%s\""
-#~ msgstr "No s’ha pogut crear el directori «%s»"
 
 #~ msgid "Operation failed."
 #~ msgstr "L’operació ha fallat"

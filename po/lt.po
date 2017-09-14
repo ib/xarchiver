@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
-"PO-Revision-Date: 2017-07-21 12:42+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"PO-Revision-Date: 2017-09-14 11:50+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lietuvių\n"
 "Language: lt\n"
@@ -43,7 +43,6 @@ msgstr[2] "%d katalogų %s (%s)"
 
 #: ../src/window.c
 #, c-format
-#| msgid "Add files"
 msgid "%d file"
 msgid_plural "%d files"
 msgstr[0] "%d failas"
@@ -147,7 +146,6 @@ msgid "Add files"
 msgstr "Pridėti failus"
 
 #: ../src/main.c
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
@@ -156,7 +154,6 @@ msgstr ""
 "                                         archyvo pavadinimą, ir išeiti"
 
 #: ../src/main.c
-#| msgid "Add files to archive by asking their filenames and quits."
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
@@ -210,7 +207,6 @@ msgstr "Archyvo _komentaras"
 
 #: ../src/window.c
 #, c-format
-#| msgid "Archive contents:\n"
 msgid "Archive content:\n"
 msgstr "Archyvo turinys:\n"
 
@@ -273,6 +269,10 @@ msgstr "Nepavyksta konvertuoti archyvą į savarankiškai išsiskleidžiantį:"
 #: ../src/new_dialog.c
 msgid "Can't create a new archive:"
 msgstr "Nepavyksta sukurti naują archyvą:"
+
+#: ../src/extract_dialog.c ../src/main.c
+msgid "Can't create directory!"
+msgstr "Nepavyksta sukurti katalogo!"
 
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
@@ -391,6 +391,10 @@ msgstr "Suglaudinto   dydis: "
 msgid "Compressed size:"
 msgstr "Suglaudinto dydis:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Glaudinimo koeficientas"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Glaudinimo koeficientas:"
@@ -422,6 +426,10 @@ msgstr "Sukurti vientisą archyvą"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Iškirpti"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr "Duomenų kadras/Praleidžiami kadrai"
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -476,6 +484,17 @@ msgstr "Šifruotas:"
 msgid "Encryption: "
 msgstr "Šifravimas: "
 
+#: ../src/extract_dialog.c
+msgid "Ensure a containing directory"
+msgstr "Užtikrinti vidinį katalogą"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+"Užtikrinti, kad išskleisto archyvo turinys visada būtų vidiniame kataloge"
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Į_veskite slaptažodį"
@@ -485,7 +504,6 @@ msgid "Extract"
 msgstr "Išskleisti"
 
 #: ../src/main.c
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
@@ -494,7 +512,14 @@ msgstr ""
 "                                         katalogą ir išeiti"
 
 #: ../src/main.c
-#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr ""
+"Išskleisti archyvą į vidinį katalogą\n"
+"                                         ir išeiti"
+
+#: ../src/main.c
 msgid ""
 "Extract archive to the destination\n"
 "                                     directory and quit"
@@ -511,7 +536,6 @@ msgid "Extract files with full path"
 msgstr "Išskleisti su pilnu keliu"
 
 #: ../src/main.c
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
@@ -591,14 +615,15 @@ msgstr "Iš failo"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;archyvavimo programa;archyvavimas;glaudinimas;išorinė pusė;naudotojo "
-"sąsaja;7-zip;7z;7za;7zip;7zr;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
-"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;"
-"tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"sąsaja;7-zip;7z;7za;7zip;7zr;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;"
+"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
+"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
+"Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -834,6 +859,10 @@ msgid "Points to"
 msgstr "Nurodo į"
 
 #: ../src/pref_dialog.c
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Zip failams teikti pirmenybę unzip (reikalauja paleidimo iš naujo)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Nuostatos"
 
@@ -842,7 +871,6 @@ msgid "Preferred archive format"
 msgstr "Pageidaujamas archyvo formatas"
 
 #: ../src/pref_dialog.c
-#| msgid "Preferred extract directory:"
 msgid "Preferred extraction directory:"
 msgstr "Pageidaujamas išskleidimo katalogas:"
 
@@ -933,20 +961,19 @@ msgid "Show archive tree sidebar"
 msgstr "Rodyti archyvo medžio šoninę juostą"
 
 #: ../src/main.c
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Show found command line programs to be\n"
 "                                     used and exit"
 msgstr ""
 "Rodyti rastas komandų eilutės prog-\n"
-"                                         ramas, kurios bus naudojamos ir išeiti"
+"                                         ramas, kurios bus naudojamos ir "
+"išeiti"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
 msgstr "Rodyti įrankių juostą"
 
 #: ../src/main.c
-#| msgid "Show version and exit"
 msgid "Show version and exit\n"
 msgstr "Rodyti versiją ir išeiti\n"
 
@@ -1011,6 +1038,12 @@ msgstr "Archyvo katalogo struktūra bus atkurta išskleidimo kataloge"
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
 msgstr "Archyvavimo programa nepalaiko šios ypatybės!"
+
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+"Archyvavimo programai trūksta reikiamo palaikymo, skirto slaptažodžiu "
+"apsaugotam iššifravimui!"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
@@ -1132,7 +1165,7 @@ msgstr "Atnaujinti esamus failus"
 msgid "Use a custom command:"
 msgstr "Naudoti pasirinktinę komandą:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Versija"
 
@@ -1281,7 +1314,6 @@ msgid "example: *.txt; ac*"
 msgstr "pavyzdys: *.txt; ac*"
 
 #: ../src/main.c
-#| msgid "file1 file2 file3 ... fileN"
 msgid "file1 ... fileN"
 msgstr "failas1 ... failasN"
 

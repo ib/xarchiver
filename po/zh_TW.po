@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -265,6 +265,12 @@ msgstr "無法轉換成自解封存檔："
 msgid "Can't create a new archive:"
 msgstr "無法建立新封存檔："
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create directory:"
+msgid "Can't create directory!"
+msgstr "無法建立目錄:"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "無法建立暫存目錄："
@@ -382,6 +388,10 @@ msgstr "壓縮縮後大小："
 msgid "Compressed size:"
 msgstr "壓縮後大小:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "壓縮率"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "壓縮率："
@@ -413,6 +423,10 @@ msgstr "建立實體封存檔"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "剪下"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -471,6 +485,18 @@ msgstr "加密："
 msgid "Encryption: "
 msgstr "加密："
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "偏好的抽出目錄："
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "輸入密碼(_R)"
@@ -486,6 +512,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "詢問目標目錄、抽出封存檔, 然後離開。"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "將封存檔解開到目標目錄，然後離開。"
 
 #: ../src/main.c
 #, fuzzy
@@ -581,9 +615,9 @@ msgstr "從檔案"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -824,6 +858,12 @@ msgid "Points to"
 msgstr "標記"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "圖示大小 (須重新啟動程式)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "偏好設定"
 
@@ -1003,6 +1043,10 @@ msgstr "已在目標目錄重新建立封存檔內的完整目錄結構"
 msgid "The archiver doesn't support this feature!"
 msgstr "封存程式不支援此功能！"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "載入封存檔後按檔名排序"
@@ -1127,7 +1171,7 @@ msgstr "更新已存在的檔案"
 msgid "Use a custom command:"
 msgstr "使用自訂指令："
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "版本"
 
@@ -1605,9 +1649,6 @@ msgstr "|大小\n"
 
 #~ msgid "Show ISO in_fo"
 #~ msgstr "顯示ISO訊息(_F)"
-
-#~ msgid "Can't create directory:"
-#~ msgstr "無法建立目錄:"
 
 #~ msgid "Can't write file \"%s\":"
 #~ msgstr "檔案「%s」無法寫入:"

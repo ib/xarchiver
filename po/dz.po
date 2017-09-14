@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2006-11-23 12:28+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -272,6 +272,12 @@ msgstr "ཡིག་མཛོད་འདི་  རང་-ཕྱིར་འད
 msgid "Can't create a new archive:"
 msgstr "ཡིག་མཛོད་གསརཔ་ཅིག་གསར་བསྐྲུན་འབད།"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create directory \"%s\""
+msgid "Can't create directory!"
+msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་མི་ཚུགསཔ \"%s\""
+
 #: ../src/archive.c
 #, fuzzy
 msgid "Can't create temporary directory:"
@@ -398,6 +404,10 @@ msgstr "ཨེབ་བཙུགས་འབད་ཡོདཔ།"
 msgid "Compressed size:"
 msgstr "ཨེབ་བཙུགས་འབད་ཡོདཔ།"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "ཨེབ་བཙུགས་དཔྱ་ཚད"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "ཨེབ་བཙུགས་དཔྱ་ཚད:"
@@ -431,6 +441,10 @@ msgstr "ཡིག་མཛོད་རག་པ་ཅིག་བཟོ་བཏ
 
 #: ../src/interface.c
 msgid "Cut"
+msgstr ""
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
 msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
@@ -490,6 +504,17 @@ msgstr ""
 msgid "Encryption: "
 msgstr ""
 
+#: ../src/extract_dialog.c
+#, fuzzy
+msgid "Ensure a containing directory"
+msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་མི་བཏུབ:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 #, fuzzy
 msgid "Enter passwo_rd"
@@ -504,6 +529,13 @@ msgstr "ཕྱིར་འདོན་འབད།"
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
+msgstr "འགྲོ་ཡུལ་སྣོད་ཐོ་དང་སྤང་ཚུ་ལུ་འདྲི་ཐོག་ལས་  ཡིག་མཛོད་ཕྱིར་འདོན་འབད།"
+
+#: ../src/main.c
+#, fuzzy
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
 msgstr "འགྲོ་ཡུལ་སྣོད་ཐོ་དང་སྤང་ཚུ་ལུ་འདྲི་ཐོག་ལས་  ཡིག་མཛོད་ཕྱིར་འདོན་འབད།"
 
 #: ../src/main.c
@@ -608,9 +640,9 @@ msgstr ""
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -865,6 +897,10 @@ msgid "Points to"
 msgstr ""
 
 #: ../src/pref_dialog.c
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr ""
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr ""
 
@@ -1060,6 +1096,12 @@ msgstr "ཡིག་མཛོད་ཀྱི་སྣོད་ཐོའི་ག
 msgid "The archiver doesn't support this feature!"
 msgstr "ཡུ་ཨེན་ཨར་ཨེ་ཨར་འདི་གིས་  ཡིག་མཛོད་གསར་བསྐྲུན་འབད་ནི་ལུ་རྒྱབ་སྐྱོར་མི་འབད!"
 
+#: ../src/gzip_et_al.c
+#, fuzzy
+#| msgid "This archive contains password protected files"
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr "ཡིག་མཛོད་འདི་ལུ་ ཉེན་སྐྱོབས་འབད་ཡོད་པའི་ཆོག་ཡིག་ཡིག་སྣོད་ཚུ་ཡོདཔ་ཨིན།"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr ""
@@ -1183,7 +1225,7 @@ msgstr "གནས་ཏེ་ཡོད་པའི་ཡིག་སྣོད་
 msgid "Use a custom command:"
 msgstr ""
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "འཐོན་རིམ།"
 
@@ -1454,9 +1496,6 @@ msgstr "|ཚད།\n"
 #~ msgid "Create New Dir"
 #~ msgstr "ཡིག་མཛོད་གསརཔ་ཅིག་གསར་བསྐྲུན་འབད།"
 
-#~ msgid "Can't create directory \"%s\""
-#~ msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་མི་ཚུགསཔ \"%s\""
-
 #~ msgid "Do you want to view the command line output?"
 #~ msgstr "ཁྱོད་ཀྱིས་ བརྡ་བཀོད་གྲལ་ཐིག་ཨའུཊི་པུཊི་འདི་བལྟ་ནི་ཨིན་ན?"
 
@@ -1632,9 +1671,6 @@ msgstr "|ཚད།\n"
 
 #~ msgid "Make the current archive self-extracting"
 #~ msgstr "ད་ལྟོའི་ཡིག་མཛོད་འདི་ རང་ཕྱིར་འདོན་འབད་བཟོ།"
-
-#~ msgid "This archive contains password protected files"
-#~ msgstr "ཡིག་མཛོད་འདི་ལུ་ ཉེན་སྐྱོབས་འབད་ཡོད་པའི་ཆོག་ཡིག་ཡིག་སྣོད་ཚུ་ཡོདཔ་ཨིན།"
 
 #~ msgid "Can't write file \"%s\":"
 #~ msgstr "\"%s\"ཡིག་སྣོད་འབྲི་མི་བཏུབ:"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -262,6 +262,12 @@ msgstr "Arşiv kendi kendine açılacak biçimde ayarlanamıyor:"
 msgid "Can't create a new archive:"
 msgstr "Yeni bir arşiv oluşturulamıyor:"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create directory \"%s\""
+msgid "Can't create directory!"
+msgstr "\"%s\" dizini oluşturulamıyor"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "Geçici dizin oluşturulamıyor:"
@@ -379,6 +385,10 @@ msgstr "Sıkıştırılmış boyut:"
 msgid "Compressed size:"
 msgstr "Sıkıştırılmış boyut:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Sıkıştırma oranı"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Sıkıştırma oranı:"
@@ -410,6 +420,10 @@ msgstr "Kesiksiz arşiv oluştur"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Kes"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -468,6 +482,18 @@ msgstr "Sıkıştırılmış:"
 msgid "Encryption: "
 msgstr "Şifreleme:"
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "Tercih edilen ayıklama dizini:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Parola gi_r"
@@ -483,6 +509,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "Arşivi hedef dizini sorarak aç ve kapat."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "Arşivi hedef dizine aç ve kapat."
 
 #: ../src/main.c
 #, fuzzy
@@ -580,9 +614,9 @@ msgstr "Dosyadan"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -826,6 +860,12 @@ msgid "Points to"
 msgstr "Eklentiler"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Simge boyutları (yeniden başlatmanız gerekir)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Tercihler"
 
@@ -1005,6 +1045,10 @@ msgstr "Arşivin dizin yapısı, açılan dizinde yeniden oluşturuldu"
 msgid "The archiver doesn't support this feature!"
 msgstr "Arşivleyici bu özelliği desteklemiyor!"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Dosyalar arşiv yüklendikten sonra, dosya ismine göre sıralanır"
@@ -1142,7 +1186,7 @@ msgstr "Mevcut dosyaları yükle"
 msgid "Use a custom command:"
 msgstr "Özel bir komut kullan:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Sürüm"
 
@@ -1520,9 +1564,6 @@ msgstr "|Boyut\n"
 
 #~ msgid "<b>Files to extract </b>"
 #~ msgstr "<b> Açılacak dosyalar </b>"
-
-#~ msgid "Can't create directory \"%s\""
-#~ msgstr "\"%s\" dizini oluşturulamıyor"
 
 #~ msgid "Choose the destination folder where to extract the current archive"
 #~ msgstr "Geçerli arşivin açılacağı hedef dizini seçin"

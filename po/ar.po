@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2011-08-09 03:59-0000\n"
 "Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
@@ -259,6 +259,12 @@ msgstr "لا يمكن تحويل الأرشيف إلى استخراج المصي
 msgid "Can't create a new archive:"
 msgstr "لا يمكن إنشاء أرشيف جديد :"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create temporary directory:"
+msgid "Can't create directory!"
+msgstr "لا يمكن إنشاء الدليل المؤقت :"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "لا يمكن إنشاء الدليل المؤقت :"
@@ -376,6 +382,10 @@ msgstr "حجم مضغوط: "
 msgid "Compressed size:"
 msgstr "حجم الضغط:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "نسبة الضغط"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "نسبة الضغط:"
@@ -407,6 +417,10 @@ msgstr "أنشئ أرشيف صلب"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "قص"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -465,6 +479,18 @@ msgstr "المشفرة :"
 msgid "Encryption: "
 msgstr "التشفير :"
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "دليل الأرشيف المفضل:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "ادخل الرقم السري"
@@ -480,6 +506,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "السؤال عن دليل استخراج الارشيف ثم الخروج"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "الخروج بعد استخراج الأرشيف إلى الدليل الوجهة"
 
 #: ../src/main.c
 #, fuzzy
@@ -575,9 +609,9 @@ msgstr "من الملف"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -819,6 +853,12 @@ msgid "Points to"
 msgstr "يشير إلى"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "حجم الأيقونة (يتطلب إعادة التشغيل)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "تفضيلات"
 
@@ -998,6 +1038,10 @@ msgstr "يتم إعادة هيكلة المحفوظات والدليل في ال
 msgid "The archiver doesn't support this feature!"
 msgstr "الأرشيف لا يدعم هذه الميزة؛"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "فرز عمود اسم الملف بعد تحميل الأرشيف"
@@ -1127,7 +1171,7 @@ msgstr "تحديث الملفات المستخرجة"
 msgid "Use a custom command:"
 msgstr "استخدام أمر مخصص :"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "إصدار"
 

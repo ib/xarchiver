@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiverxa 0.4.6\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
-"PO-Revision-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"PO-Revision-Date: 2017-09-14 11:50+0200\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "Language: en_GB\n"
@@ -256,6 +256,10 @@ msgstr "Can't convert the archive to self-extracting:"
 msgid "Can't create a new archive:"
 msgstr "Can't create a new archive:"
 
+#: ../src/extract_dialog.c ../src/main.c
+msgid "Can't create directory!"
+msgstr "Can't create directory!"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "Can't create temporary directory:"
@@ -373,6 +377,10 @@ msgstr "Compressed   size: "
 msgid "Compressed size:"
 msgstr "Compressed size:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Compression ratio"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Compression ratio:"
@@ -404,6 +412,10 @@ msgstr "Create a solid archive"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Cut"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr "Data Frames/Skippable Frames"
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -458,6 +470,18 @@ msgstr "Encrypted:"
 msgid "Encryption: "
 msgstr "Encryption: "
 
+#: ../src/extract_dialog.c
+msgid "Ensure a containing directory"
+msgstr "Ensure a containing directory"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Enter passwo_rd"
@@ -473,6 +497,14 @@ msgid ""
 msgstr ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
+
+#: ../src/main.c
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
 
 #: ../src/main.c
 msgid ""
@@ -570,13 +602,13 @@ msgstr "From File"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;lrz;"
-"lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
 "unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
@@ -811,6 +843,10 @@ msgid "Points to"
 msgstr "Points to"
 
 #: ../src/pref_dialog.c
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Prefer unzip for zip files (requires restart)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Preferences"
 
@@ -985,6 +1021,10 @@ msgstr ""
 msgid "The archiver doesn't support this feature!"
 msgstr "The archiver doesn't support this feature!"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr "The archiver lacks necessary support for password protected decryption!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "The filename column is sorted after loading the archive"
@@ -1101,7 +1141,7 @@ msgstr "Update existing files"
 msgid "Use a custom command:"
 msgstr "Use a custom command:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Version"
 
@@ -1586,12 +1626,6 @@ msgstr "|Size\n"
 
 #~ msgid "Make the current archive self-extracting"
 #~ msgstr "Make the current archive self-extracting"
-
-#~ msgid "This archive contains password protected files"
-#~ msgstr "This archive contains password protected files"
-
-#~ msgid "Can't create directory:"
-#~ msgstr "Can't create directory:"
 
 #~ msgid "Can't write file \"%s\":"
 #~ msgstr "Can't write file \"%s\":"

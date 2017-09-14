@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -266,6 +266,12 @@ msgstr "محفوظہ کو self-extracting میں نہیں بدلا جاسکتا:
 msgid "Can't create a new archive:"
 msgstr "نئی محفوظہ نہیں بنائی جاسکتی:"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create directory:"
+msgid "Can't create directory!"
+msgstr "ڈائریکٹری نہیں بنائی جاسکی"
+
 #: ../src/archive.c
 #, fuzzy
 msgid "Can't create temporary directory:"
@@ -385,6 +391,10 @@ msgstr "دباؤ کا   حجم: "
 msgid "Compressed size:"
 msgstr "دباؤ کا حجم"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "دباؤ کا ریشو"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "دباؤ کا ریشو:"
@@ -416,6 +426,10 @@ msgstr "سخت محفوظہ بنائیں"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "کٹ"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -474,6 +488,17 @@ msgstr "رمز شدہ:"
 msgid "Encryption: "
 msgstr "رمزنگاری:"
 
+#: ../src/extract_dialog.c
+#, fuzzy
+msgid "Ensure a containing directory"
+msgstr "مجوزہ وقتی ڈائریکٹری:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "پاس _ورڈ لکھیں"
@@ -489,6 +514,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "نکالنے کی ڈائریکٹری کا پوچھ کر برخاست کریں"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "سمت ڈائریکٹری میں محفوظہ نکال کر برخاست کریں"
 
 #: ../src/main.c
 #, fuzzy
@@ -586,9 +619,9 @@ msgstr "از فائل"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -835,6 +868,12 @@ msgid "Points to"
 msgstr "پوائنٹ تا:"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "آئکن کا حجم (دوبارہ چلانا پڑے گا)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "ترجیحات"
 
@@ -1015,6 +1054,12 @@ msgstr ""
 msgid "The archiver doesn't support this feature!"
 msgstr "محفوظہ اس خاصیت کی معاونت نہیں رکھتا!"
 
+#: ../src/gzip_et_al.c
+#, fuzzy
+#| msgid "This archive contains password protected files"
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr "اس محفوظہ میں فائلیں پاس ورڈ سے محفوظ کی گئی ہیں"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "فائلوں کے نام کا کالم محفوظہ لوڈ کرنے کے بعد مرتب کردیا گیا ہے"
@@ -1150,7 +1195,7 @@ msgstr "سابقہ فائیں تازہ کریں"
 msgid "Use a custom command:"
 msgstr "صوابدیدی کمانڈ استعمال کریں:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "ورژن"
 
@@ -1586,9 +1631,6 @@ msgstr "|حجم\n"
 #~ msgid "Make the current archive self-extracting"
 #~ msgstr "حالیہ محفوظہ کو self-extracting بنائیں (خودکار کھلنے والی محفوظہ)"
 
-#~ msgid "This archive contains password protected files"
-#~ msgstr "اس محفوظہ میں فائلیں پاس ورڈ سے محفوظ کی گئی ہیں"
-
 #~ msgid "Enter Archive Password"
 #~ msgstr "محفوظہ کا پاس ورڈ لکھیں"
 
@@ -1597,9 +1639,6 @@ msgstr "|حجم\n"
 
 #~ msgid "Number of dirs:"
 #~ msgstr "ڈائریکٹریوں کی تعداد:"
-
-#~ msgid "Can't create directory:"
-#~ msgstr "ڈائریکٹری نہیں بنائی جاسکی"
 
 #~ msgid "Can't write file \"%s\":"
 #~ msgstr "فائل \"%s\" نہیں لکھی جاسکی:"

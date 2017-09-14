@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2017-01-23 23:58+0100\n"
 "Last-Translator: Páder Rezső <rezso@rezso.net>\n"
 "Language-Team: Hungarian\n"
@@ -269,6 +269,12 @@ msgstr "Az archívum nem alakítható önkibontóvá:"
 msgid "Can't create a new archive:"
 msgstr "Nem hozható létre új archívum:"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create temporary directory:"
+msgid "Can't create directory!"
+msgstr "Nem hozható létre átmeneti könyvtár:"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "Nem hozható létre átmeneti könyvtár:"
@@ -386,6 +392,10 @@ msgstr "Tömörített méret: "
 msgid "Compressed size:"
 msgstr "Tömörített méret:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Tömörítés szintje"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Tömörítés szintje:"
@@ -417,6 +427,10 @@ msgstr "Tömör archívum létrehozása"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Kivágás"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -475,6 +489,18 @@ msgstr "Titkosítva:"
 msgid "Encryption: "
 msgstr "Titkosítás: "
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "Előnyben részesített kibontási könyvtár:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "_Jelszó megadása"
@@ -490,6 +516,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "Az archívum kibontása a célkönyvtár bekérésével és kilépés."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "Az archívum kibontása a célkönyvtárba és kilépés."
 
 #: ../src/main.c
 #, fuzzy
@@ -587,9 +621,9 @@ msgstr "Fájlból"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -834,6 +868,12 @@ msgid "Points to"
 msgstr "Erre mutat:"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Ikonok mérete (újraindítást igényel)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Beállítások"
 
@@ -1014,6 +1054,10 @@ msgstr "Az archívum könyvtárszerkezetének előállítása a kibontási köny
 msgid "The archiver doesn't support this feature!"
 msgstr "Az archiváló nem támogatja ezt a szolgáltatást"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "A fájlnév oszlop rendezése az archívum betöltése után"
@@ -1142,7 +1186,7 @@ msgstr "Meglévő fájlok frissítése"
 msgid "Use a custom command:"
 msgstr "Egyéni parancs használata:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Verzió"
 

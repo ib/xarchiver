@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
-"PO-Revision-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"PO-Revision-Date: 2017-09-14 11:50+0200\n"
 "Last-Translator: jcsl\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -268,6 +268,10 @@ msgstr "No se puede convertir el archivo en autoextraíble:"
 msgid "Can't create a new archive:"
 msgstr "No se puede crear un nuevo archivo:"
 
+#: ../src/extract_dialog.c ../src/main.c
+msgid "Can't create directory!"
+msgstr "¡No se puede crear el directorio!"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "No se puede crear un directorio temporal:"
@@ -386,6 +390,10 @@ msgstr "Tamaño   comprimido: "
 msgid "Compressed size:"
 msgstr "Tamaño comprimido:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Tasa de compresión"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Tasa de compresión:"
@@ -417,6 +425,10 @@ msgstr "Crear un archivo sólido"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Cortar"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr "Tramas de datos/Tramas omisibles"
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -471,6 +483,18 @@ msgstr "Cifrado:"
 msgid "Encryption: "
 msgstr "Cifrado: "
 
+#: ../src/extract_dialog.c
+msgid "Ensure a containing directory"
+msgstr "Garantizar un directorio contenedor"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+"Garantiza que el contenido del archivo extraído esté siempre en un "
+"directorio"
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Introduzca la _contraseña"
@@ -485,7 +509,16 @@ msgid ""
 "                                     directory and quit"
 msgstr ""
 "Extraer el archivo pidiendo el\n"
-"                                           directorio de extracción y terminar"
+"                                           directorio de extracción y "
+"terminar"
+
+#: ../src/main.c
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr ""
+"Extraer el archivo en un directorio\n"
+"                                           propio y terminar"
 
 #: ../src/main.c
 msgid ""
@@ -584,13 +617,13 @@ msgstr "Desde archivo"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;archivado;archivador;compresión;compresor;interfaz;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;lrz;"
-"lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
 "unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
@@ -828,6 +861,10 @@ msgid "Points to"
 msgstr "Apunta a"
 
 #: ../src/pref_dialog.c
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Preferir unzip para archivos zip (requiere reiniciar)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Preferencias"
 
@@ -1004,6 +1041,12 @@ msgstr ""
 msgid "The archiver doesn't support this feature!"
 msgstr "¡El programa de compresión no soporta esta funcionalidad!"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+"¡El programa de compresión carece del soporte necesario para el descifrado "
+"protegido por contraseña!"
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr ""
@@ -1126,7 +1169,7 @@ msgstr "Actualizar los archivos existentes"
 msgid "Use a custom command:"
 msgstr "Usar un comando personalizado:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Versión"
 

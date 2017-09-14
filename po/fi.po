@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2010-10-23 14:01+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <None>\n"
@@ -262,6 +262,12 @@ msgstr "Arkistoa ei voi muuntaa itsepurkautuvaksi:"
 msgid "Can't create a new archive:"
 msgstr "Uutta arkistoa ei voi luoda:"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create temporary directory:"
+msgid "Can't create directory!"
+msgstr "Väliaikaiskansiota ei voi luoda:"
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "Väliaikaiskansiota ei voi luoda:"
@@ -379,6 +385,10 @@ msgstr "Pakattu koko:   "
 msgid "Compressed size:"
 msgstr "Pakattu koko:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Pakkaussuhde"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Pakkaussuhde:"
@@ -410,6 +420,10 @@ msgstr "Luo kiinteä arkisto"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Leikkaa"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -468,6 +482,18 @@ msgstr "Salattu:"
 msgid "Encryption: "
 msgstr "Salaus: "
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "Oletuspurkukansio:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Syötä _salasana"
@@ -483,6 +509,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "Pura arkisto kysyen kohdekansiota"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "Pura arkisto kohdekansioon"
 
 #: ../src/main.c
 #, fuzzy
@@ -580,9 +614,9 @@ msgstr "Tiedostosta"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -828,6 +862,14 @@ msgid "Points to"
 msgstr "Kohteeseen"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr ""
+"Kuvakkeiden koko\n"
+"(vaatii uudelleenkäynnistyksen)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Asetukset"
 
@@ -1009,6 +1051,10 @@ msgstr "Arkiston kansiopuurakenne luodaan uudelleen purkukohteeseen"
 msgid "The archiver doesn't support this feature!"
 msgstr "Pakkausohjelma ei tue tätä ominaisuutta!"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Tiedostonimisarake järjestetään, kun arkisto on avattu"
@@ -1141,7 +1187,7 @@ msgstr "Päivitä tiedostot"
 msgid "Use a custom command:"
 msgstr "Mukautettu komento:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Versio"
 

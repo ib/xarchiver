@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-06-20 12:09+0200\n"
+"POT-Creation-Date: 2017-09-14 11:50+0200\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -271,6 +271,12 @@ msgstr "Nevar konvertēt arhīvu uz pašizpletes arhīvu:"
 msgid "Can't create a new archive:"
 msgstr "Nevar izveidot jaunu arhīvu:"
 
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create directory \"%s\""
+msgid "Can't create directory!"
+msgstr "Nevar izveidot mapi \"%s\""
+
 #: ../src/archive.c
 msgid "Can't create temporary directory:"
 msgstr "Nevar izveidot pagaidu mapi:"
@@ -388,6 +394,10 @@ msgstr "Saspiestais izmērs: "
 msgid "Compressed size:"
 msgstr "Saspiestais izmērs:"
 
+#: ../src/gzip_et_al.c
+msgid "Compression ratio"
+msgstr "Saspiešanas attiecība"
+
 #: ../src/interface.c
 msgid "Compression ratio:"
 msgstr "Saspiešanas attiecība:"
@@ -419,6 +429,10 @@ msgstr "Veidot viendabīgu arhīvu"
 #: ../src/interface.c
 msgid "Cut"
 msgstr "Griezt"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -477,6 +491,18 @@ msgstr "Šifrēts:"
 msgid "Encryption: "
 msgstr "Šifrēšana: "
 
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid "Preferred extract directory:"
+msgid "Ensure a containing directory"
+msgstr "Vēlamā atspiešanas direktorija:"
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
 #: ../src/interface.c
 msgid "Enter passwo_rd"
 msgstr "Ievadiet pa_roli"
@@ -492,6 +518,14 @@ msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
 msgstr "Atspiež arhīvu, jautājot par atspiešanas direktoriju un izejot."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "Atspiest arhīvu mērķa mapē un iziet."
 
 #: ../src/main.c
 #, fuzzy
@@ -589,9 +623,9 @@ msgstr "No faila"
 #: ../xarchiver.desktop.in.h
 msgid ""
 "GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;gtar;gunzip;gz;gzip;jar;lha;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;"
-"unrar;unzip;xz;zip;"
+"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -834,6 +868,12 @@ msgid "Points to"
 msgstr "Norāda uz"
 
 #: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Ikonas izmērs (restarts nepieciešams)"
+
+#: ../src/pref_dialog.c
 msgid "Preferences"
 msgstr "Uzstādījumi"
 
@@ -1013,6 +1053,10 @@ msgstr "Arhīva direktoriju struktūra, tiks atveidota atspiešanas mapē"
 msgid "The archiver doesn't support this feature!"
 msgstr "Arhivātors neatbalsta šo iespēju!"
 
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
 msgstr "Faila nosaukuma kolonna tiek kārtots pēc arhīva ielādes"
@@ -1146,7 +1190,7 @@ msgstr "Atjaunināt eksistējošos failus"
 msgid "Use a custom command:"
 msgstr "Izmantot pielāgotu komandu:"
 
-#: ../src/rar.c ../src/zip.c
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
 msgstr "Versija"
 
@@ -1429,9 +1473,6 @@ msgstr "|Izmērs\n"
 #, fuzzy
 #~ msgid "Create New Dir"
 #~ msgstr "Izveidot jaunu arhīvu"
-
-#~ msgid "Can't create directory \"%s\""
-#~ msgstr "Nevar izveidot mapi \"%s\""
 
 #~ msgid "Operation failed."
 #~ msgstr "Operācija neizdevās."
