@@ -255,6 +255,12 @@
 								</entry>
 							</row>
 							<row>
+								<entry>-d archive</entry>
+								<entry>--ensure-directory archive</entry>
+								<entry>Extract archive to a containing directory and quit.
+								</entry>
+							</row>
+							<row>
 								<entry>-m [archive1 ... archiveN]</entry>
 								<entry>--multi-extract [archive1 ... archiveN]</entry>
 								<entry>Open the Multi-Extract dialog to extract the given archives. Shell wildcards such as * are allowed.</entry>
@@ -269,6 +275,18 @@
 								<entry>-a archive</entry>
 								<entry>--add archive</entry>
 								<entry>Add to archive by asking which files and quit.
+								</entry>
+							</row>
+							<row>
+								<entry>-i</entry>
+								<entry>--info</entry>
+								<entry>Show found command line programs to be used and exit.
+								</entry>
+							</row>
+							<row>
+								<entry>-v</entry>
+								<entry>--version</entry>
+								<entry>Show version and exit.
 								</entry>
 							</row>
 							<row>
