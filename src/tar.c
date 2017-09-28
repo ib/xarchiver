@@ -267,7 +267,7 @@ gboolean xa_tar_extract (XArchive *archive, GSList *file_list)
 	                      " -x --no-recursion --no-wildcards",
 	                      " -f ", archive->path[2],
 	                      archive->do_touch ? " -m" : "",
-	                      archive->do_overwrite ? "" : " -k",
+	                      (archive->do_overwrite || archive->do_update) ? "" : " -k",
 	                      archive->do_update ? " --keep-newer-files" : "",
 	                      " -C ", extract_to, files->str, NULL);
 
