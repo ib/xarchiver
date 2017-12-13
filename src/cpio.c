@@ -38,13 +38,14 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[6];
 	gchar *filename;
-	gboolean dir, link;
+	gboolean dev, dir, link;
 
 	USE_PARSER;
 
 	/* permissions */
 	NEXT_ITEM(item[3]);
 
+	dev = (*(char *) item[3] == 'b' || *(char *) item[3] == 'c');
 	dir = (*(char *) item[3] == 'd');
 	link = (*(char *) item[3] == 'l');
 
@@ -58,7 +59,14 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	NEXT_ITEM(item[5]);
 
 	/* size */
-	NEXT_ITEM(item[1]);
+	if (dev)
+	{
+		SKIP_ITEM;
+		SKIP_ITEM;
+		item[1] = "0";
+	}
+	else
+		NEXT_ITEM(item[1]);
 
 	/* date and time */
 	NEXT_ITEMS(3, item[2]);
