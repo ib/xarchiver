@@ -97,7 +97,7 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 		if (!entry->is_dir)
 			archive->files++;
 
-		archive->files_size = g_ascii_strtoull(item[1], NULL, 0);
+		archive->files_size += g_ascii_strtoull(item[1], NULL, 0);
 	}
 }
 
