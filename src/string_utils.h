@@ -23,7 +23,7 @@
 #include <gtk/gtk.h>
 #include "archive.h"
 
-#define ESCAPES " \"'\\"
+#define ESCAPES " \"#'\\"
 
 #ifndef HAVE_MKDTEMP
 gchar *mkdtemp(gchar *);
