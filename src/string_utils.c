@@ -19,6 +19,9 @@
 #include "config.h"
 #include <dirent.h>
 #include <string.h>
+#include <sys/types.h>
+#include <dirent.h>
+
 #include "string_utils.h"
 #include "utf8-fnmatch.h"
 
