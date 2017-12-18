@@ -17,7 +17,6 @@
  */
 
 #include "config.h"
-#include <endian.h>
 #include <errno.h>
 #include <stdint.h>
 #include <string.h>
@@ -38,6 +37,13 @@
 #include "string_utils.h"
 #include "support.h"
 #include "tar.h"
+
+#ifdef __APPLE__
+#include <libkern/OSByteOrder.h>
+#define le32toh(x) OSSwapLittleToHostInt32(x)
+#else
+#include <endian.h>
+#endif
 
 #ifdef HAVE_SOCKET
 #include "socket.h"
