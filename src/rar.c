@@ -544,9 +544,7 @@ gboolean xa_rar_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? " x" : " e",
 	                      archive->do_touch ? " -tsm-" : "",
-	                      archive->do_overwrite ? " -o+" : " -o-",
-	                      archive->do_update ? " -u" : "",
-	                      archive->do_freshen ? " -f" : "",
+	                      archive->do_overwrite ? " -o+" : (archive->do_update ? " -u" : (archive->do_freshen ? " -f" : " -o-")),
 	                      password_str, " -idp -y ",
 	                      archive->path[1], files->str,
 	                      " ", archive->extraction_dir, NULL);

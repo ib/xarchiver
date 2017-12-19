@@ -234,9 +234,7 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[archive->type].program[0],
 	                      archive->do_full_path ? "" : " -j",
 	                      archive->do_touch ? " -DD" : "",
-	                      archive->do_overwrite ? " -o" : " -n",
-	                      archive->do_update ? " -ou" : "",
-	                      archive->do_freshen ? " -of" : "",
+	                      archive->do_overwrite ? " -o" : (archive->do_update ? " -ou" : (archive->do_freshen ? " -of" : " -n")),
 	                      password_str, " ",
 	                      archive->path[1], files->str,
 	                      " -d ", archive->extraction_dir, NULL);

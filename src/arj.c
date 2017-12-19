@@ -246,9 +246,7 @@ gboolean xa_arj_extract (XArchive *archive, GSList *file_list)
 		gchar *password_str = xa_arj_password_str(archive);
 		command = g_strconcat(archiver[archive->type].program[0],
 		                      archive->do_full_path ? " x" : " e",
-		                      archive->do_overwrite ? "" : " -n",
-		                      archive->do_update ? " -u" : "",
-		                      archive->do_freshen ? " -f" : "",
+		                      archive->do_overwrite ? "" : (archive->do_update ? " -u" : (archive->do_freshen ? " -f" : " -n")),
 		                      password_str, " -i -y ",
 		                      archive->path[1], " ",
 		                      archive->extraction_dir, files->str, NULL);
