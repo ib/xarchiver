@@ -235,8 +235,8 @@ gboolean xa_zip_extract (XArchive *archive, GSList *file_list)
 	                      archive->do_full_path ? "" : " -j",
 	                      archive->do_touch ? " -DD" : "",
 	                      archive->do_overwrite ? " -o" : " -n",
-	                      archive->do_update ? " -u" : "",
-	                      archive->do_freshen ? " -f" : "",
+	                      archive->do_update ? " -ou" : "",
+	                      archive->do_freshen ? " -of" : "",
 	                      password_str, " ",
 	                      archive->path[1], files->str,
 	                      " -d ", archive->extraction_dir, NULL);
