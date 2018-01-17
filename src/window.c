@@ -1801,8 +1801,6 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	}
 	else if (memcmp(magic, "\xed\xab\xee\xdb", 4) == 0)
 		xa.type = XARCHIVETYPE_RPM;
-	else if (isTar(file))
-		xa.type = XARCHIVETYPE_TAR;
 	else if (memcmp(magic, "\xfd" "7zXZ" "\x00", 6) == 0)
 		xa.type = XARCHIVETYPE_XZ;
 	else if (memcmp(magic, "PK" "\x03\x04", 4) == 0 ||
@@ -1822,6 +1820,9 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 	else if (memcmp(magic + 1, "\xb5\x2f\xfd", 3) == 0 &&
 	         (*magic == '\x1e' || (*magic >= '\x22' && *magic <= '\x28')))
 		xa.type = XARCHIVETYPE_ZSTD;
+	/* partly heuristic methods must come last */
+	else if (isTar(file))
+		xa.type = XARCHIVETYPE_TAR;
 
 	fclose(file);
 
