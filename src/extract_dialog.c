@@ -679,7 +679,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(dialog_data->files_treeview),TRUE);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),dialog_data->files_treeview);
 
-	gtk_drag_dest_set (dialog_data->files_treeview,GTK_DEST_DEFAULT_ALL,drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+	gtk_drag_dest_set(dialog_data->files_treeview, GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY);
 	g_signal_connect (G_OBJECT (dialog_data->files_treeview),"drag-data-received",G_CALLBACK (xa_multi_extract_dialog_drag_data_received),dialog_data);
 
 	hbox2 = gtk_hbox_new (TRUE,5);
