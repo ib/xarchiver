@@ -329,7 +329,7 @@ static gboolean xa_dir_sidebar_drag_motion (GtkWidget *widget, GdkDragContext *c
 	}
 	/* This to set the focus on the dropped row */
 	gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(widget),path,GTK_TREE_VIEW_DROP_INTO_OR_BEFORE);
-	gdk_drag_status(context, gdk_drag_context_get_suggested_action(context), time);
+	gdk_drag_status(context, GDK_ACTION_COPY, time);
 	return TRUE;
 }
 
@@ -1044,7 +1044,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_container_add (GTK_CONTAINER (scrolledwindow2),archive_dir_treeview);
 	gtk_widget_show(archive_dir_treeview);
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
-	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview),drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview), drop_targets, 1, GDK_ACTION_COPY);
 	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-collapsed",G_CALLBACK(xa_dir_sidebar_row_expanded),archive_dir_model);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "row-expanded", G_CALLBACK(xa_dir_sidebar_row_expanded), archive_dir_model);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-data-received", G_CALLBACK(xa_dir_sidebar_drag_data_received), NULL);
