@@ -1072,7 +1072,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_show (GTK_WIDGET(notebook));
 	g_signal_connect(notebook, "switch-page", G_CALLBACK(xa_page_has_changed), NULL);
 
-	gtk_drag_dest_set (GTK_WIDGET(notebook),GTK_DEST_DEFAULT_ALL,drop_targets,1,GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+	gtk_drag_dest_set(GTK_WIDGET(notebook), GTK_DEST_DEFAULT_ALL, drop_targets, 1, GDK_ACTION_COPY);
 	g_signal_connect (G_OBJECT (notebook),"drag-data-received",G_CALLBACK (on_drag_data_received),NULL);
 
   	hbox_sb = gtk_hbox_new (FALSE,2);
