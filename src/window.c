@@ -2115,7 +2115,7 @@ void drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
 	g_list_free (row_list);
 }
 
-void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selection_data,guint info,guint t,XArchive *archive)
+void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
 {
 	GtkTreeSelection *selection;
 	GList *row_list;
@@ -2136,7 +2136,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 	g_list_foreach(row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free(row_list);
 
-	gdk_property_get(gdk_drag_context_get_source_window(dc),
+	gdk_property_get(gdk_drag_context_get_source_window(context),
 	                 gdk_atom_intern("XdndDirectSave0", FALSE),
 	                 gdk_atom_intern("text/plain", FALSE),
 	                 0, 4096, FALSE, NULL, NULL, &length, &_destination);
@@ -2164,7 +2164,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		{
 			if (!xa_check_password(archive))
 			{
-				gtk_drag_finish(dc, FALSE, FALSE, t);
+				gtk_drag_finish(context, FALSE, FALSE, time);
 				g_free(extraction_dir);
 				return;
 			}
@@ -2199,7 +2199,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 		g_free(extraction_dir);
 
-		gtk_selection_data_set(selection_data, gtk_selection_data_get_target(selection_data), 8, (guchar *) to_send, 1);
+		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (const guchar *) to_send, 1);
 	}
 }
 
