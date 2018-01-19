@@ -2115,11 +2115,6 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 	g_list_free (row_list);
 }
 
-void drag_end (GtkWidget *widget, GdkDragContext *context, gpointer user_data)
-{
-	/* Nothing to do */
-}
-
 void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selection_data,guint info,guint t,XArchive *archive)
 {
 	GtkTreeSelection *selection;
