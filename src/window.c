@@ -2090,7 +2090,11 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
     GList            *row_list;
 	XEntry *entry;
 
-	gtk_drag_source_set_icon_name (archive->treeview,"xarchiver");
+	if (archive->child_pid)
+		gtk_drag_source_set_icon_stock(archive->treeview, "gtk-stop");
+	else
+		gtk_drag_source_set_icon_name(archive->treeview, "xarchiver");
+
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 
 	row_list = gtk_tree_selection_get_selected_rows (selection,NULL);
@@ -2125,6 +2129,9 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 	guchar *_destination;
 	gchar *destination, *to_send, *extraction_dir;
 
+	if (archive->child_pid)
+		return;
+
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
 	row_list = gtk_tree_selection_get_selected_rows (selection,NULL);
 
@@ -2133,12 +2140,6 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 	g_list_foreach(row_list, (GFunc) gtk_tree_path_free, NULL);
 	g_list_free(row_list);
-
-	if (archive->child_pid!= 0)
-	{
-		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!"));
-		return;
-	}
 
 	gdk_property_get(gdk_drag_context_get_source_window(dc),
 	                 gdk_atom_intern("XdndDirectSave0", FALSE),
