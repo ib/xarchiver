@@ -2195,6 +2195,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			g_free(archive->extraction_dir);
 			archive->extraction_dir = xa_escape_bad_chars(extraction_dir, ESCAPES);
 
+			gtk_label_set_text(GTK_LABEL(total_label), _("Extracting files from archive, please wait..."));
 			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->archiver->extract) (archive,names);
 
