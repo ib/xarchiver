@@ -2083,7 +2083,7 @@ void xa_row_selected (GtkTreeSelection *selection,XArchive *archive)
 	g_free(msg);
 }
 
-void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
+void drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
 {
     GtkTreeSelection *selection;
     GtkTreeIter       iter;
@@ -2091,11 +2091,11 @@ void drag_begin (GtkWidget *treeview1,GdkDragContext *context,XArchive *archive)
 	XEntry *entry;
 
 	if (archive->child_pid)
-		gtk_drag_source_set_icon_stock(archive->treeview, "gtk-stop");
+		gtk_drag_source_set_icon_stock(widget, "gtk-stop");
 	else
-		gtk_drag_source_set_icon_name(archive->treeview, "xarchiver");
+		gtk_drag_source_set_icon_name(widget, "xarchiver");
 
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive->treeview));
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
 
 	row_list = gtk_tree_selection_get_selected_rows (selection,NULL);
 	if (row_list == NULL)
