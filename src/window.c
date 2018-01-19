@@ -2119,7 +2119,7 @@ void drag_end (GtkWidget *widget, GdkDragContext *context, gpointer user_data)
 void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selection_data,guint info,guint t,XArchive *archive)
 {
 	GtkTreeSelection *selection;
-	GList *row_list = NULL;
+	GList *row_list;
 	GSList *names = NULL;
 	guchar *_destination;
 	gchar *destination, *to_send, *extraction_dir;
@@ -2129,6 +2129,9 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 
 	if (row_list == NULL)
 		return;
+
+	g_list_foreach(row_list, (GFunc) gtk_tree_path_free, NULL);
+	g_list_free(row_list);
 
 	if (archive->child_pid!= 0)
 	{
@@ -2182,8 +2185,6 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 			archive->status = XARCHIVESTATUS_EXTRACT;
 			(*archive->archiver->extract) (archive,names);
 
-			g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
-			g_list_free (row_list);
 			to_send = "S";
 		}
 
