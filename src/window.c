@@ -2121,6 +2121,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 	GtkTreeSelection *selection;
 	GList *row_list;
 	GSList *names = NULL;
+	gint length;
 	guchar *_destination;
 	gchar *destination, *to_send, *extraction_dir;
 
@@ -2138,12 +2139,17 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't perform another extraction:"),_("Please wait until the completion of the current one!"));
 		return;
 	}
+
 	gdk_property_get(gdk_drag_context_get_source_window(dc),
-						gdk_atom_intern ("XdndDirectSave0",FALSE),
-						gdk_atom_intern ("text/plain",FALSE),
-						0,4096,FALSE,NULL,NULL,NULL,&_destination );
+	                 gdk_atom_intern("XdndDirectSave0", FALSE),
+	                 gdk_atom_intern("text/plain", FALSE),
+	                 0, 4096, FALSE, NULL, NULL, &length, &_destination);
+
 	if (_destination)
 	{
+		_destination = g_realloc(_destination, length + 1);
+		_destination[length] = 0;
+
 		destination = g_filename_from_uri((gchar*)_destination,NULL,NULL);
 		g_free(_destination);
 
