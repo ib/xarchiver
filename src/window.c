@@ -2150,6 +2150,12 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		_destination = g_realloc(_destination, length + 1);
 		_destination[length] = 0;
 
+		if (strcmp((const char *) _destination, XDS_FILENAME) == 0)
+		{
+			g_free(_destination);
+			return;
+		}
+
 		destination = g_filename_from_uri((gchar*)_destination,NULL,NULL);
 		g_free(_destination);
 
