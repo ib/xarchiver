@@ -44,6 +44,22 @@ static void xa_7zip_uint64_skip (GIOChannel *file)
 	}
 }
 
+static gboolean is_encrypted (XArchive *archive)
+{
+	gchar *command, *output;
+	gboolean result;
+
+	command = g_strconcat(archiver[archive->type].program[INDEX], " l -slt ", archive->path[0], NULL);
+	g_spawn_command_line_sync(command, &output, NULL, NULL, NULL);
+
+	result = (strstr(output, "\nEncrypted = +\n") != NULL);
+
+	g_free(output);
+	g_free(command);
+
+	return result;
+}
+
 gboolean is7zip_mhe (const gchar *filename)
 {
 	GIOChannel *file;
@@ -278,9 +294,14 @@ void xa_7zip_list (XArchive *archive)
 	guint i;
 
 	if (!archive->has_password)
-		archive->has_password = is7zip_mhe(archive->path[0]);
+	{
+		if (archive->type == XARCHIVETYPE_7ZIP)
+			archive->has_password = is7zip_mhe(archive->path[0]);
+		else
+			archive->has_password = is_encrypted(archive);
+	}
 
-	if (archive->has_password)
+	if ((archive->type == XARCHIVETYPE_7ZIP) && archive->has_password)
 		if (!xa_check_password(archive))
 			return;
 
@@ -289,7 +310,7 @@ void xa_7zip_list (XArchive *archive)
 
 	data_line = FALSE;
 	last_line = FALSE;
-	encrypted = FALSE;
+	encrypted = archive->has_password;
 
 	password_str = xa_7zip_password_str(archive);
 
