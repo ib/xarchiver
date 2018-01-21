@@ -2955,13 +2955,27 @@ void xa_unsort (GtkMenuItem *menu_item, gpointer user_data)
 
 GtkWidget *xa_main_window_find_image (gchar *filename, GtkIconSize size)
 {
-  gchar *path;
-  GdkPixbuf *file_pixbuf;
+  gchar *name, *ext, *path;
+  GdkPixbuf *file_pixbuf = NULL;
   GtkWidget *file_image;
 
-  path = g_strconcat(PIXMAPSDIR, "/", filename, NULL);
-  file_pixbuf = gdk_pixbuf_new_from_file(path, NULL);
-  g_free(path);
+  name = g_strdup(filename);
+  ext = g_strrstr(name, ".png");
+
+  if (ext)
+  {
+    *ext = 0;
+    file_pixbuf = gtk_icon_theme_load_icon(icon_theme, name, size, 0, NULL);
+  }
+
+  g_free(name);
+
+  if (file_pixbuf == NULL)
+  {
+    path = g_strconcat(PIXMAPSDIR, "/", filename, NULL);
+    file_pixbuf = gdk_pixbuf_new_from_file(path, NULL);
+    g_free(path);
+  }
 
   if (file_pixbuf == NULL)
     file_image = gtk_image_new_from_stock(GTK_STOCK_MISSING_IMAGE, size);
