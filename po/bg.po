@@ -35,14 +35,14 @@ msgstr "\"%s\" вече е отворен!"
 msgid "%d dir %s (%s)"
 msgid_plural "%d dirs %s (%s)"
 msgstr[0] "%d директория %s (%s)"
-msgstr[1] "%d директория %s (%s)"
+msgstr[1] "%d директории %s (%s)"
 
 #: ../src/window.c
 #, fuzzy, c-format
 #| msgid "Add files"
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "Добави файлове"
+msgstr[0] "Добави файлов"
 msgstr[1] "Добави файлове"
 
 #: ../src/window.c
@@ -50,11 +50,11 @@ msgstr[1] "Добави файлове"
 msgid "%d file %s (%s)"
 msgid_plural "%d files %s (%s)"
 msgstr[0] "%d файл %s (%s)"
-msgstr[1] "%d файл %s (%s)"
+msgstr[1] "%d файлове %s (%s)"
 
 #: ../src/pref_dialog.c
 msgid "/tmp"
-msgstr ""
+msgstr "/tmp"
 
 #: ../src/add_dialog.c
 msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
@@ -105,7 +105,7 @@ msgstr "<th>Файлове:</th>"
 #: ../src/window.c
 #, c-format
 msgid "<th>Size:</th>"
-msgstr "<th>Големина:</th>"
+msgstr "<th>Размер:</th>"
 
 #: ../xarchiver.desktop.in.h
 msgid "A GTK+ only archive manager"
@@ -247,100 +247,100 @@ msgstr "Преглеждане"
 
 #: ../src/add_dialog.c ../src/main.c
 msgid "Can't add files to the archive:"
-msgstr "Немога да добавя файловете към архива:"
+msgstr "Не може да бъдат добавени файловете към архива:"
 
 #: ../src/main.c
 msgid "Can't allocate memory for the archive structure!"
-msgstr "Немога да отделя памет за структурата на архива!"
+msgstr "Не може да се разпредели памет за структурата на архива!"
 
 #: ../src/window.c
 msgid "Can't allocate memory for the archive structure:"
-msgstr "Немога да определя памет за структурата на архива:"
+msgstr "Не може да се разпредели памет за структурата на архива:"
 
 #: ../src/window.c
 msgid "Can't convert the archive to self-extracting:"
-msgstr "Немога да преобразувам архива в саморазархивиращ:"
+msgstr "Не може да се преобразува архива в саморазархивиращ:"
 
 #: ../src/new_dialog.c
 msgid "Can't create a new archive:"
-msgstr "Немога да създам нов архив:"
+msgstr "Не може да бъде създаден нов архив:"
 
 #: ../src/extract_dialog.c ../src/main.c
 #, fuzzy
 msgid "Can't create directory!"
-msgstr "Немога да създам временна директория в /tmp:"
+msgstr "Не може да бъде създадена директория!"
 
 #: ../src/archive.c
 #, fuzzy
 msgid "Can't create temporary directory:"
-msgstr "Немога да създам временна директория в /tmp:"
+msgstr "Не може да бъде създадена временна директория в /tmp:"
 
 #: ../src/extract_dialog.c ../src/main.c
 msgid "Can't extract files from the archive:"
-msgstr "Немога да извлека файловете от архива:"
+msgstr "Не може да се извлекат файловете от архива:"
 
 #: ../src/rpm.c
 msgid "Can't fseek in file:"
-msgstr "Немога да позиционирам във файла:"
+msgstr "Не може да се търси във файла:"
 
 #: ../src/rpm.c
 msgid "Can't fseek to position 104:"
-msgstr "Немога да позиционирам до позиция 104:"
+msgstr "Не може да се търси до позиция 104:"
 
 #: ../src/extract_dialog.c
 msgid "Can't multi-extract archives:"
-msgstr "Не мога да извлека едновременно от много архиви?"
+msgstr "Не може да се разархивират едновременно много архиви"
 
 #: ../src/rpm.c
 #, c-format
 msgid "Can't open RPM file %s:"
-msgstr "Немога да отворе RPM файла %s:"
+msgstr "Не може да бъде отворен файл RPM файл %s:"
 
 #: ../src/window.c
 #, c-format
 msgid "Can't open file \"%s\":"
-msgstr "Немога да отворя файла \"%s\":"
+msgstr "Не може да бъде отворен файл \"%s\":"
 
 #: ../src/window.c
 #, c-format
 msgid "Can't open file %s:"
-msgstr "Немога да отворя файла %s:"
+msgstr "Не може да бъде отворен файл %s:"
 
 #: ../src/window.c
 msgid "Can't perform another extraction:"
-msgstr "Немога да изпълня друго извличане:"
+msgstr ""Не може изпълни друго извличане:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
-msgstr "Немога да изпълня извличането!"
+msgstr "Не може изпълни извличането!"
 
 #: ../src/interface.c ../src/window.c
 msgid "Can't perform this action:"
-msgstr "Немога да изпълня следните действия:"
+msgstr ""Не може изпълни следното действие:"
 
 #: ../src/rpm.c
 msgid "Can't read data from file:"
-msgstr "Немога да прочета информация от файла:"
+msgstr "Не могат да бъдат прочетени данните от файла:"
 
 #: ../src/archive.c
 msgid "Can't run the archiver executable:"
-msgstr "Немога да стартирам изпълнителя на архива:"
+msgstr "Не може да бъде стартиран изпълнимия файл на архиватора:"
 
 #: ../src/window.c
 msgid "Can't write the unzipsfx module to the archive:"
-msgstr "Немога да запиша unzipsfx модула към архива:"
+msgstr "Не можа да бъде записан unzipsfx модула към архива:"
 
 #: ../src/interface.c
 msgid "Cancel current operation"
-msgstr "Откажи текущото действие"
+msgstr "Откажи текущата операция"
 
 #: ../src/gzip_et_al.c
 msgid "Check Type"
-msgstr ""
+msgstr "Проверка на Тип"
 
 #: ../src/arj.c ../src/rar.c
 msgid "Checksum"
-msgstr ""
+msgstr "Контролна сума"
 
 #: ../src/pref_dialog.c
 msgid "Choose the application to use"
@@ -438,7 +438,7 @@ msgstr "Дата"
 #, fuzzy
 #| msgid "Date modified"
 msgid "Date and Time"
-msgstr "Дата на промяна"
+msgstr "Дата на Време"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -464,7 +464,7 @@ msgstr "Крайни директории:"
 
 #: ../src/add_dialog.c
 msgid "Do not store paths"
-msgstr "Незапазвай пътищата"
+msgstr "Не запазвай пътищата"
 
 #: ../src/window.c
 msgid "Do you really want to cancel?"
@@ -484,18 +484,19 @@ msgstr "Криптиран:"
 
 #: ../src/add_dialog.c
 msgid "Encryption: "
-msgstr "Декриптиране:"
+msgstr "Криптиране:"
 
 #: ../src/extract_dialog.c
 #, fuzzy
 msgid "Ensure a containing directory"
-msgstr "Зададена временна директория:"
+msgstr "ЗУверете се, че съдържа директория:"
 
 #: ../src/extract_dialog.c
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory"
-msgstr ""
+msgstr "Уверете се, че съдържанието на извлечения архив винаги съдържа "
+"директория"
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -652,12 +653,12 @@ msgstr "Включи и поддиректориите"
 
 #: ../src/interface.c
 msgid "Location:"
-msgstr "Място:"
+msgstr "Местоположение:"
 
 #: ../src/main.c
 #, c-format
 msgid "Maintained by "
-msgstr ""
+msgstr "Поддържано от"
 
 #: ../src/interface.c
 msgid "Make SF_X"
@@ -698,11 +699,11 @@ msgstr "Брой на файловете:"
 
 #: ../src/zip.c
 msgid "OS"
-msgstr ""
+msgstr "OC"
 
 #: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
 msgid "Occupancy"
-msgstr ""
+msgstr "Заемане"
 
 #: ../src/new_dialog.c ../src/window.c
 msgid "Only archives"
@@ -753,7 +754,7 @@ msgstr "Отваряне на архива, моля изчакайте..."
 
 #: ../src/window.c
 msgid "Operation aborted!"
-msgstr ""
+msgstr "Операцията е отхвърлена"
 
 #: ../src/add_dialog.c
 msgid "Options"
@@ -773,7 +774,7 @@ msgstr "Опции:"
 #, fuzzy
 #| msgid "Original"
 msgid "Original Size"
-msgstr "Оригинален"
+msgstr "Оригинален размер"
 
 #: ../src/extract_dialog.c
 msgid "Overwrite existing files"
@@ -839,7 +840,7 @@ msgstr "Моля идете в 'Преференции' -> 'Разширени' 
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr ""
+msgstr "Моля, докладвайте грешка на <%s>."
 
 #: ../src/window.c
 msgid "Please select the 7zCon.sfx module"
@@ -859,17 +860,17 @@ msgstr "Моля изчакайте докато несвърши предишн
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
-msgstr "Места към"
+msgstr "Точки до"
 
 #: ../src/pref_dialog.c
 #, fuzzy
 #| msgid "Icons size (requires restart)"
 msgid "Prefer unzip for zip files (requires restart)"
-msgstr "Големина на иконите (изискване рестарт)"
+msgstr "Предпочитай unzip за zip файлове (изисква рестарт)"
 
 #: ../src/pref_dialog.c
 msgid "Preferences"
-msgstr "Преференции"
+msgstr "Настройки"
 
 #: ../src/pref_dialog.c
 msgid "Preferred archive format"
@@ -959,7 +960,7 @@ msgstr "Покажи коментара на архива"
 
 #: ../src/pref_dialog.c
 msgid "Show archive location bar"
-msgstr "Покажи бара с адреса"
+msgstr "Покажи лентата с адреса"
 
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
@@ -983,7 +984,7 @@ msgstr ""
 
 #: ../src/extract_dialog.c
 msgid "Size"
-msgstr "Големина"
+msgstr "Размер"
 
 #: ../src/extract_dialog.c
 msgid "Some errors occurred:"
@@ -1019,7 +1020,7 @@ msgstr ""
 
 #: ../src/window.c
 msgid "Test result:"
-msgstr ""
+msgstr "Резултата от теста:"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
@@ -1034,7 +1035,7 @@ msgstr "Архива \"%s\", вече съществува!"
 #, fuzzy
 #| msgid "This archive is encrypted!"
 msgid "The archive is okay."
-msgstr "Архива е кодиран!"
+msgstr "Архива е в добро състояние!"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -1045,11 +1046,11 @@ msgstr ""
 
 #: ../src/extract_dialog.c
 msgid "The archiver doesn't support this feature!"
-msgstr "Архива неподдържа тази опция!"
+msgstr "Архиватора не поддържа тази опция!"
 
 #: ../src/gzip_et_al.c
 msgid "The archiver lacks necessary support for password protected decryption!"
-msgstr ""
+msgstr "Архиватора няма необходимата поддръжка за дешифриране на защитеното съдържание"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
@@ -1158,11 +1159,11 @@ msgstr "Големина в некомпресиран вид:"
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
-msgstr ""
+msgstr "Неизвестен тип на компресиране"
 
 #: ../src/interface.c
 msgid "Uns_ort"
-msgstr ""
+msgstr "Премахни отбелязаното"
 
 #: ../src/7zip.c
 msgid "Unsupported binary format!"
@@ -1221,13 +1222,13 @@ msgstr "Да"
 #: ../src/window.c
 #, fuzzy
 msgid "You are about to delete entries from the archive."
-msgstr "Немога да извлека файловете от архива:"
+msgstr "На път сте да изтриете елементи от архива:"
 
 #: ../src/interface.c ../src/window.c
 #, fuzzy
 #| msgid "You can't add content to deb packages!"
 msgid "You can't add content to this archive type!"
-msgstr "Неможе да добавяте съдържание към deb пакети."
+msgstr "Не може да бъде добавено съдържание към deb пакети."
 
 #: ../src/window.c
 msgid "You didn't set which browser to use!"
@@ -1251,7 +1252,7 @@ msgstr "Не сте добавили никой от тях!"
 
 #: ../src/add_dialog.c
 msgid "You haven't selected any files to add!"
-msgstr "Не сте маркирали файлове за добавяне!"
+msgstr "Не сте избрали файлове за добавяне!"
 
 #: ../src/main.c
 msgid "You missed the archive name!\n"
@@ -1263,11 +1264,11 @@ msgstr "Пропуснали сте паролата!"
 
 #: ../src/extract_dialog.c
 msgid "You missed where to extract the files!"
-msgstr "Пропуснали сте къде да извлечете файловете!"
+msgstr "Пропуснали сте да зададете, къде да бъдат извлечени файловете!"
 
 #: ../src/main.c
 msgid "[ARCHIVE]"
-msgstr ""
+msgstr "[АРХИВ]"
 
 #: ../src/add_dialog.c
 msgid "_Add"
@@ -1280,7 +1281,7 @@ msgstr "_Архив"
 #: ../src/interface.c
 #, fuzzy
 msgid "_Contents"
-msgstr "Коментар"
+msgstr "_Съдържание"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "_Extract"
@@ -1289,7 +1290,7 @@ msgstr "Извличан_е"
 #: ../src/interface.c
 #, fuzzy
 msgid "_HTML file"
-msgstr "HTML fajl"
+msgstr "HTML файл"
 
 #: ../src/interface.c
 msgid "_Help"
@@ -1298,7 +1299,7 @@ msgstr "_Помощ"
 #: ../src/interface.c
 #, fuzzy
 msgid "_List as"
-msgstr "Покажи като"
+msgstr "Подреди като"
 
 #: ../src/interface.c
 msgid "_Multi-Extract"
@@ -1310,7 +1311,7 @@ msgstr "_Парола:"
 
 #: ../src/interface.c
 msgid "_Preferences"
-msgstr "Преференции"
+msgstr "Настройки"
 
 #: ../src/interface.c
 msgid "_Properties"
@@ -1318,11 +1319,11 @@ msgstr "_Свойства"
 
 #: ../src/interface.c
 msgid "_Select"
-msgstr "_Маркирай"
+msgstr "_Избери"
 
 #: ../src/interface.c
 msgid "_Test"
-msgstr "_Test"
+msgstr "_Тест"
 
 #: ../src/interface.c
 #, fuzzy
@@ -1331,7 +1332,7 @@ msgstr "Текстов файл"
 
 #: ../src/window.c
 msgid "and"
-msgstr ""
+msgstr "и"
 
 #: ../src/pref_dialog.c
 msgid "choose..."
@@ -1341,7 +1342,7 @@ msgstr "избор..."
 #, fuzzy
 #| msgid "destination archive"
 msgid "destination"
-msgstr "краен архив"
+msgstr "направление"
 
 #: ../src/interface.c
 msgid "example: *.txt; ac*"
@@ -1380,12 +1381,12 @@ msgstr ""
 
 #: ../src/window.c
 msgid "|Size\n"
-msgstr "|Големина\n"
+msgstr "|Размер\n"
 
 #, fuzzy
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"
-#~ msgstr[0] "%d файла и %d директории %s (%s)"
+#~ msgstr[0] "%d файл и %d директория %s (%s)"
 #~ msgstr[1] "%d файла и %d директории %s (%s)"
 
 #~ msgid "Attr"
@@ -1403,7 +1404,7 @@ msgstr "|Големина\n"
 #~ msgstr "Моля инсталирайте 'xdg-utils' пакета."
 
 #~ msgid "This file type is not supported!"
-#~ msgstr "Неподдържан тип на файла!"
+#~ msgstr "Този файлов тип не се поддържа!"
 
 #~ msgid "Timestamp"
 #~ msgstr "Време"
@@ -1415,7 +1416,7 @@ msgstr "|Големина\n"
 #~ msgstr "Извличане от множество архиви"
 
 #~ msgid "You can't add content to rpm packages!"
-#~ msgstr "Неможе да добавяте съдържание към rpm пакети!"
+#~ msgstr "Не може да бъде добавено съдържание към rpm пакети!"
 
 #~ msgid "You have to install arj package!"
 #~ msgstr "Нужно е да инсталирате arj пакет!"
@@ -1436,17 +1437,17 @@ msgstr "|Големина\n"
 #~ msgstr "|Компресиран\n"
 
 #~ msgid "<th>Compressed:</th>"
-#~ msgstr "<th>Некомпресиран:</th>"
+#~ msgstr "<th>Компресиран:</th>"
 
 #~ msgid "Home"
-#~ msgstr "Домашна"
+#~ msgstr "Домашна директория"
 
 #~ msgid "Add the archive extension to the filename"
 #~ msgstr "Добави разширението на архива към името на файла"
 
 #, fuzzy
 #~ msgid "_Donate"
-#~ msgstr "Дата"
+#~ msgstr "_Дарете"
 
 #~ msgid "_Thanks to"
 #~ msgstr "Благодарности на"
