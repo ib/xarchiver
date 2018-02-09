@@ -28,13 +28,13 @@ static gboolean data_line, last_line;
 
 gboolean xa_lha_check_program (gchar *path)
 {
-	gchar *stdout, *stderr;
+	gchar *sout, *serr;
 	gboolean full_lha;
 
-	g_spawn_command_line_sync(path, &stdout, &stderr, NULL, NULL);
-	full_lha = (g_ascii_strncasecmp("Lhasa ", stdout, 6) != 0);
-	g_free(stderr);
-	g_free(stdout);
+	g_spawn_command_line_sync(path, &sout, &serr, NULL, NULL);
+	full_lha = (g_ascii_strncasecmp("Lhasa ", sout, 6) != 0);
+	g_free(serr);
+	g_free(sout);
 
 	return full_lha;
 }
