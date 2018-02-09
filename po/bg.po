@@ -42,7 +42,7 @@ msgstr[1] "%d директории %s (%s)"
 #| msgid "Add files"
 msgid "%d file"
 msgid_plural "%d files"
-msgstr[0] "Добави файлов"
+msgstr[0] "Добави файл"
 msgstr[1] "Добави файлове"
 
 #: ../src/window.c
