@@ -162,7 +162,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 	gchar *app_name = NULL, *app_exec = NULL, *app_icon = NULL;
 	GIOStatus status;
 	GIOChannel *file;
-	gboolean has_mimetype = FALSE;
+	gboolean group_line = FALSE, has_mimetype = FALSE;
 	const gchar * const *langs, * const *l;
 	gint size;
 
@@ -178,6 +178,15 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 		status = g_io_channel_read_line (file, &line, NULL, NULL, NULL);
 		if (line != NULL)
 		{
+			if (strcmp(g_strchomp(line), "[Desktop Entry]") == 0)
+			{
+				group_line = TRUE;
+				continue;
+			}
+			if (group_line && *line == '[')
+				break;
+			if (!group_line)
+				continue;
 			if (g_str_has_prefix(line, "Name["))
 			{
 				l = langs;
@@ -189,7 +198,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 					if (g_str_has_prefix(line, key))
 					{
 						g_free(app_name);
-						app_name = g_strndup(line + strlen(key), strlen(line) - strlen(key) - 1);
+						app_name = g_strndup(line + strlen(key), strlen(line) - strlen(key));
 						g_free(key);
 						break;
 					}
@@ -200,7 +209,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			}
 			if (!app_name && g_str_has_prefix(line, "Name="))
 			{
-				app_name = g_strndup(line + 5,(strlen(line)-6));
+				app_name = g_strndup(line + 5, strlen(line) - 5);
 				continue;
 			}
 			if (g_str_has_prefix(line,"Exec="))
@@ -209,7 +218,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 				if (app_exec)
 					app_exec = g_strndup(line + 5, app_exec - (line + 5));
 				else
-					app_exec = g_strndup(line + 5, strlen(line) - 6);
+					app_exec = g_strndup(line + 5, strlen(line) - 5);
 				continue;
 			}
 			if (g_str_has_prefix(line,"Icon="))
@@ -218,7 +227,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 				if (app_icon)
 					app_icon = g_strndup(line + 5,app_icon - (line+5));
 				else
-					app_icon = g_strndup(line + 5,(strlen(line)-6));
+					app_icon = g_strndup(line + 5, strlen(line) - 5);
 				continue;
 			}
 			if (g_str_has_prefix(line,"MimeType="))
