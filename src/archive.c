@@ -67,8 +67,7 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 
 			return TRUE;
 		}
-
-		if (status == G_IO_STATUS_AGAIN)
+		else if (status == G_IO_STATUS_AGAIN)
 			return TRUE;
 		else
 			cond &= ~G_IO_IN;
@@ -113,8 +112,7 @@ static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive 
 
 			return TRUE;
 		}
-
-		if (status == G_IO_STATUS_AGAIN)
+		else if (status == G_IO_STATUS_AGAIN)
 			return TRUE;
 		else
 			cond &= ~G_IO_IN;
