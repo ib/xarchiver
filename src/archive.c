@@ -64,19 +64,22 @@ static gboolean xa_process_stdout (GIOChannel *ioc, GIOCondition cond, XArchive 
 
 			while (gtk_events_pending())
 				gtk_main_iteration();
+
+			return TRUE;
 		}
-	}
-	else
-	{
-		g_io_channel_shutdown(ioc, FALSE, NULL);
-		g_io_channel_unref(ioc);
 
-		xa_child_processed(XA_CHILD_STDOUT, cond == G_IO_HUP, archive);
-
-		return FALSE;
+		if (status == G_IO_STATUS_AGAIN)
+			return TRUE;
+		else
+			cond &= ~G_IO_IN;
 	}
 
-	return TRUE;
+	g_io_channel_shutdown(ioc, FALSE, NULL);
+	g_io_channel_unref(ioc);
+
+	xa_child_processed(XA_CHILD_STDOUT, cond == G_IO_HUP, archive);
+
+	return FALSE;
 }
 
 static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive *archive)
@@ -107,19 +110,22 @@ static gboolean xa_process_stderr (GIOChannel *ioc, GIOCondition cond, XArchive 
 			}
 
 			g_free(line);
+
+			return TRUE;
 		}
-	}
-	else
-	{
-		g_io_channel_shutdown(ioc, FALSE, NULL);
-		g_io_channel_unref(ioc);
 
-		xa_child_processed(XA_CHILD_STDERR, cond == G_IO_HUP, archive);
-
-		return FALSE;
+		if (status == G_IO_STATUS_AGAIN)
+			return TRUE;
+		else
+			cond &= ~G_IO_IN;
 	}
 
-	return TRUE;
+	g_io_channel_shutdown(ioc, FALSE, NULL);
+	g_io_channel_unref(ioc);
+
+	xa_child_processed(XA_CHILD_STDERR, cond == G_IO_HUP, archive);
+
+	return FALSE;
 }
 
 static void xa_process_exit (GPid pid, gint status, XArchive *archive)
