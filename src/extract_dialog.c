@@ -554,21 +554,9 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 			if (gtk_widget_is_sensitive(dialog_data->ensure_directory) &&
 			    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->ensure_directory)))
 			{
-				XEntry *entry;
-				guint i = 0;
-
-				entry = archive->root_entry->child;
-
-				while (entry)
-				{
-					if (++i > 1) break;
-
-					entry = entry->next;
-				}
-
 				if (!gtk_widget_is_sensitive(dialog_data->extract_full) ||
 				    !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog_data->extract_full)) ||
-				    (i != 1) || !archive->root_entry->child->is_dir)
+				    !xa_has_containing_directory(archive))
 				{
 					gchar *extraction_dir;
 

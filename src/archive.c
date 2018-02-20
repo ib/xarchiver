@@ -590,6 +590,23 @@ gboolean xa_run_command (XArchive *archive, const gchar *command)
 	return result;
 }
 
+gboolean xa_has_containing_directory (XArchive *archive)
+{
+	XEntry *entry;
+	guint n = 0;
+
+	entry = archive->root_entry->child;
+
+	while (entry)
+	{
+		if (++n > 1) break;
+
+		entry = entry->next;
+	}
+
+	return (n == 1) && archive->root_entry->child->is_dir;
+}
+
 gint xa_find_archive_index (gint page_num)
 {
 	GtkWidget *page;

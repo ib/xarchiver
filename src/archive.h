@@ -226,6 +226,7 @@ XEntry *xa_find_entry_from_dirpath(XArchive *, const gchar *);
 void xa_free_entry(XArchive *, XEntry *);
 gboolean xa_get_compressed_tar_type(XArchiveType *);
 gint xa_get_new_archive_idx();
+gboolean xa_has_containing_directory(XArchive *);
 XArchive *xa_init_archive_structure(ArchiveType);
 gboolean xa_run_command(XArchive *, const gchar *);
 XEntry *xa_set_archive_entries_for_each_row(XArchive *, const gchar *, gpointer *);

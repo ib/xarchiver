@@ -1047,22 +1047,10 @@ int main (int argc, char **argv)
 
 			if (opt_ensure_dir)
 			{
-				XEntry *entry;
-
 				current_dir = g_get_current_dir();
 				archive->extraction_dir = xa_escape_bad_chars(current_dir, ESCAPES);
 
-				i = 0;
-				entry = archive->root_entry->child;
-
-				while (entry)
-				{
-					if (++i > 1) break;
-
-					entry = entry->next;
-				}
-
-				if ((i != 1) || !archive->root_entry->child->is_dir)
+				if (!xa_has_containing_directory(archive))
 				{
 					extraction_dir = xa_create_containing_directory(archive, current_dir);
 
