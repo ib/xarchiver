@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2017-09-14 11:50+0200\n"
-"PO-Revision-Date: 2018-02-09 14:17+0200\n"
+"PO-Revision-Date: 2018-02-26 14:55+0200\n"
 "Last-Translator: cybercop-montana <cybercop_montana@abv.bg>\n"
 "Language-Team: BULGARIAN <Enzo_01@abv.bg>\n"
 "Language: bg\n"
@@ -223,11 +223,11 @@ msgstr "Тип на архива:"
 #, fuzzy
 #| msgid "Can't run the archiver executable:"
 msgid "Archiver executable:"
-msgstr "Немога да стартирам изпълнителя на архива:"
+msgstr "Не мога да стартирам изпълнението на архиватора:"
 
 #: ../src/window.c
 msgid "Archiver output"
-msgstr "Изход от архивиране"
+msgstr "Изход от архиватора"
 
 #: ../src/window.c
 msgid "Are you sure you want to do this?"
@@ -908,7 +908,7 @@ msgstr "Преименувай"
 
 #: ../src/interface.c
 msgid "Root"
-msgstr "Рутска"
+msgstr "Коренова директория"
 
 #: ../src/window.c
 msgid "Save the archive as"
@@ -944,7 +944,7 @@ msgstr "Изберете приложение"
 
 #: ../src/interface.c
 msgid "Select by Pattern"
-msgstr "Маркирай чрез образец"
+msgstr "Избери от шаблон"
 
 #: ../src/extract_dialog.c
 msgid "Selected files"
@@ -976,11 +976,11 @@ msgstr "Добави дадените файлове, изисквайки на�
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
-msgstr ""
+msgstr "Покажи лентата с инструменти"
 
 #: ../src/main.c
 msgid "Show version and exit\n"
-msgstr ""
+msgstr "Показване на версията и изход\n"
 
 #: ../src/extract_dialog.c
 msgid "Size"
@@ -1159,7 +1159,7 @@ msgstr "Големина в некомпресиран вид:"
 
 #: ../src/rpm.c
 msgid "Unknown compression type!"
-msgstr "Неизвестен тип на компресиране"
+msgstr "Неизвестен тип на компресиране!"
 
 #: ../src/interface.c
 msgid "Uns_ort"
@@ -1167,7 +1167,7 @@ msgstr "Премахни отбелязаното"
 
 #: ../src/7zip.c
 msgid "Unsupported binary format!"
-msgstr ""
+msgstr "Премахни двуичния формат!"
 
 #: ../src/interface.c
 msgid "Up"
@@ -1195,7 +1195,7 @@ msgstr "Преглед"
 
 #: ../src/pref_dialog.c
 msgid "Web browser to use:"
-msgstr "Уеб броузър:"
+msgstr "Уеб браузър:"
 
 #: ../src/extract_dialog.c
 #, fuzzy
