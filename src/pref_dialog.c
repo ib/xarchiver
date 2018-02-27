@@ -234,8 +234,11 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
 	prefs_data->combo_icon_size = gtk_combo_box_text_new();
-	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("large"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("small"));
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("medium"));
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("larger"));
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("large"));
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("very large"));
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->combo_icon_size, 1, 2, 0, 1,
 					(GtkAttachOptions) (GTK_FILL),
 					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
@@ -409,7 +412,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"sort_filename_content",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_sort_filename_column)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"store_output",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->store_output)));
 
-	g_key_file_set_integer (xa_key_file,PACKAGE,"icon_size",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_icon_size)));
+	g_key_file_set_integer(xa_key_file, PACKAGE, "icon_size", gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_data->combo_icon_size)) + 2);
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_archive_comment",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->check_show_comment)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_sidebar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_sidebar)));
 	g_key_file_set_boolean (xa_key_file,PACKAGE,"show_location_bar",gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prefs_data->show_location_bar)));
@@ -513,6 +516,7 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 	GKeyFile *xa_key_file = g_key_file_new();
 	GError *error = NULL;
 	gboolean unzip, toolbar;
+	gint idx;
 
 	config_dir = g_strconcat (g_get_home_dir(),"/.config",NULL);
 	if (g_file_test(config_dir, G_FILE_TEST_EXISTS) == FALSE)
@@ -551,7 +555,15 @@ void xa_prefs_load_options(Prefs_dialog_data *prefs_data)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->confirm_deletion),g_key_file_get_boolean(xa_key_file,PACKAGE,"confirm_deletion",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prefs_data->store_output),g_key_file_get_boolean(xa_key_file,PACKAGE,"store_output",NULL));
 
-		gtk_combo_box_set_active (GTK_COMBO_BOX(prefs_data->combo_icon_size),g_key_file_get_integer(xa_key_file,PACKAGE,"icon_size",NULL));
+		idx = g_key_file_get_integer(xa_key_file, PACKAGE, "icon_size", NULL) - 2;
+
+		/* preserve setting with existing, old config file */
+		if (idx == -2)
+			idx = 3;
+		if (idx < 0)
+			idx = 0;
+
+		gtk_combo_box_set_active(GTK_COMBO_BOX(prefs_data->combo_icon_size), idx);
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_show_comment),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_archive_comment",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column),g_key_file_get_boolean(xa_key_file,PACKAGE,"sort_filename_content",NULL));
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(prefs_data->show_sidebar),g_key_file_get_boolean(xa_key_file,PACKAGE,"show_sidebar",NULL));

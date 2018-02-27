@@ -260,10 +260,25 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			app->name = app_name;
 			app->exec = app_exec;
 
-			if (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
-				size = 40;
-			else
-				size = 24;
+			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)))
+			{
+				case 0:
+					size = 24;
+					break;
+
+				case 1:
+				case 2:
+					size = 32;
+					break;
+
+				case 3:
+					size = 40;
+					break;
+
+				default:
+					size = 48;
+					break;
+			}
 
 			if (app_icon)
 			{

@@ -2900,10 +2900,29 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		else
 			filename = entry->filename;
 
-		if (gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_window->combo_icon_size)) == 0)
-			size = 30;
-		else
-			size = 20;
+		switch (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)))
+		{
+			case 0:
+				size = 20;
+				break;
+
+			case 1:
+				size = 22;
+				break;
+
+			case 2:
+				size = 24;
+				break;
+
+			case 3:
+				size = 30;
+				break;
+
+			default:
+				size = 32;
+				break;
+		}
+
 		pixbuf = xa_get_pixbuf_icon_from_cache(filename,size);
 		gtk_list_store_set(archive->liststore, &iter, archive->columns - 1, entry, -1);
 		gtk_list_store_set (archive->liststore,&iter,0,pixbuf,1,entry->filename,-1);
