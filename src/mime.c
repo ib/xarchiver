@@ -144,7 +144,7 @@ GdkPixbuf *xa_get_pixbuf_icon_from_cache(gchar *filename,gint size)
 		}
 		else
 		{
-			pixbuf = gtk_icon_theme_load_icon(icon_theme,icon_name,size,GTK_ICON_LOOKUP_FORCE_SVG,NULL);
+			pixbuf = gtk_icon_theme_load_icon(icon_theme, icon_name, size, (GtkIconLookupFlags) 0, NULL);
 			if (pixbuf)
 			{
 				tie->pixbuf = pixbuf;
