@@ -17,6 +17,7 @@
  */
 
 #include <string.h>
+#include <unistd.h>
 #include "pref_dialog.h"
 #include "add_dialog.h"
 #include "archive.h"
@@ -404,6 +405,10 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	gchar *conf;
 	gchar *value= NULL;
 	gsize len;
+
+	if (access(filename, W_OK) == -1)
+		return;
+
 	GKeyFile *xa_key_file = g_key_file_new();
 
 	g_key_file_set_integer (xa_key_file,PACKAGE,"preferred_format",gtk_combo_box_get_active (GTK_COMBO_BOX(prefs_data->combo_prefered_format)));
