@@ -2541,7 +2541,7 @@ gboolean xa_mouse_button_event (GtkWidget *widget, GdkEventButton *event, XArchi
 		{
 			if (selected > 1 || entry->is_dir)
 			{
-				gtk_widget_set_sensitive(open_popupmenu, FALSE);
+				gtk_widget_set_sensitive(open_popupmenu, !entry->is_dir && archive->can_extract);
 				gtk_widget_set_sensitive(view, FALSE);
 				gtk_widget_set_sensitive(rrename, FALSE);
 			}
