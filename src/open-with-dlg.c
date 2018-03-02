@@ -30,6 +30,7 @@ typedef struct
 {
 	gchar *name;
 	gchar *exec;
+	gboolean multiple;
 	GdkPixbuf *icon;
 } App;
 
@@ -162,7 +163,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 	gchar *app_name = NULL, *app_exec = NULL, *app_icon = NULL;
 	GIOStatus status;
 	GIOChannel *file;
-	gboolean group_line = FALSE, has_mimetype = FALSE;
+	gboolean group_line = FALSE, app_multiple = FALSE, has_mimetype = FALSE;
 	const gchar * const *langs, * const *l;
 	gint size;
 
@@ -216,7 +217,10 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 			{
 				app_exec = strstr(line, " %");
 				if (app_exec)
+				{
+					app_multiple = (app_exec[2] == 'F' || app_exec[2] == 'U');
 					app_exec = g_strndup(line + 5, app_exec - (line + 5));
+				}
 				else
 					app_exec = g_strndup(line + 5, strlen(line) - 5);
 				continue;
@@ -259,6 +263,7 @@ static void xa_parse_desktop_file (const gchar *path, const gchar *name, Open_wi
 
 			app->name = app_name;
 			app->exec = app_exec;
+			app->multiple = app_multiple;
 
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(prefs_window->combo_icon_size)))
 			{
@@ -471,8 +476,11 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	{
 		App *app = apps->data;
 
-		gtk_list_store_append(apps_liststore, &iter);
-		gtk_list_store_set(apps_liststore, &iter, 0, app->icon, 1, app->name, 2, app->exec, -1);
+		if (app->multiple || (nr == 1))
+		{
+			gtk_list_store_append(apps_liststore, &iter);
+			gtk_list_store_set(apps_liststore, &iter, 0, app->icon, 1, app->name, 2, app->exec, -1);
+		}
 
 		apps = apps->next;
 	}
