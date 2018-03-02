@@ -477,8 +477,13 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 		apps = apps->next;
 	}
 
-	gtk_tree_model_get_iter_first(GTK_TREE_MODEL(apps_liststore), &iter);
-	gtk_tree_selection_select_iter(gtk_tree_view_get_selection (GTK_TREE_VIEW (apps_treeview)),&iter);
+	if (data->apps)
+	{
+		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(apps_liststore), &iter);
+		gtk_tree_selection_select_iter(gtk_tree_view_get_selection(GTK_TREE_VIEW(apps_treeview)), &iter);
+	}
+	else
+		gtk_widget_set_sensitive(okbutton1, FALSE);
 
 	g_signal_connect (G_OBJECT (apps_treeview),	"row-activated",G_CALLBACK(xa_open_with_dialog_row_selected),data);
 	g_signal_connect(G_OBJECT(apps_treeview), "button-release-event", G_CALLBACK(xa_open_with_dialog_mouse_button_event), data);
