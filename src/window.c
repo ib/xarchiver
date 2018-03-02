@@ -2539,18 +2539,9 @@ gboolean xa_mouse_button_event (GtkWidget *widget, GdkEventButton *event, XArchi
 			xa_treeview_row_activated(GTK_TREE_VIEW(archive->treeview), path, NULL, archive);
 		else if (event->button == 3)
 		{
-			if (selected > 1 || entry->is_dir)
-			{
-				gtk_widget_set_sensitive(open_popupmenu, !entry->is_dir && archive->can_extract);
-				gtk_widget_set_sensitive(view, FALSE);
-				gtk_widget_set_sensitive(rrename, FALSE);
-			}
-			else
-			{
-				gtk_widget_set_sensitive(open_popupmenu, archive->can_extract);
-				gtk_widget_set_sensitive(view, archive->can_extract);
-				gtk_widget_set_sensitive(rrename, can_rename(archive));
-			}
+			gtk_widget_set_sensitive(open_popupmenu, !entry->is_dir && archive->can_extract);
+			gtk_widget_set_sensitive(view, (selected == 1) && !entry->is_dir && archive->can_extract);
+			gtk_widget_set_sensitive(rrename, (selected == 1) && !entry->is_dir && can_rename(archive));
 
 			clipboard = gtk_clipboard_get(XA_CLIPBOARD);
 			clipboard_selection = gtk_clipboard_wait_for_contents(clipboard, XA_INFO_LIST);
