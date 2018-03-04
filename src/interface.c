@@ -1632,14 +1632,13 @@ void xa_show_progress_bar (XArchive *archive)
 		gtk_misc_set_alignment (GTK_MISC (message),0,0.5);
 	}
 
-	progress->label = gtk_label_new("");
-	gtk_label_set_ellipsize(GTK_LABEL(progress->label), PANGO_ELLIPSIZE_END);
+	progress->label = gtk_label_new(NULL);
 	gtk_misc_set_alignment(GTK_MISC(progress->label), 0, 0.5);
 	gtk_box_pack_start(GTK_BOX(vbox2), progress->label, FALSE, FALSE, 12);
 	if (archive)
 	{
 		text = g_filename_display_name(archive->path[0]);
-		gtk_label_set_text(GTK_LABEL(progress->label), text);
+		gtk_label_set_text(GTK_LABEL(progress->label), xa_set_max_width_chars_ellipsize(text, 50, PANGO_ELLIPSIZE_END));
 		g_free(text);
 	}
 	else
