@@ -1189,23 +1189,19 @@ void xa_add_page (XArchive *archive)
 	gtk_widget_show(archive->page);
 
 	page_hbox = gtk_hbox_new(FALSE,0);
+	label = gtk_label_new(NULL);
 
 	filename_only = g_strrstr(archive->path[0], "/");
 	if (filename_only != NULL)
 	{
 		filename_only++;
 		label_utf8 = g_filename_display_name(filename_only);
-		label = gtk_label_new(NULL);
-		tab_label = gtk_label_new(label_utf8);
 	}
 	else
-	{
 		label_utf8 = g_filename_display_name(archive->path[0]);
-		label = gtk_label_new(NULL);
-		tab_label = gtk_label_new(label_utf8);
-	}
 
 	gtk_label_set_text(GTK_LABEL(label), xa_set_max_width_chars_ellipsize(label_utf8, 50, PANGO_ELLIPSIZE_START));
+	tab_label = gtk_label_new(label_utf8);
 	g_free(label_utf8);
 
 	gtk_box_pack_start(GTK_BOX(page_hbox),label,FALSE,FALSE,0);
