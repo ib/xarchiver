@@ -1195,19 +1195,19 @@ void xa_add_page (XArchive *archive)
 	{
 		filename_only++;
 		label_utf8 = g_filename_display_name(filename_only);
-		label = gtk_label_new(label_utf8);
+		label = gtk_label_new(NULL);
 		tab_label = gtk_label_new(label_utf8);
 	}
 	else
 	{
 		label_utf8 = g_filename_display_name(archive->path[0]);
-		label = gtk_label_new(label_utf8);
+		label = gtk_label_new(NULL);
 		tab_label = gtk_label_new(label_utf8);
 	}
+
+	gtk_label_set_text(GTK_LABEL(label), xa_set_max_width_chars_ellipsize(label_utf8, 50, PANGO_ELLIPSIZE_START));
 	g_free(label_utf8);
 
-	gtk_label_set_max_width_chars(GTK_LABEL(label),50);
-	gtk_label_set_ellipsize(GTK_LABEL(label),PANGO_ELLIPSIZE_START);
 	gtk_box_pack_start(GTK_BOX(page_hbox),label,FALSE,FALSE,0);
 
 	close_button = gtk_button_new();
