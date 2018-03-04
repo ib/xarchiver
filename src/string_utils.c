@@ -430,3 +430,52 @@ GString *xa_collect_files_in_dir (const gchar *directory)
 
 	return files;
 }
+
+gchar *xa_set_max_width_chars_ellipsize (const gchar *string, gint n, PangoEllipsizeMode mode)
+{
+	static gchar *ellipsized;
+	glong len;
+
+	len = g_utf8_strlen(string, -1);
+
+	if (len <= n)
+		return (gchar *) string;
+
+	g_free(ellipsized);
+	ellipsized = g_malloc0(strlen(string) + 2);
+
+	switch (mode)
+	{
+		case PANGO_ELLIPSIZE_NONE:
+
+			g_utf8_strncpy(ellipsized, string, n);
+
+			break;
+
+		case PANGO_ELLIPSIZE_START:
+
+			strcpy(ellipsized, "…");
+
+			while (len > n - 1)
+			{
+				string = g_utf8_next_char(string);
+				len--;
+			}
+
+			g_utf8_strncpy(ellipsized + 3, string, n - 1);
+
+			break;
+
+		case PANGO_ELLIPSIZE_END:
+
+			g_utf8_strncpy(ellipsized, string, n - 1);
+			strcat(ellipsized, "…");
+
+			break;
+
+		default:
+			break;
+	}
+
+	return ellipsized;
+}
