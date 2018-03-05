@@ -1177,7 +1177,6 @@ void xa_add_page (XArchive *archive)
 	GtkWidget	*page_hbox,*label,*tab_label,*close_button,*image,*align;
 	gchar *filename_only, *label_utf8;
 	GtkRcStyle *rcstyle;
-	GtkRequisition size;
 
 	if (gtk_notebook_get_current_page(notebook) > -1)
 		gtk_notebook_set_show_tabs (notebook,TRUE);
@@ -1188,7 +1187,7 @@ void xa_add_page (XArchive *archive)
 	g_object_set(G_OBJECT(archive->page), "hscrollbar-policy", GTK_POLICY_AUTOMATIC, "vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 	gtk_widget_show(archive->page);
 
-	page_hbox = gtk_hbox_new(FALSE,0);
+	page_hbox = gtk_hbox_new(FALSE, 4);
 	label = gtk_label_new(NULL);
 
 	filename_only = g_strrstr(archive->path[0], "/");
@@ -1217,11 +1216,9 @@ void xa_add_page (XArchive *archive)
 	gtk_widget_modify_style(close_button,rcstyle);
 	g_object_unref(rcstyle);
 
-	image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,GTK_ICON_SIZE_MENU);
-	gtk_widget_size_request(image,&size);
-	gtk_widget_set_size_request(close_button,size.width,size.height);
+	image = xa_main_window_find_image("xarchiver-close.png", 8);
 	gtk_container_add (GTK_CONTAINER(close_button),image);
-	align = gtk_alignment_new(1.0,0.0,0.0,0.0);
+	align = gtk_alignment_new(1.0, 0.5, 0.0, 0.0);
 	gtk_container_add(GTK_CONTAINER(align),close_button);
 	gtk_box_pack_start(GTK_BOX(page_hbox),align,TRUE,TRUE,0);
 	gtk_widget_show_all(page_hbox);

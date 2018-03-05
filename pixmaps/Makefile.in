@@ -310,7 +310,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 pixmapdir = $(PIXMAPDIR)
-pixmap_DATA = xarchiver-add.png xarchiver-extract.png xarchiver-html.png
+pixmap_DATA = xarchiver-add.png xarchiver-close.png xarchiver-extract.png xarchiver-html.png
 EXTRA_DIST = $(pixmap_DATA)
 all: all-am
 
