@@ -787,11 +787,10 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 			{
 				if (archive->parse_output)
 				{
+					gtk_widget_grab_focus(archive_dir_treeview);
 					xa_update_window_with_archive_entries(archive, NULL);
 					gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview), archive->model);
 					g_object_unref(archive->model);
-
-					gtk_widget_grab_focus(archive->treeview);
 				}
 
 				xa_set_statusbar_message_for_displayed_rows(archive);

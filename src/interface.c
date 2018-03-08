@@ -397,13 +397,11 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		else
 			gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
 
-		if (GTK_IS_TREE_VIEW(archive[id]->treeview))
-			gtk_widget_grab_focus (GTK_WIDGET(archive[id]->treeview));
-
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview));
 		g_signal_handler_block(selection, selchghid);
 
 		xa_fill_dir_sidebar(archive[id],TRUE);
+		gtk_widget_grab_focus(archive_dir_treeview);
 
 		if (archive[id]->location_path)
 			xa_dir_sidebar_select_row(xa_find_entry_from_dirpath(archive[id], archive[id]->location_path));
