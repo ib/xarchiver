@@ -759,6 +759,22 @@ static void xa_clipboard_cut_copy_operation (XArchive *archive, XAClipboardMode 
 	(*archive->archiver->extract) (archive,files);
 }
 
+static void xa_expand_containing_directory (XArchive *archive)
+{
+	if (xa_has_containing_directory(archive))
+	{
+		GtkTreePath *path;
+		GtkTreeSelection *selection;
+
+		path = gtk_tree_path_new_first();
+		gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview), path);
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview));
+		gtk_tree_selection_select_path(selection, path);
+		gtk_tree_selection_unselect_path(selection, path);
+		gtk_tree_path_free(path);
+	}
+}
+
 void xa_child_processed (XAChildProcess process, gboolean success, XArchive *archive)
 {
 	static gboolean okay[XA_CHILD_PROCS];
@@ -789,6 +805,7 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 				{
 					gtk_widget_grab_focus(archive_dir_treeview);
 					xa_update_window_with_archive_entries(archive, NULL);
+					xa_expand_containing_directory(archive);
 					gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview), archive->model);
 					g_object_unref(archive->model);
 				}
