@@ -231,7 +231,7 @@ static gpointer *xa_fill_archive_entry_columns_for_each_row (XArchive *archive, 
 	return entry->columns;
 }
 
-static void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *path, GtkTreeIter *containing_iter)
+static void xa_build_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *path, GtkTreeIter *containing_iter)
 {
 	GtkTreeIter child_iter;
 
@@ -239,7 +239,7 @@ static void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *pa
 		return;
 
 	if (strlen(entry->filename) == 0)
-		return xa_browse_dir_sidebar(entry->child, model, path, containing_iter);
+		return xa_build_dir_sidebar(entry->child, model, path, containing_iter);
 
 	if (entry->is_dir)
 	{
@@ -254,8 +254,8 @@ static void xa_browse_dir_sidebar (XEntry *entry, GtkTreeStore *model, gchar *pa
 
 		gtk_tree_store_set(model,&child_iter,0,"gtk-directory",1,entry->filename,2,entry,-1);
 	}
-	xa_browse_dir_sidebar(entry->child,model,NULL,&child_iter);
-	xa_browse_dir_sidebar(entry->next, model,NULL,containing_iter);
+	xa_build_dir_sidebar(entry->child, model, NULL, &child_iter);
+	xa_build_dir_sidebar(entry->next, model, NULL, containing_iter);
 
 }
 
@@ -801,7 +801,7 @@ void xa_fill_dir_sidebar(XArchive *archive,gboolean force_reload)
 		return;
 
 	gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
-	xa_browse_dir_sidebar(archive->root_entry,archive_dir_model,NULL,NULL);
+	xa_build_dir_sidebar(archive->root_entry, archive_dir_model, NULL, NULL);
 }
 
 void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_data)
