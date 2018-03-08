@@ -2960,7 +2960,7 @@ void xa_unsort (GtkMenuItem *menu_item, gpointer user_data)
 	if (idx < 0)
 		return;
 
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive[idx]->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive[idx]->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, (GtkSortType) 0);
 	xa_update_window_with_archive_entries(archive[idx], NULL);
 }
 
