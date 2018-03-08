@@ -2852,17 +2852,16 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	else
 		archive->current_entry = entry;
 
+	g_free(archive->location_path);
+	archive->location_path = NULL;
+
 	if (entry == NULL)
 	{
 		reload = TRUE;
 		entry = archive->root_entry->child;
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
 		gtk_tree_selection_unselect_all(gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview)));
-		if (archive->location_path != NULL)
-		{
-			g_free(archive->location_path);
-			archive->location_path = NULL;
-		}
+
 		gtk_widget_set_sensitive(back_button,FALSE);
 		gtk_widget_set_sensitive(up_button,FALSE);
 		gtk_widget_set_sensitive(home_button,FALSE);
@@ -2870,11 +2869,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	else
 	{
 		reload = FALSE;
-		if (archive->location_path != NULL)
-		{
-			g_free(archive->location_path);
-			archive->location_path = NULL;
-		}
+
 		if (archive->back == NULL)
 			gtk_widget_set_sensitive(back_button,FALSE);
 		else
