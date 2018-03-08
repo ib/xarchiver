@@ -852,11 +852,8 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 void xa_reload_archive_content (XArchive *this_archive)
 {
 	XEntry *entry;
-	gint idx;
 
 	//TODO: have the status bar notyfing the reload
-
-	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
 	g_slist_free(this_archive->forward);
 	this_archive->forward = NULL;
@@ -876,9 +873,6 @@ void xa_reload_archive_content (XArchive *this_archive)
 	/* this reload will be called internally during adding and deleting */
 	this_archive->status = XARCHIVESTATUS_RELOAD;
 	(*this_archive->archiver->list)(this_archive);
-
-	if (strcmp(this_archive->path[0], archive[idx]->path[0]) == 0)
-		xa_fill_dir_sidebar(this_archive, TRUE);
 }
 
 void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
