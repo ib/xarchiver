@@ -802,16 +802,6 @@ void xa_fill_dir_sidebar(XArchive *archive,gboolean force_reload)
 
 	gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
 	xa_browse_dir_sidebar(archive->root_entry,archive_dir_model,NULL,NULL);
-
-	if (force_reload)
-	{
-		GtkTreePath *path;
-
-		gtk_tree_selection_unselect_all(gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview)));
-		path = gtk_tree_path_new_first();
-		gtk_tree_view_expand_to_path(GTK_TREE_VIEW(archive_dir_treeview), path);
-		gtk_tree_path_free(path);
-	}
 }
 
 void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_data)

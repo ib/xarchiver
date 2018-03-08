@@ -2842,6 +2842,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	{
 		entry = archive->root_entry->child;
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
+		gtk_tree_selection_unselect_all(gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview)));
 		reload = TRUE;
 		if (archive->location_path != NULL)
 		{
