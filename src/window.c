@@ -2954,6 +2954,7 @@ void xa_show_multi_extract_dialog (GtkMenuItem *menu_item, gpointer user_data)
 void xa_unsort (GtkMenuItem *menu_item, gpointer user_data)
 {
 	gint idx;
+	XArchiveStatus status;
 
 	idx = xa_find_archive_index(gtk_notebook_get_current_page(notebook));
 
@@ -2961,7 +2962,11 @@ void xa_unsort (GtkMenuItem *menu_item, gpointer user_data)
 		return;
 
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive[idx]->model), GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID, (GtkSortType) 0);
+
+	status = archive[idx]->status;
+	archive[idx]->status = XARCHIVESTATUS_RELOAD;
 	xa_update_window_with_archive_entries(archive[idx], NULL);
+	archive[idx]->status = status;
 }
 
 GtkWidget *xa_main_window_find_image (gchar *filename, GtkIconSize size)
