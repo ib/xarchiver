@@ -532,11 +532,10 @@ static void xa_handle_navigation_buttons (GtkToolButton *button, gpointer data)
 			}
 			/* Let's unselect the row in the dir_sidebar */
 			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
-			if (selection != NULL)
-			{
-				gtk_tree_selection_get_selected (selection,&model,&iter);
+
+			if (gtk_tree_selection_get_selected(selection, &model, &iter))
 				gtk_tree_selection_unselect_iter(selection,&iter);
-			}
+
 			xa_update_window_with_archive_entries(archive[idx],NULL);
 			xa_restore_navigation(idx);
 		break;
@@ -561,11 +560,10 @@ static void xa_handle_navigation_buttons (GtkToolButton *button, gpointer data)
 
 			/* Let's unselect the row in the dir_sidebar */
 			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (archive_dir_treeview));
-			if (selection != NULL)
-			{
-				gtk_tree_selection_get_selected (selection,&model,&iter);
+
+			if (gtk_tree_selection_get_selected(selection, &model, &iter))
 				gtk_tree_selection_unselect_iter(selection,&iter);
-			}
+
 			new_entry = xa_find_entry_from_dirpath(archive[idx], archive[idx]->location_path);
 			xa_update_window_with_archive_entries(archive[idx],new_entry->prev);
 			xa_dir_sidebar_select_row(new_entry->prev);
