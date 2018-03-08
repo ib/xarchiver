@@ -403,8 +403,10 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		xa_fill_dir_sidebar(archive[id],TRUE);
 		gtk_widget_grab_focus(archive_dir_treeview);
 
-		if (archive[id]->location_path)
+		if (archive[id]->location_path && *archive[id]->location_path)
 			xa_dir_sidebar_select_row(xa_find_entry_from_dirpath(archive[id], archive[id]->location_path));
+		else
+			gtk_tree_selection_unselect_all(gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview)));
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
