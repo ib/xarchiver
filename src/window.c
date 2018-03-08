@@ -1109,8 +1109,6 @@ void xa_open_archive (GtkWidget *widget, gchar *path)
 
 	archive[current_page]->status = XARCHIVESTATUS_LIST;
 	(*archive[current_page]->archiver->list)(archive[current_page]);
-
-	xa_fill_dir_sidebar(archive[current_page],TRUE);
 }
 
 void xa_test_archive (GtkMenuItem *menuitem,gpointer user_data)
