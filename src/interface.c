@@ -410,7 +410,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 
 		g_signal_handler_unblock(selection, selchghid);
 	}
-	xa_set_button_state(1, 1, 1, 1, archive[id]->can_test, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->can_sfx, archive[id]->has_comment, archive[id]->output, archive[id]->has_password);
+	xa_set_button_state(1, 1, 1, 1, archive[id]->can_test, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->sorted, archive[id]->can_sfx, archive[id]->has_comment, archive[id]->output, archive[id]->has_password);
 }
 
 static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_data)
@@ -1535,7 +1535,7 @@ GtkWidget *xa_create_archive_properties_window()
 	return archive_properties_window;
 }
 
-void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sfx, gboolean comment, GSList *output, gboolean password)
+void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean save, gboolean test, gboolean close, gboolean add, gboolean extract, gboolean sorted, gboolean sfx, gboolean comment, GSList *output, gboolean password)
 {
 	gtk_widget_set_sensitive(new1, new);
 	gtk_widget_set_sensitive(New_button, new);
@@ -1550,7 +1550,7 @@ void xa_set_button_state (gboolean new, gboolean open, gboolean list, gboolean s
 	gtk_widget_set_sensitive(AddFile_button, add);
 	gtk_widget_set_sensitive(extract_menu, extract);
 	gtk_widget_set_sensitive(Extract_button, extract);
-	gtk_widget_set_sensitive(unsort_menu, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_window->check_sort_filename_column)) && close);
+	gtk_widget_set_sensitive(unsort_menu, sorted && close);
 	gtk_widget_set_sensitive(exe_menu, sfx);
 	gtk_widget_set_sensitive(comment_menu, comment);
 	gtk_widget_set_sensitive(select_all, close);

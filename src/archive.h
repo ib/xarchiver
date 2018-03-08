@@ -138,6 +138,7 @@ struct _XArchive
 	GtkWidget *treeview;
 	GtkTreeModel *model;
 	GtkListStore *liststore;
+	gboolean sorted;
 	guint columns;
 	guint size_column;
 	GType *column_types;

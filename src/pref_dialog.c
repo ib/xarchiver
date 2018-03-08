@@ -735,6 +735,4 @@ void xa_prefs_apply_options (Prefs_dialog_data *prefs_data)
 		gtk_widget_show(scrolledwindow2);
 	else
 		gtk_widget_hide(scrolledwindow2);
-
-	gtk_widget_set_sensitive(unsort_menu, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prefs_data->check_sort_filename_column)));
 }
