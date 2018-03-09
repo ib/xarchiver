@@ -1635,11 +1635,11 @@ void xa_about (GtkMenuItem *menuitem,gpointer user_data)
     const char *authors[] =
     {
         "",
-        "Main developer:",
-        "Giuseppe Torelli <colossus73@gmail.com>",
-        "",
         "This version:",
         MAINTAINER " <ib@wupperonline.de>",
+        "",
+        "Original developer:",
+        "Giuseppe Torelli <colossus73@gmail.com>",
         "",
         "Archive navigation code:",
         "John Berthels",
