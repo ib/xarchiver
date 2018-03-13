@@ -174,11 +174,11 @@ msgstr "Разреши поддиректориите с влачене и пу�
 
 #: ../src/window.c
 msgid "An error occurred while accessing the archive:"
-msgstr "Нстъпи грешка при достъпа до архива:"
+msgstr "Възникна грешка при достъпа до архива:"
 
 #: ../src/window.c
 msgid "An error occurred!"
-msgstr "Настъпи грешка!"
+msgstr "Възникна грешка!"
 
 #: ../src/pref_dialog.c
 msgid "Archive"
@@ -308,11 +308,11 @@ msgstr "Не може да бъде отворен файл %s:"
 
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
-msgstr "Не може изпълни извличането!"
+msgstr "Не може да се изпълни извличането!"
 
 #: ../src/interface.c ../src/window.c
 msgid "Can't perform this action:"
-msgstr "Не може изпълни следното действие:"
+msgstr "Не може да бъде изпълнено следното действие:"
 
 #: ../src/rpm.c
 msgid "Can't read data from file:"
@@ -344,12 +344,12 @@ msgstr "Изберете приложение за използване"
 
 #: ../src/new_dialog.c
 msgid "Choose the archive type to create"
-msgstr "Изберете тип на архива."
+msgstr "Изберете тип на архива"
 
 #: ../src/pref_dialog.c
 #, fuzzy
 msgid "Choose the directory to use"
-msgstr "Изберете временна директория за използване"
+msgstr "Изберете директория за използване"
 
 #: ../src/interface.c
 msgid "Close archive"
@@ -485,7 +485,7 @@ msgstr "Криптиране:"
 #: ../src/extract_dialog.c
 #, fuzzy
 msgid "Ensure a containing directory"
-msgstr "ЗУверете се, че съдържа директория:"
+msgstr "Уверете се, че съдържа директория:"
 
 #: ../src/extract_dialog.c
 msgid ""
@@ -496,11 +496,11 @@ msgstr ""
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
-msgstr "Въведи парола"
+msgstr "Въведете парола"
 
 #: ../src/interface.c
 msgid "Extract"
-msgstr "Извлечи"
+msgstr "Извличане"
 
 #: ../src/main.c
 #, fuzzy
@@ -783,7 +783,7 @@ msgstr "Притежател"
 
 #: ../src/tar.c
 msgid "Owner/Group"
-msgstr "Притежател/група"
+msgstr "Собственик/група"
 
 #: ../src/add_dialog.c ../src/extract_dialog.c
 msgid "Password:"
@@ -816,7 +816,7 @@ msgstr "Моля проверете 'Изхода от архивирането'
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Please enter it!"
-msgstr "Моля въведете я!"
+msgstr "Моля въведете!"
 
 #: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
@@ -832,7 +832,7 @@ msgstr "Моля попълнете \"Извлечи в\" полето!"
 
 #: ../src/window.c
 msgid "Please go to Preferences->Advanced and set it."
-msgstr "Моля идете в 'Преференции' -> 'Разширени' и вижте."
+msgstr "Моля идете в 'Настройки' -> 'Разширени' и вижте."
 
 #: ../src/main.c
 #, c-format
@@ -917,7 +917,7 @@ msgstr "Запиши позицията и размера на прозорец�
 
 #: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
 msgid "Saving"
-msgstr ""
+msgstr "Запазване"
 
 #: ../src/main.c ../src/window.c
 msgid "Select \"New\" to create or \"Open\" to open an archive"
@@ -929,7 +929,7 @@ msgstr "М_аркирай всички"
 
 #: ../src/interface.c
 msgid "Select _by pattern"
-msgstr "Маркирай чрез образец"
+msgstr "Маркирай по образец"
 
 #: ../src/open-with-dlg.c
 msgid "Select an application"
@@ -1009,7 +1009,7 @@ msgstr "Запази пълните пътища"
 
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
-msgstr ""
+msgstr "Потоци/Блокове/Запълване"
 
 #: ../src/window.c
 msgid "Test result:"
@@ -1223,7 +1223,7 @@ msgstr "На път сте да изтриете елементи от архи�
 #, fuzzy
 #| msgid "You can't add content to deb packages!"
 msgid "You can't add content to this archive type!"
-msgstr "Не може да бъде добавено съдържание към deb пакети."
+msgstr "Не може да бъде добавено съдържание към този вид архив."
 
 #: ../src/window.c
 msgid "You didn't set which browser to use!"
@@ -1394,7 +1394,7 @@ msgstr "|Размер\n"
 #~ msgstr "Не може изпълни друго извличане:"
 
 #~ msgid "Please wait until the completion of the current one!"
-#~ msgstr "Моля изчакайте докато несвърши предишното!"
+#~ msgstr "Моля изчакайте, докато не приключи предишното!"
 
 #, fuzzy
 #~ msgid "%d file and %d dir %s (%s)"
