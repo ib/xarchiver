@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -307,10 +307,6 @@ msgstr "Kan bestand \"%s\" niet openen:"
 msgid "Can't open file %s:"
 msgstr "Kan bestand %s niet openen:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Kan niet nog een keer uitpakken:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Kan niet uitpakken."
@@ -566,7 +562,7 @@ msgstr "Uitpakken naar map \"Archief Naam\""
 msgid "Extract to:"
 msgstr "Uitpakken naar:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Bestanden aan het uitpakken vanuit archief..."
 
@@ -617,10 +613,11 @@ msgstr "Vanuit bestand"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -854,10 +851,6 @@ msgstr "Selecteer de archiefbestanden die u wil uitpakken"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Selecteer de bestemmingsmap"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Wacht a.u.b. tot de huidige actie voltooid is."
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1364,6 +1357,16 @@ msgstr "bestand1 bestand2 ... bestandN"
 msgid "large"
 msgstr "groot"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "groot"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "geselecteerd"
@@ -1379,6 +1382,12 @@ msgstr ""
 "Vincent Tunru <projects@vinnl.nl>\n"
 "Pjotr"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "groot"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1392,6 +1401,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Grootte\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Kan niet nog een keer uitpakken:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Wacht a.u.b. tot de huidige actie voltooid is."
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

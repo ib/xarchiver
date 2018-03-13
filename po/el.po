@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-09-08 20:07+0200\n"
 "Last-Translator: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -311,10 +311,6 @@ msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου \
 msgid "Can't open file %s:"
 msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Δεν είναι δυνατό να γίνει άλλη αποσυμπίεση:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Δεν είναι δυνατή η αποσυμπίεση!"
@@ -575,7 +571,7 @@ msgstr "Αποσυμπίεση στον κατάλογο \"Όνομα συμπι
 msgid "Extract to:"
 msgstr "Αποσυμπίεση σε:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Εξαγωγή αρχείων από το συμπιεσμένο αρχείο..."
 
@@ -626,10 +622,11 @@ msgstr "Απο αρχείο"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -865,10 +862,6 @@ msgstr "Παρακαλώ επιλέξτε τα αρχεία που θέλετε 
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Παρακαλώ επιλέξτε κατάλογο προορισμού"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Παρακαλώ περιμένετε μέχρι να ολοκληρωθεί η τρέχουσα."
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1374,6 +1367,16 @@ msgstr "αρχείο1 αρχείο2 αρχείο3 ... αρχείοΝ"
 msgid "large"
 msgstr "μεγάλο"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "μεγάλο"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "επιλεγμένων"
@@ -1389,6 +1392,12 @@ msgstr ""
 "Stavros Giannouris <stavrosg@hellug.gr>\n"
 "Stathis Kamperis <ekamperi@auth.gr>"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "μεγάλο"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1402,6 +1411,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Μέγεθος\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Δεν είναι δυνατό να γίνει άλλη αποσυμπίεση:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Παρακαλώ περιμένετε μέχρι να ολοκληρωθεί η τρέχουσα."
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

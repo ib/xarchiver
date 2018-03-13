@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2011-01-22 11:38+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
@@ -312,10 +312,6 @@ msgstr "Nie można otworzyć pliku \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Nie można otworzyć pliku %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Nie można wykonać jeszcze jednej ekstrakcji:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Nie mogę wykonać ekstrakcji!"
@@ -572,7 +568,7 @@ msgstr "Rozpakuj do katalogów o nazwie archiwów"
 msgid "Extract to:"
 msgstr "Położenie docelowe:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Rozpakowywanie plików z archiwum, proszę czekać..."
 
@@ -623,10 +619,11 @@ msgstr "Z pliku"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -857,10 +854,6 @@ msgstr "Proszę wybrać pliki do rozpakowania"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Proszę wybrać katalog docelowy"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Proszę czekać, dopóki bieżąca operacja nie jest ukończona!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1362,6 +1355,16 @@ msgstr "PLIK..."
 msgid "large"
 msgstr "Duży"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "Duży"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "zaznaczone"
@@ -1377,6 +1380,12 @@ msgstr ""
 "Ireneusz Gierlach <irek.gierlach@gmail.com>, 2011.\n"
 "Piotr Sokół <psokol@jabster.pl>, 2011."
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "Duży"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1389,6 +1398,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Rozmiar\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Nie można wykonać jeszcze jednej ekstrakcji:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Proszę czekać, dopóki bieżąca operacja nie jest ukończona!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
-"PO-Revision-Date: 2018-02-26 14:55+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"PO-Revision-Date: 2018-03-13 10:54+0100\n"
 "Last-Translator: cybercop-montana <cybercop_montana@abv.bg>\n"
 "Language-Team: BULGARIAN <Enzo_01@abv.bg>\n"
 "Language: bg\n"
@@ -306,10 +306,6 @@ msgstr "Не може да бъде отворен файл \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Не може да бъде отворен файл %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Не може изпълни друго извличане:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Не може изпълни извличането!"
@@ -495,8 +491,8 @@ msgstr "ЗУверете се, че съдържа директория:"
 msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory"
-msgstr "Уверете се, че съдържанието на извлечения архив винаги съдържа "
-"директория"
+msgstr ""
+"Уверете се, че съдържанието на извлечения архив винаги съдържа директория"
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -564,7 +560,7 @@ msgstr "Извлечи в директория с името на архива"
 msgid "Extract to:"
 msgstr "Извлечи в:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Извличане на файлове от архива, моля изчакайте..."
 
@@ -615,10 +611,11 @@ msgstr "От файл"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -854,10 +851,6 @@ msgstr "Моля изберете архив, който желаете да р�
 msgid "Please select the destination directory"
 msgstr "Моля изберете крайна директория"
 
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Моля изчакайте докато несвърши предишното!"
-
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Точки до"
@@ -1050,7 +1043,9 @@ msgstr "Архиватора не поддържа тази опция!"
 
 #: ../src/gzip_et_al.c
 msgid "The archiver lacks necessary support for password protected decryption!"
-msgstr "Архиватора няма необходимата поддръжка за дешифриране на защитеното съдържание"
+msgstr ""
+"Архиватора няма необходимата поддръжка за дешифриране на защитеното "
+"съдържание"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
@@ -1358,6 +1353,14 @@ msgstr "файл1 файл2 файл3 ... файлN"
 msgid "large"
 msgstr "голям"
 
+#: ../src/pref_dialog.c
+msgid "larger"
+msgstr "по-голям"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr "среден"
+
 #: ../src/window.c
 msgid "selected"
 msgstr "маркирани"
@@ -1369,6 +1372,10 @@ msgstr "малък"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "признание на преводачите"
+
+#: ../src/pref_dialog.c
+msgid "very large"
+msgstr "много голям"
 
 #: ../src/main.c
 #, c-format
@@ -1382,6 +1389,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Не може изпълни друго извличане:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Моля изчакайте докато несвърши предишното!"
 
 #, fuzzy
 #~ msgid "%d file and %d dir %s (%s)"

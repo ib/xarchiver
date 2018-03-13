@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2010-01-23 14:59+0300\n"
 "Last-Translator: dima <info@cnc-parts.info>\n"
 "Language-Team: ru_RU <ru@li.org>\n"
@@ -314,10 +314,6 @@ msgstr "Не удалось открыть файл «%s»:"
 msgid "Can't open file %s:"
 msgstr "Не удалось открыть файл %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Не удалось извлечь:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Не удаётся выполнить извлечение!"
@@ -574,7 +570,7 @@ msgstr "Извлечь в папку «Имя архива»"
 msgid "Extract to:"
 msgstr "Извлечь в:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Извлекаются файлы из архива, подождите..."
 
@@ -625,10 +621,11 @@ msgstr "Из файла"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -862,10 +859,6 @@ msgstr "Выберите архивы, которые вы хотите расп
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Укажите целевой каталог"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Дождитесь окончания текущей операции!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1362,6 +1355,16 @@ msgstr "file1 file2 file3 ... fileN"
 msgid "large"
 msgstr "Большой"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "Большой"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "Только выбранные"
@@ -1373,6 +1376,12 @@ msgstr "Маленький"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Fedoseev Sergey <fedoseev.sergey@gmail.com>"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "Большой"
 
 #: ../src/main.c
 #, c-format
@@ -1387,6 +1396,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Не удалось извлечь:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Дождитесь окончания текущей операции!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

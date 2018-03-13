@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2011-08-26 12:33+0200\n"
 "Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -316,10 +316,6 @@ msgstr "Nie je možné otvoriť súbor \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Nie je možné otvoriť súbor %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Nie je možné vykonať ďalšie rozbalenie:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Nie je možné rozbaliť archív!"
@@ -573,7 +569,7 @@ msgstr "Rozbaliť do priečinka \"Názov archívu\""
 msgid "Extract to:"
 msgstr "Rozbaliť do:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Rozbaľovanie súborov z archívu, prosím čakajte..."
 
@@ -624,10 +620,11 @@ msgstr "Zo súboru"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -861,10 +858,6 @@ msgstr "Prosím vyberte archívy, ktoré chcete rozbaliť"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Vyberte cieľový adresár"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Počkajte prosím, kým sa dokončí predošlá operácia!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1367,6 +1360,16 @@ msgstr "súbor1 súbor2 súbor3 ... súborN"
 msgid "large"
 msgstr "veľké"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "veľké"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "vybrané"
@@ -1381,6 +1384,12 @@ msgstr ""
 "Robert Hartl <hartl.robert@gmail.com>\n"
 "Tomáš Vadina <kyberdev@gmail.com>"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "veľké"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1394,6 +1403,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Veľkosť\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Nie je možné vykonať ďalšie rozbalenie:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Počkajte prosím, kým sa dokončí predošlá operácia!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

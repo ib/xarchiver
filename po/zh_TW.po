@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -306,10 +306,6 @@ msgstr "無法開啟檔案 %s："
 msgid "Can't open file %s:"
 msgstr "無法開啟檔案 %s："
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "無法進行另一個抽出作業："
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "無法執行抽出動作！"
@@ -563,7 +559,7 @@ msgstr "解開到與封存檔同名的目錄"
 msgid "Extract to:"
 msgstr "抽出至："
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "正從封存檔抽出檔案，請稍候..."
 
@@ -614,10 +610,11 @@ msgstr "從檔案"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -848,10 +845,6 @@ msgstr "請選取要解開的封存檔"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "請選取目標目錄"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "請先等目前執行中的作業完成！"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1335,6 +1328,16 @@ msgstr "檔案1 檔案2 檔案3 ... 檔案N"
 msgid "large"
 msgstr "大"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "大"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "已選取"
@@ -1349,6 +1352,12 @@ msgstr ""
 "Robert Lee <robert@lee.org.tw>\n"
 "Wayne Su <mstarmstar@gmail.com>"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "大"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1361,6 +1370,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|大小\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "無法進行另一個抽出作業："
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "請先等目前執行中的作業完成！"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

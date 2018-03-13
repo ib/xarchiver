@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
-"PO-Revision-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"PO-Revision-Date: 2018-03-13 10:54+0100\n"
 "Last-Translator: jcsl\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -308,10 +308,6 @@ msgstr "No se puede abrir el archivo \"%s\":"
 msgid "Can't open file %s:"
 msgstr "No se puede abrir el archivo %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "No se puede realizar otra extracción:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "¡No se puede realizar la extracción!"
@@ -492,8 +488,7 @@ msgid ""
 "Ensure that the contents of the extracted archive is always in a containing "
 "directory"
 msgstr ""
-"Garantiza que el contenido del archivo extraído esté siempre en un "
-"directorio"
+"Garantiza que el contenido del archivo extraído esté siempre en un directorio"
 
 #: ../src/interface.c
 msgid "Enter passwo_rd"
@@ -565,7 +560,7 @@ msgstr "Extraer al directorio \"Nombre del archivo\""
 msgid "Extract to:"
 msgstr "Extraer en:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Extrayendo ficheros del archivo. Por favor, espere..."
 
@@ -616,15 +611,17 @@ msgstr "Desde archivo"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
-"GTK;archivado;archivador;compresión;compresor;interfaz;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;Android;archivado;archivador;compresión;compresor;interfaz;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -851,10 +848,6 @@ msgstr "Por favor, seleccione los archivos que desea extraer"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Por favor, seleccione el directorio de destino"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "¡Por favor, espere hasta que se haya completado la actual!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1326,6 +1319,14 @@ msgstr "fichero1 ... ficheroN"
 msgid "large"
 msgstr "grande"
 
+#: ../src/pref_dialog.c
+msgid "larger"
+msgstr "más grande"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr "mediano"
+
 #: ../src/window.c
 msgid "selected"
 msgstr "seleccionado"
@@ -1340,6 +1341,10 @@ msgstr ""
 "Abel Martín <abel.martin.ruiz@gmail.com>\n"
 "Elega <elega@elega.com.ar>"
 
+#: ../src/pref_dialog.c
+msgid "very large"
+msgstr "muy grande"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1353,6 +1358,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaño\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "No se puede realizar otra extracción:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "¡Por favor, espere hasta que se haya completado la actual!"
 
 #~ msgid "Please install xdg-utils."
 #~ msgstr "Por favor, instale el paquete xdg-utils."

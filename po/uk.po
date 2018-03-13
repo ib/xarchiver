@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-11-09 15:47+0300\n"
 "Last-Translator: Andriy Matkovsky <sidius.ua@gmail.com>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -305,10 +305,6 @@ msgstr "Неможливо відкрити файл \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Неможливо відкрити файл %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Неможливо здійснити інше розпакування:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Неможливо розпакувати!"
@@ -564,7 +560,7 @@ msgstr "Розпакувати в теку \"Назва архіву\""
 msgid "Extract to:"
 msgstr "Розпакувати в:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Розпаковування файлів з архіву, будь ласка, зачекайте..."
 
@@ -615,10 +611,11 @@ msgstr "Із файлу"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -853,10 +850,6 @@ msgstr "Будь ласка виберіть архіви для розпаку�
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Виберіть теку призначення"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Зачекайте до завершення поточної дії!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1353,6 +1346,16 @@ msgstr "файл1 файл2 файл3 ... файлN"
 msgid "large"
 msgstr "великий"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "великий"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "вибраний"
@@ -1364,6 +1367,12 @@ msgstr "малий"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Дмитро Нікітін <luckas_fb@mail.ru>"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "великий"
 
 #: ../src/main.c
 #, c-format
@@ -1377,6 +1386,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Розмір\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Неможливо здійснити інше розпакування:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Зачекайте до завершення поточної дії!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

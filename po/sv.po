@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-12-16 18:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -306,10 +306,6 @@ msgstr "Kan inte öppna filen \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Kan inte öppna filen %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Kan inte genomföra ytterligare en extrahering:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Kan inte genomföra extraheringen!"
@@ -565,7 +561,7 @@ msgstr "Extrahera till katalogen \"Arkivnamn\""
 msgid "Extract to:"
 msgstr "Extrahera till:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Extraherar filer från arkivet, vänta..."
 
@@ -616,10 +612,11 @@ msgstr "Från fil"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -855,10 +852,6 @@ msgstr "Välj de arkiven som du vill extrahera"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Välj målkatalogen"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Vänta tills nuvarande är färdig!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1361,6 +1354,16 @@ msgstr "fil1 fil2 fil3 ... filN"
 msgid "large"
 msgstr "stor"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "stor"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "markerade"
@@ -1377,6 +1380,12 @@ msgstr ""
 "Skicka synpunkter på översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "stor"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1390,6 +1399,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Storlek\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Kan inte genomföra ytterligare en extrahering:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Vänta tills nuvarande är färdig!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

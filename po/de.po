@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
-"PO-Revision-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"PO-Revision-Date: 2018-03-13 10:54+0100\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -309,10 +309,6 @@ msgstr "Datei »%s« kann nicht geöffnet werden:"
 msgid "Can't open file %s:"
 msgstr "Datei %s kann nicht geöffnet werden:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Eine weiterer Vorgang kann nicht durchgeführt werden:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Entpacken kann nicht durchgeführt werden!"
@@ -564,7 +560,7 @@ msgstr "Ins Verzeichnis »Archivname« entpacken"
 msgid "Extract to:"
 msgstr "Entpacken nach:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Dateien aus dem Archiv werden entpackt, bitte warten …"
 
@@ -615,16 +611,17 @@ msgstr "Aus Datei"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
-msgstr ""
-"GTK;Archivierer;Archivierung;Kompression;Komprimierung;Front-End;Frontend;7-"
-"zip;7z;7za;7zip;7zr;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-zip;"
+"7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
 "gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
 "rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
 "zstd;"
+msgstr ""
+"GTK;Android;Archivierer;Archivierung;Kompression;Komprimierung;Front-End;"
+"Frontend;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;"
+"epub;gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;"
+"lzop;oxt;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;"
+"zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -852,10 +849,6 @@ msgstr "Bitte wählen Sie die zu entpackenden Archive"
 msgid "Please select the destination directory"
 msgstr "Bitte wählen Sie das Zielverzeichnis"
 
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Bitte warten Sie, bis der laufende beendet ist!"
-
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Zeigt auf"
@@ -1046,7 +1039,7 @@ msgstr "Das Archivprogramm unterstützt diese Möglichkeit nicht!"
 msgid "The archiver lacks necessary support for password protected decryption!"
 msgstr ""
 "Dem Archivprogramm fehlt die notwendige Unterstützung für "
-"pass­wort­ge­schützte Entschlüsselung!"
+"passwortgeschützte Entschlüsselung!"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
@@ -1329,6 +1322,14 @@ msgstr "Datei1 ... DateiN"
 msgid "large"
 msgstr "groß"
 
+#: ../src/pref_dialog.c
+msgid "larger"
+msgstr "größer"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr "mittelgroß"
+
 #: ../src/window.c
 msgid "selected"
 msgstr "ausgewählt"
@@ -1346,6 +1347,10 @@ msgstr ""
 "Fabian Nowak <timystery@arcor.de>\n"
 "Ingo Brückl <ib@wupperonline.de>"
 
+#: ../src/pref_dialog.c
+msgid "very large"
+msgstr "sehr groß"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1358,6 +1363,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Größe\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Eine weiterer Vorgang kann nicht durchgeführt werden:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Bitte warten Sie, bis der laufende beendet ist!"
 
 #~ msgid "Please install xdg-utils."
 #~ msgstr "Bitte installieren Sie »xdg-utils«."

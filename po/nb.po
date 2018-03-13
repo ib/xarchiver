@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2008-10-22 20:11+0200\n"
 "Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
 "Language-Team: Norwegian Bokmal\n"
@@ -304,10 +304,6 @@ msgstr "Klarte ikke å åpne filen \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Kan ikke åpne filen %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Kan ikke pakke ut en til:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Kan ikke pakke ut"
@@ -563,7 +559,7 @@ msgstr "Pakk ut i mappen \"Arkivnavn\""
 msgid "Extract to:"
 msgstr "Pakk ut til:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Pakker ut filer fra arkivet, vennligst vent..."
 
@@ -614,10 +610,11 @@ msgstr "Fra fil"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -849,10 +846,6 @@ msgstr "Vennligst velg arkivene du ønsker å pakke ut"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Angi hvor filer skal pakkes ut"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Vennligst vent til gjeldende fil er fullført!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1347,6 +1340,16 @@ msgstr "fil1 fil2 fil3 ... filN"
 msgid "large"
 msgstr "stop"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "stop"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "valgt"
@@ -1358,6 +1361,12 @@ msgstr "liten"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Oversettere"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "stop"
 
 #: ../src/main.c
 #, c-format
@@ -1371,6 +1380,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Størrelse\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Kan ikke pakke ut en til:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Vennligst vent til gjeldende fil er fullført!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

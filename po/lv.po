@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -312,10 +312,6 @@ msgstr "Nevar atvērt failu \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Nevar atvērt failu %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Nevar veikt vēl vienu atspiešanu:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Nevar izpildīt atspiešanu!"
@@ -571,7 +567,7 @@ msgstr "Atspiest direktorijā \"Arhīva nosaukums\""
 msgid "Extract to:"
 msgstr "Atspiest uz:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Atspiežu failus no arhīva, lūdzu uzgaidiet..."
 
@@ -622,10 +618,11 @@ msgstr "No faila"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -858,10 +855,6 @@ msgstr "Lūdzu norādiet arhīvus, kurus vēlaties atspiest"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Lūdzu norādiet mērķa direktoriju!"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Lūdzu pagaidiet, kamēr esošā būs pabeigta!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1357,6 +1350,16 @@ msgstr "fails1 fails2 fails3 ... failsN"
 msgid "large"
 msgstr "liels"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "liels"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "atlasītais"
@@ -1368,6 +1371,12 @@ msgstr "mazs"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Rihards Priedītis"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "liels"
 
 #: ../src/main.c
 #, c-format
@@ -1381,6 +1390,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Izmērs\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Nevar veikt vēl vienu atspiešanu:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Lūdzu pagaidiet, kamēr esošā būs pabeigta!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

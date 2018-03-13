@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2010-10-23 14:01+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <None>\n"
@@ -303,10 +303,6 @@ msgstr "Tiedostoa \"%s\" ei voi avata:"
 msgid "Can't open file %s:"
 msgstr "Tiedostoa \"%s\" ei voi avata:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Ei voi purkaa uudelleen:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Ei voi purkaa!"
@@ -562,7 +558,7 @@ msgstr "Pura kansioon \"Arkiston nimi\""
 msgid "Extract to:"
 msgstr "Kohde:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Puretaan tiedostoja arkistosta, odota..."
 
@@ -613,10 +609,11 @@ msgstr "Tiedostosta"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -852,10 +849,6 @@ msgstr "Valitse purettavat arkistot"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Valitse kohdekansio"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Odota, kunnes nykyinen toiminto valmistuu."
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1354,6 +1347,16 @@ msgstr "[TIED1] ... [TIEDN]"
 msgid "large"
 msgstr "suuri"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "suuri"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "valittu"
@@ -1365,6 +1368,12 @@ msgstr "pieni"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Jari Rahkonen <jari.rahkonen@pp1.inet.fi>"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "suuri"
 
 #: ../src/main.c
 #, c-format
@@ -1378,6 +1387,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Koko\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Ei voi purkaa uudelleen:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Odota, kunnes nykyinen toiminto valmistuu."
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

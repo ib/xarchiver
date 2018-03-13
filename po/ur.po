@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -308,10 +308,6 @@ msgstr "فائل \"%s\" نہیں کھولی جاسکتی:"
 msgid "Can't open file %s:"
 msgstr "فائل %s نہیں کھولی جاسکتی:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "دوسرا کھولنے کا عمل ادا نہیں کیا جاسکتا:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "کھولنے کا عمل ادا نہیں کیا جاسکتا!"
@@ -567,7 +563,7 @@ msgstr "نکالیں تا ڈائریکٹری \"محفوظہ کا نام\""
 msgid "Extract to:"
 msgstr "نکالیں تا:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "محفوظہ سے فائلیں نکالی جارہی ہیں، انتظار فرمائیں..."
 
@@ -618,10 +614,11 @@ msgstr "از فائل"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -858,10 +855,6 @@ msgstr "براہ مہربانی وہ محفوظہ منتخب کریں جسے  آ
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "براہ مہربانی سمت ڈائریکٹری منتخب کریں"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "حالیہ کی تکمیل تک انتظار فرمائیں!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1371,6 +1364,16 @@ msgstr "فائل1 فائل2 فائل3 ... فائلN"
 msgid "large"
 msgstr "بڑا"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "بڑا"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "منتخب کردہ"
@@ -1389,6 +1392,12 @@ msgstr ""
 "مکی کا بلاگ\n"
 "http://makki.urducoder.com"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "بڑا"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1401,6 +1410,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|حجم\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "دوسرا کھولنے کا عمل ادا نہیں کیا جاسکتا:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "حالیہ کی تکمیل تک انتظار فرمائیں!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

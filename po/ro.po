@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2010-12-13 13:59+0200\n"
 "Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -307,10 +307,6 @@ msgstr "Nu se poate deschide fișierul „%s”:"
 msgid "Can't open file %s:"
 msgstr "Nu se poate deschide fișierul %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Nu se poate efectua o altă dezarhivare:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Nu se poate efectua dezarhivarea!"
@@ -566,7 +562,7 @@ msgstr "Dezarhivare într-un director cu numele arhivei"
 msgid "Extract to:"
 msgstr "Dezarhivare în:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Se extrag fișierele din arhivă, așteptați..."
 
@@ -617,10 +613,11 @@ msgstr "Din fișier"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -855,10 +852,6 @@ msgstr "Selectați arhivele pe care doriți sa le desfaceți"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Selectați directorul de destinație"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Așteptați să se termine dezarhivarea curentă!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1365,6 +1358,16 @@ msgstr "fișierul1 fișierul2 fișierul3 ... fișierulN"
 msgid "large"
 msgstr "mare"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "mare"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "selectat"
@@ -1379,6 +1382,12 @@ msgstr ""
 "Ionuț Ovejanu <ovejanu@yahoo.com>\n"
 "Mișu Moldovan <dumol@xfce.org>"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "mare"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1392,6 +1401,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Mărime\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Nu se poate efectua o altă dezarhivare:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Așteptați să se termine dezarhivarea curentă!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

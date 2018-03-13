@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -293,10 +293,6 @@ msgstr ""
 msgid "Can't open file %s:"
 msgstr ""
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr ""
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr ""
@@ -538,7 +534,7 @@ msgstr ""
 msgid "Extract to:"
 msgstr "ఇచటకు పొందు:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "సంగ్రహం నుండి ఫైళ్ళను పొందుతున్నది, దయచేసి వేచివుండండి..."
 
@@ -589,10 +585,11 @@ msgstr ""
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -819,10 +816,6 @@ msgstr ""
 
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
-msgstr ""
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
 msgstr ""
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
@@ -1273,6 +1266,14 @@ msgstr ""
 msgid "large"
 msgstr ""
 
+#: ../src/pref_dialog.c
+msgid "larger"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "ఎంచుకున్నవి"
@@ -1284,6 +1285,10 @@ msgstr ""
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Praveen Illa <mail2ipn@gmail.com>, 2011."
+
+#: ../src/pref_dialog.c
+msgid "very large"
+msgstr ""
 
 #: ../src/main.c
 #, c-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-08-22 15:53+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
@@ -313,10 +313,6 @@ msgstr "Kan ikke åbne fil \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Kan ikke åbne fil %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Kan ikke udføre en anden udpakning:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Kan ikke udføre udpakning!"
@@ -572,7 +568,7 @@ msgstr "Udpak til kataloget \"Arkivnavn\""
 msgid "Extract to:"
 msgstr "Udpak til:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Udpakker filer fra arkiv, vent venligst..."
 
@@ -623,10 +619,11 @@ msgstr "Fra fil"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -861,10 +858,6 @@ msgstr "Markér arkiverne du ønsker at udpakke"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Vælg venligst målkataloget"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Vent venligst til afslutning af igangværende arkivering!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1364,6 +1357,16 @@ msgstr "fil1 fil2 fil3 ... filN"
 msgid "large"
 msgstr "stort"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "stort"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "markeret"
@@ -1380,6 +1383,12 @@ msgstr ""
 "Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
 "Mere info: http://www.dansk-gruppen.dk"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "stort"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1393,6 +1402,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Størrelse\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Kan ikke udføre en anden udpakning:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Vent venligst til afslutning af igangværende arkivering!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

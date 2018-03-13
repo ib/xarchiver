@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -308,10 +308,6 @@ msgstr "אין אפשרות לפתוח את הקובץ \"%s\":"
 msgid "Can't open file %s:"
 msgstr "לא ניתן לפתוח את הקובץ \"%s\":"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "אין אפשרות לבצע חילוץ נוסף:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "אין אפשרות לבצע חילוץ!"
@@ -565,7 +561,7 @@ msgstr "חילוץ אל התיקייה \"שם הארכיון\""
 msgid "Extract to:"
 msgstr "חילוץ אל:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "הקבצים מחולצים מהארכיון, נא להמתין..."
 
@@ -616,10 +612,11 @@ msgstr "מהקובץ"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -850,10 +847,6 @@ msgstr "נא לבחור את הארכיונים לחילוץ"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "נא לבחור את תיקיית היעד"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "נא להמתין עד להשלמת החילוץ הנוכחי!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1345,6 +1338,16 @@ msgstr "file1 file2 file3 ... fileN"
 msgid "large"
 msgstr "גדול"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "גדול"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "נבחרו"
@@ -1359,6 +1362,12 @@ msgstr ""
 "יובל טנאי <tanai@int.gov.il>\n"
 "ירון שהרבני <sh.yaron@gmail.com>"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "גדול"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1371,6 +1380,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|גודל\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "אין אפשרות לבצע חילוץ נוסף:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "נא להמתין עד להשלמת החילוץ הנוכחי!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

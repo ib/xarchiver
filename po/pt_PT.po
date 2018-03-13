@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-08-27 19:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -309,10 +309,6 @@ msgstr "Incapaz de abrir o ficheiro \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Incapaz de abrir o ficheiro %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Incapaz de executar outra extracção:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Incapaz de realizar a extracção!"
@@ -568,7 +564,7 @@ msgstr "Extrair para o directório \"Nome do arquivo\""
 msgid "Extract to:"
 msgstr "Extrair para:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Extraindo ficheiros do arquivo, aguarde por favor..."
 
@@ -619,10 +615,11 @@ msgstr "Do ficheiro"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -857,10 +854,6 @@ msgstr "Por favor, seleccione os arquivos que deseja extrair"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Por favor, seleccione o directório de destino"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Por favor, aguarde que a acção actual termine!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1358,6 +1351,16 @@ msgstr "ficheiro1 ficheiro2 ficheiro3 ... ficheiroN"
 msgid "large"
 msgstr "grande"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "grande"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "seleccionado"
@@ -1369,6 +1372,12 @@ msgstr "pequeno"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Nuno Miguel <nunis@netcabo.pt>"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "grande"
 
 #: ../src/main.c
 #, c-format
@@ -1382,6 +1391,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamanho\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Incapaz de executar outra extracção:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Por favor, aguarde que a acção actual termine!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

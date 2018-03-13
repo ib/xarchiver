@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-11-15 18:08+0100\n"
 "Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
 "Language-Team: French <xfce-i18n@xfce.org>\n"
@@ -305,10 +305,6 @@ msgstr "Échec à l'ouverture du fichier \"%s\" :"
 msgid "Can't open file %s:"
 msgstr "Échec à l'ouverture du fichier %s :"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Impossible de faire une autre extraction :"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Échec à l'extraction !"
@@ -563,7 +559,7 @@ msgstr "Extraire les fichiers dans \"Nom de l'archive\""
 msgid "Extract to:"
 msgstr "Extraire vers :"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Extraction des fichiers de l'archive, veuillez patienter..."
 
@@ -614,10 +610,11 @@ msgstr "Du fichier"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -851,10 +848,6 @@ msgstr "Sélectionnez les archives à extraire"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Sélectionnez le dossier de destination"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Attendez que celle en cours soit finie !"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1349,6 +1342,16 @@ msgstr "fichier1 fichier2 fichier3 ... fichierN"
 msgid "large"
 msgstr "large"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "large"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "sélectionné(s)"
@@ -1363,6 +1366,12 @@ msgstr ""
 "Maximilian Schleiss <maximilian@xfce.org>\n"
 "Gérald Barré <g.barre@free.fr>"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "large"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1375,6 +1384,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Taille\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Impossible de faire une autre extraction :"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Attendez que celle en cours soit finie !"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

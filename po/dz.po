@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2006-11-23 12:28+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -315,10 +315,6 @@ msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མི་བཏུབ \"%s\
 msgid "Can't open file %s:"
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མི་བཏུབ \"%s\":"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "ཕྱིར་འདོན་གཞན་  ལཱ་འགན་འགྲུབ་མི་བཏུབ:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "ཕྱིརའདོན་ལཱ་འགན་འགྲུབ་མ་ཚུགས!"
@@ -584,7 +580,7 @@ msgstr "ཡིག་སྣོད་ཚུ་ཡིག་མཛོད་ལས་
 msgid "Extract to:"
 msgstr "ཕྱིར་འདོན་འབད:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 #, fuzzy
 msgid "Extracting files from archive, please wait..."
 msgstr "ཡིག་མཛོད་ལས་ཡིག་སྣོད་ཚུ་བཏོན་གཏང་དོ་བསྒུག་གནང་..."
@@ -639,10 +635,11 @@ msgstr ""
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -887,10 +884,6 @@ msgstr "ཁྱོད་ཀྱིས་ཁ་སྐོང་བརྐྱབ་ད
 #, fuzzy
 msgid "Please select the destination directory"
 msgstr "སྣོད་ཐོ་མེན་པ་ཡིག་སྣོད་ཅིག་སེལ་འཐུ་འབད་གནང་!"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "ད་ལྟོ་གི་ཡོངས་སྒྲུབ་མ་འབད་ཚུན་ཚོད་བསྒུག་གནང་!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1397,6 +1390,14 @@ msgstr "ཡིག་སྣོད་༡ ཡིག་སྣོད་༢ ཡིག�
 msgid "large"
 msgstr ""
 
+#: ../src/pref_dialog.c
+msgid "larger"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 #, fuzzy
 msgid "selected"
@@ -1409,6 +1410,10 @@ msgstr ""
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "སྐད་བསྒྱུར་པའི་-ངོ་བསྟོད་ཚུ།"
+
+#: ../src/pref_dialog.c
+msgid "very large"
+msgstr ""
 
 #: ../src/main.c
 #, c-format
@@ -1423,6 +1428,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|ཚད།\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "ཕྱིར་འདོན་གཞན་  ལཱ་འགན་འགྲུབ་མི་བཏུབ:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "ད་ལྟོ་གི་ཡོངས་སྒྲུབ་མ་འབད་ཚུན་ཚོད་བསྒུག་གནང་!"
 
 #~ msgid "Attr"
 #~ msgstr "ཨེ་ཊི་ཊི་ཨར།"

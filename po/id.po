@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -301,10 +301,6 @@ msgstr "Tak dapat membuka berkas \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Tak dapat membuka berkas %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Tak dapat melakukan ekstraksi lain:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Tak dapat melakukan ekstrak!"
@@ -562,7 +558,7 @@ msgstr "Ekstrak berkas ke direktori \"Nama Arsip\""
 msgid "Extract to:"
 msgstr "Ekstrak ke:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Mengekstrak berkas dari arsip,silakan tunggu..."
 
@@ -613,10 +609,11 @@ msgstr "Dari Berkas"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -849,10 +846,6 @@ msgstr "Silakan pilih arsip yang ingin anda ekstrak"
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "Silakan pilih direktori tujuan"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Silakan tunggu sampai penyelesaian tahap ini!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1350,6 +1343,16 @@ msgstr "berkas1 berkas2 berkas3 ... berkasN"
 msgid "large"
 msgstr "besar"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "besar"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "terpilih"
@@ -1365,6 +1368,12 @@ msgstr ""
 "http://id.gnome.org/\n"
 "Andhika Padmawan <andhika.padmawan@gmail.com>, 2008."
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "besar"
+
 #: ../src/main.c
 #, c-format
 msgid ""
@@ -1378,6 +1387,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Ukuran\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Tak dapat melakukan ekstraksi lain:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Silakan tunggu sampai penyelesaian tahap ini!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"

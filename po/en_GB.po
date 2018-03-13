@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiverxa 0.4.6\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
-"PO-Revision-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"PO-Revision-Date: 2018-03-13 10:54+0100\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "Language: en_GB\n"
@@ -295,10 +295,6 @@ msgstr "Can't open file \"%s\":"
 msgid "Can't open file %s:"
 msgstr "Can't open file %s:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "Can't perform another extraction:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "Can't perform extraction!"
@@ -550,7 +546,7 @@ msgstr "Extract to dir \"Archive Name\""
 msgid "Extract to:"
 msgstr "Extract to:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "Extracting files from archive, please wait..."
 
@@ -601,15 +597,17 @@ msgstr "From File"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;Android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -834,10 +832,6 @@ msgstr "Please select the archives you want to extract"
 msgid "Please select the destination directory"
 msgstr "Please select the destination directory"
 
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "Please wait until the completion of the current one!"
-
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
 msgstr "Points to"
@@ -1023,7 +1017,8 @@ msgstr "The archiver doesn't support this feature!"
 
 #: ../src/gzip_et_al.c
 msgid "The archiver lacks necessary support for password protected decryption!"
-msgstr "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+"The archiver lacks necessary support for password protected decryption!"
 
 #: ../src/pref_dialog.c
 msgid "The filename column is sorted after loading the archive"
@@ -1298,6 +1293,14 @@ msgstr "file1 ... fileN"
 msgid "large"
 msgstr "large"
 
+#: ../src/pref_dialog.c
+msgid "larger"
+msgstr "larger"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr "medium"
+
 #: ../src/window.c
 msgid "selected"
 msgstr "selected"
@@ -1309,6 +1312,10 @@ msgstr "small"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "Jeff Bailes <thepizzaking@gmail.com>"
+
+#: ../src/pref_dialog.c
+msgid "very large"
+msgstr "very large"
 
 #: ../src/main.c
 #, c-format
@@ -1322,6 +1329,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Size\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Can't perform another extraction:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Please wait until the completion of the current one!"
 
 #~ msgid "Please install xdg-utils."
 #~ msgstr "Please install xdg-utils."

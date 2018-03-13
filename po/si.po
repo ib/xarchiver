@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2017-09-14 11:50+0200\n"
+"POT-Creation-Date: 2018-03-13 10:54+0100\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -302,10 +302,6 @@ msgstr "\"%s\" ගොනුව විවෘත කිරීමට නොහැ�
 msgid "Can't open file %s:"
 msgstr "%s ගොනුව විවෘත කළ නොහැක:"
 
-#: ../src/window.c
-msgid "Can't perform another extraction:"
-msgstr "තවත් විසුරුමක් සිදු කල නොහැක:"
-
 #: ../src/extract_dialog.c ../src/window.c
 msgid "Can't perform extraction!"
 msgstr "විසුරුම සිදු කල නොහැක!"
@@ -559,7 +555,7 @@ msgstr "\"සංරක්ෂණ නාමය\" බහලුමට විසු�
 msgid "Extract to:"
 msgstr "වෙත විසුරුවන්න:"
 
-#: ../src/extract_dialog.c
+#: ../src/extract_dialog.c ../src/window.c
 msgid "Extracting files from archive, please wait..."
 msgstr "සංරක්ෂණයෙන් ගොනු විසිරුවමින්, කරුණාකර රැදී සිටින්න..."
 
@@ -610,10 +606,11 @@ msgstr "ගොනුවෙන්"
 
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;archiver;archiving;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;"
-"ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;"
-"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;"
-"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;android;archiver;archiving;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -845,10 +842,6 @@ msgstr "කරුණාකර ඔබට විසුරුවීමට අවශ
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
 msgstr "කරුණාකර ගමනාන්ත බහලුම තෝරන්න"
-
-#: ../src/window.c
-msgid "Please wait until the completion of the current one!"
-msgstr "කරුණාකර වත්මන් එක සමාප්ත වෙනකම් රැදී සිටින්න!"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1339,6 +1332,16 @@ msgstr "ගොනුව1 ගොනුව2 ගොනුව3 ... ගොනුවN"
 msgid "large"
 msgstr "විශාල"
 
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "larger"
+msgstr "විශාල"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
 #: ../src/window.c
 msgid "selected"
 msgstr "තේරූ"
@@ -1350,6 +1353,12 @@ msgstr "කුඩා"
 #: ../src/window.c
 msgid "translator-credits"
 msgstr "පරිවර්තක-කීර්තිය"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "විශාල"
 
 #: ../src/main.c
 #, c-format
@@ -1363,6 +1372,12 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|ප්‍රමාණය\n"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "තවත් විසුරුමක් සිදු කල නොහැක:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "කරුණාකර වත්මන් එක සමාප්ත වෙනකම් රැදී සිටින්න!"
 
 #~ msgid "%d file and %d dir %s (%s)"
 #~ msgid_plural "%d files and %d dirs %s (%s)"
