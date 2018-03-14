@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -1333,12 +1333,6 @@ msgid "large"
 msgstr "විශාල"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "විශාල"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1349,6 +1343,10 @@ msgstr "තේරූ"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "කුඩා"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1372,6 +1370,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|ප්‍රමාණය\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "විශාල"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "තවත් විසුරුමක් සිදු කල නොහැක:"

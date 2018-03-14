@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -1267,10 +1267,6 @@ msgid "large"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "larger"
-msgstr ""
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1280,6 +1276,10 @@ msgstr "ఎంచుకున్నవి"
 
 #: ../src/pref_dialog.c
 msgid "small"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
 msgstr ""
 
 #: ../src/window.c

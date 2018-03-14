@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-10-21 13:57+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -1332,12 +1332,6 @@ msgid "large"
 msgstr "大"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "大"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1348,6 +1342,10 @@ msgstr "选中的"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "小"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1376,6 +1374,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|大小\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "大"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "未能执行另一个解压："

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-11-09 15:47+0300\n"
 "Last-Translator: Andriy Matkovsky <sidius.ua@gmail.com>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -1347,12 +1347,6 @@ msgid "large"
 msgstr "великий"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "великий"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1363,6 +1357,10 @@ msgstr "вибраний"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "малий"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1386,6 +1384,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Розмір\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "великий"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Неможливо здійснити інше розпакування:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2017-01-23 23:58+0100\n"
 "Last-Translator: Páder Rezső <rezso@rezso.net>\n"
 "Language-Team: Hungarian\n"
@@ -1347,12 +1347,6 @@ msgid "large"
 msgstr "Nagy"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "Nagy"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1363,6 +1357,10 @@ msgstr "kijelölve"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "Kicsi"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1389,6 +1387,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Méret\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "Nagy"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Nem hajtható végre másik kibontás:"

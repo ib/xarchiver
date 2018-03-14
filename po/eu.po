@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver.master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-08-21 10:51+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara\n"
@@ -1349,12 +1349,6 @@ msgid "large"
 msgstr "handia"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "handia"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1365,6 +1359,10 @@ msgstr "Hautatutakoak"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "txikia"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1389,6 +1387,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaina\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "handia"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Ezin da beste ateratze bat aurrera eraman:"

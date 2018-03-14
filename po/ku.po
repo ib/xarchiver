@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2008-10-07 22:35+0000\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -1313,10 +1313,6 @@ msgid "large"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "larger"
-msgstr ""
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1327,6 +1323,10 @@ msgstr "Jêbirin"
 
 #: ../src/pref_dialog.c
 msgid "small"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
 msgstr ""
 
 #: ../src/window.c

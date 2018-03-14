@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2010-10-23 14:01+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <None>\n"
@@ -1348,12 +1348,6 @@ msgid "large"
 msgstr "suuri"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "suuri"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1364,6 +1358,10 @@ msgstr "valittu"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "pieni"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1387,6 +1385,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Koko\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "suuri"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Ei voi purkaa uudelleen:"

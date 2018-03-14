@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2010-09-03 16:34+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -1295,12 +1295,6 @@ msgid "large"
 msgstr "үлкен"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "үлкен"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1311,6 +1305,10 @@ msgstr "таңдалған"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "кіші"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1335,6 +1333,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Өлшемі\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "үлкен"
 
 #~ msgid "Attr"
 #~ msgstr "Аттр"

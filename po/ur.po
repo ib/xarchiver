@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-05-14 02:24+0500\n"
 "Last-Translator: Muhammad Ali Makki <makki.ma@gmail.com>\n"
 "Language-Team: urdu <makki.ma@gmail.com>\n"
@@ -1365,12 +1365,6 @@ msgid "large"
 msgstr "بڑا"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "بڑا"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1381,6 +1375,10 @@ msgstr "منتخب کردہ"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "چھوٹا"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1410,6 +1408,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|حجم\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "بڑا"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "دوسرا کھولنے کا عمل ادا نہیں کیا جاسکتا:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-12-16 18:30+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -1355,12 +1355,6 @@ msgid "large"
 msgstr "stor"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "stor"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1371,6 +1365,10 @@ msgstr "markerade"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "liten"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1399,6 +1397,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Storlek\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "stor"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Kan inte genomföra ytterligare en extrahering:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -1344,12 +1344,6 @@ msgid "large"
 msgstr "besar"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "besar"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1360,6 +1354,10 @@ msgstr "terpilih"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "kecil"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1387,6 +1385,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Ukuran\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "besar"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Tak dapat melakukan ekstraksi lain:"

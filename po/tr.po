@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gökmen Görgen <gkmngrgn@gmail.com>\n"
 "Language-Team: Turkish <turkce@pardus.org.tr>\n"
@@ -1347,12 +1347,6 @@ msgid "large"
 msgstr "büyük"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "büyük"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1363,6 +1357,10 @@ msgstr "seçilmiş"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "küçük"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1390,6 +1388,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Boyut\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "büyük"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Başka bir açma işlemi gerçekleştirilemiyor:"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiverxa 0.4.6\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
-"PO-Revision-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
+"PO-Revision-Date: 2018-03-14 16:57+0100\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "Language: en_GB\n"
@@ -1294,10 +1294,6 @@ msgid "large"
 msgstr "large"
 
 #: ../src/pref_dialog.c
-msgid "larger"
-msgstr "larger"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr "medium"
 
@@ -1308,6 +1304,10 @@ msgstr "selected"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "small"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr "small/medium"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1329,6 +1329,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Size\n"
+
+#~ msgid "larger"
+#~ msgstr "larger"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Can't perform another extraction:"

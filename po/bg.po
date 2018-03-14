@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
-"PO-Revision-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
+"PO-Revision-Date: 2018-03-14 16:57+0100\n"
 "Last-Translator: cybercop-montana <cybercop_montana@abv.bg>\n"
 "Language-Team: BULGARIAN <Enzo_01@abv.bg>\n"
 "Language: bg\n"
@@ -1354,10 +1354,6 @@ msgid "large"
 msgstr "голям"
 
 #: ../src/pref_dialog.c
-msgid "larger"
-msgstr "по-голям"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr "среден"
 
@@ -1368,6 +1364,10 @@ msgstr "маркирани"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "малък"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr "малък/среден"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1389,6 +1389,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#~ msgid "larger"
+#~ msgstr "по-голям"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Не може изпълни друго извличане:"

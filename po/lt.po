@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
-"PO-Revision-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
+"PO-Revision-Date: 2018-03-14 16:57+0100\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lietuvių\n"
 "Language: lt\n"
@@ -1315,10 +1315,6 @@ msgid "large"
 msgstr "didelis"
 
 #: ../src/pref_dialog.c
-msgid "larger"
-msgstr "didesnis"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr "vidutinis"
 
@@ -1329,6 +1325,10 @@ msgstr "pažymėtas"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "mažas"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr "mažas/vidutinis"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1351,6 +1351,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Dydis\n"
+
+#~ msgid "larger"
+#~ msgstr "didesnis"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Nepavyksta atlikti kitą išskleidimą:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchivr\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2006-11-23 12:28+0530\n"
 "Last-Translator: sonam pelden <sonaa_peldn@yahoo.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -1391,10 +1391,6 @@ msgid "large"
 msgstr ""
 
 #: ../src/pref_dialog.c
-msgid "larger"
-msgstr ""
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1405,6 +1401,10 @@ msgstr "སེལ་འཐུ་འབད་ཡོད་མི་རྐྱངམ
 
 #: ../src/pref_dialog.c
 msgid "small"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
 msgstr ""
 
 #: ../src/window.c

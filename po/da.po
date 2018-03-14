@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-08-22 15:53+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: DANISH <dansk@dansk-gruppen.dk>\n"
@@ -1358,12 +1358,6 @@ msgid "large"
 msgstr "stort"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "stort"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1374,6 +1368,10 @@ msgstr "markeret"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "lille"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1402,6 +1400,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Størrelse\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "stort"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Kan ikke udføre en anden udpakning:"

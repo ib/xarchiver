@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-08-29 11:06+0100\n"
 "Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -1352,12 +1352,6 @@ msgid "large"
 msgstr "gran"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "gran"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1368,6 +1362,10 @@ msgstr "seleccionat"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "petit"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1393,6 +1391,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Mida\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "gran"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "No s’ha pogut dur a terme cap altre extracció:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2010-12-13 13:59+0200\n"
 "Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -1359,12 +1359,6 @@ msgid "large"
 msgstr "mare"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "mare"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1375,6 +1369,10 @@ msgstr "selectat"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "mică"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1401,6 +1399,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Mărime\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "mare"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Nu se poate efectua o altă dezarhivare:"

@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -1368,12 +1368,6 @@ msgid "large"
 msgstr "大"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "大"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1384,6 +1378,10 @@ msgstr "選択済"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "小"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1412,6 +1410,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|サイズ\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "大"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "別の展開を実行できません:"

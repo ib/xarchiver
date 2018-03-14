@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2008-11-11 00:15+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -1362,12 +1362,6 @@ msgid "large"
 msgstr "të mëdha"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "të mëdha"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1378,6 +1372,10 @@ msgstr "përzgjedhur"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "të vogla"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1402,6 +1400,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Madhësi\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "të mëdha"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "S'kryen dot një përftim tjetër:"

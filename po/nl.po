@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -1358,12 +1358,6 @@ msgid "large"
 msgstr "groot"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "groot"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1374,6 +1368,10 @@ msgstr "geselecteerd"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "klein"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1401,6 +1399,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Grootte\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "groot"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Kan niet nog een keer uitpakken:"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.0beta2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
-"PO-Revision-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
+"PO-Revision-Date: 2018-03-14 16:57+0100\n"
 "Last-Translator: jcsl\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -1320,10 +1320,6 @@ msgid "large"
 msgstr "grande"
 
 #: ../src/pref_dialog.c
-msgid "larger"
-msgstr "más grande"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr "mediano"
 
@@ -1334,6 +1330,10 @@ msgstr "seleccionado"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "pequeño"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr "pequeño/mediano"
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1358,6 +1358,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaño\n"
+
+#~ msgid "larger"
+#~ msgstr "más grande"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "No se puede realizar otra extracción:"

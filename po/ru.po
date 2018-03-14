@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-03-13 10:54+0100\n"
+"POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2010-01-23 14:59+0300\n"
 "Last-Translator: dima <info@cnc-parts.info>\n"
 "Language-Team: ru_RU <ru@li.org>\n"
@@ -1356,12 +1356,6 @@ msgid "large"
 msgstr "Большой"
 
 #: ../src/pref_dialog.c
-#, fuzzy
-#| msgid "large"
-msgid "larger"
-msgstr "Большой"
-
-#: ../src/pref_dialog.c
 msgid "medium"
 msgstr ""
 
@@ -1372,6 +1366,10 @@ msgstr "Только выбранные"
 #: ../src/pref_dialog.c
 msgid "small"
 msgstr "Маленький"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
 
 #: ../src/window.c
 msgid "translator-credits"
@@ -1396,6 +1394,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Размер\n"
+
+#, fuzzy
+#~| msgid "large"
+#~ msgid "larger"
+#~ msgstr "Большой"
 
 #~ msgid "Can't perform another extraction:"
 #~ msgstr "Не удалось извлечь:"
