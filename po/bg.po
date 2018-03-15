@@ -985,7 +985,7 @@ msgstr "Възникнаха няколко грешки:"
 
 #: ../src/extract_dialog.c ../src/interface.c ../src/window.c
 msgid "Sorry, I could not perform the operation!"
-msgstr "Съжалявам, немога да изпълня действието!"
+msgstr "Съжалявам, не мога да изпълня действието!"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
@@ -1055,7 +1055,7 @@ msgstr "Колоната с имената е сортирана след зар
 #, fuzzy
 #| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
-msgstr "не е инсталиран подходящ архиватор"
+msgstr "Не е инсталиран подходящ архиватор!"
 
 #: ../src/extract_dialog.c
 msgid "This archive is encrypted!"
@@ -1162,7 +1162,7 @@ msgstr "Премахни отбелязаното"
 
 #: ../src/7zip.c
 msgid "Unsupported binary format!"
-msgstr "Премахни двуичния формат!"
+msgstr "Неподдържан двуичен формат!"
 
 #: ../src/interface.c
 msgid "Up"
