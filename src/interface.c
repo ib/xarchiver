@@ -397,8 +397,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		else
 			gtk_entry_set_text(GTK_ENTRY(location_entry),"\0");
 
-		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview));
-		g_signal_handler_block(selection, selchghid);
+		xa_block_signal_dir_treeview_selection(TRUE);
 
 		xa_fill_dir_sidebar(archive[id],TRUE);
 		gtk_widget_grab_focus(archive_dir_treeview);
@@ -408,7 +407,7 @@ static void xa_page_has_changed (GtkNotebook *notebook, GTK_COMPAT_SWITCH_PAGE_T
 		else
 			gtk_tree_selection_unselect_all(gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview)));
 
-		g_signal_handler_unblock(selection, selchghid);
+		xa_block_signal_dir_treeview_selection(FALSE);
 	}
 	xa_set_button_state(1, 1, 1, 1, archive[id]->can_test, 1, archive[id]->can_add, archive[id]->can_extract, archive[id]->sorted, archive[id]->can_sfx, archive[id]->has_comment, archive[id]->output, archive[id]->has_password);
 }
@@ -1739,4 +1738,16 @@ GSList *xa_file_filter_add_archiver_pattern_sort (GtkFileFilter *filter)
 	}
 
 	return sorted;
+}
+
+void xa_block_signal_dir_treeview_selection (gboolean block)
+{
+	GtkTreeSelection *selection;
+
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview));
+
+	if (block)
+		g_signal_handler_block(selection, selchghid);
+	else
+		g_signal_handler_unblock(selection, selchghid);
 }
