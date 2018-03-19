@@ -803,7 +803,9 @@ void xa_child_processed (XAChildProcess process, gboolean success, XArchive *arc
 			{
 				if (archive->parse_output)
 				{
+					xa_block_signal_dir_treeview_selection(TRUE);
 					gtk_widget_grab_focus(archive_dir_treeview);
+					xa_block_signal_dir_treeview_selection(FALSE);
 					xa_update_window_with_archive_entries(archive, NULL);
 					xa_expand_containing_directory(archive);
 					gtk_tree_view_set_model(GTK_TREE_VIEW(archive->treeview), archive->model);
