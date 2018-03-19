@@ -91,7 +91,7 @@ static GtkWidget *properties;
 static GtkWidget *red_led;
 static GtkWidget *save1;
 static GtkWidget *select_pattern;
-static gulong selchghid;
+static gulong changed;
 
 static const GtkTargetEntry drag_targets[] =
 {
@@ -1047,7 +1047,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-data-received", G_CALLBACK(xa_dir_sidebar_drag_data_received), NULL);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-motion", G_CALLBACK(xa_dir_sidebar_drag_motion), NULL);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));
-	selchghid = g_signal_connect(G_OBJECT(sel), "changed", G_CALLBACK(xa_dir_sidebar_row_selected), NULL);
+	changed = g_signal_connect(G_OBJECT(sel), "changed", G_CALLBACK(xa_dir_sidebar_row_selected), NULL);
 
 	column = gtk_tree_view_column_new();
 	archive_dir_renderer = gtk_cell_renderer_pixbuf_new();
@@ -1747,7 +1747,7 @@ void xa_block_signal_dir_treeview_selection (gboolean block)
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(archive_dir_treeview));
 
 	if (block)
-		g_signal_handler_block(selection, selchghid);
+		g_signal_handler_block(selection, changed);
 	else
-		g_signal_handler_unblock(selection, selchghid);
+		g_signal_handler_unblock(selection, changed);
 }
