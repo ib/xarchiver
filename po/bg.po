@@ -434,7 +434,7 @@ msgstr "Дата"
 #, fuzzy
 #| msgid "Date modified"
 msgid "Date and Time"
-msgstr "Дата на Време"
+msgstr "Дата и Час"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -872,11 +872,11 @@ msgstr "Предпочитан формат за архиви"
 #: ../src/pref_dialog.c
 #, fuzzy
 msgid "Preferred extraction directory:"
-msgstr "Зададена временна директория:"
+msgstr "Предпочитана директория за извличане:"
 
 #: ../src/pref_dialog.c
 msgid "Preferred temp directory:"
-msgstr "Зададена временна директория:"
+msgstr "Предпочитана временна директория:"
 
 #: ../src/window.c
 msgid "Print the archive content as HTML"
@@ -913,7 +913,7 @@ msgstr "Запиши саморазархивиращия се архив кат
 
 #: ../src/pref_dialog.c
 msgid "Save window geometry"
-msgstr "Запиши позицията и размера на прозореца"
+msgstr "Запази позицията и размера на прозореца"
 
 #: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
 msgid "Saving"
@@ -1013,7 +1013,7 @@ msgstr "Потоци/Блокове/Запълване"
 
 #: ../src/window.c
 msgid "Test result:"
-msgstr "Резултата от теста:"
+msgstr "Резултат от теста:"
 
 #: ../src/window.c
 msgid "Testing archive, please wait..."
@@ -1190,7 +1190,7 @@ msgstr "Преглед"
 
 #: ../src/pref_dialog.c
 msgid "Web browser to use:"
-msgstr "Уеб браузър:"
+msgstr "Уеб браузър за ползване:"
 
 #: ../src/extract_dialog.c
 #, fuzzy
