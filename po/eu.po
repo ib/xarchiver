@@ -140,16 +140,16 @@ msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
 msgstr ""
-"Gehitu fitxategi jakinak artxiboaren izena\n"
-"                                     eskatuz eta irten"
+"Gehitu fitxategi jakinak artxiboaren\n"
+"                                     izena eskatuz eta irten"
 
 #: ../src/main.c
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
 msgstr ""
-"Gehitu fitxategiak artxibora galdetuaz eta\n"
-"                                     irten."
+"Gehitu fitxategiak artxibora galdetuaz\n"
+"                                     eta irten"
 
 #: ../src/add_dialog.c
 msgid "Adding files to archive, please wait..."
@@ -503,16 +503,16 @@ msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
 msgstr ""
-"Erauzi artxiboa edukiontzi direktorio batera\n"
-"                                     eta irten"
+"Erauzi artxiboa edukiontzi direktorio\n"
+"                                     batera eta irten"
 
 #: ../src/main.c
 msgid ""
 "Extract archive to the destination\n"
 "                                     directory and quit"
 msgstr ""
-"Erauzi artxiboa helburuko\n"
-"                                     direktoriora eta irten"
+"Erauzi artxiboa helburuko direktoriora\n"
+"                                     eta irten"
 
 #: ../src/extract_dialog.c ../src/interface.c
 msgid "Extract files"
@@ -946,8 +946,8 @@ msgid ""
 "Show found command line programs to be\n"
 "                                     used and exit"
 msgstr ""
-"Erakutsi erabiltzeko aurkitutako komando-lerroko\n"
-"                                     programak eta irten."
+"Erakutsi erabiltzeko aurkitutako komando-\n"
+"                                     lerroko programak eta irten"
 
 #: ../src/pref_dialog.c
 msgid "Show toolbar"
