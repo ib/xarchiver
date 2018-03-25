@@ -42,7 +42,6 @@ msgstr[1] "%d direktorio %s (%s)"
 
 #: ../src/window.c
 #, c-format
-#| msgid "Add files"
 msgid "%d file"
 msgid_plural "%d files"
 msgstr[0] "Fitxategi %d"
@@ -137,7 +136,6 @@ msgid "Add files"
 msgstr "Gehitu fitxategiak"
 
 #: ../src/main.c
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Add the given files by asking the name of\n"
 "                                     the archive and quit"
@@ -146,7 +144,6 @@ msgstr ""
 "                                     eskatuz eta irten"
 
 #: ../src/main.c
-#| msgid "Add files to archive by asking their filenames and quits."
 msgid ""
 "Add to archive by asking which files and\n"
 "                                     quit"
@@ -200,7 +197,6 @@ msgstr "Artxiboaren _iruzkina"
 
 #: ../src/window.c
 #, c-format
-#| msgid "Archive contents:\n"
 msgid "Archive content:\n"
 msgstr "Artxiboaren edukia:\n"
 
@@ -221,7 +217,6 @@ msgid "Archive type:"
 msgstr "Artxibo-mota:"
 
 #: ../src/interface.c
-#| msgid "Can't run the archiver executable:"
 msgid "Archiver executable:"
 msgstr "Konprimatzailearen exekutagarria:"
 
@@ -266,7 +261,6 @@ msgid "Can't create a new archive:"
 msgstr "Ezin da artxibo berri bat sortu:"
 
 #: ../src/extract_dialog.c ../src/main.c
-#| msgid "Can't create temporary directory:"
 msgid "Can't create directory!"
 msgstr "Ezin da direktorioa sortu!"
 
@@ -429,12 +423,10 @@ msgid "Date"
 msgstr "Data"
 
 #: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#| msgid "Date modified"
 msgid "Date and Time"
 msgstr "Data eta ordua"
 
 #: ../src/pref_dialog.c
-#| msgid "Use a custom command:"
 msgid "Default custom command:"
 msgstr "Komando pertsonalizatu lehenetsia:"
 
@@ -479,7 +471,6 @@ msgid "Encryption: "
 msgstr "Enkriptatzea: "
 
 #: ../src/extract_dialog.c
-#| msgid "Preferred extract directory:"
 msgid "Ensure a containing directory"
 msgstr "Segurtatu edukiontzi direktorioa"
 
@@ -500,7 +491,6 @@ msgid "Extract"
 msgstr "Erauzi"
 
 #: ../src/main.c
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract archive by asking the extraction\n"
 "                                     directory and quit"
@@ -509,7 +499,6 @@ msgstr ""
 "                                     galdetuz eta irten"
 
 #: ../src/main.c
-#| msgid "Extract archive to the destination directory and quits."
 msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
@@ -518,7 +507,6 @@ msgstr ""
 "                                     eta irten"
 
 #: ../src/main.c
-#| msgid "Extract archive to the destination directory and quits."
 msgid ""
 "Extract archive to the destination\n"
 "                                     directory and quit"
@@ -535,7 +523,6 @@ msgid "Extract files with full path"
 msgstr "Erauzi fitxategiak bide-izen osoarekin"
 
 #: ../src/main.c
-#| msgid "Extract archive by asking the extraction directory and quits."
 msgid ""
 "Extract multiple archives by asking the\n"
 "                                     extraction directory and quit"
@@ -640,9 +627,6 @@ msgstr ""
 "Hautaturik badago artxiboaren iruzkina erakutsiko da artxiboa kargatu ondoren"
 
 #: ../src/add_dialog.c
-#| msgid ""
-#| "In a solid archive the files are grouped together featuring a better "
-#| "compression ratio"
 msgid ""
 "In a solid archive the files are grouped together resulting in a better "
 "compression ratio"
@@ -734,7 +718,6 @@ msgid "Open an archive"
 msgstr "Ireki artxibo bat"
 
 #: ../src/pref_dialog.c
-#| msgid "Open image files with:"
 msgid "Open archive files with:"
 msgstr "Ireki artxibo-fitxategiak honekin:"
 
@@ -773,7 +756,6 @@ msgstr "Aukerak:"
 #: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
-#| msgid "Original"
 msgid "Original Size"
 msgstr "Jatorrizko tamaina"
 
@@ -860,7 +842,6 @@ msgid "Points to"
 msgstr "Hona seinalatzen du: "
 
 #: ../src/pref_dialog.c
-#| msgid "Icons size (requires restart)"
 msgid "Prefer unzip for zip files (requires restart)"
 msgstr "Hobetsi unzip zip fitxategientzat (berrabiaraztea eskatzen du)"
 
@@ -873,7 +854,6 @@ msgid "Preferred archive format"
 msgstr "Hobetsiriko artxibo formatua"
 
 #: ../src/pref_dialog.c
-#| msgid "Preferred extract directory:"
 msgid "Preferred extraction directory:"
 msgstr "Hobetsiriko erauzketa direktorioa:"
 
@@ -962,7 +942,6 @@ msgid "Show archive tree sidebar"
 msgstr "Erakutsi artxiboaren zuhaitza albo-barran"
 
 #: ../src/main.c
-#| msgid "Add the given files by asking the name of the archive and quits."
 msgid ""
 "Show found command line programs to be\n"
 "                                     used and exit"
@@ -975,7 +954,6 @@ msgid "Show toolbar"
 msgstr "Erakutsi tresna-barra"
 
 #: ../src/main.c
-#| msgid "Show version and exit"
 msgid "Show version and exit\n"
 msgstr "Erakutsi bertsioa eta irten\n"
 
@@ -1029,7 +1007,6 @@ msgid "The archive \"%s\" already exists!"
 msgstr "\"%s\" artxiboa badago dagoeneko!"
 
 #: ../src/window.c
-#| msgid "This archive is encrypted!"
 msgid "The archive is okay."
 msgstr "Artxiboa ondo dago."
 
@@ -1053,7 +1030,6 @@ msgid "The filename column is sorted after loading the archive"
 msgstr "Fitxategi izen zutabea artxiboa kargatu ondoren ordenatzen da"
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
-#| msgid "the proper archiver is not installed!"
 msgid "The proper archiver is not installed!"
 msgstr "Konprimatzaile egokia ez dago instalaturik!"
 
@@ -1062,13 +1038,11 @@ msgid "This archive is encrypted!"
 msgstr "Artxiboa enkriptatua dago!"
 
 #: ../src/interface.c
-#| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
 msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
 msgstr ""
 "Hau Xarchiver-en LED egoera da. Keinuka ari denean Xarchiver lanpeturik dago."
 
 #: ../src/pref_dialog.c
-#| msgid "This option takes more memory with large archives"
 msgid "This option consumes more memory with large archives"
 msgstr "Aukera honek memoria gehiago erabiltzen du artxibo handiekin"
 
@@ -1097,9 +1071,6 @@ msgstr ""
 "fitxategiak ere erauzten ditu"
 
 #: ../src/add_dialog.c
-#| msgid ""
-#| "This option will add any new files and update any files which have been "
-#| "modified since the archive was last created/modified"
 msgid ""
 "This option will add any new files and update any files which are already in "
 "the archive but older there"
@@ -1108,10 +1079,6 @@ msgstr ""
 "eguneratzen ditu zaharragoak badira"
 
 #: ../src/add_dialog.c
-#| msgid ""
-#| "This option affects the archive only if it has been modified more "
-#| "recently than the version already in the archive; unlike the update "
-#| "option it will not add files that are not already in the archive"
 msgid ""
 "This option will only add files which are already in the archive but older "
 "there; unlike the update option it will not add any new files"
@@ -1191,10 +1158,6 @@ msgid "Web browser to use:"
 msgstr "Erabiliko den web nabigatzailea:"
 
 #: ../src/extract_dialog.c
-#| msgid ""
-#| "When this option is used,tar leaves the data modification times of the "
-#| "files it extracts as the times when the files were extracted,instead of "
-#| "setting it to the times recorded in the archive"
 msgid ""
 "When this option is used, the modification times of the files will be the "
 "times of extraction instead of the times recorded in the archive"
@@ -1215,7 +1178,6 @@ msgid "You are about to delete entries from the archive."
 msgstr "Artxibotik sarrerak ezabatzera zoaz."
 
 #: ../src/interface.c ../src/window.c
-#| msgid "You can't add content to deb packages!"
 msgid "You can't add content to this archive type!"
 msgstr "Ezin duzu artxibo mota honetara edukia gehitu!"
 
@@ -1323,7 +1285,6 @@ msgid "choose..."
 msgstr "aukeratu..."
 
 #: ../src/main.c
-#| msgid "destination archive"
 msgid "destination"
 msgstr "helburua"
 
@@ -1332,7 +1293,6 @@ msgid "example: *.txt; ac*"
 msgstr "adibidez: *.txt; ac*"
 
 #: ../src/main.c
-#| msgid "file1 file2 file3 ... fileN"
 msgid "file1 ... fileN"
 msgstr "fitx1 ... fitxN"
 
@@ -1363,7 +1323,6 @@ msgstr ""
 "Asier Iturralde Sarasola <asier.iturralde@gmail.com>"
 
 #: ../src/pref_dialog.c
-#| msgid "large"
 msgid "very large"
 msgstr "oso handia"
 
