@@ -1,12 +1,11 @@
-# English/GB translation of xarchiverxa.
-# Copyright (C) 2007 THE xarchiverxa'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the xarchiverxa package.
+# British English xarchiver translation
+# Copyright (C) 2007 The xarchiver's copyright holder
+# This file is distributed under the same license as the xarchiver package.
 # Jeff Bailes <thepizzaking@gmail.com>, 2007.
-#
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: xarchiverxa 0.4.6\n"
+"Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2018-03-14 16:57+0100\n"
 "PO-Revision-Date: 2018-03-14 16:57+0100\n"
