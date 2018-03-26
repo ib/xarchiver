@@ -379,7 +379,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	if (nr == 1)
 	{
 		icon_name = xa_get_stock_mime_icon(filename);
-		pixbuf = gtk_icon_theme_load_icon(icon_theme,icon_name,40,0,NULL);
+		pixbuf = gtk_icon_theme_load_icon(icon_theme, icon_name, 40, (GtkIconLookupFlags) 0, NULL);
 		mime_icon = gtk_image_new_from_pixbuf(pixbuf);
 		if (pixbuf)
 			g_object_unref(pixbuf);

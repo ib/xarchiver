@@ -2990,7 +2990,7 @@ GtkWidget *xa_main_window_find_image (gchar *filename, GtkIconSize size)
   if (ext)
   {
     *ext = 0;
-    file_pixbuf = gtk_icon_theme_load_icon(icon_theme, name, size, 0, NULL);
+    file_pixbuf = gtk_icon_theme_load_icon(icon_theme, name, size, (GtkIconLookupFlags) 0, NULL);
   }
 
   g_free(name);

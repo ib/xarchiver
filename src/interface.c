@@ -641,7 +641,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	xa_set_window_title (xa_main_window,NULL);
 
 	//g_signal_connect (G_OBJECT (icon_theme),"changed",G_CALLBACK (xa_icon_theme_changed),NULL);
-	icon = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
+	icon = gtk_icon_theme_load_icon(icon_theme, "xarchiver", 24, (GtkIconLookupFlags) 0, NULL);
 	gtk_window_set_icon (GTK_WINDOW(xa_main_window),icon);
 	g_signal_connect (G_OBJECT (xa_main_window),"delete-event",G_CALLBACK (xa_quit_application),NULL);
 
@@ -1585,7 +1585,7 @@ void xa_show_progress_bar (XArchive *archive)
 	gtk_container_set_border_width(GTK_CONTAINER(progress->window), 6);
 	gtk_window_set_transient_for(GTK_WINDOW(progress->window), GTK_WINDOW(xa_main_window));
 
-	pixbuf = gtk_icon_theme_load_icon(icon_theme,"xarchiver",24,0,NULL);
+	pixbuf = gtk_icon_theme_load_icon(icon_theme, "xarchiver", 24, (GtkIconLookupFlags) 0, NULL);
 	gtk_window_set_icon(GTK_WINDOW(progress->window), pixbuf);
 	g_object_unref(pixbuf);
 
@@ -1596,7 +1596,7 @@ void xa_show_progress_bar (XArchive *archive)
 	hbox1 = gtk_hbox_new (FALSE,12);
 	gtk_box_pack_start (GTK_BOX (vbox1),hbox1,TRUE,TRUE,0);
 
-	pixbuf = gtk_icon_theme_load_icon(icon_theme,"gnome-mime-application-zip",40,0,NULL);
+	pixbuf = gtk_icon_theme_load_icon(icon_theme, "gnome-mime-application-zip", 40, (GtkIconLookupFlags) 0, NULL);
 	if (!pixbuf) pixbuf = gtk_icon_theme_load_icon(icon_theme,"package-x-generic",40,GTK_ICON_LOOKUP_FORCE_SIZE,NULL);
 	icon_pixbuf = gtk_image_new_from_pixbuf(pixbuf);
 	g_object_unref(pixbuf);
