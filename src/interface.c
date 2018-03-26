@@ -1453,14 +1453,14 @@ GtkWidget *xa_create_archive_properties_window()
 
 	archiver_label = gtk_label_new("");
 	set_label(archiver_label, _("Archiver executable:"));
-	gtk_table_attach(GTK_TABLE(table1), archiver_label, 0, 1, 10, 11, GTK_FILL, 0, 0, 0);
+	gtk_table_attach(GTK_TABLE(table1), archiver_label, 0, 1, 10, 11, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment(GTK_MISC(archiver_label), 0.99, 0.5);
 
 /* */
 
 	archiver_data = gtk_label_new("");
 	gtk_misc_set_alignment(GTK_MISC(archiver_data), 0, 0.5);
-	gtk_table_attach(GTK_TABLE(table1), archiver_data, 1, 2, 10, 11, GTK_FILL, 0, 0, 0);
+	gtk_table_attach(GTK_TABLE(table1), archiver_data, 1, 2, 10, 11, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	compression_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (compression_data),0,0.5);
