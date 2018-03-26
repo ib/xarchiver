@@ -769,7 +769,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_set_sensitive (delete_menu,FALSE);
 	gtk_widget_show (delete_menu);
 	gtk_container_add (GTK_CONTAINER (menuitem2_menu),delete_menu);
-	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(delete_menu, "activate", accel_group, GDK_KEY_Delete, (GdkModifierType) 0, GTK_ACCEL_VISIBLE);
 
 	rename_menu = gtk_image_menu_item_new_with_mnemonic (_("Re_name"));
 	gtk_widget_set_sensitive (rename_menu,FALSE);
@@ -894,7 +894,7 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	help1 = gtk_image_menu_item_new_with_mnemonic (_("_Contents"));
 	gtk_widget_show (help1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),help1);
-	gtk_widget_add_accelerator(help1, "activate", accel_group, GDK_KEY_F1, 0, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(help1, "activate", accel_group, GDK_KEY_F1, (GdkModifierType) 0, GTK_ACCEL_VISIBLE);
 
 	tmp_image = gtk_image_new_from_stock ("gtk-help",GTK_ICON_SIZE_MENU);
 	gtk_widget_show (tmp_image);
