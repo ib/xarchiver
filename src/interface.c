@@ -1394,71 +1394,61 @@ GtkWidget *xa_create_archive_properties_window()
 	name_label = gtk_label_new ("");
 	set_label ( name_label,_("Name:"));
 	gtk_table_attach (GTK_TABLE (table1),name_label,0,1,0,1,
-                     (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (name_label),1,0.5);
 
 	path_label = gtk_label_new ("");
 	set_label ( path_label,_("Path:"));
 	gtk_table_attach (GTK_TABLE (table1),path_label,0,1,1,2,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (path_label),1,0.5);
 
 	type_label = gtk_label_new ("");
 	set_label ( type_label,_("Type:"));
 	gtk_table_attach (GTK_TABLE (table1),type_label,0,1,2,3,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (type_label),1,0.5);
 
 	encrypted_label = gtk_label_new ("");
 	set_label ( encrypted_label,_("Encrypted:"));
 	gtk_table_attach (GTK_TABLE (table1),encrypted_label,0,1,3,4,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (encrypted_label),0.99,0.5);
 
 	modified_label = gtk_label_new ("");
 	set_label ( modified_label,_("Modified on:"));
 	gtk_table_attach (GTK_TABLE (table1),modified_label,0,1,4,5,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (modified_label),1,0.5);
 
 	size_label = gtk_label_new ("");
 	set_label ( size_label,_("Compressed size:"));
 	gtk_table_attach (GTK_TABLE (table1),size_label,0,1,5,6,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (size_label),0.99,0.5);
 
 	content_label = gtk_label_new ("");
 	set_label ( content_label,_("Uncompressed size:"));
 	gtk_table_attach (GTK_TABLE (table1),content_label,0,1,6,7,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (content_label),0.99,0.5);
 
 	comment_label = gtk_label_new ("");
 	set_label ( comment_label,_("Comment:"));
 	gtk_table_attach (GTK_TABLE (table1),comment_label,0,1,7,8,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (comment_label),0.99,0.5);
 
 	number_of_files_label = gtk_label_new ("");
 	set_label ( number_of_files_label,_("Number of files:"));
 	gtk_table_attach (GTK_TABLE (table1),number_of_files_label,0,1,8,9,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (number_of_files_label),0.99,0.5);
 
 	compression_label = gtk_label_new ("");
 	set_label ( compression_label,_("Compression ratio:"));
 	gtk_table_attach (GTK_TABLE (table1),compression_label,0,1,9,10,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (compression_label),0.99,0.5);
 
 	archiver_label = gtk_label_new("");
@@ -1475,62 +1465,53 @@ GtkWidget *xa_create_archive_properties_window()
 	compression_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (compression_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),compression_data,1,2,9,10,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	number_of_files_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (number_of_files_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),number_of_files_data,1,2,8,9,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	comment_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (comment_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),comment_data,1,2,7,8,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	content_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (content_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),content_data,1,2,6,7,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	size_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (size_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),size_data,1,2,5,6,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	modified_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (modified_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),modified_data,1,2,4,5,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	encrypted_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (encrypted_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),encrypted_data,1,2,3,4,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	type_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (type_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),type_data,1,2,2,3,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	path_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (path_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),path_data,1,2,1,2,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 
 	name_data = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (name_data),0,0.5);
 	gtk_table_attach (GTK_TABLE (table1),name_data,1,2,0,1,
-                    (GtkAttachOptions) (GTK_FILL),
-                    (GtkAttachOptions) (0),0,0);
+	                  GTK_FILL, (GtkAttachOptions) 0, 0, 0);
+
 	return archive_properties_window;
 }
 

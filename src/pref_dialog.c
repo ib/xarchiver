@@ -231,8 +231,7 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 
 	label9 = gtk_label_new (_("Icons size (requires restart)"));
 	gtk_table_attach (GTK_TABLE (table1), label9, 0, 1, 0, 1,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                  GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
 	prefs_data->combo_icon_size = gtk_combo_box_text_new();
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("small"));
@@ -241,32 +240,27 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("large"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_icon_size), _("very large"));
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->combo_icon_size, 1, 2, 0, 1,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                  GTK_FILL, GTK_SHRINK, 0, 0);
 
 	prefs_data->check_show_comment = gtk_check_button_new_with_mnemonic (_("Show archive comment"));
 	gtk_widget_set_tooltip_text(prefs_data->check_show_comment, _("If checked the archive comment is shown after the archive is loaded"));
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->check_show_comment, 0, 2, 1, 2,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                  GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_show_comment), FALSE);
 
 	prefs_data->show_sidebar = gtk_check_button_new_with_mnemonic (_("Show archive tree sidebar"));
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_sidebar, 0, 2, 2, 3,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                  GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_sidebar), FALSE);
 
 	prefs_data->show_location_bar = gtk_check_button_new_with_mnemonic (_("Show archive location bar"));
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_location_bar, 0, 2, 3, 4,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                  GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_location_bar), FALSE);
 
 	prefs_data->show_toolbar = gtk_check_button_new_with_mnemonic (_("Show toolbar"));
 	gtk_table_attach (GTK_TABLE (table1), prefs_data->show_toolbar, 0, 2, 4, 5,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                  GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->show_toolbar), FALSE);
 
 	label2 = gtk_label_new ("");
@@ -287,105 +281,89 @@ Prefs_dialog_data *xa_create_prefs_dialog()
 	{
 		label6 = gtk_label_new (_("Web browser to use:"));
 		gtk_table_attach (GTK_TABLE (table2), label6, 0, 1, 0, 1,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+		                  GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment (GTK_MISC (label6), 0, 0.5);
 		prefs_data->combo_prefered_web_browser = gtk_combo_box_text_new();
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_web_browser), "");
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_web_browser), _("choose..."));
 		g_signal_connect (prefs_data->combo_prefered_web_browser,"changed",G_CALLBACK (xa_prefs_combo_changed),NULL);
 		gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_web_browser, 1, 2, 0, 1,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+		                  GTK_FILL, GTK_SHRINK, 0, 0);
 
 		label7 = gtk_label_new (_("Open text files with:"));
 		gtk_table_attach (GTK_TABLE (table2), label7, 0, 1, 1, 2,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+		                  GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment (GTK_MISC (label7), 0, 0.5);
 		prefs_data->combo_prefered_editor = gtk_combo_box_text_new();
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_editor), "");
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_editor), _("choose..."));
 		g_signal_connect (prefs_data->combo_prefered_editor,"changed",G_CALLBACK (xa_prefs_combo_changed),NULL);
 		gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_editor, 1, 2, 1, 2,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+		                  GTK_FILL, GTK_SHRINK, 0, 0);
 
 		label8 = gtk_label_new (_("Open image files with:"));
 		gtk_table_attach (GTK_TABLE (table2), label8, 0, 1, 2, 3,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+		                  GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment (GTK_MISC (label8), 0, 0.5);
 		prefs_data->combo_prefered_viewer = gtk_combo_box_text_new();
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_viewer), "");
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_viewer), _("choose..."));
 		g_signal_connect (prefs_data->combo_prefered_viewer,"changed",G_CALLBACK (xa_prefs_combo_changed),NULL);
 		gtk_table_attach (GTK_TABLE (table2), prefs_data->combo_prefered_viewer, 1, 2, 2, 3,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+		                  GTK_FILL, GTK_SHRINK, 0, 0);
 
 		label8 = gtk_label_new(_("Open archive files with:"));
 		gtk_table_attach(GTK_TABLE(table2), label8, 0, 1, 3, 4,
-		                 (GtkAttachOptions) (GTK_FILL),
-		                 (GtkAttachOptions) (GTK_SHRINK), 0, 0);
+		                 GTK_FILL, GTK_SHRINK, 0, 0);
 		gtk_misc_set_alignment(GTK_MISC(label8), 0, 0.5);
 		prefs_data->combo_prefered_archiver = gtk_combo_box_text_new();
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_archiver), "");
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_archiver), _("choose..."));
 		g_signal_connect(prefs_data->combo_prefered_archiver, "changed", G_CALLBACK(xa_prefs_combo_changed), NULL);
 		gtk_table_attach(GTK_TABLE(table2), prefs_data->combo_prefered_archiver, 1, 2, 3, 4,
-		                 (GtkAttachOptions) (GTK_FILL),
-		                 (GtkAttachOptions) (GTK_SHRINK), 0, 0);
+		                 GTK_FILL, GTK_SHRINK, 0, 0);
 	}
 
 	label8 = gtk_label_new(_("Default custom command:"));
 	gtk_table_attach(GTK_TABLE(table2), label8, 0, 1, 4, 5,
-	                 (GtkAttachOptions) (GTK_FILL),
-	                 (GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                 GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_misc_set_alignment(GTK_MISC(label8), 0, 0.5);
 	prefs_data->combo_prefered_custom_cmd = gtk_combo_box_text_new();
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_custom_cmd), "");
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_custom_cmd), _("choose..."));
 	g_signal_connect(prefs_data->combo_prefered_custom_cmd, "changed", G_CALLBACK(xa_prefs_combo_changed), NULL);
 	gtk_table_attach(GTK_TABLE(table2), prefs_data->combo_prefered_custom_cmd, 1, 2, 4, 5,
-	                 (GtkAttachOptions) (GTK_FILL),
-	                 (GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                 GTK_FILL, GTK_SHRINK, 0, 0);
 
 	label9 = gtk_label_new (_("Preferred temp directory:"));
 	gtk_table_attach(GTK_TABLE(table2), label9, 0, 1, 5, 6,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                 GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
 	prefs_data->combo_prefered_temp_dir = gtk_combo_box_text_new();
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_temp_dir), _("/tmp"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_temp_dir), _("choose..."));
 	g_signal_connect (prefs_data->combo_prefered_temp_dir,"changed",G_CALLBACK (xa_prefs_combo_changed),GUINT_TO_POINTER(1));
 	gtk_table_attach(GTK_TABLE(table2), prefs_data->combo_prefered_temp_dir, 1, 2, 5, 6,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                 GTK_FILL, GTK_SHRINK, 0, 0);
 
 	label10 = gtk_label_new (_("Preferred extraction directory:"));
 	gtk_table_attach(GTK_TABLE(table2), label10, 0, 1, 6, 7,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                 GTK_FILL, GTK_SHRINK, 0, 0);
 	gtk_misc_set_alignment (GTK_MISC (label10), 0, 0.5);
 	prefs_data->combo_prefered_extract_dir = gtk_combo_box_text_new();
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_extract_dir), _("/tmp"));
 	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(prefs_data->combo_prefered_extract_dir), _("choose..."));
 	g_signal_connect (prefs_data->combo_prefered_extract_dir,"changed",G_CALLBACK (xa_prefs_combo_changed),GUINT_TO_POINTER(1));
 	gtk_table_attach(GTK_TABLE(table2), prefs_data->combo_prefered_extract_dir, 1, 2, 6, 7,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_SHRINK), 0, 0);
+	                 GTK_FILL, GTK_SHRINK, 0, 0);
 
 	prefs_data->check_save_geometry = gtk_check_button_new_with_mnemonic (_("Save window geometry"));
 	gtk_table_attach(GTK_TABLE(table2), prefs_data->check_save_geometry, 0, 2, 7, 8,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (GTK_FILL), 0, 0);
+	                 GTK_FILL, GTK_FILL,0, 0);
 
 	prefs_data->allow_sub_dir = gtk_check_button_new_with_mnemonic (_("Allow subdirs with drag and drop"));
 	gtk_table_attach(GTK_TABLE(table2), prefs_data->allow_sub_dir, 0, 2, 8, 9,
-					(GtkAttachOptions) (GTK_FILL),
-					(GtkAttachOptions) (0), 0, 0);
+	                 GTK_FILL, (GtkAttachOptions) 0, 0, 0);
 	gtk_widget_set_tooltip_text(prefs_data->allow_sub_dir, _("This option includes the subdirectories when you add files with drag and drop"));
 	gtk_button_set_focus_on_click (GTK_BUTTON (prefs_data->check_save_geometry), FALSE);
 
