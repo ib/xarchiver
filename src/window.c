@@ -2670,7 +2670,7 @@ void xa_rename_archive (GtkMenuItem *item, gpointer user_data)
 	row_list = gtk_tree_selection_get_selected_rows(selection,&model);
 
 	g_object_set(archive[idx]->text_renderer, "editable", TRUE, NULL);
-	gtk_widget_remove_accelerator(delete_menu, accel_group, GDK_KEY_Delete, 0);
+	gtk_widget_remove_accelerator(delete_menu, accel_group, GDK_KEY_Delete, (GdkModifierType) 0);
 	column = gtk_tree_view_get_column(GTK_TREE_VIEW (archive[idx]->treeview),0);
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(archive[idx]->treeview),row_list->data,column,TRUE);
 	gtk_tree_path_free (row_list->data);
