@@ -1981,7 +1981,7 @@ void xa_archive_properties (GtkMenuItem *menuitem,gpointer user_data)
 	g_free(t);
     /* Modified Date */
     strftime (date,64,"%c",localtime (&my_stat.st_mtime));
-    t = g_locale_to_utf8 (date,-1,0,0,0);
+    t = g_locale_to_utf8(date, -1, NULL, NULL, NULL);
     gtk_label_set_text(GTK_LABEL(modified_data),t);
     g_free (t);
     /* Archive Size */
