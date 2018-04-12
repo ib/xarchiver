@@ -763,7 +763,10 @@ gchar *xa_build_full_path_name_from_entry (XEntry *entry)
 		entry = entry->prev;
 	}
 
-	path_local = g_filename_from_utf8(path->str, -1, NULL, NULL, NULL);
+	if (g_utf8_validate(path->str, -1, NULL))
+		path_local = g_filename_from_utf8(path->str, -1, NULL, NULL, NULL);
+	else
+		path_local = g_strdup(path->str);
 
 	g_string_free(path, TRUE);
 
