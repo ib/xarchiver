@@ -188,7 +188,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_box_pack_start (GTK_BOX (hbox3), frame3, TRUE, TRUE, 0);
 	gtk_frame_set_shadow_type (GTK_FRAME (frame3), GTK_SHADOW_OUT);
 
-	alignment3 = gtk_alignment_new (0.5, 0.5, 1, 1);
+	alignment3 = gtk_alignment_new(0.5, 0.5, 1, 0);
 	gtk_container_add (GTK_CONTAINER (frame3), alignment3);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment3), 0, 0, 5, 5);
 
