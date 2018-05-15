@@ -442,7 +442,7 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 
 	dhbox1 = gtk_hbox_new (FALSE,10);
 	gtk_widget_show (dhbox1);
-	gtk_box_pack_start (GTK_BOX (ddialog_vbox1),dhbox1,TRUE,TRUE,0);
+	gtk_container_add(GTK_CONTAINER(ddialog_vbox1), dhbox1);
 	gtk_container_set_border_width (GTK_CONTAINER (dhbox1),5);
 
 	pattern_label = gtk_label_new (_("Pattern:"));

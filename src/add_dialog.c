@@ -82,7 +82,7 @@ Add_dialog_data *xa_create_add_dialog()
 	dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(add_dialog->dialog1));
 
 	add_dialog->notebook1 = gtk_notebook_new ();
-	gtk_box_pack_start(GTK_BOX(dialog_vbox1), add_dialog->notebook1, TRUE, TRUE, 0);
+	gtk_container_add(GTK_CONTAINER(dialog_vbox1), add_dialog->notebook1);
 	gtk_container_set_border_width (GTK_CONTAINER (add_dialog->notebook1),4);
 
 	/* Selection page */

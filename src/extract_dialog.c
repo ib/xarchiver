@@ -304,7 +304,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	dialog_data->dialog_vbox1 = gtk_dialog_get_content_area(GTK_DIALOG(dialog_data->dialog1));
 
 	vbox1 = gtk_vbox_new (FALSE,2);
-	gtk_box_pack_start (GTK_BOX (dialog_data->dialog_vbox1),vbox1,TRUE,TRUE,0);
+	gtk_container_add(GTK_CONTAINER(dialog_data->dialog_vbox1), vbox1);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox1),2);
 
 	label1 = gtk_label_new (_("Extract to:"));
