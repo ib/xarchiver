@@ -423,7 +423,7 @@ msgstr "Изрежи"
 
 #: ../src/gzip_et_al.c
 msgid "Data Frames/Skippable Frames"
-msgstr ""
+msgstr "Времеви рамки/Пропускане на рамките"
 
 #: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
 #: ../src/unar.c ../src/zip.c
@@ -554,7 +554,7 @@ msgstr "Извлечи имената на пътищата"
 
 #: ../src/extract_dialog.c
 msgid "Extract to dir \"Archive Name\""
-msgstr "Извлечи в директория с името на архива"
+msgstr "Извлечи в директория \"Име на архива\""
 
 #: ../src/extract_dialog.c
 msgid "Extract to:"
@@ -617,6 +617,11 @@ msgid ""
 "rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
 "zstd;"
 msgstr ""
+"GTK;android;архиватор;архивиране;компресия;front end;графичен интерфейс;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;"
+"rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;"
+"zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -624,7 +629,7 @@ msgstr "Група"
 
 #: ../src/pref_dialog.c
 msgid "Icons size (requires restart)"
-msgstr "Големина на иконите (изискване рестарт)"
+msgstr "Размер на иконите (изискване рестарт)"
 
 #: ../src/pref_dialog.c
 msgid "If checked the archive comment is shown after the archive is loaded"
@@ -751,7 +756,7 @@ msgstr "Отваряне на архива, моля изчакайте..."
 
 #: ../src/window.c
 msgid "Operation aborted!"
-msgstr "Операцията е отхвърлена"
+msgstr "Операцията е отхвърлена!"
 
 #: ../src/add_dialog.c
 msgid "Options"
@@ -759,7 +764,7 @@ msgstr "Опции"
 
 #: ../src/extract_dialog.c
 msgid "Options "
-msgstr "Опции"
+msgstr "Опции "
 
 #: ../src/extract_dialog.c
 msgid "Options:"
@@ -803,7 +808,7 @@ msgstr "Път:"
 
 #: ../src/interface.c
 msgid "Pattern:"
-msgstr "Образец:"
+msgstr "Шаблон:"
 
 #: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
@@ -893,7 +898,7 @@ msgstr "Коефициент"
 #: ../src/interface.c
 #, fuzzy
 msgid "Re_name"
-msgstr "Преименувай"
+msgstr "_Преименувай"
 
 #: ../src/interface.c
 msgid "Rename"
@@ -929,7 +934,7 @@ msgstr "М_аркирай всички"
 
 #: ../src/interface.c
 msgid "Select _by pattern"
-msgstr "Маркирай по образец"
+msgstr "Избери от _шаблон"
 
 #: ../src/open-with-dlg.c
 msgid "Select an application"
@@ -941,11 +946,11 @@ msgstr "Избери от шаблон"
 
 #: ../src/extract_dialog.c
 msgid "Selected files"
-msgstr "Маркирани файлове"
+msgstr "Избрани файлове"
 
 #: ../src/add_dialog.c
 msgid "Selection"
-msgstr "Маркирани"
+msgstr "Избрани"
 
 #: ../src/pref_dialog.c
 msgid "Show archive comment"
@@ -989,7 +994,7 @@ msgstr "Съжалявам, не мога да изпълня действиет
 
 #: ../src/extract_dialog.c ../src/main.c ../src/window.c
 msgid "Sorry, this archive format is not supported:"
-msgstr "Съжалявам, но този формат не се поддържа!"
+msgstr "Съжалявам, но този формат не се поддържа:"
 
 #: ../src/pref_dialog.c
 msgid "Sort archive by filename"
