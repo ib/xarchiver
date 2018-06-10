@@ -384,7 +384,7 @@ void xa_prefs_save_options(Prefs_dialog_data *prefs_data, const char *filename)
 	gchar *value= NULL;
 	gsize len;
 
-	if (access(filename, W_OK) == -1)
+	if (access(filename, F_OK) == 0 && access(filename, W_OK) == -1)
 		return;
 
 	GKeyFile *xa_key_file = g_key_file_new();
