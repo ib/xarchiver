@@ -34,7 +34,7 @@ create)
 	;;
 
 extract-here)
-	exec xarchiver "--extract-to=$folder" "$@"
+	exec xarchiver "--ensure-directory=$folder" "$@"
 	;;
 
 extract-to)
