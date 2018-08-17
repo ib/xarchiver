@@ -143,7 +143,7 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
 	                      archive->do_overwrite ? " -u" : "",
-	                      " -F ", archive->path[1],
+	                      " --no-absolute-filenames -F ", archive->path[1],
 	                      files->str, NULL);
 	g_string_free(files, TRUE);
 
