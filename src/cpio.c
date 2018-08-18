@@ -34,6 +34,7 @@ void xa_cpio_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
 	archive->can_add = TRUE;
+	archive->can_full_path[0] = TRUE;
 	archive->can_full_path[1] = TRUE;   // n.b.: adds leading slash
 	archive->can_touch = TRUE;
 	archive->can_overwrite = TRUE;
@@ -141,24 +142,59 @@ void xa_cpio_list (XArchive *archive)
 gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
-	gchar *command;
+	gchar *extract_to, *command;
 	gboolean result;
+
+	if (archive->do_full_path)
+		extract_to = g_strdup(archive->extraction_dir);
+	else
+	{
+		if (!xa_create_working_directory(archive))
+			return FALSE;
+
+		extract_to = g_strconcat(archive->working_dir, "/xa-tmp.XXXXXX", NULL);
+
+		if (!g_mkdtemp(extract_to))
+		{
+			g_free(extract_to);
+			return FALSE;
+		}
+	}
 
 	g_slist_foreach(file_list, (GFunc) relative_path, NULL);
 	files = xa_quote_filenames(file_list, "*?[]\"", FALSE);
-	archive->child_dir = g_strdup(archive->extraction_dir);
+	archive->child_dir = g_strdup(extract_to);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
 	                      archive->do_touch ? "" : " -m",
 	                      archive->do_overwrite ? " -u" : "",
 	                      " --no-absolute-filenames -F ", archive->path[1],
 	                      files->str, NULL);
-	g_string_free(files, TRUE);
-
 	result = xa_run_command(archive, command);
 	g_free(command);
 
 	g_free(archive->child_dir);
 	archive->child_dir = NULL;
+
+	/* collect all files that have been extracted to move them without full path */
+	if (result && !archive->do_full_path)
+	{
+		GString *all_files = xa_collect_files_in_dir(extract_to);
+
+		archive->child_dir = g_strdup(extract_to);
+		command = g_strconcat("mv",
+		                      archive->do_overwrite ? " -f" : " -n",
+		                      all_files->str, " ", archive->extraction_dir, NULL);
+		g_string_free(all_files, TRUE);
+
+		result = xa_run_command(archive, command);
+		g_free(command);
+
+		g_free(archive->child_dir);
+		archive->child_dir = NULL;
+	}
+
+	g_free(extract_to);
+	g_string_free(files, TRUE);
 
 	return result;
 }
