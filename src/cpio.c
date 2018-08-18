@@ -24,6 +24,12 @@
 #include "support.h"
 #include "window.h"
 
+static void relative_path (char *filename)
+{
+	if (*filename == '/')
+		strcpy(filename, filename + 1);
+}
+
 void xa_cpio_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
@@ -138,6 +144,7 @@ gboolean xa_cpio_extract (XArchive *archive, GSList *file_list)
 	gchar *command;
 	gboolean result;
 
+	g_slist_foreach(file_list, (GFunc) relative_path, NULL);
 	files = xa_quote_filenames(file_list, "*?[]\"", FALSE);
 	archive->child_dir = g_strdup(archive->extraction_dir);
 	command = g_strconcat(archiver[archive->type].program[0], " -id",
