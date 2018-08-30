@@ -411,8 +411,7 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 
 	if (archive->output)
 	{
-		g_slist_foreach(archive->output, (GFunc) g_free, NULL);
-		g_slist_free(archive->output);
+		g_slist_free_full(archive->output, g_free);
 		archive->output = NULL;
 	}
 
@@ -468,11 +467,7 @@ void xa_clean_archive_structure (XArchive *archive)
 	if (archive->comment)
 		g_string_free(archive->comment, TRUE);
 
-	if (archive->output)
-	{
-		g_slist_foreach(archive->output, (GFunc) g_free, NULL);
-		g_slist_free(archive->output);
-	}
+	g_slist_free_full(archive->output, g_free);
 
 	if (archive->clipboard)
 		xa_clipboard_clear(NULL, archive);

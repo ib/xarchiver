@@ -292,11 +292,7 @@ static void xa_dir_sidebar_drag_data_received (GtkWidget *widget, GdkDragContext
 	archive[idx]->do_full_path = full_path;
 
 	g_string_free(full_pathname,TRUE);
-	if (list != NULL)
-	{
-		g_slist_foreach(list,(GFunc) g_free,NULL);
-		g_slist_free(list);
-	}
+	g_slist_free_full(list, g_free);
 	g_strfreev (array);
 	gtk_drag_finish (context,TRUE,FALSE,time);
 }

@@ -2127,8 +2127,7 @@ void drag_begin (GtkWidget *widget, GdkDragContext *context, XArchive *archive)
 					(guchar *) XDS_FILENAME,
 			     	strlen (XDS_FILENAME));
 
-	g_list_foreach (row_list,(GFunc) gtk_tree_path_free,NULL);
-	g_list_free (row_list);
+	g_list_free_full(row_list, (GDestroyNotify) gtk_tree_path_free);
 }
 
 void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *data, guint info, guint time, XArchive *archive)
@@ -2149,8 +2148,7 @@ void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData
 	if (row_list == NULL)
 		return;
 
-	g_list_foreach(row_list, (GFunc) gtk_tree_path_free, NULL);
-	g_list_free(row_list);
+	g_list_free_full(row_list, (GDestroyNotify) gtk_tree_path_free);
 
 	gdk_property_get(gdk_drag_context_get_source_window(context),
 	                 gdk_atom_intern("XdndDirectSave0", FALSE),
@@ -2645,8 +2643,7 @@ void xa_clipboard_clear (GtkClipboard *clipboard, XArchive *archive)
 	{
 		if (archive->clipboard->files != NULL)
 		{
-			g_slist_foreach(archive->clipboard->files, (GFunc) g_free, NULL);
-			g_slist_free(archive->clipboard->files);
+			g_slist_free_full(archive->clipboard->files, g_free);
 			archive->clipboard->files = NULL;
 		}
 
@@ -2738,8 +2735,7 @@ void xa_open_with_from_popupmenu (GtkMenuItem *item, gpointer user_data)
 	while (list_of_files);
 	xa_create_open_with_dialog(entry->filename,names->str,nr);
 	g_string_free(names, FALSE);
-	g_slist_foreach(list_of_files,(GFunc)g_free,NULL);
-	g_slist_free(list_of_files);
+	g_slist_free_full(list_of_files, g_free);
 }
 
 void xa_view_from_popupmenu (GtkMenuItem *item, gpointer user_data)
