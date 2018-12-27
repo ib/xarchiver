@@ -809,6 +809,11 @@ static void xa_check_available_archivers ()
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.apk");
 		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('a'));
 		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
+		/* comic book */
+		archiver[type].type = g_slist_append(archiver[type].type, "cbz");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.cbz");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('c'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 		/* electronic publication */
 		archiver[type].type = g_slist_append(archiver[type].type, "epub");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.epub");

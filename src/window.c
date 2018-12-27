@@ -1820,6 +1820,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 
 		if (g_str_has_suffix(filename, ".apk"))
 			xa.tag = 'a';
+		else if (g_str_has_suffix(filename, ".cbz"))
+			xa.tag = 'c';
 		else if (g_str_has_suffix(filename, ".epub"))
 			xa.tag = 'e';
 		else if (g_str_has_suffix(filename, ".jar"))
