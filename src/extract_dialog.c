@@ -200,8 +200,7 @@ static void xa_multi_extract_dialog_remove_files (GtkButton *button, Multi_extra
 	}
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(model),&iter)== FALSE)
 		gtk_widget_set_sensitive(GTK_WIDGET(button), FALSE);
-	g_list_foreach(rr_list,(GFunc)gtk_tree_row_reference_free,NULL);
-	g_list_free(rr_list);
+	g_list_free_full(rr_list, (GDestroyNotify) gtk_tree_row_reference_free);
 }
 
 static gchar *xa_multi_extract_one_archive (Multi_extract_data *dialog, gchar *filename, gboolean overwrite, gboolean full_path, gchar *dest_path)

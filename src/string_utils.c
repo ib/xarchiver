@@ -20,6 +20,7 @@
 #include <dirent.h>
 #include <string.h>
 #include "string_utils.h"
+#include "support.h"
 #include "utf8-fnmatch.h"
 
 #ifndef HAVE_MKDTEMP
@@ -359,8 +360,7 @@ GString *xa_quote_filenames (GSList *file_list, const gchar *escape, gboolean sl
 		list = list->next;
 	}
 
-	g_slist_foreach(file_list, (GFunc) g_free, NULL);
-	g_slist_free(file_list);
+	g_slist_free_full(file_list, g_free);
 
 	return files;
 }

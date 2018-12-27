@@ -56,7 +56,7 @@ static gint xa_app_compare (const App *a, const App *b)
 	return 1;
 }
 
-static void xa_app_free (App *app, gpointer user_data)
+static void xa_app_free (App *app)
 {
 	g_free(app->name);
 	g_free(app->exec);
@@ -124,8 +124,7 @@ static gboolean xa_open_with_dialog_mouse_button_event (GtkWidget *widget, GdkEv
 static void xa_destroy_open_with_dialog (GTK_COMPAT_DESTROY_TYPE object, Open_with_data *data)
 {
 	g_free(data->files);
-	g_slist_foreach(data->apps, (GFunc) xa_app_free, NULL);
-	g_slist_free(data->apps);
+	g_slist_free_full(data->apps, (GDestroyNotify) xa_app_free);
 	g_free(data);
 }
 

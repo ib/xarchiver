@@ -24,7 +24,7 @@
 #include "support.h"
 #include "window.h"
 
-static void relative_path (char *filename)
+static void relative_path (char *filename, gpointer user_data)
 {
 	if (*filename == '/')
 		strcpy(filename, filename + 1);
