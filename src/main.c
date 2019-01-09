@@ -881,7 +881,7 @@ static void xa_check_available_archivers ()
 			{XARCHIVETYPE_LZMA, {"tar.lzma", NULL}, {"*.tar.lzma", "*.tlz"}},
 			{XARCHIVETYPE_LZOP, {"tar.lzop", NULL}, {"*.tar.lzo", "*.tzo"}},
 			{XARCHIVETYPE_XZ, {"tar.xz", NULL}, {"*.tar.xz", "*.txz"}},
-			{XARCHIVETYPE_ZSTD, {"tar.zstd", NULL}, {"*.tar.zst", ""}},
+			{XARCHIVETYPE_ZSTD, {"tar.zstd", NULL}, {"*.tar.zst", "*.tzst"}},
 			{XARCHIVETYPE_UNKNOWN, {NULL, NULL}, {NULL, NULL}}
 		}, *i;
 
