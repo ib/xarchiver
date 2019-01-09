@@ -103,9 +103,9 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/x-xpinstall") == 0 ||
 	         strcmp(mime,"application/x-xz") == 0 ||
 	         strcmp(mime,"application/x-xz-compressed-tar") == 0 ||
+	         strcmp(mime,"application/x-zstd-compressed-tar") == 0 ||
 	         strcmp(mime,"application/zip") == 0 ||
 	         strcmp(mime,"application/zstd") == 0)
-	         // currently no type for zstd compressed tar
 		return "package-x-generic";
 	else if (strcmp(mime,"application/x-cd-image") == 0)
 		return "media-optical";
