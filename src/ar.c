@@ -67,7 +67,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	/* Date Modified */
 	for(; n < linesize; ++n)
 	{
-		if(n == 38)
+		if (n - a == 17)
 			break;
 	}
 	if (line[n] != ' ')
