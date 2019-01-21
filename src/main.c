@@ -157,6 +157,38 @@ static void xa_check_available_archivers ()
 		archiver[type].delete = (standard ? xa_7zip_delete : NULL);
 	}
 
+	/* archiver */
+
+	type = XARCHIVETYPE_AR;
+	path = g_find_program_in_path("ar");
+
+	standard = (path != NULL);
+
+	if (!standard)
+	{
+		if (lsar && unar)
+		{
+			/* alternative ... */
+			path = g_strdup(lsar);
+			/* ... uncompressor */
+			archiver[type].program[1] = g_strdup(unar);
+		}
+		else if (is7z)
+			/* alternative uncompressor */
+			path = g_strconcat(sevenz, " -tar", NULL);
+	}
+
+	if (path)
+	{
+		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "deb");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
+
+		archiver[type].ask = FUNC(standard, xa_ar_ask, lsar && unar, xa_unar_ask, is7z, xa_7zip_ask);
+		archiver[type].list = FUNC(standard, xa_ar_list, lsar && unar, xa_unar_list, is7z, xa_7zip_list);
+		archiver[type].extract  = FUNC(standard, xa_ar_extract, lsar && unar, xa_unar_extract, is7z, xa_7zip_extract);
+	}
+
 	/* ARJ */
 
 	type = XARCHIVETYPE_ARJ;
@@ -322,38 +354,6 @@ static void xa_check_available_archivers ()
 		archiver[type].test = FUNC(standard, NULL, is7z, xa_7zip_test, lsar, NULL);
 		archiver[type].extract = FUNC(standard, xa_cpio_extract, is7z, xa_7zip_extract, unar, xa_unar_extract);
 		archiver[type].add = FUNC(standard, xa_cpio_add, is7z, NULL, lsar, NULL);
-	}
-
-	/* debian package */
-
-	type = XARCHIVETYPE_AR;
-	path = g_find_program_in_path("ar");
-
-	standard = (path != NULL);
-
-	if (!standard)
-	{
-		if (lsar && unar)
-		{
-			/* alternative ... */
-			path = g_strdup(lsar);
-			/* ... uncompressor */
-			archiver[type].program[1] = g_strdup(unar);
-		}
-		else if (is7z)
-			/* alternative uncompressor */
-			path = g_strconcat(sevenz, " -tar", NULL);
-	}
-
-	if (path)
-	{
-		archiver[type].program[0] = path;
-		archiver[type].type = g_slist_append(archiver[type].type, "deb");
-		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
-
-		archiver[type].ask = FUNC(standard, xa_ar_ask, lsar && unar, xa_unar_ask, is7z, xa_7zip_ask);
-		archiver[type].list = FUNC(standard, xa_ar_list, lsar && unar, xa_unar_list, is7z, xa_7zip_list);
-		archiver[type].extract  = FUNC(standard, xa_ar_extract, lsar && unar, xa_unar_extract, is7z, xa_7zip_extract);
 	}
 
 	/* GNU zip */

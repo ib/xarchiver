@@ -1760,6 +1760,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 
 	if (memcmp(magic, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
 		xa.type = XARCHIVETYPE_7ZIP;
+	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
+		xa.type = XARCHIVETYPE_AR;
 	else if (memcmp(magic, "\x60\xea", 2) == 0)
 		xa.type = XARCHIVETYPE_ARJ;
 	else if (memcmp(magic, "BZh", 3) == 0)
@@ -1778,8 +1780,6 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 			/* different endianness */
 			xa.tag = 'E';
 	}
-	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
-		xa.type = XARCHIVETYPE_AR;
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||
 	         memcmp(magic, "\x1f\x9e", 2) == 0)
 		xa.type = XARCHIVETYPE_GZIP;
