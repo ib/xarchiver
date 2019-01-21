@@ -77,6 +77,7 @@ const char *xa_get_stock_mime_icon(const char *filename)
 	         strcmp(mime,"application/vnd.openofficeorg.extension") == 0 ||
 	         strcmp(mime,"application/vnd.rar") == 0 || /* legacy */ strcmp(mime,"application/x-rar") == 0 ||
 	         strcmp(mime,"application/x-7z-compressed") == 0 ||
+	         strcmp(mime,"application/x-archive") == 0 ||
 	         strcmp(mime,"application/x-arj") == 0 ||
 	         strcmp(mime,"application/x-bzip") == 0 ||
 	         strcmp(mime,"application/x-bzip-compressed-tar") == 0 ||

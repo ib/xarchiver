@@ -181,8 +181,13 @@ static void xa_check_available_archivers ()
 	if (path)
 	{
 		archiver[type].program[0] = path;
+		archiver[type].type = g_slist_append(archiver[type].type, "ar");
+		archiver[type].glob = g_slist_append(archiver[type].glob, "*.a");
+		/* debian package */
 		archiver[type].type = g_slist_append(archiver[type].type, "deb");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('d'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, g_slist_last(archiver[type].type)->data);
 
 		archiver[type].ask = FUNC(standard, xa_ar_ask, lsar && unar, xa_unar_ask, is7z, xa_7zip_ask);
 		archiver[type].list = FUNC(standard, xa_ar_list, lsar && unar, xa_unar_list, is7z, xa_7zip_list);

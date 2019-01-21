@@ -1760,8 +1760,13 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 
 	if (memcmp(magic, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
 		xa.type = XARCHIVETYPE_7ZIP;
-	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
+	else if (memcmp(magic, "!<arch>\n", 8) == 0)
+	{
 		xa.type = XARCHIVETYPE_AR;
+
+		if (memcmp(magic + 8, "debian", 6) == 0)
+			xa.tag = 'd';
+	}
 	else if (memcmp(magic, "\x60\xea", 2) == 0)
 		xa.type = XARCHIVETYPE_ARJ;
 	else if (memcmp(magic, "BZh", 3) == 0)
