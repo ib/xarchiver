@@ -18,13 +18,13 @@
  */
 
 #include <string.h>
-#include "deb.h"
+#include "ar.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
 #include "window.h"
 
-void xa_deb_ask (XArchive *archive)
+void xa_ar_ask (XArchive *archive)
 {
 	archive->can_extract = TRUE;
 	archive->can_touch = TRUE;
@@ -99,7 +99,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	g_free(filename);
 }
 
-void xa_deb_list (XArchive *archive)
+void xa_ar_list (XArchive *archive)
 {
 	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
 	const gchar *titles[] = {_("Original Size"), _("Date and Time"), _("Permissions"), _("UID/GID")};
@@ -123,7 +123,7 @@ void xa_deb_list (XArchive *archive)
 	xa_create_liststore(archive, titles);
 }
 
-gboolean xa_deb_extract (XArchive *archive, GSList *file_list)
+gboolean xa_ar_extract (XArchive *archive, GSList *file_list)
 {
 	GString *files;
 	gchar *command;

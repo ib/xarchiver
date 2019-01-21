@@ -17,14 +17,14 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef DEB_H
-#define DEB_H
+#ifndef AR_H
+#define AR_H
 
 #include <glib.h>
 #include "archive.h"
 
-void xa_deb_ask(XArchive *);
-gboolean xa_deb_extract(XArchive *, GSList *);
-void xa_deb_list(XArchive *);
+void xa_ar_ask(XArchive *);
+gboolean xa_ar_extract(XArchive *, GSList *);
+void xa_ar_list(XArchive *);
 
 #endif

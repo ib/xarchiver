@@ -107,7 +107,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
-	archive.c archive.h arj.c arj.h cpio.c cpio.h deb.c deb.h \
+	ar.c ar.h archive.c archive.h arj.c arj.h cpio.c cpio.h \
 	extract_dialog.c extract_dialog.h gzip_et_al.c gzip_et_al.h \
 	interface.c interface.h lha.c lha.h main.c main.h mime.c \
 	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
@@ -118,9 +118,9 @@ am__xarchiver_SOURCES_DIST = 7zip.c 7zip.h add_dialog.c add_dialog.h \
 	sexy-icon-entry.h
 @GTK_V2_16_FALSE@am__objects_1 = xarchiver-sexy-icon-entry.$(OBJEXT)
 am_xarchiver_OBJECTS = xarchiver-7zip.$(OBJEXT) \
-	xarchiver-add_dialog.$(OBJEXT) xarchiver-archive.$(OBJEXT) \
-	xarchiver-arj.$(OBJEXT) xarchiver-cpio.$(OBJEXT) \
-	xarchiver-deb.$(OBJEXT) xarchiver-extract_dialog.$(OBJEXT) \
+	xarchiver-add_dialog.$(OBJEXT) xarchiver-ar.$(OBJEXT) \
+	xarchiver-archive.$(OBJEXT) xarchiver-arj.$(OBJEXT) \
+	xarchiver-cpio.$(OBJEXT) xarchiver-extract_dialog.$(OBJEXT) \
 	xarchiver-gzip_et_al.$(OBJEXT) xarchiver-interface.$(OBJEXT) \
 	xarchiver-lha.$(OBJEXT) xarchiver-main.$(OBJEXT) \
 	xarchiver-mime.$(OBJEXT) xarchiver-new_dialog.$(OBJEXT) \
@@ -157,8 +157,8 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/xarchiver-7zip.Po \
 	./$(DEPDIR)/xarchiver-add_dialog.Po \
-	./$(DEPDIR)/xarchiver-archive.Po ./$(DEPDIR)/xarchiver-arj.Po \
-	./$(DEPDIR)/xarchiver-cpio.Po ./$(DEPDIR)/xarchiver-deb.Po \
+	./$(DEPDIR)/xarchiver-ar.Po ./$(DEPDIR)/xarchiver-archive.Po \
+	./$(DEPDIR)/xarchiver-arj.Po ./$(DEPDIR)/xarchiver-cpio.Po \
 	./$(DEPDIR)/xarchiver-extract_dialog.Po \
 	./$(DEPDIR)/xarchiver-gzip_et_al.Po \
 	./$(DEPDIR)/xarchiver-interface.Po \
@@ -422,15 +422,15 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = xdgmime
-xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h archive.c \
-	archive.h arj.c arj.h cpio.c cpio.h deb.c deb.h \
-	extract_dialog.c extract_dialog.h gzip_et_al.c gzip_et_al.h \
-	interface.c interface.h lha.c lha.h main.c main.h mime.c \
-	mime.h new_dialog.c new_dialog.h open-with-dlg.c \
-	open-with-dlg.h pref_dialog.c pref_dialog.h rar.c rar.h rpm.c \
-	rpm.h socket.c socket.h string_utils.c string_utils.h \
-	support.h tar.c tar.h unar.c unar.h utf8-fnmatch.c \
-	utf8-fnmatch.h window.c window.h zip.c zip.h $(am__append_1)
+xarchiver_SOURCES = 7zip.c 7zip.h add_dialog.c add_dialog.h ar.c ar.h \
+	archive.c archive.h arj.c arj.h cpio.c cpio.h extract_dialog.c \
+	extract_dialog.h gzip_et_al.c gzip_et_al.h interface.c \
+	interface.h lha.c lha.h main.c main.h mime.c mime.h \
+	new_dialog.c new_dialog.h open-with-dlg.c open-with-dlg.h \
+	pref_dialog.c pref_dialog.h rar.c rar.h rpm.c rpm.h socket.c \
+	socket.h string_utils.c string_utils.h support.h tar.c tar.h \
+	unar.c unar.h utf8-fnmatch.c utf8-fnmatch.h window.c window.h \
+	zip.c zip.h $(am__append_1)
 xarchiver_CFLAGS = -Wall -Wextra -Wno-unused-parameter @GTK_CFLAGS@ \
 	-DHTMLDIR=\"$(htmldir)\" -DLOCALEDIR=\"$(localedir)\" \
 	-DPIXMAPSDIR=\"$(PIXMAPDIR)\" $(am__append_2)
@@ -533,10 +533,10 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-7zip.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-add_dialog.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-ar.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-archive.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-arj.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-cpio.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-deb.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-extract_dialog.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-gzip_et_al.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xarchiver-interface.Po@am__quote@ # am--include-marker
@@ -612,6 +612,20 @@ xarchiver-add_dialog.obj: add_dialog.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-add_dialog.obj `if test -f 'add_dialog.c'; then $(CYGPATH_W) 'add_dialog.c'; else $(CYGPATH_W) '$(srcdir)/add_dialog.c'; fi`
 
+xarchiver-ar.o: ar.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-ar.o -MD -MP -MF $(DEPDIR)/xarchiver-ar.Tpo -c -o xarchiver-ar.o `test -f 'ar.c' || echo '$(srcdir)/'`ar.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-ar.Tpo $(DEPDIR)/xarchiver-ar.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='ar.c' object='xarchiver-ar.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-ar.o `test -f 'ar.c' || echo '$(srcdir)/'`ar.c
+
+xarchiver-ar.obj: ar.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-ar.obj -MD -MP -MF $(DEPDIR)/xarchiver-ar.Tpo -c -o xarchiver-ar.obj `if test -f 'ar.c'; then $(CYGPATH_W) 'ar.c'; else $(CYGPATH_W) '$(srcdir)/ar.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-ar.Tpo $(DEPDIR)/xarchiver-ar.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='ar.c' object='xarchiver-ar.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-ar.obj `if test -f 'ar.c'; then $(CYGPATH_W) 'ar.c'; else $(CYGPATH_W) '$(srcdir)/ar.c'; fi`
+
 xarchiver-archive.o: archive.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-archive.o -MD -MP -MF $(DEPDIR)/xarchiver-archive.Tpo -c -o xarchiver-archive.o `test -f 'archive.c' || echo '$(srcdir)/'`archive.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-archive.Tpo $(DEPDIR)/xarchiver-archive.Po
@@ -653,20 +667,6 @@ xarchiver-cpio.obj: cpio.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='cpio.c' object='xarchiver-cpio.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-cpio.obj `if test -f 'cpio.c'; then $(CYGPATH_W) 'cpio.c'; else $(CYGPATH_W) '$(srcdir)/cpio.c'; fi`
-
-xarchiver-deb.o: deb.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-deb.o -MD -MP -MF $(DEPDIR)/xarchiver-deb.Tpo -c -o xarchiver-deb.o `test -f 'deb.c' || echo '$(srcdir)/'`deb.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-deb.Tpo $(DEPDIR)/xarchiver-deb.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='deb.c' object='xarchiver-deb.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-deb.o `test -f 'deb.c' || echo '$(srcdir)/'`deb.c
-
-xarchiver-deb.obj: deb.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-deb.obj -MD -MP -MF $(DEPDIR)/xarchiver-deb.Tpo -c -o xarchiver-deb.obj `if test -f 'deb.c'; then $(CYGPATH_W) 'deb.c'; else $(CYGPATH_W) '$(srcdir)/deb.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/xarchiver-deb.Tpo $(DEPDIR)/xarchiver-deb.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='deb.c' object='xarchiver-deb.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -c -o xarchiver-deb.obj `if test -f 'deb.c'; then $(CYGPATH_W) 'deb.c'; else $(CYGPATH_W) '$(srcdir)/deb.c'; fi`
 
 xarchiver-extract_dialog.o: extract_dialog.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xarchiver_CFLAGS) $(CFLAGS) -MT xarchiver-extract_dialog.o -MD -MP -MF $(DEPDIR)/xarchiver-extract_dialog.Tpo -c -o xarchiver-extract_dialog.o `test -f 'extract_dialog.c' || echo '$(srcdir)/'`extract_dialog.c
@@ -1142,10 +1142,10 @@ clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 distclean: distclean-recursive
 		-rm -f ./$(DEPDIR)/xarchiver-7zip.Po
 	-rm -f ./$(DEPDIR)/xarchiver-add_dialog.Po
+	-rm -f ./$(DEPDIR)/xarchiver-ar.Po
 	-rm -f ./$(DEPDIR)/xarchiver-archive.Po
 	-rm -f ./$(DEPDIR)/xarchiver-arj.Po
 	-rm -f ./$(DEPDIR)/xarchiver-cpio.Po
-	-rm -f ./$(DEPDIR)/xarchiver-deb.Po
 	-rm -f ./$(DEPDIR)/xarchiver-extract_dialog.Po
 	-rm -f ./$(DEPDIR)/xarchiver-gzip_et_al.Po
 	-rm -f ./$(DEPDIR)/xarchiver-interface.Po
@@ -1212,10 +1212,10 @@ installcheck-am:
 maintainer-clean: maintainer-clean-recursive
 		-rm -f ./$(DEPDIR)/xarchiver-7zip.Po
 	-rm -f ./$(DEPDIR)/xarchiver-add_dialog.Po
+	-rm -f ./$(DEPDIR)/xarchiver-ar.Po
 	-rm -f ./$(DEPDIR)/xarchiver-archive.Po
 	-rm -f ./$(DEPDIR)/xarchiver-arj.Po
 	-rm -f ./$(DEPDIR)/xarchiver-cpio.Po
-	-rm -f ./$(DEPDIR)/xarchiver-deb.Po
 	-rm -f ./$(DEPDIR)/xarchiver-extract_dialog.Po
 	-rm -f ./$(DEPDIR)/xarchiver-gzip_et_al.Po
 	-rm -f ./$(DEPDIR)/xarchiver-interface.Po

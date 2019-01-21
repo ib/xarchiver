@@ -7,14 +7,14 @@ xarchiver_SOURCES = \
 	7zip.h \
 	add_dialog.c \
 	add_dialog.h \
+	ar.c \
+	ar.h \
 	archive.c \
 	archive.h \
 	arj.c \
 	arj.h \
 	cpio.c \
 	cpio.h \
-	deb.c \
-	deb.h \
 	extract_dialog.c \
 	extract_dialog.h \
 	gzip_et_al.c \

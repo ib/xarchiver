@@ -22,9 +22,9 @@
 #include "main.h"
 #include "7zip.h"
 #include "add_dialog.h"
+#include "ar.h"
 #include "arj.h"
 #include "cpio.h"
-#include "deb.h"
 #include "extract_dialog.h"
 #include "interface.h"
 #include "lha.h"
@@ -326,7 +326,7 @@ static void xa_check_available_archivers ()
 
 	/* debian package */
 
-	type = XARCHIVETYPE_DEB;
+	type = XARCHIVETYPE_AR;
 	path = g_find_program_in_path("ar");
 
 	standard = (path != NULL);
@@ -351,9 +351,9 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "deb");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.deb");
 
-		archiver[type].ask = FUNC(standard, xa_deb_ask, lsar && unar, xa_unar_ask, is7z, xa_7zip_ask);
-		archiver[type].list = FUNC(standard, xa_deb_list, lsar && unar, xa_unar_list, is7z, xa_7zip_list);
-		archiver[type].extract  = FUNC(standard, xa_deb_extract, lsar && unar, xa_unar_extract, is7z, xa_7zip_extract);
+		archiver[type].ask = FUNC(standard, xa_ar_ask, lsar && unar, xa_unar_ask, is7z, xa_7zip_ask);
+		archiver[type].list = FUNC(standard, xa_ar_list, lsar && unar, xa_unar_list, is7z, xa_7zip_list);
+		archiver[type].extract  = FUNC(standard, xa_ar_extract, lsar && unar, xa_unar_extract, is7z, xa_7zip_extract);
 	}
 
 	/* GNU zip */

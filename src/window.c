@@ -1779,7 +1779,7 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 			xa.tag = 'E';
 	}
 	else if (memcmp(magic, "!<arch>\ndebian", 14) == 0)
-		xa.type = XARCHIVETYPE_DEB;
+		xa.type = XARCHIVETYPE_AR;
 	else if (memcmp(magic, "\x1f\x8b", 2) == 0 ||
 	         memcmp(magic, "\x1f\x9e", 2) == 0)
 		xa.type = XARCHIVETYPE_GZIP;
