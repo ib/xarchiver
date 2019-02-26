@@ -1,0 +1,1441 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# aliza <aimon_bokbok@hotmail.com>, 2015
+# Amedeo Pignatelli <amedeopignatelli@yahoo.it>, 2014-2015
+# jekie <jekie@hotmail.com>, 2014
+# Lakkana <baby_ying85@hotmail.com>, 2014-2015
+# Nudjaree <poonim_p@hotmail.com>, 2015
+# Supasuta P. <yy.ying80@gmail.com>, 2014
+# weerapan <dang_kondee@hotmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: DoudouLinux\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-21 15:08+0300\n"
+"PO-Revision-Date: 2019-02-26 03:13+0300\n"
+"Last-Translator: Nudjaree <poonim_p@hotmail.com>\n"
+"Language-Team: Thai (http://www.transifex.com/jmphilippe/doudoulinux/language/th/)\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.0.9\n"
+
+#: ../src/window.c
+#, c-format
+msgid ""
+"\n"
+"Name: "
+msgstr ""
+"\n"
+"ชื่อ:"
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "\"%s\" is already open!"
+msgstr "\"%s\" ถูกเปิดอยู่แล้ว!"
+
+#: ../src/window.c
+#, c-format
+msgid "%d dir %s (%s)"
+msgid_plural "%d dirs %s (%s)"
+msgstr[0] "%d ไดเร็กทอรี %s (%s)"
+
+#: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "เพิ่มแฟ้ม"
+
+#: ../src/window.c
+#, c-format
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
+msgstr[0] "%d แฟ้ม %s (%s)"
+
+#: ../src/pref_dialog.c
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr "0 = ไม่มีการบีบอัด, 1 เป็นค่าเริ่มต้น, 4 = เร็วที่สุด แต่ไม่มีการบีบอัด"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr "0 = ไม่มีการบีบอัด, 3 เป็นค่าเริ่มต้น, 5 = การบีบอัดที่ดีที่สุด แต่ช้าที่สุด"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr "0 = ไม่มีการบีบอัด, 5 เป็นค่าเริ่มต้น, 9 = การบีบอัดที่ดีที่สุด แต่ช้าที่สุด"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr "0 = ไม่มีการบีบอัด, 6 เป็นค่าเริ่มต้น, 9 = การบีบอัดที่ดีที่สุด แต่ช้าที่สุด"
+
+#: ../src/add_dialog.c
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = การบีบอัดเริ่มต้น 7 = การบีบอัดสูงสุด"
+
+#: ../src/pref_dialog.c
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"<span color='red' style='italic'>กรุณาติดตั้ง xdg-utils เพื่อที่\n"
+"Xarchiver สามารถที่จะรู้จักชนิดของแฟ้มให้มากขึ้น</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight='bold' size='larger'>ใส่รหัสผ่านสำหรับ:</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight='bold' size='larger'>ต้องการรหัสผ่านสำหรับ:</span>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>แฟ้ม:</th>"
+
+#: ../src/window.c
+#, fuzzy, c-format
+#| msgid "<th>Files:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>แฟ้ม:</th>"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "A GTK+2 only archive manager"
+msgid "A GTK+ only archive manager"
+msgstr "การจัดการแฟ้มจัดเก็บแบบ GTK+2 เท่านั้น"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "A GTK+2 only archive manager"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "การจัดการแฟ้มจัดเก็บแบบ GTK+2 เท่านั้น"
+
+#: ../src/interface.c
+msgid "A_ction"
+msgstr "การ_กระทำ"
+
+#: ../src/interface.c
+msgid "A_dd"
+msgstr "เ_พิ่ม"
+
+#: ../src/add_dialog.c
+msgid "Actions: "
+msgstr "การกระทำ:"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "_Add"
+msgid "Add"
+msgstr "เ_พิ่ม"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Add files"
+msgstr "เพิ่มแฟ้ม"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Add the given files by asking the name of\n"
+"                                     the archive and quit"
+msgstr "เพิ่มแฟ้มที่ได้รับโดยขอให้ชื่อของที่เก็บและจบการทำงาน"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add files to archive by asking their filenames and quits."
+msgid ""
+"Add to archive by asking which files and\n"
+"                                     quit"
+msgstr "เพิ่มแฟ้มไปยังแฟ้มจัดเก็บโดยขอให้ชื่อแฟ้มของพวกเขาและจบการทำงาน"
+
+#: ../src/add_dialog.c
+msgid "Adding files to archive, please wait..."
+msgstr "การเพิ่มแฟ้มไปในแฟ้มจัดเก็บ โปรดรอสักครู่..."
+
+#: ../src/interface.c
+msgid "Adding to archive:"
+msgstr "เพิ่มไปยังแฟ้มจัดเก็บ:"
+
+#: ../src/pref_dialog.c
+msgid "Advanced"
+msgstr "ขั้นสูง"
+
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "ทุกแฟ้ม"
+
+#: ../src/pref_dialog.c
+msgid "Allow subdirs with drag and drop"
+msgstr "อนุญาตโฟล์เดอร์ย่อยด้วยการลากและวาง"
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr "เกิดข้อผิดพลาดขณะที่เข้าในแฟ้มจัดเก็บ:"
+
+#: ../src/window.c
+msgid "An error occurred!"
+msgstr "เกิดข้อผิดพลาด"
+
+#: ../src/pref_dialog.c
+msgid "Archive"
+msgstr "แฟ้มจัดเก็บ"
+
+#: ../src/extract_dialog.c
+msgid "Archive Name"
+msgstr "ชื่อแฟ้มจัดเก็บ"
+
+#: ../src/interface.c
+msgid "Archive Properties"
+msgstr "สถานที่เก็บแฟ้มจัดเก็บ"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Archive comment"
+msgid "Archive _comment"
+msgstr "แฟ้มจัดเก็บ ความคิดเห็น"
+
+#: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Archive contents:\n"
+msgid "Archive content:\n"
+msgstr "เนื้อหาข้อมูลของแฟ้มจัดเก็บ: \n"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Sorry,this archive format is not supported:"
+msgid "Archive format is not recognized!"
+msgstr "ขออภัยรูปแบบแฟ้มจัดเก็บนี้จะไม่ได้รับการสนับสนุน"
+
+#: ../xarchiver.desktop.in.h
+msgid "Archive manager"
+msgstr "การจัดการแฟ้มจัดเก็บ"
+
+#: ../src/interface.c
+msgid "Archive tree"
+msgstr "โครงสร้างแผนผังต้นไม้"
+
+#: ../src/new_dialog.c
+msgid "Archive type:"
+msgstr "ประเภทของแฟ้มจัดเก็บ:"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "ไม่สามารถเรียกใช้ปฏิบัติการแฟ้มจัดเก็บ:"
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "ส่งออกแฟ้มจัดเก็บ"
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr "คุณแน่ใจว่าคุณต้องการที่จะทำเช่นนี้?"
+
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
+msgid "Attributes"
+msgstr "คุณลักษณะ"
+
+#: ../src/interface.c
+msgid "Back"
+msgstr "ย้อนกลับ"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr "ค้นหา"
+
+#: ../src/add_dialog.c ../src/main.c
+msgid "Can't add files to the archive:"
+msgstr "ไม่สามารถเพิ่มแฟ้มไปยังแฟ้มจัดเก็บ:"
+
+#: ../src/main.c
+msgid "Can't allocate memory for the archive structure!"
+msgstr "ไม่สามารถกำหนดหน่วยความจำสำหรับโครงสร้างแฟ้มจัดเก็บ!"
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr "ไม่สามารถกำหนดหน่วยความจำสำหรับแฟ้มจัดเก็บ:"
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr "ไม่สามารถเปลี่ยนแฟ้มจัดเก็บเป็นแฟ้มแบบขยายตัวเอง"
+
+#: ../src/new_dialog.c
+msgid "Can't create a new archive:"
+msgstr "ไม่สามารถสร้างแฟ้มจัดเก็บใหม่"
+
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create temporary directory in /tmp:"
+msgid "Can't create directory!"
+msgstr "ไม่สามารถสร้างแฟ้มเอกสารชั่วคราวใน / tmp:"
+
+#: ../src/archive.c
+#, fuzzy
+#| msgid "Can't create temporary directory in /tmp:"
+msgid "Can't create temporary directory:"
+msgstr "ไม่สามารถสร้างแฟ้มเอกสารชั่วคราวใน / tmp:"
+
+#: ../src/extract_dialog.c ../src/main.c
+msgid "Can't extract files from the archive:"
+msgstr "ไม่สามารถขยายแฟ้มจากแฟ้มจัดเก็บ: "
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "ไม่สามารถ fseek  ในแฟ้ม:"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "ไม่สามารถที่จะวางตำแหน่ง fseek 104:"
+
+#: ../src/extract_dialog.c
+msgid "Can't multi-extract archives:"
+msgstr "ไม่สามารถขยายแฟ้มจัดเก็บแบบหลายอัน:"
+
+#: ../src/rpm.c
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "ไม่สามารถเปิดแฟ้ม RPM  %s:"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "ไม่สามารถเปิดแฟ้ม \"%s\":"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file %s:"
+msgstr "ไม่สามารถเปิดแฟ้ม %s:"
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr "ไม่สามารถดำเนินการได้!"
+
+#: ../src/interface.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr "ไม่สามารถดำเนินการนี้:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "ไม่สามารถอ่านข้อมูลจากแฟ้ม"
+
+#: ../src/archive.c
+msgid "Can't run the archiver executable:"
+msgstr "ไม่สามารถเรียกใช้ปฏิบัติการแฟ้มจัดเก็บ:"
+
+#: ../src/window.c
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "ไม่สามารถเขียน unzipsfx ส่วนนี้ที่แฟ้มจัดเก็บ:"
+
+#: ../src/interface.c
+msgid "Cancel current operation"
+msgstr "ยกเลิกการใช้งานในปัจจุบัน"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Choose the application to use"
+msgstr "เลือกโปรแกรมที่จะใช้"
+
+#: ../src/new_dialog.c
+msgid "Choose the archive type to create"
+msgstr "เลือกรูปแบบของที่แฟ้มจัดเก็บเพื่อที่จะสร้าง"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Choose the temp directory to use"
+msgid "Choose the directory to use"
+msgstr "เลือกไดเรกทอรีชั่วคราวที่จะใช้"
+
+#: ../src/interface.c
+msgid "Close archive"
+msgstr "ปิดแฟ้มจัดเก็บ"
+
+#: ../src/interface.c
+msgid "Cmd-line outp_ut"
+msgstr "เอาท์พุท บรรทัดคำสั่ง"
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "ความคิดเห็น"
+
+#: ../src/interface.c
+msgid "Comment:"
+msgstr "คำอธิบาย:"
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "ความคิดเห็น:\n"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Compressed"
+msgstr "ถูกบีบอัด"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed   size: "
+msgstr "ขนาดการบีบอัด:"
+
+#: ../src/interface.c
+msgid "Compressed size:"
+msgstr "ขนาดที่บีบอัด:"
+
+#: ../src/gzip_et_al.c
+#, fuzzy
+#| msgid "Compression ratio:"
+msgid "Compression ratio"
+msgstr "อัตราส่วนการอัด:"
+
+#: ../src/interface.c
+msgid "Compression ratio:"
+msgstr "อัตราส่วนการอัด:"
+
+#: ../src/add_dialog.c
+msgid "Compression: "
+msgstr "การบีบอัด:"
+
+#: ../src/pref_dialog.c
+msgid "Confirm deletion of files"
+msgstr "ยืนยันการลบแฟ้ม"
+
+#: ../src/interface.c
+msgid "Copy"
+msgstr "คัดลอก"
+
+#: ../src/new_dialog.c
+msgid "Cr_eate"
+msgstr "_สร้าง"
+
+#: ../src/interface.c ../src/new_dialog.c
+msgid "Create a new archive"
+msgstr "สร้างแฟ้มจัดเก็บใหม่"
+
+#: ../src/add_dialog.c
+msgid "Create a solid archive"
+msgstr "สร้างแฟ้มจัดเก็บที่มั่นคง"
+
+#: ../src/interface.c
+msgid "Cut"
+msgstr "ตัด"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c ../src/unar.c ../src/zip.c
+msgid "Date"
+msgstr "วันที่"
+
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
+msgstr "ปรับเปลี่ยนวันที่"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "ใช้คำสั่งที่กำหนดเอง:"
+
+#: ../src/interface.c
+msgid "Delete"
+msgstr "ลบ"
+
+#: ../src/add_dialog.c
+msgid "Delete files after adding"
+msgstr "ลบแฟ้มหลังจากที่เพิ่ม"
+
+#: ../src/interface.c
+msgid "Dese_lect all"
+msgstr "_ยกเลิกการเลือกทั้งหมด"
+
+#: ../src/extract_dialog.c
+msgid "Destination dirs:"
+msgstr "ข้อมูลปลายทาง:"
+
+#: ../src/add_dialog.c
+msgid "Do not store paths"
+msgstr "ไม่จัดเก็บพาธ"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr "คุณต้องการที่จะยกเลิกหรือไม่?"
+
+#: ../src/new_dialog.c
+msgid "Do you want to overwrite it?"
+msgstr "คุณต้องการที่จะเขียนทับมันหรือไม่"
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr "การทำเช่นนี้แฟ้มจัดเก็บของคุณจะเสียหาย!"
+
+#: ../src/interface.c
+msgid "Encrypted:"
+msgstr "การเข้ารหัสลับ:"
+
+#: ../src/add_dialog.c
+msgid "Encryption: "
+msgstr "การเข้ารหัสลับ:"
+
+#: ../src/extract_dialog.c
+msgid "Ensure a containing directory"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid "Ensure that the contents of the extracted archive is always in a containing directory"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Enter passwo_rd"
+msgstr "ใส่รหัส_ผ่าน"
+
+#: ../src/interface.c
+msgid "Extract"
+msgstr "ดำเนินการ"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract archive by asking the extraction\n"
+"                                     directory and quit"
+msgstr "ขยายแฟ้มจัดเก็บโดยขยายไปที่ปลายทางและการจบการทำงาน"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "ขยายแฟ้มจัดเก็บไปยังที่ปลายทางและจบการทำงาน"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to the destination\n"
+"                                     directory and quit"
+msgstr "ขยายแฟ้มจัดเก็บไปยังที่ปลายทางและจบการทำงาน"
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "Extract files"
+msgstr "แฟ้มดำเนินการ"
+
+#: ../src/extract_dialog.c
+msgid "Extract files with full path"
+msgstr "ดำเนินการแฟ้มกับเส้นทาง"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract multiple archives by asking the\n"
+"                                     extraction directory and quit"
+msgstr "ขยายแฟ้มจัดเก็บโดยขยายไปที่ปลายทางและการจบการทำงาน"
+
+#: ../src/extract_dialog.c
+msgid "Extract only those files that already exist on disk and that are newer than the disk copies"
+msgstr "แยกแฟ้มที่มีอยู่แล้วบนดิสก์เท่านั้นและใหม่กว่าสำเนาดิสก์"
+
+#: ../src/extract_dialog.c
+msgid "Extract pathnames"
+msgstr " แยกชื่อพาธ"
+
+#: ../src/extract_dialog.c
+msgid "Extract to dir \"Archive Name\""
+msgstr "ขยายไปที่  \"ชื่อแฟ้มจัดเก็บ\""
+
+#: ../src/extract_dialog.c
+msgid "Extract to:"
+msgstr "ดำเนินการที่:"
+
+#: ../src/extract_dialog.c ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive,please wait..."
+msgid "Extracting files from archive, please wait..."
+msgstr "กำลังขยายแฟ้มจากแฟ้มจัดเก็บ โปรดรอสักครู่ ."
+
+#: ../src/interface.c
+msgid "Extracting from archive:"
+msgstr "การขยายแฟ้มจากแฟ้มจัดเก็บ:"
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr "การเปิดโปรแกรมล้มเหลว!"
+
+#: ../src/add_dialog.c
+msgid "File Paths: "
+msgstr "พาธของแฟ้ม: "
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "ชื่อแฟ้ม"
+
+#: ../src/extract_dialog.c
+msgid "Files "
+msgstr "แฟ้ม"
+
+#: ../src/extract_dialog.c
+msgid "Files: "
+msgstr "แฟ้ม:"
+
+#: ../src/window.c
+#, c-format
+msgid "Files:%*s%s"
+msgstr "แฟ้ม:%*s%s"
+
+#: ../src/interface.c
+msgid "Forward"
+msgstr "ถัดไป"
+
+#: ../src/add_dialog.c
+msgid "Freshen and replace"
+msgstr "ทำให้ใหม่และแทนที่"
+
+#: ../src/extract_dialog.c
+msgid "Freshen existing files"
+msgstr "ทำแฟ้มที่มีอยู่ให้ใหม่"
+
+#: ../src/window.c
+msgid "From File"
+msgstr "จากแฟ้ม"
+
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;gtar;"
+"gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+msgstr ""
+
+#: ../src/cpio.c ../src/rpm.c
+msgid "Group"
+msgstr "กลุ่ม"
+
+#: ../src/pref_dialog.c
+msgid "Icons size (requires restart)"
+msgstr "ขนาดไอคอน (ต้องรีสตาร์ท)"
+
+#: ../src/pref_dialog.c
+msgid "If checked the archive comment is shown after the archive is loaded"
+msgstr "ถ้าเลือกแสดงแฟ้มความคิดเห็นจะแสดงหลังจากที่แฟ้มจัดเก็บถูกโหลด"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "In a solid archive the files are grouped together featuring a better compression ratio"
+msgid "In a solid archive the files are grouped together resulting in a better compression ratio"
+msgstr "ในที่เก็บแฟ้มที่มั่นคง จะถูกจัดกลุ่มเข้าด้วยกัน และให้การบีบอัดที่ดีกว่า"
+
+#: ../src/add_dialog.c
+msgid "Include subdirectories"
+msgstr "รวมถึงไดเรกทอรีย่อย"
+
+#: ../src/interface.c
+msgid "Location:"
+msgstr "ตำแหน่ง:"
+
+#: ../src/main.c
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/interface.c
+msgid "Make SF_X"
+msgstr "ทำ SF_X"
+
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
+msgid "Method"
+msgstr "วิธีการ:"
+
+#: ../src/interface.c
+msgid "Modified on:"
+msgstr "ดัดแปลงที่มีต่อ:"
+
+#: ../src/extract_dialog.c
+msgid "Multi-Extract"
+msgstr "แยกหลายอัน"
+
+#: ../src/interface.c
+msgid "Name:"
+msgstr "ชื่อ:"
+
+#: ../src/interface.c
+msgid "New"
+msgstr ""
+
+#: ../src/window.c
+msgid "No"
+msgstr "ไม่ใช่"
+
+#: ../src/interface.c
+msgid "Number of files:"
+msgstr "จำนวนของแฟ้ม:"
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "จำนวนของแฟ้ม"
+
+#: ../src/zip.c
+msgid "OS"
+msgstr "OS"
+
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "แฟ้มจัดเก็บเท่านั้น"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open With"
+msgid "Open"
+msgstr "เปิดด้วย"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "เปิด <i>%s</i> ด้วย:"
+
+#: ../src/interface.c ../src/open-with-dlg.c
+msgid "Open With"
+msgstr "เปิดด้วย"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "เปิดแฟ้มข้อความ"
+
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "เปิดแฟ้มจัดเก็บ"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "เปิดแฟ้มรูปภาพ"
+
+#: ../src/pref_dialog.c
+msgid "Open image files with:"
+msgstr "เปิดแฟ้มรูปภาพ"
+
+#: ../src/pref_dialog.c
+msgid "Open text files with:"
+msgstr "เปิดแฟ้มข้อมูล"
+
+#: ../src/open-with-dlg.c
+msgid "Open the selected files with"
+msgstr "เปิดแฟ้มที่เลือกด้วย"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive,please wait..."
+msgid "Opening archive, please wait..."
+msgstr "กำลังเปิดแฟ้มจัดเก็บ โปรดรอสักครู่..."
+
+#: ../src/window.c
+msgid "Operation aborted!"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Options"
+msgstr "ตัวเลือก"
+
+#: ../src/extract_dialog.c
+msgid "Options "
+msgstr "ตัวเลือก"
+
+#: ../src/extract_dialog.c
+msgid "Options:"
+msgstr "ตัวเลือก"
+
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
+msgstr "ต้นฉบับ"
+
+#: ../src/extract_dialog.c
+msgid "Overwrite existing files"
+msgstr "เขียนทับแฟ้มที่มีอยู่"
+
+#: ../src/cpio.c ../src/rpm.c
+msgid "Owner"
+msgstr "เจ้าของ"
+
+#: ../src/tar.c
+msgid "Owner/Group"
+msgstr "เจ้าของ/กลุ่ม"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Password:"
+msgstr "รหัสผ่าน:"
+
+#: ../src/interface.c
+msgid "Paste"
+msgstr "วาง"
+
+#: ../src/extract_dialog.c
+msgid "Path"
+msgstr "พาธ"
+
+#: ../src/interface.c
+msgid "Path:"
+msgstr "พาธ:"
+
+#: ../src/interface.c
+msgid "Pattern:"
+msgstr "รูปแบบ"
+
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/zip.c
+msgid "Permissions"
+msgstr "การอนุญาต"
+
+#: ../src/window.c
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr "กรุณาตรวจสอบตัวเลือก 'Store archiver output' ที่จะเห็นมัน"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Please enter it!"
+msgstr "กรุณาใส่มัน"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the extraction path."
+msgstr "กรุณาใส่เส้นทางการสกัด"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the password."
+msgstr "กรุณาใส่รหัสผ่าน"
+
+#: ../src/extract_dialog.c
+msgid "Please fill the \"Extract to\" field!"
+msgstr "กรุณากรอกช่อง\"การแยกที่\"!"
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "ไปที่ Preferences-> Advancedและตั้งค่า."
+
+#: ../src/main.c
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr "กรุณารายงานข้อบกพร่องไปยัง <%s>."
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr "กรุณาเลือกโมดูล7zCon.sfx:"
+
+#: ../src/extract_dialog.c
+msgid "Please select the archives you want to extract"
+msgstr "กรุณาเลือกแฟ้มจัดเก็บที่คุณต้องการขยาย"
+
+#: ../src/extract_dialog.c
+msgid "Please select the destination directory"
+msgstr "กรุณาเลือกไดเรกทอรีปลายทาง"
+
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
+msgid "Points to"
+msgstr "ชี้ไปที่"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "ขนาดไอคอน (ต้องรีสตาร์ท)"
+
+#: ../src/pref_dialog.c
+msgid "Preferences"
+msgstr "การปรับแต่ง"
+
+#: ../src/pref_dialog.c
+msgid "Preferred archive format"
+msgstr "รูปแบบแฟ้มจัดเก็บที่ต้องการ"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Preferred temp directory:"
+msgid "Preferred extraction directory:"
+msgstr "ต้องการไดเรกทอรีชั่วคราว:"
+
+#: ../src/pref_dialog.c
+msgid "Preferred temp directory:"
+msgstr "ต้องการไดเรกทอรีชั่วคราว:"
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr "พิมพ์เนื้อหาที่แฟ้มจัดเก็บเป็นแบบ HTML"
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr "พิมพ์เนื้อหาที่แฟ้มจัดเก็บเป็นแบบข้อความ"
+
+#: ../src/arj.c ../src/gzip_et_al.c
+msgid "Ratio"
+msgstr "อัตราส่วน"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Rename"
+msgid "Re_name"
+msgstr "ตั้งชื่อใหม่"
+
+#: ../src/interface.c
+msgid "Rename"
+msgstr "ตั้งชื่อใหม่"
+
+#: ../src/interface.c
+msgid "Root"
+msgstr "ราก"
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "บันทึกแฟ้มจัดเก็บเป็น"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr "บันทึกเก็บแบบขยายตัวเองเป็น"
+
+#: ../src/pref_dialog.c
+msgid "Save window geometry"
+msgstr "บันทึกหน้าต่างรูปทรงเรขาคณิต"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
+
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "เลือก  \"ใหม่\" สำหรับทำ หรือ\"เปิด\"  สำหรับเปิดแฟ้มจัดเก็บ"
+
+#: ../src/interface.c
+msgid "Select _all"
+msgstr "เลือก_ทั้งหมด"
+
+#: ../src/interface.c
+msgid "Select _by pattern"
+msgstr "เลือกตาม_รูปแบบ"
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr "เลือกแอพพลิเคชั่น"
+
+#: ../src/interface.c
+msgid "Select by Pattern"
+msgstr "เลือกรูปแบบโดย"
+
+#: ../src/extract_dialog.c
+msgid "Selected files"
+msgstr "เลือกแฟ้ม"
+
+#: ../src/add_dialog.c
+msgid "Selection"
+msgstr "ส่วนที่เลือก"
+
+#: ../src/pref_dialog.c
+msgid "Show archive comment"
+msgstr "แสดงความคิดเห็นของแฟ้มจัดเก็บ"
+
+#: ../src/pref_dialog.c
+msgid "Show archive location bar"
+msgstr "แสดงโครงสร้างแฟ้มจัดเก็บแบบตำแหน่งที่ตั้ง"
+
+#: ../src/pref_dialog.c
+msgid "Show archive tree sidebar"
+msgstr "แสดงโครงสร้างแผนผังต้นไม้แบบแถบด้านข้าง"
+
+#: ../src/main.c
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Show version and exit"
+msgid "Show version and exit\n"
+msgstr "แสดงรุ่นและออก"
+
+#: ../src/extract_dialog.c
+msgid "Size"
+msgstr "ขนาด"
+
+#: ../src/extract_dialog.c
+msgid "Some errors occurred:"
+msgstr "เกิดข้อผิดพลาดบางอย่าง:"
+
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+#, fuzzy
+#| msgid "Sorry,I could not perform the operation!"
+msgid "Sorry, I could not perform the operation!"
+msgstr "ขออภัย,ฉันไม่สามารถดำเนินการได้!"
+
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
+#, fuzzy
+#| msgid "Sorry,this archive format is not supported:"
+msgid "Sorry, this archive format is not supported:"
+msgstr "ขออภัยรูปแบบแฟ้มจัดเก็บนี้จะไม่ได้รับการสนับสนุน"
+
+#: ../src/pref_dialog.c
+msgid "Sort archive by filename"
+msgstr "การจัดเรียงแฟ้มจัดเก็บตามชื่อแฟ้ม"
+
+#: ../src/interface.c
+msgid "Stop"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Store archiver output"
+msgstr "เก็บเอาท์พุทของงาน"
+
+#: ../src/add_dialog.c
+msgid "Store full paths"
+msgstr "จัดเก็บพาธเต็มรูปแบบ"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
+
+#: ../src/window.c
+msgid "Test result:"
+msgstr ""
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Testing archive,please wait..."
+msgid "Testing archive, please wait..."
+msgstr "กำลังตรวจสอบแฟ้มจัดเก็บ โปรดรอสักครู่ ..."
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "แฟ้มจัดเก็บ \"%s\" มีอยู่แล้ว!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
+msgid "The archive is okay."
+msgstr "แฟ้มจัดเก็บนี้จะถูกเข้ารหัส!"
+
+#: ../src/extract_dialog.c
+msgid "The archive's directory structure is recreated in the extraction directory"
+msgstr "โครงสร้างของแฟ้มจัดเก็บถูกสร้างขึ้นในแฟ้มปลายทาง"
+
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "การจัดเก็บไม่สนับสนุนคุณลักษณะนี้"
+
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "The filename column is sorted after loading the archive"
+msgstr "คอลัมน์ชื่อแฟ้มจะถูกจัดเรียงหลังจากโหลดแฟ้มจัดเก็บ"
+
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
+#, fuzzy
+#| msgid "the proper archiver is not installed!"
+msgid "The proper archiver is not installed!"
+msgstr "แฟ้มจัดเก็บที่เหมาะสมไม่ได้ติดตั้ง!"
+
+#: ../src/extract_dialog.c
+msgid "This archive is encrypted!"
+msgstr "แฟ้มจัดเก็บนี้จะถูกเข้ารหัส!"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
+msgstr "นี้เป็นไฟแสดงสถานะ Xarchiver  เมื่อมีการกระพริบ Xarchiver คือไม่ว่าง"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "This option takes more memory with large archives"
+msgid "This option consumes more memory with large archives"
+msgstr "ตัวเลือกนี้จะใช้หน่วยความจำมากขึ้นเนื่องด้วยแฟ้มจัดเก็บมีขนาดใหญ่"
+
+#: ../src/extract_dialog.c
+msgid "This option extracts archives in directories named with the archive names"
+msgstr "ตัวเลือกนี้จะทำให้แฟ้มจัดเก็บนี้ขยายไปยังโฟลเดอร์ที่มีชื่อเดียวกัน"
+
+#: ../src/pref_dialog.c
+msgid "This option includes the subdirectories when you add files with drag and drop"
+msgstr "ตัวเลือกนี้ประกอบด้วยไดเรกทอรีย่อยเมื่อคุณเพิ่มแฟ้มที่มีการลากและวาง "
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option performs the same function as the freshen one,extracting files that are newer than those with the same name on disk,and in addition it extracts "
+#| "those files that do not already exist on disk"
+msgid ""
+"This option performs the same function as the freshen one, extracting files that are newer than those with the same name on disk, and in addition it extracts "
+"those files that do not already exist on disk"
+msgstr "ตัวเลือกนี้จะทำหน้าที่เช่นเดียวกับหนึ่งในFreshenแยกแฟ้มที่ใหม่กว่าผู้ที่มีชื่อเดียวกันบนดิสก์และนอกจากจะสารสกัดจากแฟ้มเหล่านั้นที่ไม่ได้มีอยู่แล้วบนดิสก์"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid "This option will add any new files and update any files which have been modified since the archive was last created/modified"
+msgid "This option will add any new files and update any files which are already in the archive but older there"
+msgstr "ตัวเลือกนี้จะเพิ่มแฟ้มใหม่ ๆ และปรับปรุงแฟ้มใด ๆ ที่ได้รับการแก้ไข ตั้งแต่แฟ้มจัดเก็บถูกสร้างขึ้นล่าสุด / แก้ไข"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option affects the archive only if it has been modified more recently than the version already in the archive; unlike the update option it will not add "
+#| "files that are not already in the archive"
+msgid "This option will only add files which are already in the archive but older there; unlike the update option it will not add any new files"
+msgstr "ตัวเลือกนี้จะมีผลกระทบต่อการจัดเก็บ แต่ถ้ามันได้รับการแก้ไขเมื่อเร็ว ๆ นี้กว่ารุ่นที่มีอยู่แล้วในการเก็บ; ซึ่งแตกต่างจากตัวเลือกการปรับปรุงก็จะไม่เพิ่มแฟ้มที่ไม่ได้อยู่ในการเก็บ"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c ../src/unar.c ../src/zip.c
+msgid "Time"
+msgstr "เวลา"
+
+#: ../src/interface.c
+msgid "Total Progress:"
+msgstr "รวมความคืบหน้า:"
+
+#: ../src/extract_dialog.c
+msgid "Touch files"
+msgstr "สัมผัสแฟ้ม"
+
+#: ../src/interface.c
+msgid "Type:"
+msgstr "ชนิด:"
+
+#: ../src/deb.c ../src/lha.c
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/interface.c
+msgid "Uncompressed size:"
+msgstr "ไม่มีการบีบอัดขนาด:"
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "ขนาดไม่มีการบีบอัด:"
+
+#: ../src/rpm.c
+msgid "Unknown compression type!"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Up"
+msgstr "ขึ้น"
+
+#: ../src/add_dialog.c
+msgid "Update and add"
+msgstr "ปรับปรุงและเพิ่ม"
+
+#: ../src/extract_dialog.c
+msgid "Update existing files"
+msgstr "อัปเดตแฟ้มที่มีอยู่"
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr "ใช้คำสั่งที่กำหนดเอง:"
+
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Version"
+msgstr "รุ่น"
+
+#: ../src/interface.c
+msgid "View"
+msgstr "มุมมอง"
+
+#: ../src/pref_dialog.c
+msgid "Web browser to use:"
+msgstr "เว็บเบราว์เซอร์ที่ใช้:"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "When this option is used,tar leaves the data modification times of the files it extracts as the times when the files were extracted,instead of setting it to "
+#| "the times recorded in the archive"
+msgid "When this option is used, the modification times of the files will be the times of extraction instead of the times recorded in the archive"
+msgstr "เมื่อตัวเลือกนี้ tar จะเปลี่ยนข้อมูล เกี่ยวกับการเปลี่ยนแปลงของแฟ้ม"
+
+#: ../src/pref_dialog.c
+msgid "Window"
+msgstr "หน้าต่าง"
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "ใช่"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Can't extract files from the archive:"
+msgid "You are about to delete entries from the archive."
+msgstr "ไม่สามารถขยายแฟ้มจากแฟ้มจัดเก็บ: "
+
+#: ../src/interface.c ../src/window.c
+#, fuzzy
+#| msgid "You can't add content to deb packages!"
+msgid "You can't add content to this archive type!"
+msgstr "คุณไม่สามารถเพิ่มเนื้อหาในโปรแกรม deb!"
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr "คุณไม่ได้ตั้งค่าเบราว์เซอร์ที่จะใช้!"
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr "คุณไม่ได้ตั้งค่าโปรแกรมที่จะใช้สำหรับการเปิดแฟ้มนี้"
+
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid "You don't have the right permissions to extract the files to the directory \"%s\"."
+msgstr "คุณไม่ได้มีสิทธิ์ที่ถูกต้องที่จะแยกแฟ้มไปยังไดเรกทอรี \"%s\""
+
+#: ../src/extract_dialog.c
+msgid "You haven't added any of them!"
+msgstr "คุณไม่ได้เพิ่มใด ๆ ของพวกเขา"
+
+#: ../src/add_dialog.c
+msgid "You haven't selected any files to add!"
+msgstr "คุณยังไม่ได้เลือกแฟ้มใด ๆ เพื่อเพิ่ม!"
+
+#: ../src/main.c
+msgid "You missed the archive name!\n"
+msgstr "คุณไม่ได้ใส่ชื่อของแฟ้มจัดเก็บ! \n"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
+msgid "You missed the password!"
+msgstr "คุณลืมรหัสผ่าน"
+
+#: ../src/extract_dialog.c
+msgid "You missed where to extract the files!"
+msgstr "คุณพลาดที่จะแยกแฟ้ม!"
+
+#: ../src/main.c
+msgid "[ARCHIVE]"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "_Add"
+msgstr "เ_พิ่ม"
+
+#: ../src/interface.c
+msgid "_Archive"
+msgstr "_แฟ้มจัดเก็บ"
+
+#: ../src/interface.c
+msgid "_Contents"
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "_Extract"
+msgstr "_ดำเนินการ"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "HTML file"
+msgid "_HTML file"
+msgstr "แฟ้ม HTML "
+
+#: ../src/interface.c
+msgid "_Help"
+msgstr "_ช่วยเหลือ"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "List as"
+msgid "_List as"
+msgstr "รายการที่"
+
+#: ../src/interface.c
+msgid "_Multi-Extract"
+msgstr "แยกหลายอัน"
+
+#: ../src/interface.c
+msgid "_Password:"
+msgstr "_รหัสผ่าน:"
+
+#: ../src/interface.c
+msgid "_Preferences"
+msgstr "_ปรับแต่ง"
+
+#: ../src/interface.c
+msgid "_Properties"
+msgstr "_คุณสมบัติ"
+
+#: ../src/interface.c
+msgid "_Select"
+msgstr "_เลือก"
+
+#: ../src/interface.c
+msgid "_Test"
+msgstr "ทด_สอบ"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Text file"
+msgid "_Text file"
+msgstr "แฟ้มข้อความ"
+
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "choose..."
+msgstr "เลือก"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "destination archive"
+msgid "destination"
+msgstr "ปลายทางแฟ้มจัดเก็บ"
+
+#: ../src/interface.c
+msgid "example: *.txt; ac*"
+msgstr "ตัวอย่าง: *.txt; ac*"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "file1 file2 file3 ... fileN"
+msgid "file1 ... fileN"
+msgstr "แฟ้ม1 แฟ้ม2 แฟ้ม3 ... แฟ้มN"
+
+#: ../src/pref_dialog.c
+msgid "large"
+msgstr "ใหญ่"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
+#: ../src/window.c
+msgid "selected"
+msgstr "เลือก"
+
+#: ../src/pref_dialog.c
+msgid "small"
+msgstr "เล็ก"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
+
+#: ../src/window.c
+msgid "translator-credits"
+msgstr "ผู้แปล-เครดิต"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "ใหญ่"
+
+#: ../src/main.c
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"ลองใช้ xarchiver --help เพื่อดูรายการตัวเลือกของคำสั่งที่มีอยู่ทั้งหมด\n"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Size"
+msgid "|Size\n"
+msgstr "ขนาด"
+
+#~ msgid "Attr"
+#~ msgstr "Attr"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "ถูกบีบอัด\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>การบีบอัด:</th>"
+
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d แฟ้มและ %d ไดเร็กทอรี %s (%s)"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "ไม่สามารถดำเนินการอีกครั้ง:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "โปรดรอสักครู่จนกว่าจะเสร็จสิ้นการในปัจจุบัน!"
+
+#~ msgid "You have to install rar package!"
+#~ msgstr "คุณต้องติดตั้งโปรแกรม rar!"
+
+#~ msgid "You can't add content to rpm packages!"
+#~ msgstr "คุณไม่สามารถเพิ่มเนื้อหาในแพคเกจรอบต่อนาที!"
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "แฟ้มประเภทนี้ไม่ได้รับการสนับสนุน! "
+
+#~ msgid "Please install xdg-utils package."
+#~ msgstr "โปรดติดตั้งแพคเกจ xdg-utils."
+
+#~ msgid "Decompress file"
+#~ msgstr "ขยายแฟ้ม"
+
+#~ msgid "Timestamp"
+#~ msgstr "การประทับเวลา"
+
+#~ msgid "_Thanks to"
+#~ msgstr "_ขอบคุณที่"
+
+#~ msgid "Xarchiver"
+#~ msgstr "Xarchiver เอ็กส์อาร์ไคว์เวอร์"
+
+#~ msgid "archive"
+#~ msgstr "แฟ้มจัดเก็บ"
+
+#~ msgid "Multi-extract archives"
+#~ msgstr "แยกแฟ้มจัดเก็บแบบหลายอัน "
+
+#~ msgid "filenames"
+#~ msgstr "ชื่อแฟ้ม"
+
+#~ msgid "[archive name]"
+#~ msgstr "[ชื่อแฟ้มจัดเก็บ]"
+
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "เพิ่มนามสกุลในชื่อของแฟ้ม"
+
+#~ msgid "CRC"
+#~ msgstr "CRC"
+
+#~ msgid "Permission"
+#~ msgstr "การอนุญาต"
+
+#~ msgid "Hard Link"
+#~ msgstr "Hard Link"

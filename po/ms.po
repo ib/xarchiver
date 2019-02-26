@@ -1,0 +1,1504 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abuyop <abuyop@gmail.com>, 2013
+# Mohd Nadzrin Sapari <nadz050@gmail.com>, 2011
+# Puretech <terjemah.puretech@gmail.com>, 2012
+# Puretech <terjemah.puretech@gmail.com>, 2011
+msgid ""
+msgstr ""
+"Project-Id-Version: DoudouLinux\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-21 15:08+0300\n"
+"PO-Revision-Date: 2019-02-26 03:11+0300\n"
+"Last-Translator: abuyop <abuyop@gmail.com>\n"
+"Language-Team: Malay (http://www.transifex.com/jmphilippe/doudoulinux/"
+"language/ms/)\n"
+"Language: ms\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.0.9\n"
+
+#: ../src/window.c
+#, c-format
+msgid ""
+"\n"
+"Name: "
+msgstr ""
+"\n"
+"Nama: "
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "\"%s\" is already open!"
+msgstr "\"%s\" sudah terbuka!"
+
+#: ../src/window.c
+#, c-format
+msgid "%d dir %s (%s)"
+msgid_plural "%d dirs %s (%s)"
+msgstr[0] "%d laluan %s (%s)"
+
+#: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Add files"
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "Tambah fail"
+
+#: ../src/window.c
+#, c-format
+msgid "%d file %s (%s)"
+msgid_plural "%d files %s (%s)"
+msgstr[0] "%d fail %s (%s)"
+
+#: ../src/pref_dialog.c
+msgid "/tmp"
+msgstr "/tmp"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 1 is default, 4 = fastest but least compression"
+msgstr "0 = tiada mampatan, 1 adalah lalai, 4 = terpantas tetapi kurang mampat"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 3 is default, 5 = best compression but slowest"
+msgstr ""
+"0 = tiada mampatan, 3 adalah lalai, 5 = mampatan terbaik tetapi paling "
+"perlahan"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 5 is default, 9 = best compression but slowest"
+msgstr ""
+"0 = tiada mampatan, 5 adalah lalai, 9 = mampatan terbaik tetapi paling "
+"perlahan"
+
+#: ../src/add_dialog.c
+msgid "0 = no compression, 6 is default, 9 = best compression but slowest"
+msgstr ""
+"0 = tiada mampatan, 6 adalah lalai, 9 = mampatan terbaik tetapi paling "
+"perlahan"
+
+#: ../src/add_dialog.c
+msgid "5 = default compression, 7 = max compression"
+msgstr "5 = mampatan lalai, 7 = mampatan maksimum"
+
+#: ../src/pref_dialog.c
+msgid ""
+"<span color='red' style='italic'>Please install xdg-utils package so that\n"
+"Xarchiver can recognize more file types.</span>"
+msgstr ""
+"<span color='red' style='italic'>Sila pasang pakej xdg-utils supaya\n"
+"Xarchiver dapat mengenalpasti lebih banyak jenis fail.</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Enter password for:</span>"
+msgstr "<span weight=\"bold\">Masukkan Kata laluan untuk:</span>"
+
+#: ../src/interface.c
+msgid "<span weight='bold' size='larger'>Password required for:</span>"
+msgstr "<span weight=\"bold\">Kata laluan diperlukan</span>"
+
+#: ../src/window.c
+#, c-format
+msgid "<th>Files:</th>"
+msgstr "<th>Fail:</th>"
+
+#: ../src/window.c
+#, fuzzy, c-format
+#| msgid "<th>Files:</th>"
+msgid "<th>Size:</th>"
+msgstr "<th>Fail:</th>"
+
+#: ../xarchiver.desktop.in.h
+#, fuzzy
+#| msgid "A GTK+2 only archive manager"
+msgid "A GTK+ only archive manager"
+msgstr "Pengurus arkib GTK+2 sahaja"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "A GTK+2 only archive manager"
+msgid "A GTK+ only lightweight archive manager"
+msgstr "Pengurus arkib GTK+2 sahaja"
+
+#: ../src/interface.c
+msgid "A_ction"
+msgstr "Tin_dakan"
+
+#: ../src/interface.c
+msgid "A_dd"
+msgstr "Ta_mbah"
+
+#: ../src/add_dialog.c
+msgid "Actions: "
+msgstr "Tindakan:"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "_Add"
+msgid "Add"
+msgstr "_Tambah"
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Add files"
+msgstr "Tambah fail"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add the given files by asking the name of the archive and quits."
+msgid ""
+"Add the given files by asking the name of\n"
+"                                     the archive and quit"
+msgstr "Tambah fail diberi dengan meminta nama arkib dan keluar."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Add files to archive by asking their filenames and quits."
+msgid ""
+"Add to archive by asking which files and\n"
+"                                     quit"
+msgstr "Tambah fail ke arkib dengan meminta nama fail dan keluar."
+
+#: ../src/add_dialog.c
+msgid "Adding files to archive, please wait..."
+msgstr "Menambah fail ke arkib, sila tunggu..."
+
+#: ../src/interface.c
+msgid "Adding to archive:"
+msgstr "Tambah ke arkib:"
+
+#: ../src/pref_dialog.c
+msgid "Advanced"
+msgstr "Lanjutan"
+
+#: ../src/extract_dialog.c ../src/new_dialog.c ../src/window.c
+msgid "All files"
+msgstr "Semua fail"
+
+#: ../src/pref_dialog.c
+msgid "Allow subdirs with drag and drop"
+msgstr "Benarkan subdir dengan seret dan lepas"
+
+#: ../src/window.c
+msgid "An error occurred while accessing the archive:"
+msgstr "Ralat berlaku ketika mencapai arkib:"
+
+#: ../src/window.c
+msgid "An error occurred!"
+msgstr "Ralat berlaku!"
+
+#: ../src/pref_dialog.c
+msgid "Archive"
+msgstr "Arkib"
+
+#: ../src/extract_dialog.c
+msgid "Archive Name"
+msgstr "Nama Arkib"
+
+#: ../src/interface.c
+msgid "Archive Properties"
+msgstr "Sifat Arkib"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Archive comment"
+msgid "Archive _comment"
+msgstr "Ulasan arkib"
+
+#: ../src/window.c
+#, fuzzy, c-format
+#| msgid "Archive contents:\n"
+msgid "Archive content:\n"
+msgstr "Kandungan arkib:\n"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Sorry,this archive format is not supported:"
+msgid "Archive format is not recognized!"
+msgstr "Maaf, format arkib ini tidak disokong:"
+
+#: ../xarchiver.desktop.in.h
+msgid "Archive manager"
+msgstr "Pengurus arkib"
+
+#: ../src/interface.c
+msgid "Archive tree"
+msgstr "Pepohon arkib"
+
+#: ../src/new_dialog.c
+msgid "Archive type:"
+msgstr "Jenis arkib:"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Can't run the archiver executable:"
+msgid "Archiver executable:"
+msgstr "Tidak boleh jalankan arkib boleh laku:"
+
+#: ../src/window.c
+msgid "Archiver output"
+msgstr "Output pengarkib:"
+
+#: ../src/window.c
+msgid "Are you sure you want to do this?"
+msgstr "Anda pasti ingin membuatnya?"
+
+#: ../src/7zip.c ../src/arj.c ../src/rar.c
+msgid "Attributes"
+msgstr "Atribut"
+
+#: ../src/interface.c
+msgid "Back"
+msgstr "Undur"
+
+#: ../src/open-with-dlg.c
+msgid "Browse"
+msgstr "Layar"
+
+#: ../src/add_dialog.c ../src/main.c
+msgid "Can't add files to the archive:"
+msgstr "Tidak dapat tambah fail ke arkib:"
+
+#: ../src/main.c
+msgid "Can't allocate memory for the archive structure!"
+msgstr "Tidak dapat memperuntukkan ingatan untuk struktur arkib!"
+
+#: ../src/window.c
+msgid "Can't allocate memory for the archive structure:"
+msgstr "Tidak dapat peruntukkan ingatan untuk struktur arkib:"
+
+#: ../src/window.c
+msgid "Can't convert the archive to self-extracting:"
+msgstr "Tidak dapat tukar arkib ke mengekstrak-sendiri:"
+
+#: ../src/new_dialog.c
+msgid "Can't create a new archive:"
+msgstr "Tidak dapat cipta arkib baharu:"
+
+#: ../src/extract_dialog.c ../src/main.c
+#, fuzzy
+#| msgid "Can't create temporary directory in /tmp:"
+msgid "Can't create directory!"
+msgstr "Tidak dapat buat direktori sementara dalam / tmp:"
+
+#: ../src/archive.c
+#, fuzzy
+#| msgid "Can't create temporary directory in /tmp:"
+msgid "Can't create temporary directory:"
+msgstr "Tidak dapat buat direktori sementara dalam / tmp:"
+
+#: ../src/extract_dialog.c ../src/main.c
+msgid "Can't extract files from the archive:"
+msgstr "Tidak dapat ekstrak fail dari arkib:"
+
+#: ../src/rpm.c
+msgid "Can't fseek in file:"
+msgstr "Tidak dapat fseek dalam fail:"
+
+#: ../src/rpm.c
+msgid "Can't fseek to position 104:"
+msgstr "Tidak dapat fseek ke kedudukan 104:"
+
+#: ../src/extract_dialog.c
+msgid "Can't multi-extract archives:"
+msgstr "Tidak boleh ekstrak arkib-berbilang:"
+
+#: ../src/rpm.c
+#, c-format
+msgid "Can't open RPM file %s:"
+msgstr "Tidak dapat buka fail rpm %s:"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file \"%s\":"
+msgstr "Tidak dapat buka fail \"%s\":"
+
+#: ../src/window.c
+#, c-format
+msgid "Can't open file %s:"
+msgstr "Tidak dapat buka fail %s:"
+
+#: ../src/extract_dialog.c ../src/window.c
+msgid "Can't perform extraction!"
+msgstr "Tidak dapat buat pengekstrakan!"
+
+#: ../src/interface.c ../src/window.c
+msgid "Can't perform this action:"
+msgstr "Tidak dapat buat tindakan ini:"
+
+#: ../src/rpm.c
+msgid "Can't read data from file:"
+msgstr "Tidak dapat baca data dari fail:"
+
+#: ../src/archive.c
+msgid "Can't run the archiver executable:"
+msgstr "Tidak boleh jalankan arkib boleh laku:"
+
+#: ../src/window.c
+msgid "Can't write the unzipsfx module to the archive:"
+msgstr "Tidak dapat tulis modul unzipsfx ke arkib:"
+
+#: ../src/interface.c
+msgid "Cancel current operation"
+msgstr "Batal operasi semasa"
+
+#: ../src/gzip_et_al.c
+msgid "Check Type"
+msgstr ""
+
+#: ../src/arj.c ../src/rar.c
+msgid "Checksum"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Choose the application to use"
+msgstr "Pilih aplikasi untuk digunakan"
+
+#: ../src/new_dialog.c
+msgid "Choose the archive type to create"
+msgstr "Pilih jenis arkib untuk dicipta"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Choose the temp directory to use"
+msgid "Choose the directory to use"
+msgstr "Pilih direktori sementara yang digunakan"
+
+#: ../src/interface.c
+msgid "Close archive"
+msgstr "Tutup arkib"
+
+#: ../src/interface.c
+msgid "Cmd-line outp_ut"
+msgstr "Outp_ut baris-perintah"
+
+#: ../src/window.c
+msgid "Comment"
+msgstr "Ulasan"
+
+#: ../src/interface.c
+msgid "Comment:"
+msgstr "Ulasan:"
+
+#: ../src/window.c
+#, c-format
+msgid "Comment:\n"
+msgstr "Ulasan:\n"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Compressed"
+msgstr "Termampat"
+
+#: ../src/window.c
+#, c-format
+msgid "Compressed   size: "
+msgstr "Saiz   mampatan: "
+
+#: ../src/interface.c
+msgid "Compressed size:"
+msgstr "Saiz mampatan:"
+
+#: ../src/gzip_et_al.c
+#, fuzzy
+#| msgid "Compression ratio:"
+msgid "Compression ratio"
+msgstr "Nisbah mampatan:"
+
+#: ../src/interface.c
+msgid "Compression ratio:"
+msgstr "Nisbah mampatan:"
+
+#: ../src/add_dialog.c
+msgid "Compression: "
+msgstr "Mampatan:"
+
+#: ../src/pref_dialog.c
+msgid "Confirm deletion of files"
+msgstr "Sahkan pemadaman fail"
+
+#: ../src/interface.c
+msgid "Copy"
+msgstr "Salin"
+
+#: ../src/new_dialog.c
+msgid "Cr_eate"
+msgstr "C_ipta"
+
+#: ../src/interface.c ../src/new_dialog.c
+msgid "Create a new archive"
+msgstr "Cipta arkib baharu"
+
+#: ../src/add_dialog.c
+msgid "Create a solid archive"
+msgstr "Jana arkib padat"
+
+#: ../src/interface.c
+msgid "Cut"
+msgstr "Potong"
+
+#: ../src/gzip_et_al.c
+msgid "Data Frames/Skippable Frames"
+msgstr ""
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
+msgid "Date"
+msgstr "Tarikh"
+
+#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#, fuzzy
+#| msgid "Date modified"
+msgid "Date and Time"
+msgstr "Tarikh diubahsuai"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Use a custom command:"
+msgid "Default custom command:"
+msgstr "Gunakan perintah suai:"
+
+#: ../src/interface.c
+msgid "Delete"
+msgstr "Padam"
+
+#: ../src/add_dialog.c
+msgid "Delete files after adding"
+msgstr "Padam fail setelah ditambah"
+
+#: ../src/interface.c
+msgid "Dese_lect all"
+msgstr "Nyahpi_lih semua"
+
+#: ../src/extract_dialog.c
+msgid "Destination dirs:"
+msgstr "Destinasi dir:"
+
+#: ../src/add_dialog.c
+msgid "Do not store paths"
+msgstr "Jangan simpan laluan"
+
+#: ../src/window.c
+msgid "Do you really want to cancel?"
+msgstr "Anda pasti ingin batalkan?"
+
+#: ../src/new_dialog.c
+msgid "Do you want to overwrite it?"
+msgstr "Anda mahu menulis-ganti ia?"
+
+#: ../src/window.c
+msgid "Doing so will probably corrupt your archive!"
+msgstr "Berbuat demikian boleh menyebabkan arkib anda rosak!"
+
+#: ../src/interface.c
+msgid "Encrypted:"
+msgstr "Disulitkan:"
+
+#: ../src/add_dialog.c
+msgid "Encryption: "
+msgstr "Penyulitan:"
+
+#: ../src/extract_dialog.c
+msgid "Ensure a containing directory"
+msgstr ""
+
+#: ../src/extract_dialog.c
+msgid ""
+"Ensure that the contents of the extracted archive is always in a containing "
+"directory"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Enter passwo_rd"
+msgstr "Masukkan kata _laluan"
+
+#: ../src/interface.c
+msgid "Extract"
+msgstr "Ekstrak"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract archive by asking the extraction\n"
+"                                     directory and quit"
+msgstr "Ekstrak arkib dengan meminta destinasi direktori dan keluar."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to a containing directory\n"
+"                                     and quit"
+msgstr "Ekstrak arkib ke direktori destinasi dan keluar."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive to the destination directory and quits."
+msgid ""
+"Extract archive to the destination\n"
+"                                     directory and quit"
+msgstr "Ekstrak arkib ke direktori destinasi dan keluar."
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "Extract files"
+msgstr "Ekstrak fail"
+
+#: ../src/extract_dialog.c
+msgid "Extract files with full path"
+msgstr "Ekstrak fail dengan laluan penuh"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Extract archive by asking the extraction directory and quits."
+msgid ""
+"Extract multiple archives by asking the\n"
+"                                     extraction directory and quit"
+msgstr "Ekstrak arkib dengan meminta destinasi direktori dan keluar."
+
+#: ../src/extract_dialog.c
+msgid ""
+"Extract only those files that already exist on disk and that are newer than "
+"the disk copies"
+msgstr ""
+"Ekstrak hanya fail yang telah wujud pada cakera dan yang lebih baru daripada "
+"salinan cakera"
+
+#: ../src/extract_dialog.c
+msgid "Extract pathnames"
+msgstr "EKstrak nama laluan"
+
+#: ../src/extract_dialog.c
+msgid "Extract to dir \"Archive Name\""
+msgstr "Ekstrak ke laluan \"Nama Arkib\""
+
+#: ../src/extract_dialog.c
+msgid "Extract to:"
+msgstr "Ekstrak ke:"
+
+#: ../src/extract_dialog.c ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive,please wait..."
+msgid "Extracting files from archive, please wait..."
+msgstr "Mengekstrak fail dari arkib, sila tunggu ..."
+
+#: ../src/interface.c
+msgid "Extracting from archive:"
+msgstr "Mengekstrak dari arkib:"
+
+#: ../src/window.c
+msgid "Failed to launch the application!"
+msgstr "Gagal menjalankan aplikasi!"
+
+#: ../src/add_dialog.c
+msgid "File Paths: "
+msgstr "Laluan Fail:"
+
+#: ../src/window.c
+msgid "Filename"
+msgstr "Nama fail"
+
+#: ../src/extract_dialog.c
+msgid "Files "
+msgstr "Fail"
+
+#: ../src/extract_dialog.c
+msgid "Files: "
+msgstr "Fail:"
+
+#: ../src/window.c
+#, c-format
+msgid "Files:%*s%s"
+msgstr "Fail:%*s%s"
+
+#: ../src/interface.c
+msgid "Forward"
+msgstr "Maju"
+
+#: ../src/add_dialog.c
+msgid "Freshen and replace"
+msgstr "Segar dan gantikan"
+
+#: ../src/extract_dialog.c
+msgid "Freshen existing files"
+msgstr "Segarkan fail sedia ada"
+
+#: ../src/window.c
+msgid "From File"
+msgstr "Dari Fail"
+
+#: ../xarchiver.desktop.in.h
+msgid ""
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
+"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
+"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
+"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
+"Zstandard;zstd;"
+msgstr ""
+
+#: ../src/cpio.c ../src/rpm.c
+msgid "Group"
+msgstr "Kumpulan"
+
+#: ../src/pref_dialog.c
+msgid "Icons size (requires restart)"
+msgstr "Saiz ikon (perlu mula semula)"
+
+#: ../src/pref_dialog.c
+msgid "If checked the archive comment is shown after the archive is loaded"
+msgstr "Jika ditanda ulasan arkib ditunjuk selepas arkib dimuatkan"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "In a solid archive the files are grouped together featuring a better "
+#| "compression ratio"
+msgid ""
+"In a solid archive the files are grouped together resulting in a better "
+"compression ratio"
+msgstr ""
+"Dalam sebuah arkib padat fail dikumpulkan bersama-sama menampilkan nisbah "
+"mampatan yang lebih baik."
+
+#: ../src/add_dialog.c
+msgid "Include subdirectories"
+msgstr "Termasuk sub direktori"
+
+#: ../src/interface.c
+msgid "Location:"
+msgstr "Lokasi:"
+
+#: ../src/main.c
+#, c-format
+msgid "Maintained by "
+msgstr ""
+
+#: ../src/interface.c
+msgid "Make SF_X"
+msgstr "Buat SF_X"
+
+#: ../src/gzip_et_al.c ../src/rar.c ../src/unar.c ../src/zip.c
+msgid "Method"
+msgstr "Kaedah"
+
+#: ../src/interface.c
+msgid "Modified on:"
+msgstr "Diubahsuai pada:"
+
+#: ../src/extract_dialog.c
+msgid "Multi-Extract"
+msgstr "Ekstrak-Berbilang"
+
+#: ../src/interface.c
+msgid "Name:"
+msgstr "Nama:"
+
+#: ../src/interface.c
+msgid "New"
+msgstr ""
+
+#: ../src/window.c
+msgid "No"
+msgstr "Tidak"
+
+#: ../src/interface.c
+msgid "Number of files:"
+msgstr "Bilangan fail:"
+
+#: ../src/window.c
+#, c-format
+msgid "Number of files: "
+msgstr "Bilangan fail: "
+
+#: ../src/zip.c
+msgid "OS"
+msgstr "OS"
+
+#: ../src/gzip_et_al.c ../src/lha.c ../src/rar.c
+msgid "Occupancy"
+msgstr ""
+
+#: ../src/new_dialog.c ../src/window.c
+msgid "Only archives"
+msgstr "Arkib sahaja"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Open With"
+msgid "Open"
+msgstr "Buka Dengan"
+
+#: ../src/open-with-dlg.c
+#, c-format
+msgid "Open <i>%s</i> with:"
+msgstr "Buka <i>%s</i> dengan:"
+
+#: ../src/interface.c ../src/open-with-dlg.c
+msgid "Open With"
+msgstr "Buka Dengan"
+
+#: ../src/window.c
+msgid "Open a text file"
+msgstr "Buka fail teks"
+
+#: ../src/interface.c ../src/window.c
+msgid "Open an archive"
+msgstr "Buka arkib"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Open image files with:"
+msgid "Open archive files with:"
+msgstr "Buka fail imej dengan:"
+
+#: ../src/pref_dialog.c
+msgid "Open image files with:"
+msgstr "Buka fail imej dengan:"
+
+#: ../src/pref_dialog.c
+msgid "Open text files with:"
+msgstr "Buka fail teks dengan:"
+
+#: ../src/open-with-dlg.c
+msgid "Open the selected files with"
+msgstr "Buka fail terpilih dengan"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive,please wait..."
+msgid "Opening archive, please wait..."
+msgstr "Membuka arkib, sila tunggu..."
+
+#: ../src/window.c
+msgid "Operation aborted!"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "Options"
+msgstr "Pilihan"
+
+#: ../src/extract_dialog.c
+msgid "Options "
+msgstr "Pilihan "
+
+#: ../src/extract_dialog.c
+msgid "Options:"
+msgstr "Pilihan:"
+
+#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
+#, fuzzy
+#| msgid "Original"
+msgid "Original Size"
+msgstr "Asli"
+
+#: ../src/extract_dialog.c
+msgid "Overwrite existing files"
+msgstr "Tulis-ganti fail sedia ada"
+
+#: ../src/cpio.c ../src/rpm.c
+msgid "Owner"
+msgstr "Pemilik"
+
+#: ../src/tar.c
+msgid "Owner/Group"
+msgstr "Pemilik/Kumpulan"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c
+msgid "Password:"
+msgstr "Kata laluan:"
+
+#: ../src/interface.c
+msgid "Paste"
+msgstr "Tampal"
+
+#: ../src/extract_dialog.c
+msgid "Path"
+msgstr "Laluan"
+
+#: ../src/interface.c
+msgid "Path:"
+msgstr "Laluan:"
+
+#: ../src/interface.c
+msgid "Pattern:"
+msgstr "Corak:"
+
+#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/tar.c ../src/zip.c
+msgid "Permissions"
+msgstr "Keizinan"
+
+#: ../src/window.c
+msgid "Please check the 'Store archiver output' option to see it."
+msgstr "Sila semak pilihan 'Simpan output pengarkib' untuk melihatnya."
+
+#: ../src/add_dialog.c ../src/interface.c
+msgid "Please enter it!"
+msgstr "Sila masukkannya!"
+
+#: ../src/extract_dialog.c
+msgid "Please enter the extraction path."
+msgstr "Sila masukkan laluan pengekstrakan."
+
+#: ../src/extract_dialog.c
+msgid "Please enter the password."
+msgstr "Sila masukkan kata laluan"
+
+#: ../src/extract_dialog.c
+msgid "Please fill the \"Extract to\" field!"
+msgstr "Sila isi medan \"Ekstrak ke\"!"
+
+#: ../src/window.c
+msgid "Please go to Preferences->Advanced and set it."
+msgstr "Sila pergi ke Keutamaan->Lanjutan dan tetapkannya."
+
+#: ../src/main.c
+#, c-format
+msgid "Please report bugs to <%s>."
+msgstr "Sila laporkan pepijat ke <%s>."
+
+#: ../src/window.c
+msgid "Please select the 7zCon.sfx module"
+msgstr "Sila pilih modul 7zCon.sfx"
+
+#: ../src/extract_dialog.c
+msgid "Please select the archives you want to extract"
+msgstr "Sila pilih arkib yang anda mahu ekstrak"
+
+#: ../src/extract_dialog.c
+msgid "Please select the destination directory"
+msgstr "Sila pilih direktori destinasi"
+
+#: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
+msgid "Points to"
+msgstr "Tuding ke"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Icons size (requires restart)"
+msgid "Prefer unzip for zip files (requires restart)"
+msgstr "Saiz ikon (perlu mula semula)"
+
+#: ../src/pref_dialog.c
+msgid "Preferences"
+msgstr "Keutamaan"
+
+#: ../src/pref_dialog.c
+msgid "Preferred archive format"
+msgstr "Format arkib dikehendaki"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "Preferred temp directory:"
+msgid "Preferred extraction directory:"
+msgstr "Direktori sementara dikehendaki:"
+
+#: ../src/pref_dialog.c
+msgid "Preferred temp directory:"
+msgstr "Direktori sementara dikehendaki:"
+
+#: ../src/window.c
+msgid "Print the archive content as HTML"
+msgstr "Cetak kandungan arkib sebagai HTML"
+
+#: ../src/window.c
+msgid "Print the archive content as text"
+msgstr "Cetak kandungan arkib sebagai teks"
+
+#: ../src/arj.c ../src/gzip_et_al.c
+msgid "Ratio"
+msgstr "Nisbah"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Rename"
+msgid "Re_name"
+msgstr "Nama semula"
+
+#: ../src/interface.c
+msgid "Rename"
+msgstr "Nama semula"
+
+#: ../src/interface.c
+msgid "Root"
+msgstr "Root"
+
+#: ../src/window.c
+msgid "Save the archive as"
+msgstr "Simpan arkib sebagai"
+
+#: ../src/window.c
+msgid "Save the self-extracting archive as"
+msgstr "Simpan arkib mengekstrak-sendiri sebagai"
+
+#: ../src/pref_dialog.c
+msgid "Save window geometry"
+msgstr "Simpan geometri tetingkap"
+
+#: ../src/gzip_et_al.c ../src/unar.c ../src/zip.c
+msgid "Saving"
+msgstr ""
+
+#: ../src/main.c ../src/window.c
+msgid "Select \"New\" to create or \"Open\" to open an archive"
+msgstr "Pilih \"Baharu\" untuk cipta atau \"Buka\" untuk buka arkib"
+
+#: ../src/interface.c
+msgid "Select _all"
+msgstr "Pilih semu_a"
+
+#: ../src/interface.c
+msgid "Select _by pattern"
+msgstr "Pilih mengikut co_rak"
+
+#: ../src/open-with-dlg.c
+msgid "Select an application"
+msgstr "Pilih aplikasi"
+
+#: ../src/interface.c
+msgid "Select by Pattern"
+msgstr "Pilih mengikut Corak"
+
+#: ../src/extract_dialog.c
+msgid "Selected files"
+msgstr "Fail dipilih"
+
+#: ../src/add_dialog.c
+msgid "Selection"
+msgstr "Pemilihan"
+
+#: ../src/pref_dialog.c
+msgid "Show archive comment"
+msgstr "Tunjuk ulasan arkib"
+
+#: ../src/pref_dialog.c
+msgid "Show archive location bar"
+msgstr "Tunjuk palang lokasi arkib"
+
+#: ../src/pref_dialog.c
+msgid "Show archive tree sidebar"
+msgstr "Tunjuk palang sisi pepohon arkib"
+
+#: ../src/main.c
+msgid ""
+"Show found command line programs to be\n"
+"                                     used and exit"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Show toolbar"
+msgstr ""
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "Show version and exit"
+msgid "Show version and exit\n"
+msgstr "Tunjuk versi dan keluar"
+
+#: ../src/extract_dialog.c
+msgid "Size"
+msgstr "Saiz"
+
+#: ../src/extract_dialog.c
+msgid "Some errors occurred:"
+msgstr "Beberapa ralat berlaku:"
+
+#: ../src/extract_dialog.c ../src/interface.c ../src/window.c
+#, fuzzy
+#| msgid "Sorry,I could not perform the operation!"
+msgid "Sorry, I could not perform the operation!"
+msgstr "Maaf, saya tidak dapat buat operasi ini!"
+
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
+#, fuzzy
+#| msgid "Sorry,this archive format is not supported:"
+msgid "Sorry, this archive format is not supported:"
+msgstr "Maaf, format arkib ini tidak disokong:"
+
+#: ../src/pref_dialog.c
+msgid "Sort archive by filename"
+msgstr "Isih arkib mengikut nama fail"
+
+#: ../src/interface.c
+msgid "Stop"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "Store archiver output"
+msgstr "Simpan output pengarkib"
+
+#: ../src/add_dialog.c
+msgid "Store full paths"
+msgstr "Simpan laluan penuh"
+
+#: ../src/gzip_et_al.c
+msgid "Streams/Blocks/Padding"
+msgstr ""
+
+#: ../src/window.c
+msgid "Test result:"
+msgstr ""
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Testing archive,please wait..."
+msgid "Testing archive, please wait..."
+msgstr "Menguji arkib, sila tunggu..."
+
+#: ../src/new_dialog.c
+#, c-format
+msgid "The archive \"%s\" already exists!"
+msgstr "Arkib \"%s\" sudah wujud!"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "This archive is encrypted!"
+msgid "The archive is okay."
+msgstr "Arkib ini disulitkan!"
+
+#: ../src/extract_dialog.c
+msgid ""
+"The archive's directory structure is recreated in the extraction directory"
+msgstr "Struktur direktori arkib dicipta semula dalam direktori pengekstrakan"
+
+#: ../src/extract_dialog.c
+msgid "The archiver doesn't support this feature!"
+msgstr "Pengarkib tidak menyokong fitur ini!"
+
+#: ../src/gzip_et_al.c
+msgid "The archiver lacks necessary support for password protected decryption!"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "The filename column is sorted after loading the archive"
+msgstr "Lajur nama fail diisih selepas memuatkan arkib"
+
+#: ../src/extract_dialog.c ../src/main.c ../src/window.c
+#, fuzzy
+#| msgid "the proper archiver is not installed!"
+msgid "The proper archiver is not installed!"
+msgstr "arkib yang betul tidak dipasang!"
+
+#: ../src/extract_dialog.c
+msgid "This archive is encrypted!"
+msgstr "Arkib ini disulitkan!"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "This is Xarchiver led status. When it's flashing Xarchiver is busy"
+msgid "This is Xarchiver's LED status. When it's flashing Xarchiver is busy."
+msgstr ""
+"Ini adalah status led Xarchiver . Bila ia berkelip Xarchiver sedang sibuk"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "This option takes more memory with large archives"
+msgid "This option consumes more memory with large archives"
+msgstr "Pilihan ini menggunakan lebih ingatan dengan arkib besar"
+
+#: ../src/extract_dialog.c
+msgid ""
+"This option extracts archives in directories named with the archive names"
+msgstr ""
+"Pilihan ini mengekstrak arkib dalam direktori yang dinamakan dengan nama "
+"arkib"
+
+#: ../src/pref_dialog.c
+msgid ""
+"This option includes the subdirectories when you add files with drag and drop"
+msgstr ""
+"Pilihan ini memasukkan subdirektori bila anda menambah fail secara seret dan "
+"lepas"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option performs the same function as the freshen one,extracting "
+#| "files that are newer than those with the same name on disk,and in "
+#| "addition it extracts those files that do not already exist on disk"
+msgid ""
+"This option performs the same function as the freshen one, extracting files "
+"that are newer than those with the same name on disk, and in addition it "
+"extracts those files that do not already exist on disk"
+msgstr ""
+"Pilihan ini menjalankan fungsi yang sama seperti menyegarkan , mengekstrak "
+"fail yang lebih baru dengan nama yang sama pada cakera, dan di samping itu "
+"yang mengekstrak fail yang belum lagi wujud pada cakera"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option will add any new files and update any files which have been "
+#| "modified since the archive was last created/modified"
+msgid ""
+"This option will add any new files and update any files which are already in "
+"the archive but older there"
+msgstr ""
+"Pilihan ini akan menambah mana-mana fail yang baharu dan mengemas kini mana-"
+"mana fail yang telah diubahsuai sejak kali terakhir arkib dicipta / diubah "
+"suai"
+
+#: ../src/add_dialog.c
+#, fuzzy
+#| msgid ""
+#| "This option affects the archive only if it has been modified more "
+#| "recently than the version already in the archive; unlike the update "
+#| "option it will not add files that are not already in the archive"
+msgid ""
+"This option will only add files which are already in the archive but older "
+"there; unlike the update option it will not add any new files"
+msgstr ""
+"Pilihan ini memberi kesan kepada arkib hanya jika ia telah diubahsuai baru-"
+"baru ini daripada versi yang sedia ada dalam arkib; tidak seperti pilihan "
+"kemas kini, ia tidak akan menambah fail yang belum ada dalam arkib"
+
+#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
+#: ../src/unar.c ../src/zip.c
+msgid "Time"
+msgstr "Masa"
+
+#: ../src/interface.c
+msgid "Total Progress:"
+msgstr "Jumlah Kemajuan:"
+
+#: ../src/extract_dialog.c
+msgid "Touch files"
+msgstr "Sentuh fail"
+
+#: ../src/interface.c
+msgid "Type:"
+msgstr "Jenis:"
+
+#: ../src/deb.c ../src/lha.c
+msgid "UID/GID"
+msgstr "UID/GID"
+
+#: ../src/interface.c
+msgid "Uncompressed size:"
+msgstr "Saiz tidak mampat:"
+
+#: ../src/window.c
+#, c-format
+msgid "Uncompressed size: "
+msgstr "Saiz tidak mampat: "
+
+#: ../src/rpm.c
+msgid "Unknown compression type!"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Uns_ort"
+msgstr ""
+
+#: ../src/7zip.c
+msgid "Unsupported binary format!"
+msgstr ""
+
+#: ../src/interface.c
+msgid "Up"
+msgstr "Atas"
+
+#: ../src/add_dialog.c
+msgid "Update and add"
+msgstr "Kemaskini dan tambah"
+
+#: ../src/extract_dialog.c
+msgid "Update existing files"
+msgstr "Kemas kini fail sedia ada"
+
+#: ../src/open-with-dlg.c
+msgid "Use a custom command:"
+msgstr "Gunakan perintah suai:"
+
+#: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
+msgid "Version"
+msgstr "Versi"
+
+#: ../src/interface.c
+msgid "View"
+msgstr "Lihat"
+
+#: ../src/pref_dialog.c
+msgid "Web browser to use:"
+msgstr "Pelayan sesawang yang digunakan:"
+
+#: ../src/extract_dialog.c
+#, fuzzy
+#| msgid ""
+#| "When this option is used,tar leaves the data modification times of the "
+#| "files it extracts as the times when the files were extracted,instead of "
+#| "setting it to the times recorded in the archive"
+msgid ""
+"When this option is used, the modification times of the files will be the "
+"times of extraction instead of the times recorded in the archive"
+msgstr ""
+"Apabila pilihan ini digunakan, tar membiarkan masa pengubahsuaian data fail "
+"yang diekstrak sebagai masa apabila fail itu diekstrak, dan bukannya "
+"menetapkan masa yang direkodkan dalam arkib"
+
+#: ../src/pref_dialog.c
+msgid "Window"
+msgstr "Tetingkap"
+
+#: ../src/window.c
+msgid "Yes"
+msgstr "Ya"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Can't extract files from the archive:"
+msgid "You are about to delete entries from the archive."
+msgstr "Tidak dapat ekstrak fail dari arkib:"
+
+#: ../src/interface.c ../src/window.c
+#, fuzzy
+#| msgid "You can't add content to deb packages!"
+msgid "You can't add content to this archive type!"
+msgstr "Anda tidak boleh menambah kandungan pakej deb!"
+
+#: ../src/window.c
+msgid "You didn't set which browser to use!"
+msgstr "Anda tidak tetapkan yang pelayar untuk digunakan!"
+
+#: ../src/window.c
+msgid "You didn't set which program to use for opening this file!"
+msgstr "Anda tidak tetapkan program yang diguna untuk membuka fail ini!"
+
+#: ../src/extract_dialog.c ../src/window.c
+#, c-format
+msgid ""
+"You don't have the right permissions to extract the files to the directory "
+"\"%s\"."
+msgstr ""
+"Anda tidak mempunyai keizinan yang diperlukan untuk mengekstrak arkib di "
+"folder \"%s\"."
+
+#: ../src/extract_dialog.c
+msgid "You haven't added any of them!"
+msgstr "Anda belum menambah satupun darinya!"
+
+#: ../src/add_dialog.c
+msgid "You haven't selected any files to add!"
+msgstr "Anda tidak memilih sebarang fail untuk ditambah!"
+
+#: ../src/main.c
+msgid "You missed the archive name!\n"
+msgstr "Anda tertinggal nama arkib!\n"
+
+#: ../src/add_dialog.c ../src/extract_dialog.c ../src/interface.c
+msgid "You missed the password!"
+msgstr "Anda terlepas kata laluan!"
+
+#: ../src/extract_dialog.c
+msgid "You missed where to extract the files!"
+msgstr "Anda terlepas lokasi mengekstrak fail!"
+
+#: ../src/main.c
+msgid "[ARCHIVE]"
+msgstr ""
+
+#: ../src/add_dialog.c
+msgid "_Add"
+msgstr "_Tambah"
+
+#: ../src/interface.c
+msgid "_Archive"
+msgstr "_Arkib"
+
+#: ../src/interface.c
+msgid "_Contents"
+msgstr ""
+
+#: ../src/extract_dialog.c ../src/interface.c
+msgid "_Extract"
+msgstr "_Ekstrak"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "HTML file"
+msgid "_HTML file"
+msgstr "Fail HTML"
+
+#: ../src/interface.c
+msgid "_Help"
+msgstr "_Bantuan"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "List as"
+msgid "_List as"
+msgstr "Senarai sebagai"
+
+#: ../src/interface.c
+msgid "_Multi-Extract"
+msgstr "Ekstrak-_Berbilang"
+
+#: ../src/interface.c
+msgid "_Password:"
+msgstr "_Kata laluan:"
+
+#: ../src/interface.c
+msgid "_Preferences"
+msgstr "Ke_utamaan"
+
+#: ../src/interface.c
+msgid "_Properties"
+msgstr "Si_fat"
+
+#: ../src/interface.c
+msgid "_Select"
+msgstr "_Pilih"
+
+#: ../src/interface.c
+msgid "_Test"
+msgstr "_Uji"
+
+#: ../src/interface.c
+#, fuzzy
+#| msgid "Text file"
+msgid "_Text file"
+msgstr "Fail teks"
+
+#: ../src/window.c
+msgid "and"
+msgstr ""
+
+#: ../src/pref_dialog.c
+msgid "choose..."
+msgstr "pilih..."
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "destination archive"
+msgid "destination"
+msgstr "arkib destinasi"
+
+#: ../src/interface.c
+msgid "example: *.txt; ac*"
+msgstr "contoh: *.txt; ac*"
+
+#: ../src/main.c
+#, fuzzy
+#| msgid "file1 file2 file3 ... fileN"
+msgid "file1 ... fileN"
+msgstr "fail1 fail2 fail3 ... failN"
+
+#: ../src/pref_dialog.c
+msgid "large"
+msgstr "besar"
+
+#: ../src/pref_dialog.c
+msgid "medium"
+msgstr ""
+
+#: ../src/window.c
+msgid "selected"
+msgstr "dipilih"
+
+#: ../src/pref_dialog.c
+msgid "small"
+msgstr "kecil"
+
+#: ../src/pref_dialog.c
+msgid "small/medium"
+msgstr ""
+
+#: ../src/window.c
+msgid "translator-credits"
+msgstr ""
+"Puretech <terjemah.puretch@gmail.com>\n"
+"Abuyop <abuyop@gmail.com>"
+
+#: ../src/pref_dialog.c
+#, fuzzy
+#| msgid "large"
+msgid "very large"
+msgstr "besar"
+
+#: ../src/main.c
+#, c-format
+msgid ""
+"xarchiver: %s\n"
+"Try xarchiver --help to see a full list of available command line options.\n"
+msgstr ""
+"xarchiver: %s\n"
+"Cuba xarchiver --help untuk melihat senarai penuh baris perintah yang "
+"tersedia.\n"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Size"
+msgid "|Size\n"
+msgstr "Saiz"
+
+#~ msgid "Attr"
+#~ msgstr "Atr"
+
+#~ msgid "|Compressed\n"
+#~ msgstr "|Termampat\n"
+
+#~ msgid "<th>Compressed:</th>"
+#~ msgstr "<th>Termampat:</th>"
+
+#~ msgid "%d file and %d dir %s (%s)"
+#~ msgid_plural "%d files and %d dirs %s (%s)"
+#~ msgstr[0] "%d fail dan %d laluan %s (%s)"
+
+#~ msgid "Can't perform another extraction:"
+#~ msgstr "Tidak dapat buat pengekstrakan lain:"
+
+#~ msgid "Please wait until the completion of the current one!"
+#~ msgstr "Sila tunggu sehingga tugas sekarang selesai!"
+
+#~ msgid "You have to install rar package!"
+#~ msgstr "Anda perlu pasang pakej rar!"
+
+#~ msgid "You can't add content to rpm packages!"
+#~ msgstr "Anda tidak boleh menambah kandungan pakej rpm!"
+
+#~ msgid "This file type is not supported!"
+#~ msgstr "Fail jenis ini tidak disokong!"
+
+#~ msgid "Please install xdg-utils package."
+#~ msgstr "Sila pasang pakej XDG-utils."
+
+#~ msgid "Decompress file"
+#~ msgstr "Menyahmampat fail"
+
+#~ msgid "Timestamp"
+#~ msgstr "Setem masa"
+
+#~ msgid "_Thanks to"
+#~ msgstr "_Terima kasih kepada"
+
+#~ msgid "Xarchiver"
+#~ msgstr "Xarchiver"
+
+#~ msgid "archive"
+#~ msgstr "arkib"
+
+#~ msgid "Multi-extract archives"
+#~ msgstr "Arkib ekstrak-berbilang"
+
+#~ msgid "filenames"
+#~ msgstr "nama fail"
+
+#~ msgid "[archive name]"
+#~ msgstr "[nama arkib]"
+
+#~ msgid "Add the archive extension to the filename"
+#~ msgstr "Tambah sambungan arkib ke nama fail"
+
+#~ msgid "CRC"
+#~ msgstr " CRC "
+
+#~ msgid "Permission"
+#~ msgstr "Keizinan"
+
+#~ msgid "Hard Link"
+#~ msgstr "Pautan keras"
