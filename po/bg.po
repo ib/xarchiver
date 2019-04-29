@@ -223,7 +223,7 @@ msgstr "Тип на архива:"
 #, fuzzy
 #| msgid "Can't run the archiver executable:"
 msgid "Archiver executable:"
-msgstr "Не мога да стартирам изпълнението на архиватора:"
+msgstr "Изпълнение на архиватора:"
 
 #: ../src/window.c
 msgid "Archiver output"
@@ -736,7 +736,7 @@ msgstr "Отвори архив"
 #, fuzzy
 #| msgid "Open image files with:"
 msgid "Open archive files with:"
-msgstr "Отваряй изображенията с:"
+msgstr "Отваряй файловете от архива с:"
 
 #: ../src/pref_dialog.c
 msgid "Open image files with:"
@@ -784,7 +784,7 @@ msgstr "Замени съществуващите файлове"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Owner"
-msgstr "Притежател"
+msgstr "Собственик"
 
 #: ../src/tar.c
 msgid "Owner/Group"
@@ -817,44 +817,44 @@ msgstr "Права"
 
 #: ../src/window.c
 msgid "Please check the 'Store archiver output' option to see it."
-msgstr "Моля проверете 'Изхода от архивирането' опцията за да я видите."
+msgstr "Моля, проверете 'Изхода от архивирането' опцията за да я видите."
 
 #: ../src/add_dialog.c ../src/interface.c
 msgid "Please enter it!"
-msgstr "Моля въведете!"
+msgstr "Моля, въведете!"
 
 #: ../src/extract_dialog.c
 msgid "Please enter the extraction path."
-msgstr "Моля въведете път, където да се извлекат файловете."
+msgstr "Моля, въведете път, където да се извлекат файловете."
 
 #: ../src/extract_dialog.c
 msgid "Please enter the password."
-msgstr "Моля въведете парола."
+msgstr "Моля, въведете парола."
 
 #: ../src/extract_dialog.c
 msgid "Please fill the \"Extract to\" field!"
-msgstr "Моля попълнете \"Извлечи в\" полето!"
+msgstr "Моля, попълнете \"Извлечи в\" полето!"
 
 #: ../src/window.c
 msgid "Please go to Preferences->Advanced and set it."
-msgstr "Моля идете в 'Настройки' -> 'Разширени' и вижте."
+msgstr "Моля, идете в 'Настройки' -> 'Разширени' и вижте."
 
 #: ../src/main.c
 #, c-format
 msgid "Please report bugs to <%s>."
-msgstr "Моля, докладвайте грешка на <%s>."
+msgstr "Моля, докладвайте грешки на <%s>."
 
 #: ../src/window.c
 msgid "Please select the 7zCon.sfx module"
-msgstr "Моля изберете 7zCon.sfx модула"
+msgstr "Моля, изберете 7zCon.sfx модула"
 
 #: ../src/extract_dialog.c
 msgid "Please select the archives you want to extract"
-msgstr "Моля изберете архив, който желаете да разархивирате"
+msgstr "Моля, изберете архив, който желаете да разархивирате"
 
 #: ../src/extract_dialog.c
 msgid "Please select the destination directory"
-msgstr "Моля изберете крайна директория"
+msgstr "Моля, изберете крайна директория"
 
 #: ../src/cpio.c ../src/lha.c ../src/rpm.c ../src/tar.c ../src/unar.c
 msgid "Points to"
@@ -1006,11 +1006,11 @@ msgstr "Спри"
 
 #: ../src/pref_dialog.c
 msgid "Store archiver output"
-msgstr "Изход от архивирането"
+msgstr "Съхрани изхода от архивирането"
 
 #: ../src/add_dialog.c
 msgid "Store full paths"
-msgstr "Запази пълните пътища"
+msgstr "Съхрани пълните пътища"
 
 #: ../src/gzip_et_al.c
 msgid "Streams/Blocks/Padding"
@@ -1183,7 +1183,7 @@ msgstr "Обнови съществуващите файлове"
 
 #: ../src/open-with-dlg.c
 msgid "Use a custom command:"
-msgstr "Използвай собствена команда:"
+msgstr "Използвай потребителска команда:"
 
 #: ../src/gzip_et_al.c ../src/rar.c ../src/zip.c
 msgid "Version"
@@ -1364,7 +1364,7 @@ msgstr "среден"
 
 #: ../src/window.c
 msgid "selected"
-msgstr "маркирани"
+msgstr "избран"
 
 #: ../src/pref_dialog.c
 msgid "small"
@@ -1428,7 +1428,7 @@ msgstr "|Размер\n"
 #~ msgstr "Този файлов тип не се поддържа!"
 
 #~ msgid "Timestamp"
-#~ msgstr "Време"
+#~ msgstr "Времеви отпечатък"
 
 #~ msgid "Decompress file"
 #~ msgstr "Декомпресиране на файл"
