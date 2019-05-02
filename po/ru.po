@@ -1265,7 +1265,7 @@ msgstr "Пароль:"
 
 #: ../src/interface.c
 msgid "_Preferences"
-msgstr "С_войства"
+msgstr "Настройки"
 
 #: ../src/interface.c
 msgid "_Properties"
