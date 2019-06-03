@@ -1,9 +1,9 @@
 src/7zip.c
 src/add_dialog.c
+src/ar.c
 src/archive.c
 src/arj.c
 src/cpio.c
-src/deb.c
 src/extract_dialog.c
 src/gzip_et_al.c
 src/interface.c
