@@ -17,7 +17,7 @@ AC_COPYRIGHT([Copyright (c) 2006
 
 Written for Xfce by Giuseppe Torelli <colossus73@gmail.com>.
 Continuation of the Xfce master branch.])
-AC_PREREQ([2.60])
+AC_PREREQ([2.62])
 AC_INIT([xarchiver], [xarchiver_version], [https://github.com/ib/xarchiver/issues])
 : ${CFLAGS="-O2"}
 AC_CONFIG_SRCDIR([src/main.c])
@@ -46,7 +46,7 @@ AC_PROG_INSTALL
 dnl **************************
 dnl *** Initialize libtool ***
 dnl **************************
-LT_PREREQ([2.2.6])
+LT_PREREQ([2.2.0])
 LT_INIT([disable-static])
 
 dnl ***********************************************
@@ -67,7 +67,7 @@ AC_CHECK_FUNCS([strcasestr mkdtemp socket getc_unlocked mmap])
 dnl ********************
 dnl *** i18n support ***
 dnl ********************
-IT_PROG_INTLTOOL([0.35.0], [no-xml])
+IT_PROG_INTLTOOL([0.40.0], [no-xml])
 xgversion="`xgettext --version | head -1 | grep -o '[[0-9.]]\+$'`"
 AS_IF([test x"$xgversion" \< x"0.16"], AC_MSG_ERROR([GNU gettext tools must be at least version 0.16]))
 GETTEXT_PACKAGE=m4_default([], [AC_PACKAGE_NAME])
