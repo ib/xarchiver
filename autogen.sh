@@ -4,6 +4,7 @@ test "$BASH" && set -o pipefail
 
 echo > AUTHORS
 echo > NEWS
+mkdir m4
 
 echo -n "Creating the build system... "
 

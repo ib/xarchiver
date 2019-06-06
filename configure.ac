@@ -21,14 +21,15 @@ AC_PREREQ([2.60])
 AC_INIT([xarchiver], [xarchiver_version], [https://github.com/ib/xarchiver/issues])
 : ${CFLAGS="-O2"}
 AC_CONFIG_SRCDIR([src/main.c])
-AC_CONFIG_MACRO_DIRS([m4])
+AC_CONFIG_HEADER([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CANONICAL_HOST
 
 dnl ***************************
 dnl *** Initialize automake ***
 dnl ***************************
 AM_INIT_AUTOMAKE([1.11 dist-xz])
-AM_CONFIG_HEADER([config.h])
+AM_PROG_CC_C_O
 AM_SILENT_RULES([yes])
 AM_MAINTAINER_MODE
 
@@ -40,7 +41,6 @@ AC_USE_SYSTEM_EXTENSIONS([_GNU_SOURCE])
 dnl ********************************
 dnl *** Check for basic programs ***
 dnl ********************************
-AC_PROG_CC
 AC_PROG_INSTALL
 
 dnl **************************
