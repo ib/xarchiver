@@ -68,6 +68,8 @@ dnl ********************
 dnl *** i18n support ***
 dnl ********************
 IT_PROG_INTLTOOL([0.35.0], [no-xml])
+xgversion="`xgettext --version | head -1 | grep -o '[[0-9.]]\+$'`"
+AS_IF([test x"$xgversion" \< x"0.16"], AC_MSG_ERROR([GNU gettext tools must be at least version 0.16]))
 GETTEXT_PACKAGE=m4_default([], [AC_PACKAGE_NAME])
 AC_SUBST([GETTEXT_PACKAGE])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
@@ -76,6 +78,9 @@ AM_GLIB_GNU_GETTEXT
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
+m4_ifndef([PKG_PROG_PKG_CONFIG], [m4_fatal([pkg-config must be at least version 0.18.1])])
+PKG_PROG_PKG_CONFIG([0.18.1])
+
 AC_ARG_ENABLE([gtk2], AS_HELP_STRING([--enable-gtk2], [compile xarchiver against GTK+ 2]))
 GTK_API_VERSION=2.0
 AS_IF([test x"$enable_gtk2" != x"yes"], [PKG_CHECK_EXISTS([gtk+-3.0], [GTK_API_VERSION=3.0], [test x"$enable_gtk2" = x"no" && GTK_API_VERSION=3.0])])

@@ -13104,6 +13104,10 @@ fi
 
 
 
+xgversion="`xgettext --version | head -1 | grep -o '[0-9.]\+$'`"
+if test x"$xgversion" \< x"0.16"; then :
+  as_fn_error $? "GNU gettext tools must be at least version 0.16" "$LINENO" 5
+fi
 GETTEXT_PACKAGE=xarchiver
 
 
@@ -13896,12 +13900,7 @@ $as_echo "$LINGUAS" >&6; }
 	< $srcdir/po/POTFILES.in > po/POTFILES
 
 
-# Check whether --enable-gtk2 was given.
-if test "${enable_gtk2+set}" = set; then :
-  enableval=$enable_gtk2;
-fi
 
-GTK_API_VERSION=2.0
 
 
 
@@ -14010,7 +14009,7 @@ fi
 
 fi
 if test -n "$PKG_CONFIG"; then
-	_pkg_min_version=0.9.0
+	_pkg_min_version=0.18.1
 	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking pkg-config is at least version $_pkg_min_version" >&5
 $as_echo_n "checking pkg-config is at least version $_pkg_min_version... " >&6; }
 	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
@@ -14022,6 +14021,13 @@ $as_echo "no" >&6; }
 		PKG_CONFIG=""
 	fi
 fi
+
+# Check whether --enable-gtk2 was given.
+if test "${enable_gtk2+set}" = set; then :
+  enableval=$enable_gtk2;
+fi
+
+GTK_API_VERSION=2.0
 if test x"$enable_gtk2" != x"yes"; then :
   if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gtk+-3.0\""; } >&5
