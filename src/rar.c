@@ -440,7 +440,7 @@ void xa_rar_list (XArchive *archive)
 			/* block flag */
 			g_io_channel_read_chars(file, &byte[1], sizeof(*byte), NULL, NULL);
 
-			archive->has_password = (byte[0] == 0x73 && (guchar) byte[1] == 0x80);
+			archive->has_password = (byte[0] == 0x73 && byte[1] & 0x80);
 		}
 		/* RAR 5 archive */
 		else
@@ -453,7 +453,7 @@ void xa_rar_list (XArchive *archive)
 				g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
 			while (*byte & 0x80);
 
-			/* header flag */
+			/* header type */
 			g_io_channel_read_chars(file, byte, sizeof(*byte), NULL, NULL);
 
 			archive->has_password = (*byte == 4);
