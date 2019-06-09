@@ -148,6 +148,9 @@ static void xa_check_available_archivers ()
 		archiver[type].is_compressor = standard;
 		archiver[type].type = g_slist_append(archiver[type].type, "7zip");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.7z");
+		/* self-extracting Nullsoft Installer */
+		archiver[type].tags = g_slist_append(archiver[type].tags, GUINT_TO_POINTER('n'));
+		archiver[type].tags = g_slist_append(archiver[type].tags, _("Nullsoft Installer"));
 
 		archiver[type].ask = (standard ? xa_7zip_ask : xa_unar_ask);
 		archiver[type].list = (standard ? xa_7zip_list : xa_unar_list);

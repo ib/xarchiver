@@ -89,6 +89,26 @@ ArchiveType exetype (FILE *file)
 	    fread(pe, sizeof(pe), 1, file) == 1 &&
 	    memcmp(pe, "PE" "\x00\x00", 4) == 0)
 	{
+		uint32_t lelong1, lelong2;
+
+		if (fseek(file, le32toh(lelong) + 0xf8, SEEK_SET) == 0 &&
+		    search(file, ".rsrc", 0x140))
+		{
+			if (fseek(file, 0x0f, SEEK_CUR) == 0 &&
+			    fread(&lelong1, sizeof(lelong1), 1, file) == 1 &&
+			    fseek(file, -sizeof(lelong1) - 4, SEEK_CUR) == 0 &&
+			    fread(&lelong2, sizeof(lelong2), 1, file) == 1)
+			{
+				/* self-extracting Nullsoft Installer */
+				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
+				    search(file, "Nullsoft", 32))
+				{
+					xa.type = XARCHIVETYPE_7ZIP;
+					xa.tag = 'n';
+					goto done;
+				}
+			}
+		}
 	}
 
 done:
