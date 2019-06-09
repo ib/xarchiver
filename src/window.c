@@ -27,6 +27,7 @@
 #include <sys/stat.h>
 #include "window.h"
 #include "add_dialog.h"
+#include "exe.h"
 #include "extract_dialog.h"
 #include "interface.h"
 #include "main.h"
@@ -1843,6 +1844,8 @@ ArchiveType xa_detect_archive_type (const gchar *filename)
 		else if (g_str_has_suffix(filename, ".xpi"))
 			xa.tag = 'x';
 	}
+	else if (g_str_has_suffix(filename, ".exe") && (memcmp(magic, "MZ", 2) == 0))
+		xa = exetype(file);
 	else if (memcmp(magic + 1, "\xb5\x2f\xfd", 3) == 0 &&
 	         (*magic == '\x1e' || (*magic >= '\x22' && *magic <= '\x28')))
 		xa.type = XARCHIVETYPE_ZSTD;

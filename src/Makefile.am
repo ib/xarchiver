@@ -15,6 +15,8 @@ xarchiver_SOURCES = \
 	arj.h \
 	cpio.c \
 	cpio.h \
+	exe.c \
+	exe.h \
 	extract_dialog.c \
 	extract_dialog.h \
 	gzip_et_al.c \
