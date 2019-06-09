@@ -78,7 +78,7 @@ ArchiveType exetype (FILE *file)
 	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
 	uint16_t leshort;
 	uint32_t lelong;
-	char pe[4], buffer[4];
+	char pe[4], buffer[9];
 
 	if (fseek(file, 0x18, SEEK_SET) == 0 &&
 	    fread(&leshort, sizeof(leshort), 1, file) == 1 &&
@@ -116,6 +116,14 @@ ArchiveType exetype (FILE *file)
 					goto done;
 				}
 			}
+		}
+
+		/* self-extracting LHA archive */
+		if (fseek(file, 0x24, SEEK_SET) == 0 && fread(buffer, 9, 1, file) == 1 &&
+		    g_ascii_strncasecmp("LHA's SFX", buffer, 9) == 0)
+		{
+			xa.type = XARCHIVETYPE_LHA;
+			goto done;
 		}
 	}
 
