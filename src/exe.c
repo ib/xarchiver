@@ -136,6 +136,13 @@ ArchiveType exetype (FILE *file)
 			}
 		}
 
+		/* self-extracting ARJ archive */
+		if (fseek(file, 0x20, SEEK_SET) == 0 && search(file, "aRJsfX", 0xe0))
+		{
+			xa.type = XARCHIVETYPE_ARJ;
+			goto done;
+		}
+
 		/* self-extracting LHA archive */
 		if (fseek(file, 0x24, SEEK_SET) == 0 && fread(buffer, 9, 1, file) == 1 &&
 		    g_ascii_strncasecmp("LHA's SFX", buffer, 9) == 0)
