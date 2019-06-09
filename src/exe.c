@@ -78,7 +78,7 @@ ArchiveType exetype (FILE *file)
 	ArchiveType xa = {XARCHIVETYPE_UNKNOWN, 0};
 	uint16_t leshort;
 	uint32_t lelong;
-	char pe[4];
+	char pe[4], buffer[4];
 
 	if (fseek(file, 0x18, SEEK_SET) == 0 &&
 	    fread(&leshort, sizeof(leshort), 1, file) == 1 &&
@@ -105,6 +105,14 @@ ArchiveType exetype (FILE *file)
 				{
 					xa.type = XARCHIVETYPE_7ZIP;
 					xa.tag = 'n';
+					goto done;
+				}
+
+				/* self-extracting RAR archive */
+				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
+				    fread(buffer, 4, 1, file) == 1 && memcmp(buffer, "Rar!", 4) == 0)
+				{
+					xa.type = XARCHIVETYPE_RAR;
 					goto done;
 				}
 			}
