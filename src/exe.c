@@ -118,6 +118,24 @@ ArchiveType exetype (FILE *file)
 			}
 		}
 
+		if (fseek(file, le32toh(lelong) + 0xf8, SEEK_SET) == 0 &&
+		    search(file, "UPX2", 0x140))
+		{
+			if (fseek(file, 0x10, SEEK_CUR) == 0 &&
+			    fread(&lelong1, sizeof(lelong1), 1, file) == 1 &&
+			    fseek(file, -sizeof(lelong1) - 4, SEEK_CUR) == 0 &&
+			    fread(&lelong2, sizeof(lelong2), 1, file) == 1)
+			{
+				/* self-extracting (Info-)ZIP archive */
+				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
+				    fread(buffer, 4, 1, file) == 1 && memcmp(buffer, "PK" "\x03\x04", 4) == 0)
+				{
+					xa.type = XARCHIVETYPE_ZIP;
+					goto done;
+				}
+			}
+		}
+
 		/* self-extracting LHA archive */
 		if (fseek(file, 0x24, SEEK_SET) == 0 && fread(buffer, 9, 1, file) == 1 &&
 		    g_ascii_strncasecmp("LHA's SFX", buffer, 9) == 0)
