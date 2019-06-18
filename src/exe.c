@@ -108,6 +108,14 @@ ArchiveType exetype (FILE *file)
 					goto done;
 				}
 
+				/* self-extracting 7-ZIP archive */
+				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
+				    fread(buffer, 6, 1, file) == 1 && memcmp(buffer, "7z" "\xbc\xaf\x27\x1c", 6) == 0)
+				{
+					xa.type = XARCHIVETYPE_7ZIP;
+					goto done;
+				}
+
 				/* self-extracting RAR archive */
 				if (fseek(file, le32toh(lelong1) + le32toh(lelong2), SEEK_SET) == 0 &&
 				    fread(buffer, 4, 1, file) == 1 && memcmp(buffer, "Rar!", 4) == 0)
