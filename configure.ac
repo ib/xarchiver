@@ -43,6 +43,26 @@ dnl *** Check for basic programs ***
 dnl ********************************
 AC_PROG_INSTALL
 
+AC_MSG_CHECKING([for GNU make])
+
+for m in make gmake; do
+
+  $m --version -f /dev/null 2> /dev/null | grep -q "GNU Make"
+
+  if test $? -eq 0; then
+    MAKE_PROG=$m
+    break
+  fi
+
+done
+
+if test -n "$MAKE_PROG"; then
+  AC_MSG_RESULT([yes])
+else
+  AC_MSG_RESULT([no])
+  AC_MSG_ERROR([GNU make is required])
+fi
+
 dnl **************************
 dnl *** Initialize libtool ***
 dnl **************************
@@ -194,3 +214,6 @@ echo "
 ${PACKAGE} ${PACKAGE_VERSION} configured for ${prefix} using GTK+ $GTK_VERSION_FOUND
 
 "
+if test x"$MAKE_PROG" = x"gmake"; then
+  echo "Run '$MAKE_PROG' to compile."
+fi
