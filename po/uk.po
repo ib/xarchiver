@@ -2,7 +2,8 @@
 # Copyright (C) 2008 Dmitry Nikitin
 # This file is distributed under the same license as the xarchiver package.
 #
-# Dmitry Nikitin <luckas_fb@mail.ru>, 2008.
+# Dmitry Nikitin <luckas_fb@mail.ru>, 2008
+# Andriy Matkovsky <sidius.ua@gmail.com>, 2009
 # Юрій Яновський<lytvyn349@urk.net>, 2020
 msgid ""
 msgstr ""
