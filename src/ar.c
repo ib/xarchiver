@@ -33,7 +33,7 @@ void xa_ar_ask (XArchive *archive)
 static void xa_ar_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
-	gchar *filename;
+	gchar *filename, time[6];
 	gpointer item[5];
 	gint n = 0, a = 0 ,linesize = 0;
 
@@ -81,8 +81,9 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	line[n] = '\0';
 
 	/* Time */
-	item[2] = g_malloc0(6);
-	strncpy(item[2], line + a + 7, 5);
+	strncpy(time, line + a + 7, 5);
+	time[5] = 0;
+	item[2] = time;
 
 	/* Date */
 	strncpy(line + a + 7, line + a + 13, 5);
@@ -104,7 +105,6 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	}
 
 	g_free(filename);
-	g_free(item[2]);
 }
 
 void xa_ar_list (XArchive *archive)
