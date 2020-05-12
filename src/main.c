@@ -1066,9 +1066,10 @@ int main (int argc, char **argv)
 			if (opt_ensure_dir)
 			{
 				current_dir = g_get_current_dir();
-				archive->extraction_dir = xa_escape_bad_chars(current_dir, ESCAPES);
 
-				if (!xa_has_containing_directory(archive))
+				if (xa_has_containing_directory(archive))
+					extraction_dir = xa_escape_bad_chars(current_dir, ESCAPES);
+				else
 				{
 					extraction_dir = xa_create_containing_directory(archive, current_dir);
 
@@ -1078,11 +1079,9 @@ int main (int argc, char **argv)
 						g_free(current_dir);
 						goto leave;
 					}
-
-					g_free(archive->extraction_dir);
-					opt_extract_path = extraction_dir;
 				}
 
+				opt_extract_path = extraction_dir;
 				g_free(current_dir);
 			}
 
