@@ -43,27 +43,27 @@ void xa_cpio_ask (XArchive *archive)
 static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
-	gpointer item[6];
-	gchar *filename;
+	gpointer item[7];
+	gchar *filename, time[6];
 	gboolean dev, dir, link;
 
 	USE_PARSER;
 
 	/* permissions */
-	NEXT_ITEM(item[3]);
+	NEXT_ITEM(item[4]);
 
-	dev = (*(char *) item[3] == 'b' || *(char *) item[3] == 'c');
-	dir = (*(char *) item[3] == 'd');
-	link = (*(char *) item[3] == 'l');
+	dev = (*(char *) item[4] == 'b' || *(char *) item[4] == 'c');
+	dir = (*(char *) item[4] == 'd');
+	link = (*(char *) item[4] == 'l');
 
 	/* number of links */
 	SKIP_ITEM;
 
 	/* owner */
-	NEXT_ITEM(item[4]);
+	NEXT_ITEM(item[5]);
 
 	/* group */
-	NEXT_ITEM(item[5]);
+	NEXT_ITEM(item[6]);
 
 	/* size */
 	if (dev)
@@ -77,6 +77,17 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 
 	/* date and time */
 	NEXT_ITEMS(3, item[2]);
+
+	/* time */
+	if (((char *) item[2])[9] == ':')
+	{
+		strncpy(time, ((char *) item[2]) + 7, 5);
+		time[5] = 0;
+	}
+	else
+		strcpy(time, "-----");
+
+	item[3] = time;
 
 	/* name */
 	LAST_ITEM(filename);
@@ -110,8 +121,8 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 
 void xa_cpio_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Date and Time"), _("Permissions"), _("Owner"), _("Group")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Date"), _("Time"), _("Permissions"), _("Owner"), _("Group")};
 	gchar *command;
 	guint i;
 
@@ -123,7 +134,7 @@ void xa_cpio_list (XArchive *archive)
 	xa_spawn_async_process(archive, command);
 	g_free(command);
 
-	archive->columns = 9;
+	archive->columns = 10;
 	archive->size_column = 3;
 	archive->column_types = g_malloc0(sizeof(types));
 
