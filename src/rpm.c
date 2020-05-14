@@ -155,28 +155,28 @@ static gchar *xa_rpm2cpio (XArchive *archive)
 static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 {
 	XEntry *entry;
-	gchar *filename;
-	gpointer item[6];
+	gchar *filename, time[6];
+	gpointer item[7];
 	gint n = 0, a = 0 ,linesize = 0;
 
 	linesize = strlen(line);
 
 	/* Permissions */
 	line[10] = '\0';
-	item[3] = line;
+	item[4] = line;
 	a = 11;
 
 	/* Hard Link */
 	for(n=a; n < linesize && line[n] == ' '; ++n);
 	line[++n] = '\0';
-	//item[4] = line + a;
+	//item[5] = line + a;
 	n++;
 	a = n;
 
 	/* Owner */
 	for(; n < linesize && line[n] != ' '; ++n);
 	line[n] = '\0';
-	item[4] = line + a;
+	item[5] = line + a;
 	n++;
 
 	/* Group */
@@ -185,7 +185,7 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 
 	for(; n < linesize && line[n] != ' '; ++n);
 	line[n] = '\0';
-	item[5] = line + a;
+	item[6] = line + a;
 	n++;
 
 	/* Size */
@@ -197,10 +197,21 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	item[1] = line + a;
 	n++;
 
-	/* Date */
+	/* Date and Time */
 	line[54] = '\0';
 	item[2] = line + n;
 	n = 55;
+
+	/* Time */
+	if (((char *) item[2])[9] == ':')
+	{
+		strncpy(time, ((char *) item[2]) + 7, 5);
+		time[5] = 0;
+	}
+	else
+		strcpy(time, "-----");
+
+	item[3] = time;
 
 	line[linesize-1] = '\0';
 	filename = line + n;
@@ -245,8 +256,8 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 
 void xa_rpm_list (XArchive *archive)
 {
-	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
-	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Date and Time"), _("Permissions"), _("Owner"), _("Group")};
+	const GType types[] = {GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER};
+	const gchar *titles[] = {_("Points to"), _("Original Size"), _("Date"), _("Time"), _("Permissions"), _("Owner"), _("Group")};
 	gchar *result, *command;
 	guint i;
 
@@ -255,7 +266,7 @@ void xa_rpm_list (XArchive *archive)
 	archive->files_size = 0;
 	archive->files = 0;
 
-	archive->columns = 9;
+	archive->columns = 10;
 	archive->size_column = 3;
 	archive->column_types = g_malloc0(sizeof(types));
 
