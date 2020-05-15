@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include "arj.h"
+#include "date_utils.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -139,7 +140,7 @@ static void xa_arj_parse_output (gchar *line, XArchive *archive)
 
 		/* Date */
 		line[49] = '\0';
-		item[3] = line + 41;
+		item[3] = date_YY_MM_DD(line + 41);
 
 		/* Time */
 		line[58] = '\0';
