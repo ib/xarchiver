@@ -19,4 +19,8 @@
 #ifndef DATE_UTILS_H
 #define DATE_UTILS_H
 
+#include <glib.h>
+
+gchar *date_MMM_dD_HourYear(const gchar *);
+
 #endif

@@ -19,6 +19,7 @@
 
 #include <string.h>
 #include "ar.h"
+#include "date_utils.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -87,7 +88,7 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 
 	/* Date */
 	strncpy(line + a + 7, line + a + 13, 5);
-	item[1] = line + a;
+	item[1] = date_MMM_dD_HourYear(line + a);
 
 	n++;
 	line[linesize-1] = '\0';
