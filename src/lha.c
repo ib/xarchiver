@@ -19,6 +19,7 @@
 
 #include <string.h>
 #include "lha.h"
+#include "date_utils.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -118,6 +119,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	else
 		strcpy(time, "-----");
 
+	item[3] = date_MMM_dD_HourYear(item[3]);
 	item[4] = time;
 
 	line[(linesize- 1)] = '\0';
