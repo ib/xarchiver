@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include "cpio.h"
+#include "date_utils.h"
 #include "main.h"
 #include "parser.h"
 #include "string_utils.h"
@@ -87,6 +88,7 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	else
 		strcpy(time, "-----");
 
+	item[2] = date_MMM_dD_HourYear(item[2]);
 	item[3] = time;
 
 	/* name */
