@@ -18,6 +18,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include "date_utils.h"
 
 static guint month (const gchar *date)
@@ -57,10 +58,22 @@ gchar *date_MMM_dD_HourYear (const gchar *date)
 
 	if (date[9] == ':')
 	{
-		// to do: HH:MM -> YYYY
+		time_t now;
+		struct tm *current;
+		gchar mm_dd[6], yyyy[5];
+
+		time(&now);
+		current = localtime(&now);
+		sprintf(mm_dd, "%02u-%02u", current->tm_mon + 1, current->tm_mday);
+
+		if (strcmp(iso8601 + 5, mm_dd) > 0)
+			current->tm_year--;
+
+		sprintf(yyyy,"%04u", current->tm_year + 1900);
+		strncpy(iso8601, yyyy, 4);
 	}
 	else
-		strncpy(iso8601, date + 7, 4);
+		strncpy(iso8601, date + (date[7] == ' ' ? 8 : 7), 4);
 
 	return iso8601;
 }
