@@ -21,6 +21,7 @@
 
 #include <glib.h>
 
+gchar *date_DD_MM_YY(const gchar *);
 gchar *date_MMM_dD_HourYear(const gchar *);
 gchar *date_YY_MM_DD(const gchar *);
 

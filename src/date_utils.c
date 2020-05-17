@@ -95,3 +95,20 @@ gchar *date_YY_MM_DD (const gchar *date)
 
 	return iso8601;
 }
+
+gchar *date_DD_MM_YY (const gchar *date)
+{
+	gchar yy_mm_dd[9];
+
+	yy_mm_dd[0] = date[6];
+	yy_mm_dd[1] = date[7];
+	yy_mm_dd[2] = '-';
+	yy_mm_dd[3] = date[3];
+	yy_mm_dd[4] = date[4];
+	yy_mm_dd[5] = '-';
+	yy_mm_dd[6] = date[0];
+	yy_mm_dd[7] = date[1];
+	yy_mm_dd[8] = 0;
+
+	return date_YY_MM_DD(yy_mm_dd);
+}

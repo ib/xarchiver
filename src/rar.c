@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include "rar.h"
+#include "date_utils.h"
 #include "interface.h"
 #include "main.h"
 #include "string_utils.h"
@@ -182,7 +183,7 @@ static void xa_rar_parse_output (gchar *line, XArchive *archive)
 		a = n;
 		for(; n < linesize && line[n] != ' '; n++);
 		line[n] = '\0';
-		item[i] = line + a;
+		item[i] = date_DD_MM_YY(line + a);
 		i++;
 		n++;
 
