@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include "zip.h"
+#include "date_utils.h"
 #include "main.h"
 #include "string_utils.h"
 #include "support.h"
@@ -148,7 +149,7 @@ static void xa_zip_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 
 	line[n]='\0';
-	item[3] = line + a;
+	item[3] = date_YY_MMM_DD(line + a);
 	n++;
 
 	/* time */

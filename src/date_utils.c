@@ -112,3 +112,23 @@ gchar *date_DD_MM_YY (const gchar *date)
 
 	return date_YY_MM_DD(yy_mm_dd);
 }
+
+gchar *date_YY_MMM_DD (const gchar *date)
+{
+	gchar yy_mm_dd[9], mm[3];
+
+	yy_mm_dd[0] = date[0];
+	yy_mm_dd[1] = date[1];
+	yy_mm_dd[2] = '-';
+
+	sprintf(mm,"%02u", month(date + 3));
+
+	yy_mm_dd[3] = mm[0];
+	yy_mm_dd[4] = mm[1];
+	yy_mm_dd[5] = '-';
+	yy_mm_dd[6] = date[7];
+	yy_mm_dd[7] = date[8];
+	yy_mm_dd[8] = 0;
+
+	return date_YY_MM_DD(yy_mm_dd);
+}
