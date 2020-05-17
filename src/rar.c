@@ -258,8 +258,8 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	XEntry *entry;
 	gpointer item[7];
 	unsigned short int i = 0;
-	unsigned int linesize,n,a,offset;
-	gboolean encrypted = FALSE, dir = FALSE;
+	unsigned int linesize, n, a;
+	gboolean encrypted = FALSE, dir = FALSE, iso_date;
 	static gchar *filename, *end;
 
 	if (last_line)
@@ -363,6 +363,8 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 	for(; n < linesize && line[n] != ' '; n++);
 	line[n] = '\0';
 	item[i] = line + a;
+	iso_date = (strlen(item[i]) == 10);
+	if (!iso_date) item[i] = date_DD_MM_YY(item[i]);
 	i++;
 	n++;
 
@@ -384,9 +386,8 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 
 	/* FileName */
 	line[linesize - 1] = '\0';
-	offset = (strlen(item[3]) == 10 ? 66 : 64);  // date is YYYY-MM-DD since v5.30
-	filename = g_strdup(line+offset);            // and was just DD-MM-YY before
-
+	filename = g_strdup(line + (iso_date ? 66 : 64));   // date is YYYY-MM-DD since v5.30
+	                                                    // and was DD-MM-YY before
 	/* Strip trailing whitespace */
 	end = filename + strlen(filename) - 1;
 	while(end >= filename && *end == ' ') end--;
