@@ -124,6 +124,7 @@ static void xa_change_archive_extension (GtkComboBox *combo_box, GtkWidget *xa_f
 XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 {
 	GTK_COMPAT_TOOLTIPS;
+	const int XA_RESPONSE_CREATE = 1;
 	XArchive *archive = NULL;
 	GtkWidget *xa_file_chooser;
 	GtkWidget *hbox = NULL;
@@ -144,9 +145,9 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 							GTK_STOCK_CANCEL,
 							GTK_RESPONSE_CANCEL,
 							NULL);
-	create = gtk_dialog_add_button(GTK_DIALOG(xa_file_chooser), _("Cr_eate"), GTK_RESPONSE_ACCEPT);
+	create = gtk_dialog_add_button(GTK_DIALOG(xa_file_chooser), _("Cr_eate"), XA_RESPONSE_CREATE);
 
-	gtk_dialog_set_default_response (GTK_DIALOG (xa_file_chooser), GTK_RESPONSE_ACCEPT);
+	gtk_dialog_set_default_response(GTK_DIALOG(xa_file_chooser), XA_RESPONSE_CREATE);
 
 	xa_new_archive_dialog_filter = gtk_file_filter_new ();
 	gtk_file_filter_set_name ( xa_new_archive_dialog_filter , _("All files") );
@@ -220,7 +221,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 
 	if (!ComboArchiveType || (response == GTK_RESPONSE_CANCEL || response == GTK_RESPONSE_DELETE_EVENT))
 		gtk_widget_destroy(xa_file_chooser);
-	else if (response == GTK_RESPONSE_ACCEPT)
+	else if (response == XA_RESPONSE_CREATE)
 	{
 		my_path = gtk_file_chooser_get_filename ( GTK_FILE_CHOOSER (xa_file_chooser) );
 
