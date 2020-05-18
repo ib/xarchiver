@@ -6,7 +6,7 @@
 #
 # $Id$
 #
-# Copyright (c) 2006 Benedikt Meurer <benny@xfce.org>.
+# Copyright (c) 2006 Benedikt Meurer <benny@xfce.org>, 2020 Ingo Brückl.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -34,7 +34,8 @@ create)
 	;;
 
 extract-here)
-	exec xarchiver "--extract-to=$folder" "$@"
+	cd "$folder"
+	exec xarchiver --ensure-directory "$@"
 	;;
 
 extract-to)
