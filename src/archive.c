@@ -287,19 +287,19 @@ gboolean xa_get_compressed_tar_type (XArchiveType *type)
 	switch (*type)
 	{
 		case XARCHIVETYPE_BZIP2:
-			*type = XARCHIVETYPE_TAR_BZ2;
+			*type = XARCHIVETYPE_TAR_BZIP2;
 			break;
 
 		case XARCHIVETYPE_COMPRESS:
-			*type = XARCHIVETYPE_TAR_Z;
+			*type = XARCHIVETYPE_TAR_COMPRESS;
 			break;
 
 		case XARCHIVETYPE_GZIP:
-			*type = XARCHIVETYPE_TAR_GZ;
+			*type = XARCHIVETYPE_TAR_GZIP;
 			break;
 
 		case XARCHIVETYPE_LRZIP:
-			*type = XARCHIVETYPE_TAR_LRZ;
+			*type = XARCHIVETYPE_TAR_LRZIP;
 			break;
 
 		case XARCHIVETYPE_LZ4:
@@ -307,7 +307,7 @@ gboolean xa_get_compressed_tar_type (XArchiveType *type)
 			break;
 
 		case XARCHIVETYPE_LZIP:
-			*type = XARCHIVETYPE_TAR_LZ;
+			*type = XARCHIVETYPE_TAR_LZIP;
 			break;
 
 		case XARCHIVETYPE_LZMA:

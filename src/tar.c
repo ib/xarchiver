@@ -59,16 +59,16 @@ static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
 {
 	switch (archive->type)
 	{
-		case XARCHIVETYPE_TAR_BZ2:
+		case XARCHIVETYPE_TAR_BZIP2:
 			return XARCHIVETYPE_BZIP2;
 
-		case XARCHIVETYPE_TAR_GZ:
+		case XARCHIVETYPE_TAR_GZIP:
 			return XARCHIVETYPE_GZIP;
 
-		case XARCHIVETYPE_TAR_LRZ:
+		case XARCHIVETYPE_TAR_LRZIP:
 			return XARCHIVETYPE_LRZIP;
 
-		case XARCHIVETYPE_TAR_LZ:
+		case XARCHIVETYPE_TAR_LZIP:
 			return XARCHIVETYPE_LZIP;
 
 		case XARCHIVETYPE_TAR_LZ4:
@@ -83,7 +83,7 @@ static XArchiveType xa_tar_get_compressor_type (XArchive *archive)
 		case XARCHIVETYPE_TAR_XZ:
 			return XARCHIVETYPE_XZ;
 
-		case XARCHIVETYPE_TAR_Z:
+		case XARCHIVETYPE_TAR_COMPRESS:
 			return XARCHIVETYPE_COMPRESS;
 
 		case XARCHIVETYPE_TAR_ZSTD:
