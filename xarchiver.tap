@@ -2,7 +2,7 @@
 #
 # xarchiver.tap - Wrapper script to create and extract archive files
 #                 in Thunar, via the thunar-archive-plugin, using the
-#                 xarchiver archive manager.
+#                 Xarchiver archive manager.
 #
 # $Id$
 #
@@ -30,7 +30,7 @@ folder=$1; shift;
 # check the action
 case $action in
 create)
-	exec xarchiver "--compress=$@"
+	exec xarchiver --compress="$@"
 	;;
 
 extract-here)
