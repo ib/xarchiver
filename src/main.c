@@ -1146,7 +1146,7 @@ int main (int argc, char **argv)
 				no_bzip2_gzip = TRUE;
 			else
 				no_bzip2_gzip = FALSE;
-			archive = xa_new_archive_dialog(opt_compress, NULL, no_bzip2_gzip);
+			archive = xa_new_archive_dialog(opt_compress, NULL);
 			if (archive == NULL)
 				goto leave;
 
