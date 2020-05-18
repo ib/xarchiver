@@ -971,7 +971,6 @@ int main (int argc, char **argv)
 {
 	GError *cli_error = NULL;
 	XArchive *archive;
-	gboolean no_bzip2_gzip;
 	gchar *current_dir;
 	int i, result = -1;
 
@@ -1142,11 +1141,8 @@ int main (int argc, char **argv)
 		/* Switch -c */
 		else if (opt_compress)
 		{
-			if (argc > 1 || g_file_test (argv[1],G_FILE_TEST_IS_DIR))
-				no_bzip2_gzip = TRUE;
-			else
-				no_bzip2_gzip = FALSE;
 			archive = xa_new_archive_dialog(opt_compress, NULL);
+
 			if (archive == NULL)
 				goto leave;
 
