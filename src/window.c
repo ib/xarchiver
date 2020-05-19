@@ -864,8 +864,6 @@ void xa_reload_archive_content (XArchive *this_archive)
 {
 	XEntry *entry;
 
-	//TODO: have the status bar notyfing the reload
-
 	g_slist_free(this_archive->forward);
 	this_archive->forward = NULL;
 
@@ -880,6 +878,8 @@ void xa_reload_archive_content (XArchive *this_archive)
 	entry = g_new0(XEntry,1);
 	entry->filename = "";
 	this_archive->root_entry = entry;
+
+	gtk_label_set_text(GTK_LABEL(total_label), _("Reloading archive, please wait..."));
 
 	/* this reload will be called internally during adding and deleting */
 	this_archive->status = XARCHIVESTATUS_RELOAD;
