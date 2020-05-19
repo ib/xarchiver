@@ -2861,12 +2861,16 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	GtkTreeIter iter;
 	guint i;
 	gpointer current_column;
-	gchar *filename;
+	gchar *location_path = NULL, *filename;
 	gint size;
 	gchar *entry_utf8;
 
 	if (archive->status == XARCHIVESTATUS_RELOAD && archive->location_path != NULL)
+	{
 		entry = xa_find_entry_from_dirpath(archive, archive->location_path);
+
+		if (entry) location_path = g_strdup(archive->location_path);
+	}
 	else
 		archive->current_entry = entry;
 
@@ -2886,7 +2890,7 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 	}
 	else
 	{
-		reload = FALSE;
+		reload = (archive->status == XARCHIVESTATUS_RELOAD);
 		gtk_widget_set_sensitive(back_button, archive->back != NULL);
 		gtk_widget_set_sensitive(up_button,TRUE);
 		gtk_widget_set_sensitive(home_button,TRUE);
@@ -2962,6 +2966,16 @@ void xa_update_window_with_archive_entries (XArchive *archive,XEntry *entry)
 		entry = entry->next;
 	}
 	xa_fill_dir_sidebar(archive, reload);
+
+	if (location_path)
+	{
+		entry = xa_find_entry_from_dirpath(archive, location_path);
+		xa_block_signal_dir_treeview_selection(TRUE);
+		xa_dir_sidebar_select_row(entry);
+		xa_block_signal_dir_treeview_selection(FALSE);
+		g_free(location_path);
+	}
+
 	xa_set_statusbar_message_for_displayed_rows(archive);
 }
 
