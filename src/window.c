@@ -889,10 +889,11 @@ void xa_reload_archive_content (XArchive *this_archive)
 void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 {
 	GSList *output = NULL;
-	gchar *title = NULL;
-	GtkWidget *dialog,*label,*image,*hbox,*vbox,*textview,*scrolledwindow;
+	gchar *title = NULL, *cmd;
+	GtkWidget *dialog, *show_cmd, *label, *image, *hbox, *vbox, *textview, *scrolledwindow;
 	GtkTextBuffer *textbuffer;
 	GtkTextIter iter;
+	gint response;
 
 	if (this_archive == NULL)
 	{
@@ -907,8 +908,11 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 		title = _("Archiver output");
 	else
 		title = PACKAGE_NAME " " VERSION;
-	dialog = gtk_dialog_new_with_buttons (title,
-					      GTK_WINDOW(xa_main_window),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
+
+	dialog = gtk_dialog_new_with_buttons(title, GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, NULL, NULL);
+
+	show_cmd = gtk_dialog_add_button(GTK_DIALOG(dialog), _("Show command"), GTK_RESPONSE_APPLY);
+	gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_OK);
 
 	gtk_container_set_border_width (GTK_CONTAINER (dialog),6);
@@ -954,7 +958,20 @@ void xa_show_archive_output (GtkMenuItem *menuitem, XArchive *this_archive)
 		output = output->next;
 	}
 	gtk_widget_show_all (vbox);
-	gtk_dialog_run (GTK_DIALOG (dialog));
+
+run_dialog:
+	response = gtk_dialog_run(GTK_DIALOG(dialog));
+
+	if (response == GTK_RESPONSE_APPLY)
+	{
+		gtk_text_buffer_get_iter_at_offset(textbuffer, &iter, 0);
+		cmd = g_strdup_printf("%s: %s\n\n", _("Command"), this_archive->command);
+		gtk_text_buffer_insert_with_tags_by_name(textbuffer, &iter, cmd, -1, "font", NULL);
+		g_free(cmd);
+		gtk_widget_hide(show_cmd);
+		goto run_dialog;
+	}
+
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 

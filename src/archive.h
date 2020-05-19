@@ -189,6 +189,7 @@ struct _XArchive
 	guint child_ref;
 	gint child_fdout;
 	gint child_fderr;
+	gchar *command;       // (free before use)
 	GSList *output;
 	/* (un)compressor interface */
 	XArchiver *archiver;

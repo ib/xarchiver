@@ -399,6 +399,9 @@ void xa_spawn_async_process (XArchive *archive, const gchar *command)
 
 	g_strfreev(argv);
 
+	g_free(archive->command);
+	archive->command = g_strdup(command);
+
 	archive->child_ref = XA_CHILD_PROCS;
 
 	if (xa_main_window)
@@ -480,6 +483,7 @@ void xa_clean_archive_structure (XArchive *archive)
 	g_free(archive->extraction_dir);
 	g_free(archive->password);
 	g_free(archive->child_dir);
+	g_free(archive->command);
 	g_free(archive);
 }
 
