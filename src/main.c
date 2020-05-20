@@ -97,7 +97,7 @@ static GOptionEntry entries[] =
 static void xa_check_available_archivers ()
 {
 	XArchiveType type;
-	gchar *path, *cpio, *lbzip2, *lsar, *pbzip2, *pigz, *sevenz, *unar, *xz, *zstd;
+	gchar *path, *cpio, *lbzip2, *lsar, *pbzip2, *pigz, *plzip, *sevenz, *unar, *xz, *zstd;
 	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE, standard;
 
 	/* (un)compressors that can handle various types */
@@ -124,6 +124,7 @@ static void xa_check_available_archivers ()
 	lsar = g_find_program_in_path("lsar");
 	pbzip2 = g_find_program_in_path("pbzip2");
 	pigz = g_find_program_in_path("pigz");
+	plzip = g_find_program_in_path("plzip");
 	unar = g_find_program_in_path("unar");
 	xz = g_find_program_in_path("xz");
 	zstd = xa_gzip_et_al_check_zstd("zstd", "unzstd", &archiver[XARCHIVETYPE_ZSTD].is_compressor);
@@ -528,6 +529,10 @@ static void xa_check_available_archivers ()
 
 	type = XARCHIVETYPE_LZIP;
 	path = g_find_program_in_path("lzip");
+
+	if (!path && plzip)
+		/* alternative compressor */
+		path = g_strdup(plzip);
 
 	if (path)
 	{
@@ -952,6 +957,7 @@ static void xa_check_available_archivers ()
 	g_free(lsar);
 	g_free(pbzip2);
 	g_free(pigz);
+	g_free(plzip);
 	g_free(unar);
 }
 
