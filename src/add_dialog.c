@@ -464,6 +464,8 @@ void xa_execute_add_commands (XArchive *archive, GSList *list, gboolean recurse,
 		}
 		xa_set_button_state(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 	}
+	else
+		xa_show_progress_bar(archive);
 
 	while (list)
 	{
