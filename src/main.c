@@ -97,7 +97,7 @@ static GOptionEntry entries[] =
 static void xa_check_available_archivers ()
 {
 	XArchiveType type;
-	gchar *path, *cpio, *lsar, *pigz, *sevenz, *unar, *xz, *zstd;
+	gchar *path, *cpio, *lbzip2, *lsar, *pigz, *sevenz, *unar, *xz, *zstd;
 	gboolean is7z = TRUE, is7za = TRUE, is7zr = TRUE, standard;
 
 	/* (un)compressors that can handle various types */
@@ -120,6 +120,7 @@ static void xa_check_available_archivers ()
 	}
 
 	cpio = g_find_program_in_path("cpio");
+	lbzip2 = g_find_program_in_path("lbzip2");
 	lsar = g_find_program_in_path("lsar");
 	pigz = g_find_program_in_path("pigz");
 	unar = g_find_program_in_path("unar");
@@ -254,7 +255,15 @@ static void xa_check_available_archivers ()
 
 	if (!standard)
 	{
-		if (is7za)
+		if (lbzip2)
+		{
+			g_free(path);
+			/* alternative compressor */
+			path = g_strdup(lbzip2);
+			archiver[type].is_compressor = TRUE;
+			standard = TRUE;
+		}
+		else if (is7za)
 		{
 			g_free(path);
 			/* alternative compressor */
@@ -930,6 +939,7 @@ static void xa_check_available_archivers ()
 		}
 	}
 
+	g_free(lbzip2);
 	g_free(lsar);
 	g_free(pigz);
 	g_free(unar);
