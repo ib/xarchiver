@@ -290,7 +290,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	GSList *radiobutton1_group;
 	Extract_dialog_data *dialog_data;
 	GtkWidget *hbox1, *hbox2, *hbox3, *vbox1, *vbox2, *vbox3, *vbox5, *alignment, *alignment1, *alignment2, *alignment3, *label1, *label2, *label3;
-	GtkWidget *frame1, *frame2, *dialog_action_area1;
+	GtkWidget *frame1, *frame2;
 	GtkWidget *cancel_button, *extract_button, *extract_image, *extract_hbox, *extract_label;
 
 	dialog_data = g_new0 (Extract_dialog_data,1);
@@ -409,9 +409,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->password_entry,TRUE,TRUE,0);
 	gtk_entry_set_visibility (GTK_ENTRY (dialog_data->password_entry),FALSE);
 	gtk_entry_set_activates_default(GTK_ENTRY(dialog_data->password_entry), TRUE);
-
-	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(dialog_data->dialog1));
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
 	cancel_button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1),cancel_button,GTK_RESPONSE_CANCEL);
@@ -620,7 +617,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	GTK_COMPAT_TOOLTIPS;
 	Multi_extract_data *dialog_data;
 	GtkWidget	*dialog_vbox1,*vbox1,*scrolledwindow1,*hbox1,*frame1,*alignment1,*vbox2,*hbox3,*remove_button,*add_button,*cancelbutton1;
-	GtkWidget *hbox2, *vbox3, *alignment2, *alignment3, *label1, *label2, *frame2, *dialog_action_area1;
+	GtkWidget *hbox2, *vbox3, *alignment2, *alignment3, *label1, *label2, *frame2;
 	GtkWidget *extract_button, *extract_image, *extract_hbox, *extract_label;
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *selection;
@@ -728,8 +725,6 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	label2 = gtk_label_new (_("Options:"));
 	gtk_frame_set_label_widget(GTK_FRAME(frame2),label2);
 
-	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(dialog_data->multi_extract));
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->multi_extract),cancelbutton1,GTK_RESPONSE_CANCEL);
 

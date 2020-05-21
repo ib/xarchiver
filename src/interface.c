@@ -417,7 +417,6 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	GtkWidget *dhbox1;
 	GtkWidget *pattern_label;
 	GtkWidget *pattern_entry;
-	GtkWidget *dialog_action_area1;
 	GtkWidget *cancelbutton1;
 	GtkWidget *okbutton1;
 	GtkWidget *tmp_image,*select_hbox,*select_label;
@@ -451,10 +450,6 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	gtk_widget_show (pattern_entry);
 	gtk_box_pack_start (GTK_BOX (dhbox1),pattern_entry,TRUE,TRUE,0);
 	gtk_entry_set_activates_default(GTK_ENTRY(pattern_entry),TRUE);
-
-	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(ddialog1));
-	gtk_widget_show (dialog_action_area1);
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_widget_show (cancelbutton1);

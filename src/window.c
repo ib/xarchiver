@@ -2438,7 +2438,6 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	GtkWidget *textview;
 	GtkWidget *dialog_vbox1;
 	GtkWidget *scrolledwindow1;
-	GtkWidget *dialog_action_area1;
 	GtkWidget *tmp_image,*file,*clear,*close,*cancel,*file_hbox,*file_label;
 	GtkWidget *alignment2;
 	GtkTextBuffer *textbuffer;
@@ -2464,9 +2463,6 @@ void xa_show_archive_comment (GtkMenuItem *menuitem,gpointer user_data)
 	textview = gtk_text_view_new_with_buffer (textbuffer);
 	g_object_unref (textbuffer);
 	gtk_container_add (GTK_CONTAINER (scrolledwindow1),textview);
-
-	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(comment_dialog));
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 
 	clear = gtk_button_new_from_stock ("gtk-clear");
 	gtk_dialog_add_action_widget (GTK_DIALOG (comment_dialog),clear,0);

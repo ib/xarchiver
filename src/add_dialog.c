@@ -67,7 +67,7 @@ Add_dialog_data *xa_create_add_dialog()
 {
 	GTK_COMPAT_TOOLTIPS;
 	GtkWidget *dialog_vbox1,*label1,*label2,*label4,*label5,*label7,*hbox1,*hbox2,*hbox3,*hbox4;
-	GtkWidget *dialog_action_area1,*alignment1,*alignment2,*alignment3,*vbox3,*frame2,*frame3,*frame4,*alignment4;
+	GtkWidget *alignment1, *alignment2, *alignment3, *vbox3, *frame2, *frame3, *frame4, *alignment4;
 	GtkWidget *vbox1;
 	Add_dialog_data *add_dialog;
 	GSList *group;
@@ -207,9 +207,6 @@ Add_dialog_data *xa_create_add_dialog()
 
 	label5 = gtk_label_new (_("Encryption: "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame3), label5);
-
-	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(add_dialog->dialog1));
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
 
 	add_dialog->cancel_button = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->cancel_button, GTK_RESPONSE_CANCEL);
