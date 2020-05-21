@@ -313,6 +313,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	dialog_data->destination_path_entry = GTK_COMPAT_ENTRY_ICON_NEW();
 	GTK_COMPAT_ENTRY_ICON(dialog_data->destination_path_entry, xa_select_where_to_extract, dialog_data);
 	gtk_box_pack_start (GTK_BOX (vbox1),dialog_data->destination_path_entry,FALSE,FALSE,0);
+	gtk_entry_set_activates_default(GTK_ENTRY(dialog_data->destination_path_entry), TRUE);
 
 	alignment = gtk_alignment_new(0.5, 0.5, 1, 1);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 14, 0);
