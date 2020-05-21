@@ -204,6 +204,7 @@ Add_dialog_data *xa_create_add_dialog()
 	gtk_entry_set_visibility (GTK_ENTRY (add_dialog->add_password_entry), FALSE);
 	gtk_entry_set_width_chars (GTK_ENTRY (add_dialog->add_password_entry), 15);
 	gtk_widget_set_sensitive (add_dialog->add_password_entry, FALSE);
+	gtk_entry_set_activates_default(GTK_ENTRY(add_dialog->add_password_entry), TRUE);
 
 	label5 = gtk_label_new (_("Encryption: "));
 	gtk_frame_set_label_widget (GTK_FRAME (frame3), label5);
