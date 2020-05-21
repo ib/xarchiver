@@ -451,6 +451,7 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	gtk_dialog_add_action_widget (GTK_DIALOG (data->dialog1),okbutton1,GTK_RESPONSE_OK);
 	g_signal_connect (G_OBJECT (okbutton1),"clicked",G_CALLBACK (xa_open_with_dialog_execute_command),data);
 	gtk_widget_set_can_default(okbutton1, TRUE);
+	gtk_widget_grab_default(okbutton1);
 	gtk_widget_show_all(data->dialog1);
 
 	/* let's parse the desktop files in the user data dir */
