@@ -1002,7 +1002,6 @@ int xa_show_message_dialog (GtkWindow *window,int mode,int type,int button,const
 	int response;
 
 	dialog = gtk_message_dialog_new (window,mode,type,button,"%s",message1);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog),GTK_RESPONSE_NO);
 	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),"%s",message2);
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (GTK_WIDGET (dialog));
