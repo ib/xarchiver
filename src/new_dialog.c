@@ -237,7 +237,7 @@ XArchive *xa_new_archive_dialog (gchar *path, XArchive *archive_open[])
 				if (strcmp(my_path, archive_open[current_page]->path[0]) == 0)
 				{
 					gchar *msg = g_strdup_printf(_("\"%s\" is already open!"),my_path);
-					response = xa_show_message_dialog (GTK_WINDOW (xa_main_window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,_("Can't create a new archive:"),msg );
+					xa_show_message_dialog(GTK_WINDOW(xa_main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, _("Can't create a new archive:"), msg);
 					g_free (my_path);
 					g_free (msg);
 					gtk_widget_destroy (xa_file_chooser);
