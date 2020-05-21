@@ -1618,10 +1618,10 @@ void xa_show_progress_bar (XArchive *archive)
 
 		action_area = gtk_hbutton_box_new ();
 		gtk_button_box_set_layout (GTK_BUTTON_BOX (action_area),GTK_BUTTONBOX_END);
-  		gtk_box_pack_end (GTK_BOX (vbox2),action_area,FALSE, TRUE, 0);
+		gtk_box_pack_end(GTK_BOX(vbox2), action_area, FALSE, TRUE, 14);
 
 		cancel_button = gtk_button_new_from_stock ("gtk-cancel");
-		gtk_box_pack_end (GTK_BOX (action_area),cancel_button,TRUE,TRUE,12);
+		gtk_box_pack_end(GTK_BOX(action_area), cancel_button, TRUE, TRUE, 0);
 
 		g_signal_connect(G_OBJECT(cancel_button), "clicked", G_CALLBACK(xa_cancel_progress_bar), &archive->child_pid);
 		g_signal_connect(G_OBJECT(progress->window), "delete-event", G_CALLBACK(xa_close_progress_bar), &archive->child_pid);
