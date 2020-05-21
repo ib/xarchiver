@@ -478,8 +478,7 @@ void xa_set_extract_dialog_options(Extract_dialog_data *dialog_data,gint selecte
 	}
 	g_free(archive_dir);
 
-	if (archive->password)
-		gtk_entry_set_text(GTK_ENTRY(dialog_data->password_entry), archive->password);
+	gtk_entry_set_text(GTK_ENTRY(dialog_data->password_entry), archive->password ? archive->password : "");
 
 	gtk_widget_set_sensitive(label_password, archive->has_password);
 	gtk_widget_set_sensitive(dialog_data->password_entry, archive->has_password);
