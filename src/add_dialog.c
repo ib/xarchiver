@@ -213,7 +213,6 @@ Add_dialog_data *xa_create_add_dialog()
 
 	add_dialog->cancel_button = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (add_dialog->dialog1), add_dialog->cancel_button, GTK_RESPONSE_CANCEL);
-	gtk_widget_set_can_default(add_dialog->cancel_button, TRUE);
 
 	add_dialog->add_button = gtk_button_new();
 	add_dialog->add_image = xa_main_window_find_image("xarchiver-add.png", GTK_ICON_SIZE_SMALL_TOOLBAR);

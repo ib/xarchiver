@@ -444,7 +444,6 @@ void xa_create_open_with_dialog (const gchar *filename, gchar *filenames, gint n
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_widget_show (cancelbutton1);
 	gtk_dialog_add_action_widget (GTK_DIALOG (data->dialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
-	gtk_widget_set_can_default(cancelbutton1, TRUE);
 	g_signal_connect_swapped (G_OBJECT (cancelbutton1),"clicked",G_CALLBACK (gtk_widget_destroy),G_OBJECT(data->dialog1));
 
 	okbutton1 = gtk_button_new_from_stock ("gtk-open");

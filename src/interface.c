@@ -459,7 +459,6 @@ static void xa_select_by_pattern_dialog (GtkMenuItem *menuitem, gpointer user_da
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_widget_show (cancelbutton1);
 	gtk_dialog_add_action_widget (GTK_DIALOG (ddialog1),cancelbutton1,GTK_RESPONSE_CANCEL);
-	gtk_widget_set_can_default(cancelbutton1, TRUE);
 
 	okbutton1 = gtk_button_new();
 	tmp_image = gtk_image_new_from_stock ("gtk-ok",GTK_ICON_SIZE_BUTTON);

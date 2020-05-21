@@ -415,7 +415,6 @@ Extract_dialog_data *xa_create_extract_dialog()
 
 	cancel_button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->dialog1),cancel_button,GTK_RESPONSE_CANCEL);
-	gtk_widget_set_can_default(cancel_button, TRUE);
 
 	extract_button = gtk_button_new();
 	extract_image = xa_main_window_find_image("xarchiver-extract.png",GTK_ICON_SIZE_SMALL_TOOLBAR);
@@ -733,7 +732,6 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
 	cancelbutton1 = gtk_button_new_from_stock ("gtk-cancel");
 	gtk_dialog_add_action_widget (GTK_DIALOG (dialog_data->multi_extract),cancelbutton1,GTK_RESPONSE_CANCEL);
-	gtk_widget_set_can_default(cancelbutton1, TRUE);
 
 	extract_button = gtk_button_new();
 	extract_image = xa_main_window_find_image("xarchiver-extract.png",GTK_ICON_SIZE_SMALL_TOOLBAR);
