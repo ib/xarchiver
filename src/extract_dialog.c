@@ -702,6 +702,7 @@ Multi_extract_data *xa_create_multi_extract_dialog()
 	dialog_data->entry1 = GTK_COMPAT_ENTRY_ICON_NEW();
 	GTK_COMPAT_ENTRY_ICON(dialog_data->entry1, xa_select_where_to_extract, dialog_data);
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->entry1,TRUE,TRUE,0);
+	gtk_entry_set_activates_default(GTK_ENTRY(dialog_data->entry1), TRUE);
 
 	dialog_data->extract_to_archive_name = gtk_radio_button_new_with_mnemonic(radiobutton1_group, _("Extract to dir \"Archive Name\""));
 	gtk_widget_set_tooltip_text(dialog_data->extract_to_archive_name, _("This option extracts archives in directories named with the archive names"));
