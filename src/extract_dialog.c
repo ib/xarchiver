@@ -408,6 +408,7 @@ Extract_dialog_data *xa_create_extract_dialog()
 	dialog_data->password_entry = gtk_entry_new ();
 	gtk_box_pack_start (GTK_BOX (hbox3),dialog_data->password_entry,TRUE,TRUE,0);
 	gtk_entry_set_visibility (GTK_ENTRY (dialog_data->password_entry),FALSE);
+	gtk_entry_set_activates_default(GTK_ENTRY(dialog_data->password_entry), TRUE);
 
 	dialog_action_area1 = gtk_dialog_get_action_area(GTK_DIALOG(dialog_data->dialog1));
 	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1),GTK_BUTTONBOX_END);
