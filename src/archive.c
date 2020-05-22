@@ -803,7 +803,7 @@ void xa_fill_dir_sidebar(XArchive *archive,gboolean force_reload)
 	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(archive_dir_treestore), &iter) && force_reload == FALSE)
 		return;
 
-	gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_treestore));
+	gtk_tree_store_clear(archive_dir_treestore);
 	xa_build_dir_sidebar(archive->root_entry, archive_dir_treestore, NULL, NULL);
 }
 
