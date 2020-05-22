@@ -359,6 +359,9 @@ XArchive *xa_init_archive_structure (ArchiveType xa)
 
 	archive->archiver = &archiver[xa.type];
 
+	if (archive_dir_treestore)
+		gtk_tree_store_clear(archive_dir_treestore);
+
 	(*archive->archiver->ask)(archive);
 
 	return archive;
