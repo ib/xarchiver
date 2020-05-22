@@ -1313,7 +1313,7 @@ void xa_close_archive (GtkWidget *widget, gpointer page)
 		xa_disable_delete_buttons (FALSE);
 		xa_set_button_state(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0);
 		xa_set_window_title (xa_main_window,NULL);
-		gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
+		gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_treestore));
 		gtk_entry_set_text(GTK_ENTRY(location_entry),"");
 		gtk_label_set_text(GTK_LABEL(total_label),_("Select \"New\" to create or \"Open\" to open an archive"));
 		gtk_widget_hide(selected_frame);

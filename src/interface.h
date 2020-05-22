@@ -75,7 +75,7 @@ extern GtkWidget *view_shell_output1;
 extern GtkWidget *xa_popup_menu;
 extern GtkAccelGroup *accel_group;
 extern GtkNotebook *notebook;
-extern GtkTreeStore *archive_dir_model;
+extern GtkTreeStore *archive_dir_treestore;
 extern Progress *progress;
 
 gboolean select_matched_rows(GtkTreeModel *, GtkTreePath *, GtkTreeIter *, gpointer);

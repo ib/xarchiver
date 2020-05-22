@@ -71,7 +71,7 @@ GtkWidget *view_shell_output1;
 GtkWidget *xa_popup_menu;
 GtkAccelGroup *accel_group;
 GtkNotebook *notebook;
-GtkTreeStore *archive_dir_model;
+GtkTreeStore *archive_dir_treestore;
 Progress *progress;
 
 static GtkWidget *addfile;
@@ -1027,14 +1027,14 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
   	gtk_paned_pack1 (GTK_PANED (hpaned1),scrolledwindow2,FALSE,TRUE);
 	g_object_set (G_OBJECT (scrolledwindow2),"hscrollbar-policy",GTK_POLICY_AUTOMATIC,"shadow-type",GTK_SHADOW_IN,"vscrollbar-policy",GTK_POLICY_AUTOMATIC,NULL);
 
-  	archive_dir_model = gtk_tree_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
-	archive_dir_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(archive_dir_model));
+	archive_dir_treestore = gtk_tree_store_new(3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
+	archive_dir_treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(archive_dir_treestore));
 	gtk_container_add (GTK_CONTAINER (scrolledwindow2),archive_dir_treeview);
 	gtk_widget_show(archive_dir_treeview);
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_model),1,GTK_SORT_ASCENDING);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(archive_dir_treestore), 1, GTK_SORT_ASCENDING);
 	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(archive_dir_treeview), drop_targets, 1, GDK_ACTION_COPY);
-	g_signal_connect (G_OBJECT (archive_dir_treeview),"row-collapsed",G_CALLBACK(xa_dir_sidebar_row_expanded),archive_dir_model);
-	g_signal_connect(G_OBJECT(archive_dir_treeview), "row-expanded", G_CALLBACK(xa_dir_sidebar_row_expanded), archive_dir_model);
+	g_signal_connect(G_OBJECT(archive_dir_treeview), "row-collapsed", G_CALLBACK(xa_dir_sidebar_row_expanded), archive_dir_treestore);
+	g_signal_connect(G_OBJECT(archive_dir_treeview), "row-expanded", G_CALLBACK(xa_dir_sidebar_row_expanded), archive_dir_treestore);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-data-received", G_CALLBACK(xa_dir_sidebar_drag_data_received), NULL);
 	g_signal_connect(G_OBJECT(archive_dir_treeview), "drag-motion", G_CALLBACK(xa_dir_sidebar_drag_motion), NULL);
 	GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW (archive_dir_treeview));

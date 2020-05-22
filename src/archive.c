@@ -800,11 +800,11 @@ void xa_fill_dir_sidebar(XArchive *archive,gboolean force_reload)
 {
 	GtkTreeIter iter;
 
-	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(archive_dir_model),&iter) && force_reload == FALSE)
+	if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(archive_dir_treestore), &iter) && force_reload == FALSE)
 		return;
 
-	gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_model));
-	xa_build_dir_sidebar(archive->root_entry, archive_dir_model, NULL, NULL);
+	gtk_tree_store_clear(GTK_TREE_STORE(archive_dir_treestore));
+	xa_build_dir_sidebar(archive->root_entry, archive_dir_treestore, NULL, NULL);
 }
 
 void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_data)
@@ -849,7 +849,7 @@ void xa_dir_sidebar_row_selected (GtkTreeSelection *selection, gpointer user_dat
 
 void xa_dir_sidebar_select_row (XEntry *entry)
 {
-	gtk_tree_model_foreach(GTK_TREE_MODEL(archive_dir_model), xa_dir_sidebar_find_row, entry);
+	gtk_tree_model_foreach(GTK_TREE_MODEL(archive_dir_treestore), xa_dir_sidebar_find_row, entry);
 }
 
 gint xa_sort_dirs_before_files (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, XArchive *archive)
