@@ -526,7 +526,9 @@ static void xa_handle_navigation_buttons (GtkToolButton *button, gpointer data)
 			if (gtk_tree_selection_get_selected(selection, &model, &iter))
 				gtk_tree_selection_unselect_iter(selection,&iter);
 
+			xa_block_signal_dir_treeview_selection(TRUE);
 			xa_update_window_with_archive_entries(archive[idx],NULL);
+			xa_block_signal_dir_treeview_selection(FALSE);
 			xa_restore_navigation(idx);
 		break;
 		/* Back */
