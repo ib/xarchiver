@@ -1090,13 +1090,13 @@ void xa_create_main_window (GtkWidget *xa_main_window, gboolean show_location, g
 	gtk_widget_show (selected_label);
 	gtk_container_add (GTK_CONTAINER (selected_frame),selected_label);
 
-	green_led = gtk_image_new_from_icon_name ("gtk-yes",GTK_ICON_SIZE_BUTTON);
+	green_led = xa_main_window_find_image("xarchiver-green.png", GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show (green_led);
 	gtk_box_pack_start (GTK_BOX (hbox_sb),green_led,FALSE,FALSE,0);
 	gtk_misc_set_alignment (GTK_MISC (green_led),1,1);
 	gtk_widget_set_tooltip_text(green_led, _("This is Xarchiver's LED status. When it's flashing Xarchiver is busy."));
 
-	red_led = gtk_image_new_from_icon_name ("gtk-no",GTK_ICON_SIZE_BUTTON);
+	red_led = xa_main_window_find_image("xarchiver-red.png", GTK_ICON_SIZE_BUTTON);
 	gtk_box_pack_start (GTK_BOX (hbox_sb),red_led,FALSE,FALSE,0);
 	gtk_misc_set_alignment (GTK_MISC (red_led),1,1);
 
