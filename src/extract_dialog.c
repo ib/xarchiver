@@ -523,7 +523,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				g_free(extraction_dir);
 				g_free (cur_dir);
 			}
-			if (archive->has_password || (xa_main_window == FALSE && strlen(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry))) > 0))
+			if (archive->has_password)
 				archive->password  = g_strdup(gtk_entry_get_text(GTK_ENTRY(dialog_data->password_entry)));
 
 			if (archive->has_password && strlen(archive->password)== 0 )
