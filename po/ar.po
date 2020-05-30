@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2011-08-09 03:59-0000\n"
 "Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
@@ -353,6 +353,12 @@ msgid "Cmd-line outp_ut"
 msgstr "مخرجات سطر الأوامر"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "تعليق"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "تعليق"
 
@@ -418,16 +424,11 @@ msgstr "قص"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "تاريخ"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "تاريخ محرر"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -602,13 +603,14 @@ msgstr "إنعاش الملفات الموجودة"
 msgid "From File"
 msgstr "من الملف"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -673,6 +675,10 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "لا"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -755,7 +761,7 @@ msgstr "خيارات"
 msgid "Options:"
 msgstr "خيارات:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -795,7 +801,7 @@ msgstr "مسار:"
 msgid "Pattern:"
 msgstr "نمط :"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "صلاحيات"
@@ -885,6 +891,12 @@ msgstr "نسبة"
 msgid "Re_name"
 msgstr "إعادة تسمية"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "فتح الأرشيف , يرجو الإنتظار..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "أعد التسمية"
@@ -948,6 +960,12 @@ msgstr "عرض شريط أرشيف الموقع"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "عرض شجرة الأرشيف  الجانبية"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "عرض تعليق الأرشيف"
 
 #: ../src/main.c
 #, fuzzy
@@ -1106,8 +1124,9 @@ msgstr ""
 "هذا الخيار يؤثر في الأرشيف الذي تم تعديله مؤخراً فقط، على عكس خيار التحديث "
 "فإنه لن يضيف الملفات التي لم يتم تحديثها في الأرشيف"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "وقت"
 
@@ -1123,7 +1142,7 @@ msgstr "لمسة الملفات"
 msgid "Type:"
 msgstr "النوع:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1371,6 +1390,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|حجم\n"
+
+#, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "تاريخ محرر"
 
 #, fuzzy
 #~| msgid "large"

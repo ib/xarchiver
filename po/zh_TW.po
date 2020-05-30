@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xarchiver 0.5.2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2011-09-05 12:32+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: \n"
@@ -359,6 +359,12 @@ msgid "Cmd-line outp_ut"
 msgstr "命令列輸出訊息(_U)"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "註解"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "註解"
 
@@ -424,16 +430,11 @@ msgstr "剪下"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "日期"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "更動日期"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -608,13 +609,14 @@ msgstr "只更新已存在的檔案"
 msgid "From File"
 msgstr "從檔案"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -679,6 +681,10 @@ msgstr "新建"
 #: ../src/window.c
 msgid "No"
 msgstr "否"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -760,7 +766,7 @@ msgstr "選項"
 msgid "Options:"
 msgstr "選項："
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -800,7 +806,7 @@ msgstr "路徑："
 msgid "Pattern:"
 msgstr "規則："
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "權限"
@@ -890,6 +896,12 @@ msgstr "壓縮率"
 msgid "Re_name"
 msgstr "重新命名(_N)"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "開啟封存檔中，請稍候..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "重新命名"
@@ -953,6 +965,12 @@ msgstr "顯示封存檔位置列"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "顯示封存檔樹狀圖側邊視窗"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "_Show comment"
+msgid "Show command"
+msgstr "顯示註釋(_S)"
 
 #: ../src/main.c
 #, fuzzy
@@ -1106,8 +1124,9 @@ msgstr ""
 "使用此選項只會更新封存檔中較舊的檔案，不像「「更新並加入」選項還會加入封存檔"
 "中沒有的檔案"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "時間"
 
@@ -1123,7 +1142,7 @@ msgstr "更改檔案日期"
 msgid "Type:"
 msgstr "類型："
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1370,6 +1389,11 @@ msgid "|Size\n"
 msgstr "|大小\n"
 
 #, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "更動日期"
+
+#, fuzzy
 #~| msgid "large"
 #~ msgid "larger"
 #~ msgstr "大"
@@ -1513,11 +1537,10 @@ msgstr "|大小\n"
 #~ msgid "Can't spawn the command:"
 #~ msgstr "Can't spawn the comman:"
 
-# FIXME: should be revised
+#, fuzzy
 #~ msgid "The sfx archive was saved as:"
 #~ msgstr "SFX檔另存為:"
 
-# FIXME: ngettext()
 #, fuzzy
 #~ msgid "Directories Tree:"
 #~ msgstr "目錄樹狀列表"
@@ -1577,9 +1600,6 @@ msgstr "|大小\n"
 #~ msgid "_View"
 #~ msgstr "檢視(_V)"
 
-#~ msgid "_Show comment"
-#~ msgstr "顯示註釋(_S)"
-
 #~ msgid "Enter Archive Password"
 #~ msgstr "輸入封存檔密碼"
 
@@ -1597,7 +1617,6 @@ msgstr "|大小\n"
 #~ msgid "Show archive comment after loading it"
 #~ msgstr "載入後顯示封存檔註釋"
 
-# INFO: there's a space right after 'add'
 #~ msgid "<b>Files and directories to add </b>"
 #~ msgstr "<b>添加檔案及目錄</b>"
 
@@ -1636,7 +1655,6 @@ msgstr "|大小\n"
 #~ msgid "All"
 #~ msgstr "所有的"
 
-# INFO: there's a space right after 'extract'
 #~ msgid "<b>Files to extract </b>"
 #~ msgstr "<b>檔案解壓縮</b>"
 

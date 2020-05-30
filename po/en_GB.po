@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
-"PO-Revision-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"PO-Revision-Date: 2020-05-28 22:45+0200\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "Language: en_GB\n"
@@ -347,6 +347,10 @@ msgid "Cmd-line outp_ut"
 msgstr "Cmd-line outp_ut"
 
 #: ../src/window.c
+msgid "Command"
+msgstr "Command"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Comment"
 
@@ -412,14 +416,11 @@ msgstr "Cut"
 msgid "Data Frames/Skippable Frames"
 msgstr "Data Frames/Skippable Frames"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Date"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-msgid "Date and Time"
-msgstr "Date and Time"
 
 #: ../src/pref_dialog.c
 msgid "Default custom command:"
@@ -594,19 +595,20 @@ msgstr "Freshen existing files"
 msgid "From File"
 msgstr "From File"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
-"GTK;Android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -668,6 +670,10 @@ msgstr "New"
 #: ../src/window.c
 msgid "No"
 msgstr "No"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr "Nullsoft Installer"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -747,7 +753,7 @@ msgstr "Options "
 msgid "Options:"
 msgstr "Options:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 msgid "Original Size"
@@ -785,7 +791,7 @@ msgstr "Path:"
 msgid "Pattern:"
 msgstr "Pattern:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Permissions"
@@ -871,6 +877,10 @@ msgstr "Ratio"
 msgid "Re_name"
 msgstr "Re_name"
 
+#: ../src/window.c
+msgid "Reloading archive, please wait..."
+msgstr "Reloading archive, please wait..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Rename"
@@ -934,6 +944,10 @@ msgstr "Show archive location bar"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Show archive tree sidebar"
+
+#: ../src/window.c
+msgid "Show command"
+msgstr "Show command"
 
 #: ../src/main.c
 msgid ""
@@ -1077,8 +1091,9 @@ msgstr ""
 "This option will only add files which are already in the archive but older "
 "there; unlike the update option it will not add any new files"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Time"
 
@@ -1094,7 +1109,7 @@ msgstr "Touch files"
 msgid "Type:"
 msgstr "Type:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1329,6 +1344,9 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Size\n"
 
+#~ msgid "Date and Time"
+#~ msgstr "Date and Time"
+
 #~ msgid "larger"
 #~ msgstr "larger"
 
@@ -1481,9 +1499,6 @@ msgstr "|Size\n"
 
 #~ msgid "_View"
 #~ msgstr "_View"
-
-#~ msgid "_Show comment"
-#~ msgstr "_Show comment"
 
 #~ msgid "Enter Archive Password"
 #~ msgstr "Enter Archive Password"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver git\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2009-09-08 20:07+0200\n"
 "Last-Translator: Evaggelos Balaskas <ebalaskas@ebalaskas.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -365,6 +365,12 @@ msgid "Cmd-line outp_ut"
 msgstr "Αποτέλεσμα γρα_μμής εντολών"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Σχόλιο"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Σχόλιο"
 
@@ -430,16 +436,11 @@ msgstr "Αποκοπή"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Ημερομηνία"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "Ημερομηνία τροποποίησης"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -620,13 +621,14 @@ msgstr "Ενημέρωση υπαρχόντων αρχείων"
 msgid "From File"
 msgstr "Απο αρχείο"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -695,6 +697,10 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "Όχι"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -777,7 +783,7 @@ msgstr "Επιλογές "
 msgid "Options:"
 msgstr "Επιλογές:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -817,7 +823,7 @@ msgstr "Διαδρομή:"
 msgid "Pattern:"
 msgstr "Μοτίβο:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Δικαιώματα"
@@ -907,6 +913,12 @@ msgstr "Αναλογία"
 msgid "Re_name"
 msgstr "Μετο_νομασία"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Άνοιγμα αρχείου, παρακαλώ περιμένετε..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Μετονομασία"
@@ -972,6 +984,12 @@ msgstr "Εμφάνιση μπάρας τοποθεσίας"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Εμφάνιση πλαϊνού δέντρου"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "Εμφάνιση σχολίου συμπιεσμένου αρχείου"
 
 #: ../src/main.c
 #, fuzzy
@@ -1141,8 +1159,9 @@ msgstr ""
 "τροποποιηθεί πιο πρόσφατα από αυτά που βρίσκονται ήδη μέσα, και δεν θα "
 "προσθέσει αρχεία που δεν υπάρχουν ήδη."
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Ώρα"
 
@@ -1158,7 +1177,7 @@ msgstr "Ενημέρωση χρονοσήμανσης αρχείων"
 msgid "Type:"
 msgstr "Τύπος:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1409,6 +1428,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Μέγεθος\n"
+
+#, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "Ημερομηνία τροποποίησης"
 
 #, fuzzy
 #~| msgid "large"

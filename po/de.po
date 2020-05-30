@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
-"PO-Revision-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"PO-Revision-Date: 2020-05-28 22:45+0200\n"
 "Last-Translator: Ingo Brückl <ib@wupperonline.de>\n"
 "Language-Team: Deutsch\n"
 "Language: de\n"
@@ -362,6 +362,10 @@ msgid "Cmd-line outp_ut"
 msgstr "_Archivprogramm-Ausgabe"
 
 #: ../src/window.c
+msgid "Command"
+msgstr "Kommando"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -427,14 +431,11 @@ msgstr "Ausschneiden"
 msgid "Data Frames/Skippable Frames"
 msgstr "Datenframes/Zusatzframes"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Datum"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-msgid "Date and Time"
-msgstr "Datum und Uhrzeit"
 
 #: ../src/pref_dialog.c
 msgid "Default custom command:"
@@ -609,19 +610,20 @@ msgstr "Vorhandene Dateien auffrischen"
 msgid "From File"
 msgstr "Aus Datei"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
-"GTK;Android;Archivierer;Archivierung;Comic-Book;Kompression;Komprimierung;"
-"Front-End;Frontend;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;"
-"compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
-"lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;"
-"unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;Android;Archivierer;Archivierung;Bibliothek;Comic-Book;Kompression;"
+"Komprimierung;Front-End;Frontend;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;"
+"bz2;bzip2;cbz;compress;cpio;deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;"
+"lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;"
+"rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -685,6 +687,10 @@ msgstr "Neu"
 #: ../src/window.c
 msgid "No"
 msgstr "Nein"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr "Nullsoft-Installationsprogramm"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -764,7 +770,7 @@ msgstr "Optionen "
 msgid "Options:"
 msgstr "Optionen:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 msgid "Original Size"
@@ -802,7 +808,7 @@ msgstr "Pfad:"
 msgid "Pattern:"
 msgstr "Muster:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Rechte"
@@ -889,6 +895,10 @@ msgstr "Faktor"
 msgid "Re_name"
 msgstr "_Umbenennen"
 
+#: ../src/window.c
+msgid "Reloading archive, please wait..."
+msgstr "Archiv wird neu geladen, bitte warten …"
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Umbenennen"
@@ -954,6 +964,10 @@ msgstr "Pfadleiste anzeigen"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Seitenleiste mit Archiv-Verzeichnis-Struktur anzeigen"
+
+#: ../src/window.c
+msgid "Show command"
+msgstr "Kommando anzeigen"
 
 #: ../src/main.c
 msgid ""
@@ -1104,8 +1118,9 @@ msgstr ""
 "Es werden keine Dateien hinzugefügt, die nicht bereits im Archiv vorhanden "
 "sind."
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Uhrzeit"
 
@@ -1121,7 +1136,7 @@ msgstr "Neues Dateidatum"
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "Nutzer-/Gruppenkennung"
 
@@ -1364,6 +1379,9 @@ msgstr ""
 msgid "|Size\n"
 msgstr "|Größe\n"
 
+#~ msgid "Date and Time"
+#~ msgstr "Datum und Uhrzeit"
+
 #~ msgid "larger"
 #~ msgstr "größer"
 
@@ -1520,9 +1538,6 @@ msgstr "|Größe\n"
 
 #~ msgid "_View"
 #~ msgstr "_Ansehen"
-
-#~ msgid "_Show comment"
-#~ msgstr "_Zeige Kommentar"
 
 #~ msgid "View file with an external editor/viewer"
 #~ msgstr "Datei mit einem externen Editor/Betrachter anschauen"

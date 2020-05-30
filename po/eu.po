@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2018-03-24 15:42+0100\n"
 "Last-Translator: Asier Iturralde Sarasola <asier.iturralde@gmail.com>\n"
 "Language-Team: Euskara <librezale@librezale.eus>\n"
@@ -352,6 +352,12 @@ msgid "Cmd-line outp_ut"
 msgstr "Ko_mando-lerro irteera"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Iruzkina"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Iruzkina"
 
@@ -417,14 +423,11 @@ msgstr "Ebaki"
 msgid "Data Frames/Skippable Frames"
 msgstr "Datu-markoak/Saltatu daitezkeen markoak"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Data"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-msgid "Date and Time"
-msgstr "Data eta ordua"
 
 #: ../src/pref_dialog.c
 msgid "Default custom command:"
@@ -599,6 +602,7 @@ msgstr "Freskatu lehendik dauden fitxategiak"
 msgid "From File"
 msgstr "Fitxategitik"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 #, fuzzy
 #| msgid ""
@@ -608,11 +612,11 @@ msgstr "Fitxategitik"
 #| "lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;"
 #| "xpi;xz;zip;zst;Zstandard;zstd;"
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 "GTK;android;konprimatzailea;artxibatzea;konpresioa;front end;frontend;7-"
 "zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;konprimatu;cpio;deb;epub;"
@@ -681,6 +685,10 @@ msgstr "Berria"
 #: ../src/window.c
 msgid "No"
 msgstr "Ez"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -760,7 +768,7 @@ msgstr "Aukerak "
 msgid "Options:"
 msgstr "Aukerak:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 msgid "Original Size"
@@ -798,7 +806,7 @@ msgstr "Bide-izena:"
 msgid "Pattern:"
 msgstr "Eredua:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Baimenak"
@@ -884,6 +892,12 @@ msgstr "Erlazioa"
 msgid "Re_name"
 msgstr "Be_rrizendatu"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Artxiboa irekitzen, itxaron mesedez..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Berrizendatu"
@@ -947,6 +961,12 @@ msgstr "Erakutsi artxiboa kokapen-barran"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Erakutsi artxiboaren zuhaitza albo-barran"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "Erakutsi artxiboaren iruzkina"
 
 #: ../src/main.c
 msgid ""
@@ -1094,8 +1114,9 @@ msgstr ""
 "bakarrik gehituko ditu; eguneratze aukerak ez bezala ez ditu fitxategi "
 "berriak gehituko"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Ordua"
 
@@ -1111,7 +1132,7 @@ msgstr "Ukitu fitxategiak"
 msgid "Type:"
 msgstr "Mota:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1345,6 +1366,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaina\n"
+
+#~ msgid "Date and Time"
+#~ msgstr "Data eta ordua"
 
 #, fuzzy
 #~| msgid "large"

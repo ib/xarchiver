@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2009-08-25 21:38+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -354,6 +354,12 @@ msgid "Cmd-line outp_ut"
 msgstr "Kel_uaran baris perintah"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Komentar"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Komentar"
 
@@ -419,16 +425,11 @@ msgstr "Potong"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Tanggal"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "Tanggal dimodifikasi"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -607,13 +608,14 @@ msgstr "Segarkan berkas yang ada"
 msgid "From File"
 msgstr "Dari Berkas"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -680,6 +682,10 @@ msgstr "Baru"
 #: ../src/window.c
 msgid "No"
 msgstr "Tidak"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -761,7 +767,7 @@ msgstr "Opsi "
 msgid "Options:"
 msgstr "Opsi:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -801,7 +807,7 @@ msgstr "Alamat:"
 msgid "Pattern:"
 msgstr "Pola:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Hak Akses"
@@ -891,6 +897,12 @@ msgstr "Rasio"
 msgid "Re_name"
 msgstr "Ganti _nama"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Membuka arsip,silakan tunggu..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Ganti nama"
@@ -954,6 +966,12 @@ msgstr "Tampilkan batang lokasi arsip"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Tampilkan batang sisi pohon arsip"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "_Show comment"
+msgid "Show command"
+msgstr "Tampilkan komentar (_S)"
 
 #: ../src/main.c
 #, fuzzy
@@ -1116,8 +1134,9 @@ msgstr ""
 "daripada versi yang ada di arsip; tidak seperti opsi mutakhirkan, opsi ini "
 "tidak menambah berkas yang tidak ada di arsip"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Waktu"
 
@@ -1133,7 +1152,7 @@ msgstr "Sentuh berkas"
 msgid "Type:"
 msgstr "Tipe:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1387,6 +1406,11 @@ msgid "|Size\n"
 msgstr "|Ukuran\n"
 
 #, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "Tanggal dimodifikasi"
+
+#, fuzzy
 #~| msgid "large"
 #~ msgid "larger"
 #~ msgstr "besar"
@@ -1544,9 +1568,6 @@ msgstr "|Ukuran\n"
 
 #~ msgid "_View"
 #~ msgstr "Tampilan (_V)"
-
-#~ msgid "_Show comment"
-#~ msgstr "Tampilkan komentar (_S)"
 
 #~ msgid "View file with an external editor/viewer"
 #~ msgstr "Tampilkan berkas menggunakan penyunting/penilik eksternal"

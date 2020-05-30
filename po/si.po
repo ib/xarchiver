@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2010-03-14 07:58+0530\n"
 "Last-Translator: W.H. Kalpa Pathum <callkalpa@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -355,6 +355,12 @@ msgid "Cmd-line outp_ut"
 msgstr "විධාන රේඛා ප්‍රතිදානය"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "අදහස"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "අදහස"
 
@@ -420,16 +426,11 @@ msgstr "කපන්න"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "දිනය"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "විකරණය කළ දිනය"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -604,13 +605,14 @@ msgstr "දැනට පවතින ගොනු නැවුම් කරන�
 msgid "From File"
 msgstr "ගොනුවෙන්"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -675,6 +677,10 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "නැත"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -757,7 +763,7 @@ msgstr "අභිරුචි"
 msgid "Options:"
 msgstr "අභිරුචි:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -797,7 +803,7 @@ msgstr "පෙත:"
 msgid "Pattern:"
 msgstr "විලාසය:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "අවසර"
@@ -887,6 +893,12 @@ msgstr "අනුපාතය"
 msgid "Re_name"
 msgstr "නැවත නම් කරන්න (_n)"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "සංරක්ෂණය විවෘත කරමින්, කරුණාකර රැදී සිටින්න..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "නැවත නම් කරන්න"
@@ -950,6 +962,12 @@ msgstr "සංරක්ෂණ පිහිටීම් තීරුව පෙන
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "සංරක්ෂණ වෘක්ෂ පැති තීරුව පෙන්නන්න"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "සංරක්ෂණ අදහස් පෙන්නන්න"
 
 #: ../src/main.c
 #, fuzzy
@@ -1108,8 +1126,9 @@ msgstr ""
 "සංරක්ෂණයට බලපායි; යාවත්කාල කරන්න අභිරුචිය මෙන් නොව එය දැනටමත් සංරක්ෂණයේ නොපවතින ගොනු එක් "
 "නොකරයි"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "වේලාව"
 
@@ -1125,7 +1144,7 @@ msgstr "ගොනු අල්ලන්න"
 msgid "Type:"
 msgstr "වර්ගය:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1370,6 +1389,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|ප්‍රමාණය\n"
+
+#, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "විකරණය කළ දිනය"
 
 #, fuzzy
 #~| msgid "large"

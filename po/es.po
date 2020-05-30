@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
-"PO-Revision-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"PO-Revision-Date: 2020-05-28 22:45+0200\n"
 "Last-Translator: jcsl\n"
 "Language-Team: Español\n"
 "Language: es\n"
@@ -360,6 +360,10 @@ msgid "Cmd-line outp_ut"
 msgstr "Salida de la _línea de comandos"
 
 #: ../src/window.c
+msgid "Command"
+msgstr "Orden"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Comentario"
 
@@ -425,14 +429,11 @@ msgstr "Cortar"
 msgid "Data Frames/Skippable Frames"
 msgstr "Tramas de datos/Tramas omisibles"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Fecha"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-msgid "Date and Time"
-msgstr "Fecha y hora"
 
 #: ../src/pref_dialog.c
 msgid "Default custom command:"
@@ -608,19 +609,20 @@ msgstr "Refrescar ficheros existentes"
 msgid "From File"
 msgstr "Desde archivo"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
-"GTK;Android;archivado;archivador;libro de cómic;compresión;compresor;"
-"interfaz;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;"
-"cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;"
-"lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;"
-"xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;Android;archivado;archivador;biblioteca;compresión;compresor;interfaz;"
+"libro de cómic;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -683,6 +685,10 @@ msgstr "Nuevo"
 #: ../src/window.c
 msgid "No"
 msgstr "No"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr "Instalador de Nullsoft"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -762,7 +768,7 @@ msgstr "Opciones "
 msgid "Options:"
 msgstr "Opciones:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 msgid "Original Size"
@@ -800,7 +806,7 @@ msgstr "Ruta:"
 msgid "Pattern:"
 msgstr "Patrón:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Permisos"
@@ -888,6 +894,10 @@ msgstr "Tasa"
 msgid "Re_name"
 msgstr "Re_nombrar"
 
+#: ../src/window.c
+msgid "Reloading archive, please wait..."
+msgstr "Recargando el archivo, espere por favor..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Renombrar"
@@ -951,6 +961,10 @@ msgstr "Mostrar la barra de lugares del archivo"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Mostrar la barra lateral del árbol del archivo"
+
+#: ../src/window.c
+msgid "Show command"
+msgstr "Mostrar la orden"
 
 #: ../src/main.c
 msgid ""
@@ -1103,8 +1117,9 @@ msgstr ""
 "viejos en él; al contrario que la opción de actualizar, no añade ningún "
 "fichero nuevo"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Hora"
 
@@ -1120,7 +1135,7 @@ msgstr "Actualizar la fecha de los archivos"
 msgid "Type:"
 msgstr "Tipo:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1357,6 +1372,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Tamaño\n"
+
+#~ msgid "Date and Time"
+#~ msgstr "Fecha y hora"
 
 #~ msgid "larger"
 #~ msgstr "más grande"

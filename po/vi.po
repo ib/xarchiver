@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2019-01-21 15:08+0300\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2019-02-26 03:13+0300\n"
 "Last-Translator: Đặng Thị Mỹ Tiên <dangthimytien93@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -369,6 +369,12 @@ msgid "Cmd-line outp_ut"
 msgstr "Đầu _ra Cmd-line"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Ghi chú"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Ghi chú"
 
@@ -436,16 +442,11 @@ msgstr "Cắt"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Ngày"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "Ngày chỉnh sửa"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -621,13 +622,14 @@ msgstr "Làm mới tập tin hiện tại"
 msgid "From File"
 msgstr "Từ tập tin"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -696,6 +698,10 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "Không"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -781,7 +787,7 @@ msgstr "Tùy chọn"
 msgid "Options:"
 msgstr "Tùy chọn:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -821,7 +827,7 @@ msgstr "Đường dẫn:"
 msgid "Pattern:"
 msgstr "Mẫu:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Quyền hạn"
@@ -913,6 +919,12 @@ msgstr "Tỷ lệ"
 msgid "Re_name"
 msgstr "Đổi tên"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive,please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Đang mở kho lưu trữ, vui lòng chờ..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Đổi tên"
@@ -976,6 +988,12 @@ msgstr "Hiển thị thanh vị trí kho lưu trữ"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Hiển thị thanh cây kho lưu trữ"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "Hiển thị bình luận kho lưu trữ"
 
 #: ../src/main.c
 msgid ""
@@ -1146,8 +1164,9 @@ msgstr ""
 "phiên bản có trong kho. Không giống với tùy chọn cập nhật, nó sẽ không thêm "
 "vào những tập tin mà không có sẵn trong kho lưu trữ."
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Thời gian"
 
@@ -1163,7 +1182,7 @@ msgstr "Tập tin liên lạc"
 msgid "Type:"
 msgstr "Kiểu :"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1418,6 +1437,11 @@ msgstr ""
 #| msgid "Size"
 msgid "|Size\n"
 msgstr "Kích cỡ"
+
+#, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "Ngày chỉnh sửa"
 
 #~ msgid "Attr"
 #~ msgstr "Attr"

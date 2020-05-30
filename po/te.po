@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver-master\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2011-09-15 09:04+0530\n"
 "Last-Translator: Praveen Illa <mail2ipn@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -346,6 +346,12 @@ msgid "Cmd-line outp_ut"
 msgstr ""
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "వ్యాఖ్య"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "వ్యాఖ్య"
 
@@ -411,16 +417,11 @@ msgstr "కత్తిరించు"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "తేదీ"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "సవరించిన తేదీ"
 
 #: ../src/pref_dialog.c
 msgid "Default custom command:"
@@ -583,13 +584,14 @@ msgstr ""
 msgid "From File"
 msgstr ""
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -650,6 +652,10 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "కాదు"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -732,7 +738,7 @@ msgstr "ఐచ్ఛికాలు"
 msgid "Options:"
 msgstr "ఐచ్ఛికాలు:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -772,7 +778,7 @@ msgstr "పథం:"
 msgid "Pattern:"
 msgstr ""
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "అనుమతులు"
@@ -858,6 +864,12 @@ msgstr "నిష్పత్తి"
 msgid "Re_name"
 msgstr "ఫైరుమార్చు (_n)"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Extracting files from archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "సంగ్రహం నుండి ఫైళ్ళను పొందుతున్నది, దయచేసి వేచివుండండి..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "పేరుమార్చు"
@@ -921,6 +933,12 @@ msgstr ""
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr ""
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "సంగ్రహం వ్యాఖ్యని చూపించు"
 
 #: ../src/main.c
 msgid ""
@@ -1055,8 +1073,9 @@ msgid ""
 "there; unlike the update option it will not add any new files"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "సమయం"
 
@@ -1072,7 +1091,7 @@ msgstr ""
 msgid "Type:"
 msgstr "రకం:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1300,6 +1319,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|పరిమాణం\n"
+
+#, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "సవరించిన తేదీ"
 
 #~ msgid "CRC"
 #~ msgstr "CRC"

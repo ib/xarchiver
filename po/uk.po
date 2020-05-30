@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
-"PO-Revision-Date: 2020-05-10 18:41+0300\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"PO-Revision-Date: 2020-05-10 18:01+0200\n"
 "Last-Translator: Юрій Яновський <lytvyn349@ukr.net>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
 "Language: uk\n"
@@ -354,6 +354,12 @@ msgid "Cmd-line outp_ut"
 msgstr "Вивід к_омандного рядка"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Коментар"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Коментар"
 
@@ -419,14 +425,11 @@ msgstr "Вирізати"
 msgid "Data Frames/Skippable Frames"
 msgstr "Фрейми даних/Кадри, що пропускаються"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Дата"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-msgid "Date and Time"
-msgstr "Дата і час"
 
 #: ../src/pref_dialog.c
 msgid "Default custom command:"
@@ -601,19 +604,21 @@ msgstr "Оновити наявні файли"
 msgid "From File"
 msgstr "Із файлу"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
+#, fuzzy
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"бібліотека;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -677,6 +682,10 @@ msgstr "Новий"
 #: ../src/window.c
 msgid "No"
 msgstr "Ні"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr "Інсталятор Nullsoft"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -756,7 +765,7 @@ msgstr "Параметри "
 msgid "Options:"
 msgstr "Параметри:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 msgid "Original Size"
@@ -794,7 +803,7 @@ msgstr "Шлях:"
 msgid "Pattern:"
 msgstr "Шаблон:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Дозволи"
@@ -883,6 +892,12 @@ msgstr "Коефіцієнт"
 msgid "Re_name"
 msgstr "Перей_менувати"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Відкривається архів, будь ласка, зачекайте..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Перейменувати"
@@ -947,6 +962,12 @@ msgstr "Показати рядок розташування архіву"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Показувати бічну панель з деревом архіву"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "Показувати коментар до архіву"
 
 #: ../src/main.c
 msgid ""
@@ -1087,8 +1108,9 @@ msgstr ""
 "Цей параметр додасть лише файли, які вже є в архіві, але були змінені "
 "пізніше; на відміну від опції оновлення, це не додасть нових файлів"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Час"
 
@@ -1104,7 +1126,7 @@ msgstr "Створити файли"
 msgid "Type:"
 msgstr "Тип:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1339,6 +1361,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Розмір\n"
+
+#~ msgid "Date and Time"
+#~ msgstr "Дата і час"
 
 #, fuzzy
 #~| msgid "large"

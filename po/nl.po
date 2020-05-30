@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2011-09-08 12:19+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -360,6 +360,12 @@ msgid "Cmd-line outp_ut"
 msgstr "Uitvoer van opdracht_regel"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Commentaar"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Commentaar"
 
@@ -425,16 +431,11 @@ msgstr "Knippen"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Datum"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "Datum bewerkt"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -611,13 +612,14 @@ msgstr "Bestaande bestanden verversen"
 msgid "From File"
 msgstr "Vanuit bestand"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -685,6 +687,10 @@ msgstr "Nieuw"
 #: ../src/window.c
 msgid "No"
 msgstr "Nee"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -766,7 +772,7 @@ msgstr "Opties"
 msgid "Options:"
 msgstr "Opties:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -806,7 +812,7 @@ msgstr "Pad:"
 msgid "Pattern:"
 msgstr "Patroon:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Rechten"
@@ -896,6 +902,12 @@ msgstr "Verhouding"
 msgid "Re_name"
 msgstr "_Naam wijzigen"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Archief aan het openen..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Naam wijzigen"
@@ -961,6 +973,12 @@ msgstr "Toon locatiebalk voor archieven"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Toon zijbalk met boomstructuur van archieven"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "_Show comment"
+msgid "Show command"
+msgstr "_Toon commentaar"
 
 #: ../src/main.c
 #, fuzzy
@@ -1130,8 +1148,9 @@ msgstr ""
 "optie Bijwerken, zal hij alleen bestanden toevoegen die al in het archief "
 "aanwezig zijn."
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Tijd"
 
@@ -1147,7 +1166,7 @@ msgstr "Bestanden aanraken"
 msgid "Type:"
 msgstr "Type:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1401,6 +1420,11 @@ msgid "|Size\n"
 msgstr "|Grootte\n"
 
 #, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "Datum bewerkt"
+
+#, fuzzy
 #~| msgid "large"
 #~ msgid "larger"
 #~ msgstr "groot"
@@ -1561,9 +1585,6 @@ msgstr "|Grootte\n"
 
 #~ msgid "_View"
 #~ msgstr "_Weergeven"
-
-#~ msgid "_Show comment"
-#~ msgstr "_Toon commentaar"
 
 #~ msgid "Enter Archive Password"
 #~ msgstr "Voer archiefwachtwoord in"

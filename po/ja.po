@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.9svn\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2009-08-09 23:18+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@ml.fdiary.net>\n"
@@ -368,6 +368,12 @@ msgid "Cmd-line outp_ut"
 msgstr "コマンド行出力(_U)"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "コメント"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "コメント"
 
@@ -433,16 +439,11 @@ msgstr "切り取り"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "日付"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "変更日時"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -590,17 +591,14 @@ msgstr "ファイルパス:"
 msgid "Filename"
 msgstr "ファイル名"
 
-# FIXME: ngettext()
 #: ../src/extract_dialog.c
 msgid "Files "
 msgstr "ファイル"
 
-# FIXME: ngettext()
 #: ../src/extract_dialog.c
 msgid "Files: "
 msgstr "ファイル:"
 
-# FIXME: ngettext()
 #: ../src/window.c
 #, c-format
 msgid "Files:%*s%s"
@@ -622,13 +620,14 @@ msgstr "既存のファイルを新しくする"
 msgid "From File"
 msgstr "ファイルから"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -655,8 +654,8 @@ msgid ""
 "compression ratio"
 msgstr "ソリッドアーカイブでは、より高い圧縮率でファイルがグループ化されます。"
 
-# FIXME: should be revised
 #: ../src/add_dialog.c
+#, fuzzy
 msgid "Include subdirectories"
 msgstr "下位のフォルダも対象にする"
 
@@ -696,6 +695,10 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "いいえ"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -778,7 +781,7 @@ msgstr "オプション"
 msgid "Options:"
 msgstr "オプション:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -818,7 +821,7 @@ msgstr "パス:"
 msgid "Pattern:"
 msgstr "パターン:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "アクセス権"
@@ -910,6 +913,12 @@ msgstr "圧縮率"
 msgid "Re_name"
 msgstr "名前の変更(_N)"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "アーカイブを開いています、お待ちください..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "名前の変更"
@@ -918,14 +927,10 @@ msgstr "名前の変更"
 msgid "Root"
 msgstr "ルート"
 
-# FIXME: C format string
-# Extracting files to /tmp
 #: ../src/window.c
 msgid "Save the archive as"
 msgstr "アーカイブに名前を付けて保存する"
 
-# FIXME: C format string
-# Extracting files to /tmp
 #: ../src/window.c
 msgid "Save the self-extracting archive as"
 msgstr "自己展開アーカイブに名前をつけて保存する"
@@ -963,7 +968,6 @@ msgstr "パターンで選択"
 msgid "Selected files"
 msgstr "選択されたファイル"
 
-# Tab name in Add files dialog.
 #: ../src/add_dialog.c
 msgid "Selection"
 msgstr "選択"
@@ -979,6 +983,12 @@ msgstr "アーカイブロケーションバーを表示する"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "アーカイブツリーサイドバーを表示する"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "アーカイブコメントを表示する"
 
 #: ../src/main.c
 #, fuzzy
@@ -1143,8 +1153,9 @@ msgstr ""
 "に変更のあったアーカイブのみです。更新オプションとは異なり、アーカイブ内にま"
 "だ存在しないファイルを追加することはありません。"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "時間"
 
@@ -1160,7 +1171,7 @@ msgstr "ファイルのタイムスタンプを更新する"
 msgid "Type:"
 msgstr "タイプ:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1410,6 +1421,11 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|サイズ\n"
+
+#, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "変更日時"
 
 #, fuzzy
 #~| msgid "large"

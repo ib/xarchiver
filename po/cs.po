@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2009-10-16 19:47+0100\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -365,6 +365,12 @@ msgid "Cmd-line outp_ut"
 msgstr "Vý_stup příkazové řádky"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Komentář"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Komentář"
 
@@ -430,16 +436,11 @@ msgstr "Vyjmout"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Datum"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "Datum změny"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -614,13 +615,14 @@ msgstr "Aktualizovat existující soubory"
 msgid "From File"
 msgstr "Ze souboru"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -687,6 +689,10 @@ msgstr "Nový"
 #: ../src/window.c
 msgid "No"
 msgstr "Ne"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -768,7 +774,7 @@ msgstr "Volby"
 msgid "Options:"
 msgstr "Volby:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -808,7 +814,7 @@ msgstr "Cesta:"
 msgid "Pattern:"
 msgstr "Vzor:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Oprávnění"
@@ -898,6 +904,12 @@ msgstr "Poměr"
 msgid "Re_name"
 msgstr "Přej_menovat"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Otevírání archivu, prosím čekejte..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Přejmenovat"
@@ -961,6 +973,12 @@ msgstr "Zobrazovat panel umístění v archivu"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Zobrazovat postranní panel se stromem archivu"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "_Show comment"
+msgid "Show command"
+msgstr "_Zobrazovat komentář"
 
 #: ../src/main.c
 #, fuzzy
@@ -1131,8 +1149,9 @@ msgstr ""
 "Aktualizovat a přidat tato akce nepřidá do archivu soubor, který v něm dosud "
 "není obsažen."
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Čas"
 
@@ -1148,7 +1167,7 @@ msgstr "Dotknout se souborů"
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1396,6 +1415,11 @@ msgid "|Size\n"
 msgstr "|Velikost\n"
 
 #, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "Datum změny"
+
+#, fuzzy
 #~| msgid "large"
 #~ msgid "larger"
 #~ msgstr "velký"
@@ -1564,9 +1588,6 @@ msgstr "|Velikost\n"
 
 #~ msgid "_View"
 #~ msgstr "_Zobrazit"
-
-#~ msgid "_Show comment"
-#~ msgstr "_Zobrazovat komentář"
 
 #~ msgid "View file with an external editor/viewer"
 #~ msgstr "Zobrazit soubor v externím editoru nebo prohlížeči"

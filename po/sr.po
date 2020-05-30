@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DoudouLinux\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2019-01-21 15:08+0300\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2019-02-26 03:12+0300\n"
 "Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/jmphilippe/doudoulinux/"
@@ -380,6 +380,12 @@ msgid "Cmd-line outp_ut"
 msgstr "Поруке из линије за _наредбе"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Напомена"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Напомена"
 
@@ -447,16 +453,11 @@ msgstr "Исеци"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Датум"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "Последњи пут измењено"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -633,13 +634,14 @@ msgstr "Обнови постојеће датотеке"
 msgid "From File"
 msgstr "Из датотеке"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -706,6 +708,10 @@ msgstr ""
 #: ../src/window.c
 msgid "No"
 msgstr "Не"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -791,7 +797,7 @@ msgstr "Опције"
 msgid "Options:"
 msgstr "Опције:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -831,7 +837,7 @@ msgstr "Место: "
 msgid "Pattern:"
 msgstr "Шаблон:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Дозволе"
@@ -925,6 +931,12 @@ msgstr "Однос"
 msgid "Re_name"
 msgstr "Преименуј"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive,please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Отварам архиву. Сачекајте..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Преименуј"
@@ -988,6 +1000,12 @@ msgstr "Прикажи траку са путањама"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Прикажи структуру архиве као стабло на бочној површи"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "Show archive comment"
+msgid "Show command"
+msgstr "Прикажи напомену за архиву"
 
 #: ../src/main.c
 msgid ""
@@ -1159,8 +1177,9 @@ msgstr ""
 "на онај који је већ у архиви .За разлику од опције „Освежи“, неће додати "
 "датотеке које већ нису у архиви."
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Време"
 
@@ -1176,7 +1195,7 @@ msgstr "Измени време задње промене"
 msgid "Type:"
 msgstr "Врста архиве: "
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1432,6 +1451,11 @@ msgstr ""
 #| msgid "Size"
 msgid "|Size\n"
 msgstr "Величина"
+
+#, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "Последњи пут измењено"
 
 #~ msgid "Attr"
 #~ msgstr "Атр"

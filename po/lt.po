@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
-"PO-Revision-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
+"PO-Revision-Date: 2020-05-28 22:45+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lietuvių\n"
 "Language: lt\n"
@@ -362,6 +362,10 @@ msgid "Cmd-line outp_ut"
 msgstr "Komandų ei_lutės išvestis"
 
 #: ../src/window.c
+msgid "Command"
+msgstr "Komanda"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Komentaras"
 
@@ -427,14 +431,11 @@ msgstr "Iškirpti"
 msgid "Data Frames/Skippable Frames"
 msgstr "Duomenų kadras/Praleidžiami kadrai"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Data"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-msgid "Date and Time"
-msgstr "Data ir laikas"
 
 #: ../src/pref_dialog.c
 msgid "Default custom command:"
@@ -608,19 +609,20 @@ msgstr "Atnaujinti esamus failus"
 msgid "From File"
 msgstr "Iš failo"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
-"GTK;Android;archyvavimo programa;archyvavimas;glaudinimas;išorinė pusė;"
-"komiksų knyga;naudotojo sąsaja;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;"
-"bzip2;cbz;compress;cpio;deb;epub;gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;"
-"lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;rar;rar4;rar5;rpm;tar;unar;unarchiver;"
-"unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
+"GTK;Android;archyvavimo programa;archyvavimas;biblioteka;glaudinimas;išorinė pusė;"
+"komiksų knyga;naudotojo sąsaja;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 
 #: ../src/cpio.c ../src/rpm.c
 msgid "Group"
@@ -682,6 +684,10 @@ msgstr "Naujas"
 #: ../src/window.c
 msgid "No"
 msgstr "Ne"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr "Nullsoft diegimo programa"
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -761,7 +767,7 @@ msgstr "Parametrai "
 msgid "Options:"
 msgstr "Parametrai:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 msgid "Original Size"
@@ -799,7 +805,7 @@ msgstr "Kelias:"
 msgid "Pattern:"
 msgstr "Šablonas:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Leidimai"
@@ -887,6 +893,10 @@ msgstr "Koeficientas"
 msgid "Re_name"
 msgstr "Per_vadinti"
 
+#: ../src/window.c
+msgid "Reloading archive, please wait..."
+msgstr "Archyvas įkeliamas iš naujo, palaukite..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Pervadinti"
@@ -952,6 +962,10 @@ msgstr "Rodyti archyvo vietos juostą"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Rodyti archyvo medžio šoninę juostą"
+
+#: ../src/window.c
+msgid "Show command"
+msgstr "Rodyti komandą"
 
 #: ../src/main.c
 msgid ""
@@ -1100,8 +1114,9 @@ msgstr ""
 "senesni; kitaip nei atnaujinimo parametras, šiuo atveju nebus pridėti jokie "
 "nauji failai"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Laikas"
 
@@ -1117,7 +1132,7 @@ msgstr "Failų keitimo laikas"
 msgid "Type:"
 msgstr "Tipas:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1351,6 +1366,9 @@ msgstr ""
 #: ../src/window.c
 msgid "|Size\n"
 msgstr "|Dydis\n"
+
+#~ msgid "Date and Time"
+#~ msgstr "Data ir laikas"
 
 #~ msgid "larger"
 #~ msgstr "didesnis"

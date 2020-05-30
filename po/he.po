@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2010-08-17 04:08+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -361,6 +361,12 @@ msgid "Cmd-line outp_ut"
 msgstr "פ_לט שורת הפקודה"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "הערה"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "הערה"
 
@@ -426,16 +432,11 @@ msgstr "גזירה"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "תאריך"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "תאריך השינוי"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -610,13 +611,14 @@ msgstr "רענון קבצים קיימים"
 msgid "From File"
 msgstr "מהקובץ"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -681,6 +683,10 @@ msgstr "חדש"
 #: ../src/window.c
 msgid "No"
 msgstr "לא"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -762,7 +768,7 @@ msgstr "אפשרויות"
 msgid "Options:"
 msgstr "אפשרויות:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -802,7 +808,7 @@ msgstr "נתיב:"
 msgid "Pattern:"
 msgstr "תבנית:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "הרשאות"
@@ -892,6 +898,12 @@ msgstr "יחס"
 msgid "Re_name"
 msgstr "שינוי _שם"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "הארכיון נפתח, נא להמתין..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "שינוי השם"
@@ -955,6 +967,12 @@ msgstr "הצגת סרגל מיקומי הארכיון"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "הצגת חלונית עץ הארכיון בצד"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "_Show comment"
+msgid "Show command"
+msgstr "_הצג הערות"
 
 #: ../src/main.c
 #, fuzzy
@@ -1114,8 +1132,9 @@ msgstr ""
 "אפשרות זו משפיעה על הארכיון רק אם שונה לאחר הגרסה שכבר בארכיון; בניגוד "
 "לאפשרות העדכון אפשרות זו לא תוסיף קבצים שאינם נמצאים כבר בארכיון"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "זמן"
 
@@ -1131,7 +1150,7 @@ msgstr "נגיעה בקבצים"
 msgid "Type:"
 msgstr "סוג:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "מזהה משתמש/קבוצה"
 
@@ -1380,6 +1399,11 @@ msgid "|Size\n"
 msgstr "|גודל\n"
 
 #, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "תאריך השינוי"
+
+#, fuzzy
 #~| msgid "large"
 #~ msgid "larger"
 #~ msgstr "גדול"
@@ -1523,9 +1547,6 @@ msgstr "|גודל\n"
 
 #~ msgid "_View"
 #~ msgstr "_תצוגה"
-
-#~ msgid "_Show comment"
-#~ msgstr "_הצג הערות"
 
 #~ msgid "Enter Archive Password"
 #~ msgstr "הכנס סיסמת ארכיון"

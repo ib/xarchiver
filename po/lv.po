@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xarchiver 0.4.2rc2\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
-"POT-Creation-Date: 2018-12-31 11:31+0100\n"
+"POT-Creation-Date: 2020-05-28 22:45+0200\n"
 "PO-Revision-Date: 2009-10-16 15:03+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -365,6 +365,12 @@ msgid "Cmd-line outp_ut"
 msgstr "_Kmd-rindas izvads"
 
 #: ../src/window.c
+#, fuzzy
+#| msgid "Comment"
+msgid "Command"
+msgstr "Komentārs"
+
+#: ../src/window.c
 msgid "Comment"
 msgstr "Komentārs"
 
@@ -430,16 +436,11 @@ msgstr "Griezt"
 msgid "Data Frames/Skippable Frames"
 msgstr ""
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Date"
 msgstr "Datums"
-
-#: ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
-#, fuzzy
-#| msgid "Date modified"
-msgid "Date and Time"
-msgstr "Modificēšanas datums"
 
 #: ../src/pref_dialog.c
 #, fuzzy
@@ -616,13 +617,14 @@ msgstr "Atsvaidzināt eksistējošos failus"
 msgid "From File"
 msgstr "No faila"
 
+# Only the keywords after GTK and before 7-zip need to be translated.
 #: ../xarchiver.desktop.in.h
 msgid ""
-"GTK;android;archiver;archiving;comic book;compression;front end;frontend;7-"
-"zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;deb;epub;"
-"gtar;gunzip;gz;gzip;jar;lha;lrz;lrzip;lsar;lz;lz4;lzh;lzip;lzma;lzo;lzop;oxt;"
-"rar;rar4;rar5;rpm;tar;unar;unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;"
-"Zstandard;zstd;"
+"GTK;android;archiver;archiving;comic book;compression;front end;frontend;"
+"library;7-zip;7z;7za;7zip;7zr;apk;ar;arj;bunzip2;bz2;bzip2;cbz;compress;cpio;"
+"deb;epub;exe;gtar;gunzip;gz;gzip;jar;lbzip2;lha;lrz;lrzip;lsar;lz;lz4;lzh;"
+"lzip;lzma;lzo;lzop;oxt;pbzip2;pigz;plzip;rar;rar4;rar5;rpm;tar;unar;"
+"unarchiver;unarj;unrar;unzip;xpi;xz;zip;zst;Zstandard;zstd;"
 msgstr ""
 
 #: ../src/cpio.c ../src/rpm.c
@@ -689,6 +691,10 @@ msgstr "Jauns"
 #: ../src/window.c
 msgid "No"
 msgstr "Nē"
+
+#: ../src/main.c
+msgid "Nullsoft Installer"
+msgstr ""
 
 #: ../src/interface.c
 msgid "Number of files:"
@@ -770,7 +776,7 @@ msgstr "Uzstādījumi "
 msgid "Options:"
 msgstr "Uzstādījumi:"
 
-#: ../src/7zip.c ../src/arj.c ../src/cpio.c ../src/deb.c ../src/gzip_et_al.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
 #: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
 #: ../src/zip.c
 #, fuzzy
@@ -810,7 +816,7 @@ msgstr "Ceļš:"
 msgid "Pattern:"
 msgstr "Shēma:"
 
-#: ../src/arj.c ../src/cpio.c ../src/deb.c ../src/lha.c ../src/rpm.c
+#: ../src/ar.c ../src/arj.c ../src/cpio.c ../src/lha.c ../src/rpm.c
 #: ../src/tar.c ../src/zip.c
 msgid "Permissions"
 msgstr "Atļaujas"
@@ -900,6 +906,12 @@ msgstr "Attiecība"
 msgid "Re_name"
 msgstr "_Pārdēvēt"
 
+#: ../src/window.c
+#, fuzzy
+#| msgid "Opening archive, please wait..."
+msgid "Reloading archive, please wait..."
+msgstr "Arhīva atvēršana, lūdzu pagaidiet..."
+
 #: ../src/interface.c
 msgid "Rename"
 msgstr "Pārdēvēt"
@@ -963,6 +975,12 @@ msgstr "Rādīt arhīva vietas joslu"
 #: ../src/pref_dialog.c
 msgid "Show archive tree sidebar"
 msgstr "Rādīt arhīva koku sānujoslā"
+
+#: ../src/window.c
+#, fuzzy
+#| msgid "_Show comment"
+msgid "Show command"
+msgstr "_Rādīt komentārus"
 
 #: ../src/main.c
 #, fuzzy
@@ -1125,8 +1143,9 @@ msgstr ""
 "ievietots arhīvā; atšķirībā no atjaunošanas opcijas, faili, kuri nav arhīvā "
 "netiks ievietoti"
 
-#: ../src/7zip.c ../src/arj.c ../src/gzip_et_al.c ../src/rar.c ../src/tar.c
-#: ../src/unar.c ../src/zip.c
+#: ../src/7zip.c ../src/ar.c ../src/arj.c ../src/cpio.c ../src/gzip_et_al.c
+#: ../src/lha.c ../src/rar.c ../src/rpm.c ../src/tar.c ../src/unar.c
+#: ../src/zip.c
 msgid "Time"
 msgstr "Laiks"
 
@@ -1142,7 +1161,7 @@ msgstr "Pieskarties failiem"
 msgid "Type:"
 msgstr "Tips:"
 
-#: ../src/deb.c ../src/lha.c
+#: ../src/ar.c ../src/lha.c
 msgid "UID/GID"
 msgstr "UID/GID"
 
@@ -1390,6 +1409,11 @@ msgid "|Size\n"
 msgstr "|Izmērs\n"
 
 #, fuzzy
+#~| msgid "Date modified"
+#~ msgid "Date and Time"
+#~ msgstr "Modificēšanas datums"
+
+#, fuzzy
 #~| msgid "large"
 #~ msgid "larger"
 #~ msgstr "liels"
@@ -1539,9 +1563,6 @@ msgstr "|Izmērs\n"
 
 #~ msgid "_View"
 #~ msgstr "_Skats"
-
-#~ msgid "_Show comment"
-#~ msgstr "_Rādīt komentārus"
 
 #~ msgid "Enter Archive Password"
 #~ msgstr "Ievadiet Arhīva Paroli"
