@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: xarchiver 0.5.4\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2020-05-28 22:45+0200\n"
-"PO-Revision-Date: 2020-05-20 07:04+0200\n"
+"PO-Revision-Date: 2020-06-02 18:06+0200\n"
 "Last-Translator: alexl <alexl@mageia.org>\n"
 "Language-Team: русский\n"
 "Language: ru\n"
@@ -359,10 +359,8 @@ msgid "Cmd-line outp_ut"
 msgstr "Вывод _командной строки"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
-msgstr "Комментарий"
+msgstr "Команда"
 
 #: ../src/window.c
 msgid "Comment"
@@ -964,10 +962,8 @@ msgid "Show archive tree sidebar"
 msgstr "Показывать дерево архива"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Show archive comment"
 msgid "Show command"
-msgstr "Показать комментарий к архиву"
+msgstr "Показать команду"
 
 #: ../src/main.c
 msgid ""
