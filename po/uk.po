@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: xarchiver\n"
 "Report-Msgid-Bugs-To: https://github.com/ib/xarchiver/issues\n"
 "POT-Creation-Date: 2020-05-28 22:45+0200\n"
-"PO-Revision-Date: 2020-05-10 18:01+0200\n"
+"PO-Revision-Date: 2020-06-02 18:03+0200\n"
 "Last-Translator: Юрій Яновський <lytvyn349@ukr.net>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
 "Language: uk\n"
@@ -354,10 +354,8 @@ msgid "Cmd-line outp_ut"
 msgstr "Вивід к_омандного рядка"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Comment"
 msgid "Command"
-msgstr "Коментар"
+msgstr "Команда"
 
 #: ../src/window.c
 msgid "Comment"
@@ -893,10 +891,8 @@ msgid "Re_name"
 msgstr "Перей_менувати"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Opening archive, please wait..."
 msgid "Reloading archive, please wait..."
-msgstr "Відкривається архів, будь ласка, зачекайте..."
+msgstr "Перезавантаження архіву, будь ласка, зачекайте..."
 
 #: ../src/interface.c
 msgid "Rename"
@@ -964,10 +960,8 @@ msgid "Show archive tree sidebar"
 msgstr "Показувати бічну панель з деревом архіву"
 
 #: ../src/window.c
-#, fuzzy
-#| msgid "Show archive comment"
 msgid "Show command"
-msgstr "Показувати коментар до архіву"
+msgstr "Показати команду"
 
 #: ../src/main.c
 msgid ""
