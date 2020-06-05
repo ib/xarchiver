@@ -1103,7 +1103,7 @@ int main (int argc, char **argv)
 				current_dir = g_get_current_dir();
 
 				if (xa_has_containing_directory(archive))
-					extraction_dir = xa_escape_bad_chars(current_dir, ESCAPES);
+					extraction_dir = g_strdup(current_dir);
 				else
 				{
 					extraction_dir = xa_create_containing_directory(archive, current_dir);
