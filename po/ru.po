@@ -511,7 +511,7 @@ msgid ""
 "Extract archive to a containing directory\n"
 "                                     and quit"
 msgstr ""
-"Извлечь архив в целевой каталог и\n"
+"Извлечь архив в каталог, где он находится и\n"
 "                                     завершить работу."
 
 #: ../src/main.c
@@ -519,7 +519,7 @@ msgid ""
 "Extract archive to the destination\n"
 "                                     directory and quit"
 msgstr ""
-"Извлечь архив в целевой каталог и\n"
+"Извлечь архив в каталог назначения и\n"
 "                                     завершить работу."
 
 #: ../src/extract_dialog.c ../src/interface.c
