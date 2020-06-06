@@ -1005,7 +1005,9 @@ static XArchive *xa_init_structure_from_cmd_line (char *filename)
 
 static void xa_cmd_line_error (const char *argv1, const gchar *header)
 {
-	if (!argv1)
+	if (argv1)
+		xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, header, _("Can't open the archive!\n"));
+	else
 		xa_show_message_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, header, _("You missed the archive name!\n"));
 }
 
