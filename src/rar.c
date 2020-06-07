@@ -30,15 +30,17 @@ static gboolean header_line, data_line, fname_line, last_line;
 
 int xa_rar_check_version (gchar *path)
 {
-	gchar *output;
-
-	rar_version = 4;  // default version
+	gchar *output, *id;
 
 	g_spawn_command_line_sync(path, &output, NULL, NULL, NULL);
 
-	if (g_ascii_strncasecmp("\nRAR 5", output, 6) == 0 ||
-	    g_ascii_strncasecmp("\nUNRAR 5", output, 8) == 0)
-		rar_version = 5;
+	id = strstr(output, "\nRAR ");
+
+	if (!id)
+		id = strstr(output, "\nUNRAR ");
+
+	if (id)
+		rar_version = (*(strchr(id, ' ') + 1) == '5' ? 5 : 4);
 
 	g_free(output);
 
