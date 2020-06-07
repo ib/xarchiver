@@ -626,6 +626,18 @@ static void xa_check_available_archivers ()
 	else
 		path = g_find_program_in_path("unrar");
 
+	if (path)
+	{
+		xa_rar_check_version(path);
+
+		if (!rar_version)
+		{
+			/* reject incompatible program */
+			g_free(path);
+			path = NULL;
+		}
+	}
+
 	standard = (path != NULL);
 
 	if (!standard)
@@ -653,7 +665,7 @@ static void xa_check_available_archivers ()
 		archiver[type].type = g_slist_append(archiver[type].type, "rar");
 		archiver[type].glob = g_slist_append(archiver[type].glob, "*.rar");
 
-		if (!standard || (xa_rar_check_version(path) == 5))
+		if (!standard || (rar_version == 5))
 		{
 			archiver[type].type = g_slist_append(archiver[type].type, "rar5");
 			archiver[type].glob = g_slist_append(archiver[type].glob, " .rar");

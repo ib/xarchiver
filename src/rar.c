@@ -25,10 +25,11 @@
 #include "support.h"
 #include "window.h"
 
-static int rar_version;
+int rar_version;
+
 static gboolean header_line, data_line, fname_line, last_line;
 
-int xa_rar_check_version (gchar *path)
+void xa_rar_check_version (gchar *path)
 {
 	gchar *output, *id;
 
@@ -43,8 +44,6 @@ int xa_rar_check_version (gchar *path)
 		rar_version = (*(strchr(id, ' ') + 1) == '5' ? 5 : 4);
 
 	g_free(output);
-
-	return rar_version;
 }
 
 void xa_rar_ask (XArchive *archive)
