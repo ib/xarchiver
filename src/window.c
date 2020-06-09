@@ -486,7 +486,6 @@ static gchar *xa_get_statusbar_message (guint64 total_size, gint n_elem, gint di
 static void xa_set_environment (gpointer display)
 {
 	g_setenv("DISPLAY", display, TRUE);
-	g_free(display);
 }
 
 static void xa_determine_program_to_run (gchar *file)
@@ -2371,7 +2370,7 @@ gboolean xa_launch_external_program (const gchar *program, const gchar *arg)
 	GError *error = NULL;
 	gchar *program_local, *arg_local, *command_line;
 	gchar **argv;
-	GdkScreen *screen;
+	GdkDisplay *display;
 	gboolean success = TRUE;
 
 	if (g_utf8_validate(program, -1, NULL))
@@ -2390,8 +2389,9 @@ gboolean xa_launch_external_program (const gchar *program, const gchar *arg)
 	g_free(program_local);
 	g_free(arg_local);
 
-	screen = gtk_widget_get_screen (GTK_WIDGET (xa_main_window));
-	if (!GDK_COMPAT_SPAWN(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, xa_set_environment, gdk_screen_make_display_name(screen), NULL, &error))
+	display = gdk_display_get_default();
+
+	if (!GDK_COMPAT_SPAWN(NULL, argv, NULL, G_SPAWN_SEARCH_PATH, xa_set_environment, (gpointer) gdk_display_get_name(display), NULL, &error))
 	{
 		message = gtk_message_dialog_new (GTK_WINDOW (xa_main_window),
 										GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
