@@ -485,7 +485,8 @@ static gchar *xa_get_statusbar_message (guint64 total_size, gint n_elem, gint di
 
 static void xa_set_environment (gpointer display)
 {
-	g_setenv("DISPLAY", display, TRUE);
+	if (!g_getenv("WAYLAND_DISPLAY"))
+		g_setenv("DISPLAY", display, TRUE);
 }
 
 static void xa_determine_program_to_run (gchar *file)
