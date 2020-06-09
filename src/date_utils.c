@@ -50,8 +50,8 @@ gchar *date_MMM_dD_HourYear (const gchar *date)
 
 	sprintf(mm,"%02u", month(date));
 
-	strncpy(iso8601 + 5, mm, 2);
-	strncpy(iso8601 + 8, date + 4, 2);
+	memcpy(iso8601 + 5, mm, 2);
+	memcpy(iso8601 + 8, date + 4, 2);
 
 	if (iso8601[8] == ' ')
 		iso8601[8] = '0';
@@ -70,10 +70,10 @@ gchar *date_MMM_dD_HourYear (const gchar *date)
 			current->tm_year--;
 
 		sprintf(yyyy,"%04u", current->tm_year + 1900);
-		strncpy(iso8601, yyyy, 4);
+		memcpy(iso8601, yyyy, 4);
 	}
 	else
-		strncpy(iso8601, date + (date[7] == ' ' ? 8 : 7), 4);
+		memcpy(iso8601, date + (date[7] == ' ' ? 8 : 7), 4);
 
 	return iso8601;
 }
@@ -83,15 +83,15 @@ gchar *date_YY_MM_DD (const gchar *date)
 	static gchar iso8601[11];
 	guint yy;
 
-	strncpy(iso8601 + 2, date, 8);
+	memcpy(iso8601 + 2, date, 8);
 	iso8601[10] = 0;
 
 	yy = 10 * (date[0] - '0') + (date[1] - '0');
 
 	if (yy >= 70 && yy <= 99)
-		strncpy(iso8601, "19", 2);
+		memcpy(iso8601, "19", 2);
 	else
-		strncpy(iso8601, "20", 2);
+		memcpy(iso8601, "20", 2);
 
 	return iso8601;
 }

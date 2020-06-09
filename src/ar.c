@@ -82,12 +82,12 @@ static void xa_ar_parse_output (gchar *line, XArchive *archive)
 	line[n] = '\0';
 
 	/* Time */
-	strncpy(time, line + a + 7, 5);
+	memcpy(time, line + a + 7, 5);
 	time[5] = 0;
 	item[2] = time;
 
 	/* Date */
-	strncpy(line + a + 7, line + a + 13, 5);
+	memcpy(line + a + 7, line + a + 13, 5);
 	item[1] = date_MMM_dD_HourYear(line + a);
 
 	n++;

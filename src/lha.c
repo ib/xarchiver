@@ -113,7 +113,7 @@ static void xa_lha_parse_output (gchar *line, XArchive *archive)
 	/* Time */
 	if (((char *) item[3])[9] == ':')
 	{
-		strncpy(time, ((char *) item[3]) + 7, 5);
+		memcpy(time, item[3] + 7, 5);
 		time[5] = 0;
 	}
 	else

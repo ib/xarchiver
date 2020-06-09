@@ -206,7 +206,7 @@ static void xa_cpio_parse_output (gchar *line, XArchive *archive)
 	/* Time */
 	if (((char *) item[2])[9] == ':')
 	{
-		strncpy(time, ((char *) item[2]) + 7, 5);
+		memcpy(time, item[2] + 7, 5);
 		time[5] = 0;
 	}
 	else
