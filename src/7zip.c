@@ -17,6 +17,7 @@
  */
 
 #include <string.h>
+#include <glib/gstdio.h>
 #include "7zip.h"
 #include "gzip_et_al.h"
 #include "interface.h"
@@ -29,9 +30,67 @@
 
 static gboolean data_line, encrypted, last_line;
 
-static void xa_7zip_seek_position (GIOChannel *file, gint64 offset, GSeekType type)
+static void xa_7zip_seek_position (const gchar *filename, GIOChannel **file, gint64 offset, GSeekType type)
 {
-	g_io_channel_seek_position(file, offset, type, NULL);
+	gchar byte;
+
+	g_io_channel_seek_position(*file, offset, type, NULL);
+
+	/* check whether it's a volume. i.e. whether offset is beyond the end of the file */
+	if (g_io_channel_read_chars(*file, &byte, sizeof(byte), NULL, NULL) == G_IO_STATUS_NORMAL)
+		/* doesn't seem so - back to requested position */
+		g_io_channel_seek_position(*file, -(gint64) sizeof(byte), G_SEEK_CUR, NULL);
+	else /* find the volume the offset is pointing to */
+	{
+		guint64 position, volsizes = 0;
+		gchar *fvname;
+		size_t ext;
+		guint i;
+		GStatBuf st;
+		GIOChannel *fnew;
+
+		if (!g_str_has_suffix(filename, ".001"))
+			return;
+
+		position = 12 + 8 + (guint64) offset;   // absolute position
+
+		fvname = g_strdup(filename);
+		ext = strlen(fvname) - 4;
+
+		/* check volumes ... */
+		for (i = 1; i < 1000; i++)
+		{
+			fvname[ext] = 0;
+			sprintf(fvname, "%s.%03u", fvname, i);
+
+			if (!g_file_test(fvname, G_FILE_TEST_EXISTS) || (g_stat(fvname, &st) != 0))
+				break;
+
+			volsizes += (guint64) st.st_size;
+
+			/* ... up to the one we're looking for */
+			if (volsizes > position)
+			{
+				fnew = g_io_channel_new_file(fvname, "r", NULL);
+
+				if (!fnew)
+					break;
+
+				/* switch to volume */
+
+				g_io_channel_shutdown(*file, FALSE, NULL);
+
+				*file = fnew;
+
+				g_io_channel_set_encoding(*file, NULL, NULL);
+				g_io_channel_seek_position(*file, position - (volsizes - (guint64) st.st_size), G_SEEK_SET, NULL);
+
+				break;
+			}
+		}
+
+		g_free(fvname);
+	}
 }
 
 static void xa_7zip_uint64_skip (GIOChannel *file)
@@ -78,6 +137,7 @@ gboolean is7zip_mhe (const gchar *filename)
 	if (file)
 	{
 		g_io_channel_set_encoding(file, NULL, NULL);
+		g_io_channel_set_buffered(file, FALSE);
 
 		/* skip signature, version and header CRC32 */
 		g_io_channel_seek_position(file, 12, G_SEEK_SET, NULL);
@@ -90,7 +150,7 @@ gboolean is7zip_mhe (const gchar *filename)
 		}
 
 		/* skip next header size and CRC32 */
-		xa_7zip_seek_position(file, 12 + offset, G_SEEK_CUR);
+		xa_7zip_seek_position(filename, &file, 12 + offset, G_SEEK_CUR);
 
 		/* header info */
 		g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
