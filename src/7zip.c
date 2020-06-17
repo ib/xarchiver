@@ -29,6 +29,11 @@
 
 static gboolean data_line, encrypted, last_line;
 
+static void xa_7zip_seek_position (GIOChannel *file, gint64 offset, GSeekType type)
+{
+	g_io_channel_seek_position(file, offset, type, NULL);
+}
+
 static void xa_7zip_uint64_skip (GIOChannel *file)
 {
 	gchar first, byte;
@@ -85,7 +90,7 @@ gboolean is7zip_mhe (const gchar *filename)
 		}
 
 		/* skip next header size and CRC32 */
-		g_io_channel_seek_position(file, 12 + offset, G_SEEK_CUR, NULL);
+		xa_7zip_seek_position(file, 12 + offset, G_SEEK_CUR);
 
 		/* header info */
 		g_io_channel_read_chars(file, &byte, sizeof(byte), NULL, NULL);
