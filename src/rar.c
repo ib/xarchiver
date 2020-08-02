@@ -387,7 +387,7 @@ static void xa_rar5_parse_output (gchar *line, XArchive *archive)
 
 	/* FileName */
 	line[linesize - 1] = '\0';
-	filename = g_strdup(line + (iso_date ? 66 : 64));   // date is YYYY-MM-DD since v5.30
+	filename = g_strdup(line + n + 2);                  // date is YYYY-MM-DD since v5.30
 	                                                    // and was DD-MM-YY before
 	/* Strip trailing whitespace */
 	end = filename + strlen(filename) - 1;
