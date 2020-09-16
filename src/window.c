@@ -1155,7 +1155,7 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	gint idx;
 	FILE *stream;
 	GtkWidget *save = NULL;
-	gchar *t, *_filename, *filename, *filename_plus, *filename_plus_utf8, *pref_path, *pref_path_local;
+	gchar *t, *_filename, *filename, *filename_plus, *filename_plus_utf8, *pref_path, *pref_path_local = NULL;
 	int response;
 	struct stat my_stat;
 	guint64 file_size;
@@ -1193,8 +1193,11 @@ void xa_list_archive (GtkMenuItem *menuitem,gpointer data)
 	filename = NULL;
 
 	pref_path = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(prefs_window->combo_prefered_extract_dir));
-	pref_path_local = g_filename_from_utf8(pref_path, -1, NULL, NULL, NULL);
+
+	if (pref_path && *pref_path)
+		pref_path_local = g_filename_from_utf8(pref_path, -1, NULL, NULL, NULL);
 	g_free(pref_path);
+
 	if (current_open_directory || pref_path_local)
 		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(save), pref_path_local ? pref_path_local : current_open_directory);
 	g_free(pref_path_local);
